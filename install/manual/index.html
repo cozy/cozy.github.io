@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="CozyCloud - https://cozy.io">
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Manual - Cozy Documentation</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Manual";
+    var mkdocs_page_input_path = "install/manual.md";
+    var mkdocs_page_url = "/install/manual/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Cozy Documentation</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Use</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../use/">User guide</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Synchronize</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../sync/">Stay in sync</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../sync/phone/">Synchronize your phone</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../sync/desktop/">Synchronize your computer</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Install</span>
+    <ul class="subnav">
+                <li class=" current">
+                    
+    <a class="current" href="./">Manual</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#how-to-install-cozy-on-debian-jessie">How to install Cozy on Debian Jessie</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#pre-requisites">Pre-requisites</a></li>
+        
+            <li><a class="toctree-l4" href="#install-dependencies">Install dependencies</a></li>
+        
+            <li><a class="toctree-l4" href="#configuration">Configuration</a></li>
+        
+            <li><a class="toctree-l4" href="#running">Running</a></li>
+        
+            <li><a class="toctree-l4" href="#todo">TODO</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Develop</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../dev/">Introduction</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../dev/app/">Create your first app</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../dev/konnector/">Develop a connector</a>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Cozy Documentation</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Install &raquo;</li>
+        
+      
+    
+    <li>Manual</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/clochix/gozy-docs/edit/master/docs/install/manual.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="how-to-install-cozy-on-debian-jessie">How to install Cozy on Debian Jessie<a class="headerlink" href="#how-to-install-cozy-on-debian-jessie" title="Permanent link">&para;</a></h1><div class="admonition warning">
+<p>⚠️ This is a work in progress. For now, there’s no easy and officially supported way to install Cozy. You have to install it and all this dependencies by hand. This tutorial is intended for tech savvy people wanting to give Cozy a first try without waiting for the official documentation and images.</p></div>
+<h2 id="pre-requisites">Pre-requisites<a class="headerlink" href="#pre-requisites" title="Permanent link">&para;</a></h2><p>Cozy requires a CouchDB 2 database server and a reverse proxy. We’ll use Nginx in this tutorial but feel free to use your reverse proxy of choice.</p><h2 id="install-dependencies">Install dependencies<a class="headerlink" href="#install-dependencies" title="Permanent link">&para;</a></h2><p>On a fresh new Debian Jessie, are are the packages that may be useful to install and manage your server:</p><div class="codehilite"><pre>apt-get update <span class="o">&amp;&amp;</span> apt-get --no-install-recommends -y install <span class="se">\</span>
+            ca-certificates <span class="se">\</span>
+            curl <span class="se">\</span>
+            net-tools <span class="se">\</span>
+            nginx <span class="se">\</span>
+            sudo <span class="se">\</span>
+            vim-tiny <span class="se">\</span>
+            build-essential <span class="se">\</span>
+            pkg-config <span class="se">\</span>
+            erlang <span class="se">\</span>
+            libicu-dev <span class="se">\</span>
+            libmozjs185-dev <span class="se">\</span>
+            libcurl4-openssl-dev
+</pre></div>
+
+
+<h3 id="install-couchdb">Install CouchDB<a class="headerlink" href="#install-couchdb" title="Permanent link">&para;</a></h3><p>Download <a href="http://couchdb.apache.org/">the source code on CouchDB 2</a> and 
+<a href="http://docs.couchdb.org/en/2.0.0/install/unix.html">install it</a>.</p><div class="codehilite"><pre><span class="nb">cd</span> /tmp
+curl -LO https://dist.apache.org/repos/dist/release/couchdb/source/2.0.0/apache-couchdb-2.0.0.tar.gz
+tar xf apache-couchdb-2.0.0.tar.gz
+<span class="nb">cd </span>apache-couchdb-2.0.0
+./configure
+make release
+adduser --system <span class="se">\</span>
+        --no-create-home <span class="se">\</span>
+        --shell /bin/bash <span class="se">\</span>
+        --group --gecos <span class="se">\</span>
+        <span class="s2">&quot;CouchDB Administrator&quot;</span> couchdb
+</pre></div>
+
+
+<p>We’ll install CouchDB inside <code>/home/couchdb</code>:</p><div class="codehilite"><pre>cp -R rel/couchdb /home/couchdb
+chown -R couchdb:couchdb /home/couchdb
+find /home/couchdb -type d -exec chmod <span class="m">0770</span> <span class="o">{}</span> <span class="se">\;</span>
+chmod -R <span class="m">0644</span> /home/couchdb/etc
+mkdir /var/log/couchdb <span class="o">&amp;&amp;</span> chown couchdb: /var/log/couchdb
+</pre></div>
+
+
+<p>For now, we’ll just run the database as a background job, but it is highly recommended to use some supervisor software.</p><div class="codehilite"><pre>sudo -b -i -u couchdb sh -c <span class="s1">&#39;/home/couchdb/bin/couchdb &gt;&gt; /var/log/couchdb/couch.log 2&gt;&gt; /var/log/couchdb/couch-err.log&#39;</span>
+</pre></div>
+
+
+<p>Then, let’s create de default databases:</p><div class="codehilite"><pre>curl -X PUT http://127.0.0.1:5984/_users
+curl -X PUT http://127.0.0.1:5984/_replicator
+curl -X PUT http://127.0.0.1:5984/_global_changes
+</pre></div>
+
+
+<div class="admonition warning">
+<p>⚠️ The default CouchDB installation has no admin user. Everybody can query the server. So, in production environment, make sure tu create en admin user and update the CouchDB connexion URL inside the configuration file of Cozy.</p></div>
+<h3 id="install-the-cozy-stack">Install the Cozy Stack<a class="headerlink" href="#install-the-cozy-stack" title="Permanent link">&para;</a></h3><p>The Cozy server is just a single binary. You can fetch one of its releases from Github:</p><div class="codehilite"><pre>curl -o /usr/local/bin/cozy-stack -L https://github.com/cozy/cozy-stack/releases/download/2017M1-alpha/cozy-stack-linux-amd64-2017M1-alpha
+chmod +x /usr/local/bin/cozy-stack
+adduser --system <span class="se">\</span>
+        --no-create-home <span class="se">\</span>
+        --shell /bin/bash <span class="se">\</span>
+        --group --gecos <span class="se">\</span>
+          <span class="s2">&quot;Cozy&quot;</span> cozy
+mkdir /var/log/cozy
+chown cozy: /var/log/cozy
+mkdir /var/lib/cozy
+chown -R cozy: /var/lib/cozy
+</pre></div>
+
+
+<p>You can configure your server using a JSON or YAML file. Let’s fetch the sample configuration file:</p><div class="codehilite"><pre>mkdir /etc/cozy
+curl -o /etc/cozy/cozy.yaml https://raw.githubusercontent.com/cozy/cozy-stack/master/cozy.example.yaml
+chown -R cozy: /etc/cozy
+</pre></div>
+
+
+<p>Edit this file to adapt it to your configuration. You should setup a directory to store the files. For example:</p><div class="codehilite"><pre>  <span class="l-Scalar-Plain">fs</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">url</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">file://localhost/var/lib/cozy</span>
+</pre></div>
+
+
+<p>Don’t forget to allow Cozy user to write inside this folder.</p><h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2><h3 id="nginx">NGinx<a class="headerlink" href="#nginx" title="Permanent link">&para;</a></h3><p>Let’s assume you want to host a server on <code>mycozy.tld</code> with a self-signed certificate.</p><p>Generate the certificate. We need a wild-card certificate, as every application inside Cozy will have it’s own sub-domain:</p><div class="codehilite"><pre>openssl req -x509 -nodes -newkey rsa:4096 <span class="se">\</span>
+    -keyout /etc/cozy/mycozy.tld.key <span class="se">\</span>
+    -out /etc/cozy/mycozy.tld.crt <span class="se">\</span>
+    -days <span class="m">365</span> -subj <span class="s2">&quot;/CN={*.mycozy.tld}&quot;</span>
+</pre></div>
+
+
+<p>Then create a virtual host for your server by creating <code>/etc/cozy/sites-available/mycozy.tld</code> and enable it by creating a symbolic link:</p><div class="codehilite"><pre>ln -s <span class="s2">&quot;/etc/nginx/sites-available/</span><span class="si">${</span><span class="nv">instance_domain</span><span class="si">}</span><span class="s2">.conf&quot;</span> /etc/nginx/sites-enabled/
+</pre></div>
+
+
+<p>And start NGinx:</p><div class="codehilite"><pre>service nginx start
+</pre></div>
+
+
+<h3 id="cozy">Cozy<a class="headerlink" href="#cozy" title="Permanent link">&para;</a></h3><p>The Cozy server require a main password:</p><div class="codehilite"><pre>/usr/local/bin/cozy-stack config passwd /etc/cozy/
+</pre></div>
+
+
+<p>This password will be asked every time you use the <code>cozy-stack</code> command line. To prevent this, you can set the 
+<code>COZY_ADMIN_PASSWORD</code> environment variable.</p><h2 id="running">Running<a class="headerlink" href="#running" title="Permanent link">&para;</a></h2><p>For now, we’ll just run the server as a background job, but it is highly recommended to use some supervisor software.</p><p>First, start the server:</p><div class="codehilite"><pre>sudo -b -u cozy sh -c <span class="err">&#39;</span>/usr/local/bin/cozy-stack serve <span class="se">\</span>
+     --log-level debug <span class="se">\</span>
+     --host 0.0.0.0 &gt;&gt; /var/log/cozy/cozy.log <span class="m">2</span> &gt;&gt; /var/log/cozy/cozy-err.log
+</pre></div>
+
+
+<p>Then, create your instance:</p><div class="codehilite"><pre>cozy-stack instances add <span class="se">\</span>
+           --host 0.0.0.0 <span class="se">\</span>
+           --apps files,settings,onboarding <span class="se">\</span>
+           --passphrase <span class="s2">&quot;XXX&quot;</span> <span class="se">\</span>
+           mycozy.tld
+</pre></div>
+
+
+<p>You can add other instances by just running this command again.</p><h2 id="todo">TODO<a class="headerlink" href="#todo" title="Permanent link">&para;</a></h2><p>Cozy also requires a SMTP server (or relay).</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../dev/" class="btn btn-neutral float-right" title="Introduction">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../../sync/desktop/" class="btn btn-neutral" title="Synchronize your computer"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/clochix/gozy-docs/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../../sync/desktop/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../../dev/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="../../js/theme.js"></script>
+
+</body>
+</html>
