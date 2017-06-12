@@ -10,7 +10,7 @@ Cozy requires a CouchDB 2 database server and a reverse proxy. We’ll use Nginx
 
 ## Install dependencies
 
-On a fresh new Debian Jessie, are are the packages that may be useful to install and manage your server:
+On a fresh new Debian Jessie, here are the packages that may be useful to install and manage your server:
 
 ```shell
 apt-get update && apt-get --no-install-recommends -y install \
@@ -69,7 +69,7 @@ curl -X PUT http://127.0.0.1:5984/_global_changes
 ```
 
 !!! warning ""
-    ⚠️ The default CouchDB installation has no admin user. Everybody can query the server. So, in production environment, make sure tu create en admin user and update the CouchDB connexion URL inside the configuration file of Cozy.
+    ⚠️ The default CouchDB installation has no admin user. Everybody can query the server. So, in production environment, make sure to create en admin user and update the CouchDB connexion URL inside the configuration file of Cozy.
 
 
 ### Install the Cozy Stack
@@ -132,7 +132,7 @@ service nginx start
 
 ### Cozy
 
-The Cozy server require a main password:
+The Cozy server requires a main password:
 ```shell
 /usr/local/bin/cozy-stack config passwd /etc/cozy/
 ```
@@ -168,4 +168,3 @@ You can add other instances by just running this command again.
 ## TODO
 
 Cozy also requires a SMTP server (or relay).
-
