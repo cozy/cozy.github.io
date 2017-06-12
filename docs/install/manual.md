@@ -61,7 +61,7 @@ For now, we’ll just run the database as a background job, but it is highly rec
 sudo -b -i -u couchdb sh -c '/home/couchdb/bin/couchdb >> /var/log/couchdb/couch.log 2>> /var/log/couchdb/couch-err.log'
 ```
 
-Then, let’s create de default databases:
+Then, let’s create the default databases:
 ```shell
 curl -X PUT http://127.0.0.1:5984/_users
 curl -X PUT http://127.0.0.1:5984/_replicator
