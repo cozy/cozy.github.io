@@ -6,7 +6,9 @@
 
 ## Pre-requisites
 
-Cozy requires a CouchDB 2 database server and a reverse proxy. We’ll use Nginx in this tutorial but feel free to use your reverse proxy of choice.
+Cozy requires a CouchDB 2 database server, a reverse proxy and an SMTP server. We’ll use Nginx in this tutorial but feel free to use your reverse proxy of choice.
+
+You'll also need a domain name and know how to associate all of its subdomains to the IP address of your server.
 
 ## Install dependencies
 
@@ -77,7 +79,8 @@ curl -X PUT http://127.0.0.1:5984/_global_changes
 The Cozy server is just a single binary. You can fetch one of its releases from Github:
 
 ```shell
-curl -o /usr/local/bin/cozy-stack -L https://github.com/cozy/cozy-stack/releases/download/2017M1-alpha/cozy-stack-linux-amd64-2017M1-alpha
+curl -o /usr/local/bin/cozy-stack \
+     -L https://github.com/cozy/cozy-stack/releases/download/2017M1-alpha/cozy-stack-linux-amd64-2017M1-alpha
 chmod +x /usr/local/bin/cozy-stack
 adduser --system \
         --no-create-home \
@@ -93,7 +96,8 @@ chown -R cozy: /var/lib/cozy
 You can configure your server using a JSON or YAML file. Let’s fetch the sample configuration file:
 ```shell
 mkdir /etc/cozy
-curl -o /etc/cozy/cozy.yaml https://raw.githubusercontent.com/cozy/cozy-stack/master/cozy.example.yaml
+curl -o /etc/cozy/cozy.yaml \
+     https://raw.githubusercontent.com/cozy/cozy-stack/master/cozy.example.yaml
 chown -R cozy: /etc/cozy
 ```
 
@@ -120,9 +124,10 @@ openssl req -x509 -nodes -newkey rsa:4096 \
     -days 365 -subj "/CN={*.mycozy.tld}"
 ```
 
-Then create a virtual host for your server by creating `/etc/cozy/sites-available/mycozy.tld` and enable it by creating a symbolic link:
+Then create a virtual host for your server by creating `/etc/nginx/sites-available/mycozy.tld` and enable it by creating a symbolic link:
 ```shell
-ln -s "/etc/nginx/sites-available/${instance_domain}.conf" /etc/nginx/sites-enabled/
+ln -s "/etc/nginx/sites-available/${instance_domain}.conf" \
+       /etc/nginx/sites-enabled/
 ```
 
 And start NGinx:
@@ -139,6 +144,9 @@ The Cozy server requires a main password:
 
 This password will be asked every time you use the `cozy-stack` command line. To prevent this, you can set the `COZY_ADMIN_PASSWORD` environment variable.
 
+### DNS
+
+Make sure to associate `*.mycozy.tld` with the IP address of your server.
 
 ## Running
 
