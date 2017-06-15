@@ -165,6 +165,46 @@ cozy-stack instances add \
 You can add other instances by just running this command again.
 
 
+## Sample configuration files
+
+### Nginx
+
+Put this file into `/etc/nginx/sites-available` and enable it by creating a symlink in `/etc/nginx/sites-enabled`.
+
+```nginx
+server {
+    listen 443;
+
+    server_name *.mycozy.tld;
+
+    ssl_certificate /etc/cozy/mycozy.tld.crt;
+    ssl_certificate_key /etc/cozy/mycozy.tld.key;
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 10m;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers EECDH+AES;
+    ssl_prefer_server_ciphers on;
+    ssl on;
+
+    gzip_vary on;
+    client_max_body_size 1024M;
+
+    add_header Strict-Transport-Security max-age=31536000;
+
+    location / {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_redirect http:// https://;
+        proxy_pass http://127.0.0.1:8080;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+
+    access_log /var/log/nginx/cozy.log;
+}
+```
+
 ## TODO
 
 Cozy also requires a SMTP server (or relay).
