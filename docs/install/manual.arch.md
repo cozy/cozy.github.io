@@ -1,8 +1,9 @@
-# How to install Cozy on Arch Linux
+# How to install Cozy
 
 !!! warning ""
     ⚠️ This is a work in progress. For now, there’s no easy and officially supported way to install Cozy. You have to install it and all this dependencies by hand. This tutorial is intended for tech savvy people wanting to give Cozy a first try without waiting for the official documentation and images.
 
+This manual was tested against Arch linux, but you should be able to reproduce it with very minor modifications on your operating system of choice.
 
 ## Pre-requisites
 
@@ -48,7 +49,6 @@ curl -X PUT http://127.0.0.1:5984/_global_changes
 !!! warning ""
     ⚠️ The default CouchDB installation has no admin user. Everybody can query the server. So, in production environment, make sure to create en admin user and update the CouchDB connexion URL inside the configuration file of Cozy.
 
-
 ### Install the Cozy Stack
 
 The Cozy server is just a single binary. You can fetch one of its releases from Github:
@@ -81,13 +81,13 @@ For example:
   fs:
     url: file://localhost/var/lib/cozy
 ```
-If you decide to create another folder don’t forget to allow Cozy user to write inside this folder.
+If you decide to create another folder don’t forget to allow the cozy user to write inside this folder.
 
 ## Configuration
 
 ### NGinx
 
-Let’s assume you want to host a server on `mycozy.tld` with a self-signed certificate, the next step show you how to configure Nginx as a reverse-proxy in front of Cozy.
+Let’s assume you want to host a server on `mycozy.tld` with a self-signed certificate, the next steps show you how to configure Nginx as a reverse-proxy in front of Cozy.
 
 ```shell
 # Initialize variables with default values for configuration
@@ -160,7 +160,7 @@ Make sure your configuration is included in the main configuration : you should 
   include /etc/nginx/sites-enabled/*;
 ```
 
-Here is a minimal `nginx.conf` configuration file.
+Here is a minimal `nginx.conf` configuration file, for reference:
 ```nginx
 worker_processes  1;
 
@@ -177,7 +177,7 @@ http {
 }
 ```
 
-Then, enable this configuration by creating a symbolic link to let know nginx of this configuration:
+Then, enable the configuration file of your virtual host by creating a symbolic link to let know nginx of this configuration:
 ```shell
 sudo mkdir -p /etc/nginx/sites-enabled
 sudo ln -s "/etc/cozy/sites-available/${instance_domain}.conf" /etc/nginx/sites-enabled/
@@ -247,4 +247,5 @@ You can now access your cozy instance at `https://${instance_domain}`
 
 ## TODO
 
-Cozy also requires a SMTP server (or relay).
+- Cozy also requires a SMTP server (or relay).
+- Let's encrypt certificate to avoid the auto-signed certificate
