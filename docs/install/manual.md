@@ -120,9 +120,85 @@ openssl req -x509 -nodes -newkey rsa:4096 \
     -days 365 -subj "/CN={*.mycozy.tld}"
 ```
 
-Then create a virtual host for your server by creating `/etc/cozy/sites-available/mycozy.tld` and enable it by creating a symbolic link:
+Then create a virtual host for your server by creating a file at `/etc/cozy/sites-available/mycozy.tld.conf` with the following configuration template.
+In this template, you can replace:
+- %PORT% with the public port nginx will listen to (default should be 443).
+- %SERVER_PORT% with the private port cozy will listen to (default should be 8080).
+- %DOMAIN% with your domain of choice: `mycozy.tld` in this example
+
 ```shell
-ln -s "/etc/nginx/sites-available/${instance_domain}.conf" /etc/nginx/sites-enabled/
+sudo mkdir -p /etc/cozy/sites-available/
+# Paste the following config in the .config file
+sudo nano /etc/cozy/sites-available/mycozy.tld.conf
+# Replace placeholders with actual values
+sudo sed "s/%PORT%/1443/g; s/%SERVER_PORT%/8080/g; s/%DOMAIN%/mycozy.tld/g" "/etc/nginx/sites-available/mycozy.tld.conf" > "/etc/nginx/sites-available/mycozy.tld.conf"
+```
+
+```nginx
+server {
+    listen %PORT%;
+
+    server_name *.%DOMAIN%;
+
+    ssl_certificate /etc/cozy/%DOMAIN%.crt;
+    ssl_certificate_key /etc/cozy/%DOMAIN%.key;
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 10m;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers EECDH+AES;
+    ssl_prefer_server_ciphers on;
+    ssl on;
+
+    gzip_vary on;
+    client_max_body_size 1024M;
+
+    add_header Strict-Transport-Security max-age=31536000;
+
+    location / {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_redirect http:// https://;
+        proxy_pass http://127.0.0.1:%SERVER_PORT%;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+
+    access_log /var/log/nginx/cozy.log;
+}
+```
+
+Make sure your configuration is included in the main configuration : you should see a line like this before the final closing bracket (don't forget the ending semi-colon):
+```
+  include /etc/nginx/sites-enabled/*;
+```
+
+Here is a minimal `nginx.conf` configuration file, for reference:
+```nginx
+worker_processes  1;
+
+events {
+    worker_connections  1024;
+}
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+    sendfile        on;
+    keepalive_timeout  65;
+    include site-enabled/*.conf;
+}
+```
+
+Then, enable the configuration file of your virtual host by creating a symbolic link to let know nginx of this configuration:
+```shell
+sudo mkdir -p /etc/nginx/sites-enabled
+sudo ln -s "/etc/cozy/sites-available/mycozy.tld.conf" /etc/nginx/sites-enabled/
+```
+
+Make sure your configuration is valid:
+```shell
+sudo nginx -t -c /etc/nginx/nginx.conf
 ```
 
 And start NGinx:
@@ -161,6 +237,11 @@ cozy-stack instances add \
            --passphrase "XXX" \
            mycozy.tld
 ```
+
+!!! warning ""
+    ⚠️ The url of your cozy determines the name of your instance.
+    If you choose another public port than the default public port for SSL (443), say `1443` as suggested in the example above, then you should reflect this when creating your cozy instance with the ${instance_domain} as `mycozy.tld:1443`.
+    Otherwise, cozy will search for the instance `mycozy.tld:1443` which does not exist, as you created only the instance `mycozy.tld`.
 
 You can add other instances by just running this command again.
 

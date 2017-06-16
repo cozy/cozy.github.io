@@ -118,7 +118,7 @@ sudo mkdir -p /etc/cozy/sites-available/
 # Paste the following config in the .config file
 sudo nano /etc/cozy/sites-available/${instance_domain}.conf
 # Replace placeholders with actual values
-sudo sed "s/%PORT%/1443/g; s/%SERVER_PORT%/8080/g; s/%DOMAIN%/${instance_domain}/g" "/etc/nginx/sites-available/${instance_domain}.conf" > "/etc/nginx/sites-available/${instance_domain}.conf"
+sudo sed "s/%PORT%/443/g; s/%SERVER_PORT%/8080/g; s/%DOMAIN%/${instance_domain}/g" "/etc/nginx/sites-available/${instance_domain}.conf" > "/etc/nginx/sites-available/${instance_domain}.conf"
 ```
 
 ```nginx
@@ -234,7 +234,7 @@ cozy-stack instances add \
 ```
 
 !!! warning ""
-    ⚠️ The url of your cozy determines the name of your instace.
+    ⚠️ The url of your cozy determines the name of your instance.
     If you choose another public port than the default public port for SSL (443), say `9090`, then you should reflect this when creating your cozy instance with the ${instance_domain} as `mycozy.tld:9090`.
     Otherwise, cozy will search for the instance `mycozy.tld:9090` which does not exist, as you created only the instance `mycozy.tld`.
 
