@@ -1,6 +1,28 @@
 # Cozy Documentation
 
-Learn how to [use Cozy](use/), [host your own server](install/) and [develop applications](dev/).
+The go-to website about Cozy configuration and setup.
+
+<div class="home-actions" markdown="1">
+
+<div class="home-action">
+<div>
+<img src="/assets/images/home/icon-cloud.svg">
+<a href="/use/">Learn how to use your server</a>
+</div></div>
+<div class="home-action"><div markdown="1">
+<img src="/assets/images/home/icon-phone.svg">
+<a href="/sync/">Keep your devices in sync</a>
+</div></div>
+<div class="home-action"><div markdown="1">
+<img src="/assets/images/home/icon-install.svg">
+<a href="/install/">Install your own server</a>
+</div></div>
+<div class="home-action"><div markdown="1">
+<img src="/assets/images/home/icon-dev.svg">
+<a href="/dev/">Develop applications</a>
+Learn how to develop applications and connectors.
+</div></div>
+</div>
 
 ## Get in touch
 

@@ -1,4 +1,4 @@
-# Sync your desktop computer with your server
+# Sync your phone with your server
 
 Coming soon!
 
