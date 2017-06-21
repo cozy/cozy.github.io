@@ -1,39 +1,38 @@
-# How to write a collector
+# How to write a connector
 
 ## Introduction
 
-A collector is a small script that allow to import data from an external website. Each collector is an independent application, managed by the Cozy Collect application.
+A connector is a small script that allows to import data from an external website. Each connector is an independent application, managed by the Cozy Collect application.
 
-To protect your data, each collector runs inside a sandbox where all their interactions with your data are under control.
+To protect your data, each connector runs inside a sandbox where all their interactions with your data are under control.
 
-From a technical point of view, collectors are Node.js applications executed inside a container. They communicate with the server using its API, like client side apps, and get an auth token every time they start. They need to register with a manifest, and ask permissions to the user.
+From a technical point of view, connectors are Node.js applications executed inside a container. They communicate with the server using its API, like client side apps, and get an auth token every time they start. They need to register with a manifest, and ask permissions to the user.
 
-To ease the development of a collector, the environment inside the container provides a lot of shared libraries. You don’t need to include this libraries with your script, they will always been available. Here’s a list:
+To ease the development of a connector, an npm package, named [cozy-connector-libs](https://github.com/cozy/cozy-konnector-libs) provides a lot of
+shared libraries. But you may need some other npm packages to help you running your connector: 
 
- - [cozy-connector-libs](https://github.com/cozy/cozy-konnector-libs) : collectors specific shared functions ;
- - [cozy-client.js](https://github.com/cozy/cozy-client-js) an abstraction layer to use the Cozy API ;
  - [cheerio](https://cheerio.js.org/) to manipulate the DOM on remote web pages ;
  - [moment](http://momentjs.com/docs/) to manage dates ;
- - [polyglot](http://airbnb.io/polyglot.js/) for localization ;
  - [request](https://github.com/request/request) for fetching remote URLs ;
 
-When the application is started, it also get some data through environment variables:
+When the application is started, it also gets some data through environment variables:
 
  - `COZY_CREDENTIALS` : the auth token used by `cozy-client-js` to communicate with the server ;
  - `COZY_URL` : the API entry point ;
- - `COZY_FIELD` : the settings specific to each collector, for example the path of folder where the user wants to store the remote files ;
+ - `COZY_FIELD` : the settings specific to each connector, for example the path of folder where the user wants to store the remote files ;
+
+But the base connector (`require('cozy-konnector-libs').baseKonnector`) in cozy-konnector-libs handles these for you.
 
 The application can access a temporary file system, deleted at the end of its execution. Its logs (standard and error output) are kept by the server.
 
+## Let’s create our first connector
 
-## Let’s create our first collector
-
-The easiest way to create a new collector is to use [our template](https://github.com/cozy/cozy-konnector-template):
+The easiest way to create a new connector is to use [our template](https://github.com/cozy/cozy-konnector-template):
 
 ```sh
 git clone https://github.com/cozy/cozy-konnector-template
 cd cozy-konnector-template
-yarn # ou npm install
+yarn # or npm install
 ```
 
 _note: the Cozy Team uses `yarn`, but if you prefer `npm`, just keep using it, everything should just work._
@@ -42,24 +41,11 @@ Then, write your code into `konnectors.js` and build the application, running `y
 
 ### Collector structure
 
-Basically, a collector is just an object with some required fields:
+Basically, a connector is just an object passed to baseKonnector.createNew:
 
- - `name`: the displayed name of the collector;
- - `slug`: its internal name;
- - `vendorLink`: the URL of the site whose data will be fetched from;
- - `category`: in Cozy Collect, all available modules are arranged in categories. Allowed categories are "energy", "health", "host_provider", "insurance", "isp", "others", "productivity", "shopping", "social", "telecom", and "transport". If no category, or an unknown one, is provided, it will default to "other";
- - [`color`](https://github.com/cozy/cozy-collect/blob/master/docs/connector-configuration.md#color): the background color used when displaying the connector. This is an object with two attributes:
-   - `hex`: the hexadecimal definition of the color, for example `#FF0000` for red;
-   - `css`: the value of the css property. May be the same as the hex value, or a more complex value, for example a gradient;
- - `models`: an array of models used by the collector. The common library give access to the most used models, `bankOperation`, `bill`, `file`, `folder`, but you can of course also define your owns;
  - `fetchOperations`: array of methods that will be called sequentially to fetch the data;
 
-You can also add other attributes:
-
- - [`description`](https://github.com/cozy/cozy-collect/blob/master/docs/connector-configuration.md#description): a detailed description of the collector;
- - `fields`: description of additional required settings. They will be displayed to the user when configuring the collector, and passed to the application by the server on start;
-
-To create the collector, just call `baseKonnector.createNew()` from the Cozy Collector lib, with an object describing the collector:
+To create the connector, just call `baseKonnector.createNew()` from the Cozy Collector lib, with an object describing the connector:
 
 ``` javascript
 const {baseKonnector, filterExisting, saveDataAndFile, models} = require("cozy-konnector-libs");
@@ -80,7 +66,7 @@ module.exports = baseKonnector.createNew({
 
 #### Fetch operations
 
-Every time the collector is run, it will call every method from the `fetchOperations` array. Use this methods to log into the remote site, fetch data and save it.
+Every time the connector is run, it will call every method from the `fetchOperations` array. Use this methods to log into the remote site, fetch data and save it.
 
 Each function must use the same signature: `functionName(fields, bills, data, next)` where:
 
@@ -91,26 +77,47 @@ Each function must use the same signature: `functionName(fields, bills, data, ne
 
 Many operations are common to most of the connectors, so we created some common functions you can import from the shared library:
 
- - `filterExisting` to filter data;
- - `linkBankOperation` to link a bill to a bank operation;
- - `saveDataAndFile` save the data;
- - `updateOrCreate` create or update documents inside database
-
 We’ll have a deeper look at this methods below.
-
 
 ### Konnector lib
 
 The Cozy Konnector Lib provide some useful methods for common tasks:
 
  - `baseKonnector.createNew()`: create the connector and fetch data;
- - `cozyClient` allow to access methods from the Cozy Client library;
+ - `cozyClient` gives an instance of cozy-client-js already initialized according to COZY_URL, and
+   COZY_CREDENTIALS
  - `fetcher` is the internal class that run fetching operations in sequence, calling the functions with the right parameters;
  - `log(type, message)` allows to log messages;
- - `manifest` extracts informations from the manifest;
+ - `manifest` extracts informations from the manifest (mainly used internaly at the moment);
  - `naming` is a method allowing to build file names according to parameters;
+ - `filterExisting` to filter data;
+ - `linkBankOperation` to link a bill to a bank operation;
+ - `saveDataAndFile` save the data;
+ - `updateOrCreate` create or update documents inside database
+
+ There are also some models available in require('cozy-konnector-libs').models :
+
+ - `baseModel` : which is a model from which your model can extend using it's `createNew` method.
+   It offers the `all`, `create`, and `updateAttributes` methods already implemented.
+ - `bill` : Offers an already implemented model allowing to manipulate 'io.cozy.bills' doctype. It is used by many connectors.
+ - `file` : a helper to manipulate files
+ - `folder` : a helper to manipulate folders
+ - `bankOperation` : a helper to manipulate bank operations
 
 #### Common methods
+
+** cozyClient() **
+
+If you want to access cozy-client-js directly, this method gives you directly an instance of it,
+initialized according to COZY_URL and COZY_CREDENTIALS environment variable.
+You can refer to the [cozy-client-js documentation](https://cozy.github.io/cozy-client-js/) for more information.
+
+```javascript
+const {clientClient} = require('cozy-konnector-libs')
+
+cozyClient.data.defineIndex('my.doctype', ['_id'])
+```
+
 
 ** filterExisting(log, model, suffix, vendor) **
 
@@ -169,13 +176,12 @@ Parameters:
 
 You should pass parameters as an object whose keys are:
 
- - `log`: a `printit` logger. See the [printit documentation](https://github.com/cozy/printit#it-began-with-a-consolelog) for details
+ - `log`: unused (kept for retro-compatibility);
  - `model`: a model object to check for.
  - `identifier`: a string or an array of strings to look for in the operation label (case insensitive: the layer will automatically set it to lowercase).
  - `dateDelta`: the number of days allowed between the bank operation date and the bill date  (15 by default). 
  - `amountDelta`: the difference between the bank operation amount and the bill amount (useful when the currency is not the same) (0 by default).
  - `isRefund`: boolean telling if the operation is a refund or not. By default, it is `false`. Allows to match only operations with positive amount if set to `true`.
-
 
 
 #### Common data models
@@ -223,14 +229,7 @@ Each connector is described by a Manifest. This is a JSON file named `manifest.k
 
 TODO See documentation of the manifest of an application
 
-
 The connector parameters are stored in `io.cozy.accounts` documents, so each connector should get access to this doctype.
-
-#### locales
-
-TODO
-
-
 
 ## Testing
 
