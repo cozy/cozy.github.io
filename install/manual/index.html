@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
   <link rel="stylesheet" href="../../css/highlight.css">
+  <link href="../../extra.css" rel="stylesheet">
   
   <script>
     // Current page data
@@ -103,6 +104,8 @@
         
             <li><a class="toctree-l4" href="#running">Running</a></li>
         
+            <li><a class="toctree-l4" href="#sample-configuration-files">Sample configuration files</a></li>
+        
             <li><a class="toctree-l4" href="#todo">TODO</a></li>
         
         </ul>
@@ -119,7 +122,11 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../../dev/">Introduction</a>
+    <a class="" href="../../dev/">Summary</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../dev/intro/">Introduction</a>
                 </li>
                 <li class="">
                     
@@ -173,117 +180,151 @@
               
                 <h1 id="how-to-install-cozy-on-debian-jessie">How to install Cozy on Debian Jessie<a class="headerlink" href="#how-to-install-cozy-on-debian-jessie" title="Permanent link">&para;</a></h1><div class="admonition warning">
 <p>⚠️ This is a work in progress. For now, there’s no easy and officially supported way to install Cozy. You have to install it and all this dependencies by hand. This tutorial is intended for tech savvy people wanting to give Cozy a first try without waiting for the official documentation and images.</p></div>
-<h2 id="pre-requisites">Pre-requisites<a class="headerlink" href="#pre-requisites" title="Permanent link">&para;</a></h2><p>Cozy requires a CouchDB 2 database server and a reverse proxy. We’ll use Nginx in this tutorial but feel free to use your reverse proxy of choice.</p><h2 id="install-dependencies">Install dependencies<a class="headerlink" href="#install-dependencies" title="Permanent link">&para;</a></h2><p>On a fresh new Debian Jessie, are are the packages that may be useful to install and manage your server:</p><div class="codehilite"><pre>apt-get update <span class="o">&amp;&amp;</span> apt-get --no-install-recommends -y install <span class="se">\</span>
-            ca-certificates <span class="se">\</span>
-            curl <span class="se">\</span>
-            net-tools <span class="se">\</span>
-            nginx <span class="se">\</span>
-            sudo <span class="se">\</span>
-            vim-tiny <span class="se">\</span>
-            build-essential <span class="se">\</span>
-            pkg-config <span class="se">\</span>
-            erlang <span class="se">\</span>
-            libicu-dev <span class="se">\</span>
-            libmozjs185-dev <span class="se">\</span>
-            libcurl4-openssl-dev
-</pre></div>
+<h2 id="pre-requisites">Pre-requisites<a class="headerlink" href="#pre-requisites" title="Permanent link">&para;</a></h2><p>Cozy requires a CouchDB 2 database server, a reverse proxy and an SMTP server. We’ll use Nginx in this tutorial but feel free to use your reverse proxy of choice.</p><p>You&rsquo;ll also need a domain name and know how to associate all of its subdomains to the IP address of your server.</p><h2 id="install-dependencies">Install dependencies<a class="headerlink" href="#install-dependencies" title="Permanent link">&para;</a></h2><p>On a fresh new Debian Jessie, here are the packages that may be useful to install and manage your server:</p><pre class="codehilite"><code class="language-shell">apt-get update &amp;&amp; apt-get --no-install-recommends -y install \
+            ca-certificates \
+            curl \
+            net-tools \
+            nginx \
+            sudo \
+            vim-tiny \
+            build-essential \
+            pkg-config \
+            erlang \
+            libicu-dev \
+            libmozjs185-dev \
+            libcurl4-openssl-dev</code></pre>
 
 
 <h3 id="install-couchdb">Install CouchDB<a class="headerlink" href="#install-couchdb" title="Permanent link">&para;</a></h3><p>Download <a href="http://couchdb.apache.org/">the source code on CouchDB 2</a> and 
-<a href="http://docs.couchdb.org/en/2.0.0/install/unix.html">install it</a>.</p><div class="codehilite"><pre><span class="nb">cd</span> /tmp
+<a href="http://docs.couchdb.org/en/2.0.0/install/unix.html">install it</a>.</p><pre class="codehilite"><code class="language-shell">cd /tmp
 curl -LO https://dist.apache.org/repos/dist/release/couchdb/source/2.0.0/apache-couchdb-2.0.0.tar.gz
 tar xf apache-couchdb-2.0.0.tar.gz
-<span class="nb">cd </span>apache-couchdb-2.0.0
+cd apache-couchdb-2.0.0
 ./configure
 make release
-adduser --system <span class="se">\</span>
-        --no-create-home <span class="se">\</span>
-        --shell /bin/bash <span class="se">\</span>
-        --group --gecos <span class="se">\</span>
-        <span class="s2">&quot;CouchDB Administrator&quot;</span> couchdb
-</pre></div>
+adduser --system \
+        --no-create-home \
+        --shell /bin/bash \
+        --group --gecos \
+        &quot;CouchDB Administrator&quot; couchdb</code></pre>
 
 
-<p>We’ll install CouchDB inside <code>/home/couchdb</code>:</p><div class="codehilite"><pre>cp -R rel/couchdb /home/couchdb
+<p>We’ll install CouchDB inside <code>/home/couchdb</code>:</p><pre class="codehilite"><code class="language-shell">cp -R rel/couchdb /home/couchdb
 chown -R couchdb:couchdb /home/couchdb
-find /home/couchdb -type d -exec chmod <span class="m">0770</span> <span class="o">{}</span> <span class="se">\;</span>
-chmod -R <span class="m">0644</span> /home/couchdb/etc
-mkdir /var/log/couchdb <span class="o">&amp;&amp;</span> chown couchdb: /var/log/couchdb
-</pre></div>
+find /home/couchdb -type d -exec chmod 0770 {} \;
+chmod -R 0644 /home/couchdb/etc
+mkdir /var/log/couchdb &amp;&amp; chown couchdb: /var/log/couchdb</code></pre>
 
 
-<p>For now, we’ll just run the database as a background job, but it is highly recommended to use some supervisor software.</p><div class="codehilite"><pre>sudo -b -i -u couchdb sh -c <span class="s1">&#39;/home/couchdb/bin/couchdb &gt;&gt; /var/log/couchdb/couch.log 2&gt;&gt; /var/log/couchdb/couch-err.log&#39;</span>
-</pre></div>
+<p>For now, we’ll just run the database as a background job, but it is highly recommended to use some supervisor software.</p><pre class="codehilite"><code class="language-shell">sudo -b -i -u couchdb sh -c '/home/couchdb/bin/couchdb &gt;&gt; /var/log/couchdb/couch.log 2&gt;&gt; /var/log/couchdb/couch-err.log'</code></pre>
 
 
-<p>Then, let’s create de default databases:</p><div class="codehilite"><pre>curl -X PUT http://127.0.0.1:5984/_users
+<p>Then, let’s create the default databases:</p><pre class="codehilite"><code class="language-shell">curl -X PUT http://127.0.0.1:5984/_users
 curl -X PUT http://127.0.0.1:5984/_replicator
-curl -X PUT http://127.0.0.1:5984/_global_changes
-</pre></div>
+curl -X PUT http://127.0.0.1:5984/_global_changes</code></pre>
 
 
 <div class="admonition warning">
-<p>⚠️ The default CouchDB installation has no admin user. Everybody can query the server. So, in production environment, make sure tu create en admin user and update the CouchDB connexion URL inside the configuration file of Cozy.</p></div>
-<h3 id="install-the-cozy-stack">Install the Cozy Stack<a class="headerlink" href="#install-the-cozy-stack" title="Permanent link">&para;</a></h3><p>The Cozy server is just a single binary. You can fetch one of its releases from Github:</p><div class="codehilite"><pre>curl -o /usr/local/bin/cozy-stack -L https://github.com/cozy/cozy-stack/releases/download/2017M1-alpha/cozy-stack-linux-amd64-2017M1-alpha
+<p>⚠️ The default CouchDB installation has no admin user. Everybody can query the server. So, in production environment, make sure to create en admin user and update the CouchDB connexion URL inside the configuration file of Cozy.</p></div>
+<h3 id="install-the-cozy-stack">Install the Cozy Stack<a class="headerlink" href="#install-the-cozy-stack" title="Permanent link">&para;</a></h3><p>The Cozy server is just a single binary. You can fetch one of its releases from Github:</p><pre class="codehilite"><code class="language-shell">curl -o /usr/local/bin/cozy-stack \
+     -L https://github.com/cozy/cozy-stack/releases/download/2017M1-alpha/cozy-stack-linux-amd64-2017M1-alpha
 chmod +x /usr/local/bin/cozy-stack
-adduser --system <span class="se">\</span>
-        --no-create-home <span class="se">\</span>
-        --shell /bin/bash <span class="se">\</span>
-        --group --gecos <span class="se">\</span>
-          <span class="s2">&quot;Cozy&quot;</span> cozy
+adduser --system \
+        --no-create-home \
+        --shell /bin/bash \
+        --group --gecos \
+          &quot;Cozy&quot; cozy
 mkdir /var/log/cozy
 chown cozy: /var/log/cozy
 mkdir /var/lib/cozy
-chown -R cozy: /var/lib/cozy
-</pre></div>
+chown -R cozy: /var/lib/cozy</code></pre>
 
 
-<p>You can configure your server using a JSON or YAML file. Let’s fetch the sample configuration file:</p><div class="codehilite"><pre>mkdir /etc/cozy
-curl -o /etc/cozy/cozy.yaml https://raw.githubusercontent.com/cozy/cozy-stack/master/cozy.example.yaml
-chown -R cozy: /etc/cozy
-</pre></div>
+<p>You can configure your server using a JSON or YAML file. Let’s fetch the sample configuration file:</p><pre class="codehilite"><code class="language-shell">mkdir /etc/cozy
+curl -o /etc/cozy/cozy.yaml \
+     https://raw.githubusercontent.com/cozy/cozy-stack/master/cozy.example.yaml
+chown -R cozy: /etc/cozy</code></pre>
 
 
-<p>Edit this file to adapt it to your configuration. You should setup a directory to store the files. For example:</p><div class="codehilite"><pre>  <span class="l-Scalar-Plain">fs</span><span class="p-Indicator">:</span>
-    <span class="l-Scalar-Plain">url</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">file://localhost/var/lib/cozy</span>
-</pre></div>
+<p>Edit this file to adapt it to your configuration. You should setup a directory to store the files. For example:</p><pre class="codehilite"><code class="language-yaml">  fs:
+    url: file://localhost/var/lib/cozy</code></pre>
 
 
-<p>Don’t forget to allow Cozy user to write inside this folder.</p><h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2><h3 id="nginx">NGinx<a class="headerlink" href="#nginx" title="Permanent link">&para;</a></h3><p>Let’s assume you want to host a server on <code>mycozy.tld</code> with a self-signed certificate.</p><p>Generate the certificate. We need a wild-card certificate, as every application inside Cozy will have it’s own sub-domain:</p><div class="codehilite"><pre>openssl req -x509 -nodes -newkey rsa:4096 <span class="se">\</span>
-    -keyout /etc/cozy/mycozy.tld.key <span class="se">\</span>
-    -out /etc/cozy/mycozy.tld.crt <span class="se">\</span>
-    -days <span class="m">365</span> -subj <span class="s2">&quot;/CN={*.mycozy.tld}&quot;</span>
-</pre></div>
+<p>Don’t forget to allow Cozy user to write inside this folder.</p><h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2><h3 id="nginx">NGinx<a class="headerlink" href="#nginx" title="Permanent link">&para;</a></h3><p>Let’s assume you want to host a server on <code>mycozy.tld</code> with a self-signed certificate.</p><p>Generate the certificate. We need a wild-card certificate, as every application inside Cozy will have it’s own sub-domain:</p><pre class="codehilite"><code class="language-shell">sudo openssl req -x509 -nodes -newkey rsa:4096 \
+    -keyout /etc/cozy/mycozy.tld.key \
+    -out /etc/cozy/mycozy.tld.crt \
+    -days 365 -subj &quot;/CN={*.mycozy.tld}&quot;</code></pre>
 
 
-<p>Then create a virtual host for your server by creating <code>/etc/cozy/sites-available/mycozy.tld</code> and enable it by creating a symbolic link:</p><div class="codehilite"><pre>ln -s <span class="s2">&quot;/etc/nginx/sites-available/</span><span class="si">${</span><span class="nv">instance_domain</span><span class="si">}</span><span class="s2">.conf&quot;</span> /etc/nginx/sites-enabled/
-</pre></div>
+<p>Then create a virtual host for your server by creating <code>/etc/nginx/sites-available/mycozy.tld</code> and enable it by creating a symbolic link:</p><pre class="codehilite"><code class="language-shell">sudo ln -s &quot;/etc/nginx/sites-available/${instance_domain}.conf&quot; \
+       /etc/nginx/sites-enabled/</code></pre>
 
 
-<p>And start NGinx:</p><div class="codehilite"><pre>service nginx start
-</pre></div>
+<p>You can check that your configuration is valid by running</p><pre class="codehilite"><code class="language-shell">sudo nginx -t -c /etc/nginx/nginx.conf</code></pre>
 
 
-<h3 id="cozy">Cozy<a class="headerlink" href="#cozy" title="Permanent link">&para;</a></h3><p>The Cozy server require a main password:</p><div class="codehilite"><pre>/usr/local/bin/cozy-stack config passwd /etc/cozy/
-</pre></div>
+<p>And start NGinx:</p><pre class="codehilite"><code class="language-shell">sudo service nginx start</code></pre>
+
+
+<p>Or, if you use systemd:</p><pre class="codehilite"><code class="language-shell">sudo systemctl start nginx
+sudo systemctl enable nginx # enable the nginx service at startup, if need to</code></pre>
+
+
+<h3 id="cozy">Cozy<a class="headerlink" href="#cozy" title="Permanent link">&para;</a></h3><p>The Cozy server requires a main password:</p><pre class="codehilite"><code class="language-shell">sudo /usr/local/bin/cozy-stack config passwd /etc/cozy/</code></pre>
 
 
 <p>This password will be asked every time you use the <code>cozy-stack</code> command line. To prevent this, you can set the 
-<code>COZY_ADMIN_PASSWORD</code> environment variable.</p><h2 id="running">Running<a class="headerlink" href="#running" title="Permanent link">&para;</a></h2><p>For now, we’ll just run the server as a background job, but it is highly recommended to use some supervisor software.</p><p>First, start the server:</p><div class="codehilite"><pre>sudo -b -u cozy sh -c <span class="err">&#39;</span>/usr/local/bin/cozy-stack serve <span class="se">\</span>
-     --log-level debug <span class="se">\</span>
-     --host 0.0.0.0 &gt;&gt; /var/log/cozy/cozy.log <span class="m">2</span> &gt;&gt; /var/log/cozy/cozy-err.log
-</pre></div>
+<code>COZY_ADMIN_PASSWORD</code> environment variable.</p><h3 id="dns">DNS<a class="headerlink" href="#dns" title="Permanent link">&para;</a></h3><p>Make sure to associate <code>*.mycozy.tld</code> with the IP address of your server.</p><p>For example, add the following records to your DNS (replacing <code>mycozy.tld</code> with your domain of choice):</p><pre class="codehilite"><code>mycozy.tld   A     your IP
+*.mycozy.tld CNAME mycozy.tld</code></pre>
 
 
-<p>Then, create your instance:</p><div class="codehilite"><pre>cozy-stack instances add <span class="se">\</span>
-           --host 0.0.0.0 <span class="se">\</span>
-           --apps files,settings,onboarding <span class="se">\</span>
-           --passphrase <span class="s2">&quot;XXX&quot;</span> <span class="se">\</span>
-           mycozy.tld
-</pre></div>
+<h2 id="running">Running<a class="headerlink" href="#running" title="Permanent link">&para;</a></h2><p>For now, we’ll just run the server as a background job, but it is highly recommended to use some supervisor software.</p><p>First, start the server:</p><pre class="codehilite"><code class="language-shell">sudo -b -u cozy sh -c '/usr/local/bin/cozy-stack serve \
+     --log-level debug \
+     --host 0.0.0.0 &gt;&gt; /var/log/cozy/cozy.log 2 &gt;&gt; /var/log/cozy/cozy-err.log'</code></pre>
 
 
-<p>You can add other instances by just running this command again.</p><h2 id="todo">TODO<a class="headerlink" href="#todo" title="Permanent link">&para;</a></h2><p>Cozy also requires a SMTP server (or relay).</p>
+<p>Then, create your instance:</p><pre class="codehilite"><code class="language-shell">cozy-stack instances add \
+           --host 0.0.0.0 \
+           --apps files,settings,onboarding \
+           --passphrase &quot;XXX&quot; \
+           mycozy.tld</code></pre>
+
+
+<p>You can add other instances by just running this command again.</p><h2 id="sample-configuration-files">Sample configuration files<a class="headerlink" href="#sample-configuration-files" title="Permanent link">&para;</a></h2><h3 id="nginx_1">Nginx<a class="headerlink" href="#nginx_1" title="Permanent link">&para;</a></h3><p>Put this file into <code>/etc/nginx/sites-available</code> and enable it by creating a symlink in 
+<code>/etc/nginx/sites-enabled</code>.</p><pre class="codehilite"><code class="language-nginx">server {
+    listen 443;
+
+    server_name *.mycozy.tld;
+
+    ssl_certificate /etc/cozy/mycozy.tld.crt;
+    ssl_certificate_key /etc/cozy/mycozy.tld.key;
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 10m;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers EECDH+AES;
+    ssl_prefer_server_ciphers on;
+    ssl on;
+
+    gzip_vary on;
+    client_max_body_size 1024M;
+
+    add_header Strict-Transport-Security max-age=31536000;
+
+    location / {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_redirect http:// https://;
+        proxy_pass http://127.0.0.1:8080;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection &quot;upgrade&quot;;
+    }
+
+    access_log /var/log/nginx/cozy.log;
+}</code></pre>
+
+
+<h2 id="todo">TODO<a class="headerlink" href="#todo" title="Permanent link">&para;</a></h2><p>Cozy also requires a SMTP server (or relay).</p>
               
             </div>
           </div>
@@ -291,7 +332,7 @@ chown -R cozy: /etc/cozy
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../../dev/" class="btn btn-neutral float-right" title="Introduction">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../../dev/" class="btn btn-neutral float-right" title="Summary">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href="../../sync/desktop/" class="btn btn-neutral" title="Synchronize your computer"><span class="icon icon-circle-arrow-left"></span> Previous</a>
