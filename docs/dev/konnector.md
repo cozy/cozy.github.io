@@ -77,26 +77,47 @@ Each function must use the same signature: `functionName(fields, bills, data, ne
 
 Many operations are common to most of the connectors, so we created some common functions you can import from the shared library:
 
- - `filterExisting` to filter data;
- - `linkBankOperation` to link a bill to a bank operation;
- - `saveDataAndFile` save the data;
- - `updateOrCreate` create or update documents inside database
-
 We’ll have a deeper look at this methods below.
-
 
 ### Konnector lib
 
 The Cozy Konnector Lib provide some useful methods for common tasks:
 
  - `baseKonnector.createNew()`: create the connector and fetch data;
- - `cozyClient` allow to access methods from the Cozy Client library;
+ - `cozyClient` gives an instance of cozy-client-js already initialized according to COZY_URL, and
+   COZY_CREDENTIALS
  - `fetcher` is the internal class that run fetching operations in sequence, calling the functions with the right parameters;
  - `log(type, message)` allows to log messages;
- - `manifest` extracts informations from the manifest;
+ - `manifest` extracts informations from the manifest (mainly used internaly at the moment);
  - `naming` is a method allowing to build file names according to parameters;
+ - `filterExisting` to filter data;
+ - `linkBankOperation` to link a bill to a bank operation;
+ - `saveDataAndFile` save the data;
+ - `updateOrCreate` create or update documents inside database
+
+ There are also some models available in require('cozy-konnector-libs').models :
+
+ - `baseModel` : which is a model from which your model can extend using it's `createNew` method.
+   It offers the `all`, `create`, and `updateAttributes` methods already implemented.
+ - `bill` : Offers an already implemented model allowing to manipulate 'io.cozy.bills' doctype. It is used by many connectors.
+ - `file` : a helper to manipulate files
+ - `folder` : a helper to manipulate folders
+ - `bankOperation` : a helper to manipulate bank operations
 
 #### Common methods
+
+** cozyClient() **
+
+If you want to access cozy-client-js directly, this method gives you directly an instance of it,
+initialized according to COZY_URL and COZY_CREDENTIALS environment variable.
+You can refer to the [cozy-client-js documentation](https://cozy.github.io/cozy-client-js/) for more information.
+
+```javascript
+const {clientClient} = require('cozy-konnector-libs')
+
+cozyClient.data.defineIndex('my.doctype', ['_id'])
+```
+
 
 ** filterExisting(log, model, suffix, vendor) **
 
@@ -155,13 +176,12 @@ Parameters:
 
 You should pass parameters as an object whose keys are:
 
- - `log`: a `printit` logger. See the [printit documentation](https://github.com/cozy/printit#it-began-with-a-consolelog) for details
+ - `log`: unused (kept for retro-compatibility);
  - `model`: a model object to check for.
  - `identifier`: a string or an array of strings to look for in the operation label (case insensitive: the layer will automatically set it to lowercase).
  - `dateDelta`: the number of days allowed between the bank operation date and the bill date  (15 by default). 
  - `amountDelta`: the difference between the bank operation amount and the bill amount (useful when the currency is not the same) (0 by default).
  - `isRefund`: boolean telling if the operation is a refund or not. By default, it is `false`. Allows to match only operations with positive amount if set to `true`.
-
 
 
 #### Common data models
