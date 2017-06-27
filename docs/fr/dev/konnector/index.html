@@ -7,7 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <meta name="author" content="CozyCloud - https://cozy.io">
-  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <link rel="shortcut icon" href="../../img/favicon.png">
+  
   <title>Créez votre premier connecteur - Documentation Cozy</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
@@ -279,6 +280,62 @@ module.exports = baseModel.createNew({
 <code>node</code>. In the future, we may support other types of connectors;</li><li><code>version</code>: </li><li><code>source</code>: git URL of the source code repository;</li><li><code>fields</code>: @TODO</li><li><code>locales</code>: @TODO</li><li><code>permissions</code>: an object describing the permissions the connector requires;</li><li><code>developer</code>: who are you?</li><li><code>name</code>: </li><li><code>url</code>: </li></ul>
 <h4 id="permissions">Permissions<a class="headerlink" href="#permissions" title="Permanent link">&para;</a></h4><p>TODO See documentation of the manifest of an application</p><p>The connector parameters are stored in <code>io.cozy.accounts</code> documents, so each connector should get access to this doctype.</p><h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h2><h3 id="how-do-i-scrap-a-website">How do I scrap a website<a class="headerlink" href="#how-do-i-scrap-a-website" title="Permanent link">&para;</a></h3><p>You will require the <a href="https://www.npmjs.com/package/request">request</a> and 
 <a href="https://www.npmjs.com/package/cheerio">cheerio</a> npm packages:</p><pre class="codehilite"><code class="language-shell">yarn add cheerio request # or npm install --save cheerio request</code></pre>
+
+
+<p>Here’s a sample code that will fetch the login page to get the value of the anti-CSRF token, submit the login form, browse to the bills page and fetch a bill:</p><pre class="codehilite"><code class="language-javascript">function fetchBill(requiredFields, entries, data, next) {
+  'use strict';
+  next();
+  // Create a request instance that keep cookies between requests and follow redirects
+  let request = require('request').defaults({jar: true, followRedirect: true, followAllRedirects: true}),
+      cheerio = require('cheerio'),
+      moment  = require('moment');
+  // Get the login page to get the CSRF token
+  request(&quot;https://login.remote.web&quot;, function (err, res, html) {
+    if (err) {
+      return next(err.message);
+    }
+    // Post the form
+    let $ = cheerio.load(html),
+        form = {
+          form: {
+            login: requiredFields.login,
+            password: requiredFields.password,
+            csrf_token: $('[name=&quot;csrf_token&quot;]').val(),
+          }
+        };
+    request.post('https://login.remote.web', form, function (err, res, html) {
+      if (err) {
+        return next(err.message);
+      }
+      request(&quot;https://admin.remote.web/bills&quot;, function (err, res, html) {
+        if (err) {
+          return next(err.message);
+        }
+        entries.fetched = [{date: moment($(&quot;bill_date&quot;)), value: $(&quot;#bill_value&quot;)}];
+        next();
+      });
+    });
+  });
+}</code></pre>
+
+
+<p>The whole connector will be as simple as:</p><pre class="codehilite"><code class="language-javascript">const {baseKonnector, filterExisting, saveDataAndFile, models} = require(&quot;cozy-konnector-libs&quot;),
+      MyBills = models.baseModel.createNew({
+          name: &quot;me.mycozy.mybill&quot;
+      });
+
+function fetchBill(requiredFields, entries, data, next) {
+  (…);
+}
+
+module.exports = baseKonnector.createNew({
+  name: 'me.mycozy.mybill',
+  fetchOperations: [
+    fetchBill,
+    filterExisting(null, MyBills),
+    saveDataAndFile(null, MyBills, {})
+  ]
+});</code></pre>
 
 
 <h2 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h2><h3 id="running-in-standalone-mode">Running in standalone mode<a class="headerlink" href="#running-in-standalone-mode" title="Permanent link">&para;</a></h3><p>To ease the development, you don’t need a running Cozy server to test your code. We provide a standalone mode, that mocks the server. This mode uses a configuration file to define the environment variables that the server will send to your application in production. So, start by copying <code>data/env_fields.json.template</code> to 
