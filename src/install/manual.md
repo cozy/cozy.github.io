@@ -118,7 +118,7 @@ Generate the certificate. We need a wild-card certificate, as every application 
 
 
 ```shell
-openssl req -x509 -nodes -newkey rsa:4096 \
+sudo openssl req -x509 -nodes -newkey rsa:4096 \
     -keyout /etc/cozy/mycozy.tld.key \
     -out /etc/cozy/mycozy.tld.crt \
     -days 365 -subj "/CN={*.mycozy.tld}"
@@ -126,20 +126,31 @@ openssl req -x509 -nodes -newkey rsa:4096 \
 
 Then create a virtual host for your server by creating `/etc/nginx/sites-available/mycozy.tld` and enable it by creating a symbolic link:
 ```shell
-ln -s "/etc/nginx/sites-available/${instance_domain}.conf" \
+sudo ln -s "/etc/nginx/sites-available/${instance_domain}.conf" \
        /etc/nginx/sites-enabled/
+```
+
+You can check that your configuration is valid by running
+```shell
+sudo nginx -t -c /etc/nginx/nginx.conf
 ```
 
 And start NGinx:
 ```shell
-service nginx start
+sudo service nginx start
+```
+
+Or, if you use systemd:
+```shell
+sudo systemctl start nginx
+sudo systemctl enable nginx # enable the nginx service at startup, if need to
 ```
 
 ### Cozy
 
 The Cozy server requires a main password:
 ```shell
-/usr/local/bin/cozy-stack config passwd /etc/cozy/
+sudo /usr/local/bin/cozy-stack config passwd /etc/cozy/
 ```
 
 This password will be asked every time you use the `cozy-stack` command line. To prevent this, you can set the `COZY_ADMIN_PASSWORD` environment variable.
@@ -147,6 +158,12 @@ This password will be asked every time you use the `cozy-stack` command line. To
 ### DNS
 
 Make sure to associate `*.mycozy.tld` with the IP address of your server.
+
+For example, add the following records to your DNS (replacing `mycozy.tld` with your domain of choice):
+```
+mycozy.tld   A     your IP
+*.mycozy.tld CNAME mycozy.tld
+```
 
 ## Running
 
@@ -157,7 +174,7 @@ First, start the server:
 ```shell
 sudo -b -u cozy sh -c '/usr/local/bin/cozy-stack serve \
      --log-level debug \
-     --host 0.0.0.0 >> /var/log/cozy/cozy.log 2 >> /var/log/cozy/cozy-err.log
+     --host 0.0.0.0 >> /var/log/cozy/cozy.log 2 >> /var/log/cozy/cozy-err.log'
 ```
 
 Then, create your instance:
