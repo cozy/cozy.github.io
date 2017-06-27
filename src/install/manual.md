@@ -201,21 +201,26 @@ First, start the server:
 
 ```shell
 sudo -b -u cozy sh -c '/usr/local/bin/cozy-stack serve \
-     --log-level debug \
+     --log-level info \
      --host 0.0.0.0 >> /var/log/cozy/cozy.log 2 >> /var/log/cozy/cozy-err.log'
 ```
 
-Then, create your instance:
+Then, create your instance and install the applications:
 
 ```shell
 cozy-stack instances add \
            --host 0.0.0.0 \
-           --apps files,settings,onboarding \
+           --apps settings,onboarding \
            --passphrase "XXX" \
            mycozy.tld
+cozy-stack apps install --domain "mycozy.tld" drive   "git://github.com/cozy/cozy-drive.git#build"
+cozy-stack apps install --domain "mycozy.tld" photos  "git://github.com/cozy/cozy-photos-v3.git#build"
+cozy-stack apps install --domain "mycozy.tld" collect "git://github.com/cozy/cozy-collect.git#build"
 ```
 
-You can add other instances by just running this command again.
+`--passphrase "XXX"` allows to set the initial password of the instance.
+
+You can add other instances by just running this commands again.
 
 
 ## Sample configuration files
