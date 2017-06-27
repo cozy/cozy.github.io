@@ -80,7 +80,7 @@ The Cozy server is just a single binary. You can fetch one of its releases from 
 
 ```shell
 curl -o /usr/local/bin/cozy-stack \
-     -L https://github.com/cozy/cozy-stack/releases/download/2017M1-alpha/cozy-stack-linux-amd64-2017M1-alpha
+     -L https://github.com/cozy/cozy-stack/releases/download/2017M2-alpha/cozy-stack-linux-amd64-2017M2-alpha
 chmod +x /usr/local/bin/cozy-stack
 adduser --system \
         --no-create-home \
