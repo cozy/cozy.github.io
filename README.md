@@ -47,8 +47,8 @@ mkdocs build -f mkdocs_fr.yml --clean
 To test the whole site:
 
 ```shell
-rm -rf site/*
-ln -s index.html site/
+rm -rf docs/*
+ln -s ../index.html docs/
 mkdocs build -f mkdocs.yml
 mkdocs build -f mkdocs_fr.yml
 cd site/
