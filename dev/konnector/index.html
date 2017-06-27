@@ -42,6 +42,7 @@
     <input type="text" name="q" placeholder="Search docs" />
   </form>
 </div>
+      <p><a href="../en">en</a>&nbsp;<a href="../fr/index_fr">fr</a></p>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
@@ -89,7 +90,11 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../../install/manual/">Manual</a>
+    <a class="" href="../../install/">Install Cozy on your own server</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../install/manual/">Manual installation</a>
                 </li>
     </ul>
 	    </li>
@@ -100,11 +105,11 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../">Summary</a>
+    <a class="" href="../">Let's hack some code</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../intro/">Introduction</a>
+    <a class="" href="../intro/">Architecture</a>
                 </li>
                 <li class="">
                     
@@ -122,6 +127,8 @@
             <li><a class="toctree-l4" href="#introduction">Introduction</a></li>
         
             <li><a class="toctree-l4" href="#lets-create-our-first-connector">Let’s create our first connector</a></li>
+        
+            <li><a class="toctree-l4" href="#faq">FAQ</a></li>
         
             <li><a class="toctree-l4" href="#testing">Testing</a></li>
         
@@ -178,7 +185,8 @@ shared libraries. But you may need some other npm packages to help you running y
 <p>When the application is started, it also gets some data through environment variables:</p><ul>
 <li><code>COZY_CREDENTIALS</code> : the auth token used by 
 <code>cozy-client-js</code> to communicate with the server ;</li><li><code>COZY_URL</code> : the API entry point ;</li><li><code>COZY_FIELD</code> : the settings specific to each connector, for example the path of folder where the user wants to store the remote files ;</li></ul>
-<p>But the base connector (<code>require(&lsquo;cozy-konnector-libs&rsquo;).baseKonnector</code>) in cozy-konnector-libs handles these for you.</p><p>The application can access a temporary file system, deleted at the end of its execution. Its logs (standard and error output) are kept by the server.</p><h2 id="lets-create-our-first-connector">Let’s create our first connector<a class="headerlink" href="#lets-create-our-first-connector" title="Permanent link">&para;</a></h2><p>The easiest way to create a new connector is to use <a href="https://github.com/cozy/cozy-konnector-template">our template</a>:</p><pre class="codehilite"><code class="language-sh">git clone https://github.com/cozy/cozy-konnector-template
+<p>But the base connector (<code>require(&lsquo;cozy-konnector-libs&rsquo;).baseKonnector</code>) in cozy-konnector-libs handles these for you.</p><p>The application can access a temporary file system, deleted at the end of its execution. Its logs (standard and error output) are kept by the server.</p><p>From the server point of view, each connector is a <code>job</code> run through a 
+<code>trigger</code>.</p><h2 id="lets-create-our-first-connector">Let’s create our first connector<a class="headerlink" href="#lets-create-our-first-connector" title="Permanent link">&para;</a></h2><p>The easiest way to create a new connector is to use <a href="https://github.com/cozy/cozy-konnector-template">our template</a>:</p><pre class="codehilite"><code class="language-sh">git clone https://github.com/cozy/cozy-konnector-template
 cd cozy-konnector-template
 yarn # or npm install</code></pre>
 
@@ -204,8 +212,14 @@ module.exports = baseKonnector.createNew({
 
 
 <h4 id="fetch-operations">Fetch operations<a class="headerlink" href="#fetch-operations" title="Permanent link">&para;</a></h4><p>Every time the connector is run, it will call every method from the <code>fetchOperations</code> array. Use this methods to log into the remote site, fetch data and save it.</p><p>Each function must use the same signature: <code>functionName(fields, bills, data, next)</code> where:</p><ul>
-<li><code>fields</code> are the values of the optional configuration fields;</li><li><code>entries</code> is an object to pass data from one function to </li><li><code>data</code> allow to pass raw data from one function to the next one;</li><li><code>next</code> is a function to call to execute next function. One may pass an error as first argument.</li></ul>
-<p>Many operations are common to most of the connectors, so we created some common functions you can import from the shared library:</p><p>We’ll have a deeper look at this methods below.</p><h3 id="konnector-lib">Konnector lib<a class="headerlink" href="#konnector-lib" title="Permanent link">&para;</a></h3><p>The Cozy Konnector Lib provide some useful methods for common tasks:</p><ul>
+<li><code>fields</code> are the values of the optional configuration fields;</li><li><code>entries</code> is an object to pass data from one function to the next one;</li><li><code>data</code> allows to pass raw data from one function to the next one;</li><li><code>next</code> is a function to call to execute next function. One may pass an error as first argument. Don’t forget to call it at the end of every step.</li></ul>
+<p>A basic connector workflow involves:
+ - getting data and storing them into <code>entries.fetched</code>. You can get the data by calling an API, scraping the remote website…;
+ - filtering data to remove the ones already present inside the database. The filtered data will be put into 
+<code>entries.filtered</code>;
+ - save the filtered data into the database.</p><p>Many operations are common to most of the connectors, so we created some common functions you can import from the shared library. Most of the time, you’ll just have to take care of fetching data, store them into <code>entries.fetched</code> then use the common methods to filter and save them.</p><p>We’ll have a deeper look at this methods below.</p><h4 id="error-handling">Error handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h4><p>If your connector hit some issue fetching or saving the data, it can return an error code by passing it to the <code>next</code> method. Some error code are defined inside the Cozy Collect application and will display an explicit error to the user:</p><ul>
+<li><code>LOGIN_FAILED</code>: the konnector could not login;</li><li><code>NOT_EXISTING_DIRECTORY</code>: the folder specified as folder_to_save does not exist (checked by base_konnector);</li><li><code>UNKNOWN_ERROR</code>: there was an unexpected error, please take a look at the logs to know what appened;</li></ul>
+<h3 id="konnector-lib">Konnector lib<a class="headerlink" href="#konnector-lib" title="Permanent link">&para;</a></h3><p>The Cozy Konnector Lib provide some useful methods for common tasks:</p><ul>
 <li><code>baseKonnector.createNew()</code>: create the connector and fetch data;</li><li><code>cozyClient</code> gives an instance of cozy-client-js already initialized according to COZY_URL, and
    COZY_CREDENTIALS</li><li><code>fetcher</code> is the internal class that run fetching operations in sequence, calling the functions with the right parameters;</li><li><code>log(type, message)</code> allows to log messages;</li><li><code>manifest</code> extracts informations from the manifest (mainly used internaly at the moment);</li><li><code>naming</code> is a method allowing to build file names according to parameters;</li><li><code>filterExisting</code> to filter data;</li><li><code>linkBankOperation</code> to link a bill to a bank operation;</li><li><code>saveDataAndFile</code> save the data;</li><li><code>updateOrCreate</code> create or update documents inside database</li></ul>
 <p>There are also some models available in require(&lsquo;cozy-konnector-libs&rsquo;).models :</p><ul>
@@ -222,8 +236,8 @@ You can refer to the <a href="https://cozy.github.io/cozy-client-js/">cozy-clien
 cozyClient.data.defineIndex('my.doctype', ['_id'])</code></pre>
 
 
-<p><strong> filterExisting(log, model, suffix, vendor) </strong></p><p>This method returns a function that filter data fetched from the remote site to only keep the ones that don’t exist in database. The fetched data are expected to be in the <code>entries.fetched</code> array. The resulting array will be put into 
-<code>filtered</code></p><p>Parameters:</p><ul>
+<p><strong> filterExisting(log, model, suffix, vendor) </strong></p><p>This method returns a fetch function that filter data fetched from the remote site to only keep the ones that don’t exist in database. The fetched data are expected to be in the <code>entries.fetched</code> array. The resulting array will be put into 
+<code>entries.filtered</code></p><p>Parameters:</p><ul>
 <li><code>log</code>: unused (kept for retro-compatibility);</li><li><code>model</code>: the model;</li><li><code>suffix</code>: unused (kept for retro-compatibility);</li><li><code>vendor</code>: if a vendor parameter is given, entry should be of given vendor to be added to the hash (useful for bills).</li></ul>
 <pre class="codehilite"><code class="language-javascript">konnector.fetchOperations = [ (…), customFilterExisting, (…) ];
 
@@ -232,13 +246,13 @@ function customFilterExisting(requiredFields, entries, data, next) {
 }</code></pre>
 
 
-<p><strong> saveDataAndFile(logger, model, options, tags) </strong></p><p>This method returns a function that creates an object in database for each item in <code>entries.filtered</code> array. If item has a 
+<p><strong> saveDataAndFile(logger, model, options, tags) </strong></p><p>This method returns a fetch function that creates an object in database for each item in <code>entries.filtered</code> array. If item has a 
 <code>pdfurl</code> attribute, the remote file will be downloaded and stored on the filesystem. 
 <code>pdfUrl</code> can point to any file, not necessarily a PDF file. The name comes from legacy code and has not been updated.</p><p>Parameters:</p><ul>
 <li><code>log</code>: unused (kept for retro-compatibility);</li><li><code>model</code>: the model;</li><li><code>options</code>:</li><li><code>tags</code>: array of tags to apply to created files.</li></ul>
-<p><strong> updateOrCreate(logger, model, filter, options)` </strong></p><p>This method return a function that creates or updates an object in database for each item in the <code>entries[model.displayName]</code> array. The filter parameters specifies the fields used to find the document inside the database.</p><p>Parameters:</p><ul>
+<p><strong> updateOrCreate(logger, model, filter, options)` </strong></p><p>This method return a fetch function that creates or updates an object in database for each item in the <code>entries[model.displayName]</code> array. The filter parameters specifies the fields used to find the document inside the database.</p><p>Parameters:</p><ul>
 <li><code>log</code>: unused (kept for retro-compatibility);</li><li><code>model</code>: the model;</li><li><code>filters</code>: an array of fields names;</li><li><code>tags</code>: array of tags to apply to created files.</li></ul>
-<p><strong> linkBankOperation </strong></p><p>This method returns a function that will try to link a bill to a bank operation. For each data item from <code>entries.fetched</code>, it will look for an operation that could match this entry. Once found, it attaches a binary to the bank operation. It’s the same binary that is attached to the corresponding file object.</p><p>The criteria to find a matching operation are:</p><ul>
+<p><strong> linkBankOperation </strong></p><p>This method returns a fetch function that will try to link a bill to a bank operation. For each data item from <code>entries.fetched</code>, it will look for an operation that could match this entry. Once found, it attaches a binary to the bank operation. It’s the same binary that is attached to the corresponding file object.</p><p>The criteria to find a matching operation are:</p><ul>
 <li>Operation label should contain one of the identifiers given in parameter;</li><li>The date should be between (bill date - <code>dateDelta</code>) and (bill date + 
 <code>dateDelta</code>). Where 
 <code>dateDelta</code> is given as a parameter and is in days;</li><li>The amount should be between (bill amount - <code>amountDelta</code>) and (bill amount + 
@@ -263,13 +277,15 @@ module.exports = baseModel.createNew({
 <h3 id="the-manifest">The manifest<a class="headerlink" href="#the-manifest" title="Permanent link">&para;</a></h3><p>Each connector is described by a Manifest. This is a JSON file named <code>manifest.konnector</code> at the root of your code folder. It should include the following information:</p><ul>
 <li><code>name</code>: …</li><li><code>slug</code>: the internal name of the application;</li><li><code>type</code>: for now, the only allowed value is 
 <code>node</code>. In the future, we may support other types of connectors;</li><li><code>version</code>: </li><li><code>source</code>: git URL of the source code repository;</li><li><code>fields</code>: @TODO</li><li><code>locales</code>: @TODO</li><li><code>permissions</code>: an object describing the permissions the connector requires;</li><li><code>developer</code>: who are you?</li><li><code>name</code>: </li><li><code>url</code>: </li></ul>
-<h4 id="permissions">Permissions<a class="headerlink" href="#permissions" title="Permanent link">&para;</a></h4><p>TODO See documentation of the manifest of an application</p><p>The connector parameters are stored in <code>io.cozy.accounts</code> documents, so each connector should get access to this doctype.</p><h2 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h2><h3 id="running-in-standalone-mode">Running in standalone mode<a class="headerlink" href="#running-in-standalone-mode" title="Permanent link">&para;</a></h3><p>To ease the development, you don’t need a running Cozy server to test your code. We provide a standalone mode, that mocks the server. This mode uses a configuration file to define the environment variables that the server will send to your application in production. So, start by copying <code>data/env_fields.json.template</code> to 
+<h4 id="permissions">Permissions<a class="headerlink" href="#permissions" title="Permanent link">&para;</a></h4><p>TODO See documentation of the manifest of an application</p><p>The connector parameters are stored in <code>io.cozy.accounts</code> documents, so each connector should get access to this doctype.</p><h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h2><h3 id="how-do-i-scrap-a-website">How do I scrap a website<a class="headerlink" href="#how-do-i-scrap-a-website" title="Permanent link">&para;</a></h3><p>You will require the <a href="https://www.npmjs.com/package/request">request</a> and 
+<a href="https://www.npmjs.com/package/cheerio">cheerio</a> npm packages:</p><pre class="codehilite"><code class="language-shell">yarn add cheerio request # or npm install --save cheerio request</code></pre>
+
+
+<h2 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h2><h3 id="running-in-standalone-mode">Running in standalone mode<a class="headerlink" href="#running-in-standalone-mode" title="Permanent link">&para;</a></h3><p>To ease the development, you don’t need a running Cozy server to test your code. We provide a standalone mode, that mocks the server. This mode uses a configuration file to define the environment variables that the server will send to your application in production. So, start by copying <code>data/env_fields.json.template</code> to 
 <code>data/env_fields.json</code> and set the parameters your application requires. Then start it with 
 <code>yarn standalone</code> or 
 <code>npm run standalone</code>.</p><p>In standalone mode, saving a file will put it into the <code>data</code> folder at the root of your repository. If you need to query the database, put your mock data into 
-<code>data/fixture.json</code>. Also, fetched data will just be outputted to the console instead of being sent to the database.</p><h3 id="todo">TODO<a class="headerlink" href="#todo" title="Permanent link">&para;</a></h3><p>L’exécution d’un connecteur est une tâche (<code>job</code>) lancée par un déclencheur (
-<code>trigger</code>). Cf 
-<a href="https://cozy.github.io/cozy-docdev-v3/fr/intro#ex%C3%A9cuter-des-t%C3%A2ches-sur-le-serveur">la documentation</a>.</p>
+<code>data/fixture.json</code>. Also, fetched data will just be outputted to the console instead of being sent to the database.</p>
               
             </div>
           </div>
