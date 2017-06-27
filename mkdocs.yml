@@ -1,5 +1,6 @@
 site_name: Cozy Documentation
 site_url: http://clochix.github.io/gozy-docs/
+site_dir: site/en
 repo_url: https://github.com/clochix/gozy-docs/
 edit_uri: edit/master/docs/
 site_description: Cozy documentation
@@ -14,16 +15,19 @@ pages:
     - 'Synchronize your phone': sync/phone.md
     - 'Synchronize your computer': sync/desktop.md
   - Install:
-    - Manual: install/manual.md
+    - "Install Cozy on your own server": install/index.md
+    - "Manual installation": install/manual.md
   - Develop:
-    - Summary: dev/index.md
-    - Introduction: dev/intro.md
+    - "Let's hack some code": dev/index.md
+    - "Architecture": dev/intro.md
     - "Create your first app": dev/app.md
     - "Develop a connector": dev/konnector.md
 theme: readthedocs
+theme_dir: 'cozy-theme'
 markdown_extensions:
   - admonition
   - codehilite
+  - extra
   - footnotes
   - markdown_i18n:
       i18n_lang: en_US
