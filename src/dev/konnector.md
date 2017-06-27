@@ -25,6 +25,8 @@ But the base connector (`require('cozy-konnector-libs').baseKonnector`) in cozy-
 
 The application can access a temporary file system, deleted at the end of its execution. Its logs (standard and error output) are kept by the server.
 
+From the server point of view, each connector is a `job` run through a `trigger`.
+
 ## Let’s create our first connector
 
 The easiest way to create a new connector is to use [our template](https://github.com/cozy/cozy-konnector-template):
@@ -71,13 +73,28 @@ Every time the connector is run, it will call every method from the `fetchOperat
 Each function must use the same signature: `functionName(fields, bills, data, next)` where:
 
  - `fields` are the values of the optional configuration fields;
- - `entries` is an object to pass data from one function to 
- - `data` allow to pass raw data from one function to the next one;
- - `next` is a function to call to execute next function. One may pass an error as first argument.
+ - `entries` is an object to pass data from one function to the next one;
+ - `data` allows to pass raw data from one function to the next one;
+ - `next` is a function to call to execute next function. One may pass an error as first argument. Don’t forget to call it at the end of every step.
 
-Many operations are common to most of the connectors, so we created some common functions you can import from the shared library:
+A basic connector workflow involves:
+ - getting data and storing them into `entries.fetched`. You can get the data by calling an API, scraping the remote website…;
+ - filtering data to remove the ones already present inside the database. The filtered data will be put into `entries.filtered`;
+ - save the filtered data into the database.
+
+Many operations are common to most of the connectors, so we created some common functions you can import from the shared library. Most of the time, you’ll just have to take care of fetching data, store them into `entries.fetched` then use the common methods to filter and save them.
 
 We’ll have a deeper look at this methods below.
+
+
+#### Error handling
+
+If your connector hit some issue fetching or saving the data, it can return an error code by passing it to the `next` method. Some error code are defined inside the Cozy Collect application and will display an explicit error to the user:
+
+  - `LOGIN_FAILED`: the konnector could not login;
+  - `NOT_EXISTING_DIRECTORY`: the folder specified as folder_to_save does not exist (checked by base_konnector);
+  - `UNKNOWN_ERROR`: there was an unexpected error, please take a look at the logs to know what appened;
+
 
 ### Konnector lib
 
@@ -121,7 +138,7 @@ cozyClient.data.defineIndex('my.doctype', ['_id'])
 
 ** filterExisting(log, model, suffix, vendor) **
 
-This method returns a function that filter data fetched from the remote site to only keep the ones that don’t exist in database. The fetched data are expected to be in the `entries.fetched` array. The resulting array will be put into `filtered`
+This method returns a fetch function that filter data fetched from the remote site to only keep the ones that don’t exist in database. The fetched data are expected to be in the `entries.fetched` array. The resulting array will be put into `entries.filtered`
 
 Parameters:
 
@@ -141,7 +158,7 @@ function customFilterExisting(requiredFields, entries, data, next) {
 
 ** saveDataAndFile(logger, model, options, tags) **
 
-This method returns a function that creates an object in database for each item in `entries.filtered` array. If item has a `pdfurl` attribute, the remote file will be downloaded and stored on the filesystem. `pdfUrl` can point to any file, not necessarily a PDF file. The name comes from legacy code and has not been updated.
+This method returns a fetch function that creates an object in database for each item in `entries.filtered` array. If item has a `pdfurl` attribute, the remote file will be downloaded and stored on the filesystem. `pdfUrl` can point to any file, not necessarily a PDF file. The name comes from legacy code and has not been updated.
 
 Parameters:
 
@@ -152,7 +169,7 @@ Parameters:
 
 ** updateOrCreate(logger, model, filter, options)` **
 
-This method return a function that creates or updates an object in database for each item in the `entries[model.displayName]` array. The filter parameters specifies the fields used to find the document inside the database.
+This method return a fetch function that creates or updates an object in database for each item in the `entries[model.displayName]` array. The filter parameters specifies the fields used to find the document inside the database.
 
 Parameters:
 
@@ -164,7 +181,7 @@ Parameters:
 
 ** linkBankOperation **
 
-This method returns a function that will try to link a bill to a bank operation. For each data item from `entries.fetched`, it will look for an operation that could match this entry. Once found, it attaches a binary to the bank operation. It’s the same binary that is attached to the corresponding file object.
+This method returns a fetch function that will try to link a bill to a bank operation. For each data item from `entries.fetched`, it will look for an operation that could match this entry. Once found, it attaches a binary to the bank operation. It’s the same binary that is attached to the corresponding file object.
 
 The criteria to find a matching operation are:
 
@@ -231,6 +248,82 @@ TODO See documentation of the manifest of an application
 
 The connector parameters are stored in `io.cozy.accounts` documents, so each connector should get access to this doctype.
 
+
+## FAQ
+
+### How do I scrap a website
+
+You will require the [request](https://www.npmjs.com/package/request) and [cheerio](https://www.npmjs.com/package/cheerio) npm packages:
+
+```shell
+yarn add cheerio request # or npm install --save cheerio request
+```
+
+Here’s a sample code that will fetch the login page to get the value of the anti-CSRF token, submit the login form, browse to the bills page and fetch a bill:
+
+
+```javascript
+function fetchBill(requiredFields, entries, data, next) {
+  'use strict';
+  next();
+  // Create a request instance that keep cookies between requests and follow redirects
+  let request = require('request').defaults({jar: true, followRedirect: true, followAllRedirects: true}),
+      cheerio = require('cheerio'),
+      moment  = require('moment');
+  // Get the login page to get the CSRF token
+  request("https://login.remote.web", function (err, res, html) {
+    if (err) {
+      return next(err.message);
+    }
+    // Post the form
+    let $ = cheerio.load(html),
+        form = {
+          form: {
+            login: requiredFields.login,
+            password: requiredFields.password,
+            csrf_token: $('[name="csrf_token"]').val(),
+          }
+        };
+    request.post('https://login.remote.web', form, function (err, res, html) {
+      if (err) {
+        return next(err.message);
+      }
+      request("https://admin.remote.web/bills", function (err, res, html) {
+        if (err) {
+          return next(err.message);
+        }
+        entries.fetched = [{date: moment($("bill_date")), value: $("#bill_value")}];
+        next();
+      });
+    });
+  });
+}
+```
+
+The whole connector will be as simple as:
+
+```javascript
+const {baseKonnector, filterExisting, saveDataAndFile, models} = require("cozy-konnector-libs"),
+      MyBills = models.baseModel.createNew({
+          name: "me.mycozy.mybill"
+      });
+
+function fetchBill(requiredFields, entries, data, next) {
+  (…);
+}
+
+module.exports = baseKonnector.createNew({
+  name: 'me.mycozy.mybill',
+  fetchOperations: [
+    fetchBill,
+    filterExisting(null, MyBills),
+    saveDataAndFile(null, MyBills, {})
+  ]
+});
+```
+
+
+
 ## Testing
 
 ### Running in standalone mode
@@ -240,7 +333,3 @@ To ease the development, you don’t need a running Cozy server to test your cod
 In standalone mode, saving a file will put it into the `data` folder at the root of your repository. If you need to query the database, put your mock data into `data/fixture.json`. Also, fetched data will just be outputted to the console instead of being sent to the database.
 
 
-### TODO
-
-
-L’exécution d’un connecteur est une tâche (`job`) lancée par un déclencheur (`trigger`). Cf [la documentation](https://cozy.github.io/cozy-docdev-v3/fr/intro#ex%C3%A9cuter-des-t%C3%A2ches-sur-le-serveur).
