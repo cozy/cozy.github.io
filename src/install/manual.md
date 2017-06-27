@@ -108,6 +108,34 @@ Edit this file to adapt it to your configuration. You should setup a directory t
 ```
 Don’t forget to allow Cozy user to write inside this folder.
 
+
+#### Compile a recent stack
+
+The released build may not contain the latest fixes. If you want an up to date version of the stack, you can compile it from the sources. This requires to install the Go compiler, fetch the sources and compile them:
+
+```shell
+apt-get --no-install-recommends -y install \
+        ca-certificates \
+        curl \
+        net-tools \
+        nginx \
+        sudo \
+        vim-tiny \
+        build-essential \
+        pkg-config \
+        erlang \
+        libicu-dev \
+        libmozjs185-dev \
+        libcurl4-openssl-dev \
+        git
+cd /tmp
+curl -LO https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz
+tar -C /usr/local -xzf go1.8.3.linux-amd64.tar.gz
+PATH=$PATH:/usr/local/go/bin go get -u github.com/cozy/cozy-stack
+cp /root/go/bin/cozy-stack /usr/local/bin/cozy-stack
+chmod +x /usr/local/bin/cozy-stack
+```
+
 ## Configuration
 
 ### NGinx
