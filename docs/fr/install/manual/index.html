@@ -61,7 +61,7 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../../use/">Utiliser Cozy</a>
+    <a class="" href="../../use/index_fr/">Utiliser Cozy</a>
                 </li>
     </ul>
 	    </li>
@@ -83,6 +83,11 @@
     <a class="" href="../../sync/desktop/">Synchronisez vos ordinateurs</a>
                 </li>
     </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../download/">Télécharger</a>
 	    </li>
           
             <li class="toctree-l1">
@@ -233,7 +238,7 @@ curl -X PUT http://127.0.0.1:5984/_global_changes</code></pre>
 <div class="admonition warning">
 <p>⚠️ The default CouchDB installation has no admin user. Everybody can query the server. So, in production environment, make sure to create en admin user and update the CouchDB connexion URL inside the configuration file of Cozy.</p></div>
 <h3 id="install-the-cozy-stack">Install the Cozy Stack<a class="headerlink" href="#install-the-cozy-stack" title="Permanent link">&para;</a></h3><p>The Cozy server is just a single binary. You can fetch one of its releases from Github:</p><pre class="codehilite"><code class="language-shell">curl -o /usr/local/bin/cozy-stack \
-     -L https://github.com/cozy/cozy-stack/releases/download/2017M1-alpha/cozy-stack-linux-amd64-2017M1-alpha
+     -L https://github.com/cozy/cozy-stack/releases/download/2017M2-alpha/cozy-stack-linux-amd64-2017M2-alpha
 chmod +x /usr/local/bin/cozy-stack
 adduser --system \
         --no-create-home \
@@ -256,7 +261,29 @@ chown -R cozy: /etc/cozy</code></pre>
     url: file://localhost/var/lib/cozy</code></pre>
 
 
-<p>Don’t forget to allow Cozy user to write inside this folder.</p><h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2><h3 id="nginx">NGinx<a class="headerlink" href="#nginx" title="Permanent link">&para;</a></h3><p>Let’s assume you want to host a server on <code>mycozy.tld</code> with a self-signed certificate.</p><p>Generate the certificate. We need a wild-card certificate, as every application inside Cozy will have it’s own sub-domain:</p><pre class="codehilite"><code class="language-shell">sudo openssl req -x509 -nodes -newkey rsa:4096 \
+<p>Don’t forget to allow Cozy user to write inside this folder.</p><h4 id="compile-a-recent-stack">Compile a recent stack<a class="headerlink" href="#compile-a-recent-stack" title="Permanent link">&para;</a></h4><p>The released build may not contain the latest fixes. If you want an up to date version of the stack, you can compile it from the sources. This requires to install the Go compiler, fetch the sources and compile them:</p><pre class="codehilite"><code class="language-shell">apt-get --no-install-recommends -y install \
+        ca-certificates \
+        curl \
+        net-tools \
+        nginx \
+        sudo \
+        vim-tiny \
+        build-essential \
+        pkg-config \
+        erlang \
+        libicu-dev \
+        libmozjs185-dev \
+        libcurl4-openssl-dev \
+        git
+cd /tmp
+curl -LO https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz
+tar -C /usr/local -xzf go1.8.3.linux-amd64.tar.gz
+PATH=$PATH:/usr/local/go/bin go get -u github.com/cozy/cozy-stack
+cp /root/go/bin/cozy-stack /usr/local/bin/cozy-stack
+chmod +x /usr/local/bin/cozy-stack</code></pre>
+
+
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2><h3 id="nginx">NGinx<a class="headerlink" href="#nginx" title="Permanent link">&para;</a></h3><p>Let’s assume you want to host a server on <code>mycozy.tld</code> with a self-signed certificate.</p><p>Generate the certificate. We need a wild-card certificate, as every application inside Cozy will have it’s own sub-domain:</p><pre class="codehilite"><code class="language-shell">sudo openssl req -x509 -nodes -newkey rsa:4096 \
     -keyout /etc/cozy/mycozy.tld.key \
     -out /etc/cozy/mycozy.tld.crt \
     -days 365 -subj &quot;/CN={*.mycozy.tld}&quot;</code></pre>
@@ -285,18 +312,18 @@ sudo systemctl enable nginx # enable the nginx service at startup, if need to</c
 
 
 <h2 id="running">Running<a class="headerlink" href="#running" title="Permanent link">&para;</a></h2><p>For now, we’ll just run the server as a background job, but it is highly recommended to use some supervisor software.</p><p>First, start the server:</p><pre class="codehilite"><code class="language-shell">sudo -b -u cozy sh -c '/usr/local/bin/cozy-stack serve \
-     --log-level debug \
+     --log-level info \
      --host 0.0.0.0 &gt;&gt; /var/log/cozy/cozy.log 2 &gt;&gt; /var/log/cozy/cozy-err.log'</code></pre>
 
 
-<p>Then, create your instance:</p><pre class="codehilite"><code class="language-shell">cozy-stack instances add \
+<p>Then, create your instance and install the applications:</p><pre class="codehilite"><code class="language-shell">cozy-stack instances add \
            --host 0.0.0.0 \
-           --apps files,settings,onboarding \
+           --apps drive,photos,collect,settings \
            --passphrase &quot;XXX&quot; \
            mycozy.tld</code></pre>
 
 
-<p>You can add other instances by just running this command again.</p><h2 id="sample-configuration-files">Sample configuration files<a class="headerlink" href="#sample-configuration-files" title="Permanent link">&para;</a></h2><h3 id="nginx_1">Nginx<a class="headerlink" href="#nginx_1" title="Permanent link">&para;</a></h3><p>Put this file into <code>/etc/nginx/sites-available</code> and enable it by creating a symlink in 
+<p><code>&ndash;passphrase &ldquo;XXX&rdquo;</code> allows to set the initial password of the instance.</p><p>You can add other instances by just running this commands again.</p><h2 id="sample-configuration-files">Sample configuration files<a class="headerlink" href="#sample-configuration-files" title="Permanent link">&para;</a></h2><h3 id="nginx_1">Nginx<a class="headerlink" href="#nginx_1" title="Permanent link">&para;</a></h3><p>Put this file into <code>/etc/nginx/sites-available</code> and enable it by creating a symlink in 
 <code>/etc/nginx/sites-enabled</code>.</p><pre class="codehilite"><code class="language-nginx">server {
     listen 443;
 
