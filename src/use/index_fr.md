@@ -40,7 +40,7 @@ La plateforme Cozy est conçue pour vous permettre de contrôler les données so
 
 Avant d’arriver à la maison, vous devez rentrer votre adresse dans un GPS ou la connaitre par cœur. C’est exactement la même chose pour votre Cozy mais sans la boussole !
 
-![Screenshot](img/screenshot_first_screen.png)
+![Page d’accueil de votre serveur](../img/use/screenshot_first_screen.png)
 
 L’adresse de votre Cozy, c’est la vôtre et à la différence de votre maison, elle ne figure pas dans les pages blanches visibles par tous.
 
@@ -54,7 +54,7 @@ Pas de panique ! Nous vous avons préparé quelques exemples pour vous aider �
 
 !!! tip "L’astuce de Claude"
     Ajoutez votre adresse Cozy à vos favoris pour y accéder en un seul clic
-    ![Screenshot](img/screenshot_bookmark.png)
+    ![Ajoutez votre serveur à vos favoris](../img/use/screenshot_bookmark.png)
 
 ### Créer votre mot de passe
 
@@ -75,8 +75,8 @@ Cozy vous permet d’enregistrer tous vos fichiers (photos, vidéos, documents a
 2. Faites glisser et déposez les fichiers souhaités dans le dossier Cozy Drive.
 3. Simple comme dire bonjour n’est-ce pas ? Votre Cozy garde vos fichiers bien au chaud à l’abri de tous !
 
-![Screenshot](img/screenshot_drive_windows.png)
-![Screenshot](img/screenshot_drive_mac.png)
+![Cozy Drive pour Windows](../img/use/screenshot_drive_windows.png)
+![Cozy Drive pour MacOS](../img/use/screenshot_drive_mac.png)
 
 ### Sur votre Cozy depuis un navigateur
 
@@ -85,42 +85,69 @@ Cozy vous permet d’enregistrer tous vos fichiers (photos, vidéos, documents a
 3. Cliquez sur le bouton bleu Transférer des fichiers en haut à droite de la fenêtre.
 4. Choisissez le fichier à ajouter, puis cliquez sur Ouvrir.
 
-### Accédez à vos fichiers ou que vous soyez et quand vous voulez 
+### Accédez à vos fichiers ou que vous soyez et quand vous voulez
+
 Enregistrez vos photos et vos documents dans Cozy, puis consultez-les à partir de l’application Cozy sur un ordinateur, un téléphone ou une tablette. Tous les fichiers que vous enregistrez dans Cozy sont automatiquement synchronisés sur l’ensemble de vos appareils, et restent ainsi toujours à portée de main.
-Pour retrouver vos fichiers partoutsur tous vos appareils (PC, mobile et tablette) et synchroniser vos photos avec votre Cozy, téléchargez l’application de Cozy pour iOS et l’application pour Android
-Connectez-vous pour enfin déconnecter ! 
-Cliquez sur Applications en haut à droite de votre écran et cliquez sur Cozy Collect, votre application regroupant les collecteurs  disponibles dans votre Cozy.
 
+Pour retrouver vos fichiers sur tous vos appareils (PC, mobile et tablette) et synchroniser vos photos avec votre Cozy, téléchargez l’application de [Cozy pour iOS](https://play.google.com/store/apps/details?id=io.cozy.drive.mobile) et l’[application pour Android](https://play.google.com/store/apps/details?id=io.cozy.drive.mobile).
 
+### Connectez-vous pour enfin déconnecter !
 
+Cliquez sur Applications en haut à droite de votre écran et cliquez sur Cozy Collect, votre application regroupant les collecteurs disponibles dans votre Cozy.
+
+![Page d’accueil de Cozy Collect](../img/use/screenshot_collect.png)
+![Liste des collecteurs disponibles](../img/use/screenshot_collect_all.png)
 
 En sélectionnant les connecteurs de vos fournisseurs, vous allez automatiser la récupération de vos données liées à vos différents comptes client.
+
 C’est très simple : sélectionnez le fournisseur, entrez vos identifiant et mot de passe – ce sont ceux qui vous permettent de rentrer sur votre espace client. En un seul clic, votre connecteur est opérationnel et actif.
+
 Un macaron vert apparaitra sur le connecteur ainsi actif.
+
 Vous pouvez renouveler l’opération avec autant de connecteurs que vous le souhaitez (dans la mesure ou vous avez un compte client associé).
 
+![Paramétrage d’un collecteur](../img/use/screenshot_collect_settings.png)
 
-Chapitre 4. Avez-vous pensé à tout ?
-Avez-vous téléchargé l’application Cozy Drive sur votre iPhone ou votre Android ?
+## Avez-vous pensé à tout ?
+
+### Avez-vous téléchargé l’application Cozy Drive sur votre iPhone ou votre Android ?
+
 Si oui, bravo ! Vous êtes déjà un Cozynaute confirmé !
+
 Si non, voici la marche à suivre :
+
 1. Connectez-vous à l’adresse de notre site cozy.io
 2. Allez au bas de la page et cliquez sur le lien « Télécharger l’app mobile »
-Vous êtes désormais sur la page : https://docs.cozy.io/fr/download/, vous pouvez cliquer sur le lien de votre choix en fonction de l’OS de votre appareil.
+
+Vous êtes désormais sur la page : [https://docs.cozy.io/fr/download/](https://docs.cozy.io/fr/download/), vous pouvez cliquer sur le lien de votre choix en fonction de l’OS de votre appareil.
+
 Où alors cliquez sur les icônes ci-dessous :
 
-Ex : Cozy Drive pour iOS si votre mobile est un iPhone ou Cozy Drive pour Android si votre mobile est un Android (liste des téléphones compatibles avec Cozy en bas de page).
+[![Dowload on the Apple store](../img/use/download/download-button_apple.svg)](https://itunes.apple.com/fr/app/cozy-drive/id1224102389?mt=8)
 
-Avez-vous téléchargé l’application Cozy de bureau ?
+[![Get it on Google Play](../img/use/download/download-button_android.png)](https://play.google.com/store/apps/details?id=io.cozy.drive.mobile)
+
+![Cozy Drive pour Android](../img/use/screenshot_drive_android.png)
+![Cozy Drive pour iPhone](../img/use/screenshot_drive_iphone.png)
+
+
+### Avez-vous téléchargé l’application Cozy de bureau ?
+
 Si oui, bravo ! Vous êtes déjà un Cozynaute confirmé !
+
 Si ce n’est pas déjà fait, cela vous prendra moins de deux minutes pour l’installer :
+
 1. Connectez-vous à l’adresse de notre site cozy.io
 2. Allez au bas de la page et cliquez sur le lien « Télécharger l’app PC»
-Vous êtes désormais sur la page : https://docs.cozy.io/fr/download/, vous pouvez cliquer sur le lien de votre choix en fonction de l’OS de votre PC : MacOS ou Windows
+
+Vous êtes désormais sur la page : [https://docs.cozy.io/fr/download/](https://docs.cozy.io/fr/download/), vous pouvez cliquer sur le lien de votre choix en fonction de l’OS de votre PC : [MacOS](https://nuts.cozycloud.cc/download/channel/beta/osx) ou [Microsoft Windows](https://nuts.cozycloud.cc/download/channel/beta/win).
+
 Félicitations ! Votre Cozy n’a désormais plus de secret pour vous.
 
-Chapitre 5. Encore des questions ?
+## Encore des questions ?
+
 Notre équipe support se tient à votre disposition pour toute autre question. Visitez notre page Aide en ligne sur le site cozy.io.
-Venez également nous dire bonjour sur Twitter et Facebook.
+
+Venez également nous dire bonjour sur [Twitter](https://twitter.com/mycozycloud/) et [Facebook](https://www.facebook.com/mycozycloud/).
 
 

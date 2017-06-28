@@ -7,7 +7,7 @@ The go-to website about Cozy configuration and setup.
   <div class="home-action">
     <div>
       <a href="use/"><img src="../assets/images/home/icon-cloud.svg">
-      [Découverte de votre nouveau domicile numérique](use)
+      [Découverte de votre nouveau domicile numérique](use/index_fr)
     </div>
   </div>
 

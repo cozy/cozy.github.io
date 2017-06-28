@@ -27,7 +27,7 @@ Requires Android 5.0.0
 
 Requires MacOS 10.12.x Sierra
 
-[Dowload forMacOS](https://nuts.cozycloud.cc/download/channel/beta/osx)
+[Dowload for MacOS](https://nuts.cozycloud.cc/download/channel/beta/osx)
 
 
 ### Cozy Drive for Microsoft Windows
