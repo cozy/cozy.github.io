@@ -210,12 +210,9 @@ Then, create your instance and install the applications:
 ```shell
 cozy-stack instances add \
            --host 0.0.0.0 \
-           --apps settings,onboarding \
+           --apps drive,photos,collect,settings \
            --passphrase "XXX" \
            mycozy.tld
-cozy-stack apps install --domain "mycozy.tld" drive   "git://github.com/cozy/cozy-drive.git#build"
-cozy-stack apps install --domain "mycozy.tld" photos  "git://github.com/cozy/cozy-photos-v3.git#build"
-cozy-stack apps install --domain "mycozy.tld" collect "git://github.com/cozy/cozy-collect.git#build"
 ```
 
 `--passphrase "XXX"` allows to set the initial password of the instance.
