@@ -115,10 +115,10 @@ In this template, you can replace:
 
 ```shell
 sudo mkdir -p /etc/cozy/sites-available/
-# Paste the following config in the .config file
-sudo nano /etc/cozy/sites-available/${instance_domain}.conf
+# Paste the following config template in the .config file
+sudo nano /etc/cozy/sites-available/template.conf
 # Replace placeholders with actual values
-sudo sed "s/%PORT%/443/g; s/%SERVER_PORT%/8080/g; s/%DOMAIN%/${instance_domain}/g" "/etc/nginx/sites-available/${instance_domain}.conf" > "/etc/nginx/sites-available/${instance_domain}.conf"
+sudo sed "s/%PORT%/443/g; s/%SERVER_PORT%/8080/g; s/%DOMAIN%/${instance_domain}/g" "/etc/cozy/sites-available/template.conf" > "/etc/cozy/sites-available/${instance_domain}.conf"
 ```
 
 ```nginx
@@ -220,7 +220,7 @@ First, start the server:
 ```shell
 sudo -b -u cozy sh -c '/usr/local/bin/cozy-stack serve \
      --log-level debug \
-     --host 0.0.0.0 >> /var/log/cozy/cozy.log 2 >> /var/log/cozy/cozy-err.log'
+     --host 0.0.0.0 >> /var/log/cozy/cozy.log 2>> /var/log/cozy/cozy-err.log'
 ```
 
 Then, create your instance:
