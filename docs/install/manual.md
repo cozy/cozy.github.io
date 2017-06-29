@@ -61,6 +61,30 @@ For now, we’ll just run the database as a background job, but it is highly rec
 sudo -b -i -u couchdb sh -c '/home/couchdb/bin/couchdb >> /var/log/couchdb/couch.log 2>> /var/log/couchdb/couch-err.log'
 ```
 
+Alternatively, you can setup a service script, and use systemd to run couchdb as a service :
+```
+cat <<EOT >> /etc/systemd/system/couchdb.service
+[Unit]
+Description=Couchdb service
+After=network.target
+
+[Service]
+Type=simple
+User=couchdb
+ExecStart=/usr/bin/couchdb -o /dev/stdout -e /dev/stderr
+Restart=always
+EOT
+```
+
+Then to start and enable (start at boot) the service :
+```
+systemctl  daemon-reload
+systemctl  start couchdb.service
+systemctl  enable couchdb.service
+```
+
+
+
 Then, let’s create the default databases:
 ```shell
 curl -X PUT http://127.0.0.1:5984/_users
