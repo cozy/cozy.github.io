@@ -43,7 +43,7 @@
     <input type="text" name="q" placeholder="Search docs" />
   </form>
 </div>
-      <p><a href="../en">en</a>&nbsp;<a href="../fr/index_fr">fr</a></p>
+      <p><a href="../../index_fr/../../en">en</a>&nbsp;<a href="../../index_fr/../../../fr/index_fr">fr</a></p>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
@@ -103,7 +103,7 @@
     <a class="current" href="./">Installation manuelle</a>
     <ul class="subnav">
             
-    <li class="toctree-l3"><a href="#how-to-install-cozy-on-debian-jessie">How to install Cozy on Debian Jessie</a></li>
+    <li class="toctree-l3"><a href="#how-to-install-cozy-on-debian-stable">How to install Cozy on Debian Stable</a></li>
     
         <ul>
         
@@ -189,8 +189,10 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="how-to-install-cozy-on-debian-jessie">How to install Cozy on Debian Jessie<a class="headerlink" href="#how-to-install-cozy-on-debian-jessie" title="Permanent link">&para;</a></h1><div class="admonition warning">
+                <h1 id="how-to-install-cozy-on-debian-stable">How to install Cozy on Debian Stable<a class="headerlink" href="#how-to-install-cozy-on-debian-stable" title="Permanent link">&para;</a></h1><div class="admonition warning">
 <p>⚠️ This is a work in progress. For now, there’s no easy and officially supported way to install Cozy. You have to install it and all this dependencies by hand. This tutorial is intended for tech savvy people wanting to give Cozy a first try without waiting for the official documentation and images.</p></div>
+<div class="admonition warning">
+<p>For now, this documentation don’texplai how to install the technology stack required for connector, as the technology we use may evolve. So you won’t be able to run the connectors.</p></div>
 <h2 id="pre-requisites">Pre-requisites<a class="headerlink" href="#pre-requisites" title="Permanent link">&para;</a></h2><p>Cozy requires a CouchDB 2 database server, a reverse proxy and an SMTP server. We’ll use Nginx in this tutorial but feel free to use your reverse proxy of choice.</p><p>You&rsquo;ll also need a domain name and know how to associate all of its subdomains to the IP address of your server.</p><h2 id="install-dependencies">Install dependencies<a class="headerlink" href="#install-dependencies" title="Permanent link">&para;</a></h2><p>On a fresh new Debian Jessie, here are the packages that may be useful to install and manage your server:</p><pre class="codehilite"><code class="language-shell">apt-get update &amp;&amp; apt-get --no-install-recommends -y install \
             ca-certificates \
             curl \
