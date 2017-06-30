@@ -61,13 +61,15 @@ Pas de panique ! Nous vous avons préparé quelques exemples pour vous aider �
 !!! tip "L’astuce de Claude"
     Pour créer un mot de passe complexe mais facile à retenir, imaginez une phrase absurde et créez le mot de passe à partir des initiales des mots et de la ponctuation. Ainsi, « Maître renard, sur un nuage perché, tenait en son bec de la pluie » deviendra « Mr,s1ap,tesb2lp »
 
+![Créez votre mot de passe](../img/use/screenshot_password.png)
+
 ## Bien utiliser votre Cozy
 
 Nous avons élaboré une boîte à outils pour paramétrer votre Cozy et décupler ses capacités.
 
 ### Sauvegardez vos fichiers et documents en un seul clic
 
-Cozy vous permet d’enregistrer tous vos fichiers (photos, vidéos, documents administratifs, factures etc.) au même endroit et de les sauvegarder automatiquement. Ainsi, même si votre ordinateur tombe en panne ou si vous oubliez votre téléphone dans le train, tous vos fichiers restent protégés. Plus besoin d’un disque externe pour sauvegarder vos documents ! En tant que Bêta-Testeur, vous bénéficiez de 10 Go d’espace de stockage offerts.
+Cozy vous permet d’enregistrer tous vos fichiers (photos, vidéos, documents administratifs, factures etc.) au même endroit et de les sauvegarder automatiquement. Ainsi, même si votre ordinateur tombe en panne ou si vous oubliez votre téléphone dans le train, tous vos fichiers restent protégés. Plus besoin d’un disque externe pour sauvegarder vos documents !
 
 ### Ajout de fichiers à votre Cozy sur un ordinateur Windows ou Mac
 
@@ -84,6 +86,9 @@ Cozy vous permet d’enregistrer tous vos fichiers (photos, vidéos, documents a
 2. Ouvrez votre application Drive dans le menu Applications si ce n’est pas déjà fait
 3. Cliquez sur le bouton bleu Transférer des fichiers en haut à droite de la fenêtre.
 4. Choisissez le fichier à ajouter, puis cliquez sur Ouvrir.
+
+![Cozy Drive dans votre navigateur](../img/use/screenshot_drive_web.png)
+
 
 ### Accédez à vos fichiers ou que vous soyez et quand vous voulez
 
@@ -123,9 +128,9 @@ Vous êtes désormais sur la page : [https://docs.cozy.io/fr/download/](https:/
 
 Où alors cliquez sur les icônes ci-dessous :
 
-[![Dowload on the Apple store](../img/use/download/download-button_apple.svg)](https://itunes.apple.com/fr/app/cozy-drive/id1224102389?mt=8)
+[![Dowload on the Apple store](../img/download/download-button_apple.svg){: .download-button }](https://itunes.apple.com/fr/app/cozy-drive/id1224102389?mt=8)
 
-[![Get it on Google Play](../img/use/download/download-button_android.png)](https://play.google.com/store/apps/details?id=io.cozy.drive.mobile)
+[![Get it on Google Play](../img/download/download-button_android.png){: .download-button }](https://play.google.com/store/apps/details?id=io.cozy.drive.mobile)
 
 ![Cozy Drive pour Android](../img/use/screenshot_drive_android.png)
 ![Cozy Drive pour iPhone](../img/use/screenshot_drive_iphone.png)
