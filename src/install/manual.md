@@ -4,7 +4,7 @@
     ⚠️ This is a work in progress. For now, there’s no easy and officially supported way to install Cozy. You have to install it and all this dependencies by hand. This tutorial is intended for tech savvy people wanting to give Cozy a first try without waiting for the official documentation and images.
 
 !!! warning ""
-    For now, this documentation don’texplai how to install the technology stack required for connector, as the technology we use may evolve. So you won’t be able to run the connectors.
+    For now, this documentation don’t explain how to install the technology stack required for connector, as the technology we use may evolve. So you won’t be able to run the connectors.
 
 
 ## Pre-requisites
