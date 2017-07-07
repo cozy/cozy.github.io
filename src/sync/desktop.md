@@ -21,9 +21,9 @@ Coming soon… :)
 
 ## Configuration
 
-Once installed, start it. It will ask you for a few information:
+At the end of the installation, application will start and ask you for a few informations:
 
-* Your Cozy url. In other words, the address used to access to your Cozy.
+* Your Cozy URL. In other words, the address used to access to your Cozy.
 * Your Cozy password. We don’t save your password, we only use it to create a new device login which it uses to synchronize your files.
 * The folder where you want to synchronize your files.
 
