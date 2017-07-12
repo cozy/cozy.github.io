@@ -159,7 +159,7 @@ sudo openssl req -x509 -nodes -newkey rsa:4096 \
 
 Then create a virtual host for your server by creating `/etc/nginx/sites-available/mycozy.tld` and enable it by creating a symbolic link:
 ```shell
-sudo ln -s "/etc/nginx/sites-available/${instance_domain}.conf" \
+sudo ln -s "/etc/nginx/sites-available/mycozy.tld.conf" \
        /etc/nginx/sites-enabled/
 ```
 
