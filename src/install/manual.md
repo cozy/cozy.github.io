@@ -68,7 +68,30 @@ For now, we’ll just run the database as a background job, but it is highly rec
 sudo -b -i -u couchdb sh -c '/home/couchdb/bin/couchdb >> /var/log/couchdb/couch.log 2>> /var/log/couchdb/couch-err.log'
 ```
 
-Then, let’s create the default databases:
+Alternatively, you can setup a service script, and use systemd to run couchdb as a service :
+```
+cat <<EOT >> /etc/systemd/system/couchdb.service
+[Unit]
+Description=Couchdb service
+After=network.target
+
+[Service]
+Type=simple
+User=couchdb
+ExecStart=/home/couchdb/bin/couchdb -o /dev/stdout -e /dev/stderr
+Restart=always
+EOT
+```
+
+Then to start and enable (start at boot) the service :
+```
+systemctl  daemon-reload
+systemctl  start couchdb.service
+systemctl  enable couchdb.service
+```
+
+
+Last but not least, let’s create the default databases:
 ```shell
 curl -X PUT http://127.0.0.1:5984/_users
 curl -X PUT http://127.0.0.1:5984/_replicator
@@ -157,6 +180,10 @@ sudo openssl req -x509 -nodes -newkey rsa:4096 \
     -days 365 -subj "/CN={*.mycozy.tld}"
 ```
 
+
+Then create a virtual host for your server by creating a file at `/etc/cozy/sites-available/mycozy.tld.conf` with the following configuration template.
+
+=====
 Then create a virtual host for your server by creating `/etc/nginx/sites-available/mycozy.tld` and enable it by creating a symbolic link:
 ```shell
 sudo ln -s "/etc/nginx/sites-available/mycozy.tld.conf" \
@@ -207,7 +234,7 @@ First, start the server:
 ```shell
 sudo -b -u cozy sh -c '/usr/local/bin/cozy-stack serve \
      --log-level info \
-     --host 0.0.0.0 >> /var/log/cozy/cozy.log 2 >> /var/log/cozy/cozy-err.log'
+     --host 0.0.0.0 >> /var/log/cozy/cozy.log 2>> /var/log/cozy/cozy-err.log'
 ```
 
 Then, create your instance and install the applications:
@@ -224,6 +251,9 @@ cozy-stack instances add \
 
 You can add other instances by just running this commands again.
 
+!!! info ""
+    The url of your cozy determines the name of your instance.
+    If you choose another public port than the default public port for SSL (443), say `1443`, then you should reflect this when creating your cozy instance with the ${instance_domain} as `mycozy.tld:1443`.
 
 ## Sample configuration files
 
@@ -231,14 +261,19 @@ You can add other instances by just running this commands again.
 
 Put this file into `/etc/nginx/sites-available` and enable it by creating a symlink in `/etc/nginx/sites-enabled`.
 
+In this template, you need to replace the following placeholders:
+  - %PORT% with the public port nginx will listen to (default should be 443);
+  - %SERVER_PORT% with the private port cozy will listen to (default should be 8080);
+  - %DOMAIN% with your domain of choice: `mycozy.tld` in this example
+
 ```nginx
 server {
-    listen 443;
+    listen %PORT%;
 
-    server_name *.mycozy.tld;
+    server_name *.%DOMAIN%;
 
-    ssl_certificate /etc/cozy/mycozy.tld.crt;
-    ssl_certificate_key /etc/cozy/mycozy.tld.key;
+    ssl_certificate /etc/cozy/%DOMAIN%.crt;
+    ssl_certificate_key /etc/cozy/%DOMAIN%.key;
     ssl_session_cache shared:SSL:10m;
     ssl_session_timeout 10m;
     ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
