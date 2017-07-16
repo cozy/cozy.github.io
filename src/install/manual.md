@@ -58,7 +58,7 @@ We’ll install CouchDB inside `/home/couchdb`:
 cp -R rel/couchdb /home/couchdb
 chown -R couchdb:couchdb /home/couchdb
 find /home/couchdb -type d -exec chmod 0770 {} \;
-chmod -R 0644 /home/couchdb/etc
+find /home/couchdb/etc -type f -exec chmod 644 {} \;
 mkdir /var/log/couchdb && chown couchdb: /var/log/couchdb
 ```
 
