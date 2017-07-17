@@ -227,14 +227,32 @@ adduser --system \
 <p>We’ll install CouchDB inside <code>/home/couchdb</code>:</p><pre class="codehilite"><code class="language-shell">cp -R rel/couchdb /home/couchdb
 chown -R couchdb:couchdb /home/couchdb
 find /home/couchdb -type d -exec chmod 0770 {} \;
-chmod -R 0644 /home/couchdb/etc
+chmod -R 0644 /home/couchdb/etc/*
 mkdir /var/log/couchdb &amp;&amp; chown couchdb: /var/log/couchdb</code></pre>
 
 
 <p>For now, we’ll just run the database as a background job, but it is highly recommended to use some supervisor software.</p><pre class="codehilite"><code class="language-shell">sudo -b -i -u couchdb sh -c '/home/couchdb/bin/couchdb &gt;&gt; /var/log/couchdb/couch.log 2&gt;&gt; /var/log/couchdb/couch-err.log'</code></pre>
 
 
-<p>Then, let’s create the default databases:</p><pre class="codehilite"><code class="language-shell">curl -X PUT http://127.0.0.1:5984/_users
+<p>Alternatively, you can setup a service script, and use systemd to run couchdb as a service :</p><pre class="codehilite"><code>cat &lt;&lt;EOT &gt;&gt; /etc/systemd/system/couchdb.service
+[Unit]
+Description=Couchdb service
+After=network.target
+
+[Service]
+Type=simple
+User=couchdb
+ExecStart=/home/couchdb/bin/couchdb -o /dev/stdout -e /dev/stderr
+Restart=always
+EOT</code></pre>
+
+
+<p>Then to start and enable (start at boot) the service :</p><pre class="codehilite"><code>systemctl  daemon-reload
+systemctl  start couchdb.service
+systemctl  enable couchdb.service</code></pre>
+
+
+<p>Last but not least, let’s create the default databases:</p><pre class="codehilite"><code class="language-shell">curl -X PUT http://127.0.0.1:5984/_users
 curl -X PUT http://127.0.0.1:5984/_replicator
 curl -X PUT http://127.0.0.1:5984/_global_changes</code></pre>
 
@@ -293,7 +311,8 @@ chmod +x /usr/local/bin/cozy-stack</code></pre>
     -days 365 -subj &quot;/CN={*.mycozy.tld}&quot;</code></pre>
 
 
-<p>Then create a virtual host for your server by creating <code>/etc/nginx/sites-available/mycozy.tld</code> and enable it by creating a symbolic link:</p><pre class="codehilite"><code class="language-shell">sudo ln -s &quot;/etc/nginx/sites-available/${instance_domain}.conf&quot; \
+<p>Then create a virtual host for your server by creating a file at <code>/etc/cozy/sites-available/mycozy.tld.conf</code> with the following configuration template.</p><p>=====
+Then create a virtual host for your server by creating <code>/etc/nginx/sites-available/mycozy.tld</code> and enable it by creating a symbolic link:</p><pre class="codehilite"><code class="language-shell">sudo ln -s &quot;/etc/nginx/sites-available/mycozy.tld.conf&quot; \
        /etc/nginx/sites-enabled/</code></pre>
 
 
@@ -317,7 +336,7 @@ sudo systemctl enable nginx # enable the nginx service at startup, if need to</c
 
 <h2 id="running">Running<a class="headerlink" href="#running" title="Permanent link">&para;</a></h2><p>For now, we’ll just run the server as a background job, but it is highly recommended to use some supervisor software.</p><p>First, start the server:</p><pre class="codehilite"><code class="language-shell">sudo -b -u cozy sh -c '/usr/local/bin/cozy-stack serve \
      --log-level info \
-     --host 0.0.0.0 &gt;&gt; /var/log/cozy/cozy.log 2 &gt;&gt; /var/log/cozy/cozy-err.log'</code></pre>
+     --host 0.0.0.0 &gt;&gt; /var/log/cozy/cozy.log 2&gt;&gt; /var/log/cozy/cozy-err.log'</code></pre>
 
 
 <p>Then, create your instance and install the applications:</p><pre class="codehilite"><code class="language-shell">cozy-stack instances add \
@@ -327,14 +346,21 @@ sudo systemctl enable nginx # enable the nginx service at startup, if need to</c
            mycozy.tld</code></pre>
 
 
-<p><code>&ndash;passphrase &ldquo;XXX&rdquo;</code> allows to set the initial password of the instance.</p><p>You can add other instances by just running this commands again.</p><h2 id="sample-configuration-files">Sample configuration files<a class="headerlink" href="#sample-configuration-files" title="Permanent link">&para;</a></h2><h3 id="nginx_1">Nginx<a class="headerlink" href="#nginx_1" title="Permanent link">&para;</a></h3><p>Put this file into <code>/etc/nginx/sites-available</code> and enable it by creating a symlink in 
-<code>/etc/nginx/sites-enabled</code>.</p><pre class="codehilite"><code class="language-nginx">server {
-    listen 443;
+<p><code>&ndash;passphrase &ldquo;XXX&rdquo;</code> allows to set the initial password of the instance.</p><p>You can add other instances by just running this commands again.</p><div class="admonition info">
+<p>The url of your cozy determines the name of your instance.
+If you choose another public port than the default public port for SSL (443), say <code>1443</code>, then you should reflect this when creating your cozy instance with the ${instance_domain} as 
+<code>mycozy.tld:1443</code>.</p></div>
+<h2 id="sample-configuration-files">Sample configuration files<a class="headerlink" href="#sample-configuration-files" title="Permanent link">&para;</a></h2><h3 id="nginx_1">Nginx<a class="headerlink" href="#nginx_1" title="Permanent link">&para;</a></h3><p>Put this file into <code>/etc/nginx/sites-available</code> and enable it by creating a symlink in 
+<code>/etc/nginx/sites-enabled</code>.</p><p>In this template, you need to replace the following placeholders:
+  - %PORT% with the public port nginx will listen to (default should be 443);
+  - %SERVER_PORT% with the private port cozy will listen to (default should be 8080);
+  - %DOMAIN% with your domain of choice: <code>mycozy.tld</code> in this example</p><pre class="codehilite"><code class="language-nginx">server {
+    listen %PORT%;
 
-    server_name *.mycozy.tld;
+    server_name *.%DOMAIN%;
 
-    ssl_certificate /etc/cozy/mycozy.tld.crt;
-    ssl_certificate_key /etc/cozy/mycozy.tld.key;
+    ssl_certificate /etc/cozy/%DOMAIN%.crt;
+    ssl_certificate_key /etc/cozy/%DOMAIN%.key;
     ssl_session_cache shared:SSL:10m;
     ssl_session_timeout 10m;
     ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
