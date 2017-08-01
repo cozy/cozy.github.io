@@ -28,7 +28,7 @@ Requires Android 5.0.0
 Requires MacOS 10.12.x Sierra
 
 <div class="download-link" markdown="1">
-[Dowload for MacOS](https://nuts.cozycloud.cc/download/channel/beta/osx)
+[Dowload for MacOS](https://nuts.cozycloud.cc/download/channel/stable/osx)
 </div>
 
 </div>
@@ -40,7 +40,7 @@ Requires MacOS 10.12.x Sierra
 Require Windows 10
 
 <div class="download-link" markdown="1">
-[Dowload for Microsoft Windows](https://nuts.cozycloud.cc/download/channel/beta/win)
+[Dowload for Microsoft Windows](https://nuts.cozycloud.cc/download/channel/stable/win)
 </div>
 
 </div>
