@@ -33,6 +33,8 @@ Waiting for the package repository to support Debian Stretch, you can still buil
 
 ### Install the Cozy Stack
 
+#### Already compiled
+
 The Cozy server is just a single binary. You can fetch one of its releases from Github:
 
 ```shell
@@ -95,6 +97,15 @@ chmod +x /usr/local/bin/cozy-stack
 
 ## Configuration
 
+### Cozy
+
+The Cozy server requires a main password:
+```shell
+sudo /usr/local/bin/cozy-stack config passwd /etc/cozy/
+```
+
+This password will be asked every time you use the `cozy-stack` command line. To prevent this, you can set the `COZY_ADMIN_PASSWORD` environment variable.
+
 ### NGinx
 
 Let’s assume you want to host a server on `mycozy.tld` with a self-signed certificate.
@@ -134,59 +145,7 @@ Or, if you use systemd:
 sudo systemctl start nginx
 sudo systemctl enable nginx # enable the nginx service at startup, if need to
 ```
-
-### Cozy
-
-The Cozy server requires a main password:
-```shell
-sudo /usr/local/bin/cozy-stack config passwd /etc/cozy/
-```
-
-This password will be asked every time you use the `cozy-stack` command line. To prevent this, you can set the `COZY_ADMIN_PASSWORD` environment variable.
-
-### DNS
-
-Make sure to associate `*.mycozy.tld` with the IP address of your server.
-
-For example, add the following records to your DNS (replacing `mycozy.tld` with your domain of choice):
-```
-mycozy.tld   A     your IP
-*.mycozy.tld CNAME mycozy.tld
-```
-
-## Running
-
-For now, we’ll just run the server as a background job, but it is highly recommended to use some supervisor software.
-
-First, start the server:
-
-```shell
-sudo -b -u cozy sh -c '/usr/local/bin/cozy-stack serve \
-     --log-level info \
-     --host 0.0.0.0 >> /var/log/cozy/cozy.log 2>> /var/log/cozy/cozy-err.log'
-```
-
-Then, create your instance and install the applications:
-
-```shell
-cozy-stack instances add \
-           --host 0.0.0.0 \
-           --apps drive,photos,collect,settings \
-           --passphrase "XXX" \
-           mycozy.tld
-```
-
-`--passphrase "XXX"` allows to set the initial password of the instance.
-
-You can add other instances by just running this commands again.
-
-!!! info ""
-    The url of your cozy determines the name of your instance.
-    If you choose another public port than the default public port for SSL (443), say `1443`, then you should reflect this when creating your cozy instance with the ${instance_domain} as `mycozy.tld:1443`.
-
-## Sample configuration files
-
-### Nginx
+#### Sample configuration files
 
 Put this file into `/etc/nginx/sites-available` and enable it by creating a symlink in `/etc/nginx/sites-enabled`.
 
@@ -228,6 +187,46 @@ server {
     access_log /var/log/nginx/cozy.log;
 }
 ```
+
+### DNS
+
+Make sure to associate `*.mycozy.tld` with the IP address of your server.
+
+For example, add the following records to your DNS (replacing `mycozy.tld` with your domain of choice):
+```
+mycozy.tld   A     your IP
+*.mycozy.tld CNAME mycozy.tld
+```
+
+## Running
+
+For now, we’ll just run the server as a background job, but it is highly recommended to use some supervisor software.
+
+First, start the server:
+
+```shell
+sudo -b -u cozy sh -c '/usr/local/bin/cozy-stack serve \
+     --log-level info \
+     --host 0.0.0.0 >> /var/log/cozy/cozy.log 2>> /var/log/cozy/cozy-err.log'
+```
+
+Then, create your instance and install the applications:
+
+```shell
+cozy-stack instances add \
+           --host 0.0.0.0 \
+           --apps drive,photos,collect,settings \
+           --passphrase "XXX" \
+           mycozy.tld
+```
+
+`--passphrase "XXX"` allows to set the initial password of the instance.
+
+You can add other instances by just running this commands again.
+
+!!! info ""
+    The url of your cozy determines the name of your instance.
+    If you choose another public port than the default public port for SSL (443), say `1443`, then you should reflect this when creating your cozy instance with the ${instance_domain} as `mycozy.tld:1443`.
 
 ## TODO
 
