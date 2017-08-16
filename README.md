@@ -1,6 +1,6 @@
 # Cozy Documentation
 
-Learn how to [use Cozy](use/), [host your own server](install/) and [develop applications](dev/).
+Learn how to [use Cozy](https://docs.cozy.io/en/use), [host your own server](https://docs.cozy.io/en/install/) and [develop applications](https://docs.cozy.io/en/dev/).
 
 ## Hack this documentation
 
