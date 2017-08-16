@@ -6,7 +6,7 @@ Learn how to [use Cozy](https://docs.cozy.io/en/use), [host your own server](htt
 
 This documentation is built with [MkDocs](http://www.mkdocs.org).
 
-To hack the documentation, just edit the files inside `docs`.
+To hack the documentation, just edit the files inside `src`.
 
 If you want to see your updates, install mkdocs:
 
