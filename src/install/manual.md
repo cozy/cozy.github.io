@@ -80,6 +80,9 @@ Type=simple
 User=couchdb
 ExecStart=/home/couchdb/bin/couchdb -o /dev/stdout -e /dev/stderr
 Restart=always
+
+[Install]
+WantedBy=multi-user.target
 EOT
 ```
 
