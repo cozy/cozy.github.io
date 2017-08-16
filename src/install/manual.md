@@ -15,95 +15,21 @@ Cozy requires a CouchDB 2 database server, a reverse proxy and an SMTP server. W
 
 You'll also need a domain name and know how to associate all of its subdomains to the IP address of your server.
 
-## Install dependencies
-
-On a fresh new Debian Stretch, here are the packages that may be useful to install and manage your server:
-
-```shell
-apt-get update && apt-get --no-install-recommends -y install \
-            ca-certificates \
-            curl \
-            net-tools \
-            nginx \
-            sudo \
-            vim-tiny \
-            build-essential \
-            pkg-config \
-            erlang \
-            libicu-dev \
-            libmozjs185-dev \
-            libcurl4-openssl-dev
-```
-
 ### Install CouchDB
 
-Download [the source code on CouchDB 2](http://couchdb.apache.org/) and [install it](http://docs.couchdb.org/en/2.0.0/install/unix.html).
+#### Debian 8
+
+CouchDB now has an official package repository, so you just need:
 
 ```shell
-cd /tmp
-curl -LO https://dist.apache.org/repos/dist/release/couchdb/source/2.0.0/apache-couchdb-2.0.0.tar.gz
-tar xf apache-couchdb-2.0.0.tar.gz
-cd apache-couchdb-2.0.0
-./configure
-make release
-adduser --system \
-        --no-create-home \
-        --shell /bin/bash \
-        --group --gecos \
-        "CouchDB Administrator" couchdb
+curl -L https://couchdb.apache.org/repo/bintray-pubkey.asc | sudo apt-key add -
+echo "deb https://apache.bintray.com/couchdb-deb jessie main" | sudo tee -a /etc/apt/sources.list.d/couchdb.list
+sudo apt-get update && sudo apt-get install couchdb
 ```
 
-We’ll install CouchDB inside `/home/couchdb`:
-```shell
-cp -R rel/couchdb /home/couchdb
-chown -R couchdb:couchdb /home/couchdb
-find /home/couchdb -type d -exec chmod 0770 {} \;
-chmod -R 0644 /home/couchdb/etc/*
-mkdir /var/log/couchdb && chown couchdb: /var/log/couchdb
-```
+#### Debian 9
 
-For now, we’ll just run the database as a background job, but it is highly recommended to use some supervisor software.
-
-```shell
-sudo -b -i -u couchdb sh -c '/home/couchdb/bin/couchdb >> /var/log/couchdb/couch.log 2>> /var/log/couchdb/couch-err.log'
-```
-
-Alternatively, you can setup a service script, and use systemd to run couchdb as a service :
-```
-cat <<EOT >> /etc/systemd/system/couchdb.service
-[Unit]
-Description=Couchdb service
-After=network.target
-
-[Service]
-Type=simple
-User=couchdb
-ExecStart=/home/couchdb/bin/couchdb -o /dev/stdout -e /dev/stderr
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-EOT
-```
-
-Then to start and enable (start at boot) the service :
-```
-systemctl  daemon-reload
-systemctl  start couchdb.service
-systemctl  enable couchdb.service
-```
-
-
-Last but not least, let’s create the default databases:
-```shell
-curl -X PUT http://127.0.0.1:5984/_users
-curl -X PUT http://127.0.0.1:5984/_replicator
-curl -X PUT http://127.0.0.1:5984/_global_changes
-```
-
-!!! warning ""
-    ⚠️ The default CouchDB installation has no admin user. Everybody can query the server. So, in production environment, make sure to create en admin user and update the CouchDB connexion URL inside the configuration file of Cozy.
-
+Waiting for the package repository to support Debian Stretch, you can still build CouchDB 2.1.0 [by yourself](http://docs.couchdb.org/en/2.1.0/install/unix.html#installation-from-source).
 
 ### Install the Cozy Stack
 
