@@ -6,12 +6,14 @@ Learn how to [use Cozy](https://docs.cozy.io/en/use), [host your own server](htt
 
 This documentation is built with [MkDocs](http://www.mkdocs.org).
 
-To hack the documentation, just edit the files inside `docs`.
+To hack the documentation, just edit the files inside `src`.
 
-If you want to see your updates, install mkdocs:
+If you want to see your updates, install mkdocs and the i18n extension of markdown:
+
+_Warning: while mkdocs supports Python 2 and 3, the current version of markdown-i18n only support Python 2_
 
 ```shell
-pip install --user mkdocs
+pip install --user mkdocs markdown-i18n
 ```
 
 Run MkDocs:
