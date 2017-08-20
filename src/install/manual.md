@@ -106,7 +106,7 @@ sudo /usr/local/bin/cozy-stack config passwd /etc/cozy/
 
 This password will be asked every time you use the `cozy-stack` command line. To prevent this, you can set the `COZY_ADMIN_PASSWORD` environment variable.
 
-### NGinx
+### NGinx and self-signed certificates
 
 Let’s assume you want to host a server on `mycozy.tld` with a self-signed certificate.
 
@@ -186,6 +186,133 @@ server {
 
     access_log /var/log/nginx/cozy.log;
 }
+```
+
+### Apache and Let's Encrypt certificates
+
+Cozy is leveraging subdomains, one way (`app.user.domain.tld`) or the other (`app-user.domain.tld`). While your DNS and your Apache Virtual Hosts can easily be wildcarded, Let's Encrypt certificates don't (at least until January 2018). But they can contain multiple domains, and that's what you can leverage:
+
+* First you need to define a virtual host for you Cozy instance:
+
+`/etc/apache2/sites-available/mycozy.tld.conf`:
+```apacheconf
+<VirtualHost *:443>
+    ServerName mycozy.tld
+    ServerAlias *.mycozy.tld
+
+    ProxyPass / http://127.0.0.1:8080/
+    ProxyPassReverse / mycozy.tld
+    ProxyPreserveHost on
+
+    ErrorLog ${APACHE_LOG_DIR}/error_cozy.log
+    CustomLog ${APACHE_LOG_DIR}/access_cozy.log combined
+</VirtualHost>
+```
+
+```shell
+sudo a2ensite mycozy.tld.conf
+sudo service apache2 reload
+```
+
+Note that this virtual host is listening on port 443, yet it doesn't enable `SSLEngine`. It's because Certbot needs this virtual host to perform TLS-DNI domain validation challenge to be able to generate your TLS certificate (more details [here](https://certbot.eff.org/docs/using.html#getting-certificates-and-choosing-plugins) ).
+
+* Now you can generate Let's Encrypt certificates, using [Certbot](https://certbot.eff.org/#debianjessie-apache):
+```shell
+sudo certbot certonly --apache --domains mycozy.tld,drive.mycozy.tld,photos.mycozy.tld,settings.mycozy.tld
+```
+
+This will generate 1 certificate containing multiple sub-domains. It is installed in `/etc/letsencrypt/live/mycozy.tld`.
+
+* So the final step is to enable SSL/TLS in your virtual host:
+
+`/etc/apache2/sites-available/mycozy.tld`:
+```apacheconf
+    ...
+    SSLEngine on
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+    SSLCertificateFile "/etc/letsencrypt/live/mycozy.tld/fullchain.pem"
+    SSLCertificateKeyFile "/etc/letsencrypt/live/mycozy.tld/privkey.pem"
+    ...
+```
+
+```shell
+sudo service apache2 reload
+```
+
+#### Automation for multiple instances
+
+You can make all this automated in 2 simple steps:
+
+* Define a virtual host template:
+
+```apacheconf
+#<VirtualHost *:80>
+#    ServerName __DOMAIN__
+#    ServerAlias *.__DOMAIN__
+#
+#    # Force SSL
+#    Redirect permanent / "https://%{HTTP_HOST}"
+#</VirtualHost>
+
+<VirtualHost *:443>
+    ServerName __DOMAIN__
+    ServerAlias *.__DOMAIN__
+
+#    SSLEngine on
+#    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+#    SSLCertificateFile "/etc/letsencrypt/live/__DOMAIN__/fullchain.pem"
+#    SSLCertificateKeyFile "/etc/letsencrypt/live/__DOMAIN__/privkey.pem"
+
+    ProxyPass / http://127.0.0.1:8080/
+    ProxyPassReverse / __DOMAIN__
+    ProxyPreserveHost on
+
+    ErrorLog ${APACHE_LOG_DIR}/error___DOMAIN__.log
+    CustomLog ${APACHE_LOG_DIR}/access___DOMAIN__.log combined
+</VirtualHost>
+```
+
+* Then define this script, that will take care of creating Cozy instance as well as Apache/Let's Encrypt stuff:
+
+```shell
+#!/bin/bash
+
+domain=$1
+apps=$2
+vhost="$domain.conf"
+vhost_file="/etc/apache2/sites-available/$vhost"
+
+passphrase=`openssl rand -base64 12 | head -c -3`
+echo "Adding Cozy instance with passphase $passphrase"
+sudo -u cozy cozy-stack instances add --host 0.0.0.0 --apps $apps --passphrase $passphrase $domain
+
+
+domains="$domain"
+
+IFS=',' read -ra apps_array <<< "$apps"
+for app in "${apps_array[@]}"; do
+    domains="$domains,$app.$domain"
+done
+
+echo "Creating Apache virtual host for Certbot to be able to use TLS-SNI challenge"
+sed "s/__DOMAIN__/$domain/g" cozy_vhost.conf | sudo tee $vhost_file > /dev/null
+
+sudo a2ensite $vhost
+sudo service apache2 reload
+
+echo "Getting Let's Encrypt certificate for $domains"
+sudo certbot certonly --apache --non-interactive --force-renewal --quiet --domains $domains
+
+echo "Enabling Let's Encrypt certificate, reloading Apache"
+sudo sed -i 's/^#//g' $vhost_file
+sudo service apache2 reload
+```
+
+* You can use this script this way:
+
+```shell
+./cozy_add_instance.sh alice.mycozy.tld drive,photos,collect,settings
+./cozy_add_instance.sh bob.mycozy.tld drive,photos,collect,settings
 ```
 
 ### DNS
