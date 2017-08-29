@@ -15,97 +15,25 @@ Cozy requires a CouchDB 2 database server, a reverse proxy and an SMTP server. W
 
 You'll also need a domain name and know how to associate all of its subdomains to the IP address of your server.
 
-## Install dependencies
-
-On a fresh new Debian Stretch, here are the packages that may be useful to install and manage your server:
-
-```shell
-apt-get update && apt-get --no-install-recommends -y install \
-            ca-certificates \
-            curl \
-            net-tools \
-            nginx \
-            sudo \
-            vim-tiny \
-            build-essential \
-            pkg-config \
-            erlang \
-            libicu-dev \
-            libmozjs185-dev \
-            libcurl4-openssl-dev
-```
-
 ### Install CouchDB
 
-Download [the source code on CouchDB 2](http://couchdb.apache.org/) and [install it](http://docs.couchdb.org/en/2.0.0/install/unix.html).
+#### Debian 8
+
+CouchDB now has an official package repository, so you just need:
 
 ```shell
-cd /tmp
-curl -LO https://dist.apache.org/repos/dist/release/couchdb/source/2.0.0/apache-couchdb-2.0.0.tar.gz
-tar xf apache-couchdb-2.0.0.tar.gz
-cd apache-couchdb-2.0.0
-./configure
-make release
-adduser --system \
-        --no-create-home \
-        --shell /bin/bash \
-        --group --gecos \
-        "CouchDB Administrator" couchdb
+curl -L https://couchdb.apache.org/repo/bintray-pubkey.asc | sudo apt-key add -
+echo "deb https://apache.bintray.com/couchdb-deb jessie main" | sudo tee -a /etc/apt/sources.list.d/couchdb.list
+sudo apt-get update && sudo apt-get install couchdb
 ```
 
-We’ll install CouchDB inside `/home/couchdb`:
-```shell
-cp -R rel/couchdb /home/couchdb
-chown -R couchdb:couchdb /home/couchdb
-find /home/couchdb -type d -exec chmod 0770 {} \;
-chmod -R 0644 /home/couchdb/etc/*
-mkdir /var/log/couchdb && chown couchdb: /var/log/couchdb
-```
+#### Debian 9
 
-For now, we’ll just run the database as a background job, but it is highly recommended to use some supervisor software.
-
-```shell
-sudo -b -i -u couchdb sh -c '/home/couchdb/bin/couchdb >> /var/log/couchdb/couch.log 2>> /var/log/couchdb/couch-err.log'
-```
-
-Alternatively, you can setup a service script, and use systemd to run couchdb as a service :
-```
-cat <<EOT >> /etc/systemd/system/couchdb.service
-[Unit]
-Description=Couchdb service
-After=network.target
-
-[Service]
-Type=simple
-User=couchdb
-ExecStart=/home/couchdb/bin/couchdb -o /dev/stdout -e /dev/stderr
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-EOT
-```
-
-Then to start and enable (start at boot) the service :
-```
-systemctl  daemon-reload
-systemctl  start couchdb.service
-systemctl  enable couchdb.service
-```
-
-
-Last but not least, let’s create the default databases:
-```shell
-curl -X PUT http://127.0.0.1:5984/_users
-curl -X PUT http://127.0.0.1:5984/_replicator
-curl -X PUT http://127.0.0.1:5984/_global_changes
-```
-
-!!! warning ""
-    ⚠️ The default CouchDB installation has no admin user. Everybody can query the server. So, in production environment, make sure to create en admin user and update the CouchDB connexion URL inside the configuration file of Cozy.
-
+Waiting for the package repository to support Debian Stretch, you can still build CouchDB 2.1.0 [by yourself](http://docs.couchdb.org/en/2.1.0/install/unix.html#installation-from-source).
 
 ### Install the Cozy Stack
+
+#### Already compiled
 
 The Cozy server is just a single binary. You can fetch one of its releases from Github:
 
@@ -169,7 +97,16 @@ chmod +x /usr/local/bin/cozy-stack
 
 ## Configuration
 
-### NGinx
+### Cozy
+
+The Cozy server requires a main password:
+```shell
+sudo /usr/local/bin/cozy-stack config passwd /etc/cozy/
+```
+
+This password will be asked every time you use the `cozy-stack` command line. To prevent this, you can set the `COZY_ADMIN_PASSWORD` environment variable.
+
+### NGinx and self-signed certificates
 
 Let’s assume you want to host a server on `mycozy.tld` with a self-signed certificate.
 
@@ -208,59 +145,7 @@ Or, if you use systemd:
 sudo systemctl start nginx
 sudo systemctl enable nginx # enable the nginx service at startup, if need to
 ```
-
-### Cozy
-
-The Cozy server requires a main password:
-```shell
-sudo /usr/local/bin/cozy-stack config passwd /etc/cozy/
-```
-
-This password will be asked every time you use the `cozy-stack` command line. To prevent this, you can set the `COZY_ADMIN_PASSWORD` environment variable.
-
-### DNS
-
-Make sure to associate `*.mycozy.tld` with the IP address of your server.
-
-For example, add the following records to your DNS (replacing `mycozy.tld` with your domain of choice):
-```
-mycozy.tld   A     your IP
-*.mycozy.tld CNAME mycozy.tld
-```
-
-## Running
-
-For now, we’ll just run the server as a background job, but it is highly recommended to use some supervisor software.
-
-First, start the server:
-
-```shell
-sudo -b -u cozy sh -c '/usr/local/bin/cozy-stack serve \
-     --log-level info \
-     --host 0.0.0.0 >> /var/log/cozy/cozy.log 2>> /var/log/cozy/cozy-err.log'
-```
-
-Then, create your instance and install the applications:
-
-```shell
-cozy-stack instances add \
-           --host 0.0.0.0 \
-           --apps drive,photos,collect,settings \
-           --passphrase "XXX" \
-           mycozy.tld
-```
-
-`--passphrase "XXX"` allows to set the initial password of the instance.
-
-You can add other instances by just running this commands again.
-
-!!! info ""
-    The url of your cozy determines the name of your instance.
-    If you choose another public port than the default public port for SSL (443), say `1443`, then you should reflect this when creating your cozy instance with the ${instance_domain} as `mycozy.tld:1443`.
-
-## Sample configuration files
-
-### Nginx
+#### Sample configuration files
 
 Put this file into `/etc/nginx/sites-available` and enable it by creating a symlink in `/etc/nginx/sites-enabled`.
 
@@ -302,6 +187,173 @@ server {
     access_log /var/log/nginx/cozy.log;
 }
 ```
+
+### Apache and Let's Encrypt certificates
+
+Cozy is leveraging subdomains, one way (`app.user.domain.tld`) or the other (`app-user.domain.tld`). While your DNS and your Apache Virtual Hosts can easily be wildcarded, Let's Encrypt certificates don't (at least until January 2018). But they can contain multiple domains, and that's what you can leverage:
+
+* First you need to define a virtual host for you Cozy instance:
+
+`/etc/apache2/sites-available/mycozy.tld.conf`:
+```apacheconf
+<VirtualHost *:443>
+    ServerName mycozy.tld
+    ServerAlias *.mycozy.tld
+
+    ProxyPass / http://127.0.0.1:8080/
+    ProxyPassReverse / mycozy.tld
+    ProxyPreserveHost on
+
+    ErrorLog ${APACHE_LOG_DIR}/error_cozy.log
+    CustomLog ${APACHE_LOG_DIR}/access_cozy.log combined
+</VirtualHost>
+```
+
+```shell
+sudo a2ensite mycozy.tld.conf
+sudo service apache2 reload
+```
+
+Note that this virtual host is listening on port 443, yet it doesn't enable `SSLEngine`. It's because Certbot needs this virtual host to perform TLS-DNI domain validation challenge to be able to generate your TLS certificate (more details [here](https://certbot.eff.org/docs/using.html#getting-certificates-and-choosing-plugins) ).
+
+* Now you can generate Let's Encrypt certificates, using [Certbot](https://certbot.eff.org/#debianjessie-apache):
+```shell
+sudo certbot certonly --apache --domains mycozy.tld,drive.mycozy.tld,photos.mycozy.tld,settings.mycozy.tld
+```
+
+This will generate 1 certificate containing multiple sub-domains. It is installed in `/etc/letsencrypt/live/mycozy.tld`.
+
+* So the final step is to enable SSL/TLS in your virtual host:
+
+`/etc/apache2/sites-available/mycozy.tld`:
+```apacheconf
+    ...
+    SSLEngine on
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+    SSLCertificateFile "/etc/letsencrypt/live/mycozy.tld/fullchain.pem"
+    SSLCertificateKeyFile "/etc/letsencrypt/live/mycozy.tld/privkey.pem"
+    ...
+```
+
+```shell
+sudo service apache2 reload
+```
+
+#### Automation for multiple instances
+
+You can make all this automated in 2 simple steps:
+
+* Define a virtual host template:
+
+```apacheconf
+#<VirtualHost *:80>
+#    ServerName __DOMAIN__
+#    ServerAlias *.__DOMAIN__
+#
+#    # Force SSL
+#    Redirect permanent / "https://%{HTTP_HOST}"
+#</VirtualHost>
+
+<VirtualHost *:443>
+    ServerName __DOMAIN__
+    ServerAlias *.__DOMAIN__
+
+#    SSLEngine on
+#    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+#    SSLCertificateFile "/etc/letsencrypt/live/__DOMAIN__/fullchain.pem"
+#    SSLCertificateKeyFile "/etc/letsencrypt/live/__DOMAIN__/privkey.pem"
+
+    ProxyPass / http://127.0.0.1:8080/
+    ProxyPassReverse / __DOMAIN__
+    ProxyPreserveHost on
+
+    ErrorLog ${APACHE_LOG_DIR}/error___DOMAIN__.log
+    CustomLog ${APACHE_LOG_DIR}/access___DOMAIN__.log combined
+</VirtualHost>
+```
+
+* Then define this script, that will take care of creating Cozy instance as well as Apache/Let's Encrypt stuff:
+
+```shell
+#!/bin/bash
+
+domain=$1
+apps=$2
+vhost="$domain.conf"
+vhost_file="/etc/apache2/sites-available/$vhost"
+
+passphrase=`openssl rand -base64 12 | head -c -3`
+echo "Adding Cozy instance with passphase $passphrase"
+sudo -u cozy cozy-stack instances add --host 0.0.0.0 --apps $apps --passphrase $passphrase $domain
+
+
+domains="$domain"
+
+IFS=',' read -ra apps_array <<< "$apps"
+for app in "${apps_array[@]}"; do
+    domains="$domains,$app.$domain"
+done
+
+echo "Creating Apache virtual host for Certbot to be able to use TLS-SNI challenge"
+sed "s/__DOMAIN__/$domain/g" cozy_vhost.conf | sudo tee $vhost_file > /dev/null
+
+sudo a2ensite $vhost
+sudo service apache2 reload
+
+echo "Getting Let's Encrypt certificate for $domains"
+sudo certbot certonly --apache --non-interactive --force-renewal --quiet --domains $domains
+
+echo "Enabling Let's Encrypt certificate, reloading Apache"
+sudo sed -i 's/^#//g' $vhost_file
+sudo service apache2 reload
+```
+
+* You can use this script this way:
+
+```shell
+./cozy_add_instance.sh alice.mycozy.tld drive,photos,collect,settings
+./cozy_add_instance.sh bob.mycozy.tld drive,photos,collect,settings
+```
+
+### DNS
+
+Make sure to associate `*.mycozy.tld` with the IP address of your server.
+
+For example, add the following records to your DNS (replacing `mycozy.tld` with your domain of choice):
+```
+mycozy.tld   A     your IP
+*.mycozy.tld CNAME mycozy.tld
+```
+
+## Running
+
+For now, we’ll just run the server as a background job, but it is highly recommended to use some supervisor software.
+
+First, start the server:
+
+```shell
+sudo -b -u cozy sh -c '/usr/local/bin/cozy-stack serve \
+     --log-level info \
+     --host 0.0.0.0 >> /var/log/cozy/cozy.log 2>> /var/log/cozy/cozy-err.log'
+```
+
+Then, create your instance and install the applications:
+
+```shell
+cozy-stack instances add \
+           --host 0.0.0.0 \
+           --apps drive,photos,collect,settings \
+           --passphrase "XXX" \
+           mycozy.tld
+```
+
+`--passphrase "XXX"` allows to set the initial password of the instance.
+
+You can add other instances by just running this commands again.
+
+!!! info ""
+    The url of your cozy determines the name of your instance.
+    If you choose another public port than the default public port for SSL (443), say `1443`, then you should reflect this when creating your cozy instance with the ${instance_domain} as `mycozy.tld:1443`.
 
 ## TODO
 
