@@ -59,7 +59,7 @@ Pas de panique ! Nous vous avons préparé quelques exemples pour vous aider �
 ### Créer votre mot de passe
 
 !!! tip "L’astuce de Claude"
-    Pour créer un mot de passe complexe mais facile à retenir, imaginez une phrase absurde et créez le mot de passe à partir des initiales des mots et de la ponctuation. Ainsi, « Maître renard, sur un nuage perché, tenait en son bec de la pluie » deviendra « Mr,s1ap,tesb2lp »
+    Pour créer un mot de passe complexe mais facile à retenir, imaginez une phrase absurde et créez le mot de passe à partir des initiales des mots et de la ponctuation. Ainsi, « Maître renard, sur un nuage perché, tenait en son bec de la pluie » deviendra « Mr,s1np,tesb2lp »
 
 ![Créez votre mot de passe](../img/use/screenshot_password.png)
 
