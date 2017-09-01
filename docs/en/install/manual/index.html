@@ -10,7 +10,9 @@
   <link rel="shortcut icon" href="../../img/favicon.png">
   
   <title>Manual installation - Cozy Documentation</title>
+  <!--
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+  -->
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
@@ -211,10 +213,10 @@
 
 
 <h3 id="install-couchdb">Install CouchDB<a class="headerlink" href="#install-couchdb" title="Permanent link">&para;</a></h3><p>Download <a href="http://couchdb.apache.org/">the source code on CouchDB 2</a> and 
-<a href="http://docs.couchdb.org/en/2.0.0/install/unix.html">install it</a>.</p><pre class="codehilite"><code class="language-shell">cd /tmp
-curl -LO https://dist.apache.org/repos/dist/release/couchdb/source/2.0.0/apache-couchdb-2.0.0.tar.gz
-tar xf apache-couchdb-2.0.0.tar.gz
-cd apache-couchdb-2.0.0
+<a href="http://docs.couchdb.org/en/2.1.0/install/unix.html">install it</a>.</p><pre class="codehilite"><code class="language-shell">cd /tmp
+curl -LO https://dist.apache.org/repos/dist/release/couchdb/source/2.1.0/apache-couchdb-2.1.0.tar.gz
+tar xf apache-couchdb-2.1.0.tar.gz
+cd apache-couchdb-2.1.0
 ./configure
 make release
 adduser --system \
@@ -244,6 +246,9 @@ Type=simple
 User=couchdb
 ExecStart=/home/couchdb/bin/couchdb -o /dev/stdout -e /dev/stderr
 Restart=always
+
+[Install]
+WantedBy=multi-user.target
 EOT</code></pre>
 
 
