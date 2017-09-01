@@ -184,10 +184,9 @@ sudo openssl req -x509 -nodes -newkey rsa:4096 \
 ```
 
 
-Then create a virtual host for your server by creating a file at `/etc/cozy/sites-available/mycozy.tld.conf` with the following configuration template.
+Then create a virtual host for your server by creating a file at `/etc/cozy/sites-available/mycozy.tld.conf` with [the following configuration template](#sample-configuration-files).
+And enable it by creating a symbolic link:
 
-=====
-Then create a virtual host for your server by creating `/etc/nginx/sites-available/mycozy.tld` and enable it by creating a symbolic link:
 ```shell
 sudo ln -s "/etc/nginx/sites-available/mycozy.tld.conf" \
        /etc/nginx/sites-enabled/
@@ -265,6 +264,7 @@ You can add other instances by just running this commands again.
 Put this file into `/etc/nginx/sites-available` and enable it by creating a symlink in `/etc/nginx/sites-enabled`.
 
 In this template, you need to replace the following placeholders:
+
   - %PORT% with the public port nginx will listen to (default should be 443);
   - %SERVER_PORT% with the private port cozy will listen to (default should be 8080);
   - %DOMAIN% with your domain of choice: `mycozy.tld` in this example
