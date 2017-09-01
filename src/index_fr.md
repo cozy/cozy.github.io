@@ -6,28 +6,28 @@ The go-to website about Cozy configuration and setup.
 
   <div class="home-action">
     <div>
-      <a href="use/"><img src="../assets/images/home/icon-cloud.svg">
+      <a href="../use/index_fr"><img src="../assets/images/home/icon-cloud.svg">
       [Découverte de votre nouveau domicile numérique](use/index_fr)
     </div>
   </div>
 
   <div class="home-action">
     <div>
-      <a href="sync/"><img src="../assets/images/home/icon-phone.svg"></a>
+      <a href="../sync"><img src="../assets/images/home/icon-phone.svg"></a>
       [Synchronisez toutes vos données](sync)
     </div>
   </div>
 
   <div class="home-action">
     <div>
-      <a href="install/"><img src="../assets/images/home/icon-install.svg">
+      <a href="../install"><img src="../assets/images/home/icon-install.svg">
       [Installez votre propre serveur](install)
     </div>
   </div>
 
   <div class="home-action">
     <div>
-      <a href="dev/"><img src="../assets/images/home/icon-dev.svg"></a>
+      <a href="../dev"><img src="../assets/images/home/icon-dev.svg"></a>
       [Développez !](dev)
       Apprenez à développer des applications et des connecteurs.
     </div>
