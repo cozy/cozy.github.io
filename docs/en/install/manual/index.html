@@ -316,8 +316,9 @@ chmod +x /usr/local/bin/cozy-stack</code></pre>
     -days 365 -subj &quot;/CN={*.mycozy.tld}&quot;</code></pre>
 
 
-<p>Then create a virtual host for your server by creating a file at <code>/etc/cozy/sites-available/mycozy.tld.conf</code> with the following configuration template.</p><p>=====
-Then create a virtual host for your server by creating <code>/etc/nginx/sites-available/mycozy.tld</code> and enable it by creating a symbolic link:</p><pre class="codehilite"><code class="language-shell">sudo ln -s &quot;/etc/nginx/sites-available/mycozy.tld.conf&quot; \
+<p>Then create a virtual host for your server by creating a file at <code>/etc/cozy/sites-available/mycozy.tld.conf</code> with 
+<a href="#sample-configuration-files">the following configuration template</a>.
+And enable it by creating a symbolic link:</p><pre class="codehilite"><code class="language-shell">sudo ln -s &quot;/etc/nginx/sites-available/mycozy.tld.conf&quot; \
        /etc/nginx/sites-enabled/</code></pre>
 
 
@@ -356,10 +357,9 @@ sudo systemctl enable nginx # enable the nginx service at startup, if need to</c
 If you choose another public port than the default public port for SSL (443), say <code>1443</code>, then you should reflect this when creating your cozy instance with the ${instance_domain} as 
 <code>mycozy.tld:1443</code>.</p></div>
 <h2 id="sample-configuration-files">Sample configuration files<a class="headerlink" href="#sample-configuration-files" title="Permanent link">&para;</a></h2><h3 id="nginx_1">Nginx<a class="headerlink" href="#nginx_1" title="Permanent link">&para;</a></h3><p>Put this file into <code>/etc/nginx/sites-available</code> and enable it by creating a symlink in 
-<code>/etc/nginx/sites-enabled</code>.</p><p>In this template, you need to replace the following placeholders:
-  - %PORT% with the public port nginx will listen to (default should be 443);
-  - %SERVER_PORT% with the private port cozy will listen to (default should be 8080);
-  - %DOMAIN% with your domain of choice: <code>mycozy.tld</code> in this example</p><pre class="codehilite"><code class="language-nginx">server {
+<code>/etc/nginx/sites-enabled</code>.</p><p>In this template, you need to replace the following placeholders:</p><ul>
+<li>%PORT% with the public port nginx will listen to (default should be 443);</li><li>%SERVER_PORT% with the private port cozy will listen to (default should be 8080);</li><li>%DOMAIN% with your domain of choice: <code>mycozy.tld</code> in this example</li></ul>
+<pre class="codehilite"><code class="language-nginx">server {
     listen %PORT%;
 
     server_name *.%DOMAIN%;
