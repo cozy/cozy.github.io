@@ -8,8 +8,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   {% if page and page.is_homepage %}<meta name="description" content="{{ config.site_description }}">{% endif %}
   {% if config.site_author %}<meta name="author" content="{{ config.site_author }}">{% endif %}
-  {% if config.site_favicon %}<link rel="shortcut icon" href="./{{ base_url }}/{{ config.site_favicon }}">
-  {% else %}<link rel="shortcut icon" href="./{{ base_url }}/img/favicon.ico">{% endif %}
+  {% if config.site_favicon %}<link rel="shortcut icon" href="/en/{{ config.site_favicon }}">
+  {% else %}<link rel="shortcut icon" href="/en/img/favicon.ico">{% endif %}
   {%- endblock %}
 
   {%- block htmltitle %}
@@ -21,9 +21,9 @@
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
   -->
 
-  <link rel="stylesheet" href="./{{ base_url }}/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="./{{ base_url }}/css/theme_extra.css" type="text/css" />
-  <link rel="stylesheet" href="./{{ base_url }}/css/highlight.css">
+  <link rel="stylesheet" href="/en/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="/en/css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="/en/css/highlight.css">
   {%- for path in extra_css %}
   <link href="./{{ path }}" rel="stylesheet">
   {%- endfor %}
@@ -38,9 +38,9 @@
     var mkdocs_page_url = {{ page.abs_url|tojson|safe }};
   </script>
   {% endif %}
-  <script src="./{{ base_url }}/js/jquery-2.1.1.min.js"></script>
-  <script src="./{{ base_url }}/js/modernizr-2.8.3.min.js"></script>
-  <script type="text/javascript" src="./{{ base_url }}/js/highlight.pack.js"></script>
+  <script src="/en/js/jquery-2.1.1.min.js"></script>
+  <script src="/en/js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="/en/js/highlight.pack.js"></script>
   {%- endblock %}
 
   {%- block extrahead %} {% endblock %}
@@ -149,7 +149,7 @@
   {% include "versions.html" %}
 
   {%- block scripts %}
-    <script src="./{{ base_url }}/js/theme.js"></script>
+    <script src="/en/js/theme.js"></script>
     {%- for path in extra_javascript %}
       <script src="{{ path }}"></script>
     {%- endfor %}
