@@ -2,6 +2,8 @@
 
 ## Introduction
 
+**New! Want an interactive tutorial on how to create a connector? Try [this one](https://tech.io/playgrounds/1482/cozy-connector-tutorial):**
+
 A connector is a small script that allows to import data from an external website. Each connector is an independent application, managed by the Cozy Collect application.
 
 To protect your data, each connector runs inside a sandbox where all their interactions with your data are under control.
