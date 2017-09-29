@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="CozyCloud - https://cozy.io">
+  <link rel="shortcut icon" href="../../img/favicon.png">
+  
+  <title>Debian - Cozy Documentation</title>
+  <!--
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+  -->
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+  <link href="../../extra.css" rel="stylesheet">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Debian";
+    var mkdocs_page_input_path = "install/debian.md";
+    var mkdocs_page_url = "/install/debian/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Cozy Documentation</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      <p><a href="../..../../en">en</a>&nbsp;<a href="../..../../../fr/index_fr">fr</a></p>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Use</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../use/">User guide</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Synchronize</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../sync/">Stay in sync</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../sync/phone/">Synchronize your phone</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../sync/desktop/">Synchronize your computer</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../download/">Download</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Install</span>
+    <ul class="subnav">
+                <li class=" current">
+                    
+    <a class="current" href="./">Debian</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#prerequisites">Prerequisites</a></li>
+    
+
+    <li class="toctree-l3"><a href="#setup">Setup</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#couchdb">CouchDB</a></li>
+        
+            <li><a class="toctree-l4" href="#cozy-stack">Cozy stack</a></li>
+        
+            <li><a class="toctree-l4" href="#finally">Finally</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l3"><a href="#cozy-instance-setup">Cozy instance setup</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#dns">DNS</a></li>
+        
+            <li><a class="toctree-l4" href="#acme-lets-encrypt">ACME (Let's Encrypt)</a></li>
+        
+            <li><a class="toctree-l4" href="#create-instances">Create instances</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../manual/">Manual installation</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Develop</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../dev/">Let's hack some code</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../dev/intro/">Architecture</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../dev/app/">Create your first app</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../dev/konnector/">Develop a connector</a>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Cozy Documentation</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Install &raquo;</li>
+        
+      
+    
+    <li>Debian</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/cozy/cozy-docs-v3/edit/master/src/install/debian.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <p>A Debian repository serves packages to setup a Cozy self-hosted environment</p><p>It provides:</p><ul>
+<li><code>cozy-couchdb</code>: 
+<a href="https://couchdb.apache.org/">CouchDB</a> database engine used by cozy</li><li><code>cozy-nsjail</code>: 
+<a href="http://nsjail.com/">NSJail</a> isolation tool used by konnectors</li><li><code>cozy-stack</code>: 
+<a href="https://github.com/cozy/cozy-stack/">Cozy core</a></li><li><code>cozy-coclyco</code>: 
+<a href="https://github.com/cozy/cozy-coclyco/">CLI</a> to manage vhosts and certificates</li><li><code>cozy</code>: metapackage installing everything to setup a self-hosted environment</li></ul>
+<p>This repository currently supports:</p><ul>
+<li><strong>Debian Stretch</strong> (9.x): amd64</li></ul>
+<p>Available channels are:</p><ul>
+<li><strong>stable</strong>: official and supported releases</li><li><strong>testing</strong>: future official releases, for testing purposes</li><li><strong>unstable</strong>: nightly builds, to be use with caution</li></ul>
+<p><code>cozy-couchdb</code> and 
+<code>cozy-nsjail</code> are temporary packages. They will be removed when official 
+<code>couchd</code> and 
+<code>nsjail</code> will be available</p><p>You can choose to install <code>cozy-couchdb</code> on the same host as 
+<code>cozy-stack</code>, or use a remote CouchDB server. Cozy only needs a 2.x CouchDB (1.x not supported).</p><p>Like CouchDB, you can choose to install your reverse proxy on the same host, or use a remote one. At this <code>cozy-coclyco</code> supports only local 
+<code>nginx</code>. If you want to use 
+<code>apache2</code> or remote reverse proxy, you need to manually configure it for vhost or TLS certificate issuances.</p><h1 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h1><p>Setup your repository and fetch the GPG Cozy signing key.
+Change your channel if you prefer <code>testing</code> or 
+<code>unstable</code>.</p><pre class="codehilite"><code class="language-bash">echo &quot;deb https://apt.cozy.io/ stretch stable&quot; &gt; /etc/apt/sources.list.d/cozy.list
+curl https://apt.cozy.io/cozy.gpg | \
+    apt-key --keyring /etc/apt/trusted.gpg.d/cozy.gpg add -
+apt update</code></pre>
+
+
+<h1 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h1><p>For the rest of this document, we assume you install components one by one to allow intermediate verification</p><p>For a full local environment (<code>couchdb</code> + 
+<code>nginx</code> + 
+<code>cozy</code>), just install the 
+<code>cozy</code> package which can install all needed packages in one shot.</p><h2 id="couchdb">CouchDB<a class="headerlink" href="#couchdb" title="Permanent link">&para;</a></h2><pre class="codehilite"><code class="language-bash">apt install cozy-couchdb</code></pre>
+
+
+<p>Install CouchDB in <code>standalone</code> mode</p><p>Configure CouchDB to listen on <code>127.0.0.1</code></p><p>Pick an administrator password</p><p>At this point, you must have a working CouchDB instance</p><pre class="codehilite"><code class="language-bash">curl http://localhost:5984/       
+{&quot;couchdb&quot;:&quot;Welcome&quot;,&quot;version&quot;:&quot;2.1.0&quot;,&quot;features&quot;:[&quot;scheduler&quot;],&quot;vendor&quot;:{&quot;name&quot;:&quot;The Apache Software Foundation&quot;}}</code></pre>
+
+
+<h2 id="cozy-stack">Cozy stack<a class="headerlink" href="#cozy-stack" title="Permanent link">&para;</a></h2><pre class="codehilite"><code class="language-bash">apt install cozy-stack</code></pre>
+
+
+<p>Cozy need to create a CouchDB administrator and so to connect as admin to the CouchDB. Fill those mandatory parameters to allow this creation:</p><ul>
+<li>Address: by default, it&rsquo;s <code>localhost:5984</code></li><li>Node name: by default, it&rsquo;s <code>couchdb@localhost</code></li><li>Admin user: by default, it&rsquo;s <code>admin</code></li><li>Admin password: put the one you choose during CouchDB setup</li><li>Cozy user: by default, it&rsquo;s <code>cozy</code></li><li>Cozy password: pick a password</li></ul>
+<p>For stack management (create instances, install applications&hellip;), <a href="https://github.com/cozy/cozy-stack/blob/2ae446d85b60c89fb56cad1f7ed469cddca94494/docs/config.md#user-content-administration-secret">Cozy need an administrator password</a>. So pick a new one.
+<br />
+When invoking 
+<code>cozy-stack</code> (or 
+<code>cozy-coclyco</code> which use it under the hood), you need to set the 
+<code>COZY_ADMIN_PASSWORD</code> environment variable with this password. You can put it on your 
+<code>.bashrc</code> for simplier life if you want.</p><p>At this point, you must have a working Cozy stack</p><pre class="codehilite"><code class="language-bash">curl http://localhost:8080/version
+{&quot;build_mode&quot;:&quot;production&quot;,&quot;build_time&quot;:&quot;2017-09-28T10:26:03Z&quot;,&quot;runtime_version&quot;:&quot;go1.8.1&quot;,&quot;version&quot;:&quot;0.1.0&quot;}#</code></pre>
+
+
+<h2 id="finally">Finally<a class="headerlink" href="#finally" title="Permanent link">&para;</a></h2><pre class="codehilite"><code class="language-bash">apt install cozy</code></pre>
+
+
+<h1 id="cozy-instance-setup">Cozy instance setup<a class="headerlink" href="#cozy-instance-setup" title="Permanent link">&para;</a></h1><h2 id="dns">DNS<a class="headerlink" href="#dns" title="Permanent link">&para;</a></h2><p>Cozy relies on sub-domains for each applications you installed on your instance.
+For an instance <code>cozy.example.org</code>, <code>&lt;app&gt;.cozy.example.org</code> must be available too. Currently, you need at least:</p>
+<ul>
+<li><code>onboarding.cozy.example.org</code></li><li><code>settings.cozy.example.org</code></li><li><code>drive.cozy.example.org</code></li><li><code>photos.cozy.example.org</code></li><li><code>collect.cozy.example.org</code></li><li><code>store.cozy.example.org</code></li><li><code>&lt;app&gt;.cozy.example.org</code> for each application you use</li>
+</ul>
+<p>Follow your usual way to create those entries on your domain zone.
+The simpliest way to handle this is to use a wildcard entry if supported by your domain hosting.</p><pre class="codehilite"><code>cozy 1h IN A x.x.x.x
+*.cozy 1h IN CNAME cozy</code></pre>
+
+
+<h2 id="acme-lets-encrypt">ACME (Let&rsquo;s Encrypt)<a class="headerlink" href="#acme-lets-encrypt" title="Permanent link">&para;</a></h2><p>Like DNS, each application will use a different sub-domain and so request a certificate which include all needed domains.</p><p><code>cozy-coclyco</code> use Let&rsquo;s Encrypt and it ACME protocol to prove your ownership over the domain you try to issue a certificate.
+This protocol requires your reverse proxy to be able to serve <code>http://&lt;app&gt;.cozy.example.org/.well-known/acme-challenge/</code> requests correctly.</p>
+<p>The simplest way to achieve this is to configure your reverse proxy with a generic rule to forward any <code>/.well-known/acme-challenge/</code> request to the corresponding 
+<code>/etc
+/ssl/private/acme-challenge/</code> folder.
+For 
+<code>nginx</code>, this can be done with</p><pre class="codehilite"><code>/etc/nginx/sites-available/default
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /var/www/html;
+    server_name _;
+
+    location /.well-known/acme-challenge/ {
+        alias /etc/ssl/private/acme-challenge/;
+    }
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}</code></pre>
+
+
+<h2 id="create-instances">Create instances<a class="headerlink" href="#create-instances" title="Permanent link">&para;</a></h2><p>Once you&rsquo;ve got a stack, your DNS and your reverse proxy correctly configured, you can create instances on your Cozy stack.</p><p>For this, refer to the documentation of <a href="https://github.com/cozy/cozy-coclyco/blob/master/README.md">cozy-coclyco</a>.</p><p>Remember to set the <code>COZY_ADMIN_PASSWORD</code> environment variable.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../manual/" class="btn btn-neutral float-right" title="Manual installation">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../../download/" class="btn btn-neutral" title="Download"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <!-- Piwik -->
+  <script type="text/javascript">
+    var _paq = _paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//piwik.cozycloud.cc/";
+      _paq.push(['setTrackerUrl', u+'piwik.php']);
+      _paq.push(['setSiteId', '7']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+  <!-- End Piwik Code -->
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/cozy/cozy-docs-v3" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../../download/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../manual/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="../../js/theme.js"></script>
+
+</body>
+</html>

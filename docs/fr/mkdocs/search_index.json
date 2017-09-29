@@ -226,14 +226,54 @@
             "title": "Cozy Drive pour Windows"
         }, 
         {
-            "location": "/install/", 
-            "text": "Install Cozy on your own server\nThis documentation is in its early stage of writing.\nFor now, we\u2019ll only explain how to \ninstall Cozy by hand\n. This is neither the easiest path to follow, nor the recommended one. It requires to have some knowledge of the command line.\nIn the near future, we\u2019ll provide packages and images to make hosting Cozy easier.", 
-            "title": "Installer Cozy sur votre ordinateur"
+            "location": "/install/debian/", 
+            "text": "A Debian repository serves packages to setup a Cozy self-hosted environment\nIt provides:\n\n\ncozy-couchdb\n: \n\nCouchDB\n database engine used by cozy\ncozy-nsjail\n: \n\nNSJail\n isolation tool used by konnectors\ncozy-stack\n: \n\nCozy core\ncozy-coclyco\n: \n\nCLI\n to manage vhosts and certificates\ncozy\n: metapackage installing everything to setup a self-hosted environment\n\n\nThis repository currently supports:\n\n\nDebian Stretch\n (9.x): amd64\n\n\nAvailable channels are:\n\n\nstable\n: official and supported releases\ntesting\n: future official releases, for testing purposes\nunstable\n: nightly builds, to be use with caution\n\n\ncozy-couchdb\n and \n\ncozy-nsjail\n are temporary packages. They will be removed when official \n\ncouchd\n and \n\nnsjail\n will be available\nYou can choose to install \ncozy-couchdb\n on the same host as \n\ncozy-stack\n, or use a remote CouchDB server. Cozy only needs a 2.x CouchDB (1.x not supported).\nLike CouchDB, you can choose to install your reverse proxy on the same host, or use a remote one. At this \ncozy-coclyco\n supports only local \n\nnginx\n. If you want to use \n\napache2\n or remote reverse proxy, you need to manually configure it for vhost or TLS certificate issuances.\nPrerequisites\nSetup your repository and fetch the GPG Cozy signing key.\nChange your channel if you prefer \ntesting\n or \n\nunstable\n.\necho \ndeb https://apt.cozy.io/ stretch stable\n \n /etc/apt/sources.list.d/cozy.list\ncurl https://apt.cozy.io/cozy.gpg | \\\n    apt-key --keyring /etc/apt/trusted.gpg.d/cozy.gpg add -\napt update\n\n\n\n\nSetup\nFor the rest of this document, we assume you install components one by one to allow intermediate verification\nFor a full local environment (\ncouchdb\n + \n\nnginx\n + \n\ncozy\n), just install the \n\ncozy\n package which can install all needed packages in one shot.\nCouchDB\napt install cozy-couchdb\n\n\n\n\nInstall CouchDB in \nstandalone\n mode\nConfigure CouchDB to listen on \n127.0.0.1\nPick an administrator password\nAt this point, you must have a working CouchDB instance\ncurl http://localhost:5984/       \n{\ncouchdb\n:\nWelcome\n,\nversion\n:\n2.1.0\n,\nfeatures\n:[\nscheduler\n],\nvendor\n:{\nname\n:\nThe Apache Software Foundation\n}}\n\n\n\n\nCozy stack\napt install cozy-stack\n\n\n\n\nCozy need to create a CouchDB administrator and so to connect as admin to the CouchDB. Fill those mandatory parameters to allow this creation:\n\n\nAddress: by default, it\ns \nlocalhost:5984\nNode name: by default, it\ns \ncouchdb@localhost\nAdmin user: by default, it\ns \nadmin\nAdmin password: put the one you choose during CouchDB setup\nCozy user: by default, it\ns \ncozy\nCozy password: pick a password\n\n\nFor stack management (create instances, install applications\n), \nCozy need an administrator password\n. So pick a new one.\n\n\nWhen invoking \n\ncozy-stack\n (or \n\ncozy-coclyco\n which use it under the hood), you need to set the \n\nCOZY_ADMIN_PASSWORD\n environment variable with this password. You can put it on your \n\n.bashrc\n for simplier life if you want.\nAt this point, you must have a working Cozy stack\ncurl http://localhost:8080/version\n{\nbuild_mode\n:\nproduction\n,\nbuild_time\n:\n2017-09-28T10:26:03Z\n,\nruntime_version\n:\ngo1.8.1\n,\nversion\n:\n0.1.0\n}#\n\n\n\n\nFinally\napt install cozy\n\n\n\n\nCozy instance setup\nDNS\nCozy relies on sub-domains for each applications you installed on your instance.\nFor an instance \ncozy.example.org\n, \napp\n.cozy.example.org\n must be available too. Currently, you need at least:\n\n\n\n\nonboarding.cozy.example.org\nsettings.cozy.example.org\ndrive.cozy.example.org\nphotos.cozy.example.org\ncollect.cozy.example.org\nstore.cozy.example.org\napp\n.cozy.example.org\n for each application you use\n\n\n\n\nFollow your usual way to create those entries on your domain zone.\nThe simpliest way to handle this is to use a wildcard entry if supported by your domain hosting.\ncozy 1h IN A x.x.x.x\n*.cozy 1h IN CNAME cozy\n\n\n\n\nACME (Let\ns Encrypt)\nLike DNS, each application will use a different sub-domain and so request a certificate which include all needed domains.\ncozy-coclyco\n use Let\ns Encrypt and it ACME protocol to prove your ownership over the domain you try to issue a certificate.\nThis protocol requires your reverse proxy to be able to serve \nhttp://\napp\n.cozy.example.org/.well-known/acme-challenge/\n requests correctly.\n\n\nThe simplest way to achieve this is to configure your reverse proxy with a generic rule to forward any \n/.well-known/acme-challenge/\n request to the corresponding \n\n/etc\n/ssl/private/acme-challenge/\n folder.\nFor \n\nnginx\n, this can be done with\n/etc/nginx/sites-available/default\nserver {\n    listen 80 default_server;\n    listen [::]:80 default_server;\n\n    root /var/www/html;\n    server_name _;\n\n    location /.well-known/acme-challenge/ {\n        alias /etc/ssl/private/acme-challenge/;\n    }\n\n    location / {\n        return 301 https://$host$request_uri;\n    }\n}\n\n\n\n\nCreate instances\nOnce you\nve got a stack, your DNS\u00a0and your reverse proxy correctly configured, you can create instances on your Cozy stack.\nFor this, refer to the documentation of \ncozy-coclyco\n.\nRemember to set the \nCOZY_ADMIN_PASSWORD\n environment variable.", 
+            "title": "Debian"
         }, 
         {
-            "location": "/install/#install-cozy-on-your-own-server", 
-            "text": "This documentation is in its early stage of writing. For now, we\u2019ll only explain how to  install Cozy by hand . This is neither the easiest path to follow, nor the recommended one. It requires to have some knowledge of the command line. In the near future, we\u2019ll provide packages and images to make hosting Cozy easier.", 
-            "title": "Install Cozy on your own server"
+            "location": "/install/debian/#prerequisites", 
+            "text": "Setup your repository and fetch the GPG Cozy signing key.\nChange your channel if you prefer  testing  or  unstable . echo  deb https://apt.cozy.io/ stretch stable    /etc/apt/sources.list.d/cozy.list\ncurl https://apt.cozy.io/cozy.gpg | \\\n    apt-key --keyring /etc/apt/trusted.gpg.d/cozy.gpg add -\napt update", 
+            "title": "Prerequisites"
+        }, 
+        {
+            "location": "/install/debian/#setup", 
+            "text": "For the rest of this document, we assume you install components one by one to allow intermediate verification For a full local environment ( couchdb  +  nginx  +  cozy ), just install the  cozy  package which can install all needed packages in one shot.", 
+            "title": "Setup"
+        }, 
+        {
+            "location": "/install/debian/#couchdb", 
+            "text": "apt install cozy-couchdb  Install CouchDB in  standalone  mode Configure CouchDB to listen on  127.0.0.1 Pick an administrator password At this point, you must have a working CouchDB instance curl http://localhost:5984/       \n{ couchdb : Welcome , version : 2.1.0 , features :[ scheduler ], vendor :{ name : The Apache Software Foundation }}", 
+            "title": "CouchDB"
+        }, 
+        {
+            "location": "/install/debian/#cozy-stack", 
+            "text": "apt install cozy-stack  Cozy need to create a CouchDB administrator and so to connect as admin to the CouchDB. Fill those mandatory parameters to allow this creation:  Address: by default, it s  localhost:5984 Node name: by default, it s  couchdb@localhost Admin user: by default, it s  admin Admin password: put the one you choose during CouchDB setup Cozy user: by default, it s  cozy Cozy password: pick a password  For stack management (create instances, install applications ),  Cozy need an administrator password . So pick a new one. \nWhen invoking  cozy-stack  (or  cozy-coclyco  which use it under the hood), you need to set the  COZY_ADMIN_PASSWORD  environment variable with this password. You can put it on your  .bashrc  for simplier life if you want. At this point, you must have a working Cozy stack curl http://localhost:8080/version\n{ build_mode : production , build_time : 2017-09-28T10:26:03Z , runtime_version : go1.8.1 , version : 0.1.0 }#", 
+            "title": "Cozy stack"
+        }, 
+        {
+            "location": "/install/debian/#finally", 
+            "text": "apt install cozy", 
+            "title": "Finally"
+        }, 
+        {
+            "location": "/install/debian/#cozy-instance-setup", 
+            "text": "", 
+            "title": "Cozy instance setup"
+        }, 
+        {
+            "location": "/install/debian/#dns", 
+            "text": "Cozy relies on sub-domains for each applications you installed on your instance.\nFor an instance  cozy.example.org ,  app .cozy.example.org  must be available too. Currently, you need at least:   onboarding.cozy.example.org settings.cozy.example.org drive.cozy.example.org photos.cozy.example.org collect.cozy.example.org store.cozy.example.org app .cozy.example.org  for each application you use   Follow your usual way to create those entries on your domain zone.\nThe simpliest way to handle this is to use a wildcard entry if supported by your domain hosting. cozy 1h IN A x.x.x.x\n*.cozy 1h IN CNAME cozy", 
+            "title": "DNS"
+        }, 
+        {
+            "location": "/install/debian/#acme-lets-encrypt", 
+            "text": "Like DNS, each application will use a different sub-domain and so request a certificate which include all needed domains. cozy-coclyco  use Let s Encrypt and it ACME protocol to prove your ownership over the domain you try to issue a certificate.\nThis protocol requires your reverse proxy to be able to serve  http:// app .cozy.example.org/.well-known/acme-challenge/  requests correctly.  The simplest way to achieve this is to configure your reverse proxy with a generic rule to forward any  /.well-known/acme-challenge/  request to the corresponding  /etc\n/ssl/private/acme-challenge/  folder.\nFor  nginx , this can be done with /etc/nginx/sites-available/default\nserver {\n    listen 80 default_server;\n    listen [::]:80 default_server;\n\n    root /var/www/html;\n    server_name _;\n\n    location /.well-known/acme-challenge/ {\n        alias /etc/ssl/private/acme-challenge/;\n    }\n\n    location / {\n        return 301 https://$host$request_uri;\n    }\n}", 
+            "title": "ACME (Let's Encrypt)"
+        }, 
+        {
+            "location": "/install/debian/#create-instances", 
+            "text": "Once you ve got a stack, your DNS\u00a0and your reverse proxy correctly configured, you can create instances on your Cozy stack. For this, refer to the documentation of  cozy-coclyco . Remember to set the  COZY_ADMIN_PASSWORD  environment variable.", 
+            "title": "Create instances"
         }, 
         {
             "location": "/install/manual/", 
