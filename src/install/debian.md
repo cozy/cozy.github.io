@@ -86,6 +86,12 @@ curl http://localhost:8080/version
 {"build_mode":"production","build_time":"2017-09-28T10:26:03Z","runtime_version":"go1.8.1","version":"0.1.0"}#
 ```
 
+If you want to use konnectors, you need to initialize the NodeJS chroot
+
+```bash
+/usr/share/cozy/konnector-create-chroot.sh
+```
+
 ## Finally
 
 ```bash
@@ -143,12 +149,20 @@ server {
 		return 301 https://$host$request_uri;
 	}
 }
+
+apt install ssl-cert
+adduser www-data ssl-cert
+systemctl restart nginx
 ```
 
 ## Create instances
 
 Once you've got a stack, your DNS and your reverse proxy correctly configured, you can create instances on your Cozy stack.
-
-For this, refer to the documentation of [cozy-coclyco](https://github.com/cozy/cozy-coclyco/blob/master/README.md).
-
 Remember to set the `COZY_ADMIN_PASSWORD` environment variable.
+
+```bash
+export COZY_ADMIN_PASSWORD=<your-admin-password>
+cozy-coclyco create cozy.example.org me@example.org
+```
+
+For complete reference of Coclyco, refer to the documentation of [cozy-coclyco](https://github.com/cozy/cozy-coclyco/blob/master/README.md).
