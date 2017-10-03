@@ -5,6 +5,7 @@
  - [introduction to Cozy architecture](/dev/intro.md)
  - [how to develop your first application](/dev/app.md)
  - [how to develop a connector](/dev/konnector.md)
+ - [how to create a mobile application with cordova](../dev/cordova.md)
 
 
 ## How to
