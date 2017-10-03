@@ -13,15 +13,15 @@ From a technical point of view, connectors are Node.js applications executed ins
 To ease the development of a connector, an npm package, named [cozy-connector-libs](https://github.com/cozy/cozy-konnector-libs) provides a lot of
 shared libraries. But you may need some other npm packages to help you running your connector: 
 
- - [cheerio](https://cheerio.js.org/) to manipulate the DOM on remote web pages ;
- - [moment](http://momentjs.com/docs/) to manage dates ;
- - [request](https://github.com/request/request) for fetching remote URLs ;
+ - [cheerio](https://cheerio.js.org/) to manipulate the DOM on remote web pages 
+ - [moment](http://momentjs.com/docs/) to manage dates 
+ - [request](https://github.com/request/request) for fetching remote URLs 
 
 When the application is started, it also gets some data through environment variables:
 
- - `COZY_CREDENTIALS` : the auth token used by `cozy-client-js` to communicate with the server ;
- - `COZY_URL` : the API entry point ;
- - `COZY_FIELD` : the settings specific to each connector, for example the path of folder where the user wants to store the remote files ;
+ - `COZY_CREDENTIALS` : the auth token used by `cozy-client-js` to communicate with the server 
+ - `COZY_URL` : the API entry point 
+ - `COZY_FIELD` : the settings specific to each connector, for example the path of folder where the user wants to store the remote files 
 
 But the base connector (`require('cozy-konnector-libs').baseKonnector`) in cozy-konnector-libs handles these for you.
 
@@ -47,7 +47,7 @@ Then, write your code into `konnectors.js` and build the application, running `y
 
 Basically, a connector is just an object passed to baseKonnector.createNew:
 
- - `fetchOperations`: array of methods that will be called sequentially to fetch the data;
+ - `fetchOperations`: array of methods that will be called sequentially to fetch the data
 
 To create the connector, just call `baseKonnector.createNew()` from the Cozy Collector lib, with an object describing the connector:
 
@@ -74,14 +74,14 @@ Every time the connector is run, it will call every method from the `fetchOperat
 
 Each function must use the same signature: `functionName(fields, bills, data, next)` where:
 
- - `fields` are the values of the optional configuration fields;
- - `entries` is an object to pass data from one function to the next one;
- - `data` allows to pass raw data from one function to the next one;
+ - `fields` are the values of the optional configuration fields
+ - `entries` is an object to pass data from one function to the next one
+ - `data` allows to pass raw data from one function to the next one
  - `next` is a function to call to execute next function. One may pass an error as first argument. Don’t forget to call it at the end of every step.
 
 A basic connector workflow involves:
- - getting data and storing them into `entries.fetched`. You can get the data by calling an API, scraping the remote website…;
- - filtering data to remove the ones already present inside the database. The filtered data will be put into `entries.filtered`;
+ - getting data and storing them into `entries.fetched`. You can get the data by calling an API, scraping the remote website…
+ - filtering data to remove the ones already present inside the database. The filtered data will be put into `entries.filtered`
  - save the filtered data into the database.
 
 Many operations are common to most of the connectors, so we created some common functions you can import from the shared library. Most of the time, you’ll just have to take care of fetching data, store them into `entries.fetched` then use the common methods to filter and save them.
@@ -93,25 +93,25 @@ We’ll have a deeper look at this methods below.
 
 If your connector hit some issue fetching or saving the data, it can return an error code by passing it to the `next` method. Some error code are defined inside the Cozy Collect application and will display an explicit error to the user:
 
-  - `LOGIN_FAILED`: the konnector could not login;
-  - `NOT_EXISTING_DIRECTORY`: the folder specified as folder_to_save does not exist (checked by base_konnector);
-  - `UNKNOWN_ERROR`: there was an unexpected error, please take a look at the logs to know what appened;
+  - `LOGIN_FAILED`: the konnector could not login
+  - `NOT_EXISTING_DIRECTORY`: the folder specified as folder_to_save does not exist (checked by base_konnector)
+  - `UNKNOWN_ERROR`: there was an unexpected error, please take a look at the logs to know what appened
 
 
 ### Konnector lib
 
 The Cozy Konnector Lib provide some useful methods for common tasks:
 
- - `baseKonnector.createNew()`: create the connector and fetch data;
+ - `baseKonnector.createNew()`: create the connector and fetch data
  - `cozyClient` gives an instance of cozy-client-js already initialized according to COZY_URL, and
    COZY_CREDENTIALS
- - `fetcher` is the internal class that run fetching operations in sequence, calling the functions with the right parameters;
- - `log(type, message)` allows to log messages;
- - `manifest` extracts informations from the manifest (mainly used internaly at the moment);
- - `naming` is a method allowing to build file names according to parameters;
- - `filterExisting` to filter data;
- - `linkBankOperation` to link a bill to a bank operation;
- - `saveDataAndFile` save the data;
+ - `fetcher` is the internal class that run fetching operations in sequence, calling the functions with the right parameters
+ - `log(type, message)` allows to log messages
+ - `manifest` extracts informations from the manifest (mainly used internaly at the moment)
+ - `naming` is a method allowing to build file names according to parameters
+ - `filterExisting` to filter data
+ - `linkBankOperation` to link a bill to a bank operation
+ - `saveDataAndFile` save the data
  - `updateOrCreate` create or update documents inside database
 
  There are also some models available in require('cozy-konnector-libs').models :
@@ -144,9 +144,9 @@ This method returns a fetch function that filter data fetched from the remote si
 
 Parameters:
 
- - `log`: unused (kept for retro-compatibility);
- - `model`: the model;
- - `suffix`: unused (kept for retro-compatibility);
+ - `log`: unused (kept for retro-compatibility)
+ - `model`: the model
+ - `suffix`: unused (kept for retro-compatibility)
  - `vendor`: if a vendor parameter is given, entry should be of given vendor to be added to the hash (useful for bills).
 
 ```javascript
@@ -164,8 +164,8 @@ This method returns a fetch function that creates an object in database for each
 
 Parameters:
 
- - `log`: unused (kept for retro-compatibility);
- - `model`: the model;
+ - `log`: unused (kept for retro-compatibility)
+ - `model`: the model
  - `options`:
  - `tags`: array of tags to apply to created files.
 
@@ -175,9 +175,9 @@ This method return a fetch function that creates or updates an object in databas
 
 Parameters:
 
- - `log`: unused (kept for retro-compatibility);
- - `model`: the model;
- - `filters`: an array of fields names;
+ - `log`: unused (kept for retro-compatibility)
+ - `model`: the model
+ - `filters`: an array of fields names
  - `tags`: array of tags to apply to created files.
 
 
@@ -187,15 +187,15 @@ This method returns a fetch function that will try to link a bill to a bank oper
 
 The criteria to find a matching operation are:
 
- - Operation label should contain one of the identifiers given in parameter;
- - The date should be between (bill date - `dateDelta`) and (bill date + `dateDelta`). Where `dateDelta` is given as a parameter and is in days;
+ - Operation label should contain one of the identifiers given in parameter
+ - The date should be between (bill date - `dateDelta`) and (bill date + `dateDelta`). Where `dateDelta` is given as a parameter and is in days
  - The amount should be between (bill amount - `amountDelta`) and (bill amount + `amountDelta`). Where `amountDelta` is given as a parameter.
 
 Parameters:
 
 You should pass parameters as an object whose keys are:
 
- - `log`: unused (kept for retro-compatibility);
+ - `log`: unused (kept for retro-compatibility)
  - `model`: a model object to check for.
  - `identifier`: a string or an array of strings to look for in the operation label (case insensitive: the layer will automatically set it to lowercase).
  - `dateDelta`: the number of days allowed between the bank operation date and the bill date  (15 by default). 
@@ -214,8 +214,8 @@ The library includes the most used data model, so you can just require them if y
 
 The library also provide a `baseModel` class to create your own data model. Each model inherits from the following methods:
 
- - `all(callback)` fetch all documents;
- - `create(entry, callback)` creates a new document;
+ - `all(callback)` fetch all documents
+ - `create(entry, callback)` creates a new document
  - `updateAttributes(id, changes, callback)` update the attributes of a document.
 
 
@@ -233,13 +233,13 @@ module.exports = baseModel.createNew({
 Each connector is described by a Manifest. This is a JSON file named `manifest.konnector` at the root of your code folder. It should include the following information:
 
  - `name`: …
- - `slug`: the internal name of the application;
- - `type`: for now, the only allowed value is `node`. In the future, we may support other types of connectors;
+ - `slug`: the internal name of the application
+ - `type`: for now, the only allowed value is `node`. In the future, we may support other types of connectors
  - `version`: 
- - `source`: git URL of the source code repository;
+ - `source`: git URL of the source code repository
  - `fields`: @TODO
  - `locales`: @TODO
- - `permissions`: an object describing the permissions the connector requires;
+ - `permissions`: an object describing the permissions the connector requires
  - `developer`: who are you?
    - `name`: 
    - `url`: 

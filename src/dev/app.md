@@ -4,7 +4,7 @@
 ## Prerequisite
 
 Developing an application for Cozy is quite easy. All you need to know is:
- - how to develop a single page application in HTML5. You can use the tools or framework of your choice, or no framework;
+ - how to develop a single page application in HTML5. You can use the tools or framework of your choice, or no framework
  - basic Docker knowledges.
 
 The only required tool is Docker. We have been told that installing Docker on some familial flavours of Windows may be a bit difficult. If you use Windows, please check if Docker is available on your system.
@@ -32,7 +32,7 @@ docker pull cozy/cozy-app-dev
 ## Create your first application
 
 The minimal application consist of only two files:
- - an HTML file, `index.html`, with the markup and the code of your application;
+ - an HTML file, `index.html`, with the markup and the code of your application
  - a manifest describing the application. It’s a JSON file named `manifest.webapp` with the name of the application, the permissions it requires… We’ll have a deeper look to it content later. #TODO add an inner link to the manifest description.
 
 Your application will be able to use some shared libraries provided by the server, so you don’t have to include them into your project.
@@ -41,12 +41,12 @@ Your application requires some informations to interact with the server API, for
 
 You can use the following variables:
 
- - `{{.Domain}}` will be substituted by the URL of the API entrypoint;
- - `{{.Token}}` will be replaced by a token that authenticate your application when accessing the API;
- - `{{.Locale}}`: the lang f the instance;
- - `{{.AppName}}`: the name of the application;
- - `{{.IconPath}}` will be replaced by HTML code to display the *favicon*;
- - `{{.CozyClientJS}}` will be replaced with HTML code to inject the Cozy client library;
+ - `{{.Domain}}` will be substituted by the URL of the API entrypoint
+ - `{{.Token}}` will be replaced by a token that authenticate your application when accessing the API
+ - `{{.Locale}}`: the lang f the instance
+ - `{{.AppName}}`: the name of the application
+ - `{{.IconPath}}` will be replaced by HTML code to display the *favicon*
+ - `{{.CozyClientJS}}` will be replaced with HTML code to inject the Cozy client library
  - `{{.CozyBar}}` will be replaced with HTML code to inject the upper menu bar.
 
 
@@ -78,8 +78,8 @@ Some server APIs may not be available right now through the library. If you want
 
 Connecting to the API requires three things:
 
- - its URL, injected into the page through the `{{.Domain}}` variable;
- - the application auth token, injected into the page through the `{{.Token}}` variable. Each request sent to the server must include this token in the `Authorization` header;
+ - its URL, injected into the page through the `{{.Domain}}` variable
+ - the application auth token, injected into the page through the `{{.Token}}` variable. Each request sent to the server must include this token in the `Authorization` header
  - the session cookie, created when you connect to your server. This is an `HttpOnly cookie`, meaning that JavaScript applications can’t read it. This prevent a malicious script to stole the cookie.
 
 
@@ -169,10 +169,10 @@ A permission must at type contain a target, the type of objects the application 
 
 In the manifest, each permission is an object, with a random name and some properties:
 
- - `type`: **mandatory** the document type or action name;
- - `description`: a text that will be displayed to the user to explain why the application require this permission;
- - `verbs`: an array of HTTP verbs. For example, to limit permissions to read access, use `["GET"]`;
- - `selector`: a document attribute to limit access to a subset of documents;
+ - `type`: **mandatory** the document type or action name
+ - `description`: a text that will be displayed to the user to explain why the application require this permission
+ - `verbs`: an array of HTTP verbs. For example, to limit permissions to read access, use `["GET"]`
+ - `selector`: a document attribute to limit access to a subset of documents
  - `values`: array of allowed values for this attribute.
 
 An application can request a token that grant access to a subset of its own permissions. For example if the application has full access to the files, it can obtain a token that give only read access on a file. Thus, the application can make some documents publicly available. The public page of the application will use this token as authentication token when accessing the API.
@@ -212,8 +212,8 @@ Application want to be able to read the contact informations of `cozy@cozycloud.
 
 The application must declare all of its URLs (routes) inside the manifest. A route is an object associating an URL to an HTML file. Each route has the following properties:
 
- - `folder`: the base folder of the route;
- - `index`: the name of the file inside this folder;
+ - `folder`: the base folder of the route
+ - `index`: the name of the file inside this folder
  - `public`: a boolean specifying whether the route is public or private (default).
 
 Sample:
@@ -261,16 +261,16 @@ The library supports two programming paradigms: callback and Promises, so you ca
 
 In this tutorial, we’ll only see a few samples of how to use the library. For a complete description of all available methods, please refer to its own documentation:
 
- - [documents](https://github.com/cozy/cozy-client-js/blob/master/docs/data-api.md);
- - [files](https://github.com/cozy/cozy-client-js/blob/master/docs/files-api.md);
- - [authentification](https://github.com/cozy/cozy-client-js/blob/master/docs/auth-api.md);
- - [authentication with OAuth2](https://github.com/cozy/cozy-client-js/blob/master/docs/oauth.md);
- - [settings](https://github.com/cozy/cozy-client-js/blob/master/docs/settings-api.md);
- - [inter-app communication](https://github.com/cozy/cozy-client-js/blob/master/docs/intents-api.md);
- - [jobs and triggers](https://github.com/cozy/cozy-client-js/blob/master/docs/jobs-api.md);
- - [sharing](https://github.com/cozy/cozy-client-js/blob/master/docs/sharing-api.md);
- - [offline](https://github.com/cozy/cozy-client-js/blob/master/docs/oauth.md);
- - [Cozy Bar](https://github.com/cozy/cozy-bar);
+ - [documents](https://github.com/cozy/cozy-client-js/blob/master/docs/data-api.md)
+ - [files](https://github.com/cozy/cozy-client-js/blob/master/docs/files-api.md)
+ - [authentification](https://github.com/cozy/cozy-client-js/blob/master/docs/auth-api.md)
+ - [authentication with OAuth2](https://github.com/cozy/cozy-client-js/blob/master/docs/oauth.md)
+ - [settings](https://github.com/cozy/cozy-client-js/blob/master/docs/settings-api.md)
+ - [inter-app communication](https://github.com/cozy/cozy-client-js/blob/master/docs/intents-api.md)
+ - [jobs and triggers](https://github.com/cozy/cozy-client-js/blob/master/docs/jobs-api.md)
+ - [sharing](https://github.com/cozy/cozy-client-js/blob/master/docs/sharing-api.md)
+ - [offline](https://github.com/cozy/cozy-client-js/blob/master/docs/oauth.md)
+ - [Cozy Bar](https://github.com/cozy/cozy-bar)
 
 #### Manipulating documents
 
@@ -280,9 +280,9 @@ Before manipulating documents, you have to request permission to access their do
 
 Every method allowing to handle document are available under the `cozy.client.data` namespace. For example:
 
- - `cozy.client.data.create(doctype, attributes)`, `cozy.client.data.update(doctype, doc, newdoc)`, `cozy.client.data.delete(doctype, doc)` to create, update and delete documents;
- - `cozy.client.data.updateAttributes(doctype, id, changes)` to only update some attributes of a document;
- - `cozy.client.data.find(doctype, id)` return a document using its ident;
+ - `cozy.client.data.create(doctype, attributes)`, `cozy.client.data.update(doctype, doc, newdoc)`, `cozy.client.data.delete(doctype, doc)` to create, update and delete documents
+ - `cozy.client.data.updateAttributes(doctype, id, changes)` to only update some attributes of a document
+ - `cozy.client.data.find(doctype, id)` return a document using its ident
  - `cozy.client.data.changesFeed(doctype, options)` get the latests updates of documents of a doctype.
  - you can attach files to a document using `cozy.client.data.addReferencedFiles(doc, fileIds)` and list attachments with `cozy.client.data.listReferencedFiles(doc)`.
 
@@ -291,7 +291,7 @@ Every method allowing to handle document are available under the `cozy.client.da
 
 To search documents inside the database, you first need to create an index on some attributes of the documents, then perform a query on this index. The library offers the following methods:
 
- - `cozy.client.data.defineIndex(doctype, fields)` to create the index;
+ - `cozy.client.data.defineIndex(doctype, fields)` to create the index
  - `cozy.client.data.query(indexReference, query)` to query an index. The query parameter uses the syntax of the [Mango API](https://github.com/cloudant/mango) from CouchDB 2.
 
 For example, to search contacts by their email address, you could use:
@@ -313,12 +313,12 @@ The metadata of the files are stored inside the server database, allowing to per
 
 The library offer a lot of methods under `cozy.client.files` namespace to manipulate files. Most of the methods allows to manipulate a file or folder either by its id or by its full path. Here are the most commons ones, but a lot of other methods are available in the [raw API documentation](https://github.com/cozy/cozy-client-js/blob/master/docs/files-api.md):
 
- - `create()` and `updateById()` to create and update a file;
- - `createDirectory()` to create a folder;
- - `updateAttributesById()` et `updateAttributesByPath()` allow to update some metadata;
- - use `destroyById` to remove a file;
- - a virtual trash is available. You can put files into the trash (`trashById()`) and restore them (`restoreById()`). You can also list the content of the trash (`listTrash()`) and purge all trashed files (`clearTrash()`);
- - `statById(id)` et `statByPath(path)` return the metadata and, or folders, their content;
+ - `create()` and `updateById()` to create and update a file
+ - `createDirectory()` to create a folder
+ - `updateAttributesById()` et `updateAttributesByPath()` allow to update some metadata
+ - use `destroyById` to remove a file
+ - a virtual trash is available. You can put files into the trash (`trashById()`) and restore them (`restoreById()`). You can also list the content of the trash (`listTrash()`) and purge all trashed files (`clearTrash()`)
+ - `statById(id)` et `statByPath(path)` return the metadata and, or folders, their content
 
 ##### Folders
 
@@ -333,7 +333,7 @@ cozy.client.files.statByPath("/")
 
 Some special folder have a pre-defined id that will never change:
 
- - `io.cozy.files.root-dir` is the root of the filesystem;
+ - `io.cozy.files.root-dir` is the root of the filesystem
  - `io.cozy.files.trash-dir` is the trash.
 
 
@@ -367,12 +367,12 @@ docker run --rm -it -p 8080:8080 -p 5984:5984 -p 8025:8025 -v $(pwd):/data/cozy-
 
 Let’s have a quick look at this command, so you can adapt it to your needs:
 
- - `--rm` will delete the server when you stop it. This prevent Docker from keeping a lot of unused stopped images;
- - `-it` allow to attach an interactive terminal, so you’ll be able to use the command line inside the server;
- - `-p 8080:8080`: the server listens on port 8080 on the virtual machine. We forward this port to the same port on your local machine. To use another local port, for example 9090, use `-p 9090:8080`;
- - `-p 5984:5984`: this is just a convenient way to access the CouchDB database running inside the server. Point your browser to `http://cozy.tools:5984/_utils/` to access its administrative interface;
- - `-p 8025:8025` : Cozy requires a mail server. In the development image, we don’t use a real email server, but a software that can display the sent messages. Just point your browser to `http://cozy.tools:8025/` to display the messages sent by the server;
- - `-v $(pwd):/data/cozy-app` this mount the current folder, where your application leaves, inside the server. This is what make the application available on the server;
+ - `--rm` will delete the server when you stop it. This prevent Docker from keeping a lot of unused stopped images
+ - `-it` allow to attach an interactive terminal, so you’ll be able to use the command line inside the server
+ - `-p 8080:8080`: the server listens on port 8080 on the virtual machine. We forward this port to the same port on your local machine. To use another local port, for example 9090, use `-p 9090:8080`
+ - `-p 5984:5984`: this is just a convenient way to access the CouchDB database running inside the server. Point your browser to `http://cozy.tools:5984/_utils/` to access its administrative interface
+ - `-p 8025:8025` : Cozy requires a mail server. In the development image, we don’t use a real email server, but a software that can display the sent messages. Just point your browser to `http://cozy.tools:8025/` to display the messages sent by the server
+ - `-v $(pwd):/data/cozy-app` this mount the current folder, where your application leaves, inside the server. This is what make the application available on the server
  - `--name cozydev` name the running virtual machine `cozydev`, so you can easily refer to it from other Docker commands. For example, if you want to connect to a shell inside the server, you can use `docker exec -ti /bin/bash`.
 
 With this syntax, there is no data persistance: all your test data will be lost every time you stop the server. This is a good way to prevent side effects and start on a clean base, with an empty database.
@@ -384,7 +384,7 @@ Once the server started, go to `http://app.cozy.tools:8080/#`, connect to the se
 
 You can also access the following URLs:
 
- - `http://cozy.tools:5984/_utils` to get the database administrative panel;
+ - `http://cozy.tools:5984/_utils` to get the database administrative panel
  - `http://cozy.tools:8025/` to display the emails sent by the server.
 
 

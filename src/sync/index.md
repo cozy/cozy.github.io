@@ -2,5 +2,5 @@
 
 Coming soon
 
- - [synchronize your phone](phone.md);
- - [synchronize your desktop computer](desktop.md);
+ - [synchronize your phone](phone.md)
+ - [synchronize your desktop computer](desktop.md)

@@ -40,6 +40,6 @@ The go-to website about Cozy configuration and setup.
 
 If you have any questions, you can contact us via these 3 medias:
 
- - write an email to our Support team: contact at cozy.io;
- - [post on the forum](https://forum.cozy.io/);
- - [chat with us on IRC](https://forum.cozy.io/);
+ - write an email to our Support team: contact at cozy.io
+ - [post on the forum](https://forum.cozy.io/)
+ - [chat with us on IRC](https://forum.cozy.io/)
