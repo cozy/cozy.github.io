@@ -69,7 +69,8 @@ Install CouchDB in `standalone` mode
 
 Configure CouchDB to listen on `127.0.0.1`
 
-Pick an administrator password
+Pick an administrator password  
+(This password is used by shell scripts, so currently avoid to use one with simple or double quotes or others shell meaningfull symbols. We advice you to choose one with only alphanumeric digits to avoid troubles.)
 
 At this point, you must have a working CouchDB instance
 
@@ -92,6 +93,8 @@ Cozy need to create a CouchDB administrator and so to connect as admin to the Co
  * Admin password: put the one you choose during CouchDB setup
  * Cozy user: by default, it's `cozy`
  * Cozy password: pick a password
+
+ (Those passwords are used by shell scripts, so currently avoid to use ones with simple or double quotes or others shell meaningfull symbols. We advice you to choose ones with only alphanumeric digits to avoid troubles.)
 
 For stack management (create instances, install applications...), [Cozy need an administrator password](https://github.com/cozy/cozy-stack/blob/2ae446d85b60c89fb56cad1f7ed469cddca94494/docs/config.md#user-content-administration-secret). So pick a new one.  
 When invoking `cozy-stack` (or `cozy-coclyco` which use it under the hood), you need to set the `COZY_ADMIN_PASSWORD` environment variable with this password. You can put it on your `.bashrc` for simplier life if you want.
