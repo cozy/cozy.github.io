@@ -265,8 +265,8 @@ Put this file into `/etc/nginx/sites-available` and enable it by creating a syml
 
 In this template, you need to replace the following placeholders:
 
-  - %PORT% with the public port nginx will listen to (default should be 443);
-  - %SERVER_PORT% with the private port cozy will listen to (default should be 8080);
+  - %PORT% with the public port nginx will listen to (default should be 443)
+  - %SERVER_PORT% with the private port cozy will listen to (default should be 8080)
   - %DOMAIN% with your domain of choice: `mycozy.tld` in this example
 
 ```nginx
