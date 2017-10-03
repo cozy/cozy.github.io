@@ -11,6 +11,8 @@ It provides:
 This repository currently supports:
 
  * __Debian Stretch__ (9.x): amd64
+ * __Ubuntu Xenial__ (16.04 LTS): amd64
+ * __Raspbian Stretch__ (9.x): armhf
 
 Available channels are:
 
@@ -27,10 +29,24 @@ Like CouchDB, you can choose to install your reverse proxy on the same host, or 
 # Prerequisites
 
 Setup your repository and fetch the GPG Cozy signing key.
-Change your channel if you prefer `testing` or `unstable`.
+Change your channel if you prefer `testing` or `unstable` or an other distribution.
+Supported repositories are:
+
+ * Debian Stretch (9.x)
+     * deb https://apt.cozy.io/debian/ stretch stable
+     * deb https://apt.cozy.io/debian/ stretch testing
+     * deb https://apt.cozy.io/debian/ stretch unstable
+ * Ubuntu Xenial (16.04 LTS)
+     * deb https://apt.cozy.io/ubuntu/ xenial stable
+     * deb https://apt.cozy.io/ubuntu/ xenial testing
+     * deb https://apt.cozy.io/ubuntu/ xenial unstable
+ * Raspbian Stretch (9.x)
+     * deb https://apt.cozy.io/raspbian/ stretch stable
+     * deb https://apt.cozy.io/raspbian/ stretch testing
+     * deb https://apt.cozy.io/raspbian/ stretch unstable
 
 ```bash
-echo "deb https://apt.cozy.io/ stretch stable" > /etc/apt/sources.list.d/cozy.list
+echo "deb https://apt.cozy.io/debian/ stretch stable" > /etc/apt/sources.list.d/cozy.list
 curl https://apt.cozy.io/cozy.gpg | \
 	apt-key --keyring /etc/apt/trusted.gpg.d/cozy.gpg add -
 apt update
