@@ -29,6 +29,7 @@ Like CouchDB, you can choose to install your reverse proxy on the same host, or 
 # Prerequisites
 
 Setup your repository and fetch the GPG Cozy signing key.
+
 Change your channel if you prefer `testing` or `unstable` or an other distribution.
 Supported repositories are:
 
@@ -104,9 +105,12 @@ curl http://localhost:8080/version
 
 If you want to use konnectors, you need to initialize the NodeJS chroot
 
+(Currently this script only works for Debian and will be adapted for Ubuntu and Raspbian soon)
+
 ```bash
 /usr/share/cozy/konnector-create-chroot.sh
 ```
+
 
 ## Finally
 
