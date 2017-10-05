@@ -9,7 +9,7 @@
   <meta name="author" content="CozyCloud - https://cozy.io">
   <link rel="shortcut icon" href="../../img/favicon.png">
   
-  <title>Architecture - Documentation Cozy</title>
+  <title>Create a mobile app with cordova - Documentation Cozy</title>
   <!--
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
   -->
@@ -21,9 +21,9 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Architecture";
-    var mkdocs_page_input_path = "dev/intro.md";
-    var mkdocs_page_url = "/dev/intro/";
+    var mkdocs_page_name = "Create a mobile app with cordova";
+    var mkdocs_page_input_path = "dev/cordova.md";
+    var mkdocs_page_url = "/dev/cordova/";
   </script>
   
   <script src="../../js/jquery-2.1.1.min.js"></script>
@@ -115,15 +115,9 @@
                     
     <a class="" href="../">Introduction</a>
                 </li>
-                <li class=" current">
+                <li class="">
                     
-    <a class="current" href="./">Architecture</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l3"><a href="#introduction">Introduction</a></li>
-    
-
-    </ul>
+    <a class="" href="../intro/">Architecture</a>
                 </li>
                 <li class="">
                     
@@ -133,9 +127,25 @@
                     
     <a class="" href="../konnector/">Créez votre premier connecteur</a>
                 </li>
-                <li class="">
+                <li class=" current">
                     
-    <a class="" href="../cordova/">Create a mobile app with cordova</a>
+    <a class="current" href="./">Create a mobile app with cordova</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#how-to-create-a-mobile-application-with-cordova">How to create a mobile application with Cordova</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#install-and-setup-cordova">Install and setup cordova</a></li>
+        
+            <li><a class="toctree-l4" href="#configure-your-build-tool">Configure your build tool</a></li>
+        
+            <li><a class="toctree-l4" href="#cordova">Cordova</a></li>
+        
+        </ul>
+    
+
+    </ul>
                 </li>
     </ul>
 	    </li>
@@ -166,10 +176,10 @@
         
       
     
-    <li>Architecture</li>
+    <li>Create a mobile app with cordova</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/cozy/cozy-docs-v3/edit/master/src/dev/intro.md"
+        <a href="https://github.com/cozy/cozy-docs-v3/edit/master/src/dev/cordova.md"
           class="icon icon-github"> Edit on GitHub</a>
       
     </li>
@@ -179,10 +189,70 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h1><p>Cozy is a personal server hosting applications that allow collect and manipulate all your personal data.</p><p>There are two kind of applications:</p><ul>
-<li><strong>web applications</strong>: that&rsquo;s Single Page Applications (SPA) written in HTML and JavaScript that run inside the user&rsquo;s browser. They interact with the server through its API. This API allows to manipulate data and files and to perform miscellaneous tasks, like send emails</li><li><strong>connectors</strong>: that&rsquo;s small application written in JavaScript, running on the server side, that import your data from remote sources.</li></ul>
-<p>In this tutorial, you&rsquo;ll learn how to <a href="../app/">write a client application</a> and 
-<a href="../konnector/">a connector</a>.</p>
+                <h1 id="how-to-create-a-mobile-application-with-cordova">How to create a mobile application with Cordova<a class="headerlink" href="#how-to-create-a-mobile-application-with-cordova" title="Permanent link">&para;</a></h1><h2 id="install-and-setup-cordova">Install and setup cordova<a class="headerlink" href="#install-and-setup-cordova" title="Permanent link">&para;</a></h2><p><a href="http://blog.ionic.io/what-is-cordova-phonegap/">Cordova is a tool</a> to build Android and iOS applications from a web app.</p><p>It works with a CLI that needs <a href="https://nodejs.org/en/download/">node</a>.
+Look at the 
+<a href="https://cordova.apache.org/docs/en/latest/guide/cli/index.html#installing-the-cordova-cli">cordova documentation to install everything needed</a>.</p><p>Once cordova is installed, just run <code>cordova create cozy-app com.example.cozyapp CozyApp</code> and you get the following structure: </p><pre class="codehilite"><code class="language-bash">./
+├── config.xml
+├── hooks
+│   └── README.md
+├── platforms
+├── plugins
+└── www
+    ├── css
+    │   └── index.css
+    ├── img
+    │   └── logo.png
+    ├── index.html
+    └── js
+        └── index.js
+
+7 directories, 6 files</code></pre>
+
+
+<p><strong>Note:</strong> everything you put in 
+<code>www/</code> will be served as your application content.</p><h2 id="configure-your-build-tool">Configure your build tool<a class="headerlink" href="#configure-your-build-tool" title="Permanent link">&para;</a></h2><p>If you use a build tool to transpile your JavaScript code, you need to configure your tool to output the build into <code>www/</code>.</p><h3 id="webpack-configuration">webpack configuration<a class="headerlink" href="#webpack-configuration" title="Permanent link">&para;</a></h3><p>As <a href="http://stateofjs.com/2016/buildtools/">Webpack is the most used build tool</a> we will show you how to configure it with cordova:</p><p>Create a <code>webpack.config.js</code> on the root folder of your project with:</p><pre class="codehilite"><code class="language-js">const path = require('path);
+
+module.exports = {
+  entry: './src/app.js',
+  output: {
+    filename: 'bundle.js',
+    path.resolve(__dirname, 'www')
+  }
+}</code></pre>
+
+
+<p>And add the output bundle in the <code>www/index.html</code> file:</p><pre class="codehilite"><code class="language-html">&lt;html&gt;
+  &lt;head&gt;
+    ...
+  &lt;/head&gt;
+  &lt;body&gt;
+    ...
+    &lt;script src=&quot;bundle.js&quot;&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+
+<p>See <a href="https://webpack.js.org/">the official webpack documentation</a> for more details.</p><h2 id="cordova">Cordova<a class="headerlink" href="#cordova" title="Permanent link">&para;</a></h2><h3 id="android-platform">Android Platform<a class="headerlink" href="#android-platform" title="Permanent link">&para;</a></h3><p>Use <code>cordova platform add android</code> and check your environment with 
+<code>cordova requirements</code>:</p><p>A bad requirements check:</p><pre class="codehilite"><code>Requirements check results for android:
+Java JDK: installed .
+Android SDK: installed
+Android target: not installed
+Android SDK not found. Make sure that it is installed. If it is not at the default location, set the ANDROID_HOME environment variable.
+Gradle: installed
+Error: Some of requirements check failed</code></pre>
+
+
+<p>A good requirements check:</p><pre class="codehilite"><code>Requirements check results for android:
+Java JDK: installed .
+Android SDK: installed
+Android target: installed android-19,android-21,android-22,android-23,Google Inc.:Google APIs:19,Google Inc.:Google APIs (x86 System Image):19,Google Inc.:Google APIs:23
+Gradle: installed</code></pre>
+
+
+<p>See cordova, android and ios documentation to customize your development environment for your special needs.</p><p>Once everything is right, you could run <code>cordova build</code> and 
+<code>cordova run android</code> to create an APK and push the APK on a device.</p><p><strong>Note:</strong> The device should be connected with usb.
+See 
+<a href="https://developer.android.com/studio/run/device.html">official android documentation for more details</a>.</p><h3 id="ios-development">iOS development<a class="headerlink" href="#ios-development" title="Permanent link">&para;</a></h3><p>For building an iOS app, you need <a href="https://developer.apple.com/xcode/">xcode</a>.</p><p>[[more to come]]</p><p>See further details on <a href="https://cordova.apache.org/docs/en/latest/guide/platforms/ios/index.html">the cordova official documentation about iOS</a>.</p>
               
             </div>
           </div>
@@ -190,10 +260,8 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../app/" class="btn btn-neutral float-right" title="Créez votre première application">Next <span class="icon icon-circle-arrow-right"></span></a>
       
-      
-        <a href="../" class="btn btn-neutral" title="Introduction"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../konnector/" class="btn btn-neutral" title="Créez votre premier connecteur"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -239,10 +307,8 @@
           <a href="https://github.com/cozy/cozy-docs-v3" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
-        <span><a href="../" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../konnector/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
-      
-        <span style="margin-left: 15px"><a href="../app/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
