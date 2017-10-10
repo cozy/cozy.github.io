@@ -53,6 +53,13 @@ curl https://apt.cozy.io/cozy.gpg | \
 apt update
 ```
 
+If you want to use unstable/nightly builds, you have to accept another key (weaker and passwordless on our side because of unattended automated builds)
+
+```bash
+curl https://apt.cozy.io/cozy-nightly.gpg | \
+    apt-key --keyring /etc/apt/trusted.gpg.d/cozy.gpg add -
+```
+
 # Setup
 
 For the rest of this document, we assume you install components one by one to allow intermediate verification
