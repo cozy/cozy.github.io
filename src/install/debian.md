@@ -121,6 +121,13 @@ If you want to use konnectors, you need to initialize the NodeJS chroot
 /usr/share/cozy/konnector-create-chroot.sh
 ```
 
+If you use a self-signed certificate or a not official certificate authority, you need to deploy the corresponding root certificate in `/usr/share/cozy/chroot/etc/ssl/certs/custom.crt`.  
+For example, if you use [Let's Encrypt staging environment](https://letsencrypt.org/docs/staging-environment/) for testing purpose :
+
+```bash
+wget -q https://letsencrypt.org/certs/fakelerootx1.pem \
+    -O /usr/share/cozy/chroot/etc/ssl/certs/custom.crt
+```
 
 ## Finally
 
