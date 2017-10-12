@@ -208,7 +208,7 @@
 <a href="https://github.com/cozy/cozy-stack/">Cozy core</a></li><li><code>cozy-coclyco</code>: 
 <a href="https://github.com/cozy/cozy-coclyco/">CLI</a> to manage vhosts and certificates</li><li><code>cozy</code>: metapackage installing everything to setup a self-hosted environment</li></ul>
 <p>This repository currently supports:</p><ul>
-<li><strong>Debian Stretch</strong> (9.x): amd64</li></ul>
+<li><strong>Debian Stretch</strong> (9.x): amd64</li><li><strong>Ubuntu Xenial</strong> (16.04 LTS): amd64</li><li><strong>Raspbian Stretch</strong> (9.x): armhf</li></ul>
 <p>Available channels are:</p><ul>
 <li><strong>stable</strong>: official and supported releases</li><li><strong>testing</strong>: future official releases, for testing purposes</li><li><strong>unstable</strong>: nightly builds, to be use with caution</li></ul>
 <p><code>cozy-couchdb</code> and 
@@ -217,12 +217,33 @@
 <code>nsjail</code> will be available</p><p>You can choose to install <code>cozy-couchdb</code> on the same host as 
 <code>cozy-stack</code>, or use a remote CouchDB server. Cozy only needs a 2.x CouchDB (1.x not supported).</p><p>Like CouchDB, you can choose to install your reverse proxy on the same host, or use a remote one. At this <code>cozy-coclyco</code> supports only local 
 <code>nginx</code>. If you want to use 
-<code>apache2</code> or remote reverse proxy, you need to manually configure it for vhost or TLS certificate issuances.</p><h1 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h1><p>Setup your repository and fetch the GPG Cozy signing key.
-Change your channel if you prefer <code>testing</code> or 
-<code>unstable</code>.</p><pre class="codehilite"><code class="language-bash">echo &quot;deb https://apt.cozy.io/ stretch stable&quot; &gt; /etc/apt/sources.list.d/cozy.list
+<code>apache2</code> or remote reverse proxy, you need to manually configure it for vhost or TLS certificate issuances.</p><h1 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h1><p>Setup your repository and fetch the GPG Cozy signing key.</p><p>Change your channel if you prefer <code>testing</code> or 
+<code>unstable</code> or an other distribution.
+Supported repositories are:</p><ul>
+<li>Debian Stretch (9.x)<ul>
+<li>deb https://apt.cozy.io/debian/ stretch stable</li>
+<li>deb https://apt.cozy.io/debian/ stretch testing</li>
+<li>deb https://apt.cozy.io/debian/ stretch unstable</li>
+</ul>
+</li><li>Ubuntu Xenial (16.04 LTS)<ul>
+<li>deb https://apt.cozy.io/ubuntu/ xenial stable</li>
+<li>deb https://apt.cozy.io/ubuntu/ xenial testing</li>
+<li>deb https://apt.cozy.io/ubuntu/ xenial unstable</li>
+</ul>
+</li><li>Raspbian Stretch (9.x)<ul>
+<li>deb https://apt.cozy.io/raspbian/ stretch stable</li>
+<li>deb https://apt.cozy.io/raspbian/ stretch testing</li>
+<li>deb https://apt.cozy.io/raspbian/ stretch unstable</li>
+</ul>
+</li></ul>
+<pre class="codehilite"><code class="language-bash">echo &quot;deb https://apt.cozy.io/debian/ stretch stable&quot; &gt; /etc/apt/sources.list.d/cozy.list
 curl https://apt.cozy.io/cozy.gpg | \
     apt-key --keyring /etc/apt/trusted.gpg.d/cozy.gpg add -
 apt update</code></pre>
+
+
+<p>If you want to use unstable/nightly builds, you have to accept another key (weaker and passwordless on our side because of unattended automated builds)</p><pre class="codehilite"><code class="language-bash">curl https://apt.cozy.io/cozy-nightly.gpg | \
+    apt-key --keyring /etc/apt/trusted.gpg.d/cozy.gpg add -</code></pre>
 
 
 <h1 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h1><p>For the rest of this document, we assume you install components one by one to allow intermediate verification</p><p>For a full local environment (<code>couchdb</code> + 
@@ -231,7 +252,8 @@ apt update</code></pre>
 <code>cozy</code> package which can install all needed packages in one shot.</p><h2 id="couchdb">CouchDB<a class="headerlink" href="#couchdb" title="Permanent link">&para;</a></h2><pre class="codehilite"><code class="language-bash">apt install cozy-couchdb</code></pre>
 
 
-<p>Install CouchDB in <code>standalone</code> mode</p><p>Configure CouchDB to listen on <code>127.0.0.1</code></p><p>Pick an administrator password</p><p>At this point, you must have a working CouchDB instance</p><pre class="codehilite"><code class="language-bash">curl http://localhost:5984/       
+<p>Install CouchDB in <code>standalone</code> mode</p><p>Configure CouchDB to listen on <code>127.0.0.1</code></p><p>Pick an administrator password<br />
+(This password is used by shell scripts, so currently avoid to use one with simple or double quotes or others shell meaningfull symbols. We advice you to choose one with only alphanumeric digits to avoid troubles.)</p><p>At this point, you must have a working CouchDB instance</p><pre class="codehilite"><code class="language-bash">curl http://localhost:5984/       
 {&quot;couchdb&quot;:&quot;Welcome&quot;,&quot;version&quot;:&quot;2.1.0&quot;,&quot;features&quot;:[&quot;scheduler&quot;],&quot;vendor&quot;:{&quot;name&quot;:&quot;The Apache Software Foundation&quot;}}</code></pre>
 
 
@@ -240,7 +262,7 @@ apt update</code></pre>
 
 <p>Cozy need to create a CouchDB administrator and so to connect as admin to the CouchDB. Fill those mandatory parameters to allow this creation:</p><ul>
 <li>Address: by default, it&rsquo;s <code>localhost:5984</code></li><li>Node name: by default, it&rsquo;s <code>couchdb@localhost</code></li><li>Admin user: by default, it&rsquo;s <code>admin</code></li><li>Admin password: put the one you choose during CouchDB setup</li><li>Cozy user: by default, it&rsquo;s <code>cozy</code></li><li>Cozy password: pick a password</li></ul>
-<p>For stack management (create instances, install applications&hellip;), <a href="https://github.com/cozy/cozy-stack/blob/2ae446d85b60c89fb56cad1f7ed469cddca94494/docs/config.md#user-content-administration-secret">Cozy need an administrator password</a>. So pick a new one.
+<p>(Those passwords are used by shell scripts, so currently avoid to use ones with simple or double quotes or others shell meaningfull symbols. We advice you to choose ones with only alphanumeric digits to avoid troubles.)</p><p>For stack management (create instances, install applications&hellip;), <a href="https://github.com/cozy/cozy-stack/blob/2ae446d85b60c89fb56cad1f7ed469cddca94494/docs/config.md#user-content-administration-secret">Cozy need an administrator password</a>. So pick a new one.
 <br />
 When invoking 
 <code>cozy-stack</code> (or 
@@ -248,6 +270,16 @@ When invoking
 <code>COZY_ADMIN_PASSWORD</code> environment variable with this password. You can put it on your 
 <code>.bashrc</code> for simplier life if you want.</p><p>At this point, you must have a working Cozy stack</p><pre class="codehilite"><code class="language-bash">curl http://localhost:8080/version
 {&quot;build_mode&quot;:&quot;production&quot;,&quot;build_time&quot;:&quot;2017-09-28T10:26:03Z&quot;,&quot;runtime_version&quot;:&quot;go1.8.1&quot;,&quot;version&quot;:&quot;0.1.0&quot;}#</code></pre>
+
+
+<p>If you want to use konnectors, you need to initialize the NodeJS chroot</p><p>(Currently this script only works for Debian and will be adapted for Ubuntu and Raspbian soon)</p><pre class="codehilite"><code class="language-bash">/usr/share/cozy/konnector-create-chroot.sh</code></pre>
+
+
+<p>If you use a self-signed certificate or a not official certificate authority, you need to deploy the corresponding root certificate in <code>/usr/share/cozy/chroot/etc/ssl/certs/custom.crt</code>.
+<br />
+For example, if you use 
+<a href="https://letsencrypt.org/docs/staging-environment/">Let&rsquo;s Encrypt staging environment</a> for testing purpose :</p><pre class="codehilite"><code class="language-bash">wget -q https://letsencrypt.org/certs/fakelerootx1.pem \
+    -O /usr/share/cozy/chroot/etc/ssl/certs/custom.crt</code></pre>
 
 
 <h2 id="finally">Finally<a class="headerlink" href="#finally" title="Permanent link">&para;</a></h2><pre class="codehilite"><code class="language-bash">apt install cozy</code></pre>
@@ -284,10 +316,19 @@ server {
     location / {
         return 301 https://$host$request_uri;
     }
-}</code></pre>
+}
+
+apt install ssl-cert
+adduser www-data ssl-cert
+systemctl restart nginx</code></pre>
 
 
-<h2 id="create-instances">Create instances<a class="headerlink" href="#create-instances" title="Permanent link">&para;</a></h2><p>Once you&rsquo;ve got a stack, your DNS and your reverse proxy correctly configured, you can create instances on your Cozy stack.</p><p>For this, refer to the documentation of <a href="https://github.com/cozy/cozy-coclyco/blob/master/README.md">cozy-coclyco</a>.</p><p>Remember to set the <code>COZY_ADMIN_PASSWORD</code> environment variable.</p>
+<h2 id="create-instances">Create instances<a class="headerlink" href="#create-instances" title="Permanent link">&para;</a></h2><p>Once you&rsquo;ve got a stack, your DNS and your reverse proxy correctly configured, you can create instances on your Cozy stack.
+Remember to set the <code>COZY_ADMIN_PASSWORD</code> environment variable.</p><pre class="codehilite"><code class="language-bash">export COZY_ADMIN_PASSWORD=&lt;your-admin-password&gt;
+cozy-coclyco create cozy.example.org me@example.org</code></pre>
+
+
+<p>For complete reference of Coclyco, refer to the documentation of <a href="https://github.com/cozy/cozy-coclyco/blob/master/README.md">cozy-coclyco</a>.</p>
               
             </div>
           </div>
