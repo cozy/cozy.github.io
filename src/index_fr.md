@@ -20,7 +20,7 @@ The go-to website about Cozy configuration and setup.
 
   <div class="home-action">
     <div>
-      <a href="../install"><img src="../assets/images/home/icon-install.svg">
+      <a href="../install/debian"><img src="../assets/images/home/icon-install.svg">
       [Installez votre propre serveur](install/debian)
     </div>
   </div>
