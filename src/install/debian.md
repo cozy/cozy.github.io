@@ -36,15 +36,15 @@ Supported repositories are:
  * Debian Stretch (9.x)
      * deb https://apt.cozy.io/debian/ stretch stable
      * deb https://apt.cozy.io/debian/ stretch testing
-     * deb https://apt.cozy.io/debian/ stretch unstable
+     * deb https://apt.cozy.io/nightly/debian/ stretch unstable
  * Ubuntu Xenial (16.04 LTS)
      * deb https://apt.cozy.io/ubuntu/ xenial stable
      * deb https://apt.cozy.io/ubuntu/ xenial testing
-     * deb https://apt.cozy.io/ubuntu/ xenial unstable
+     * deb https://apt.cozy.io/nightly/ubuntu/ xenial unstable
  * Raspbian Stretch (9.x)
      * deb https://apt.cozy.io/raspbian/ stretch stable
      * deb https://apt.cozy.io/raspbian/ stretch testing
-     * deb https://apt.cozy.io/raspbian/ stretch unstable
+     * deb https://apt.cozy.io/nightly/raspbian/ stretch unstable
 
 ```bash
 echo "deb https://apt.cozy.io/debian/ stretch stable" > /etc/apt/sources.list.d/cozy.list
@@ -56,7 +56,7 @@ apt update
 If you want to use unstable/nightly builds, you have to accept another key (weaker and passwordless on our side because of unattended automated builds)
 
 ```bash
-curl https://apt.cozy.io/cozy-nightly.gpg | \
+curl https://apt.cozy.io/nightly/cozy.gpg | \
     apt-key --keyring /etc/apt/trusted.gpg.d/cozy.gpg add -
 ```
 
