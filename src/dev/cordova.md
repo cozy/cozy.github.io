@@ -115,7 +115,7 @@ As [Webpack is the most used build tool](http://stateofjs.com/2016/buildtools/) 
 Create a `webpack.config.js` on the root folder of your project with:
 
 ```js
-const path = require('path);
+const path = require('path');
 
 module.exports = {
   entry: './src/app.js',
