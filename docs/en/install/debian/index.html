@@ -227,17 +227,17 @@ Supported repositories are:</p><ul>
 <li>Debian Stretch (9.x)<ul>
 <li>deb https://apt.cozy.io/debian/ stretch stable</li>
 <li>deb https://apt.cozy.io/debian/ stretch testing</li>
-<li>deb https://apt.cozy.io/debian/ stretch unstable</li>
+<li>deb https://apt.cozy.io/nightly/debian/ stretch unstable</li>
 </ul>
 </li><li>Ubuntu Xenial (16.04 LTS)<ul>
 <li>deb https://apt.cozy.io/ubuntu/ xenial stable</li>
 <li>deb https://apt.cozy.io/ubuntu/ xenial testing</li>
-<li>deb https://apt.cozy.io/ubuntu/ xenial unstable</li>
+<li>deb https://apt.cozy.io/nightly/ubuntu/ xenial unstable</li>
 </ul>
 </li><li>Raspbian Stretch (9.x)<ul>
 <li>deb https://apt.cozy.io/raspbian/ stretch stable</li>
 <li>deb https://apt.cozy.io/raspbian/ stretch testing</li>
-<li>deb https://apt.cozy.io/raspbian/ stretch unstable</li>
+<li>deb https://apt.cozy.io/nightly/raspbian/ stretch unstable</li>
 </ul>
 </li></ul>
 <pre class="codehilite"><code class="language-bash">echo &quot;deb https://apt.cozy.io/debian/ stretch stable&quot; &gt; /etc/apt/sources.list.d/cozy.list
@@ -246,7 +246,7 @@ curl https://apt.cozy.io/cozy.gpg | \
 apt update</code></pre>
 
 
-<p>If you want to use unstable/nightly builds, you have to accept another key (weaker and passwordless on our side because of unattended automated builds)</p><pre class="codehilite"><code class="language-bash">curl https://apt.cozy.io/cozy-nightly.gpg | \
+<p>If you want to use unstable/nightly builds, you have to accept another key (weaker and passwordless on our side because of unattended automated builds)</p><pre class="codehilite"><code class="language-bash">curl https://apt.cozy.io/nightly/cozy.gpg | \
     apt-key --keyring /etc/apt/trusted.gpg.d/cozy.gpg add -</code></pre>
 
 
@@ -397,6 +397,7 @@ cozy-coclyco create cozy.example.org me@example.org</code></pre>
     </span>
 </div>
     <script src="../../js/theme.js"></script>
+      <script src="../../extra.js"></script>
 
 </body>
 </html>
