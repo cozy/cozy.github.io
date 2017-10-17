@@ -269,7 +269,7 @@ In this tutorial, we’ll only see a few samples of how to use the library. For 
  - [inter-app communication](https://github.com/cozy/cozy-client-js/blob/master/docs/intents-api.md)
  - [jobs and triggers](https://github.com/cozy/cozy-client-js/blob/master/docs/jobs-api.md)
  - [sharing](https://github.com/cozy/cozy-client-js/blob/master/docs/sharing-api.md)
- - [offline](https://github.com/cozy/cozy-client-js/blob/master/docs/oauth.md)
+ - [offline](https://github.com/cozy/cozy-client-js/blob/master/docs/offline.md)
  - [Cozy Bar](https://github.com/cozy/cozy-bar)
 
 #### Manipulating documents
