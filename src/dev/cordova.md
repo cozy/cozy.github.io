@@ -17,7 +17,7 @@ In the case of a mobile application, you need to retrieve a token differently. H
 
 You'll need two libraries:
 
-- cozy-client-js ([source](https://github.com/cozy/cozy-client-js))
+- cozy-client ([source](https://github.com/cozy/cozy-drive/tree/master/src/lib/cozy-client))
 - cozy-bar ([source](https://github.com/cozy/cozy-bar))
 
 !!! warning ""
@@ -27,7 +27,7 @@ You'll need two libraries:
 
 When an user will start your mobile Cozy application, she/he will need to point to her/his server url to ask for permissions for her/his device.
 
-This is done by our library `cozy-client-js`, you just need to add a HTML form:
+This is done by our library `cozy-client`, you just need to add a HTML form:
 
 ```html
 <form id="form">
@@ -56,11 +56,11 @@ When `cozyClient.register(url)` is called, [the cordova inapp browser plugin](ht
 
 That's all!
 
-Then you can use the cozy-client-js library as [you would within a classic Cozy application](/dev/app/#manipulating-documents).
+Then you can use the cozy-client library as [you would within a classic Cozy application](/dev/app/#manipulating-documents).
 
 ## Initialize the Cozy bar
 
-The Cozy bar needs some information to be initialized and, as cozy-client-js its initialization must be done in your front-end code:
+The Cozy bar needs some information to be initialized and its initialization must be done in your front-end code:
 
 ```js
 cozy.bar.init({
