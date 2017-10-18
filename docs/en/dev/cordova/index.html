@@ -136,6 +136,8 @@
     
         <ul>
         
+            <li><a class="toctree-l4" href="#setup-indexhtml">Setup index.html</a></li>
+        
             <li><a class="toctree-l4" href="#connect-to-cozy-server">Connect to Cozy server</a></li>
         
             <li><a class="toctree-l4" href="#initialize-the-cozy-bar">Initialize the Cozy bar</a></li>
@@ -199,11 +201,25 @@
 <a href="#cordova">cordova deployments for Android and iOS</a>.</p></div>
 <p>To create <a href="../../dev/app">your first Cozy application</a>, just follow the guide.
 As you can read there, Cozy applications are served by the Cozy server, this is the way that Cozy applications retrieve a token to query data.</p><p>In the case of a mobile application, you need to retrieve a token differently. Hopefully we provide everything you need to do it easily.</p><p>You&rsquo;ll need two libraries:</p><ul>
-<li>cozy-client-js (<a href="https://github.com/cozy/cozy-client-js">source</a>)</li><li>cozy-bar (<a href="https://github.com/cozy/cozy-bar">source</a>)</li></ul>
+<li>cozy-client (<a href="https://github.com/cozy/cozy-drive/tree/master/src/lib/cozy-client">source</a>)</li><li>cozy-bar (<a href="https://github.com/cozy/cozy-bar">source</a>)</li></ul>
 <div class="admonition warning">
 <p>In the case of Cozy web applications served by the Cozy server, these two libraries are injected in the html file with variables <code>{{.CozyClientJS}}</code> and 
 <code>{{.CozyBar}}</code>.</p></div>
-<h2 id="connect-to-cozy-server">Connect to Cozy server<a class="headerlink" href="#connect-to-cozy-server" title="Permanent link">&para;</a></h2><p>When an user will start your mobile Cozy application, she/he will need to point to her/his server url to ask for permissions for her/his device.</p><p>This is done by our library <code>cozy-client-js</code>, you just need to add a HTML form:</p><pre class="codehilite"><code class="language-html">&lt;form id=&quot;form&quot;&gt;
+<h2 id="setup-indexhtml">Setup index.html<a class="headerlink" href="#setup-indexhtml" title="Permanent link">&para;</a></h2><p>First thing first, add JavaScript libraries files into your <code>index.html</code>:</p><pre class="codehilite"><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;mobile Cozy application with Cordova&lt;/title&gt;
+    &lt;script src=&quot;cozy-client.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;cozy-bar.js&quot;&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;!-- page content --&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+
+<h2 id="connect-to-cozy-server">Connect to Cozy server<a class="headerlink" href="#connect-to-cozy-server" title="Permanent link">&para;</a></h2><p>When an user will start your mobile Cozy application, she/he will need to point to her/his server url to ask for permissions for her/his device.</p><p>This is done by our library <code>cozy-client</code>, you just need to add a HTML form:</p><pre class="codehilite"><code class="language-html">&lt;form id=&quot;form&quot;&gt;
   &lt;label&gt;What is your cozy server url?
     &lt;input name=&quot;url&quot; id=&quot;url&quot; type=&quot;text&quot; /&gt;
   &lt;/label&gt;
@@ -224,7 +240,7 @@ function registerClient (event) {
 
 <p><a class="jsbin-embed" href="http://jsbin.com/nokoxak/embed?console,output">JS Bin on jsbin.com</a><script src="http://static.jsbin.com/js/embed.min.js?4.1.0"></script></p>
 <p>When <code>cozyClient.register(url)</code> is called, 
-<a href="https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-inappbrowser/">the cordova inapp browser plugin</a> is used to display a password request and a permission acceptation page to let the end-user to register her/his device.</p><p>That&rsquo;s all!</p><p>Then you can use the cozy-client-js library as <a href="../../dev/app/#manipulating-documents">you would within a classic Cozy application</a>.</p><h2 id="initialize-the-cozy-bar">Initialize the Cozy bar<a class="headerlink" href="#initialize-the-cozy-bar" title="Permanent link">&para;</a></h2><p>The Cozy bar needs some information to be initialized and, as cozy-client-js its initialization must be done in your front-end code:</p><pre class="codehilite"><code class="language-js">cozy.bar.init({
+<a href="https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-inappbrowser/">the cordova inapp browser plugin</a> is used to display a password request and a permission acceptation page to let the end-user to register her/his device.</p><p>That&rsquo;s all!</p><p>Then you can use the cozy-client library as <a href="../../dev/app/#manipulating-documents">you would within a classic Cozy application</a>.</p><h2 id="initialize-the-cozy-bar">Initialize the Cozy bar<a class="headerlink" href="#initialize-the-cozy-bar" title="Permanent link">&para;</a></h2><p>The Cozy bar needs some information to be initialized and its initialization must be done in your front-end code:</p><pre class="codehilite"><code class="language-js">cozy.bar.init({
   appName: &quot;App Name&quot;,
   appEditor: &quot;Editor Name&quot;,
   iconPath: require(&quot;./assets/app-icon.svg&quot;),
