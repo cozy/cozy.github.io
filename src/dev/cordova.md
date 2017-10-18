@@ -23,6 +23,25 @@ You'll need two libraries:
 !!! warning ""
     In the case of Cozy web applications served by the Cozy server, these two libraries are injected in the html file with variables `{{.CozyClientJS}}` and `{{.CozyBar}}`.
 
+## Setup index.html
+
+First thing first, add JavaScript libraries files into your `index.html`:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>mobile Cozy application with Cordova</title>
+    <script src="cozy-client.js"></script>
+    <script src="cozy-bar.js"></script>
+  </head>
+  <body>
+    <!-- page content -->
+  </body>
+</html>
+```
+
 ## Connect to Cozy server
 
 When an user will start your mobile Cozy application, she/he will need to point to her/his server url to ask for permissions for her/his device.
