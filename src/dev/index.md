@@ -33,22 +33,23 @@ Browse the full API reference inside our repositories:
 ### Raw Server API
 
   - introduction:
-    - [API architecture](https://github.com/cozy/cozy-stack/blob/master/docs/architecture.md#services)
-    - [conventions](https://github.com/cozy/cozy-stack/blob/master/docs/architecture.md#rest-api)
-    - [JSON-API](https://github.com/cozy/cozy-stack/blob/master/docs/jsonapi.md)
+    - [API architecture](https://cozy.github.io/cozy-stack/architecture.html#services)
+    - [conventions](https://cozy.github.io/cozy-stack/architecture.html#rest-api)
+    - [JSON-API](https://cozy.github.io/cozy-stack/jsonapi.html)
  
-  - [applications](https://github.com/cozy/cozy-stack/blob/master/docs/apps.md#get-appsmanifests): install, update, list applications
-  - [merketplace](https://github.com/cozy/cozy-stack/blob/master/docs/apps.md#manage-the-marketplace)
-  - [permissions](https://github.com/cozy/cozy-stack/blob/master/docs/permissions.md)
-  - [settings](https://github.com/cozy/cozy-stack/blob/master/docs/settings.md)
-  - [auth](https://github.com/cozy/cozy-stack/blob/master/docs/auth.md#the-cozy-stack-as-an-authorization-server)
-  - [documents](https://github.com/cozy/cozy-stack/blob/master/docs/data-system.md)
-  - [query the database](https://github.com/cozy/cozy-stack/blob/master/docs/mango.md)
-  - [files](https://github.com/cozy/cozy-stack/blob/master/docs/data-system.md)
-  - [link files to documents](https://github.com/cozy/cozy-stack/blob/master/docs/references-docs-in-vfs.md#routes)
-  - [jobs](https://github.com/cozy/cozy-stack/blob/master/docs/jobs.md)
-  - [workers' architecture](https://github.com/cozy/cozy-stack/blob/master/docs/architecture.md#workers) and [API](https://github.com/cozy/cozy-stack/blob/master/docs/workers.md)
-  - [inter-application communication](https://github.com/cozy/cozy-stack/blob/master/docs/intents.md#routes)
-  - [sharing](https://github.com/cozy/cozy-stack/blob/master/docs/sharing.md#routes)
-  - [connectors](https://github.com/cozy/cozy-stack/blob/master/docs/konnectors.md)
-
+  - [applications](https://cozy.github.io/cozy-stack/apps.html#get-appsmanifests): install, update, list applications
+  - [marketplace](https://cozy.github.io/cozy-stack/apps.html#manage-the-marketplace)
+  - [permissions](https://cozy.github.io/cozy-stack/permissions.html)
+  - [notifications](https://cozy.github.io/cozy-stack/notifications.html)
+  - [settings](https://cozy.github.io/cozy-stack/settings.html)
+  - [auth](https://cozy.github.io/cozy-stack/auth.html#the-cozy-stack-as-an-authorization-server)
+  - [documents](https://cozy.github.io/cozy-stack/data-system.html)
+  - [query the database](https://cozy.github.io/cozy-stack/mango.html)
+  - [files](https://cozy.github.io/cozy-stack/files.html)
+  - [link files to documents](https://cozy.github.io/cozy-stack/references-docs-in-vfs.html#routes)
+  - [jobs](https://cozy.github.io/cozy-stack/jobs.html)
+  - [workers' architecture](https://cozy.github.io/cozy-stack/architecture.html#workers) and [API](https://cozy.github.io/cozy-stack/workers.html)
+  - [inter-application communication](https://cozy.github.io/cozy-stack/intents.html#routes)
+  - [sharing](https://cozy.github.io/cozy-stack/sharing.html#routes)
+  - [connectors](https://cozy.github.io/cozy-stack/konnectors.html)
+  - [realtime](https://cozy.github.io/cozy-stack/realtime.html)
