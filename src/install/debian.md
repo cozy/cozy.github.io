@@ -60,6 +60,8 @@ curl https://apt.cozy.io/nightly/cozy.gpg | \
     apt-key --keyring /etc/apt/trusted.gpg.d/cozy.gpg add -
 ```
 
+__Currently, only `unstable` is populated, waiting for feedback about packages usability before testing & stable release.__
+
 # Setup
 
 For the rest of this document, we assume you install components one by one to allow intermediate verification
