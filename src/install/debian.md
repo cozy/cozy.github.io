@@ -1,3 +1,5 @@
+# Install Cozy on a Debian server
+
 A Debian repository serves packages to setup a Cozy self-hosted environment
 
 It provides:
@@ -26,7 +28,7 @@ You can choose to install `cozy-couchdb` on the same host as `cozy-stack`, or us
 
 Like CouchDB, you can choose to install your reverse proxy on the same host, or use a remote one. At this `cozy-coclyco` supports only local `nginx`. If you want to use `apache2` or remote reverse proxy, you need to manually configure it for vhost or TLS certificate issuances.
 
-# Prerequisites
+## Prerequisites
 
 Setup your repository and fetch the GPG Cozy signing key.
 
@@ -62,13 +64,13 @@ curl https://apt.cozy.io/nightly/cozy.gpg | \
 
 __Currently, only `unstable` is populated, waiting for feedback about packages usability before testing & stable release.__
 
-# Setup
+## Setup
 
 For the rest of this document, we assume you install components one by one to allow intermediate verification
 
 For a full local environment (`couchdb` + `nginx` + `cozy`), just install the `cozy` package which can install all needed packages in one shot.
 
-## CouchDB
+### CouchDB
 
 ```bash
 apt install cozy-couchdb
@@ -88,7 +90,7 @@ curl http://localhost:5984/
 {"couchdb":"Welcome","version":"2.1.0","features":["scheduler"],"vendor":{"name":"The Apache Software Foundation"}}
 ```
 
-## Cozy stack
+### Cozy stack
 
 ```bash
 apt install cozy-stack
@@ -131,15 +133,15 @@ wget -q https://letsencrypt.org/certs/fakelerootx1.pem \
     -O /usr/share/cozy/chroot/etc/ssl/certs/custom.crt
 ```
 
-## Finally
+### Finally
 
 ```bash
 apt install cozy
 ```
 
-# Cozy instance setup
+## Cozy instance setup
 
-## DNS
+### DNS
 
 Cozy relies on sub-domains for each applications you installed on your instance.
 For an instance `cozy.example.org`, `<app>.cozy.example.org` must be available too. Currently, you need at least:
@@ -160,7 +162,7 @@ cozy 1h IN A x.x.x.x
 *.cozy 1h IN CNAME cozy
 ```
 
-## ACME (Let's Encrypt)
+### ACME (Let's Encrypt)
 
 Like DNS, each application will use a different sub-domain and so request a certificate which include all needed domains.
 
@@ -194,7 +196,7 @@ adduser www-data ssl-cert
 systemctl restart nginx
 ```
 
-## Create instances
+### Create instances
 
 Once you've got a stack, your DNS and your reverse proxy correctly configured, you can create instances on your Cozy stack.
 Remember to set the `COZY_ADMIN_PASSWORD` environment variable.

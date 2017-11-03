@@ -7,7 +7,7 @@ The go-to website about Cozy configuration and setup.
   <div class="home-action">
     <div>
       <a href="use/"><img src="assets/images/home/icon-cloud.svg">
-      [Learn how to use your server](use)
+      [Learn how to use your server](use)</a>
     </div>
   </div>
 
@@ -21,7 +21,7 @@ The go-to website about Cozy configuration and setup.
   <div class="home-action">
     <div>
       <a href="install/debian"><img src="assets/images/home/icon-install.svg">
-      [Install your own server](install/debian)
+      [Install your own server](install/debian)</a>
     </div>
   </div>
 
@@ -40,6 +40,6 @@ The go-to website about Cozy configuration and setup.
 
 If you have any questions, you can contact us via these 3 medias:
 
- - write an email to our Support team: contact at cozy.io
- - [post on the forum](https://forum.cozy.io/)
- - [chat with us on IRC](https://forum.cozy.io/)
+ - Write an email to our Support team: contact at cozy.io
+ - [Post on the forum](https://forum.cozy.io/)
+ - [Chat with us on IRC](https://forum.cozy.io/)
