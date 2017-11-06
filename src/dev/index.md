@@ -30,6 +30,12 @@ Browse the full API reference inside our repositories:
   - [offline](https://github.com/cozy/cozy-client-js/blob/master/docs/offline.md)
   - [Cozy Bar](https://github.com/cozy/cozy-bar)
 
+### Cozy UI
+  - [introduction](https://cozy.github.io/cozy-ui/)
+  - [styleguide](https://cozy.github.io/cozy-ui/styleguide/)
+  - [react components in storybook](https://cozy.github.io/cozy-ui/react/)
+
+
 ### Raw Server API
 
   - introduction:
