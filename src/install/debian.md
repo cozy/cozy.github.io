@@ -1,6 +1,6 @@
 # Install Cozy on a Debian server
 
-A Debian repository serves packages to setup a Cozy self-hosted environment
+A Debian repository serves packages to setup a Cozy self-hosted environment.
 
 It provides:
 
@@ -19,10 +19,10 @@ This repository currently supports:
 Available channels are:
 
  * __stable__: official and supported releases
- * __testing__: future official releases, for testing purposes
+ * __testing__: future official releases, for testing purposes. Updated ± twice a month.
  * __unstable__: nightly builds, to be use with caution
 
-`cozy-couchdb` and `cozy-nsjail` are temporary packages. They will be removed when official `couchd` and `nsjail` will be available
+`cozy-couchdb` and `cozy-nsjail` are temporary packages. They will be removed when official `couchdb` and `nsjail` will be available
 
 You can choose to install `cozy-couchdb` on the same host as `cozy-stack`, or use a remote CouchDB server. Cozy only needs a 2.x CouchDB (1.x not supported).
 
@@ -33,6 +33,10 @@ Like CouchDB, you can choose to install your reverse proxy on the same host, or 
 Setup your repository and fetch the GPG Cozy signing key.
 
 Change your channel if you prefer `testing` or `unstable` or an other distribution.
+
+!!! warning ""
+    ⚠️ For now, packages are only available in `testing` and `unstable` channels. Adapt your `sources.list` accordingly.
+
 Supported repositories are:
 
  * Debian Stretch (9.x)
@@ -62,7 +66,6 @@ curl https://apt.cozy.io/nightly/cozy.gpg | \
     apt-key --keyring /etc/apt/trusted.gpg.d/cozy.gpg add -
 ```
 
-__Currently, only `unstable` is populated, waiting for feedback about packages usability before testing & stable release.__
 
 ## Setup
 
