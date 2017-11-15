@@ -59,3 +59,7 @@ Browse the full API reference inside our repositories:
   - [sharing](https://cozy.github.io/cozy-stack/sharing.html#routes)
   - [connectors](https://cozy.github.io/cozy-stack/konnectors.html)
   - [realtime](https://cozy.github.io/cozy-stack/realtime.html)
+
+## Available doctypes
+
+We maintain an index of [all the currently available doctypes](https://cozy.github.io/cozy-doctypes/). To make your own doctypes available to other applications, please send a pull request to this repository.

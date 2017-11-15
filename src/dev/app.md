@@ -276,6 +276,8 @@ In this tutorial, we’ll only see a few samples of how to use the library. For 
 
 Inside cozy data system, all documents are typed. To prevent applications to create document types with the same name but different description, the naming of the doctypes use [the Java specification](https://docs.oracle.com/javase/specs/jls/se8/html/jls-6.html#d5e8195). Every document type name must be prefixed by the reverted domain name of its creator. If you don’t own a domain name, you can also use your email address. For example, doctypes created by Cozy are prefixed by `io.cozy` or `io.cozy.labs`. If you don’t own a domain name, and your email address is `foo@bar.cloud`, prefix your doctype names with `cloud.bar.foo`.
 
+We maintain an index of [all the currently available doctypes](https://cozy.github.io/cozy-doctypes/). To make your own doctypes available to other applications, please send a pull request to this repository.
+
 Before manipulating documents, you have to request permission to access their doctype, either in the manifest or dynamically.
 
 Every method allowing to handle document are available under the `cozy.client.data` namespace. For example:
