@@ -70,6 +70,7 @@ module.exports = new BaseKonnector(fields => {
   })
   .then(entries => saveFiles(entries, fields))
 })
+```
 
 #### Fetch operations
 
@@ -154,6 +155,7 @@ const data = [
 return filterData(data, 'io.cozy.height', {
   keys: ['name']
 }).then(filteredData => addData(filteredData, 'io.cozy.height'))
+```
 
 ** addData **
 
