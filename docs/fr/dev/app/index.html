@@ -318,7 +318,7 @@
 <code>io.cozy</code> or 
 <code>io.cozy.labs</code>. If you don’t own a domain name, and your email address is 
 <code>foo@bar.cloud</code>, prefix your doctype names with 
-<code>cloud.bar.foo</code>.</p><p>Before manipulating documents, you have to request permission to access their doctype, either in the manifest or dynamically.</p><p>Every method allowing to handle document are available under the <code>cozy.client.data</code> namespace. For example:</p><ul>
+<code>cloud.bar.foo</code>.</p><p>We maintain an index of <a href="https://cozy.github.io/cozy-doctypes/">all the currently available doctypes</a>. To make your own doctypes available to other applications, please send a pull request to this repository.</p><p>Before manipulating documents, you have to request permission to access their doctype, either in the manifest or dynamically.</p><p>Every method allowing to handle document are available under the <code>cozy.client.data</code> namespace. For example:</p><ul>
 <li><code>cozy.client.data.create(doctype, attributes)</code>, 
 <code>cozy.client.data.update(doctype, doc, newdoc)</code>, 
 <code>cozy.client.data.delete(doctype, doc)</code> to create, update and delete documents</li><li><code>cozy.client.data.updateAttributes(doctype, id, changes)</code> to only update some attributes of a document</li><li><code>cozy.client.data.find(doctype, id)</code> return a document using its ident</li><li><code>cozy.client.data.changesFeed(doctype, options)</code> get the latests updates of documents of a doctype.</li><li>you can attach files to a document using <code>cozy.client.data.addReferencedFiles(doc, fileIds)</code> and list attachments with 
