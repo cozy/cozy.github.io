@@ -17,7 +17,7 @@ You can download Cozy Drive for macOS on [this page](https://docs.cozy.io/en/dow
 
 ### Linux
 
-Coming soon… :)
+Learn how to download and use the GNU/linux client on [this page](linux).
 
 ## Configuration
 
