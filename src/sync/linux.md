@@ -6,7 +6,7 @@ We provide packages for both [32 bits](https://nuts.cozycloud.cc/download/channe
 
 ## Detailed instructions on Gnome
 
-Click on one of this links to download Cozy Drive for your OS:
+Click on one of these links to download Cozy Drive for your OS:
 
  - [Cozy Drive for GNU/Linux 32 bits](https://nuts.cozycloud.cc/download/channel/stable/32);
  - [Cozy Drive for GNU/Linux 64 bits](https://nuts.cozycloud.cc/download/channel/stable/64);
@@ -18,7 +18,7 @@ Once the binary file downloaded, go to the folder where your browser has stored 
 To be able to run the application, you have to edit its properties to make it executable. Just right click on the application and select `Properties` inside the context menu:
 ![Edit the properties of the application](../img/sync/right-click-properties.png)
 
-Then go to the `Permissions` tab and check box to make the application executable:
+Then go to the `Permissions` tab and check the box to make the application executable:
 ![Allow to launch the application](../img/sync/make-executable.png)
 
 There’s no need to install the application, you can just run it from the folder you have downloaded it, but we recommend to move it to a dedicated folder to be able to find it easily. You can create a `Cozy` folder inside your home directory and move the application there:

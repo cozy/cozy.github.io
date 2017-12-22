@@ -16,6 +16,8 @@ Requires iOS 10
 Requires Android 5.0.0
 
 [![Get it on Google Play](../img/download/download-button_android.png){: .download-button }](https://play.google.com/store/apps/details?id=io.cozy.drive.mobile)
+
+_(Advanced users that don’t want to connect to Google Play can [use the APK](https://github.com/cozy/cozy-drive/releases))_
 </div>
 
 
