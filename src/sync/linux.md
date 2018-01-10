@@ -34,4 +34,6 @@ Tip: you can add this folder to your bookmarks to find it easily:
 ![Bookmark the folder](../img/sync/new-bookmark.png)
 
 
+From 3.26 onwards, GNOME removed the systray (that little bar with some icons) which is the interface for *Cozy Drive*. You will need to install an extension such as [TopIcons](https://extensions.gnome.org/extension/1031/topicons/) in order to see the cozy-desktop application and launch it.
+
 That’s all. You can now double-click on the application to launch it and connect it to your server. Have fun!
