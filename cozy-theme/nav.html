@@ -15,7 +15,8 @@
 
           {%- block site_name %}
             <a class="navbar-brand" href="https://docs.cozy.io/">{{ config.site_name }}</a>
-            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>&nbsp;<a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
           {%- endblock %}
         </div>
 
@@ -54,7 +55,7 @@
                 </li>
               {%- endblock %}
 
-              {%- block next_prev %}
+              <!-- {%- block next_prev %}
                 {%- if page and (page.next_page or page.previous_page) %}
                     <li {% if not page.previous_page %}class="disabled"{% endif %}>
                         <a rel="next" {% if page.previous_page %}href="{{ page.previous_page.url }}"{% endif %}>
@@ -67,7 +68,7 @@
                         </a>
                     </li>
                 {%- endif %}
-              {%- endblock %}
+              {%- endblock %} -->
 
               {%- block repo %}
                 {%- if config.repo_url %}
