@@ -32,7 +32,14 @@ Like CouchDB, you can choose to install your reverse proxy on the same host, or 
 
 Setup your repository and fetch the GPG Cozy signing key.
 
-Change your channel if you prefer `testing` or `unstable` or an other distribution.
+```bash
+curl https://apt.cozy.io/cozy.gpg | \
+    apt-key --keyring /etc/apt/trusted.gpg.d/cozy.gpg add -
+curl https://apt.cozy.io/nightly/cozy.gpg | \
+    apt-key --keyring /etc/apt/trusted.gpg.d/cozy.gpg add -
+```
+
+Then, setup your repository. Select the channel that best fit your needs:
 
 !!! warning ""
     ⚠️ For now, packages are only available in `testing` and `unstable` channels. Adapt your `sources.list` accordingly.
@@ -54,8 +61,6 @@ Supported repositories are:
 
 ```bash
 echo "deb https://apt.cozy.io/debian/ stretch stable" > /etc/apt/sources.list.d/cozy.list
-curl https://apt.cozy.io/cozy.gpg | \
-	apt-key --keyring /etc/apt/trusted.gpg.d/cozy.gpg add -
 apt update
 ```
 
