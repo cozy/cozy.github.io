@@ -30,7 +30,7 @@ Like CouchDB, you can choose to install your reverse proxy on the same host, or 
 
 ## Prerequisites
 
-Setup your repository and fetch the GPG Cozy signing key.
+First, you need to fetch the GPG Cozy signing key:
 
 ```bash
 curl https://apt.cozy.io/cozy.gpg | \
