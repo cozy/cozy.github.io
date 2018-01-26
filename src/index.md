@@ -42,4 +42,4 @@ If you have any questions, you can contact us via these 3 medias:
 
  - Write an email to our Support team: contact at cozy.io
  - [Post on the forum](https://forum.cozy.io/)
- - [Chat with us on IRC](https://forum.cozy.io/)
+ - [Chat with us on IRC](https://webchat.freenode.net/?channels=cozycloud)
