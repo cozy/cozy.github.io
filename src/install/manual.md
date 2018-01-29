@@ -37,13 +37,13 @@ apt-get update && apt-get --no-install-recommends -y install \
 
 ### Install CouchDB
 
-Download [the source code on CouchDB 2](http://couchdb.apache.org/) and [install it](http://docs.couchdb.org/en/2.1.0/install/unix.html).
+Download [the source code on CouchDB 2](http://couchdb.apache.org/) and [install it](http://docs.couchdb.org/en/2.1.1/install/unix.html).
 
 ```shell
 cd /tmp
-curl -LO https://dist.apache.org/repos/dist/release/couchdb/source/2.1.0/apache-couchdb-2.1.0.tar.gz
-tar xf apache-couchdb-2.1.0.tar.gz
-cd apache-couchdb-2.1.0
+curl -LO https://dist.apache.org/repos/dist/release/couchdb/source/2.1.1/apache-couchdb-2.1.1.tar.gz
+tar xf apache-couchdb-2.1.1.tar.gz
+cd apache-couchdb-2.1.1
 ./configure
 make release
 adduser --system \
