@@ -26,12 +26,11 @@ _(Advanced users that don’t want to connect to Google Play can [use the APK](h
 <div class="download-block" markdown="1">
 ### ![MacOS logo](../img/download/icon-48-apple.svg) Cozy Drive for Mac OS
 
-
-Requires MacOS 10.12.x Sierra
-
 <div class="download-link" markdown="1">
 [Dowload for MacOS](https://nuts.cozycloud.cc/download/channel/stable/osx)
 </div>
+
+_Actively tested on MacOS 10.12.x Sierra and higher, [should work on older versions](https://cozy-labs.github.io/cozy-desktop/doc/usage/macos#supported-versions)_
 
 </div>
 
@@ -39,11 +38,21 @@ Requires MacOS 10.12.x Sierra
 <div class="download-block" markdown="1">
 ### ![Windows logo](../img/download/icon-48-windows.svg) Cozy Drive for Windows
 
-Require Windows 10
-
 <div class="download-link" markdown="1">
 [Dowload for Microsoft Windows](https://nuts.cozycloud.cc/download/channel/stable/win)
 </div>
+
+_Actively tested on Windows 10, [should work on older versions](https://cozy-labs.github.io/cozy-desktop/doc/usage/macos#supported-versions)_
+
+</div>
+
+
+<div class="download-block" markdown="1">
+### Cozy Drive for GNU/Linux
+
+[Full documentation](../sync/linux) on how to install Cozy Drive for GNU/Linux.
+
+_[List of known to work distributions](https://cozy-labs.github.io/cozy-desktop/doc/usage/linux#supported-distributions)_
 
 </div>
 
