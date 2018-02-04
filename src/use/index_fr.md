@@ -94,7 +94,7 @@ Cozy vous permet d’enregistrer tous vos fichiers (photos, vidéos, documents a
 
 Enregistrez vos photos et vos documents dans Cozy, puis consultez-les à partir de l’application Cozy sur un ordinateur, un téléphone ou une tablette. Tous les fichiers que vous enregistrez dans Cozy sont automatiquement synchronisés sur l’ensemble de vos appareils, et restent ainsi toujours à portée de main.
 
-Pour retrouver vos fichiers sur tous vos appareils (PC, mobile et tablette) et synchroniser vos photos avec votre Cozy, téléchargez l’application de [Cozy pour iOS](https://play.google.com/store/apps/details?id=io.cozy.drive.mobile) et l’[application pour Android](https://play.google.com/store/apps/details?id=io.cozy.drive.mobile).
+Pour retrouver vos fichiers sur tous vos appareils (PC, mobile et tablette) et synchroniser vos photos avec votre Cozy, téléchargez l’application de [Cozy pour iOS](https://itunes.apple.com/fr/app/cozy-drive/id1224102389?mt=8) et l’[application pour Android](https://play.google.com/store/apps/details?id=io.cozy.drive.mobile).
 
 ### Connectez-vous pour enfin déconnecter !
 
