@@ -4,6 +4,7 @@
 ## Prerequisite
 
 Developing an application for Cozy is quite easy. All you need to know is:
+
  - how to develop a single page application in HTML5. You can use the tools or framework of your choice, or no framework
  - basic Docker knowledges.
 
@@ -32,6 +33,7 @@ docker pull cozy/cozy-app-dev
 ## Create your first application
 
 The minimal application consist of only two files:
+
  - an HTML file, `index.html`, with the markup and the code of your application
  - a manifest describing the application. It’s a JSON file named `manifest.webapp` with the name of the application, the permissions it requires… We’ll have a deeper look to it content later. #TODO add an inner link to the manifest description.
 
@@ -282,11 +284,11 @@ Before manipulating documents, you have to request permission to access their do
 
 Every method allowing to handle document are available under the `cozy.client.data` namespace. For example:
 
- - `cozy.client.data.create(doctype, attributes)`, `cozy.client.data.update(doctype, doc, newdoc)`, `cozy.client.data.delete(doctype, doc)` to create, update and delete documents
+ - `cozy.client.data.create(doctype, attributes)`, `cozy.client.data.update(doctype, doc, newdoc)` `cozy.client.data.delete(doctype, doc)` to create, update and delete documents
  - `cozy.client.data.updateAttributes(doctype, id, changes)` to only update some attributes of a document
  - `cozy.client.data.find(doctype, id)` return a document using its ident
- - `cozy.client.data.changesFeed(doctype, options)` get the latests updates of documents of a doctype.
- - you can attach files to a document using `cozy.client.data.addReferencedFiles(doc, fileIds)` and list attachments with `cozy.client.data.listReferencedFiles(doc)`.
+ - `cozy.client.data.changesFeed(doctype, options)` get the latests updates of documents of a doctype
+ - you can attach files to a document using `cozy.client.data.addReferencedFiles(doc, fileIds)` and list attachments with `cozy.client.data.listReferencedFiles(doc)`
 
 
 #### Querying
@@ -375,7 +377,7 @@ Let’s have a quick look at this command, so you can adapt it to your needs:
  - `-p 5984:5984`: this is just a convenient way to access the CouchDB database running inside the server. Point your browser to `http://cozy.tools:5984/_utils/` to access its administrative interface
  - `-p 8025:8025` : Cozy requires a mail server. In the development image, we don’t use a real email server, but a software that can display the sent messages. Just point your browser to `http://cozy.tools:8025/` to display the messages sent by the server
  - `-v $(pwd):/data/cozy-app` this mount the current folder, where your application leaves, inside the server. This is what make the application available on the server
- - `--name cozydev` name the running virtual machine `cozydev`, so you can easily refer to it from other Docker commands. For example, if you want to connect to a shell inside the server, you can use `docker exec -ti /bin/bash`.
+ - `--name cozydev` name the running virtual machine `cozydev`, so you can easily refer to it from other Docker commands. For example, if you want to connect to a shell inside the server, you can use `docker exec -ti /bin/bash`
 
 With this syntax, there is no data persistance: all your test data will be lost every time you stop the server. This is a good way to prevent side effects and start on a clean base, with an empty database.
 
@@ -402,9 +404,9 @@ You’ll access the applications by connecting to `http://drive.cozy.tools:8080/
 
 ## TODO
 
-Ce serveur de développement utilise les noms de domaine `*.cozy.tools`. Nous avons paramétré ce domaine pour qu’il pointe toujours vers `127.0.0.1`, l’adresse de votre machine locale.
+This development server use the domain names `*.cozy.tools`. We have parameterized this domain to always redirect to `127.0.0.1`, your local computer address.
 
-La branche `sample` du dépôt de cette documentation contient un squelette minimaliste avec les fichiers nécessaires pour créer une application. Vous pouvez les récupérer en faisant :
+The `sample` branch of this documentation repository contains a minimalist template with the needed files to create an app. You can get them with the following command:
 ```sh
 git clone -b sample https://github.com/cozy/cozy-docdev-v3.git myapp
 cd myapp
