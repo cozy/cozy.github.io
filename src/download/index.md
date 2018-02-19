@@ -7,7 +7,7 @@
 
 Requires iOS 10
 
-[![Dowload on the Apple store](../img/download/download-button_apple.svg){: .download-button }](https://itunes.apple.com/fr/app/cozy-drive/id1224102389?mt=8)
+[![Download on the Apple store](../img/download/download-button_apple.svg){: .download-button }](https://itunes.apple.com/fr/app/cozy-drive/id1224102389?mt=8)
 </div>
 
 <div class="download-block" markdown="1">
@@ -27,7 +27,7 @@ _(Advanced users that don’t want to connect to Google Play can [use the APK](h
 ### ![MacOS logo](../img/download/icon-48-apple.svg) Cozy Drive for Mac OS
 
 <div class="download-link" markdown="1">
-[Dowload for MacOS](https://nuts.cozycloud.cc/download/channel/stable/osx)
+[Download for MacOS](https://nuts.cozycloud.cc/download/channel/stable/osx)
 </div>
 
 _Actively tested on MacOS 10.12.x Sierra and higher, [should work on older versions](https://cozy-labs.github.io/cozy-desktop/doc/usage/macos#supported-versions)_
@@ -39,7 +39,7 @@ _Actively tested on MacOS 10.12.x Sierra and higher, [should work on older versi
 ### ![Windows logo](../img/download/icon-48-windows.svg) Cozy Drive for Windows
 
 <div class="download-link" markdown="1">
-[Dowload for Microsoft Windows](https://nuts.cozycloud.cc/download/channel/stable/win)
+[Download for Microsoft Windows](https://nuts.cozycloud.cc/download/channel/stable/win)
 </div>
 
 _Actively tested on Windows 10, [should work on older versions](https://cozy-labs.github.io/cozy-desktop/doc/usage/macos#supported-versions)_

@@ -2,8 +2,6 @@
 
 Cozy Drive for desktop allows you to synchronize your files and folders between your Cozy and your desktop. Thus, you can work on your files offline. Your modifications will be synchronized as soon as network will be available.
 
-_[List of known to work distributions](https://cozy-labs.github.io/cozy-desktop/doc/usage/linux#supported-distributions)_
-
 ## Installation
 
 Before installing Cozy Drive, make sure your Cozy should be up-to-date.
@@ -13,9 +11,13 @@ Before installing Cozy Drive, make sure your Cozy should be up-to-date.
 
 You can download Cozy Drive for Windows on [this page](https://docs.cozy.io/en/download/).
 
-### macOS
+_[List of known to work versions](https://cozy-labs.github.io/cozy-desktop/doc/usage/windows)_
+
+### MacOS
 
 You can download Cozy Drive for macOS on [this page](https://docs.cozy.io/en/download/).
+
+_[List of known to work versions](https://cozy-labs.github.io/cozy-desktop/doc/usage/macos)_
 
 ### Linux
 

@@ -128,7 +128,7 @@ Vous êtes désormais sur la page : [https://docs.cozy.io/fr/download/](https:/
 
 Où alors cliquez sur les icônes ci-dessous :
 
-[![Dowload on the Apple store](../img/download/download-button_apple.svg){: .download-button }](https://itunes.apple.com/fr/app/cozy-drive/id1224102389?mt=8)
+[![Download on the Apple store](../img/download/download-button_apple.svg){: .download-button }](https://itunes.apple.com/fr/app/cozy-drive/id1224102389?mt=8)
 
 [![Get it on Google Play](../img/download/download-button_android.png){: .download-button }](https://play.google.com/store/apps/details?id=io.cozy.drive.mobile)
 
