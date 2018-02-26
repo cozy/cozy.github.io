@@ -91,7 +91,7 @@
                         <ul class="dropdown-menu">
                             
 <li >
-    <a href="../../install/">Home</a>
+    <a href="../../install/">Install Cozy on your own server</a>
 </li>
                             
 <li >
@@ -141,7 +141,7 @@
                     </a>
                 </li>
                     <li>
-                        <a href="https://github.com/cozy/cozy-docs-v3">
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
                                 <i class="fa fa-github"></i>GitHub
                         </a>
                     </li>
@@ -176,53 +176,57 @@ As you can read there, Cozy applications are served by the Cozy server, this is 
 <div class="admonition warning">
 <p>In the case of Cozy web applications served by the Cozy server, these two libraries are injected in the html file with variables <code>{{.CozyClientJS}}</code> and 
 <code>{{.CozyBar}}</code>.</p></div>
-<h2 id="setup-indexhtml">Setup index.html<a class="headerlink" href="#setup-indexhtml" title="Permanent link">&para;</a></h2><p>First thing first, add JavaScript libraries files into your <code>index.html</code>:</p><pre class="codehilite"><code class="language-html">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-  &lt;head&gt;
-    &lt;meta charset=&quot;utf-8&quot;&gt;
-    &lt;title&gt;mobile Cozy application with Cordova&lt;/title&gt;
-    &lt;script src=&quot;cozy-client.js&quot;&gt;&lt;/script&gt;
-    &lt;script src=&quot;cozy-bar.js&quot;&gt;&lt;/script&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-    &lt;!-- page content --&gt;
-  &lt;/body&gt;
-&lt;/html&gt;</code></pre>
+<h2 id="setup-indexhtml">Setup index.html<a class="headerlink" href="#setup-indexhtml" title="Permanent link">&para;</a></h2><p>First thing first, add JavaScript libraries files into your <code>index.html</code>:</p><div class="codehilite"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>mobile Cozy application with Cordova<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;cozy-client.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;cozy-bar.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="c">&lt;!-- page content --&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
 
 
-<h2 id="connect-to-cozy-server">Connect to Cozy server<a class="headerlink" href="#connect-to-cozy-server" title="Permanent link">&para;</a></h2><p>When an user will start your mobile Cozy application, she/he will need to point to her/his server url to ask for permissions for her/his device.</p><p>This is done by our library <code>cozy-client</code>, you just need to add a HTML form:</p><pre class="codehilite"><code class="language-html">&lt;form id=&quot;form&quot;&gt;
-  &lt;label&gt;What is your cozy server url?
-    &lt;input name=&quot;url&quot; id=&quot;url&quot; type=&quot;text&quot; /&gt;
-  &lt;/label&gt;
-  &lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
-&lt;/form&gt;</code></pre>
+<h2 id="connect-to-cozy-server">Connect to Cozy server<a class="headerlink" href="#connect-to-cozy-server" title="Permanent link">&para;</a></h2><p>When an user will start your mobile Cozy application, she/he will need to point to her/his server url to ask for permissions for her/his device.</p><p>This is done by our library <code>cozy-client</code>, you just need to add a HTML form:</p><div class="codehilite"><pre><span class="p">&lt;</span><span class="nt">form</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;form&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;</span>What is your cozy server url?
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;url&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;url&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="p">/&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span><span class="p">&gt;</span>Submit<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-js">const urlInput = document.getElementById(&quot;url&quot;);
-const form = document.getElementById(&quot;form&quot;);
-form.addEventListener(&quot;submit&quot;, registerClient);
-function registerClient (event) {
-  event.preventDefault();
-  const url = urlInput.value;
-  const { client, token } = await cozyClient.register(url);
-  // do whatever you need with client and token like persist
-}</code></pre>
+<div class="codehilite"><pre><span class="kr">const</span> <span class="nx">urlInput</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;url&quot;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">form</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;form&quot;</span><span class="p">);</span>
+<span class="nx">form</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;submit&quot;</span><span class="p">,</span> <span class="nx">registerClient</span><span class="p">);</span>
+<span class="kd">function</span> <span class="nx">registerClient</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+  <span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">urlInput</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+  <span class="kr">const</span> <span class="p">{</span> <span class="nx">client</span><span class="p">,</span> <span class="nx">token</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozyClient</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
+  <span class="c1">// do whatever you need with client and token like persist</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <p><a class="jsbin-embed" href="http://jsbin.com/nokoxak/embed?console,output">JS Bin on jsbin.com</a><script src="http://static.jsbin.com/js/embed.min.js?4.1.0"></script></p>
 <p>When <code>cozyClient.register(url)</code> is called, 
-<a href="https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-inappbrowser/">the cordova inapp browser plugin</a> is used to display a password request and a permission acceptation page to let the end-user to register her/his device.</p><p>That&rsquo;s all!</p><p>Then you can use the cozy-client library as <a href="../../dev/app/#manipulating-documents">you would within a classic Cozy application</a>.</p><h2 id="initialize-the-cozy-bar">Initialize the Cozy bar<a class="headerlink" href="#initialize-the-cozy-bar" title="Permanent link">&para;</a></h2><p>The Cozy bar needs some information to be initialized and its initialization must be done in your front-end code:</p><pre class="codehilite"><code class="language-js">cozy.bar.init({
-  appName: &quot;App Name&quot;,
-  appEditor: &quot;Editor Name&quot;,
-  iconPath: require(&quot;./assets/app-icon.svg&quot;),
-  lang: &quot;en-US&quot;,
-  replaceTitleOnMobile: true
-})</code></pre>
+<a href="https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-inappbrowser/">the cordova inapp browser plugin</a> is used to display a password request and a permission acceptation page to let the end-user to register her/his device.</p><p>That&rsquo;s all!</p><p>Then you can use the cozy-client library as <a href="../../dev/app/#manipulating-documents">you would within a classic Cozy application</a>.</p><h2 id="initialize-the-cozy-bar">Initialize the Cozy bar<a class="headerlink" href="#initialize-the-cozy-bar" title="Permanent link">&para;</a></h2><p>The Cozy bar needs some information to be initialized and its initialization must be done in your front-end code:</p><div class="codehilite"><pre><span class="nx">cozy</span><span class="p">.</span><span class="nx">bar</span><span class="p">.</span><span class="nx">init</span><span class="p">({</span>
+  <span class="nx">appName</span><span class="o">:</span> <span class="s2">&quot;App Name&quot;</span><span class="p">,</span>
+  <span class="nx">appEditor</span><span class="o">:</span> <span class="s2">&quot;Editor Name&quot;</span><span class="p">,</span>
+  <span class="nx">iconPath</span><span class="o">:</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./assets/app-icon.svg&quot;</span><span class="p">),</span>
+  <span class="nx">lang</span><span class="o">:</span> <span class="s2">&quot;en-US&quot;</span><span class="p">,</span>
+  <span class="nx">replaceTitleOnMobile</span><span class="o">:</span> <span class="kc">true</span>
+<span class="p">})</span>
+</pre></div>
 
 
 <h2 id="use-cordova">Use Cordova<a class="headerlink" href="#use-cordova" title="Permanent link">&para;</a></h2><h3 id="install-and-setup-cordova">Install and setup cordova<a class="headerlink" href="#install-and-setup-cordova" title="Permanent link">&para;</a></h3><p><a href="http://blog.ionic.io/what-is-cordova-phonegap/">Cordova is a tool</a> to build Android and iOS applications from a web app.</p><p>It works with a CLI that needs <a href="https://nodejs.org/en/download/">node</a>.
 Look at the 
-<a href="https://cordova.apache.org/docs/en/latest/guide/cli/index.html#installing-the-cordova-cli">cordova documentation to install everything needed</a>.</p><p>Once cordova is installed, just run <code>cordova create cozy-app com.example.cozyapp CozyApp</code> and you get the following structure: </p><pre class="codehilite"><code class="language-bash">./
+<a href="https://cordova.apache.org/docs/en/latest/guide/cli/index.html#installing-the-cordova-cli">cordova documentation to install everything needed</a>.</p><p>Once cordova is installed, just run <code>cordova create cozy-app com.example.cozyapp CozyApp</code> and you get the following structure: </p><div class="codehilite"><pre>./
 ├── config.xml
 ├── hooks
 │   └── README.md
@@ -237,47 +241,52 @@ Look at the
     └── js
         └── index.js
 
-7 directories, 6 files</code></pre>
+<span class="m">7</span> directories, <span class="m">6</span> files
+</pre></div>
 
 
 <p><strong>Note:</strong> everything you put in 
-<code>www/</code> will be served as your application content.</p><h3 id="configure-your-build-tool">Configure your build tool<a class="headerlink" href="#configure-your-build-tool" title="Permanent link">&para;</a></h3><p>If you use a build tool to transpile your JavaScript code, you need to configure your tool to output the build into <code>www/</code>.</p><h4 id="webpack-configuration">webpack configuration<a class="headerlink" href="#webpack-configuration" title="Permanent link">&para;</a></h4><p>As <a href="http://stateofjs.com/2016/buildtools/">Webpack is the most used build tool</a> we will show you how to configure it with cordova:</p><p>Create a <code>webpack.config.js</code> on the root folder of your project with:</p><pre class="codehilite"><code class="language-js">const path = require('path');
+<code>www/</code> will be served as your application content.</p><h3 id="configure-your-build-tool">Configure your build tool<a class="headerlink" href="#configure-your-build-tool" title="Permanent link">&para;</a></h3><p>If you use a build tool to transpile your JavaScript code, you need to configure your tool to output the build into <code>www/</code>.</p><h4 id="webpack-configuration">webpack configuration<a class="headerlink" href="#webpack-configuration" title="Permanent link">&para;</a></h4><p>As <a href="http://stateofjs.com/2016/buildtools/">Webpack is the most used build tool</a> we will show you how to configure it with cordova:</p><p>Create a <code>webpack.config.js</code> on the root folder of your project with:</p><div class="codehilite"><pre><span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">);</span>
 
-module.exports = {
-  entry: './src/app.js',
-  output: {
-    filename: 'bundle.js',
-    path.resolve(__dirname, 'www')
-  }
-}</code></pre>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">entry</span><span class="o">:</span> <span class="s1">&#39;./src/app.js&#39;</span><span class="p">,</span>
+  <span class="nx">output</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">filename</span><span class="o">:</span> <span class="s1">&#39;bundle.js&#39;</span><span class="p">,</span>
+    <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;www&#39;</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 
 
-<p>And add the output bundle in the <code>www/index.html</code> file:</p><pre class="codehilite"><code class="language-html">&lt;html&gt;
-  &lt;head&gt;
+<p>And add the output bundle in the <code>www/index.html</code> file:</p><div class="codehilite"><pre><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
     ...
-  &lt;/head&gt;
-  &lt;body&gt;
+  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
     ...
-    &lt;script src=&quot;bundle.js&quot;&gt;&lt;/script&gt;
-  &lt;/body&gt;
-&lt;/html&gt;</code></pre>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;bundle.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
 
 
 <p>See <a href="https://webpack.js.org/">the official webpack documentation</a> for more details.</p><h3 id="cordova">Cordova<a class="headerlink" href="#cordova" title="Permanent link">&para;</a></h3><h4 id="android-platform">Android Platform<a class="headerlink" href="#android-platform" title="Permanent link">&para;</a></h4><p>Use <code>cordova platform add android</code> and check your environment with 
-<code>cordova requirements</code>:</p><p>A bad requirements check:</p><pre class="codehilite"><code>Requirements check results for android:
+<code>cordova requirements</code>:</p><p>A bad requirements check:</p><div class="codehilite"><pre>Requirements check results for android:
 Java JDK: installed .
 Android SDK: installed
 Android target: not installed
 Android SDK not found. Make sure that it is installed. If it is not at the default location, set the ANDROID_HOME environment variable.
 Gradle: installed
-Error: Some of requirements check failed</code></pre>
+Error: Some of requirements check failed
+</pre></div>
 
 
-<p>A good requirements check:</p><pre class="codehilite"><code>Requirements check results for android:
+<p>A good requirements check:</p><div class="codehilite"><pre>Requirements check results for android:
 Java JDK: installed .
 Android SDK: installed
 Android target: installed android-19,android-21,android-22,android-23,Google Inc.:Google APIs:19,Google Inc.:Google APIs (x86 System Image):19,Google Inc.:Google APIs:23
-Gradle: installed</code></pre>
+Gradle: installed
+</pre></div>
 
 
 <p>See cordova, android and ios documentation to customize your development environment for your special needs.</p><p>Once everything is right, you could run <code>cordova build</code> and 
@@ -311,7 +320,9 @@ See
         <script>var base_url = '../..';</script>
         <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
         <script src="../../js/base.js"></script>
-        <script src="../../extra.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
