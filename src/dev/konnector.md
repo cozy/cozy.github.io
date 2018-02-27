@@ -23,7 +23,7 @@ provides some shared libraries which are adapted to be used for a connector :
  - [cheerio](https://cheerio.js.org) to easily request html pages like jQuery
  - [request-promise](https://github.com/request/request-promise): [request](https://github.com/request/request) wrapped in promises
  - [request-debug](https://github.com/request/request-debug) which displays all the requests and
-   responses in the standard output. Check "debug" option in [requestFactory](https://github.com/cozy/cozy-konnector-libs/blob/master/docs/api.md#requestFactory)
+   responses in the standard output. Check "debug" option in [requestFactory](https://github.com/cozy/cozy-konnector-libs/blob/master/docs/api.md#requestfactory)
 
 But you may need some other npm packages not integrated in [cozy-konnector-libs] to help you run your connector :
 
@@ -32,12 +32,13 @@ But you may need some other npm packages not integrated in [cozy-konnector-libs]
 
 When the connector is started, it also gets some data through environment variables:
 
- - `COZY_CREDENTIALS` : the auth token used by [cozy-client-js] to communicate with the server 
- - `COZY_URL` : the API entry point 
+ - `COZY_CREDENTIALS` : the auth token used by [cozy-client-js] to communicate with the server
+ - `COZY_URL` : the API entry point
  - `COZY_FIELDS` : the settings coming from [Cozy Collect] and filled by the user of the connector (login, password, directory path).
 
 Those variables are used by the BaseKonnector and the cozy-client to configure the connection to
-the [Cozy Stack] with the right permissions as defined in your manifest.konnector.
+the [Cozy Stack] with the right permissions as defined in your manifest.konnector. These are
+simulated in standalone mode so that you don't need a real cozy stack to develop your connector.
 
 [More information](https://github.com/cozy/cozy-konnector-libs/blob/master/docs/api.md#basekonnector)
 
@@ -90,7 +91,7 @@ You have more documentation about this in the [CLI section of the documentation]
 ### Connector structure
 
 Basically, a connector is just a function passed to the BaseKonnector constructor, and which
-returns a promise:
+eventually returns a promise:
 
 To create the connector, just create a new instance of BaseKonnector with the function as argument
 
@@ -111,10 +112,10 @@ form of an array of objects with specific attributes expected by the different s
 (`saveFiles`, `addData`, `filterData`, `saveBills`).
 
 A basic connector workflow involves:
- - getting data and storing them into a variable. You can get the data by calling an API, scraping the remote website…
- - filtering data to remove the ones already present inside the database using [filterData](https://github.com/cozy/cozy-konnector-libs/blob/master/docs/api.md#module_filterData)
- - save the filtered data into the database ([addData](https://github.com/cozy/cozy-konnector-libs/blob/master/docs/api.md#adddata))
- - save the related files using ([saveFiles](https://github.com/cozy/cozy-konnector-libs/blob/master/docs/api.md#savefiles))
+  - getting data and storing them into a variable. You can get the data by calling an API, scraping the remote website…
+  - filtering data to remove the ones already present inside the database using [filterData](https://github.com/cozy/cozy-konnector-libs/blob/master/docs/api.md#module_filterData)
+  - save the filtered data into the database ([addData](https://github.com/cozy/cozy-konnector-libs/blob/master/docs/api.md#adddata))
+  - save the related files using ([saveFiles](https://github.com/cozy/cozy-konnector-libs/blob/master/docs/api.md#savefiles))
 
 #### Error handling
 
@@ -126,12 +127,14 @@ If your connector hits an issue fetching or saving the data, it can return an er
   - `VENDOR_DOWN`: the target web site is down now
   - `USER_ACTION_NEEDED`: The user needs to login to the service to do manual actions (could be Terms Of Service to validate)
 
+You can get the list of error codes in `require('cozy-konnector-libs').errors`
+
 ``` javascript
-const {BaseKonnector} = require('cozy-konnector-libs')
+const {BaseKonnector, errors} = require('cozy-konnector-libs')
 
 module.exports = new BaseKonnector(fields => {
     // Here, the following message will be displayed in cozy-collect : "Bad credentials. Check the konnector fields and run the connection again."
-    throw new Error('LOGIN_FAILED')
+    throw new Error(errors.LOGIN_FAILED)
 })
 ```
 
@@ -212,7 +215,7 @@ it installs it.
 To avoid this, the connectors need to be compiled into one file in a dedicated branch of the
 repository and the repository needs to be a public git repository. The `package.json` file
 from [cozy-konnector-template] gives you the commands to do this : `yarn build` and `yarn
-deploy` but the last one needs a more setup in `package.json`
+deploy` but the last one needs a more complete setup in `package.json`
 
 Once your public git repository is setup, you just have to declare it.
 
@@ -229,8 +232,8 @@ Use the request function from [cozy-konnector-libs] with the proper options
 Here’s a sample code that will fetch the login page to get the value of the anti-CSRF token, submit the login form, browse to the bills page and fetch a bill:
 
 ```javascript
-const {BaseKonnector, request} = require('cozy-konnector-libs')
-const rq = request({
+const {BaseKonnector, requestFactory} = require('cozy-konnector-libs')
+const rq = requestFactory({
   jar: true, // handle the cookies like a browser
   json: false, // do not try to parse the result as a json document
   cheerio: true // automatically parse the result with [cheerio](https://github.com/cheeriojs/cheerio)
@@ -239,7 +242,7 @@ const moment = require('moment')
 
 module.exports = new BaseKonnector(function fetch (fields) {
   return rq("https://login.remote.web")
-  .then($ => { // the result is automaticall wrapped with cheerio and you can use it like jQuery
+  .then($ => { // the result is automatically wrapped with cheerio and you can use it like jQuery
     const form = {
       form: {
         login: fields.login,
