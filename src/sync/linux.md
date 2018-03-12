@@ -23,7 +23,7 @@ To be able to run the application, you have to edit its properties to make it ex
 Then go to the `Permissions` tab and check the box to make the application executable:
 ![Allow to launch the application](../img/sync/make-executable.png)
 
-There’s no need to install the application, you can just run it from the folder you have downloaded it, but we recommend to move it to a dedicated folder to be able to find it easily. You can create a `Cozy` folder inside your home directory and move the application there:
+There’s no need to install the application, you can just run it from the folder you have downloaded it, but we recommend to move it to a dedicated folder to be able to find it easily. You can create an `Applications` folder inside your home directory and move the application there:
 
 ![Create a new folder](../img/sync/new-folder.png)
 
