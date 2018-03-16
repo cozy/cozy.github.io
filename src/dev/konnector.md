@@ -20,6 +20,7 @@ and ask permissions to the user.
 
 To ease the development of a connector, a npm package, named [cozy-konnector-libs]
 provides some shared libraries which are adapted to be used for a connector :
+
  - [cheerio](https://cheerio.js.org) to easily request html pages like jQuery
  - [request-promise](https://github.com/request/request-promise): [request](https://github.com/request/request) wrapped in promises
  - [request-debug](https://github.com/request/request-debug) which displays all the requests and
@@ -112,6 +113,7 @@ form of an array of objects with specific attributes expected by the different s
 (`saveFiles`, `addData`, `filterData`, `saveBills`).
 
 A basic connector workflow involves:
+
   - getting data and storing them into a variable. You can get the data by calling an API, scraping the remote website…
   - filtering data to remove the ones already present inside the database using [filterData](https://github.com/cozy/cozy-konnector-libs/blob/master/docs/api.md#module_filterData)
   - save the filtered data into the database ([addData](https://github.com/cozy/cozy-konnector-libs/blob/master/docs/api.md#adddata))
