@@ -50,8 +50,8 @@ The easiest way to create a new connector is to use [cozy-konnector-template](ht
 ### [cozy-konnector-template] and standalone mode
 
 ```sh
-git clone https://github.com/cozy/cozy-konnector-template
-cd cozy-konnector-template
+git clone https://github.com/cozy/cozy-konnector-template cozy-konnector-monservice
+cd cozy-konnector-monservice
 yarn # or npm install
 ```
 
