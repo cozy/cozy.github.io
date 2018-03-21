@@ -216,14 +216,14 @@ it installs it.
 
 To avoid this, the connectors need to be compiled into one file in a dedicated branch of the
 repository and the repository needs to be a public git repository. The `package.json` file
-from [cozy-konnector-template] gives you the commands to do this : `yarn build` and `yarn
-deploy` but the last one needs a more complete setup in `package.json`
+from [cozy-konnector-template] gives you the commands to do this : `yarn build` and `yarn deploy` 
+but the last one needs to be configured in `package.json`
 
-Once your public git repository is setup, you just have to declare it.
+Once your public git repository is configured, you only have to declare it.
 
 Cozy will soon have a store for connectors and you will be able to publish connectors yourself. But
 at the moment, you need to declare your new connector on the [cozy forum](https://forum.cozy.io).
-The cozy team will review your code and handle the addition of it the [Cozy Collect] application.
+The Cozy team will review your code and add your connector to the [Cozy Collect] application.
 
 ## FAQ
 
