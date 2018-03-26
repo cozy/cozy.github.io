@@ -71,6 +71,11 @@ curl https://apt.cozy.io/nightly/cozy.gpg | \
     apt-key --keyring /etc/apt/trusted.gpg.d/cozy.gpg add -
 ```
 
+finally, ensure that apt is able to use https repositories:
+
+```bash
+apt install ca-certificates apt-transport-https
+```
 
 ## Setup
 
@@ -88,13 +93,13 @@ Install CouchDB in `standalone` mode
 
 Configure CouchDB to listen on `127.0.0.1`
 
-Pick an administrator password  
+Pick an administrator password
 (This password is used by shell scripts, so currently avoid to use one with simple or double quotes or others shell meaningfull symbols. We advice you to choose one with only alphanumeric digits to avoid troubles.)
 
 At this point, you must have a working CouchDB instance
 
 ```bash
-curl http://localhost:5984/       
+curl http://localhost:5984/
 {"couchdb":"Welcome","version":"2.1.0","features":["scheduler"],"vendor":{"name":"The Apache Software Foundation"}}
 ```
 
@@ -115,7 +120,7 @@ Cozy need to create a CouchDB administrator and so to connect as admin to the Co
 
  (Those passwords are used by shell scripts, so currently avoid to use ones with simple or double quotes or others shell meaningfull symbols. We advice you to choose ones with only alphanumeric digits to avoid troubles.)
 
-For stack management (create instances, install applications...), [Cozy need an administrator password](https://github.com/cozy/cozy-stack/blob/2ae446d85b60c89fb56cad1f7ed469cddca94494/docs/config.md#user-content-administration-secret). So pick a new one.  
+For stack management (create instances, install applications...), [Cozy need an administrator password](https://github.com/cozy/cozy-stack/blob/2ae446d85b60c89fb56cad1f7ed469cddca94494/docs/config.md#user-content-administration-secret). So pick a new one.
 When invoking `cozy-stack` (or `cozy-coclyco` which use it under the hood), you need to set the `COZY_ADMIN_PASSWORD` environment variable with this password. You can put it on your `.bashrc` for simplier life if you want.
 
 At this point, you must have a working Cozy stack
@@ -133,7 +138,7 @@ If you want to use konnectors, you need to initialize the NodeJS chroot
 /usr/share/cozy/konnector-create-chroot.sh
 ```
 
-If you use a self-signed certificate or a not official certificate authority, you need to deploy the corresponding root certificate in `/usr/share/cozy/chroot/etc/ssl/certs/custom.crt`.  
+If you use a self-signed certificate or a not official certificate authority, you need to deploy the corresponding root certificate in `/usr/share/cozy/chroot/etc/ssl/certs/custom.crt`.
 For example, if you use [Let's Encrypt staging environment](https://letsencrypt.org/docs/staging-environment/) for testing purpose :
 
 ```bash
