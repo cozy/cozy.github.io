@@ -39,6 +39,13 @@ curl https://apt.cozy.io/nightly/cozy.gpg | \
     apt-key --keyring /etc/apt/trusted.gpg.d/cozy.gpg add -
 ```
 
+Ensure that apt is able to use https repositories:
+
+```bash
+apt install ca-certificates apt-transport-https
+```
+
+
 Then, setup your repository. Select the channel that best fit your needs:
 
 !!! warning ""
@@ -59,6 +66,10 @@ Supported repositories are:
      * deb https://apt.cozy.io/raspbian/ stretch testing
      * deb https://apt.cozy.io/nightly/raspbian/ stretch unstable
 
+
+
+
+
 ```bash
 echo "deb https://apt.cozy.io/debian/ stretch stable" > /etc/apt/sources.list.d/cozy.list
 apt update
@@ -71,11 +82,7 @@ curl https://apt.cozy.io/nightly/cozy.gpg | \
     apt-key --keyring /etc/apt/trusted.gpg.d/cozy.gpg add -
 ```
 
-finally, ensure that apt is able to use https repositories:
 
-```bash
-apt install ca-certificates apt-transport-https
-```
 
 ## Setup
 
