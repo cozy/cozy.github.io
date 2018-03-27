@@ -20,10 +20,11 @@ and ask permissions to the user.
 
 To ease the development of a connector, a npm package, named [cozy-konnector-libs]
 provides some shared libraries which are adapted to be used for a connector :
+
  - [cheerio](https://cheerio.js.org) to easily request html pages like jQuery
  - [request-promise](https://github.com/request/request-promise): [request](https://github.com/request/request) wrapped in promises
  - [request-debug](https://github.com/request/request-debug) which displays all the requests and
-   responses in the standard output. Check "debug" option in [requestFactory](https://github.com/cozy/cozy-konnector-libs/blob/master/docs/api.md#requestfactory)
+   responses in the standard output. Check "debug" option in [requestFactory](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_requestFactory)
 
 But you may need some other npm packages not integrated in [cozy-konnector-libs] to help you run your connector :
 
@@ -40,7 +41,7 @@ Those variables are used by the BaseKonnector and the cozy-client to configure t
 the [Cozy Stack] with the right permissions as defined in your manifest.konnector. These are
 simulated in standalone mode so that you don't need a real cozy stack to develop your connector.
 
-[More information](https://github.com/cozy/cozy-konnector-libs/blob/master/docs/api.md#basekonnector)
+[More information](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#basekonnector)
 
 From the server point of view, each connector is a `job` that is run periodically via a `trigger`. [More information](https://cozy.github.io/cozy-stack/jobs.html)
 
@@ -86,7 +87,7 @@ all data meant to be saved in a cozy is displayed in the standard output and fil
 saved in the root directory of the connector. This is useful to first develop your connector
 without handling the state of a real [Cozy Stack].
 
-You have more documentation about this in the [CLI section of the documentation](https://github.com/cozy/cozy-konnector-libs/blob/master/docs/cli.md).
+You have more documentation about this in the [CLI section of the documentation](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/cli.md).
 
 ### Connector structure
 
@@ -112,10 +113,11 @@ form of an array of objects with specific attributes expected by the different s
 (`saveFiles`, `addData`, `filterData`, `saveBills`).
 
 A basic connector workflow involves:
-  - getting data and storing them into a variable. You can get the data by calling an API, scraping the remote website…
-  - filtering data to remove the ones already present inside the database using [filterData](https://github.com/cozy/cozy-konnector-libs/blob/master/docs/api.md#module_filterData)
-  - save the filtered data into the database ([addData](https://github.com/cozy/cozy-konnector-libs/blob/master/docs/api.md#adddata))
-  - save the related files using ([saveFiles](https://github.com/cozy/cozy-konnector-libs/blob/master/docs/api.md#savefiles))
+
+ - getting data and storing them into a variable. You can get the data by calling an API, scraping the remote website…
+ - filtering data to remove the ones already present inside the database using [filterData](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_filterData)
+ - save the filtered data into the database ([addData](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#adddata))
+ - save the related files using ([saveFiles](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#savefiles))
 
 #### Error handling
 
@@ -142,15 +144,15 @@ module.exports = new BaseKonnector(fields => {
 
 The Cozy Konnector Libs provide several useful methods for common tasks:
 
- - [BaseKonnector](https://github.com/cozy/cozy-konnector-libs/blob/master/docs/api.md#basekonnector): creates the connector and fetches data
- - [cozyClient](https://github.com/cozy/cozy-konnector-libs/blob/master/docs/api.md#cozyclient) gives an instance of [cozy-client-js] already initialized according to `COZY_URL`, and `COZY_CREDENTIALS`
- - [requestFactory](https://github.com/cozy/cozy-konnector-libs/blob/master/docs/api.md#requestFactory) a function which returns an instance of request-promise initialized with defaults often used in connector development.
- - [log](https://github.com/cozy/cozy-konnector-libs/blob/master/docs/api.md#logtype-message-label-namespace) allows to log messages with different levels
- - [filterData](https://github.com/cozy/cozy-konnector-libs/blob/master/docs/api.md#filterdata) to filter data
- - [addData](https://github.com/cozy/cozy-konnector-libs/blob/master/docs/api.md#adddata) to add Data to the cozy
- - [linkBankOperations](https://github.com/cozy/cozy-konnector-libs/blob/master/docs/api.md#linkbankoperations) to link a bill to a bank operation
- - [saveBills](https://github.com/cozy/cozy-konnector-libs/blob/master/docs/api.md#savebills) which uses filterData, addData, saveFiles and linkBankOperations and which is specific to bills
- - [updateOrCreate](https://github.com/cozy/cozy-konnector-libs/blob/master/docs/api.md#updateorcreate) create or update documents inside database
+ - [BaseKonnector](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#basekonnector): creates the connector and fetches data
+ - [cozyClient](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#cozyclient) gives an instance of [cozy-client-js] already initialized according to `COZY_URL`, and `COZY_CREDENTIALS`
+ - [requestFactory](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_requestFactory) a function which returns an instance of request-promise initialized with defaults often used in connector development.
+ - [log](https://github.com/cozy/cozy-konnector-libs/blob/3cad316bac1898ef3c2656577af786f6549b40b0/packages/cozy-logger/src/index.js#L35-L41) allows to log messages with different levels
+ - [filterData](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#filterdata) to filter data
+ - [addData](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#adddata) to add Data to the cozy
+ - [linkBankOperations](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#linkbankoperations) to link a bill to a bank operation
+ - [saveBills](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#savebills) which uses filterData, addData, saveFiles and linkBankOperations and which is specific to bills
+ - [updateOrCreate](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#updateorcreate) create or update documents inside database
 
 ## Linking with a cozy and dev mode
 
@@ -214,14 +216,14 @@ it installs it.
 
 To avoid this, the connectors need to be compiled into one file in a dedicated branch of the
 repository and the repository needs to be a public git repository. The `package.json` file
-from [cozy-konnector-template] gives you the commands to do this : `yarn build` and `yarn
-deploy` but the last one needs a more complete setup in `package.json`
+from [cozy-konnector-template] gives you the commands to do this : `yarn build` and `yarn deploy` 
+but the last one needs to be configured in `package.json`
 
-Once your public git repository is setup, you just have to declare it.
+Once your public git repository is configured, you only have to declare it.
 
 Cozy will soon have a store for connectors and you will be able to publish connectors yourself. But
 at the moment, you need to declare your new connector on the [cozy forum](https://forum.cozy.io).
-The cozy team will review your code and handle the addition of it the [Cozy Collect] application.
+The Cozy team will review your code and add your connector to the [Cozy Collect] application.
 
 ## FAQ
 
