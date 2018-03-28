@@ -19,5 +19,5 @@ yarn git-directory-deploy \
     --username Cozy \
     --email contact@cozycloud.cc \
     --directory docs/ \
-    --repo=https://$GITHUB_TOKEN@github.com/cozy/cozy-collect.git \
-    --branch=build
+    --repo=https://$GITHUB_TOKEN@github.com/cozy/cozy-docs-v3.git \
+    --branch=gh-pages
