@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/dev/cordova/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>Create a mobile app with cordova - Cozy Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Cozy Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Use <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/">User guide</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Stay in sync</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronize your phone</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronize your computer</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Install on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Download</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="../intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="../app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="../konnector/">Develop a connector</a>
+</li>
+                            
+<li class="active">
+    <a href="./">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="../sendmail/">How to send mail in development</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">References <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-client-js</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-client-js/intro/">Introduction</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/browser-sdk-transition/">Transition from cozy-browser-sdk</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/offline/">How to support offline</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/oauth/">OAuth guide</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/auth-api/">Authentication API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/data-api/">Data System API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/files-api/">Files API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/jobs-api/">Jobs API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/intents-api/">Intents API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/settings-api/">Settings API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/sharing-api/">Sharing API</a>
+</li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#how-to-create-a-mobile-cozy-application">How to create a mobile Cozy application</a></li>
+            <li><a href="#setup-indexhtml">Setup index.html</a></li>
+            <li><a href="#connect-to-cozy-server">Connect to Cozy server</a></li>
+            <li><a href="#initialize-the-cozy-bar">Initialize the Cozy bar</a></li>
+            <li><a href="#use-cordova">Use Cordova</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="how-to-create-a-mobile-cozy-application">How to create a mobile Cozy application<a class="headerlink" href="#how-to-create-a-mobile-cozy-application" title="Permanent link">&para;</a></h1>
+<p>The simplest way to create a mobile Cozy application is to use JavaScript as there already are JavaScript libraries to connect to the Cozy server, as known as cozy-stack.</p>
+<p>Therefore we will use the classical stack:</p>
+<ol>
+<li>a JavaScript web application</li>
+<li>and cordova</li>
+</ol>
+<div class="admonition warning">
+<p><a href="#annexes">At the end of this documentation</a>, you will find <em>how-tos</em> to help you with <a href="#install-and-setup-cordova">cordova configuration</a>, <a href="#webpack-configuration">webpack builds</a> and <a href="#cordova">cordova deployments for Android and iOS</a>.</p>
+</div>
+<p>To create <a href="../../dev/app">your first Cozy application</a>, just follow the guide.
+As you can read there, Cozy applications are served by the Cozy server, this is the way that Cozy applications retrieve a token to query data.</p>
+<p>In the case of a mobile application, you need to retrieve a token differently. Hopefully we provide everything you need to do it easily.</p>
+<p>You&rsquo;ll need two libraries:</p>
+<ul>
+<li>cozy-client (<a href="https://github.com/cozy/cozy-drive/tree/master/src/lib/cozy-client">source</a>)</li>
+<li>cozy-bar (<a href="https://github.com/cozy/cozy-bar">source</a>)</li>
+</ul>
+<div class="admonition warning">
+<p>In the case of Cozy web applications served by the Cozy server, these two libraries are injected in the html file with variables <code>{{.CozyClientJS}}</code> and <code>{{.CozyBar}}</code>.</p>
+</div>
+<h2 id="setup-indexhtml">Setup index.html<a class="headerlink" href="#setup-indexhtml" title="Permanent link">&para;</a></h2>
+<p>First thing first, add JavaScript libraries files into your <code>index.html</code>:</p>
+<pre class="codehilite"><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;mobile Cozy application with Cordova&lt;/title&gt;
+    &lt;script src=&quot;cozy-client.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;cozy-bar.js&quot;&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;!-- page content --&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+
+<h2 id="connect-to-cozy-server">Connect to Cozy server<a class="headerlink" href="#connect-to-cozy-server" title="Permanent link">&para;</a></h2>
+<p>When an user will start your mobile Cozy application, she/he will need to point to her/his server url to ask for permissions for her/his device.</p>
+<p>This is done by our library <code>cozy-client</code>, you just need to add a HTML form:</p>
+<pre class="codehilite"><code class="language-html">&lt;form id=&quot;form&quot;&gt;
+  &lt;label&gt;What is your cozy server url?
+    &lt;input name=&quot;url&quot; id=&quot;url&quot; type=&quot;text&quot; /&gt;
+  &lt;/label&gt;
+  &lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+
+
+<pre class="codehilite"><code class="language-js">const urlInput = document.getElementById(&quot;url&quot;);
+const form = document.getElementById(&quot;form&quot;);
+form.addEventListener(&quot;submit&quot;, registerClient);
+function registerClient (event) {
+  event.preventDefault();
+  const url = urlInput.value;
+  const { client, token } = await cozyClient.register(url);
+  // do whatever you need with client and token like persist
+}</code></pre>
+
+
+<p><a class="jsbin-embed" href="http://jsbin.com/nokoxak/embed?console,output">JS Bin on jsbin.com</a><script src="http://static.jsbin.com/js/embed.min.js?4.1.0"></script></p>
+<p>When <code>cozyClient.register(url)</code> is called, <a href="https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-inappbrowser/">the cordova inapp browser plugin</a> is used to display a password request and a permission acceptation page to let the end-user to register her/his device.</p>
+<p>That&rsquo;s all!</p>
+<p>Then you can use the cozy-client library as <a href="../../dev/app/#manipulating-documents">you would within a classic Cozy application</a>.</p>
+<h2 id="initialize-the-cozy-bar">Initialize the Cozy bar<a class="headerlink" href="#initialize-the-cozy-bar" title="Permanent link">&para;</a></h2>
+<p>The Cozy bar needs some information to be initialized and its initialization must be done in your front-end code:</p>
+<pre class="codehilite"><code class="language-js">cozy.bar.init({
+  appName: &quot;App Name&quot;,
+  appEditor: &quot;Editor Name&quot;,
+  iconPath: require(&quot;./assets/app-icon.svg&quot;),
+  lang: &quot;en-US&quot;,
+  replaceTitleOnMobile: true
+})</code></pre>
+
+
+<h2 id="use-cordova">Use Cordova<a class="headerlink" href="#use-cordova" title="Permanent link">&para;</a></h2>
+<h3 id="install-and-setup-cordova">Install and setup cordova<a class="headerlink" href="#install-and-setup-cordova" title="Permanent link">&para;</a></h3>
+<p><a href="http://blog.ionic.io/what-is-cordova-phonegap/">Cordova is a tool</a> to build Android and iOS applications from a web app.</p>
+<p>It works with a CLI that needs <a href="https://nodejs.org/en/download/">node</a>.
+Look at the <a href="https://cordova.apache.org/docs/en/latest/guide/cli/index.html#installing-the-cordova-cli">cordova documentation to install everything needed</a>.</p>
+<p>Once cordova is installed, just run <code>cordova create cozy-app com.example.cozyapp CozyApp</code> and you get the following structure: </p>
+<pre class="codehilite"><code class="language-bash">./
+├── config.xml
+├── hooks
+│   └── README.md
+├── platforms
+├── plugins
+└── www
+    ├── css
+    │   └── index.css
+    ├── img
+    │   └── logo.png
+    ├── index.html
+    └── js
+        └── index.js
+
+7 directories, 6 files</code></pre>
+
+
+<p><strong>Note:</strong> everything you put in <code>www/</code> will be served as your application content.</p>
+<h3 id="configure-your-build-tool">Configure your build tool<a class="headerlink" href="#configure-your-build-tool" title="Permanent link">&para;</a></h3>
+<p>If you use a build tool to transpile your JavaScript code, you need to configure your tool to output the build into <code>www/</code>.</p>
+<h4 id="webpack-configuration">webpack configuration<a class="headerlink" href="#webpack-configuration" title="Permanent link">&para;</a></h4>
+<p>As <a href="http://stateofjs.com/2016/buildtools/">Webpack is the most used build tool</a> we will show you how to configure it with cordova:</p>
+<p>Create a <code>webpack.config.js</code> on the root folder of your project with:</p>
+<pre class="codehilite"><code class="language-js">const path = require('path');
+
+module.exports = {
+  entry: './src/app.js',
+  output: {
+    filename: 'bundle.js',
+    path.resolve(__dirname, 'www')
+  }
+}</code></pre>
+
+
+<p>And add the output bundle in the <code>www/index.html</code> file:</p>
+<pre class="codehilite"><code class="language-html">&lt;html&gt;
+  &lt;head&gt;
+    ...
+  &lt;/head&gt;
+  &lt;body&gt;
+    ...
+    &lt;script src=&quot;bundle.js&quot;&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+
+<p>See <a href="https://webpack.js.org/">the official webpack documentation</a> for more details.</p>
+<h3 id="cordova">Cordova<a class="headerlink" href="#cordova" title="Permanent link">&para;</a></h3>
+<h4 id="android-platform">Android Platform<a class="headerlink" href="#android-platform" title="Permanent link">&para;</a></h4>
+<p>Use <code>cordova platform add android</code> and check your environment with <code>cordova requirements</code>:</p>
+<p>A bad requirements check:</p>
+<pre class="codehilite"><code>Requirements check results for android:
+Java JDK: installed .
+Android SDK: installed
+Android target: not installed
+Android SDK not found. Make sure that it is installed. If it is not at the default location, set the ANDROID_HOME environment variable.
+Gradle: installed
+Error: Some of requirements check failed</code></pre>
+
+
+<p>A good requirements check:</p>
+<pre class="codehilite"><code>Requirements check results for android:
+Java JDK: installed .
+Android SDK: installed
+Android target: installed android-19,android-21,android-22,android-23,Google Inc.:Google APIs:19,Google Inc.:Google APIs (x86 System Image):19,Google Inc.:Google APIs:23
+Gradle: installed</code></pre>
+
+
+<p>See cordova, android and ios documentation to customize your development environment for your special needs.</p>
+<p>Once everything is right, you could run <code>cordova build</code> and <code>cordova run android</code> to create an APK and push the APK on a device.</p>
+<p><strong>Note:</strong> The device should be connected with usb.
+See <a href="https://developer.android.com/studio/run/device.html">official android documentation for more details</a>.</p>
+<h4 id="ios-development">iOS development<a class="headerlink" href="#ios-development" title="Permanent link">&para;</a></h4>
+<p>For building an iOS app, you need <a href="https://developer.apple.com/xcode/">xcode</a>.</p>
+<p>[[more to come]]</p>
+<p>See further details on <a href="https://cordova.apache.org/docs/en/latest/guide/platforms/ios/index.html">the cordova official documentation about iOS</a>.</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

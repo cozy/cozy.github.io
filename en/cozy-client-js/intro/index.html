@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-client-js/intro/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>Introduction - Cozy Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Cozy Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Use <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/">User guide</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Stay in sync</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronize your phone</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronize your computer</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Install on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Download</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../dev/">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="../../dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="../../dev/app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="../../dev/konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="../../dev/cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="../../dev/sendmail/">How to send mail in development</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">References <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-client-js</a>
+    <ul class="dropdown-menu">
+            
+<li class="active">
+    <a href="./">Introduction</a>
+</li>
+            
+<li >
+    <a href="../browser-sdk-transition/">Transition from cozy-browser-sdk</a>
+</li>
+            
+<li >
+    <a href="../offline/">How to support offline</a>
+</li>
+            
+<li >
+    <a href="../oauth/">OAuth guide</a>
+</li>
+            
+<li >
+    <a href="../auth-api/">Authentication API</a>
+</li>
+            
+<li >
+    <a href="../data-api/">Data System API</a>
+</li>
+            
+<li >
+    <a href="../files-api/">Files API</a>
+</li>
+            
+<li >
+    <a href="../jobs-api/">Jobs API</a>
+</li>
+            
+<li >
+    <a href="../intents-api/">Intents API</a>
+</li>
+            
+<li >
+    <a href="../settings-api/">Settings API</a>
+</li>
+            
+<li >
+    <a href="../sharing-api/">Sharing API</a>
+</li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#introduction-to-cozy-client-js">Introduction to cozy-client-js</a></li>
+            <li><a href="#reminder-about-cozy-architectures">Reminder about cozy architectures</a></li>
+            <li><a href="#include-the-library-in-your-application">Include the library in your application</a></li>
+            <li><a href="#doctypes-permissions">Doctypes &amp; Permissions</a></li>
+            <li><a href="#promises-callbacks">Promises &amp; Callbacks</a></li>
+            <li><a href="#constructor">Constructor</a></li>
+            <li><a href="#future-apis">Future APIs</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<p>{% raw %}</p>
+<h1 id="introduction-to-cozy-client-js">Introduction to cozy-client-js<a class="headerlink" href="#introduction-to-cozy-client-js" title="Permanent link">&para;</a></h1>
+<h2 id="reminder-about-cozy-architectures">Reminder about cozy architectures<a class="headerlink" href="#reminder-about-cozy-architectures" title="Permanent link">&para;</a></h2>
+<p>There is two actives cozy architectures:</p>
+<ul>
+<li>The first, thereafter named <strong>v2</strong> is the existing cozy structure. It&rsquo;s based on 1 container / user with many node.js processes in each container (cozy-data-system, cozy-proxy, cozy-home, 1 process per app).</li>
+<li>The second, thereafter named <strong>v3</strong> is the new cozy-stack (<a href="https://github.com/cozy/cozy-stack">repository</a>). It&rsquo;s based on go and aim to support multiple user on a single process.</li>
+</ul>
+<p><strong>v2</strong> supported both <strong>server-side</strong> applications with their own node.js process and <strong>client-side</strong> applications which run in the user browser.</p>
+<p><strong>v3</strong> will not support <strong>server-side</strong> applications. We will support server side modules managed by server administrator, but the applications themselves will all be <strong>client-side</strong> application.</p>
+<p>This repository provides a library which allows you to build a <strong>client-side</strong> application compatible with both version.</p>
+<p>The former javascript library for making client-side application was <code>cozy-browser-sdk</code>. We aim to deprecate it once <code>cozy-client-js</code> reaches feature-parity.</p>
+<p>If you already have an application using <code>cozy-browser-sdk</code>, you can see what will change in the <a href="../browser-sdk-transition/">transition document</a>. If you have any doubt, please open an issue!</p>
+<h2 id="include-the-library-in-your-application">Include the library in your application<a class="headerlink" href="#include-the-library-in-your-application" title="Permanent link">&para;</a></h2>
+<p>You can <code>import</code>/<code>require</code> cozy-client-js using npm &amp; webpack.</p>
+<p>You can also copy-paste the <code>dist/cozy-client.js</code> bundle file into your application, and include it in your application <code>index.html</code> with <code>&lt;script src="./cozy-client.js"&gt;</code>.</p>
+<p>If you are developing a client-side app for Cozy V3, you can import the lib directly from the stack, by using <a href="https://cozy.github.io/cozy-stack/client-app-dev.html#good-practices-for-your-application"><code>{{.CozyClientJS}}</code></a>.</p>
+<p>If you are developing a nodejs app, you will need some polyfills. You can add them to your project with this command:</p>
+<pre class="codehilite"><code class="language-sh">$ yarn add isomorphic-fetch core-js regenerator-runtime btoa</code></pre>
+
+
+<h2 id="doctypes-permissions">Doctypes &amp; Permissions<a class="headerlink" href="#doctypes-permissions" title="Permanent link">&para;</a></h2>
+<p>A doctype is a simple javascript string identifying a type of document.
+Some basic doctypes are provided by cozy, but you can pick your own.</p>
+<p>Cozy <strong>v3</strong> expects doctypes to be qualified to ensure uniqueness.</p>
+<p>All doctypes designed by the cozy&rsquo;s team will be prefixed with <code>io.cozy.</code>, or <code>io.cozy.labs.</code></p>
+<p>Any doctype you introduce is expected to be prefixed with the reverse notation of a domain you own (JLS#7.7). If you do not own a domain, you can also use a reverse notation of your email address.</p>
+<p>You are free to reuse another applications documents by using their doctypes but you <strong>SHOULD</strong> discuss with the domain owner if you want to add fields or format them differently.</p>
+<p>To ensure retrocompatibility, when used on stack v2, all known doctypes will be auto-prefixed, but a warning will be written to the console. Unknown doctype will cause a fatal error. DO NOT rely on this behaviour in new applications, use qualified doctypes.</p>
+<pre class="codehilite"><code class="language-javascript">// contacts is a doctype defined by cozy
+cozyContactsDoctype = &quot;io.cozy.contacts&quot;
+// your application handle books, let's create a doctype
+myBooksDoctype = &quot;com.mydomain.book&quot;</code></pre>
+
+
+<p>When you use a doctype, even one created by your application, you need to ask for its permission in your manifest. How to do it depends on which stack you are developping for.</p>
+<p><strong>TODO</strong> Have some docs about <strong>v2</strong> package.json vs <strong>v3</strong> manifest.webapp</p>
+<h2 id="promises-callbacks">Promises &amp; Callbacks<a class="headerlink" href="#promises-callbacks" title="Permanent link">&para;</a></h2>
+<p>All cozy-client-js functions support callback or promise.</p>
+<p>If no callback is provided, a promise is returned.</p>
+<pre class="codehilite"><code class="language-javascript">cozy.client.data.create(myBooksDoctype, doc)
+    .then(function(result){ console.log('done', result); });
+    .catch(function(err){ console.log('fail', err); });</code></pre>
+
+
+<p>If your build pipeline supports it, use async/await for sweet sweet async</p>
+<pre class="codehilite"><code class="language-javascript">try {
+  result = await cozy.client.data.create(myBooksDoctype, doc)
+  console.log('done', result)
+} catch(err) {
+  console.log('fail', err)
+}</code></pre>
+
+
+<p>If for some reason you do not want to use promises, you can pass the <code>disablePromises</code> flag to the init function. This way, you will be able to use the functions with a classic callback.</p>
+<pre class="codehilite"><code class="language-javascript">cozy.client.init({ disablePromises: true })
+cozy.client.data.create(myBooksDoctype, doc, function(err, result) {
+    if (err) {
+      console.log('fail', err);
+    } else {
+      console.log('done', result);
+    }
+});
+&gt; undefined</code></pre>
+
+
+<h2 id="constructor">Constructor<a class="headerlink" href="#constructor" title="Permanent link">&para;</a></h2>
+<h3 id="new-cozyclientoptions"><code>new cozy.Client(options)</code><a class="headerlink" href="#new-cozyclientoptions" title="Permanent link">&para;</a></h3>
+<p><code>new cozy.Client(options)</code> returns a new cozy client.</p>
+<p>It does return a Cozy instance.</p>
+<p>It takes the same options object as the <code>cozy.client.init(options)</code> function.</p>
+<h3 id="cozyclientinitoptions"><code>cozy.client.init(options)</code><a class="headerlink" href="#cozyclientinitoptions" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.init(options)</code> setups initialize the global cozy instance.</p>
+<p>It does not return a value.</p>
+<ul>
+<li><code>options</code> is an object with the following fields:</li>
+<li><code>cozyURL</code>: absolute url of the cozy stack</li>
+<li><code>disablePromises</code>: boolean to make function that returns promise used with a classical &ldquo;callback as last argument&rdquo; (default value is <em>false</em>)</li>
+<li><code>oauth</code>: an object with the OAuth parameters, see <a href="../oauth/">OAuth</a> for details</li>
+<li><code>version</code>: the version of Cozy (2 or 3), it&rsquo;s optional, by default with a request to the server it can deduce automatically the version. (Must be specified for an offline mode)</li>
+</ul>
+<pre class="codehilite"><code class="language-javascript">cozy.client.init({
+  cozyURL: 'http://cozy.tools:8080',
+  disablePromises: false,
+  version: 3,
+  oauth: {
+    clientParams: {/*...*/},
+    scopes: [&quot;io.cozy.files:GET&quot;],
+    onRegistered: (client, url) =&gt; { /* */ },
+    storage: new cozy.auth.LocalStorage(window.localStorage)
+  }
+})</code></pre>
+
+
+<h2 id="future-apis">Future APIs<a class="headerlink" href="#future-apis" title="Permanent link">&para;</a></h2>
+<p>This is the end of what we already have implemented, if you want to do something else (manipulating binary file, sharing, &hellip;), you will have to wait a bit :smile:.</p>
+<p>Feel free to open an issue if you see something missing, or if you disagree with the API design !</p>
+<p>{% endraw %}</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

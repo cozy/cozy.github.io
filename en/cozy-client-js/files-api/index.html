@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-client-js/files-api/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>Files API - Cozy Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Cozy Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Use <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/">User guide</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Stay in sync</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronize your phone</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronize your computer</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Install on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Download</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../dev/">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="../../dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="../../dev/app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="../../dev/konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="../../dev/cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="../../dev/sendmail/">How to send mail in development</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">References <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-client-js</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../intro/">Introduction</a>
+</li>
+            
+<li >
+    <a href="../browser-sdk-transition/">Transition from cozy-browser-sdk</a>
+</li>
+            
+<li >
+    <a href="../offline/">How to support offline</a>
+</li>
+            
+<li >
+    <a href="../oauth/">OAuth guide</a>
+</li>
+            
+<li >
+    <a href="../auth-api/">Authentication API</a>
+</li>
+            
+<li >
+    <a href="../data-api/">Data System API</a>
+</li>
+            
+<li class="active">
+    <a href="./">Files API</a>
+</li>
+            
+<li >
+    <a href="../jobs-api/">Jobs API</a>
+</li>
+            
+<li >
+    <a href="../intents-api/">Intents API</a>
+</li>
+            
+<li >
+    <a href="../settings-api/">Settings API</a>
+</li>
+            
+<li >
+    <a href="../sharing-api/">Sharing API</a>
+</li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#files-api">Files API</a></li>
+            <li><a href="#cozyclientfilescreatedata-options">cozy.client.files.create(data, options)</a></li>
+            <li><a href="#cozyclientfilescreatedirectoryoptions">cozy.client.files.createDirectory(options)</a></li>
+            <li><a href="#cozyclientfilescreatedirectorybypathpath">cozy.client.files.createDirectoryByPath(path)</a></li>
+            <li><a href="#cozyclientfilesupdatebyidid-data-options">cozy.client.files.updateById(id, data, options)</a></li>
+            <li><a href="#cozyclientfilesupdateattributesbyidid-attrs-options">cozy.client.files.updateAttributesById(id, attrs, options)</a></li>
+            <li><a href="#cozyclientfilesupdateattributesbypathpath-attrs-options">cozy.client.files.updateAttributesByPath(path, attrs, options)</a></li>
+            <li><a href="#cozyclientfilesstatbyidid-offline-options">cozy.client.files.statById(id, offline, options)</a></li>
+            <li><a href="#cozyclientfilesstatbypathpath">cozy.client.files.statByPath(path)</a></li>
+            <li><a href="#cozyclientfilestrashbyidid-options">cozy.client.files.trashById(id, options)</a></li>
+            <li><a href="#cozyclientfilesdestroybyidid-options">cozy.client.files.destroyById(id, options)</a></li>
+            <li><a href="#cozyclientfilesrestorebyidid">cozy.client.files.restoreById(id)</a></li>
+            <li><a href="#cozyclientfileslisttrash">cozy.client.files.listTrash()</a></li>
+            <li><a href="#cozyclientfilescleartrash">cozy.client.files.clearTrash()</a></li>
+            <li><a href="#cozyclientfilesdownloadbyidid">cozy.client.files.downloadById(id)</a></li>
+            <li><a href="#cozyclientfilesdownloadbypathpath">cozy.client.files.downloadByPath(path)</a></li>
+            <li><a href="#cozyclientfilesgetdownloadlinkbyidid">cozy.client.files.getDownloadLinkById(id)</a></li>
+            <li><a href="#cozyclientfilesgetdownloadlinkbypathpath">cozy.client.files.getDownloadLinkByPath(path)</a></li>
+            <li><a href="#cozyclientfilesgetarchivelinkbypathspaths-name">cozy.client.files.getArchiveLinkByPaths(paths, name)</a></li>
+            <li><a href="#cozyclientfilesgetarchivelinkbyidsids-name">cozy.client.files.getArchiveLinkByIds(ids, name)</a></li>
+            <li><a href="#cozyclientfilesgetfilepathfile-folder">cozy.client.files.getFilePath(file, folder)</a></li>
+            <li><a href="#cozyclientdataaddreferencedfilesdoc-fileids">cozy.client.data.addReferencedFiles(doc, fileIds)</a></li>
+            <li><a href="#cozyclientdataremovereferencedfilesdoc-fileids">cozy.client.data.removeReferencedFiles(doc, fileIds)</a></li>
+            <li><a href="#cozyclientdatalistreferencedfilesdoc">cozy.client.data.listReferencedFiles(doc)</a></li>
+            <li><a href="#cozyclientdatafetchreferencedfilesdoc">cozy.client.data.fetchReferencedFiles(doc)</a></li>
+            <li><a href="#cozyclientfilesqueryindexreference-query">cozy.client.files.query(indexReference, query)</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="files-api">Files API<a class="headerlink" href="#files-api" title="Permanent link">&para;</a></h1>
+<h3 id="cozyclientfilescreatedata-options"><code>cozy.client.files.create(data, options)</code><a class="headerlink" href="#cozyclientfilescreatedata-options" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.files.create(data, options)</code> is used to upload a new file onto your cozy</p>
+<p>It returns a promise for the document of the file created.</p>
+<ul>
+<li><code>data</code> can be of the following type: <code>Blob</code>, <code>File</code>, <code>ArrayBuffer</code>, <code>ArrayBufferView</code>, <code>stream.Readable</code> (node) or <code>string</code>.</li>
+<li><code>options</code> is an object with the following fields:</li>
+<li><code>name</code>: specify the name of the file. optional for a data of type <code>File</code>, type, mandatory otherwise.</li>
+<li><code>dirID</code>: specify identifier of the file&rsquo;s directory. if empty, it is the root directory.</li>
+<li><code>contentType</code>: specify the content type of the uploaded data. For a <code>File</code> type, it is handled automatically in browsers (default: <code>application/octet-stream</code>). For nodejs, you can rely on an external module like <a href="https://github.com/broofa/node-mime">mime</a></li>
+<li><code>checksum</code>: the base64-encoded (with padding) MD5 digest of the file (optional).</li>
+<li><code>lastModifiedDate</code>: a date to specify the last modification time to use for the uploaded file. If the given <code>data</code> is a <code>File</code> instance, the <code>lastModifiedDate</code> is automatically used (not overridden).</li>
+</ul>
+<p><strong>Warning</strong>: this API is not v2 compatible.</p>
+<pre class="codehilite"><code class="language-javascript">const created = await cozy.client.files.create(blob, {
+    name: &quot;filename&quot;,
+    dirID: &quot;123456&quot;,
+})
+const fileCreated = await cozy.client.files.create(fileInput.files[0], {
+  dirID: &quot;&quot;,
+  checksum: &quot;rL0Y20zC+Fzt72VPzMSk2A==&quot;,
+  lastModifiedDate: new Date()
+})</code></pre>
+
+
+<h3 id="cozyclientfilescreatedirectoryoptions"><code>cozy.client.files.createDirectory(options)</code><a class="headerlink" href="#cozyclientfilescreatedirectoryoptions" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.files.createDirectory(options)</code> is used to create a new directory.</p>
+<p>It returns a promise for the document of the directory created.</p>
+<ul>
+<li><code>options</code> is an object with the following fields:</li>
+<li><code>name</code>: specify the name of the directory</li>
+<li><code>dirID</code>: specify identifier of the file&rsquo;s directory. if empty, it is the root directory.</li>
+<li><code>lastModifiedDate</code>: a date to specify the last modification time to use for the directory.</li>
+</ul>
+<pre class="codehilite"><code class="language-javascript">const created = await cozy.client.files.createDirectory({
+  name: &quot;mydir&quot;,
+  dirID: &quot;123456&quot;,
+  lastModifiedDate: new Date()
+})</code></pre>
+
+
+<h3 id="cozyclientfilescreatedirectorybypathpath"><code>cozy.client.files.createDirectoryByPath(path)</code><a class="headerlink" href="#cozyclientfilescreatedirectorybypathpath" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.files.createDirectoryByPath(path)</code> is used to create one or more directories for a given path.</p>
+<p>It returns a promise for the document of the last directory created.</p>
+<ul>
+<li><code>path</code> is a string</li>
+</ul>
+<pre class="codehilite"><code class="language-javascript">const barDirectory = await cozy.client.files.createDirectoryByPath('/Foo/Bar')</code></pre>
+
+
+<h3 id="cozyclientfilesupdatebyidid-data-options"><code>cozy.client.files.updateById(id, data, options)</code><a class="headerlink" href="#cozyclientfilesupdatebyidid-data-options" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.files.updateById(id, data, options)</code> is used to update the content of an already existing file.</p>
+<p>It returns a promise for the document of the file updated.</p>
+<ul>
+<li><code>id</code> is a string specifying the identifier of the file to modify.</li>
+<li><code>data</code> can be of the following type: <code>Blob</code>, <code>File</code>, <code>ArrayBuffer</code>, <code>ArrayBufferView</code> or <code>string</code>.</li>
+<li><code>options</code> is an object with the following fields:</li>
+<li><code>contentType</code>: specify the content type of the uploaded data. For a <code>File</code> type, it is be handled automatically. default: <code>application/octet-stream</code>.</li>
+<li><code>checksum</code>: the base64-encoded (with padding) MD5 digest of the file (optional).</li>
+<li><code>lastModifiedDate</code>: a date to specify the last modification time to use for the uploaded file. If the given <code>data</code> is a <code>File</code> instance, the <code>lastModifiedDate</code> is automatically used (not overridden).</li>
+<li><code>ifMatch</code>: the previous revision of the file (optional). The update will be rejected if the remote revision doesn&rsquo;t match the given one.</li>
+</ul>
+<pre class="codehilite"><code class="language-javascript">const updated = await cozy.client.files.updateById(&quot;654321&quot;, blob, {
+  contentType: &quot;text/plain&quot;,
+  checksum: &quot;rL0Y20zC+Fzt72VPzMSk2A==&quot;,
+  lastModifiedDate: new Date(),
+  ifMatch: &quot;1-0e6d5b72&quot;
+})</code></pre>
+
+
+<h3 id="cozyclientfilesupdateattributesbyidid-attrs-options"><code>cozy.client.files.updateAttributesById(id, attrs, options)</code><a class="headerlink" href="#cozyclientfilesupdateattributesbyidid-attrs-options" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.files.updateAttributesById(id, attrs, options)</code> is used to update the attributes associated to a file or directory specified by its id.</p>
+<p>It returns a promise for the document of the updated directory or file.</p>
+<ul>
+<li><code>id</code> is a string specifying the identifier of the file or directory to update</li>
+<li><code>attrs</code> is an object containing the changes</li>
+<li><code>options</code> is an object with the following fields:</li>
+<li><code>ifMatch</code>: the previous revision of the file (optional). The update will be rejected if the remote revision doesn&rsquo;t match the given one.</li>
+</ul>
+<pre class="codehilite"><code class="language-javascript">const updated = await cozy.client.files.updateAttributesById(&quot;12345&quot;, { tags: [&quot;foo&quot;] }, { ifMatch: &quot;1-0e6d5b72&quot; })</code></pre>
+
+
+<h3 id="cozyclientfilesupdateattributesbypathpath-attrs-options"><code>cozy.client.files.updateAttributesByPath(path, attrs, options)</code><a class="headerlink" href="#cozyclientfilesupdateattributesbypathpath-attrs-options" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.files.updateAttributesByPath(path, attrs, options)</code> is used to update the attributes associated to a file or directory specified by the given path.</p>
+<p>It returns a promise for the document of the updated directory or file.</p>
+<ul>
+<li><code>path</code>: string specifying the path of the file or directory to update</li>
+<li><code>attrs</code> is an object containing the changes</li>
+<li><code>options</code> is an object with the following fields:</li>
+<li><code>ifMatch</code>: the previous revision of the file (optional). The update will be rejected if the remote revision doesn&rsquo;t match the given one.</li>
+</ul>
+<pre class="codehilite"><code class="language-javascript">const updated = await cozy.client.files.updateAttributes(&quot;/foo/bar&quot;, { executable: true }, { ifMatch: &quot;1-0e6d5b72&quot; })</code></pre>
+
+
+<h3 id="cozyclientfilesstatbyidid-offline-options"><code>cozy.client.files.statById(id, offline, options)</code><a class="headerlink" href="#cozyclientfilesstatbyidid-offline-options" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.files.statById(id, offline, options)</code> is used to get the metadata of a file specified by its id.</p>
+<p>It returns a promise for the information of the file or directory. In the case of a directory, it contains the list of files and sub-directories inside it. This list is limited to 30 items by default, but the <code>options</code> argument allows you
+to fetch more items.</p>
+<ul>
+<li><code>id</code> is a string specifying the file’s or directory’s identifier</li>
+<li><code>offline</code> is a boolean (default to <code>true</code>)</li>
+<li><code>options</code> is an object with the following fields:</li>
+<li><code>skip</code>: number of items to skip (optional)</li>
+<li><code>limit</code>: maximum number of items to return (optional).</li>
+</ul>
+<p>By default, <code>statById</code> will fetch the metadata from the local database, if it is available. Set the second parameter to <code>false</code> to query the server.</p>
+<p>Returned directory have a <code>relations()</code> method that allow to access to their content:</p>
+<pre class="codehilite"><code class="language-javascript">const dir = await cozy.client.files.statById(&quot;io.cozy.files.root-dir&quot;);
+dir.relations('contents').forEach( (file) =&gt; … )</code></pre>
+
+
+<h3 id="cozyclientfilesstatbypathpath"><code>cozy.client.files.statByPath(path)</code><a class="headerlink" href="#cozyclientfilesstatbypathpath" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.files.statByPath(path)</code> is used to get the metadata of a file specified by its path.</p>
+<ul>
+<li><code>path</code>: string specifying the path of the file or directory;</li>
+</ul>
+<h3 id="cozyclientfilestrashbyidid-options"><code>cozy.client.files.trashById(id, options)</code><a class="headerlink" href="#cozyclientfilestrashbyidid-options" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.files.trashById(id, options)</code> is used to move the file or directory identified by the given id to trash.</p>
+<p>It returns a promise for the document of the file or directory moved to trash.</p>
+<ul>
+<li><code>id</code> is a string specifying the identifier of the file or directory</li>
+<li><code>options</code> is an object with the following fields:</li>
+<li><code>ifMatch</code>: the previous revision of the file (optional). The update will be rejected if the remote revision doesn&rsquo;t match the given one.</li>
+</ul>
+<pre class="codehilite"><code class="language-javascript">const trashed = await cozy.client.files.trashById(&quot;1234567&quot;)</code></pre>
+
+
+<h3 id="cozyclientfilesdestroybyidid-options"><code>cozy.client.files.destroyById(id, options)</code><a class="headerlink" href="#cozyclientfilesdestroybyidid-options" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.files.destroyById(id, options)</code> is used to shred (destroy definitively) a file or directory identified by the given id.</p>
+<p>The file must be in the trash folder first.</p>
+<p>It returns a promise for completion</p>
+<ul>
+<li><code>id</code> is a string specifying the identifier of the file or directory</li>
+<li><code>options</code> is an object with the following fields:</li>
+<li><code>ifMatch</code>: the previous revision of the file (optional). The update will be rejected if the remote revision doesn&rsquo;t match the given one.</li>
+</ul>
+<pre class="codehilite"><code class="language-javascript">const trashed = await cozy.client.files.trashById(&quot;1234567&quot;)
+await cozy.client.files.destroyById(&quot;1234567&quot;)</code></pre>
+
+
+<h3 id="cozyclientfilesrestorebyidid"><code>cozy.client.files.restoreById(id)</code><a class="headerlink" href="#cozyclientfilesrestorebyidid" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.files.restoreById(id)</code> is used to restore a file or directory identified by the given id. The file must be in the trash folder.</p>
+<p>It returns a promise for the restored doc. (with updated parent)</p>
+<ul>
+<li><code>id</code> is a string specifying the identifier of the file or directory</li>
+</ul>
+<pre class="codehilite"><code class="language-javascript">const trashed = await cozy.client.files.trashById(&quot;1234567&quot;)
+const restored = await cozy.client.files.restoreById(&quot;1234567&quot;)</code></pre>
+
+
+<h3 id="cozyclientfileslisttrash"><code>cozy.client.files.listTrash()</code><a class="headerlink" href="#cozyclientfileslisttrash" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.files.listTrash()</code> returns a promise for the list of all files in the trash.</p>
+<pre class="codehilite"><code class="language-javascript">const trashedFilesAndFolders = await cozy.client.files.listTrash()</code></pre>
+
+
+<h3 id="cozyclientfilescleartrash"><code>cozy.client.files.clearTrash()</code><a class="headerlink" href="#cozyclientfilescleartrash" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.files.clearTrash()</code> destroys definitively all trash content.</p>
+<pre class="codehilite"><code class="language-javascript">await cozy.client.files.clearTrash()</code></pre>
+
+
+<h3 id="cozyclientfilesdownloadbyidid"><code>cozy.client.files.downloadById(id)</code><a class="headerlink" href="#cozyclientfilesdownloadbyidid" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.files.downloadById(id)</code> is used to download a file identified by the given id. The file is downloaded through the browser fetch method, use this if you plan to use the file in javascript after.</p>
+<p>It returns a promise of a fetch <code>Response</code> object. This response object can be used to extract the information in the wanted form.</p>
+<ul>
+<li><code>id</code> is a string specifying the identifier of the file</li>
+</ul>
+<pre class="codehilite"><code class="language-javascript">const response = await cozy.client.files.downloadById(&quot;1234567&quot;)
+const blob = await response.blob()
+const text = await response.text()
+const buff = await response.arrayBuffer()
+response.pipe(fs.createWriteStream('/some/file'))</code></pre>
+
+
+<h3 id="cozyclientfilesdownloadbypathpath"><code>cozy.client.files.downloadByPath(path)</code><a class="headerlink" href="#cozyclientfilesdownloadbypathpath" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.files.downloadByPath(path)</code> is used to download a file identified by the given path. The file is downloaded through the browser fetch method, use this if you plan to use the file in javascript after.</p>
+<p>It returns a promise of a fetch <code>Response</code> object. This response object can be used to extract the information in the wanted form.</p>
+<ul>
+<li><code>path</code> is a string specifying the path of the file</li>
+</ul>
+<pre class="codehilite"><code class="language-javascript">const response = await cozy.client.files.downloadByPath(&quot;/foo/hello.txt&quot;)
+const blob = await response.blob()
+const text = await response.text()
+const buff = await response.arrayBuffer()
+response.pipe(fs.createWriteStream('/some/file'))</code></pre>
+
+
+<h3 id="cozyclientfilesgetdownloadlinkbyidid"><code>cozy.client.files.getDownloadLinkById(id)</code><a class="headerlink" href="#cozyclientfilesgetdownloadlinkbyidid" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.files.getDownloadLinkById(id)</code> is used to get a download link for the file identified by the given id.</p>
+<p>It returns a promise for the download link.
+Download link are only valid for a short while (default 1 hour)
+You can use this link to start a browser download like this:</p>
+<pre class="codehilite"><code class="language-javascript">const href = await cozy.client.files.getDownloadLinkById(&quot;id424242&quot;)
+const link = document.createElement('a')
+link.href = href
+link.download = fileName
+document.body.appendChild(link) &amp;&amp; link.click()</code></pre>
+
+
+<ul>
+<li><code>id</code> is a string specifying the id of the file</li>
+</ul>
+<h3 id="cozyclientfilesgetdownloadlinkbypathpath"><code>cozy.client.files.getDownloadLinkByPath(path)</code><a class="headerlink" href="#cozyclientfilesgetdownloadlinkbypathpath" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.files.getDownloadLinkByPath(path)</code> is used to get a download link for the file identified by the given path.</p>
+<p>It returns a promise for the download link.
+Download link are only valid for a short while (default 1 hour)
+You can use this link to start a browser download like this:</p>
+<pre class="codehilite"><code class="language-javascript">const href = await cozy.client.files.getDownloadLinkByPath(&quot;/foo/hello.txt&quot;)
+const link = document.createElement('a')
+link.href = href
+link.download = fileName
+document.body.appendChild(link) &amp;&amp; link.click()</code></pre>
+
+
+<ul>
+<li><code>path</code> is a string specifying the path of the file</li>
+</ul>
+<h3 id="cozyclientfilesgetarchivelinkbypathspaths-name"><code>cozy.client.files.getArchiveLinkByPaths(paths, name)</code><a class="headerlink" href="#cozyclientfilesgetarchivelinkbypathspaths-name" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.files.getArchiveLinkByPaths(paths, name)</code> is used to get a download link for a zip file containing all the files identified by the given paths.</p>
+<p>It returns a promise for the download link.
+Download link are only valid for a short while (default 1 hour)
+You can use this link to start a browser download (see code in getDownloadLinkById)</p>
+<pre class="codehilite"><code class="language-javascript">const href = await cozy.client.files.getArchiveLinkByPaths([
+  &quot;/foo/hello.txt&quot;,
+  &quot;/bar/test.txt&quot;
+])
+// href === &quot;/files/archive/b1c127c25d99f0b37ac2c2a907f36069/files.zip&quot;
+
+const href = await cozy.client.files.getArchiveLinkByPaths([&quot;/foo/hello.txt&quot;], &quot;secretproject&quot;)
+// href === &quot;/files/archive/bc2a901c127c25d99f0b37a36069c27f/secretproject.zip&quot;</code></pre>
+
+
+<ul>
+<li><code>paths</code> is an array of paths</li>
+<li><code>name</code> is the optional name for the generated archive file (default &ldquo;files&rdquo;).</li>
+</ul>
+<h3 id="cozyclientfilesgetarchivelinkbyidsids-name"><code>cozy.client.files.getArchiveLinkByIds(ids, name)</code><a class="headerlink" href="#cozyclientfilesgetarchivelinkbyidsids-name" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.files.getArchiveLinkByIds(ids, name)</code> is used to get a download link for a zip file containing all the files identified by the given ids.</p>
+<p>It returns a promise for the download link.
+Download link are only valid for a short while (default 1 hour)
+You can use this link to start a browser download (see code in getDownloadLinkById)</p>
+<pre class="codehilite"><code class="language-javascript">const href = await cozy.client.files.getArchiveLinkByIds([
+  &quot;1234567&quot;,
+  &quot;9876543&quot;
+])
+// href === &quot;/files/archive/b1c127c25d99f0b37ac2c2a907f36069/files.zip&quot;
+
+const href = await cozy.client.files.getArchiveLinkByIds([&quot;1592673&quot;], &quot;secretproject&quot;)
+// href === &quot;/files/archive/bc2a901c127c25d99f0b37a36069c27f/secretproject.zip&quot;</code></pre>
+
+
+<ul>
+<li><code>ids</code> is an array of ids</li>
+<li><code>name</code> is the optional name for the generated archive file (default &ldquo;files&rdquo;).</li>
+</ul>
+<h3 id="cozyclientfilesgetfilepathfile-folder"><code>cozy.client.files.getFilePath(file, folder)</code><a class="headerlink" href="#cozyclientfilesgetfilepathfile-folder" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.files.getFilePath(file, folder)</code> is a helper that generates the file path from root directory. It may be used to specify the path parameter for functions like
+<code>cozy.client.files.downloadByPath</code>, <code>cozy.client.files.getDownloadLinkByPath</code> or <code>cozy.client.files.getArchiveLinkByPaths</code>.</p>
+<h3 id="cozyclientdataaddreferencedfilesdoc-fileids"><code>cozy.client.data.addReferencedFiles(doc, fileIds)</code><a class="headerlink" href="#cozyclientdataaddreferencedfilesdoc-fileids" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.data.addReferencedFiles(doc, fileIds)</code> binds the files to the document.
+(see cozy-stack <a href="https://cozy.github.io/cozy-stack/references-docs-in-vfs.html">documentation</a> for more details)</p>
+<h3 id="cozyclientdataremovereferencedfilesdoc-fileids"><code>cozy.client.data.removeReferencedFiles(doc, fileIds)</code><a class="headerlink" href="#cozyclientdataremovereferencedfilesdoc-fileids" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.data.removeReferencedFiles(doc, fileIds)</code> unbinds the files to the document.
+(see cozy-stack <a href="https://cozy.github.io/cozy-stack/references-docs-in-vfs.html">documentation</a> for more details)</p>
+<h3 id="cozyclientdatalistreferencedfilesdoc"><code>cozy.client.data.listReferencedFiles(doc)</code><a class="headerlink" href="#cozyclientdatalistreferencedfilesdoc" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.data.listReferencedFiles(doc)</code> list the files bound to the document.
+(see cozy-stack <a href="https://cozy.github.io/cozy-stack/references-docs-in-vfs.html">documentation</a> for more details).</p>
+<p>It returns a promise for a list of filesIds. Files must then be fetched separately.</p>
+<h3 id="cozyclientdatafetchreferencedfilesdoc"><code>cozy.client.data.fetchReferencedFiles(doc)</code><a class="headerlink" href="#cozyclientdatafetchreferencedfilesdoc" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.data.fetchReferencedFiles(doc)</code> fetches the files bound to the document.
+(see cozy-stack <a href="https://cozy.github.io/cozy-stack/references-docs-in-vfs.html">documentation</a> for more details).</p>
+<p>It returns a promise for a list of files.</p>
+<h3 id="cozyclientfilesqueryindexreference-query"><code>cozy.client.files.query(indexReference, query)</code><a class="headerlink" href="#cozyclientfilesqueryindexreference-query" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.files.query(indexReference, query)</code> find files using an index.</p>
+<p>It returns a promise with a list of files matching the query. Results will be returned in the order defined for the index.</p>
+<ul>
+<li><code>query</code> is an object with the following fields:</li>
+<li><code>selector</code>: a mango selector</li>
+<li><code>limit</code>: maximum number of results</li>
+<li><code>skip</code>: ignore the first x results (pagination)</li>
+<li><code>wholeResponse</code>: when set to true, the whole query response will be returned instead of just the docs. This is useful when paginating, because you&rsquo;ll get the <code>next</code> property in the response object.</li>
+</ul>
+<pre class="codehilite"><code class="language-javascript">const results = await cozy.client.files.query(photosByDate, {
+  &quot;selector&quot;: {&quot;class&quot;: &quot;image&quot;},
+  &quot;limit&quot;: 3,
+  &quot;skip&quot;: 1
+})</code></pre></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

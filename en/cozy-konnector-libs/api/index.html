@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-konnector-libs/api/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>API - Cozy Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Cozy Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Use <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/">User guide</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Stay in sync</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronize your phone</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronize your computer</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Install on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Download</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../dev/">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="../../dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="../../dev/app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="../../dev/konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="../../dev/cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="../../dev/sendmail/">How to send mail in development</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">References <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li class="active">
+    <a href="./">API</a>
+</li>
+            
+<li >
+    <a href="../cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-client-js</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-client-js/intro/">Introduction</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/browser-sdk-transition/">Transition from cozy-browser-sdk</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/offline/">How to support offline</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/oauth/">OAuth guide</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/auth-api/">Authentication API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/data-api/">Data System API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/files-api/">Files API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/jobs-api/">Jobs API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/intents-api/">Intents API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/settings-api/">Settings API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/sharing-api/">Sharing API</a>
+</li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#api">API</a></li>
+        <li class="main "><a href="#modules">Modules</a></li>
+        <li class="main "><a href="#classes">Classes</a></li>
+        <li class="main "><a href="#constants">Constants</a></li>
+        <li class="main "><a href="#functions">Functions</a></li>
+        <li class="main "><a href="#adddata">addData</a></li>
+        <li class="main "><a href="#cozyclient">cozyClient</a></li>
+        <li class="main "><a href="#filterdata">filterData</a></li>
+            <li><a href="#filterdatasuitablecall">filterData~suitableCall()</a></li>
+        <li class="main "><a href="#linkbankoperations">linkBankOperations</a></li>
+            <li><a href="#linkbankoperations-entries-doctype-fields-options">linkBankOperations ( entries, doctype, fields, options = {} )</a></li>
+        <li class="main "><a href="#requestfactory">requestFactory</a></li>
+        <li class="main "><a href="#savebills">saveBills</a></li>
+        <li class="main "><a href="#savefiles">saveFiles</a></li>
+        <li class="main "><a href="#updateorcreate">updateOrCreate</a></li>
+        <li class="main "><a href="#basekonnector">BaseKonnector</a></li>
+            <li><a href="#new-basekonnectorfetch">new BaseKonnector(fetch)</a></li>
+            <li><a href="#basekonnectorend">baseKonnector.end()</a></li>
+            <li><a href="#basekonnectorfail">baseKonnector.fail()</a></li>
+            <li><a href="#basekonnectorinit-promise">baseKonnector.init() ⇒ Promise</a></li>
+            <li><a href="#basekonnectorsaveaccountdatadata-options-promise">baseKonnector.saveAccountData(data, options) ⇒ Promise</a></li>
+            <li><a href="#basekonnectorterminatemessage">baseKonnector.terminate(message)</a></li>
+        <li class="main "><a href="#document">Document</a></li>
+            <li><a href="#documentisequal">document.isEqual()</a></li>
+        <li class="main "><a href="#login_failed-string">LOGIN_FAILED : String</a></li>
+        <li class="main "><a href="#not_existing_directory-string">NOT_EXISTING_DIRECTORY : String</a></li>
+        <li class="main "><a href="#vendor_down-string">VENDOR_DOWN : String</a></li>
+        <li class="main "><a href="#user_action_needed-string">USER_ACTION_NEEDED : String</a></li>
+        <li class="main "><a href="#file_download_failed-string">FILE_DOWNLOAD_FAILED : String</a></li>
+        <li class="main "><a href="#save_file_failed-string">SAVE_FILE_FAILED : String</a></li>
+        <li class="main "><a href="#mkspec">mkSpec()</a></li>
+        <li class="main "><a href="#scrape-specs-childselector-object-124-array">scrape($, spec(s), [childSelector]) ⇒ object | array</a></li>
+            <li><a href="#permissions">⚠ Permissions</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h2 id="api">API<a class="headerlink" href="#api" title="Permanent link">&para;</a></h2>
+<h2 id="modules">Modules<a class="headerlink" href="#modules" title="Permanent link">&para;</a></h2>
+<dl>
+<dt><a href="#module_addData">addData</a></dt>
+<dd><p>This function saves the data into the cozy blindly without check
+You need at least the <code>POST</code> permission for the given doctype in your manifest, to be able to
+use this function.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>documents</code>: an array of objects corresponding to the data you want to save in the cozy</li>
+<li><code>doctype</code> (string): the doctype where you want to save data (ex: &#39;io.cozy.bills&#39;)</li>
+</ul>
+<pre><code class="lang-javascript">const documents = [
+  {
+    name: &#39;toto&#39;,
+    height: 1.8
+  },
+  {
+    name: &#39;titi&#39;,
+    height: 1.7
+  }
+]
+
+return addData(documents, &#39;io.cozy.height&#39;)
+</code></pre>
+</dd>
+<dt><a href="#module_cozyClient">cozyClient</a></dt>
+<dd><p>This is a <a href="https://cozy.github.io/cozy-client-js/">cozy-client-js</a> instance already initialized and ready to use</p>
+<p>If you want to access cozy-client-js directly, this method gives you directly an instance of it,
+initialized according to <code>COZY_URL</code> and <code>COZY_CREDENTIALS</code> environment variable given by cozy-stack
+You can refer to the <a href="https://cozy.github.io/cozy-client-js/">cozy-client-js documentation</a> for more information.</p>
+<p>Example :</p>
+<pre><code class="lang-javascript">const {cozyClient} = require(&#39;cozy-konnector-libs&#39;)
+
+cozyClient.data.defineIndex(&#39;my.doctype&#39;, [&#39;_id&#39;])
+</code></pre>
+</dd>
+<dt><a href="#module_filterData">filterData</a></dt>
+<dd><p>This function filters the passed array from data already present in the cozy so that there is
+not duplicated data in the cozy.
+You need at least the <code>GET</code> permission for the given doctype in your manifest, to be able to
+use this function.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>documents</code>: an array of objects corresponding to the data you want to save in the cozy</li>
+<li><code>doctype</code> (string): the doctype where you want to save data (ex: &#39;io.cozy.bills&#39;)</li>
+<li><code>options</code> :<ul>
+<li><code>keys</code> (array) : List of keys used to check that two items are the same. By default it is set to `[&#39;id&#39;]&#39;.</li>
+<li><code>index</code> (optionnal) : Return value returned by <code>cozy.data.defineIndex</code>, the default will correspond to all documents of the selected doctype.</li>
+<li><code>selector</code> (optionnal object) : Mango request to get records. Default is built from the keys <code>{selector: {_id: {&quot;$gt&quot;: null}}}</code> to get all the records.</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-javascript">const documents = [
+  {
+    name: &#39;toto&#39;,
+    height: 1.8
+  },
+  {
+    name: &#39;titi&#39;,
+    height: 1.7
+  }
+]
+
+return filterData(documents, &#39;io.cozy.height&#39;, {
+  keys: [&#39;name&#39;]
+}).then(filteredDocuments =&gt; addData(filteredDocuments, &#39;io.cozy.height&#39;))
+
+</code></pre>
+</dd>
+<dt><a href="#module_linkBankOperations">linkBankOperations</a></dt>
+<dd><h3 id="linkbankoperations-entries-doctype-fields-options-">linkBankOperations ( entries, doctype, fields, options = {} )</h3>
+<p>This function will soon move to a dedicated service. You should not use it.
+The goal of this function is to find links between bills and bank operations.</p>
+</dd>
+<dt><a href="#module_requestFactory">requestFactory</a></dt>
+<dd><p>This is a function which returns an instance of
+<a href="https://www.npmjs.com/package/request-promise">request-promise</a> initialized with
+defaults often used in connector development.</p>
+<pre><code class="language-javascript">// Showing defaults
+req = requestFactory({
+  cheerio: false,
+  jar: true,
+  json: true
+})
+</code></pre>
+<p>Options :</p>
+<ul>
+<li><code>cheerio</code>:  will parse automatically the <code>response.body</code> in a cheerio instance</li>
+</ul>
+<pre><code class="lang-javascript">req = requestFactory({ cheerio: true })
+req(&#39;http://github.com&#39;, $ =&gt; {
+  const repos = $(&#39;#repo_listing .repo&#39;)
+})
+</code></pre>
+<ul>
+<li><code>jar</code>: is passed to <code>request</code> options. Remembers cookies for future use.</li>
+<li><code>json</code>: will parse the <code>response.body</code> as JSON</li>
+<li><code>json</code>: will parse the <code>response.body</code> as JSON</li>
+<li><code>resolveWithFullResponse</code>: The full response will be return in the promise. It is compatible
+with cheerio and json options.</li>
+</ul>
+<pre><code class="lang-javascript">req = requestFactory({
+   resolveWithFullResponse: true,
+   cheerio: true
+})
+req(&#39;http://github.com&#39;, response =&gt; {
+  console.log(response.statusCode)
+  const $ = response.body
+  const repos = $(&#39;#repo_listing .repo&#39;)
+})
+</code></pre>
+<p>You can find the full list of available options in <a href="https://github.com/request/request-promise">request-promise</a> and <a href="https://github.com/request/request">request</a> documentations.</p>
+</dd>
+<dt><a href="#module_saveBills">saveBills</a></dt>
+<dd><p>Combines the features of <code>saveFiles</code>, <code>filterData</code>, <code>addData</code> and <code>linkBankOperations</code> for a
+common case: bills.
+Will create <code>io.cozy.bills</code> objects. The default deduplication keys are <code>[&#39;date&#39;, &#39;amount&#39;, &#39;vendor&#39;]</code>.
+You need the full permission on <code>io.cozy.bills</code>, full permission on <code>io.cozy.files</code> and also
+full permission on <code>io.cozy.bank.operations</code> in your manifest, to be able to * use this function.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>documents</code> is an array of objects with any attributes :</li>
+<li><code>fields</code> (object) this is the first parameter given to BaseKonnector&#39;s constructor</li>
+<li><code>options</code> is passed directly to <code>saveFiles</code>, <code>hydrateAndFilter</code>, <code>addData</code> and <code>linkBankOperations</code>.</li>
+</ul>
+<pre><code class="lang-javascript">const { BaseKonnector, saveBills } = require(&#39;cozy-konnector-libs&#39;)
+
+module.exports = new BaseKonnector(function fetch (fields) {
+  const documents = []
+  // some code which fills documents
+  return saveBills(documents, fields, {
+    identifiers: [&#39;vendorj&#39;]
+  })
+})
+</code></pre>
+</dd>
+<dt><a href="#module_saveFiles">saveFiles</a></dt>
+<dd><p>The goal of this function is to save the given files in the given folder via the Cozy API.
+You need the full permission on <code>io.cozy.files</code> in your manifest to use this function.</p>
+<ul>
+<li><p><code>files</code> is an array of <code>{ fileurl, filename }</code> :</p>
+<ul>
+<li>fileurl: The url of the file. This attribute is mandatory or
+this item will be ignored</li>
+<li>filename : The file name of the item written on disk. This attribute is optional and as default value, the
+file name will be &quot;smartly&quot; guessed by the function. Use this attribute if the guess is not smart
+enough for you.</li>
+</ul>
+</li>
+<li><p><code>folderPath</code> (string) is relative to the main path given by the <code>cozy-collect</code> application to the connector. If the connector is run
+in standalone mode, the main path is the path of the connector.</p>
+</li>
+<li><p><code>options</code> (object) is optional. Possible options :</p>
+<ul>
+<li><code>timeout</code> (timestamp) can be used if your connector needs to fetch a lot of files and if the
+stack does not give enough time to your connector to fetch it all. It could happen that the
+connector is stopped right in the middle of the download of the file and the file will be
+broken. With the <code>timeout</code> option, the <code>saveFiles</code> function will check if the timeout has
+passed right after downloading each file and then will be sure to be stopped cleanly if the
+timeout is not too long. And since it is really fast to check that a file has already been
+downloaded, on the next run of the connector, it will be able to download some more
+files, and so on. If you want the timeout to be in 10s, do <code>Date.now() + 10*1000</code>.
+You can try it in the previous code.</li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt><a href="#module_updateOrCreate">updateOrCreate</a></dt>
+<dd><p>The goal of this function is create or update the given entries according to if they already
+exist in the cozy or not
+You need the full permission for the given doctype in your manifest, to be able to
+use this function.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>entries</code> is an array of objects with any attributes :</li>
+<li><code>doctype</code> (string) is the cozy doctype where the entries should be saved</li>
+<li><code>matchingAttributes</code> (array of strings) is the list of attributes in each entry should be used to check if an entry
+is already saved in the cozy</li>
+</ul>
+</dd>
+</dl>
+
+<h2 id="classes">Classes<a class="headerlink" href="#classes" title="Permanent link">&para;</a></h2>
+<dl>
+<dt><a href="#BaseKonnector">BaseKonnector</a></dt>
+<dd><p>The class from which all the connectors must inherit.
+It takes a fetch function in parameter that must return a <code>Promise</code>.
+You need at least the <code>GET</code> permission on <code>io.cozy.accounts</code> in your manifest to allow it to
+fetch account information for your connector.</p>
+</dd>
+<dt><a href="#Document">Document</a></dt>
+<dd><p>Simple Model for Documents. Allows to specify
+<code>shouldSave</code>, <code>shouldUpdate</code> as methods.</p>
+<p>Has useful <code>isEqual</code> method</p>
+</dd>
+</dl>
+
+<h2 id="constants">Constants<a class="headerlink" href="#constants" title="Permanent link">&para;</a></h2>
+<dl>
+<dt><a href="#LOGIN_FAILED">LOGIN_FAILED</a> : <code>String</code></dt>
+<dd><p>The konnector could not login</p>
+</dd>
+<dt><a href="#NOT_EXISTING_DIRECTORY">NOT_EXISTING_DIRECTORY</a> : <code>String</code></dt>
+<dd><p>The folder specified as folder_to_save does not exist (checked by BaseKonnector)</p>
+</dd>
+<dt><a href="#VENDOR_DOWN">VENDOR_DOWN</a> : <code>String</code></dt>
+<dd><p>The vendor&#39;s website is down</p>
+</dd>
+<dt><a href="#USER_ACTION_NEEDED">USER_ACTION_NEEDED</a> : <code>String</code></dt>
+<dd><p>There was an unexpected error, please take a look at the logs to know what happened</p>
+</dd>
+<dt><a href="#FILE_DOWNLOAD_FAILED">FILE_DOWNLOAD_FAILED</a> : <code>String</code></dt>
+<dd><p>There was a problem while downloading a file</p>
+</dd>
+<dt><a href="#SAVE_FILE_FAILED">SAVE_FILE_FAILED</a> : <code>String</code></dt>
+<dd><p>There was a problem while saving a file</p>
+</dd>
+</dl>
+
+<h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
+<dl>
+<dt><a href="#mkSpec">mkSpec()</a></dt>
+<dd><p>Declarative scraping.</p>
+<p>Describe your items attributes and where to find/parse them
+instead of imperatively building them.</p>
+<p>Heavily inspired by <a href="https://medialab.github.io/artoo/">artoo</a> scraping method.</p>
+</dd>
+<dt><a href="#scrape">scrape($, spec(s), [childSelector])</a> ⇒ <code>object</code> | <code>array</code></dt>
+<dd><p>Scrape a cheerio object for properties</p>
+</dd>
+</dl>
+
+<p><a name="module_addData"></a></p>
+<h2 id="adddata">addData<a class="headerlink" href="#adddata" title="Permanent link">&para;</a></h2>
+<p>This function saves the data into the cozy blindly without check
+You need at least the <code>POST</code> permission for the given doctype in your manifest, to be able to
+use this function.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>documents</code>: an array of objects corresponding to the data you want to save in the cozy</li>
+<li><code>doctype</code> (string): the doctype where you want to save data (ex: &lsquo;io.cozy.bills&rsquo;)</li>
+</ul>
+<pre class="codehilite"><code class="language-javascript">const documents = [
+  {
+    name: 'toto',
+    height: 1.8
+  },
+  {
+    name: 'titi',
+    height: 1.7
+  }
+]
+
+return addData(documents, 'io.cozy.height')</code></pre>
+
+
+<p><a name="module_cozyClient"></a></p>
+<h2 id="cozyclient">cozyClient<a class="headerlink" href="#cozyclient" title="Permanent link">&para;</a></h2>
+<p>This is a <a href="https://cozy.github.io/cozy-client-js/">cozy-client-js</a> instance already initialized and ready to use</p>
+<p>If you want to access cozy-client-js directly, this method gives you directly an instance of it,
+initialized according to <code>COZY_URL</code> and <code>COZY_CREDENTIALS</code> environment variable given by cozy-stack
+You can refer to the <a href="https://cozy.github.io/cozy-client-js/">cozy-client-js documentation</a> for more information.</p>
+<p>Example :</p>
+<pre class="codehilite"><code class="language-javascript">const {cozyClient} = require('cozy-konnector-libs')
+
+cozyClient.data.defineIndex('my.doctype', ['_id'])</code></pre>
+
+
+<p><a name="module_filterData"></a></p>
+<h2 id="filterdata">filterData<a class="headerlink" href="#filterdata" title="Permanent link">&para;</a></h2>
+<p>This function filters the passed array from data already present in the cozy so that there is
+not duplicated data in the cozy.
+You need at least the <code>GET</code> permission for the given doctype in your manifest, to be able to
+use this function.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>documents</code>: an array of objects corresponding to the data you want to save in the cozy</li>
+<li><code>doctype</code> (string): the doctype where you want to save data (ex: &lsquo;io.cozy.bills&rsquo;)</li>
+<li><code>options</code> :</li>
+<li><code>keys</code> (array) : List of keys used to check that two items are the same. By default it is set to `[&lsquo;id&rsquo;]&rsquo;.</li>
+<li><code>index</code> (optionnal) : Return value returned by <code>cozy.data.defineIndex</code>, the default will correspond to all documents of the selected doctype.</li>
+<li><code>selector</code> (optionnal object) : Mango request to get records. Default is built from the keys <code>{selector: {_id: {"$gt": null}}}</code> to get all the records.</li>
+</ul>
+<pre class="codehilite"><code class="language-javascript">const documents = [
+  {
+    name: 'toto',
+    height: 1.8
+  },
+  {
+    name: 'titi',
+    height: 1.7
+  }
+]
+
+return filterData(documents, 'io.cozy.height', {
+  keys: ['name']
+}).then(filteredDocuments =&gt; addData(filteredDocuments, 'io.cozy.height'))</code></pre>
+
+
+<p><a name="module_filterData..suitableCall"></a></p>
+<h3 id="filterdatasuitablecall">filterData~suitableCall()<a class="headerlink" href="#filterdatasuitablecall" title="Permanent link">&para;</a></h3>
+<p>Since we can use methods or basic functions for
+<code>shouldSave</code> and <code>shouldUpdate</code> we pass the
+appropriate <code>this</code> and <code>arguments</code>.</p>
+<p>If <code>funcOrMethod</code> is a method, it will be called
+with args[0] as <code>this</code> and the rest as <code>arguments</code>
+Otherwise, <code>this</code> will be null and <code>args</code> will be passed
+as <code>arguments</code>.</p>
+<p><strong>Kind</strong>: inner method of <a href="#module_filterData"><code>filterData</code></a><br />
+<a name="module_linkBankOperations"></a></p>
+<h2 id="linkbankoperations">linkBankOperations<a class="headerlink" href="#linkbankoperations" title="Permanent link">&para;</a></h2>
+<h3 id="linkbankoperations-entries-doctype-fields-options">linkBankOperations ( entries, doctype, fields, options = {} )<a class="headerlink" href="#linkbankoperations-entries-doctype-fields-options" title="Permanent link">&para;</a></h3>
+<p>This function will soon move to a dedicated service. You should not use it.
+The goal of this function is to find links between bills and bank operations.</p>
+<p><a name="module_requestFactory"></a></p>
+<h2 id="requestfactory">requestFactory<a class="headerlink" href="#requestfactory" title="Permanent link">&para;</a></h2>
+<p>This is a function which returns an instance of
+<a href="https://www.npmjs.com/package/request-promise">request-promise</a> initialized with
+defaults often used in connector development.</p>
+<pre class="codehilite"><code class="language-js">// Showing defaults
+req = requestFactory({
+  cheerio: false,
+  jar: true,
+  json: true
+})</code></pre>
+
+
+<p>Options :</p>
+<ul>
+<li><code>cheerio</code>:  will parse automatically the <code>response.body</code> in a cheerio instance</li>
+</ul>
+<pre class="codehilite"><code class="language-javascript">req = requestFactory({ cheerio: true })
+req('http://github.com', $ =&gt; {
+  const repos = $('#repo_listing .repo')
+})</code></pre>
+
+
+<ul>
+<li><code>jar</code>: is passed to <code>request</code> options. Remembers cookies for future use.</li>
+<li><code>json</code>: will parse the <code>response.body</code> as JSON</li>
+<li><code>json</code>: will parse the <code>response.body</code> as JSON</li>
+<li><code>resolveWithFullResponse</code>: The full response will be return in the promise. It is compatible
+  with cheerio and json options.</li>
+</ul>
+<pre class="codehilite"><code class="language-javascript">req = requestFactory({
+   resolveWithFullResponse: true,
+   cheerio: true
+})
+req('http://github.com', response =&gt; {
+  console.log(response.statusCode)
+  const $ = response.body
+  const repos = $('#repo_listing .repo')
+})</code></pre>
+
+
+<p>You can find the full list of available options in <a href="https://github.com/request/request-promise">request-promise</a> and <a href="https://github.com/request/request">request</a> documentations.</p>
+<p><a name="module_saveBills"></a></p>
+<h2 id="savebills">saveBills<a class="headerlink" href="#savebills" title="Permanent link">&para;</a></h2>
+<p>Combines the features of <code>saveFiles</code>, <code>filterData</code>, <code>addData</code> and <code>linkBankOperations</code> for a
+common case: bills.
+Will create <code>io.cozy.bills</code> objects. The default deduplication keys are <code>['date', 'amount', 'vendor']</code>.
+You need the full permission on <code>io.cozy.bills</code>, full permission on <code>io.cozy.files</code> and also
+full permission on <code>io.cozy.bank.operations</code> in your manifest, to be able to * use this function.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>documents</code> is an array of objects with any attributes :</li>
+<li><code>fields</code> (object) this is the first parameter given to BaseKonnector&rsquo;s constructor</li>
+<li><code>options</code> is passed directly to <code>saveFiles</code>, <code>hydrateAndFilter</code>, <code>addData</code> and <code>linkBankOperations</code>.</li>
+</ul>
+<pre class="codehilite"><code class="language-javascript">const { BaseKonnector, saveBills } = require('cozy-konnector-libs')
+
+module.exports = new BaseKonnector(function fetch (fields) {
+  const documents = []
+  // some code which fills documents
+  return saveBills(documents, fields, {
+    identifiers: ['vendorj']
+  })
+})</code></pre>
+
+
+<p><a name="module_saveFiles"></a></p>
+<h2 id="savefiles">saveFiles<a class="headerlink" href="#savefiles" title="Permanent link">&para;</a></h2>
+<p>The goal of this function is to save the given files in the given folder via the Cozy API.
+You need the full permission on <code>io.cozy.files</code> in your manifest to use this function.</p>
+<ul>
+<li>
+<p><code>files</code> is an array of <code>{ fileurl, filename }</code> :</p>
+</li>
+<li>
+<p>fileurl: The url of the file. This attribute is mandatory or
+    this item will be ignored</p>
+</li>
+<li>
+<p>filename : The file name of the item written on disk. This attribute is optional and as default value, the
+    file name will be &ldquo;smartly&rdquo; guessed by the function. Use this attribute if the guess is not smart
+  enough for you.</p>
+</li>
+<li>
+<p><code>folderPath</code> (string) is relative to the main path given by the <code>cozy-collect</code> application to the connector. If the connector is run
+in standalone mode, the main path is the path of the connector.</p>
+</li>
+<li>
+<p><code>options</code> (object) is optional. Possible options :</p>
+</li>
+<li>
+<p><code>timeout</code> (timestamp) can be used if your connector needs to fetch a lot of files and if the
+  stack does not give enough time to your connector to fetch it all. It could happen that the
+  connector is stopped right in the middle of the download of the file and the file will be
+  broken. With the <code>timeout</code> option, the <code>saveFiles</code> function will check if the timeout has
+  passed right after downloading each file and then will be sure to be stopped cleanly if the
+  timeout is not too long. And since it is really fast to check that a file has already been
+  downloaded, on the next run of the connector, it will be able to download some more
+  files, and so on. If you want the timeout to be in 10s, do <code>Date.now() + 10*1000</code>.
+  You can try it in the previous code.</p>
+</li>
+</ul>
+<p><a name="module_updateOrCreate"></a></p>
+<h2 id="updateorcreate">updateOrCreate<a class="headerlink" href="#updateorcreate" title="Permanent link">&para;</a></h2>
+<p>The goal of this function is create or update the given entries according to if they already
+exist in the cozy or not
+You need the full permission for the given doctype in your manifest, to be able to
+use this function.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>entries</code> is an array of objects with any attributes :</li>
+<li><code>doctype</code> (string) is the cozy doctype where the entries should be saved</li>
+<li><code>matchingAttributes</code> (array of strings) is the list of attributes in each entry should be used to check if an entry
+  is already saved in the cozy</li>
+</ul>
+<p><a name="BaseKonnector"></a></p>
+<h2 id="basekonnector">BaseKonnector<a class="headerlink" href="#basekonnector" title="Permanent link">&para;</a></h2>
+<p>The class from which all the connectors must inherit.
+It takes a fetch function in parameter that must return a <code>Promise</code>.
+You need at least the <code>GET</code> permission on <code>io.cozy.accounts</code> in your manifest to allow it to
+fetch account information for your connector.</p>
+<p><strong>Kind</strong>: global class  </p>
+<ul>
+<li><a href="#BaseKonnector">BaseKonnector</a><ul>
+<li><a href="#new_BaseKonnector_new">new BaseKonnector(fetch)</a></li>
+<li><a href="#BaseKonnector+end">.end()</a></li>
+<li><a href="#BaseKonnector+fail">.fail()</a></li>
+<li><a href="#BaseKonnector+init">.init()</a> ⇒ <code>Promise</code></li>
+<li><a href="#BaseKonnector+saveAccountData">.saveAccountData(data, options)</a> ⇒ <code>Promise</code></li>
+<li><a href="#BaseKonnector+terminate">.terminate(message)</a></li>
+</ul>
+</li>
+</ul>
+<p><a name="new_BaseKonnector_new"></a></p>
+<h3 id="new-basekonnectorfetch">new BaseKonnector(fetch)<a class="headerlink" href="#new-basekonnectorfetch" title="Permanent link">&para;</a></h3>
+<p>Its role is twofold :</p>
+<ul>
+<li>Make the link between account data and konnector</li>
+<li>Handle errors</li>
+</ul>
+<p>⚠️  A promise should be returned from the <code>fetch</code> function otherwise
+the konnector cannot know that asynchronous code has been called.</p>
+<pre class="codehilite"><code>this.terminate('LOGIN_FAILED')</code></pre>
+
+
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fetch</td>
+<td><code>function</code></td>
+<td>Function to be run automatically after account data is fetched. This function will be binded to the current connector. If not fetch function is given. The connector will have to handle itself it&rsquo;s own exection and error handling</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong>  </p>
+<pre class="codehilite"><code class="language-javascript">const { BaseKonnector } = require('cozy-konnector-libs')
+
+module.exports = new BaseKonnector(function fetch () {
+ // use this to access the instance of the konnector to
+ // store any information that needs to be passed to
+ // different stages of the konnector
+ return request('http://ameli.fr')
+   .then(computeReimbursements)
+   .then(saveBills)
+})</code></pre>
+
+
+<p><a name="BaseKonnector+end"></a></p>
+<h3 id="basekonnectorend">baseKonnector.end()<a class="headerlink" href="#basekonnectorend" title="Permanent link">&para;</a></h3>
+<p>Hook called when the connector is ended</p>
+<p><strong>Kind</strong>: instance method of <a href="#BaseKonnector"><code>BaseKonnector</code></a><br />
+<a name="BaseKonnector+fail"></a></p>
+<h3 id="basekonnectorfail">baseKonnector.fail()<a class="headerlink" href="#basekonnectorfail" title="Permanent link">&para;</a></h3>
+<p>Hook called when the connector fails</p>
+<p><strong>Kind</strong>: instance method of <a href="#BaseKonnector"><code>BaseKonnector</code></a><br />
+<a name="BaseKonnector+init"></a></p>
+<h3 id="basekonnectorinit-promise">baseKonnector.init() ⇒ <code>Promise</code><a class="headerlink" href="#basekonnectorinit-promise" title="Permanent link">&para;</a></h3>
+<p>Initializes the current connector with data comming from the associated account</p>
+<p><strong>Kind</strong>: instance method of <a href="#BaseKonnector"><code>BaseKonnector</code></a><br />
+<strong>Returns</strong>: <code>Promise</code> - with the fields as an object<br />
+<a name="BaseKonnector+saveAccountData"></a></p>
+<h3 id="basekonnectorsaveaccountdatadata-options-promise">baseKonnector.saveAccountData(data, options) ⇒ <code>Promise</code><a class="headerlink" href="#basekonnectorsaveaccountdatadata-options-promise" title="Permanent link">&para;</a></h3>
+<p>Saves data to the account that is passed to the konnector.
+Use it to persist data that needs to be passed to each
+konnector run.</p>
+<p>By default, the data is merged to the remote data, use
+<code>options.merge = false</code> to overwrite the data.</p>
+<p>The data is saved under the <code>.data</code> attribute of the cozy
+account.</p>
+<p><strong>Kind</strong>: instance method of <a href="#BaseKonnector"><code>BaseKonnector</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td><code>object</code></td>
+<td>Attributes to be merged</td>
+</tr>
+<tr>
+<td>options</td>
+<td><code>object</code></td>
+<td>{ merge: true</td>
+</tr>
+</tbody>
+</table>
+<p><a name="BaseKonnector+terminate"></a></p>
+<h3 id="basekonnectorterminatemessage">baseKonnector.terminate(message)<a class="headerlink" href="#basekonnectorterminatemessage" title="Permanent link">&para;</a></h3>
+<p>Send a special error code which is interpreted by the cozy stack to terminate the execution of the
+connector now</p>
+<p><strong>Kind</strong>: instance method of <a href="#BaseKonnector"><code>BaseKonnector</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>message</td>
+<td><code>string</code></td>
+<td>The error code to be saved as connector result see [docs/ERROR_CODES.md]</td>
+</tr>
+</tbody>
+</table>
+<p><a name="Document"></a></p>
+<h2 id="document">Document<a class="headerlink" href="#document" title="Permanent link">&para;</a></h2>
+<p>Simple Model for Documents. Allows to specify
+<code>shouldSave</code>, <code>shouldUpdate</code> as methods.</p>
+<p>Has useful <code>isEqual</code> method</p>
+<p><strong>Kind</strong>: global class<br />
+<a name="Document+isEqual"></a></p>
+<h3 id="documentisequal">document.isEqual()<a class="headerlink" href="#documentisequal" title="Permanent link">&para;</a></h3>
+<p>Compares to another document deeply.</p>
+<p><code>_id</code> and <code>_rev</code> are by default ignored in the comparison.</p>
+<p>By default, will compare dates loosely since you often
+compare existing documents (dates in ISO string) with documents
+that just have been scraped where dates are <code>Date</code>s.</p>
+<p><strong>Kind</strong>: instance method of <a href="#Document"><code>Document</code></a><br />
+<a name="LOGIN_FAILED"></a></p>
+<h2 id="login_failed-string">LOGIN_FAILED : <code>String</code><a class="headerlink" href="#login_failed-string" title="Permanent link">&para;</a></h2>
+<p>The konnector could not login</p>
+<p><strong>Kind</strong>: global constant<br />
+<a name="NOT_EXISTING_DIRECTORY"></a></p>
+<h2 id="not_existing_directory-string">NOT_EXISTING_DIRECTORY : <code>String</code><a class="headerlink" href="#not_existing_directory-string" title="Permanent link">&para;</a></h2>
+<p>The folder specified as folder_to_save does not exist (checked by BaseKonnector)</p>
+<p><strong>Kind</strong>: global constant<br />
+<a name="VENDOR_DOWN"></a></p>
+<h2 id="vendor_down-string">VENDOR_DOWN : <code>String</code><a class="headerlink" href="#vendor_down-string" title="Permanent link">&para;</a></h2>
+<p>The vendor&rsquo;s website is down</p>
+<p><strong>Kind</strong>: global constant<br />
+<a name="USER_ACTION_NEEDED"></a></p>
+<h2 id="user_action_needed-string">USER_ACTION_NEEDED : <code>String</code><a class="headerlink" href="#user_action_needed-string" title="Permanent link">&para;</a></h2>
+<p>There was an unexpected error, please take a look at the logs to know what happened</p>
+<p><strong>Kind</strong>: global constant<br />
+<a name="FILE_DOWNLOAD_FAILED"></a></p>
+<h2 id="file_download_failed-string">FILE_DOWNLOAD_FAILED : <code>String</code><a class="headerlink" href="#file_download_failed-string" title="Permanent link">&para;</a></h2>
+<p>There was a problem while downloading a file</p>
+<p><strong>Kind</strong>: global constant<br />
+<a name="SAVE_FILE_FAILED"></a></p>
+<h2 id="save_file_failed-string">SAVE_FILE_FAILED : <code>String</code><a class="headerlink" href="#save_file_failed-string" title="Permanent link">&para;</a></h2>
+<p>There was a problem while saving a file</p>
+<p><strong>Kind</strong>: global constant<br />
+<a name="mkSpec"></a></p>
+<h2 id="mkspec">mkSpec()<a class="headerlink" href="#mkspec" title="Permanent link">&para;</a></h2>
+<p>Declarative scraping.</p>
+<p>Describe your items attributes and where to find/parse them
+instead of imperatively building them.</p>
+<p>Heavily inspired by <a href="https://medialab.github.io/artoo/">artoo</a> scraping method.</p>
+<p><strong>Kind</strong>: global function<br />
+<a name="scrape"></a></p>
+<h2 id="scrape-specs-childselector-object-124-array">scrape($, spec(s), [childSelector]) ⇒ <code>object</code> | <code>array</code><a class="headerlink" href="#scrape-specs-childselector-object-124-array" title="Permanent link">&para;</a></h2>
+<p>Scrape a cheerio object for properties</p>
+<p><strong>Kind</strong>: global function<br />
+<strong>Returns</strong>: <code>object</code> | <code>array</code> - - Item(s) scraped  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$</td>
+<td><code>cheerio</code></td>
+<td>Cheerio node which will be scraped</td>
+</tr>
+<tr>
+<td>spec(s)</td>
+<td><code>object</code> | <code>string</code></td>
+<td>Options object describing what you want to scrape</td>
+</tr>
+<tr>
+<td>[childSelector]</td>
+<td><code>string</code></td>
+<td>If passed, scrape will return an array of items</td>
+</tr>
+</tbody>
+</table>
+<h3 id="permissions">⚠ Permissions<a class="headerlink" href="#permissions" title="Permanent link">&para;</a></h3>
+<p>Please note that some classes require some permissions:</p>
+<ul>
+<li><code>io.cozy.accounts</code> for the <code>BaseKonnector</code> class (<code>GET</code> only)</li>
+<li><code>io.cozy.files</code> to save files</li>
+<li><code>io.cozy.bills</code> to save bills</li>
+<li><code>io.cozy.bank.operations</code> for <code>linkBankOperations</code></li>
+</ul></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

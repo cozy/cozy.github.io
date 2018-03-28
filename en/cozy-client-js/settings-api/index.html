@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-client-js/settings-api/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>Settings API - Cozy Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Cozy Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Use <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/">User guide</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Stay in sync</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronize your phone</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronize your computer</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Install on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Download</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../dev/">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="../../dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="../../dev/app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="../../dev/konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="../../dev/cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="../../dev/sendmail/">How to send mail in development</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">References <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-client-js</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../intro/">Introduction</a>
+</li>
+            
+<li >
+    <a href="../browser-sdk-transition/">Transition from cozy-browser-sdk</a>
+</li>
+            
+<li >
+    <a href="../offline/">How to support offline</a>
+</li>
+            
+<li >
+    <a href="../oauth/">OAuth guide</a>
+</li>
+            
+<li >
+    <a href="../auth-api/">Authentication API</a>
+</li>
+            
+<li >
+    <a href="../data-api/">Data System API</a>
+</li>
+            
+<li >
+    <a href="../files-api/">Files API</a>
+</li>
+            
+<li >
+    <a href="../jobs-api/">Jobs API</a>
+</li>
+            
+<li >
+    <a href="../intents-api/">Intents API</a>
+</li>
+            
+<li class="active">
+    <a href="./">Settings API</a>
+</li>
+            
+<li >
+    <a href="../sharing-api/">Sharing API</a>
+</li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#settings">Settings</a></li>
+            <li><a href="#cozyclientsettingsdiskusage">cozy.client.settings.diskUsage()</a></li>
+            <li><a href="#cozyclientsettingschangepassphraseoldpassphrase-newpassphrase">cozy.client.settings.changePassphrase(oldPassphrase, newPassphrase)</a></li>
+            <li><a href="#cozyclientsettingsgetinstance">cozy.client.settings.getInstance()</a></li>
+            <li><a href="#cozyclientsettingsupdateinstanceinstance">cozy.client.settings.updateInstance(instance)</a></li>
+            <li><a href="#cozyclientsettingsgetclients">cozy.client.settings.getClients()</a></li>
+            <li><a href="#cozyclientsettingsdeleteclientbyid123">cozy.client.settings.deleteClientById('123')</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="settings">Settings<a class="headerlink" href="#settings" title="Permanent link">&para;</a></h1>
+<h3 id="cozyclientsettingsdiskusage"><code>cozy.client.settings.diskUsage()</code><a class="headerlink" href="#cozyclientsettingsdiskusage" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.settings.diskUsage</code> is used to known informations about the total used space on the cozy disk.</p>
+<p>It returns a promise of the document of the disk-usage of id <code>io.cozy.settings.disk-usage</code>, with attributes containing a <code>used</code> field a string of how many <em>bytes</em> are used on the disk.</p>
+<p>The <code>used</code> field is a string since the underlying data is an <code>int64</code> which may not be properly represented in javascript.</p>
+<pre class="codehilite"><code class="language-javascript">const usage = await cozy.client.settings.diskUsage()
+console.log(usage.attributes.used)</code></pre>
+
+
+<h3 id="cozyclientsettingschangepassphraseoldpassphrase-newpassphrase"><code>cozy.client.settings.changePassphrase(oldPassphrase, newPassphrase)</code><a class="headerlink" href="#cozyclientsettingschangepassphraseoldpassphrase-newpassphrase" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.settings.changePassphrase</code> is used to change the passphrase of the current user. You must supply the currently used passphrase, as well as the new one. It simply returns a promise that will resolve if the change was successful.</p>
+<h3 id="cozyclientsettingsgetinstance"><code>cozy.client.settings.getInstance()</code><a class="headerlink" href="#cozyclientsettingsgetinstance" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.settings.getInstance</code> returns a promise with informations about the current Cozy instance, such as the locale or the public name. See cozy-stack <a href="https://cozy.github.io/cozy-stack/settings.html#response-3">documentation</a> for more details.</p>
+<h3 id="cozyclientsettingsupdateinstanceinstance"><code>cozy.client.settings.updateInstance(instance)</code><a class="headerlink" href="#cozyclientsettingsupdateinstanceinstance" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.settings.updateInstance</code> is used to update informations about the current instance. <code>instance</code> is an object that should be based on to the one you receive from <code>cozy.settings.getInstance()</code>. It returns a promise with the updated instance information.</p>
+<h3 id="cozyclientsettingsgetclients"><code>cozy.client.settings.getClients()</code><a class="headerlink" href="#cozyclientsettingsgetclients" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.settings.getClients</code> returns a promise for an array of registered clients. See the <a href="https://cozy.github.io/cozy-stack/settings.html#response-5">cozy-stack documentation</a> for more details.</p>
+<h3 id="cozyclientsettingsdeleteclientbyid123"><code>cozy.client.settings.deleteClientById('123')</code><a class="headerlink" href="#cozyclientsettingsdeleteclientbyid123" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.settings.deleteClientById</code> revokes the specified client from the instance. This method returns a promise that simply resolves if the revokation was successful.</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

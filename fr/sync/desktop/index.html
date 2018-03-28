@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/sync/desktop/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>Synchronisez vos ordinateurs - Documentation Cozy</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Documentation Cozy</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../../index_fr/">Accueil</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Utiliser <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/index_fr/">Utiliser Cozy</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchroniser <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../">Restez synchro</a>
+</li>
+                            
+<li >
+    <a href="../phone/">Synchronisez vos téléphones</a>
+</li>
+                            
+<li class="active">
+    <a href="./">Synchronisez vos ordinateurs</a>
+</li>
+                            
+<li >
+    <a href="../linux/">Installer sur GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Télécharger</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Installer <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Home</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Installation manuelle</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Développer <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../dev/">Introduction</a>
+</li>
+                            
+<li >
+    <a href="../../dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="../../dev/app/">Créez votre première application</a>
+</li>
+                            
+<li >
+    <a href="../../dev/konnector/">Créez votre premier connecteur</a>
+</li>
+                            
+<li >
+    <a href="../../dev/cordova/">Créez une application mobile avec Cordova</a>
+</li>
+                            
+<li >
+    <a href="../../dev/sendmail/">Envoyer un courriel</a>
+</li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#synchronisation-avec-votre-ordinateur">Synchronisation avec votre ordinateur</a></li>
+            <li><a href="#installation">Installation</a></li>
+            <li><a href="#configuration">Configuration</a></li>
+            <li><a href="#en-cas-de-soucis">En cas de soucis</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="synchronisation-avec-votre-ordinateur">Synchronisation avec votre ordinateur<a class="headerlink" href="#synchronisation-avec-votre-ordinateur" title="Permanent link">&para;</a></h1><p>Le logiciel Cozy Drive pour ordinateur vous permet de synchroniser vos fichiers et vos dossiers entre votre Cozy et votre ordinateur. Vous pouvez ainsi travailler sur vos fichiers hors ligne. Les modifications seront alors synchronisées dès que vous retrouverez du réseau.</p><h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2><p>Avant de commencer l&rsquo;installation de Cozy Drive pour ordinateur, assurez-vous d&rsquo;avoir un Cozy dans sa toute dernière version.</p><h3 id="windows">Windows<a class="headerlink" href="#windows" title="Permanent link">&para;</a></h3><p>Vous pouvez télécharger Cozy Drive pour Windows sur <a href="https://docs.cozy.io/fr/download/">cette page</a>.</p><p><em><a href="https://cozy-labs.github.io/cozy-desktop/doc/usage/windows">List of known to work versions</a></em></p><h3 id="macos">MacOS<a class="headerlink" href="#macos" title="Permanent link">&para;</a></h3><p>Vous pouvez télécharger Cozy Drive pour MacOS sur <a href="https://docs.cozy.io/en/download/">cette page</a>.</p><p><em><a href="https://cozy-labs.github.io/cozy-desktop/doc/usage/macos">List of known to work versions</a></em></p><h3 id="linux">Linux<a class="headerlink" href="#linux" title="Permanent link">&para;</a></h3><p>Découvrez comment <a href="../linux">installer et lancer</a> Cozy Drive sous GNU/Linux</p><h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2><p>À la fin de l’installation, l’application va démarrer et vous demander quelques informations :</p><ul>
+<li>l’URL de votre Cozy, c’est à dire l’adresse de votre serveur ;</li><li>le mot de passe de votre serveur. L’application n’enregistre pas ce mot de passe, mais elle en a besoin lors de la première utilisation pour obtenir l’autorisation de synchroniser vos fichiers ;</li><li>le dossier dans lequel vous souhaitez synchroniser vos fichiers.</li></ul>
+<p><img alt="Onboarding" src="../../assets/images/desktop/en_onboarding.png" /></p><p>Une fois ces quatre écrans passés, le logiciel va vous rediriger vers le tableau de bord et la première synchronisation peut démarrer.</p><p>Le tableau de bord est composé :</p><ul>
+<li>d’un panneau d’information sur les synchronisations en cours et l’espace disque disponible de votre Cozy ;</li><li>d’une section de préférences vous permettant de démarrer votre logiciel au démarrage de votre ordinateur et vous indiquant sa version ;</li><li>d’une page vous donnant des informations sur le serveur auquel l’application est connectée et permettant de la déconnecter ;</li><li>d’une page d’aide en cas de souci avec l’application.</li></ul>
+<p><img alt="Dashboard" src="../../assets/images/desktop/en_dashboard.png" /></p><h2 id="en-cas-de-soucis">En cas de soucis<a class="headerlink" href="#en-cas-de-soucis" title="Permanent link">&para;</a></h2><p>Si vous rencontrez un souci avec le logiciel de synchronisation Cozy Drive, vous pouvez nous le signaler et nous envoyer le journal d&rsquo;activités depuis l&rsquo;interface.</p><p>Ouvrez l’écran d’aide et cliquez sur <strong><em>Envoyez-nous un message</em></strong> dans la partie 
+<strong><em>Support</em></strong>.</p><p><img alt="Trouble" src="../../assets/images/desktop/en_trouble.png" /></p><p>N’oubliez pas de décrire votre souci dans le contenu du message, cela nous aide pour améliorer encore notre logiciel.</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

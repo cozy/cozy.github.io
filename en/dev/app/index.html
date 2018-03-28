@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/dev/app/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>Create your first app - Cozy Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Cozy Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Use <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/">User guide</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Stay in sync</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronize your phone</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronize your computer</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Install on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Download</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="../intro/">Architecture</a>
+</li>
+                            
+<li class="active">
+    <a href="./">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="../konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="../cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="../sendmail/">How to send mail in development</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">References <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-client-js</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-client-js/intro/">Introduction</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/browser-sdk-transition/">Transition from cozy-browser-sdk</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/offline/">How to support offline</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/oauth/">OAuth guide</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/auth-api/">Authentication API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/data-api/">Data System API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/files-api/">Files API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/jobs-api/">Jobs API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/intents-api/">Intents API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/settings-api/">Settings API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/sharing-api/">Sharing API</a>
+</li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#how-to-create-your-first-cozy-application">How to create your first Cozy application</a></li>
+            <li><a href="#prerequisite">Prerequisite</a></li>
+            <li><a href="#install-the-development-environment">Install the development environment</a></li>
+            <li><a href="#create-your-first-application">Create your first application</a></li>
+            <li><a href="#todo">TODO</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="how-to-create-your-first-cozy-application">How to create your first Cozy application<a class="headerlink" href="#how-to-create-your-first-cozy-application" title="Permanent link">&para;</a></h1>
+<h2 id="prerequisite">Prerequisite<a class="headerlink" href="#prerequisite" title="Permanent link">&para;</a></h2>
+<p>Developing an application for Cozy is quite easy. All you need to know is:</p>
+<ul>
+<li>how to develop a single page application in HTML5. You can use the tools or framework of your choice, or no framework</li>
+<li>basic Docker knowledges.</li>
+</ul>
+<p>The only required tool is Docker. We have been told that installing Docker on some familial flavours of Windows may be a bit difficult. If you use Windows, please check if Docker is available on your system.</p>
+<h2 id="install-the-development-environment">Install the development environment<a class="headerlink" href="#install-the-development-environment" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p>On GNU/Linux, according <a href="https://docs.docker.com/engine/installation/linux/linux-postinstall/">to the documentation</a>: « The docker daemon binds to a Unix socket instead of a TCP port. By default that Unix socket is owned by the user root and other users can only access it using sudo. If you don’t want to use sudo when you use the docker command, create a Unix group called docker and add users to it. Be warned that the docker group grants privileges equivalent to the root user. You should have a look at <a href="https://docs.docker.com/engine/security/security/">Docker’s documentation on security</a>.</p>
+</div>
+<p>Every application running inside Cozy is a client-side HTML5 application interacting with your data through the API of the server. To develop an application, you’ll require a running Cozy server.</p>
+<p>The easiest way is to use the Docker image for developers we provide.</p>
+<p>Just install it:</p>
+<pre class="codehilite"><code class="language-sh">docker pull cozy/cozy-app-dev</code></pre>
+
+
+<p>(We update this image on a regular basis with the latest version of the server and our library. Don’t forget to update the image by running <code>docker pull cozy/cozy-app-dev</code> from time to time).</p>
+<h2 id="create-your-first-application">Create your first application<a class="headerlink" href="#create-your-first-application" title="Permanent link">&para;</a></h2>
+<p>The minimal application consist of only two files:</p>
+<ul>
+<li>an HTML file, <code>index.html</code>, with the markup and the code of your application</li>
+<li>a manifest describing the application. It’s a JSON file named <code>manifest.webapp</code> with the name of the application, the permissions it requires… We’ll have a deeper look to it content later. #TODO add an inner link to the manifest description.</li>
+</ul>
+<p>Your application will be able to use some shared libraries provided by the server, so you don’t have to include them into your project.</p>
+<p>Your application requires some informations to interact with the server API, for example the URL of its entrypoint, and an auth token. This data will be dynamically injected into <code>index.html</code> when it serves the page. So the <code>index.html</code> file has to contain some string that will be replaced by the server. The general syntax of this variables is <code>{{…}}</code>, so don’t use this syntax for other purpose in the page, for example inside comments.</p>
+<p>You can use the following variables:</p>
+<ul>
+<li><code>{{.Domain}}</code> will be substituted by the URL of the API entrypoint</li>
+<li><code>{{.Token}}</code> will be replaced by a token that authenticate your application when accessing the API</li>
+<li><code>{{.Locale}}</code>: the lang f the instance</li>
+<li><code>{{.AppName}}</code>: the name of the application</li>
+<li><code>{{.IconPath}}</code> will be replaced by HTML code to display the <em>favicon</em></li>
+<li><code>{{.CozyClientJS}}</code> will be replaced with HTML code to inject the Cozy client library</li>
+<li><code>{{.CozyBar}}</code> will be replaced with HTML code to inject the upper menu bar.</li>
+</ul>
+<h3 id="use-the-api">Use the API<a class="headerlink" href="#use-the-api" title="Permanent link">&para;</a></h3>
+<p>If you added <code>{{.CozyClientJS}}</code> to your page, interacting with the server will be as easy as using the Cozy Client JS library. All you have to do is to initiate the library with the server parameters (the URL of the API and the auth token of your application):</p>
+<pre class="codehilite"><code class="language-js">  window.cozy.client.init({cozyURL: &quot;…&quot;, token: &quot;…&quot;});</code></pre>
+
+
+<p>You can then interact with the server by using methods of the <code>window.cozy.client</code> properties. For example, to get current disk usage:</p>
+<pre class="codehilite"><code class="language-javascript">  cozy.client.settings.diskUsage()
+    .then(function (usage) {console.log(&quot;Usage (promise)&quot;, usage);});
+    .catch(function(err){ console.log(&quot;fail&quot;, err); });</code></pre>
+
+
+<p>This library embeds most of the available server APIs: manipulate documents and files, manage applications and server settings… It also provides some some methods to help application keep working while being offline.</p>
+<p>Some server APIs may not be available right now through the library. If you want to use one of this method, you’ll have to call it manually. See below. #TODO - add inner link.</p>
+<h4 id="behind-the-magic">Behind the magic<a class="headerlink" href="#behind-the-magic" title="Permanent link">&para;</a></h4>
+<p>Some server APIs may not be available right now through the library. If you want to use one of this method, you’ll have to call it manually. We’ll describe here how to access the API without using the Cozy Cliznt JS library.</p>
+<p>Connecting to the API requires three things:</p>
+<ul>
+<li>its URL, injected into the page through the <code>{{.Domain}}</code> variable</li>
+<li>the application auth token, injected into the page through the <code>{{.Token}}</code> variable. Each request sent to the server must include this token in the <code>Authorization</code> header</li>
+<li>the session cookie, created when you connect to your server. This is an <code>HttpOnly cookie</code>, meaning that JavaScript applications can’t read it. This prevent a malicious script to stole the cookie.</li>
+</ul>
+<p>Here’s a sample code that get API informations provided by the server and query the API:</p>
+<pre class="codehilite"><code class="language-html">    &lt;div data-cozy-token=&quot;{{.Token}}&quot; data-cozy-domain=&quot;{{.Domain}}&quot; /&gt;</code></pre>
+
+
+<pre class="codehilite"><code class="language-javascript">document.addEventListener('DOMContentLoaded', () =&gt; {
+  &quot;use strict&quot;;
+  const app = document.querySelector('[data-cozy-token]');
+  fetch(`//${app.dataset.cozyDomain}/apps`,
+  {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${app.dataset.cozyToken}` // Here we use the auth token
+    },
+    credentials: 'include' // don’t forget to include the session cookie
+  })
+  .then(function (response) {
+    if (response.ok) {
+      response.json().then((result) =&gt; {
+        console.log(result);
+      });
+    } else {
+      throw new Error('Network response was not ok.');
+    }
+  })
+  .catch(function (error) {
+    console.log('There has been a problem with your fetch operation: ' + error.message);
+  });
+});</code></pre>
+
+
+<h3 id="the-manifest">The manifest<a class="headerlink" href="#the-manifest" title="Permanent link">&para;</a></h3>
+<p>Each application must have a “manifest”. It’s a JSON file named <code>manifest.webapp</code> stored at the root of the application directory. It describes the application, the type of documents it uses, the permissions it require…</p>
+<p>Here’s a sample manifest:</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;name&quot;: &quot;My Awesome application&quot;,
+  &quot;permissions&quot;: {
+    &quot;apps&quot;: {
+      &quot;type&quot;: &quot;io.cozy.apps&quot;
+    },
+    &quot;permissions&quot;: {
+      &quot;type&quot;: &quot;io.cozy.permissions&quot;
+    },
+    &quot;settings&quot;: {
+      &quot;type&quot;: &quot;io.cozy.settings&quot;
+    },
+    &quot;sample&quot;: {
+      &quot;type&quot;: &quot;io.cozy.dev.sample&quot;,
+      &quot;verbs&quot;: [&quot;GET&quot;, &quot;POST&quot;, &quot;PUT&quot;, &quot;PATCH&quot;, &quot;DELETE&quot;]
+    },
+    &quot;jobs&quot;: {
+      &quot;type&quot;: &quot;io.cozy.jobs&quot;
+    }
+  },
+  &quot;routes&quot;: {
+    &quot;/&quot;: {
+      &quot;folder&quot;: &quot;/&quot;,
+      &quot;index&quot;: &quot;index.html&quot;,
+      &quot;public&quot;: false
+    },
+    &quot;/public&quot;: {
+      &quot;folder&quot;: &quot;/public&quot;,
+      &quot;index&quot;: &quot;index.html&quot;,
+      &quot;public&quot;: true
+    }
+  }
+}</code></pre>
+
+
+<h4 id="permissions">Permissions<a class="headerlink" href="#permissions" title="Permanent link">&para;</a></h4>
+<p>Applications require permissions to use most of the APIs. Permissions can be described inside the manifest, so the server can ask the user to grant them during installation. Applications can also request permissions at run time.</p>
+<p>A permission must at type contain a target, the type of objects the application want to interact with. Can be a document type, or an action on the server. By default, all grant on this object are granted, but we can also request fine grained permissions, for example limiting to read access. We can also limit the scope to a subset of the documents.</p>
+<p>In the manifest, each permission is an object, with a random name and some properties:</p>
+<ul>
+<li><code>type</code>: <strong>mandatory</strong> the document type or action name</li>
+<li><code>description</code>: a text that will be displayed to the user to explain why the application require this permission</li>
+<li><code>verbs</code>: an array of HTTP verbs. For example, to limit permissions to read access, use <code>["GET"]</code></li>
+<li><code>selector</code>: a document attribute to limit access to a subset of documents</li>
+<li><code>values</code>: array of allowed values for this attribute.</li>
+</ul>
+<p>An application can request a token that grant access to a subset of its own permissions. For example if the application has full access to the files, it can obtain a token that give only read access on a file. Thus, the application can make some documents publicly available. The public page of the application will use this token as authentication token when accessing the API.</p>
+<h5 id="samples">Samples<a class="headerlink" href="#samples" title="Permanent link">&para;</a></h5>
+<p>Application require full access to files:</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;permissions&quot;: {
+    &quot;files&quot;: {
+      &quot;description&quot;: &quot;…&quot;,
+      &quot;type&quot;: &quot;io.cozy.files&quot;
+    },
+  }
+}</code></pre>
+
+
+<p>Application want to be able to read the contact informations of <code>cozy@cozycloud.cc</code></p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;permissions&quot;: {
+    &quot;contact&quot;: {
+      &quot;type&quot;: &quot;io.cozy.contacts&quot;,
+      &quot;verbs&quot;: [&quot;GET&quot;],
+      &quot;selector&quot;: &quot;email&quot;,
+      &quot;values&quot;: [&quot;cozy@cozycloud.cc&quot;]
+    }
+  }
+}</code></pre>
+
+
+<h4 id="routing">Routing<a class="headerlink" href="#routing" title="Permanent link">&para;</a></h4>
+<p>The application must declare all of its URLs (routes) inside the manifest. A route is an object associating an URL to an HTML file. Each route has the following properties:</p>
+<ul>
+<li><code>folder</code>: the base folder of the route</li>
+<li><code>index</code>: the name of the file inside this folder</li>
+<li><code>public</code>: a boolean specifying whether the route is public or private (default).</li>
+</ul>
+<p>Sample:</p>
+<pre class="codehilite"><code class="language-json">&quot;routes&quot;: {
+  &quot;/admin&quot;: {
+    &quot;folder&quot;: &quot;/&quot;,
+    &quot;index&quot;: &quot;admin.html&quot;,
+    &quot;public&quot;: false
+  },
+  &quot;/public&quot;: {
+    &quot;folder&quot;: &quot;/public&quot;,
+    &quot;index&quot;: &quot;index.html&quot;,
+    &quot;public&quot;: true
+  },
+  &quot;/assets&quot;: {
+    &quot;folder&quot;: &quot;/assets&quot;,
+    &quot;public&quot;: true
+  }
+}</code></pre>
+
+
+<h3 id="cozy-client-js"><code>cozy-client-js</code><a class="headerlink" href="#cozy-client-js" title="Permanent link">&para;</a></h3>
+<p>This library embeds most of the available server APIs: manipulate documents and files, manage applications and server settings… It also provides some some methods to help application keep working while being offline.</p>
+<p>The library expose a client API under the <code>window.cozy.client</code> namespace. Before using it, you have to initiate the library with the server parameters (the URL of the API and the auth token of your application):</p>
+<pre class="codehilite"><code class="language-js">  window.cozy.client.init({cozyURL: &quot;…&quot;, token: &quot;…&quot;});</code></pre>
+
+
+<p>The library supports two programming paradigms: callback and Promises, so you can use your favorite one. If you prefer using callbacks rather than Promises, just add <code>disablePromises</code> to the options when initializing the library:</p>
+<pre class="codehilite"><code class="language-js">  window.cozy.client.init({cozyURL: &quot;…&quot;, token: &quot;…&quot;, disablePromises: true});
+  window.client.settings.diskUsage(function (err, res) {
+    (…)
+  });</code></pre>
+
+
+<h4 id="raw-api-documentation">Raw API documentation<a class="headerlink" href="#raw-api-documentation" title="Permanent link">&para;</a></h4>
+<p>In this tutorial, we’ll only see a few samples of how to use the library. For a complete description of all available methods, please refer to its own documentation:</p>
+<ul>
+<li><a href="https://github.com/cozy/cozy-client-js/blob/master/docs/data-api.md">documents</a></li>
+<li><a href="https://github.com/cozy/cozy-client-js/blob/master/docs/files-api.md">files</a></li>
+<li><a href="https://github.com/cozy/cozy-client-js/blob/master/docs/auth-api.md">authentification</a></li>
+<li><a href="https://github.com/cozy/cozy-client-js/blob/master/docs/oauth.md">authentication with OAuth2</a></li>
+<li><a href="https://github.com/cozy/cozy-client-js/blob/master/docs/settings-api.md">settings</a></li>
+<li><a href="https://github.com/cozy/cozy-client-js/blob/master/docs/intents-api.md">inter-app communication</a></li>
+<li><a href="https://github.com/cozy/cozy-client-js/blob/master/docs/jobs-api.md">jobs and triggers</a></li>
+<li><a href="https://github.com/cozy/cozy-client-js/blob/master/docs/sharing-api.md">sharing</a></li>
+<li><a href="https://github.com/cozy/cozy-client-js/blob/master/docs/offline.md">offline</a></li>
+<li><a href="https://github.com/cozy/cozy-bar">Cozy Bar</a></li>
+</ul>
+<h4 id="manipulating-documents">Manipulating documents<a class="headerlink" href="#manipulating-documents" title="Permanent link">&para;</a></h4>
+<p>Inside cozy data system, all documents are typed. To prevent applications to create document types with the same name but different description, the naming of the doctypes use <a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-6.html#d5e8195">the Java specification</a>. Every document type name must be prefixed by the reverted domain name of its creator. If you don’t own a domain name, you can also use your email address. For example, doctypes created by Cozy are prefixed by <code>io.cozy</code> or <code>io.cozy.labs</code>. If you don’t own a domain name, and your email address is <code>foo@bar.cloud</code>, prefix your doctype names with <code>cloud.bar.foo</code>.</p>
+<p>We maintain an index of <a href="https://cozy.github.io/cozy-doctypes/">all the currently available doctypes</a>. To make your own doctypes available to other applications, please send a pull request to this repository.</p>
+<p>Before manipulating documents, you have to request permission to access their doctype, either in the manifest or dynamically.</p>
+<p>Every method allowing to handle document are available under the <code>cozy.client.data</code> namespace. For example:</p>
+<ul>
+<li><code>cozy.client.data.create(doctype, attributes)</code>, <code>cozy.client.data.update(doctype, doc, newdoc)</code> <code>cozy.client.data.delete(doctype, doc)</code> to create, update and delete documents</li>
+<li><code>cozy.client.data.updateAttributes(doctype, id, changes)</code> to only update some attributes of a document</li>
+<li><code>cozy.client.data.find(doctype, id)</code> return a document using its ident</li>
+<li><code>cozy.client.data.changesFeed(doctype, options)</code> get the latests updates of documents of a doctype</li>
+<li>you can attach files to a document using <code>cozy.client.data.addReferencedFiles(doc, fileIds)</code> and list attachments with <code>cozy.client.data.listReferencedFiles(doc)</code></li>
+</ul>
+<h4 id="querying">Querying<a class="headerlink" href="#querying" title="Permanent link">&para;</a></h4>
+<p>To search documents inside the database, you first need to create an index on some attributes of the documents, then perform a query on this index. The library offers the following methods:</p>
+<ul>
+<li><code>cozy.client.data.defineIndex(doctype, fields)</code> to create the index</li>
+<li><code>cozy.client.data.query(indexReference, query)</code> to query an index. The query parameter uses the syntax of the <a href="https://github.com/cloudant/mango">Mango API</a> from CouchDB 2.</li>
+</ul>
+<p>For example, to search contacts by their email address, you could use:</p>
+<pre class="codehilite"><code class="language-javascript">cozy.client.data.defineIndex(&quot;io.cozy.contacts&quot;, [&quot;email&quot;])
+.then((index) =&gt; {
+  return cozy.data.query(index, {&quot;selector&quot;: {email: &quot;cozy@cozycloud.cc&quot;}})
+})
+.then( (result) =&gt; {
+  console.log(result[0].name);
+});</code></pre>
+
+
+<h4 id="manipulating-files">Manipulating files<a class="headerlink" href="#manipulating-files" title="Permanent link">&para;</a></h4>
+<p>The metadata of the files are stored inside the server database, allowing to perform advanced queries, and the files themselves on a virtual file system.</p>
+<p>The library offer a lot of methods under <code>cozy.client.files</code> namespace to manipulate files. Most of the methods allows to manipulate a file or folder either by its id or by its full path. Here are the most commons ones, but a lot of other methods are available in the <a href="https://github.com/cozy/cozy-client-js/blob/master/docs/files-api.md">raw API documentation</a>:</p>
+<ul>
+<li><code>create()</code> and <code>updateById()</code> to create and update a file</li>
+<li><code>createDirectory()</code> to create a folder</li>
+<li><code>updateAttributesById()</code> et <code>updateAttributesByPath()</code> allow to update some metadata</li>
+<li>use <code>destroyById</code> to remove a file</li>
+<li>a virtual trash is available. You can put files into the trash (<code>trashById()</code>) and restore them (<code>restoreById()</code>). You can also list the content of the trash (<code>listTrash()</code>) and purge all trashed files (<code>clearTrash()</code>)</li>
+<li><code>statById(id)</code> et <code>statByPath(path)</code> return the metadata and, or folders, their content</li>
+</ul>
+<h5 id="folders">Folders<a class="headerlink" href="#folders" title="Permanent link">&para;</a></h5>
+<p>When using <code>statById()</code> or <code>statByPath()</code> to get metadata of of folder, you can than call <code>relations()</code> on the resulting object to access their content. For example, to list content of the root folder, use:</p>
+<pre class="codehilite"><code class="language-javascript">cozy.client.files.statByPath(&quot;/&quot;)
+.then((dir) =&gt; {
+  console.log(dir.relations(&quot;contents&quot;));
+})</code></pre>
+
+
+<p>Some special folder have a pre-defined id that will never change:</p>
+<ul>
+<li><code>io.cozy.files.root-dir</code> is the root of the filesystem</li>
+<li><code>io.cozy.files.trash-dir</code> is the trash.</li>
+</ul>
+<h3 id="the-cozy-bar">The Cozy Bar<a class="headerlink" href="#the-cozy-bar" title="Permanent link">&para;</a></h3>
+<p>The <a href="https://github.com/cozy/cozy-bar">Cozy Bar</a> is a component that display the Cozy menu on the top of your application and allow inter-apps features like content sharing.</p>
+<p>Your application interacts with this component through <code>cozy-bar.js</code>, a library injected into your pages by the server when you add <code>{{.CozyBar}}</code> in the header. It exposes an API behind the window.cozy.bar namespace.</p>
+<p>Before using it, you have to initialize the library: <code>window.cozy.bar.init({appName: "Mon application"})</code>.</p>
+<h3 id="styling">Styling<a class="headerlink" href="#styling" title="Permanent link">&para;</a></h3>
+<p>If you plan to build a webapp to run on Cozy, you’ll probably want to use a simple and elegant solution to build your interfaces without the mess of dealing with complex markup and CSS. Then <a href="https://github.com/cozy/cozy-ui/">Cozy UI</a> is here for you!</p>
+<p>It relies on Stylus as preprocessor. You can add it as a library in your project to use it out-of-the-box.</p>
+<h3 id="start-the-development-server">Start the development server<a class="headerlink" href="#start-the-development-server" title="Permanent link">&para;</a></h3>
+<p>Now it’s time to start the development server, to test our application.</p>
+<p><em>(remember what we previously said about the permissions required to run Docker: if your user doesn’t belong to the docker group, you’ll have to use <code>sudo</code> to run each of this commands.)</em></p>
+<p>To run your application inside the development server, just run the following command from the folder where your <code>index.html</code> and <code>manifest.webapp</code> files leave:</p>
+<pre class="codehilite"><code class="language-sh">docker run --rm -it -p 8080:8080 -p 5984:5984 -p 8025:8025 -v $(pwd):/data/cozy-app --name cozydev cozy/cozy-app-dev</code></pre>
+
+
+<p>Let’s have a quick look at this command, so you can adapt it to your needs:</p>
+<ul>
+<li><code>--rm</code> will delete the server when you stop it. This prevent Docker from keeping a lot of unused stopped images</li>
+<li><code>-it</code> allow to attach an interactive terminal, so you’ll be able to use the command line inside the server</li>
+<li><code>-p 8080:8080</code>: the server listens on port 8080 on the virtual machine. We forward this port to the same port on your local machine. To use another local port, for example 9090, use <code>-p 9090:8080</code></li>
+<li><code>-p 5984:5984</code>: this is just a convenient way to access the CouchDB database running inside the server. Point your browser to <code>http://cozy.tools:5984/_utils/</code> to access its administrative interface</li>
+<li><code>-p 8025:8025</code> : Cozy requires a mail server. In the development image, we don’t use a real email server, but a software that can display the sent messages. Just point your browser to <code>http://cozy.tools:8025/</code> to display the messages sent by the server</li>
+<li><code>-v $(pwd):/data/cozy-app</code> this mount the current folder, where your application leaves, inside the server. This is what make the application available on the server</li>
+<li><code>--name cozydev</code> name the running virtual machine <code>cozydev</code>, so you can easily refer to it from other Docker commands. For example, if you want to connect to a shell inside the server, you can use <code>docker exec -ti /bin/bash</code></li>
+</ul>
+<p>With this syntax, there is no data persistance: all your test data will be lost every time you stop the server. This is a good way to prevent side effects and start on a clean base, with an empty database.</p>
+<p>However, if you want to persist data, you have to mount two folders from the virtual server to local folders: <code>/usr/local/couchdb/data</code> (database) and <code>/data/cozy-storage</code> (the virtual filesystem). This can be achieved by adding to the command line <code>-v ~/cozy/data/db:/usr/local/couchdb/data -v ~/cozy/data/storage:/data/cozy-storage</code> which will store the server’s data into <code>~/cozy/data</code>.</p>
+<p>Once the server started, go to <code>http://app.cozy.tools:8080/#</code>, connect to the server with the default password <code>cozy</code> and you should be able to start testing your application.</p>
+<p>You can also access the following URLs:</p>
+<ul>
+<li><code>http://cozy.tools:5984/_utils</code> to get the database administrative panel</li>
+<li><code>http://cozy.tools:8025/</code> to display the emails sent by the server.</li>
+</ul>
+<h4 id="test-multiple-applications">Test multiple applications<a class="headerlink" href="#test-multiple-applications" title="Permanent link">&para;</a></h4>
+<p>You can install more than one application into the development server, for example to test communication between applications. In order to achieve this, you have to mount the folder where your application leaves into subfolders of <code>/data/cozy-apps</code>. For example, if the code of Cozy Drive and Cozy Photos is on your local filesystem in <code>~/cozy/drive</code> and <code>~/cozy/photos</code>, start the development server with:</p>
+<pre class="codehilite"><code class="language-sh">docker run --rm -it -p 8080:8080 -p 5984:5984 -p 8025:8025 -v &quot;~/cozy/drive&quot;:/data/cozy-app/drive&quot; -v &quot;~/cozy/photos:/data-cozy-app/photos&quot; --name=cozydev cozy/cozy-app-dev</code></pre>
+
+
+<p>You’ll access the applications by connecting to <code>http://drive.cozy.tools:8080/</code> and <code>http://photos.cozy.tools:8080</code>.</p>
+<h2 id="todo">TODO<a class="headerlink" href="#todo" title="Permanent link">&para;</a></h2>
+<p>This development server use the domain names <code>*.cozy.tools</code>. We have parameterized this domain to always redirect to <code>127.0.0.1</code>, your local computer address.</p>
+<p>The <code>sample</code> branch of this documentation repository contains a minimalist template with the needed files to create an app. You can get them with the following command:</p>
+<pre class="codehilite"><code class="language-sh">git clone -b sample https://github.com/cozy/cozy-docdev-v3.git myapp
+cd myapp</code></pre></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-client-js/auth-api/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>Authentication API - Cozy Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Cozy Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Use <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/">User guide</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Stay in sync</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronize your phone</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronize your computer</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Install on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Download</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../dev/">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="../../dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="../../dev/app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="../../dev/konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="../../dev/cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="../../dev/sendmail/">How to send mail in development</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">References <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-client-js</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../intro/">Introduction</a>
+</li>
+            
+<li >
+    <a href="../browser-sdk-transition/">Transition from cozy-browser-sdk</a>
+</li>
+            
+<li >
+    <a href="../offline/">How to support offline</a>
+</li>
+            
+<li >
+    <a href="../oauth/">OAuth guide</a>
+</li>
+            
+<li class="active">
+    <a href="./">Authentication API</a>
+</li>
+            
+<li >
+    <a href="../data-api/">Data System API</a>
+</li>
+            
+<li >
+    <a href="../files-api/">Files API</a>
+</li>
+            
+<li >
+    <a href="../jobs-api/">Jobs API</a>
+</li>
+            
+<li >
+    <a href="../intents-api/">Intents API</a>
+</li>
+            
+<li >
+    <a href="../settings-api/">Settings API</a>
+</li>
+            
+<li >
+    <a href="../sharing-api/">Sharing API</a>
+</li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#authentication-and-oauth-internal">Authentication and OAuth (internal)</a></li>
+            <li><a href="#cozyclientauthregisterclientclientparams">cozy.client.auth.registerClient(clientParams)</a></li>
+            <li><a href="#cozyclientauthupdateclientclient-resetsecret-false">cozy.client.auth.updateClient(client, resetSecret = false)</a></li>
+            <li><a href="#cozyclientauthunregisterclientclient">cozy.client.auth.unregisterClient(client)</a></li>
+            <li><a href="#cozyauthclientgetclientclient">cozy.auth.client.getClient(client)</a></li>
+            <li><a href="#cozyclientauthgetauthcodeurlclient-scopes">cozy.client.auth.getAuthCodeURL(client, scopes)</a></li>
+            <li><a href="#cozyclientauthgetaccesstokenclient-state-pageurl">cozy.client.auth.getAccessToken(client, state, pageURL)</a></li>
+            <li><a href="#cozyclientauthrefreshtoken">cozy.client.auth.refreshToken</a></li>
+            <li><a href="#cozyclientauthclient">cozy.client.auth.Client</a></li>
+            <li><a href="#cozyclientauthaccesstoken">cozy.client.auth.AccessToken</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="authentication-and-oauth-internal">Authentication and OAuth (internal)<a class="headerlink" href="#authentication-and-oauth-internal" title="Permanent link">&para;</a></h1>
+<h3 id="cozyclientauthregisterclientclientparams"><code>cozy.client.auth.registerClient(clientParams)</code><a class="headerlink" href="#cozyclientauthregisterclientclientparams" title="Permanent link">&para;</a></h3>
+<p><strong>This method is for internal or advanced usages. Please see <a href="../oauth/">OAuth document</a> to see how to use OAuth with this library</strong></p>
+<p><code>cozy.client.auth.registerClient</code> is used to register a new client with the specified informations.</p>
+<p>It returns a promise of the newly registered Client, along with a client secret and identifier.</p>
+<ul>
+<li><code>clientParams</code> are client parameters: a non registered instance of <code>cozy.client.auth.Client</code></li>
+</ul>
+<pre class="codehilite"><code class="language-js">const clientParams = new cozy.client.auth.Client({
+  redirectURI: 'http://localhost:3000/',
+  softwareID: 'mysoftware',
+  clientName: 'Great mobile App'
+})
+const client = await cozy.client.auth.registerClient(clientParams)
+const clientID = client.clientID
+const clientSecret = client.clientSecret</code></pre>
+
+
+<h3 id="cozyclientauthupdateclientclient-resetsecret-false"><code>cozy.client.auth.updateClient(client, resetSecret = false)</code><a class="headerlink" href="#cozyclientauthupdateclientclient-resetsecret-false" title="Permanent link">&para;</a></h3>
+<p><strong>This method is for internal or advanced usages. Please see <a href="../oauth/">OAuth document</a> to see how to use OAuth with this library</strong></p>
+<p><code>cozy.client.auth.updateClient</code> is used to update informations about the oauth client.</p>
+<p>It returns a promise for the updated Client.</p>
+<ul>
+<li><code>client</code> a registered instance of <code>cozy.client.auth.Client</code></li>
+<li><code>resetSecret</code> by setting <code>resetSecret</code> to <code>true</code>, a new Secret is generated.</li>
+</ul>
+<pre class="codehilite"><code class="language-js">const client = await cozy.client.auth.registerClient(clientParams)
+
+// change the client's version
+client.softwareVersion = &quot;v1.2.3&quot;
+const client = await cozy.client.auth.updateClient(client)
+
+
+// change the client secret
+const client = await cozy.client.auth.updateClient(client, true)</code></pre>
+
+
+<h3 id="cozyclientauthunregisterclientclient"><code>cozy.client.auth.unregisterClient(client)</code><a class="headerlink" href="#cozyclientauthunregisterclientclient" title="Permanent link">&para;</a></h3>
+<p><strong>This method is for internal or advanced usages. Please see <a href="../oauth/">OAuth document</a> to see how to use OAuth with this library</strong></p>
+<p><code>cozy.client.auth.unregisterClient</code> is used to unregister a client.</p>
+<p>It returns a promise for completion</p>
+<ul>
+<li><code>client</code> a registered instance of <code>cozy.client.auth.Client</code></li>
+</ul>
+<pre class="codehilite"><code class="language-js">const client = await cozy.client.auth.registerClient(clientParams)
+await cozy.auth.client.unregisterClient(client)</code></pre>
+
+
+<h3 id="cozyauthclientgetclientclient"><code>cozy.auth.client.getClient(client)</code><a class="headerlink" href="#cozyauthclientgetclientclient" title="Permanent link">&para;</a></h3>
+<p><strong>This method is for internal or advanced usages. Please see <a href="../oauth/">OAuth document</a> to see how to use OAuth with this library</strong></p>
+<p><code>cozy.client.auth.getClient</code> is used to fetch a registered client with the specified clientID and token.</p>
+<p>It returns a promise of the client returned by the server.</p>
+<ul>
+<li><code>client</code> is a registered <code>cozy.client.auth.Client</code></li>
+</ul>
+<pre class="codehilite"><code class="language-js">const client = await cozy.client.auth.getClient(new cozy.client.auth.Client({
+  clientID: '1235'
+}))</code></pre>
+
+
+<h3 id="cozyclientauthgetauthcodeurlclient-scopes"><code>cozy.client.auth.getAuthCodeURL(client, scopes)</code><a class="headerlink" href="#cozyclientauthgetauthcodeurlclient-scopes" title="Permanent link">&para;</a></h3>
+<p><strong>This method is for internal or advanced usages. Please see <a href="../oauth/">OAuth document</a> to see how to use OAuth with this library</strong></p>
+<p><code>cozy.client.auth.getAuthCodeURL</code> is used to generate the URL on which the user should go to give access to the application with the specified scopes.</p>
+<p>It returns an object with the url and a generated random state that should be stored to be matched again for the token exchange phase.</p>
+<ul>
+<li><code>client</code> is a registered <code>cozy.client.auth.Client</code></li>
+<li><code>scopes</code> is an array of permission strings formatted as <code>key:access</code> (like <code>files/images:read</code>)</li>
+</ul>
+<pre class="codehilite"><code class="language-js">const {url, state} = cozy.client.auth.getAuthCodeURL(client, ['files/images:read'])
+
+// save state and redirect to url
+localStorage.setItem(&quot;oauthstate&quot;, state)
+window.location.replace(url)</code></pre>
+
+
+<h3 id="cozyclientauthgetaccesstokenclient-state-pageurl"><code>cozy.client.auth.getAccessToken(client, state, pageURL)</code><a class="headerlink" href="#cozyclientauthgetaccesstokenclient-state-pageurl" title="Permanent link">&para;</a></h3>
+<p><strong>This method is for internal or advanced usages. Please see <a href="../oauth/">OAuth document</a> to see how to use OAuth with this library</strong></p>
+<p><code>cozy.client.auth.getAccessToken</code> is used from the page on which the user should have redirected after authorizing the application.</p>
+<p>It returns a promise of an <code>cozy.client.auth.AccessToken</code>. The method verifies that the specified state and the extracted one match. It then ask the server for a new access token and returns it.</p>
+<ul>
+<li><code>client</code> is a registered <code>cozy.client.auth.Client</code></li>
+<li><code>state</code> is the previously stored state that is matched against to prevent CSRF attacks</li>
+<li><code>pageURL</code> is the url of the current page from the which a code and state will be extracted. If empty, <code>window.location.href</code> is used</li>
+</ul>
+<pre class="codehilite"><code class="language-js">const client = cozy.client.auth.getClient(/* ... */)
+const state = localStorage.getItem(&quot;oauthstate&quot;)
+const pageURL = window.location.href
+const token = cozy.client.auth.getAccessToken(client, state, pageURL)</code></pre>
+
+
+<h3 id="cozyclientauthrefreshtoken"><code>cozy.client.auth.refreshToken</code><a class="headerlink" href="#cozyclientauthrefreshtoken" title="Permanent link">&para;</a></h3>
+<p><strong>This method is for internal or advanced usages. Please see <a href="../oauth/">OAuth document</a> to see how to use OAuth with this library</strong></p>
+<p><code>cozy.client.auth.refreshToken</code> is used to refresh a token that is expired or no more valid.</p>
+<ul>
+<li><code>client</code> is a registered <code>cozy.client.auth.Client</code></li>
+<li><code>token</code> is a valid <code>cozy.client.auth.AccessToken</code></li>
+</ul>
+<pre class="codehilite"><code class="language-js">const newtoken = cozy.client.auth.refreshToken(client, oldtoken)</code></pre>
+
+
+<h3 id="cozyclientauthclient"><code>cozy.client.auth.Client</code><a class="headerlink" href="#cozyclientauthclient" title="Permanent link">&para;</a></h3>
+<p><strong>This class is for internal or advanced usages. Please see <a href="../oauth/">OAuth document</a> to see how to use OAuth with this library</strong></p>
+<p><code>cozy.client.auth.Client</code> is a class representing an OAuth client. It can be registered, in which case it is known by the server and has a <code>clientID</code> and <code>clientSecret</code>.</p>
+<pre class="codehilite"><code>type Client {
+  clientID: string;                // informed by server
+  clientSecret: string;            // informed by server
+  registrationAccessToken: string; // informed by server
+  redirectURI: string; // mandatory
+  softwareID: string;  // mandatory
+  softwareVersion: string;
+  clientName: string;  // mandatory
+  clientKind: string;
+  clientURI: string;
+  logoURI: string;
+  policyURI: string;
+  notificationPlatform: string;
+  notificationDeviceToken: string;
+}</code></pre>
+
+
+<p>The constructor type is as follow:</p>
+<ul>
+<li><code>url</code> is a string of the url of the cozy</li>
+<li><code>options</code> is an object with the same fields as a client object, or is an instance of client</li>
+</ul>
+<pre class="codehilite"><code>new Client(url, options)</code></pre>
+
+
+<h3 id="cozyclientauthaccesstoken"><code>cozy.client.auth.AccessToken</code><a class="headerlink" href="#cozyclientauthaccesstoken" title="Permanent link">&para;</a></h3>
+<p><strong>This class is for internal or advanced usages. Please see <a href="../oauth/">OAuth document</a> to see how to use OAuth with this library</strong></p>
+<p><code>cozy.client.auth.AccessToken</code> is a class representing an OAuth access token.</p>
+<pre class="codehilite"><code>type Token {
+  tokenType: string;
+  accessToken: string;
+  refreshToken: string;
+  scope: string
+}</code></pre>
+
+
+<p>The constructor takes an object with the same fields as a Token object.</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/dev/intro/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>Architecture - Documentation Cozy</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Documentation Cozy</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../../index_fr/">Accueil</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Utiliser <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/index_fr/">Utiliser Cozy</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchroniser <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Restez synchro</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronisez vos téléphones</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronisez vos ordinateurs</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Installer sur GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Télécharger</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Installer <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Installation manuelle</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Développer <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../">Introduction</a>
+</li>
+                            
+<li class="active">
+    <a href="./">Architecture</a>
+</li>
+                            
+<li >
+    <a href="../app/">Créez votre première application</a>
+</li>
+                            
+<li >
+    <a href="../konnector/">Créez votre premier connecteur</a>
+</li>
+                            
+<li >
+    <a href="../cordova/">Créez une application mobile avec Cordova</a>
+</li>
+                            
+<li >
+    <a href="../sendmail/">Envoyer un courriel</a>
+</li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#introduction">Introduction</a></li>
+            <li><a href="#architecture">Architecture</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h1><p>Cozy is a personal server hosting applications that allow collect and manipulate all your personal data.</p><p>There are two kind of applications:</p><ul>
+<li><strong>web applications</strong>: that&rsquo;s Single Page Applications (SPA) written in HTML and JavaScript that run inside the user&rsquo;s browser. They interact with the server through its API. This API allows to manipulate data and files and to perform miscellaneous tasks, like send emails</li><li><strong>connectors</strong>: that&rsquo;s small application written in JavaScript, running on the server side, that import your data from remote sources.</li></ul>
+<p>In this tutorial, you&rsquo;ll learn how to <a href="../app/">write a client application</a> and 
+<a href="../konnector/">a connector</a>.</p><h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2><p>Several layers can be distinguished. From inside to outside:</p><ul>
+<li>the core is a database that store all user data;</li><li>the database is accessible through a layer that control accesses and expose a REST API;</li><li>Web applications and other clients offer nice user interfaces to interact with the data.</li></ul>
+<p>One of our motto is « Cozy is Simple, Versatile, Yours ». This applies to our architecture:</p><ul>
+<li><em>simple</em> and easy to understand and deploy. Cozy doesn’t require to setup and manage a lot of micro-services;</li><li><em>versatile</em>: our server is comfortable anywhere. You can host a single instance on a small Raspberry π at home, or a cluster of thousands instances on dedicated servers inside a datacenter;</li><li><em>yours</em>: the users are the owners of their data, they keep the control. They can migrate their data from one server to another, and are not dependant from a single hosting provider. As we say: “you will stay because you can leave”;</li></ul>
+<p><img alt="Architecture" src="../../img/dev/cozy_archi.png" /></p><h3 id="the-server">The server<a class="headerlink" href="#the-server" title="Permanent link">&para;</a></h3><p>The server consist of a single process. We call it <em>the Cozy stack</em>. It provides services through a REST API that allow to:</p><ul>
+<li>create, update, delete documents inside the database;</li><li>send emails;</li><li>launch jobs on the server. Connectors that import data from remote websites are some sort of jobs. Jobs can be one time tasks (sending a message) or periodic tasks. Some jobs, like the connectors, that require executing third party code on the server side, are sandboxed (we user <code>nsjail</code> for now).</li><li>…</li></ul>
+<p>The server also allow to access the database replication API, allowing to sync documents between the server and local databases, for example in mobile clients.</p><p>Two authentication methods are available:</p><ul>
+<li>Web applications running on the server get a session token when the user log in;</li><li>OAuth2 for other applications.</li></ul>
+<p>The server is in charge of serving the Web applications users have installed from the application store.</p><h3 id="the-database">The database<a class="headerlink" href="#the-database" title="Permanent link">&para;</a></h3><p>CouchDB is a document database. Everything, from user data to server settings, is stored inside typed documents, identified by an unique id.</p><p>Two request methods are allowed: map-reduce or <code>Mango</code>, a specific query language.</p><p>Every document has a <code>doctype</code>, and we keep an index of the definition of every doctype.</p><p>Binary data are stored outside the database. Depending on the server configuration, they may be stored on a file system or a dedicated object storage like <code>swift</code>.</p><p>The <em>datasystem</em> layer inside the Cozy stack is in charge of controlling access rights on documents and binaries. It allows fine gained access control, on a whole doctype or on a set of documents.</p><h3 id="the-applications">The applications<a class="headerlink" href="#the-applications" title="Permanent link">&para;</a></h3><p>The server provide services to applications:</p><ul>
+<li>real time notifications of events;</li><li>methods allowing applications to communicate and share data;</li><li>methods allowing sharing of documents between servers.</li></ul>
+<h4 id="application-store">Application store<a class="headerlink" href="#application-store" title="Permanent link">&para;</a></h4><p>An application registry lists every available applications, and their characteristics. Each application can:</p><ul>
+<li>create its own doctypes;</li><li>request permission to access documents;</li><li>offer services to other applications;</li><li>register publics routes;</li><li>create jobs that will be run on server side.</li></ul>
+<h3 id="security">Security<a class="headerlink" href="#security" title="Permanent link">&para;</a></h3><p>Each application uses its own sub-domain name, so it gets sandboxed inside the browser: other application are not able to steal it access token and access its data.</p><p>We use <em>Content Security Policy</em> to control what the application is allowed to do. For example, Web applications running inside Cozy are not allowed to send requests to other websites. This allow a strict control over applications, preventing them to leak your data.</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

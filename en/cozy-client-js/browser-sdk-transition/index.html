@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-client-js/browser-sdk-transition/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>Transition from cozy-browser-sdk - Cozy Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Cozy Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Use <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/">User guide</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Stay in sync</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronize your phone</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronize your computer</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Install on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Download</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../dev/">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="../../dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="../../dev/app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="../../dev/konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="../../dev/cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="../../dev/sendmail/">How to send mail in development</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">References <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-client-js</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../intro/">Introduction</a>
+</li>
+            
+<li class="active">
+    <a href="./">Transition from cozy-browser-sdk</a>
+</li>
+            
+<li >
+    <a href="../offline/">How to support offline</a>
+</li>
+            
+<li >
+    <a href="../oauth/">OAuth guide</a>
+</li>
+            
+<li >
+    <a href="../auth-api/">Authentication API</a>
+</li>
+            
+<li >
+    <a href="../data-api/">Data System API</a>
+</li>
+            
+<li >
+    <a href="../files-api/">Files API</a>
+</li>
+            
+<li >
+    <a href="../jobs-api/">Jobs API</a>
+</li>
+            
+<li >
+    <a href="../intents-api/">Intents API</a>
+</li>
+            
+<li >
+    <a href="../settings-api/">Settings API</a>
+</li>
+            
+<li >
+    <a href="../sharing-api/">Sharing API</a>
+</li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#how-to-transition-your-app-from-cozy-browser-sdk-to-cozy-client-js">How to transition your app from cozy-browser-sdk to cozy-client-js</a></li>
+            <li><a href="#full-doctype-qualification">Full doctype qualification</a></li>
+            <li><a href="#mapreduce-views-vs-mango-queries">MapReduce Views vs Mango queries</a></li>
+            <li><a href="#binaries">Binaries</a></li>
+            <li><a href="#crud-is-fully-compatible">Crud is fully compatible</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="how-to-transition-your-app-from-cozy-browser-sdk-to-cozy-client-js">How to transition your app from cozy-browser-sdk to cozy-client-js<a class="headerlink" href="#how-to-transition-your-app-from-cozy-browser-sdk-to-cozy-client-js" title="Permanent link">&para;</a></h1>
+<h2 id="full-doctype-qualification">Full doctype qualification<a class="headerlink" href="#full-doctype-qualification" title="Permanent link">&para;</a></h2>
+<p>Cozy <strong>v3</strong> expects <a href="https://cozy.github.io/cozy-doctypes/">doctypes</a> to be qualified to ensure uniqueness.</p>
+<p>All doctypes designed by the cozy&rsquo;s team will be prefixed with <code>io.cozy.</code></p>
+<p>Any doctype you introduce is expected to be prefixed with the reverse notation of a domain you own (JLS#7.7).</p>
+<p>You are free to reuse another applications documents by using their doctypes but you SHOULD discuss with the domain owner if you want to add fields or format them differently.</p>
+<p>To ensure retrocompatibility, when used on stack v2, all known doctypes will be auto-prefixed by <code>io.cozy.</code> or <code>io.cozy.labs.</code>, but a warning will be written to the console. Unknown doctype will cause a fatal error. DO NOT rely on this behaviour in new applications, use qualified doctypes.</p>
+<pre class="codehilite"><code class="language-javascript">// old version, using cozy-browser-sdk
+cozysdk.create(&quot;Contact&quot;, {})
+cozysdk.create(&quot;Book&quot;, {})
+// new version, with cozy-client-js
+cozy.data.create(&quot;io.cozy.contacts&quot;, {})
+cozy.data.create(&quot;com.mydomain.book&quot;, {})</code></pre>
+
+
+<h2 id="mapreduce-views-vs-mango-queries">MapReduce Views vs Mango queries<a class="headerlink" href="#mapreduce-views-vs-mango-queries" title="Permanent link">&para;</a></h2>
+<p>Cozy <strong>v3</strong> recommends using Couchdb 2 indexes &amp; mango queries instead of Couchdb 1.X map-reduce views. We feel they are <a href="http://cozy.github.io/cozy-browser-sdk/tutorial-mapreduce.html">simpler to understand and explain</a> and avoid useless overindexing.</p>
+<p>When used on a <strong>v2</strong> cozy, the <code>defineIndex</code> and <code>query</code> calls will be translated to MapReduce views.</p>
+<p>If you need the full power of MapReduce, please open a issue on cozy-stack with your usecase.</p>
+<pre class="codehilite"><code class="language-javascript">// cozy-browser-sdk
+cozysdk.defineMapReduceView('Event', 'all', function(doc) { emit(doc.year); })
+cozysdk.queryView('Event', 'all', {key: 2016, limit: 10})
+// cozy-client-js
+index = cozy.data.defineIndex('Event', ['year'])
+cozy.data.query(index, {selector: {year: 2016}, limit: 10})</code></pre>
+
+
+<h2 id="binaries">Binaries<a class="headerlink" href="#binaries" title="Permanent link">&para;</a></h2>
+<p>We do not yet have a plan for binaries attachments to documents.
+They will be probably placed in the VFS under a special path.</p>
+<h2 id="crud-is-fully-compatible">Crud is fully compatible<a class="headerlink" href="#crud-is-fully-compatible" title="Permanent link">&para;</a></h2>
+<p>The following functions have the same signature than the cozy-browser-sdk</p>
+<pre class="codehilite"><code class="language-javascript">created = await cozy.data.create(myType, book)
+doc = await cozy.data.find(myType, id)
+doc2 = await cozy.data.updateAttributes(myType, id, {year: 1851})
+await cozy.data.destroy(&quot;my.domain.book&quot;, id)</code></pre></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

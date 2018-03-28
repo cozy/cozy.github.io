@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-konnector-libs/synchronization/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>Synchronization - Cozy Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Cozy Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Use <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/">User guide</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Stay in sync</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronize your phone</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronize your computer</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Install on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Download</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../dev/">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="../../dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="../../dev/app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="../../dev/konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="../../dev/cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="../../dev/sendmail/">How to send mail in development</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">References <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../api/">API</a>
+</li>
+            
+<li >
+    <a href="../cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../operation-linking/">Operation linking</a>
+</li>
+            
+<li class="active">
+    <a href="./">Synchronization</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-client-js</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-client-js/intro/">Introduction</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/browser-sdk-transition/">Transition from cozy-browser-sdk</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/offline/">How to support offline</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/oauth/">OAuth guide</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/auth-api/">Authentication API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/data-api/">Data System API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/files-api/">Files API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/jobs-api/">Jobs API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/intents-api/">Intents API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/settings-api/">Settings API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/sharing-api/">Sharing API</a>
+</li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#table-of-contents">Table of contents</a></li>
+        <li class="main "><a href="#konnector-synchronisation-data-and-options">Konnector synchronisation data and options</a></li>
+            <li><a href="#problems">Problems</a></li>
+            <li><a href="#current-usage">Current usage</a></li>
+            <li><a href="#objectives-of-this-document">Objectives of this document</a></li>
+            <li><a href="#storing-synchronization-data-in-documents">Storing synchronization data in documents</a></li>
+            <li><a href="#saving-document-based-on-synchronization-strategy">Saving document based on synchronization strategy</a></li>
+            <li><a href="#synchronization-strategy">Synchronization strategy</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="table-of-contents">Table of contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h1>
+<ul>
+<li><a href="#konnector-synchronisation-data-and-options">Konnector synchronisation data and options</a></li>
+<li><a href="#problems">Problems</a></li>
+<li><a href="#current-usage">Current usage</a></li>
+<li><a href="#objectives-of-this-document">Objectives of this document</a></li>
+<li><a href="#storing-synchronization-data-in-documents">Storing synchronization data in documents</a><ul>
+<li><a href="#simple-case--by-id">Simple case, by id</a></li>
+<li><a href="#by-multiple-attributes">By multiple attributes</a></li>
+<li><a href="#by-custom-method">By custom method</a></li>
+</ul>
+</li>
+<li><a href="#saving-document-based-on-synchronization-strategy">Saving document based on synchronization strategy</a><ul>
+<li><a href="#adding-synchronization-data">Adding synchronization data</a></li>
+<li><a href="#filtering-entries">Filtering entries</a></li>
+</ul>
+</li>
+<li><a href="#synchronization-strategy">Synchronization strategy</a><ul>
+<li><a href="#findlegacydocument">findLegacyDocument</a></li>
+<li><a href="#getsyncdata">getSyncData</a></li>
+<li><a href="#array">Array</a><ul>
+<li><a href="#example">Example</a></li>
+</ul>
+</li>
+<li><a href="#function">function</a><ul>
+<li><a href="#example-1">Example</a></li>
+</ul>
+</li>
+<li><a href="#konnector">konnector</a></li>
+<li><a href="#shouldsave">shouldSave</a></li>
+<li><a href="#shouldupdate">shouldUpdate</a></li>
+</ul>
+</li>
+<li><a href="#whole-example">Whole example</a></li>
+</ul>
+<h1 id="konnector-synchronisation-data-and-options">Konnector synchronisation data and options<a class="headerlink" href="#konnector-synchronisation-data-and-options" title="Permanent link">&para;</a></h1>
+<h2 id="problems">Problems<a class="headerlink" href="#problems" title="Permanent link">&para;</a></h2>
+<p>Except bank konnectors which are already solving the addressed problem, all konnectors are currently processing data they are collecting in the same way:</p>
+<ul>
+<li>Get all data to synchronize</li>
+<li>Store it in CouchDB, even if it means overriding previously synchronized data.</li>
+</ul>
+<p>This process has at least two major flows :
+<em> We are always synchronizing <em>all</em> the data provided by the external service.
+</em> When something is modified (for example, the name of the stored file, it&rsquo;s almost sure that the previous one will be kept and that we&rsquo;ll have a duplicate)</p>
+<p>Another side effect could be that in a very large set of documents to synchronize, the whole process may take more than 3 minutes and never synchronize documents at the end of the list.</p>
+<h2 id="current-usage">Current usage<a class="headerlink" href="#current-usage" title="Permanent link">&para;</a></h2>
+<p>When saving bills, <code>cozy-konnector-libs</code> provides a filtering and hydratation mechanism, to avoid overriding existing bills. It is done in function <a href="https://github.com/cozy/cozy-konnector-libs/blob/master/libs/hydrateAndFilter.js"><code>hydrateAndFilters</code></a>.</p>
+<p>This method performs two actions :
+<em> hydrate entries retrieved from service with usable data from couchDB (like existing bill id)
+</em> filter entries retrieved from service and return only entries that need to be saved/synchronized.</p>
+<h2 id="objectives-of-this-document">Objectives of this document<a class="headerlink" href="#objectives-of-this-document" title="Permanent link">&para;</a></h2>
+<p>The goals of this document are:</p>
+<ul>
+<li>Define a common way to store synchronization data for all konnector</li>
+<li>Propose a naive implementation for an abstract synchronisation data storing mechanism, provided by <code>cozy-konnector-libs</code></li>
+<li>Propose a solution to synchronize every type of data or file, not only bills</li>
+<li>Taking the <code>hydrateAndFilter</code> function as basis, split it in three functions performing the following tasks : actual filtering, synchronization data hydratation and saving/updating current database document with correspondig external entries (the part done by the actual <em>hydratation</em>)</li>
+</ul>
+<h2 id="storing-synchronization-data-in-documents">Storing synchronization data in documents<a class="headerlink" href="#storing-synchronization-data-in-documents" title="Permanent link">&para;</a></h2>
+<p>Before saving any data or file, we will add in the relying document every synchronization data we will need. The added data will depend on how the service the konnector connects to retrieve entries and which information they gave us.</p>
+<h3 id="simple-case-by-id">Simple case, by id<a class="headerlink" href="#simple-case-by-id" title="Permanent link">&para;</a></h3>
+<p>We suppose that in the most cases, we will face to entries provinding their own <code>id</code> attribute. The idea is to store it as synchronization data to be able to easily retrieve them later.
+To store synchronization data, we are using a <code>sync</code> attribute in document <code>metadata</code> attribute. Example:</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;metadata&quot;: {
+    &quot;sync&quot;: {
+      &quot;id&quot;: &quot;7ee401e841c94159addb47f190903139&quot;,
+      &quot;konnector&quot;: &quot;trainline&quot;,
+      &quot;last_sync&quot;: &quot;Mon, 12 Feb 2018 16:25:34 GMT&quot;
+    }
+  }
+}</code></pre>
+
+
+<p>The expected information to be save is:</p>
+<table>
+<thead>
+<tr>
+<th>field</th>
+<th>role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>The id of the document, but given by the external service. If the external service does not provide any id or uuid, it could be interesting to generate one, with an hash of the file for example.</td>
+</tr>
+<tr>
+<td>konnector</td>
+<td>The slug of the konnector (Example: <code>trainline</code>, <code>freemobile</code>, <code>cic</code>). This could be very useful to retrieve data synchronized with this konnector.</td>
+</tr>
+<tr>
+<td>last_sync</td>
+<td>Date of last synchronization, set to <code>now()</code> when storage is made.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="by-multiple-attributes">By multiple attributes<a class="headerlink" href="#by-multiple-attributes" title="Permanent link">&para;</a></h3>
+<p>If the external service does not provide any <code>id</code> attribute, we may need to use instead a list of attributes, for example <code>firstname</code>, <code>lastname</code>, <code>dateofbirth</code>.</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;metadata&quot;: {
+    &quot;sync&quot;: {
+      &quot;firstname&quot;: &quot;Claude&quot;,
+      &quot;lastname&quot;: &quot;Causi&quot;,
+      &quot;dateofbirth&quot;: &quot;06/12/1980&quot;
+    }
+  }
+}</code></pre>
+
+
+<p>As we cannot be sure that we will have different data, it could be better to use a custom way of providing an unique identifier.</p>
+<h3 id="by-custom-method">By custom method<a class="headerlink" href="#by-custom-method" title="Permanent link">&para;</a></h3>
+<p>When the external service does not provide any identifier, we have to use a custom method to generate one.
+It could be for example the filename or a hash generated with the document content.</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;metadata&quot;: {
+    &quot;sync&quot;: {
+      &quot;id:&quot;: &quot;customhash34FED5465645ABF54656FCB&quot;
+    }
+  }
+}</code></pre>
+
+
+<h2 id="saving-document-based-on-synchronization-strategy">Saving document based on synchronization strategy<a class="headerlink" href="#saving-document-based-on-synchronization-strategy" title="Permanent link">&para;</a></h2>
+<p>To solve the synchronization process weed need to:
+<em> be able to add synchronization data on any type of document
+</em> be able to compare external entries to current database state
+* provide a default implementation while letting the contributors to define their own ones</p>
+<h3 id="adding-synchronization-data">Adding synchronization data<a class="headerlink" href="#adding-synchronization-data" title="Permanent link">&para;</a></h3>
+<p>We should provide an <code>addSyncData</code> function could, which look like this (naive implementation, this piece of code needs to be improved to handle cases where <code>synchronizationStrategy.idAttribute</code> is an array or a function):</p>
+<pre class="codehilite"><code class="language-js">const addSyncData = (document, entry, synchronizationStrategy) =&gt; {
+  return {
+    ...document,
+    metadata: {
+      ...document.metadata,
+      id: entry[synchronizationStrategy.idAttribute]
+    }
+}
+````
+
+Where `document` is the future document to save, `entry` the corresponding external entry, and `synchronizationStrategy` and object defining the synchronization properties and methods (see below).
+
+### Filtering entries
+
+Now we have saved our documents in database with consistent synchronization metadata, we need to provide a way to filter external entries.
+
+We should provide a `filterEntriesToSynchronize` which returns a list of entries with new data or data to update.
+
+As `addSyncData`, this method will receive a `synchronizationStrategy`. The filtering algorithm should be based on the returned value of `synchronizationStrategy.shouldSave` and `synchronizationStrategy.shouldUpdate`.
+
+&gt; ⚠️ As the `synchronizationStrategy.shouldSave` and `synchronizationStrategy.shouldUpdate` will be asynchronous methods, `filterEntriesToSynchronize` should also be asynchronous.
+
+A naive example of `filterEntriesToSynchronize` implementation should be:
+
+```js
+const filterEntriesToSynchronize = async (cozy, entries, synchronizationStrategy) = {
+  const filtered = []
+
+  // getExistingSynchronizedDocument needs to be implemented, it should retrieve
+  // existing document from database, based on synchronization data.
+  const existingDocument = cozy.getExistingSynchronizedDocument(entry, synchronizationStrategy)
+
+  entries.forEach(entry =&gt; {
+    const toSave = await synchronizationStrategy.shouldSave(entry, existingDocument)
+    const toUpdate = await synchronizationStrategy.shouldUpdate(entry, existingDocument)
+
+    if (toSave || toUpdate) filtered.push(entry)
+  })
+
+  return filtered
+}</code></pre>
+
+
+<h2 id="synchronization-strategy">Synchronization strategy<a class="headerlink" href="#synchronization-strategy" title="Permanent link">&para;</a></h2>
+<p>For our functions or methods dealing with synchronization, we pass a <code>synchronizationStrategy</code> object. Internally, we will use a default one but let the ability to contributors to pass their own ones.</p>
+<p>It is a simple object containing the following properties:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>disableSyncData</td>
+<td>(boolean) Disable storage of  synchronization data. Default: <code>false</code></td>
+</tr>
+<tr>
+<td>findLegacyDocument</td>
+<td>(function) Custom function which a konnector may use to look for a legacy document. Default is <code>null</code>. See below for more details.</td>
+</tr>
+<tr>
+<td>getSyncData</td>
+<td>(function) A mapping method returning additional synchronization data which have to be added to the document.</td>
+</tr>
+<tr>
+<td>idAttribute</td>
+<td>(string&#124;Array&#124;function) How the identifier attribute is named in the entry. Default value: <code>id</code>. See below for additional customization</td>
+</tr>
+<tr>
+<td>konnector</td>
+<td><em>Mandatory</em> (string) The slug (or better, an uuid) of the current konnector.</td>
+</tr>
+<tr>
+<td>shouldSave</td>
+<td>(function) A method taking current entry and matching document in database to evaluate if an entry has to be saved in database. See below default method and customization.</td>
+</tr>
+<tr>
+<td>shouldUpdate</td>
+<td>(function) A method taking current entry and matching document in database to evaluate if a document must be updated with current entry. See below for default method and customization.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="findlegacydocument">findLegacyDocument<a class="headerlink" href="#findlegacydocument" title="Permanent link">&para;</a></h3>
+<p>If a document has not been saved yet with actual synchronization data, we will have no way to retrieve it, except by providing a <code>findLegacyDocument</code> function to <code>saveEntry</code> options. This signature of a <code>findLegacyDocument</code> function is:</p>
+<pre class="codehilite"><code class="language-js">async function (entry, cozy) =&gt; { /* look for your document */ }
+````
+
+The `cozy` parameter is an instance of Cozy-Client.
+
+The idea is for example to retrive a document by its file path or any other accurate information.
+
+### getSyncData
+This method returns any addtional synchronization data the konnector should need. Default method should be something returning an empty object or `null`.
+
+```js
+(entry) =&gt; ({})</code></pre>
+
+
+<p>A konnector should provide its own method:</p>
+<pre class="codehilite"><code class="language-js">{
+  getSyncData: (entry) =&gt; ({
+    filename: entry.name
+  })
+}```
+
+### idAttribute
+#### String
+Name of the id attribute in entry. Default is `id`. If we want to use another name, we may use:
+```js
+saveFiles(files, {idAttribute: 'uuid'})</code></pre>
+
+
+<h4 id="array">Array<a class="headerlink" href="#array" title="Permanent link">&para;</a></h4>
+<p>This attribute may also be an array of string, defining each entry attribute which must be used for identifier.</p>
+<h5 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h5>
+<pre class="codehilite"><code class="language-js">saveFiles(files, {idAttribute: ['name', 'author', 'date']})</code></pre>
+
+
+<p>In this case, all fields are used in synchronization data.</p>
+<h4 id="function">function<a class="headerlink" href="#function" title="Permanent link">&para;</a></h4>
+<p>When an entry does not provide an unique identifer, it is possible to use a function as <code>idAttribute</code> to customize the way the unique identifer is generated.</p>
+<h5 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h5>
+<pre class="codehilite"><code class="language-js">addData(file, {idAttribute: (entry) =&gt; hash(entry)})
+// hash() is a custom method  hashing the current file.</code></pre>
+
+
+<h3 id="konnector">konnector<a class="headerlink" href="#konnector" title="Permanent link">&para;</a></h3>
+<p>The konnector attribute is used as a key reference to retrieve all document synchronized by this konnector.</p>
+<p>For now, the <code>konnector</code> option will be needed for every call. But it could be interesting to initialize some kind of runner with it, which may encapsulate all the <code>cozy-konnector-libs</code> functions.</p>
+<h3 id="shouldsave">shouldSave<a class="headerlink" href="#shouldsave" title="Permanent link">&para;</a></h3>
+<p>The shouldSave function returns a boolean which indicate if the entry should be saved. The default method should be:</p>
+<pre class="codehilite"><code class="language-js">async function shouldSave (entry, existingDocument, cozy) =&gt; {
+  return Promise.resolve(!existingDocument)
+}</code></pre>
+
+
+<p>When calling this function, it is assumed that <code>cozy-konnector-libs</code> first queries the database for an exisring document, based on synchronization data and pass the document resulting the query to the <code>shouldSave</code> function, event if this document is <code>null</code>. We pass the whole document, and not only synchronization data, to let the contributors free on their way they are determining it a document should be saved.</p>
+<p>As a third parameter, a cozyClient instance is passed, it may be used by a konnector to perform another query.</p>
+<p>Because of this third parameter, the whole <code>shouldSave</code> method is asynchronous.</p>
+<h3 id="shouldupdate">shouldUpdate<a class="headerlink" href="#shouldupdate" title="Permanent link">&para;</a></h3>
+<p>The <code>shouldUpdate</code> function acts exactly like <code>shouldSave</code>, except that it is used to determine if a document should be updated. By default, we make the choice to never update a document (except if it does not have synchronization data, see <code>findLegacyDocument</code> above). But some konnectors like <code>Linxo</code> related ones need to update existing documents.</p>
+<p>The default method is:</p>
+<pre class="codehilite"><code class="language-js">async function shouldUpdate (entry, existingDocument, cozy) {
+  // Update an existing document only if it does not have synchronization data
+  const hasSyncData = !!existingDocument &amp;&amp; !!existingDocument.metadata &amp;&amp; !! existingDocument.metadata.sync
+  return Promise.resolve(!hasSyncData)
+}
+````
+
+## Whole example
+
+As the way data are saved from `cozy-konnector-libs` differs based on data type, we let the saving mechanism to others functions or methods. For example, in existing codebase, bills are saved in a specific way, resulting in two documents in database. However, we could provide top-level functions or methods, like `synchronizeBills` or a more generic `synchronizeData`.
+
+Here is a whole and naive example of how `synchronizeBills` could be implemebted:
+
+```js
+const synchronizeBills = async (cozy, entries, synchronizationStrategy) =&gt; {
+  return await filteredEntries = await filterEntriesToSynchronize(cozy, entries, synchronizationStrategy)
+    .then(filteredEntries =&gt; filteredEntries.map(entry =&gt; addSyncData(entry, synchronizationStrategy)))
+    // existing saveBills method (with maybe some little changes)
+    .saveBills(synchronizedDocuments)
+}</code></pre>
+
+
+<p>Usage could be:</p>
+<pre class="codehilite"><code>synchronizeBills(cozy, entries, {
+  findLegacyDocument: (entry, cozy) =&gt; {
+    return cozy.files.statByPath(getEntryPath(entry))
+  },
+  getSyncData: (file) =&gt; ({
+    fileName: file.name
+  }),
+  idAttribute: 'uuid',
+  konnector: 'myservice',
+  shouldSave: (file) =&gt; {
+    // For whatever reason we only save files created after 2010
+    return Promise.resolve(moment(file.creationDate).year().isAfter(2010))
+  },
+  shouldUpdate: (file, existingDocument) =&gt; {
+    const hasBeenModified = moment(file.modificationDate).isAfter(existingDocument.metadata.sync.last_sync)
+    return Promise.resolve(hasBeenModified)
+  }
+})</code></pre>
+
+
+<p>Every synchronized document will contain:</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;metadata&quot;: {
+    &quot;sync&quot;: {
+      &quot;konnector&quot;: &quot;myservice&quot;,
+      &quot;id&quot;: &quot;&lt;entry_id&gt;&quot;,
+      &quot;last_sync&quot;: &quot;&lt;now&gt;&quot;,
+      &quot;fileName&quot;: &quot;&lt;fileName&gt;&quot;
+    }
+  }
+}</code></pre></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

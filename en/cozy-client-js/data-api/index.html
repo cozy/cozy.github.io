@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-client-js/data-api/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>Data System API - Cozy Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Cozy Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Use <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/">User guide</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Stay in sync</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronize your phone</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronize your computer</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Install on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Download</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../dev/">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="../../dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="../../dev/app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="../../dev/konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="../../dev/cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="../../dev/sendmail/">How to send mail in development</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">References <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-client-js</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../intro/">Introduction</a>
+</li>
+            
+<li >
+    <a href="../browser-sdk-transition/">Transition from cozy-browser-sdk</a>
+</li>
+            
+<li >
+    <a href="../offline/">How to support offline</a>
+</li>
+            
+<li >
+    <a href="../oauth/">OAuth guide</a>
+</li>
+            
+<li >
+    <a href="../auth-api/">Authentication API</a>
+</li>
+            
+<li class="active">
+    <a href="./">Data System API</a>
+</li>
+            
+<li >
+    <a href="../files-api/">Files API</a>
+</li>
+            
+<li >
+    <a href="../jobs-api/">Jobs API</a>
+</li>
+            
+<li >
+    <a href="../intents-api/">Intents API</a>
+</li>
+            
+<li >
+    <a href="../settings-api/">Settings API</a>
+</li>
+            
+<li >
+    <a href="../sharing-api/">Sharing API</a>
+</li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#data-api">Data API</a></li>
+            <li><a href="#cozyclientdatacreatedoctype-attributes">cozy.client.data.create(doctype, attributes)</a></li>
+            <li><a href="#cozyclientdatafinddoctype-id">cozy.client.data.find(doctype, id)</a></li>
+            <li><a href="#cozyclientdatafindmanydoctype-ids">cozy.client.data.findMany(doctype, [ids])</a></li>
+            <li><a href="#cozyclientdatafindalldoctype">cozy.client.data.findAll(doctype)</a></li>
+            <li><a href="#cozyclientdatachangesfeeddoctype-options">cozy.client.data.changesFeed(doctype, options)</a></li>
+            <li><a href="#cozyclientdataupdatedoctype-doc-newdoc">cozy.client.data.update(doctype, doc, newdoc)</a></li>
+            <li><a href="#cozyclientdataupdateattributesdoctype-id-changes">cozy.client.data.updateAttributes(doctype, id, changes)</a></li>
+            <li><a href="#cozyclientdatadeletedoctype-doc">cozy.client.data.delete(doctype, doc)</a></li>
+            <li><a href="#cozyclientdatadefineindexdoctype-fields">cozy.client.data.defineIndex(doctype, fields)</a></li>
+            <li><a href="#cozyclientdataqueryindexreference-query">cozy.client.data.query(indexReference, query)</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="data-api">Data API<a class="headerlink" href="#data-api" title="Permanent link">&para;</a></h1>
+<h3 id="cozyclientdatacreatedoctype-attributes"><code>cozy.client.data.create(doctype, attributes)</code><a class="headerlink" href="#cozyclientdatacreatedoctype-attributes" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.data.create(doctype, attributes)</code> adds a document to the database.</p>
+<p>It returns a promise for the created object. The created object has the same attributes than thoses passed, with an added <code>_id</code>. It&rsquo;s the unique identifier for the created document.</p>
+<p>If you use an existing doctype, you should follow its expected format. <strong>v2</strong> does not enforce this, but we plan to on <strong>v3</strong>. Anyway, do you want to be the app that creates empty contacts in the native app ?</p>
+<ul>
+<li><code>doctype</code> is a string specifying the <a href="../intro/#doctypes--permissions">doctype</a></li>
+<li><code>attributes</code> is an object that can be stringified using <code>JSON.stringify</code>: if it is a complex or cyclic object, add a <code>toJSON</code> method to it (native behaviour of <code>JSON.stringify</code>).</li>
+</ul>
+<p><strong>Warning</strong>: on <strong>v3</strong>, an extra field <code>_rev</code> is added, it is the unique identifier for the document revision, after creation, it will be of the shape <code>1-xxxxxxxxx</code> for first revision.</p>
+<pre class="codehilite"><code class="language-javascript">// simple object
+const book = { title: &quot;Moby Dick&quot;, author:&quot;Herman Melville&quot;, isbn: &quot;42&quot; }
+const created = await cozy.client.data.create(myBooksDoctype, book)
+// same fields
+console.log(created.title, created.author, created.isbn)
+// _id, _rev are added
+console.log(created._id, created._rev)
+// let's keep it for later
+createdBookId = created._id</code></pre>
+
+
+<h3 id="cozyclientdatafinddoctype-id"><code>cozy.client.data.find(doctype, id)</code><a class="headerlink" href="#cozyclientdatafinddoctype-id" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.data.find(doctype, id)</code> returns the document associated to the given ID.</p>
+<p>It returns a promise for the document. It will have the same fields than the returned value of <code>create</code>, including <code>_id</code> and <code>_rev</code>.</p>
+<p>If the document does not exist, the promise will be rejected or the callback will be passed an error.</p>
+<ul>
+<li><code>doctype</code> is a string specifying the <a href="../intro/#doctypes--permissions">doctype</a></li>
+<li><code>id</code> is a string specifying the identifier of the document you look for</li>
+</ul>
+<pre class="codehilite"><code class="language-javascript">const doc = await cozy.client.data.find(myBooksDoctype, createdBookId)
+console.log(doc._id, doc._rev, doc.title, doc.author, doc.isbn)</code></pre>
+
+
+<h3 id="cozyclientdatafindmanydoctype-ids"><code>cozy.client.data.findMany(doctype, [ids])</code><a class="headerlink" href="#cozyclientdatafindmanydoctype-ids" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.data.findMany(doctype, [ids])</code> returns the documents associated to the given IDs.</p>
+<p>It returns a promise for a map, with the given IDs as keys.</p>
+<p>When a document is found, the corresponding value will be an object with a
+single <code>doc</code> key containing the document.
+Documents will have the same fields than the returned values of <code>create</code>,
+including <code>_id</code> and <code>_rev</code>.</p>
+<p>When a document is missing, the corresponding value will be an object with a
+single <code>error</code> key containing the error message.
+Even when some document is missing, the promise will still be fulfilled or the
+callback will be passed the resulting map, so you can still access the other
+documents found and identify the missing ones.</p>
+<ul>
+<li><code>doctype</code> is a string specifying the
+  <a href="../intro/#doctypes--permissions">doctype</a></li>
+<li><code>ids</code> is an array of strings specifying the identifiers of the documents you
+  look for</li>
+</ul>
+<p><strong>Warning</strong>: Not available on <strong>v2</strong>. A fallback implementation could be
+provided at some point.</p>
+<pre class="codehilite"><code class="language-javascript">const ids = [createdBookId, ...]
+const resultsById = await cozy.client.data.findMany(myBooksDoctype, ids)
+for (const id of ids) {
+  const {doc, error} = resultsById[id]
+  if (error) {
+    console.error(`Error while fetching book ${id}: ${error}`)
+  } else {
+    console.log(doc._id, doc._rev, doc.title, doc.author, doc.isbn)
+  }
+}</code></pre>
+
+
+<h3 id="cozyclientdatafindalldoctype"><code>cozy.client.data.findAll(doctype)</code><a class="headerlink" href="#cozyclientdatafindalldoctype" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.data.findAll(doctype)</code> returns the all documents associated to the given doctype.</p>
+<p>It returns a promise for a map, with the given IDs as keys.</p>
+<p>When a document is found, the corresponding value will be an object with a
+single <code>doc</code> key containing the document.
+Documents will have the same fields than the returned values of <code>create</code>,
+including <code>_id</code> and <code>_rev</code>.</p>
+<ul>
+<li><code>doctype</code> is a string specifying the
+  <a href="../intro/#doctypes--permissions">doctype</a>
+  look for</li>
+</ul>
+<p><strong>Warning</strong>: Not available on <strong>v2</strong>. A fallback implementation could be
+provided at some point.</p>
+<pre class="codehilite"><code class="language-javascript">const result = await cozy.client.data.findAll(myBooksDoctype)
+if (result.error) {
+    console.error('Error while fetching books')
+}
+for (const id of result.keys) {
+    const doc = result.docs[id]
+    console.log(doc._id, doc._rev, doc.title, doc.author, doc.isbn)
+}</code></pre>
+
+
+<h3 id="cozyclientdatachangesfeeddoctype-options"><code>cozy.client.data.changesFeed(doctype, options)</code><a class="headerlink" href="#cozyclientdatachangesfeeddoctype-options" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.data.changesFeed(doctype, options)</code> returns the last changes from CouchDB for the given doctype</p>
+<p>It returns a promise for the changes.</p>
+<ul>
+<li><code>doctype</code> is a string specifying the <a href="../intro/#doctypes--permissions">doctype</a></li>
+<li><code>options</code> is an object, only its <code>since</code> parameter is supported currently</li>
+</ul>
+<pre class="codehilite"><code class="language-javascript">const changes = await.cozy.client.data.changesFeed(myBooksDoctype, { since: 0 })
+console.log(changes.last_seq, changes.results)</code></pre>
+
+
+<h3 id="cozyclientdataupdatedoctype-doc-newdoc"><code>cozy.client.data.update(doctype, doc, newdoc)</code><a class="headerlink" href="#cozyclientdataupdatedoctype-doc-newdoc" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.data.update(doctype, doc, newdoc)</code> replaces the document by a new version.</p>
+<p>It returns a promise for the updated document. The updated document will have the same fields and values than provided in newdoc, the same <code>_id</code> than doc, and a <code>_rev</code> incremented from doc&rsquo;s number.</p>
+<p>If the document does not exist, the promise will reject with an error.</p>
+<p>If the document current <code>_rev</code> does not match the passed one, it means there is a conflict and the promise is rejected with an error.</p>
+<ul>
+<li><code>doctype</code> is a string specifying the <a href="../intro/#doctypes--permissions">doctype</a></li>
+<li><code>doc</code> is an object with <em>at least</em> the fields <code>_id</code> and <code>_rev</code> containing the identifier and revision of the file you want to update.</li>
+<li><code>newdoc</code> is an object, specifying the new content of the document</li>
+</ul>
+<pre class="codehilite"><code class="language-javascript">const updates = { title: &quot;Moby Dick !&quot;, author:&quot;THE Herman Melville&quot;}
+const updated = await cozy.client.data.update(myBooksDoctype, doc, updates)
+console.log(updated._id === doc._id) // _id does not change
+console.log(updated._rev) // 2-xxxxxx
+console.log(updated.title, updated.year) // fields are changed
+console.log(updated.isbn === undefined) // update erase fields</code></pre>
+
+
+<h3 id="cozyclientdataupdateattributesdoctype-id-changes"><code>cozy.client.data.updateAttributes(doctype, id, changes)</code><a class="headerlink" href="#cozyclientdataupdateattributesdoctype-id-changes" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.data.updateAttributes(doctype, id, changes)</code> applies change to the document.</p>
+<p>It returns a promise for the updated document. The updated document will be the result of merging changes into the document with given <code>_id</code> and a incremented <code>_rev</code>.</p>
+<p>If the document does not exist, the promise will be rejected or the callback will be passed an error.</p>
+<p>This function gives 3 attempts not to conflict.</p>
+<ul>
+<li><code>doctype</code> is a string specifying the <a href="../intro/#doctypes--permissions">doctype</a></li>
+<li><code>id</code> is a string specifying the identifier of the document to update</li>
+<li><code>changes</code> is an object</li>
+</ul>
+<pre class="codehilite"><code class="language-javascript">const updates = { year: 1852}
+const updated = await cozy.client.data.updateAttributes(myBooksDoctype, id, updates)
+console.log(updated._id === doc._id) // _id does not change
+console.log(updated._rev) // 3-xxxxxx
+console.log(updated.year) // fields are changed
+console.log(updated.isbn) // updateAttributes preserve other fields</code></pre>
+
+
+<h3 id="cozyclientdatadeletedoctype-doc"><code>cozy.client.data.delete(doctype, doc)</code><a class="headerlink" href="#cozyclientdatadeletedoctype-doc" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.data.delete(doctype, doc )</code> will erase the document from the database.</p>
+<p>It returns a promise which will be resolved when the document has been deleted.</p>
+<p>If the document does not exist, the promise will be rejected with an error. If the document current <code>_rev</code> does not match the passed one, it means there is a conflict and the promise is rejected with an error.</p>
+<ul>
+<li><code>doctype</code> is a string specifying the <a href="../intro/#doctypes--permissions">doctype</a></li>
+<li><code>doc</code> is an object with <em>at least</em> the fields <code>_id</code> and <code>_rev</code> containing the identifier and revision of the file you want to destroy.</li>
+</ul>
+<pre class="codehilite"><code class="language-javascript">await cozy.client.data.delete(myBooksDoctype, updated)</code></pre>
+
+
+<h3 id="cozyclientdatadefineindexdoctype-fields"><code>cozy.client.data.defineIndex(doctype, fields)</code><a class="headerlink" href="#cozyclientdatadefineindexdoctype-fields" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.data.defineIndex(doctype, fields)</code> creates an index for a document type. It is idempotent, it can be called several time with no bad effect.</p>
+<p>It returns a promise for an <strong>indexReference</strong>, which can be passed to <code>cozy.data.query</code>.</p>
+<ul>
+<li><code>doctype</code> is a string specifying the <a href="../intro/#doctypes--permissions">doctype</a></li>
+<li><code>fields</code> is an array of the fields name to index</li>
+</ul>
+<p><strong>Warning</strong>: when used on <strong>v2</strong>, a map-reduce view is created internally, when used on <strong>v3</strong>, we use couchdb built-in mango queries.</p>
+<pre class="codehilite"><code class="language-javascript">const booksByYearRef = await cozy.client.data.defineIndex(myType, ['year', 'rating'])</code></pre>
+
+
+<h3 id="cozyclientdataqueryindexreference-query"><code>cozy.client.data.query(indexReference, query)</code><a class="headerlink" href="#cozyclientdataqueryindexreference-query" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.data.query(indexReference, query)</code> find documents using an index.</p>
+<p>It returns a promise with a list of documents matching the query. Results will be returned in the order defined for the index.</p>
+<ul>
+<li><code>query</code> is an object with the following fields:</li>
+<li><code>selector</code>: a mango selector</li>
+<li><code>limit</code>: maximum number of results</li>
+<li><code>skip</code>: ignore the first x results (pagination)</li>
+<li><code>wholeResponse</code>: when set to true, the whole query response will be returned instead of just the docs. This is useful when paginating, because you&rsquo;ll get the <code>next</code> property in the response object.</li>
+</ul>
+<p><strong>Warning</strong>: complex mango queries are not compatible with <strong>v2</strong></p>
+<pre class="codehilite"><code class="language-javascript">const results = await cozy.client.data.query(booksByYearRef, {
+  &quot;selector&quot;: {year: 1851},
+  &quot;limit&quot;: 3,
+  &quot;skip&quot;: 1
+})
+
+results.length == 3 // we limited to 3 results
+resuts[0]._id === doc._id
+resuts[0].title === &quot;Moby Dick&quot;
+resuts[0].rating &lt; 2 // lowest rating first</code></pre></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

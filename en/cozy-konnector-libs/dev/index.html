@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-konnector-libs/dev/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>Develop - Cozy Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Cozy Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Use <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/">User guide</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Stay in sync</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronize your phone</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronize your computer</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Install on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Download</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../dev/">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="../../dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="../../dev/app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="../../dev/konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="../../dev/cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="../../dev/sendmail/">How to send mail in development</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">References <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../api/">API</a>
+</li>
+            
+<li >
+    <a href="../cli/">CLI</a>
+</li>
+            
+<li class="active">
+    <a href="./">Develop</a>
+</li>
+            
+<li >
+    <a href="../errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-client-js</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-client-js/intro/">Introduction</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/browser-sdk-transition/">Transition from cozy-browser-sdk</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/offline/">How to support offline</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/oauth/">OAuth guide</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/auth-api/">Authentication API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/data-api/">Data System API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/files-api/">Files API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/jobs-api/">Jobs API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/intents-api/">Intents API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/settings-api/">Settings API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/sharing-api/">Sharing API</a>
+</li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#developing-a-konnector">Developing a konnector</a></li>
+            <li><a href="#without-an-accessible-cozy-stack">Without an accessible cozy-stack</a></li>
+            <li><a href="#with-the-cozy-stack">With the cozy-stack</a></li>
+            <li><a href="#how-does-the-cozy-stack-run-the-connector">How does the cozy-stack run the connector ?</a></li>
+            <li><a href="#build-without-travis">Build (without Travis)</a></li>
+            <li><a href="#build-using-travis-ci">Build using Travis CI</a></li>
+            <li><a href="#add-your-new-connector-to-cozy-collect">Add your new connector to Cozy Collect</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h2 id="developing-a-konnector">Developing a konnector<a class="headerlink" href="#developing-a-konnector" title="Permanent link">&para;</a></h2>
+<h3 id="without-an-accessible-cozy-stack">Without an accessible cozy-stack<a class="headerlink" href="#without-an-accessible-cozy-stack" title="Permanent link">&para;</a></h3>
+<p>If you just want to test this connector without any cozy available.</p>
+<p>You first need an installed [nodejs] (LTS version is fine).</p>
+<p>And the last version of yarn :</p>
+<pre class="codehilite"><code class="language-sh">npm install --global yarn</code></pre>
+
+
+<p>Then just run :</p>
+<pre class="codehilite"><code class="language-sh">yarn
+yarn standalone</code></pre>
+
+
+<p>The requests to the cozy-stack will be stubbed using the [./fixture.json] file as source of data
+and when cozy-client is asked to create or update data, the data will be output to the console.
+The bills (or any file) will be saved in the . directory.</p>
+<h3 id="with-the-cozy-stack">With the cozy-stack<a class="headerlink" href="#with-the-cozy-stack" title="Permanent link">&para;</a></h3>
+<p>If you do not want to have to install the konnector on a cozy v3 to test it, you can register the
+konnector as an OAuth application with the following commands :</p>
+<pre class="codehilite"><code class="language-sh">yarn
+yarn dev</code></pre>
+
+
+<p>This command will register your konnector as an OAuth application to the cozy-stack. By default,
+the cozy-stack is supposed to be located in http://cozy.tools:8080. If this is not your case, just
+update the COZY_URL field in [./konnector-dev-config.json].</p>
+<p>After that, your konnector is running but should not work since you did not specify any credentials to
+the target service. You can do this also in [./konnector-dev-config.json] in the &ldquo;fields&rdquo;
+attribute.</p>
+<p>Now run <code>yarn dev</code> one more time, it should be ok.</p>
+<p>The files are saved in the root directory of your cozy by default.</p>
+<h3 id="how-does-the-cozy-stack-run-the-connector">How does the cozy-stack run the connector ?<a class="headerlink" href="#how-does-the-cozy-stack-run-the-connector" title="Permanent link">&para;</a></h3>
+<p>The cozy-stack runs the connector in a nsjail container to be sure it does not affect the environment.</p>
+<p>The connector is run by calling yarn start with the following envrionment variables :</p>
+<ul>
+<li>COZY_CREDENTIALS needs to be the result of <code>cozy-stack instances token-cli &lt;instance name&gt; &lt;scope&gt;</code></li>
+<li>COZY_URL is the full http or https url to your cozy</li>
+<li>COZY_FIELDS is something like :</li>
+</ul>
+<pre class="codehilite"><code class="language-javascript">{
+  &quot;data&quot;:{
+    &quot;attributes&quot;:{
+      &quot;arguments&quot;:{
+        &quot;account&quot;:&quot;cf31eaef5d899404a7e8c3737c1c2d1f&quot;,
+        &quot;folder_to_save&quot;:&quot;folderPathId&quot;,
+        &quot;slug&quot;:&quot;mykonnector&quot;
+      }
+    }
+  }
+}</code></pre>
+
+
+<p>The &ldquo;account&rdquo; field is the id of the record with doctype &ldquo;io.cozy.accounts&rdquo; which will be used as
+parameters for your konnector.</p>
+<h3 id="build-without-travis">Build (without Travis)<a class="headerlink" href="#build-without-travis" title="Permanent link">&para;</a></h3>
+<p>To be able to run the connector, the cozy stack needs a connector which is built into only one
+file, without needing to install its dependencies, this will be a lot faster to install.</p>
+<p>There is a command in package.json to help you to do that : <code>yarn build</code></p>
+<p>This command uses [webpack] to bundle all the code needed by your connector into one file.</p>
+<p>This will generate an index.js file in the build directory and add all files the connector will need.</p>
+<p>You can deploy this build by using the specific script : <code>yarn deploy</code></p>
+<p>This command will commit and push your build in the branch <code>build</code> fo your project.</p>
+<p>And your konnector can now be installed using the following url :</p>
+<p>git://github.com/konnectors/cozy-konnector-<yourkonnector>.git#build</p>
+<h3 id="build-using-travis-ci">Build using Travis CI<a class="headerlink" href="#build-using-travis-ci" title="Permanent link">&para;</a></h3>
+<p>This project contains a <code>.travis.yml</code> config file which allows you to build your connector
+automatically using [Travis-CI][travis].</p>
+<p>You can follow these steps to enable building using Travis:</p>
+<ul>
+<li>On your [travis-ci.org][travis] account, find your project name (should be the same than your Github repository) and enable Travis by using the related checkbox.</li>
+<li>Once enabled, go to this project on Travis by clicking on it and go to the &ldquo;Settings&rdquo; menu by using the &ldquo;More options&rdquo; menu at the top right.</li>
+<li>Enable these three options:<ul>
+<li>&ldquo;Build only if .travis.yml is present&rdquo;</li>
+<li>&ldquo;Build branch updates&rdquo; (run Travis after each branch update)</li>
+<li>&ldquo;Build pull request updates&rdquo; (run Travis after each Pull Request update)</li>
+</ul>
+</li>
+<li>Then, you have to generate a Github token in <a href="https://github.com/settings/tokens">your Github account settings</a>. Here is the <a href="https://github.com/blog/1509-personal-api-tokens">Github blog post about API token</a>. Don&rsquo;t forget to authorize the access to the repo scope like following: <img alt="repo scope" src="https://cloud.githubusercontent.com/assets/10224453/26671128/aa735ec2-46b4-11e7-9cd0-25310100e05e.png" /></li>
+<li>Then, add an environment variable (still in your Travis project settings) named <code>GITHUB_TOKEN</code> and use your previous generated Github token as value (We highly recommand you to <strong>keep the checkbox &ldquo;Display value in build log&rdquo; to OFF value</strong> in order to keep your token value hidden in the Travis logs.)</li>
+</ul>
+<p>Now Travis is ready to build your project, it should build it each time your push a commit in your repository or create a pull request.</p>
+<blockquote>
+<p><strong>Note:</strong> Travis will push your build to your <code>build</code> branch ONLY for commits made on your master branch (included PR merge commits). You can see the related Travis statement <a href="https://github.com/cozy/cozy-konnector-template/blob/master/.travis.yml#L27">here</a>.</p>
+</blockquote>
+<h3 id="add-your-new-connector-to-cozy-collect">Add your new connector to <a href="https://github.com/cozy/cozy-collect">Cozy Collect</a><a class="headerlink" href="#add-your-new-connector-to-cozy-collect" title="Permanent link">&para;</a></h3>
+<p>The Cozy Collect application will soon use an application store as source of connectors. But for
+now, if you want to add your new connector to Cozy Collect, you can submit a message in the forum
+in the <a href="https://forum.cozy.io/c/francais/collect-fr">collect section</a>, and we will handle this for
+you.</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

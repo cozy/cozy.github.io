@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/dev/sendmail/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>Envoyer un courriel - Documentation Cozy</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Documentation Cozy</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../../index_fr/">Accueil</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Utiliser <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/index_fr/">Utiliser Cozy</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchroniser <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Restez synchro</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronisez vos téléphones</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronisez vos ordinateurs</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Installer sur GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Télécharger</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Installer <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Installation manuelle</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Développer <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../">Introduction</a>
+</li>
+                            
+<li >
+    <a href="../intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="../app/">Créez votre première application</a>
+</li>
+                            
+<li >
+    <a href="../konnector/">Créez votre premier connecteur</a>
+</li>
+                            
+<li >
+    <a href="../cordova/">Créez une application mobile avec Cordova</a>
+</li>
+                            
+<li class="active">
+    <a href="./">Envoyer un courriel</a>
+</li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#share-and-send-mail-in-development">Share and send mail in development</a></li>
+            <li><a href="#with-the-docker-image">With the docker image</a></li>
+            <li><a href="#with-the-binary-cozy-stack">With the binary cozy-stack</a></li>
+            <li><a href="#retrieve-sent-emails">Retrieve sent emails</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="share-and-send-mail-in-development">Share and send mail in development<a class="headerlink" href="#share-and-send-mail-in-development" title="Permanent link">&para;</a></h1><p>Cozy apps let users <a href="https://cozy.github.io/cozy-stack/sharing.html#cozy-to-cozy-sharing">share documents from cozy to cozy</a>.</p><p>Meet Alice and Bob.
+Alice wants to share a folder with Bob.
+Alice clicks on the share button and fills in the email input with Bob&rsquo;s email address.
+Bob receives an email with a <em>« Accept the sharing »</em> button.
+Bob clicks on that button and is redirected to Alice&rsquo;s cozy to enter his own cozy url to link both cozys.
+Bob sees Alice&rsquo;s shared folder in his own cozy.</p><p>🤔 But how could we do this scenario on development environment?</p><h2 id="with-the-docker-image">With the docker image<a class="headerlink" href="#with-the-docker-image" title="Permanent link">&para;</a></h2><p>If you develop with the <a href="https://cozy.github.io/cozy-stack/client-app-dev.html#with-docker">cozy-app-dev docker image</a>, 
+<a href="https://github.com/mailhog/MailHog">MailHog</a> is running inside it to catch emails.</p><p>If cozy-stack has to send an email, MailHog catches it and exposes it on its web interface on http://cozy.tools:8025/.</p><h2 id="with-the-binary-cozy-stack">With the binary cozy-stack<a class="headerlink" href="#with-the-binary-cozy-stack" title="Permanent link">&para;</a></h2><p>If you develop with the <a href="https://cozy.github.io/cozy-stack/cli/cozy-stack.html">cozy-stack CLI</a>, you have to run 
+<a href="https://github.com/mailhog/MailHog">MailHog</a> on your computer and tell 
+<code>cozy-stack serve</code> where to find the mail server with some 
+<a href="https://cozy.github.io/cozy-stack/cli/cozy-stack_serve.html#options">options</a>:</p><pre class="codehilite"><code>./cozy-stack serve --appdir drive:../cozy-drive/build,settings:../cozy-settings/build --mail-disable-tls --mail-port 1025</code></pre>
+
+
+<p><em>This commands assumes you <code>git clone</code> <a href="https://github.com/cozy/cozy-drive">cozy-drive</a> and <a href="https://github.com/cozy/cozy-settings">cozy-settings</a> in the same folder than you <code>git clone</code> <a href="https://github.com/cozy/cozy-stack">cozy-stack</a>.</em></p><p>Then simply run <code>MailHog</code> and open http://cozy.tools:8025/.</p><h2 id="retrieve-sent-emails">Retrieve sent emails<a class="headerlink" href="#retrieve-sent-emails" title="Permanent link">&para;</a></h2><p>With MailHog, <strong>every email</strong> sent by cozy-stack is caught. That means the email address 
+<em>does not have to be a real one</em>, ie. 
+<code>bob@cozy</code>, 
+<code>bob@cozy.tools</code> are perfectly fine. It 
+<em>could be a real one</em>, but the email will not reach the real recipient&rsquo;s inbox, say 
+<code>contact@cozycloud.cc</code>.</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
