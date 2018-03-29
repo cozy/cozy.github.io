@@ -2,6 +2,16 @@
 
 Learn how to [use Cozy](https://docs.cozy.io/en/use), [host your own server](https://docs.cozy.io/en/install/) and [develop applications](https://docs.cozy.io/en/dev/).
 
+## How are the docs deployed
+
+This doc is built automatically by Travis when
+
+* master is pushed
+* and every day
+
+As soon as it is built, it is available on https://cozy.github.io/cozy-docs-v3/en/.
+https://docs.cozy.io is not a direct mirror and is updated by hand so it is not directly updated. Nevertheless it shoud be almost up-to-date.
+
 ## Hack this documentation
 
 This documentation is built with [MkDocs](http://www.mkdocs.org).
