@@ -30,7 +30,7 @@ The docs are built from this repository and also for the references from other r
 developers edit their documentation in their repository and this documentation consolidates
 all the docs in a single site which makes it convenient to search.
 
-See the [./fetch.sh] and [./build.sh] for more information.
+See the [./fetch.sh](./fetch.sh) and [./build.sh](./build.sh) scripts for more information.
 
 ## When are the docs deployed ?
 
