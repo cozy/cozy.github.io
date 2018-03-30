@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/konnectors/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>Konnectors - Cozy Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Cozy Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Use <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/">User guide</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Stay in sync</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronize your phone</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronize your computer</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Install on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Download</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../dev/">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="../../dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="../../dev/app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="../../dev/konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="../../dev/cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="../../dev/sendmail/">How to send mail in development</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">References</a>
+    <ul class="dropdown-menu">
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-client-js</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-client-js/intro/">Introduction</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/browser-sdk-transition/">Transition from cozy-browser-sdk</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/offline/">How to support offline</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/oauth/">OAuth guide</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/auth-api/">Authentication API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/data-api/">Data System API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/files-api/">Files API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/jobs-api/">Jobs API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/intents-api/">Intents API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/settings-api/">Settings API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/sharing-api/">Sharing API</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-stack</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../README/">README</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Architecture</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../architecture/">General overview</a>
+</li>
+            
+<li >
+    <a href="../security/">Security</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Usage</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../INSTALL/">Install the cozy-stack</a>
+</li>
+            
+<li >
+    <a href="../cli/cozy-stack/">Manpages of the command-line tool</a>
+</li>
+            
+<li >
+    <a href="../config/">Configuration file</a>
+</li>
+            
+<li >
+    <a href="../instance/">Managing Instances</a>
+</li>
+            
+<li >
+    <a href="../onboarding/">Onboarding</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">For developpers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../client-app-dev/">Develop a client-side app</a>
+</li>
+            
+<li >
+    <a href="../docker/">Running and building Docker images</a>
+</li>
+            
+<li >
+    <a href="../release/">Build a release</a>
+</li>
+            
+<li >
+    <a href="../CONTRIBUTING/">The contributing guide</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Services</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../auth/">/auth - Authentication & OAuth</a>
+</li>
+            
+<li >
+    <a href="../apps/">/apps - Applications Management</a>
+</li>
+            
+<li >
+    <a href="../registry/">Apps registry</a>
+</li>
+            
+<li >
+    <a href="../data-system/">/data - Data System</a>
+</li>
+            
+<li >
+    <a href="../mango/">Mango</a>
+</li>
+            
+<li >
+    <a href="../replication/">Replication</a>
+</li>
+            
+<li >
+    <a href="../couchdb-quirks/">CouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../files/">/files - Virtual File System</a>
+</li>
+            
+<li >
+    <a href="../references-docs-in-vfs/">References of documents in VFS</a>
+</li>
+            
+<li >
+    <a href="../intents/">/intents - Intents</a>
+</li>
+            
+<li >
+    <a href="../jobs/">/jobs Jobs</a>
+</li>
+            
+<li class="active">
+    <a href="./">Konnectors</a>
+</li>
+            
+<li >
+    <a href="../workers/">Workers</a>
+</li>
+            
+<li >
+    <a href="../notifications/">/notifications - Notifications</a>
+</li>
+            
+<li >
+    <a href="../permissions/">/permissions - Permissions</a>
+</li>
+            
+<li >
+    <a href="../realtime/">/realtime - Realtime</a>
+</li>
+            
+<li >
+    <a href="../remote/">/remote - Proxy for remote data/API</a>
+</li>
+            
+<li >
+    <a href="../settings/">/settings - Settings</a>
+</li>
+            
+<li >
+    <a href="../sharing/">/sharings - Sharing</a>
+</li>
+            
+<li >
+    <a href="../sharing-design/">Request for comments</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#konnectors">Konnectors</a></li>
+            <li><a href="#install-a-konnector">Install a konnector</a></li>
+            <li><a href="#the-manifest">The manifest</a></li>
+            <li><a href="#list-installed-konnectors">List installed konnectors</a></li>
+            <li><a href="#get-informations-about-a-konnector">Get informations about a konnector</a></li>
+            <li><a href="#uninstall-a-konnector">Uninstall a konnector</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<p><a href="../README/#table-of-contents">Table of contents</a></p>
+<h1 id="konnectors">Konnectors<a class="headerlink" href="#konnectors" title="Permanent link">&para;</a></h1>
+<p>It is possible to manage konnectors applications from the stack. The source-code
+of the konnector is installed on the cozy and the user can manage its execution
+<em>via</em> our <a href="../jobs/">job system</a> and the <a href="../workers/">konnector worker</a>.</p>
+<h2 id="install-a-konnector">Install a konnector<a class="headerlink" href="#install-a-konnector" title="Permanent link">&para;</a></h2>
+<h2 id="the-manifest">The manifest<a class="headerlink" href="#the-manifest" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>the name to display on the home</td>
+</tr>
+<tr>
+<td>slug</td>
+<td>the default slug (it can be changed at install time)</td>
+</tr>
+<tr>
+<td>editor</td>
+<td>the editor&rsquo;s name to display on the cozy-bar of the app</td>
+</tr>
+<tr>
+<td>type</td>
+<td>the type of the konnector source (&ldquo;node&rdquo; is the only supported for now)</td>
+</tr>
+<tr>
+<td>icon</td>
+<td>an icon for the home</td>
+</tr>
+<tr>
+<td>screenshots</td>
+<td>an array of path to the screenshots of the application</td>
+</tr>
+<tr>
+<td>category</td>
+<td>the category of the application</td>
+</tr>
+<tr>
+<td>short_description</td>
+<td>a short description of the application</td>
+</tr>
+<tr>
+<td>long_description</td>
+<td>a long description of the application</td>
+</tr>
+<tr>
+<td>source</td>
+<td>where the files of the app can be downloaded</td>
+</tr>
+<tr>
+<td>developer</td>
+<td><code>name</code> and <code>url</code> for the developer</td>
+</tr>
+<tr>
+<td>default_locale</td>
+<td>the locale used for the name and description fields</td>
+</tr>
+<tr>
+<td>locales</td>
+<td>translations of the name and description fields in other locales</td>
+</tr>
+<tr>
+<td>langs</td>
+<td>list of languages tags supported by the application</td>
+</tr>
+<tr>
+<td>version</td>
+<td>the current version number</td>
+</tr>
+<tr>
+<td>parameters</td>
+<td>any json object that will be passed to the konnector on execution in the <code>COZY_PARAMETERS</code> environment variable</td>
+</tr>
+<tr>
+<td>license</td>
+<td><a href="https://spdx.org/licenses/">the SPDX license identifier</a></td>
+</tr>
+<tr>
+<td>permissions</td>
+<td>a map of permissions needed by the app (see <a href="../permissions/">here</a> for more details)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="post-konnectorsslug">POST /konnectors/:slug<a class="headerlink" href="#post-konnectorsslug" title="Permanent link">&para;</a></h3>
+<p>Install a konnector, ie download the files and put them in <code>/konnectors/:slug</code>
+in the virtual file system of the user, create an <code>io.cozy.konnectors</code> document,
+register the permissions, etc.</p>
+<p>This endpoint is asynchronous and returns a successful return as soon as the
+konnector installation has started, meaning we have successfully reached the
+manifest and started to fetch konnector source code.</p>
+<p>To make this endpoint synchronous, use the header <code>Accept: text/event-stream</code>.
+This will make a eventsource stream sending the manifest and returning when the
+konnector has been installed or failed.</p>
+<h4 id="status-codes">Status codes<a class="headerlink" href="#status-codes" title="Permanent link">&para;</a></h4>
+<ul>
+<li>202 Accepted, when the konnector installation has been accepted.</li>
+<li>400 Bad-Request, when the manifest of the konnector could not be processed
+  (for instance, it is not valid JSON).</li>
+<li>404 Not Found, when the manifest or the source of the konnector is not
+  reachable.</li>
+<li>422 Unprocessable Entity, when the sent data is invalid (for example, the slug
+  is invalid or the Source parameter is not a proper or supported url)</li>
+</ul>
+<h4 id="query-string">Query-String<a class="headerlink" href="#query-string" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source</td>
+<td>URL from where the app can be downloaded (only for install)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/konnectors/bank101?Source=git://github.com/cozy/cozy-bank101.git</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
+
+
+<h4 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">202</span> <span class="ne">Accepted</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[{</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;4cfbd8be-8968-11e6-9708-ef55b7c20863&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.konnectors&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-7a1f918147df94580c92b47275e4604a&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;bank101&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;installing&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;bank101&quot;</span><span class="p">,</span>
+      <span class="err">...</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/konnectors/bank101&quot;</span>
+    <span class="p">}</span>
+  <span class="p">}]</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p><strong>Note</strong>: it&rsquo;s possible to choose a git branch by passing it in the fragment
+like this:</p>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/konnectors/bank101-dev?Source=git://github.com/cozy/cozy-bank101.git%23dev</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
+
+
+<h3 id="put-konnectorsslug">PUT /konnectors/:slug<a class="headerlink" href="#put-konnectorsslug" title="Permanent link">&para;</a></h3>
+<p>Update a konnector source code with the specified slug name.</p>
+<p>This endpoint is asynchronous and returns a successful return as soon as the
+konnector installation has started, meaning we have successfully reached the
+manifest and started to fetch konnector source code.</p>
+<p>To make this endpoint synchronous, use the header <code>Accept: text/event-stream</code>.
+This will make a eventsource stream sending the manifest and returning when the
+konnector has been updated or failed.</p>
+<h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">PUT</span> <span class="nn">/konnectors/bank101</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
+
+
+<h4 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">202</span> <span class="ne">Accepted</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[{</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;4cfbd8be-8968-11e6-9708-ef55b7c20863&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.konnectors&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-7a1f918147df94580c92b47275e4604a&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;bank101&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;installing&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;bank101&quot;</span><span class="p">,</span>
+      <span class="err">...</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/konnectors/bank101&quot;</span>
+    <span class="p">}</span>
+  <span class="p">}]</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h4 id="status-codes_1">Status codes<a class="headerlink" href="#status-codes_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li>202 Accepted, when the konnector installation has been accepted.</li>
+<li>400 Bad-Request, when the manifest of the konnector could not be processed
+  (for instance, it is not valid JSON).</li>
+<li>404 Not Found, when the konnector with the specified slug was not found or
+  when the manifest or the source of the konnector is not reachable.</li>
+<li>422 Unprocessable Entity, when the sent data is invalid (for example, the slug
+  is invalid or the Source parameter is not a proper or supported url)</li>
+</ul>
+<h2 id="list-installed-konnectors">List installed konnectors<a class="headerlink" href="#list-installed-konnectors" title="Permanent link">&para;</a></h2>
+<h3 id="get-konnectors">GET /konnectors/<a class="headerlink" href="#get-konnectors" title="Permanent link">&para;</a></h3>
+<h4 id="request_2">Request<a class="headerlink" href="#request_2" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/konnectors/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
+
+
+<h4 id="response_2">Response<a class="headerlink" href="#response_2" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[{</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;4cfbd8be-8968-11e6-9708-ef55b7c20863&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.konnectors&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-7a1f918147df94580c92b47275e4604a&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;bank101&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;installing&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;bank101&quot;</span><span class="p">,</span>
+      <span class="err">...</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/konnectors/bank101&quot;</span>
+    <span class="p">}</span>
+  <span class="p">}]</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h2 id="get-informations-about-a-konnector">Get informations about a konnector<a class="headerlink" href="#get-informations-about-a-konnector" title="Permanent link">&para;</a></h2>
+<h3 id="get-konnectorsslug">GET /konnectors/:slug<a class="headerlink" href="#get-konnectorsslug" title="Permanent link">&para;</a></h3>
+<h2 id="uninstall-a-konnector">Uninstall a konnector<a class="headerlink" href="#uninstall-a-konnector" title="Permanent link">&para;</a></h2>
+<h3 id="delete-appsslug">DELETE /apps/:slug<a class="headerlink" href="#delete-appsslug" title="Permanent link">&para;</a></h3>
+<h4 id="request_3">Request<a class="headerlink" href="#request_3" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/konnectors/bank101</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
+
+
+<h4 id="response_3">Response<a class="headerlink" href="#response_3" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

@@ -215,6 +215,164 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-stack</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/README/">README</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Architecture</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/architecture/">General overview</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/security/">Security</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Usage</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/INSTALL/">Install the cozy-stack</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/cli/cozy-stack/">Manpages of the command-line tool</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/config/">Configuration file</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/instance/">Managing Instances</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/onboarding/">Onboarding</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">For developpers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/client-app-dev/">Develop a client-side app</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/docker/">Running and building Docker images</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/release/">Build a release</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/CONTRIBUTING/">The contributing guide</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Services</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/auth/">/auth - Authentication & OAuth</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/apps/">/apps - Applications Management</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/registry/">Apps registry</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/data-system/">/data - Data System</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/mango/">Mango</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/replication/">Replication</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/couchdb-quirks/">CouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/files/">/files - Virtual File System</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/references-docs-in-vfs/">References of documents in VFS</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/intents/">/intents - Intents</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/jobs/">/jobs Jobs</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/konnectors/">Konnectors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/workers/">Workers</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/notifications/">/notifications - Notifications</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/permissions/">/permissions - Permissions</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/realtime/">/realtime - Realtime</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/remote/">/remote - Proxy for remote data/API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/settings/">/settings - Settings</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/sharing/">/sharings - Sharing</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/sharing-design/">Request for comments</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -269,7 +427,8 @@
 <p>You can also copy-paste the <code>dist/cozy-client.js</code> bundle file into your application, and include it in your application <code>index.html</code> with <code>&lt;script src="./cozy-client.js"&gt;</code>.</p>
 <p>If you are developing a client-side app for Cozy V3, you can import the lib directly from the stack, by using <a href="https://cozy.github.io/cozy-stack/client-app-dev.html#good-practices-for-your-application"><code>{{.CozyClientJS}}</code></a>.</p>
 <p>If you are developing a nodejs app, you will need some polyfills. You can add them to your project with this command:</p>
-<pre class="codehilite"><code class="language-sh">$ yarn add isomorphic-fetch core-js regenerator-runtime btoa</code></pre>
+<div class="codehilite"><pre><span></span>$ yarn add isomorphic-fetch core-js regenerator-runtime btoa
+</pre></div>
 
 
 <h2 id="doctypes-permissions">Doctypes &amp; Permissions<a class="headerlink" href="#doctypes-permissions" title="Permanent link">&para;</a></h2>
@@ -280,10 +439,11 @@ Some basic doctypes are provided by cozy, but you can pick your own.</p>
 <p>Any doctype you introduce is expected to be prefixed with the reverse notation of a domain you own (JLS#7.7). If you do not own a domain, you can also use a reverse notation of your email address.</p>
 <p>You are free to reuse another applications documents by using their doctypes but you <strong>SHOULD</strong> discuss with the domain owner if you want to add fields or format them differently.</p>
 <p>To ensure retrocompatibility, when used on stack v2, all known doctypes will be auto-prefixed, but a warning will be written to the console. Unknown doctype will cause a fatal error. DO NOT rely on this behaviour in new applications, use qualified doctypes.</p>
-<pre class="codehilite"><code class="language-javascript">// contacts is a doctype defined by cozy
-cozyContactsDoctype = &quot;io.cozy.contacts&quot;
-// your application handle books, let's create a doctype
-myBooksDoctype = &quot;com.mydomain.book&quot;</code></pre>
+<div class="codehilite"><pre><span></span><span class="c1">// contacts is a doctype defined by cozy</span>
+<span class="nx">cozyContactsDoctype</span> <span class="o">=</span> <span class="s2">&quot;io.cozy.contacts&quot;</span>
+<span class="c1">// your application handle books, let&#39;s create a doctype</span>
+<span class="nx">myBooksDoctype</span> <span class="o">=</span> <span class="s2">&quot;com.mydomain.book&quot;</span>
+</pre></div>
 
 
 <p>When you use a doctype, even one created by your application, you need to ask for its permission in your manifest. How to do it depends on which stack you are developping for.</p>
@@ -291,30 +451,33 @@ myBooksDoctype = &quot;com.mydomain.book&quot;</code></pre>
 <h2 id="promises-callbacks">Promises &amp; Callbacks<a class="headerlink" href="#promises-callbacks" title="Permanent link">&para;</a></h2>
 <p>All cozy-client-js functions support callback or promise.</p>
 <p>If no callback is provided, a promise is returned.</p>
-<pre class="codehilite"><code class="language-javascript">cozy.client.data.create(myBooksDoctype, doc)
-    .then(function(result){ console.log('done', result); });
-    .catch(function(err){ console.log('fail', err); });</code></pre>
+<div class="codehilite"><pre><span></span><span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">myBooksDoctype</span><span class="p">,</span> <span class="nx">doc</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;done&#39;</span><span class="p">,</span> <span class="nx">result</span><span class="p">);</span> <span class="p">});</span>
+    <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;fail&#39;</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span> <span class="p">});</span>
+</pre></div>
 
 
 <p>If your build pipeline supports it, use async/await for sweet sweet async</p>
-<pre class="codehilite"><code class="language-javascript">try {
-  result = await cozy.client.data.create(myBooksDoctype, doc)
-  console.log('done', result)
-} catch(err) {
-  console.log('fail', err)
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="k">try</span> <span class="p">{</span>
+  <span class="nx">result</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">myBooksDoctype</span><span class="p">,</span> <span class="nx">doc</span><span class="p">)</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;done&#39;</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span>
+<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;fail&#39;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <p>If for some reason you do not want to use promises, you can pass the <code>disablePromises</code> flag to the init function. This way, you will be able to use the functions with a classic callback.</p>
-<pre class="codehilite"><code class="language-javascript">cozy.client.init({ disablePromises: true })
-cozy.client.data.create(myBooksDoctype, doc, function(err, result) {
-    if (err) {
-      console.log('fail', err);
-    } else {
-      console.log('done', result);
-    }
-});
-&gt; undefined</code></pre>
+<div class="codehilite"><pre><span></span><span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">init</span><span class="p">({</span> <span class="nx">disablePromises</span><span class="o">:</span> <span class="kc">true</span> <span class="p">})</span>
+<span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">myBooksDoctype</span><span class="p">,</span> <span class="nx">doc</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;fail&#39;</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;done&#39;</span><span class="p">,</span> <span class="nx">result</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+<span class="o">&gt;</span> <span class="kc">undefined</span>
+</pre></div>
 
 
 <h2 id="constructor">Constructor<a class="headerlink" href="#constructor" title="Permanent link">&para;</a></h2>
@@ -332,17 +495,18 @@ cozy.client.data.create(myBooksDoctype, doc, function(err, result) {
 <li><code>oauth</code>: an object with the OAuth parameters, see <a href="../oauth/">OAuth</a> for details</li>
 <li><code>version</code>: the version of Cozy (2 or 3), it&rsquo;s optional, by default with a request to the server it can deduce automatically the version. (Must be specified for an offline mode)</li>
 </ul>
-<pre class="codehilite"><code class="language-javascript">cozy.client.init({
-  cozyURL: 'http://cozy.tools:8080',
-  disablePromises: false,
-  version: 3,
-  oauth: {
-    clientParams: {/*...*/},
-    scopes: [&quot;io.cozy.files:GET&quot;],
-    onRegistered: (client, url) =&gt; { /* */ },
-    storage: new cozy.auth.LocalStorage(window.localStorage)
-  }
-})</code></pre>
+<div class="codehilite"><pre><span></span><span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">init</span><span class="p">({</span>
+  <span class="nx">cozyURL</span><span class="o">:</span> <span class="s1">&#39;http://cozy.tools:8080&#39;</span><span class="p">,</span>
+  <span class="nx">disablePromises</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="nx">version</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+  <span class="nx">oauth</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">clientParams</span><span class="o">:</span> <span class="p">{</span><span class="cm">/*...*/</span><span class="p">},</span>
+    <span class="nx">scopes</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;io.cozy.files:GET&quot;</span><span class="p">],</span>
+    <span class="nx">onRegistered</span><span class="o">:</span> <span class="p">(</span><span class="nx">client</span><span class="p">,</span> <span class="nx">url</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="cm">/* */</span> <span class="p">},</span>
+    <span class="nx">storage</span><span class="o">:</span> <span class="k">new</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">auth</span><span class="p">.</span><span class="nx">LocalStorage</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">localStorage</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+</pre></div>
 
 
 <h2 id="future-apis">Future APIs<a class="headerlink" href="#future-apis" title="Permanent link">&para;</a></h2>

@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/replication/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>Replication - Cozy Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Cozy Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Use <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/">User guide</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Stay in sync</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronize your phone</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronize your computer</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Install on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Download</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../dev/">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="../../dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="../../dev/app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="../../dev/konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="../../dev/cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="../../dev/sendmail/">How to send mail in development</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">References</a>
+    <ul class="dropdown-menu">
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-client-js</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-client-js/intro/">Introduction</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/browser-sdk-transition/">Transition from cozy-browser-sdk</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/offline/">How to support offline</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/oauth/">OAuth guide</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/auth-api/">Authentication API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/data-api/">Data System API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/files-api/">Files API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/jobs-api/">Jobs API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/intents-api/">Intents API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/settings-api/">Settings API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/sharing-api/">Sharing API</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-stack</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../README/">README</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Architecture</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../architecture/">General overview</a>
+</li>
+            
+<li >
+    <a href="../security/">Security</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Usage</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../INSTALL/">Install the cozy-stack</a>
+</li>
+            
+<li >
+    <a href="../cli/cozy-stack/">Manpages of the command-line tool</a>
+</li>
+            
+<li >
+    <a href="../config/">Configuration file</a>
+</li>
+            
+<li >
+    <a href="../instance/">Managing Instances</a>
+</li>
+            
+<li >
+    <a href="../onboarding/">Onboarding</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">For developpers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../client-app-dev/">Develop a client-side app</a>
+</li>
+            
+<li >
+    <a href="../docker/">Running and building Docker images</a>
+</li>
+            
+<li >
+    <a href="../release/">Build a release</a>
+</li>
+            
+<li >
+    <a href="../CONTRIBUTING/">The contributing guide</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Services</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../auth/">/auth - Authentication & OAuth</a>
+</li>
+            
+<li >
+    <a href="../apps/">/apps - Applications Management</a>
+</li>
+            
+<li >
+    <a href="../registry/">Apps registry</a>
+</li>
+            
+<li >
+    <a href="../data-system/">/data - Data System</a>
+</li>
+            
+<li >
+    <a href="../mango/">Mango</a>
+</li>
+            
+<li class="active">
+    <a href="./">Replication</a>
+</li>
+            
+<li >
+    <a href="../couchdb-quirks/">CouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../files/">/files - Virtual File System</a>
+</li>
+            
+<li >
+    <a href="../references-docs-in-vfs/">References of documents in VFS</a>
+</li>
+            
+<li >
+    <a href="../intents/">/intents - Intents</a>
+</li>
+            
+<li >
+    <a href="../jobs/">/jobs Jobs</a>
+</li>
+            
+<li >
+    <a href="../konnectors/">Konnectors</a>
+</li>
+            
+<li >
+    <a href="../workers/">Workers</a>
+</li>
+            
+<li >
+    <a href="../notifications/">/notifications - Notifications</a>
+</li>
+            
+<li >
+    <a href="../permissions/">/permissions - Permissions</a>
+</li>
+            
+<li >
+    <a href="../realtime/">/realtime - Realtime</a>
+</li>
+            
+<li >
+    <a href="../remote/">/remote - Proxy for remote data/API</a>
+</li>
+            
+<li >
+    <a href="../settings/">/settings - Settings</a>
+</li>
+            
+<li >
+    <a href="../sharing/">/sharings - Sharing</a>
+</li>
+            
+<li >
+    <a href="../sharing-design/">Request for comments</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#replication">Replication</a></li>
+            <li><a href="#files-synchronization">Files synchronization</a></li>
+            <li><a href="#couchdb-replication-limitation">Couchdb replication &amp; limitation</a></li>
+            <li><a href="#stack-sync-api-exploration">Stack Sync API exploration</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<p><a href="../README/#table-of-contents">Table of contents</a></p>
+<h1 id="replication">Replication<a class="headerlink" href="#replication" title="Permanent link">&para;</a></h1>
+<p>Replication is the ability of a cozy-stack to copy / move all or a subset of its
+data to another support. It should cover 2 use cases</p>
+<ul>
+<li>Devices: The continuous act of syncing change to a subset of the cozy
+  documents and files to and from an user cozy to the same user&rsquo;s Devices
+  through cozy-desktop and cozy-mobile</li>
+<li>Sharing: The continuous act of syncing change to a subset of the cozy
+  documents and files to and from another user&rsquo;s cozy.</li>
+</ul>
+<p>Replication will not be used for Moving, nor Backup. See associated docs in this
+folder.</p>
+<p>CouchDB replication is a well-understood, safe and stable algorithm ensuring
+replication between two couchdb databases. It is delta-based, and is stateful:
+we sync changes since a given checkpoint.</p>
+<h2 id="files-synchronization">Files synchronization<a class="headerlink" href="#files-synchronization" title="Permanent link">&para;</a></h2>
+<p>Replication of too heavy database (with a lot of attachments) has been, in cozy
+experience, the source of some bugs. To avoid that (and some other issues), in
+cozy-stack, the attachments are stored outside of couchdb.</p>
+<p>This means we need a way to synchronize files in parallel to couchdb
+replication.</p>
+<p>Rsync is a well-understood, safe and stable algorithm to replicate files
+hierarchy from one hosts to the other by only transfering changes. It is
+one-shot and stateless. It could be an inspiration if we have to focus on
+syncing small changes to big files. The option to use rsync/zsync have been
+discussed internally (https://github.com/cozy/cozy-stack/pull/57 &amp; Sprint Start
+2016-10-24), but for now we should focus on using the files/folders couchdb
+document for synchronization purpose and upload/download the actual binaries
+with existing files routes or considering webdav.</p>
+<p><strong>Useful golang package:</strong> http://rclone.org/ sync folder in FS / Swift (may be
+we can add a driver for cozy)</p>
+<h2 id="couchdb-replication-limitation">Couchdb replication &amp; limitation<a class="headerlink" href="#couchdb-replication-limitation" title="Permanent link">&para;</a></h2>
+<p>Couchdb 2 replication protocol is described
+<a href="http://docs.couchdb.org/en/2.1.0/replication/protocol.html">in details here</a>.</p>
+<h3 id="quick-summary">Quick summary<a class="headerlink" href="#quick-summary" title="Permanent link">&para;</a></h3>
+<ol>
+<li>The replicator figures out what was the last sequence number <em>lastseqno</em>
+   which was correctly synced from the source database, using a
+   <code>_local/:replicationid</code> document.</li>
+<li>The replicator <code>GET :source/changes?since=lastseqno&amp;limit=batchsize</code> and
+   identify which docs have changed (and their <em>open_revs</em>).</li>
+<li>The replicator <code>POST :target/_revs_diff</code> to get a list of all revisions of
+   the changed documents the target does not know.</li>
+<li>The replicator <code>GET :source/:docid?open_revs=['rev1', ...]</code> several times to
+   retrieve the missing documents revisions.</li>
+<li>The replicator <code>POST :target/_bulk_docs</code> with these documents revisions.</li>
+<li>Store the new last sequence number</li>
+</ol>
+<p>Repeat 2-5 until there is no more changes.</p>
+<h3 id="details">Details<a class="headerlink" href="#details" title="Permanent link">&para;</a></h3>
+<ul>
+<li>In step 5, the replicator can also attempt to <code>PUT :target/:docid</code> if doc are
+  too heavy, but this should not happens in cozy-stack considering there wont be
+  attachment in couchdb.</li>
+<li>In step 4, the replicator can optimize by calling <code>GET</code></li>
+<li>The main difference from couchdb 1.X is in the replication history and the
+  manner to determine and store the last sequence number. <strong>TODO:</strong> actually
+  understand this and how it might increase disk usage if we have a lot of
+  replications.</li>
+<li>Couchdb <code>_changes</code> and by extension replication can be either by polling or
+  continuous (SSE / COMET)</li>
+<li>In couchdb benchmarking, we understood that the number of couch databases only
+  use a bit of disk space but no RAM or CPU <strong>as long as the database is not
+  used</strong>. Having a continuous replication active force us to keep the database
+  file open and will starve RAM &amp; FD usage. Moreover, continuous replication
+  costs a lot (cf. ScienceTeam benchmark). To permit an unlimited number of
+  inactive user on a single cozy-stack process, <strong>the stack should avoid
+  continuous replication from couchdb</strong>.</li>
+<li>Two way replication is simply two one way replications</li>
+</ul>
+<h3 id="routes-used-by-replication">Routes used by replication<a class="headerlink" href="#routes-used-by-replication" title="Permanent link">&para;</a></h3>
+<p>To be a source of replication, the stack only need to support the following
+route (and query parameters):</p>
+<ul>
+<li><code>GET :source/:docid</code> get revisions of a document. The query parameters
+  <code>open_revs, revs, latest</code> is necessary for replication.</li>
+<li><code>POST :source/_all_docs</code> is used by current version of cozy-mobile and pouchdb
+  as an optimization to fetch several document&rsquo;s revision at once.</li>
+<li><code>GET :source/_changes</code> get a list of ID -&gt; New Revision since a given sequence
+  number. The query parameters <code>since, limit</code> are necessary for replication.</li>
+</ul>
+<p>To be a target of replication, the stack need to support the following routes:</p>
+<ul>
+<li><code>POST :target/_revs_diff</code> takes a list of ID -&gt; Rev and returns which one are
+  missing.</li>
+<li><code>POST :target/_bulk_docs</code> create several documents at once</li>
+<li><code>POST :target/_ensure_full_commit</code> ensure the documents are written to disk.
+  This is useless if couchdb is configured without delayed write (default), but
+  remote couchdb will call, so the stack should return the expected 201</li>
+</ul>
+<p>In both case, we need to support</p>
+<ul>
+<li><code>PUT :both/_local/:revdocid</code> to store the current sequence number.</li>
+</ul>
+<h2 id="stack-sync-api-exploration">Stack Sync API exploration<a class="headerlink" href="#stack-sync-api-exploration" title="Permanent link">&para;</a></h2>
+<h3 id="easy-part-1-dbdoctype-on-stack-and-remote-no-binaries">Easy part: 1 db/doctype on stack AND remote, no binaries<a class="headerlink" href="#easy-part-1-dbdoctype-on-stack-and-remote-no-binaries" title="Permanent link">&para;</a></h3>
+<p>We <em>just</em> need to implement the routes described above by proxying to the
+underlying couchdb database.</p>
+<div class="codehilite"><pre><span></span><span class="kd">var</span> <span class="nx">db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PouchDB</span><span class="p">(</span><span class="s2">&quot;my-local-contacts&quot;</span><span class="p">);</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">replicate</span><span class="p">.</span><span class="nx">from</span><span class="p">(</span><span class="s2">&quot;https://bob.cozycloud.cc/data/contacts&quot;</span><span class="p">);</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">replicate</span><span class="p">.</span><span class="nx">to</span><span class="p">(</span><span class="s2">&quot;https://bob.cozycloud.cc/data/contacts&quot;</span><span class="p">);</span>
+</pre></div>
+
+
+<p>To suport this we need to:</p>
+<ul>
+<li>Proxy <code>/data/:doctype/_changes</code> route with since, limit, feed=normal. Refuse
+  all filter parameters with a clear error message.
+  <a href="http://docs.couchdb.org/en/2.1.0/api/database/changes.html">(Doc)</a></li>
+<li>Add support of <code>open_revs</code>, <code>revs</code>, <code>latest</code> query parameter to <code>GET
+  /data/:doctype/:docid</code>
+  <a href="http://docs.couchdb.org/en/2.1.0/api/document/common.html?highlight=open_revs#get--db-docid">(Doc) </a></li>
+<li>Proxy the <code>/data/:doctype/_revs_diff</code>
+  <a href="http://docs.couchdb.org/en/2.1.0/api/database/misc.html#db-revs-diff">(Doc)</a>
+  and <code>/data/:doctype/_bulk_docs</code> routes
+  <a href="http://docs.couchdb.org/en/2.1.0/api/database/bulk-api.html">(Doc)</a> routes</li>
+<li>Have <code>/data/:doctype/_ensure_full_commit</code>
+  <a href="http://docs.couchdb.org/en/2.1.0/api/database/compact.html#db-ensure-full-,
+  revs, latestcommit">(Doc)</a> returns 201</li>
+</ul>
+<p>This will cover documents part of the Devices use case.</p>
+<h3 id="continuous-replication">Continuous replication<a class="headerlink" href="#continuous-replication" title="Permanent link">&para;</a></h3>
+<p>It is impossible to implement it by simply proxying to couchdb (see unlimited
+inactive users).</p>
+<p>The current version of cozy-desktop uses it. <strong>TODISCUSS</strong> It could be replaced
+by 3-minutes polling without big losses in functionality, eventually with some
+more triggers based on user activity.</p>
+<p>The big use case for which we might want it is Sharing. But, because Sharing
+will (first) be stack to stack, we might imagine having the source of event
+&ldquo;ping&rdquo; the remote through a separate route.</p>
+<p><strong>Conclusion:</strong> Start with polling replication. Consider alternative
+notifications mechanism when the usecase appears and eventually use time-limited
+continuous replication for a few special case (collaborative edit).</p>
+<h3 id="realtime">Realtime<a class="headerlink" href="#realtime" title="Permanent link">&para;</a></h3>
+<p>One of the cool feature of cozy apps was how changes are sent to the client in
+realtime through websocket. However this have a cost: every cozy and every apps
+open in a browser, even while not used keep one socket open on the server, this
+is not scalable to thousands of users.</p>
+<p>Several technology can be used for realtime: Websocket, SSE or COMET like
+long-polling. Goroutines makes all solution similar performances wise. COMET is
+a hack, websocket seems more popular and tested (x/net/websocket vs
+html5-sse-example). SSE is not widely available and has some limitations
+(headers&hellip;)</p>
+<p>Depending on benchmarking, we can do some optimization on the feed:</p>
+<ul>
+<li>close feeds when the user is not on screen</li>
+<li>multiplex different applications&rsquo; feed, so each open cozy will only use one
+  socket to the server. This is hard, as all apps live on separate domain, an
+  (hackish) option might be a iframe/SharedWorker bridge.</li>
+</ul>
+<p>To have some form of couchdb-to-stack continuous changes monitoring, we can
+monitor <code>_db_udpates</code>
+<a href="http://docs.couchdb.org/en/2.1.0/api/server/common.html#db-updates">(Doc)</a>
+which gives us an update when a couchdb has changed. We can then perform a
+<code>_changes</code> query on this database to get the changed docs and proxy that to the
+stack-to-client change feed.</p>
+<p><strong>Conclusion:</strong> We will use Websocket from the client to the stack. We will try
+to avoid using continuous changes feed from couchdb to the stack. We will
+optimize if proven needed by benchmarks, starting with &ldquo;useless&rdquo; changes and
+eventually some multiplexing.</p>
+<h3 id="sharing">Sharing<a class="headerlink" href="#sharing" title="Permanent link">&para;</a></h3>
+<p>To be completed by discussing with Science team.</p>
+<p>Current ideas (as understood by Romain)</p>
+<ul>
+<li>any filtered replication is unscalable</li>
+<li>1 db for all shared docs <code>sharing_db</code>.</li>
+<li>Cozy-stack is responsible for saving documents that should be shared in both
+  their dg implemented by 2-way replication between the 2 users <code>sharing_db</code>,
+  filtering is done by computing a list of IDs and then <code>doc_ids</code> (sharing with
+  filters/views are not efficient)</li>
+<li>Sharing is performed by batches regularly.</li>
+<li>Continuous replication can be considered for collaborative editing.</li>
+</ul>
+<p>Proposal by Romain, if we find <code>_selector</code> filter replication performances to be
+acceptable on very large / very old databases.</p>
+<ul>
+<li>No sharing database</li>
+<li>A permission, for anything is a mango-style selector.</li>
+<li>on every query, the Mango selector is checked at the stack or couchdb level
+  (<code>$and</code>-ing for queries, testing output document, input document)</li>
+<li>Sharing is a filtered replication between user&rsquo;s 1 doctypedb et user&rsquo;s 2
+  samedoctypedb</li>
+<li>No continuous replication</li>
+<li>Upon update, the stack trigger a PUSH replication to its remote or &ldquo;ping&rdquo; the
+  remote, and the remote perform a normal PULL replication.</li>
+</ul>
+<p><strong>TODO</strong> experiment with performance of <code>_selector</code> filtered replication in
+couchdb2</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

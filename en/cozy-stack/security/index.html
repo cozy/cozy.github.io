@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/security/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>Security - Cozy Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Cozy Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Use <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/">User guide</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Stay in sync</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronize your phone</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronize your computer</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Install on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Download</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../dev/">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="../../dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="../../dev/app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="../../dev/konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="../../dev/cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="../../dev/sendmail/">How to send mail in development</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">References</a>
+    <ul class="dropdown-menu">
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-client-js</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-client-js/intro/">Introduction</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/browser-sdk-transition/">Transition from cozy-browser-sdk</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/offline/">How to support offline</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/oauth/">OAuth guide</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/auth-api/">Authentication API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/data-api/">Data System API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/files-api/">Files API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/jobs-api/">Jobs API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/intents-api/">Intents API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/settings-api/">Settings API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/sharing-api/">Sharing API</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-stack</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../README/">README</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Architecture</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../architecture/">General overview</a>
+</li>
+            
+<li class="active">
+    <a href="./">Security</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Usage</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../INSTALL/">Install the cozy-stack</a>
+</li>
+            
+<li >
+    <a href="../cli/cozy-stack/">Manpages of the command-line tool</a>
+</li>
+            
+<li >
+    <a href="../config/">Configuration file</a>
+</li>
+            
+<li >
+    <a href="../instance/">Managing Instances</a>
+</li>
+            
+<li >
+    <a href="../onboarding/">Onboarding</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">For developpers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../client-app-dev/">Develop a client-side app</a>
+</li>
+            
+<li >
+    <a href="../docker/">Running and building Docker images</a>
+</li>
+            
+<li >
+    <a href="../release/">Build a release</a>
+</li>
+            
+<li >
+    <a href="../CONTRIBUTING/">The contributing guide</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Services</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../auth/">/auth - Authentication & OAuth</a>
+</li>
+            
+<li >
+    <a href="../apps/">/apps - Applications Management</a>
+</li>
+            
+<li >
+    <a href="../registry/">Apps registry</a>
+</li>
+            
+<li >
+    <a href="../data-system/">/data - Data System</a>
+</li>
+            
+<li >
+    <a href="../mango/">Mango</a>
+</li>
+            
+<li >
+    <a href="../replication/">Replication</a>
+</li>
+            
+<li >
+    <a href="../couchdb-quirks/">CouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../files/">/files - Virtual File System</a>
+</li>
+            
+<li >
+    <a href="../references-docs-in-vfs/">References of documents in VFS</a>
+</li>
+            
+<li >
+    <a href="../intents/">/intents - Intents</a>
+</li>
+            
+<li >
+    <a href="../jobs/">/jobs Jobs</a>
+</li>
+            
+<li >
+    <a href="../konnectors/">Konnectors</a>
+</li>
+            
+<li >
+    <a href="../workers/">Workers</a>
+</li>
+            
+<li >
+    <a href="../notifications/">/notifications - Notifications</a>
+</li>
+            
+<li >
+    <a href="../permissions/">/permissions - Permissions</a>
+</li>
+            
+<li >
+    <a href="../realtime/">/realtime - Realtime</a>
+</li>
+            
+<li >
+    <a href="../remote/">/remote - Proxy for remote data/API</a>
+</li>
+            
+<li >
+    <a href="../settings/">/settings - Settings</a>
+</li>
+            
+<li >
+    <a href="../sharing/">/sharings - Sharing</a>
+</li>
+            
+<li >
+    <a href="../sharing-design/">Request for comments</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#security">Security</a></li>
+            <li><a href="#checklist">Checklist</a></li>
+            <li><a href="#rationale">Rationale</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<p><a href="../README/#table-of-contents">Table of contents</a></p>
+<h1 id="security">Security<a class="headerlink" href="#security" title="Permanent link">&para;</a></h1>
+<h2 id="checklist">Checklist<a class="headerlink" href="#checklist" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Strong security is centered on the user</li>
+<li>Defense in depth is still worthy</li>
+<li>Have a strict control of all the accesses to the Cozy</li>
+<li>Protect client-side apps by default</li>
+<li>Don&rsquo;t trust inputs, always sanitize them</li>
+<li>Encryption is not the solution to all the problems, but it helps</li>
+<li>Use standards (https, OAuth2)</li>
+<li>Have a reliable way to deploy, with sane defaults</li>
+<li>No one is perfect, code must be reviewed</li>
+<li>Be open to external contributors</li>
+</ol>
+<h2 id="rationale">Rationale<a class="headerlink" href="#rationale" title="Permanent link">&para;</a></h2>
+<h3 id="strong-security-is-centered-on-the-user">Strong security is centered on the user<a class="headerlink" href="#strong-security-is-centered-on-the-user" title="Permanent link">&para;</a></h3>
+<p>For systems well designed, the user is often the weakest link in the security
+chain. Engineers have a tendancy to overestimate the technical risks and
+underestimate the human interactions. It doesn&rsquo;t mean that we can avoid
+technical measures. But it&rsquo;s very important to take in account the possible
+behaviour of the user. That means that adding a text to explain him/her the
+consequences of a click on a button can increase the security a lot much than
+forcing him/her to do things. For example, forcing users to change regulary
+their password makes them choose passwords that are a lot weaker (but easier for
+them to remember).</p>
+<p><a href="https://xkcd.com/538/"><img alt="Security XKCD" src="https://imgs.xkcd.com/comics/security.png" /></a></p>
+<h3 id="defense-in-depth-is-still-worthy">Defense in depth is still worthy<a class="headerlink" href="#defense-in-depth-is-still-worthy" title="Permanent link">&para;</a></h3>
+<p>Also known as layered defense, defense in depth is a security principle where
+single points of complete compromise are eliminated or mitigated by the
+incorporation of a series or multiple layers of security safeguards and
+risk-mitigation countermeasures. Have diverse defensive strategies, so that if
+one layer of defense turns out to be inadequate, another layer of defense will
+hopefully prevent a full breach.</p>
+<h3 id="have-a-strict-control-of-all-the-accesses-to-the-cozy">Have a strict control of all the accesses to the Cozy<a class="headerlink" href="#have-a-strict-control-of-all-the-accesses-to-the-cozy" title="Permanent link">&para;</a></h3>
+<p>All the requests to the cozy stack have a strict access control. It is based on
+several informations:</p>
+<ul>
+<li>Is the user connected?</li>
+<li>What is the application that makes this request?</li>
+<li>What are the permissions for this application?</li>
+<li>Which grant is used, in particular for applications with public pages?</li>
+<li>What are the permissions for this grant?</li>
+</ul>
+<p>More informations <a href="../apps/">here</a>.</p>
+<h3 id="protect-client-side-apps-by-default">Protect client-side apps by default<a class="headerlink" href="#protect-client-side-apps-by-default" title="Permanent link">&para;</a></h3>
+<p>This is mostly applying the state of the art:</p>
+<ul>
+<li>Using HTTPS, with HSTS.</li>
+<li>Using secure, httpOnly,
+  <a href="https://tools.ietf.org/html/draft-ietf-httpbis-cookie-same-site-00">sameSite</a>
+  cookies to avoid cookies theft or misuse.</li>
+<li>Using a Content Security Policy (CSP).</li>
+<li>Using X-frame-options http header to protect against click-jacking.</li>
+</ul>
+<p>But we will use a CSP very restrictive by default (no access to other web
+domains for example).</p>
+<h3 id="dont-trust-inputs-always-sanitize-them">Don&rsquo;t trust inputs, always sanitize them<a class="headerlink" href="#dont-trust-inputs-always-sanitize-them" title="Permanent link">&para;</a></h3>
+<p>If we take
+<a href="https://www.owasp.org/index.php/Top_10_2013-Top_10">the OWASP top 10 vulnerabilities</a>,
+we can see that a lot of them are related to trusting inputs. It starts with the
+first one, injections, but it goes also to XSS and unvalidated forwards (in
+OAuth2 notably). Always sanitizing inputs is a good pratice that improves
+security, but has also some nice effects like helping developers discover hidden
+bugs.</p>
+<h3 id="encryption-is-not-the-solution-to-all-the-problems-but-it-helps">Encryption is not the solution to all the problems, but it helps<a class="headerlink" href="#encryption-is-not-the-solution-to-all-the-problems-but-it-helps" title="Permanent link">&para;</a></h3>
+<p>Some data are encrypted before being saved in CouchDB (passwords for the
+accounts for example). Encrypting everything has some downsides:</p>
+<ul>
+<li>It&rsquo;s not possible to index encryped documents or do computations on the
+  encrypted fields in reasonable time
+  (<a href="https://en.wikipedia.org/wiki/Homomorphic_encryption">homomorphic encryption</a>
+  is still an open subject).</li>
+<li>Having more encrypted data can globally weaken the encryption, if it&rsquo;s not
+  handled properly.</li>
+<li>If the encryption key is lost or a bug happen, the data is lost with no way to
+  recover them.</li>
+</ul>
+<p>So, we are more confortable to encrypt only some fields. And later, when we will
+have more experience and feedbacks from the user, extend the encryption to more
+fields.</p>
+<p>We are also working with <a href="https://project.inria.fr/smis/">SMIS</a>, a research lab,
+to find a way to securely store and backup the encryption keys.</p>
+<h3 id="use-standards-https-oauth2">Use standards (https, OAuth2)<a class="headerlink" href="#use-standards-https-oauth2" title="Permanent link">&para;</a></h3>
+<p>Standards like https and OAuth2 had a lot of eyes to look at them, and are
+therefore more robust. Reinventing the wheel can be valuable for some things.
+But for security, the cost is very high and only some very particular
+constraints can justify such an high cost. Cozy don&rsquo;t have these constraints, so
+we will stick to the standards.</p>
+<h3 id="have-a-reliable-way-to-deploy-with-sane-defaults">Have a reliable way to deploy, with sane defaults<a class="headerlink" href="#have-a-reliable-way-to-deploy-with-sane-defaults" title="Permanent link">&para;</a></h3>
+<p>It&rsquo;s important that deploying a cozy is well documented, doesn&rsquo;t require too
+many steps and can be automatized. An error on the installation can have
+dramatic effects, like the database being leaked on internet. So, we need to
+really take care of the devops experience. In particular, having sane defaults
+for the configuration will help to minimize the number of things he/she has to
+do, and such the number of places where he/she can make faux pas.</p>
+<h3 id="no-one-is-perfect-code-must-be-reviewed">No one is perfect, code must be reviewed<a class="headerlink" href="#no-one-is-perfect-code-must-be-reviewed" title="Permanent link">&para;</a></h3>
+<p>No code is directly pushed to the master branch in git. It has to be reviewed by
+at least one member of the core team (ideally the whole team), and this person
+can&rsquo;t be the author of the change. Even the best developers can make mistakes,
+and we don&rsquo;t pretend to be them. Our force is to work as team.</p>
+<h3 id="be-open-to-external-contributors">Be open to external contributors<a class="headerlink" href="#be-open-to-external-contributors" title="Permanent link">&para;</a></h3>
+<p>Our code is Open Source, external contributors can review it. If they (you?)
+find a weakness, please contact us by sending an email to security AT
+cozycloud.cc. This is a mailing-list specially setup for responsible disclosure
+of security weaknesses in Cozy. We will respond in less than 72 hours.</p>
+<p>When a security flaw is found, the process is the following:</p>
+<ul>
+<li>Make a pull-request to fix (on our private git instance) and test it.</li>
+<li>Deploy the fix on cozycloud.cc</li>
+<li>Publish a new version, announce it on
+  <a href="https://forum.cozy.io/c/latest-information-about-cozy-security">the forum</a> as
+  a security update and on the mailing-lists.</li>
+<li>15 days later, add the details on the forum.</li>
+</ul></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

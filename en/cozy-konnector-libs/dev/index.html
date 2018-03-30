@@ -215,6 +215,164 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-stack</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/README/">README</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Architecture</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/architecture/">General overview</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/security/">Security</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Usage</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/INSTALL/">Install the cozy-stack</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/cli/cozy-stack/">Manpages of the command-line tool</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/config/">Configuration file</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/instance/">Managing Instances</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/onboarding/">Onboarding</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">For developpers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/client-app-dev/">Develop a client-side app</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/docker/">Running and building Docker images</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/release/">Build a release</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/CONTRIBUTING/">The contributing guide</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Services</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/auth/">/auth - Authentication & OAuth</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/apps/">/apps - Applications Management</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/registry/">Apps registry</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/data-system/">/data - Data System</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/mango/">Mango</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/replication/">Replication</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/couchdb-quirks/">CouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/files/">/files - Virtual File System</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/references-docs-in-vfs/">References of documents in VFS</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/intents/">/intents - Intents</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/jobs/">/jobs Jobs</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/konnectors/">Konnectors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/workers/">Workers</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/notifications/">/notifications - Notifications</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/permissions/">/permissions - Permissions</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/realtime/">/realtime - Realtime</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/remote/">/remote - Proxy for remote data/API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/settings/">/settings - Settings</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/sharing/">/sharings - Sharing</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/sharing-design/">Request for comments</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -256,12 +414,14 @@
 <p>If you just want to test this connector without any cozy available.</p>
 <p>You first need an installed [nodejs] (LTS version is fine).</p>
 <p>And the last version of yarn :</p>
-<pre class="codehilite"><code class="language-sh">npm install --global yarn</code></pre>
+<div class="codehilite"><pre><span></span>npm install --global yarn
+</pre></div>
 
 
 <p>Then just run :</p>
-<pre class="codehilite"><code class="language-sh">yarn
-yarn standalone</code></pre>
+<div class="codehilite"><pre><span></span>yarn
+yarn standalone
+</pre></div>
 
 
 <p>The requests to the cozy-stack will be stubbed using the [./fixture.json] file as source of data
@@ -270,8 +430,9 @@ The bills (or any file) will be saved in the . directory.</p>
 <h3 id="with-the-cozy-stack">With the cozy-stack<a class="headerlink" href="#with-the-cozy-stack" title="Permanent link">&para;</a></h3>
 <p>If you do not want to have to install the konnector on a cozy v3 to test it, you can register the
 konnector as an OAuth application with the following commands :</p>
-<pre class="codehilite"><code class="language-sh">yarn
-yarn dev</code></pre>
+<div class="codehilite"><pre><span></span>yarn
+yarn dev
+</pre></div>
 
 
 <p>This command will register your konnector as an OAuth application to the cozy-stack. By default,
@@ -290,17 +451,18 @@ attribute.</p>
 <li>COZY_URL is the full http or https url to your cozy</li>
 <li>COZY_FIELDS is something like :</li>
 </ul>
-<pre class="codehilite"><code class="language-javascript">{
-  &quot;data&quot;:{
-    &quot;attributes&quot;:{
-      &quot;arguments&quot;:{
-        &quot;account&quot;:&quot;cf31eaef5d899404a7e8c3737c1c2d1f&quot;,
-        &quot;folder_to_save&quot;:&quot;folderPathId&quot;,
-        &quot;slug&quot;:&quot;mykonnector&quot;
-      }
-    }
-  }
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;data&quot;</span><span class="o">:</span><span class="p">{</span>
+    <span class="s2">&quot;attributes&quot;</span><span class="o">:</span><span class="p">{</span>
+      <span class="s2">&quot;arguments&quot;</span><span class="o">:</span><span class="p">{</span>
+        <span class="s2">&quot;account&quot;</span><span class="o">:</span><span class="s2">&quot;cf31eaef5d899404a7e8c3737c1c2d1f&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;folder_to_save&quot;</span><span class="o">:</span><span class="s2">&quot;folderPathId&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;slug&quot;</span><span class="o">:</span><span class="s2">&quot;mykonnector&quot;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <p>The &ldquo;account&rdquo; field is the id of the record with doctype &ldquo;io.cozy.accounts&rdquo; which will be used as

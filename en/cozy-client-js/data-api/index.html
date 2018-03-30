@@ -215,6 +215,164 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-stack</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/README/">README</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Architecture</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/architecture/">General overview</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/security/">Security</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Usage</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/INSTALL/">Install the cozy-stack</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/cli/cozy-stack/">Manpages of the command-line tool</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/config/">Configuration file</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/instance/">Managing Instances</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/onboarding/">Onboarding</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">For developpers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/client-app-dev/">Develop a client-side app</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/docker/">Running and building Docker images</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/release/">Build a release</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/CONTRIBUTING/">The contributing guide</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Services</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/auth/">/auth - Authentication & OAuth</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/apps/">/apps - Applications Management</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/registry/">Apps registry</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/data-system/">/data - Data System</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/mango/">Mango</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/replication/">Replication</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/couchdb-quirks/">CouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/files/">/files - Virtual File System</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/references-docs-in-vfs/">References of documents in VFS</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/intents/">/intents - Intents</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/jobs/">/jobs Jobs</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/konnectors/">Konnectors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/workers/">Workers</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/notifications/">/notifications - Notifications</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/permissions/">/permissions - Permissions</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/realtime/">/realtime - Realtime</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/remote/">/remote - Proxy for remote data/API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/settings/">/settings - Settings</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/sharing/">/sharings - Sharing</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/sharing-design/">Request for comments</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -265,15 +423,16 @@
 <li><code>attributes</code> is an object that can be stringified using <code>JSON.stringify</code>: if it is a complex or cyclic object, add a <code>toJSON</code> method to it (native behaviour of <code>JSON.stringify</code>).</li>
 </ul>
 <p><strong>Warning</strong>: on <strong>v3</strong>, an extra field <code>_rev</code> is added, it is the unique identifier for the document revision, after creation, it will be of the shape <code>1-xxxxxxxxx</code> for first revision.</p>
-<pre class="codehilite"><code class="language-javascript">// simple object
-const book = { title: &quot;Moby Dick&quot;, author:&quot;Herman Melville&quot;, isbn: &quot;42&quot; }
-const created = await cozy.client.data.create(myBooksDoctype, book)
-// same fields
-console.log(created.title, created.author, created.isbn)
-// _id, _rev are added
-console.log(created._id, created._rev)
-// let's keep it for later
-createdBookId = created._id</code></pre>
+<div class="codehilite"><pre><span></span><span class="c1">// simple object</span>
+<span class="kr">const</span> <span class="nx">book</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;Moby Dick&quot;</span><span class="p">,</span> <span class="nx">author</span><span class="o">:</span><span class="s2">&quot;Herman Melville&quot;</span><span class="p">,</span> <span class="nx">isbn</span><span class="o">:</span> <span class="s2">&quot;42&quot;</span> <span class="p">}</span>
+<span class="kr">const</span> <span class="nx">created</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">myBooksDoctype</span><span class="p">,</span> <span class="nx">book</span><span class="p">)</span>
+<span class="c1">// same fields</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">created</span><span class="p">.</span><span class="nx">title</span><span class="p">,</span> <span class="nx">created</span><span class="p">.</span><span class="nx">author</span><span class="p">,</span> <span class="nx">created</span><span class="p">.</span><span class="nx">isbn</span><span class="p">)</span>
+<span class="c1">// _id, _rev are added</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">created</span><span class="p">.</span><span class="nx">_id</span><span class="p">,</span> <span class="nx">created</span><span class="p">.</span><span class="nx">_rev</span><span class="p">)</span>
+<span class="c1">// let&#39;s keep it for later</span>
+<span class="nx">createdBookId</span> <span class="o">=</span> <span class="nx">created</span><span class="p">.</span><span class="nx">_id</span>
+</pre></div>
 
 
 <h3 id="cozyclientdatafinddoctype-id"><code>cozy.client.data.find(doctype, id)</code><a class="headerlink" href="#cozyclientdatafinddoctype-id" title="Permanent link">&para;</a></h3>
@@ -284,8 +443,9 @@ createdBookId = created._id</code></pre>
 <li><code>doctype</code> is a string specifying the <a href="../intro/#doctypes--permissions">doctype</a></li>
 <li><code>id</code> is a string specifying the identifier of the document you look for</li>
 </ul>
-<pre class="codehilite"><code class="language-javascript">const doc = await cozy.client.data.find(myBooksDoctype, createdBookId)
-console.log(doc._id, doc._rev, doc.title, doc.author, doc.isbn)</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">doc</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">myBooksDoctype</span><span class="p">,</span> <span class="nx">createdBookId</span><span class="p">)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">_id</span><span class="p">,</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">_rev</span><span class="p">,</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">title</span><span class="p">,</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">author</span><span class="p">,</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">isbn</span><span class="p">)</span>
+</pre></div>
 
 
 <h3 id="cozyclientdatafindmanydoctype-ids"><code>cozy.client.data.findMany(doctype, [ids])</code><a class="headerlink" href="#cozyclientdatafindmanydoctype-ids" title="Permanent link">&para;</a></h3>
@@ -308,16 +468,17 @@ documents found and identify the missing ones.</p>
 </ul>
 <p><strong>Warning</strong>: Not available on <strong>v2</strong>. A fallback implementation could be
 provided at some point.</p>
-<pre class="codehilite"><code class="language-javascript">const ids = [createdBookId, ...]
-const resultsById = await cozy.client.data.findMany(myBooksDoctype, ids)
-for (const id of ids) {
-  const {doc, error} = resultsById[id]
-  if (error) {
-    console.error(`Error while fetching book ${id}: ${error}`)
-  } else {
-    console.log(doc._id, doc._rev, doc.title, doc.author, doc.isbn)
-  }
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">ids</span> <span class="o">=</span> <span class="p">[</span><span class="nx">createdBookId</span><span class="p">,</span> <span class="p">...]</span>
+<span class="kr">const</span> <span class="nx">resultsById</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">findMany</span><span class="p">(</span><span class="nx">myBooksDoctype</span><span class="p">,</span> <span class="nx">ids</span><span class="p">)</span>
+<span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">id</span> <span class="k">of</span> <span class="nx">ids</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="p">{</span><span class="nx">doc</span><span class="p">,</span> <span class="nx">error</span><span class="p">}</span> <span class="o">=</span> <span class="nx">resultsById</span><span class="p">[</span><span class="nx">id</span><span class="p">]</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="sb">`Error while fetching book </span><span class="si">${</span><span class="nx">id</span><span class="si">}</span><span class="sb">: </span><span class="si">${</span><span class="nx">error</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">_id</span><span class="p">,</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">_rev</span><span class="p">,</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">title</span><span class="p">,</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">author</span><span class="p">,</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">isbn</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <h3 id="cozyclientdatafindalldoctype"><code>cozy.client.data.findAll(doctype)</code><a class="headerlink" href="#cozyclientdatafindalldoctype" title="Permanent link">&para;</a></h3>
@@ -334,14 +495,15 @@ including <code>_id</code> and <code>_rev</code>.</p>
 </ul>
 <p><strong>Warning</strong>: Not available on <strong>v2</strong>. A fallback implementation could be
 provided at some point.</p>
-<pre class="codehilite"><code class="language-javascript">const result = await cozy.client.data.findAll(myBooksDoctype)
-if (result.error) {
-    console.error('Error while fetching books')
-}
-for (const id of result.keys) {
-    const doc = result.docs[id]
-    console.log(doc._id, doc._rev, doc.title, doc.author, doc.isbn)
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">findAll</span><span class="p">(</span><span class="nx">myBooksDoctype</span><span class="p">)</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Error while fetching books&#39;</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">id</span> <span class="k">of</span> <span class="nx">result</span><span class="p">.</span><span class="nx">keys</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">doc</span> <span class="o">=</span> <span class="nx">result</span><span class="p">.</span><span class="nx">docs</span><span class="p">[</span><span class="nx">id</span><span class="p">]</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">_id</span><span class="p">,</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">_rev</span><span class="p">,</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">title</span><span class="p">,</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">author</span><span class="p">,</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">isbn</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <h3 id="cozyclientdatachangesfeeddoctype-options"><code>cozy.client.data.changesFeed(doctype, options)</code><a class="headerlink" href="#cozyclientdatachangesfeeddoctype-options" title="Permanent link">&para;</a></h3>
@@ -351,8 +513,9 @@ for (const id of result.keys) {
 <li><code>doctype</code> is a string specifying the <a href="../intro/#doctypes--permissions">doctype</a></li>
 <li><code>options</code> is an object, only its <code>since</code> parameter is supported currently</li>
 </ul>
-<pre class="codehilite"><code class="language-javascript">const changes = await.cozy.client.data.changesFeed(myBooksDoctype, { since: 0 })
-console.log(changes.last_seq, changes.results)</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">changes</span> <span class="o">=</span> <span class="nx">await</span><span class="p">.</span><span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">changesFeed</span><span class="p">(</span><span class="nx">myBooksDoctype</span><span class="p">,</span> <span class="p">{</span> <span class="nx">since</span><span class="o">:</span> <span class="mi">0</span> <span class="p">})</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">changes</span><span class="p">.</span><span class="nx">last_seq</span><span class="p">,</span> <span class="nx">changes</span><span class="p">.</span><span class="nx">results</span><span class="p">)</span>
+</pre></div>
 
 
 <h3 id="cozyclientdataupdatedoctype-doc-newdoc"><code>cozy.client.data.update(doctype, doc, newdoc)</code><a class="headerlink" href="#cozyclientdataupdatedoctype-doc-newdoc" title="Permanent link">&para;</a></h3>
@@ -365,12 +528,13 @@ console.log(changes.last_seq, changes.results)</code></pre>
 <li><code>doc</code> is an object with <em>at least</em> the fields <code>_id</code> and <code>_rev</code> containing the identifier and revision of the file you want to update.</li>
 <li><code>newdoc</code> is an object, specifying the new content of the document</li>
 </ul>
-<pre class="codehilite"><code class="language-javascript">const updates = { title: &quot;Moby Dick !&quot;, author:&quot;THE Herman Melville&quot;}
-const updated = await cozy.client.data.update(myBooksDoctype, doc, updates)
-console.log(updated._id === doc._id) // _id does not change
-console.log(updated._rev) // 2-xxxxxx
-console.log(updated.title, updated.year) // fields are changed
-console.log(updated.isbn === undefined) // update erase fields</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">updates</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;Moby Dick !&quot;</span><span class="p">,</span> <span class="nx">author</span><span class="o">:</span><span class="s2">&quot;THE Herman Melville&quot;</span><span class="p">}</span>
+<span class="kr">const</span> <span class="nx">updated</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="nx">myBooksDoctype</span><span class="p">,</span> <span class="nx">doc</span><span class="p">,</span> <span class="nx">updates</span><span class="p">)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">updated</span><span class="p">.</span><span class="nx">_id</span> <span class="o">===</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">_id</span><span class="p">)</span> <span class="c1">// _id does not change</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">updated</span><span class="p">.</span><span class="nx">_rev</span><span class="p">)</span> <span class="c1">// 2-xxxxxx</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">updated</span><span class="p">.</span><span class="nx">title</span><span class="p">,</span> <span class="nx">updated</span><span class="p">.</span><span class="nx">year</span><span class="p">)</span> <span class="c1">// fields are changed</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">updated</span><span class="p">.</span><span class="nx">isbn</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">)</span> <span class="c1">// update erase fields</span>
+</pre></div>
 
 
 <h3 id="cozyclientdataupdateattributesdoctype-id-changes"><code>cozy.client.data.updateAttributes(doctype, id, changes)</code><a class="headerlink" href="#cozyclientdataupdateattributesdoctype-id-changes" title="Permanent link">&para;</a></h3>
@@ -383,12 +547,13 @@ console.log(updated.isbn === undefined) // update erase fields</code></pre>
 <li><code>id</code> is a string specifying the identifier of the document to update</li>
 <li><code>changes</code> is an object</li>
 </ul>
-<pre class="codehilite"><code class="language-javascript">const updates = { year: 1852}
-const updated = await cozy.client.data.updateAttributes(myBooksDoctype, id, updates)
-console.log(updated._id === doc._id) // _id does not change
-console.log(updated._rev) // 3-xxxxxx
-console.log(updated.year) // fields are changed
-console.log(updated.isbn) // updateAttributes preserve other fields</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">updates</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">year</span><span class="o">:</span> <span class="mi">1852</span><span class="p">}</span>
+<span class="kr">const</span> <span class="nx">updated</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">updateAttributes</span><span class="p">(</span><span class="nx">myBooksDoctype</span><span class="p">,</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">updates</span><span class="p">)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">updated</span><span class="p">.</span><span class="nx">_id</span> <span class="o">===</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">_id</span><span class="p">)</span> <span class="c1">// _id does not change</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">updated</span><span class="p">.</span><span class="nx">_rev</span><span class="p">)</span> <span class="c1">// 3-xxxxxx</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">updated</span><span class="p">.</span><span class="nx">year</span><span class="p">)</span> <span class="c1">// fields are changed</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">updated</span><span class="p">.</span><span class="nx">isbn</span><span class="p">)</span> <span class="c1">// updateAttributes preserve other fields</span>
+</pre></div>
 
 
 <h3 id="cozyclientdatadeletedoctype-doc"><code>cozy.client.data.delete(doctype, doc)</code><a class="headerlink" href="#cozyclientdatadeletedoctype-doc" title="Permanent link">&para;</a></h3>
@@ -399,7 +564,8 @@ console.log(updated.isbn) // updateAttributes preserve other fields</code></pre>
 <li><code>doctype</code> is a string specifying the <a href="../intro/#doctypes--permissions">doctype</a></li>
 <li><code>doc</code> is an object with <em>at least</em> the fields <code>_id</code> and <code>_rev</code> containing the identifier and revision of the file you want to destroy.</li>
 </ul>
-<pre class="codehilite"><code class="language-javascript">await cozy.client.data.delete(myBooksDoctype, updated)</code></pre>
+<div class="codehilite"><pre><span></span><span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="nx">myBooksDoctype</span><span class="p">,</span> <span class="nx">updated</span><span class="p">)</span>
+</pre></div>
 
 
 <h3 id="cozyclientdatadefineindexdoctype-fields"><code>cozy.client.data.defineIndex(doctype, fields)</code><a class="headerlink" href="#cozyclientdatadefineindexdoctype-fields" title="Permanent link">&para;</a></h3>
@@ -410,7 +576,8 @@ console.log(updated.isbn) // updateAttributes preserve other fields</code></pre>
 <li><code>fields</code> is an array of the fields name to index</li>
 </ul>
 <p><strong>Warning</strong>: when used on <strong>v2</strong>, a map-reduce view is created internally, when used on <strong>v3</strong>, we use couchdb built-in mango queries.</p>
-<pre class="codehilite"><code class="language-javascript">const booksByYearRef = await cozy.client.data.defineIndex(myType, ['year', 'rating'])</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">booksByYearRef</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">defineIndex</span><span class="p">(</span><span class="nx">myType</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">])</span>
+</pre></div>
 
 
 <h3 id="cozyclientdataqueryindexreference-query"><code>cozy.client.data.query(indexReference, query)</code><a class="headerlink" href="#cozyclientdataqueryindexreference-query" title="Permanent link">&para;</a></h3>
@@ -424,16 +591,17 @@ console.log(updated.isbn) // updateAttributes preserve other fields</code></pre>
 <li><code>wholeResponse</code>: when set to true, the whole query response will be returned instead of just the docs. This is useful when paginating, because you&rsquo;ll get the <code>next</code> property in the response object.</li>
 </ul>
 <p><strong>Warning</strong>: complex mango queries are not compatible with <strong>v2</strong></p>
-<pre class="codehilite"><code class="language-javascript">const results = await cozy.client.data.query(booksByYearRef, {
-  &quot;selector&quot;: {year: 1851},
-  &quot;limit&quot;: 3,
-  &quot;skip&quot;: 1
-})
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">results</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">booksByYearRef</span><span class="p">,</span> <span class="p">{</span>
+  <span class="s2">&quot;selector&quot;</span><span class="o">:</span> <span class="p">{</span><span class="nx">year</span><span class="o">:</span> <span class="mi">1851</span><span class="p">},</span>
+  <span class="s2">&quot;limit&quot;</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+  <span class="s2">&quot;skip&quot;</span><span class="o">:</span> <span class="mi">1</span>
+<span class="p">})</span>
 
-results.length == 3 // we limited to 3 results
-resuts[0]._id === doc._id
-resuts[0].title === &quot;Moby Dick&quot;
-resuts[0].rating &lt; 2 // lowest rating first</code></pre></div>
+<span class="nx">results</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">3</span> <span class="c1">// we limited to 3 results</span>
+<span class="nx">resuts</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">_id</span> <span class="o">===</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">_id</span>
+<span class="nx">resuts</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">title</span> <span class="o">===</span> <span class="s2">&quot;Moby Dick&quot;</span>
+<span class="nx">resuts</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">rating</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="c1">// lowest rating first</span>
+</pre></div></div>
         </div>
 
         <footer class="col-md-12">

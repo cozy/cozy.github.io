@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/architecture/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>General overview - Cozy Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Cozy Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Use <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/">User guide</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Stay in sync</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronize your phone</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronize your computer</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Install on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Download</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../dev/">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="../../dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="../../dev/app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="../../dev/konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="../../dev/cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="../../dev/sendmail/">How to send mail in development</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">References</a>
+    <ul class="dropdown-menu">
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-client-js</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-client-js/intro/">Introduction</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/browser-sdk-transition/">Transition from cozy-browser-sdk</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/offline/">How to support offline</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/oauth/">OAuth guide</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/auth-api/">Authentication API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/data-api/">Data System API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/files-api/">Files API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/jobs-api/">Jobs API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/intents-api/">Intents API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/settings-api/">Settings API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/sharing-api/">Sharing API</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-stack</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../README/">README</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Architecture</a>
+    <ul class="dropdown-menu">
+            
+<li class="active">
+    <a href="./">General overview</a>
+</li>
+            
+<li >
+    <a href="../security/">Security</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Usage</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../INSTALL/">Install the cozy-stack</a>
+</li>
+            
+<li >
+    <a href="../cli/cozy-stack/">Manpages of the command-line tool</a>
+</li>
+            
+<li >
+    <a href="../config/">Configuration file</a>
+</li>
+            
+<li >
+    <a href="../instance/">Managing Instances</a>
+</li>
+            
+<li >
+    <a href="../onboarding/">Onboarding</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">For developpers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../client-app-dev/">Develop a client-side app</a>
+</li>
+            
+<li >
+    <a href="../docker/">Running and building Docker images</a>
+</li>
+            
+<li >
+    <a href="../release/">Build a release</a>
+</li>
+            
+<li >
+    <a href="../CONTRIBUTING/">The contributing guide</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Services</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../auth/">/auth - Authentication & OAuth</a>
+</li>
+            
+<li >
+    <a href="../apps/">/apps - Applications Management</a>
+</li>
+            
+<li >
+    <a href="../registry/">Apps registry</a>
+</li>
+            
+<li >
+    <a href="../data-system/">/data - Data System</a>
+</li>
+            
+<li >
+    <a href="../mango/">Mango</a>
+</li>
+            
+<li >
+    <a href="../replication/">Replication</a>
+</li>
+            
+<li >
+    <a href="../couchdb-quirks/">CouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../files/">/files - Virtual File System</a>
+</li>
+            
+<li >
+    <a href="../references-docs-in-vfs/">References of documents in VFS</a>
+</li>
+            
+<li >
+    <a href="../intents/">/intents - Intents</a>
+</li>
+            
+<li >
+    <a href="../jobs/">/jobs Jobs</a>
+</li>
+            
+<li >
+    <a href="../konnectors/">Konnectors</a>
+</li>
+            
+<li >
+    <a href="../workers/">Workers</a>
+</li>
+            
+<li >
+    <a href="../notifications/">/notifications - Notifications</a>
+</li>
+            
+<li >
+    <a href="../permissions/">/permissions - Permissions</a>
+</li>
+            
+<li >
+    <a href="../realtime/">/realtime - Realtime</a>
+</li>
+            
+<li >
+    <a href="../remote/">/remote - Proxy for remote data/API</a>
+</li>
+            
+<li >
+    <a href="../settings/">/settings - Settings</a>
+</li>
+            
+<li >
+    <a href="../sharing/">/sharings - Sharing</a>
+</li>
+            
+<li >
+    <a href="../sharing-design/">Request for comments</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#cozy-architecture">Cozy Architecture</a></li>
+            <li><a href="#what-is-cozy">What is Cozy?</a></li>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#workers">Workers</a></li>
+            <li><a href="#serverless-apps">Serverless apps</a></li>
+            <li><a href="#clients">Clients</a></li>
+            <li><a href="#guidelines">Guidelines</a></li>
+            <li><a href="#faq">FAQ</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<p><a href="../README/#table-of-contents">Table of contents</a></p>
+<h1 id="cozy-architecture">Cozy Architecture<a class="headerlink" href="#cozy-architecture" title="Permanent link">&para;</a></h1>
+<h2 id="what-is-cozy">What is Cozy?<a class="headerlink" href="#what-is-cozy" title="Permanent link">&para;</a></h2>
+<p>Cozy is a personal platform as a service with a focus on data. Cozy can be seen
+as 4 layers, from inside to outside:</p>
+<ol>
+<li>A place to keep your personal data</li>
+<li>A core API to handle the data</li>
+<li>Your web apps, and also the mobile &amp; desktop clients</li>
+<li>A coherent User Experience.</li>
+</ol>
+<p>It&rsquo;s also a set of values: Simple, Versatile, Yours. These values mean a lot for
+Cozy in all aspects. From an architectural point of view, it declines to:</p>
+<ul>
+<li>Simple to deploy and understand, not built as a galaxy of optimized
+  microservices managed by kubernetes that only experts can debug.</li>
+<li>Versatile, can be hosted on a Raspberry Pi for geeks to massive scale on
+  multiple servers by specialized hosting. Users can install apps.</li>
+<li>Yours, you own your data and you control it. If you want to take back your
+  data to go elsewhere, you can.</li>
+</ul>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The architecture of Cozy is composed of:</p>
+<ul>
+<li>A reverse proxy</li>
+<li>The cozy stack</li>
+<li>A CouchDB instance to persist the JSON documents</li>
+<li>A space for storing files</li>
+<li>Optionally, Redis for caching and synchronization</li>
+<li>Optionally, a metrics server.</li>
+</ul>
+<p>All of this can run on a personal server, self-hosted at home, like a Raspberry
+Pi:</p>
+<p><img alt="Architecture for a self-hosted" src="../diagrams/self-hosted.png" /></p>
+<p>But it&rsquo;s also possible to deploy a cozy on a more powerful server in order to
+host dozens of cozy instances (an association for example). It will looks like
+this:</p>
+<p><img alt="Architecture for a medium instance" src="../diagrams/middle-instance.png" /></p>
+<p>And even to scale to thousands of cozy instances on a server farm, with high
+availability:</p>
+<p><img alt="Architecture for a big instance" src="../diagrams/big-instance.png" /></p>
+<p>This elasticity comes with some constraints:</p>
+<ul>
+<li>Most applications are run in the browser, not in the server.</li>
+<li>What must run on the server is mutualized inside the cozy stack.</li>
+<li>The cozy stack is stateless.</li>
+<li>The data is stored in couchdb and a space for files.</li>
+<li>A couchdb database is specific to an instance (no mix of data from 2 users in
+  the same database).</li>
+</ul>
+<h3 id="reverse-proxy">Reverse proxy<a class="headerlink" href="#reverse-proxy" title="Permanent link">&para;</a></h3>
+<p>The reverse proxy is here to accept HTTPS connexions and forward the request to
+the cozy stack. It&rsquo;s here mainly to manage the TLS part and binding a port &lt;
+1024 without needing to launch the cozy stack as root. And it&rsquo;s better if http/2
+is supported, as it will make the web interface to load faster.</p>
+<h3 id="the-cozy-stack">The Cozy Stack<a class="headerlink" href="#the-cozy-stack" title="Permanent link">&para;</a></h3>
+<p>The Cozy Stack is a single executable. It can do several things but its most
+important usage is starting an HTTP server to serve as an API for all the
+services of Cozy, from authentication to real-time events. This API can be used
+on several domains. Each domain is a cozy instance for a specific user
+(&ldquo;multi-tenant&rdquo;).</p>
+<h3 id="redis">Redis<a class="headerlink" href="#redis" title="Permanent link">&para;</a></h3>
+<p>Redis is optional when there is a single cozy stack running. When available, it
+is used to synchronize the Cozy Stacks: distributed locks for special operations
+like installing an application, queues for recurrent jobs, etc. As a bonus, it
+can also be used to cache some frequently used documents.</p>
+<h3 id="databases">Databases<a class="headerlink" href="#databases" title="Permanent link">&para;</a></h3>
+<p>The JSON documents that represent the users data are stored in CouchDB, but they
+are not mixed in a single database. We don&rsquo;t mix data from 2 users in the same
+database. It&rsquo;s easier and safer to control the access to the data by using
+different databases per user.</p>
+<p>But we think to go even further by splitting the data of a user in several
+databases, one per document type. For example, we can have a database for the
+emails of a user and one for her todo list. This can simplify the implementation
+of permissions (this app has access to these document types) and can improve
+performance. CouchDB queries work with views. A view is defined ahead of its
+usage and is built by CouchDB when it is requested and is stale, i.e. there were
+writes in the database since the last time it was updated. So, with a single
+database per user, it&rsquo;s possible to experience lag when the todolist view is
+requested after fetching a long list of emails. By splitting the databases per
+doctypes, we gain on two fronts:</p>
+<ol>
+<li>The views are updated less frequently, only when documents of the matching
+   doctypes are written.</li>
+<li>Some views are no longer necessary: those to access documents of a specific
+   doctypes.</li>
+</ol>
+<p>There are downsides, mostly:</p>
+<ol>
+<li>It can be harder to manage more databases.</li>
+<li>It&rsquo;s no longer possible to use a single view for documents from doctypes that
+   are no longer in the same database.</li>
+</ol>
+<p>We think that we can work on that and the pros will outweigh the cons.</p>
+<h3 id="metrics">Metrics<a class="headerlink" href="#metrics" title="Permanent link">&para;</a></h3>
+<p>The Cozy Stack can generate some metrics about its usage (the size of the files
+transfered, the number of opened connexions, the number of requests to redis,
+etc.) and export them to a metrics backend. It will help identify the
+bottlenecks when scaling to add more users.</p>
+<p><a href="http://www.warp10.io/">The Warp 10 Platform</a> looks like a good candidate for
+this.</p>
+<h3 id="glossary">Glossary<a class="headerlink" href="#glossary" title="Permanent link">&para;</a></h3>
+<h4 id="instance">Instance<a class="headerlink" href="#instance" title="Permanent link">&para;</a></h4>
+<p>An instance is a logical space owned by a user and identified by a domain. For
+example, zoe.cozycloud.cc can be the cozy instance of Zoé. This instance has a
+space for storing files and some CouchDB databases for storing the documents of
+its owner.</p>
+<h4 id="environment">Environment<a class="headerlink" href="#environment" title="Permanent link">&para;</a></h4>
+<p>When creating an instance, it&rsquo;s possible to give an environment, <code>dev</code>, <code>test</code>
+or <code>prod</code>. The default apps won&rsquo;t be the same on all environments. For example,
+in the <code>dev</code> environment, some devtools will be installed to help the front
+developers to create their own apps.</p>
+<h4 id="cozy-stack-build-mode">Cozy Stack Build Mode<a class="headerlink" href="#cozy-stack-build-mode" title="Permanent link">&para;</a></h4>
+<p>The cozy stack can run in several modes, set by a UNIX environment variable:</p>
+<ul>
+<li><code>production</code>, the default</li>
+<li><code>development</code>, for coding on the cozy stack.</li>
+</ul>
+<p>This mode is set when compiling the cozy-stack. It is used to show more or less
+logs, and what is acceptable to be displayed in errors.</p>
+<p>Even if the Cozy Stack Build Mode and Environment have similar values, they are
+not the same. The Cozy Stack Mode will be used by core developers to hack on the
+cozy stack. The environment will be used by front developers to hack on cozy
+apps.</p>
+<h2 id="services">Services<a class="headerlink" href="#services" title="Permanent link">&para;</a></h2>
+<p>The cozy stack came with several services. They run on the server, inside the
+golang process and have an HTTP interface.</p>
+<h3 id="authentication-auth">Authentication <code>/auth</code><a class="headerlink" href="#authentication-auth" title="Permanent link">&para;</a></h3>
+<p>The cozy stack can authenticate the owner of a cozy instance. This can happen in
+the classical web style, with a form and a cookie, but also with OAuth2 for
+remote interactions like cozy-mobile and cozy-desktop.</p>
+<h3 id="applications-apps">Applications <code>/apps</code><a class="headerlink" href="#applications-apps" title="Permanent link">&para;</a></h3>
+<p>It&rsquo;s possible to manage serverless applications from the cozy stack and serve
+them via cozy stack. The stack does the routing and serve the HTML and the
+assets for the applications.</p>
+<p>The assets of the applications are installed in the virtual file system. On the
+big instances, it means that even if it is the frontal 1 that installs the
+application, frontal 2 will still be able to serve the application by getting
+its assets from Swift.</p>
+<p>It will be possible to install applications from several sources (git,
+mercurial, npm or even just a tarball). Also, we want to offer two channels for
+our official apps: one with a stable and well tested release, and one with more
+frequent updates for our more adventurous users.</p>
+<p>More informations <a href="../apps/">here</a>.</p>
+<h3 id="data-system-data">Data System <code>/data</code><a class="headerlink" href="#data-system-data" title="Permanent link">&para;</a></h3>
+<p>CouchDB is used for persistence of JSON documents. The data service is a layer
+on top of it for routing the requests to the corresponding CouchDB database and
+checking the permissions.</p>
+<p>In particular, a serverless application can declare some contexts and access
+data in those contexts even if it&rsquo;s not the owner of the cozy instance that
+access it. For example, the owner of a cozy can create a photo album with a
+selection of photos. This album can then be associated to a context to be shared
+with friends of the owner. These friends can access the album and see the
+photos, but not anonymous people.</p>
+<p>More informations <a href="../data-system/">here</a>.</p>
+<h3 id="virtual-file-system-files">Virtual File System <code>/files</code><a class="headerlink" href="#virtual-file-system-files" title="Permanent link">&para;</a></h3>
+<p>It&rsquo;s possible to store files on the cozy, including binary ones like photos and
+movies, thanks to the virtual file system. It&rsquo;s a facade, with several
+implementations, depending on where the files are effectively stored:</p>
+<ul>
+<li>In a directory of a local file system (easier for self-hosted users)</li>
+<li>Swift from Open Stack (convenient for massive hosting)</li>
+<li>And more storage providers, like <a href="https://minio.io/">minio</a>, later.</li>
+</ul>
+<p>The range of possible operations with this endpoint goes from simple ones, like
+uploading a file, to more complex ones, like renaming a folder. It also ensure
+that an instance is not exceeding its quota, and keeps a trash to recover files
+recently deleted.</p>
+<p>More informations <a href="../files/">here</a>.</p>
+<h3 id="sharing-sharings">Sharing <code>/sharings</code><a class="headerlink" href="#sharing-sharings" title="Permanent link">&para;</a></h3>
+<p>Users will want to share things like calendars. This service is there for
+sharing JSON documents between cozy instances, with respect to the access
+control.</p>
+<h3 id="jobs-jobs">Jobs <code>/jobs</code><a class="headerlink" href="#jobs-jobs" title="Permanent link">&para;</a></h3>
+<p>The cozy stack has queues where job descriptions can be put. For example, a job
+can be to fetch the latest bills from a specific provider. These queues can be
+consumed by external workers to complete the associated jobs.</p>
+<p>We can imagine having a media worker that extract thumbnails from photos and
+videos. It will fetch jobs from a media queue and each job description will
+contain the path to the photo or video from which the thumbnail will be
+extracted.</p>
+<p>There is also a scheduler that acts like a crontab. It can add jobs at recurrent
+time. For example, it can add a job for fetching github commits every hour.</p>
+<p>Later, we can dream about having more ways to create jobs (webhooks, on document
+creation) and make them communicate. With a web interface on that, it can become
+a simplified <a href="https://ifttt.com/"><em>Ifttt</em></a>.</p>
+<h3 id="sync-sync">Sync <code>/sync</code><a class="headerlink" href="#sync-sync" title="Permanent link">&para;</a></h3>
+<p>This endpoint will be for synchronizing your contacts and calendars by using
+standard methods like caldav and carddav. Later, we hope to support also Webdav
+and RemoteStorage.</p>
+<h3 id="settings-settings">Settings <code>/settings</code><a class="headerlink" href="#settings-settings" title="Permanent link">&para;</a></h3>
+<p>Each cozy instance has some settings, like its domain name, its language, the
+name of its owner, the background for the home, etc.</p>
+<h3 id="notifications-notifications">Notifications <code>/notifications</code><a class="headerlink" href="#notifications-notifications" title="Permanent link">&para;</a></h3>
+<p>The applications can put some notifications for the user. That goes from a
+reminder for a meeting in 10 minutes to a suggestion to update your app.</p>
+<h3 id="real-time-realtime">Real-time <code>/realtime</code><a class="headerlink" href="#real-time-realtime" title="Permanent link">&para;</a></h3>
+<p>This endpoint can be used to subscribe for real-time events. An application that
+shows items of a specific doctype can listen for this doctype to be notified of
+all the changes for this doctype. For example, the calendar app can listen for
+all the events and if a synchronization with the mobile adds a new event, the
+app will be notified and can show this new event.</p>
+<h3 id="error-catcher-errors">Error catcher <code>/errors</code><a class="headerlink" href="#error-catcher-errors" title="Permanent link">&para;</a></h3>
+<p>Client-side applications can have some JS errors. By sending the error, with its
+backtrace, to this endpoint, it will be kept in a logfile to help the developers
+debug the application later. We should look at the
+<a href="https://airbrake.io/docs/api/">airbrake API</a> and probably be compatible with it
+to avoid redeveloping JS code to send the errors.</p>
+<h3 id="proxy-proxy">Proxy <code>/proxy</code><a class="headerlink" href="#proxy-proxy" title="Permanent link">&para;</a></h3>
+<p>It can be useful for client-side apps to get data from public APIs. But,
+sometimes, these APIs don&rsquo;t have CORS enabled. A proxy endpoint can be a simple
+but effective solution for these cases.</p>
+<h3 id="status-status">Status <code>/status</code><a class="headerlink" href="#status-status" title="Permanent link">&para;</a></h3>
+<p>It&rsquo;s here just to say that the API is up and that it can access the CouchDB
+databases, for debugging and monitoring purposes.</p>
+<h2 id="workers">Workers<a class="headerlink" href="#workers" title="Permanent link">&para;</a></h2>
+<p>The workers take jobs from the queues and process them.</p>
+<h3 id="fetch-emails-jobsmailbox">Fetch emails <code>/jobs/mailbox</code><a class="headerlink" href="#fetch-emails-jobsmailbox" title="Permanent link">&para;</a></h3>
+<p>It fetches a mailbox to synchronize it and see if there are some new emails.</p>
+<p>Payload: the mailbox</p>
+<h3 id="send-email-jobssendmail">Send email <code>/jobs/sendmail</code><a class="headerlink" href="#send-email-jobssendmail" title="Permanent link">&para;</a></h3>
+<p>It connects to the SMTP server to send an email.</p>
+<p>Payload: mail account, recipient, body, attachments</p>
+<h3 id="extract-metadata-jobsmetadata">Extract metadata <code>/jobs/metadata</code><a class="headerlink" href="#extract-metadata-jobsmetadata" title="Permanent link">&para;</a></h3>
+<p>When a file is added or updated, this worker will extract its metadata (EXIF for
+an image, id3 for a music, etc.)</p>
+<p>Payload: the filepath</p>
+<h3 id="konnectors-jobskonnector">Konnectors <code>/jobs/konnector</code><a class="headerlink" href="#konnectors-jobskonnector" title="Permanent link">&para;</a></h3>
+<p>It synchronizes an account on a remote service (fetch bills for example).</p>
+<p>Payload: the kind of konnector, the credentials of the account and some optional
+parameters (like the folder where to put the files)</p>
+<h3 id="registry-jobsregistry">Registry <code>/jobs/registry</code><a class="headerlink" href="#registry-jobsregistry" title="Permanent link">&para;</a></h3>
+<p>It updates the list of available applications.</p>
+<p>Payload: none</p>
+<h3 id="indexer-jobsindexer">Indexer <code>/jobs/indexer</code><a class="headerlink" href="#indexer-jobsindexer" title="Permanent link">&para;</a></h3>
+<p>When a JSON document is added, updated or deleted, this worker will update the
+index for full text search. <a href="http://www.blevesearch.com/">Bleve</a> looks like a
+good candidate for the indexing and full text search technology.</p>
+<p>Payload: the doctype and the document to index</p>
+<h2 id="serverless-apps">Serverless apps<a class="headerlink" href="#serverless-apps" title="Permanent link">&para;</a></h2>
+<h3 id="home-appshome">Home <code>/apps/home</code><a class="headerlink" href="#home-appshome" title="Permanent link">&para;</a></h3>
+<p>It&rsquo;s where you land on your cozy and launch your apps. Having widgets to display
+informations would be nice too!</p>
+<h3 id="store-was-marketplace-appsstore">Store (was marketplace) <code>/apps/store</code><a class="headerlink" href="#store-was-marketplace-appsstore" title="Permanent link">&para;</a></h3>
+<p>You can install new apps here.</p>
+<h3 id="settings-was-my-apps-appssettings">Settings (was My apps) <code>/apps/settings</code><a class="headerlink" href="#settings-was-my-apps-appssettings" title="Permanent link">&para;</a></h3>
+<p>It&rsquo;s a list of your installed apps and devices, and you can configure some
+settings like your email address.</p>
+<h3 id="collect-was-konnectors-appscollect">Collect (was konnectors) <code>/apps/collect</code><a class="headerlink" href="#collect-was-konnectors-appscollect" title="Permanent link">&para;</a></h3>
+<p>You can configure new accounts, to fetch data from them, and see the already
+configured accounts.</p>
+<h3 id="devtools-appsdevtools">Devtools <code>/apps/devtools</code><a class="headerlink" href="#devtools-appsdevtools" title="Permanent link">&para;</a></h3>
+<p>Some tools for the developpers of applications only: an API console,
+documentation, logs of the permission checks, etc.</p>
+<h3 id="contacts-appscontacts">Contacts <code>/apps/contacts</code><a class="headerlink" href="#contacts-appscontacts" title="Permanent link">&para;</a></h3>
+<p>Manage your contact books.</p>
+<h3 id="calendar-appscalendar">Calendar <code>/apps/calendar</code><a class="headerlink" href="#calendar-appscalendar" title="Permanent link">&para;</a></h3>
+<p>Manage your events and alarms.</p>
+<h3 id="drive-appsdrive">Drive <code>/apps/drive</code><a class="headerlink" href="#drive-appsdrive" title="Permanent link">&para;</a></h3>
+<p>A web interface to browse your files.</p>
+<h3 id="photos-appsphotos">Photos <code>/apps/photos</code><a class="headerlink" href="#photos-appsphotos" title="Permanent link">&para;</a></h3>
+<p>Organize your photos and share them with friends.</p>
+<h3 id="todo-list-appstodo">Todo list <code>/apps/todo</code><a class="headerlink" href="#todo-list-appstodo" title="Permanent link">&para;</a></h3>
+<p>A task manager to never forgot what you should do.</p>
+<h3 id="onboarding-appsonboarding">Onboarding <code>/apps/onboarding</code><a class="headerlink" href="#onboarding-appsonboarding" title="Permanent link">&para;</a></h3>
+<p>Start your cozy and setup your accounts.</p>
+<h2 id="clients">Clients<a class="headerlink" href="#clients" title="Permanent link">&para;</a></h2>
+<h3 id="mobile">Mobile<a class="headerlink" href="#mobile" title="Permanent link">&para;</a></h3>
+<p>Cozy-mobile is an application for android and iOS for synchronizing files,
+contacts and calendars between the phone and the cozy instance.</p>
+<h3 id="desktop">Desktop<a class="headerlink" href="#desktop" title="Permanent link">&para;</a></h3>
+<p>Cozy-desktop is a client for Linux, OSX and windows that allows to sync the
+files in a cozy instance with a laptop or desktop.</p>
+<h2 id="guidelines">Guidelines<a class="headerlink" href="#guidelines" title="Permanent link">&para;</a></h2>
+<h3 id="the-go-programming-language">The Go Programming Language<a class="headerlink" href="#the-go-programming-language" title="Permanent link">&para;</a></h3>
+<p>Go (often referred as golang) is an open source programming language created at
+Google in 2007. It has nice properties for our usage:</p>
+<ul>
+<li>Simplicity (the language can be learned in weeks, not years).</li>
+<li>A focus on productivity.</li>
+<li>Good performance.</li>
+<li>A good support of concurrency with channels and goroutines.</li>
+</ul>
+<p>Moreover, Go is
+<a href="https://github.com/golang/go/wiki/GoUsers">used by a lot of companies</a>, is in
+<a href="http://spectrum.ieee.org/computing/software/the-2016-top-programming-languages">the Top 10 of the most used languages</a>
+and has some known open source projects: docker, kubernetes, grafana, syncthing,
+influxdb, caddy, etc. And it works on
+<a href="https://github.com/golang/go/wiki/GoArm">the ARM platforms</a>.</p>
+<p>Go has some tools to help the developers to format its code (<code>go fmt</code>), retrieve
+and install external packages (<code>go get</code>), display documentation (<code>godoc</code>), check
+for potential errors with static analysis (<code>go vet</code>), etc. Most of them can be
+used via <a href="https://github.com/alecthomas/gometalinter">gometalinter</a>, which is
+nice for continuous integration.</p>
+<p>So, we think that writing the Cozy Stack in Go is the right choice.</p>
+<h3 id="repository-organisation">Repository organisation<a class="headerlink" href="#repository-organisation" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>├── assets          The assets for the front-end
+│   ├── images      The images
+│   ├── scripts     The javascript files
+│   ├── styles      The CSS files
+│   └── templates   The HTML templates
+├── cmd             One .go file for each command of the cozy executable
+├── docs            Documentation, including this file
+├── pkg             One sub-directory for each golang package
+├── scripts         Some shell scripts for developers and testing
+└── web             One sub-directory for each of the services listed above
+</pre></div>
+
+
+<h3 id="rest-api">Rest API<a class="headerlink" href="#rest-api" title="Permanent link">&para;</a></h3>
+<p>We follow the best practices about Rest API (using the right status codes, HTTP
+verbs, organise code by resources, use content-negociation, etc.). When known
+standards make sense (caldav &amp; carddav for example), use them. Else,
+<a href="http://jsonapi.org">JSON API</a> is a good default.</p>
+<p>The golang web framework used for the cozy stack is
+<a href="https://github.com/labstack/echo/">Echo</a>.</p>
+<h4 id="http-status-codes">HTTP status codes<a class="headerlink" href="#http-status-codes" title="Permanent link">&para;</a></h4>
+<p>There are some HTTP status codes that are generally used in the API:</p>
+<ul>
+<li>200 OK, when everything is OK</li>
+<li>201 Created, when a resource was created</li>
+<li>204 No Content, when a resource was deleted</li>
+<li>400 Bad Request, when the request has some unknown parameters and the request
+  body is not in the expected format</li>
+<li>401 Unauthorized, when the user is not authenticated</li>
+<li>403 Forbidden, when the permissions forbid this action</li>
+<li>404 Not Found, when the resouce can&rsquo;t be found</li>
+<li>500 Internal Server Error, when a bug occurs</li>
+<li>503 Service Unavailable, when the stack, CouchDB, Redis or Swift is
+  unavailable.</li>
+</ul>
+<h3 id="doctypes">DocTypes<a class="headerlink" href="#doctypes" title="Permanent link">&para;</a></h3>
+<p>Each JSON document saved in CouchDB has a field <code>docType</code> that identify the kind
+of thing it is. For example, a contact will have the docType <code>io.cozy.contacts</code>,
+and in the cozy-doctypes repository, there will be a contacts JSON file inside
+it that describes this doctype:</p>
+<ul>
+<li>What are the mandatory and optional fields?</li>
+<li>What is the type (string, integer, date) of the fields?</li>
+<li>Is there a validation rule for a field?</li>
+<li>How the fields can be indexed for full text search?</li>
+<li>What is the role of each field (documentation)?</li>
+</ul>
+<p>This description can be used by any cozy client library (JS, Golang, etc.) to
+generate some models to simplify the use of documents of this doctype.</p>
+<p>When a docType has a lot of logic (calendar events for example), a JS class
+should be shared between the several client-side apps that use this docType, in
+order to avoid recoding this logic in each application.</p>
+<h3 id="import-and-export">Import and export<a class="headerlink" href="#import-and-export" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>You will stay because you can leave.</p>
+</blockquote>
+<p>An important promise of Cozy is to give back to the users the control of their
+data. And this promise is not complete with a way to export the data to use it
+somewhere else.</p>
+<p>The Cozy Stack will offer an export button that gives a tarball to the user with
+the full data. She can then import it on another instance for example. It should
+also be possible to use the data outside of Cozy. So, the format for the tarball
+should be as simple as possible and be documented. Of course, when it&rsquo;s
+possible, we will use open formats.</p>
+<h3 id="how-to-contribute">How to contribute?<a class="headerlink" href="#how-to-contribute" title="Permanent link">&para;</a></h3>
+<p>Cozy&rsquo;s DNA is fundamentally Open Source and we want our community to thrive.
+Having contributions (code, design, translations) is important for us and we
+will try to create the favorable conditions to support it.</p>
+<h4 id="adding-a-new-konnector">Adding a new konnector<a class="headerlink" href="#adding-a-new-konnector" title="Permanent link">&para;</a></h4>
+<p>Adding a konnector is easy for someone who knows JavaScript. The repository has
+already a lot of pull requests by external contributors. The wiki has
+documentation to explain the first steps of creating a new konnector. 3 active
+contributors have been promoted to the maintainers team and can merge the pull
+requests. We have done workshops to help new developers code their first
+konnector and we will keep doing it.</p>
+<h4 id="creating-a-new-application">Creating a new application<a class="headerlink" href="#creating-a-new-application" title="Permanent link">&para;</a></h4>
+<p>One of the goals of the new architecture is to make it easier for developers to
+write new apps. It means having a good documentation, but also some devtools to
+help:</p>
+<ul>
+<li>The <code>cozy</code> executable will have a command to setup a new project.</li>
+<li>The devtools on the cozy interface will give documentation about the doctypes,
+  help explore the Rest API, and check if the permissions are OK.</li>
+<li><code>cozy-ui</code> will make it easy to reuse some widgets and offer an application
+  with a style coherent to the cozy identity.</li>
+<li>Some docTypes with heavy logic will be available as JS classes to be reused in
+  the apps.</li>
+</ul>
+<h4 id="reporting-a-bug-or-suggesting-a-new-feature">Reporting a bug or suggesting a new feature<a class="headerlink" href="#reporting-a-bug-or-suggesting-a-new-feature" title="Permanent link">&para;</a></h4>
+<p>We are listening to our users. The forum is here to discuss on many subjects,
+including how the applications are used. The issues on github are a good place
+for bug tracking.</p>
+<h4 id="translating-to-a-new-language">Translating to a new language<a class="headerlink" href="#translating-to-a-new-language" title="Permanent link">&para;</a></h4>
+<p>We will keep having internationalization for our applications and the
+translations are maintained on transifex by the community. Translating to a new
+language, or reviewing an existing one, is really appreciated.</p>
+<h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>Does the current konnectors in nodejs will be lost?</p>
+</blockquote>
+<p>No, they won&rsquo;t. The business logic to scrap data from the many sources will be
+kept and they will be adapted to fit in this new architecture. It is explained
+how we will do that <a href="../konnectors/">here</a>.</p>
+<blockquote>
+<p>So, it&rsquo;s not possible to have a custom application with a server part, like
+the lounge IRC client?</p>
+</blockquote>
+<p>We want to support this use case, just not on the short term. It&rsquo;s not clear how
+we can do that (while not weakening the security). One idea is to run the
+applications in a different server, or maybe in docker.</p>
+<blockquote>
+<p>How to install and update cozy?</p>
+</blockquote>
+<p>The Cozy Stack will have no auto-update mechanism. For installing and updating
+it, you can use the classical ways:</p>
+<ul>
+<li>Using a package manager, like apt for debian &amp; ubuntu.</li>
+<li>Using an official image for Raspberry Pi (and other embedded platforms).</li>
+<li>Using the image and services of an hosting company.</li>
+<li>Or compiling and installing it manually if you are really brave ;-)</li>
+</ul>
+<blockquote>
+<p>How to add a cozy instance to a farm?</p>
+</blockquote>
+<ol>
+<li>Choose a (sub-)domain and configure the DNS for this (sub-)domain.</li>
+<li>Configure the reverse-proxy to accept this (sub-)domain.</li>
+<li>Use the <code>cozy</code> executable to configure the cozy stack.</li>
+</ol>
+<blockquote>
+<p>How to migrate from the nodejs cozy to this new architecture for cozy?</p>
+</blockquote>
+<ol>
+<li>Export the data from the nodejs cozy (we need to add a button in the web
+   interface for that in the coming months).</li>
+<li>Install the new cozy.</li>
+<li>Import the data.</li>
+</ol>
+<p>Please note that we don&rsquo;t support a continuous replication method that will
+enable to use both the nodejs and the new architecture at the same time. It
+looks too complicated for a temporary thing.</p>
+<blockquote>
+<p>How to backup the data?</p>
+</blockquote>
+<p>There are 2 sensitive places with data:</p>
+<ul>
+<li>In CouchDB.</li>
+<li>on the place used for the Virtual File System (a directory on the local
+  filesystem, or in Swift).</li>
+</ul>
+<p>You can use the tools of your choice to backup these 2 locations. The good old
+rsync works fine (CouchDB files are append-only, except when compaction happens,
+so it&rsquo;s friendly to rsync).</p>
+<p>It&rsquo;s highly recommended to have an automated backup, but sometimes it can be
+useful to have a way to backup manually the data. The &ldquo;export data&rdquo; button in
+the web interface give a tarball that can be used to transfer your data from one
+instance to another, and so, it can be used as a backup.</p>
+<blockquote>
+<p>Aren&rsquo;t microservices better for scaling?</p>
+</blockquote>
+<p>Yes, it&rsquo;s often easier to scale by separating concerns, and microservices is a
+way to achieve that. But, it has some serious downsides:</p>
+<ul>
+<li>It takes more memory and it&rsquo;s probably a no-go for Raspberry Pi.</li>
+<li>It&rsquo;s more complicated for a developper to install the whole stack before
+  coding its application.</li>
+<li>It&rsquo;s harder to deploy in production.</li>
+</ul>
+<p>For the scalability, we can also deploy some specialized instances of the Cozy
+Stack. For example, we can have some Cozy Stack processes dedicated for
+real-time. Even, if they have all the code, we can route only the relevant
+trafic from the load-balancer.</p>
+<blockquote>
+<p>What are the frameworks and tools used for the front-end apps?</p>
+</blockquote>
+<p>If you want to develop your own app, you can use the framework and the tools you
+like, nothing is mandatory. For the official apps, we will want to move to:</p>
+<ul>
+<li>es2017 (but converting the existing coffeescript code will take time)</li>
+<li>npm scripts and webpack</li>
+<li>preact &amp; JSX.</li>
+</ul>
+<p>More about this
+<a href="https://forum.cozy.io/t/a-propos-de-la-pile-technique-front-about-our-frontend-stack/3849/1">here</a></p>
+<blockquote>
+<p>When will this new architecture be available?</p>
+</blockquote>
+<p>The roadmap for Cozy v3 has been explained on our blog:
+https://blog.cozycloud.cc/post/2016/11/21/On-the-road-to-Cozy-version-3</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

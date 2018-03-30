@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/remote/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>/remote - Proxy for remote data/API - Cozy Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Cozy Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Use <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/">User guide</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Stay in sync</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronize your phone</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronize your computer</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Install on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Download</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../dev/">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="../../dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="../../dev/app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="../../dev/konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="../../dev/cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="../../dev/sendmail/">How to send mail in development</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">References</a>
+    <ul class="dropdown-menu">
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-client-js</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-client-js/intro/">Introduction</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/browser-sdk-transition/">Transition from cozy-browser-sdk</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/offline/">How to support offline</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/oauth/">OAuth guide</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/auth-api/">Authentication API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/data-api/">Data System API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/files-api/">Files API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/jobs-api/">Jobs API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/intents-api/">Intents API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/settings-api/">Settings API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/sharing-api/">Sharing API</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-stack</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../README/">README</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Architecture</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../architecture/">General overview</a>
+</li>
+            
+<li >
+    <a href="../security/">Security</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Usage</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../INSTALL/">Install the cozy-stack</a>
+</li>
+            
+<li >
+    <a href="../cli/cozy-stack/">Manpages of the command-line tool</a>
+</li>
+            
+<li >
+    <a href="../config/">Configuration file</a>
+</li>
+            
+<li >
+    <a href="../instance/">Managing Instances</a>
+</li>
+            
+<li >
+    <a href="../onboarding/">Onboarding</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">For developpers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../client-app-dev/">Develop a client-side app</a>
+</li>
+            
+<li >
+    <a href="../docker/">Running and building Docker images</a>
+</li>
+            
+<li >
+    <a href="../release/">Build a release</a>
+</li>
+            
+<li >
+    <a href="../CONTRIBUTING/">The contributing guide</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Services</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../auth/">/auth - Authentication & OAuth</a>
+</li>
+            
+<li >
+    <a href="../apps/">/apps - Applications Management</a>
+</li>
+            
+<li >
+    <a href="../registry/">Apps registry</a>
+</li>
+            
+<li >
+    <a href="../data-system/">/data - Data System</a>
+</li>
+            
+<li >
+    <a href="../mango/">Mango</a>
+</li>
+            
+<li >
+    <a href="../replication/">Replication</a>
+</li>
+            
+<li >
+    <a href="../couchdb-quirks/">CouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../files/">/files - Virtual File System</a>
+</li>
+            
+<li >
+    <a href="../references-docs-in-vfs/">References of documents in VFS</a>
+</li>
+            
+<li >
+    <a href="../intents/">/intents - Intents</a>
+</li>
+            
+<li >
+    <a href="../jobs/">/jobs Jobs</a>
+</li>
+            
+<li >
+    <a href="../konnectors/">Konnectors</a>
+</li>
+            
+<li >
+    <a href="../workers/">Workers</a>
+</li>
+            
+<li >
+    <a href="../notifications/">/notifications - Notifications</a>
+</li>
+            
+<li >
+    <a href="../permissions/">/permissions - Permissions</a>
+</li>
+            
+<li >
+    <a href="../realtime/">/realtime - Realtime</a>
+</li>
+            
+<li class="active">
+    <a href="./">/remote - Proxy for remote data/API</a>
+</li>
+            
+<li >
+    <a href="../settings/">/settings - Settings</a>
+</li>
+            
+<li >
+    <a href="../sharing/">/sharings - Sharing</a>
+</li>
+            
+<li >
+    <a href="../sharing-design/">Request for comments</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#proxy-for-remote-dataapi">Proxy for remote data/API</a></li>
+            <li><a href="#declaring-a-remote-doctype">Declaring a remote doctype</a></li>
+            <li><a href="#declaring-permissions">Declaring permissions</a></li>
+            <li><a href="#calling-the-remote-api">Calling the remote API</a></li>
+            <li><a href="#logs">Logs</a></li>
+            <li><a href="#for-developers">For developers</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<p><a href="../README/#table-of-contents">Table of contents</a></p>
+<p>{% raw %}</p>
+<h1 id="proxy-for-remote-dataapi">Proxy for remote data/API<a class="headerlink" href="#proxy-for-remote-dataapi" title="Permanent link">&para;</a></h1>
+<p>The client side applications in Cozy are constrained and cannot speak with
+external websites to avoid leaking personal data. Technically, it is made with
+the Content Security Policy. These rules are very strict and it would be a pity
+to now allow a client side app to load public informations from a source like
+Wikipedia. Our proposal is to make client side apps able to query external
+websites of their choices, but these requests will be made via the cozy-stack
+(as a proxy) and will be logged to check later that no personal data was leaked
+unintentionally. We can see the data loaded from the external website as a
+document with a doctype: it&rsquo;s just not a doctype local to our cozy, but a remote
+one.</p>
+<p>A client side app can request data from external websites by doing these three
+steps:</p>
+<ol>
+<li>Declaring a remote doctype and its requests</li>
+<li>Declaring permissions on these doctypes in the manifest</li>
+<li>Calling the <code>/remote</code> API of cozy-stack</li>
+</ol>
+<h2 id="declaring-a-remote-doctype">Declaring a remote doctype<a class="headerlink" href="#declaring-a-remote-doctype" title="Permanent link">&para;</a></h2>
+<p>Doctypes are formalized in this repository:
+<a href="https://github.com/cozy/cozy-doctypes">github.com/cozy/cozy-doctypes</a>. Each
+doctype has its own directory inside the repository. For a remote doctype, it
+will include a file called <code>request</code> that will describe how the cozy-stack will
+request the external website.</p>
+<p>Let&rsquo;s take an example:</p>
+<div class="codehilite"><pre><span></span>$ tree cozy-doctypes
+cozy-doctypes
+├── <span class="o">[</span>...<span class="o">]</span>
+├── org.wikidata.entity
+│   └── request
+└── org.wikidata.search
+    └── request
+
+$ cat cozy-doctypes/org.wikidata.entity/request
+GET https://www.wikidata.org/wiki/Special:EntityData/<span class="o">{{</span>entity<span class="o">}}</span>.json
+Accept: application/json
+
+$ cat cozy-doctypes/org.wikidata.search/request
+GET https://www.wikidata.org/w/api.php?action<span class="o">=</span>wbsearchentities<span class="p">&amp;</span><span class="nv">search</span><span class="o">={{</span>q<span class="o">}}</span><span class="p">&amp;</span><span class="nv">language</span><span class="o">=</span>en<span class="p">&amp;</span><span class="nv">format</span><span class="o">=</span>json
+</pre></div>
+
+
+<p>Here, we have two remote doctypes. Each one has a request defined for it.</p>
+<p>The format for the request file is:</p>
+<ul>
+<li>the verb and the URL on the first line</li>
+<li>then some lines that describe the HTTP headers</li>
+<li>then a blank line and the body if the request is a POST</li>
+</ul>
+<p>For the path, the query-string, the headers, and the body, it&rsquo;s possible to have
+some dynamic part by using <code>{{</code>, a variable name, and <code>}}</code>.</p>
+<p>Some templating helpers are available to escape specific variables using <code>{{</code>
+function name - space - variable name <code>}}</code>. These helpers are only available for
+the body part of the template.</p>
+<p>Available helpers:</p>
+<ul>
+<li><code>json</code>: for json parts (<code>{ "key": "{{json val}}" }</code>)</li>
+<li><code>html</code>: for html parts (<code>&lt;p&gt;{{html val}}&lt;/p&gt;</code>)</li>
+<li><code>query</code>: for query parameter of a url (<code>http://foobar.com?q={{query q}}</code>)</li>
+<li><code>path</code>: for path component of a url (<code>http://foobar.com/{{path p}}</code>)</li>
+</ul>
+<p>Values injected in the URL are automatically URI-escaped based on the part they
+are included in: namely as a query parameter or as a path component.</p>
+<p><strong>Note</strong>: by default, the User-Agent is set to a default value (&ldquo;cozy-stack&rdquo; and
+a version number). It can be overriden in the request description.</p>
+<p>Example:</p>
+<div class="codehilite"><pre><span></span><span class="x">GET https://foobar.com/</span><span class="cp">{{</span><span class="nv">path</span><span class="cp">}}</span><span class="x">?q=</span><span class="cp">{{</span><span class="nv">query</span><span class="cp">}}</span><span class="x"></span>
+<span class="x">Content-Type: </span><span class="cp">{{</span><span class="nv">contentType</span><span class="cp">}}</span><span class="x"></span>
+
+<span class="x">{</span>
+<span class="x">  &quot;key&quot;: &quot;</span><span class="cp">{{</span><span class="nv">json</span> <span class="nv">value</span><span class="cp">}}</span><span class="x">&quot;,</span>
+<span class="x">  &quot;url&quot;: &quot;http://anotherurl.com/</span><span class="cp">{{</span><span class="nv">path</span> <span class="nv">anotherPath</span><span class="cp">}}</span><span class="x">?q=</span><span class="cp">{{</span><span class="nv">query</span> <span class="nv">anotherQuery</span><span class="cp">}}</span><span class="x">&quot;,</span>
+<span class="x">}</span>
+</pre></div>
+
+
+<h2 id="declaring-permissions">Declaring permissions<a class="headerlink" href="#declaring-permissions" title="Permanent link">&para;</a></h2>
+<p>Nothing special here. The client side app must declare that it will use these
+doctypes in its manifest, like for other doctypes:</p>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;...&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;search&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Required for searching on wikidata&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;org.wikidata.search&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;entity&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;description&quot;</span><span class="p">:</span>
+        <span class="s2">&quot;Required for getting more informations about an entity on wikidata&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;org.wikidata.entity&quot;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h2 id="calling-the-remote-api">Calling the remote API<a class="headerlink" href="#calling-the-remote-api" title="Permanent link">&para;</a></h2>
+<h3 id="getpost-remotedoctype">GET/POST <code>/remote/:doctype</code><a class="headerlink" href="#getpost-remotedoctype" title="Permanent link">&para;</a></h3>
+<p>The client side app must use the same verb as the defined request (<code>GET</code> in our
+two previous examples). It can use the query-string for GET, and a JSON body for
+POST, to give values for the variables.</p>
+<p>Example:</p>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/remote/org.wikidata.search?q=Douglas+Adams</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.cozy.tools</span>
+</pre></div>
+
+
+<p>It is possible to send some extra informations, to make it easier to understand
+the request. If no variable in the request matches it, it won&rsquo;t be send to the
+remote website.</p>
+<p>Example:</p>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/remote/org.example</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.cozy.tools</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;query&quot;</span><span class="p">:</span> <span class="s2">&quot;Qbhtynf Nqnzf&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;comment&quot;</span><span class="p">:</span> <span class="s2">&quot;query is rot13 for Douglas Adams&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p><strong>Note</strong>: currently, only the response with a content-type that is an image,
+JSON or XML are accepted. Other content-types are blocked the time to evaluate
+if they are useful and their security implication (javascript is probably not
+something we want to allow).</p>
+<h3 id="get-remoteassetsasset-name">GET <code>/remote/assets/:asset-name</code><a class="headerlink" href="#get-remoteassetsasset-name" title="Permanent link">&para;</a></h3>
+<p>The client application can fetch a list of predefined assets via this route.
+The resources available are defined in the configuration file.</p>
+<p>Example:</p>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/remote/assets/bank</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.cozy.tools</span>
+</pre></div>
+
+
+<h2 id="logs">Logs<a class="headerlink" href="#logs" title="Permanent link">&para;</a></h2>
+<p>The requests are logged as the <code>io.cozy.remote.requests</code> doctype, with the
+doctype asked, the parameter (even those that have not been used, like <code>comment</code>
+in the previous example), and the application that has made the request.</p>
+<h2 id="for-developers">For developers<a class="headerlink" href="#for-developers" title="Permanent link">&para;</a></h2>
+<p>If you are a developer and you want to use a new remote doctype, it can be
+difficult to first make it available in the github.com/cozy/cozy-doctypes
+repository and only then test it. So, the cozy-stack serve command will have a
+<code>--doctypes</code> option to gives a local directory with the doctypes. You can fork
+the repository, clone it, work on a new doctype inside, test it locally, and
+when OK, make a pull request for it.</p>
+<p>{% endraw %}</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

@@ -215,6 +215,164 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-stack</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/README/">README</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Architecture</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/architecture/">General overview</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/security/">Security</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Usage</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/INSTALL/">Install the cozy-stack</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/cli/cozy-stack/">Manpages of the command-line tool</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/config/">Configuration file</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/instance/">Managing Instances</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/onboarding/">Onboarding</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">For developpers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/client-app-dev/">Develop a client-side app</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/docker/">Running and building Docker images</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/release/">Build a release</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/CONTRIBUTING/">The contributing guide</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Services</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/auth/">/auth - Authentication & OAuth</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/apps/">/apps - Applications Management</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/registry/">Apps registry</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/data-system/">/data - Data System</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/mango/">Mango</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/replication/">Replication</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/couchdb-quirks/">CouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/files/">/files - Virtual File System</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/references-docs-in-vfs/">References of documents in VFS</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/intents/">/intents - Intents</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/jobs/">/jobs Jobs</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/konnectors/">Konnectors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/workers/">Workers</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/notifications/">/notifications - Notifications</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/permissions/">/permissions - Permissions</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/realtime/">/realtime - Realtime</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/remote/">/remote - Proxy for remote data/API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/settings/">/settings - Settings</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/sharing/">/sharings - Sharing</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/sharing-design/">Request for comments</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -250,29 +408,32 @@
 <p>All applications do not require offline mode, and offline mode needs two dependencies : <code>pouchdb</code> and <code>pouchdb-find</code>.
 As both are very large, we decide not to provide them by default, since v0.2.0.</p>
 <p>So if your app needs to use offline mode, you have to add those dependencies by yourself. It means you just need to do:</p>
-<pre class="codehilite"><code class="language-bash">$/your-app&gt; yarn add pouchdb
-$/your-app&gt; yarn add pouchdb-find</code></pre>
+<div class="codehilite"><pre><span></span>$/your-app&gt; yarn add pouchdb
+$/your-app&gt; yarn add pouchdb-find
+</pre></div>
 
 
 <p>Then they will have to import <code>pouchdb</code> and <code>pouchdbfind</code> globally, as they are not imported in codebase anymore. This means adding the following configuration in all concerned webpack target files (for example <code>webpack.target.mobile.js</code>) :</p>
-<pre class="codehilite"><code class="language-js">module.exports = {
-  ...
-  plugins: [
-    new webpack.ProvidePlugin({
-      'PouchDB': 'pouchdb',
-      'pouchdbFind': 'pouchdb-find'
-    })
-  ]
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="p">...</span>
+  <span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span>
+    <span class="k">new</span> <span class="nx">webpack</span><span class="p">.</span><span class="nx">ProvidePlugin</span><span class="p">({</span>
+      <span class="s1">&#39;PouchDB&#39;</span><span class="o">:</span> <span class="s1">&#39;pouchdb&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;pouchdbFind&#39;</span><span class="o">:</span> <span class="s1">&#39;pouchdb-find&#39;</span>
+    <span class="p">})</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <p>This same configuration has to be added in file <code>wepback.config.prod.js</code>, to make the build possible.</p>
 <p>In prod, since <code>cozy-client-js</code> is injected by the stack, it has not been processed by <code>wepback</code> and the <code>ProvidePlugin</code>. Thus you need to bind <code>PouchDB</code> to <code>window</code>.</p>
-<pre class="codehilite"><code>/* global PouchDB, pouchdbFind */
-// Bind PouchDB to window for cozy-client-js to find it
-// PouchDB is provided by webpack through ProvidedPlugin
-window.PouchDB = PouchDB
-window.pouchdbFind = pouchdbFind</code></pre></div>
+<div class="codehilite"><pre><span></span><span class="cm">/* global PouchDB, pouchdbFind */</span><span class="w"></span>
+<span class="o">//</span><span class="w"> </span>Bind<span class="w"> </span>PouchDB<span class="w"> </span><span class="kr">to</span><span class="w"> </span>window<span class="w"> </span><span class="kr">for</span><span class="w"> </span>cozy<span class="o">-</span>client<span class="o">-</span>js<span class="w"> </span><span class="kr">to</span><span class="w"> </span>find<span class="w"> </span>it<span class="w"></span>
+<span class="o">//</span><span class="w"> </span>PouchDB<span class="w"> </span>is<span class="w"> </span>provided<span class="w"> </span><span class="kr">by</span><span class="w"> </span>webpack<span class="w"> </span>through<span class="w"> </span>ProvidedPlugin<span class="w"></span>
+window<span class="o">.</span>PouchDB<span class="w"> </span><span class="o">=</span><span class="w"> </span>PouchDB<span class="w"></span>
+window<span class="o">.</span>pouchdbFind<span class="w"> </span><span class="o">=</span><span class="w"> </span>pouchdbFind<span class="w"></span>
+</pre></div></div>
         </div>
 
         <footer class="col-md-12">

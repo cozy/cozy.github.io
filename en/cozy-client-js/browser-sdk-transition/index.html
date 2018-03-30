@@ -215,6 +215,164 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-stack</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/README/">README</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Architecture</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/architecture/">General overview</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/security/">Security</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Usage</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/INSTALL/">Install the cozy-stack</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/cli/cozy-stack/">Manpages of the command-line tool</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/config/">Configuration file</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/instance/">Managing Instances</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/onboarding/">Onboarding</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">For developpers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/client-app-dev/">Develop a client-side app</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/docker/">Running and building Docker images</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/release/">Build a release</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/CONTRIBUTING/">The contributing guide</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Services</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/auth/">/auth - Authentication & OAuth</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/apps/">/apps - Applications Management</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/registry/">Apps registry</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/data-system/">/data - Data System</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/mango/">Mango</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/replication/">Replication</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/couchdb-quirks/">CouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/files/">/files - Virtual File System</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/references-docs-in-vfs/">References of documents in VFS</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/intents/">/intents - Intents</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/jobs/">/jobs Jobs</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/konnectors/">Konnectors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/workers/">Workers</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/notifications/">/notifications - Notifications</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/permissions/">/permissions - Permissions</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/realtime/">/realtime - Realtime</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/remote/">/remote - Proxy for remote data/API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/settings/">/settings - Settings</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/sharing/">/sharings - Sharing</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/sharing-design/">Request for comments</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -256,24 +414,26 @@
 <p>Any doctype you introduce is expected to be prefixed with the reverse notation of a domain you own (JLS#7.7).</p>
 <p>You are free to reuse another applications documents by using their doctypes but you SHOULD discuss with the domain owner if you want to add fields or format them differently.</p>
 <p>To ensure retrocompatibility, when used on stack v2, all known doctypes will be auto-prefixed by <code>io.cozy.</code> or <code>io.cozy.labs.</code>, but a warning will be written to the console. Unknown doctype will cause a fatal error. DO NOT rely on this behaviour in new applications, use qualified doctypes.</p>
-<pre class="codehilite"><code class="language-javascript">// old version, using cozy-browser-sdk
-cozysdk.create(&quot;Contact&quot;, {})
-cozysdk.create(&quot;Book&quot;, {})
-// new version, with cozy-client-js
-cozy.data.create(&quot;io.cozy.contacts&quot;, {})
-cozy.data.create(&quot;com.mydomain.book&quot;, {})</code></pre>
+<div class="codehilite"><pre><span></span><span class="c1">// old version, using cozy-browser-sdk</span>
+<span class="nx">cozysdk</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s2">&quot;Contact&quot;</span><span class="p">,</span> <span class="p">{})</span>
+<span class="nx">cozysdk</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s2">&quot;Book&quot;</span><span class="p">,</span> <span class="p">{})</span>
+<span class="c1">// new version, with cozy-client-js</span>
+<span class="nx">cozy</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s2">&quot;io.cozy.contacts&quot;</span><span class="p">,</span> <span class="p">{})</span>
+<span class="nx">cozy</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s2">&quot;com.mydomain.book&quot;</span><span class="p">,</span> <span class="p">{})</span>
+</pre></div>
 
 
 <h2 id="mapreduce-views-vs-mango-queries">MapReduce Views vs Mango queries<a class="headerlink" href="#mapreduce-views-vs-mango-queries" title="Permanent link">&para;</a></h2>
 <p>Cozy <strong>v3</strong> recommends using Couchdb 2 indexes &amp; mango queries instead of Couchdb 1.X map-reduce views. We feel they are <a href="http://cozy.github.io/cozy-browser-sdk/tutorial-mapreduce.html">simpler to understand and explain</a> and avoid useless overindexing.</p>
 <p>When used on a <strong>v2</strong> cozy, the <code>defineIndex</code> and <code>query</code> calls will be translated to MapReduce views.</p>
 <p>If you need the full power of MapReduce, please open a issue on cozy-stack with your usecase.</p>
-<pre class="codehilite"><code class="language-javascript">// cozy-browser-sdk
-cozysdk.defineMapReduceView('Event', 'all', function(doc) { emit(doc.year); })
-cozysdk.queryView('Event', 'all', {key: 2016, limit: 10})
-// cozy-client-js
-index = cozy.data.defineIndex('Event', ['year'])
-cozy.data.query(index, {selector: {year: 2016}, limit: 10})</code></pre>
+<div class="codehilite"><pre><span></span><span class="c1">// cozy-browser-sdk</span>
+<span class="nx">cozysdk</span><span class="p">.</span><span class="nx">defineMapReduceView</span><span class="p">(</span><span class="s1">&#39;Event&#39;</span><span class="p">,</span> <span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span> <span class="p">{</span> <span class="nx">emit</span><span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">year</span><span class="p">);</span> <span class="p">})</span>
+<span class="nx">cozysdk</span><span class="p">.</span><span class="nx">queryView</span><span class="p">(</span><span class="s1">&#39;Event&#39;</span><span class="p">,</span> <span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">key</span><span class="o">:</span> <span class="mi">2016</span><span class="p">,</span> <span class="nx">limit</span><span class="o">:</span> <span class="mi">10</span><span class="p">})</span>
+<span class="c1">// cozy-client-js</span>
+<span class="nx">index</span> <span class="o">=</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">defineIndex</span><span class="p">(</span><span class="s1">&#39;Event&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">])</span>
+<span class="nx">cozy</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">index</span><span class="p">,</span> <span class="p">{</span><span class="nx">selector</span><span class="o">:</span> <span class="p">{</span><span class="nx">year</span><span class="o">:</span> <span class="mi">2016</span><span class="p">},</span> <span class="nx">limit</span><span class="o">:</span> <span class="mi">10</span><span class="p">})</span>
+</pre></div>
 
 
 <h2 id="binaries">Binaries<a class="headerlink" href="#binaries" title="Permanent link">&para;</a></h2>
@@ -281,10 +441,11 @@ cozy.data.query(index, {selector: {year: 2016}, limit: 10})</code></pre>
 They will be probably placed in the VFS under a special path.</p>
 <h2 id="crud-is-fully-compatible">Crud is fully compatible<a class="headerlink" href="#crud-is-fully-compatible" title="Permanent link">&para;</a></h2>
 <p>The following functions have the same signature than the cozy-browser-sdk</p>
-<pre class="codehilite"><code class="language-javascript">created = await cozy.data.create(myType, book)
-doc = await cozy.data.find(myType, id)
-doc2 = await cozy.data.updateAttributes(myType, id, {year: 1851})
-await cozy.data.destroy(&quot;my.domain.book&quot;, id)</code></pre></div>
+<div class="codehilite"><pre><span></span><span class="nx">created</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">myType</span><span class="p">,</span> <span class="nx">book</span><span class="p">)</span>
+<span class="nx">doc</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">myType</span><span class="p">,</span> <span class="nx">id</span><span class="p">)</span>
+<span class="nx">doc2</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">updateAttributes</span><span class="p">(</span><span class="nx">myType</span><span class="p">,</span> <span class="nx">id</span><span class="p">,</span> <span class="p">{</span><span class="nx">year</span><span class="o">:</span> <span class="mi">1851</span><span class="p">})</span>
+<span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">destroy</span><span class="p">(</span><span class="s2">&quot;my.domain.book&quot;</span><span class="p">,</span> <span class="nx">id</span><span class="p">)</span>
+</pre></div></div>
         </div>
 
         <footer class="col-md-12">

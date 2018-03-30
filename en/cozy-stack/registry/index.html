@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/registry/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>Apps registry - Cozy Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Cozy Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Use <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/">User guide</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Stay in sync</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronize your phone</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronize your computer</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Install on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Download</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../dev/">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="../../dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="../../dev/app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="../../dev/konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="../../dev/cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="../../dev/sendmail/">How to send mail in development</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">References</a>
+    <ul class="dropdown-menu">
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-client-js</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-client-js/intro/">Introduction</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/browser-sdk-transition/">Transition from cozy-browser-sdk</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/offline/">How to support offline</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/oauth/">OAuth guide</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/auth-api/">Authentication API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/data-api/">Data System API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/files-api/">Files API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/jobs-api/">Jobs API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/intents-api/">Intents API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/settings-api/">Settings API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/sharing-api/">Sharing API</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-stack</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../README/">README</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Architecture</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../architecture/">General overview</a>
+</li>
+            
+<li >
+    <a href="../security/">Security</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Usage</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../INSTALL/">Install the cozy-stack</a>
+</li>
+            
+<li >
+    <a href="../cli/cozy-stack/">Manpages of the command-line tool</a>
+</li>
+            
+<li >
+    <a href="../config/">Configuration file</a>
+</li>
+            
+<li >
+    <a href="../instance/">Managing Instances</a>
+</li>
+            
+<li >
+    <a href="../onboarding/">Onboarding</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">For developpers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../client-app-dev/">Develop a client-side app</a>
+</li>
+            
+<li >
+    <a href="../docker/">Running and building Docker images</a>
+</li>
+            
+<li >
+    <a href="../release/">Build a release</a>
+</li>
+            
+<li >
+    <a href="../CONTRIBUTING/">The contributing guide</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Services</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../auth/">/auth - Authentication & OAuth</a>
+</li>
+            
+<li >
+    <a href="../apps/">/apps - Applications Management</a>
+</li>
+            
+<li class="active">
+    <a href="./">Apps registry</a>
+</li>
+            
+<li >
+    <a href="../data-system/">/data - Data System</a>
+</li>
+            
+<li >
+    <a href="../mango/">Mango</a>
+</li>
+            
+<li >
+    <a href="../replication/">Replication</a>
+</li>
+            
+<li >
+    <a href="../couchdb-quirks/">CouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../files/">/files - Virtual File System</a>
+</li>
+            
+<li >
+    <a href="../references-docs-in-vfs/">References of documents in VFS</a>
+</li>
+            
+<li >
+    <a href="../intents/">/intents - Intents</a>
+</li>
+            
+<li >
+    <a href="../jobs/">/jobs Jobs</a>
+</li>
+            
+<li >
+    <a href="../konnectors/">Konnectors</a>
+</li>
+            
+<li >
+    <a href="../workers/">Workers</a>
+</li>
+            
+<li >
+    <a href="../notifications/">/notifications - Notifications</a>
+</li>
+            
+<li >
+    <a href="../permissions/">/permissions - Permissions</a>
+</li>
+            
+<li >
+    <a href="../realtime/">/realtime - Realtime</a>
+</li>
+            
+<li >
+    <a href="../remote/">/remote - Proxy for remote data/API</a>
+</li>
+            
+<li >
+    <a href="../settings/">/settings - Settings</a>
+</li>
+            
+<li >
+    <a href="../sharing/">/sharings - Sharing</a>
+</li>
+            
+<li >
+    <a href="../sharing-design/">Request for comments</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#apps-registry">Apps registry</a></li>
+            <li><a href="#publishing-on-our-official-registries">Publishing on our official registries</a></li>
+            <li><a href="#channels">Channels</a></li>
+            <li><a href="#version-order">Version order</a></li>
+            <li><a href="#objects">Objects</a></li>
+            <li><a href="#apis-adding-to-registry">APIs: Adding to registry</a></li>
+            <li><a href="#apis-querying-registry">APIs: Querying registry</a></li>
+            <li><a href="#attaching-a-cozy-stack-to-a-registry-or-a-list-of-registries">Attaching a cozy-stack to a registry or a list of registries</a></li>
+        <li class="main "><a href="#authentication">Authentication</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="apps-registry">Apps registry<a class="headerlink" href="#apps-registry" title="Permanent link">&para;</a></h1>
+<p>The apps registry is a place where developers can submit their applications,
+both web apps and konnectors. The applications metadata are stored and
+versioned. It can be used by a cozy to list applications to be installed, and
+for auto-updating the applications.</p>
+<p>We define the applications registry as an API. This should allow us to defer the
+real implementation of the registry storage and allow different store
+implementations.</p>
+<p>The stack itself implement the
+<a href="#apis-querying-registry">querying part of the registry API</a>, proxying the
+request to
+<a href="#attaching-a-cozy-stack-to-a-registry-or-a-list-of-registries">the registries attached to the instance</a>.</p>
+<h2 id="publishing-on-our-official-registries">Publishing on our official registries<a class="headerlink" href="#publishing-on-our-official-registries" title="Permanent link">&para;</a></h2>
+<p>In order for you to publish on our official registries, please follow
+<a href="./registry_publish.md">this howto</a> describing how to obtain a token and
+parameter you repository to automatically publish versions.</p>
+<h2 id="channels">Channels<a class="headerlink" href="#channels" title="Permanent link">&para;</a></h2>
+<p>We differentiate three channels of release for each application:</p>
+<ul>
+<li>stable: for stable releases</li>
+<li>beta: for application that can be tested in advance</li>
+<li>dev: for the latest releases directly from the trunk of the repository</li>
+</ul>
+<p>For each of these channels, the version string has a different format which
+differentiate the version channel:</p>
+<ul>
+<li>stable: <code>X.Y.Z</code> where <code>X</code>, <code>Y</code> and <code>Z</code> are positive or null integers.</li>
+<li>beta: <code>X.Y.Z-beta.M</code> where <code>X</code>, <code>Y</code>, <code>Z</code> and <code>M</code> are positive or null integers</li>
+<li>dev: <code>X.Y.Z-dev.checksum</code> where <code>X</code>, <code>Y</code> and <code>Z</code> are positive or null integers
+  and <code>checksum</code> is a unique identifier of the dev release (typically a shasum
+  of the git commit)</li>
+</ul>
+<h2 id="version-order">Version order<a class="headerlink" href="#version-order" title="Permanent link">&para;</a></h2>
+<p>TLDR: 1.0.0-dev.<em> &lt; 1.0.0 and 1.0.0-beta.</em> &lt; 1.0.0, make sure you upgrade your
+app version after publishing stable.</p>
+<p>The order used to determine the latest version of a channel is the following:</p>
+<div class="codehilite"><pre><span></span>- `1.0.0-dev.*  &lt; 1.0.0 (dev &lt; stable)`
+- `1.0.0-beta.* &lt; 1.0.0 (beta &lt; stable)`
+- `1.0.0-beta.1 &lt; 1.0.0-beta.2`
+</pre></div>
+
+
+<p>To order beta and dev releases, we apply a sort by their creation date.</p>
+<h2 id="objects">Objects<a class="headerlink" href="#objects" title="Permanent link">&para;</a></h2>
+<p>Two types of objects are managed in the registry: applications and versions.</p>
+<h3 id="application">Application<a class="headerlink" href="#application" title="Permanent link">&para;</a></h3>
+<p>An application described a specific package. It is linked to multiple versions
+(releases) of the application.</p>
+<p>An application object is <strong>mutable</strong>.</p>
+<p>An application object contains the following fields:</p>
+<ul>
+<li><code>slug</code>: the application slug (unique)</li>
+<li><code>type</code>: the application type (&ldquo;webapp&rdquo; or &ldquo;konnector&rdquo;)</li>
+<li><code>editor</code>: the application editor name</li>
+<li><code>name</code>: object containing a human readable name for the application in
+  multiple languages</li>
+<li><code>description</code>: object containing the description description of the
+  application in multiple languages</li>
+<li><code>category</code>: the application category</li>
+<li><code>repository</code>: object with type and URL of package repository</li>
+<li><code>locales</code>: list of locales supported by the application</li>
+<li><code>tags</code>: list of tags associated with the application</li>
+<li><code>screenshots</code>: array of screenshots filenames</li>
+<li><code>versions</code>: an object containing all the channels versions</li>
+</ul>
+<p>Example:</p>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;webapp&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;editor&quot;</span><span class="p">:</span> <span class="s2">&quot;cozy&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;en&quot;</span><span class="p">:</span> <span class="s2">&quot;Drive&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;fr&quot;</span><span class="p">:</span> <span class="s2">&quot;Drive&quot;</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;en&quot;</span><span class="p">:</span> <span class="s2">&quot;The drive application&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;fr&quot;</span><span class="p">:</span> <span class="s2">&quot;L&#39;application drive gestionnaire de fichier&quot;</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;main&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;repository&quot;</span><span class="p">:</span> <span class="s2">&quot;https://github.com/cozy/cozy-drive&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;locales&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;en&quot;</span><span class="p">,</span> <span class="s2">&quot;fr&quot;</span><span class="p">],</span>
+  <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="s2">&quot;baz&quot;</span><span class="p">],</span>
+  <span class="nt">&quot;screenshots&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;screen1.jpg&quot;</span><span class="p">,</span> <span class="s2">&quot;screen2.jpg&quot;</span><span class="p">],</span>
+  <span class="nt">&quot;versions&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;stable&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;3.1.1&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;beta&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;3.1.1-beta.1&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;dev&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;3.1.1-dev.7a8354f74b50d7beead7719252a18ed45f55d070&quot;</span><span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="version">Version<a class="headerlink" href="#version" title="Permanent link">&para;</a></h3>
+<p>A version object describe a specific release of an application.</p>
+<p>A version object is <strong>immutable</strong>.</p>
+<p>An application version object contains the following fields:</p>
+<ul>
+<li><code>slug</code>: the application slug</li>
+<li><code>type</code>: the application type (webapp, konnector, &hellip;)</li>
+<li><code>manifest</code>: the <a href="../apps/#the-manifest">entire</a>
+  <a href="../konnectors/#the-manifest">manifest</a> defined in the package</li>
+<li><code>created_at</code>: date of the release creation</li>
+<li><code>url</code>: URL of the tarball containing the application at specified version</li>
+<li><code>size</code>: the size of the application package (uncompressed) in bytes as string</li>
+<li><code>sha256</code>: the sha256 checksum of the application content</li>
+<li><code>tar_prefix</code>: optional tar prefix directory specified to properly extract the
+  application content</li>
+</ul>
+<p>The version string should follow the channels rule.</p>
+<p>Example:</p>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;webapp&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.1.2&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-07-05T07:54:40.982Z&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://.../3.1.2&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="s2">&quot;1000&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;sha256&quot;</span><span class="p">:</span> <span class="s2">&quot;466aa0815926fdbf33fda523af2b9bf34520906ffbb9bf512ddf20df2992a46f&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;manifest&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="err">/*</span> <span class="err">...</span> <span class="err">*/</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h2 id="apis-adding-to-registry">APIs: Adding to registry<a class="headerlink" href="#apis-adding-to-registry" title="Permanent link">&para;</a></h2>
+<p>These APIs can be used to add elements to the registry.</p>
+<h3 id="post-registryapp">POST /registry/:app<a class="headerlink" href="#post-registryapp" title="Permanent link">&para;</a></h3>
+<p>This route adds or modify an application to the registry. The content of the
+request should be a json object of an application.</p>
+<h4 id="status-codes">Status codes<a class="headerlink" href="#status-codes" title="Permanent link">&para;</a></h4>
+<ul>
+<li>201 Created, when the application has been successfully added</li>
+<li>409 Conflict, when an application with the same slug already exists</li>
+<li>400 Bad request, if the given application data is malformed (bad slug, missing
+  editor, &hellip;)</li>
+</ul>
+<h4 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/registry/drive</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Token AbCdE</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;editor&quot;</span><span class="p">:</span> <span class="s2">&quot;cozy&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;en&quot;</span><span class="p">:</span> <span class="s2">&quot;Drive&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;fr&quot;</span><span class="p">:</span> <span class="s2">&quot;Drive&quot;</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;en&quot;</span><span class="p">:</span> <span class="s2">&quot;The drive application&quot;</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;repository&quot;</span><span class="p">:</span> <span class="s2">&quot;https://github.com/cozy/cozy-drive&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="s2">&quot;baz&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="post-registryappversion-or-post-registryappversions">POST /registry/:app/:version or POST /registry/:app/versions<a class="headerlink" href="#post-registryappversion-or-post-registryappversions" title="Permanent link">&para;</a></h3>
+<p>This route adds a version of an application to the registry to the specified
+channel (stable, beta or dev).</p>
+<p>The content of the manifest file extracted from the application data is used to
+fill the fields of the version. Before adding the application version to the
+registry, the registry should check the following:</p>
+<ul>
+<li>the <code>manifest</code> file contained in the tarball should be checked and have its
+  fields checked against the application properties</li>
+<li>the application content should check the sha256 checksum</li>
+</ul>
+<p>Fields of the object sent to this request:</p>
+<ul>
+<li><strong><code>url</code></strong>: the url where the application tarball is stored</li>
+<li><strong><code>sha256</code></strong>: the sha256 checksum of the tarball</li>
+<li><strong><code>version</code></strong>: the version value (should match the one in the manifest)</li>
+<li><code>parameters?</code>: an optional json value (any) that will override the
+  <code>parameters</code> field of the manifest</li>
+<li><code>icon?</code>: an optional path to override the <code>icon</code> field of the manifest</li>
+<li><code>screenshots?</code>: and optional array of path to override the <code>screenshots</code> field
+  of the manifest</li>
+</ul>
+<h4 id="status-codes_1">Status codes<a class="headerlink" href="#status-codes_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li>201 Created, when the version has been successfully added to the registry</li>
+<li>409 Conflict, when the version already exists</li>
+<li>404 Not Found, when the application does not exist</li>
+<li>412 Precondition Failed, when the sent application data is invalid (could not
+  fetch data URL, bad checksum, bad manifest in the tarball&hellip;)</li>
+<li>400 Bad request, when the request is invalid (bad checksum encoding, bad
+  URL&hellip;)</li>
+</ul>
+<h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
+<p>Request to add a stable release:</p>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/registry/drive/3.1.2</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Token AbCdE</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.1.2&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://github.com/cozy/cozy-drive/archive/v3.1.2.tar.gz&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;sha256&quot;</span><span class="p">:</span> <span class="s2">&quot;466aa0815926fdbf33fda523af2b9bf34520906ffbb9bf512ddf20df2992a46f&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Request to add a development release:</p>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/registry/drive/3.1.2-dev.7a1618dff78ba445650f266bbe334cbc9176f03a</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Token AbCdE</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.1.2-dev.7a1618dff78ba445650f266bbe334cbc9176f03a&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;url&quot;</span><span class="p">:</span>
+    <span class="s2">&quot;https://github.com/cozy/cozy-photos-v3/archive/7a1618dff78ba445650f266bbe334cbc9176f03a.zip&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;sha256&quot;</span><span class="p">:</span> <span class="s2">&quot;466aa0815926fdbf33fda523af2b9bf34520906ffbb9bf512ddf20df2992a46f&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Request to add a version with optional parameters:</p>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/registry/drive/3.1.2</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Token AbCdE</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.1.2&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;url&quot;</span><span class="p">:</span>
+    <span class="s2">&quot;https://github.com/cozy/cozy-photos-v3/archive/7a1618dff78ba445650f266bbe334cbc9176f03a.zip&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;sha256&quot;</span><span class="p">:</span> <span class="s2">&quot;466aa0815926fdbf33fda523af2b9bf34520906ffbb9bf512ddf20df2992a46f&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;parameters&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;foo&quot;</span><span class="p">:</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="nt">&quot;baz&quot;</span><span class="p">:</span> <span class="mi">123</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h4 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">201</span> <span class="ne">Created</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Location</span><span class="o">:</span> <span class="l">http://.../3.1.2</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;webapp&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.1.2-dev.7a1618dff78ba445650f266bbe334cbc9176f03a&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-07-05T07:54:40.982Z&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://.../7a1618dff78ba445650f266bbe334cbc9176f03a.zip&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="s2">&quot;1000&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;sha256&quot;</span><span class="p">:</span> <span class="s2">&quot;466aa0815926fdbf33fda523af2b9bf34520906ffbb9bf512ddf20df2992a46f&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;manifest&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="err">/*</span> <span class="err">...</span> <span class="err">*/</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h2 id="apis-querying-registry">APIs: Querying registry<a class="headerlink" href="#apis-querying-registry" title="Permanent link">&para;</a></h2>
+<p>These routes define the querying part of a registry to access to the available
+applications and versions. These APIs are also implemented directly by the
+cozy-stack.</p>
+<h3 id="get-registry">GET /registry<a class="headerlink" href="#get-registry" title="Permanent link">&para;</a></h3>
+<p>Get the list of all applications.</p>
+<p>A pagination scheme is available via the <code>limit</code> and <code>cursor</code> query parameter.
+The <code>filter[???]</code> query parameters can be used to filter by fields values.</p>
+<p>Filtering is allowed on the following fields:</p>
+<ul>
+<li><code>type</code></li>
+<li><code>editor</code></li>
+<li><code>category</code></li>
+<li><code>tags</code></li>
+</ul>
+<p>Filtering is allowed on multiple tags with the <code>,</code> separator. For example:
+<code>filter[tags]=foo,bar</code> will match the applications with both <code>foo</code> and <code>bar</code> as
+tags.</p>
+<p>Sorting is allowed on the following fields:</p>
+<ul>
+<li><code>slug</code></li>
+<li><code>type</code></li>
+<li><code>editor</code></li>
+<li><code>category</code></li>
+<li><code>created_at</code></li>
+<li><code>updated_at</code></li>
+</ul>
+<h4 id="query-string">Query-String<a class="headerlink" href="#query-string" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cursor</td>
+<td>the cursor of the last application on the previous page</td>
+</tr>
+<tr>
+<td>limit</td>
+<td>the maximum number of applications to show</td>
+</tr>
+<tr>
+<td>filter[]</td>
+<td>a filter to apply on fields of the application</td>
+</tr>
+<tr>
+<td>sort</td>
+<td>name of the field on which to apply the sort of the list</td>
+</tr>
+</tbody>
+</table>
+<h4 id="request_2">Request<a class="headerlink" href="#request_2" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/registry?filter[category]=main&amp;limit=20&amp;sort=slug</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
+
+
+<h4 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;webapp&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;editor&quot;</span><span class="p">:</span> <span class="s2">&quot;cozy&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;main&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;The drive application&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;versions&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;stable&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;3.1.1&quot;</span><span class="p">],</span>
+        <span class="nt">&quot;beta&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;3.1.1-beta.1&quot;</span><span class="p">],</span>
+        <span class="nt">&quot;dev&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;3.1.1-dev.7a8354f74b50d7beead7719252a18ed45f55d070&quot;</span><span class="p">]</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;repository&quot;</span><span class="p">:</span> <span class="s2">&quot;https://github.com/cozy/cozy-drive&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;license&quot;</span><span class="p">:</span> <span class="s2">&quot;BSD&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="err">//</span> <span class="err">...</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;count&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&quot;next_cursor&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="get-registryapp">GET /registry/:app<a class="headerlink" href="#get-registryapp" title="Permanent link">&para;</a></h3>
+<p>Get an application object by slug.</p>
+<h4 id="request_3">Request<a class="headerlink" href="#request_3" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/registry/drive</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
+
+
+<h4 id="response_2">Response<a class="headerlink" href="#response_2" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;editor&quot;</span><span class="p">:</span> <span class="s2">&quot;cozy&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;The drive application&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;repository&quot;</span><span class="p">:</span> <span class="s2">&quot;https://github.com/cozy/cozy-drive&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="s2">&quot;baz&quot;</span><span class="p">],</span>
+  <span class="nt">&quot;versions&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;stable&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;3.1.1&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;beta&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;3.1.1-beta.1&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;dev&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;3.1.1-dev.7a8354f74b50d7beead7719252a18ed45f55d070&quot;</span><span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="get-registryappicon">GET /registry/:app/icon<a class="headerlink" href="#get-registryappicon" title="Permanent link">&para;</a></h3>
+<p>Get the current application icon.</p>
+<h4 id="request_4">Request<a class="headerlink" href="#request_4" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/registry/drive/icon</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
+
+
+<h4 id="response_3">Response<a class="headerlink" href="#response_3" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">image/svg+xml</span>
+
+<span class="nt">&lt;svg</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/2000/svg&quot;</span> <span class="na">width=</span><span class="s">&quot;64&quot;</span> <span class="na">height=</span><span class="s">&quot;64&quot;</span> <span class="na">viewBox=</span><span class="s">&quot;0 0 64 64&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;g</span> <span class="na">fill=</span><span class="s">&quot;none&quot;</span> <span class="na">fill-rule=</span><span class="s">&quot;evenodd&quot;</span><span class="nt">&gt;&lt;/g&gt;</span>
+<span class="nt">&lt;/svg&gt;</span>
+</pre></div>
+
+
+<h3 id="get-registryappscreenshotsfilename">GET /registry/:app/screenshots/:filename<a class="headerlink" href="#get-registryappscreenshotsfilename" title="Permanent link">&para;</a></h3>
+<p>Get the screenshot with the specified filename from the field <code>screenshots</code> of
+the application.</p>
+<h4 id="request_5">Request<a class="headerlink" href="#request_5" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/registry/drive/screenshots/screen1.jpg</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
+
+
+<h4 id="response_4">Response<a class="headerlink" href="#response_4" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">image/jpeg</span>
+
+...
+</pre></div>
+
+
+<h3 id="get-registryappversion">GET /registry/:app/:version<a class="headerlink" href="#get-registryappversion" title="Permanent link">&para;</a></h3>
+<p>Get an application version.</p>
+<h4 id="request_6">Request<a class="headerlink" href="#request_6" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/registry/drive/3.1.1</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
+
+
+<h4 id="response_5">Response<a class="headerlink" href="#response_5" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;webapp&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.1.1&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://.../3.1.1&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;sha256&quot;</span><span class="p">:</span> <span class="s2">&quot;466aa0815926fdbf33fda523af2b9bf34520906ffbb9bf512ddf20df2992a46f&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="s2">&quot;1000&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-07-05T07:54:40.982Z&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;manifest&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="err">/*</span> <span class="err">...</span> <span class="err">*/</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="get-registryappchannellatest">GET /registry/:app/:channel/latest<a class="headerlink" href="#get-registryappchannellatest" title="Permanent link">&para;</a></h3>
+<p>Get the latest version available on the specified channel.</p>
+<h4 id="request_7">Request<a class="headerlink" href="#request_7" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/registry/drive/dev/latest</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
+
+
+<h4 id="response_6">Response<a class="headerlink" href="#response_6" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;webapp&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.1.1&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://.../3.1.1&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;sha256&quot;</span><span class="p">:</span> <span class="s2">&quot;466aa0815926fdbf33fda523af2b9bf34520906ffbb9bf512ddf20df2992a46f&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="s2">&quot;1000&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-07-05T07:54:40.982Z&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;manifest&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="err">/*</span> <span class="err">...</span> <span class="err">*/</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h2 id="attaching-a-cozy-stack-to-a-registry-or-a-list-of-registries">Attaching a cozy-stack to a registry or a list of registries<a class="headerlink" href="#attaching-a-cozy-stack-to-a-registry-or-a-list-of-registries" title="Permanent link">&para;</a></h2>
+<p>In the configuration file of a stack, a <code>registries</code> namespace is added. This
+namespace can contain a list of URL for the different registries attached to the
+stack.</p>
+<p>The stack itself implements the querying API of a registry. When querying this
+API, to ask for an application, the stack uses this hierarchy of registries to
+proxy or redirect the user.</p>
+<p>The hierarchy can also be contextualised to specify different registries to
+different contexts. The <code>default</code> context is applied lastly.</p>
+<h3 id="examples">Examples:<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">registries</span><span class="p p-Indicator">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">https://myregistry.home/</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">https://main.registry.cozy.io/</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="c1"># In this example, a &quot;context1&quot; instance will have the equivalent of the</span>
+<span class="c1"># following list of registries:</span>
+<span class="c1">#</span>
+<span class="c1">#   - https://context1.registry.cozy.io/</span>
+<span class="c1">#   - https://myregistry.home/</span>
+<span class="c1">#   - https://registry.cozy.io/</span>
+<span class="c1">#</span>
+
+<span class="l l-Scalar l-Scalar-Plain">registries</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">context1</span><span class="p p-Indicator">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">https://context1.registry.cozy.io/</span>
+
+  <span class="l l-Scalar l-Scalar-Plain">context2</span><span class="p p-Indicator">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">https://context2.registry.cozy.io/</span>
+
+  <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">https://myregistry.home/</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">https://registry.cozy.io/</span>
+</pre></div>
+
+
+<h1 id="authentication">Authentication<a class="headerlink" href="#authentication" title="Permanent link">&para;</a></h1>
+<p>The authentication is based on a token that allow you to publish applications
+and versions with for one specific editor name. This token is base64 encoded.</p>
+<p>In order to receive this token, please take a look at the page on
+<a href="./registry-publish.md">publication on the registry</a>.</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
