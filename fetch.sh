@@ -1,8 +1,11 @@
 #!/bin/bash
 
+set -euo pipefail
+
 function fetch-from-remote {
     repo=$1
     dir=$2
+    rm -rf $dir
     if [[ ! -d "$dir" ]]; then
         echo "mkdir $dir"
         mkdir -p "$dir"
@@ -16,6 +19,8 @@ function fetch-from-remote {
     fi
     cd -
 }
+
+rm src/cozy-client-js src/cozy-konnector-libs || true
 
 fetch-from-remote https://github.com/cozy/cozy-konnector-libs.git /tmp/cozy-konnector-libs
 ln -s /tmp/cozy-konnector-libs/packages/cozy-konnector-libs/docs src/cozy-konnector-libs
