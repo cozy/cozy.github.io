@@ -30,7 +30,14 @@ Like CouchDB, you can choose to install your reverse proxy on the same host, or 
 
 ## Prerequisites
 
-First, you need to fetch the GPG Cozy signing key:
+First, install the packages required to install cozy
+
+```bash
+apt install ca-certificates apt-transport-https curl
+```
+
+
+Then, fetch the GPG Cozy signing key:
 
 ```bash
 curl https://apt.cozy.io/cozy.gpg | \
@@ -39,14 +46,10 @@ curl https://apt.cozy.io/nightly/cozy.gpg | \
     apt-key --keyring /etc/apt/trusted.gpg.d/cozy.gpg add -
 ```
 
-Ensure that apt is able to use https repositories:
-
-```bash
-apt install ca-certificates apt-transport-https
-```
 
 
-Then, setup your repository. Select the channel that best fit your needs:
+
+Finally, setup your repository. Select the channel that best fit your needs:
 
 !!! warning ""
     ⚠️ For now, packages are only available in `testing` and `unstable` channels. Adapt your `sources.list` accordingly.
