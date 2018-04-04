@@ -2,11 +2,11 @@
 
 Learn how to [use Cozy](https://docs.cozy.io/en/use), [host your own server](https://docs.cozy.io/en/install/) and [develop applications](https://docs.cozy.io/en/dev/).
 
-## Hack this documentation
+## Edit this documentation
 
 This documentation is built with [MkDocs](http://www.mkdocs.org).
 
-To hack the documentation, just edit the files inside `src`.
+To edit the documentation, just edit the files inside `src`.
 
 If you want to see your updates, install mkdocs and the i18n extension of markdown:
 
@@ -24,7 +24,11 @@ mkdocs serve
 
 And point your favorite browser to `http://127.0.0.1:8000/`
 
-## How are the docs built
+## External documentations
+
+Several other external documentations are consolidated in this documentation during build.
+
+They are listed [here](./OUTSIDE_DOCS).
 
 The docs are built from this repository and also for the references from other repos. This lets 
 developers edit their documentation in their repository and this documentation consolidates
