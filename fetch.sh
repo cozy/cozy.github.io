@@ -20,8 +20,6 @@ function fetch-from-remote {
     cd -
 }
 
-rm src/cozy-client-js src/cozy-konnector-libs || true
-
 cat OUTSIDE_DOCS | while read line; do
   arr=($line)
   name=${arr[0]}
@@ -32,5 +30,6 @@ cat OUTSIDE_DOCS | while read line; do
     tmpsubdir=${tmpsubdir}/${subdir}
   fi
   fetch-from-remote $repo /tmp/$name
+  rm -f src/$name
   ln -s /tmp/$name/$subdir src/$name
 done
