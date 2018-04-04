@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/files/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>/files - Virtual File System - Cozy Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Cozy Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Use <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/">User guide</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Stay in sync</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronize your phone</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronize your computer</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Install on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Download</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../dev/">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="../../dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="../../dev/app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="../../dev/konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="../../dev/cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="../../dev/sendmail/">How to send mail in development</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">References</a>
+    <ul class="dropdown-menu">
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-doctypes</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bank/">Banking doctypes</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bills/">Bills</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.contacts/">Contacts</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.files/">Files</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.notifications/">Notifications</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.photos.albums/">Albums</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/">Remote requests</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/">Session logins</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-stack</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../README/">README</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Architecture</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../architecture/">General overview</a>
+</li>
+            
+<li >
+    <a href="../security/">Security</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Usage</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../INSTALL/">Install the cozy-stack</a>
+</li>
+            
+<li >
+    <a href="../cli/cozy-stack/">Manpages of the command-line tool</a>
+</li>
+            
+<li >
+    <a href="../config/">Configuration file</a>
+</li>
+            
+<li >
+    <a href="../instance/">Managing Instances</a>
+</li>
+            
+<li >
+    <a href="../onboarding/">Onboarding</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">For developpers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../client-app-dev/">Develop a client-side app</a>
+</li>
+            
+<li >
+    <a href="../docker/">Running and building Docker images</a>
+</li>
+            
+<li >
+    <a href="../release/">Build a release</a>
+</li>
+            
+<li >
+    <a href="../CONTRIBUTING/">The contributing guide</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Services</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../auth/">/auth - Authentication & OAuth</a>
+</li>
+            
+<li >
+    <a href="../apps/">/apps - Applications Management</a>
+</li>
+            
+<li >
+    <a href="../registry/">Apps registry</a>
+</li>
+            
+<li >
+    <a href="../data-system/">/data - Data System</a>
+</li>
+            
+<li >
+    <a href="../mango/">Mango</a>
+</li>
+            
+<li >
+    <a href="../replication/">Replication</a>
+</li>
+            
+<li >
+    <a href="../couchdb-quirks/">CouchDB Quirks</a>
+</li>
+            
+<li class="active">
+    <a href="./">/files - Virtual File System</a>
+</li>
+            
+<li >
+    <a href="../references-docs-in-vfs/">References of documents in VFS</a>
+</li>
+            
+<li >
+    <a href="../intents/">/intents - Intents</a>
+</li>
+            
+<li >
+    <a href="../jobs/">/jobs Jobs</a>
+</li>
+            
+<li >
+    <a href="../konnectors/">Konnectors</a>
+</li>
+            
+<li >
+    <a href="../workers/">Workers</a>
+</li>
+            
+<li >
+    <a href="../notifications/">/notifications - Notifications</a>
+</li>
+            
+<li >
+    <a href="../permissions/">/permissions - Permissions</a>
+</li>
+            
+<li >
+    <a href="../realtime/">/realtime - Realtime</a>
+</li>
+            
+<li >
+    <a href="../remote/">/remote - Proxy for remote data/API</a>
+</li>
+            
+<li >
+    <a href="../settings/">/settings - Settings</a>
+</li>
+            
+<li >
+    <a href="../sharing/">/sharings - Sharing</a>
+</li>
+            
+<li >
+    <a href="../sharing-design/">Request for comments</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#virtual-file-system">Virtual File System</a></li>
+            <li><a href="#directories">Directories</a></li>
+            <li><a href="#files">Files</a></li>
+            <li><a href="#common">Common</a></li>
+            <li><a href="#trash">Trash</a></li>
+            <li><a href="#trashed-attribute">Trashed attribute</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<p><a href="../README/#table-of-contents">Table of contents</a></p>
+<h1 id="virtual-file-system">Virtual File System<a class="headerlink" href="#virtual-file-system" title="Permanent link">&para;</a></h1>
+<p>Cozy applications can use files for storing binary content, like photos or bills
+in PDF. This service offers a REST API to manipulate easily without having to
+know the underlying storage layer. The metadata are kept in CouchDB, but the
+binaries can go to the local system, or a Swift instance.</p>
+<h2 id="directories">Directories<a class="headerlink" href="#directories" title="Permanent link">&para;</a></h2>
+<p>A directory is a container for files and sub-directories.</p>
+<p>Its path is the path of its parent, a slash (<code>/</code>), and its name. It&rsquo;s case
+sensitive.</p>
+<h3 id="root-directory">Root directory<a class="headerlink" href="#root-directory" title="Permanent link">&para;</a></h3>
+<p>The root of the virtual file system is a special directory with id
+<code>io.cozy.files.root-dir</code>.</p>
+<p>You can use it in any request where you would use a directory, except you cannot
+delete it.</p>
+<h3 id="post-filesdir-id">POST /files/:dir-id<a class="headerlink" href="#post-filesdir-id" title="Permanent link">&para;</a></h3>
+<p>Create a new directory. The <code>dir-id</code> parameter is optional. When it&rsquo;s not given,
+the directory is created at the root of the virtual file system.</p>
+<h4 id="query-string">Query-String<a class="headerlink" href="#query-string" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Type</td>
+<td><code>directory</code></td>
+</tr>
+<tr>
+<td>Name</td>
+<td>the directory name</td>
+</tr>
+<tr>
+<td>Tags</td>
+<td>an array of tags</td>
+</tr>
+</tbody>
+</table>
+<h4 id="http-headers">HTTP headers<a class="headerlink" href="#http-headers" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Date</td>
+<td>The modification date of the directory</td>
+</tr>
+</tbody>
+</table>
+<h4 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">POST /files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81?Type=directory&amp;Name=phone&amp;Tags=bills,konnectors HTTP/1.1
+Accept: application/vnd.api+json
+Date: Mon, 19 Sep 2016 12:35:08 GMT</code></pre>
+
+
+<h4 id="status-codes">Status codes<a class="headerlink" href="#status-codes" title="Permanent link">&para;</a></h4>
+<ul>
+<li>201 Created, when the directory has been successfully created</li>
+<li>404 Not Found, when the parent directory does not exist</li>
+<li>409 Conflict, when a directory with the same name already exists</li>
+<li>422 Unprocessable Entity, when the <code>Type</code> or <code>Name</code> parameter is missing or
+  invalid</li>
+</ul>
+<h4 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 201 Created
+Content-Type: application/vnd.api+json
+Location: http://cozy.example.com/files/6494e0ac-dfcb-11e5-88c1-472e84a9cbee</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;type&quot;: &quot;io.cozy.files&quot;,
+    &quot;id&quot;: &quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;,
+    &quot;meta&quot;: {
+      &quot;rev&quot;: &quot;1-ff3beeb456eb&quot;
+    },
+    &quot;attributes&quot;: {
+      &quot;type&quot;: &quot;directory&quot;,
+      &quot;name&quot;: &quot;phone&quot;,
+      &quot;path&quot;: &quot;/Documents/phone&quot;,
+      &quot;created_at&quot;: &quot;2016-09-19T12:35:08Z&quot;,
+      &quot;updated_at&quot;: &quot;2016-09-19T12:35:08Z&quot;,
+      &quot;tags&quot;: [&quot;bills&quot;]
+    },
+    &quot;relationships&quot;: {
+      &quot;parent&quot;: {
+        &quot;links&quot;: {
+          &quot;related&quot;: &quot;/files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;
+        },
+        &quot;data&quot;: {
+          &quot;type&quot;: &quot;io.cozy.files&quot;,
+          &quot;id&quot;: &quot;fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;
+        }
+      }
+    },
+    &quot;links&quot;: {
+      &quot;self&quot;: &quot;/files/6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;
+    }
+  }
+}</code></pre>
+
+
+<h3 id="get-filesfile-id">GET /files/:file-id<a class="headerlink" href="#get-filesfile-id" title="Permanent link">&para;</a></h3>
+<p>Get a directory or a file informations. In the case of a directory, it contains
+the list of files and sub-directories inside it.</p>
+<p>Contents is paginated following <a href="jsonapi.md#pagination">jsonapi conventions</a>.
+The default limit is 30 entries.</p>
+<h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">GET /files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81 HTTP/1.1
+Accept: application/vnd.api+json</code></pre>
+
+
+<h4 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-Type: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;links&quot;: {
+    &quot;next&quot;:
+      &quot;/files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81?page[cursor]=9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;
+  },
+  &quot;data&quot;: {
+    &quot;type&quot;: &quot;io.cozy.files&quot;,
+    &quot;id&quot;: &quot;fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;,
+    &quot;meta&quot;: {
+      &quot;rev&quot;: &quot;1-e36ab092&quot;
+    },
+    &quot;attributes&quot;: {
+      &quot;type&quot;: &quot;directory&quot;,
+      &quot;name&quot;: &quot;Documents&quot;,
+      &quot;path&quot;: &quot;/Documents&quot;,
+      &quot;created_at&quot;: &quot;2016-09-19T12:35:00Z&quot;,
+      &quot;updated_at&quot;: &quot;2016-09-19T12:35:00Z&quot;,
+      &quot;tags&quot;: []
+    },
+    &quot;relationships&quot;: {
+      &quot;contents&quot;: {
+        &quot;data&quot;: [
+          {
+            &quot;type&quot;: &quot;io.cozy.files&quot;,
+            &quot;id&quot;: &quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;
+          },
+          {
+            &quot;type&quot;: &quot;io.cozy.files&quot;,
+            &quot;id&quot;: &quot;9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;
+          }
+        ]
+      }
+    },
+    &quot;links&quot;: {
+      &quot;self&quot;: &quot;/files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;
+    }
+  },
+  &quot;included&quot;: [
+    {
+      &quot;type&quot;: &quot;io.cozy.files&quot;,
+      &quot;id&quot;: &quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;,
+      &quot;meta&quot;: {
+        &quot;rev&quot;: &quot;1-ff3beeb456eb&quot;
+      },
+      &quot;attributes&quot;: {
+        &quot;type&quot;: &quot;directory&quot;,
+        &quot;name&quot;: &quot;phone&quot;,
+        &quot;path&quot;: &quot;/Documents/phone&quot;,
+        &quot;created_at&quot;: &quot;2016-09-19T12:35:08Z&quot;,
+        &quot;updated_at&quot;: &quot;2016-09-19T12:35:08Z&quot;,
+        &quot;tags&quot;: [&quot;bills&quot;]
+      },
+      &quot;relationships&quot;: {
+        &quot;parent&quot;: {
+          &quot;links&quot;: {
+            &quot;related&quot;: &quot;/files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;
+          },
+          &quot;data&quot;: {
+            &quot;type&quot;: &quot;io.cozy.files&quot;,
+            &quot;id&quot;: &quot;fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;
+          }
+        }
+      },
+      &quot;links&quot;: {
+        &quot;self&quot;: &quot;/files/6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;
+      }
+    },
+    {
+      &quot;type&quot;: &quot;io.cozy.files&quot;,
+      &quot;id&quot;: &quot;9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;,
+      &quot;meta&quot;: {
+        &quot;rev&quot;: &quot;1-0e6d5b72&quot;
+      },
+      &quot;attributes&quot;: {
+        &quot;type&quot;: &quot;file&quot;,
+        &quot;name&quot;: &quot;hello.txt&quot;,
+        &quot;trashed&quot;: false,
+        &quot;md5sum&quot;: &quot;ODZmYjI2OWQxOTBkMmM4NQo=&quot;,
+        &quot;created_at&quot;: &quot;2016-09-19T12:38:04Z&quot;,
+        &quot;updated_at&quot;: &quot;2016-09-19T12:38:04Z&quot;,
+        &quot;tags&quot;: [],
+        &quot;size&quot;: 12,
+        &quot;executable&quot;: false,
+        &quot;class&quot;: &quot;document&quot;,
+        &quot;mime&quot;: &quot;text/plain&quot;
+      },
+      &quot;relationships&quot;: {
+        &quot;parent&quot;: {
+          &quot;links&quot;: {
+            &quot;related&quot;: &quot;/files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;
+          },
+          &quot;data&quot;: {
+            &quot;type&quot;: &quot;io.cozy.files&quot;,
+            &quot;id&quot;: &quot;fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;
+          }
+        }
+      },
+      &quot;links&quot;: {
+        &quot;self&quot;: &quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;
+      }
+    }
+  ]
+}</code></pre>
+
+
+<h3 id="delete-filesdir-id">DELETE /files/:dir-id<a class="headerlink" href="#delete-filesdir-id" title="Permanent link">&para;</a></h3>
+<p>Put a directory and its subtree in the trash.</p>
+<h4 id="http-headers_1">HTTP headers<a class="headerlink" href="#http-headers_1" title="Permanent link">&para;</a></h4>
+<p>It&rsquo;s possible to send the <code>If-Match</code> header, with the previous revision of the
+file/directory (optional).</p>
+<h2 id="files">Files<a class="headerlink" href="#files" title="Permanent link">&para;</a></h2>
+<p>A file is a binary content with some metadata.</p>
+<h3 id="post-filesdir-id_1">POST /files/:dir-id<a class="headerlink" href="#post-filesdir-id_1" title="Permanent link">&para;</a></h3>
+<p>Upload a file</p>
+<h4 id="query-string_1">Query-String<a class="headerlink" href="#query-string_1" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Type</td>
+<td><code>file</code></td>
+</tr>
+<tr>
+<td>Name</td>
+<td>the file name</td>
+</tr>
+<tr>
+<td>Tags</td>
+<td>an array of tags</td>
+</tr>
+<tr>
+<td>Executable</td>
+<td><code>true</code> if the file is executable (UNIX permission)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="http-headers_2">HTTP headers<a class="headerlink" href="#http-headers_2" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content-Length</td>
+<td>The file size</td>
+</tr>
+<tr>
+<td>Content-MD5</td>
+<td>A Base64-encoded binary MD5 sum of the file</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>The mime-type of the file</td>
+</tr>
+<tr>
+<td>Date</td>
+<td>The modification date of the file</td>
+</tr>
+</tbody>
+</table>
+<h4 id="request_2">Request<a class="headerlink" href="#request_2" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">POST /files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81?Type=file&amp;Name=hello.txt HTTP/1.1
+Accept: application/vnd.api+json
+Content-Length: 12
+Content-MD5: hvsmnRkNLIX24EaM7KQqIA==
+Content-Type: text/plain
+Date: Mon, 19 Sep 2016 12:38:04 GMT
+
+Hello world!</code></pre>
+
+
+<h4 id="status-codes_1">Status codes<a class="headerlink" href="#status-codes_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li>201 Created, when the file has been successfully created</li>
+<li>404 Not Found, when the parent directory does not exist</li>
+<li>409 Conflict, when a file with the same name already exists</li>
+<li>412 Precondition Failed, when the md5sum is <code>Content-MD5</code> is not equal to the
+  md5sum computed by the server</li>
+<li>422 Unprocessable Entity, when the sent data is invalid (for example, the
+  parent doesn&rsquo;t exist, <code>Type</code> or <code>Name</code> parameter is missing or invalid, etc.)</li>
+</ul>
+<h4 id="response_2">Response<a class="headerlink" href="#response_2" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 201 Created
+Content-Type: application/vnd.api+json
+Location: http://cozy.example.com/files/9152d568-7e7c-11e6-a377-37cbfb190b4b</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;type&quot;: &quot;io.cozy.files&quot;,
+    &quot;id&quot;: &quot;9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;,
+    &quot;meta&quot;: {
+      &quot;rev&quot;: &quot;1-0e6d5b72&quot;
+    },
+    &quot;attributes&quot;: {
+      &quot;type&quot;: &quot;file&quot;,
+      &quot;name&quot;: &quot;sunset.jpg&quot;,
+      &quot;trashed&quot;: false,
+      &quot;md5sum&quot;: &quot;ODZmYjI2OWQxOTBkMmM4NQo=&quot;,
+      &quot;created_at&quot;: &quot;2016-09-19T12:38:04Z&quot;,
+      &quot;updated_at&quot;: &quot;2016-09-19T12:38:04Z&quot;,
+      &quot;tags&quot;: [],
+      &quot;metadata&quot;: {
+        &quot;datetime&quot;: &quot;2016-09-18T20:38:04Z&quot;,
+        &quot;height&quot;: 1080,
+        &quot;width&quot;: 1920
+      },
+      &quot;size&quot;: 12,
+      &quot;executable&quot;: false,
+      &quot;class&quot;: &quot;image&quot;,
+      &quot;mime&quot;: &quot;image/jpg&quot;
+    },
+    &quot;relationships&quot;: {
+      &quot;parent&quot;: {
+        &quot;links&quot;: {
+          &quot;related&quot;: &quot;/files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;
+        },
+        &quot;data&quot;: {
+          &quot;type&quot;: &quot;io.cozy.files&quot;,
+          &quot;id&quot;: &quot;fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;
+        }
+      },
+      &quot;referenced_by&quot;: {
+        &quot;links&quot;: {
+          &quot;self&quot;:
+            &quot;/files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81/relationships/references&quot;
+        },
+        &quot;data&quot;: [
+          {
+            &quot;type&quot;: &quot;io.cozy.albums&quot;,
+            &quot;id&quot;: &quot;94375086-e2e2-11e6-81b9-5bc0b9dd4aa4&quot;
+          }
+        ]
+      }
+    },
+    &quot;links&quot;: {
+      &quot;self&quot;: &quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;,
+      &quot;small&quot;:
+        &quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b/thumbnails/0f9cda56674282ac/small&quot;,
+      &quot;medium&quot;:
+        &quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b/thumbnails/0f9cda56674282ac/medium&quot;,
+      &quot;large&quot;:
+        &quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b/thumbnails/0f9cda56674282ac/large&quot;
+    }
+  }
+}</code></pre>
+
+
+<p><strong>Note</strong>: see <a href="../references-docs-in-vfs/">references of documents in VFS</a> for
+more informations about the references field.</p>
+<h3 id="get-filesdownloadfile-id">GET /files/download/:file-id<a class="headerlink" href="#get-filesdownloadfile-id" title="Permanent link">&para;</a></h3>
+<p>Download the file content.</p>
+<p>By default the <code>content-disposition</code> will be <code>inline</code>, but it will be
+<code>attachment</code> if the query string contains the parameter <code>Dl=1</code></p>
+<h4 id="request_3">Request<a class="headerlink" href="#request_3" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">GET /files/download/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81 HTTP/1.1</code></pre>
+
+
+<h4 id="response_3">Response<a class="headerlink" href="#response_3" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-Length: 12
+Content-Disposition: inline; filename=&quot;hello.txt&quot;
+Content-Type: text/plain
+
+Hello world!</code></pre>
+
+
+<h3 id="get-filesdownload">GET /files/download<a class="headerlink" href="#get-filesdownload" title="Permanent link">&para;</a></h3>
+<p>Download the file content from its path.</p>
+<p>By default the <code>content-disposition</code> will be <code>inline</code>, but it will be
+<code>attachment</code> if the query string contains the parameter <code>Dl=1</code></p>
+<h4 id="request_4">Request<a class="headerlink" href="#request_4" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">GET /files/download?Path=/Documents/hello.txt&amp;Dl=1 HTTP/1.1</code></pre>
+
+
+<h3 id="get-filesfile-idthumbnailssecretformat">GET /files/:file-id/thumbnails/:secret/:format<a class="headerlink" href="#get-filesfile-idthumbnailssecretformat" title="Permanent link">&para;</a></h3>
+<p>Get a thumbnail of a file (for an image only). <code>:format</code> can be <code>small</code>
+(640x480), <code>medium</code> (1280x720), or <code>large</code> (1920x1080).</p>
+<h3 id="put-filesfile-id">PUT /files/:file-id<a class="headerlink" href="#put-filesfile-id" title="Permanent link">&para;</a></h3>
+<p>Overwrite a file</p>
+<h4 id="http-headers_3">HTTP headers<a class="headerlink" href="#http-headers_3" title="Permanent link">&para;</a></h4>
+<p>The HTTP headers are the same than for uploading a file. There is one additional
+header, <code>If-Match</code>, with the previous revision of the file (optional).</p>
+<h4 id="request_5">Request<a class="headerlink" href="#request_5" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">PUT /files/9152d568-7e7c-11e6-a377-37cbfb190b4b HTTP/1.1
+Accept: application/vnd.api+json
+Content-Length: 12
+Content-MD5: hvsmnRkNLIX24EaM7KQqIA==
+Content-Type: text/plain
+Date: Mon, 20 Sep 2016 16:43:12 GMT
+If-Match: 1-0e6d5b72
+
+HELLO WORLD!</code></pre>
+
+
+<h4 id="status-codes_2">Status codes<a class="headerlink" href="#status-codes_2" title="Permanent link">&para;</a></h4>
+<ul>
+<li>200 OK, when the file has been successfully overwritten</li>
+<li>404 Not Found, when the file wasn&rsquo;t existing</li>
+<li>412 Precondition Failed, when the <code>If-Match</code> header is set and doesn&rsquo;t match
+  the last revision of the file</li>
+</ul>
+<h4 id="response_4">Response<a class="headerlink" href="#response_4" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-Type: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;type&quot;: &quot;io.cozy.files&quot;,
+    &quot;id&quot;: &quot;9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;,
+    &quot;meta&quot;: {
+      &quot;rev&quot;: &quot;2-d903b54c&quot;
+    },
+    &quot;attributes&quot;: {
+      &quot;type&quot;: &quot;file&quot;,
+      &quot;name&quot;: &quot;hello.txt&quot;,
+      &quot;trashed&quot;: false,
+      &quot;md5sum&quot;: &quot;YjU5YmMzN2Q2NDQxZDk2Nwo=&quot;,
+      &quot;created_at&quot;: &quot;2016-09-19T12:38:04Z&quot;,
+      &quot;updated_at&quot;: &quot;2016-09-19T12:38:04Z&quot;,
+      &quot;tags&quot;: [],
+      &quot;size&quot;: 12,
+      &quot;executable&quot;: false,
+      &quot;class&quot;: &quot;document&quot;,
+      &quot;mime&quot;: &quot;text/plain&quot;
+    },
+    &quot;relationships&quot;: {
+      &quot;parent&quot;: {
+        &quot;links&quot;: {
+          &quot;related&quot;: &quot;/files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;
+        },
+        &quot;data&quot;: {
+          &quot;type&quot;: &quot;io.cozy.files&quot;,
+          &quot;id&quot;: &quot;fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;
+        }
+      }
+    },
+    &quot;links&quot;: {
+      &quot;self&quot;: &quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;
+    }
+  }
+}</code></pre>
+
+
+<h3 id="delete-filesfile-id">DELETE /files/:file-id<a class="headerlink" href="#delete-filesfile-id" title="Permanent link">&para;</a></h3>
+<p>Put a file in the trash.</p>
+<h2 id="common">Common<a class="headerlink" href="#common" title="Permanent link">&para;</a></h2>
+<h3 id="get-filesmetadata">GET /files/metadata<a class="headerlink" href="#get-filesmetadata" title="Permanent link">&para;</a></h3>
+<p>Same as <code>/files/:file-id</code> but to retrieve informations from a path.</p>
+<h4 id="request_6">Request<a class="headerlink" href="#request_6" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">GET /files/metadata?Path=/Documents/hello.txt HTTP/1.1</code></pre>
+
+
+<h4 id="response_5">Response<a class="headerlink" href="#response_5" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-Type: application/vnd.api+json
+Location: http://cozy.example.com/files/9152d568-7e7c-11e6-a377-37cbfb190b4b</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;type&quot;: &quot;io.cozy.files&quot;,
+    &quot;id&quot;: &quot;9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;,
+    &quot;meta&quot;: {
+      &quot;rev&quot;: &quot;1-0e6d5b72&quot;
+    },
+    &quot;attributes&quot;: {
+      &quot;type&quot;: &quot;file&quot;,
+      &quot;name&quot;: &quot;hello.txt&quot;,
+      &quot;trashed&quot;: false,
+      &quot;md5sum&quot;: &quot;ODZmYjI2OWQxOTBkMmM4NQo=&quot;,
+      &quot;created_at&quot;: &quot;2016-09-19T12:38:04Z&quot;,
+      &quot;updated_at&quot;: &quot;2016-09-19T12:38:04Z&quot;,
+      &quot;tags&quot;: [],
+      &quot;size&quot;: 12,
+      &quot;executable&quot;: false,
+      &quot;class&quot;: &quot;document&quot;,
+      &quot;mime&quot;: &quot;text/plain&quot;
+    },
+    &quot;relationships&quot;: {
+      &quot;parent&quot;: {
+        &quot;links&quot;: {
+          &quot;related&quot;: &quot;/files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;
+        },
+        &quot;data&quot;: {
+          &quot;type&quot;: &quot;io.cozy.files&quot;,
+          &quot;id&quot;: &quot;fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;
+        }
+      }
+    },
+    &quot;links&quot;: {
+      &quot;self&quot;: &quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;
+    }
+  }
+}</code></pre>
+
+
+<h3 id="patch-filesfile-id-and-patch-filesmetadata">PATCH /files/:file-id and PATCH /files/metadata<a class="headerlink" href="#patch-filesfile-id-and-patch-filesmetadata" title="Permanent link">&para;</a></h3>
+<p>Both endpoints can be used to update the metadata of a file or directory, or to
+rename/move it. The difference is the first one uses an id to identify the
+file/directory to update, and the second one uses the path.</p>
+<p>The <code>dir_id</code> attribute can be updated to move a file or directory.</p>
+<h4 id="http-headers_4">HTTP headers<a class="headerlink" href="#http-headers_4" title="Permanent link">&para;</a></h4>
+<p>It&rsquo;s possible to send the <code>If-Match</code> header, with the previous revision of the
+file/directory (optional).</p>
+<h4 id="request_7">Request<a class="headerlink" href="#request_7" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">PATCH /files/9152d568-7e7c-11e6-a377-37cbfb190b4b HTTP/1.1
+Accept: application/vnd.api+json
+Content-Type: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;type&quot;: &quot;io.cozy.files&quot;,
+    &quot;id&quot;: &quot;9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;,
+    &quot;attributes&quot;: {
+      &quot;type&quot;: &quot;file&quot;,
+      &quot;name&quot;: &quot;hi.txt&quot;,
+      &quot;dir_id&quot;: &quot;f2f36fec-8018-11e6-abd8-8b3814d9a465&quot;,
+      &quot;trashed&quot;: false,
+      &quot;tags&quot;: [&quot;poem&quot;]
+    }
+  }
+}</code></pre>
+
+
+<h4 id="status-codes_3">Status codes<a class="headerlink" href="#status-codes_3" title="Permanent link">&para;</a></h4>
+<ul>
+<li>200 OK, when the file or directory metadata has been successfully updated</li>
+<li>400 Bad Request, when a the directory is asked to move to one of its
+  sub-directories</li>
+<li>404 Not Found, when the file/directory wasn&rsquo;t existing</li>
+<li>412 Precondition Failed, when the <code>If-Match</code> header is set and doesn&rsquo;t match
+  the last revision of the file/directory</li>
+<li>422 Unprocessable Entity, when the sent data is invalid (for example, the
+  parent doesn&rsquo;t exist)</li>
+</ul>
+<h4 id="response_6">Response<a class="headerlink" href="#response_6" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-Type: application/vnd.api+json
+Location: http://cozy.example.com/files/9152d568-7e7c-11e6-a377-37cbfb190b4b</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;type&quot;: &quot;io.cozy.files&quot;,
+    &quot;id&quot;: &quot;9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;,
+    &quot;meta&quot;: {
+      &quot;rev&quot;: &quot;1-0e6d5b72&quot;
+    },
+    &quot;attributes&quot;: {
+      &quot;type&quot;: &quot;file&quot;,
+      &quot;name&quot;: &quot;hi.txt&quot;,
+      &quot;trashed&quot;: false,
+      &quot;md5sum&quot;: &quot;ODZmYjI2OWQxOTBkMmM4NQo=&quot;,
+      &quot;created_at&quot;: &quot;2016-09-19T12:38:04Z&quot;,
+      &quot;updated_at&quot;: &quot;2016-09-19T12:38:04Z&quot;,
+      &quot;tags&quot;: [&quot;poem&quot;],
+      &quot;size&quot;: 12,
+      &quot;executable&quot;: false,
+      &quot;class&quot;: &quot;document&quot;,
+      &quot;mime&quot;: &quot;text/plain&quot;
+    },
+    &quot;relationships&quot;: {
+      &quot;parent&quot;: {
+        &quot;links&quot;: {
+          &quot;related&quot;: &quot;/files/f2f36fec-8018-11e6-abd8-8b3814d9a465&quot;
+        },
+        &quot;data&quot;: {
+          &quot;type&quot;: &quot;io.cozy.files&quot;,
+          &quot;id&quot;: &quot;f2f36fec-8018-11e6-abd8-8b3814d9a465&quot;
+        }
+      }
+    },
+    &quot;links&quot;: {
+      &quot;self&quot;: &quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;
+    }
+  }
+}</code></pre>
+
+
+<h3 id="post-filesarchive">POST /files/archive<a class="headerlink" href="#post-filesarchive" title="Permanent link">&para;</a></h3>
+<p>Create an archive. The body of the request lists the files and directories that
+will be included in the archive. For directories, it includes all the files and
+sub-directories in the archive.</p>
+<p>It&rsquo;s possible to give a file by its id (in the <code>ids</code> array) or by its path (in
+the <code>files</code> array).</p>
+<h4 id="request_8">Request<a class="headerlink" href="#request_8" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">POST /files/archive HTTP/1.1
+Accept: application/zip
+Content-Type: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;type&quot;: &quot;io.cozy.files.archives&quot;,
+    &quot;attributes&quot;: {
+      &quot;name&quot;: &quot;project-X&quot;,
+      &quot;ids&quot;: [&quot;a51aeeea-4f79-11e7-9dc4-83f67e9494ab&quot;],
+      &quot;files&quot;: [
+        &quot;/Documents/bills&quot;,
+        &quot;/Documents/images/sunset.jpg&quot;,
+        &quot;/Documents/images/eiffel-tower.jpg&quot;
+      ]
+    }
+  }
+}</code></pre>
+
+
+<h4 id="response_7">Response<a class="headerlink" href="#response_7" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-Type: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;links&quot;: {
+    &quot;related&quot;: &quot;/files/archive/4521DC87/project-X.zip&quot;
+  },
+  &quot;data&quot;: {
+    &quot;type&quot;: &quot;io.cozy.files.archives&quot;,
+    &quot;id&quot;: &quot;4521DC87&quot;,
+    &quot;attributes&quot;: {
+      &quot;href&quot;: &quot;/files/archive/4521DC87/project-X.zip&quot;
+    }
+  }
+}</code></pre>
+
+
+<h3 id="get-filesarchivekeyname">GET /files/archive/:key/:name<a class="headerlink" href="#get-filesarchivekeyname" title="Permanent link">&para;</a></h3>
+<p>Download a previously created archive. The name parameter is not used in the
+stack but aims to allow setting a name even for browser / downloader that do not
+support Content-Disposition filename.</p>
+<p><strong>This route does not require Basic Authentification</strong></p>
+<pre class="codehilite"><code class="language-http">GET /files/archive/4521DC87/project-X.zip HTTP/1.1
+Accept: application/zip
+Content-Length: 12345
+Content-Disposition: attachment; filename=&quot;project-X.zip&quot;
+Content-Type: application/zip</code></pre>
+
+
+<h3 id="post-filesdownloadspathfile_path">POST /files/downloads?Path=file_path<a class="headerlink" href="#post-filesdownloadspathfile_path" title="Permanent link">&para;</a></h3>
+<p>Create a file download. The Path query parameter specifies the file to download.
+The response json API links contains a <code>related</code> link for downloading the file,
+see below.</p>
+<h3 id="post-filesdownloadsidfile_id">POST /files/downloads?Id=file_id<a class="headerlink" href="#post-filesdownloadsidfile_id" title="Permanent link">&para;</a></h3>
+<p>Also create a file download. But it takes the id of the file and not its path.</p>
+<h3 id="get-filesdownloadssecretname">GET /files/downloads/:secret/:name<a class="headerlink" href="#get-filesdownloadssecretname" title="Permanent link">&para;</a></h3>
+<p>Allows to download a file with a secret created from the route above.</p>
+<p>The name parameter is not used in the stack but aims to allow setting a name
+even for browser / downloader that do not support Content-Disposition filename.</p>
+<p>By default the <code>content-disposition</code> will be <code>inline</code>, but it will be
+<code>attachment</code> if the query string contains the parameter <code>Dl=1</code></p>
+<p><strong>This route does not require Basic Authentification</strong></p>
+<h2 id="trash">Trash<a class="headerlink" href="#trash" title="Permanent link">&para;</a></h2>
+<p>When a file is deleted, it is first moved to the trash. In the trash, it can be
+restored. Or, after some time, it will be removed from the trash and permanently
+destroyed.</p>
+<p>The file <code>trashed</code> attribute will be set to true.</p>
+<h3 id="get-filestrash">GET /files/trash<a class="headerlink" href="#get-filestrash" title="Permanent link">&para;</a></h3>
+<p>List the files inside the trash. It&rsquo;s paginated.</p>
+<h3 id="query-string_2">Query-String<a class="headerlink" href="#query-string_2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>page[cursor]</td>
+<td>the last id of the results</td>
+</tr>
+<tr>
+<td>page[limit]</td>
+<td>the number of entries (30 by default)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="request_9">Request<a class="headerlink" href="#request_9" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">GET /files/trash HTTP/1.1
+Accept: application/vnd.api+json</code></pre>
+
+
+<h4 id="response_8">Response<a class="headerlink" href="#response_8" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-Type: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: [
+    {
+      &quot;type&quot;: &quot;io.cozy.files&quot;,
+      &quot;id&quot;: &quot;df24aac0-7f3d-11e6-81c0-d38812bfa0a8&quot;,
+      &quot;meta&quot;: {
+        &quot;rev&quot;: &quot;1-3b75377c&quot;
+      },
+      &quot;attributes&quot;: {
+        &quot;type&quot;: &quot;file&quot;,
+        &quot;name&quot;: &quot;foo.txt&quot;,
+        &quot;trashed&quot;: true,
+        &quot;md5sum&quot;: &quot;YjAxMzQxZTc4MDNjODAwYwo=&quot;,
+        &quot;created_at&quot;: &quot;2016-09-19T12:38:04Z&quot;,
+        &quot;updated_at&quot;: &quot;2016-09-19T12:38:04Z&quot;,
+        &quot;tags&quot;: [],
+        &quot;size&quot;: 123,
+        &quot;executable&quot;: false,
+        &quot;class&quot;: &quot;document&quot;,
+        &quot;mime&quot;: &quot;text/plain&quot;
+      },
+      &quot;links&quot;: {
+        &quot;self&quot;: &quot;/files/trash/df24aac0-7f3d-11e6-81c0-d38812bfa0a8&quot;
+      }
+    },
+    {
+      &quot;type&quot;: &quot;io.cozy.files&quot;,
+      &quot;id&quot;: &quot;4a4fc582-7f3e-11e6-b9ca-278406b6ddd4&quot;,
+      &quot;meta&quot;: {
+        &quot;rev&quot;: &quot;1-4a09030e&quot;
+      },
+      &quot;attributes&quot;: {
+        &quot;type&quot;: &quot;file&quot;,
+        &quot;name&quot;: &quot;bar.txt&quot;,
+        &quot;trashed&quot;: true,
+        &quot;md5sum&quot;: &quot;YWVhYjg3ZWI0OWQzZjRlMAo=&quot;,
+        &quot;created_at&quot;: &quot;2016-09-19T12:38:04Z&quot;,
+        &quot;updated_at&quot;: &quot;2016-09-19T12:38:04Z&quot;,
+        &quot;tags&quot;: [],
+        &quot;size&quot;: 456,
+        &quot;executable&quot;: false,
+        &quot;class&quot;: &quot;document&quot;,
+        &quot;mime&quot;: &quot;text/plain&quot;
+      },
+      &quot;links&quot;: {
+        &quot;self&quot;: &quot;/files/trash/4a4fc582-7f3e-11e6-b9ca-278406b6ddd4&quot;
+      }
+    }
+  ]
+}</code></pre>
+
+
+<h3 id="post-filestrashfile-id">POST /files/trash/:file-id<a class="headerlink" href="#post-filestrashfile-id" title="Permanent link">&para;</a></h3>
+<p>Restore the file with the <code>file-id</code> identifiant.</p>
+<p>The file&rsquo;s <code>trashed</code> attributes will be set to false.</p>
+<h3 id="delete-filestrashfile-id">DELETE /files/trash/:file-id<a class="headerlink" href="#delete-filestrashfile-id" title="Permanent link">&para;</a></h3>
+<p>Destroy the file and make it unrecoverable (it will still be available in
+backups).</p>
+<h3 id="delete-filestrash">DELETE /files/trash<a class="headerlink" href="#delete-filestrash" title="Permanent link">&para;</a></h3>
+<p>Clear out the trash.</p>
+<h2 id="trashed-attribute">Trashed attribute<a class="headerlink" href="#trashed-attribute" title="Permanent link">&para;</a></h2>
+<p>All files that are inside the trash will have a <code>trashed: true</code> attribute. This
+attribute can be used in mango queries to only get &ldquo;interesting&rdquo; files.</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

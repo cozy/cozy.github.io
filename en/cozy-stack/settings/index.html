@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/settings/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>/settings - Settings - Cozy Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Cozy Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Use <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/">User guide</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Stay in sync</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronize your phone</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronize your computer</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Install on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Download</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../dev/">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="../../dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="../../dev/app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="../../dev/konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="../../dev/cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="../../dev/sendmail/">How to send mail in development</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">References</a>
+    <ul class="dropdown-menu">
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-doctypes</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bank/">Banking doctypes</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bills/">Bills</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.contacts/">Contacts</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.files/">Files</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.notifications/">Notifications</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.photos.albums/">Albums</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/">Remote requests</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/">Session logins</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-stack</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../README/">README</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Architecture</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../architecture/">General overview</a>
+</li>
+            
+<li >
+    <a href="../security/">Security</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Usage</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../INSTALL/">Install the cozy-stack</a>
+</li>
+            
+<li >
+    <a href="../cli/cozy-stack/">Manpages of the command-line tool</a>
+</li>
+            
+<li >
+    <a href="../config/">Configuration file</a>
+</li>
+            
+<li >
+    <a href="../instance/">Managing Instances</a>
+</li>
+            
+<li >
+    <a href="../onboarding/">Onboarding</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">For developpers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../client-app-dev/">Develop a client-side app</a>
+</li>
+            
+<li >
+    <a href="../docker/">Running and building Docker images</a>
+</li>
+            
+<li >
+    <a href="../release/">Build a release</a>
+</li>
+            
+<li >
+    <a href="../CONTRIBUTING/">The contributing guide</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Services</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../auth/">/auth - Authentication & OAuth</a>
+</li>
+            
+<li >
+    <a href="../apps/">/apps - Applications Management</a>
+</li>
+            
+<li >
+    <a href="../registry/">Apps registry</a>
+</li>
+            
+<li >
+    <a href="../data-system/">/data - Data System</a>
+</li>
+            
+<li >
+    <a href="../mango/">Mango</a>
+</li>
+            
+<li >
+    <a href="../replication/">Replication</a>
+</li>
+            
+<li >
+    <a href="../couchdb-quirks/">CouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../files/">/files - Virtual File System</a>
+</li>
+            
+<li >
+    <a href="../references-docs-in-vfs/">References of documents in VFS</a>
+</li>
+            
+<li >
+    <a href="../intents/">/intents - Intents</a>
+</li>
+            
+<li >
+    <a href="../jobs/">/jobs Jobs</a>
+</li>
+            
+<li >
+    <a href="../konnectors/">Konnectors</a>
+</li>
+            
+<li >
+    <a href="../workers/">Workers</a>
+</li>
+            
+<li >
+    <a href="../notifications/">/notifications - Notifications</a>
+</li>
+            
+<li >
+    <a href="../permissions/">/permissions - Permissions</a>
+</li>
+            
+<li >
+    <a href="../realtime/">/realtime - Realtime</a>
+</li>
+            
+<li >
+    <a href="../remote/">/remote - Proxy for remote data/API</a>
+</li>
+            
+<li class="active">
+    <a href="./">/settings - Settings</a>
+</li>
+            
+<li >
+    <a href="../sharing/">/sharings - Sharing</a>
+</li>
+            
+<li >
+    <a href="../sharing-design/">Request for comments</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#settings">Settings</a></li>
+            <li><a href="#disk-usage">Disk usage</a></li>
+            <li><a href="#passphrase">Passphrase</a></li>
+            <li><a href="#instance">Instance</a></li>
+            <li><a href="#oauth-2-clients">OAuth 2 clients</a></li>
+            <li><a href="#context">Context</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<p><a href="../README/#table-of-contents">Table of contents</a></p>
+<h1 id="settings">Settings<a class="headerlink" href="#settings" title="Permanent link">&para;</a></h1>
+<h2 id="disk-usage">Disk usage<a class="headerlink" href="#disk-usage" title="Permanent link">&para;</a></h2>
+<h3 id="get-settingsdisk-usage">GET /settings/disk-usage<a class="headerlink" href="#get-settingsdisk-usage" title="Permanent link">&para;</a></h3>
+<p>Says how many bytes are available and used to store files. When not limited the
+<code>quota</code> field is omitted.</p>
+<h4 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">GET /settings/disk-usage HTTP/1.1
+Host: alice.example.com
+Accept: application/vnd.api+json
+Authorization: Bearer ...</code></pre>
+
+
+<h4 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-type: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;type&quot;: &quot;io.cozy.settings&quot;,
+    &quot;id&quot;: &quot;io.cozy.settings.disk-usage&quot;,
+    &quot;attributes&quot;: {
+      &quot;is_limited&quot;: true,
+      &quot;quota&quot;: &quot;123456789&quot;,
+      &quot;used&quot;: &quot;12345678&quot;
+    }
+  }
+}</code></pre>
+
+
+<h2 id="passphrase">Passphrase<a class="headerlink" href="#passphrase" title="Permanent link">&para;</a></h2>
+<h3 id="post-settingspassphrase">POST /settings/passphrase<a class="headerlink" href="#post-settingspassphrase" title="Permanent link">&para;</a></h3>
+<p>The onboarding application can send a request to this endpoint to register the
+passphrase of the user. The registration token can only be used once.</p>
+<h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">POST /settings/passphrase HTTP/1.1
+Host: alice.example.com
+Content-Type: application/json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;register_token&quot;: &quot;37cddf40d7724988860fa0e03efd30fe&quot;,
+  &quot;passphrase&quot;: &quot;ThisIsTheNewShinnyPassphraseChoosedByAlice&quot;
+}</code></pre>
+
+
+<h4 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 204 No Content
+Set-Cookie: cozysessid=AAAAAFhSXT81MWU0ZTBiMzllMmI1OGUyMmZiN2Q0YTYzNDAxN2Y5NjCmp2Ja56hPgHwufpJCBBGJC2mLeJ5LCRrFFkHwaVVa; Path=/; Domain=alice.example.com; Max-Age=604800; HttpOnly; Secure</code></pre>
+
+
+<h3 id="put-settingspassphrase-without-two-factor-authentication">PUT /settings/passphrase (without two-factor authentication)<a class="headerlink" href="#put-settingspassphrase-without-two-factor-authentication" title="Permanent link">&para;</a></h3>
+<p>The user can change its passphrase with this route.</p>
+<p>For users with two-factor authentication activated, a second step on the same
+route is necessary to actually update the passphrase. See below.</p>
+<h4 id="request_2">Request<a class="headerlink" href="#request_2" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">PUT /settings/passphrase HTTP/1.1
+Host: alice.example.com
+Content-Type: application/json
+Cookie: cozysessid=AAAAAFhSXT81MWU0ZTBiMzllMmI1OGUyMmZiN2Q0YTYzNDAxN2Y5NjCmp2Ja56hPgHwufpJCBBGJC2mLeJ5LCRrFFkHwaVVa</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;current_passphrase&quot;: &quot;ThisIsTheNewShinnyPassphraseChoosedByAlice&quot;,
+  &quot;new_passphrase&quot;: &quot;AliceHasChangedHerPassphraseAndThisIsTheNewPassphrase&quot;
+}</code></pre>
+
+
+<h4 id="response_2">Response<a class="headerlink" href="#response_2" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 204 No Content
+Set-Cookie: cozysessid=AAAAShoo3uo1Maic4VibuGohlik2eKUyMmZiN2Q0YTYzNDAxN2Y5NjCmp2Ja56hPgHwufpJCBBGJC2mLeJ5LCRrFFkHwaVVa; Path=/; Domain=alice.example.com; Max-Age=604800; HttpOnly; Secure</code></pre>
+
+
+<h3 id="put-settingspassphrase-with-two-factor-authentication">PUT /settings/passphrase (with two-factor authentication)<a class="headerlink" href="#put-settingspassphrase-with-two-factor-authentication" title="Permanent link">&para;</a></h3>
+<p>The user can change its passphrase with this route, with two-factor
+authentication to verify the user with more than its passphrase.</p>
+<h4 id="request-first-step">Request (first step)<a class="headerlink" href="#request-first-step" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">PUT /settings/passphrase HTTP/1.1
+Host: alice.example.com
+Content-Type: application/json
+Cookie: cozysessid=AAAAAFhSXT81MWU0ZTBiMzllMmI1OGUyMmZiN2Q0YTYzNDAxN2Y5NjCmp2Ja56hPgHwufpJCBBGJC2mLeJ5LCRrFFkHwaVVa</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;current_passphrase&quot;: &quot;ThisIsTheNewShinnyPassphraseChoosedByAlice&quot;
+}</code></pre>
+
+
+<h4 id="response-first-step">Response (first step)<a class="headerlink" href="#response-first-step" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Set-Cookie: cozysessid=AAAAShoo3uo1Maic4VibuGohlik2eKUyMmZiN2Q0YTYzNDAxN2Y5NjCmp2Ja56hPgHwufpJCBBGJC2mLeJ5LCRrFFkHwaVVa; Path=/; Domain=alice.example.com; Max-Age=604800; HttpOnly; Secure</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;two_factor_token&quot;: &quot;YxOSUjxd0SNmuwEEDRHXfw==&quot;
+}</code></pre>
+
+
+<p>At this point, the current passphrase has been exchanged against a token, and
+a passcode should have been sent to the user to authenticate on the second
+step.</p>
+<p>The token/passcode pair can be used on the second step to update the
+passphrase.</p>
+<h4 id="request-second-step">Request (second step)<a class="headerlink" href="#request-second-step" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">PUT /settings/passphrase HTTP/1.1
+Host: alice.example.com
+Content-Type: application/json
+Cookie: cozysessid=AAAAAFhSXT81MWU0ZTBiMzllMmI1OGUyMmZiN2Q0YTYzNDAxN2Y5NjCmp2Ja56hPgHwufpJCBBGJC2mLeJ5LCRrFFkHwaVVa</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;new_passphrase&quot;: &quot;AliceHasChangedHerPassphraseAndThisIsTheNewPassphrase&quot;,
+  &quot;two_factor_token&quot;: &quot;YxOSUjxd0SNmuwEEDRHXfw==&quot;,
+  &quot;two_factor_passcode&quot;: &quot;4947178&quot;
+}</code></pre>
+
+
+<h4 id="response-second-step">Response (second step)<a class="headerlink" href="#response-second-step" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 204 No Content
+Set-Cookie: cozysessid=AAAAShoo3uo1Maic4VibuGohlik2eKUyMmZiN2Q0YTYzNDAxN2Y5NjCmp2Ja56hPgHwufpJCBBGJC2mLeJ5LCRrFFkHwaVVa; Path=/; Domain=alice.example.com; Max-Age=604800; HttpOnly; Secure</code></pre>
+
+
+<h4 id="response_3">Response<a class="headerlink" href="#response_3" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 204 No Content</code></pre>
+
+
+<h2 id="instance">Instance<a class="headerlink" href="#instance" title="Permanent link">&para;</a></h2>
+<h3 id="get-settingsinstance">GET /settings/instance<a class="headerlink" href="#get-settingsinstance" title="Permanent link">&para;</a></h3>
+<p>If the user is logged in, display all instance settings. If the user is not
+logged in, the register token can be used to read the informations.</p>
+<h4 id="request_3">Request<a class="headerlink" href="#request_3" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">GET /settings/instance HTTP/1.1
+Host: alice.example.com
+Accept: application/vnd.api+json
+Cookie: sessionid=xxxx</code></pre>
+
+
+<h4 id="response_4">Response<a class="headerlink" href="#response_4" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;type&quot;: &quot;io.cozy.settings&quot;,
+    &quot;id&quot;: &quot;io.cozy.settings.instance&quot;,
+    &quot;meta&quot;: {
+      &quot;rev&quot;: &quot;3-56521545485448482&quot;
+    },
+    &quot;attributes&quot;: {
+      &quot;locale&quot;: &quot;fr&quot;,
+      &quot;auto_update&quot;: true,
+      &quot;email&quot;: &quot;alice@example.com&quot;,
+      &quot;public_name&quot;: &quot;Alice Martin&quot;,
+      &quot;auth_mode&quot;: &quot;basic&quot;
+    }
+  }
+}</code></pre>
+
+
+<h4 id="permissions">Permissions<a class="headerlink" href="#permissions" title="Permanent link">&para;</a></h4>
+<p>To use this endpoint, an application needs a permission on the type
+<code>io.cozy.settings</code> for the verb <code>GET</code>.</p>
+<h3 id="put-settingsinstance">PUT /settings/instance<a class="headerlink" href="#put-settingsinstance" title="Permanent link">&para;</a></h3>
+<p>If the user is logged in, allow to set the instance fields</p>
+<h4 id="request_4">Request<a class="headerlink" href="#request_4" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">POST /settings/instance HTTP/1.1
+Host: alice.example.com
+Accept: application/vnd.api+json
+Content-type: application/vnd.api+json
+Cookie: sessionid=xxxxx
+Authorization: Bearer settings-token</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;type&quot;: &quot;io.cozy.settings&quot;,
+    &quot;id&quot;: &quot;io.cozy.settings.instance&quot;,
+    &quot;meta&quot;: {
+      &quot;rev&quot;: &quot;3-56521545485448482&quot;
+    },
+    &quot;attributes&quot;: {
+      &quot;locale&quot;: &quot;fr&quot;,
+      &quot;email&quot;: &quot;alice@example.com&quot;,
+      &quot;public_name&quot;: &quot;Alice Martin&quot;,
+      &quot;timezone&quot;: &quot;Europe/Berlin&quot;,
+      &quot;auth_mode&quot;: &quot;two_factor_mail&quot;
+    }
+  }
+}</code></pre>
+
+
+<h4 id="response_5">Response<a class="headerlink" href="#response_5" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code>HTTP/1.1 200 OK
+Content-type: application/json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;type&quot;: &quot;io.cozy.settings&quot;,
+    &quot;id&quot;: &quot;io.cozy.settings.instance&quot;,
+    &quot;meta&quot;: {
+      &quot;rev&quot;: &quot;4-5a3e315e&quot;
+    },
+    &quot;attributes&quot;: {
+      &quot;locale&quot;: &quot;fr&quot;,
+      &quot;email&quot;: &quot;alice@example.com&quot;,
+      &quot;public_name&quot;: &quot;Alice Martin&quot;,
+      &quot;timezone&quot;: &quot;Europe/Berlin&quot;,
+      &quot;auth_mode&quot;: &quot;two_factor_mail&quot;
+    }
+  }
+}</code></pre>
+
+
+<h4 id="permissions_1">Permissions<a class="headerlink" href="#permissions_1" title="Permanent link">&para;</a></h4>
+<p>To use this endpoint, an application needs a permission on the type
+<code>io.cozy.settings</code> for the verb <code>PUT</code>.</p>
+<h3 id="put-settingsinstanceauth_mode">PUT /settings/instance/auth_mode<a class="headerlink" href="#put-settingsinstanceauth_mode" title="Permanent link">&para;</a></h3>
+<p>With this route, the user can ask for the activation of different
+authentication modes, like two-factor authentication.</p>
+<p>Available authentication modes:
+  - <code>basic</code>: basic authentication only with passphrase
+  - <code>two_factor_mail</code>: authentication with passphrase and validation with a
+    code sent via email to the user.</p>
+<p>When asking for activation of the two-factor authentication, a side-effect can
+be triggered to send the user its code (via email for instance), and the
+activation not being effective. This side-effect should provide the user with
+a code that can be used to finalize the activation of the two-factor
+authentication.</p>
+<p>Hence, this route has two behaviors:
+  - the code is not provided: the route is a side effect to ask for the
+    activation of 2FA, and a code is sent
+  - the code is provided, and valid: the two-factor authentication is actually
+    activated.</p>
+<p>Status codes:
+  * <code>204 No Content</code>: when the mail has been confirmed and two-factor authentication is activated
+  * <code>422 Unprocessable Entity</code>: when the given confirmation code is not good.</p>
+<h4 id="request_5">Request<a class="headerlink" href="#request_5" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">PUT /settings/instance/auth_mode HTTP/1.1
+Host: alice.example.com
+Content-Type: application/json
+Cookie: cozysessid=AAAAAFhSXT81MWU0ZTBiMzllMmI1OGUyMmZiN2Q0YTYzNDAxN2Y5NjCmp2Ja56hPgHwufpJCBBGJC2mLeJ5LCRrFFkHwaVVa</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;auth_mode&quot;: &quot;two_factor_mail&quot;,
+  &quot;two_factor_activation_code&quot;: &quot;12345678&quot;,
+}</code></pre>
+
+
+<h3 id="get-settingssessions">GET /settings/sessions<a class="headerlink" href="#get-settingssessions" title="Permanent link">&para;</a></h3>
+<p>This route allows to get all the currently active sessions.</p>
+<pre class="codehilite"><code>GET /settings/sessions HTTP/1.1
+Host: cozy.example.org
+Cookie: ...
+Authorization: Bearer ...</code></pre>
+
+
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-Type: application/json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: [
+    {
+      &quot;id&quot;: &quot;...&quot;,
+      &quot;attributes&quot;: {
+        &quot;last_seen&quot;: &quot;&quot;
+      },
+      &quot;meta&quot;: {
+        &quot;rev&quot;: &quot;...&quot;
+      }
+    }
+  ]
+}</code></pre>
+
+
+<h4 id="permissions_2">Permissions<a class="headerlink" href="#permissions_2" title="Permanent link">&para;</a></h4>
+<p>This route requires the application to have permissions on the
+<code>io.cozy.sessions</code> doctype with the <code>GET</code> verb.</p>
+<h2 id="oauth-2-clients">OAuth 2 clients<a class="headerlink" href="#oauth-2-clients" title="Permanent link">&para;</a></h2>
+<h3 id="get-settingsclients">GET /settings/clients<a class="headerlink" href="#get-settingsclients" title="Permanent link">&para;</a></h3>
+<p>Get the list of the registered clients</p>
+<h4 id="request_6">Request<a class="headerlink" href="#request_6" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">GET /settings/clients HTTP/1.1
+Host: alice.example.com
+Accept: application/vnd.api+json
+Cookie: sessionid=xxxxx
+Authorization: Bearer oauth2-clients-token</code></pre>
+
+
+<h4 id="response_6">Response<a class="headerlink" href="#response_6" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-type: application/json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: [
+    {
+      &quot;type&quot;: &quot;io.cozy.oauth.clients&quot;,
+      &quot;id&quot;: &quot;30e84c10-e6cf-11e6-9bfd-a7106972de51&quot;,
+      &quot;attributes&quot;: {
+        &quot;redirect_uris&quot;: [&quot;http://localhost:4000/oauth/callback&quot;],
+        &quot;client_name&quot;: &quot;Cozy-Desktop on my-new-laptop&quot;,
+        &quot;client_kind&quot;: &quot;desktop&quot;,
+        &quot;client_uri&quot;: &quot;https://docs.cozy.io/en/mobile/desktop.html&quot;,
+        &quot;logo_uri&quot;: &quot;https://docs.cozy.io/assets/images/cozy-logo-docs.svg&quot;,
+        &quot;policy_uri&quot;: &quot;https://cozy.io/policy&quot;,
+        &quot;software_id&quot;: &quot;/github.com/cozy-labs/cozy-desktop&quot;,
+        &quot;software_version&quot;: &quot;0.16.0&quot;,
+        &quot;synchronized_at&quot;: &quot;2017-09-05T16:23:04Z&quot;
+      },
+      &quot;links&quot;: {
+        &quot;self&quot;: &quot;/settings/clients/30e84c10-e6cf-11e6-9bfd-a7106972de51&quot;
+      }
+    }
+  ]
+}</code></pre>
+
+
+<h4 id="permissions_3">Permissions<a class="headerlink" href="#permissions_3" title="Permanent link">&para;</a></h4>
+<p>To use this endpoint, an application needs a permission on the type
+<code>io.cozy.oauth.clients</code> for the verb <code>GET</code> (only client-side apps).</p>
+<h3 id="delete-settingsclientsclient-id">DELETE /settings/clients/:client-id<a class="headerlink" href="#delete-settingsclientsclient-id" title="Permanent link">&para;</a></h3>
+<h4 id="request_7">Request<a class="headerlink" href="#request_7" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">DELETE /settings/clients/30e84c10-e6cf-11e6-9bfd-a7106972de51 HTTP/1.1
+Host: alice.example.com
+Authorization: Bearer oauth2-clients-token</code></pre>
+
+
+<h4 id="response_7">Response<a class="headerlink" href="#response_7" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 204 No Content</code></pre>
+
+
+<h4 id="permissions_4">Permissions<a class="headerlink" href="#permissions_4" title="Permanent link">&para;</a></h4>
+<p>To use this endpoint, an application needs a permission on the type
+<code>io.cozy.oauth.clients</code> for the verb <code>DELETE</code> (only client-side apps).</p>
+<h3 id="post-settingssynchronized">POST /settings/synchronized<a class="headerlink" href="#post-settingssynchronized" title="Permanent link">&para;</a></h3>
+<p>Any OAuth2 client can make a request to this endpoint with its token, no
+permission is needed. It will update the date of last synchronization for this
+device.</p>
+<h4 id="request_8">Request<a class="headerlink" href="#request_8" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">POST /settings/synchronized HTTP/1.1
+Host: alice.example.com
+Authorization: Bearer oauth2-access-token</code></pre>
+
+
+<h4 id="response_8">Response<a class="headerlink" href="#response_8" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 204 No Content</code></pre>
+
+
+<h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
+<h3 id="get-settingsonboarded">GET /settings/onboarded<a class="headerlink" href="#get-settingsonboarded" title="Permanent link">&para;</a></h3>
+<p>It redirects the user to an application after the onboarding. The application is
+selected according to the context of the instance and the configuration of the
+stack.</p>
+<h3 id="get-settingscontext">GET /settings/context<a class="headerlink" href="#get-settingscontext" title="Permanent link">&para;</a></h3>
+<p>It gives the keys/values from the config for the context of the instance.</p>
+<h4 id="request_9">Request<a class="headerlink" href="#request_9" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">GET /settings/context HTTP/1.1
+Host: alice.example.com
+Accept: application/vnd.api+json
+Cookie: sessionid=xxxx</code></pre>
+
+
+<h4 id="response_9">Response<a class="headerlink" href="#response_9" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;type&quot;: &quot;io.cozy.settings&quot;,
+    &quot;id&quot;: &quot;io.cozy.settings.context&quot;,
+    &quot;attributes&quot;: {
+      &quot;default_redirection&quot;: &quot;drive/#/files&quot;,
+      &quot;help_link&quot;: &quot;https://forum.cozy.io/&quot;,
+      &quot;onboarded_redirection&quot;: &quot;collect/#/discovery/?intro&quot;
+    },
+    &quot;links&quot;: {
+      &quot;self&quot;: &quot;/settings/context&quot;
+    }
+  }
+}</code></pre>
+
+
+<h4 id="permissions_5">Permissions<a class="headerlink" href="#permissions_5" title="Permanent link">&para;</a></h4>
+<p>To use this endpoint, an application needs a valid token, but no explicit
+permission is required.</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

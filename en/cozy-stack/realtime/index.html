@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/realtime/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>/realtime - Realtime - Cozy Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Cozy Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Use <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/">User guide</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Stay in sync</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronize your phone</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronize your computer</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Install on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Download</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../dev/">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="../../dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="../../dev/app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="../../dev/konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="../../dev/cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="../../dev/sendmail/">How to send mail in development</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">References</a>
+    <ul class="dropdown-menu">
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-doctypes</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bank/">Banking doctypes</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bills/">Bills</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.contacts/">Contacts</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.files/">Files</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.notifications/">Notifications</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.photos.albums/">Albums</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/">Remote requests</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/">Session logins</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-stack</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../README/">README</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Architecture</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../architecture/">General overview</a>
+</li>
+            
+<li >
+    <a href="../security/">Security</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Usage</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../INSTALL/">Install the cozy-stack</a>
+</li>
+            
+<li >
+    <a href="../cli/cozy-stack/">Manpages of the command-line tool</a>
+</li>
+            
+<li >
+    <a href="../config/">Configuration file</a>
+</li>
+            
+<li >
+    <a href="../instance/">Managing Instances</a>
+</li>
+            
+<li >
+    <a href="../onboarding/">Onboarding</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">For developpers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../client-app-dev/">Develop a client-side app</a>
+</li>
+            
+<li >
+    <a href="../docker/">Running and building Docker images</a>
+</li>
+            
+<li >
+    <a href="../release/">Build a release</a>
+</li>
+            
+<li >
+    <a href="../CONTRIBUTING/">The contributing guide</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Services</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../auth/">/auth - Authentication & OAuth</a>
+</li>
+            
+<li >
+    <a href="../apps/">/apps - Applications Management</a>
+</li>
+            
+<li >
+    <a href="../registry/">Apps registry</a>
+</li>
+            
+<li >
+    <a href="../data-system/">/data - Data System</a>
+</li>
+            
+<li >
+    <a href="../mango/">Mango</a>
+</li>
+            
+<li >
+    <a href="../replication/">Replication</a>
+</li>
+            
+<li >
+    <a href="../couchdb-quirks/">CouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../files/">/files - Virtual File System</a>
+</li>
+            
+<li >
+    <a href="../references-docs-in-vfs/">References of documents in VFS</a>
+</li>
+            
+<li >
+    <a href="../intents/">/intents - Intents</a>
+</li>
+            
+<li >
+    <a href="../jobs/">/jobs Jobs</a>
+</li>
+            
+<li >
+    <a href="../konnectors/">Konnectors</a>
+</li>
+            
+<li >
+    <a href="../workers/">Workers</a>
+</li>
+            
+<li >
+    <a href="../notifications/">/notifications - Notifications</a>
+</li>
+            
+<li >
+    <a href="../permissions/">/permissions - Permissions</a>
+</li>
+            
+<li class="active">
+    <a href="./">/realtime - Realtime</a>
+</li>
+            
+<li >
+    <a href="../remote/">/remote - Proxy for remote data/API</a>
+</li>
+            
+<li >
+    <a href="../settings/">/settings - Settings</a>
+</li>
+            
+<li >
+    <a href="../sharing/">/sharings - Sharing</a>
+</li>
+            
+<li >
+    <a href="../sharing-design/">Request for comments</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#realtime-docs">Realtime docs</a></li>
+            <li><a href="#context">Context</a></li>
+            <li><a href="#use-cases-for-interval-events-feeds">Use cases for interval events feeds</a></li>
+            <li><a href="#use-cases-for-continuous-events-feeds">Use cases for continuous events feeds</a></li>
+            <li><a href="#client-realtime-tech-choice">Client realtime tech choice</a></li>
+            <li><a href="#gostack-architecture">Go/Stack architecture</a></li>
+            <li><a href="#websocket-api">Websocket API</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="realtime-docs">Realtime docs<a class="headerlink" href="#realtime-docs" title="Permanent link">&para;</a></h1>
+<h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
+<h3 id="definitions">Definitions<a class="headerlink" href="#definitions" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Event:</strong> Something happening in the stack. Most of them will come from
+  couchdb, some jobs and user actions might also trigger them.</li>
+<li><strong>Events feed:</strong> the feed of occurring events. There is two types of feeds:</li>
+<li><strong>continuous</strong> allows to follow events as they occurs</li>
+<li><strong>interval</strong> allow the see the history of the feed from any given time</li>
+<li><strong>Realtime:</strong> user experienced updates of the interface from change happening
+  from another source. <em>Ie, I have a folder opened in cozy-files on the browser,
+  I take some pictures from my smartphone, the pictures appears in the folder
+  without me needing to refresh the browser tab.</em></li>
+</ul>
+<h3 id="what-couchdb-offers">What couchdb offers<a class="headerlink" href="#what-couchdb-offers" title="Permanent link">&para;</a></h3>
+<p>Couchdb supports with its <code>_changes</code> API both events feeds types:</p>
+<ul>
+<li>using <code>since=now&amp;continuous=true</code> we get all events <strong>continuous</strong>ly as they
+  happen (SSE)</li>
+<li>using <code>since=(last known seq_number)</code> we get all changes in the <strong>interval</strong>
+  between last known <code>seq_number</code> and now.</li>
+</ul>
+<p>Couchdb also offers a <code>_db_updates</code> route, which give us <strong>continuous</strong> changes
+at the database level. This routes does not support a since parameter, as there
+is no global <code>seq_number</code>.</p>
+<p>Other events will be generated from the stack itself, such as session close or
+jobs activity.</p>
+<h3 id="performance-limitation">Performance limitation<a class="headerlink" href="#performance-limitation" title="Permanent link">&para;</a></h3>
+<p><strong>We cannot have a continuous <code>_changes</code> feed open to every databases</strong></p>
+<h2 id="use-cases-for-interval-events-feeds">Use cases for interval events feeds<a class="headerlink" href="#use-cases-for-interval-events-feeds" title="Permanent link">&para;</a></h2>
+<h3 id="replication">Replication<a class="headerlink" href="#replication" title="Permanent link">&para;</a></h3>
+<p>Couchdb replication algorithm can work in one-shot mode, where it replicates
+changes since last sync up until now, or in continuous mode where it replicates
+changes as they happens.</p>
+<ul>
+<li>The stack will not allow continuous mode for replication.</li>
+<li>This is already supported with the <code>_changes</code> route</li>
+</ul>
+<h3 id="sharing">Sharing<a class="headerlink" href="#sharing" title="Permanent link">&para;</a></h3>
+<p>Our sharing is based on couchdb replication rules, so also depends on <code>_changes</code>
+feed to ensure all changes have been applied.</p>
+<p><strong>Considering these use cases, there is no need for non-couchdb event to be part
+of the interval events feed.</strong></p>
+<h2 id="use-cases-for-continuous-events-feeds">Use cases for continuous events feeds<a class="headerlink" href="#use-cases-for-continuous-events-feeds" title="Permanent link">&para;</a></h2>
+<h3 id="realtime">Realtime<a class="headerlink" href="#realtime" title="Permanent link">&para;</a></h3>
+<p>Some events should be send to the client to update views as data change.</p>
+<h3 id="event-jobs-trigger"><code>@event</code> jobs trigger<a class="headerlink" href="#event-jobs-trigger" title="Permanent link">&para;</a></h3>
+<p>Some event will trigger the activation of a job (ie. When a photo has been
+uploaded, generate thumbnails and extract EXIF metadatas). This should be done
+as soon as possible after the events</p>
+<h3 id="sharing_1">Sharing ?<a class="headerlink" href="#sharing_1" title="Permanent link">&para;</a></h3>
+<p>While not absolutely necessary, having cozy A notify cozy B when a shared
+document is changed allows for both better user experience (faster propagation)
+and better performance (no need to poll every X minutes, the N cozy we are
+sharing from).</p>
+<h2 id="client-realtime-tech-choice">Client realtime tech choice<a class="headerlink" href="#client-realtime-tech-choice" title="Permanent link">&para;</a></h2>
+<h3 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Polling:</strong> regularly ask the server what happened since last time.</li>
+<li><strong>COMET:</strong> Leaving a normal HTTP connection open sending data and heartbeets
+  regularly to keep it open, reading xhr.responseText at intervals without
+  waiting for readyState == 4. Restart the connection when it breaks.</li>
+<li><strong>SSE:</strong> Normalized &amp; standardized version of COMET with
+  <a href="http://caniuse.com/#feat=eventsource">half-decent browser support (86% users)</a>
+  but easily polyfillable (it&rsquo;s just COMET). It is simpler and easier to debug.
+  It has some limitations (no HTTP headers in JS api, counts toward the maximum
+  number of http connection per domain).</li>
+<li><strong>Websocket:</strong> keep a socket open, it allows 2 way data communication which we
+  do not need, has
+  <a href="http://caniuse.com/#feat=websockets">better server support (92% users)</a> but
+  is impossible to polyfill client side, more popular, there is a better
+  <a href="https://godoc.org/github.com/gorilla/websocket">golang package</a></li>
+<li><strong>SockJS &amp; cie</strong> they are <strong>a lot</strong> of packages which imitate Websocket API
+  while using complicated client&amp;server polyfill to allow support of older
+  browser. <a href="https://github.com/sockjs/">SockJS</a> is a drop-in websocket
+  replacement with a go package and javascript client.</li>
+</ul>
+<h3 id="choice-websocket">Choice = Websocket<a class="headerlink" href="#choice-websocket" title="Permanent link">&para;</a></h3>
+<p>While SSE appears at first glance like a better fit for our use case, its
+limitation and lack of browser priority makes us choose websocket. In the event
+older browser supports becomes necessary we can use SockJS.</p>
+<h3 id="optimization-paths-future">optimization paths (future)<a class="headerlink" href="#optimization-paths-future" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>bandwidth</strong> Limiting the number of events sent by allowing the client to
+  specified it is only interested in events matching a selector <em>(files app only
+  care about changes in the files of the current folder view)</em></li>
+<li><strong>number of connections</strong> Instead of 1 socket / tab, we can probably make 1
+  socket / browser using some hackish combination of SharedWorker /
+  iframe.postMessage and a client-side demultiplexer.</li>
+<li><strong>both</strong> No need for realtime if the user is not using the tab (for most
+  usecases), we could cut the realtime feed depending on
+  <a href="https://www.w3.org/TR/2011/WD-page-visibility-20110602/">Page Visibility API</a></li>
+</ul>
+<h2 id="gostack-architecture">Go/Stack architecture<a class="headerlink" href="#gostack-architecture" title="Permanent link">&para;</a></h2>
+<ul>
+<li>We assume all couchdb changes will originate from the stack</li>
+<li>Events are generated at the stack level</li>
+<li>We do <strong>NOT</strong> rely on couchdb <code>_changes?continuous</code> nor <code>_db_udpates</code></li>
+</ul>
+<p>We create a realtime.Event interface, which we call in other packages. We accept
+websocket connection and bind them to a realtime.Dispatcher object.</p>
+<h3 id="small-cozy-version">Small cozy version<a class="headerlink" href="#small-cozy-version" title="Permanent link">&para;</a></h3>
+<p>It all happens in RAM, realtime.Event are immediately transmited to the
+dispatcher.</p>
+<h3 id="big-cozy-version-ie-multiple-stack-instance">Big cozy version (ie. multiple stack instance)<a class="headerlink" href="#big-cozy-version-ie-multiple-stack-instance" title="Permanent link">&para;</a></h3>
+<p>Redis pub/sub</p>
+<h2 id="websocket-api">Websocket API<a class="headerlink" href="#websocket-api" title="Permanent link">&para;</a></h2>
+<p>We start with a normal websocket handshake.</p>
+<p>Websockets include a protocol description in handshake, the protocol described
+below is hereby named <code>io.cozy.websocket</code>.</p>
+<p>Changes to the websocket protocol should be given versions, support for older
+version should be maintained when reasonable.</p>
+<pre class="codehilite"><code class="language-http">GET /realtime/ HTTP/1.1
+Host: mycozy.example.com
+Upgrade: websocket
+Connection: Upgrade
+Origin: http://calendar.mycozy.example.com
+Sec-WebSocket-Key: x3JrandomLkh9GBhXDw==
+Sec-WebSocket-Protocol: io.cozy.websocket
+Sec-WebSocket-Version: 13</code></pre>
+
+
+<p>Then messages are sent using json</p>
+<pre class="codehilite"><code>client &gt; {&quot;method&quot;: &quot;AUTH&quot;,
+          &quot;payload&quot;: &quot;xxAppOrAuthTokenxx=&quot;
+client &gt; {&quot;method&quot;: &quot;SUBSCRIBE&quot;,
+          &quot;payload&quot;: {&quot;type&quot;: &quot;io.cozy.files&quot;}
+client &gt; {&quot;method&quot;: &quot;SUBSCRIBE&quot;,
+          &quot;payload&quot;: {&quot;type&quot;: &quot;io.cozy.contacts&quot;}
+server &gt; {&quot;event&quot;: &quot;UPDATED&quot;,
+          &quot;payload&quot;: {&quot;id&quot;: &quot;idA&quot;, &quot;rev&quot;: &quot;2-705...&quot;, &quot;type&quot;: &quot;io.cozy.contacts&quot;, &quot;doc&quot;: {embeded doc ...}}}
+server &gt; {&quot;event&quot;: &quot;DELETED&quot;,
+          &quot;payload&quot;: {&quot;id&quot;: &quot;idA&quot;, &quot;rev&quot;: &quot;3-541...&quot;, &quot;type&quot;: &quot;io.cozy.contacts&quot;}}
+server &gt; {&quot;event&quot;: &quot;UPDATED&quot;,
+          &quot;payload&quot;: {&quot;id&quot;: &quot;idB&quot;, &quot;rev&quot;: &quot;6-457...&quot;, &quot;type&quot;: &quot;io.cozy.files&quot;, &quot;doc&quot;: {embeded doc ...}}}</code></pre>
+
+
+<h3 id="auth">AUTH<a class="headerlink" href="#auth" title="Permanent link">&para;</a></h3>
+<p>It must be the first command to be sent. The client gives its token with this
+command, and the stack will use it to know which are the permissions of the app.</p>
+<pre class="codehilite"><code>{&quot;method&quot;: &quot;AUTH&quot;, &quot;payload&quot;: &quot;eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhcHAiLCJpYXQiOjE0OTg4MTY1OTEsImlzcyI6ImNvenkudG9vbHM6ODA4MCIsInN1YiI6Im1pbmkifQ.eH9DhoHz7rg8gR7noAiKfeo8eL3Q_PzyuskO_x3T8Hlh9q_IV-4zqoGtjTiO7luD6_VcLboEU-6o3XBek84VTg&quot;}</code></pre>
+
+
+<h3 id="subscribe">SUBSCRIBE<a class="headerlink" href="#subscribe" title="Permanent link">&para;</a></h3>
+<p>A client can send a SUBSCRIBE request to be notified of changes. The payload is
+a selector for the events it wishes to receive For now the only possible
+selector is on type &amp; optionaly id</p>
+<pre class="codehilite"><code>{&quot;method&quot;: &quot;SUBSCRIBE&quot;, &quot;payload&quot;: {&quot;type&quot;: &quot;[desired doctype]&quot;}}
+{&quot;method&quot;: &quot;SUBSCRIBE&quot;, &quot;payload&quot;: {&quot;type&quot;: &quot;[desired doctype]&quot;, &quot;id&quot;: &quot;idA&quot;}}</code></pre>
+
+
+<p>In order to subscribe, a client must have permission <code>GET</code> on the passed
+selector. Otherwise an error is passed in the message feed.</p>
+<pre class="codehilite"><code>server &gt; {&quot;event&quot;: &quot;error&quot;,
+          &quot;payload&quot;: {
+            &quot;status&quot;: &quot;403 Forbidden&quot;
+            &quot;code&quot;: &quot;forbidden&quot;
+            &quot;title&quot;:&quot;The Application can't subscribe to io.cozy.files&quot;
+            &quot;source&quot;: {&quot;method&quot;: &quot;SUBSCRIBE&quot;, &quot;payload&quot;: {&quot;type&quot;:&quot;io.cozy.files&quot;} }
+          }}</code></pre></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/auth/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>/auth - Authentication & OAuth - Cozy Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Cozy Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Use <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/">User guide</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Stay in sync</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronize your phone</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronize your computer</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Install on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Download</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../dev/">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="../../dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="../../dev/app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="../../dev/konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="../../dev/cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="../../dev/sendmail/">How to send mail in development</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">References</a>
+    <ul class="dropdown-menu">
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-doctypes</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bank/">Banking doctypes</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bills/">Bills</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.contacts/">Contacts</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.files/">Files</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.notifications/">Notifications</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.photos.albums/">Albums</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/">Remote requests</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/">Session logins</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-stack</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../README/">README</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Architecture</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../architecture/">General overview</a>
+</li>
+            
+<li >
+    <a href="../security/">Security</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Usage</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../INSTALL/">Install the cozy-stack</a>
+</li>
+            
+<li >
+    <a href="../cli/cozy-stack/">Manpages of the command-line tool</a>
+</li>
+            
+<li >
+    <a href="../config/">Configuration file</a>
+</li>
+            
+<li >
+    <a href="../instance/">Managing Instances</a>
+</li>
+            
+<li >
+    <a href="../onboarding/">Onboarding</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">For developpers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../client-app-dev/">Develop a client-side app</a>
+</li>
+            
+<li >
+    <a href="../docker/">Running and building Docker images</a>
+</li>
+            
+<li >
+    <a href="../release/">Build a release</a>
+</li>
+            
+<li >
+    <a href="../CONTRIBUTING/">The contributing guide</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Services</a>
+    <ul class="dropdown-menu">
+            
+<li class="active">
+    <a href="./">/auth - Authentication & OAuth</a>
+</li>
+            
+<li >
+    <a href="../apps/">/apps - Applications Management</a>
+</li>
+            
+<li >
+    <a href="../registry/">Apps registry</a>
+</li>
+            
+<li >
+    <a href="../data-system/">/data - Data System</a>
+</li>
+            
+<li >
+    <a href="../mango/">Mango</a>
+</li>
+            
+<li >
+    <a href="../replication/">Replication</a>
+</li>
+            
+<li >
+    <a href="../couchdb-quirks/">CouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../files/">/files - Virtual File System</a>
+</li>
+            
+<li >
+    <a href="../references-docs-in-vfs/">References of documents in VFS</a>
+</li>
+            
+<li >
+    <a href="../intents/">/intents - Intents</a>
+</li>
+            
+<li >
+    <a href="../jobs/">/jobs Jobs</a>
+</li>
+            
+<li >
+    <a href="../konnectors/">Konnectors</a>
+</li>
+            
+<li >
+    <a href="../workers/">Workers</a>
+</li>
+            
+<li >
+    <a href="../notifications/">/notifications - Notifications</a>
+</li>
+            
+<li >
+    <a href="../permissions/">/permissions - Permissions</a>
+</li>
+            
+<li >
+    <a href="../realtime/">/realtime - Realtime</a>
+</li>
+            
+<li >
+    <a href="../remote/">/remote - Proxy for remote data/API</a>
+</li>
+            
+<li >
+    <a href="../settings/">/settings - Settings</a>
+</li>
+            
+<li >
+    <a href="../sharing/">/sharings - Sharing</a>
+</li>
+            
+<li >
+    <a href="../sharing-design/">Request for comments</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#authentication-and-access-delegations">Authentication and access delegations</a></li>
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#what-about-oauth2">What about OAuth2?</a></li>
+            <li><a href="#the-cozy-stack-as-an-authorization-server">The cozy stack as an authorization server</a></li>
+            <li><a href="#client-side-apps">Client-side apps</a></li>
+            <li><a href="#third-party-websites">Third-party websites</a></li>
+            <li><a href="#devices-and-browser-extensions">Devices and browser extensions</a></li>
+            <li><a href="#security-considerations">Security considerations</a></li>
+            <li><a href="#conclusion">Conclusion</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<p><a href="../README/#table-of-contents">Table of contents</a></p>
+<h1 id="authentication-and-access-delegations">Authentication and access delegations<a class="headerlink" href="#authentication-and-access-delegations" title="Permanent link">&para;</a></h1>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>In this document, we will cover how to protect the usage of the cozy-stack. When
+the cozy-stack receives a request, it checks that the request is authorized, and
+if yes, it processes it and answers it.</p>
+<h2 id="what-about-oauth2">What about OAuth2?<a class="headerlink" href="#what-about-oauth2" title="Permanent link">&para;</a></h2>
+<p>OAuth2 is about delegating an access to resources on a server to another party.
+It is a framework, not a strictly defined protocol, for organizing the
+interactions between these 4 actors:</p>
+<ul>
+<li>the resource owner, the &ldquo;user&rdquo; that can click on buttons</li>
+<li>the client, the website or application that would like to access the resources</li>
+<li>the authorization server, whose role is limited to give tokens but is central
+  in OAuth2 interactions</li>
+<li>the resources server, the server that controls the resources.</li>
+</ul>
+<p>For cozy, both the authorization server and the resources server roles are
+played by the cozy-stack. The resource owner is the owner of a cozy instance.
+The client can be the cozy-desktop app, cozy-mobile, or many other applications.</p>
+<p>OAuth2, and its extensions, is a large world. At its core, there is 2 things:
+letting the client get a token issued by the authorization server, and using
+this token to access to the resources. OAuth2 describe 4 flows, called grant
+types, for the first part:</p>
+<ul>
+<li>Authorization code</li>
+<li>Implicit grant type</li>
+<li>Client credentials grant type</li>
+<li>Resource owner credentials grant type.</li>
+</ul>
+<p>On cozy, only the most typical one is used: authorization code. To start this
+flow, the client must have a <code>client_id</code> and <code>client_secret</code>. The Cozy stack
+implements the OAuth2 Dynamic Client Registration Protocol (an extension to
+OAuth2) to allow the clients to obtain them.</p>
+<p>OAuth2 has also 3 ways to use a token:</p>
+<ul>
+<li>in the query-string (even if the spec does not recommended it)</li>
+<li>in the POST body</li>
+<li>in the HTTP Authorization header.</li>
+</ul>
+<p>On cozy, only the HTTP header is supported.</p>
+<p>OAuth2 has a lot of assumptions. Let&rsquo;s see some of them and their consequences
+on Cozy:</p>
+<ul>
+<li>
+<p>TLS is very important to secure the communications. in OAuth 1, there was a
+  mechanism to sign the requests. But it was very difficult to get it right for
+  the developers and was abandonned in OAuth2, in favor of using TLS. The Cozy
+  instance are already accessible only in HTTPS, so there is nothing particular
+  to do for that.</p>
+</li>
+<li>
+<p>There is a principle called TOFU, Trust On First Use. It said that if the user
+  will give his permission for delegating access to its resources when the
+  client will try to access them for the first time. Later, the client will be
+  able to keep accessing them even if the user is no longer here to give his
+  permissions.</p>
+</li>
+<li>
+<p>The client can&rsquo;t make the assumptions about when its tokens will work. The
+  tokens have no meaning for him (like cookies in a browser), they are just
+  something it got from the authorization server and can send with its request.
+  The access token can expire, the user can revoke them, etc.</p>
+</li>
+<li>
+<p>OAuth 2.0 defines no cryptographic methods. But a developer that want to use
+  it will have to put her hands in that.</p>
+</li>
+</ul>
+<p>If you want to learn OAuth 2 in details, I recommend the
+<a href="https://www.manning.com/books/oauth-2-in-action">OAuth 2 in Action book</a>.</p>
+<h2 id="the-cozy-stack-as-an-authorization-server">The cozy stack as an authorization server<a class="headerlink" href="#the-cozy-stack-as-an-authorization-server" title="Permanent link">&para;</a></h2>
+<h3 id="get-authlogin">GET /auth/login<a class="headerlink" href="#get-authlogin" title="Permanent link">&para;</a></h3>
+<p>Display a form with a password field to let the user authenticates herself to
+the cozy stack.</p>
+<p>This endpoint accepts a <code>redirect</code> parameter. If the user is already logged in,
+she will be redirected immediately. Else, the parameter will be transfered in
+the POST. This parameter can only contain a link to an application installed on
+the cozy (thus to a subdomain of the cozy instance). To protect against stealing
+authorization code with redirection, the fragment is always overriden:</p>
+<pre class="codehilite"><code class="language-http">GET /auth/login?redirect=https://contacts.cozy.example.org/foo?bar#baz HTTP/1.1
+Host: cozy.example.org
+Cookie: ...</code></pre>
+
+
+<p><strong>Note</strong>: the redirect parameter should be URL-encoded. We haven&rsquo;t done that to
+make it clear what the path (<code>foo</code>), the query-string (<code>bar</code>), and the fragment
+(<code>baz</code>) are.</p>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 302 Moved Temporarily
+Location: https://contacts.cozy.example.org/foo?bar#</code></pre>
+
+
+<p>If the <code>redirect</code> parameter is invalid, the response will be <code>400 Bad Request</code>.
+Same for other parameters, the redirection will happen only on success (even if
+OAuth2 says the authorization server can redirect on errors, it&rsquo;s very
+complicated to do it safely, and it is better to avoid this trap).</p>
+<h3 id="post-authlogin">POST /auth/login<a class="headerlink" href="#post-authlogin" title="Permanent link">&para;</a></h3>
+<p>After the user has typed her passphrase and clicked on <code>Login</code>, a request is
+made to this endpoint.</p>
+<p>The <code>redirect</code> parameter is passed inside the body. If it is missing, the
+redirection will be made against the default target: the home application of
+this cozy instance.</p>
+<pre class="codehilite"><code class="language-http">POST /auth/login HTTP/1.1
+Host: cozy.example.org
+Content-Type: application/x-www-form-urlencoded
+
+passphrase=p4ssw0rd&amp;redirect=https%3A%2F%2Fcontacts.cozy.example.org</code></pre>
+
+
+<pre class="codehilite"><code class="language-http">HTTP/1.1 302 Moved Temporarily
+Set-Cookie: ...
+Location: https://contacts.cozy.example.org/foo</code></pre>
+
+
+<p>When two-factor authentication (2FA) authentication is activated, this endpoint
+will not directly sent a redirection after this first passphrase step. In such
+case, a <code>200 OK</code> response is sent along with a token value in the response
+(either in JSON if requested or directly in a new HTML form).</p>
+<p>Along with this token, on 2FA passcode is sent to the user via another transport
+(email for instance, depending on the user&rsquo;s preferences). Another request
+should be sent to the same endpoint with a valid pair <code>(token, passcode)</code>,
+ensuring that the user correctly entered its passphrase <em>and</em> received a fresh
+passcode by another mean.</p>
+<pre class="codehilite"><code class="language-http">POST /auth/login HTTP/1.1
+Host: cozy.example.org
+Content-Type: application/x-www-form-urlencoded
+
+two-factor-token=123123123123&amp;passcode=678678&amp;redirect=https%3A%2F%2Fcontacts.cozy.example.org</code></pre>
+
+
+<pre class="codehilite"><code class="language-http">HTTP/1.1 302 Moved Temporarily
+Set-Cookie: ...
+Location: https://contacts.cozy.example.org/foo</code></pre>
+
+
+<h3 id="delete-authlogin">DELETE /auth/login<a class="headerlink" href="#delete-authlogin" title="Permanent link">&para;</a></h3>
+<p>This can be used to log-out the user. An app token must be passed in the
+<code>Authorization</code> header, to protect against CSRF attack on this (this can part of
+bigger attacks like session fixation).</p>
+<pre class="codehilite"><code class="language-http">DELETE /auth/login HTTP/1.1
+Host: cozy.example.org
+Cookie: seesioncookie....
+Authorization: Bearer app-token</code></pre>
+
+
+<h3 id="delete-authloginothers">DELETE /auth/login/others<a class="headerlink" href="#delete-authloginothers" title="Permanent link">&para;</a></h3>
+<p>This can be used to log-out all active sessions except the one used by the
+request. This allow to disconnect any other users currenctly authenticated on
+the system. An app token must be passed in the <code>Authorization</code> header, to
+protect against CSRF attack on this (this can part of bigger attacks like
+session fixation).</p>
+<pre class="codehilite"><code class="language-http">DELETE /auth/login/others HTTP/1.1
+Host: cozy.example.org
+Cookie: seesioncookie....
+Authorization: Bearer app-token</code></pre>
+
+
+<h3 id="get-authpassphrase_reset">GET /auth/passphrase_reset<a class="headerlink" href="#get-authpassphrase_reset" title="Permanent link">&para;</a></h3>
+<p>Display a form for the user to reset its password, in case he has forgotten it
+for example. If the user is connected, he won&rsquo;t be shown this form and he will
+be directly redirected to his cozy.</p>
+<pre class="codehilite"><code class="language-http">GET /auth/passphrase_reset HTTP/1.1
+Host: cozy.example.org
+Content-Type: text/html
+Cookie: ...</code></pre>
+
+
+<h3 id="post-authpassphrase_reset">POST /auth/passphrase_reset<a class="headerlink" href="#post-authpassphrase_reset" title="Permanent link">&para;</a></h3>
+<p>After the user has clicked on the reset button of the passphrase reset form, it
+will execute a request to this endpoint.</p>
+<p>This endpoint will create a token for the user to actually renew his passphrase.
+The token has a short-live duration of about 15 minutes. After the token is
+created, it is sent to the user on its mailbox.</p>
+<p>This endpoint will redirect the user on the login form page.</p>
+<pre class="codehilite"><code class="language-http">POST /auth/passphrase_reset HTTP/1.1
+Host: cozy.example.org
+Content-Type: application/x-www-form-urlencoded
+
+csrf_token=123456890</code></pre>
+
+
+<h3 id="get-authpassphrase_renew">GET /auth/passphrase_renew<a class="headerlink" href="#get-authpassphrase_renew" title="Permanent link">&para;</a></h3>
+<p>Display a form for the user to enter a new password. This endpoint should be
+used with a <code>token</code> query parameter. This token makes sure that the user has
+actually reset its passphrase and should have been sent via its mailbox.</p>
+<pre class="codehilite"><code class="language-http">GET /auth/passphrase_renew?token=123456789 HTTP/1.1
+Host: cozy.example.org
+Content-Type: text/html
+Cookie: ...</code></pre>
+
+
+<h3 id="post-authpassphrase_renew">POST /auth/passphrase_renew<a class="headerlink" href="#post-authpassphrase_renew" title="Permanent link">&para;</a></h3>
+<p>After the user has entered its new passphrase in the renew passphrase form, a
+request is made to this endpoint to renew the passphrase.</p>
+<p>This endpoint requires a valid token to actually work. In case of a success, the
+user is redirected to the login form.</p>
+<pre class="codehilite"><code class="language-http">POST /auth/passphrase_reset HTTP/1.1
+Host: cozy.example.org
+Content-Type: application/x-www-form-urlencoded
+
+csrf_token=123456890&amp;passphrase_reset_token=123456789&amp;passphrase=mynewpassphrase</code></pre>
+
+
+<h3 id="post-authregister">POST /auth/register<a class="headerlink" href="#post-authregister" title="Permanent link">&para;</a></h3>
+<p>This route is used by OAuth2 clients to dynamically register them-selves.</p>
+<p>See
+<a href="https://tools.ietf.org/html/rfc7591">OAuth 2.0 Dynamic Client Registration Protocol</a>
+for the details.</p>
+<p>The client must send a JSON request, with at least:</p>
+<ul>
+<li><code>redirect_uris</code>, an array of strings with the redirect URIs that the client
+  will use in the authorization flow</li>
+<li><code>client_name</code>, human-readable string name of the client to be presented to the
+  end-user during authorization</li>
+<li><code>software_id</code>, an identifier of the software used by the client (it should
+  remain the same for all instances of the client software, whereas <code>client_id</code>
+  varies between instances).</li>
+</ul>
+<p>It can also send the optional fields:</p>
+<ul>
+<li><code>client_kind</code> (possible values: web, desktop, mobile, browser, etc.)</li>
+<li><code>client_uri</code>, URL string of a web page providing information about the client</li>
+<li><code>logo_uri</code>, to display an icon to the user in the authorization flow</li>
+<li><code>policy_uri</code>, URL string that points to a human-readable privacy policy
+  document that describes how the deployment organization collects, uses,
+  retains, and discloses personal data</li>
+<li><code>software_version</code>, a version identifier string for the client software.</li>
+<li><code>notification_platform</code>, to activate notifications on the associated
+  device, this field specify the platform used to send notifications:</li>
+<li><code>"android"</code>: for Android devices with notifications via Firebase Cloud
+    Messageing</li>
+<li><code>"ios"</code>: for iOS devices with notifications via APNS/2.</li>
+<li><code>notification_device_token</code>, the token used to identify the mobile device
+  for notifications</li>
+</ul>
+<p>The server gives to the client the previous fields and these informations:</p>
+<ul>
+<li><code>client_id</code></li>
+<li><code>client_secret</code></li>
+<li><code>registration_access_token</code></li>
+</ul>
+<p>Example:</p>
+<pre class="codehilite"><code class="language-http">POST /auth/register HTTP/1.1
+Host: cozy.example.org
+Content-Type: application/json
+Accept: application/json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;redirect_uris&quot;: [&quot;https://client.example.org/oauth/callback&quot;],
+  &quot;client_name&quot;: &quot;Client&quot;,
+  &quot;software_id&quot;: &quot;github.com/example/client&quot;,
+  &quot;software_version&quot;: &quot;2.0.1&quot;,
+  &quot;client_kind&quot;: &quot;web&quot;,
+  &quot;client_uri&quot;: &quot;https://client.example.org/&quot;,
+  &quot;logo_uri&quot;: &quot;https://client.example.org/logo.svg&quot;,
+  &quot;policy_uri&quot;: &quot;https://client/example.org/policy&quot;
+}</code></pre>
+
+
+<pre class="codehilite"><code class="language-http">HTTP/1.1 201 Created
+Content-Type: application/json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;client_id&quot;: &quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;,
+  &quot;client_secret&quot;: &quot;eyJpc3Mi[...omitted for brevity...]&quot;,
+  &quot;client_secret_expires_at&quot;: 0,
+  &quot;registration_access_token&quot;: &quot;J9l-ZhwP[...omitted for brevity...]&quot;,
+  &quot;grant_types&quot;: [&quot;authorization_code&quot;, &quot;refresh_token&quot;],
+  &quot;response_types&quot;: [&quot;code&quot;],
+  &quot;redirect_uris&quot;: [&quot;https://client.example.org/oauth/callback&quot;],
+  &quot;client_name&quot;: &quot;Client&quot;,
+  &quot;software_id&quot;: &quot;github.com/example/client&quot;,
+  &quot;software_version&quot;: &quot;2.0.1&quot;,
+  &quot;client_kind&quot;: &quot;web&quot;,
+  &quot;client_uri&quot;: &quot;https://client.example.org/&quot;,
+  &quot;logo_uri&quot;: &quot;https://client.example.org/logo.svg&quot;,
+  &quot;policy_uri&quot;: &quot;https://client/example.org/policy&quot;
+}</code></pre>
+
+
+<h3 id="get-authregisterclient-id">GET /auth/register/:client-id<a class="headerlink" href="#get-authregisterclient-id" title="Permanent link">&para;</a></h3>
+<p>This route is used by the clients to get informations about them-selves. The
+client has to send its registration access token to be able to use this
+endpoint.</p>
+<p>See
+<a href="https://tools.ietf.org/html/rfc7592">OAuth 2.0 Dynamic Client Registration Management Protocol</a>
+for more details.</p>
+<pre class="codehilite"><code class="language-http">GET /auth/register/64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3 HTTP/1.1
+Host: cozy.example.org
+Accept: application/json
+Authorization: Bearer J9l-ZhwP...</code></pre>
+
+
+<pre class="codehilite"><code class="language-http">HTTP/1.1 201 Created
+Content-Type: application/json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;client_id&quot;: &quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;,
+  &quot;client_secret&quot;: &quot;eyJpc3Mi[...omitted for brevity...]&quot;,
+  &quot;client_secret_expires_at&quot;: 0,
+  &quot;grant_types&quot;: [&quot;authorization_code&quot;, &quot;refresh_token&quot;],
+  &quot;response_types&quot;: [&quot;code&quot;],
+  &quot;redirect_uris&quot;: [&quot;https://client.example.org/oauth/callback&quot;],
+  &quot;client_name&quot;: &quot;Client&quot;,
+  &quot;software_id&quot;: &quot;github.com/example/client&quot;,
+  &quot;software_version&quot;: &quot;2.0.1&quot;,
+  &quot;client_kind&quot;: &quot;web&quot;,
+  &quot;client_uri&quot;: &quot;https://client.example.org/&quot;,
+  &quot;logo_uri&quot;: &quot;https://client.example.org/logo.svg&quot;,
+  &quot;policy_uri&quot;: &quot;https://client/example.org/policy&quot;
+}</code></pre>
+
+
+<h3 id="put-authregisterclient-id">PUT /auth/register/:client-id<a class="headerlink" href="#put-authregisterclient-id" title="Permanent link">&para;</a></h3>
+<p>This route is used by the clients to update informations about them-selves. The
+client has to send its registration access token to be able to use this
+endpoint.</p>
+<p><strong>Note:</strong> the client can ask to change its <code>client_secret</code>. To do that, it must
+send the current <code>client_secret</code>, and the server will respond with the new
+<code>client_secret</code>.</p>
+<pre class="codehilite"><code class="language-http">PUT /auth/register/64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3 HTTP/1.1
+Host: cozy.example.org
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer J9l-ZhwP...</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;client_id&quot;: &quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;,
+  &quot;client_secret&quot;: &quot;eyJpc3Mi[...omitted for brevity...]&quot;,
+  &quot;redirect_uris&quot;: [&quot;https://client.example.org/oauth/callback&quot;],
+  &quot;client_name&quot;: &quot;Client&quot;,
+  &quot;software_id&quot;: &quot;github.com/example/client&quot;,
+  &quot;software_version&quot;: &quot;2.0.2&quot;,
+  &quot;client_kind&quot;: &quot;web&quot;,
+  &quot;client_uri&quot;: &quot;https://client.example.org/&quot;,
+  &quot;logo_uri&quot;: &quot;https://client.example.org/client-logo.svg&quot;,
+  &quot;policy_uri&quot;: &quot;https://client/example.org/policy&quot;,
+  &quot;notification_platform&quot;: &quot;android&quot;,
+  &quot;notification_device_token&quot;: &quot;XXXXxxxx...&quot;
+}</code></pre>
+
+
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-Type: application/json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;client_id&quot;: &quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;,
+  &quot;client_secret&quot;: &quot;IFais2Ah[...omitted for brevity...]&quot;,
+  &quot;client_secret_expires_at&quot;: 0,
+  &quot;grant_types&quot;: [&quot;authorization_code&quot;, &quot;refresh_token&quot;],
+  &quot;response_types&quot;: [&quot;code&quot;],
+  &quot;redirect_uris&quot;: [&quot;https://client.example.org/oauth/callback&quot;],
+  &quot;client_name&quot;: &quot;Client&quot;,
+  &quot;software_id&quot;: &quot;github.com/example/client&quot;,
+  &quot;software_version&quot;: &quot;2.0.2&quot;,
+  &quot;client_kind&quot;: &quot;web&quot;,
+  &quot;client_uri&quot;: &quot;https://client.example.org/&quot;,
+  &quot;logo_uri&quot;: &quot;https://client.example.org/client-logo.svg&quot;,
+  &quot;policy_uri&quot;: &quot;https://client/example.org/policy&quot;
+}</code></pre>
+
+
+<h3 id="delete-authregisterclient-id">DELETE /auth/register/:client-id<a class="headerlink" href="#delete-authregisterclient-id" title="Permanent link">&para;</a></h3>
+<p>This route is used by the clients to unregister them-selves. The client has to
+send its registration access token to be able to use this endpoint.</p>
+<pre class="codehilite"><code class="language-http">DELETE /auth/register/64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3 HTTP/1.1
+Host: cozy.example.org
+Authorization: Bearer J9l-ZhwP...</code></pre>
+
+
+<pre class="codehilite"><code class="language-http">HTTP/1.1 204 No Content
+Content-Type: application/json</code></pre>
+
+
+<h3 id="get-authauthorize">GET /auth/authorize<a class="headerlink" href="#get-authauthorize" title="Permanent link">&para;</a></h3>
+<p>When an OAuth2 client wants to get access to the data of the cozy owner, it
+starts the OAuth2 dance with this step. The user is shown what the client asks
+and has an accept button if she is OK with that.</p>
+<p>The parameters are:</p>
+<ul>
+<li><code>client_id</code>, that identify the client</li>
+<li><code>redirect_uri</code>, it has to be exactly the same as the one used in registration</li>
+<li><code>state</code>, it&rsquo;s a protection against CSRF on the client (a random string
+  generated by the client, that it can check when the user will be redirected
+  with the authorization code. It can be used as a key in local storage for
+  storing a state in a SPA).</li>
+<li><code>response_type</code>, only <code>code</code> is supported</li>
+<li><code>scope</code>, a space separated list of the <a href="../permissions/">permissions</a> asked
+  (like <code>io.cozy.files:GET</code> for read-only access to files).</li>
+</ul>
+<pre class="codehilite"><code class="language-http">GET /auth/authorize?client_id=oauth-client-1&amp;response_type=code&amp;scope=io.cozy.files:GET%20io.cozy.contacts&amp;state=Eh6ahshepei5Oojo&amp;redirect_uri=https%3A%2F%2Fclient.org%2F HTTP/1.1
+Host: cozy.example.org</code></pre>
+
+
+<p><strong>Note</strong> we warn the user that he is about to share his data with an application
+which only the callback URI is guaranteed.</p>
+<h3 id="post-authauthorize">POST /auth/authorize<a class="headerlink" href="#post-authauthorize" title="Permanent link">&para;</a></h3>
+<p>When the user accepts, her browser send a request to this endpoint:</p>
+<pre class="codehilite"><code class="language-http">POST /auth/authorize HTTP/1.1
+Host: cozy.example.org
+Content-Type: application/x-www-form-urlencoded
+
+state=Eh6ahshepei5Oojo&amp;client_id=oauth-client-1&amp;scope=io.cozy.files:GET%20io.cozy.contacts&amp;csrf_token=johw6Sho</code></pre>
+
+
+<p><strong>Note</strong>: this endpoint is protected against CSRF attacks.</p>
+<p>The user is then redirected to the original client, with an access code in the
+URL:</p>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 302 Moved Temporarily
+Location: https://client.org/?state=Eh6ahshepei5Oojo&amp;access_code=Aih7ohth#</code></pre>
+
+
+<h3 id="get-authauthorizesharing-post-authauthorizesharing">GET /auth/authorize/sharing &amp; POST /auth/authorize/sharing<a class="headerlink" href="#get-authauthorizesharing-post-authauthorizesharing" title="Permanent link">&para;</a></h3>
+<p>They are similar to <code>/auth/authorize</code>: they also make the user accept an OAuth
+thing, but it is specialized for sharing. They are a few differences, like the
+scope format (sharing rules, not permissions) and the redirection after the
+POST.</p>
+<h3 id="post-authaccess_token">POST /auth/access_token<a class="headerlink" href="#post-authaccess_token" title="Permanent link">&para;</a></h3>
+<p>Now, the client can check that the state is correct, and if it is the case, ask
+for an <code>access_token</code>. It can use this route with the <code>code</code> (ie access_code)
+given above.</p>
+<p>This endpoint is also used to refresh the access token, by sending the
+<code>refresh_token</code> instead of the <code>access_code</code>.</p>
+<p>The parameters are:</p>
+<ul>
+<li><code>grant_type</code>, with <code>authorization_code</code> or <code>refresh_token</code> as value</li>
+<li><code>code</code> or <code>refresh_token</code>, depending on which grant type is used</li>
+<li><code>client_id</code></li>
+<li><code>client_secret</code></li>
+</ul>
+<p>Example:</p>
+<pre class="codehilite"><code class="language-http">POST /auth/access_token HTTP/1.1
+Host: cozy.example.org
+Content-Type: application/x-www-form-urlencoded
+Accept: application/json
+
+grant_type=authorization_code&amp;code=Aih7ohth&amp;client_id=oauth-client-1&amp;client_secret=Oung7oi5</code></pre>
+
+
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-type: application/json
+
+{
+  &quot;access_token&quot;: &quot;ooch1Yei&quot;,
+  &quot;token_type&quot;: &quot;bearer&quot;,
+  &quot;refresh_token&quot;: &quot;ui0Ohch8&quot;,
+  &quot;scope&quot;: &quot;io.cozy.files:GET io.cozy.contacts&quot;
+}</code></pre>
+
+
+<h3 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>What format is used for tokens?</p>
+</blockquote>
+<p>The access tokens are formatted as <a href="https://jwt.io/">JSON Web Tokens (JWT)</a>,
+like this:</p>
+<table>
+<thead>
+<tr>
+<th>Claim</th>
+<th>Fullname</th>
+<th>What it identifies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>aud</code></td>
+<td>Audience</td>
+<td>Identify the recipient where the token can be used (like <code>access</code>)</td>
+</tr>
+<tr>
+<td><code>iss</code></td>
+<td>Issuer</td>
+<td>Identify the Cozy instance (its domain in fact)</td>
+</tr>
+<tr>
+<td><code>iat</code></td>
+<td>Issued At</td>
+<td>Identify when the token was issued (Unix timestamp)</td>
+</tr>
+<tr>
+<td><code>sub</code></td>
+<td>Subject</td>
+<td>Identify the client that can use the token</td>
+</tr>
+<tr>
+<td><code>scope</code></td>
+<td>Scope</td>
+<td>Identify the scope of actions that the client can accomplish</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>scope</code> is used for <a href="../permissions/">permissions</a>.</p>
+<p>Other tokens can be JWT with a similar formalism, or be a simple random value
+(when we want to have a clear revocation process).</p>
+<blockquote>
+<p>What happens when the user has lost her passphrase?</p>
+</blockquote>
+<p>She can reset it from the command-line, like this:</p>
+<pre class="codehilite"><code class="language-sh">$ cozy-stack instances reset-passphrase cozy.example.org
+ek0Jah1R</code></pre>
+
+
+<p>A new password is generated and print in the console.</p>
+<blockquote>
+<p>Is two-factor authentication (2FA) possible?</p>
+</blockquote>
+<p>Yes, it&rsquo;s possible. Via the cozy-settings application, the two-factor
+authentication can be activated.</p>
+<p>Here is how it works in more details:</p>
+<p>On each connection, when the 2FA is activated, the user is asked for its
+passphrase first. When entering correct passphrase, the user is then asked for:</p>
+<ul>
+<li>a TOTP (Timebased One-Time password, RFC 6238) derived from a secret
+  associated with the instance.</li>
+<li>a short term timestamped MAC with the same validity time-range and also
+  derived from the same secret.</li>
+</ul>
+<p>The TOTP is valid for a time range of about 5 minutes. When sending a correct
+and still-valid pair <code>(passcode, token)</code>, the user is granted with
+authentication cookie.</p>
+<p>The passcode can be sent to the instance&rsquo;s owner via email — more transport
+shall be added later.</p>
+<h2 id="client-side-apps">Client-side apps<a class="headerlink" href="#client-side-apps" title="Permanent link">&para;</a></h2>
+<p><strong>Important</strong>: OAuth2 is not used here! The steps looks similar (like obtaining
+a token), but when going in the details, it doesn&rsquo;t match.</p>
+<h3 id="how-to-register-the-application">How to register the application?<a class="headerlink" href="#how-to-register-the-application" title="Permanent link">&para;</a></h3>
+<p>The application is registered at install. See <a href="../apps/">app management</a> for
+details.</p>
+<h3 id="how-to-get-a-token">How to get a token?<a class="headerlink" href="#how-to-get-a-token" title="Permanent link">&para;</a></h3>
+<p>When a user access an application, she first loads the HTML page. Inside this
+page, a token specific to this app is injected (only for private routes), via a
+templating method.</p>
+<p>We have prefered our custom solution to the implicit grant type of OAuth2 for 2
+reasons:</p>
+<ol>
+<li>
+<p>It has a better User Experience. The implicit grant type works with 2
+   redirections (the application to the stack, and then the stack to the
+   application), and the first one needs JS to detect if the token is present or
+   not in the fragment hash. It has a strong impact on the time to load the
+   application.</p>
+</li>
+<li>
+<p>The implicit grant type of OAuth2 has a severe drawback on security: the
+   token appears in the URL and is shown by the browser. It can also be leaked
+   with the HTTP <code>Referer</code> header.</p>
+</li>
+</ol>
+<p>The token will be given only for the authenticated user. For nested subdomains
+(like <code>calendar.joe.example.net</code>), the session cookie from the stack is enough
+(it is for <code>.joe.example.net</code>).</p>
+<p>But for flat subdomains (like <code>joe-calendar.example.net</code>), it&rsquo;s more
+complicated. On the first try of the user, she will be redirected to the stack.
+As she is already logged-in, she will be redirected to the app with a session
+code (else she can login). This session code can be exchanged to a session
+cookie. A redirection will still happen to remove the code from the URL (it
+helps to avoid the code being saved in the browser history). For security
+reasons, the session code have the following properties:</p>
+<ul>
+<li>It can only be used once.</li>
+<li>It is tied to an application (<code>calendar</code> in our example).</li>
+<li>It has a very short time span of validity (1 minute).</li>
+</ul>
+<h3 id="how-to-use-a-token">How to use a token?<a class="headerlink" href="#how-to-use-a-token" title="Permanent link">&para;</a></h3>
+<p>The token can be sent to the cozy-stack as a <code>Bearer</code> token in the
+<code>Authorization</code> header, like this:</p>
+<pre class="codehilite"><code class="language-http">GET /data/io.cozy.events/6494e0ac-dfcb-11e5-88c1-472e84a9cbee HTTP/1.1
+Host: cozy.example.org
+Authorization: Bearer application-token</code></pre>
+
+
+<p>If the user is authenticated, her cookies will be sent automatically. The
+cookies are needed for a token to be valid.</p>
+<h3 id="how-to-refresh-a-token">How to refresh a token?<a class="headerlink" href="#how-to-refresh-a-token" title="Permanent link">&para;</a></h3>
+<p>The token is valid only for 24 hours. If the application is opened for more than
+that, it will need to get a new token. But most applications won&rsquo;t be kept open
+for so long and it&rsquo;s okay if they don&rsquo;t try to refresh tokens. At worst, the
+user just had to reload its page and it will work again.</p>
+<p>The app can know it&rsquo;s time to get a new token when the stack starts sending 401
+Unauthorized responses. In that case, it can fetches the same html page that it
+was loaded initially, parses it and extracts the new token.</p>
+<h2 id="third-party-websites">Third-party websites<a class="headerlink" href="#third-party-websites" title="Permanent link">&para;</a></h2>
+<h3 id="how-to-register-the-application_1">How to register the application?<a class="headerlink" href="#how-to-register-the-application_1" title="Permanent link">&para;</a></h3>
+<p>If a third-party websites would like to access a cozy, it had to register first.
+For example, a big company can have data about a user and may want to offer her
+a way to get her data back in her cozy. When the user is connected on the
+website of this company, she can give her cozy address. The website will then
+register on this cozy, using the OAuth2 Dynamic Client Registration Protocol, as
+explained <a href="#post-authregister">above</a>.</p>
+<h3 id="how-to-get-a-token_1">How to get a token?<a class="headerlink" href="#how-to-get-a-token_1" title="Permanent link">&para;</a></h3>
+<p>To get an access token, it&rsquo;s enough to follow the authorization code flow of
+OAuth2:</p>
+<ul>
+<li>sending the user to the cozy, on the authorize page</li>
+<li>if the user approves, she is then redirected back to the client</li>
+<li>the client gets the access code and can exchange it to an access token.</li>
+</ul>
+<h3 id="how-to-use-a-token_1">How to use a token?<a class="headerlink" href="#how-to-use-a-token_1" title="Permanent link">&para;</a></h3>
+<p>The access token can be sent as a bearer token, in the Authorization header of
+HTTP:</p>
+<pre class="codehilite"><code class="language-http">GET /data/io.cozy.contacts/6494e0ac-dfcb-11e5-88c1-472e84a9cbee HTTP/1.1
+Host: cozy.example.org
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ</code></pre>
+
+
+<h3 id="how-to-refresh-a-token_1">How to refresh a token?<a class="headerlink" href="#how-to-refresh-a-token_1" title="Permanent link">&para;</a></h3>
+<p>The access token will be valid only for 24 hours. After that, a new access token
+must be asked. To do that, just follow the refresh token flow, as explained
+<a href="#post-authaccess_token">above</a>.</p>
+<h2 id="devices-and-browser-extensions">Devices and browser extensions<a class="headerlink" href="#devices-and-browser-extensions" title="Permanent link">&para;</a></h2>
+<p>For devices and browser extensions, it is nearly the same than for third-party
+websites. The main difficulty is the redirect_uri. In OAuth2, the access code is
+given to the client by redirecting the user to an URL controlled by the client.
+But devices and browser extensions don&rsquo;t have an obvious URL for that.</p>
+<p>The IETF has published an RFC called
+<a href="https://tools.ietf.org/html/draft-ietf-oauth-native-apps-05">OAuth 2.0 for Native Apps</a>.</p>
+<h3 id="native-apps-on-desktop">Native apps on desktop<a class="headerlink" href="#native-apps-on-desktop" title="Permanent link">&para;</a></h3>
+<p>A desktop native application can start an embedded webserver on localhost. The
+redirect_uri will be something like <code>http://127.0.0.1:19856/callback</code>.</p>
+<h3 id="native-apps-on-mobile">Native apps on mobile<a class="headerlink" href="#native-apps-on-mobile" title="Permanent link">&para;</a></h3>
+<p>On mobile, the native apps can often register a custom URI scheme, like
+<code>com.example.oauthclient:/</code>. Just be sure that no other app has registered
+itself with the same URI.</p>
+<h3 id="chrome-extensions">Chrome extensions<a class="headerlink" href="#chrome-extensions" title="Permanent link">&para;</a></h3>
+<p>Chrome extensions can use URL like
+<code>https://&lt;extension-id&gt;.chromiumapp.org/&lt;anything-here&gt;</code> for their usage. See
+https://developer.chrome.com/apps/app_identity#non for more details. It has also
+a method to simplify the creation of such an URL:
+<a href="https://developer.chrome.com/apps/identity#method-getRedirectURL"><code>chrome.identity.getRedirectURL</code></a>.</p>
+<h3 id="firefox-extensions">Firefox extensions<a class="headerlink" href="#firefox-extensions" title="Permanent link">&para;</a></h3>
+<p>It is possible to use an <em>out of band</em> URN: <code>urn:ietf:wg:oauth:2.0:oob:auto</code>.
+The token is then extracted from the title of the page. See
+<a href="https://github.com/AdrianArroyoCalle/firefox-addons/blob/master/addon-google-oauth2/addon-google-oauth2.js">this addon for google oauth2</a>
+as an example.</p>
+<h2 id="security-considerations">Security considerations<a class="headerlink" href="#security-considerations" title="Permanent link">&para;</a></h2>
+<p>The password will be stored in a secure fashion, with a password hashing
+function. The hashing function and its parameter will be stored with the hash,
+in order to make it possible to change the algorithm and/or the parameters later
+if we had any suspicion that it became too weak. The initial algorithm is
+<a href="https://godoc.org/golang.org/x/crypto/scrypt">scrypt</a>.</p>
+<p>The access code is valid only once, and will expire after 5 minutes</p>
+<p>Dynamically registered applications won&rsquo;t have access to all possible scopes.
+For example, an application that has been dynamically registered can&rsquo;t ask the
+cozy owner to give it the right to install other applications. This limitation
+should improve security, as avoiding too powerful scopes to be used with unknown
+applications.</p>
+<p>The cozy stack will apply rate limiting to avoid brute-force attacks.</p>
+<p>The cozy stack offers
+<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS">CORS</a>
+for most of its services. But it&rsquo;s disabled for <code>/auth</code> (it doesn&rsquo;t make sense
+here) and for the client-side applications (to avoid leaking their tokens).</p>
+<p>The client should really use HTTPS for its <code>redirect_uri</code> parameter, but it&rsquo;s
+allowed to use HTTP for localhost, as in the native desktop app example.</p>
+<p>OAuth2 says that the <code>state</code> parameter is optional in the authorization code
+flow. But it is mandatory to use it with Cozy.</p>
+<p>For more on this subject, here is a list of links:</p>
+<ul>
+<li>https://www.owasp.org/index.php/Authentication_Cheat_Sheet</li>
+<li>https://tools.ietf.org/html/rfc6749#page-53</li>
+<li>https://tools.ietf.org/html/rfc6819</li>
+<li>https://tools.ietf.org/html/draft-ietf-oauth-closing-redirectors-00</li>
+<li>http://www.oauthsecurity.com/</li>
+</ul>
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
+<p>Security is hard. If you want to share some concerns with us, do not hesitate to
+send us an email to security AT cozycloud.cc.</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

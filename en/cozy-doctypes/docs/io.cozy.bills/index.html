@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-doctypes/docs/io.cozy.bills/">
+        <link rel="shortcut icon" href="../../../img/favicon.png">
+        
+        <title>Bills - Cozy Documentation</title>
+        <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../../css/highlight.css">
+            <link href="../../../css/extra.css" rel="stylesheet">
+            <link href="../../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Cozy Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Use <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../../use/">User guide</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../../sync/">Stay in sync</a>
+</li>
+                            
+<li >
+    <a href="../../../sync/phone/">Synchronize your phone</a>
+</li>
+                            
+<li >
+    <a href="../../../sync/desktop/">Synchronize your computer</a>
+</li>
+                            
+<li >
+    <a href="../../../sync/linux/">Install on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../../download/">Download</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../../dev/">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="../../../dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="../../../dev/app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="../../../dev/konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="../../../dev/cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="../../../dev/sendmail/">How to send mail in development</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">References</a>
+    <ul class="dropdown-menu">
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-doctypes</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../io.cozy.bank/">Banking doctypes</a>
+</li>
+            
+<li class="active">
+    <a href="./">Bills</a>
+</li>
+            
+<li >
+    <a href="../io.cozy.contacts/">Contacts</a>
+</li>
+            
+<li >
+    <a href="../io.cozy.files/">Files</a>
+</li>
+            
+<li >
+    <a href="../io.cozy.notifications/">Notifications</a>
+</li>
+            
+<li >
+    <a href="../io.cozy.photos.albums/">Albums</a>
+</li>
+            
+<li >
+    <a href="../io.cozy.remote.requests/">Remote requests</a>
+</li>
+            
+<li >
+    <a href="../io.cozy.sessions.logins/">Session logins</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-stack</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-stack/README/">README</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Architecture</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-stack/architecture/">General overview</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/security/">Security</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Usage</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-stack/INSTALL/">Install the cozy-stack</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/cli/cozy-stack/">Manpages of the command-line tool</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/config/">Configuration file</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/instance/">Managing Instances</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/onboarding/">Onboarding</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">For developpers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-stack/client-app-dev/">Develop a client-side app</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/docker/">Running and building Docker images</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/release/">Build a release</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/CONTRIBUTING/">The contributing guide</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Services</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-stack/auth/">/auth - Authentication & OAuth</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/apps/">/apps - Applications Management</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/registry/">Apps registry</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/data-system/">/data - Data System</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/mango/">Mango</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/replication/">Replication</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/couchdb-quirks/">CouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/files/">/files - Virtual File System</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/references-docs-in-vfs/">References of documents in VFS</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/intents/">/intents - Intents</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/jobs/">/jobs Jobs</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/konnectors/">Konnectors</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/workers/">Workers</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/notifications/">/notifications - Notifications</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/permissions/">/permissions - Permissions</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/realtime/">/realtime - Realtime</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/remote/">/remote - Proxy for remote data/API</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/settings/">/settings - Settings</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/sharing/">/sharings - Sharing</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/sharing-design/">Request for comments</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#bills-doctype">Bills doctype</a></li>
+            <li><a href="#iocozybills">io.cozy.bills</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<p><a href="README.md#table-of-contents">Table of contents</a></p>
+<h1 id="bills-doctype">Bills doctype<a class="headerlink" href="#bills-doctype" title="Permanent link">&para;</a></h1>
+<h2 id="iocozybills"><code>io.cozy.bills</code><a class="headerlink" href="#iocozybills" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>type</code>: {string} - Type of the bill</li>
+<li><code>subtype</code>: {string} - Used for labelling the bill. ie: &ldquo;Ostéopathie&rdquo;</li>
+<li><code>vendor</code>: {string} - Vendor which issued the bill</li>
+<li><code>date</code>: {date} - Date the bill was emitted</li>
+<li><code>originalDate</code> - For health bills, represents the date of the health act (presumably the date the account was charged)</li>
+<li><code>amount</code>: {number} - Amount of the bill, <strong>always positive</strong> even if it is a refund</li>
+<li><code>originalAmount</code>: {number} - Original amount in case of a partial refund</li>
+<li><code>groupAmount</code>: Group amount in case this bill was part of a grouped refund</li>
+<li><code>thirdPartyRefund</code> : {number} - Amount reimbursed to third parties</li>
+<li><code>socialSecurityRefund</code> : {number} - Amount reimbursed to social security</li>
+<li><code>isRefund</code>: {boolean} - Indicate if the bill represents a refund/reimbursement</li>
+<li><code>isThirdPartyPayer</code>: {boolean} - Indicate if the bill has been already covered by a third party payer. This attribute can be useful when Cozy retrieves bills issued by french medical insurances.
+When this attribute is in &ldquo;true&rdquo; no associated debit is expected to be found in the client bank
+statements.</li>
+<li><code>invoice</code>: {string} - The associated file. ex: <code>io.cozy.files:c43645a93831827c7ec512eac3006e51</code></li>
+<li><code>content</code>: {string}</li>
+<li><code>debitOperations</code>: {array[io.cozy.bank.operations._id]} - List of debit operations id</li>
+<li><code>creditOperations</code>: {array[io.cozy.bank.operations._id]} - List of credit operations id</li>
+</ul>
+<h3 id="types">Types<a class="headerlink" href="#types" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>health_costs</code>: Health related bills</li>
+<li><code>phone</code>: Phone related bills</li>
+</ul>
+<h3 id="some-more-attributes-for-reimbursement-bills">Some more attributes for reimbursement bills<a class="headerlink" href="#some-more-attributes-for-reimbursement-bills" title="Permanent link">&para;</a></h3>
+<p>The are some more possible attributes for reimbursement bills. The <code>original*</code> attributes
+are there to help the connector to link this bills to their original debit operation.</p>
+<ul>
+<li><code>isRefund</code>: {boolean} - Indicate if the bill represents a refund/reimbursement (defaults to false)</li>
+<li><code>subtype</code>: {string} - Used for labelling the bill. ie: &ldquo;Ostéopathie&rdquo; (optionnal)</li>
+<li><code>originalAmount</code>: {number} - Original amount in case of a partial refund</li>
+<li><code>originalDate</code> - Represents the date of the associated spent (presumably the date the account was charged)</li>
+</ul>
+<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code>{
+  &quot;_id&quot;: &quot;62e5d80d6e11d19992b7efce794263f0&quot;,
+  &quot;amount&quot;: 700,
+  &quot;beneficiary&quot;: &quot;PIERRE RICHARD&quot;,
+  &quot;date&quot;: &quot;2018-02-07T23:00:00.000Z&quot;,
+  &quot;groupAmount&quot;: 7.5,
+  &quot;isRefund&quot;: true,
+  &quot;metadata&quot;: {
+    &quot;version&quot;: 1
+  },
+  &quot;originalAmount&quot;: 25,
+  &quot;originalDate&quot;: &quot;2018-03-11T23:00:00.000Z&quot;,
+  &quot;socialSecurityRefund&quot;: 17.5,
+  &quot;subtype&quot;: &quot;Consultation spécialiste&quot;,
+  &quot;type&quot;: &quot;health_costs&quot;,
+  &quot;vendor&quot;: &quot;Harmonie&quot;
+}</code></pre></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../../..';</script>
+        <script data-main="../../../mkdocs/js/search.js" src="../../../mkdocs/js/require.js"></script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../extra.js"></script>
+        <script src="../../../search/require.js"></script>
+        <script src="../../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

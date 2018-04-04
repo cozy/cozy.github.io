@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/references-docs-in-vfs/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>References of documents in VFS - Cozy Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Cozy Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Use <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/">User guide</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Stay in sync</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronize your phone</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronize your computer</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Install on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Download</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../dev/">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="../../dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="../../dev/app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="../../dev/konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="../../dev/cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="../../dev/sendmail/">How to send mail in development</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">References</a>
+    <ul class="dropdown-menu">
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-doctypes</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bank/">Banking doctypes</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bills/">Bills</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.contacts/">Contacts</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.files/">Files</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.notifications/">Notifications</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.photos.albums/">Albums</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/">Remote requests</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/">Session logins</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-stack</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../README/">README</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Architecture</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../architecture/">General overview</a>
+</li>
+            
+<li >
+    <a href="../security/">Security</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Usage</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../INSTALL/">Install the cozy-stack</a>
+</li>
+            
+<li >
+    <a href="../cli/cozy-stack/">Manpages of the command-line tool</a>
+</li>
+            
+<li >
+    <a href="../config/">Configuration file</a>
+</li>
+            
+<li >
+    <a href="../instance/">Managing Instances</a>
+</li>
+            
+<li >
+    <a href="../onboarding/">Onboarding</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">For developpers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../client-app-dev/">Develop a client-side app</a>
+</li>
+            
+<li >
+    <a href="../docker/">Running and building Docker images</a>
+</li>
+            
+<li >
+    <a href="../release/">Build a release</a>
+</li>
+            
+<li >
+    <a href="../CONTRIBUTING/">The contributing guide</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Services</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../auth/">/auth - Authentication & OAuth</a>
+</li>
+            
+<li >
+    <a href="../apps/">/apps - Applications Management</a>
+</li>
+            
+<li >
+    <a href="../registry/">Apps registry</a>
+</li>
+            
+<li >
+    <a href="../data-system/">/data - Data System</a>
+</li>
+            
+<li >
+    <a href="../mango/">Mango</a>
+</li>
+            
+<li >
+    <a href="../replication/">Replication</a>
+</li>
+            
+<li >
+    <a href="../couchdb-quirks/">CouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../files/">/files - Virtual File System</a>
+</li>
+            
+<li class="active">
+    <a href="./">References of documents in VFS</a>
+</li>
+            
+<li >
+    <a href="../intents/">/intents - Intents</a>
+</li>
+            
+<li >
+    <a href="../jobs/">/jobs Jobs</a>
+</li>
+            
+<li >
+    <a href="../konnectors/">Konnectors</a>
+</li>
+            
+<li >
+    <a href="../workers/">Workers</a>
+</li>
+            
+<li >
+    <a href="../notifications/">/notifications - Notifications</a>
+</li>
+            
+<li >
+    <a href="../permissions/">/permissions - Permissions</a>
+</li>
+            
+<li >
+    <a href="../realtime/">/realtime - Realtime</a>
+</li>
+            
+<li >
+    <a href="../remote/">/remote - Proxy for remote data/API</a>
+</li>
+            
+<li >
+    <a href="../settings/">/settings - Settings</a>
+</li>
+            
+<li >
+    <a href="../sharing/">/sharings - Sharing</a>
+</li>
+            
+<li >
+    <a href="../sharing-design/">Request for comments</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#references-of-documents-in-the-virtual-file-system">References of documents in the Virtual File System</a></li>
+            <li><a href="#what-we-want">What we want?</a></li>
+            <li><a href="#routes">Routes</a></li>
+            <li><a href="#usage">Usage</a></li>
+            <li><a href="#implementation">Implementation</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<p><a href="../README/#table-of-contents">Table of contents</a></p>
+<h1 id="references-of-documents-in-the-virtual-file-system">References of documents in the Virtual File System<a class="headerlink" href="#references-of-documents-in-the-virtual-file-system" title="Permanent link">&para;</a></h1>
+<h2 id="what-we-want">What we want?<a class="headerlink" href="#what-we-want" title="Permanent link">&para;</a></h2>
+<p>Cozy applications can use data from the Data System and files from the Virtual
+File System. Of course, sometimes a link between data and files can be useful.
+For example, the application can have an album with photos. The album will be a
+document in CouchDB (with a title and other fields), but il will also list the
+files to use as photos.</p>
+<p>A direct way to do that is storing the files IDs in the album document. It&rsquo;s
+simple and will work pretty well if the files are manipulated only from this
+application. But, files are often accessed from other apps, like cozy-desktop
+and cozy-drive. To improve the User eXperience, it should be nice to alert the
+user when a file in an album is modified or deleted.</p>
+<p>When a file is modified, we can offer the user the choice between keeping the
+original version in the album, or using the new modified file. When a file is
+moved to the trash, we can alert the user and let him/her restore the file.</p>
+<p>Cozy-desktop, cozy-drive, and the other apps can&rsquo;t scan all the documents with
+many different doctypes to find all the references to a file to detect such
+cases. The goal of this document is to offer a way to do that, and it is called
+<em>References</em>.</p>
+<p>The references of a file are listed in its JSON-API representation in the
+<code>references</code> field, within the <code>relationships</code> object of <code>data</code>.</p>
+<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;type&quot;: &quot;io.cozy.files&quot;,
+    &quot;id&quot;: &quot;9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;,
+    &quot;meta&quot;: {
+      &quot;rev&quot;: &quot;1-0e6d5b72&quot;
+    },
+    &quot;attributes&quot;: {
+      &quot;type&quot;: &quot;file&quot;,
+      &quot;name&quot;: &quot;hello.txt&quot;,
+      &quot;md5sum&quot;: &quot;ODZmYjI2OWQxOTBkMmM4NQo=&quot;,
+      &quot;created_at&quot;: &quot;2016-09-19T12:38:04Z&quot;,
+      &quot;updated_at&quot;: &quot;2016-09-19T12:38:04Z&quot;,
+      &quot;tags&quot;: [],
+      &quot;size&quot;: 12,
+      &quot;executable&quot;: false,
+      &quot;class&quot;: &quot;document&quot;,
+      &quot;mime&quot;: &quot;text/plain&quot;
+    },
+    &quot;relationships&quot;: {
+      &quot;parent&quot;: {
+        &quot;links&quot;: {
+          &quot;related&quot;: &quot;/files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;
+        },
+        &quot;data&quot;: {
+          &quot;type&quot;: &quot;io.cozy.files&quot;,
+          &quot;id&quot;: &quot;fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;
+        }
+      },
+      &quot;referenced_by&quot;: {
+        &quot;links&quot;: {
+          &quot;self&quot;:
+            &quot;/files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81/relationships/references&quot;
+        },
+        &quot;data&quot;: [
+          {
+            &quot;type&quot;: &quot;io.cozy.playlists&quot;,
+            &quot;id&quot;: &quot;94375086-e2e2-11e6-81b9-5bc0b9dd4aa4&quot;
+          }
+        ]
+      }
+    },
+    &quot;links&quot;: {
+      &quot;self&quot;: &quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;
+    }
+  }
+}</code></pre>
+
+
+<h2 id="routes">Routes<a class="headerlink" href="#routes" title="Permanent link">&para;</a></h2>
+<h3 id="patch-filesfile-idrelationshipsreferenced_by">PATCH /files/:file-id/relationships/referenced_by<a class="headerlink" href="#patch-filesfile-idrelationshipsreferenced_by" title="Permanent link">&para;</a></h3>
+<p>Replace the references for a file with the new ones.</p>
+<h4 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">PATCH /files/9152d568-7e7c-11e6-a377-37cbfb190b4b/relationships/referenced_by HTTP/1.1
+Content-Type: application/vnd.api+json
+Accept: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: [
+    {
+      &quot;type&quot;: &quot;io.cozy.playlists&quot;,
+      &quot;id&quot;: &quot;94375086-e2e2-11e6-81b9-5bc0b9dd4aa4&quot;
+    }
+  ]
+}</code></pre>
+
+
+<h4 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 204 No Content
+Content-Type: application/vnd.api+json</code></pre>
+
+
+<h3 id="post-filesfile-idrelationshipsreferenced_by">POST /files/:file-id/relationships/referenced_by<a class="headerlink" href="#post-filesfile-idrelationshipsreferenced_by" title="Permanent link">&para;</a></h3>
+<p>Add on a file one or more references to documents</p>
+<h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">POST /files/9152d568-7e7c-11e6-a377-37cbfb190b4b/relationships/referenced_by HTTP/1.1
+Content-Type: application/vnd.api+json
+Accept: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: [
+    {
+      &quot;type&quot;: &quot;io.cozy.playlists&quot;,
+      &quot;id&quot;: &quot;f2625cc0-e2d6-11e6-a0d5-cfbbfb141af0&quot;
+    }
+  ]
+}</code></pre>
+
+
+<h4 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-Type: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: [
+    {
+      &quot;type&quot;: &quot;io.cozy.playlists&quot;,
+      &quot;id&quot;: &quot;94375086-e2e2-11e6-81b9-5bc0b9dd4aa4&quot;
+    },
+    {
+      &quot;type&quot;: &quot;io.cozy.playlists&quot;,
+      &quot;id&quot;: &quot;f2625cc0-e2d6-11e6-a0d5-cfbbfb141af0&quot;
+    }
+  ]
+}</code></pre>
+
+
+<h3 id="delete-filesfile-idrelationshipsreferenced_by">DELETE /files/:file-id/relationships/referenced_by<a class="headerlink" href="#delete-filesfile-idrelationshipsreferenced_by" title="Permanent link">&para;</a></h3>
+<p>Remove one or more references to documents on a file</p>
+<h4 id="request_2">Request<a class="headerlink" href="#request_2" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">DELETE /files/9152d568-7e7c-11e6-a377-37cbfb190b4b/relationships/referenced_by HTTP/1.1
+Content-Type: application/vnd.api+json
+Accept: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: [
+    {
+      &quot;type&quot;: &quot;io.cozy.playlists&quot;,
+      &quot;id&quot;: &quot;f2625cc0-e2d6-11e6-a0d5-cfbbfb141af0&quot;
+    }
+  ]
+}</code></pre>
+
+
+<h4 id="response_2">Response<a class="headerlink" href="#response_2" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 204 No Content
+Content-Type: application/vnd.api+json</code></pre>
+
+
+<h3 id="get-datatypedoc-idrelationshipsreferences">GET /data/:type/:doc-id/relationships/references<a class="headerlink" href="#get-datatypedoc-idrelationshipsreferences" title="Permanent link">&para;</a></h3>
+<p>Returns all the files associated to an album or playlist.</p>
+<p>Contents is paginated following <a href="jsonapi.md#pagination">jsonapi conventions</a>.
+The default limit is 100 entries.</p>
+<p>It&rsquo;s also possible to sort the files by their datetime (for photos) with the
+<code>sort</code> query parameter: <code>?sort=datetime</code>.</p>
+<h4 id="request_3">Request<a class="headerlink" href="#request_3" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">GET /data/io.cozy.playlists/e9308dc2-e2e3-11e6-b685-fb88662613d4/relationships/references HTTP/1.1
+Content-Type: application/vnd.api+json
+Accept: application/vnd.api+json</code></pre>
+
+
+<h4 id="response_3">Response<a class="headerlink" href="#response_3" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-Type: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: [
+    { &quot;type&quot;: &quot;io.cozy.files&quot;, &quot;id&quot;: &quot;417c4e58-e2e4-11e6-b7dc-2b68ed7b77f4&quot; },
+    { &quot;type&quot;: &quot;io.cozy.files&quot;, &quot;id&quot;: &quot;4504f55c-e2e4-11e6-88f2-d77aeecab549&quot; },
+    { &quot;type&quot;: &quot;io.cozy.files&quot;, &quot;id&quot;: &quot;4587727a-e2e4-11e6-bfe9-ef1be7df7f26&quot; },
+    { &quot;type&quot;: &quot;io.cozy.files&quot;, &quot;id&quot;: &quot;45d591d0-e2e4-11e6-ab9a-ff3b218e31cc&quot; }
+  ]
+}</code></pre>
+
+
+<h3 id="post-datatypedoc-idrelationshipsreferences">POST /data/:type/:doc-id/relationships/references<a class="headerlink" href="#post-datatypedoc-idrelationshipsreferences" title="Permanent link">&para;</a></h3>
+<p>When creating an album or a playlist, it&rsquo;s tedious to add the references to it
+for each file individually. This route allows to make it in bulk.</p>
+<h4 id="request_4">Request<a class="headerlink" href="#request_4" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">POST /data/io.cozy.playlists/e9308dc2-e2e3-11e6-b685-fb88662613d4/relationships/references HTTP/1.1
+Content-Type: application/vnd.api+json
+Accept: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: [
+    { &quot;type&quot;: &quot;io.cozy.files&quot;, &quot;id&quot;: &quot;417c4e58-e2e4-11e6-b7dc-2b68ed7b77f4&quot; },
+    { &quot;type&quot;: &quot;io.cozy.files&quot;, &quot;id&quot;: &quot;4504f55c-e2e4-11e6-88f2-d77aeecab549&quot; },
+    { &quot;type&quot;: &quot;io.cozy.files&quot;, &quot;id&quot;: &quot;4587727a-e2e4-11e6-bfe9-ef1be7df7f26&quot; },
+    { &quot;type&quot;: &quot;io.cozy.files&quot;, &quot;id&quot;: &quot;45d591d0-e2e4-11e6-ab9a-ff3b218e31cc&quot; }
+  ]
+}</code></pre>
+
+
+<h4 id="response_4">Response<a class="headerlink" href="#response_4" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 204 No Content
+Content-Type: application/vnd.api+json</code></pre>
+
+
+<p><strong>Note</strong>: if one of the id is a directory, the response will be a 400 Bad
+Request. References are only for files.</p>
+<h3 id="delete-datatypedoc-idrelationshipsreferences">DELETE /data/:type/:doc-id/relationships/references<a class="headerlink" href="#delete-datatypedoc-idrelationshipsreferences" title="Permanent link">&para;</a></h3>
+<p>This bulk deletion of references on many files can be useful when an album or
+playlist is deleted.</p>
+<h4 id="request_5">Request<a class="headerlink" href="#request_5" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">DELETE /data/io.cozy.playlists/e9308dc2-e2e3-11e6-b685-fb88662613d4/relationships/references HTTP/1.1
+Content-Type: application/vnd.api+json
+Accept: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: [
+    { &quot;type&quot;: &quot;io.cozy.files&quot;, &quot;id&quot;: &quot;417c4e58-e2e4-11e6-b7dc-2b68ed7b77f4&quot; },
+    { &quot;type&quot;: &quot;io.cozy.files&quot;, &quot;id&quot;: &quot;4504f55c-e2e4-11e6-88f2-d77aeecab549&quot; },
+    { &quot;type&quot;: &quot;io.cozy.files&quot;, &quot;id&quot;: &quot;4587727a-e2e4-11e6-bfe9-ef1be7df7f26&quot; },
+    { &quot;type&quot;: &quot;io.cozy.files&quot;, &quot;id&quot;: &quot;45d591d0-e2e4-11e6-ab9a-ff3b218e31cc&quot; }
+  ]
+}</code></pre>
+
+
+<h4 id="response_5">Response<a class="headerlink" href="#response_5" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 204 No Content
+Content-Type: application/vnd.api+json</code></pre>
+
+
+<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
+<h3 id="modification-of-a-referenced-file">Modification of a referenced file<a class="headerlink" href="#modification-of-a-referenced-file" title="Permanent link">&para;</a></h3>
+<p>Before an application updates a file, it can check if the file has some
+references. If it is the case, it may offer to the user two choices:</p>
+<ul>
+<li>update the file with the new version (the albums and playlists will use the
+  new version)</li>
+<li>save the new version as a new file and preserve the old file (the old file may
+  be moved to a <code>originals</code> directory).</li>
+</ul>
+<h3 id="moving-a-referenced-file-to-the-trash">Moving a referenced file to the trash<a class="headerlink" href="#moving-a-referenced-file-to-the-trash" title="Permanent link">&para;</a></h3>
+<p>The stack will refuse to move a referenced file to the trash. It&rsquo;s the same for
+a folder that contains a referenced file. The application has to remove the
+references first. It&rsquo;s possible to clear all the references on a file with a
+<code>PATCH</code> request like this:</p>
+<pre class="codehilite"><code class="language-http">PATCH /files/9152d568-7e7c-11e6-a377-37cbfb190b4b/relationships/references HTTP/1.1
+Content-Type: application/vnd.api+json
+Accept: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: []
+}</code></pre>
+
+
+<h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h2>
+<p>The references are persisted in the <code>io.cozy.files</code> documents in CouchDB. A
+mango index is used to fetch all the files that are associated to a given
+document (for <code>GET /data/:type/:doc-id/relationships/references</code>).</p>
+<p>For request to update or move to trash a file, it is easy to fetch its CouchDB
+document to see if it has a reference. But it is more difficult when moving a
+folder to trash. To do that, we need two requests to fetch the number of
+references in a folder.</p>
+<p>1/ Get all descendant folders from a given folder, with a CouchDB View:</p>
+<pre class="codehilite"><code class="language-js">map = function(doc) {
+  if (doc.type === &quot;folder&quot;) emit(doc.path);
+};
+query = {
+  starkey: parent_folder_path + &quot;/&quot;,
+  endkey: parent_folder_path + &quot;/\uFFFF&quot;
+};</code></pre>
+
+
+<p>2/ Get the total number of &ldquo;referenced&rdquo; file for this folders list, with a
+map/reduce CouchDB view:</p>
+<pre class="codehilite"><code class="language-js">map = function(doc) { if(doc.referenced != null) emit(doc.parentID) }
+reduce = count
+query = {keys: [list from above]}</code></pre></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

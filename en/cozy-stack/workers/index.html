@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/workers/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>Workers - Cozy Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Cozy Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Use <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/">User guide</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Stay in sync</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronize your phone</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronize your computer</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Install on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Download</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../dev/">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="../../dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="../../dev/app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="../../dev/konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="../../dev/cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="../../dev/sendmail/">How to send mail in development</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">References</a>
+    <ul class="dropdown-menu">
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-doctypes</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bank/">Banking doctypes</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bills/">Bills</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.contacts/">Contacts</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.files/">Files</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.notifications/">Notifications</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.photos.albums/">Albums</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/">Remote requests</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/">Session logins</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-stack</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../README/">README</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Architecture</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../architecture/">General overview</a>
+</li>
+            
+<li >
+    <a href="../security/">Security</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Usage</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../INSTALL/">Install the cozy-stack</a>
+</li>
+            
+<li >
+    <a href="../cli/cozy-stack/">Manpages of the command-line tool</a>
+</li>
+            
+<li >
+    <a href="../config/">Configuration file</a>
+</li>
+            
+<li >
+    <a href="../instance/">Managing Instances</a>
+</li>
+            
+<li >
+    <a href="../onboarding/">Onboarding</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">For developpers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../client-app-dev/">Develop a client-side app</a>
+</li>
+            
+<li >
+    <a href="../docker/">Running and building Docker images</a>
+</li>
+            
+<li >
+    <a href="../release/">Build a release</a>
+</li>
+            
+<li >
+    <a href="../CONTRIBUTING/">The contributing guide</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Services</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../auth/">/auth - Authentication & OAuth</a>
+</li>
+            
+<li >
+    <a href="../apps/">/apps - Applications Management</a>
+</li>
+            
+<li >
+    <a href="../registry/">Apps registry</a>
+</li>
+            
+<li >
+    <a href="../data-system/">/data - Data System</a>
+</li>
+            
+<li >
+    <a href="../mango/">Mango</a>
+</li>
+            
+<li >
+    <a href="../replication/">Replication</a>
+</li>
+            
+<li >
+    <a href="../couchdb-quirks/">CouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../files/">/files - Virtual File System</a>
+</li>
+            
+<li >
+    <a href="../references-docs-in-vfs/">References of documents in VFS</a>
+</li>
+            
+<li >
+    <a href="../intents/">/intents - Intents</a>
+</li>
+            
+<li >
+    <a href="../jobs/">/jobs Jobs</a>
+</li>
+            
+<li >
+    <a href="../konnectors/">Konnectors</a>
+</li>
+            
+<li class="active">
+    <a href="./">Workers</a>
+</li>
+            
+<li >
+    <a href="../notifications/">/notifications - Notifications</a>
+</li>
+            
+<li >
+    <a href="../permissions/">/permissions - Permissions</a>
+</li>
+            
+<li >
+    <a href="../realtime/">/realtime - Realtime</a>
+</li>
+            
+<li >
+    <a href="../remote/">/remote - Proxy for remote data/API</a>
+</li>
+            
+<li >
+    <a href="../settings/">/settings - Settings</a>
+</li>
+            
+<li >
+    <a href="../sharing/">/sharings - Sharing</a>
+</li>
+            
+<li >
+    <a href="../sharing-design/">Request for comments</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#workers">Workers</a></li>
+            <li><a href="#log-worker">log worker</a></li>
+            <li><a href="#push-worker">push worker</a></li>
+            <li><a href="#unzip-worker">unzip worker</a></li>
+            <li><a href="#sendmail-worker">sendmail worker</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<p><a href="../README/#table-of-contents">Table of contents</a></p>
+<h1 id="workers">Workers<a class="headerlink" href="#workers" title="Permanent link">&para;</a></h1>
+<p>This page list all the currently available workers on the cozy-stack. It
+describes their input arguments object. See the <a href="../jobs/">jobs document</a> to
+know more about the API context in which you can see how to use these
+arguments.</p>
+<h2 id="log-worker">log worker<a class="headerlink" href="#log-worker" title="Permanent link">&para;</a></h2>
+<p>The <code>log</code> worker will just print in the log file the job sent to it. It can
+useful for debugging for example.</p>
+<h2 id="push-worker">push worker<a class="headerlink" href="#push-worker" title="Permanent link">&para;</a></h2>
+<p>The <code>push</code> worker can be used to send push-notifications to a user&rsquo;s device.
+The options are:</p>
+<ul>
+<li><code>client_id</code>: the ID of the oauth client to push a notification to.</li>
+<li><code>title</code>: the title of the notification</li>
+<li><code>message</code>: the content of the notification</li>
+<li><code>data</code>: key-value string map for additional metadata (optional)</li>
+<li><code>priority</code>: the notification priority: <code>high</code> or <code>normal</code> (optional)</li>
+<li><code>topic</code>: the topic identifier of the notification (optional)</li>
+<li><code>sound</code>: a sound associated with the notification (optional)</li>
+</ul>
+<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">{
+  &quot;client_id&quot;: &quot;abcdef123123123&quot;,
+  &quot;title&quot;: &quot;My Notification&quot;,
+  &quot;message&quot;: &quot;My notification content.&quot;,
+  &quot;priority&quot;: &quot;high&quot;,
+}</code></pre>
+
+
+<h3 id="permissions">Permissions<a class="headerlink" href="#permissions" title="Permanent link">&para;</a></h3>
+<p>To use this worker from a client-side application, you will need to ask the
+permission. It is done by adding this to the manifest:</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;permissions&quot;: {
+    &quot;push-notification&quot;: {
+      &quot;description&quot;: &quot;Required to send notifications&quot;,
+      &quot;type&quot;: &quot;io.cozy.jobs&quot;,
+      &quot;verbs&quot;: [&quot;POST&quot;],
+      &quot;selector&quot;: &quot;worker&quot;,
+      &quot;values&quot;: [&quot;push&quot;]
+    }
+  }
+}</code></pre>
+
+
+<h2 id="unzip-worker">unzip worker<a class="headerlink" href="#unzip-worker" title="Permanent link">&para;</a></h2>
+<p>The <code>unzip</code> worker can take a zip archive from the VFS, and will unzip the
+files inside it to a directory of the VFS. The options are:</p>
+<ul>
+<li><code>zip</code>: the ID of the zip file</li>
+<li><code>destination</code>: the ID of the directory where the files will be unzipped.</li>
+</ul>
+<h3 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">{
+  &quot;zip&quot;: &quot;8737b5d6-51b6-11e7-9194-bf5b64b3bc9e&quot;,
+  &quot;destination&quot;: &quot;88750a84-51b6-11e7-ba90-4f0b1cb62b7b&quot;
+}</code></pre>
+
+
+<h3 id="permissions_1">Permissions<a class="headerlink" href="#permissions_1" title="Permanent link">&para;</a></h3>
+<p>To use this worker from a client-side application, you will need to ask the
+permission. It is done by adding this to the manifest:</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;permissions&quot;: {
+    &quot;unzip-to-a-directory&quot;: {
+      &quot;description&quot;: &quot;Required to unzip a file inside the cozy&quot;,
+      &quot;type&quot;: &quot;io.cozy.jobs&quot;,
+      &quot;verbs&quot;: [&quot;POST&quot;],
+      &quot;selector&quot;: &quot;worker&quot;,
+      &quot;values&quot;: [&quot;unzip&quot;]
+    }
+  }
+}</code></pre>
+
+
+<h2 id="sendmail-worker">sendmail worker<a class="headerlink" href="#sendmail-worker" title="Permanent link">&para;</a></h2>
+<p>The <code>sendmail</code> worker can be used to send mail from the stack. It implies that
+the stack has properly configured an access to an SMTP server. You can see an
+example of configuration in the <a href="../../cozy.example.yaml">cozy.example.yaml</a> file
+at the root of this repository.</p>
+<p><code>sendmail</code> options fields are the following:</p>
+<ul>
+<li><code>mode</code>: string specifying the mode of the send:</li>
+<li><code>noreply</code> to send a notification mail to the user</li>
+<li><code>from</code> to send a mail from the user</li>
+<li><code>to</code>: list of object <code>{name, email}</code> representing the addresses of the
+  recipients. (should not be used in <code>noreply</code> mode)</li>
+<li><code>subject</code>: string specifying the subject of the mail</li>
+<li><code>parts</code>: list of part objects <code>{type, body}</code> listing representing the content
+  parts of the</li>
+<li><code>type</code> string of the content type: either <code>text/html</code> or <code>text/plain</code></li>
+<li><code>body</code> string of the actual body content of the part</li>
+<li><code>attachments</code>: list of objects <code>{filename, content}</code> that represent the files
+  attached to the email</li>
+</ul>
+<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-js">// from mode sending mail from the user to a list of recipients
+{
+    &quot;mode&quot;: &quot;from&quot;,
+    &quot;to&quot;: [
+        {&quot;name&quot;: &quot;John Doe 1&quot;, &quot;email&quot;:&quot;john1@doe&quot;},
+        {&quot;name&quot;: &quot;John Doe 2&quot;, &quot;email&quot;:&quot;john2@doe&quot;}
+    ],
+    &quot;subject&quot;: &quot;Hey !&quot;,
+    &quot;parts&quot;: [
+        {&quot;type&quot;:&quot;text/html&quot;, &quot;body&quot;: &quot;&lt;h1&gt;Hey !&lt;/h1&gt;&quot;},
+        {&quot;type&quot;:&quot;text/plain&quot;, &quot;body&quot;: &quot;Hey !&quot;}
+    ]
+}
+
+// noreply mode, sending a notification mail to the user
+{
+    &quot;mode&quot;: &quot;noreply&quot;,
+    &quot;subject&quot;: &quot;You've got a new file !&quot;,
+    &quot;parts&quot;: [
+        {&quot;type&quot;:&quot;text/html&quot;, &quot;body&quot;: &quot;&lt;h1&gt;Hey !&lt;/h1&gt;&quot;},
+        {&quot;type&quot;:&quot;text/plain&quot;, &quot;body&quot;: &quot;Hey !&quot;}
+    ]
+}</code></pre>
+
+
+<h3 id="permissions_2">Permissions<a class="headerlink" href="#permissions_2" title="Permanent link">&para;</a></h3>
+<p>To use this worker from a client-side application, you will need to ask the
+permission. It is done by adding this to the manifest:</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;permissions&quot;: {
+    &quot;mail-from-the-user&quot;: {
+      &quot;description&quot;: &quot;Required to send mails from the user to his/her friends&quot;,
+      &quot;type&quot;: &quot;io.cozy.jobs&quot;,
+      &quot;verbs&quot;: [&quot;POST&quot;],
+      &quot;selector&quot;: &quot;worker&quot;,
+      &quot;values&quot;: [&quot;sendmail&quot;]
+    }
+  }
+}</code></pre></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/mango/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>Mango - Cozy Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Cozy Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Use <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/">User guide</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Stay in sync</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronize your phone</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronize your computer</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Install on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Download</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../dev/">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="../../dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="../../dev/app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="../../dev/konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="../../dev/cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="../../dev/sendmail/">How to send mail in development</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">References</a>
+    <ul class="dropdown-menu">
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-doctypes</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bank/">Banking doctypes</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bills/">Bills</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.contacts/">Contacts</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.files/">Files</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.notifications/">Notifications</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.photos.albums/">Albums</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/">Remote requests</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/">Session logins</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-stack</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../README/">README</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Architecture</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../architecture/">General overview</a>
+</li>
+            
+<li >
+    <a href="../security/">Security</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Usage</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../INSTALL/">Install the cozy-stack</a>
+</li>
+            
+<li >
+    <a href="../cli/cozy-stack/">Manpages of the command-line tool</a>
+</li>
+            
+<li >
+    <a href="../config/">Configuration file</a>
+</li>
+            
+<li >
+    <a href="../instance/">Managing Instances</a>
+</li>
+            
+<li >
+    <a href="../onboarding/">Onboarding</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">For developpers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../client-app-dev/">Develop a client-side app</a>
+</li>
+            
+<li >
+    <a href="../docker/">Running and building Docker images</a>
+</li>
+            
+<li >
+    <a href="../release/">Build a release</a>
+</li>
+            
+<li >
+    <a href="../CONTRIBUTING/">The contributing guide</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Services</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../auth/">/auth - Authentication & OAuth</a>
+</li>
+            
+<li >
+    <a href="../apps/">/apps - Applications Management</a>
+</li>
+            
+<li >
+    <a href="../registry/">Apps registry</a>
+</li>
+            
+<li >
+    <a href="../data-system/">/data - Data System</a>
+</li>
+            
+<li class="active">
+    <a href="./">Mango</a>
+</li>
+            
+<li >
+    <a href="../replication/">Replication</a>
+</li>
+            
+<li >
+    <a href="../couchdb-quirks/">CouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../files/">/files - Virtual File System</a>
+</li>
+            
+<li >
+    <a href="../references-docs-in-vfs/">References of documents in VFS</a>
+</li>
+            
+<li >
+    <a href="../intents/">/intents - Intents</a>
+</li>
+            
+<li >
+    <a href="../jobs/">/jobs Jobs</a>
+</li>
+            
+<li >
+    <a href="../konnectors/">Konnectors</a>
+</li>
+            
+<li >
+    <a href="../workers/">Workers</a>
+</li>
+            
+<li >
+    <a href="../notifications/">/notifications - Notifications</a>
+</li>
+            
+<li >
+    <a href="../permissions/">/permissions - Permissions</a>
+</li>
+            
+<li >
+    <a href="../realtime/">/realtime - Realtime</a>
+</li>
+            
+<li >
+    <a href="../remote/">/remote - Proxy for remote data/API</a>
+</li>
+            
+<li >
+    <a href="../settings/">/settings - Settings</a>
+</li>
+            
+<li >
+    <a href="../sharing/">/sharings - Sharing</a>
+</li>
+            
+<li >
+    <a href="../sharing-design/">Request for comments</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#mango">Mango</a></li>
+            <li><a href="#create-an-index-for-some-documents">Create an index for some documents</a></li>
+            <li><a href="#find-documents">Find documents</a></li>
+            <li><a href="#pagination-cookbook">Pagination cookbook</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<p><a href="../README/#table-of-contents">Table of contents</a></p>
+<h1 id="mango">Mango<a class="headerlink" href="#mango" title="Permanent link">&para;</a></h1>
+<h2 id="create-an-index-for-some-documents">Create an index for some documents<a class="headerlink" href="#create-an-index-for-some-documents" title="Permanent link">&para;</a></h2>
+<p>The body should contain a <code>index</code> JSON field containing a <code>fields</code> which is an
+ordered array of fields to index.</p>
+<h3 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-http">POST /data/:doctype/_index HTTP/1.1</code></pre>
+
+
+<pre class="codehilite"><code class="language-http">POST /data/io.cozy.events/_index HTTP/1.1
+Content-Type: application/json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;index&quot;: {
+    &quot;fields&quot;: [&quot;calendar&quot;, &quot;date&quot;]
+  }
+}</code></pre>
+
+
+<h3 id="response-ok">Response OK<a class="headerlink" href="#response-ok" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Date: Mon, 27 Sept 2016 12:28:53 GMT
+Content-Length: ...
+Content-Type: application/json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;result&quot;: &quot;created&quot;,
+  &quot;id&quot;: &quot;_design/a5f4711fc9448864a13c81dc71e660b524d7410c&quot;,
+  &quot;name&quot;: &quot;a5f4711fc9448864a13c81dc71e660b524d7410c&quot;
+}</code></pre>
+
+
+<h3 id="details">Details<a class="headerlink" href="#details" title="Permanent link">&para;</a></h3>
+<ul>
+<li>if the doctype does not exist, the database is created.</li>
+<li>if the index already exists, a <code>{result: "exists"}</code> is returned, but the
+  response code is still 200</li>
+<li>design doc &amp; name can be provided in request. <strong>This is not recommended</strong>, let
+  couchdb handle naming and deduplication.</li>
+</ul>
+<pre class="codehilite"><code class="language-json">{
+  &quot;name&quot;: &quot;by-calendar-and-date&quot;,
+  &quot;ddoc&quot;: &quot;_design/some-ddoc-name&quot;,
+  &quot;index&quot;: { &quot;fields&quot;: ... }
+}</code></pre>
+
+
+<h3 id="possible-errors">possible errors :<a class="headerlink" href="#possible-errors" title="Permanent link">&para;</a></h3>
+<ul>
+<li>401 unauthorized (no authentication has been provided)</li>
+<li>403 forbidden (the authentication does not provide permissions for this
+  action)</li>
+<li>500 internal server error</li>
+</ul>
+<h2 id="find-documents">Find documents<a class="headerlink" href="#find-documents" title="Permanent link">&para;</a></h2>
+<p>Find allows to find documents using a mango selector. You can read more about
+mango selectors
+<a href="http://docs.couchdb.org/en/2.1.0/api/database/find.html#selector-syntax">here</a></p>
+<h3 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-http">POST /data/:doctype/_find HTTP/1.1</code></pre>
+
+
+<pre class="codehilite"><code class="language-http">POST /data/io.cozy.events/_find HTTP/1.1
+Content-Type: application/json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;selector&quot;: {
+    &quot;calendar&quot;: &quot;perso&quot;,
+    &quot;date&quot;: { &quot;$gt&quot;: &quot;20161001T00:00:00&quot; }
+  },
+  &quot;limit&quot;: 2,
+  &quot;skip&quot;: 3,
+  &quot;sort&quot;: [&quot;calendar&quot;, &quot;date&quot;],
+  &quot;fields&quot;: [&quot;_id&quot;, &quot;_type&quot;, &quot;_date&quot;],
+  &quot;use_index&quot;: &quot;_design/a5f4711fc9448864a13c81dc71e660b524d7410c&quot;
+}</code></pre>
+
+
+<h3 id="response-ok_1">Response OK<a class="headerlink" href="#response-ok_1" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Date: Mon, 27 Sept 2016 12:28:53 GMT
+Content-Length: ...
+Content-Type: application/json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;docs&quot;: [
+    {
+      &quot;_id&quot;: &quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;,
+      &quot;_type&quot;: &quot;io.cozy.events&quot;,
+      &quot;date&quot;: &quot;20161023T160000Z&quot;
+    },
+    {
+      &quot;_id&quot;: &quot;6494e0ac-dfcb-472e84a9cbee&quot;,
+      &quot;_type&quot;: &quot;io.cozy.events&quot;,
+      &quot;date&quot;: &quot;20161013T160000Z&quot;
+    }
+  ]
+}</code></pre>
+
+
+<h3 id="details_1">Details<a class="headerlink" href="#details_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>If an index does not exist for the selector, an error 400 is returned</li>
+<li>The sort field must contains all fields used in selector</li>
+<li>The sort field must match an existing index</li>
+<li>It is possible to sort in reverse direction <code>sort:[{"calendar":"desc"},
+  {"date": "desc"}]</code> but <strong>all fields</strong> must be sorted in same direction.</li>
+<li><code>use_index</code> is optional but recommended.</li>
+</ul>
+<h2 id="pagination-cookbook">Pagination cookbook<a class="headerlink" href="#pagination-cookbook" title="Permanent link">&para;</a></h2>
+<p>Pagination of mango query should be handled by the client. The stack will always
+limit query results to maximum 100 docs.</p>
+<p>The limit applied to a query is visible in the HTTP response.</p>
+<p>If the limit cause some docs to not be returned, the response will have a
+<code>next=true</code> top level values.</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;limit&quot;: 100,
+  &quot;next&quot;: true,
+  &quot;docs&quot;: [&quot;... first hundred docs ...&quot;]
+}</code></pre>
+
+
+<p>If the number of docs is lower or equal to the limit, next will be false</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;limit&quot;: 100,
+  &quot;next&quot;: false,
+  &quot;docs&quot;: [&quot;... less than a hundred docs ...&quot;]
+}</code></pre>
+
+
+<p>To paginate, the client should keep track of the value of the last index field.</p>
+<h3 id="exemple">Exemple :<a class="headerlink" href="#exemple" title="Permanent link">&para;</a></h3>
+<p>Index on io.cozy.events with fields <code>["calendar", "date"]</code></p>
+<p>Try to get all events for a month :</p>
+<pre class="codehilite"><code class="language-json">selector: {
+  &quot;calendar&quot;: &quot;my-calendar&quot;,
+  &quot;date&quot;: { &quot;$gt&quot;: &quot;20161001&quot;, &quot;$lt&quot;: &quot;20161030&quot; }
+}</code></pre>
+
+
+<p>If there is less than 100 events, the response <code>next</code> field will be false and
+there is nothing more to do. If there is more than 100 events for this month, we
+have a <code>next=true</code> in the response.</p>
+<p>To keep iterating, we can take the date from the last item we received in the
+results and use it as next request <code>$gte</code></p>
+<pre class="codehilite"><code class="language-json">selector: {
+  &quot;calendar&quot;: &quot;my-calendar&quot;,
+  &quot;date&quot;: { &quot;$gte&quot; :&quot;20161023&quot;, &quot;$lt&quot;: &quot;20161030&quot; }
+}</code></pre></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

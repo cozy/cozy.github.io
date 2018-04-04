@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/jobs/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>/jobs Jobs - Cozy Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Cozy Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Use <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/">User guide</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Stay in sync</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronize your phone</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronize your computer</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Install on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Download</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../dev/">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="../../dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="../../dev/app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="../../dev/konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="../../dev/cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="../../dev/sendmail/">How to send mail in development</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">References</a>
+    <ul class="dropdown-menu">
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-doctypes</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bank/">Banking doctypes</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bills/">Bills</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.contacts/">Contacts</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.files/">Files</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.notifications/">Notifications</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.photos.albums/">Albums</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/">Remote requests</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/">Session logins</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-stack</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../README/">README</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Architecture</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../architecture/">General overview</a>
+</li>
+            
+<li >
+    <a href="../security/">Security</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Usage</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../INSTALL/">Install the cozy-stack</a>
+</li>
+            
+<li >
+    <a href="../cli/cozy-stack/">Manpages of the command-line tool</a>
+</li>
+            
+<li >
+    <a href="../config/">Configuration file</a>
+</li>
+            
+<li >
+    <a href="../instance/">Managing Instances</a>
+</li>
+            
+<li >
+    <a href="../onboarding/">Onboarding</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">For developpers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../client-app-dev/">Develop a client-side app</a>
+</li>
+            
+<li >
+    <a href="../docker/">Running and building Docker images</a>
+</li>
+            
+<li >
+    <a href="../release/">Build a release</a>
+</li>
+            
+<li >
+    <a href="../CONTRIBUTING/">The contributing guide</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Services</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../auth/">/auth - Authentication & OAuth</a>
+</li>
+            
+<li >
+    <a href="../apps/">/apps - Applications Management</a>
+</li>
+            
+<li >
+    <a href="../registry/">Apps registry</a>
+</li>
+            
+<li >
+    <a href="../data-system/">/data - Data System</a>
+</li>
+            
+<li >
+    <a href="../mango/">Mango</a>
+</li>
+            
+<li >
+    <a href="../replication/">Replication</a>
+</li>
+            
+<li >
+    <a href="../couchdb-quirks/">CouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../files/">/files - Virtual File System</a>
+</li>
+            
+<li >
+    <a href="../references-docs-in-vfs/">References of documents in VFS</a>
+</li>
+            
+<li >
+    <a href="../intents/">/intents - Intents</a>
+</li>
+            
+<li class="active">
+    <a href="./">/jobs Jobs</a>
+</li>
+            
+<li >
+    <a href="../konnectors/">Konnectors</a>
+</li>
+            
+<li >
+    <a href="../workers/">Workers</a>
+</li>
+            
+<li >
+    <a href="../notifications/">/notifications - Notifications</a>
+</li>
+            
+<li >
+    <a href="../permissions/">/permissions - Permissions</a>
+</li>
+            
+<li >
+    <a href="../realtime/">/realtime - Realtime</a>
+</li>
+            
+<li >
+    <a href="../remote/">/remote - Proxy for remote data/API</a>
+</li>
+            
+<li >
+    <a href="../settings/">/settings - Settings</a>
+</li>
+            
+<li >
+    <a href="../sharing/">/sharings - Sharing</a>
+</li>
+            
+<li >
+    <a href="../sharing-design/">Request for comments</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#jobs">Jobs</a></li>
+            <li><a href="#triggers">Triggers</a></li>
+            <li><a href="#error-handling">Error Handling</a></li>
+            <li><a href="#jobs-api">Jobs API</a></li>
+            <li><a href="#worker-pool">Worker pool</a></li>
+            <li><a href="#permissions_8">Permissions</a></li>
+            <li><a href="#multi-stack">Multi-stack</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<p><a href="../README/#table-of-contents">Table of contents</a></p>
+<h1 id="jobs">Jobs<a class="headerlink" href="#jobs" title="Permanent link">&para;</a></h1>
+<p>Jobs are designed to represent asynchronous tasks that your cozy can execute.
+These tasks can be scheduled in advance, recurring or sudden and provide various
+services.</p>
+<p>At the time, we do not provide &ldquo;generic&rdquo; and programmable tasks. This list of
+available workers is part of the defined API.</p>
+<p>The job queue can be either local to the cozy-stack when used as a monolithic
+instance (self-hosted for instance) or distributed via a redis server for
+distributed infrastructures.</p>
+<p>This doc introduces two cozy types:</p>
+<ul>
+<li><code>io.cozy.jobs</code> for jobs</li>
+<li><code>io.cozy.triggers</code> for triggers</li>
+</ul>
+<h2 id="triggers">Triggers<a class="headerlink" href="#triggers" title="Permanent link">&para;</a></h2>
+<p>Jobs can be launched by five different types of triggers:</p>
+<ul>
+<li><code>@at</code> to schedule a one-time job executed after at a specific time in the
+  future</li>
+<li><code>@in</code> to schedule a one-time job executed after a specific amount of time</li>
+<li><code>@every</code> to schedule periodic jobs executed at a given fix interval</li>
+<li><code>@cron</code> to schedule recurring jobs scheduled at specific times</li>
+<li><code>@event</code> to launch a job after a change in the cozy</li>
+</ul>
+<p>These five triggers have specific syntaxes to describe when jobs should be
+scheduled. See below for more informations.</p>
+<p>Jobs can also be queued up programatically, without the help of a specific
+trigger directly via the <code>/jobs/queue</code> API. In this case the <code>trigger</code> name is
+empty.</p>
+<h3 id="at-syntax"><code>@at</code> syntax<a class="headerlink" href="#at-syntax" title="Permanent link">&para;</a></h3>
+<p>The <code>@at</code> trigger takes a ISO-8601 formatted string indicating a UTC time in the
+future. The date is of this form: <code>YYYY-MM-DDTHH:mm:ss.sssZ</code></p>
+<p>Examples</p>
+<pre class="codehilite"><code>@at 2018-12-12T15:36:25.507Z</code></pre>
+
+
+<h3 id="in-syntax"><code>@in</code> syntax<a class="headerlink" href="#in-syntax" title="Permanent link">&para;</a></h3>
+<p>The <code>@in</code> trigger takes the same duration syntax as <code>@every</code></p>
+<p>Examples</p>
+<pre class="codehilite"><code>@in 10m
+@in 1h30m</code></pre>
+
+
+<h3 id="every-syntax"><code>@every</code> syntax<a class="headerlink" href="#every-syntax" title="Permanent link">&para;</a></h3>
+<p>The <code>@every</code> trigger uses the same syntax as golang&rsquo;s <code>time.ParseDuration</code> (but
+only support time units above seconds):</p>
+<p>A duration string is a possibly signed sequence of decimal numbers, each with
+optional fraction and a unit suffix, such as &ldquo;300ms&rdquo;, &ldquo;1.5h&rdquo; or &ldquo;2h45m&rdquo;. Valid
+time units are &ldquo;s&rdquo;, &ldquo;m&rdquo;, &ldquo;h&rdquo;.</p>
+<p>Examples</p>
+<pre class="codehilite"><code>@every 1.5h   # schedules every 1 and a half hours
+@every 30m10s # schedules every 30 minutes and 10 seconds</code></pre>
+
+
+<h3 id="cron-syntax"><code>@cron</code> syntax<a class="headerlink" href="#cron-syntax" title="Permanent link">&para;</a></h3>
+<p>In order to schedule recurring jobs, the <code>@cron</code> trigger has the syntax using
+six fields:</p>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Mandatory?</th>
+<th>Allowed values</th>
+<th>Allowed special characters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Seconds</td>
+<td>Yes</td>
+<td>0-59</td>
+<td>* / , -</td>
+</tr>
+<tr>
+<td>Minutes</td>
+<td>Yes</td>
+<td>0-59</td>
+<td>* / , -</td>
+</tr>
+<tr>
+<td>Hours</td>
+<td>Yes</td>
+<td>0-23</td>
+<td>* / , -</td>
+</tr>
+<tr>
+<td>Day of month</td>
+<td>Yes</td>
+<td>1-31</td>
+<td>* / , - ?</td>
+</tr>
+<tr>
+<td>Month</td>
+<td>Yes</td>
+<td>1-12 or JAN-DEC</td>
+<td>* / , -</td>
+</tr>
+<tr>
+<td>Day of week</td>
+<td>Yes</td>
+<td>0-6 or SUN-SAT</td>
+<td>* / , - ?</td>
+</tr>
+</tbody>
+</table>
+<p>Asterisk ( <code>*</code> )</p>
+<p>The asterisk indicates that the cron expression will match for all values of the
+field; e.g., using an asterisk in the 5th field (month) would indicate every
+month.</p>
+<p>Slash ( <code>/</code> )</p>
+<p>Slashes are used to describe increments of ranges. For example 3-59/15 in the
+1st field (minutes) would indicate the 3rd minute of the hour and every 15
+minutes thereafter. The form <code>"*\/..."</code> is equivalent to the form
+<code>"first-last/..."</code>, that is, an increment over the largest possible range of the
+field. The form <code>"N-/..."</code> is accepted as meaning <code>"N-MAX/..."</code>, that is,
+starting at N, use the increment until the end of that specific range. It does
+not wrap around.</p>
+<p>Comma ( <code>,</code> )</p>
+<p>Commas are used to separate items of a list. For example, using <code>"MON,WED,FRI"</code>
+in the 5th field (day of week) would mean Mondays, Wednesdays and Fridays.</p>
+<p>Hyphen ( <code>-</code> )</p>
+<p>Hyphens are used to define ranges. For example, 9-17 would indicate every hour
+between 9am and 5pm inclusive.</p>
+<p>Question mark ( <code>?</code> )</p>
+<p>Question mark may be used instead of <code>*</code> for leaving either day-of-month or
+day-of-week blank.</p>
+<p>To schedule jobs given an interval:</p>
+<p>Examples:</p>
+<pre class="codehilite"><code>@cron 0 0 0 1 1 *  # Run once a year, midnight, Jan. 1st
+@cron 0 0 0 1 1 *  # Run once a year, midnight, Jan. 1st
+@cron 0 0 0 1 * *  # Run once a month, midnight, first of month
+@cron 0 0 0 * * 0  # Run once a week, midnight on Sunday
+@cron 0 0 0 * * *  # Run once a day, midnight
+@cron 0 0 * * * *  # Run once an hour, beginning of hour</code></pre>
+
+
+<h3 id="event-syntax"><code>@event</code> syntax<a class="headerlink" href="#event-syntax" title="Permanent link">&para;</a></h3>
+<p>The <code>@event</code> syntax allows to trigger a job when something occurs in the stack.
+It follow the same syntax than permissions scope string :</p>
+<p><code>type[:verb][:values][:selector]</code></p>
+<p>Unlike for permissions string, the verb should be one of <code>CREATED</code>, <code>DELETED</code>,
+<code>UPDATED</code>.</p>
+<p>It is a work in progress, for now only events on couchdb package triggers it.</p>
+<p>The job worker will receive a compound message including original trigger_infos
+messages and the event which has triggered it.</p>
+<p>Examples</p>
+<pre class="codehilite"><code>@event io.cozy.files // anything happens on files
+@event io.cozy.files:CREATED // a file was created
+@event io.cozy.files:DELETED:image/jpg:mime // an image was deleted</code></pre>
+
+
+<h2 id="error-handling">Error Handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h2>
+<p>Jobs can fail to execute their task. We have two ways to parameterize such
+cases.</p>
+<h3 id="retry">Retry<a class="headerlink" href="#retry" title="Permanent link">&para;</a></h3>
+<p>A retry count can be optionally specified to ask the worker to re-execute the
+task if it has failed.</p>
+<p>Each retry is executed after a configurable delay. The try count is part of the
+attributes of the job. Also, each occurring error is kept in the <code>errors</code> field
+containing all the errors that may have happened.</p>
+<h3 id="timeout">Timeout<a class="headerlink" href="#timeout" title="Permanent link">&para;</a></h3>
+<p>A worker may never end. To prevent this, a configurable timeout value is
+specified with the job.</p>
+<p>If a job does not end after the specified amount of time, it will be aborted. A
+timeout is just like another error from the worker and can provoke a retry if
+specified.</p>
+<h3 id="defaults">Defaults<a class="headerlink" href="#defaults" title="Permanent link">&para;</a></h3>
+<p>By default, jobs are parameterized with a maximum of 3 tries with 1 minute
+timeout.</p>
+<p>These defaults may vary given the workload of the workers.</p>
+<h2 id="jobs-api">Jobs API<a class="headerlink" href="#jobs-api" title="Permanent link">&para;</a></h2>
+<p>Example and description of the attributes of a <code>io.cozy.jobs</code>:</p>
+<pre class="codehilite"><code class="language-js">{
+  &quot;domain&quot;: &quot;me.cozy.tools&quot;,
+  &quot;worker&quot;: &quot;sendmail&quot;,    // worker type name
+  &quot;options&quot;: {
+    &quot;priority&quot;: 3,         // priority from 1 to 100, higher number is higher priority
+    &quot;timeout&quot;: 60,         // timeout value in seconds
+    &quot;max_exec_count&quot;: 3,   // maximum number of time the job should be executed (including retries)
+  },
+  &quot;state&quot;: &quot;running&quot;,      // queued, running, errored
+  &quot;queued_at&quot;: &quot;2016-09-19T12:35:08Z&quot;,  // time of the queuing
+  &quot;started_at&quot;: &quot;2016-09-19T12:35:08Z&quot;, // time of first execution
+  &quot;error&quot;: &quot;&quot;             // error message if any
+}</code></pre>
+
+
+<p>Example and description of a job creation options — as you can see, the options
+are replicated in the <code>io.cozy.jobs</code> attributes:</p>
+<pre class="codehilite"><code class="language-js">{
+  &quot;priority&quot;: 3,         // priority from 1 to 100
+  &quot;timeout&quot;: 60,         // timeout value in seconds
+  &quot;max_exec_count&quot;: 3,   // maximum number of retry
+}</code></pre>
+
+
+<h3 id="get-jobsjob-id">GET /jobs/:job-id<a class="headerlink" href="#get-jobsjob-id" title="Permanent link">&para;</a></h3>
+<p>Get a job informations given its ID.</p>
+<h4 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">GET /jobs/123123 HTTP/1.1
+Accept: application/vnd.api+json</code></pre>
+
+
+<h4 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;type&quot;: &quot;io.cozy.jobs&quot;,
+    &quot;id&quot;: &quot;123123&quot;,
+    &quot;attributes&quot;: {
+      &quot;domain&quot;: &quot;me.cozy.tools&quot;,
+      &quot;worker&quot;: &quot;sendmail&quot;,
+      &quot;options&quot;: {
+        &quot;priority&quot;: 3,
+        &quot;timeout&quot;: 60,
+        &quot;max_exec_count&quot;: 3
+      },
+      &quot;state&quot;: &quot;running&quot;,
+      &quot;queued_at&quot;: &quot;2016-09-19T12:35:08Z&quot;,
+      &quot;started_at&quot;: &quot;2016-09-19T12:35:08Z&quot;,
+      &quot;error&quot;: &quot;&quot;
+    },
+    &quot;links&quot;: {
+      &quot;self&quot;: &quot;/jobs/123123&quot;
+    }
+  }
+}</code></pre>
+
+
+<h3 id="post-jobsqueueworker-type">POST /jobs/queue/:worker-type<a class="headerlink" href="#post-jobsqueueworker-type" title="Permanent link">&para;</a></h3>
+<p>Enqueue programmatically a new job.</p>
+<p>This route requires a specific permission on the worker-type. A global
+permission on the global <code>io.cozy.jobs</code> doctype is not allowed.</p>
+<h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">POST /jobs/queue/sendmail HTTP/1.1
+Accept: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;attributes&quot;: {
+      &quot;options&quot;: {
+        &quot;priority&quot;: 3,
+        &quot;timeout&quot;: 60,
+        &quot;max_exec_count&quot;: 3
+      },
+      &quot;arguments&quot;: {} // any json value used as arguments for the job
+    }
+  }
+}</code></pre>
+
+
+<h4 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;type&quot;: &quot;io.cozy.jobs&quot;,
+    &quot;id&quot;: &quot;123123&quot;,
+    &quot;attributes&quot;: {
+      &quot;domain&quot;: &quot;me.cozy.tools&quot;,
+      &quot;worker&quot;: &quot;sendmail&quot;,
+      &quot;options&quot;: {
+        &quot;priority&quot;: 3,
+        &quot;timeout&quot;: 60,
+        &quot;max_exec_count&quot;: 3
+      },
+      &quot;state&quot;: &quot;running&quot;,
+      &quot;queued_at&quot;: &quot;2016-09-19T12:35:08Z&quot;,
+      &quot;started_at&quot;: &quot;2016-09-19T12:35:08Z&quot;,
+      &quot;error&quot;: &quot;&quot;
+    },
+    &quot;links&quot;: {
+      &quot;self&quot;: &quot;/jobs/123123&quot;
+    }
+  }
+}</code></pre>
+
+
+<h4 id="permissions">Permissions<a class="headerlink" href="#permissions" title="Permanent link">&para;</a></h4>
+<p>To use this endpoint, an application needs a permission on the type
+<code>io.cozy.jobs</code> for the verb <code>POST</code>. The is required to restrict its permission
+to specific worker(s), like this (a global permission on the doctype is not
+allowed):</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;permissions&quot;: {
+    &quot;mail-from-the-user&quot;: {
+      &quot;description&quot;: &quot;Required to send mails from the user to his/her friends&quot;,
+      &quot;type&quot;: &quot;io.cozy.jobs&quot;,
+      &quot;verbs&quot;: [&quot;POST&quot;],
+      &quot;selector&quot;: &quot;worker&quot;,
+      &quot;values&quot;: [&quot;sendmail&quot;]
+    }
+  }
+}</code></pre>
+
+
+<h3 id="get-jobsqueueworker-type">GET /jobs/queue/:worker-type<a class="headerlink" href="#get-jobsqueueworker-type" title="Permanent link">&para;</a></h3>
+<p>List the jobs in the queue.</p>
+<h4 id="request_2">Request<a class="headerlink" href="#request_2" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">GET /jobs/queue/sendmail HTTP/1.1
+Accept: application/vnd.api+json</code></pre>
+
+
+<h4 id="response_2">Response<a class="headerlink" href="#response_2" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: [
+    {
+      &quot;attributes&quot;: {
+        &quot;domain&quot;: &quot;cozy.tools:8080&quot;,
+        &quot;options&quot;: null,
+        &quot;queued_at&quot;: &quot;2017-09-29T15:32:31.953878568+02:00&quot;,
+        &quot;started_at&quot;: &quot;0001-01-01T00:00:00Z&quot;,
+        &quot;state&quot;: &quot;queued&quot;,
+        &quot;worker&quot;: &quot;log&quot;
+      },
+      &quot;id&quot;: &quot;77689bca9634b4fb08d6ca3d1643de5f&quot;,
+      &quot;links&quot;: {
+        &quot;self&quot;: &quot;/jobs/log/77689bca9634b4fb08d6ca3d1643de5f&quot;
+      },
+      &quot;meta&quot;: {
+        &quot;rev&quot;: &quot;1-f823bcd2759103a5ad1a98f4bf083b36&quot;
+      },
+      &quot;type&quot;: &quot;io.cozy.jobs&quot;
+    }
+  ],
+  &quot;meta&quot;: {
+    &quot;count&quot;: 0
+  }
+}</code></pre>
+
+
+<h4 id="permissions_1">Permissions<a class="headerlink" href="#permissions_1" title="Permanent link">&para;</a></h4>
+<p>To use this endpoint, an application needs a permission on the type
+<code>io.cozy.jobs</code> for the verb <code>GET</code>. In most cases, the application will restrict
+its permission to only one worker, like this:</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;permissions&quot;: {
+    &quot;mail-from-the-user&quot;: {
+      &quot;description&quot;:
+        &quot;Required to know the number of jobs in the sendmail queues&quot;,
+      &quot;type&quot;: &quot;io.cozy.jobs&quot;,
+      &quot;verbs&quot;: [&quot;GET&quot;],
+      &quot;selector&quot;: &quot;worker&quot;,
+      &quot;values&quot;: [&quot;sendmail&quot;]
+    }
+  }
+}</code></pre>
+
+
+<h3 id="post-jobstriggers">POST /jobs/triggers<a class="headerlink" href="#post-jobstriggers" title="Permanent link">&para;</a></h3>
+<p>Add a trigger of the worker. See <a href="#triggers">triggers&rsquo; descriptions</a> to see the
+types of trigger and their arguments syntax.</p>
+<p>This route requires a specific permission on the worker type. A global
+permission on the global <code>io.cozy.triggers</code> doctype is not allowed.</p>
+<p>The <code>debounce</code> parameter can be used to limit the number of jobs created in a
+burst. It delays the creation of the job on the first input by the given time
+argument, and if the trigger has its condition matched again during this period,
+it won&rsquo;t create another job. It can be useful to combine it with the changes
+feed of couchdb with a last sequence number persisted by the worker, as it
+allows to have a nice diff between two executions of the worker.</p>
+<h4 id="request_3">Request<a class="headerlink" href="#request_3" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">POST /jobs/triggers HTTP/1.1
+Accept: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;attributes&quot;: {
+      &quot;type&quot;: &quot;@event&quot;,
+      &quot;arguments&quot;: &quot;io.cozy.invitations&quot;,
+      &quot;debounce&quot;: &quot;10m&quot;,
+      &quot;worker&quot;: &quot;sendmail&quot;,
+      &quot;worker_arguments&quot;: {},
+      &quot;options&quot;: {
+        &quot;priority&quot;: 3,
+        &quot;timeout&quot;: 60,
+        &quot;max_exec_count&quot;: 3
+      }
+    }
+  }
+}</code></pre>
+
+
+<h4 id="response_3">Response<a class="headerlink" href="#response_3" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;type&quot;: &quot;io.cozy.triggers&quot;,
+    &quot;id&quot;: &quot;123123&quot;,
+    &quot;attributes&quot;: {
+      &quot;type&quot;: &quot;@every&quot;,
+      &quot;arguments&quot;: &quot;30m10s&quot;,
+      &quot;debounce&quot;: &quot;10m&quot;,
+      &quot;worker&quot;: &quot;sendmail&quot;,
+      &quot;options&quot;: {
+        &quot;priority&quot;: 3,
+        &quot;timeout&quot;: 60,
+        &quot;max_exec_count&quot;: 3
+      }
+    },
+    &quot;links&quot;: {
+      &quot;self&quot;: &quot;/jobs/triggers/123123&quot;
+    }
+  }
+}</code></pre>
+
+
+<h4 id="permissions_2">Permissions<a class="headerlink" href="#permissions_2" title="Permanent link">&para;</a></h4>
+<p>To use this endpoint, an application needs a permission on the type
+<code>io.cozy.triggers</code> for the verb <code>POST</code>. In most cases, the application will
+restrict its permission to only one worker, like this:</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;permissions&quot;: {
+    &quot;mail-from-the-user&quot;: {
+      &quot;description&quot;:
+        &quot;Required to send regularly mails from the user to his/her friends&quot;,
+      &quot;type&quot;: &quot;io.cozy.triggers&quot;,
+      &quot;verbs&quot;: [&quot;POST&quot;],
+      &quot;selector&quot;: &quot;worker&quot;,
+      &quot;values&quot;: [&quot;sendmail&quot;]
+    }
+  }
+}</code></pre>
+
+
+<h3 id="get-jobstriggerstrigger-id">GET /jobs/triggers/:trigger-id<a class="headerlink" href="#get-jobstriggerstrigger-id" title="Permanent link">&para;</a></h3>
+<p>Get a trigger informations given its ID.</p>
+<h4 id="request_4">Request<a class="headerlink" href="#request_4" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">GET /jobs/triggers/123123 HTTP/1.1
+Accept: application/vnd.api+json</code></pre>
+
+
+<h4 id="response_4">Response<a class="headerlink" href="#response_4" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;type&quot;: &quot;io.cozy.triggers&quot;,
+    &quot;id&quot;: &quot;123123&quot;,
+    &quot;attributes&quot;: {
+      &quot;type&quot;: &quot;@every&quot;,
+      &quot;arguments&quot;: &quot;30m10s&quot;,
+      &quot;worker&quot;: &quot;sendmail&quot;,
+      &quot;options&quot;: {
+        &quot;priority&quot;: 3,
+        &quot;timeout&quot;: 60,
+        &quot;max_exec_count&quot;: 3
+      },
+      &quot;current_state&quot;: {
+        &quot;status&quot;: &quot;done&quot;,
+        &quot;last_success&quot;: &quot;2017-11-20T13:31:09.01641731&quot;,
+        &quot;last_successful_job_id&quot;: &quot;abcde&quot;,
+        &quot;last_execution&quot;: &quot;2017-11-20T13:31:09.01641731&quot;,
+        &quot;last_executed_job_id&quot;: &quot;abcde&quot;,
+        &quot;last_failure&quot;: &quot;2017-11-20T13:31:09.01641731&quot;,
+        &quot;last_failed_job_id&quot;: &quot;abcde&quot;,
+        &quot;last_error&quot;: &quot;error value&quot;,
+        &quot;last_manual_execution&quot;: &quot;2017-11-20T13:31:09.01641731&quot;,
+        &quot;last_manual_job_id&quot;: &quot;abcde&quot;
+      }
+    },
+    &quot;links&quot;: {
+      &quot;self&quot;: &quot;/jobs/triggers/123123&quot;
+    }
+  }
+}</code></pre>
+
+
+<h4 id="permissions_3">Permissions<a class="headerlink" href="#permissions_3" title="Permanent link">&para;</a></h4>
+<p>To use this endpoint, an application needs a permission on the type
+<code>io.cozy.triggers</code> for the verb <code>GET</code>.</p>
+<h3 id="get-jobstriggerstrigger-idstate">GET /jobs/triggers/:trigger-id/state<a class="headerlink" href="#get-jobstriggerstrigger-idstate" title="Permanent link">&para;</a></h3>
+<p>Get the trigger current state, to give a big picture of the health of the
+trigger.</p>
+<ul>
+<li>last executed job status (<code>done</code>, <code>errored</code>, <code>queued</code> or <code>running</code>)</li>
+<li>last executed job that resulted in a successful executoin</li>
+<li>last executed job that resulted in an error</li>
+<li>last executed job from a manual execution (not executed by the trigger
+  directly)</li>
+</ul>
+<h4 id="request_5">Request<a class="headerlink" href="#request_5" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code>GET /jobs/triggers/123123/state HTTP/1.1
+Accept: application/vnd.api+json</code></pre>
+
+
+<h4 id="response_5">Response<a class="headerlink" href="#response_5" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;type&quot;: &quot;io.cozy.jobs.state&quot;,
+    &quot;id&quot;: &quot;123123&quot;,
+    &quot;attributes&quot;: {
+      &quot;status&quot;: &quot;done&quot;,
+      &quot;last_success&quot;: &quot;2017-11-20T13:31:09.01641731&quot;,
+      &quot;last_successful_job_id&quot;: &quot;abcde&quot;,
+      &quot;last_execution&quot;: &quot;2017-11-20T13:31:09.01641731&quot;,
+      &quot;last_executed_job_id&quot;: &quot;abcde&quot;,
+      &quot;last_failure&quot;: &quot;2017-11-20T13:31:09.01641731&quot;,
+      &quot;last_failed_job_id&quot;: &quot;abcde&quot;,
+      &quot;last_error&quot;: &quot;error value&quot;,
+      &quot;last_manual_execution&quot;: &quot;2017-11-20T13:31:09.01641731&quot;,
+      &quot;last_manual_job_id&quot;: &quot;abcde&quot;
+    }
+  }
+}</code></pre>
+
+
+<h4 id="permissions_4">Permissions<a class="headerlink" href="#permissions_4" title="Permanent link">&para;</a></h4>
+<p>To use this endpoint, an application needs a permission on the type
+<code>io.cozy.triggers</code> for the verb <code>GET</code>.</p>
+<h3 id="get-jobstriggerstrigger-idjobs">GET /jobs/triggers/:trigger-id/jobs<a class="headerlink" href="#get-jobstriggerstrigger-idjobs" title="Permanent link">&para;</a></h3>
+<p>Get the jobs launched by the trigger with the specified ID.</p>
+<p>Query parameters:</p>
+<ul>
+<li><code>Limit</code>: to specify the number of jobs to get out</li>
+</ul>
+<h4 id="request_6">Request<a class="headerlink" href="#request_6" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">GET /jobs/triggers/123123/jobs?Limit=1 HTTP/1.1
+Accept: application/vnd.api+json</code></pre>
+
+
+<h4 id="response_6">Response<a class="headerlink" href="#response_6" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: [
+    {
+      &quot;type&quot;: &quot;io.cozy.jobs&quot;,
+      &quot;id&quot;: &quot;123123&quot;,
+      &quot;attributes&quot;: {},
+      &quot;links&quot;: {
+        &quot;self&quot;: &quot;/jobs/123123&quot;
+      }
+    }
+  ]
+}</code></pre>
+
+
+<h3 id="post-jobstriggerstrigger-idlaunch">POST /jobs/triggers/:trigger-id/launch<a class="headerlink" href="#post-jobstriggerstrigger-idlaunch" title="Permanent link">&para;</a></h3>
+<p>Launch a trigger manually given its ID and return the created job.</p>
+<h4 id="request_7">Request<a class="headerlink" href="#request_7" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">POST /jobs/triggers/123123/launch HTTP/1.1
+Accept: application/vnd.api+json</code></pre>
+
+
+<h4 id="response_7">Response<a class="headerlink" href="#response_7" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;type&quot;: &quot;io.cozy.jobs&quot;,
+    &quot;id&quot;: &quot;123123&quot;,
+    &quot;attributes&quot;: {
+      &quot;domain&quot;: &quot;me.cozy.tools&quot;,
+      &quot;worker&quot;: &quot;sendmail&quot;,
+      &quot;options&quot;: {},
+      &quot;state&quot;: &quot;running&quot;,
+      &quot;queued_at&quot;: &quot;2016-09-19T12:35:08Z&quot;,
+      &quot;started_at&quot;: &quot;2016-09-19T12:35:08Z&quot;,
+      &quot;error&quot;: &quot;&quot;
+    },
+    &quot;links&quot;: {
+      &quot;self&quot;: &quot;/jobs/123123&quot;
+    }
+  }
+}</code></pre>
+
+
+<h4 id="permissions_5">Permissions<a class="headerlink" href="#permissions_5" title="Permanent link">&para;</a></h4>
+<p>To use this endpoint, an application needs a permission on the type
+<code>io.cozy.triggers</code> for the verb <code>POST</code>.</p>
+<h3 id="delete-jobstriggerstrigger-id">DELETE /jobs/triggers/:trigger-id<a class="headerlink" href="#delete-jobstriggerstrigger-id" title="Permanent link">&para;</a></h3>
+<p>Delete a trigger given its ID.</p>
+<h4 id="request_8">Request<a class="headerlink" href="#request_8" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">DELETE /jobs/triggers/123123 HTTP/1.1
+Accept: application/vnd.api+json</code></pre>
+
+
+<h4 id="permissions_6">Permissions<a class="headerlink" href="#permissions_6" title="Permanent link">&para;</a></h4>
+<p>To use this endpoint, an application needs a permission on the type
+<code>io.cozy.triggers</code> for the verb <code>DELETE</code>.</p>
+<h3 id="get-jobstriggers">GET /jobs/triggers<a class="headerlink" href="#get-jobstriggers" title="Permanent link">&para;</a></h3>
+<p>Get the list of triggers.</p>
+<p>Query parameters:</p>
+<ul>
+<li><code>Worker</code>: to filter only triggers associated with a specific worker.</li>
+</ul>
+<h4 id="request_9">Request<a class="headerlink" href="#request_9" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">GET /jobs/triggers?Worker=konnector HTTP/1.1
+Accept: application/vnd.api+json</code></pre>
+
+
+<h4 id="response_8">Response<a class="headerlink" href="#response_8" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: [
+    {
+      &quot;type&quot;: &quot;io.cozy.triggers&quot;,
+      &quot;id&quot;: &quot;123123&quot;,
+      &quot;attributes&quot;: {},
+      &quot;links&quot;: {
+        &quot;self&quot;: &quot;/jobs/triggers/123123&quot;
+      }
+    }
+  ]
+}</code></pre>
+
+
+<h4 id="permissions_7">Permissions<a class="headerlink" href="#permissions_7" title="Permanent link">&para;</a></h4>
+<p>To use this endpoint, an application needs a permission on the type
+<code>io.cozy.triggers</code> for the verb <code>GET</code>. When used on a specific worker, the
+permission can be specified on the <code>worker</code> field.</p>
+<h2 id="worker-pool">Worker pool<a class="headerlink" href="#worker-pool" title="Permanent link">&para;</a></h2>
+<p>The consuming side of the job queue is handled by a worker pool.</p>
+<p>On a monolithic cozy-stack, the worker pool has a configurable fixed size of
+workers. The default value is not yet determined. Each time a worker has
+finished a job, it check the queue and based on the priority and the queued date
+of the job, picks a new job to execute.</p>
+<h2 id="permissions_8">Permissions<a class="headerlink" href="#permissions_8" title="Permanent link">&para;</a></h2>
+<p>In order to prevent jobs from leaking informations between applications, we may
+need to add filtering per applications: for instance one queue per applications.</p>
+<p>We should also have an explicit check on the permissions of the applications
+before launching a job scheduled by an application. For more information, refer
+to our <a href="../permissions">permission document</a>.</p>
+<h2 id="multi-stack">Multi-stack<a class="headerlink" href="#multi-stack" title="Permanent link">&para;</a></h2>
+<p>When some instances are served by several stacks, the scheduling and running of
+jobs can be distributed on the stacks. The synchronization is done via redis.</p>
+<p>For scheduling, there is one important key in redis: <code>triggers</code>. It&rsquo;s a sorted
+set. The members are the identifiants of the triggers (with the domain name),
+and the score are the timestamp of the next time the trigger should occur.
+During the short period of time where a trigger is processed, its key is moved
+to <code>scheduling</code> (another sorted set). So, even if a stack crash during
+processing a trigger, this trigger won&rsquo;t be lost.</p>
+<p>For <code>@event</code> triggers, we don&rsquo;t use the same mechanism. Each stack has all the
+triggers in memory and is responsible to trigger them for the events generated
+by the HTTP requests of their API. They also publish them on redis: this pub/sub
+is used for the realtime API.</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

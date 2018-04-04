@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/data-system/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>/data - Data System - Cozy Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Cozy Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Use <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/">User guide</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Stay in sync</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronize your phone</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronize your computer</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Install on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Download</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../dev/">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="../../dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="../../dev/app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="../../dev/konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="../../dev/cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="../../dev/sendmail/">How to send mail in development</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">References</a>
+    <ul class="dropdown-menu">
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-doctypes</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bank/">Banking doctypes</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bills/">Bills</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.contacts/">Contacts</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.files/">Files</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.notifications/">Notifications</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.photos.albums/">Albums</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/">Remote requests</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/">Session logins</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-stack</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../README/">README</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Architecture</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../architecture/">General overview</a>
+</li>
+            
+<li >
+    <a href="../security/">Security</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Usage</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../INSTALL/">Install the cozy-stack</a>
+</li>
+            
+<li >
+    <a href="../cli/cozy-stack/">Manpages of the command-line tool</a>
+</li>
+            
+<li >
+    <a href="../config/">Configuration file</a>
+</li>
+            
+<li >
+    <a href="../instance/">Managing Instances</a>
+</li>
+            
+<li >
+    <a href="../onboarding/">Onboarding</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">For developpers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../client-app-dev/">Develop a client-side app</a>
+</li>
+            
+<li >
+    <a href="../docker/">Running and building Docker images</a>
+</li>
+            
+<li >
+    <a href="../release/">Build a release</a>
+</li>
+            
+<li >
+    <a href="../CONTRIBUTING/">The contributing guide</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Services</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../auth/">/auth - Authentication & OAuth</a>
+</li>
+            
+<li >
+    <a href="../apps/">/apps - Applications Management</a>
+</li>
+            
+<li >
+    <a href="../registry/">Apps registry</a>
+</li>
+            
+<li class="active">
+    <a href="./">/data - Data System</a>
+</li>
+            
+<li >
+    <a href="../mango/">Mango</a>
+</li>
+            
+<li >
+    <a href="../replication/">Replication</a>
+</li>
+            
+<li >
+    <a href="../couchdb-quirks/">CouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../files/">/files - Virtual File System</a>
+</li>
+            
+<li >
+    <a href="../references-docs-in-vfs/">References of documents in VFS</a>
+</li>
+            
+<li >
+    <a href="../intents/">/intents - Intents</a>
+</li>
+            
+<li >
+    <a href="../jobs/">/jobs Jobs</a>
+</li>
+            
+<li >
+    <a href="../konnectors/">Konnectors</a>
+</li>
+            
+<li >
+    <a href="../workers/">Workers</a>
+</li>
+            
+<li >
+    <a href="../notifications/">/notifications - Notifications</a>
+</li>
+            
+<li >
+    <a href="../permissions/">/permissions - Permissions</a>
+</li>
+            
+<li >
+    <a href="../realtime/">/realtime - Realtime</a>
+</li>
+            
+<li >
+    <a href="../remote/">/remote - Proxy for remote data/API</a>
+</li>
+            
+<li >
+    <a href="../settings/">/settings - Settings</a>
+</li>
+            
+<li >
+    <a href="../sharing/">/sharings - Sharing</a>
+</li>
+            
+<li >
+    <a href="../sharing-design/">Request for comments</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#data-system">Data System</a></li>
+            <li><a href="#typing">Typing</a></li>
+            <li><a href="#access-a-document">Access a document</a></li>
+            <li><a href="#access-multiple-documents-at-once">Access multiple documents at once</a></li>
+            <li><a href="#create-a-document">Create a document</a></li>
+            <li><a href="#update-an-existing-document">Update an existing document</a></li>
+            <li><a href="#create-a-document-with-a-fixed-id">Create a document with a fixed id</a></li>
+            <li><a href="#delete-a-document">Delete a document</a></li>
+            <li><a href="#list-all-the-documents">List all the documents</a></li>
+            <li><a href="#list-the-known-doctypes">List the known doctypes</a></li>
+            <li><a href="#others">Others</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<p><a href="../README/#table-of-contents">Table of contents</a></p>
+<h1 id="data-system">Data System<a class="headerlink" href="#data-system" title="Permanent link">&para;</a></h1>
+<h2 id="typing">Typing<a class="headerlink" href="#typing" title="Permanent link">&para;</a></h2>
+<p>The notion of document type does not exist in Couchdb.</p>
+<p>Cozy-stack introduce this notion through a special <code>_type</code> field.</p>
+<p>This type name cannot contain <code>/</code>, and it should be unique among all developers,
+it is recommended to use the Java naming convention with a domain you own.</p>
+<p>All CozyCloud types will be prefixed by io.cozy and be pluralized. Example :
+<code>/data/io.cozy.events/6494e0ac-dfcb-11e5-88c1-472e84a9cbee</code> Where, <code>io.cozy.</code> is
+the developer specific prefix, <code>events</code> the actual type, and
+<code>6494e0ac-dfcb-11e5-88c1-472e84a9cbee</code> the document&rsquo;s unique id .</p>
+<h2 id="access-a-document">Access a document<a class="headerlink" href="#access-a-document" title="Permanent link">&para;</a></h2>
+<h3 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-http">GET /data/:type/:id HTTP/1.1</code></pre>
+
+
+<pre class="codehilite"><code class="language-http">GET /data/io.cozy.events/6494e0ac-dfcb-11e5-88c1-472e84a9cbee HTTP/1.1</code></pre>
+
+
+<h3 id="response-ok">Response OK<a class="headerlink" href="#response-ok" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Date: Mon, 27 Sept 2016 12:28:53 GMT
+Content-Length: ...
+Content-Type: application/json
+Etag: &quot;3-6494e0ac6494e0ac&quot;</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;_id&quot;: &quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;,
+  &quot;_type&quot;: &quot;io.cozy.events&quot;,
+  &quot;_rev&quot;: &quot;3-6494e0ac6494e0ac&quot;,
+  &quot;startdate&quot;: &quot;20160823T150000Z&quot;,
+  &quot;enddate&quot;: &quot;20160923T160000Z&quot;,
+  &quot;summary&quot;: &quot;A long month&quot;,
+  &quot;description&quot;: &quot;I could go on and on and on ....&quot;
+}</code></pre>
+
+
+<h3 id="response-error">Response Error<a class="headerlink" href="#response-error" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 404 Not Found
+Content-Length: ...
+Content-Type: application/json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;status&quot;: 404,
+  &quot;error&quot;: &quot;not_found&quot;,
+  &quot;reason&quot;: &quot;deleted&quot;,
+  &quot;title&quot;: &quot;Event deleted&quot;,
+  &quot;details&quot;: &quot;Event 6494e0ac-dfcb-11e5-88c1-472e84a9cbee was deleted&quot;,
+  &quot;links&quot;: { &quot;about&quot;: &quot;https://cozy.github.io/cozy-stack/errors.md#deleted&quot; }
+}</code></pre>
+
+
+<h3 id="possible-errors">possible errors :<a class="headerlink" href="#possible-errors" title="Permanent link">&para;</a></h3>
+<ul>
+<li>401 unauthorized (no authentication has been provided)</li>
+<li>403 forbidden (the authentication does not provide permissions for this
+  action)</li>
+<li>404 not_found</li>
+<li>reason: missing</li>
+<li>reason: deleted</li>
+<li>500 internal server error</li>
+</ul>
+<h2 id="access-multiple-documents-at-once">Access multiple documents at once<a class="headerlink" href="#access-multiple-documents-at-once" title="Permanent link">&para;</a></h2>
+<h3 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-http">POST /data/:type/_all_docs HTTP/1.1</code></pre>
+
+
+<pre class="codehilite"><code class="language-http">POST /data/io.cozy.files/_all_docs?include_docs=true HTTP/1.1
+Content-Length: ...
+Content-Type: application/json
+Accept: application/json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;keys&quot;: [
+    &quot;7f46ed4ed2a775494da3b0b44e00314f&quot;,
+    &quot;7f46ed4ed2a775494da3b0b44e003b18&quot;
+  ]
+}</code></pre>
+
+
+<h3 id="response-ok_1">Response OK<a class="headerlink" href="#response-ok_1" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Date: Mon, 27 Sept 2016 12:28:53 GMT
+Content-Length: ...
+Content-Type: application/json
+Etag: &quot;3-6494e0ac6494e0ac&quot;</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;total_rows&quot;: 11,
+  &quot;rows&quot;: [
+    {
+      &quot;id&quot;: &quot;7f46ed4ed2a775494da3b0b44e00314f&quot;,
+      &quot;key&quot;: &quot;7f46ed4ed2a775494da3b0b44e00314f&quot;,
+      &quot;value&quot;: {
+        &quot;rev&quot;: &quot;1-870e58f8a1b2130c3a41e767f9c7d93a&quot;
+      },
+      &quot;doc&quot;: {
+        &quot;_id&quot;: &quot;7f46ed4ed2a775494da3b0b44e00314f&quot;,
+        &quot;_rev&quot;: &quot;1-870e58f8a1b2130c3a41e767f9c7d93a&quot;,
+        &quot;type&quot;: &quot;directory&quot;,
+        &quot;name&quot;: &quot;Uploaded from Cozy Photos&quot;,
+        &quot;dir_id&quot;: &quot;7f46ed4ed2a775494da3b0b44e0027df&quot;,
+        &quot;created_at&quot;: &quot;2017-07-04T06:49:12.844631837Z&quot;,
+        &quot;updated_at&quot;: &quot;2017-07-04T06:49:12.844631837Z&quot;,
+        &quot;tags&quot;: [],
+        &quot;path&quot;: &quot;/Photos/Uploaded from Cozy Photos&quot;
+      }
+    },
+    {
+      &quot;key&quot;: &quot;7f46ed4ed2a775494da3b0b44e003b18&quot;,
+      &quot;error&quot;: &quot;not_found&quot;
+    }
+  ]
+}</code></pre>
+
+
+<h3 id="possible-errors_1">possible errors :<a class="headerlink" href="#possible-errors_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>401 unauthorized (no authentication has been provided)</li>
+<li>403 forbidden (the authentication does not provide permissions for this
+  action)</li>
+<li>500 internal server error</li>
+</ul>
+<h3 id="details">Details<a class="headerlink" href="#details" title="Permanent link">&para;</a></h3>
+<p>When some keys don&rsquo;t match an existing document, the response still has a status
+200 and the errors are included in the <code>rows</code> field (see above, same behavior as
+<a href="http://docs.couchdb.org/en/2.1.0/api/database/bulk-api.html#post--db-_all_docs">CouchDB</a>).</p>
+<h2 id="create-a-document">Create a document<a class="headerlink" href="#create-a-document" title="Permanent link">&para;</a></h2>
+<h3 id="request_2">Request<a class="headerlink" href="#request_2" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-http">POST /data/:type/ HTTP/1.1</code></pre>
+
+
+<pre class="codehilite"><code class="language-http">POST /data/io.cozy.events/ HTTP/1.1
+Content-Length: ...
+Content-Type: application/json
+Accept: application/json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;startdate&quot;: &quot;20160712T150000&quot;,
+  &quot;enddate&quot;: &quot;20160712T150000&quot;
+}</code></pre>
+
+
+<h3 id="response-ok_2">Response OK<a class="headerlink" href="#response-ok_2" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 201 Created
+Content-Length: ...
+Content-Type: application/json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;id&quot;: &quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;,
+  &quot;type&quot;: &quot;io.cozy.events&quot;,
+  &quot;ok&quot;: true,
+  &quot;rev&quot;: &quot;1-6494e0ac6494e0ac&quot;,
+  &quot;data&quot;: {
+    &quot;_id&quot;: &quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;,
+    &quot;_type&quot;: &quot;io.cozy.events&quot;,
+    &quot;_rev&quot;: &quot;1-6494e0ac6494e0ac&quot;,
+    &quot;startdate&quot;: &quot;20160712T150000&quot;,
+    &quot;enddate&quot;: &quot;20160712T150000&quot;
+  }
+}</code></pre>
+
+
+<h3 id="possible-errors_2">possible errors :<a class="headerlink" href="#possible-errors_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>400 bad request</li>
+<li>401 unauthorized (no authentication has been provided)</li>
+<li>403 forbidden (the authentication does not provide permissions for this
+  action)</li>
+<li>500 internal server error</li>
+</ul>
+<h3 id="details_1">Details<a class="headerlink" href="#details_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>A doc cannot contain an <code>_id</code> field, if so an error 400 is returned</li>
+<li>A doc cannot contain any field starting with <code>_</code>, those are reserved for
+  future cozy &amp; couchdb api evolution</li>
+</ul>
+<h2 id="update-an-existing-document">Update an existing document<a class="headerlink" href="#update-an-existing-document" title="Permanent link">&para;</a></h2>
+<h3 id="request_3">Request<a class="headerlink" href="#request_3" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-http">PUT /data/:type/:id HTTP/1.1</code></pre>
+
+
+<pre class="codehilite"><code class="language-http">PUT /data/io.cozy.events/6494e0ac-dfcb-11e5-88c1-472e84a9cbee HTTP/1.1
+Content-Length: ...
+Content-Type: application/json
+Accept: application/json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;_id&quot;: &quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;,
+  &quot;_type&quot;: &quot;io.cozy.events&quot;,
+  &quot;_rev&quot;: &quot;1-6494e0ac6494e0ac&quot;,
+  &quot;startdate&quot;: &quot;20160712T150000&quot;,
+  &quot;enddate&quot;: &quot;20160712T200000&quot;
+}</code></pre>
+
+
+<h3 id="response-ok_3">Response OK<a class="headerlink" href="#response-ok_3" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-Length: ...
+Content-Type: application/json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;id&quot;: &quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;,
+  &quot;type&quot;: &quot;io.cozy.events&quot;,
+  &quot;ok&quot;: true,
+  &quot;rev&quot;: &quot;2-056f5f44046ecafc08a2bc2b9c229e20&quot;,
+  &quot;data&quot;: {
+    &quot;_id&quot;: &quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;,
+    &quot;_type&quot;: &quot;io.cozy.events&quot;,
+    &quot;_rev&quot;: &quot;2-056f5f44046ecafc08a2bc2b9c229e20&quot;,
+    &quot;startdate&quot;: &quot;20160712T150000&quot;,
+    &quot;enddate&quot;: &quot;20160712T200000&quot;
+  }
+}</code></pre>
+
+
+<h3 id="possible-errors_3">Possible errors :<a class="headerlink" href="#possible-errors_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li>400 bad request</li>
+<li>401 unauthorized (no authentication has been provided)</li>
+<li>403 forbidden (the authentication does not provide permissions for this
+  action)</li>
+<li>404 not_found</li>
+<li>reason: missing</li>
+<li>reason: deleted</li>
+<li>409 Conflict (see Conflict prevention section below)</li>
+<li>500 internal server error</li>
+</ul>
+<h3 id="conflict-prevention">Conflict prevention<a class="headerlink" href="#conflict-prevention" title="Permanent link">&para;</a></h3>
+<p>The client MUST give a <code>_rev</code> field in the document. If this field is different
+from the one in the current version of the document, an error 409 Conflict will
+be returned.</p>
+<h3 id="details_2">Details<a class="headerlink" href="#details_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>If no id is provided in URL, an error 400 is returned</li>
+<li>If the id provided in URL is not the same than the one in document, an error
+  400 is returned.</li>
+</ul>
+<h2 id="create-a-document-with-a-fixed-id">Create a document with a fixed id<a class="headerlink" href="#create-a-document-with-a-fixed-id" title="Permanent link">&para;</a></h2>
+<h3 id="request_4">Request<a class="headerlink" href="#request_4" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-http">PUT /data/:type/:id HTTP/1.1</code></pre>
+
+
+<pre class="codehilite"><code class="language-http">PUT /data/io.cozy.events/6494e0ac-dfcb-11e5-88c1-472e84a9cbee HTTP/1.1
+Content-Length: ...
+Content-Type: application/json
+Accept: application/json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;startdate&quot;: &quot;20160712T150000&quot;,
+  &quot;enddate&quot;: &quot;20160712T200000&quot;
+}</code></pre>
+
+
+<h3 id="response-ok_4">Response OK<a class="headerlink" href="#response-ok_4" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-Length: ...
+Content-Type: application/json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;id&quot;: &quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;,
+  &quot;type&quot;: &quot;io.cozy.events&quot;,
+  &quot;ok&quot;: true,
+  &quot;rev&quot;: &quot;1-056f5f44046ecafc08a2bc2b9c229e20&quot;,
+  &quot;data&quot;: {
+    &quot;_id&quot;: &quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;,
+    &quot;_type&quot;: &quot;io.cozy.events&quot;,
+    &quot;_rev&quot;: &quot;1-056f5f44046ecafc08a2bc2b9c229e20&quot;,
+    &quot;startdate&quot;: &quot;20160712T150000&quot;,
+    &quot;enddate&quot;: &quot;20160712T200000&quot;
+  }
+}</code></pre>
+
+
+<h3 id="possible-errors_4">Possible errors :<a class="headerlink" href="#possible-errors_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li>400 bad request</li>
+<li>401 unauthorized (no authentication has been provided)</li>
+<li>403 forbidden (the authentication does not provide permissions for this
+  action)</li>
+<li>404 not_found</li>
+<li>reason: missing</li>
+<li>reason: deleted</li>
+<li>409 Conflict (see Conflict prevention section below)</li>
+<li>500 internal server error</li>
+</ul>
+<h3 id="details_3">Details<a class="headerlink" href="#details_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li>No id should be provide in the document itself</li>
+</ul>
+<h2 id="delete-a-document">Delete a document<a class="headerlink" href="#delete-a-document" title="Permanent link">&para;</a></h2>
+<h3 id="request_5">Request<a class="headerlink" href="#request_5" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-http">DELETE /data/:type/:id?rev=:rev HTTP/1.1</code></pre>
+
+
+<pre class="codehilite"><code class="language-http">DELETE /data/io.cozy.events/6494e0ac-dfcb-11e5-88c1-472e84a9cbee?rev=1-82a7144c9ec228c9a851b8a1c1aa225b HTTP/1.1
+Accept: application/json</code></pre>
+
+
+<h3 id="response-ok_5">Response OK<a class="headerlink" href="#response-ok_5" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-Length: ...
+Content-Type: application/json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;id&quot;: &quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;,
+  &quot;type&quot;: &quot;io.cozy.events&quot;,
+  &quot;ok&quot;: true,
+  &quot;rev&quot;: &quot;2-056f5f44046ecafc08a2bc2b9c229e20&quot;,
+  &quot;_deleted&quot;: true
+}</code></pre>
+
+
+<h3 id="possible-errors_5">Possible errors :<a class="headerlink" href="#possible-errors_5" title="Permanent link">&para;</a></h3>
+<ul>
+<li>400 bad request</li>
+<li>401 unauthorized (no authentication has been provided)</li>
+<li>403 forbidden (the authentication does not provide permissions for this
+  action)</li>
+<li>404 not_found</li>
+<li>reason: missing</li>
+<li>reason: deleted</li>
+<li>409 Conflict (see Conflict prevention section below)</li>
+<li>500 internal server error</li>
+</ul>
+<h3 id="conflict-prevention_1">Conflict prevention<a class="headerlink" href="#conflict-prevention_1" title="Permanent link">&para;</a></h3>
+<p>It is possible to use either a <code>rev</code> query string parameter or a HTTP <code>If-Match</code>
+header to prevent conflict on deletion:</p>
+<ul>
+<li>If none is passed or they are different, an error 400 is returned</li>
+<li>If only one is passed or they are equals, the document will only be deleted if
+  its <code>_rev</code> match the passed one. Otherwise, an error 409 is returned.</li>
+</ul>
+<h3 id="details_4">Details<a class="headerlink" href="#details_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li>If no id is provided in URL, an error 400 is returned</li>
+</ul>
+<h2 id="list-all-the-documents">List all the documents<a class="headerlink" href="#list-all-the-documents" title="Permanent link">&para;</a></h2>
+<h3 id="request_6">Request<a class="headerlink" href="#request_6" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-http">GET /data/io.cozy.events/_all_docs?include_docs=true HTTP/1.1
+Accept: application/json</code></pre>
+
+
+<h3 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-Type: application/json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;offset&quot;: 0,
+  &quot;rows&quot;: [
+    {
+      &quot;id&quot;: &quot;16e458537602f5ef2a710089dffd9453&quot;,
+      &quot;key&quot;: &quot;16e458537602f5ef2a710089dffd9453&quot;,
+      &quot;value&quot;: {
+        &quot;rev&quot;: &quot;1-967a00dff5e02add41819138abb3284d&quot;
+      },
+      &quot;doc&quot;: {
+        &quot;field&quot;: &quot;value&quot;
+      }
+    },
+    {
+      &quot;id&quot;: &quot;f4ca7773ddea715afebc4b4b15d4f0b3&quot;,
+      &quot;key&quot;: &quot;f4ca7773ddea715afebc4b4b15d4f0b3&quot;,
+      &quot;value&quot;: {
+        &quot;rev&quot;: &quot;2-7051cbe5c8faecd085a3fa619e6e6337&quot;
+      },
+      &quot;doc&quot;: {
+        &quot;field&quot;: &quot;other-value&quot;
+      }
+    }
+  ],
+  &quot;total_rows&quot;: 2
+}</code></pre>
+
+
+<h3 id="details_5">Details<a class="headerlink" href="#details_5" title="Permanent link">&para;</a></h3>
+<p>See
+<a href="http://docs.couchdb.org/en/2.1.0/api/database/bulk-api.html#db-all-docs"><code>_all_docs</code> in couchdb docs</a></p>
+<h2 id="list-the-known-doctypes">List the known doctypes<a class="headerlink" href="#list-the-known-doctypes" title="Permanent link">&para;</a></h2>
+<h3 id="request_7">Request<a class="headerlink" href="#request_7" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-http">GET /data/_all_doctypes HTTP/1.1
+Accept: application/json</code></pre>
+
+
+<h3 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-Type: application/json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">[&quot;io.cozy.files&quot;, &quot;io.cozy.jobs&quot;, &quot;io.cozy.triggers&quot;, &quot;io.cozy.settings&quot;]</code></pre>
+
+
+<h2 id="others">Others<a class="headerlink" href="#others" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The creation and usage of <a href="../mango/">Mango indexes</a> is possible.</li>
+<li>CouchDB behaviors are not always straight forward: see <a href="../couchdb-quirks/">some
+  quirks</a> for more details.</li>
+</ul></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

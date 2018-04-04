@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/apps/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>/apps - Applications Management - Cozy Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Cozy Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Use <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/">User guide</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Stay in sync</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronize your phone</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronize your computer</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Install on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Download</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../dev/">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="../../dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="../../dev/app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="../../dev/konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="../../dev/cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="../../dev/sendmail/">How to send mail in development</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">References</a>
+    <ul class="dropdown-menu">
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-doctypes</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bank/">Banking doctypes</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bills/">Bills</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.contacts/">Contacts</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.files/">Files</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.notifications/">Notifications</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.photos.albums/">Albums</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/">Remote requests</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/">Session logins</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-stack</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../README/">README</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Architecture</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../architecture/">General overview</a>
+</li>
+            
+<li >
+    <a href="../security/">Security</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Usage</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../INSTALL/">Install the cozy-stack</a>
+</li>
+            
+<li >
+    <a href="../cli/cozy-stack/">Manpages of the command-line tool</a>
+</li>
+            
+<li >
+    <a href="../config/">Configuration file</a>
+</li>
+            
+<li >
+    <a href="../instance/">Managing Instances</a>
+</li>
+            
+<li >
+    <a href="../onboarding/">Onboarding</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">For developpers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../client-app-dev/">Develop a client-side app</a>
+</li>
+            
+<li >
+    <a href="../docker/">Running and building Docker images</a>
+</li>
+            
+<li >
+    <a href="../release/">Build a release</a>
+</li>
+            
+<li >
+    <a href="../CONTRIBUTING/">The contributing guide</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Services</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../auth/">/auth - Authentication & OAuth</a>
+</li>
+            
+<li class="active">
+    <a href="./">/apps - Applications Management</a>
+</li>
+            
+<li >
+    <a href="../registry/">Apps registry</a>
+</li>
+            
+<li >
+    <a href="../data-system/">/data - Data System</a>
+</li>
+            
+<li >
+    <a href="../mango/">Mango</a>
+</li>
+            
+<li >
+    <a href="../replication/">Replication</a>
+</li>
+            
+<li >
+    <a href="../couchdb-quirks/">CouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../files/">/files - Virtual File System</a>
+</li>
+            
+<li >
+    <a href="../references-docs-in-vfs/">References of documents in VFS</a>
+</li>
+            
+<li >
+    <a href="../intents/">/intents - Intents</a>
+</li>
+            
+<li >
+    <a href="../jobs/">/jobs Jobs</a>
+</li>
+            
+<li >
+    <a href="../konnectors/">Konnectors</a>
+</li>
+            
+<li >
+    <a href="../workers/">Workers</a>
+</li>
+            
+<li >
+    <a href="../notifications/">/notifications - Notifications</a>
+</li>
+            
+<li >
+    <a href="../permissions/">/permissions - Permissions</a>
+</li>
+            
+<li >
+    <a href="../realtime/">/realtime - Realtime</a>
+</li>
+            
+<li >
+    <a href="../remote/">/remote - Proxy for remote data/API</a>
+</li>
+            
+<li >
+    <a href="../settings/">/settings - Settings</a>
+</li>
+            
+<li >
+    <a href="../sharing/">/sharings - Sharing</a>
+</li>
+            
+<li >
+    <a href="../sharing-design/">Request for comments</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#applications">Applications</a></li>
+            <li><a href="#install-an-application">Install an application</a></li>
+            <li><a href="#resource-caching">Resource caching</a></li>
+            <li><a href="#sources">Sources</a></li>
+            <li><a href="#list-installed-applications">List installed applications</a></li>
+            <li><a href="#get-informations-about-an-application">Get informations about an application</a></li>
+            <li><a href="#get-the-icon-of-an-application">Get the icon of an application</a></li>
+            <li><a href="#uninstall-an-application">Uninstall an application</a></li>
+            <li><a href="#access-an-application">Access an application</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<p><a href="../README/#table-of-contents">Table of contents</a></p>
+<h1 id="applications">Applications<a class="headerlink" href="#applications" title="Permanent link">&para;</a></h1>
+<p>It&rsquo;s possible to manage serverless applications from the cozy stack and serve
+them via cozy stack. The stack does the routing and serve the HTML and the
+assets for the applications. The assets of the applications are installed in the
+virtual file system.</p>
+<h2 id="install-an-application">Install an application<a class="headerlink" href="#install-an-application" title="Permanent link">&para;</a></h2>
+<h3 id="the-manifest">The manifest<a class="headerlink" href="#the-manifest" title="Permanent link">&para;</a></h3>
+<p>To install an application, cozy needs a manifest. It&rsquo;s a JSON document that
+describes the application (its name and icon for example), how to install it and
+what it needs for its usage (the permissions in particular). While we have
+considered to use the same
+<a href="https://www.w3.org/TR/appmanifest/">manifest format as the W3C for PWAs</a>, it
+didn&rsquo;t match our expectations. The
+<a href="https://developer.mozilla.org/en-US/docs/Archive/Firefox_OS/Firefox_OS_apps/Building_apps_for_Firefox_OS/Manifest">manifest format for FirefoxOS</a>
+is a better fit. We took a lot of inspirations from it, starting with the
+filename for this file: <code>manifest.webapp</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>the name to display on the home</td>
+</tr>
+<tr>
+<td>name_prefix</td>
+<td>the prefix to display with the name</td>
+</tr>
+<tr>
+<td>slug</td>
+<td>the default slug (it can be changed at install time)</td>
+</tr>
+<tr>
+<td>editor</td>
+<td>the editor&rsquo;s name to display on the cozy-bar of the app</td>
+</tr>
+<tr>
+<td>icon</td>
+<td>an icon for the home</td>
+</tr>
+<tr>
+<td>screenshots</td>
+<td>an array of path to the screenshots of the application</td>
+</tr>
+<tr>
+<td>category</td>
+<td>the category of the application</td>
+</tr>
+<tr>
+<td>short_description</td>
+<td>a short description of the application</td>
+</tr>
+<tr>
+<td>long_description</td>
+<td>a long description of the application</td>
+</tr>
+<tr>
+<td>source</td>
+<td>where the files of the app can be downloaded</td>
+</tr>
+<tr>
+<td>developer</td>
+<td><code>name</code> and <code>url</code> for the developer</td>
+</tr>
+<tr>
+<td>locales</td>
+<td>translations of the name and description fields in other locales</td>
+</tr>
+<tr>
+<td>langs</td>
+<td>list of languages tags supported by the application</td>
+</tr>
+<tr>
+<td>version</td>
+<td>the current version number</td>
+</tr>
+<tr>
+<td>license</td>
+<td><a href="https://spdx.org/licenses/">the SPDX license identifier</a></td>
+</tr>
+<tr>
+<td>platforms</td>
+<td>a list of <code>type</code>, <code>url</code> values for derivate of the application for other devices</td>
+</tr>
+<tr>
+<td>intents</td>
+<td>a list of intents provided by this app (see <a href="../intents/">here</a> for more details)</td>
+</tr>
+<tr>
+<td>permissions</td>
+<td>a map of permissions needed by the app (see <a href="../permissions/">here</a> for more details)</td>
+</tr>
+<tr>
+<td>notifications</td>
+<td>a map of notifications needed by the app (see <a href="../notifications/">here</a> for more details)</td>
+</tr>
+<tr>
+<td>services</td>
+<td>a map of the services associated with the app (see below for more details)</td>
+</tr>
+<tr>
+<td>routes</td>
+<td>a map of routes for the app (see below for more details)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="routes">Routes<a class="headerlink" href="#routes" title="Permanent link">&para;</a></h3>
+<p>A route make the mapping between the requested paths and the files. It can have
+an index, which is an HTML file, with a token injected on it that identify both
+the application. This token must be used with the user cookies to use the
+services of the cozy-stack.</p>
+<p>By default, a route can be only visited by the authenticated owner of the
+instance where the app is installed. But a route can be marked as public. In
+that case, anybody can visit the route.</p>
+<p>For example, an application can offer an administration interface on <code>/admin</code>, a
+public page on <code>/public</code>, and shared assets in <code>/assets</code>:</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;/admin&quot;: {
+    &quot;folder&quot;: &quot;/&quot;,
+    &quot;index&quot;: &quot;admin.html&quot;,
+    &quot;public&quot;: false
+  },
+  &quot;/public&quot;: {
+    &quot;folder&quot;: &quot;/public&quot;,
+    &quot;index&quot;: &quot;index.html&quot;,
+    &quot;public&quot;: true
+  },
+  &quot;/assets&quot;: {
+    &quot;folder&quot;: &quot;/assets&quot;,
+    &quot;public&quot;: true
+  }
+}</code></pre>
+
+
+<p>If an application has no routes in its manifest, the stack will create one
+route, this default one:</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;/&quot;: {
+    &quot;folder&quot;: &quot;/&quot;,
+    &quot;index&quot;: &quot;index.html&quot;,
+    &quot;public&quot;: false
+  }
+}</code></pre>
+
+
+<p><strong>Note</strong>: if you have a public route, it&rsquo;s probably better to put the app icon
+in it. So, the cozy-bar can display it for the users that go on the public part
+of the app.</p>
+<h3 id="services">Services<a class="headerlink" href="#services" title="Permanent link">&para;</a></h3>
+<p>Application may require background and offline process to analyse the user&rsquo;s
+data and emit some notification or warning even without the user being on the
+application. These part of the application are called services and can be
+declared as part of the application in its manifest.</p>
+<p>In contrast to <a href="../konnectors/">konnectors</a>, services have the same
+permissions as the web application and are not intended to collect outside
+informations but rather analyse the current set of collected information
+inside the cozy. However they share the same mechanisms as the konnectors to
+describe how and when they should be executed: via our trigger system.</p>
+<p>To define a service, first the code needs to be stored with the application
+content, as single (packaged) javascript files. In the manifest, declare the
+service and its parameters following this example:</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;services&quot;: {
+    &quot;low-budget-notification&quot;: {
+      &quot;type&quot;: &quot;node&quot;,
+      &quot;file&quot;: &quot;/services/low-budget-notification.js&quot;,
+      &quot;trigger&quot;: &quot;@cron 0 0 0 * * *&quot;
+    }
+    // ...
+  }
+}</code></pre>
+
+
+<p>The <code>trigger</code> field should follow the available triggers described in the
+<a href="../jobs/">jobs documentation</a>. The <code>file</code> field should specify the service
+code run and the <code>type</code> field describe the code type (only <code>"node"</code> for now).</p>
+<h3 id="notifications">Notifications<a class="headerlink" href="#notifications" title="Permanent link">&para;</a></h3>
+<p>For more informations on how te declare notifications in the manifest, see
+the <a href="../notifications/">notifications documentation</a>.</p>
+<p>Here is an example:</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;notifications&quot;: {
+    &quot;account-balance&quot;: {
+      &quot;description&quot;: &quot;Alert the user when its account balance is negative&quot;,
+      &quot;collapsible&quot;: true,        // only interested in the last value of the notification
+      &quot;multiple&quot;: true,           // require sub-categories for each account
+      &quot;stateful&quot;: false,
+      &quot;default_priority&quot;: &quot;high&quot;, // high priority for this notification
+      &quot;templates&quot;: {
+        &quot;mail&quot;: &quot;file:./notifications/account-balance-mail.tpl&quot;,
+      }
+    }
+  }
+}</code></pre>
+
+
+<h2 id="resource-caching">Resource caching<a class="headerlink" href="#resource-caching" title="Permanent link">&para;</a></h2>
+<p>To help caching of applications assets, we detect the presence of a unique
+identifier in the name of assets: a unique identifier is matched when the file
+base name contains a long hexadecimal subpart between &lsquo;.&rsquo;, of at least 10
+characters. For instance <code>app.badf00dbadf00d.js</code> or <code>icon.badbeefbadbeef.1.png</code>.</p>
+<p>With such a unique identifier, the asset is considered immutable, and a long
+cache-control is added on corresponding HTTP responses.</p>
+<p>We recommend the use of bundling tools like
+<a href="https://webpack.github.io/">webpack</a> which offer the possibility to add such
+identifier on the building step of the application packages for all assets.</p>
+<h2 id="sources">Sources<a class="headerlink" href="#sources" title="Permanent link">&para;</a></h2>
+<p>Here is the available sources, defined by the scheme of the source URL:</p>
+<ul>
+<li><code>registry://</code>: to install an application from the instance registries</li>
+<li><code>git://</code> or <code>git+ssh://</code>: to install an application from a git repository</li>
+<li><code>http://</code> or <code>https://</code>: to install an application from an http server (via a
+  tarball)</li>
+<li><code>file://</code>: to install an application from a local directory (for instance:
+  <code>file:///home/user/code/cozy-app</code>)</li>
+</ul>
+<p>The <code>registry</code> scheme expect the following elements:</p>
+<ul>
+<li>scheme: <code>registry</code></li>
+<li>host: the name of the application</li>
+<li>path: <code>/:channel</code> the channel of the application (see the
+  <a href="docs/registry.md">registry</a> doc)</li>
+</ul>
+<p>Examples: <code>registry://drive/stable</code>, <code>registry://drive/beta</code>, and
+<code>registry://drive/dev</code>.</p>
+<p>For the <code>git</code> scheme, the fragment in the URL can be used to specify which
+branch to install.</p>
+<p>For the <code>http</code> and <code>https</code> schemes, the fragment can be used to give the
+expected sha256sum.</p>
+<h3 id="post-appsslug">POST /apps/:slug<a class="headerlink" href="#post-appsslug" title="Permanent link">&para;</a></h3>
+<p>Install an application, ie download the files and put them in <code>/apps/:slug</code> in
+the virtual file system of the user, create an <code>io.cozy.apps</code> document, register
+the permissions, etc.</p>
+<p>This endpoint is asynchronous and returns a successful return as soon as the
+application installation has started, meaning we have successfully reached the
+manifest and started to fetch application data.</p>
+<p>To make this endpoint synchronous, use the header <code>Accept: text/event-stream</code>.
+This will make a eventsource stream sending the manifest and returning when the
+application has been installed or failed.</p>
+<h4 id="status-codes">Status codes<a class="headerlink" href="#status-codes" title="Permanent link">&para;</a></h4>
+<ul>
+<li>202 Accepted, when the application installation has been accepted.</li>
+<li>400 Bad-Request, when the manifest of the application could not be processed
+  (for instance, it is not valid JSON).</li>
+<li>404 Not Found, when the manifest or the source of the application is not
+  reachable.</li>
+<li>422 Unprocessable Entity, when the sent data is invalid (for example, the slug
+  is invalid or the Source parameter is not a proper or supported url)</li>
+</ul>
+<h4 id="query-string">Query-String<a class="headerlink" href="#query-string" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source</td>
+<td>URL from where the app can be downloaded (only for install)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">POST /apps/emails?Source=git://github.com/cozy/cozy-emails.git HTTP/1.1
+Accept: application/vnd.api+json</code></pre>
+
+
+<h4 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 202 Accepted
+Content-Type: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: [{
+    &quot;id&quot;: &quot;4cfbd8be-8968-11e6-9708-ef55b7c20863&quot;,
+    &quot;type&quot;: &quot;io.cozy.apps&quot;,
+    &quot;meta&quot;: {
+      &quot;rev&quot;: &quot;1-7a1f918147df94580c92b47275e4604a&quot;
+    },
+    &quot;attributes&quot;: {
+      &quot;name&quot;: &quot;calendar&quot;,
+      &quot;state&quot;: &quot;installing&quot;,
+      &quot;slug&quot;: &quot;calendar&quot;,
+      ...
+    },
+    &quot;links&quot;: {
+      &quot;self&quot;: &quot;/apps/calendar&quot;
+    }
+  }]
+}</code></pre>
+
+
+<p><strong>Note</strong>: it&rsquo;s possible to choose a git branch by passing it in the fragment
+like this:</p>
+<pre class="codehilite"><code class="language-http">POST /apps/emails-dev?Source=git://github.com/cozy/cozy-emails.git%23dev HTTP/1.1</code></pre>
+
+
+<h3 id="put-appsslug">PUT /apps/:slug<a class="headerlink" href="#put-appsslug" title="Permanent link">&para;</a></h3>
+<p>Update an application with the specified slug name.</p>
+<p>This endpoint is asynchronous and returns a successful return as soon as the
+application installation has started, meaning we have successfully reached the
+manifest and started to fetch application data.</p>
+<p>To make this endpoint synchronous, use the header <code>Accept: text/event-stream</code>.
+This will make a eventsource stream sending the manifest and returning when the
+application has been updated or failed.</p>
+<h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">PUT /apps/emails HTTP/1.1
+Accept: application/vnd.api+json</code></pre>
+
+
+<h4 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 202 Accepted
+Content-Type: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: [{
+    &quot;id&quot;: &quot;4cfbd8be-8968-11e6-9708-ef55b7c20863&quot;,
+    &quot;type&quot;: &quot;io.cozy.apps&quot;,
+    &quot;meta&quot;: {
+      &quot;rev&quot;: &quot;1-7a1f918147df94580c92b47275e4604a&quot;
+    },
+    &quot;attributes&quot;: {
+      &quot;name&quot;: &quot;calendar&quot;,
+      &quot;state&quot;: &quot;installing&quot;,
+      &quot;slug&quot;: &quot;calendar&quot;,
+      ...
+    },
+    &quot;links&quot;: {
+      &quot;self&quot;: &quot;/apps/calendar&quot;
+    }
+  }]
+}</code></pre>
+
+
+<h4 id="status-codes_1">Status codes<a class="headerlink" href="#status-codes_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li>202 Accepted, when the application installation has been accepted.</li>
+<li>400 Bad-Request, when the manifest of the application could not be processed
+  (for instance, it is not valid JSON).</li>
+<li>404 Not Found, when the application with the specified slug was not found or
+  when the manifest or the source of the application is not reachable.</li>
+<li>422 Unprocessable Entity, when the sent data is invalid (for example, the slug
+  is invalid or the Source parameter is not a proper or supported url)</li>
+</ul>
+<h2 id="list-installed-applications">List installed applications<a class="headerlink" href="#list-installed-applications" title="Permanent link">&para;</a></h2>
+<h3 id="get-apps">GET /apps/<a class="headerlink" href="#get-apps" title="Permanent link">&para;</a></h3>
+<p>An application can be in one of these states:</p>
+<ul>
+<li><code>installed</code>, the application is installed but still require some user
+  interaction to accept its permissions</li>
+<li><code>ready</code>, the user can use it</li>
+<li><code>installing</code>, the installation is running and the app will soon be usable</li>
+<li><code>upgrading</code>, a new version is being installed</li>
+<li><code>errored</code>, the app is in an error state and can not be used.</li>
+</ul>
+<h4 id="request_2">Request<a class="headerlink" href="#request_2" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">GET /apps/ HTTP/1.1
+Accept: application/vnd.api+json</code></pre>
+
+
+<h4 id="response_2">Response<a class="headerlink" href="#response_2" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-Type: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: [{
+    &quot;id&quot;: &quot;4cfbd8be-8968-11e6-9708-ef55b7c20863&quot;,
+    &quot;type&quot;: &quot;io.cozy.apps&quot;,
+    &quot;meta&quot;: {
+      &quot;rev&quot;: &quot;2-bbfb0fc32dfcdb5333b28934f195b96a&quot;
+    },
+    &quot;attributes&quot;: {
+      &quot;name&quot;: &quot;calendar&quot;,
+      &quot;state&quot;: &quot;ready&quot;,
+      &quot;slug&quot;: &quot;calendar&quot;,
+      ...
+    },
+    &quot;links&quot;: {
+      &quot;self&quot;: &quot;/apps/calendar&quot;,
+      &quot;icon&quot;: &quot;/apps/calendar/icon&quot;,
+      &quot;related&quot;: &quot;https://calendar.alice.example.com/&quot;
+    }
+  }]
+}</code></pre>
+
+
+<h2 id="get-informations-about-an-application">Get informations about an application<a class="headerlink" href="#get-informations-about-an-application" title="Permanent link">&para;</a></h2>
+<h3 id="get-appsslug">GET /apps/:slug<a class="headerlink" href="#get-appsslug" title="Permanent link">&para;</a></h3>
+<h2 id="get-the-icon-of-an-application">Get the icon of an application<a class="headerlink" href="#get-the-icon-of-an-application" title="Permanent link">&para;</a></h2>
+<h3 id="get-appsslugicon">GET /apps/:slug/icon<a class="headerlink" href="#get-appsslugicon" title="Permanent link">&para;</a></h3>
+<h4 id="request_3">Request<a class="headerlink" href="#request_3" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">GET /apps/calendar/icon HTTP/1.1</code></pre>
+
+
+<h4 id="response_3">Response<a class="headerlink" href="#response_3" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-Type: image/svg+xml</code></pre>
+
+
+<pre class="codehilite"><code class="language-svg">&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;60&quot; height=&quot;60&quot; viewBox=&quot;0 0 60 60&quot;&gt;
+&lt;title&gt;Calendar&lt;/title&gt;
+&lt;path fill=&quot;#fff&quot; fill-opacity=&quot;.011&quot; d=&quot;M30 58.75c15.878 0 28.75-12.872 28.75-28.75s-12.872-28.75-28.75-28.75-28.75 12.872-28.75 28.75 12.872 28.75 28.75 28.75zm0 1.25c-16.569 0-30-13.432-30-30 0-16.569 13.431-30 30-30 16.568 0 30 13.431 30 30 0 16.568-13.432 30-30 30z&quot;/&gt;
+&lt;path d=&quot;M47.997 9h-35.993c-1.654 0-3.004 1.345-3.004 3.004v35.993c0 1.653 1.345 3.004 3.004 3.004h35.993c1.653 0 3.004-1.345 3.004-3.004v-35.993c0-1.654-1.345-3.004-3.004-3.004zm-35.997 3.035h4.148v2.257c0 .856.7 1.556 1.556 1.556s1.556-.7 1.556-1.556v-2.257h5.136v2.257c0 .856.7 1.556 1.556 1.556s1.556-.7 1.556-1.556v-2.257h5.137v2.257c0 .856.699 1.556 1.556 1.556s1.556-.7 1.556-1.556v-2.257h5.137v2.257c0 .856.699 1.556 1.556 1.556s1.556-.7 1.556-1.556v-2.257h3.992v6.965h-35.998v-6.965zm36 35.965h-36v-27h36v27zm-21.71-10.15c-.433.34-.997.51-1.69.51-.64 0-1.207-.137-1.7-.409-.493-.273-.933-.603-1.32-.99l-1.1 1.479c.453.508 1.027.934 1.72 1.28.693.347 1.56.521 2.6.521.613 0 1.19-.083 1.73-.25.54-.167 1.013-.407 1.42-.721.407-.312.727-.696.96-1.149.233-.453.35-.974.35-1.56 0-.841-.25-1.527-.75-2.061s-1.13-.9-1.89-1.1v-.08c.693-.268 1.237-.641 1.63-1.12.393-.48.59-1.08.59-1.8 0-.533-.1-1.01-.3-1.43-.2-.42-.48-.772-.84-1.06-.36-.287-.793-.503-1.3-.65-.507-.147-1.067-.22-1.68-.22-.76 0-1.45.147-2.07.44s-1.203.68-1.75 1.16l1.18 1.42c.387-.36.783-.65 1.19-.87.407-.22.863-.33 1.37-.33.587 0 1.047.15 1.38.45.333.3.5.717.5 1.25 0 .293-.057.566-.17.819-.113.253-.3.47-.56.65-.26.18-.6.319-1.02.42-.42.1-.943.149-1.57.149v1.681c.72 0 1.32.05 1.8.149.48.101.863.243 1.15.43.287.188.49.414.61.681.12.267.18.567.18.899 0 .602-.217 1.072-.65 1.412zm13.71.15h-3v-11h-2c-.4.24-.65.723-1.109.89-.461.167-1.25.49-1.891.61v1.5h3v8h-3v2h8v-2z&quot;/&gt;
+&lt;/svg&gt;</code></pre>
+
+
+<h2 id="uninstall-an-application">Uninstall an application<a class="headerlink" href="#uninstall-an-application" title="Permanent link">&para;</a></h2>
+<h3 id="delete-appsslug">DELETE /apps/:slug<a class="headerlink" href="#delete-appsslug" title="Permanent link">&para;</a></h3>
+<h4 id="request_4">Request<a class="headerlink" href="#request_4" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">DELETE /apps/tasky HTTP/1.1</code></pre>
+
+
+<h4 id="response_4">Response<a class="headerlink" href="#response_4" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 204 No Content</code></pre>
+
+
+<h2 id="access-an-application">Access an application<a class="headerlink" href="#access-an-application" title="Permanent link">&para;</a></h2>
+<p>Each application will run on its sub-domain. The sub-domain is the slug used
+when installing the application (<code>calendar.cozy.example.org</code> if it was installed
+via a POST on /apps/calendar). On the main domain (<code>cozy.example.org</code>), there
+will be the registration process, the login form, and it will redirect to
+<code>home.cozy.example.org</code> for logged-in users.</p>
+<h3 id="rationale">Rationale<a class="headerlink" href="#rationale" title="Permanent link">&para;</a></h3>
+<p>The applications have different roles and permissions. An application is
+identified when talking to the stack via a token. The token has to be injected
+in the application, one way or another, and it have to be unaccessible from
+other apps.</p>
+<p>If the applications run on the same domain (for example
+<code>https://cozy.example.org/apps/calendar</code>), it&rsquo;s nearly impossible to protect an
+application to take the token of another application. The security model of the
+web is based too heavily on
+<a href="https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy">Same Origin Policy</a>
+for that. If the token is put in the html of the index.html page of an app,
+another app can use the fetch API to get the html page, parse its content and
+extract the token. We can think of other ways to inject the token (indexeddb,
+URL, cookies) but none will provide a better isolation. Maybe in a couple years,
+when <a href="https://w3c.github.io/webappsec-suborigins/">the origin spec</a> will be more
+advanced.</p>
+<p>So, if having the apps on the same origin is not possible, we have to put them
+on several origins. One interesting way to do that is using sandboxed iframes.
+An iframe with
+<a href="https://www.w3.org/TR/html5/embedded-content-0.html#attr-iframe-sandbox">the sandbox attribute</a>,
+and not <code>allow-same-origin</code> in it, will be assigned to a unique origin. The W3C
+warns:</p>
+<blockquote>
+<p>Potentially hostile files should not be served from the same server as the
+file containing the iframe element. Sandboxing hostile content is of minimal
+help if an attacker can convince the user to just visit the hostile content
+directly, rather than in the iframe. To limit the damage that can be caused by
+hostile HTML content, it should be served from a separate dedicated domain.
+Using a different domain ensures that scripts in the files are unable to
+attack the site, even if the user is tricked into visiting those pages
+directly, without the protection of the sandbox attribute.</p>
+</blockquote>
+<p>It may be possible to disable all html pages to have an html content-type,
+except the home, and having the home loading the apps in a sandboxed iframe, via
+the <code>srcdoc</code> attribute. But, it will mean that we will have to reinvent nearly
+everything. Even showing an image can no longer be done via an <code>&lt;img&gt;</code> tag, it
+will need to use post-message with the home. Such a solution is difficult to
+implement, is a very fragile (both for the apps developer than for security) and
+is an hell to debug when it breaks. Clearly, it&rsquo;s not an acceptable solution.</p>
+<p>Thus, the only choice is to have several origins, and sub-domains is the best
+way for that. Of course, it has the downside to be more complicated to deploy
+(DNS and TLS certificates). But, in the tradeoff between security and ease of
+administration, we definetively take the security first.</p>
+<h3 id="routes_1">Routes<a class="headerlink" href="#routes_1" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>Should we be concerned that all the routes are on the same sub-domain?</p>
+</blockquote>
+<p>No, it&rsquo;s not an issue. There are two types of routes: the ones that are publics
+and those reserved to the authenticated user. Public routes have no token</p>
+<p>Private routes are private, they can be accessed only with a valid session
+cookie, ie by the owner of the instance. Another application can&rsquo;t use the user
+cookies to read the token, because of the restrictions of the same origin policy
+(they are on different domains). And the application can&rsquo;t use an open proxy to
+read the private route, because it doesn&rsquo;t have the user cookies for that (the
+cookie is marked as <code>httpOnly</code>).</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

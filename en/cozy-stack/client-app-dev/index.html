@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/client-app-dev/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>Develop a client-side app - Cozy Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Cozy Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Use <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/">User guide</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Stay in sync</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronize your phone</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronize your computer</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Install on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Download</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../dev/">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="../../dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="../../dev/app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="../../dev/konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="../../dev/cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="../../dev/sendmail/">How to send mail in development</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">References</a>
+    <ul class="dropdown-menu">
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-doctypes</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bank/">Banking doctypes</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bills/">Bills</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.contacts/">Contacts</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.files/">Files</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.notifications/">Notifications</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.photos.albums/">Albums</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/">Remote requests</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/">Session logins</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-stack</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../README/">README</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Architecture</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../architecture/">General overview</a>
+</li>
+            
+<li >
+    <a href="../security/">Security</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Usage</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../INSTALL/">Install the cozy-stack</a>
+</li>
+            
+<li >
+    <a href="../cli/cozy-stack/">Manpages of the command-line tool</a>
+</li>
+            
+<li >
+    <a href="../config/">Configuration file</a>
+</li>
+            
+<li >
+    <a href="../instance/">Managing Instances</a>
+</li>
+            
+<li >
+    <a href="../onboarding/">Onboarding</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">For developpers</a>
+    <ul class="dropdown-menu">
+            
+<li class="active">
+    <a href="./">Develop a client-side app</a>
+</li>
+            
+<li >
+    <a href="../docker/">Running and building Docker images</a>
+</li>
+            
+<li >
+    <a href="../release/">Build a release</a>
+</li>
+            
+<li >
+    <a href="../CONTRIBUTING/">The contributing guide</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Services</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../auth/">/auth - Authentication & OAuth</a>
+</li>
+            
+<li >
+    <a href="../apps/">/apps - Applications Management</a>
+</li>
+            
+<li >
+    <a href="../registry/">Apps registry</a>
+</li>
+            
+<li >
+    <a href="../data-system/">/data - Data System</a>
+</li>
+            
+<li >
+    <a href="../mango/">Mango</a>
+</li>
+            
+<li >
+    <a href="../replication/">Replication</a>
+</li>
+            
+<li >
+    <a href="../couchdb-quirks/">CouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../files/">/files - Virtual File System</a>
+</li>
+            
+<li >
+    <a href="../references-docs-in-vfs/">References of documents in VFS</a>
+</li>
+            
+<li >
+    <a href="../intents/">/intents - Intents</a>
+</li>
+            
+<li >
+    <a href="../jobs/">/jobs Jobs</a>
+</li>
+            
+<li >
+    <a href="../konnectors/">Konnectors</a>
+</li>
+            
+<li >
+    <a href="../workers/">Workers</a>
+</li>
+            
+<li >
+    <a href="../notifications/">/notifications - Notifications</a>
+</li>
+            
+<li >
+    <a href="../permissions/">/permissions - Permissions</a>
+</li>
+            
+<li >
+    <a href="../realtime/">/realtime - Realtime</a>
+</li>
+            
+<li >
+    <a href="../remote/">/remote - Proxy for remote data/API</a>
+</li>
+            
+<li >
+    <a href="../settings/">/settings - Settings</a>
+</li>
+            
+<li >
+    <a href="../sharing/">/sharings - Sharing</a>
+</li>
+            
+<li >
+    <a href="../sharing-design/">Request for comments</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#develop-a-client-side-application">Develop a client-side application</a></li>
+            <li><a href="#using-cozy-app-dev">Using cozy-app-dev</a></li>
+            <li><a href="#good-practices-for-your-application">Good practices for your application</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<p><a href="../README/#table-of-contents">Table of contents</a></p>
+<p>{% raw %}</p>
+<h1 id="develop-a-client-side-application">Develop a client-side application<a class="headerlink" href="#develop-a-client-side-application" title="Permanent link">&para;</a></h1>
+<h2 id="using-cozy-app-dev">Using <code>cozy-app-dev</code><a class="headerlink" href="#using-cozy-app-dev" title="Permanent link">&para;</a></h2>
+<p>This document describe a tool to run an environment in order to develop
+client-side application on the cozy-stack.</p>
+<p>We provide two different ways to run this environment, either manually where you
+have to install part of the dependencies yourself or <em>via</em> a Docker image in
+which all dependencies are packed.</p>
+<p>This environment will provide a running instance a http server serving both a
+specified directory of your application on <code>app.cozy.tools:8080</code> and the
+<code>cozy-stack</code> on <code>cozy.tools:8080</code> (you can change the hostname and port if you
+want, see below).</p>
+<p>The default passphrase will be &ldquo;cozy&rdquo;</p>
+<h3 id="manually">Manually<a class="headerlink" href="#manually" title="Permanent link">&para;</a></h3>
+<p>To run the <code>scripts/cozy-app-dev.sh</code> directly on you system, you&rsquo;ll need to
+following dependencies:</p>
+<ul>
+<li><code>go</code></li>
+<li><code>curl</code></li>
+<li><code>git</code></li>
+<li><code>couchdb2</code>: you need at least a running instance of CouchDB 2</li>
+</ul>
+<p>Examples:</p>
+<pre class="codehilite"><code class="language-sh">$ ./scripts/cozy-app-dev.sh -d ~/code/myapp</code></pre>
+
+
+<p>If your CouchDB 2 instance is not running on <code>localhost:5984</code>, you can specify
+another host and port with the variable <code>COUCHDB_URL</code> like so:</p>
+<pre class="codehilite"><code class="language-sh">$ COUCHDB_URL=http://couchdb.local:1234/ ./scripts/cozy-app-dev.sh -d ~/code/myapp</code></pre>
+
+
+<p>You can have more informations about the usage of this script with the following
+command:</p>
+<pre class="codehilite"><code>$ ./scripts/cozy-app-dev.sh -h</code></pre>
+
+
+<h3 id="with-docker">With Docker<a class="headerlink" href="#with-docker" title="Permanent link">&para;</a></h3>
+<p>If you do not want to install the required dependencies, we provide a Docker
+image which encapsulates the dev script and all its dependencies.</p>
+<p>To run a ephemeral instance, on the <code>$HOME/myapp</code> directory, use the following
+command (warning: all the data stored by your application in couchdb and the VFS
+won&rsquo;t remain after):</p>
+<pre class="codehilite"><code class="language-sh">$ docker run --rm -it \
+    -p 8080:8080 \
+    -p 8025:8025 \
+    -v &quot;$HOME/myapp&quot;:/data/cozy-app \
+    cozy/cozy-app-dev</code></pre>
+
+
+<p>To keep your data even when stopping the container, run the following command:</p>
+<pre class="codehilite"><code class="language-sh">$ docker run --rm -it \
+    -p 8080:8080 \
+    -p 8025:8025 \
+    -v &quot;$HOME/myapp&quot;:/data/cozy-app \
+    -v &quot;$(pwd)/db&quot;:/usr/local/couchdb/data \
+    -v &quot;$(pwd)/storage&quot;:/data/cozy-storage \
+    cozy/cozy-app-dev</code></pre>
+
+
+<p>You can mount your yaml config file, to change the log level for example:</p>
+<pre class="codehilite"><code class="language-sh">$ docker run --rm -it \
+    -p 8080:8080 \
+    -p 8025:8025 \
+    -v &quot;$HOME/myapp&quot;:/data/cozy-app \
+    -v &quot;$HOME/cozy.yaml&quot;:/etc/cozy/cozy.yaml \
+    cozy/cozy-app-dev</code></pre>
+
+
+<p>A <a href="https://github.com/mailhog/MailHog">MailHog</a> is running inside docker to
+catch emails. You can view the emails sent by the stack in a web interface on
+http://cozy.tools:8025/</p>
+<p>You can also expose the couchdb port (listening in the container on 5984) in
+order to access its admin page. For instance add <code>-p 1234:5984</code> to access to the
+admin interface on <code>http://localhost:1234/_utils</code>.</p>
+<p>Make sure you application is built into <code>$HOME/myapp</code> (it should have an
+<code>index.html</code> and a <code>manifest.webapp</code> files), otherwise it will not work. As an
+example, for the <a href="https://github.com/cozy/cozy-drive/">Drive application</a>, it
+should be <code>$HOME/drive/build</code>.</p>
+<p>If you want to use several applications (for testing the intents for example),
+you can mount several directories inside <code>/data/cozy-app</code> like this:</p>
+<pre class="codehilite"><code class="language-sh">$ docker run --rm -it \
+    -p 8080:8080 \
+    -p 8025:8025 \
+    -v &quot;$HOME/appone&quot;:/data/cozy-app/appone \
+    -v &quot;$HOME/apptwo&quot;:/data/cozy-app/apptwo \
+    cozy/cozy-app-dev</code></pre>
+
+
+<h2 id="good-practices-for-your-application">Good practices for your application<a class="headerlink" href="#good-practices-for-your-application" title="Permanent link">&para;</a></h2>
+<p>When an application makes a request to the stack, like loading a list of
+contacts, it sends two informations that will be used by the stack to allow or
+deny the access:</p>
+<ul>
+<li>the user session cookie</li>
+<li>a token that identifies the application (only when the user is connected).</li>
+</ul>
+<p>So, the application needs such a token. It also needs to know where to send the
+requests for the stack (it can be guessed, but with the nested vs flat
+subdomains structures, it&rsquo;s better to get the information from the stack). To do
+that, when the application loads its HTML index file, the stack will parse it as
+a template and will insert the relevant values.</p>
+<ul>
+<li><code>{{.Token}}</code> will be replaced by the token for the application.</li>
+<li><code>{{.Domain}}</code> will be replaced by the stack hostname.</li>
+<li><code>{{.Locale}}</code> will be replaced by the locale for the instance.</li>
+<li><code>{{.AppName}}</code>: will be replaced by the application name.</li>
+<li><code>{{.AppNamePrefix}}</code>: will be replaced by the application name prefix.</li>
+<li><code>{{.AppEditor}}</code>: will be replaced by the application&rsquo;s editor.</li>
+<li><code>{{.IconPath}}</code>: will be replaced by the application&rsquo;s icon path.</li>
+<li><code>{{.CozyBar}}</code> will be replaced by the JavaScript to inject the cozy-bar.</li>
+<li><code>{{.CozyClientJS}}</code> will be replaced by the JavaScript to inject the
+  cozy-client-js.</li>
+</ul>
+<p>So, the <code>index.html</code> should probably looks like:</p>
+<pre class="codehilite"><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;{{.Locale}}&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;My Awesome App for Cozy&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; src=&quot;my-app.css&quot;&gt;
+    {{.CozyClientJS}}
+    {{.CozyBar}}
+    &lt;script defer src=&quot;my-app.js&quot;&gt;&lt;/script&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div role=&quot;application&quot; data-cozy-token=&quot;{{.Token}}&quot; data-cozy-stack=&quot;{{.Domain}}&quot;&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+
+<p>And <code>my-app.js</code>:</p>
+<pre class="codehilite"><code class="language-js">&quot;use strict&quot;;
+
+document.addEventListener(&quot;DOMContentLoaded&quot;, () =&gt; {
+  const app = document.querySelector(&quot;[role=application]&quot;);
+  cozy.client.init({
+    cozyURL: &quot;//&quot; + app.dataset.cozyStack,
+    token: app.dataset.cozyToken
+  });
+});
+
+// ...</code></pre>
+
+
+<p>{% endraw %}</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/sharing-design/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>Request for comments - Cozy Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Cozy Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Use <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/">User guide</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Stay in sync</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronize your phone</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronize your computer</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Install on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Download</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../dev/">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="../../dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="../../dev/app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="../../dev/konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="../../dev/cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="../../dev/sendmail/">How to send mail in development</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">References</a>
+    <ul class="dropdown-menu">
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-doctypes</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bank/">Banking doctypes</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bills/">Bills</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.contacts/">Contacts</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.files/">Files</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.notifications/">Notifications</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.photos.albums/">Albums</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/">Remote requests</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/">Session logins</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-stack</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../README/">README</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Architecture</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../architecture/">General overview</a>
+</li>
+            
+<li >
+    <a href="../security/">Security</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Usage</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../INSTALL/">Install the cozy-stack</a>
+</li>
+            
+<li >
+    <a href="../cli/cozy-stack/">Manpages of the command-line tool</a>
+</li>
+            
+<li >
+    <a href="../config/">Configuration file</a>
+</li>
+            
+<li >
+    <a href="../instance/">Managing Instances</a>
+</li>
+            
+<li >
+    <a href="../onboarding/">Onboarding</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">For developpers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../client-app-dev/">Develop a client-side app</a>
+</li>
+            
+<li >
+    <a href="../docker/">Running and building Docker images</a>
+</li>
+            
+<li >
+    <a href="../release/">Build a release</a>
+</li>
+            
+<li >
+    <a href="../CONTRIBUTING/">The contributing guide</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Services</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../auth/">/auth - Authentication & OAuth</a>
+</li>
+            
+<li >
+    <a href="../apps/">/apps - Applications Management</a>
+</li>
+            
+<li >
+    <a href="../registry/">Apps registry</a>
+</li>
+            
+<li >
+    <a href="../data-system/">/data - Data System</a>
+</li>
+            
+<li >
+    <a href="../mango/">Mango</a>
+</li>
+            
+<li >
+    <a href="../replication/">Replication</a>
+</li>
+            
+<li >
+    <a href="../couchdb-quirks/">CouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../files/">/files - Virtual File System</a>
+</li>
+            
+<li >
+    <a href="../references-docs-in-vfs/">References of documents in VFS</a>
+</li>
+            
+<li >
+    <a href="../intents/">/intents - Intents</a>
+</li>
+            
+<li >
+    <a href="../jobs/">/jobs Jobs</a>
+</li>
+            
+<li >
+    <a href="../konnectors/">Konnectors</a>
+</li>
+            
+<li >
+    <a href="../workers/">Workers</a>
+</li>
+            
+<li >
+    <a href="../notifications/">/notifications - Notifications</a>
+</li>
+            
+<li >
+    <a href="../permissions/">/permissions - Permissions</a>
+</li>
+            
+<li >
+    <a href="../realtime/">/realtime - Realtime</a>
+</li>
+            
+<li >
+    <a href="../remote/">/remote - Proxy for remote data/API</a>
+</li>
+            
+<li >
+    <a href="../settings/">/settings - Settings</a>
+</li>
+            
+<li >
+    <a href="../sharing/">/sharings - Sharing</a>
+</li>
+            
+<li class="active">
+    <a href="./">Request for comments</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#request-for-comments-about-the-sharings">Request for comments about the sharings</a></li>
+            <li><a href="#hypothesis">Hypothesis</a></li>
+            <li><a href="#setup-of-a-sharing">Setup of a sharing</a></li>
+            <li><a href="#workflow">Workflow</a></li>
+            <li><a href="#files-and-folders">Files and folders</a></li>
+            <li><a href="#schema">Schema</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="request-for-comments-about-the-sharings">Request for comments about the sharings<a class="headerlink" href="#request-for-comments-about-the-sharings" title="Permanent link">&para;</a></h1>
+<h2 id="hypothesis">Hypothesis<a class="headerlink" href="#hypothesis" title="Permanent link">&para;</a></h2>
+<ol>
+<li>A sharer may not know the adresses of the recipients&rsquo; cozy instances, but
+he/she has a way to send them an URL on his/her cozy to start the process.</li>
+<li>A user can preview a sharing before accepting it if the application
+supports this option. Else, he/she will have only the description and rules to
+make his/her mind about accepting or refusing the sharing.</li>
+<li>The data is duplicated: it is both on the owner&rsquo;s cozy, and on the
+recipients&rsquo; cozy (no cloud federation like NextCloud).</li>
+<li>The applications say what is shared, the stack synchronizes that. The stack
+does the low-level stuff and gives primitives to the applications. The
+applications must use them in a responsible manner, and in particular, to
+avoid transitivity issues.</li>
+<li>The CouchDB replication will be used to synchronize the documents. It means
+that the documents will be same on the owner and on the recipients (&ldquo;symetric
+sharing&rdquo;).</li>
+<li>For files and folders, the replicator will be customized to handle the
+specificities of the <code>io.cozy.files</code> doctype.</li>
+<li>The applications must be able to work with broken relationships between
+documents.</li>
+<li>The applications should know how to deal with CouchDB conflicts. At least,
+the default choice of a winner for conflicts by CouchDB should be acceptable
+if the applications don&rsquo;t do anything to detect and resolve conflicts.</li>
+<li>First safety principle: when a user B accepts a sharing from user A, the
+documents that were on the user B&rsquo;s cozy before the sharing are not sent to
+user A without an explicit action of user B (like moving a file to a shared
+directory).</li>
+<li>Second safety principle: when two users, A and B, are sharing documents,
+a change of a document on the user A&rsquo;s cozy can&rsquo;t make an exiting document of
+user B enter in the sharing.</li>
+</ol>
+<h2 id="setup-of-a-sharing">Setup of a sharing<a class="headerlink" href="#setup-of-a-sharing" title="Permanent link">&para;</a></h2>
+<h3 id="step-1-the-owner-creates-the-sharing">Step 1: the owner creates the sharing<a class="headerlink" href="#step-1-the-owner-creates-the-sharing" title="Permanent link">&para;</a></h3>
+<p>One person decides to share something with other people from an application on
+her cozy. In our example, Alice wants to share a todo list with her friends, Bob
+and Charlie, and it is done from the <em>Todo</em> application. The application calls
+the stack with the rules for this sharing and the identifiers of the contacts
+with whom to share. The stack persists an <code>io.cozy.sharings</code> document and sends
+an email to the recipients (Bob an Charlie).</p>
+<h3 id="step-2-a-recipient-accepts-the-sharing">Step 2: a recipient accepts the sharing<a class="headerlink" href="#step-2-a-recipient-accepts-the-sharing" title="Permanent link">&para;</a></h3>
+<p>A recipient, let’s say Bob, receives the email and clicks on the link. His
+browser shows him the <em>Todo</em> application on Alice’s Cozy so that he can preview
+the todo list, and a modal asks him if he wants to continue the sharing
+acceptation workflow. If he does, a form will ask him what is the address of his
+Cozy (the form can be pre-filled if he has already accepted another sharing in
+the past). After he has filled the form and submitted it, he is redirected on
+his Cozy. If he is not logged in, he has to login first. Then, a page describes
+him how the sharing will work and what technical permissions it implies. It also
+asks him to confirm the sharing. If he accepts, his instance will send to
+Alice’s instance the answer.</p>
+<h3 id="step-3-the-initial-replication-starts">Step 3: the initial replication starts<a class="headerlink" href="#step-3-the-initial-replication-starts" title="Permanent link">&para;</a></h3>
+<p>Alice’s Cozy instance creates token and sends them with other informations as the
+response of the answer request from Bob’s instance. At this moment, both
+instances are ready to start to replicate data to the other instances. So, let’s
+do the initial replication.</p>
+<p>Alice’s instance starts to fill the <code>io.cozy.shared</code> database with all the
+documents that match a rule of the sharing (except the rules with <code>local:
+true</code>), and create triggers for the future documents to be also added in this
+database (the exact triggers depend of the parameters of the rules). And, when
+done, it creates a job for the replicator, and setups a trigger for future
+changes in the <code>io.cozy.shared</code> start a replicator job.</p>
+<p>Bob’s instance also checks if any document matches a sharing rule. In most
+cases, it won’t. But in some very special cases (e.g. a previous revoked sharing
+on the same documents), there are some documents that match a rule. They are
+added to the <code>io.cozy.shared</code> database, but with a <code>conflict</code> flag. They won’t
+be replicated unless Bob accepts to in his <em>Todo</em> application. Triggers are also
+added on Bob’s instance for filling the <code>io.cozy.shared</code> database, and to call
+the replicator after that.</p>
+<p><strong>Note:</strong> there will be a lock around the initial filling of the
+<code>io.cozy.shared</code> database to avoid concurrency issues if two recipients accept
+the sharing at the same time.</p>
+<h2 id="workflow">Workflow<a class="headerlink" href="#workflow" title="Permanent link">&para;</a></h2>
+<p><img alt="Alice has shared a todo-list with Bob and Charlie, and Bob has added an item to this todo-list" src="../diagrams/sharing.png" /></p>
+<p><strong>Step 1:</strong> a todo item is added on Bob’s Cozy, a trigger is fired and it adds
+the new document to the <code>io.cozy.shared</code> database</p>
+<p><strong>Step 2:</strong> a debounced trigger on the <code>io.cozy.shared</code> database is used to
+start a replicator</p>
+<p><strong>Step 3:</strong> the replicator does the following steps</p>
+<ul>
+<li>it queries a local document of the <code>io.cozy.shared</code> database to get the last
+  sequence number of a successful replication</li>
+<li>with this sequence number, it requests the changes feed of <code>io.cozy.shared</code>
+  with a filter on the sharing id</li>
+<li>the results is a list of document doctype + id + rev that is sent to Alice’s
+  Cozy</li>
+<li>Alice’s Cozy checks which revisions are known, and send a response with the
+  list of those that are not</li>
+<li>for each not known revision, Bob’s Cozy send the document to Alice’s Cozy (in
+  bulk)</li>
+<li>and, if it’s all good, it persists the new sequence number in the local
+  document, as a start point for the next replication</li>
+</ul>
+<p><strong>Step 4:</strong> the changes are put in the <code>io.cozy.shared</code> database on Alice’s Cozy</p>
+<p><strong>Step 5:</strong> it starts a replicator on Alice’s Cozy</p>
+<p><strong>Step 6:</strong> the replicator send the changes to Charlie’s Cozy, all the cozy
+instances are synchronized again!</p>
+<p><strong>Note:</strong> when a todo item is moved fron a shared todo list to a not shared todo
+list, the document in <code>io.cozy.shared</code> for the todo item is kept, and the
+sharing id is associated to the keyword <code>removed</code> inside it. The <code>remove</code>
+behavior of the sharing rule is then applied.</p>
+<h2 id="files-and-folders">Files and folders<a class="headerlink" href="#files-and-folders" title="Permanent link">&para;</a></h2>
+<h3 id="why-are-they-special">Why are they special?<a class="headerlink" href="#why-are-they-special" title="Permanent link">&para;</a></h3>
+<p>Files are special for several reasons. First and foremost, they have a binary
+attached to them that can be quite heavy. The stack also enforces some rules on
+them (e.g. a file can’t be added to a deleted folder) and has some specific code
+for the tree nature of files and folders (e.g. a permission on a folder is
+inherited on all the files and folders inside it, even if they are several
+levels below). Thus, the workflow explained just before is not compatible with
+the files.</p>
+<p>As we need to introduce some code specific to the files, we have also wanted to
+improve the sharing of files. First, we don’t want to force the recipients to
+put the shared folder at exactly the same place as the owner. In fact, we think
+that putting the shared folder in a folder called <code>Shared with me</code> is more
+friendly. We also think that a file that has been shared in the past but is no
+longer (the sharing has been revoked) can evolve on both the owner’s cozy and on
+the recipients’ cozy in different ways, and in such a case, it’s more logical to
+consider them as different files. These two reasons implies, on a technical
+level, that the identifiers for files and folders are not the same on the owner
+and the recipients of a sharing. The replicator will translate the identifiers
+from one system to another during the replications. Of course, it will also
+translate the <code>id</code> in the sharing rules, and the <code>dir_id</code> to preserve the
+relationship between a file and its parent folder. The <code>path</code> attribute will be
+seen as a cache, and recomputed when a cozy instance receives a folder document
+from a sharing replication.</p>
+<p>We will continue to have a replication as close to the CouchDB replication as
+possible. It means we synchronize a state, and not looking for the history of
+operations like cozy-desktop does. It is less accurate and can lead more often
+to conflicts. The cozy instances are expected to be online most of the time and
+have a short delay for replications: we think that the conflicts will happen
+only on rares occasions. This make acceptable to take this shortcut. And, in
+case of conflicts, we will preserve the content of the files (no data loss),
+even if it means duplicating the files.</p>
+<h3 id="how-a-sharing-involving-files-works">How a sharing involving files works?<a class="headerlink" href="#how-a-sharing-involving-files-works" title="Permanent link">&para;</a></h3>
+<p>When a sharing involves a rule on the <code>io.cozy.files</code> doctype, a folder is
+created on the recipients cozy where the files will be put. It is created inside
+the <code>Shared with me</code> folder by default, but can be moved somewhere else after
+that. The folder won’t be synchronized its-self later, and if the folder is
+trashed, the sharing is automatically revoked. As it is not a reversible action,
+a confirmation is asked before doing that.</p>
+<p><strong>Note:</strong> we will forbid the sharing of the root of the virtual file system, of
+the trash and trashed files/folders, and of the <code>Shared with me</code> folder.</p>
+<p>The step 3 described above, aka the replicator, will be more complicated for
+folders and files. First change, it will work on two phases: 1. what can be
+synchronized without transfering the binaries first, and 2. the synchronization
+of files with a binary attached. Second change, the replicator will acquire the
+Virtual File System lock on the cozy instance where it will write things to
+ensure the consistency of what it writes. Third change, before inserting a
+folder or file in the database, the replicator checks that its parent exists,
+and if it’s not the case, it creates it. Last change, we will avoid CouchDB
+conflicts for files and folder by using a special conflict resolution process.</p>
+<h3 id="conflict-resolution">Conflict resolution<a class="headerlink" href="#conflict-resolution" title="Permanent link">&para;</a></h3>
+<p>We have several cases of conflicts:</p>
+<ol>
+<li>When two cozy instances have modified the same file concurrently</li>
+<li>Same for a folder</li>
+<li>When two files or folders are renamed concurrently to the same name inside
+   the same directory</li>
+<li>When a file or folder is created or updated on cozy instance while the parent
+   directory is trashed concurrently on another cozy instance.</li>
+</ol>
+<p>For 1. and 2., we will reconciliate the changes except for a file with two
+versions having a distinct binary (we rely on <code>size</code> and <code>checksum</code> to detect
+that). In such a case, we create a copy of the file with one version, while
+keeping the other version in the original file. Else, the reconciliation rules
+are:</p>
+<ul>
+<li><code>name</code>, <code>dirID</code> and <code>metadata</code>: we keep those of the CouchDB winner</li>
+<li><code>trashed</code> and <code>executable</code>: false wins</li>
+<li><code>updated_at</code>: the most recent date wins</li>
+<li><code>mime</code> and <code>class</code>: the last in alphabetical order wins (to avoid the default
+  <code>application/octet-steam</code>)</li>
+<li><code>tags</code> and <code>referenced_by</code>: a union of the two versions is made</li>
+</ul>
+<p>For 3., we rename the file or folder with the later <code>updated_at</code>.</p>
+<p>For 4., if a new directory with the same path that the trashed parent has been
+created, we will use it as the new parent for the created/updated files/folders.
+Else, we restore the trashed parent.</p>
+<h2 id="schema">Schema<a class="headerlink" href="#schema" title="Permanent link">&para;</a></h2>
+<h3 id="description-of-a-sharing">Description of a sharing<a class="headerlink" href="#description-of-a-sharing" title="Permanent link">&para;</a></h3>
+<ul>
+<li>An identifier (the same for all members of the sharing)</li>
+<li>A list of <code>members</code>. The first one is the owner. For each member,
+  we have the URL of the cozy, a public name, an email, a status and some
+  credentials to authorize the transfer of data between the owner and the
+  recipients</li>
+<li>A <code>description</code> (one sentence that will help people understand what is shared
+  and why)</li>
+<li>a flag <code>open_sharing</code>:</li>
+<li><code>true</code> if any member of the sharing can add a new recipient</li>
+<li><code>false</code> if only the owner can add a new recipient</li>
+<li>Some technical data (<code>created_at</code>, <code>updated_at</code>, <code>app_slug</code>, <code>preview_path</code>)</li>
+<li>A list of sharing <code>rules</code>, each rule being composed of:</li>
+<li>a <code>title</code>, that will be displayed to the recipients before they accept the
+    sharing</li>
+<li>a <code>doctype</code></li>
+<li>a <code>selector</code> (by default, it’s the <code>id</code>) and <code>values</code> (one identifier, a
+    list of identifiers, files and folders inside a folder, files that are
+    referenced by the same document, documents bound to a previous sharing rule)</li>
+<li><code>local</code>: by default <code>false</code>, but it can false <code>true</code> for documents that are
+    useful for the preview page but doesn’t need to be send to the recipients
+    (e.g. a setting document of the application)</li>
+<li><code>add</code>: a behavior when a new document matches this rule (the document is
+    created, or it was a document that didn’t match the rule and is modified and
+    the new version matches the rule):<ul>
+<li><code>none</code>: the updates are never propagated (the default)</li>
+<li><code>push</code>: the updates made on the owner are sent to the recipients</li>
+<li><code>sync</code>: the updates on any member are propagated to the other members</li>
+</ul>
+</li>
+<li><code>update</code>: a behavior when a document matched by this rule is modified. Can be:<ul>
+<li><code>none</code>: the updates are never propagated (the default)</li>
+<li><code>push</code>: the updates made on the owner are sent to the recipients</li>
+<li><code>sync</code>: the updates on any member are propagated to the other members</li>
+</ul>
+</li>
+<li><code>remove</code>: a behavior when a document no longer matches this rule (the
+    document is deleted, or it was a document that matched the rule, and is
+    modified and the new version doesn’t match the rule):<ul>
+<li><code>none</code>: the updates are never propagated (the default)</li>
+<li><code>push</code>: the updates made on the owner are sent to the recipients</li>
+<li><code>sync</code>: the updates on any member are propagated to the other members</li>
+<li><code>revoke</code>: the sharing is revoked.</li>
+</ul>
+</li>
+</ul>
+<h4 id="example-i-want-to-share-a-folder-in-readwrite-mode">Example: I want to share a folder in read/write mode<a class="headerlink" href="#example-i-want-to-share-a-folder-in-readwrite-mode" title="Permanent link">&para;</a></h4>
+<ul>
+<li>rule 1</li>
+<li>title: <code>folder</code></li>
+<li>doctype: <code>io.cozy.files</code></li>
+<li>values: <code>"ca527016-0d83-11e8-a580-3b965c80c7f7"</code></li>
+<li>add: <code>sync</code></li>
+<li>update: <code>sync</code></li>
+<li>remove: <code>sync</code></li>
+</ul>
+<h4 id="example-i-want-to-share-a-playlist-where-im-the-only-one-that-can-add-and-remove-items">Example: I want to share a playlist where I’m the only one that can add and remove items<a class="headerlink" href="#example-i-want-to-share-a-playlist-where-im-the-only-one-that-can-add-and-remove-items" title="Permanent link">&para;</a></h4>
+<ul>
+<li>rule 1</li>
+<li>title: <code>playlist</code></li>
+<li>doctype: <code>io.cozy.music.playlists</code></li>
+<li>values: <code>"99445b14-0d84-11e8-ae72-4b96fcbf0552"</code></li>
+<li>update: <code>none</code></li>
+<li>remove: <code>revoke</code></li>
+<li>rule 2</li>
+<li>title: <code>items</code></li>
+<li>doctype: <code>io.cozy.files</code></li>
+<li>selector: <code>referenced_by</code></li>
+<li>values: <code>"io.cozy.files/ca527016-0d83-11e8-a580-3b965c80c7f7"</code></li>
+<li>add: <code>push</code></li>
+<li>update: <code>none</code></li>
+<li>remove: <code>push</code></li>
+</ul>
+<h3 id="iocozyshared"><code>io.cozy.shared</code><a class="headerlink" href="#iocozyshared" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>_id</code>: its identifier is the doctype and id of the referenced objet, separated by
+  a <code>/</code> (e.g. <code>io.cozy.contacts/c1f5dae4-0d87-11e8-b91b-1f41c005768b</code>)</li>
+<li><code>_rev</code>: the CouchDB default revision for this document (not very meaningful,
+  it’s here to avoid concurrency issues)</li>
+<li><code>revisions</code>: an array with the last known <code>_rev</code>s of the referenced object (for
+  conflicts, we put
+  <a href="http://docs.couchdb.org/en/2.1.1/replication/conflicts.html#working-with-conflicting-documents">the winner</a>)</li>
+<li><code>infos</code>, a map of sharing ids → <code>{rule, removed, binary}</code></li>
+<li><code>rule</code> says which rule from the sharing must be applied for this document</li>
+<li><code>removed</code> will be true for a deleted document, a trashed file, or if the
+    document does no longer match the sharing rule</li>
+<li><code>binary</code> is a boolean flag that is true only for files (and not even
+    folders) with <code>removed: false</code></li>
+</ul></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/permissions/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>/permissions - Permissions - Cozy Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Cozy Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Use <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/">User guide</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Stay in sync</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronize your phone</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronize your computer</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Install on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Download</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../dev/">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="../../dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="../../dev/app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="../../dev/konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="../../dev/cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="../../dev/sendmail/">How to send mail in development</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">References</a>
+    <ul class="dropdown-menu">
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-doctypes</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bank/">Banking doctypes</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bills/">Bills</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.contacts/">Contacts</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.files/">Files</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.notifications/">Notifications</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.photos.albums/">Albums</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/">Remote requests</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/">Session logins</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-stack</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../README/">README</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Architecture</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../architecture/">General overview</a>
+</li>
+            
+<li >
+    <a href="../security/">Security</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Usage</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../INSTALL/">Install the cozy-stack</a>
+</li>
+            
+<li >
+    <a href="../cli/cozy-stack/">Manpages of the command-line tool</a>
+</li>
+            
+<li >
+    <a href="../config/">Configuration file</a>
+</li>
+            
+<li >
+    <a href="../instance/">Managing Instances</a>
+</li>
+            
+<li >
+    <a href="../onboarding/">Onboarding</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">For developpers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../client-app-dev/">Develop a client-side app</a>
+</li>
+            
+<li >
+    <a href="../docker/">Running and building Docker images</a>
+</li>
+            
+<li >
+    <a href="../release/">Build a release</a>
+</li>
+            
+<li >
+    <a href="../CONTRIBUTING/">The contributing guide</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Services</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../auth/">/auth - Authentication & OAuth</a>
+</li>
+            
+<li >
+    <a href="../apps/">/apps - Applications Management</a>
+</li>
+            
+<li >
+    <a href="../registry/">Apps registry</a>
+</li>
+            
+<li >
+    <a href="../data-system/">/data - Data System</a>
+</li>
+            
+<li >
+    <a href="../mango/">Mango</a>
+</li>
+            
+<li >
+    <a href="../replication/">Replication</a>
+</li>
+            
+<li >
+    <a href="../couchdb-quirks/">CouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../files/">/files - Virtual File System</a>
+</li>
+            
+<li >
+    <a href="../references-docs-in-vfs/">References of documents in VFS</a>
+</li>
+            
+<li >
+    <a href="../intents/">/intents - Intents</a>
+</li>
+            
+<li >
+    <a href="../jobs/">/jobs Jobs</a>
+</li>
+            
+<li >
+    <a href="../konnectors/">Konnectors</a>
+</li>
+            
+<li >
+    <a href="../workers/">Workers</a>
+</li>
+            
+<li >
+    <a href="../notifications/">/notifications - Notifications</a>
+</li>
+            
+<li class="active">
+    <a href="./">/permissions - Permissions</a>
+</li>
+            
+<li >
+    <a href="../realtime/">/realtime - Realtime</a>
+</li>
+            
+<li >
+    <a href="../remote/">/remote - Proxy for remote data/API</a>
+</li>
+            
+<li >
+    <a href="../settings/">/settings - Settings</a>
+</li>
+            
+<li >
+    <a href="../sharing/">/sharings - Sharing</a>
+</li>
+            
+<li >
+    <a href="../sharing-design/">Request for comments</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#permissions">Permissions</a></li>
+            <li><a href="#when-the-permissions-are-used">When the permissions are used?</a></li>
+            <li><a href="#what-is-a-permission">What is a permission?</a></li>
+            <li><a href="#what-format-for-a-permission">What format for a permission?</a></li>
+            <li><a href="#routes">Routes</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<p><a href="../README/#table-of-contents">Table of contents</a></p>
+<h1 id="permissions">Permissions<a class="headerlink" href="#permissions" title="Permanent link">&para;</a></h1>
+<h2 id="when-the-permissions-are-used">When the permissions are used?<a class="headerlink" href="#when-the-permissions-are-used" title="Permanent link">&para;</a></h2>
+<p>The permissions are used when a request is made to cozy stack. It allows to let
+the owner of the cozy instance controls the access to her data, files and
+actions on them. The permissions are given in several contexts. Let&rsquo;s see them!</p>
+<h3 id="client-side-apps">Client-side apps<a class="headerlink" href="#client-side-apps" title="Permanent link">&para;</a></h3>
+<p>When the user installs a new client-side app, she is asked to accept an initial
+set of permissions for this app. This set of permissions is described in the
+manifest of the app.</p>
+<p>Later, the application can gain more permissions via the <a href="../intents/">intents</a>
+and optional permissions. See below for more details.</p>
+<p>When the authentified user access a client-side app, the app receives a token
+from the stack that can be used in later requests to the stack as a proof of the
+permissions it owns.</p>
+<h3 id="external-apps-via-oauth2">External apps via OAuth2<a class="headerlink" href="#external-apps-via-oauth2" title="Permanent link">&para;</a></h3>
+<p>An external application can ask for permissions via the OAuth2 dance, and use
+them later with the access token. The permissions are in the <code>scope</code> parameter.</p>
+<h3 id="sharing-with-other-users">Sharing with other users<a class="headerlink" href="#sharing-with-other-users" title="Permanent link">&para;</a></h3>
+<p>The owner of a cozy instance can share some documents and files with other
+users. It can be done in two ways:</p>
+<ul>
+<li>If the other user also has a cozy, it can be a cozy-to-cozy sharing.</li>
+<li>Else, the owner can give to him a link with a code.</li>
+</ul>
+<h2 id="what-is-a-permission">What is a permission?<a class="headerlink" href="#what-is-a-permission" title="Permanent link">&para;</a></h2>
+<p>A permission gives the right for a request having it to do something on the
+stack. It is defined by four components.</p>
+<h3 id="type">Type<a class="headerlink" href="#type" title="Permanent link">&para;</a></h3>
+<p><code>type</code> is the attribute used in JSON-API or the <code>docType</code> for the Data System.</p>
+<p>It is the only mandatory component. If just the <code>type</code> is specified, it gives
+access to all the operations on this <code>type</code>. For example, a permission on type
+<code>io.cozy.contacts</code> gives the right to create, read, update and delete any
+contact, and to fetch all the contacts. A permission on type <code>io.cozy.files</code>
+allow to access and modify any file or directory.</p>
+<p>Some known types:</p>
+<ul>
+<li><code>io.cozy.files</code>, for files and folder in the <a href="../files/">VFS</a></li>
+<li><code>io.cozy.apps</code>, for <a href="../apps/">apps</a></li>
+<li><code>io.cozy.settings</code>, for the <a href="../settings/">settings</a></li>
+<li><code>io.cozy.jobs</code> and <code>io.cozy.triggers</code>, for <a href="../jobs/">jobs</a></li>
+<li><code>io.cozy.oauth.clients</code>, to list and revoke <a href="../auth/">OAuth 2 clients</a></li>
+</ul>
+<h3 id="verbs">Verbs<a class="headerlink" href="#verbs" title="Permanent link">&para;</a></h3>
+<p>It says which HTTP verbs can be used for requests to the cozy-stack. <code>GET</code> will
+give read-only access, <code>DELETE</code> can be used for deletions, etc. Verbs should be
+declared in a list, like <code>["GET", "POST", "DELETE"]</code>, and use <code>["ALL"]</code> as a
+shortcut for <code>["GET", "POST", "PUT", "PATCH", "DELETE"]</code> (it is the default).</p>
+<p><strong>Note</strong>: <code>HEAD</code> is implicitely implied when <code>GET</code> is allowed. <code>OPTIONS</code> for
+Cross-Origin Resources Sharing is always allowed, the stack does not have the
+informations about the permission when it answers the request.</p>
+<h3 id="values">Values<a class="headerlink" href="#values" title="Permanent link">&para;</a></h3>
+<p>It&rsquo;s possible to restrict the permissions to only some documents of a docType,
+or to just some files and folders. You can give a list of ids in <code>values</code>.</p>
+<p><strong>Note</strong>: a permission for a folder also gives permissions with same verbs for
+files and folders inside it.</p>
+<h3 id="selector">Selector<a class="headerlink" href="#selector" title="Permanent link">&para;</a></h3>
+<p>By default, the <code>values</code> are checked with the <code>id</code>. But it&rsquo;s possible to use a
+<code>selector</code> to filter on another <code>field</code>. In particular, it can be used for
+sharing. A user may share a calendar and all the events inside it. It will be
+done with two permissions. The first one is for the calendar:</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;type&quot;: &quot;io.cozy.calendars&quot;,
+  &quot;verbs&quot;: [&quot;GET&quot;],
+  &quot;values&quot;: [&quot;1355812c-d41e-11e6-8467-53be4648e3ad&quot;]
+}</code></pre>
+
+
+<p>And the other is for the events inside the calendar:</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;type&quot;: &quot;io.cozy.events&quot;,
+  &quot;verbs&quot;: [&quot;GET&quot;],
+  &quot;selector&quot;: &quot;calendar-id&quot;,
+  &quot;values&quot;: [&quot;1355812c-d41e-11e6-8467-53be4648e3ad&quot;]
+}</code></pre>
+
+
+<h2 id="what-format-for-a-permission">What format for a permission?<a class="headerlink" href="#what-format-for-a-permission" title="Permanent link">&para;</a></h2>
+<h3 id="json">JSON<a class="headerlink" href="#json" title="Permanent link">&para;</a></h3>
+<p>The prefered format for permissions is JSON. Each permission is a map with the
+<code>type</code>, <code>verbs</code>, <code>values</code> and <code>selector</code> see above, plus a <code>description</code> that
+can be used to give more informations to the user. Only the <code>type</code> field is
+mandatory.</p>
+<p>In the manifest, the permissions are regrouped in a map. The key is not very
+relevant, it&rsquo;s just here for localization. The same key is used in the <code>locales</code>
+field to identify the permission.</p>
+<p>Example:</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;permissions&quot;: {
+    &quot;contacts&quot;: {
+      &quot;description&quot;: &quot;Required for autocompletion on @name&quot;,
+      &quot;type&quot;: &quot;io.cozy.contacts&quot;,
+      &quot;verbs&quot;: [&quot;GET&quot;]
+    },
+    &quot;images&quot;: {
+      &quot;description&quot;: &quot;Required for the background&quot;,
+      &quot;type&quot;: &quot;io.cozy.files&quot;,
+      &quot;verbs&quot;: [&quot;GET&quot;, &quot;POST&quot;],
+      &quot;values&quot;: [&quot;io.cozy.files.music-dir&quot;]
+    },
+    &quot;mail&quot;: {
+      &quot;description&quot;: &quot;Required to send a congratulations email to your friends&quot;,
+      &quot;type&quot;: &quot;io.cozy.jobs&quot;,
+      &quot;selector&quot;: &quot;worker&quot;,
+      &quot;values&quot;: [&quot;sendmail&quot;]
+    }
+  }
+}</code></pre>
+
+
+<h3 id="inline">Inline<a class="headerlink" href="#inline" title="Permanent link">&para;</a></h3>
+<p>OAuth2 as a <code>scope</code> parameter for defining the permissions given to the
+application. But it&rsquo;s only a string, not a JSON. In that case, we use a space
+delimited list of permissions, each permission is written compactly with <code>:</code>
+between the components.</p>
+<p>Example:</p>
+<pre class="codehilite"><code>io.cozy.contacts io.cozy.files:GET:io.cozy.files.music-dir io.cozy.jobs:POST:sendmail:worker</code></pre>
+
+
+<p><strong>Note</strong>: the <code>verbs</code> component can&rsquo;t be omitted when the <code>values</code> and
+<code>selector</code> are used.</p>
+<h3 id="inspiration">Inspiration<a class="headerlink" href="#inspiration" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="https://news.ycombinator.com/item?id=12784999">Access control on other similar platforms</a></li>
+</ul>
+<h2 id="routes">Routes<a class="headerlink" href="#routes" title="Permanent link">&para;</a></h2>
+<h3 id="get-permissionsself">GET /permissions/self<a class="headerlink" href="#get-permissionsself" title="Permanent link">&para;</a></h3>
+<p>List the permissions for a given token</p>
+<h4 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">GET /permissions/self HTTP/1.1
+Host: cozy.example.net
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ
+Accept: application/vnd.api+json</code></pre>
+
+
+<h4 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-Type: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;type&quot;: &quot;io.cozy.permissions&quot;,
+    &quot;id&quot;: &quot;5a9c1844-d427-11e6-ab36-2b684d437b0d&quot;,
+    &quot;attributes&quot;: {
+      &quot;type&quot;: &quot;app&quot;,
+      &quot;source_id&quot;: &quot;io.cozy.apps/my-awesome-game&quot;,
+      &quot;permissions&quot;: {
+        &quot;contacts&quot;: {
+          &quot;description&quot;: &quot;Required for autocompletion on @name&quot;,
+          &quot;type&quot;: &quot;io.cozy.contacts&quot;,
+          &quot;verbs&quot;: [&quot;GET&quot;]
+        },
+        &quot;images&quot;: {
+          &quot;description&quot;: &quot;Required for the background&quot;,
+          &quot;type&quot;: &quot;io.cozy.files&quot;,
+          &quot;verbs&quot;: [&quot;GET&quot;],
+          &quot;values&quot;: [&quot;io.cozy.files.music-dir&quot;]
+        },
+        &quot;mail&quot;: {
+          &quot;description&quot;:
+            &quot;Required to send a congratulations email to your friends&quot;,
+          &quot;type&quot;: &quot;io.cozy.jobs&quot;,
+          &quot;selector&quot;: &quot;worker&quot;,
+          &quot;values&quot;: [&quot;sendmail&quot;]
+        }
+      }
+    }
+  }
+}</code></pre>
+
+
+<h3 id="post-permissions">POST /permissions<a class="headerlink" href="#post-permissions" title="Permanent link">&para;</a></h3>
+<p>Create a new set of permissions. It can also associates one or more codes to it,
+via the <code>codes</code> parameter in the query string. These codes can then be sent to
+other people as a way to give these permissions (sharing by links). The
+parameter is comma separed list of values. The role of these values is to
+identify the codes if you want to revoke some of them later. A <code>ttl</code> parameter
+can also be given to make the codes expires after a delay (<a href="https://github.com/justincampbell/bigduration/blob/master/README.md">bigduration
+format</a>).</p>
+<p><strong>Note</strong>: it is only possible to create a strict subset of the permissions
+associated to the sent token.</p>
+<h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">POST /permissions?codes=bob,jane&amp;ttl=1D HTTP/1.1
+Host: cozy.example.net
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ
+Content-Type: application/vnd.api+json
+Accept: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;type&quot;: &quot;io.cozy.permissions&quot;,
+    &quot;attributes&quot;: {
+      &quot;source_id&quot;: &quot;io.cozy.apps/my-awesome-game&quot;,
+      &quot;permissions&quot;: {
+        &quot;images&quot;: {
+          &quot;type&quot;: &quot;io.cozy.files&quot;,
+          &quot;verbs&quot;: [&quot;GET&quot;],
+          &quot;values&quot;: [&quot;io.cozy.files.music-dir&quot;]
+        }
+      }
+    }
+  }
+}</code></pre>
+
+
+<h4 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-Type: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;id&quot;: &quot;a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot;,
+    &quot;type&quot;: &quot;io.cozy.permissions&quot;,
+    &quot;attributes&quot;: {
+      &quot;type&quot;: &quot;share&quot;,
+      &quot;source_id&quot;: &quot;io.cozy.apps/my-awesome-game&quot;,
+      &quot;codes&quot;: {
+        &quot;bob&quot;: &quot;yuot7NaiaeGugh8T&quot;,
+        &quot;jane&quot;: &quot;Yohyoo8BHahh1lie&quot;
+      },
+      &quot;expires_at&quot;: 1483951978,
+      &quot;permissions&quot;: {
+        &quot;images&quot;: {
+          &quot;type&quot;: &quot;io.cozy.files&quot;,
+          &quot;verbs&quot;: [&quot;GET&quot;],
+          &quot;values&quot;: [&quot;io.cozy.files.music-dir&quot;]
+        }
+      }
+    }
+  }
+}</code></pre>
+
+
+<h3 id="get-permissionsid">GET /permissions/:id<a class="headerlink" href="#get-permissionsid" title="Permanent link">&para;</a></h3>
+<p>Return the informations about a set of permissions</p>
+<h4 id="request_2">Request<a class="headerlink" href="#request_2" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">GET /permissions/a340d5e0-d647-11e6-b66c-5fc9ce1e17c6 HTTP/1.1
+Host: cozy.example.net
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ
+Accept: application/vnd.api+json</code></pre>
+
+
+<h4 id="response_2">Response<a class="headerlink" href="#response_2" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-Type: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;id&quot;: &quot;a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot;,
+    &quot;type&quot;: &quot;io.cozy.permissions&quot;,
+    &quot;attributes&quot;: {
+      &quot;type&quot;: &quot;share&quot;,
+      &quot;source_id&quot;: &quot;io.cozy.apps/my-awesome-game&quot;,
+      &quot;codes&quot;: {
+        &quot;bob&quot;: &quot;yuot7NaiaeGugh8T&quot;,
+        &quot;jane&quot;: &quot;Yohyoo8BHahh1lie&quot;
+      },
+      &quot;expires_at&quot;: 1483951978,
+      &quot;permissions&quot;: {
+        &quot;images&quot;: {
+          &quot;type&quot;: &quot;io.cozy.files&quot;,
+          &quot;verbs&quot;: [&quot;GET&quot;],
+          &quot;values&quot;: [&quot;io.cozy.files.music-dir&quot;]
+        }
+      }
+    }
+  }
+}</code></pre>
+
+
+<h3 id="patch-permissionsid">PATCH /permissions/:id<a class="headerlink" href="#patch-permissionsid" title="Permanent link">&para;</a></h3>
+<p>Add permissions in this permissions set. It can be used in inter-apps context as
+a way to give another app the permission for some data. For example, the contact
+application can send a &ldquo;<em>pick a photo</em>&rdquo; intent to the photos application with
+its permission id, and the photos app can then let the user choose a photo and
+give the contacts application the permissions to use it.</p>
+<p>It can also be used to add or remove codes.</p>
+<h4 id="request-to-add-remove-codes">Request to add / remove codes<a class="headerlink" href="#request-to-add-remove-codes" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">PATCH /permissions/a340d5e0-d647-11e6-b66c-5fc9ce1e17c6 HTTP/1.1
+Host: cozy.example.net
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ
+Content-Type: application/vnd.api+json
+Accept: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;id&quot;: &quot;a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot;,
+    &quot;type&quot;: &quot;io.cozy.permissions&quot;,
+    &quot;attributes&quot;: {
+      &quot;codes&quot;: {
+        &quot;jane&quot;: &quot;Yohyoo8BHahh1lie&quot;
+      }
+    }
+  }
+}</code></pre>
+
+
+<h4 id="request-to-add-permissions">Request to add permissions<a class="headerlink" href="#request-to-add-permissions" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">PATCH /permissions/a340d5e0-d647-11e6-b66c-5fc9ce1e17c6 HTTP/1.1
+Host: cozy.example.net
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ
+Content-Type: application/vnd.api+json
+Accept: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;id&quot;: &quot;a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot;,
+    &quot;type&quot;: &quot;io.cozy.permissions&quot;,
+    &quot;permissions&quot;: {
+      &quot;add-this&quot;: {
+        &quot;type&quot;: &quot;io.cozy.files&quot;,
+        &quot;verbs&quot;: [&quot;GET&quot;],
+        &quot;values&quot;: [&quot;some-picture-id&quot;]
+      }
+    }
+  }
+}</code></pre>
+
+
+<h4 id="request-to-remove-permissions">Request to remove permissions<a class="headerlink" href="#request-to-remove-permissions" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">PATCH /permissions/a340d5e0-d647-11e6-b66c-5fc9ce1e17c6 HTTP/1.1
+Host: cozy.example.net
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ
+Content-Type: application/vnd.api+json
+Accept: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;id&quot;: &quot;a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot;,
+    &quot;type&quot;: &quot;io.cozy.permissions&quot;,
+    &quot;permissions&quot;: {
+      &quot;remove-this&quot;: {}
+    }
+  }
+}</code></pre>
+
+
+<h4 id="reponse">Reponse<a class="headerlink" href="#reponse" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-Type: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;id&quot;: &quot;a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot;,
+    &quot;type&quot;: &quot;io.cozy.permissions&quot;,
+    &quot;attributes&quot;: {
+      &quot;type&quot;: &quot;share&quot;,
+      &quot;source_id&quot;: &quot;io.cozy.apps/my-awesome-game&quot;,
+      &quot;codes&quot;: {
+        &quot;bob&quot;: &quot;yuot7NaiaeGugh8T&quot;
+      },
+      &quot;expires_at&quot;: 1483951978,
+      &quot;permissions&quot;: {
+        &quot;images&quot;: {
+          &quot;type&quot;: &quot;io.cozy.files&quot;,
+          &quot;verbs&quot;: [&quot;GET&quot;],
+          &quot;values&quot;: [&quot;io.cozy.files.music-dir&quot;]
+        }
+      }
+    }
+  }
+}</code></pre>
+
+
+<h3 id="delete-permissionsid">DELETE /permissions/:id<a class="headerlink" href="#delete-permissionsid" title="Permanent link">&para;</a></h3>
+<p>Delete a set of permissions. For example, some permissions were used by a user
+to share a photo album with her friends, and then she changed her mind and
+cancel the sharing.</p>
+<h4 id="request_3">Request<a class="headerlink" href="#request_3" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">DELETE /permissions/fa11561c-d645-11e6-83df-cbf577804d55 HTTP/1.1
+Host: cozy.example.net
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ</code></pre>
+
+
+<h4 id="reponse_1">Reponse<a class="headerlink" href="#reponse_1" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 204 No Content</code></pre>
+
+
+<h3 id="post-permissionsexists">POST /permissions/exists<a class="headerlink" href="#post-permissionsexists" title="Permanent link">&para;</a></h3>
+<p>List permissions for some documents</p>
+<h4 id="request_4">Request<a class="headerlink" href="#request_4" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">POST /permissions/exists HTTP/1.1
+Host: cozy.example.net
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ
+Content-Type: application/vnd.api+json
+Accept: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: [
+    { &quot;type&quot;: &quot;io.cozy.files&quot;, &quot;id&quot;: &quot;94375086-e2e2-11e6-81b9-5bc0b9dd4aa4&quot; }
+    { &quot;type&quot;: &quot;io.cozy.files&quot;, &quot;id&quot;: &quot;4cfbd8be-8968-11e6-9708-ef55b7c20863&quot; }
+    { &quot;type&quot;: &quot;io.cozy.files&quot;, &quot;id&quot;: &quot;a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot; }
+    { &quot;type&quot;: &quot;io.cozy.files&quot;, &quot;id&quot;: &quot;94375086-e2e2-11e6-81b9-5bc0b9dd4aa4&quot; }
+  ]
+}</code></pre>
+
+
+<h4 id="reponse_2">Reponse<a class="headerlink" href="#reponse_2" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-Type: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: [
+    { &quot;type&quot;: &quot;io.cozy.files&quot;, &quot;id&quot;: &quot;94375086-e2e2-11e6-81b9-5bc0b9dd4aa4&quot;,
+      &quot;verbs&quot;:[&quot;GET&quot;] }
+    { &quot;type&quot;: &quot;io.cozy.files&quot;, &quot;id&quot;: &quot;a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot;,
+      &quot;verbs&quot;:[&quot;GET&quot;, &quot;POST&quot;] }
+  ]
+}</code></pre>
+
+
+<h3 id="patch-permissionsappsslug">PATCH /permissions/apps/:slug<a class="headerlink" href="#patch-permissionsappsslug" title="Permanent link">&para;</a></h3>
+<p>Add permissions or remove permissions to the web application with specified
+slug. It behaves like the <code>PATCH /permissions/:id</code> route. See this route for
+more examples.</p>
+<h3 id="patch-permissionskonnectorsslug">PATCH /permissions/konnectors/:slug<a class="headerlink" href="#patch-permissionskonnectorsslug" title="Permanent link">&para;</a></h3>
+<p>Add permissions or remove permissions to the konnector with specified slug. It
+behaves like the <code>PATCH /permissions/:id</code> route. See this route for more
+examples.</p>
+<h3 id="get-permissionsdoctypedoctypeshared-by-link">GET /permissions/doctype/:doctype/shared-by-link<a class="headerlink" href="#get-permissionsdoctypedoctypeshared-by-link" title="Permanent link">&para;</a></h3>
+<p>List permissions for a doctype that are used for a &ldquo;share by links&rdquo;</p>
+<h4 id="request_5">Request<a class="headerlink" href="#request_5" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">GET /permissions/doctype/io.cozy.events/shared-by-link HTTP/1.1
+Host: cozy.example.net
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ
+Content-Type: application/vnd.api+json
+Accept: application/vnd.api+json</code></pre>
+
+
+<h4 id="reponse_3">Reponse<a class="headerlink" href="#reponse_3" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-Type: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: [
+    {
+      &quot;type&quot;: &quot;io.cozy.permissions&quot;,
+      &quot;id&quot;: &quot;c47f82396d09bfcd270343c5855b30a0&quot;,
+      &quot;attributes&quot;: {
+        &quot;type&quot;: &quot;share&quot;,
+        &quot;permissions&quot;: {
+          &quot;rule0&quot;: {
+            &quot;type&quot;: &quot;io.cozy.events&quot;,
+            &quot;verbs&quot;: [&quot;PATCH&quot;, &quot;DELETE&quot;],
+            &quot;values&quot;: [&quot;c47f82396d09bfcd270343c5855b0eea&quot;]
+          }
+        },
+        &quot;codes&quot;: { &quot;bob&quot;: &quot;secret&quot; }
+      },
+      &quot;meta&quot;: { &quot;rev&quot;: &quot;1-d46b6358683b80c8d59fc55d6de54127&quot; },
+      &quot;links&quot;: { &quot;self&quot;: &quot;/permissions/c47f82396d09bfcd270343c5855b30a0&quot; }
+    },
+    {
+      &quot;type&quot;: &quot;io.cozy.permissions&quot;,
+      &quot;id&quot;: &quot;c47f82396d09bfcd270343c5855b351a&quot;,
+      &quot;attributes&quot;: {
+        &quot;type&quot;: &quot;share&quot;,
+        &quot;permissions&quot;: {
+          &quot;rule0&quot;: {
+            &quot;type&quot;: &quot;io.cozy.events&quot;,
+            &quot;verbs&quot;: [&quot;GET&quot;],
+            &quot;values&quot;: [&quot;c47f82396d09bfcd270343c5855b169b&quot;]
+          }
+        },
+        &quot;codes&quot;: { &quot;bob&quot;: &quot;secret&quot; }
+      },
+      &quot;meta&quot;: { &quot;rev&quot;: &quot;1-920af658575a56e9e84685f1b09e5c23&quot; },
+      &quot;links&quot;: { &quot;self&quot;: &quot;/permissions/c47f82396d09bfcd270343c5855b351a&quot; }
+    }
+  ]
+}</code></pre>
+
+
+<p>Permissions required : GET on the whole doctype</p>
+<h3 id="get-permissionsdoctypedoctypeshared-with-me">GET /permissions/doctype/:doctype/shared-with-me<a class="headerlink" href="#get-permissionsdoctypedoctypeshared-with-me" title="Permanent link">&para;</a></h3>
+<p>Returns the list of permissions associated with sharings where the user is a
+recipient (those documents are shared with the user).</p>
+<h4 id="request_6">Request<a class="headerlink" href="#request_6" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">GET /permissions/doctype/io.cozy.files/shared-with-me HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ
+Content-Type: application/vnd.api+json
+Accept: application/vnd.api+json</code></pre>
+
+
+<h4 id="response_3">Response<a class="headerlink" href="#response_3" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-Type: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: [
+    {
+      &quot;type&quot;: &quot;io.cozy.permissions&quot;,
+      &quot;id&quot;: &quot;&quot;,
+      &quot;attributes&quot;: {
+        &quot;type&quot;: &quot;io.cozy.sharings&quot;,
+        &quot;source_id&quot;: &quot;60cf951a866b15d5777118696007ab0b&quot;,
+        &quot;permissions&quot;: {
+          &quot;rule0&quot;: {
+            &quot;type&quot;: &quot;io.cozy.files&quot;,
+            &quot;verbs&quot;: [&quot;GET&quot;, &quot;POST&quot;, &quot;PUT&quot;, &quot;PATCH&quot;, &quot;DELETE&quot;],
+            &quot;selector&quot;: &quot;referenced_by&quot;,
+            &quot;values&quot;: [&quot;io.cozy.photos.albums/60cf951a866b15d577711869600759d4&quot;]
+          }
+        }
+      },
+      &quot;meta&quot;: {},
+      &quot;links&quot;: {
+        &quot;self&quot;: &quot;/sharings/60cf951a866b15d5777118696007ab0b&quot;
+      }
+    }
+  ],
+  &quot;links&quot;: {},
+  &quot;meta&quot;: {
+    &quot;count&quot;: 1
+  }
+}</code></pre>
+
+
+<p>Permission required: GET on the whole type.</p>
+<h3 id="get-permissionsdoctypedoctypeshared-by-me">GET /permissions/doctype/:doctype/shared-by-me<a class="headerlink" href="#get-permissionsdoctypedoctypeshared-by-me" title="Permanent link">&para;</a></h3>
+<p>Returns the list of permissions associated with sharings where the user is the
+sharer (the user is sharing those documents with others).</p>
+<h4 id="request_7">Request<a class="headerlink" href="#request_7" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">GET /permissions/doctype/io.cozy.files/shared-by-me HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ
+Content-Type: application/vnd.api+json
+Accept: application/vnd.api+json</code></pre>
+
+
+<h4 id="response_4">Response<a class="headerlink" href="#response_4" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-Type: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: [
+    {
+      &quot;type&quot;: &quot;io.cozy.permissions&quot;,
+      &quot;id&quot;: &quot;&quot;,
+      &quot;attributes&quot;: {
+        &quot;type&quot;: &quot;io.cozy.sharings&quot;,
+        &quot;source_id&quot;: &quot;60cf951a866b15d5777118696007a13d&quot;,
+        &quot;permissions&quot;: {
+          &quot;rule0&quot;: {
+            &quot;type&quot;: &quot;io.cozy.files&quot;,
+            &quot;description&quot;: &quot;photos&quot;,
+            &quot;selector&quot;: &quot;referenced_by&quot;,
+            &quot;values&quot;: [&quot;io.cozy.photos.albums/60cf951a866b15d577711869600759d4&quot;]
+          }
+        }
+      },
+      &quot;meta&quot;: {},
+      &quot;links&quot;: {
+        &quot;self&quot;: &quot;/sharings/60cf951a866b15d5777118696007a13d&quot;
+      }
+    }
+  ],
+  &quot;links&quot;: {},
+  &quot;meta&quot;: {
+    &quot;count&quot;: 1
+  }
+}</code></pre>
+
+
+<p>Permission required: GET on the whole type.</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

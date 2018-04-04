@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/intents/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>/intents - Intents - Cozy Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Cozy Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Use <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/">User guide</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Stay in sync</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronize your phone</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronize your computer</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Install on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Download</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../dev/">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="../../dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="../../dev/app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="../../dev/konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="../../dev/cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="../../dev/sendmail/">How to send mail in development</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">References</a>
+    <ul class="dropdown-menu">
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-doctypes</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bank/">Banking doctypes</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bills/">Bills</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.contacts/">Contacts</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.files/">Files</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.notifications/">Notifications</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.photos.albums/">Albums</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/">Remote requests</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/">Session logins</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-stack</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../README/">README</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Architecture</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../architecture/">General overview</a>
+</li>
+            
+<li >
+    <a href="../security/">Security</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Usage</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../INSTALL/">Install the cozy-stack</a>
+</li>
+            
+<li >
+    <a href="../cli/cozy-stack/">Manpages of the command-line tool</a>
+</li>
+            
+<li >
+    <a href="../config/">Configuration file</a>
+</li>
+            
+<li >
+    <a href="../instance/">Managing Instances</a>
+</li>
+            
+<li >
+    <a href="../onboarding/">Onboarding</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">For developpers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../client-app-dev/">Develop a client-side app</a>
+</li>
+            
+<li >
+    <a href="../docker/">Running and building Docker images</a>
+</li>
+            
+<li >
+    <a href="../release/">Build a release</a>
+</li>
+            
+<li >
+    <a href="../CONTRIBUTING/">The contributing guide</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Services</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../auth/">/auth - Authentication & OAuth</a>
+</li>
+            
+<li >
+    <a href="../apps/">/apps - Applications Management</a>
+</li>
+            
+<li >
+    <a href="../registry/">Apps registry</a>
+</li>
+            
+<li >
+    <a href="../data-system/">/data - Data System</a>
+</li>
+            
+<li >
+    <a href="../mango/">Mango</a>
+</li>
+            
+<li >
+    <a href="../replication/">Replication</a>
+</li>
+            
+<li >
+    <a href="../couchdb-quirks/">CouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../files/">/files - Virtual File System</a>
+</li>
+            
+<li >
+    <a href="../references-docs-in-vfs/">References of documents in VFS</a>
+</li>
+            
+<li class="active">
+    <a href="./">/intents - Intents</a>
+</li>
+            
+<li >
+    <a href="../jobs/">/jobs Jobs</a>
+</li>
+            
+<li >
+    <a href="../konnectors/">Konnectors</a>
+</li>
+            
+<li >
+    <a href="../workers/">Workers</a>
+</li>
+            
+<li >
+    <a href="../notifications/">/notifications - Notifications</a>
+</li>
+            
+<li >
+    <a href="../permissions/">/permissions - Permissions</a>
+</li>
+            
+<li >
+    <a href="../realtime/">/realtime - Realtime</a>
+</li>
+            
+<li >
+    <a href="../remote/">/remote - Proxy for remote data/API</a>
+</li>
+            
+<li >
+    <a href="../settings/">/settings - Settings</a>
+</li>
+            
+<li >
+    <a href="../sharing/">/sharings - Sharing</a>
+</li>
+            
+<li >
+    <a href="../sharing-design/">Request for comments</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy-docs-v3/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#intents">Intents</a></li>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#glossary">Glossary</a></li>
+            <li><a href="#proposal">Proposal</a></li>
+            <li><a href="#routes">Routes</a></li>
+            <li><a href="#annexes">Annexes</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<p><a href="../README/#table-of-contents">Table of contents</a></p>
+<h1 id="intents">Intents<a class="headerlink" href="#intents" title="Permanent link">&para;</a></h1>
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#glossary">Glossary</a></li>
+<li><a href="#proposal">Proposal</a></li>
+<li><a href="#1-manifest">1. Manifest</a></li>
+<li><a href="##2-intent-start">2. Intent Start</a></li>
+<li><a href="#3-service-resolution">3. Service Resolution</a></li>
+<li><a href="#4-handshake">4. Handshake</a></li>
+<li><a href="#5-processing--terminating">5. Processing &amp; Terminating</a></li>
+<li><a href="#routes">Routes</a></li>
+<li><a href="#annexes">Annexes</a></li>
+<li><a href="#use-cases">Use cases</a></li>
+<li><a href="#bibliography--prior-art">Bibliography &amp; Prior Art</a></li>
+<li><a href="#discarded-ideas">Discarded Ideas</a></li>
+</ul>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>A typical Cozy Cloud runs multiple applications, but most of these applications
+are focused on one task and interact with one particular type of data.</p>
+<p>However, Cozy Cloud especially shines when data is combined across apps to
+provide an integrated experience. This is made difficult by the fact that apps
+have no dedicated back-end and that they have restricted access to documents.</p>
+<p>This document outlines a proposal for apps to rely on each other to accomplish
+certain tasks and gain access to new documents, in a way that hopefully is
+neither painful for the users nor the developers.</p>
+<h2 id="glossary">Glossary<a class="headerlink" href="#glossary" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Intent</strong>: Intents, sometimes also called Activities, is a pattern used in
+  environments where multiple apps with different purposes coexist. The idea is
+  that any app can express the need to do <em>something</em> that it can&rsquo;t do itself,
+  and an app that <em>can</em> do it will take over from there.</li>
+<li><strong>Stack</strong>: refers to <a href="https://github.com/cozy/cozy-stack/">cozy-stack</a>, the
+  server-side part of the Cozy infrastructure.</li>
+<li><strong>Client</strong>: the client is the application that <em>starts</em> an intent.</li>
+<li><strong>Service</strong>: the service is the application that <em>handles</em> an intent started
+  by a client.</li>
+</ul>
+<h2 id="proposal">Proposal<a class="headerlink" href="#proposal" title="Permanent link">&para;</a></h2>
+<p>In this proposal, services declare themselves through their manifest. When a
+clients starts an intent, the stack finds the appropriate service and help the
+two apps to create a communication channel between them. After the channel is
+ready, the intent is processed. These steps are detailed below.</p>
+<h3 id="1-manifest">1. Manifest<a class="headerlink" href="#1-manifest" title="Permanent link">&para;</a></h3>
+<p>Every app can register itself as a potential handler for one or more intents. To
+do so, it must provide the following information for each intent it wishes to
+handle:</p>
+<ul>
+<li><code>action</code>: A verb that describes what the service should do. The most common
+  actions are <code>CREATE</code>, <code>EDIT</code>, <code>OPEN</code>, <code>PICK</code>, and <code>SHARE</code>. While we recommend
+  using one of these verbs, the list is not exhaustive and may be extended by
+  any app.</li>
+<li><code>type</code>: One or more types of data on which the service knows how to operate
+  the <code>action</code>. A <code>type</code> can be expressed as a
+  <a href="https://en.wikipedia.org/wiki/Media_type">MIME type</a> or a
+  <a href="https://github.com/cozy/cozy-stack/blob/master/docs/data-system.md#typing">Cozy Document Type</a>.
+  The application must have permissions for any Cozy Document Type listed here.
+  You can also think of the <code>type</code> as the intent&rsquo;s subject.</li>
+<li><code>href</code>: the relative URL of the route designed to handle this intent. A
+  query-string with the intent id will be added to this URL.</li>
+</ul>
+<p>These informations must be provided in the manifest of the application, inside
+the <code>intents</code> key.</p>
+<p>Here is a very simple example:</p>
+<pre class="codehilite"><code class="language-json">&quot;intents&quot;: [
+    {
+        &quot;action&quot;: &quot;PICK&quot;,
+        &quot;type&quot;: [&quot;io.cozy.files&quot;],
+        &quot;href&quot;: &quot;/pick&quot;
+    }
+]</code></pre>
+
+
+<p>When this service is called, it will load the page
+<code>https://service.domain.example.com/pick?intent=123abc</code>.</p>
+<p>Here is an example of an app that supports multiple data types:</p>
+<pre class="codehilite"><code class="language-json">&quot;intents&quot;: [
+    {
+        &quot;action&quot;: &quot;PICK&quot;,
+        &quot;type&quot;: [&quot;io.cozy.files&quot;, &quot;image/*&quot;],
+        &quot;href&quot;: &quot;/pick&quot;
+    }
+]</code></pre>
+
+
+<p>Finally, here is an example of an app that supports several intent types:</p>
+<pre class="codehilite"><code class="language-json">&quot;intents&quot;: [
+    {
+        &quot;action&quot;: &quot;PICK&quot;,
+        &quot;type&quot;: [&quot;io.cozy.files&quot;, &quot;image/*&quot;],
+        &quot;href&quot;: &quot;/pick&quot;
+    },
+    {
+        &quot;action&quot;: &quot;VIEW&quot;,
+        &quot;type&quot;: [&quot;image/gif&quot;],
+        &quot;href&quot;: &quot;/viewer&quot;
+    }
+]</code></pre>
+
+
+<p>This information is stored by the stack when the application is installed.</p>
+<h3 id="2-intent-start">2. Intent Start<a class="headerlink" href="#2-intent-start" title="Permanent link">&para;</a></h3>
+<p>Any app can start a new intent whenever it wants. When it does, the app becomes
+the <em>client</em>.</p>
+<p>To start an intent, it must specify the following information:</p>
+<ul>
+<li><code>action</code> : an action verb, which will be matched against the actions declared
+  in services manifest files.</li>
+<li><code>type</code> : a <strong>single</strong> data type, which will be matched against the types
+  declared in services manifest files.</li>
+</ul>
+<p>There are also two optional fields that can be defined at the start of the
+intent:</p>
+<ul>
+<li><code>data</code>: Any data that the client wants to make available to the service.
+  <code>data</code> must be a JSON object but its structure is left to the discretion of
+  the client. The only exception is when <code>type</code> is a MIME type and the client
+  wishes to send a file to the service. In that case, the file should be
+  represented as a base-64 encoded <a href="http://dataurl.net/#about">Data URL</a> and
+  must be named <code>content</code>. This convention is also recomended when dealing with
+  other intent <code>type</code>s. See the examples below for an example of this.</li>
+<li><code>permissions</code> : When <code>type</code> is a Cozy Document Type and the client expects to
+  receive one or more documents as part of the reply from the service, the
+  <code>permissions</code> field allows the client to request permissions for these
+  documents. <code>permissions</code> is a list of HTTP Verbs. Refer
+  <a href="https://github.com/cozy/cozy-stack/blob/master/docs/permissions.md#verbs">to this section</a>
+  of the permission documentation for more information.</li>
+</ul>
+<p><strong>Note</strong>: if the intent&rsquo;s subject is a Cozy Doctype that holds references to
+other Cozy Documents (such as an album referencing photos or a playlist
+referencing music files), the permissions should be granted for the referenced
+documents too, whenever possible.</p>
+<p>Here is an example of what the API could look like:</p>
+<pre class="codehilite"><code class="language-js">// &quot;Let the user pick a file&quot;
+cozy.intents.start('PICK', 'io.cozy.files')
+.then(document =&gt; {
+    // document is a JSON representation of the picked file
+});
+
+// &quot;Create a contact, with some information already filled out&quot;
+cozy.intents.start('CREATE', 'io.cozy.contacts', {
+    name: 'John Johnsons',
+    tel: '+12345678'
+    email: 'john@johnsons.com'
+})
+.then(document =&gt; {
+    // document is a JSON representation of the contact that was created
+});
+
+// &quot;Save this file somewhere&quot;
+cozy.intents.start('CREATE', 'io.cozy.files', {
+    content: 'data:application/zip;base64,UEsDB...',
+    name: 'photos.zip'
+});
+
+// &quot;Create a new note, and give me read-only access to it&quot;
+cozy.intents.start('CREATE', 'io.cozy.notes', {}, ['GET'])
+.then(document =&gt; {
+    // document is a JSON representation of the note that was created.
+    // Additionally, this note can now be retrieved through the API since we have read access on it.
+});
+
+// &quot;Create an event based on the provided data, and give me full access to it&quot;
+cozy.intents.start('CREATE', 'io.cozy.events', {
+    date: '2017/06/24',
+    title: 'Beach day'
+}, ['ALL'])
+.then(document =&gt; {
+    // document is a JSON representation of the note that was created.
+    // Additionally, this note can now be retrieved through the API since we have read access on it.
+});
+
+// &quot;Crop this picture&quot;
+cozy.intents.start('EDIT', 'image/png', {
+    content: 'data:image/png;base64,iVBORw...',
+    width: 50,
+    height: 50
+})
+.then(image =&gt; {
+    //image is the edited version of the image provided above.
+})</code></pre>
+
+
+<h3 id="3-service-resolution">3. Service Resolution<a class="headerlink" href="#3-service-resolution" title="Permanent link">&para;</a></h3>
+<p>The service resolution is the phase where a service is chosen to handle an
+intent. This phase is handled by the stack.</p>
+<p>After the client has started it&rsquo;s intent, it sends the <code>action</code>, the <code>type</code> and
+the <code>permissions</code> to the stack. The stack will then traverse the list of
+installed apps and find all the apps that can handle that specific combination.
+Note that if the intent request <code>GET</code> permissions on a certain Cozy Document
+Type, but the service does not have this permission itself, it can not handle
+the intent.</p>
+<p>The stack then stores the information for that intent:</p>
+<ul>
+<li>A unique id for that intent</li>
+<li>Client URL</li>
+<li>Service URL</li>
+<li><code>action</code></li>
+<li><code>type</code></li>
+<li><code>permissions</code></li>
+</ul>
+<p>Finally, the service URL is suffixed with <code>?intent=</code> followed by the intent&rsquo;s
+id, and then sent to the client.</p>
+<h4 id="service-choice">Service choice<a class="headerlink" href="#service-choice" title="Permanent link">&para;</a></h4>
+<p>If more than one service match the intent&rsquo;s criteria, the stack returns the list
+of all matching service URLs to the client (and stores it in the service URL
+version of the intent it keeps in memory). The client is then free to pick one
+arbitrarily.</p>
+<p>The client may also decide to let the user choose one of the services. To do
+this, it should start another intent with a <code>PICK</code> action and a <code>io.cozy.apps</code>
+<code>type</code>. This intent should be resolved by the stack to a special page, in order
+to avoid having multiple services trying to handle it and ending up in a loop.</p>
+<p>This special page is a service like any other; it expects the list of services
+to pick from as input data, and will return the one that has been picked to the
+client. The client can then proceed with the first intent.</p>
+<p>The user may decide to abort the intent before picking a service. If that is the
+case, the choice page will need to inform the client that the intent was
+aborted.</p>
+<h4 id="no-available-service">No available service<a class="headerlink" href="#no-available-service" title="Permanent link">&para;</a></h4>
+<p>If no service is available to handle an intent, the stack returns an error to
+the client.</p>
+<p>At a later phase of this project, the stack may traverse the applications
+registered in a store to find suitable services, and prompt the user to install
+one.</p>
+<h3 id="4-handshake">4. Handshake<a class="headerlink" href="#4-handshake" title="Permanent link">&para;</a></h3>
+<p>The next phase consist of the client and the service establishing a
+communication channel between them. The communication will be done using the
+<a href="https://developer.mozilla.org/fr/docs/Web/API/Window/postMessage">window.postMessage</a>
+API.</p>
+<h4 id="service-initialization">Service Initialization<a class="headerlink" href="#service-initialization" title="Permanent link">&para;</a></h4>
+<p>When the client receives the service URL from the stack, it starts to listen for
+messages coming from that URL. Once the listener is started, it opens an iframe
+that points to the service&rsquo;s URL.</p>
+<h4 id="service-to-client">Service to Client<a class="headerlink" href="#service-to-client" title="Permanent link">&para;</a></h4>
+<p>At this point, the service app is opened on the route that it provided in the
+<code>href</code> part of it&rsquo;s manifest. This route now also contains the intent&rsquo;s id.</p>
+<p>The service queries the stack to find out information about the intent, passing
+along the intent id. In response, the stack sends the client&rsquo;s URL, the
+<code>action</code>, and the <code>type</code>. If the intent includes <code>permissions</code>, the stack sends
+them too, as well as the client&rsquo;s permission id.</p>
+<p>It then starts to listen for messages coming from the client&rsquo;s URL. Eventually,
+it sends a message to the client, as a mean to inform it that the service is now
+ready.</p>
+<h4 id="client-to-service">Client to Service<a class="headerlink" href="#client-to-service" title="Permanent link">&para;</a></h4>
+<p>After the client receives the &ldquo;ready&rdquo; message from the service, it sends a
+message to the service acknowledging the &ldquo;ready&rdquo; state.</p>
+<p>Along with this message, it should send the <code>data</code> that was provided at the
+start of the intent, if any.</p>
+<h3 id="5-processing-terminating">5. Processing &amp; Terminating<a class="headerlink" href="#5-processing-terminating" title="Permanent link">&para;</a></h3>
+<p>After this handshake, there is a confirmed communication channel between the
+client and the service, and the service knows what it has to do. This is the
+phase where the user interacts with the service.</p>
+<p>If the service is going to grant extra permissions to the client app, it is
+strongly recommended to make this clear to the user.</p>
+<p>When the service has finished his task, it sends a &ldquo;completed&rdquo; message to the
+client. Permissions extensions should have been done before that. Along with the
+completed message, the service should send any data it deems relevant. This data
+should be a JSON object. Again, the structure of that object is left to the
+discretion of the service, except when <code>type</code> is a MIME type. In that case, the
+file should be represented as a base-64 encoded
+<a href="http://dataurl.net/#about">Data URL</a> and must be named <code>content</code>. This
+convention is also recomended when dealing with other intent <code>type</code>s.</p>
+<p>After the client receives a &ldquo;completed&rdquo; message, it can close the service&rsquo;s
+iframe and resume operations as usual.</p>
+<p>If, for whatever reason, the service can not fulfill the intent, it can send an
+&ldquo;error&rdquo; message to the client. When the client receives an &ldquo;error&rdquo; message, the
+intent is aborted and the iframe can be closed.</p>
+<h2 id="routes">Routes<a class="headerlink" href="#routes" title="Permanent link">&para;</a></h2>
+<h3 id="post-intents">POST /intents<a class="headerlink" href="#post-intents" title="Permanent link">&para;</a></h3>
+<p>The client app can ask to start an intent via this route.</p>
+<p>Any client-side app can call this route, no permission is needed.</p>
+<h4 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code>POST /intents HTTP/1.1
+Host: cozy.example.net
+Authorization: Bearer eyJhbG...
+Content-Type: application/vnd.api+json
+Accept: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;type&quot;: &quot;io.cozy.intents&quot;,
+    &quot;attributes&quot;: {
+      &quot;action&quot;: &quot;PICK&quot;,
+      &quot;type&quot;: &quot;io.cozy.files&quot;,
+      &quot;permissions&quot;: [&quot;GET&quot;]
+    }
+  }
+}</code></pre>
+
+
+<h4 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 201 Created
+Content-Type: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;id&quot;: &quot;77bcc42c-0fd8-11e7-ac95-8f605f6e8338&quot;,
+    &quot;type&quot;: &quot;io.cozy.intents&quot;,
+    &quot;attributes&quot;: {
+      &quot;action&quot;: &quot;PICK&quot;,
+      &quot;type&quot;: &quot;io.cozy.files&quot;,
+      &quot;permissions&quot;: [&quot;GET&quot;],
+      &quot;client&quot;: &quot;https://contacts.cozy.example.net&quot;,
+      &quot;services&quot;: [
+        {
+          &quot;slug&quot;: &quot;files&quot;,
+          &quot;href&quot;:
+            &quot;https://files.cozy.example.net/pick?intent=77bcc42c-0fd8-11e7-ac95-8f605f6e8338&quot;
+        }
+      ]
+    },
+    &quot;links&quot;: {
+      &quot;self&quot;: &quot;/intents/77bcc42c-0fd8-11e7-ac95-8f605f6e8338&quot;,
+      &quot;permissions&quot;: &quot;/permissions/a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot;
+    }
+  }
+}</code></pre>
+
+
+<h3 id="get-intentsid">GET /intents/:id<a class="headerlink" href="#get-intentsid" title="Permanent link">&para;</a></h3>
+<p>Get all the informations about the intent</p>
+<p><strong>Note</strong>: only the service can access this route (no permission involved).</p>
+<h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">GET /intents/77bcc42c-0fd8-11e7-ac95-8f605f6e8338 HTTP/1.1
+Host: cozy.example.net
+Authorization: Bearer J9l-ZhwP...
+Content-Type: application/vnd.api+json
+Accept: application/vnd.api+json</code></pre>
+
+
+<h4 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-Type: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;id&quot;: &quot;77bcc42c-0fd8-11e7-ac95-8f605f6e8338&quot;,
+    &quot;type&quot;: &quot;io.cozy.intents&quot;,
+    &quot;attributes&quot;: {
+      &quot;action&quot;: &quot;PICK&quot;,
+      &quot;type&quot;: &quot;io.cozy.files&quot;,
+      &quot;permissions&quot;: [&quot;GET&quot;],
+      &quot;client&quot;: &quot;https://contacts.cozy.example.net&quot;,
+      &quot;services&quot;: [
+        {
+          &quot;slug&quot;: &quot;files&quot;,
+          &quot;href&quot;:
+            &quot;https://files.cozy.example.net/pick?intent=77bcc42c-0fd8-11e7-ac95-8f605f6e8338&quot;
+        }
+      ]
+    },
+    &quot;links&quot;: {
+      &quot;self&quot;: &quot;/intents/77bcc42c-0fd8-11e7-ac95-8f605f6e8338&quot;,
+      &quot;permissions&quot;: &quot;/permissions/a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot;
+    }
+  }
+}</code></pre>
+
+
+<h2 id="annexes">Annexes<a class="headerlink" href="#annexes" title="Permanent link">&para;</a></h2>
+<h3 id="use-cases">Use Cases<a class="headerlink" href="#use-cases" title="Permanent link">&para;</a></h3>
+<p>Here is a non exhaustive list of situations that <em>may</em> use intents:</p>
+<ul>
+<li>Configure a new connector account</li>
+<li>Share a photo album via email</li>
+<li>Add an attachment to an email</li>
+<li>Attach a note to a contact</li>
+<li>Create a contact based on an email</li>
+<li>Save an attachment received in an email</li>
+<li>Create a birthday event in a calendar, based on a contact</li>
+<li>Create an event based on an email&rsquo;s content</li>
+<li>Create an event based on an ICS file</li>
+<li>Chose an avatar for a contact</li>
+<li>Open a file from the file browser (music, PDF, image, &hellip;)</li>
+<li>Attach a receipt to an expense</li>
+<li>Provide a tip for another application</li>
+</ul>
+<h3 id="bibliography-prior-art">Bibliography &amp; Prior Art<a class="headerlink" href="#bibliography-prior-art" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Prior art:
+  https://forum.cozy.io/t/cozy-tech-topic-inter-app-communication-architecture/2287</li>
+<li>Web intents: http://webintents.org/</li>
+<li>WebActivities: https://wiki.mozilla.org/WebAPI/WebActivities and
+  https://developer.mozilla.org/en-US/docs/Archive/Firefox_OS/API/Web_Activities</li>
+<li>Siri Intents:
+  https://developer.apple.com/library/content/documentation/Intents/Conceptual/SiriIntegrationGuide/ResolvingandHandlingIntents.html#//apple_ref/doc/uid/TP40016875-CH5-SW1</li>
+<li>Android Intents:
+  https://developer.android.com/reference/android/content/Intent.html</li>
+<li>iOS extensions:
+  https://developer.apple.com/library/content/documentation/General/Conceptual/ExtensibilityPG/index.html</li>
+</ul>
+<h3 id="discarded-ideas">Discarded Ideas<a class="headerlink" href="#discarded-ideas" title="Permanent link">&para;</a></h3>
+<h4 id="disposition">Disposition<a class="headerlink" href="#disposition" title="Permanent link">&para;</a></h4>
+<p>Some specifications include a <code>disposition</code> field in the manifests, that gives a
+hint to the client about how to display the service (inlined or in a new
+window). Since we were unable to find a use case where a new window is required,
+we decided not to include the <code>disposition</code> in this specification. It might be
+added later if the need arises.</p>
+<h4 id="client-server-architecture">Client / Server architecture<a class="headerlink" href="#client-server-architecture" title="Permanent link">&para;</a></h4>
+<p>Instead of letting the two applications communicate with each other, they could
+be made to talk through the stack. This would be useful as the stack could act
+as a middleware, transforming data on the fly or granting permissions where
+appropriate.</p>
+<p>However, this approach has also severe drawbacks, notably the fact that the
+stack must hold a copy of all the data that the apps want to transfer (which can
+include large files). It also makes it significantly harder for the client to
+know when the intent has been processed.</p>
+<h4 id="data-representation">Data representation<a class="headerlink" href="#data-representation" title="Permanent link">&para;</a></h4>
+<p>The client could explicitly request a data format to be used in the
+communication. However, this idea was abandoned because the format is <em>always</em>
+json, except when then intent&rsquo;s <code>type</code> is a MIME type, in which case the data
+format <em>also</em> uses this type.</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
