@@ -38,8 +38,8 @@ yarn git-directory-deploy \
     --branch=${DEPLOY_BRANCH:-gh-pages}
 echo "gh-pages branch updated. Should be visible on https://cozy.github.io/cozy-docs-v3"
 
-$RUNDECK_UPDATE_DOCS_JOB_URL=${RUNDECK_UPDATE_DOCS_JOB_URL:-""}
-$RUNDECK_TOKEN=${RUNDECK_TOKEN:-""}
+RUNDECK_UPDATE_DOCS_JOB_URL=${RUNDECK_UPDATE_DOCS_JOB_URL:-""}
+RUNDECK_TOKEN=${RUNDECK_TOKEN:-""}
 
 if [[ ! -z "$RUNDECK_UPDATE_DOCS_JOB_URL" &&  ! -z $RUNDECK_TOKEN ]]; then
     echo "Updating on docs.cozy.io via Rundeck..."
