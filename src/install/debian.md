@@ -26,7 +26,7 @@ Available channels are:
 
 You can choose to install `cozy-couchdb` on the same host as `cozy-stack`, or use a remote CouchDB server. Cozy only needs a 2.x CouchDB (1.x not supported).
 
-Like CouchDB, you can choose to install your reverse proxy on the same host, or use a remote one. At this `cozy-coclyco` supports only local `nginx`. If you want to use `apache2` or remote reverse proxy, you need to manually configure it for vhost or TLS certificate issuances.
+Like CouchDB, you can choose to install your reverse proxy on the same host, or use a remote one. Right now `cozy-coclyco` supports only local `nginx`. If you want to use `apache2` or remote reverse proxy, you need to manually configure it for vhost or TLS certificate issuances.
 
 ## Prerequisites
 
@@ -97,6 +97,7 @@ At this point, you must have a working CouchDB instance
 curl http://localhost:5984/       
 {"couchdb":"Welcome","version":"2.1.0","features":["scheduler"],"vendor":{"name":"The Apache Software Foundation"}}
 ```
+If you want to use unstable/nightly builds, you might get another version of the database.
 
 ### Cozy stack
 
@@ -116,9 +117,9 @@ Cozy need to create a CouchDB administrator and so to connect as admin to the Co
  (Those passwords are used by shell scripts, so currently avoid to use ones with simple or double quotes or others shell meaningfull symbols. We advice you to choose ones with only alphanumeric digits to avoid troubles.)
 
 For stack management (create instances, install applications...), [Cozy need an administrator password](https://github.com/cozy/cozy-stack/blob/2ae446d85b60c89fb56cad1f7ed469cddca94494/docs/config.md#user-content-administration-secret). So pick a new one.  
-When invoking `cozy-stack` (or `cozy-coclyco` which use it under the hood), you need to set the `COZY_ADMIN_PASSWORD` environment variable with this password. You can put it on your `.bashrc` for simplier life if you want.
+When invoking `cozy-stack` (or `cozy-coclyco` which use it under the hood), you need to set the `COZY_ADMIN_PASSWORD` environment variable with this password. You can put it on your `.bashrc` for simplier life if you want. If you don't, cozy-stack will simply ask for it.
 
-At this point, you must have a working Cozy stack
+At this point, you must have a working Cozy stack, depending on the branch you've chosen you can get a different version displayed.
 
 ```bash
 curl http://localhost:8080/version
