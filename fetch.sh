@@ -22,8 +22,15 @@ function fetch-from-remote {
 
 rm src/cozy-client-js src/cozy-konnector-libs || true
 
-fetch-from-remote https://github.com/cozy/cozy-konnector-libs.git /tmp/cozy-konnector-libs
-ln -s /tmp/cozy-konnector-libs/packages/cozy-konnector-libs/docs src/cozy-konnector-libs
-
-fetch-from-remote https://github.com/cozy/cozy-client-js.git /tmp/cozy-client-js
-ln -s /tmp/cozy-client-js/docs src/cozy-client-js
+cat OUTSIDE_DOCS | while read line; do
+  arr=($line)
+  name=${arr[0]}
+  repo=${arr[1]}
+  subdir=${arr[2]}
+  tmpsubdir="/tmp/$name"
+  if [[ $subdir != "." ]]; then
+    tmpsubdir=${tmpsubdir}/${subdir}
+  fi
+  fetch-from-remote $repo /tmp/$name
+  ln -s /tmp/$name/$subdir src/$name
+done
