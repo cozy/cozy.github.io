@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# This script is responsible for deploying the build/ directory
+# to the gh-pages branch on GitHub and to run the Rundeck job to
+# update https://docs.cozy.io.
+#
+# GITHUB_TOKEN, RUNDECK_UPDATE_DOCS_JOB_URL and RUNDECK_TOKEN env
+# vars have been provided through Travis web interface.
+
 if [[ "$TRAVIS_BRANCH" != "master" ]]; then
     echo "Not on master (branch is $TRAVIS_BRANCH), aborting deploy"
     exit 0
@@ -15,9 +22,22 @@ if [[ "$GITHUB_TOKEN" == "" ]]; then
     exit 0
 fi
 
+echo "Deploying on gh-pages..."
 yarn git-directory-deploy \
     --username Cozy \
     --email contact@cozycloud.cc \
     --directory docs/ \
     --repo=https://$GITHUB_TOKEN@github.com/cozy/cozy-docs-v3.git \
     --branch=gh-pages
+echo "gh-pages branch updated. Should be visible on https://cozy.github.io/cozy-docs-v3"
+
+$RUNDECK_UPDATE_DOCS_JOB_URL=${RUNDECK_UPDATE_DOCS_JOB_URL:-""}
+$RUNDECK_TOKEN=${RUNDECK_TOKEN:-""}
+
+if [[ ! -z "$RUNDECK_UPDATE_DOCS_JOB_URL" &&  ! -z $RUNDECK_TOKEN ]]; then
+    echo "Updating on docs.cozy.io via Rundeck..."
+    curl --fail -X POST -H "X-Rundeck-Auth-Token: $RUNDECK_TOKEN" $RUNDECK_UPDATE_DOCS_JOB_URL
+    echo "Should be visible on https://docs.cozy.io/"
+else
+    echo "No Rundeck env vars (RUNDECK_UPDATE_DOCS_JOB_URL or RUNDECK_TOKEN), cannot deploy on docs.cozy.io"
+fi
