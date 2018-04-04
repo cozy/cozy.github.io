@@ -7,7 +7,14 @@
 # GITHUB_TOKEN, RUNDECK_UPDATE_DOCS_JOB_URL and RUNDECK_TOKEN env
 # vars have been provided through Travis web interface.
 
-if [[ "$TRAVIS_BRANCH" != "master" ]]; then
+set -euo pipefail
+
+TRAVIS_BRANCH=${TRAVIS_BRANCH:-''}
+TRAVIS_PULL_REQUEST=${TRAVIS_PULL_REQUEST:-'false'}
+DEPLOY_REPOSITORY=${DEPLOY_REPOSITORY:-''}
+GITHUB_TOKEN=${GITHUB_TOKEN:-''}
+
+if [[ "$TRAVIS_BRANCH" != "master" && $TRAVIS_BRANCH != '' ]]; then
     echo "Not on master (branch is $TRAVIS_BRANCH), aborting deploy"
     exit 0
 fi
@@ -17,7 +24,7 @@ if [[ "$TRAVIS_PULL_REQUEST" != "false" ]]; then
     exit 0
 fi
 
-if [[ "$GITHUB_TOKEN" == "" ]]; then
+if [[ "$GITHUB_TOKEN" == "" && $DEPLOY_REPOSITORY == '' ]]; then
     echo "No GitHub token, aborting deploy"
     exit 0
 fi
@@ -27,8 +34,8 @@ yarn git-directory-deploy \
     --username Cozy \
     --email contact@cozycloud.cc \
     --directory docs/ \
-    --repo=https://$GITHUB_TOKEN@github.com/cozy/cozy-docs-v3.git \
-    --branch=gh-pages
+    --repo=${DEPLOY_REPOSITORY:-https://$GITHUB_TOKEN@github.com/cozy/cozy-docs-v3.git} \
+    --branch=${DEPLOY_BRANCH:-gh-pages}
 echo "gh-pages branch updated. Should be visible on https://cozy.github.io/cozy-docs-v3"
 
 $RUNDECK_UPDATE_DOCS_JOB_URL=${RUNDECK_UPDATE_DOCS_JOB_URL:-""}
