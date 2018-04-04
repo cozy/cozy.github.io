@@ -1,8 +1,11 @@
 #!/bin/bash
 
+set -euo pipefail
+
 function fetch-from-remote {
     repo=$1
     dir=$2
+    rm -rf $dir
     if [[ ! -d "$dir" ]]; then
         echo "mkdir $dir"
         mkdir -p "$dir"
@@ -16,6 +19,8 @@ function fetch-from-remote {
     fi
     cd -
 }
+
+rm src/cozy-client-js src/cozy-konnector-libs || true
 
 cat OUTSIDE_DOCS | while read line; do
   arr=($line)
