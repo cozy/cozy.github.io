@@ -24,6 +24,23 @@ mkdocs serve
 
 And point your favorite browser to `http://127.0.0.1:8000/`
 
+## How are the docs built
+
+The docs are built from this repository and also for the references from other repos. This lets 
+developers edit their documentation in their repository and this documentation consolidates
+all the docs in a single site which makes it convenient to search.
+
+See the [./fetch.sh](./fetch.sh) and [./build.sh](./build.sh) scripts for more information.
+
+## When are the docs deployed ?
+
+The documentation is built automatically by Travis when
+
+* master is pushed
+* and every day
+
+As soon as it is built, it is available on https://cozy.github.io/cozy-docs-v3/en/.
+https://docs.cozy.io is not a direct mirror and is updated by hand so it is not directly updated. Nevertheless it shoud be almost up-to-date.
 
 ### i18n
 
