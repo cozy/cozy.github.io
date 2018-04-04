@@ -1,3 +1,8 @@
+"""
+Adds table of contents of each external documentation to the
+References menu
+"""
+
 import yaml
 import json
 import os
@@ -36,12 +41,20 @@ def read_toc(directory):
     if not osp.exists(toc_path):
         return
     else:
+        def make_paths_absolute(tree):
+            for t in tree:
+                for k in t.iterkeys():
+                    if isinstance(t[k], str):
+                        t[k] = re.sub('^.', directory, t[k])
+                    else:
+                        make_paths_absolute(t[k])
         with open(toc_path) as f:
             toc = ordered_load(f)
-            for ref in toc:
-                for k in ref.iterkeys():
-                    ref[k] = re.sub('^.', directory, ref[k])
+            make_paths_absolute(toc)
             return toc
+
+def find_entry(tree, name):
+    return [p for p in tree if p.get(name)][0][name]
 
 def main():
     with open('./mkdocs.yml') as f:
@@ -50,7 +63,9 @@ def main():
     with open('OUTSIDE_DOCS') as f:
         outside_docs = [l.split(' ')[0] for l in f.readlines()]
 
-    references = [p for p in data['pages'] if p.get('References')][0]['References']
+    develop = find_entry(data['pages'], 'Develop')
+    references = find_entry(develop, 'References')
+
     del references[:]
 
     for dir in outside_docs:
@@ -61,3 +76,5 @@ def main():
 
     with open('mkdocs.yml', 'w+') as f:
         ordered_dump(data, f, indent=2, default_flow_style=False, Dumper=yaml.SafeDumper)
+
+main()
