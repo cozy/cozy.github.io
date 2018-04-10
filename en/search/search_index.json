@@ -1676,6 +1676,36 @@
             "title": "Example"
         }, 
         {
+            "location": "/cozy-doctypes/docs/io.cozy.konnectors/", 
+            "text": "Table of contents\n\n\nKonnectors doctype\n\n\nThe \nio.cozy.konnectors\n doctype is used to store installed connectors.\n\n\nConnectors\n are autonomous applications ran on the stack to connect to external services or API.\n\n\nWhen installing a konnector, the Cozy stack creates a new \nio.cozy.konnector\n document from the fields in the \nmanifest.konnector\n. See the \nreference\n for more information on each attributes.\n\n\nio.cozy.konnectors\n are used by \nCozy-Store\n to install and uninstall connectors, and by \nCozy-Collect\n to manage \naccounts\n for connectors\n\n\nAttributes\n\n\nRetrieved from \nmanifest.konnector\n\n\nThe available attributes in a \nio.cozy.konnectors\n document are :\n\n\n\n\ncategories\n\n\ndata_type\n\n\ndeveloper\n\n\ndoctypes\n\n\neditor\n\n\nfields\n\n\nfrequency\n\n\nicon\n\n\nlangs\n\n\nlanguage\n\n\nlicense\n\n\nlocales\n\n\nmessages\n\n\nname\n\n\nname_prefix\n\n\nnotifications\n\n\noauth\n\n\nparameters\n\n\npermissions\n\n\nplatforms\n\n\nscreenshots\n\n\nslug\n\n\nsource\n\n\nstate\n\n\ntags\n\n\ntime_interval\n\n\ntype\n\n\nvendor_link\n\n\nversion\n\n\n\n\nOther Attributes\n\n\n\n\n\n\n\n\nAttribute\n\n\nRole\n\n\n\n\n\n\n\n\n\n\nstate\n\n\nStore the installation state of the konnector. Value can be \nAVAILABLE\n, \nINSTALLING\n, \nUPGRADING\n, \nUNINSTALLING\n, \nINSTALLED\n, \nREADY\n\n\n\n\n\n\n\n\nExample\n\n\n{\n  \nname\n: \nDebug\n,\n  \neditor\n: \n,\n  \nslug\n: \ndebug\n,\n  \ndeveloper\n: {\n    \nname\n: \ncozy\n,\n    \nurl\n: \ncozy.io\n\n  },\n  \nlong_description\n: \n,\n  \nshort_description\n: \n,\n  \ncategories\n: [\nother\n],\n  \nlocales\n: null,\n  \nlangs\n: null,\n  \ntags\n: null,\n  \nicon\n: \n,\n  \nlicense\n: \n,\n  \nstate\n: \nready\n,\n  \nsource\n: \ngit://github.com/cozy/cozy-konnector-debug.git#build\n,\n  \nparameters\n: null,\n  \nversion\n: \n1.0.0-edf48da7b2d959517aea59767c3d8d45b2ce7fa2\n,\n  \npermissions\n: {\n    \naccounts\n: {\n      \ntype\n: \nio.cozy.accounts\n,\n      \ndescription\n: \nRequired to get the account's data\n,\n      \nverbs\n: [\n        \nGET\n\n      ]\n    }\n  }\n}", 
+            "title": "Connectors"
+        }, 
+        {
+            "location": "/cozy-doctypes/docs/io.cozy.konnectors/#konnectors-doctype", 
+            "text": "The  io.cozy.konnectors  doctype is used to store installed connectors.  Connectors  are autonomous applications ran on the stack to connect to external services or API.  When installing a konnector, the Cozy stack creates a new  io.cozy.konnector  document from the fields in the  manifest.konnector . See the  reference  for more information on each attributes.  io.cozy.konnectors  are used by  Cozy-Store  to install and uninstall connectors, and by  Cozy-Collect  to manage  accounts  for connectors", 
+            "title": "Konnectors doctype"
+        }, 
+        {
+            "location": "/cozy-doctypes/docs/io.cozy.konnectors/#attributes", 
+            "text": "", 
+            "title": "Attributes"
+        }, 
+        {
+            "location": "/cozy-doctypes/docs/io.cozy.konnectors/#retrieved-from-manifestkonnector", 
+            "text": "The available attributes in a  io.cozy.konnectors  document are :   categories  data_type  developer  doctypes  editor  fields  frequency  icon  langs  language  license  locales  messages  name  name_prefix  notifications  oauth  parameters  permissions  platforms  screenshots  slug  source  state  tags  time_interval  type  vendor_link  version", 
+            "title": "Retrieved from manifest.konnector"
+        }, 
+        {
+            "location": "/cozy-doctypes/docs/io.cozy.konnectors/#other-attributes", 
+            "text": "Attribute  Role      state  Store the installation state of the konnector. Value can be  AVAILABLE ,  INSTALLING ,  UPGRADING ,  UNINSTALLING ,  INSTALLED ,  READY", 
+            "title": "Other Attributes"
+        }, 
+        {
+            "location": "/cozy-doctypes/docs/io.cozy.konnectors/#example", 
+            "text": "{\n   name :  Debug ,\n   editor :  ,\n   slug :  debug ,\n   developer : {\n     name :  cozy ,\n     url :  cozy.io \n  },\n   long_description :  ,\n   short_description :  ,\n   categories : [ other ],\n   locales : null,\n   langs : null,\n   tags : null,\n   icon :  ,\n   license :  ,\n   state :  ready ,\n   source :  git://github.com/cozy/cozy-konnector-debug.git#build ,\n   parameters : null,\n   version :  1.0.0-edf48da7b2d959517aea59767c3d8d45b2ce7fa2 ,\n   permissions : {\n     accounts : {\n       type :  io.cozy.accounts ,\n       description :  Required to get the account's data ,\n       verbs : [\n         GET \n      ]\n    }\n  }\n}", 
+            "title": "Example"
+        }, 
+        {
             "location": "/cozy-doctypes/docs/io.cozy.contacts/", 
             "text": "Table of contents\n\n\nCozy Contacts doctype\n\n\nio.cozy.contacts\n\n\nThe \nio.cozy.contacts\n doctype is loosely based on the \nvCard RFC\n, in that some of the attributes have been renamed for clarity. The attributes with a \n?\n are optional.\n\n\n\n\nfullname?\n: {string} Unstructured representation of the name (example: \n\"Dr. Gregory House, M.D.\"\n)\n\n\nname?\n: {object} Optional structured representation of the name, with the following possible attributes:\n\n\nfamilyName?\n: {string} (example: \n\"House\"\n)\n\n\ngivenName?\n: {string} (example: \n\"Gregory\"\n)\n\n\nadditionalName?\n: {string} (example: \n\"J.\"\n)\n\n\nnamePrefix?\n: {string} (example: \n\"Dr.\"\n)\n\n\nnameSuffix?\n: {string} (example: \n\"III\"\n)\n\n\nbirthday?\n: {date} (example: \n\"1959-05-15\"\n)\n\n\nnote?\n: {string}\n\n\nemail?\n: {array} An array of email addresses objects with the following attributes:\n\n\naddress\n: {string} Email adress\n\n\ntype?\n: {string} Programmatic type of email (\n\"work\"\n, \n\"home\"\n, \n\"other\"\n)\n\n\nlabel?\n: {string} A user-provided localized type of email (example: \n\"Work\"\n)\n\n\nprimary?\n: {boolean} Indicates a preferred-use address\n\n\naddress?\n: {array} An array of postal addresses objects with the following attributes:\n\n\nstreet?\n: {string}\n\n\npobox?\n: {string}\n\n\ncity?\n: {string}\n\n\nregion?\n: {string}\n\n\npostcode?\n: {string}\n\n\ncountry?\n: {string}\n\n\ntype?\n: {string} Programmatic type of email (\n\"work\"\n, \n\"home\"\n, \n\"other\"\n)\n\n\nprimary?\n: {boolean} Indicates a preferred-use address\n\n\nlabel?\n: {string}\n\n\nformattedAddress?\n: {string} Unstructured version of the address\n\n\nphone?\n: {array} An array of phone number objects with the following attributes:\n\n\nnumber\n: {string}\n\n\ntype?\n: {string} Programmatic type of phone number (\n\"work\"\n, \n\"home\"\n, \n\"mobile\"\n, \n\"fax\"\n, \n\"other\"\n)\n\n\nlabel?\n: {string} A user-provided localized type of phone number (example: \n\"Work\"\n)\n\n\nprimary?\n: {boolean} Indicates a preferred-use number\n\n\ncozy?\n: {array} An array of cozy instances with the following attributes:\n\n\nurl\n: {string}\n\n\nlabel?\n: {string} A user-provided localized type of instance\n\n\nprimary?\n: {boolean} Indicates a preferred-use instance\n\n\ngroups\n: {array} An array containing a list of ids of \nio.cozy.contacts.groups\n documents that this contact is part of\n\n\nmetadata\n: {object}\n \u00a0- \nversion\n: {integer} Used for migrations. Current version is \n1\n\n\n\n\nio.cozy.contacts.groups\n\n\nUsed to group contacts together. A group can obviously have multiple contacts, but contacts can also be part of multiple groups.\n\n\n\n\nname\n: {string} is the group\ns public name\n\n\nmetadata\n: {object}\n \u00a0- \nversion\n: {integer} Used for migrations. Current version is \n1", 
             "title": "Contacts"
@@ -1784,6 +1814,26 @@
             "location": "/cozy-doctypes/docs/io.cozy.sessions.logins/#iocozysessionslogins", 
             "text": "This doctype represent an entry in the session history:   ip : {string} the ip used to login  city : {string} the city from where the user has logged in (estimated from IP)  country : {string} the country from where the user has logged in (estimated from IP)  user_agent : {string} the full useragent string used to login  os : {string} the os used to login  browser : {string} the browser used to login  created_at : {string} the login date", 
             "title": "io.cozy.sessions.logins"
+        }, 
+        {
+            "location": "/cozy-doctypes/docs/io.cozy.triggers/", 
+            "text": "Table of contents\n\n\nTriggers doctype\n\n\nio.cozy.triggers\n documents are used by the stack to configure \nhow and when a job should be runned\n.\n\n\nThis is a special doctype which can only be created from an app. We are using it in \nCozy-Collect\n to manage konnectors scheduling.\n\n\nAttributes\n\n\n\n\n\n\n\n\nAttribute\n\n\nRole\n\n\n\n\n\n\n\n\n\n\narguments\n\n\nArguments related to the \ntype\n attribute. For example it\ns a cron configuration when the \ntype\n is set to \n@cron\n.\n\n\n\n\n\n\ndebounce\n\n\nAmount of time until the job cannot be run again. This attribute is used to limite the amount of jobs in a burst.\n\n\n\n\n\n\nmessage\n\n\nParameters to pass to the the worker. For example, when the \nworker\n is set to \nkonnector\n, \nmessage\n contains the related konnector and the related account.\n\n\n\n\n\n\noptions\n\n\nParameters related to the job.\n\n\n\n\n\n\ntype\n\n\nType of trigger. Can be \n@at\n, \n@cron\n, \n@event\n, \n@every\n, and \n@in\n. See the \nstack documentation\n for more informations.\n\n\n\n\n\n\nworker\n\n\nType of worker. Can be \nkonnector\n or \nsendmail\n.\n\n\n\n\n\n\n\n\nExample\n\n\nTrigger configured to run the konnector \nDebug\n with the \nio.cozy.accounts\n document having the id \n53fe4d0e4f6d3be99ba7a5d2580081a8\n.\n\n\n{\n  \ntype\n: \n@cron\n,\n  \nworker\n: \nkonnector\n,\n  \narguments\n: \n0 45 4 * * 3\n,\n  \ndebounce\n: \n,\n  \noptions\n: null,\n  \nmessage\n: {\n    \nkonnector\n: \ndebug\n,\n    \naccount\n: \n53fe4d0e4f6d3be99ba7a5d2580081a8\n\n  }\n}", 
+            "title": "Triggers"
+        }, 
+        {
+            "location": "/cozy-doctypes/docs/io.cozy.triggers/#triggers-doctype", 
+            "text": "io.cozy.triggers  documents are used by the stack to configure  how and when a job should be runned .  This is a special doctype which can only be created from an app. We are using it in  Cozy-Collect  to manage konnectors scheduling.", 
+            "title": "Triggers doctype"
+        }, 
+        {
+            "location": "/cozy-doctypes/docs/io.cozy.triggers/#attributes", 
+            "text": "Attribute  Role      arguments  Arguments related to the  type  attribute. For example it s a cron configuration when the  type  is set to  @cron .    debounce  Amount of time until the job cannot be run again. This attribute is used to limite the amount of jobs in a burst.    message  Parameters to pass to the the worker. For example, when the  worker  is set to  konnector ,  message  contains the related konnector and the related account.    options  Parameters related to the job.    type  Type of trigger. Can be  @at ,  @cron ,  @event ,  @every , and  @in . See the  stack documentation  for more informations.    worker  Type of worker. Can be  konnector  or  sendmail .", 
+            "title": "Attributes"
+        }, 
+        {
+            "location": "/cozy-doctypes/docs/io.cozy.triggers/#example", 
+            "text": "Trigger configured to run the konnector  Debug  with the  io.cozy.accounts  document having the id  53fe4d0e4f6d3be99ba7a5d2580081a8 .  {\n   type :  @cron ,\n   worker :  konnector ,\n   arguments :  0 45 4 * * 3 ,\n   debounce :  ,\n   options : null,\n   message : {\n     konnector :  debug ,\n     account :  53fe4d0e4f6d3be99ba7a5d2580081a8 \n  }\n}", 
+            "title": "Example"
         }, 
         {
             "location": "/cozy-stack/README/", 
