@@ -227,6 +227,23 @@ The Cozy team will review your code and add your connector to the [Cozy Collect]
 
 ## FAQ
 
+### When I run my connector, a ghost node process eats all my memory
+
+Cozy-konnector-libs uses [cheerio](https://cheerio.js.org) which is great but causes some problems
+when you try to console.log a cheerio object.
+
+In standalone or dev mode, the BaseKonnector tries to catch errors and display a maximum of details
+about them. But when the error contains a cheerio object, the problem happens.
+
+If you get this problem, catch the error yourself and only display the message :
+
+```javascript
+.catch(err) {
+  console.log(err.message) // good
+  console.log(err) // bad
+}
+```
+
 ### How do I scrap a website
 
 Use the request function from [cozy-konnector-libs] with the proper options
