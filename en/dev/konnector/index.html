@@ -643,6 +643,18 @@ but the last one needs to be configured in <code>package.json</code></p>
 at the moment, you need to declare your new connector on the <a href="https://forum.cozy.io">cozy forum</a>.
 The Cozy team will review your code and add your connector to the <a href="https://github.com/cozy/cozy-collect">Cozy Collect</a> application.</p>
 <h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h2>
+<h3 id="when-i-run-my-connector-a-ghost-node-process-eats-all-my-memory">When I run my connector, a ghost node process eats all my memory<a class="headerlink" href="#when-i-run-my-connector-a-ghost-node-process-eats-all-my-memory" title="Permanent link">&para;</a></h3>
+<p>Cozy-konnector-libs uses <a href="https://cheerio.js.org">cheerio</a> which is great but causes some problems
+when you try to console.log a cheerio object.</p>
+<p>In standalone or dev mode, the BaseKonnector tries to catch errors and display a maximum of details
+about them. But when the error contains a cheerio object, the problem happens.</p>
+<p>If you get this problem, catch the error yourself and only display the message :</p>
+<pre class="codehilite"><code class="language-javascript">.catch(err) {
+  console.log(err.message) // good
+  console.log(err) // bad
+}</code></pre>
+
+
 <h3 id="how-do-i-scrap-a-website">How do I scrap a website<a class="headerlink" href="#how-do-i-scrap-a-website" title="Permanent link">&para;</a></h3>
 <p>Use the request function from <a href="https://github.com/cozy/cozy-konnector-libs">cozy-konnector-libs</a> with the proper options</p>
 <p>Here’s a sample code that will fetch the login page to get the value of the anti-CSRF token, submit the login form, browse to the bills page and fetch a bill:</p>

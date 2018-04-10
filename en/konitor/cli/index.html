@@ -464,6 +464,7 @@
             <li><a href="#pulls">Pulls</a></li>
             <li><a href="#test">Test</a></li>
             <li><a href="#testit">testit</a></li>
+            <li><a href="#check">check 🤓</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -677,7 +678,35 @@ Test konnector trainline:
 - ✅  Correctly executed.
 - ✅  Correctly logged in.
 - ✅  PDF is imported.
-- ✅  repository is clean.</code></pre></div>
+- ✅  repository is clean.</code></pre>
+
+
+<h2 id="check">check 🤓<a class="headerlink" href="#check" title="Permanent link">&para;</a></h2>
+<p>Check is used to programmatically check our guidelines against a repository. Use it before publishing your konnector for it to be production ready 🚀</p>
+<p>Here is a sample output :</p>
+<pre class="codehilite"><code class="language-bash">$ konitor check ./cozy-konnector-ameli/
+
+## Checking ../cozy-konnector-ameli/
+
+* Eslint with prettier is used to lint the code (check for eslintConfig in package.json) ❌
+  - eslintConfig should extend from prettier ❌
+  Check the documentation:  https://github.com/konnectors/docs/blob/master/status.md#linting
+
+* Fields (necessary for login) are defined in manifest.konnector ❌
+  - The fields should not be in old format ❌
+
+* Travis is correctly configured to deploy master/prod. ✅
+
+* Renovate should be correctly configured. ❌
+  - Renovate config should extend from the cozy-konnector config ❌
+  Check the documentation:  https://github.com/konnectors/docs/blob/master/status.md#renovate
+
+* Repository should have 4 branches. ✅</code></pre>
+
+
+<p>You can check multiple repositories :</p>
+<pre class="codehilite"><code class="language-bash">$ konitor check ./cozy-konnector-ameli/ ./cozy-konnector-orange/
+...</code></pre></div>
         </div>
 
         <footer class="col-md-12">
