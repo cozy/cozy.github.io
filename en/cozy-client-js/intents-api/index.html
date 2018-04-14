@@ -461,6 +461,8 @@
         <li class="main active"><a href="#intents">Intents</a></li>
             <li><a href="#cozyclientintentscreate">cozy.client.intents.create()</a></li>
             <li><a href="#cozyclientintentscreateservice">cozy.client.intents.createService()</a></li>
+            <li><a href="#cozyclientintentsgetredirectionurl">cozy.client.intents.getRedirectionURL()</a></li>
+            <li><a href="#cozyclientintentsredirect">cozy.client.intents.redirect()</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -544,7 +546,22 @@
     }
 
     intentService.terminate(resultingDoc)
-  })</code></pre></div>
+  })</code></pre>
+
+
+<h3 id="cozyclientintentsgetredirectionurl"><code>cozy.client.intents.getRedirectionURL()</code><a class="headerlink" href="#cozyclientintentsgetredirectionurl" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.intents.getRedirectionURL(doctype, data)</code> retrieves a redirection URL for a given doctype, with specified data. It relies internally on a regular intent mechanism, which creates an intent for the <code>REDIRECT</code> action. It then build the redirection URL from URL sent by the stack and returns it. This URL can be used as link <code>href</code> for example, to show the doctype or the document in an application able to handle it.</p>
+<h4 id="example_2">Example<a class="headerlink" href="#example_2" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-jsx">  const myFolder = {
+    folder: '4bce4649-e7b7-4226-d82e-6b87dbb684e7'
+  }
+
+  const url = await cozy.client.getRedirectionURL('io.cozy.files', myFolder)
+  // url is http://domain-app.cozy.rocks/#/files?folder=4bce4649-e7b7-4226-d82e-6b87dbb684e7</code></pre>
+
+
+<h3 id="cozyclientintentsredirect"><code>cozy.client.intents.redirect()</code><a class="headerlink" href="#cozyclientintentsredirect" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.intents.redirect(doctype, data)</code> is based on <code>cozy.client.intents.getRedirectionURL()</code> and it redirects the browser to the retrieved URL.</p></div>
         </div>
 
         <footer class="col-md-12">
