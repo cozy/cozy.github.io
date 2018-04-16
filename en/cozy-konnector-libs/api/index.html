@@ -472,6 +472,7 @@
         <li class="main "><a href="#requestfactory">requestFactory</a></li>
         <li class="main "><a href="#savebills">saveBills</a></li>
         <li class="main "><a href="#savefiles">saveFiles</a></li>
+        <li class="main "><a href="#signin">signin</a></li>
         <li class="main "><a href="#updateorcreate">updateOrCreate</a></li>
         <li class="main "><a href="#basekonnector">BaseKonnector</a></li>
             <li><a href="#new-basekonnectorfetch">new BaseKonnector(fetch)</a></li>
@@ -660,6 +661,46 @@ downloaded, on the next run of the connector, it will be able to download some m
 files, and so on. If you want the timeout to be in 10s, do <code>Date.now() + 10*1000</code>.
 You can try it in the previous code.</li>
 </ul>
+</li>
+</ul>
+</dd>
+<dt><a href="#module_signin">signin</a></dt>
+<dd><p>The goal of this function is to provide an handy method to log the user in,
+on html form pages. On success, it resolves a promise with a parsed body.</p>
+<p>Errors:</p>
+<ul>
+<li>LOGIN_FAILED if the validate predicate is false</li>
+<li>INVALID_FORM if the element matched by <code>formSelector</code> is not a form or has
+no <code>action</code> attribute</li>
+<li>UNKNOWN_PARSING_STRATEGY if <code>parse</code> is not one of the accepted values:
+<code>raw</code>, <code>cheerio</code>, <code>json</code>.</li>
+<li>VENDOR_DOWN if a request throws a RequestError, or StatusCodeError</li>
+</ul>
+<p>It does not submit values provided through <code>select</code> tags, except if populated
+by user with <code>formData</code>.</p>
+<ul>
+<li><p><code>url</code> is the url to access the html form</p>
+</li>
+<li><p><code>formSelector</code> is used by cheerio to uniquely identify the form in which to
+log in</p>
+</li>
+<li><p><code>formData</code> is an object <code>{ name: value, … }</code>. It is used to populate the
+form, in the proper inputs with the same name as the properties of this
+object, before submitting it. It can also be a function that returns this
+object. The page at <code>url</code> would be given as argument, right after having
+been parsed through <code>cheerio</code>.</p>
+</li>
+<li><p><code>parse</code> allow the user to resolve <code>signin</code> with a preparsed body. The
+choice of the strategy for the parsing is one of : <code>raw</code>, <code>json</code> or
+<code>cheerio</code>. <code>cheerio</code> being the default.</p>
+</li>
+<li><p><code>validate</code> is a predicate taking two arguments <code>statusCode</code> and
+<code>parsedBody</code>. If it is false, <code>LOGIN_FAILED</code> is thrown, otherwise the
+signin resolves with <code>parsedBody</code> value.</p>
+</li>
+<li><p><code>requestOpts</code> allows to pass eventual options to the <code>signin</code>&#39;s
+<code>requestFactory</code>. It could be useful for pages using <code>latin1</code> <code>encoding</code>
+for instance.</p>
 </li>
 </ul>
 </dd>
@@ -910,6 +951,52 @@ in standalone mode, the main path is the path of the connector.</p>
   downloaded, on the next run of the connector, it will be able to download some more
   files, and so on. If you want the timeout to be in 10s, do <code>Date.now() + 10*1000</code>.
   You can try it in the previous code.</p>
+</li>
+</ul>
+<p><a name="module_signin"></a></p>
+<h2 id="signin">signin<a class="headerlink" href="#signin" title="Permanent link">&para;</a></h2>
+<p>The goal of this function is to provide an handy method to log the user in,
+on html form pages. On success, it resolves a promise with a parsed body.</p>
+<p>Errors:</p>
+<ul>
+<li>LOGIN_FAILED if the validate predicate is false</li>
+<li>INVALID_FORM if the element matched by <code>formSelector</code> is not a form or has
+  no <code>action</code> attribute</li>
+<li>UNKNOWN_PARSING_STRATEGY if <code>parse</code> is not one of the accepted values:
+  <code>raw</code>, <code>cheerio</code>, <code>json</code>.</li>
+<li>VENDOR_DOWN if a request throws a RequestError, or StatusCodeError</li>
+</ul>
+<p>It does not submit values provided through <code>select</code> tags, except if populated
+by user with <code>formData</code>.</p>
+<ul>
+<li>
+<p><code>url</code> is the url to access the html form</p>
+</li>
+<li>
+<p><code>formSelector</code> is used by cheerio to uniquely identify the form in which to
+  log in</p>
+</li>
+<li>
+<p><code>formData</code> is an object <code>{ name: value, … }</code>. It is used to populate the
+  form, in the proper inputs with the same name as the properties of this
+  object, before submitting it. It can also be a function that returns this
+  object. The page at <code>url</code> would be given as argument, right after having
+  been parsed through <code>cheerio</code>.</p>
+</li>
+<li>
+<p><code>parse</code> allow the user to resolve <code>signin</code> with a preparsed body. The
+  choice of the strategy for the parsing is one of : <code>raw</code>, <code>json</code> or
+  <code>cheerio</code>. <code>cheerio</code> being the default.</p>
+</li>
+<li>
+<p><code>validate</code> is a predicate taking two arguments <code>statusCode</code> and
+  <code>parsedBody</code>. If it is false, <code>LOGIN_FAILED</code> is thrown, otherwise the
+  signin resolves with <code>parsedBody</code> value.</p>
+</li>
+<li>
+<p><code>requestOpts</code> allows to pass eventual options to the <code>signin</code>&lsquo;s
+  <code>requestFactory</code>. It could be useful for pages using <code>latin1</code> <code>encoding</code>
+  for instance.</p>
 </li>
 </ul>
 <p><a name="module_updateOrCreate"></a></p>
