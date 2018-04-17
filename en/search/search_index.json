@@ -1701,6 +1701,36 @@
             "title": "Example"
         }, 
         {
+            "location": "/cozy-doctypes/docs/io.cozy.payslips/", 
+            "text": "Table of contents\n\n\nPayslips doctype\n\n\nio.cozy.payslips\n\n\n\n\nvendor\n: {string} - Vendor which issued the payslip\n\n\ndate\n: {date} - Date the payslip was emitted\n\n\namount\n: {number} - Amount of the payslip, \nalways positive\n even if it is the payslip of an employee. This amount should always be the amount which will be found in the bank operations.\n\n\n\n\nRelationships\n\n\nThe eventual related documents\n- \ndocument\n: {object} - The associated file. ex:\n\n\n{\n  data: {\n    _id: \nc43645a93831827c7ec512eac3006e51\n,\n    _type: \nio.cozy.files\n\n  }\n}\n\n\n\n\nSome more attributes for employee\ns payslip\n\n\nThe are some more possible attributes for employee payslips.\n\n\n\n\nisEmployee\n: {boolean} - Indicate if this payslip is paid to an employee of the owner of the cozy. If false, this is a payslip received by the owner.\n\n\nbeneficiary\n: {string} - Indicate the name of the employee\n\n\n\n\nExample\n\n\n{\n  \n_id\n: \n62e5d80d6e11d19992b7efce794263f0\n,\n  \namount\n: 2000,\n  \ndate\n: \n2018-02-07T23:00:00.000Z\n,\n  \nvendor\n: \nPayfit\n,\n  \nmetadata\n: {\n    \nversion\n: 1\n  },\n  $relationships: {\n    document: { data: { _id: \nc43645a93831827c7ec512eac3006e51\n, _type: \nio.cozy.files\n } }\n  }\n}\n\n\n\n\n{\n  \n_id\n: \n62e5d83d6e11d19992b7efce794263f0\n,\n  \namount\n: 100,\n  \ndate\n: \n2018-04-07T03:00:00.000Z\n,\n  \nvendor\n: \nCESU\n,\n  \nisEmployee\n: true,\n  \nbeneficiary\n: \nPierre Richard\n,\n  \nmetadata\n: {\n    \nversion\n: 1\n  },\n  $relationships: {\n    payslip: { data: { _id: \nc43645a93831827c7ec512eac3006e51\n, _type: \nio.cozy.files\n } }\n  }\n}", 
+            "title": "Payslips"
+        }, 
+        {
+            "location": "/cozy-doctypes/docs/io.cozy.payslips/#payslips-doctype", 
+            "text": "", 
+            "title": "Payslips doctype"
+        }, 
+        {
+            "location": "/cozy-doctypes/docs/io.cozy.payslips/#iocozypayslips", 
+            "text": "vendor : {string} - Vendor which issued the payslip  date : {date} - Date the payslip was emitted  amount : {number} - Amount of the payslip,  always positive  even if it is the payslip of an employee. This amount should always be the amount which will be found in the bank operations.", 
+            "title": "io.cozy.payslips"
+        }, 
+        {
+            "location": "/cozy-doctypes/docs/io.cozy.payslips/#relationships", 
+            "text": "The eventual related documents\n-  document : {object} - The associated file. ex:  {\n  data: {\n    _id:  c43645a93831827c7ec512eac3006e51 ,\n    _type:  io.cozy.files \n  }\n}", 
+            "title": "Relationships"
+        }, 
+        {
+            "location": "/cozy-doctypes/docs/io.cozy.payslips/#some-more-attributes-for-employees-payslip", 
+            "text": "The are some more possible attributes for employee payslips.   isEmployee : {boolean} - Indicate if this payslip is paid to an employee of the owner of the cozy. If false, this is a payslip received by the owner.  beneficiary : {string} - Indicate the name of the employee", 
+            "title": "Some more attributes for employee's payslip"
+        }, 
+        {
+            "location": "/cozy-doctypes/docs/io.cozy.payslips/#example", 
+            "text": "{\n   _id :  62e5d80d6e11d19992b7efce794263f0 ,\n   amount : 2000,\n   date :  2018-02-07T23:00:00.000Z ,\n   vendor :  Payfit ,\n   metadata : {\n     version : 1\n  },\n  $relationships: {\n    document: { data: { _id:  c43645a93831827c7ec512eac3006e51 , _type:  io.cozy.files  } }\n  }\n}  {\n   _id :  62e5d83d6e11d19992b7efce794263f0 ,\n   amount : 100,\n   date :  2018-04-07T03:00:00.000Z ,\n   vendor :  CESU ,\n   isEmployee : true,\n   beneficiary :  Pierre Richard ,\n   metadata : {\n     version : 1\n  },\n  $relationships: {\n    payslip: { data: { _id:  c43645a93831827c7ec512eac3006e51 , _type:  io.cozy.files  } }\n  }\n}", 
+            "title": "Example"
+        }, 
+        {
             "location": "/cozy-doctypes/docs/io.cozy.konnectors/", 
             "text": "Table of contents\n\n\nKonnectors doctype\n\n\nThe \nio.cozy.konnectors\n doctype is used to store installed connectors.\n\n\nConnectors\n are autonomous applications ran on the stack to connect to external services or API.\n\n\nWhen installing a konnector, the Cozy stack creates a new \nio.cozy.konnector\n document from the fields in the \nmanifest.konnector\n. See the \nreference\n for more information on each attributes.\n\n\nio.cozy.konnectors\n are used by \nCozy-Store\n to install and uninstall connectors, and by \nCozy-Collect\n to manage \naccounts\n for connectors\n\n\nAttributes\n\n\nRetrieved from \nmanifest.konnector\n\n\nThe available attributes in a \nio.cozy.konnectors\n document are :\n\n\n\n\ncategories\n\n\ndata_type\n\n\ndeveloper\n\n\ndoctypes\n\n\neditor\n\n\nfields\n\n\nfrequency\n\n\nicon\n\n\nlangs\n\n\nlanguage\n\n\nlicense\n\n\nlocales\n\n\nmessages\n\n\nname\n\n\nname_prefix\n\n\nnotifications\n\n\noauth\n\n\nparameters\n\n\npermissions\n\n\nplatforms\n\n\nscreenshots\n\n\nslug\n\n\nsource\n\n\nstate\n\n\ntags\n\n\ntime_interval\n\n\ntype\n\n\nvendor_link\n\n\nversion\n\n\n\n\nOther Attributes\n\n\n\n\n\n\n\n\nAttribute\n\n\nRole\n\n\n\n\n\n\n\n\n\n\nstate\n\n\nStore the installation state of the konnector. Value can be \nAVAILABLE\n, \nINSTALLING\n, \nUPGRADING\n, \nUNINSTALLING\n, \nINSTALLED\n, \nREADY\n\n\n\n\n\n\n\n\nExample\n\n\n{\n  \nname\n: \nDebug\n,\n  \neditor\n: \n,\n  \nslug\n: \ndebug\n,\n  \ndeveloper\n: {\n    \nname\n: \ncozy\n,\n    \nurl\n: \ncozy.io\n\n  },\n  \nlong_description\n: \n,\n  \nshort_description\n: \n,\n  \ncategories\n: [\nother\n],\n  \nlocales\n: null,\n  \nlangs\n: null,\n  \ntags\n: null,\n  \nicon\n: \n,\n  \nlicense\n: \n,\n  \nstate\n: \nready\n,\n  \nsource\n: \ngit://github.com/cozy/cozy-konnector-debug.git#build\n,\n  \nparameters\n: null,\n  \nversion\n: \n1.0.0-edf48da7b2d959517aea59767c3d8d45b2ce7fa2\n,\n  \npermissions\n: {\n    \naccounts\n: {\n      \ntype\n: \nio.cozy.accounts\n,\n      \ndescription\n: \nRequired to get the account's data\n,\n      \nverbs\n: [\n        \nGET\n\n      ]\n    }\n  }\n}", 
             "title": "Connectors"

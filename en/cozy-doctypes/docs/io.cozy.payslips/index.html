@@ -7,10 +7,10 @@
         
         
         <meta name="author" content="CozyCloud - https://cozy.io">
-        <link rel="canonical" href="https://docs.cozy.io/cozy-doctypes/docs/io.cozy.triggers/">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-doctypes/docs/io.cozy.payslips/">
         <link rel="shortcut icon" href="../../../img/favicon.png">
         
-        <title>Triggers - Cozy Documentation</title>
+        <title>Payslips - Cozy Documentation</title>
         <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
@@ -232,8 +232,8 @@
     <a href="../io.cozy.bills/">Bills</a>
 </li>
             
-<li >
-    <a href="../io.cozy.payslips/">Payslips</a>
+<li class="active">
+    <a href="./">Payslips</a>
 </li>
             
 <li >
@@ -264,8 +264,8 @@
     <a href="../io.cozy.sessions.logins/">Session logins</a>
 </li>
             
-<li class="active">
-    <a href="./">Triggers</a>
+<li >
+    <a href="../io.cozy.triggers/">Triggers</a>
 </li>
     </ul>
   </li>
@@ -462,63 +462,64 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#triggers-doctype">Triggers doctype</a></li>
-            <li><a href="#attributes">Attributes</a></li>
-            <li><a href="#example">Example</a></li>
+        <li class="main active"><a href="#payslips-doctype">Payslips doctype</a></li>
+            <li><a href="#iocozypayslips">io.cozy.payslips</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
 <p><a href="README.md#table-of-contents">Table of contents</a></p>
-<h1 id="triggers-doctype">Triggers doctype<a class="headerlink" href="#triggers-doctype" title="Permanent link">&para;</a></h1>
-<p><code>io.cozy.triggers</code> documents are used by the stack to configure <a href="https://github.com/cozy/cozy-stack/blob/master/docs/jobs.md">how and when a job should be runned</a>.</p>
-<p>This is a special doctype which can only be created from an app. We are using it in <a href="http://github.com/cozy/cozy-collect/">Cozy-Collect</a> to manage konnectors scheduling.</p>
-<h2 id="attributes">Attributes<a class="headerlink" href="#attributes" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Attribute</th>
-<th>Role</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>arguments</code></td>
-<td>Arguments related to the <code>type</code> attribute. For example it&rsquo;s a cron configuration when the <code>type</code> is set to <code>@cron</code>.</td>
-</tr>
-<tr>
-<td><code>debounce</code></td>
-<td>Amount of time until the job cannot be run again. This attribute is used to limite the amount of jobs in a burst.</td>
-</tr>
-<tr>
-<td><code>message</code></td>
-<td>Parameters to pass to the the worker. For example, when the <code>worker</code> is set to <code>konnector</code>, <code>message</code> contains the related konnector and the related account.</td>
-</tr>
-<tr>
-<td><code>options</code></td>
-<td>Parameters related to the job.</td>
-</tr>
-<tr>
-<td><code>type</code></td>
-<td>Type of trigger. Can be <code>@at</code>, <code>@cron</code>, <code>@event</code>, <code>@every</code>, and <code>@in</code>. See the <a href="https://github.com/cozy/cozy-stack/blob/master/docs/jobs.md">stack documentation</a> for more informations.</td>
-</tr>
-<tr>
-<td><code>worker</code></td>
-<td>Type of worker. Can be <code>konnector</code> or <code>sendmail</code>.</td>
-</tr>
-</tbody>
-</table>
-<h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
-<p>Trigger configured to run the konnector <a href="http://github.com/cozy/cozy-konnector-debug/">Debug</a> with the <a href="io.cozy.accounts.md"><code>io.cozy.accounts</code></a> document having the id <code>53fe4d0e4f6d3be99ba7a5d2580081a8</code>.</p>
-<pre class="codehilite"><code class="language-json">{
-  &quot;type&quot;: &quot;@cron&quot;,
-  &quot;worker&quot;: &quot;konnector&quot;,
-  &quot;arguments&quot;: &quot;0 45 4 * * 3&quot;,
-  &quot;debounce&quot;: &quot;&quot;,
-  &quot;options&quot;: null,
-  &quot;message&quot;: {
-    &quot;konnector&quot;: &quot;debug&quot;,
-    &quot;account&quot;: &quot;53fe4d0e4f6d3be99ba7a5d2580081a8&quot;
+<h1 id="payslips-doctype">Payslips doctype<a class="headerlink" href="#payslips-doctype" title="Permanent link">&para;</a></h1>
+<h2 id="iocozypayslips"><code>io.cozy.payslips</code><a class="headerlink" href="#iocozypayslips" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>vendor</code>: {string} - Vendor which issued the payslip</li>
+<li><code>date</code>: {date} - Date the payslip was emitted</li>
+<li><code>amount</code>: {number} - Amount of the payslip, <strong>always positive</strong> even if it is the payslip of an employee. This amount should always be the amount which will be found in the bank operations.</li>
+</ul>
+<h3 id="relationships">Relationships<a class="headerlink" href="#relationships" title="Permanent link">&para;</a></h3>
+<p>The eventual related documents
+- <code>document</code>: {object} - The associated file. ex:</p>
+<pre class="codehilite"><code>{
+  data: {
+    _id: &quot;c43645a93831827c7ec512eac3006e51&quot;,
+    _type: &quot;io.cozy.files&quot;
+  }
+}</code></pre>
+
+
+<h3 id="some-more-attributes-for-employees-payslip">Some more attributes for employee&rsquo;s payslip<a class="headerlink" href="#some-more-attributes-for-employees-payslip" title="Permanent link">&para;</a></h3>
+<p>The are some more possible attributes for employee payslips.</p>
+<ul>
+<li><code>isEmployee</code>: {boolean} - Indicate if this payslip is paid to an employee of the owner of the cozy. If false, this is a payslip received by the owner.</li>
+<li><code>beneficiary</code>: {string} - Indicate the name of the employee</li>
+</ul>
+<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code>{
+  &quot;_id&quot;: &quot;62e5d80d6e11d19992b7efce794263f0&quot;,
+  &quot;amount&quot;: 2000,
+  &quot;date&quot;: &quot;2018-02-07T23:00:00.000Z&quot;,
+  &quot;vendor&quot;: &quot;Payfit&quot;,
+  &quot;metadata&quot;: {
+    &quot;version&quot;: 1
+  },
+  $relationships: {
+    document: { data: { _id: &quot;c43645a93831827c7ec512eac3006e51&quot;, _type: &quot;io.cozy.files&quot; } }
+  }
+}</code></pre>
+
+
+<pre class="codehilite"><code>{
+  &quot;_id&quot;: &quot;62e5d83d6e11d19992b7efce794263f0&quot;,
+  &quot;amount&quot;: 100,
+  &quot;date&quot;: &quot;2018-04-07T03:00:00.000Z&quot;,
+  &quot;vendor&quot;: &quot;CESU&quot;,
+  &quot;isEmployee&quot;: true,
+  &quot;beneficiary&quot;: &quot;Pierre Richard&quot;,
+  &quot;metadata&quot;: {
+    &quot;version&quot;: 1
+  },
+  $relationships: {
+    payslip: { data: { _id: &quot;c43645a93831827c7ec512eac3006e51&quot;, _type: &quot;io.cozy.files&quot; } }
   }
 }</code></pre></div>
         </div>
