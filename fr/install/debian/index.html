@@ -178,13 +178,16 @@
 <code>nsjail</code> will be available</p><p>You can choose to install <code>cozy-couchdb</code> on the same host as 
 <code>cozy-stack</code>, or use a remote CouchDB server. Cozy only needs a 2.x CouchDB (1.x not supported).</p><p>Like CouchDB, you can choose to install your reverse proxy on the same host, or use a remote one. Right now <code>cozy-coclyco</code> supports only local 
 <code>nginx</code>. If you want to use 
-<code>apache2</code> or remote reverse proxy, you need to manually configure it for vhost or TLS certificate issuances.</p><h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2><p>First, you need to fetch the GPG Cozy signing key:</p><pre class="codehilite"><code class="language-bash">curl https://apt.cozy.io/cozy.gpg | \
+<code>apache2</code> or remote reverse proxy, you need to manually configure it for vhost or TLS certificate issuances.</p><h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2><p>First, install the packages required to install cozy</p><pre class="codehilite"><code class="language-bash">apt install ca-certificates apt-transport-https curl</code></pre>
+
+
+<p>Then, fetch the GPG Cozy signing key:</p><pre class="codehilite"><code class="language-bash">curl https://apt.cozy.io/cozy.gpg | \
     apt-key --keyring /etc/apt/trusted.gpg.d/cozy.gpg add -
 curl https://apt.cozy.io/nightly/cozy.gpg | \
     apt-key --keyring /etc/apt/trusted.gpg.d/cozy.gpg add -</code></pre>
 
 
-<p>Then, setup your repository. Select the channel that best fit your needs:</p><div class="admonition warning">
+<p>Finally, setup your repository. Select the channel that best fit your needs:</p><div class="admonition warning">
 <p>⚠️ For now, packages are only available in <code>testing</code> and 
 <code>unstable</code> channels. Adapt your 
 <code>sources.list</code> accordingly.</p></div>
