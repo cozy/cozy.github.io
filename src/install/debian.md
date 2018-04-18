@@ -30,6 +30,29 @@ Like CouchDB, you can choose to install your reverse proxy on the same host, or 
 
 ## Prerequisites
 
+### Third party repositories
+
+[Let's Encrypt](https://letsencrypt.org/) official packages require to use unofficial/third party repositories to have recent and supported version of ACME libraries.
+Packages provided by standard Debian or Ubuntu repositories are quite old and not compatible with `cozy-coclyco`.  
+
+  * For Debian/Raspbian, you need to [enable `backports` repository](https://certbot.eff.org/lets-encrypt/debianstretch-apache#using).  
+  * For Ubuntu, you need to [activate a third party `ppa` repository](https://certbot.eff.org/lets-encrypt/ubuntuxenial-nginx#using).
+
+Refer to the [certbot](https://certbot.eff.org/) documentation to activate needed repositories.
+(You don't need to install packages like `certbot` or `python-certbot-xxx`, only to activate repositories.)
+
+You may change your [APT preferences](https://manpages.debian.org/stretch/apt/apt_preferences.5.html) to allow APT to install from backports/ppa by default instead of from official repositories. For example:
+
+```
+/etc/apt/preferences.d/cozy 
+Package: python3-acme
+Pin: release n=stretch-backports
+Pin-Priority: 510
+EOF
+```
+
+### Cozy repositories
+
 First, install the packages required to install cozy
 
 ```bash
@@ -48,7 +71,9 @@ curl https://apt.cozy.io/nightly/cozy.gpg | \
 Finally, setup your repository. Select the channel that best fit your needs:
 
 !!! warning ""
-    ⚠️ For now, packages are only available in `testing` and `unstable` channels. Adapt your `sources.list` accordingly.
+    For now, we recommend to use `testing` repositories, or `nightly/unstable` channels.  
+    `stable` packages are quite old and currently provide deprecated and unsecured CouchDB version (2.0.x).  
+    Adapt your `sources.list` accordingly.
 
 Supported repositories are:
 
@@ -66,7 +91,7 @@ Supported repositories are:
      * deb https://apt.cozy.io/nightly/raspbian/ stretch unstable
 
 ```bash
-echo "deb https://apt.cozy.io/debian/ stretch stable" > /etc/apt/sources.list.d/cozy.list
+echo "deb https://apt.cozy.io/debian/ stretch testing" > /etc/apt/sources.list.d/cozy.list
 apt update
 ```
 
@@ -76,7 +101,6 @@ If you want to use unstable/nightly builds, you have to accept another key (weak
 curl https://apt.cozy.io/nightly/cozy.gpg | \
     apt-key --keyring /etc/apt/trusted.gpg.d/cozy.gpg add -
 ```
-
 
 ## Setup
 
