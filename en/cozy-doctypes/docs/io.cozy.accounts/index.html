@@ -7,10 +7,10 @@
         
         
         <meta name="author" content="CozyCloud - https://cozy.io">
-        <link rel="canonical" href="https://docs.cozy.io/cozy-doctypes/docs/io.cozy.konnectors/">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-doctypes/docs/io.cozy.accounts/">
         <link rel="shortcut icon" href="../../../img/favicon.png">
         
-        <title>Connectors - Cozy Documentation</title>
+        <title>Accounts - Cozy Documentation</title>
         <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
@@ -224,8 +224,8 @@
     <a href="#">cozy-doctypes</a>
     <ul class="dropdown-menu">
             
-<li >
-    <a href="../io.cozy.accounts/">Accounts</a>
+<li class="active">
+    <a href="./">Accounts</a>
 </li>
             
 <li >
@@ -240,8 +240,8 @@
     <a href="../io.cozy.bills/">Bills</a>
 </li>
             
-<li class="active">
-    <a href="./">Connectors</a>
+<li >
+    <a href="../io.cozy.konnectors/">Connectors</a>
 </li>
             
 <li >
@@ -466,97 +466,80 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#konnectors-doctype">Konnectors doctype</a></li>
-            <li><a href="#attributes">Attributes</a></li>
-            <li><a href="#example">Example</a></li>
+        <li class="main active"><a href="#cozy-accounts-doctype">Cozy Accounts doctype</a></li>
+            <li><a href="#auth">auth</a></li>
+            <li><a href="#about-login">About login</a></li>
+            <li><a href="#examples">Examples</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
 <p><a href="README.md#table-of-contents">Table of contents</a></p>
-<h1 id="konnectors-doctype">Konnectors doctype<a class="headerlink" href="#konnectors-doctype" title="Permanent link">&para;</a></h1>
-<p>The <code>io.cozy.konnectors</code> doctype is used to store installed connectors.</p>
-<p><a href="https://docs.cozy.io/en/dev/konnector/">Connectors</a> are autonomous applications ran on the stack to connect to external services or API.</p>
-<p>When installing a konnector, the Cozy stack creates a new <code>io.cozy.konnector</code> document from the fields in the <code>manifest.konnector</code>. See the <a href="https://github.com/cozy/cozy-collect/blob/master/docs/konnector-manifest.md">reference</a> for more information on each attributes.</p>
-<p><code>io.cozy.konnectors</code> are used by <a href="http://github.com/cozy/cozy-store/">Cozy-Store</a> to install and uninstall connectors, and by <a href="http://github.com/cozy/cozy-collect/">Cozy-Collect</a> to manage <a href="../io.cozy.accounts">accounts</a> for connectors</p>
-<h2 id="attributes">Attributes<a class="headerlink" href="#attributes" title="Permanent link">&para;</a></h2>
-<h3 id="retrieved-from-manifestkonnector">Retrieved from <code>manifest.konnector</code><a class="headerlink" href="#retrieved-from-manifestkonnector" title="Permanent link">&para;</a></h3>
-<p>The available attributes in a <code>io.cozy.konnectors</code> document are :</p>
+<h1 id="cozy-accounts-doctype">Cozy Accounts doctype<a class="headerlink" href="#cozy-accounts-doctype" title="Permanent link">&para;</a></h1>
+<p>The <code>io.cozy.accounts</code> doctype stores authentification informations used by <a href="https://github.com/konnectors">konnectors</a> to connect to external services or API.</p>
+<p>Accounts can be managed in <a href="http://github.com/cozy/cozy-collect/">Cozy-Collect</a>. They are generally associated to a <a href="../io.cozy.triggers"><code>io.cozy.triggers</code></a> document.</p>
+<p><code>io.cozy.accounts</code> attributes are:</p>
 <ul>
-<li><code>categories</code></li>
-<li><code>data_type</code></li>
-<li><code>developer</code></li>
-<li><code>doctypes</code></li>
-<li><code>editor</code></li>
-<li><code>fields</code></li>
-<li><code>frequency</code></li>
-<li><code>icon</code></li>
-<li><code>langs</code></li>
-<li><code>language</code></li>
-<li><code>license</code></li>
-<li><code>locales</code></li>
-<li><code>messages</code></li>
-<li><code>name</code></li>
-<li><code>name_prefix</code></li>
-<li><code>notifications</code></li>
-<li><code>oauth</code></li>
-<li><code>parameters</code></li>
-<li><code>permissions</code></li>
-<li><code>platforms</code></li>
-<li><code>screenshots</code></li>
-<li><code>slug</code></li>
-<li><code>source</code></li>
-<li><code>state</code></li>
-<li><code>tags</code></li>
-<li><code>time_interval</code></li>
-<li><code>type</code></li>
-<li><code>vendor_link</code></li>
-<li><code>version</code></li>
+<li><code>account_type</code> (<em>deprecated</em>) : {string} Slug of the konnector the account is related to.</li>
+<li><code>auth</code>: {object} Contains authentification data, typically a couple with <code>login</code>/<code>password</code>. It could also contain an attribute <code>token</code> for OAuth konnectors.</li>
+<li><code>data</code>: {object} Additional custom data.</li>
+<li><code>label</code>: {string} Label given by user.</li>
 </ul>
-<h3 id="other-attributes">Other Attributes<a class="headerlink" href="#other-attributes" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Attribute</th>
-<th>Role</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>state</code></td>
-<td>Store the installation state of the konnector. Value can be <code>AVAILABLE</code>, <code>INSTALLING</code>, <code>UPGRADING</code>, <code>UNINSTALLING</code>, <code>INSTALLED</code>, <code>READY</code></td>
-</tr>
-</tbody>
-</table>
-<h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
+<h3 id="auth"><code>auth</code><a class="headerlink" href="#auth" title="Permanent link">&para;</a></h3>
+<p>The <code>auth</code> attribute may also contain other data, like  <code>accountName</code>, <code>folderPath</code> or <code>frequency</code>. As <code>auth</code> should only be used for authentication mechanisms, those two values should disappear soon.</p>
+<ul>
+<li><code>folderPath</code> should purely and simply disappear, the folder information is stored in <code>io.cozy.trigger</code>.</li>
+<li><code>accountName</code> is in reality the <code>label</code>, change should be made soon to fix this mistake.</li>
+<li><code>frequency</code> should move at the root of the account.</li>
+</ul>
+<h3 id="about-login">About <code>login</code><a class="headerlink" href="#about-login" title="Permanent link">&para;</a></h3>
+<p>Some konnectors does not use a <code>login</code> parameter, but <code>identifier</code> or <code>email</code>. The usage of anything except <code>login</code> is deprecated and should not be done.</p>
+<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
+<h4 id="freemobile-regular-connector-with-current-deprecation">Freemobile (regular connector, with current deprecation)<a class="headerlink" href="#freemobile-regular-connector-with-current-deprecation" title="Permanent link">&para;</a></h4>
 <pre class="codehilite"><code class="language-json">{
-  &quot;name&quot;: &quot;Debug&quot;,
-  &quot;editor&quot;: &quot;&quot;,
-  &quot;slug&quot;: &quot;debug&quot;,
-  &quot;developer&quot;: {
-    &quot;name&quot;: &quot;cozy&quot;,
-    &quot;url&quot;: &quot;cozy.io&quot;
+  &quot;auth&quot;: {
+    &quot;accountName&quot;: &quot;freemobile&quot;,
+    &quot;credentials_encrypted&quot;: &quot;aaDtwWSWsdpbbbbbbbbbbbbbbOzp2pBEbXlZLWjiTzOGumGRomrF2LwlRn4Y8c=&quot;,
+    &quot;folderPath&quot;: &quot;/Administratif/Free Mobile&quot;,
+    &quot;login&quot;: &quot;000000000&quot;,
+    &quot;namePath&quot;: &quot;Free Mobile&quot;,
+    &quot;password&quot;: &quot;*******&quot;
+  }
+}</code></pre>
+
+
+<p>What we aim:</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;auth&quot;: {
+    &quot;credentials_encrypted&quot;: &quot;aaDtwWSWsdpbbbbbbbbbbbbbbOzp2pBEbXlZLWjiTzOGumGRomrF2LwlRn4Y8c=&quot;,
+    &quot;login&quot;: &quot;000000000&quot;,
+    &quot;password&quot;: &quot;**********&quot;
   },
-  &quot;long_description&quot;: &quot;&quot;,
-  &quot;short_description&quot;: &quot;&quot;,
-  &quot;categories&quot;: [&quot;other&quot;],
-  &quot;locales&quot;: null,
-  &quot;langs&quot;: null,
-  &quot;tags&quot;: null,
-  &quot;icon&quot;: &quot;&quot;,
-  &quot;license&quot;: &quot;&quot;,
-  &quot;state&quot;: &quot;ready&quot;,
-  &quot;source&quot;: &quot;git://github.com/cozy/cozy-konnector-debug.git#build&quot;,
-  &quot;parameters&quot;: null,
-  &quot;version&quot;: &quot;1.0.0-edf48da7b2d959517aea59767c3d8d45b2ce7fa2&quot;,
-  &quot;permissions&quot;: {
-    &quot;accounts&quot;: {
-      &quot;type&quot;: &quot;io.cozy.accounts&quot;,
-      &quot;description&quot;: &quot;Required to get the account's data&quot;,
-      &quot;verbs&quot;: [
-        &quot;GET&quot;
-      ]
-    }
+  &quot;folderPath&quot;: &quot;/Administratif/Free Mobile&quot;,
+  &quot;label&quot;: &quot;freemobile&quot;,
+  &quot;namePath&quot;: &quot;Free Mobile&quot;
+}</code></pre>
+
+
+<h4 id="caisse-depargne-linxo-connector">Caisse d&rsquo;Épargne (Linxo connector)<a class="headerlink" href="#caisse-depargne-linxo-connector" title="Permanent link">&para;</a></h4>
+<p>The connectors based on Linxo API are storing specific informations into <code>data</code> attribute.</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;account_type&quot;: &quot;linxo&quot;,
+  &quot;auth&quot;: {
+    &quot;folderPath&quot;: null,
+    &quot;frequency&quot;: &quot;week&quot;,
+    &quot;identifier&quot;: &quot;0000000000&quot;,
+    &quot;secret&quot;: &quot;*********&quot;
+  },
+  &quot;data&quot;: {
+    &quot;auth&quot;: {
+      &quot;login&quot;: &quot;00000.00000000@cozyclaudy.red.cloud&quot;,
+      &quot;password&quot;: &quot;********************************&quot;
+    },
+    &quot;status&quot;: &quot;connected&quot;,
+    &quot;token&quot;: &quot;f415e&quot;,
+    &quot;uuid&quot;: &quot;deadbeef-912e-4ba8-9378-067c5c3e4f54&quot;
+
   }
 }</code></pre></div>
         </div>

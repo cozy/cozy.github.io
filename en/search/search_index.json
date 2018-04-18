@@ -1636,6 +1636,56 @@
             "title": "shouldUpdate"
         }, 
         {
+            "location": "/cozy-doctypes/docs/io.cozy.accounts/", 
+            "text": "Table of contents\n\n\nCozy Accounts doctype\n\n\nThe \nio.cozy.accounts\n doctype stores authentification informations used by \nkonnectors\n to connect to external services or API.\n\n\nAccounts can be managed in \nCozy-Collect\n. They are generally associated to a \nio.cozy.triggers\n document.\n\n\nio.cozy.accounts\n attributes are:\n\n\n\n\naccount_type\n (\ndeprecated\n) : {string} Slug of the konnector the account is related to.\n\n\nauth\n: {object} Contains authentification data, typically a couple with \nlogin\n/\npassword\n. It could also contain an attribute \ntoken\n for OAuth konnectors.\n\n\ndata\n: {object} Additional custom data.\n\n\nlabel\n: {string} Label given by user.\n\n\n\n\nauth\n\n\nThe \nauth\n attribute may also contain other data, like  \naccountName\n, \nfolderPath\n or \nfrequency\n. As \nauth\n should only be used for authentication mechanisms, those two values should disappear soon.\n\n\n\n\nfolderPath\n should purely and simply disappear, the folder information is stored in \nio.cozy.trigger\n.\n\n\naccountName\n is in reality the \nlabel\n, change should be made soon to fix this mistake.\n\n\nfrequency\n should move at the root of the account.\n\n\n\n\nAbout \nlogin\n\n\nSome konnectors does not use a \nlogin\n parameter, but \nidentifier\n or \nemail\n. The usage of anything except \nlogin\n is deprecated and should not be done.\n\n\nExamples\n\n\nFreemobile (regular connector, with current deprecation)\n\n\n{\n  \nauth\n: {\n    \naccountName\n: \nfreemobile\n,\n    \ncredentials_encrypted\n: \naaDtwWSWsdpbbbbbbbbbbbbbbOzp2pBEbXlZLWjiTzOGumGRomrF2LwlRn4Y8c=\n,\n    \nfolderPath\n: \n/Administratif/Free Mobile\n,\n    \nlogin\n: \n000000000\n,\n    \nnamePath\n: \nFree Mobile\n,\n    \npassword\n: \n*******\n\n  }\n}\n\n\n\n\nWhat we aim:\n\n\n{\n  \nauth\n: {\n    \ncredentials_encrypted\n: \naaDtwWSWsdpbbbbbbbbbbbbbbOzp2pBEbXlZLWjiTzOGumGRomrF2LwlRn4Y8c=\n,\n    \nlogin\n: \n000000000\n,\n    \npassword\n: \n**********\n\n  },\n  \nfolderPath\n: \n/Administratif/Free Mobile\n,\n  \nlabel\n: \nfreemobile\n,\n  \nnamePath\n: \nFree Mobile\n\n}\n\n\n\n\nCaisse d\n\u00c9pargne (Linxo connector)\n\n\nThe connectors based on Linxo API are storing specific informations into \ndata\n attribute.\n\n\n{\n  \naccount_type\n: \nlinxo\n,\n  \nauth\n: {\n    \nfolderPath\n: null,\n    \nfrequency\n: \nweek\n,\n    \nidentifier\n: \n0000000000\n,\n    \nsecret\n: \n*********\n\n  },\n  \ndata\n: {\n    \nauth\n: {\n      \nlogin\n: \n00000.00000000@cozyclaudy.red.cloud\n,\n      \npassword\n: \n********************************\n\n    },\n    \nstatus\n: \nconnected\n,\n    \ntoken\n: \nf415e\n,\n    \nuuid\n: \ndeadbeef-912e-4ba8-9378-067c5c3e4f54\n\n\n  }\n}", 
+            "title": "Accounts"
+        }, 
+        {
+            "location": "/cozy-doctypes/docs/io.cozy.accounts/#cozy-accounts-doctype", 
+            "text": "The  io.cozy.accounts  doctype stores authentification informations used by  konnectors  to connect to external services or API.  Accounts can be managed in  Cozy-Collect . They are generally associated to a  io.cozy.triggers  document.  io.cozy.accounts  attributes are:   account_type  ( deprecated ) : {string} Slug of the konnector the account is related to.  auth : {object} Contains authentification data, typically a couple with  login / password . It could also contain an attribute  token  for OAuth konnectors.  data : {object} Additional custom data.  label : {string} Label given by user.", 
+            "title": "Cozy Accounts doctype"
+        }, 
+        {
+            "location": "/cozy-doctypes/docs/io.cozy.accounts/#auth", 
+            "text": "The  auth  attribute may also contain other data, like   accountName ,  folderPath  or  frequency . As  auth  should only be used for authentication mechanisms, those two values should disappear soon.   folderPath  should purely and simply disappear, the folder information is stored in  io.cozy.trigger .  accountName  is in reality the  label , change should be made soon to fix this mistake.  frequency  should move at the root of the account.", 
+            "title": "auth"
+        }, 
+        {
+            "location": "/cozy-doctypes/docs/io.cozy.accounts/#about-login", 
+            "text": "Some konnectors does not use a  login  parameter, but  identifier  or  email . The usage of anything except  login  is deprecated and should not be done.", 
+            "title": "About login"
+        }, 
+        {
+            "location": "/cozy-doctypes/docs/io.cozy.accounts/#examples", 
+            "text": "", 
+            "title": "Examples"
+        }, 
+        {
+            "location": "/cozy-doctypes/docs/io.cozy.accounts/#freemobile-regular-connector-with-current-deprecation", 
+            "text": "{\n   auth : {\n     accountName :  freemobile ,\n     credentials_encrypted :  aaDtwWSWsdpbbbbbbbbbbbbbbOzp2pBEbXlZLWjiTzOGumGRomrF2LwlRn4Y8c= ,\n     folderPath :  /Administratif/Free Mobile ,\n     login :  000000000 ,\n     namePath :  Free Mobile ,\n     password :  ******* \n  }\n}  What we aim:  {\n   auth : {\n     credentials_encrypted :  aaDtwWSWsdpbbbbbbbbbbbbbbOzp2pBEbXlZLWjiTzOGumGRomrF2LwlRn4Y8c= ,\n     login :  000000000 ,\n     password :  ********** \n  },\n   folderPath :  /Administratif/Free Mobile ,\n   label :  freemobile ,\n   namePath :  Free Mobile \n}", 
+            "title": "Freemobile (regular connector, with current deprecation)"
+        }, 
+        {
+            "location": "/cozy-doctypes/docs/io.cozy.accounts/#caisse-depargne-linxo-connector", 
+            "text": "The connectors based on Linxo API are storing specific informations into  data  attribute.  {\n   account_type :  linxo ,\n   auth : {\n     folderPath : null,\n     frequency :  week ,\n     identifier :  0000000000 ,\n     secret :  ********* \n  },\n   data : {\n     auth : {\n       login :  00000.00000000@cozyclaudy.red.cloud ,\n       password :  ******************************** \n    },\n     status :  connected ,\n     token :  f415e ,\n     uuid :  deadbeef-912e-4ba8-9378-067c5c3e4f54 \n\n  }\n}", 
+            "title": "Caisse d'\u00c9pargne (Linxo connector)"
+        }, 
+        {
+            "location": "/cozy-doctypes/docs/io.cozy.photos.albums/", 
+            "text": "Table of contents\n\n\nPhotos Albums doctype\n\n\nio.cozy.photos.albums\n\n\nThis doctype is really simple. It just has one attribute:\n\n\n\n\nname\n: {string} the name of the album\n\n\n\n\nThe photos in an album are files (with the class \nimage\n) that are \nreferenced\n by the album document.", 
+            "title": "Albums"
+        }, 
+        {
+            "location": "/cozy-doctypes/docs/io.cozy.photos.albums/#photos-albums-doctype", 
+            "text": "", 
+            "title": "Photos Albums doctype"
+        }, 
+        {
+            "location": "/cozy-doctypes/docs/io.cozy.photos.albums/#iocozyphotosalbums", 
+            "text": "This doctype is really simple. It just has one attribute:   name : {string} the name of the album   The photos in an album are files (with the class  image ) that are  referenced  by the album document.", 
+            "title": "io.cozy.photos.albums"
+        }, 
+        {
             "location": "/cozy-doctypes/docs/io.cozy.bank/", 
             "text": "Table of contents\n\n\nCozy Bank doctypes\n\n\nCozy can stores and manipulate bank related datas, distributed across several doctypes.\n\n\nio.cozy.bank.settings\n\n\nThis doctype store informations about Bank application settings. There is only one document, by default:\n\n\n{\n  notifications: {\n    amountMax: {\n      enable: false,\n      value: 30\n    }\n  }\n}\n\n\n\n\nio.cozy.bank.accounts\n\n\nThis doctypes stores informations about a Bank account:\n\n\n\n\nlabel\n: {string} - The bank account label (e.g. \nJohn Doe Bank Account\n)\n\n\ninstitutionLabel\n: {string} - The financial institution name the bank account belongs to\n\n\nbalance\n: {number} - The current account balance\n\n\ntype\n: {string} - The account type in the list \n['none', 'bank', 'cash', 'asset', 'credit card', 'liability']\n\n\nnumber\n: {string} - The bank account number in its institution\n\n\niban\n: {string} - The bank account international identifier\n\n\nserviceID\n: {number} - In case of external service used to import transactions, this key can stores the service\ns account ID; can be \nundefined\n is the account isn\nt managed by any external service\n\n\n\n\nExample\n\n\n{\n  \n_id\n: \n2165d9a310deadbeeffc08d54c45102\n,\n  \nbalance\n: 1337.73,\n  \ninstitutionLabel\n: \nSoci\u00e9t\u00e9 G\u00e9n\u00e9rale (Particuliers)\n,\n  \nlabel\n: \nLivret D\u00e9velop. Durable (x1337)\n,\n  \nlinxoId\n: \n123456\n,\n  \nmetadata\n: {\n    \nversion\n: 1\n  },\n  \nnumber\n: \n03791 00048085818\n,\n  \nshortLabel\n: \nLivret D\u00e9velop. Durable\n,\n  \ntype\n: \nSavings\n\n}\n\n\n\n\nio.cozy.bank.operations\n\n\nThis doctype stors informations about a bank transaction:\n\n\n\n\nlabel\n: {string} - The label describing the transaction\n\n\ntype\n: {string} - A type in the list : \n['none', 'credit card', 'cash', 'check', 'transfer', 'internal transfer', 'debit card', 'deposit', 'financial fee', 'direct debit']\n\n\ndate\n: {date} - The date the transaction is emmited\n\n\ndateOperation\n: {date} - The date the transaction is registered in the account\n\n\ndateImport\n: {date} - The date the transaction is imported (can differ of the date of creation of the document as the import can be done by an external service)\n\n\namount\n: {number} - The amount of the transaction\n\n\ncurrency\n: {string} - A 3 uppercased chars defining the currecny used for the transaction as stated in \nISO4217\n\n\nmanualCategoryId\n: {string} - A category that apply to the transaction and is manually selected by the user\n\n\nautomaticCategoryId\n: {string} - A category that apply to the transaction and is automatically calculated\n\n\naccount\n: {identifier} - The related account id the transaction belongs to\n\n\nbills\n: {array[\n]} - List of bills id.\n\n\nreimbursements\n: {array[\n]} - List of bills id.\n\n\ncreditOperations\n: {array[\n]} - List of credit operations id\n\n\ndebitOperations\n: {array[\n]} - List of debit operations id\n\n\nparent\n: {_id} - In case of a split transaction, the one refers the global transaction the split one belongs to\n\n\n\n\nFor the dates, any string or integer which can be interpreted by new Date(date) is possible but the\nbest the result of Date.toString() -\n like \nFri Mar 09 2018 19:04:40 GMT+0100 (CET)\n which contains\nthe time zones.\n\n\nExample\n\n\n{\n  \n_id\n: \nf0426fdeadbeef55755ee7f4d6555\n,\n  \naccount\n: \n15fb6402426bcdeadbeeffd5f4587bb\n,\n  \namount\n: 10,\n  \nautomaticCategoryId\n: \n400110\n,\n  \ncurrency\n: \nEUR\n,\n  \ndate\n: \n2017-09-22 00:00:00+01:00\n,\n  \ndateOperation\n: null,\n  \nlabel\n: \nM  PIERRE RICHARD\n,\n  \nlinxoId\n: \n845811337\n,\n  \nmetadata\n: {\n    \ndateImport\n: \n2018-03-09T09:23:40.075Z\n,\n    \nversion\n: 1\n  },\n  \noriginalBankLabel\n: \nVIR RECU    5383518660S DE: M  PIERRE RICHARD J MOTIF: Cascade REF: NOT PROVIDED\n,\n  \ntype\n: \ntransfer\n\n}", 
             "title": "Banking doctypes"
@@ -1698,36 +1748,6 @@
         {
             "location": "/cozy-doctypes/docs/io.cozy.bills/#example", 
             "text": "{\n   _id :  62e5d80d6e11d19992b7efce794263f0 ,\n   amount : 700,\n   beneficiary :  PIERRE RICHARD ,\n   date :  2018-02-07T23:00:00.000Z ,\n   groupAmount : 7.5,\n   isRefund : true,\n   metadata : {\n     version : 1\n  },\n   originalAmount : 25,\n   originalDate :  2018-03-11T23:00:00.000Z ,\n   socialSecurityRefund : 17.5,\n   subtype :  Consultation sp\u00e9cialiste ,\n   type :  health_costs ,\n   vendor :  Harmonie \n}", 
-            "title": "Example"
-        }, 
-        {
-            "location": "/cozy-doctypes/docs/io.cozy.payslips/", 
-            "text": "Table of contents\n\n\nPayslips doctype\n\n\nio.cozy.payslips\n\n\n\n\nvendor\n: {string} - Vendor which issued the payslip\n\n\ndate\n: {date} - Date the payslip was emitted\n\n\namount\n: {number} - Amount of the payslip, \nalways positive\n even if it is the payslip of an employee. This amount should always be the amount which will be found in the bank operations.\n\n\n\n\nRelationships\n\n\nThe eventual related documents\n- \ndocument\n: {object} - The associated file. ex:\n\n\n{\n  data: {\n    _id: \nc43645a93831827c7ec512eac3006e51\n,\n    _type: \nio.cozy.files\n\n  }\n}\n\n\n\n\nSome more attributes for employee\ns payslip\n\n\nThe are some more possible attributes for employee payslips.\n\n\n\n\nisEmployee\n: {boolean} - Indicate if this payslip is paid to an employee of the owner of the cozy. If false, this is a payslip received by the owner.\n\n\nbeneficiary\n: {string} - Indicate the name of the employee\n\n\n\n\nExample\n\n\n{\n  \n_id\n: \n62e5d80d6e11d19992b7efce794263f0\n,\n  \namount\n: 2000,\n  \ndate\n: \n2018-02-07T23:00:00.000Z\n,\n  \nvendor\n: \nPayfit\n,\n  \nmetadata\n: {\n    \nversion\n: 1\n  },\n  $relationships: {\n    document: { data: { _id: \nc43645a93831827c7ec512eac3006e51\n, _type: \nio.cozy.files\n } }\n  }\n}\n\n\n\n\n{\n  \n_id\n: \n62e5d83d6e11d19992b7efce794263f0\n,\n  \namount\n: 100,\n  \ndate\n: \n2018-04-07T03:00:00.000Z\n,\n  \nvendor\n: \nCESU\n,\n  \nisEmployee\n: true,\n  \nbeneficiary\n: \nPierre Richard\n,\n  \nmetadata\n: {\n    \nversion\n: 1\n  },\n  $relationships: {\n    payslip: { data: { _id: \nc43645a93831827c7ec512eac3006e51\n, _type: \nio.cozy.files\n } }\n  }\n}", 
-            "title": "Payslips"
-        }, 
-        {
-            "location": "/cozy-doctypes/docs/io.cozy.payslips/#payslips-doctype", 
-            "text": "", 
-            "title": "Payslips doctype"
-        }, 
-        {
-            "location": "/cozy-doctypes/docs/io.cozy.payslips/#iocozypayslips", 
-            "text": "vendor : {string} - Vendor which issued the payslip  date : {date} - Date the payslip was emitted  amount : {number} - Amount of the payslip,  always positive  even if it is the payslip of an employee. This amount should always be the amount which will be found in the bank operations.", 
-            "title": "io.cozy.payslips"
-        }, 
-        {
-            "location": "/cozy-doctypes/docs/io.cozy.payslips/#relationships", 
-            "text": "The eventual related documents\n-  document : {object} - The associated file. ex:  {\n  data: {\n    _id:  c43645a93831827c7ec512eac3006e51 ,\n    _type:  io.cozy.files \n  }\n}", 
-            "title": "Relationships"
-        }, 
-        {
-            "location": "/cozy-doctypes/docs/io.cozy.payslips/#some-more-attributes-for-employees-payslip", 
-            "text": "The are some more possible attributes for employee payslips.   isEmployee : {boolean} - Indicate if this payslip is paid to an employee of the owner of the cozy. If false, this is a payslip received by the owner.  beneficiary : {string} - Indicate the name of the employee", 
-            "title": "Some more attributes for employee's payslip"
-        }, 
-        {
-            "location": "/cozy-doctypes/docs/io.cozy.payslips/#example", 
-            "text": "{\n   _id :  62e5d80d6e11d19992b7efce794263f0 ,\n   amount : 2000,\n   date :  2018-02-07T23:00:00.000Z ,\n   vendor :  Payfit ,\n   metadata : {\n     version : 1\n  },\n  $relationships: {\n    document: { data: { _id:  c43645a93831827c7ec512eac3006e51 , _type:  io.cozy.files  } }\n  }\n}  {\n   _id :  62e5d83d6e11d19992b7efce794263f0 ,\n   amount : 100,\n   date :  2018-04-07T03:00:00.000Z ,\n   vendor :  CESU ,\n   isEmployee : true,\n   beneficiary :  Pierre Richard ,\n   metadata : {\n     version : 1\n  },\n  $relationships: {\n    payslip: { data: { _id:  c43645a93831827c7ec512eac3006e51 , _type:  io.cozy.files  } }\n  }\n}", 
             "title": "Example"
         }, 
         {
@@ -1826,19 +1846,34 @@
             "title": "io.cozy.notifications"
         }, 
         {
-            "location": "/cozy-doctypes/docs/io.cozy.photos.albums/", 
-            "text": "Table of contents\n\n\nPhotos Albums doctype\n\n\nio.cozy.photos.albums\n\n\nThis doctype is really simple. It just has one attribute:\n\n\n\n\nname\n: {string} the name of the album\n\n\n\n\nThe photos in an album are files (with the class \nimage\n) that are \nreferenced\n by the album document.", 
-            "title": "Albums"
+            "location": "/cozy-doctypes/docs/io.cozy.payslips/", 
+            "text": "Table of contents\n\n\nPayslips doctype\n\n\nio.cozy.payslips\n\n\n\n\nvendor\n: {string} - Vendor which issued the payslip\n\n\ndate\n: {date} - Date the payslip was emitted\n\n\namount\n: {number} - Amount of the payslip, \nalways positive\n even if it is the payslip of an employee. This amount should always be the amount which will be found in the bank operations.\n\n\n\n\nRelationships\n\n\nThe eventual related documents\n- \ndocument\n: {object} - The associated file. ex:\n\n\n{\n  data: {\n    _id: \nc43645a93831827c7ec512eac3006e51\n,\n    _type: \nio.cozy.files\n\n  }\n}\n\n\n\n\nSome more attributes for employee\ns payslip\n\n\nThe are some more possible attributes for employee payslips.\n\n\n\n\nisEmployee\n: {boolean} - Indicate if this payslip is paid to an employee of the owner of the cozy. If false, this is a payslip received by the owner.\n\n\nbeneficiary\n: {string} - Indicate the name of the employee\n\n\n\n\nExample\n\n\n{\n  \n_id\n: \n62e5d80d6e11d19992b7efce794263f0\n,\n  \namount\n: 2000,\n  \ndate\n: \n2018-02-07T23:00:00.000Z\n,\n  \nvendor\n: \nPayfit\n,\n  \nmetadata\n: {\n    \nversion\n: 1\n  },\n  $relationships: {\n    document: { data: { _id: \nc43645a93831827c7ec512eac3006e51\n, _type: \nio.cozy.files\n } }\n  }\n}\n\n\n\n\n{\n  \n_id\n: \n62e5d83d6e11d19992b7efce794263f0\n,\n  \namount\n: 100,\n  \ndate\n: \n2018-04-07T03:00:00.000Z\n,\n  \nvendor\n: \nCESU\n,\n  \nisEmployee\n: true,\n  \nbeneficiary\n: \nPierre Richard\n,\n  \nmetadata\n: {\n    \nversion\n: 1\n  },\n  $relationships: {\n    payslip: { data: { _id: \nc43645a93831827c7ec512eac3006e51\n, _type: \nio.cozy.files\n } }\n  }\n}", 
+            "title": "Payslips"
         }, 
         {
-            "location": "/cozy-doctypes/docs/io.cozy.photos.albums/#photos-albums-doctype", 
+            "location": "/cozy-doctypes/docs/io.cozy.payslips/#payslips-doctype", 
             "text": "", 
-            "title": "Photos Albums doctype"
+            "title": "Payslips doctype"
         }, 
         {
-            "location": "/cozy-doctypes/docs/io.cozy.photos.albums/#iocozyphotosalbums", 
-            "text": "This doctype is really simple. It just has one attribute:   name : {string} the name of the album   The photos in an album are files (with the class  image ) that are  referenced  by the album document.", 
-            "title": "io.cozy.photos.albums"
+            "location": "/cozy-doctypes/docs/io.cozy.payslips/#iocozypayslips", 
+            "text": "vendor : {string} - Vendor which issued the payslip  date : {date} - Date the payslip was emitted  amount : {number} - Amount of the payslip,  always positive  even if it is the payslip of an employee. This amount should always be the amount which will be found in the bank operations.", 
+            "title": "io.cozy.payslips"
+        }, 
+        {
+            "location": "/cozy-doctypes/docs/io.cozy.payslips/#relationships", 
+            "text": "The eventual related documents\n-  document : {object} - The associated file. ex:  {\n  data: {\n    _id:  c43645a93831827c7ec512eac3006e51 ,\n    _type:  io.cozy.files \n  }\n}", 
+            "title": "Relationships"
+        }, 
+        {
+            "location": "/cozy-doctypes/docs/io.cozy.payslips/#some-more-attributes-for-employees-payslip", 
+            "text": "The are some more possible attributes for employee payslips.   isEmployee : {boolean} - Indicate if this payslip is paid to an employee of the owner of the cozy. If false, this is a payslip received by the owner.  beneficiary : {string} - Indicate the name of the employee", 
+            "title": "Some more attributes for employee's payslip"
+        }, 
+        {
+            "location": "/cozy-doctypes/docs/io.cozy.payslips/#example", 
+            "text": "{\n   _id :  62e5d80d6e11d19992b7efce794263f0 ,\n   amount : 2000,\n   date :  2018-02-07T23:00:00.000Z ,\n   vendor :  Payfit ,\n   metadata : {\n     version : 1\n  },\n  $relationships: {\n    document: { data: { _id:  c43645a93831827c7ec512eac3006e51 , _type:  io.cozy.files  } }\n  }\n}  {\n   _id :  62e5d83d6e11d19992b7efce794263f0 ,\n   amount : 100,\n   date :  2018-04-07T03:00:00.000Z ,\n   vendor :  CESU ,\n   isEmployee : true,\n   beneficiary :  Pierre Richard ,\n   metadata : {\n     version : 1\n  },\n  $relationships: {\n    payslip: { data: { _id:  c43645a93831827c7ec512eac3006e51 , _type:  io.cozy.files  } }\n  }\n}", 
+            "title": "Example"
         }, 
         {
             "location": "/cozy-doctypes/docs/io.cozy.remote.requests/", 
