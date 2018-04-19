@@ -26,7 +26,7 @@ And point your favorite browser to `http://127.0.0.1:8000/`
 
 ## External documentations
 
-Several other [external documentations](./OUTSIDE_DOCS) are consolidated in this documentation during build.
+External documentations are listed in the [OUTSIDE_DOCS](./OUTSIDE_DOCS) file are consolidated in this documentation during build.
 This lets developers edit their documentation in their repository while the single site makes it convenient
 to search for information only in one location.
 
