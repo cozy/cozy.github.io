@@ -479,7 +479,7 @@
             <li><a href="#linkbankoperations-entries-doctype-fields-options">linkBankOperations ( entries, doctype, fields, options = {} )</a></li>
         <li class="main "><a href="#mkdirp">mkdirp</a></li>
         <li class="main "><a href="#requestfactory">requestFactory</a></li>
-        <li class="main "><a href="#savebills">saveBills</a></li>
+        <li class="main "><a href="#savebankingdocuments">saveBankingDocuments</a></li>
         <li class="main "><a href="#savefiles">saveFiles</a></li>
         <li class="main "><a href="#signin">signin</a></li>
         <li class="main "><a href="#updateorcreate">updateOrCreate</a></li>
@@ -662,25 +662,31 @@ req(&#39;http://github.com&#39;, response =&gt; {
 </code></pre>
 <p>You can find the full list of available options in <a href="https://github.com/request/request-promise">request-promise</a> and <a href="https://github.com/request/request">request</a> documentations.</p>
 </dd>
-<dt><a href="#module_saveBills">saveBills</a></dt>
-<dd><p>Combines the features of <code>saveFiles</code>, <code>filterData</code>, <code>addData</code> and <code>linkBankOperations</code> for a
-common case: bills.
-Will create <code>io.cozy.bills</code> objects. The default deduplication keys are <code>[&#39;date&#39;, &#39;amount&#39;, &#39;vendor&#39;]</code>.
-You need the full permission on <code>io.cozy.bills</code>, full permission on <code>io.cozy.files</code> and also
-full permission on <code>io.cozy.bank.operations</code> in your manifest, to be able to * use this function.</p>
+<dt><a href="#module_saveBankingDocuments">saveBankingDocuments</a></dt>
+<dd><p>Combines the features of <code>saveFiles</code>, <code>filterData</code>, <code>addData</code> and <code>linkBankOperations</code> for any
+doctype.
+Will create <code>io.cozy.bills</code> documents by default or any specified doctype.
+The default deduplication keys are <code>[&#39;date&#39;, &#39;amount&#39;, &#39;vendor&#39;]</code>.
+You need the full permission on the doctype, full permission on <code>io.cozy.files</code> and also
+full permission on <code>io.cozy.bank.operations</code> in your manifest, to be able to use this function.</p>
 <p>Parameters:</p>
 <ul>
 <li><code>documents</code> is an array of objects with any attributes :</li>
 <li><code>fields</code> (object) this is the first parameter given to BaseKonnector&#39;s constructor</li>
-<li><code>options</code> is passed directly to <code>saveFiles</code>, <code>hydrateAndFilter</code>, <code>addData</code> and <code>linkBankOperations</code>.</li>
+<li><code>options</code> is passed directly to <code>saveFiles</code>, <code>hydrateAndFilter</code>, <code>addData</code> and <code>linkBankOperations</code>.<ul>
+<li><code>doctype</code> option has <code>io.cozy.bills</code></li>
+<li><code>noBanking</code> option deactivates linkBankOperations. Default value is false.</li>
 </ul>
-<pre><code class="lang-javascript">const { BaseKonnector, saveBills } = require(&#39;cozy-konnector-libs&#39;)
+</li>
+</ul>
+<pre><code class="lang-javascript">const { BaseKonnector, saveBankingDocuments } = require(&#39;cozy-konnector-libs&#39;)
 
 module.exports = new BaseKonnector(function fetch (fields) {
   const documents = []
   // some code which fills documents
-  return saveBills(documents, fields, {
-    identifiers: [&#39;vendorj&#39;]
+  return saveBankingDocuments(documents, fields, {
+    identifiers: [&#39;vendorj&#39;],
+    doctype: &#39;io.cozy.bills&#39;
   })
 })
 </code></pre>
@@ -993,26 +999,32 @@ req('http://github.com', response =&gt; {
 
 
 <p>You can find the full list of available options in <a href="https://github.com/request/request-promise">request-promise</a> and <a href="https://github.com/request/request">request</a> documentations.</p>
-<p><a name="module_saveBills"></a></p>
-<h2 id="savebills">saveBills<a class="headerlink" href="#savebills" title="Permanent link">&para;</a></h2>
-<p>Combines the features of <code>saveFiles</code>, <code>filterData</code>, <code>addData</code> and <code>linkBankOperations</code> for a
-common case: bills.
-Will create <code>io.cozy.bills</code> objects. The default deduplication keys are <code>['date', 'amount', 'vendor']</code>.
-You need the full permission on <code>io.cozy.bills</code>, full permission on <code>io.cozy.files</code> and also
-full permission on <code>io.cozy.bank.operations</code> in your manifest, to be able to * use this function.</p>
+<p><a name="module_saveBankingDocuments"></a></p>
+<h2 id="savebankingdocuments">saveBankingDocuments<a class="headerlink" href="#savebankingdocuments" title="Permanent link">&para;</a></h2>
+<p>Combines the features of <code>saveFiles</code>, <code>filterData</code>, <code>addData</code> and <code>linkBankOperations</code> for any
+doctype.
+Will create <code>io.cozy.bills</code> documents by default or any specified doctype.
+The default deduplication keys are <code>['date', 'amount', 'vendor']</code>.
+You need the full permission on the doctype, full permission on <code>io.cozy.files</code> and also
+full permission on <code>io.cozy.bank.operations</code> in your manifest, to be able to use this function.</p>
 <p>Parameters:</p>
 <ul>
 <li><code>documents</code> is an array of objects with any attributes :</li>
 <li><code>fields</code> (object) this is the first parameter given to BaseKonnector&rsquo;s constructor</li>
-<li><code>options</code> is passed directly to <code>saveFiles</code>, <code>hydrateAndFilter</code>, <code>addData</code> and <code>linkBankOperations</code>.</li>
+<li><code>options</code> is passed directly to <code>saveFiles</code>, <code>hydrateAndFilter</code>, <code>addData</code> and <code>linkBankOperations</code>.<ul>
+<li><code>doctype</code> option has <code>io.cozy.bills</code></li>
+<li><code>noBanking</code> option deactivates linkBankOperations. Default value is false.</li>
 </ul>
-<pre class="codehilite"><code class="language-javascript">const { BaseKonnector, saveBills } = require('cozy-konnector-libs')
+</li>
+</ul>
+<pre class="codehilite"><code class="language-javascript">const { BaseKonnector, saveBankingDocuments } = require('cozy-konnector-libs')
 
 module.exports = new BaseKonnector(function fetch (fields) {
   const documents = []
   // some code which fills documents
-  return saveBills(documents, fields, {
-    identifiers: ['vendorj']
+  return saveBankingDocuments(documents, fields, {
+    identifiers: ['vendorj'],
+    doctype: 'io.cozy.bills'
   })
 })</code></pre>
 
@@ -1167,7 +1179,7 @@ module.exports = new BaseKonnector(function fetch () {
  // different stages of the konnector
  return request('http://ameli.fr')
    .then(computeReimbursements)
-   .then(saveBills)
+   .then(saveDocuments)
 })</code></pre>
 
 
