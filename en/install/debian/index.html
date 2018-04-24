@@ -500,6 +500,24 @@
 <p>You can choose to install <code>cozy-couchdb</code> on the same host as <code>cozy-stack</code>, or use a remote CouchDB server. Cozy only needs a 2.x CouchDB (1.x not supported).</p>
 <p>Like CouchDB, you can choose to install your reverse proxy on the same host, or use a remote one. Right now <code>cozy-coclyco</code> supports only local <code>nginx</code>. If you want to use <code>apache2</code> or remote reverse proxy, you need to manually configure it for vhost or TLS certificate issuances.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<h3 id="third-party-repositories">Third party repositories<a class="headerlink" href="#third-party-repositories" title="Permanent link">&para;</a></h3>
+<p><a href="https://letsencrypt.org/">Let&rsquo;s Encrypt</a> official packages require to use unofficial/third party repositories to have recent and supported version of ACME libraries.
+Packages provided by standard Debian or Ubuntu repositories are quite old and not compatible with <code>cozy-coclyco</code>.  </p>
+<ul>
+<li>For Debian/Raspbian, you need to <a href="https://certbot.eff.org/lets-encrypt/debianstretch-apache#using">enable <code>backports</code> repository</a>.  </li>
+<li>For Ubuntu, you need to <a href="https://certbot.eff.org/lets-encrypt/ubuntuxenial-nginx#using">activate a third party <code>ppa</code> repository</a>.</li>
+</ul>
+<p>Refer to the <a href="https://certbot.eff.org/">certbot</a> documentation to activate needed repositories.
+(You don&rsquo;t need to install packages like <code>certbot</code> or <code>python-certbot-xxx</code>, only to activate repositories.)</p>
+<p>You may change your <a href="https://manpages.debian.org/stretch/apt/apt_preferences.5.html">APT preferences</a> to allow APT to install from backports/ppa by default instead of from official repositories. For example:</p>
+<pre class="codehilite"><code>/etc/apt/preferences.d/cozy 
+Package: python3-acme
+Pin: release n=stretch-backports
+Pin-Priority: 510
+EOF</code></pre>
+
+
+<h3 id="cozy-repositories">Cozy repositories<a class="headerlink" href="#cozy-repositories" title="Permanent link">&para;</a></h3>
 <p>First, install the packages required to install cozy</p>
 <pre class="codehilite"><code class="language-bash">apt install ca-certificates apt-transport-https curl</code></pre>
 
@@ -513,7 +531,9 @@ curl https://apt.cozy.io/nightly/cozy.gpg | \
 
 <p>Finally, setup your repository. Select the channel that best fit your needs:</p>
 <div class="admonition warning">
-<p>⚠️ For now, packages are only available in <code>testing</code> and <code>unstable</code> channels. Adapt your <code>sources.list</code> accordingly.</p>
+<p>For now, we recommend to use <code>testing</code> repositories, or <code>nightly/unstable</code> channels.<br />
+<code>stable</code> packages are quite old and currently provide deprecated and unsecured CouchDB version (2.0.x).<br />
+Adapt your <code>sources.list</code> accordingly.</p>
 </div>
 <p>Supported repositories are:</p>
 <ul>
@@ -536,7 +556,7 @@ curl https://apt.cozy.io/nightly/cozy.gpg | \
 </ul>
 </li>
 </ul>
-<pre class="codehilite"><code class="language-bash">echo &quot;deb https://apt.cozy.io/debian/ stretch stable&quot; &gt; /etc/apt/sources.list.d/cozy.list
+<pre class="codehilite"><code class="language-bash">echo &quot;deb https://apt.cozy.io/debian/ stretch testing&quot; &gt; /etc/apt/sources.list.d/cozy.list
 apt update</code></pre>
 
 
