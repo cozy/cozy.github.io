@@ -480,33 +480,33 @@
 <h2 id="hypothesis">Hypothesis<a class="headerlink" href="#hypothesis" title="Permanent link">&para;</a></h2>
 <ol>
 <li>A sharer may not know the adresses of the recipients&rsquo; cozy instances, but
-he/she has a way to send them an URL on his/her cozy to start the process.</li>
+   he/she has a way to send them an URL on his/her cozy to start the process.</li>
 <li>A user can preview a sharing before accepting it if the application
-supports this option. Else, he/she will have only the description and rules to
-make his/her mind about accepting or refusing the sharing.</li>
+   supports this option. Else, he/she will have only the description and rules to
+   make his/her mind about accepting or refusing the sharing.</li>
 <li>The data is duplicated: it is both on the owner&rsquo;s cozy, and on the
-recipients&rsquo; cozy (no cloud federation like NextCloud).</li>
+   recipients&rsquo; cozy (no cloud federation like NextCloud).</li>
 <li>The applications say what is shared, the stack synchronizes that. The stack
-does the low-level stuff and gives primitives to the applications. The
-applications must use them in a responsible manner, and in particular, to
-avoid transitivity issues.</li>
+   does the low-level stuff and gives primitives to the applications. The
+   applications must use them in a responsible manner, and in particular, to
+   avoid transitivity issues.</li>
 <li>The CouchDB replication will be used to synchronize the documents. It means
-that the documents will be same on the owner and on the recipients (&ldquo;symetric
-sharing&rdquo;).</li>
+   that the documents will be same on the owner and on the recipients (&ldquo;symetric
+   sharing&rdquo;).</li>
 <li>For files and folders, the replicator will be customized to handle the
-specificities of the <code>io.cozy.files</code> doctype.</li>
+   specificities of the <code>io.cozy.files</code> doctype.</li>
 <li>The applications must be able to work with broken relationships between
-documents.</li>
+   documents.</li>
 <li>The applications should know how to deal with CouchDB conflicts. At least,
-the default choice of a winner for conflicts by CouchDB should be acceptable
-if the applications don&rsquo;t do anything to detect and resolve conflicts.</li>
+   the default choice of a winner for conflicts by CouchDB should be acceptable
+   if the applications don&rsquo;t do anything to detect and resolve conflicts.</li>
 <li>First safety principle: when a user B accepts a sharing from user A, the
-documents that were on the user B&rsquo;s cozy before the sharing are not sent to
-user A without an explicit action of user B (like moving a file to a shared
-directory).</li>
+   documents that were on the user B&rsquo;s cozy before the sharing are not sent to
+   user A without an explicit action of user B (like moving a file to a shared
+   directory).</li>
 <li>Second safety principle: when two users, A and B, are sharing documents,
-a change of a document on the user A&rsquo;s cozy can&rsquo;t make an exiting document of
-user B enter in the sharing.</li>
+    a change of a document on the user A&rsquo;s cozy can&rsquo;t make an exiting document of
+    user B enter in the sharing.</li>
 </ol>
 <h2 id="setup-of-a-sharing">Setup of a sharing<a class="headerlink" href="#setup-of-a-sharing" title="Permanent link">&para;</a></h2>
 <h3 id="step-1-the-owner-creates-the-sharing">Step 1: the owner creates the sharing<a class="headerlink" href="#step-1-the-owner-creates-the-sharing" title="Permanent link">&para;</a></h3>
@@ -533,8 +533,7 @@ response of the answer request from Bob’s instance. At this moment, both
 instances are ready to start to replicate data to the other instances. So, let’s
 do the initial replication.</p>
 <p>Alice’s instance starts to fill the <code>io.cozy.shared</code> database with all the
-documents that match a rule of the sharing (except the rules with <code>local:
-true</code>), and create triggers for the future documents to be also added in this
+documents that match a rule of the sharing (except the rules with <code>local: true</code>), and create triggers for the future documents to be also added in this
 database (the exact triggers depend of the parameters of the rules). And, when
 done, it creates a job for the replicator, and setups a trigger for future
 changes in the <code>io.cozy.shared</code> start a replicator job.</p>

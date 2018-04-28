@@ -694,23 +694,29 @@ Content-type: application/json</code></pre>
 <h3 id="put-settingsinstanceauth_mode">PUT /settings/instance/auth_mode<a class="headerlink" href="#put-settingsinstanceauth_mode" title="Permanent link">&para;</a></h3>
 <p>With this route, the user can ask for the activation of different
 authentication modes, like two-factor authentication.</p>
-<p>Available authentication modes:
-  - <code>basic</code>: basic authentication only with passphrase
-  - <code>two_factor_mail</code>: authentication with passphrase and validation with a
-    code sent via email to the user.</p>
+<p>Available authentication modes:</p>
+<ul>
+<li><code>basic</code>: basic authentication only with passphrase</li>
+<li><code>two_factor_mail</code>: authentication with passphrase and validation with a
+  code sent via email to the user.</li>
+</ul>
 <p>When asking for activation of the two-factor authentication, a side-effect can
 be triggered to send the user its code (via email for instance), and the
 activation not being effective. This side-effect should provide the user with
 a code that can be used to finalize the activation of the two-factor
 authentication.</p>
-<p>Hence, this route has two behaviors:
-  - the code is not provided: the route is a side effect to ask for the
-    activation of 2FA, and a code is sent
-  - the code is provided, and valid: the two-factor authentication is actually
-    activated.</p>
-<p>Status codes:
-  * <code>204 No Content</code>: when the mail has been confirmed and two-factor authentication is activated
-  * <code>422 Unprocessable Entity</code>: when the given confirmation code is not good.</p>
+<p>Hence, this route has two behaviors:</p>
+<ul>
+<li>the code is not provided: the route is a side effect to ask for the
+  activation of 2FA, and a code is sent</li>
+<li>the code is provided, and valid: the two-factor authentication is actually
+  activated.</li>
+</ul>
+<p>Status codes:</p>
+<ul>
+<li><code>204 No Content</code>: when the mail has been confirmed and two-factor authentication is activated</li>
+<li><code>422 Unprocessable Entity</code>: when the given confirmation code is not good.</li>
+</ul>
 <h4 id="request_5">Request<a class="headerlink" href="#request_5" title="Permanent link">&para;</a></h4>
 <pre class="codehilite"><code class="language-http">PUT /settings/instance/auth_mode HTTP/1.1
 Host: alice.example.com
@@ -720,7 +726,7 @@ Cookie: cozysessid=AAAAAFhSXT81MWU0ZTBiMzllMmI1OGUyMmZiN2Q0YTYzNDAxN2Y5NjCmp2Ja5
 
 <pre class="codehilite"><code class="language-json">{
   &quot;auth_mode&quot;: &quot;two_factor_mail&quot;,
-  &quot;two_factor_activation_code&quot;: &quot;12345678&quot;,
+  &quot;two_factor_activation_code&quot;: &quot;12345678&quot;
 }</code></pre>
 
 

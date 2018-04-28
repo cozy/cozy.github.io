@@ -511,6 +511,10 @@
 <p><code>cozy.client.intents.createService([intentId, window])</code> has to be used in the intent service page. It initializes communication with the parent window (remember: the service is supposed to be in an iframe).</p>
 <p>If <code>intentId</code> and <code>window</code> parameters are not provided the method will try to retrieve them automatically.</p>
 <p>It returns a <em>service</em> object, which provides the following methods :
+ * <code>compose(action, doctype, data)</code>: request the client to make a second intent. This returns a promise fulfilled with the second intent result.
+ <code>js
+// ...
+const app = await service.compose('INSTALL', 'io.cozy.apps', { slug: 'drive' })</code>
  * <code>getData()</code>: returns the data passed to the service by the client.
  * <code>getIntent()</code>: returns the intent
  * <code>resizeClient(doc, transitionProperty)</code>: forces the size of the intent modale to a given width, maxWidth, height, maxHeight, or dimensions of a given element. The second optional argument <code>transitionProperty</code> can be used to add a CSS transition property on the intent in order to &lsquo;animate&rsquo; the resizing.
