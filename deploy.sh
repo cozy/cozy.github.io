@@ -13,8 +13,9 @@ TRAVIS_PULL_REQUEST=${TRAVIS_PULL_REQUEST:-'false'}
 DEPLOY_REPOSITORY=${DEPLOY_REPOSITORY:-''}
 GITHUB_TOKEN=${GITHUB_TOKEN:-''}
 
-if [[ "$TRAVIS_BRANCH" != "master" && $TRAVIS_BRANCH != '' ]]; then
-    echo "Not on master (branch is $TRAVIS_BRANCH), aborting deploy"
+
+if [[ "$TRAVIS_BRANCH" != "dev" && $TRAVIS_BRANCH != '' ]]; then
+    echo "Not on dev (branch is $TRAVIS_BRANCH), aborting deploy"
     exit 0
 fi
 
