@@ -34,9 +34,9 @@ yarn git-directory-deploy \
     --username Cozy \
     --email contact@cozycloud.cc \
     --directory docs/ \
-    --repo=${DEPLOY_REPOSITORY:-https://$GITHUB_TOKEN@github.com/cozy/cozy-docs-v3.git} \
+    --repo=${DEPLOY_REPOSITORY:-https://$GITHUB_TOKEN@github.com/cozy/cozy.github.io.git} \
     --branch=${DEPLOY_BRANCH:-gh-pages}
-echo "gh-pages branch updated. Should be visible on https://cozy.github.io/cozy-docs-v3"
+echo "gh-pages branch updated. Should be visible on https://cozy.github.io/"
 
 RUNDECK_UPDATE_DOCS_JOB_URL=${RUNDECK_UPDATE_DOCS_JOB_URL:-""}
 RUNDECK_TOKEN=${RUNDECK_TOKEN:-""}
