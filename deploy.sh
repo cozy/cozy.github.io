@@ -30,7 +30,7 @@ if [[ "$GITHUB_TOKEN" == "" && $DEPLOY_REPOSITORY == '' ]]; then
     exit 0
 fi
 
-echo "Deploying on $DEPLOY_BRANCH (dev branch is `dev`, org pages must be published on `master`)..."
+echo "Deploying on $DEPLOY_BRANCH (dev branch is dev, org pages must be published on master)..."
 yarn git-directory-deploy \
     --username Cozy \
     --email contact@cozycloud.cc \
