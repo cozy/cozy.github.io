@@ -113,6 +113,10 @@
 </li>
                             
 <li >
+    <a href="../../dev/connect-mobile-app-local-stack/">Connect a mobile app to your local stack</a>
+</li>
+                            
+<li >
     <a href="../../dev/intro/">Architecture</a>
 </li>
                             
@@ -135,36 +139,6 @@
   <li class="dropdown-submenu">
     <a href="#">References</a>
     <ul class="dropdown-menu">
-            
-  <li class="dropdown-submenu">
-    <a href="#">cozy-konnector-libs</a>
-    <ul class="dropdown-menu">
-            
-<li >
-    <a href="../../cozy-konnector-libs/api/">API</a>
-</li>
-            
-<li >
-    <a href="../../cozy-konnector-libs/cli/">CLI</a>
-</li>
-            
-<li >
-    <a href="../../cozy-konnector-libs/dev/">Develop</a>
-</li>
-            
-<li >
-    <a href="../../cozy-konnector-libs/errors/">Errors</a>
-</li>
-            
-<li >
-    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
-</li>
-            
-<li >
-    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
-</li>
-    </ul>
-  </li>
             
   <li class="dropdown-submenu">
     <a href="#">cozy-client-js</a>
@@ -212,6 +186,90 @@
             
 <li >
     <a href="../../cozy-client-js/sharing-api/">Sharing API</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-doctypes</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.accounts/">Accounts</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.photos.albums/">Albums</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bank/">Banking doctypes</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bills/">Bills</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.konnectors/">Connectors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.contacts/">Contacts</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.files/">Files</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.notifications/">Notifications</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.payslips/">Payslips</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/">Remote requests</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/">Session logins</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.triggers/">Triggers</a>
 </li>
     </ul>
   </li>
@@ -375,39 +433,11 @@
   </li>
             
   <li class="dropdown-submenu">
-    <a href="#">cozy-doctypes</a>
+    <a href="#">konitor</a>
     <ul class="dropdown-menu">
             
 <li >
-    <a href="../../cozy-doctypes/docs/io.cozy.bank/">Banking doctypes</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.bills/">Bills</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.contacts/">Contacts</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.files/">Files</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.notifications/">Notifications</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.photos.albums/">Albums</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/">Remote requests</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/">Session logins</a>
+    <a href="../../konitor/cli/">CLI</a>
 </li>
     </ul>
   </li>
@@ -424,8 +454,7 @@
                     </a>
                 </li>
                     <li>
-                        <a href="https://github.com/cozy/cozy-docs-v3/">
-                                <i class="fa fa-github"></i>GitHub
+                        <a href="https://cozy.github.io/">Cozy
                         </a>
                     </li>
             </ul>
@@ -559,19 +588,18 @@ dispatcher.</p>
 below is hereby named <code>io.cozy.websocket</code>.</p>
 <p>Changes to the websocket protocol should be given versions, support for older
 version should be maintained when reasonable.</p>
-<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/realtime/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">mycozy.example.com</span>
-<span class="na">Upgrade</span><span class="o">:</span> <span class="l">websocket</span>
-<span class="na">Connection</span><span class="o">:</span> <span class="l">Upgrade</span>
-<span class="na">Origin</span><span class="o">:</span> <span class="l">http://calendar.mycozy.example.com</span>
-<span class="na">Sec-WebSocket-Key</span><span class="o">:</span> <span class="l">x3JrandomLkh9GBhXDw==</span>
-<span class="na">Sec-WebSocket-Protocol</span><span class="o">:</span> <span class="l">io.cozy.websocket</span>
-<span class="na">Sec-WebSocket-Version</span><span class="o">:</span> <span class="l">13</span>
-</pre></div>
+<pre class="codehilite"><code class="language-http">GET /realtime/ HTTP/1.1
+Host: mycozy.example.com
+Upgrade: websocket
+Connection: Upgrade
+Origin: http://calendar.mycozy.example.com
+Sec-WebSocket-Key: x3JrandomLkh9GBhXDw==
+Sec-WebSocket-Protocol: io.cozy.websocket
+Sec-WebSocket-Version: 13</code></pre>
 
 
 <p>Then messages are sent using json</p>
-<div class="codehilite"><pre><span></span>client &gt; {&quot;method&quot;: &quot;AUTH&quot;,
+<pre class="codehilite"><code>client &gt; {&quot;method&quot;: &quot;AUTH&quot;,
           &quot;payload&quot;: &quot;xxAppOrAuthTokenxx=&quot;
 client &gt; {&quot;method&quot;: &quot;SUBSCRIBE&quot;,
           &quot;payload&quot;: {&quot;type&quot;: &quot;io.cozy.files&quot;}
@@ -582,36 +610,32 @@ server &gt; {&quot;event&quot;: &quot;UPDATED&quot;,
 server &gt; {&quot;event&quot;: &quot;DELETED&quot;,
           &quot;payload&quot;: {&quot;id&quot;: &quot;idA&quot;, &quot;rev&quot;: &quot;3-541...&quot;, &quot;type&quot;: &quot;io.cozy.contacts&quot;}}
 server &gt; {&quot;event&quot;: &quot;UPDATED&quot;,
-          &quot;payload&quot;: {&quot;id&quot;: &quot;idB&quot;, &quot;rev&quot;: &quot;6-457...&quot;, &quot;type&quot;: &quot;io.cozy.files&quot;, &quot;doc&quot;: {embeded doc ...}}}
-</pre></div>
+          &quot;payload&quot;: {&quot;id&quot;: &quot;idB&quot;, &quot;rev&quot;: &quot;6-457...&quot;, &quot;type&quot;: &quot;io.cozy.files&quot;, &quot;doc&quot;: {embeded doc ...}}}</code></pre>
 
 
 <h3 id="auth">AUTH<a class="headerlink" href="#auth" title="Permanent link">&para;</a></h3>
 <p>It must be the first command to be sent. The client gives its token with this
 command, and the stack will use it to know which are the permissions of the app.</p>
-<div class="codehilite"><pre><span></span>{&quot;method&quot;: &quot;AUTH&quot;, &quot;payload&quot;: &quot;eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhcHAiLCJpYXQiOjE0OTg4MTY1OTEsImlzcyI6ImNvenkudG9vbHM6ODA4MCIsInN1YiI6Im1pbmkifQ.eH9DhoHz7rg8gR7noAiKfeo8eL3Q_PzyuskO_x3T8Hlh9q_IV-4zqoGtjTiO7luD6_VcLboEU-6o3XBek84VTg&quot;}
-</pre></div>
+<pre class="codehilite"><code>{&quot;method&quot;: &quot;AUTH&quot;, &quot;payload&quot;: &quot;eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhcHAiLCJpYXQiOjE0OTg4MTY1OTEsImlzcyI6ImNvenkudG9vbHM6ODA4MCIsInN1YiI6Im1pbmkifQ.eH9DhoHz7rg8gR7noAiKfeo8eL3Q_PzyuskO_x3T8Hlh9q_IV-4zqoGtjTiO7luD6_VcLboEU-6o3XBek84VTg&quot;}</code></pre>
 
 
 <h3 id="subscribe">SUBSCRIBE<a class="headerlink" href="#subscribe" title="Permanent link">&para;</a></h3>
 <p>A client can send a SUBSCRIBE request to be notified of changes. The payload is
 a selector for the events it wishes to receive For now the only possible
 selector is on type &amp; optionaly id</p>
-<div class="codehilite"><pre><span></span><span class="p">{</span><span class="s">&quot;method&quot;</span><span class="o">:</span> <span class="s">&quot;SUBSCRIBE&quot;</span><span class="p">,</span> <span class="s">&quot;payload&quot;</span><span class="o">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="s">&quot;[desired doctype]&quot;</span><span class="p">}}</span>
-<span class="p">{</span><span class="s">&quot;method&quot;</span><span class="o">:</span> <span class="s">&quot;SUBSCRIBE&quot;</span><span class="p">,</span> <span class="s">&quot;payload&quot;</span><span class="o">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="s">&quot;[desired doctype]&quot;</span><span class="p">,</span> <span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="s">&quot;idA&quot;</span><span class="p">}}</span>
-</pre></div>
+<pre class="codehilite"><code>{&quot;method&quot;: &quot;SUBSCRIBE&quot;, &quot;payload&quot;: {&quot;type&quot;: &quot;[desired doctype]&quot;}}
+{&quot;method&quot;: &quot;SUBSCRIBE&quot;, &quot;payload&quot;: {&quot;type&quot;: &quot;[desired doctype]&quot;, &quot;id&quot;: &quot;idA&quot;}}</code></pre>
 
 
 <p>In order to subscribe, a client must have permission <code>GET</code> on the passed
 selector. Otherwise an error is passed in the message feed.</p>
-<div class="codehilite"><pre><span></span>server &gt; {&quot;event&quot;: &quot;error&quot;,
+<pre class="codehilite"><code>server &gt; {&quot;event&quot;: &quot;error&quot;,
           &quot;payload&quot;: {
             &quot;status&quot;: &quot;403 Forbidden&quot;
             &quot;code&quot;: &quot;forbidden&quot;
-            &quot;title&quot;:&quot;The Application can&#39;t subscribe to io.cozy.files&quot;
+            &quot;title&quot;:&quot;The Application can't subscribe to io.cozy.files&quot;
             &quot;source&quot;: {&quot;method&quot;: &quot;SUBSCRIBE&quot;, &quot;payload&quot;: {&quot;type&quot;:&quot;io.cozy.files&quot;} }
-          }}
-</pre></div></div>
+          }}</code></pre></div>
         </div>
 
         <footer class="col-md-12">

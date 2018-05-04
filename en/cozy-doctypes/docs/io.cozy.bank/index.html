@@ -113,6 +113,10 @@
 </li>
                             
 <li >
+    <a href="../../../dev/connect-mobile-app-local-stack/">Connect a mobile app to your local stack</a>
+</li>
+                            
+<li >
     <a href="../../../dev/intro/">Architecture</a>
 </li>
                             
@@ -135,36 +139,6 @@
   <li class="dropdown-submenu">
     <a href="#">References</a>
     <ul class="dropdown-menu">
-            
-  <li class="dropdown-submenu">
-    <a href="#">cozy-konnector-libs</a>
-    <ul class="dropdown-menu">
-            
-<li >
-    <a href="../../../cozy-konnector-libs/api/">API</a>
-</li>
-            
-<li >
-    <a href="../../../cozy-konnector-libs/cli/">CLI</a>
-</li>
-            
-<li >
-    <a href="../../../cozy-konnector-libs/dev/">Develop</a>
-</li>
-            
-<li >
-    <a href="../../../cozy-konnector-libs/errors/">Errors</a>
-</li>
-            
-<li >
-    <a href="../../../cozy-konnector-libs/operation-linking/">Operation linking</a>
-</li>
-            
-<li >
-    <a href="../../../cozy-konnector-libs/synchronization/">Synchronization</a>
-</li>
-    </ul>
-  </li>
             
   <li class="dropdown-submenu">
     <a href="#">cozy-client-js</a>
@@ -212,6 +186,90 @@
             
 <li >
     <a href="../../../cozy-client-js/sharing-api/">Sharing API</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-doctypes</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../io.cozy.accounts/">Accounts</a>
+</li>
+            
+<li >
+    <a href="../io.cozy.photos.albums/">Albums</a>
+</li>
+            
+<li class="active">
+    <a href="./">Banking doctypes</a>
+</li>
+            
+<li >
+    <a href="../io.cozy.bills/">Bills</a>
+</li>
+            
+<li >
+    <a href="../io.cozy.konnectors/">Connectors</a>
+</li>
+            
+<li >
+    <a href="../io.cozy.contacts/">Contacts</a>
+</li>
+            
+<li >
+    <a href="../io.cozy.files/">Files</a>
+</li>
+            
+<li >
+    <a href="../io.cozy.notifications/">Notifications</a>
+</li>
+            
+<li >
+    <a href="../io.cozy.payslips/">Payslips</a>
+</li>
+            
+<li >
+    <a href="../io.cozy.remote.requests/">Remote requests</a>
+</li>
+            
+<li >
+    <a href="../io.cozy.sessions.logins/">Session logins</a>
+</li>
+            
+<li >
+    <a href="../io.cozy.triggers/">Triggers</a>
 </li>
     </ul>
   </li>
@@ -375,39 +433,11 @@
   </li>
             
   <li class="dropdown-submenu">
-    <a href="#">cozy-doctypes</a>
+    <a href="#">konitor</a>
     <ul class="dropdown-menu">
             
-<li class="active">
-    <a href="./">Banking doctypes</a>
-</li>
-            
 <li >
-    <a href="../io.cozy.bills/">Bills</a>
-</li>
-            
-<li >
-    <a href="../io.cozy.contacts/">Contacts</a>
-</li>
-            
-<li >
-    <a href="../io.cozy.files/">Files</a>
-</li>
-            
-<li >
-    <a href="../io.cozy.notifications/">Notifications</a>
-</li>
-            
-<li >
-    <a href="../io.cozy.photos.albums/">Albums</a>
-</li>
-            
-<li >
-    <a href="../io.cozy.remote.requests/">Remote requests</a>
-</li>
-            
-<li >
-    <a href="../io.cozy.sessions.logins/">Session logins</a>
+    <a href="../../../konitor/cli/">CLI</a>
 </li>
     </ul>
   </li>
@@ -424,8 +454,7 @@
                     </a>
                 </li>
                     <li>
-                        <a href="https://github.com/cozy/cozy-docs-v3/">
-                                <i class="fa fa-github"></i>GitHub
+                        <a href="https://cozy.github.io/">Cozy
                         </a>
                     </li>
             </ul>
@@ -449,15 +478,14 @@
 <p>Cozy can stores and manipulate bank related datas, distributed across several doctypes.</p>
 <h2 id="iocozybanksettings"><code>io.cozy.bank.settings</code><a class="headerlink" href="#iocozybanksettings" title="Permanent link">&para;</a></h2>
 <p>This doctype store informations about Bank application settings. There is only one document, by default:</p>
-<div class="codehilite"><pre><span></span>{
+<pre class="codehilite"><code>{
   notifications: {
     amountMax: {
       enable: false,
       value: 30
     }
   }
-}
-</pre></div>
+}</code></pre>
 
 
 <h2 id="iocozybankaccounts"><code>io.cozy.bank.accounts</code><a class="headerlink" href="#iocozybankaccounts" title="Permanent link">&para;</a></h2>
@@ -472,7 +500,7 @@
 <li><code>serviceID</code>: {number} - In case of external service used to import transactions, this key can stores the service&rsquo;s account ID; can be <code>undefined</code> is the account isn&rsquo;t managed by any external service</li>
 </ul>
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span>{
+<pre class="codehilite"><code>{
   &quot;_id&quot;: &quot;2165d9a310deadbeeffc08d54c45102&quot;,
   &quot;balance&quot;: 1337.73,
   &quot;institutionLabel&quot;: &quot;Société Générale (Particuliers)&quot;,
@@ -484,8 +512,7 @@
   &quot;number&quot;: &quot;03791 00048085818&quot;,
   &quot;shortLabel&quot;: &quot;Livret Dévelop. Durable&quot;,
   &quot;type&quot;: &quot;Savings&quot;
-}
-</pre></div>
+}</code></pre>
 
 
 <h2 id="iocozybankoperations"><code>io.cozy.bank.operations</code><a class="headerlink" href="#iocozybankoperations" title="Permanent link">&para;</a></h2>
@@ -499,6 +526,8 @@
 <li><code>amount</code>: {number} - The amount of the transaction</li>
 <li><code>currency</code>: {string} - A 3 uppercased chars defining the currecny used for the transaction as stated in <a href="https://www.currency-iso.org/en/home/tables/table-a1.html">ISO4217</a></li>
 <li><code>manualCategoryId</code>: {string} - A category that apply to the transaction and is manually selected by the user</li>
+<li><code>cozyCategoryId</code>: {string} - A category found by Cozy</li>
+<li><code>cozyCategoryProba</code>: {number} - The probability of Cozy category</li>
 <li><code>automaticCategoryId</code>: {string} - A category that apply to the transaction and is automatically calculated</li>
 <li><code>account</code>: {identifier} - The related account id the transaction belongs to</li>
 <li><code>bills</code>: {array[<io.cozy.bills._id>]} - List of bills id.</li>
@@ -511,7 +540,7 @@
 best the result of Date.toString() -&gt; like &lsquo;Fri Mar 09 2018 19:04:40 GMT+0100 (CET)&rsquo; which contains
 the time zones.</p>
 <h3 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span>{
+<pre class="codehilite"><code>{
   &quot;_id&quot;: &quot;f0426fdeadbeef55755ee7f4d6555&quot;,
   &quot;account&quot;: &quot;15fb6402426bcdeadbeeffd5f4587bb&quot;,
   &quot;amount&quot;: 10,
@@ -521,14 +550,15 @@ the time zones.</p>
   &quot;dateOperation&quot;: null,
   &quot;label&quot;: &quot;M  PIERRE RICHARD&quot;,
   &quot;linxoId&quot;: &quot;845811337&quot;,
+  &quot;cozyCategoryId&quot;: &quot;400110&quot;,
+  &quot;cozyCategoryProba&quot;: 0.9323,
   &quot;metadata&quot;: {
     &quot;dateImport&quot;: &quot;2018-03-09T09:23:40.075Z&quot;,
     &quot;version&quot;: 1
   },
   &quot;originalBankLabel&quot;: &quot;VIR RECU    5383518660S DE: M  PIERRE RICHARD J MOTIF: Cascade REF: NOT PROVIDED&quot;,
   &quot;type&quot;: &quot;transfer&quot;
-}
-</pre></div></div>
+}</code></pre></div>
         </div>
 
         <footer class="col-md-12">

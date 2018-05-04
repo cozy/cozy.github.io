@@ -113,6 +113,10 @@
 </li>
                             
 <li >
+    <a href="../../dev/connect-mobile-app-local-stack/">Connect a mobile app to your local stack</a>
+</li>
+                            
+<li >
     <a href="../../dev/intro/">Architecture</a>
 </li>
                             
@@ -135,36 +139,6 @@
   <li class="dropdown-submenu">
     <a href="#">References</a>
     <ul class="dropdown-menu">
-            
-  <li class="dropdown-submenu">
-    <a href="#">cozy-konnector-libs</a>
-    <ul class="dropdown-menu">
-            
-<li >
-    <a href="../../cozy-konnector-libs/api/">API</a>
-</li>
-            
-<li >
-    <a href="../../cozy-konnector-libs/cli/">CLI</a>
-</li>
-            
-<li >
-    <a href="../../cozy-konnector-libs/dev/">Develop</a>
-</li>
-            
-<li >
-    <a href="../../cozy-konnector-libs/errors/">Errors</a>
-</li>
-            
-<li >
-    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
-</li>
-            
-<li >
-    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
-</li>
-    </ul>
-  </li>
             
   <li class="dropdown-submenu">
     <a href="#">cozy-client-js</a>
@@ -212,6 +186,90 @@
             
 <li >
     <a href="../../cozy-client-js/sharing-api/">Sharing API</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-doctypes</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.accounts/">Accounts</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.photos.albums/">Albums</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bank/">Banking doctypes</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bills/">Bills</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.konnectors/">Connectors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.contacts/">Contacts</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.files/">Files</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.notifications/">Notifications</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.payslips/">Payslips</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/">Remote requests</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/">Session logins</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.triggers/">Triggers</a>
 </li>
     </ul>
   </li>
@@ -375,39 +433,11 @@
   </li>
             
   <li class="dropdown-submenu">
-    <a href="#">cozy-doctypes</a>
+    <a href="#">konitor</a>
     <ul class="dropdown-menu">
             
 <li >
-    <a href="../../cozy-doctypes/docs/io.cozy.bank/">Banking doctypes</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.bills/">Bills</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.contacts/">Contacts</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.files/">Files</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.notifications/">Notifications</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.photos.albums/">Albums</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/">Remote requests</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/">Session logins</a>
+    <a href="../../konitor/cli/">CLI</a>
 </li>
     </ul>
   </li>
@@ -424,8 +454,7 @@
                     </a>
                 </li>
                     <li>
-                        <a href="https://github.com/cozy/cozy-docs-v3/">
-                                <i class="fa fa-github"></i>GitHub
+                        <a href="https://cozy.github.io/">Cozy
                         </a>
                     </li>
             </ul>
@@ -529,18 +558,16 @@ she will be redirected immediately. Else, the parameter will be transfered in
 the POST. This parameter can only contain a link to an application installed on
 the cozy (thus to a subdomain of the cozy instance). To protect against stealing
 authorization code with redirection, the fragment is always overriden:</p>
-<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/auth/login?redirect=https://contacts.cozy.example.org/foo?bar#baz</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
-<span class="na">Cookie</span><span class="o">:</span> <span class="l">...</span>
-</pre></div>
+<pre class="codehilite"><code class="language-http">GET /auth/login?redirect=https://contacts.cozy.example.org/foo?bar#baz HTTP/1.1
+Host: cozy.example.org
+Cookie: ...</code></pre>
 
 
 <p><strong>Note</strong>: the redirect parameter should be URL-encoded. We haven&rsquo;t done that to
 make it clear what the path (<code>foo</code>), the query-string (<code>bar</code>), and the fragment
 (<code>baz</code>) are.</p>
-<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">302</span> <span class="ne">Moved Temporarily</span>
-<span class="na">Location</span><span class="o">:</span> <span class="l">https://contacts.cozy.example.org/foo?bar#</span>
-</pre></div>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 302 Moved Temporarily
+Location: https://contacts.cozy.example.org/foo?bar#</code></pre>
 
 
 <p>If the <code>redirect</code> parameter is invalid, the response will be <code>400 Bad Request</code>.
@@ -553,18 +580,16 @@ made to this endpoint.</p>
 <p>The <code>redirect</code> parameter is passed inside the body. If it is missing, the
 redirection will be made against the default target: the home application of
 this cozy instance.</p>
-<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/auth/login</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
-<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/x-www-form-urlencoded</span>
+<pre class="codehilite"><code class="language-http">POST /auth/login HTTP/1.1
+Host: cozy.example.org
+Content-Type: application/x-www-form-urlencoded
 
-passphrase=p4ssw0rd&amp;redirect=https%3A%2F%2Fcontacts.cozy.example.org
-</pre></div>
+passphrase=p4ssw0rd&amp;redirect=https%3A%2F%2Fcontacts.cozy.example.org</code></pre>
 
 
-<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">302</span> <span class="ne">Moved Temporarily</span>
-<span class="na">Set-Cookie</span><span class="o">:</span> <span class="l">...</span>
-<span class="na">Location</span><span class="o">:</span> <span class="l">https://contacts.cozy.example.org/foo</span>
-</pre></div>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 302 Moved Temporarily
+Set-Cookie: ...
+Location: https://contacts.cozy.example.org/foo</code></pre>
 
 
 <p>When two-factor authentication (2FA) authentication is activated, this endpoint
@@ -576,29 +601,26 @@ case, a <code>200 OK</code> response is sent along with a token value in the res
 should be sent to the same endpoint with a valid pair <code>(token, passcode)</code>,
 ensuring that the user correctly entered its passphrase <em>and</em> received a fresh
 passcode by another mean.</p>
-<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/auth/login</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
-<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/x-www-form-urlencoded</span>
+<pre class="codehilite"><code class="language-http">POST /auth/login HTTP/1.1
+Host: cozy.example.org
+Content-Type: application/x-www-form-urlencoded
 
-two-factor-token=123123123123&amp;passcode=678678&amp;redirect=https%3A%2F%2Fcontacts.cozy.example.org
-</pre></div>
+two-factor-token=123123123123&amp;passcode=678678&amp;redirect=https%3A%2F%2Fcontacts.cozy.example.org</code></pre>
 
 
-<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">302</span> <span class="ne">Moved Temporarily</span>
-<span class="na">Set-Cookie</span><span class="o">:</span> <span class="l">...</span>
-<span class="na">Location</span><span class="o">:</span> <span class="l">https://contacts.cozy.example.org/foo</span>
-</pre></div>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 302 Moved Temporarily
+Set-Cookie: ...
+Location: https://contacts.cozy.example.org/foo</code></pre>
 
 
 <h3 id="delete-authlogin">DELETE /auth/login<a class="headerlink" href="#delete-authlogin" title="Permanent link">&para;</a></h3>
 <p>This can be used to log-out the user. An app token must be passed in the
 <code>Authorization</code> header, to protect against CSRF attack on this (this can part of
 bigger attacks like session fixation).</p>
-<div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/auth/login</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
-<span class="na">Cookie</span><span class="o">:</span> <span class="l">seesioncookie....</span>
-<span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer app-token</span>
-</pre></div>
+<pre class="codehilite"><code class="language-http">DELETE /auth/login HTTP/1.1
+Host: cozy.example.org
+Cookie: seesioncookie....
+Authorization: Bearer app-token</code></pre>
 
 
 <h3 id="delete-authloginothers">DELETE /auth/login/others<a class="headerlink" href="#delete-authloginothers" title="Permanent link">&para;</a></h3>
@@ -607,22 +629,20 @@ request. This allow to disconnect any other users currenctly authenticated on
 the system. An app token must be passed in the <code>Authorization</code> header, to
 protect against CSRF attack on this (this can part of bigger attacks like
 session fixation).</p>
-<div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/auth/login/others</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
-<span class="na">Cookie</span><span class="o">:</span> <span class="l">seesioncookie....</span>
-<span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer app-token</span>
-</pre></div>
+<pre class="codehilite"><code class="language-http">DELETE /auth/login/others HTTP/1.1
+Host: cozy.example.org
+Cookie: seesioncookie....
+Authorization: Bearer app-token</code></pre>
 
 
 <h3 id="get-authpassphrase_reset">GET /auth/passphrase_reset<a class="headerlink" href="#get-authpassphrase_reset" title="Permanent link">&para;</a></h3>
 <p>Display a form for the user to reset its password, in case he has forgotten it
 for example. If the user is connected, he won&rsquo;t be shown this form and he will
 be directly redirected to his cozy.</p>
-<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/auth/passphrase_reset</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
-<span class="na">Content-Type</span><span class="o">:</span> <span class="l">text/html</span>
-<span class="na">Cookie</span><span class="o">:</span> <span class="l">...</span>
-</pre></div>
+<pre class="codehilite"><code class="language-http">GET /auth/passphrase_reset HTTP/1.1
+Host: cozy.example.org
+Content-Type: text/html
+Cookie: ...</code></pre>
 
 
 <h3 id="post-authpassphrase_reset">POST /auth/passphrase_reset<a class="headerlink" href="#post-authpassphrase_reset" title="Permanent link">&para;</a></h3>
@@ -632,23 +652,21 @@ will execute a request to this endpoint.</p>
 The token has a short-live duration of about 15 minutes. After the token is
 created, it is sent to the user on its mailbox.</p>
 <p>This endpoint will redirect the user on the login form page.</p>
-<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/auth/passphrase_reset</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
-<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/x-www-form-urlencoded</span>
+<pre class="codehilite"><code class="language-http">POST /auth/passphrase_reset HTTP/1.1
+Host: cozy.example.org
+Content-Type: application/x-www-form-urlencoded
 
-csrf_token=123456890
-</pre></div>
+csrf_token=123456890</code></pre>
 
 
 <h3 id="get-authpassphrase_renew">GET /auth/passphrase_renew<a class="headerlink" href="#get-authpassphrase_renew" title="Permanent link">&para;</a></h3>
 <p>Display a form for the user to enter a new password. This endpoint should be
 used with a <code>token</code> query parameter. This token makes sure that the user has
 actually reset its passphrase and should have been sent via its mailbox.</p>
-<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/auth/passphrase_renew?token=123456789</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
-<span class="na">Content-Type</span><span class="o">:</span> <span class="l">text/html</span>
-<span class="na">Cookie</span><span class="o">:</span> <span class="l">...</span>
-</pre></div>
+<pre class="codehilite"><code class="language-http">GET /auth/passphrase_renew?token=123456789 HTTP/1.1
+Host: cozy.example.org
+Content-Type: text/html
+Cookie: ...</code></pre>
 
 
 <h3 id="post-authpassphrase_renew">POST /auth/passphrase_renew<a class="headerlink" href="#post-authpassphrase_renew" title="Permanent link">&para;</a></h3>
@@ -656,12 +674,11 @@ actually reset its passphrase and should have been sent via its mailbox.</p>
 request is made to this endpoint to renew the passphrase.</p>
 <p>This endpoint requires a valid token to actually work. In case of a success, the
 user is redirected to the login form.</p>
-<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/auth/passphrase_reset</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
-<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/x-www-form-urlencoded</span>
+<pre class="codehilite"><code class="language-http">POST /auth/passphrase_reset HTTP/1.1
+Host: cozy.example.org
+Content-Type: application/x-www-form-urlencoded
 
-csrf_token=123456890&amp;passphrase_reset_token=123456789&amp;passphrase=mynewpassphrase
-</pre></div>
+csrf_token=123456890&amp;passphrase_reset_token=123456789&amp;passphrase=mynewpassphrase</code></pre>
 
 
 <h3 id="post-authregister">POST /auth/register<a class="headerlink" href="#post-authregister" title="Permanent link">&para;</a></h3>
@@ -703,48 +720,44 @@ for the details.</p>
 <li><code>registration_access_token</code></li>
 </ul>
 <p>Example:</p>
-<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/auth/register</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
-<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
-<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
-</pre></div>
+<pre class="codehilite"><code class="language-http">POST /auth/register HTTP/1.1
+Host: cozy.example.org
+Content-Type: application/json
+Accept: application/json</code></pre>
 
 
-<div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;redirect_uris&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;https://client.example.org/oauth/callback&quot;</span><span class="p">],</span>
-  <span class="nt">&quot;client_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Client&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;software_id&quot;</span><span class="p">:</span> <span class="s2">&quot;github.com/example/client&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;software_version&quot;</span><span class="p">:</span> <span class="s2">&quot;2.0.1&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;client_kind&quot;</span><span class="p">:</span> <span class="s2">&quot;web&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;client_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client.example.org/&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;logo_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client.example.org/logo.svg&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;policy_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client/example.org/policy&quot;</span>
-<span class="p">}</span>
-</pre></div>
+<pre class="codehilite"><code class="language-json">{
+  &quot;redirect_uris&quot;: [&quot;https://client.example.org/oauth/callback&quot;],
+  &quot;client_name&quot;: &quot;Client&quot;,
+  &quot;software_id&quot;: &quot;github.com/example/client&quot;,
+  &quot;software_version&quot;: &quot;2.0.1&quot;,
+  &quot;client_kind&quot;: &quot;web&quot;,
+  &quot;client_uri&quot;: &quot;https://client.example.org/&quot;,
+  &quot;logo_uri&quot;: &quot;https://client.example.org/logo.svg&quot;,
+  &quot;policy_uri&quot;: &quot;https://client/example.org/policy&quot;
+}</code></pre>
 
 
-<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">201</span> <span class="ne">Created</span>
-<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
-</pre></div>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 201 Created
+Content-Type: application/json</code></pre>
 
 
-<div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;client_id&quot;</span><span class="p">:</span> <span class="s2">&quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;client_secret&quot;</span><span class="p">:</span> <span class="s2">&quot;eyJpc3Mi[...omitted for brevity...]&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;client_secret_expires_at&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-  <span class="nt">&quot;registration_access_token&quot;</span><span class="p">:</span> <span class="s2">&quot;J9l-ZhwP[...omitted for brevity...]&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;grant_types&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;authorization_code&quot;</span><span class="p">,</span> <span class="s2">&quot;refresh_token&quot;</span><span class="p">],</span>
-  <span class="nt">&quot;response_types&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;code&quot;</span><span class="p">],</span>
-  <span class="nt">&quot;redirect_uris&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;https://client.example.org/oauth/callback&quot;</span><span class="p">],</span>
-  <span class="nt">&quot;client_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Client&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;software_id&quot;</span><span class="p">:</span> <span class="s2">&quot;github.com/example/client&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;software_version&quot;</span><span class="p">:</span> <span class="s2">&quot;2.0.1&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;client_kind&quot;</span><span class="p">:</span> <span class="s2">&quot;web&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;client_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client.example.org/&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;logo_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client.example.org/logo.svg&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;policy_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client/example.org/policy&quot;</span>
-<span class="p">}</span>
-</pre></div>
+<pre class="codehilite"><code class="language-json">{
+  &quot;client_id&quot;: &quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;,
+  &quot;client_secret&quot;: &quot;eyJpc3Mi[...omitted for brevity...]&quot;,
+  &quot;client_secret_expires_at&quot;: 0,
+  &quot;registration_access_token&quot;: &quot;J9l-ZhwP[...omitted for brevity...]&quot;,
+  &quot;grant_types&quot;: [&quot;authorization_code&quot;, &quot;refresh_token&quot;],
+  &quot;response_types&quot;: [&quot;code&quot;],
+  &quot;redirect_uris&quot;: [&quot;https://client.example.org/oauth/callback&quot;],
+  &quot;client_name&quot;: &quot;Client&quot;,
+  &quot;software_id&quot;: &quot;github.com/example/client&quot;,
+  &quot;software_version&quot;: &quot;2.0.1&quot;,
+  &quot;client_kind&quot;: &quot;web&quot;,
+  &quot;client_uri&quot;: &quot;https://client.example.org/&quot;,
+  &quot;logo_uri&quot;: &quot;https://client.example.org/logo.svg&quot;,
+  &quot;policy_uri&quot;: &quot;https://client/example.org/policy&quot;
+}</code></pre>
 
 
 <h3 id="get-authregisterclient-id">GET /auth/register/:client-id<a class="headerlink" href="#get-authregisterclient-id" title="Permanent link">&para;</a></h3>
@@ -754,34 +767,31 @@ endpoint.</p>
 <p>See
 <a href="https://tools.ietf.org/html/rfc7592">OAuth 2.0 Dynamic Client Registration Management Protocol</a>
 for more details.</p>
-<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/auth/register/64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
-<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
-<span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer J9l-ZhwP...</span>
-</pre></div>
+<pre class="codehilite"><code class="language-http">GET /auth/register/64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3 HTTP/1.1
+Host: cozy.example.org
+Accept: application/json
+Authorization: Bearer J9l-ZhwP...</code></pre>
 
 
-<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">201</span> <span class="ne">Created</span>
-<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
-</pre></div>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 201 Created
+Content-Type: application/json</code></pre>
 
 
-<div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;client_id&quot;</span><span class="p">:</span> <span class="s2">&quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;client_secret&quot;</span><span class="p">:</span> <span class="s2">&quot;eyJpc3Mi[...omitted for brevity...]&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;client_secret_expires_at&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-  <span class="nt">&quot;grant_types&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;authorization_code&quot;</span><span class="p">,</span> <span class="s2">&quot;refresh_token&quot;</span><span class="p">],</span>
-  <span class="nt">&quot;response_types&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;code&quot;</span><span class="p">],</span>
-  <span class="nt">&quot;redirect_uris&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;https://client.example.org/oauth/callback&quot;</span><span class="p">],</span>
-  <span class="nt">&quot;client_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Client&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;software_id&quot;</span><span class="p">:</span> <span class="s2">&quot;github.com/example/client&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;software_version&quot;</span><span class="p">:</span> <span class="s2">&quot;2.0.1&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;client_kind&quot;</span><span class="p">:</span> <span class="s2">&quot;web&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;client_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client.example.org/&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;logo_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client.example.org/logo.svg&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;policy_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client/example.org/policy&quot;</span>
-<span class="p">}</span>
-</pre></div>
+<pre class="codehilite"><code class="language-json">{
+  &quot;client_id&quot;: &quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;,
+  &quot;client_secret&quot;: &quot;eyJpc3Mi[...omitted for brevity...]&quot;,
+  &quot;client_secret_expires_at&quot;: 0,
+  &quot;grant_types&quot;: [&quot;authorization_code&quot;, &quot;refresh_token&quot;],
+  &quot;response_types&quot;: [&quot;code&quot;],
+  &quot;redirect_uris&quot;: [&quot;https://client.example.org/oauth/callback&quot;],
+  &quot;client_name&quot;: &quot;Client&quot;,
+  &quot;software_id&quot;: &quot;github.com/example/client&quot;,
+  &quot;software_version&quot;: &quot;2.0.1&quot;,
+  &quot;client_kind&quot;: &quot;web&quot;,
+  &quot;client_uri&quot;: &quot;https://client.example.org/&quot;,
+  &quot;logo_uri&quot;: &quot;https://client.example.org/logo.svg&quot;,
+  &quot;policy_uri&quot;: &quot;https://client/example.org/policy&quot;
+}</code></pre>
 
 
 <h3 id="put-authregisterclient-id">PUT /auth/register/:client-id<a class="headerlink" href="#put-authregisterclient-id" title="Permanent link">&para;</a></h3>
@@ -791,66 +801,60 @@ endpoint.</p>
 <p><strong>Note:</strong> the client can ask to change its <code>client_secret</code>. To do that, it must
 send the current <code>client_secret</code>, and the server will respond with the new
 <code>client_secret</code>.</p>
-<div class="codehilite"><pre><span></span><span class="nf">PUT</span> <span class="nn">/auth/register/64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
-<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
-<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
-<span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer J9l-ZhwP...</span>
-</pre></div>
+<pre class="codehilite"><code class="language-http">PUT /auth/register/64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3 HTTP/1.1
+Host: cozy.example.org
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer J9l-ZhwP...</code></pre>
 
 
-<div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;client_id&quot;</span><span class="p">:</span> <span class="s2">&quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;client_secret&quot;</span><span class="p">:</span> <span class="s2">&quot;eyJpc3Mi[...omitted for brevity...]&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;redirect_uris&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;https://client.example.org/oauth/callback&quot;</span><span class="p">],</span>
-  <span class="nt">&quot;client_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Client&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;software_id&quot;</span><span class="p">:</span> <span class="s2">&quot;github.com/example/client&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;software_version&quot;</span><span class="p">:</span> <span class="s2">&quot;2.0.2&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;client_kind&quot;</span><span class="p">:</span> <span class="s2">&quot;web&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;client_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client.example.org/&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;logo_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client.example.org/client-logo.svg&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;policy_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client/example.org/policy&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;notification_platform&quot;</span><span class="p">:</span> <span class="s2">&quot;android&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;notification_device_token&quot;</span><span class="p">:</span> <span class="s2">&quot;XXXXxxxx...&quot;</span>
-<span class="p">}</span>
-</pre></div>
+<pre class="codehilite"><code class="language-json">{
+  &quot;client_id&quot;: &quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;,
+  &quot;client_secret&quot;: &quot;eyJpc3Mi[...omitted for brevity...]&quot;,
+  &quot;redirect_uris&quot;: [&quot;https://client.example.org/oauth/callback&quot;],
+  &quot;client_name&quot;: &quot;Client&quot;,
+  &quot;software_id&quot;: &quot;github.com/example/client&quot;,
+  &quot;software_version&quot;: &quot;2.0.2&quot;,
+  &quot;client_kind&quot;: &quot;web&quot;,
+  &quot;client_uri&quot;: &quot;https://client.example.org/&quot;,
+  &quot;logo_uri&quot;: &quot;https://client.example.org/client-logo.svg&quot;,
+  &quot;policy_uri&quot;: &quot;https://client/example.org/policy&quot;,
+  &quot;notification_platform&quot;: &quot;android&quot;,
+  &quot;notification_device_token&quot;: &quot;XXXXxxxx...&quot;
+}</code></pre>
 
 
-<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
-<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
-</pre></div>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-Type: application/json</code></pre>
 
 
-<div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;client_id&quot;</span><span class="p">:</span> <span class="s2">&quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;client_secret&quot;</span><span class="p">:</span> <span class="s2">&quot;IFais2Ah[...omitted for brevity...]&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;client_secret_expires_at&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-  <span class="nt">&quot;grant_types&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;authorization_code&quot;</span><span class="p">,</span> <span class="s2">&quot;refresh_token&quot;</span><span class="p">],</span>
-  <span class="nt">&quot;response_types&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;code&quot;</span><span class="p">],</span>
-  <span class="nt">&quot;redirect_uris&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;https://client.example.org/oauth/callback&quot;</span><span class="p">],</span>
-  <span class="nt">&quot;client_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Client&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;software_id&quot;</span><span class="p">:</span> <span class="s2">&quot;github.com/example/client&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;software_version&quot;</span><span class="p">:</span> <span class="s2">&quot;2.0.2&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;client_kind&quot;</span><span class="p">:</span> <span class="s2">&quot;web&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;client_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client.example.org/&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;logo_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client.example.org/client-logo.svg&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;policy_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client/example.org/policy&quot;</span>
-<span class="p">}</span>
-</pre></div>
+<pre class="codehilite"><code class="language-json">{
+  &quot;client_id&quot;: &quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;,
+  &quot;client_secret&quot;: &quot;IFais2Ah[...omitted for brevity...]&quot;,
+  &quot;client_secret_expires_at&quot;: 0,
+  &quot;grant_types&quot;: [&quot;authorization_code&quot;, &quot;refresh_token&quot;],
+  &quot;response_types&quot;: [&quot;code&quot;],
+  &quot;redirect_uris&quot;: [&quot;https://client.example.org/oauth/callback&quot;],
+  &quot;client_name&quot;: &quot;Client&quot;,
+  &quot;software_id&quot;: &quot;github.com/example/client&quot;,
+  &quot;software_version&quot;: &quot;2.0.2&quot;,
+  &quot;client_kind&quot;: &quot;web&quot;,
+  &quot;client_uri&quot;: &quot;https://client.example.org/&quot;,
+  &quot;logo_uri&quot;: &quot;https://client.example.org/client-logo.svg&quot;,
+  &quot;policy_uri&quot;: &quot;https://client/example.org/policy&quot;
+}</code></pre>
 
 
 <h3 id="delete-authregisterclient-id">DELETE /auth/register/:client-id<a class="headerlink" href="#delete-authregisterclient-id" title="Permanent link">&para;</a></h3>
 <p>This route is used by the clients to unregister them-selves. The client has to
 send its registration access token to be able to use this endpoint.</p>
-<div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/auth/register/64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
-<span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer J9l-ZhwP...</span>
-</pre></div>
+<pre class="codehilite"><code class="language-http">DELETE /auth/register/64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3 HTTP/1.1
+Host: cozy.example.org
+Authorization: Bearer J9l-ZhwP...</code></pre>
 
 
-<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
-<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
-</pre></div>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 204 No Content
+Content-Type: application/json</code></pre>
 
 
 <h3 id="get-authauthorize">GET /auth/authorize<a class="headerlink" href="#get-authauthorize" title="Permanent link">&para;</a></h3>
@@ -869,29 +873,26 @@ and has an accept button if she is OK with that.</p>
 <li><code>scope</code>, a space separated list of the <a href="../permissions/">permissions</a> asked
   (like <code>io.cozy.files:GET</code> for read-only access to files).</li>
 </ul>
-<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/auth/authorize?client_id=oauth-client-1&amp;response_type=code&amp;scope=io.cozy.files:GET%20io.cozy.contacts&amp;state=Eh6ahshepei5Oojo&amp;redirect_uri=https%3A%2F%2Fclient.org%2F</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
-</pre></div>
+<pre class="codehilite"><code class="language-http">GET /auth/authorize?client_id=oauth-client-1&amp;response_type=code&amp;scope=io.cozy.files:GET%20io.cozy.contacts&amp;state=Eh6ahshepei5Oojo&amp;redirect_uri=https%3A%2F%2Fclient.org%2F HTTP/1.1
+Host: cozy.example.org</code></pre>
 
 
 <p><strong>Note</strong> we warn the user that he is about to share his data with an application
 which only the callback URI is guaranteed.</p>
 <h3 id="post-authauthorize">POST /auth/authorize<a class="headerlink" href="#post-authauthorize" title="Permanent link">&para;</a></h3>
 <p>When the user accepts, her browser send a request to this endpoint:</p>
-<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/auth/authorize</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
-<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/x-www-form-urlencoded</span>
+<pre class="codehilite"><code class="language-http">POST /auth/authorize HTTP/1.1
+Host: cozy.example.org
+Content-Type: application/x-www-form-urlencoded
 
-state=Eh6ahshepei5Oojo&amp;client_id=oauth-client-1&amp;scope=io.cozy.files:GET%20io.cozy.contacts&amp;csrf_token=johw6Sho
-</pre></div>
+state=Eh6ahshepei5Oojo&amp;client_id=oauth-client-1&amp;scope=io.cozy.files:GET%20io.cozy.contacts&amp;csrf_token=johw6Sho</code></pre>
 
 
 <p><strong>Note</strong>: this endpoint is protected against CSRF attacks.</p>
 <p>The user is then redirected to the original client, with an access code in the
 URL:</p>
-<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">302</span> <span class="ne">Moved Temporarily</span>
-<span class="na">Location</span><span class="o">:</span> <span class="l">https://client.org/?state=Eh6ahshepei5Oojo&amp;access_code=Aih7ohth#</span>
-</pre></div>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 302 Moved Temporarily
+Location: https://client.org/?state=Eh6ahshepei5Oojo&amp;access_code=Aih7ohth#</code></pre>
 
 
 <h3 id="get-authauthorizesharing-post-authauthorizesharing">GET /auth/authorize/sharing &amp; POST /auth/authorize/sharing<a class="headerlink" href="#get-authauthorizesharing-post-authauthorizesharing" title="Permanent link">&para;</a></h3>
@@ -913,25 +914,23 @@ given above.</p>
 <li><code>client_secret</code></li>
 </ul>
 <p>Example:</p>
-<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/auth/access_token</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
-<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/x-www-form-urlencoded</span>
-<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
+<pre class="codehilite"><code class="language-http">POST /auth/access_token HTTP/1.1
+Host: cozy.example.org
+Content-Type: application/x-www-form-urlencoded
+Accept: application/json
 
-grant_type=authorization_code&amp;code=Aih7ohth&amp;client_id=oauth-client-1&amp;client_secret=Oung7oi5
-</pre></div>
+grant_type=authorization_code&amp;code=Aih7ohth&amp;client_id=oauth-client-1&amp;client_secret=Oung7oi5</code></pre>
 
 
-<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
-<span class="na">Content-type</span><span class="o">:</span> <span class="l">application/json</span>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-type: application/json
 
-<span class="p">{</span>
-  <span class="nt">&quot;access_token&quot;</span><span class="p">:</span> <span class="s2">&quot;ooch1Yei&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;token_type&quot;</span><span class="p">:</span> <span class="s2">&quot;bearer&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;refresh_token&quot;</span><span class="p">:</span> <span class="s2">&quot;ui0Ohch8&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;scope&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files:GET io.cozy.contacts&quot;</span>
-<span class="p">}</span>
-</pre></div>
+{
+  &quot;access_token&quot;: &quot;ooch1Yei&quot;,
+  &quot;token_type&quot;: &quot;bearer&quot;,
+  &quot;refresh_token&quot;: &quot;ui0Ohch8&quot;,
+  &quot;scope&quot;: &quot;io.cozy.files:GET io.cozy.contacts&quot;
+}</code></pre>
 
 
 <h3 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h3>
@@ -983,9 +982,8 @@ like this:</p>
 <p>What happens when the user has lost her passphrase?</p>
 </blockquote>
 <p>She can reset it from the command-line, like this:</p>
-<div class="codehilite"><pre><span></span>$ cozy-stack instances reset-passphrase cozy.example.org
-ek0Jah1R
-</pre></div>
+<pre class="codehilite"><code class="language-sh">$ cozy-stack instances reset-passphrase cozy.example.org
+ek0Jah1R</code></pre>
 
 
 <p>A new password is generated and print in the console.</p>
@@ -1052,10 +1050,9 @@ reasons, the session code have the following properties:</p>
 <h3 id="how-to-use-a-token">How to use a token?<a class="headerlink" href="#how-to-use-a-token" title="Permanent link">&para;</a></h3>
 <p>The token can be sent to the cozy-stack as a <code>Bearer</code> token in the
 <code>Authorization</code> header, like this:</p>
-<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/data/io.cozy.events/6494e0ac-dfcb-11e5-88c1-472e84a9cbee</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
-<span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer application-token</span>
-</pre></div>
+<pre class="codehilite"><code class="language-http">GET /data/io.cozy.events/6494e0ac-dfcb-11e5-88c1-472e84a9cbee HTTP/1.1
+Host: cozy.example.org
+Authorization: Bearer application-token</code></pre>
 
 
 <p>If the user is authenticated, her cookies will be sent automatically. The
@@ -1087,11 +1084,10 @@ OAuth2:</p>
 <h3 id="how-to-use-a-token_1">How to use a token?<a class="headerlink" href="#how-to-use-a-token_1" title="Permanent link">&para;</a></h3>
 <p>The access token can be sent as a bearer token, in the Authorization header of
 HTTP:</p>
-<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/data/io.cozy.contacts/6494e0ac-dfcb-11e5-88c1-472e84a9cbee</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
-<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
-<span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ</span>
-</pre></div>
+<pre class="codehilite"><code class="language-http">GET /data/io.cozy.contacts/6494e0ac-dfcb-11e5-88c1-472e84a9cbee HTTP/1.1
+Host: cozy.example.org
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ</code></pre>
 
 
 <h3 id="how-to-refresh-a-token_1">How to refresh a token?<a class="headerlink" href="#how-to-refresh-a-token_1" title="Permanent link">&para;</a></h3>

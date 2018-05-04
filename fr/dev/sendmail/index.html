@@ -142,8 +142,7 @@
                     </a>
                 </li>
                     <li>
-                        <a href="https://github.com/cozy/cozy-docs-v3/">
-                                <i class="fa fa-github"></i>GitHub
+                        <a href="https://cozy.github.io/fr/">Cozy
                         </a>
                     </li>
             </ul>
@@ -171,8 +170,7 @@ Bob sees Alice&rsquo;s shared folder in his own cozy.</p><p>🤔 But how could w
 <a href="https://github.com/mailhog/MailHog">MailHog</a> is running inside it to catch emails.</p><p>If cozy-stack has to send an email, MailHog catches it and exposes it on its web interface on http://cozy.tools:8025/.</p><h2 id="with-the-binary-cozy-stack">With the binary cozy-stack<a class="headerlink" href="#with-the-binary-cozy-stack" title="Permanent link">&para;</a></h2><p>If you develop with the <a href="https://cozy.github.io/cozy-stack/cli/cozy-stack.html">cozy-stack CLI</a>, you have to run 
 <a href="https://github.com/mailhog/MailHog">MailHog</a> on your computer and tell 
 <code>cozy-stack serve</code> where to find the mail server with some 
-<a href="https://cozy.github.io/cozy-stack/cli/cozy-stack_serve.html#options">options</a>:</p><div class="codehilite"><pre><span></span>./cozy-stack serve --appdir drive:../cozy-drive/build,settings:../cozy-settings/build --mail-disable-tls --mail-port 1025
-</pre></div>
+<a href="https://cozy.github.io/cozy-stack/cli/cozy-stack_serve.html#options">options</a>:</p><pre class="codehilite"><code>./cozy-stack serve --appdir drive:../cozy-drive/build,settings:../cozy-settings/build --mail-disable-tls --mail-port 1025</code></pre>
 
 
 <p><em>This commands assumes you <code>git clone</code> <a href="https://github.com/cozy/cozy-drive">cozy-drive</a> and <a href="https://github.com/cozy/cozy-settings">cozy-settings</a> in the same folder than you <code>git clone</code> <a href="https://github.com/cozy/cozy-stack">cozy-stack</a>.</em></p><p>Then simply run <code>MailHog</code> and open http://cozy.tools:8025/.</p><h2 id="retrieve-sent-emails">Retrieve sent emails<a class="headerlink" href="#retrieve-sent-emails" title="Permanent link">&para;</a></h2><p>With MailHog, <strong>every email</strong> sent by cozy-stack is caught. That means the email address 

@@ -113,6 +113,10 @@
 </li>
                             
 <li >
+    <a href="../../dev/connect-mobile-app-local-stack/">Connect a mobile app to your local stack</a>
+</li>
+                            
+<li >
     <a href="../../dev/intro/">Architecture</a>
 </li>
                             
@@ -135,36 +139,6 @@
   <li class="dropdown-submenu">
     <a href="#">References</a>
     <ul class="dropdown-menu">
-            
-  <li class="dropdown-submenu">
-    <a href="#">cozy-konnector-libs</a>
-    <ul class="dropdown-menu">
-            
-<li >
-    <a href="../api/">API</a>
-</li>
-            
-<li class="active">
-    <a href="./">CLI</a>
-</li>
-            
-<li >
-    <a href="../dev/">Develop</a>
-</li>
-            
-<li >
-    <a href="../errors/">Errors</a>
-</li>
-            
-<li >
-    <a href="../operation-linking/">Operation linking</a>
-</li>
-            
-<li >
-    <a href="../synchronization/">Synchronization</a>
-</li>
-    </ul>
-  </li>
             
   <li class="dropdown-submenu">
     <a href="#">cozy-client-js</a>
@@ -212,6 +186,90 @@
             
 <li >
     <a href="../../cozy-client-js/sharing-api/">Sharing API</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../api/">API</a>
+</li>
+            
+<li class="active">
+    <a href="./">CLI</a>
+</li>
+            
+<li >
+    <a href="../dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-doctypes</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.accounts/">Accounts</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.photos.albums/">Albums</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bank/">Banking doctypes</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bills/">Bills</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.konnectors/">Connectors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.contacts/">Contacts</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.files/">Files</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.notifications/">Notifications</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.payslips/">Payslips</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/">Remote requests</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/">Session logins</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.triggers/">Triggers</a>
 </li>
     </ul>
   </li>
@@ -375,39 +433,11 @@
   </li>
             
   <li class="dropdown-submenu">
-    <a href="#">cozy-doctypes</a>
+    <a href="#">konitor</a>
     <ul class="dropdown-menu">
             
 <li >
-    <a href="../../cozy-doctypes/docs/io.cozy.bank/">Banking doctypes</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.bills/">Bills</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.contacts/">Contacts</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.files/">Files</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.notifications/">Notifications</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.photos.albums/">Albums</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/">Remote requests</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/">Session logins</a>
+    <a href="../../konitor/cli/">CLI</a>
 </li>
     </ul>
   </li>
@@ -424,8 +454,7 @@
                     </a>
                 </li>
                     <li>
-                        <a href="https://github.com/cozy/cozy-docs-v3/">
-                                <i class="fa fa-github"></i>GitHub
+                        <a href="https://cozy.github.io/">Cozy
                         </a>
                     </li>
             </ul>
@@ -449,15 +478,13 @@ or development mode</p>
 <h4 id="cozy-konnector-standalone">cozy-konnector-standalone<a class="headerlink" href="#cozy-konnector-standalone" title="Permanent link">&para;</a></h4>
 <p>If you just want to test your connector without any cozy available. Just add the following code in
 the <code>scripts</code> section of your package.json file</p>
-<div class="codehilite"><pre><span></span>  <span class="nx">scripts</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">standalone</span><span class="o">:</span> <span class="s2">&quot;cozy-konnector-standalone&quot;</span>
-  <span class="p">}</span>
-</pre></div>
+<pre class="codehilite"><code class="language-javascript">  scripts: {
+    standalone: &quot;cozy-konnector-standalone&quot;
+  }</code></pre>
 
 
 <p>and run:</p>
-<div class="codehilite"><pre><span></span>yarn standalone
-</pre></div>
+<pre class="codehilite"><code class="language-sh">yarn standalone</code></pre>
 
 
 <p>The requests to the cozy-stack will be stubbed using the [./fixture.json] file as source of data
@@ -468,29 +495,26 @@ defined in <code>package.json</code> <code>main</code> section or ./index.js</p>
 <p>It is possible to record and replay the requests done by the standalone command using the
 <a href="https://github.com/assaf/node-replay">replay</a> module.</p>
 <h5 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span><span class="n">Usage</span><span class="o">:</span> <span class="n">cozy</span><span class="o">-</span><span class="n">konnector</span><span class="o">-</span><span class="n">standalone</span> <span class="o">[</span><span class="n">options</span><span class="o">]</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">&gt;</span>
+<pre class="codehilite"><code>Usage: cozy-konnector-standalone [options] &lt;file&gt;
 
 
-<span class="n">Options</span><span class="o">:</span>
+Options:
 
-  <span class="o">--</span><span class="n">record</span>  <span class="n">Record</span> <span class="n">all</span> <span class="n">the</span> <span class="n">requests</span> <span class="k">in</span> <span class="n">the</span> <span class="o">./</span><span class="n">fixtures</span> <span class="n">directory</span> <span class="n">using</span> <span class="n">the</span> <span class="n">replay</span> <span class="n">module</span>
-  <span class="o">--</span><span class="n">replay</span>  <span class="n">Replay</span> <span class="n">all</span> <span class="n">the</span> <span class="n">recorded</span> <span class="n">requests</span>
-  <span class="o">-</span><span class="n">h</span><span class="o">,</span> <span class="o">--</span><span class="n">help</span>  <span class="n">output</span> <span class="n">usage</span> <span class="n">information</span>
-</pre></div>
+  --record  Record all the requests in the ./fixtures directory using the replay module
+  --replay  Replay all the recorded requests
+  -h, --help  output usage information</code></pre>
 
 
 <h4 id="cozy-konnector-dev">cozy-konnector-dev<a class="headerlink" href="#cozy-konnector-dev" title="Permanent link">&para;</a></h4>
 <p>If you want to run your connector linked to a cozy-stack, even remotely. Just add the follwing code
 in the <code>scripts</code> section of your package.json file:</p>
-<div class="codehilite"><pre><span></span>  <span class="nx">scripts</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">dev</span><span class="o">:</span> <span class="s2">&quot;cozy-konnector-dev&quot;</span>
-  <span class="p">}</span>
-</pre></div>
+<pre class="codehilite"><code class="language-javascript">  scripts: {
+    dev: &quot;cozy-konnector-dev&quot;
+  }</code></pre>
 
 
 <p>and run:</p>
-<div class="codehilite"><pre><span></span>yarn dev
-</pre></div>
+<pre class="codehilite"><code class="language-sh">yarn dev</code></pre>
 
 
 <p>This command will register your konnector as an OAuth application to the cozy-stack and then set the <code>COZY_CREDENTIALS</code> and <code>COZY_FIELDS</code> environment variable. By default,
@@ -502,8 +526,7 @@ the target service. You can do this also in [./konnector-dev-config.json] in the
 <p>It is also possible to add an argument to this command which tells which file to run. Default is
 defined in <code>package.json</code> <code>main</code> section or ./index.js</p>
 <h5 id="arguments_1">Arguments<a class="headerlink" href="#arguments_1" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>$ cozy-konnector-dev &lt;file&gt; <span class="o">[</span>-t token.json<span class="o">]</span> <span class="o">[</span>-m manifest.webapp<span class="o">]</span>
-</pre></div>
+<pre class="codehilite"><code>$ cozy-konnector-dev &lt;file&gt; [-t token.json] [-m manifest.webapp]</code></pre>
 
 
 <p>As for the <code>standalone</code> command, you can specify which file to run. Default is <code>./index.js</code>.</p>

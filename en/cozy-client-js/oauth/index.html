@@ -113,6 +113,10 @@
 </li>
                             
 <li >
+    <a href="../../dev/connect-mobile-app-local-stack/">Connect a mobile app to your local stack</a>
+</li>
+                            
+<li >
     <a href="../../dev/intro/">Architecture</a>
 </li>
                             
@@ -135,36 +139,6 @@
   <li class="dropdown-submenu">
     <a href="#">References</a>
     <ul class="dropdown-menu">
-            
-  <li class="dropdown-submenu">
-    <a href="#">cozy-konnector-libs</a>
-    <ul class="dropdown-menu">
-            
-<li >
-    <a href="../../cozy-konnector-libs/api/">API</a>
-</li>
-            
-<li >
-    <a href="../../cozy-konnector-libs/cli/">CLI</a>
-</li>
-            
-<li >
-    <a href="../../cozy-konnector-libs/dev/">Develop</a>
-</li>
-            
-<li >
-    <a href="../../cozy-konnector-libs/errors/">Errors</a>
-</li>
-            
-<li >
-    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
-</li>
-            
-<li >
-    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
-</li>
-    </ul>
-  </li>
             
   <li class="dropdown-submenu">
     <a href="#">cozy-client-js</a>
@@ -212,6 +186,90 @@
             
 <li >
     <a href="../sharing-api/">Sharing API</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-doctypes</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.accounts/">Accounts</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.photos.albums/">Albums</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bank/">Banking doctypes</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bills/">Bills</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.konnectors/">Connectors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.contacts/">Contacts</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.files/">Files</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.notifications/">Notifications</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.payslips/">Payslips</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/">Remote requests</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/">Session logins</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.triggers/">Triggers</a>
 </li>
     </ul>
   </li>
@@ -375,39 +433,11 @@
   </li>
             
   <li class="dropdown-submenu">
-    <a href="#">cozy-doctypes</a>
+    <a href="#">konitor</a>
     <ul class="dropdown-menu">
             
 <li >
-    <a href="../../cozy-doctypes/docs/io.cozy.bank/">Banking doctypes</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.bills/">Bills</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.contacts/">Contacts</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.files/">Files</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.notifications/">Notifications</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.photos.albums/">Albums</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/">Remote requests</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/">Session logins</a>
+    <a href="../../konitor/cli/">CLI</a>
 </li>
     </ul>
   </li>
@@ -424,8 +454,7 @@
                     </a>
                 </li>
                     <li>
-                        <a href="https://github.com/cozy/cozy-docs-v3/">
-                                <i class="fa fa-github"></i>GitHub
+                        <a href="https://cozy.github.io/">Cozy
                         </a>
                     </li>
             </ul>
@@ -450,13 +479,12 @@
 <h3 id="storage">Storage<a class="headerlink" href="#storage" title="Permanent link">&para;</a></h3>
 <p>To handle the workflow automatically, the user of the library shoud pass a storage object that will be used to store the OAuth client and tokens informations.</p>
 <p>This storage should implement the following &ldquo;interface&rdquo;:</p>
-<div class="codehilite"><pre><span></span><span class="kr">interface</span> <span class="nx">Storage</span> <span class="p">{</span>
-  <span class="nx">load</span><span class="p">(</span><span class="nx">key</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span> <span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span>
-  <span class="nx">save</span><span class="p">(</span><span class="nx">key</span><span class="o">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">value</span><span class="o">:</span> <span class="nx">any</span><span class="p">)</span> <span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span>
-  <span class="k">delete</span><span class="p">(</span><span class="nx">key</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span> <span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">boolean</span><span class="o">&gt;</span>
-  <span class="nx">clear</span><span class="p">()</span> <span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;&gt;</span>
-<span class="p">}</span>
-</pre></div>
+<pre class="codehilite"><code class="language-js">interface Storage {
+  load(key: string) : Promise&lt;any&gt;
+  save(key: string, value: any) : Promise&lt;any&gt;
+  delete(key: string) : Promise&lt;boolean&gt;
+  clear() : Promise&lt;&gt;
+}</code></pre>
 
 
 <p>The library provides two implementation of such storage:
@@ -483,45 +511,44 @@
 <p>The <code>onRegistered</code> callback is called with the registered client and the URL on which the user should go to give access to the application.</p>
 <h3 id="complete-example-for-nodejs">Complete example for Node.JS<a class="headerlink" href="#complete-example-for-nodejs" title="Permanent link">&para;</a></h3>
 <p>Here is a complete example running on Node.JS with a local http server receiving as redirect URI receiving the call of the user to complete the authorization of the client.</p>
-<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;http&#39;</span><span class="p">);</span>
-<span class="kr">const</span> <span class="p">{</span><span class="nx">Cozy</span><span class="p">,</span><span class="nx">MemoryStorage</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./dist/cozy-client.node.js&#39;</span><span class="p">)</span>
+<pre class="codehilite"><code class="language-js">const http = require('http');
+const {Cozy,MemoryStorage} = require('./dist/cozy-client.node.js')
 
-<span class="kd">function</span> <span class="nx">onRegistered</span><span class="p">(</span><span class="nx">client</span><span class="p">,</span> <span class="nx">url</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kd">let</span> <span class="nx">server</span>
-  <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="nx">server</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">((</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-      <span class="k">if</span> <span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">url</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;/do_access&#39;</span><span class="p">)</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Received access from user with url&#39;</span><span class="p">,</span> <span class="nx">request</span><span class="p">.</span><span class="nx">url</span><span class="p">)</span>
-        <span class="nx">resolve</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">url</span><span class="p">)</span>
-        <span class="nx">response</span><span class="p">.</span><span class="nx">end</span><span class="p">()</span>
-      <span class="p">}</span>
-    <span class="p">})</span>
-    <span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">3333</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Please visit the following url to authorize the application: &#39;</span><span class="p">,</span> <span class="nx">url</span><span class="p">)</span>
-    <span class="p">})</span>
-  <span class="p">})</span>
-    <span class="p">.</span><span class="nx">then</span><span class="p">(</span>
-      <span class="p">(</span><span class="nx">url</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="nx">server</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span> <span class="k">return</span> <span class="nx">url</span><span class="p">;</span> <span class="p">},</span>
-      <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="nx">server</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span> <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span> <span class="p">}</span>
-    <span class="p">)</span>
-<span class="p">}</span>
+function onRegistered(client, url) {
+  let server
+  return new Promise((resolve) =&gt; {
+    server = http.createServer((request, response) =&gt; {
+      if (request.url.indexOf('/do_access') === 0) {
+        console.log('Received access from user with url', request.url)
+        resolve(request.url)
+        response.end()
+      }
+    })
+    server.listen(3333, () =&gt; {
+      console.log('Please visit the following url to authorize the application: ', url)
+    })
+  })
+    .then(
+      (url) =&gt; { server.close(); return url; },
+      (err) =&gt; { server.close(); throw err; }
+    )
+}
 
-<span class="kr">const</span> <span class="nx">cozy</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cozy</span><span class="p">({</span>
-  <span class="nx">cozyURL</span><span class="o">:</span> <span class="s1">&#39;http://cozy.tools:8080&#39;</span><span class="p">,</span>
-  <span class="nx">oauth</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">storage</span><span class="o">:</span> <span class="k">new</span> <span class="nx">MemoryStorage</span><span class="p">(),</span>
-    <span class="nx">clientParams</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">redirectURI</span><span class="o">:</span> <span class="s1">&#39;http://localhost:3333/do_access&#39;</span><span class="p">,</span>
-      <span class="nx">softwareID</span><span class="o">:</span> <span class="s1">&#39;foobar&#39;</span><span class="p">,</span>
-      <span class="nx">clientName</span><span class="o">:</span> <span class="s1">&#39;client&#39;</span><span class="p">,</span>
-      <span class="nx">scopes</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;files/images:read&#39;</span><span class="p">]</span>
-    <span class="p">},</span>
-    <span class="nx">onRegistered</span><span class="o">:</span> <span class="nx">onRegistered</span><span class="p">,</span>
-  <span class="p">}</span>
-<span class="p">})</span>
+const cozy = new Cozy({
+  cozyURL: 'http://cozy.tools:8080',
+  oauth: {
+    storage: new MemoryStorage(),
+    clientParams: {
+      redirectURI: 'http://localhost:3333/do_access',
+      softwareID: 'foobar',
+      clientName: 'client',
+      scopes: ['files/images:read']
+    },
+    onRegistered: onRegistered,
+  }
+})
 
-<span class="nx">cozy</span><span class="p">.</span><span class="nx">authorize</span><span class="p">().</span><span class="nx">then</span><span class="p">((</span><span class="nx">creds</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">creds</span><span class="p">))</span>
-</pre></div></div>
+cozy.authorize().then((creds) =&gt; console.log(creds))</code></pre></div>
         </div>
 
         <footer class="col-md-12">

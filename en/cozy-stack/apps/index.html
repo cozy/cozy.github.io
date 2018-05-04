@@ -113,6 +113,10 @@
 </li>
                             
 <li >
+    <a href="../../dev/connect-mobile-app-local-stack/">Connect a mobile app to your local stack</a>
+</li>
+                            
+<li >
     <a href="../../dev/intro/">Architecture</a>
 </li>
                             
@@ -135,36 +139,6 @@
   <li class="dropdown-submenu">
     <a href="#">References</a>
     <ul class="dropdown-menu">
-            
-  <li class="dropdown-submenu">
-    <a href="#">cozy-konnector-libs</a>
-    <ul class="dropdown-menu">
-            
-<li >
-    <a href="../../cozy-konnector-libs/api/">API</a>
-</li>
-            
-<li >
-    <a href="../../cozy-konnector-libs/cli/">CLI</a>
-</li>
-            
-<li >
-    <a href="../../cozy-konnector-libs/dev/">Develop</a>
-</li>
-            
-<li >
-    <a href="../../cozy-konnector-libs/errors/">Errors</a>
-</li>
-            
-<li >
-    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
-</li>
-            
-<li >
-    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
-</li>
-    </ul>
-  </li>
             
   <li class="dropdown-submenu">
     <a href="#">cozy-client-js</a>
@@ -212,6 +186,90 @@
             
 <li >
     <a href="../../cozy-client-js/sharing-api/">Sharing API</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-doctypes</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.accounts/">Accounts</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.photos.albums/">Albums</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bank/">Banking doctypes</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bills/">Bills</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.konnectors/">Connectors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.contacts/">Contacts</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.files/">Files</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.notifications/">Notifications</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.payslips/">Payslips</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/">Remote requests</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/">Session logins</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.triggers/">Triggers</a>
 </li>
     </ul>
   </li>
@@ -375,39 +433,11 @@
   </li>
             
   <li class="dropdown-submenu">
-    <a href="#">cozy-doctypes</a>
+    <a href="#">konitor</a>
     <ul class="dropdown-menu">
             
 <li >
-    <a href="../../cozy-doctypes/docs/io.cozy.bank/">Banking doctypes</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.bills/">Bills</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.contacts/">Contacts</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.files/">Files</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.notifications/">Notifications</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.photos.albums/">Albums</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/">Remote requests</a>
-</li>
-            
-<li >
-    <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/">Session logins</a>
+    <a href="../../konitor/cli/">CLI</a>
 </li>
     </ul>
   </li>
@@ -424,8 +454,7 @@
                     </a>
                 </li>
                     <li>
-                        <a href="https://github.com/cozy/cozy-docs-v3/">
-                                <i class="fa fa-github"></i>GitHub
+                        <a href="https://cozy.github.io/">Cozy
                         </a>
                     </li>
             </ul>
@@ -570,35 +599,33 @@ instance where the app is installed. But a route can be marked as public. In
 that case, anybody can visit the route.</p>
 <p>For example, an application can offer an administration interface on <code>/admin</code>, a
 public page on <code>/public</code>, and shared assets in <code>/assets</code>:</p>
-<div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;/admin&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;folder&quot;</span><span class="p">:</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;index&quot;</span><span class="p">:</span> <span class="s2">&quot;admin.html&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;public&quot;</span><span class="p">:</span> <span class="kc">false</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;/public&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;folder&quot;</span><span class="p">:</span> <span class="s2">&quot;/public&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;index&quot;</span><span class="p">:</span> <span class="s2">&quot;index.html&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;public&quot;</span><span class="p">:</span> <span class="kc">true</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;/assets&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;folder&quot;</span><span class="p">:</span> <span class="s2">&quot;/assets&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;public&quot;</span><span class="p">:</span> <span class="kc">true</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
+<pre class="codehilite"><code class="language-json">{
+  &quot;/admin&quot;: {
+    &quot;folder&quot;: &quot;/&quot;,
+    &quot;index&quot;: &quot;admin.html&quot;,
+    &quot;public&quot;: false
+  },
+  &quot;/public&quot;: {
+    &quot;folder&quot;: &quot;/public&quot;,
+    &quot;index&quot;: &quot;index.html&quot;,
+    &quot;public&quot;: true
+  },
+  &quot;/assets&quot;: {
+    &quot;folder&quot;: &quot;/assets&quot;,
+    &quot;public&quot;: true
+  }
+}</code></pre>
 
 
 <p>If an application has no routes in its manifest, the stack will create one
 route, this default one:</p>
-<div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;/&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;folder&quot;</span><span class="p">:</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;index&quot;</span><span class="p">:</span> <span class="s2">&quot;index.html&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;public&quot;</span><span class="p">:</span> <span class="kc">false</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
+<pre class="codehilite"><code class="language-json">{
+  &quot;/&quot;: {
+    &quot;folder&quot;: &quot;/&quot;,
+    &quot;index&quot;: &quot;index.html&quot;,
+    &quot;public&quot;: false
+  }
+}</code></pre>
 
 
 <p><strong>Note</strong>: if you have a public route, it&rsquo;s probably better to put the app icon
@@ -617,17 +644,16 @@ describe how and when they should be executed: via our trigger system.</p>
 <p>To define a service, first the code needs to be stored with the application
 content, as single (packaged) javascript files. In the manifest, declare the
 service and its parameters following this example:</p>
-<div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;services&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;low-budget-notification&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;node&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;file&quot;</span><span class="p">:</span> <span class="s2">&quot;/services/low-budget-notification.js&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;trigger&quot;</span><span class="p">:</span> <span class="s2">&quot;@cron 0 0 0 * * *&quot;</span>
-    <span class="p">}</span>
-    <span class="err">//</span> <span class="err">...</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
+<pre class="codehilite"><code class="language-json">{
+  &quot;services&quot;: {
+    &quot;low-budget-notification&quot;: {
+      &quot;type&quot;: &quot;node&quot;,
+      &quot;file&quot;: &quot;/services/low-budget-notification.js&quot;,
+      &quot;trigger&quot;: &quot;@cron 0 0 0 * * *&quot;
+    }
+    // ...
+  }
+}</code></pre>
 
 
 <p>The <code>trigger</code> field should follow the available triggers described in the
@@ -637,21 +663,20 @@ code run and the <code>type</code> field describe the code type (only <code>"nod
 <p>For more informations on how te declare notifications in the manifest, see
 the <a href="../notifications/">notifications documentation</a>.</p>
 <p>Here is an example:</p>
-<div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;notifications&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;account-balance&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Alert the user when its account balance is negative&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;collapsible&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>        <span class="err">//</span> <span class="err">only</span> <span class="err">interested</span> <span class="err">in</span> <span class="err">the</span> <span class="err">last</span> <span class="err">value</span> <span class="err">of</span> <span class="err">the</span> <span class="err">notification</span>
-      <span class="nt">&quot;multiple&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>           <span class="err">//</span> <span class="err">require</span> <span class="err">sub-categories</span> <span class="err">for</span> <span class="err">each</span> <span class="err">account</span>
-      <span class="nt">&quot;stateful&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-      <span class="nt">&quot;default_priority&quot;</span><span class="p">:</span> <span class="s2">&quot;high&quot;</span><span class="p">,</span> <span class="err">//</span> <span class="err">high</span> <span class="err">priority</span> <span class="err">for</span> <span class="err">this</span> <span class="err">notification</span>
-      <span class="nt">&quot;templates&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;mail&quot;</span><span class="p">:</span> <span class="s2">&quot;file:./notifications/account-balance-mail.tpl&quot;</span><span class="p">,</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
+<pre class="codehilite"><code class="language-json">{
+  &quot;notifications&quot;: {
+    &quot;account-balance&quot;: {
+      &quot;description&quot;: &quot;Alert the user when its account balance is negative&quot;,
+      &quot;collapsible&quot;: true, // only interested in the last value of the notification
+      &quot;multiple&quot;: true, // require sub-categories for each account
+      &quot;stateful&quot;: false,
+      &quot;default_priority&quot;: &quot;high&quot;, // high priority for this notification
+      &quot;templates&quot;: {
+        &quot;mail&quot;: &quot;file:./notifications/account-balance-mail.tpl&quot;
+      }
+    }
+  }
+}</code></pre>
 
 
 <h2 id="resource-caching">Resource caching<a class="headerlink" href="#resource-caching" title="Permanent link">&para;</a></h2>
@@ -723,42 +748,38 @@ application has been installed or failed.</p>
 </tbody>
 </table>
 <h4 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/apps/emails?Source=git://github.com/cozy/cozy-emails.git</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
-</pre></div>
+<pre class="codehilite"><code class="language-http">POST /apps/emails?Source=git://github.com/cozy/cozy-emails.git HTTP/1.1
+Accept: application/vnd.api+json</code></pre>
 
 
 <h4 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">202</span> <span class="ne">Accepted</span>
-<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
-</pre></div>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 202 Accepted
+Content-Type: application/vnd.api+json</code></pre>
 
 
-<div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[{</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;4cfbd8be-8968-11e6-9708-ef55b7c20863&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.apps&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-7a1f918147df94580c92b47275e4604a&quot;</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;calendar&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;installing&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;calendar&quot;</span><span class="p">,</span>
-      <span class="err">...</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/apps/calendar&quot;</span>
-    <span class="p">}</span>
-  <span class="p">}]</span>
-<span class="p">}</span>
-</pre></div>
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: [{
+    &quot;id&quot;: &quot;4cfbd8be-8968-11e6-9708-ef55b7c20863&quot;,
+    &quot;type&quot;: &quot;io.cozy.apps&quot;,
+    &quot;meta&quot;: {
+      &quot;rev&quot;: &quot;1-7a1f918147df94580c92b47275e4604a&quot;
+    },
+    &quot;attributes&quot;: {
+      &quot;name&quot;: &quot;calendar&quot;,
+      &quot;state&quot;: &quot;installing&quot;,
+      &quot;slug&quot;: &quot;calendar&quot;,
+      ...
+    },
+    &quot;links&quot;: {
+      &quot;self&quot;: &quot;/apps/calendar&quot;
+    }
+  }]
+}</code></pre>
 
 
 <p><strong>Note</strong>: it&rsquo;s possible to choose a git branch by passing it in the fragment
 like this:</p>
-<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/apps/emails-dev?Source=git://github.com/cozy/cozy-emails.git%23dev</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-</pre></div>
+<pre class="codehilite"><code class="language-http">POST /apps/emails-dev?Source=git://github.com/cozy/cozy-emails.git%23dev HTTP/1.1</code></pre>
 
 
 <h3 id="put-appsslug">PUT /apps/:slug<a class="headerlink" href="#put-appsslug" title="Permanent link">&para;</a></h3>
@@ -770,36 +791,33 @@ manifest and started to fetch application data.</p>
 This will make a eventsource stream sending the manifest and returning when the
 application has been updated or failed.</p>
 <h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="nf">PUT</span> <span class="nn">/apps/emails</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
-</pre></div>
+<pre class="codehilite"><code class="language-http">PUT /apps/emails HTTP/1.1
+Accept: application/vnd.api+json</code></pre>
 
 
 <h4 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">202</span> <span class="ne">Accepted</span>
-<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
-</pre></div>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 202 Accepted
+Content-Type: application/vnd.api+json</code></pre>
 
 
-<div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[{</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;4cfbd8be-8968-11e6-9708-ef55b7c20863&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.apps&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-7a1f918147df94580c92b47275e4604a&quot;</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;calendar&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;installing&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;calendar&quot;</span><span class="p">,</span>
-      <span class="err">...</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/apps/calendar&quot;</span>
-    <span class="p">}</span>
-  <span class="p">}]</span>
-<span class="p">}</span>
-</pre></div>
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: [{
+    &quot;id&quot;: &quot;4cfbd8be-8968-11e6-9708-ef55b7c20863&quot;,
+    &quot;type&quot;: &quot;io.cozy.apps&quot;,
+    &quot;meta&quot;: {
+      &quot;rev&quot;: &quot;1-7a1f918147df94580c92b47275e4604a&quot;
+    },
+    &quot;attributes&quot;: {
+      &quot;name&quot;: &quot;calendar&quot;,
+      &quot;state&quot;: &quot;installing&quot;,
+      &quot;slug&quot;: &quot;calendar&quot;,
+      ...
+    },
+    &quot;links&quot;: {
+      &quot;self&quot;: &quot;/apps/calendar&quot;
+    }
+  }]
+}</code></pre>
 
 
 <h4 id="status-codes_1">Status codes<a class="headerlink" href="#status-codes_1" title="Permanent link">&para;</a></h4>
@@ -824,38 +842,35 @@ application has been updated or failed.</p>
 <li><code>errored</code>, the app is in an error state and can not be used.</li>
 </ul>
 <h4 id="request_2">Request<a class="headerlink" href="#request_2" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/apps/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
-</pre></div>
+<pre class="codehilite"><code class="language-http">GET /apps/ HTTP/1.1
+Accept: application/vnd.api+json</code></pre>
 
 
 <h4 id="response_2">Response<a class="headerlink" href="#response_2" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
-<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
-</pre></div>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-Type: application/vnd.api+json</code></pre>
 
 
-<div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[{</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;4cfbd8be-8968-11e6-9708-ef55b7c20863&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.apps&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;2-bbfb0fc32dfcdb5333b28934f195b96a&quot;</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;calendar&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;ready&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;calendar&quot;</span><span class="p">,</span>
-      <span class="err">...</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/apps/calendar&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;icon&quot;</span><span class="p">:</span> <span class="s2">&quot;/apps/calendar/icon&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;related&quot;</span><span class="p">:</span> <span class="s2">&quot;https://calendar.alice.example.com/&quot;</span>
-    <span class="p">}</span>
-  <span class="p">}]</span>
-<span class="p">}</span>
-</pre></div>
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: [{
+    &quot;id&quot;: &quot;4cfbd8be-8968-11e6-9708-ef55b7c20863&quot;,
+    &quot;type&quot;: &quot;io.cozy.apps&quot;,
+    &quot;meta&quot;: {
+      &quot;rev&quot;: &quot;2-bbfb0fc32dfcdb5333b28934f195b96a&quot;
+    },
+    &quot;attributes&quot;: {
+      &quot;name&quot;: &quot;calendar&quot;,
+      &quot;state&quot;: &quot;ready&quot;,
+      &quot;slug&quot;: &quot;calendar&quot;,
+      ...
+    },
+    &quot;links&quot;: {
+      &quot;self&quot;: &quot;/apps/calendar&quot;,
+      &quot;icon&quot;: &quot;/apps/calendar/icon&quot;,
+      &quot;related&quot;: &quot;https://calendar.alice.example.com/&quot;
+    }
+  }]
+}</code></pre>
 
 
 <h2 id="get-informations-about-an-application">Get informations about an application<a class="headerlink" href="#get-informations-about-an-application" title="Permanent link">&para;</a></h2>
@@ -863,34 +878,29 @@ application has been updated or failed.</p>
 <h2 id="get-the-icon-of-an-application">Get the icon of an application<a class="headerlink" href="#get-the-icon-of-an-application" title="Permanent link">&para;</a></h2>
 <h3 id="get-appsslugicon">GET /apps/:slug/icon<a class="headerlink" href="#get-appsslugicon" title="Permanent link">&para;</a></h3>
 <h4 id="request_3">Request<a class="headerlink" href="#request_3" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/apps/calendar/icon</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-</pre></div>
+<pre class="codehilite"><code class="language-http">GET /apps/calendar/icon HTTP/1.1</code></pre>
 
 
 <h4 id="response_3">Response<a class="headerlink" href="#response_3" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
-<span class="na">Content-Type</span><span class="o">:</span> <span class="l">image/svg+xml</span>
-</pre></div>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-Type: image/svg+xml</code></pre>
 
 
-<div class="codehilite"><pre><span></span><span class="nt">&lt;svg</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/2000/svg&quot;</span> <span class="na">width=</span><span class="s">&quot;60&quot;</span> <span class="na">height=</span><span class="s">&quot;60&quot;</span> <span class="na">viewBox=</span><span class="s">&quot;0 0 60 60&quot;</span><span class="nt">&gt;</span>
-<span class="nt">&lt;title&gt;</span>Calendar<span class="nt">&lt;/title&gt;</span>
-<span class="nt">&lt;path</span> <span class="na">fill=</span><span class="s">&quot;#fff&quot;</span> <span class="na">fill-opacity=</span><span class="s">&quot;.011&quot;</span> <span class="na">d=</span><span class="s">&quot;M30 58.75c15.878 0 28.75-12.872 28.75-28.75s-12.872-28.75-28.75-28.75-28.75 12.872-28.75 28.75 12.872 28.75 28.75 28.75zm0 1.25c-16.569 0-30-13.432-30-30 0-16.569 13.431-30 30-30 16.568 0 30 13.431 30 30 0 16.568-13.432 30-30 30z&quot;</span><span class="nt">/&gt;</span>
-<span class="nt">&lt;path</span> <span class="na">d=</span><span class="s">&quot;M47.997 9h-35.993c-1.654 0-3.004 1.345-3.004 3.004v35.993c0 1.653 1.345 3.004 3.004 3.004h35.993c1.653 0 3.004-1.345 3.004-3.004v-35.993c0-1.654-1.345-3.004-3.004-3.004zm-35.997 3.035h4.148v2.257c0 .856.7 1.556 1.556 1.556s1.556-.7 1.556-1.556v-2.257h5.136v2.257c0 .856.7 1.556 1.556 1.556s1.556-.7 1.556-1.556v-2.257h5.137v2.257c0 .856.699 1.556 1.556 1.556s1.556-.7 1.556-1.556v-2.257h5.137v2.257c0 .856.699 1.556 1.556 1.556s1.556-.7 1.556-1.556v-2.257h3.992v6.965h-35.998v-6.965zm36 35.965h-36v-27h36v27zm-21.71-10.15c-.433.34-.997.51-1.69.51-.64 0-1.207-.137-1.7-.409-.493-.273-.933-.603-1.32-.99l-1.1 1.479c.453.508 1.027.934 1.72 1.28.693.347 1.56.521 2.6.521.613 0 1.19-.083 1.73-.25.54-.167 1.013-.407 1.42-.721.407-.312.727-.696.96-1.149.233-.453.35-.974.35-1.56 0-.841-.25-1.527-.75-2.061s-1.13-.9-1.89-1.1v-.08c.693-.268 1.237-.641 1.63-1.12.393-.48.59-1.08.59-1.8 0-.533-.1-1.01-.3-1.43-.2-.42-.48-.772-.84-1.06-.36-.287-.793-.503-1.3-.65-.507-.147-1.067-.22-1.68-.22-.76 0-1.45.147-2.07.44s-1.203.68-1.75 1.16l1.18 1.42c.387-.36.783-.65 1.19-.87.407-.22.863-.33 1.37-.33.587 0 1.047.15 1.38.45.333.3.5.717.5 1.25 0 .293-.057.566-.17.819-.113.253-.3.47-.56.65-.26.18-.6.319-1.02.42-.42.1-.943.149-1.57.149v1.681c.72 0 1.32.05 1.8.149.48.101.863.243 1.15.43.287.188.49.414.61.681.12.267.18.567.18.899 0 .602-.217 1.072-.65 1.412zm13.71.15h-3v-11h-2c-.4.24-.65.723-1.109.89-.461.167-1.25.49-1.891.61v1.5h3v8h-3v2h8v-2z&quot;</span><span class="nt">/&gt;</span>
-<span class="nt">&lt;/svg&gt;</span>
-</pre></div>
+<pre class="codehilite"><code class="language-svg">&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;60&quot; height=&quot;60&quot; viewBox=&quot;0 0 60 60&quot;&gt;
+&lt;title&gt;Calendar&lt;/title&gt;
+&lt;path fill=&quot;#fff&quot; fill-opacity=&quot;.011&quot; d=&quot;M30 58.75c15.878 0 28.75-12.872 28.75-28.75s-12.872-28.75-28.75-28.75-28.75 12.872-28.75 28.75 12.872 28.75 28.75 28.75zm0 1.25c-16.569 0-30-13.432-30-30 0-16.569 13.431-30 30-30 16.568 0 30 13.431 30 30 0 16.568-13.432 30-30 30z&quot;/&gt;
+&lt;path d=&quot;M47.997 9h-35.993c-1.654 0-3.004 1.345-3.004 3.004v35.993c0 1.653 1.345 3.004 3.004 3.004h35.993c1.653 0 3.004-1.345 3.004-3.004v-35.993c0-1.654-1.345-3.004-3.004-3.004zm-35.997 3.035h4.148v2.257c0 .856.7 1.556 1.556 1.556s1.556-.7 1.556-1.556v-2.257h5.136v2.257c0 .856.7 1.556 1.556 1.556s1.556-.7 1.556-1.556v-2.257h5.137v2.257c0 .856.699 1.556 1.556 1.556s1.556-.7 1.556-1.556v-2.257h5.137v2.257c0 .856.699 1.556 1.556 1.556s1.556-.7 1.556-1.556v-2.257h3.992v6.965h-35.998v-6.965zm36 35.965h-36v-27h36v27zm-21.71-10.15c-.433.34-.997.51-1.69.51-.64 0-1.207-.137-1.7-.409-.493-.273-.933-.603-1.32-.99l-1.1 1.479c.453.508 1.027.934 1.72 1.28.693.347 1.56.521 2.6.521.613 0 1.19-.083 1.73-.25.54-.167 1.013-.407 1.42-.721.407-.312.727-.696.96-1.149.233-.453.35-.974.35-1.56 0-.841-.25-1.527-.75-2.061s-1.13-.9-1.89-1.1v-.08c.693-.268 1.237-.641 1.63-1.12.393-.48.59-1.08.59-1.8 0-.533-.1-1.01-.3-1.43-.2-.42-.48-.772-.84-1.06-.36-.287-.793-.503-1.3-.65-.507-.147-1.067-.22-1.68-.22-.76 0-1.45.147-2.07.44s-1.203.68-1.75 1.16l1.18 1.42c.387-.36.783-.65 1.19-.87.407-.22.863-.33 1.37-.33.587 0 1.047.15 1.38.45.333.3.5.717.5 1.25 0 .293-.057.566-.17.819-.113.253-.3.47-.56.65-.26.18-.6.319-1.02.42-.42.1-.943.149-1.57.149v1.681c.72 0 1.32.05 1.8.149.48.101.863.243 1.15.43.287.188.49.414.61.681.12.267.18.567.18.899 0 .602-.217 1.072-.65 1.412zm13.71.15h-3v-11h-2c-.4.24-.65.723-1.109.89-.461.167-1.25.49-1.891.61v1.5h3v8h-3v2h8v-2z&quot;/&gt;
+&lt;/svg&gt;</code></pre>
 
 
 <h2 id="uninstall-an-application">Uninstall an application<a class="headerlink" href="#uninstall-an-application" title="Permanent link">&para;</a></h2>
 <h3 id="delete-appsslug">DELETE /apps/:slug<a class="headerlink" href="#delete-appsslug" title="Permanent link">&para;</a></h3>
 <h4 id="request_4">Request<a class="headerlink" href="#request_4" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/apps/tasky</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-</pre></div>
+<pre class="codehilite"><code class="language-http">DELETE /apps/tasky HTTP/1.1</code></pre>
 
 
 <h4 id="response_4">Response<a class="headerlink" href="#response_4" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
-</pre></div>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 204 No Content</code></pre>
 
 
 <h2 id="access-an-application">Access an application<a class="headerlink" href="#access-an-application" title="Permanent link">&para;</a></h2>
