@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # This script is responsible for deploying the build/ directory
-# to the gh-pages branch on GitHub and to run the Rundeck job to
-# update https://docs.cozy.io.
+# to the master branch on GitHub.
 #
 # GITHUB_TOKEN, RUNDECK_UPDATE_DOCS_JOB_URL and RUNDECK_TOKEN env
 # vars have been provided through Travis web interface.
@@ -29,14 +28,14 @@ if [[ "$GITHUB_TOKEN" == "" && $DEPLOY_REPOSITORY == '' ]]; then
     exit 0
 fi
 
-echo "Deploying on gh-pages..."
+echo "Deploying on $DEPLOY_BRANCH (dev branch is `dev`, org pages must be published on `master`)..."
 yarn git-directory-deploy \
     --username Cozy \
     --email contact@cozycloud.cc \
     --directory docs/ \
     --repo=${DEPLOY_REPOSITORY:-https://$GITHUB_TOKEN@github.com/cozy/cozy.github.io.git} \
-    --branch=${DEPLOY_BRANCH:-gh-pages}
-echo "gh-pages branch updated. Should be visible on https://cozy.github.io/"
+    --branch=${DEPLOY_BRANCH:-master}
+echo "$DEPLOY_BRANCH branch updated. Should be visible on https://cozy.github.io/"
 
 RUNDECK_UPDATE_DOCS_JOB_URL=${RUNDECK_UPDATE_DOCS_JOB_URL:-""}
 RUNDECK_TOKEN=${RUNDECK_TOKEN:-""}
