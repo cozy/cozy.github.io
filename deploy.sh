@@ -37,15 +37,4 @@ yarn git-directory-deploy \
     --directory docs/ \
     --repo=$DEPLOY_REPOSITORY \
     --branch=$DEPLOY_BRANCH
-echo "$DEPLOY_BRANCH branch updated. Should be visible on https://cozy.github.io/"
-
-RUNDECK_UPDATE_DOCS_JOB_URL=${RUNDECK_UPDATE_DOCS_JOB_URL:-""}
-RUNDECK_TOKEN=${RUNDECK_TOKEN:-""}
-
-if [[ ! -z "$RUNDECK_UPDATE_DOCS_JOB_URL" &&  ! -z $RUNDECK_TOKEN ]]; then
-    echo "Updating on docs.cozy.io via Rundeck..."
-    curl -s --fail -X POST -H "X-Rundeck-Auth-Token: $RUNDECK_TOKEN" $RUNDECK_UPDATE_DOCS_JOB_URL > /dev/null
-    echo "Should be visible on https://docs.cozy.io/"
-else
-    echo "No Rundeck env vars (RUNDECK_UPDATE_DOCS_JOB_URL or RUNDECK_TOKEN), cannot deploy on docs.cozy.io"
-fi
+echo "$DEPLOY_BRANCH branch updated. Should be visible on $(cat CNAME)"
