@@ -489,6 +489,7 @@
             <li><a href="#basekonnectorfail">baseKonnector.fail()</a></li>
             <li><a href="#basekonnectorinit-promise">baseKonnector.init() ⇒ Promise</a></li>
             <li><a href="#basekonnectorsaveaccountdatadata-options-promise">baseKonnector.saveAccountData(data, options) ⇒ Promise</a></li>
+            <li><a href="#basekonnectorgetaccountdata-object">baseKonnector.getAccountData() ⇒ object</a></li>
             <li><a href="#basekonnectorterminatemessage">baseKonnector.terminate(message)</a></li>
         <li class="main "><a href="#document">Document</a></li>
             <li><a href="#documentisequal">document.isEqual()</a></li>
@@ -670,7 +671,14 @@ You need the full permission on <code>io.cozy.bills</code>, full permission on <
 full permission on <code>io.cozy.bank.operations</code> in your manifest, to be able to * use this function.</p>
 <p>Parameters:</p>
 <ul>
-<li><code>documents</code> is an array of objects with any attributes :</li>
+<li><code>documents</code> is an array of objects with any attributes with some mandatory attributes :<ul>
+<li><code>amount</code> (Number): the amount of the bill used to match bank operations</li>
+<li><code>date</code> (Date): the date of the bill also used to match bank operations</li>
+<li><code>vendor</code> (String): the name of the vendor associated to the bill. Ex: &#39;trainline&#39;
+You can also pass attributes expected by <code>saveFiles</code>
+Please take a look at <a href="https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.bills.md">io.cozy.bills doctype documentation</a></li>
+</ul>
+</li>
 <li><code>fields</code> (object) this is the first parameter given to BaseKonnector&#39;s constructor</li>
 <li><code>options</code> is passed directly to <code>saveFiles</code>, <code>hydrateAndFilter</code>, <code>addData</code> and <code>linkBankOperations</code>.</li>
 </ul>
@@ -1002,7 +1010,12 @@ You need the full permission on <code>io.cozy.bills</code>, full permission on <
 full permission on <code>io.cozy.bank.operations</code> in your manifest, to be able to * use this function.</p>
 <p>Parameters:</p>
 <ul>
-<li><code>documents</code> is an array of objects with any attributes :</li>
+<li><code>documents</code> is an array of objects with any attributes with some mandatory attributes :</li>
+<li><code>amount</code> (Number): the amount of the bill used to match bank operations</li>
+<li><code>date</code> (Date): the date of the bill also used to match bank operations</li>
+<li><code>vendor</code> (String): the name of the vendor associated to the bill. Ex: &lsquo;trainline&rsquo;
+  You can also pass attributes expected by <code>saveFiles</code>
+  Please take a look at <a href="https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.bills.md">io.cozy.bills doctype documentation</a></li>
 <li><code>fields</code> (object) this is the first parameter given to BaseKonnector&rsquo;s constructor</li>
 <li><code>options</code> is passed directly to <code>saveFiles</code>, <code>hydrateAndFilter</code>, <code>addData</code> and <code>linkBankOperations</code>.</li>
 </ul>
@@ -1126,6 +1139,7 @@ fetch account information for your connector.</p>
 <li><a href="#BaseKonnector+fail">.fail()</a></li>
 <li><a href="#BaseKonnector+init">.init()</a> ⇒ <code>Promise</code></li>
 <li><a href="#BaseKonnector+saveAccountData">.saveAccountData(data, options)</a> ⇒ <code>Promise</code></li>
+<li><a href="#BaseKonnector+getAccountData">.getAccountData()</a> ⇒ <code>object</code></li>
 <li><a href="#BaseKonnector+terminate">.terminate(message)</a></li>
 </ul>
 </li>
@@ -1215,7 +1229,11 @@ account.</p>
 </tr>
 </tbody>
 </table>
-<p><a name="BaseKonnector+terminate"></a></p>
+<p><a name="BaseKonnector+getAccountData"></a></p>
+<h3 id="basekonnectorgetaccountdata-object">baseKonnector.getAccountData() ⇒ <code>object</code><a class="headerlink" href="#basekonnectorgetaccountdata-object" title="Permanent link">&para;</a></h3>
+<p>Get the data saved by saveAccountData</p>
+<p><strong>Kind</strong>: instance method of <a href="#BaseKonnector"><code>BaseKonnector</code></a><br />
+<a name="BaseKonnector+terminate"></a></p>
 <h3 id="basekonnectorterminatemessage">baseKonnector.terminate(message)<a class="headerlink" href="#basekonnectorterminatemessage" title="Permanent link">&para;</a></h3>
 <p>Send a special error code which is interpreted by the cozy stack to terminate the execution of the
 connector now</p>
