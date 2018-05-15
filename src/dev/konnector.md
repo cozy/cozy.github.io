@@ -39,11 +39,9 @@ When the connector is started, it also gets some data through environment variab
 
 Those variables are used by the BaseKonnector and the cozy-client to configure the connection to
 the [Cozy Stack] with the right permissions as defined in your manifest.konnector. These are
-simulated in standalone mode so that you don't need a real cozy stack to develop your connector.
+simulated in standalone mode so that you don't need a real cozy stack to develop your connector. [[More information on BaseKonnector](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#basekonnector)]
 
-[More information](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#basekonnector)
-
-From the server point of view, each connector is a `job` that is run periodically via a `trigger`. [More information](https://cozy.github.io/cozy-stack/jobs.html)
+From the server point of view, each connector is a `job` that is run periodically via a `trigger`. [[More information on jobs](https://cozy.github.io/cozy-stack/jobs.html)]
 
 ## Let’s create our first connector
 
@@ -80,14 +78,25 @@ of the connector when running it in the CLI.
 ```
 
 `COZY_URL` is for later, but the `fields` attribute will allow you to define credentials to the
-target web service, like `login` and `password` as if they would come from a real [Cozy Stack].
+target web service, like `login` and `password` as if they would come from a real [Cozy Stack]. 
 
-This way to run the connector is the *standalone* mode. In this mode, `cozyClient` is stubbed and
-all data meant to be saved in a cozy is displayed in the standard output and files are directly
-saved in the root directory of the connector. This is useful to first develop your connector
-without handling the state of a real [Cozy Stack].
+```javascript
+{
+  "COZY_URL": "http://cozy.tools:8080",
+  "fields": {login:"zuck.m@rk.fb", password:"123456"}
+}
+```
 
-You have more documentation about this in the [CLI section of the documentation](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/cli.md).
+**This file is ignored by git to keep credentials private**.
+
+This way to run the connector is the *standalone* mode. 
+
+In this mode, `cozyClient` (the client lib in charge of dealing data with the server stack) is 
+stubbed and all data meant to be saved in a cozy is displayed in the standard output and files
+are directly saved in the root directory of the connector. This is useful to first develop your
+connector without handling the state of a real [Cozy Stack].
+
+You have more documentation about the standalone mode in the [CLI section of the documentation](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/cli.md).
 
 ### Connector structure
 
@@ -105,7 +114,7 @@ module.exports = new BaseKonnector(fields => {
 })
 ```
 
-#### Fetch operations
+#### Typical workflow
 
 Every time the connector is run, it will call the function and wait for the resolution of the
 returned promise. This function can then log into the remote site, fetch data and save it in the
@@ -114,10 +123,12 @@ form of an array of objects with specific attributes expected by the different s
 
 A basic connector workflow involves:
 
- - getting data and storing them into a variable. You can get the data by calling an API, scraping the remote website…
- - filtering data to remove the ones already present inside the database using [filterData](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_filterData)
- - save the filtered data into the database ([addData](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#adddata))
- - save the related files using ([saveFiles](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#savefiles))
+ 1. authenticate on the website or API. Might be tricky, but that's the fun :-)
+ 2. getting data from the online service. You can get the data by calling an API or scraping the webpage. Check if the webpage itself is not using an API to retrieve data, might speed up your job. Mobile phones applications usually connects to an API that might be a reliable source of data.
+ </br>A quick [exemple of a scraper here](#How-do-I-scrape-my-data-from-a-website).
+ 3. filtering data to remove the ones already present inside the database using [filterData](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_filterData)
+ 4. save the filtered data into the database ([addData](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#adddata))
+ 5. save the related files using ([saveFiles](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#savefiles))
 
 #### Error handling
 
@@ -129,7 +140,7 @@ If your connector hits an issue fetching or saving the data, it can return an er
   - `VENDOR_DOWN`: the target web site is down now
   - `USER_ACTION_NEEDED`: The user needs to login to the service to do manual actions (could be Terms Of Service to validate)
 
-You can get the list of error codes in `require('cozy-konnector-libs').errors`
+You can get the list of error codes in `require('cozy-konnector-libs').errors` ([source](https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/src/helpers/errors.js))
 
 ``` javascript
 const {BaseKonnector, errors} = require('cozy-konnector-libs')
@@ -144,23 +155,23 @@ module.exports = new BaseKonnector(fields => {
 
 The Cozy Konnector Libs provide several useful methods for common tasks:
 
- - [BaseKonnector](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#basekonnector): creates the connector and fetches data
- - [cozyClient](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#cozyclient) gives an instance of [cozy-client-js] already initialized according to `COZY_URL`, and `COZY_CREDENTIALS`
+ - [BaseKonnector](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#basekonnector): creates the connector and fetches from the stack the connector's parameters (COZY_FIELDS...)
+ - [cozyClient](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#cozyclient) gives an instance of [cozy-client-js] already initialized according to `COZY_URL`, and `COZY_CREDENTIALS`. Your code can immediately interact with the server thanks to this client.
  - [requestFactory](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_requestFactory) a function which returns an instance of request-promise initialized with defaults often used in connector development.
  - [log](https://github.com/cozy/cozy-konnector-libs/blob/3cad316bac1898ef3c2656577af786f6549b40b0/packages/cozy-logger/src/index.js#L35-L41) allows to log messages with different levels
  - [filterData](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#filterdata) to filter data
- - [addData](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#adddata) to add Data to the cozy
+ - [addData](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#adddata) to store the retrieved data into the cozy
  - [linkBankOperations](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#linkbankoperations) to link a bill to a bank operation
  - [saveBills](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#savebills) which uses filterData, addData, saveFiles and linkBankOperations and which is specific to bills
  - [updateOrCreate](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#updateorcreate) create or update documents inside database
 
-## Linking with a cozy and dev mode
+## Linking your connector to a cozy : `dev mode`
 
-Once your connector is able to gather data from the targeted web service in standalone mode. Now is
-the time to put this data in a real cozy. Here comes the dev mode.
+After several `yarn standalone`, your connector is able to automaticaly gather data from the targeted web service. </br>It's time now to put this data in a real cozy. </br>Here comes the *dev mode*.
 
-But before doing that, your connector needs more setup : a `manifest.konnector` file and
-`konnector-dev-config.json`'s `COZY_URL` section.
+For that your connector needs more setup : 
+* a `manifest.konnector` file
+* a `COZY_URL` section in `konnector-dev-config.json` 
 
 ### The manifest
 
@@ -197,17 +208,19 @@ cozy, and this must be a cozy for which you have the credentials.
 
 Here comes the `COZY_URL` in konnector-dev-config.json which defines just that.
 
+### Run the dev mode
+
 Then you just have to run:
 
 ```sh
 yarn dev
 ```
 
-And for the first run, the CLI will open a tab in your browser asking you to give permissions to the
-connector and the connector will save data directly in your cozy. This will validate that your
+For the first run, the CLI will open a tab in your browser asking you to grant permissions to the
+connector. The connector will then save data directly into your cozy. This will validate that your
 manifest has the needed permissions on the data you want to save.
 
-this is the *dev* mode
+This is the *dev* mode
 
 ## Integration in cozy-collect for all the users
 
@@ -244,7 +257,7 @@ If you get this problem, catch the error yourself and only display the message :
 }
 ```
 
-### How do I scrap a website
+### <a name="How-do-I-scrape-my-data-from-a-website"></a>How do I scrap a website
 
 Use the request function from [cozy-konnector-libs] with the proper options
 
