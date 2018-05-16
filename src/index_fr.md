@@ -27,8 +27,8 @@ The go-to website about Cozy configuration and setup.
 
   <div class="home-action">
     <div>
-      <a href="../dev"><img src="../assets/images/home/icon-dev.svg"></a>
-      [Développez !](dev)
+      <a href="/en/dev"><img src="../assets/images/home/icon-dev.svg"></a>
+      <a href="/en/dev">Développez&nbsp;!</a>
       Apprenez à développer des applications et des connecteurs.
     </div>
   </div>
