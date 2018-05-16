@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 rm -rf docs/*
 cp index.html docs/
 cp CNAME docs/
