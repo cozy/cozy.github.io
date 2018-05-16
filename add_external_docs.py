@@ -61,27 +61,19 @@ def main():
         data = ordered_load(f, yaml.SafeLoader)
 
     with open('OUTSIDE_DOCS') as f:
-        outside_docs_conf = [l.strip().split(' ') for l in f.readlines()]
-
-
-    outside_docs_conf = [
-        {'name': c[0], 'repo': c[1], 'subdir': c[2]}
-        for c in outside_docs_conf
-    ]
-    outside_doc_names = [c['name'] for c in outside_docs_conf] 
+        outside_docs = [l.split(' ')[0] for l in f.readlines()]
 
     develop = find_entry(data['pages'], 'Develop')
     references = find_entry(develop, 'References')
 
     del references[:]
 
-    for dir in outside_doc_names:
+    for dir in outside_docs:
         abs = osp.join('./src', dir)
         toc = read_toc(dir)
         if toc:
             references.append({ dir: toc })
 
-    data['extra'] = {"outside_docs": outside_docs_conf}
     with open('mkdocs.yml', 'w+') as f:
         ordered_dump(data, f, indent=2, default_flow_style=False, Dumper=yaml.SafeDumper)
 
