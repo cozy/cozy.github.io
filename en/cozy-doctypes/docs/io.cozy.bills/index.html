@@ -512,25 +512,35 @@
 <p><a href="README.md#table-of-contents">Table of contents</a></p>
 <h1 id="bills-doctype">Bills doctype<a class="headerlink" href="#bills-doctype" title="Permanent link">&para;</a></h1>
 <h2 id="iocozybills"><code>io.cozy.bills</code><a class="headerlink" href="#iocozybills" title="Permanent link">&para;</a></h2>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Represents the a bill (invoice) or refund from a vendor.</li>
+</ul>
+<h3 id="mandatory-attributes">Mandatory attributes<a class="headerlink" href="#mandatory-attributes" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>type</code>: {string} - Type of the bill</li>
-<li><code>subtype</code>: {string} - Used for labelling the bill. ie: &ldquo;Ostéopathie&rdquo;</li>
 <li><code>vendor</code>: {string} - Vendor which issued the bill</li>
-<li><code>date</code>: {date} - Date the bill was emitted</li>
-<li><code>originalDate</code> - For health bills, represents the date of the health act (presumably the date the account was charged)</li>
+<li><code>date</code>: {date} - Date the bill was emitted, a string formated  (what you get with a <code>new Date().toString()</code>)</li>
 <li><code>amount</code>: {number} - Amount of the bill, <strong>always positive</strong> even if it is a refund</li>
+<li><code>currency</code> : the currency, must respects ISO standard : https://en.wikipedia.org/wiki/ISO_4217</li>
+</ul>
+<h3 id="optionnal-attributes-but-some-are-important-depending-the-context">Optionnal attributes (but some are important depending the context)<a class="headerlink" href="#optionnal-attributes-but-some-are-important-depending-the-context" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>isRefund</code>: {boolean} - Indicate if the bill represents a refund/reimbursement</li>
+<li><code>subtype</code>: {string} - Used for labelling the bill. ie: &ldquo;Ostéopathie&rdquo;</li>
+<li><code>originalDate</code> - For health bills, represents the date of the health act (presumably the date the account was charged)</li>
 <li><code>originalAmount</code>: {number} - Original amount in case of a partial refund</li>
 <li><code>groupAmount</code>: Group amount in case this bill was part of a grouped refund</li>
 <li><code>thirdPartyRefund</code> : {number} - Amount reimbursed to third parties</li>
 <li><code>socialSecurityRefund</code> : {number} - Amount reimbursed to social security</li>
-<li><code>isRefund</code>: {boolean} - Indicate if the bill represents a refund/reimbursement</li>
 <li><code>isThirdPartyPayer</code>: {boolean} - Indicate if the bill has been already covered by a third party payer. This attribute can be useful when Cozy retrieves bills issued by french medical insurances.
 When this attribute is in &ldquo;true&rdquo; no associated debit is expected to be found in the client bank
 statements.</li>
 <li><code>invoice</code>: {string} - The associated file. ex: <code>io.cozy.files:c43645a93831827c7ec512eac3006e51</code></li>
-<li><code>content</code>: {string}</li>
+<li><code>fileUrl</code>: {string} - The url used to download the pdf from vendor.</li>
 <li><code>debitOperations</code>: {array[io.cozy.bank.operations._id]} - List of debit operations id</li>
 <li><code>creditOperations</code>: {array[io.cozy.bank.operations._id]} - List of credit operations id</li>
+<li><code>vendorRef</code> : {string} - Vendor reference for this bill. Ex : <code>'INV-2018-09-12534'k</code></li>
 </ul>
 <h3 id="types">Types<a class="headerlink" href="#types" title="Permanent link">&para;</a></h3>
 <ul>
