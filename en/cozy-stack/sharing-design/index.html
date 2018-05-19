@@ -686,10 +686,9 @@ are:</p>
   <code>application/octet-steam</code>)</li>
 <li><code>tags</code> and <code>referenced_by</code>: a union of the two versions is made</li>
 </ul>
-<p>For 3., we rename the file or folder with the later <code>updated_at</code>.</p>
-<p>For 4., if a new directory with the same path that the trashed parent has been
-created, we will use it as the new parent for the created/updated files/folders.
-Else, we restore the trashed parent.</p>
+<p>For 3., we rename the file or folder with the smaller <code>id</code>.</p>
+<p>For 4., we restore the trashed parent, or recreate it if it the trash was
+emptied.</p>
 <h2 id="schema">Schema<a class="headerlink" href="#schema" title="Permanent link">&para;</a></h2>
 <h3 id="description-of-a-sharing">Description of a sharing<a class="headerlink" href="#description-of-a-sharing" title="Permanent link">&para;</a></h3>
 <ul>
