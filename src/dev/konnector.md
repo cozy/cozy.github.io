@@ -83,7 +83,7 @@ target web service, like `login` and `password` as if they would come from a rea
 ```javascript
 {
   "COZY_URL": "http://cozy.tools:8080",
-  "fields": {login:"zuck.m@rk.fb", password:"123456"}
+  "fields": {"login":"zuck.m@rk.fb", "password":"123456"}
 }
 ```
 
