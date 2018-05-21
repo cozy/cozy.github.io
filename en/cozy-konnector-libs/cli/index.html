@@ -468,8 +468,8 @@
 <div class="bs-sidebar hidden-print affix" role="complementary">
     <ul class="nav bs-sidenav well" style='padding-left: 0; padding-right: 0; margin-bottom: 1.5rem'>
         <li class="main active"><a href="#cli">CLI</a></li>
-            <li><a href="#cozy-konnector-standalone">cozy-konnector-standalone</a></li>
-            <li><a href="#cozy-konnector-dev">cozy-konnector-dev</a></li>
+            <li><a href="#cozy-run-standalone">cozy-run-standalone</a></li>
+            <li><a href="#cozy-run-dev">cozy-run-dev</a></li>
     </ul>
   <div style='padding-left: 2rem'>
     
@@ -511,13 +511,14 @@
                 <div class="col-md-9" role="main">
 
 <h3 id="cli">CLI<a class="headerlink" href="#cli" title="Permanent link">&para;</a></h3>
-<p><code>cozy-konnector-libs</code> also comes with some cli tools which allow to run your connector in standalone
-or development mode</p>
-<h4 id="cozy-konnector-standalone">cozy-konnector-standalone<a class="headerlink" href="#cozy-konnector-standalone" title="Permanent link">&para;</a></h4>
-<p>If you just want to test your connector without any cozy available. Just add the following code in
+<p>There is a specific npm package which provides cli tools to allow to run your connector in
+standalone or development mode : cozy-jobs-cli. You can install it in your connector as a dev
+dependency.</p>
+<h4 id="cozy-run-standalone">cozy-run-standalone<a class="headerlink" href="#cozy-run-standalone" title="Permanent link">&para;</a></h4>
+<p>If you just want to test your connector without any cozy available, add the following code in
 the <code>scripts</code> section of your package.json file</p>
 <pre class="codehilite"><code class="language-javascript">  scripts: {
-    standalone: &quot;cozy-konnector-standalone&quot;
+    standalone: &quot;cozy-run-standalone&quot;
   }</code></pre>
 
 
@@ -529,11 +530,11 @@ the <code>scripts</code> section of your package.json file</p>
 and when cozy-client-js is asked to create or update data, the data will be output to the console.
 The bills (or any file) will be saved in the . directory.</p>
 <p>It is possible to add an argument to this command which tells which file to run. Default is
-defined in <code>package.json</code> <code>main</code> section or ./index.js</p>
+defined in <code>package.json</code> <code>main</code> section or ./src/index.js</p>
 <p>It is possible to record and replay the requests done by the standalone command using the
 <a href="https://github.com/assaf/node-replay">replay</a> module.</p>
 <h5 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permanent link">&para;</a></h5>
-<pre class="codehilite"><code>Usage: cozy-konnector-standalone [options] &lt;file&gt;
+<pre class="codehilite"><code>Usage: cozy-run-standalone [options] &lt;file&gt;
 
 
 Options:
@@ -543,11 +544,11 @@ Options:
   -h, --help  output usage information</code></pre>
 
 
-<h4 id="cozy-konnector-dev">cozy-konnector-dev<a class="headerlink" href="#cozy-konnector-dev" title="Permanent link">&para;</a></h4>
+<h4 id="cozy-run-dev">cozy-run-dev<a class="headerlink" href="#cozy-run-dev" title="Permanent link">&para;</a></h4>
 <p>If you want to run your connector linked to a cozy-stack, even remotely. Just add the follwing code
 in the <code>scripts</code> section of your package.json file:</p>
 <pre class="codehilite"><code class="language-javascript">  scripts: {
-    dev: &quot;cozy-konnector-dev&quot;
+    dev: &quot;cozy-run-dev&quot;
   }</code></pre>
 
 
@@ -562,9 +563,9 @@ update the COZY_URL field in [./konnector-dev-config.json].</p>
 the target service. You can do this also in [./konnector-dev-config.json] in the &ldquo;fields&rdquo; section.</p>
 <p>The files are saved in the root directory of your cozy by default.</p>
 <p>It is also possible to add an argument to this command which tells which file to run. Default is
-defined in <code>package.json</code> <code>main</code> section or ./index.js</p>
+defined in <code>package.json</code> <code>main</code> section or ./src/index.js</p>
 <h5 id="arguments_1">Arguments<a class="headerlink" href="#arguments_1" title="Permanent link">&para;</a></h5>
-<pre class="codehilite"><code>$ cozy-konnector-dev &lt;file&gt; [-t token.json] [-m manifest.webapp]</code></pre>
+<pre class="codehilite"><code>$ cozy-run-dev &lt;file&gt; [-t token.json] [-m manifest.webapp]</code></pre>
 
 
 <p>As for the <code>standalone</code> command, you can specify which file to run. Default is <code>./index.js</code>.</p>

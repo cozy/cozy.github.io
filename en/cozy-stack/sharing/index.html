@@ -1102,6 +1102,7 @@ Host: alice.example.net</code></pre>
 is the index of this recipient in the <code>members</code> array of the sharing. The
 status for this member will be set to <code>revoked</code>, its cozy will be informed of
 the revokation, and the credentials for this cozy will be deleted.</p>
+<p><strong>Note</strong>: 0 is not accepted for <code>index</code>, as it is the sharer him-self.</p>
 <h4 id="request_6">Request<a class="headerlink" href="#request_6" title="Permanent link">&para;</a></h4>
 <pre class="codehilite"><code class="language-http">DELETE /sharings/ce8835a061d0ef68947afe69a0046722/recipients/1 HTTP/1.1
 Host: alice.example.net</code></pre>

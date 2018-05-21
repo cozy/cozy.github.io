@@ -1372,6 +1372,47 @@ instead of imperatively building them.</p>
 </tr>
 </tbody>
 </table>
+<p><strong>Example</strong><br />
+<code>scrape</code> can be used to declaratively extract data :</p>
+<ul>
+<li>For one object :</li>
+</ul>
+<pre class="codehilite"><code>const item = scrape($('#item'), {
+  title: '.title',
+  content: '.content'
+})</code></pre>
+
+
+<ul>
+<li>For a list of objects :</li>
+</ul>
+<pre class="codehilite"><code>const items = scrape($('#content'), {
+  title: '.title',
+  content: '.content'
+}, '.item')</code></pre>
+
+
+<p>For more power, you can use <code>object</code>s for each retriever :</p>
+<pre class="codehilite"><code>const items = scrape($('#content'), {
+  title: '.title',
+  content: '.content',
+  link: {
+    sel: 'a',
+    attr: 'href'
+  },
+}, '.item')</code></pre>
+
+
+<p>Here the <code>href</code> attribute of the <code>a</code> inside <code>.item</code>s would have been
+put into the <code>link</code> attribute of the items returned by <code>scrape</code>.</p>
+<p>Available options :</p>
+<ul>
+<li><code>sel</code>: the CSS selector used to target the HTML node from which data will be scraped</li>
+<li><code>attr</code>: the HTML attribute from which to extract data</li>
+<li><code>parse</code>: function applied to the value extracted (<code>{ sel: '.price', parse: parseAmount }</code>)</li>
+<li><code>fn</code>: if you need something more complicated than <code>attr</code>, you can use this function, it receives
+the complete DOM node. <code>{ sel: '.person', fn: $node =&gt; $node.attr('data-name') + $node.attr('data-firstname') }</code></li>
+</ul>
 <h3 id="permissions">⚠ Permissions<a class="headerlink" href="#permissions" title="Permanent link">&para;</a></h3>
 <p>Please note that some classes require some permissions:</p>
 <ul>
