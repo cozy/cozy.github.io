@@ -2,7 +2,7 @@
 
 ## Introduction
 
-A connector (as know as _konnector_) is a script that imports data from another web service and put those data into your cozy.
+A connector (also known as _konnector_) is a script that imports data from another web service and put those data into your cozy.
 Each connector is an independant application, managed by the [Cozy Collect] application.
 
 To protect your data, each connector runs inside a container in order to sandbox all their interactions with your data.
@@ -10,14 +10,14 @@ To protect your data, each connector runs inside a container in order to sandbox
 ## How does it work?
 
 A connector is a NodeJS script.
-The target node version used to run your connector is the [current LTS version](https://github.com/nodejs/Release#release-schedule) (8 at the time this doc was writed).
+The target node version used to run your connector is the [current LTS version](https://github.com/nodejs/Release#release-schedule) (8 at the time this doc was written).
 
 Like client side apps, connectors communicate with the [Cozy Stack] using its HTTP API, and get an unique auth token every time they start.
 They need to register with a manifest, and ask the user for permissions.
 
 To facilitate connector development, a npm package, [konnectors/libs], provides some shared libraries that are adapted to be used for a connector:
 
- - [cheerio](https://cheerio.js.org) to easily query a DOM
+ - [cheerio](https://cheerio.js.org) to easily query a HTML page
  - [request-promise](https://github.com/request/request-promise): [request](https://github.com/request/request) with Promise support
  - [request-debug](https://github.com/request/request-debug) that displays all the requests and responses in the standard output.
    Toggle _debug_ option in [requestFactory options](https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_requestFactory)
@@ -53,7 +53,7 @@ git clone https://github.com/konnectors/cozy-konnector-template cozy-konnector-n
 cd cozy-konnector-monservice
 rm -rf .git
 git init
-yarn # or npm install
+yarn install # or npm install
 ```
 _note: we use `yarn`, but if you prefer `npm`, keep using it, everything should work._
 
@@ -80,7 +80,7 @@ This configuration comes from [Cozy Collect] when deployed.
 The `fields` property allow you to set credentials for the targeted web service, such as `login` and `password` as if they come from [Cozy Stack].
 The `COZY_URL` property will be used later.
 
-As explained earlier, the demo website [books.toscrape.com](http://books.toscrape.com) do not need any credentials.
+As explained earlier, the demo website [books.toscrape.com](http://books.toscrape.com) does not need any credentials.
 But for the code to run without error, you need to register a _fake_ login and a _fake_ password:
 
 ```json
@@ -95,15 +95,15 @@ But for the code to run without error, you need to register a _fake_ login and a
 
 **In cozy-konnector-template, this configuration file is already added to `.gitignore` file to be sure your credentials stay private.**
 
-Now you can run again the connector in *standalone* mode to see how jpg and related data are downloaded. 
+Now you can run the connector again in *standalone* mode to see how jpg and related data are downloaded. 
 In this mode, [`cozy-client-js`] is stubbed and all data meant to be saved in a cozy are displayed in the standard output and files are saved in the root directory of the connector.
-This is useful to start to develop your connector without handling the state of a real [Cozy Stack].
+This is useful to start developing your connector without handling the state of a real [Cozy Stack].
 
 Please check [CLI section of the documentation](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/cli.md) for more information.
 
 ### Implement your connector
 
-There a four steps for a connector to save data to [Cozy Stack]:
+There are four steps for a connector to save data to [Cozy Stack]:
 
 1. authentication
 1. request data
@@ -143,7 +143,7 @@ async function start(fields) {
 
 #### Authentication
 
-Open `src/index.js` file, there is comments to guide you through it.
+Open the `src/index.js` file, there are comments to guide you through it.
 The very first step is to be able to authenticate to the remote service, this is done with the line:
 
 ```js
@@ -188,8 +188,8 @@ Let's say the remote service exposes a simple classical form like https://www.tr
 </form>
 ```
 
-Find out a CSS selector for the form tag: `form#signin-form`.
-Find out the name of the input tags used to host user's credentials: `email` and `password`.
+Find a CSS selector for the form tag: `form#signin-form`.
+Find the name of the input tags used to host user's credentials: `email` and `password`.
 
 You are ready to complete the `signin(options)` object called in the `authenticate(username, password)` function:
 
@@ -244,7 +244,7 @@ So to request data, we fetch the target webpage that contains invoices list.
 But sometimes, the webpage is a JavaScript page that uses a JSON API url.
 JSON is easier to parse than full HTML webpages.
 
-For the purpose of this guide, let's consider we are in the case of a full of HTML webpage, like the service given as an example in the template: http://books.toscrape.com
+For the purpose of this guide, let's consider we are in the case of a full HTML webpage, like the service given as an example in the template: http://books.toscrape.com
 
 This is the easiest part, juste fetch the webpage:
 
@@ -264,7 +264,7 @@ We want to get every `<article />` of the page in a JavaScript Array:
 const articles = [].map.call($('article', node => node))
 ```
 
-For every book, we want to catch the title attribute of thi tag `article h3 a`.
+For every book, we want to catch the title attribute of this tag `article h3 a`.
 This is a [CSS Selector](https://developer.mozilla.org/en-US/docs/Web/API/Document_object_model/Locating_DOM_elements_using_selectors) that [cheerio](https://cheerio.js.org/) understands to select some part of the tree.
 In order to crawl a list of items to create an Array of json object, we can use the function [scrape from the konnector libs](https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md#scrape):
 
@@ -361,8 +361,10 @@ But there is a bunch of functions available depending on what you want:
 
 We can find more information in the [libs repository](https://github.com/konnectors/libs).
 
-__Now we pass on every steps, it is time to test the connector with `yarn standalone`.__
+__Now that we pass on every steps, it is time to test the connector with `yarn standalone`.__
 We will see in the following how to connect it effectively to a Cozy Stack.
+
+## Going further
 
 ### Connector structure
 
