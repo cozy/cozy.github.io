@@ -2,110 +2,378 @@
 
 ## Introduction
 
-A connector is a simple script which imports data from other web services and put it in your cozy.
-Each connector is an independant application, managed by the [Cozy Collect]
-application.
+A connector (also known as _konnector_) is a script that imports data from another web service and put those data into your cozy.
+Each connector is an independant application, managed by the [Cozy Collect] application.
 
-To protect your data, each connector runs inside a container in order to sandbox all their
-interactions with your data.
+To protect your data, each connector runs inside a container in order to sandbox all their interactions with your data.
 
-## How does it work ?
+## How does it work?
 
-A connector is a NodeJS script. The target node version used to run your connector is the
-[current LTS version](https://nodejs.org) (8 at the moment).
+A connector is a NodeJS script.
+The target node version used to run your connector is the [current LTS version](https://github.com/nodejs/Release#release-schedule) (8 at the time this doc was written).
 
-Like client side apps, connectors communicate with the [Cozy Stack]
-using its API, and get an auth token every time they start. They need to register with a manifest,
-and ask permissions to the user.
+Like client side apps, connectors communicate with the [Cozy Stack] using its HTTP API, and get an unique auth token every time they start.
+They need to register with a manifest, and ask the user for permissions.
 
-To ease the development of a connector, a npm package, named [cozy-konnector-libs]
-provides some shared libraries which are adapted to be used for a connector :
+To facilitate connector development, a npm package, [konnectors/libs], provides some shared libraries that are adapted to be used for a connector:
 
- - [cheerio](https://cheerio.js.org) to easily request html pages like jQuery
- - [request-promise](https://github.com/request/request-promise): [request](https://github.com/request/request) wrapped in promises
- - [request-debug](https://github.com/request/request-debug) which displays all the requests and
-   responses in the standard output. Check "debug" option in [requestFactory](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_requestFactory)
+ - [cheerio](https://cheerio.js.org) to easily query a HTML page
+ - [request-promise](https://github.com/request/request-promise): [request](https://github.com/request/request) with Promise support
+ - [request-debug](https://github.com/request/request-debug) that displays all the requests and responses in the standard output.
+   Toggle _debug_ option in [requestFactory options](https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_requestFactory)
 
-But you may need some other npm packages not integrated in [cozy-konnector-libs] to help you run your connector :
+Besides, you'll probably need some other npm packages to help you run your connector:
 
  - [momentjs](http://momentjs.com/docs/) or [date-fns](https://date-fns.org) to manage dates
  - [bluebird](http://bluebirdjs.com) to get enhanced promises
 
-When the connector is started, it also gets some data through environment variables:
+When the connector is started, it also receives some data via environment variables:
 
- - `COZY_CREDENTIALS` : the auth token used by [cozy-client-js] to communicate with the server
- - `COZY_URL` : the API entry point
- - `COZY_FIELDS` : the settings coming from [Cozy Collect] and filled by the user of the connector (login, password, directory path).
+ - `COZY_CREDENTIALS`: an auth token used by [cozy-client-js] to communicate with the server
+ - `COZY_URL`: the Cozy Stack API entry point
+ - `COZY_FIELDS`: settings coming from [Cozy Collect] and filled by the user (login, password, directory path).
 
-Those variables are used by the BaseKonnector and the cozy-client to configure the connection to
-the [Cozy Stack] with the right permissions as defined in your manifest.konnector. These are
-simulated in standalone mode so that you don't need a real cozy stack to develop your connector. [[More information on BaseKonnector](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#basekonnector)]
+These variables are used by the connector and the cozy-client to configure the connection to the [Cozy Stack] with the right permissions as defined in the connector manifest.
+They are simulated in standalone mode so that you do not need a real Cozy Stack to develop a connector.
+[[More about BaseKonnector](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#basekonnector)]
 
-From the server point of view, each connector is a `job` that is run periodically via a `trigger`. [[More information on jobs](https://cozy.github.io/cozy-stack/jobs.html)]
+From the server point of view, each connector is a `job` which is executed periodically via a `trigger`.
+[[More about Cozy Stack jobs](https://cozy.github.io/cozy-stack/jobs.html)]
 
 ## Let’s create our first connector
 
-The easiest way to create a new connector is to use [cozy-konnector-template](https://github.com/cozy/cozy-konnector-template):
+The easiest way to create a new connector is to use [cozy-konnector-template]:
 
-### [cozy-konnector-template] and standalone mode
+### Run the sample
+
+First of all, [download](https://github.com/konnectors/cozy-konnector-template/archive/master.zip) or clone the repository:
 
 ```sh
-git clone https://github.com/cozy/cozy-konnector-template cozy-konnector-monservice
+git clone https://github.com/konnectors/cozy-konnector-template cozy-konnector-newservice
 cd cozy-konnector-monservice
-yarn # or npm install
+rm -rf .git
+git init
+yarn install # or npm install
 ```
+_note: we use `yarn`, but if you prefer `npm`, keep using it, everything should work._
 
-_note: the Cozy Team uses `yarn`, but if you prefer `npm`, just keep using it, everything should just work._
+The connector is ready to run with sample code.
+As a demo we will scrape a fictional website: [books.toscrape.com](http://books.toscrape.com), for which __you do not need credentials__.
 
-The connector template is ready with demo code to show you how to scrape a fictional
-website: [books.toscrape.com](http://books.toscrape.com), for which you do not need to have
-credentials.
-
-As indicated in the README, just run it:
+As indicated in the `README.md` file, just run:
 
 ```sh
-yarn standalone
+yarn standalone # or npm run standalone
 ```
+The very first run will create a `konnector-dev-config.json` file that allows you to configure the connector input when executing it with the CLI.
+This configuration comes from [Cozy Collect] when deployed.
 
-The first run will create a `konnector-dev-config.json` file which allows you to configure the input
-of the connector when running it in the CLI.
-
-```javascript
+```json
 {
   "COZY_URL": "http://cozy.tools:8080",
-  "fields": {}
+  "fields": {
+    // configuration injected to the start function
+  }
 }
 ```
 
-`COZY_URL` is for later, but the `fields` attribute will allow you to define credentials to the
-target web service, like `login` and `password` as if they would come from a real [Cozy Stack]. 
+The `fields` property allow you to set credentials for the targeted web service, such as `login` and `password` as if they come from [Cozy Stack].
+The `COZY_URL` property will be used later.
 
-```javascript
+As explained earlier, the demo website [books.toscrape.com](http://books.toscrape.com) does not need any credentials.
+But for the code to run without error, you need to register a _fake_ login and a _fake_ password:
+
+```json
 {
   "COZY_URL": "http://cozy.tools:8080",
-  "fields": {"login":"zuck.m@rk.fb", "password":"123456"}
+  "fields": {
+    "login": "zuck.m@rk.fb",
+    "password": "123456"
+  }
 }
 ```
 
-**This file is ignored by git to keep credentials private**.
+**In cozy-konnector-template, this configuration file is already added to `.gitignore` file to be sure your credentials stay private.**
 
-This way to run the connector is the *standalone* mode. 
+Now you can run the connector again in *standalone* mode to see how jpg and related data are downloaded. 
+In this mode, [`cozy-client-js`] is stubbed and all data meant to be saved in a cozy are displayed in the standard output and files are saved in the root directory of the connector.
+This is useful to start developing your connector without handling the state of a real [Cozy Stack].
 
-In this mode, `cozyClient` (the client lib in charge of dealing data with the server stack) is 
-stubbed and all data meant to be saved in a cozy is displayed in the standard output and files
-are directly saved in the root directory of the connector. This is useful to first develop your
-connector without handling the state of a real [Cozy Stack].
+Please check [CLI section of the documentation](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/cli.md) for more information.
 
-You have more documentation about the standalone mode in the [CLI section of the documentation](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/cli.md).
+### Implement your connector
+
+There are four steps for a connector to save data to [Cozy Stack]:
+
+1. authentication
+1. request data
+1. parse and format data
+1. save data to cozy stack
+
+You can see these steps in the `src/index.js` in the [konnectors/cozy-konnector-template](https://github.com/konnectors/cozy-konnector-template/blob/master/src/index.js):
+
+```js
+async function start(fields) {
+  // step 1.
+  log('info', 'Authenticating ...')
+  await authenticate(fields.login, fields.password)
+  log('info', 'Successfully logged in')
+
+  // step 2.
+  // The BaseKonnector instance expects a Promise as return of the function
+  log('info', 'Fetching the list of documents')
+  const $ = await request(`${baseUrl}/index.html`)
+
+  // step 3.
+  log('info', 'Parsing list of documents')
+  const documents = await parseDocuments($)
+
+  // step 4.
+  // here we use the saveBills function even if what we fetch are not bills, but this is the most
+  // common case in connectors
+  log('info', 'Saving data to Cozy')
+  await saveBills(documents, fields.folderPath, {
+    // this is a bank identifier which will be used to link bills to bank operations. These
+    // identifiers should be at least a word found in the title of a bank operation related to this
+    // bill. It is not case sensitive.
+    identifiers: ['books']
+  })
+}
+```
+
+#### Authentication
+
+Open the `src/index.js` file, there are comments to guide you through it.
+The very first step is to be able to authenticate to the remote service, this is done with the line:
+
+```js
+await authenticate(fields.login, fields.password)
+```
+
+There are many obstacles at this level:
+
+- is there a captcha?
+- is there a 2FA?
+- how is the `<form>`?
+
+_note: if the remote service exposes an API, you should use classical [request](https://github.com/request/request-promise) call._
+
+Let's say the remote service exposes a simple classical form like https://www.trainline.eu/signin:
+
+```html
+<form id="signin-form" novalidate="" class="signin__form" data-ember-action="" data-ember-action-680="680">
+
+  <input name="email" autocomplete="on" placeholder="Email Address" id="ember691" class="ember-text-field textfield ember-view"
+    data-enpass.usermodified="yes" type="email">
+
+  <input name="password" autocomplete="on" placeholder="Password" id="ember696" class="ember-text-field textfield ember-view"
+    data-enpass.usermodified="yes" type="password">
+
+  <div class="signin__forgot">
+    <span data-ember-action="" data-ember-action-697="697">
+      <a href="/password" id="ember698" class="ember-view"> Forgot your password?
+      </a>
+    </span>
+  </div>
+
+  <div class="signin__buttons ">
+
+    <div class="signin__buttons-block">
+      <button type="submit" class="signin__button">
+        Sign In
+      </button>
+    </div>
+  </div>
+
+</form>
+```
+
+Find a CSS selector for the form tag: `form#signin-form`.
+Find the name of the input tags used to host user's credentials: `email` and `password`.
+
+You are ready to complete the `signin(options)` object called in the `authenticate(username, password)` function:
+
+```js
+function authenticate(username, password) {
+  return signin({
+    url: `https://www.trainline.eu/signin`,
+    formSelector: 'form#signin-form',
+    formData: { email: username, password },
+    validate: (statusCode, $) => {
+      // write some code to validate the form submission
+    }
+  })
+}
+```
+
+To implement the `validate` function, you need to check what is happening on a successful login and on an unsuccessful login.
+With the https://www.trainline.eu/signin example, fill the form with wrong credentials, open your browser's devtools (and check the network tab) and submit the form.
+Here it is clear, on incorrect credentials, the response have a status code `422`:
+
+```http
+HTTP/2.0 422 No Reason Phrase
+```
+
+Do the same with valid crendentials.
+
+```http
+HTTP/2.0 200 OK
+```
+
+Then you can write a simple and straight forward `validate` code:
+
+```js
+function authenticate(username, password) {
+  return signin({
+    url: `https://www.trainline.eu/signin`,
+    formSelector: 'form#signin-form',
+    formData: { email: username, password },
+    validate: (statusCode, $) => {
+      return statusCode === 200 || log('error', 'Invalid credentials')
+    }
+  })
+}
+```
+
+#### Request data
+
+Once the konnector is able to be authenticated by the online service, the next step is to fetch data.
+The most common case is that the invoices we want to fetch are listed in a HTML page.
+So to request data, we fetch the target webpage that contains invoices list.
+
+But sometimes, the webpage is a JavaScript page that uses a JSON API url.
+JSON is easier to parse than full HTML webpages.
+
+For the purpose of this guide, let's consider we are in the case of a full HTML webpage, like the service given as an example in the template: http://books.toscrape.com
+
+This is the easiest part, juste fetch the webpage:
+
+```js
+const $ = await request('http://books.toscrape.com/index.html')
+```
+
+The `$` variable is set to a [cheerio](https://cheerio.js.org/) object with [useful API to crawl the webpage](https://github.com/request/request-promise#crawl-a-webpage-better).
+
+That object will be very useful for the next step.
+
+#### Parse the document
+
+We want to get every `<article />` of the page in a JavaScript Array:
+
+```js
+const articles = [].map.call($('article', node => node))
+```
+
+For every book, we want to catch the title attribute of this tag `article h3 a`.
+This is a [CSS Selector](https://developer.mozilla.org/en-US/docs/Web/API/Document_object_model/Locating_DOM_elements_using_selectors) that [cheerio](https://cheerio.js.org/) understands to select some part of the tree.
+In order to crawl a list of items to create an Array of json object, we can use the function [scrape from the konnector libs](https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md#scrape):
+
+```js
+const docs = scrape(
+  $,
+  {
+    title: {
+      sel: 'h3 a',
+      attr: 'title'
+    },
+    amount: {
+      sel: '.price_color',
+      parse: normalizePrice
+    },
+    url: {
+      sel: 'h3 a',
+      attr: 'href',
+      parse: url => `${baseUrl}/${url}`
+    },
+    fileurl: {
+      sel: 'img',
+      attr: 'src',
+      parse: src => `${baseUrl}/${src}`
+    },
+    filename: {
+      sel: 'h3 a',
+      attr: 'title',
+      parse: title => `${title}.jpg`
+    }
+  },
+  'article'
+)
+```
+
+This code will loop on `<article />` and for each item will create a JSON object with the selector `sel` and the value of attribute `attr` if specified, otherwise it takes the value of the child node, this value can be edited with the `parse` function.
+Here is a sample for the following markup from http://books.toscrape.com:
+
+```html
+<article class="product_pod">
+  <div class="image_container">
+    <a href="catalogue/a-light-in-the-attic_1000/index.html">
+      <img src="media/cache/2c/da/2cdad67c44b002e7ead0cc35693c0e8b.jpg" alt="A Light in the Attic" class="thumbnail">
+    </a>
+  </div>
+  <p class="star-rating Three">
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+  </p>
+  <h3>
+    <a href="catalogue/a-light-in-the-attic_1000/index.html" title="A Light in the Attic">A Light in the ...</a>
+  </h3>
+  <div class="product_price">
+    <p class="price_color">£51.77</p>
+    <p class="instock availability">
+      <i class="icon-ok"></i>
+      In stock
+    </p>
+    <form>
+      <button type="submit" class="btn btn-primary btn-block" data-loading-text="Adding...">Add to basket</button>
+    </form>
+  </div>
+</article>
+```
+
+And we will get the following JSON object:
+
+```json
+{
+  "title": "A Light in the Attic",
+  "amount": 51.77,
+  "url": "http://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html",
+  "fileurl": "http://books.toscrape.com/media/cache/2c/da/2cdad67c44b002e7ead0cc35693c0e8b.jpg",
+  "filename": "A Light in the Attic.jpg"
+}
+```
+
+The code sample includes some other function to manipulate the result object, but we have the idea.
+Once we build a correct object, we can save it to Cozy Stack.
+
+#### Save data to Cozy Stack
+
+In the example we use some built-in function to save a bill to the Cozy Stack.
+But there is a bunch of functions available depending on what you want:
+
+- [`addData`](https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md#adddata)
+- [`filterData`](https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_filterData)
+- [`saveBills`](https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_saveBills)
+- [`saveFiles`](https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_saveFiles)
+- and so on…
+
+We can find more information in the [libs repository](https://github.com/konnectors/libs).
+
+__Now that we pass on every steps, it is time to test the connector with `yarn standalone`.__
+We will see in the following how to connect it effectively to a Cozy Stack.
+
+## Going further
 
 ### Connector structure
 
-Basically, a connector is just a function passed to the BaseKonnector constructor, and which
+Basically, a connector is just a function passed to the `BaseKonnector` constructor, and which
 eventually returns a promise:
 
-To create the connector, just create a new instance of BaseKonnector with the function as argument
+To create the connector, just create a new instance of `BaseKonnector` with a function as argument:
 
-```javascript
+```js
 const {BaseKonnector} = require('cozy-konnector-libs')
 
 module.exports = new BaseKonnector(fields => {
@@ -116,15 +384,17 @@ module.exports = new BaseKonnector(fields => {
 
 #### Typical workflow
 
-Every time the connector is run, it will call the function and wait for the resolution of the
-returned promise. This function can then log into the remote site, fetch data and save it in the
-form of an array of objects with specific attributes expected by the different saving functions
-(`saveFiles`, `addData`, `filterData`, `saveBills`).
+Everytime the connector is run, it will call the function and wait for the resolution of the returned promise.
+This function can then:
+
+- log into the target website,
+- fetch data,
+- and save them as an array of objects with specific attributes expected by the save function (`saveFiles`, `addData`, `filterData`, `saveBills`).
 
 A basic connector workflow involves:
 
  1. authenticate on the website or API. Might be tricky, but that's the fun :-)
- 2. getting data from the online service. You can get the data by calling an API or scraping the webpage. Check if the webpage itself is not using an API to retrieve data, might speed up your job. Mobile phones applications usually connects to an API that might be a reliable source of data.
+ 2. getting data from the online service. You can get the data by calling an API or scraping the webpage. Check if the webpage itself is not using an API to retrieve data, might speed up our job. Mobile phones applications usually connects to an API that might be a reliable source of data.
  </br>A quick [exemple of a scraper here](#How-do-I-scrape-my-data-from-a-website).
  3. filtering data to remove the ones already present inside the database using [filterData](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_filterData)
  4. save the filtered data into the database ([addData](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#adddata))
@@ -142,7 +412,7 @@ If your connector hits an issue fetching or saving the data, it can return an er
 
 You can get the list of error codes in `require('cozy-konnector-libs').errors` ([source](https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/src/helpers/errors.js))
 
-``` javascript
+```js
 const {BaseKonnector, errors} = require('cozy-konnector-libs')
 
 module.exports = new BaseKonnector(fields => {
@@ -177,7 +447,7 @@ For that your connector needs more setup :
 
 Each connector is described by a manifest. This is a JSON file named `manifest.konnector` at the root of your code folder. It should include the following minimal information:
 
-```
+```json
 {
   "name": "konnector name",
   "type": "node",
@@ -257,9 +527,9 @@ If you get this problem, catch the error yourself and only display the message :
 }
 ```
 
-### <a name="How-do-I-scrape-my-data-from-a-website"></a>How do I scrap a website
+### How do I scrap a website
 
-Use the request function from [cozy-konnector-libs] with the proper options
+Use the request function from [cozy-konnector-libs] with the proper options.
 
 Here’s a sample code that will fetch the login page to get the value of the anti-CSRF token, submit the login form, browse to the bills page and fetch a bill:
 
@@ -298,5 +568,5 @@ module.exports = new BaseKonnector(function fetch (fields) {
 [Cozy Collect]: https://github.com/cozy/cozy-collect
 [Cozy Stack]: https://cozy.github.io/cozy-stack/
 [cozy-konnector-libs]: https://github.com/cozy/cozy-konnector-libs
-[cozy-client-js]: https://cozy.github.io/cozy-client-js/
+[cozy-client-js]: https://github.com/cozy/cozy-client-js/
 [cozy-konnector-template]: https://github.com/cozy/cozy-konnector-template
