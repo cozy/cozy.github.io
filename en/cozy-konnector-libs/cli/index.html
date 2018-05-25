@@ -401,6 +401,10 @@
 </li>
             
 <li >
+    <a href="../../cozy-stack/move/">/move - Move, export and import an instance</a>
+</li>
+            
+<li >
     <a href="../../cozy-stack/notifications/">/notifications - Notifications</a>
 </li>
             
@@ -528,7 +532,7 @@ the <code>scripts</code> section of your package.json file</p>
 
 <p>The requests to the cozy-stack will be stubbed using the [./fixture.json] file as source of data
 and when cozy-client-js is asked to create or update data, the data will be output to the console.
-The bills (or any file) will be saved in the . directory.</p>
+The bills (or any file) will be saved in the ./data directory.</p>
 <p>It is possible to add an argument to this command which tells which file to run. Default is
 defined in <code>package.json</code> <code>main</code> section or ./src/index.js</p>
 <p>It is possible to record and replay the requests done by the standalone command using the
@@ -559,7 +563,7 @@ in the <code>scripts</code> section of your package.json file:</p>
 <p>This command will register your konnector as an OAuth application to the cozy-stack and then set the <code>COZY_CREDENTIALS</code> and <code>COZY_FIELDS</code> environment variable. By default,
 the cozy-stack is supposed to be located in http://cozy.tools:8080. If this is not your case, just
 update the COZY_URL field in [./konnector-dev-config.json].</p>
-<p>After that, your konnector is running but should not work since you did not specify any credentials to
+<p>After that, your connector is running but should not work since you did not specify any credentials to
 the target service. You can do this also in [./konnector-dev-config.json] in the &ldquo;fields&rdquo; section.</p>
 <p>The files are saved in the root directory of your cozy by default.</p>
 <p>It is also possible to add an argument to this command which tells which file to run. Default is
@@ -568,7 +572,6 @@ defined in <code>package.json</code> <code>main</code> section or ./src/index.js
 <pre class="codehilite"><code>$ cozy-run-dev &lt;file&gt; [-t token.json] [-m manifest.webapp]</code></pre>
 
 
-<p>As for the <code>standalone</code> command, you can specify which file to run. Default is <code>./index.js</code>.</p>
 <ul>
 <li><code>-t</code>, <code>--token</code> : Specify where the token should be saved</li>
 <li><code>-m</code>, <code>--manifest</code> : Specify the manifest.path that should be used for the permissions</li>

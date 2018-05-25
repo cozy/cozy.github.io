@@ -7,10 +7,10 @@
         
         
         <meta name="author" content="CozyCloud - https://cozy.io">
-        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/konnectors/">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/move/">
         <link rel="shortcut icon" href="../../img/favicon.png">
         
-        <title>Konnectors - Cozy Documentation</title>
+        <title>/move - Move, export and import an instance - Cozy Documentation</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -392,16 +392,16 @@
     <a href="../jobs/">/jobs Jobs</a>
 </li>
             
-<li class="active">
-    <a href="./">Konnectors</a>
+<li >
+    <a href="../konnectors/">Konnectors</a>
 </li>
             
 <li >
     <a href="../workers/">Workers</a>
 </li>
             
-<li >
-    <a href="../move/">/move - Move, export and import an instance</a>
+<li class="active">
+    <a href="./">/move - Move, export and import an instance</a>
 </li>
             
 <li >
@@ -471,16 +471,12 @@
                 <div class="col-md-3">
 <div class="bs-sidebar hidden-print affix" role="complementary">
     <ul class="nav bs-sidenav well" style='padding-left: 0; padding-right: 0; margin-bottom: 1.5rem'>
-        <li class="main active"><a href="#konnectors">Konnectors</a></li>
-            <li><a href="#install-a-konnector">Install a konnector</a></li>
-            <li><a href="#the-manifest">The manifest</a></li>
-            <li><a href="#list-installed-konnectors">List installed konnectors</a></li>
-            <li><a href="#get-informations-about-a-konnector">Get informations about a konnector</a></li>
-            <li><a href="#uninstall-a-konnector">Uninstall a konnector</a></li>
+        <li class="main active"><a href="#move-export-and-import">Move, export and import</a></li>
+            <li><a href="#export">Export</a></li>
     </ul>
   <div style='padding-left: 2rem'>
     
-    <a id='edit-link' href='https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-stack/konnectors.md'>Edit documentation</a>
+    <a id='edit-link' href='https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-stack/move.md'>Edit documentation</a>
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
@@ -518,254 +514,104 @@
                 <div class="col-md-9" role="main">
 
 <p><a href="../README/#table-of-contents">Table of contents</a></p>
-<h1 id="konnectors">Konnectors<a class="headerlink" href="#konnectors" title="Permanent link">&para;</a></h1>
-<p>It is possible to manage konnectors applications from the stack. The source-code
-of the konnector is installed on the cozy and the user can manage its execution
-<em>via</em> our <a href="../jobs/">job system</a> and the <a href="../workers/">konnector worker</a>.</p>
-<h2 id="install-a-konnector">Install a konnector<a class="headerlink" href="#install-a-konnector" title="Permanent link">&para;</a></h2>
-<h2 id="the-manifest">The manifest<a class="headerlink" href="#the-manifest" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>name</td>
-<td>the name to display on the home</td>
-</tr>
-<tr>
-<td>slug</td>
-<td>the default slug (it can be changed at install time)</td>
-</tr>
-<tr>
-<td>editor</td>
-<td>the editor&rsquo;s name to display on the cozy-bar of the app</td>
-</tr>
-<tr>
-<td>type</td>
-<td>the type of the konnector source (&ldquo;node&rdquo; is the only supported for now)</td>
-</tr>
-<tr>
-<td>icon</td>
-<td>an icon for the home</td>
-</tr>
-<tr>
-<td>screenshots</td>
-<td>an array of path to the screenshots of the application</td>
-</tr>
-<tr>
-<td>category</td>
-<td>the category of the application</td>
-</tr>
-<tr>
-<td>short_description</td>
-<td>a short description of the application</td>
-</tr>
-<tr>
-<td>long_description</td>
-<td>a long description of the application</td>
-</tr>
-<tr>
-<td>source</td>
-<td>where the files of the app can be downloaded</td>
-</tr>
-<tr>
-<td>developer</td>
-<td><code>name</code> and <code>url</code> for the developer</td>
-</tr>
-<tr>
-<td>default_locale</td>
-<td>the locale used for the name and description fields</td>
-</tr>
-<tr>
-<td>locales</td>
-<td>translations of the name and description fields in other locales</td>
-</tr>
-<tr>
-<td>langs</td>
-<td>list of languages tags supported by the application</td>
-</tr>
-<tr>
-<td>version</td>
-<td>the current version number</td>
-</tr>
-<tr>
-<td>parameters</td>
-<td>any json object that will be passed to the konnector on execution in the <code>COZY_PARAMETERS</code> environment variable</td>
-</tr>
-<tr>
-<td>license</td>
-<td><a href="https://spdx.org/licenses/">the SPDX license identifier</a></td>
-</tr>
-<tr>
-<td>permissions</td>
-<td>a map of permissions needed by the app (see <a href="../permissions/">here</a> for more details)</td>
-</tr>
-</tbody>
-</table>
-<h3 id="post-konnectorsslug">POST /konnectors/:slug<a class="headerlink" href="#post-konnectorsslug" title="Permanent link">&para;</a></h3>
-<p>Install a konnector, ie download the files and put them in <code>/konnectors/:slug</code>
-in the virtual file system of the user, create an <code>io.cozy.konnectors</code> document,
-register the permissions, etc.</p>
-<p>This endpoint is asynchronous and returns a successful return as soon as the
-konnector installation has started, meaning we have successfully reached the
-manifest and started to fetch konnector source code.</p>
-<p>To make this endpoint synchronous, use the header <code>Accept: text/event-stream</code>.
-This will make a eventsource stream sending the manifest and returning when the
-konnector has been installed or failed.</p>
-<h4 id="status-codes">Status codes<a class="headerlink" href="#status-codes" title="Permanent link">&para;</a></h4>
+<h1 id="move-export-and-import">Move, export and import<a class="headerlink" href="#move-export-and-import" title="Permanent link">&para;</a></h1>
+<h2 id="export">Export<a class="headerlink" href="#export" title="Permanent link">&para;</a></h2>
+<p>A Cozy&rsquo;s user can ask at any time to export a snapshot of all its data and
+metadata. This export takes place asynchronously and is separated in two
+parts:
+    * a metadata tarball containing the in a JSON format all the doctypes
+    * multi-part files tarballs containing the files (or a subpart of the
+      files)</p>
+<p>The export process is part of a worker described in the <a href="../workers/#export">workers
+section</a> of the documentation.</p>
+<p>Endpoints described in this documentation require a permission on the
+<code>io.cozy.exports</code> doctype.</p>
+<h3 id="post-moveexports">POST /move/exports<a class="headerlink" href="#post-moveexports" title="Permanent link">&para;</a></h3>
+<p>This endpoint can be used to create a new export job.</p>
+<p>Exports options fields are:</p>
 <ul>
-<li>202 Accepted, when the konnector installation has been accepted.</li>
-<li>400 Bad-Request, when the manifest of the konnector could not be processed
-  (for instance, it is not valid JSON).</li>
-<li>404 Not Found, when the manifest or the source of the konnector is not
-  reachable.</li>
-<li>422 Unprocessable Entity, when the sent data is invalid (for example, the slug
-  is invalid or the Source parameter is not a proper or supported url)</li>
+<li><code>parts_size</code> (optional) (int): the size in bytes of a tarball files part.</li>
+<li><code>max_age</code> (optional) (duration / nanosecs): the maximum age of the export
+  data.</li>
+<li><code>with_doctypes</code> (optional) (string array): the list of whitelisted exported
+  doctypes</li>
+<li><code>without_files</code> (optional) (boolean): whether or not the export contains the
+  files index (if false, it is not possible to generate files tarball).</li>
 </ul>
-<h4 id="query-string">Query-String<a class="headerlink" href="#query-string" title="Permanent link">&para;</a></h4>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Source</td>
-<td>URL from where the app can be downloaded (only for install)</td>
-</tr>
-</tbody>
-</table>
 <h4 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h4>
-<pre class="codehilite"><code class="language-http">POST /konnectors/bank101?Source=git://github.com/cozy/cozy-bank101.git HTTP/1.1
-Accept: application/vnd.api+json</code></pre>
-
-
-<h4 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h4>
-<pre class="codehilite"><code class="language-http">HTTP/1.1 202 Accepted
+<pre class="codehilite"><code class="language-http">POST /move/exports HTTP/1.1
+Host: alice.cozy.tools
+Authorization: Bearer ...
 Content-Type: application/vnd.api+json</code></pre>
 
 
 <pre class="codehilite"><code class="language-json">{
-  &quot;data&quot;: [{
-    &quot;id&quot;: &quot;4cfbd8be-8968-11e6-9708-ef55b7c20863&quot;,
-    &quot;type&quot;: &quot;io.cozy.konnectors&quot;,
-    &quot;meta&quot;: {
-      &quot;rev&quot;: &quot;1-7a1f918147df94580c92b47275e4604a&quot;
-    },
-    &quot;attributes&quot;: {
-      &quot;name&quot;: &quot;bank101&quot;,
-      &quot;state&quot;: &quot;installing&quot;,
-      &quot;slug&quot;: &quot;bank101&quot;,
-      ...
-    },
-    &quot;links&quot;: {
-      &quot;self&quot;: &quot;/konnectors/bank101&quot;
+    &quot;data&quot;: {
+        &quot;attributes&quot;: {
+            &quot;parts_size&quot;: 10240,
+            &quot;with_doctypes&quot;: [],
+            &quot;without_files&quot;: false,
+        }
     }
-  }]
 }</code></pre>
 
 
-<p><strong>Note</strong>: it&rsquo;s possible to choose a git branch by passing it in the fragment
-like this:</p>
-<pre class="codehilite"><code class="language-http">POST /konnectors/bank101-dev?Source=git://github.com/cozy/cozy-bank101.git%23dev HTTP/1.1</code></pre>
-
-
-<h3 id="put-konnectorsslug">PUT /konnectors/:slug<a class="headerlink" href="#put-konnectorsslug" title="Permanent link">&para;</a></h3>
-<p>Update a konnector source code with the specified slug name.</p>
-<p>This endpoint is asynchronous and returns a successful return as soon as the
-konnector installation has started, meaning we have successfully reached the
-manifest and started to fetch konnector source code.</p>
-<p>To make this endpoint synchronous, use the header <code>Accept: text/event-stream</code>.
-This will make a eventsource stream sending the manifest and returning when the
-konnector has been updated or failed.</p>
-<h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
-<pre class="codehilite"><code class="language-http">PUT /konnectors/bank101 HTTP/1.1
-Accept: application/vnd.api+json</code></pre>
-
-
-<h4 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h4>
-<pre class="codehilite"><code class="language-http">HTTP/1.1 202 Accepted
-Content-Type: application/vnd.api+json</code></pre>
-
-
-<pre class="codehilite"><code class="language-json">{
-  &quot;data&quot;: [{
-    &quot;id&quot;: &quot;4cfbd8be-8968-11e6-9708-ef55b7c20863&quot;,
-    &quot;type&quot;: &quot;io.cozy.konnectors&quot;,
-    &quot;meta&quot;: {
-      &quot;rev&quot;: &quot;1-7a1f918147df94580c92b47275e4604a&quot;
-    },
-    &quot;attributes&quot;: {
-      &quot;name&quot;: &quot;bank101&quot;,
-      &quot;state&quot;: &quot;installing&quot;,
-      &quot;slug&quot;: &quot;bank101&quot;,
-      ...
-    },
-    &quot;links&quot;: {
-      &quot;self&quot;: &quot;/konnectors/bank101&quot;
-    }
-  }]
-}</code></pre>
-
-
-<h4 id="status-codes_1">Status codes<a class="headerlink" href="#status-codes_1" title="Permanent link">&para;</a></h4>
+<h3 id="get-moveexportsopaque-identifier">GET /move/exports/:opaque-identifier<a class="headerlink" href="#get-moveexportsopaque-identifier" title="Permanent link">&para;</a></h3>
+<p>This endpoint can be used to fetch the metadata of an export.</p>
+<p>Exports fields are:</p>
 <ul>
-<li>202 Accepted, when the konnector installation has been accepted.</li>
-<li>400 Bad-Request, when the manifest of the konnector could not be processed
-  (for instance, it is not valid JSON).</li>
-<li>404 Not Found, when the konnector with the specified slug was not found or
-  when the manifest or the source of the konnector is not reachable.</li>
-<li>422 Unprocessable Entity, when the sent data is invalid (for example, the slug
-  is invalid or the Source parameter is not a proper or supported url)</li>
+<li><code>parts_size</code> (int): the size in bytes of a tarball files part.</li>
+<li><code>parts_cursors</code> (string array): the list of cursors to access to the
+  different files parts.</li>
+<li><code>parts_length</code> (int): number of parts</li>
+<li><code>with_doctypes</code> (string array): the list of whitelisted exported doctypes
+  (if empty of null, all doctypes are exported)</li>
+<li><code>without_files</code> (boolean): whether or not the export contains the files
+  index (if false, it is not possible to generate files tarball).</li>
+<li><code>state</code> (string): the state of the export (<code>"exporting"</code> / <code>"done"</code> /
+  <code>"error"</code>).</li>
+<li><code>created_at</code> (string / time): the date of creation of the export</li>
+<li><code>expires_at</code> (string / time): the date of expiration of the export</li>
+<li><code>total_size</code> (int): the total size of the export metadata</li>
+<li><code>creation_duration</code> (int): the amount of nanoseconds taken for the creation
+  of the export</li>
+<li><code>error</code> (string): an error string if the export is in an <code>"error"</code> state</li>
 </ul>
-<h2 id="list-installed-konnectors">List installed konnectors<a class="headerlink" href="#list-installed-konnectors" title="Permanent link">&para;</a></h2>
-<h3 id="get-konnectors">GET /konnectors/<a class="headerlink" href="#get-konnectors" title="Permanent link">&para;</a></h3>
-<h4 id="request_2">Request<a class="headerlink" href="#request_2" title="Permanent link">&para;</a></h4>
-<pre class="codehilite"><code class="language-http">GET /konnectors/ HTTP/1.1
-Accept: application/vnd.api+json</code></pre>
-
-
-<h4 id="response_2">Response<a class="headerlink" href="#response_2" title="Permanent link">&para;</a></h4>
-<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+<h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">GET /move/exports/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX HTTP/1.1
+Host: alice.cozy.tools
+Authorization: Bearer ...
 Content-Type: application/vnd.api+json</code></pre>
 
 
 <pre class="codehilite"><code class="language-json">{
-  &quot;data&quot;: [{
-    &quot;id&quot;: &quot;4cfbd8be-8968-11e6-9708-ef55b7c20863&quot;,
-    &quot;type&quot;: &quot;io.cozy.konnectors&quot;,
-    &quot;meta&quot;: {
-      &quot;rev&quot;: &quot;1-7a1f918147df94580c92b47275e4604a&quot;
-    },
-    &quot;attributes&quot;: {
-      &quot;name&quot;: &quot;bank101&quot;,
-      &quot;state&quot;: &quot;installing&quot;,
-      &quot;slug&quot;: &quot;bank101&quot;,
-      ...
-    },
-    &quot;links&quot;: {
-      &quot;self&quot;: &quot;/konnectors/bank101&quot;
+    &quot;data&quot;: {
+        &quot;type&quot;: &quot;io.cozy.exports&quot;,
+        &quot;id&quot;: &quot;86dbb546ca49f0ed1ce0a1ff0d1b15e3&quot;,
+        &quot;meta&quot;: {
+            &quot;rev&quot;: &quot;2-XXX&quot;,
+        },
+        &quot;attributes&quot;: {
+            &quot;parts_size&quot;: 10240,
+            &quot;parts_cursors&quot;: [&quot;AAA&quot;, &quot;BBB&quot;, &quot;CCC&quot;],
+            &quot;with_doctypes&quot;: [],
+            &quot;without_files&quot;: false,
+            &quot;state&quot;: &quot;done&quot;,
+            &quot;created_at&quot;: &quot;2018-05-04T08:59:37.530693972+02:00&quot;,
+            &quot;expires_at&quot;: &quot;2018-05-11T08:59:37.530693972+02:00&quot;,
+            &quot;total_size&quot;: 1123,
+            &quot;creation_duration&quot;: 62978511,
+            &quot;error&quot;: &quot;&quot;
+        }
     }
-  }]
 }</code></pre>
 
 
-<h2 id="get-informations-about-a-konnector">Get informations about a konnector<a class="headerlink" href="#get-informations-about-a-konnector" title="Permanent link">&para;</a></h2>
-<h3 id="get-konnectorsslug">GET /konnectors/:slug<a class="headerlink" href="#get-konnectorsslug" title="Permanent link">&para;</a></h3>
-<h2 id="uninstall-a-konnector">Uninstall a konnector<a class="headerlink" href="#uninstall-a-konnector" title="Permanent link">&para;</a></h2>
-<h3 id="delete-appsslug">DELETE /apps/:slug<a class="headerlink" href="#delete-appsslug" title="Permanent link">&para;</a></h3>
-<h4 id="request_3">Request<a class="headerlink" href="#request_3" title="Permanent link">&para;</a></h4>
-<pre class="codehilite"><code class="language-http">DELETE /konnectors/bank101 HTTP/1.1</code></pre>
-
-
-<h4 id="response_3">Response<a class="headerlink" href="#response_3" title="Permanent link">&para;</a></h4>
-<pre class="codehilite"><code class="language-http">HTTP/1.1 204 No Content</code></pre></div>
+<h3 id="get-moveexportsdataopaque-identifiercursorxxx">GET /move/exports/data/:opaque-identifier?cursor=XXX<a class="headerlink" href="#get-moveexportsdataopaque-identifiercursorxxx" title="Permanent link">&para;</a></h3>
+<p>This endpoint will download an archive containing the metadata and files of
+the user, as part of a multi-part download. The cursor given should be one of
+the defined in the export document <code>parts_cursors</code>.</p>
+<p>Only the first part of part of the data contains the metadata.</p></div>
         </div>
 
         <footer class="col-md-12">
