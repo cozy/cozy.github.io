@@ -54,7 +54,10 @@ def read_toc(directory):
             return toc
 
 def find_entry(tree, name):
-    return [p for p in tree if p.get(name)][0][name]
+    entries = [p for p in tree if p.get(name)]
+    if not entries:
+        return []
+    return entries[0][name]
 
 def main():
     with open('./mkdocs.yml') as f:
@@ -73,7 +76,8 @@ def main():
     develop = find_entry(data['pages'], 'Develop')
     references = find_entry(develop, 'References')
 
-    del references[:]
+    if references:
+        del references[:]
 
     for dir in outside_doc_names:
         abs = osp.join('./src', dir)
