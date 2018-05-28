@@ -36,6 +36,12 @@ def ordered_dump(data, stream=None, Dumper=yaml.Dumper, **kwds):
 
 leadingHash = re.compile('#+\s+')
 
+def get_readme(directory):
+    readme_path = osp.join('src', directory, 'README.md')
+    if not osp.exists(readme_path):
+        return
+    return osp.join(directory, 'README.md')
+
 def read_toc(directory):
     toc_path = osp.join('src', directory, 'toc.yml')
     if not osp.exists(toc_path):
@@ -82,11 +88,41 @@ def replace_entry(name, value):
 def insert_external_docs(data, external_docs):
     remaining_external_docs = external_docs
 
-    develop = find_entry(data['pages'], 'Develop')
-    references = reduce(reduce_toc, remaining_external_docs, [])
+    def get_content(ref):
+        if ref in remaining_external_docs:
+            del remaining_external_docs[remaining_external_docs.index(ref)]
+            toc = read_toc(ref)
+            if toc:
+                return { dir: toc }
+            else:
+                readme = get_readme(ref)
+                if readme:
+                    return readme
+        return ref
 
-    develop_with_externals_docs = map(replace_entry('References', references), develop)
-    data['pages'] = map(replace_entry('Develop', develop_with_externals_docs), data['pages'])
+    def replace_references(external_docs):
+        def replace_reference(entry):
+            if isinstance(entry, basestring):
+                return get_content(entry)
+
+            name = entry.items()[0][0]
+            value = entry.items()[0][1]
+
+            if isinstance(value, basestring):
+                return OrderedDict([(name, get_content(value))])
+
+            return OrderedDict([(name, map(replace_references(external_docs), value))])
+
+        return replace_reference
+
+    data['pages'] = map(replace_references(remaining_external_docs), data['pages'])
+
+    if remaining_external_docs:
+        develop = find_entry(data['pages'], 'Develop')
+        references = reduce(reduce_toc, remaining_external_docs, [])
+
+        develop_with_externals_docs = map(replace_entry('References', references), develop)
+        data['pages'] = map(replace_entry('Develop', develop_with_externals_docs), data['pages'])
 
     return data
 
