@@ -59,6 +59,37 @@ def find_entry(tree, name):
         return []
     return entries[0][name]
 
+def reduce_toc(accumulated_dirs, dir):
+    toc = read_toc(dir)
+    if toc:
+        accumulated_dirs.append({ dir: toc })
+    return accumulated_dirs
+
+def replace_entry(name, value):
+    def replace_if_match(entry):
+        if isinstance(entry, basestring):
+            if (entry == name):
+                return OrderedDict([(name, value)])
+            else:
+                return entry
+        else:
+            if (entry.get(name) != None):
+                return OrderedDict([(name, value)])
+            else:
+                return entry
+    return replace_if_match
+
+def insert_external_docs(data, external_docs):
+    remaining_external_docs = external_docs
+
+    develop = find_entry(data['pages'], 'Develop')
+    references = reduce(reduce_toc, remaining_external_docs, [])
+
+    develop_with_externals_docs = map(replace_entry('References', references), develop)
+    data['pages'] = map(replace_entry('Develop', develop_with_externals_docs), data['pages'])
+
+    return data
+
 def main():
     with open('./mkdocs.yml') as f:
         data = ordered_load(f, yaml.SafeLoader)
@@ -66,19 +97,9 @@ def main():
     with open('EXTERNAL_DOCS') as f:
         external_docs = [l.split(' ')[0] for l in f.readlines()]
 
-    develop = find_entry(data['pages'], 'Develop')
-    references = find_entry(develop, 'References')
-
-    if references:
-        del references[:]
-
-    for dir in external_docs:
-        abs = osp.join('./src', dir)
-        toc = read_toc(dir)
-        if toc:
-            references.append({ dir: toc })
+    data_with_external_docs = insert_external_docs(data, external_docs)
 
     with open('mkdocs.yml', 'w+') as f:
-        ordered_dump(data, f, indent=2, default_flow_style=False, Dumper=yaml.SafeDumper)
+        ordered_dump(data_with_external_docs, f, indent=2, default_flow_style=False, Dumper=yaml.SafeDumper)
 
 main()
