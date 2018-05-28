@@ -99,7 +99,7 @@ def main():
 
     data_with_external_docs = insert_external_docs(data, external_docs)
 
-    with open('mkdocs.yml', 'w+') as f:
+    with open('mkdocs.out.yml', 'w+') as f:
         ordered_dump(data_with_external_docs, f, indent=2, default_flow_style=False, Dumper=yaml.SafeDumper)
 
 main()
