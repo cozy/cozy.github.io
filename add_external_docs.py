@@ -63,8 +63,8 @@ def main():
     with open('./mkdocs.yml') as f:
         data = ordered_load(f, yaml.SafeLoader)
 
-    with open('OUTSIDE_DOCS') as f:
-        outside_docs = [l.split(' ')[0] for l in f.readlines()]
+    with open('EXTERNAL_DOCS') as f:
+        external_docs = [l.split(' ')[0] for l in f.readlines()]
 
     develop = find_entry(data['pages'], 'Develop')
     references = find_entry(develop, 'References')
@@ -72,7 +72,7 @@ def main():
     if references:
         del references[:]
 
-    for dir in outside_docs:
+    for dir in external_docs:
         abs = osp.join('./src', dir)
         toc = read_toc(dir)
         if toc:

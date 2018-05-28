@@ -20,7 +20,7 @@ function fetch-from-remote {
     cd -
 }
 
-cat OUTSIDE_DOCS | while read line; do
+cat EXTERNAL_DOCS | while read line; do
   arr=($line)
   name=${arr[0]}
   repo=${arr[1]}
