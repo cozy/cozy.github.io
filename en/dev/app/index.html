@@ -474,8 +474,8 @@
         <li class="main active"><a href="#how-to-create-your-first-cozy-application">How to create your first Cozy application</a></li>
             <li><a href="#prerequisite">Prerequisite</a></li>
             <li><a href="#install-the-development-environment">Install the development environment</a></li>
-            <li><a href="#create-your-first-application">Create your first application</a></li>
-            <li><a href="#todo">TODO</a></li>
+            <li><a href="#create-your-application">Create your application</a></li>
+            <li><a href="#extra-documentation-about-application-development">Extra documentation about application development</a></li>
     </ul>
   <div style='padding-left: 2rem'>
     
@@ -518,12 +518,14 @@
 
 <h1 id="how-to-create-your-first-cozy-application">How to create your first Cozy application<a class="headerlink" href="#how-to-create-your-first-cozy-application" title="Permanent link">&para;</a></h1>
 <h2 id="prerequisite">Prerequisite<a class="headerlink" href="#prerequisite" title="Permanent link">&para;</a></h2>
-<p>Developing an application for Cozy is quite easy. All you need to know is:</p>
+<p>Developing an application for Cozy is quite easy. All you need to have is:</p>
 <ul>
-<li>how to develop a single page application in HTML5. You can use the tools or framework of your choice, or no framework</li>
-<li>basic Docker knowledges.</li>
+<li>NodeJS 8+</li>
+<li><a href="https://yarnpkg.com">Yarn</a>: a NodeJS package manager, like <code>npm</code></li>
+<li>Docker to have a Cozy for dev</li>
+<li>Some basics about developing a single page application in HTML/JS or you just want to learn :)</li>
 </ul>
-<p>The only required tool is Docker. We have been told that installing Docker on some familial flavours of Windows may be a bit difficult. If you use Windows, please check if Docker is available on your system.</p>
+<p>The only tool required to have a Cozy for development is Docker. We have been told that installing Docker on some familial flavours of Windows may be a bit difficult. If you use Windows, please check if Docker is available on your system.</p>
 <h2 id="install-the-development-environment">Install the development environment<a class="headerlink" href="#install-the-development-environment" title="Permanent link">&para;</a></h2>
 <div class="admonition warning">
 <p>On GNU/Linux, according <a href="https://docs.docker.com/engine/installation/linux/linux-postinstall/">to the documentation</a>: « The docker daemon binds to a Unix socket instead of a TCP port. By default that Unix socket is owned by the user root and other users can only access it using sudo. If you don’t want to use sudo when you use the docker command, create a Unix group called docker and add users to it. Be warned that the docker group grants privileges equivalent to the root user. You should have a look at <a href="https://docs.docker.com/engine/security/security/">Docker’s documentation on security</a>.</p>
@@ -535,13 +537,48 @@
 
 
 <p>(We update this image on a regular basis with the latest version of the server and our library. Don’t forget to update the image by running <code>docker pull cozy/cozy-app-dev</code> from time to time).</p>
-<h2 id="create-your-first-application">Create your first application<a class="headerlink" href="#create-your-first-application" title="Permanent link">&para;</a></h2>
+<h2 id="create-your-application">Create your application<a class="headerlink" href="#create-your-application" title="Permanent link">&para;</a></h2>
+<p>You can boostrap your application from scratch if you want, but we recommand to use our new community tool <a href="https://github.com/CPatchane/create-cozy-app"><code>create-cozy-app</code></a> to bootstrap very easily a Cozy application for you.</p>
+<p>This tool will generate an application using (P)React, the framework we internally use in the Cozy Front team. But <a href="https://github.com/CPatchane/create-cozy-app#options">options</a> are available if you want to use other frameworks.</p>
+<div class="admonition warning">
+<p>For now the new <a href="https://github.com/cozy/cozy-client"><code>cozy-client</code></a> is used only in the (P)React template (it doesn&rsquo;t use the previous <code>cozy-client-js</code> anymore). This library is at an early stage but you can use it, it will be our next Cozy client for application development.</p>
+</div>
+<p>First of all, run directly <code>create-cozy-app</code> without installing it globally by using the <code>yarn create cozy-app</code> command to bootstrap your application:</p>
+<pre class="codehilite"><code>yarn create cozy-app mycozyapp</code></pre>
+
+
+<p>The script will download some dependencies (may take a while) and ask you a few questions, then create an application skeleton inside <code>mycozyapp</code>.</p>
+<p>That&rsquo;s all! You can start hacking:</p>
+<pre class="codehilite"><code>cd mycozyapp
+yarn watch:standalone</code></pre>
+
+
+<p>After the webpack build, your app should be available at http://localhost:8888</p>
+<blockquote>
+<p>You can change the host and the port of your application server here by using respectively the environment variables HOST and PORT</p>
+</blockquote>
+<h3 id="run-it-inside-a-cozy-using-docker">Run it inside a Cozy using Docker<a class="headerlink" href="#run-it-inside-a-cozy-using-docker" title="Permanent link">&para;</a></h3>
+<p>You can run your application (here <code>mycozyapp</code>) inside a Cozy thanks to the [cozy-stack docker image][cozy-stack-docker]:</p>
+<pre class="codehilite"><code class="language-sh"># in a terminal, run your app in watch mode
+$ cd mycozyapp
+$ yarn watch:browser</code></pre>
+
+
+<p>Then, in another terminal:</p>
+<pre class="codehilite"><code class="language-sh"># in another terminal, run the docker container
+$ yarn stack:docker
+# or if you want the complete command (see more documentation below)
+$ docker run --rm -it -p 8080:8080 -v &quot;$(pwd)/build&quot;:/data/cozy-app/mycozyapp cozy/cozy-app-dev</code></pre>
+
+
+<p>Your app is now available at http://mycozyapp.cozy.tools:8080.</p>
+<h2 id="extra-documentation-about-application-development">Extra documentation about application development<a class="headerlink" href="#extra-documentation-about-application-development" title="Permanent link">&para;</a></h2>
+<h3 id="how-is-the-application-working">How is the application working?<a class="headerlink" href="#how-is-the-application-working" title="Permanent link">&para;</a></h3>
 <p>The minimal application consist of only two files:</p>
 <ul>
 <li>an HTML file, <code>index.html</code>, with the markup and the code of your application</li>
-<li>a manifest describing the application. It’s a JSON file named <code>manifest.webapp</code> with the name of the application, the permissions it requires… We’ll have a deeper look to it content later. #TODO add an inner link to the manifest description.</li>
+<li>a manifest describing the application. It’s a JSON file named <code>manifest.webapp</code> with the name of the application, the permissions it requires… We’ll have a deeper look to it content later.</li>
 </ul>
-<p>Your application will be able to use some shared libraries provided by the server, so you don’t have to include them into your project.</p>
 <p>Your application requires some informations to interact with the server API, for example the URL of its entrypoint, and an auth token. This data will be dynamically injected into <code>index.html</code> when it serves the page. So the <code>index.html</code> file has to contain some string that will be replaced by the server. The general syntax of this variables is <code>{{…}}</code>, so don’t use this syntax for other purpose in the page, for example inside comments.</p>
 <p>You can use the following variables:</p>
 <ul>
@@ -553,7 +590,10 @@
 <li><code>{{.CozyClientJS}}</code> will be replaced with HTML code to inject the Cozy client library</li>
 <li><code>{{.CozyBar}}</code> will be replaced with HTML code to inject the upper menu bar.</li>
 </ul>
-<h3 id="use-the-api">Use the API<a class="headerlink" href="#use-the-api" title="Permanent link">&para;</a></h3>
+<h3 id="use-the-api-with-cozy-client-js">Use the API with cozy-client-js<a class="headerlink" href="#use-the-api-with-cozy-client-js" title="Permanent link">&para;</a></h3>
+<div class="admonition warning">
+<p>We are currently working on a new <a href="https://github.com/cozy/cozy-client"><code>cozy-client</code></a> library which will be more updated and used in the future than <code>cozy-client-js</code>. But the two libraries (<code>cozy-client</code> and <code>cozy-client-js</code>) don&rsquo;t rely on each other so you can still use the one you want to handle Cozy data for now.</p>
+</div>
 <p>If you added <code>{{.CozyClientJS}}</code> to your page, interacting with the server will be as easy as using the Cozy Client JS library. All you have to do is to initiate the library with the server parameters (the URL of the API and the auth token of your application):</p>
 <pre class="codehilite"><code class="language-js">  window.cozy.client.init({cozyURL: &quot;…&quot;, token: &quot;…&quot;});</code></pre>
 
@@ -567,7 +607,7 @@
 <p>This library embeds most of the available server APIs: manipulate documents and files, manage applications and server settings… It also provides some some methods to help application keep working while being offline.</p>
 <p>Some server APIs may not be available right now through the library. If you want to use one of this method, you’ll have to call it manually. See below. #TODO - add inner link.</p>
 <h4 id="behind-the-magic">Behind the magic<a class="headerlink" href="#behind-the-magic" title="Permanent link">&para;</a></h4>
-<p>Some server APIs may not be available right now through the library. If you want to use one of this method, you’ll have to call it manually. We’ll describe here how to access the API without using the Cozy Cliznt JS library.</p>
+<p>Some server APIs may not be available right now through the library. If you want to use one of this method, you’ll have to call it manually. We’ll describe here how to access the API without using the Cozy Client JS library.</p>
 <p>Connecting to the API requires three things:</p>
 <ul>
 <li>its URL, injected into the page through the <code>{{.Domain}}</code> variable</li>
@@ -791,8 +831,7 @@
 <h3 id="styling">Styling<a class="headerlink" href="#styling" title="Permanent link">&para;</a></h3>
 <p>If you plan to build a webapp to run on Cozy, you’ll probably want to use a simple and elegant solution to build your interfaces without the mess of dealing with complex markup and CSS. Then <a href="https://github.com/cozy/cozy-ui/">Cozy UI</a> is here for you!</p>
 <p>It relies on Stylus as preprocessor. You can add it as a library in your project to use it out-of-the-box.</p>
-<h3 id="start-the-development-server">Start the development server<a class="headerlink" href="#start-the-development-server" title="Permanent link">&para;</a></h3>
-<p>Now it’s time to start the development server, to test our application.</p>
+<h3 id="the-development-server-using-docker">The development server using Docker<a class="headerlink" href="#the-development-server-using-docker" title="Permanent link">&para;</a></h3>
 <p><em>(remember what we previously said about the permissions required to run Docker: if your user doesn’t belong to the docker group, you’ll have to use <code>sudo</code> to run each of this commands.)</em></p>
 <p>To run your application inside the development server, just run the following command from the folder where your <code>index.html</code> and <code>manifest.webapp</code> files leave:</p>
 <pre class="codehilite"><code class="language-sh">docker run --rm -it -p 8080:8080 -p 5984:5984 -p 8025:8025 -v $(pwd):/data/cozy-app --name cozydev cozy/cozy-app-dev</code></pre>
@@ -818,15 +857,12 @@
 </ul>
 <h4 id="test-multiple-applications">Test multiple applications<a class="headerlink" href="#test-multiple-applications" title="Permanent link">&para;</a></h4>
 <p>You can install more than one application into the development server, for example to test communication between applications. In order to achieve this, you have to mount the folder where your application leaves into subfolders of <code>/data/cozy-apps</code>. For example, if the code of Cozy Drive and Cozy Photos is on your local filesystem in <code>~/cozy/drive</code> and <code>~/cozy/photos</code>, start the development server with:</p>
-<pre class="codehilite"><code class="language-sh">docker run --rm -it -p 8080:8080 -p 5984:5984 -p 8025:8025 -v &quot;~/cozy/drive&quot;:/data/cozy-app/drive&quot; -v &quot;~/cozy/photos:/data-cozy-app/photos&quot; --name=cozydev cozy/cozy-app-dev</code></pre>
+<pre class="codehilite"><code class="language-sh">docker run --rm -it -p 8080:8080 -p 5984:5984 -p 8025:8025 -v &quot;~/cozy/drive:/data/cozy-app/drive&quot; -v &quot;~/cozy/photos:/data-cozy-app/photos&quot; --name=cozydev cozy/cozy-app-dev</code></pre>
 
 
 <p>You’ll access the applications by connecting to <code>http://drive.cozy.tools:8080/</code> and <code>http://photos.cozy.tools:8080</code>.</p>
-<h2 id="todo">TODO<a class="headerlink" href="#todo" title="Permanent link">&para;</a></h2>
-<p>This development server use the domain names <code>*.cozy.tools</code>. We have parameterized this domain to always redirect to <code>127.0.0.1</code>, your local computer address.</p>
-<p>The <code>sample</code> branch of this documentation repository contains a minimalist template with the needed files to create an app. You can get them with the following command:</p>
-<pre class="codehilite"><code class="language-sh">git clone -b sample https://github.com/cozy/cozy-docdev-v3.git myapp
-cd myapp</code></pre></div>
+<h4 id="what-is-cozytools">What is <code>cozy.tools</code> ?<a class="headerlink" href="#what-is-cozytools" title="Permanent link">&para;</a></h4>
+<p>This development server use the domain names <code>*.cozy.tools</code>. We have parameterized this domain to always redirect to <code>127.0.0.1</code>, your local computer address. With that, no need to configure your environment to set extra local hosts for development anymore.</p></div>
         </div>
 
         <footer class="col-md-12">
