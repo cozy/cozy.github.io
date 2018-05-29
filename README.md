@@ -39,8 +39,8 @@ See [./fetch.sh](./fetch.sh), [./build.sh](./build.sh), and [./add_external_docs
 
 The documentation is built automatically by Travis 
 
-* when the branch master is pushed
-* every day
+* when the `dev` is pushed
+* every day (since we cannot detect changes in external documentations)
 
 After the build, it is available on https://docs.cozy.io/.
 
