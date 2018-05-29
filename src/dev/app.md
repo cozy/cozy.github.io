@@ -3,12 +3,14 @@
 
 ## Prerequisite
 
-Developing an application for Cozy is quite easy. All you need to know is:
+Developing an application for Cozy is quite easy. All you need to have is:
 
- - how to develop a single page application in HTML5. You can use the tools or framework of your choice, or no framework
- - basic Docker knowledges.
+ - NodeJS 8+
+ - [Yarn](https://yarnpkg.com): a NodeJS package manager, like `npm`
+ - Docker to have a Cozy for dev
+ - Some basics about developing a single page application in HTML/JS or you just want to learn :)
 
-The only required tool is Docker. We have been told that installing Docker on some familial flavours of Windows may be a bit difficult. If you use Windows, please check if Docker is available on your system.
+The only tool required to have a Cozy for development is Docker. We have been told that installing Docker on some familial flavours of Windows may be a bit difficult. If you use Windows, please check if Docker is available on your system.
 
 
 ## Install the development environment
@@ -29,15 +31,63 @@ docker pull cozy/cozy-app-dev
 
 (We update this image on a regular basis with the latest version of the server and our library. Don’t forget to update the image by running `docker pull cozy/cozy-app-dev` from time to time).
 
+## Create your application
 
-## Create your first application
+You can boostrap your application from scratch if you want, but we recommand to use our new community tool [`create-cozy-app`](https://github.com/CPatchane/create-cozy-app) to bootstrap very easily a Cozy application for you.
+
+This tool will generate an application using (P)React, the framework we internally use in the Cozy Front team. But [options](https://github.com/CPatchane/create-cozy-app#options) are available if you want to use other frameworks.
+
+!!! warning ""
+    For now the new [`cozy-client`](https://github.com/cozy/cozy-client) is used only in the (P)React template (it doesn't use the previous `cozy-client-js` anymore). This library is at an early stage but you can use it, it will be our next Cozy client for application development.
+
+First of all, run directly `create-cozy-app` without installing it globally by using the `yarn create cozy-app` command to bootstrap your application:
+
+```
+yarn create cozy-app mycozyapp
+```
+
+The script will download some dependencies (may take a while) and ask you a few questions, then create an application skeleton inside `mycozyapp`.
+
+That's all! You can start hacking:
+
+```
+cd mycozyapp
+yarn watch:standalone
+```
+
+After the webpack build, your app should be available at http://localhost:8888
+
+> You can change the host and the port of your application server here by using respectively the environment variables HOST and PORT
+
+### Run it inside a Cozy using Docker
+
+You can run your application (here `mycozyapp`) inside a Cozy thanks to the [cozy-stack docker image][cozy-stack-docker]:
+
+```sh
+# in a terminal, run your app in watch mode
+$ cd mycozyapp
+$ yarn watch:browser
+```
+
+Then, in another terminal:
+
+```sh
+# in another terminal, run the docker container
+$ yarn stack:docker
+# or if you want the complete command (see more documentation below)
+$ docker run --rm -it -p 8080:8080 -v "$(pwd)/build":/data/cozy-app/mycozyapp cozy/cozy-app-dev
+```
+
+Your app is now available at http://mycozyapp.cozy.tools:8080.
+
+## Extra documentation about application development
+
+### How is the application working?
 
 The minimal application consist of only two files:
 
  - an HTML file, `index.html`, with the markup and the code of your application
- - a manifest describing the application. It’s a JSON file named `manifest.webapp` with the name of the application, the permissions it requires… We’ll have a deeper look to it content later. #TODO add an inner link to the manifest description.
-
-Your application will be able to use some shared libraries provided by the server, so you don’t have to include them into your project.
+ - a manifest describing the application. It’s a JSON file named `manifest.webapp` with the name of the application, the permissions it requires… We’ll have a deeper look to it content later.
 
 Your application requires some informations to interact with the server API, for example the URL of its entrypoint, and an auth token. This data will be dynamically injected into `index.html` when it serves the page. So the `index.html` file has to contain some string that will be replaced by the server. The general syntax of this variables is `{{…}}`, so don’t use this syntax for other purpose in the page, for example inside comments.
 
@@ -52,8 +102,10 @@ You can use the following variables:
  - `{{.CozyBar}}` will be replaced with HTML code to inject the upper menu bar.
 
 
-### Use the API
+### Use the API with cozy-client-js
 
+!!! warning ""
+    We are currently working on a new [`cozy-client`](https://github.com/cozy/cozy-client) library which will be more updated and used in the future than `cozy-client-js`. But the two libraries (`cozy-client` and `cozy-client-js`) don't rely on each other so you can still use the one you want to handle Cozy data for now.
 
 If you added `{{.CozyClientJS}}` to your page, interacting with the server will be as easy as using the Cozy Client JS library. All you have to do is to initiate the library with the server parameters (the URL of the API and the auth token of your application):
 
@@ -76,7 +128,7 @@ Some server APIs may not be available right now through the library. If you want
 
 #### Behind the magic
 
-Some server APIs may not be available right now through the library. If you want to use one of this method, you’ll have to call it manually. We’ll describe here how to access the API without using the Cozy Cliznt JS library.
+Some server APIs may not be available right now through the library. If you want to use one of this method, you’ll have to call it manually. We’ll describe here how to access the API without using the Cozy Client JS library.
 
 Connecting to the API requires three things:
 
@@ -357,9 +409,7 @@ If you plan to build a webapp to run on Cozy, you’ll probably want to use a si
 
 It relies on Stylus as preprocessor. You can add it as a library in your project to use it out-of-the-box.
 
-### Start the development server
-
-Now it’s time to start the development server, to test our application.
+### The development server using Docker
 
 *(remember what we previously said about the permissions required to run Docker: if your user doesn’t belong to the docker group, you’ll have to use `sudo` to run each of this commands.)*
 
@@ -397,19 +447,11 @@ You can also access the following URLs:
 You can install more than one application into the development server, for example to test communication between applications. In order to achieve this, you have to mount the folder where your application leaves into subfolders of `/data/cozy-apps`. For example, if the code of Cozy Drive and Cozy Photos is on your local filesystem in `~/cozy/drive` and `~/cozy/photos`, start the development server with:
 
 ```sh
-docker run --rm -it -p 8080:8080 -p 5984:5984 -p 8025:8025 -v "~/cozy/drive":/data/cozy-app/drive" -v "~/cozy/photos:/data-cozy-app/photos" --name=cozydev cozy/cozy-app-dev
+docker run --rm -it -p 8080:8080 -p 5984:5984 -p 8025:8025 -v "~/cozy/drive:/data/cozy-app/drive" -v "~/cozy/photos:/data-cozy-app/photos" --name=cozydev cozy/cozy-app-dev
 ```
 
 You’ll access the applications by connecting to `http://drive.cozy.tools:8080/` and `http://photos.cozy.tools:8080`.
 
-## TODO
+#### What is `cozy.tools` ?
 
-This development server use the domain names `*.cozy.tools`. We have parameterized this domain to always redirect to `127.0.0.1`, your local computer address.
-
-The `sample` branch of this documentation repository contains a minimalist template with the needed files to create an app. You can get them with the following command:
-```sh
-git clone -b sample https://github.com/cozy/cozy-docdev-v3.git myapp
-cd myapp
-```
-
-
+This development server use the domain names `*.cozy.tools`. We have parameterized this domain to always redirect to `127.0.0.1`, your local computer address. With that, no need to configure your environment to set extra local hosts for development anymore.
