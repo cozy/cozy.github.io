@@ -26,7 +26,7 @@
             {%- if nav|length>1 %}
                 <!-- Main navigation -->
                 <ul class="nav navbar-nav">
-                {%- for nav_item in nav %}
+                {%- for nav_item in nav if not nav_item.title == 'hidden' %}
                 {%- if nav_item.children %}
                     <li class="dropdown{% if nav_item.active %} active{% endif %}">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ nav_item.title }} <b class="caret"></b></a>
