@@ -492,7 +492,7 @@ manifest has the needed permissions on the data you want to save.
 
 This is the *dev* mode
 
-## Integration in cozy-collect for all the users
+## Integration in the store for all the users
 
 To run a connector, we do not want the cozy to install all dependencies of the connector each time
 it installs it.
@@ -507,6 +507,32 @@ Once your public git repository is configured, you only have to declare it.
 Cozy will soon have a store for connectors and you will be able to publish connectors yourself. But
 at the moment, you need to declare your new connector on the [cozy forum](https://forum.cozy.io).
 The Cozy team will review your code and add your connector to the [Cozy Collect] application.
+
+To make the connector available more quickly for all cozys, you can follow this few steps of 
+packaging:
+
+### Icon
+
+You need to push an icon in `assets/`. Please respect this rules :
+ - Square icon, possibly a png or svg
+ - Try the Apple app store icon if needed
+
+### Package.json
+
+ - Edit the name to be cozy-konnector-<slug>
+ - Edit the repository URL
+ - Edit the command `deploy` with the correct repository URL
+
+### Manifest.konnector
+
+ - Edit the name with a nice name (Capitals and spaces allowed here)
+ - Edit icon as needed
+ - Edit slug
+ - Edit source with the correct repository URL
+ - Add a correct vendor link
+ - Choose one or more categories in this list (list in collect) : `banking, shopping, insurance, isp, telecom, energy, public_service, other`
+ - If needed, change the input type the target website use to login the user: `text`, `email` or `phone` for instance, this will enforce pre-checking
+ - Edit for both locales `en` and `fr` the short description and long description
 
 ## FAQ
 
