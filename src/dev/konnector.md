@@ -514,6 +514,7 @@ packaging:
 ### Icon
 
 You need to push an icon in `assets/`. Please respect this rules :
+
  - Square icon, possibly a png or svg
  - Try the Apple app store icon if needed
 
@@ -530,7 +531,7 @@ You need to push an icon in `assets/`. Please respect this rules :
  - Edit slug
  - Edit source with the correct repository URL
  - Add a correct vendor link
- - Choose one or more categories in this list (list in collect) : `banking, shopping, insurance, isp, telecom, energy, public_service, other`
+ - Choose one or more categories in this list : `banking, shopping, insurance, isp, telecom, energy, public_service, other`
  - If needed, change the input type the target website use to login the user: `text`, `email` or `phone` for instance, this will enforce pre-checking
  - Edit for both locales `en` and `fr` the short description and long description
 
