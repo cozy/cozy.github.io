@@ -520,7 +520,7 @@ You need to push an icon in `assets/`. Please respect this rules :
 
 ### Package.json
 
- - Edit the name to be cozy-konnector-<slug>
+ - Edit the name to be cozy-konnector-<slug\>
  - Edit the repository URL
  - Edit the command `deploy` with the correct repository URL
 
