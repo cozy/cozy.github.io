@@ -672,6 +672,8 @@ ensure the consistency of what it writes. Third change, before inserting a
 folder or file in the database, the replicator checks that its parent exists,
 and if it’s not the case, it creates it. Last change, we will avoid CouchDB
 conflicts for files and folder by using a special conflict resolution process.</p>
+<h3 id="sequence-diagram">Sequence diagram<a class="headerlink" href="#sequence-diagram" title="Permanent link">&para;</a></h3>
+<p><img alt="Replicator and upload" src="../diagrams/replicator.png" /></p>
 <h3 id="conflict-resolution">Conflict resolution<a class="headerlink" href="#conflict-resolution" title="Permanent link">&para;</a></h3>
 <p>We have several cases of conflicts:</p>
 <ol>
@@ -685,19 +687,80 @@ conflicts for files and folder by using a special conflict resolution process.</
 <p>For 1. and 2., we will reconciliate the changes except for a file with two
 versions having a distinct binary (we rely on <code>size</code> and <code>checksum</code> to detect
 that). In such a case, we create a copy of the file with one version, while
-keeping the other version in the original file. Else, the reconciliation rules
-are:</p>
-<ul>
-<li><code>name</code>, <code>dir_id</code> and <code>metadata</code>: we keep those of the CouchDB winner</li>
-<li><code>trashed</code> and <code>executable</code>: false wins</li>
-<li><code>updated_at</code>: the most recent date wins</li>
-<li><code>mime</code> and <code>class</code>: the last in alphabetical order wins (to avoid the default
-  <code>application/octet-steam</code>)</li>
-<li><code>tags</code> and <code>referenced_by</code>: a union of the two versions is made</li>
-</ul>
+keeping the other version in the original file.</p>
 <p>For 3., we rename the file or folder with the smaller <code>id</code>.</p>
 <p>For 4., we restore the trashed parent, or recreate it if it the trash was
 emptied.</p>
+<h3 id="conflict-with-no-reconciliation">Conflict with no reconciliation<a class="headerlink" href="#conflict-with-no-reconciliation" title="Permanent link">&para;</a></h3>
+<p>When a file is modified concurrently on two cozy instances, and at least one
+change involve the content, we can&rsquo;t reconciliate the modifications. To know
+which version of the file is the &ldquo;winner&rdquo; and will keep the same identifier,
+and which version is the &ldquo;loser&rdquo; and will have a new identifier, we compare
+the revisions and the higher wins.</p>
+<p>This conflict is particulary tricky to resolve, with a lot of subcases. In
+particular, we try to converge to the same revisions on all the instances for
+the &ldquo;winner&rdquo; file (and for the &ldquo;loser&rdquo; too).</p>
+<p>We have 3 sets of attributes for files:</p>
+<ul>
+<li><code>size</code> and <code>md5sum</code> (they change when the content has changed)</li>
+<li><code>name</code> and <code>dir_id</code> (they change when the file is moved or renamed)</li>
+<li><code>created_at</code>, <code>updated_at</code>, <code>tags</code>, <code>referenced_by</code>, etc.</li>
+</ul>
+<p>For the first two sets, the operation on the Virtual File System will needs to
+reach the storage (Swift), not just CouchDB. For the third set, it&rsquo;s easy: we
+can do the change at the same time as another change, because these attributes
+are only used in CouchDB. But we can&rsquo;t do a change on the first two sets at
+the same time: the Virtual File System can&rsquo;t update the content and
+move/rename a file in the same operation. If we needs to do both, it will
+generate 2 revisions in CouchDB for the file.</p>
+<p><strong>Note:</strong> you can see that using CouchDB-like replication protocol means that
+we have some replications that can look useless, just some echo to a writing.
+In fact, it is used to acknowledge the writing and is helpful for conflict
+resolutions. It may be conter-intuitive, but removing them will harm the
+stability of the system, even if they do nothing most of the time.</p>
+<h4 id="example-1">Example 1<a class="headerlink" href="#example-1" title="Permanent link">&para;</a></h4>
+<p><img alt="File is renamed on both instance" src="../diagrams/files-conflict-1.png" /></p>
+<p>Here, Alice uploads a file on her Cozy. It creates two revisions for this file
+(it&rsquo;s what the Virtual File System does). Then, she shares the directory with
+this file to her friend Bob. When Bob accepts the sharing, the file is sent to
+his Cozy, with the same revision (2-2aa).</p>
+<p>Later, Bob renames the file. It creates a new revision (3-3aa). The change is
+replicated to Alice&rsquo;s Cozy. And we have a replication from Alice to Bob to
+ensure that every thing is fine.</p>
+<p>Even later, Alice and Bob both renames the file at the same time. It creates a
+conflict. We have a first replication (from Alice to Bob), but nothing happens
+on B because the local revision (4-4bb) is greater than the candidate revision
+(4-4aa) and the content is the same.</p>
+<p>Just after that, we have a revision on the opposite direction (from Bob to
+Alice). The candidate revision wins (4-4bb), but for files, we don&rsquo;t use
+CouchDB conflict, thus it&rsquo;s not possible to write a new revision at the same
+generation (4). The only option is to create a new revision (5-5bb). This
+revision is then sent to Bob: Bob&rsquo;s Cozy accepts the new revision even if it
+has no effect on the file (it was already the good name), just to resolve the
+conflict.</p>
+<h4 id="example-2">Example 2<a class="headerlink" href="#example-2" title="Permanent link">&para;</a></h4>
+<p><img alt="A difficult conflict" src="../diagrams/files-conflict-2.png" /></p>
+<p>Like in the last example, Alice uploads a file and share a directory to Bob
+with this file, Bob acccepts. But then, several actions are made on the file in
+a short lapse of time and it generates a difficult conflict:</p>
+<ul>
+<li>Alice renames the file, and then uploads a new version with cozy-desktop</li>
+<li>Bob moves the file to a sub-directory.</li>
+</ul>
+<p>So, when the replication comes, we have two versions of the file with
+different name, parent directory, and content. The winner is the higher
+revision (4-4aa). The resolution takes 4 steps:</p>
+<ol>
+<li>A copy of the file is created from the revision 3-3bb, with the new
+   identifier id2 = XorID(id, 3-3bb).</li>
+<li>The new content is written on Bob&rsquo;s Cozy: we can&rsquo;t use the revisions 3-3aa
+   (same generation as 3-3bb) and 4-4aa (it will mean the conflict is fixed,
+   but it&rsquo;s not the case, the filenames are still different), so a new
+   revision is used (4-4cc).</li>
+<li>The file is moved and renamed on Bob&rsquo;s Cozy, with a next revision (5-5bb).</li>
+<li>The two files are sent to Alice&rsquo;s Cozy: 5-5bb is accepted just to resolve
+   the conflict, and id2 is uploaded as a new file.</li>
+</ol>
 <h2 id="schema">Schema<a class="headerlink" href="#schema" title="Permanent link">&para;</a></h2>
 <h3 id="description-of-a-sharing">Description of a sharing<a class="headerlink" href="#description-of-a-sharing" title="Permanent link">&para;</a></h3>
 <ul>
@@ -708,10 +771,15 @@ emptied.</p>
   recipients</li>
 <li>A <code>description</code> (one sentence that will help people understand what is shared
   and why)</li>
+<li>a flag <code>active</code> that says if the sharing is currently active for at least
+  one member</li>
+<li>a flag <code>owner</code>, true for the document on the cozy of the sharer, and false
+  on the other cozy instance</li>
 <li>a flag <code>open_sharing</code>:</li>
 <li><code>true</code> if any member of the sharing can add a new recipient</li>
 <li><code>false</code> if only the owner can add a new recipient</li>
-<li>Some technical data (<code>created_at</code>, <code>updated_at</code>, <code>app_slug</code>, <code>preview_path</code>)</li>
+<li>Some technical data (<code>created_at</code>, <code>updated_at</code>, <code>app_slug</code>, <code>preview_path</code>,
+  <code>triggers</code>, <code>credentials</code>)</li>
 <li>A list of sharing <code>rules</code>, each rule being composed of:</li>
 <li>a <code>title</code>, that will be displayed to the recipients before they accept the
     sharing</li>
@@ -774,14 +842,14 @@ emptied.</p>
 <li>remove: <code>push</code></li>
 </ul>
 <h3 id="iocozyshared"><code>io.cozy.shared</code><a class="headerlink" href="#iocozyshared" title="Permanent link">&para;</a></h3>
+<p>This doctype is an internal one for the stack. It is used to track what
+documents are shared, and to replicate changes from one Cozy to the others.</p>
 <ul>
 <li><code>_id</code>: its identifier is the doctype and id of the referenced objet, separated by
   a <code>/</code> (e.g. <code>io.cozy.contacts/c1f5dae4-0d87-11e8-b91b-1f41c005768b</code>)</li>
 <li><code>_rev</code>: the CouchDB default revision for this document (not very meaningful,
   it’s here to avoid concurrency issues)</li>
-<li><code>revisions</code>: an array with the last known <code>_rev</code>s of the referenced object (for
-  conflicts, we put
-  <a href="http://docs.couchdb.org/en/2.1.1/replication/conflicts.html#working-with-conflicting-documents">the winner</a>)</li>
+<li><code>revisions</code>: a tree with the last known <code>_rev</code>s of the referenced object</li>
 <li><code>infos</code>, a map of sharing ids → <code>{rule, removed, binary}</code></li>
 <li><code>rule</code> says which rule from the sharing must be applied for this document</li>
 <li><code>removed</code> will be true for a deleted document, a trashed file, or if the

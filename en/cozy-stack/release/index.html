@@ -476,6 +476,7 @@
 <div class="bs-sidebar hidden-print affix" role="complementary">
     <ul class="nav bs-sidenav well" style='padding-left: 0; padding-right: 0; margin-bottom: 1.5rem'>
         <li class="main active"><a href="#building-a-release">Building a release</a></li>
+        <li class="main "><a href="#sprint-release">Sprint release</a></li>
     </ul>
   <div style='padding-left: 2rem'>
     
@@ -542,6 +543,35 @@ the following format:</p>
 <li><code>dirty</code>: added if the working if the working-directory is not clean (contains
   un-commited modifications). This is not allowed in production release.</li>
 <li><code>dev</code>: added for a development mode release</li>
+</ul>
+<h1 id="sprint-release">Sprint release<a class="headerlink" href="#sprint-release" title="Permanent link">&para;</a></h1>
+<p>At the end of a sprint, we release different versions of the stack:</p>
+<ul>
+<li>
+<p>&ldquo;Naked&rdquo; stack, for GNU/Linux amd64/arm and FreeBSD amd64</p>
+<ul>
+<li>Create a tag <code>yyyyMmSs</code> and push it</li>
+<li>Generate all binaries, checksums and signatures with <code>./scripts/release.sh</code></li>
+<li>Create a GitHub release and upload all previously generated assets with <code>./scripts/release.rb</code></li>
+</ul>
+</li>
+<li>
+<p>Docker development image</p>
+<ul>
+<li>Copy <code>cozy-stack</code> GNU/Linux amd64 binary to <code>./scripts</code></li>
+<li>Go into <code>./scripts</code></li>
+<li>Generate docker image with <code>docker build -t cozy/cozy-app-dev:&lt;tag&gt;</code></li>
+<li>Push image to the Docker hub with <code>docker push cozy/cozy-app-dev:&lt;tag&gt;</code></li>
+</ul>
+</li>
+<li>
+<p>Debian self-hosting packages</p>
+<ul>
+<li>Create a new version <code>yyyyMmSs-1</code> on https://github.com/cozy/debian-cozy/blob/master/changelog</li>
+<li>Create and push a tag <code>yyyyMmSs-1</code> on <code>https://github.com/cozy/debian-cozy</code></li>
+<li>Build and publish packages on our internal build machine</li>
+</ul>
+</li>
 </ul></div>
         </div>
 

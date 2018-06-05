@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/konnectors_design/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>konnectors_design - Cozy Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Cozy Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Use <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/">User guide</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Stay in sync</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronize your phone</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronize your computer</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Install on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Download</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="/en/dev/">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="/en/dev/connect-mobile-app-local-stack/">Connect a mobile app to your local stack</a>
+</li>
+                            
+<li >
+    <a href="/en/dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="/en/dev/app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="/en/dev/konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="/en/dev/cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="/en/dev/sendmail/">How to send mail in development</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">References</a>
+    <ul class="dropdown-menu">
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-client-js</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-client-js/intro/">Introduction</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/browser-sdk-transition/">Transition from cozy-browser-sdk</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/offline/">How to support offline</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/oauth/">OAuth guide</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/auth-api/">Authentication API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/data-api/">Data System API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/files-api/">Files API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/jobs-api/">Jobs API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/intents-api/">Intents API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/settings-api/">Settings API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/sharing-api/">Sharing API</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-doctypes</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.accounts/">Accounts</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.photos.albums/">Albums</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bank/">Banking doctypes</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bills/">Bills</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.konnectors/">Connectors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.contacts/">Contacts</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.files/">Files</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.notifications/">Notifications</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.payslips/">Payslips</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/">Remote requests</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/">Session logins</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.sharings/">Sharings</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.triggers/">Triggers</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-stack</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../README/">README</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Architecture</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../architecture/">General overview</a>
+</li>
+            
+<li >
+    <a href="../security/">Security</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Usage</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../INSTALL/">Install the cozy-stack</a>
+</li>
+            
+<li >
+    <a href="../cli/cozy-stack/">Manpages of the command-line tool</a>
+</li>
+            
+<li >
+    <a href="../config/">Configuration file</a>
+</li>
+            
+<li >
+    <a href="../instance/">Managing Instances</a>
+</li>
+            
+<li >
+    <a href="../onboarding/">Onboarding</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">For developpers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../client-app-dev/">Develop a client-side app</a>
+</li>
+            
+<li >
+    <a href="../docker/">Running and building Docker images</a>
+</li>
+            
+<li >
+    <a href="../release/">Build a release</a>
+</li>
+            
+<li >
+    <a href="../CONTRIBUTING/">The contributing guide</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Services</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../auth/">/auth - Authentication & OAuth</a>
+</li>
+            
+<li >
+    <a href="../apps/">/apps - Applications Management</a>
+</li>
+            
+<li >
+    <a href="../registry/">Apps registry</a>
+</li>
+            
+<li >
+    <a href="../data-system/">/data - Data System</a>
+</li>
+            
+<li >
+    <a href="../mango/">Mango</a>
+</li>
+            
+<li >
+    <a href="../replication/">Replication</a>
+</li>
+            
+<li >
+    <a href="../couchdb-quirks/">CouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../files/">/files - Virtual File System</a>
+</li>
+            
+<li >
+    <a href="../references-docs-in-vfs/">References of documents in VFS</a>
+</li>
+            
+<li >
+    <a href="../intents/">/intents - Intents</a>
+</li>
+            
+<li >
+    <a href="../jobs/">/jobs Jobs</a>
+</li>
+            
+<li >
+    <a href="../konnectors/">Konnectors</a>
+</li>
+            
+<li >
+    <a href="../workers/">Workers</a>
+</li>
+            
+<li >
+    <a href="../move/">/move - Move, export and import an instance</a>
+</li>
+            
+<li >
+    <a href="../notifications/">/notifications - Notifications</a>
+</li>
+            
+<li >
+    <a href="../permissions/">/permissions - Permissions</a>
+</li>
+            
+<li >
+    <a href="../realtime/">/realtime - Realtime</a>
+</li>
+            
+<li >
+    <a href="../remote/">/remote - Proxy for remote data/API</a>
+</li>
+            
+<li >
+    <a href="../settings/">/settings - Settings</a>
+</li>
+            
+<li >
+    <a href="../sharing/">/sharings - Sharing</a>
+</li>
+            
+<li >
+    <a href="../sharing-design/">Request for comments</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">konitor</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../konitor/cli/">CLI</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy.github.io/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3">
+<div class="bs-sidebar hidden-print affix" role="complementary">
+    <ul class="nav bs-sidenav well" style='padding-left: 0; padding-right: 0; margin-bottom: 1.5rem'>
+        <li class="main active"><a href="#konnectors">Konnectors</a></li>
+            <li><a href="#what-we-want">What we want ?</a></li>
+            <li><a href="#security">Security</a></li>
+            <li><a href="#konnector-isolation-study">Konnector isolation study</a></li>
+            <li><a href="#konnector-install-and-run-details">Konnector install and run details</a></li>
+            <li><a href="#multi-account-handling">Multi-account handling</a></li>
+            <li><a href="#study-on-konnectors-installation-on-vfs">Study on konnectors installation on VFS</a></li>
+            <li><a href="#todo">TODO</a></li>
+    </ul>
+  <div style='padding-left: 2rem'>
+    
+    <a id='edit-link' href='https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-stack/konnectors_design.md'>Edit documentation</a>
+    <script type='text/javascript'>
+        /* Here we detect if the current page is from an external documentation and we 
+        change the href of the editing link so it goes to the right repository and file */
+        const outsideDocs = [{"repo": "https://github.com/cozy/cozy-client-js.git", "name": "cozy-client-js", "subdir": "docs"}, {"repo": "https://github.com/konnectors/libs.git", "name": "cozy-konnector-libs", "subdir": "packages/cozy-konnector-libs/docs"}, {"repo": "https://github.com/cozy/cozy-doctypes.git", "name": "cozy-doctypes", "subdir": "."}, {"repo": "https://github.com/cozy/cozy-stack.git", "name": "cozy-stack", "subdir": "docs"}, {"repo": "https://github.com/konnectors/konitor.git", "name": "konitor", "subdir": "docs"}]
+        const editNode = document.querySelector('#edit-link')
+        const pathname = window.location.pathname
+        const editURI = 'edit/master/'
+        const removeGitSuffix = function (x) { return x.replace(/\.git$/, '') }
+
+        // Returns the external repo associated to a pathname
+        const detectExternalRepo = function (pathname) {
+            for (var outsideDoc of outsideDocs) {
+                if (window.location.pathname.includes('/' + outsideDoc.name + '/')) {
+                    return outsideDoc
+                }
+            }
+        }
+
+        // Change the href attribute of a link to point to the correct edition page on GitHub
+        // for the passed external documentation
+        const fixEditLink = function (editNode, externalDoc) {
+            const repoFile = pathname.replace('/' + externalDoc.name, '').replace(/\/$/, '.md')
+            const baseRepo = removeGitSuffix(externalDoc.repo)
+            editNode.href = baseRepo + '/' + editURI + externalDoc.subdir + repoFile
+        }
+
+        const externalRepo = detectExternalRepo(pathname)
+        if (externalRepo) {
+            fixEditLink(editNode, externalRepo)
+        }
+    </script>
+    
+  </div>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<p><a href="../README/#table-of-contents">Table of contents</a></p>
+<h1 id="konnectors">Konnectors<a class="headerlink" href="#konnectors" title="Permanent link">&para;</a></h1>
+<h2 id="what-we-want">What we want ?<a class="headerlink" href="#what-we-want" title="Permanent link">&para;</a></h2>
+<p><a href="https://github.com/cozy-labs/konnectors">Konnectors</a> is an application for Cozy
+v2 that fetch data from different web sites and services, and save them into a
+Cozy. The 50+ connectors represent a lot of work from the community. So, we want
+to port it to Cozy v3. There will be 2 parts:</p>
+<ul>
+<li>My Accounts, a client-side app, that will offer the possibility for the user
+  to configure her accounts, and choose when to start the import of data (see
+  <a href="https://github.com/cozy-labs/konnectors/blob/development/docs/client-side-architecture.md">the architecture doc</a>).</li>
+<li>Konnectors, a worker for the <a href="../jobs/">job service</a>, with the code to import
+  data from the web sites.</li>
+</ul>
+<h2 id="security">Security<a class="headerlink" href="#security" title="Permanent link">&para;</a></h2>
+<h3 id="the-risks">The risks<a class="headerlink" href="#the-risks" title="Permanent link">&para;</a></h3>
+<p>Konnectors is not just a random application. It&rsquo;s a very good target for attacks
+on Cozy because of these specificities:</p>
+<ul>
+<li>It run on the server, where there is no Content Security Policy, or firewall
+  to protect the stack.</li>
+<li>It has access to Internet, by design.</li>
+<li>It is written in nodejs, with a lot of dependencies where it is easy to hide
+  malicious code.</li>
+<li>It is a collection of connectors written by a lot of people. We welcome these
+  contributions, but it also means that we take into account that we can&rsquo;t
+  review in depth all the contributions.</li>
+</ul>
+<h4 id="access-to-couchdb">Access to couchdb<a class="headerlink" href="#access-to-couchdb" title="Permanent link">&para;</a></h4>
+<p>The stack has the admin credentials of couchdb. If a rogue code can read its
+configuration file or intercept connexions between the stack and couchdb, it
+will have access to couchdb with the admin credentials, and can do anything on
+couchdb.</p>
+<h4 id="access-to-the-stack">Access to the stack<a class="headerlink" href="#access-to-the-stack" title="Permanent link">&para;</a></h4>
+<p>An attacker can try to profit of konnectors for accessing the stack. It can
+target the port 6060, used by the stack to manage the cozy instances. Or, it can
+use its privileged position for timing attacks on passwords.</p>
+<h4 id="spying-other-connectors">Spying other connectors<a class="headerlink" href="#spying-other-connectors" title="Permanent link">&para;</a></h4>
+<p>A rogue connector may try to spy other connectors to pick the credentials for
+external web sites. It can be done by reading the environment variables or
+<a href="https://en.wikipedia.org/wiki/Ptrace">ptracing</a> them.</p>
+<h4 id="dos">DoS<a class="headerlink" href="#dos" title="Permanent link">&para;</a></h4>
+<p>A connector can use a lot of CPU, Ram, or generate a lot of disk I/O to make a
+deny of service on the server. The connector can remove files on the server to
+make konnectors stop working.</p>
+<h4 id="exploiting-the-cpu-or-the-bandwidth">Exploiting the CPU or the bandwidth<a class="headerlink" href="#exploiting-the-cpu-or-the-bandwidth" title="Permanent link">&para;</a></h4>
+<p>The resources of the server can be seen as valuable: the CPU can be used for
+bitcoins mining. The bandwidth can be used for DDoS of an external target.</p>
+<h4 id="sending-spam">Sending spam<a class="headerlink" href="#sending-spam" title="Permanent link">&para;</a></h4>
+<p>Profit of the configured SMTP server to send spams.</p>
+<h4 id="be-root">Be root<a class="headerlink" href="#be-root" title="Permanent link">&para;</a></h4>
+<p><a href="https://en.wikipedia.org/wiki/Row_hammer">Row hammer</a> can be a way to gain root
+access on a server.</p>
+<h3 id="possible-measures">Possible measures<a class="headerlink" href="#possible-measures" title="Permanent link">&para;</a></h3>
+<h4 id="permissions">Permissions<a class="headerlink" href="#permissions" title="Permanent link">&para;</a></h4>
+<p>We can forbid the konnectors to speak directly with couchdb, and pass by the
+stack for that. And use the <a href="../permissions/">permissions</a> to restrict what each
+konnectors can do with the cozy-stack.</p>
+<h4 id="ignore-scripts-for-npmyarn">ignore-scripts for npm/yarn<a class="headerlink" href="#ignore-scripts-for-npmyarn" title="Permanent link">&para;</a></h4>
+<p>Npm and yarn can execute scripts defined in package.json when installing nodejs
+dependencies. We can use the
+<a href="https://docs.npmjs.com/misc/config#ignore-scripts"><code>ignore-scripts</code></a> option to
+disable this behaviour.</p>
+<h4 id="forbid-addons-in-nodejs">Forbid addons in nodejs<a class="headerlink" href="#forbid-addons-in-nodejs" title="Permanent link">&para;</a></h4>
+<p>Nodejs can require <a href="https://nodejs.org/api/addons.html">addons</a>, ie C/C++
+compiled libraries. I&rsquo;ve found no flag to disable the install of such modules
+for npm/yarn, and no flag for nodejs to prevent loading them. We can try to
+detect and remove such modules just after the installation of node modules. They
+should have a <code>.node</code> extension.</p>
+<p><strong>Note</strong>: not having a compiler on the server is not enough. Npm can install
+precompiled modules.</p>
+<h4 id="vmsandbox-for-nodejs">vm/sandbox for Nodejs<a class="headerlink" href="#vmsandbox-for-nodejs" title="Permanent link">&para;</a></h4>
+<p><a href="https://github.com/patriksimek/vm2">vm2</a> is a sandbox that can run untrusted
+code with whitelisted Node&rsquo;s built-in modules.</p>
+<h4 id="mock-net">Mock net<a class="headerlink" href="#mock-net" title="Permanent link">&para;</a></h4>
+<p>We can mock the net module of nodejs to add some restrictions on what it can do.
+For example, we can check that it does only http/https, and blacklist connection
+to localhost:6060. It is only effective if the konnector has no way to start a
+new node processus.</p>
+<h4 id="timeout">Timeout<a class="headerlink" href="#timeout" title="Permanent link">&para;</a></h4>
+<p>If a konnector takes too long, after a timeout, it should be killed. It implies
+that the cozy-stacks supervises the konnectors.</p>
+<h4 id="chroot">Chroot<a class="headerlink" href="#chroot" title="Permanent link">&para;</a></h4>
+<p><a href="https://en.wikipedia.org/wiki/Chroot">Chroot</a> is a UNIX syscall that makes an
+application see only a part of the file-system. In particular, we can remove
+access to <code>/proc</code> and <code>/sys</code> by not mounting them, and limit access to <code>/dev</code> to
+just <code>/dev/null</code>, <code>/dev/zero</code>, and <code>/dev/random</code> by symlinks them.</p>
+<h4 id="executing-as-another-user">Executing as another user<a class="headerlink" href="#executing-as-another-user" title="Permanent link">&para;</a></h4>
+<p>We can create UNIX users that will just serve to execute the konnectors, and
+nothing else. It&rsquo;s a nice way to give more isolation, but it means that we have
+to find a way to execute the konnectors: either run the cozy-stack as root, or
+have a daemon that launches the konnectors.</p>
+<h4 id="ulimit-prlimit">Ulimit &amp; Prlimit<a class="headerlink" href="#ulimit-prlimit" title="Permanent link">&para;</a></h4>
+<p><a href="http://ss64.com/bash/ulimit.html">ulimit</a> provides control over the resources
+available to the shell and to processes started by it, on systems that allow
+such control. It can be used to linit the number of processes (protection
+against fork bombs), or the memory that can be used.</p>
+<p><a href="http://man7.org/linux/man-pages/man1/prlimit.1.html">prlimit</a> can do the same
+for just one command (technically, for a new session, not the current one).</p>
+<h4 id="linux-namespaces">Linux namespaces<a class="headerlink" href="#linux-namespaces" title="Permanent link">&para;</a></h4>
+<p>One feature Linux provides here is namespaces. There are a bunch of different
+kinds:</p>
+<ul>
+<li>in a pid namespace you become PID 1 and then your children are other
+  processes. All the other programs are gone</li>
+<li>in a networking namespace you can run programs on any port you want without it
+  conflicting with what’s already running</li>
+<li>in a mount namespace you can mount and unmount filesystems without it
+  affecting the host filesystem. So you can have a totally different set of
+  devices mounted (usually less).</li>
+</ul>
+<p>It turns out that making namespaces is totally easy! You can just run a program
+called <a href="http://man7.org/linux/man-pages/man1/unshare.1.html">unshare</a>.</p>
+<p>Source:
+<a href="https://jvns.ca/blog/2016/10/10/what-even-is-a-container/">What even is a container, by Julia Evans</a></p>
+<h4 id="cgroups">Cgroups<a class="headerlink" href="#cgroups" title="Permanent link">&para;</a></h4>
+<p><a href="https://en.wikipedia.org/wiki/Cgroups">cgroups</a> (abbreviated from control
+groups) is a Linux kernel feature that limits, accounts for, and isolates the
+resource usage (CPU, memory, disk I/O, network, etc.) of a collection of
+processes.</p>
+<h4 id="seccomp-bpf">Seccomp BPF<a class="headerlink" href="#seccomp-bpf" title="Permanent link">&para;</a></h4>
+<p>Seccomp BPF is an extension to seccomp that allows filtering of system calls
+using a configurable policy implemented using Berkeley Packet Filter rules.</p>
+<h4 id="isolation-in-a-docker">Isolation in a docker<a class="headerlink" href="#isolation-in-a-docker" title="Permanent link">&para;</a></h4>
+<p><a href="https://github.com/tjanczuk/isode">Isode</a> is a 3 years old project that aims to
+isolate nodejs apps in docker containers. A possibility would be to follow this
+path and isolate the konnectors inside docker.</p>
+<p>It&rsquo;s a real burden for administrators. And its command line options often
+changes from one version to another, making difficult to deploy something
+reliable for self-hosted users. So we will try to avoid it.</p>
+<p>Isolation in docker contains is mostly a combination of Linux Namespaces,
+Cgroups, and Seccomp BPF. There are other options with those (see below).</p>
+<h4 id="rkt">Rkt<a class="headerlink" href="#rkt" title="Permanent link">&para;</a></h4>
+<p><a href="https://coreos.com/rkt/">Rkt</a> is a security-minded, standard-based container
+engine. It is similar to Docker, but Docker needs running a daemon whereas rkt
+can be launched from command-line with no daemon.</p>
+<h4 id="nsjail-firejail">NsJail / FireJail<a class="headerlink" href="#nsjail-firejail" title="Permanent link">&para;</a></h4>
+<p><a href="https://google.github.io/nsjail/">NsJail</a> and
+<a href="https://firejail.wordpress.com/">FireJail</a> are two tools that use Linux
+Namespaces and Seccomp BPF to reduce the risks to run untrusted applications on
+Linux. FireJail seems to be more suited for graphical apps, and NsJail for
+networking services.</p>
+<h4 id="nacl-zerovm">NaCl / ZeroVM<a class="headerlink" href="#nacl-zerovm" title="Permanent link">&para;</a></h4>
+<p><a href="http://www.zerovm.org/">ZeroVM</a> is an open source virtualization technology
+that is based on the Chromium
+<a href="https://en.wikipedia.org/wiki/Google_Native_Client">Native Client</a> (NaCl)
+project. ZeroVM creates a secure and isolated execution environment which can
+run a single thread or application. But NaCl is
+<a href="https://bugs.chromium.org/p/chromium/issues/detail?id=239656#c160">no longer maintained</a>
+and ZeroVM has some severe limitations, so, it won&rsquo;t be used.</p>
+<h2 id="konnector-isolation-study">Konnector isolation study<a class="headerlink" href="#konnector-isolation-study" title="Permanent link">&para;</a></h2>
+<p>The short list of tools which will be tested to isolate connectors is Rkt and
+NsJail which on paper better fullfill our needs.</p>
+<h3 id="nsjail">NsJail<a class="headerlink" href="#nsjail" title="Permanent link">&para;</a></h3>
+<p>NsJail is a lightweight process isolation tool, making use of Linux namespaces
+and seccomp-bpf syscall filters. It is not a container tool like docker. Its
+features are quite extensive regarding isolation. The
+<a href="https://github.com/google/nsjail">README</a> gives the full list of available
+options. Although available in the google github, it is not an official google
+tool.</p>
+<p>NsJail is:</p>
+<ul>
+<li>easy to install : just a make away with standard build tools</li>
+<li>offers a full list or isolation tools</li>
+<li>lightly documented the only documentation is nsjail -h (also available in the
+  main github page) and it is quite cryptic for a non-sysadmin like me. I could
+  not find any help in any search engine. Some examples are available to run a
+  back in an isolated process and work but I could not run a full nodejs (only
+  nodejs -v worked)</li>
+<li>The konnectors will need a full nodejs installed on the host</li>
+<li>Is still actively maintained</li>
+</ul>
+<h3 id="rkt_1">Rkt<a class="headerlink" href="#rkt_1" title="Permanent link">&para;</a></h3>
+<p>Rkt is very similar to docker. It can even directly run docker images from the
+docker registry, which gives us a lot of existing images to use, even if we want
+to be able to use other languages than node. For example, we could have also a
+container dedicated to weboob, another container could use phantomjs or casper
+and without forcing self-hosted users to do complicated installation procedures.</p>
+<p>Rkt is :</p>
+<ul>
+<li>easy to install : debian, rpm package available, archlinux community package :
+  https://github.com/coreos/rkt/releases</li>
+<li>has network isolation like docker</li>
+<li>offers CPU, memory limitation, seccomp isolation (but the set of rules to use
+  is out of my understanding)</li>
+<li>is well <a href="https://coreos.com/rkt/docs/latest/">documented</a>, complete man pages,
+  but not as well known as docker, then there is not a lot of things to find
+  outside the official documentation.</li>
+<li>can use docker image directly or can convert them to one runnable aci file
+  with one simple cli command (rkt export)</li>
+<li>is in active developpement but relatively stable regarding core features.</li>
+<li>container images can be easily signed and the signature is checked by default
+  when running a container.</li>
+</ul>
+<p>I managed to run a nodejs container with just the following commands :</p>
+<pre class="codehilite"><code>rkt run --insecure-options=image --interactive docker://node:slim --name nodeslim -- -v
+rkt list   # to get the container uuid
+rkt export --app=nodeslim &lt;uuid&gt; nodeslim.aci
+rkt run --insecure-options=image --interactive nodeslim.aci -- -v  # to run node -v in the new container</code></pre>
+
+
+<p>Note: the &ndash;insecure-options param is to avoid the check of the image signature
+to ease the demonstration</p>
+<h3 id="choice">Choice<a class="headerlink" href="#choice" title="Permanent link">&para;</a></h3>
+<p>The best choice would be Rkt for it&rsquo;s ease of use (which is good for
+contribution) and wide range of isolation features + access to the big docker
+ecosystem without beeing a burden for the host administrator. Note : the
+limitation of NsJail I saw might be due to my lack of knowledge regarding system
+administration.</p>
+<h3 id="proposed-use-of-rkt-regarding-connectors">Proposed use of rkt regarding connectors<a class="headerlink" href="#proposed-use-of-rkt-regarding-connectors" title="Permanent link">&para;</a></h3>
+<h4 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h4>
+<p>As stated before, rkt is easy to install. It may also be possible to make it
+available in the cozy-stack docker image but I did not test it (TODO)</p>
+<h4 id="image-creation">Image creation<a class="headerlink" href="#image-creation" title="Permanent link">&para;</a></h4>
+<p>To create an ACI file image, you just need to run a docker image one time :</p>
+<pre class="codehilite"><code>rkt run  --uuid-file-save=$PWD/uuid --insecure-options=image --interactive docker://node:slim --name nodeslim -- -v
+rkt export --app=nodeslim `cat uuid` nodeslim.aci &amp;&amp; rm uuid</code></pre>
+
+
+<p>The node:slim image weights 84M at this time. The node:alpine image also exists
+and is way lighter (19M) but I had problems with DNS with this, and alpine can
+cause some nasty bugs that are difficult to track.</p>
+<h4 id="running-a-connector">Running a connector<a class="headerlink" href="#running-a-connector" title="Permanent link">&para;</a></h4>
+<p>A path dedicated to run the konnectors with a predefined list of node packages
+available (the net module could be mocked with special limitations to blacklist
+some urls)</p>
+<p>A script will run the node container giving as option the script to launch. The
+path is mounted inside the container. The following script does just that</p>
+<pre class="codehilite"><code class="language-bash linenums">#!/usr/bin/env bash
+rm -rf ./container_dir
+cp -r ./container_dir_template ./container_dir
+rkt run --net=host --environment=CREDENTIAL=value;COZY_URL=url --uuid-file-save=$PWD/uuid --volume data,kind=host,source=$PWD/container_dir --insecure-options=image nodeslim.aci --cpu=100m --memory=128M --name rktnode --mount volume=data,target=/usr/src/app --exec node -- /usr/src/app/$1 $2 &amp;
+# the container will handle itself the communication with the stack
+sleep 60
+rkt stop --force --uuid-file=uuid
+rkt rm --uuid-file=uuid
+rm -rf ./container_dir</code></pre>
+
+
+<p>This script can be run like this :</p>
+<pre class="codehilite"><code>./rkt.sh mynewkonnector.js</code></pre>
+
+
+<p>If the mynewkonnector.js file is available in the container_dir_template
+directory.</p>
+<p>Cons : must forbid access to port 5984 and 6060 + SMTP server</p>
+<p>The limitation of time, CPU and memory will avoid most DOS attacks (to my
+knowledge). For memory use, I still don&rsquo;t see a way to prevent the excessive use
+of swap from the container. To prevent the connectors from listening to each
+other, they should be run in containers with different uid, avoiding them to
+listen to each other.</p>
+<h4 id="solution-to-limit-access-of-the-container-to-5984-and-6060-ports-smtp">Solution to limit access of the container to 5984 and 6060 ports + SMTP<a class="headerlink" href="#solution-to-limit-access-of-the-container-to-5984-and-6060-ports-smtp" title="Permanent link">&para;</a></h4>
+<p>The container must be started in bridged mode. With that, the container still
+has access to localhost but through a specific IP address visible with ifconfig.
+That way, the host can have iptable rules to forbid access to specified ports to
+the bridge.</p>
+<p>To connect a container in bridge mode :</p>
+<p>On the host create the file /etc/rkt/net.d/10-containers.conf</p>
+<pre class="codehilite"><code>{
+    &quot;name&quot;: &quot;bridge&quot;,
+    &quot;type&quot;: &quot;bridge&quot;,
+    &quot;bridge&quot;: &quot;rkt-bridge-nat&quot;,
+    &quot;ipMasq&quot;: true,
+    &quot;isGateway&quot;: true,
+    &quot;ipam&quot;: {
+        &quot;type&quot;: &quot;host-local&quot;,
+        &quot;subnet&quot;: &quot;10.2.0.0/24&quot;,
+        &quot;routes&quot;: [
+               { &quot;dst&quot;: &quot;0.0.0.0/0&quot; }
+        ]
+    }
+}</code></pre>
+
+
+<p>and run your container with the &ldquo;&ndash;net=bridge&rdquo; option. That way, a new interface
+is available in the container and gives you access to the host.</p>
+<h2 id="konnector-install-and-run-details">Konnector install and run details<a class="headerlink" href="#konnector-install-and-run-details" title="Permanent link">&para;</a></h2>
+<h3 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h3>
+<p>The konnectors will be installed in the .cozy_konnectors directory which is in
+the VFS using git clone (like the apps at the moment).</p>
+<p>The konnectors installation may be triggered when the user says he wants to use
+it. The resulting repository is then kept for each run of the konnector. It may
+then be given to the user the possibility to upgrade the konnector to the latest
+version if any.</p>
+<p>To update a given konnector, a <code>git pull</code> command is run on the konnector.</p>
+<h3 id="details-about-running-a-konnector">Details about running a konnector<a class="headerlink" href="#details-about-running-a-konnector" title="Permanent link">&para;</a></h3>
+<p>To run a given konnector, the stack will copy this connector in a &ldquo;run&rdquo;
+directory, which is not in the VFS. This directory will be given to the rocket
+container as the current working directory with full read and write access on
+it. This is where the container will put its logs and any temp file needed.
+There will be also cozy-client.js and the shared libraries in a lib directory
+inside this directory. The lib directory will be the content of the
+<a href="https://github.com/cozy-labs/konnectors/tree/master/server/lib">actual server lib directory</a>.</p>
+<p>The konnector will be run with the following environment variables :</p>
+<ul>
+<li><code>COZY_CREDENTIALS</code> : containing the response to Oauth request as json string</li>
+<li><code>COZY_URL</code> : to know what instance is running the konnector</li>
+<li><code>COZY_FIELDS</code> : as a json string with all the values from the account
+  associated to the konnector.</li>
+<li><code>COZY_PARAMETERS</code> : optional json string associated with the application, used
+  to parameterize a konnector based on a common set of code.</li>
+</ul>
+<p>In the end of the konnector execution (or timeout), the logs are read in the
+log.txt file and added to the konnector own log file (in VFS) and the run
+directory is then destroyed.</p>
+<h2 id="multi-account-handling">Multi-account handling<a class="headerlink" href="#multi-account-handling" title="Permanent link">&para;</a></h2>
+<p>This section is devoted to allow the user to use one account for multiple
+konnectors. It will follow the following constraints in mind:</p>
+<ul>
+<li>The migration path must be as easy as possible</li>
+<li>The developpement and maintainance of konnector must also be as easy as
+  possible</li>
+</ul>
+<h3 id="new-doctype-iocozyaccounts">New doctype : io.cozy.accounts<a class="headerlink" href="#new-doctype-iocozyaccounts" title="Permanent link">&para;</a></h3>
+<p>A new doctype will have to be created to allow to keep konnector accounts
+independently from each konnector. The one once used by the email application
+seems to be a good candidate : io.cozy.accounts</p>
+<p>Here is an example document with this doctype :</p>
+<pre class="codehilite"><code>{
+    _id: &quot;ojpiojpoij&quot;,
+    name: &quot;user decided name for the account&quot;,
+    accountType: &quot;google&quot;,
+    login: &quot;mylogin&quot;,
+    password: &quot;123456&quot;
+}</code></pre>
+
+
+<p>Any attribute needed for the account may be added : email, etc&hellip;</p>
+<h3 id="updates-needed-in-existing-application-and-konnectors">Updates needed in existing application and konnectors<a class="headerlink" href="#updates-needed-in-existing-application-and-konnectors" title="Permanent link">&para;</a></h3>
+<p>CRUD manipulation of io.cozy.accounts and linking them with konnectors will be
+handled by the &ldquo;my accounts&rdquo; client application.</p>
+<p>Each konnector need also to declare a new field in the &ldquo;fields&rdquo; attribute which
+will be the type of account, related to the accountType field in the new account
+docType.</p>
+<p>Ex:</p>
+<pre class="codehilite"><code>module.exports = baseKonnector.createNew({
+  name: 'Trainline',
+  vendorLink: 'www.captaintrain.com',
+  category: 'transport',
+  color: {
+    hex: '#48D5B5',
+    css: '#48D5B5'
+  },
+  fields: {
+    login: {
+      type: 'text'
+    },
+    password: {
+      type: 'password'
+    },
+    folderPath: {
+      type: 'folder',
+      advanced: true
+    },
+    accountType: &quot;trainline&quot;
+  },
+  dataType: ['bill'],
+  models: [Bill],
+  fetchOperations: [
+    ...
+  ]
+})</code></pre>
+
+
+<p>With this new field, which will appear also in the io.cozy.konnectors docType,
+the &ldquo;my account&rdquo; client appliction will be able to propose existing accounts of
+the good type for activating a new konnector.</p>
+<h3 id="migration-path">Migration path<a class="headerlink" href="#migration-path" title="Permanent link">&para;</a></h3>
+<p>For the migration of existing, activated konnectors in V2, the type of account
+for each konnector will have to be indicated in a V2 &ldquo;my account&rdquo; application
+update. After that, it will be possible to create the accounts associated to
+each activated konnectors an link the konnectors to these accounts in a
+migration script.</p>
+<h2 id="study-on-konnectors-installation-on-vfs">Study on konnectors installation on VFS<a class="headerlink" href="#study-on-konnectors-installation-on-vfs" title="Permanent link">&para;</a></h2>
+<p>The VFS is slow and installing npm packages on it will cause some performance
+problem. We are trying to find solution to handle that.</p>
+<p>We found 3 possible solutions :</p>
+<ul>
+<li>Install the konnector on VFS as tar.gz files with all the dependencies
+  included by the konnector developper</li>
+<li>advantages : easy for the konnector developper, as performant as a cp, no
+    nedd for a compiled version of the konnector source, no duplication of code
+    in the repo</li>
+<li>drawbacks : The source are not readable in files application then more
+    complicated to study the konnector source, not really nice&hellip; , still could
+    take a lot of space on VFS</li>
+<li>Use webpack with <code>target: node</code> option to make a node bundle of the
+  dependencies</li>
+<li>advantages : the konnector itself stays in clear on the VFS</li>
+<li>drawbacks : forces a compilation of the sources and then a sync between the
+    source and bundle in the git repo by the konnector developper, forces
+    konnector developpers to use webpack.</li>
+<li>Install the npm dependencies with yarn in an immutable cache (&ndash;cache-folder
+  option) in a directory like deps-${konnector-git-sha1} not in VFS.</li>
+<li>advantages : easier for the konnector developper, no particular dependency
+    handling, no mandatory compilation, just a package.json in the git
+    repository, the cache can be shared by instances</li>
+<li>drawbacks : node only solution, maybe more work on the cozy-stack side</li>
+</ul>
+<h2 id="todo">TODO<a class="headerlink" href="#todo" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[x] How to install and update the konnectors?</li>
+<li>[x] Are the konnectors installed once per server or per instance (in the VFS
+      like client-side apps)?</li>
+<li>[x] One git repository with all the konnectors (like now), or one repos per
+      konnector? Same question for package.json</li>
+<li>[ ] What API to list the konnectors for My Accounts?</li>
+<li>[ ] What workflow for developing a konnector?</li>
+<li>[ ] How to test konnectors?</li>
+<li>[x] How are managed the locales? : declared in manfiest.konnector</li>
+<li>[x] Which version of nodejs? Last LTS version bundled in a rocket container</li>
+<li>[ ] Do you keep coffeescript? Or move every konnector to ES2017?<ul>
+<li>28 konnectors in coffee</li>
+<li>22 konnectors in JS</li>
+</ul>
+</li>
+<li>[ ] What about weboob?</li>
+<li>[ ] What roadmap for transforming the konnectors-v2 in konnectors-v3?</li>
+<li>[x] What format for the konnectors manifest?</li>
+<li>[x] What permissions for a konnector?</li>
+<li>[ ] For konnectors that import files, how can we let the user select a folder
+      and have an associated permission for the konnector in this folder (and
+      not anywhere else on the virtual file system)?</li>
+<li>[ ] Can we associate the data retrieved by a konnector to a &ldquo;profile&rdquo;? The
+      goal is to allow a client-side to have a permission on this profile and be
+      able to read all the data fetched by a given konnector (or is tied to an
+      account)?</li>
+<li>[ ] How are logged the data exported/synchronized by a &ldquo;push&rdquo; konnector?</li>
+<li>[x] Analyze the konnectors node_modules<ul>
+<li>no compiled modules currently</li>
+<li>28 dependencies that install 65 MB for 271 modules in production</li>
+<li>71 dependencies that install 611 MB for 858 modules with dev
+    dependencies</li>
+</ul>
+</li>
+<li>[ ] How are persisted the accounts?</li>
+<li>[x] How is executed a konnector? In particular, how the credentials are given
+      to the konnector?</li>
+<li>[ ] what should expose a konnector (data, functions, etc)?<ul>
+<li>https://github.com/cozy-labs/konnectors/issues/695</li>
+</ul>
+</li>
+<li>[ ] How can we support konnectors with OAuth?</li>
+</ul></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

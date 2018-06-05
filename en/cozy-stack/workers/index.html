@@ -481,6 +481,7 @@
             <li><a href="#unzip-worker">unzip worker</a></li>
             <li><a href="#sendmail-worker">sendmail worker</a></li>
             <li><a href="#export">export</a></li>
+            <li><a href="#share-workers">share workers</a></li>
     </ul>
   <div style='padding-left: 2rem'>
     
@@ -692,7 +693,23 @@ permission. It is done by adding this to the manifest:</p>
       &quot;values&quot;: [&quot;export&quot;]
     }
   }
-}</code></pre></div>
+}</code></pre>
+
+
+<h2 id="share-workers">share workers<a class="headerlink" href="#share-workers" title="Permanent link">&para;</a></h2>
+<p>The stack have 3 workers to power the sharings (internal usage only):</p>
+<ol>
+<li><code>share-track</code>, to update the <code>io.cozy.shared</code> database</li>
+<li><code>share-replicate</code>, to start a replicator for most documents</li>
+<li><code>share-upload</code>, to upload files</li>
+</ol>
+<h3 id="share-track">Share-track<a class="headerlink" href="#share-track" title="Permanent link">&para;</a></h3>
+<p>The message is composed of 3 fields: the sharing ID, the rule index, and the
+doctype. The event is similar to a realtime event: a verb, a document, and
+optionaly the old version of this document.</p>
+<h3 id="share-replicate-and-share-upload">Share-replicate and share-upload<a class="headerlink" href="#share-replicate-and-share-upload" title="Permanent link">&para;</a></h3>
+<p>The message is composed of a sharing ID and a count of the number of errors
+(i.e. the number of times this job was retried).</p></div>
         </div>
 
         <footer class="col-md-12">

@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/konnectors_oauth/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>konnectors_oauth - Cozy Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Cozy Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/en">en</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/fr/index_fr">fr</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Use <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../use/">User guide</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/">Stay in sync</a>
+</li>
+                            
+<li >
+    <a href="../../sync/phone/">Synchronize your phone</a>
+</li>
+                            
+<li >
+    <a href="../../sync/desktop/">Synchronize your computer</a>
+</li>
+                            
+<li >
+    <a href="../../sync/linux/">Install on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../download/">Download</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="/en/dev/">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="/en/dev/connect-mobile-app-local-stack/">Connect a mobile app to your local stack</a>
+</li>
+                            
+<li >
+    <a href="/en/dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="/en/dev/app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="/en/dev/konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="/en/dev/cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="/en/dev/sendmail/">How to send mail in development</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">References</a>
+    <ul class="dropdown-menu">
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-client-js</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-client-js/intro/">Introduction</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/browser-sdk-transition/">Transition from cozy-browser-sdk</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/offline/">How to support offline</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/oauth/">OAuth guide</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/auth-api/">Authentication API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/data-api/">Data System API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/files-api/">Files API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/jobs-api/">Jobs API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/intents-api/">Intents API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/settings-api/">Settings API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/sharing-api/">Sharing API</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-doctypes</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.accounts/">Accounts</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.photos.albums/">Albums</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bank/">Banking doctypes</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bills/">Bills</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.konnectors/">Connectors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.contacts/">Contacts</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.files/">Files</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.notifications/">Notifications</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.payslips/">Payslips</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/">Remote requests</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/">Session logins</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.sharings/">Sharings</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.triggers/">Triggers</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-stack</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../README/">README</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Architecture</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../architecture/">General overview</a>
+</li>
+            
+<li >
+    <a href="../security/">Security</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Usage</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../INSTALL/">Install the cozy-stack</a>
+</li>
+            
+<li >
+    <a href="../cli/cozy-stack/">Manpages of the command-line tool</a>
+</li>
+            
+<li >
+    <a href="../config/">Configuration file</a>
+</li>
+            
+<li >
+    <a href="../instance/">Managing Instances</a>
+</li>
+            
+<li >
+    <a href="../onboarding/">Onboarding</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">For developpers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../client-app-dev/">Develop a client-side app</a>
+</li>
+            
+<li >
+    <a href="../docker/">Running and building Docker images</a>
+</li>
+            
+<li >
+    <a href="../release/">Build a release</a>
+</li>
+            
+<li >
+    <a href="../CONTRIBUTING/">The contributing guide</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Services</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../auth/">/auth - Authentication & OAuth</a>
+</li>
+            
+<li >
+    <a href="../apps/">/apps - Applications Management</a>
+</li>
+            
+<li >
+    <a href="../registry/">Apps registry</a>
+</li>
+            
+<li >
+    <a href="../data-system/">/data - Data System</a>
+</li>
+            
+<li >
+    <a href="../mango/">Mango</a>
+</li>
+            
+<li >
+    <a href="../replication/">Replication</a>
+</li>
+            
+<li >
+    <a href="../couchdb-quirks/">CouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../files/">/files - Virtual File System</a>
+</li>
+            
+<li >
+    <a href="../references-docs-in-vfs/">References of documents in VFS</a>
+</li>
+            
+<li >
+    <a href="../intents/">/intents - Intents</a>
+</li>
+            
+<li >
+    <a href="../jobs/">/jobs Jobs</a>
+</li>
+            
+<li >
+    <a href="../konnectors/">Konnectors</a>
+</li>
+            
+<li >
+    <a href="../workers/">Workers</a>
+</li>
+            
+<li >
+    <a href="../move/">/move - Move, export and import an instance</a>
+</li>
+            
+<li >
+    <a href="../notifications/">/notifications - Notifications</a>
+</li>
+            
+<li >
+    <a href="../permissions/">/permissions - Permissions</a>
+</li>
+            
+<li >
+    <a href="../realtime/">/realtime - Realtime</a>
+</li>
+            
+<li >
+    <a href="../remote/">/remote - Proxy for remote data/API</a>
+</li>
+            
+<li >
+    <a href="../settings/">/settings - Settings</a>
+</li>
+            
+<li >
+    <a href="../sharing/">/sharings - Sharing</a>
+</li>
+            
+<li >
+    <a href="../sharing-design/">Request for comments</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">konitor</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../konitor/cli/">CLI</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy.github.io/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3">
+<div class="bs-sidebar hidden-print affix" role="complementary">
+    <ul class="nav bs-sidenav well" style='padding-left: 0; padding-right: 0; margin-bottom: 1.5rem'>
+        <li class="main active"><a href="#doctypes">Doctypes</a></li>
+        <li class="main "><a href="#reminder-oauth-flow">Reminder OAuth flow</a></li>
+        <li class="main "><a href="#client-registration">Client Registration</a></li>
+            <li><a href="#manually">Manually</a></li>
+            <li><a href="#dynamic-registration-protocol">Dynamic Registration Protocol</a></li>
+            <li><a href="#no-redirect_url-enforcement">No redirect_url enforcement</a></li>
+        <li class="main "><a href="#authorization-grant-flows">Authorization Grant flows</a></li>
+            <li><a href="#webserver-flow-authorization-code-grant">webserver flow (Authorization Code Grant)</a></li>
+            <li><a href="#spa-flow-implicit-grant">SPA flow (Implicit grant)</a></li>
+        <li class="main "><a href="#accessing-data">Accessing data</a></li>
+        <li class="main "><a href="#refreshing-token">Refreshing token</a></li>
+        <li class="main "><a href="#konnectors-marketplace-requirements">Konnectors Marketplace Requirements</a></li>
+        <li class="main "><a href="#account-types-security-rules">Account types security rules</a></li>
+        <li class="main "><a href="#notes-for-mesinfos-experiment">Notes for MesInfos experiment</a></li>
+    </ul>
+  <div style='padding-left: 2rem'>
+    
+    <a id='edit-link' href='https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-stack/konnectors_oauth.md'>Edit documentation</a>
+    <script type='text/javascript'>
+        /* Here we detect if the current page is from an external documentation and we 
+        change the href of the editing link so it goes to the right repository and file */
+        const outsideDocs = [{"repo": "https://github.com/cozy/cozy-client-js.git", "name": "cozy-client-js", "subdir": "docs"}, {"repo": "https://github.com/konnectors/libs.git", "name": "cozy-konnector-libs", "subdir": "packages/cozy-konnector-libs/docs"}, {"repo": "https://github.com/cozy/cozy-doctypes.git", "name": "cozy-doctypes", "subdir": "."}, {"repo": "https://github.com/cozy/cozy-stack.git", "name": "cozy-stack", "subdir": "docs"}, {"repo": "https://github.com/konnectors/konitor.git", "name": "konitor", "subdir": "docs"}]
+        const editNode = document.querySelector('#edit-link')
+        const pathname = window.location.pathname
+        const editURI = 'edit/master/'
+        const removeGitSuffix = function (x) { return x.replace(/\.git$/, '') }
+
+        // Returns the external repo associated to a pathname
+        const detectExternalRepo = function (pathname) {
+            for (var outsideDoc of outsideDocs) {
+                if (window.location.pathname.includes('/' + outsideDoc.name + '/')) {
+                    return outsideDoc
+                }
+            }
+        }
+
+        // Change the href attribute of a link to point to the correct edition page on GitHub
+        // for the passed external documentation
+        const fixEditLink = function (editNode, externalDoc) {
+            const repoFile = pathname.replace('/' + externalDoc.name, '').replace(/\/$/, '.md')
+            const baseRepo = removeGitSuffix(externalDoc.repo)
+            editNode.href = baseRepo + '/' + editURI + externalDoc.subdir + repoFile
+        }
+
+        const externalRepo = detectExternalRepo(pathname)
+        if (externalRepo) {
+            fixEditLink(editNode, externalRepo)
+        }
+    </script>
+    
+  </div>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="doctypes">Doctypes<a class="headerlink" href="#doctypes" title="Permanent link">&para;</a></h1>
+<p><code>io.cozy.konnectors</code> gives their desiderata for an account</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;fields&quot;: {
+    &quot;account&quot;: {
+      &quot;doctype&quot;: &quot;io.cozy.accounts&quot;,
+      &quot;account_type&quot;: &quot;maif&quot;,
+      &quot;scope&quot;: &quot;openid profile offline_access&quot;
+    }
+  }
+}</code></pre>
+
+
+<p><code>io.cozy.accounts</code> contains authentication information for an account, as well
+as the associated scope</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;name&quot;: &quot;Mon Compte Maif&quot;,
+  &quot;account_type&quot;: &quot;maif&quot;,
+  &quot;status&quot;: &quot;connected&quot;,
+  &quot;oauth&quot;: {
+    &quot;access_token&quot;: &quot;akosaksoakso&quot;,
+    &quot;refresh_token&quot;: &quot;okoakozkaozk&quot;,
+    &quot;scope&quot;: &quot;openid profile offline_access&quot;
+  }
+}</code></pre>
+
+
+<p><code>io.cozy.account_types</code> contains the oauth configuration</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;_id&quot;: &quot;service.example&quot;,
+  &quot;grant_mode&quot;: &quot;authorization_code&quot;,
+  &quot;client_id&quot;: &quot;the registered client id&quot;,
+  &quot;client_secret&quot;: &quot;client_secret is necessary for server-flow&quot;,
+  &quot;auth_endpoint&quot;: &quot;https://service.example/auth&quot;,
+  &quot;token_endpoint&quot;: &quot;https://api.service.example/token&quot;
+}</code></pre>
+
+
+<p>io.cozy.account_types should not be accessible to the applications. They will be
+loaded into the stack by infra and will be configurable through config files for
+self-hosters.</p>
+<h1 id="reminder-oauth-flow">Reminder OAuth flow<a class="headerlink" href="#reminder-oauth-flow" title="Permanent link">&para;</a></h1>
+<p><strong>Service</strong> is the website from which konnector aims to retrieve informations.
+<strong>Stack</strong> is the cozy stack</p>
+<p>Oauth is divided in 3 steps</p>
+<ul>
+<li>Client Registration: the client application (the Stack) needs to be registered
+  with the Service.</li>
+<li>Obtaining &amp; Refreshing Authorization: all the steps from client_id to
+  access_token, the Stack will handle those</li>
+<li>Using the access_token: Ideally, the konnector should only concern itself with
+  this part; it receives an access_token and uses it.</li>
+</ul>
+<h1 id="client-registration">Client Registration<a class="headerlink" href="#client-registration" title="Permanent link">&para;</a></h1>
+<p>Before beginning the Grant process, most Services require the application to be
+registered with a defined redirect_uri.</p>
+<p><strong>TL:DR</strong> Lot of options, which we will choose from when actually implementing
+konnectors using them.</p>
+<h2 id="manually">Manually<a class="headerlink" href="#manually" title="Permanent link">&para;</a></h2>
+<p>Most services requires a human developer to create the client manually and
+define its redirect_uri. However each instance has its own domain, so for these
+services, we will need to:</p>
+<p><strong>A. Register a &ldquo;proxy&rdquo; client</strong>, which is a static page performing redirections
+as needed, as was done for Facebook events in v2 konnectors. We will register a
+well known cozy domain, like <code>oauth-proxy.cozy.io</code> and registers it with all
+providers. The use and risks associated with this domain should be made clear to
+the user.</p>
+<p><strong>B. Register each Stack</strong> with a redirect_uri on the main stack domain, if we
+go this way, the register_uri below moves from
+<code>bob.cozy.rocks/accounts/redirect</code> to <code>_cozy_oauth.cozy.rocks/redirect</code> and the
+domain will be prepended to the state. This is feasible at cozy scale, but
+requires more knowledge and work for self-hosters.</p>
+<h2 id="dynamic-registration-protocol">Dynamic Registration Protocol<a class="headerlink" href="#dynamic-registration-protocol" title="Permanent link">&para;</a></h2>
+<p>A few services allows client to register programaticaly through the Dynamic
+Client Registration Protocol <a href="https://tools.ietf.org/html/rfc7591">RFC7591</a>, we
+should allow the Stack to register using this protocol when we first need to
+implement a Konnector connecting to such a Service.</p>
+<h2 id="no-redirect_url-enforcement">No redirect_url enforcement<a class="headerlink" href="#no-redirect_url-enforcement" title="Permanent link">&para;</a></h2>
+<p>A few services allows to specify arbitrary redirect_url without registering
+beforehand as a client.</p>
+<h1 id="authorization-grant-flows">Authorization Grant flows<a class="headerlink" href="#authorization-grant-flows" title="Permanent link">&para;</a></h1>
+<h2 id="webserver-flow-authorization-code-grant">webserver flow (Authorization Code Grant)<a class="headerlink" href="#webserver-flow-authorization-code-grant" title="Permanent link">&para;</a></h2>
+<p>A. In SettingsApp give a link</p>
+<pre class="codehilite"><code class="language-html">  &lt;a href=&quot;https://bob.cozy.rocks/accounts/service-name/start? (url)
+      scope=photos&amp;
+      state=1234zyx&quot;&gt;</code></pre>
+
+
+<p><strong>NOTE</strong> the scope may depends on other fields being configured (checkboxes),
+this will be described in json in the konnectors manifest. The format will be
+determined upon implementation.</p>
+<p><strong>NOTE</strong> To limit bandwidth and risk of state corruption, SettingsApp should
+save its state under a random key into localStorage, the key is then passed as
+the state in this query.</p>
+<p>B. Service let the user login, allow or deny scope Then redirect to</p>
+<pre class="codehilite"><code class="language-http">https://bob.cozy.rocks/accounts/service-name/redirect? (url)
+  code=AUTH_CODE_HERE&amp;
+  state=1234zyx</code></pre>
+
+
+<p>C. The Stack does Server side</p>
+<pre class="codehilite"><code class="language-http">POST https://api.service.example/token
+Content-Type:
+  grant_type=authorization_code&amp;
+  code=AUTH_CODE_HERE&amp;
+  redirect_uri=https://bob.cozy.rocks/accounts/service-name/redirect&amp;
+  client_id=CLIENT_ID&amp;
+  client_secret=CLIENT_SECRET</code></pre>
+
+
+<p>D. The Service responds (server side) with (json)</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;access_token&quot;: &quot;ACCESS_TOKEN&quot;,
+  &quot;token_type&quot;: &quot;bearer&quot;,
+  &quot;expires_in&quot;: 2592000,
+  &quot;refresh_token&quot;: &quot;REFRESH_TOKEN&quot;,
+  &quot;scope&quot;: &quot;read&quot;,
+  &quot;uid&quot;: 100101,
+  &quot;info&quot;: { &quot;name&quot;: &quot;Claude Douillet&quot;, &quot;email&quot;: &quot;claude.douillet@example.com&quot; }
+}</code></pre>
+
+
+<p>This whole object is saved as-is into a <code>io.cozy.accounts</code> &lsquo;s <code>extras</code> field.</p>
+<p>The known fields <code>access_token</code>, <code>refresh_token</code> &amp; <code>scope</code> will be <strong>also</strong>
+saved on the account&rsquo;s <code>oauth</code> itself</p>
+<p>E. The Stack redirect the user to SettingsApp</p>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 302 Found
+Location: https://bob-settings.cozy.rocks/?state=1234zyx&amp;account=accountID</code></pre>
+
+
+<p>SettingsApp check the state is expected and restore its state to the form but
+whith account completed.</p>
+<h2 id="spa-flow-implicit-grant">SPA flow (Implicit grant)<a class="headerlink" href="#spa-flow-implicit-grant" title="Permanent link">&para;</a></h2>
+<p>A. In SettingsApp give a link</p>
+<pre class="codehilite"><code class="language-html">&lt;a href=&quot;https://service.example/auth? (url)
+    response_type=token&amp;
+    client_id=CLIENT_ID&amp;
+    redirect_uri=https://bob-settings.cozy.rocks/&amp;
+    scope=photos&amp;
+    state=1234zyx&quot;&gt;</code></pre>
+
+
+<p>See server-flow for state rules.</p>
+<p>B. Service let the user login, allow or deny scope Then redirects to</p>
+<pre class="codehilite"><code class="language-http">https://bob-settings.cozy.rocks/?
+access_token=ACCESS_TOKEN&amp;
+state=1234zyx</code></pre>
+
+
+<p>C. SettingsApp adds the token to the <code>io.cozy.accounts</code> and save it before
+starting konnector.</p>
+<h1 id="accessing-data">Accessing data<a class="headerlink" href="#accessing-data" title="Permanent link">&para;</a></h1>
+<p>Once we have an account, SettingsApp starts the konnector with the proper
+account id. The konnector can then fetch the account and use its access_token to
+performs a request to fetch data</p>
+<pre class="codehilite"><code class="language-http">POST https://api.service.com/resource
+  Authorization: Bearer ACCESS_TOKEN</code></pre>
+
+
+<h1 id="refreshing-token">Refreshing token<a class="headerlink" href="#refreshing-token" title="Permanent link">&para;</a></h1>
+<p>When using the server-flow, we also get a refresh_token. It is used to get a new
+access_token when it expires. However, if konnectors are responsible for
+refreshing token there is a race condition risk :</p>
+<pre class="codehilite"><code>(konnector A) GET  https://api.service.com/resource TOKEN1     -&gt; expired
+(konnector B) GET  https://api.service.com/resource TOKEN1     -&gt; expired
+(konnector A) POST https://api.service.com/token REFRESH_TOKEN -&gt; TOKEN2a
+(konnector B) POST https://api.service.com/token REFRESH_TOKEN -&gt; TOKEN2b
+(konnector A) GET  https://api.service.com/token TOKEN2a       -&gt; invalid</code></pre>
+
+
+<p>To avoid this, the stack will be responsible to perform token refresh. A
+konnector can requires the stack to refresh an account token with an HTTP
+request.</p>
+<pre class="codehilite"><code>POST https://bob-settings.cozy.rocks/accounts/:accountID/refresh</code></pre>
+
+
+<h1 id="konnectors-marketplace-requirements">Konnectors Marketplace Requirements<a class="headerlink" href="#konnectors-marketplace-requirements" title="Permanent link">&para;</a></h1>
+<p>The following is a few points to be careful for in konnectors when we start
+allowing non-cozy developped OAuth konnectors.</p>
+<ul>
+<li>With SPA flow, because of advanced security concerns (confused deputy
+  problem), cozy should validate the <code>access_token</code>. However, the way to do that
+  depends on the provider and cannot be described in json, it is therefore the
+  responsibility of the konnector itself.</li>
+</ul>
+<h1 id="account-types-security-rules">Account types security rules<a class="headerlink" href="#account-types-security-rules" title="Permanent link">&para;</a></h1>
+<ul>
+<li>With server flow, an evil account type with proper <code>auth_endpoint</code> but bad
+  <code>token_endpoint</code> could retrieve a valid token as well as cozy client secret.
+  The reviewer of an <code>account_type</code> should make sure both these endpoints are on
+  domains belonging to the Service provider.</li>
+</ul>
+<h1 id="notes-for-mesinfos-experiment">Notes for MesInfos experiment<a class="headerlink" href="#notes-for-mesinfos-experiment" title="Permanent link">&para;</a></h1>
+<ul>
+<li>MAIF konnector uses the webserver flow without redirect_uri validation</li>
+<li>Orange konnector uses the client-side proxy but hosted on their own servers
+  (/!\ redirect_uri vs redirect_url)</li>
+</ul></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
