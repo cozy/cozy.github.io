@@ -7,10 +7,10 @@
         
         
         <meta name="author" content="CozyCloud - https://cozy.io">
-        <link rel="canonical" href="https://docs.cozy.io/cozy-doctypes/docs/io.cozy.payslips/">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-doctypes/docs/io.cozy.sharings/">
         <link rel="shortcut icon" href="../../../img/favicon.png">
         
-        <title>Payslips - Cozy Documentation</title>
+        <title>Sharings - Cozy Documentation</title>
         <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
@@ -256,8 +256,8 @@
     <a href="../io.cozy.notifications/">Notifications</a>
 </li>
             
-<li class="active">
-    <a href="./">Payslips</a>
+<li >
+    <a href="../io.cozy.payslips/">Payslips</a>
 </li>
             
 <li >
@@ -268,8 +268,8 @@
     <a href="../io.cozy.sessions.logins/">Session logins</a>
 </li>
             
-<li >
-    <a href="../io.cozy.sharings/">Sharings</a>
+<li class="active">
+    <a href="./">Sharings</a>
 </li>
             
 <li >
@@ -475,12 +475,14 @@
                 <div class="col-md-3">
 <div class="bs-sidebar hidden-print affix" role="complementary">
     <ul class="nav bs-sidenav well" style='padding-left: 0; padding-right: 0; margin-bottom: 1.5rem'>
-        <li class="main active"><a href="#payslips-doctype">Payslips doctype</a></li>
-            <li><a href="#iocozypayslips">io.cozy.payslips</a></li>
+        <li class="main active"><a href="#iocozysharings">io.cozy.sharings</a></li>
+            <li><a href="#example">Example</a></li>
+        <li class="main "><a href="#iocozyshared">io.cozy.shared</a></li>
+            <li><a href="#example_1">Example</a></li>
     </ul>
   <div style='padding-left: 2rem'>
     
-    <a id='edit-link' href='https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-doctypes/docs/io.cozy.payslips.md'>Edit documentation</a>
+    <a id='edit-link' href='https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-doctypes/docs/io.cozy.sharings.md'>Edit documentation</a>
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
@@ -518,57 +520,158 @@
                 <div class="col-md-9" role="main">
 
 <p><a href="README.md#table-of-contents">Table of contents</a></p>
-<h1 id="payslips-doctype">Payslips doctype<a class="headerlink" href="#payslips-doctype" title="Permanent link">&para;</a></h1>
-<h2 id="iocozypayslips"><code>io.cozy.payslips</code><a class="headerlink" href="#iocozypayslips" title="Permanent link">&para;</a></h2>
+<h1 id="iocozysharings"><code>io.cozy.sharings</code><a class="headerlink" href="#iocozysharings" title="Permanent link">&para;</a></h1>
+<p>This doctype describes a sharing, ie an action made by some user to share some
+documents and files from her cozy instance to other people.</p>
 <ul>
-<li><code>vendor</code>: {string} - Vendor which issued the payslip</li>
-<li><code>date</code>: {date} - Date the payslip was emitted</li>
-<li><code>amount</code>: {number} - Amount of the payslip, <strong>always positive</strong> even if it is the payslip of an employee. This amount should always be the amount which will be found in the bank operations.</li>
+<li>An identifier (the same for all members of the sharing)</li>
+<li>A list of <code>members</code>. The first one is the owner. For each member,
+  we have the URL of the cozy, a public name, an email, a status and some
+  credentials to authorize the transfer of data between the owner and the
+  recipients</li>
+<li>A <code>description</code> (one sentence that will help people understand what is shared
+  and why)</li>
+<li>a flag <code>active</code> that says if the sharing is currently active for at least
+  one member</li>
+<li>a flag <code>owner</code>, true for the document on the cozy of the sharer, and false
+  on the other cozy instance</li>
+<li>a flag <code>open_sharing</code>:</li>
+<li><code>true</code> if any member of the sharing can add a new recipient</li>
+<li><code>false</code> if only the owner can add a new recipient</li>
+<li>Some technical data (<code>created_at</code>, <code>updated_at</code>, <code>app_slug</code>, <code>preview_path</code>,
+  <code>triggers</code>, <code>credentials</code>)</li>
+<li>A list of sharing <code>rules</code>, each rule being composed of:</li>
+<li>a <code>title</code>, that will be displayed to the recipients before they accept the
+    sharing</li>
+<li>a <code>doctype</code></li>
+<li>a <code>selector</code> (by default, it’s the <code>id</code>) and <code>values</code> (one identifier, a
+    list of identifiers, files and folders inside a folder, files that are
+    referenced by the same document, documents bound to a previous sharing rule)</li>
+<li><code>local</code>: by default <code>false</code>, but it can false <code>true</code> for documents that are
+    useful for the preview page but doesn’t need to be send to the recipients
+    (e.g. a setting document of the application)</li>
+<li><code>add</code>: a behavior when a new document matches this rule (the document is
+    created, or it was a document that didn’t match the rule and is modified and
+    the new version matches the rule):<ul>
+<li><code>none</code>: the updates are never propagated (the default)</li>
+<li><code>push</code>: the updates made on the owner are sent to the recipients</li>
+<li><code>sync</code>: the updates on any member are propagated to the other members</li>
 </ul>
-<h3 id="relationships">Relationships<a class="headerlink" href="#relationships" title="Permanent link">&para;</a></h3>
-<p>The eventual related documents
-- <code>document</code>: {object} - The associated file. ex:</p>
-<pre class="codehilite"><code>{
-  data: {
-    _id: &quot;c43645a93831827c7ec512eac3006e51&quot;,
-    _type: &quot;io.cozy.files&quot;
-  }
+</li>
+<li><code>update</code>: a behavior when a document matched by this rule is modified. Can be:<ul>
+<li><code>none</code>: the updates are never propagated (the default)</li>
+<li><code>push</code>: the updates made on the owner are sent to the recipients</li>
+<li><code>sync</code>: the updates on any member are propagated to the other members</li>
+</ul>
+</li>
+<li><code>remove</code>: a behavior when a document no longer matches this rule (the
+    document is deleted, or it was a document that matched the rule, and is
+    modified and the new version doesn’t match the rule):<ul>
+<li><code>none</code>: the updates are never propagated (the default)</li>
+<li><code>push</code>: the updates made on the owner are sent to the recipients</li>
+<li><code>sync</code>: the updates on any member are propagated to the other members</li>
+<li><code>revoke</code>: the sharing is revoked.</li>
+</ul>
+</li>
+</ul>
+<h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
+<pre class="codehilite"><code class="language-json">{
+  &quot;_id&quot;: &quot;fffe04ebbec335405161f19133a0cd5c&quot;,
+  &quot;_rev&quot;: &quot;7-bb721ae29e74ff2d776d8cbabf1a0bf5&quot;,
+  &quot;triggers&quot;: {
+    &quot;track_id&quot;: &quot;fffe04ebbec335405161f19133a0fab5&quot;,
+    &quot;replicate_id&quot;: &quot;fffe04ebbec335405161f19133a1172a&quot;,
+    &quot;upload_id&quot;: &quot;fffe04ebbec335405161f19133a133bd&quot;
+  },
+  &quot;active&quot;: true,
+  &quot;owner&quot;: true,
+  &quot;description&quot;: &quot;Let's work together!&quot;,
+  &quot;app_slug&quot;: &quot;&quot;,
+  &quot;created_at&quot;: &quot;2018-06-01T16:54:32.677789079+02:00&quot;,
+  &quot;updated_at&quot;: &quot;2018-06-01T16:54:32.677789079+02:00&quot;,
+  &quot;rules&quot;: [
+    {
+      &quot;title&quot;: &quot;labore_adipisci&quot;,
+      &quot;doctype&quot;: &quot;io.cozy.files&quot;,
+      &quot;values&quot;: [
+        &quot;fffe04ebbec335405161f19133a0b7b1&quot;
+      ],
+      &quot;add&quot;: &quot;sync&quot;,
+      &quot;update&quot;: &quot;sync&quot;,
+      &quot;remove&quot;: &quot;sync&quot;
+    }
+  ],
+  &quot;members&quot;: [
+    {
+      &quot;status&quot;: &quot;owner&quot;,
+      &quot;name&quot;: &quot;Alice&quot;,
+      &quot;email&quot;: &quot;alice+test@cozy.tools&quot;,
+      &quot;instance&quot;: &quot;http://alice.test.cozy.tools:8081&quot;
+    },
+    {
+      &quot;status&quot;: &quot;ready&quot;,
+      &quot;name&quot;: &quot;Benjamin Denis&quot;,
+      &quot;email&quot;: &quot;denis@borer.org&quot;,
+      &quot;instance&quot;: &quot;http://bob.test.cozy.tools:8082&quot;
+    }
+  ],
+  &quot;credentials&quot;: [
+    {
+      &quot;state&quot;: &quot;OyPayIajZQUUX_KsZY2yaQ&quot;,
+      &quot;client&quot;: {
+        &quot;client_id&quot;: &quot;fffe04ebbec335405161f19133a0e286&quot;,
+        &quot;client_secret&quot;: &quot;JeOuBosC329bnz1rFK3Yenw8_8TleOa2&quot;,
+        &quot;client_secret_expires_at&quot;: 0,
+        &quot;registration_access_token&quot;: &quot;eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJyZWdpc3RyYXRpb24iLCJpYXQiOjE1Mjc4NjQ4ODQsImlzcyI6ImJvYi50ZXN0LmNvenkudG9vbHM6ODA4MiIsInN1YiI6ImZmZmUwNGViYmVjMzM1NDA1MTYxZjE5MTMzYTBlMjg2In0.WsNnnFnnf_vgf2OQyGSaj9XyK2elkaGHyl2vFpjzlCxEfj7ZoE7B2b6_GtRIdmhh42VSawoyGLAXsPh-ml10GQ&quot;,
+        &quot;redirect_uris&quot;: [
+          &quot;http://alice.test.cozy.tools:8081/sharings/answer&quot;
+        ],
+        &quot;client_name&quot;: &quot;Sharing Alice&quot;,
+        &quot;client_kind&quot;: &quot;sharing&quot;,
+        &quot;client_uri&quot;: &quot;http://alice.test.cozy.tools:8081/&quot;,
+        &quot;software_id&quot;: &quot;github.com/cozy/cozy-stack&quot;
+      },
+      &quot;access_token&quot;: {
+        &quot;token_type&quot;: &quot;bearer&quot;,
+        &quot;access_token&quot;: &quot;eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhY2Nlc3MiLCJpYXQiOjE1Mjc4NjQ4ODQsImlzcyI6ImJvYi50ZXN0LmNvenkudG9vbHM6ODA4MiIsInN1YiI6ImZmZmUwNGViYmVjMzM1NDA1MTYxZjE5MTMzYTBlMjg2Iiwic2NvcGUiOiJpby5jb3p5LnNoYXJpbmdzOkFMTDpmZmZlMDRlYmJlYzMzNTQwNTE2MWYxOTEzM2EwY2Q1YyJ9.ZS0r9KpjrctckigRIELJQryzHrFGo-1dQvRplSNj8N0jyJE1LPgnYuiDedQ8EQN5-1ffeLUf3h_Rygz2ozQvPA&quot;,
+        &quot;refresh_token&quot;: &quot;eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJyZWZyZXNoIiwiaWF0IjoxNTI3ODY0ODg0LCJpc3MiOiJib2IudGVzdC5jb3p5LnRvb2xzOjgwODIiLCJzdWIiOiJmZmZlMDRlYmJlYzMzNTQwNTE2MWYxOTEzM2EwZTI4NiIsInNjb3BlIjoiaW8uY296eS5zaGFyaW5nczpBTEw6ZmZmZTA0ZWJiZWMzMzU0MDUxNjFmMTkxMzNhMGNkNWMifQ.cnH-COVwBIY8zOK51BBkLhb8vRbA96mRJ_W-i3Gg_qZoAISUjmzM3IH69DPQzD99OFnyeGWPhuIkCyWZX7ULQA&quot;,
+        &quot;scope&quot;: &quot;io.cozy.sharings:ALL:fffe04ebbec335405161f19133a0cd5c&quot;
+      },
+      &quot;xor_key&quot;: &quot;CAMHBgkAAgEMCAkMAgsIAw==&quot;,
+      &quot;inbound_client_id&quot;: &quot;fffe04ebbec335405161f19133a0ecc2&quot;
+    }
+  ]
 }</code></pre>
 
 
-<h3 id="some-more-attributes-for-employees-payslip">Some more attributes for employee&rsquo;s payslip<a class="headerlink" href="#some-more-attributes-for-employees-payslip" title="Permanent link">&para;</a></h3>
-<p>The are some more possible attributes for employee payslips.</p>
+<h1 id="iocozyshared"><code>io.cozy.shared</code><a class="headerlink" href="#iocozyshared" title="Permanent link">&para;</a></h1>
+<p>This doctype is an internal one for the stack. It is used to track what
+documents are shared, and to replicate changes from one Cozy to the others.</p>
 <ul>
-<li><code>isEmployee</code>: {boolean} - Indicate if this payslip is paid to an employee of the owner of the cozy. If false, this is a payslip received by the owner.</li>
-<li><code>beneficiary</code>: {string} - Indicate the name of the employee</li>
+<li><code>_id</code>: its identifier is the doctype and id of the referenced objet, separated by
+  a <code>/</code> (e.g. <code>io.cozy.contacts/c1f5dae4-0d87-11e8-b91b-1f41c005768b</code>)</li>
+<li><code>_rev</code>: the CouchDB default revision for this document (not very meaningful,
+  it’s here to avoid concurrency issues)</li>
+<li><code>revisions</code>: a tree with the last known <code>_rev</code>s of the referenced object</li>
+<li><code>infos</code>, a map of sharing ids → <code>{rule, removed, binary}</code></li>
+<li><code>rule</code> says which rule from the sharing must be applied for this document</li>
+<li><code>removed</code> will be true for a deleted document, a trashed file, or if the
+    document does no longer match the sharing rule</li>
+<li><code>binary</code> is a boolean flag that is true only for files (and not even
+    folders) with <code>removed: false</code></li>
 </ul>
-<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code>{
-  &quot;_id&quot;: &quot;62e5d80d6e11d19992b7efce794263f0&quot;,
-  &quot;amount&quot;: 2000,
-  &quot;date&quot;: &quot;2018-02-07T23:00:00.000Z&quot;,
-  &quot;vendor&quot;: &quot;Payfit&quot;,
-  &quot;metadata&quot;: {
-    &quot;version&quot;: 1
+<h2 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h2>
+<pre class="codehilite"><code class="language-json">{
+  &quot;_id&quot;: &quot;io.cozy.files/becbd072f742f5444f5d7837b2f4e323&quot;,
+  &quot;_rev&quot;: &quot;1-af3192a67f2bf69e011aa1bda39e6c72&quot;,
+  &quot;revisions&quot;: {
+    &quot;rev&quot;: &quot;4-4135d4994981c0041e3c89a681542307&quot;
   },
-  $relationships: {
-    document: { data: { _id: &quot;c43645a93831827c7ec512eac3006e51&quot;, _type: &quot;io.cozy.files&quot; } }
-  }
-}</code></pre>
-
-
-<pre class="codehilite"><code>{
-  &quot;_id&quot;: &quot;62e5d83d6e11d19992b7efce794263f0&quot;,
-  &quot;amount&quot;: 100,
-  &quot;date&quot;: &quot;2018-04-07T03:00:00.000Z&quot;,
-  &quot;vendor&quot;: &quot;CESU&quot;,
-  &quot;isEmployee&quot;: true,
-  &quot;beneficiary&quot;: &quot;Pierre Richard&quot;,
-  &quot;metadata&quot;: {
-    &quot;version&quot;: 1
-  },
-  $relationships: {
-    payslip: { data: { _id: &quot;c43645a93831827c7ec512eac3006e51&quot;, _type: &quot;io.cozy.files&quot; } }
+  &quot;infos&quot;: {
+    &quot;fffe04ebbec335405161f19133a0cd5c&quot;: {
+      &quot;rule&quot;: 0,
+      &quot;binary&quot;: true
+    }
   }
 }</code></pre></div>
         </div>
