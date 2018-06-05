@@ -36,6 +36,12 @@ def ordered_dump(data, stream=None, Dumper=yaml.Dumper, **kwds):
 
 leadingHash = re.compile('#+\s+')
 
+def get_readme(directory):
+    readme_path = osp.join('src', directory, 'README.md')
+    if not osp.exists(readme_path):
+        return
+    return osp.join(directory, 'README.md')
+
 def read_toc(directory):
     toc_path = osp.join('src', directory, 'toc.yml')
     if not osp.exists(toc_path):
@@ -54,35 +60,94 @@ def read_toc(directory):
             return toc
 
 def find_entry(tree, name):
-    return [p for p in tree if p.get(name)][0][name]
+    entries = [p for p in tree if p.get(name)]
+    if not entries:
+        return []
+    return entries[0][name]
+
+def reduce_toc(accumulated_dirs, dir):
+    toc = read_toc(dir)
+    if toc:
+        accumulated_dirs.append({ dir: toc })
+    return accumulated_dirs
+
+def replace_entry(name, value):
+    def replace_if_match(entry):
+        if isinstance(entry, basestring):
+            if (entry == name):
+                return OrderedDict([(name, value)])
+            else:
+                return entry
+        else:
+            if (entry.get(name) != None):
+                return OrderedDict([(name, value)])
+            else:
+                return entry
+    return replace_if_match
+
+def insert_external_docs(data, external_docs):
+    remaining_external_docs = map(lambda d:d[0], external_docs)
+
+    def get_content(ref):
+        if ref in remaining_external_docs:
+            del remaining_external_docs[remaining_external_docs.index(ref)]
+            toc = read_toc(ref)
+            if toc:
+                return { dir: toc }
+            else:
+                readme = get_readme(ref)
+                if readme:
+                    return readme
+        return ref
+
+    def replace_references(external_docs):
+        def replace_reference(entry):
+            if entry == None:
+                return entry
+
+            if isinstance(entry, basestring):
+                return get_content(entry)
+
+            name = entry.items()[0][0]
+            value = entry.items()[0][1]
+
+            if isinstance(value, basestring):
+                return OrderedDict([(name, get_content(value))])
+
+            return OrderedDict([(name, map(replace_references(external_docs), value))])
+
+        return replace_reference
+
+
+    data['pages'] = map(replace_references(remaining_external_docs), data['pages'])
+
+    if remaining_external_docs:
+        develop = find_entry(data['pages'], 'Develop')
+        references = reduce(reduce_toc, remaining_external_docs, [])
+
+        develop_with_externals_docs = map(replace_entry('References', references), develop)
+        data['pages'] = map(replace_entry('Develop', develop_with_externals_docs), data['pages'])
+
+    return data
 
 def main():
     with open('./mkdocs.yml') as f:
         data = ordered_load(f, yaml.SafeLoader)
 
-    with open('OUTSIDE_DOCS') as f:
-        outside_docs_conf = [l.strip().split(' ') for l in f.readlines()]
+    with open('EXTERNAL_DOCS') as f:
+        external_docs = [l.strip().split(' ') for l in f.readlines()]
 
 
-    outside_docs_conf = [
+    external_docs_conf = [
         {'name': c[0], 'repo': c[1], 'subdir': c[2]}
-        for c in outside_docs_conf
+        for c in external_docs
     ]
-    outside_doc_names = [c['name'] for c in outside_docs_conf] 
+    external_doc_names = [c['name'] for c in external_docs_conf]
 
-    develop = find_entry(data['pages'], 'Develop')
-    references = find_entry(develop, 'References')
+    data_with_external_docs = insert_external_docs(data, external_docs)
 
-    del references[:]
-
-    for dir in outside_doc_names:
-        abs = osp.join('./src', dir)
-        toc = read_toc(dir)
-        if toc:
-            references.append({ dir: toc })
-
-    data['extra'] = {"outside_docs": outside_docs_conf}
-    with open('mkdocs.yml', 'w+') as f:
-        ordered_dump(data, f, indent=2, default_flow_style=False, Dumper=yaml.SafeDumper)
+    data['extra'] = {"external_docs": external_docs_conf}
+    with open('mkdocs.out.yml', 'w+') as f:
+        ordered_dump(data_with_external_docs, f, indent=2, default_flow_style=False, Dumper=yaml.SafeDumper)
 
 main()
