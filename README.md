@@ -16,6 +16,13 @@ _Warning: while mkdocs supports Python 2 and 3, the current version of markdown-
 pip install --user mkdocs markdown-i18n
 ```
 
+Fetch external documentation and add it to mkdocs.yml (do not commit this the changes in `References`) :
+
+```
+./fetch.sh
+./add_external_docs.py
+```
+
 Run MkDocs:
 
 ```shell
