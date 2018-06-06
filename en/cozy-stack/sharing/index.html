@@ -1092,18 +1092,113 @@ Content-Type: application/vnd.api+json</code></pre>
 }</code></pre>
 
 
+<h3 id="post-sharingssharing-idrecipient">POST /sharings/:sharing-id/recipient<a class="headerlink" href="#post-sharingssharing-idrecipient" title="Permanent link">&para;</a></h3>
+<p>This route allow to the sharer to add a new recipient to a sharing.</p>
+<h4 id="request_5">Request<a class="headerlink" href="#request_5" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">POST /sharings/ce8835a061d0ef68947afe69a0046722/recipients HTTP/1.1
+Host: alice.example.net
+Content-Type: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;type&quot;: &quot;io.cozy.sharings.sharings&quot;,
+    &quot;id&quot;: &quot;ce8835a061d0ef68947afe69a0046722&quot;,
+    &quot;relationships&quot;: {
+      &quot;recipients&quot;: {
+        &quot;data&quot;: [
+          {
+            &quot;id&quot;: &quot;ce7b1dfbd460039159f228298a29b2aa&quot;,
+            &quot;type&quot;: &quot;io.cozy.contacts&quot;
+          }
+        ]
+      }
+    }
+  }
+}</code></pre>
+
+
+<h4 id="response_5">Response<a class="headerlink" href="#response_5" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-Type: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: {
+    &quot;type&quot;: &quot;io.cozy.sharings&quot;,
+    &quot;id&quot;: &quot;ce8835a061d0ef68947afe69a0046722&quot;,
+    &quot;meta&quot;: {
+      &quot;rev&quot;: &quot;1-4859c6c755143adf0838d225c5e97882&quot;
+    },
+    &quot;attributes&quot;: {
+      &quot;description&quot;: &quot;sharing test&quot;,
+      &quot;preview_path&quot;: &quot;/preview-sharing&quot;,
+      &quot;app_slug&quot;: &quot;drive&quot;,
+      &quot;owner&quot;: true,
+      &quot;created_at&quot;: &quot;2018-01-04T12:35:08Z&quot;,
+      &quot;updated_at&quot;: &quot;2018-01-04T13:45:43Z&quot;,
+      &quot;members&quot;: [
+        {
+          &quot;status&quot;: &quot;owner&quot;,
+          &quot;name&quot;: &quot;Alice&quot;,
+          &quot;email&quot;: &quot;alice@example.net&quot;,
+          &quot;instance&quot;: &quot;alice.example.net&quot;
+        },
+        {
+          &quot;status&quot;: &quot;ready&quot;,
+          &quot;name&quot;: &quot;Bob&quot;,
+          &quot;email&quot;: &quot;bob@example.net&quot;
+        },
+        {
+          &quot;status&quot;: &quot;pending&quot;,
+          &quot;name&quot;: &quot;Charlie&quot;,
+          &quot;email&quot;: &quot;charlie@example.net&quot;
+        }
+      ],
+      &quot;rules&quot;: [
+        {
+          &quot;title&quot;: &quot;Hawaii&quot;,
+          &quot;doctype&quot;: &quot;io.cozy.files&quot;,
+          &quot;values&quot;: [&quot;612acf1c-1d72-11e8-b043-ef239d3074dd&quot;],
+          &quot;add&quot;: &quot;sync&quot;,
+          &quot;update&quot;: &quot;sync&quot;,
+          &quot;remove&quot;: &quot;sync&quot;
+        }
+      ]
+    },
+    &quot;relationships&quot;: {
+      &quot;shared_docs&quot;: {
+        &quot;data&quot;: [
+          {
+            &quot;id&quot;: &quot;612acf1c-1d72-11e8-b043-ef239d3074dd&quot;,
+            &quot;type&quot;: &quot;io.cozy.files&quot;
+          },
+          {
+            &quot;id&quot;: &quot;a34528d2-13fb-9482-8d20-bf1972531225&quot;,
+            &quot;type&quot;: &quot;io.cozy.files&quot;
+          }
+        ]
+      }
+    },
+    &quot;links&quot;: {
+      &quot;self&quot;: &quot;/sharings/ce8835a061d0ef68947afe69a0046722&quot;
+    }
+  }
+}</code></pre>
+
+
 <h3 id="delete-sharingssharing-idrecipients">DELETE /sharings/:sharing-id/recipients<a class="headerlink" href="#delete-sharingssharing-idrecipients" title="Permanent link">&para;</a></h3>
 <p>This route is used by an application on the owner&rsquo;s cozy to revoke the sharing
 for all the members. After that, the sharing active flag will be false, the
 credentials for all members will be revoked, the members that have accepted
 the sharing will have their cozy informed that the sharing has been revoked,
 and pending members can no longer accept this sharing.</p>
-<h4 id="request_5">Request<a class="headerlink" href="#request_5" title="Permanent link">&para;</a></h4>
+<h4 id="request_6">Request<a class="headerlink" href="#request_6" title="Permanent link">&para;</a></h4>
 <pre class="codehilite"><code class="language-http">DELETE /sharings/ce8835a061d0ef68947afe69a0046722/recipients HTTP/1.1
 Host: alice.example.net</code></pre>
 
 
-<h4 id="response_5">Response<a class="headerlink" href="#response_5" title="Permanent link">&para;</a></h4>
+<h4 id="response_6">Response<a class="headerlink" href="#response_6" title="Permanent link">&para;</a></h4>
 <pre class="codehilite"><code class="language-http">HTTP/1.1 204 No Content</code></pre>
 
 
@@ -1113,32 +1208,20 @@ is the index of this recipient in the <code>members</code> array of the sharing.
 status for this member will be set to <code>revoked</code>, its cozy will be informed of
 the revokation, and the credentials for this cozy will be deleted.</p>
 <p><strong>Note</strong>: 0 is not accepted for <code>index</code>, as it is the sharer him-self.</p>
-<h4 id="request_6">Request<a class="headerlink" href="#request_6" title="Permanent link">&para;</a></h4>
+<h4 id="request_7">Request<a class="headerlink" href="#request_7" title="Permanent link">&para;</a></h4>
 <pre class="codehilite"><code class="language-http">DELETE /sharings/ce8835a061d0ef68947afe69a0046722/recipients/1 HTTP/1.1
 Host: alice.example.net</code></pre>
-
-
-<h4 id="response_6">Response<a class="headerlink" href="#response_6" title="Permanent link">&para;</a></h4>
-<pre class="codehilite"><code class="language-http">HTTP/1.1 204 No Content</code></pre>
-
-
-<h3 id="delete-sharingssharing-idrecipientsself">DELETE /sharings/:sharing-id/recipients/self<a class="headerlink" href="#delete-sharingssharing-idrecipientsself" title="Permanent link">&para;</a></h3>
-<p>This route can be used by an application in the cozy of a recipient to remove
-it from the sharing.</p>
-<h4 id="request_7">Request<a class="headerlink" href="#request_7" title="Permanent link">&para;</a></h4>
-<pre class="codehilite"><code class="language-http">DELETE /sharings/ce8835a061d0ef68947afe69a0046722/recipients/self HTTP/1.1
-Host: bob.example.net</code></pre>
 
 
 <h4 id="response_7">Response<a class="headerlink" href="#response_7" title="Permanent link">&para;</a></h4>
 <pre class="codehilite"><code class="language-http">HTTP/1.1 204 No Content</code></pre>
 
 
-<h3 id="delete-sharingssharing-id">DELETE /sharings/:sharing-id<a class="headerlink" href="#delete-sharingssharing-id" title="Permanent link">&para;</a></h3>
-<p>This is an internal route used by the cozy of the sharing&rsquo;s owner to inform a
-recipient&rsquo;s cozy that it was revoked.</p>
+<h3 id="delete-sharingssharing-idrecipientsself">DELETE /sharings/:sharing-id/recipients/self<a class="headerlink" href="#delete-sharingssharing-idrecipientsself" title="Permanent link">&para;</a></h3>
+<p>This route can be used by an application in the cozy of a recipient to remove
+it from the sharing.</p>
 <h4 id="request_8">Request<a class="headerlink" href="#request_8" title="Permanent link">&para;</a></h4>
-<pre class="codehilite"><code class="language-http">DELETE /sharings/ce8835a061d0ef68947afe69a0046722 HTTP/1.1
+<pre class="codehilite"><code class="language-http">DELETE /sharings/ce8835a061d0ef68947afe69a0046722/recipients/self HTTP/1.1
 Host: bob.example.net</code></pre>
 
 
@@ -1146,15 +1229,27 @@ Host: bob.example.net</code></pre>
 <pre class="codehilite"><code class="language-http">HTTP/1.1 204 No Content</code></pre>
 
 
+<h3 id="delete-sharingssharing-id">DELETE /sharings/:sharing-id<a class="headerlink" href="#delete-sharingssharing-id" title="Permanent link">&para;</a></h3>
+<p>This is an internal route used by the cozy of the sharing&rsquo;s owner to inform a
+recipient&rsquo;s cozy that it was revoked.</p>
+<h4 id="request_9">Request<a class="headerlink" href="#request_9" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">DELETE /sharings/ce8835a061d0ef68947afe69a0046722 HTTP/1.1
+Host: bob.example.net</code></pre>
+
+
+<h4 id="response_9">Response<a class="headerlink" href="#response_9" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 204 No Content</code></pre>
+
+
 <h3 id="delete-sharingssharing-idanswer">DELETE /sharings/:sharing-id/answer<a class="headerlink" href="#delete-sharingssharing-idanswer" title="Permanent link">&para;</a></h3>
 <p>This is an internal route used by a recipient&rsquo;s cozy to inform the owner&rsquo;s
 cozy that this recipient no longer wants to be part of the sharing.</p>
-<h4 id="request_9">Request<a class="headerlink" href="#request_9" title="Permanent link">&para;</a></h4>
+<h4 id="request_10">Request<a class="headerlink" href="#request_10" title="Permanent link">&para;</a></h4>
 <pre class="codehilite"><code class="language-http">DELETE /sharings/ce8835a061d0ef68947afe69a0046722/answer HTTP/1.1
 Host: alice.example.net</code></pre>
 
 
-<h4 id="response_9">Response<a class="headerlink" href="#response_9" title="Permanent link">&para;</a></h4>
+<h4 id="response_10">Response<a class="headerlink" href="#response_10" title="Permanent link">&para;</a></h4>
 <pre class="codehilite"><code class="language-http">HTTP/1.1 204 No Content</code></pre>
 
 
@@ -1162,7 +1257,7 @@ Host: alice.example.net</code></pre>
 <p>This endpoint is used by the sharing replicator of the stack to know which
 documents must be sent to the other cozy. It is inspired by
 http://docs.couchdb.org/en/2.1.1/api/database/misc.html#db-revs-diff.</p>
-<h4 id="request_10">Request<a class="headerlink" href="#request_10" title="Permanent link">&para;</a></h4>
+<h4 id="request_11">Request<a class="headerlink" href="#request_11" title="Permanent link">&para;</a></h4>
 <pre class="codehilite"><code class="language-http">POST /sharings/ce8835a061d0ef68947afe69a0046722/_revs_diff HTTP/1.1
 Host: bob.example.net
 Accept: application/json
@@ -1181,7 +1276,7 @@ Authorization: Bearer ...</code></pre>
 }</code></pre>
 
 
-<h4 id="response_10">Response<a class="headerlink" href="#response_10" title="Permanent link">&para;</a></h4>
+<h4 id="response_11">Response<a class="headerlink" href="#response_11" title="Permanent link">&para;</a></h4>
 <pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
 Content-Type: application/json</code></pre>
 
@@ -1199,7 +1294,7 @@ Content-Type: application/json</code></pre>
 documents in a bulk to the other cozy. It is inspired by
 http://docs.couchdb.org/en/2.1.1/api/database/bulk-api.html#db-bulk-docs.</p>
 <p><strong>Note</strong>: we force <code>new_edits</code> to <code>false</code>.</p>
-<h4 id="request_11">Request<a class="headerlink" href="#request_11" title="Permanent link">&para;</a></h4>
+<h4 id="request_12">Request<a class="headerlink" href="#request_12" title="Permanent link">&para;</a></h4>
 <pre class="codehilite"><code class="language-http">POST /sharings/ce8835a061d0ef68947afe69a0046722/_bulk_docs HTTP/1.1
 Host: bob.example.net
 Accept: application/json
@@ -1224,7 +1319,7 @@ Authorization: Bearer ...</code></pre>
 }</code></pre>
 
 
-<h4 id="response_11">Response<a class="headerlink" href="#response_11" title="Permanent link">&para;</a></h4>
+<h4 id="response_12">Response<a class="headerlink" href="#response_12" title="Permanent link">&para;</a></h4>
 <pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
 Content-Type: application/json</code></pre>
 
@@ -1239,14 +1334,14 @@ folder that was trashed (and trash was emptied): the recipient does no longer
 have any informations about the parent directory. To resolve the conflict, it
 recreates the missing parent directory by asking the other cozy informations
 about it.</p>
-<h4 id="request_12">Request<a class="headerlink" href="#request_12" title="Permanent link">&para;</a></h4>
+<h4 id="request_13">Request<a class="headerlink" href="#request_13" title="Permanent link">&para;</a></h4>
 <pre class="codehilite"><code class="language-http">GET /sharings/ce8835a061d0ef68947afe69a0046722/io.cozy.files/6d245d072be5522bd3a6f273dd000c65 HTTP/1.1
 Host: alice.example.net
 Accept: application/json
 Authorization: Bearer ...</code></pre>
 
 
-<h4 id="response_12">Response<a class="headerlink" href="#response_12" title="Permanent link">&para;</a></h4>
+<h4 id="response_13">Response<a class="headerlink" href="#response_13" title="Permanent link">&para;</a></h4>
 <pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
 Content-Type: application/json</code></pre>
 
@@ -1266,7 +1361,7 @@ Content-Type: application/json</code></pre>
 <h3 id="put-sharingssharing-idiocozyfilesfile-idmetadata">PUT /sharings/:sharing-id/io.cozy.files/:file-id/metadata<a class="headerlink" href="#put-sharingssharing-idiocozyfilesfile-idmetadata" title="Permanent link">&para;</a></h3>
 <p>This is an internal endpoint used by a stack to send the new metadata about a
 file that has changed.</p>
-<h4 id="request_13">Request<a class="headerlink" href="#request_13" title="Permanent link">&para;</a></h4>
+<h4 id="request_14">Request<a class="headerlink" href="#request_14" title="Permanent link">&para;</a></h4>
 <pre class="codehilite"><code class="language-http">PUT /sharings/ce8835a061d0ef68947afe69a0046722/io.cozy.files/0c1116b028c6ae6f5cdafb949c088265/metadata HTTP/1.1
 Host: bob.example.net
 Accept: application/json
@@ -1302,7 +1397,7 @@ Authorization: Bearer ...</code></pre>
 }</code></pre>
 
 
-<h4 id="response_13">Response<a class="headerlink" href="#response_13" title="Permanent link">&para;</a></h4>
+<h4 id="response_14">Response<a class="headerlink" href="#response_14" title="Permanent link">&para;</a></h4>
 <p>If only the metadata has changed (not the content), the response will be a
 204:</p>
 <pre class="codehilite"><code class="language-http">HTTP/1.1 204 No Content</code></pre>
@@ -1321,14 +1416,14 @@ Content-Type: application/json</code></pre>
 <h3 id="put-sharingssharing-idiocozyfileskey">PUT /sharings/:sharing-id/io.cozy.files/:key<a class="headerlink" href="#put-sharingssharing-idiocozyfileskey" title="Permanent link">&para;</a></h3>
 <p>Upload the content of a file (new file or its content has changed since the
 last synchronization).</p>
-<h4 id="request_14">Request<a class="headerlink" href="#request_14" title="Permanent link">&para;</a></h4>
+<h4 id="request_15">Request<a class="headerlink" href="#request_15" title="Permanent link">&para;</a></h4>
 <pre class="codehilite"><code class="language-http">PUT /sharings/ce8835a061d0ef68947afe69a0046722/io.cozy.files/dcd478c6-46cf-11e8-9c3f-535468cbce7b HTTP/1.1
 Host: bob.example.net
 Content-Type: image/jpeg
 Authorization: Bearer ...</code></pre>
 
 
-<h4 id="response_14">Response<a class="headerlink" href="#response_14" title="Permanent link">&para;</a></h4>
+<h4 id="response_15">Response<a class="headerlink" href="#response_15" title="Permanent link">&para;</a></h4>
 <pre class="codehilite"><code class="language-http">HTTP/1.1 204 No Content</code></pre></div>
         </div>
 
