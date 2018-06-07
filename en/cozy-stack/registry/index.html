@@ -579,8 +579,6 @@ app version after publishing stable.</p>
 <li><code>editor</code>: the application editor name</li>
 <li><code>name</code>: object containing a human readable name for the application in
   multiple languages</li>
-<li><code>description</code>: object containing the description description of the
-  application in multiple languages</li>
 <li><code>category</code>: the application category</li>
 <li><code>repository</code>: object with type and URL of package repository</li>
 <li><code>locales</code>: list of locales supported by the application</li>
@@ -597,13 +595,18 @@ app version after publishing stable.</p>
     &quot;en&quot;: &quot;Drive&quot;,
     &quot;fr&quot;: &quot;Drive&quot;
   },
-  &quot;description&quot;: {
-    &quot;en&quot;: &quot;The drive application&quot;,
-    &quot;fr&quot;: &quot;L'application drive gestionnaire de fichier&quot;
-  },
   &quot;category&quot;: &quot;main&quot;,
   &quot;repository&quot;: &quot;https://github.com/cozy/cozy-drive&quot;,
-  &quot;locales&quot;: [&quot;en&quot;, &quot;fr&quot;],
+  &quot;locales&quot;: {
+    &quot;en&quot;: {
+      &quot;short_description&quot; : &quot;The drive application&quot;,
+      &quot;long_description&quot; : &quot;With Cozy Drive, you can easily:\n- Store your important files and keep them secure in your Cozy...&quot;
+    },
+    &quot;fr&quot;: {
+      &quot;short_description&quot; : &quot;L'application drive gestionnaire de fichier&quot;,
+      &quot;long_description&quot; : &quot;Avec Cozy Drive vous pourrez :\n- Sauvegarder et synchroniser gratuitement tous vos documents importants ...&quot;
+    }
+  },
   &quot;tags&quot;: [&quot;foo&quot;, &quot;bar&quot;, &quot;baz&quot;],
   &quot;screenshots&quot;: [&quot;screen1.jpg&quot;, &quot;screen2.jpg&quot;],
   &quot;versions&quot;: {
