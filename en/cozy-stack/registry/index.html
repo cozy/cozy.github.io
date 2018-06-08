@@ -577,43 +577,20 @@ app version after publishing stable.</p>
 <li><code>slug</code>: the application slug (unique)</li>
 <li><code>type</code>: the application type (&ldquo;webapp&rdquo; or &ldquo;konnector&rdquo;)</li>
 <li><code>editor</code>: the application editor name</li>
-<li><code>name</code>: object containing a human readable name for the application in
-  multiple languages</li>
-<li><code>category</code>: the application category</li>
-<li><code>repository</code>: object with type and URL of package repository</li>
-<li><code>locales</code>: list of locales supported by the application</li>
-<li><code>tags</code>: list of tags associated with the application</li>
-<li><code>screenshots</code>: array of screenshots filenames</li>
 <li><code>versions</code>: an object containing all the channels versions</li>
+<li><code>latest_version</code>: the latest available version</li>
 </ul>
 <p>Example:</p>
 <pre class="codehilite"><code class="language-json">{
   &quot;slug&quot;: &quot;drive&quot;,
   &quot;type&quot;: &quot;webapp&quot;,
   &quot;editor&quot;: &quot;cozy&quot;,
-  &quot;name&quot;: {
-    &quot;en&quot;: &quot;Drive&quot;,
-    &quot;fr&quot;: &quot;Drive&quot;
-  },
-  &quot;category&quot;: &quot;main&quot;,
-  &quot;repository&quot;: &quot;https://github.com/cozy/cozy-drive&quot;,
-  &quot;locales&quot;: {
-    &quot;en&quot;: {
-      &quot;short_description&quot; : &quot;The drive application&quot;,
-      &quot;long_description&quot; : &quot;With Cozy Drive, you can easily:\n- Store your important files and keep them secure in your Cozy...&quot;
-    },
-    &quot;fr&quot;: {
-      &quot;short_description&quot; : &quot;L'application drive gestionnaire de fichier&quot;,
-      &quot;long_description&quot; : &quot;Avec Cozy Drive vous pourrez :\n- Sauvegarder et synchroniser gratuitement tous vos documents importants ...&quot;
-    }
-  },
-  &quot;tags&quot;: [&quot;foo&quot;, &quot;bar&quot;, &quot;baz&quot;],
-  &quot;screenshots&quot;: [&quot;screen1.jpg&quot;, &quot;screen2.jpg&quot;],
   &quot;versions&quot;: {
     &quot;stable&quot;: [&quot;3.1.1&quot;],
     &quot;beta&quot;: [&quot;3.1.1-beta.1&quot;],
     &quot;dev&quot;: [&quot;3.1.1-dev.7a8354f74b50d7beead7719252a18ed45f55d070&quot;]
-  }
+  },
+  &quot;latest_version&quot;: { /* */ }
 }</code></pre>
 
 
@@ -825,10 +802,14 @@ tags.</p>
 <td>sort</td>
 <td>name of the field on which to apply the sort of the list</td>
 </tr>
+<tr>
+<td>latestVersionChannel</td>
+<td>the channel from which we select the latest version</td>
+</tr>
 </tbody>
 </table>
 <h4 id="request_2">Request<a class="headerlink" href="#request_2" title="Permanent link">&para;</a></h4>
-<pre class="codehilite"><code class="language-http">GET /registry?filter[category]=main&amp;limit=20&amp;sort=slug HTTP/1.1</code></pre>
+<pre class="codehilite"><code class="language-http">GET /registry?filter[category]=main&amp;limit=20&amp;sort=slug&amp;latest&amp;latestVersionChannel=beta HTTP/1.1</code></pre>
 
 
 <h4 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h4>
@@ -842,15 +823,23 @@ Content-Type: application/json</code></pre>
       &quot;slug&quot;: &quot;drive&quot;,
       &quot;type&quot;: &quot;webapp&quot;,
       &quot;editor&quot;: &quot;cozy&quot;,
-      &quot;category&quot;: &quot;main&quot;,
-      &quot;description&quot;: &quot;The drive application&quot;,
       &quot;versions&quot;: {
         &quot;stable&quot;: [&quot;3.1.1&quot;],
         &quot;beta&quot;: [&quot;3.1.1-beta.1&quot;],
         &quot;dev&quot;: [&quot;3.1.1-dev.7a8354f74b50d7beead7719252a18ed45f55d070&quot;]
       },
-      &quot;repository&quot;: &quot;https://github.com/cozy/cozy-drive&quot;,
-      &quot;license&quot;: &quot;BSD&quot;
+      &quot;latest_version&quot;: {
+        &quot;slug&quot;: &quot;drive&quot;,
+        &quot;type&quot;: &quot;webapp&quot;,
+        &quot;version&quot;: &quot;3.1.1&quot;,
+        &quot;url&quot;: &quot;http://.../3.1.1&quot;,
+        &quot;sha256&quot;: &quot;466aa0815926fdbf33fda523af2b9bf34520906ffbb9bf512ddf20df2992a46f&quot;,
+        &quot;size&quot;: &quot;1000&quot;,
+        &quot;created_at&quot;: &quot;2017-07-05T07:54:40.982Z&quot;,
+        &quot;manifest&quot;: {
+          /* ... */
+        }
+      },
     },
     {
       // ...
@@ -877,9 +866,18 @@ Content-Type: application/json</code></pre>
 <pre class="codehilite"><code class="language-json">{
   &quot;slug&quot;: &quot;drive&quot;,
   &quot;editor&quot;: &quot;cozy&quot;,
-  &quot;description&quot;: &quot;The drive application&quot;,
-  &quot;repository&quot;: &quot;https://github.com/cozy/cozy-drive&quot;,
-  &quot;tags&quot;: [&quot;foo&quot;, &quot;bar&quot;, &quot;baz&quot;],
+  &quot;latest_version&quot;: {
+    &quot;slug&quot;: &quot;drive&quot;,
+    &quot;type&quot;: &quot;webapp&quot;,
+    &quot;version&quot;: &quot;3.1.1&quot;,
+    &quot;url&quot;: &quot;http://.../3.1.1&quot;,
+    &quot;sha256&quot;: &quot;466aa0815926fdbf33fda523af2b9bf34520906ffbb9bf512ddf20df2992a46f&quot;,
+    &quot;size&quot;: &quot;1000&quot;,
+    &quot;created_at&quot;: &quot;2017-07-05T07:54:40.982Z&quot;,
+    &quot;manifest&quot;: {
+      /* ... */
+    }
+  },
   &quot;versions&quot;: {
     &quot;stable&quot;: [&quot;3.1.1&quot;],
     &quot;beta&quot;: [&quot;3.1.1-beta.1&quot;],
