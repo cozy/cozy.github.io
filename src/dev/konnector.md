@@ -50,7 +50,7 @@ First of all, [download](https://github.com/konnectors/cozy-konnector-template/a
 
 ```sh
 git clone https://github.com/konnectors/cozy-konnector-template cozy-konnector-newservice
-cd cozy-konnector-monservice
+cd cozy-konnector-newservice
 rm -rf .git
 git init
 yarn install # or npm install
