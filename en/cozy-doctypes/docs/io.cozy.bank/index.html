@@ -479,6 +479,7 @@
             <li><a href="#iocozybanksettings">io.cozy.bank.settings</a></li>
             <li><a href="#iocozybankaccounts">io.cozy.bank.accounts</a></li>
             <li><a href="#iocozybankoperations">io.cozy.bank.operations</a></li>
+            <li><a href="#iocozybankbalancehistories">io.cozy.bank.balancehistories</a></li>
     </ul>
   <div style='padding-left: 2rem'>
     
@@ -604,6 +605,39 @@ the time zones.</p>
   },
   &quot;originalBankLabel&quot;: &quot;VIR RECU    5383518660S DE: M  PIERRE RICHARD J MOTIF: Cascade REF: NOT PROVIDED&quot;,
   &quot;type&quot;: &quot;transfer&quot;
+}</code></pre>
+
+
+<h2 id="iocozybankbalancehistories"><code>io.cozy.bank.balancehistories</code><a class="headerlink" href="#iocozybankbalancehistories" title="Permanent link">&para;</a></h2>
+<p>This doctype stores a year of daily balances :</p>
+<ul>
+<li><code>year</code>: {number} - The year of the balances</li>
+<li><code>balances</code>: {object} - A day (YYYY-MM-DD format) / balance (number) map</li>
+</ul>
+<h3 id="relationships">Relationships<a class="headerlink" href="#relationships" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>account</code>: {object} - The associated account</li>
+</ul>
+<h3 id="example_2">Example<a class="headerlink" href="#example_2" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code>{
+  &quot;_id&quot;: &quot;f1aacd3254509687c07e48279b42cd50&quot;,
+  &quot;year&quot;: 2018,
+  &quot;balances&quot;: {
+    &quot;2018-01-01&quot;: 8000,
+    &quot;2018-01-02&quot;: 8000.42,
+    &quot;2018-01-03&quot;: 1337
+  },
+  &quot;metadata&quot;: {
+    &quot;version&quot;: 1
+  },
+  &quot;$relationships&quot;: {
+    &quot;account&quot;: {
+      &quot;data&quot;: {
+        &quot;_id&quot;: &quot;f1aacd3254509687c07e48279b42f3de&quot;,
+        &quot;_type&quot;: &quot;io.cozy.bank.accounts&quot;
+      }
+    }
+  }
 }</code></pre></div>
         </div>
 
