@@ -8,7 +8,7 @@ description: Download Cozy Drive for all your devices
 <div class="download-block" markdown="1">
 ### ![Apple logo](../img/download/icon-48-apple.svg) Cozy Drive for iOS
 
-Requires iOS 10
+Requires iOS 8.0 or later
 
 [![Download on the Apple store](../img/download/download-button_apple.svg){: .download-button }](https://itunes.apple.com/fr/app/cozy-drive/id1224102389?mt=8)
 </div>
@@ -23,6 +23,26 @@ Requires Android 5.0.0
 _(Advanced users that don’t want to connect to Google Play can [use the APK](https://github.com/cozy/cozy-drive/releases))_
 </div>
 
+
+## Cozy Banks on your phone
+
+<div class="download-block" markdown="1">
+### ![Apple logo](../img/download/icon-48-apple.svg) Cozy Banks for iOS
+
+Requires iOS 8.0 or later
+
+[![Download on the Apple store](../img/download/download-button_apple.svg){: .download-button }](https://itunes.apple.com/us/app/cozy-banks/id1349814380?mt=8)
+</div>
+
+<div class="download-block" markdown="1">
+### ![Android logo](../img/download/icon-48-android.svg) Cozy Drive for Android
+
+Requires Android 5.0.0 or later
+
+[![Get it on Google Play](../img/download/download-button_android.png){: .download-button }](https://play.google.com/store/apps/details?id=io.cozy.banks.mobile)
+
+_(Advanced users that don’t want to connect to Google Play can [use the APK](https://github.com/cozy/cozy-banks/releases))_
+</div>
 
 ## Cozy Drive on your computer
 
