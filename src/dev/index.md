@@ -15,8 +15,6 @@ Coming soon!
 
 ## API References
 
-Browse the full API reference inside our repositories:
-
 ### Cozy Client JS Reference
 
   - [Iintroduction](https://docs.cozy.io/en/cozy-client-js/intro/)

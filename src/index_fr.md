@@ -4,17 +4,19 @@ The go-to website about Cozy configuration and setup.
 
 <div class="home-actions" markdown="1">
 
+  <!--
   <div class="home-action">
     <div>
       <a href="../use/index_fr"><img src="../assets/images/home/icon-cloud.svg">
       [Découverte de votre nouveau domicile numérique](use/index_fr)
     </div>
   </div>
+  -->
 
   <div class="home-action">
     <div>
       <a href="../sync"><img src="../assets/images/home/icon-phone.svg"></a>
-      [Synchronisez toutes vos données](sync)
+      [Synchronisez toutes vos données](sync/desktop)
     </div>
   </div>
 

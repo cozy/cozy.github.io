@@ -4,17 +4,19 @@ The go-to website about Cozy configuration and setup.
 
 <div class="home-actions" markdown="1">
 
+  <!--
   <div class="home-action">
     <div>
       <a href="use/"><img src="assets/images/home/icon-cloud.svg">
       [Learn how to use your server](use)</a>
     </div>
   </div>
+  -->
 
   <div class="home-action">
     <div>
       <a href="sync/"><img src="assets/images/home/icon-phone.svg"></a>
-      [Keep your devices in sync](sync)
+      [Keep your devices in sync](sync/desktop)
     </div>
   </div>
 
