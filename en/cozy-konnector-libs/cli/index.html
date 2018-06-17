@@ -461,6 +461,7 @@
         <li class="main active"><a href="#cli">CLI</a></li>
             <li><a href="#cozy-run-standalone">cozy-run-standalone</a></li>
             <li><a href="#cozy-run-dev">cozy-run-dev</a></li>
+            <li><a href="#cozy-run-shell">cozy-run-shell</a></li>
     </ul>
   <div style='padding-left: 2rem'>
     
@@ -562,7 +563,49 @@ defined in <code>package.json</code> <code>main</code> section or ./src/index.js
 <ul>
 <li><code>-t</code>, <code>--token</code> : Specify where the token should be saved</li>
 <li><code>-m</code>, <code>--manifest</code> : Specify the manifest.path that should be used for the permissions</li>
-</ul></div>
+</ul>
+<h4 id="cozy-run-shell">cozy-run-shell<a class="headerlink" href="#cozy-run-shell" title="Permanent link">&para;</a></h4>
+<p>When you are developping a connector, it is possible to get a REPL with all the cozy-konnector-libs
+tools available and some enhancement.</p>
+<pre class="codehilite"><code class="language-javascript">  scripts: {
+    dev: &quot;cozy-run-shell&quot;
+  }</code></pre>
+
+
+<p>and run:</p>
+<pre class="codehilite"><code class="language-sh">yarn shell</code></pre>
+
+
+<p>In this REPL, all the cozy-konnector-libs tools are available as globals and a default global
+request instance initialized with cheerio and cookie handling is available. For example run :</p>
+<pre class="codehilite"><code class="language-javascript">request('http://quotes.toscrape.com/')</code></pre>
+
+
+<p>After running a request, a global $ object with a cheerio instance is available. Run :</p>
+<pre class="codehilite"><code class="language-js">$</code></pre>
+
+
+<p>A full global request-promise response object is also available.</p>
+<p>If you always want the details of the request and the response to be displayed. Just run once:</p>
+<pre class="codehilite"><code class="language-js">debug()</code></pre>
+
+
+<p>And you get a syntax colored html representation of the result of the request.
+If you run :</p>
+<pre class="codehilite"><code class="language-js">$('p')</code></pre>
+
+
+<p>You get an array of elements with for each element:
+- the type of the element (p)
+- the html of the element
+- the cleaned text of the element</p>
+<p>It is also possible to load a html file into the shell. Run :</p>
+<pre class="codehilite"><code class="language-sh">yarn shell index.html</code></pre>
+
+
+<p>The html file will load and $ will be correctly initialized.</p>
+<h5 id="arguments_2">Arguments<a class="headerlink" href="#arguments_2" title="Permanent link">&para;</a></h5>
+<pre class="codehilite"><code>$ cozy-run-shell [&lt;file&gt;]</code></pre></div>
         </div>
 
         <footer class="col-md-12">
