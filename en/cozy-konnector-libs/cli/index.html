@@ -504,7 +504,7 @@
 
 <h3 id="cli">CLI<a class="headerlink" href="#cli" title="Permanent link">&para;</a></h3>
 <p>There is a specific npm package which provides cli tools to allow to run your connector in
-standalone or development mode : cozy-jobs-cli. You can install it in your connector as a dev
+standalone or development mode or in dedicated REPL : cozy-jobs-cli. You can install it in your connector as a dev
 dependency.</p>
 <h4 id="cozy-run-standalone">cozy-run-standalone<a class="headerlink" href="#cozy-run-standalone" title="Permanent link">&para;</a></h4>
 <p>If you just want to test your connector without any cozy available, add the following code in
@@ -525,6 +525,9 @@ The bills (or any file) will be saved in the ./data directory.</p>
 defined in <code>package.json</code> <code>main</code> section or ./src/index.js</p>
 <p>It is possible to record and replay the requests done by the standalone command using the
 <a href="https://github.com/assaf/node-replay">replay</a> module.</p>
+<p>When your connector is run with this command, a global function is available in your connector :
+<code>global.openInBrowser</code>, which can take an html string or a cheerio object as input and will show
+the corresponding html page in your default browser.</p>
 <h5 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permanent link">&para;</a></h5>
 <pre class="codehilite"><code>Usage: cozy-run-standalone [options] &lt;file&gt;
 
@@ -553,9 +556,12 @@ the cozy-stack is supposed to be located in http://cozy.tools:8080. If this is n
 update the COZY_URL field in [./konnector-dev-config.json].</p>
 <p>After that, your connector is running but should not work since you did not specify any credentials to
 the target service. You can do this also in [./konnector-dev-config.json] in the &ldquo;fields&rdquo; section.</p>
-<p>The files are saved in the root directory of your cozy by default.</p>
+<p>The files are saved in the <code>/cozy-konnector-dev-root</code> directory of your cozy.</p>
 <p>It is also possible to add an argument to this command which tells which file to run. Default is
 defined in <code>package.json</code> <code>main</code> section or ./src/index.js</p>
+<p>When your connector is run with this command, a global function is available in your connector :
+<code>global.openInBrowser</code>, which can take an html string or a cheerio object as input and will show
+the corresponding html page in your default browser.</p>
 <h5 id="arguments_1">Arguments<a class="headerlink" href="#arguments_1" title="Permanent link">&para;</a></h5>
 <pre class="codehilite"><code>$ cozy-run-dev &lt;file&gt; [-t token.json] [-m manifest.webapp]</code></pre>
 
@@ -604,6 +610,8 @@ If you run :</p>
 
 
 <p>The html file will load and $ will be correctly initialized.</p>
+<p>The <code>openInBrowser</code> is also available , which can take an html string or a cheerio object as input and will show
+the corresponding html page in your default browser.</p>
 <h5 id="arguments_2">Arguments<a class="headerlink" href="#arguments_2" title="Permanent link">&para;</a></h5>
 <pre class="codehilite"><code>$ cozy-run-shell [&lt;file&gt;]</code></pre></div>
         </div>
