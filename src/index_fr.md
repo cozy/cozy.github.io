@@ -1,6 +1,6 @@
 # Cozy Documentation
 
-The go-to website about Cozy configuration and setup.
+Everything you need to know to develop an application or a konnector, host your own server or get help from our community.
 
 <div class="home-actions" markdown="1">
 
@@ -15,23 +15,31 @@ The go-to website about Cozy configuration and setup.
 
   <div class="home-action">
     <div>
-      <a href="../sync/desktop"><img src="../assets/images/home/icon-phone.svg"></a>
-      [Synchronisez toutes vos données](sync/desktop)
+      <a href="/en/dev/app"><img src="../assets/images/home/icon-dev.svg"></a>
+      <a href="/en/dev/app">Développez&nbsp;!</a>
+      Je veux développer une application.
+    </div>
+  </div>
+
+  <div class="home-action">
+    <div>
+      <a href="/en/dev/konnector"><img src="../assets/images/home/icon-dev.svg"></a>
+      <a href="/en/dev/konnector">Développez&nbsp;!</a>
+      Je veux libérer mes données et coder un connecteur.
+    </div>
+  </div>
+
+  <div class="home-action">
+    <div>
+      <a href="../download"><img src="../assets/images/home/icon-phone.svg"></a>
+      [Synchronisez toutes vos données](download)
     </div>
   </div>
 
   <div class="home-action">
     <div>
       <a href="../install/debian"><img src="../assets/images/home/icon-install.svg">
-      [Installez votre propre serveur](install/debian)
-    </div>
-  </div>
-
-  <div class="home-action">
-    <div>
-      <a href="/en/dev"><img src="../assets/images/home/icon-dev.svg"></a>
-      <a href="/en/dev">Développez&nbsp;!</a>
-      Apprenez à développer des applications et des connecteurs.
+      [Je veux auto–héberger mon Cozy](install/debian)
     </div>
   </div>
 
@@ -40,8 +48,6 @@ The go-to website about Cozy configuration and setup.
 
 ## Get in touch
 
-If you have any questions, you can contact us via these 3 medias:
+Our great community is answering your questions [on our forum](https://forum.cozy.io/) and on our [IRC chat](https://webchat.freenode.net/?channels=cozycloud).
 
- - write an email to our Support team: contact at cozy.io
- - [post on the forum](https://forum.cozy.io/)
- - [chat with us on IRC](https://webchat.freenode.net/?channels=cozycloud)
+ Of course you can also write an email to our Support team: claude at cozy.io.

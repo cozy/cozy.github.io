@@ -1,6 +1,6 @@
 # Cozy Documentation
 
-The go-to website about Cozy configuration and setup.
+Everything you need to know to develop an application or a konnector, host your own server or get help from our community.
 
 <div class="home-actions" markdown="1">
 
@@ -15,8 +15,24 @@ The go-to website about Cozy configuration and setup.
 
   <div class="home-action">
     <div>
-      <a href="sync/desktop"><img src="assets/images/home/icon-phone.svg"></a>
-      [Keep your devices in sync](sync/desktop)
+      <a href="dev/app"><img src="assets/images/home/icon-dev.svg"></a>
+      [Develop applications](dev/app)
+      Learn how to develop applications.
+    </div>
+  </div>
+
+  <div class="home-action">
+    <div>
+      <a href="dev/konnector"><img src="assets/images/home/icon-dev.svg"></a>
+      [Develop applications](dev/konnector)
+      Develop a connector.
+    </div>
+  </div>
+
+  <div class="home-action">
+    <div>
+      <a href="download"><img src="assets/images/home/icon-phone.svg"></a>
+      [Keep your devices in sync](download)
     </div>
   </div>
 
@@ -27,21 +43,12 @@ The go-to website about Cozy configuration and setup.
     </div>
   </div>
 
-  <div class="home-action">
-    <div>
-      <a href="dev/"><img src="assets/images/home/icon-dev.svg"></a>
-      [Develop applications](dev)
-      Learn how to develop applications and connectors.
-    </div>
-  </div>
-
 
 </div>
 
 ## Get in touch
 
-If you have any questions, you can contact us via these 3 medias:
+Our great community is answering your questions [on our forum](https://forum.cozy.io/) and on our [IRC chat](https://webchat.freenode.net/?channels=cozycloud).
 
- - Write an email to our Support team: contact at cozy.io
- - [Post on the forum](https://forum.cozy.io/)
- - [Chat with us on IRC](https://webchat.freenode.net/?channels=cozycloud)
+ Of course you can also write an email to our Support team: claude at cozy.io.
+ 
