@@ -35,7 +35,7 @@ Requires iOS 8.0 or later
 </div>
 
 <div class="download-block" markdown="1">
-### ![Android logo](../img/download/icon-48-android.svg) Cozy Drive for Android
+### ![Android logo](../img/download/icon-48-android.svg) Cozy Banks for Android
 
 Requires Android 5.0.0 or later
 

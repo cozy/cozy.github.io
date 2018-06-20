@@ -9,15 +9,11 @@
  - [how to send mail in development](/dev/sendmail.md)
 
 
-## How to
-
-Coming soon!
-
 ## API References
 
 ### Cozy Client JS Reference
 
-  - [Iintroduction](https://docs.cozy.io/en/cozy-client-js/intro/)
+  - [Introduction](https://docs.cozy.io/en/cozy-client-js/intro/)
   - [documents](https://docs.cozy.io/en/cozy-client-js/data-api/)
   - [files](https://docs.cozy.io/en/cozy-client-js/files-api/)
   - [authentification](https://docs.cozy.io/en/cozy-client-js/auth-api/)
