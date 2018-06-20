@@ -15,7 +15,7 @@ The go-to website about Cozy configuration and setup.
 
   <div class="home-action">
     <div>
-      <a href="sync/"><img src="assets/images/home/icon-phone.svg"></a>
+      <a href="sync/desktop"><img src="assets/images/home/icon-phone.svg"></a>
       [Keep your devices in sync](sync/desktop)
     </div>
   </div>
