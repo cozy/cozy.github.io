@@ -592,6 +592,12 @@ app version after publishing stable.</p>
 <li><code>sha256</code>: the sha256 checksum of the application content</li>
 <li><code>tar_prefix</code>: optional tar prefix directory specified to properly extract the
   application content</li>
+<li><code>maintenance_activated</code>: boolean, true when the maintenance mode is activated on the application</li>
+<li><code>maintenance_options</code>: present only if <code>maintenance_activated</code> is true, object with the following fields:</li>
+<li><code>flag_infra_maintenance</code>: bool, true iff the maintenance is internal to the cozy infrastructure</li>
+<li><code>flag_short_maintenance</code>: bool, true iff the maintenance is a short maintenance, waiting for a correction on our side</li>
+<li><code>flag_disallow_manual_exec</code>: bool, true iff the maintenance will disallow the execution on the application, even when manually executed</li>
+<li><code>messages</code>: a list of localized messages containing a short and long information messages explaining the maintenance state</li>
 </ul>
 <p>The version string should follow the channels rule.</p>
 <p>Example:</p>
@@ -605,6 +611,12 @@ app version after publishing stable.</p>
   &quot;sha256&quot;: &quot;466aa0815926fdbf33fda523af2b9bf34520906ffbb9bf512ddf20df2992a46f&quot;,
   &quot;manifest&quot;: {
     /* ... */
+  },
+  &quot;maintenance_activated&quot;: true,
+  &quot;maintenance_options&quot;: {
+      &quot;flag_infra_maintenance&quot;: true,
+      &quot;flag_short_maintenance&quot;: false,
+      &quot;flag_disallow_manual_exec&quot;: true
   }
 }</code></pre>
 
@@ -946,6 +958,39 @@ Content-Type: application/json</code></pre>
     /* ... */
   }
 }</code></pre>
+
+
+<h3 id="get-registrymaintenance">GET /registry/maintenance<a class="headerlink" href="#get-registrymaintenance" title="Permanent link">&para;</a></h3>
+<p>Get the list of applications with maintenance mode activated.</p>
+<h4 id="request_8">Request<a class="headerlink" href="#request_8" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">GET /registry/maintenance HTTP/1.1</code></pre>
+
+
+<h4 id="response_7">Response<a class="headerlink" href="#response_7" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
+Content-Type: application/json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">[
+  {
+    &quot;slug&quot;: &quot;drive&quot;,
+    &quot;type&quot;: &quot;webapp&quot;,
+    &quot;version&quot;: &quot;3.1.1&quot;,
+    &quot;url&quot;: &quot;http://.../3.1.1&quot;,
+    &quot;sha256&quot;: &quot;466aa0815926fdbf33fda523af2b9bf34520906ffbb9bf512ddf20df2992a46f&quot;,
+    &quot;size&quot;: &quot;1000&quot;,
+    &quot;created_at&quot;: &quot;2017-07-05T07:54:40.982Z&quot;,
+    &quot;manifest&quot;: {
+      /* ... */
+    },
+    &quot;maintenance_activated&quot;: true,
+    &quot;maintenance_options&quot;: {
+        &quot;flag_infra_maintenance&quot;: true,
+        &quot;flag_short_maintenance&quot;: false,
+        &quot;flag_disallow_manual_exec&quot;: true
+    }
+  }
+]</code></pre>
 
 
 <h2 id="attaching-a-cozy-stack-to-a-registry-or-a-list-of-registries">Attaching a cozy-stack to a registry or a list of registries<a class="headerlink" href="#attaching-a-cozy-stack-to-a-registry-or-a-list-of-registries" title="Permanent link">&para;</a></h2>

@@ -590,8 +590,12 @@ cozy.client.data.create(myBooksDoctype, doc, function(err, result) {
   disablePromises: false,
   version: 3,
   oauth: {
-    clientParams: {/*...*/},
-    scopes: [&quot;io.cozy.files:GET&quot;],
+    clientParams: {
+      redirectURI: 'http://localhost:3333/oauth/callback',
+      softwareID: 'cozy-client-js',
+      clientName: 'example',
+      scopes: [&quot;io.cozy.files:GET&quot;]
+    },
     onRegistered: (client, url) =&gt; { /* */ },
     storage: new cozy.auth.LocalStorage(window.localStorage)
   }
