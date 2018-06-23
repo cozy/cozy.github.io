@@ -762,6 +762,19 @@ Cookie: cozysessid=AAAAAFhSXT81MWU0ZTBiMzllMmI1OGUyMmZiN2Q0YTYzNDAxN2Y5NjCmp2Ja5
 }</code></pre>
 
 
+<h3 id="put-settingsinstancesign_tos">PUT /settings/instance/sign_tos<a class="headerlink" href="#put-settingsinstancesign_tos" title="Permanent link">&para;</a></h3>
+<p>With this route, an OAuth client can sign the new TOS version.</p>
+<p>Status codes:</p>
+<ul>
+<li><code>204 No Content</code>: when the mail has been confirmed and two-factor authentication is activated</li>
+</ul>
+<h4 id="request_6">Request<a class="headerlink" href="#request_6" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">PUT /settings/instance/sign_tos HTTP/1.1
+Host: alice.example.com
+Content-Type: application/json
+Authorization: Bearer ...</code></pre>
+
+
 <h3 id="get-settingssessions">GET /settings/sessions<a class="headerlink" href="#get-settingssessions" title="Permanent link">&para;</a></h3>
 <p>This route allows to get all the currently active sessions.</p>
 <pre class="codehilite"><code>GET /settings/sessions HTTP/1.1
@@ -795,7 +808,7 @@ Content-Type: application/json</code></pre>
 <h2 id="oauth-2-clients">OAuth 2 clients<a class="headerlink" href="#oauth-2-clients" title="Permanent link">&para;</a></h2>
 <h3 id="get-settingsclients">GET /settings/clients<a class="headerlink" href="#get-settingsclients" title="Permanent link">&para;</a></h3>
 <p>Get the list of the registered clients</p>
-<h4 id="request_6">Request<a class="headerlink" href="#request_6" title="Permanent link">&para;</a></h4>
+<h4 id="request_7">Request<a class="headerlink" href="#request_7" title="Permanent link">&para;</a></h4>
 <pre class="codehilite"><code class="language-http">GET /settings/clients HTTP/1.1
 Host: alice.example.com
 Accept: application/vnd.api+json
@@ -836,7 +849,7 @@ Content-type: application/json</code></pre>
 <p>To use this endpoint, an application needs a permission on the type
 <code>io.cozy.oauth.clients</code> for the verb <code>GET</code> (only client-side apps).</p>
 <h3 id="delete-settingsclientsclient-id">DELETE /settings/clients/:client-id<a class="headerlink" href="#delete-settingsclientsclient-id" title="Permanent link">&para;</a></h3>
-<h4 id="request_7">Request<a class="headerlink" href="#request_7" title="Permanent link">&para;</a></h4>
+<h4 id="request_8">Request<a class="headerlink" href="#request_8" title="Permanent link">&para;</a></h4>
 <pre class="codehilite"><code class="language-http">DELETE /settings/clients/30e84c10-e6cf-11e6-9bfd-a7106972de51 HTTP/1.1
 Host: alice.example.com
 Authorization: Bearer oauth2-clients-token</code></pre>
@@ -853,7 +866,7 @@ Authorization: Bearer oauth2-clients-token</code></pre>
 <p>Any OAuth2 client can make a request to this endpoint with its token, no
 permission is needed. It will update the date of last synchronization for this
 device.</p>
-<h4 id="request_8">Request<a class="headerlink" href="#request_8" title="Permanent link">&para;</a></h4>
+<h4 id="request_9">Request<a class="headerlink" href="#request_9" title="Permanent link">&para;</a></h4>
 <pre class="codehilite"><code class="language-http">POST /settings/synchronized HTTP/1.1
 Host: alice.example.com
 Authorization: Bearer oauth2-access-token</code></pre>
@@ -870,7 +883,7 @@ selected according to the context of the instance and the configuration of the
 stack.</p>
 <h3 id="get-settingscontext">GET /settings/context<a class="headerlink" href="#get-settingscontext" title="Permanent link">&para;</a></h3>
 <p>It gives the keys/values from the config for the context of the instance.</p>
-<h4 id="request_9">Request<a class="headerlink" href="#request_9" title="Permanent link">&para;</a></h4>
+<h4 id="request_10">Request<a class="headerlink" href="#request_10" title="Permanent link">&para;</a></h4>
 <pre class="codehilite"><code class="language-http">GET /settings/context HTTP/1.1
 Host: alice.example.com
 Accept: application/vnd.api+json
