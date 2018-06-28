@@ -9,5 +9,6 @@ module.exports = {
   BankTransaction,
   BankAccount,
   BalanceHistory,
-  BankingReconciliator
+  BankingReconciliator,
+  registerClient: Document.registerClient
 }

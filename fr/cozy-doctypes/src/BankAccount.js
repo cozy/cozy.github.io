@@ -8,20 +8,20 @@ class BankAccount extends Document {
     const byAccountNumber = keyBy(localAccounts, numberAttr)
     return fetchedAccounts.map(fetchedAccount => {
       const matchedSavedAccount = byAccountNumber[fetchedAccount[numberAttr]]
-      return {
-        ...fetchedAccount,
+      return Object.assign({}, fetchedAccount, {
         _id: matchedSavedAccount && matchedSavedAccount._id
-      }
+      })
     })
   }
 
   static isFromNewKonnector(fetchedAccounts, stackAccounts) {
     const numberAttr = this.numberAttr
+    const vendorIdAttr = this.vendorIdAttr
     const byNumber = keyBy(stackAccounts, numberAttr)
-    const byVendorId = keyBy(stackAccounts, this.vendorIdAttr)
+    const byVendorId = keyBy(stackAccounts, vendorIdAttr)
     return some(
       fetchedAccounts,
-      acc => byNumber[acc[numberAttr]] && !byVendorId[acc.id]
+      acc => byNumber[acc[numberAttr]] && !byVendorId[acc[vendorIdAttr]]
     )
   }
 }

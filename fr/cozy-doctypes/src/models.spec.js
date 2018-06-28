@@ -65,14 +65,14 @@ describe('account reconciliation', () => {
   it('should correctly determine if we are saving from a new linxo account', () => {
     expect(
       BankAccount.isFromNewKonnector(
-        [{ linxoId: 1, number: 1 }],
-        [{ linxoId: 1, number: 1 }]
+        [{ vendorId: 1, number: 1 }],
+        [{ vendorId: 1, number: 1 }]
       )
     ).toBe(false)
     expect(
       BankAccount.isFromNewKonnector(
-        [{ linxoId: 2, number: 1 }],
-        [{ linxoId: 1, number: 1 }]
+        [{ vendorId: 2, number: 1 }],
+        [{ vendorId: 1, number: 1 }]
       )
     ).toBe(true)
   })

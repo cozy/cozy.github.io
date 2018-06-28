@@ -3,7 +3,7 @@ const groupBy = require('lodash/groupBy')
 const max = require('lodash/max')
 const Document = require('./Document')
 const BankAccount = require('./BankAccount')
-const { log } = require('./log')
+const log = require('./log')
 
 const getDate = transaction => transaction.date.slice(0, 10)
 
@@ -11,6 +11,14 @@ const getSplitDate = (linxoTransactions, stackTransactions) => {
   // Find the first date for which we have new linxo transactions
   // We'll delete transactions after this date and add new ones
   return max(stackTransactions.map(transaction => getDate(transaction)))
+}
+
+const ensureISOString = date => {
+  if (date instanceof Date) {
+    return date.toISOString()
+  } else {
+    return date
+  }
 }
 
 class Transaction extends Document {
@@ -22,7 +30,7 @@ class Transaction extends Document {
     if (!minDate) {
       return true
     } else {
-      const day = this.date.slice(0, 10)
+      const day = ensureISOString(this.date).slice(0, 10)
       if (day !== 'NaN') {
         return day > minDate
       } else {
