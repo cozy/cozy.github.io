@@ -1,29 +1,22 @@
 # Cozy Documentation
 
-Everything you need to know to develop an application or a connector, host your own server or get help from our community.
+Find guides for developing apps and connectors and for self-hosting.
 
 <div class="home-actions" markdown="1">
-
-  <!--
-  <div class="home-action">
-    <div>
-      <a href="use/"><img src="assets/images/home/icon-cloud.svg">
-      [Learn how to use your server](use)</a>
-    </div>
-  </div>
-  -->
 
   <div class="home-action">
     <a href="dev/app">
       <img src="assets/images/home/icon-dev.svg" />
-      Learn how to develop applications
+      <h2>For Developers</h2>
+      <em>Learn how to develop apps</em>
     </a>
   </div>
 
   <div class="home-action">
     <a href="dev/konnector">
       <img src="assets/images/home/icon-dev.svg" />
-      Develop a connector
+      <h2>For Developers and more</h2>
+      <em>Learn how to free data with connectors</em>
     </a>
   </div>
 
@@ -46,7 +39,6 @@ Everything you need to know to develop an application or a connector, host your 
 
 ## Get in touch
 
-Our great community is answering your questions [on our forum](https://forum.cozy.io/) and on our [IRC chat](https://webchat.freenode.net/?channels=cozycloud).
+Get help from our great community [on our forum](https://forum.cozy.io) and on our [IRC chat](https://webchat.freenode.net/?channels=cozycloud).
 
- Of course you can also write an email to our Support team: claude at cozy.io.
- 
+Of course you can also write an email to our Support team: claude at cozy.io.

@@ -80,9 +80,7 @@ $ docker run --rm -it -p 8080:8080 -v "$(pwd)/build":/data/cozy-app/mycozyapp co
 
 Your app is now available at http://mycozyapp.cozy.tools:8080.
 
-## Extra documentation about application development
-
-### How is the application working?
+## How is the application working?
 
 The minimal application consist of only two files:
 
@@ -102,7 +100,7 @@ You can use the following variables:
  - `{{.CozyBar}}` will be replaced with HTML code to inject the upper menu bar.
 
 
-### Use the API with cozy-client-js
+## Use the API with cozy-client-js
 
 !!! warning ""
     We are currently working on a new [`cozy-client`](https://github.com/cozy/cozy-client) library which will be more updated and used in the future than `cozy-client-js`. But the two libraries (`cozy-client` and `cozy-client-js`) don't rely on each other so you can still use the one you want to handle Cozy data for now.
@@ -172,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-### The manifest
+## Read the manifest
 
 Each application must have a “manifest”. It’s a JSON file named `manifest.webapp` stored at the root of the application directory. It describes the application, the type of documents it uses, the permissions it require…
 
@@ -215,7 +213,7 @@ Here’s a sample manifest:
 
 ```
 
-#### Permissions
+### Permissions
 
 Applications require permissions to use most of the APIs. Permissions can be described inside the manifest, so the server can ask the user to grant them during installation. Applications can also request permissions at run time.
 
@@ -231,7 +229,7 @@ In the manifest, each permission is an object, with a random name and some prope
 
 An application can request a token that grant access to a subset of its own permissions. For example if the application has full access to the files, it can obtain a token that give only read access on a file. Thus, the application can make some documents publicly available. The public page of the application will use this token as authentication token when accessing the API.
 
-##### Samples
+#### Samples
 
 Application require full access to files:
 
@@ -262,7 +260,7 @@ Application want to be able to read the contact informations of `cozy@cozycloud.
 ```
 
 
-#### Routing
+### Routing
 
 The application must declare all of its URLs (routes) inside the manifest. A route is an object associating an URL to an HTML file. Each route has the following properties:
 
@@ -311,7 +309,7 @@ The library supports two programming paradigms: callback and Promises, so you ca
   });
 ```
 
-#### Raw API documentation
+## Raw API documentation
 
 In this tutorial, we’ll only see a few samples of how to use the library. For a complete description of all available methods, please refer to its own documentation:
 
@@ -326,7 +324,7 @@ In this tutorial, we’ll only see a few samples of how to use the library. For 
  - [offline](https://github.com/cozy/cozy-client-js/blob/master/docs/offline.md)
  - [Cozy Bar](https://github.com/cozy/cozy-bar)
 
-#### Manipulating documents
+### Manipulating documents
 
 Inside cozy data system, all documents are typed. To prevent applications to create document types with the same name but different description, the naming of the doctypes use [the Java specification](https://docs.oracle.com/javase/specs/jls/se8/html/jls-6.html#d5e8195). Every document type name must be prefixed by the reverted domain name of its creator. If you don’t own a domain name, you can also use your email address. For example, doctypes created by Cozy are prefixed by `io.cozy` or `io.cozy.labs`. If you don’t own a domain name, and your email address is `foo@bar.cloud`, prefix your doctype names with `cloud.bar.foo`.
 
@@ -343,7 +341,7 @@ Every method allowing to handle document are available under the `cozy.client.da
  - you can attach files to a document using `cozy.client.data.addReferencedFiles(doc, fileIds)` and list attachments with `cozy.client.data.listReferencedFiles(doc)`
 
 
-#### Querying
+### Querying
 
 To search documents inside the database, you first need to create an index on some attributes of the documents, then perform a query on this index. The library offers the following methods:
 
@@ -363,7 +361,7 @@ cozy.client.data.defineIndex("io.cozy.contacts", ["email"])
 ```
 
 
-#### Manipulating files
+### Manipulating files
 
 The metadata of the files are stored inside the server database, allowing to perform advanced queries, and the files themselves on a virtual file system.
 
@@ -376,7 +374,7 @@ The library offer a lot of methods under `cozy.client.files` namespace to manipu
  - a virtual trash is available. You can put files into the trash (`trashById()`) and restore them (`restoreById()`). You can also list the content of the trash (`listTrash()`) and purge all trashed files (`clearTrash()`)
  - `statById(id)` et `statByPath(path)` return the metadata and, or folders, their content
 
-##### Folders
+#### Folders
 
 When using `statById()` or `statByPath()` to get metadata of of folder, you can than call `relations()` on the resulting object to access their content. For example, to list content of the root folder, use:
 
@@ -393,7 +391,7 @@ Some special folder have a pre-defined id that will never change:
  - `io.cozy.files.trash-dir` is the trash.
 
 
-### The Cozy Bar
+## Discover the Cozy Bar
 
 The [Cozy Bar](https://github.com/cozy/cozy-bar) is a component that display the Cozy menu on the top of your application and allow inter-apps features like content sharing.
 
@@ -403,13 +401,13 @@ Before using it, you have to initialize the library: `window.cozy.bar.init({appN
 
 
 
-### Styling
+## Style with Cozy UI
 
 If you plan to build a webapp to run on Cozy, you’ll probably want to use a simple and elegant solution to build your interfaces without the mess of dealing with complex markup and CSS. Then [Cozy UI](https://github.com/cozy/cozy-ui/) is here for you!
 
 It relies on Stylus as preprocessor. You can add it as a library in your project to use it out-of-the-box.
 
-### The development server using Docker
+## Use Docker
 
 *(remember what we previously said about the permissions required to run Docker: if your user doesn’t belong to the docker group, you’ll have to use `sudo` to run each of this commands.)*
 
@@ -442,7 +440,7 @@ You can also access the following URLs:
  - `http://cozy.tools:8025/` to display the emails sent by the server.
 
 
-#### Test multiple applications
+### Test multiple applications
 
 You can install more than one application into the development server, for example to test communication between applications. In order to achieve this, you have to mount the folder where your application leaves into subfolders of `/data/cozy-apps`. For example, if the code of Cozy Drive and Cozy Photos is on your local filesystem in `~/cozy/drive` and `~/cozy/photos`, start the development server with:
 
@@ -452,6 +450,6 @@ docker run --rm -it -p 8080:8080 -p 5984:5984 -p 8025:8025 -v "~/cozy/drive:/dat
 
 You’ll access the applications by connecting to `http://drive.cozy.tools:8080/` and `http://photos.cozy.tools:8080`.
 
-#### What is `cozy.tools` ?
+### What is `cozy.tools` ?
 
 This development server use the domain names `*.cozy.tools`. We have parameterized this domain to always redirect to `127.0.0.1`, your local computer address. With that, no need to configure your environment to set extra local hosts for development anymore.
