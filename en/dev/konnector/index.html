@@ -10,7 +10,7 @@
         <link rel="canonical" href="https://docs.cozy.io/dev/konnector/">
         <link rel="shortcut icon" href="../../img/favicon.png">
         
-        <title>konnector - Technical Documentation</title>
+        <title>konnector - Documentation</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -42,7 +42,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="https://docs.cozy.io/">Technical Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Documentation</a>
         </div>
 
         <!-- Expanded navigation -->
@@ -515,7 +515,7 @@
 <h1 id="how-to-write-a-connector">How to write a connector<a class="headerlink" href="#how-to-write-a-connector" title="Permanent link">&para;</a></h1>
 <h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
 <p>A connector (also known as <em>konnector</em>) is a script that imports data from another web service and put those data into your cozy.
-Each connector is an independant application, managed by the <a href="https://github.com/cozy/cozy-collect">Cozy Collect</a> application.</p>
+Each connector is an independent application, managed by the <a href="https://github.com/cozy/cozy-collect">Cozy Collect</a> application.</p>
 <p>To protect your data, each connector runs inside a container in order to sandbox all their interactions with your data.</p>
 <h2 id="how-does-it-work">How does it work?<a class="headerlink" href="#how-does-it-work" title="Permanent link">&para;</a></h2>
 <p>A connector is a NodeJS script.
@@ -690,7 +690,7 @@ Here it is clear, on incorrect credentials, the response have a status code <cod
 <pre class="codehilite"><code class="language-http">HTTP/2.0 422 No Reason Phrase</code></pre>
 
 
-<p>Do the same with valid crendentials.</p>
+<p>Do the same with valid credentials.</p>
 <pre class="codehilite"><code class="language-http">HTTP/2.0 200 OK</code></pre>
 
 
@@ -708,13 +708,13 @@ Here it is clear, on incorrect credentials, the response have a status code <cod
 
 
 <h4 id="request-data">Request data<a class="headerlink" href="#request-data" title="Permanent link">&para;</a></h4>
-<p>Once the konnector is able to be authenticated by the online service, the next step is to fetch data.
+<p>Once the connector is able to be authenticated by the online service, the next step is to fetch data.
 The most common case is that the invoices we want to fetch are listed in a HTML page.
 So to request data, we fetch the target webpage that contains invoices list.</p>
-<p>But sometimes, the webpage is a JavaScript page that uses a JSON API url.
+<p>But sometimes, the webpage is a JavaScript page that uses a JSON API URL.
 JSON is easier to parse than full HTML webpages.</p>
 <p>For the purpose of this guide, let&rsquo;s consider we are in the case of a full HTML webpage, like the service given as an example in the template: http://books.toscrape.com</p>
-<p>This is the easiest part, juste fetch the webpage:</p>
+<p>This is the easiest part, just fetch the webpage:</p>
 <pre class="codehilite"><code class="language-js">const $ = await request('http://books.toscrape.com/index.html')</code></pre>
 
 
@@ -727,7 +727,7 @@ JSON is easier to parse than full HTML webpages.</p>
 
 <p>For every book, we want to catch the title attribute of this tag <code>article h3 a</code>.
 This is a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document_object_model/Locating_DOM_elements_using_selectors">CSS Selector</a> that <a href="https://cheerio.js.org/">cheerio</a> understands to select some part of the tree.
-In order to crawl a list of items to create an Array of json object, we can use the function <a href="https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md#scrape">scrape from the konnector libs</a>:</p>
+In order to crawl a list of items to create an Array of JSON object, we can use the function <a href="https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md#scrape">scrape from the connector libs</a>:</p>
 <pre class="codehilite"><code class="language-js">const docs = scrape(
   $,
   {
@@ -848,9 +848,9 @@ This function can then:</p>
 <h4 id="error-handling">Error handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h4>
 <p>If your connector hits an issue fetching or saving the data, it can return an error code by throwing it as an error. The error codes are defined inside the <a href="https://github.com/cozy/cozy-collect">Cozy Collect</a> application and will display an explicit error to the user:</p>
 <ul>
-<li><code>LOGIN_FAILED</code>: the konnector could not login</li>
+<li><code>LOGIN_FAILED</code>: the connector could not login</li>
 <li><code>NOT_EXISTING_DIRECTORY</code>: the folder specified as folder_to_save does not exist (checked automatically by the BaseKonnector)</li>
-<li><code>UNKNOWN_ERROR</code>: there was an unexpected error, please take a look at the logs to know what appened</li>
+<li><code>UNKNOWN_ERROR</code>: there was an unexpected error, please take a look at the logs to know what happened</li>
 <li><code>VENDOR_DOWN</code>: the target web site is down now</li>
 <li><code>USER_ACTION_NEEDED</code>: The user needs to login to the service to do manual actions (could be Terms Of Service to validate)</li>
 </ul>

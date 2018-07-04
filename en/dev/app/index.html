@@ -10,7 +10,7 @@
         <link rel="canonical" href="https://docs.cozy.io/dev/app/">
         <link rel="shortcut icon" href="../../img/favicon.png">
         
-        <title>app - Technical Documentation</title>
+        <title>app - Documentation</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -42,7 +42,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="https://docs.cozy.io/">Technical Documentation</a>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Documentation</a>
         </div>
 
         <!-- Expanded navigation -->
@@ -468,7 +468,13 @@
             <li><a href="#prerequisite">Prerequisite</a></li>
             <li><a href="#install-the-development-environment">Install the development environment</a></li>
             <li><a href="#create-your-application">Create your application</a></li>
-            <li><a href="#extra-documentation-about-application-development">Extra documentation about application development</a></li>
+            <li><a href="#how-is-the-application-working">How is the application working?</a></li>
+            <li><a href="#use-the-api-with-cozy-client-js">Use the API with cozy-client-js</a></li>
+            <li><a href="#read-the-manifest">Read the manifest</a></li>
+            <li><a href="#raw-api-documentation">Raw API documentation</a></li>
+            <li><a href="#discover-the-cozy-bar">Discover the Cozy Bar</a></li>
+            <li><a href="#style-with-cozy-ui">Style with Cozy UI</a></li>
+            <li><a href="#use-docker">Use Docker</a></li>
     </ul>
   <div style='padding-left: 2rem'>
     
@@ -565,8 +571,7 @@ $ docker run --rm -it -p 8080:8080 -v &quot;$(pwd)/build&quot;:/data/cozy-app/my
 
 
 <p>Your app is now available at http://mycozyapp.cozy.tools:8080.</p>
-<h2 id="extra-documentation-about-application-development">Extra documentation about application development<a class="headerlink" href="#extra-documentation-about-application-development" title="Permanent link">&para;</a></h2>
-<h3 id="how-is-the-application-working">How is the application working?<a class="headerlink" href="#how-is-the-application-working" title="Permanent link">&para;</a></h3>
+<h2 id="how-is-the-application-working">How is the application working?<a class="headerlink" href="#how-is-the-application-working" title="Permanent link">&para;</a></h2>
 <p>The minimal application consist of only two files:</p>
 <ul>
 <li>an HTML file, <code>index.html</code>, with the markup and the code of your application</li>
@@ -583,7 +588,7 @@ $ docker run --rm -it -p 8080:8080 -v &quot;$(pwd)/build&quot;:/data/cozy-app/my
 <li><code>{{.CozyClientJS}}</code> will be replaced with HTML code to inject the Cozy client library</li>
 <li><code>{{.CozyBar}}</code> will be replaced with HTML code to inject the upper menu bar.</li>
 </ul>
-<h3 id="use-the-api-with-cozy-client-js">Use the API with cozy-client-js<a class="headerlink" href="#use-the-api-with-cozy-client-js" title="Permanent link">&para;</a></h3>
+<h2 id="use-the-api-with-cozy-client-js">Use the API with cozy-client-js<a class="headerlink" href="#use-the-api-with-cozy-client-js" title="Permanent link">&para;</a></h2>
 <div class="admonition warning">
 <p>We are currently working on a new <a href="https://github.com/cozy/cozy-client"><code>cozy-client</code></a> library which will be more updated and used in the future than <code>cozy-client-js</code>. But the two libraries (<code>cozy-client</code> and <code>cozy-client-js</code>) don&rsquo;t rely on each other so you can still use the one you want to handle Cozy data for now.</p>
 </div>
@@ -637,7 +642,7 @@ $ docker run --rm -it -p 8080:8080 -v &quot;$(pwd)/build&quot;:/data/cozy-app/my
 });</code></pre>
 
 
-<h3 id="the-manifest">The manifest<a class="headerlink" href="#the-manifest" title="Permanent link">&para;</a></h3>
+<h2 id="read-the-manifest">Read the manifest<a class="headerlink" href="#read-the-manifest" title="Permanent link">&para;</a></h2>
 <p>Each application must have a “manifest”. It’s a JSON file named <code>manifest.webapp</code> stored at the root of the application directory. It describes the application, the type of documents it uses, the permissions it require…</p>
 <p>Here’s a sample manifest:</p>
 <pre class="codehilite"><code class="language-json">{
@@ -675,7 +680,7 @@ $ docker run --rm -it -p 8080:8080 -v &quot;$(pwd)/build&quot;:/data/cozy-app/my
 }</code></pre>
 
 
-<h4 id="permissions">Permissions<a class="headerlink" href="#permissions" title="Permanent link">&para;</a></h4>
+<h3 id="permissions">Permissions<a class="headerlink" href="#permissions" title="Permanent link">&para;</a></h3>
 <p>Applications require permissions to use most of the APIs. Permissions can be described inside the manifest, so the server can ask the user to grant them during installation. Applications can also request permissions at run time.</p>
 <p>A permission must at type contain a target, the type of objects the application want to interact with. Can be a document type, or an action on the server. By default, all grant on this object are granted, but we can also request fine grained permissions, for example limiting to read access. We can also limit the scope to a subset of the documents.</p>
 <p>In the manifest, each permission is an object, with a random name and some properties:</p>
@@ -687,7 +692,7 @@ $ docker run --rm -it -p 8080:8080 -v &quot;$(pwd)/build&quot;:/data/cozy-app/my
 <li><code>values</code>: array of allowed values for this attribute.</li>
 </ul>
 <p>An application can request a token that grant access to a subset of its own permissions. For example if the application has full access to the files, it can obtain a token that give only read access on a file. Thus, the application can make some documents publicly available. The public page of the application will use this token as authentication token when accessing the API.</p>
-<h5 id="samples">Samples<a class="headerlink" href="#samples" title="Permanent link">&para;</a></h5>
+<h4 id="samples">Samples<a class="headerlink" href="#samples" title="Permanent link">&para;</a></h4>
 <p>Application require full access to files:</p>
 <pre class="codehilite"><code class="language-json">{
   &quot;permissions&quot;: {
@@ -712,7 +717,7 @@ $ docker run --rm -it -p 8080:8080 -v &quot;$(pwd)/build&quot;:/data/cozy-app/my
 }</code></pre>
 
 
-<h4 id="routing">Routing<a class="headerlink" href="#routing" title="Permanent link">&para;</a></h4>
+<h3 id="routing">Routing<a class="headerlink" href="#routing" title="Permanent link">&para;</a></h3>
 <p>The application must declare all of its URLs (routes) inside the manifest. A route is an object associating an URL to an HTML file. Each route has the following properties:</p>
 <ul>
 <li><code>folder</code>: the base folder of the route</li>
@@ -751,7 +756,7 @@ $ docker run --rm -it -p 8080:8080 -v &quot;$(pwd)/build&quot;:/data/cozy-app/my
   });</code></pre>
 
 
-<h4 id="raw-api-documentation">Raw API documentation<a class="headerlink" href="#raw-api-documentation" title="Permanent link">&para;</a></h4>
+<h2 id="raw-api-documentation">Raw API documentation<a class="headerlink" href="#raw-api-documentation" title="Permanent link">&para;</a></h2>
 <p>In this tutorial, we’ll only see a few samples of how to use the library. For a complete description of all available methods, please refer to its own documentation:</p>
 <ul>
 <li><a href="https://github.com/cozy/cozy-client-js/blob/master/docs/data-api.md">documents</a></li>
@@ -765,7 +770,7 @@ $ docker run --rm -it -p 8080:8080 -v &quot;$(pwd)/build&quot;:/data/cozy-app/my
 <li><a href="https://github.com/cozy/cozy-client-js/blob/master/docs/offline.md">offline</a></li>
 <li><a href="https://github.com/cozy/cozy-bar">Cozy Bar</a></li>
 </ul>
-<h4 id="manipulating-documents">Manipulating documents<a class="headerlink" href="#manipulating-documents" title="Permanent link">&para;</a></h4>
+<h3 id="manipulating-documents">Manipulating documents<a class="headerlink" href="#manipulating-documents" title="Permanent link">&para;</a></h3>
 <p>Inside cozy data system, all documents are typed. To prevent applications to create document types with the same name but different description, the naming of the doctypes use <a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-6.html#d5e8195">the Java specification</a>. Every document type name must be prefixed by the reverted domain name of its creator. If you don’t own a domain name, you can also use your email address. For example, doctypes created by Cozy are prefixed by <code>io.cozy</code> or <code>io.cozy.labs</code>. If you don’t own a domain name, and your email address is <code>foo@bar.cloud</code>, prefix your doctype names with <code>cloud.bar.foo</code>.</p>
 <p>We maintain an index of <a href="https://cozy.github.io/cozy-doctypes/">all the currently available doctypes</a>. To make your own doctypes available to other applications, please send a pull request to this repository.</p>
 <p>Before manipulating documents, you have to request permission to access their doctype, either in the manifest or dynamically.</p>
@@ -777,7 +782,7 @@ $ docker run --rm -it -p 8080:8080 -v &quot;$(pwd)/build&quot;:/data/cozy-app/my
 <li><code>cozy.client.data.changesFeed(doctype, options)</code> get the latests updates of documents of a doctype</li>
 <li>you can attach files to a document using <code>cozy.client.data.addReferencedFiles(doc, fileIds)</code> and list attachments with <code>cozy.client.data.listReferencedFiles(doc)</code></li>
 </ul>
-<h4 id="querying">Querying<a class="headerlink" href="#querying" title="Permanent link">&para;</a></h4>
+<h3 id="querying">Querying<a class="headerlink" href="#querying" title="Permanent link">&para;</a></h3>
 <p>To search documents inside the database, you first need to create an index on some attributes of the documents, then perform a query on this index. The library offers the following methods:</p>
 <ul>
 <li><code>cozy.client.data.defineIndex(doctype, fields)</code> to create the index</li>
@@ -793,7 +798,7 @@ $ docker run --rm -it -p 8080:8080 -v &quot;$(pwd)/build&quot;:/data/cozy-app/my
 });</code></pre>
 
 
-<h4 id="manipulating-files">Manipulating files<a class="headerlink" href="#manipulating-files" title="Permanent link">&para;</a></h4>
+<h3 id="manipulating-files">Manipulating files<a class="headerlink" href="#manipulating-files" title="Permanent link">&para;</a></h3>
 <p>The metadata of the files are stored inside the server database, allowing to perform advanced queries, and the files themselves on a virtual file system.</p>
 <p>The library offer a lot of methods under <code>cozy.client.files</code> namespace to manipulate files. Most of the methods allows to manipulate a file or folder either by its id or by its full path. Here are the most commons ones, but a lot of other methods are available in the <a href="https://github.com/cozy/cozy-client-js/blob/master/docs/files-api.md">raw API documentation</a>:</p>
 <ul>
@@ -804,7 +809,7 @@ $ docker run --rm -it -p 8080:8080 -v &quot;$(pwd)/build&quot;:/data/cozy-app/my
 <li>a virtual trash is available. You can put files into the trash (<code>trashById()</code>) and restore them (<code>restoreById()</code>). You can also list the content of the trash (<code>listTrash()</code>) and purge all trashed files (<code>clearTrash()</code>)</li>
 <li><code>statById(id)</code> et <code>statByPath(path)</code> return the metadata and, or folders, their content</li>
 </ul>
-<h5 id="folders">Folders<a class="headerlink" href="#folders" title="Permanent link">&para;</a></h5>
+<h4 id="folders">Folders<a class="headerlink" href="#folders" title="Permanent link">&para;</a></h4>
 <p>When using <code>statById()</code> or <code>statByPath()</code> to get metadata of of folder, you can than call <code>relations()</code> on the resulting object to access their content. For example, to list content of the root folder, use:</p>
 <pre class="codehilite"><code class="language-javascript">cozy.client.files.statByPath(&quot;/&quot;)
 .then((dir) =&gt; {
@@ -817,14 +822,14 @@ $ docker run --rm -it -p 8080:8080 -v &quot;$(pwd)/build&quot;:/data/cozy-app/my
 <li><code>io.cozy.files.root-dir</code> is the root of the filesystem</li>
 <li><code>io.cozy.files.trash-dir</code> is the trash.</li>
 </ul>
-<h3 id="the-cozy-bar">The Cozy Bar<a class="headerlink" href="#the-cozy-bar" title="Permanent link">&para;</a></h3>
+<h2 id="discover-the-cozy-bar">Discover the Cozy Bar<a class="headerlink" href="#discover-the-cozy-bar" title="Permanent link">&para;</a></h2>
 <p>The <a href="https://github.com/cozy/cozy-bar">Cozy Bar</a> is a component that display the Cozy menu on the top of your application and allow inter-apps features like content sharing.</p>
 <p>Your application interacts with this component through <code>cozy-bar.js</code>, a library injected into your pages by the server when you add <code>{{.CozyBar}}</code> in the header. It exposes an API behind the window.cozy.bar namespace.</p>
 <p>Before using it, you have to initialize the library: <code>window.cozy.bar.init({appName: "Mon application"})</code>.</p>
-<h3 id="styling">Styling<a class="headerlink" href="#styling" title="Permanent link">&para;</a></h3>
+<h2 id="style-with-cozy-ui">Style with Cozy UI<a class="headerlink" href="#style-with-cozy-ui" title="Permanent link">&para;</a></h2>
 <p>If you plan to build a webapp to run on Cozy, you’ll probably want to use a simple and elegant solution to build your interfaces without the mess of dealing with complex markup and CSS. Then <a href="https://github.com/cozy/cozy-ui/">Cozy UI</a> is here for you!</p>
 <p>It relies on Stylus as preprocessor. You can add it as a library in your project to use it out-of-the-box.</p>
-<h3 id="the-development-server-using-docker">The development server using Docker<a class="headerlink" href="#the-development-server-using-docker" title="Permanent link">&para;</a></h3>
+<h2 id="use-docker">Use Docker<a class="headerlink" href="#use-docker" title="Permanent link">&para;</a></h2>
 <p><em>(remember what we previously said about the permissions required to run Docker: if your user doesn’t belong to the docker group, you’ll have to use <code>sudo</code> to run each of this commands.)</em></p>
 <p>To run your application inside the development server, just run the following command from the folder where your <code>index.html</code> and <code>manifest.webapp</code> files leave:</p>
 <pre class="codehilite"><code class="language-sh">docker run --rm -it -p 8080:8080 -p 5984:5984 -p 8025:8025 -v $(pwd):/data/cozy-app --name cozydev cozy/cozy-app-dev</code></pre>
@@ -848,13 +853,13 @@ $ docker run --rm -it -p 8080:8080 -v &quot;$(pwd)/build&quot;:/data/cozy-app/my
 <li><code>http://cozy.tools:5984/_utils</code> to get the database administrative panel</li>
 <li><code>http://cozy.tools:8025/</code> to display the emails sent by the server.</li>
 </ul>
-<h4 id="test-multiple-applications">Test multiple applications<a class="headerlink" href="#test-multiple-applications" title="Permanent link">&para;</a></h4>
+<h3 id="test-multiple-applications">Test multiple applications<a class="headerlink" href="#test-multiple-applications" title="Permanent link">&para;</a></h3>
 <p>You can install more than one application into the development server, for example to test communication between applications. In order to achieve this, you have to mount the folder where your application leaves into subfolders of <code>/data/cozy-apps</code>. For example, if the code of Cozy Drive and Cozy Photos is on your local filesystem in <code>~/cozy/drive</code> and <code>~/cozy/photos</code>, start the development server with:</p>
 <pre class="codehilite"><code class="language-sh">docker run --rm -it -p 8080:8080 -p 5984:5984 -p 8025:8025 -v &quot;~/cozy/drive:/data/cozy-app/drive&quot; -v &quot;~/cozy/photos:/data-cozy-app/photos&quot; --name=cozydev cozy/cozy-app-dev</code></pre>
 
 
 <p>You’ll access the applications by connecting to <code>http://drive.cozy.tools:8080/</code> and <code>http://photos.cozy.tools:8080</code>.</p>
-<h4 id="what-is-cozytools">What is <code>cozy.tools</code> ?<a class="headerlink" href="#what-is-cozytools" title="Permanent link">&para;</a></h4>
+<h3 id="what-is-cozytools">What is <code>cozy.tools</code> ?<a class="headerlink" href="#what-is-cozytools" title="Permanent link">&para;</a></h3>
 <p>This development server use the domain names <code>*.cozy.tools</code>. We have parameterized this domain to always redirect to <code>127.0.0.1</code>, your local computer address. With that, no need to configure your environment to set extra local hosts for development anymore.</p></div>
         </div>
 
