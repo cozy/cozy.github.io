@@ -14,33 +14,31 @@ Everything you need to know to develop an application or a konnector, host your 
   -->
 
   <div class="home-action">
-    <div>
-      <a href="dev/app"><img src="assets/images/home/icon-dev.svg"></a>
-      [Develop applications](dev/app)
-      Learn how to develop applications.
-    </div>
+    <a href="dev/app">
+      <img src="assets/images/home/icon-dev.svg" />
+      Learn how to develop applications
+    </a>
   </div>
 
   <div class="home-action">
-    <div>
-      <a href="dev/konnector"><img src="assets/images/home/icon-dev.svg"></a>
-      [Develop applications](dev/konnector)
-      Develop a connector.
-    </div>
+    <a href="dev/konnector">
+      <img src="assets/images/home/icon-dev.svg" />
+      Develop a connector
+    </a>
   </div>
 
   <div class="home-action">
-    <div>
-      <a href="download"><img src="assets/images/home/icon-phone.svg"></a>
-      [Keep your devices in sync](download)
-    </div>
+    <a href="download">
+      <img src="assets/images/home/icon-phone.svg" />
+      Keep your devices in sync
+    </a>
   </div>
 
   <div class="home-action">
-    <div>
-      <a href="install/debian"><img src="assets/images/home/icon-install.svg">
-      [Install your own server](install/debian)</a>
-    </div>
+    <a href="install/debian">
+      <img src="assets/images/home/icon-install.svg" />
+      Install your own server
+    </a>
   </div>
 
 
