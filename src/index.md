@@ -15,7 +15,7 @@ Find guides for developing apps and connectors and for self-hosting.
   <div class="home-action">
     <a href="dev/konnector">
       <img src="assets/images/home/icon-dev.svg" />
-      <h2>For Developers and more</h2>
+      <h2>For Developers</h2>
       <em>Learn how to free data with connectors</em>
     </a>
   </div>
@@ -23,8 +23,8 @@ Find guides for developing apps and connectors and for self-hosting.
   <div class="home-action">
     <a href="install/debian">
       <img src="assets/images/home/icon-install.svg" />
-      <h2>For Self-Hosters</h2>
-      Install your own server
+      <h2>For Self-Hosting</h2>
+      <em>Install your own server</em>
     </a>
   </div>
 
