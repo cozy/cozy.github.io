@@ -17,7 +17,7 @@
   - [Introduction](https://docs.cozy.io/en/cozy-client-js/intro/)
   - [documents](https://docs.cozy.io/en/cozy-client-js/data-api/)
   - [files](https://docs.cozy.io/en/cozy-client-js/files-api/)
-  - [authentification](https://docs.cozy.io/en/cozy-client-js/auth-api/)
+  - [authentication](https://docs.cozy.io/en/cozy-client-js/auth-api/)
   - [authentication with OAuth2](https://docs.cozy.io/en/cozy-client-js/oauth/)
   - [settings](https://docs.cozy.io/en/cozy-client-js/settings-api/)
   - [inter-app communication](https://docs.cozy.io/en/cozy-client-js/intents-api/)
@@ -27,7 +27,7 @@
 
 ### Cozy UI
   - [introduction](https://cozy.github.io/cozy-ui/)
-  - [styleguide](https://cozy.github.io/cozy-ui/styleguide/)
+  - [style guide](https://cozy.github.io/cozy-ui/styleguide/)
   - [react components in storybook](https://cozy.github.io/cozy-ui/react/)
 
 
@@ -43,7 +43,7 @@
   - [permissions](https://docs.cozy.io/en/cozy-stack/permissions/)
   - [notifications](https://docs.cozy.io/en/cozy-stack/notifications/)
   - [settings](https://docs.cozy.io/en/cozy-stack/settings/)
-  - [auth](https://docs.cozy.io/en/cozy-stack/auth/#the-cozy-stack-as-an-authorization-server)
+  - [authentication](https://docs.cozy.io/en/cozy-stack/auth/#the-cozy-stack-as-an-authorization-server)
   - [documents](https://docs.cozy.io/en/cozy-stack/data-system/)
   - [query the database](https://docs.cozy.io/en/cozy-stack/mango/)
   - [files](https://docs.cozy.io/en/cozy-stack/files/)
@@ -53,7 +53,7 @@
   - [inter-application communication](https://docs.cozy.io/en/cozy-stack/intents/#routes)
   - [sharing](https://docs.cozy.io/en/cozy-stack/sharing/)
   - [connectors](https://docs.cozy.io/en/cozy-stack/konnectors/)
-  - [realtime](https://docs.cozy.io/en/cozy-stack/realtime/)
+  - [real time](https://docs.cozy.io/en/cozy-stack/realtime/)
   - [Proxy for remote data/API](https://docs.cozy.io/en/cozy-stack/remote/)
 
 ## Available doctypes

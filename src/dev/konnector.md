@@ -3,7 +3,7 @@
 ## Introduction
 
 A connector (also known as _konnector_) is a script that imports data from another web service and put those data into your cozy.
-Each connector is an independant application, managed by the [Cozy Collect] application.
+Each connector is an independent application, managed by the [Cozy Collect] application.
 
 To protect your data, each connector runs inside a container in order to sandbox all their interactions with your data.
 
@@ -214,7 +214,7 @@ Here it is clear, on incorrect credentials, the response have a status code `422
 HTTP/2.0 422 No Reason Phrase
 ```
 
-Do the same with valid crendentials.
+Do the same with valid credentials.
 
 ```http
 HTTP/2.0 200 OK
@@ -237,16 +237,16 @@ function authenticate(username, password) {
 
 #### Request data
 
-Once the konnector is able to be authenticated by the online service, the next step is to fetch data.
+Once the connector is able to be authenticated by the online service, the next step is to fetch data.
 The most common case is that the invoices we want to fetch are listed in a HTML page.
 So to request data, we fetch the target webpage that contains invoices list.
 
-But sometimes, the webpage is a JavaScript page that uses a JSON API url.
+But sometimes, the webpage is a JavaScript page that uses a JSON API URL.
 JSON is easier to parse than full HTML webpages.
 
 For the purpose of this guide, let's consider we are in the case of a full HTML webpage, like the service given as an example in the template: http://books.toscrape.com
 
-This is the easiest part, juste fetch the webpage:
+This is the easiest part, just fetch the webpage:
 
 ```js
 const $ = await request('http://books.toscrape.com/index.html')
@@ -266,7 +266,7 @@ const articles = [].map.call($('article', node => node))
 
 For every book, we want to catch the title attribute of this tag `article h3 a`.
 This is a [CSS Selector](https://developer.mozilla.org/en-US/docs/Web/API/Document_object_model/Locating_DOM_elements_using_selectors) that [cheerio](https://cheerio.js.org/) understands to select some part of the tree.
-In order to crawl a list of items to create an Array of json object, we can use the function [scrape from the konnector libs](https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md#scrape):
+In order to crawl a list of items to create an Array of JSON object, we can use the function [scrape from the connector libs](https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md#scrape):
 
 ```js
 const docs = scrape(
@@ -404,9 +404,9 @@ A basic connector workflow involves:
 
 If your connector hits an issue fetching or saving the data, it can return an error code by throwing it as an error. The error codes are defined inside the [Cozy Collect] application and will display an explicit error to the user:
 
-  - `LOGIN_FAILED`: the konnector could not login
+  - `LOGIN_FAILED`: the connector could not login
   - `NOT_EXISTING_DIRECTORY`: the folder specified as folder_to_save does not exist (checked automatically by the BaseKonnector)
-  - `UNKNOWN_ERROR`: there was an unexpected error, please take a look at the logs to know what appened
+  - `UNKNOWN_ERROR`: there was an unexpected error, please take a look at the logs to know what happened
   - `VENDOR_DOWN`: the target web site is down now
   - `USER_ACTION_NEEDED`: The user needs to login to the service to do manual actions (could be Terms Of Service to validate)
 

@@ -1,6 +1,6 @@
 # Cozy Documentation
 
-Everything you need to know to develop an application or a konnector, host your own server or get help from our community.
+Everything you need to know to develop an application or a connector, host your own server or get help from our community.
 
 <div class="home-actions" markdown="1">
 
