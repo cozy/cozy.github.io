@@ -21,15 +21,9 @@ Find guides for developing apps and connectors and for self-hosting.
   </div>
 
   <div class="home-action">
-    <a href="download">
-      <img src="assets/images/home/icon-phone.svg" />
-      Keep your devices in sync
-    </a>
-  </div>
-
-  <div class="home-action">
     <a href="install/debian">
       <img src="assets/images/home/icon-install.svg" />
+      <h2>For Self-Hosters</h2>
       Install your own server
     </a>
   </div>
