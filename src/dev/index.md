@@ -2,10 +2,10 @@
 
 ## Tutorials
 
- - [how to develop your first application](/dev/app.md)
- - [how to develop a connector](/dev/konnector.md)
- - [how to create a mobile application with cordova](../dev/cordova.md)
- - [how to send mail in development](/dev/sendmail.md)
+ - [How to develop your first application](/dev/app.md)
+ - [How to develop a connector](/dev/konnector.md)
+ - [How to create a mobile application with cordova](../dev/cordova.md)
+ - [How to send mail in development](/dev/sendmail.md)
 
 
 ## API References
@@ -15,45 +15,45 @@
 ### Cozy Client JS Reference
 
   - [Introduction](https://docs.cozy.io/en/cozy-client-js/intro/)
-  - [documents](https://docs.cozy.io/en/cozy-client-js/data-api/)
-  - [files](https://docs.cozy.io/en/cozy-client-js/files-api/)
-  - [authentication](https://docs.cozy.io/en/cozy-client-js/auth-api/)
-  - [authentication with OAuth2](https://docs.cozy.io/en/cozy-client-js/oauth/)
-  - [settings](https://docs.cozy.io/en/cozy-client-js/settings-api/)
-  - [inter-app communication](https://docs.cozy.io/en/cozy-client-js/intents-api/)
-  - [jobs and triggers](https://docs.cozy.io/en/cozy-client-js/jobs-api/)
-  - [offline](https://docs.cozy.io/en/cozy-client-js/offline/)
+  - [Documents](https://docs.cozy.io/en/cozy-client-js/data-api/)
+  - [Files](https://docs.cozy.io/en/cozy-client-js/files-api/)
+  - [Authentication](https://docs.cozy.io/en/cozy-client-js/auth-api/)
+  - [Authentication with OAuth2](https://docs.cozy.io/en/cozy-client-js/oauth/)
+  - [Settings](https://docs.cozy.io/en/cozy-client-js/settings-api/)
+  - [Inter-app communication](https://docs.cozy.io/en/cozy-client-js/intents-api/)
+  - [Jobs and triggers](https://docs.cozy.io/en/cozy-client-js/jobs-api/)
+  - [Offline](https://docs.cozy.io/en/cozy-client-js/offline/)
   - [Cozy Bar](https://github.com/cozy/cozy-bar)
 
 ### Cozy UI
-  - [introduction](https://cozy.github.io/cozy-ui/)
-  - [style guide](https://cozy.github.io/cozy-ui/styleguide/)
-  - [react components in storybook](https://cozy.github.io/cozy-ui/react/)
+  - [Introduction](https://cozy.github.io/cozy-ui/)
+  - [Style guide](https://cozy.github.io/cozy-ui/styleguide/)
+  - [React components in storybook](https://cozy.github.io/cozy-ui/react/)
 
 
 ### Raw Server API
 
-  - introduction:
+  - Introduction:
     - [API architecture](https://docs.cozy.io/en/cozy-stack/architecture/#services)
-    - [conventions](https://docs.cozy.io/en/cozy-stack/architecture/#rest-api)
+    - [Conventions](https://docs.cozy.io/en/cozy-stack/architecture/#rest-api)
     - [JSON-API](https://docs.cozy.io/en/cozy-stack/jsonapi/)
  
-  - [applications](https://docs.cozy.io/en/cozy-stack/apps/#get-appsmanifests): install, update, list applications
-  - [marketplace](https://docs.cozy.io/en/cozy-stack/registry/)
-  - [permissions](https://docs.cozy.io/en/cozy-stack/permissions/)
-  - [notifications](https://docs.cozy.io/en/cozy-stack/notifications/)
-  - [settings](https://docs.cozy.io/en/cozy-stack/settings/)
-  - [authentication](https://docs.cozy.io/en/cozy-stack/auth/#the-cozy-stack-as-an-authorization-server)
-  - [documents](https://docs.cozy.io/en/cozy-stack/data-system/)
-  - [query the database](https://docs.cozy.io/en/cozy-stack/mango/)
-  - [files](https://docs.cozy.io/en/cozy-stack/files/)
-  - [link files to documents](https://docs.cozy.io/en/cozy-stack/references-docs-in-vfs/#routes)
-  - [jobs](https://docs.cozy.io/en/cozy-stack/jobs/)
-  - [workers' architecture](https://docs.cozy.io/en/cozy-stack/architecture/#workers) and [API](https://docs.cozy.io/en/cozy-stack/workers/)
-  - [inter-application communication](https://docs.cozy.io/en/cozy-stack/intents/#routes)
-  - [sharing](https://docs.cozy.io/en/cozy-stack/sharing/)
-  - [connectors](https://docs.cozy.io/en/cozy-stack/konnectors/)
-  - [real time](https://docs.cozy.io/en/cozy-stack/realtime/)
+  - [Applications](https://docs.cozy.io/en/cozy-stack/apps/#get-appsmanifests): install, update, list applications
+  - [Marketplace](https://docs.cozy.io/en/cozy-stack/registry/)
+  - [Permissions](https://docs.cozy.io/en/cozy-stack/permissions/)
+  - [Notifications](https://docs.cozy.io/en/cozy-stack/notifications/)
+  - [Settings](https://docs.cozy.io/en/cozy-stack/settings/)
+  - [Authentication](https://docs.cozy.io/en/cozy-stack/auth/#the-cozy-stack-as-an-authorization-server)
+  - [Documents](https://docs.cozy.io/en/cozy-stack/data-system/)
+  - [Query the database](https://docs.cozy.io/en/cozy-stack/mango/)
+  - [Files](https://docs.cozy.io/en/cozy-stack/files/)
+  - [Link files to documents](https://docs.cozy.io/en/cozy-stack/references-docs-in-vfs/#routes)
+  - [Jobs](https://docs.cozy.io/en/cozy-stack/jobs/)
+  - [Workers' architecture](https://docs.cozy.io/en/cozy-stack/architecture/#workers) and [API](https://docs.cozy.io/en/cozy-stack/workers/)
+  - [Inter-application communication](https://docs.cozy.io/en/cozy-stack/intents/#routes)
+  - [Sharing](https://docs.cozy.io/en/cozy-stack/sharing/)
+  - [Connectors](https://docs.cozy.io/en/cozy-stack/konnectors/)
+  - [Real time](https://docs.cozy.io/en/cozy-stack/realtime/)
   - [Proxy for remote data/API](https://docs.cozy.io/en/cozy-stack/remote/)
 
 ## Available doctypes
