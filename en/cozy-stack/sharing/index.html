@@ -1093,7 +1093,8 @@ Content-Type: application/vnd.api+json</code></pre>
 
 <h3 id="post-sharingssharing-idrecipients">POST /sharings/:sharing-id/recipients<a class="headerlink" href="#post-sharingssharing-idrecipients" title="Permanent link">&para;</a></h3>
 <p>This route allows the sharer to add new recipients to a sharing. It can also
-be used by a recipient when the sharing has <code>open_sharing</code> set to true.</p>
+be used by a recipient when the sharing has <code>open_sharing</code> set to true if the
+recipient doesn&rsquo;t have the <code>read_only</code> flag</p>
 <h4 id="request_5">Request<a class="headerlink" href="#request_5" title="Permanent link">&para;</a></h4>
 <pre class="codehilite"><code class="language-http">POST /sharings/ce8835a061d0ef68947afe69a0046722/recipients HTTP/1.1
 Host: alice.example.net
@@ -1109,7 +1110,15 @@ Content-Type: application/vnd.api+json</code></pre>
         &quot;data&quot;: [
           {
             &quot;id&quot;: &quot;ce7b1dfbd460039159f228298a29b2aa&quot;,
-            &quot;type&quot;: &quot;io.cozy.contacts&quot;
+            &quot;type&quot;: &quot;io.cozy.contacts&quot;,
+          }
+        ]
+      },
+      &quot;read_only_recipients&quot;: {
+        &quot;data&quot;: [
+          {
+            &quot;id&quot;: &quot;e15384a1223ae2501cc1c4fa94008ea0&quot;,
+            &quot;type&quot;: &quot;io.cozy.contacts&quot;,
           }
         ]
       }
@@ -1153,7 +1162,13 @@ Content-Type: application/vnd.api+json</code></pre>
         {
           &quot;status&quot;: &quot;pending&quot;,
           &quot;name&quot;: &quot;Charlie&quot;,
-          &quot;email&quot;: &quot;charlie@example.net&quot;
+          &quot;email&quot;: &quot;charlie@example.net&quot;,
+        },
+        {
+          &quot;status&quot;: &quot;pending&quot;,
+          &quot;name&quot;: &quot;Dave&quot;,
+          &quot;email&quot;: &quot;dave@example.net&quot;,
+          &quot;read_only&quot;: true
         }
       ],
       &quot;rules&quot;: [
@@ -1251,7 +1266,13 @@ Content-Type: application/vnd.api+json</code></pre>
       &quot;status&quot;: &quot;ready&quot;,
       &quot;name&quot;: &quot;Charlie&quot;,
       &quot;public_name&quot;: &quot;Charlie&quot;,
-      &quot;email&quot;: &quot;charlie@example.net&quot;
+      &quot;email&quot;: &quot;charlie@example.net&quot;,
+    },
+    {
+      &quot;status&quot;: &quot;pending&quot;,
+      &quot;name&quot;: &quot;Dave&quot;,
+      &quot;email&quot;: &quot;dave@example.net&quot;,
+      &quot;read_only&quot;: true
     }
   ]
 }</code></pre>

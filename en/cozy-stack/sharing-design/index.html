@@ -745,8 +745,8 @@ revision (4-4aa). The resolution takes 4 steps:</p>
 <li>An identifier (the same for all members of the sharing)</li>
 <li>A list of <code>members</code>. The first one is the owner. For each member,
   we have the URL of the cozy, a contact name, a public name, an email, a
-  status and some credentials to authorize the transfer of data between the
-  owner and the recipients</li>
+  status, a read-only flag, and some credentials to authorize the transfer of
+  data between the owner and the recipients</li>
 <li>A <code>description</code> (one sentence that will help people understand what is shared
   and why)</li>
 <li>a flag <code>active</code> that says if the sharing is currently active for at least
@@ -754,7 +754,8 @@ revision (4-4aa). The resolution takes 4 steps:</p>
 <li>a flag <code>owner</code>, true for the document on the cozy of the sharer, and false
   on the other cozy instance</li>
 <li>a flag <code>open_sharing</code>:</li>
-<li><code>true</code> if any member of the sharing can add a new recipient</li>
+<li><code>true</code> if any member of the sharing except the read-only ones can add a
+    new recipient</li>
 <li><code>false</code> if only the owner can add a new recipient</li>
 <li>Some technical data (<code>created_at</code>, <code>updated_at</code>, <code>app_slug</code>, <code>preview_path</code>,
   <code>triggers</code>, <code>credentials</code>)</li>
@@ -773,13 +774,13 @@ revision (4-4aa). The resolution takes 4 steps:</p>
     the new version matches the rule):<ul>
 <li><code>none</code>: the updates are never propagated (the default)</li>
 <li><code>push</code>: the updates made on the owner are sent to the recipients</li>
-<li><code>sync</code>: the updates on any member are propagated to the other members</li>
+<li><code>sync</code>: the updates on any member (except the read-only) are propagated to the other members</li>
 </ul>
 </li>
 <li><code>update</code>: a behavior when a document matched by this rule is modified. Can be:<ul>
 <li><code>none</code>: the updates are never propagated (the default)</li>
 <li><code>push</code>: the updates made on the owner are sent to the recipients</li>
-<li><code>sync</code>: the updates on any member are propagated to the other members</li>
+<li><code>sync</code>: the updates on any member (except the read-only) are propagated to the other members</li>
 </ul>
 </li>
 <li><code>remove</code>: a behavior when a document no longer matches this rule (the
@@ -787,7 +788,7 @@ revision (4-4aa). The resolution takes 4 steps:</p>
     modified and the new version doesn’t match the rule):<ul>
 <li><code>none</code>: the updates are never propagated (the default)</li>
 <li><code>push</code>: the updates made on the owner are sent to the recipients</li>
-<li><code>sync</code>: the updates on any member are propagated to the other members</li>
+<li><code>sync</code>: the updates on any member (except the read-only) are propagated to the other members</li>
 <li><code>revoke</code>: the sharing is revoked.</li>
 </ul>
 </li>
