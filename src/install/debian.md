@@ -43,12 +43,10 @@ Refer to the [certbot](https://certbot.eff.org/) documentation to activate neede
 
 You may change your [APT preferences](https://manpages.debian.org/stretch/apt/apt_preferences.5.html) to allow APT to install from backports/ppa by default instead of from official repositories. For example:
 
-```
-/etc/apt/preferences.d/cozy 
-Package: python3-acme
+```bash
+echo "Package: python3-acme
 Pin: release n=stretch-backports
-Pin-Priority: 510
-EOF
+Pin-Priority: 510" > /etc/apt/preferences.d/cozy
 ```
 
 ### Cozy repositories
