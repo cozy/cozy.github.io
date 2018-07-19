@@ -527,6 +527,10 @@
 <p>(We update this image on a regular basis with the latest version of the server and our library. Don’t forget to update the image by running <code>docker pull cozy/cozy-app-dev</code> from time to time).</p>
 <h2 id="create-your-application">Create your application<a class="headerlink" href="#create-your-application" title="Permanent link">&para;</a></h2>
 <p>You can boostrap your application from scratch if you want, but we recommand to use our new community tool <a href="https://github.com/CPatchane/create-cozy-app"><code>create-cozy-app</code></a> to bootstrap very easily a Cozy application for you.</p>
+<div align="center">
+  <img src="https://github.com/CPatchane/create-cozy-app/blob/master/docs/CCA_logo_wording.png?raw=true" height="150px"/>
+</div>
+
 <p>This tool will generate an application using (P)React, the framework we internally use in the Cozy Front team. But <a href="https://github.com/CPatchane/create-cozy-app#options">options</a> are available if you want to use other frameworks.</p>
 <div class="admonition warning">
 <p>For now the new <a href="https://github.com/cozy/cozy-client"><code>cozy-client</code></a> is used only in the (P)React template (it doesn&rsquo;t use the previous <code>cozy-client-js</code> anymore). This library is at an early stage but you can use it, it will be our next Cozy client for application development.</p>
@@ -538,18 +542,18 @@
 <p>The script will download some dependencies (may take a while) and ask you a few questions, then create an application skeleton inside <code>mycozyapp</code>.</p>
 <p>That&rsquo;s all! You can start hacking:</p>
 <pre class="codehilite"><code>cd mycozyapp
-yarn watch:standalone</code></pre>
+yarn standalone</code></pre>
 
 
 <p>After the webpack build, your app should be available at http://localhost:8888</p>
 <blockquote>
-<p>You can change the host and the port of your application server here by using respectively the environment variables HOST and PORT</p>
+<p>You can change the host and the port of your application server here by using respectively the environment variables DEV_HOST and DEV_PORT</p>
 </blockquote>
 <h3 id="run-it-inside-a-cozy-using-docker">Run it inside a Cozy using Docker<a class="headerlink" href="#run-it-inside-a-cozy-using-docker" title="Permanent link">&para;</a></h3>
 <p>You can run your application (here <code>mycozyapp</code>) inside a Cozy thanks to the [cozy-stack docker image][cozy-stack-docker]:</p>
 <pre class="codehilite"><code class="language-sh"># in a terminal, run your app in watch mode
 $ cd mycozyapp
-$ yarn watch:browser</code></pre>
+$ yarn watch</code></pre>
 
 
 <p>Then, in another terminal:</p>
