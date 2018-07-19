@@ -35,10 +35,14 @@ docker pull cozy/cozy-app-dev
 
 You can boostrap your application from scratch if you want, but we recommand to use our new community tool [`create-cozy-app`](https://github.com/CPatchane/create-cozy-app) to bootstrap very easily a Cozy application for you.
 
-This tool will generate an application using (P)React, the framework we internally use in the Cozy Front team. But [options](https://github.com/CPatchane/create-cozy-app#options) are available if you want to use other frameworks.
+<div align="center">
+  <img src="https://github.com/CPatchane/create-cozy-app/blob/master/docs/CCA_logo_wording.png?raw=true" height="150px"/>
+</div>
+
+This tool will generate an application using (P\)React, the framework we internally use in the Cozy Front team. But [options](https://github.com/CPatchane/create-cozy-app#options) are available if you want to use other frameworks.
 
 !!! warning ""
-    For now the new [`cozy-client`](https://github.com/cozy/cozy-client) is used only in the (P)React template (it doesn't use the previous `cozy-client-js` anymore). This library is at an early stage but you can use it, it will be our next Cozy client for application development.
+    For now the new [`cozy-client`](https://github.com/cozy/cozy-client) is used only in the (P\)React template (it doesn't use the previous `cozy-client-js` anymore). This library is at an early stage but you can use it, it will be our next Cozy client for application development.
 
 First of all, run directly `create-cozy-app` without installing it globally by using the `yarn create cozy-app` command to bootstrap your application:
 
@@ -52,12 +56,12 @@ That's all! You can start hacking:
 
 ```
 cd mycozyapp
-yarn watch:standalone
+yarn standalone
 ```
 
 After the webpack build, your app should be available at http://localhost:8888
 
-> You can change the host and the port of your application server here by using respectively the environment variables HOST and PORT
+> You can change the host and the port of your application server here by using respectively the environment variables DEV_HOST and DEV_PORT
 
 ### Run it inside a Cozy using Docker
 
@@ -66,7 +70,7 @@ You can run your application (here `mycozyapp`) inside a Cozy thanks to the [coz
 ```sh
 # in a terminal, run your app in watch mode
 $ cd mycozyapp
-$ yarn watch:browser
+$ yarn watch
 ```
 
 Then, in another terminal:
