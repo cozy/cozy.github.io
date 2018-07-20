@@ -7,10 +7,10 @@
         
         
         <meta name="author" content="CozyCloud - https://cozy.io">
-        <link rel="canonical" href="https://docs.cozy.io/cozy-doctypes/docs/README/">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-doctypes/docs/cc.cozycloud.autocategorization/">
         <link rel="shortcut icon" href="../../../img/favicon.png">
         
-        <title>README - Documentation</title>
+        <title>cc.cozycloud.autocategorization - Documentation</title>
         <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
@@ -453,14 +453,11 @@
                 <div class="col-md-3">
 <div class="bs-sidebar hidden-print affix" role="complementary">
     <ul class="nav bs-sidenav well" style='padding-left: 0; padding-right: 0; margin-bottom: 1.5rem'>
-        <li class="main active"><a href="#table-of-contents">Table of contents</a></li>
-            <li><a href="#cozy-doctypes">Cozy doctypes</a></li>
-            <li><a href="#metadata">Metadata</a></li>
-            <li><a href="#date-format">Date format</a></li>
+        <li class="main active"><a href="#auto-categorization-remote-doctype">Auto categorization remote doctype</a></li>
     </ul>
   <div style='padding-left: 2rem'>
     
-    <a id='edit-link' href='https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-doctypes/docs/README.md'>Edit documentation</a>
+    <a id='edit-link' href='https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-doctypes/docs/cc.cozycloud.autocategorization.md'>Edit documentation</a>
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
@@ -497,45 +494,24 @@
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="table-of-contents">Table of contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h1>
-<h2 id="cozy-doctypes">Cozy doctypes<a class="headerlink" href="#cozy-doctypes" title="Permanent link">&para;</a></h2>
+<p><a href="../README/#table-of-contents">Table of contents</a></p>
+<h1 id="auto-categorization-remote-doctype">Auto categorization remote doctype<a class="headerlink" href="#auto-categorization-remote-doctype" title="Permanent link">&para;</a></h1>
+<p>The <code>cc.cozycloud.autocategorization</code> remote doctype is used to anonymously and securely
+send the user&rsquo;s bank transactions to an API when he/she enabled the corresponding setting
+in the Banks app.</p>
+<p><code>cc.cozycloud.autocategorization</code> sends an array of
+<a href="../io.cozy.bank/#iocozybankoperations"><code>io.cozy.bank.operations</code></a>, but removes some
+properties to anonymize the data. The following properties are kept:</p>
 <ul>
-<li><a href="../io.cozy.accounts/">Accounts</a>: Konnector accounts</li>
-<li><a href="../cc.cozycloud.autocategorization/">Autocategorization</a>: Auto categorization remote doctype</li>
-<li><a href="../io.cozy.bank/">Bank</a>: banking related data</li>
-<li><a href="../io.cozy.bills/">Bills</a>: bills</li>
-<li><a href="../io.cozy.payslips/">Payslips</a>: payslips</li>
-<li><a href="../io.cozy.contacts/">Contacts</a>: instance owner contacts</li>
-<li><a href="../io.cozy.files/">Files</a>: files documents</li>
-<li><a href="../io.cozy.konnectors">Konnectors</a>: Connectors</li>
-<li><a href="../io.cozy.notifications/">Notifications</a>: notifications made by the apps</li>
-<li><a href="../io.cozy.photos.albums/">Photos Albums</a>: photos albums</li>
-<li><a href="../io.cozy.remote.requests/">Remote requests</a>: logs of requests via the remote doctypes</li>
-<li><a href="../io.cozy.sessions.logins/">Sessions Logins</a>: sessions logins entry</li>
-<li><a href="../io.cozy.sharings/">Sharings</a>: documents used for Cozy to Cozy sharings</li>
-<li><a href="../io.cozy.triggers/">Triggers</a>: Job triggers</li>
-</ul>
-<h2 id="metadata">Metadata<a class="headerlink" href="#metadata" title="Permanent link">&para;</a></h2>
-<p>Every doctype should have <code>metadata</code> fields.</p>
-<ul>
-<li><code>version</code> is be useful for migrations</li>
-<li><code>dateImport</code> is useful for debugging purposes</li>
-</ul>
-<pre class="codehilite"><code>{
-  _id: '123456',
-  metadata: {
-    version: 1,
-    dateImport: '2018-02-22T14:54:36.861Z'
-  }
-}</code></pre>
-
-
-<h2 id="date-format">Date format<a class="headerlink" href="#date-format" title="Permanent link">&para;</a></h2>
-<p>Date should be formatted in <a href="https://fr.wikipedia.org/wiki/ISO_8601">ISO8601</a> :</p>
-<ul>
-<li><code>2017-04-22T01:00:00-05:00</code> ✅</li>
-<li><code>2017-04-22T01:00:00Z</code> ✅</li>
-<li><code>2017-04-22 01:00</code> ❌</li>
+<li><code>amount</code></li>
+<li><code>date</code></li>
+<li><code>label</code></li>
+<li><code>automaticCategoryId</code></li>
+<li><code>manualCategoryId</code></li>
+<li><code>cozyCategoryId</code></li>
+<li><code>cozyCategoryProba</code></li>
+<li><code>localCategoryId</code></li>
+<li><code>localCategoryProba</code></li>
 </ul></div>
         </div>
 
