@@ -466,7 +466,6 @@
             <li><a href="#linkbankoperations-entries-doctype-fields-options">linkBankOperations ( entries, doctype, fields, options = {} )</a></li>
         <li class="main "><a href="#mkdirp">mkdirp</a></li>
         <li class="main "><a href="#normalizefilename">normalizeFilename</a></li>
-        <li class="main "><a href="#requestfactory">requestFactory</a></li>
         <li class="main "><a href="#savebills">saveBills</a></li>
         <li class="main "><a href="#savefiles">saveFiles</a></li>
         <li class="main "><a href="#signin">signin</a></li>
@@ -488,6 +487,13 @@
         <li class="main "><a href="#file_download_failed-string">FILE_DOWNLOAD_FAILED : String</a></li>
         <li class="main "><a href="#save_file_failed-string">SAVE_FILE_FAILED : String</a></li>
         <li class="main "><a href="#disk_quota_exceeded-string">DISK_QUOTA_EXCEEDED : String</a></li>
+        <li class="main "><a href="#challenge_asked-string">CHALLENGE_ASKED : String</a></li>
+        <li class="main "><a href="#login_failed_too_many_attempts-string">LOGIN_FAILED_TOO_MANY_ATTEMPTS : String</a></li>
+        <li class="main "><a href="#user_action_needed_oauth_outdated-string">USER_ACTION_NEEDED_OAUTH_OUTDATED : String</a></li>
+        <li class="main "><a href="#user_action_needed_account_removed-string">USER_ACTION_NEEDED_ACCOUNT_REMOVED : String</a></li>
+        <li class="main "><a href="#user_action_needed_change_password-string">USER_ACTION_NEEDED_CHANGE_PASSWORD : String</a></li>
+        <li class="main "><a href="#user_action_needed_permissions_changed-string">USER_ACTION_NEEDED_PERMISSIONS_CHANGED : String</a></li>
+        <li class="main "><a href="#user_action_needed_cgu_form-string">USER_ACTION_NEEDED_CGU_FORM : String</a></li>
         <li class="main "><a href="#mkspec">mkSpec()</a></li>
         <li class="main "><a href="#scrape-specs-childselector-object-124-array">scrape($, spec(s), [childSelector]) ⇒ object | array</a></li>
             <li><a href="#permissions">⚠ Permissions</a></li>
@@ -648,45 +654,6 @@ const filename = normalizeFilename(&#39;*foo/bar: &lt;baz&gt; \\&quot;qux&quot;\
 // `filename` === `foo bar baz qux.txt`
 </code></pre>
 </dd>
-<dt><a href="#module_requestFactory">requestFactory</a></dt>
-<dd><p>This is a function which returns an instance of
-<a href="https://www.npmjs.com/package/request-promise">request-promise</a> initialized with
-defaults often used in connector development.</p>
-<pre><code class="language-javascript">// Showing defaults
-req = requestFactory({
-  cheerio: false,
-  jar: true,
-  json: true
-})
-</code></pre>
-<p>Options :</p>
-<ul>
-<li><code>cheerio</code>:  will parse automatically the <code>response.body</code> in a cheerio instance</li>
-</ul>
-<pre><code class="lang-javascript">req = requestFactory({ cheerio: true })
-req(&#39;http://github.com&#39;, $ =&gt; {
-  const repos = $(&#39;#repo_listing .repo&#39;)
-})
-</code></pre>
-<ul>
-<li><code>jar</code>: is passed to <code>request</code> options. Remembers cookies for future use.</li>
-<li><code>json</code>: will parse the <code>response.body</code> as JSON</li>
-<li><code>json</code>: will parse the <code>response.body</code> as JSON</li>
-<li><code>resolveWithFullResponse</code>: The full response will be return in the promise. It is compatible
-with cheerio and json options.</li>
-</ul>
-<pre><code class="lang-javascript">req = requestFactory({
-   resolveWithFullResponse: true,
-   cheerio: true
-})
-req(&#39;http://github.com&#39;, response =&gt; {
-  console.log(response.statusCode)
-  const $ = response.body
-  const repos = $(&#39;#repo_listing .repo&#39;)
-})
-</code></pre>
-<p>You can find the full list of available options in <a href="https://github.com/request/request-promise">request-promise</a> and <a href="https://github.com/request/request">request</a> documentations.</p>
-</dd>
 <dt><a href="#module_saveBills">saveBills</a></dt>
 <dd><p>Combines the features of <code>saveFiles</code>, <code>filterData</code>, <code>addData</code> and <code>linkBankOperations</code> for a
 common case: bills.
@@ -841,6 +808,27 @@ fetch account information for your connector.</p>
 <dt><a href="#DISK_QUOTA_EXCEEDED">DISK_QUOTA_EXCEEDED</a> : <code>String</code></dt>
 <dd><p>Could not save a file to the cozy because of disk quota exceeded</p>
 </dd>
+<dt><a href="#CHALLENGE_ASKED">CHALLENGE_ASKED</a> : <code>String</code></dt>
+<dd><p>It seems that the website requires a second authentification factor that we don’t support yet.</p>
+</dd>
+<dt><a href="#LOGIN_FAILED_TOO_MANY_ATTEMPTS">LOGIN_FAILED_TOO_MANY_ATTEMPTS</a> : <code>String</code></dt>
+<dd><p>Temporarily blocked</p>
+</dd>
+<dt><a href="#USER_ACTION_NEEDED_OAUTH_OUTDATED">USER_ACTION_NEEDED_OAUTH_OUTDATED</a> : <code>String</code></dt>
+<dd><p>Access refresh required</p>
+</dd>
+<dt><a href="#USER_ACTION_NEEDED_ACCOUNT_REMOVED">USER_ACTION_NEEDED_ACCOUNT_REMOVED</a> : <code>String</code></dt>
+<dd><p>Unavailable account</p>
+</dd>
+<dt><a href="#USER_ACTION_NEEDED_CHANGE_PASSWORD">USER_ACTION_NEEDED_CHANGE_PASSWORD</a> : <code>String</code></dt>
+<dd><p>Unavailable account</p>
+</dd>
+<dt><a href="#USER_ACTION_NEEDED_PERMISSIONS_CHANGED">USER_ACTION_NEEDED_PERMISSIONS_CHANGED</a> : <code>String</code></dt>
+<dd><p>Password update required</p>
+</dd>
+<dt><a href="#USER_ACTION_NEEDED_CGU_FORM">USER_ACTION_NEEDED_CGU_FORM</a> : <code>String</code></dt>
+<dd><p>The user needs to accept a CGU form before accessing the rest of the website</p>
+</dd>
 </dl>
 
 <h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
@@ -983,48 +971,6 @@ const filename = normalizeFilename('*foo/bar: &lt;baz&gt; \\&quot;qux&quot;\t???
 // `filename` === `foo bar baz qux.txt`</code></pre>
 
 
-<p><a name="module_requestFactory"></a></p>
-<h2 id="requestfactory">requestFactory<a class="headerlink" href="#requestfactory" title="Permanent link">&para;</a></h2>
-<p>This is a function which returns an instance of
-<a href="https://www.npmjs.com/package/request-promise">request-promise</a> initialized with
-defaults often used in connector development.</p>
-<pre class="codehilite"><code class="language-js">// Showing defaults
-req = requestFactory({
-  cheerio: false,
-  jar: true,
-  json: true
-})</code></pre>
-
-
-<p>Options :</p>
-<ul>
-<li><code>cheerio</code>:  will parse automatically the <code>response.body</code> in a cheerio instance</li>
-</ul>
-<pre class="codehilite"><code class="language-javascript">req = requestFactory({ cheerio: true })
-req('http://github.com', $ =&gt; {
-  const repos = $('#repo_listing .repo')
-})</code></pre>
-
-
-<ul>
-<li><code>jar</code>: is passed to <code>request</code> options. Remembers cookies for future use.</li>
-<li><code>json</code>: will parse the <code>response.body</code> as JSON</li>
-<li><code>json</code>: will parse the <code>response.body</code> as JSON</li>
-<li><code>resolveWithFullResponse</code>: The full response will be return in the promise. It is compatible
-  with cheerio and json options.</li>
-</ul>
-<pre class="codehilite"><code class="language-javascript">req = requestFactory({
-   resolveWithFullResponse: true,
-   cheerio: true
-})
-req('http://github.com', response =&gt; {
-  console.log(response.statusCode)
-  const $ = response.body
-  const repos = $('#repo_listing .repo')
-})</code></pre>
-
-
-<p>You can find the full list of available options in <a href="https://github.com/request/request-promise">request-promise</a> and <a href="https://github.com/request/request">request</a> documentations.</p>
 <p><a name="module_saveBills"></a></p>
 <h2 id="savebills">saveBills<a class="headerlink" href="#savebills" title="Permanent link">&para;</a></h2>
 <p>Combines the features of <code>saveFiles</code>, <code>filterData</code>, <code>addData</code> and <code>linkBankOperations</code> for a
@@ -1319,6 +1265,34 @@ that just have been scraped where dates are <code>Date</code>s.</p>
 <a name="DISK_QUOTA_EXCEEDED"></a></p>
 <h2 id="disk_quota_exceeded-string">DISK_QUOTA_EXCEEDED : <code>String</code><a class="headerlink" href="#disk_quota_exceeded-string" title="Permanent link">&para;</a></h2>
 <p>Could not save a file to the cozy because of disk quota exceeded</p>
+<p><strong>Kind</strong>: global constant<br />
+<a name="CHALLENGE_ASKED"></a></p>
+<h2 id="challenge_asked-string">CHALLENGE_ASKED : <code>String</code><a class="headerlink" href="#challenge_asked-string" title="Permanent link">&para;</a></h2>
+<p>It seems that the website requires a second authentification factor that we don’t support yet.</p>
+<p><strong>Kind</strong>: global constant<br />
+<a name="LOGIN_FAILED_TOO_MANY_ATTEMPTS"></a></p>
+<h2 id="login_failed_too_many_attempts-string">LOGIN_FAILED_TOO_MANY_ATTEMPTS : <code>String</code><a class="headerlink" href="#login_failed_too_many_attempts-string" title="Permanent link">&para;</a></h2>
+<p>Temporarily blocked</p>
+<p><strong>Kind</strong>: global constant<br />
+<a name="USER_ACTION_NEEDED_OAUTH_OUTDATED"></a></p>
+<h2 id="user_action_needed_oauth_outdated-string">USER_ACTION_NEEDED_OAUTH_OUTDATED : <code>String</code><a class="headerlink" href="#user_action_needed_oauth_outdated-string" title="Permanent link">&para;</a></h2>
+<p>Access refresh required</p>
+<p><strong>Kind</strong>: global constant<br />
+<a name="USER_ACTION_NEEDED_ACCOUNT_REMOVED"></a></p>
+<h2 id="user_action_needed_account_removed-string">USER_ACTION_NEEDED_ACCOUNT_REMOVED : <code>String</code><a class="headerlink" href="#user_action_needed_account_removed-string" title="Permanent link">&para;</a></h2>
+<p>Unavailable account</p>
+<p><strong>Kind</strong>: global constant<br />
+<a name="USER_ACTION_NEEDED_CHANGE_PASSWORD"></a></p>
+<h2 id="user_action_needed_change_password-string">USER_ACTION_NEEDED_CHANGE_PASSWORD : <code>String</code><a class="headerlink" href="#user_action_needed_change_password-string" title="Permanent link">&para;</a></h2>
+<p>Unavailable account</p>
+<p><strong>Kind</strong>: global constant<br />
+<a name="USER_ACTION_NEEDED_PERMISSIONS_CHANGED"></a></p>
+<h2 id="user_action_needed_permissions_changed-string">USER_ACTION_NEEDED_PERMISSIONS_CHANGED : <code>String</code><a class="headerlink" href="#user_action_needed_permissions_changed-string" title="Permanent link">&para;</a></h2>
+<p>Password update required</p>
+<p><strong>Kind</strong>: global constant<br />
+<a name="USER_ACTION_NEEDED_CGU_FORM"></a></p>
+<h2 id="user_action_needed_cgu_form-string">USER_ACTION_NEEDED_CGU_FORM : <code>String</code><a class="headerlink" href="#user_action_needed_cgu_form-string" title="Permanent link">&para;</a></h2>
+<p>The user needs to accept a CGU form before accessing the rest of the website</p>
 <p><strong>Kind</strong>: global constant<br />
 <a name="mkSpec"></a></p>
 <h2 id="mkspec">mkSpec()<a class="headerlink" href="#mkspec" title="Permanent link">&para;</a></h2>
