@@ -9,16 +9,17 @@ import os
 import sys
 import re
 import os.path as osp
-from collections import OrderedDict
+from collections import OrderedDict, namedtuple
 
 import fnmatch
 import os
+import sh
 
 def simple_glob(directory, glob_pattern):
     matches = []
     for root, dirnames, filenames in os.walk('src', followlinks=True):
         for filename in fnmatch.filter(filenames, glob_pattern):
-            matches.append(os.path.join(root, filename))
+            matches.append(osp.join(root, filename))
     return matches
 
 
@@ -93,11 +94,49 @@ def get_name(filename):
     return '.'.join(osp.basename(filename).split('.')[:-1])
 
 
-def main():
+ExternalDoc = namedtuple('ExternalDoc', ['name', 'repository', 'doc_directory'])
+
+
+def parse_external_doc_line(l):
+    l = l.strip()
+    return ExternalDoc(l.split(' '))
+
+
+def fetch_external_doc(repository, destination):
+    print('Resetting %s' % destination)
+    sh.rm('-rf', destination)
+    sh.mkdir('-p', destination)
+    print('Cd to %s' % destination)
+    with sh.pushd(destination):
+        if osp.exists('.git'):
+            sh.git('pull')
+        else:
+            sh.git('clone', repository, '--depth', '1', '.')
+
+
+def fetch_all_external_docs_from_file(filename):
+    with open(filename) as f:
+        external_docs = [parse_external_doc_line(l) for l in f]
+    for name, repository, doc_directory in external_docs:
+        tmpdir = osp.join('/tmp', name)
+        print('Fetching %s...' % name)
+        fetch_external_doc(repository, tmpdir)
+        src_dir = osp.join('src', name)
+        sh.rm('-f', src_dir)
+        print('Linking %s...' % name)
+        sh.ln('-s', osp.join(tmpdir, doc_directory), src_dir)
+
+
+def main(argv):
+    OUTSIDE_DOCS = 'OUTSIDE_DOCS'
+
+    if '--fetch' in argv:
+        fetch_all_external_docs_from_file(OUTSIDE_DOCS)
+
     with open('./mkdocs.yml') as f:
         data = ordered_load(f, yaml.SafeLoader)
 
-    with open('OUTSIDE_DOCS') as f:
+    with open(OUTSIDE_DOCS) as f:
         outside_docs_conf = [l.strip().split(' ') for l in f.readlines()]
     outside_docs_conf = [
         {'name': c[0], 'repo': c[1], 'subdir': c[2]}
@@ -124,4 +163,4 @@ def main():
     with open('mkdocs.yml', 'w+') as f:
         ordered_dump(data, f, indent=2, default_flow_style=False, Dumper=yaml.SafeDumper)
 
-main()
+main(sys.argv)
