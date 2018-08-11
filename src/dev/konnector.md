@@ -7,6 +7,9 @@ Each connector is an independent application, managed by the [Cozy Collect] appl
 
 To protect your data, each connector runs inside a container in order to sandbox all their interactions with your data.
 
+> ⚠️ For historical reasons, in the Cozy codebase, a cozy connector is named konnector, please follow this convention if modifying an existing application.
+
+
 ## How does it work?
 
 A connector is a NodeJS script.
