@@ -102,14 +102,14 @@ def parse_external_doc_line(l):
     return ExternalDoc(l.split(' '))
 
 
+has_pulled = {}
 def fetch_external_doc(repository, destination):
-    print('Resetting %s' % destination)
     sh.rm('-rf', destination)
     sh.mkdir('-p', destination)
-    print('Cd to %s' % destination)
     with sh.pushd(destination):
-        if osp.exists('.git'):
+        if osp.exists('.git') and not has_pulled.get(repository):
             sh.git('pull')
+            has_pulled[repository] = True
         else:
             sh.git('clone', repository, '--depth', '1', '.')
 
