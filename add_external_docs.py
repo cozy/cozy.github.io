@@ -57,13 +57,13 @@ def read_toc(directory):
                 else:
                     make_paths_absolute(t[k])
     toc_path = osp.join('src', directory, 'toc.yml')
-    if not osp.exists(toc_path):
-        return
-    else:
+    if osp.exists(toc_path):
         with open(toc_path) as f:
             toc = ordered_load(f)
-            make_paths_absolute(toc)
-            return toc
+    else:
+        toc = ordered_load('- README: ./README.md')
+    make_paths_absolute(toc)
+    return toc
 
 
 def find_entry(tree, name):
