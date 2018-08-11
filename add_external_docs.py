@@ -49,17 +49,17 @@ def ordered_dump(data, stream=None, Dumper=yaml.Dumper, **kwds):
 leadingHash = re.compile('#+\s+')
 
 def read_toc(directory):
+    def make_paths_absolute(tree):
+        for t in tree:
+            for k in t.keys():
+                if isinstance(t[k], str):
+                    t[k] = re.sub('^.', directory, t[k])
+                else:
+                    make_paths_absolute(t[k])
     toc_path = osp.join('src', directory, 'toc.yml')
     if not osp.exists(toc_path):
         return
     else:
-        def make_paths_absolute(tree):
-            for t in tree:
-                for k in t.keys():
-                    if isinstance(t[k], str):
-                        t[k] = re.sub('^.', directory, t[k])
-                    else:
-                        make_paths_absolute(t[k])
         with open(toc_path) as f:
             toc = ordered_load(f)
             make_paths_absolute(toc)
