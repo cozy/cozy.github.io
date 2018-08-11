@@ -418,6 +418,16 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-app-publish</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-app-publish/README/">CLI & Workflow</a>
+</li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -470,6 +480,10 @@
         <li class="main "><a href="#savefiles">saveFiles</a></li>
         <li class="main "><a href="#signin">signin</a></li>
         <li class="main "><a href="#updateorcreate">updateOrCreate</a></li>
+        <li class="main "><a href="#filterdata_1">filterData</a></li>
+            <li><a href="#filterdatasuitablecall_1">filterData~suitableCall()</a></li>
+        <li class="main "><a href="#utils">utils</a></li>
+        <li class="main "><a href="#utils_1">utils</a></li>
         <li class="main "><a href="#basekonnector">BaseKonnector</a></li>
             <li><a href="#new-basekonnectorfetch">new BaseKonnector(fetch)</a></li>
             <li><a href="#basekonnectorend">baseKonnector.end()</a></li>
@@ -504,7 +518,7 @@
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
-        const outsideDocs = [{"repo": "https://github.com/cozy/cozy-client-js.git", "name": "cozy-client-js", "subdir": "docs"}, {"repo": "https://github.com/konnectors/libs.git", "name": "cozy-konnector-libs", "subdir": "packages/cozy-konnector-libs/docs"}, {"repo": "https://github.com/cozy/cozy-doctypes.git", "name": "cozy-doctypes", "subdir": "."}, {"repo": "https://github.com/cozy/cozy-stack.git", "name": "cozy-stack", "subdir": "docs"}, {"repo": "https://github.com/konnectors/konitor.git", "name": "konitor", "subdir": "docs"}]
+        const outsideDocs = [{"repo": "https://github.com/cozy/cozy-client-js.git", "name": "cozy-client-js", "subdir": "docs"}, {"repo": "https://github.com/konnectors/libs.git", "name": "cozy-konnector-libs", "subdir": "packages/cozy-konnector-libs/docs"}, {"repo": "https://github.com/cozy/cozy-doctypes.git", "name": "cozy-doctypes", "subdir": "."}, {"repo": "https://github.com/cozy/cozy-stack.git", "name": "cozy-stack", "subdir": "docs"}, {"repo": "https://github.com/konnectors/konitor.git", "name": "konitor", "subdir": "docs"}, {"repo": "https://github.com/cozy/cozy-app-publish.git", "name": "cozy-app-publish", "subdir": "."}]
         const editNode = document.querySelector('#edit-link')
         const pathname = window.location.pathname
         const editURI = 'edit/master/'
@@ -767,6 +781,58 @@ use this function.</p>
 <li><code>matchingAttributes</code> (array of strings) is the list of attributes in each entry should be used to check if an entry
 is already saved in the cozy</li>
 </ul>
+</dd>
+<dt><a href="#module_filterData">filterData</a></dt>
+<dd><p>This module proposes some small utils regarding connectors</p>
+<p>Parameters:</p>
+<ul>
+<li><code>documents</code>: an array of objects corresponding to the data you want to save in the cozy</li>
+<li><code>doctype</code> (string): the doctype where you want to save data (ex: &#39;io.cozy.bills&#39;)</li>
+<li><code>options</code> :<ul>
+<li><code>keys</code> (array) : List of keys used to check that two items are the same. By default it is set to `[&#39;id&#39;]&#39;.</li>
+<li><code>index</code> (optionnal) : Return value returned by <code>cozy.data.defineIndex</code>, the default will correspond to all documents of the selected doctype.</li>
+<li><code>selector</code> (optionnal object) : Mango request to get records. Default is built from the keys <code>{selector: {_id: {&quot;$gt&quot;: null}}}</code> to get all the records.</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-javascript">const documents = [
+  {
+    name: &#39;toto&#39;,
+    height: 1.8
+  },
+  {
+    name: &#39;titi&#39;,
+    height: 1.7
+  }
+]
+
+return filterData(documents, &#39;io.cozy.height&#39;, {
+  keys: [&#39;name&#39;]
+}).then(filteredDocuments =&gt; addData(filteredDocuments, &#39;io.cozy.height&#39;))
+
+</code></pre>
+</dd>
+<dt><a href="#module_utils">utils</a></dt>
+<dd><p>This function allows to fetch all documents for a given doctype. It is the fastest to get all
+documents but without filtering possibilities</p>
+<p>Parameters:</p>
+<ul>
+<li><code>doctype</code> (string): the doctype from which you want to fetch the data</li>
+</ul>
+</dd>
+<dt><a href="#module_utils">utils</a></dt>
+<dd><p>This function allows to fetch all documents for a given doctype exceeding the 100 limit.
+It is slower that fetchAll because it fetches the data 100 by 100 but allows to filter the data
+with a selector and an index</p>
+<p>Parameters:</p>
+<ul>
+<li><code>doctype</code> (string): the doctype from which you want to fetch the data</li>
+<li><code>selector</code> (object): the mango query selector</li>
+<li><code>index</code> (object): (optional) the query selector index. If not defined, the function will
+create it&#39;s own index with the keys specified in the selector</li>
+</ul>
+<pre><code class="lang-javascript">const documents = await queryAll(&#39;io.cozy.bills&#39;, {vendor: &#39;Direct Energie&#39;})
+</code></pre>
 </dd>
 </dl>
 
@@ -1095,6 +1161,67 @@ use this function.</p>
 <li><code>matchingAttributes</code> (array of strings) is the list of attributes in each entry should be used to check if an entry
   is already saved in the cozy</li>
 </ul>
+<p><a name="module_filterData"></a></p>
+<h2 id="filterdata_1">filterData<a class="headerlink" href="#filterdata_1" title="Permanent link">&para;</a></h2>
+<p>This module proposes some small utils regarding connectors</p>
+<p>Parameters:</p>
+<ul>
+<li><code>documents</code>: an array of objects corresponding to the data you want to save in the cozy</li>
+<li><code>doctype</code> (string): the doctype where you want to save data (ex: &lsquo;io.cozy.bills&rsquo;)</li>
+<li><code>options</code> :</li>
+<li><code>keys</code> (array) : List of keys used to check that two items are the same. By default it is set to `[&lsquo;id&rsquo;]&rsquo;.</li>
+<li><code>index</code> (optionnal) : Return value returned by <code>cozy.data.defineIndex</code>, the default will correspond to all documents of the selected doctype.</li>
+<li><code>selector</code> (optionnal object) : Mango request to get records. Default is built from the keys <code>{selector: {_id: {"$gt": null}}}</code> to get all the records.</li>
+</ul>
+<pre class="codehilite"><code class="language-javascript">const documents = [
+  {
+    name: 'toto',
+    height: 1.8
+  },
+  {
+    name: 'titi',
+    height: 1.7
+  }
+]
+
+return filterData(documents, 'io.cozy.height', {
+  keys: ['name']
+}).then(filteredDocuments =&gt; addData(filteredDocuments, 'io.cozy.height'))</code></pre>
+
+
+<p><a name="module_filterData..suitableCall"></a></p>
+<h3 id="filterdatasuitablecall_1">filterData~suitableCall()<a class="headerlink" href="#filterdatasuitablecall_1" title="Permanent link">&para;</a></h3>
+<p>Since we can use methods or basic functions for
+<code>shouldSave</code> and <code>shouldUpdate</code> we pass the
+appropriate <code>this</code> and <code>arguments</code>.</p>
+<p>If <code>funcOrMethod</code> is a method, it will be called
+with args[0] as <code>this</code> and the rest as <code>arguments</code>
+Otherwise, <code>this</code> will be null and <code>args</code> will be passed
+as <code>arguments</code>.</p>
+<p><strong>Kind</strong>: inner method of <a href="#module_filterData"><code>filterData</code></a><br />
+<a name="module_utils"></a></p>
+<h2 id="utils">utils<a class="headerlink" href="#utils" title="Permanent link">&para;</a></h2>
+<p>This function allows to fetch all documents for a given doctype. It is the fastest to get all
+documents but without filtering possibilities</p>
+<p>Parameters:</p>
+<ul>
+<li><code>doctype</code> (string): the doctype from which you want to fetch the data</li>
+</ul>
+<p><a name="module_utils"></a></p>
+<h2 id="utils_1">utils<a class="headerlink" href="#utils_1" title="Permanent link">&para;</a></h2>
+<p>This function allows to fetch all documents for a given doctype exceeding the 100 limit.
+It is slower that fetchAll because it fetches the data 100 by 100 but allows to filter the data
+with a selector and an index</p>
+<p>Parameters:</p>
+<ul>
+<li><code>doctype</code> (string): the doctype from which you want to fetch the data</li>
+<li><code>selector</code> (object): the mango query selector</li>
+<li><code>index</code> (object): (optional) the query selector index. If not defined, the function will
+create it&rsquo;s own index with the keys specified in the selector</li>
+</ul>
+<pre class="codehilite"><code class="language-javascript">const documents = await queryAll('io.cozy.bills', {vendor: 'Direct Energie'})</code></pre>
+
+
 <p><a name="BaseKonnector"></a></p>
 <h2 id="basekonnector">BaseKonnector<a class="headerlink" href="#basekonnector" title="Permanent link">&para;</a></h2>
 <p>The class from which all the connectors must inherit.

@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-app-publish/README/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>CLI & Workflow - Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Documentation</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="/en/dev/">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="/en/dev/connect-mobile-app-local-stack/">Connect a mobile app to your local stack</a>
+</li>
+                            
+<li >
+    <a href="/en/dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="/en/dev/app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="/en/dev/konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="/en/dev/cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="/en/dev/sendmail/">How to send mail in development</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">References</a>
+    <ul class="dropdown-menu">
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-client-js</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-client-js/intro/">Introduction</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/browser-sdk-transition/">Transition from cozy-browser-sdk</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/offline/">How to support offline</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/oauth/">OAuth guide</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/auth-api/">Authentication API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/data-api/">Data System API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/files-api/">Files API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/jobs-api/">Jobs API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/intents-api/">Intents API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/settings-api/">Settings API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/sharing-api/">Sharing API</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-doctypes</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.accounts/">Accounts</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.photos.albums/">Albums</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bank/">Banking doctypes</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bills/">Bills</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.konnectors/">Connectors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.contacts/">Contacts</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.files/">Files</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.notifications/">Notifications</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.payslips/">Payslips</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/">Remote requests</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/">Session logins</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.sharings/">Sharings</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.triggers/">Triggers</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-stack</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/README/">README</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Architecture</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/architecture/">General overview</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/security/">Security</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Usage</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/INSTALL/">Install the cozy-stack</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/cli/cozy-stack/">Manpages of the command-line tool</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/config/">Configuration file</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/instance/">Managing Instances</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/onboarding/">Onboarding</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">For developpers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/client-app-dev/">Develop a client-side app</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/docker/">Running and building Docker images</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/release/">Build a release</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/CONTRIBUTING/">The contributing guide</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Services</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/auth/">/auth - Authentication & OAuth</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/apps/">/apps - Applications Management</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/registry/">Apps registry</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/data-system/">/data - Data System</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/mango/">Mango</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/replication/">Replication</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/couchdb-quirks/">CouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/pouchdb-quirks/">PouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/files/">/files - Virtual File System</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/references-docs-in-vfs/">References of documents in VFS</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/intents/">/intents - Intents</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/jobs/">/jobs Jobs</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/konnectors/">Konnectors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/workers/">Workers</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/move/">/move - Move, export and import an instance</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/notifications/">/notifications - Notifications</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/permissions/">/permissions - Permissions</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/realtime/">/realtime - Realtime</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/remote/">/remote - Proxy for remote data/API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/settings/">/settings - Settings</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/sharing/">/sharings - Sharing</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/sharing-design/">Request for comments</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">konitor</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../konitor/cli/">CLI</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-app-publish</a>
+    <ul class="dropdown-menu">
+            
+<li class="active">
+    <a href="./">CLI & Workflow</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/linux/">Install Cozy Drive on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy.github.io/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3">
+<div class="bs-sidebar hidden-print affix" role="complementary">
+    <ul class="nav bs-sidenav well" style='padding-left: 0; padding-right: 0; margin-bottom: 1.5rem'>
+        <li class="main active"><a href="#cozy-app-publish">Cozy App Publish</a></li>
+            <li><a href="#whats-cozy-app-publish">What's cozy-app-publish?</a></li>
+            <li><a href="#install">Install</a></li>
+            <li><a href="#registry-documentation">Registry documentation</a></li>
+            <li><a href="#usage-via-travis-ci-recommended">Usage via Travis CI (recommended)</a></li>
+            <li><a href="#manual-usage-not-recommended">Manual usage (not recommended)</a></li>
+            <li><a href="#options">Options</a></li>
+            <li><a href="#recommended-workflow">Recommended workflow</a></li>
+    </ul>
+  <div style='padding-left: 2rem'>
+    
+    <a id='edit-link' href='https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-app-publish/README.md'>Edit documentation</a>
+    <script type='text/javascript'>
+        /* Here we detect if the current page is from an external documentation and we 
+        change the href of the editing link so it goes to the right repository and file */
+        const outsideDocs = [{"repo": "https://github.com/cozy/cozy-client-js.git", "name": "cozy-client-js", "subdir": "docs"}, {"repo": "https://github.com/konnectors/libs.git", "name": "cozy-konnector-libs", "subdir": "packages/cozy-konnector-libs/docs"}, {"repo": "https://github.com/cozy/cozy-doctypes.git", "name": "cozy-doctypes", "subdir": "."}, {"repo": "https://github.com/cozy/cozy-stack.git", "name": "cozy-stack", "subdir": "docs"}, {"repo": "https://github.com/konnectors/konitor.git", "name": "konitor", "subdir": "docs"}, {"repo": "https://github.com/cozy/cozy-app-publish.git", "name": "cozy-app-publish", "subdir": "."}]
+        const editNode = document.querySelector('#edit-link')
+        const pathname = window.location.pathname
+        const editURI = 'edit/master/'
+        const removeGitSuffix = function (x) { return x.replace(/\.git$/, '') }
+
+        // Returns the external repo associated to a pathname
+        const detectExternalRepo = function (pathname) {
+            for (var outsideDoc of outsideDocs) {
+                if (window.location.pathname.includes('/' + outsideDoc.name + '/')) {
+                    return outsideDoc
+                }
+            }
+        }
+
+        // Change the href attribute of a link to point to the correct edition page on GitHub
+        // for the passed external documentation
+        const fixEditLink = function (editNode, externalDoc) {
+            const repoFile = pathname.replace('/en/' + externalDoc.name, '').replace(/\/$/, '.md')
+            const baseRepo = removeGitSuffix(externalDoc.repo)
+            editNode.href = baseRepo + '/' + editURI + externalDoc.subdir + repoFile
+        }
+
+        const externalRepo = detectExternalRepo(pathname)
+        if (externalRepo) {
+            fixEditLink(editNode, externalRepo)
+        }
+    </script>
+    
+  </div>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="cozy-app-publish">Cozy App Publish<a class="headerlink" href="#cozy-app-publish" title="Permanent link">&para;</a></h1>
+<p><img alt="https://npmjs.org/package/cozy-app-publish" src="https://img.shields.io/npm/v/cozy-app-publish.svg" />
+<img alt="https://github.com/cozy/cozy-app-publish/LICENSE" src="https://img.shields.io/npm/l/cozy-app-publish.svg" />
+<img alt="https://travis-ci.org/cozy/cozy-app-publish" src="https://img.shields.io/travis/cozy/cozy-app-publish.svg" />
+<img alt="https://npmjs.org/package/cozy-app-publish" src="https://img.shields.io/npm/dm/cozy-app-publish.svg" /></p>
+<h3 id="whats-cozy-app-publish">What&rsquo;s cozy-app-publish?<a class="headerlink" href="#whats-cozy-app-publish" title="Permanent link">&para;</a></h3>
+<p><code>cozy-app-publish</code> is a command line tool that publish a Cozy application to the Cozy registry according to some options.</p>
+<h4 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Node.js version 8 or higher;</li>
+</ul>
+<h3 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code>yarn add --dev cozy-app-publish</code></pre>
+
+
+<h3 id="registry-documentation">Registry documentation<a class="headerlink" href="#registry-documentation" title="Permanent link">&para;</a></h3>
+<p>You can find more information about the registry and how to prepare an application to be published in the <a href="https://github.com/cozy/cozy-stack/blob/master/docs/registry.md">official registry documentation</a>.</p>
+<h3 id="usage-via-travis-ci-recommended">Usage via Travis CI (recommended)<a class="headerlink" href="#usage-via-travis-ci-recommended" title="Permanent link">&para;</a></h3>
+<p>First of all, don&rsquo;t forget to build the application:</p>
+<pre class="codehilite"><code># build the application (in the ./build folder here)
+yarn build</code></pre>
+
+
+<p>Then, just publish it using the Travis CI workflow:</p>
+<pre class="codehilite"><code># publish it, REGISTRY_TOKEN should be
+# encrypted and provided via Travis CI environment
+# BUILD_COMMIT is your last build commit hash (git rev-parse build)
+yarn cozy-app-publish \
+--token $REGISTRY_TOKEN \
+--build-commit $BUILD_COMMIT</code></pre>
+
+
+<h3 id="manual-usage-not-recommended">Manual usage (not recommended)<a class="headerlink" href="#manual-usage-not-recommended" title="Permanent link">&para;</a></h3>
+<p>First of all, don&rsquo;t forget to build the application:</p>
+<pre class="codehilite"><code># build the application (in the ./build folder here)
+yarn build</code></pre>
+
+
+<p>Then, just publish it using:</p>
+<pre class="codehilite"><code>yarn cozy-app-publish \
+--token $REGISTRY_TOKEN \
+--build-url https://github.com/cozy/cozy-collect/archive/042cef26d9d33ea604fe4364eaab569980b500c9.tar.gz \
+--manual-version 1.0.2-dev.042cef26d9d33ea604fe4364eaab569980b500c9</code></pre>
+
+
+<h3 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h3>
+<h4 id="-token-editor-token-required"><code>--token &lt;editor-token&gt;</code> (required)<a class="headerlink" href="#-token-editor-token-required" title="Permanent link">&para;</a></h4>
+<p>The registry editor token. This token must match the editor name and is provided by Cozy Cloud (with the name) in order to use the registry.</p>
+<h4 id="-build-dir-relative-path"><code>--build-dir &lt;relative-path&gt;</code><a class="headerlink" href="#-build-dir-relative-path" title="Permanent link">&para;</a></h4>
+<p>The path to the build folder, relative to the current directory. Since the &lsquo;standard&rsquo; Cozy application builds in the <code>build/</code> folder, <code>build</code> is the default value. This folder is mainly used to read the application manifest during publishing.</p>
+<h4 id="-build-url-url"><code>--build-url &lt;url&gt;</code><a class="headerlink" href="#-build-url-url" title="Permanent link">&para;</a></h4>
+<p>For now, the registry a build archive (.tar.gz file) from an external link to be used in the cozy-stack. In the travis script, this url is computed using the Github trick to get archives from a commit url (but it&rsquo;s overwritten if provided by this option). For the manual script, we have to provide it.</p>
+<h4 id="-build-commit-commit-hash"><code>--build-commit &lt;commit-hash&gt;</code><a class="headerlink" href="#-build-commit-commit-hash" title="Permanent link">&para;</a></h4>
+<p>Using the <code>travis</code> mode, the archive tarball URL is computed using github and the build commit hash. If you are not on your build branch to publish, you can specify the correct build commit hash using this parameter.</p>
+<h4 id="-manual-version-version-required-for-manual-usage-only"><code>--manual-version &lt;version&gt;</code> (required for manual usage only)<a class="headerlink" href="#-manual-version-version-required-for-manual-usage-only" title="Permanent link">&para;</a></h4>
+<p>In the manual mode, we don&rsquo;t have a way to compute the version like in the Travis mode for example. So we have to provide it using this option.</p>
+<h4 id="-prepublish-script_path"><code>--prepublish &lt;script_path&gt;</code><a class="headerlink" href="#-prepublish-script_path" title="Permanent link">&para;</a></h4>
+<p>Specify custom prepublish hook to manage how the app archive is generated and uploaded. The script must export a asynchronous function which has the following signature:</p>
+<pre class="codehilite"><code class="language-js">module.exports = async ({
+  appBuildUrl,
+  appSlug,
+  appType,
+  appVersion,
+  buildCommit,
+  registryUrl,
+  registryEditor,
+  registryToken,
+  spaceName
+}) =&gt; {
+ // ...
+}</code></pre>
+
+
+<p>This function must return an object containing the same options given as parameter, which can have been updated. For example, you may specifiy a new appBuildUrl in the hook. Here&rsquo;s a description of the different options:</p>
+<table>
+<thead>
+<tr>
+<th>Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>appBuildUrl</code></td>
+<td>The url where the build can be retrieved. For example, <code>http://github.com/cozy/cozy-foo/archives/cozy-foo.tar.gz</code></td>
+</tr>
+<tr>
+<td><code>appSlug</code></td>
+<td>The slug of the application, as defined in the manifest. Should not be mutated</td>
+</tr>
+<tr>
+<td><code>appType</code></td>
+<td><code>webapp</code> or <code>konnector</code></td>
+</tr>
+<tr>
+<td><code>appVersion</code></td>
+<td>App version, as defined in the manifest. Should not be mutated.</td>
+</tr>
+<tr>
+<td><code>buildCommit</code></td>
+<td>sha of the commit, should not be mutated.</td>
+</tr>
+<tr>
+<td><code>registryUrl</code></td>
+<td>URL of the Cozy registry, should not be mutated.</td>
+</tr>
+<tr>
+<td><code>registryEditor</code></td>
+<td>Editor as it appears in the Cozy registry.</td>
+</tr>
+<tr>
+<td><code>registryToken</code></td>
+<td>Registry Token. See <a href="https://docs.cozy.io/en/cozy-stack/registry-publish/">registry documentation</a>. Should not be mutated.</td>
+</tr>
+<tr>
+<td><code>spaceName</code></td>
+<td>Space name in the Cozy registry.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="-postpublish-script_path"><code>--postpublish &lt;script_path&gt;</code><a class="headerlink" href="#-postpublish-script_path" title="Permanent link">&para;</a></h4>
+<p>Works exactly like the <code>prepublish</code> option, but will be executed after the publication.</p>
+<h4 id="multiple-hooks-and-built-in-hooks">Multiple hooks and built-in hooks<a class="headerlink" href="#multiple-hooks-and-built-in-hooks" title="Permanent link">&para;</a></h4>
+<p>You can specify more than one hook by separating them with a <code>,</code>:</p>
+<pre class="codehilite"><code>cozy-app-publish --prepublish &lt;hook_name&gt;,&lt;other_hook_name&gt;</code></pre>
+
+
+<p>Some hooks are shipped with cozy-app-publish and can be used by specifying their name:</p>
+<pre class="codehilite"><code>cozy-app-publish --prepublish &lt;builtin_hook_name&gt;</code></pre>
+
+
+<h5 id="downcloud-prepublish-hook">Downcloud prepublish hook<a class="headerlink" href="#downcloud-prepublish-hook" title="Permanent link">&para;</a></h5>
+<pre class="codehilite"><code>cozy-app-publish --prepublish downcloud</code></pre>
+
+
+<p>This hook allows to upload the app to our downcloud server and sets the <code>appBuildUrl</code> accordingly.</p>
+<p>In order to upload files to our downcloud server, you will need to generate a new pair of RSA keys, add the private key to your ssh-agent and make sure the corresponding public key is present on the downcloud server. Here&rsquo;s how to do it:</p>
+<ul>
+<li>Generate a new key pair with <code>ssh-keygen -t rsa -b 4096 -f id_rsa_downcloud_myapp -C downcloud_myapp_deploy</code>.</li>
+<li>Communicate the public key to someone who can deposit it on the downcloud server.</li>
+<li>If you&rsquo;re running things locally, you&rsquo;ll want to run <code>ssh-add id_rsa_downcloud_myapp</code> to add it to your ssh-agent.</li>
+<li>If you&rsquo;re planing to run this <code>cozy-app-publish</code> on Travis, you&rsquo;ll want to <a href="https://docs.travis-ci.com/user/encrypting-files/#Automated-Encryption">encrypt that file first</a>. Run <code>travis encrypt-file id_rsa_downcloud_myapp</code> and copy the output.</li>
+<li>To add the key to Travis&rsquo;s ssh-agent, add the following lines in the <code>before_install</code> section of your <code>.travis.yml</code>, but don&rsquo;t forget to paste the output of <code>travis encrypt-file</code> where it&rsquo;s needed.</li>
+</ul>
+<pre class="codehilite"><code>- if [ &quot;$TRAVIS_SECURE_ENV_VARS&quot; != &quot;false&quot; ]; then PASTE_TRAVIS_ENCRYPT_OUTPUT_HERE; fi
+- if [ &quot;$TRAVIS_SECURE_ENV_VARS&quot; != &quot;false&quot; ]; then eval &quot;$(ssh-agent -s)&quot;; fi
+- if [ &quot;$TRAVIS_SECURE_ENV_VARS&quot; != &quot;false&quot; ]; then chmod 600 id_rsa_downcloud_myapp;
+  fi
+- if [ &quot;$TRAVIS_SECURE_ENV_VARS&quot; != &quot;false&quot; ]; then ssh-add id_rsa_downcloud_myapp;
+  fi</code></pre>
+
+
+<ul>
+<li>We recommend changing the path used for the private key. You can change the <code>-out</code> argument of the command output by <code>travis encrypt-file</code> and the corresponding path&rsquo;s in the commands above. <code>/tmp/id_rsa_downcloud_myapp</code> is a good place to store this key.</li>
+<li>Finally, <strong>secure the private key</strong>. If you&rsquo;re using Travis, the key is now stored by Travis so you should delete your local copy. If you&rsquo;re running things on your machine, make sure the private key doesn&rsquo;t end up in version control.</li>
+</ul>
+<h5 id="rundeck-postpublish-hook">Rundeck postpublish hook<a class="headerlink" href="#rundeck-postpublish-hook" title="Permanent link">&para;</a></h5>
+<pre class="codehilite"><code>cozy-app-publish --postpublish rundeck</code></pre>
+
+
+<p>Deploys the app on rundeck. This hook requires several variables to be set as environment variables:</p>
+<ul>
+<li><code>RUNDECK_TOKEN</code>:  the token to use to interact with the Rundeck API. To obtain such a token, ask someone that has admin privileges on the rundeck server.</li>
+<li><code>TARGETS_DEV</code>: a comma-separated list of instances to deploy the app on, on the <code>dev</code> channel.</li>
+<li><code>TARGETS_BETA</code>: a comma-separated list of instances to deploy the app on, on the <code>beta</code> channel.</li>
+<li><code>TARGETS_STABLE</code>: a comma-separated list of instances to deploy the app on, on the <code>stable</code> channel.</li>
+</ul>
+<h5 id="mattermost-postpublish-hook">Mattermost postpublish hook<a class="headerlink" href="#mattermost-postpublish-hook" title="Permanent link">&para;</a></h5>
+<pre class="codehilite"><code>cozy-app-publish --postpublish mattermost</code></pre>
+
+
+<p>Sends a message to a mattermost channel to notify of the app&rsquo;s deployment. Requires the following options:</p>
+<ul>
+<li><code>MATTERMOST_HOOK_URL</code>: You will need to set up a new <a href="https://docs.mattermost.com/developer/webhooks-incoming.html">Incoming Hook</a>.</li>
+<li><code>MATTERMOST_CHANNEL</code>: The name of the channel messages will be posted to.</li>
+</ul>
+<h4 id="-registry-url-url"><code>--registry-url &lt;url&gt;</code><a class="headerlink" href="#-registry-url-url" title="Permanent link">&para;</a></h4>
+<p>The url of the registry, by default it will be https://staging-apps-registry.cozycloud.cc.</p>
+<h4 id="-space-space-name"><code>--space &lt;space-name&gt;</code><a class="headerlink" href="#-space-space-name" title="Permanent link">&para;</a></h4>
+<p>Use this options to provide a specific space name of the registry to publish the application in. By default it will be published in the default space.</p>
+<h4 id="-verbose"><code>--verbose</code><a class="headerlink" href="#-verbose" title="Permanent link">&para;</a></h4>
+<p>To print more logs when using tool (useful for debug).</p>
+<h3 id="recommended-workflow">Recommended workflow<a class="headerlink" href="#recommended-workflow" title="Permanent link">&para;</a></h3>
+<h4 id="day-to-day">Day to day<a class="headerlink" href="#day-to-day" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Development is done on feature branches that are merged into <code>master</code>,  once they are complete.</li>
+<li>Every time someone commits on <code>master</code>, a new archive is created and uploaded on Downcloud and it is then deployed on a test instance with Rundeck.</li>
+</ul>
+<h4 id="release-workflow">Release workflow<a class="headerlink" href="#release-workflow" title="Permanent link">&para;</a></h4>
+<ul>
+<li>A new branch is created from the current state of <code>master</code>. Let&rsquo;s say we want to deploy version <code>1.0.0</code> of the app.</li>
+<li>The only type of commits allowed on this release branch are bug fixes.</li>
+<li>Every time one or more bugs are fixed and the version is considered for release, the latest commit is tagged with a prerelease version number, eg. <code>1.0.0-beta.1</code>, <code>1.0.0-beta.2</code>, etc…</li>
+<li>Each of these prereleases is automatically uploaded on downcloud and deployed on instances that are on the <code>beta</code> channel.</li>
+<li>Once the branch is deemed ready for release, the last commit is tagged with the final version — <code>1.0.0</code> in our example. It is then, again, uploaded on downcloud, published on the registry and deployed on specific instances as needed.</li>
+<li>The release branch is merged back into <code>master</code> so that all the bugfixes aren&rsquo;t lost.</li>
+</ul></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/main.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

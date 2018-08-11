@@ -1,0 +1,45 @@
+{
+  "name": "cozy-app-publish",
+  "version": "0.4.1-beta.5",
+  "main": "index.js",
+  "author": "Cozy",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint '{lib, utils,test}/**/*.js'",
+    "pretest": "yarn lint",
+    "test": "jest --verbose --coverage",
+    "test:manual": "jest test/manual.spec.js",
+    "test:publish": "jest test/publish.spec.js",
+    "test:travis": "jest test/travis.spec.js"
+  },
+  "bin": {
+    "cozy-app-publish": "./cozy-app-publish.js"
+  },
+  "dependencies": {
+    "chalk": "2.4.1",
+    "commander": "2.17.1",
+    "cross-spawn": "6.0.5",
+    "fs-extra": "6.0.1",
+    "node-fetch": "2.2.0",
+    "prompt": "1.0.0",
+    "tar": "4.4.6"
+  },
+  "files": [
+    "index.js",
+    "cozy-app-publish.js",
+    "LICENSE",
+    "README.md",
+    "utils",
+    "lib"
+  ],
+  "devDependencies": {
+    "eslint-config-cozy-app": "0.10.0",
+    "jest": "23.5.0",
+    "jest-fetch-mock": "1.6.5"
+  },
+  "jest": {
+    "setupFiles": [
+      "./test/jestLibs/setupJest.js"
+    ]
+  }
+}

@@ -418,6 +418,16 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-app-publish</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-app-publish/README/">CLI & Workflow</a>
+</li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -465,7 +475,7 @@
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
-        const outsideDocs = [{"repo": "https://github.com/cozy/cozy-client-js.git", "name": "cozy-client-js", "subdir": "docs"}, {"repo": "https://github.com/konnectors/libs.git", "name": "cozy-konnector-libs", "subdir": "packages/cozy-konnector-libs/docs"}, {"repo": "https://github.com/cozy/cozy-doctypes.git", "name": "cozy-doctypes", "subdir": "."}, {"repo": "https://github.com/cozy/cozy-stack.git", "name": "cozy-stack", "subdir": "docs"}, {"repo": "https://github.com/konnectors/konitor.git", "name": "konitor", "subdir": "docs"}]
+        const outsideDocs = [{"repo": "https://github.com/cozy/cozy-client-js.git", "name": "cozy-client-js", "subdir": "docs"}, {"repo": "https://github.com/konnectors/libs.git", "name": "cozy-konnector-libs", "subdir": "packages/cozy-konnector-libs/docs"}, {"repo": "https://github.com/cozy/cozy-doctypes.git", "name": "cozy-doctypes", "subdir": "."}, {"repo": "https://github.com/cozy/cozy-stack.git", "name": "cozy-stack", "subdir": "docs"}, {"repo": "https://github.com/konnectors/konitor.git", "name": "konitor", "subdir": "docs"}, {"repo": "https://github.com/cozy/cozy-app-publish.git", "name": "cozy-app-publish", "subdir": "."}]
         const editNode = document.querySelector('#edit-link')
         const pathname = window.location.pathname
         const editURI = 'edit/master/'
@@ -503,19 +513,19 @@
 <h3 id="synopsis">Synopsis<a class="headerlink" href="#synopsis" title="Permanent link">&para;</a></h3>
 <p>Execute a command on the VFS of the specified domain.
 Available commands:</p>
-<pre class="codehilite"><code>mkdir [name]               Creates a directory with specified name
-ls [-l] [-a] [-h] [name]   Prints the children of the specified directory
-tree [name]                Prints the tree structure of the specified directory
-attrs [name]               Prints the attributes of the specified file or directory
-cat [name]                 Echo the file content in stdout
-mv [from] [to]             Rename a file or directory
-rm [-f] [-r] [name]        Move the file to trash, or delete it permanently with -f flag
-restore [name]             Restore a file or directory from trash
+<pre class="codehilite"><code>mkdir &lt;name&gt;               Creates a directory with specified name
+ls [-l] [-a] [-h] &lt;name&gt;   Prints the children of the specified directory
+tree &lt;name&gt;                Prints the tree structure of the specified directory
+attrs &lt;name&gt;               Prints the attributes of the specified file or directory
+cat &lt;name&gt;                 Echo the file content in stdout
+mv &lt;from&gt; &lt;to&gt;             Rename a file or directory
+rm [-f] [-r] &lt;name&gt;        Move the file to trash, or delete it permanently with -f flag
+restore &lt;name&gt;             Restore a file or directory from trash
 
 Don't forget to put quotes around the command!</code></pre>
 
 
-<pre class="codehilite"><code>cozy-stack files exec [--domain domain] [command] [flags]</code></pre>
+<pre class="codehilite"><code>cozy-stack files exec [--domain domain] &lt;command&gt; [flags]</code></pre>
 
 
 <h3 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h3>
