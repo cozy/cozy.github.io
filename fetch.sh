@@ -25,10 +25,6 @@ cat OUTSIDE_DOCS | while read line; do
   name=${arr[0]}
   repo=${arr[1]}
   subdir=${arr[2]}
-  tmpsubdir="/tmp/$name"
-  if [[ $subdir != "." ]]; then
-    tmpsubdir=${tmpsubdir}/${subdir}
-  fi
   fetch-from-remote $repo /tmp/$name
   rm -f src/$name
   ln -s /tmp/$name/$subdir src/$name
