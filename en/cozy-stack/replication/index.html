@@ -549,7 +549,7 @@ with existing files routes or considering webdav.</p>
 we can add a driver for cozy)</p>
 <h2 id="couchdb-replication-limitation">Couchdb replication &amp; limitation<a class="headerlink" href="#couchdb-replication-limitation" title="Permanent link">&para;</a></h2>
 <p>Couchdb 2 replication protocol is described
-<a href="http://docs.couchdb.org/en/2.1.0/replication/protocol.html">in details here</a>.</p>
+<a href="http://docs.couchdb.org/en/stable/replication/protocol.html">in details here</a>.</p>
 <h3 id="quick-summary">Quick summary<a class="headerlink" href="#quick-summary" title="Permanent link">&para;</a></h3>
 <ol>
 <li>The replicator figures out what was the last sequence number <em>lastseqno</em>
@@ -623,15 +623,15 @@ db.replicate.to(&quot;https://bob.cozycloud.cc/data/contacts&quot;);</code></pre
 <ul>
 <li>Proxy <code>/data/:doctype/_changes</code> route with since, limit, feed=normal. Refuse
   all filter parameters with a clear error message.
-  <a href="http://docs.couchdb.org/en/2.1.0/api/database/changes.html">(Doc)</a></li>
+  <a href="http://docs.couchdb.org/en/stable/api/database/changes.html">(Doc)</a></li>
 <li>Add support of <code>open_revs</code>, <code>revs</code>, <code>latest</code> query parameter to <code>GET /data/:doctype/:docid</code>
-  <a href="http://docs.couchdb.org/en/2.1.0/api/document/common.html?highlight=open_revs#get--db-docid">(Doc) </a></li>
+  <a href="http://docs.couchdb.org/en/stable/api/document/common.html?highlight=open_revs#get--db-docid">(Doc) </a></li>
 <li>Proxy the <code>/data/:doctype/_revs_diff</code>
-  <a href="http://docs.couchdb.org/en/2.1.0/api/database/misc.html#db-revs-diff">(Doc)</a>
+  <a href="http://docs.couchdb.org/en/stable/api/database/misc.html#db-revs-diff">(Doc)</a>
   and <code>/data/:doctype/_bulk_docs</code> routes
-  <a href="http://docs.couchdb.org/en/2.1.0/api/database/bulk-api.html">(Doc)</a> routes</li>
+  <a href="http://docs.couchdb.org/en/stable/api/database/bulk-api.html">(Doc)</a> routes</li>
 <li>Have <code>/data/:doctype/_ensure_full_commit</code>
-  <a href="http://docs.couchdb.org/en/2.1.0/api/database/compact.html#db-ensure-full-,
+  <a href="http://docs.couchdb.org/en/stable/api/database/compact.html#db-ensure-full-,
   revs, latestcommit">(Doc)</a> returns 201</li>
 </ul>
 <p>This will cover documents part of the Devices use case.</p>
@@ -666,7 +666,7 @@ html5-sse-example). SSE is not widely available and has some limitations
 </ul>
 <p>To have some form of couchdb-to-stack continuous changes monitoring, we can
 monitor <code>_db_udpates</code>
-<a href="http://docs.couchdb.org/en/2.1.0/api/server/common.html#db-updates">(Doc)</a>
+<a href="http://docs.couchdb.org/en/stable/api/server/common.html#db-updates">(Doc)</a>
 which gives us an update when a couchdb has changed. We can then perform a
 <code>_changes</code> query on this database to get the changed docs and proxy that to the
 stack-to-client change feed.</p>
