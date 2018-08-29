@@ -647,6 +647,10 @@ When invoking <code>cozy-stack</code> (or <code>cozy-coclyco</code> which use it
 <pre class="codehilite"><code class="language-bash">/usr/share/cozy/konnector-create-chroot.sh</code></pre>
 
 
+<p>You also need to enable user namespaces:</p>
+<pre class="codehilite"><code class="language-bash">sysctl -w kernel.unprivileged_userns_clone=1</code></pre>
+
+
 <p>If you use a self-signed certificate or a not official certificate authority, you need to deploy the corresponding root certificate in <code>/usr/share/cozy/chroot/etc/ssl/certs/custom.crt</code>.<br />
 For example, if you use <a href="https://letsencrypt.org/docs/staging-environment/">Let&rsquo;s Encrypt staging environment</a> for testing purpose :</p>
 <pre class="codehilite"><code class="language-bash">wget -q https://letsencrypt.org/certs/fakelerootx1.pem \
