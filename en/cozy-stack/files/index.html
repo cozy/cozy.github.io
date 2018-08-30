@@ -1052,7 +1052,10 @@ Location: http://cozy.example.com/files/9152d568-7e7c-11e6-a377-37cbfb190b4b</co
 <p>Both endpoints can be used to update the metadata of a file or directory, or to
 rename/move it. The difference is the first one uses an id to identify the
 file/directory to update, and the second one uses the path.</p>
-<p>The <code>dir_id</code> attribute can be updated to move a file or directory.</p>
+<p>Some specific attributes of the patch can be used:
+  - <code>dir_id</code> attribute can be updated to move a file or directory
+  - <code>move_to_trash</code> boolean to specify that the file needs to be moved to the trash
+  - <code>permanent_delete</code> boolean to specify that the files needs to be deleted (after being trashed)</p>
 <h4 id="http-headers_4">HTTP headers<a class="headerlink" href="#http-headers_4" title="Permanent link">&para;</a></h4>
 <p>It&rsquo;s possible to send the <code>If-Match</code> header, with the previous revision of the
 file/directory (optional).</p>
@@ -1070,7 +1073,6 @@ Content-Type: application/vnd.api+json</code></pre>
       &quot;type&quot;: &quot;file&quot;,
       &quot;name&quot;: &quot;hi.txt&quot;,
       &quot;dir_id&quot;: &quot;f2f36fec-8018-11e6-abd8-8b3814d9a465&quot;,
-      &quot;trashed&quot;: false,
       &quot;tags&quot;: [&quot;poem&quot;]
     }
   }
@@ -1132,13 +1134,41 @@ Location: http://cozy.example.com/files/9152d568-7e7c-11e6-a377-37cbfb190b4b</co
 }</code></pre>
 
 
+<h3 id="patch-files">PATCH /files/<a class="headerlink" href="#patch-files" title="Permanent link">&para;</a></h3>
+<p>Endpoint to update the metadata of files and directories in batch. It can be
+used, for instance, to move many files in a single request.</p>
+<h4 id="request_8">Request<a class="headerlink" href="#request_8" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-http">PATCH /files/
+Content-Type: application/vnd.api+json</code></pre>
+
+
+<pre class="codehilite"><code class="language-json">{
+  &quot;data&quot;: [
+    {
+      &quot;type&quot;: &quot;io.cozy.files&quot;,
+      &quot;id&quot;: &quot;9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;,
+      &quot;meta&quot;: { &quot;rev&quot;: &quot;1-0e6d5b72&quot; },
+      &quot;attributes&quot;: { &quot;dir_id&quot;: &quot;f2f36fec-8018-11e6-abd8-8b3814d9a465&quot; }
+    },
+    {
+      &quot;type&quot;: &quot;io.cozy.files&quot;,
+      &quot;id&quot;: &quot;9152d568-7e7c-11e6-a377-37cbfb190b4c&quot;,
+      &quot;meta&quot;: { &quot;rev&quot;: &quot;2-123123&quot; },
+      &quot;attributes&quot;: { &quot;move_to_trash&quot;: true }
+    }
+  ]
+}</code></pre>
+
+
+<h4 id="status-codes_4">Status codes<a class="headerlink" href="#status-codes_4" title="Permanent link">&para;</a></h4>
+<p>The same status codes can be encountered as the <code>PATCH /files/:file-id</code> route.</p>
 <h3 id="post-filesarchive">POST /files/archive<a class="headerlink" href="#post-filesarchive" title="Permanent link">&para;</a></h3>
 <p>Create an archive. The body of the request lists the files and directories that
 will be included in the archive. For directories, it includes all the files and
 sub-directories in the archive.</p>
 <p>It&rsquo;s possible to give a file by its id (in the <code>ids</code> array) or by its path (in
 the <code>files</code> array).</p>
-<h4 id="request_8">Request<a class="headerlink" href="#request_8" title="Permanent link">&para;</a></h4>
+<h4 id="request_9">Request<a class="headerlink" href="#request_9" title="Permanent link">&para;</a></h4>
 <pre class="codehilite"><code class="language-http">POST /files/archive HTTP/1.1
 Accept: application/zip
 Content-Type: application/vnd.api+json</code></pre>
@@ -1230,7 +1260,7 @@ destroyed.</p>
 </tr>
 </tbody>
 </table>
-<h4 id="request_9">Request<a class="headerlink" href="#request_9" title="Permanent link">&para;</a></h4>
+<h4 id="request_10">Request<a class="headerlink" href="#request_10" title="Permanent link">&para;</a></h4>
 <pre class="codehilite"><code class="language-http">GET /files/trash HTTP/1.1
 Accept: application/vnd.api+json</code></pre>
 
