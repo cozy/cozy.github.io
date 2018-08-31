@@ -934,7 +934,7 @@ state=Eh6ahshepei5Oojo&amp;client_id=oauth-client-1&amp;scope=io.cozy.files:GET%
 <p>The user is then redirected to the original client, with an access code in the
 URL:</p>
 <pre class="codehilite"><code class="language-http">HTTP/1.1 302 Moved Temporarily
-Location: https://client.org/?state=Eh6ahshepei5Oojo&amp;access_code=Aih7ohth#</code></pre>
+Location: https://client.org/?state=Eh6ahshepei5Oojo&amp;code=Aih7ohth#</code></pre>
 
 
 <h3 id="get-authauthorizesharing-post-authauthorizesharing">GET /auth/authorize/sharing &amp; POST /auth/authorize/sharing<a class="headerlink" href="#get-authauthorizesharing-post-authauthorizesharing" title="Permanent link">&para;</a></h3>
@@ -944,10 +944,9 @@ scope format (sharing rules, not permissions) and the redirection after the
 POST.</p>
 <h3 id="post-authaccess_token">POST /auth/access_token<a class="headerlink" href="#post-authaccess_token" title="Permanent link">&para;</a></h3>
 <p>Now, the client can check that the state is correct, and if it is the case, ask
-for an <code>access_token</code>. It can use this route with the <code>code</code> (ie access_code)
-given above.</p>
+for an <code>access_token</code>. It can use this route with the <code>code</code> given above.</p>
 <p>This endpoint is also used to refresh the access token, by sending the
-<code>refresh_token</code> instead of the <code>access_code</code>.</p>
+<code>refresh_token</code> instead of the <code>code</code>.</p>
 <p>The parameters are:</p>
 <ul>
 <li><code>grant_type</code>, with <code>authorization_code</code> or <code>refresh_token</code> as value</li>
