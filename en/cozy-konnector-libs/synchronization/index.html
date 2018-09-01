@@ -678,11 +678,11 @@ A naive example of `filterEntriesToSynchronize` implementation should be:
 const filterEntriesToSynchronize = async (cozy, entries, synchronizationStrategy) = {
   const filtered = []
 
-  // getExistingSynchronizedDocument needs to be implemented, it should retrieve
-  // existing document from database, based on synchronization data.
-  const existingDocument = cozy.getExistingSynchronizedDocument(entry, synchronizationStrategy)
-
   entries.forEach(entry =&gt; {
+    // getExistingSynchronizedDocument needs to be implemented, it should retrieve
+    // existing document from database, based on synchronization data.
+    const existingDocument = cozy.getExistingSynchronizedDocument(entry, synchronizationStrategy)
+
     const toSave = await synchronizationStrategy.shouldSave(entry, existingDocument)
     const toUpdate = await synchronizationStrategy.shouldUpdate(entry, existingDocument)
 
@@ -817,7 +817,7 @@ const synchronizeBills = async (cozy, entries, synchronizationStrategy) =&gt; {
 
 
 <p>Usage could be:</p>
-<pre class="codehilite"><code>synchronizeBills(cozy, entries, {
+<pre class="codehilite"><code class="language-jse">synchronizeBills(cozy, entries, {
   findLegacyDocument: (entry, cozy) =&gt; {
     return cozy.files.statByPath(getEntryPath(entry))
   },
