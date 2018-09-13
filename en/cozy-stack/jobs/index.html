@@ -1024,6 +1024,10 @@ Accept: application/vnd.api+json</code></pre>
 <h4 id="permissions_4">Permissions<a class="headerlink" href="#permissions_4" title="Permanent link">&para;</a></h4>
 <p>To use this endpoint, an application needs a permission on the type
 <code>io.cozy.triggers</code> for the verb <code>GET</code>.</p>
+<p>Also, for konnector trigger, any application sharing the same doctype
+permissions as the konnector launched by the trigger will be granted the
+permissions to fetch its state, even without permissions on the
+<code>io.cozy.triggers</code> doctype.</p>
 <h3 id="get-jobstriggerstrigger-idjobs">GET /jobs/triggers/:trigger-id/jobs<a class="headerlink" href="#get-jobstriggerstrigger-idjobs" title="Permanent link">&para;</a></h3>
 <p>Get the jobs launched by the trigger with the specified ID.</p>
 <p>Query parameters:</p>
@@ -1091,6 +1095,10 @@ Accept: application/vnd.api+json</code></pre>
 <h4 id="permissions_6">Permissions<a class="headerlink" href="#permissions_6" title="Permanent link">&para;</a></h4>
 <p>To use this endpoint, an application needs a permission on the type
 <code>io.cozy.triggers</code> for the verb <code>DELETE</code>.</p>
+<p>Also, for konnector trigger, any application sharing the same doctype
+permissions as the konnector launched by the trigger will be granted the
+permissions to delete the trigger, even without permissions on the
+<code>io.cozy.triggers</code> doctype.</p>
 <h3 id="get-jobstriggers">GET /jobs/triggers<a class="headerlink" href="#get-jobstriggers" title="Permanent link">&para;</a></h3>
 <p>Get the list of triggers.</p>
 <p>Query parameters:</p>
