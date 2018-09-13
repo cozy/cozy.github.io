@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-client/api/">
+        <link rel="shortcut icon" href="../../img/favicon.png">
+        
+        <title>API - Documentation</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+            <link href="../../css/extra.css" rel="stylesheet">
+            <link href="../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Documentation</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Install <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../install/">Install Cozy on your own server</a>
+</li>
+                            
+<li >
+    <a href="../../install/debian/">Debian</a>
+</li>
+                            
+<li >
+    <a href="../../install/manual/">Manual installation</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="/en/dev/">Let's hack some code</a>
+</li>
+                            
+<li >
+    <a href="/en/dev/connect-mobile-app-local-stack/">Connect a mobile app to your local stack</a>
+</li>
+                            
+<li >
+    <a href="/en/dev/intro/">Architecture</a>
+</li>
+                            
+<li >
+    <a href="/en/dev/app/">Create your first app</a>
+</li>
+                            
+<li >
+    <a href="/en/dev/konnector/">Develop a connector</a>
+</li>
+                            
+<li >
+    <a href="/en/dev/cordova/">Create a mobile app with cordova</a>
+</li>
+                            
+<li >
+    <a href="/en/dev/sendmail/">How to send mail in development</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">References</a>
+    <ul class="dropdown-menu">
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-client-js</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-client-js/README/">README</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/intro/">Introduction</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/browser-sdk-transition/">Transition from cozy-browser-sdk</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/offline/">How to support offline</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/oauth/">OAuth guide</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/auth-api/">Authentication API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/data-api/">Data System API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/files-api/">Files API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/jobs-api/">Jobs API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/intents-api/">Intents API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/settings-api/">Settings API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client-js/sharing-api/">Sharing API</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-doctypes</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-doctypes/docs/README/">README</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.accounts/">Accounts</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.photos.albums/">Albums</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bank/">Banking doctypes</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.bills/">Bills</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.konnectors/">Connectors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.contacts/">Contacts</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.files/">Files</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.notifications/">Notifications</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.payslips/">Payslips</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/">Remote requests</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/">Session logins</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.sharings/">Sharings</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.triggers/">Triggers</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-stack</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/README/">README</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Architecture</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/architecture/">General overview</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/security/">Security</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Usage</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/INSTALL/">Install the cozy-stack</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/cli/cozy-stack/">Manpages of the command-line tool</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/config/">Configuration file</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/instance/">Managing Instances</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/onboarding/">Onboarding</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">For developpers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/client-app-dev/">Develop a client-side app</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/docker/">Running and building Docker images</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/release/">Build a release</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/CONTRIBUTING/">The contributing guide</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Services</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/auth/">/auth - Authentication & OAuth</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/apps/">/apps - Applications Management</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/registry/">Apps registry</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/data-system/">/data - Data System</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/mango/">Mango</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/replication/">Replication</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/couchdb-quirks/">CouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/pouchdb-quirks/">PouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/files/">/files - Virtual File System</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/references-docs-in-vfs/">References of documents in VFS</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/intents/">/intents - Intents</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/jobs/">/jobs Jobs</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/konnectors/">Konnectors</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/workers/">Workers</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/move/">/move - Move, export and import an instance</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/notifications/">/notifications - Notifications</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/permissions/">/permissions - Permissions</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/realtime/">/realtime - Realtime</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/remote/">/remote - Proxy for remote data/API</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/settings/">/settings - Settings</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/sharing/">/sharings - Sharing</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/sharing-design/">Request for comments</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">konitor</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../konitor/cli/">CLI</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-app-publish</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-app-publish/README/">CLI & Workflow</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-client</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../guide/">Usage guide</a>
+</li>
+            
+<li class="active">
+    <a href="./">API</a>
+</li>
+            
+<li >
+    <a href="/en/dev/">Developing with cozy-client</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Synchronize <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../sync/linux/">Install Cozy Drive on GNU/Linux</a>
+</li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy.github.io/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3">
+<div class="bs-sidebar hidden-print affix" role="complementary">
+    <ul class="nav bs-sidenav well" style='padding-left: 0; padding-right: 0; margin-bottom: 1.5rem'>
+        <li class="main active"><a href="#modules">Modules</a></li>
+        <li class="main "><a href="#constants">Constants</a></li>
+        <li class="main "><a href="#functions">Functions</a></li>
+        <li class="main "><a href="#cozyclient">CozyClient</a></li>
+            <li><a href="#cozyclientcollectiondoctype-documentcollection">cozyClient.collection(doctype) ⇒ DocumentCollection</a></li>
+            <li><a href="#cozyclientgetdocumentsaveplandocument-relationships-arrayobject">cozyClient.getDocumentSavePlan(document, relationships) ⇒ Array.&lt;object&gt;</a></li>
+            <li><a href="#cozyclientregistercozyurl-object">cozyClient.register(cozyURL) ⇒ object</a></li>
+            <li><a href="#cozyclientstartoauthflowopenurlcallback-object">cozyClient.startOAuthFlow(openURLCallback) ⇒ object</a></li>
+            <li><a href="#cozyclientrenewauthorization-object">cozyClient.renewAuthorization() ⇒ object</a></li>
+            <li><a href="#cozyclientsetdatadata">cozyClient.setData(data)</a></li>
+        <li class="main "><a href="#appcollection">AppCollection</a></li>
+            <li><a href="#appcollectionall-object">appCollection.all() ⇒ Object</a></li>
+        <li class="main "><a href="#cozystackclient">CozyStackClient</a></li>
+            <li><a href="#cozystackclientcollectiondoctype-documentcollection">cozyStackClient.collection(doctype) ⇒ DocumentCollection</a></li>
+            <li><a href="#cozystackclientfetchmethod-path-body-options-object">cozyStackClient.fetch(method, path, body, options) ⇒ Object</a></li>
+        <li class="main "><a href="#documentcollection">DocumentCollection</a></li>
+            <li><a href="#documentcollectionalloptions-object">documentCollection.all(options) ⇒ Object</a></li>
+            <li><a href="#documentcollectionfindselector-options-object">documentCollection.find(selector, options) ⇒ Object</a></li>
+            <li><a href="#documentcollectiongetindexfieldsoptions-array">documentCollection.getIndexFields(options) ⇒ Array</a></li>
+        <li class="main "><a href="#filecollection">FileCollection</a></li>
+            <li><a href="#filecollectionfindselector-options-object">fileCollection.find(selector, options) ⇒ Object</a></li>
+            <li><a href="#filecollectionfindreferencedbydocument-limit-object">fileCollection.findReferencedBy(document, {, limit) ⇒ object</a></li>
+        <li class="main "><a href="#oauthclient">OAuthClient</a></li>
+            <li><a href="#oauthclientregister-promise">oAuthClient.register() ⇒ promise</a></li>
+            <li><a href="#oauthclientunregister-promise">oAuthClient.unregister() ⇒ promise</a></li>
+            <li><a href="#oauthclientfetchinformation-promise">oAuthClient.fetchInformation() ⇒ promise</a></li>
+            <li><a href="#oauthclientupdateinformationinformation-resetsecret-promise">oAuthClient.updateInformation(information, resetSecret) ⇒ promise</a></li>
+            <li><a href="#oauthclientgeneratestatecode-string">oAuthClient.generateStateCode() ⇒ string</a></li>
+            <li><a href="#oauthclientgetauthcodeurlstatecode-scopes-string">oAuthClient.getAuthCodeURL(stateCode, scopes) ⇒ string</a></li>
+            <li><a href="#oauthclientgetaccesscodefromurlpageurl-statecode-string">oAuthClient.getAccessCodeFromURL(pageURL, stateCode) ⇒ string</a></li>
+            <li><a href="#oauthclientfetchaccesstokenaccesscode-promise">oAuthClient.fetchAccessToken(accessCode) ⇒ Promise</a></li>
+            <li><a href="#oauthclientrefreshtoken-promise">oAuthClient.refreshToken() ⇒ Promise</a></li>
+            <li><a href="#oauthclientsetcredentialstoken">oAuthClient.setCredentials(token)</a></li>
+            <li><a href="#oauthclientsetoauthoptionsoptions">oAuthClient.setOAuthOptions(options)</a></li>
+        <li class="main "><a href="#permissioncollection">PermissionCollection</a></li>
+            <li><a href="#permissioncollectiongetownpermissions-object">permissionCollection.getOwnPermissions() ⇒ object</a></li>
+        <li class="main "><a href="#sharingcollection">SharingCollection</a></li>
+            <li><a href="#sharingcollectionsharedocument-recipients-sharingtype-description-previewpath">sharingCollection.share(document, recipients, sharingType, description, [previewPath])</a></li>
+            <li><a href="#sharingcollectiongetdiscoverylinksharingid-sharecode-string">sharingCollection.getDiscoveryLink(sharingId, sharecode) ⇒ string</a></li>
+        <li class="main "><a href="#encode">encode</a></li>
+        <li class="main "><a href="#buildurl">buildURL</a></li>
+        <li class="main "><a href="#withclientcomponent-function">withClient(Component) ⇒ function</a></li>
+        <li class="main "><a href="#queryconnectqueryspecs-function">queryConnect(querySpecs) ⇒ function</a></li>
+        <li class="main "><a href="#startreplicationloop">startReplicationLoop()</a></li>
+        <li class="main "><a href="#stopreplicationloop">stopReplicationLoop()</a></li>
+        <li class="main "><a href="#replicateonce">replicateOnce()</a></li>
+        <li class="main "><a href="#defaultselectoroptions-array">defaultSelector(options) ⇒ Array</a></li>
+        <li class="main "><a href="#setintervalpromise">setIntervalPromise()</a></li>
+        <li class="main "><a href="#uri">uri()</a></li>
+        <li class="main "><a href="#attempt">attempt()</a></li>
+        <li class="main "><a href="#sleep">sleep()</a></li>
+    </ul>
+  <div style='padding-left: 2rem'>
+    
+    <a id='edit-link' href='https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-client/api.md'>Edit documentation</a>
+    <script type='text/javascript'>
+        /* Here we detect if the current page is from an external documentation and we 
+        change the href of the editing link so it goes to the right repository and file */
+        const outsideDocs = [{"repo": "https://github.com/cozy/cozy-client-js.git", "name": "cozy-client-js", "subdir": "docs"}, {"repo": "https://github.com/konnectors/libs.git", "name": "cozy-konnector-libs", "subdir": "packages/cozy-konnector-libs/docs"}, {"repo": "https://github.com/cozy/cozy-doctypes.git", "name": "cozy-doctypes", "subdir": "."}, {"repo": "https://github.com/cozy/cozy-stack.git", "name": "cozy-stack", "subdir": "docs"}, {"repo": "https://github.com/konnectors/konitor.git", "name": "konitor", "subdir": "docs"}, {"repo": "https://github.com/cozy/cozy-app-publish.git", "name": "cozy-app-publish", "subdir": "."}, {"repo": "https://github.com/cozy/cozy-client.git", "name": "cozy-client", "subdir": "docs"}]
+        const editNode = document.querySelector('#edit-link')
+        const pathname = window.location.pathname
+        const editURI = 'edit/master/'
+        const removeGitSuffix = function (x) { return x.replace(/\.git$/, '') }
+
+        // Returns the external repo associated to a pathname
+        const detectExternalRepo = function (pathname) {
+            for (var outsideDoc of outsideDocs) {
+                if (window.location.pathname.includes('/' + outsideDoc.name + '/')) {
+                    return outsideDoc
+                }
+            }
+        }
+
+        // Change the href attribute of a link to point to the correct edition page on GitHub
+        // for the passed external documentation
+        const fixEditLink = function (editNode, externalDoc) {
+            const repoFile = pathname.replace('/en/' + externalDoc.name, '').replace(/\/$/, '.md')
+            const baseRepo = removeGitSuffix(externalDoc.repo)
+            editNode.href = baseRepo + '/' + editURI + externalDoc.subdir + repoFile
+        }
+
+        const externalRepo = detectExternalRepo(pathname)
+        if (externalRepo) {
+            fixEditLink(editNode, externalRepo)
+        }
+    </script>
+    
+  </div>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h2 id="modules">Modules<a class="headerlink" href="#modules" title="Permanent link">&para;</a></h2>
+<dl>
+<dt><a href="#module_CozyClient">CozyClient</a></dt>
+<dd></dd>
+<dt><a href="#module_AppCollection">AppCollection</a></dt>
+<dd></dd>
+<dt><a href="#module_CozyStackClient">CozyStackClient</a></dt>
+<dd></dd>
+<dt><a href="#module_DocumentCollection">DocumentCollection</a></dt>
+<dd><p>Abstracts a collection of documents of the same doctype, providing CRUD methods and other helpers.</p>
+</dd>
+<dt><a href="#module_FileCollection">FileCollection</a></dt>
+<dd><p>Abstracts a collection of files</p>
+<p>Files are a special type of documents and are handled differently by the stack:
+special routes are to be used, and there is a notion of referenced files, aka
+files associated to a specific document</p>
+</dd>
+<dt><a href="#module_OAuthClient">OAuthClient</a></dt>
+<dd></dd>
+<dt><a href="#module_PermissionCollection">PermissionCollection</a></dt>
+<dd><p>Interact with permissions</p>
+</dd>
+<dt><a href="#module_SharingCollection">SharingCollection</a></dt>
+<dd><p>Interact with sharing doctypes</p>
+</dd>
+</dl>
+
+<h2 id="constants">Constants<a class="headerlink" href="#constants" title="Permanent link">&para;</a></h2>
+<dl>
+<dt><a href="#encode">encode</a></dt>
+<dd><p>Encode an object as querystring, values are encoded as
+URI components, keys are not.</p>
+</dd>
+<dt><a href="#buildURL">buildURL</a></dt>
+<dd><p>Returns a URL from base url and a query parameter object.
+Any undefined parameter is removed.</p>
+</dd>
+</dl>
+
+<h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
+<dl>
+<dt><a href="#withClient">withClient(Component)</a> ⇒ <code>function</code></dt>
+<dd><p>HOC to provide client from context as prop</p>
+</dd>
+<dt><a href="#queryConnect">queryConnect(querySpecs)</a> ⇒ <code>function</code></dt>
+<dd><p>HOC creator to connect component to several queries in a declarative manner</p>
+</dd>
+<dt><a href="#startReplicationLoop">startReplicationLoop()</a></dt>
+<dd><p>Starts periodic syncing of the pouches</p>
+</dd>
+<dt><a href="#stopReplicationLoop">stopReplicationLoop()</a></dt>
+<dd><p>Stop periodic syncing of the pouches</p>
+</dd>
+<dt><a href="#replicateOnce">replicateOnce()</a></dt>
+<dd><p>Starts replication</p>
+</dd>
+<dt><a href="#defaultSelector">defaultSelector(options)</a> ⇒ <code>Array</code></dt>
+<dd><p>Compute fields that should be indexed for a mango
+query to work</p>
+</dd>
+<dt><a href="#setIntervalPromise">setIntervalPromise()</a></dt>
+<dd><p>Will periodically run a function so that when the promise
+is resolved, the next function is called after <delay>ms.</p>
+<p>Returns a function which cancels the periodic calling.
+When canceled, if there is an ongoing promise, it will
+continue.</p>
+</dd>
+<dt><a href="#uri">uri()</a></dt>
+<dd><p>Template tag function for URIs encoding</p>
+<p>Will automatically apply <code>encodeURIComponent</code> to template literal placeholders</p>
+</dd>
+<dt><a href="#attempt">attempt()</a></dt>
+<dd><p>Helps to avoid nested try/catch when using async/await</p>
+<p>Inspired by a Go pattern: <a href="http://blog.grossman.io/how-to-write-async-await-without-try-catch-blocks-in-javascript/">http://blog.grossman.io/how-to-write-async-await-without-try-catch-blocks-in-javascript/</a></p>
+</dd>
+<dt><a href="#sleep">sleep()</a></dt>
+<dd><p>Helps to avoid nested try/catch when using async/await — see documentation for attemp</p>
+</dd>
+</dl>
+
+<p><a name="module_CozyClient"></a></p>
+<h2 id="cozyclient">CozyClient<a class="headerlink" href="#cozyclient" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#module_CozyClient">CozyClient</a><ul>
+<li><a href="#module_CozyClient+collection">.collection(doctype)</a> ⇒ <code>DocumentCollection</code></li>
+<li><a href="#module_CozyClient+getDocumentSavePlan">.getDocumentSavePlan(document, relationships)</a> ⇒ <code>Array.&lt;object&gt;</code></li>
+<li><a href="#module_CozyClient+register">.register(cozyURL)</a> ⇒ <code>object</code></li>
+<li><a href="#module_CozyClient+startOAuthFlow">.startOAuthFlow(openURLCallback)</a> ⇒ <code>object</code></li>
+<li><a href="#module_CozyClient+renewAuthorization">.renewAuthorization()</a> ⇒ <code>object</code></li>
+<li><a href="#module_CozyClient+setData">.setData(data)</a></li>
+</ul>
+</li>
+</ul>
+<p><a name="module_CozyClient+collection"></a></p>
+<h3 id="cozyclientcollectiondoctype-documentcollection">cozyClient.collection(doctype) ⇒ <code>DocumentCollection</code><a class="headerlink" href="#cozyclientcollectiondoctype-documentcollection" title="Permanent link">&para;</a></h3>
+<p>Forwards to a stack client instance and returns
+a <a href="../DocumentCollection">DocumentCollection</a> instance.</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_CozyClient"><code>CozyClient</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>doctype</td>
+<td><code>String</code></td>
+<td>The collection doctype.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_CozyClient+getDocumentSavePlan"></a></p>
+<h3 id="cozyclientgetdocumentsaveplandocument-relationships-arrayobject">cozyClient.getDocumentSavePlan(document, relationships) ⇒ <code>Array.&lt;object&gt;</code><a class="headerlink" href="#cozyclientgetdocumentsaveplandocument-relationships-arrayobject" title="Permanent link">&para;</a></h3>
+<p>getDocumentSavePlan - Creates a list of mutations to execute to create a document and its relationships.</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_CozyClient"><code>CozyClient</code></a><br />
+<strong>Returns</strong>: <code>Array.&lt;object&gt;</code> - One or more mutation to execute  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>document</td>
+<td><code>object</code></td>
+<td>The base document to create</td>
+</tr>
+<tr>
+<td>relationships</td>
+<td><code>object</code></td>
+<td>The list of relationships to add, as a dictionnary. Keys should be relationship names and values the documents to link.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong>  </p>
+<pre class="codehilite"><code class="language-js">const baseDoc = { _type: 'io.cozy.todo', label: 'Go hiking' }
+// relations can be arrays or single objects
+const relationships = {
+  attachments: [{ _id: 12345, _type: 'io.cozy.files' }, { _id: 6789, _type: 'io.cozy.files' }],
+  bills: { _id: 9999, _type: 'io.cozy.bills' }
+}
+client.getDocumentSavePlan(baseDoc, relationships)</code></pre>
+
+
+<p><a name="module_CozyClient+register"></a></p>
+<h3 id="cozyclientregistercozyurl-object">cozyClient.register(cozyURL) ⇒ <code>object</code><a class="headerlink" href="#cozyclientregistercozyurl-object" title="Permanent link">&para;</a></h3>
+<p>Performs a complete OAuth flow using a Cordova webview for auth.
+The <code>register</code> method&rsquo;s name has been chosen for compat reasons with the Authentication compo.</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_CozyClient"><code>CozyClient</code></a><br />
+<strong>Returns</strong>: <code>object</code> - Contains the fetched token and the client information.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cozyURL</td>
+<td><code>string</code></td>
+<td>Receives the URL of the cozy instance.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_CozyClient+startOAuthFlow"></a></p>
+<h3 id="cozyclientstartoauthflowopenurlcallback-object">cozyClient.startOAuthFlow(openURLCallback) ⇒ <code>object</code><a class="headerlink" href="#cozyclientstartoauthflowopenurlcallback-object" title="Permanent link">&para;</a></h3>
+<p>Performs a complete OAuth flow, including upating the internal token at the end.</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_CozyClient"><code>CozyClient</code></a><br />
+<strong>Returns</strong>: <code>object</code> - Contains the fetched token and the client information. These should be stored and used to restore the client.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>openURLCallback</td>
+<td><code>function</code></td>
+<td>Receives the URL to present to the user as a parameter, and should return a promise that resolves with the URL the user was redirected to after accepting the permissions.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_CozyClient+renewAuthorization"></a></p>
+<h3 id="cozyclientrenewauthorization-object">cozyClient.renewAuthorization() ⇒ <code>object</code><a class="headerlink" href="#cozyclientrenewauthorization-object" title="Permanent link">&para;</a></h3>
+<p>Renews the token if, for instance, new permissions are required.</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_CozyClient"><code>CozyClient</code></a><br />
+<strong>Returns</strong>: <code>object</code> - Contains the fetched token and the client information.<br />
+<a name="module_CozyClient+setData"></a></p>
+<h3 id="cozyclientsetdatadata">cozyClient.setData(data)<a class="headerlink" href="#cozyclientsetdatadata" title="Permanent link">&para;</a></h3>
+<p>Directly set the data in the store, without using a query
+This is useful for cases like Pouch replication, which wants to
+set some data in the store.</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_CozyClient"><code>CozyClient</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td><code>Object</code></td>
+<td _data_="[data]" doctype:="doctype:"></td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_AppCollection"></a></p>
+<h2 id="appcollection">AppCollection<a class="headerlink" href="#appcollection" title="Permanent link">&para;</a></h2>
+<p><a name="module_AppCollection+all"></a></p>
+<h3 id="appcollectionall-object">appCollection.all() ⇒ <code>Object</code><a class="headerlink" href="#appcollectionall-object" title="Permanent link">&para;</a></h3>
+<p>Lists all apps, without filters.</p>
+<p>The returned documents are not paginated by the stack.</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_AppCollection"><code>AppCollection</code></a><br />
+<strong>Returns</strong>: <code>Object</code> - The JSON API conformant response.<br />
+<strong>Throws</strong>:</p>
+<ul>
+<li><code>FetchError</code> </li>
+</ul>
+<p><a name="module_CozyStackClient"></a></p>
+<h2 id="cozystackclient">CozyStackClient<a class="headerlink" href="#cozystackclient" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#module_CozyStackClient">CozyStackClient</a><ul>
+<li><a href="#module_CozyStackClient+collection">.collection(doctype)</a> ⇒ <code>DocumentCollection</code></li>
+<li><a href="#module_CozyStackClient+fetch">.fetch(method, path, body, options)</a> ⇒ <code>Object</code></li>
+</ul>
+</li>
+</ul>
+<p><a name="module_CozyStackClient+collection"></a></p>
+<h3 id="cozystackclientcollectiondoctype-documentcollection">cozyStackClient.collection(doctype) ⇒ <code>DocumentCollection</code><a class="headerlink" href="#cozystackclientcollectiondoctype-documentcollection" title="Permanent link">&para;</a></h3>
+<p>Creates a <a href="../DocumentCollection">DocumentCollection</a> instance.</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_CozyStackClient"><code>CozyStackClient</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>doctype</td>
+<td><code>String</code></td>
+<td>The collection doctype.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_CozyStackClient+fetch"></a></p>
+<h3 id="cozystackclientfetchmethod-path-body-options-object">cozyStackClient.fetch(method, path, body, options) ⇒ <code>Object</code><a class="headerlink" href="#cozystackclientfetchmethod-path-body-options-object" title="Permanent link">&para;</a></h3>
+<p>Fetches JSON in an authorized way.</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_CozyStackClient"><code>CozyStackClient</code></a><br />
+<strong>Throws</strong>:</p>
+<ul>
+<li><code>FetchError</code> </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>method</td>
+<td><code>String</code></td>
+<td>The HTTP method.</td>
+</tr>
+<tr>
+<td>path</td>
+<td><code>String</code></td>
+<td>The URI.</td>
+</tr>
+<tr>
+<td>body</td>
+<td><code>Object</code></td>
+<td>The payload.</td>
+</tr>
+<tr>
+<td>options</td>
+<td><code>Object</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_DocumentCollection"></a></p>
+<h2 id="documentcollection">DocumentCollection<a class="headerlink" href="#documentcollection" title="Permanent link">&para;</a></h2>
+<p>Abstracts a collection of documents of the same doctype, providing CRUD methods and other helpers.</p>
+<ul>
+<li><a href="#module_DocumentCollection">DocumentCollection</a><ul>
+<li><a href="#module_DocumentCollection+all">.all(options)</a> ⇒ <code>Object</code></li>
+<li><a href="#module_DocumentCollection+find">.find(selector, options)</a> ⇒ <code>Object</code></li>
+<li><a href="#module_DocumentCollection+getIndexFields">.getIndexFields(options)</a> ⇒ <code>Array</code></li>
+</ul>
+</li>
+</ul>
+<p><a name="module_DocumentCollection+all"></a></p>
+<h3 id="documentcollectionalloptions-object">documentCollection.all(options) ⇒ <code>Object</code><a class="headerlink" href="#documentcollectionalloptions-object" title="Permanent link">&para;</a></h3>
+<p>Lists all documents of the collection, without filters.</p>
+<p>The returned documents are paginated by the stack.</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_DocumentCollection"><code>DocumentCollection</code></a><br />
+<strong>Returns</strong>: <code>Object</code> - The JSON API conformant response.<br />
+<strong>Throws</strong>:</p>
+<ul>
+<li><code>FetchError</code> </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>options</td>
+<td><code>Object</code></td>
+<td>The fetch options: pagination &amp; fetch of specific docs.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_DocumentCollection+find"></a></p>
+<h3 id="documentcollectionfindselector-options-object">documentCollection.find(selector, options) ⇒ <code>Object</code><a class="headerlink" href="#documentcollectionfindselector-options-object" title="Permanent link">&para;</a></h3>
+<p>Returns a filtered list of documents using a Mango selector.</p>
+<p>The returned documents are paginated by the stack.</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_DocumentCollection"><code>DocumentCollection</code></a><br />
+<strong>Returns</strong>: <code>Object</code> - The JSON API conformant response.<br />
+<strong>Throws</strong>:</p>
+<ul>
+<li><code>FetchError</code> </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>selector</td>
+<td><code>Object</code></td>
+<td>The Mango selector.</td>
+</tr>
+<tr>
+<td>options</td>
+<td><code>Object</code></td>
+<td>The query options.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_DocumentCollection+getIndexFields"></a></p>
+<h3 id="documentcollectiongetindexfieldsoptions-array">documentCollection.getIndexFields(options) ⇒ <code>Array</code><a class="headerlink" href="#documentcollectiongetindexfieldsoptions-array" title="Permanent link">&para;</a></h3>
+<p>Compute fields that should be indexed for a mango
+query to work</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_DocumentCollection"><code>DocumentCollection</code></a><br />
+<strong>Returns</strong>: <code>Array</code> - - Fields to index  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>options</td>
+<td><code>Object</code></td>
+<td>Mango query options</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_FileCollection"></a></p>
+<h2 id="filecollection">FileCollection<a class="headerlink" href="#filecollection" title="Permanent link">&para;</a></h2>
+<p>Abstracts a collection of files</p>
+<p>Files are a special type of documents and are handled differently by the stack:
+special routes are to be used, and there is a notion of referenced files, aka
+files associated to a specific document</p>
+<ul>
+<li><a href="#module_FileCollection">FileCollection</a><ul>
+<li><a href="#module_FileCollection+find">.find(selector, options)</a> ⇒ <code>Object</code></li>
+<li><a href="#module_FileCollection+findReferencedBy">.findReferencedBy(document, {, limit)</a> ⇒ <code>object</code></li>
+</ul>
+</li>
+</ul>
+<p><a name="module_FileCollection+find"></a></p>
+<h3 id="filecollectionfindselector-options-object">fileCollection.find(selector, options) ⇒ <code>Object</code><a class="headerlink" href="#filecollectionfindselector-options-object" title="Permanent link">&para;</a></h3>
+<p>Returns a filtered list of documents using a Mango selector.</p>
+<p>The returned documents are paginated by the stack.</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_FileCollection"><code>FileCollection</code></a><br />
+<strong>Returns</strong>: <code>Object</code> - The JSON API conformant response.<br />
+<strong>Throws</strong>:</p>
+<ul>
+<li><code>FetchError</code> </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>selector</td>
+<td><code>Object</code></td>
+<td>The Mango selector.</td>
+</tr>
+<tr>
+<td>options</td>
+<td><code>Object</code></td>
+<td>The query options.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_FileCollection+findReferencedBy"></a></p>
+<h3 id="filecollectionfindreferencedbydocument-limit-object">fileCollection.findReferencedBy(document, {, limit) ⇒ <code>object</code><a class="headerlink" href="#filecollectionfindreferencedbydocument-limit-object" title="Permanent link">&para;</a></h3>
+<p>async findReferencedBy - Returns the list of files referenced by a document — see https://docs.cozy.io/en/cozy-stack/references-docs-in-vfs/</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_FileCollection"><code>FileCollection</code></a><br />
+<strong>Returns</strong>: <code>object</code> - The JSON API conformant response.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>document</td>
+<td><code>object</code></td>
+<td>A JSON representing a document, with at least a <code>_type</code> and <code>_id</code> field.</td>
+</tr>
+<tr>
+<td>{</td>
+<td><code>number</code></td>
+<td>skip = 0   For pagination, the number of referenced files to skip</td>
+</tr>
+<tr>
+<td>limit</td>
+<td><code>number</code></td>
+<td>} For pagination, the number of results to return.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_OAuthClient"></a></p>
+<h2 id="oauthclient">OAuthClient<a class="headerlink" href="#oauthclient" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#module_OAuthClient">OAuthClient</a><ul>
+<li><a href="#module_OAuthClient+register">.register()</a> ⇒ <code>promise</code></li>
+<li><a href="#module_OAuthClient+unregister">.unregister()</a> ⇒ <code>promise</code></li>
+<li><a href="#module_OAuthClient+fetchInformation">.fetchInformation()</a> ⇒ <code>promise</code></li>
+<li><a href="#module_OAuthClient+updateInformation">.updateInformation(information, resetSecret)</a> ⇒ <code>promise</code></li>
+<li><a href="#module_OAuthClient+generateStateCode">.generateStateCode()</a> ⇒ <code>string</code></li>
+<li><a href="#module_OAuthClient+getAuthCodeURL">.getAuthCodeURL(stateCode, scopes)</a> ⇒ <code>string</code></li>
+<li><a href="#module_OAuthClient+getAccessCodeFromURL">.getAccessCodeFromURL(pageURL, stateCode)</a> ⇒ <code>string</code></li>
+<li><a href="#module_OAuthClient+fetchAccessToken">.fetchAccessToken(accessCode)</a> ⇒ <code>Promise</code></li>
+<li><a href="#module_OAuthClient+refreshToken">.refreshToken()</a> ⇒ <code>Promise</code></li>
+<li><a href="#module_OAuthClient+setCredentials">.setCredentials(token)</a></li>
+<li><a href="#module_OAuthClient+setOAuthOptions">.setOAuthOptions(options)</a></li>
+</ul>
+</li>
+</ul>
+<p><a name="module_OAuthClient+register"></a></p>
+<h3 id="oauthclientregister-promise">oAuthClient.register() ⇒ <code>promise</code><a class="headerlink" href="#oauthclientregister-promise" title="Permanent link">&para;</a></h3>
+<p>Registers the currenly configured client with the OAuth server.</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_OAuthClient"><code>OAuthClient</code></a><br />
+<strong>Returns</strong>: <code>promise</code> - A promise that resolves with a complete list of client information, including client ID and client secret.<br />
+<strong>Throws</strong>:</p>
+<ul>
+<li><code>Error</code> When the client is already registered</li>
+</ul>
+<p><a name="module_OAuthClient+unregister"></a></p>
+<h3 id="oauthclientunregister-promise">oAuthClient.unregister() ⇒ <code>promise</code><a class="headerlink" href="#oauthclientunregister-promise" title="Permanent link">&para;</a></h3>
+<p>Unregisters the currenly configured client with the OAuth server.</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_OAuthClient"><code>OAuthClient</code></a><br />
+<strong>Throws</strong>:</p>
+<ul>
+<li><code>NotRegisteredException</code> When the client doesn&rsquo;t have it&rsquo;s registration information</li>
+</ul>
+<p><a name="module_OAuthClient+fetchInformation"></a></p>
+<h3 id="oauthclientfetchinformation-promise">oAuthClient.fetchInformation() ⇒ <code>promise</code><a class="headerlink" href="#oauthclientfetchinformation-promise" title="Permanent link">&para;</a></h3>
+<p>Fetches the complete set of client information from the server after it has been registered.</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_OAuthClient"><code>OAuthClient</code></a><br />
+<strong>Throws</strong>:</p>
+<ul>
+<li><code>NotRegisteredException</code> When the client doesn&rsquo;t have it&rsquo;s registration information</li>
+</ul>
+<p><a name="module_OAuthClient+updateInformation"></a></p>
+<h3 id="oauthclientupdateinformationinformation-resetsecret-promise">oAuthClient.updateInformation(information, resetSecret) ⇒ <code>promise</code><a class="headerlink" href="#oauthclientupdateinformationinformation-resetsecret-promise" title="Permanent link">&para;</a></h3>
+<p>Overwrites the client own information. This method will update both the local information and the remote information on the OAuth server.</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_OAuthClient"><code>OAuthClient</code></a><br />
+<strong>Returns</strong>: <code>promise</code> - A promise that resolves to a complete, updated list of client information<br />
+<strong>Throws</strong>:</p>
+<ul>
+<li><code>NotRegisteredException</code> When the client doesn&rsquo;t have it&rsquo;s registration information</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>information</td>
+<td><code>object</code></td>
+<td></td>
+<td>Set of information to update. Note that some fields such as <code>clientID</code> can&rsquo;t be updated.</td>
+</tr>
+<tr>
+<td>resetSecret</td>
+<td><code>boolean</code></td>
+<td><code>false</code></td>
+<td>= false Optionnal, whether to reset the client secret or not</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_OAuthClient+generateStateCode"></a></p>
+<h3 id="oauthclientgeneratestatecode-string">oAuthClient.generateStateCode() ⇒ <code>string</code><a class="headerlink" href="#oauthclientgeneratestatecode-string" title="Permanent link">&para;</a></h3>
+<p>Generates a random state code to be used during the OAuth process</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_OAuthClient"><code>OAuthClient</code></a><br />
+<a name="module_OAuthClient+getAuthCodeURL"></a></p>
+<h3 id="oauthclientgetauthcodeurlstatecode-scopes-string">oAuthClient.getAuthCodeURL(stateCode, scopes) ⇒ <code>string</code><a class="headerlink" href="#oauthclientgetauthcodeurlstatecode-scopes-string" title="Permanent link">&para;</a></h3>
+<p>Generates the URL that the user should be sent to in order to accept the app&rsquo;s permissions.</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_OAuthClient"><code>OAuthClient</code></a><br />
+<strong>Returns</strong>: <code>string</code> - The URL<br />
+<strong>Throws</strong>:</p>
+<ul>
+<li><code>NotRegisteredException</code> When the client doesn&rsquo;t have it&rsquo;s registration information</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stateCode</td>
+<td><code>string</code></td>
+<td>A random code to be included in the URl for security. Can be generated with <code>client.generateStateCode()</code></td>
+</tr>
+<tr>
+<td>scopes</td>
+<td><code>Array</code></td>
+<td>= [] An array of permission scopes for the token.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_OAuthClient+getAccessCodeFromURL"></a></p>
+<h3 id="oauthclientgetaccesscodefromurlpageurl-statecode-string">oAuthClient.getAccessCodeFromURL(pageURL, stateCode) ⇒ <code>string</code><a class="headerlink" href="#oauthclientgetaccesscodefromurlpageurl-statecode-string" title="Permanent link">&para;</a></h3>
+<p>Retrieves the access code contained in the URL to which the user is redirected after accepting the app&rsquo;s permissions (the <code>redirectURI</code>).</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_OAuthClient"><code>OAuthClient</code></a><br />
+<strong>Returns</strong>: <code>string</code> - The access code<br />
+<strong>Throws</strong>:</p>
+<ul>
+<li><code>Error</code> The URL should contain the same state code as the one generated with <code>client.getAuthCodeURL()</code>. If not, it will throw an error</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pageURL</td>
+<td><code>string</code></td>
+<td>The redirected page URL, containing the state code and the access code</td>
+</tr>
+<tr>
+<td>stateCode</td>
+<td><code>string</code></td>
+<td>The state code that was contained in the original URL the user was sent to (see <code>client.getAuthCodeURL()</code>)</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_OAuthClient+fetchAccessToken"></a></p>
+<h3 id="oauthclientfetchaccesstokenaccesscode-promise">oAuthClient.fetchAccessToken(accessCode) ⇒ <code>Promise</code><a class="headerlink" href="#oauthclientfetchaccesstokenaccesscode-promise" title="Permanent link">&para;</a></h3>
+<p>Exchanges an access code for an access token. This function does <strong>not</strong> update the client&rsquo;s token.</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_OAuthClient"><code>OAuthClient</code></a><br />
+<strong>Returns</strong>: <code>Promise</code> - A promise that resolves with an AccessToken object.<br />
+<strong>Throws</strong>:</p>
+<ul>
+<li><code>NotRegisteredException</code> When the client doesn&rsquo;t have it&rsquo;s registration information</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>accessCode</td>
+<td><code>string</code></td>
+<td>The access code contained in the redirection URL — sett <code>client.getAccessCodeFromURL()</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_OAuthClient+refreshToken"></a></p>
+<h3 id="oauthclientrefreshtoken-promise">oAuthClient.refreshToken() ⇒ <code>Promise</code><a class="headerlink" href="#oauthclientrefreshtoken-promise" title="Permanent link">&para;</a></h3>
+<p>Retrieves a new access token by refreshing the currently used token.</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_OAuthClient"><code>OAuthClient</code></a><br />
+<strong>Returns</strong>: <code>Promise</code> - A promise that resolves with a new AccessToen object<br />
+<strong>Throws</strong>:</p>
+<ul>
+<li><code>NotRegisteredException</code> When the client doesn&rsquo;t have it&rsquo;s registration information</li>
+<li><code>Error</code> The client should already have an access token to use this function</li>
+</ul>
+<p><a name="module_OAuthClient+setCredentials"></a></p>
+<h3 id="oauthclientsetcredentialstoken">oAuthClient.setCredentials(token)<a class="headerlink" href="#oauthclientsetcredentialstoken" title="Permanent link">&para;</a></h3>
+<p>Updates the client&rsquo;s stored token</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_OAuthClient"><code>OAuthClient</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>token</td>
+<td><code>string</code></td>
+<td>= null The new token to use — can be a string, a json object or an AccessToken instance.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_OAuthClient+setOAuthOptions"></a></p>
+<h3 id="oauthclientsetoauthoptionsoptions">oAuthClient.setOAuthOptions(options)<a class="headerlink" href="#oauthclientsetoauthoptionsoptions" title="Permanent link">&para;</a></h3>
+<p>Updates the OAuth informations</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_OAuthClient"><code>OAuthClient</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>options</td>
+<td><code>object</code></td>
+<td>Map of OAuth options</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_PermissionCollection"></a></p>
+<h2 id="permissioncollection">PermissionCollection<a class="headerlink" href="#permissioncollection" title="Permanent link">&para;</a></h2>
+<p>Interact with permissions</p>
+<p><a name="module_PermissionCollection+getOwnPermissions"></a></p>
+<h3 id="permissioncollectiongetownpermissions-object">permissionCollection.getOwnPermissions() ⇒ <code>object</code><a class="headerlink" href="#permissioncollectiongetownpermissions-object" title="Permanent link">&para;</a></h3>
+<p>async getOwnPermissions - Gets the permission for the current token</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_PermissionCollection"><code>PermissionCollection</code></a><br />
+<a name="module_SharingCollection"></a></p>
+<h2 id="sharingcollection">SharingCollection<a class="headerlink" href="#sharingcollection" title="Permanent link">&para;</a></h2>
+<p>Interact with sharing doctypes</p>
+<ul>
+<li><a href="#module_SharingCollection">SharingCollection</a><ul>
+<li><a href="#module_SharingCollection+share">.share(document, recipients, sharingType, description, [previewPath])</a></li>
+<li><a href="#module_SharingCollection+getDiscoveryLink">.getDiscoveryLink(sharingId, sharecode)</a> ⇒ <code>string</code></li>
+</ul>
+</li>
+</ul>
+<p><a name="module_SharingCollection+share"></a></p>
+<h3 id="sharingcollectionsharedocument-recipients-sharingtype-description-previewpath">sharingCollection.share(document, recipients, sharingType, description, [previewPath])<a class="headerlink" href="#sharingcollectionsharedocument-recipients-sharingtype-description-previewpath" title="Permanent link">&para;</a></h3>
+<p>share - Creates a new sharing. See https://docs.cozy.io/en/cozy-stack/sharing/#post-sharings</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_SharingCollection"><code>SharingCollection</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>document</td>
+<td><code>object</code></td>
+<td></td>
+<td>The document to share. Should have and _id and a name.</td>
+</tr>
+<tr>
+<td>recipients</td>
+<td><code>array</code></td>
+<td></td>
+<td>A list of io.cozy.contacts</td>
+</tr>
+<tr>
+<td>sharingType</td>
+<td><code>string</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>description</td>
+<td><code>string</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>[previewPath]</td>
+<td><code>string</code></td>
+<td><code>null</code></td>
+<td>Relative URL of the sharings preview page</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_SharingCollection+getDiscoveryLink"></a></p>
+<h3 id="sharingcollectiongetdiscoverylinksharingid-sharecode-string">sharingCollection.getDiscoveryLink(sharingId, sharecode) ⇒ <code>string</code><a class="headerlink" href="#sharingcollectiongetdiscoverylinksharingid-sharecode-string" title="Permanent link">&para;</a></h3>
+<p>getDiscoveryLink - Returns the URL of the page that can be used to accept a sharing. See https://docs.cozy.io/en/cozy-stack/sharing/#get-sharingssharing-iddiscovery</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_SharingCollection"><code>SharingCollection</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sharingId</td>
+<td><code>string</code></td>
+</tr>
+<tr>
+<td>sharecode</td>
+<td><code>string</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="encode"></a></p>
+<h2 id="encode">encode<a class="headerlink" href="#encode" title="Permanent link">&para;</a></h2>
+<p>Encode an object as querystring, values are encoded as
+URI components, keys are not.</p>
+<p><strong>Kind</strong>: global constant<br />
+<a name="buildURL"></a></p>
+<h2 id="buildurl">buildURL<a class="headerlink" href="#buildurl" title="Permanent link">&para;</a></h2>
+<p>Returns a URL from base url and a query parameter object.
+Any undefined parameter is removed.</p>
+<p><strong>Kind</strong>: global constant<br />
+<a name="withClient"></a></p>
+<h2 id="withclientcomponent-function">withClient(Component) ⇒ <code>function</code><a class="headerlink" href="#withclientcomponent-function" title="Permanent link">&para;</a></h2>
+<p>HOC to provide client from context as prop</p>
+<p><strong>Kind</strong>: global function<br />
+<strong>Returns</strong>: <code>function</code> - - Component that will receive client as prop  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Component</td>
+<td><code>Component</code></td>
+<td>wrapped component</td>
+</tr>
+</tbody>
+</table>
+<p><a name="queryConnect"></a></p>
+<h2 id="queryconnectqueryspecs-function">queryConnect(querySpecs) ⇒ <code>function</code><a class="headerlink" href="#queryconnectqueryspecs-function" title="Permanent link">&para;</a></h2>
+<p>HOC creator to connect component to several queries in a declarative manner</p>
+<p><strong>Kind</strong>: global function<br />
+<strong>Returns</strong>: <code>function</code> - - HOC to apply to a component  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>querySpecs</td>
+<td><code>object</code></td>
+<td>Definition of the queries</td>
+</tr>
+</tbody>
+</table>
+<p><a name="startReplicationLoop"></a></p>
+<h2 id="startreplicationloop">startReplicationLoop()<a class="headerlink" href="#startreplicationloop" title="Permanent link">&para;</a></h2>
+<p>Starts periodic syncing of the pouches</p>
+<p><strong>Kind</strong>: global function<br />
+<a name="stopReplicationLoop"></a></p>
+<h2 id="stopreplicationloop">stopReplicationLoop()<a class="headerlink" href="#stopreplicationloop" title="Permanent link">&para;</a></h2>
+<p>Stop periodic syncing of the pouches</p>
+<p><strong>Kind</strong>: global function<br />
+<a name="replicateOnce"></a></p>
+<h2 id="replicateonce">replicateOnce()<a class="headerlink" href="#replicateonce" title="Permanent link">&para;</a></h2>
+<p>Starts replication</p>
+<p><strong>Kind</strong>: global function<br />
+<a name="defaultSelector"></a></p>
+<h2 id="defaultselectoroptions-array">defaultSelector(options) ⇒ <code>Array</code><a class="headerlink" href="#defaultselectoroptions-array" title="Permanent link">&para;</a></h2>
+<p>Compute fields that should be indexed for a mango
+query to work</p>
+<p><strong>Kind</strong>: global function<br />
+<strong>Returns</strong>: <code>Array</code> - - Fields to index  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>options</td>
+<td><code>Object</code></td>
+<td>Mango query options</td>
+</tr>
+</tbody>
+</table>
+<p><a name="setIntervalPromise"></a></p>
+<h2 id="setintervalpromise">setIntervalPromise()<a class="headerlink" href="#setintervalpromise" title="Permanent link">&para;</a></h2>
+<p>Will periodically run a function so that when the promise
+is resolved, the next function is called after <delay>ms.</p>
+<p>Returns a function which cancels the periodic calling.
+When canceled, if there is an ongoing promise, it will
+continue.</p>
+<p><strong>Kind</strong>: global function<br />
+<a name="uri"></a></p>
+<h2 id="uri">uri()<a class="headerlink" href="#uri" title="Permanent link">&para;</a></h2>
+<p>Template tag function for URIs encoding</p>
+<p>Will automatically apply <code>encodeURIComponent</code> to template literal placeholders</p>
+<p><strong>Kind</strong>: global function<br />
+<strong>Example</strong>  </p>
+<pre class="codehilite"><code>const safe = uri`/data/${doctype}/_all_docs?limit=${limit}`</code></pre>
+
+
+<p><a name="attempt"></a></p>
+<h2 id="attempt">attempt()<a class="headerlink" href="#attempt" title="Permanent link">&para;</a></h2>
+<p>Helps to avoid nested try/catch when using async/await</p>
+<p>Inspired by a Go pattern: http://blog.grossman.io/how-to-write-async-await-without-try-catch-blocks-in-javascript/</p>
+<p><strong>Kind</strong>: global function<br />
+<strong>Example</strong>  </p>
+<pre class="codehilite"><code>if (await attempt(collection.all()) return
+await sleep(1000)
+if (await attempt(collection.all()) return
+await sleep(1000)
+return</code></pre>
+
+
+<p><a name="sleep"></a></p>
+<h2 id="sleep">sleep()<a class="headerlink" href="#sleep" title="Permanent link">&para;</a></h2>
+<p>Helps to avoid nested try/catch when using async/await — see documentation for attemp</p>
+<p><strong>Kind</strong>: global function  </p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../extra.js"></script>
+        <script src="../../search/main.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
