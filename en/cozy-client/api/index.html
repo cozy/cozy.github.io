@@ -495,6 +495,7 @@
         <li class="main "><a href="#cozyclient">CozyClient</a></li>
             <li><a href="#cozyclientcollectiondoctype-documentcollection">cozyClient.collection(doctype) ⇒ DocumentCollection</a></li>
             <li><a href="#cozyclientgetdocumentsaveplandocument-relationships-arrayobject">cozyClient.getDocumentSavePlan(document, relationships) ⇒ Array.&lt;object&gt;</a></li>
+            <li><a href="#cozyclienthydratedocument">cozyClient.hydrateDocument()</a></li>
             <li><a href="#cozyclientregistercozyurl-object">cozyClient.register(cozyURL) ⇒ object</a></li>
             <li><a href="#cozyclientstartoauthflowopenurlcallback-object">cozyClient.startOAuthFlow(openURLCallback) ⇒ object</a></li>
             <li><a href="#cozyclientrenewauthorization-object">cozyClient.renewAuthorization() ⇒ object</a></li>
@@ -530,8 +531,14 @@
             <li><a href="#sharingcollectiongetdiscoverylinksharingid-sharecode-string">sharingCollection.getDiscoveryLink(sharingId, sharecode) ⇒ string</a></li>
         <li class="main "><a href="#encode">encode</a></li>
         <li class="main "><a href="#buildurl">buildURL</a></li>
+        <li class="main "><a href="#normalizedoctypeschema">normalizeDoctypeSchema()</a></li>
+        <li class="main "><a href="#getdoctypeschema">getDoctypeSchema()</a></li>
+        <li class="main "><a href="#getrelationship">getRelationship()</a></li>
+        <li class="main "><a href="#validate">validate()</a></li>
         <li class="main "><a href="#withclientcomponent-function">withClient(Component) ⇒ function</a></li>
         <li class="main "><a href="#queryconnectqueryspecs-function">queryConnect(querySpecs) ⇒ function</a></li>
+        <li class="main "><a href="#startreplication-void">startReplication() ⇒ void</a></li>
+        <li class="main "><a href="#stopreplication-void">stopReplication() ⇒ void</a></li>
         <li class="main "><a href="#startreplicationloop">startReplicationLoop()</a></li>
         <li class="main "><a href="#stopreplicationloop">stopReplicationLoop()</a></li>
         <li class="main "><a href="#replicateonce">replicateOnce()</a></li>
@@ -621,11 +628,37 @@ Any undefined parameter is removed.</p>
 
 <h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
 <dl>
+<dt><a href="#normalizeDoctypeSchema">normalizeDoctypeSchema()</a></dt>
+<dd><p>Returns a normalized schema object from the schema definition.</p>
+<ul>
+<li>Relationships are resolved to classes if needed</li>
+<li>The name of the relationship (its key in the schema definition)
+is included in the relationship</li>
+<li>Empty relationships are nulled</li>
+</ul>
+</dd>
+<dt><a href="#getDoctypeSchema">getDoctypeSchema()</a></dt>
+<dd><p>Returns the schema for a doctype</p>
+</dd>
+<dt><a href="#getRelationship">getRelationship()</a></dt>
+<dd><p>Returns the relationship for a given doctype/name</p>
+</dd>
+<dt><a href="#validate">validate()</a></dt>
+<dd><p>Validates a document considering the descriptions in schema.attributes.</p>
+</dd>
 <dt><a href="#withClient">withClient(Component)</a> ⇒ <code>function</code></dt>
 <dd><p>HOC to provide client from context as prop</p>
 </dd>
 <dt><a href="#queryConnect">queryConnect(querySpecs)</a> ⇒ <code>function</code></dt>
 <dd><p>HOC creator to connect component to several queries in a declarative manner</p>
+</dd>
+<dt><a href="#startReplication">startReplication()</a> ⇒ <code>void</code></dt>
+<dd><p>User of the link can call this to start ongoing replications.
+Typically, it can be used when the application regains focus.</p>
+</dd>
+<dt><a href="#stopReplication">stopReplication()</a> ⇒ <code>void</code></dt>
+<dd><p>User of the link can call this to stop ongoing replications.
+Typically, it can be used when the applications loses focus.</p>
 </dd>
 <dt><a href="#startReplicationLoop">startReplicationLoop()</a></dt>
 <dd><p>Starts periodic syncing of the pouches</p>
@@ -666,6 +699,7 @@ continue.</p>
 <li><a href="#module_CozyClient">CozyClient</a><ul>
 <li><a href="#module_CozyClient+collection">.collection(doctype)</a> ⇒ <code>DocumentCollection</code></li>
 <li><a href="#module_CozyClient+getDocumentSavePlan">.getDocumentSavePlan(document, relationships)</a> ⇒ <code>Array.&lt;object&gt;</code></li>
+<li><a href="#module_CozyClient+hydrateDocument">.hydrateDocument()</a></li>
 <li><a href="#module_CozyClient+register">.register(cozyURL)</a> ⇒ <code>object</code></li>
 <li><a href="#module_CozyClient+startOAuthFlow">.startOAuthFlow(openURLCallback)</a> ⇒ <code>object</code></li>
 <li><a href="#module_CozyClient+renewAuthorization">.renewAuthorization()</a> ⇒ <code>object</code></li>
@@ -730,7 +764,13 @@ const relationships = {
 client.getDocumentSavePlan(baseDoc, relationships)</code></pre>
 
 
-<p><a name="module_CozyClient+register"></a></p>
+<p><a name="module_CozyClient+hydrateDocument"></a></p>
+<h3 id="cozyclienthydratedocument">cozyClient.hydrateDocument()<a class="headerlink" href="#cozyclienthydratedocument" title="Permanent link">&para;</a></h3>
+<p>Instantiate relationships on a document</p>
+<p>The original document is kept in the target attribute of
+the relationship</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_CozyClient"><code>CozyClient</code></a><br />
+<a name="module_CozyClient+register"></a></p>
 <h3 id="cozyclientregistercozyurl-object">cozyClient.register(cozyURL) ⇒ <code>object</code><a class="headerlink" href="#cozyclientregistercozyurl-object" title="Permanent link">&para;</a></h3>
 <p>Performs a complete OAuth flow using a Cordova webview for auth.
 The <code>register</code> method&rsquo;s name has been chosen for compat reasons with the Authentication compo.</p>
@@ -1355,6 +1395,28 @@ URI components, keys are not.</p>
 <p>Returns a URL from base url and a query parameter object.
 Any undefined parameter is removed.</p>
 <p><strong>Kind</strong>: global constant<br />
+<a name="normalizeDoctypeSchema"></a></p>
+<h2 id="normalizedoctypeschema">normalizeDoctypeSchema()<a class="headerlink" href="#normalizedoctypeschema" title="Permanent link">&para;</a></h2>
+<p>Returns a normalized schema object from the schema definition.</p>
+<ul>
+<li>Relationships are resolved to classes if needed</li>
+<li>The name of the relationship (its key in the schema definition)
+  is included in the relationship</li>
+<li>Empty relationships are nulled</li>
+</ul>
+<p><strong>Kind</strong>: global function<br />
+<a name="getDoctypeSchema"></a></p>
+<h2 id="getdoctypeschema">getDoctypeSchema()<a class="headerlink" href="#getdoctypeschema" title="Permanent link">&para;</a></h2>
+<p>Returns the schema for a doctype</p>
+<p><strong>Kind</strong>: global function<br />
+<a name="getRelationship"></a></p>
+<h2 id="getrelationship">getRelationship()<a class="headerlink" href="#getrelationship" title="Permanent link">&para;</a></h2>
+<p>Returns the relationship for a given doctype/name</p>
+<p><strong>Kind</strong>: global function<br />
+<a name="validate"></a></p>
+<h2 id="validate">validate()<a class="headerlink" href="#validate" title="Permanent link">&para;</a></h2>
+<p>Validates a document considering the descriptions in schema.attributes.</p>
+<p><strong>Kind</strong>: global function<br />
 <a name="withClient"></a></p>
 <h2 id="withclientcomponent-function">withClient(Component) ⇒ <code>function</code><a class="headerlink" href="#withclientcomponent-function" title="Permanent link">&para;</a></h2>
 <p>HOC to provide client from context as prop</p>
@@ -1397,7 +1459,19 @@ Any undefined parameter is removed.</p>
 </tr>
 </tbody>
 </table>
-<p><a name="startReplicationLoop"></a></p>
+<p><a name="startReplication"></a></p>
+<h2 id="startreplication-void">startReplication() ⇒ <code>void</code><a class="headerlink" href="#startreplication-void" title="Permanent link">&para;</a></h2>
+<p>User of the link can call this to start ongoing replications.
+Typically, it can be used when the application regains focus.</p>
+<p><strong>Kind</strong>: global function<br />
+<strong>Access</strong>: public<br />
+<a name="stopReplication"></a></p>
+<h2 id="stopreplication-void">stopReplication() ⇒ <code>void</code><a class="headerlink" href="#stopreplication-void" title="Permanent link">&para;</a></h2>
+<p>User of the link can call this to stop ongoing replications.
+Typically, it can be used when the applications loses focus.</p>
+<p><strong>Kind</strong>: global function<br />
+<strong>Access</strong>: public<br />
+<a name="startReplicationLoop"></a></p>
 <h2 id="startreplicationloop">startReplicationLoop()<a class="headerlink" href="#startreplicationloop" title="Permanent link">&para;</a></h2>
 <p>Starts periodic syncing of the pouches</p>
 <p><strong>Kind</strong>: global function<br />
