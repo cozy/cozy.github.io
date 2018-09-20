@@ -294,105 +294,12 @@ Sample:
 ```
 
 
-### `cozy-client-js`
+## Manipulating documents with `cozy-client`
 
-This library embeds most of the available server APIs: manipulate documents and files, manage applications and server settings… It also provides some some methods to help application keep working while being offline.
+`cozy-client` is a simple and declarative way of managing [cozy-stack](https://github.com/cozy/cozy-stack) API calls and resulting data. It is a convenient yet powerful way to bind `cozy-stack` queries to your components.
 
-The library expose a client API under the `window.cozy.client` namespace. Before using it, you have to initiate the library with the server parameters (the URL of the API and the auth token of your application):
-
-```js
-  window.cozy.client.init({cozyURL: "…", token: "…"});
-```
-
-The library supports two programming paradigms: callback and Promises, so you can use your favorite one. If you prefer using callbacks rather than Promises, just add `disablePromises` to the options when initializing the library:
-
-```js
-  window.cozy.client.init({cozyURL: "…", token: "…", disablePromises: true});
-  window.client.settings.diskUsage(function (err, res) {
-    (…)
-  });
-```
-
-## Raw API documentation
-
-In this tutorial, we’ll only see a few samples of how to use the library. For a complete description of all available methods, please refer to its own documentation:
-
- - [documents](https://github.com/cozy/cozy-client-js/blob/master/docs/data-api.md)
- - [files](https://github.com/cozy/cozy-client-js/blob/master/docs/files-api.md)
- - [authentification](https://github.com/cozy/cozy-client-js/blob/master/docs/auth-api.md)
- - [authentication with OAuth2](https://github.com/cozy/cozy-client-js/blob/master/docs/oauth.md)
- - [settings](https://github.com/cozy/cozy-client-js/blob/master/docs/settings-api.md)
- - [inter-app communication](https://github.com/cozy/cozy-client-js/blob/master/docs/intents-api.md)
- - [jobs and triggers](https://github.com/cozy/cozy-client-js/blob/master/docs/jobs-api.md)
- - [sharing](https://github.com/cozy/cozy-client-js/blob/master/docs/sharing-api.md)
- - [offline](https://github.com/cozy/cozy-client-js/blob/master/docs/offline.md)
- - [Cozy Bar](https://github.com/cozy/cozy-bar)
-
-### Manipulating documents
-
-Inside cozy data system, all documents are typed. To prevent applications to create document types with the same name but different description, the naming of the doctypes use [the Java specification](https://docs.oracle.com/javase/specs/jls/se8/html/jls-6.html#d5e8195). Every document type name must be prefixed by the reverted domain name of its creator. If you don’t own a domain name, you can also use your email address. For example, doctypes created by Cozy are prefixed by `io.cozy` or `io.cozy.labs`. If you don’t own a domain name, and your email address is `foo@bar.cloud`, prefix your doctype names with `cloud.bar.foo`.
-
-We maintain an index of [all the currently available doctypes](https://cozy.github.io/cozy-doctypes/). To make your own doctypes available to other applications, please send a pull request to this repository.
-
-Before manipulating documents, you have to request permission to access their doctype, either in the manifest or dynamically.
-
-Every method allowing to handle document are available under the `cozy.client.data` namespace. For example:
-
- - `cozy.client.data.create(doctype, attributes)`, `cozy.client.data.update(doctype, doc, newdoc)` `cozy.client.data.delete(doctype, doc)` to create, update and delete documents
- - `cozy.client.data.updateAttributes(doctype, id, changes)` to only update some attributes of a document
- - `cozy.client.data.find(doctype, id)` return a document using its ident
- - `cozy.client.data.changesFeed(doctype, options)` get the latests updates of documents of a doctype
- - you can attach files to a document using `cozy.client.data.addReferencedFiles(doc, fileIds)` and list attachments with `cozy.client.data.listReferencedFiles(doc)`
-
-
-### Querying
-
-To search documents inside the database, you first need to create an index on some attributes of the documents, then perform a query on this index. The library offers the following methods:
-
- - `cozy.client.data.defineIndex(doctype, fields)` to create the index
- - `cozy.client.data.query(indexReference, query)` to query an index. The query parameter uses the syntax of the [Mango API](https://github.com/cloudant/mango) from CouchDB 2.
-
-For example, to search contacts by their email address, you could use:
-
-```javascript
-cozy.client.data.defineIndex("io.cozy.contacts", ["email"])
-.then((index) => {
-  return cozy.data.query(index, {"selector": {email: "cozy@cozycloud.cc"}})
-})
-.then( (result) => {
-  console.log(result[0].name);
-});
-```
-
-
-### Manipulating files
-
-The metadata of the files are stored inside the server database, allowing to perform advanced queries, and the files themselves on a virtual file system.
-
-The library offer a lot of methods under `cozy.client.files` namespace to manipulate files. Most of the methods allows to manipulate a file or folder either by its id or by its full path. Here are the most commons ones, but a lot of other methods are available in the [raw API documentation](https://github.com/cozy/cozy-client-js/blob/master/docs/files-api.md):
-
- - `create()` and `updateById()` to create and update a file
- - `createDirectory()` to create a folder
- - `updateAttributesById()` et `updateAttributesByPath()` allow to update some metadata
- - use `destroyById` to remove a file
- - a virtual trash is available. You can put files into the trash (`trashById()`) and restore them (`restoreById()`). You can also list the content of the trash (`listTrash()`) and purge all trashed files (`clearTrash()`)
- - `statById(id)` et `statByPath(path)` return the metadata and, or folders, their content
-
-#### Folders
-
-When using `statById()` or `statByPath()` to get metadata of of folder, you can than call `relations()` on the resulting object to access their content. For example, to list content of the root folder, use:
-
-```javascript
-cozy.client.files.statByPath("/")
-.then((dir) => {
-  console.log(dir.relations("contents"));
-})
-```
-
-Some special folder have a pre-defined id that will never change:
-
- - `io.cozy.files.root-dir` is the root of the filesystem
- - `io.cozy.files.trash-dir` is the trash.
+- [User guide](https://docs.cozy.io/en/cozy-client/guide/)
+- [API docs](https://docs.cozy.io/en/cozy-client/api/)
 
 
 ## Discover the Cozy Bar
