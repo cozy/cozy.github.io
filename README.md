@@ -18,8 +18,10 @@ Fetch external documentation and add it to mkdocs.yml (do not commit this the ch
 
 ```
 ./fetch.sh
-./add_external_docs.py
+pip install -r requirements.txt
+python add_external_docs.py
 ```
+> Expected python version is 2.7.10
 
 Run MkDocs:
 
