@@ -493,6 +493,7 @@
             <li><a href="#mango-indexes">Mango indexes</a></li>
             <li><a href="#old-revisions">Old revisions</a></li>
             <li><a href="#conflicts">Conflicts</a></li>
+            <li><a href="#design-docs-in-95all_docs">Design docs in _all_docs</a></li>
     </ul>
   <div style='padding-left: 2rem'>
     
@@ -556,11 +557,9 @@ reasons. In general, you can follow these two rules of thumb:</p>
 </li>
 <li>
 <p>You should use exactly the same sequence of fields for creating the index
-   and the <code>sort</code> operator of the query. If you have an index on <code>os, browser,
-   ip</code> for the <code>io.cozy.sessions.logins</code>, and you want to have all the
+   and the <code>sort</code> operator of the query. If you have an index on <code>os, browser, ip</code> for the <code>io.cozy.sessions.logins</code>, and you want to have all the
    documents for a login from <code>windows</code>, sorted by <code>browser</code>, you can use the
-   index, but you should use <code>os, browser, ip</code> for the sort (or at least <code>os,
-   browser</code>, even if it is seems to weird to sort on <code>os</code> when all the sorted
+   index, but you should use <code>os, browser, ip</code> for the sort (or at least <code>os, browser</code>, even if it is seems to weird to sort on <code>os</code> when all the sorted
    documents will have the same value, <code>windows</code>). Please note that using
    <code>use_index</code> on a request, the results will be sorted by default according
    to this rule. So, you can omit the <code>sort</code> operator on the query (except if
@@ -570,8 +569,7 @@ reasons. In general, you can follow these two rules of thumb:</p>
 <h2 id="old-revisions">Old revisions<a class="headerlink" href="#old-revisions" title="Permanent link">&para;</a></h2>
 <p>CouchDB keeps for each document a list of its revision (or more exactly a tree
 with replication and conflicts).</p>
-<p>It&rsquo;s possible to ask the list of the old revisions of a document with <a href="http://docs.couchdb.org/en/stable/api/document/common.html#get--db-docid"><code>GET
-/db/{docid}?revs_info=true</code></a>.
+<p>It&rsquo;s possible to ask the list of the old revisions of a document with <a href="http://docs.couchdb.org/en/stable/api/document/common.html#get--db-docid"><code>GET /db/{docid}?revs_info=true</code></a>.
 It works only if the document has not been deleted. For a deleted document, <a href="https://stackoverflow.com/questions/10854883/retrieve-just-deleted-document/10857330#10857330">a
 trick</a>
 is to query the changes feed to know the last revision of the document, and to
@@ -590,7 +588,12 @@ least. The more accurate description is on the old wiki:
 https://wiki.apache.org/couchdb/HTTP_Bulk_Document_API#Posting_Existing_Revisions.</p>
 <p>In short, it&rsquo;s a <code>PUT /doc/{id}?new_edits=false</code> with <code>_rev</code> the new revision
 of the document, and <code>_revisions</code> the parents of this revision in the
-revisions tree of this document.</p></div>
+revisions tree of this document.</p>
+<h2 id="design-docs-in-95all_docs">Design docs in _all_docs<a class="headerlink" href="#design-docs-in-95all_docs" title="Permanent link">&para;</a></h2>
+<p>When querying <code>GET /{db}/_all_docs</code>, the response include the design docs. It&rsquo;s
+quite difficult to filter them, particulary when pagination is involved. We
+have added an endpoint <code>GET /data/:doctype/_normal_docs</code> to the stack to help
+client side applications to deal with this.</p></div>
         </div>
 
         <footer class="col-md-12">
