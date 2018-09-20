@@ -7,10 +7,10 @@
         
         
         <meta name="author" content="CozyCloud - https://cozy.io">
-        <link rel="canonical" href="https://docs.cozy.io/dev/connect-mobile-app-local-stack/">
+        <link rel="canonical" href="https://docs.cozy.io/dev/git-flow/">
         <link rel="shortcut icon" href="../../img/favicon.png">
         
-        <title>connect-mobile-app-local-stack - Documentation</title>
+        <title>git-flow - Documentation</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -78,7 +78,7 @@
 </li>
                             
 <li >
-    <a href="./">Connect a mobile app to your local stack</a>
+    <a href="../connect-mobile-app-local-stack/">Connect a mobile app to your local stack</a>
 </li>
                             
 <li >
@@ -98,7 +98,7 @@
 </li>
                             
 <li >
-    <a href="../git-flow/">Git Flow</a>
+    <a href="./">Git Flow</a>
 </li>
                             
 <li >
@@ -493,18 +493,14 @@
                 <div class="col-md-3">
 <div class="bs-sidebar hidden-print affix" role="complementary">
     <ul class="nav bs-sidenav well" style='padding-left: 0; padding-right: 0; margin-bottom: 1.5rem'>
-        <li class="main active"><a href="#how-to-connect-a-mobile-app-to-your-local-stack">How to connect a mobile app to your local stack</a></li>
-            <li><a href="#prerequisite">Prerequisite</a></li>
-            <li><a href="#start-the-emulator-with-the-ability-to-remount-its-file-system-as-writable">Start the emulator with the ability to remount its file system as writable</a></li>
-            <li><a href="#root-the-emulator">Root the emulator</a></li>
-            <li><a href="#remount-the-file-sytem-as-writable">Remount the file sytem as writable</a></li>
-            <li><a href="#pull-the-emulators-hosts-file">Pull the emulator's hosts file</a></li>
-            <li><a href="#edit-the-hosts">Edit the hosts</a></li>
-            <li><a href="#push-the-new-file-to-the-emulator">Push the new file to the emulator</a></li>
+        <li class="main active"><a href="#git-flow">Git Flow</a></li>
+            <li><a href="#development">Development</a></li>
+            <li><a href="#releases">Releases</a></li>
+            <li><a href="#patches">Patches</a></li>
     </ul>
   <div style='padding-left: 2rem'>
     
-    <a id='edit-link' href='https://github.com/cozy/cozy.github.io/edit/dev/src/dev/connect-mobile-app-local-stack.md'>Edit documentation</a>
+    <a id='edit-link' href='https://github.com/cozy/cozy.github.io/edit/dev/src/dev/git-flow.md'>Edit documentation</a>
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
@@ -541,54 +537,86 @@
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="how-to-connect-a-mobile-app-to-your-local-stack">How to connect a mobile app to your local stack<a class="headerlink" href="#how-to-connect-a-mobile-app-to-your-local-stack" title="Permanent link">&para;</a></h1>
-<p>Sometimes we need to test a feature on a mobile app by connecting it to our locally installed stack. For this to work, we need to achieve some things.</p>
-<h2 id="prerequisite">Prerequisite<a class="headerlink" href="#prerequisite" title="Permanent link">&para;</a></h2>
+<h1 id="git-flow">Git Flow<a class="headerlink" href="#git-flow" title="Permanent link">&para;</a></h1>
+<p>We recommand to use the following git flow four our applications and konnectors.</p>
+<h2 id="development">Development<a class="headerlink" href="#development" title="Permanent link">&para;</a></h2>
+<p><code>master</code> is the current state of the development.</p>
+<p>Every commit must:</p>
 <ul>
-<li>Have a local stack installed</li>
-<li>Have an Android emulator created</li>
+<li>provide a working application without introducing blocking regressions</li>
+<li>validate lint and unit tests</li>
 </ul>
-<h2 id="start-the-emulator-with-the-ability-to-remount-its-file-system-as-writable">Start the emulator with the ability to remount its file system as writable<a class="headerlink" href="#start-the-emulator-with-the-ability-to-remount-its-file-system-as-writable" title="Permanent link">&para;</a></h2>
-<p>Since we will need to edit the hosts of the emulator, we need to be able to remount its file system as writable. For that, we need to start our emulator with the following command :</p>
-<pre class="codehilite"><code>./emulator -writable-system -avd Pixel_API_27</code></pre>
+<p>Every feature, improvement or fix is merged via a pull request.</p>
+<p>For large features with huge impacts on the whole codebase, use feature branches, for example <code>feature/something-new</code>. A feature branch is merged into master when it&rsquo;s totally functional and validated.</p>
+<h2 id="releases">Releases<a class="headerlink" href="#releases" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>TL;DR</p>
+<ul>
+<li>Create release branch</li>
+<li>Bump <code>master</code> version</li>
+<li>Tag beta versions from release branch until it passes all tests</li>
+<li>Tag stable version from release branch</li>
+<li>Delete release branch</li>
+</ul>
+</blockquote>
+<p>A new release of an app or a konnector is always based on the current state of <code>master</code>, so just create a new branch for the given release version and bump <code>master</code> to a new minor version.</p>
+<p>Example with <code>master</code> being versionned to <code>1.4.0</code>:</p>
+<pre class="codehilite"><code class="language-sh">git checkout master
+git checkout -b release-1.4.0
+git checkout master
+# Update app version to 1.5.0 in package.json and manifest.webapp
+git add package.json manifest.webapp
+git commit -m &quot;chore: Bump version to 1.5.0&quot;</code></pre>
 
 
-<p>The <code>emulator</code> binary is located at <code>/home/user/Android/Sdk/emulator/</code> on Linux systems by default. <code>Pixel_API_27</code> is the name of the emulator I want to start. If you don&rsquo;t know the name of your emulator, you can get it with :</p>
-<pre class="codehilite"><code>./emulator -list-avds</code></pre>
+<p>Once the release branch is made, tag a new beta version.</p>
+<p>Following the previous example:</p>
+<pre class="codehilite"><code class="language-sh">git checkout release-1.4.0
+git tag 1.4.0-beta.1</code></pre>
 
 
-<h2 id="root-the-emulator">Root the emulator<a class="headerlink" href="#root-the-emulator" title="Permanent link">&para;</a></h2>
-<p>Now that the emulator is started, we need to gain root access on it. Run the following command :</p>
-<pre class="codehilite"><code>adb root</code></pre>
+<p>If this tagged version has issue which need to be fixed, every fix will be merged into the <code>release-1.4.0</code> branch.</p>
+<p>Fixes must only be pushed fixes only in a release branch.</p>
+<p>Meanwhile, developments can continue to be merged into <code>master</code> without impacting <code>release-1.4.0</code>. Once fixes are done, a new beta tag is made.</p>
+<pre class="codehilite"><code class="language-sh">git tag 1.4.0-beta.2</code></pre>
 
 
-<p>This restarts the adb daemon with root privileges.</p>
-<h2 id="remount-the-file-sytem-as-writable">Remount the file sytem as writable<a class="headerlink" href="#remount-the-file-sytem-as-writable" title="Permanent link">&para;</a></h2>
-<p>By default, the file system is read-only. We need it to be writable, so we run this command :</p>
-<pre class="codehilite"><code>adb remount</code></pre>
+<blockquote>
+<p>NB: Version number in package.json and manifest.webapp is still <code>1.4.0</code></p>
+</blockquote>
+<p>Once a beta version is validated and ready to be released, a stable tag is created.</p>
+<pre class="codehilite"><code class="language-sh">git tag 1.4.0</code></pre>
 
 
-<h2 id="pull-the-emulators-hosts-file">Pull the emulator&rsquo;s hosts file<a class="headerlink" href="#pull-the-emulators-hosts-file" title="Permanent link">&para;</a></h2>
-<p>To edit the <code>hosts</code> file, we need to pull it on our system :</p>
-<pre class="codehilite"><code>adb pull /etc/hosts hosts</code></pre>
+<p>The release branch must then be merged into <code>master</code> to retrieve all the fixes it contains. Then the release branch can be deleted.</p>
+<blockquote>
+<p>NB: We take care to get only one release branch at a time.</p>
+</blockquote>
+<h2 id="patches">Patches<a class="headerlink" href="#patches" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>TL;DR</p>
+<ul>
+<li>Create a patch branch from a stable tag</li>
+<li>Bump to new patch version</li>
+<li>Fixes issues and tag new beta versions until everything is ok</li>
+<li>Tag stable version</li>
+<li>Cherry-pick fixes into <code>master</code></li>
+<li>Delete patch branch</li>
+</ul>
+</blockquote>
+<p>If a bug is detected on a stable version, we address it with a patch branch.</p>
+<p>For example for the version <code>1.1.0</code>:</p>
+<pre class="codehilite"><code class="language-sh">git checkout 1.0.0 -b patch-1.1.1
+# Update app version to 1.1.1 in package.json and manifest.webapp
+git add package.json manifest.webapp
+git commit -m &quot;chore: Bump version to 1.1.1&quot;</code></pre>
 
 
-<p>This creates a <code>hosts</code> file in your current directory.</p>
-<h2 id="edit-the-hosts">Edit the hosts<a class="headerlink" href="#edit-the-hosts" title="Permanent link">&para;</a></h2>
-<p>For the emulator to be able to connect to our stack, we need to add the IP address of our machine to the hosts. Actually, we don&rsquo;t really need it since in an Android emulator <code>10.0.2.2</code> is automatically pointing to our machine. So we just need to add this to the <code>hosts</code> file :</p>
-<pre class="codehilite"><code>10.0.2.2 cozy.tools</code></pre>
-
-
-<h2 id="push-the-new-file-to-the-emulator">Push the new file to the emulator<a class="headerlink" href="#push-the-new-file-to-the-emulator" title="Permanent link">&para;</a></h2>
-<p>Now that we have added what&rsquo;s necessary in the file, we have to push it to the emulator :</p>
-<pre class="codehilite"><code>adb push hosts /system/etc/hosts</code></pre>
-
-
-<p>Then try to ping <code>cozy.tools</code> to see if everything is working well :</p>
-<pre class="codehilite"><code>adb shell ping api.dev.local</code></pre>
-
-
-<p>You can now enter <code>http://cozy.tools</code> in the login page of your mobile app and you will not get an error anymore.</p></div>
+<p>After this checkout a patch branch is managed the same way than a release branch, except that:</p>
+<ul>
+<li>A beta version tag is not created right after checkout but once fixes have been made (because the beta version would be exactly the same as the version that need to be patched)</li>
+<li>After the stable version has been tagged, the commits are cherry-picked instead of merging the whole branch. A merge is still possible, but it implies to manage conflicts in <code>package.json</code> and <code>manifest.webapp</code> about version number (remember, we bumped the version so it will conflict with <code>master</code> current&rsquo;s one).</li>
+</ul></div>
         </div>
 
         <footer class="col-md-12">
