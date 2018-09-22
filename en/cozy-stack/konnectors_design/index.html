@@ -734,7 +734,7 @@ and without forcing self-hosted users to do complicated installation procedures.
 <p>I managed to run a nodejs container with just the following commands :</p>
 <pre class="codehilite"><code>rkt run --insecure-options=image --interactive docker://node:slim --name nodeslim -- -v
 rkt list   # to get the container uuid
-rkt export --app=nodeslim &lt;uuid&gt; nodeslim.aci
+rkt export --app=nodeslim &amp;lt;uuid&amp;gt; nodeslim.aci
 rkt run --insecure-options=image --interactive nodeslim.aci -- -v  # to run node -v in the new container</code></pre>
 
 
@@ -753,7 +753,7 @@ available in the cozy-stack docker image but I did not test it (TODO)</p>
 <h4 id="image-creation">Image creation<a class="headerlink" href="#image-creation" title="Permanent link">&para;</a></h4>
 <p>To create an ACI file image, you just need to run a docker image one time :</p>
 <pre class="codehilite"><code>rkt run  --uuid-file-save=$PWD/uuid --insecure-options=image --interactive docker://node:slim --name nodeslim -- -v
-rkt export --app=nodeslim `cat uuid` nodeslim.aci &amp;&amp; rm uuid</code></pre>
+rkt export --app=nodeslim `cat uuid` nodeslim.aci &amp;amp;&amp;amp; rm uuid</code></pre>
 
 
 <p>The node:slim image weights 84M at this time. The node:alpine image also exists
@@ -768,7 +768,7 @@ path is mounted inside the container. The following script does just that</p>
 <pre class="codehilite"><code class="language-bash linenums">#!/usr/bin/env bash
 rm -rf ./container_dir
 cp -r ./container_dir_template ./container_dir
-rkt run --net=host --environment=CREDENTIAL=value;COZY_URL=url --uuid-file-save=$PWD/uuid --volume data,kind=host,source=$PWD/container_dir --insecure-options=image nodeslim.aci --cpu=100m --memory=128M --name rktnode --mount volume=data,target=/usr/src/app --exec node -- /usr/src/app/$1 $2 &amp;
+rkt run --net=host --environment=CREDENTIAL=value;COZY_URL=url --uuid-file-save=$PWD/uuid --volume data,kind=host,source=$PWD/container_dir --insecure-options=image nodeslim.aci --cpu=100m --memory=128M --name rktnode --mount volume=data,target=/usr/src/app --exec node -- /usr/src/app/$1 $2 &amp;amp;
 # the container will handle itself the communication with the stack
 sleep 60
 rkt stop --force --uuid-file=uuid

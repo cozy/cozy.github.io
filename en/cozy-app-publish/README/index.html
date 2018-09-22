@@ -583,17 +583,17 @@ yarn build</code></pre>
 
 
 <h3 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h3>
-<h4 id="-token-editor-token-required"><code>--token &lt;editor-token&gt;</code> (required)<a class="headerlink" href="#-token-editor-token-required" title="Permanent link">&para;</a></h4>
+<h4 id="-token-lteditor-tokengt-required"><code>--token &lt;editor-token&gt;</code> (required)<a class="headerlink" href="#-token-lteditor-tokengt-required" title="Permanent link">&para;</a></h4>
 <p>The registry editor token. This token must match the editor name and is provided by Cozy Cloud (with the name) in order to use the registry.</p>
-<h4 id="-build-dir-relative-path"><code>--build-dir &lt;relative-path&gt;</code><a class="headerlink" href="#-build-dir-relative-path" title="Permanent link">&para;</a></h4>
+<h4 id="-build-dir-ltrelative-pathgt"><code>--build-dir &lt;relative-path&gt;</code><a class="headerlink" href="#-build-dir-ltrelative-pathgt" title="Permanent link">&para;</a></h4>
 <p>The path to the build folder, relative to the current directory. Since the &lsquo;standard&rsquo; Cozy application builds in the <code>build/</code> folder, <code>build</code> is the default value. This folder is mainly used to read the application manifest during publishing.</p>
-<h4 id="-build-url-url"><code>--build-url &lt;url&gt;</code><a class="headerlink" href="#-build-url-url" title="Permanent link">&para;</a></h4>
+<h4 id="-build-url-lturlgt"><code>--build-url &lt;url&gt;</code><a class="headerlink" href="#-build-url-lturlgt" title="Permanent link">&para;</a></h4>
 <p>For now, the registry a build archive (.tar.gz file) from an external link to be used in the cozy-stack. In the travis script, this url is computed using the Github trick to get archives from a commit url (but it&rsquo;s overwritten if provided by this option). For the manual script, we have to provide it.</p>
-<h4 id="-build-commit-commit-hash"><code>--build-commit &lt;commit-hash&gt;</code><a class="headerlink" href="#-build-commit-commit-hash" title="Permanent link">&para;</a></h4>
+<h4 id="-build-commit-ltcommit-hashgt"><code>--build-commit &lt;commit-hash&gt;</code><a class="headerlink" href="#-build-commit-ltcommit-hashgt" title="Permanent link">&para;</a></h4>
 <p>Using the <code>travis</code> mode, the archive tarball URL is computed using github and the build commit hash. If you are not on your build branch to publish, you can specify the correct build commit hash using this parameter.</p>
-<h4 id="-manual-version-version-required-for-manual-usage-only"><code>--manual-version &lt;version&gt;</code> (required for manual usage only)<a class="headerlink" href="#-manual-version-version-required-for-manual-usage-only" title="Permanent link">&para;</a></h4>
+<h4 id="-manual-version-ltversiongt-required-for-manual-usage-only"><code>--manual-version &lt;version&gt;</code> (required for manual usage only)<a class="headerlink" href="#-manual-version-ltversiongt-required-for-manual-usage-only" title="Permanent link">&para;</a></h4>
 <p>In the manual mode, we don&rsquo;t have a way to compute the version like in the Travis mode for example. So we have to provide it using this option.</p>
-<h4 id="-prepublish-script_path"><code>--prepublish &lt;script_path&gt;</code><a class="headerlink" href="#-prepublish-script_path" title="Permanent link">&para;</a></h4>
+<h4 id="-prepublish-ltscript_pathgt"><code>--prepublish &lt;script_path&gt;</code><a class="headerlink" href="#-prepublish-ltscript_pathgt" title="Permanent link">&para;</a></h4>
 <p>Specify custom prepublish hook to manage how the app archive is generated and uploaded. The script must export a asynchronous function which has the following signature:</p>
 <pre class="codehilite"><code class="language-js">module.exports = async ({
   appBuildUrl,
@@ -657,7 +657,7 @@ yarn build</code></pre>
 </tr>
 </tbody>
 </table>
-<h4 id="-postpublish-script_path"><code>--postpublish &lt;script_path&gt;</code><a class="headerlink" href="#-postpublish-script_path" title="Permanent link">&para;</a></h4>
+<h4 id="-postpublish-ltscript_pathgt"><code>--postpublish &lt;script_path&gt;</code><a class="headerlink" href="#-postpublish-ltscript_pathgt" title="Permanent link">&para;</a></h4>
 <p>Works exactly like the <code>prepublish</code> option, but will be executed after the publication.</p>
 <h4 id="multiple-hooks-and-built-in-hooks">Multiple hooks and built-in hooks<a class="headerlink" href="#multiple-hooks-and-built-in-hooks" title="Permanent link">&para;</a></h4>
 <p>You can specify more than one hook by separating them with a <code>,</code>:</p>
@@ -713,9 +713,9 @@ yarn build</code></pre>
 <li><code>MATTERMOST_HOOK_URL</code>: You will need to set up a new <a href="https://docs.mattermost.com/developer/webhooks-incoming.html">Incoming Hook</a>.</li>
 <li><code>MATTERMOST_CHANNEL</code>: The name of the channel messages will be posted to.</li>
 </ul>
-<h4 id="-registry-url-url"><code>--registry-url &lt;url&gt;</code><a class="headerlink" href="#-registry-url-url" title="Permanent link">&para;</a></h4>
+<h4 id="-registry-url-lturlgt"><code>--registry-url &lt;url&gt;</code><a class="headerlink" href="#-registry-url-lturlgt" title="Permanent link">&para;</a></h4>
 <p>The url of the registry, by default it will be https://staging-apps-registry.cozycloud.cc.</p>
-<h4 id="-space-space-name"><code>--space &lt;space-name&gt;</code><a class="headerlink" href="#-space-space-name" title="Permanent link">&para;</a></h4>
+<h4 id="-space-ltspace-namegt"><code>--space &lt;space-name&gt;</code><a class="headerlink" href="#-space-ltspace-namegt" title="Permanent link">&para;</a></h4>
 <p>Use this options to provide a specific space name of the registry to publish the application in. By default it will be published in the default space.</p>
 <h4 id="-verbose"><code>--verbose</code><a class="headerlink" href="#-verbose" title="Permanent link">&para;</a></h4>
 <p>To print more logs when using tool (useful for debug).</p>
