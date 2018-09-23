@@ -15,10 +15,10 @@ To protect your data, each connector runs inside a container in order to sandbox
 A connector is a NodeJS script.
 The target node version used to run your connector is the [current LTS version](https://github.com/nodejs/Release#release-schedule) (8 at the time this doc was written).
 
-Like client side apps, connectors communicate with the [Cozy Stack] using its HTTP API, and get an unique auth token every time they start.
+Like client side apps, connectors communicate with the [Cozy Stack] using its HTTP API, and get a unique auth token every time they start.
 They need to register with a manifest, and ask the user for permissions.
 
-To facilitate connector development, a npm package, [konnectors/libs], provides some shared libraries that are adapted to be used for a connector:
+To facilitate connector development, a npm package, [cozy-konnector-libs], provides some shared libraries that are adapted to be used for a connector:
 
  - [cheerio](https://cheerio.js.org) to easily query a HTML page
  - [request-promise](https://github.com/request/request-promise): [request](https://github.com/request/request) with Promise support
