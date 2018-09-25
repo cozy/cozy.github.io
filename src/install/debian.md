@@ -224,6 +224,9 @@ server {
 
 	root /var/www/html;
 	server_name _;
+	
+	# Here the max. file size you want to import.
+	client_max_body_size 64M;
 
 	location /.well-known/acme-challenge/ {
 		alias /etc/ssl/private/acme-challenge/;
