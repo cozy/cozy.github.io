@@ -562,20 +562,11 @@ the following format:</p>
 <p>At the end of a sprint, we release different versions of the stack:</p>
 <ul>
 <li>
-<p>&ldquo;Naked&rdquo; stack, for GNU/Linux amd64/arm and FreeBSD amd64</p>
+<p>&ldquo;Naked&rdquo; stack, for GNU/Linux amd64/arm, FreeBSD amd64 &amp; Docker</p>
 <ul>
 <li>Create a tag <code>yyyyMmSs</code> and push it</li>
-<li>Generate all binaries, checksums and signatures with <code>./scripts/release.sh</code></li>
+<li>Generate all binaries, checksums, Docker images and signatures with <code>./scripts/release.sh</code></li>
 <li>Create a GitHub release and upload all previously generated assets with <code>./scripts/release.rb</code></li>
-</ul>
-</li>
-<li>
-<p>Docker development image</p>
-<ul>
-<li>Copy <code>cozy-stack</code> GNU/Linux amd64 binary to <code>./scripts</code></li>
-<li>Go into <code>./scripts</code></li>
-<li>Generate docker image with <code>docker build -t cozy/cozy-app-dev:&lt;tag&gt;</code></li>
-<li>Push image to the Docker hub with <code>docker push cozy/cozy-app-dev:&lt;tag&gt;</code></li>
 </ul>
 </li>
 <li>
