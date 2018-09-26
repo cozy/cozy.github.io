@@ -7,10 +7,10 @@
         
         
         <meta name="author" content="CozyCloud - https://cozy.io">
-        <link rel="canonical" href="https://docs.cozy.io/cozy-client/guide/">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-client/how-tos/">
         <link rel="shortcut icon" href="../../img/favicon.png">
         
-        <title>Usage guide - Documentation</title>
+        <title>how-tos - Documentation</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -69,7 +69,7 @@
 </li>
                         </ul>
                     </li>
-                    <li class="dropdown active">
+                    <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Develop <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
@@ -445,8 +445,8 @@
     <a href="#">cozy-client</a>
     <ul class="dropdown-menu">
             
-<li class="active">
-    <a href="./">Usage guide</a>
+<li >
+    <a href="../guide/">Usage guide</a>
 </li>
             
 <li >
@@ -489,21 +489,16 @@
                 <div class="col-md-3">
 <div class="bs-sidebar hidden-print affix" role="complementary">
     <ul class="nav bs-sidenav well" style='padding-left: 0; padding-right: 0; margin-bottom: 1.5rem'>
-        <li class="main active"><a href="#whats-cozy-client">What's cozy-client?</a></li>
-        <li class="main "><a href="#setup">Setup</a></li>
-            <li><a href="#install">Install</a></li>
-            <li><a href="#creating-a-client">Creating a client</a></li>
-            <li><a href="#creating-a-provider">Creating a provider</a></li>
-            <li><a href="#using-the-client">Using the client</a></li>
-        <li class="main "><a href="#requesting-data">Requesting data</a></li>
-            <li><a href="#the-available-props">The available props</a></li>
-            <li><a href="#making-queries">Making queries</a></li>
-        <li class="main "><a href="#mutating-data">Mutating data</a></li>
-            <li><a href="#updating-queries">Updating queries</a></li>
+        <li class="main active"><a href="#how-to-use-a-higher-order-component">How to use a higher order component</a></li>
+        <li class="main "><a href="#how-to-integrate-with-an-existing-store">How-to integrate with an existing store</a></li>
+        <li class="main "><a href="#how-to-obtain-a-token">How to obtain a token</a></li>
+        <li class="main "><a href="#how-to-restore-a-previous-token">How to restore a previous token</a></li>
+        <li class="main "><a href="#how-to-logout-a-client">How to logout a client</a></li>
+        <li class="main "><a href="#how-to-use-cozyclient-on-mobile">How to use CozyClient on mobile</a></li>
     </ul>
   <div style='padding-left: 2rem'>
     
-    <a id='edit-link' href='https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-client/guide.md'>Edit documentation</a>
+    <a id='edit-link' href='https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-client/how-tos.md'>Edit documentation</a>
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
@@ -540,149 +535,169 @@
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h2 id="whats-cozy-client">What&rsquo;s cozy-client?<a class="headerlink" href="#whats-cozy-client" title="Permanent link">&para;</a></h2>
-<p><code>cozy-client</code> is a javascript library. It facilitates the communication between an applications and the cozy stack.</p>
-<p>Main features :</p>
-<ul>
-<li>Authentification with your Cozy</li>
-<li>Declarative integration between React components and server data (data is auatomatically refreshed)</li>
-<li>Offline : any data can be stored in a local cache without impacting your code that can continue to read and write.</li>
-</ul>
-<p>Additional features with plugins :</p>
-<ul>
-<li>Real-time : be notified when changes occur on the server side.</li>
-<li>InterApp : API to interact with other apps (exemple : file picking within your app)</li>
-</ul>
-<p>The following guide is an overview of a cozy-client integration to help you getting started.</p>
-<p>See also :</p>
-<p>TODO Tutorial to create a complete Cozy application
-TODO Reference documentation of cozy-client</p>
-<h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h2>
-<h3 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h3>
-<p><code>npm install --save cozy-client</code>
-or
-<code>yarn add cozy-client</code></p>
-<p>To get started using <code>cozy-client</code> with (p)React, you need to create a <code>CozyClient</code>, and a <code>CozyProvider</code>:</p>
-<ul>
-<li><code>CozyClient</code> is the master of your data: it manages data queries and their status ;</li>
-<li><code>CozyProvider</code> injects the client into components&rsquo; context.</li>
-</ul>
-<h3 id="creating-a-client">Creating a client<a class="headerlink" href="#creating-a-client" title="Permanent link">&para;</a></h3>
+<h3 id="how-to-use-a-higher-order-component">How to use a higher order component<a class="headerlink" href="#how-to-use-a-higher-order-component" title="Permanent link">&para;</a></h3>
+<p>If you prefer HOCs to render-prop components, we provide a higher-order component called <code>connect</code>. Basic example of usage:</p>
+<pre class="codehilite"><code class="language-jsx">import React from 'react'
+import { connect } from 'cozy-client'
+
+const query = client =&gt; client.find('io.cozy.todos').where({ checked: false })
+
+const TodoList = ({ data, fetchStatus }) =&gt;
+  fetchStatus !== 'loaded'
+    ? &lt;h1&gt;Loading...&lt;/h1&gt;
+    : &lt;ul&gt;{data.map(todo =&gt; &lt;li&gt;{todo.label}&lt;/li&gt;)}&lt;/ul&gt;
+
+export default connect(query)(TodoList)</code></pre>
+
+
+<p>When we use <code>connect</code> to bind a query to a component, three things happen:
+ - The query passed as an argument will be executed when the component mounts, resulting in the loading of data from the client-side store, or the server if the data is not in the store ;
+ - Our component subscribes to the store, so that it is updated if the data changes ;
+ - props are injected into the component: if we were to declare <code>propTypes</code> they would look like this:</p>
+<pre class="codehilite"><code class="language-jsx">TodoList.propTypes = {
+  fetchStatus: PropTypes.string.isRequired,
+  data: PropTypes.array
+}</code></pre>
+
+
+<p>Using <code>withMutation</code> higher-order component makes it easy to bind actions to your components. <code>withMutation</code> provides only a simple function to the wrapper component, in a prop called <code>mutate</code>:</p>
+<pre class="codehilite"><code class="language-jsx">import { withMutation } from 'cozy-client'
+
+const AddTodo = ({ mutate }) =&gt; {
+  let input
+
+  return (
+    &lt;form onSubmit={e =&gt; {
+      e.preventDefault()
+      mutate(input.value)
+      input.value = ''
+    }}&gt;
+      &lt;input ref={node =&gt; { input = node }} /&gt;
+      &lt;button type=&quot;submit&quot;&gt;Add Todo&lt;/button&gt;
+    &lt;/form&gt;
+  )
+}
+
+export default withMutation(
+  label =&gt; client =&gt; client.create('io.cozy.todos', { label })
+)(AddTodo)</code></pre>
+
+
+<h3 id="how-to-integrate-with-an-existing-store">How-to integrate with an existing store<a class="headerlink" href="#how-to-integrate-with-an-existing-store" title="Permanent link">&para;</a></h3>
+<p><code>cozy-client</code> uses redux internally to centralize the statuses of the various fetches and replications triggered by the library, and to store locally the data in a normalized way. If you already have a redux store in your app, you can configure <code>cozy-client</code> to use this existing store:</p>
 <pre class="codehilite"><code class="language-js">import CozyClient from 'cozy-client'
-
-const client = new CozyClient({
-  uri: 'http://cozy.tools:8080',
-  token: '...'
-})</code></pre>
-
-
-<p>If you need guidance to get the URI of your instance and/or the token, see (https://docs.cozy.io/en/dev/app/#behind-the-magic).</p>
-<h3 id="creating-a-provider">Creating a provider<a class="headerlink" href="#creating-a-provider" title="Permanent link">&para;</a></h3>
-<p>All components that we want to connect to data need access to the client. We could pass it as a prop from component to component, but it&rsquo;ll quickly get tedious.
-We recommend that you use a <code>CozyProvider</code> somewhere high in your app. It will make the client available to all your components using the context:</p>
-<pre class="codehilite"><code class="language-jsx">import CozyClient, { CozyProvider } from 'cozy-client'
+import { combineReducers, createStore, applyMiddleware } from 'redux'
+import myReducers from './myapp/reducers'
+import myMiddleware from './myapp/middleware'
 
 const client = new CozyClient({
   /*...*/
 })
 
+const store = createStore(
+  combineReducers({ ...myReducers, cozy: client.reducer() }),
+  applyMiddleware(myMiddleware)
+)
+
 ReactDOM.render(
-  &lt;CozyProvider client={client}&gt;
+  &lt;CozyProvider client={client} store={store}&gt;
     &lt;MyApp /&gt;
   &lt;/CozyProvider&gt;,
   document.getElementById('main')
 )</code></pre>
 
 
-<h3 id="using-the-client">Using the client<a class="headerlink" href="#using-the-client" title="Permanent link">&para;</a></h3>
-<p>An instance of <code>CozyClient</code> allows you to query and mutate (update) data, here&rsquo;s how it looks:</p>
-<pre class="codehilite"><code class="language-jsx">import CozyClient from 'cozy-client'
+<h3 id="how-to-obtain-a-token">How to obtain a token<a class="headerlink" href="#how-to-obtain-a-token" title="Permanent link">&para;</a></h3>
+<p>Before you can start making requests to the server, you will need to get a token. <code>cozy-client</code> will provide a URL to a page where the user is shown what data you want to access, and asking for his or her permission. After the user accepts these permissions, he or she is redirected to the <code>oauth.redirectURI</code> that you declared earlier. You will then have to give this redirected URL back to <code>cozy-client</code> as it contains a code, that will be exchanged for the token.</p>
+<p>Sounds, tricky, but most of it is taken care of for you. To get started, you call <code>client.startOAuthFlow</code> like this:</p>
+<pre class="codehilite"><code class="language-js">import CozyClient from 'cozy-client'
 
 const client = new CozyClient({
-  /*...*/
+  uri: 'http://cozy.tools:8080',
+  scope: ['io.cozy.mydoctype'],
+  oauth: {
+    clientName: 'MyClient',
+    softwareID: 'MyAppId',
+    redirectURI: 'http://localhost'
+  }
 })
 
-client.query(
-  client.find('io.cozy.todos').where({ checked: false })
-).then(
-  ({ data }) =&gt; console.log(data)
-)
-
-client.mutate(
-  client.create('io.cozy.todos', { label: 'Buy bread' })
-).then(
-  ({ data }) =&gt; console.log(data.id)
-)</code></pre>
+client.startOAuthFlow(openURL)</code></pre>
 
 
-<h2 id="requesting-data">Requesting data<a class="headerlink" href="#requesting-data" title="Permanent link">&para;</a></h2>
-<p>To make it easy to fetch data and make it available to your component, we provide a Render Props component called <code>Query</code>. Basic example of usage:</p>
-<pre class="codehilite"><code class="language-jsx">import React from 'react'
-import { Query } from 'cozy-client'
-
-const query = client =&gt; client.find('io.cozy.todos').where({ checked: false })
-
-const TodoList = () =&gt; (
-  &lt;Query query={query}&gt;
-    {({ data, fetchStatus }) =&gt;
-      fetchStatus !== 'loaded'
-        ? &lt;h1&gt;Loading...&lt;/h1&gt;
-        : &lt;ul&gt;{data.map(todo =&gt; &lt;li&gt;{todo.label}&lt;/li&gt;)}&lt;/ul&gt;
-    }
-  &lt;/Query&gt;</code></pre>
+<p>The <code>openURL</code> parameter is a callback. It will receive the URL to the page as a parameter, and it must return a Promise that resolves with the redirected URL. How exactly you do this depends on your environment — for a mobile app you may use a WebView, in a browser maybe a new tab… Here is an example that uses the browser&rsquo;s console and an experienced user:</p>
+<pre class="codehilite"><code class="language-js">const openURL = url =&gt; {
+  console.log('Please visit the following URL, accept the permissions and copy the URL you are redirected to, then come back here. you have 10 seconds.', url)
+  return new Promise(resolve =&gt; {
+    setTimeout(async () =&gt; {
+      const returnUrl = prompt('Paste the new URL here.')
+      resolve(returnUrl)
+    }, 10000)
+  })
+}</code></pre>
 
 
-<p>When we use <code>Query</code> to &ldquo;wrap&rdquo; a component, three things happen:
- - The query passed as a prop will be executed when <code>Query</code> mounts, resulting in the loading of data from the client-side store, or the server if the data is not in the store ;
- - <code>Query</code> subscribes to the store, so that it is updated if the data changes ;
- - <code>Query</code> pass the result of the query as props to the children function.</p>
-<h3 id="the-available-props">The available props<a class="headerlink" href="#the-available-props" title="Permanent link">&para;</a></h3>
-<ul>
-<li><code>data</code>: an array of documents</li>
-<li><code>fetchStatus</code>: the status of the fetch (<code>pending</code>, <code>loading</code>, <code>loaded</code> or <code>error</code>)</li>
-<li><code>lastFetch</code>: when the last fetch occured</li>
-<li><code>hasMore</code>: the fetches being paginated, this property indicates if there are more documents to load</li>
-</ul>
-<h3 id="making-queries">Making queries<a class="headerlink" href="#making-queries" title="Permanent link">&para;</a></h3>
-<p><code>cozy-client</code> provides you with a very easy to use DSL to define document queries:</p>
-<pre class="codehilite"><code class="language-jsx">import CozyClient from 'cozy-client'
+<p>And that&rsquo;s it! After the promise is resolved, <code>cozy-client</code> finishes the OAuth flow and you can start using it.</p>
+<h3 id="how-to-restore-a-previous-token">How to restore a previous token<a class="headerlink" href="#how-to-restore-a-previous-token" title="Permanent link">&para;</a></h3>
+<p>Of course you don&rsquo;t want to go through this whole process every time your app starts. In order to restore the client from a previous version, you need to give it a token and some extra information about itself. Both of these are returned by the <code>openURL</code> function, so you can store them wherever you see fit — in this example we&rsquo;ll use the <code>localStorage</code> API.</p>
+<pre class="codehilite"><code class="language-js">import CozyClient from 'cozy-client'
 
 const client = new CozyClient({
-  /*...*/
+  uri: 'http://cozy.tools:8080',
+  scope: ['io.cozy.mydoctype'],
+  oauth: {
+    clientName: 'MyClient',
+    softwareID: 'MyAppId',
+    redirectURI: 'http://localhost'
+  }
 })
 
-const query = client.find('io.cozy.todos').where({ checked: false }).sortBy({ label: 'desc' })</code></pre>
+const {token, infos} = client.startOAuthFlow(openURL)
+localStorage.setItem('token', token)
+localStorage.setItem('infos', JSON.stringify(infos))</code></pre>
 
 
-<h2 id="mutating-data">Mutating data<a class="headerlink" href="#mutating-data" title="Permanent link">&para;</a></h2>
-<p>In addition to fetching data using queries, <code>cozy-client</code> also helps you mutate (update) data.</p>
-<pre class="codehilite"><code class="language-jsx">import React from 'react'
-import { Query } from 'cozy-client'
+<p>Next time your app starts, you can pass these informations to the constructor. Here is a complete example of the OAuth client initilisation:</p>
+<pre class="codehilite"><code class="language-js">const storedToken = localStorage.getItem('token') || null
+const storedInfos = JSON.parse(localStorage.getItem('infos')) || {
+  clientName: 'MyClient',
+  softwareID: 'MyAppId',
+  redirectURI: 'http://localhost'
+}
 
-const query = client =&gt; client.find('io.cozy.todos').where({ checked: false })
+const client = new CozyClient({
+  uri: 'http://cozy.tools:8080',
+  oauth: storedInfos,
+  token: storedToken,
+  scope: ['io.cozy.mydoctype']
+});
 
-const createMutations = (client, ownProps) =&gt; ({
-  addTodo: label =&gt; client.create('io.cozy.todos', { label })
-})
-
-const App = () =&gt; (
-  &lt;Query query={query} mutations={createMutations}&gt;
-    {(result, addTodo) =&gt;
-      &lt;TodoList data={result.data} onAddTodo={addTodo} /&gt;
-    }
-  &lt;/Query&gt;</code></pre>
+if (!storedToken) {
+  const {token, infos} = await client.startOAuthFlow(openURL)
+  localStorage.setItem('token', token)
+  localStorage.setItem('infos', JSON.stringify(infos))
+}</code></pre>
 
 
-<h3 id="updating-queries">Updating queries<a class="headerlink" href="#updating-queries" title="Permanent link">&para;</a></h3>
-<p>TODO</p>
-<pre class="codehilite"><code class="language-jsx">import React from 'react'
-import { connect, find } from 'cozy-client'
+<h3 id="how-to-logout-a-client">How to logout a client<a class="headerlink" href="#how-to-logout-a-client" title="Permanent link">&para;</a></h3>
+<p>When a user logout, we would like remove all references on this instance and
+remove all user data. You can just use <code>cozyClient.logout()</code>.</p>
+<h2 id="how-to-use-cozyclient-on-mobile">How to use CozyClient on mobile<a class="headerlink" href="#how-to-use-cozyclient-on-mobile" title="Permanent link">&para;</a></h2>
+<p><code>CozyClient</code> can also be used as an OAuth client. To get started, configure the OAuth informations when creating the client:</p>
+<pre class="codehilite"><code class="language-js">import CozyClient from 'cozy-client'
 
-const query = find('io.cozy.todos').where({ checked: false })
+const client = new CozyClient({
+  uri: 'http://cozy.tools:8080',
+  scope: ['io.cozy.mydoctype'],
+  oauth: {
+    clientName: 'MyClient',
+    softwareID: 'MyAppId',
+    redirectURI: 'http://localhost'
+  }
+})</code></pre>
 
-const TodoList = ...
 
-export default connect(query, { as: 'allTodos' })(TodoList)</code></pre></div>
+<p><code>scope</code> is an array of <a href="https://github.com/cozy/cozy-stack/blob/master/docs/permissions.md">permissions</a> you require for your client, and <code>oauth</code> is a list of fields that identify your client for the user and the server. The complete list of field can be found <a href="https://github.com/cozy/cozy-stack/blob/master/docs/permissions.md">here</a>, although they should be camel-cased instead of snake-cased.</p></div>
         </div>
 
         <footer class="col-md-12">
