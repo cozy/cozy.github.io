@@ -1,6 +1,6 @@
 # Git Flow
 
-We recommand to use the following git flow four our applications and konnectors.
+We recommand to use the following git flow for our applications and konnectors.
 
 ## Development
 
@@ -47,7 +47,7 @@ git tag 1.4.0-beta.1
 
 If this tagged version has issue which need to be fixed, every fix will be merged into the `release-1.4.0` branch.
 
-Fixes must only be pushed fixes only in a release branch.
+Fixes must only be pushed in a release branch.
 
 Meanwhile, developments can continue to be merged into `master` without impacting `release-1.4.0`. Once fixes are done, a new beta tag is made.
 
