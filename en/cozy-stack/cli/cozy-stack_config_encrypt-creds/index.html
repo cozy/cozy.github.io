@@ -7,10 +7,10 @@
         
         
         <meta name="author" content="CozyCloud - https://cozy.io">
-        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/cli/cozy-stack_config_gen-keys/">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/cli/cozy-stack_config_encrypt-creds/">
         <link rel="shortcut icon" href="../../../img/favicon.png">
         
-        <title>cozy-stack_config_gen-keys - Documentation</title>
+        <title>cozy-stack_config_encrypt-creds - Documentation</title>
         <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
@@ -489,16 +489,15 @@
                 <div class="col-md-3">
 <div class="bs-sidebar hidden-print affix" role="complementary">
     <ul class="nav bs-sidenav well" style='padding-left: 0; padding-right: 0; margin-bottom: 1.5rem'>
-        <li class="main active"><a href="#cozy-stack-config-gen-keys">cozy-stack config gen-keys</a></li>
+        <li class="main active"><a href="#cozy-stack-config-encrypt-creds">cozy-stack config encrypt-creds</a></li>
             <li><a href="#synopsis">Synopsis</a></li>
-            <li><a href="#examples">Examples</a></li>
             <li><a href="#options">Options</a></li>
             <li><a href="#options-inherited-from-parent-commands">Options inherited from parent commands</a></li>
             <li><a href="#see-also">SEE ALSO</a></li>
     </ul>
   <div style='padding-left: 2rem'>
     
-    <a id='edit-link' href='https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-stack/cli/cozy-stack_config_gen-keys.md'>Edit documentation</a>
+    <a id='edit-link' href='https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-stack/cli/cozy-stack_config_encrypt-creds.md'>Edit documentation</a>
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
@@ -535,26 +534,15 @@
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h2 id="cozy-stack-config-gen-keys">cozy-stack config gen-keys<a class="headerlink" href="#cozy-stack-config-gen-keys" title="Permanent link">&para;</a></h2>
-<p>Generate an key pair for encryption and decryption of credentials</p>
+<h2 id="cozy-stack-config-encrypt-creds">cozy-stack config encrypt-creds<a class="headerlink" href="#cozy-stack-config-encrypt-creds" title="Permanent link">&para;</a></h2>
+<p>Encrypt the given credentials with the specified decryption keyfile.</p>
 <h3 id="synopsis">Synopsis<a class="headerlink" href="#synopsis" title="Permanent link">&para;</a></h3>
-<p>cozy-stack config gen-keys generate a key-pair and save them in the
-specified path.</p>
-<p>The decryptor key filename is given the &ldquo;.dec&rdquo; extension suffix.
-The encryptor key filename is given the &ldquo;.enc&rdquo; extension suffix.</p>
-<p>The files permissions are 0400.</p>
-<pre class="codehilite"><code>cozy-stack config gen-keys &lt;filepath&gt; [flags]</code></pre>
-
-
-<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code>$ cozy-stack config gen-keys ~/credentials-key
-keyfiles written in:
-    ~/credentials-key.enc
-    ~/credentials-key.dec</code></pre>
+<p>Encrypt the given credentials with the specified decryption keyfile.</p>
+<pre class="codehilite"><code>cozy-stack config encrypt-creds &lt;keyfile&gt; &lt;login&gt; &lt;password&gt; [flags]</code></pre>
 
 
 <h3 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code>  -h, --help   help for gen-keys</code></pre>
+<pre class="codehilite"><code>  -h, --help   help for encrypt-creds</code></pre>
 
 
 <h3 id="options-inherited-from-parent-commands">Options inherited from parent commands<a class="headerlink" href="#options-inherited-from-parent-commands" title="Permanent link">&para;</a></h3>
