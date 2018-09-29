@@ -571,7 +571,13 @@
 <li><code>url</code>: {string}</li>
 <li><code>label?</code>: {string} A user-provided localized type of instance</li>
 <li><code>primary?</code>: {boolean} Indicates a preferred-use instance</li>
-<li><code>groups</code>: {array} An array containing a list of ids of <code>io.cozy.contacts.groups</code> documents that this contact is part of</li>
+<li><code>relationships</code>: {object} links between documents</li>
+<li><code>groups</code>: {object} groups the contact belongs to<ul>
+<li><code>data</code>: {array} list of groups</li>
+<li><code>_id</code>: {string} id of the io.cozy.contacts.groups document</li>
+<li><code>_type</code>: {string} doctype &ldquo;io.cozy.contacts.groups&rdquo; </li>
+</ul>
+</li>
 <li><code>metadata</code>: {object}
   - <code>version</code>: {integer} Used for migrations. Current version is <strong>1</strong></li>
 </ul>
