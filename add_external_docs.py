@@ -103,10 +103,10 @@ def main():
         {'name': c[0], 'repo': c[1], 'subdir': c[2]}
         for c in outside_docs_conf
     ]
-    outside_doc_names = [c['name'] for c in outside_docs_conf] 
+    outside_doc_names = [c['name'] for c in outside_docs_conf]
 
-    develop = find_entry(data['pages'], 'Develop')
-    references = find_entry(develop, 'References')
+    develop = find_entry(data['pages'], 'References')
+    references = find_entry(develop, 'Stack and tools')
 
     del references[:]
 
