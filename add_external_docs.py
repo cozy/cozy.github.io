@@ -54,7 +54,7 @@ def read_toc(directory):
     else:
         def make_paths_absolute(tree):
             for t in tree:
-                for k in t.iterkeys():
+                for k in t.keys():
                     if isinstance(t[k], str):
                         t[k] = re.sub('^.', directory, t[k])
                     else:
@@ -74,7 +74,7 @@ def walk_dict(d):
     if isinstance(d, list):
         it = iter(d)
     elif isinstance(d, dict):
-        it = d.itervalues()
+        it = d.values()
     if it:
         for item in it:
             for leaf in walk_dict(item):
