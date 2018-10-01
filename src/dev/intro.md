@@ -14,7 +14,7 @@ Depending on your point of view, Cozy can be seen as :
 
 The whole platform is designed around 3 key values : *Simple*, *Versatile*, *Yours*. 
 
-These values mean a lot for Cozy in all aspects. From an architectural point of view, it declines to:
+These values have a lot of meaning for Cozy in all aspects. From an architectural point of view, they are declined like this:
 
  - *simple* and easy to understand and deploy. Cozy doesn’t require to setup and manage a lot of micro-services;
  - *versatile*: your server is comfortable anywhere. You can host a single instance on a small Raspberry π at home, or a cluster of thousands instances on dedicated servers inside a datacenter;
@@ -68,8 +68,8 @@ The *datasystem* layer inside the Cozy stack is in charge of controlling access 
 
 There are two kind of applications:
 
- - **web applications**: that's Single Page Applications (SPA) written in HTML and JavaScript that run inside the user's browser. They interact with the server through its API. This API allows to manipulate data and files and to perform miscellaneous tasks, like send emails
- - **connectors**: that's small application written in JavaScript, running on the server side, that import your data from remote sources.
+ - **web applications**: Single Page Applications (SPA) written in HTML and JavaScript that run inside the user's browser. They interact with the server through its API. This API allows to manipulate data and files and to perform miscellaneous tasks, like send emails
+ - **connectors**: Small application written in JavaScript, running on the server, that import your data from remote sources.
 
 The server provides services to applications:
 
@@ -92,12 +92,12 @@ An application registry lists every available applications, and their characteri
 
 ## Application isolation
 
-Each application uses its own sub-domain name, so it gets sandboxed inside the browser: other application are not able to steal it access token and access its data.
+Each application uses its own sub-domain, so it gets sandboxed inside the browser: other application are not able to steal its access token or access its data.
 
-We use *Content Security Policy* to control what the application is allowed to do. For example, Web applications running inside Cozy are not allowed to send requests to other websites. This allow a strict control over applications, preventing them to leak your data.
+We use *Content Security Policy* to control what the application is allowed to do. For example, Web applications running inside Cozy are not allowed to send requests to other websites. This allows a strict control over applications, preventing them to leak your data.
 
 
-## To go further
+## Further reading
 
  * Coding tutorials : 
      * [How to code a client application](app.md)
