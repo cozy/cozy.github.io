@@ -1,19 +1,20 @@
 # How to create a mobile Cozy application
 
-The simplest way to create a mobile Cozy application is to use JavaScript as there already are JavaScript libraries to connect to the Cozy server, as known as cozy-stack.
+The easiest way to create a Cozy mobile application is to use JavaScript because there are already JavaScript libraries to connect to the Cozy server, known as cozy-stack.
 
-Therefore we will use the classical stack:
+This is why we will use the classic web stack:
 
 1. a JavaScript web application
 1. and cordova
 
 !!! warning ""
-    [At the end of this documentation](#annexes), you will find _how-tos_ to help you with [cordova configuration](#install-and-setup-cordova), [webpack builds](#webpack-configuration) and [cordova deployments for Android and iOS](#cordova).
+    [At the end of this documentation](#annexes), you will find _how-tos_ to help you with [cordova configuration](#install-and-setup-cordova), [webpack configuration](#webpack-configuration) and [cordova deployments for Android and iOS](#cordova).
 
-To create [your first Cozy application](/dev/app), just follow the guide.
-As you can read there, Cozy applications are served by the Cozy server, this is the way that Cozy applications retrieve a token to query data.
+There is a guide to create [a Cozy web application](/dev/app).
+As you can read there, Cozy applications are served by the Cozy server, this is how Cozy applications __retrieve a token__ to query the data.
 
-In the case of a mobile application, you need to retrieve a token differently. Hopefully we provide everything you need to do it easily.
+In the case of a mobile application, you have to get a token otherwise.
+Fortunately we provide you everything you need to do it easily.
 
 You'll need two libraries:
 
@@ -22,6 +23,7 @@ You'll need two libraries:
 
 !!! warning ""
     In the case of Cozy web applications served by the Cozy server, these two libraries are injected in the html file with variables `{{.CozyClientJS}}` and `{{.CozyBar}}`.
+    That is not the case for a cozy mobile application built with cordova.
 
 ## Setup index.html
 
