@@ -1,6 +1,6 @@
 # Git Flow
 
-We recommand to use the following git flow four our applications and konnectors.
+We recommand to use the following git flow for our applications and konnectors.
 
 ## Development
 
