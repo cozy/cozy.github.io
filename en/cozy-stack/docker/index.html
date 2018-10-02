@@ -473,6 +473,66 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">babel-preset-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../babel-preset-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">commitlint-config-cozy</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../commitlint-config-cozy/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-device-helper</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-device-helper/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">eslint-config-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../eslint-config-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-flags</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-flags/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-realtime</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-realtime/README/">README</a>
+</li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -510,7 +570,7 @@
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
-        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}]
+        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
         const editNode = document.querySelector('#edit-link')
         const pathname = window.location.pathname
         const editURI = 'edit/master/'
@@ -549,12 +609,13 @@
 <h2 id="running-a-couchdb-instance">Running a CouchDB instance<a class="headerlink" href="#running-a-couchdb-instance" title="Permanent link">&para;</a></h2>
 <p>This will run a new instance of CouchDB in <code>single</code> mode (no cluster) and in
 <code>admin-party-mode</code> (no user). This command exposes couchdb on the port <code>5984</code>.</p>
-<pre class="codehilite"><code class="language-bash">$ docker run -d \
-    --name cozy-stack-couch \
-    -p 5984:5984 \
-    -v $HOME/.cozy-stack-couch:/opt/couchdb/data \
+<div class="codehilite"><pre><span></span>$ docker run -d <span class="se">\</span>
+    --name cozy-stack-couch <span class="se">\</span>
+    -p <span class="m">5984</span>:5984 <span class="se">\</span>
+    -v <span class="nv">$HOME</span>/.cozy-stack-couch:/opt/couchdb/data <span class="se">\</span>
     apache/couchdb:2.2
-$ curl -X PUT http://127.0.0.1:5984/{_users,_replicator,_global_changes}</code></pre>
+$ curl -X PUT http://127.0.0.1:5984/<span class="o">{</span>_users,_replicator,_global_changes<span class="o">}</span>
+</pre></div>
 
 
 <p>Verify your installation at: http://127.0.0.1:5984/_utils/#verifyinstall.</p>
@@ -562,12 +623,13 @@ $ curl -X PUT http://127.0.0.1:5984/{_users,_replicator,_global_changes}</code><
 <p>Warning, this command will build a linux binary. Use
 <a href="https://golang.org/doc/install/source#environment"><code>GOOS</code> and <code>GOARCH</code></a> to
 adapt to your own system.</p>
-<pre class="codehilite"><code class="language-bash"># From your cozy-stack developement folder
-docker run -it --rm --name cozy-stack \
-    -v $(pwd):/go/src/github.com/cozy/cozy-stack \
-    -v $(pwd):/go/bin \
-    golang:1.10 \
-    go get -v github.com/cozy/cozy-stack</code></pre>
+<div class="codehilite"><pre><span></span><span class="c1"># From your cozy-stack developement folder</span>
+docker run -it --rm --name cozy-stack <span class="se">\</span>
+    -v <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/go/src/github.com/cozy/cozy-stack <span class="se">\</span>
+    -v <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/go/bin <span class="se">\</span>
+    golang:1.10 <span class="se">\</span>
+    go get -v github.com/cozy/cozy-stack
+</pre></div>
 
 
 <h2 id="publishing-a-new-cozy-app-dev-image">Publishing a new cozy-app-dev image<a class="headerlink" href="#publishing-a-new-cozy-app-dev-image" title="Permanent link">&para;</a></h2>

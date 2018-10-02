@@ -473,6 +473,66 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">babel-preset-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../babel-preset-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">commitlint-config-cozy</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../commitlint-config-cozy/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-device-helper</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-device-helper/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">eslint-config-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../eslint-config-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-flags</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-flags/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-realtime</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-realtime/README/">README</a>
+</li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -514,7 +574,7 @@
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
-        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}]
+        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
         const editNode = document.querySelector('#edit-link')
         const pathname = window.location.pathname
         const editURI = 'edit/master/'
@@ -611,15 +671,16 @@
 <h3 id="simple-case-by-id">Simple case, by id<a class="headerlink" href="#simple-case-by-id" title="Permanent link">&para;</a></h3>
 <p>We suppose that in the most cases, we will face to entries provinding their own <code>id</code> attribute. The idea is to store it as synchronization data to be able to easily retrieve them later.
 To store synchronization data, we are using a <code>sync</code> attribute in document <code>metadata</code> attribute. Example:</p>
-<pre class="codehilite"><code class="language-json">{
-  &quot;metadata&quot;: {
-    &quot;sync&quot;: {
-      &quot;id&quot;: &quot;7ee401e841c94159addb47f190903139&quot;,
-      &quot;konnector&quot;: &quot;trainline&quot;,
-      &quot;last_sync&quot;: &quot;Mon, 12 Feb 2018 16:25:34 GMT&quot;
-    }
-  }
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;metadata&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;sync&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;7ee401e841c94159addb47f190903139&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;konnector&quot;</span><span class="p">:</span> <span class="s2">&quot;trainline&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;last_sync&quot;</span><span class="p">:</span> <span class="s2">&quot;Mon, 12 Feb 2018 16:25:34 GMT&quot;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <p>The expected information to be save is:</p>
@@ -647,28 +708,30 @@ To store synchronization data, we are using a <code>sync</code> attribute in doc
 </table>
 <h3 id="by-multiple-attributes">By multiple attributes<a class="headerlink" href="#by-multiple-attributes" title="Permanent link">&para;</a></h3>
 <p>If the external service does not provide any <code>id</code> attribute, we may need to use instead a list of attributes, for example <code>firstname</code>, <code>lastname</code>, <code>dateofbirth</code>.</p>
-<pre class="codehilite"><code class="language-json">{
-  &quot;metadata&quot;: {
-    &quot;sync&quot;: {
-      &quot;firstname&quot;: &quot;Claude&quot;,
-      &quot;lastname&quot;: &quot;Causi&quot;,
-      &quot;dateofbirth&quot;: &quot;06/12/1980&quot;
-    }
-  }
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;metadata&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;sync&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;firstname&quot;</span><span class="p">:</span> <span class="s2">&quot;Claude&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;lastname&quot;</span><span class="p">:</span> <span class="s2">&quot;Causi&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;dateofbirth&quot;</span><span class="p">:</span> <span class="s2">&quot;06/12/1980&quot;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <p>As we cannot be sure that we will have different data, it could be better to use a custom way of providing an unique identifier.</p>
 <h3 id="by-custom-method">By custom method<a class="headerlink" href="#by-custom-method" title="Permanent link">&para;</a></h3>
 <p>When the external service does not provide any identifier, we have to use a custom method to generate one.
 It could be for example the filename or a hash generated with the document content.</p>
-<pre class="codehilite"><code class="language-json">{
-  &quot;metadata&quot;: {
-    &quot;sync&quot;: {
-      &quot;id:&quot;: &quot;customhash34FED5465645ABF54656FCB&quot;
-    }
-  }
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;metadata&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;sync&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;id:&quot;</span><span class="p">:</span> <span class="s2">&quot;customhash34FED5465645ABF54656FCB&quot;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <h2 id="saving-document-based-on-synchronization-strategy">Saving document based on synchronization strategy<a class="headerlink" href="#saving-document-based-on-synchronization-strategy" title="Permanent link">&para;</a></h2>
@@ -678,47 +741,48 @@ It could be for example the filename or a hash generated with the document conte
 * provide a default implementation while letting the contributors to define their own ones</p>
 <h3 id="adding-synchronization-data">Adding synchronization data<a class="headerlink" href="#adding-synchronization-data" title="Permanent link">&para;</a></h3>
 <p>We should provide an <code>addSyncData</code> function could, which look like this (naive implementation, this piece of code needs to be improved to handle cases where <code>synchronizationStrategy.idAttribute</code> is an array or a function):</p>
-<pre class="codehilite"><code class="language-js">const addSyncData = (document, entry, synchronizationStrategy) =&gt; {
-  return {
-    ...document,
-    metadata: {
-      ...document.metadata,
-      id: entry[synchronizationStrategy.idAttribute]
-    }
-}
-````
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">addSyncData</span> <span class="o">=</span> <span class="p">(</span><span class="nb">document</span><span class="p">,</span> <span class="nx">entry</span><span class="p">,</span> <span class="nx">synchronizationStrategy</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="p">...</span><span class="nb">document</span><span class="p">,</span>
+    <span class="nx">metadata</span><span class="o">:</span> <span class="p">{</span>
+      <span class="p">...</span><span class="nb">document</span><span class="p">.</span><span class="nx">metadata</span><span class="p">,</span>
+      <span class="nx">id</span><span class="o">:</span> <span class="nx">entry</span><span class="p">[</span><span class="nx">synchronizationStrategy</span><span class="p">.</span><span class="nx">idAttribute</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="sb">````</span>
 
-Where `document` is the future document to save, `entry` the corresponding external entry, and `synchronizationStrategy` and object defining the synchronization properties and methods (see below).
+<span class="nx">Where</span> <span class="sb">`document`</span> <span class="nx">is</span> <span class="nx">the</span> <span class="nx">future</span> <span class="nb">document</span> <span class="nx">to</span> <span class="nx">save</span><span class="p">,</span> <span class="sb">`entry`</span> <span class="nx">the</span> <span class="nx">corresponding</span> <span class="nx">external</span> <span class="nx">entry</span><span class="p">,</span> <span class="nx">and</span> <span class="sb">`synchronizationStrategy`</span> <span class="nx">and</span> <span class="nx">object</span> <span class="nx">defining</span> <span class="nx">the</span> <span class="nx">synchronization</span> <span class="nx">properties</span> <span class="nx">and</span> <span class="nx">methods</span> <span class="p">(</span><span class="nx">see</span> <span class="nx">below</span><span class="p">).</span>
 
-### Filtering entries
+<span class="err">###</span> <span class="nx">Filtering</span> <span class="nx">entries</span>
 
-Now we have saved our documents in database with consistent synchronization metadata, we need to provide a way to filter external entries.
+<span class="nx">Now</span> <span class="nx">we</span> <span class="nx">have</span> <span class="nx">saved</span> <span class="nx">our</span> <span class="nx">documents</span> <span class="k">in</span> <span class="nx">database</span> <span class="kd">with</span> <span class="nx">consistent</span> <span class="nx">synchronization</span> <span class="nx">metadata</span><span class="p">,</span> <span class="nx">we</span> <span class="nx">need</span> <span class="nx">to</span> <span class="nx">provide</span> <span class="nx">a</span> <span class="nx">way</span> <span class="nx">to</span> <span class="nx">filter</span> <span class="nx">external</span> <span class="nx">entries</span><span class="p">.</span>
 
-We should provide a `filterEntriesToSynchronize` which returns a list of entries with new data or data to update.
+<span class="nx">We</span> <span class="nx">should</span> <span class="nx">provide</span> <span class="nx">a</span> <span class="sb">`filterEntriesToSynchronize`</span> <span class="nx">which</span> <span class="nx">returns</span> <span class="nx">a</span> <span class="nx">list</span> <span class="k">of</span> <span class="nx">entries</span> <span class="kd">with</span> <span class="k">new</span> <span class="nx">data</span> <span class="nx">or</span> <span class="nx">data</span> <span class="nx">to</span> <span class="nx">update</span><span class="p">.</span>
 
-As `addSyncData`, this method will receive a `synchronizationStrategy`. The filtering algorithm should be based on the returned value of `synchronizationStrategy.shouldSave` and `synchronizationStrategy.shouldUpdate`.
+<span class="nx">As</span> <span class="sb">`addSyncData`</span><span class="p">,</span> <span class="k">this</span> <span class="nx">method</span> <span class="nx">will</span> <span class="nx">receive</span> <span class="nx">a</span> <span class="sb">`synchronizationStrategy`</span><span class="p">.</span> <span class="nx">The</span> <span class="nx">filtering</span> <span class="nx">algorithm</span> <span class="nx">should</span> <span class="nx">be</span> <span class="nx">based</span> <span class="nx">on</span> <span class="nx">the</span> <span class="nx">returned</span> <span class="nx">value</span> <span class="k">of</span> <span class="sb">`synchronizationStrategy.shouldSave`</span> <span class="nx">and</span> <span class="sb">`synchronizationStrategy.shouldUpdate`</span><span class="p">.</span>
 
-&gt; ⚠️ As the `synchronizationStrategy.shouldSave` and `synchronizationStrategy.shouldUpdate` will be asynchronous methods, `filterEntriesToSynchronize` should also be asynchronous.
+<span class="o">&gt;</span> <span class="err">⚠️</span> <span class="nx">As</span> <span class="nx">the</span> <span class="sb">`synchronizationStrategy.shouldSave`</span> <span class="nx">and</span> <span class="sb">`synchronizationStrategy.shouldUpdate`</span> <span class="nx">will</span> <span class="nx">be</span> <span class="nx">asynchronous</span> <span class="nx">methods</span><span class="p">,</span> <span class="sb">`filterEntriesToSynchronize`</span> <span class="nx">should</span> <span class="nx">also</span> <span class="nx">be</span> <span class="nx">asynchronous</span><span class="p">.</span>
 
-A naive example of `filterEntriesToSynchronize` implementation should be:
+<span class="nx">A</span> <span class="nx">naive</span> <span class="nx">example</span> <span class="k">of</span> <span class="sb">`filterEntriesToSynchronize`</span> <span class="nx">implementation</span> <span class="nx">should</span> <span class="nx">be</span><span class="o">:</span>
 
-```js
-const filterEntriesToSynchronize = async (cozy, entries, synchronizationStrategy) = {
-  const filtered = []
+<span class="sb">```js</span>
+<span class="sb">const filterEntriesToSynchronize = async (cozy, entries, synchronizationStrategy) = {</span>
+<span class="sb">  const filtered = []</span>
 
-  entries.forEach(entry =&gt; {
-    // getExistingSynchronizedDocument needs to be implemented, it should retrieve
-    // existing document from database, based on synchronization data.
-    const existingDocument = cozy.getExistingSynchronizedDocument(entry, synchronizationStrategy)
+<span class="sb">  entries.forEach(entry =&gt; {</span>
+<span class="sb">    // getExistingSynchronizedDocument needs to be implemented, it should retrieve</span>
+<span class="sb">    // existing document from database, based on synchronization data.</span>
+<span class="sb">    const existingDocument = cozy.getExistingSynchronizedDocument(entry, synchronizationStrategy)</span>
 
-    const toSave = await synchronizationStrategy.shouldSave(entry, existingDocument)
-    const toUpdate = await synchronizationStrategy.shouldUpdate(entry, existingDocument)
+<span class="sb">    const toSave = await synchronizationStrategy.shouldSave(entry, existingDocument)</span>
+<span class="sb">    const toUpdate = await synchronizationStrategy.shouldUpdate(entry, existingDocument)</span>
 
-    if (toSave || toUpdate) filtered.push(entry)
-  })
+<span class="sb">    if (toSave || toUpdate) filtered.push(entry)</span>
+<span class="sb">  })</span>
 
-  return filtered
-}</code></pre>
+<span class="sb">  return filtered</span>
+<span class="sb">}</span>
+</pre></div>
 
 
 <h2 id="synchronization-strategy">Synchronization strategy<a class="headerlink" href="#synchronization-strategy" title="Permanent link">&para;</a></h2>
@@ -764,46 +828,50 @@ const filterEntriesToSynchronize = async (cozy, entries, synchronizationStrategy
 </table>
 <h3 id="findlegacydocument">findLegacyDocument<a class="headerlink" href="#findlegacydocument" title="Permanent link">&para;</a></h3>
 <p>If a document has not been saved yet with actual synchronization data, we will have no way to retrieve it, except by providing a <code>findLegacyDocument</code> function to <code>saveEntry</code> options. This signature of a <code>findLegacyDocument</code> function is:</p>
-<pre class="codehilite"><code class="language-js">async function (entry, cozy) =&gt; { /* look for your document */ }
-````
+<div class="codehilite"><pre><span></span><span class="nx">async</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">entry</span><span class="p">,</span> <span class="nx">cozy</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="cm">/* look for your document */</span> <span class="p">}</span>
+<span class="sb">````</span>
 
-The `cozy` parameter is an instance of Cozy-Client.
+<span class="nx">The</span> <span class="sb">`cozy`</span> <span class="nx">parameter</span> <span class="nx">is</span> <span class="nx">an</span> <span class="nx">instance</span> <span class="k">of</span> <span class="nx">Cozy</span><span class="o">-</span><span class="nx">Client</span><span class="p">.</span>
 
-The idea is for example to retrive a document by its file path or any other accurate information.
+<span class="nx">The</span> <span class="nx">idea</span> <span class="nx">is</span> <span class="k">for</span> <span class="nx">example</span> <span class="nx">to</span> <span class="nx">retrive</span> <span class="nx">a</span> <span class="nb">document</span> <span class="nx">by</span> <span class="nx">its</span> <span class="nx">file</span> <span class="nx">path</span> <span class="nx">or</span> <span class="nx">any</span> <span class="nx">other</span> <span class="nx">accurate</span> <span class="nx">information</span><span class="p">.</span>
 
-### getSyncData
-This method returns any addtional synchronization data the konnector should need. Default method should be something returning an empty object or `null`.
+<span class="err">###</span> <span class="nx">getSyncData</span>
+<span class="nx">This</span> <span class="nx">method</span> <span class="nx">returns</span> <span class="nx">any</span> <span class="nx">addtional</span> <span class="nx">synchronization</span> <span class="nx">data</span> <span class="nx">the</span> <span class="nx">konnector</span> <span class="nx">should</span> <span class="nx">need</span><span class="p">.</span> <span class="nx">Default</span> <span class="nx">method</span> <span class="nx">should</span> <span class="nx">be</span> <span class="nx">something</span> <span class="nx">returning</span> <span class="nx">an</span> <span class="nx">empty</span> <span class="nx">object</span> <span class="nx">or</span> <span class="sb">`null`</span><span class="p">.</span>
 
-```js
-(entry) =&gt; ({})</code></pre>
+<span class="sb">```js</span>
+<span class="sb">(entry) =&gt; ({})</span>
+</pre></div>
 
 
 <p>A konnector should provide its own method:</p>
-<pre class="codehilite"><code class="language-js">{
-  getSyncData: (entry) =&gt; ({
-    filename: entry.name
-  })
-}```
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nx">getSyncData</span><span class="o">:</span> <span class="p">(</span><span class="nx">entry</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">({</span>
+    <span class="nx">filename</span><span class="o">:</span> <span class="nx">entry</span><span class="p">.</span><span class="nx">name</span>
+  <span class="p">})</span>
+<span class="p">}</span><span class="sb">```</span>
 
-### idAttribute
-#### String
-Name of the id attribute in entry. Default is `id`. If we want to use another name, we may use:
-```js
-saveFiles(files, {idAttribute: 'uuid'})</code></pre>
+<span class="sb">### idAttribute</span>
+<span class="sb">#### String</span>
+<span class="sb">Name of the id attribute in entry. Default is `</span><span class="nx">id</span><span class="sb">`. If we want to use another name, we may use:</span>
+<span class="sb">```</span><span class="nx">js</span>
+<span class="nx">saveFiles</span><span class="p">(</span><span class="nx">files</span><span class="p">,</span> <span class="p">{</span><span class="nx">idAttribute</span><span class="o">:</span> <span class="s1">&#39;uuid&#39;</span><span class="p">})</span>
+</pre></div>
 
 
 <h4 id="array">Array<a class="headerlink" href="#array" title="Permanent link">&para;</a></h4>
 <p>This attribute may also be an array of string, defining each entry attribute which must be used for identifier.</p>
 <h5 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h5>
-<pre class="codehilite"><code class="language-js">saveFiles(files, {idAttribute: ['name', 'author', 'date']})</code></pre>
+<div class="codehilite"><pre><span></span><span class="nx">saveFiles</span><span class="p">(</span><span class="nx">files</span><span class="p">,</span> <span class="p">{</span><span class="nx">idAttribute</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;author&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">]})</span>
+</pre></div>
 
 
 <p>In this case, all fields are used in synchronization data.</p>
 <h4 id="function">function<a class="headerlink" href="#function" title="Permanent link">&para;</a></h4>
 <p>When an entry does not provide an unique identifer, it is possible to use a function as <code>idAttribute</code> to customize the way the unique identifer is generated.</p>
 <h5 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h5>
-<pre class="codehilite"><code class="language-js">addData(file, {idAttribute: (entry) =&gt; hash(entry)})
-// hash() is a custom method  hashing the current file.</code></pre>
+<div class="codehilite"><pre><span></span><span class="nx">addData</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="p">{</span><span class="nx">idAttribute</span><span class="o">:</span> <span class="p">(</span><span class="nx">entry</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">hash</span><span class="p">(</span><span class="nx">entry</span><span class="p">)})</span>
+<span class="c1">// hash() is a custom method  hashing the current file.</span>
+</pre></div>
 
 
 <h3 id="konnector">konnector<a class="headerlink" href="#konnector" title="Permanent link">&para;</a></h3>
@@ -811,9 +879,10 @@ saveFiles(files, {idAttribute: 'uuid'})</code></pre>
 <p>For now, the <code>konnector</code> option will be needed for every call. But it could be interesting to initialize some kind of runner with it, which may encapsulate all the <code>cozy-konnector-libs</code> functions.</p>
 <h3 id="shouldsave">shouldSave<a class="headerlink" href="#shouldsave" title="Permanent link">&para;</a></h3>
 <p>The shouldSave function returns a boolean which indicate if the entry should be saved. The default method should be:</p>
-<pre class="codehilite"><code class="language-js">async function shouldSave (entry, existingDocument, cozy) =&gt; {
-  return Promise.resolve(!existingDocument)
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="nx">async</span> <span class="kd">function</span> <span class="nx">shouldSave</span> <span class="p">(</span><span class="nx">entry</span><span class="p">,</span> <span class="nx">existingDocument</span><span class="p">,</span> <span class="nx">cozy</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="o">!</span><span class="nx">existingDocument</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <p>When calling this function, it is assumed that <code>cozy-konnector-libs</code> first queries the database for an exisring document, based on synchronization data and pass the document resulting the query to the <code>shouldSave</code> function, event if this document is <code>null</code>. We pass the whole document, and not only synchronization data, to let the contributors free on their way they are determining it a document should be saved.</p>
@@ -822,38 +891,39 @@ saveFiles(files, {idAttribute: 'uuid'})</code></pre>
 <h3 id="shouldupdate">shouldUpdate<a class="headerlink" href="#shouldupdate" title="Permanent link">&para;</a></h3>
 <p>The <code>shouldUpdate</code> function acts exactly like <code>shouldSave</code>, except that it is used to determine if a document should be updated. By default, we make the choice to never update a document (except if it does not have synchronization data, see <code>findLegacyDocument</code> above). But some konnectors like <code>Linxo</code> related ones need to update existing documents.</p>
 <p>The default method is:</p>
-<pre class="codehilite"><code class="language-js">async function shouldUpdate (entry, existingDocument, cozy) {
-  // Update an existing document only if it does not have synchronization data
-  const hasSyncData = !!existingDocument &amp;&amp; !!existingDocument.metadata &amp;&amp; !! existingDocument.metadata.sync
-  return Promise.resolve(!hasSyncData)
-}
-````
+<div class="codehilite"><pre><span></span><span class="nx">async</span> <span class="kd">function</span> <span class="nx">shouldUpdate</span> <span class="p">(</span><span class="nx">entry</span><span class="p">,</span> <span class="nx">existingDocument</span><span class="p">,</span> <span class="nx">cozy</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Update an existing document only if it does not have synchronization data</span>
+  <span class="kr">const</span> <span class="nx">hasSyncData</span> <span class="o">=</span> <span class="o">!!</span><span class="nx">existingDocument</span> <span class="o">&amp;&amp;</span> <span class="o">!!</span><span class="nx">existingDocument</span><span class="p">.</span><span class="nx">metadata</span> <span class="o">&amp;&amp;</span> <span class="o">!!</span> <span class="nx">existingDocument</span><span class="p">.</span><span class="nx">metadata</span><span class="p">.</span><span class="nx">sync</span>
+  <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="o">!</span><span class="nx">hasSyncData</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="sb">````</span>
 
-## Whole example
+<span class="err">##</span> <span class="nx">Whole</span> <span class="nx">example</span>
 
-As the way data are saved from `cozy-konnector-libs` differs based on data type, we let the saving mechanism to others functions or methods. For example, in existing codebase, bills are saved in a specific way, resulting in two documents in database. However, we could provide top-level functions or methods, like `synchronizeBills` or a more generic `synchronizeData`.
+<span class="nx">As</span> <span class="nx">the</span> <span class="nx">way</span> <span class="nx">data</span> <span class="nx">are</span> <span class="nx">saved</span> <span class="nx">from</span> <span class="sb">`cozy-konnector-libs`</span> <span class="nx">differs</span> <span class="nx">based</span> <span class="nx">on</span> <span class="nx">data</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">we</span> <span class="kd">let</span> <span class="nx">the</span> <span class="nx">saving</span> <span class="nx">mechanism</span> <span class="nx">to</span> <span class="nx">others</span> <span class="nx">functions</span> <span class="nx">or</span> <span class="nx">methods</span><span class="p">.</span> <span class="nx">For</span> <span class="nx">example</span><span class="p">,</span> <span class="k">in</span> <span class="nx">existing</span> <span class="nx">codebase</span><span class="p">,</span> <span class="nx">bills</span> <span class="nx">are</span> <span class="nx">saved</span> <span class="k">in</span> <span class="nx">a</span> <span class="nx">specific</span> <span class="nx">way</span><span class="p">,</span> <span class="nx">resulting</span> <span class="k">in</span> <span class="nx">two</span> <span class="nx">documents</span> <span class="k">in</span> <span class="nx">database</span><span class="p">.</span> <span class="nx">However</span><span class="p">,</span> <span class="nx">we</span> <span class="nx">could</span> <span class="nx">provide</span> <span class="nx">top</span><span class="o">-</span><span class="nx">level</span> <span class="nx">functions</span> <span class="nx">or</span> <span class="nx">methods</span><span class="p">,</span> <span class="nx">like</span> <span class="sb">`synchronizeBills`</span> <span class="nx">or</span> <span class="nx">a</span> <span class="nx">more</span> <span class="nx">generic</span> <span class="sb">`synchronizeData`</span><span class="p">.</span>
 
-Here is a whole and naive example of how `synchronizeBills` could be implemebted:
+<span class="nx">Here</span> <span class="nx">is</span> <span class="nx">a</span> <span class="nx">whole</span> <span class="nx">and</span> <span class="nx">naive</span> <span class="nx">example</span> <span class="k">of</span> <span class="nx">how</span> <span class="sb">`synchronizeBills`</span> <span class="nx">could</span> <span class="nx">be</span> <span class="nx">implemebted</span><span class="o">:</span>
 
-```js
-const synchronizeBills = async (cozy, entries, synchronizationStrategy) =&gt; {
-  return await filteredEntries = await filterEntriesToSynchronize(cozy, entries, synchronizationStrategy)
-    .then(filteredEntries =&gt; filteredEntries.map(entry =&gt; addSyncData(entry, synchronizationStrategy)))
-    // existing saveBills method (with maybe some little changes)
-    .saveBills(synchronizedDocuments)
-}</code></pre>
+<span class="sb">```js</span>
+<span class="sb">const synchronizeBills = async (cozy, entries, synchronizationStrategy) =&gt; {</span>
+<span class="sb">  return await filteredEntries = await filterEntriesToSynchronize(cozy, entries, synchronizationStrategy)</span>
+<span class="sb">    .then(filteredEntries =&gt; filteredEntries.map(entry =&gt; addSyncData(entry, synchronizationStrategy)))</span>
+<span class="sb">    // existing saveBills method (with maybe some little changes)</span>
+<span class="sb">    .saveBills(synchronizedDocuments)</span>
+<span class="sb">}</span>
+</pre></div>
 
 
 <p>Usage could be:</p>
-<pre class="codehilite"><code class="language-jse">synchronizeBills(cozy, entries, {
+<div class="codehilite"><pre><span></span>synchronizeBills(cozy, entries, {
   findLegacyDocument: (entry, cozy) =&gt; {
     return cozy.files.statByPath(getEntryPath(entry))
   },
   getSyncData: (file) =&gt; ({
     fileName: file.name
   }),
-  idAttribute: 'uuid',
-  konnector: 'myservice',
+  idAttribute: &#39;uuid&#39;,
+  konnector: &#39;myservice&#39;,
   shouldSave: (file) =&gt; {
     // For whatever reason we only save files created after 2010
     return Promise.resolve(moment(file.creationDate).year().isAfter(2010))
@@ -862,20 +932,22 @@ const synchronizeBills = async (cozy, entries, synchronizationStrategy) =&gt; {
     const hasBeenModified = moment(file.modificationDate).isAfter(existingDocument.metadata.sync.last_sync)
     return Promise.resolve(hasBeenModified)
   }
-})</code></pre>
+})
+</pre></div>
 
 
 <p>Every synchronized document will contain:</p>
-<pre class="codehilite"><code class="language-json">{
-  &quot;metadata&quot;: {
-    &quot;sync&quot;: {
-      &quot;konnector&quot;: &quot;myservice&quot;,
-      &quot;id&quot;: &quot;&lt;entry_id&gt;&quot;,
-      &quot;last_sync&quot;: &quot;&lt;now&gt;&quot;,
-      &quot;fileName&quot;: &quot;&lt;fileName&gt;&quot;
-    }
-  }
-}</code></pre></div>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;metadata&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;sync&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;konnector&quot;</span><span class="p">:</span> <span class="s2">&quot;myservice&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;entry_id&gt;&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;last_sync&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;now&gt;&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;fileName&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;fileName&gt;&quot;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div></div>
         </div>
 
         <footer class="col-md-12">

@@ -473,6 +473,66 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">babel-preset-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../babel-preset-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">commitlint-config-cozy</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../commitlint-config-cozy/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-device-helper</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-device-helper/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">eslint-config-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../eslint-config-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-flags</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-flags/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-realtime</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-realtime/README/">README</a>
+</li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -532,7 +592,7 @@
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
-        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}]
+        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
         const editNode = document.querySelector('#edit-link')
         const pathname = window.location.pathname
         const editURI = 'edit/master/'
@@ -579,15 +639,16 @@
 <li><code>lastModifiedDate</code>: a date to specify the last modification time to use for the uploaded file. If the given <code>data</code> is a <code>File</code> instance, the <code>lastModifiedDate</code> is automatically used (not overridden).</li>
 </ul>
 <p><strong>Warning</strong>: this API is not v2 compatible.</p>
-<pre class="codehilite"><code class="language-javascript">const created = await cozy.client.files.create(blob, {
-    name: &quot;filename&quot;,
-    dirID: &quot;123456&quot;,
-})
-const fileCreated = await cozy.client.files.create(fileInput.files[0], {
-  dirID: &quot;&quot;,
-  checksum: &quot;rL0Y20zC+Fzt72VPzMSk2A==&quot;,
-  lastModifiedDate: new Date()
-})</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">created</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">blob</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;filename&quot;</span><span class="p">,</span>
+    <span class="nx">dirID</span><span class="o">:</span> <span class="s2">&quot;123456&quot;</span><span class="p">,</span>
+<span class="p">})</span>
+<span class="kr">const</span> <span class="nx">fileCreated</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">fileInput</span><span class="p">.</span><span class="nx">files</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">{</span>
+  <span class="nx">dirID</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+  <span class="nx">checksum</span><span class="o">:</span> <span class="s2">&quot;rL0Y20zC+Fzt72VPzMSk2A==&quot;</span><span class="p">,</span>
+  <span class="nx">lastModifiedDate</span><span class="o">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()</span>
+<span class="p">})</span>
+</pre></div>
 
 
 <h3 id="cozyclientfilescreatedirectoryoptions"><code>cozy.client.files.createDirectory(options)</code><a class="headerlink" href="#cozyclientfilescreatedirectoryoptions" title="Permanent link">&para;</a></h3>
@@ -599,11 +660,12 @@ const fileCreated = await cozy.client.files.create(fileInput.files[0], {
 <li><code>dirID</code>: specify identifier of the file&rsquo;s directory. if empty, it is the root directory.</li>
 <li><code>lastModifiedDate</code>: a date to specify the last modification time to use for the directory.</li>
 </ul>
-<pre class="codehilite"><code class="language-javascript">const created = await cozy.client.files.createDirectory({
-  name: &quot;mydir&quot;,
-  dirID: &quot;123456&quot;,
-  lastModifiedDate: new Date()
-})</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">created</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">createDirectory</span><span class="p">({</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;mydir&quot;</span><span class="p">,</span>
+  <span class="nx">dirID</span><span class="o">:</span> <span class="s2">&quot;123456&quot;</span><span class="p">,</span>
+  <span class="nx">lastModifiedDate</span><span class="o">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()</span>
+<span class="p">})</span>
+</pre></div>
 
 
 <h3 id="cozyclientfilescreatedirectorybypathpath"><code>cozy.client.files.createDirectoryByPath(path)</code><a class="headerlink" href="#cozyclientfilescreatedirectorybypathpath" title="Permanent link">&para;</a></h3>
@@ -612,7 +674,8 @@ const fileCreated = await cozy.client.files.create(fileInput.files[0], {
 <ul>
 <li><code>path</code> is a string</li>
 </ul>
-<pre class="codehilite"><code class="language-javascript">const barDirectory = await cozy.client.files.createDirectoryByPath('/Foo/Bar')</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">barDirectory</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">createDirectoryByPath</span><span class="p">(</span><span class="s1">&#39;/Foo/Bar&#39;</span><span class="p">)</span>
+</pre></div>
 
 
 <h3 id="cozyclientfilesupdatebyidid-data-options"><code>cozy.client.files.updateById(id, data, options)</code><a class="headerlink" href="#cozyclientfilesupdatebyidid-data-options" title="Permanent link">&para;</a></h3>
@@ -627,12 +690,13 @@ const fileCreated = await cozy.client.files.create(fileInput.files[0], {
 <li><code>lastModifiedDate</code>: a date to specify the last modification time to use for the uploaded file. If the given <code>data</code> is a <code>File</code> instance, the <code>lastModifiedDate</code> is automatically used (not overridden).</li>
 <li><code>ifMatch</code>: the previous revision of the file (optional). The update will be rejected if the remote revision doesn&rsquo;t match the given one.</li>
 </ul>
-<pre class="codehilite"><code class="language-javascript">const updated = await cozy.client.files.updateById(&quot;654321&quot;, blob, {
-  contentType: &quot;text/plain&quot;,
-  checksum: &quot;rL0Y20zC+Fzt72VPzMSk2A==&quot;,
-  lastModifiedDate: new Date(),
-  ifMatch: &quot;1-0e6d5b72&quot;
-})</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">updated</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">updateById</span><span class="p">(</span><span class="s2">&quot;654321&quot;</span><span class="p">,</span> <span class="nx">blob</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">contentType</span><span class="o">:</span> <span class="s2">&quot;text/plain&quot;</span><span class="p">,</span>
+  <span class="nx">checksum</span><span class="o">:</span> <span class="s2">&quot;rL0Y20zC+Fzt72VPzMSk2A==&quot;</span><span class="p">,</span>
+  <span class="nx">lastModifiedDate</span><span class="o">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(),</span>
+  <span class="nx">ifMatch</span><span class="o">:</span> <span class="s2">&quot;1-0e6d5b72&quot;</span>
+<span class="p">})</span>
+</pre></div>
 
 
 <h3 id="cozyclientfilesupdateattributesbyidid-attrs-options"><code>cozy.client.files.updateAttributesById(id, attrs, options)</code><a class="headerlink" href="#cozyclientfilesupdateattributesbyidid-attrs-options" title="Permanent link">&para;</a></h3>
@@ -644,7 +708,8 @@ const fileCreated = await cozy.client.files.create(fileInput.files[0], {
 <li><code>options</code> is an object with the following fields:</li>
 <li><code>ifMatch</code>: the previous revision of the file (optional). The update will be rejected if the remote revision doesn&rsquo;t match the given one.</li>
 </ul>
-<pre class="codehilite"><code class="language-javascript">const updated = await cozy.client.files.updateAttributesById(&quot;12345&quot;, { tags: [&quot;foo&quot;] }, { ifMatch: &quot;1-0e6d5b72&quot; })</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">updated</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">updateAttributesById</span><span class="p">(</span><span class="s2">&quot;12345&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">tags</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;foo&quot;</span><span class="p">]</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">ifMatch</span><span class="o">:</span> <span class="s2">&quot;1-0e6d5b72&quot;</span> <span class="p">})</span>
+</pre></div>
 
 
 <h3 id="cozyclientfilesupdateattributesbypathpath-attrs-options"><code>cozy.client.files.updateAttributesByPath(path, attrs, options)</code><a class="headerlink" href="#cozyclientfilesupdateattributesbypathpath-attrs-options" title="Permanent link">&para;</a></h3>
@@ -656,7 +721,8 @@ const fileCreated = await cozy.client.files.create(fileInput.files[0], {
 <li><code>options</code> is an object with the following fields:</li>
 <li><code>ifMatch</code>: the previous revision of the file (optional). The update will be rejected if the remote revision doesn&rsquo;t match the given one.</li>
 </ul>
-<pre class="codehilite"><code class="language-javascript">const updated = await cozy.client.files.updateAttributes(&quot;/foo/bar&quot;, { executable: true }, { ifMatch: &quot;1-0e6d5b72&quot; })</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">updated</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">updateAttributes</span><span class="p">(</span><span class="s2">&quot;/foo/bar&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">executable</span><span class="o">:</span> <span class="kc">true</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">ifMatch</span><span class="o">:</span> <span class="s2">&quot;1-0e6d5b72&quot;</span> <span class="p">})</span>
+</pre></div>
 
 
 <h3 id="cozyclientfilesstatbyidid-offline-options"><code>cozy.client.files.statById(id, offline, options)</code><a class="headerlink" href="#cozyclientfilesstatbyidid-offline-options" title="Permanent link">&para;</a></h3>
@@ -672,8 +738,9 @@ to fetch more items.</p>
 </ul>
 <p>By default, <code>statById</code> will fetch the metadata from the local database, if it is available. Set the second parameter to <code>false</code> to query the server.</p>
 <p>Returned directory have a <code>relations()</code> method that allow to access to their content:</p>
-<pre class="codehilite"><code class="language-javascript">const dir = await cozy.client.files.statById(&quot;io.cozy.files.root-dir&quot;);
-dir.relations('contents').forEach( (file) =&gt; … )</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">dir</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">statById</span><span class="p">(</span><span class="s2">&quot;io.cozy.files.root-dir&quot;</span><span class="p">);</span>
+<span class="nx">dir</span><span class="p">.</span><span class="nx">relations</span><span class="p">(</span><span class="s1">&#39;contents&#39;</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span> <span class="p">(</span><span class="nx">file</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="err">…</span> <span class="p">)</span>
+</pre></div>
 
 
 <h3 id="cozyclientfilesstatbypathpath"><code>cozy.client.files.statByPath(path)</code><a class="headerlink" href="#cozyclientfilesstatbypathpath" title="Permanent link">&para;</a></h3>
@@ -689,7 +756,8 @@ dir.relations('contents').forEach( (file) =&gt; … )</code></pre>
 <li><code>options</code> is an object with the following fields:</li>
 <li><code>ifMatch</code>: the previous revision of the file (optional). The update will be rejected if the remote revision doesn&rsquo;t match the given one.</li>
 </ul>
-<pre class="codehilite"><code class="language-javascript">const trashed = await cozy.client.files.trashById(&quot;1234567&quot;)</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">trashed</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">trashById</span><span class="p">(</span><span class="s2">&quot;1234567&quot;</span><span class="p">)</span>
+</pre></div>
 
 
 <h3 id="cozyclientfilesdestroybyidid-options"><code>cozy.client.files.destroyById(id, options)</code><a class="headerlink" href="#cozyclientfilesdestroybyidid-options" title="Permanent link">&para;</a></h3>
@@ -701,8 +769,9 @@ dir.relations('contents').forEach( (file) =&gt; … )</code></pre>
 <li><code>options</code> is an object with the following fields:</li>
 <li><code>ifMatch</code>: the previous revision of the file (optional). The update will be rejected if the remote revision doesn&rsquo;t match the given one.</li>
 </ul>
-<pre class="codehilite"><code class="language-javascript">const trashed = await cozy.client.files.trashById(&quot;1234567&quot;)
-await cozy.client.files.destroyById(&quot;1234567&quot;)</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">trashed</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">trashById</span><span class="p">(</span><span class="s2">&quot;1234567&quot;</span><span class="p">)</span>
+<span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">destroyById</span><span class="p">(</span><span class="s2">&quot;1234567&quot;</span><span class="p">)</span>
+</pre></div>
 
 
 <h3 id="cozyclientfilesrestorebyidid"><code>cozy.client.files.restoreById(id)</code><a class="headerlink" href="#cozyclientfilesrestorebyidid" title="Permanent link">&para;</a></h3>
@@ -711,18 +780,21 @@ await cozy.client.files.destroyById(&quot;1234567&quot;)</code></pre>
 <ul>
 <li><code>id</code> is a string specifying the identifier of the file or directory</li>
 </ul>
-<pre class="codehilite"><code class="language-javascript">const trashed = await cozy.client.files.trashById(&quot;1234567&quot;)
-const restored = await cozy.client.files.restoreById(&quot;1234567&quot;)</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">trashed</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">trashById</span><span class="p">(</span><span class="s2">&quot;1234567&quot;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">restored</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">restoreById</span><span class="p">(</span><span class="s2">&quot;1234567&quot;</span><span class="p">)</span>
+</pre></div>
 
 
 <h3 id="cozyclientfileslisttrash"><code>cozy.client.files.listTrash()</code><a class="headerlink" href="#cozyclientfileslisttrash" title="Permanent link">&para;</a></h3>
 <p><code>cozy.client.files.listTrash()</code> returns a promise for the list of all files in the trash.</p>
-<pre class="codehilite"><code class="language-javascript">const trashedFilesAndFolders = await cozy.client.files.listTrash()</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">trashedFilesAndFolders</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">listTrash</span><span class="p">()</span>
+</pre></div>
 
 
 <h3 id="cozyclientfilescleartrash"><code>cozy.client.files.clearTrash()</code><a class="headerlink" href="#cozyclientfilescleartrash" title="Permanent link">&para;</a></h3>
 <p><code>cozy.client.files.clearTrash()</code> destroys definitively all trash content.</p>
-<pre class="codehilite"><code class="language-javascript">await cozy.client.files.clearTrash()</code></pre>
+<div class="codehilite"><pre><span></span><span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">clearTrash</span><span class="p">()</span>
+</pre></div>
 
 
 <h3 id="cozyclientfilesdownloadbyidid"><code>cozy.client.files.downloadById(id)</code><a class="headerlink" href="#cozyclientfilesdownloadbyidid" title="Permanent link">&para;</a></h3>
@@ -731,11 +803,12 @@ const restored = await cozy.client.files.restoreById(&quot;1234567&quot;)</code>
 <ul>
 <li><code>id</code> is a string specifying the identifier of the file</li>
 </ul>
-<pre class="codehilite"><code class="language-javascript">const response = await cozy.client.files.downloadById(&quot;1234567&quot;)
-const blob = await response.blob()
-const text = await response.text()
-const buff = await response.arrayBuffer()
-response.pipe(fs.createWriteStream('/some/file'))</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">downloadById</span><span class="p">(</span><span class="s2">&quot;1234567&quot;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">blob</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">response</span><span class="p">.</span><span class="nx">blob</span><span class="p">()</span>
+<span class="kr">const</span> <span class="nx">text</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">()</span>
+<span class="kr">const</span> <span class="nx">buff</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">response</span><span class="p">.</span><span class="nx">arrayBuffer</span><span class="p">()</span>
+<span class="nx">response</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">fs</span><span class="p">.</span><span class="nx">createWriteStream</span><span class="p">(</span><span class="s1">&#39;/some/file&#39;</span><span class="p">))</span>
+</pre></div>
 
 
 <h3 id="cozyclientfilesdownloadbypathpath"><code>cozy.client.files.downloadByPath(path)</code><a class="headerlink" href="#cozyclientfilesdownloadbypathpath" title="Permanent link">&para;</a></h3>
@@ -744,11 +817,12 @@ response.pipe(fs.createWriteStream('/some/file'))</code></pre>
 <ul>
 <li><code>path</code> is a string specifying the path of the file</li>
 </ul>
-<pre class="codehilite"><code class="language-javascript">const response = await cozy.client.files.downloadByPath(&quot;/foo/hello.txt&quot;)
-const blob = await response.blob()
-const text = await response.text()
-const buff = await response.arrayBuffer()
-response.pipe(fs.createWriteStream('/some/file'))</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">downloadByPath</span><span class="p">(</span><span class="s2">&quot;/foo/hello.txt&quot;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">blob</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">response</span><span class="p">.</span><span class="nx">blob</span><span class="p">()</span>
+<span class="kr">const</span> <span class="nx">text</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">()</span>
+<span class="kr">const</span> <span class="nx">buff</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">response</span><span class="p">.</span><span class="nx">arrayBuffer</span><span class="p">()</span>
+<span class="nx">response</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">fs</span><span class="p">.</span><span class="nx">createWriteStream</span><span class="p">(</span><span class="s1">&#39;/some/file&#39;</span><span class="p">))</span>
+</pre></div>
 
 
 <h3 id="cozyclientfilesgetdownloadlinkbyidid"><code>cozy.client.files.getDownloadLinkById(id)</code><a class="headerlink" href="#cozyclientfilesgetdownloadlinkbyidid" title="Permanent link">&para;</a></h3>
@@ -756,11 +830,12 @@ response.pipe(fs.createWriteStream('/some/file'))</code></pre>
 <p>It returns a promise for the download link.
 Download link are only valid for a short while (default 1 hour)
 You can use this link to start a browser download like this:</p>
-<pre class="codehilite"><code class="language-javascript">const href = await cozy.client.files.getDownloadLinkById(&quot;id424242&quot;)
-const link = document.createElement('a')
-link.href = href
-link.download = fileName
-document.body.appendChild(link) &amp;&amp; link.click()</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">href</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">getDownloadLinkById</span><span class="p">(</span><span class="s2">&quot;id424242&quot;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">link</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+<span class="nx">link</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">href</span>
+<span class="nx">link</span><span class="p">.</span><span class="nx">download</span> <span class="o">=</span> <span class="nx">fileName</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">link</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">link</span><span class="p">.</span><span class="nx">click</span><span class="p">()</span>
+</pre></div>
 
 
 <ul>
@@ -771,11 +846,12 @@ document.body.appendChild(link) &amp;&amp; link.click()</code></pre>
 <p>It returns a promise for the download link.
 Download link are only valid for a short while (default 1 hour)
 You can use this link to start a browser download like this:</p>
-<pre class="codehilite"><code class="language-javascript">const href = await cozy.client.files.getDownloadLinkByPath(&quot;/foo/hello.txt&quot;)
-const link = document.createElement('a')
-link.href = href
-link.download = fileName
-document.body.appendChild(link) &amp;&amp; link.click()</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">href</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">getDownloadLinkByPath</span><span class="p">(</span><span class="s2">&quot;/foo/hello.txt&quot;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">link</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+<span class="nx">link</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">href</span>
+<span class="nx">link</span><span class="p">.</span><span class="nx">download</span> <span class="o">=</span> <span class="nx">fileName</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">link</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">link</span><span class="p">.</span><span class="nx">click</span><span class="p">()</span>
+</pre></div>
 
 
 <ul>
@@ -786,14 +862,15 @@ document.body.appendChild(link) &amp;&amp; link.click()</code></pre>
 <p>It returns a promise for the download link.
 Download link are only valid for a short while (default 1 hour)
 You can use this link to start a browser download (see code in getDownloadLinkById)</p>
-<pre class="codehilite"><code class="language-javascript">const href = await cozy.client.files.getArchiveLinkByPaths([
-  &quot;/foo/hello.txt&quot;,
-  &quot;/bar/test.txt&quot;
-])
-// href === &quot;/files/archive/b1c127c25d99f0b37ac2c2a907f36069/files.zip&quot;
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">href</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">getArchiveLinkByPaths</span><span class="p">([</span>
+  <span class="s2">&quot;/foo/hello.txt&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;/bar/test.txt&quot;</span>
+<span class="p">])</span>
+<span class="c1">// href === &quot;/files/archive/b1c127c25d99f0b37ac2c2a907f36069/files.zip&quot;</span>
 
-const href = await cozy.client.files.getArchiveLinkByPaths([&quot;/foo/hello.txt&quot;], &quot;secretproject&quot;)
-// href === &quot;/files/archive/bc2a901c127c25d99f0b37a36069c27f/secretproject.zip&quot;</code></pre>
+<span class="kr">const</span> <span class="nx">href</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">getArchiveLinkByPaths</span><span class="p">([</span><span class="s2">&quot;/foo/hello.txt&quot;</span><span class="p">],</span> <span class="s2">&quot;secretproject&quot;</span><span class="p">)</span>
+<span class="c1">// href === &quot;/files/archive/bc2a901c127c25d99f0b37a36069c27f/secretproject.zip&quot;</span>
+</pre></div>
 
 
 <ul>
@@ -805,14 +882,15 @@ const href = await cozy.client.files.getArchiveLinkByPaths([&quot;/foo/hello.txt
 <p>It returns a promise for the download link.
 Download link are only valid for a short while (default 1 hour)
 You can use this link to start a browser download (see code in getDownloadLinkById)</p>
-<pre class="codehilite"><code class="language-javascript">const href = await cozy.client.files.getArchiveLinkByIds([
-  &quot;1234567&quot;,
-  &quot;9876543&quot;
-])
-// href === &quot;/files/archive/b1c127c25d99f0b37ac2c2a907f36069/files.zip&quot;
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">href</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">getArchiveLinkByIds</span><span class="p">([</span>
+  <span class="s2">&quot;1234567&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;9876543&quot;</span>
+<span class="p">])</span>
+<span class="c1">// href === &quot;/files/archive/b1c127c25d99f0b37ac2c2a907f36069/files.zip&quot;</span>
 
-const href = await cozy.client.files.getArchiveLinkByIds([&quot;1592673&quot;], &quot;secretproject&quot;)
-// href === &quot;/files/archive/bc2a901c127c25d99f0b37a36069c27f/secretproject.zip&quot;</code></pre>
+<span class="kr">const</span> <span class="nx">href</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">getArchiveLinkByIds</span><span class="p">([</span><span class="s2">&quot;1592673&quot;</span><span class="p">],</span> <span class="s2">&quot;secretproject&quot;</span><span class="p">)</span>
+<span class="c1">// href === &quot;/files/archive/bc2a901c127c25d99f0b37a36069c27f/secretproject.zip&quot;</span>
+</pre></div>
 
 
 <ul>
@@ -846,11 +924,12 @@ const href = await cozy.client.files.getArchiveLinkByIds([&quot;1592673&quot;], 
 <li><code>skip</code>: ignore the first x results (pagination)</li>
 <li><code>wholeResponse</code>: when set to true, the whole query response will be returned instead of just the docs. This is useful when paginating, because you&rsquo;ll get the <code>next</code> property in the response object.</li>
 </ul>
-<pre class="codehilite"><code class="language-javascript">const results = await cozy.client.files.query(photosByDate, {
-  &quot;selector&quot;: {&quot;class&quot;: &quot;image&quot;},
-  &quot;limit&quot;: 3,
-  &quot;skip&quot;: 1
-})</code></pre></div>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">results</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">photosByDate</span><span class="p">,</span> <span class="p">{</span>
+  <span class="s2">&quot;selector&quot;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&quot;class&quot;</span><span class="o">:</span> <span class="s2">&quot;image&quot;</span><span class="p">},</span>
+  <span class="s2">&quot;limit&quot;</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+  <span class="s2">&quot;skip&quot;</span><span class="o">:</span> <span class="mi">1</span>
+<span class="p">})</span>
+</pre></div></div>
         </div>
 
         <footer class="col-md-12">

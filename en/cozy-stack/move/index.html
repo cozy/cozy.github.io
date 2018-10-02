@@ -473,6 +473,66 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">babel-preset-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../babel-preset-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">commitlint-config-cozy</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../commitlint-config-cozy/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-device-helper</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-device-helper/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">eslint-config-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../eslint-config-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-flags</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-flags/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-realtime</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-realtime/README/">README</a>
+</li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -508,7 +568,7 @@
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
-        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}]
+        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
         const editNode = document.querySelector('#edit-link')
         const pathname = window.location.pathname
         const editURI = 'edit/master/'
@@ -567,21 +627,23 @@ section</a> of the documentation.</p>
   files index (if false, it is not possible to generate files tarball).</li>
 </ul>
 <h4 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h4>
-<pre class="codehilite"><code class="language-http">POST /move/exports HTTP/1.1
-Host: alice.cozy.tools
-Authorization: Bearer ...
-Content-Type: application/vnd.api+json</code></pre>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/move/exports</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.cozy.tools</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer ...</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-json">{
-    &quot;data&quot;: {
-        &quot;attributes&quot;: {
-            &quot;parts_size&quot;: 10240,
-            &quot;with_doctypes&quot;: [],
-            &quot;without_files&quot;: false,
-        }
-    }
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;parts_size&quot;</span><span class="p">:</span> <span class="mi">10240</span><span class="p">,</span>
+            <span class="nt">&quot;with_doctypes&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="nt">&quot;without_files&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <h3 id="get-moveexportsopaque-identifier">GET /move/exports/:opaque-identifier<a class="headerlink" href="#get-moveexportsopaque-identifier" title="Permanent link">&para;</a></h3>
@@ -606,33 +668,35 @@ Content-Type: application/vnd.api+json</code></pre>
 <li><code>error</code> (string): an error string if the export is in an <code>"error"</code> state</li>
 </ul>
 <h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
-<pre class="codehilite"><code class="language-http">GET /move/exports/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX HTTP/1.1
-Host: alice.cozy.tools
-Authorization: Bearer ...
-Content-Type: application/vnd.api+json</code></pre>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/move/exports/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.cozy.tools</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer ...</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-json">{
-    &quot;data&quot;: {
-        &quot;type&quot;: &quot;io.cozy.exports&quot;,
-        &quot;id&quot;: &quot;86dbb546ca49f0ed1ce0a1ff0d1b15e3&quot;,
-        &quot;meta&quot;: {
-            &quot;rev&quot;: &quot;2-XXX&quot;,
-        },
-        &quot;attributes&quot;: {
-            &quot;parts_size&quot;: 10240,
-            &quot;parts_cursors&quot;: [&quot;AAA&quot;, &quot;BBB&quot;, &quot;CCC&quot;],
-            &quot;with_doctypes&quot;: [],
-            &quot;without_files&quot;: false,
-            &quot;state&quot;: &quot;done&quot;,
-            &quot;created_at&quot;: &quot;2018-05-04T08:59:37.530693972+02:00&quot;,
-            &quot;expires_at&quot;: &quot;2018-05-11T08:59:37.530693972+02:00&quot;,
-            &quot;total_size&quot;: 1123,
-            &quot;creation_duration&quot;: 62978511,
-            &quot;error&quot;: &quot;&quot;
-        }
-    }
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.exports&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;86dbb546ca49f0ed1ce0a1ff0d1b15e3&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;2-XXX&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;parts_size&quot;</span><span class="p">:</span> <span class="mi">10240</span><span class="p">,</span>
+            <span class="nt">&quot;parts_cursors&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;AAA&quot;</span><span class="p">,</span> <span class="s2">&quot;BBB&quot;</span><span class="p">,</span> <span class="s2">&quot;CCC&quot;</span><span class="p">],</span>
+            <span class="nt">&quot;with_doctypes&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="nt">&quot;without_files&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;done&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-05-04T08:59:37.530693972+02:00&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;expires_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-05-11T08:59:37.530693972+02:00&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;total_size&quot;</span><span class="p">:</span> <span class="mi">1123</span><span class="p">,</span>
+            <span class="nt">&quot;creation_duration&quot;</span><span class="p">:</span> <span class="mi">62978511</span><span class="p">,</span>
+            <span class="nt">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <h3 id="get-moveexportsdataopaque-identifiercursorxxx">GET /move/exports/data/:opaque-identifier?cursor=XXX<a class="headerlink" href="#get-moveexportsdataopaque-identifiercursorxxx" title="Permanent link">&para;</a></h3>

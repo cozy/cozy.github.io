@@ -473,6 +473,66 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">babel-preset-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../babel-preset-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">commitlint-config-cozy</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../commitlint-config-cozy/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-device-helper</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-device-helper/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">eslint-config-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../eslint-config-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-flags</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-flags/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-realtime</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-realtime/README/">README</a>
+</li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -510,7 +570,7 @@
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
-        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}]
+        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
         const editNode = document.querySelector('#edit-link')
         const pathname = window.location.pathname
         const editURI = 'edit/master/'
@@ -579,21 +639,24 @@ Packages provided by standard Debian or Ubuntu repositories are quite old and no
 <p>Refer to the <a href="https://certbot.eff.org/">certbot</a> documentation to activate needed repositories.
 (You don&rsquo;t need to install packages like <code>certbot</code> or <code>python-certbot-xxx</code>, only to activate repositories.)</p>
 <p>You may change your <a href="https://manpages.debian.org/stretch/apt/apt_preferences.5.html">APT preferences</a> to allow APT to install from backports/ppa by default instead of from official repositories. For example:</p>
-<pre class="codehilite"><code class="language-bash">echo &quot;Package: python3-acme
-Pin: release n=stretch-backports
-Pin-Priority: 510&quot; &gt; /etc/apt/preferences.d/cozy</code></pre>
+<div class="codehilite"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;Package: python3-acme</span>
+<span class="s2">Pin: release n=stretch-backports</span>
+<span class="s2">Pin-Priority: 510&quot;</span> &gt; /etc/apt/preferences.d/cozy
+</pre></div>
 
 
 <h3 id="cozy-repositories">Cozy repositories<a class="headerlink" href="#cozy-repositories" title="Permanent link">&para;</a></h3>
 <p>First, install the packages required to install cozy</p>
-<pre class="codehilite"><code class="language-bash">apt install ca-certificates apt-transport-https curl</code></pre>
+<div class="codehilite"><pre><span></span>apt install ca-certificates apt-transport-https curl
+</pre></div>
 
 
 <p>Then, fetch the GPG Cozy signing key:</p>
-<pre class="codehilite"><code class="language-bash">curl https://apt.cozy.io/cozy.gpg | \
+<div class="codehilite"><pre><span></span>curl https://apt.cozy.io/cozy.gpg <span class="p">|</span> <span class="se">\</span>
     apt-key --keyring /etc/apt/trusted.gpg.d/cozy.gpg add -
-curl https://apt.cozy.io/nightly/cozy.gpg | \
-    apt-key --keyring /etc/apt/trusted.gpg.d/cozy.gpg add -</code></pre>
+curl https://apt.cozy.io/nightly/cozy.gpg <span class="p">|</span> <span class="se">\</span>
+    apt-key --keyring /etc/apt/trusted.gpg.d/cozy.gpg add -
+</pre></div>
 
 
 <p>Finally, setup your repository. Select the channel that best fit your needs:</p>
@@ -623,20 +686,23 @@ Adapt your <code>sources.list</code> accordingly.</p>
 </ul>
 </li>
 </ul>
-<pre class="codehilite"><code class="language-bash">echo &quot;deb https://apt.cozy.io/debian/ stretch testing&quot; &gt; /etc/apt/sources.list.d/cozy.list
-apt update</code></pre>
+<div class="codehilite"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;deb https://apt.cozy.io/debian/ stretch testing&quot;</span> &gt; /etc/apt/sources.list.d/cozy.list
+apt update
+</pre></div>
 
 
 <p>If you want to use unstable/nightly builds, you have to accept another key (weaker and passwordless on our side because of unattended automated builds)</p>
-<pre class="codehilite"><code class="language-bash">curl https://apt.cozy.io/nightly/cozy.gpg | \
-    apt-key --keyring /etc/apt/trusted.gpg.d/cozy.gpg add -</code></pre>
+<div class="codehilite"><pre><span></span>curl https://apt.cozy.io/nightly/cozy.gpg <span class="p">|</span> <span class="se">\</span>
+    apt-key --keyring /etc/apt/trusted.gpg.d/cozy.gpg add -
+</pre></div>
 
 
 <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h2>
 <p>For the rest of this document, we assume you install components one by one to allow intermediate verification</p>
 <p>For a full local environment (<code>couchdb</code> + <code>nginx</code> + <code>cozy</code>), just install the <code>cozy</code> package which can install all needed packages in one shot.</p>
 <h3 id="couchdb">CouchDB<a class="headerlink" href="#couchdb" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code class="language-bash">apt install cozy-couchdb</code></pre>
+<div class="codehilite"><pre><span></span>apt install cozy-couchdb
+</pre></div>
 
 
 <p>Install CouchDB in <code>standalone</code> mode</p>
@@ -644,13 +710,15 @@ apt update</code></pre>
 <p>Pick an administrator password<br />
 (This password is used by shell scripts, so currently avoid to use one with simple or double quotes or others shell meaningfull symbols. We advice you to choose one with only alphanumeric digits to avoid troubles.)</p>
 <p>At this point, you must have a working CouchDB instance</p>
-<pre class="codehilite"><code class="language-bash">curl http://localhost:5984/       
-{&quot;couchdb&quot;:&quot;Welcome&quot;,&quot;version&quot;:&quot;2.1.0&quot;,&quot;features&quot;:[&quot;scheduler&quot;],&quot;vendor&quot;:{&quot;name&quot;:&quot;The Apache Software Foundation&quot;}}</code></pre>
+<div class="codehilite"><pre><span></span>curl http://localhost:5984/       
+<span class="o">{</span><span class="s2">&quot;couchdb&quot;</span>:<span class="s2">&quot;Welcome&quot;</span>,<span class="s2">&quot;version&quot;</span>:<span class="s2">&quot;2.1.0&quot;</span>,<span class="s2">&quot;features&quot;</span>:<span class="o">[</span><span class="s2">&quot;scheduler&quot;</span><span class="o">]</span>,<span class="s2">&quot;vendor&quot;</span>:<span class="o">{</span><span class="s2">&quot;name&quot;</span>:<span class="s2">&quot;The Apache Software Foundation&quot;</span><span class="o">}}</span>
+</pre></div>
 
 
 <p>If you want to use unstable/nightly builds, you might get another version of the database.</p>
 <h3 id="cozy-stack">Cozy stack<a class="headerlink" href="#cozy-stack" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code class="language-bash">apt install cozy-stack</code></pre>
+<div class="codehilite"><pre><span></span>apt install cozy-stack
+</pre></div>
 
 
 <p>Cozy need to create a CouchDB administrator and so to connect as admin to the CouchDB. Fill those mandatory parameters to allow this creation:</p>
@@ -666,27 +734,32 @@ apt update</code></pre>
 <p>For stack management (create instances, install applications&hellip;), <a href="https://github.com/cozy/cozy-stack/blob/2ae446d85b60c89fb56cad1f7ed469cddca94494/docs/config.md#user-content-administration-secret">Cozy need an administrator password</a>. So pick a new one.<br />
 When invoking <code>cozy-stack</code> (or <code>cozy-coclyco</code> which use it under the hood), you need to set the <code>COZY_ADMIN_PASSWORD</code> environment variable with this password. You can put it on your <code>.bashrc</code> for simplier life if you want. If you don&rsquo;t, cozy-stack will simply ask for it.</p>
 <p>At this point, you must have a working Cozy stack, depending on the branch you&rsquo;ve chosen you can get a different version displayed.</p>
-<pre class="codehilite"><code class="language-bash">curl http://localhost:8080/version
-{&quot;build_mode&quot;:&quot;production&quot;,&quot;build_time&quot;:&quot;2017-09-28T10:26:03Z&quot;,&quot;runtime_version&quot;:&quot;go1.8.1&quot;,&quot;version&quot;:&quot;0.1.0&quot;}#</code></pre>
+<div class="codehilite"><pre><span></span>curl http://localhost:8080/version
+<span class="o">{</span><span class="s2">&quot;build_mode&quot;</span>:<span class="s2">&quot;production&quot;</span>,<span class="s2">&quot;build_time&quot;</span>:<span class="s2">&quot;2017-09-28T10:26:03Z&quot;</span>,<span class="s2">&quot;runtime_version&quot;</span>:<span class="s2">&quot;go1.8.1&quot;</span>,<span class="s2">&quot;version&quot;</span>:<span class="s2">&quot;0.1.0&quot;</span><span class="o">}</span><span class="c1">#</span>
+</pre></div>
 
 
 <p>If you want to use konnectors, you need to initialize the NodeJS chroot</p>
 <p>(Currently this script only works for Debian and will be adapted for Ubuntu and Raspbian soon)</p>
-<pre class="codehilite"><code class="language-bash">/usr/share/cozy/konnector-create-chroot.sh</code></pre>
+<div class="codehilite"><pre><span></span>/usr/share/cozy/konnector-create-chroot.sh
+</pre></div>
 
 
 <p>You also need to enable user namespaces:</p>
-<pre class="codehilite"><code class="language-bash">sysctl -w kernel.unprivileged_userns_clone=1</code></pre>
+<div class="codehilite"><pre><span></span>sysctl -w kernel.unprivileged_userns_clone<span class="o">=</span><span class="m">1</span>
+</pre></div>
 
 
 <p>If you use a self-signed certificate or a not official certificate authority, you need to deploy the corresponding root certificate in <code>/usr/share/cozy/chroot/etc/ssl/certs/custom.crt</code>.<br />
 For example, if you use <a href="https://letsencrypt.org/docs/staging-environment/">Let&rsquo;s Encrypt staging environment</a> for testing purpose :</p>
-<pre class="codehilite"><code class="language-bash">wget -q https://letsencrypt.org/certs/fakelerootx1.pem \
-    -O /usr/share/cozy/chroot/etc/ssl/certs/custom.crt</code></pre>
+<div class="codehilite"><pre><span></span>wget -q https://letsencrypt.org/certs/fakelerootx1.pem <span class="se">\</span>
+    -O /usr/share/cozy/chroot/etc/ssl/certs/custom.crt
+</pre></div>
 
 
 <h3 id="finally">Finally<a class="headerlink" href="#finally" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code class="language-bash">apt install cozy</code></pre>
+<div class="codehilite"><pre><span></span>apt install cozy
+</pre></div>
 
 
 <h2 id="cozy-instance-setup">Cozy instance setup<a class="headerlink" href="#cozy-instance-setup" title="Permanent link">&para;</a></h2>
@@ -704,8 +777,9 @@ For an instance <code>cozy.example.org</code>, <code>&lt;app&gt;.cozy.example.or
 </ul>
 <p>Follow your usual way to create those entries on your domain zone.
 The simpliest way to handle this is to use a wildcard entry if supported by your domain hosting.</p>
-<pre class="codehilite"><code>cozy 1h IN A x.x.x.x
-*.cozy 1h IN CNAME cozy</code></pre>
+<div class="codehilite"><pre><span></span>cozy 1h IN A x.x.x.x
+*.cozy 1h IN CNAME cozy
+</pre></div>
 
 
 <h3 id="acme-lets-encrypt">ACME (Let&rsquo;s Encrypt)<a class="headerlink" href="#acme-lets-encrypt" title="Permanent link">&para;</a></h3>
@@ -715,33 +789,35 @@ This protocol requires your reverse proxy to be able to serve <code>http://&lt;a
 <p>The simplest way to achieve this is to configure your reverse proxy with a generic rule to forward any <code>/.well-known/acme-challenge/</code> request to the corresponding <code>/etc
 /ssl/private/acme-challenge/</code> folder.
 For <code>nginx</code>, this can be done with</p>
-<pre class="codehilite"><code>/etc/nginx/sites-available/default
-server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
+<div class="codehilite"><pre><span></span><span class="o">/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">nginx</span><span class="o">/</span><span class="nt">sites-available</span><span class="o">/</span><span class="nt">default</span>
+<span class="nt">server</span> <span class="p">{</span>
+    <span class="err">listen</span> <span class="err">80</span> <span class="err">default_server</span><span class="p">;</span>
+    <span class="n">listen</span> <span class="cp">[</span><span class="p">::</span><span class="cp">]</span><span class="p">:</span><span class="mi">80</span> <span class="n">default_server</span><span class="p">;</span>
 
-    root /var/www/html;
-    server_name _;
+    <span class="err">root</span> <span class="err">/var/www/html</span><span class="p">;</span>
+    <span class="err">server_name</span> <span class="err">_</span><span class="p">;</span>
 
-    location /.well-known/acme-challenge/ {
-        alias /etc/ssl/private/acme-challenge/;
-    }
+    <span class="err">location</span> <span class="err">/.well-known/acme-challenge/</span> <span class="err">{</span>
+        <span class="err">alias</span> <span class="err">/etc/ssl/private/acme-challenge/</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    location / {
-        return 301 https://$host$request_uri;
-    }
-}
+    <span class="nt">location</span> <span class="o">/</span> <span class="p">{</span>
+        <span class="err">return</span> <span class="err">301</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="err">$</span><span class="n">host</span><span class="err">$</span><span class="n">request_uri</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="err">}</span>
 
-apt install ssl-cert
-adduser www-data ssl-cert
-systemctl restart nginx</code></pre>
+<span class="nt">apt</span> <span class="nt">install</span> <span class="nt">ssl-cert</span>
+<span class="nt">adduser</span> <span class="nt">www-data</span> <span class="nt">ssl-cert</span>
+<span class="nt">systemctl</span> <span class="nt">restart</span> <span class="nt">nginx</span>
+</pre></div>
 
 
 <h3 id="create-instances">Create instances<a class="headerlink" href="#create-instances" title="Permanent link">&para;</a></h3>
 <p>Once you&rsquo;ve got a stack, your DNS and your reverse proxy correctly configured, you can create instances on your Cozy stack.
 Remember to set the <code>COZY_ADMIN_PASSWORD</code> environment variable.</p>
-<pre class="codehilite"><code class="language-bash">export COZY_ADMIN_PASSWORD=&lt;your-admin-password&gt;
-cozy-coclyco create cozy.example.org me@example.org</code></pre>
+<div class="codehilite"><pre><span></span><span class="nb">export</span> <span class="nv">COZY_ADMIN_PASSWORD</span><span class="o">=</span>&lt;your-admin-password&gt;
+cozy-coclyco create cozy.example.org me@example.org
+</pre></div>
 
 
 <p>For complete reference of Coclyco, refer to the documentation of <a href="https://github.com/cozy/cozy-coclyco/blob/master/README.md">cozy-coclyco</a>.</p></div>

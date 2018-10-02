@@ -473,6 +473,66 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">babel-preset-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../babel-preset-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">commitlint-config-cozy</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../commitlint-config-cozy/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-device-helper</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-device-helper/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">eslint-config-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../eslint-config-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-flags</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-flags/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-realtime</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-realtime/README/">README</a>
+</li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -509,7 +569,7 @@
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
-        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}]
+        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
         const editNode = document.querySelector('#edit-link')
         const pathname = window.location.pathname
         const editURI = 'edit/master/'
@@ -557,10 +617,11 @@ on Travis to automatically publish new versions on the apps registry.</p>
 To do so, you need the
 <a href="https://github.com/travis-ci/travis.rb#installation"><code>travis</code> utility</a> to
 encrypt its value.</p>
-<pre class="codehilite"><code class="language-sh">$ travis encrypt REGISTRY_TOKEN=AbCdEf --add -r cozy/cozy-example
+<div class="codehilite"><pre><span></span>$ travis encrypt <span class="nv">REGISTRY_TOKEN</span><span class="o">=</span>AbCdEf --add -r cozy/cozy-example
 Please add the following to your .travis.yml file:
 
-  secure: &quot;jUAjkXNXfGIXyx2MKnnJ5HwCzhrQ29SaWBTmRpU6Rwi2XRieCnb2+MKZtjVcmEjfvJO38VjPozW2F4MYIxRXf9cD+ZRAEroZRcRSNHpoi/FJ6Ra767H7AbFDGpSSUSx7UDeZbSRNazCXJ55F/JaCq6F3XGeurrJbJ/tvMoIEvjg4qcOJpBgSxXEeyEnx5L3zbDoIqDo8hx9UtZoisiTC3TGq1CGFPe35VXnv/g23Uwg2Wux1drXXnMVghoVM8SDuoE9gf4LfppVHbYmowm25tylsvNKESbYiwJIkvPciPl2rABplJLJ4nuVpeWKHx1g+bChzlR5rhgXVJidua//yFD28xWS1+j+FhCGcYuPttYTntBVTiif0DVKS3gC1FFbf2ktgJVT7nYN2z0arhdPeK7Wtv8R+0SqlXUfBA/nam1pAS1xg2MTekVKxw+FmW0r6Ct4/Dta4d4XWsYiPMBrUOaCAqo+TkxBrVvM/LcM91ua33GKzMRLmKgbDY2k7lQpt3xA0Se02p4yiWcpN+3JzwVNRkuAQfw79ItJzhBP7ZTaQMwDByD/sN4ybhICWxTOLRh6kgfw+Xxv86aADvMVwfPcLljfk5Ot3kfLyaIyqrkIF9ePGSblt7RGzHiOECFr8qUtoGQAfekM+NmKzFSkeJU8t0EvHMen1NOsZhTemx9Q=&quot;</code></pre>
+  secure: <span class="s2">&quot;jUAjkXNXfGIXyx2MKnnJ5HwCzhrQ29SaWBTmRpU6Rwi2XRieCnb2+MKZtjVcmEjfvJO38VjPozW2F4MYIxRXf9cD+ZRAEroZRcRSNHpoi/FJ6Ra767H7AbFDGpSSUSx7UDeZbSRNazCXJ55F/JaCq6F3XGeurrJbJ/tvMoIEvjg4qcOJpBgSxXEeyEnx5L3zbDoIqDo8hx9UtZoisiTC3TGq1CGFPe35VXnv/g23Uwg2Wux1drXXnMVghoVM8SDuoE9gf4LfppVHbYmowm25tylsvNKESbYiwJIkvPciPl2rABplJLJ4nuVpeWKHx1g+bChzlR5rhgXVJidua//yFD28xWS1+j+FhCGcYuPttYTntBVTiif0DVKS3gC1FFbf2ktgJVT7nYN2z0arhdPeK7Wtv8R+0SqlXUfBA/nam1pAS1xg2MTekVKxw+FmW0r6Ct4/Dta4d4XWsYiPMBrUOaCAqo+TkxBrVvM/LcM91ua33GKzMRLmKgbDY2k7lQpt3xA0Se02p4yiWcpN+3JzwVNRkuAQfw79ItJzhBP7ZTaQMwDByD/sN4ybhICWxTOLRh6kgfw+Xxv86aADvMVwfPcLljfk5Ot3kfLyaIyqrkIF9ePGSblt7RGzHiOECFr8qUtoGQAfekM+NmKzFSkeJU8t0EvHMen1NOsZhTemx9Q=&quot;</span>
+</pre></div>
 
 
 <p>Like said, you need to add this block of ciphered data in the <code>.travis.yml</code>.
@@ -578,60 +639,61 @@ script.</p>
 <li><code>COZY_BUILD_BRANCH</code>: the name of the build branch from which the script
   creates dev releases</li>
 </ul>
-<pre class="codehilite"><code class="language-bash">#!/bin/bash
-set -e
+<div class="codehilite"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="nb">set</span> -e
 
-# Environnment variables:
-#   COZY_APP_VERSION: the version string of the deployed version
-#   COZY_BUILD_URL: the URL of the deployed tarball for your application
-#   COZY_BUILD_BRANCH: the name of the build branch from which the script
-#                      creates dev releases
+<span class="c1"># Environnment variables:</span>
+<span class="c1">#   COZY_APP_VERSION: the version string of the deployed version</span>
+<span class="c1">#   COZY_BUILD_URL: the URL of the deployed tarball for your application</span>
+<span class="c1">#   COZY_BUILD_BRANCH: the name of the build branch from which the script</span>
+<span class="c1">#                      creates dev releases</span>
 
-[ -z &quot;${COZY_BUILD_BRANCH}&quot; ] &amp;&amp; COZY_BUILD_BRANCH=&quot;master&quot;
-[ -z &quot;${COZY_APP_PARAMETERS}&quot; ] &amp;&amp; COZY_APP_PARAMETERS=&quot;null&quot;
+<span class="o">[</span> -z <span class="s2">&quot;</span><span class="si">${</span><span class="nv">COZY_BUILD_BRANCH</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nv">COZY_BUILD_BRANCH</span><span class="o">=</span><span class="s2">&quot;master&quot;</span>
+<span class="o">[</span> -z <span class="s2">&quot;</span><span class="si">${</span><span class="nv">COZY_APP_PARAMETERS</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nv">COZY_APP_PARAMETERS</span><span class="o">=</span><span class="s2">&quot;null&quot;</span>
 
-if [ &quot;${TRAVIS_PULL_REQUEST}&quot; != &quot;false&quot; ]; then
-    echo &quot;No deployment: in pull-request&quot;
-    exit 0
-fi
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">TRAVIS_PULL_REQUEST</span><span class="si">}</span><span class="s2">&quot;</span> !<span class="o">=</span> <span class="s2">&quot;false&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;No deployment: in pull-request&quot;</span>
+    <span class="nb">exit</span> <span class="m">0</span>
+<span class="k">fi</span>
 
-if [ &quot;${TRAVIS_BRANCH}&quot; != &quot;${COZY_BUILD_BRANCH}&quot; ] &amp;&amp; [ -z &quot;${TRAVIS_TAG}&quot; ]; then
-    printf 'No deployment: not in %s branch nor tag (TRAVIS_BRANCH=%s TRAVIS_TAG=%s)\n' &quot;${COZY_BUILD_BRANCH}&quot; &quot;${TRAVIS_BRANCH}&quot; &quot;${TRAVIS_TAG}&quot;
-    exit 0
-fi
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">TRAVIS_BRANCH</span><span class="si">}</span><span class="s2">&quot;</span> !<span class="o">=</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">COZY_BUILD_BRANCH</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="si">${</span><span class="nv">TRAVIS_TAG</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">printf</span> <span class="s1">&#39;No deployment: not in %s branch nor tag (TRAVIS_BRANCH=%s TRAVIS_TAG=%s)\n&#39;</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">COZY_BUILD_BRANCH</span><span class="si">}</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">TRAVIS_BRANCH</span><span class="si">}</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">TRAVIS_TAG</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="nb">exit</span> <span class="m">0</span>
+<span class="k">fi</span>
 
-if ! jq &lt;&lt;&lt; &quot;${COZY_APP_PARAMETERS}&quot; &gt; /dev/null; then
-  printf &quot;Could not parse COZY_APP_PARAMETERS=%s as JSON\n&quot; &quot;${COZY_APP_PARAMETERS}&quot;
-  exit 1
-fi
+<span class="k">if</span> ! jq <span class="o">&lt;&lt;&lt;</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">COZY_APP_PARAMETERS</span><span class="si">}</span><span class="s2">&quot;</span> &gt; /dev/null<span class="p">;</span> <span class="k">then</span>
+  <span class="nb">printf</span> <span class="s2">&quot;Could not parse COZY_APP_PARAMETERS=%s as JSON\n&quot;</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">COZY_APP_PARAMETERS</span><span class="si">}</span><span class="s2">&quot;</span>
+  <span class="nb">exit</span> <span class="m">1</span>
+<span class="k">fi</span>
 
-if [ -z &quot;${COZY_APP_VERSION}&quot; ]; then
-    if [ -n &quot;${TRAVIS_TAG}&quot; ]; then
-        COZY_APP_VERSION=&quot;${TRAVIS_TAG}&quot;
-    else
-        manfile=$(find &quot;${TRAVIS_BUILD_DIR}&quot; \( -name &quot;manifest.webapp&quot; -o -name &quot;manifest.konnector&quot; \) | head -n1)
-        COZY_APP_VERSION=&quot;$(jq -r '.version' &lt; &quot;${manfile}&quot;)-dev.${TRAVIS_COMMIT}&quot;
-    fi
-fi
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="si">${</span><span class="nv">COZY_APP_VERSION</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="k">if</span> <span class="o">[</span> -n <span class="s2">&quot;</span><span class="si">${</span><span class="nv">TRAVIS_TAG</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="nv">COZY_APP_VERSION</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">TRAVIS_TAG</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">else</span>
+        <span class="nv">manfile</span><span class="o">=</span><span class="k">$(</span>find <span class="s2">&quot;</span><span class="si">${</span><span class="nv">TRAVIS_BUILD_DIR</span><span class="si">}</span><span class="s2">&quot;</span> <span class="se">\(</span> -name <span class="s2">&quot;manifest.webapp&quot;</span> -o -name <span class="s2">&quot;manifest.konnector&quot;</span> <span class="se">\)</span> <span class="p">|</span> head -n1<span class="k">)</span>
+        <span class="nv">COZY_APP_VERSION</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>jq -r <span class="s1">&#39;.version&#39;</span> &lt; <span class="s2">&quot;</span><span class="si">${</span><span class="nv">manfile</span><span class="si">}</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">-dev.</span><span class="si">${</span><span class="nv">TRAVIS_COMMIT</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">fi</span>
+<span class="k">fi</span>
 
-if [ -z &quot;${COZY_BUILD_URL}&quot; ]; then
-    url=&quot;https://github.com/${TRAVIS_REPO_SLUG}/archive&quot;
-    if [ -n &quot;${TRAVIS_TAG}&quot; ]; then
-        COZY_BUILD_URL=&quot;${url}/${TRAVIS_TAG}.tar.gz&quot;
-    else
-        COZY_BUILD_URL=&quot;${url}/${TRAVIS_COMMIT}.tar.gz&quot;
-    fi
-fi
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="si">${</span><span class="nv">COZY_BUILD_URL</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nv">url</span><span class="o">=</span><span class="s2">&quot;https://github.com/</span><span class="si">${</span><span class="nv">TRAVIS_REPO_SLUG</span><span class="si">}</span><span class="s2">/archive&quot;</span>
+    <span class="k">if</span> <span class="o">[</span> -n <span class="s2">&quot;</span><span class="si">${</span><span class="nv">TRAVIS_TAG</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="nv">COZY_BUILD_URL</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">url</span><span class="si">}</span><span class="s2">/</span><span class="si">${</span><span class="nv">TRAVIS_TAG</span><span class="si">}</span><span class="s2">.tar.gz&quot;</span>
+    <span class="k">else</span>
+        <span class="nv">COZY_BUILD_URL</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">url</span><span class="si">}</span><span class="s2">/</span><span class="si">${</span><span class="nv">TRAVIS_COMMIT</span><span class="si">}</span><span class="s2">.tar.gz&quot;</span>
+    <span class="k">fi</span>
+<span class="k">fi</span>
 
-shasum=$(curl -sSL --fail &quot;${COZY_BUILD_URL}&quot; | shasum -a 256 | cut -d&quot; &quot; -f1)
+<span class="nv">shasum</span><span class="o">=</span><span class="k">$(</span>curl -sSL --fail <span class="s2">&quot;</span><span class="si">${</span><span class="nv">COZY_BUILD_URL</span><span class="si">}</span><span class="s2">&quot;</span> <span class="p">|</span> shasum -a <span class="m">256</span> <span class="p">|</span> cut -d<span class="s2">&quot; &quot;</span> -f1<span class="k">)</span>
 
-printf 'Publishing version &quot;%s&quot; from &quot;%s&quot; (%s)\n' &quot;${COZY_APP_VERSION}&quot; &quot;${COZY_BUILD_URL}\n&quot; &quot;${shasum}&quot;
+<span class="nb">printf</span> <span class="s1">&#39;Publishing version &quot;%s&quot; from &quot;%s&quot; (%s)\n&#39;</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">COZY_APP_VERSION</span><span class="si">}</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">COZY_BUILD_URL</span><span class="si">}</span><span class="s2">\n&quot;</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">shasum</span><span class="si">}</span><span class="s2">&quot;</span>
 
-curl -sS --fail -X POST \
-    -H &quot;Content-Type: application/json&quot; \
-    -H &quot;Authorization: Token ${REGISTRY_TOKEN}&quot; \
-    -d &quot;{\&quot;version\&quot;: \&quot;${COZY_APP_VERSION}\&quot;, \&quot;url\&quot;: \&quot;${COZY_BUILD_URL}\&quot;, \&quot;sha256\&quot;: \&quot;${shasum}\&quot;, \&quot;parameters\&quot;: ${COZY_APP_PARAMETERS}}&quot; \
-    &quot;https://registry.cozy.io/registry/versions&quot;</code></pre>
+curl -sS --fail -X POST <span class="se">\</span>
+    -H <span class="s2">&quot;Content-Type: application/json&quot;</span> <span class="se">\</span>
+    -H <span class="s2">&quot;Authorization: Token </span><span class="si">${</span><span class="nv">REGISTRY_TOKEN</span><span class="si">}</span><span class="s2">&quot;</span> <span class="se">\</span>
+    -d <span class="s2">&quot;{\&quot;version\&quot;: \&quot;</span><span class="si">${</span><span class="nv">COZY_APP_VERSION</span><span class="si">}</span><span class="s2">\&quot;, \&quot;url\&quot;: \&quot;</span><span class="si">${</span><span class="nv">COZY_BUILD_URL</span><span class="si">}</span><span class="s2">\&quot;, \&quot;sha256\&quot;: \&quot;</span><span class="si">${</span><span class="nv">shasum</span><span class="si">}</span><span class="s2">\&quot;, \&quot;parameters\&quot;: </span><span class="si">${</span><span class="nv">COZY_APP_PARAMETERS</span><span class="si">}</span><span class="s2">}&quot;</span> <span class="se">\</span>
+    <span class="s2">&quot;https://registry.cozy.io/registry/versions&quot;</span>
+</pre></div>
 
 
 <h2 id="access-to-our-official-apps-registry">Access to our official apps registry<a class="headerlink" href="#access-to-our-official-apps-registry" title="Permanent link">&para;</a></h2>

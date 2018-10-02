@@ -473,6 +473,66 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">babel-preset-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../babel-preset-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">commitlint-config-cozy</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../commitlint-config-cozy/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-device-helper</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-device-helper/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">eslint-config-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../eslint-config-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-flags</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-flags/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-realtime</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-realtime/README/">README</a>
+</li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -512,7 +572,7 @@
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
-        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}]
+        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
         const editNode = document.querySelector('#edit-link')
         const pathname = window.location.pathname
         const editURI = 'edit/master/'
@@ -571,20 +631,21 @@ doctype has its own directory inside the repository. For a remote doctype, it
 will include a file called <code>request</code> that will describe how the cozy-stack will
 request the external website.</p>
 <p>Let&rsquo;s take an example:</p>
-<pre class="codehilite"><code>$ tree cozy-doctypes
+<div class="codehilite"><pre><span></span>$ tree cozy-doctypes
 cozy-doctypes
-├── [...]
+├── <span class="o">[</span>...<span class="o">]</span>
 ├── org.wikidata.entity
 │   └── request
 └── org.wikidata.search
     └── request
 
 $ cat cozy-doctypes/org.wikidata.entity/request
-GET https://www.wikidata.org/wiki/Special:EntityData/{{entity}}.json
+GET https://www.wikidata.org/wiki/Special:EntityData/<span class="o">{{</span>entity<span class="o">}}</span>.json
 Accept: application/json
 
 $ cat cozy-doctypes/org.wikidata.search/request
-GET https://www.wikidata.org/w/api.php?action=wbsearchentities&amp;search={{q}}&amp;language=en&amp;format=json</code></pre>
+GET https://www.wikidata.org/w/api.php?action<span class="o">=</span>wbsearchentities<span class="p">&amp;</span><span class="nv">search</span><span class="o">={{</span>q<span class="o">}}</span><span class="p">&amp;</span><span class="nv">language</span><span class="o">=</span>en<span class="p">&amp;</span><span class="nv">format</span><span class="o">=</span>json
+</pre></div>
 
 
 <p>Here, we have two remote doctypes. Each one has a request defined for it.</p>
@@ -611,32 +672,34 @@ are included in: namely as a query parameter or as a path component.</p>
 <p><strong>Note</strong>: by default, the User-Agent is set to a default value (&ldquo;cozy-stack&rdquo; and
 a version number). It can be overriden in the request description.</p>
 <p>Example:</p>
-<pre class="codehilite"><code>GET https://foobar.com/{{path}}?q={{query}}
-Content-Type: {{contentType}}
+<div class="codehilite"><pre><span></span><span class="x">GET https://foobar.com/</span><span class="cp">{{</span><span class="nv">path</span><span class="cp">}}</span><span class="x">?q=</span><span class="cp">{{</span><span class="nv">query</span><span class="cp">}}</span><span class="x"></span>
+<span class="x">Content-Type: </span><span class="cp">{{</span><span class="nv">contentType</span><span class="cp">}}</span><span class="x"></span>
 
-{
-  &quot;key&quot;: &quot;{{json value}}&quot;,
-  &quot;url&quot;: &quot;http://anotherurl.com/{{path anotherPath}}?q={{query anotherQuery}}&quot;,
-}</code></pre>
+<span class="x">{</span>
+<span class="x">  &quot;key&quot;: &quot;</span><span class="cp">{{</span><span class="nv">json</span> <span class="nv">value</span><span class="cp">}}</span><span class="x">&quot;,</span>
+<span class="x">  &quot;url&quot;: &quot;http://anotherurl.com/</span><span class="cp">{{</span><span class="nv">path</span> <span class="nv">anotherPath</span><span class="cp">}}</span><span class="x">?q=</span><span class="cp">{{</span><span class="nv">query</span> <span class="nv">anotherQuery</span><span class="cp">}}</span><span class="x">&quot;,</span>
+<span class="x">}</span>
+</pre></div>
 
 
 <h2 id="declaring-permissions">Declaring permissions<a class="headerlink" href="#declaring-permissions" title="Permanent link">&para;</a></h2>
 <p>Nothing special here. The client side app must declare that it will use these
 doctypes in its manifest, like for other doctypes:</p>
-<pre class="codehilite"><code class="language-json">{
-  &quot;...&quot;: &quot;...&quot;,
-  &quot;permissions&quot;: {
-    &quot;search&quot;: {
-      &quot;description&quot;: &quot;Required for searching on wikidata&quot;,
-      &quot;type&quot;: &quot;org.wikidata.search&quot;
-    },
-    &quot;entity&quot;: {
-      &quot;description&quot;:
-        &quot;Required for getting more informations about an entity on wikidata&quot;,
-      &quot;type&quot;: &quot;org.wikidata.entity&quot;
-    }
-  }
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;...&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;search&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Required for searching on wikidata&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;org.wikidata.search&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;entity&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;description&quot;</span><span class="p">:</span>
+        <span class="s2">&quot;Required for getting more informations about an entity on wikidata&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;org.wikidata.entity&quot;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <h2 id="calling-the-remote-api">Calling the remote API<a class="headerlink" href="#calling-the-remote-api" title="Permanent link">&para;</a></h2>
@@ -645,23 +708,26 @@ doctypes in its manifest, like for other doctypes:</p>
 two previous examples). It can use the query-string for GET, and a JSON body for
 POST, to give values for the variables.</p>
 <p>Example:</p>
-<pre class="codehilite"><code class="language-http">GET /remote/org.wikidata.search?q=Douglas+Adams HTTP/1.1
-Host: alice.cozy.tools</code></pre>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/remote/org.wikidata.search?q=Douglas+Adams</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.cozy.tools</span>
+</pre></div>
 
 
 <p>It is possible to send some extra informations, to make it easier to understand
 the request. If no variable in the request matches it, it won&rsquo;t be send to the
 remote website.</p>
 <p>Example:</p>
-<pre class="codehilite"><code class="language-http">POST /remote/org.example HTTP/1.1
-Host: alice.cozy.tools
-Content-Type: application/json</code></pre>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/remote/org.example</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.cozy.tools</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-json">{
-  &quot;query&quot;: &quot;Qbhtynf Nqnzf&quot;,
-  &quot;comment&quot;: &quot;query is rot13 for Douglas Adams&quot;
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;query&quot;</span><span class="p">:</span> <span class="s2">&quot;Qbhtynf Nqnzf&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;comment&quot;</span><span class="p">:</span> <span class="s2">&quot;query is rot13 for Douglas Adams&quot;</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <p><strong>Note</strong>: currently, only the response with a content-type that is an image,
@@ -672,8 +738,9 @@ something we want to allow).</p>
 <p>The client application can fetch a list of predefined assets via this route.
 The resources available are defined in the configuration file.</p>
 <p>Example:</p>
-<pre class="codehilite"><code class="language-http">GET /remote/assets/bank HTTP/1.1
-Host: alice.cozy.tools</code></pre>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/remote/assets/bank</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.cozy.tools</span>
+</pre></div>
 
 
 <h2 id="logs">Logs<a class="headerlink" href="#logs" title="Permanent link">&para;</a></h2>

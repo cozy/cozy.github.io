@@ -473,6 +473,66 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">babel-preset-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../babel-preset-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">commitlint-config-cozy</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../commitlint-config-cozy/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-device-helper</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-device-helper/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">eslint-config-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../eslint-config-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-flags</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-flags/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-realtime</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-realtime/README/">README</a>
+</li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -511,7 +571,7 @@
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
-        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}]
+        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
         const editNode = document.querySelector('#edit-link')
         const pathname = window.location.pathname
         const editURI = 'edit/master/'
@@ -555,24 +615,26 @@ can block most of its API until the user read and sign new terms of services.</p
 <p>For now, the only use case is a Terms Of Services update, but some other use
 cases might appear in the future. The specific cause of this error will be
 provided within the body of the response (see examples below).</p>
-<pre class="codehilite"><code class="language-http">HTTP/1.1 402 Payment Required
-Content-Length: ...
-Content-Type: application/vnd.api+json</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">402</span> <span class="ne">Payment Required</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">...</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-json">{
-  &quot;errors&quot;: [
-    {
-      &quot;status&quot;: &quot;402&quot;,
-      &quot;title&quot;: &quot;TOS Updated&quot;,
-      &quot;code&quot;: &quot;tos-updated&quot;,
-      &quot;detail&quot;: &quot;Terms of services have been updated&quot;,
-      &quot;links&quot;: {
-        &quot;self&quot;: &quot;https://manager.cozycloud.cc/cozy/tos?domain=...&quot;
-      }
-    }
-  ]
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;errors&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;402&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;TOS Updated&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;code&quot;</span><span class="p">:</span> <span class="s2">&quot;tos-updated&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;detail&quot;</span><span class="p">:</span> <span class="s2">&quot;Terms of services have been updated&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;https://manager.cozycloud.cc/cozy/tos?domain=...&quot;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <p>If they receive such a code, the clients should block any further action on
@@ -588,36 +650,40 @@ a premium account, etc.</p>
 <p>An enpoints exists to get the list of warnings that the user can anticipate.
 For applications these warnings are included directly into the HTML of the
 index page, as follow:</p>
-<pre class="codehilite"><code class="language-html">&lt;meta name=&quot;user-action-required&quot;
-  data-title=&quot;{{ .Title }}&quot;
-  data-code=&quot;{{ .Code }}&quot;
-  data-detail=&quot;{{ .Detail }}&quot;
-  data-links=&quot;{{ .Links.Self }}&quot;} /&gt;</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;user-action-required&quot;</span>
+  <span class="na">data-title</span><span class="o">=</span><span class="s">&quot;{{ .Title }}&quot;</span>
+  <span class="na">data-code</span><span class="o">=</span><span class="s">&quot;{{ .Code }}&quot;</span>
+  <span class="na">data-detail</span><span class="o">=</span><span class="s">&quot;{{ .Detail }}&quot;</span>
+  <span class="na">data-links</span><span class="o">=</span><span class="s">&quot;{{ .Links.Self }}&quot;</span><span class="err">}</span> <span class="p">/&gt;</span>
+</pre></div>
 
 
 <h2 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h2>
-<pre class="codehilite"><code class="language-http">GET /settings/warnings HTTP/1.1</code></pre>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/settings/warnings</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
 
 
 <h2 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h2>
-<pre class="codehilite"><code class="language-http">HTTP/1.1 402 Payment Required
-Content-Length: ...
-Content-Type: application/vnd.api+json</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">402</span> <span class="ne">Payment Required</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">...</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-json">{
-  &quot;errors&quot;: [
-    {
-      &quot;status&quot;: &quot;402&quot;,
-      &quot;title&quot;: &quot;TOS Updated&quot;,
-      &quot;code&quot;: &quot;tos-updated&quot;,
-      &quot;detail&quot;: &quot;Terms of services have been updated&quot;,
-      &quot;links&quot;: {
-        &quot;self&quot;: &quot;https://manager.cozycloud.cc/cozy/tos?domain=...&quot;
-      }
-    }
-  ]
-}</code></pre></div>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;errors&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;402&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;TOS Updated&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;code&quot;</span><span class="p">:</span> <span class="s2">&quot;tos-updated&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;detail&quot;</span><span class="p">:</span> <span class="s2">&quot;Terms of services have been updated&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;https://manager.cozycloud.cc/cozy/tos?domain=...&quot;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div></div>
         </div>
 
         <footer class="col-md-12">

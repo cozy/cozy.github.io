@@ -473,6 +473,66 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">babel-preset-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../babel-preset-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">commitlint-config-cozy</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../commitlint-config-cozy/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-device-helper</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-device-helper/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">eslint-config-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../eslint-config-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-flags</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-flags/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-realtime</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-realtime/README/">README</a>
+</li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -507,7 +567,7 @@
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
-        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}]
+        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
         const editNode = document.querySelector('#edit-link')
         const pathname = window.location.pathname
         const editURI = 'edit/master/'
@@ -545,44 +605,47 @@
 further and store some documents locally so you can retrieve them even while
 being offline.</p>
 <p>Currently, you have a code like this one :</p>
-<pre class="codehilite"><code class="language-js">import CozyClient, { StackLink } from 'cozy-client'
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">CozyClient</span><span class="p">,</span> <span class="p">{</span> <span class="nx">StackLink</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 
-const stackLink = new StackLink()
+<span class="kr">const</span> <span class="nx">stackLink</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">StackLink</span><span class="p">()</span>
 
-const client = new CozyClient({
-  // ...
-  links: [stackLink]
-})</code></pre>
+<span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CozyClient</span><span class="p">({</span>
+  <span class="c1">// ...</span>
+  <span class="nx">links</span><span class="o">:</span> <span class="p">[</span><span class="nx">stackLink</span><span class="p">]</span>
+<span class="p">})</span>
+</pre></div>
 
 
 <p>To manage the offline aspect, we provide the
 <a href="https://github.com/cozy/cozy-client/tree/master/packages/cozy-pouch-link">cozy-pouch-link</a>.
 First, let&rsquo;s install it :</p>
-<pre class="codehilite"><code class="language-console"># using npm
-npm install cozy-pouch-link
+<div class="codehilite"><pre><span></span><span class="gp">#</span> using npm
+<span class="go">npm install cozy-pouch-link</span>
 
-# using yarn
-yarn add cozy-pouch-link</code></pre>
+<span class="gp">#</span> using yarn
+<span class="go">yarn add cozy-pouch-link</span>
+</pre></div>
 
 
 <p>Then, we will create a new instance of this link and give it the list of
 doctypes that we want to access offline. We have to put the <code>PouchLink</code> first, so
 it is reached first when we query the link chain :</p>
-<pre class="codehilite"><code class="language-js">import CozyClient, { StackLink } from 'cozy-client'
-import PouchLink from 'cozy-pouch-link'
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">CozyClient</span><span class="p">,</span> <span class="p">{</span> <span class="nx">StackLink</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
+<span class="kr">import</span> <span class="nx">PouchLink</span> <span class="nx">from</span> <span class="s1">&#39;cozy-pouch-link&#39;</span>
 
-const stackLink = new StackLink()
+<span class="kr">const</span> <span class="nx">stackLink</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">StackLink</span><span class="p">()</span>
 
-const offlineDoctypes = ['io.cozy.todos']
-const pouchLink = new PouchLink({
-  doctypes: offlineDoctypes,
-  initialSync: true // whether you want to trigger the synchronization on login or not
-})
+<span class="kr">const</span> <span class="nx">offlineDoctypes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">]</span>
+<span class="kr">const</span> <span class="nx">pouchLink</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PouchLink</span><span class="p">({</span>
+  <span class="nx">doctypes</span><span class="o">:</span> <span class="nx">offlineDoctypes</span><span class="p">,</span>
+  <span class="nx">initialSync</span><span class="o">:</span> <span class="kc">true</span> <span class="c1">// whether you want to trigger the synchronization on login or not</span>
+<span class="p">})</span>
 
-const client = new CozyClient({
-  // ...
-  links: [pouchLink, stackLink]
-})</code></pre>
+<span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CozyClient</span><span class="p">({</span>
+  <span class="c1">// ...</span>
+  <span class="nx">links</span><span class="o">:</span> <span class="p">[</span><span class="nx">pouchLink</span><span class="p">,</span> <span class="nx">stackLink</span><span class="p">]</span>
+<span class="p">})</span>
+</pre></div>
 
 
 <p>The <code>PouchLink</code> will create the PouchDB databases for all offline doctypes and

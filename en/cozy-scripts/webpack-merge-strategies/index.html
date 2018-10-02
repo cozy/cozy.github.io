@@ -473,6 +473,66 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">babel-preset-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../babel-preset-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">commitlint-config-cozy</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../commitlint-config-cozy/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-device-helper</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-device-helper/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">eslint-config-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../eslint-config-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-flags</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-flags/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-realtime</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-realtime/README/">README</a>
+</li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -510,7 +570,7 @@
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
-        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}]
+        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
         const editNode = document.querySelector('#edit-link')
         const pathname = window.location.pathname
         const editURI = 'edit/master/'
@@ -553,61 +613,62 @@ This merge kind also handle strategies explained in the next part. You can find 
 <h2 id="how-to-use-them">How to use them?<a class="headerlink" href="#how-to-use-them" title="Permanent link">&para;</a></h2>
 <p><code>cozy-scripts</code> will check the configurations before merging and passing them to <code>webpack</code> and a custom property, named <code>__mergeStrategy</code>, will allow you to specify a strategy when merging the related configuration. Then this property will be removed right before using <code>webpack</code> since custom properties are not allowed.</p>
 <p>Let&rsquo;s take a case where you want to use the <code>webpack.bundle.default</code> but you want to replace the stylus loader (from <code>webpack.config.cozy-ui.js</code>) which doesn&rsquo;t use <code>css-modules</code> by default to use them. Here is the configuration that you must provide:</p>
-<pre class="codehilite"><code class="language-javascript">// app.config.js
+<div class="codehilite"><pre><span></span><span class="c1">// app.config.js</span>
 
-const configs = require('cozy-scripts/config/webpack.bundle.default.js')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+<span class="kr">const</span> <span class="nx">configs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-scripts/config/webpack.bundle.default.js&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">MiniCssExtractPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;mini-css-extract-plugin&#39;</span><span class="p">)</span>
 
-module.exports = [configs,
-  {
-    // this object should be in a separate JS file for better readibility
-    // but this is an example
-    __mergeStrategy: {
-      smart: true, // enable the smart mode or not (Boolean)
-      strategy: {
-        // webpack config properties here like `entry`, `output`...
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">[</span><span class="nx">configs</span><span class="p">,</span>
+  <span class="p">{</span>
+    <span class="c1">// this object should be in a separate JS file for better readibility</span>
+    <span class="c1">// but this is an example</span>
+    <span class="nx">__mergeStrategy</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">smart</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="c1">// enable the smart mode or not (Boolean)</span>
+      <span class="nx">strategy</span><span class="o">:</span> <span class="p">{</span>
+        <span class="c1">// webpack config properties here like `entry`, `output`...</span>
 
-        'module.loaders': 'replace' // replace | append | prepend
-        // loaders !== rules, we want to replace loader properties not rules directly
-      }
-    },
-    module: {
-      rules: [
-        {
-          test: /\.styl$/,
-          // the exclude property must also be the same than the loader
-          // you want to replace
-          exclude: /(node_modules|cozy-ui\/react)/,
-          loader: extractor.extract({
-            fallback: 'style-loader',
-            use: [
-              MiniCssExtractPlugin.loader,
-              {
-                loader: 'css-loader',
-                options: {
-                  sourceMap: true,
-                  importLoaders: 1,
-                  modules: true,
-                  localIdentName: '[local]--[hash:base64:5]'
-                }
-              },
-              {
-                loader: 'postcss-loader',
-                options: {
-                  sourceMap: true,
-                  plugins: function () {
-                    return [ require('autoprefixer')({ browsers: ['last 2 versions'] }) ]
-                  }
-                }
-              },
-              'stylus-loader'
-            ]
-          })
-        }
-      ]
-    }
-  }
-]</code></pre></div>
+        <span class="s1">&#39;module.loaders&#39;</span><span class="o">:</span> <span class="s1">&#39;replace&#39;</span> <span class="c1">// replace | append | prepend</span>
+        <span class="c1">// loaders !== rules, we want to replace loader properties not rules directly</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nx">module</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">rules</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.styl$/</span><span class="p">,</span>
+          <span class="c1">// the exclude property must also be the same than the loader</span>
+          <span class="c1">// you want to replace</span>
+          <span class="nx">exclude</span><span class="o">:</span> <span class="sr">/(node_modules|cozy-ui\/react)/</span><span class="p">,</span>
+          <span class="nx">loader</span><span class="o">:</span> <span class="nx">extractor</span><span class="p">.</span><span class="nx">extract</span><span class="p">({</span>
+            <span class="nx">fallback</span><span class="o">:</span> <span class="s1">&#39;style-loader&#39;</span><span class="p">,</span>
+            <span class="nx">use</span><span class="o">:</span> <span class="p">[</span>
+              <span class="nx">MiniCssExtractPlugin</span><span class="p">.</span><span class="nx">loader</span><span class="p">,</span>
+              <span class="p">{</span>
+                <span class="nx">loader</span><span class="o">:</span> <span class="s1">&#39;css-loader&#39;</span><span class="p">,</span>
+                <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+                  <span class="nx">sourceMap</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                  <span class="nx">importLoaders</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                  <span class="nx">modules</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                  <span class="nx">localIdentName</span><span class="o">:</span> <span class="s1">&#39;[local]--[hash:base64:5]&#39;</span>
+                <span class="p">}</span>
+              <span class="p">},</span>
+              <span class="p">{</span>
+                <span class="nx">loader</span><span class="o">:</span> <span class="s1">&#39;postcss-loader&#39;</span><span class="p">,</span>
+                <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+                  <span class="nx">sourceMap</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                  <span class="nx">plugins</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="p">[</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;autoprefixer&#39;</span><span class="p">)({</span> <span class="nx">browsers</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;last 2 versions&#39;</span><span class="p">]</span> <span class="p">})</span> <span class="p">]</span>
+                  <span class="p">}</span>
+                <span class="p">}</span>
+              <span class="p">},</span>
+              <span class="s1">&#39;stylus-loader&#39;</span>
+            <span class="p">]</span>
+          <span class="p">})</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</pre></div></div>
         </div>
 
         <footer class="col-md-12">

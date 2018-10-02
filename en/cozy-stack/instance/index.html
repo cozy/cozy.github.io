@@ -473,6 +473,66 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">babel-preset-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../babel-preset-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">commitlint-config-cozy</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../commitlint-config-cozy/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-device-helper</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-device-helper/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">eslint-config-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../eslint-config-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-flags</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-flags/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-realtime</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-realtime/README/">README</a>
+</li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -510,7 +570,7 @@
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
-        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}]
+        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
         const editNode = document.querySelector('#edit-link')
         const pathname = window.location.pathname
         const editURI = 'edit/master/'
@@ -562,7 +622,8 @@ will be blocked in production environment.</p>
 </ul>
 <h2 id="creation">Creation<a class="headerlink" href="#creation" title="Permanent link">&para;</a></h2>
 <p>An instance is created on the command line:</p>
-<pre class="codehilite"><code class="language-sh">$ cozy-stack instances add &lt;domain&gt;</code></pre>
+<div class="codehilite"><pre><span></span>$ cozy-stack instances add &lt;domain&gt;
+</pre></div>
 
 
 <p>With some possible additional options</p>
@@ -573,11 +634,12 @@ will be blocked in production environment.</p>
 <li><code>--apps &lt;app1,app2,app3&gt;</code></li>
 </ul>
 <p>It registers the instance in a global couchdb database <code>global/instances</code></p>
-<pre class="codehilite"><code class="language-json">{
-  &quot;hostname&quot;: &quot;example.cozycloud.cc&quot;,
-  &quot;dbprefix&quot;: &quot;example-clozycloud-cc/&quot;,
-  &quot;fsroot&quot;: &quot;/var/lib/cozy/example.cozycloud.cc/fs/&quot;
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;example.cozycloud.cc&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;dbprefix&quot;</span><span class="p">:</span> <span class="s2">&quot;example-clozycloud-cc/&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;fsroot&quot;</span><span class="p">:</span> <span class="s2">&quot;/var/lib/cozy/example.cozycloud.cc/fs/&quot;</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <p>and creates the proper databases ($PREFIX/$DOCTYPE) for these doctypes:</p>
@@ -620,7 +682,8 @@ provided.</p>
 <hr />
 <h2 id="renaming">Renaming<a class="headerlink" href="#renaming" title="Permanent link">&para;</a></h2>
 <p>An instance is renamed through the command line.</p>
-<pre class="codehilite"><code class="language-sh">$ cozy-stack instances rename &lt;olddomain&gt; &lt;newdomain&gt;</code></pre>
+<div class="codehilite"><pre><span></span>$ cozy-stack instances rename &lt;olddomain&gt; &lt;newdomain&gt;
+</pre></div>
 
 
 <p>Renaming an instance only change the HostName in global/instances base.</p>
@@ -628,7 +691,8 @@ provided.</p>
 <h2 id="destroying">Destroying<a class="headerlink" href="#destroying" title="Permanent link">&para;</a></h2>
 <p>An instance is destroyed through the command line. A confirmation is asked from
 the CLI user unless the &ndash;yes flag is passed</p>
-<pre class="codehilite"><code class="language-sh">$ cozy-stack instances destroy &lt;domain&gt;</code></pre></div>
+<div class="codehilite"><pre><span></span>$ cozy-stack instances destroy &lt;domain&gt;
+</pre></div></div>
         </div>
 
         <footer class="col-md-12">

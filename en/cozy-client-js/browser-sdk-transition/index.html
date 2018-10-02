@@ -473,6 +473,66 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">babel-preset-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../babel-preset-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">commitlint-config-cozy</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../commitlint-config-cozy/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-device-helper</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-device-helper/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">eslint-config-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../eslint-config-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-flags</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-flags/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-realtime</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-realtime/README/">README</a>
+</li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -511,7 +571,7 @@
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
-        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}]
+        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
         const editNode = document.querySelector('#edit-link')
         const pathname = window.location.pathname
         const editURI = 'edit/master/'
@@ -551,24 +611,26 @@
 <p>Any doctype you introduce is expected to be prefixed with the reverse notation of a domain you own (JLS#7.7).</p>
 <p>You are free to reuse another applications documents by using their doctypes but you SHOULD discuss with the domain owner if you want to add fields or format them differently.</p>
 <p>To ensure retrocompatibility, when used on stack v2, all known doctypes will be auto-prefixed by <code>io.cozy.</code> or <code>io.cozy.labs.</code>, but a warning will be written to the console. Unknown doctype will cause a fatal error. DO NOT rely on this behaviour in new applications, use qualified doctypes.</p>
-<pre class="codehilite"><code class="language-javascript">// old version, using cozy-browser-sdk
-cozysdk.create(&quot;Contact&quot;, {})
-cozysdk.create(&quot;Book&quot;, {})
-// new version, with cozy-client-js
-cozy.data.create(&quot;io.cozy.contacts&quot;, {})
-cozy.data.create(&quot;com.mydomain.book&quot;, {})</code></pre>
+<div class="codehilite"><pre><span></span><span class="c1">// old version, using cozy-browser-sdk</span>
+<span class="nx">cozysdk</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s2">&quot;Contact&quot;</span><span class="p">,</span> <span class="p">{})</span>
+<span class="nx">cozysdk</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s2">&quot;Book&quot;</span><span class="p">,</span> <span class="p">{})</span>
+<span class="c1">// new version, with cozy-client-js</span>
+<span class="nx">cozy</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s2">&quot;io.cozy.contacts&quot;</span><span class="p">,</span> <span class="p">{})</span>
+<span class="nx">cozy</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s2">&quot;com.mydomain.book&quot;</span><span class="p">,</span> <span class="p">{})</span>
+</pre></div>
 
 
 <h2 id="mapreduce-views-vs-mango-queries">MapReduce Views vs Mango queries<a class="headerlink" href="#mapreduce-views-vs-mango-queries" title="Permanent link">&para;</a></h2>
 <p>Cozy <strong>v3</strong> recommends using Couchdb 2 indexes &amp; mango queries instead of Couchdb 1.X map-reduce views. We feel they are <a href="http://cozy.github.io/cozy-browser-sdk/tutorial-mapreduce.html">simpler to understand and explain</a> and avoid useless overindexing.</p>
 <p>When used on a <strong>v2</strong> cozy, the <code>defineIndex</code> and <code>query</code> calls will be translated to MapReduce views.</p>
 <p>If you need the full power of MapReduce, please open a issue on cozy-stack with your usecase.</p>
-<pre class="codehilite"><code class="language-javascript">// cozy-browser-sdk
-cozysdk.defineMapReduceView('Event', 'all', function(doc) { emit(doc.year); })
-cozysdk.queryView('Event', 'all', {key: 2016, limit: 10})
-// cozy-client-js
-index = cozy.data.defineIndex('Event', ['year'])
-cozy.data.query(index, {selector: {year: 2016}, limit: 10})</code></pre>
+<div class="codehilite"><pre><span></span><span class="c1">// cozy-browser-sdk</span>
+<span class="nx">cozysdk</span><span class="p">.</span><span class="nx">defineMapReduceView</span><span class="p">(</span><span class="s1">&#39;Event&#39;</span><span class="p">,</span> <span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span> <span class="p">{</span> <span class="nx">emit</span><span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">year</span><span class="p">);</span> <span class="p">})</span>
+<span class="nx">cozysdk</span><span class="p">.</span><span class="nx">queryView</span><span class="p">(</span><span class="s1">&#39;Event&#39;</span><span class="p">,</span> <span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">key</span><span class="o">:</span> <span class="mi">2016</span><span class="p">,</span> <span class="nx">limit</span><span class="o">:</span> <span class="mi">10</span><span class="p">})</span>
+<span class="c1">// cozy-client-js</span>
+<span class="nx">index</span> <span class="o">=</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">defineIndex</span><span class="p">(</span><span class="s1">&#39;Event&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">])</span>
+<span class="nx">cozy</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">index</span><span class="p">,</span> <span class="p">{</span><span class="nx">selector</span><span class="o">:</span> <span class="p">{</span><span class="nx">year</span><span class="o">:</span> <span class="mi">2016</span><span class="p">},</span> <span class="nx">limit</span><span class="o">:</span> <span class="mi">10</span><span class="p">})</span>
+</pre></div>
 
 
 <h2 id="binaries">Binaries<a class="headerlink" href="#binaries" title="Permanent link">&para;</a></h2>
@@ -576,10 +638,11 @@ cozy.data.query(index, {selector: {year: 2016}, limit: 10})</code></pre>
 They will be probably placed in the VFS under a special path.</p>
 <h2 id="crud-is-fully-compatible">Crud is fully compatible<a class="headerlink" href="#crud-is-fully-compatible" title="Permanent link">&para;</a></h2>
 <p>The following functions have the same signature than the cozy-browser-sdk</p>
-<pre class="codehilite"><code class="language-javascript">created = await cozy.data.create(myType, book)
-doc = await cozy.data.find(myType, id)
-doc2 = await cozy.data.updateAttributes(myType, id, {year: 1851})
-await cozy.data.destroy(&quot;my.domain.book&quot;, id)</code></pre></div>
+<div class="codehilite"><pre><span></span><span class="nx">created</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">myType</span><span class="p">,</span> <span class="nx">book</span><span class="p">)</span>
+<span class="nx">doc</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">myType</span><span class="p">,</span> <span class="nx">id</span><span class="p">)</span>
+<span class="nx">doc2</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">updateAttributes</span><span class="p">(</span><span class="nx">myType</span><span class="p">,</span> <span class="nx">id</span><span class="p">,</span> <span class="p">{</span><span class="nx">year</span><span class="o">:</span> <span class="mi">1851</span><span class="p">})</span>
+<span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">destroy</span><span class="p">(</span><span class="s2">&quot;my.domain.book&quot;</span><span class="p">,</span> <span class="nx">id</span><span class="p">)</span>
+</pre></div></div>
         </div>
 
         <footer class="col-md-12">

@@ -473,6 +473,66 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">babel-preset-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../babel-preset-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">commitlint-config-cozy</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../commitlint-config-cozy/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-device-helper</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-device-helper/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">eslint-config-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../eslint-config-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-flags</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-flags/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-realtime</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-realtime/README/">README</a>
+</li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -510,7 +570,7 @@
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
-        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}]
+        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
         const editNode = document.querySelector('#edit-link')
         const pathname = window.location.pathname
         const editURI = 'edit/master/'
@@ -568,46 +628,51 @@
 <p>The goal of a release is to have a new stable version of an application or a konnector.  A new release is always based on the current state of <code>master</code>, so it consists in creating a new branch <code>release-0.0.0</code> (with the correct version).</p>
 <p>Right after starting a new release, <code>master</code>&lsquo;s version must be bumped, as the previous version is now &ldquo;frozen&rdquo; into the release branch. It is done now to not forget to do it later, or to not have a new unexpected commit before the next version.</p>
 <p>Example with <code>master</code> being versionned to <code>1.4.0</code>, <code>origin</code> being the remote Cozy repository:</p>
-<pre class="codehilite"><code class="language-sh">git checkout master
+<div class="codehilite"><pre><span></span>git checkout master
 git checkout -b release-1.4.0
-git push --set-upstream-to=origin/release-1.4.0 release-1.4.0
+git push --set-upstream-to<span class="o">=</span>origin/release-1.4.0 release-1.4.0
 git checkout master
-# Update app version to 1.5.0 in package.json and manifest.webapp
+<span class="c1"># Update app version to 1.5.0 in package.json and manifest.webapp</span>
 git add package.json manifest.webapp
-git commit -m &quot;chore: Bump version to 1.5.0&quot;
+git commit -m <span class="s2">&quot;chore: Bump version to 1.5.0&quot;</span>
 git push origin HEAD
-# Go back to work on our release, we will next tag a first beta
-git checkout release-1.4.0</code></pre>
+<span class="c1"># Go back to work on our release, we will next tag a first beta</span>
+git checkout release-1.4.0
+</pre></div>
 
 
 <p>Once the release branch is created, i.e. the release has started, it must be validated, so a first beta tag is created.</p>
 <p>Following the previous example:</p>
-<pre class="codehilite"><code class="language-sh">git tag 1.4.0-beta.1
-git push origin 1.4.0-beta.1</code></pre>
+<div class="codehilite"><pre><span></span>git tag <span class="m">1</span>.4.0-beta.1
+git push origin <span class="m">1</span>.4.0-beta.1
+</pre></div>
 
 
 <blockquote>
 <p>NB: Version number in package.json and manifest.webapp is still <code>1.4.0</code></p>
 </blockquote>
 <p>If this beta version is ok, it can be tagged as <code>stable</code></p>
-<pre class="codehilite"><code class="language-sh">git tag 1.4.0
-git push origin 1.4.0</code></pre>
+<div class="codehilite"><pre><span></span>git tag <span class="m">1</span>.4.0
+git push origin <span class="m">1</span>.4.0
+</pre></div>
 
 
 <p>But if the beta is not ok, fixes are committed into the release branch and a new beta version is tagged.</p>
-<pre class="codehilite"><code class="language-sh">git tag 1.4.0-beta.2
-git push origin 1.4.0-beta.2</code></pre>
+<div class="codehilite"><pre><span></span>git tag <span class="m">1</span>.4.0-beta.2
+git push origin <span class="m">1</span>.4.0-beta.2
+</pre></div>
 
 
 <p>This process is repeated until a beta version is validated and ready to be tagged as stable.</p>
 <p>During the release, development continues in <code>master</code> without impacting <code>release-1.4.0</code>.</p>
 <p>Once a stable version has been tagged, the release branch must then be merged into <code>master</code> to retrieve all the fixes it contains. Then the release branch can be deleted.</p>
-<pre class="codehilite"><code class="language-sh">git checkout master
+<div class="codehilite"><pre><span></span>git checkout master
 git pull
 git merge release-1.0.4
 git branch -D release-1.0.4
 git push origin :release-1.0.4
-git push origin HEAD</code></pre>
+git push origin HEAD
+</pre></div>
 
 
 <blockquote>
@@ -627,11 +692,12 @@ git push origin HEAD</code></pre>
 </blockquote>
 <p>If a bug is detected on a stable version, we address it with a patch branch.</p>
 <p>For example for the version <code>1.1.0</code>:</p>
-<pre class="codehilite"><code class="language-sh">git checkout 1.0.0 -b patch-1.1.1
-# Update app version to 1.1.1 in package.json and manifest.webapp
+<div class="codehilite"><pre><span></span>git checkout <span class="m">1</span>.0.0 -b patch-1.1.1
+<span class="c1"># Update app version to 1.1.1 in package.json and manifest.webapp</span>
 git add package.json manifest.webapp
-git commit -m &quot;chore: Bump version to 1.1.1&quot;
-git push --set-upstream-to=origin/patch-1.1.0 patch-1.1.0</code></pre>
+git commit -m <span class="s2">&quot;chore: Bump version to 1.1.1&quot;</span>
+git push --set-upstream-to<span class="o">=</span>origin/patch-1.1.0 patch-1.1.0
+</pre></div>
 
 
 <p>After this checkout a patch branch is managed the same way as a release branch, except that:</p>

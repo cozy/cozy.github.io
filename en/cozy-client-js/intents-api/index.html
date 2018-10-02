@@ -473,6 +473,66 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">babel-preset-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../babel-preset-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">commitlint-config-cozy</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../commitlint-config-cozy/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-device-helper</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-device-helper/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">eslint-config-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../eslint-config-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-flags</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-flags/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-realtime</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-realtime/README/">README</a>
+</li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -511,7 +571,7 @@
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
-        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}]
+        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
         const editNode = document.querySelector('#edit-link')
         const pathname = window.location.pathname
         const editURI = 'edit/master/'
@@ -553,27 +613,30 @@
 <p>An intent has to be created everytime an app need to perform an action over a doctype for wich it does not have permission. For example, the Cozy Drive app should create an intent to <code>pick</code> a <code>io.cozy.contacts</code> document. The cozy-stack will determines which app can offer a service to resolve the intent. It&rsquo;s this service&rsquo;s URL that will be passed to the iframe <code>src</code> property.</p>
 <p>Once the intent process is terminated by service, the iframe is removed from DOM.</p>
 <h4 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h4>
-<pre class="codehilite"><code class="language-js">cozy.client.intents.create('EDIT', 'io.cozy.photos', {action: 'crop', width: 100, height: 100})
-  .start(document.getElementById('intent-service-wrapper'))</code></pre>
+<div class="codehilite"><pre><span></span><span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">intents</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">&#39;EDIT&#39;</span><span class="p">,</span> <span class="s1">&#39;io.cozy.photos&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">action</span><span class="o">:</span> <span class="s1">&#39;crop&#39;</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span> <span class="mi">100</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span> <span class="mi">100</span><span class="p">})</span>
+  <span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;intent-service-wrapper&#39;</span><span class="p">))</span>
+</pre></div>
 
 
 <p>See cozy-stack <a href="https://cozy.github.io/cozy-stack/intents.html">documentation</a> for more details.</p>
 <p>You can also use <code>.then</code> to run some code after the intents is terminated like following:</p>
-<pre class="codehilite"><code class="language-js">cozy.client.intents.create('EDIT', 'io.cozy.photos', {action: 'crop', width: 100, height: 100})
-  .start(document.getElementById('intent-service-wrapper'))
-  .then(doc =&gt; { // after service.terminate(doc)
-      // code to use the doc
-  })</code></pre>
+<div class="codehilite"><pre><span></span><span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">intents</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">&#39;EDIT&#39;</span><span class="p">,</span> <span class="s1">&#39;io.cozy.photos&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">action</span><span class="o">:</span> <span class="s1">&#39;crop&#39;</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span> <span class="mi">100</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span> <span class="mi">100</span><span class="p">})</span>
+  <span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;intent-service-wrapper&#39;</span><span class="p">))</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">doc</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="c1">// after service.terminate(doc)</span>
+      <span class="c1">// code to use the doc</span>
+  <span class="p">})</span>
+</pre></div>
 
 
 <p>Example to use <code>removeIntentFrame()</code> method (by passing the flag <code>exposeIntentFrameRemoval</code> flag):</p>
-<pre class="codehilite"><code class="language-js">cozy.client.intents.create('EDIT', 'io.cozy.photos', {action: 'crop', width: 100, height: 100, exposeIntentFrameRemoval: true})
-  .start(document.getElementById('intent-service-wrapper'))
-  .then({removeIntentFrame, doc} =&gt; { // after service.terminate(doc)
-      // Code to be run before removing the terminated intent iframe
-      removeIntentFrame()
-      // Other code, use doc
-  })</code></pre>
+<div class="codehilite"><pre><span></span><span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">intents</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">&#39;EDIT&#39;</span><span class="p">,</span> <span class="s1">&#39;io.cozy.photos&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">action</span><span class="o">:</span> <span class="s1">&#39;crop&#39;</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span> <span class="mi">100</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span> <span class="mi">100</span><span class="p">,</span> <span class="nx">exposeIntentFrameRemoval</span><span class="o">:</span> <span class="kc">true</span><span class="p">})</span>
+  <span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;intent-service-wrapper&#39;</span><span class="p">))</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">({</span><span class="nx">removeIntentFrame</span><span class="p">,</span> <span class="nx">doc</span><span class="p">}</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="c1">// after service.terminate(doc)</span>
+      <span class="c1">// Code to be run before removing the terminated intent iframe</span>
+      <span class="nx">removeIntentFrame</span><span class="p">()</span>
+      <span class="c1">// Other code, use doc</span>
+  <span class="p">})</span>
+</pre></div>
 
 
 <h3 id="cozyclientintentscreateservice"><code>cozy.client.intents.createService()</code><a class="headerlink" href="#cozyclientintentscreateservice" title="Permanent link">&para;</a></h3>
@@ -612,33 +675,35 @@ const app = await service.compose('INSTALL', 'io.cozy.apps', { slug: 'drive' })<
 <li><code>throw(error)</code>: throw an error to client and causes the intent promise rejection.</li>
 </ul>
 <h4 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h4>
-<pre class="codehilite"><code class="language-js">cozy.client.intents.createService('77bcc42c-0fd8-11e7-ac95-8f605f6e8338', window)
-  .then(intentService =&gt; {
-    const data = intentService.getData()
+<div class="codehilite"><pre><span></span><span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">intents</span><span class="p">.</span><span class="nx">createService</span><span class="p">(</span><span class="s1">&#39;77bcc42c-0fd8-11e7-ac95-8f605f6e8338&#39;</span><span class="p">,</span> <span class="nb">window</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">intentService</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">intentService</span><span class="p">.</span><span class="nx">getData</span><span class="p">()</span>
 
-    // [...]
-    // Do stuff with data
-    // [...]
+    <span class="c1">// [...]</span>
+    <span class="c1">// Do stuff with data</span>
+    <span class="c1">// [...]</span>
 
-    const resultingDoc = {
-      type: 'io.cozy.photos',
-      width: 100,
-      height: 100
-    }
+    <span class="kr">const</span> <span class="nx">resultingDoc</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;io.cozy.photos&#39;</span><span class="p">,</span>
+      <span class="nx">width</span><span class="o">:</span> <span class="mi">100</span><span class="p">,</span>
+      <span class="nx">height</span><span class="o">:</span> <span class="mi">100</span>
+    <span class="p">}</span>
 
-    intentService.terminate(resultingDoc)
-  })</code></pre>
+    <span class="nx">intentService</span><span class="p">.</span><span class="nx">terminate</span><span class="p">(</span><span class="nx">resultingDoc</span><span class="p">)</span>
+  <span class="p">})</span>
+</pre></div>
 
 
 <h3 id="cozyclientintentsgetredirectionurl"><code>cozy.client.intents.getRedirectionURL()</code><a class="headerlink" href="#cozyclientintentsgetredirectionurl" title="Permanent link">&para;</a></h3>
 <p><code>cozy.client.intents.getRedirectionURL(doctype, data)</code> retrieves a redirection URL for a given doctype, with specified data. It relies internally on a regular intent mechanism, which creates an intent for the <code>REDIRECT</code> action. It then build the redirection URL from URL sent by the stack and returns it. This URL can be used as link <code>href</code> for example, to show the doctype or the document in an application able to handle it.</p>
 <h4 id="example_2">Example<a class="headerlink" href="#example_2" title="Permanent link">&para;</a></h4>
-<pre class="codehilite"><code class="language-jsx">  const myFolder = {
-    folder: '4bce4649-e7b7-4226-d82e-6b87dbb684e7'
-  }
+<div class="codehilite"><pre><span></span>  <span class="kr">const</span> <span class="nx">myFolder</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">folder</span><span class="o">:</span> <span class="s1">&#39;4bce4649-e7b7-4226-d82e-6b87dbb684e7&#39;</span>
+  <span class="p">}</span>
 
-  const url = await cozy.client.getRedirectionURL('io.cozy.files', myFolder)
-  // url is http://domain-app.cozy.rocks/#/files?folder=4bce4649-e7b7-4226-d82e-6b87dbb684e7</code></pre>
+  <span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">getRedirectionURL</span><span class="p">(</span><span class="s1">&#39;io.cozy.files&#39;</span><span class="p">,</span> <span class="nx">myFolder</span><span class="p">)</span>
+  <span class="c1">// url is http://domain-app.cozy.rocks/#/files?folder=4bce4649-e7b7-4226-d82e-6b87dbb684e7</span>
+</pre></div>
 
 
 <h3 id="cozyclientintentsredirect"><code>cozy.client.intents.redirect()</code><a class="headerlink" href="#cozyclientintentsredirect" title="Permanent link">&para;</a></h3>

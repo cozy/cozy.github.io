@@ -473,6 +473,66 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">babel-preset-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../babel-preset-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">commitlint-config-cozy</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../commitlint-config-cozy/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-device-helper</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-device-helper/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">eslint-config-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../eslint-config-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-flags</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-flags/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-realtime</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-realtime/README/">README</a>
+</li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -515,7 +575,7 @@
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
-        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}]
+        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
         const editNode = document.querySelector('#edit-link')
         const pathname = window.location.pathname
         const editURI = 'edit/master/'
@@ -584,14 +644,16 @@ there.</p>
 <h4 id="step-1-fork">Step 1: Fork<a class="headerlink" href="#step-1-fork" title="Permanent link">&para;</a></h4>
 <p>Fork the project on GitHub and
 <a href="http://blog.campoy.cat/2014/03/github-and-go-forking-pull-requests-and.html">check out your copy locally</a>.</p>
-<pre class="codehilite"><code>$ go get -u github.com/cozy/cozy-stack
-$ cd $(go env GOPATH)/src/github.com/cozy/cozy-stack
-$ git remote add fork git://github.com/username/cozy-stack.git</code></pre>
+<div class="codehilite"><pre><span></span>$ go get -u github.com/cozy/cozy-stack
+$ <span class="nb">cd</span> <span class="k">$(</span>go env GOPATH<span class="k">)</span>/src/github.com/cozy/cozy-stack
+$ git remote add fork git://github.com/username/cozy-stack.git
+</pre></div>
 
 
 <h4 id="step-2-branch">Step 2: Branch<a class="headerlink" href="#step-2-branch" title="Permanent link">&para;</a></h4>
 <p>Create a branch and start hacking:</p>
-<pre class="codehilite"><code>$ git checkout -b my-branch -t origin/master</code></pre>
+<div class="codehilite"><pre><span></span>$ git checkout -b my-branch -t origin/master
+</pre></div>
 
 
 <h4 id="step-3-code">Step 3: Code<a class="headerlink" href="#step-3-code" title="Permanent link">&para;</a></h4>
@@ -604,12 +666,14 @@ to format code, and <a href="https://github.com/alecthomas/gometalinter">gometal
 to detect code smells.</p>
 <h4 id="step-4-test">Step 4: Test<a class="headerlink" href="#step-4-test" title="Permanent link">&para;</a></h4>
 <p>Don&rsquo;t forget to add tests and be sure they are green:</p>
-<pre class="codehilite"><code>$ go test -v ./...</code></pre>
+<div class="codehilite"><pre><span></span>$ go <span class="nb">test</span> -v ./...
+</pre></div>
 
 
 <p>If you want to play with the modified cozy-stack (for example, testing it with
 a webapp), you can build it locally and start it with this command:</p>
-<pre class="codehilite"><code>$ go build &amp;&amp; ./cozy-stack serve</code></pre>
+<div class="codehilite"><pre><span></span>$ go build <span class="o">&amp;&amp;</span> ./cozy-stack serve
+</pre></div>
 
 
 <h4 id="step-5-commit">Step 5: Commit<a class="headerlink" href="#step-5-commit" title="Permanent link">&para;</a></h4>
@@ -618,12 +682,14 @@ a webapp), you can build it locally and start it with this command:</p>
 is important. A commit message should describe what changed and why.</p>
 <h4 id="step-6-rebase">Step 6: Rebase<a class="headerlink" href="#step-6-rebase" title="Permanent link">&para;</a></h4>
 <p>Use <code>git rebase</code> (not <code>git merge</code>) to sync your work from time to time.</p>
-<pre class="codehilite"><code>$ git fetch origin
-$ git rebase origin/master</code></pre>
+<div class="codehilite"><pre><span></span>$ git fetch origin
+$ git rebase origin/master
+</pre></div>
 
 
 <h4 id="step-7-push">Step 7: Push<a class="headerlink" href="#step-7-push" title="Permanent link">&para;</a></h4>
-<pre class="codehilite"><code>$ git push fork my-branch</code></pre>
+<div class="codehilite"><pre><span></span>$ git push fork my-branch
+</pre></div>
 
 
 <p>Go to https://github.com/username/cozy-stack and select your branch. Click the
@@ -641,14 +707,15 @@ in go code (to make the repository go gettable).</p>
 <h2 id="useful-commands">Useful commands<a class="headerlink" href="#useful-commands" title="Permanent link">&para;</a></h2>
 <p>There are some useful commands to know in order to develop with the go code of
 cozy-stack:</p>
-<pre class="codehilite"><code class="language-bash">go get -u github.com/cozy/cozy-stack
-cd $(go env GOPATH)/src/github.com/cozy/cozy-stack
+<div class="codehilite"><pre><span></span>go get -u github.com/cozy/cozy-stack
+<span class="nb">cd</span> <span class="k">$(</span>go env GOPATH<span class="k">)</span>/src/github.com/cozy/cozy-stack
 
-go get -t -u ./...      # To install or update the go dependencies
-go test -v ./...        # To launch the tests
-go run main.go serve    # To start the API server
-godoc -http=:6060       # To start the documentation server
-                        # Open http://127.0.0.1:6060/pkg/github.com/cozy/cozy-stack/</code></pre>
+go get -t -u ./...      <span class="c1"># To install or update the go dependencies</span>
+go <span class="nb">test</span> -v ./...        <span class="c1"># To launch the tests</span>
+go run main.go serve    <span class="c1"># To start the API server</span>
+godoc -http<span class="o">=</span>:6060       <span class="c1"># To start the documentation server</span>
+                        <span class="c1"># Open http://127.0.0.1:6060/pkg/github.com/cozy/cozy-stack/</span>
+</pre></div>
 
 
 <h2 id="writing-documentation">Writing documentation<a class="headerlink" href="#writing-documentation" title="Permanent link">&para;</a></h2>

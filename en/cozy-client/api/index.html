@@ -473,6 +473,66 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">babel-preset-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../babel-preset-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">commitlint-config-cozy</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../commitlint-config-cozy/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-device-helper</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-device-helper/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">eslint-config-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../eslint-config-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-flags</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-flags/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-realtime</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-realtime/README/">README</a>
+</li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -564,7 +624,7 @@
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
-        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}]
+        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
         const editNode = document.querySelector('#edit-link')
         const pathname = window.location.pathname
         const editURI = 'edit/master/'
@@ -765,13 +825,14 @@ a <a href="../DocumentCollection">DocumentCollection</a> instance.</p>
 </tbody>
 </table>
 <p><strong>Example</strong>  </p>
-<pre class="codehilite"><code class="language-js">const baseDoc = { _type: 'io.cozy.todo', label: 'Go hiking' }
-// relations can be arrays or single objects
-const relationships = {
-  attachments: [{ _id: 12345, _type: 'io.cozy.files' }, { _id: 6789, _type: 'io.cozy.files' }],
-  bills: { _id: 9999, _type: 'io.cozy.bills' }
-}
-client.getDocumentSavePlan(baseDoc, relationships)</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">baseDoc</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">_type</span><span class="o">:</span> <span class="s1">&#39;io.cozy.todo&#39;</span><span class="p">,</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Go hiking&#39;</span> <span class="p">}</span>
+<span class="c1">// relations can be arrays or single objects</span>
+<span class="kr">const</span> <span class="nx">relationships</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">attachments</span><span class="o">:</span> <span class="p">[{</span> <span class="nx">_id</span><span class="o">:</span> <span class="mi">12345</span><span class="p">,</span> <span class="nx">_type</span><span class="o">:</span> <span class="s1">&#39;io.cozy.files&#39;</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">_id</span><span class="o">:</span> <span class="mi">6789</span><span class="p">,</span> <span class="nx">_type</span><span class="o">:</span> <span class="s1">&#39;io.cozy.files&#39;</span> <span class="p">}],</span>
+  <span class="nx">bills</span><span class="o">:</span> <span class="p">{</span> <span class="nx">_id</span><span class="o">:</span> <span class="mi">9999</span><span class="p">,</span> <span class="nx">_type</span><span class="o">:</span> <span class="s1">&#39;io.cozy.bills&#39;</span> <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">client</span><span class="p">.</span><span class="nx">getDocumentSavePlan</span><span class="p">(</span><span class="nx">baseDoc</span><span class="p">,</span> <span class="nx">relationships</span><span class="p">)</span>
+</pre></div>
 
 
 <p><a name="module_CozyClient+hydrateDocument"></a></p>
@@ -1529,7 +1590,8 @@ continue.</p>
 <p>Will automatically apply <code>encodeURIComponent</code> to template literal placeholders</p>
 <p><strong>Kind</strong>: global function<br />
 <strong>Example</strong>  </p>
-<pre class="codehilite"><code>const safe = uri`/data/${doctype}/_all_docs?limit=${limit}`</code></pre>
+<div class="codehilite"><pre><span></span>const safe = uri`/data/<span class="cp">${</span><span class="n">doctype</span><span class="cp">}</span>/_all_docs?limit=<span class="cp">${</span><span class="n">limit</span><span class="cp">}</span>`
+</pre></div>
 
 
 <p><a name="attempt"></a></p>
@@ -1538,11 +1600,12 @@ continue.</p>
 <p>Inspired by a Go pattern: http://blog.grossman.io/how-to-write-async-await-without-try-catch-blocks-in-javascript/</p>
 <p><strong>Kind</strong>: global function<br />
 <strong>Example</strong>  </p>
-<pre class="codehilite"><code>if (await attempt(collection.all()) return
+<div class="codehilite"><pre><span></span>if (await attempt(collection.all()) return
 await sleep(1000)
 if (await attempt(collection.all()) return
 await sleep(1000)
-return</code></pre>
+return
+</pre></div>
 
 
 <p><a name="sleep"></a></p>

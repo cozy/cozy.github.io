@@ -473,6 +473,66 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">babel-preset-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../babel-preset-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">commitlint-config-cozy</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../commitlint-config-cozy/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-device-helper</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-device-helper/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">eslint-config-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../eslint-config-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-flags</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-flags/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-realtime</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-realtime/README/">README</a>
+</li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -514,7 +574,7 @@
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
-        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}]
+        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
         const editNode = document.querySelector('#edit-link')
         const pathname = window.location.pathname
         const editURI = 'edit/master/'
@@ -621,18 +681,19 @@ These files are supposed to be enoughly independant to be usable upon request as
 - <code>webpack.target.mobile.js</code>
 - <code>webpack.vars.js</code></p>
 <p>By default <code>cozy-scripts</code> uses this bundle in an opinionated way, but you can overload this configuration by creating a custom <code>app.config.js</code> in your application root directory:</p>
-<pre class="codehilite"><code class="language-js">// app.config.js
+<div class="codehilite"><pre><span></span><span class="c1">// app.config.js</span>
 
-// using ES Modules
-import configs from 'cozy-scripts/config/webpack.bundle.default.js'
-import myConfig from './config/webpack.myconfig.js'
-// or using CommonJS
-const configs = require('cozy-scripts/config/webpack.bundle.default.js')
-const myConfig = require('./config/webpack.myconfig.js')
+<span class="c1">// using ES Modules</span>
+<span class="kr">import</span> <span class="nx">configs</span> <span class="nx">from</span> <span class="s1">&#39;cozy-scripts/config/webpack.bundle.default.js&#39;</span>
+<span class="kr">import</span> <span class="nx">myConfig</span> <span class="nx">from</span> <span class="s1">&#39;./config/webpack.myconfig.js&#39;</span>
+<span class="c1">// or using CommonJS</span>
+<span class="kr">const</span> <span class="nx">configs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-scripts/config/webpack.bundle.default.js&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">myConfig</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./config/webpack.myconfig.js&#39;</span><span class="p">)</span>
 
-// it's possible to add many custom configurations using this way,
-// the last will overwrite the previous in case of conflicts
-module.exports = [configs, myConfig]</code></pre>
+<span class="c1">// it&#39;s possible to add many custom configurations using this way,</span>
+<span class="c1">// the last will overwrite the previous in case of conflicts</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">[</span><span class="nx">configs</span><span class="p">,</span> <span class="nx">myConfig</span><span class="p">]</span>
+</pre></div>
 
 
 <h3 id="webpackbundlepreactjs"><code>webpack.bundle.preact.js</code><a class="headerlink" href="#webpackbundlepreactjs" title="Permanent link">&para;</a></h3>
@@ -655,18 +716,19 @@ module.exports = [configs, myConfig]</code></pre>
 - <code>webpack.vars.js</code></p>
 <p>This config will replace <code>react</code> usage by <code>preact-compat</code> in a transparent manner (webpack aliases).
 <strong>The <code>app.config.js</code> is needed to use this bundle since it&rsquo;s not the default one for <code>cozy-scripts</code></strong>. But you can still overload it using a custom config like the default bundle:</p>
-<pre class="codehilite"><code class="language-js">// app.config.js
+<div class="codehilite"><pre><span></span><span class="c1">// app.config.js</span>
 
-// using ES Modules
-import configs from 'cozy-scripts/config/webpack.bundle.preact.js'
-import myConfig from './config/webpack.myconfig.js'
-// or using CommonJS
-const configs = require('cozy-scripts/config/webpack.bundle.preact.js')
-const myConfig = require('./config/webpack.myconfig.js')
+<span class="c1">// using ES Modules</span>
+<span class="kr">import</span> <span class="nx">configs</span> <span class="nx">from</span> <span class="s1">&#39;cozy-scripts/config/webpack.bundle.preact.js&#39;</span>
+<span class="kr">import</span> <span class="nx">myConfig</span> <span class="nx">from</span> <span class="s1">&#39;./config/webpack.myconfig.js&#39;</span>
+<span class="c1">// or using CommonJS</span>
+<span class="kr">const</span> <span class="nx">configs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-scripts/config/webpack.bundle.preact.js&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">myConfig</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./config/webpack.myconfig.js&#39;</span><span class="p">)</span>
 
-// it's possible to add many custom configurations using this way,
-// the last will overwrite the previous in case of conflicts
-module.exports = [configs, myConfig]</code></pre>
+<span class="c1">// it&#39;s possible to add many custom configurations using this way,</span>
+<span class="c1">// the last will overwrite the previous in case of conflicts</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">[</span><span class="nx">configs</span><span class="p">,</span> <span class="nx">myConfig</span><span class="p">]</span>
+</pre></div>
 
 
 <h3 id="webpackbundlevuejs"><code>webpack.bundle.vue.js</code><a class="headerlink" href="#webpackbundlevuejs" title="Permanent link">&para;</a></h3>
@@ -687,18 +749,19 @@ module.exports = [configs, myConfig]</code></pre>
 - <code>webpack.target.mobile.js</code>
 - <code>webpack.vars.js</code></p>
 <p>You can still overload it using a custom config like the default bundle using the <code>app.config.js</code> file:</p>
-<pre class="codehilite"><code class="language-js">// app.config.js
+<div class="codehilite"><pre><span></span><span class="c1">// app.config.js</span>
 
-// ES Modules
-import configs from 'cozy-scripts/config/webpack.bundle.vue.js'
-import myConfig from './config/webpack.myconfig.js'
-// or CommonJS
-const configs = require('cozy-scripts/config/webpack.bundle.vue.js')
-const myConfig = require('./config/webpack.myconfig.js')
+<span class="c1">// ES Modules</span>
+<span class="kr">import</span> <span class="nx">configs</span> <span class="nx">from</span> <span class="s1">&#39;cozy-scripts/config/webpack.bundle.vue.js&#39;</span>
+<span class="kr">import</span> <span class="nx">myConfig</span> <span class="nx">from</span> <span class="s1">&#39;./config/webpack.myconfig.js&#39;</span>
+<span class="c1">// or CommonJS</span>
+<span class="kr">const</span> <span class="nx">configs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-scripts/config/webpack.bundle.vue.js&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">myConfig</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./config/webpack.myconfig.js&#39;</span><span class="p">)</span>
 
-// it's possible to add many custom configurations using this way,
-// the last will overwrite the previous in case of conflicts
-module.exports = [configs, myConfig]</code></pre>
+<span class="c1">// it&#39;s possible to add many custom configurations using this way,</span>
+<span class="c1">// the last will overwrite the previous in case of conflicts</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">[</span><span class="nx">configs</span><span class="p">,</span> <span class="nx">myConfig</span><span class="p">]</span>
+</pre></div>
 
 
 <h2 id="unit-configs">Unit Configs<a class="headerlink" href="#unit-configs" title="Permanent link">&para;</a></h2>

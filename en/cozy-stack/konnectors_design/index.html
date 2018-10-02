@@ -473,6 +473,66 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">babel-preset-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../babel-preset-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">commitlint-config-cozy</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../commitlint-config-cozy/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-device-helper</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-device-helper/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">eslint-config-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../eslint-config-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-flags</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-flags/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-realtime</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-realtime/README/">README</a>
+</li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -514,7 +574,7 @@
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
-        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}]
+        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
         const editNode = document.querySelector('#edit-link')
         const pathname = window.location.pathname
         const editURI = 'edit/master/'
@@ -742,10 +802,11 @@ and without forcing self-hosted users to do complicated installation procedures.
   when running a container.</li>
 </ul>
 <p>I managed to run a nodejs container with just the following commands :</p>
-<pre class="codehilite"><code>rkt run --insecure-options=image --interactive docker://node:slim --name nodeslim -- -v
+<div class="codehilite"><pre><span></span>rkt run --insecure-options=image --interactive docker://node:slim --name nodeslim -- -v
 rkt list   # to get the container uuid
 rkt export --app=nodeslim &amp;lt;uuid&amp;gt; nodeslim.aci
-rkt run --insecure-options=image --interactive nodeslim.aci -- -v  # to run node -v in the new container</code></pre>
+rkt run --insecure-options=image --interactive nodeslim.aci -- -v  # to run node -v in the new container
+</pre></div>
 
 
 <p>Note: the &ndash;insecure-options param is to avoid the check of the image signature
@@ -762,8 +823,9 @@ administration.</p>
 available in the cozy-stack docker image but I did not test it (TODO)</p>
 <h4 id="image-creation">Image creation<a class="headerlink" href="#image-creation" title="Permanent link">&para;</a></h4>
 <p>To create an ACI file image, you just need to run a docker image one time :</p>
-<pre class="codehilite"><code>rkt run  --uuid-file-save=$PWD/uuid --insecure-options=image --interactive docker://node:slim --name nodeslim -- -v
-rkt export --app=nodeslim `cat uuid` nodeslim.aci &amp;amp;&amp;amp; rm uuid</code></pre>
+<div class="codehilite"><pre><span></span>rkt run  --uuid-file-save=$PWD/uuid --insecure-options=image --interactive docker://node:slim --name nodeslim -- -v
+rkt export --app=nodeslim `cat uuid` nodeslim.aci &amp;amp;&amp;amp; rm uuid
+</pre></div>
 
 
 <p>The node:slim image weights 84M at this time. The node:alpine image also exists
@@ -775,19 +837,29 @@ available (the net module could be mocked with special limitations to blacklist
 some urls)</p>
 <p>A script will run the node container giving as option the script to launch. The
 path is mounted inside the container. The following script does just that</p>
-<pre class="codehilite"><code class="language-bash linenums">#!/usr/bin/env bash
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
 rm -rf ./container_dir
 cp -r ./container_dir_template ./container_dir
-rkt run --net=host --environment=CREDENTIAL=value;COZY_URL=url --uuid-file-save=$PWD/uuid --volume data,kind=host,source=$PWD/container_dir --insecure-options=image nodeslim.aci --cpu=100m --memory=128M --name rktnode --mount volume=data,target=/usr/src/app --exec node -- /usr/src/app/$1 $2 &amp;amp;
-# the container will handle itself the communication with the stack
-sleep 60
-rkt stop --force --uuid-file=uuid
-rkt rm --uuid-file=uuid
-rm -rf ./container_dir</code></pre>
-
+rkt run --net<span class="o">=</span>host --environment<span class="o">=</span><span class="nv">CREDENTIAL</span><span class="o">=</span>value<span class="p">;</span><span class="nv">COZY_URL</span><span class="o">=</span>url --uuid-file-save<span class="o">=</span><span class="nv">$PWD</span>/uuid --volume data,kind<span class="o">=</span>host,source<span class="o">=</span><span class="nv">$PWD</span>/container_dir --insecure-options<span class="o">=</span>image nodeslim.aci --cpu<span class="o">=</span>100m --memory<span class="o">=</span>128M --name rktnode --mount <span class="nv">volume</span><span class="o">=</span>data,target<span class="o">=</span>/usr/src/app --exec node -- /usr/src/app/<span class="nv">$1</span> <span class="nv">$2</span> <span class="p">&amp;</span>amp<span class="p">;</span>
+<span class="c1"># the container will handle itself the communication with the stack</span>
+sleep <span class="m">60</span>
+rkt stop --force --uuid-file<span class="o">=</span>uuid
+rkt rm --uuid-file<span class="o">=</span>uuid
+rm -rf ./container_dir
+</pre></div>
+</td></tr></table>
 
 <p>This script can be run like this :</p>
-<pre class="codehilite"><code>./rkt.sh mynewkonnector.js</code></pre>
+<div class="codehilite"><pre><span></span>./rkt.sh mynewkonnector.js
+</pre></div>
 
 
 <p>If the mynewkonnector.js file is available in the container_dir_template
@@ -805,7 +877,7 @@ That way, the host can have iptable rules to forbid access to specified ports to
 the bridge.</p>
 <p>To connect a container in bridge mode :</p>
 <p>On the host create the file /etc/rkt/net.d/10-containers.conf</p>
-<pre class="codehilite"><code>{
+<div class="codehilite"><pre><span></span>{
     &quot;name&quot;: &quot;bridge&quot;,
     &quot;type&quot;: &quot;bridge&quot;,
     &quot;bridge&quot;: &quot;rkt-bridge-nat&quot;,
@@ -818,7 +890,8 @@ the bridge.</p>
                { &quot;dst&quot;: &quot;0.0.0.0/0&quot; }
         ]
     }
-}</code></pre>
+}
+</pre></div>
 
 
 <p>and run your container with the &ldquo;&ndash;net=bridge&rdquo; option. That way, a new interface
@@ -865,13 +938,14 @@ konnectors. It will follow the following constraints in mind:</p>
 independently from each konnector. The one once used by the email application
 seems to be a good candidate : io.cozy.accounts</p>
 <p>Here is an example document with this doctype :</p>
-<pre class="codehilite"><code>{
+<div class="codehilite"><pre><span></span>{
     _id: &quot;ojpiojpoij&quot;,
     name: &quot;user decided name for the account&quot;,
     accountType: &quot;google&quot;,
     login: &quot;mylogin&quot;,
     password: &quot;123456&quot;
-}</code></pre>
+}
+</pre></div>
 
 
 <p>Any attribute needed for the account may be added : email, etc&hellip;</p>
@@ -882,33 +956,34 @@ handled by the &ldquo;my accounts&rdquo; client application.</p>
 will be the type of account, related to the accountType field in the new account
 docType.</p>
 <p>Ex:</p>
-<pre class="codehilite"><code>module.exports = baseKonnector.createNew({
-  name: 'Trainline',
-  vendorLink: 'www.captaintrain.com',
-  category: 'transport',
-  color: {
-    hex: '#48D5B5',
-    css: '#48D5B5'
+<div class="codehilite"><pre><span></span><span class="k">module</span>.<span class="n">exports</span> = <span class="n">baseKonnector</span>.<span class="n">createNew</span>({
+  <span class="n">name:</span> <span class="s">&#39;Trainline&#39;</span>,
+  <span class="n">vendorLink:</span> <span class="s">&#39;www.captaintrain.com&#39;</span>,
+  <span class="n">category:</span> <span class="s">&#39;transport&#39;</span>,
+  <span class="n">color:</span> {
+    <span class="n">hex:</span> <span class="s">&#39;#48D5B5&#39;</span>,
+    <span class="n">css:</span> <span class="s">&#39;#48D5B5&#39;</span>
   },
-  fields: {
-    login: {
-      type: 'text'
+  <span class="n">fields:</span> {
+    <span class="n">login:</span> {
+      <span class="n">type:</span> <span class="s">&#39;text&#39;</span>
     },
-    password: {
-      type: 'password'
+    <span class="n">password:</span> {
+      <span class="n">type:</span> <span class="s">&#39;password&#39;</span>
     },
-    folderPath: {
-      type: 'folder',
-      advanced: true
+    <span class="n">folderPath:</span> {
+      <span class="n">type:</span> <span class="s">&#39;folder&#39;</span>,
+      <span class="n">advanced:</span> <span class="nb">true</span>
     },
-    accountType: &quot;trainline&quot;
+    <span class="n">accountType:</span> <span class="s">&quot;trainline&quot;</span>
   },
-  dataType: ['bill'],
-  models: [Bill],
-  fetchOperations: [
+  <span class="n">dataType:</span> [<span class="s">&#39;bill&#39;</span>],
+  <span class="n">models:</span> [<span class="n">Bill</span>],
+  <span class="n">fetchOperations:</span> [
     ...
   ]
-})</code></pre>
+})
+</pre></div>
 
 
 <p>With this new field, which will appear also in the io.cozy.konnectors docType,

@@ -473,6 +473,66 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">babel-preset-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../babel-preset-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">commitlint-config-cozy</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../commitlint-config-cozy/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-device-helper</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-device-helper/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">eslint-config-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../eslint-config-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-flags</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-flags/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-realtime</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-realtime/README/">README</a>
+</li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -510,7 +570,7 @@
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
-        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}]
+        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
         const editNode = document.querySelector('#edit-link')
         const pathname = window.location.pathname
         const editURI = 'edit/master/'
@@ -545,90 +605,95 @@
 
 <h1 id="using-the-oauth-client">Using the OAuth client<a class="headerlink" href="#using-the-oauth-client" title="Permanent link">&para;</a></h1>
 <p><code>CozyClient</code> can also be used as an OAuth client. To get started, configure the OAuth informations when creating the client:</p>
-<pre class="codehilite"><code class="language-js">import CozyClient from 'cozy-client'
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">CozyClient</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 
-const client = new CozyClient({
-  uri: 'http://cozy.tools:8080',
-  scope: ['io.cozy.mydoctype'],
-  oauth: {
-    clientName: 'MyClient',
-    softwareID: 'MyAppId',
-    redirectURI: 'http://localhost'
-  }
-})</code></pre>
+<span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CozyClient</span><span class="p">({</span>
+  <span class="nx">uri</span><span class="o">:</span> <span class="s1">&#39;http://cozy.tools:8080&#39;</span><span class="p">,</span>
+  <span class="nx">scope</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;io.cozy.mydoctype&#39;</span><span class="p">],</span>
+  <span class="nx">oauth</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">clientName</span><span class="o">:</span> <span class="s1">&#39;MyClient&#39;</span><span class="p">,</span>
+    <span class="nx">softwareID</span><span class="o">:</span> <span class="s1">&#39;MyAppId&#39;</span><span class="p">,</span>
+    <span class="nx">redirectURI</span><span class="o">:</span> <span class="s1">&#39;http://localhost&#39;</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+</pre></div>
 
 
 <p><code>scope</code> is an array of <a href="https://github.com/cozy/cozy-stack/blob/master/docs/permissions.md">permissions</a> you require for your client, and <code>oauth</code> is a list of fields that identify your client for the user and the server. The complete list of field can be found <a href="https://github.com/cozy/cozy-stack/blob/master/docs/permissions.md">here</a>, although they should be camel-cased instead of snake-cased.</p>
 <h2 id="obtaining-a-token">Obtaining a token<a class="headerlink" href="#obtaining-a-token" title="Permanent link">&para;</a></h2>
 <p>Before you can start making requests to the server, you will need to get a token. <code>cozy-client</code> will provide a URL to a page where the user is shown what data you want to access, and asking for his or her permission. After the user accepts these permissions, he or she is redirected to the <code>oauth.redirectURI</code> that you declared earlier. You will then have to give this redirected URL back to <code>cozy-client</code> as it contains a code, that will be exchanged for the token.</p>
 <p>Sounds, tricky, but most of it is taken care of for you. To get started, you call <code>client.startOAuthFlow</code> like this:</p>
-<pre class="codehilite"><code class="language-js">import CozyClient from 'cozy-client'
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">CozyClient</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 
-const client = new CozyClient({
-  uri: 'http://cozy.tools:8080',
-  scope: ['io.cozy.mydoctype'],
-  oauth: {
-    clientName: 'MyClient',
-    softwareID: 'MyAppId',
-    redirectURI: 'http://localhost'
-  }
-})
+<span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CozyClient</span><span class="p">({</span>
+  <span class="nx">uri</span><span class="o">:</span> <span class="s1">&#39;http://cozy.tools:8080&#39;</span><span class="p">,</span>
+  <span class="nx">scope</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;io.cozy.mydoctype&#39;</span><span class="p">],</span>
+  <span class="nx">oauth</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">clientName</span><span class="o">:</span> <span class="s1">&#39;MyClient&#39;</span><span class="p">,</span>
+    <span class="nx">softwareID</span><span class="o">:</span> <span class="s1">&#39;MyAppId&#39;</span><span class="p">,</span>
+    <span class="nx">redirectURI</span><span class="o">:</span> <span class="s1">&#39;http://localhost&#39;</span>
+  <span class="p">}</span>
+<span class="p">})</span>
 
-client.startOAuthFlow(openURL)</code></pre>
+<span class="nx">client</span><span class="p">.</span><span class="nx">startOAuthFlow</span><span class="p">(</span><span class="nx">openURL</span><span class="p">)</span>
+</pre></div>
 
 
 <p>The <code>openURL</code> parameter is a callback. It will receive the URL to the page as a parameter, and it must return a Promise that resolves with the redirected URL. How exactly you do this depends on your environment — for a mobile app you may use a WebView, in a browser maybe a new tab… Here is an example that uses the browser&rsquo;s console and an experienced user:</p>
-<pre class="codehilite"><code class="language-js">const openURL = url =&gt; {
-  console.log('Please visit the following URL, accept the permissions and copy the URL you are redirected to, then come back here. you have 10 seconds.', url)
-  return new Promise(resolve =&gt; {
-    setTimeout(async () =&gt; {
-      const returnUrl = prompt('Paste the new URL here.')
-      resolve(returnUrl)
-    }, 10000)
-  })
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">openURL</span> <span class="o">=</span> <span class="nx">url</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Please visit the following URL, accept the permissions and copy the URL you are redirected to, then come back here. you have 10 seconds.&#39;</span><span class="p">,</span> <span class="nx">url</span><span class="p">)</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="kr">const</span> <span class="nx">returnUrl</span> <span class="o">=</span> <span class="nx">prompt</span><span class="p">(</span><span class="s1">&#39;Paste the new URL here.&#39;</span><span class="p">)</span>
+      <span class="nx">resolve</span><span class="p">(</span><span class="nx">returnUrl</span><span class="p">)</span>
+    <span class="p">},</span> <span class="mi">10000</span><span class="p">)</span>
+  <span class="p">})</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <p>And that&rsquo;s it! After the promise is resolved, <code>cozy-client</code> finishes the OAuth flow and you can start using it.</p>
 <h2 id="restoring-a-client">Restoring a client<a class="headerlink" href="#restoring-a-client" title="Permanent link">&para;</a></h2>
 <p>Of course you don&rsquo;t want to go through this whole process every time your app starts. In order to restore the client from a previous version, you need to give it a token and some extra information about itself. Both of these are returned by the <code>openURL</code> function, so you can store them wherever you see fit — in this example we&rsquo;ll use the <code>localStorag</code> API.</p>
-<pre class="codehilite"><code class="language-js">import CozyClient from 'cozy-client'
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">CozyClient</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 
-const client = new CozyClient({
-  uri: 'http://cozy.tools:8080',
-  scope: ['io.cozy.mydoctype'],
-  oauth: {
-    clientName: 'MyClient',
-    softwareID: 'MyAppId',
-    redirectURI: 'http://localhost'
-  }
-})
+<span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CozyClient</span><span class="p">({</span>
+  <span class="nx">uri</span><span class="o">:</span> <span class="s1">&#39;http://cozy.tools:8080&#39;</span><span class="p">,</span>
+  <span class="nx">scope</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;io.cozy.mydoctype&#39;</span><span class="p">],</span>
+  <span class="nx">oauth</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">clientName</span><span class="o">:</span> <span class="s1">&#39;MyClient&#39;</span><span class="p">,</span>
+    <span class="nx">softwareID</span><span class="o">:</span> <span class="s1">&#39;MyAppId&#39;</span><span class="p">,</span>
+    <span class="nx">redirectURI</span><span class="o">:</span> <span class="s1">&#39;http://localhost&#39;</span>
+  <span class="p">}</span>
+<span class="p">})</span>
 
-const {token, infos} = client.startOAuthFlow(openURL)
-localStorage.setItem('token', token)
-localStorage.setItem('infos', JSON.stringify(infos))</code></pre>
+<span class="kr">const</span> <span class="p">{</span><span class="nx">token</span><span class="p">,</span> <span class="nx">infos</span><span class="p">}</span> <span class="o">=</span> <span class="nx">client</span><span class="p">.</span><span class="nx">startOAuthFlow</span><span class="p">(</span><span class="nx">openURL</span><span class="p">)</span>
+<span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">&#39;token&#39;</span><span class="p">,</span> <span class="nx">token</span><span class="p">)</span>
+<span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">&#39;infos&#39;</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">infos</span><span class="p">))</span>
+</pre></div>
 
 
 <p>Next time your app starts, you can pass these informations to the constructor. Here is a complete example of the OAuth client initilisation:</p>
-<pre class="codehilite"><code class="language-js">const storedToken = localStorage.getItem('token') || null
-const storedInfos = JSON.parse(localStorage.getItem('infos')) || {
-  clientName: 'MyClient',
-  softwareID: 'MyAppId',
-  redirectURI: 'http://localhost'
-}
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">storedToken</span> <span class="o">=</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;token&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="kc">null</span>
+<span class="kr">const</span> <span class="nx">storedInfos</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;infos&#39;</span><span class="p">))</span> <span class="o">||</span> <span class="p">{</span>
+  <span class="nx">clientName</span><span class="o">:</span> <span class="s1">&#39;MyClient&#39;</span><span class="p">,</span>
+  <span class="nx">softwareID</span><span class="o">:</span> <span class="s1">&#39;MyAppId&#39;</span><span class="p">,</span>
+  <span class="nx">redirectURI</span><span class="o">:</span> <span class="s1">&#39;http://localhost&#39;</span>
+<span class="p">}</span>
 
-const client = new CozyClient({
-  uri: 'http://cozy.tools:8080',
-  oauth: storedInfos,
-  token: storedToken,
-  scope: ['io.cozy.mydoctype']
-});
+<span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CozyClient</span><span class="p">({</span>
+  <span class="nx">uri</span><span class="o">:</span> <span class="s1">&#39;http://cozy.tools:8080&#39;</span><span class="p">,</span>
+  <span class="nx">oauth</span><span class="o">:</span> <span class="nx">storedInfos</span><span class="p">,</span>
+  <span class="nx">token</span><span class="o">:</span> <span class="nx">storedToken</span><span class="p">,</span>
+  <span class="nx">scope</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;io.cozy.mydoctype&#39;</span><span class="p">]</span>
+<span class="p">});</span>
 
-if (!storedToken) {
-  const {token, infos} = await client.startOAuthFlow(openURL)
-  localStorage.setItem('token', token)
-  localStorage.setItem('infos', JSON.stringify(infos))
-}</code></pre>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">storedToken</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="p">{</span><span class="nx">token</span><span class="p">,</span> <span class="nx">infos</span><span class="p">}</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">startOAuthFlow</span><span class="p">(</span><span class="nx">openURL</span><span class="p">)</span>
+  <span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">&#39;token&#39;</span><span class="p">,</span> <span class="nx">token</span><span class="p">)</span>
+  <span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">&#39;infos&#39;</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">infos</span><span class="p">))</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <h2 id="logout-a-client">Logout a client<a class="headerlink" href="#logout-a-client" title="Permanent link">&para;</a></h2>

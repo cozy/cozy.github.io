@@ -473,6 +473,66 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">babel-preset-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../babel-preset-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">commitlint-config-cozy</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../commitlint-config-cozy/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-device-helper</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-device-helper/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">eslint-config-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../eslint-config-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-flags</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-flags/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-realtime</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-realtime/README/">README</a>
+</li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -511,7 +571,7 @@
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
-        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}]
+        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
         const editNode = document.querySelector('#edit-link')
         const pathname = window.location.pathname
         const editURI = 'edit/master/'
@@ -570,61 +630,66 @@
 <li>Disable CSPs in the target Cozy (the Cozy CSPs is blocking HMR script)</li>
 </ul>
 <p>But thanks to the last version of <a href="https://github.com/CPatchane/create-cozy-app/tree/master/packages/cozy-scripts"><code>cozy-scripts</code></a>, all of that are handled for you with the command <code>cozy-scripts start</code>:</p>
-<pre class="codehilite"><code class="language-sh">yarn cozy-scripts start --hot --browser
-# or if you have the last package.json from CCA, you can do
-yarn start</code></pre>
+<div class="codehilite"><pre><span></span>yarn cozy-scripts start --hot --browser
+<span class="c1"># or if you have the last package.json from CCA, you can do</span>
+yarn start
+</pre></div>
 
 
 <h4 id="how-can-i-run-my-webpack-and-my-stack-in-different-terminals">How can I run my webpack and my stack in different terminals?<a class="headerlink" href="#how-can-i-run-my-webpack-and-my-stack-in-different-terminals" title="Permanent link">&para;</a></h4>
 <p>First, you can pass an option to disable the stack handling by the <code>start</code> command:</p>
-<pre class="codehilite"><code class="language-sh">yarn cozy-scripts start --hot --browser --no-stack
-# or if you have the last package.json from CCA, you can do
-yarn start --no-stack</code></pre>
+<div class="codehilite"><pre><span></span>yarn cozy-scripts start --hot --browser --no-stack
+<span class="c1"># or if you have the last package.json from CCA, you can do</span>
+yarn start --no-stack
+</pre></div>
 
 
 <p>Then, as said, to have your application running in a Cozy with HMR, your have to disable CSPs when running the stack. For that, <a href="https://github.com/CPatchane/create-cozy-app/tree/master/packages/cozy-scripts"><code>cozy-scripts</code></a> has a dedicated config file to pass to your Docker image in <code>cozy-scripts/stack/disableCSP.yaml</code>.
 You can use this config by running your stack in another terminal like:</p>
-<pre class="codehilite"><code class="language-sh"># in your app root directory
+<div class="codehilite"><pre><span></span><span class="c1"># in your app root directory</span>
 docker run --rm -it
-  -p 8080:8080 -p 5984:5984
-  -v \&quot;$(pwd)/build\&quot;:/data/cozy-app/app
-  -v \&quot;$(pwd)/node_modules/cozy-scripts/stack/disableCSP.yaml\&quot;:/etc/cozy/cozy.yaml
-  cozy/cozy-app-dev</code></pre>
+  -p <span class="m">8080</span>:8080 -p <span class="m">5984</span>:5984
+  -v <span class="se">\&quot;</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/build<span class="se">\&quot;</span>:/data/cozy-app/app
+  -v <span class="se">\&quot;</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/node_modules/cozy-scripts/stack/disableCSP.yaml<span class="se">\&quot;</span>:/etc/cozy/cozy.yaml
+  cozy/cozy-app-dev
+</pre></div>
 
 
 <h3 id="make-hmr-available-in-my-application">Make HMR available in my application<a class="headerlink" href="#make-hmr-available-in-my-application" title="Permanent link">&para;</a></h3>
 <h4 id="for-a-react-application">For a React application<a class="headerlink" href="#for-a-react-application" title="Permanent link">&para;</a></h4>
 <p>You have to use <a href="https://github.com/gaearon/react-hot-loader"><code>react-hot-loader</code></a> inside your main App component like this:</p>
-<pre class="codehilite"><code class="language-js">import React from 'react'
-import { hot } from 'react-hot-loader'
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">hot</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react-hot-loader&#39;</span>
 
-const App = () =&gt; (
-  ...
-)
+<span class="kr">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">(</span>
+  <span class="p">...</span>
+<span class="p">)</span>
 
-export default hot(module)(App)</code></pre>
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">hot</span><span class="p">(</span><span class="nx">module</span><span class="p">)(</span><span class="nx">App</span><span class="p">)</span>
+</pre></div>
 
 
 <p>That&rsquo;s it. Then, just use the last version of cozy-scripts to run your application with HMR.</p>
 <h4 id="for-a-vue-application">For a Vue application<a class="headerlink" href="#for-a-vue-application" title="Permanent link">&para;</a></h4>
 <p>Inside your entry point <code>index.js</code> (in <code>src/targets/&lt;target&gt;</code>), you have to add this part related to <code>module.hot</code>:</p>
-<pre class="codehilite"><code class="language-js">import Vue from 'vue'
-import store from 'lib/store'
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">Vue</span> <span class="nx">from</span> <span class="s1">&#39;vue&#39;</span>
+<span class="kr">import</span> <span class="nx">store</span> <span class="nx">from</span> <span class="s1">&#39;lib/store&#39;</span>
 
-const renderApp = function() {
-  const App = require('components/App').default
-  return new Vue({
-    store, // inject store to all children
-    el: '[role=application]',
-    render: h =&gt; h(App)
-  })
-}
+<span class="kr">const</span> <span class="nx">renderApp</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;components/App&#39;</span><span class="p">).</span><span class="k">default</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+    <span class="nx">store</span><span class="p">,</span> <span class="c1">// inject store to all children</span>
+    <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;[role=application]&#39;</span><span class="p">,</span>
+    <span class="nx">render</span><span class="o">:</span> <span class="nx">h</span> <span class="p">=&gt;</span> <span class="nx">h</span><span class="p">(</span><span class="nx">App</span><span class="p">)</span>
+  <span class="p">})</span>
+<span class="p">}</span>
 
-if (module.hot) {
-  module.hot.accept('components/App', function() {
-    renderApp()
-  })
-}</code></pre>
+<span class="k">if</span> <span class="p">(</span><span class="nx">module</span><span class="p">.</span><span class="nx">hot</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">module</span><span class="p">.</span><span class="nx">hot</span><span class="p">.</span><span class="nx">accept</span><span class="p">(</span><span class="s1">&#39;components/App&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">renderApp</span><span class="p">()</span>
+  <span class="p">})</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <p>That&rsquo;s it. Then, just use the last version of cozy-scripts to <a href="#run-my-application-with-hmr">run your application with HMR</a>.</p></div>

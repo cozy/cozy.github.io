@@ -473,6 +473,66 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">babel-preset-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../babel-preset-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">commitlint-config-cozy</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../commitlint-config-cozy/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-device-helper</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-device-helper/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">eslint-config-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../eslint-config-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-flags</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-flags/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-realtime</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-realtime/README/">README</a>
+</li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -510,7 +570,7 @@
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
-        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}]
+        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
         const editNode = document.querySelector('#edit-link')
         const pathname = window.location.pathname
         const editURI = 'edit/master/'
@@ -550,13 +610,15 @@ dependency.</p>
 <h4 id="cozy-run-standalone">cozy-run-standalone<a class="headerlink" href="#cozy-run-standalone" title="Permanent link">&para;</a></h4>
 <p>If you just want to test your connector without any cozy available, add the following code in
 the <code>scripts</code> section of your package.json file</p>
-<pre class="codehilite"><code class="language-javascript">  scripts: {
-    standalone: &quot;cozy-run-standalone&quot;
-  }</code></pre>
+<div class="codehilite"><pre><span></span>  <span class="nx">scripts</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">standalone</span><span class="o">:</span> <span class="s2">&quot;cozy-run-standalone&quot;</span>
+  <span class="p">}</span>
+</pre></div>
 
 
 <p>and run:</p>
-<pre class="codehilite"><code class="language-sh">yarn standalone</code></pre>
+<div class="codehilite"><pre><span></span>yarn standalone
+</pre></div>
 
 
 <p>The requests to the cozy-stack will be stubbed using the [./fixture.json] file as source of data
@@ -570,27 +632,30 @@ defined in <code>package.json</code> <code>main</code> section or ./src/index.js
 <code>global.openInBrowser</code>, which can take an html string or a cheerio object as input and will show
 the corresponding html page in your default browser.</p>
 <h5 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permanent link">&para;</a></h5>
-<pre class="codehilite"><code>Usage: cozy-run-standalone [options] &lt;file&gt;
+<div class="codehilite"><pre><span></span><span class="n">Usage</span><span class="o">:</span> <span class="n">cozy</span><span class="o">-</span><span class="n">run</span><span class="o">-</span><span class="n">standalone</span> <span class="o">[</span><span class="n">options</span><span class="o">]</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">&gt;</span>
 
 
-Options:
+<span class="n">Options</span><span class="o">:</span>
 
-  --record  Record all the requests in the ./fixtures directory using the replay module
-  --replay  Replay all the recorded requests
-  --persist Do not empty ./data/importedData.json at each run
-  -h, --help  output usage information</code></pre>
+  <span class="o">--</span><span class="n">record</span>  <span class="n">Record</span> <span class="n">all</span> <span class="n">the</span> <span class="n">requests</span> <span class="k">in</span> <span class="n">the</span> <span class="o">./</span><span class="n">fixtures</span> <span class="n">directory</span> <span class="n">using</span> <span class="n">the</span> <span class="n">replay</span> <span class="n">module</span>
+  <span class="o">--</span><span class="n">replay</span>  <span class="n">Replay</span> <span class="n">all</span> <span class="n">the</span> <span class="n">recorded</span> <span class="n">requests</span>
+  <span class="o">--</span><span class="n">persist</span> <span class="n">Do</span> <span class="n">not</span> <span class="n">empty</span> <span class="o">./</span><span class="n">data</span><span class="o">/</span><span class="n">importedData</span><span class="o">.</span><span class="na">json</span> <span class="n">at</span> <span class="k">each</span> <span class="n">run</span>
+  <span class="o">-</span><span class="n">h</span><span class="o">,</span> <span class="o">--</span><span class="n">help</span>  <span class="n">output</span> <span class="n">usage</span> <span class="n">information</span>
+</pre></div>
 
 
 <h4 id="cozy-run-dev">cozy-run-dev<a class="headerlink" href="#cozy-run-dev" title="Permanent link">&para;</a></h4>
 <p>If you want to run your connector linked to a cozy-stack, even remotely. Just add the follwing code
 in the <code>scripts</code> section of your package.json file:</p>
-<pre class="codehilite"><code class="language-javascript">  scripts: {
-    dev: &quot;cozy-run-dev&quot;
-  }</code></pre>
+<div class="codehilite"><pre><span></span>  <span class="nx">scripts</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">dev</span><span class="o">:</span> <span class="s2">&quot;cozy-run-dev&quot;</span>
+  <span class="p">}</span>
+</pre></div>
 
 
 <p>and run:</p>
-<pre class="codehilite"><code class="language-sh">yarn dev</code></pre>
+<div class="codehilite"><pre><span></span>yarn dev
+</pre></div>
 
 
 <p>This command will register your konnector as an OAuth application to the cozy-stack and then set the <code>COZY_CREDENTIALS</code> and <code>COZY_FIELDS</code> environment variable. By default,
@@ -605,7 +670,8 @@ defined in <code>package.json</code> <code>main</code> section or ./src/index.js
 <code>global.openInBrowser</code>, which can take an html string or a cheerio object as input and will show
 the corresponding html page in your default browser.</p>
 <h5 id="arguments_1">Arguments<a class="headerlink" href="#arguments_1" title="Permanent link">&para;</a></h5>
-<pre class="codehilite"><code>$ cozy-run-dev &lt;file&gt; [-t token.json] [-m manifest.webapp]</code></pre>
+<div class="codehilite"><pre><span></span>$ cozy-run-dev &lt;file&gt; <span class="o">[</span>-t token.json<span class="o">]</span> <span class="o">[</span>-m manifest.webapp<span class="o">]</span>
+</pre></div>
 
 
 <ul>
@@ -615,32 +681,38 @@ the corresponding html page in your default browser.</p>
 <h4 id="cozy-run-shell">cozy-run-shell<a class="headerlink" href="#cozy-run-shell" title="Permanent link">&para;</a></h4>
 <p>When you are developping a connector, it is possible to get a REPL with all the cozy-konnector-libs
 tools available and some enhancement.</p>
-<pre class="codehilite"><code class="language-javascript">  scripts: {
-    dev: &quot;cozy-run-shell&quot;
-  }</code></pre>
+<div class="codehilite"><pre><span></span>  <span class="nx">scripts</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">dev</span><span class="o">:</span> <span class="s2">&quot;cozy-run-shell&quot;</span>
+  <span class="p">}</span>
+</pre></div>
 
 
 <p>and run:</p>
-<pre class="codehilite"><code class="language-sh">yarn shell</code></pre>
+<div class="codehilite"><pre><span></span>yarn shell
+</pre></div>
 
 
 <p>In this REPL, all the cozy-konnector-libs tools are available as globals and a default global
 request instance initialized with cheerio and cookie handling is available. For example run :</p>
-<pre class="codehilite"><code class="language-javascript">request('http://quotes.toscrape.com/')</code></pre>
+<div class="codehilite"><pre><span></span><span class="nx">request</span><span class="p">(</span><span class="s1">&#39;http://quotes.toscrape.com/&#39;</span><span class="p">)</span>
+</pre></div>
 
 
 <p>After running a request, a global $ object with a cheerio instance is available. Run :</p>
-<pre class="codehilite"><code class="language-js">$</code></pre>
+<div class="codehilite"><pre><span></span><span class="nx">$</span>
+</pre></div>
 
 
 <p>A full global request-promise response object is also available.</p>
 <p>If you always want the details of the request and the response to be displayed. Just run once:</p>
-<pre class="codehilite"><code class="language-js">debug()</code></pre>
+<div class="codehilite"><pre><span></span><span class="nx">debug</span><span class="p">()</span>
+</pre></div>
 
 
 <p>And you get a syntax colored html representation of the result of the request.
 If you run :</p>
-<pre class="codehilite"><code class="language-js">$('p')</code></pre>
+<div class="codehilite"><pre><span></span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">)</span>
+</pre></div>
 
 
 <p>You get an array of elements with for each element:
@@ -648,14 +720,16 @@ If you run :</p>
 - the html of the element
 - the cleaned text of the element</p>
 <p>It is also possible to load a html file into the shell. Run :</p>
-<pre class="codehilite"><code class="language-sh">yarn shell index.html</code></pre>
+<div class="codehilite"><pre><span></span>yarn shell index.html
+</pre></div>
 
 
 <p>The html file will load and $ will be correctly initialized.</p>
 <p>The <code>openInBrowser</code> is also available , which can take an html string or a cheerio object as input and will show
 the corresponding html page in your default browser.</p>
 <h5 id="arguments_2">Arguments<a class="headerlink" href="#arguments_2" title="Permanent link">&para;</a></h5>
-<pre class="codehilite"><code>$ cozy-run-shell [&lt;file&gt;]</code></pre></div>
+<div class="codehilite"><pre><span></span>$ cozy-run-shell <span class="o">[</span>&lt;file&gt;<span class="o">]</span>
+</pre></div></div>
         </div>
 
         <footer class="col-md-12">

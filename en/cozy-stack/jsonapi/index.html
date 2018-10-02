@@ -473,6 +473,66 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">babel-preset-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../babel-preset-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">commitlint-config-cozy</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../commitlint-config-cozy/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-device-helper</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-device-helper/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">eslint-config-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../eslint-config-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-flags</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-flags/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-realtime</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-realtime/README/">README</a>
+</li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -509,7 +569,7 @@
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
-        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}]
+        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
         const editNode = document.querySelector('#edit-link')
         const pathname = window.location.pathname
         const editURI = 'edit/master/'
@@ -563,48 +623,56 @@ returning value. Similarly, the response will contain a next link with a
 <code>page[skip]</code> set for next page (skip + limit).</p>
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
 <p>The <code>/relationships/references</code> as a default limit of 100.</p>
-<pre class="codehilite"><code class="language-http">GET /data/some-type/some-id/relationships/references HTTP/1.1</code></pre>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/data/some-type/some-id/relationships/references</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-json">{
-  &quot;data&quot;: [&quot;... 100 docs ...&quot;],
-  &quot;links&quot;: {
-    &quot;next&quot;:
-      &quot;/data/some-type/some-id/relationships/references?page[limit]=100&amp;page[cursor]=7845122548848454212&quot;
-  }
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;... 100 docs ...&quot;</span><span class="p">],</span>
+  <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;next&quot;</span><span class="p">:</span>
+      <span class="s2">&quot;/data/some-type/some-id/relationships/references?page[limit]=100&amp;page[cursor]=7845122548848454212&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-http">GET /data/some-type/some-id/relationships/references?page[limit]=10 HTTP/1.1</code></pre>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/data/some-type/some-id/relationships/references?page[limit]=10</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-json">{
-  &quot;data&quot;: [&quot;... 10 docs ...&quot;],
-  &quot;links&quot;: {
-    &quot;next&quot;:
-      &quot;/data/some-type/some-id/relationships/references?page[limit]=10&amp;page[cursor]=5487ba7596&quot;
-  }
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;... 10 docs ...&quot;</span><span class="p">],</span>
+  <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;next&quot;</span><span class="p">:</span>
+      <span class="s2">&quot;/data/some-type/some-id/relationships/references?page[limit]=10&amp;page[cursor]=5487ba7596&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-http">GET /data/some-type/some-id/relationships/references?page[limit]=100&amp;page[cursor]=7845122548848454212 HTTP/1.1</code></pre>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/data/some-type/some-id/relationships/references?page[limit]=100&amp;page[cursor]=7845122548848454212</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-json">{
-  &quot;data&quot;: [&quot;... 20 docs ...&quot;]
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;... 20 docs ...&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-http">GET /data/some-type/some-id/relationships/references?page[limit]=10&amp;page[skip]=0 HTTP/1.1</code></pre>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/data/some-type/some-id/relationships/references?page[limit]=10&amp;page[skip]=0</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-json">{
-  &quot;data&quot;: [&quot;... 10 docs ...&quot;],
-  &quot;links&quot;: {
-    &quot;next&quot;:
-      &quot;/data/some-type/some-id/relationships/references?page[limit]=10&amp;page[skip]=10&quot;
-  }
-}</code></pre></div>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;... 10 docs ...&quot;</span><span class="p">],</span>
+  <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;next&quot;</span><span class="p">:</span>
+      <span class="s2">&quot;/data/some-type/some-id/relationships/references?page[limit]=10&amp;page[skip]=10&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div></div>
         </div>
 
         <footer class="col-md-12">

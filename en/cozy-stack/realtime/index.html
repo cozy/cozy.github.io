@@ -473,6 +473,66 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">babel-preset-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../babel-preset-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">commitlint-config-cozy</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../commitlint-config-cozy/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-device-helper</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-device-helper/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">eslint-config-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../eslint-config-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-flags</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-flags/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-realtime</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-realtime/README/">README</a>
+</li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -513,7 +573,7 @@
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
-        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}]
+        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
         const editNode = document.querySelector('#edit-link')
         const pathname = window.location.pathname
         const editURI = 'edit/master/'
@@ -658,18 +718,19 @@ dispatcher.</p>
 below is hereby named <code>io.cozy.websocket</code>.</p>
 <p>Changes to the websocket protocol should be given versions, support for older
 version should be maintained when reasonable.</p>
-<pre class="codehilite"><code class="language-http">GET /realtime/ HTTP/1.1
-Host: mycozy.example.com
-Upgrade: websocket
-Connection: Upgrade
-Origin: http://calendar.mycozy.example.com
-Sec-WebSocket-Key: x3JrandomLkh9GBhXDw==
-Sec-WebSocket-Protocol: io.cozy.websocket
-Sec-WebSocket-Version: 13</code></pre>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/realtime/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">mycozy.example.com</span>
+<span class="na">Upgrade</span><span class="o">:</span> <span class="l">websocket</span>
+<span class="na">Connection</span><span class="o">:</span> <span class="l">Upgrade</span>
+<span class="na">Origin</span><span class="o">:</span> <span class="l">http://calendar.mycozy.example.com</span>
+<span class="na">Sec-WebSocket-Key</span><span class="o">:</span> <span class="l">x3JrandomLkh9GBhXDw==</span>
+<span class="na">Sec-WebSocket-Protocol</span><span class="o">:</span> <span class="l">io.cozy.websocket</span>
+<span class="na">Sec-WebSocket-Version</span><span class="o">:</span> <span class="l">13</span>
+</pre></div>
 
 
 <p>Then messages are sent using json</p>
-<pre class="codehilite"><code>client &gt; {&quot;method&quot;: &quot;AUTH&quot;,
+<div class="codehilite"><pre><span></span>client &gt; {&quot;method&quot;: &quot;AUTH&quot;,
           &quot;payload&quot;: &quot;xxAppOrAuthTokenxx=&quot;}
 client &gt; {&quot;method&quot;: &quot;SUBSCRIBE&quot;,
           &quot;payload&quot;: {&quot;type&quot;: &quot;io.cozy.files&quot;}}
@@ -680,32 +741,36 @@ server &gt; {&quot;event&quot;: &quot;UPDATED&quot;,
 server &gt; {&quot;event&quot;: &quot;DELETED&quot;,
           &quot;payload&quot;: {&quot;id&quot;: &quot;idA&quot;, &quot;rev&quot;: &quot;3-541...&quot;, &quot;type&quot;: &quot;io.cozy.contacts&quot;}}
 server &gt; {&quot;event&quot;: &quot;UPDATED&quot;,
-          &quot;payload&quot;: {&quot;id&quot;: &quot;idB&quot;, &quot;rev&quot;: &quot;6-457...&quot;, &quot;type&quot;: &quot;io.cozy.files&quot;, &quot;doc&quot;: {embeded doc ...}}}</code></pre>
+          &quot;payload&quot;: {&quot;id&quot;: &quot;idB&quot;, &quot;rev&quot;: &quot;6-457...&quot;, &quot;type&quot;: &quot;io.cozy.files&quot;, &quot;doc&quot;: {embeded doc ...}}}
+</pre></div>
 
 
 <h3 id="auth">AUTH<a class="headerlink" href="#auth" title="Permanent link">&para;</a></h3>
 <p>It must be the first command to be sent. The client gives its token with this
 command, and the stack will use it to know which are the permissions of the app.</p>
-<pre class="codehilite"><code>{&quot;method&quot;: &quot;AUTH&quot;, &quot;payload&quot;: &quot;eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhcHAiLCJpYXQiOjE0OTg4MTY1OTEsImlzcyI6ImNvenkudG9vbHM6ODA4MCIsInN1YiI6Im1pbmkifQ.eH9DhoHz7rg8gR7noAiKfeo8eL3Q_PzyuskO_x3T8Hlh9q_IV-4zqoGtjTiO7luD6_VcLboEU-6o3XBek84VTg&quot;}</code></pre>
+<div class="codehilite"><pre><span></span>{&quot;method&quot;: &quot;AUTH&quot;, &quot;payload&quot;: &quot;eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhcHAiLCJpYXQiOjE0OTg4MTY1OTEsImlzcyI6ImNvenkudG9vbHM6ODA4MCIsInN1YiI6Im1pbmkifQ.eH9DhoHz7rg8gR7noAiKfeo8eL3Q_PzyuskO_x3T8Hlh9q_IV-4zqoGtjTiO7luD6_VcLboEU-6o3XBek84VTg&quot;}
+</pre></div>
 
 
 <h3 id="subscribe">SUBSCRIBE<a class="headerlink" href="#subscribe" title="Permanent link">&para;</a></h3>
 <p>A client can send a SUBSCRIBE request to be notified of changes. The payload is
 a selector for the events it wishes to receive For now the only possible
 selector is on type &amp; optionaly id</p>
-<pre class="codehilite"><code>{&quot;method&quot;: &quot;SUBSCRIBE&quot;, &quot;payload&quot;: {&quot;type&quot;: &quot;[desired doctype]&quot;}}
-{&quot;method&quot;: &quot;SUBSCRIBE&quot;, &quot;payload&quot;: {&quot;type&quot;: &quot;[desired doctype]&quot;, &quot;id&quot;: &quot;idA&quot;}}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span><span class="s">&quot;method&quot;</span><span class="o">:</span> <span class="s">&quot;SUBSCRIBE&quot;</span><span class="p">,</span> <span class="s">&quot;payload&quot;</span><span class="o">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="s">&quot;[desired doctype]&quot;</span><span class="p">}}</span>
+<span class="p">{</span><span class="s">&quot;method&quot;</span><span class="o">:</span> <span class="s">&quot;SUBSCRIBE&quot;</span><span class="p">,</span> <span class="s">&quot;payload&quot;</span><span class="o">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="s">&quot;[desired doctype]&quot;</span><span class="p">,</span> <span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="s">&quot;idA&quot;</span><span class="p">}}</span>
+</pre></div>
 
 
 <p>In order to subscribe, a client must have permission <code>GET</code> on the passed
 selector. Otherwise an error is passed in the message feed.</p>
-<pre class="codehilite"><code>server &gt; {&quot;event&quot;: &quot;error&quot;,
+<div class="codehilite"><pre><span></span>server &gt; {&quot;event&quot;: &quot;error&quot;,
           &quot;payload&quot;: {
             &quot;status&quot;: &quot;403 Forbidden&quot;
             &quot;code&quot;: &quot;forbidden&quot;
-            &quot;title&quot;:&quot;The Application can't subscribe to io.cozy.files&quot;
+            &quot;title&quot;:&quot;The Application can&#39;t subscribe to io.cozy.files&quot;
             &quot;source&quot;: {&quot;method&quot;: &quot;SUBSCRIBE&quot;, &quot;payload&quot;: {&quot;type&quot;:&quot;io.cozy.files&quot;} }
-          }}</code></pre></div>
+          }}
+</pre></div></div>
         </div>
 
         <footer class="col-md-12">

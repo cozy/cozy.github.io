@@ -473,6 +473,66 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">babel-preset-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../babel-preset-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">commitlint-config-cozy</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../commitlint-config-cozy/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-device-helper</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-device-helper/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">eslint-config-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../eslint-config-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-flags</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-flags/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-realtime</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-realtime/README/">README</a>
+</li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -517,7 +577,7 @@
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
-        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}]
+        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
         const editNode = document.querySelector('#edit-link')
         const pathname = window.location.pathname
         const editURI = 'edit/master/'
@@ -567,7 +627,8 @@
 <p>Every application running inside Cozy is a client-side HTML5 application interacting with your data through the API of the server. To develop an application, you’ll require a running Cozy server.</p>
 <p>The easiest way is to use the Docker image for developers we provide.</p>
 <p>Just install it:</p>
-<pre class="codehilite"><code class="language-sh">docker pull cozy/cozy-app-dev</code></pre>
+<div class="codehilite"><pre><span></span>docker pull cozy/cozy-app-dev
+</pre></div>
 
 
 <p>(We update this image on a regular basis with the latest version of the server and our library. Don’t forget to update the image by running <code>docker pull cozy/cozy-app-dev</code> from time to time).</p>
@@ -582,13 +643,15 @@
 <p>For now the new <a href="https://github.com/cozy/cozy-client"><code>cozy-client</code></a> is used only in the (P)React template (it doesn&rsquo;t use the previous <code>cozy-client-js</code> anymore). This library is at an early stage but you can use it, it will be our next Cozy client for application development.</p>
 </div>
 <p>First of all, run directly <code>create-cozy-app</code> without installing it globally by using the <code>yarn create cozy-app</code> command to bootstrap your application:</p>
-<pre class="codehilite"><code>yarn create cozy-app mycozyapp</code></pre>
+<div class="codehilite"><pre><span></span>yarn create cozy-app mycozyapp
+</pre></div>
 
 
 <p>The script will download some dependencies (may take a while) and ask you a few questions, then create an application skeleton inside <code>mycozyapp</code>.</p>
 <p>That&rsquo;s all! You can start hacking:</p>
-<pre class="codehilite"><code>cd mycozyapp
-yarn standalone</code></pre>
+<div class="codehilite"><pre><span></span>cd mycozyapp
+yarn standalone
+</pre></div>
 
 
 <p>After the webpack build, your app should be available at http://localhost:8888</p>
@@ -597,16 +660,18 @@ yarn standalone</code></pre>
 </blockquote>
 <h3 id="run-it-inside-a-cozy-using-docker">Run it inside a Cozy using Docker<a class="headerlink" href="#run-it-inside-a-cozy-using-docker" title="Permanent link">&para;</a></h3>
 <p>You can run your application (here <code>mycozyapp</code>) inside a Cozy thanks to the [cozy-stack docker image][cozy-stack-docker]:</p>
-<pre class="codehilite"><code class="language-sh"># in a terminal, run your app in watch mode
-$ cd mycozyapp
-$ yarn watch</code></pre>
+<div class="codehilite"><pre><span></span><span class="c1"># in a terminal, run your app in watch mode</span>
+$ <span class="nb">cd</span> mycozyapp
+$ yarn watch
+</pre></div>
 
 
 <p>Then, in another terminal:</p>
-<pre class="codehilite"><code class="language-sh"># in another terminal, run the docker container
+<div class="codehilite"><pre><span></span><span class="c1"># in another terminal, run the docker container</span>
 $ yarn stack:docker
-# or if you want the complete command (see more documentation below)
-$ docker run --rm -it -p 8080:8080 -v &quot;$(pwd)/build&quot;:/data/cozy-app/mycozyapp cozy/cozy-app-dev</code></pre>
+<span class="c1"># or if you want the complete command (see more documentation below)</span>
+$ docker run --rm -it -p <span class="m">8080</span>:8080 -v <span class="s2">&quot;</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">/build&quot;</span>:/data/cozy-app/mycozyapp cozy/cozy-app-dev
+</pre></div>
 
 
 <p>Your app is now available at http://mycozyapp.cozy.tools:8080.</p>
@@ -632,13 +697,15 @@ $ docker run --rm -it -p 8080:8080 -v &quot;$(pwd)/build&quot;:/data/cozy-app/my
 <p>We are currently working on a new <a href="https://github.com/cozy/cozy-client"><code>cozy-client</code></a> library which will be more updated and used in the future than <code>cozy-client-js</code>. But the two libraries (<code>cozy-client</code> and <code>cozy-client-js</code>) don&rsquo;t rely on each other so you can still use the one you want to handle Cozy data for now.</p>
 </div>
 <p>If you added <code>{{.CozyClientJS}}</code> to your page, interacting with the server will be as easy as using the Cozy Client JS library. All you have to do is to initiate the library with the server parameters (the URL of the API and the auth token of your application):</p>
-<pre class="codehilite"><code class="language-js">  window.cozy.client.init({cozyURL: &quot;…&quot;, token: &quot;…&quot;});</code></pre>
+<div class="codehilite"><pre><span></span>  <span class="nb">window</span><span class="p">.</span><span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">init</span><span class="p">({</span><span class="nx">cozyURL</span><span class="o">:</span> <span class="s2">&quot;…&quot;</span><span class="p">,</span> <span class="nx">token</span><span class="o">:</span> <span class="s2">&quot;…&quot;</span><span class="p">});</span>
+</pre></div>
 
 
 <p>You can then interact with the server by using methods of the <code>window.cozy.client</code> properties. For example, to get current disk usage:</p>
-<pre class="codehilite"><code class="language-javascript">  cozy.client.settings.diskUsage()
-    .then(function (usage) {console.log(&quot;Usage (promise)&quot;, usage);});
-    .catch(function(err){ console.log(&quot;fail&quot;, err); });</code></pre>
+<div class="codehilite"><pre><span></span>  <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">settings</span><span class="p">.</span><span class="nx">diskUsage</span><span class="p">()</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">usage</span><span class="p">)</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Usage (promise)&quot;</span><span class="p">,</span> <span class="nx">usage</span><span class="p">);});</span>
+    <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;fail&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span> <span class="p">});</span>
+</pre></div>
 
 
 <p>This library embeds most of the available server APIs: manipulate documents and files, manage applications and server settings… It also provides some some methods to help application keep working while being offline.</p>
@@ -652,71 +719,74 @@ $ docker run --rm -it -p 8080:8080 -v &quot;$(pwd)/build&quot;:/data/cozy-app/my
 <li>the session cookie, created when you connect to your server. This is an <code>HttpOnly cookie</code>, meaning that JavaScript applications can’t read it. This prevent a malicious script to stole the cookie.</li>
 </ul>
 <p>Here’s a sample code that get API informations provided by the server and query the API:</p>
-<pre class="codehilite"><code class="language-html">    &lt;div data-cozy-token=&quot;{{.Token}}&quot; data-cozy-domain=&quot;{{.Domain}}&quot; /&gt;</code></pre>
+<div class="codehilite"><pre><span></span>    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-cozy-token</span><span class="o">=</span><span class="s">&quot;{{.Token}}&quot;</span> <span class="na">data-cozy-domain</span><span class="o">=</span><span class="s">&quot;{{.Domain}}&quot;</span> <span class="p">/&gt;</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-javascript">document.addEventListener('DOMContentLoaded', () =&gt; {
-  &quot;use strict&quot;;
-  const app = document.querySelector('[data-cozy-token]');
-  fetch(`//${app.dataset.cozyDomain}/apps`,
-  {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${app.dataset.cozyToken}` // Here we use the auth token
-    },
-    credentials: 'include' // don’t forget to include the session cookie
-  })
-  .then(function (response) {
-    if (response.ok) {
-      response.json().then((result) =&gt; {
-        console.log(result);
-      });
-    } else {
-      throw new Error('Network response was not ok.');
-    }
-  })
-  .catch(function (error) {
-    console.log('There has been a problem with your fetch operation: ' + error.message);
-  });
-});</code></pre>
+<div class="codehilite"><pre><span></span><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;DOMContentLoaded&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+  <span class="kr">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;[data-cozy-token]&#39;</span><span class="p">);</span>
+  <span class="nx">fetch</span><span class="p">(</span><span class="sb">`//</span><span class="si">${</span><span class="nx">app</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">cozyDomain</span><span class="si">}</span><span class="sb">/apps`</span><span class="p">,</span>
+  <span class="p">{</span>
+    <span class="nx">method</span><span class="o">:</span> <span class="s1">&#39;GET&#39;</span><span class="p">,</span>
+    <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">Authorization</span><span class="o">:</span> <span class="sb">`Bearer </span><span class="si">${</span><span class="nx">app</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">cozyToken</span><span class="si">}</span><span class="sb">`</span> <span class="c1">// Here we use the auth token</span>
+    <span class="p">},</span>
+    <span class="nx">credentials</span><span class="o">:</span> <span class="s1">&#39;include&#39;</span> <span class="c1">// don’t forget to include the session cookie</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">ok</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">().</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
+      <span class="p">});</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;Network response was not ok.&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;There has been a problem with your fetch operation: &#39;</span> <span class="o">+</span> <span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
 
 
 <h2 id="read-the-manifest">Read the manifest<a class="headerlink" href="#read-the-manifest" title="Permanent link">&para;</a></h2>
 <p>Each application must have a “manifest”. It’s a JSON file named <code>manifest.webapp</code> stored at the root of the application directory. It describes the application, the type of documents it uses, the permissions it require…</p>
 <p>Here’s a sample manifest:</p>
-<pre class="codehilite"><code class="language-json">{
-  &quot;name&quot;: &quot;My Awesome application&quot;,
-  &quot;permissions&quot;: {
-    &quot;apps&quot;: {
-      &quot;type&quot;: &quot;io.cozy.apps&quot;
-    },
-    &quot;permissions&quot;: {
-      &quot;type&quot;: &quot;io.cozy.permissions&quot;
-    },
-    &quot;settings&quot;: {
-      &quot;type&quot;: &quot;io.cozy.settings&quot;
-    },
-    &quot;sample&quot;: {
-      &quot;type&quot;: &quot;io.cozy.dev.sample&quot;,
-      &quot;verbs&quot;: [&quot;GET&quot;, &quot;POST&quot;, &quot;PUT&quot;, &quot;PATCH&quot;, &quot;DELETE&quot;]
-    },
-    &quot;jobs&quot;: {
-      &quot;type&quot;: &quot;io.cozy.jobs&quot;
-    }
-  },
-  &quot;routes&quot;: {
-    &quot;/&quot;: {
-      &quot;folder&quot;: &quot;/&quot;,
-      &quot;index&quot;: &quot;index.html&quot;,
-      &quot;public&quot;: false
-    },
-    &quot;/public&quot;: {
-      &quot;folder&quot;: &quot;/public&quot;,
-      &quot;index&quot;: &quot;index.html&quot;,
-      &quot;public&quot;: true
-    }
-  }
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;My Awesome application&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;apps&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.apps&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.permissions&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;settings&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.settings&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;sample&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.dev.sample&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="s2">&quot;PUT&quot;</span><span class="p">,</span> <span class="s2">&quot;PATCH&quot;</span><span class="p">,</span> <span class="s2">&quot;DELETE&quot;</span><span class="p">]</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;jobs&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;routes&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;/&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;folder&quot;</span><span class="p">:</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;index&quot;</span><span class="p">:</span> <span class="s2">&quot;index.html&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;public&quot;</span><span class="p">:</span> <span class="kc">false</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;/public&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;folder&quot;</span><span class="p">:</span> <span class="s2">&quot;/public&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;index&quot;</span><span class="p">:</span> <span class="s2">&quot;index.html&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;public&quot;</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <h3 id="permissions">Permissions<a class="headerlink" href="#permissions" title="Permanent link">&para;</a></h3>
@@ -733,27 +803,29 @@ $ docker run --rm -it -p 8080:8080 -v &quot;$(pwd)/build&quot;:/data/cozy-app/my
 <p>An application can request a token that grant access to a subset of its own permissions. For example if the application has full access to the files, it can obtain a token that give only read access on a file. Thus, the application can make some documents publicly available. The public page of the application will use this token as authentication token when accessing the API.</p>
 <h4 id="samples">Samples<a class="headerlink" href="#samples" title="Permanent link">&para;</a></h4>
 <p>Application require full access to files:</p>
-<pre class="codehilite"><code class="language-json">{
-  &quot;permissions&quot;: {
-    &quot;files&quot;: {
-      &quot;description&quot;: &quot;…&quot;,
-      &quot;type&quot;: &quot;io.cozy.files&quot;
-    },
-  }
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;…&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span>
+    <span class="p">},</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <p>Application want to be able to read the contact informations of <code>cozy@cozycloud.cc</code></p>
-<pre class="codehilite"><code class="language-json">{
-  &quot;permissions&quot;: {
-    &quot;contact&quot;: {
-      &quot;type&quot;: &quot;io.cozy.contacts&quot;,
-      &quot;verbs&quot;: [&quot;GET&quot;],
-      &quot;selector&quot;: &quot;email&quot;,
-      &quot;values&quot;: [&quot;cozy@cozycloud.cc&quot;]
-    }
-  }
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;contact&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.contacts&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">],</span>
+      <span class="nt">&quot;selector&quot;</span><span class="p">:</span> <span class="s2">&quot;email&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;cozy@cozycloud.cc&quot;</span><span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <h3 id="routing">Routing<a class="headerlink" href="#routing" title="Permanent link">&para;</a></h3>
@@ -764,22 +836,23 @@ $ docker run --rm -it -p 8080:8080 -v &quot;$(pwd)/build&quot;:/data/cozy-app/my
 <li><code>public</code>: a boolean specifying whether the route is public or private (default).</li>
 </ul>
 <p>Sample:</p>
-<pre class="codehilite"><code class="language-json">&quot;routes&quot;: {
-  &quot;/admin&quot;: {
-    &quot;folder&quot;: &quot;/&quot;,
-    &quot;index&quot;: &quot;admin.html&quot;,
-    &quot;public&quot;: false
-  },
-  &quot;/public&quot;: {
-    &quot;folder&quot;: &quot;/public&quot;,
-    &quot;index&quot;: &quot;index.html&quot;,
-    &quot;public&quot;: true
-  },
-  &quot;/assets&quot;: {
-    &quot;folder&quot;: &quot;/assets&quot;,
-    &quot;public&quot;: true
-  }
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="s2">&quot;routes&quot;</span><span class="err">:</span> <span class="p">{</span>
+  <span class="nt">&quot;/admin&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;folder&quot;</span><span class="p">:</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;index&quot;</span><span class="p">:</span> <span class="s2">&quot;admin.html&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;public&quot;</span><span class="p">:</span> <span class="kc">false</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;/public&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;folder&quot;</span><span class="p">:</span> <span class="s2">&quot;/public&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;index&quot;</span><span class="p">:</span> <span class="s2">&quot;index.html&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;public&quot;</span><span class="p">:</span> <span class="kc">true</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;/assets&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;folder&quot;</span><span class="p">:</span> <span class="s2">&quot;/assets&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;public&quot;</span><span class="p">:</span> <span class="kc">true</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <h2 id="manipulating-documents-with-cozy-client">Manipulating documents with <code>cozy-client</code><a class="headerlink" href="#manipulating-documents-with-cozy-client" title="Permanent link">&para;</a></h2>
@@ -798,7 +871,8 @@ $ docker run --rm -it -p 8080:8080 -v &quot;$(pwd)/build&quot;:/data/cozy-app/my
 <h2 id="use-docker">Use Docker<a class="headerlink" href="#use-docker" title="Permanent link">&para;</a></h2>
 <p><em>(remember what we previously said about the permissions required to run Docker: if your user doesn’t belong to the docker group, you’ll have to use <code>sudo</code> to run each of this commands.)</em></p>
 <p>To run your application inside the development server, just run the following command from the folder where your <code>index.html</code> and <code>manifest.webapp</code> files leave:</p>
-<pre class="codehilite"><code class="language-sh">docker run --rm -it -p 8080:8080 -p 5984:5984 -p 8025:8025 -v $(pwd):/data/cozy-app --name cozydev cozy/cozy-app-dev</code></pre>
+<div class="codehilite"><pre><span></span>docker run --rm -it -p <span class="m">8080</span>:8080 -p <span class="m">5984</span>:5984 -p <span class="m">8025</span>:8025 -v <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/data/cozy-app --name cozydev cozy/cozy-app-dev
+</pre></div>
 
 
 <p>Let’s have a quick look at this command, so you can adapt it to your needs:</p>
@@ -821,7 +895,8 @@ $ docker run --rm -it -p 8080:8080 -v &quot;$(pwd)/build&quot;:/data/cozy-app/my
 </ul>
 <h3 id="test-multiple-applications">Test multiple applications<a class="headerlink" href="#test-multiple-applications" title="Permanent link">&para;</a></h3>
 <p>You can install more than one application into the development server, for example to test communication between applications. In order to achieve this, you have to mount the folder where your application leaves into subfolders of <code>/data/cozy-apps</code>. For example, if the code of Cozy Drive and Cozy Photos is on your local filesystem in <code>~/cozy/drive</code> and <code>~/cozy/photos</code>, start the development server with:</p>
-<pre class="codehilite"><code class="language-sh">docker run --rm -it -p 8080:8080 -p 5984:5984 -p 8025:8025 -v &quot;~/cozy/drive:/data/cozy-app/drive&quot; -v &quot;~/cozy/photos:/data-cozy-app/photos&quot; --name=cozydev cozy/cozy-app-dev</code></pre>
+<div class="codehilite"><pre><span></span>docker run --rm -it -p <span class="m">8080</span>:8080 -p <span class="m">5984</span>:5984 -p <span class="m">8025</span>:8025 -v <span class="s2">&quot;~/cozy/drive:/data/cozy-app/drive&quot;</span> -v <span class="s2">&quot;~/cozy/photos:/data-cozy-app/photos&quot;</span> --name<span class="o">=</span>cozydev cozy/cozy-app-dev
+</pre></div>
 
 
 <p>You’ll access the applications by connecting to <code>http://drive.cozy.tools:8080/</code> and <code>http://photos.cozy.tools:8080</code>.</p>

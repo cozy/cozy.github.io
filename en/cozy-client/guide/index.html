@@ -473,6 +473,66 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">babel-preset-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../babel-preset-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">commitlint-config-cozy</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../commitlint-config-cozy/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-device-helper</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-device-helper/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">eslint-config-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../eslint-config-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-flags</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-flags/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-realtime</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-realtime/README/">README</a>
+</li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -517,7 +577,7 @@
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
-        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}]
+        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
         const editNode = document.querySelector('#edit-link')
         const pathname = window.location.pathname
         const editURI = 'edit/master/'
@@ -578,68 +638,72 @@ or
 <li><code>CozyProvider</code> injects the client into components&rsquo; context.</li>
 </ul>
 <h3 id="creating-a-client">Creating a client<a class="headerlink" href="#creating-a-client" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code class="language-js">import CozyClient from 'cozy-client'
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">CozyClient</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 
-const client = new CozyClient({
-  uri: 'http://cozy.tools:8080',
-  token: '...'
-})</code></pre>
+<span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CozyClient</span><span class="p">({</span>
+  <span class="nx">uri</span><span class="o">:</span> <span class="s1">&#39;http://cozy.tools:8080&#39;</span><span class="p">,</span>
+  <span class="nx">token</span><span class="o">:</span> <span class="s1">&#39;...&#39;</span>
+<span class="p">})</span>
+</pre></div>
 
 
 <p>If you need guidance to get the URI of your instance and/or the token, see (https://docs.cozy.io/en/dev/app/#behind-the-magic).</p>
 <h3 id="creating-a-provider">Creating a provider<a class="headerlink" href="#creating-a-provider" title="Permanent link">&para;</a></h3>
 <p>All components that we want to connect to data need access to the client. We could pass it as a prop from component to component, but it&rsquo;ll quickly get tedious.
 We recommend that you use a <code>CozyProvider</code> somewhere high in your app. It will make the client available to all your components using the context:</p>
-<pre class="codehilite"><code class="language-jsx">import CozyClient, { CozyProvider } from 'cozy-client'
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">CozyClient</span><span class="p">,</span> <span class="p">{</span> <span class="nx">CozyProvider</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 
-const client = new CozyClient({
-  /*...*/
-})
+<span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CozyClient</span><span class="p">({</span>
+  <span class="cm">/*...*/</span>
+<span class="p">})</span>
 
-ReactDOM.render(
-  &lt;CozyProvider client={client}&gt;
-    &lt;MyApp /&gt;
-  &lt;/CozyProvider&gt;,
-  document.getElementById('main')
-)</code></pre>
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+  <span class="p">&lt;</span><span class="nt">CozyProvider</span> <span class="na">client</span><span class="o">=</span><span class="p">{</span><span class="nx">client</span><span class="p">}&gt;</span>
+    <span class="p">&lt;</span><span class="nt">MyApp</span> <span class="p">/&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">CozyProvider</span><span class="p">&gt;,</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;main&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
 
 
 <h3 id="using-the-client">Using the client<a class="headerlink" href="#using-the-client" title="Permanent link">&para;</a></h3>
 <p>An instance of <code>CozyClient</code> allows you to query and mutate (update) data, here&rsquo;s how it looks:</p>
-<pre class="codehilite"><code class="language-jsx">import CozyClient from 'cozy-client'
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">CozyClient</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 
-const client = new CozyClient({
-  /*...*/
-})
+<span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CozyClient</span><span class="p">({</span>
+  <span class="cm">/*...*/</span>
+<span class="p">})</span>
 
-client.query(
-  client.find('io.cozy.todos').where({ checked: false })
-).then(
-  ({ data }) =&gt; console.log(data)
-)
+<span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span>
+  <span class="nx">client</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">).</span><span class="nx">where</span><span class="p">({</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span> <span class="p">})</span>
+<span class="p">).</span><span class="nx">then</span><span class="p">(</span>
+  <span class="p">({</span> <span class="nx">data</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+<span class="p">)</span>
 
-client.mutate(
-  client.create('io.cozy.todos', { label: 'Buy bread' })
-).then(
-  ({ data }) =&gt; console.log(data.id)
-)</code></pre>
+<span class="nx">client</span><span class="p">.</span><span class="nx">mutate</span><span class="p">(</span>
+  <span class="nx">client</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Buy bread&#39;</span> <span class="p">})</span>
+<span class="p">).</span><span class="nx">then</span><span class="p">(</span>
+  <span class="p">({</span> <span class="nx">data</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
 
 
 <h2 id="requesting-data">Requesting data<a class="headerlink" href="#requesting-data" title="Permanent link">&para;</a></h2>
 <p>To make it easy to fetch data and make it available to your component, we provide a Render Props component called <code>Query</code>. Basic example of usage:</p>
-<pre class="codehilite"><code class="language-jsx">import React from 'react'
-import { Query } from 'cozy-client'
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Query</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 
-const query = client =&gt; client.find('io.cozy.todos').where({ checked: false })
+<span class="kr">const</span> <span class="nx">query</span> <span class="o">=</span> <span class="nx">client</span> <span class="p">=&gt;</span> <span class="nx">client</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">).</span><span class="nx">where</span><span class="p">({</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span> <span class="p">})</span>
 
-const TodoList = () =&gt; (
-  &lt;Query query={query}&gt;
-    {({ data, fetchStatus }) =&gt;
-      fetchStatus !== 'loaded'
-        ? &lt;h1&gt;Loading...&lt;/h1&gt;
-        : &lt;ul&gt;{data.map(todo =&gt; &lt;li&gt;{todo.label}&lt;/li&gt;)}&lt;/ul&gt;
-    }
-  &lt;/Query&gt;</code></pre>
+<span class="kr">const</span> <span class="nx">TodoList</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nt">Query</span> <span class="na">query</span><span class="o">=</span><span class="p">{</span><span class="nx">query</span><span class="p">}&gt;</span>
+    <span class="p">{({</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">fetchStatus</span> <span class="p">})</span> <span class="p">=&gt;</span>
+      <span class="nx">fetchStatus</span> <span class="o">!==</span> <span class="s1">&#39;loaded&#39;</span>
+        <span class="o">?</span> <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span><span class="nx">Loading</span><span class="p">...&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+        <span class="o">:</span> <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;{</span><span class="nx">data</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">todo</span> <span class="p">=&gt;</span> <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;{</span><span class="nx">todo</span><span class="p">.</span><span class="nx">label</span><span class="p">}&lt;/</span><span class="nt">li</span><span class="p">&gt;)}&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">}</span>
+  <span class="p">&lt;/</span><span class="nt">Query</span><span class="p">&gt;</span>
+</pre></div>
 
 
 <p>When we use <code>Query</code> to &ldquo;wrap&rdquo; a component, three things happen:
@@ -655,44 +719,47 @@ const TodoList = () =&gt; (
 </ul>
 <h3 id="making-queries">Making queries<a class="headerlink" href="#making-queries" title="Permanent link">&para;</a></h3>
 <p><code>cozy-client</code> provides you with a very easy to use DSL to define document queries:</p>
-<pre class="codehilite"><code class="language-jsx">import CozyClient from 'cozy-client'
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">CozyClient</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 
-const client = new CozyClient({
-  /*...*/
-})
+<span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CozyClient</span><span class="p">({</span>
+  <span class="cm">/*...*/</span>
+<span class="p">})</span>
 
-const query = client.find('io.cozy.todos').where({ checked: false }).sortBy({ label: 'desc' })</code></pre>
+<span class="kr">const</span> <span class="nx">query</span> <span class="o">=</span> <span class="nx">client</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">).</span><span class="nx">where</span><span class="p">({</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span> <span class="p">}).</span><span class="nx">sortBy</span><span class="p">({</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;desc&#39;</span> <span class="p">})</span>
+</pre></div>
 
 
 <h2 id="mutating-data">Mutating data<a class="headerlink" href="#mutating-data" title="Permanent link">&para;</a></h2>
 <p>In addition to fetching data using queries, <code>cozy-client</code> also helps you mutate (update) data.</p>
-<pre class="codehilite"><code class="language-jsx">import React from 'react'
-import { Query } from 'cozy-client'
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Query</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 
-const query = client =&gt; client.find('io.cozy.todos').where({ checked: false })
+<span class="kr">const</span> <span class="nx">query</span> <span class="o">=</span> <span class="nx">client</span> <span class="p">=&gt;</span> <span class="nx">client</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">).</span><span class="nx">where</span><span class="p">({</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span> <span class="p">})</span>
 
-const createMutations = (client, ownProps) =&gt; ({
-  addTodo: label =&gt; client.create('io.cozy.todos', { label })
-})
+<span class="kr">const</span> <span class="nx">createMutations</span> <span class="o">=</span> <span class="p">(</span><span class="nx">client</span><span class="p">,</span> <span class="nx">ownProps</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">({</span>
+  <span class="nx">addTodo</span><span class="o">:</span> <span class="nx">label</span> <span class="p">=&gt;</span> <span class="nx">client</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">label</span> <span class="p">})</span>
+<span class="p">})</span>
 
-const App = () =&gt; (
-  &lt;Query query={query} mutations={createMutations}&gt;
-    {(result, addTodo) =&gt;
-      &lt;TodoList data={result.data} onAddTodo={addTodo} /&gt;
-    }
-  &lt;/Query&gt;</code></pre>
+<span class="kr">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nt">Query</span> <span class="na">query</span><span class="o">=</span><span class="p">{</span><span class="nx">query</span><span class="p">}</span> <span class="na">mutations</span><span class="o">=</span><span class="p">{</span><span class="nx">createMutations</span><span class="p">}&gt;</span>
+    <span class="p">{(</span><span class="nx">result</span><span class="p">,</span> <span class="nx">addTodo</span><span class="p">)</span> <span class="p">=&gt;</span>
+      <span class="p">&lt;</span><span class="nt">TodoList</span> <span class="na">data</span><span class="o">=</span><span class="p">{</span><span class="nx">result</span><span class="p">.</span><span class="nx">data</span><span class="p">}</span> <span class="na">onAddTodo</span><span class="o">=</span><span class="p">{</span><span class="nx">addTodo</span><span class="p">}</span> <span class="p">/&gt;</span>
+    <span class="p">}</span>
+  <span class="p">&lt;/</span><span class="nt">Query</span><span class="p">&gt;</span>
+</pre></div>
 
 
 <h3 id="updating-queries">Updating queries<a class="headerlink" href="#updating-queries" title="Permanent link">&para;</a></h3>
 <p>TODO</p>
-<pre class="codehilite"><code class="language-jsx">import React from 'react'
-import { connect, find } from 'cozy-client'
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">connect</span><span class="p">,</span> <span class="nx">find</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 
-const query = find('io.cozy.todos').where({ checked: false })
+<span class="kr">const</span> <span class="nx">query</span> <span class="o">=</span> <span class="nx">find</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">).</span><span class="nx">where</span><span class="p">({</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span> <span class="p">})</span>
 
-const TodoList = ...
+<span class="kr">const</span> <span class="nx">TodoList</span> <span class="o">=</span> <span class="p">...</span>
 
-export default connect(query, { as: 'allTodos' })(TodoList)</code></pre></div>
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">connect</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="p">{</span> <span class="nx">as</span><span class="o">:</span> <span class="s1">&#39;allTodos&#39;</span> <span class="p">})(</span><span class="nx">TodoList</span><span class="p">)</span>
+</pre></div></div>
         </div>
 
         <footer class="col-md-12">

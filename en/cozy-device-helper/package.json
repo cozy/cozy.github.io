@@ -1,0 +1,38 @@
+{
+  "name": "cozy-device-helper",
+  "version": "1.4.13",
+  "description": "To know more information about the device platform",
+  "main": "dist/index.js",
+  "author": "Cozy",
+  "license": "MIT",
+  "homepage": "https://github.com/cozy/cozy-libs/blob/master/packages/cozy-device-helper/README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cozy/cozy-libs.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "bugs": {
+    "url": "https://github.com/cozy/cozy-libs/issues"
+  },
+  "scripts": {
+    "prepublishOnly": "yarn run build",
+    "build": "babel src -d dist --ignore *.spec.js",
+    "test": "jest src/**"
+  },
+  "dependencies": {
+    "lodash": "4.17.11"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.1.2",
+    "@babel/core": "7.1.2",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-jest": "23.6.0",
+    "babel-preset-cozy-app": "^1.2.1",
+    "jest": "23.6.0"
+  },
+  "jest": {
+    "testURL": "http://localhost"
+  }
+}

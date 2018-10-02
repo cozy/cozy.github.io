@@ -1,0 +1,25 @@
+{
+  "name": "cozy-realtime",
+  "version": "1.1.10",
+  "description": "Realtime interactions with cozy-stack using Websocket",
+  "main": "dist/index.js",
+  "author": "Cozy",
+  "license": "MIT",
+  "homepage": "https://github.com/cozy/cozy-libs/blob/master/packages/realtime/README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cozy/cozy-realtime.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cozy/cozy-libs/issues"
+  },
+  "scripts": {
+    "build": "babel src -d dist",
+    "prepublishOnly": "yarn build",
+    "watch": "yarn build --watch"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.1.2",
+    "babel-preset-cozy-app": "^1.2.1"
+  }
+}

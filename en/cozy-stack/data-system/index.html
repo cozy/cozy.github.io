@@ -473,6 +473,66 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">babel-preset-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../babel-preset-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">commitlint-config-cozy</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../commitlint-config-cozy/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-device-helper</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-device-helper/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">eslint-config-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../eslint-config-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-flags</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-flags/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-realtime</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-realtime/README/">README</a>
+</li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -518,7 +578,7 @@
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
-        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}]
+        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
         const editNode = document.querySelector('#edit-link')
         const pathname = window.location.pathname
         const editURI = 'edit/master/'
@@ -564,45 +624,51 @@ the developer specific prefix, <code>events</code> the actual type, and
 <code>6494e0ac-dfcb-11e5-88c1-472e84a9cbee</code> the document&rsquo;s unique id .</p>
 <h2 id="access-a-document">Access a document<a class="headerlink" href="#access-a-document" title="Permanent link">&para;</a></h2>
 <h3 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code class="language-http">GET /data/:type/:id HTTP/1.1</code></pre>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/data/:type/:id</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-http">GET /data/io.cozy.events/6494e0ac-dfcb-11e5-88c1-472e84a9cbee HTTP/1.1</code></pre>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/data/io.cozy.events/6494e0ac-dfcb-11e5-88c1-472e84a9cbee</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
 
 
 <h3 id="response-ok">Response OK<a class="headerlink" href="#response-ok" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
-Date: Mon, 27 Sept 2016 12:28:53 GMT
-Content-Length: ...
-Content-Type: application/json
-Etag: &quot;3-6494e0ac6494e0ac&quot;</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Date</span><span class="o">:</span> <span class="l">Mon, 27 Sept 2016 12:28:53 GMT</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">...</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Etag</span><span class="o">:</span> <span class="l">&quot;3-6494e0ac6494e0ac&quot;</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-json">{
-  &quot;_id&quot;: &quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;,
-  &quot;_type&quot;: &quot;io.cozy.events&quot;,
-  &quot;_rev&quot;: &quot;3-6494e0ac6494e0ac&quot;,
-  &quot;startdate&quot;: &quot;20160823T150000Z&quot;,
-  &quot;enddate&quot;: &quot;20160923T160000Z&quot;,
-  &quot;summary&quot;: &quot;A long month&quot;,
-  &quot;description&quot;: &quot;I could go on and on and on ....&quot;
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;_type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.events&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;_rev&quot;</span><span class="p">:</span> <span class="s2">&quot;3-6494e0ac6494e0ac&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;startdate&quot;</span><span class="p">:</span> <span class="s2">&quot;20160823T150000Z&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;enddate&quot;</span><span class="p">:</span> <span class="s2">&quot;20160923T160000Z&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;summary&quot;</span><span class="p">:</span> <span class="s2">&quot;A long month&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;I could go on and on and on ....&quot;</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <h3 id="response-error">Response Error<a class="headerlink" href="#response-error" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code class="language-http">HTTP/1.1 404 Not Found
-Content-Length: ...
-Content-Type: application/json</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">404</span> <span class="ne">Not Found</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">...</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-json">{
-  &quot;status&quot;: 404,
-  &quot;error&quot;: &quot;not_found&quot;,
-  &quot;reason&quot;: &quot;deleted&quot;,
-  &quot;title&quot;: &quot;Event deleted&quot;,
-  &quot;details&quot;: &quot;Event 6494e0ac-dfcb-11e5-88c1-472e84a9cbee was deleted&quot;,
-  &quot;links&quot;: { &quot;about&quot;: &quot;https://cozy.github.io/cozy-stack/errors.md#deleted&quot; }
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="mi">404</span><span class="p">,</span>
+  <span class="nt">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;not_found&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;reason&quot;</span><span class="p">:</span> <span class="s2">&quot;deleted&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Event deleted&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;details&quot;</span><span class="p">:</span> <span class="s2">&quot;Event 6494e0ac-dfcb-11e5-88c1-472e84a9cbee was deleted&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;about&quot;</span><span class="p">:</span> <span class="s2">&quot;https://cozy.github.io/cozy-stack/errors.md#deleted&quot;</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <h3 id="possible-errors">possible errors :<a class="headerlink" href="#possible-errors" title="Permanent link">&para;</a></h3>
@@ -617,58 +683,63 @@ Content-Type: application/json</code></pre>
 </ul>
 <h2 id="access-multiple-documents-at-once">Access multiple documents at once<a class="headerlink" href="#access-multiple-documents-at-once" title="Permanent link">&para;</a></h2>
 <h3 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code class="language-http">POST /data/:type/_all_docs HTTP/1.1</code></pre>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/data/:type/_all_docs</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-http">POST /data/io.cozy.files/_all_docs?include_docs=true HTTP/1.1
-Content-Length: ...
-Content-Type: application/json
-Accept: application/json</code></pre>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/data/io.cozy.files/_all_docs?include_docs=true</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">...</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-json">{
-  &quot;keys&quot;: [
-    &quot;7f46ed4ed2a775494da3b0b44e00314f&quot;,
-    &quot;7f46ed4ed2a775494da3b0b44e003b18&quot;
-  ]
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;keys&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&quot;7f46ed4ed2a775494da3b0b44e00314f&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;7f46ed4ed2a775494da3b0b44e003b18&quot;</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <h3 id="response-ok_1">Response OK<a class="headerlink" href="#response-ok_1" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
-Date: Mon, 27 Sept 2016 12:28:53 GMT
-Content-Length: ...
-Content-Type: application/json
-Etag: &quot;3-6494e0ac6494e0ac&quot;</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Date</span><span class="o">:</span> <span class="l">Mon, 27 Sept 2016 12:28:53 GMT</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">...</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Etag</span><span class="o">:</span> <span class="l">&quot;3-6494e0ac6494e0ac&quot;</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-json">{
-  &quot;total_rows&quot;: 11,
-  &quot;rows&quot;: [
-    {
-      &quot;id&quot;: &quot;7f46ed4ed2a775494da3b0b44e00314f&quot;,
-      &quot;key&quot;: &quot;7f46ed4ed2a775494da3b0b44e00314f&quot;,
-      &quot;value&quot;: {
-        &quot;rev&quot;: &quot;1-870e58f8a1b2130c3a41e767f9c7d93a&quot;
-      },
-      &quot;doc&quot;: {
-        &quot;_id&quot;: &quot;7f46ed4ed2a775494da3b0b44e00314f&quot;,
-        &quot;_rev&quot;: &quot;1-870e58f8a1b2130c3a41e767f9c7d93a&quot;,
-        &quot;type&quot;: &quot;directory&quot;,
-        &quot;name&quot;: &quot;Uploaded from Cozy Photos&quot;,
-        &quot;dir_id&quot;: &quot;7f46ed4ed2a775494da3b0b44e0027df&quot;,
-        &quot;created_at&quot;: &quot;2017-07-04T06:49:12.844631837Z&quot;,
-        &quot;updated_at&quot;: &quot;2017-07-04T06:49:12.844631837Z&quot;,
-        &quot;tags&quot;: [],
-        &quot;path&quot;: &quot;/Photos/Uploaded from Cozy Photos&quot;
-      }
-    },
-    {
-      &quot;key&quot;: &quot;7f46ed4ed2a775494da3b0b44e003b18&quot;,
-      &quot;error&quot;: &quot;not_found&quot;
-    }
-  ]
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;total_rows&quot;</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
+  <span class="nt">&quot;rows&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;7f46ed4ed2a775494da3b0b44e00314f&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;7f46ed4ed2a775494da3b0b44e00314f&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-870e58f8a1b2130c3a41e767f9c7d93a&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;doc&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;7f46ed4ed2a775494da3b0b44e00314f&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;_rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-870e58f8a1b2130c3a41e767f9c7d93a&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;directory&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Uploaded from Cozy Photos&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;dir_id&quot;</span><span class="p">:</span> <span class="s2">&quot;7f46ed4ed2a775494da3b0b44e0027df&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-07-04T06:49:12.844631837Z&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-07-04T06:49:12.844631837Z&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/Photos/Uploaded from Cozy Photos&quot;</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;7f46ed4ed2a775494da3b0b44e003b18&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;not_found&quot;</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <h3 id="possible-errors_1">possible errors :<a class="headerlink" href="#possible-errors_1" title="Permanent link">&para;</a></h3>
@@ -684,40 +755,45 @@ Etag: &quot;3-6494e0ac6494e0ac&quot;</code></pre>
 <a href="http://docs.couchdb.org/en/stable/api/database/bulk-api.html#post--db-_all_docs">CouchDB</a>).</p>
 <h2 id="create-a-document">Create a document<a class="headerlink" href="#create-a-document" title="Permanent link">&para;</a></h2>
 <h3 id="request_2">Request<a class="headerlink" href="#request_2" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code class="language-http">POST /data/:type/ HTTP/1.1</code></pre>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/data/:type/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-http">POST /data/io.cozy.events/ HTTP/1.1
-Content-Length: ...
-Content-Type: application/json
-Accept: application/json</code></pre>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/data/io.cozy.events/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">...</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-json">{
-  &quot;startdate&quot;: &quot;20160712T150000&quot;,
-  &quot;enddate&quot;: &quot;20160712T150000&quot;
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;startdate&quot;</span><span class="p">:</span> <span class="s2">&quot;20160712T150000&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;enddate&quot;</span><span class="p">:</span> <span class="s2">&quot;20160712T150000&quot;</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <h3 id="response-ok_2">Response OK<a class="headerlink" href="#response-ok_2" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code class="language-http">HTTP/1.1 201 Created
-Content-Length: ...
-Content-Type: application/json</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">201</span> <span class="ne">Created</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">...</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-json">{
-  &quot;id&quot;: &quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;,
-  &quot;type&quot;: &quot;io.cozy.events&quot;,
-  &quot;ok&quot;: true,
-  &quot;rev&quot;: &quot;1-6494e0ac6494e0ac&quot;,
-  &quot;data&quot;: {
-    &quot;_id&quot;: &quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;,
-    &quot;_type&quot;: &quot;io.cozy.events&quot;,
-    &quot;_rev&quot;: &quot;1-6494e0ac6494e0ac&quot;,
-    &quot;startdate&quot;: &quot;20160712T150000&quot;,
-    &quot;enddate&quot;: &quot;20160712T150000&quot;
-  }
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.events&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;ok&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-6494e0ac6494e0ac&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;_type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.events&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;_rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-6494e0ac6494e0ac&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;startdate&quot;</span><span class="p">:</span> <span class="s2">&quot;20160712T150000&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;enddate&quot;</span><span class="p">:</span> <span class="s2">&quot;20160712T150000&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <h3 id="possible-errors_2">possible errors :<a class="headerlink" href="#possible-errors_2" title="Permanent link">&para;</a></h3>
@@ -736,43 +812,48 @@ Content-Type: application/json</code></pre>
 </ul>
 <h2 id="update-an-existing-document">Update an existing document<a class="headerlink" href="#update-an-existing-document" title="Permanent link">&para;</a></h2>
 <h3 id="request_3">Request<a class="headerlink" href="#request_3" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code class="language-http">PUT /data/:type/:id HTTP/1.1</code></pre>
+<div class="codehilite"><pre><span></span><span class="nf">PUT</span> <span class="nn">/data/:type/:id</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-http">PUT /data/io.cozy.events/6494e0ac-dfcb-11e5-88c1-472e84a9cbee HTTP/1.1
-Content-Length: ...
-Content-Type: application/json
-Accept: application/json</code></pre>
+<div class="codehilite"><pre><span></span><span class="nf">PUT</span> <span class="nn">/data/io.cozy.events/6494e0ac-dfcb-11e5-88c1-472e84a9cbee</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">...</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-json">{
-  &quot;_id&quot;: &quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;,
-  &quot;_type&quot;: &quot;io.cozy.events&quot;,
-  &quot;_rev&quot;: &quot;1-6494e0ac6494e0ac&quot;,
-  &quot;startdate&quot;: &quot;20160712T150000&quot;,
-  &quot;enddate&quot;: &quot;20160712T200000&quot;
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;_type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.events&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;_rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-6494e0ac6494e0ac&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;startdate&quot;</span><span class="p">:</span> <span class="s2">&quot;20160712T150000&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;enddate&quot;</span><span class="p">:</span> <span class="s2">&quot;20160712T200000&quot;</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <h3 id="response-ok_3">Response OK<a class="headerlink" href="#response-ok_3" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
-Content-Length: ...
-Content-Type: application/json</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">...</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-json">{
-  &quot;id&quot;: &quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;,
-  &quot;type&quot;: &quot;io.cozy.events&quot;,
-  &quot;ok&quot;: true,
-  &quot;rev&quot;: &quot;2-056f5f44046ecafc08a2bc2b9c229e20&quot;,
-  &quot;data&quot;: {
-    &quot;_id&quot;: &quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;,
-    &quot;_type&quot;: &quot;io.cozy.events&quot;,
-    &quot;_rev&quot;: &quot;2-056f5f44046ecafc08a2bc2b9c229e20&quot;,
-    &quot;startdate&quot;: &quot;20160712T150000&quot;,
-    &quot;enddate&quot;: &quot;20160712T200000&quot;
-  }
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.events&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;ok&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;2-056f5f44046ecafc08a2bc2b9c229e20&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;_type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.events&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;_rev&quot;</span><span class="p">:</span> <span class="s2">&quot;2-056f5f44046ecafc08a2bc2b9c229e20&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;startdate&quot;</span><span class="p">:</span> <span class="s2">&quot;20160712T150000&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;enddate&quot;</span><span class="p">:</span> <span class="s2">&quot;20160712T200000&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <h3 id="possible-errors_3">Possible errors :<a class="headerlink" href="#possible-errors_3" title="Permanent link">&para;</a></h3>
@@ -799,40 +880,45 @@ be returned.</p>
 </ul>
 <h2 id="create-a-document-with-a-fixed-id">Create a document with a fixed id<a class="headerlink" href="#create-a-document-with-a-fixed-id" title="Permanent link">&para;</a></h2>
 <h3 id="request_4">Request<a class="headerlink" href="#request_4" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code class="language-http">PUT /data/:type/:id HTTP/1.1</code></pre>
+<div class="codehilite"><pre><span></span><span class="nf">PUT</span> <span class="nn">/data/:type/:id</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-http">PUT /data/io.cozy.events/6494e0ac-dfcb-11e5-88c1-472e84a9cbee HTTP/1.1
-Content-Length: ...
-Content-Type: application/json
-Accept: application/json</code></pre>
+<div class="codehilite"><pre><span></span><span class="nf">PUT</span> <span class="nn">/data/io.cozy.events/6494e0ac-dfcb-11e5-88c1-472e84a9cbee</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">...</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-json">{
-  &quot;startdate&quot;: &quot;20160712T150000&quot;,
-  &quot;enddate&quot;: &quot;20160712T200000&quot;
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;startdate&quot;</span><span class="p">:</span> <span class="s2">&quot;20160712T150000&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;enddate&quot;</span><span class="p">:</span> <span class="s2">&quot;20160712T200000&quot;</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <h3 id="response-ok_4">Response OK<a class="headerlink" href="#response-ok_4" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
-Content-Length: ...
-Content-Type: application/json</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">...</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-json">{
-  &quot;id&quot;: &quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;,
-  &quot;type&quot;: &quot;io.cozy.events&quot;,
-  &quot;ok&quot;: true,
-  &quot;rev&quot;: &quot;1-056f5f44046ecafc08a2bc2b9c229e20&quot;,
-  &quot;data&quot;: {
-    &quot;_id&quot;: &quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;,
-    &quot;_type&quot;: &quot;io.cozy.events&quot;,
-    &quot;_rev&quot;: &quot;1-056f5f44046ecafc08a2bc2b9c229e20&quot;,
-    &quot;startdate&quot;: &quot;20160712T150000&quot;,
-    &quot;enddate&quot;: &quot;20160712T200000&quot;
-  }
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.events&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;ok&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-056f5f44046ecafc08a2bc2b9c229e20&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;_type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.events&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;_rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-056f5f44046ecafc08a2bc2b9c229e20&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;startdate&quot;</span><span class="p">:</span> <span class="s2">&quot;20160712T150000&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;enddate&quot;</span><span class="p">:</span> <span class="s2">&quot;20160712T200000&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <h3 id="possible-errors_4">Possible errors :<a class="headerlink" href="#possible-errors_4" title="Permanent link">&para;</a></h3>
@@ -853,26 +939,30 @@ Content-Type: application/json</code></pre>
 </ul>
 <h2 id="delete-a-document">Delete a document<a class="headerlink" href="#delete-a-document" title="Permanent link">&para;</a></h2>
 <h3 id="request_5">Request<a class="headerlink" href="#request_5" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code class="language-http">DELETE /data/:type/:id?rev=:rev HTTP/1.1</code></pre>
+<div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/data/:type/:id?rev=:rev</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-http">DELETE /data/io.cozy.events/6494e0ac-dfcb-11e5-88c1-472e84a9cbee?rev=1-82a7144c9ec228c9a851b8a1c1aa225b HTTP/1.1
-Accept: application/json</code></pre>
+<div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/data/io.cozy.events/6494e0ac-dfcb-11e5-88c1-472e84a9cbee?rev=1-82a7144c9ec228c9a851b8a1c1aa225b</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
 
 
 <h3 id="response-ok_5">Response OK<a class="headerlink" href="#response-ok_5" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
-Content-Length: ...
-Content-Type: application/json</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">...</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-json">{
-  &quot;id&quot;: &quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;,
-  &quot;type&quot;: &quot;io.cozy.events&quot;,
-  &quot;ok&quot;: true,
-  &quot;rev&quot;: &quot;2-056f5f44046ecafc08a2bc2b9c229e20&quot;,
-  &quot;_deleted&quot;: true
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.events&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;ok&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;2-056f5f44046ecafc08a2bc2b9c229e20&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;_deleted&quot;</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <h3 id="possible-errors_5">Possible errors :<a class="headerlink" href="#possible-errors_5" title="Permanent link">&para;</a></h3>
@@ -901,41 +991,44 @@ header to prevent conflict on deletion:</p>
 </ul>
 <h2 id="list-all-the-documents">List all the documents<a class="headerlink" href="#list-all-the-documents" title="Permanent link">&para;</a></h2>
 <h3 id="request_6">Request<a class="headerlink" href="#request_6" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code class="language-http">GET /data/io.cozy.events/_all_docs?include_docs=true HTTP/1.1
-Accept: application/json</code></pre>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/data/io.cozy.events/_all_docs?include_docs=true</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
 
 
 <h3 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
-Content-Type: application/json</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-json">{
-  &quot;offset&quot;: 0,
-  &quot;rows&quot;: [
-    {
-      &quot;id&quot;: &quot;16e458537602f5ef2a710089dffd9453&quot;,
-      &quot;key&quot;: &quot;16e458537602f5ef2a710089dffd9453&quot;,
-      &quot;value&quot;: {
-        &quot;rev&quot;: &quot;1-967a00dff5e02add41819138abb3284d&quot;
-      },
-      &quot;doc&quot;: {
-        &quot;field&quot;: &quot;value&quot;
-      }
-    },
-    {
-      &quot;id&quot;: &quot;f4ca7773ddea715afebc4b4b15d4f0b3&quot;,
-      &quot;key&quot;: &quot;f4ca7773ddea715afebc4b4b15d4f0b3&quot;,
-      &quot;value&quot;: {
-        &quot;rev&quot;: &quot;2-7051cbe5c8faecd085a3fa619e6e6337&quot;
-      },
-      &quot;doc&quot;: {
-        &quot;field&quot;: &quot;other-value&quot;
-      }
-    }
-  ],
-  &quot;total_rows&quot;: 2
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;offset&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="nt">&quot;rows&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;16e458537602f5ef2a710089dffd9453&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;16e458537602f5ef2a710089dffd9453&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-967a00dff5e02add41819138abb3284d&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;doc&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;value&quot;</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;f4ca7773ddea715afebc4b4b15d4f0b3&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;f4ca7773ddea715afebc4b4b15d4f0b3&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;2-7051cbe5c8faecd085a3fa619e6e6337&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;doc&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;other-value&quot;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;total_rows&quot;</span><span class="p">:</span> <span class="mi">2</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <h3 id="details_5">Details<a class="headerlink" href="#details_5" title="Permanent link">&para;</a></h3>
@@ -950,44 +1043,50 @@ the <code>total_rows</code>). It only accepts two parameters in the query string
 <p>Note that the response format is a bit different, it looks more like a <code>_find</code>
 response with mango.</p>
 <h3 id="request_7">Request<a class="headerlink" href="#request_7" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code class="language-http">GET /data/io.cozy.events/_normal_docs?skip=200&amp;limit=100 HTTP/1.1
-Accept: application/json</code></pre>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/data/io.cozy.events/_normal_docs?skip=200&amp;limit=100</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
 
 
 <h3 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
-Content-Type: application/json</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-json">{
-  &quot;rows&quot;: [
-    {
-      &quot;_id&quot;: &quot;16e458537602f5ef2a710089dffd9453&quot;,
-      &quot;_rev&quot;: &quot;1-967a00dff5e02add41819138abb3284d&quot;,
-      &quot;field&quot;: &quot;value&quot;
-    },
-    {
-      &quot;_id&quot;: &quot;f4ca7773ddea715afebc4b4b15d4f0b3&quot;,
-      &quot;_rev&quot;: &quot;2-7051cbe5c8faecd085a3fa619e6e6337&quot;,
-      &quot;field&quot;: &quot;other-value&quot;
-    }
-  ],
-  &quot;total_rows&quot;: 202
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;rows&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;16e458537602f5ef2a710089dffd9453&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;_rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-967a00dff5e02add41819138abb3284d&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;value&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;f4ca7773ddea715afebc4b4b15d4f0b3&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;_rev&quot;</span><span class="p">:</span> <span class="s2">&quot;2-7051cbe5c8faecd085a3fa619e6e6337&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;other-value&quot;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;total_rows&quot;</span><span class="p">:</span> <span class="mi">202</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <h2 id="list-the-known-doctypes">List the known doctypes<a class="headerlink" href="#list-the-known-doctypes" title="Permanent link">&para;</a></h2>
 <h3 id="request_8">Request<a class="headerlink" href="#request_8" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code class="language-http">GET /data/_all_doctypes HTTP/1.1
-Accept: application/json</code></pre>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/data/_all_doctypes</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
 
 
 <h3 id="response_2">Response<a class="headerlink" href="#response_2" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
-Content-Type: application/json</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-json">[&quot;io.cozy.files&quot;, &quot;io.cozy.jobs&quot;, &quot;io.cozy.triggers&quot;, &quot;io.cozy.settings&quot;]</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">[</span><span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span> <span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span> <span class="s2">&quot;io.cozy.triggers&quot;</span><span class="p">,</span> <span class="s2">&quot;io.cozy.settings&quot;</span><span class="p">]</span>
+</pre></div>
 
 
 <h2 id="others">Others<a class="headerlink" href="#others" title="Permanent link">&para;</a></h2>

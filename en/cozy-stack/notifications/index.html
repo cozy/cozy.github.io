@@ -473,6 +473,66 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">babel-preset-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../babel-preset-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">commitlint-config-cozy</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../commitlint-config-cozy/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-device-helper</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-device-helper/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">eslint-config-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../eslint-config-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-flags</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-flags/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-realtime</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-realtime/README/">README</a>
+</li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -509,7 +569,7 @@
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
-        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}]
+        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
         const editNode = document.querySelector('#edit-link')
         const pathname = window.location.pathname
         const editURI = 'edit/master/'
@@ -572,20 +632,21 @@ these notifications, with the following properties:</p>
 <li><code>templates</code>: a link list to templates file contained in the application folder that can be used to write the content of the notification, depending on the communication channel.</li>
 </ul>
 <p>In this documentation, we take the example of an application with the following notification:</p>
-<pre class="codehilite"><code class="language-json">{
-  &quot;notifications&quot;: {
-    &quot;account-balance&quot;: {
-      &quot;description&quot;: &quot;Alert the user when its account balance is negative&quot;,
-      &quot;collapsible&quot;: true, // only interested in the last value of the notification
-      &quot;multiple&quot;: true, // require sub-categories for each account
-      &quot;stateful&quot;: true, // piece of state to distinguish notifications
-      &quot;default_priority&quot;: &quot;high&quot;, // high priority for this notification
-      &quot;templates&quot;: {
-        &quot;mail&quot;: &quot;file:./notifications/account-balance-mail.tpl&quot;
-      }
-    }
-  }
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;notifications&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;account-balance&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Alert the user when its account balance is negative&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;collapsible&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="err">//</span> <span class="err">only</span> <span class="err">interested</span> <span class="err">in</span> <span class="err">the</span> <span class="err">last</span> <span class="err">value</span> <span class="err">of</span> <span class="err">the</span> <span class="err">notification</span>
+      <span class="nt">&quot;multiple&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="err">//</span> <span class="err">require</span> <span class="err">sub-categories</span> <span class="err">for</span> <span class="err">each</span> <span class="err">account</span>
+      <span class="nt">&quot;stateful&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="err">//</span> <span class="err">piece</span> <span class="err">of</span> <span class="err">state</span> <span class="err">to</span> <span class="err">distinguish</span> <span class="err">notifications</span>
+      <span class="nt">&quot;default_priority&quot;</span><span class="p">:</span> <span class="s2">&quot;high&quot;</span><span class="p">,</span> <span class="err">//</span> <span class="err">high</span> <span class="err">priority</span> <span class="err">for</span> <span class="err">this</span> <span class="err">notification</span>
+      <span class="nt">&quot;templates&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;mail&quot;</span><span class="p">:</span> <span class="s2">&quot;file:./notifications/account-balance-mail.tpl&quot;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <h2 id="creating-a-notification">Creating a notification<a class="headerlink" href="#creating-a-notification" title="Permanent link">&para;</a></h2>
@@ -608,60 +669,64 @@ these notifications, with the following properties:</p>
   template, or sent in the notification payload for mobiles</li>
 </ul>
 <h4 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h4>
-<pre class="codehilite"><code class="language-http">POST /notifications HTTP/1.1
-Host: alice.cozy.tools
-Authorization: Bearer ...
-Content-Type: application/vnd.api+json</code></pre>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/notifications</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.cozy.tools</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer ...</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-json">{
-  &quot;data&quot;: {
-    &quot;attributes&quot;: {
-      &quot;category&quot;: &quot;account-balance&quot;,
-      &quot;category_id&quot;: &quot;my-bank&quot;,
-      &quot;title&quot;: &quot;Your account balance is not OK&quot;,
-      &quot;message&quot;: &quot;Warning: we have detected a negative balance in your my-bank&quot;,
-      &quot;priority&quot;: &quot;high&quot;,
-      &quot;state&quot;: &quot;-1&quot;,
-      &quot;preferred_channels&quot;: [&quot;mobile&quot;],
-      &quot;data&quot;: {
-        &quot;key1&quot;: &quot;value1&quot;,
-        &quot;key2&quot;: &quot;value2&quot;
-      }
-    }
-  }
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;account-balance&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;category_id&quot;</span><span class="p">:</span> <span class="s2">&quot;my-bank&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Your account balance is not OK&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Warning: we have detected a negative balance in your my-bank&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;priority&quot;</span><span class="p">:</span> <span class="s2">&quot;high&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;-1&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;preferred_channels&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;mobile&quot;</span><span class="p">],</span>
+      <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;key1&quot;</span><span class="p">:</span> <span class="s2">&quot;value1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;key2&quot;</span><span class="p">:</span> <span class="s2">&quot;value2&quot;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <h4 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h4>
-<pre class="codehilite"><code class="language-http">HTTP/1.1 201 Created
-Content-Type: application/vnd.api+json</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">201</span> <span class="ne">Created</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-json">{
-  &quot;data&quot;: {
-    &quot;type&quot;: &quot;io.cozy.notifications&quot;,
-    &quot;id&quot;: &quot;c57a548c-7602-11e7-933b-6f27603d27da&quot;,
-    &quot;meta&quot;: {
-      &quot;rev&quot;: &quot;1-1f2903f9a867&quot;
-    },
-    &quot;attributes&quot;: {
-      &quot;source_id&quot;: &quot;cozy/app/bank/account-balance/my-bank&quot;,
-      &quot;originator&quot;: &quot;app&quot;,
-      &quot;slug&quot;: &quot;bank&quot;,
-      &quot;category&quot;: &quot;account-balance&quot;,
-      &quot;category_id&quot;: &quot;my-bank&quot;,
-      &quot;title&quot;: &quot;Your account balance is not OK&quot;,
-      &quot;message&quot;: &quot;Warning: we have detected a negative balance in your my-bank&quot;,
-      &quot;priority&quot;: &quot;high&quot;,
-      &quot;state&quot;: &quot;-1&quot;,
-      &quot;data&quot;: {
-        &quot;key1&quot;: &quot;value1&quot;,
-        &quot;key2&quot;: &quot;value2&quot;
-      }
-    }
-  }
-}</code></pre></div>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.notifications&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;c57a548c-7602-11e7-933b-6f27603d27da&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-1f2903f9a867&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;source_id&quot;</span><span class="p">:</span> <span class="s2">&quot;cozy/app/bank/account-balance/my-bank&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;originator&quot;</span><span class="p">:</span> <span class="s2">&quot;app&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;bank&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;account-balance&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;category_id&quot;</span><span class="p">:</span> <span class="s2">&quot;my-bank&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Your account balance is not OK&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Warning: we have detected a negative balance in your my-bank&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;priority&quot;</span><span class="p">:</span> <span class="s2">&quot;high&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;-1&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;key1&quot;</span><span class="p">:</span> <span class="s2">&quot;value1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;key2&quot;</span><span class="p">:</span> <span class="s2">&quot;value2&quot;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div></div>
         </div>
 
         <footer class="col-md-12">

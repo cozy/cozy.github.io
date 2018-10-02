@@ -473,6 +473,66 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">babel-preset-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../babel-preset-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">commitlint-config-cozy</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../commitlint-config-cozy/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-device-helper</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-device-helper/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">eslint-config-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../eslint-config-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-flags</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-flags/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-realtime</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-realtime/README/">README</a>
+</li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -509,7 +569,7 @@
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
-        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}]
+        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
         const editNode = document.querySelector('#edit-link')
         const pathname = window.location.pathname
         const editURI = 'edit/master/'
@@ -545,52 +605,56 @@
 <h1 id="links">Links<a class="headerlink" href="#links" title="Permanent link">&para;</a></h1>
 <h2 id="using-links">Using links<a class="headerlink" href="#using-links" title="Permanent link">&para;</a></h2>
 <p>To create a link to use with Cozy Client, you can import one from <code>cozy-client</code> or create your own. A <code>StackLink</code> will be setup by default, but you can instantiate it yourself:</p>
-<pre class="codehilite"><code class="language-js">import CozyClient, { StackLink } from 'cozy-client'
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">CozyClient</span><span class="p">,</span> <span class="p">{</span> <span class="nx">StackLink</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 
-const link = new StackLink()
+<span class="kr">const</span> <span class="nx">link</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">StackLink</span><span class="p">()</span>
 
-const client = new CozyClient({
-  uri: 'http://cozy.tools:8080',
-  token: '...',
-  link
-})</code></pre>
+<span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CozyClient</span><span class="p">({</span>
+  <span class="nx">uri</span><span class="o">:</span> <span class="s1">&#39;http://cozy.tools:8080&#39;</span><span class="p">,</span>
+  <span class="nx">token</span><span class="o">:</span> <span class="s1">&#39;...&#39;</span><span class="p">,</span>
+  <span class="nx">link</span>
+<span class="p">})</span>
+</pre></div>
 
 
 <p>Links are designed to be composed together to form chains:</p>
-<pre class="codehilite"><code class="language-js">import CozyClient, { StackLink } from 'cozy-client'
-import PouchDBLink from 'cozy-pouch-link'
-import LogLink from '../LogLink'
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">CozyClient</span><span class="p">,</span> <span class="p">{</span> <span class="nx">StackLink</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
+<span class="kr">import</span> <span class="nx">PouchDBLink</span> <span class="nx">from</span> <span class="s1">&#39;cozy-pouch-link&#39;</span>
+<span class="kr">import</span> <span class="nx">LogLink</span> <span class="nx">from</span> <span class="s1">&#39;../LogLink&#39;</span>
 
-const stackLink = new StackLink()
-const pouchLink = new PouchDBLink({ doctypes: [...] })
-const logLink = new LogLink()
+<span class="kr">const</span> <span class="nx">stackLink</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">StackLink</span><span class="p">()</span>
+<span class="kr">const</span> <span class="nx">pouchLink</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PouchDBLink</span><span class="p">({</span> <span class="nx">doctypes</span><span class="o">:</span> <span class="p">[...]</span> <span class="p">})</span>
+<span class="kr">const</span> <span class="nx">logLink</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">LogLink</span><span class="p">()</span>
 
-const client = new CozyClient({
-  uri: 'http://cozy.tools:8080',
-  token: '...',
-  links: [
-    logLink,
-    pouchLink,
-    stackLink
-  ]
-})</code></pre>
+<span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CozyClient</span><span class="p">({</span>
+  <span class="nx">uri</span><span class="o">:</span> <span class="s1">&#39;http://cozy.tools:8080&#39;</span><span class="p">,</span>
+  <span class="nx">token</span><span class="o">:</span> <span class="s1">&#39;...&#39;</span><span class="p">,</span>
+  <span class="nx">links</span><span class="o">:</span> <span class="p">[</span>
+    <span class="nx">logLink</span><span class="p">,</span>
+    <span class="nx">pouchLink</span><span class="p">,</span>
+    <span class="nx">stackLink</span>
+  <span class="p">]</span>
+<span class="p">})</span>
+</pre></div>
 
 
 <h2 id="authoring-a-link">Authoring a link<a class="headerlink" href="#authoring-a-link" title="Permanent link">&para;</a></h2>
 <p>There are two ways of creating a new link. First, you can instantiate a <code>CozyLink</code> and pass a request handling function to its constructor:</p>
-<pre class="codehilite"><code class="language-js">const logLink = new CozyLink((operation, result, forward) =&gt; {
-  console.log(JSON.stringify(operation))
-  return forward(operation, result)
-})</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">logLink</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CozyLink</span><span class="p">((</span><span class="nx">operation</span><span class="p">,</span> <span class="nx">result</span><span class="p">,</span> <span class="nx">forward</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">operation</span><span class="p">))</span>
+  <span class="k">return</span> <span class="nx">forward</span><span class="p">(</span><span class="nx">operation</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span>
+<span class="p">})</span>
+</pre></div>
 
 
 <p>Or you can subclass <code>CozyLink</code>:</p>
-<pre class="codehilite"><code class="language-js">class LogLink extends CozyLink {
-  request(operation, result, forward) {
-    console.log(JSON.stringify(operation))
-    return forward(operation, result)
-  }
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">class</span> <span class="nx">LogLink</span> <span class="kr">extends</span> <span class="nx">CozyLink</span> <span class="p">{</span>
+  <span class="nx">request</span><span class="p">(</span><span class="nx">operation</span><span class="p">,</span> <span class="nx">result</span><span class="p">,</span> <span class="nx">forward</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">operation</span><span class="p">))</span>
+    <span class="k">return</span> <span class="nx">forward</span><span class="p">(</span><span class="nx">operation</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <p>At the core of a link is the <code>request</code> method. It takes the following arguments:

@@ -473,6 +473,66 @@
 </li>
     </ul>
   </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">babel-preset-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../babel-preset-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">commitlint-config-cozy</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../commitlint-config-cozy/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-device-helper</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-device-helper/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">eslint-config-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../eslint-config-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-flags</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-flags/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-realtime</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-realtime/README/">README</a>
+</li>
+    </ul>
+  </li>
     </ul>
   </li>
                         </ul>
@@ -510,7 +570,7 @@
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
-        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}]
+        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
         const editNode = document.querySelector('#edit-link')
         const pathname = window.location.pathname
         const editURI = 'edit/master/'
@@ -549,32 +609,37 @@
 <p>The body should contain a <code>index</code> JSON field containing a <code>fields</code> which is an
 ordered array of fields to index.</p>
 <h3 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code class="language-http">POST /data/:doctype/_index HTTP/1.1</code></pre>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/data/:doctype/_index</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-http">POST /data/io.cozy.events/_index HTTP/1.1
-Content-Type: application/json</code></pre>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/data/io.cozy.events/_index</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-json">{
-  &quot;index&quot;: {
-    &quot;fields&quot;: [&quot;calendar&quot;, &quot;date&quot;]
-  }
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;index&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;calendar&quot;</span><span class="p">,</span> <span class="s2">&quot;date&quot;</span><span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <h3 id="response-ok">Response OK<a class="headerlink" href="#response-ok" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
-Date: Mon, 27 Sept 2016 12:28:53 GMT
-Content-Length: ...
-Content-Type: application/json</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Date</span><span class="o">:</span> <span class="l">Mon, 27 Sept 2016 12:28:53 GMT</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">...</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-json">{
-  &quot;result&quot;: &quot;created&quot;,
-  &quot;id&quot;: &quot;_design/a5f4711fc9448864a13c81dc71e660b524d7410c&quot;,
-  &quot;name&quot;: &quot;a5f4711fc9448864a13c81dc71e660b524d7410c&quot;
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;result&quot;</span><span class="p">:</span> <span class="s2">&quot;created&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;_design/a5f4711fc9448864a13c81dc71e660b524d7410c&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;a5f4711fc9448864a13c81dc71e660b524d7410c&quot;</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <h3 id="details">Details<a class="headerlink" href="#details" title="Permanent link">&para;</a></h3>
@@ -585,11 +650,12 @@ Content-Type: application/json</code></pre>
 <li>design doc &amp; name can be provided in request. <strong>This is not recommended</strong>, let
   couchdb handle naming and deduplication.</li>
 </ul>
-<pre class="codehilite"><code class="language-json">{
-  &quot;name&quot;: &quot;by-calendar-and-date&quot;,
-  &quot;ddoc&quot;: &quot;_design/some-ddoc-name&quot;,
-  &quot;index&quot;: { &quot;fields&quot;: ... }
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;by-calendar-and-date&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;ddoc&quot;</span><span class="p">:</span> <span class="s2">&quot;_design/some-ddoc-name&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;index&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="err">...</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <h3 id="possible-errors">possible errors :<a class="headerlink" href="#possible-errors" title="Permanent link">&para;</a></h3>
@@ -604,47 +670,52 @@ Content-Type: application/json</code></pre>
 mango selectors
 <a href="http://docs.couchdb.org/en/stable/api/database/find.html#selector-syntax">here</a></p>
 <h3 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code class="language-http">POST /data/:doctype/_find HTTP/1.1</code></pre>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/data/:doctype/_find</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-http">POST /data/io.cozy.events/_find HTTP/1.1
-Content-Type: application/json</code></pre>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/data/io.cozy.events/_find</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-json">{
-  &quot;selector&quot;: {
-    &quot;calendar&quot;: &quot;perso&quot;,
-    &quot;date&quot;: { &quot;$gt&quot;: &quot;20161001T00:00:00&quot; }
-  },
-  &quot;limit&quot;: 2,
-  &quot;skip&quot;: 3,
-  &quot;sort&quot;: [&quot;calendar&quot;, &quot;date&quot;],
-  &quot;fields&quot;: [&quot;_id&quot;, &quot;_type&quot;, &quot;_date&quot;],
-  &quot;use_index&quot;: &quot;_design/a5f4711fc9448864a13c81dc71e660b524d7410c&quot;
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;selector&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;calendar&quot;</span><span class="p">:</span> <span class="s2">&quot;perso&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;date&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;$gt&quot;</span><span class="p">:</span> <span class="s2">&quot;20161001T00:00:00&quot;</span> <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;limit&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="nt">&quot;skip&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+  <span class="nt">&quot;sort&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;calendar&quot;</span><span class="p">,</span> <span class="s2">&quot;date&quot;</span><span class="p">],</span>
+  <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">,</span> <span class="s2">&quot;_type&quot;</span><span class="p">,</span> <span class="s2">&quot;_date&quot;</span><span class="p">],</span>
+  <span class="nt">&quot;use_index&quot;</span><span class="p">:</span> <span class="s2">&quot;_design/a5f4711fc9448864a13c81dc71e660b524d7410c&quot;</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <h3 id="response-ok_1">Response OK<a class="headerlink" href="#response-ok_1" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code class="language-http">HTTP/1.1 200 OK
-Date: Mon, 27 Sept 2016 12:28:53 GMT
-Content-Length: ...
-Content-Type: application/json</code></pre>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Date</span><span class="o">:</span> <span class="l">Mon, 27 Sept 2016 12:28:53 GMT</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">...</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
 
 
-<pre class="codehilite"><code class="language-json">{
-  &quot;docs&quot;: [
-    {
-      &quot;_id&quot;: &quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;,
-      &quot;_type&quot;: &quot;io.cozy.events&quot;,
-      &quot;date&quot;: &quot;20161023T160000Z&quot;
-    },
-    {
-      &quot;_id&quot;: &quot;6494e0ac-dfcb-472e84a9cbee&quot;,
-      &quot;_type&quot;: &quot;io.cozy.events&quot;,
-      &quot;date&quot;: &quot;20161013T160000Z&quot;
-    }
-  ]
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;docs&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;_type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.events&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;date&quot;</span><span class="p">:</span> <span class="s2">&quot;20161023T160000Z&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;6494e0ac-dfcb-472e84a9cbee&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;_type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.events&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;date&quot;</span><span class="p">:</span> <span class="s2">&quot;20161013T160000Z&quot;</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <h3 id="details_1">Details<a class="headerlink" href="#details_1" title="Permanent link">&para;</a></h3>
@@ -661,29 +732,32 @@ limit query results to maximum 100 docs.</p>
 <p>The limit applied to a query is visible in the HTTP response.</p>
 <p>If the limit cause some docs to not be returned, the response will have a
 <code>next=true</code> top level values.</p>
-<pre class="codehilite"><code class="language-json">{
-  &quot;limit&quot;: 100,
-  &quot;next&quot;: true,
-  &quot;docs&quot;: [&quot;... first hundred docs ...&quot;]
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;limit&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+  <span class="nt">&quot;next&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;docs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;... first hundred docs ...&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <p>If the number of docs is lower or equal to the limit, next will be false</p>
-<pre class="codehilite"><code class="language-json">{
-  &quot;limit&quot;: 100,
-  &quot;next&quot;: false,
-  &quot;docs&quot;: [&quot;... less than a hundred docs ...&quot;]
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;limit&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+  <span class="nt">&quot;next&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="nt">&quot;docs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;... less than a hundred docs ...&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <p>To paginate, the client should keep track of the value of the last index field.</p>
 <h3 id="exemple">Exemple :<a class="headerlink" href="#exemple" title="Permanent link">&para;</a></h3>
 <p>Index on io.cozy.events with fields <code>["calendar", "date"]</code></p>
 <p>Try to get all events for a month :</p>
-<pre class="codehilite"><code class="language-json">selector: {
-  &quot;calendar&quot;: &quot;my-calendar&quot;,
-  &quot;date&quot;: { &quot;$gt&quot;: &quot;20161001&quot;, &quot;$lt&quot;: &quot;20161030&quot; }
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="err">selector:</span> <span class="p">{</span>
+  <span class="nt">&quot;calendar&quot;</span><span class="p">:</span> <span class="s2">&quot;my-calendar&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;date&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;$gt&quot;</span><span class="p">:</span> <span class="s2">&quot;20161001&quot;</span><span class="p">,</span> <span class="nt">&quot;$lt&quot;</span><span class="p">:</span> <span class="s2">&quot;20161030&quot;</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 
 
 <p>If there is less than 100 events, the response <code>next</code> field will be false and
@@ -691,10 +765,11 @@ there is nothing more to do. If there is more than 100 events for this month, we
 have a <code>next=true</code> in the response.</p>
 <p>To keep iterating, we can take the date from the last item we received in the
 results and use it as next request <code>$gte</code></p>
-<pre class="codehilite"><code class="language-json">selector: {
-  &quot;calendar&quot;: &quot;my-calendar&quot;,
-  &quot;date&quot;: { &quot;$gte&quot; :&quot;20161023&quot;, &quot;$lt&quot;: &quot;20161030&quot; }
-}</code></pre></div>
+<div class="codehilite"><pre><span></span><span class="err">selector:</span> <span class="p">{</span>
+  <span class="nt">&quot;calendar&quot;</span><span class="p">:</span> <span class="s2">&quot;my-calendar&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;date&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;$gte&quot;</span> <span class="p">:</span><span class="s2">&quot;20161023&quot;</span><span class="p">,</span> <span class="nt">&quot;$lt&quot;</span><span class="p">:</span> <span class="s2">&quot;20161030&quot;</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></div></div>
         </div>
 
         <footer class="col-md-12">
