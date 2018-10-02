@@ -1,4 +1,7 @@
-# How to write a connector
+---
+title: How to write a connector
+summary: And import data from a service to your Cozy
+---
 
 ## Introduction
 
@@ -98,7 +101,7 @@ But for the code to run without error, you need to register a _fake_ login and a
 
 **In cozy-konnector-template, this configuration file is already added to `.gitignore` file to be sure your credentials stay private.**
 
-Now you can run the connector again in *standalone* mode to see how jpg and related data are downloaded. 
+Now you can run the connector again in *standalone* mode to see how jpg and related data are downloaded.
 In this mode, [`cozy-client-js`] is stubbed and all data meant to be saved in a cozy are displayed in the standard output and files are saved in the root directory of the connector.
 This is useful to start developing your connector without handling the state of a real [Cozy Stack].
 
@@ -367,6 +370,10 @@ We can find more information in the [libs repository](https://github.com/konnect
 __Now that we pass on every steps, it is time to test the connector with `yarn standalone`.__
 We will see in the following how to connect it effectively to a Cozy Stack.
 
+
+---
+
+
 ## Going further
 
 ### Connector structure
@@ -442,9 +449,9 @@ The Cozy Konnector Libs provide several useful methods for common tasks:
 
 After several `yarn standalone`, your connector is able to automaticaly gather data from the targeted web service. </br>It's time now to put this data in a real cozy. </br>Here comes the *dev mode*.
 
-For that your connector needs more setup : 
+For that your connector needs more setup :
 * a `manifest.konnector` file
-* a `COZY_URL` section in `konnector-dev-config.json` 
+* a `COZY_URL` section in `konnector-dev-config.json`
 
 ### The manifest
 
@@ -502,7 +509,7 @@ it installs it.
 
 To avoid this, the connectors need to be compiled into one file in a dedicated branch of the
 repository and the repository needs to be a public git repository. The `package.json` file
-from [cozy-konnector-template] gives you the commands to do this : `yarn build` and `yarn deploy` 
+from [cozy-konnector-template] gives you the commands to do this : `yarn build` and `yarn deploy`
 but the last one needs to be configured in `package.json`
 
 Once your public git repository is configured, you only have to declare it.
@@ -511,7 +518,7 @@ Cozy will soon have a store for connectors and you will be able to publish conne
 at the moment, you need to declare your new connector on the [cozy forum](https://forum.cozy.io).
 The Cozy team will review your code and add your connector to the [Cozy Collect] application.
 
-To make the connector available more quickly for all cozys, you can follow this few steps of 
+To make the connector available more quickly for all cozys, you can follow this few steps of
 packaging:
 
 ### Icon

@@ -1,4 +1,6 @@
-# How to create a mobile Cozy application
+---
+title: How to create a mobile Cozy application
+---
 
 The simplest way to create a mobile Cozy application is to use JavaScript as there already are JavaScript libraries to connect to the Cozy server, as known as cozy-stack.
 
@@ -100,7 +102,7 @@ cozy.bar.init({
 It works with a CLI that needs [node](https://nodejs.org/en/download/).
 Look at the [cordova documentation to install everything needed](https://cordova.apache.org/docs/en/latest/guide/cli/index.html#installing-the-cordova-cli).
 
-Once cordova is installed, just run `cordova create cozy-app com.example.cozyapp CozyApp` and you get the following structure: 
+Once cordova is installed, just run `cordova create cozy-app com.example.cozyapp CozyApp` and you get the following structure:
 
 ```bash
 ./

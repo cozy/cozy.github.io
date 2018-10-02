@@ -1,7 +1,8 @@
-# Technical introduction to the Cozy platform
+---
+title: Technical introduction to the Cozy platform
+---
 
-
-## What is Cozy
+## What is Cozy?
 
 Cozy is a personal server hosting applications that allow collect and manipulate all your personal data.
 
