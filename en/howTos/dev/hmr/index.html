@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/howTos/dev/hmr/">
+        <link rel="shortcut icon" href="../../../img/favicon.png">
+        
+        <title>hmr - Dev Documentation</title>
+        <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../../css/highlight.css">
+            <link href="../../../css/extra.css" rel="stylesheet">
+            <link href="../../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Dev Documentation</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorials <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../../tutorials/app/">Create Your Application</a>
+</li>
+                            
+<li >
+    <a href="../../../tutorials/konnector/">Develop a Connector</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">How-to <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Self-Host</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../selfHost/debian/">Debian</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Dev</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="./">Use Hot Module Replacement in Your App</a>
+</li>
+            
+<li >
+    <a href="../cordova/">Make a Mobile App Using Cordova</a>
+</li>
+            
+<li >
+    <a href="../connect-mobile-app-local-stack/">Connect a Mobile App to Your Local Stack</a>
+</li>
+            
+<li >
+    <a href="../sendmail/">Send and Receive E-mails in Development</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Synchronize</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../sync/linux/">Install Cozy Drive on GNU/Linux</a>
+</li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">References <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../../references/tech-intro/">Technical introduction to the Cozy platform</a>
+</li>
+                            
+<li >
+    <a href="../../../references/git-flow/">Our Front-End Git Flow</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Stack and tools</a>
+    <ul class="dropdown-menu">
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-app-publish</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-app-publish/README/">CLI & Workflow</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-client</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-client/guide/">Usage guide</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-client/api/">API</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-client-js</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-client-js/README/">README</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-client-js/intro/">Introduction</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-client-js/browser-sdk-transition/">Transition from cozy-browser-sdk</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-client-js/offline/">How to support offline</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-client-js/oauth/">OAuth guide</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-client-js/auth-api/">Authentication API</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-client-js/data-api/">Data System API</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-client-js/files-api/">Files API</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-client-js/jobs-api/">Jobs API</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-client-js/intents-api/">Intents API</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-client-js/settings-api/">Settings API</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-client-js/sharing-api/">Sharing API</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-doctypes</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/README/">README</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.accounts/">Accounts</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.photos.albums/">Albums</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.bank/">Banking doctypes</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.bills/">Bills</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.konnectors/">Connectors</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.contacts/">Contacts</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.files/">Files</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.notifications/">Notifications</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.payslips/">Payslips</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.remote.requests/">Remote requests</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.sessions.logins/">Session logins</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.sharings/">Sharings</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.triggers/">Triggers</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-stack</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-stack/README/">README</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Architecture</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-stack/architecture/">General overview</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/security/">Security</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Usage</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-stack/INSTALL/">Install the cozy-stack</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/cli/cozy-stack/">Manpages of the command-line tool</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/config/">Configuration file</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/instance/">Managing Instances</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/onboarding/">Onboarding</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">For developpers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-stack/client-app-dev/">Develop a client-side app</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/docker/">Running and building Docker images</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/release/">Build a release</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/CONTRIBUTING/">The contributing guide</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Services</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-stack/auth/">/auth - Authentication & OAuth</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/apps/">/apps - Applications Management</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/registry/">Apps registry</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/data-system/">/data - Data System</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/mango/">Mango</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/replication/">Replication</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/couchdb-quirks/">CouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/pouchdb-quirks/">PouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/files/">/files - Virtual File System</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/references-docs-in-vfs/">References of documents in VFS</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/intents/">/intents - Intents</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/jobs/">/jobs Jobs</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/konnectors/">Konnectors</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/workers/">Workers</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/move/">/move - Move, export and import an instance</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/notifications/">/notifications - Notifications</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/permissions/">/permissions - Permissions</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/realtime/">/realtime - Realtime</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/remote/">/remote - Proxy for remote data/API</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/settings/">/settings - Settings</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/sharing/">/sharings - Sharing</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/sharing-design/">Request for comments</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">konitor</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../konitor/cli/">CLI</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy.github.io/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3">
+<div class="bs-sidebar hidden-print affix" role="complementary">
+    <ul class="nav bs-sidenav well" style='padding-left: 0; padding-right: 0; margin-bottom: 1.5rem'>
+        <li class="main active"><a href="#how-to-use-hot-module-replacement-hmr-with-my-application">How to use Hot Module Replacement (HMR) with my application?</a></li>
+            <li><a href="#what-is-hot-module-replacement-hmr">What is Hot Module Replacement (HMR) ?</a></li>
+            <li><a href="#is-it-available-for-my-app">Is it available for my app?</a></li>
+            <li><a href="#run-my-app-with-hmr">Run my app with HMR</a></li>
+            <li><a href="#make-hmr-available-in-my-application">Make HMR available in my application</a></li>
+    </ul>
+  <div style='padding-left: 2rem'>
+    
+    <a id='edit-link' href='https://github.com/cozy/cozy.github.io/edit/dev/src/howTos/dev/hmr.md'>Edit documentation</a>
+    <script type='text/javascript'>
+        /* Here we detect if the current page is from an external documentation and we 
+        change the href of the editing link so it goes to the right repository and file */
+        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}]
+        const editNode = document.querySelector('#edit-link')
+        const pathname = window.location.pathname
+        const editURI = 'edit/master/'
+        const removeGitSuffix = function (x) { return x.replace(/\.git$/, '') }
+
+        // Returns the external repo associated to a pathname
+        const detectExternalRepo = function (pathname) {
+            for (var outsideDoc of outsideDocs) {
+                if (window.location.pathname.includes('/' + outsideDoc.name + '/')) {
+                    return outsideDoc
+                }
+            }
+        }
+
+        // Change the href attribute of a link to point to the correct edition page on GitHub
+        // for the passed external documentation
+        const fixEditLink = function (editNode, externalDoc) {
+            const repoFile = pathname.replace('/en/' + externalDoc.name, '').replace(/\/$/, '.md')
+            const baseRepo = removeGitSuffix(externalDoc.repo)
+            editNode.href = baseRepo + '/' + editURI + externalDoc.subdir + repoFile
+        }
+
+        const externalRepo = detectExternalRepo(pathname)
+        if (externalRepo) {
+            fixEditLink(editNode, externalRepo)
+        }
+    </script>
+    
+  </div>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h2 id="how-to-use-hot-module-replacement-hmr-with-my-application">How to use Hot Module Replacement (HMR) with my application?<a class="headerlink" href="#how-to-use-hot-module-replacement-hmr-with-my-application" title="Permanent link">&para;</a></h2>
+<h3 id="what-is-hot-module-replacement-hmr">What is Hot Module Replacement (HMR) ?<a class="headerlink" href="#what-is-hot-module-replacement-hmr" title="Permanent link">&para;</a></h3>
+<p>As the <a href="https://webpack.js.org/concepts/hot-module-replacement/">Webpack documentation</a> says:</p>
+<blockquote>
+<p>Hot Module Replacement (HMR) exchanges, adds, or removes modules while an application is running, without a full reload. This can significantly speed up development in a few ways:
+<em> Retain application state which is lost during a full reload.
+</em> Save valuable development time by only updating what&rsquo;s changed.
+* Modifications made to CSS/JS in the source code results in an instant browser update which is almost comparable to changing styles directly in the browser&rsquo;s dev tools.</p>
+</blockquote>
+<p>For a Cozy application, having this feature allows you to have the specific changed part reloaded in your browser without reloading again the <code>cozy-bar</code>, the <code>cozy-client</code> and other layout components.</p>
+<p><em>Notice: The HMR will be explained here only for applications build using Webpack.</em></p>
+<h3 id="is-it-available-for-my-app">Is it available for my app?<a class="headerlink" href="#is-it-available-for-my-app" title="Permanent link">&para;</a></h3>
+<p>If you created your application (React or Vue) using <a href="https://github.com/CPatchane/create-cozy-app">Create Cozy App a.k.a CCA (from v1)</a> and:</p>
+<ul>
+<li>For React, you didn&rsquo;t change the way <a href="https://github.com/gaearon/react-hot-loader"><code>react-hot-loader</code></a> is used</li>
+<li>For Vue, you didn&rsquo;t change the <code>module.hot</code> part in your entry point <code>index.js</code> (in <code>src/targets/&lt;target&gt;</code>)</li>
+</ul>
+<p>Then, you dont&rsquo; have anything to do. See the next part of this tutorial to use HMR 😎</p>
+<p>If you did change these parts or you didn&rsquo;t create your application initialy using <a href="https://github.com/CPatchane/create-cozy-app">Create Cozy App</a>, you can see the part <a href="#make-hmr-available-in-my-application"><strong>Make HMR available in my application</strong></a>.</p>
+<h3 id="run-my-app-with-hmr">Run my app with HMR<a class="headerlink" href="#run-my-app-with-hmr" title="Permanent link">&para;</a></h3>
+<p>To have a full HMR experience, you&rsquo;ll have to do two things here:</p>
+<ul>
+<li>Run webpack watching your changes with a <a href="https://github.com/webpack/webpack-dev-server"><code>webpack-dev-server</code></a> and <code>--hot</code> option</li>
+<li>Disable CSPs in the target Cozy (the Cozy CSPs is blocking HMR script)</li>
+</ul>
+<p>But thanks to the last version of <a href="https://github.com/CPatchane/create-cozy-app/tree/master/packages/cozy-scripts"><code>cozy-scripts</code></a>, all of that are handled for you with the command <code>cozy-scripts start</code>:</p>
+<pre class="codehilite"><code class="language-sh">yarn cozy-scripts start --hot --browser
+# or if you have the last package.json from CCA, you can do
+yarn start</code></pre>
+
+
+<h4 id="how-can-i-run-my-webpack-and-my-stack-in-different-terminals">How can I run my webpack and my stack in different terminals?<a class="headerlink" href="#how-can-i-run-my-webpack-and-my-stack-in-different-terminals" title="Permanent link">&para;</a></h4>
+<p>First, you can pass an option to disable the stack handling by the <code>start</code> command:</p>
+<pre class="codehilite"><code class="language-sh">yarn cozy-scripts start --hot --browser --no-stack
+# or if you have the last package.json from CCA, you can do
+yarn start --no-stack</code></pre>
+
+
+<p>Then, as said, to have your application running in a Cozy with HMR, your have to disable CSPs when running the stack. For that, <a href="https://github.com/CPatchane/create-cozy-app/tree/master/packages/cozy-scripts"><code>cozy-scripts</code></a> has a dedicated config file to pass to your Docker image in <code>cozy-scripts/stack/disableCSP.yaml</code>.
+You can use this config by running your stack in another terminal like:</p>
+<pre class="codehilite"><code class="language-sh"># in your app root directory
+docker run --rm -it
+  -p 8080:8080 -p 5984:5984
+  -v \&quot;$(pwd)/build\&quot;:/data/cozy-app/app
+  -v \&quot;$(pwd)/node_modules/cozy-scripts/stack/disableCSP.yaml\&quot;:/etc/cozy/cozy.yaml
+  cozy/cozy-app-dev</code></pre>
+
+
+<h3 id="make-hmr-available-in-my-application">Make HMR available in my application<a class="headerlink" href="#make-hmr-available-in-my-application" title="Permanent link">&para;</a></h3>
+<h4 id="for-a-react-application">For a React application<a class="headerlink" href="#for-a-react-application" title="Permanent link">&para;</a></h4>
+<p>You have to use <a href="https://github.com/gaearon/react-hot-loader"><code>react-hot-loader</code></a> inside your main App component like this:</p>
+<pre class="codehilite"><code class="language-js">import React from 'react'
+import { hot } from 'react-hot-loader'
+
+const App = () =&gt; (
+  ...
+)
+
+export default hot(module)(App)</code></pre>
+
+
+<p>That&rsquo;s it. Then, just use the last version of cozy-scripts to run your application with HMR.</p>
+<h4 id="for-a-vue-application">For a Vue application<a class="headerlink" href="#for-a-vue-application" title="Permanent link">&para;</a></h4>
+<p>Inside your entry point <code>index.js</code> (in <code>src/targets/&lt;target&gt;</code>), you have to add this part related to <code>module.hot</code>:</p>
+<pre class="codehilite"><code class="language-js">import Vue from 'vue'
+import store from 'lib/store'
+
+const renderApp = function() {
+  const App = require('components/App').default
+  return new Vue({
+    store, // inject store to all children
+    el: '[role=application]',
+    render: h =&gt; h(App)
+  })
+}
+
+if (module.hot) {
+  module.hot.accept('components/App', function() {
+    renderApp()
+  })
+}</code></pre>
+
+
+<p>That&rsquo;s it. Then, just use the last version of cozy-scripts to <a href="#run-my-application-with-hmr">run your application with HMR</a>.</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../../..';</script>
+        <script data-main="../../../mkdocs/js/search.js" src="../../../mkdocs/js/require.js"></script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../extra.js"></script>
+        <script src="../../../search/main.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
