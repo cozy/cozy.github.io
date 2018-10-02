@@ -98,8 +98,7 @@ ExternalDoc = namedtuple('ExternalDoc', ['name', 'repository', 'doc_directory'])
 
 
 def parse_external_doc_line(l):
-    l = l.strip()
-    return ExternalDoc(l.split(' '))
+    return ExternalDoc(*(l.strip().split(' ')))
 
 
 has_pulled = {}
