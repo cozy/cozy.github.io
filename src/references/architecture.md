@@ -1,7 +1,7 @@
 # Technical introduction to the Cozy platform
 
 
-## What is Cozy 
+## What is Cozy
 
 Cozy is a personal server hosting applications that allow collect and manipulate all your personal data.
 
@@ -12,7 +12,7 @@ Depending on your point of view, Cozy can be seen as :
 3. Your web apps, and also the mobile & desktop clients
 4. A coherent User Experience.
 
-The whole platform is designed around 3 key values : *Simple*, *Versatile*, *Yours*. 
+The whole platform is designed around 3 key values : *Simple*, *Versatile*, *Yours*.
 
 These values have a lot of meaning for Cozy in all aspects. From an architectural point of view, they are declined like this:
 
@@ -75,7 +75,7 @@ The server provides services to applications:
 
  - real time notifications of events;
  - methods allowing applications to communicate and share data;
- - interapps : applications can expose "capabilities" that other apps can call. For instance an app can expose the capability to pick a photo or to create a contact.  
+ - interapps : applications can expose "capabilities" that other apps can call. For instance an app can expose the capability to pick a photo or to create a contact.
  - methods allowing sharing of documents between servers. This is a peer-to-peer protocol so that even users hosted on different infrastructure can share their data which are synchronized (the cozy stack propagates modifications between users servers).
 
 
@@ -99,8 +99,8 @@ We use *Content Security Policy* to control what the application is allowed to d
 
 ## Further reading
 
- * Coding tutorials : 
-     * [How to code a client application](app.md)
-     * [How to code a connector](konnector.md).
- * Selfhosting : [how to to sel-host a Cozy server](https://docs.cozy.io/en/install/)
+ * Coding tutorials :
+     * [Create a client application](/tutorials/app.md)
+     * [Develop a connector](/tutorials/konnector.md).
+ * Selfhosting : [How to to self-host a Cozy server](/howTos/selfHost/debian.md)
  * The [cozy server documentation](https://docs.cozy.io/en/cozy-stack/architecture/)(cozy-stack)
