@@ -362,7 +362,7 @@ But there is a bunch of functions available depending on what you want:
 - [`saveFiles`](https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_saveFiles)
 - and so on…
 
-We can find more information in the [libs repository](https://github.com/konnectors/libs).
+We can find more information in the [libs repository](https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md).
 
 __Now that we pass on every steps, it is time to test the connector with `yarn standalone`.__
 We will see in the following how to connect it effectively to a Cozy Stack.
