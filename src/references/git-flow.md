@@ -1,4 +1,4 @@
-# Git Flow
+# Our Front-End Git Flow
 
 We recommand to use the following git flow for our applications and konnectors.
 

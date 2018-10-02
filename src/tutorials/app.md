@@ -1,7 +1,7 @@
 # How to create your first Cozy application
 
 
-## Prerequisite
+## Prerequisites
 
 Developing an application for Cozy is quite easy. All you need to have is:
 

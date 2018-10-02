@@ -15,25 +15,25 @@ Click on one of these links to download Cozy Drive for your OS:
 
 Once the binary file downloaded, go to the folder where your browser has stored it. For example, if you use Firefox, click on the folder icon in the download list.
 
-![Go to download folder](../img/sync/open-download-folder.png)
+![Go to download folder](/img/sync/open-download-folder.png)
 
 To be able to run the application, you have to edit its properties to make it executable. Just right click on the application and select `Properties` inside the context menu:
-![Edit the properties of the application](../img/sync/right-click-properties.png)
+![Edit the properties of the application](/img/sync/right-click-properties.png)
 
 Then go to the `Permissions` tab and check the box to make the application executable:
-![Allow to launch the application](../img/sync/make-executable.png)
+![Allow to launch the application](/img/sync/make-executable.png)
 
 There’s no need to install the application, you can just run it from the folder you have downloaded it, but we recommend to move it to a dedicated folder to be able to find it easily. You can create an `Applications` folder inside your home directory and move the application there:
 
-![Create a new folder](../img/sync/new-folder.png)
+![Create a new folder](/img/sync/new-folder.png)
 
-![Name the new folder](../img/sync/new-folder-name.png)
+![Name the new folder](/img/sync/new-folder-name.png)
 
-![Move the application to the folder](../img/sync/move-appimage.png)
+![Move the application to the folder](/img/sync/move-appimage.png)
 
 Tip: you can add this folder to your bookmarks to find it easily:
 
-![Bookmark the folder](../img/sync/new-bookmark.png)
+![Bookmark the folder](/img/sync/new-bookmark.png)
 
 
 From 3.26 onwards, GNOME removed the systray (that little bar with some icons) which is the interface for *Cozy Drive*. You will need to install an extension such as [TopIcons](https://extensions.gnome.org/extension/1031/topicons/) in order to see the cozy-desktop application and launch it.
