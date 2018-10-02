@@ -49,7 +49,17 @@
         <div class="container">
             {%- block content %}
                 <div class="col-md-3">{% include "toc.html" %}</div>
-                <div class="col-md-9" role="main">{% include "content.html" %}</div>
+                <div class="col-md-9" role="main">
+                    {%- if page.meta.title %}
+                        <div class="main-page-head">
+                            <h1 class="main-head-title">{{ page.meta.title }}</h1>
+                            {%- if page.meta.summary %}
+                                <p>{{ page.meta.summary }}</p>
+                            {%- endif %}
+                        </div>
+                    {%- endif %}
+                    {% include "content.html" %}
+                </div>
             {%- endblock %}
         </div>
 
