@@ -10,9 +10,7 @@ import sys
 import re
 import os.path as osp
 from collections import OrderedDict, namedtuple
-
 import fnmatch
-import os
 import sh
 
 def simple_glob(directory, glob_pattern):
@@ -57,11 +55,14 @@ def read_toc(directory):
                 else:
                     make_paths_absolute(t[k])
     toc_path = osp.join('src', directory, 'toc.yml')
+    README_path = osp.join('src', directory, 'README.md')
     if osp.exists(toc_path):
         with open(toc_path) as f:
             toc = ordered_load(f)
-    else:
+    elif osp.exists(README_path):
         toc = ordered_load('- README: ./README.md')
+    else:
+        return None
     make_paths_absolute(toc)
     return toc
 
