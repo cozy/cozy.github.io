@@ -9,16 +9,15 @@ import os
 import sys
 import re
 import os.path as osp
-from collections import OrderedDict
-
+from collections import OrderedDict, namedtuple
 import fnmatch
-import os
+import sh
 
 def simple_glob(directory, glob_pattern):
     matches = []
     for root, dirnames, filenames in os.walk('src', followlinks=True):
         for filename in fnmatch.filter(filenames, glob_pattern):
-            matches.append(os.path.join(root, filename))
+            matches.append(osp.join(root, filename))
     return matches
 
 
@@ -48,21 +47,24 @@ def ordered_dump(data, stream=None, Dumper=yaml.Dumper, **kwds):
 leadingHash = re.compile('#+\s+')
 
 def read_toc(directory):
+    def make_paths_absolute(tree):
+        for t in tree:
+            for k in t.keys():
+                if isinstance(t[k], str):
+                    t[k] = re.sub('^.', directory, t[k])
+                else:
+                    make_paths_absolute(t[k])
     toc_path = osp.join('src', directory, 'toc.yml')
-    if not osp.exists(toc_path):
-        return
-    else:
-        def make_paths_absolute(tree):
-            for t in tree:
-                for k in t.keys():
-                    if isinstance(t[k], str):
-                        t[k] = re.sub('^.', directory, t[k])
-                    else:
-                        make_paths_absolute(t[k])
+    README_path = osp.join('src', directory, 'README.md')
+    if osp.exists(toc_path):
         with open(toc_path) as f:
             toc = ordered_load(f)
-            make_paths_absolute(toc)
-            return toc
+    elif osp.exists(README_path):
+        toc = ordered_load('- README: ./README.md')
+    else:
+        return None
+    make_paths_absolute(toc)
+    return toc
 
 
 def find_entry(tree, name):
@@ -93,11 +95,48 @@ def get_name(filename):
     return '.'.join(osp.basename(filename).split('.')[:-1])
 
 
-def main():
+ExternalDoc = namedtuple('ExternalDoc', ['name', 'repository', 'doc_directory'])
+
+
+def parse_external_doc_line(l):
+    return ExternalDoc(*(l.strip().split(' ')))
+
+
+has_pulled = {}
+def fetch_external_doc(repository, destination):
+    sh.rm('-rf', destination)
+    sh.mkdir('-p', destination)
+    with sh.pushd(destination):
+        if osp.exists('.git') and not has_pulled.get(repository):
+            sh.git('pull')
+            has_pulled[repository] = True
+        else:
+            sh.git('clone', repository, '--depth', '1', '.')
+
+
+def fetch_all_external_docs_from_file(filename):
+    with open(filename) as f:
+        external_docs = [parse_external_doc_line(l) for l in f]
+    for name, repository, doc_directory in external_docs:
+        tmpdir = osp.join('/tmp', name)
+        print('Fetching %s...' % name)
+        fetch_external_doc(repository, tmpdir)
+        src_dir = osp.join('src', name)
+        sh.rm('-f', src_dir)
+        print('Linking %s...' % name)
+        sh.ln('-s', osp.join(tmpdir, doc_directory), src_dir)
+
+
+def main(argv):
+    OUTSIDE_DOCS = 'OUTSIDE_DOCS'
+
+    if '--fetch' in argv:
+        fetch_all_external_docs_from_file(OUTSIDE_DOCS)
+
     with open('./mkdocs.yml') as f:
         data = ordered_load(f, yaml.SafeLoader)
 
-    with open('OUTSIDE_DOCS') as f:
+    with open(OUTSIDE_DOCS) as f:
         outside_docs_conf = [l.strip().split(' ') for l in f.readlines()]
     outside_docs_conf = [
         {'name': c[0], 'repo': c[1], 'subdir': c[2]}
@@ -124,4 +163,4 @@ def main():
     with open('mkdocs.yml', 'w+') as f:
         ordered_dump(data, f, indent=2, default_flow_style=False, Dumper=yaml.SafeDumper)
 
-main()
+main(sys.argv)

@@ -19,7 +19,7 @@ Fetch external documentation and add it to mkdocs.yml (do not commit this the ch
 ```
 ./fetch.sh
 pip install -r requirements.txt
-python add_external_docs.py
+./add_external_docs.py --fetch
 ```
 > Expected python version is 2.7.10
 
@@ -40,11 +40,11 @@ to search for information only in one location.
 Each repository maintains its own [table of contents](https://github.com/cozy/cozy-doctypes/blob/master/toc.yml),
 which controls what is shown under the References menu.
 
-See [./fetch.sh](./fetch.sh), [./build.sh](./build.sh), and [./add_external_docs.py](./add_external_docs.py) scripts for more information.
+See [./build.sh](./build.sh), and [./add_external_docs.py](./add_external_docs.py) scripts for more information.
 
 ## When are the docs deployed ?
 
-The documentation is built automatically by Travis 
+The documentation is built automatically by Travis
 
 * when the `dev` is pushed
 * every day (since we cannot detect changes in external documentations)
@@ -61,4 +61,3 @@ mkdocs build -f mkdocs.yml
 cd site/
 python -m SimpleHTTPServer
 ```
-
