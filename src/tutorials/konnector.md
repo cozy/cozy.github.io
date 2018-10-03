@@ -1,4 +1,7 @@
-# How to write a connector
+---
+title: How to write a connector
+summary: And import data from a service to your Cozy
+---
 
 ## Introduction
 
@@ -368,6 +371,10 @@ We can find more information in the [libs repository](https://github.com/konnect
 
 __Now that we pass on every steps, it is time to test the connector with `yarn standalone`.__
 We will see next how to connect it effectively to a Cozy Stack.
+
+
+---
+
 
 ## Going further
 

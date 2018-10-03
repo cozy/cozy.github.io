@@ -1,4 +1,6 @@
-# Share and send mail in development
+---
+title: Share and send mail in development
+---
 
 Cozy apps let users [share documents from cozy to cozy](https://cozy.github.io/cozy-stack/sharing.html#cozy-to-cozy-sharing).
 

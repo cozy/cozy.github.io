@@ -1,3 +1,9 @@
+---
+title: Install the desktop client on your GNU/Linux system
+summary: And synchronize your Cozy data with your desktop
+---
+
+
 # Install the desktop client on your GNU/Linux system
 
 To ease the use of Cozy Drive on any distribution, we distribute the application using the [AppImage](https://appimage.org/) format. This way, you have nothing to install, just download the application and run it.

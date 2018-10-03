@@ -1,6 +1,8 @@
-## How to use Hot Module Replacement (HMR) with my application?
+---
+title: How to use Hot Module Replacement (HMR) with my application?
+---
 
-### What is Hot Module Replacement (HMR) ?
+## What is Hot Module Replacement (HMR) ?
 
 As the [Webpack documentation](https://webpack.js.org/concepts/hot-module-replacement/) says:
 
@@ -13,7 +15,7 @@ For a Cozy application, having this feature allows you to have the specific chan
 
 _Notice: The HMR will be explained here only for applications build using Webpack._
 
-### Is it available for my app?
+## Is it available for my app?
 
 If you created your application (React or Vue) using [Create Cozy App a.k.a CCA (from v1)][create-cozy-app] and:
 
@@ -24,7 +26,7 @@ Then, you dont' have anything to do. See the next part of this tutorial to use H
 
 If you did change these parts or you didn't create your application initialy using [Create Cozy App][create-cozy-app], you can see the part [__Make HMR available in my application__](#make-hmr-available-in-my-application).
 
-### Run my app with HMR
+## Run my app with HMR
 
 To have a full HMR experience, you'll have to do two things here:
 
@@ -39,7 +41,7 @@ yarn cozy-scripts start --hot --browser
 yarn start
 ```
 
-#### How can I run my webpack and my stack in different terminals?
+### How can I run my webpack and my stack in different terminals?
 
 First, you can pass an option to disable the stack handling by the `start` command:
 
@@ -61,9 +63,9 @@ docker run --rm -it
   cozy/cozy-app-dev
 ```
 
-### Make HMR available in my application
+## Make HMR available in my application
 
-#### For a React application
+### For a React application
 
 You have to use [`react-hot-loader`][react-hot-loader] inside your main App component like this:
 
@@ -80,7 +82,7 @@ export default hot(module)(App)
 
 That's it. Then, just use the last version of cozy-scripts to run your application with HMR.
 
-#### For a Vue application
+### For a Vue application
 
 Inside your entry point `index.js` (in `src/targets/<target>`), you have to add this part related to `module.hot`:
 
