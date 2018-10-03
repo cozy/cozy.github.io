@@ -574,8 +574,8 @@
         <li class="main "><a href="#functions">Functions</a></li>
         <li class="main "><a href="#adddata">addData</a></li>
         <li class="main "><a href="#cozyclient">cozyClient</a></li>
-        <li class="main "><a href="#filterdata">filterData</a></li>
-            <li><a href="#filterdatasuitablecall">filterData~suitableCall()</a></li>
+        <li class="main "><a href="#hydrateandfilter">hydrateAndFilter</a></li>
+            <li><a href="#hydrateandfiltersuitablecall">hydrateAndFilter~suitableCall()</a></li>
         <li class="main "><a href="#linkbankoperations">linkBankOperations</a></li>
             <li><a href="#linkbankoperations-entries-doctype-fields-options">linkBankOperations ( entries, doctype, fields, options = {} )</a></li>
         <li class="main "><a href="#mkdirp">mkdirp</a></li>
@@ -584,8 +584,7 @@
         <li class="main "><a href="#savefiles">saveFiles</a></li>
         <li class="main "><a href="#signin">signin</a></li>
         <li class="main "><a href="#updateorcreate">updateOrCreate</a></li>
-        <li class="main "><a href="#filterdata_1">filterData</a></li>
-            <li><a href="#filterdatasuitablecall_1">filterData~suitableCall()</a></li>
+        <li class="main "><a href="#filterdata">filterData</a></li>
         <li class="main "><a href="#utils">utils</a></li>
         <li class="main "><a href="#utils_1">utils</a></li>
         <li class="main "><a href="#utils_2">utils</a></li>
@@ -695,7 +694,7 @@ You can refer to the <a href="https://cozy.github.io/cozy-client-js/">cozy-clien
 cozyClient.data.defineIndex(&#39;my.doctype&#39;, [&#39;_id&#39;])
 </code></pre>
 </dd>
-<dt><a href="#module_filterData">filterData</a></dt>
+<dt><a href="#module_hydrateAndFilter">hydrateAndFilter</a></dt>
 <dd><p>This function filters the passed array from data already present in the cozy so that there is
 not duplicated data in the cozy.
 You need at least the <code>GET</code> permission for the given doctype in your manifest, to be able to
@@ -722,7 +721,7 @@ use this function.</p>
   }
 ]
 
-return filterData(documents, &#39;io.cozy.height&#39;, {
+return hydrateAndFilter(documents, &#39;io.cozy.height&#39;, {
   keys: [&#39;name&#39;]
 }).then(filteredDocuments =&gt; addData(filteredDocuments, &#39;io.cozy.height&#39;))
 
@@ -776,11 +775,11 @@ const filename = normalizeFilename(&#39;*foo/bar: &lt;baz&gt; \\&quot;qux&quot;\
 </code></pre>
 </dd>
 <dt><a href="#module_saveBills">saveBills</a></dt>
-<dd><p>Combines the features of <code>saveFiles</code>, <code>filterData</code>, <code>addData</code> and <code>linkBankOperations</code> for a
+<dd><p>Combines the features of <code>saveFiles</code>, <code>hydrateAndFilter</code>, <code>addData</code> and <code>linkBankOperations</code> for a
 common case: bills.
 Will create <code>io.cozy.bills</code> objects. The default deduplication keys are <code>[&#39;date&#39;, &#39;amount&#39;, &#39;vendor&#39;]</code>.
 You need the full permission on <code>io.cozy.bills</code>, full permission on <code>io.cozy.files</code> and also
-full permission on <code>io.cozy.bank.operations</code> in your manifest, to be able to * use this function.</p>
+full permission on <code>io.cozy.bank.operations</code> in your manifest, to be able to use this function.</p>
 <p>Parameters:</p>
 <ul>
 <li><code>documents</code> is an array of objects with any attributes with some mandatory attributes :<ul>
@@ -794,16 +793,6 @@ Please take a look at <a href="https://github.com/cozy/cozy-doctypes/blob/master
 <li><code>fields</code> (object) this is the first parameter given to BaseKonnector&#39;s constructor</li>
 <li><code>options</code> is passed directly to <code>saveFiles</code>, <code>hydrateAndFilter</code>, <code>addData</code> and <code>linkBankOperations</code>.</li>
 </ul>
-<pre><code class="lang-javascript">const { BaseKonnector, saveBills } = require(&#39;cozy-konnector-libs&#39;)
-
-module.exports = new BaseKonnector(function fetch (fields) {
-  const documents = []
-  // some code which fills documents
-  return saveBills(documents, fields, {
-    identifiers: [&#39;vendorj&#39;]
-  })
-})
-</code></pre>
 </dd>
 <dt><a href="#module_saveFiles">saveFiles</a></dt>
 <dd><p>The goal of this function is to save the given files in the given folder via the Cozy API.
@@ -818,8 +807,9 @@ file name will be &quot;smartly&quot; guessed by the function. Use this attribut
 enough for you.</li>
 </ul>
 </li>
-<li><p><code>folderPath</code> (string) is relative to the main path given by the <code>cozy-collect</code> application to the connector. If the connector is run
-in standalone mode, the main path is the path of the connector.</p>
+<li><p><code>fields</code> (string) is the argument given to the main function of your connector by the BaseKonnector.
+   It especially contains a <code>folderPath</code> which is the string path configured by the user in
+   collect/home</p>
 </li>
 <li><p><code>options</code> (object) is optional. Possible options :</p>
 <ul>
@@ -832,13 +822,15 @@ timeout is not too long. And since it is really fast to check that a file has al
 downloaded, on the next run of the connector, it will be able to download some more
 files, and so on. If you want the timeout to be in 10s, do <code>Date.now() + 10*1000</code>.
 You can try it in the previous code.</li>
+<li><code>contentType</code> (string) ex: &#39;application/pdf&#39; used to force the contentType of documents when
+they are badly recognized by cozy.</li>
 </ul>
 </li>
 </ul>
 </dd>
 <dt><a href="#module_signin">signin</a></dt>
 <dd><p>The goal of this function is to provide an handy method to log the user in,
-on html form pages. On success, it resolves a promise with a parsed body.</p>
+on html form pages. On success, it resolves to a promise with a parsed body.</p>
 <p>Errors:</p>
 <ul>
 <li>LOGIN_FAILED if the validate predicate is false</li>
@@ -921,7 +913,8 @@ return filterData(documents, &#39;io.cozy.height&#39;, {
 </dd>
 <dt><a href="#module_utils">utils</a></dt>
 <dd><p>This function allows to fetch all documents for a given doctype. It is the fastest to get all
-documents but without filtering possibilities</p>
+documents but without filtering possibilities
+deprecated by the findAll method from cozyClient</p>
 <p>Parameters:</p>
 <ul>
 <li><code>doctype</code> (string): the doctype from which you want to fetch the data</li>
@@ -1115,8 +1108,8 @@ You can refer to the <a href="https://cozy.github.io/cozy-client-js/">cozy-clien
 </pre></div>
 
 
-<p><a name="module_filterData"></a></p>
-<h2 id="filterdata">filterData<a class="headerlink" href="#filterdata" title="Permanent link">&para;</a></h2>
+<p><a name="module_hydrateAndFilter"></a></p>
+<h2 id="hydrateandfilter">hydrateAndFilter<a class="headerlink" href="#hydrateandfilter" title="Permanent link">&para;</a></h2>
 <p>This function filters the passed array from data already present in the cozy so that there is
 not duplicated data in the cozy.
 You need at least the <code>GET</code> permission for the given doctype in your manifest, to be able to
@@ -1141,14 +1134,14 @@ use this function.</p>
   <span class="p">}</span>
 <span class="p">]</span>
 
-<span class="k">return</span> <span class="nx">filterData</span><span class="p">(</span><span class="nx">documents</span><span class="p">,</span> <span class="s1">&#39;io.cozy.height&#39;</span><span class="p">,</span> <span class="p">{</span>
+<span class="k">return</span> <span class="nx">hydrateAndFilter</span><span class="p">(</span><span class="nx">documents</span><span class="p">,</span> <span class="s1">&#39;io.cozy.height&#39;</span><span class="p">,</span> <span class="p">{</span>
   <span class="nx">keys</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
 <span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">filteredDocuments</span> <span class="p">=&gt;</span> <span class="nx">addData</span><span class="p">(</span><span class="nx">filteredDocuments</span><span class="p">,</span> <span class="s1">&#39;io.cozy.height&#39;</span><span class="p">))</span>
 </pre></div>
 
 
-<p><a name="module_filterData..suitableCall"></a></p>
-<h3 id="filterdatasuitablecall">filterData~suitableCall()<a class="headerlink" href="#filterdatasuitablecall" title="Permanent link">&para;</a></h3>
+<p><a name="module_hydrateAndFilter..suitableCall"></a></p>
+<h3 id="hydrateandfiltersuitablecall">hydrateAndFilter~suitableCall()<a class="headerlink" href="#hydrateandfiltersuitablecall" title="Permanent link">&para;</a></h3>
 <p>Since we can use methods or basic functions for
 <code>shouldSave</code> and <code>shouldUpdate</code> we pass the
 appropriate <code>this</code> and <code>arguments</code>.</p>
@@ -1156,7 +1149,7 @@ appropriate <code>this</code> and <code>arguments</code>.</p>
 with args[0] as <code>this</code> and the rest as <code>arguments</code>
 Otherwise, <code>this</code> will be null and <code>args</code> will be passed
 as <code>arguments</code>.</p>
-<p><strong>Kind</strong>: inner method of <a href="#module_filterData"><code>filterData</code></a><br />
+<p><strong>Kind</strong>: inner method of <a href="#module_hydrateAndFilter"><code>hydrateAndFilter</code></a><br />
 <a name="module_linkBankOperations"></a></p>
 <h2 id="linkbankoperations">linkBankOperations<a class="headerlink" href="#linkbankoperations" title="Permanent link">&para;</a></h2>
 <h3 id="linkbankoperations-entries-doctype-fields-options">linkBankOperations ( entries, doctype, fields, options = {} )<a class="headerlink" href="#linkbankoperations-entries-doctype-fields-options" title="Permanent link">&para;</a></h3>
@@ -1212,11 +1205,11 @@ character in the given name.</p>
 
 <p><a name="module_saveBills"></a></p>
 <h2 id="savebills">saveBills<a class="headerlink" href="#savebills" title="Permanent link">&para;</a></h2>
-<p>Combines the features of <code>saveFiles</code>, <code>filterData</code>, <code>addData</code> and <code>linkBankOperations</code> for a
+<p>Combines the features of <code>saveFiles</code>, <code>hydrateAndFilter</code>, <code>addData</code> and <code>linkBankOperations</code> for a
 common case: bills.
 Will create <code>io.cozy.bills</code> objects. The default deduplication keys are <code>['date', 'amount', 'vendor']</code>.
 You need the full permission on <code>io.cozy.bills</code>, full permission on <code>io.cozy.files</code> and also
-full permission on <code>io.cozy.bank.operations</code> in your manifest, to be able to * use this function.</p>
+full permission on <code>io.cozy.bank.operations</code> in your manifest, to be able to use this function.</p>
 <p>Parameters:</p>
 <ul>
 <li><code>documents</code> is an array of objects with any attributes with some mandatory attributes :</li>
@@ -1228,13 +1221,14 @@ full permission on <code>io.cozy.bank.operations</code> in your manifest, to be 
 <li><code>fields</code> (object) this is the first parameter given to BaseKonnector&rsquo;s constructor</li>
 <li><code>options</code> is passed directly to <code>saveFiles</code>, <code>hydrateAndFilter</code>, <code>addData</code> and <code>linkBankOperations</code>.</li>
 </ul>
+<p><strong>Example</strong>  </p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">BaseKonnector</span><span class="p">,</span> <span class="nx">saveBills</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-konnector-libs&#39;</span><span class="p">)</span>
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BaseKonnector</span><span class="p">(</span><span class="kd">function</span> <span class="nx">fetch</span> <span class="p">(</span><span class="nx">fields</span><span class="p">)</span> <span class="p">{</span>
   <span class="kr">const</span> <span class="nx">documents</span> <span class="o">=</span> <span class="p">[]</span>
   <span class="c1">// some code which fills documents</span>
   <span class="k">return</span> <span class="nx">saveBills</span><span class="p">(</span><span class="nx">documents</span><span class="p">,</span> <span class="nx">fields</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">identifiers</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;vendorj&#39;</span><span class="p">]</span>
+    <span class="nx">identifiers</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;vendor&#39;</span><span class="p">]</span>
   <span class="p">})</span>
 <span class="p">})</span>
 </pre></div>
@@ -1258,8 +1252,9 @@ You need the full permission on <code>io.cozy.files</code> in your manifest to u
   enough for you.</p>
 </li>
 <li>
-<p><code>folderPath</code> (string) is relative to the main path given by the <code>cozy-collect</code> application to the connector. If the connector is run
-in standalone mode, the main path is the path of the connector.</p>
+<p><code>fields</code> (string) is the argument given to the main function of your connector by the BaseKonnector.
+     It especially contains a <code>folderPath</code> which is the string path configured by the user in
+     collect/home</p>
 </li>
 <li>
 <p><code>options</code> (object) is optional. Possible options :</p>
@@ -1275,11 +1270,18 @@ in standalone mode, the main path is the path of the connector.</p>
   files, and so on. If you want the timeout to be in 10s, do <code>Date.now() + 10*1000</code>.
   You can try it in the previous code.</p>
 </li>
+<li><code>contentType</code> (string) ex: &lsquo;application/pdf&rsquo; used to force the contentType of documents when
+  they are badly recognized by cozy.</li>
 </ul>
+<p><strong>Example</strong>  </p>
+<div class="codehilite"><pre><span></span><span class="nx">await</span> <span class="nx">saveFiles</span><span class="p">([{</span><span class="nx">fileurl</span><span class="o">:</span> <span class="s1">&#39;https://...&#39;</span><span class="p">,</span> <span class="nx">filename</span><span class="o">:</span> <span class="s1">&#39;bill1.pdf&#39;</span><span class="p">}],</span> <span class="nx">fields</span><span class="p">)</span>
+</pre></div>
+
+
 <p><a name="module_signin"></a></p>
 <h2 id="signin">signin<a class="headerlink" href="#signin" title="Permanent link">&para;</a></h2>
 <p>The goal of this function is to provide an handy method to log the user in,
-on html form pages. On success, it resolves a promise with a parsed body.</p>
+on html form pages. On success, it resolves to a promise with a parsed body.</p>
 <p>Errors:</p>
 <ul>
 <li>LOGIN_FAILED if the validate predicate is false</li>
@@ -1322,7 +1324,39 @@ by user with <code>formData</code>.</p>
   for instance.</p>
 </li>
 </ul>
-<p><a name="module_updateOrCreate"></a></p>
+<p><strong>Example</strong><br />
+== basic example : ==</p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">$</span> <span class="o">=</span> <span class="nx">signin</span><span class="p">({</span>
+  <span class="nx">url</span><span class="o">:</span> <span class="sb">`http://quotes.toscrape.com/login`</span><span class="p">,</span>
+  <span class="nx">formSelector</span><span class="o">:</span> <span class="s1">&#39;form&#39;</span><span class="p">,</span>
+  <span class="nx">formData</span><span class="o">:</span> <span class="p">{</span> <span class="nx">username</span><span class="p">,</span> <span class="nx">password</span> <span class="p">}</span>
+<span class="p">})</span>
+</pre></div>
+
+
+<p>If the behavior of the targeted website is not standard. You can pass a validate function which
+will allow you to:
+ - detect if the credentials work or not -&gt; LOGIN_FAILED
+ - detect if actions from the user are needed -&gt; USER_ACTION_NEEDED
+ - detect if the targeted website is out -&gt; VENDOR_DOWN
+<strong>Example</strong>  </p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">$</span> <span class="o">=</span> <span class="nx">signin</span><span class="p">({</span>
+  <span class="nx">url</span><span class="o">:</span> <span class="sb">`http://quotes.toscrape.com/login`</span><span class="p">,</span>
+  <span class="nx">formSelector</span><span class="o">:</span> <span class="s1">&#39;form&#39;</span><span class="p">,</span>
+  <span class="nx">formData</span><span class="o">:</span> <span class="p">{</span> <span class="nx">username</span><span class="p">,</span> <span class="nx">password</span> <span class="p">},</span>
+  <span class="nx">validate</span><span class="o">:</span> <span class="p">(</span><span class="nx">statusCode</span><span class="p">,</span> <span class="nx">$</span><span class="p">,</span> <span class="nx">fullResponse</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">if</span> <span class="p">(</span><span class="nx">statusCode</span> <span class="o">!==</span> <span class="mi">200</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span> <span class="c1">// LOGIN_FAILED</span>
+   <span class="k">if</span> <span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.cgu&#39;</span><span class="p">).</span><span class="nx">length</span><span class="p">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;USER_ACTION_NEEDED&#39;</span><span class="p">)</span>
+   <span class="k">if</span> <span class="p">(</span><span class="nx">fullResponse</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">uri</span><span class="p">.</span><span class="nx">href</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">))</span> <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;VENDOR_DOWN&#39;</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+</pre></div>
+
+
+<p>Do not forget that the use of the signin function is not mandatory in a connector and won&rsquo;t work
+if the signin page does not use html forms. Here, a simple POST request may be a lot more
+simple.
+<a name="module_updateOrCreate"></a></p>
 <h2 id="updateorcreate">updateOrCreate<a class="headerlink" href="#updateorcreate" title="Permanent link">&para;</a></h2>
 <p>The goal of this function is create or update the given entries according to if they already
 exist in the cozy or not
@@ -1336,7 +1370,7 @@ use this function.</p>
   is already saved in the cozy</li>
 </ul>
 <p><a name="module_filterData"></a></p>
-<h2 id="filterdata_1">filterData<a class="headerlink" href="#filterdata_1" title="Permanent link">&para;</a></h2>
+<h2 id="filterdata">filterData<a class="headerlink" href="#filterdata" title="Permanent link">&para;</a></h2>
 <p>This module proposes some small utils regarding connectors</p>
 <p>Parameters:</p>
 <ul>
@@ -1364,20 +1398,11 @@ use this function.</p>
 </pre></div>
 
 
-<p><a name="module_filterData..suitableCall"></a></p>
-<h3 id="filterdatasuitablecall_1">filterData~suitableCall()<a class="headerlink" href="#filterdatasuitablecall_1" title="Permanent link">&para;</a></h3>
-<p>Since we can use methods or basic functions for
-<code>shouldSave</code> and <code>shouldUpdate</code> we pass the
-appropriate <code>this</code> and <code>arguments</code>.</p>
-<p>If <code>funcOrMethod</code> is a method, it will be called
-with args[0] as <code>this</code> and the rest as <code>arguments</code>
-Otherwise, <code>this</code> will be null and <code>args</code> will be passed
-as <code>arguments</code>.</p>
-<p><strong>Kind</strong>: inner method of <a href="#module_filterData"><code>filterData</code></a><br />
-<a name="module_utils"></a></p>
+<p><a name="module_utils"></a></p>
 <h2 id="utils">utils<a class="headerlink" href="#utils" title="Permanent link">&para;</a></h2>
 <p>This function allows to fetch all documents for a given doctype. It is the fastest to get all
-documents but without filtering possibilities</p>
+documents but without filtering possibilities
+deprecated by the findAll method from cozyClient</p>
 <p>Parameters:</p>
 <ul>
 <li><code>doctype</code> (string): the doctype from which you want to fetch the data</li>
