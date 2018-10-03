@@ -7,10 +7,10 @@
         
         
         <meta name="author" content="CozyCloud - https://cozy.io">
-        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/konnectors_design/">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/konnectors-design/">
         <link rel="shortcut icon" href="../../img/favicon.png">
         
-        <title>konnectors_design - Dev Documentation</title>
+        <title>konnectors-design - Dev Documentation</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -381,7 +381,15 @@
 </li>
             
 <li >
-    <a href="../registry/">Apps registry</a>
+    <a href="../registry/"> /apps - Apps registry</a>
+</li>
+            
+<li >
+    <a href="../konnectors/"> /apps - Konnectors</a>
+</li>
+            
+<li >
+    <a href="../konnectors-workflow/"> /apps - Konnectors workflow</a>
 </li>
             
 <li >
@@ -389,19 +397,19 @@
 </li>
             
 <li >
-    <a href="../mango/">Mango</a>
+    <a href="../mango/"> /data - Mango</a>
 </li>
             
 <li >
-    <a href="../replication/">Replication</a>
+    <a href="../replication/"> /data - Replication</a>
 </li>
             
 <li >
-    <a href="../couchdb-quirks/">CouchDB Quirks</a>
+    <a href="../couchdb-quirks/"> /data - CouchDB Quirks</a>
 </li>
             
 <li >
-    <a href="../pouchdb-quirks/">PouchDB Quirks</a>
+    <a href="../pouchdb-quirks/"> /data - PouchDB Quirks</a>
 </li>
             
 <li >
@@ -409,7 +417,7 @@
 </li>
             
 <li >
-    <a href="../references-docs-in-vfs/">References of documents in VFS</a>
+    <a href="../references-docs-in-vfs/"> /files - References of documents in VFS</a>
 </li>
             
 <li >
@@ -417,15 +425,11 @@
 </li>
             
 <li >
-    <a href="../jobs/">/jobs Jobs</a>
+    <a href="../jobs/">/jobs - Jobs</a>
 </li>
             
 <li >
-    <a href="../konnectors/">Konnectors</a>
-</li>
-            
-<li >
-    <a href="../workers/">Workers</a>
+    <a href="../workers/"> /jobs - Workers</a>
 </li>
             
 <li >
@@ -453,11 +457,15 @@
 </li>
             
 <li >
+    <a href="../user-action-required/"> /settings - Terms of Services</a>
+</li>
+            
+<li >
     <a href="../sharing/">/sharings - Sharing</a>
 </li>
             
 <li >
-    <a href="../sharing-design/">Request for comments</a>
+    <a href="../sharing-design/"> /sharings - Request for comments</a>
 </li>
     </ul>
   </li>
@@ -570,7 +578,7 @@
     </ul>
   <div style='padding-left: 2rem'>
     
-    <a id='edit-link' href='https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-stack/konnectors_design.md'>Edit documentation</a>
+    <a id='edit-link' href='https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-stack/konnectors-design.md'>Edit documentation</a>
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
@@ -609,6 +617,9 @@
 
 <p><a href="../README/#table-of-contents">Table of contents</a></p>
 <h1 id="konnectors">Konnectors<a class="headerlink" href="#konnectors" title="Permanent link">&para;</a></h1>
+<p>:warning: <strong>Note:</strong> this documentation is outdated. It is kept for historical
+reasons and shows the design and trade-offs we have made initially. But a lot
+of things have changed since, so don&rsquo;t expect the things to be still the same.</p>
 <h2 id="what-we-want">What we want ?<a class="headerlink" href="#what-we-want" title="Permanent link">&para;</a></h2>
 <p><a href="https://github.com/cozy-labs/konnectors">Konnectors</a> is an application for Cozy
 v2 that fetch data from different web sites and services, and save them into a

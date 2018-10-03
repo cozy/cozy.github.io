@@ -7,10 +7,10 @@
         
         
         <meta name="author" content="CozyCloud - https://cozy.io">
-        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/konnectors_oauth/">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/konnectors-workflow/">
         <link rel="shortcut icon" href="../../img/favicon.png">
         
-        <title>konnectors_oauth - Dev Documentation</title>
+        <title> /apps - Konnectors workflow - Dev Documentation</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -112,7 +112,7 @@
   </li>
                         </ul>
                     </li>
-                    <li class="dropdown">
+                    <li class="dropdown active">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">References <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
@@ -381,7 +381,15 @@
 </li>
             
 <li >
-    <a href="../registry/">Apps registry</a>
+    <a href="../registry/"> /apps - Apps registry</a>
+</li>
+            
+<li >
+    <a href="../konnectors/"> /apps - Konnectors</a>
+</li>
+            
+<li class="active">
+    <a href="./"> /apps - Konnectors workflow</a>
 </li>
             
 <li >
@@ -389,19 +397,19 @@
 </li>
             
 <li >
-    <a href="../mango/">Mango</a>
+    <a href="../mango/"> /data - Mango</a>
 </li>
             
 <li >
-    <a href="../replication/">Replication</a>
+    <a href="../replication/"> /data - Replication</a>
 </li>
             
 <li >
-    <a href="../couchdb-quirks/">CouchDB Quirks</a>
+    <a href="../couchdb-quirks/"> /data - CouchDB Quirks</a>
 </li>
             
 <li >
-    <a href="../pouchdb-quirks/">PouchDB Quirks</a>
+    <a href="../pouchdb-quirks/"> /data - PouchDB Quirks</a>
 </li>
             
 <li >
@@ -409,7 +417,7 @@
 </li>
             
 <li >
-    <a href="../references-docs-in-vfs/">References of documents in VFS</a>
+    <a href="../references-docs-in-vfs/"> /files - References of documents in VFS</a>
 </li>
             
 <li >
@@ -417,15 +425,11 @@
 </li>
             
 <li >
-    <a href="../jobs/">/jobs Jobs</a>
+    <a href="../jobs/">/jobs - Jobs</a>
 </li>
             
 <li >
-    <a href="../konnectors/">Konnectors</a>
-</li>
-            
-<li >
-    <a href="../workers/">Workers</a>
+    <a href="../workers/"> /jobs - Workers</a>
 </li>
             
 <li >
@@ -453,11 +457,15 @@
 </li>
             
 <li >
+    <a href="../user-action-required/"> /settings - Terms of Services</a>
+</li>
+            
+<li >
     <a href="../sharing/">/sharings - Sharing</a>
 </li>
             
 <li >
-    <a href="../sharing-design/">Request for comments</a>
+    <a href="../sharing-design/"> /sharings - Request for comments</a>
 </li>
     </ul>
   </li>
@@ -559,24 +567,16 @@
                 <div class="col-md-3">
 <div class="bs-sidebar hidden-print affix" role="complementary">
     <ul class="nav bs-sidenav well" style='padding-left: 0; padding-right: 0; margin-bottom: 1.5rem'>
-        <li class="main active"><a href="#doctypes">Doctypes</a></li>
-        <li class="main "><a href="#reminder-oauth-flow">Reminder OAuth flow</a></li>
-        <li class="main "><a href="#client-registration">Client Registration</a></li>
-            <li><a href="#manually">Manually</a></li>
-            <li><a href="#dynamic-registration-protocol">Dynamic Registration Protocol</a></li>
-            <li><a href="#no-redirect_url-enforcement">No redirect_url enforcement</a></li>
-        <li class="main "><a href="#authorization-grant-flows">Authorization Grant flows</a></li>
-            <li><a href="#webserver-flow-authorization-code-grant">webserver flow (Authorization Code Grant)</a></li>
-            <li><a href="#spa-flow-implicit-grant">SPA flow (Implicit grant)</a></li>
-        <li class="main "><a href="#accessing-data">Accessing data</a></li>
-        <li class="main "><a href="#refreshing-token">Refreshing token</a></li>
-        <li class="main "><a href="#konnectors-marketplace-requirements">Konnectors Marketplace Requirements</a></li>
-        <li class="main "><a href="#account-types-security-rules">Account types security rules</a></li>
-        <li class="main "><a href="#notes-for-mesinfos-experiment">Notes for MesInfos experiment</a></li>
+        <li class="main active"><a href="#konnectors-workflow">Konnectors workflow</a></li>
+            <li><a href="#tldr">TL;DR</a></li>
+            <li><a href="#types">Types</a></li>
+            <li><a href="#complete-flow-example">Complete flow example</a></li>
+            <li><a href="#konnector-worker-specs">Konnector Worker specs</a></li>
+            <li><a href="#oauth">OAuth</a></li>
     </ul>
   <div style='padding-left: 2rem'>
     
-    <a id='edit-link' href='https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-stack/konnectors_oauth.md'>Edit documentation</a>
+    <a id='edit-link' href='https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-stack/konnectors-workflow.md'>Edit documentation</a>
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
@@ -613,7 +613,242 @@
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="doctypes">Doctypes<a class="headerlink" href="#doctypes" title="Permanent link">&para;</a></h1>
+<h1 id="konnectors-workflow">Konnectors workflow<a class="headerlink" href="#konnectors-workflow" title="Permanent link">&para;</a></h1>
+<h2 id="tldr">TL;DR<a class="headerlink" href="#tldr" title="Permanent link">&para;</a></h2>
+<p><img alt="Konnectors workflow" src="../diagrams/konnector-workflow.png" /></p>
+<p><img alt="Konnectors models" src="../diagrams/konnector-models.png" /></p>
+<h2 id="types">Types<a class="headerlink" href="#types" title="Permanent link">&para;</a></h2>
+<h3 id="accounts">Accounts<a class="headerlink" href="#accounts" title="Permanent link">&para;</a></h3>
+<p><code>io.cozy.accounts</code> contains information for an account, including those for
+authentication (technically, they are encrypted by cozy-stack before being
+saved in CouchDB, but we will show them as the konnectors will see them):</p>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;auth&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;login&quot;</span><span class="p">:</span> <span class="s2">&quot;000000000&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;password&quot;</span><span class="p">:</span> <span class="s2">&quot;**********&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;folderPath&quot;</span><span class="p">:</span> <span class="s2">&quot;/Administratif/Free Mobile&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;freemobile&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;namePath&quot;</span><span class="p">:</span> <span class="s2">&quot;Free Mobile&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Accounts are manipulated through the <code>/data/</code> API.</p>
+<p><strong>Note:</strong> you can read more about the <a href="https://docs.cozy.io/en/cozy-doctypes/docs/io.cozy.accounts/">accounts doctype
+here</a>.</p>
+<h3 id="konnectors">Konnectors<a class="headerlink" href="#konnectors" title="Permanent link">&para;</a></h3>
+<p><code>io.cozy.konnectors</code> are installed similarly to <code>io.cozy.apps</code> (see
+<a href="../konnectors/">doc</a>)</p>
+<h3 id="permissions">Permissions<a class="headerlink" href="#permissions" title="Permanent link">&para;</a></h3>
+<p>Like client-side applications, each konnector has an associated
+<code>io.cozy.permissions</code>. These permissions are those listed on the manifest of
+the konnectors, and the stack will add a permission for the files on the folder
+choosen by the user.</p>
+<h3 id="triggers">Triggers<a class="headerlink" href="#triggers" title="Permanent link">&para;</a></h3>
+<p><code>io.cozy.triggers</code> are used to define when konnectors are launched. See
+https://docs.cozy.io/en/cozy-stack/jobs/#post-jobstriggers</p>
+<h2 id="complete-flow-example">Complete flow example<a class="headerlink" href="#complete-flow-example" title="Permanent link">&para;</a></h2>
+<p>As a user, from the expenses management app, I have a clean flow to configure a
+connector to retrieve my travel expenses</p>
+<p>1 - User is in <strong>my-expenses</strong> and clicks on [configure travels]</p>
+<p>2 - <strong>my-expenses</strong> triggers an intent</p>
+<div class="codehilite"><pre><span></span><span class="nx">cozy</span><span class="p">.</span><span class="nx">intents</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="s2">&quot;CREATE&quot;</span><span class="p">,</span> <span class="s2">&quot;io.cozy.konnectors&quot;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">category</span><span class="o">:</span> <span class="s2">&quot;transport&quot;</span>
+<span class="p">});</span>
+</pre></div>
+
+
+<p>3 - the Store app catch the intent, fetch all available konnectors and let the
+user choose</p>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/registry?...</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
+
+
+<p>4 - the user chooses the trainline konnector. Its manifest looks like this:</p>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Trainline&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;konnector&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;konnector-trainline&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Konnector for trainline . com&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;https://github.com/konnectors/trainlines.git@build&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;developer&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;XXX&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://www.xxx.fr&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.0.0&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;licence&quot;</span><span class="p">:</span> <span class="s2">&quot;AGPL-3.0&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;login&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;password&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;password&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;advancedFields&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;folderPath&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;advanced&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+                <span class="nt">&quot;isRequired&quot;</span><span class="p">:</span> <span class="kc">false</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;transport&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;frequency&quot;</span><span class="p">:</span> <span class="s2">&quot;weekly&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;events&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Connect train bill with  event in your calendar&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.events&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;PATCH&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>5 - the user clicks on install, and the install starts:</p>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/konnectors/trainline</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
+
+
+<p>6 - the Store then uses an intent to know which app can configure this konnector:</p>
+<div class="codehilite"><pre><span></span><span class="nx">cozy</span><span class="p">.</span><span class="nx">intents</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="s2">&quot;REDIRECT&quot;</span><span class="p">,</span> <span class="s2">&quot;io.cozy.accounts&quot;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">slug</span><span class="o">:</span> <span class="s2">&quot;trainline&quot;</span>
+<span class="p">});</span>
+</pre></div>
+
+
+<p>7 - the Store redirects to the Home. The Home asks the user for account config
+and create a folder to save the PDFs.</p>
+<p>8 - the Home also add a Reference from the konnector to the folder to prevent
+any accidental folder deletion:</p>
+<div class="codehilite"><pre><span></span><span class="err">POST /files/123-selected-folder-id-123/relationships/referenced_by</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.konnectors&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.konnectors/trainlines&quot;</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>9 - then the Home can create the account:</p>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/data/io.cozy.accounts</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;account_type&quot;</span><span class="p">:</span> <span class="s2">&quot;trainline&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;auth&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;login&quot;</span><span class="p">:</span> <span class="s2">&quot;xxxx&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;password&quot;</span><span class="p">:</span> <span class="s2">&quot;yyyyy&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;folderPath&quot;</span><span class="p">:</span> <span class="s2">&quot;/Administrative/Trainline&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;123-account-id-123&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;_rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-asasasasa&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;account_type&quot;</span><span class="p">:</span> <span class="s2">&quot;trainline&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;auth&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;login&quot;</span><span class="p">:</span> <span class="s2">&quot;xxxx&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;folderPath&quot;</span><span class="p">:</span> <span class="s2">&quot;/Administrative/Trainline&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>10 - the Home create the trigger:</p>
+<div class="codehilite"><pre><span></span><span class="err">POST /jobs/io.cozy.triggers</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;@cron&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;arguments&quot;</span><span class="p">:</span> <span class="s2">&quot;0 0 0 0 1 1 &quot;</span><span class="p">,</span>
+            <span class="nt">&quot;worker&quot;</span><span class="p">:</span> <span class="s2">&quot;konnector&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;worker_arguments&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;konnector&quot;</span><span class="p">:</span> <span class="s2">&quot;trainline&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;account&quot;</span><span class="p">:</span> <span class="s2">&quot;5165621628784562148955&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;folder_to_save&quot;</span><span class="p">:</span> <span class="s2">&quot;877854878455&quot;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>11 - and, finally, the Home runs the konnector for the first time:</p>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/jobs/triggers/abc159753/launch</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
+
+
+<p>12 - the Home uses the <a href="../realtime/">realtime</a> to be informed if the
+konnector fails to login or succeeds to import the PDFs.</p>
+<p>If the user wants to use several account, the Home can setup several triggers
+for the same konnector &amp; various accounts.</p>
+<h2 id="konnector-worker-specs">Konnector Worker specs<a class="headerlink" href="#konnector-worker-specs" title="Permanent link">&para;</a></h2>
+<h3 id="prepare-the-execution">Prepare the execution<a class="headerlink" href="#prepare-the-execution" title="Permanent link">&para;</a></h3>
+<p>The cozy-stack prepares the execution of the konnector by doing these steps:</p>
+<ul>
+<li>it checks that the konnector is not in maintenance in the registry (execpt
+  for manual execution)</li>
+<li>it ensures that the konnector has a folder where it can write its files,
+  and has the permission to write in this folder.</li>
+</ul>
+<h3 id="execute-the-konnector">Execute the konnector<a class="headerlink" href="#execute-the-konnector" title="Permanent link">&para;</a></h3>
+<p>Start the konnector through nsjail, passing as ENV variables :</p>
+<div class="codehilite"><pre><span></span>- `COZY_URL`:          the starting instance URL
+- `COZY_CREDENTIALS`:  security token to communicate with Cozy
+- `COZY_FIELDS`:       JSON-encoded worker_arguments
+- `COZY_PARAMETERS`:   JSON-encoded parameters associated with the konnector
+- `COZY_LANGUAGE`:     the language field of the konnector (eg. &quot;node&quot; etc.)
+- `COZY_LOCALE`:       the locale of the user (eg. &quot;en&quot; etc.)
+- `COZY_TIME_LIMIT`:   how much time the konnector can run before being killed
+- `COZY_JOB_ID`:       id of the job
+- `COZY_JOB_MANUAL_EXECUTION`: whether the job was started manually (in Home) or automatically (via a cron trigger or event)
+</pre></div>
+
+
+<p>The konnector process can send events trough its stdout (newline separated JSON
+object), the konnector worker pass these events to the realtime hub as
+<code>io.cozy.jobs.events</code>.</p>
+<ul>
+<li>Only JSON formatted events are forwarded to the client-side throught
+    realtime</li>
+<li>Otherwise formatted lines (such as node Error) will be kept in some system
+    logs.</li>
+</ul>
+<p>Konnectors should NOT log the received account login values in production.</p>
+<h3 id="konnector-error-handling">Konnector error handling<a class="headerlink" href="#konnector-error-handling" title="Permanent link">&para;</a></h3>
+<p>The konnector can output json formated messages as stated before (the events)
+and those events will be typed and formatted like this:</p>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;messagetype&quot;</span><span class="p">,</span>  <span class="c1">// can be &quot;debug&quot;, &quot;info&quot;, &quot;warning&quot;, &quot;error&quot;, and &quot;critical&quot;</span>
+    <span class="nx">message</span><span class="o">:</span> <span class="s2">&quot;message&quot;</span>    <span class="c1">// can be any string</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>If there is an error or critical message, the execution will be seen as a
+failure by cozy-stack. It&rsquo;s also the case if the konnector reaches the timeout
+or returns with a non-zero status code.</p>
+<p><strong>Note:</strong> debug and info level are not transmitted to syslog, except if the
+instance is in debug mode. It would be too verbose to do otherwise.</p>
+<h2 id="oauth">OAuth<a class="headerlink" href="#oauth" title="Permanent link">&para;</a></h2>
+<h3 id="doctypes">Doctypes<a class="headerlink" href="#doctypes" title="Permanent link">&para;</a></h3>
 <p><code>io.cozy.konnectors</code> gives their desiderata for an account</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
     <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -642,7 +877,7 @@ as the associated scope</p>
 </pre></div>
 
 
-<p><code>io.cozy.account_types</code> contains the oauth configuration</p>
+<p><code>io.cozy.account_types</code> contains the oauth configuration:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
     <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;service.example&quot;</span><span class="p">,</span>
     <span class="nt">&quot;grant_mode&quot;</span><span class="p">:</span> <span class="s2">&quot;authorization_code&quot;</span><span class="p">,</span>
@@ -654,27 +889,27 @@ as the associated scope</p>
 </pre></div>
 
 
-<p>io.cozy.account_types should not be accessible to the applications. They will be
-loaded into the stack by infra and will be configurable through config files for
-self-hosters.</p>
-<h1 id="reminder-oauth-flow">Reminder OAuth flow<a class="headerlink" href="#reminder-oauth-flow" title="Permanent link">&para;</a></h1>
+<p><code>io.cozy.account_types</code> are not accessible to the applications: they are
+injected directly in CouchDB in a global database
+<code>secrets/io-cozy-accounts_type</code>.</p>
+<h3 id="reminder-oauth-flow">Reminder OAuth flow<a class="headerlink" href="#reminder-oauth-flow" title="Permanent link">&para;</a></h3>
 <p><strong>Service</strong> is the website from which konnector aims to retrieve informations.
-<strong>Stack</strong> is the cozy stack</p>
-<p>Oauth is divided in 3 steps</p>
+<strong>Stack</strong> is the cozy stack.</p>
+<p>OAuth is divided in 3 steps:</p>
 <ul>
 <li>Client Registration: the client application (the Stack) needs to be
-    registered with the Service.</li>
-<li>Obtaining &amp; Refreshing Authorization: all the steps from client_id to
-    access_token, the Stack will handle those</li>
-<li>Using the access_token: Ideally, the konnector should only concern itself
-    with this part; it receives an access_token and uses it.</li>
+    registered with the Service</li>
+<li>Obtaining &amp; Refreshing Authorization: all the steps from <code>client_id</code> to
+    <code>access_token</code>, the Stack will handle those</li>
+<li>Using the <code>access_token</code>: ideally, the konnector should only concern itself
+    with this part; it receives an <code>access_token</code> and uses it.</li>
 </ul>
-<h1 id="client-registration">Client Registration<a class="headerlink" href="#client-registration" title="Permanent link">&para;</a></h1>
+<h4 id="client-registration">Client Registration<a class="headerlink" href="#client-registration" title="Permanent link">&para;</a></h4>
 <p>Before beginning the Grant process, most Services require the application to be
-registered with a defined redirect_uri.</p>
-<p><strong>TL:DR</strong> Lot of options, which we will choose from when actually implementing
-konnectors using them.</p>
-<h2 id="manually">Manually<a class="headerlink" href="#manually" title="Permanent link">&para;</a></h2>
+registered with a defined <code>redirect_uri</code>.</p>
+<p>There are a lot of options, which we will choose from when actually
+implementing konnectors using them.</p>
+<h3 id="manually">Manually<a class="headerlink" href="#manually" title="Permanent link">&para;</a></h3>
 <p>Most services requires a human developer to create the client manually and
 define its redirect_uri. However each instance has its own domain, so for these
 services, we will need to:</p>
@@ -685,51 +920,77 @@ providers. The use and risks associated with this domain should be made clear to
 the user.</p>
 <p><strong>B. Register each Stack</strong> with a redirect_uri on the main stack domain, if we
 go this way, the register_uri below moves from
-<code>bob.cozy.rocks/accounts/redirect</code> to <code>_cozy_oauth.cozy.rocks/redirect</code> and the
+<code>bob.cozy.rocks/accounts/redirect</code> to <code>oauthcallback.cozy.rocks/redirect</code> and the
 domain will be prepended to the state. This is feasible at cozy scale, but
 requires more knowledge and work for self-hosters.</p>
-<h2 id="dynamic-registration-protocol">Dynamic Registration Protocol<a class="headerlink" href="#dynamic-registration-protocol" title="Permanent link">&para;</a></h2>
+<h4 id="example-google">Example: Google<a class="headerlink" href="#example-google" title="Permanent link">&para;</a></h4>
+<p>For example, these are the steps for creating the google <code>account_type</code> for the
+stack at .mycozy.cloud:</p>
+<ul>
+<li>Go to https://console.developers.google.com</li>
+<li>Select or Create Project (up left near the logo)</li>
+<li>Enable desired APIs (TBD with usages)</li>
+<li>Click &ldquo;Credentials&rdquo;</li>
+<li>Create credentials &gt; Oauth Client ID &gt; Web application</li>
+<li>Set redirectURI to
+    https://oauthcallback.mycozy.cloud/accounts/google/redirect</li>
+<li>Copy and paste provided Client ID and Client Secret.</li>
+</ul>
+<p>Then save the data in the console</p>
+<div class="codehilite"><pre><span></span>http PUT localhost:5984/secrets%2Fio-cozy-accounts_types/google
+grant_mode=authorization_code
+redirect_uri=&quot;https://oauthcallback.mycozy.cloud/accounts/google/redirect&quot;
+token_mode=basic
+token_endpoint=&quot;https://www.googleapis.com/oauth2/v4/token&quot;
+auth_endpoint=&quot;https://accounts.google.com/o/oauth2/v2/auth&quot;
+client_id=$CLIENT_ID
+client_secret=$CLIENT_SECRET
+</pre></div>
+
+
+<h4 id="dynamic-registration-protocol">Dynamic Registration Protocol<a class="headerlink" href="#dynamic-registration-protocol" title="Permanent link">&para;</a></h4>
 <p>A few services allows client to register programaticaly through the Dynamic
 Client Registration Protocol <a href="https://tools.ietf.org/html/rfc7591">RFC7591</a>, we
 should allow the Stack to register using this protocol when we first need to
 implement a Konnector connecting to such a Service.</p>
-<h2 id="no-redirect_url-enforcement">No redirect_url enforcement<a class="headerlink" href="#no-redirect_url-enforcement" title="Permanent link">&para;</a></h2>
+<h4 id="no-redirect_url-enforcement">No redirect_url enforcement<a class="headerlink" href="#no-redirect_url-enforcement" title="Permanent link">&para;</a></h4>
 <p>A few services allows to specify arbitrary redirect_url without registering
 beforehand as a client.</p>
-<h1 id="authorization-grant-flows">Authorization Grant flows<a class="headerlink" href="#authorization-grant-flows" title="Permanent link">&para;</a></h1>
-<h2 id="webserver-flow-authorization-code-grant">webserver flow (Authorization Code Grant)<a class="headerlink" href="#webserver-flow-authorization-code-grant" title="Permanent link">&para;</a></h2>
-<p>A. In SettingsApp give a link</p>
-<div class="codehilite"><pre><span></span>  <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://bob.cozy.rocks/accounts/service-name/start? (url)</span>
-<span class="s">      scope=photos&amp;</span>
-<span class="s">      state=1234zyx&quot;</span><span class="p">&gt;</span>
+<h3 id="authorization-grant-flows">Authorization Grant flows<a class="headerlink" href="#authorization-grant-flows" title="Permanent link">&para;</a></h3>
+<h4 id="webserver-flow-authorization-code-grant">webserver flow (Authorization Code Grant)<a class="headerlink" href="#webserver-flow-authorization-code-grant" title="Permanent link">&para;</a></h4>
+<p>A. In the cozy app (Home) give a link</p>
+<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://bob.cozy.rocks/accounts/service-name/start?</span>
+<span class="s">  scope=photos&amp;</span>
+<span class="s">  state=1234zyx&quot;</span><span class="p">&gt;</span>
 </pre></div>
 
 
 <p><strong>NOTE</strong> the scope may depends on other fields being configured (checkboxes),
 this will be described in json in the konnectors manifest. The format will be
 determined upon implementation.</p>
-<p><strong>NOTE</strong> To limit bandwidth and risk of state corruption, SettingsApp should
+<p><strong>NOTE</strong> To limit bandwidth and risk of state corruption, the cozy app should
 save its state under a random key into localStorage, the key is then passed as
 the state in this query.</p>
-<p>B. Service let the user login, allow or deny scope Then redirect to</p>
-<div class="codehilite"><pre><span></span><span class="err">https://bob.cozy.rocks/accounts/service-name/redirect? (url)</span>
+<p>B. Service lets the user login, allows or denies the scope, then redirects to</p>
+<div class="codehilite"><pre><span></span><span class="err">https://oauthcallback.cozy.rocks/accounts/service-name/redirect?</span>
 <span class="err">  code=AUTH_CODE_HERE&amp;</span>
 <span class="err">  state=1234zyx</span>
 </pre></div>
 
 
-<p>C. The Stack does Server side</p>
-<div class="codehilite"><pre><span></span><span class="err">POST https://api.service.example/token</span>
-<span class="err">Content-Type:</span>
-<span class="err">  grant_type=authorization_code&amp;</span>
-<span class="err">  code=AUTH_CODE_HERE&amp;</span>
-<span class="err">  redirect_uri=https://bob.cozy.rocks/accounts/service-name/redirect&amp;</span>
-<span class="err">  client_id=CLIENT_ID&amp;</span>
-<span class="err">  client_secret=CLIENT_SECRET</span>
+<p>C. The Stack does Server side this request:</p>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">https://api.service.example/oauth/access_token</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/x-www-form-urlencoded</span>
+
+grant_type=authorization_code&amp;
+  code=AUTH_CODE_HERE&amp;
+  redirect_uri=https://oauthcallback.cozy.rocks/accounts/service-name/redirect&amp;
+  client_id=CLIENT_ID&amp;
+  client_secret=CLIENT_SECRET
 </pre></div>
 
 
-<p>D. The Service responds (server side) with (json)</p>
+<p>D. The Service responds (server side) with:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
     <span class="nt">&quot;access_token&quot;</span><span class="p">:</span> <span class="s2">&quot;ACCESS_TOKEN&quot;</span><span class="p">,</span>
     <span class="nt">&quot;token_type&quot;</span><span class="p">:</span> <span class="s2">&quot;bearer&quot;</span><span class="p">,</span>
@@ -748,45 +1009,45 @@ the state in this query.</p>
 <p>This whole object is saved as-is into a <code>io.cozy.accounts</code> &lsquo;s <code>extras</code> field.</p>
 <p>The known fields <code>access_token</code>, <code>refresh_token</code> &amp; <code>scope</code> will be <strong>also</strong>
 saved on the account&rsquo;s <code>oauth</code> itself</p>
-<p>E. The Stack redirect the user to SettingsApp</p>
+<p>E. The Stack redirect the user to the cozy app:</p>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">302</span> <span class="ne">Found</span>
-<span class="na">Location</span><span class="o">:</span> <span class="l">https://bob-settings.cozy.rocks/?state=1234zyx&amp;account=accountID</span>
+<span class="na">Location</span><span class="o">:</span> <span class="l">https://bob-home.cozy.rocks/?state=1234zyx&amp;account=accountID</span>
 </pre></div>
 
 
-<p>SettingsApp check the state is expected and restore its state to the form but
-whith account completed.</p>
-<h2 id="spa-flow-implicit-grant">SPA flow (Implicit grant)<a class="headerlink" href="#spa-flow-implicit-grant" title="Permanent link">&para;</a></h2>
-<p>A. In SettingsApp give a link</p>
+<p>The Cozy app checks that the state is expected, and restores its state to the
+form but whith account completed.</p>
+<h4 id="spa-flow-implicit-grant">SPA flow (Implicit grant)<a class="headerlink" href="#spa-flow-implicit-grant" title="Permanent link">&para;</a></h4>
+<p>A. The cozy app gives a link:</p>
 <div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://service.example/auth? (url)</span>
 <span class="s">    response_type=token&amp;</span>
 <span class="s">    client_id=CLIENT_ID&amp;</span>
-<span class="s">    redirect_uri=https://bob-settings.cozy.rocks/&amp;</span>
+<span class="s">    redirect_uri=https://bob-home.cozy.rocks/&amp;</span>
 <span class="s">    scope=photos&amp;</span>
 <span class="s">    state=1234zyx&quot;</span><span class="p">&gt;</span>
 </pre></div>
 
 
 <p>See server-flow for state rules.</p>
-<p>B. Service let the user login, allow or deny scope Then redirects to</p>
-<div class="codehilite"><pre><span></span><span class="err">https://bob-settings.cozy.rocks/?</span>
+<p>B. Service lets the user login, allows or denies the scope, then redirects to</p>
+<div class="codehilite"><pre><span></span><span class="err">https://bob-home.cozy.rocks/?</span>
 <span class="err">access_token=ACCESS_TOKEN&amp;</span>
 <span class="err">state=1234zyx</span>
 </pre></div>
 
 
-<p>C. SettingsApp adds the token to the <code>io.cozy.accounts</code> and save it before
+<p>C. The Cozy app adds the token to the <code>io.cozy.accounts</code> and save it before
 starting konnector.</p>
-<h1 id="accessing-data">Accessing data<a class="headerlink" href="#accessing-data" title="Permanent link">&para;</a></h1>
-<p>Once we have an account, SettingsApp starts the konnector with the proper
-account id. The konnector can then fetch the account and use its access_token to
-performs a request to fetch data</p>
-<div class="codehilite"><pre><span></span><span class="err">POST https://api.service.com/resource</span>
-<span class="err">  Authorization: Bearer ACCESS_TOKEN</span>
+<h3 id="accessing-data">Accessing data<a class="headerlink" href="#accessing-data" title="Permanent link">&para;</a></h3>
+<p>Once we have an account, the Cozy app starts the konnector with the proper
+account id. The konnector can then fetch the account and use its <code>access_token</code>
+to performs a request to fetch data:</p>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">https://api.service.com/resource</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer ACCESS_TOKEN</span>
 </pre></div>
 
 
-<h1 id="refreshing-token">Refreshing token<a class="headerlink" href="#refreshing-token" title="Permanent link">&para;</a></h1>
+<h3 id="refreshing-token">Refreshing token<a class="headerlink" href="#refreshing-token" title="Permanent link">&para;</a></h3>
 <p>When using the server-flow, we also get a refresh_token. It is used to get a new
 access_token when it expires. However, if konnectors are responsible for
 refreshing token there is a race condition risk :</p>
@@ -801,11 +1062,11 @@ refreshing token there is a race condition risk :</p>
 <p>To avoid this, the stack will be responsible to perform token refresh. A
 konnector can requires the stack to refresh an account token with an HTTP
 request.</p>
-<div class="codehilite"><pre><span></span>POST https://bob-settings.cozy.rocks/accounts/:accountID/refresh
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">https://bob.cozy.rocks/accounts/:accountID/refresh</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 </pre></div>
 
 
-<h1 id="konnectors-marketplace-requirements">Konnectors Marketplace Requirements<a class="headerlink" href="#konnectors-marketplace-requirements" title="Permanent link">&para;</a></h1>
+<h3 id="konnectors-marketplace-requirements">Konnectors Marketplace Requirements<a class="headerlink" href="#konnectors-marketplace-requirements" title="Permanent link">&para;</a></h3>
 <p>The following is a few points to be careful for in konnectors when we start
 allowing non-cozy developped OAuth konnectors.</p>
 <ul>
@@ -814,14 +1075,14 @@ allowing non-cozy developped OAuth konnectors.</p>
     that depends on the provider and cannot be described in json, it is
     therefore the responsibility of the konnector itself.</li>
 </ul>
-<h1 id="account-types-security-rules">Account types security rules<a class="headerlink" href="#account-types-security-rules" title="Permanent link">&para;</a></h1>
+<h3 id="account-types-security-rules">Account types security rules<a class="headerlink" href="#account-types-security-rules" title="Permanent link">&para;</a></h3>
 <ul>
 <li>With server flow, an evil account type with proper <code>auth_endpoint</code> but bad
     <code>token_endpoint</code> could retrieve a valid token as well as cozy client secret.
     The reviewer of an <code>account_type</code> should make sure both these endpoints are
     on domains belonging to the Service provider.</li>
 </ul>
-<h1 id="notes-for-mesinfos-experiment">Notes for MesInfos experiment<a class="headerlink" href="#notes-for-mesinfos-experiment" title="Permanent link">&para;</a></h1>
+<h3 id="notes-for-mesinfos-experiment">Notes for MesInfos experiment<a class="headerlink" href="#notes-for-mesinfos-experiment" title="Permanent link">&para;</a></h3>
 <ul>
 <li>MAIF konnector uses the webserver flow without redirect_uri validation</li>
 <li>Orange konnector uses the client-side proxy but hosted on their own servers
