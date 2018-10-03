@@ -57,7 +57,7 @@ yarn create cozy-app mycozyapp
 The script will download some dependencies (may take a while) and ask you a few questions, then create an application skeleton inside `mycozyapp`. Here is a quick demo of what's happening:
 
 <div align="center">
-  <img src="../img/dev/cca-create.gif" />
+  <img src="../../img/dev/cca-create.gif" />
 </div>
 
 That's it! You can already start hacking:
@@ -70,7 +70,7 @@ yarn start
 After the webpack build and the Cozy inside Docker is started, the app `mycozyapp` app should be available at `http://mycozyapp.cozy.tools:8080` (the password is `cozy`), as noticed by the output:
 
 <div align="center">
-  <img src="../img/dev/cca-start.gif" />
+  <img src="../../img/dev/cca-start.gif" />
 </div>
 
 
