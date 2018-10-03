@@ -50,6 +50,8 @@ From the server point of view, each connector is a `job` which is executed perio
 
 The easiest way to create a new connector is to use [cozy-konnector-template]:
 
+ℹ There is also a [(french) youtube video to create your first connector](https://www.youtube.com/watch?v=gp0cE8kHEBc&list=PLBgB0F1WGyOXMqKZe-Q1ql0Fz-ohPkq6-)
+
 ### Run the sample
 
 First of all, [download](https://github.com/konnectors/cozy-konnector-template/archive/master.zip) or clone the repository:
@@ -83,7 +85,7 @@ This configuration comes from [Cozy Collect] when deployed.
 }
 ```
 
-The `fields` property allow you to set credentials for the targeted web service, such as `login` and `password` as if they come from [Cozy Stack].
+The `fields` property allows you to set credentials for the targeted web service, such as `login` and `password` as if they come from [Cozy Stack].
 The `COZY_URL` property will be used later.
 
 As explained earlier, the demo website [books.toscrape.com](http://books.toscrape.com) does not need any credentials.
@@ -99,10 +101,10 @@ But for the code to run without error, you need to register a _fake_ login and a
 }
 ```
 
-**In cozy-konnector-template, this configuration file is already added to `.gitignore` file to be sure your credentials stay private.**
+**In the template, this configuration file is already added to `.gitignore` file to be sure your credentials stay private.**
 
 Now you can run the connector again in *standalone* mode to see how jpg and related data are downloaded.
-In this mode, [`cozy-client-js`] is stubbed and all data meant to be saved in a cozy are displayed in the standard output and files are saved in the root directory of the connector.
+In this mode, [`cozy-client-js`] is stubbed and all data meant to be saved in a cozy are displayed in the standard output and files are saved in the ./data directory of the connector.
 This is useful to start developing your connector without handling the state of a real [Cozy Stack].
 
 Please check [CLI section of the documentation](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/cli.md) for more information.
@@ -116,7 +118,7 @@ There are four steps for a connector to save data to [Cozy Stack]:
 1. parse and format data
 1. save data to cozy stack
 
-You can see these steps in the `src/index.js` in the [konnectors/cozy-konnector-template](https://github.com/konnectors/cozy-konnector-template/blob/master/src/index.js):
+You can see these steps in the `src/index.js` in the [konnectors/template](https://github.com/konnectors/template/blob/master/src/index.js):
 
 ```js
 async function start(fields) {
@@ -360,7 +362,7 @@ In the example we use some built-in function to save a bill to the Cozy Stack.
 But there is a bunch of functions available depending on what you want:
 
 - [`addData`](https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md#adddata)
-- [`filterData`](https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_filterData)
+- [`hydrateAndFilter`](https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_hydrateAndFilter)
 - [`saveBills`](https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_saveBills)
 - [`saveFiles`](https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_saveFiles)
 - and so on…
@@ -368,7 +370,7 @@ But there is a bunch of functions available depending on what you want:
 We can find more information in the [libs repository](https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md).
 
 __Now that we pass on every steps, it is time to test the connector with `yarn standalone`.__
-We will see in the following how to connect it effectively to a Cozy Stack.
+We will see next how to connect it effectively to a Cozy Stack.
 
 
 ---
@@ -399,14 +401,14 @@ This function can then:
 
 - log into the target website,
 - fetch data,
-- and save them as an array of objects with specific attributes expected by the save function (`saveFiles`, `addData`, `filterData`, `saveBills`).
+- and save them as an array of objects with specific attributes expected by the save function (`saveFiles`, `addData`, `hydrateAndFilter`, `saveBills`).
 
 A basic connector workflow involves:
 
  1. authenticate on the website or API. Might be tricky, but that's the fun :-)
  2. getting data from the online service. You can get the data by calling an API or scraping the webpage. Check if the webpage itself is not using an API to retrieve data, might speed up our job. Mobile phones applications usually connects to an API that might be a reliable source of data.
  </br>A quick [exemple of a scraper here](#How-do-I-scrape-my-data-from-a-website).
- 3. filtering data to remove the ones already present inside the database using [filterData](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_filterData)
+ 3. filtering data to remove the ones already present inside the database using [hydrateAndFilter](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_hydrateAndFilter)
  4. save the filtered data into the database ([addData](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#adddata))
  5. save the related files using ([saveFiles](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#savefiles))
 
@@ -439,10 +441,10 @@ The Cozy Konnector Libs provide several useful methods for common tasks:
  - [cozyClient](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#cozyclient) gives an instance of [cozy-client-js] already initialized according to `COZY_URL`, and `COZY_CREDENTIALS`. Your code can immediately interact with the server thanks to this client.
  - [requestFactory](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_requestFactory) a function which returns an instance of request-promise initialized with defaults often used in connector development.
  - [log](https://github.com/cozy/cozy-konnector-libs/blob/3cad316bac1898ef3c2656577af786f6549b40b0/packages/cozy-logger/src/index.js#L35-L41) allows to log messages with different levels
- - [filterData](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#filterdata) to filter data
+ - [hydrateAndFilter](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#hydrateAndFilter) to filter data
  - [addData](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#adddata) to store the retrieved data into the cozy
  - [linkBankOperations](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#linkbankoperations) to link a bill to a bank operation
- - [saveBills](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#savebills) which uses filterData, addData, saveFiles and linkBankOperations and which is specific to bills
+ - [saveBills](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#savebills) which uses hydrateAndFilter, addData, saveFiles and linkBankOperations and which is specific to bills
  - [updateOrCreate](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#updateorcreate) create or update documents inside database
 
 ## Linking your connector to a cozy : `dev mode`
