@@ -63,6 +63,10 @@
 <li >
     <a href="../../../tutorials/konnector/">Develop a Connector</a>
 </li>
+                            
+<li >
+    <a href="../../../tutorials/selfhost-debian/">Self-Host on Debian</a>
+</li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -70,18 +74,12 @@
                         <ul class="dropdown-menu">
                             
   <li class="dropdown-submenu">
-    <a href="#">Self-Host</a>
+    <a href="#">Dev</a>
     <ul class="dropdown-menu">
             
 <li >
-    <a href="../../selfHost/debian/">Debian</a>
+    <a href="../runCozyDocker/">Run an App in a Cozy using Docker</a>
 </li>
-    </ul>
-  </li>
-                            
-  <li class="dropdown-submenu">
-    <a href="#">Dev</a>
-    <ul class="dropdown-menu">
             
 <li >
     <a href="../hmr/">Use Hot Module Replacement in Your App</a>
@@ -564,13 +562,16 @@
 </div>
 
         <div class="container">
-                <div class="col-md-3">
+                    <div class="main-page-head col-md-9">
+                        <h1 class="main-head-title">Share and send mail in development</h1>
+                        <hr />
+                    </div>
+                <div class="col-md-3 main-toc">
 <div class="bs-sidebar hidden-print affix" role="complementary">
     <ul class="nav bs-sidenav well" style='padding-left: 0; padding-right: 0; margin-bottom: 1.5rem'>
-        <li class="main active"><a href="#share-and-send-mail-in-development">Share and send mail in development</a></li>
-            <li><a href="#with-the-docker-image">With the docker image</a></li>
-            <li><a href="#with-the-binary-cozy-stack">With the binary cozy-stack</a></li>
-            <li><a href="#retrieve-sent-emails">Retrieve sent emails</a></li>
+        <li class="main active"><a href="#with-the-docker-image">With the docker image</a></li>
+        <li class="main "><a href="#with-the-binary-cozy-stack">With the binary cozy-stack</a></li>
+        <li class="main "><a href="#retrieve-sent-emails">Retrieve sent emails</a></li>
     </ul>
   <div style='padding-left: 2rem'>
     
@@ -610,8 +611,8 @@
   </div>
 </div></div>
                 <div class="col-md-9" role="main">
+                    
 
-<h1 id="share-and-send-mail-in-development">Share and send mail in development<a class="headerlink" href="#share-and-send-mail-in-development" title="Permanent link">&para;</a></h1>
 <p>Cozy apps let users <a href="https://cozy.github.io/cozy-stack/sharing.html#cozy-to-cozy-sharing">share documents from cozy to cozy</a>.</p>
 <p>Meet Alice and Bob.
 Alice wants to share a folder with Bob.
@@ -632,7 +633,8 @@ Bob sees Alice&rsquo;s shared folder in his own cozy.</p>
 <p><em>This commands assumes you <code>git clone</code> <a href="https://github.com/cozy/cozy-drive">cozy-drive</a> and <a href="https://github.com/cozy/cozy-settings">cozy-settings</a> in the same folder than you <code>git clone</code> <a href="https://github.com/cozy/cozy-stack">cozy-stack</a>.</em></p>
 <p>Then simply run <code>MailHog</code> and open http://cozy.tools:8025/.</p>
 <h2 id="retrieve-sent-emails">Retrieve sent emails<a class="headerlink" href="#retrieve-sent-emails" title="Permanent link">&para;</a></h2>
-<p>With MailHog, <strong>every email</strong> sent by cozy-stack is caught. That means the email address <em>does not have to be a real one</em>, ie. <code>bob@cozy</code>, <code>bob@cozy.tools</code> are perfectly fine. It <em>could be a real one</em>, but the email will not reach the real recipient&rsquo;s inbox, say <code>contact@cozycloud.cc</code>.</p></div>
+<p>With MailHog, <strong>every email</strong> sent by cozy-stack is caught. That means the email address <em>does not have to be a real one</em>, ie. <code>bob@cozy</code>, <code>bob@cozy.tools</code> are perfectly fine. It <em>could be a real one</em>, but the email will not reach the real recipient&rsquo;s inbox, say <code>contact@cozycloud.cc</code>.</p>
+                </div>
         </div>
 
         <footer class="col-md-12">

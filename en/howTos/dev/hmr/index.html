@@ -63,6 +63,10 @@
 <li >
     <a href="../../../tutorials/konnector/">Develop a Connector</a>
 </li>
+                            
+<li >
+    <a href="../../../tutorials/selfhost-debian/">Self-Host on Debian</a>
+</li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -70,18 +74,12 @@
                         <ul class="dropdown-menu">
                             
   <li class="dropdown-submenu">
-    <a href="#">Self-Host</a>
+    <a href="#">Dev</a>
     <ul class="dropdown-menu">
             
 <li >
-    <a href="../../selfHost/debian/">Debian</a>
+    <a href="../runCozyDocker/">Run an App in a Cozy using Docker</a>
 </li>
-    </ul>
-  </li>
-                            
-  <li class="dropdown-submenu">
-    <a href="#">Dev</a>
-    <ul class="dropdown-menu">
             
 <li >
     <a href="./">Use Hot Module Replacement in Your App</a>
@@ -564,14 +562,20 @@
 </div>
 
         <div class="container">
-                <div class="col-md-3">
+                    <div class="main-page-head col-md-9">
+                        <h1 class="main-head-title">How to use Hot Module Replacement (HMR) with my application?</h1>
+                        <hr />
+                    </div>
+                <div class="col-md-3 main-toc">
 <div class="bs-sidebar hidden-print affix" role="complementary">
     <ul class="nav bs-sidenav well" style='padding-left: 0; padding-right: 0; margin-bottom: 1.5rem'>
-        <li class="main active"><a href="#how-to-use-hot-module-replacement-hmr-with-my-application">How to use Hot Module Replacement (HMR) with my application?</a></li>
-            <li><a href="#what-is-hot-module-replacement-hmr">What is Hot Module Replacement (HMR) ?</a></li>
-            <li><a href="#is-it-available-for-my-app">Is it available for my app?</a></li>
-            <li><a href="#run-my-app-with-hmr">Run my app with HMR</a></li>
-            <li><a href="#make-hmr-available-in-my-application">Make HMR available in my application</a></li>
+        <li class="main active"><a href="#what-is-hot-module-replacement-hmr">What is Hot Module Replacement (HMR) ?</a></li>
+        <li class="main "><a href="#is-it-available-for-my-app">Is it available for my app?</a></li>
+        <li class="main "><a href="#run-my-app-with-hmr">Run my app with HMR</a></li>
+            <li><a href="#how-can-i-run-my-webpack-and-my-stack-in-different-terminals">How can I run my webpack and my stack in different terminals?</a></li>
+        <li class="main "><a href="#make-hmr-available-in-my-application">Make HMR available in my application</a></li>
+            <li><a href="#for-a-react-application">For a React application</a></li>
+            <li><a href="#for-a-vue-application">For a Vue application</a></li>
     </ul>
   <div style='padding-left: 2rem'>
     
@@ -611,9 +615,9 @@
   </div>
 </div></div>
                 <div class="col-md-9" role="main">
+                    
 
-<h2 id="how-to-use-hot-module-replacement-hmr-with-my-application">How to use Hot Module Replacement (HMR) with my application?<a class="headerlink" href="#how-to-use-hot-module-replacement-hmr-with-my-application" title="Permanent link">&para;</a></h2>
-<h3 id="what-is-hot-module-replacement-hmr">What is Hot Module Replacement (HMR) ?<a class="headerlink" href="#what-is-hot-module-replacement-hmr" title="Permanent link">&para;</a></h3>
+<h2 id="what-is-hot-module-replacement-hmr">What is Hot Module Replacement (HMR) ?<a class="headerlink" href="#what-is-hot-module-replacement-hmr" title="Permanent link">&para;</a></h2>
 <p>As the <a href="https://webpack.js.org/concepts/hot-module-replacement/">Webpack documentation</a> says:</p>
 <blockquote>
 <p>Hot Module Replacement (HMR) exchanges, adds, or removes modules while an application is running, without a full reload. This can significantly speed up development in a few ways:
@@ -623,7 +627,7 @@
 </blockquote>
 <p>For a Cozy application, having this feature allows you to have the specific changed part reloaded in your browser without reloading again the <code>cozy-bar</code>, the <code>cozy-client</code> and other layout components.</p>
 <p><em>Notice: The HMR will be explained here only for applications build using Webpack.</em></p>
-<h3 id="is-it-available-for-my-app">Is it available for my app?<a class="headerlink" href="#is-it-available-for-my-app" title="Permanent link">&para;</a></h3>
+<h2 id="is-it-available-for-my-app">Is it available for my app?<a class="headerlink" href="#is-it-available-for-my-app" title="Permanent link">&para;</a></h2>
 <p>If you created your application (React or Vue) using <a href="https://github.com/CPatchane/create-cozy-app">Create Cozy App a.k.a CCA (from v1)</a> and:</p>
 <ul>
 <li>For React, you didn&rsquo;t change the way <a href="https://github.com/gaearon/react-hot-loader"><code>react-hot-loader</code></a> is used</li>
@@ -631,7 +635,7 @@
 </ul>
 <p>Then, you dont&rsquo; have anything to do. See the next part of this tutorial to use HMR 😎</p>
 <p>If you did change these parts or you didn&rsquo;t create your application initialy using <a href="https://github.com/CPatchane/create-cozy-app">Create Cozy App</a>, you can see the part <a href="#make-hmr-available-in-my-application"><strong>Make HMR available in my application</strong></a>.</p>
-<h3 id="run-my-app-with-hmr">Run my app with HMR<a class="headerlink" href="#run-my-app-with-hmr" title="Permanent link">&para;</a></h3>
+<h2 id="run-my-app-with-hmr">Run my app with HMR<a class="headerlink" href="#run-my-app-with-hmr" title="Permanent link">&para;</a></h2>
 <p>To have a full HMR experience, you&rsquo;ll have to do two things here:</p>
 <ul>
 <li>Run webpack watching your changes with a <a href="https://github.com/webpack/webpack-dev-server"><code>webpack-dev-server</code></a> and <code>--hot</code> option</li>
@@ -644,7 +648,7 @@ yarn start
 </pre></div>
 
 
-<h4 id="how-can-i-run-my-webpack-and-my-stack-in-different-terminals">How can I run my webpack and my stack in different terminals?<a class="headerlink" href="#how-can-i-run-my-webpack-and-my-stack-in-different-terminals" title="Permanent link">&para;</a></h4>
+<h3 id="how-can-i-run-my-webpack-and-my-stack-in-different-terminals">How can I run my webpack and my stack in different terminals?<a class="headerlink" href="#how-can-i-run-my-webpack-and-my-stack-in-different-terminals" title="Permanent link">&para;</a></h3>
 <p>First, you can pass an option to disable the stack handling by the <code>start</code> command:</p>
 <div class="codehilite"><pre><span></span>yarn cozy-scripts start --hot --browser --no-stack
 <span class="c1"># or if you have the last package.json from CCA, you can do</span>
@@ -663,8 +667,8 @@ docker run --rm -it
 </pre></div>
 
 
-<h3 id="make-hmr-available-in-my-application">Make HMR available in my application<a class="headerlink" href="#make-hmr-available-in-my-application" title="Permanent link">&para;</a></h3>
-<h4 id="for-a-react-application">For a React application<a class="headerlink" href="#for-a-react-application" title="Permanent link">&para;</a></h4>
+<h2 id="make-hmr-available-in-my-application">Make HMR available in my application<a class="headerlink" href="#make-hmr-available-in-my-application" title="Permanent link">&para;</a></h2>
+<h3 id="for-a-react-application">For a React application<a class="headerlink" href="#for-a-react-application" title="Permanent link">&para;</a></h3>
 <p>You have to use <a href="https://github.com/gaearon/react-hot-loader"><code>react-hot-loader</code></a> inside your main App component like this:</p>
 <div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span>
 <span class="kr">import</span> <span class="p">{</span> <span class="nx">hot</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react-hot-loader&#39;</span>
@@ -678,7 +682,7 @@ docker run --rm -it
 
 
 <p>That&rsquo;s it. Then, just use the last version of cozy-scripts to run your application with HMR.</p>
-<h4 id="for-a-vue-application">For a Vue application<a class="headerlink" href="#for-a-vue-application" title="Permanent link">&para;</a></h4>
+<h3 id="for-a-vue-application">For a Vue application<a class="headerlink" href="#for-a-vue-application" title="Permanent link">&para;</a></h3>
 <p>Inside your entry point <code>index.js</code> (in <code>src/targets/&lt;target&gt;</code>), you have to add this part related to <code>module.hot</code>:</p>
 <div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">Vue</span> <span class="nx">from</span> <span class="s1">&#39;vue&#39;</span>
 <span class="kr">import</span> <span class="nx">store</span> <span class="nx">from</span> <span class="s1">&#39;lib/store&#39;</span>
@@ -700,7 +704,8 @@ docker run --rm -it
 </pre></div>
 
 
-<p>That&rsquo;s it. Then, just use the last version of cozy-scripts to <a href="#run-my-application-with-hmr">run your application with HMR</a>.</p></div>
+<p>That&rsquo;s it. Then, just use the last version of cozy-scripts to <a href="#run-my-application-with-hmr">run your application with HMR</a>.</p>
+                </div>
         </div>
 
         <footer class="col-md-12">
