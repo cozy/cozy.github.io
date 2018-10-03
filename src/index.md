@@ -21,7 +21,7 @@ Find guides for developing apps and connectors and for self-hosting.
   </div>
 
   <div class="home-action">
-    <a href="howTos/selfHost/debian">
+    <a href="tutorials/selfhost-debian">
       <img src="assets/images/home/icon-install.svg" />
       <h2>Install your own server</h2>
       <em>For Self-Hosting</em>
