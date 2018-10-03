@@ -608,43 +608,45 @@
 notify for services message or state change that could be of interest to the
 user, in an asynchronous manner.</p>
 <p>These notifications are part of a &ldquo;Notification Center&rdquo; where the user can
-configure the behavior of these notifications and the channel in which they
-are sent.</p>
+configure the behavior of these notifications and the channel in which they are
+sent.</p>
 <h2 id="declare-applications-notifications">Declare application&rsquo;s notifications<a class="headerlink" href="#declare-applications-notifications" title="Permanent link">&para;</a></h2>
 <p>Each application have to declare in its manifest the notifications it needs to
-send. The <code>notifications</code> fields of the manifest can be used to define all
-these notifications, with the following properties:</p>
+send. The <code>notifications</code> fields of the manifest can be used to define all these
+notifications, with the following properties:</p>
 <ul>
-<li><code>collapsible</code> (boolean): defines a notification category for which only
-  the last value is of interest to the user. For instance, a account-balance
-  quota for a user&rsquo;s bank account: such notification is only useful as its
-  last value.</li>
+<li><code>collapsible</code> (boolean): defines a notification category for which only the
+    last value is of interest to the user. For instance, a account-balance quota
+    for a user&rsquo;s bank account: such notification is only useful as its last
+    value.</li>
 <li><code>stateful</code> (boolean): defines a notification storing a piece of state: for
-  each new notification, the stack will check that the last sent
-  notification has a different state.</li>
+    each new notification, the stack will check that the last sent notification
+    has a different state.</li>
 <li><code>multiple</code> (boolean): specify the possibility for a notification to have
-  different sub-categories, defined by a programmable/dynamic identifier.
-  <code>collapsible</code> and <code>stateful</code> properties are inherited for each sub-
-  categories.</li>
-<li><code>default_priority</code>: default priority to use, with values &ldquo;high&rdquo; or
-  &ldquo;normal&rdquo;. This is propagated to the underlying mobile notifications
-  system.</li>
-<li><code>templates</code>: a link list to templates file contained in the application folder that can be used to write the content of the notification, depending on the communication channel.</li>
+    different sub-categories, defined by a programmable/dynamic identifier.
+    <code>collapsible</code> and <code>stateful</code> properties are inherited for each sub-
+    categories.</li>
+<li><code>default_priority</code>: default priority to use, with values &ldquo;high&rdquo; or &ldquo;normal&rdquo;.
+    This is propagated to the underlying mobile notifications system.</li>
+<li><code>templates</code>: a link list to templates file contained in the application
+    folder that can be used to write the content of the notification, depending
+    on the communication channel.</li>
 </ul>
-<p>In this documentation, we take the example of an application with the following notification:</p>
+<p>In this documentation, we take the example of an application with the following
+notification:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;notifications&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;account-balance&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Alert the user when its account balance is negative&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;collapsible&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="err">//</span> <span class="err">only</span> <span class="err">interested</span> <span class="err">in</span> <span class="err">the</span> <span class="err">last</span> <span class="err">value</span> <span class="err">of</span> <span class="err">the</span> <span class="err">notification</span>
-      <span class="nt">&quot;multiple&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="err">//</span> <span class="err">require</span> <span class="err">sub-categories</span> <span class="err">for</span> <span class="err">each</span> <span class="err">account</span>
-      <span class="nt">&quot;stateful&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="err">//</span> <span class="err">piece</span> <span class="err">of</span> <span class="err">state</span> <span class="err">to</span> <span class="err">distinguish</span> <span class="err">notifications</span>
-      <span class="nt">&quot;default_priority&quot;</span><span class="p">:</span> <span class="s2">&quot;high&quot;</span><span class="p">,</span> <span class="err">//</span> <span class="err">high</span> <span class="err">priority</span> <span class="err">for</span> <span class="err">this</span> <span class="err">notification</span>
-      <span class="nt">&quot;templates&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;mail&quot;</span><span class="p">:</span> <span class="s2">&quot;file:./notifications/account-balance-mail.tpl&quot;</span>
-      <span class="p">}</span>
+    <span class="nt">&quot;notifications&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;account-balance&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Alert the user when its account balance is negative&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;collapsible&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="err">//</span> <span class="err">only</span> <span class="err">interested</span> <span class="err">in</span> <span class="err">the</span> <span class="err">last</span> <span class="err">value</span> <span class="err">of</span> <span class="err">the</span> <span class="err">notification</span>
+            <span class="nt">&quot;multiple&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="err">//</span> <span class="err">require</span> <span class="err">sub-categories</span> <span class="err">for</span> <span class="err">each</span> <span class="err">account</span>
+            <span class="nt">&quot;stateful&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="err">//</span> <span class="err">piece</span> <span class="err">of</span> <span class="err">state</span> <span class="err">to</span> <span class="err">distinguish</span> <span class="err">notifications</span>
+            <span class="nt">&quot;default_priority&quot;</span><span class="p">:</span> <span class="s2">&quot;high&quot;</span><span class="p">,</span> <span class="err">//</span> <span class="err">high</span> <span class="err">priority</span> <span class="err">for</span> <span class="err">this</span> <span class="err">notification</span>
+            <span class="nt">&quot;templates&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;mail&quot;</span><span class="p">:</span> <span class="s2">&quot;file:./notifications/account-balance-mail.tpl&quot;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -658,15 +660,15 @@ these notifications, with the following properties:</p>
 <li><code>category_id</code> (string): category name if the category is multiple</li>
 <li><code>title</code> (string): title of the notification (optionnal)</li>
 <li><code>message</code> (string): message of of the notification (optionnal)</li>
-<li><code>priority</code> (string): priority of the notification (<code>high</code> or <code>normal</code>),
-  sent to the underlying channel to prioritize the notification</li>
+<li><code>priority</code> (string): priority of the notification (<code>high</code> or <code>normal</code>), sent
+    to the underlying channel to prioritize the notification</li>
 <li><code>state</code> (string): state of the notification, used for <code>stateful</code>
-  notification categories, to distinguish notifications</li>
+    notification categories, to distinguish notifications</li>
 <li><code>preferred_channels</code> (array of string): to select a list of preferred
-  channels for this notification: either <code>"mobile"</code> or <code>"mail"</code>. The stack
-  may chose another channels.</li>
+    channels for this notification: either <code>"mobile"</code> or <code>"mail"</code>. The stack may
+    chose another channels.</li>
 <li><code>data</code> (map): key/value map used to create the notification from its
-  template, or sent in the notification payload for mobiles</li>
+    template, or sent in the notification payload for mobiles</li>
 </ul>
 <h4 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/notifications</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
@@ -677,21 +679,21 @@ these notifications, with the following properties:</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;account-balance&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;category_id&quot;</span><span class="p">:</span> <span class="s2">&quot;my-bank&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Your account balance is not OK&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Warning: we have detected a negative balance in your my-bank&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;priority&quot;</span><span class="p">:</span> <span class="s2">&quot;high&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;-1&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;preferred_channels&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;mobile&quot;</span><span class="p">],</span>
-      <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;key1&quot;</span><span class="p">:</span> <span class="s2">&quot;value1&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;key2&quot;</span><span class="p">:</span> <span class="s2">&quot;value2&quot;</span>
-      <span class="p">}</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;account-balance&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;category_id&quot;</span><span class="p">:</span> <span class="s2">&quot;my-bank&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Your account balance is not OK&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Warning: we have detected a negative balance in your my-bank&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;priority&quot;</span><span class="p">:</span> <span class="s2">&quot;high&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;-1&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;preferred_channels&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;mobile&quot;</span><span class="p">],</span>
+            <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;key1&quot;</span><span class="p">:</span> <span class="s2">&quot;value1&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;key2&quot;</span><span class="p">:</span> <span class="s2">&quot;value2&quot;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -703,28 +705,28 @@ these notifications, with the following properties:</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.notifications&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;c57a548c-7602-11e7-933b-6f27603d27da&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-1f2903f9a867&quot;</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;source_id&quot;</span><span class="p">:</span> <span class="s2">&quot;cozy/app/bank/account-balance/my-bank&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;originator&quot;</span><span class="p">:</span> <span class="s2">&quot;app&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;bank&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;account-balance&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;category_id&quot;</span><span class="p">:</span> <span class="s2">&quot;my-bank&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Your account balance is not OK&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Warning: we have detected a negative balance in your my-bank&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;priority&quot;</span><span class="p">:</span> <span class="s2">&quot;high&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;-1&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;key1&quot;</span><span class="p">:</span> <span class="s2">&quot;value1&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;key2&quot;</span><span class="p">:</span> <span class="s2">&quot;value2&quot;</span>
-      <span class="p">}</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.notifications&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;c57a548c-7602-11e7-933b-6f27603d27da&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-1f2903f9a867&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;source_id&quot;</span><span class="p">:</span> <span class="s2">&quot;cozy/app/bank/account-balance/my-bank&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;originator&quot;</span><span class="p">:</span> <span class="s2">&quot;app&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;bank&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;account-balance&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;category_id&quot;</span><span class="p">:</span> <span class="s2">&quot;my-bank&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Your account balance is not OK&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Warning: we have detected a negative balance in your my-bank&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;priority&quot;</span><span class="p">:</span> <span class="s2">&quot;high&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;-1&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;key1&quot;</span><span class="p">:</span> <span class="s2">&quot;value1&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;key2&quot;</span><span class="p">:</span> <span class="s2">&quot;value2&quot;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div></div>
         </div>

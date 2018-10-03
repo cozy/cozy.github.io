@@ -633,20 +633,19 @@ the stack (or via cozy-client-js).</p>
 users.</p>
 <h3 id="intents">Intents<a class="headerlink" href="#intents" title="Permanent link">&para;</a></h3>
 <p>When a sharing is authorized, the user is redirected to their cozy on the
-application that was used for the sharing (when possible). It&rsquo;s possible to
-use a specific route to do so, via the intents. The application must declare
-an intent in its manifest for the action <code>SHARING</code>. The doctype of the intent
-must be the same as the doctype of the first rule of the sharing. In the
-redirect URL, the query string will have a <code>sharing</code> parameter with the
-sharing ID (but no intent parameter).</p>
+application that was used for the sharing (when possible). It&rsquo;s possible to use
+a specific route to do so, via the intents. The application must declare an
+intent in its manifest for the action <code>SHARING</code>. The doctype of the intent must
+be the same as the doctype of the first rule of the sharing. In the redirect
+URL, the query string will have a <code>sharing</code> parameter with the sharing ID (but
+no intent parameter).</p>
 <h3 id="routes">Routes<a class="headerlink" href="#routes" title="Permanent link">&para;</a></h3>
 <h4 id="post-sharings">POST /sharings/<a class="headerlink" href="#post-sharings" title="Permanent link">&para;</a></h4>
 <p>Create a new sharing. The sharing rules and recipients must be specified. The
 <code>description</code>, <code>preview_path</code>, and <code>open_sharing</code> fields are optional. The
 <code>app_slug</code> field is optional and is the slug of the web app by default.</p>
 <p>To create a sharing, no permissions on <code>io.cozy.sharings</code> are needed: an
-application can create a sharing on the documents for whose it has a
-permission.</p>
+application can create a sharing on the documents for whose it has a permission.</p>
 <h5 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h5>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/sharings/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.net</span>
@@ -655,33 +654,33 @@ permission.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.sharings&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;sharing test&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;preview_path&quot;</span><span class="p">:</span> <span class="s2">&quot;/preview-sharing&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-          <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Hawaii&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;doctype&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;612acf1c-1d72-11e8-b043-ef239d3074dd&quot;</span><span class="p">],</span>
-          <span class="nt">&quot;add&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;update&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;remove&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.sharings&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;sharing test&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;preview_path&quot;</span><span class="p">:</span> <span class="s2">&quot;/preview-sharing&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Hawaii&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;doctype&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;612acf1c-1d72-11e8-b043-ef239d3074dd&quot;</span><span class="p">],</span>
+                    <span class="nt">&quot;add&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;update&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;remove&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;recipients&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;2a31ce0128b5f89e40fd90da3f014087&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.contacts&quot;</span>
+                    <span class="p">}</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
         <span class="p">}</span>
-      <span class="p">]</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;recipients&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
-          <span class="p">{</span>
-            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;2a31ce0128b5f89e40fd90da3f014087&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.contacts&quot;</span>
-          <span class="p">}</span>
-        <span class="p">]</span>
-      <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -693,47 +692,47 @@ permission.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.sharings&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;ce8835a061d0ef68947afe69a0046722&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-4859c6c755143adf0838d225c5e97882&quot;</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;sharing test&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;preview_path&quot;</span><span class="p">:</span> <span class="s2">&quot;/preview-sharing&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;app_slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;owner&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-      <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-01-04T12:35:08Z&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-01-04T13:45:43Z&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;members&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-          <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;owner&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;public_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;alice@example.net&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;instance&quot;</span><span class="p">:</span> <span class="s2">&quot;alice.example.net&quot;</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.sharings&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;ce8835a061d0ef68947afe69a0046722&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-4859c6c755143adf0838d225c5e97882&quot;</span>
         <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;mail-not-sent&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;bob@example.net&quot;</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;sharing test&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;preview_path&quot;</span><span class="p">:</span> <span class="s2">&quot;/preview-sharing&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;app_slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;owner&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-01-04T12:35:08Z&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-01-04T13:45:43Z&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;members&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;owner&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;public_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;alice@example.net&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;instance&quot;</span><span class="p">:</span> <span class="s2">&quot;alice.example.net&quot;</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;mail-not-sent&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;bob@example.net&quot;</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Hawaii&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;doctype&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;612acf1c-1d72-11e8-b043-ef239d3074dd&quot;</span><span class="p">],</span>
+                    <span class="nt">&quot;add&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;update&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;remove&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/sharings/ce8835a061d0ef68947afe69a0046722&quot;</span>
         <span class="p">}</span>
-      <span class="p">],</span>
-      <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-          <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Hawaii&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;doctype&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;612acf1c-1d72-11e8-b043-ef239d3074dd&quot;</span><span class="p">],</span>
-          <span class="nt">&quot;add&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;update&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;remove&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span>
-        <span class="p">}</span>
-      <span class="p">]</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/sharings/ce8835a061d0ef68947afe69a0046722&quot;</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -806,14 +805,14 @@ state=eiJ3iepoaihohz1Y&amp;url=https://bob.example.net/
 
 
 <h4 id="json">JSON<a class="headerlink" href="#json" title="Permanent link">&para;</a></h4>
-<p>This version can be more convenient for applications that implement the
-preview page. To do that, an application must give a <code>preview_path</code> when
-creating the sharing. This path must be a public route of this application.
-The recipients will receive a link to the application subdomain, on this page,
-and with a <code>sharecode</code> in the query string (like for a share by link).</p>
-<p>To know the <code>sharing-id</code>, it&rsquo;s possible to ask <code>GET /permissions/self</code>, with
-the <code>sharecode</code> in the <code>Authorization</code> header (it&rsquo;s a JWT token). In the
-response, the <code>source_id</code> field will be <code>io.cozy.sharings/&lt;sharing-id&gt;</code>.</p>
+<p>This version can be more convenient for applications that implement the preview
+page. To do that, an application must give a <code>preview_path</code> when creating the
+sharing. This path must be a public route of this application. The recipients
+will receive a link to the application subdomain, on this page, and with a
+<code>sharecode</code> in the query string (like for a share by link).</p>
+<p>To know the <code>sharing-id</code>, it&rsquo;s possible to ask <code>GET /permissions/self</code>, with the
+<code>sharecode</code> in the <code>Authorization</code> header (it&rsquo;s a JWT token). In the response,
+the <code>source_id</code> field will be <code>io.cozy.sharings/&lt;sharing-id&gt;</code>.</p>
 <h5 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h5>
 <table>
 <thead>
@@ -849,20 +848,20 @@ sharecode=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhcHAiLCJpYXQiOjE1MjAzN
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;redirect&quot;</span><span class="p">:</span> <span class="s2">&quot;https://bob.example.net/auth/sharing?...&quot;</span>
+    <span class="nt">&quot;redirect&quot;</span><span class="p">:</span> <span class="s2">&quot;https://bob.example.net/auth/sharing?...&quot;</span>
 <span class="p">}</span>
 </pre></div>
 
 
 <h3 id="get-sharingssharing-id">GET /sharings/:sharing-id<a class="headerlink" href="#get-sharingssharing-id" title="Permanent link">&para;</a></h3>
-<p>Get the information about a sharing. This includes the content of the rules,
-the members, as well as the already shared documents for this sharing.</p>
+<p>Get the information about a sharing. This includes the content of the rules, the
+members, as well as the already shared documents for this sharing.</p>
 <p>For a member, we can have the following fields:</p>
 <ul>
 <li>a contact name (<code>name</code>), that is the name of this user as it appears in its
-  contact document (if there is one such document)</li>
+    contact document (if there is one such document)</li>
 <li>a public name (<code>public_name</code>), that is the name this user has put on his
-  cozy as a public name (it is used for sending emails for example)</li>
+    cozy as a public name (it is used for sending emails for example)</li>
 <li>an email addresse (<code>email</code>)</li>
 <li>an instance URL (<code>instance</code>)</li>
 <li>and a status (<code>status</code>).</li>
@@ -871,8 +870,8 @@ the members, as well as the already shared documents for this sharing.</p>
 <ul>
 <li>the first member is always the sharer</li>
 <li>to display the list of members to a user, the <code>name</code> should be use if
-  available, and if it is not the case, you can use the <code>public_name</code> or the
-  <code>email</code></li>
+    available, and if it is not the case, you can use the <code>public_name</code> or the
+    <code>email</code></li>
 <li>on a recipient, the only member with an <code>instance</code> is the local user.</li>
 </ul>
 <h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
@@ -889,62 +888,62 @@ the members, as well as the already shared documents for this sharing.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.sharings&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;ce8835a061d0ef68947afe69a0046722&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-4859c6c755143adf0838d225c5e97882&quot;</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;sharing test&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;preview_path&quot;</span><span class="p">:</span> <span class="s2">&quot;/preview-sharing&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;app_slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;owner&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-      <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-01-04T12:35:08Z&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-01-04T13:45:43Z&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;initial_number_of_files_to_sync&quot;</span><span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
-      <span class="nt">&quot;members&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-          <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;owner&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;public_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;alice@example.net&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;instance&quot;</span><span class="p">:</span> <span class="s2">&quot;alice.example.net&quot;</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.sharings&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;ce8835a061d0ef68947afe69a0046722&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-4859c6c755143adf0838d225c5e97882&quot;</span>
         <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;ready&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;bob@example.net&quot;</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;sharing test&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;preview_path&quot;</span><span class="p">:</span> <span class="s2">&quot;/preview-sharing&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;app_slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;owner&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-01-04T12:35:08Z&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-01-04T13:45:43Z&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;initial_number_of_files_to_sync&quot;</span><span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
+            <span class="nt">&quot;members&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;owner&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;public_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;alice@example.net&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;instance&quot;</span><span class="p">:</span> <span class="s2">&quot;alice.example.net&quot;</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;ready&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;bob@example.net&quot;</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Hawaii&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;doctype&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;612acf1c-1d72-11e8-b043-ef239d3074dd&quot;</span><span class="p">],</span>
+                    <span class="nt">&quot;add&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;update&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;remove&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;shared_docs&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;612acf1c-1d72-11e8-b043-ef239d3074dd&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;a34528d2-13fb-9482-8d20-bf1972531225&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span>
+                    <span class="p">}</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/sharings/ce8835a061d0ef68947afe69a0046722&quot;</span>
         <span class="p">}</span>
-      <span class="p">],</span>
-      <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-          <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Hawaii&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;doctype&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;612acf1c-1d72-11e8-b043-ef239d3074dd&quot;</span><span class="p">],</span>
-          <span class="nt">&quot;add&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;update&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;remove&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span>
-        <span class="p">}</span>
-      <span class="p">]</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;shared_docs&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
-          <span class="p">{</span>
-            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;612acf1c-1d72-11e8-b043-ef239d3074dd&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span>
-          <span class="p">},</span>
-          <span class="p">{</span>
-            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;a34528d2-13fb-9482-8d20-bf1972531225&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span>
-          <span class="p">}</span>
-        <span class="p">]</span>
-      <span class="p">}</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/sharings/ce8835a061d0ef68947afe69a0046722&quot;</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -967,117 +966,117 @@ shared documents for this sharing.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.sharings&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;ce8835a061d0ef68947afe69a0046722&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;sharing test&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;preview_path&quot;</span><span class="p">:</span> <span class="s2">&quot;/preview-sharing&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;app_slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;owner&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-01-04T12:35:08Z&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-01-04T13:45:43Z&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;members&quot;</span><span class="p">:</span> <span class="p">[</span>
-          <span class="p">{</span>
-            <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;owner&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;public_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;alice@example.net&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;instance&quot;</span><span class="p">:</span> <span class="s2">&quot;alice.example.net&quot;</span>
-          <span class="p">},</span>
-          <span class="p">{</span>
-            <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;ready&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;bob@example.net&quot;</span>
-          <span class="p">}</span>
-        <span class="p">],</span>
-        <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">[</span>
-          <span class="p">{</span>
-            <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Hawaii&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;doctype&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;612acf1c-1d72-11e8-b043-ef239d3074dd&quot;</span><span class="p">],</span>
-            <span class="nt">&quot;add&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;update&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;remove&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span>
-          <span class="p">}</span>
-        <span class="p">]</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-4859c6c755143adf0838d225c5e97882&quot;</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/sharings/ce8835a061d0ef68947afe69a0046722&quot;</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;shared_docs&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
-            <span class="p">{</span>
-              <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;612acf1c-1d72-11e8-b043-ef239d3074dd&quot;</span><span class="p">,</span>
-              <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.sharings&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;ce8835a061d0ef68947afe69a0046722&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;sharing test&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;preview_path&quot;</span><span class="p">:</span> <span class="s2">&quot;/preview-sharing&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;app_slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;owner&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+                <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-01-04T12:35:08Z&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-01-04T13:45:43Z&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;members&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;owner&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;public_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;alice@example.net&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;instance&quot;</span><span class="p">:</span> <span class="s2">&quot;alice.example.net&quot;</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;ready&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;bob@example.net&quot;</span>
+                    <span class="p">}</span>
+                <span class="p">],</span>
+                <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Hawaii&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;doctype&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;612acf1c-1d72-11e8-b043-ef239d3074dd&quot;</span><span class="p">],</span>
+                        <span class="nt">&quot;add&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;update&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;remove&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span>
+                    <span class="p">}</span>
+                <span class="p">]</span>
             <span class="p">},</span>
-            <span class="p">{</span>
-              <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;a34528d2-13fb-9482-8d20-bf1972531225&quot;</span><span class="p">,</span>
-              <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span>
+            <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-4859c6c755143adf0838d225c5e97882&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/sharings/ce8835a061d0ef68947afe69a0046722&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;shared_docs&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;612acf1c-1d72-11e8-b043-ef239d3074dd&quot;</span><span class="p">,</span>
+                            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span>
+                        <span class="p">},</span>
+                        <span class="p">{</span>
+                            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;a34528d2-13fb-9482-8d20-bf1972531225&quot;</span><span class="p">,</span>
+                            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span>
+                        <span class="p">}</span>
+                    <span class="p">]</span>
+                <span class="p">}</span>
             <span class="p">}</span>
-          <span class="p">]</span>
-        <span class="p">}</span>
-      <span class="p">}</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.sharings&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;b4e58d039c03d01742085de5e505284e&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;another sharing test&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;preview_path&quot;</span><span class="p">:</span> <span class="s2">&quot;/preview-sharing&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;app_slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;owner&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-02-04T12:35:08Z&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-02-04T13:45:43Z&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;members&quot;</span><span class="p">:</span> <span class="p">[</span>
-          <span class="p">{</span>
-            <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;owner&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;public_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;alice@example.net&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;instance&quot;</span><span class="p">:</span> <span class="s2">&quot;alice.example.net&quot;</span>
-          <span class="p">},</span>
-          <span class="p">{</span>
-            <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;ready&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;bob@example.net&quot;</span>
-          <span class="p">}</span>
-        <span class="p">],</span>
-        <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">[</span>
-          <span class="p">{</span>
-            <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Singapore&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;doctype&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;e18e30e2-8eda-1bde-afce-edafc6b1a91b&quot;</span><span class="p">],</span>
-            <span class="nt">&quot;add&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;update&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;remove&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span>
-          <span class="p">}</span>
-        <span class="p">]</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-7ac5f1252a0c513186a5d35b1a6fd350&quot;</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/sharings/b4e58d039c03d01742085de5e505284e&quot;</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;shared_docs&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
-            <span class="p">{</span>
-              <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;dcc52bee-1277-a6b3-b36f-369ffd81a4ee&quot;</span><span class="p">,</span>
-              <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.sharings&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;b4e58d039c03d01742085de5e505284e&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;another sharing test&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;preview_path&quot;</span><span class="p">:</span> <span class="s2">&quot;/preview-sharing&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;app_slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;owner&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+                <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-02-04T12:35:08Z&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-02-04T13:45:43Z&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;members&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;owner&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;public_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;alice@example.net&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;instance&quot;</span><span class="p">:</span> <span class="s2">&quot;alice.example.net&quot;</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;ready&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;bob@example.net&quot;</span>
+                    <span class="p">}</span>
+                <span class="p">],</span>
+                <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Singapore&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;doctype&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;e18e30e2-8eda-1bde-afce-edafc6b1a91b&quot;</span><span class="p">],</span>
+                        <span class="nt">&quot;add&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;update&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;remove&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span>
+                    <span class="p">}</span>
+                <span class="p">]</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-7ac5f1252a0c513186a5d35b1a6fd350&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/sharings/b4e58d039c03d01742085de5e505284e&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;shared_docs&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;dcc52bee-1277-a6b3-b36f-369ffd81a4ee&quot;</span><span class="p">,</span>
+                            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span>
+                        <span class="p">}</span>
+                    <span class="p">]</span>
+                <span class="p">}</span>
             <span class="p">}</span>
-          <span class="p">]</span>
         <span class="p">}</span>
-      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;count&quot;</span><span class="p">:</span> <span class="mi">3</span>
     <span class="p">}</span>
-  <span class="p">],</span>
-  <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;count&quot;</span><span class="p">:</span> <span class="mi">3</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -1085,8 +1084,8 @@ shared documents for this sharing.</p>
 <h3 id="put-sharingssharing-id">PUT /sharings/:sharing-id<a class="headerlink" href="#put-sharingssharing-id" title="Permanent link">&para;</a></h3>
 <p>The sharer&rsquo;s cozy sends a request to this route on the recipient&rsquo;s cozy to
 create a sharing request, with most of the information about the sharing. This
-request will be displayed to the recipient just before its final acceptation
-of the sharing, to be sure he/she knows what will be shared.</p>
+request will be displayed to the recipient just before its final acceptation of
+the sharing, to be sure he/she knows what will be shared.</p>
 <h4 id="request_3">Request<a class="headerlink" href="#request_3" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">PUT</span> <span class="nn">/sharings/ce8835a061d0ef68947afe69a0046722</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">bob.example.net</span>
@@ -1095,41 +1094,41 @@ of the sharing, to be sure he/she knows what will be shared.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.sharings&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;ce8835a061d0ef68947afe69a0046722&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;sharing test&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;preview_path&quot;</span><span class="p">:</span> <span class="s2">&quot;/preview-sharing&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;app_slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;owner&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-      <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-01-04T12:35:08Z&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-01-04T13:45:43Z&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;members&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-          <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;owner&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;public_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;alice@example.net&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;instance&quot;</span><span class="p">:</span> <span class="s2">&quot;alice.example.net&quot;</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;mail-not-sent&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;bob@example.net&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;instance&quot;</span><span class="p">:</span> <span class="s2">&quot;bob.example.net&quot;</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.sharings&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;ce8835a061d0ef68947afe69a0046722&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;sharing test&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;preview_path&quot;</span><span class="p">:</span> <span class="s2">&quot;/preview-sharing&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;app_slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;owner&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-01-04T12:35:08Z&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-01-04T13:45:43Z&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;members&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;owner&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;public_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;alice@example.net&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;instance&quot;</span><span class="p">:</span> <span class="s2">&quot;alice.example.net&quot;</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;mail-not-sent&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;bob@example.net&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;instance&quot;</span><span class="p">:</span> <span class="s2">&quot;bob.example.net&quot;</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Hawaii&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;doctype&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;612acf1c-1d72-11e8-b043-ef239d3074dd&quot;</span><span class="p">],</span>
+                    <span class="nt">&quot;add&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;update&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;remove&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
         <span class="p">}</span>
-      <span class="p">],</span>
-      <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-          <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Hawaii&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;doctype&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;612acf1c-1d72-11e8-b043-ef239d3074dd&quot;</span><span class="p">],</span>
-          <span class="nt">&quot;add&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;update&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;remove&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span>
-        <span class="p">}</span>
-      <span class="p">]</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -1141,48 +1140,48 @@ of the sharing, to be sure he/she knows what will be shared.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.sharings&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;ce8835a061d0ef68947afe69a0046722&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-f579a69a9fa5dd720010a1dbb82320be&quot;</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;sharing test&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;preview_path&quot;</span><span class="p">:</span> <span class="s2">&quot;/preview-sharing&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;app_slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;owner&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-      <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-01-04T12:35:08Z&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-01-04T13:45:43Z&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;members&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-          <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;owner&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;public_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;alice@example.net&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;instance&quot;</span><span class="p">:</span> <span class="s2">&quot;alice.example.net&quot;</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.sharings&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;ce8835a061d0ef68947afe69a0046722&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-f579a69a9fa5dd720010a1dbb82320be&quot;</span>
         <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;mail-not-sent&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;bob@example.net&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;instance&quot;</span><span class="p">:</span> <span class="s2">&quot;bob.example.net&quot;</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;sharing test&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;preview_path&quot;</span><span class="p">:</span> <span class="s2">&quot;/preview-sharing&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;app_slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;owner&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-01-04T12:35:08Z&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-01-04T13:45:43Z&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;members&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;owner&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;public_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;alice@example.net&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;instance&quot;</span><span class="p">:</span> <span class="s2">&quot;alice.example.net&quot;</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;mail-not-sent&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;bob@example.net&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;instance&quot;</span><span class="p">:</span> <span class="s2">&quot;bob.example.net&quot;</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Hawaii&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;doctype&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;612acf1c-1d72-11e8-b043-ef239d3074dd&quot;</span><span class="p">],</span>
+                    <span class="nt">&quot;add&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;update&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;remove&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/sharings/ce8835a061d0ef68947afe69a0046722&quot;</span>
         <span class="p">}</span>
-      <span class="p">],</span>
-      <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-          <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Hawaii&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;doctype&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;612acf1c-1d72-11e8-b043-ef239d3074dd&quot;</span><span class="p">],</span>
-          <span class="nt">&quot;add&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;update&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;remove&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span>
-        <span class="p">}</span>
-      <span class="p">]</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/sharings/ce8835a061d0ef68947afe69a0046722&quot;</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -1232,8 +1231,8 @@ Cozy of the sharer, after the recipient has accepted a sharing.</p>
 
 
 <h3 id="post-sharingssharing-idrecipients">POST /sharings/:sharing-id/recipients<a class="headerlink" href="#post-sharingssharing-idrecipients" title="Permanent link">&para;</a></h3>
-<p>This route allows the sharer to add new recipients to a sharing. It can also
-be used by a recipient when the sharing has <code>open_sharing</code> set to true if the
+<p>This route allows the sharer to add new recipients to a sharing. It can also be
+used by a recipient when the sharing has <code>open_sharing</code> set to true if the
 recipient doesn&rsquo;t have the <code>read_only</code> flag</p>
 <h4 id="request_5">Request<a class="headerlink" href="#request_5" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/sharings/ce8835a061d0ef68947afe69a0046722/recipients</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
@@ -1243,28 +1242,28 @@ recipient doesn&rsquo;t have the <code>read_only</code> flag</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.sharings&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;ce8835a061d0ef68947afe69a0046722&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;recipients&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
-          <span class="p">{</span>
-            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;ce7b1dfbd460039159f228298a29b2aa&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.contacts&quot;</span><span class="p">,</span>
-          <span class="p">}</span>
-        <span class="p">]</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;read_only_recipients&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
-          <span class="p">{</span>
-            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;e15384a1223ae2501cc1c4fa94008ea0&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.contacts&quot;</span><span class="p">,</span>
-          <span class="p">}</span>
-        <span class="p">]</span>
-      <span class="p">}</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.sharings&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;ce8835a061d0ef68947afe69a0046722&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;recipients&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;ce7b1dfbd460039159f228298a29b2aa&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.contacts&quot;</span>
+                    <span class="p">}</span>
+                <span class="p">]</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;read_only_recipients&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;e15384a1223ae2501cc1c4fa94008ea0&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.contacts&quot;</span>
+                    <span class="p">}</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -1276,73 +1275,73 @@ recipient doesn&rsquo;t have the <code>read_only</code> flag</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.sharings&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;ce8835a061d0ef68947afe69a0046722&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-4859c6c755143adf0838d225c5e97882&quot;</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;sharing test&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;preview_path&quot;</span><span class="p">:</span> <span class="s2">&quot;/preview-sharing&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;app_slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;owner&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-      <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-01-04T12:35:08Z&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-01-04T13:45:43Z&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;members&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-          <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;owner&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;public_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;alice@example.net&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;instance&quot;</span><span class="p">:</span> <span class="s2">&quot;alice.example.net&quot;</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.sharings&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;ce8835a061d0ef68947afe69a0046722&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-4859c6c755143adf0838d225c5e97882&quot;</span>
         <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;ready&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;public_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;bob@example.net&quot;</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;sharing test&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;preview_path&quot;</span><span class="p">:</span> <span class="s2">&quot;/preview-sharing&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;app_slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;owner&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-01-04T12:35:08Z&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-01-04T13:45:43Z&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;members&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;owner&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;public_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;alice@example.net&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;instance&quot;</span><span class="p">:</span> <span class="s2">&quot;alice.example.net&quot;</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;ready&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;public_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;bob@example.net&quot;</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;pending&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Charlie&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;charlie@example.net&quot;</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;pending&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Dave&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;dave@example.net&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;read_only&quot;</span><span class="p">:</span> <span class="kc">true</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Hawaii&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;doctype&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;612acf1c-1d72-11e8-b043-ef239d3074dd&quot;</span><span class="p">],</span>
+                    <span class="nt">&quot;add&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;update&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;remove&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
         <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;pending&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Charlie&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;charlie@example.net&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;shared_docs&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;612acf1c-1d72-11e8-b043-ef239d3074dd&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;a34528d2-13fb-9482-8d20-bf1972531225&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span>
+                    <span class="p">}</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
         <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;pending&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Dave&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;dave@example.net&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;read_only&quot;</span><span class="p">:</span> <span class="kc">true</span>
+        <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/sharings/ce8835a061d0ef68947afe69a0046722&quot;</span>
         <span class="p">}</span>
-      <span class="p">],</span>
-      <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-          <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Hawaii&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;doctype&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;612acf1c-1d72-11e8-b043-ef239d3074dd&quot;</span><span class="p">],</span>
-          <span class="nt">&quot;add&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;update&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;remove&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span>
-        <span class="p">}</span>
-      <span class="p">]</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;shared_docs&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
-          <span class="p">{</span>
-            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;612acf1c-1d72-11e8-b043-ef239d3074dd&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span>
-          <span class="p">},</span>
-          <span class="p">{</span>
-            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;a34528d2-13fb-9482-8d20-bf1972531225&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span>
-          <span class="p">}</span>
-        <span class="p">]</span>
-      <span class="p">}</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/sharings/ce8835a061d0ef68947afe69a0046722&quot;</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -1358,19 +1357,19 @@ the owner cozy to add recipients to the sharing (<code>open_sharing: true</code>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.sharings&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;ce8835a061d0ef68947afe69a0046722&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;recipients&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
-          <span class="p">{</span>
-            <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;dave@example.net&quot;</span>
-          <span class="p">}</span>
-        <span class="p">]</span>
-      <span class="p">}</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.sharings&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;ce8835a061d0ef68947afe69a0046722&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;recipients&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;dave@example.net&quot;</span>
+                    <span class="p">}</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -1382,7 +1381,7 @@ the owner cozy to add recipients to the sharing (<code>open_sharing: true</code>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;dave@example.net&quot;</span><span class="p">:</span> <span class="s2">&quot;uS6wN7fTYaLZ-GdC_P6UWA&quot;</span>
+    <span class="nt">&quot;dave@example.net&quot;</span><span class="p">:</span> <span class="s2">&quot;uS6wN7fTYaLZ-GdC_P6UWA&quot;</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -1398,32 +1397,32 @@ names, on the recipients cozy.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;owner&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;public_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;alice@example.net&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;instance&quot;</span><span class="p">:</span> <span class="s2">&quot;alice.example.net&quot;</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;ready&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;public_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;bob@example.net&quot;</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;ready&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Charlie&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;public_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Charlie&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;charlie@example.net&quot;</span><span class="p">,</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;pending&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Dave&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;dave@example.net&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;read_only&quot;</span><span class="p">:</span> <span class="kc">true</span>
-    <span class="p">}</span>
-  <span class="p">]</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;owner&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;public_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;alice@example.net&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;instance&quot;</span><span class="p">:</span> <span class="s2">&quot;alice.example.net&quot;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;ready&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;public_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;bob@example.net&quot;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;ready&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Charlie&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;public_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Charlie&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;charlie@example.net&quot;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;pending&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Dave&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;dave@example.net&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;read_only&quot;</span><span class="p">:</span> <span class="kc">true</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -1494,8 +1493,8 @@ before going to read-only mode.</p>
 
 <h3 id="delete-sharingssharing-idrecipientsselfreadonly">DELETE /sharings/:sharing-id/recipients/self/readonly<a class="headerlink" href="#delete-sharingssharing-idrecipientsselfreadonly" title="Permanent link">&para;</a></h3>
 <p>This is an internal route for the stack. It&rsquo;s used to inform the recipient&rsquo;s
-cozy that it is no longer in read-only mode, and to give it the credentials
-for sending its updates.</p>
+cozy that it is no longer in read-only mode, and to give it the credentials for
+sending its updates.</p>
 <h4 id="request_11">Request<a class="headerlink" href="#request_11" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/sharings/ce8835a061d0ef68947afe69a0046722/recipients/self/readonly</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">bob.example.net</span>
@@ -1525,9 +1524,9 @@ for sending its updates.</p>
 <h3 id="delete-sharingssharing-idrecipients">DELETE /sharings/:sharing-id/recipients<a class="headerlink" href="#delete-sharingssharing-idrecipients" title="Permanent link">&para;</a></h3>
 <p>This route is used by an application on the owner&rsquo;s cozy to revoke the sharing
 for all the members. After that, the sharing active flag will be false, the
-credentials for all members will be revoked, the members that have accepted
-the sharing will have their cozy informed that the sharing has been revoked,
-and pending members can no longer accept this sharing.</p>
+credentials for all members will be revoked, the members that have accepted the
+sharing will have their cozy informed that the sharing has been revoked, and
+pending members can no longer accept this sharing.</p>
 <h4 id="request_12">Request<a class="headerlink" href="#request_12" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/sharings/ce8835a061d0ef68947afe69a0046722/recipients</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.net</span>
@@ -1540,10 +1539,10 @@ and pending members can no longer accept this sharing.</p>
 
 
 <h3 id="delete-sharingssharing-idrecipientsindex">DELETE /sharings/:sharing-id/recipients/:index<a class="headerlink" href="#delete-sharingssharing-idrecipientsindex" title="Permanent link">&para;</a></h3>
-<p>This route is used to revoke only one recipient of the sharing. The parameter
-is the index of this recipient in the <code>members</code> array of the sharing. The
-status for this member will be set to <code>revoked</code>, its cozy will be informed of
-the revokation, and the credentials for this cozy will be deleted.</p>
+<p>This route is used to revoke only one recipient of the sharing. The parameter is
+the index of this recipient in the <code>members</code> array of the sharing. The status
+for this member will be set to <code>revoked</code>, its cozy will be informed of the
+revokation, and the credentials for this cozy will be deleted.</p>
 <p><strong>Note</strong>: 0 is not accepted for <code>index</code>, as it is the sharer him-self.</p>
 <h4 id="request_13">Request<a class="headerlink" href="#request_13" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/sharings/ce8835a061d0ef68947afe69a0046722/recipients/1</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
@@ -1557,8 +1556,8 @@ the revokation, and the credentials for this cozy will be deleted.</p>
 
 
 <h3 id="delete-sharingssharing-idrecipientsself">DELETE /sharings/:sharing-id/recipients/self<a class="headerlink" href="#delete-sharingssharing-idrecipientsself" title="Permanent link">&para;</a></h3>
-<p>This route can be used by an application in the cozy of a recipient to remove
-it from the sharing.</p>
+<p>This route can be used by an application in the cozy of a recipient to remove it
+from the sharing.</p>
 <h4 id="request_14">Request<a class="headerlink" href="#request_14" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/sharings/ce8835a061d0ef68947afe69a0046722/recipients/self</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">bob.example.net</span>
@@ -1585,8 +1584,8 @@ recipient&rsquo;s cozy that it was revoked.</p>
 
 
 <h3 id="delete-sharingssharing-idanswer">DELETE /sharings/:sharing-id/answer<a class="headerlink" href="#delete-sharingssharing-idanswer" title="Permanent link">&para;</a></h3>
-<p>This is an internal route used by a recipient&rsquo;s cozy to inform the owner&rsquo;s
-cozy that this recipient no longer wants to be part of the sharing.</p>
+<p>This is an internal route used by a recipient&rsquo;s cozy to inform the owner&rsquo;s cozy
+that this recipient no longer wants to be part of the sharing.</p>
 <h4 id="request_16">Request<a class="headerlink" href="#request_16" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/sharings/ce8835a061d0ef68947afe69a0046722/answer</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.net</span>
@@ -1612,13 +1611,13 @@ http://docs.couchdb.org/en/stable/api/database/misc.html#db-revs-diff.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;io.cozy.files/29631902-2cec-11e8-860d-435b24c2cc58&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="s2">&quot;2-4a7e4ae49c4366eaed8edeaea8f784ad&quot;</span>
-  <span class="p">],</span>
-  <span class="nt">&quot;io.cozy.files/44f5752a-2cec-11e8-b227-abfc3cfd4b6e&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="s2">&quot;4-2ee767305024673cfb3f5af037cd2729&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;4-efc54218773c6acd910e2e97fea2a608&quot;</span>
-  <span class="p">]</span>
+    <span class="nt">&quot;io.cozy.files/29631902-2cec-11e8-860d-435b24c2cc58&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;2-4a7e4ae49c4366eaed8edeaea8f784ad&quot;</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;io.cozy.files/44f5752a-2cec-11e8-b227-abfc3cfd4b6e&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;4-2ee767305024673cfb3f5af037cd2729&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;4-efc54218773c6acd910e2e97fea2a608&quot;</span>
+    <span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -1630,17 +1629,17 @@ http://docs.couchdb.org/en/stable/api/database/misc.html#db-revs-diff.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;io.cozy.files/44f5752a-2cec-11e8-b227-abfc3cfd4b6e&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;missing&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;4-2ee767305024673cfb3f5af037cd2729&quot;</span><span class="p">],</span>
-    <span class="nt">&quot;possible_ancestors&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;3-753875d51501a6b1883a9d62b4d33f91&quot;</span><span class="p">]</span>
-  <span class="p">}</span>
+    <span class="nt">&quot;io.cozy.files/44f5752a-2cec-11e8-b227-abfc3cfd4b6e&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;missing&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;4-2ee767305024673cfb3f5af037cd2729&quot;</span><span class="p">],</span>
+        <span class="nt">&quot;possible_ancestors&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;3-753875d51501a6b1883a9d62b4d33f91&quot;</span><span class="p">]</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
 
 <h3 id="post-sharingssharing-id95bulk_docs">POST /sharings/:sharing-id/_bulk_docs<a class="headerlink" href="#post-sharingssharing-id95bulk_docs" title="Permanent link">&para;</a></h3>
-<p>This endpoint is used by the sharing replicator of the stack to send
-documents in a bulk to the other cozy. It is inspired by
+<p>This endpoint is used by the sharing replicator of the stack to send documents
+in a bulk to the other cozy. It is inspired by
 http://docs.couchdb.org/en/stable/api/database/bulk-api.html#db-bulk-docs.</p>
 <p><strong>Note</strong>: we force <code>new_edits</code> to <code>false</code>.</p>
 <h4 id="request_18">Request<a class="headerlink" href="#request_18" title="Permanent link">&para;</a></h4>
@@ -1653,19 +1652,19 @@ http://docs.couchdb.org/en/stable/api/database/bulk-api.html#db-bulk-docs.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;io.cozy.files&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;44f5752a-2cec-11e8-b227-abfc3cfd4b6e&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;_rev&quot;</span><span class="p">:</span> <span class="s2">&quot;4-2ee767305024673cfb3f5af037cd2729&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;_revisions&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;start&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-        <span class="nt">&quot;ids&quot;</span><span class="p">:</span> <span class="p">[</span>
-          <span class="s2">&quot;2ee767305024673cfb3f5af037cd2729&quot;</span><span class="p">,</span>
-          <span class="s2">&quot;753875d51501a6b1883a9d62b4d33f91&quot;</span>
-        <span class="p">]</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">]</span>
+    <span class="nt">&quot;io.cozy.files&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;44f5752a-2cec-11e8-b227-abfc3cfd4b6e&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;_rev&quot;</span><span class="p">:</span> <span class="s2">&quot;4-2ee767305024673cfb3f5af037cd2729&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;_revisions&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;start&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+                <span class="nt">&quot;ids&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">&quot;2ee767305024673cfb3f5af037cd2729&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;753875d51501a6b1883a9d62b4d33f91&quot;</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -1681,12 +1680,11 @@ http://docs.couchdb.org/en/stable/api/database/bulk-api.html#db-bulk-docs.</p>
 
 
 <h3 id="get-sharingssharing-idiocozyfilesfile-id">GET /sharings/:sharing-id/io.cozy.files/:file-id<a class="headerlink" href="#get-sharingssharing-idiocozyfilesfile-id" title="Permanent link">&para;</a></h3>
-<p>This is an internal endpoint used by a stack to get information about a
-folder. It is used when a cozy sent to another cozy a file or folder inside a
-folder that was trashed (and trash was emptied): the recipient does no longer
-have information about the parent directory. To resolve the conflict, it
-recreates the missing parent directory by asking the other cozy informations
-about it.</p>
+<p>This is an internal endpoint used by a stack to get information about a folder.
+It is used when a cozy sent to another cozy a file or folder inside a folder
+that was trashed (and trash was emptied): the recipient does no longer have
+information about the parent directory. To resolve the conflict, it recreates
+the missing parent directory by asking the other cozy informations about it.</p>
 <h4 id="request_19">Request<a class="headerlink" href="#request_19" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/sharings/ce8835a061d0ef68947afe69a0046722/io.cozy.files/6d245d072be5522bd3a6f273dd000c65</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.net</span>
@@ -1702,14 +1700,14 @@ about it.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;6d245d072be5522bd3a6f273dd000c65&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;_rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-de4ec176ffa9ddafe8bdcc739dc60fed&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;directory&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;phone&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;dir_id&quot;</span><span class="p">:</span> <span class="s2">&quot;6d245d072be5522bd3a6f273dd007396&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;bills&quot;</span><span class="p">]</span>
+    <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;6d245d072be5522bd3a6f273dd000c65&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;_rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-de4ec176ffa9ddafe8bdcc739dc60fed&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;directory&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;phone&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;dir_id&quot;</span><span class="p">:</span> <span class="s2">&quot;6d245d072be5522bd3a6f273dd007396&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;bills&quot;</span><span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -1727,37 +1725,36 @@ file that has changed.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;4b24ab130b2538b7b444fc65430198ad&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;_rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-356bf77c03baa1da851a2be1f06aba81&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;_revisions&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;start&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">&quot;ids&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;356bf77c03baa1da851a2be1f06aba81&quot;</span><span class="p">]</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;cloudy.jpg&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;dir_id&quot;</span><span class="p">:</span> <span class="s2">&quot;4b24ab130b2538b7b444fc65430188cd&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-01-03T16:10:36.885807013+01:00&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-01-03T16:10:36.885807013+01:00&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="s2">&quot;84980&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;md5sum&quot;</span><span class="p">:</span> <span class="s2">&quot;SuRJOiD/QPwDUpKpQujcVA==&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;mime&quot;</span><span class="p">:</span> <span class="s2">&quot;image/jpeg&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;executable&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-  <span class="nt">&quot;trashed&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-  <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[],</span>
-  <span class="nt">&quot;metadata&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;datetime&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-01-03T16:10:36.89118949+01:00&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;extractor_version&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-    <span class="nt">&quot;height&quot;</span><span class="p">:</span> <span class="mi">1200</span><span class="p">,</span>
-    <span class="nt">&quot;width&quot;</span><span class="p">:</span> <span class="mi">1600</span>
-  <span class="p">}</span>
+    <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;4b24ab130b2538b7b444fc65430198ad&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;_rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-356bf77c03baa1da851a2be1f06aba81&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;_revisions&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;start&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nt">&quot;ids&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;356bf77c03baa1da851a2be1f06aba81&quot;</span><span class="p">]</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;cloudy.jpg&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;dir_id&quot;</span><span class="p">:</span> <span class="s2">&quot;4b24ab130b2538b7b444fc65430188cd&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-01-03T16:10:36.885807013+01:00&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-01-03T16:10:36.885807013+01:00&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="s2">&quot;84980&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;md5sum&quot;</span><span class="p">:</span> <span class="s2">&quot;SuRJOiD/QPwDUpKpQujcVA==&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;mime&quot;</span><span class="p">:</span> <span class="s2">&quot;image/jpeg&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;executable&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;trashed&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="nt">&quot;metadata&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;datetime&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-01-03T16:10:36.89118949+01:00&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;extractor_version&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="nt">&quot;height&quot;</span><span class="p">:</span> <span class="mi">1200</span><span class="p">,</span>
+        <span class="nt">&quot;width&quot;</span><span class="p">:</span> <span class="mi">1600</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
 
 <h4 id="response_20">Response<a class="headerlink" href="#response_20" title="Permanent link">&para;</a></h4>
-<p>If only the metadata has changed (not the content), the response will be a
-204:</p>
+<p>If only the metadata has changed (not the content), the response will be a 204:</p>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
 </pre></div>
 
@@ -1769,14 +1766,14 @@ Content-Type: application/json
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;dcd478c6-46cf-11e8-9c3f-535468cbce7b&quot;</span>
+    <span class="nt">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;dcd478c6-46cf-11e8-9c3f-535468cbce7b&quot;</span>
 <span class="p">}</span>
 </pre></div>
 
 
 <h3 id="put-sharingssharing-idiocozyfileskey">PUT /sharings/:sharing-id/io.cozy.files/:key<a class="headerlink" href="#put-sharingssharing-idiocozyfileskey" title="Permanent link">&para;</a></h3>
-<p>Upload the content of a file (new file or its content has changed since the
-last synchronization).</p>
+<p>Upload the content of a file (new file or its content has changed since the last
+synchronization).</p>
 <h4 id="request_21">Request<a class="headerlink" href="#request_21" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">PUT</span> <span class="nn">/sharings/ce8835a061d0ef68947afe69a0046722/io.cozy.files/dcd478c6-46cf-11e8-9c3f-535468cbce7b</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">bob.example.net</span>
@@ -1791,8 +1788,8 @@ last synchronization).</p>
 
 
 <h3 id="delete-sharingssharing-idinitial">DELETE /sharings/:sharing-id/initial<a class="headerlink" href="#delete-sharingssharing-idinitial" title="Permanent link">&para;</a></h3>
-<p>This internal route is used by the sharer to inform a recipient&rsquo;s cozy that
-the initial sync is finished.</p>
+<p>This internal route is used by the sharer to inform a recipient&rsquo;s cozy that the
+initial sync is finished.</p>
 <div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/sharings/ce8835a061d0ef68947afe69a0046722/initial</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">bob.example.net</span>
 <span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer ...</span>

@@ -730,20 +730,20 @@ that case, anybody can visit the route.</p>
 <p>For example, an application can offer an administration interface on <code>/admin</code>, a
 public page on <code>/public</code>, and shared assets in <code>/assets</code>:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;/admin&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;folder&quot;</span><span class="p">:</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;index&quot;</span><span class="p">:</span> <span class="s2">&quot;admin.html&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;public&quot;</span><span class="p">:</span> <span class="kc">false</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;/public&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;folder&quot;</span><span class="p">:</span> <span class="s2">&quot;/public&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;index&quot;</span><span class="p">:</span> <span class="s2">&quot;index.html&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;public&quot;</span><span class="p">:</span> <span class="kc">true</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;/assets&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;folder&quot;</span><span class="p">:</span> <span class="s2">&quot;/assets&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;public&quot;</span><span class="p">:</span> <span class="kc">true</span>
-  <span class="p">}</span>
+    <span class="nt">&quot;/admin&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;folder&quot;</span><span class="p">:</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;index&quot;</span><span class="p">:</span> <span class="s2">&quot;admin.html&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;public&quot;</span><span class="p">:</span> <span class="kc">false</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;/public&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;folder&quot;</span><span class="p">:</span> <span class="s2">&quot;/public&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;index&quot;</span><span class="p">:</span> <span class="s2">&quot;index.html&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;public&quot;</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;/assets&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;folder&quot;</span><span class="p">:</span> <span class="s2">&quot;/assets&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;public&quot;</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -751,11 +751,11 @@ public page on <code>/public</code>, and shared assets in <code>/assets</code>:<
 <p>If an application has no routes in its manifest, the stack will create one
 route, this default one:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;/&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;folder&quot;</span><span class="p">:</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;index&quot;</span><span class="p">:</span> <span class="s2">&quot;index.html&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;public&quot;</span><span class="p">:</span> <span class="kc">false</span>
-  <span class="p">}</span>
+    <span class="nt">&quot;/&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;folder&quot;</span><span class="p">:</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;index&quot;</span><span class="p">:</span> <span class="s2">&quot;index.html&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;public&quot;</span><span class="p">:</span> <span class="kc">false</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -768,23 +768,23 @@ of the app.</p>
 data and emit some notification or warning even without the user being on the
 application. These part of the application are called services and can be
 declared as part of the application in its manifest.</p>
-<p>In contrast to <a href="../konnectors/">konnectors</a>, services have the same
-permissions as the web application and are not intended to collect outside
-informations but rather analyse the current set of collected information
-inside the cozy. However they share the same mechanisms as the konnectors to
-describe how and when they should be executed: via our trigger system.</p>
+<p>In contrast to <a href="../konnectors/">konnectors</a>, services have the same permissions
+as the web application and are not intended to collect outside informations but
+rather analyse the current set of collected information inside the cozy. However
+they share the same mechanisms as the konnectors to describe how and when they
+should be executed: via our trigger system.</p>
 <p>To define a service, first the code needs to be stored with the application
 content, as single (packaged) javascript files. In the manifest, declare the
 service and its parameters following this example:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;services&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;low-budget-notification&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;node&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;file&quot;</span><span class="p">:</span> <span class="s2">&quot;/services/low-budget-notification.js&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;trigger&quot;</span><span class="p">:</span> <span class="s2">&quot;@cron 0 0 0 * * *&quot;</span>
+    <span class="nt">&quot;services&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;low-budget-notification&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;node&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;file&quot;</span><span class="p">:</span> <span class="s2">&quot;/services/low-budget-notification.js&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;trigger&quot;</span><span class="p">:</span> <span class="s2">&quot;@cron 0 0 0 * * *&quot;</span>
+        <span class="p">}</span>
+        <span class="err">//</span> <span class="err">...</span>
     <span class="p">}</span>
-    <span class="err">//</span> <span class="err">...</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -793,22 +793,22 @@ service and its parameters following this example:</p>
 <a href="../jobs/">jobs documentation</a>. The <code>file</code> field should specify the service
 code run and the <code>type</code> field describe the code type (only <code>"node"</code> for now).</p>
 <h3 id="notifications">Notifications<a class="headerlink" href="#notifications" title="Permanent link">&para;</a></h3>
-<p>For more informations on how te declare notifications in the manifest, see
-the <a href="../notifications/">notifications documentation</a>.</p>
+<p>For more informations on how te declare notifications in the manifest, see the
+<a href="../notifications/">notifications documentation</a>.</p>
 <p>Here is an example:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;notifications&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;account-balance&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Alert the user when its account balance is negative&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;collapsible&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="err">//</span> <span class="err">only</span> <span class="err">interested</span> <span class="err">in</span> <span class="err">the</span> <span class="err">last</span> <span class="err">value</span> <span class="err">of</span> <span class="err">the</span> <span class="err">notification</span>
-      <span class="nt">&quot;multiple&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="err">//</span> <span class="err">require</span> <span class="err">sub-categories</span> <span class="err">for</span> <span class="err">each</span> <span class="err">account</span>
-      <span class="nt">&quot;stateful&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-      <span class="nt">&quot;default_priority&quot;</span><span class="p">:</span> <span class="s2">&quot;high&quot;</span><span class="p">,</span> <span class="err">//</span> <span class="err">high</span> <span class="err">priority</span> <span class="err">for</span> <span class="err">this</span> <span class="err">notification</span>
-      <span class="nt">&quot;templates&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;mail&quot;</span><span class="p">:</span> <span class="s2">&quot;file:./notifications/account-balance-mail.tpl&quot;</span>
-      <span class="p">}</span>
+    <span class="nt">&quot;notifications&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;account-balance&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Alert the user when its account balance is negative&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;collapsible&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="err">//</span> <span class="err">only</span> <span class="err">interested</span> <span class="err">in</span> <span class="err">the</span> <span class="err">last</span> <span class="err">value</span> <span class="err">of</span> <span class="err">the</span> <span class="err">notification</span>
+            <span class="nt">&quot;multiple&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="err">//</span> <span class="err">require</span> <span class="err">sub-categories</span> <span class="err">for</span> <span class="err">each</span> <span class="err">account</span>
+            <span class="nt">&quot;stateful&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">&quot;default_priority&quot;</span><span class="p">:</span> <span class="s2">&quot;high&quot;</span><span class="p">,</span> <span class="err">//</span> <span class="err">high</span> <span class="err">priority</span> <span class="err">for</span> <span class="err">this</span> <span class="err">notification</span>
+            <span class="nt">&quot;templates&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;mail&quot;</span><span class="p">:</span> <span class="s2">&quot;file:./notifications/account-balance-mail.tpl&quot;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -828,17 +828,17 @@ identifier on the building step of the application packages for all assets.</p>
 <ul>
 <li><code>registry://</code>: to install an application from the instance registries</li>
 <li><code>git://</code> or <code>git+ssh://</code>: to install an application from a git repository</li>
-<li><code>http://</code> or <code>https://</code>: to install an application from an http server (via a
-  tarball)</li>
+<li><code>http://</code> or <code>https://</code>: to install an application from an http server (via
+    a tarball)</li>
 <li><code>file://</code>: to install an application from a local directory (for instance:
-  <code>file:///home/user/code/cozy-app</code>)</li>
+    <code>file:///home/user/code/cozy-app</code>)</li>
 </ul>
 <p>The <code>registry</code> scheme expect the following elements:</p>
 <ul>
 <li>scheme: <code>registry</code></li>
 <li>host: the name of the application</li>
 <li>path: <code>/:channel</code> the channel of the application (see the
-  <a href="docs/registry.md">registry</a> doc)</li>
+    <a href="docs/registry.md">registry</a> doc)</li>
 </ul>
 <p>Examples: <code>registry://drive/stable</code>, <code>registry://drive/beta</code>, and
 <code>registry://drive/dev</code>.</p>
@@ -860,11 +860,11 @@ application has been installed or failed.</p>
 <ul>
 <li>202 Accepted, when the application installation has been accepted.</li>
 <li>400 Bad-Request, when the manifest of the application could not be processed
-  (for instance, it is not valid JSON).</li>
+    (for instance, it is not valid JSON).</li>
 <li>404 Not Found, when the manifest or the source of the application is not
-  reachable.</li>
-<li>422 Unprocessable Entity, when the sent data is invalid (for example, the slug
-  is invalid or the Source parameter is not a proper or supported url)</li>
+    reachable.</li>
+<li>422 Unprocessable Entity, when the sent data is invalid (for example, the
+    slug is invalid or the Source parameter is not a proper or supported url)</li>
 </ul>
 <h4 id="query-string">Query-String<a class="headerlink" href="#query-string" title="Permanent link">&para;</a></h4>
 <table>
@@ -965,18 +965,18 @@ application has been updated or failed.</p>
 <ul>
 <li>202 Accepted, when the application installation has been accepted.</li>
 <li>400 Bad-Request, when the manifest of the application could not be processed
-  (for instance, it is not valid JSON).</li>
+    (for instance, it is not valid JSON).</li>
 <li>404 Not Found, when the application with the specified slug was not found or
-  when the manifest or the source of the application is not reachable.</li>
-<li>422 Unprocessable Entity, when the sent data is invalid (for example, the slug
-  is invalid or the Source parameter is not a proper or supported url)</li>
+    when the manifest or the source of the application is not reachable.</li>
+<li>422 Unprocessable Entity, when the sent data is invalid (for example, the
+    slug is invalid or the Source parameter is not a proper or supported url)</li>
 </ul>
 <h2 id="list-installed-applications">List installed applications<a class="headerlink" href="#list-installed-applications" title="Permanent link">&para;</a></h2>
 <h3 id="get-apps">GET /apps/<a class="headerlink" href="#get-apps" title="Permanent link">&para;</a></h3>
 <p>An application can be in one of these states:</p>
 <ul>
 <li><code>installed</code>, the application is installed but still require some user
-  interaction to accept its permissions</li>
+    interaction to accept its permissions</li>
 <li><code>ready</code>, the user can use it</li>
 <li><code>installing</code>, the installation is running and the app will soon be usable</li>
 <li><code>upgrading</code>, a new version is being installed</li>

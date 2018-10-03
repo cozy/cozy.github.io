@@ -620,9 +620,10 @@ It is a framework, not a strictly defined protocol, for organizing the
 interactions between these 4 actors:</p>
 <ul>
 <li>the resource owner, the &ldquo;user&rdquo; that can click on buttons</li>
-<li>the client, the website or application that would like to access the resources</li>
-<li>the authorization server, whose role is limited to give tokens but is central
-  in OAuth2 interactions</li>
+<li>the client, the website or application that would like to access the
+    resources</li>
+<li>the authorization server, whose role is limited to give tokens but is
+    central in OAuth2 interactions</li>
 <li>the resources server, the server that controls the resources.</li>
 </ul>
 <p>For cozy, both the authorization server and the resources server roles are
@@ -654,27 +655,27 @@ on Cozy:</p>
 <ul>
 <li>
 <p>TLS is very important to secure the communications. in OAuth 1, there was a
-  mechanism to sign the requests. But it was very difficult to get it right for
-  the developers and was abandonned in OAuth2, in favor of using TLS. The Cozy
-  instance are already accessible only in HTTPS, so there is nothing particular
-  to do for that.</p>
+    mechanism to sign the requests. But it was very difficult to get it right
+    for the developers and was abandonned in OAuth2, in favor of using TLS. The
+    Cozy instance are already accessible only in HTTPS, so there is nothing
+    particular to do for that.</p>
 </li>
 <li>
-<p>There is a principle called TOFU, Trust On First Use. It said that if the user
-  will give his permission for delegating access to its resources when the
-  client will try to access them for the first time. Later, the client will be
-  able to keep accessing them even if the user is no longer here to give his
-  permissions.</p>
+<p>There is a principle called TOFU, Trust On First Use. It said that if the
+    user will give his permission for delegating access to its resources when
+    the client will try to access them for the first time. Later, the client
+    will be able to keep accessing them even if the user is no longer here to
+    give his permissions.</p>
 </li>
 <li>
 <p>The client can&rsquo;t make the assumptions about when its tokens will work. The
-  tokens have no meaning for him (like cookies in a browser), they are just
-  something it got from the authorization server and can send with its request.
-  The access token can expire, the user can revoke them, etc.</p>
+    tokens have no meaning for him (like cookies in a browser), they are just
+    something it got from the authorization server and can send with its
+    request. The access token can expire, the user can revoke them, etc.</p>
 </li>
 <li>
 <p>OAuth 2.0 defines no cryptographic methods. But a developer that want to use
-  it will have to put her hands in that.</p>
+    it will have to put her hands in that.</p>
 </li>
 </ul>
 <p>If you want to learn OAuth 2 in details, I recommend the
@@ -831,29 +832,32 @@ for the details.</p>
 <p>The client must send a JSON request, with at least:</p>
 <ul>
 <li><code>redirect_uris</code>, an array of strings with the redirect URIs that the client
-  will use in the authorization flow</li>
-<li><code>client_name</code>, human-readable string name of the client to be presented to the
-  end-user during authorization</li>
+    will use in the authorization flow</li>
+<li><code>client_name</code>, human-readable string name of the client to be presented to
+    the end-user during authorization</li>
 <li><code>software_id</code>, an identifier of the software used by the client (it should
-  remain the same for all instances of the client software, whereas <code>client_id</code>
-  varies between instances).</li>
+    remain the same for all instances of the client software, whereas
+    <code>client_id</code> varies between instances).</li>
 </ul>
 <p>It can also send the optional fields:</p>
 <ul>
 <li><code>client_kind</code> (possible values: web, desktop, mobile, browser, etc.)</li>
-<li><code>client_uri</code>, URL string of a web page providing information about the client</li>
+<li><code>client_uri</code>, URL string of a web page providing information about the
+    client</li>
 <li><code>logo_uri</code>, to display an icon to the user in the authorization flow</li>
 <li><code>policy_uri</code>, URL string that points to a human-readable privacy policy
-  document that describes how the deployment organization collects, uses,
-  retains, and discloses personal data</li>
+    document that describes how the deployment organization collects, uses,
+    retains, and discloses personal data</li>
 <li><code>software_version</code>, a version identifier string for the client software.</li>
-<li><code>notification_platform</code>, to activate notifications on the associated
-  device, this field specify the platform used to send notifications:</li>
+<li><code>notification_platform</code>, to activate notifications on the associated device,
+    this field specify the platform used to send notifications:<ul>
 <li><code>"android"</code>: for Android devices with notifications via Firebase Cloud
     Messageing</li>
 <li><code>"ios"</code>: for iOS devices with notifications via APNS/2.</li>
+</ul>
+</li>
 <li><code>notification_device_token</code>, the token used to identify the mobile device
-  for notifications</li>
+    for notifications</li>
 </ul>
 <p>The server gives to the client the previous fields and these informations:</p>
 <ul>
@@ -870,14 +874,14 @@ for the details.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;redirect_uris&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;https://client.example.org/oauth/callback&quot;</span><span class="p">],</span>
-  <span class="nt">&quot;client_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Client&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;software_id&quot;</span><span class="p">:</span> <span class="s2">&quot;github.com/example/client&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;software_version&quot;</span><span class="p">:</span> <span class="s2">&quot;2.0.1&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;client_kind&quot;</span><span class="p">:</span> <span class="s2">&quot;web&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;client_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client.example.org/&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;logo_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client.example.org/logo.svg&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;policy_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client/example.org/policy&quot;</span>
+    <span class="nt">&quot;redirect_uris&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;https://client.example.org/oauth/callback&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;client_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Client&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;software_id&quot;</span><span class="p">:</span> <span class="s2">&quot;github.com/example/client&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;software_version&quot;</span><span class="p">:</span> <span class="s2">&quot;2.0.1&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;client_kind&quot;</span><span class="p">:</span> <span class="s2">&quot;web&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;client_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client.example.org/&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;logo_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client.example.org/logo.svg&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;policy_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client/example.org/policy&quot;</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -888,20 +892,20 @@ for the details.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;client_id&quot;</span><span class="p">:</span> <span class="s2">&quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;client_secret&quot;</span><span class="p">:</span> <span class="s2">&quot;eyJpc3Mi[...omitted for brevity...]&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;client_secret_expires_at&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-  <span class="nt">&quot;registration_access_token&quot;</span><span class="p">:</span> <span class="s2">&quot;J9l-ZhwP[...omitted for brevity...]&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;grant_types&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;authorization_code&quot;</span><span class="p">,</span> <span class="s2">&quot;refresh_token&quot;</span><span class="p">],</span>
-  <span class="nt">&quot;response_types&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;code&quot;</span><span class="p">],</span>
-  <span class="nt">&quot;redirect_uris&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;https://client.example.org/oauth/callback&quot;</span><span class="p">],</span>
-  <span class="nt">&quot;client_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Client&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;software_id&quot;</span><span class="p">:</span> <span class="s2">&quot;github.com/example/client&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;software_version&quot;</span><span class="p">:</span> <span class="s2">&quot;2.0.1&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;client_kind&quot;</span><span class="p">:</span> <span class="s2">&quot;web&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;client_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client.example.org/&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;logo_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client.example.org/logo.svg&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;policy_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client/example.org/policy&quot;</span>
+    <span class="nt">&quot;client_id&quot;</span><span class="p">:</span> <span class="s2">&quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;client_secret&quot;</span><span class="p">:</span> <span class="s2">&quot;eyJpc3Mi[...omitted for brevity...]&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;client_secret_expires_at&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="nt">&quot;registration_access_token&quot;</span><span class="p">:</span> <span class="s2">&quot;J9l-ZhwP[...omitted for brevity...]&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;grant_types&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;authorization_code&quot;</span><span class="p">,</span> <span class="s2">&quot;refresh_token&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;response_types&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;code&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;redirect_uris&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;https://client.example.org/oauth/callback&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;client_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Client&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;software_id&quot;</span><span class="p">:</span> <span class="s2">&quot;github.com/example/client&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;software_version&quot;</span><span class="p">:</span> <span class="s2">&quot;2.0.1&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;client_kind&quot;</span><span class="p">:</span> <span class="s2">&quot;web&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;client_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client.example.org/&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;logo_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client.example.org/logo.svg&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;policy_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client/example.org/policy&quot;</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -926,19 +930,19 @@ for more details.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;client_id&quot;</span><span class="p">:</span> <span class="s2">&quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;client_secret&quot;</span><span class="p">:</span> <span class="s2">&quot;eyJpc3Mi[...omitted for brevity...]&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;client_secret_expires_at&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-  <span class="nt">&quot;grant_types&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;authorization_code&quot;</span><span class="p">,</span> <span class="s2">&quot;refresh_token&quot;</span><span class="p">],</span>
-  <span class="nt">&quot;response_types&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;code&quot;</span><span class="p">],</span>
-  <span class="nt">&quot;redirect_uris&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;https://client.example.org/oauth/callback&quot;</span><span class="p">],</span>
-  <span class="nt">&quot;client_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Client&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;software_id&quot;</span><span class="p">:</span> <span class="s2">&quot;github.com/example/client&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;software_version&quot;</span><span class="p">:</span> <span class="s2">&quot;2.0.1&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;client_kind&quot;</span><span class="p">:</span> <span class="s2">&quot;web&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;client_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client.example.org/&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;logo_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client.example.org/logo.svg&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;policy_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client/example.org/policy&quot;</span>
+    <span class="nt">&quot;client_id&quot;</span><span class="p">:</span> <span class="s2">&quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;client_secret&quot;</span><span class="p">:</span> <span class="s2">&quot;eyJpc3Mi[...omitted for brevity...]&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;client_secret_expires_at&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="nt">&quot;grant_types&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;authorization_code&quot;</span><span class="p">,</span> <span class="s2">&quot;refresh_token&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;response_types&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;code&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;redirect_uris&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;https://client.example.org/oauth/callback&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;client_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Client&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;software_id&quot;</span><span class="p">:</span> <span class="s2">&quot;github.com/example/client&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;software_version&quot;</span><span class="p">:</span> <span class="s2">&quot;2.0.1&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;client_kind&quot;</span><span class="p">:</span> <span class="s2">&quot;web&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;client_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client.example.org/&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;logo_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client.example.org/logo.svg&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;policy_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client/example.org/policy&quot;</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -959,18 +963,18 @@ send the current <code>client_secret</code>, and the server will respond with th
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;client_id&quot;</span><span class="p">:</span> <span class="s2">&quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;client_secret&quot;</span><span class="p">:</span> <span class="s2">&quot;eyJpc3Mi[...omitted for brevity...]&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;redirect_uris&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;https://client.example.org/oauth/callback&quot;</span><span class="p">],</span>
-  <span class="nt">&quot;client_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Client&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;software_id&quot;</span><span class="p">:</span> <span class="s2">&quot;github.com/example/client&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;software_version&quot;</span><span class="p">:</span> <span class="s2">&quot;2.0.2&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;client_kind&quot;</span><span class="p">:</span> <span class="s2">&quot;web&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;client_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client.example.org/&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;logo_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client.example.org/client-logo.svg&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;policy_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client/example.org/policy&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;notification_platform&quot;</span><span class="p">:</span> <span class="s2">&quot;android&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;notification_device_token&quot;</span><span class="p">:</span> <span class="s2">&quot;XXXXxxxx...&quot;</span>
+    <span class="nt">&quot;client_id&quot;</span><span class="p">:</span> <span class="s2">&quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;client_secret&quot;</span><span class="p">:</span> <span class="s2">&quot;eyJpc3Mi[...omitted for brevity...]&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;redirect_uris&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;https://client.example.org/oauth/callback&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;client_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Client&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;software_id&quot;</span><span class="p">:</span> <span class="s2">&quot;github.com/example/client&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;software_version&quot;</span><span class="p">:</span> <span class="s2">&quot;2.0.2&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;client_kind&quot;</span><span class="p">:</span> <span class="s2">&quot;web&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;client_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client.example.org/&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;logo_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client.example.org/client-logo.svg&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;policy_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client/example.org/policy&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;notification_platform&quot;</span><span class="p">:</span> <span class="s2">&quot;android&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;notification_device_token&quot;</span><span class="p">:</span> <span class="s2">&quot;XXXXxxxx...&quot;</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -981,19 +985,19 @@ send the current <code>client_secret</code>, and the server will respond with th
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;client_id&quot;</span><span class="p">:</span> <span class="s2">&quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;client_secret&quot;</span><span class="p">:</span> <span class="s2">&quot;IFais2Ah[...omitted for brevity...]&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;client_secret_expires_at&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-  <span class="nt">&quot;grant_types&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;authorization_code&quot;</span><span class="p">,</span> <span class="s2">&quot;refresh_token&quot;</span><span class="p">],</span>
-  <span class="nt">&quot;response_types&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;code&quot;</span><span class="p">],</span>
-  <span class="nt">&quot;redirect_uris&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;https://client.example.org/oauth/callback&quot;</span><span class="p">],</span>
-  <span class="nt">&quot;client_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Client&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;software_id&quot;</span><span class="p">:</span> <span class="s2">&quot;github.com/example/client&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;software_version&quot;</span><span class="p">:</span> <span class="s2">&quot;2.0.2&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;client_kind&quot;</span><span class="p">:</span> <span class="s2">&quot;web&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;client_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client.example.org/&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;logo_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client.example.org/client-logo.svg&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;policy_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client/example.org/policy&quot;</span>
+    <span class="nt">&quot;client_id&quot;</span><span class="p">:</span> <span class="s2">&quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;client_secret&quot;</span><span class="p">:</span> <span class="s2">&quot;IFais2Ah[...omitted for brevity...]&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;client_secret_expires_at&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="nt">&quot;grant_types&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;authorization_code&quot;</span><span class="p">,</span> <span class="s2">&quot;refresh_token&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;response_types&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;code&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;redirect_uris&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;https://client.example.org/oauth/callback&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;client_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Client&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;software_id&quot;</span><span class="p">:</span> <span class="s2">&quot;github.com/example/client&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;software_version&quot;</span><span class="p">:</span> <span class="s2">&quot;2.0.2&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;client_kind&quot;</span><span class="p">:</span> <span class="s2">&quot;web&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;client_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client.example.org/&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;logo_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client.example.org/client-logo.svg&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;policy_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://client/example.org/policy&quot;</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -1019,14 +1023,15 @@ and has an accept button if she is OK with that.</p>
 <p>The parameters are:</p>
 <ul>
 <li><code>client_id</code>, that identify the client</li>
-<li><code>redirect_uri</code>, it has to be exactly the same as the one used in registration</li>
+<li><code>redirect_uri</code>, it has to be exactly the same as the one used in
+    registration</li>
 <li><code>state</code>, it&rsquo;s a protection against CSRF on the client (a random string
-  generated by the client, that it can check when the user will be redirected
-  with the authorization code. It can be used as a key in local storage for
-  storing a state in a SPA).</li>
+    generated by the client, that it can check when the user will be redirected
+    with the authorization code. It can be used as a key in local storage for
+    storing a state in a SPA).</li>
 <li><code>response_type</code>, only <code>code</code> is supported</li>
 <li><code>scope</code>, a space separated list of the <a href="../permissions/">permissions</a> asked
-  (like <code>io.cozy.files:GET</code> for read-only access to files).</li>
+    (like <code>io.cozy.files:GET</code> for read-only access to files).</li>
 </ul>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/auth/authorize?client_id=oauth-client-1&amp;response_type=code&amp;scope=io.cozy.files:GET%20io.cozy.contacts&amp;state=Eh6ahshepei5Oojo&amp;redirect_uri=https%3A%2F%2Fclient.org%2F</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
@@ -1157,9 +1162,9 @@ authentication can be activated.</p>
 passphrase first. When entering correct passphrase, the user is then asked for:</p>
 <ul>
 <li>a TOTP (Timebased One-Time password, RFC 6238) derived from a secret
-  associated with the instance.</li>
+    associated with the instance.</li>
 <li>a short term timestamped MAC with the same validity time-range and also
-  derived from the same secret.</li>
+    derived from the same secret.</li>
 </ul>
 <p>The TOTP is valid for a time range of about 5 minutes. When sending a correct
 and still-valid pair <code>(passcode, token)</code>, the user is granted with

@@ -609,13 +609,13 @@
 <h3 id="accounts">Accounts<a class="headerlink" href="#accounts" title="Permanent link">&para;</a></h3>
 <p><code>io.cozy.accounts</code> contains authentification information for an account</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Gmail Perso&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;account_type&quot;</span><span class="p">:</span> <span class="s2">&quot;google&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;connected&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;auth&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;user&quot;</span><span class="p">:</span> <span class="s2">&quot;my-personal-account@gmail.com&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;password&quot;</span><span class="p">:</span> <span class="s2">&quot;my-secret&quot;</span>
-  <span class="p">}</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Gmail Perso&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;account_type&quot;</span><span class="p">:</span> <span class="s2">&quot;google&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;connected&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;auth&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;user&quot;</span><span class="p">:</span> <span class="s2">&quot;my-personal-account@gmail.com&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;password&quot;</span><span class="p">:</span> <span class="s2">&quot;my-secret&quot;</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -624,13 +624,13 @@
 <h4 id="accounts-fields">Accounts fields<a class="headerlink" href="#accounts-fields" title="Permanent link">&para;</a></h4>
 <ul>
 <li><strong>name</strong> User defined name for the account (&ldquo;Perso&rdquo;, &ldquo;Pro&rdquo;)</li>
-<li><strong>account_type</strong> A type of account, like &ldquo;google&rdquo; or &ldquo;trainlines&rdquo;, a list will
-  be published by Cozy Cloud for current konnectors and most commons one. It&rsquo;s
-  recommended to use the associated website domain otherwise.</li>
+<li><strong>account_type</strong> A type of account, like &ldquo;google&rdquo; or &ldquo;trainlines&rdquo;, a list
+    will be published by Cozy Cloud for current konnectors and most commons one.
+    It&rsquo;s recommended to use the associated website domain otherwise.</li>
 <li><strong>status</strong> one of &ldquo;NoAttempt&rdquo; &ldquo;Connected&rdquo; or &ldquo;Errored&rdquo;</li>
 <li><strong>error</strong> the (optional) error for last connection to this account</li>
-<li><strong>auth</strong> An object defining auth method for this account. For now only {login,
-  password} is supported.</li>
+<li><strong>auth</strong> An object defining auth method for this account. For now only
+    {login, password} is supported.</li>
 </ul>
 <p>OAuth accounts will be explored later. The auth fields will be encrypted on
 disk.</p>
@@ -655,7 +655,7 @@ https://docs.cozy.io/en/cozy-stack/jobs/#post-jobstriggers</p>
 <p><strong>triggers</strong></p>
 <ul>
 <li>[x] <code>GET /jobs/triggers?Worker=konnector</code> Lists konnectors with a configured
-      recurrence.</li>
+        recurrence.</li>
 <li>[x] <code>POST /jobs/triggers</code> Enables a konnector recurrence.</li>
 <li>[x] <code>DELETE /jobs/triggers/:triggerid</code> Disables a konnector recurrence</li>
 </ul>
@@ -671,7 +671,7 @@ connector to retrieve my travel expenses</p>
 <p>1 - User is in <strong>my-expenses</strong> and clicks on [configure travels]</p>
 <p>2 - <strong>my-expenses</strong> triggers an intent</p>
 <div class="codehilite"><pre><span></span><span class="nx">cozy</span><span class="p">.</span><span class="nx">intents</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="s2">&quot;CREATE&quot;</span><span class="p">,</span> <span class="s2">&quot;io.cozy.konnectors&quot;</span><span class="p">,</span> <span class="p">{</span>
-  <span class="nx">category</span><span class="o">:</span> <span class="s2">&quot;transport&quot;</span>
+    <span class="nx">category</span><span class="o">:</span> <span class="s2">&quot;transport&quot;</span>
 <span class="p">});</span>
 </pre></div>
 
@@ -688,38 +688,38 @@ user choose</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Trainline&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;konnector&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;konnector-trainline&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Konnector for trainline . com&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;https://github.com/konnectors/trainlines.git@build&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;developer&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;XXX&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://www.xxx.fr&quot;</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.0.0&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;licence&quot;</span><span class="p">:</span> <span class="s2">&quot;AGPL-3.0&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;save_folder&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;doctype&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;folder&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;ALL&quot;</span><span class="p">]</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Trainline&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;konnector&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;konnector-trainline&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Konnector for trainline . com&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;https://github.com/konnectors/trainlines.git@build&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;developer&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;XXX&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://www.xxx.fr&quot;</span>
     <span class="p">},</span>
-    <span class="nt">&quot;account&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;doctype&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.accounts&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;account_type&quot;</span><span class="p">:</span> <span class="s2">&quot;trainlines&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;accountFormat&quot;</span><span class="p">:</span> <span class="s2">&quot;login,password&quot;</span>
+    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.0.0&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;licence&quot;</span><span class="p">:</span> <span class="s2">&quot;AGPL-3.0&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;save_folder&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;doctype&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;folder&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;ALL&quot;</span><span class="p">]</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;account&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;doctype&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.accounts&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;account_type&quot;</span><span class="p">:</span> <span class="s2">&quot;trainlines&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;accountFormat&quot;</span><span class="p">:</span> <span class="s2">&quot;login,password&quot;</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;transport&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;frequency&quot;</span><span class="p">:</span> <span class="s2">&quot;weekly&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;events&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Connect train bill with  event in your calendar&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.events&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;PATCH&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;transport&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;frequency&quot;</span><span class="p">:</span> <span class="s2">&quot;weekly&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;events&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Connect train bill with  event in your calendar&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.events&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;PATCH&quot;</span><span class="p">]</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -730,12 +730,12 @@ user choose</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;account_type&quot;</span><span class="p">:</span> <span class="s2">&quot;google&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;PENDING&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;auth&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;login&quot;</span><span class="p">:</span> <span class="s2">&quot;xxxx&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;password&quot;</span><span class="p">:</span> <span class="s2">&quot;yyyyy&quot;</span>
-  <span class="p">}</span>
+    <span class="nt">&quot;account_type&quot;</span><span class="p">:</span> <span class="s2">&quot;google&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;PENDING&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;auth&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;login&quot;</span><span class="p">:</span> <span class="s2">&quot;xxxx&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;password&quot;</span><span class="p">:</span> <span class="s2">&quot;yyyyy&quot;</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -745,14 +745,14 @@ user choose</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;123-account-id-123&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;_rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-asasasasa&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;account_type&quot;</span><span class="p">:</span> <span class="s2">&quot;google&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;PENDING&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;auth&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;login&quot;</span><span class="p">:</span> <span class="s2">&quot;xxxx&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;password&quot;</span><span class="p">:</span> <span class="s2">&quot;yyyyy&quot;</span>
-  <span class="p">}</span>
+    <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;123-account-id-123&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;_rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-asasasasa&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;account_type&quot;</span><span class="p">:</span> <span class="s2">&quot;google&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;PENDING&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;auth&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;login&quot;</span><span class="p">:</span> <span class="s2">&quot;xxxx&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;password&quot;</span><span class="p">:</span> <span class="s2">&quot;yyyyy&quot;</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -793,21 +793,21 @@ could for example use a PICK intents for files.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;456-permission-doc-id-456&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.permissions&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;app&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;source_id&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.konnectors/trainlines&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;save_folder&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;ALL&quot;</span><span class="p">],</span>
-          <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;123-selected-folder-id-123&quot;</span><span class="p">]</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;456-permission-doc-id-456&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.permissions&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;app&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;source_id&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.konnectors/trainlines&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;save_folder&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;ALL&quot;</span><span class="p">],</span>
+                    <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;123-selected-folder-id-123&quot;</span><span class="p">]</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
         <span class="p">}</span>
-      <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -817,26 +817,26 @@ could for example use a PICK intents for files.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;456-permission-doc-id-456&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.permissions&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;app&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;source_id&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.konnectors/trainlines&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;events&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Connect train bill with  event in your calendar&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.events&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;PATCH&quot;</span><span class="p">]</span>
-        <span class="p">},</span>
-        <span class="nt">&quot;save_folder&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;ALL&quot;</span><span class="p">],</span>
-          <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;123-selected-folder-id-123&quot;</span><span class="p">]</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;456-permission-doc-id-456&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.permissions&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;app&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;source_id&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.konnectors/trainlines&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;events&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Connect train bill with  event in your calendar&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.events&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;PATCH&quot;</span><span class="p">]</span>
+                <span class="p">},</span>
+                <span class="nt">&quot;save_folder&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;ALL&quot;</span><span class="p">],</span>
+                    <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;123-selected-folder-id-123&quot;</span><span class="p">]</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
         <span class="p">}</span>
-      <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -848,12 +848,12 @@ destruction</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.konnectors&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.konnectors/trainlines&quot;</span>
-    <span class="p">}</span>
-  <span class="p">]</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.konnectors&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.konnectors/trainlines&quot;</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -864,15 +864,15 @@ destruction</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;arguments&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;konnector&quot;</span><span class="p">:</span> <span class="s2">&quot;trainline&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;account&quot;</span><span class="p">:</span> <span class="s2">&quot;123-account-id-123&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;folder_to_save&quot;</span><span class="p">:</span> <span class="s2">&quot;123-selected-folder-id-123&quot;</span>
-      <span class="p">}</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;arguments&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;konnector&quot;</span><span class="p">:</span> <span class="s2">&quot;trainline&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;account&quot;</span><span class="p">:</span> <span class="s2">&quot;123-account-id-123&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;folder_to_save&quot;</span><span class="p">:</span> <span class="s2">&quot;123-selected-folder-id-123&quot;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -882,29 +882,29 @@ destruction</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;789-job-id-789&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;worker&quot;</span><span class="p">:</span> <span class="s2">&quot;konnector&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;priority&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-        <span class="nt">&quot;timeout&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
-        <span class="nt">&quot;max_exec_count&quot;</span><span class="p">:</span> <span class="mi">3</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;arguments&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;konnector&quot;</span><span class="p">:</span> <span class="s2">&quot;trainline&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;account&quot;</span><span class="p">:</span> <span class="s2">&quot;123-account-id-123&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;folder_to_save&quot;</span><span class="p">:</span> <span class="s2">&quot;123-selected-folder-id-123&quot;</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;running&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;try_count&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="nt">&quot;queued_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;started_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;errors&quot;</span><span class="p">:</span> <span class="p">[],</span>
-      <span class="nt">&quot;output&quot;</span><span class="p">:</span> <span class="p">{}</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;789-job-id-789&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;worker&quot;</span><span class="p">:</span> <span class="s2">&quot;konnector&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;priority&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                <span class="nt">&quot;timeout&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
+                <span class="nt">&quot;max_exec_count&quot;</span><span class="p">:</span> <span class="mi">3</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;arguments&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;konnector&quot;</span><span class="p">:</span> <span class="s2">&quot;trainline&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;account&quot;</span><span class="p">:</span> <span class="s2">&quot;123-account-id-123&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;folder_to_save&quot;</span><span class="p">:</span> <span class="s2">&quot;123-selected-folder-id-123&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;running&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;try_count&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nt">&quot;queued_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;started_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;errors&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="nt">&quot;output&quot;</span><span class="p">:</span> <span class="p">{}</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -926,18 +926,18 @@ konnectors and SettingsApp to display the nice progress modal.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;@cron&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;arguments&quot;</span><span class="p">:</span> <span class="s2">&quot;0 0 0 0 1 1 &quot;</span><span class="p">,</span>
-      <span class="nt">&quot;worker&quot;</span><span class="p">:</span> <span class="s2">&quot;konnector&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;worker_arguments&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;konnector&quot;</span><span class="p">:</span> <span class="s2">&quot;trainline&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;account&quot;</span><span class="p">:</span> <span class="s2">&quot;5165621628784562148955&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;folder_to_save&quot;</span><span class="p">:</span> <span class="s2">&quot;877854878455&quot;</span>
-      <span class="p">}</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;@cron&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;arguments&quot;</span><span class="p">:</span> <span class="s2">&quot;0 0 0 0 1 1 &quot;</span><span class="p">,</span>
+            <span class="nt">&quot;worker&quot;</span><span class="p">:</span> <span class="s2">&quot;konnector&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;worker_arguments&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;konnector&quot;</span><span class="p">:</span> <span class="s2">&quot;trainline&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;account&quot;</span><span class="p">:</span> <span class="s2">&quot;5165621628784562148955&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;folder_to_save&quot;</span><span class="p">:</span> <span class="s2">&quot;877854878455&quot;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -969,9 +969,10 @@ extended to all workers pre-validating worker arguments ?</p>
 object), the konnector worker pass these events to the realtime hub as
 <code>io.cozy.jobs.events</code>.</p>
 <ul>
-<li>Only JSON formatted events are forwarded to the client-side throught realtime</li>
+<li>Only JSON formatted events are forwarded to the client-side throught
+    realtime</li>
 <li>Otherwise formatted lines (such as node Error) will be kept in some system
-  logs.</li>
+    logs.</li>
 </ul>
 <p>Konnectors should NOT log the received account login values in production.</p>
 <h3 id="konnector-error-handling">Konnector error handling<a class="headerlink" href="#konnector-error-handling" title="Permanent link">&para;</a></h3>

@@ -605,21 +605,53 @@
                 <div class="col-md-9" role="main">
 
 <h1 id="pouchdb-mango-quirks">Pouchdb Mango Quirks<a class="headerlink" href="#pouchdb-mango-quirks" title="Permanent link">&para;</a></h1>
-<p>The findings below were obtained while working on sorting performance in Cozy Drive. For reference, the final PR <a href="https://github.com/cozy/cozy-drive/pull/1002/files">can be seen here</a>.</p>
+<p>The findings below were obtained while working on sorting performance in Cozy
+Drive. For reference, the final PR
+<a href="https://github.com/cozy/cozy-drive/pull/1002/files">can be seen here</a>.</p>
 <h2 id="understanding-whats-going-on">Understanding what&rsquo;s going on<a class="headerlink" href="#understanding-whats-going-on" title="Permanent link">&para;</a></h2>
-<p>Before diving into some of the quirks, it&rsquo;s important to understand some things when it comes to Pouchdb and especially Mango queries.</p>
-<p>First, you can add a plugin called <code>pouchdb-debug</code> and enable extra logs with <code>PouchDB.debug.enable( "pouchdb:find" );</code>. This will add explanation about the queries you run in the console and it&rsquo;s very helpful to understand what&rsquo;s going on under the hood.</p>
-<p>You will realize that Pouchdb operates in 2 phases : one part of your query may be done using indexes, and the other may be done in memory. Long story short: anything done in memory has significant performance impacts, especially as the number of items gets larger. A more detailed guide can be found <a href="https://www.bennadel.com/blog/3258-understanding-the-query-plan-explained-by-the-find-plugin-in-pouchdb-6-2-0.htm">here</a>.</p>
+<p>Before diving into some of the quirks, it&rsquo;s important to understand some things
+when it comes to Pouchdb and especially Mango queries.</p>
+<p>First, you can add a plugin called <code>pouchdb-debug</code> and enable extra logs with
+<code>PouchDB.debug.enable( "pouchdb:find" );</code>. This will add explanation about the
+queries you run in the console and it&rsquo;s very helpful to understand what&rsquo;s going
+on under the hood.</p>
+<p>You will realize that Pouchdb operates in 2 phases : one part of your query may
+be done using indexes, and the other may be done in memory. Long story short:
+anything done in memory has significant performance impacts, especially as the
+number of items gets larger. A more detailed guide can be found
+<a href="https://www.bennadel.com/blog/3258-understanding-the-query-plan-explained-by-the-find-plugin-in-pouchdb-6-2-0.htm">here</a>.</p>
 <h2 id="about-indexes">About indexes<a class="headerlink" href="#about-indexes" title="Permanent link">&para;</a></h2>
-<p>Creating an index takes some time, but the first query will <em>also</em> take time — you are encouraged to warm up the indexes by firing a query that uses it before it is actually needed. An exemple implementation can be found <a href="https://github.com/cozy/cozy-drive/blob/0326e3d253ca51e0fdb18a9e9b3b5c8ff0b87eba/src/drive/mobile/lib/replication.js#L15-L80">here</a>.</p>
-<p>If there is a change in the underlying documents, the index will be partially recalculated on the next query. <a href="https://github.com/cozy/cozy-drive/blob/0326e3d253ca51e0fdb18a9e9b3b5c8ff0b87eba/src/drive/mobile/lib/replication.js#L86-L91">The post-replication callback may be a good place to warm up the index again.</a></p>
-<p>By default, Pouch will try to find the best index to use on your query. For more advanced queries, you generally want to force it with the <code>use_index</code> option. If the query and the index you force are not compatible, Pouch will emit an error and not run the query at all.</p>
+<p>Creating an index takes some time, but the first query will <em>also</em> take time —
+you are encouraged to warm up the indexes by firing a query that uses it before
+it is actually needed. An exemple implementation can be found
+<a href="https://github.com/cozy/cozy-drive/blob/0326e3d253ca51e0fdb18a9e9b3b5c8ff0b87eba/src/drive/mobile/lib/replication.js#L15-L80">here</a>.</p>
+<p>If there is a change in the underlying documents, the index will be partially
+recalculated on the next query.
+<a href="https://github.com/cozy/cozy-drive/blob/0326e3d253ca51e0fdb18a9e9b3b5c8ff0b87eba/src/drive/mobile/lib/replication.js#L86-L91">The post-replication callback may be a good place to warm up the index again.</a></p>
+<p>By default, Pouch will try to find the best index to use on your query. For more
+advanced queries, you generally want to force it with the <code>use_index</code> option. If
+the query and the index you force are not compatible, Pouch will emit an error
+and not run the query at all.</p>
 <h2 id="indexing-more-than-one-field">Indexing more than one field<a class="headerlink" href="#indexing-more-than-one-field" title="Permanent link">&para;</a></h2>
-<p>Creating an index on several fields is <em>not</em> the same as creating multiple indexes on one field each. The effects of a single index on multiple fields is illustrated in the <a href="https://pouchdb.com/guides/mango-queries.html#more-than-one-field">official docs</a> and is important to understand.</p>
-<p>Furthermore, the order in which fields are indexed on a multi-index is significant, most notably when it comes to sorting. If you declare an index on the fields <code>['name', 'age']</code>, you should also sort them by <code>['name', 'age']</code>. Sorting them in a different order or using other fields will likely be done in memory and kill your performance.</p>
+<p>Creating an index on several fields is <em>not</em> the same as creating multiple
+indexes on one field each. The effects of a single index on multiple fields is
+illustrated in the
+<a href="https://pouchdb.com/guides/mango-queries.html#more-than-one-field">official docs</a>
+and is important to understand.</p>
+<p>Furthermore, the order in which fields are indexed on a multi-index is
+significant, most notably when it comes to sorting. If you declare an index on
+the fields <code>['name', 'age']</code>, you should also sort them by <code>['name', 'age']</code>.
+Sorting them in a different order or using other fields will likely be done in
+memory and kill your performance.</p>
 <h2 id="avoiding-in-memory-selectors">Avoiding in memory selectors<a class="headerlink" href="#avoiding-in-memory-selectors" title="Permanent link">&para;</a></h2>
-<p>Filtering results with a selector on a field that has not been indexed is almost guaranteed to be done in memory and should be avoided. Since you can&rsquo;t have too many indexes, some filtering may have to be done in your own code — but if you can narrow down the results beforehand, that shouldn&rsquo;t be a problem.</p>
-<p>Even selectors on indexed field may end up being done in memory. Operators that don&rsquo;t rely on equality such as <code>$ne</code> should typically be avoided. Even equality operators run on secondary fields tend to be done in memory, and should therefor be used with care.</p></div>
+<p>Filtering results with a selector on a field that has not been indexed is almost
+guaranteed to be done in memory and should be avoided. Since you can&rsquo;t have too
+many indexes, some filtering may have to be done in your own code — but if you
+can narrow down the results beforehand, that shouldn&rsquo;t be a problem.</p>
+<p>Even selectors on indexed field may end up being done in memory. Operators that
+don&rsquo;t rely on equality such as <code>$ne</code> should typically be avoided. Even equality
+operators run on secondary fields tend to be done in memory, and should therefor
+be used with care.</p></div>
         </div>
 
         <footer class="col-md-12">

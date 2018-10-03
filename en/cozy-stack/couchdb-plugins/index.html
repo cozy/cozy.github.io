@@ -615,10 +615,10 @@
 <li>last edit 2016-08</li>
 <li>Apparently one of the firsts</li>
 <li>Includes a http module, trying to figure out why, might simply be history
-  (started in 2014)</li>
+    (started in 2014)</li>
 <li>fork of the &ldquo;original&rdquo; https://github.com/fjl/go-couchdb</li>
 <li>brother of https://github.com/pokstad/go-couchdb which is used in this cool
-  article : http://pokstad.com/2015/04/18/couchdb-and-go.html</li>
+    article : http://pokstad.com/2015/04/18/couchdb-and-go.html</li>
 <li>Have tools to run as couchdbapp / couchdbdaemon (we wont use these)</li>
 <li>Allow to pass a net/http.RoundTripper for fine transport tunning.</li>
 <li>Pr merged with some fix for couchdb2, not sure if there is more issue</li>
@@ -637,7 +637,7 @@
 <li>Have functions for proxying requests (downloads / uploads)</li>
 <li>support json byte[] as well as interface{} for documents</li>
 <li>Is clean and clear, but more complex because of more functions. We will need
-  most those (users, proxy)</li>
+    most those (users, proxy)</li>
 </ul>
 <h3 id="httpsgithubcomdustingo-couch">https://github.com/dustin/go-couch<a class="headerlink" href="#httpsgithubcomdustingo-couch" title="Permanent link">&para;</a></h3>
 <ul>
@@ -656,46 +656,50 @@ packages for each function, some pitfalls could be avoided :</p>
 <p>(see the <a href="../architecture/">architecture</a> for more info)</p>
 <ul>
 <li>One stack instance communicate with one couchdb 2.x server or cluster. The
-  couchdb server/cluster has a lot of databases (nb_users x nb_data_types). The
-  pair stack+couch should handle as many active users as possible. Number of
-  unactive users must not impact perfs too much. Note : definition of active
-  user TBD (mobile app and 3rd party software are syncing using *dav and some
-  background jobs like fetching banks accounts and threshold alerts )</li>
-<li>HTTPS between stack and couchdb is not a priority. If it&rsquo;s an option, it will
-  allow more flexibility for ops team, but we can always find alternative
-  solution to secure channel between stack and couchdb and self-hosted users
-  will probably have both on an single machine.</li>
+    couchdb server/cluster has a lot of databases (nb_users x nb_data_types).
+    The pair stack+couch should handle as many active users as possible. Number
+    of unactive users must not impact perfs too much. Note : definition of
+    active user TBD (mobile app and 3rd party software are syncing using *dav
+    and some background jobs like fetching banks accounts and threshold alerts )</li>
+<li>HTTPS between stack and couchdb is not a priority. If it&rsquo;s an option, it
+    will allow more flexibility for ops team, but we can always find alternative
+    solution to secure channel between stack and couchdb and self-hosted users
+    will probably have both on an single machine.</li>
 <li>We wont keep changes feed open, as it was identified in couchdb workshop as
-  the limiting factor on number of databases we can have and we want to have a
-  bazillion databases. We will probably do some kind of polling, this will need
-  to be investigated deeper.</li>
+    the limiting factor on number of databases we can have and we want to have a
+    bazillion databases. We will probably do some kind of polling, this will
+    need to be investigated deeper.</li>
 <li>Binaries will NOT be stored in couchdb. We will only store in couchdb
-  reference to the file in another storage solution (FS / Swift)</li>
-<li>The stack will use couchdb in 2 ways :
-  1. Just proxying to/from the client, we will still need to parse the JSON, but
-     will only read or changes a few special fields (<code>_id</code>, <code>_type</code>, <code>_tags</code>
-     ....) for ACL and then pipe it to/from couchdb. We wont need to make sense
-     of the whole document and can eventually get away without parsing it on
-     some routes. This part should be totally flexible on the json content.
-  2. Some APIs and Jobs will need to make sense of the given documents, so
-     (un)marshal them from/into smarter struct (CalendarEvent) to be used in
-     business logic.</li>
+    reference to the file in another storage solution (FS / Swift)</li>
+<li>The stack will use couchdb in 2 ways :<ol>
+<li>Just proxying to/from the client, we will still need to parse the JSON,
+   but will only read or changes a few special fields (<code>_id</code>, <code>_type</code>,
+   <code>_tags</code> ....) for ACL and then pipe it to/from couchdb. We wont need to
+   make sense of the whole document and can eventually get away without
+   parsing it on some routes. This part should be totally flexible on the
+   json content.</li>
+<li>Some APIs and Jobs will need to make sense of the given documents, so
+   (un)marshal them from/into smarter struct (CalendarEvent) to be used in
+   business logic.</li>
+</ol>
+</li>
 </ul>
 <h2 id="analysis">Analysis<a class="headerlink" href="#analysis" title="Permanent link">&para;</a></h2>
 <ul>
 <li>They are all relatively similar in term of API. rhinoman has some more
-  functions that we will need but lack changes feed.</li>
+    functions that we will need but lack changes feed.</li>
 <li>They all have a struct for database which hold configuration, as most of our
-  request will be on different databases, we will have a great churn for these
-  structure. This is less than optimal for RAM &amp; GC, but probably insignificant
-  against JSON parsing.</li>
-<li>They all use JSON Marshal et encode to accept any interface{} as couchdb doc.</li>
-<li>They are all relatively inactive / stable, not sure if it is because they are
-  &ldquo;finished&rdquo; or abandonware.</li>
+    request will be on different databases, we will have a great churn for these
+    structure. This is less than optimal for RAM &amp; GC, but probably
+    insignificant against JSON parsing.</li>
+<li>They all use JSON Marshal et encode to accept any interface{} as couchdb
+    doc.</li>
+<li>They are all relatively inactive / stable, not sure if it is because they
+    are &ldquo;finished&rdquo; or abandonware.</li>
 <li>No library has a notion of pooling connection. This is handled at the
-  net/http.Transport level in golang.</li>
+    net/http.Transport level in golang.</li>
 <li>Only the first library has option for fine-tunning of the internal
-  Client/Transport,</li>
+    Client/Transport,</li>
 <li>No library support couchdb2 mango</li>
 </ul>
 <h2 id="going-further-thanks-tomquest">Going further (thanks @tomquest)<a class="headerlink" href="#going-further-thanks-tomquest" title="Permanent link">&para;</a></h2>
@@ -730,13 +734,14 @@ credentials.</p>
 <li>Cozy-stack oriented (functionally)</li>
 <li>Still able to access CouchDb natively (eg. <code>couchdb.Connection()</code>)</li>
 <li>Can hide technical stuff: access to the pool, concurrency, caching, https,
-  retries, timeouts&hellip;</li>
+    retries, timeouts&hellip;</li>
 <li>Build and maintained by Cozy</li>
 </ul>
 <p>Cons:</p>
 <ul>
 <li>DSL to write (and testing is a bit harder)</li>
-<li>To be maintained, but in fact, this is already the case for the other wrappers</li>
+<li>To be maintained, but in fact, this is already the case for the other
+    wrappers</li>
 </ul>
 <h2 id="current-decision">Current decision<a class="headerlink" href="#current-decision" title="Permanent link">&para;</a></h2>
 <p>We will make our own driver by cherry picking relevant codes in other libraries.</p></div>

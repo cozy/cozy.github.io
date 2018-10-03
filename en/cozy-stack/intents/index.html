@@ -610,17 +610,21 @@
 <ul>
 <li><a href="#overview">Overview</a></li>
 <li><a href="#glossary">Glossary</a></li>
-<li><a href="#proposal">Proposal</a></li>
+<li><a href="#proposal">Proposal</a><ul>
 <li><a href="#1-manifest">1. Manifest</a></li>
 <li><a href="##2-intent-start">2. Intent Start</a></li>
 <li><a href="#3-service-resolution">3. Service Resolution</a></li>
 <li><a href="#4-handshake">4. Handshake</a></li>
 <li><a href="#5-processing--terminating">5. Processing &amp; Terminating</a></li>
+</ul>
+</li>
 <li><a href="#routes">Routes</a></li>
-<li><a href="#annexes">Annexes</a></li>
+<li><a href="#annexes">Annexes</a><ul>
 <li><a href="#use-cases">Use cases</a></li>
 <li><a href="#bibliography--prior-art">Bibliography &amp; Prior Art</a></li>
 <li><a href="#discarded-ideas">Discarded Ideas</a></li>
+</ul>
+</li>
 </ul>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <p>A typical Cozy Cloud runs multiple applications, but most of these applications
@@ -634,14 +638,14 @@ neither painful for the users nor the developers.</p>
 <h2 id="glossary">Glossary<a class="headerlink" href="#glossary" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Intent</strong>: Intents, sometimes also called Activities, is a pattern used in
-  environments where multiple apps with different purposes coexist. The idea is
-  that any app can express the need to do <em>something</em> that it can&rsquo;t do itself,
-  and an app that <em>can</em> do it will take over from there.</li>
+    environments where multiple apps with different purposes coexist. The idea
+    is that any app can express the need to do <em>something</em> that it can&rsquo;t do
+    itself, and an app that <em>can</em> do it will take over from there.</li>
 <li><strong>Stack</strong>: refers to <a href="https://github.com/cozy/cozy-stack/">cozy-stack</a>, the
-  server-side part of the Cozy infrastructure.</li>
+    server-side part of the Cozy infrastructure.</li>
 <li><strong>Client</strong>: the client is the application that <em>starts</em> an intent.</li>
 <li><strong>Service</strong>: the service is the application that <em>handles</em> an intent started
-  by a client.</li>
+    by a client.</li>
 </ul>
 <h2 id="proposal">Proposal<a class="headerlink" href="#proposal" title="Permanent link">&para;</a></h2>
 <p>In this proposal, services declare themselves through their manifest. When a
@@ -654,17 +658,17 @@ do so, it must provide the following information for each intent it wishes to
 handle:</p>
 <ul>
 <li><code>action</code>: A verb that describes what the service should do. The most common
-  actions are <code>CREATE</code>, <code>EDIT</code>, <code>OPEN</code>, <code>PICK</code>, and <code>SHARE</code>. While we recommend
-  using one of these verbs, the list is not exhaustive and may be extended by
-  any app.</li>
+    actions are <code>CREATE</code>, <code>EDIT</code>, <code>OPEN</code>, <code>PICK</code>, and <code>SHARE</code>. While we
+    recommend using one of these verbs, the list is not exhaustive and may be
+    extended by any app.</li>
 <li><code>type</code>: One or more types of data on which the service knows how to operate
-  the <code>action</code>. A <code>type</code> can be expressed as a
-  <a href="https://en.wikipedia.org/wiki/Media_type">MIME type</a> or a
-  <a href="https://github.com/cozy/cozy-stack/blob/master/docs/data-system.md#typing">Cozy Document Type</a>.
-  The application must have permissions for any Cozy Document Type listed here.
-  You can also think of the <code>type</code> as the intent&rsquo;s subject.</li>
+    the <code>action</code>. A <code>type</code> can be expressed as a
+    <a href="https://en.wikipedia.org/wiki/Media_type">MIME type</a> or a
+    <a href="https://github.com/cozy/cozy-stack/blob/master/docs/data-system.md#typing">Cozy Document Type</a>.
+    The application must have permissions for any Cozy Document Type listed
+    here. You can also think of the <code>type</code> as the intent&rsquo;s subject.</li>
 <li><code>href</code>: the relative URL of the route designed to handle this intent. A
-  query-string with the intent id will be added to this URL.</li>
+    query-string with the intent id will be added to this URL.</li>
 </ul>
 <p>These informations must be provided in the manifest of the application, inside
 the <code>intents</code> key.</p>
@@ -714,27 +718,27 @@ the <code>intents</code> key.</p>
 the <em>client</em>.</p>
 <p>To start an intent, it must specify the following information:</p>
 <ul>
-<li><code>action</code> : an action verb, which will be matched against the actions declared
-  in services manifest files.</li>
+<li><code>action</code> : an action verb, which will be matched against the actions
+    declared in services manifest files.</li>
 <li><code>type</code> : a <strong>single</strong> data type, which will be matched against the types
-  declared in services manifest files.</li>
+    declared in services manifest files.</li>
 </ul>
 <p>There are also two optional fields that can be defined at the start of the
 intent:</p>
 <ul>
 <li><code>data</code>: Any data that the client wants to make available to the service.
-  <code>data</code> must be a JSON object but its structure is left to the discretion of
-  the client. The only exception is when <code>type</code> is a MIME type and the client
-  wishes to send a file to the service. In that case, the file should be
-  represented as a base-64 encoded <a href="http://dataurl.net/#about">Data URL</a> and
-  must be named <code>content</code>. This convention is also recomended when dealing with
-  other intent <code>type</code>s. See the examples below for an example of this.</li>
-<li><code>permissions</code> : When <code>type</code> is a Cozy Document Type and the client expects to
-  receive one or more documents as part of the reply from the service, the
-  <code>permissions</code> field allows the client to request permissions for these
-  documents. <code>permissions</code> is a list of HTTP Verbs. Refer
-  <a href="https://github.com/cozy/cozy-stack/blob/master/docs/permissions.md#verbs">to this section</a>
-  of the permission documentation for more information.</li>
+    <code>data</code> must be a JSON object but its structure is left to the discretion of
+    the client. The only exception is when <code>type</code> is a MIME type and the client
+    wishes to send a file to the service. In that case, the file should be
+    represented as a base-64 encoded <a href="http://dataurl.net/#about">Data URL</a> and
+    must be named <code>content</code>. This convention is also recomended when dealing
+    with other intent <code>type</code>s. See the examples below for an example of this.</li>
+<li><code>permissions</code> : When <code>type</code> is a Cozy Document Type and the client expects
+    to receive one or more documents as part of the reply from the service, the
+    <code>permissions</code> field allows the client to request permissions for these
+    documents. <code>permissions</code> is a list of HTTP Verbs. Refer
+    <a href="https://github.com/cozy/cozy-stack/blob/master/docs/permissions.md#verbs">to this section</a>
+    of the permission documentation for more information.</li>
 </ul>
 <p><strong>Note</strong>: if the intent&rsquo;s subject is a Cozy Doctype that holds references to
 other Cozy Documents (such as an album referencing photos or a playlist
@@ -890,14 +894,14 @@ intent is aborted and the iframe can be closed.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.intents&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;PICK&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">]</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.intents&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;PICK&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -909,27 +913,26 @@ intent is aborted and the iframe can be closed.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;77bcc42c-0fd8-11e7-ac95-8f605f6e8338&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.intents&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;PICK&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">],</span>
-      <span class="nt">&quot;client&quot;</span><span class="p">:</span> <span class="s2">&quot;https://contacts.cozy.example.net&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;services&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-          <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;files&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;href&quot;</span><span class="p">:</span>
-            <span class="s2">&quot;https://files.cozy.example.net/pick?intent=77bcc42c-0fd8-11e7-ac95-8f605f6e8338&quot;</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;77bcc42c-0fd8-11e7-ac95-8f605f6e8338&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.intents&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;PICK&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">],</span>
+            <span class="nt">&quot;client&quot;</span><span class="p">:</span> <span class="s2">&quot;https://contacts.cozy.example.net&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;services&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;files&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;href&quot;</span><span class="p">:</span> <span class="s2">&quot;https://files.cozy.example.net/pick?intent=77bcc42c-0fd8-11e7-ac95-8f605f6e8338&quot;</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/intents/77bcc42c-0fd8-11e7-ac95-8f605f6e8338&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="s2">&quot;/permissions/a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot;</span>
         <span class="p">}</span>
-      <span class="p">]</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/intents/77bcc42c-0fd8-11e7-ac95-8f605f6e8338&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="s2">&quot;/permissions/a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot;</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -953,27 +956,26 @@ intent is aborted and the iframe can be closed.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;77bcc42c-0fd8-11e7-ac95-8f605f6e8338&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.intents&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;PICK&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">],</span>
-      <span class="nt">&quot;client&quot;</span><span class="p">:</span> <span class="s2">&quot;https://contacts.cozy.example.net&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;services&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-          <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;files&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;href&quot;</span><span class="p">:</span>
-            <span class="s2">&quot;https://files.cozy.example.net/pick?intent=77bcc42c-0fd8-11e7-ac95-8f605f6e8338&quot;</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;77bcc42c-0fd8-11e7-ac95-8f605f6e8338&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.intents&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;PICK&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">],</span>
+            <span class="nt">&quot;client&quot;</span><span class="p">:</span> <span class="s2">&quot;https://contacts.cozy.example.net&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;services&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;files&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;href&quot;</span><span class="p">:</span> <span class="s2">&quot;https://files.cozy.example.net/pick?intent=77bcc42c-0fd8-11e7-ac95-8f605f6e8338&quot;</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/intents/77bcc42c-0fd8-11e7-ac95-8f605f6e8338&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="s2">&quot;/permissions/a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot;</span>
         <span class="p">}</span>
-      <span class="p">]</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/intents/77bcc42c-0fd8-11e7-ac95-8f605f6e8338&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="s2">&quot;/permissions/a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot;</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -999,16 +1001,16 @@ intent is aborted and the iframe can be closed.</p>
 <h3 id="bibliography-prior-art">Bibliography &amp; Prior Art<a class="headerlink" href="#bibliography-prior-art" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Prior art:
-  https://forum.cozy.io/t/cozy-tech-topic-inter-app-communication-architecture/2287</li>
+    https://forum.cozy.io/t/cozy-tech-topic-inter-app-communication-architecture/2287</li>
 <li>Web intents: http://webintents.org/</li>
 <li>WebActivities: https://wiki.mozilla.org/WebAPI/WebActivities and
-  https://developer.mozilla.org/en-US/docs/Archive/Firefox_OS/API/Web_Activities</li>
+    https://developer.mozilla.org/en-US/docs/Archive/Firefox_OS/API/Web_Activities</li>
 <li>Siri Intents:
-  https://developer.apple.com/library/content/documentation/Intents/Conceptual/SiriIntegrationGuide/ResolvingandHandlingIntents.html#//apple_ref/doc/uid/TP40016875-CH5-SW1</li>
+    https://developer.apple.com/library/content/documentation/Intents/Conceptual/SiriIntegrationGuide/ResolvingandHandlingIntents.html#//apple_ref/doc/uid/TP40016875-CH5-SW1</li>
 <li>Android Intents:
-  https://developer.android.com/reference/android/content/Intent.html</li>
+    https://developer.android.com/reference/android/content/Intent.html</li>
 <li>iOS extensions:
-  https://developer.apple.com/library/content/documentation/General/Conceptual/ExtensibilityPG/index.html</li>
+    https://developer.apple.com/library/content/documentation/General/Conceptual/ExtensibilityPG/index.html</li>
 </ul>
 <h3 id="discarded-ideas">Discarded Ideas<a class="headerlink" href="#discarded-ideas" title="Permanent link">&para;</a></h3>
 <h4 id="disposition">Disposition<a class="headerlink" href="#disposition" title="Permanent link">&para;</a></h4>

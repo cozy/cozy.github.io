@@ -666,19 +666,19 @@ files and folders inside it.</p>
 sharing. A user may share a calendar and all the events inside it. It will be
 done with two permissions. The first one is for the calendar:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.calendars&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">],</span>
-  <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;1355812c-d41e-11e6-8467-53be4648e3ad&quot;</span><span class="p">]</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.calendars&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;1355812c-d41e-11e6-8467-53be4648e3ad&quot;</span><span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 
 
 <p>And the other is for the events inside the calendar:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.events&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">],</span>
-  <span class="nt">&quot;selector&quot;</span><span class="p">:</span> <span class="s2">&quot;calendar-id&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;1355812c-d41e-11e6-8467-53be4648e3ad&quot;</span><span class="p">]</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.events&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;selector&quot;</span><span class="p">:</span> <span class="s2">&quot;calendar-id&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;1355812c-d41e-11e6-8467-53be4648e3ad&quot;</span><span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -694,25 +694,25 @@ relevant, it&rsquo;s just here for localization. The same key is used in the <co
 field to identify the permission.</p>
 <p>Example:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;contacts&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Required for autocompletion on @name&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.contacts&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">]</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;images&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Required for the background&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;POST&quot;</span><span class="p">],</span>
-      <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;io.cozy.files.music-dir&quot;</span><span class="p">]</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;mail&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Required to send a congratulations email to your friends&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;selector&quot;</span><span class="p">:</span> <span class="s2">&quot;worker&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;sendmail&quot;</span><span class="p">]</span>
+    <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;contacts&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Required for autocompletion on @name&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.contacts&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">]</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;images&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Required for the background&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;POST&quot;</span><span class="p">],</span>
+            <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;io.cozy.files.music-dir&quot;</span><span class="p">]</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;mail&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Required to send a congratulations email to your friends&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;selector&quot;</span><span class="p">:</span> <span class="s2">&quot;worker&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;sendmail&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -751,34 +751,33 @@ between the components.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.permissions&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;5a9c1844-d427-11e6-ab36-2b684d437b0d&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;app&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;source_id&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.apps/my-awesome-game&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;contacts&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Required for autocompletion on @name&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.contacts&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">]</span>
-        <span class="p">},</span>
-        <span class="nt">&quot;images&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Required for the background&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">],</span>
-          <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;io.cozy.files.music-dir&quot;</span><span class="p">]</span>
-        <span class="p">},</span>
-        <span class="nt">&quot;mail&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;description&quot;</span><span class="p">:</span>
-            <span class="s2">&quot;Required to send a congratulations email to your friends&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;selector&quot;</span><span class="p">:</span> <span class="s2">&quot;worker&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;sendmail&quot;</span><span class="p">]</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.permissions&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;5a9c1844-d427-11e6-ab36-2b684d437b0d&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;app&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;source_id&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.apps/my-awesome-game&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;contacts&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Required for autocompletion on @name&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.contacts&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">]</span>
+                <span class="p">},</span>
+                <span class="nt">&quot;images&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Required for the background&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">],</span>
+                    <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;io.cozy.files.music-dir&quot;</span><span class="p">]</span>
+                <span class="p">},</span>
+                <span class="nt">&quot;mail&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Required to send a congratulations email to your friends&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;selector&quot;</span><span class="p">:</span> <span class="s2">&quot;worker&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;sendmail&quot;</span><span class="p">]</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
         <span class="p">}</span>
-      <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -789,8 +788,8 @@ via the <code>codes</code> parameter in the query string. These codes can then b
 other people as a way to give these permissions (sharing by links). The
 parameter is comma separed list of values. The role of these values is to
 identify the codes if you want to revoke some of them later. A <code>ttl</code> parameter
-can also be given to make the codes expires after a delay (<a href="https://github.com/justincampbell/bigduration/blob/master/README.md">bigduration
-format</a>).</p>
+can also be given to make the codes expires after a delay
+(<a href="https://github.com/justincampbell/bigduration/blob/master/README.md">bigduration format</a>).</p>
 <p><strong>Note</strong>: it is only possible to create a strict subset of the permissions
 associated to the sent token.</p>
 <h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
@@ -803,19 +802,19 @@ associated to the sent token.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.permissions&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;source_id&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.apps/my-awesome-game&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;images&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">],</span>
-          <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;io.cozy.files.music-dir&quot;</span><span class="p">]</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.permissions&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;source_id&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.apps/my-awesome-game&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;images&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">],</span>
+                    <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;io.cozy.files.music-dir&quot;</span><span class="p">]</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
         <span class="p">}</span>
-      <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -827,26 +826,26 @@ associated to the sent token.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.permissions&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;share&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;source_id&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.apps/my-awesome-game&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;codes&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;bob&quot;</span><span class="p">:</span> <span class="s2">&quot;yuot7NaiaeGugh8T&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;jane&quot;</span><span class="p">:</span> <span class="s2">&quot;Yohyoo8BHahh1lie&quot;</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;expires_at&quot;</span><span class="p">:</span> <span class="mi">1483951978</span><span class="p">,</span>
-      <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;images&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">],</span>
-          <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;io.cozy.files.music-dir&quot;</span><span class="p">]</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.permissions&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;share&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;source_id&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.apps/my-awesome-game&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;codes&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;bob&quot;</span><span class="p">:</span> <span class="s2">&quot;yuot7NaiaeGugh8T&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;jane&quot;</span><span class="p">:</span> <span class="s2">&quot;Yohyoo8BHahh1lie&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;expires_at&quot;</span><span class="p">:</span> <span class="mi">1483951978</span><span class="p">,</span>
+            <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;images&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">],</span>
+                    <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;io.cozy.files.music-dir&quot;</span><span class="p">]</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
         <span class="p">}</span>
-      <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -868,26 +867,26 @@ associated to the sent token.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.permissions&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;share&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;source_id&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.apps/my-awesome-game&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;codes&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;bob&quot;</span><span class="p">:</span> <span class="s2">&quot;yuot7NaiaeGugh8T&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;jane&quot;</span><span class="p">:</span> <span class="s2">&quot;Yohyoo8BHahh1lie&quot;</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;expires_at&quot;</span><span class="p">:</span> <span class="mi">1483951978</span><span class="p">,</span>
-      <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;images&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">],</span>
-          <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;io.cozy.files.music-dir&quot;</span><span class="p">]</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.permissions&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;share&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;source_id&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.apps/my-awesome-game&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;codes&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;bob&quot;</span><span class="p">:</span> <span class="s2">&quot;yuot7NaiaeGugh8T&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;jane&quot;</span><span class="p">:</span> <span class="s2">&quot;Yohyoo8BHahh1lie&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;expires_at&quot;</span><span class="p">:</span> <span class="mi">1483951978</span><span class="p">,</span>
+            <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;images&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">],</span>
+                    <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;io.cozy.files.music-dir&quot;</span><span class="p">]</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
         <span class="p">}</span>
-      <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -909,15 +908,15 @@ give the contacts application the permissions to use it.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.permissions&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;codes&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;jane&quot;</span><span class="p">:</span> <span class="s2">&quot;Yohyoo8BHahh1lie&quot;</span>
-      <span class="p">}</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.permissions&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;codes&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;jane&quot;</span><span class="p">:</span> <span class="s2">&quot;Yohyoo8BHahh1lie&quot;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -932,17 +931,17 @@ give the contacts application the permissions to use it.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.permissions&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;add-this&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">],</span>
-        <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;some-picture-id&quot;</span><span class="p">]</span>
-      <span class="p">}</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.permissions&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;add-this&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">],</span>
+                <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;some-picture-id&quot;</span><span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -957,13 +956,13 @@ give the contacts application the permissions to use it.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.permissions&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;remove-this&quot;</span><span class="p">:</span> <span class="p">{}</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.permissions&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;remove-this&quot;</span><span class="p">:</span> <span class="p">{}</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -975,25 +974,25 @@ give the contacts application the permissions to use it.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.permissions&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;share&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;source_id&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.apps/my-awesome-game&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;codes&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;bob&quot;</span><span class="p">:</span> <span class="s2">&quot;yuot7NaiaeGugh8T&quot;</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;expires_at&quot;</span><span class="p">:</span> <span class="mi">1483951978</span><span class="p">,</span>
-      <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;images&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">],</span>
-          <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;io.cozy.files.music-dir&quot;</span><span class="p">]</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.permissions&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;share&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;source_id&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.apps/my-awesome-game&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;codes&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;bob&quot;</span><span class="p">:</span> <span class="s2">&quot;yuot7NaiaeGugh8T&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;expires_at&quot;</span><span class="p">:</span> <span class="mi">1483951978</span><span class="p">,</span>
+            <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;images&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">],</span>
+                    <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;io.cozy.files.music-dir&quot;</span><span class="p">]</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
         <span class="p">}</span>
-      <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -1079,42 +1078,42 @@ examples.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.permissions&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;c47f82396d09bfcd270343c5855b30a0&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;share&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;rule0&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.events&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;PATCH&quot;</span><span class="p">,</span> <span class="s2">&quot;DELETE&quot;</span><span class="p">],</span>
-            <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;c47f82396d09bfcd270343c5855b0eea&quot;</span><span class="p">]</span>
-          <span class="p">}</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.permissions&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;c47f82396d09bfcd270343c5855b30a0&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;share&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;rule0&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.events&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;PATCH&quot;</span><span class="p">,</span> <span class="s2">&quot;DELETE&quot;</span><span class="p">],</span>
+                        <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;c47f82396d09bfcd270343c5855b0eea&quot;</span><span class="p">]</span>
+                    <span class="p">}</span>
+                <span class="p">},</span>
+                <span class="nt">&quot;codes&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;bob&quot;</span><span class="p">:</span> <span class="s2">&quot;secret&quot;</span> <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-d46b6358683b80c8d59fc55d6de54127&quot;</span> <span class="p">},</span>
+            <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/permissions/c47f82396d09bfcd270343c5855b30a0&quot;</span> <span class="p">}</span>
         <span class="p">},</span>
-        <span class="nt">&quot;codes&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;bob&quot;</span><span class="p">:</span> <span class="s2">&quot;secret&quot;</span> <span class="p">}</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-d46b6358683b80c8d59fc55d6de54127&quot;</span> <span class="p">},</span>
-      <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/permissions/c47f82396d09bfcd270343c5855b30a0&quot;</span> <span class="p">}</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.permissions&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;c47f82396d09bfcd270343c5855b351a&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;share&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;rule0&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.events&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">],</span>
-            <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;c47f82396d09bfcd270343c5855b169b&quot;</span><span class="p">]</span>
-          <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="nt">&quot;codes&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;bob&quot;</span><span class="p">:</span> <span class="s2">&quot;secret&quot;</span> <span class="p">}</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-920af658575a56e9e84685f1b09e5c23&quot;</span> <span class="p">},</span>
-      <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/permissions/c47f82396d09bfcd270343c5855b351a&quot;</span> <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">]</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.permissions&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;c47f82396d09bfcd270343c5855b351a&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;share&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;rule0&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.events&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">],</span>
+                        <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;c47f82396d09bfcd270343c5855b169b&quot;</span><span class="p">]</span>
+                    <span class="p">}</span>
+                <span class="p">},</span>
+                <span class="nt">&quot;codes&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;bob&quot;</span><span class="p">:</span> <span class="s2">&quot;secret&quot;</span> <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-920af658575a56e9e84685f1b09e5c23&quot;</span> <span class="p">},</span>
+            <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/permissions/c47f82396d09bfcd270343c5855b351a&quot;</span> <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 

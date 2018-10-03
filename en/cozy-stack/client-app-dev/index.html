@@ -726,7 +726,7 @@ a template and will insert the relevant values.</p>
 <li><code>{{.IconPath}}</code>: will be replaced by the application&rsquo;s icon path.</li>
 <li><code>{{.CozyBar}}</code> will be replaced by the JavaScript to inject the cozy-bar.</li>
 <li><code>{{.CozyClientJS}}</code> will be replaced by the JavaScript to inject the
-  cozy-client-js.</li>
+    cozy-client-js.</li>
 </ul>
 <p>So, the <code>index.html</code> should probably looks like:</p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
@@ -752,11 +752,11 @@ a template and will insert the relevant values.</p>
 <div class="codehilite"><pre><span></span><span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
 
 <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;DOMContentLoaded&quot;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="kr">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;[role=application]&quot;</span><span class="p">);</span>
-  <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">init</span><span class="p">({</span>
-    <span class="nx">cozyURL</span><span class="o">:</span> <span class="s2">&quot;//&quot;</span> <span class="o">+</span> <span class="nx">app</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">cozyStack</span><span class="p">,</span>
-    <span class="nx">token</span><span class="o">:</span> <span class="nx">app</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">cozyToken</span>
-  <span class="p">});</span>
+    <span class="kr">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;[role=application]&quot;</span><span class="p">);</span>
+    <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">init</span><span class="p">({</span>
+        <span class="nx">cozyURL</span><span class="o">:</span> <span class="s2">&quot;//&quot;</span> <span class="o">+</span> <span class="nx">app</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">cozyStack</span><span class="p">,</span>
+        <span class="nx">token</span><span class="o">:</span> <span class="nx">app</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">cozyToken</span>
+    <span class="p">});</span>
 <span class="p">});</span>
 
 <span class="c1">// ...</span>

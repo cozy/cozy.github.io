@@ -623,11 +623,11 @@ as 4 layers, from inside to outside:</p>
 Cozy in all aspects. From an architectural point of view, it declines to:</p>
 <ul>
 <li>Simple to deploy and understand, not built as a galaxy of optimized
-  microservices managed by kubernetes that only experts can debug.</li>
+    microservices managed by kubernetes that only experts can debug.</li>
 <li>Versatile, can be hosted on a Raspberry Pi for geeks to massive scale on
-  multiple servers by specialized hosting. Users can install apps.</li>
+    multiple servers by specialized hosting. Users can install apps.</li>
 <li>Yours, you own your data and you control it. If you want to take back your
-  data to go elsewhere, you can.</li>
+    data to go elsewhere, you can.</li>
 </ul>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <p>The architecture of Cozy is composed of:</p>
@@ -655,8 +655,8 @@ availability:</p>
 <li>What must run on the server is mutualized inside the cozy stack.</li>
 <li>The cozy stack is stateless.</li>
 <li>The data is stored in couchdb and a space for files.</li>
-<li>A couchdb database is specific to an instance (no mix of data from 2 users in
-  the same database).</li>
+<li>A couchdb database is specific to an instance (no mix of data from 2 users
+    in the same database).</li>
 </ul>
 <h3 id="reverse-proxy">Reverse proxy<a class="headerlink" href="#reverse-proxy" title="Permanent link">&para;</a></h3>
 <p>The reverse proxy is here to accept HTTPS connexions and forward the request to
@@ -930,14 +930,14 @@ standards make sense (caldav &amp; carddav for example), use them. Else,
 <li>200 OK, when everything is OK</li>
 <li>201 Created, when a resource was created</li>
 <li>204 No Content, when a resource was deleted</li>
-<li>400 Bad Request, when the request has some unknown parameters and the request
-  body is not in the expected format</li>
+<li>400 Bad Request, when the request has some unknown parameters and the
+    request body is not in the expected format</li>
 <li>401 Unauthorized, when the user is not authenticated</li>
 <li>403 Forbidden, when the permissions forbid this action</li>
 <li>404 Not Found, when the resouce can&rsquo;t be found</li>
 <li>500 Internal Server Error, when a bug occurs</li>
 <li>503 Service Unavailable, when the stack, CouchDB, Redis or Swift is
-  unavailable.</li>
+    unavailable.</li>
 </ul>
 <h3 id="doctypes">DocTypes<a class="headerlink" href="#doctypes" title="Permanent link">&para;</a></h3>
 <p>Each JSON document saved in CouchDB has a field <code>docType</code> that identify the kind
@@ -985,12 +985,12 @@ write new apps. It means having a good documentation, but also some devtools to
 help:</p>
 <ul>
 <li>The <code>cozy</code> executable will have a command to setup a new project.</li>
-<li>The devtools on the cozy interface will give documentation about the doctypes,
-  help explore the Rest API, and check if the permissions are OK.</li>
+<li>The devtools on the cozy interface will give documentation about the
+    doctypes, help explore the Rest API, and check if the permissions are OK.</li>
 <li><code>cozy-ui</code> will make it easy to reuse some widgets and offer an application
-  with a style coherent to the cozy identity.</li>
-<li>Some docTypes with heavy logic will be available as JS classes to be reused in
-  the apps.</li>
+    with a style coherent to the cozy identity.</li>
+<li>Some docTypes with heavy logic will be available as JS classes to be reused
+    in the apps.</li>
 </ul>
 <h4 id="reporting-a-bug-or-suggesting-a-new-feature">Reporting a bug or suggesting a new feature<a class="headerlink" href="#reporting-a-bug-or-suggesting-a-new-feature" title="Permanent link">&para;</a></h4>
 <p>We are listening to our users. The forum is here to discuss on many subjects,
@@ -1052,7 +1052,7 @@ looks too complicated for a temporary thing.</p>
 <ul>
 <li>In CouchDB.</li>
 <li>on the place used for the Virtual File System (a directory on the local
-  filesystem, or in Swift).</li>
+    filesystem, or in Swift).</li>
 </ul>
 <p>You can use the tools of your choice to backup these 2 locations. The good old
 rsync works fine (CouchDB files are append-only, except when compaction happens,
@@ -1069,7 +1069,7 @@ way to achieve that. But, it has some serious downsides:</p>
 <ul>
 <li>It takes more memory and it&rsquo;s probably a no-go for Raspberry Pi.</li>
 <li>It&rsquo;s more complicated for a developper to install the whole stack before
-  coding its application.</li>
+    coding its application.</li>
 <li>It&rsquo;s harder to deploy in production.</li>
 </ul>
 <p>For the scalability, we can also deploy some specialized instances of the Cozy

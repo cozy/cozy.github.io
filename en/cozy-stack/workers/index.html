@@ -609,15 +609,14 @@
 <p><a href="../README/#table-of-contents">Table of contents</a></p>
 <h1 id="workers">Workers<a class="headerlink" href="#workers" title="Permanent link">&para;</a></h1>
 <p>This page list all the currently available workers on the cozy-stack. It
-describes their input arguments object. See the <a href="../jobs/">jobs document</a> to
-know more about the API context in which you can see how to use these
-arguments.</p>
+describes their input arguments object. See the <a href="../jobs/">jobs document</a> to know
+more about the API context in which you can see how to use these arguments.</p>
 <h2 id="log-worker">log worker<a class="headerlink" href="#log-worker" title="Permanent link">&para;</a></h2>
 <p>The <code>log</code> worker will just print in the log file the job sent to it. It can
 useful for debugging for example.</p>
 <h2 id="push-worker">push worker<a class="headerlink" href="#push-worker" title="Permanent link">&para;</a></h2>
-<p>The <code>push</code> worker can be used to send push-notifications to a user&rsquo;s device.
-The options are:</p>
+<p>The <code>push</code> worker can be used to send push-notifications to a user&rsquo;s device. The
+options are:</p>
 <ul>
 <li><code>client_id</code>: the ID of the oauth client to push a notification to.</li>
 <li><code>title</code>: the title of the notification</li>
@@ -629,10 +628,10 @@ The options are:</p>
 </ul>
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;client_id&quot;</span><span class="p">:</span> <span class="s2">&quot;abcdef123123123&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;My Notification&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;My notification content.&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;priority&quot;</span><span class="p">:</span> <span class="s2">&quot;high&quot;</span>
+    <span class="nt">&quot;client_id&quot;</span><span class="p">:</span> <span class="s2">&quot;abcdef123123123&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;My Notification&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;My notification content.&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;priority&quot;</span><span class="p">:</span> <span class="s2">&quot;high&quot;</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -641,30 +640,30 @@ The options are:</p>
 <p>To use this worker from a client-side application, you will need to ask the
 permission. It is done by adding this to the manifest:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;push-notification&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Required to send notifications&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">],</span>
-      <span class="nt">&quot;selector&quot;</span><span class="p">:</span> <span class="s2">&quot;worker&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;push&quot;</span><span class="p">]</span>
+    <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;push-notification&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Required to send notifications&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">],</span>
+            <span class="nt">&quot;selector&quot;</span><span class="p">:</span> <span class="s2">&quot;worker&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;push&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
 
 <h2 id="unzip-worker">unzip worker<a class="headerlink" href="#unzip-worker" title="Permanent link">&para;</a></h2>
-<p>The <code>unzip</code> worker can take a zip archive from the VFS, and will unzip the
-files inside it to a directory of the VFS. The options are:</p>
+<p>The <code>unzip</code> worker can take a zip archive from the VFS, and will unzip the files
+inside it to a directory of the VFS. The options are:</p>
 <ul>
 <li><code>zip</code>: the ID of the zip file</li>
 <li><code>destination</code>: the ID of the directory where the files will be unzipped.</li>
 </ul>
 <h3 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;zip&quot;</span><span class="p">:</span> <span class="s2">&quot;8737b5d6-51b6-11e7-9194-bf5b64b3bc9e&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;destination&quot;</span><span class="p">:</span> <span class="s2">&quot;88750a84-51b6-11e7-ba90-4f0b1cb62b7b&quot;</span>
+    <span class="nt">&quot;zip&quot;</span><span class="p">:</span> <span class="s2">&quot;8737b5d6-51b6-11e7-9194-bf5b64b3bc9e&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;destination&quot;</span><span class="p">:</span> <span class="s2">&quot;88750a84-51b6-11e7-ba90-4f0b1cb62b7b&quot;</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -673,15 +672,15 @@ files inside it to a directory of the VFS. The options are:</p>
 <p>To use this worker from a client-side application, you will need to ask the
 permission. It is done by adding this to the manifest:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;unzip-to-a-directory&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Required to unzip a file inside the cozy&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">],</span>
-      <span class="nt">&quot;selector&quot;</span><span class="p">:</span> <span class="s2">&quot;worker&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;unzip&quot;</span><span class="p">]</span>
+    <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;unzip-to-a-directory&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Required to unzip a file inside the cozy&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">],</span>
+            <span class="nt">&quot;selector&quot;</span><span class="p">:</span> <span class="s2">&quot;worker&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;unzip&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -693,18 +692,22 @@ example of configuration in the <a href="../../cozy.example.yaml">cozy.example.y
 at the root of this repository.</p>
 <p><code>sendmail</code> options fields are the following:</p>
 <ul>
-<li><code>mode</code>: string specifying the mode of the send:</li>
+<li><code>mode</code>: string specifying the mode of the send:<ul>
 <li><code>noreply</code> to send a notification mail to the user</li>
 <li><code>from</code> to send a mail from the user</li>
+</ul>
+</li>
 <li><code>to</code>: list of object <code>{name, email}</code> representing the addresses of the
-  recipients. (should not be used in <code>noreply</code> mode)</li>
+    recipients. (should not be used in <code>noreply</code> mode)</li>
 <li><code>subject</code>: string specifying the subject of the mail</li>
-<li><code>parts</code>: list of part objects <code>{type, body}</code> listing representing the content
-  parts of the</li>
+<li><code>parts</code>: list of part objects <code>{type, body}</code> listing representing the
+    content parts of the<ul>
 <li><code>type</code> string of the content type: either <code>text/html</code> or <code>text/plain</code></li>
 <li><code>body</code> string of the actual body content of the part</li>
-<li><code>attachments</code>: list of objects <code>{filename, content}</code> that represent the files
-  attached to the email</li>
+</ul>
+</li>
+<li><code>attachments</code>: list of objects <code>{filename, content}</code> that represent the
+    files attached to the email</li>
 </ul>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="c1">// from mode sending mail from the user to a list of recipients</span>
@@ -737,36 +740,41 @@ at the root of this repository.</p>
 <p>To use this worker from a client-side application, you will need to ask the
 permission. It is done by adding this to the manifest:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;mail-from-the-user&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Required to send mails from the user to his/her friends&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">],</span>
-      <span class="nt">&quot;selector&quot;</span><span class="p">:</span> <span class="s2">&quot;worker&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;sendmail&quot;</span><span class="p">]</span>
+    <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;mail-from-the-user&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Required to send mails from the user to his/her friends&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">],</span>
+            <span class="nt">&quot;selector&quot;</span><span class="p">:</span> <span class="s2">&quot;worker&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;sendmail&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
 
 <h2 id="export">export<a class="headerlink" href="#export" title="Permanent link">&para;</a></h2>
 <p>The <code>export</code> worker can be used to generate allow the export of all data
-contained in the cozy. At the end of the export, a mail is sent to the user containing a link to access to its data.</p>
-<p>The progress of the export process can be followed with realtime events on the doctype <code>io.cozy.exports</code>.</p>
+contained in the cozy. At the end of the export, a mail is sent to the user
+containing a link to access to its data.</p>
+<p>The progress of the export process can be followed with realtime events on the
+doctype <code>io.cozy.exports</code>.</p>
 <p>Its options are:</p>
 <ul>
-<li><code>parts_size</code>: the size in bytes of the sizes index splitting done for multi-part download of files data</li>
+<li><code>parts_size</code>: the size in bytes of the sizes index splitting done for
+    multi-part download of files data</li>
 <li><code>max_age</code>: the maximum age duration of the archive before it expires</li>
-<li><code>with_doctypes</code>: list of string for a whitelist of doctypes to exports (exports all doctypes if empty)</li>
-<li><code>without_files</code>: boolean to avoid exporting the index (preventing download file data)</li>
+<li><code>with_doctypes</code>: list of string for a whitelist of doctypes to exports
+    (exports all doctypes if empty)</li>
+<li><code>without_files</code>: boolean to avoid exporting the index (preventing download
+    file data)</li>
 </ul>
 <h3 id="example_2">Example<a class="headerlink" href="#example_2" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;parts_size&quot;</span><span class="p">:</span> <span class="mi">52428800</span><span class="p">,</span>
-  <span class="nt">&quot;max_age&quot;</span><span class="p">:</span> <span class="mi">60000000000</span><span class="p">,</span> <span class="err">//</span> <span class="err">1</span> <span class="err">minute</span>
-  <span class="nt">&quot;with_doctypes&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;io.cozy.accounts&quot;</span><span class="p">],</span> <span class="err">//</span> <span class="err">empty</span> <span class="err">or</span> <span class="err">null</span> <span class="err">means</span> <span class="err">all</span> <span class="err">doctypes</span>
-  <span class="nt">&quot;without_files&quot;</span><span class="p">:</span> <span class="kc">false</span>
+    <span class="nt">&quot;parts_size&quot;</span><span class="p">:</span> <span class="mi">52428800</span><span class="p">,</span>
+    <span class="nt">&quot;max_age&quot;</span><span class="p">:</span> <span class="mi">60000000000</span><span class="p">,</span> <span class="err">//</span> <span class="err">1</span> <span class="err">minute</span>
+    <span class="nt">&quot;with_doctypes&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;io.cozy.accounts&quot;</span><span class="p">],</span> <span class="err">//</span> <span class="err">empty</span> <span class="err">or</span> <span class="err">null</span> <span class="err">means</span> <span class="err">all</span> <span class="err">doctypes</span>
+    <span class="nt">&quot;without_files&quot;</span><span class="p">:</span> <span class="kc">false</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -775,15 +783,15 @@ contained in the cozy. At the end of the export, a mail is sent to the user cont
 <p>To use this worker from a client-side application, you will need to ask the
 permission. It is done by adding this to the manifest:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;mail-from-the-user&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Required to create a export of the user&#39;s data&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">],</span>
-      <span class="nt">&quot;selector&quot;</span><span class="p">:</span> <span class="s2">&quot;worker&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;export&quot;</span><span class="p">]</span>
+    <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;mail-from-the-user&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Required to create a export of the user&#39;s data&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">],</span>
+            <span class="nt">&quot;selector&quot;</span><span class="p">:</span> <span class="s2">&quot;worker&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;export&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 

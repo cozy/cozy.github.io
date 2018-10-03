@@ -635,10 +635,11 @@ parameter you repository to automatically publish versions.</p>
 differentiate the version channel:</p>
 <ul>
 <li>stable: <code>X.Y.Z</code> where <code>X</code>, <code>Y</code> and <code>Z</code> are positive or null integers.</li>
-<li>beta: <code>X.Y.Z-beta.M</code> where <code>X</code>, <code>Y</code>, <code>Z</code> and <code>M</code> are positive or null integers</li>
-<li>dev: <code>X.Y.Z-dev.checksum</code> where <code>X</code>, <code>Y</code> and <code>Z</code> are positive or null integers
-  and <code>checksum</code> is a unique identifier of the dev release (typically a shasum
-  of the git commit)</li>
+<li>beta: <code>X.Y.Z-beta.M</code> where <code>X</code>, <code>Y</code>, <code>Z</code> and <code>M</code> are positive or null
+    integers</li>
+<li>dev: <code>X.Y.Z-dev.checksum</code> where <code>X</code>, <code>Y</code> and <code>Z</code> are positive or null
+    integers and <code>checksum</code> is a unique identifier of the dev release (typically
+    a shasum of the git commit)</li>
 </ul>
 <h2 id="version-order">Version order<a class="headerlink" href="#version-order" title="Permanent link">&para;</a></h2>
 <p>TLDR: 1.0.0-dev.<em> &lt; 1.0.0 and 1.0.0-beta.</em> &lt; 1.0.0, make sure you upgrade your
@@ -664,38 +665,52 @@ app version after publishing stable.</p>
 <li><code>editor</code>: the application editor name</li>
 <li><code>versions</code>: an object containing all the channels versions</li>
 <li><code>latest_version</code>: the latest available version</li>
-<li><code>maintenance_activated</code>: boolean, true when the maintenance mode is activated on the application</li>
-<li><code>maintenance_options</code>: present only if <code>maintenance_activated</code> is true, object with the following fields:</li>
-<li><code>flag_infra_maintenance</code>: bool, true iff the maintenance is internal to the cozy infrastructure</li>
-<li><code>flag_short_maintenance</code>: bool, true iff the maintenance is a short maintenance, waiting for a correction on our side</li>
-<li><code>flag_disallow_manual_exec</code>: bool, true iff the maintenance will disallow the execution on the application, even when manually executed</li>
-<li><code>messages</code>: a list of localized messages containing a short and long information messages explaining the maintenance state</li>
+<li><code>maintenance_activated</code>: boolean, true when the maintenance mode is
+    activated on the application</li>
+<li><code>maintenance_options</code>: present only if <code>maintenance_activated</code> is true,
+    object with the following fields:<ul>
+<li><code>flag_infra_maintenance</code>: bool, true iff the maintenance is internal to
+    the cozy infrastructure</li>
+<li><code>flag_short_maintenance</code>: bool, true iff the maintenance is a short
+    maintenance, waiting for a correction on our side</li>
+<li><code>flag_disallow_manual_exec</code>: bool, true iff the maintenance will
+    disallow the execution on the application, even when manually executed</li>
+<li><code>messages</code>: a list of localized messages containing a short and long
+    information messages explaining the maintenance state</li>
+</ul>
+</li>
 <li><code>label</code>: integer for a confidence grade from 0 to 5 (A to F), labelling the
-  application from a user privacy standpoint. It is calculated from the
-  <code>data_usage_commitment</code> and <code>data_usage_commitment_by</code> fields.</li>
-<li><code>data_usage_commitment</code>: specify a technical commitment from the
-  application editor:</li>
+    application from a user privacy standpoint. It is calculated from the
+    <code>data_usage_commitment</code> and <code>data_usage_commitment_by</code> fields.</li>
+<li><code>data_usage_commitment</code>: specify a technical commitment from the application
+    editor:<ul>
 <li><code>user_ciphered</code>: technical commitment that the user&rsquo;s data is encrypted
     and can only be known by him.</li>
 <li><code>user_reserved</code>: commitment that the data is only used for the user, to
     directly offer its service.</li>
 <li><code>none</code>: no commitment</li>
-<li><code>data_usage_commitment_by</code>: specify what entity is taking the commitment:</li>
+</ul>
+</li>
+<li><code>data_usage_commitment_by</code>: specify what entity is taking the commitment:<ul>
 <li><code>cozy</code>: the commitment is taken by cozy</li>
 <li><code>editor</code>: the commitment is taken by the application&rsquo;s editor</li>
 <li><code>none</code>: no commitment is taken</li>
 </ul>
+</li>
+</ul>
 <p>Example:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;webapp&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;editor&quot;</span><span class="p">:</span> <span class="s2">&quot;cozy&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;versions&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;stable&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;3.1.1&quot;</span><span class="p">],</span>
-    <span class="nt">&quot;beta&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;3.1.1-beta.1&quot;</span><span class="p">],</span>
-    <span class="nt">&quot;dev&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;3.1.1-dev.7a8354f74b50d7beead7719252a18ed45f55d070&quot;</span><span class="p">]</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;latest_version&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="err">/*</span> <span class="err">*/</span> <span class="p">}</span>
+    <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;webapp&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;editor&quot;</span><span class="p">:</span> <span class="s2">&quot;cozy&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;versions&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;stable&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;3.1.1&quot;</span><span class="p">],</span>
+        <span class="nt">&quot;beta&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;3.1.1-beta.1&quot;</span><span class="p">],</span>
+        <span class="nt">&quot;dev&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;3.1.1-dev.7a8354f74b50d7beead7719252a18ed45f55d070&quot;</span><span class="p">]</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;latest_version&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="err">/*</span> <span class="err">*/</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -708,43 +723,44 @@ app version after publishing stable.</p>
 <li><code>slug</code>: the application slug</li>
 <li><code>type</code>: the application type (webapp, konnector, &hellip;)</li>
 <li><code>manifest</code>: the <a href="../apps/#the-manifest">entire</a>
-  <a href="../konnectors/#the-manifest">manifest</a> defined in the package</li>
+    <a href="../konnectors/#the-manifest">manifest</a> defined in the package</li>
 <li><code>created_at</code>: date of the release creation</li>
 <li><code>url</code>: URL of the tarball containing the application at specified version</li>
-<li><code>size</code>: the size of the application package (uncompressed) in bytes as string</li>
+<li><code>size</code>: the size of the application package (uncompressed) in bytes as
+    string</li>
 <li><code>sha256</code>: the sha256 checksum of the application content</li>
-<li><code>tar_prefix</code>: optional tar prefix directory specified to properly extract the
-  application content</li>
+<li><code>tar_prefix</code>: optional tar prefix directory specified to properly extract
+    the application content</li>
 </ul>
 <p>The version string should follow the channels rule.</p>
 <p>Example:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;webapp&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.1.2&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-07-05T07:54:40.982Z&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://.../3.1.2&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="s2">&quot;1000&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;sha256&quot;</span><span class="p">:</span> <span class="s2">&quot;466aa0815926fdbf33fda523af2b9bf34520906ffbb9bf512ddf20df2992a46f&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;manifest&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="err">/*</span> <span class="err">...</span> <span class="err">*/</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;maintenance_activated&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-  <span class="nt">&quot;maintenance_options&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;flag_infra_maintenance&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-      <span class="nt">&quot;flag_short_maintenance&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-      <span class="nt">&quot;flag_disallow_manual_exec&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-      <span class="nt">&quot;messages&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;en&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;long_message&quot;</span><span class="p">:</span> <span class="s2">&quot;The app is currently in maintenance because of ....&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;short_message&quot;</span><span class="p">:</span> <span class="s2">&quot;The app is currently in maintenance&quot;</span>
-        <span class="p">},</span>
-        <span class="nt">&quot;fr&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;long_message&quot;</span><span class="p">:</span> <span class="s2">&quot;L&#39;application est en cours de maintenance à cause de ...&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;short_message&quot;</span><span class="p">:</span> <span class="s2">&quot;L&#39;application est en cours de maintenance&quot;</span>
+    <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;webapp&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.1.2&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-07-05T07:54:40.982Z&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://.../3.1.2&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="s2">&quot;1000&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;sha256&quot;</span><span class="p">:</span> <span class="s2">&quot;466aa0815926fdbf33fda523af2b9bf34520906ffbb9bf512ddf20df2992a46f&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;manifest&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="err">/*</span> <span class="err">...</span> <span class="err">*/</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;maintenance_activated&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;maintenance_options&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;flag_infra_maintenance&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nt">&quot;flag_short_maintenance&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="nt">&quot;flag_disallow_manual_exec&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nt">&quot;messages&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;en&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;long_message&quot;</span><span class="p">:</span> <span class="s2">&quot;The app is currently in maintenance because of ....&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;short_message&quot;</span><span class="p">:</span> <span class="s2">&quot;The app is currently in maintenance&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;fr&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;long_message&quot;</span><span class="p">:</span> <span class="s2">&quot;L&#39;application est en cours de maintenance à cause de ...&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;short_message&quot;</span><span class="p">:</span> <span class="s2">&quot;L&#39;application est en cours de maintenance&quot;</span>
+            <span class="p">}</span>
         <span class="p">}</span>
-      <span class="p">}</span>
-  <span class="p">}</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -758,8 +774,8 @@ request should be a json object of an application.</p>
 <ul>
 <li>201 Created, when the application has been successfully added</li>
 <li>409 Conflict, when an application with the same slug already exists</li>
-<li>400 Bad request, if the given application data is malformed (bad slug, missing
-  editor, &hellip;)</li>
+<li>400 Bad request, if the given application data is malformed (bad slug,
+    missing editor, &hellip;)</li>
 </ul>
 <h4 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/registry/drive</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
@@ -768,17 +784,17 @@ request should be a json object of an application.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;editor&quot;</span><span class="p">:</span> <span class="s2">&quot;cozy&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;en&quot;</span><span class="p">:</span> <span class="s2">&quot;Drive&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;fr&quot;</span><span class="p">:</span> <span class="s2">&quot;Drive&quot;</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;en&quot;</span><span class="p">:</span> <span class="s2">&quot;The drive application&quot;</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;repository&quot;</span><span class="p">:</span> <span class="s2">&quot;https://github.com/cozy/cozy-drive&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="s2">&quot;baz&quot;</span><span class="p">]</span>
+    <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;editor&quot;</span><span class="p">:</span> <span class="s2">&quot;cozy&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;en&quot;</span><span class="p">:</span> <span class="s2">&quot;Drive&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;fr&quot;</span><span class="p">:</span> <span class="s2">&quot;Drive&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;en&quot;</span><span class="p">:</span> <span class="s2">&quot;The drive application&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;repository&quot;</span><span class="p">:</span> <span class="s2">&quot;https://github.com/cozy/cozy-drive&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="s2">&quot;baz&quot;</span><span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -791,7 +807,7 @@ fill the fields of the version. Before adding the application version to the
 registry, the registry should check the following:</p>
 <ul>
 <li>the <code>manifest</code> file contained in the tarball should be checked and have its
-  fields checked against the application properties</li>
+    fields checked against the application properties</li>
 <li>the application content should check the sha256 checksum</li>
 </ul>
 <p>Fields of the object sent to this request:</p>
@@ -800,20 +816,20 @@ registry, the registry should check the following:</p>
 <li><strong><code>sha256</code></strong>: the sha256 checksum of the tarball</li>
 <li><strong><code>version</code></strong>: the version value (should match the one in the manifest)</li>
 <li><code>parameters?</code>: an optional json value (any) that will override the
-  <code>parameters</code> field of the manifest</li>
+    <code>parameters</code> field of the manifest</li>
 <li><code>icon?</code>: an optional path to override the <code>icon</code> field of the manifest</li>
-<li><code>screenshots?</code>: and optional array of path to override the <code>screenshots</code> field
-  of the manifest</li>
+<li><code>screenshots?</code>: and optional array of path to override the <code>screenshots</code>
+    field of the manifest</li>
 </ul>
 <h4 id="status-codes_1">Status codes<a class="headerlink" href="#status-codes_1" title="Permanent link">&para;</a></h4>
 <ul>
 <li>201 Created, when the version has been successfully added to the registry</li>
 <li>409 Conflict, when the version already exists</li>
 <li>404 Not Found, when the application does not exist</li>
-<li>412 Precondition Failed, when the sent application data is invalid (could not
-  fetch data URL, bad checksum, bad manifest in the tarball&hellip;)</li>
+<li>412 Precondition Failed, when the sent application data is invalid (could
+    not fetch data URL, bad checksum, bad manifest in the tarball&hellip;)</li>
 <li>400 Bad request, when the request is invalid (bad checksum encoding, bad
-  URL&hellip;)</li>
+    URL&hellip;)</li>
 </ul>
 <h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
 <p>Request to add a stable release:</p>
@@ -823,9 +839,9 @@ registry, the registry should check the following:</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.1.2&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://github.com/cozy/cozy-drive/archive/v3.1.2.tar.gz&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;sha256&quot;</span><span class="p">:</span> <span class="s2">&quot;466aa0815926fdbf33fda523af2b9bf34520906ffbb9bf512ddf20df2992a46f&quot;</span>
+    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.1.2&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://github.com/cozy/cozy-drive/archive/v3.1.2.tar.gz&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;sha256&quot;</span><span class="p">:</span> <span class="s2">&quot;466aa0815926fdbf33fda523af2b9bf34520906ffbb9bf512ddf20df2992a46f&quot;</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -837,10 +853,9 @@ registry, the registry should check the following:</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.1.2-dev.7a1618dff78ba445650f266bbe334cbc9176f03a&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;url&quot;</span><span class="p">:</span>
-    <span class="s2">&quot;https://github.com/cozy/cozy-photos-v3/archive/7a1618dff78ba445650f266bbe334cbc9176f03a.zip&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;sha256&quot;</span><span class="p">:</span> <span class="s2">&quot;466aa0815926fdbf33fda523af2b9bf34520906ffbb9bf512ddf20df2992a46f&quot;</span>
+    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.1.2-dev.7a1618dff78ba445650f266bbe334cbc9176f03a&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://github.com/cozy/cozy-photos-v3/archive/7a1618dff78ba445650f266bbe334cbc9176f03a.zip&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;sha256&quot;</span><span class="p">:</span> <span class="s2">&quot;466aa0815926fdbf33fda523af2b9bf34520906ffbb9bf512ddf20df2992a46f&quot;</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -852,11 +867,10 @@ registry, the registry should check the following:</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.1.2&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;url&quot;</span><span class="p">:</span>
-    <span class="s2">&quot;https://github.com/cozy/cozy-photos-v3/archive/7a1618dff78ba445650f266bbe334cbc9176f03a.zip&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;sha256&quot;</span><span class="p">:</span> <span class="s2">&quot;466aa0815926fdbf33fda523af2b9bf34520906ffbb9bf512ddf20df2992a46f&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;parameters&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;foo&quot;</span><span class="p">:</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="nt">&quot;baz&quot;</span><span class="p">:</span> <span class="mi">123</span> <span class="p">}</span>
+    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.1.2&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://github.com/cozy/cozy-photos-v3/archive/7a1618dff78ba445650f266bbe334cbc9176f03a.zip&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;sha256&quot;</span><span class="p">:</span> <span class="s2">&quot;466aa0815926fdbf33fda523af2b9bf34520906ffbb9bf512ddf20df2992a46f&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;parameters&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;foo&quot;</span><span class="p">:</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="nt">&quot;baz&quot;</span><span class="p">:</span> <span class="mi">123</span> <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -869,16 +883,16 @@ registry, the registry should check the following:</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;webapp&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.1.2-dev.7a1618dff78ba445650f266bbe334cbc9176f03a&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-07-05T07:54:40.982Z&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://.../7a1618dff78ba445650f266bbe334cbc9176f03a.zip&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="s2">&quot;1000&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;sha256&quot;</span><span class="p">:</span> <span class="s2">&quot;466aa0815926fdbf33fda523af2b9bf34520906ffbb9bf512ddf20df2992a46f&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;manifest&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="err">/*</span> <span class="err">...</span> <span class="err">*/</span>
-  <span class="p">}</span>
+    <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;webapp&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.1.2-dev.7a1618dff78ba445650f266bbe334cbc9176f03a&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-07-05T07:54:40.982Z&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://.../7a1618dff78ba445650f266bbe334cbc9176f03a.zip&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="s2">&quot;1000&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;sha256&quot;</span><span class="p">:</span> <span class="s2">&quot;466aa0815926fdbf33fda523af2b9bf34520906ffbb9bf512ddf20df2992a46f&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;manifest&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="err">/*</span> <span class="err">...</span> <span class="err">*/</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -953,37 +967,37 @@ tags.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;webapp&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;editor&quot;</span><span class="p">:</span> <span class="s2">&quot;cozy&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;versions&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;stable&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;3.1.1&quot;</span><span class="p">],</span>
-        <span class="nt">&quot;beta&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;3.1.1-beta.1&quot;</span><span class="p">],</span>
-        <span class="nt">&quot;dev&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;3.1.1-dev.7a8354f74b50d7beead7719252a18ed45f55d070&quot;</span><span class="p">]</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;latest_version&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;webapp&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.1.1&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://.../3.1.1&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;sha256&quot;</span><span class="p">:</span> <span class="s2">&quot;466aa0815926fdbf33fda523af2b9bf34520906ffbb9bf512ddf20df2992a46f&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="s2">&quot;1000&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-07-05T07:54:40.982Z&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;manifest&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="err">/*</span> <span class="err">...</span> <span class="err">*/</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;webapp&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;editor&quot;</span><span class="p">:</span> <span class="s2">&quot;cozy&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;versions&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;stable&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;3.1.1&quot;</span><span class="p">],</span>
+                <span class="nt">&quot;beta&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;3.1.1-beta.1&quot;</span><span class="p">],</span>
+                <span class="nt">&quot;dev&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;3.1.1-dev.7a8354f74b50d7beead7719252a18ed45f55d070&quot;</span><span class="p">]</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;latest_version&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;webapp&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.1.1&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://.../3.1.1&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;sha256&quot;</span><span class="p">:</span> <span class="s2">&quot;466aa0815926fdbf33fda523af2b9bf34520906ffbb9bf512ddf20df2992a46f&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="s2">&quot;1000&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-07-05T07:54:40.982Z&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;manifest&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="err">/*</span> <span class="err">...</span> <span class="err">*/</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="err">//</span> <span class="err">...</span>
         <span class="p">}</span>
-      <span class="p">},</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="err">//</span> <span class="err">...</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;count&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="nt">&quot;next_cursor&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span>
     <span class="p">}</span>
-  <span class="p">],</span>
-  <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;count&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-    <span class="nt">&quot;next_cursor&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -1002,25 +1016,25 @@ tags.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;editor&quot;</span><span class="p">:</span> <span class="s2">&quot;cozy&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;latest_version&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;webapp&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.1.1&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://.../3.1.1&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;sha256&quot;</span><span class="p">:</span> <span class="s2">&quot;466aa0815926fdbf33fda523af2b9bf34520906ffbb9bf512ddf20df2992a46f&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="s2">&quot;1000&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-07-05T07:54:40.982Z&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;manifest&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="err">/*</span> <span class="err">...</span> <span class="err">*/</span>
+    <span class="nt">&quot;editor&quot;</span><span class="p">:</span> <span class="s2">&quot;cozy&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;latest_version&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;webapp&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.1.1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://.../3.1.1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;sha256&quot;</span><span class="p">:</span> <span class="s2">&quot;466aa0815926fdbf33fda523af2b9bf34520906ffbb9bf512ddf20df2992a46f&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="s2">&quot;1000&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-07-05T07:54:40.982Z&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;manifest&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="err">/*</span> <span class="err">...</span> <span class="err">*/</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;versions&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;stable&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;3.1.1&quot;</span><span class="p">],</span>
+        <span class="nt">&quot;beta&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;3.1.1-beta.1&quot;</span><span class="p">],</span>
+        <span class="nt">&quot;dev&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;3.1.1-dev.7a8354f74b50d7beead7719252a18ed45f55d070&quot;</span><span class="p">]</span>
     <span class="p">}</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;versions&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;stable&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;3.1.1&quot;</span><span class="p">],</span>
-    <span class="nt">&quot;beta&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;3.1.1-beta.1&quot;</span><span class="p">],</span>
-    <span class="nt">&quot;dev&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;3.1.1-dev.7a8354f74b50d7beead7719252a18ed45f55d070&quot;</span><span class="p">]</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -1072,16 +1086,16 @@ the application.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;webapp&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.1.1&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://.../3.1.1&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;sha256&quot;</span><span class="p">:</span> <span class="s2">&quot;466aa0815926fdbf33fda523af2b9bf34520906ffbb9bf512ddf20df2992a46f&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="s2">&quot;1000&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-07-05T07:54:40.982Z&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;manifest&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="err">/*</span> <span class="err">...</span> <span class="err">*/</span>
-  <span class="p">}</span>
+    <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;webapp&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.1.1&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://.../3.1.1&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;sha256&quot;</span><span class="p">:</span> <span class="s2">&quot;466aa0815926fdbf33fda523af2b9bf34520906ffbb9bf512ddf20df2992a46f&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="s2">&quot;1000&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-07-05T07:54:40.982Z&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;manifest&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="err">/*</span> <span class="err">...</span> <span class="err">*/</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -1100,16 +1114,16 @@ the application.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;webapp&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.1.1&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://.../3.1.1&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;sha256&quot;</span><span class="p">:</span> <span class="s2">&quot;466aa0815926fdbf33fda523af2b9bf34520906ffbb9bf512ddf20df2992a46f&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="s2">&quot;1000&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-07-05T07:54:40.982Z&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;manifest&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="err">/*</span> <span class="err">...</span> <span class="err">*/</span>
-  <span class="p">}</span>
+    <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;webapp&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.1.1&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://.../3.1.1&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;sha256&quot;</span><span class="p">:</span> <span class="s2">&quot;466aa0815926fdbf33fda523af2b9bf34520906ffbb9bf512ddf20df2992a46f&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="s2">&quot;1000&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-07-05T07:54:40.982Z&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;manifest&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="err">/*</span> <span class="err">...</span> <span class="err">*/</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -1128,24 +1142,24 @@ the application.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">[</span>
-  <span class="p">{</span>
-    <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;webapp&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.1.1&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://.../3.1.1&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;sha256&quot;</span><span class="p">:</span> <span class="s2">&quot;466aa0815926fdbf33fda523af2b9bf34520906ffbb9bf512ddf20df2992a46f&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="s2">&quot;1000&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-07-05T07:54:40.982Z&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;manifest&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="err">/*</span> <span class="err">...</span> <span class="err">*/</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;maintenance_activated&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-    <span class="nt">&quot;maintenance_options&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;flag_infra_maintenance&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="nt">&quot;flag_short_maintenance&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="nt">&quot;flag_disallow_manual_exec&quot;</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="p">{</span>
+        <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;webapp&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.1.1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://.../3.1.1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;sha256&quot;</span><span class="p">:</span> <span class="s2">&quot;466aa0815926fdbf33fda523af2b9bf34520906ffbb9bf512ddf20df2992a46f&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="s2">&quot;1000&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-07-05T07:54:40.982Z&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;manifest&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="err">/*</span> <span class="err">...</span> <span class="err">*/</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;maintenance_activated&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nt">&quot;maintenance_options&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;flag_infra_maintenance&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nt">&quot;flag_short_maintenance&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">&quot;flag_disallow_manual_exec&quot;</span><span class="p">:</span> <span class="kc">true</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">]</span>
 </pre></div>
 
@@ -1161,8 +1175,8 @@ proxy or redirect the user.</p>
 different contexts. The <code>default</code> context is applied lastly.</p>
 <h3 id="examples">Examples:<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">registries</span><span class="p p-Indicator">:</span>
-  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">https://myregistry.home/</span>
-  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">https://main.registry.cozy.io/</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">https://myregistry.home/</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">https://main.registry.cozy.io/</span>
 </pre></div>
 
 
@@ -1175,15 +1189,15 @@ different contexts. The <code>default</code> context is applied lastly.</p>
 <span class="c1">#</span>
 
 <span class="l l-Scalar l-Scalar-Plain">registries</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">context1</span><span class="p p-Indicator">:</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">https://context1.registry.cozy.io/</span>
+    <span class="l l-Scalar l-Scalar-Plain">context1</span><span class="p p-Indicator">:</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">https://context1.registry.cozy.io/</span>
 
-  <span class="l l-Scalar l-Scalar-Plain">context2</span><span class="p p-Indicator">:</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">https://context2.registry.cozy.io/</span>
+    <span class="l l-Scalar l-Scalar-Plain">context2</span><span class="p p-Indicator">:</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">https://context2.registry.cozy.io/</span>
 
-  <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">https://myregistry.home/</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">https://registry.cozy.io/</span>
+    <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">https://myregistry.home/</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">https://registry.cozy.io/</span>
 </pre></div>
 
 

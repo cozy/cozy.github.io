@@ -609,10 +609,10 @@
 data to another support. It should cover 2 use cases</p>
 <ul>
 <li>Devices: The continuous act of syncing change to a subset of the cozy
-  documents and files to and from an user cozy to the same user&rsquo;s Devices
-  through cozy-desktop and cozy-mobile</li>
+    documents and files to and from an user cozy to the same user&rsquo;s Devices
+    through cozy-desktop and cozy-mobile</li>
 <li>Sharing: The continuous act of syncing change to a subset of the cozy
-  documents and files to and from another user&rsquo;s cozy.</li>
+    documents and files to and from another user&rsquo;s cozy.</li>
 </ul>
 <p>Replication will not be used for Moving, nor Backup. See associated docs in this
 folder.</p>
@@ -655,23 +655,23 @@ we can add a driver for cozy)</p>
 <p>Repeat 2-5 until there is no more changes.</p>
 <h3 id="details">Details<a class="headerlink" href="#details" title="Permanent link">&para;</a></h3>
 <ul>
-<li>In step 5, the replicator can also attempt to <code>PUT :target/:docid</code> if doc are
-  too heavy, but this should not happens in cozy-stack considering there wont be
-  attachment in couchdb.</li>
+<li>In step 5, the replicator can also attempt to <code>PUT :target/:docid</code> if doc
+    are too heavy, but this should not happens in cozy-stack considering there
+    wont be attachment in couchdb.</li>
 <li>In step 4, the replicator can optimize by calling <code>GET</code></li>
 <li>The main difference from couchdb 1.X is in the replication history and the
-  manner to determine and store the last sequence number. <strong>TODO:</strong> actually
-  understand this and how it might increase disk usage if we have a lot of
-  replications.</li>
+    manner to determine and store the last sequence number. <strong>TODO:</strong> actually
+    understand this and how it might increase disk usage if we have a lot of
+    replications.</li>
 <li>Couchdb <code>_changes</code> and by extension replication can be either by polling or
-  continuous (SSE / COMET)</li>
-<li>In couchdb benchmarking, we understood that the number of couch databases only
-  use a bit of disk space but no RAM or CPU <strong>as long as the database is not
-  used</strong>. Having a continuous replication active force us to keep the database
-  file open and will starve RAM &amp; FD usage. Moreover, continuous replication
-  costs a lot (cf. ScienceTeam benchmark). To permit an unlimited number of
-  inactive user on a single cozy-stack process, <strong>the stack should avoid
-  continuous replication from couchdb</strong>.</li>
+    continuous (SSE / COMET)</li>
+<li>In couchdb benchmarking, we understood that the number of couch databases
+    only use a bit of disk space but no RAM or CPU <strong>as long as the database is
+    not used</strong>. Having a continuous replication active force us to keep the
+    database file open and will starve RAM &amp; FD usage. Moreover, continuous
+    replication costs a lot (cf. ScienceTeam benchmark). To permit an unlimited
+    number of inactive user on a single cozy-stack process, <strong>the stack should
+    avoid continuous replication from couchdb</strong>.</li>
 <li>Two way replication is simply two one way replications</li>
 </ul>
 <h3 id="routes-used-by-replication">Routes used by replication<a class="headerlink" href="#routes-used-by-replication" title="Permanent link">&para;</a></h3>
@@ -679,20 +679,21 @@ we can add a driver for cozy)</p>
 route (and query parameters):</p>
 <ul>
 <li><code>GET :source/:docid</code> get revisions of a document. The query parameters
-  <code>open_revs, revs, latest</code> is necessary for replication.</li>
-<li><code>POST :source/_all_docs</code> is used by current version of cozy-mobile and pouchdb
-  as an optimization to fetch several document&rsquo;s revision at once.</li>
-<li><code>GET :source/_changes</code> get a list of ID -&gt; New Revision since a given sequence
-  number. The query parameters <code>since, limit</code> are necessary for replication.</li>
+    <code>open_revs, revs, latest</code> is necessary for replication.</li>
+<li><code>POST :source/_all_docs</code> is used by current version of cozy-mobile and
+    pouchdb as an optimization to fetch several document&rsquo;s revision at once.</li>
+<li><code>GET :source/_changes</code> get a list of ID -&gt; New Revision since a given
+    sequence number. The query parameters <code>since, limit</code> are necessary for
+    replication.</li>
 </ul>
 <p>To be a target of replication, the stack need to support the following routes:</p>
 <ul>
-<li><code>POST :target/_revs_diff</code> takes a list of ID -&gt; Rev and returns which one are
-  missing.</li>
+<li><code>POST :target/_revs_diff</code> takes a list of ID -&gt; Rev and returns which one
+    are missing.</li>
 <li><code>POST :target/_bulk_docs</code> create several documents at once</li>
 <li><code>POST :target/_ensure_full_commit</code> ensure the documents are written to disk.
-  This is useless if couchdb is configured without delayed write (default), but
-  remote couchdb will call, so the stack should return the expected 201</li>
+    This is useless if couchdb is configured without delayed write (default),
+    but remote couchdb will call, so the stack should return the expected 201</li>
 </ul>
 <p>In both case, we need to support</p>
 <ul>
@@ -711,17 +712,18 @@ underlying couchdb database.</p>
 <p>To suport this we need to:</p>
 <ul>
 <li>Proxy <code>/data/:doctype/_changes</code> route with since, limit, feed=normal. Refuse
-  all filter parameters with a clear error message.
-  <a href="http://docs.couchdb.org/en/stable/api/database/changes.html">(Doc)</a></li>
-<li>Add support of <code>open_revs</code>, <code>revs</code>, <code>latest</code> query parameter to <code>GET /data/:doctype/:docid</code>
-  <a href="http://docs.couchdb.org/en/stable/api/document/common.html?highlight=open_revs#get--db-docid">(Doc) </a></li>
+    all filter parameters with a clear error message.
+    <a href="http://docs.couchdb.org/en/stable/api/database/changes.html">(Doc)</a></li>
+<li>Add support of <code>open_revs</code>, <code>revs</code>, <code>latest</code> query parameter to
+    <code>GET /data/:doctype/:docid</code>
+    <a href="http://docs.couchdb.org/en/stable/api/document/common.html?highlight=open_revs#get--db-docid">(Doc) </a></li>
 <li>Proxy the <code>/data/:doctype/_revs_diff</code>
-  <a href="http://docs.couchdb.org/en/stable/api/database/misc.html#db-revs-diff">(Doc)</a>
-  and <code>/data/:doctype/_bulk_docs</code> routes
-  <a href="http://docs.couchdb.org/en/stable/api/database/bulk-api.html">(Doc)</a> routes</li>
+    <a href="http://docs.couchdb.org/en/stable/api/database/misc.html#db-revs-diff">(Doc)</a>
+    and <code>/data/:doctype/_bulk_docs</code> routes
+    <a href="http://docs.couchdb.org/en/stable/api/database/bulk-api.html">(Doc)</a> routes</li>
 <li>Have <code>/data/:doctype/_ensure_full_commit</code>
-  <a href="http://docs.couchdb.org/en/stable/api/database/compact.html#db-ensure-full-,
-  revs, latestcommit">(Doc)</a> returns 201</li>
+    <a href="http://docs.couchdb.org/en/stable/api/database/compact.html#db-ensure-full-,
+    revs, latestcommit">(Doc)</a> returns 201</li>
 </ul>
 <p>This will cover documents part of the Devices use case.</p>
 <h3 id="continuous-replication">Continuous replication<a class="headerlink" href="#continuous-replication" title="Permanent link">&para;</a></h3>
@@ -750,8 +752,8 @@ html5-sse-example). SSE is not widely available and has some limitations
 <ul>
 <li>close feeds when the user is not on screen</li>
 <li>multiplex different applications&rsquo; feed, so each open cozy will only use one
-  socket to the server. This is hard, as all apps live on separate domain, an
-  (hackish) option might be a iframe/SharedWorker bridge.</li>
+    socket to the server. This is hard, as all apps live on separate domain, an
+    (hackish) option might be a iframe/SharedWorker bridge.</li>
 </ul>
 <p>To have some form of couchdb-to-stack continuous changes monitoring, we can
 monitor <code>_db_udpates</code>
@@ -770,9 +772,9 @@ eventually some multiplexing.</p>
 <li>any filtered replication is unscalable</li>
 <li>1 db for all shared docs <code>sharing_db</code>.</li>
 <li>Cozy-stack is responsible for saving documents that should be shared in both
-  their dg implemented by 2-way replication between the 2 users <code>sharing_db</code>,
-  filtering is done by computing a list of IDs and then <code>doc_ids</code> (sharing with
-  filters/views are not efficient)</li>
+    their dg implemented by 2-way replication between the 2 users <code>sharing_db</code>,
+    filtering is done by computing a list of IDs and then <code>doc_ids</code> (sharing
+    with filters/views are not efficient)</li>
 <li>Sharing is performed by batches regularly.</li>
 <li>Continuous replication can be considered for collaborative editing.</li>
 </ul>
@@ -782,12 +784,12 @@ acceptable on very large / very old databases.</p>
 <li>No sharing database</li>
 <li>A permission, for anything is a mango-style selector.</li>
 <li>on every query, the Mango selector is checked at the stack or couchdb level
-  (<code>$and</code>-ing for queries, testing output document, input document)</li>
+    (<code>$and</code>-ing for queries, testing output document, input document)</li>
 <li>Sharing is a filtered replication between user&rsquo;s 1 doctypedb et user&rsquo;s 2
-  samedoctypedb</li>
+    samedoctypedb</li>
 <li>No continuous replication</li>
-<li>Upon update, the stack trigger a PUSH replication to its remote or &ldquo;ping&rdquo; the
-  remote, and the remote perform a normal PULL replication.</li>
+<li>Upon update, the stack trigger a PUSH replication to its remote or &ldquo;ping&rdquo;
+    the remote, and the remote perform a normal PULL replication.</li>
 </ul>
 <p><strong>TODO</strong> experiment with performance of <code>_selector</code> filtered replication in
 couchdb2</p></div>

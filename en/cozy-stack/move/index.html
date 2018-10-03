@@ -605,13 +605,11 @@
 <h1 id="move-export-and-import">Move, export and import<a class="headerlink" href="#move-export-and-import" title="Permanent link">&para;</a></h1>
 <h2 id="export">Export<a class="headerlink" href="#export" title="Permanent link">&para;</a></h2>
 <p>A Cozy&rsquo;s user can ask at any time to export a snapshot of all its data and
-metadata. This export takes place asynchronously and is separated in two
-parts:
-    * a metadata tarball containing the in a JSON format all the doctypes
-    * multi-part files tarballs containing the files (or a subpart of the
-      files)</p>
-<p>The export process is part of a worker described in the <a href="../workers/#export">workers
-section</a> of the documentation.</p>
+metadata. This export takes place asynchronously and is separated in two parts:
+<em> a metadata tarball containing the in a JSON format all the doctypes </em>
+multi-part files tarballs containing the files (or a subpart of the files)</p>
+<p>The export process is part of a worker described in the
+<a href="../workers/#export">workers section</a> of the documentation.</p>
 <p>Endpoints described in this documentation require a permission on the
 <code>io.cozy.exports</code> doctype.</p>
 <h3 id="post-moveexports">POST /move/exports<a class="headerlink" href="#post-moveexports" title="Permanent link">&para;</a></h3>
@@ -620,11 +618,11 @@ section</a> of the documentation.</p>
 <ul>
 <li><code>parts_size</code> (optional) (int): the size in bytes of a tarball files part.</li>
 <li><code>max_age</code> (optional) (duration / nanosecs): the maximum age of the export
-  data.</li>
+    data.</li>
 <li><code>with_doctypes</code> (optional) (string array): the list of whitelisted exported
-  doctypes</li>
+    doctypes</li>
 <li><code>without_files</code> (optional) (boolean): whether or not the export contains the
-  files index (if false, it is not possible to generate files tarball).</li>
+    files index (if false, it is not possible to generate files tarball).</li>
 </ul>
 <h4 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/move/exports</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
@@ -639,7 +637,7 @@ section</a> of the documentation.</p>
         <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="nt">&quot;parts_size&quot;</span><span class="p">:</span> <span class="mi">10240</span><span class="p">,</span>
             <span class="nt">&quot;with_doctypes&quot;</span><span class="p">:</span> <span class="p">[],</span>
-            <span class="nt">&quot;without_files&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">&quot;without_files&quot;</span><span class="p">:</span> <span class="kc">false</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -652,19 +650,19 @@ section</a> of the documentation.</p>
 <ul>
 <li><code>parts_size</code> (int): the size in bytes of a tarball files part.</li>
 <li><code>parts_cursors</code> (string array): the list of cursors to access to the
-  different files parts.</li>
+    different files parts.</li>
 <li><code>parts_length</code> (int): number of parts</li>
 <li><code>with_doctypes</code> (string array): the list of whitelisted exported doctypes
-  (if empty of null, all doctypes are exported)</li>
+    (if empty of null, all doctypes are exported)</li>
 <li><code>without_files</code> (boolean): whether or not the export contains the files
-  index (if false, it is not possible to generate files tarball).</li>
+    index (if false, it is not possible to generate files tarball).</li>
 <li><code>state</code> (string): the state of the export (<code>"exporting"</code> / <code>"done"</code> /
-  <code>"error"</code>).</li>
+    <code>"error"</code>).</li>
 <li><code>created_at</code> (string / time): the date of creation of the export</li>
 <li><code>expires_at</code> (string / time): the date of expiration of the export</li>
 <li><code>total_size</code> (int): the total size of the export metadata</li>
 <li><code>creation_duration</code> (int): the amount of nanoseconds taken for the creation
-  of the export</li>
+    of the export</li>
 <li><code>error</code> (string): an error string if the export is in an <code>"error"</code> state</li>
 </ul>
 <h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
@@ -680,7 +678,7 @@ section</a> of the documentation.</p>
         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.exports&quot;</span><span class="p">,</span>
         <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;86dbb546ca49f0ed1ce0a1ff0d1b15e3&quot;</span><span class="p">,</span>
         <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;2-XXX&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;2-XXX&quot;</span>
         <span class="p">},</span>
         <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="nt">&quot;parts_size&quot;</span><span class="p">:</span> <span class="mi">10240</span><span class="p">,</span>
@@ -700,9 +698,9 @@ section</a> of the documentation.</p>
 
 
 <h3 id="get-moveexportsdataopaque-identifiercursorxxx">GET /move/exports/data/:opaque-identifier?cursor=XXX<a class="headerlink" href="#get-moveexportsdataopaque-identifiercursorxxx" title="Permanent link">&para;</a></h3>
-<p>This endpoint will download an archive containing the metadata and files of
-the user, as part of a multi-part download. The cursor given should be one of
-the defined in the export document <code>parts_cursors</code>.</p>
+<p>This endpoint will download an archive containing the metadata and files of the
+user, as part of a multi-part download. The cursor given should be one of the
+defined in the export document <code>parts_cursors</code>.</p>
 <p>Only the first part of part of the data contains the metadata.</p></div>
         </div>
 

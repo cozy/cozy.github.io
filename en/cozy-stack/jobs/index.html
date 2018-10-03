@@ -625,7 +625,7 @@ distributed infrastructures.</p>
 <p>Jobs can be launched by five different types of triggers:</p>
 <ul>
 <li><code>@at</code> to schedule a one-time job executed after at a specific time in the
-  future</li>
+    future</li>
 <li><code>@in</code> to schedule a one-time job executed after a specific amount of time</li>
 <li><code>@every</code> to schedule periodic jobs executed at a given fix interval</li>
 <li><code>@cron</code> to schedule recurring jobs scheduled at specific times</li>
@@ -820,26 +820,26 @@ are replicated in the <code>io.cozy.jobs</code> attributes:</p>
 
 <h4 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;123123&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;me.cozy.tools&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;worker&quot;</span><span class="p">:</span> <span class="s2">&quot;sendmail&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;priority&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-        <span class="nt">&quot;timeout&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
-        <span class="nt">&quot;max_exec_count&quot;</span><span class="p">:</span> <span class="mi">3</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;running&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;queued_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;started_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/jobs/123123&quot;</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;123123&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;me.cozy.tools&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;worker&quot;</span><span class="p">:</span> <span class="s2">&quot;sendmail&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;priority&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                <span class="nt">&quot;timeout&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
+                <span class="nt">&quot;max_exec_count&quot;</span><span class="p">:</span> <span class="mi">3</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;running&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;queued_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;started_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/jobs/123123&quot;</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -855,42 +855,42 @@ permission on the global <code>io.cozy.jobs</code> doctype is not allowed.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;priority&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-        <span class="nt">&quot;timeout&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
-        <span class="nt">&quot;max_exec_count&quot;</span><span class="p">:</span> <span class="mi">3</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;arguments&quot;</span><span class="p">:</span> <span class="p">{}</span> <span class="err">//</span> <span class="err">any</span> <span class="err">json</span> <span class="err">value</span> <span class="err">used</span> <span class="err">as</span> <span class="err">arguments</span> <span class="err">for</span> <span class="err">the</span> <span class="err">job</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;priority&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                <span class="nt">&quot;timeout&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
+                <span class="nt">&quot;max_exec_count&quot;</span><span class="p">:</span> <span class="mi">3</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;arguments&quot;</span><span class="p">:</span> <span class="p">{}</span> <span class="err">//</span> <span class="err">any</span> <span class="err">json</span> <span class="err">value</span> <span class="err">used</span> <span class="err">as</span> <span class="err">arguments</span> <span class="err">for</span> <span class="err">the</span> <span class="err">job</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
 
 <h4 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;123123&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;me.cozy.tools&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;worker&quot;</span><span class="p">:</span> <span class="s2">&quot;sendmail&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;priority&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-        <span class="nt">&quot;timeout&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
-        <span class="nt">&quot;max_exec_count&quot;</span><span class="p">:</span> <span class="mi">3</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;running&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;queued_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;started_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/jobs/123123&quot;</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;123123&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;me.cozy.tools&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;worker&quot;</span><span class="p">:</span> <span class="s2">&quot;sendmail&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;priority&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                <span class="nt">&quot;timeout&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
+                <span class="nt">&quot;max_exec_count&quot;</span><span class="p">:</span> <span class="mi">3</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;running&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;queued_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;started_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/jobs/123123&quot;</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -901,15 +901,15 @@ permission on the global <code>io.cozy.jobs</code> doctype is not allowed.</p>
 to specific worker(s), like this (a global permission on the doctype is not
 allowed):</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;mail-from-the-user&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Required to send mails from the user to his/her friends&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">],</span>
-      <span class="nt">&quot;selector&quot;</span><span class="p">:</span> <span class="s2">&quot;worker&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;sendmail&quot;</span><span class="p">]</span>
+    <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;mail-from-the-user&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Required to send mails from the user to his/her friends&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">],</span>
+            <span class="nt">&quot;selector&quot;</span><span class="p">:</span> <span class="s2">&quot;worker&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;sendmail&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -924,29 +924,29 @@ allowed):</p>
 
 <h4 id="response_2">Response<a class="headerlink" href="#response_2" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;cozy.tools:8080&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="nt">&quot;queued_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-09-29T15:32:31.953878568+02:00&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;started_at&quot;</span><span class="p">:</span> <span class="s2">&quot;0001-01-01T00:00:00Z&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;queued&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;worker&quot;</span><span class="p">:</span> <span class="s2">&quot;log&quot;</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;77689bca9634b4fb08d6ca3d1643de5f&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/jobs/log/77689bca9634b4fb08d6ca3d1643de5f&quot;</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-f823bcd2759103a5ad1a98f4bf083b36&quot;</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;cozy.tools:8080&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+                <span class="nt">&quot;queued_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-09-29T15:32:31.953878568+02:00&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;started_at&quot;</span><span class="p">:</span> <span class="s2">&quot;0001-01-01T00:00:00Z&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;queued&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;worker&quot;</span><span class="p">:</span> <span class="s2">&quot;log&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;77689bca9634b4fb08d6ca3d1643de5f&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/jobs/log/77689bca9634b4fb08d6ca3d1643de5f&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-f823bcd2759103a5ad1a98f4bf083b36&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;count&quot;</span><span class="p">:</span> <span class="mi">0</span>
     <span class="p">}</span>
-  <span class="p">],</span>
-  <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;count&quot;</span><span class="p">:</span> <span class="mi">0</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -956,16 +956,15 @@ allowed):</p>
 <code>io.cozy.jobs</code> for the verb <code>GET</code>. In most cases, the application will restrict
 its permission to only one worker, like this:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;mail-from-the-user&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;description&quot;</span><span class="p">:</span>
-        <span class="s2">&quot;Required to know the number of jobs in the sendmail queues&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">],</span>
-      <span class="nt">&quot;selector&quot;</span><span class="p">:</span> <span class="s2">&quot;worker&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;sendmail&quot;</span><span class="p">]</span>
+    <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;mail-from-the-user&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Required to know the number of jobs in the sendmail queues&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">],</span>
+            <span class="nt">&quot;selector&quot;</span><span class="p">:</span> <span class="s2">&quot;worker&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;sendmail&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -988,44 +987,44 @@ allows to have a nice diff between two executions of the worker.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;@event&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;arguments&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.invitations&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;debounce&quot;</span><span class="p">:</span> <span class="s2">&quot;10m&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;worker&quot;</span><span class="p">:</span> <span class="s2">&quot;sendmail&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;worker_arguments&quot;</span><span class="p">:</span> <span class="p">{},</span>
-      <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;priority&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-        <span class="nt">&quot;timeout&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
-        <span class="nt">&quot;max_exec_count&quot;</span><span class="p">:</span> <span class="mi">3</span>
-      <span class="p">}</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;@event&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;arguments&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.invitations&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;debounce&quot;</span><span class="p">:</span> <span class="s2">&quot;10m&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;worker&quot;</span><span class="p">:</span> <span class="s2">&quot;sendmail&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;worker_arguments&quot;</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;priority&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                <span class="nt">&quot;timeout&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
+                <span class="nt">&quot;max_exec_count&quot;</span><span class="p">:</span> <span class="mi">3</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
 
 <h4 id="response_3">Response<a class="headerlink" href="#response_3" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.triggers&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;123123&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;@every&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;arguments&quot;</span><span class="p">:</span> <span class="s2">&quot;30m10s&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;debounce&quot;</span><span class="p">:</span> <span class="s2">&quot;10m&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;worker&quot;</span><span class="p">:</span> <span class="s2">&quot;sendmail&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;priority&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-        <span class="nt">&quot;timeout&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
-        <span class="nt">&quot;max_exec_count&quot;</span><span class="p">:</span> <span class="mi">3</span>
-      <span class="p">}</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/jobs/triggers/123123&quot;</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.triggers&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;123123&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;@every&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;arguments&quot;</span><span class="p">:</span> <span class="s2">&quot;30m10s&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;debounce&quot;</span><span class="p">:</span> <span class="s2">&quot;10m&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;worker&quot;</span><span class="p">:</span> <span class="s2">&quot;sendmail&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;priority&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                <span class="nt">&quot;timeout&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
+                <span class="nt">&quot;max_exec_count&quot;</span><span class="p">:</span> <span class="mi">3</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/jobs/triggers/123123&quot;</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -1035,16 +1034,15 @@ allows to have a nice diff between two executions of the worker.</p>
 <code>io.cozy.triggers</code> for the verb <code>POST</code>. In most cases, the application will
 restrict its permission to only one worker, like this:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;mail-from-the-user&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;description&quot;</span><span class="p">:</span>
-        <span class="s2">&quot;Required to send regularly mails from the user to his/her friends&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.triggers&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">],</span>
-      <span class="nt">&quot;selector&quot;</span><span class="p">:</span> <span class="s2">&quot;worker&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;sendmail&quot;</span><span class="p">]</span>
+    <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;mail-from-the-user&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Required to send regularly mails from the user to his/her friends&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.triggers&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">],</span>
+            <span class="nt">&quot;selector&quot;</span><span class="p">:</span> <span class="s2">&quot;worker&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;sendmail&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -1059,35 +1057,35 @@ restrict its permission to only one worker, like this:</p>
 
 <h4 id="response_4">Response<a class="headerlink" href="#response_4" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.triggers&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;123123&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;@every&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;arguments&quot;</span><span class="p">:</span> <span class="s2">&quot;30m10s&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;worker&quot;</span><span class="p">:</span> <span class="s2">&quot;sendmail&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;priority&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-        <span class="nt">&quot;timeout&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
-        <span class="nt">&quot;max_exec_count&quot;</span><span class="p">:</span> <span class="mi">3</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;current_state&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;done&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;last_success&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-11-20T13:31:09.01641731&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;last_successful_job_id&quot;</span><span class="p">:</span> <span class="s2">&quot;abcde&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;last_execution&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-11-20T13:31:09.01641731&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;last_executed_job_id&quot;</span><span class="p">:</span> <span class="s2">&quot;abcde&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;last_failure&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-11-20T13:31:09.01641731&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;last_failed_job_id&quot;</span><span class="p">:</span> <span class="s2">&quot;abcde&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;last_error&quot;</span><span class="p">:</span> <span class="s2">&quot;error value&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;last_manual_execution&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-11-20T13:31:09.01641731&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;last_manual_job_id&quot;</span><span class="p">:</span> <span class="s2">&quot;abcde&quot;</span>
-      <span class="p">}</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/jobs/triggers/123123&quot;</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.triggers&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;123123&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;@every&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;arguments&quot;</span><span class="p">:</span> <span class="s2">&quot;30m10s&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;worker&quot;</span><span class="p">:</span> <span class="s2">&quot;sendmail&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;priority&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                <span class="nt">&quot;timeout&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
+                <span class="nt">&quot;max_exec_count&quot;</span><span class="p">:</span> <span class="mi">3</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;current_state&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;done&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;last_success&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-11-20T13:31:09.01641731&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;last_successful_job_id&quot;</span><span class="p">:</span> <span class="s2">&quot;abcde&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;last_execution&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-11-20T13:31:09.01641731&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;last_executed_job_id&quot;</span><span class="p">:</span> <span class="s2">&quot;abcde&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;last_failure&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-11-20T13:31:09.01641731&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;last_failed_job_id&quot;</span><span class="p">:</span> <span class="s2">&quot;abcde&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;last_error&quot;</span><span class="p">:</span> <span class="s2">&quot;error value&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;last_manual_execution&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-11-20T13:31:09.01641731&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;last_manual_job_id&quot;</span><span class="p">:</span> <span class="s2">&quot;abcde&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/jobs/triggers/123123&quot;</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -1103,7 +1101,7 @@ trigger.</p>
 <li>last executed job that resulted in a successful executoin</li>
 <li>last executed job that resulted in an error</li>
 <li>last executed job from a manual execution (not executed by the trigger
-  directly)</li>
+    directly)</li>
 </ul>
 <h4 id="request_5">Request<a class="headerlink" href="#request_5" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/jobs/triggers/123123/state</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
@@ -1113,22 +1111,22 @@ trigger.</p>
 
 <h4 id="response_5">Response<a class="headerlink" href="#response_5" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs.state&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;123123&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;done&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;last_success&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-11-20T13:31:09.01641731&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;last_successful_job_id&quot;</span><span class="p">:</span> <span class="s2">&quot;abcde&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;last_execution&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-11-20T13:31:09.01641731&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;last_executed_job_id&quot;</span><span class="p">:</span> <span class="s2">&quot;abcde&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;last_failure&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-11-20T13:31:09.01641731&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;last_failed_job_id&quot;</span><span class="p">:</span> <span class="s2">&quot;abcde&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;last_error&quot;</span><span class="p">:</span> <span class="s2">&quot;error value&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;last_manual_execution&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-11-20T13:31:09.01641731&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;last_manual_job_id&quot;</span><span class="p">:</span> <span class="s2">&quot;abcde&quot;</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs.state&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;123123&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;done&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;last_success&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-11-20T13:31:09.01641731&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;last_successful_job_id&quot;</span><span class="p">:</span> <span class="s2">&quot;abcde&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;last_execution&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-11-20T13:31:09.01641731&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;last_executed_job_id&quot;</span><span class="p">:</span> <span class="s2">&quot;abcde&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;last_failure&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-11-20T13:31:09.01641731&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;last_failed_job_id&quot;</span><span class="p">:</span> <span class="s2">&quot;abcde&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;last_error&quot;</span><span class="p">:</span> <span class="s2">&quot;error value&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;last_manual_execution&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-11-20T13:31:09.01641731&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;last_manual_job_id&quot;</span><span class="p">:</span> <span class="s2">&quot;abcde&quot;</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -1154,16 +1152,16 @@ permissions to fetch its state, even without permissions on the
 
 <h4 id="response_6">Response<a class="headerlink" href="#response_6" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;123123&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{},</span>
-      <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/jobs/123123&quot;</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">]</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;123123&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/jobs/123123&quot;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -1178,22 +1176,22 @@ permissions to fetch its state, even without permissions on the
 
 <h4 id="response_7">Response<a class="headerlink" href="#response_7" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;123123&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;me.cozy.tools&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;worker&quot;</span><span class="p">:</span> <span class="s2">&quot;sendmail&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{},</span>
-      <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;running&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;queued_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;started_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/jobs/123123&quot;</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;123123&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;me.cozy.tools&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;worker&quot;</span><span class="p">:</span> <span class="s2">&quot;sendmail&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;running&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;queued_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;started_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/jobs/123123&quot;</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -1230,16 +1228,16 @@ permissions to delete the trigger, even without permissions on the
 
 <h4 id="response_8">Response<a class="headerlink" href="#response_8" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.triggers&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;123123&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{},</span>
-      <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/jobs/triggers/123123&quot;</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">]</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.triggers&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;123123&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/jobs/triggers/123123&quot;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 

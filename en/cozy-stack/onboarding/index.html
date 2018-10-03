@@ -626,13 +626,15 @@ registering step which are important for security.</p>
 <ul>
 <li>When started with a <code>registerToken</code>, allow the user to create a passphrase</li>
 <li>When started with a <code>contextToken</code>
-  (<a href="../auth/#how-to-get-a-token">see auth doc</a>) use it to retrieve instance
-  document.</li>
-<li>If the instance document is complete <strong>according to the <code>onboarding</code> app</strong>,
-    redirect to <code>home</code> application.</li>
+    (<a href="../auth/#how-to-get-a-token">see auth doc</a>) use it to retrieve instance
+    document.<ul>
+<li>If the instance document is complete <strong>according to the <code>onboarding</code>
+    app</strong>, redirect to <code>home</code> application.</li>
 <li>Otherwise, performs whatever steps it deems necessary to fill out the
-    instance (ask for user email, help set up <code>myaccounts</code> accounts, say thank
-    you&hellip;)</li>
+    instance (ask for user email, help set up <code>myaccounts</code> accounts, say
+    thank you&hellip;)</li>
+</ul>
+</li>
 </ul>
 <p>This makes cozy-stack simple and safer while allowing behaviour modification for
 several install types by picking the correct <code>onboarding</code> application / branch.</p>
@@ -655,8 +657,8 @@ complete and reredirect to home.</p>
 <p>See <a href="../settings/">settings</a>.</p>
 <h2 id="flow-example">Flow Example<a class="headerlink" href="#flow-example" title="Permanent link">&para;</a></h2>
 <ul>
-<li>The server administrator Bob creates an instance through the CLI. He knows the
-  instance should be in french for an user named <code>alice</code>.</li>
+<li>The server administrator Bob creates an instance through the CLI. He knows
+    the instance should be in french for an user named <code>alice</code>.</li>
 </ul>
 <div class="codehilite"><pre><span></span>cozy-stack instances add alice.example.com --locale fr
 &gt;&gt; https://alice.cozycloud.cc?registerToken=42456565213125454842
@@ -665,34 +667,36 @@ complete and reredirect to home.</p>
 
 <p>The instance is created</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;alice.example.com&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;locale&quot;</span><span class="p">:</span> <span class="s2">&quot;fr&quot;</span>
+    <span class="nt">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;alice.example.com&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;locale&quot;</span><span class="p">:</span> <span class="s2">&quot;fr&quot;</span>
 <span class="p">}</span>
 </pre></div>
 
 
 <ul>
 <li>Eve knows Alice just had an instance created, she goes to
-  <code>https://alice.cozycloud.cc</code>. There is no <code>registerToken</code>, so she only see a
-  message (in french) along the lines of &ldquo;This is the cozy for Alice Martin,
-  this register link is incorrect, if you are Alice Martin please ask your
-  sysadmin for a new link&rdquo;.</li>
+    <code>https://alice.cozycloud.cc</code>. There is no <code>registerToken</code>, so she only see a
+    message (in french) along the lines of &ldquo;This is the cozy for Alice Martin,
+    this register link is incorrect, if you are Alice Martin please ask your
+    sysadmin for a new link&rdquo;.</li>
 <li>Alice navigates to <code>https://alice.cozycloud.cc?registerToken=42...42</code></li>
 <li>She is redirected to the <code>onboarding</code> application</li>
 <li>The <code>onboarding</code> application receive the registerToken. It is the default
-  onboarding application and therefore display the cozy cloud agreement and then
-  ask for a Password.</li>
+    onboarding application and therefore display the cozy cloud agreement and
+    then ask for a Password.</li>
 <li>The <code>onboarding</code> application use its <code>registerToken</code> to register the
-  passphrase. Registering the passphrase automatically log Alice in and redirect
-  her back to the <code>onboarding</code> app.</li>
+    passphrase. Registering the passphrase automatically log Alice in and
+    redirect her back to the <code>onboarding</code> app.</li>
 <li>Afterward, the <code>onboarding</code> app receive its token normally through the
-  <code>data-cozy-token</code> body attribute, as described in
-  <a href="../auth/">auth documentation</a>. and can do whatever it needs to do :</li>
+    <code>data-cozy-token</code> body attribute, as described in
+    <a href="../auth/">auth documentation</a>. and can do whatever it needs to do :<ul>
 <li>read from the instance document to prefill/bypass form fields</li>
 <li>add more informations to the instance document.</li>
 <li>create <code>io.cozy.accounts</code> documents for external accounts.</li>
+</ul>
+</li>
 <li>When the onboarding application is satisfied, Alice is redirected to the
-  <code>home</code> application</li>
+    <code>home</code> application</li>
 </ul></div>
         </div>
 

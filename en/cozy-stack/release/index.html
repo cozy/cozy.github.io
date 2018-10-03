@@ -622,12 +622,14 @@ the following format:</p>
 
 <p>Where:</p>
 <ul>
-<li><code>&lt;TAG&gt;</code>: closest annotated tag of the current working directory. If no tag is
-  present, is uses the string &ldquo;v0&rdquo;. This is not allowed in a production release.</li>
+<li><code>&lt;TAG&gt;</code>: closest annotated tag of the current working directory. If no tag
+    is present, is uses the string &ldquo;v0&rdquo;. This is not allowed in a production
+    release.</li>
 <li><code>&lt;NUMBER OF COMMITS AFTER TAG&gt;</code>: number of commits after the closest tag if
-  the current working directory does not point exactly to a tag</li>
-<li><code>dirty</code>: added if the working if the working-directory is not clean (contains
-  un-commited modifications). This is not allowed in production release.</li>
+    the current working directory does not point exactly to a tag</li>
+<li><code>dirty</code>: added if the working if the working-directory is not clean
+    (contains un-commited modifications). This is not allowed in production
+    release.</li>
 <li><code>dev</code>: added for a development mode release</li>
 </ul>
 <h1 id="sprint-release">Sprint release<a class="headerlink" href="#sprint-release" title="Permanent link">&para;</a></h1>
@@ -637,15 +639,19 @@ the following format:</p>
 <p>&ldquo;Naked&rdquo; stack, for GNU/Linux amd64/arm, FreeBSD amd64 &amp; Docker</p>
 <ul>
 <li>Create a tag <code>yyyyMmSs</code> and push it</li>
-<li>Generate all binaries, checksums, Docker images and signatures with <code>./scripts/release.sh</code></li>
-<li>Create a GitHub release and upload all previously generated assets with <code>./scripts/release.rb</code></li>
+<li>Generate all binaries, checksums, Docker images and signatures with
+    <code>./scripts/release.sh</code></li>
+<li>Create a GitHub release and upload all previously generated assets with
+    <code>./scripts/release.rb</code></li>
 </ul>
 </li>
 <li>
 <p>Debian self-hosting packages</p>
 <ul>
-<li>Create a new version <code>yyyyMmSs-1</code> on https://github.com/cozy/debian-cozy/blob/master/changelog</li>
-<li>Create and push a tag <code>yyyyMmSs-1</code> on <code>https://github.com/cozy/debian-cozy</code></li>
+<li>Create a new version <code>yyyyMmSs-1</code> on
+    https://github.com/cozy/debian-cozy/blob/master/changelog</li>
+<li>Create and push a tag <code>yyyyMmSs-1</code> on
+    <code>https://github.com/cozy/debian-cozy</code></li>
 <li>Build and publish packages on our internal build machine</li>
 </ul>
 </li>

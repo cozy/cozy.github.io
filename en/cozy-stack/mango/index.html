@@ -619,9 +619,9 @@ ordered array of fields to index.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;index&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;calendar&quot;</span><span class="p">,</span> <span class="s2">&quot;date&quot;</span><span class="p">]</span>
-  <span class="p">}</span>
+    <span class="nt">&quot;index&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;calendar&quot;</span><span class="p">,</span> <span class="s2">&quot;date&quot;</span><span class="p">]</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -635,9 +635,9 @@ ordered array of fields to index.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;result&quot;</span><span class="p">:</span> <span class="s2">&quot;created&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;_design/a5f4711fc9448864a13c81dc71e660b524d7410c&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;a5f4711fc9448864a13c81dc71e660b524d7410c&quot;</span>
+    <span class="nt">&quot;result&quot;</span><span class="p">:</span> <span class="s2">&quot;created&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;_design/a5f4711fc9448864a13c81dc71e660b524d7410c&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;a5f4711fc9448864a13c81dc71e660b524d7410c&quot;</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -646,9 +646,9 @@ ordered array of fields to index.</p>
 <ul>
 <li>if the doctype does not exist, the database is created.</li>
 <li>if the index already exists, a <code>{result: "exists"}</code> is returned, but the
-  response code is still 200</li>
-<li>design doc &amp; name can be provided in request. <strong>This is not recommended</strong>, let
-  couchdb handle naming and deduplication.</li>
+    response code is still 200</li>
+<li>design doc &amp; name can be provided in request. <strong>This is not recommended</strong>,
+    let couchdb handle naming and deduplication.</li>
 </ul>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;by-calendar-and-date&quot;</span><span class="p">,</span>
@@ -662,7 +662,7 @@ ordered array of fields to index.</p>
 <ul>
 <li>401 unauthorized (no authentication has been provided)</li>
 <li>403 forbidden (the authentication does not provide permissions for this
-  action)</li>
+    action)</li>
 <li>500 internal server error</li>
 </ul>
 <h2 id="find-documents">Find documents<a class="headerlink" href="#find-documents" title="Permanent link">&para;</a></h2>
@@ -680,15 +680,15 @@ mango selectors
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;selector&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;calendar&quot;</span><span class="p">:</span> <span class="s2">&quot;perso&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;date&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;$gt&quot;</span><span class="p">:</span> <span class="s2">&quot;20161001T00:00:00&quot;</span> <span class="p">}</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;limit&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-  <span class="nt">&quot;skip&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-  <span class="nt">&quot;sort&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;calendar&quot;</span><span class="p">,</span> <span class="s2">&quot;date&quot;</span><span class="p">],</span>
-  <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">,</span> <span class="s2">&quot;_type&quot;</span><span class="p">,</span> <span class="s2">&quot;_date&quot;</span><span class="p">],</span>
-  <span class="nt">&quot;use_index&quot;</span><span class="p">:</span> <span class="s2">&quot;_design/a5f4711fc9448864a13c81dc71e660b524d7410c&quot;</span>
+    <span class="nt">&quot;selector&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;calendar&quot;</span><span class="p">:</span> <span class="s2">&quot;perso&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;date&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;$gt&quot;</span><span class="p">:</span> <span class="s2">&quot;20161001T00:00:00&quot;</span> <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;limit&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&quot;skip&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="nt">&quot;sort&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;calendar&quot;</span><span class="p">,</span> <span class="s2">&quot;date&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">,</span> <span class="s2">&quot;_type&quot;</span><span class="p">,</span> <span class="s2">&quot;_date&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;use_index&quot;</span><span class="p">:</span> <span class="s2">&quot;_design/a5f4711fc9448864a13c81dc71e660b524d7410c&quot;</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -702,18 +702,18 @@ mango selectors
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;docs&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;_type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.events&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;date&quot;</span><span class="p">:</span> <span class="s2">&quot;20161023T160000Z&quot;</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;6494e0ac-dfcb-472e84a9cbee&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;_type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.events&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;date&quot;</span><span class="p">:</span> <span class="s2">&quot;20161013T160000Z&quot;</span>
-    <span class="p">}</span>
-  <span class="p">]</span>
+    <span class="nt">&quot;docs&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;_type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.events&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;date&quot;</span><span class="p">:</span> <span class="s2">&quot;20161023T160000Z&quot;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;6494e0ac-dfcb-472e84a9cbee&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;_type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.events&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;date&quot;</span><span class="p">:</span> <span class="s2">&quot;20161013T160000Z&quot;</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -723,7 +723,9 @@ mango selectors
 <li>If an index does not exist for the selector, an error 400 is returned</li>
 <li>The sort field must contains all fields used in selector</li>
 <li>The sort field must match an existing index</li>
-<li>It is possible to sort in reverse direction <code>sort:[{"calendar":"desc"}, {"date": "desc"}]</code> but <strong>all fields</strong> must be sorted in same direction.</li>
+<li>It is possible to sort in reverse direction
+    <code>sort:[{"calendar":"desc"}, {"date": "desc"}]</code> but <strong>all fields</strong> must be
+    sorted in same direction.</li>
 <li><code>use_index</code> is optional but recommended.</li>
 </ul>
 <h2 id="pagination-cookbook">Pagination cookbook<a class="headerlink" href="#pagination-cookbook" title="Permanent link">&para;</a></h2>
@@ -733,18 +735,18 @@ limit query results to maximum 100 docs.</p>
 <p>If the limit cause some docs to not be returned, the response will have a
 <code>next=true</code> top level values.</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;limit&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
-  <span class="nt">&quot;next&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-  <span class="nt">&quot;docs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;... first hundred docs ...&quot;</span><span class="p">]</span>
+    <span class="nt">&quot;limit&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="nt">&quot;next&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;docs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;... first hundred docs ...&quot;</span><span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 
 
 <p>If the number of docs is lower or equal to the limit, next will be false</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;limit&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
-  <span class="nt">&quot;next&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-  <span class="nt">&quot;docs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;... less than a hundred docs ...&quot;</span><span class="p">]</span>
+    <span class="nt">&quot;limit&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="nt">&quot;next&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;docs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;... less than a hundred docs ...&quot;</span><span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 

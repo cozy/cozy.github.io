@@ -673,9 +673,10 @@ the directory is created at the root of the virtual file system.</p>
 <li>201 Created, when the directory has been successfully created</li>
 <li>404 Not Found, when the parent directory does not exist</li>
 <li>409 Conflict, when a directory with the same name already exists</li>
-<li>413 Payload Too Large, when there is not enough available space on the cozy to upload the file</li>
+<li>413 Payload Too Large, when there is not enough available space on the cozy
+    to upload the file</li>
 <li>422 Unprocessable Entity, when the <code>Type</code> or <code>Name</code> parameter is missing or
-  invalid</li>
+    invalid</li>
 </ul>
 <h4 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">201</span> <span class="ne">Created</span>
@@ -685,35 +686,35 @@ the directory is created at the root of the virtual file system.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-ff3beeb456eb&quot;</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;directory&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;phone&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/Documents/phone&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;bills&quot;</span><span class="p">]</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;parent&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;related&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-ff3beeb456eb&quot;</span>
         <span class="p">},</span>
-        <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;directory&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;phone&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/Documents/phone&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;bills&quot;</span><span class="p">]</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;parent&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;related&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;</span>
+                <span class="p">},</span>
+                <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;</span>
         <span class="p">}</span>
-      <span class="p">}</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -736,107 +737,106 @@ The default limit is 30 entries.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;next&quot;</span><span class="p">:</span>
-      <span class="s2">&quot;/files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81?page[cursor]=9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-e36ab092&quot;</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;directory&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Documents&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/Documents&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:35:00Z&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:35:00Z&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[]</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;contents&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
-          <span class="p">{</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;</span>
-          <span class="p">},</span>
-          <span class="p">{</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;</span>
-          <span class="p">}</span>
-        <span class="p">]</span>
-      <span class="p">}</span>
-    <span class="p">},</span>
     <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;</span>
-    <span class="p">}</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;included&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-ff3beeb456eb&quot;</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;directory&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;phone&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/Documents/phone&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;bills&quot;</span><span class="p">]</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;parent&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;related&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;</span>
-          <span class="p">},</span>
-          <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;</span>
-          <span class="p">}</span>
-        <span class="p">}</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;</span>
-      <span class="p">}</span>
+        <span class="nt">&quot;next&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81?page[cursor]=9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;</span>
     <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-0e6d5b72&quot;</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;hello.txt&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;trashed&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="nt">&quot;md5sum&quot;</span><span class="p">:</span> <span class="s2">&quot;ODZmYjI2OWQxOTBkMmM4NQo=&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:38:04Z&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:38:04Z&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[],</span>
-        <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
-        <span class="nt">&quot;executable&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="nt">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;document&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;mime&quot;</span><span class="p">:</span> <span class="s2">&quot;text/plain&quot;</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;parent&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;related&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;</span>
-          <span class="p">},</span>
-          <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;</span>
-          <span class="p">}</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-e36ab092&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;directory&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Documents&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/Documents&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:35:00Z&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:35:00Z&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[]</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;contents&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;</span>
+                    <span class="p">}</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;</span>
         <span class="p">}</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;included&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-ff3beeb456eb&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;directory&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;phone&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/Documents/phone&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;bills&quot;</span><span class="p">]</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;parent&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="nt">&quot;related&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;</span>
+                    <span class="p">},</span>
+                    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/6494e0ac-dfcb-11e5-88c1-472e84a9cbee&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-0e6d5b72&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;hello.txt&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;trashed&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+                <span class="nt">&quot;md5sum&quot;</span><span class="p">:</span> <span class="s2">&quot;ODZmYjI2OWQxOTBkMmM4NQo=&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:38:04Z&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:38:04Z&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[],</span>
+                <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+                <span class="nt">&quot;executable&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+                <span class="nt">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;document&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;mime&quot;</span><span class="p">:</span> <span class="s2">&quot;text/plain&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;parent&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="nt">&quot;related&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;</span>
+                    <span class="p">},</span>
+                    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -921,10 +921,11 @@ Hello world!
 <li>201 Created, when the file has been successfully created</li>
 <li>404 Not Found, when the parent directory does not exist</li>
 <li>409 Conflict, when a file with the same name already exists</li>
-<li>412 Precondition Failed, when the md5sum is <code>Content-MD5</code> is not equal to the
-  md5sum computed by the server</li>
+<li>412 Precondition Failed, when the md5sum is <code>Content-MD5</code> is not equal to
+    the md5sum computed by the server</li>
 <li>422 Unprocessable Entity, when the sent data is invalid (for example, the
-  parent doesn&rsquo;t exist, <code>Type</code> or <code>Name</code> parameter is missing or invalid, etc.)</li>
+    parent doesn&rsquo;t exist, <code>Type</code> or <code>Name</code> parameter is missing or invalid,
+    etc.)</li>
 </ul>
 <h4 id="response_2">Response<a class="headerlink" href="#response_2" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">201</span> <span class="ne">Created</span>
@@ -934,63 +935,59 @@ Hello world!
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-0e6d5b72&quot;</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;sunset.jpg&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;trashed&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-      <span class="nt">&quot;md5sum&quot;</span><span class="p">:</span> <span class="s2">&quot;ODZmYjI2OWQxOTBkMmM4NQo=&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:38:04Z&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:38:04Z&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[],</span>
-      <span class="nt">&quot;metadata&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;datetime&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-18T20:38:04Z&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;height&quot;</span><span class="p">:</span> <span class="mi">1080</span><span class="p">,</span>
-        <span class="nt">&quot;width&quot;</span><span class="p">:</span> <span class="mi">1920</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
-      <span class="nt">&quot;executable&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-      <span class="nt">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;mime&quot;</span><span class="p">:</span> <span class="s2">&quot;image/jpg&quot;</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;parent&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;related&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-0e6d5b72&quot;</span>
         <span class="p">},</span>
-        <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;sunset.jpg&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;trashed&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">&quot;md5sum&quot;</span><span class="p">:</span> <span class="s2">&quot;ODZmYjI2OWQxOTBkMmM4NQo=&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:38:04Z&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:38:04Z&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="nt">&quot;metadata&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;datetime&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-18T20:38:04Z&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;height&quot;</span><span class="p">:</span> <span class="mi">1080</span><span class="p">,</span>
+                <span class="nt">&quot;width&quot;</span><span class="p">:</span> <span class="mi">1920</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+            <span class="nt">&quot;executable&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;mime&quot;</span><span class="p">:</span> <span class="s2">&quot;image/jpg&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;parent&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;related&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;</span>
+                <span class="p">},</span>
+                <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;referenced_by&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81/relationships/references&quot;</span>
+                <span class="p">},</span>
+                <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.albums&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;94375086-e2e2-11e6-81b9-5bc0b9dd4aa4&quot;</span>
+                    <span class="p">}</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;small&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b/thumbnails/0f9cda56674282ac/small&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;medium&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b/thumbnails/0f9cda56674282ac/medium&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;large&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b/thumbnails/0f9cda56674282ac/large&quot;</span>
         <span class="p">}</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;referenced_by&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;self&quot;</span><span class="p">:</span>
-            <span class="s2">&quot;/files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81/relationships/references&quot;</span>
-        <span class="p">},</span>
-        <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
-          <span class="p">{</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.albums&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;94375086-e2e2-11e6-81b9-5bc0b9dd4aa4&quot;</span>
-          <span class="p">}</span>
-        <span class="p">]</span>
-      <span class="p">}</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;small&quot;</span><span class="p">:</span>
-        <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b/thumbnails/0f9cda56674282ac/small&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;medium&quot;</span><span class="p">:</span>
-        <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b/thumbnails/0f9cda56674282ac/medium&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;large&quot;</span><span class="p">:</span>
-        <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b/thumbnails/0f9cda56674282ac/large&quot;</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -1051,7 +1048,7 @@ HELLO WORLD!
 <li>200 OK, when the file has been successfully overwritten</li>
 <li>404 Not Found, when the file wasn&rsquo;t existing</li>
 <li>412 Precondition Failed, when the <code>If-Match</code> header is set and doesn&rsquo;t match
-  the last revision of the file</li>
+    the last revision of the file</li>
 </ul>
 <h4 id="response_4">Response<a class="headerlink" href="#response_4" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
@@ -1060,40 +1057,40 @@ HELLO WORLD!
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;2-d903b54c&quot;</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;hello.txt&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;trashed&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-      <span class="nt">&quot;md5sum&quot;</span><span class="p">:</span> <span class="s2">&quot;YjU5YmMzN2Q2NDQxZDk2Nwo=&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:38:04Z&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:38:04Z&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[],</span>
-      <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
-      <span class="nt">&quot;executable&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-      <span class="nt">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;document&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;mime&quot;</span><span class="p">:</span> <span class="s2">&quot;text/plain&quot;</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;parent&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;related&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;2-d903b54c&quot;</span>
         <span class="p">},</span>
-        <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;hello.txt&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;trashed&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">&quot;md5sum&quot;</span><span class="p">:</span> <span class="s2">&quot;YjU5YmMzN2Q2NDQxZDk2Nwo=&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:38:04Z&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:38:04Z&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+            <span class="nt">&quot;executable&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;document&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;mime&quot;</span><span class="p">:</span> <span class="s2">&quot;text/plain&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;parent&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;related&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;</span>
+                <span class="p">},</span>
+                <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;</span>
         <span class="p">}</span>
-      <span class="p">}</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -1116,40 +1113,40 @@ HELLO WORLD!
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-0e6d5b72&quot;</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;hello.txt&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;trashed&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-      <span class="nt">&quot;md5sum&quot;</span><span class="p">:</span> <span class="s2">&quot;ODZmYjI2OWQxOTBkMmM4NQo=&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:38:04Z&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:38:04Z&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[],</span>
-      <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
-      <span class="nt">&quot;executable&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-      <span class="nt">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;document&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;mime&quot;</span><span class="p">:</span> <span class="s2">&quot;text/plain&quot;</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;parent&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;related&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-0e6d5b72&quot;</span>
         <span class="p">},</span>
-        <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;hello.txt&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;trashed&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">&quot;md5sum&quot;</span><span class="p">:</span> <span class="s2">&quot;ODZmYjI2OWQxOTBkMmM4NQo=&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:38:04Z&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:38:04Z&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+            <span class="nt">&quot;executable&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;document&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;mime&quot;</span><span class="p">:</span> <span class="s2">&quot;text/plain&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;parent&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;related&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;</span>
+                <span class="p">},</span>
+                <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;</span>
         <span class="p">}</span>
-      <span class="p">}</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -1158,10 +1155,14 @@ HELLO WORLD!
 <p>Both endpoints can be used to update the metadata of a file or directory, or to
 rename/move it. The difference is the first one uses an id to identify the
 file/directory to update, and the second one uses the path.</p>
-<p>Some specific attributes of the patch can be used:
-  - <code>dir_id</code> attribute can be updated to move a file or directory
-  - <code>move_to_trash</code> boolean to specify that the file needs to be moved to the trash
-  - <code>permanent_delete</code> boolean to specify that the files needs to be deleted (after being trashed)</p>
+<p>Some specific attributes of the patch can be used:</p>
+<ul>
+<li><code>dir_id</code> attribute can be updated to move a file or directory</li>
+<li><code>move_to_trash</code> boolean to specify that the file needs to be moved to the
+    trash</li>
+<li><code>permanent_delete</code> boolean to specify that the files needs to be deleted
+    (after being trashed)</li>
+</ul>
 <h4 id="http-headers_4">HTTP headers<a class="headerlink" href="#http-headers_4" title="Permanent link">&para;</a></h4>
 <p>It&rsquo;s possible to send the <code>If-Match</code> header, with the previous revision of the
 file/directory (optional).</p>
@@ -1173,16 +1174,16 @@ file/directory (optional).</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;hi.txt&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;dir_id&quot;</span><span class="p">:</span> <span class="s2">&quot;f2f36fec-8018-11e6-abd8-8b3814d9a465&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;poem&quot;</span><span class="p">]</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;hi.txt&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;dir_id&quot;</span><span class="p">:</span> <span class="s2">&quot;f2f36fec-8018-11e6-abd8-8b3814d9a465&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;poem&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -1191,12 +1192,12 @@ file/directory (optional).</p>
 <ul>
 <li>200 OK, when the file or directory metadata has been successfully updated</li>
 <li>400 Bad Request, when a the directory is asked to move to one of its
-  sub-directories</li>
+    sub-directories</li>
 <li>404 Not Found, when the file/directory wasn&rsquo;t existing</li>
 <li>412 Precondition Failed, when the <code>If-Match</code> header is set and doesn&rsquo;t match
-  the last revision of the file/directory</li>
+    the last revision of the file/directory</li>
 <li>422 Unprocessable Entity, when the sent data is invalid (for example, the
-  parent doesn&rsquo;t exist)</li>
+    parent doesn&rsquo;t exist)</li>
 </ul>
 <h4 id="response_6">Response<a class="headerlink" href="#response_6" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
@@ -1206,40 +1207,40 @@ file/directory (optional).</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-0e6d5b72&quot;</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;hi.txt&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;trashed&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-      <span class="nt">&quot;md5sum&quot;</span><span class="p">:</span> <span class="s2">&quot;ODZmYjI2OWQxOTBkMmM4NQo=&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:38:04Z&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:38:04Z&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;poem&quot;</span><span class="p">],</span>
-      <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
-      <span class="nt">&quot;executable&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-      <span class="nt">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;document&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;mime&quot;</span><span class="p">:</span> <span class="s2">&quot;text/plain&quot;</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;parent&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;related&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/f2f36fec-8018-11e6-abd8-8b3814d9a465&quot;</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-0e6d5b72&quot;</span>
         <span class="p">},</span>
-        <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;f2f36fec-8018-11e6-abd8-8b3814d9a465&quot;</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;hi.txt&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;trashed&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">&quot;md5sum&quot;</span><span class="p">:</span> <span class="s2">&quot;ODZmYjI2OWQxOTBkMmM4NQo=&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:38:04Z&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:38:04Z&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;poem&quot;</span><span class="p">],</span>
+            <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+            <span class="nt">&quot;executable&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;document&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;mime&quot;</span><span class="p">:</span> <span class="s2">&quot;text/plain&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;parent&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;related&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/f2f36fec-8018-11e6-abd8-8b3814d9a465&quot;</span>
+                <span class="p">},</span>
+                <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;f2f36fec-8018-11e6-abd8-8b3814d9a465&quot;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;</span>
         <span class="p">}</span>
-      <span class="p">}</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -1254,20 +1255,20 @@ used, for instance, to move many files in a single request.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-0e6d5b72&quot;</span> <span class="p">},</span>
-      <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;dir_id&quot;</span><span class="p">:</span> <span class="s2">&quot;f2f36fec-8018-11e6-abd8-8b3814d9a465&quot;</span> <span class="p">}</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;9152d568-7e7c-11e6-a377-37cbfb190b4c&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;2-123123&quot;</span> <span class="p">},</span>
-      <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;move_to_trash&quot;</span><span class="p">:</span> <span class="kc">true</span> <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">]</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-0e6d5b72&quot;</span> <span class="p">},</span>
+            <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;dir_id&quot;</span><span class="p">:</span> <span class="s2">&quot;f2f36fec-8018-11e6-abd8-8b3814d9a465&quot;</span> <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;9152d568-7e7c-11e6-a377-37cbfb190b4c&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;2-123123&quot;</span> <span class="p">},</span>
+            <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;move_to_trash&quot;</span><span class="p">:</span> <span class="kc">true</span> <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -1288,18 +1289,18 @@ the <code>files</code> array).</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files.archives&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;project-X&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;ids&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;a51aeeea-4f79-11e7-9dc4-83f67e9494ab&quot;</span><span class="p">],</span>
-      <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;/Documents/bills&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;/Documents/images/sunset.jpg&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;/Documents/images/eiffel-tower.jpg&quot;</span>
-      <span class="p">]</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files.archives&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;project-X&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;ids&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;a51aeeea-4f79-11e7-9dc4-83f67e9494ab&quot;</span><span class="p">],</span>
+            <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;/Documents/bills&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;/Documents/images/sunset.jpg&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;/Documents/images/eiffel-tower.jpg&quot;</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -1311,16 +1312,16 @@ the <code>files</code> array).</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;related&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/archive/4521DC87/project-X.zip&quot;</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files.archives&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;4521DC87&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;href&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/archive/4521DC87/project-X.zip&quot;</span>
+    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;related&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/archive/4521DC87/project-X.zip&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files.archives&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;4521DC87&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;href&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/archive/4521DC87/project-X.zip&quot;</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -1390,54 +1391,54 @@ destroyed.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;df24aac0-7f3d-11e6-81c0-d38812bfa0a8&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-3b75377c&quot;</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;foo.txt&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;trashed&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="nt">&quot;md5sum&quot;</span><span class="p">:</span> <span class="s2">&quot;YjAxMzQxZTc4MDNjODAwYwo=&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:38:04Z&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:38:04Z&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[],</span>
-        <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
-        <span class="nt">&quot;executable&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="nt">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;document&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;mime&quot;</span><span class="p">:</span> <span class="s2">&quot;text/plain&quot;</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/trash/df24aac0-7f3d-11e6-81c0-d38812bfa0a8&quot;</span>
-      <span class="p">}</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;4a4fc582-7f3e-11e6-b9ca-278406b6ddd4&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-4a09030e&quot;</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;bar.txt&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;trashed&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="nt">&quot;md5sum&quot;</span><span class="p">:</span> <span class="s2">&quot;YWVhYjg3ZWI0OWQzZjRlMAo=&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:38:04Z&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:38:04Z&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[],</span>
-        <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">456</span><span class="p">,</span>
-        <span class="nt">&quot;executable&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="nt">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;document&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;mime&quot;</span><span class="p">:</span> <span class="s2">&quot;text/plain&quot;</span>
-      <span class="p">},</span>
-      <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/trash/4a4fc582-7f3e-11e6-b9ca-278406b6ddd4&quot;</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">]</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;df24aac0-7f3d-11e6-81c0-d38812bfa0a8&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-3b75377c&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;foo.txt&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;trashed&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+                <span class="nt">&quot;md5sum&quot;</span><span class="p">:</span> <span class="s2">&quot;YjAxMzQxZTc4MDNjODAwYwo=&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:38:04Z&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:38:04Z&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[],</span>
+                <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
+                <span class="nt">&quot;executable&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+                <span class="nt">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;document&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;mime&quot;</span><span class="p">:</span> <span class="s2">&quot;text/plain&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/trash/df24aac0-7f3d-11e6-81c0-d38812bfa0a8&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;4a4fc582-7f3e-11e6-b9ca-278406b6ddd4&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-4a09030e&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;bar.txt&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;trashed&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+                <span class="nt">&quot;md5sum&quot;</span><span class="p">:</span> <span class="s2">&quot;YWVhYjg3ZWI0OWQzZjRlMAo=&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:38:04Z&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:38:04Z&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[],</span>
+                <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">456</span><span class="p">,</span>
+                <span class="nt">&quot;executable&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+                <span class="nt">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;document&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;mime&quot;</span><span class="p">:</span> <span class="s2">&quot;text/plain&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/trash/4a4fc582-7f3e-11e6-b9ca-278406b6ddd4&quot;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 

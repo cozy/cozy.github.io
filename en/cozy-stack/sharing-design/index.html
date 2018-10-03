@@ -610,9 +610,9 @@
 <ol>
 <li>A sharer may not know the adresses of the recipients&rsquo; cozy instances, but
    he/she has a way to send them an URL on his/her cozy to start the process.</li>
-<li>A user can preview a sharing before accepting it if the application
-   supports this option. Else, he/she will have only the description and rules to
-   make his/her mind about accepting or refusing the sharing.</li>
+<li>A user can preview a sharing before accepting it if the application supports
+   this option. Else, he/she will have only the description and rules to make
+   his/her mind about accepting or refusing the sharing.</li>
 <li>The data is duplicated: it is both on the owner&rsquo;s cozy, and on the
    recipients&rsquo; cozy (no cloud federation like NextCloud).</li>
 <li>The applications say what is shared, the stack synchronizes that. The stack
@@ -633,8 +633,8 @@
    documents that were on the user B&rsquo;s cozy before the sharing are not sent to
    user A without an explicit action of user B (like moving a file to a shared
    directory).</li>
-<li>Second safety principle: when two users, A and B, are sharing documents,
-    a change of a document on the user A&rsquo;s cozy can&rsquo;t make an exiting document of
+<li>Second safety principle: when two users, A and B, are sharing documents, a
+    change of a document on the user A&rsquo;s cozy can&rsquo;t make an exiting document of
     user B enter in the sharing.</li>
 </ol>
 <h2 id="setup-of-a-sharing">Setup of a sharing<a class="headerlink" href="#setup-of-a-sharing" title="Permanent link">&para;</a></h2>
@@ -657,15 +657,15 @@ him how the sharing will work and what technical permissions it implies. It also
 asks him to confirm the sharing. If he accepts, his instance will send to
 Alice’s instance the answer.</p>
 <h3 id="step-3-the-initial-replication-starts">Step 3: the initial replication starts<a class="headerlink" href="#step-3-the-initial-replication-starts" title="Permanent link">&para;</a></h3>
-<p>Alice’s Cozy instance creates token and sends them with other informations as the
-response of the answer request from Bob’s instance. At this moment, both
+<p>Alice’s Cozy instance creates token and sends them with other informations as
+the response of the answer request from Bob’s instance. At this moment, both
 instances are ready to start to replicate data to the other instances. So, let’s
 do the initial replication.</p>
 <p>Alice’s instance starts to fill the <code>io.cozy.shared</code> database with all the
-documents that match a rule of the sharing (except the rules with <code>local:
-true</code>), and create triggers for the future documents to be also added in this
-database (the exact triggers depend of the parameters of the rules). And, when
-done, it creates a job for the replicator, and setups a trigger for future
+documents that match a rule of the sharing (except the rules with
+<code>local: true</code>), and create triggers for the future documents to be also added in
+this database (the exact triggers depend of the parameters of the rules). And,
+when done, it creates a job for the replicator, and setups a trigger for future
 changes in the <code>io.cozy.shared</code> start a replicator job.</p>
 <p>Bob’s instance also checks if any document matches a sharing rule. In most
 cases, it won’t. But in some very special cases (e.g. a previous revoked sharing
@@ -686,17 +686,17 @@ start a replicator</p>
 <p><strong>Step 3:</strong> the replicator does the following steps</p>
 <ul>
 <li>it queries a local document of the <code>io.cozy.shared</code> database to get the last
-  sequence number of a successful replication</li>
+    sequence number of a successful replication</li>
 <li>with this sequence number, it requests the changes feed of <code>io.cozy.shared</code>
-  with a filter on the sharing id</li>
+    with a filter on the sharing id</li>
 <li>the results is a list of document doctype + id + rev that is sent to Alice’s
-  Cozy</li>
+    Cozy</li>
 <li>Alice’s Cozy checks which revisions are known, and send a response with the
-  list of those that are not</li>
-<li>for each not known revision, Bob’s Cozy send the document to Alice’s Cozy (in
-  bulk)</li>
+    list of those that are not</li>
+<li>for each not known revision, Bob’s Cozy send the document to Alice’s Cozy
+    (in bulk)</li>
 <li>and, if it’s all good, it persists the new sequence number in the local
-  document, as a start point for the next replication</li>
+    document, as a start point for the next replication</li>
 </ul>
 <p><strong>Step 4:</strong> the changes are put in the <code>io.cozy.shared</code> database on Alice’s Cozy</p>
 <p><strong>Step 5:</strong> it starts a replicator on Alice’s Cozy</p>
@@ -778,9 +778,9 @@ emptied.</p>
 <h3 id="conflict-with-no-reconciliation">Conflict with no reconciliation<a class="headerlink" href="#conflict-with-no-reconciliation" title="Permanent link">&para;</a></h3>
 <p>When a file is modified concurrently on two cozy instances, and at least one
 change involve the content, we can&rsquo;t reconciliate the modifications. To know
-which version of the file is the &ldquo;winner&rdquo; and will keep the same identifier,
-and which version is the &ldquo;loser&rdquo; and will have a new identifier, we compare
-the revisions and the higher wins.</p>
+which version of the file is the &ldquo;winner&rdquo; and will keep the same identifier, and
+which version is the &ldquo;loser&rdquo; and will have a new identifier, we compare the
+revisions and the higher wins.</p>
 <p>This conflict is particulary tricky to resolve, with a lot of subcases. In
 particular, we try to converge to the same revisions on all the instances for
 the &ldquo;winner&rdquo; file (and for the &ldquo;loser&rdquo; too).</p>
@@ -793,13 +793,13 @@ the &ldquo;winner&rdquo; file (and for the &ldquo;loser&rdquo; too).</p>
 <p>For the first two sets, the operation on the Virtual File System will needs to
 reach the storage (Swift), not just CouchDB. For the third set, it&rsquo;s easy: we
 can do the change at the same time as another change, because these attributes
-are only used in CouchDB. But we can&rsquo;t do a change on the first two sets at
-the same time: the Virtual File System can&rsquo;t update the content and
-move/rename a file in the same operation. If we needs to do both, it will
-generate 2 revisions in CouchDB for the file.</p>
-<p><strong>Note:</strong> you can see that using CouchDB-like replication protocol means that
-we have some replications that can look useless, just some echo to a writing.
-In fact, it is used to acknowledge the writing and is helpful for conflict
+are only used in CouchDB. But we can&rsquo;t do a change on the first two sets at the
+same time: the Virtual File System can&rsquo;t update the content and move/rename a
+file in the same operation. If we needs to do both, it will generate 2 revisions
+in CouchDB for the file.</p>
+<p><strong>Note:</strong> you can see that using CouchDB-like replication protocol means that we
+have some replications that can look useless, just some echo to a writing. In
+fact, it is used to acknowledge the writing and is helpful for conflict
 resolutions. It may be conter-intuitive, but removing them will harm the
 stability of the system, even if they do nothing most of the time.</p>
 <h4 id="example-1">Example 1<a class="headerlink" href="#example-1" title="Permanent link">&para;</a></h4>
@@ -816,80 +816,93 @@ conflict. We have a first replication (from Alice to Bob), but nothing happens
 on B because the local revision (4-4bb) is greater than the candidate revision
 (4-4aa) and the content is the same.</p>
 <p>Just after that, we have a revision on the opposite direction (from Bob to
-Alice). The candidate revision wins (4-4bb), but for files, we don&rsquo;t use
-CouchDB conflict, thus it&rsquo;s not possible to write a new revision at the same
-generation (4). The only option is to create a new revision (5-5bb). This
-revision is then sent to Bob: Bob&rsquo;s Cozy accepts the new revision even if it
-has no effect on the file (it was already the good name), just to resolve the
-conflict.</p>
+Alice). The candidate revision wins (4-4bb), but for files, we don&rsquo;t use CouchDB
+conflict, thus it&rsquo;s not possible to write a new revision at the same generation
+(4). The only option is to create a new revision (5-5bb). This revision is then
+sent to Bob: Bob&rsquo;s Cozy accepts the new revision even if it has no effect on the
+file (it was already the good name), just to resolve the conflict.</p>
 <h4 id="example-2">Example 2<a class="headerlink" href="#example-2" title="Permanent link">&para;</a></h4>
 <p><img alt="A difficult conflict" src="../diagrams/files-conflict-2.png" /></p>
-<p>Like in the last example, Alice uploads a file and share a directory to Bob
-with this file, Bob acccepts. But then, several actions are made on the file in
-a short lapse of time and it generates a difficult conflict:</p>
+<p>Like in the last example, Alice uploads a file and share a directory to Bob with
+this file, Bob acccepts. But then, several actions are made on the file in a
+short lapse of time and it generates a difficult conflict:</p>
 <ul>
 <li>Alice renames the file, and then uploads a new version with cozy-desktop</li>
 <li>Bob moves the file to a sub-directory.</li>
 </ul>
-<p>So, when the replication comes, we have two versions of the file with
-different name, parent directory, and content. The winner is the higher
-revision (4-4aa). The resolution takes 4 steps:</p>
+<p>So, when the replication comes, we have two versions of the file with different
+name, parent directory, and content. The winner is the higher revision (4-4aa).
+The resolution takes 4 steps:</p>
 <ol>
 <li>A copy of the file is created from the revision 3-3bb, with the new
    identifier id2 = XorID(id, 3-3bb).</li>
 <li>The new content is written on Bob&rsquo;s Cozy: we can&rsquo;t use the revisions 3-3aa
-   (same generation as 3-3bb) and 4-4aa (it will mean the conflict is fixed,
-   but it&rsquo;s not the case, the filenames are still different), so a new
-   revision is used (4-4cc).</li>
+   (same generation as 3-3bb) and 4-4aa (it will mean the conflict is fixed, but
+   it&rsquo;s not the case, the filenames are still different), so a new revision is
+   used (4-4cc).</li>
 <li>The file is moved and renamed on Bob&rsquo;s Cozy, with a next revision (5-5bb).</li>
-<li>The two files are sent to Alice&rsquo;s Cozy: 5-5bb is accepted just to resolve
-   the conflict, and id2 is uploaded as a new file.</li>
+<li>The two files are sent to Alice&rsquo;s Cozy: 5-5bb is accepted just to resolve the
+   conflict, and id2 is uploaded as a new file.</li>
 </ol>
 <h2 id="schema">Schema<a class="headerlink" href="#schema" title="Permanent link">&para;</a></h2>
 <h3 id="description-of-a-sharing">Description of a sharing<a class="headerlink" href="#description-of-a-sharing" title="Permanent link">&para;</a></h3>
 <ul>
 <li>An identifier (the same for all members of the sharing)</li>
-<li>A list of <code>members</code>. The first one is the owner. For each member,
-  we have the URL of the cozy, a contact name, a public name, an email, a
-  status, a read-only flag, and some credentials to authorize the transfer of
-  data between the owner and the recipients</li>
-<li>A <code>description</code> (one sentence that will help people understand what is shared
-  and why)</li>
-<li>a flag <code>active</code> that says if the sharing is currently active for at least
-  one member</li>
-<li>a flag <code>owner</code>, true for the document on the cozy of the sharer, and false
-  on the other cozy instance</li>
-<li>a flag <code>open_sharing</code>:</li>
+<li>A list of <code>members</code>. The first one is the owner. For each member, we have
+    the URL of the cozy, a contact name, a public name, an email, a status, a
+    read-only flag, and some credentials to authorize the transfer of data
+    between the owner and the recipients</li>
+<li>
+<p>A <code>description</code> (one sentence that will help people understand what is
+    shared and why)</p>
+</li>
+<li>
+<p>a flag <code>active</code> that says if the sharing is currently active for at least
+    one member</p>
+</li>
+<li>
+<p>a flag <code>owner</code>, true for the document on the cozy of the sharer, and false
+    on the other cozy instance</p>
+</li>
+<li>
+<p>a flag <code>open_sharing</code>:</p>
+<ul>
 <li><code>true</code> if any member of the sharing except the read-only ones can add a
     new recipient</li>
 <li><code>false</code> if only the owner can add a new recipient</li>
+</ul>
+</li>
 <li>Some technical data (<code>created_at</code>, <code>updated_at</code>, <code>app_slug</code>, <code>preview_path</code>,
-  <code>triggers</code>, <code>credentials</code>)</li>
+    <code>triggers</code>, <code>credentials</code>)</li>
 <li>a number of files to synchronize for the initial sync,
-  <code>initial_number_of_files_to_sync</code> (if there are no files to sync or the
-  initial replication has finished, the field won&rsquo;t be here)</li>
-<li>A list of sharing <code>rules</code>, each rule being composed of:</li>
-<li>a <code>title</code>, that will be displayed to the recipients before they accept the
-    sharing</li>
+    <code>initial_number_of_files_to_sync</code> (if there are no files to sync or the
+    initial replication has finished, the field won&rsquo;t be here)</li>
+<li>A list of sharing <code>rules</code>, each rule being composed of:<ul>
+<li>a <code>title</code>, that will be displayed to the recipients before they accept
+    the sharing</li>
 <li>a <code>doctype</code></li>
 <li>a <code>selector</code> (by default, it’s the <code>id</code>) and <code>values</code> (one identifier, a
     list of identifiers, files and folders inside a folder, files that are
-    referenced by the same document, documents bound to a previous sharing rule)</li>
+    referenced by the same document, documents bound to a previous sharing
+    rule)</li>
 <li><code>local</code>: by default <code>false</code>, but it can be <code>true</code> for documents that are
-    useful for the preview page but doesn’t need to be send to the recipients
-    (e.g. a setting document of the application)</li>
+    useful for the preview page but doesn’t need to be send to the
+    recipients (e.g. a setting document of the application)</li>
 <li><code>add</code>: a behavior when a new document matches this rule (the document is
-    created, or it was a document that didn’t match the rule and is modified and
-    the new version matches the rule):<ul>
+    created, or it was a document that didn’t match the rule and is modified
+    and the new version matches the rule):<ul>
 <li><code>none</code>: the updates are never propagated (the default)</li>
 <li><code>push</code>: the updates made on the owner are sent to the recipients</li>
-<li><code>sync</code>: the updates on any member (except the read-only) are propagated to the other members</li>
+<li><code>sync</code>: the updates on any member (except the read-only) are
+    propagated to the other members</li>
 </ul>
 </li>
-<li><code>update</code>: a behavior when a document matched by this rule is modified. Can be:<ul>
+<li><code>update</code>: a behavior when a document matched by this rule is modified.
+    Can be:<ul>
 <li><code>none</code>: the updates are never propagated (the default)</li>
 <li><code>push</code>: the updates made on the owner are sent to the recipients</li>
-<li><code>sync</code>: the updates on any member (except the read-only) are propagated to the other members</li>
+<li><code>sync</code>: the updates on any member (except the read-only) are
+    propagated to the other members</li>
 </ul>
 </li>
 <li><code>remove</code>: a behavior when a document no longer matches this rule (the
@@ -897,14 +910,17 @@ revision (4-4aa). The resolution takes 4 steps:</p>
     modified and the new version doesn’t match the rule):<ul>
 <li><code>none</code>: the updates are never propagated (the default)</li>
 <li><code>push</code>: the updates made on the owner are sent to the recipients</li>
-<li><code>sync</code>: the updates on any member (except the read-only) are propagated to the other members</li>
+<li><code>sync</code>: the updates on any member (except the read-only) are
+    propagated to the other members</li>
 <li><code>revoke</code>: the sharing is revoked.</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 <h4 id="example-i-want-to-share-a-folder-in-readwrite-mode">Example: I want to share a folder in read/write mode<a class="headerlink" href="#example-i-want-to-share-a-folder-in-readwrite-mode" title="Permanent link">&para;</a></h4>
 <ul>
-<li>rule 1</li>
+<li>rule 1<ul>
 <li>title: <code>folder</code></li>
 <li>doctype: <code>io.cozy.files</code></li>
 <li>values: <code>"ca527016-0d83-11e8-a580-3b965c80c7f7"</code></li>
@@ -912,15 +928,19 @@ revision (4-4aa). The resolution takes 4 steps:</p>
 <li>update: <code>sync</code></li>
 <li>remove: <code>sync</code></li>
 </ul>
+</li>
+</ul>
 <h4 id="example-i-want-to-share-a-playlist-where-im-the-only-one-that-can-add-and-remove-items">Example: I want to share a playlist where I’m the only one that can add and remove items<a class="headerlink" href="#example-i-want-to-share-a-playlist-where-im-the-only-one-that-can-add-and-remove-items" title="Permanent link">&para;</a></h4>
 <ul>
-<li>rule 1</li>
+<li>rule 1<ul>
 <li>title: <code>playlist</code></li>
 <li>doctype: <code>io.cozy.music.playlists</code></li>
 <li>values: <code>"99445b14-0d84-11e8-ae72-4b96fcbf0552"</code></li>
 <li>update: <code>none</code></li>
 <li>remove: <code>revoke</code></li>
-<li>rule 2</li>
+</ul>
+</li>
+<li>rule 2<ul>
 <li>title: <code>items</code></li>
 <li>doctype: <code>io.cozy.files</code></li>
 <li>selector: <code>referenced_by</code></li>
@@ -929,21 +949,27 @@ revision (4-4aa). The resolution takes 4 steps:</p>
 <li>update: <code>none</code></li>
 <li>remove: <code>push</code></li>
 </ul>
+</li>
+</ul>
 <h3 id="iocozyshared"><code>io.cozy.shared</code><a class="headerlink" href="#iocozyshared" title="Permanent link">&para;</a></h3>
 <p>This doctype is an internal one for the stack. It is used to track what
 documents are shared, and to replicate changes from one Cozy to the others.</p>
 <ul>
-<li><code>_id</code>: its identifier is the doctype and id of the referenced objet, separated by
-  a <code>/</code> (e.g. <code>io.cozy.contacts/c1f5dae4-0d87-11e8-b91b-1f41c005768b</code>)</li>
+<li><code>_id</code>: its identifier is the doctype and id of the referenced objet,
+    separated by a <code>/</code> (e.g.
+    <code>io.cozy.contacts/c1f5dae4-0d87-11e8-b91b-1f41c005768b</code>)</li>
 <li><code>_rev</code>: the CouchDB default revision for this document (not very meaningful,
-  it’s here to avoid concurrency issues)</li>
+    it’s here to avoid concurrency issues)</li>
 <li><code>revisions</code>: a tree with the last known <code>_rev</code>s of the referenced object</li>
-<li><code>infos</code>, a map of sharing ids → <code>{rule, removed, binary}</code></li>
-<li><code>rule</code> says which rule from the sharing must be applied for this document</li>
+<li><code>infos</code>, a map of sharing ids → <code>{rule, removed, binary}</code><ul>
+<li><code>rule</code> says which rule from the sharing must be applied for this
+    document</li>
 <li><code>removed</code> will be true for a deleted document, a trashed file, or if the
     document does no longer match the sharing rule</li>
 <li><code>binary</code> is a boolean flag that is true only for files (and not even
     folders) with <code>removed: false</code></li>
+</ul>
+</li>
 </ul></div>
         </div>
 

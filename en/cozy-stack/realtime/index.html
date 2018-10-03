@@ -611,22 +611,24 @@
 <h3 id="definitions">Definitions<a class="headerlink" href="#definitions" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Event:</strong> Something happening in the stack. Most of them will come from
-  couchdb, some jobs and user actions might also trigger them.</li>
-<li><strong>Events feed:</strong> the feed of occurring events. There is two types of feeds:</li>
+    couchdb, some jobs and user actions might also trigger them.</li>
+<li><strong>Events feed:</strong> the feed of occurring events. There is two types of feeds:<ul>
 <li><strong>continuous</strong> allows to follow events as they occurs</li>
 <li><strong>interval</strong> allow the see the history of the feed from any given time</li>
-<li><strong>Realtime:</strong> user experienced updates of the interface from change happening
-  from another source. <em>Ie, I have a folder opened in cozy-files on the browser,
-  I take some pictures from my smartphone, the pictures appears in the folder
-  without me needing to refresh the browser tab.</em></li>
+</ul>
+</li>
+<li><strong>Realtime:</strong> user experienced updates of the interface from change
+    happening from another source. <em>Ie, I have a folder opened in cozy-files on
+    the browser, I take some pictures from my smartphone, the pictures appears
+    in the folder without me needing to refresh the browser tab.</em></li>
 </ul>
 <h3 id="what-couchdb-offers">What couchdb offers<a class="headerlink" href="#what-couchdb-offers" title="Permanent link">&para;</a></h3>
 <p>Couchdb supports with its <code>_changes</code> API both events feeds types:</p>
 <ul>
 <li>using <code>since=now&amp;continuous=true</code> we get all events <strong>continuous</strong>ly as they
-  happen (SSE)</li>
+    happen (SSE)</li>
 <li>using <code>since=(last known seq_number)</code> we get all changes in the <strong>interval</strong>
-  between last known <code>seq_number</code> and now.</li>
+    between last known <code>seq_number</code> and now.</li>
 </ul>
 <p>Couchdb also offers a <code>_db_updates</code> route, which give us <strong>continuous</strong> changes
 at the database level. This routes does not support a since parameter, as there
@@ -666,22 +668,22 @@ sharing from).</p>
 <ul>
 <li><strong>Polling:</strong> regularly ask the server what happened since last time.</li>
 <li><strong>COMET:</strong> Leaving a normal HTTP connection open sending data and heartbeets
-  regularly to keep it open, reading xhr.responseText at intervals without
-  waiting for readyState == 4. Restart the connection when it breaks.</li>
+    regularly to keep it open, reading xhr.responseText at intervals without
+    waiting for readyState == 4. Restart the connection when it breaks.</li>
 <li><strong>SSE:</strong> Normalized &amp; standardized version of COMET with
-  <a href="http://caniuse.com/#feat=eventsource">half-decent browser support (86% users)</a>
-  but easily polyfillable (it&rsquo;s just COMET). It is simpler and easier to debug.
-  It has some limitations (no HTTP headers in JS api, counts toward the maximum
-  number of http connection per domain).</li>
-<li><strong>Websocket:</strong> keep a socket open, it allows 2 way data communication which we
-  do not need, has
-  <a href="http://caniuse.com/#feat=websockets">better server support (92% users)</a> but
-  is impossible to polyfill client side, more popular, there is a better
-  <a href="https://godoc.org/github.com/gorilla/websocket">golang package</a></li>
+    <a href="http://caniuse.com/#feat=eventsource">half-decent browser support (86% users)</a>
+    but easily polyfillable (it&rsquo;s just COMET). It is simpler and easier to
+    debug. It has some limitations (no HTTP headers in JS api, counts toward the
+    maximum number of http connection per domain).</li>
+<li><strong>Websocket:</strong> keep a socket open, it allows 2 way data communication which
+    we do not need, has
+    <a href="http://caniuse.com/#feat=websockets">better server support (92% users)</a> but
+    is impossible to polyfill client side, more popular, there is a better
+    <a href="https://godoc.org/github.com/gorilla/websocket">golang package</a></li>
 <li><strong>SockJS &amp; cie</strong> they are <strong>a lot</strong> of packages which imitate Websocket API
-  while using complicated client&amp;server polyfill to allow support of older
-  browser. <a href="https://github.com/sockjs/">SockJS</a> is a drop-in websocket
-  replacement with a go package and javascript client.</li>
+    while using complicated client&amp;server polyfill to allow support of older
+    browser. <a href="https://github.com/sockjs/">SockJS</a> is a drop-in websocket
+    replacement with a go package and javascript client.</li>
 </ul>
 <h3 id="choice-websocket">Choice = Websocket<a class="headerlink" href="#choice-websocket" title="Permanent link">&para;</a></h3>
 <p>While SSE appears at first glance like a better fit for our use case, its
@@ -690,14 +692,14 @@ older browser supports becomes necessary we can use SockJS.</p>
 <h3 id="optimization-paths-future">optimization paths (future)<a class="headerlink" href="#optimization-paths-future" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>bandwidth</strong> Limiting the number of events sent by allowing the client to
-  specified it is only interested in events matching a selector <em>(files app only
-  care about changes in the files of the current folder view)</em></li>
+    specified it is only interested in events matching a selector <em>(files app
+    only care about changes in the files of the current folder view)</em></li>
 <li><strong>number of connections</strong> Instead of 1 socket / tab, we can probably make 1
-  socket / browser using some hackish combination of SharedWorker /
-  iframe.postMessage and a client-side demultiplexer.</li>
+    socket / browser using some hackish combination of SharedWorker /
+    iframe.postMessage and a client-side demultiplexer.</li>
 <li><strong>both</strong> No need for realtime if the user is not using the tab (for most
-  usecases), we could cut the realtime feed depending on
-  <a href="https://www.w3.org/TR/2011/WD-page-visibility-20110602/">Page Visibility API</a></li>
+    usecases), we could cut the realtime feed depending on
+    <a href="https://www.w3.org/TR/2011/WD-page-visibility-20110602/">Page Visibility API</a></li>
 </ul>
 <h2 id="gostack-architecture">Go/Stack architecture<a class="headerlink" href="#gostack-architecture" title="Permanent link">&para;</a></h2>
 <ul>
