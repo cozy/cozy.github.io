@@ -43,9 +43,9 @@ function subscribeWhenReady(doctype, socket) {
   }
 }
 
-function getWebsocketProtocol(url) {
+function isSecureURL(url) {
   const httpsRegexp = new RegExp(`^(https:/{2})`)
-  return url.match(httpsRegexp) ? 'wss' : 'ws'
+  return url.match(httpsRegexp)
 }
 
 function getDomainFromUrl(url) {
@@ -70,13 +70,37 @@ function keepAlive(socket, interval, message) {
   return socket
 }
 
+const isBoolean = [
+  bool => typeof bool === 'undefined' || typeof bool === 'boolean',
+  'should be a boolean'
+]
 const isRequired = [attr => !!attr, 'is required']
-const isString = [str => typeof str === 'string', 'should be a string']
+const isRequiredIfNo = keys => [
+  (attr, obj) => keys.find(key => !!obj[key]) || !!attr,
+  `is required if no attribute ${keys.join(' or ')} are provider.`
+]
+const isString = [
+  str => typeof str === 'undefined' || typeof str === 'string',
+  'should be a string'
+]
+const isURL = [
+  url => {
+    if (typeof url === 'undefined') return true
+    try {
+      new URL(url)
+    } catch (error) {
+      return false
+    }
+
+    return true
+  },
+  'should be an URL'
+]
 
 const validate = types => obj => {
   for (const [attr, rules] of Object.entries(types)) {
     for (const [validator, message] of rules) {
-      if (!validator(obj[attr])) {
+      if (!validator(obj[attr], obj)) {
         throw new Error(`${attr} ${message}.`)
       }
     }
@@ -84,8 +108,10 @@ const validate = types => obj => {
 }
 
 const configTypes = {
+  domain: [isRequiredIfNo(['url']), isString],
+  secure: [isBoolean],
   token: [isRequired, isString],
-  url: [isRequired, isString]
+  url: [isRequiredIfNo(['domain']), isURL]
 }
 
 const validateConfig = validate(configTypes)
@@ -99,10 +125,20 @@ async function connectWebSocket(
 ) {
   validateConfig(config)
   return new Promise((resolve, reject) => {
-    const protocol = getWebsocketProtocol(config.url)
-    const domain = getDomainFromUrl(config.url)
+    const options = {
+      secure: config.url ? isSecureURL(config.url) : true,
+      ...config
+    }
+
+    const protocol = options.secure ? 'wss:' : 'ws:'
+    const domain = options.domain || getDomainFromUrl(options.url)
+
+    if (!domain) {
+      throw new Error('Unable to detect domain')
+    }
+
     const socket = new WebSocket(
-      `${protocol}://${domain}/realtime/`,
+      `${protocol}//${domain}/realtime/`,
       'io.cozy.websocket'
     )
 
@@ -111,7 +147,7 @@ async function connectWebSocket(
         socket.send(
           JSON.stringify({
             method: 'AUTH',
-            payload: config.token
+            payload: options.token
           })
         )
       } catch (error) {

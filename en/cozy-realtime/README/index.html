@@ -649,9 +649,11 @@ or
 <h4 id="subscribeallconfig-doctype-parse"><code>subscribeAll(config, doctype, parse)</code><a class="headerlink" href="#subscribeallconfig-doctype-parse" title="Permanent link">&para;</a></h4>
 <p>This method allow you to subscribe to realtime for all documents of a provided doctype. Here are the parameters:</p>
 <ul>
-<li><code>config</code>: a config object with two key :</li>
-<li><code>url</code>: the cozy url (ex: https://recette.cozy.works)</li>
+<li><code>config</code>: a config object with the following keys :</li>
+<li><code>domain</code>: the instance domain (ex: <code>cozy.works</code>, <code>cozy.tools:8080</code>), must be provided if <code>url</code> is not set</li>
 <li><code>token</code>: the cozy token (ex: the global <code>cozy.client._token.token</code>)</li>
+<li><code>url</code>: the cozy url (ex: https://recette.cozy.works), must be provided if <code>domain</code> is not set</li>
+<li><code>secure</code>: a boolean indicating if a secure protocol must be used (default <code>true</code>). Should not be provided along <code>url</code>.</li>
 <li><code>doctype</code>: the doctype to subscribe (ex: <code>io.cozy.accounts</code>)</li>
 <li><code>parse</code>: a custom function to be use as parser for your resulting documents (default: <code>doc =&gt; doc</code>)</li>
 </ul>
@@ -675,9 +677,11 @@ or
 <h4 id="subscribeconfig-doctype-doc-parse"><code>subscribe(config, doctype, doc, parse)</code><a class="headerlink" href="#subscribeconfig-doctype-doc-parse" title="Permanent link">&para;</a></h4>
 <p>This method is exactly the same working as the previous <code>subscribeAll()</code> function but to listen only one document. Here are the parameters:</p>
 <ul>
-<li><code>config</code>: a config object with two key :</li>
-<li><code>url</code>: the cozy url (ex: https://recette.cozy.works)</li>
+<li><code>config</code>: a config object with the following keys :</li>
+<li><code>domain</code>: the instance domain (ex: <code>cozy.works</code>, <code>cozy.tools:8080</code>), must be provided if <code>url</code> is not set</li>
 <li><code>token</code>: the cozy token (ex: the global <code>cozy.client._token.token</code>)</li>
+<li><code>url</code>: the cozy url (ex: https://recette.cozy.works)</li>
+<li><code>secure</code>: a boolean indicating if a secure protocol must be used (default <code>true</code>). Should not be provided along <code>url</code>.</li>
 <li><code>doctype</code>: the doctype to subscribe (ex: <code>io.cozy.accounts</code>)</li>
 <li><code>doc</code>: the document to listen, it must be at least a JS object with the <code>_id</code> attribute of the wanted document (only the <code>_id</code> will be checked to know if this is the wanted document or not).</li>
 <li><code>parse</code>: a custom function to be use as parser for your resulting documents (default: <code>doc =&gt; doc</code>)</li>
