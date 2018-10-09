@@ -6,13 +6,9 @@ summary: Execute server-side and asynchronous code from your application.
 
 ## What is it for?
 
-Applications may require server-side code execution that could not and should not be in the client. This might be useful for heavy computations or for tasks triggered after some events, typically after data is retrieved through [konnectors](https://cozy.github.io/cozy-stack/konnectors.html) or mobile/desktop sync, without the user being on the application.
+Applications may require server-side code execution that could not, or should not, be in the client. This might be useful for heavy computations or for tasks triggered after some events, typically after data is retrieved through [konnectors](https://cozy.github.io/cozy-stack/konnectors.html) or mobile/desktop sync, without the user being on the application.
 
 In contrast to konnectors, services have the same permissions as the web application and are not intended to collect information from the outside. It is rather meant to asynchronously analyse data inside the cozy and emit some output once the task is done. However, they share the same mechanisms as the konnectors to describe how and when they should be executed: via our [trigger system](https://github.com/cozy/cozy-stack/blob/master/docs/jobs.md).
-
-
- background and offline process to analyse the user's data and emit some output even without the user being on the application. These part of the application are called services and can be declared as part of the application in its manifest.
-
 
 
 ## Example
@@ -43,25 +39,35 @@ Here is an explanation of the fields:
 
 ## Build
 
-The service must be packaged into a single file containing all the dependencies. An example of a webpack rule is available [here](https://github.com/cozy/cozy-banks/blob/master/config/webpack.target.services.js). Note that `target: 'node'` is important as the service is run as a Node.js process.
+The service must be packaged into a single file containing all the dependencies. An example of a webpack rule is available [here](https://github.com/CPatchane/create-cozy-app/blob/master/packages/cozy-scripts/config/webpack.config.services.js). Note that `target: 'node'` is important as the service is run as a Node.js process.
 
-A `watch:services` entry can also be added in the package.json, like in this [example](https://github.com/cozy/cozy-banks/blob/master/package.json). Then the service is simply built with this command:
+In this example, the services are built alongside your app using `yarn watch`.
 
-```bash
-yarn watch:services
-```
 
-### Stack
+## Stack
 
-As the service is run on a dedicated process on the server side, a running stack is necessary. For development, it is easier to use a stack installed without docker, as some configuration is necessary, notably to retrieve the logs of the service. For the stack's installation instructions, follow the [guide](https://github.com/cozy/cozy-stack/blob/master/docs/INSTALL.md).
+As the service is run on a dedicated process on the server side, a running stack is necessary. You can either use a stack installed [with docker](https://docs.cozy.io/en/howTos/dev/runCozyDocker/#run-with-a-custom-stack-config-file) or directly [from source](https://github.com/cozy/cozy-stack/blob/master/docs/INSTALL.md).
 
-Once you have a stack installed and running, create a directory  `~/.cozy` and copy the default configuration file into it. Be careful, the file name and location matter, as explained in the [config documentation](https://github.com/cozy/cozy-stack/blob/master/docs/config.md).
+Some configuration is required to execute the service and store
+
+
+
+
+ the produced logs, to facilitate the development. The following instructions are for a stack installed from source, but you can easily adapt it for a docker installation: you just have to download the [default config file](https://github.com/cozy/cozy-stack/blob/master/cozy.example.yaml), modify it as described below and indicate its location through the docker command, as explained [here](https://docs.cozy.io/en/howTos/dev/runCozyDocker/#run-with-a-custom-stack-config-file).
 
 In the following, we assume that your `$HOME` is /home/alice, so change accordingly to your own `$HOME`.
+
+### Copy the default config file
+
+Create a directory  `~/.cozy` and copy the default configuration file into it. Be careful, the file name and location matter, as explained in the [config documentation](https://github.com/cozy/cozy-stack/blob/master/docs/config.md).
+
 
 ```bash
 cp cozy-stack/cozy.example.yaml ~/.cozy/cozy.yaml`
 ```
+
+### Edit the config file
+
 
 Edit the file `~/.cozy/cozy.yaml` and change the line after the `konnectors:` entry to have this:
 
@@ -74,6 +80,8 @@ Then, after the entry `fs`:
 url: file:///home/alice/.cozy/storage
 ```
 
+### Create the script to store the logs
+
 
 Create the file `~/.cozy/scripts/konnector-node-run.sh`:
 ```bash
@@ -83,6 +91,9 @@ rundir="${1}"
 cd $rundir
 node index.js | tee ~/.cozy/services.log
 ```
+
+## Install your app
+
 
 To install the app containing the service on your local stack, you must give the path of your build:
 
