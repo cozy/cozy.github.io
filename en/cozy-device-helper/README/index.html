@@ -621,12 +621,14 @@
 </pre></div>
 
 
-<p>To know the platform:
-- <code>getPlatform()</code>: return <code>ios</code>, <code>android</code> or <code>web</code>
-- <code>isWebApp()</code>: return <code>boolean</code>
-- <code>isMobileApp()</code>: return <code>boolean</code>
-- <code>isIOSApp()</code>: return <code>boolean</code>
-- <code>isAndroidApp()</code>: return <code>boolean</code></p>
+<p>To know the platform:</p>
+<ul>
+<li><code>getPlatform()</code>: return <code>ios</code>, <code>android</code> or <code>web</code></li>
+<li><code>isWebApp()</code>: return <code>boolean</code></li>
+<li><code>isMobileApp()</code>: return <code>boolean</code></li>
+<li><code>isIOSApp()</code>: return <code>boolean</code></li>
+<li><code>isAndroidApp()</code>: return <code>boolean</code></li>
+</ul>
 <h3 id="device-name">Device Name<a class="headerlink" href="#device-name" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="p">{</span> <span class="n">getDeviceName</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;cozy-device-helper&#39;</span>
 </pre></div>
@@ -634,7 +636,7 @@
 
 <p>To know device name <code>getDeviceName()</code>.</p>
 <h3 id="cordova-plugins">Cordova Plugins<a class="headerlink" href="#cordova-plugins" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="p">{</span> <span class="n">hasDevicePlugin</span><span class="p">,</span> <span class="n">hasInAppBrowserPlugin</span><span class="p">,</span> <span class="n">hasSafariPlugin</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;cozy-device-helper&#39;</span>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="p">{</span> <span class="n">hasDevicePlugin</span><span class="p">,</span> <span class="n">hasInAppBrowserPlugin</span><span class="p">,</span> <span class="n">hasSafariPlugin</span><span class="p">,</span> <span class="n">checkApp</span><span class="p">,</span> <span class="n">startApp</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;cozy-device-helper&#39;</span>
 </pre></div>
 
 
@@ -642,6 +644,8 @@
 <li><code>hasDevicePlugin</code>: return <code>boolean</code></li>
 <li><code>hasInAppBrowserPlugin</code>: return <code>boolean</code></li>
 <li><code>hasSafariPlugin</code>: return a promise which resolve by a <code>boolean</code></li>
+<li><code>checkApp</code>: return a <code>promise</code> that resolves with informations about the application (if installed) or false (if not installed)</li>
+<li><code>startApp</code>: Start an Application. Return a <code>promise</code> - False if the application was not able to be started</li>
 </ul>
                 </div>
         </div>

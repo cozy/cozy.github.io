@@ -29,7 +29,9 @@ const startApp = (exported.startApp = async function(appInfo) {
     return new Promise((resolve, reject) => {
       if (!cordovaPluginIsInstalled()) {
         reject(
-          new Error(`Cordova plugin 'com.lampa.startapp' is not installed.`)
+          new Error(
+            `Cordova plugin 'com.lampa.startapp' is not installed. This plugin is needed to start a native app. Required by cozy-bar`
+          )
         )
         return
       }
