@@ -205,6 +205,16 @@
   </li>
             
   <li class="dropdown-submenu">
+    <a href="#">cozy-ui</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-ui/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
     <a href="#">cozy-doctypes</a>
     <ul class="dropdown-menu">
             
@@ -577,7 +587,7 @@
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
-        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
+        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-ui", "repo": "https://github.com/cozy/cozy-ui.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
         const editNode = document.querySelector('#edit-link')
         const pathname = window.location.pathname
         const editURI = 'edit/master/'
@@ -646,6 +656,7 @@ create its CouchDB databases.</p>
 <li><a href="../cozy-stack_instances_debug/">cozy-stack instances debug</a>    - Activate or deactivate debugging of the instance</li>
 <li><a href="../cozy-stack_instances_destroy/">cozy-stack instances destroy</a>    - Remove instance</li>
 <li><a href="../cozy-stack_instances_export/">cozy-stack instances export</a>  - Export an instance to a tarball</li>
+<li><a href="../cozy-stack_instances_find-oauth-client/">cozy-stack instances find-oauth-client</a>    - Find an OAuth client</li>
 <li><a href="../cozy-stack_instances_fsck/">cozy-stack instances fsck</a>  - Check and repair a vfs</li>
 <li><a href="../cozy-stack_instances_import/">cozy-stack instances import</a>  - Import a tarball</li>
 <li><a href="../cozy-stack_instances_ls/">cozy-stack instances ls</a>  - List instances</li>
@@ -654,6 +665,7 @@ create its CouchDB databases.</p>
 <li><a href="../cozy-stack_instances_set-disk-quota/">cozy-stack instances set-disk-quota</a>  - Change the disk-quota of the instance</li>
 <li><a href="../cozy-stack_instances_show/">cozy-stack instances show</a>  - Show the instance of the specified domain</li>
 <li><a href="../cozy-stack_instances_show-prefix/">cozy-stack instances show-prefix</a>    - Show the instance prefix of the specified domain</li>
+<li><a href="../cozy-stack_instances_show-swift-prefix/">cozy-stack instances show-swift-prefix</a>    - Show the instance swift prefix of the specified domain</li>
 <li><a href="../cozy-stack_instances_token-app/">cozy-stack instances token-app</a>    - Generate a new application token</li>
 <li><a href="../cozy-stack_instances_token-cli/">cozy-stack instances token-cli</a>    - Generate a new CLI access token (global access)</li>
 <li><a href="../cozy-stack_instances_token-konnector/">cozy-stack instances token-konnector</a>    - Generate a new konnector token</li>
