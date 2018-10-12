@@ -32,11 +32,12 @@ describe('Commitlint Config Cozy', () => {
     })
 
     it('respect max length', async () => {
-      const valideLength = 'fix: This is a 50 characters lines !!!!!!!!!!!!!!!'
+      const valideLength =
+        'fix: This line contains exactly 72 characters meaning it passes the test'
       expect((await lint(valideLength, rules)).valid).toBeTruthy()
 
       const invalidLength =
-        'refactor: This is a 51 characters lines !!!!!!!!!!!'
+        'refactor: This one contains more than 72 so it really should not pass the test because no one can read the end'
       expect((await lint(invalidLength, rules)).valid).toBeFalsy()
     })
 
