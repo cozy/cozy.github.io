@@ -13,6 +13,8 @@ docker pull cozy/cozy-app-dev
 
 !!! warning ""
     On GNU/Linux, according [to the documentation](https://docs.docker.com/engine/installation/linux/linux-postinstall/): « The docker daemon binds to a Unix socket instead of a TCP port. By default that Unix socket is owned by the user root and other users can only access it using sudo. If you don’t want to use sudo when you use the docker command, create a Unix group called docker and add users to it. Be warned that the docker group grants privileges equivalent to the root user. You should have a look at [Docker’s documentation on security](https://docs.docker.com/engine/security/security/).
+    
+__Notice:__ The default passphrase configured by `cozy-stack` in the Docker container is `cozy`.
 
 ## Ephemeral instance
 
