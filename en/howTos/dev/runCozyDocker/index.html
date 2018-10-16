@@ -635,6 +635,7 @@
 <div class="admonition warning">
 <p>On GNU/Linux, according <a href="https://docs.docker.com/engine/installation/linux/linux-postinstall/">to the documentation</a>: « The docker daemon binds to a Unix socket instead of a TCP port. By default that Unix socket is owned by the user root and other users can only access it using sudo. If you don’t want to use sudo when you use the docker command, create a Unix group called docker and add users to it. Be warned that the docker group grants privileges equivalent to the root user. You should have a look at <a href="https://docs.docker.com/engine/security/security/">Docker’s documentation on security</a>.</p>
 </div>
+<p><strong>Notice:</strong> The default passphrase configured by <code>cozy-stack</code> in the Docker container is <code>cozy</code>.</p>
 <h2 id="ephemeral-instance">Ephemeral instance<a class="headerlink" href="#ephemeral-instance" title="Permanent link">&para;</a></h2>
 <p>To run a ephemeral instance, on the <code>~/cozy/myapp</code> directory, you have to mount the folder inside the server to <code>/data/cozy-app</code>. This is what make the application available on the server:</p>
 <div class="codehilite"><pre><span></span>$ docker run --rm -it <span class="se">\</span>
