@@ -7,10 +7,10 @@
         
         
         <meta name="author" content="CozyCloud - https://cozy.io">
-        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/cli/cozy-stack_instances_modify/">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/cli/cozy-stack_config_insert-asset/">
         <link rel="shortcut icon" href="../../../img/favicon.png">
         
-        <title>cozy-stack_instances_modify - Dev Documentation</title>
+        <title>cozy-stack_config_insert-asset - Dev Documentation</title>
         <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
@@ -575,15 +575,16 @@
                 <div class="col-md-3 main-toc">
 <div class="bs-sidebar hidden-print affix" role="complementary">
     <ul class="nav bs-sidenav well" style='padding-left: 0; padding-right: 0; margin-bottom: 1.5rem'>
-        <li class="main active"><a href="#cozy-stack-instances-modify">cozy-stack instances modify</a></li>
+        <li class="main active"><a href="#cozy-stack-config-insert-asset">cozy-stack config insert-asset</a></li>
             <li><a href="#synopsis">Synopsis</a></li>
+            <li><a href="#examples">Examples</a></li>
             <li><a href="#options">Options</a></li>
             <li><a href="#options-inherited-from-parent-commands">Options inherited from parent commands</a></li>
             <li><a href="#see-also">SEE ALSO</a></li>
     </ul>
   <div style='padding-left: 2rem'>
     
-    <a id='edit-link' href='https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-stack/cli/cozy-stack_instances_modify.md'>Edit documentation</a>
+    <a id='edit-link' href='https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-stack/cli/cozy-stack_config_insert-asset.md'>Edit documentation</a>
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
@@ -621,31 +622,25 @@
                 <div class="col-md-9" role="main">
                     
 
-<h2 id="cozy-stack-instances-modify">cozy-stack instances modify<a class="headerlink" href="#cozy-stack-instances-modify" title="Permanent link">&para;</a></h2>
-<p>Modify the instance properties</p>
+<h2 id="cozy-stack-config-insert-asset">cozy-stack config insert-asset<a class="headerlink" href="#cozy-stack-config-insert-asset" title="Permanent link">&para;</a></h2>
+<p>Inserts an asset</p>
 <h3 id="synopsis">Synopsis<a class="headerlink" href="#synopsis" title="Permanent link">&para;</a></h3>
-<p>cozy-stack instances modify allows to change the instance properties and
-settings for a specified domain.</p>
-<div class="codehilite"><pre><span></span>cozy-stack instances modify &lt;domain&gt; [flags]
+<p>Inserts a custom asset in a specific context</p>
+<div class="codehilite"><pre><span></span>cozy-stack config insert-asset --url &lt;url&gt; --name &lt;name&gt; --shasum &lt;shasum&gt; --context &lt;context&gt; [flags]
+</pre></div>
+
+
+<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>$ cozy-stack config insert-asset --url file:///foo/bar/baz.js --name /foo/bar/baz.js --shasum 0763d6c2cebee0880eb3a9cc25d38cd23db39b5c3802f2dc379e408c877a2788 --context foocontext
 </pre></div>
 
 
 <h3 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span>      --blocked                  Block the instance
-      --context-name string      New context name
-      --disk-quota string        Specify a new disk quota
-      --domain-aliases strings   Specify one or more aliases domain for the instance (separated by &#39;,&#39;)
-      --email string             New email
-  -h, --help                     help for modify
-      --locale string            New locale
-      --onboarding-finished      Force the finishing of the onboarding
-      --public-name string       New public name
-      --settings string          New list of settings (eg offer:premium)
-      --swift-cluster int        New swift cluster
-      --tos string               Update the TOS version signed
-      --tos-latest string        Update the latest TOS version
-      --tz string                New timezone
-      --uuid string              New UUID
+<div class="codehilite"><pre><span></span>      --context string   The context of the asset
+  -h, --help             help for insert-asset
+      --name string      The name of the asset
+      --shasum string    The shasum of the asset
+      --url string       The URL of the asset
 </pre></div>
 
 
@@ -660,7 +655,7 @@ settings for a specified domain.</p>
 
 <h3 id="see-also">SEE ALSO<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h3>
 <ul>
-<li><a href="../cozy-stack_instances/">cozy-stack instances</a>    - Manage instances of a stack</li>
+<li><a href="../cozy-stack_config/">cozy-stack config</a>  - Show and manage configuration elements</li>
 </ul>
                 </div>
         </div>

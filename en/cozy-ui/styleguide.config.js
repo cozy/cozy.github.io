@@ -64,7 +64,8 @@ module.exports = {
       name: 'Navigation',
       components: () => [
         '../react/ActionMenu/index.jsx',
-        '../react/Menu/index.jsx'
+        '../react/Menu/index.jsx',
+        '../react/Tabs/index.jsx'
       ]
     },
     {
