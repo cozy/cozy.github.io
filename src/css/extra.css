@@ -32,20 +32,43 @@ body::before {
   background: white; /* deactivate grid background*/
 }
 
+footer,
+footer hr {
+  margin-top: 0;
+}
+
 .navbar {
   background-image: none;
   background-color: inherit;
-  border-bottom: 1px solid #aaa;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff54b4eb',endColorstr='#ff1d9ce5',GradientType=0);
   filter: none;
-  -webkit-box-shadow: 0 1px 10px rgba(0,0,0,0.1);
-  box-shadow: 0 1px 10px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 0 1px 0 0 rgba(0,0,0,.15);
+  box-shadow: 0 1px 0 0 rgba(0,0,0,.15);
+  font-size: 1.4rem;
+  font-weight: bold;
+  border: none;
+  min-height: 4.8rem;
 }
 
+.navbar-header {
+  text-transform: none;
+}
+
+.navbar-default .navbar-brand img {
+  display: inline-block;
+  height: 4.8rem;
+}
 .navbar-default .navbar-brand {
-  color: #297ef2;
+  color: #297ef1;
   text-shadow: none;
   float: left;
+  font-size: 2.4rem;
+  line-height: 2;
+  letter-spacing: -1px;
+  padding-top: 0;
+  padding-bottom: 0;
+  display: inline-flex;
+  align-items: center;
+  text-transform: none;
 }
 
 .navbar-default .navbar-brand:hover {
@@ -83,11 +106,11 @@ h5 {
 }
 
 a {
-  color: #297ef2;
+  color: #297ef1;
 }
 
 a:hover, a:active {
-  color: #297ef2;
+  color: #297ef1;
 }
 
 
@@ -97,6 +120,20 @@ a:hover, a:active {
 
 .navbar .navbar-nav>li>a, .navbar-brand {
   text-shadow: none;
+  padding-top: 1.4rem;
+  padding-bottom: 1.4rem;
+  text-transform: uppercase;
+}
+
+.nav .github {
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav .github svg {
+  width: 1.6rem;
+  height: 1.6rem;
+  margin-right: .4rem;
 }
 
 .bs-sidebar {
@@ -105,65 +142,78 @@ a:hover, a:active {
 
 .bs-sidebar .nav > .active > a, .bs-sidebar .nav > .active:hover > a, .bs-sidebar .nav > .active:focus > a {
   font-weight: bold;
-  color: #297ef2;
+  color: #297ef1;
   background-color: transparent;
-  border-left: 5px solid #297ef2;
+  border-left: 5px solid #297ef1;
   border-right: none;
 }
 
 .navbar .navbar-nav>li>a:hover {
-  color: #fff;
-  background-color: #297ef2;
+  color: inherit;
+  background-color: transparent;
 }
 
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {
-  color: #fff;
-  background-color: #297ef2;
+  color: inherit;
+  background-color: transparent;
 }
 
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus {
-  color: #fff;
-  background-color: #297ef2;
+  color: inherit;
+  background-color: transparent;
 }
 
 .navbar-default .navbar-toggle {
-  border-color: #297EF2;
+  border-color: #297ef1;
 }
 
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
-  background-color: #297EF2;
+  background-color: #297ef1;
 }
 
 .navbar-default .navbar-toggle .icon-bar {
   color: #fff;
-  background-color: #297ef2;
+  background-color: #297ef1;
 }
 
 .navbar-default .navbar-toggle .icon-bar:hover, .navbar-default .navbar-toggle .icon-bar:focus {
-  color: #297EF2;
+  color: #297ef1;
   background-color: #FFF;
 }
 
 .dropdown-menu>.active>a, .dropdown-menu>.active>a:hover, .dropdown-menu>.active>a:focus, .dropdown-menu>li>a:hover {
   color: #fff;
-  background-color: #297ef2;
+  background-color: #297ef1;
+}
+
+.dropdown-submenu > a::after {
+  float: left;
+  margin-left: -1rem;
+  transform: rotate(180deg);
+}
+.dropdown-submenu > .dropdown-menu {
+  right: 100%;
+  left: auto;
+}
+
+.section-header {
+  margin-bottom: .8rem;
+}
+
+.section-desc {
+  margin-bottom: 1.6rem;
 }
 
 .home-actions {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: none;
-  font-size: 1.2em;
-}
-.home-action {
-  width: calc(50% - 2em);
-  margin: 1em
+  flex-direction: row;
+  align-items: stretch;
 }
 
-.home-action > * {
+.home-action-cta {
   align-items: center;
   border-radius: 0.5rem;
-  box-shadow: 0 5px 20px rgba(116, 129, 146, 0.12), 0 1px 3px rgba(116, 129, 146, 0.19);
+  box-shadow: 0 3px 9px 0 rgba(50, 54, 63, 0.2);
   color: #748192;
   display: flex;
   flex-direction: column;
@@ -173,18 +223,103 @@ a:hover, a:active {
   padding: 2em;
   text-align: center;
   width: 100%;
+  transition: all ease-in 200ms;
+  background-color: white;
 }
-.home-action img {
+.home-action-cta:hover,
+.home-action-cta:focus {
+  box-shadow: 0 2px 5px 0 rgba(50, 54, 63, 0.2);
+  text-decoration: none;
+}
+.home-action-cta img {
   margin: 1em;
-  width: 3em;
+  width: 6.4rem;
+  height: 6.4rem;
 }
 
-.home-action h2 {
-  margin: 1em;
+.home-action-cta h2 {
+  margin: 0 2.4rem;
+  font-size: 1.6rem;
 }
 
-.home-action a {
-  color: #444;
+.home-action-cta em {
+  margin-bottom: .8rem;
+  display: block;
+  font-style: normal;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #95999d;
+}
+
+.home-action-block {
+  border: 1px solid #d6d8da;
+  border-radius: .4rem;
+  height: 100%;
+  padding: 3.2rem;
+}
+
+.home-action-block a {
+  font-weight: bold;
+}
+
+.home-action-block a[target="_blank"]:after {
+  content: '';
+  display: inline-block;
+  width: 1.6rem;
+  height: 1.6rem;
+  margin: 0 0 -.2rem .8rem;
+  background-image: url(../assets/images/home/icon-link-out.svg);
+}
+
+.home-action-banner {
+  width: 100%;
+}
+
+.community {
+  margin-top: 3.2rem;
+  background-color: #f5f6f7;
+  padding: 3.2rem;
+}
+
+.community-banner {
+  max-height: 10rem;
+  display: block;
+  margin: 0 auto;
+}
+
+.community .section-header {
+  margin-bottom: 2.4rem;
+}
+
+.community .home-actions {
+  flex-wrap: wrap;
+}
+
+.community .col-md-6 {
+  padding: 1.5rem;
+}
+
+.community .home-action-cta {
+  display: block;
+  text-align: left;
+  line-height: 1.5;
+}
+
+.community .home-action-cta:hover,
+.community .home-action-cta:focus {
+  color: inherit;
+}
+
+.community .home-action-cta img {
+  float: left;
+  margin: .4rem 1.6rem 0 0;
+}
+
+.community .home-action-cta h3 {
+  margin: 0;
+  font-size: 1.6rem;
+  line-height: 1.5;
 }
 
 .bs-sidenav.well {
@@ -207,7 +342,7 @@ a:hover, a:active {
 }
 
 .wy-side-nav-search a {
-  color: #297ef2;
+  color: #297ef1;
   font-weight: bold;
 }
 
@@ -227,9 +362,9 @@ a:hover, a:active {
 
 .wy-menu-vertical li.on a,
 .wy-menu-vertical li.current>a {
-  color: #297ef2;
+  color: #297ef1;
   border: none;
-  border-left: 5px solid #297ef2;
+  border-left: 5px solid #297ef1;
   background: none;
 }
 
@@ -253,7 +388,7 @@ a:hover, a:active {
 }
 .download-link a {
   color:#FFF;
-  background-color: #297ef2;
+  background-color: #297ef1;
   font-weight: bold;
   padding: 1em;
   border-radius: .25em;
