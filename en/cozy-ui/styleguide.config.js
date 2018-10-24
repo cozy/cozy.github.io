@@ -11,7 +11,8 @@ module.exports = {
         '../react/ButtonAction/index.jsx',
         '../react/Chip/index.jsx',
         '../react/Icon/index.jsx',
-        '../react/Spinner/index.jsx'
+        '../react/Spinner/index.jsx',
+        '../react/Counter/index.jsx'
       ]
     },
     {
@@ -32,7 +33,8 @@ module.exports = {
       components: () => [
         '../react/Layout/Layout.jsx',
         '../react/Hero/index.jsx',
-        '../react/Sidebar/index.jsx'
+        '../react/Sidebar/index.jsx',
+        '../react/Circle/index.jsx'
       ]
     },
     {
@@ -45,6 +47,7 @@ module.exports = {
         '../react/Accordion/index.jsx',
         '../react/Text/index.jsx',
         '../react/Empty/index.jsx',
+        '../react/Well/index.jsx',
         '../react/ContextHeader/index.jsx'
       ]
     },
