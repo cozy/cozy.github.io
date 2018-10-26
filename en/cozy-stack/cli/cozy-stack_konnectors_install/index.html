@@ -626,14 +626,25 @@
 <p>Install a konnector with the specified slug name
 from the given source URL.</p>
 <h3 id="synopsis">Synopsis<a class="headerlink" href="#synopsis" title="Permanent link">&para;</a></h3>
-<p>Install a konnector with the specified slug name
-from the given source URL.</p>
+<p>Install a konnector with the specified slug name. You can also provide the
+version number to install a specific release if you use the registry:// scheme.
+Following formats are accepted:
+    registry://<konnector>/<channel>/<version>
+    registry://<konnector>/<channel>
+    registry://<konnector>/<version>
+    registry://<konnector></p>
+<p>If you provide a channel and a version, the channel is ignored.
+Default channel is stable.
+Default version is latest.</p>
 <div class="codehilite"><pre><span></span>cozy-stack konnectors install &lt;slug&gt; [sourceurl] [flags]
 </pre></div>
 
 
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span>$ cozy-stack konnectors install --domain cozy.tools:8080 trainline registry://trainline/stable
+<div class="codehilite"><pre><span></span>$ cozy-stack konnectors install --domain cozy.tools:8080 trainline registry://trainline/stable/1.0.1
+$ cozy-stack konnectors install --domain cozy.tools:8080 trainline registry://trainline/stable
+$ cozy-stack konnectors install --domain cozy.tools:8080 trainline registry://trainline/1.2.0
+$ cozy-stack konnectors install --domain cozy.tools:8080 trainline registry://trainline
 </pre></div>
 
 
