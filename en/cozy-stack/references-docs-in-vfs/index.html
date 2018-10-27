@@ -694,35 +694,9 @@ cases. The goal of this document is to offer a way to do that, and it is called
 
 
 <h2 id="routes">Routes<a class="headerlink" href="#routes" title="Permanent link">&para;</a></h2>
-<h3 id="patch-filesfile-idrelationshipsreferenced_by">PATCH /files/:file-id/relationships/referenced_by<a class="headerlink" href="#patch-filesfile-idrelationshipsreferenced_by" title="Permanent link">&para;</a></h3>
-<p>Replace the references for a file with the new ones.</p>
-<h4 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="nf">PATCH</span> <span class="nn">/files/9152d568-7e7c-11e6-a377-37cbfb190b4b/relationships/referenced_by</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
-<span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
-</pre></div>
-
-
-<div class="codehilite"><pre><span></span><span class="p">{</span>
-    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.playlists&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;94375086-e2e2-11e6-81b9-5bc0b9dd4aa4&quot;</span>
-        <span class="p">}</span>
-    <span class="p">]</span>
-<span class="p">}</span>
-</pre></div>
-
-
-<h4 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
-<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
-</pre></div>
-
-
 <h3 id="post-filesfile-idrelationshipsreferenced_by">POST /files/:file-id/relationships/referenced_by<a class="headerlink" href="#post-filesfile-idrelationshipsreferenced_by" title="Permanent link">&para;</a></h3>
 <p>Add on a file one or more references to documents</p>
-<h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
+<h4 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/files/9152d568-7e7c-11e6-a377-37cbfb190b4b/relationships/referenced_by</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
@@ -740,7 +714,7 @@ cases. The goal of this document is to offer a way to do that, and it is called
 </pre></div>
 
 
-<h4 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h4>
+<h4 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </pre></div>
@@ -763,7 +737,7 @@ cases. The goal of this document is to offer a way to do that, and it is called
 
 <h3 id="delete-filesfile-idrelationshipsreferenced_by">DELETE /files/:file-id/relationships/referenced_by<a class="headerlink" href="#delete-filesfile-idrelationshipsreferenced_by" title="Permanent link">&para;</a></h3>
 <p>Remove one or more references to documents on a file</p>
-<h4 id="request_2">Request<a class="headerlink" href="#request_2" title="Permanent link">&para;</a></h4>
+<h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/files/9152d568-7e7c-11e6-a377-37cbfb190b4b/relationships/referenced_by</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
@@ -781,7 +755,7 @@ cases. The goal of this document is to offer a way to do that, and it is called
 </pre></div>
 
 
-<h4 id="response_2">Response<a class="headerlink" href="#response_2" title="Permanent link">&para;</a></h4>
+<h4 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </pre></div>
@@ -793,14 +767,14 @@ cases. The goal of this document is to offer a way to do that, and it is called
 The default limit is 100 entries.</p>
 <p>It&rsquo;s also possible to sort the files by their datetime (for photos) with the
 <code>sort</code> query parameter: <code>?sort=datetime</code>.</p>
-<h4 id="request_3">Request<a class="headerlink" href="#request_3" title="Permanent link">&para;</a></h4>
+<h4 id="request_2">Request<a class="headerlink" href="#request_2" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/data/io.cozy.playlists/e9308dc2-e2e3-11e6-b685-fb88662613d4/relationships/references</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </pre></div>
 
 
-<h4 id="response_3">Response<a class="headerlink" href="#response_3" title="Permanent link">&para;</a></h4>
+<h4 id="response_2">Response<a class="headerlink" href="#response_2" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </pre></div>
@@ -832,8 +806,49 @@ The default limit is 100 entries.</p>
 <h3 id="post-datatypedoc-idrelationshipsreferences">POST /data/:type/:doc-id/relationships/references<a class="headerlink" href="#post-datatypedoc-idrelationshipsreferences" title="Permanent link">&para;</a></h3>
 <p>When creating an album or a playlist, it&rsquo;s tedious to add the references to it
 for each file individually. This route allows to make it in bulk.</p>
-<h4 id="request_4">Request<a class="headerlink" href="#request_4" title="Permanent link">&para;</a></h4>
+<h4 id="request_3">Request<a class="headerlink" href="#request_3" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/data/io.cozy.playlists/e9308dc2-e2e3-11e6-b685-fb88662613d4/relationships/references</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;417c4e58-e2e4-11e6-b7dc-2b68ed7b77f4&quot;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;4504f55c-e2e4-11e6-88f2-d77aeecab549&quot;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;4587727a-e2e4-11e6-bfe9-ef1be7df7f26&quot;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;45d591d0-e2e4-11e6-ab9a-ff3b218e31cc&quot;</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h4 id="response_3">Response<a class="headerlink" href="#response_3" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
+
+
+<p><strong>Note</strong>: if one of the id is a directory, the response will be a 400 Bad
+Request. References are only for files.</p>
+<h3 id="delete-datatypedoc-idrelationshipsreferences">DELETE /data/:type/:doc-id/relationships/references<a class="headerlink" href="#delete-datatypedoc-idrelationshipsreferences" title="Permanent link">&para;</a></h3>
+<p>This bulk deletion of references on many files can be useful when an album or
+playlist is deleted.</p>
+<h4 id="request_4">Request<a class="headerlink" href="#request_4" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/data/io.cozy.playlists/e9308dc2-e2e3-11e6-b685-fb88662613d4/relationships/references</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </pre></div>
@@ -868,47 +883,6 @@ for each file individually. This route allows to make it in bulk.</p>
 </pre></div>
 
 
-<p><strong>Note</strong>: if one of the id is a directory, the response will be a 400 Bad
-Request. References are only for files.</p>
-<h3 id="delete-datatypedoc-idrelationshipsreferences">DELETE /data/:type/:doc-id/relationships/references<a class="headerlink" href="#delete-datatypedoc-idrelationshipsreferences" title="Permanent link">&para;</a></h3>
-<p>This bulk deletion of references on many files can be useful when an album or
-playlist is deleted.</p>
-<h4 id="request_5">Request<a class="headerlink" href="#request_5" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/data/io.cozy.playlists/e9308dc2-e2e3-11e6-b685-fb88662613d4/relationships/references</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
-<span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
-</pre></div>
-
-
-<div class="codehilite"><pre><span></span><span class="p">{</span>
-    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;417c4e58-e2e4-11e6-b7dc-2b68ed7b77f4&quot;</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;4504f55c-e2e4-11e6-88f2-d77aeecab549&quot;</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;4587727a-e2e4-11e6-bfe9-ef1be7df7f26&quot;</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;45d591d0-e2e4-11e6-ab9a-ff3b218e31cc&quot;</span>
-        <span class="p">}</span>
-    <span class="p">]</span>
-<span class="p">}</span>
-</pre></div>
-
-
-<h4 id="response_5">Response<a class="headerlink" href="#response_5" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
-<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
-</pre></div>
-
-
 <h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
 <h3 id="modification-of-a-referenced-file">Modification of a referenced file<a class="headerlink" href="#modification-of-a-referenced-file" title="Permanent link">&para;</a></h3>
 <p>Before an application updates a file, it can check if the file has some
@@ -920,22 +894,9 @@ references. If it is the case, it may offer to the user two choices:</p>
     may be moved to a <code>originals</code> directory).</li>
 </ul>
 <h3 id="moving-a-referenced-file-to-the-trash">Moving a referenced file to the trash<a class="headerlink" href="#moving-a-referenced-file-to-the-trash" title="Permanent link">&para;</a></h3>
-<p>The stack will refuse to move a referenced file to the trash. It&rsquo;s the same for
-a folder that contains a referenced file. The application has to remove the
-references first. It&rsquo;s possible to clear all the references on a file with a
-<code>PATCH</code> request like this:</p>
-<div class="codehilite"><pre><span></span><span class="nf">PATCH</span> <span class="nn">/files/9152d568-7e7c-11e6-a377-37cbfb190b4b/relationships/references</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
-<span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
-</pre></div>
-
-
-<div class="codehilite"><pre><span></span><span class="p">{</span>
-    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[]</span>
-<span class="p">}</span>
-</pre></div>
-
-
+<p>Before an application moves a file to the trash, if the file has some
+references, it should ask the user if they really want to trash the file. And
+it should also removes the references before trashing the file.</p>
 <h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h2>
 <p>The references are persisted in the <code>io.cozy.files</code> documents in CouchDB. A
 mango index is used to fetch all the files that are associated to a given
