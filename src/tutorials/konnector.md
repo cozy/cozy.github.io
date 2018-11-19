@@ -120,7 +120,7 @@ There are four steps for a connector to save data to [Cozy Stack]:
 
 You can see these steps in the `src/index.js` in the [konnectors/template](https://github.com/konnectors/template/blob/master/src/index.js):
 
-```js
+```javascript
 async function start(fields) {
   // step 1.
   log('info', 'Authenticating ...')
