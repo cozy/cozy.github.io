@@ -141,11 +141,11 @@
     <ul class="dropdown-menu">
             
 <li >
-    <a href="../../../cozy-client/guide/">Usage guide</a>
+    <a href="../../../cozy-client/getting-started/">Getting started</a>
 </li>
             
 <li >
-    <a href="../../../cozy-client/api/">API</a>
+    <a href="../../../cozy-client/how-tos/">How tos</a>
 </li>
     </ul>
   </li>
@@ -675,7 +675,7 @@
 <li><code>dateImport</code>: {date} - The date the transaction is imported (can differ of the date of creation of the document as the import can be done by an external service)</li>
 <li><code>amount</code>: {number} - The amount of the transaction</li>
 <li><code>currency</code>: {string} - A 3 uppercased chars defining the currecny used for the transaction as stated in <a href="https://www.currency-iso.org/en/home/tables/table-a1.html">ISO4217</a></li>
-<li><code>automaticCategoryId</code>: {string} - A category that apply to the transaction and is automatically calculated</li>
+<li><code>automaticCategoryId</code>: {string} - A category that apply to the transaction and is automatically calculated. This property should be hydrated by the connector. See the «&nbsp;categories&nbsp;» section below to know more about categories</li>
 <li><code>manualCategoryId</code>: {string} - A category that apply to the transaction and is manually selected by the user</li>
 <li><code>cozyCategoryId</code>: {string} - A category found by Cozy</li>
 <li><code>cozyCategoryProba</code>: {number} - The probability of Cozy category</li>
@@ -691,6 +691,9 @@
 <p>For the dates, any string or integer which can be interpreted by new Date(date) is possible but the
 best the result of Date.toString() -&gt; like &lsquo;Fri Mar 09 2018 19:04:40 GMT+0100 (CET)&rsquo; which contains
 the time zones.</p>
+<h3 id="categories">Categories<a class="headerlink" href="#categories" title="Permanent link">&para;</a></h3>
+<p>There are up to four categories that can be assigned to a <code>io.cozy.bank.operations</code> document. But there is only one that a connector have to set when retrieving the transactions from a bank: <code>automaticCategoryId</code>. This property have to be one of the categories ID listed <a href="https://github.com/cozy/cozy-banks/blob/master/src/ducks/categories/tree.json">here</a>. If you want to see more human labels, you can check the translations of each label in <a href="https://github.com/cozy/cozy-banks/blob/master/src/locales/en.json">english</a> or <a href="https://github.com/cozy/cozy-banks/blob/master/src/locales/fr.json">french</a>.</p>
+<p>Other category properties are to be set by other sources: the user or Cozy Banks services.</p>
 <h3 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span>{
   &quot;_id&quot;: &quot;f0426fdeadbeef55755ee7f4d6555&quot;,

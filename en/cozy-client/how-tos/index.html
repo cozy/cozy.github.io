@@ -10,7 +10,7 @@
         <link rel="canonical" href="https://docs.cozy.io/cozy-client/how-tos/">
         <link rel="shortcut icon" href="../../img/favicon.png">
         
-        <title>how-tos - Dev Documentation</title>
+        <title>How tos - Dev Documentation</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -110,7 +110,7 @@
   </li>
                         </ul>
                     </li>
-                    <li class="dropdown">
+                    <li class="dropdown active">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">References <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
@@ -141,11 +141,11 @@
     <ul class="dropdown-menu">
             
 <li >
-    <a href="../guide/">Usage guide</a>
+    <a href="../getting-started/">Getting started</a>
 </li>
             
-<li >
-    <a href="../api/">API</a>
+<li class="active">
+    <a href="./">How tos</a>
 </li>
     </ul>
   </li>
@@ -575,12 +575,9 @@
                 <div class="col-md-3 main-toc">
 <div class="bs-sidebar hidden-print affix" role="complementary">
     <ul class="nav bs-sidenav well" style='padding-left: 0; padding-right: 0; margin-bottom: 1.5rem'>
-        <li class="main active"><a href="#how-to-use-a-higher-order-component">How to use a higher order component</a></li>
-        <li class="main "><a href="#how-to-integrate-with-an-existing-store">How-to integrate with an existing store</a></li>
-        <li class="main "><a href="#how-to-obtain-a-token">How to obtain a token</a></li>
-        <li class="main "><a href="#how-to-restore-a-previous-token">How to restore a previous token</a></li>
-        <li class="main "><a href="#how-to-logout-a-client">How to logout a client</a></li>
-        <li class="main "><a href="#how-to-use-cozyclient-on-mobile">How to use CozyClient on mobile</a></li>
+        <li class="main active"><a href="#how-to-integrate-with-an-existing-store">How-to integrate with an existing store ?</a></li>
+        <li class="main "><a href="#how-to-connect-to-the-documents-store-declaratively">How to connect to the documents store declaratively ?</a></li>
+        <li class="main "><a href="#how-to-provide-a-mutation-to-a-component">How to provide a mutation to a component ?</a></li>
     </ul>
   <div style='padding-left: 2rem'>
     
@@ -625,17 +622,39 @@
 <!-- MarkdownTOC autolink=true -->
 
 <ul>
-<li><a href="#how-to-use-a-higher-order-component">How to use a higher order component</a></li>
-<li><a href="#how-to-integrate-with-an-existing-store">How-to integrate with an existing store</a></li>
-<li><a href="#how-to-obtain-a-token">How to obtain a token</a></li>
-<li><a href="#how-to-restore-a-previous-token">How to restore a previous token</a></li>
-<li><a href="#how-to-logout-a-client">How to logout a client</a></li>
-<li><a href="#how-to-use-cozyclient-on-mobile">How to use CozyClient on mobile</a></li>
+<li><a href="#how-to-integrate-with-an-existing-store-">How-to integrate with an existing store ?</a></li>
+<li><a href="#how-to-connect-to-the-documents-store-declaratively-">How to connect to the documents store declaratively ?</a></li>
+<li><a href="#how-to-provide-a-mutation-to-a-component-">How to provide a mutation to a component ?</a></li>
 </ul>
 <!-- /MarkdownTOC -->
 
-<h3 id="how-to-use-a-higher-order-component">How to use a higher order component<a class="headerlink" href="#how-to-use-a-higher-order-component" title="Permanent link">&para;</a></h3>
-<p>If you prefer HOCs to render-prop components, we provide a higher-order component called <code>connect</code>. Basic example of usage:</p>
+<h3 id="how-to-integrate-with-an-existing-store">How-to integrate with an existing store ?<a class="headerlink" href="#how-to-integrate-with-an-existing-store" title="Permanent link">&para;</a></h3>
+<p><code>cozy-client</code> uses redux internally to centralize the statuses of the various fetches and replications triggered by the library, and to store locally the data in a normalized way. If you already have a redux store in your app, you can configure <code>cozy-client</code> to use this existing store:</p>
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">CozyClient</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">combineReducers</span><span class="p">,</span> <span class="nx">createStore</span><span class="p">,</span> <span class="nx">applyMiddleware</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;redux&#39;</span>
+<span class="kr">import</span> <span class="nx">myReducers</span> <span class="nx">from</span> <span class="s1">&#39;./myapp/reducers&#39;</span>
+<span class="kr">import</span> <span class="nx">myMiddleware</span> <span class="nx">from</span> <span class="s1">&#39;./myapp/middleware&#39;</span>
+
+<span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CozyClient</span><span class="p">({</span>
+  <span class="cm">/*...*/</span>
+<span class="p">})</span>
+
+<span class="kr">const</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">createStore</span><span class="p">(</span>
+  <span class="nx">combineReducers</span><span class="p">({</span> <span class="p">...</span><span class="nx">myReducers</span><span class="p">,</span> <span class="nx">cozy</span><span class="o">:</span> <span class="nx">client</span><span class="p">.</span><span class="nx">reducer</span><span class="p">()</span> <span class="p">}),</span>
+  <span class="nx">applyMiddleware</span><span class="p">(</span><span class="nx">myMiddleware</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+  <span class="p">&lt;</span><span class="nt">CozyProvider</span> <span class="na">client</span><span class="o">=</span><span class="p">{</span><span class="nx">client</span><span class="p">}</span> <span class="na">store</span><span class="o">=</span><span class="p">{</span><span class="nx">store</span><span class="p">}&gt;</span>
+    <span class="p">&lt;</span><span class="nt">MyApp</span> <span class="p">/&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">CozyProvider</span><span class="p">&gt;,</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;main&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+
+
+<h3 id="how-to-connect-to-the-documents-store-declaratively">How to connect to the documents store declaratively ?<a class="headerlink" href="#how-to-connect-to-the-documents-store-declaratively" title="Permanent link">&para;</a></h3>
+<p>Sometimes, HOCs are better suited than render-prop components, especially if you have multiple data-sources and you do not want to have multiple indent levelves. We provide a higher-order component called <code>connect</code>. Basic example of usage:</p>
 <div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span>
 <span class="kr">import</span> <span class="p">{</span> <span class="nx">connect</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 
@@ -661,16 +680,17 @@
 </pre></div>
 
 
-<p>Using <code>withMutation</code> higher-order component makes it easy to bind actions to your components. <code>withMutation</code> provides only a simple function to the wrapper component, in a prop called <code>mutate</code>:</p>
+<h2 id="how-to-provide-a-mutation-to-a-component">How to provide a mutation to a component ?<a class="headerlink" href="#how-to-provide-a-mutation-to-a-component" title="Permanent link">&para;</a></h2>
+<p><code>withMutation</code> provides only a simple function to the wrapper component, in a prop called <code>mutate</code>:</p>
 <div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">withMutation</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 
-<span class="kr">const</span> <span class="nx">AddTodo</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">mutate</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="p">{</span>
+<span class="kr">const</span> <span class="nx">AddTodo</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">mutate</span><span class="o">:</span> <span class="nx">createTodo</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="p">{</span>
   <span class="kd">let</span> <span class="nx">input</span>
 
   <span class="k">return</span> <span class="p">(</span>
     <span class="p">&lt;</span><span class="nt">form</span> <span class="na">onSubmit</span><span class="o">=</span><span class="p">{</span><span class="nx">e</span> <span class="p">=&gt;</span> <span class="p">{</span>
       <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
-      <span class="nx">mutate</span><span class="p">(</span><span class="nx">input</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span>
+      <span class="nx">createTodo</span><span class="p">(</span><span class="nx">input</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span>
       <span class="nx">input</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
     <span class="p">}}&gt;</span>
       <span class="p">&lt;</span><span class="nt">input</span> <span class="na">ref</span><span class="o">=</span><span class="p">{</span><span class="nx">node</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="nx">input</span> <span class="o">=</span> <span class="nx">node</span> <span class="p">}}</span> <span class="p">/&gt;</span>
@@ -683,129 +703,6 @@
   <span class="nx">label</span> <span class="p">=&gt;</span> <span class="nx">client</span> <span class="p">=&gt;</span> <span class="nx">client</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">label</span> <span class="p">})</span>
 <span class="p">)(</span><span class="nx">AddTodo</span><span class="p">)</span>
 </pre></div>
-
-
-<h3 id="how-to-integrate-with-an-existing-store">How-to integrate with an existing store<a class="headerlink" href="#how-to-integrate-with-an-existing-store" title="Permanent link">&para;</a></h3>
-<p><code>cozy-client</code> uses redux internally to centralize the statuses of the various fetches and replications triggered by the library, and to store locally the data in a normalized way. If you already have a redux store in your app, you can configure <code>cozy-client</code> to use this existing store:</p>
-<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">CozyClient</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">combineReducers</span><span class="p">,</span> <span class="nx">createStore</span><span class="p">,</span> <span class="nx">applyMiddleware</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;redux&#39;</span>
-<span class="kr">import</span> <span class="nx">myReducers</span> <span class="nx">from</span> <span class="s1">&#39;./myapp/reducers&#39;</span>
-<span class="kr">import</span> <span class="nx">myMiddleware</span> <span class="nx">from</span> <span class="s1">&#39;./myapp/middleware&#39;</span>
-
-<span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CozyClient</span><span class="p">({</span>
-  <span class="cm">/*...*/</span>
-<span class="p">})</span>
-
-<span class="kr">const</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">createStore</span><span class="p">(</span>
-  <span class="nx">combineReducers</span><span class="p">({</span> <span class="p">...</span><span class="nx">myReducers</span><span class="p">,</span> <span class="nx">cozy</span><span class="o">:</span> <span class="nx">client</span><span class="p">.</span><span class="nx">reducer</span><span class="p">()</span> <span class="p">}),</span>
-  <span class="nx">applyMiddleware</span><span class="p">(</span><span class="nx">myMiddleware</span><span class="p">)</span>
-<span class="p">)</span>
-
-<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
-  <span class="p">&lt;</span><span class="nt">CozyProvider</span> <span class="na">client</span><span class="o">=</span><span class="p">{</span><span class="nx">client</span><span class="p">}</span> <span class="na">store</span><span class="o">=</span><span class="p">{</span><span class="nx">store</span><span class="p">}&gt;</span>
-    <span class="p">&lt;</span><span class="nt">MyApp</span> <span class="p">/&gt;</span>
-  <span class="p">&lt;/</span><span class="nt">CozyProvider</span><span class="p">&gt;,</span>
-  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;main&#39;</span><span class="p">)</span>
-<span class="p">)</span>
-</pre></div>
-
-
-<h3 id="how-to-obtain-a-token">How to obtain a token<a class="headerlink" href="#how-to-obtain-a-token" title="Permanent link">&para;</a></h3>
-<p>Before you can start making requests to the server, you will need to get a token. <code>cozy-client</code> will provide a URL to a page where the user is shown what data you want to access, and asking for his or her permission. After the user accepts these permissions, he or she is redirected to the <code>oauth.redirectURI</code> that you declared earlier. You will then have to give this redirected URL back to <code>cozy-client</code> as it contains a code, that will be exchanged for the token.</p>
-<p>Sounds, tricky, but most of it is taken care of for you. To get started, you call <code>client.startOAuthFlow</code> like this:</p>
-<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">CozyClient</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
-
-<span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CozyClient</span><span class="p">({</span>
-  <span class="nx">uri</span><span class="o">:</span> <span class="s1">&#39;http://cozy.tools:8080&#39;</span><span class="p">,</span>
-  <span class="nx">scope</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;io.cozy.mydoctype&#39;</span><span class="p">],</span>
-  <span class="nx">oauth</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">clientName</span><span class="o">:</span> <span class="s1">&#39;MyClient&#39;</span><span class="p">,</span>
-    <span class="nx">softwareID</span><span class="o">:</span> <span class="s1">&#39;MyAppId&#39;</span><span class="p">,</span>
-    <span class="nx">redirectURI</span><span class="o">:</span> <span class="s1">&#39;http://localhost&#39;</span>
-  <span class="p">}</span>
-<span class="p">})</span>
-
-<span class="nx">client</span><span class="p">.</span><span class="nx">startOAuthFlow</span><span class="p">(</span><span class="nx">openURL</span><span class="p">)</span>
-</pre></div>
-
-
-<p>The <code>openURL</code> parameter is a callback. It will receive the URL to the page as a parameter, and it must return a Promise that resolves with the redirected URL. How exactly you do this depends on your environment — for a mobile app you may use a WebView, in a browser maybe a new tab… Here is an example that uses the browser&rsquo;s console and an experienced user:</p>
-<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">openURL</span> <span class="o">=</span> <span class="nx">url</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Please visit the following URL, accept the permissions and copy the URL you are redirected to, then come back here. you have 10 seconds.&#39;</span><span class="p">,</span> <span class="nx">url</span><span class="p">)</span>
-  <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-      <span class="kr">const</span> <span class="nx">returnUrl</span> <span class="o">=</span> <span class="nx">prompt</span><span class="p">(</span><span class="s1">&#39;Paste the new URL here.&#39;</span><span class="p">)</span>
-      <span class="nx">resolve</span><span class="p">(</span><span class="nx">returnUrl</span><span class="p">)</span>
-    <span class="p">},</span> <span class="mi">10000</span><span class="p">)</span>
-  <span class="p">})</span>
-<span class="p">}</span>
-</pre></div>
-
-
-<p>And that&rsquo;s it! After the promise is resolved, <code>cozy-client</code> finishes the OAuth flow and you can start using it.</p>
-<h3 id="how-to-restore-a-previous-token">How to restore a previous token<a class="headerlink" href="#how-to-restore-a-previous-token" title="Permanent link">&para;</a></h3>
-<p>Of course you don&rsquo;t want to go through this whole process every time your app starts. In order to restore the client from a previous version, you need to give it a token and some extra information about itself. Both of these are returned by the <code>openURL</code> function, so you can store them wherever you see fit — in this example we&rsquo;ll use the <code>localStorage</code> API.</p>
-<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">CozyClient</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
-
-<span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CozyClient</span><span class="p">({</span>
-  <span class="nx">uri</span><span class="o">:</span> <span class="s1">&#39;http://cozy.tools:8080&#39;</span><span class="p">,</span>
-  <span class="nx">scope</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;io.cozy.mydoctype&#39;</span><span class="p">],</span>
-  <span class="nx">oauth</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">clientName</span><span class="o">:</span> <span class="s1">&#39;MyClient&#39;</span><span class="p">,</span>
-    <span class="nx">softwareID</span><span class="o">:</span> <span class="s1">&#39;MyAppId&#39;</span><span class="p">,</span>
-    <span class="nx">redirectURI</span><span class="o">:</span> <span class="s1">&#39;http://localhost&#39;</span>
-  <span class="p">}</span>
-<span class="p">})</span>
-
-<span class="kr">const</span> <span class="p">{</span><span class="nx">token</span><span class="p">,</span> <span class="nx">infos</span><span class="p">}</span> <span class="o">=</span> <span class="nx">client</span><span class="p">.</span><span class="nx">startOAuthFlow</span><span class="p">(</span><span class="nx">openURL</span><span class="p">)</span>
-<span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">&#39;token&#39;</span><span class="p">,</span> <span class="nx">token</span><span class="p">)</span>
-<span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">&#39;infos&#39;</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">infos</span><span class="p">))</span>
-</pre></div>
-
-
-<p>Next time your app starts, you can pass these informations to the constructor. Here is a complete example of the OAuth client initilisation:</p>
-<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">storedToken</span> <span class="o">=</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;token&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="kc">null</span>
-<span class="kr">const</span> <span class="nx">storedInfos</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;infos&#39;</span><span class="p">))</span> <span class="o">||</span> <span class="p">{</span>
-  <span class="nx">clientName</span><span class="o">:</span> <span class="s1">&#39;MyClient&#39;</span><span class="p">,</span>
-  <span class="nx">softwareID</span><span class="o">:</span> <span class="s1">&#39;MyAppId&#39;</span><span class="p">,</span>
-  <span class="nx">redirectURI</span><span class="o">:</span> <span class="s1">&#39;http://localhost&#39;</span>
-<span class="p">}</span>
-
-<span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CozyClient</span><span class="p">({</span>
-  <span class="nx">uri</span><span class="o">:</span> <span class="s1">&#39;http://cozy.tools:8080&#39;</span><span class="p">,</span>
-  <span class="nx">oauth</span><span class="o">:</span> <span class="nx">storedInfos</span><span class="p">,</span>
-  <span class="nx">token</span><span class="o">:</span> <span class="nx">storedToken</span><span class="p">,</span>
-  <span class="nx">scope</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;io.cozy.mydoctype&#39;</span><span class="p">]</span>
-<span class="p">});</span>
-
-<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">storedToken</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kr">const</span> <span class="p">{</span><span class="nx">token</span><span class="p">,</span> <span class="nx">infos</span><span class="p">}</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">startOAuthFlow</span><span class="p">(</span><span class="nx">openURL</span><span class="p">)</span>
-  <span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">&#39;token&#39;</span><span class="p">,</span> <span class="nx">token</span><span class="p">)</span>
-  <span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">&#39;infos&#39;</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">infos</span><span class="p">))</span>
-<span class="p">}</span>
-</pre></div>
-
-
-<h3 id="how-to-logout-a-client">How to logout a client<a class="headerlink" href="#how-to-logout-a-client" title="Permanent link">&para;</a></h3>
-<p>When a user logout, we would like remove all references on this instance and
-remove all user data. You can just use <code>cozyClient.logout()</code>.</p>
-<h2 id="how-to-use-cozyclient-on-mobile">How to use CozyClient on mobile<a class="headerlink" href="#how-to-use-cozyclient-on-mobile" title="Permanent link">&para;</a></h2>
-<p><code>CozyClient</code> can also be used as an OAuth client. To get started, configure the OAuth informations when creating the client:</p>
-<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">CozyClient</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
-
-<span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CozyClient</span><span class="p">({</span>
-  <span class="nx">uri</span><span class="o">:</span> <span class="s1">&#39;http://cozy.tools:8080&#39;</span><span class="p">,</span>
-  <span class="nx">scope</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;io.cozy.mydoctype&#39;</span><span class="p">],</span>
-  <span class="nx">oauth</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">clientName</span><span class="o">:</span> <span class="s1">&#39;MyClient&#39;</span><span class="p">,</span>
-    <span class="nx">softwareID</span><span class="o">:</span> <span class="s1">&#39;MyAppId&#39;</span><span class="p">,</span>
-    <span class="nx">redirectURI</span><span class="o">:</span> <span class="s1">&#39;http://localhost&#39;</span>
-  <span class="p">}</span>
-<span class="p">})</span>
-</pre></div>
-
-
-<p><code>scope</code> is an array of <a href="https://github.com/cozy/cozy-stack/blob/master/docs/permissions.md">permissions</a> you require for your client, and <code>oauth</code> is a list of fields that identify your client for the user and the server. The complete list of field can be found <a href="https://github.com/cozy/cozy-stack/blob/master/docs/permissions.md">here</a>, although they should be camel-cased instead of snake-cased.</p>
                 </div>
         </div>
 

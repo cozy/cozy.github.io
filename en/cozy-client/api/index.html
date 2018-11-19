@@ -10,7 +10,7 @@
         <link rel="canonical" href="https://docs.cozy.io/cozy-client/api/">
         <link rel="shortcut icon" href="../../img/favicon.png">
         
-        <title>API - Dev Documentation</title>
+        <title>api - Dev Documentation</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -110,7 +110,7 @@
   </li>
                         </ul>
                     </li>
-                    <li class="dropdown active">
+                    <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">References <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
@@ -141,11 +141,11 @@
     <ul class="dropdown-menu">
             
 <li >
-    <a href="../guide/">Usage guide</a>
+    <a href="../getting-started/">Getting started</a>
 </li>
             
-<li class="active">
-    <a href="./">API</a>
+<li >
+    <a href="../how-tos/">How tos</a>
 </li>
     </ul>
   </li>
@@ -579,18 +579,15 @@
         <li class="main "><a href="#constants">Constants</a></li>
         <li class="main "><a href="#functions">Functions</a></li>
         <li class="main "><a href="#cozyclient">CozyClient</a></li>
-            <li><a href="#cozyclientcollectiondoctype-documentcollection">cozyClient.collection(doctype) ⇒ DocumentCollection</a></li>
-            <li><a href="#cozyclientgetdocumentsaveplandocument-relationships-arrayobject">cozyClient.getDocumentSavePlan(document, relationships) ⇒ Array.&lt;object&gt;</a></li>
-            <li><a href="#cozyclienthydratedocument">cozyClient.hydrateDocument()</a></li>
-            <li><a href="#cozyclientregistercozyurl-object">cozyClient.register(cozyURL) ⇒ object</a></li>
-            <li><a href="#cozyclientstartoauthflowopenurlcallback-object">cozyClient.startOAuthFlow(openURLCallback) ⇒ object</a></li>
-            <li><a href="#cozyclientrenewauthorization-object">cozyClient.renewAuthorization() ⇒ object</a></li>
-            <li><a href="#cozyclientsetdatadata">cozyClient.setData(data)</a></li>
+            <li><a href="#moduleexports">module.exports ⏏</a></li>
+        <li class="main "><a href="#querydefinition">QueryDefinition</a></li>
+            <li><a href="#querydefinitionquerydefinition">QueryDefinition.QueryDefinition</a></li>
         <li class="main "><a href="#appcollection">AppCollection</a></li>
             <li><a href="#appcollectionall-object">appCollection.all() ⇒ Object</a></li>
         <li class="main "><a href="#cozystackclient">CozyStackClient</a></li>
             <li><a href="#cozystackclientcollectiondoctype-documentcollection">cozyStackClient.collection(doctype) ⇒ DocumentCollection</a></li>
             <li><a href="#cozystackclientfetchmethod-path-body-options-object">cozyStackClient.fetch(method, path, body, options) ⇒ Object</a></li>
+            <li><a href="#cozystackclientfetchjsonmethod-path-body-options-object">cozyStackClient.fetchJSON(method, path, body, options) ⇒ Object</a></li>
         <li class="main "><a href="#documentcollection">DocumentCollection</a></li>
             <li><a href="#documentcollectionalloptions-object">documentCollection.all(options) ⇒ Object</a></li>
             <li><a href="#documentcollectionfindselector-options-object">documentCollection.find(selector, options) ⇒ Object</a></li>
@@ -598,6 +595,8 @@
         <li class="main "><a href="#filecollection">FileCollection</a></li>
             <li><a href="#filecollectionfindselector-options-object">fileCollection.find(selector, options) ⇒ Object</a></li>
             <li><a href="#filecollectionfindreferencedbydocument-limit-object">fileCollection.findReferencedBy(document, {, limit) ⇒ object</a></li>
+            <li><a href="#filecollectioncreatedirectorybypathpath-object">fileCollection.createDirectoryByPath(path) ⇒ object</a></li>
+            <li><a href="#filecollectionupdatefilemetadataid-attributes-object">fileCollection.updateFileMetadata(id, attributes) ⇒ object</a></li>
         <li class="main "><a href="#oauthclient">OAuthClient</a></li>
             <li><a href="#oauthclientregister-promise">oAuthClient.register() ⇒ promise</a></li>
             <li><a href="#oauthclientunregister-promise">oAuthClient.unregister() ⇒ promise</a></li>
@@ -615,20 +614,26 @@
         <li class="main "><a href="#sharingcollection">SharingCollection</a></li>
             <li><a href="#sharingcollectionsharedocument-recipients-sharingtype-description-previewpath">sharingCollection.share(document, recipients, sharingType, description, [previewPath])</a></li>
             <li><a href="#sharingcollectiongetdiscoverylinksharingid-sharecode-string">sharingCollection.getDiscoveryLink(sharingId, sharecode) ⇒ string</a></li>
+        <li class="main "><a href="#resolveclass">resolveClass</a></li>
         <li class="main "><a href="#encode">encode</a></li>
         <li class="main "><a href="#buildurl">buildURL</a></li>
+        <li class="main "><a href="#addbyid">addById()</a></li>
+        <li class="main "><a href="#withclientcomponent-function">withClient(Component) ⇒ function</a></li>
+        <li class="main "><a href="#queryconnectqueryspecs-function">queryConnect(querySpecs) ⇒ function</a></li>
+        <li class="main "><a href="#optimizedoctypequeriesqueries-arrayquerydefinition">optimizeDoctypeQueries(queries) ⇒ Array.&lt;QueryDefinition&gt;</a></li>
+        <li class="main "><a href="#optimizequeriesqueries-arrayquerydefinition">optimizeQueries(queries) ⇒ Array.&lt;QueryDefinition&gt;</a></li>
         <li class="main "><a href="#normalizedoctypeschema">normalizeDoctypeSchema()</a></li>
         <li class="main "><a href="#getdoctypeschema">getDoctypeSchema()</a></li>
         <li class="main "><a href="#getrelationship">getRelationship()</a></li>
         <li class="main "><a href="#validate">validate()</a></li>
-        <li class="main "><a href="#withclientcomponent-function">withClient(Component) ⇒ function</a></li>
-        <li class="main "><a href="#queryconnectqueryspecs-function">queryConnect(querySpecs) ⇒ function</a></li>
+        <li class="main "><a href="#handleonsync">handleOnSync()</a></li>
         <li class="main "><a href="#startreplication-void">startReplication() ⇒ void</a></li>
         <li class="main "><a href="#stopreplication-void">stopReplication() ⇒ void</a></li>
+        <li class="main "><a href="#defaultselectoroptions-array">defaultSelector(options) ⇒ Array</a></li>
+        <li class="main "><a href="#ensuredatabasesexist">ensureDatabasesExist()</a></li>
         <li class="main "><a href="#startreplicationloop">startReplicationLoop()</a></li>
         <li class="main "><a href="#stopreplicationloop">stopReplicationLoop()</a></li>
         <li class="main "><a href="#replicateonce">replicateOnce()</a></li>
-        <li class="main "><a href="#defaultselectoroptions-array">defaultSelector(options) ⇒ Array</a></li>
         <li class="main "><a href="#setintervalpromise">setIntervalPromise()</a></li>
         <li class="main "><a href="#uri">uri()</a></li>
         <li class="main "><a href="#attempt">attempt()</a></li>
@@ -678,6 +683,9 @@
 <dl>
 <dt><a href="#module_CozyClient">CozyClient</a></dt>
 <dd></dd>
+<dt><a href="#module_QueryDefinition">QueryDefinition</a></dt>
+<dd><p>API to query documents</p>
+</dd>
 <dt><a href="#module_AppCollection">AppCollection</a></dt>
 <dd></dd>
 <dt><a href="#module_CozyStackClient">CozyStackClient</a></dt>
@@ -703,6 +711,12 @@ files associated to a specific document</p>
 
 <h2 id="constants">Constants<a class="headerlink" href="#constants" title="Permanent link">&para;</a></h2>
 <dl>
+<dt><a href="#resolveClass">resolveClass</a></dt>
+<dd><p>Returns the relationship class for a given doctype/type.</p>
+<p>In the schema definition, some classes have string aliases
+so you do not have to import directly the association.</p>
+<p>Some doctypes can have built-in overriden relationships.</p>
+</dd>
 <dt><a href="#encode">encode</a></dt>
 <dd><p>Encode an object as querystring, values are encoded as
 URI components, keys are not.</p>
@@ -715,6 +729,26 @@ Any undefined parameter is removed.</p>
 
 <h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
 <dl>
+<dt><a href="#addById">addById()</a></dt>
+<dd><p>Add a referenced document by id. You need to call save()
+in order to synchronize your document with the store</p>
+</dd>
+<dt><a href="#withClient">withClient(Component)</a> ⇒ <code>function</code></dt>
+<dd><p>HOC to provide client from context as prop</p>
+</dd>
+<dt><a href="#queryConnect">queryConnect(querySpecs)</a> ⇒ <code>function</code></dt>
+<dd><p>HOC creator to connect component to several queries in a declarative manner</p>
+</dd>
+<dt><a href="#optimizeDoctypeQueries">optimizeDoctypeQueries(queries)</a> ⇒ <code>Array.&lt;QueryDefinition&gt;</code></dt>
+<dd><p>Optimize queries on a single doctype</p>
+</dd>
+<dt><a href="#optimizeQueries">optimizeQueries(queries)</a> ⇒ <code>Array.&lt;QueryDefinition&gt;</code></dt>
+<dd><p>Reduce the number of queries used to fetch documents.</p>
+<ul>
+<li>Deduplication of queries</li>
+<li>Groups id queries</li>
+</ul>
+</dd>
 <dt><a href="#normalizeDoctypeSchema">normalizeDoctypeSchema()</a></dt>
 <dd><p>Returns a normalized schema object from the schema definition.</p>
 <ul>
@@ -733,11 +767,10 @@ is included in the relationship</li>
 <dt><a href="#validate">validate()</a></dt>
 <dd><p>Validates a document considering the descriptions in schema.attributes.</p>
 </dd>
-<dt><a href="#withClient">withClient(Component)</a> ⇒ <code>function</code></dt>
-<dd><p>HOC to provide client from context as prop</p>
-</dd>
-<dt><a href="#queryConnect">queryConnect(querySpecs)</a> ⇒ <code>function</code></dt>
-<dd><p>HOC creator to connect component to several queries in a declarative manner</p>
+<dt><a href="#handleOnSync">handleOnSync()</a></dt>
+<dd><p>Receives PouchDB updates (documents grouped by doctype).
+Normalizes the data (.id -&gt; ._id, .rev -&gt; _rev).
+Passes the data to the client and to the onSync handler.</p>
 </dd>
 <dt><a href="#startReplication">startReplication()</a> ⇒ <code>void</code></dt>
 <dd><p>User of the link can call this to start ongoing replications.
@@ -747,6 +780,15 @@ Typically, it can be used when the application regains focus.</p>
 <dd><p>User of the link can call this to stop ongoing replications.
 Typically, it can be used when the applications loses focus.</p>
 </dd>
+<dt><a href="#defaultSelector">defaultSelector(options)</a> ⇒ <code>Array</code></dt>
+<dd><p>Compute fields that should be indexed for a mango
+query to work</p>
+</dd>
+<dt><a href="#ensureDatabasesExist">ensureDatabasesExist()</a></dt>
+<dd><p>Via a call to info() we ensure the database exist on the
+remote side. This is done only once since after the first
+call, we are sure that the databases have been created.</p>
+</dd>
 <dt><a href="#startReplicationLoop">startReplicationLoop()</a></dt>
 <dd><p>Starts periodic syncing of the pouches</p>
 </dd>
@@ -755,10 +797,6 @@ Typically, it can be used when the applications loses focus.</p>
 </dd>
 <dt><a href="#replicateOnce">replicateOnce()</a></dt>
 <dd><p>Starts replication</p>
-</dd>
-<dt><a href="#defaultSelector">defaultSelector(options)</a> ⇒ <code>Array</code></dt>
-<dd><p>Compute fields that should be indexed for a mango
-query to work</p>
 </dd>
 <dt><a href="#setIntervalPromise">setIntervalPromise()</a></dt>
 <dd><p>Will periodically run a function so that when the promise
@@ -784,21 +822,65 @@ continue.</p>
 <h2 id="cozyclient">CozyClient<a class="headerlink" href="#cozyclient" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="#module_CozyClient">CozyClient</a><ul>
-<li><a href="#module_CozyClient+collection">.collection(doctype)</a> ⇒ <code>DocumentCollection</code></li>
-<li><a href="#module_CozyClient+getDocumentSavePlan">.getDocumentSavePlan(document, relationships)</a> ⇒ <code>Array.&lt;object&gt;</code></li>
-<li><a href="#module_CozyClient+hydrateDocument">.hydrateDocument()</a></li>
-<li><a href="#module_CozyClient+register">.register(cozyURL)</a> ⇒ <code>object</code></li>
-<li><a href="#module_CozyClient+startOAuthFlow">.startOAuthFlow(openURLCallback)</a> ⇒ <code>object</code></li>
-<li><a href="#module_CozyClient+renewAuthorization">.renewAuthorization()</a> ⇒ <code>object</code></li>
-<li><a href="#module_CozyClient+setData">.setData(data)</a></li>
+<li><a href="#exp_module_CozyClient--module.exports">module.exports</a> ⏏<ul>
+<li><a href="#new_module_CozyClient--module.exports_new">new module.exports(options)</a></li>
+<li><a href="#module_CozyClient--module.exports+collection">.collection(doctype)</a> ⇒ <code>DocumentCollection</code></li>
+<li><a href="#module_CozyClient--module.exports+getDocumentSavePlan">.getDocumentSavePlan(document, relationships)</a> ⇒ <code>Array.&lt;object&gt;</code></li>
+<li><a href="#module_CozyClient--module.exports+fetchRelationships">.fetchRelationships()</a></li>
+<li><a href="#module_CozyClient--module.exports+hydrateDocument">.hydrateDocument()</a></li>
+<li><a href="#module_CozyClient--module.exports+makeNewDocument">.makeNewDocument()</a></li>
+<li><a href="#module_CozyClient--module.exports+getAssociation">.getAssociation()</a></li>
+<li><a href="#module_CozyClient--module.exports+getRelationshipStoreAccessors">.getRelationshipStoreAccessors()</a></li>
+<li><a href="#module_CozyClient--module.exports+register">.register(cozyURL)</a> ⇒ <code>object</code></li>
+<li><a href="#module_CozyClient--module.exports+startOAuthFlow">.startOAuthFlow(openURLCallback)</a> ⇒ <code>object</code></li>
+<li><a href="#module_CozyClient--module.exports+renewAuthorization">.renewAuthorization()</a> ⇒ <code>object</code></li>
+<li><a href="#module_CozyClient--module.exports+setData">.setData(data)</a></li>
 </ul>
 </li>
 </ul>
-<p><a name="module_CozyClient+collection"></a></p>
-<h3 id="cozyclientcollectiondoctype-documentcollection">cozyClient.collection(doctype) ⇒ <code>DocumentCollection</code><a class="headerlink" href="#cozyclientcollectiondoctype-documentcollection" title="Permanent link">&para;</a></h3>
+</li>
+</ul>
+<p><a name="exp_module_CozyClient--module.exports"></a></p>
+<h3 id="moduleexports">module.exports ⏏<a class="headerlink" href="#moduleexports" title="Permanent link">&para;</a></h3>
+<p><strong>Kind</strong>: Exported class<br />
+<a name="new_module_CozyClient--module.exports_new"></a></p>
+<h4 id="new-moduleexportsoptions">new module.exports(options)<a class="headerlink" href="#new-moduleexportsoptions" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>options</td>
+<td><code>Object</code></td>
+<td></td>
+</tr>
+<tr>
+<td>options.link</td>
+<td><code>Link</code></td>
+<td>Backward compatibility</td>
+</tr>
+<tr>
+<td>options.links</td>
+<td><code>Array.Link</code></td>
+<td>List of links</td>
+</tr>
+<tr>
+<td>options.schema</td>
+<td><code>Object</code></td>
+<td>Schema description for each doctypes</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_CozyClient--module.exports+collection"></a></p>
+<h4 id="moduleexportscollectiondoctype-documentcollection">module.exports.collection(doctype) ⇒ <code>DocumentCollection</code><a class="headerlink" href="#moduleexportscollectiondoctype-documentcollection" title="Permanent link">&para;</a></h4>
 <p>Forwards to a stack client instance and returns
 a <a href="../DocumentCollection">DocumentCollection</a> instance.</p>
-<p><strong>Kind</strong>: instance method of <a href="#module_CozyClient"><code>CozyClient</code></a>  </p>
+<p><strong>Kind</strong>: instance method of <a href="#exp_module_CozyClient--module.exports"><code>module.exports</code></a>  </p>
 <table>
 <thead>
 <tr>
@@ -815,10 +897,10 @@ a <a href="../DocumentCollection">DocumentCollection</a> instance.</p>
 </tr>
 </tbody>
 </table>
-<p><a name="module_CozyClient+getDocumentSavePlan"></a></p>
-<h3 id="cozyclientgetdocumentsaveplandocument-relationships-arrayobject">cozyClient.getDocumentSavePlan(document, relationships) ⇒ <code>Array.&lt;object&gt;</code><a class="headerlink" href="#cozyclientgetdocumentsaveplandocument-relationships-arrayobject" title="Permanent link">&para;</a></h3>
+<p><a name="module_CozyClient--module.exports+getDocumentSavePlan"></a></p>
+<h4 id="moduleexportsgetdocumentsaveplandocument-relationships-arrayobject">module.exports.getDocumentSavePlan(document, relationships) ⇒ <code>Array.&lt;object&gt;</code><a class="headerlink" href="#moduleexportsgetdocumentsaveplandocument-relationships-arrayobject" title="Permanent link">&para;</a></h4>
 <p>getDocumentSavePlan - Creates a list of mutations to execute to create a document and its relationships.</p>
-<p><strong>Kind</strong>: instance method of <a href="#module_CozyClient"><code>CozyClient</code></a><br />
+<p><strong>Kind</strong>: instance method of <a href="#exp_module_CozyClient--module.exports"><code>module.exports</code></a><br />
 <strong>Returns</strong>: <code>Array.&lt;object&gt;</code> - One or more mutation to execute  </p>
 <table>
 <thead>
@@ -852,17 +934,42 @@ a <a href="../DocumentCollection">DocumentCollection</a> instance.</p>
 </pre></div>
 
 
-<p><a name="module_CozyClient+hydrateDocument"></a></p>
-<h3 id="cozyclienthydratedocument">cozyClient.hydrateDocument()<a class="headerlink" href="#cozyclienthydratedocument" title="Permanent link">&para;</a></h3>
+<p><a name="module_CozyClient--module.exports+fetchRelationships"></a></p>
+<h4 id="moduleexportsfetchrelationships">module.exports.fetchRelationships()<a class="headerlink" href="#moduleexportsfetchrelationships" title="Permanent link">&para;</a></h4>
+<p>Fetch relationships for a response (can be several docs).
+Fills the <code>relationships</code> attribute of each documents.</p>
+<p>Can potentially result in several fetch requests.
+Queries are optimized before being sent.</p>
+<p><strong>Kind</strong>: instance method of <a href="#exp_module_CozyClient--module.exports"><code>module.exports</code></a><br />
+<a name="module_CozyClient--module.exports+hydrateDocument"></a></p>
+<h4 id="moduleexportshydratedocument">module.exports.hydrateDocument()<a class="headerlink" href="#moduleexportshydratedocument" title="Permanent link">&para;</a></h4>
 <p>Instantiate relationships on a document</p>
 <p>The original document is kept in the target attribute of
 the relationship</p>
-<p><strong>Kind</strong>: instance method of <a href="#module_CozyClient"><code>CozyClient</code></a><br />
-<a name="module_CozyClient+register"></a></p>
-<h3 id="cozyclientregistercozyurl-object">cozyClient.register(cozyURL) ⇒ <code>object</code><a class="headerlink" href="#cozyclientregistercozyurl-object" title="Permanent link">&para;</a></h3>
+<p><strong>Kind</strong>: instance method of <a href="#exp_module_CozyClient--module.exports"><code>module.exports</code></a><br />
+<a name="module_CozyClient--module.exports+makeNewDocument"></a></p>
+<h4 id="moduleexportsmakenewdocument">module.exports.makeNewDocument()<a class="headerlink" href="#moduleexportsmakenewdocument" title="Permanent link">&para;</a></h4>
+<p>Creates (locally) a new document for the given doctype.
+This document is hydrated : its relationships are there
+and working.</p>
+<p><strong>Kind</strong>: instance method of <a href="#exp_module_CozyClient--module.exports"><code>module.exports</code></a><br />
+<a name="module_CozyClient--module.exports+getAssociation"></a></p>
+<h4 id="moduleexportsgetassociation">module.exports.getAssociation()<a class="headerlink" href="#moduleexportsgetassociation" title="Permanent link">&para;</a></h4>
+<p>Creates an association that is linked to the store.</p>
+<p><strong>Kind</strong>: instance method of <a href="#exp_module_CozyClient--module.exports"><code>module.exports</code></a><br />
+<a name="module_CozyClient--module.exports+getRelationshipStoreAccessors"></a></p>
+<h4 id="moduleexportsgetrelationshipstoreaccessors">module.exports.getRelationshipStoreAccessors()<a class="headerlink" href="#moduleexportsgetrelationshipstoreaccessors" title="Permanent link">&para;</a></h4>
+<p>Returns the accessors that are given to the relationships for them
+to deal with the stores.</p>
+<p>Relationships need to have access to the store to ping it when
+a modification (addById/removeById etc&hellip;) has been done. This wakes
+the store up, which in turn will update the <Query>s and re-render the data.</p>
+<p><strong>Kind</strong>: instance method of <a href="#exp_module_CozyClient--module.exports"><code>module.exports</code></a><br />
+<a name="module_CozyClient--module.exports+register"></a></p>
+<h4 id="moduleexportsregistercozyurl-object">module.exports.register(cozyURL) ⇒ <code>object</code><a class="headerlink" href="#moduleexportsregistercozyurl-object" title="Permanent link">&para;</a></h4>
 <p>Performs a complete OAuth flow using a Cordova webview for auth.
 The <code>register</code> method&rsquo;s name has been chosen for compat reasons with the Authentication compo.</p>
-<p><strong>Kind</strong>: instance method of <a href="#module_CozyClient"><code>CozyClient</code></a><br />
+<p><strong>Kind</strong>: instance method of <a href="#exp_module_CozyClient--module.exports"><code>module.exports</code></a><br />
 <strong>Returns</strong>: <code>object</code> - Contains the fetched token and the client information.  </p>
 <table>
 <thead>
@@ -880,10 +987,10 @@ The <code>register</code> method&rsquo;s name has been chosen for compat reasons
 </tr>
 </tbody>
 </table>
-<p><a name="module_CozyClient+startOAuthFlow"></a></p>
-<h3 id="cozyclientstartoauthflowopenurlcallback-object">cozyClient.startOAuthFlow(openURLCallback) ⇒ <code>object</code><a class="headerlink" href="#cozyclientstartoauthflowopenurlcallback-object" title="Permanent link">&para;</a></h3>
+<p><a name="module_CozyClient--module.exports+startOAuthFlow"></a></p>
+<h4 id="moduleexportsstartoauthflowopenurlcallback-object">module.exports.startOAuthFlow(openURLCallback) ⇒ <code>object</code><a class="headerlink" href="#moduleexportsstartoauthflowopenurlcallback-object" title="Permanent link">&para;</a></h4>
 <p>Performs a complete OAuth flow, including upating the internal token at the end.</p>
-<p><strong>Kind</strong>: instance method of <a href="#module_CozyClient"><code>CozyClient</code></a><br />
+<p><strong>Kind</strong>: instance method of <a href="#exp_module_CozyClient--module.exports"><code>module.exports</code></a><br />
 <strong>Returns</strong>: <code>object</code> - Contains the fetched token and the client information. These should be stored and used to restore the client.  </p>
 <table>
 <thead>
@@ -901,17 +1008,18 @@ The <code>register</code> method&rsquo;s name has been chosen for compat reasons
 </tr>
 </tbody>
 </table>
-<p><a name="module_CozyClient+renewAuthorization"></a></p>
-<h3 id="cozyclientrenewauthorization-object">cozyClient.renewAuthorization() ⇒ <code>object</code><a class="headerlink" href="#cozyclientrenewauthorization-object" title="Permanent link">&para;</a></h3>
-<p>Renews the token if, for instance, new permissions are required.</p>
-<p><strong>Kind</strong>: instance method of <a href="#module_CozyClient"><code>CozyClient</code></a><br />
+<p><a name="module_CozyClient--module.exports+renewAuthorization"></a></p>
+<h4 id="moduleexportsrenewauthorization-object">module.exports.renewAuthorization() ⇒ <code>object</code><a class="headerlink" href="#moduleexportsrenewauthorization-object" title="Permanent link">&para;</a></h4>
+<p>Renews the token if, for instance, new permissions are required or token
+has expired.</p>
+<p><strong>Kind</strong>: instance method of <a href="#exp_module_CozyClient--module.exports"><code>module.exports</code></a><br />
 <strong>Returns</strong>: <code>object</code> - Contains the fetched token and the client information.<br />
-<a name="module_CozyClient+setData"></a></p>
-<h3 id="cozyclientsetdatadata">cozyClient.setData(data)<a class="headerlink" href="#cozyclientsetdatadata" title="Permanent link">&para;</a></h3>
+<a name="module_CozyClient--module.exports+setData"></a></p>
+<h4 id="moduleexportssetdatadata">module.exports.setData(data)<a class="headerlink" href="#moduleexportssetdatadata" title="Permanent link">&para;</a></h4>
 <p>Directly set the data in the store, without using a query
 This is useful for cases like Pouch replication, which wants to
 set some data in the store.</p>
-<p><strong>Kind</strong>: instance method of <a href="#module_CozyClient"><code>CozyClient</code></a>  </p>
+<p><strong>Kind</strong>: instance method of <a href="#exp_module_CozyClient--module.exports"><code>module.exports</code></a>  </p>
 <table>
 <thead>
 <tr>
@@ -925,6 +1033,282 @@ set some data in the store.</p>
 <td>data</td>
 <td><code>Object</code></td>
 <td _data_="[data]" doctype:="doctype:"></td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_QueryDefinition"></a></p>
+<h2 id="querydefinition">QueryDefinition<a class="headerlink" href="#querydefinition" title="Permanent link">&para;</a></h2>
+<p>API to query documents</p>
+<ul>
+<li><a href="#module_QueryDefinition">QueryDefinition</a><ul>
+<li><a href="#module_QueryDefinition.QueryDefinition">.QueryDefinition</a><ul>
+<li><a href="#new_module_QueryDefinition.QueryDefinition_new">new exports.QueryDefinition(doctype, id, ids, selector, fields, indexedFields, sort, includes, referenced, limit, skip)</a></li>
+<li><a href="#module_QueryDefinition.QueryDefinition+where">.where(selector)</a> ⇒ <code>QueryDefinition</code></li>
+<li><a href="#module_QueryDefinition.QueryDefinition+select">.select(fields)</a> ⇒ <code>QueryDefinition</code></li>
+<li><a href="#module_QueryDefinition.QueryDefinition+indexFields">.indexFields(fields)</a> ⇒ <code>QueryDefinition</code></li>
+<li><a href="#module_QueryDefinition.QueryDefinition+sortBy">.sortBy(sort)</a> ⇒ <code>QueryDefinition</code></li>
+<li><a href="#module_QueryDefinition.QueryDefinition+include">.include(includes)</a> ⇒ <code>QueryDefinition</code></li>
+<li><a href="#module_QueryDefinition.QueryDefinition+limitBy">.limitBy(limit)</a> ⇒ <code>QueryDefinition</code></li>
+<li><a href="#module_QueryDefinition.QueryDefinition+offset">.offset(skip)</a> ⇒ <code>QueryDefinition</code></li>
+<li><a href="#module_QueryDefinition.QueryDefinition+referencedBy">.referencedBy(document)</a> ⇒ <code>QueryDefinition</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><a name="module_QueryDefinition.QueryDefinition"></a></p>
+<h3 id="querydefinitionquerydefinition">QueryDefinition.QueryDefinition<a class="headerlink" href="#querydefinitionquerydefinition" title="Permanent link">&para;</a></h3>
+<p><strong>Kind</strong>: static class of <a href="#module_QueryDefinition"><code>QueryDefinition</code></a>  </p>
+<ul>
+<li><a href="#module_QueryDefinition.QueryDefinition">.QueryDefinition</a><ul>
+<li><a href="#new_module_QueryDefinition.QueryDefinition_new">new exports.QueryDefinition(doctype, id, ids, selector, fields, indexedFields, sort, includes, referenced, limit, skip)</a></li>
+<li><a href="#module_QueryDefinition.QueryDefinition+where">.where(selector)</a> ⇒ <code>QueryDefinition</code></li>
+<li><a href="#module_QueryDefinition.QueryDefinition+select">.select(fields)</a> ⇒ <code>QueryDefinition</code></li>
+<li><a href="#module_QueryDefinition.QueryDefinition+indexFields">.indexFields(fields)</a> ⇒ <code>QueryDefinition</code></li>
+<li><a href="#module_QueryDefinition.QueryDefinition+sortBy">.sortBy(sort)</a> ⇒ <code>QueryDefinition</code></li>
+<li><a href="#module_QueryDefinition.QueryDefinition+include">.include(includes)</a> ⇒ <code>QueryDefinition</code></li>
+<li><a href="#module_QueryDefinition.QueryDefinition+limitBy">.limitBy(limit)</a> ⇒ <code>QueryDefinition</code></li>
+<li><a href="#module_QueryDefinition.QueryDefinition+offset">.offset(skip)</a> ⇒ <code>QueryDefinition</code></li>
+<li><a href="#module_QueryDefinition.QueryDefinition+referencedBy">.referencedBy(document)</a> ⇒ <code>QueryDefinition</code></li>
+</ul>
+</li>
+</ul>
+<p><a name="new_module_QueryDefinition.QueryDefinition_new"></a></p>
+<h4 id="new-exportsquerydefinitiondoctype-id-ids-selector-fields-indexedfields-sort-includes-referenced-limit-skip">new exports.QueryDefinition(doctype, id, ids, selector, fields, indexedFields, sort, includes, referenced, limit, skip)<a class="headerlink" href="#new-exportsquerydefinitiondoctype-id-ids-selector-fields-indexedfields-sort-includes-referenced-limit-skip" title="Permanent link">&para;</a></h4>
+<p>Represents a QueryDefinition.</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>doctype</td>
+<td><code>string</code></td>
+<td>The doctype of the doc.</td>
+</tr>
+<tr>
+<td>id</td>
+<td><code>string</code></td>
+<td>The id of the doc.</td>
+</tr>
+<tr>
+<td>ids</td>
+<td><code>Array</code></td>
+<td>The ids of the docs.</td>
+</tr>
+<tr>
+<td>selector</td>
+<td><code>Object</code></td>
+<td>The selector to query the docs.</td>
+</tr>
+<tr>
+<td>fields</td>
+<td><code>Array</code></td>
+<td>The fields to return.</td>
+</tr>
+<tr>
+<td>indexedFields</td>
+<td><code>Array</code></td>
+<td>The fields to index.</td>
+</tr>
+<tr>
+<td>sort</td>
+<td><code>Array</code></td>
+<td>The sorting params.</td>
+</tr>
+<tr>
+<td>includes</td>
+<td><code>string</code></td>
+<td>The docs to include.</td>
+</tr>
+<tr>
+<td>referenced</td>
+<td><code>string</code></td>
+<td>The referenced document.</td>
+</tr>
+<tr>
+<td>limit</td>
+<td><code>number</code></td>
+<td>The document&rsquo;s limit to return.</td>
+</tr>
+<tr>
+<td>skip</td>
+<td><code>number</code></td>
+<td>The number of docs to skip.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_QueryDefinition.QueryDefinition+where"></a></p>
+<h4 id="querydefinitionwhereselector-querydefinition">queryDefinition.where(selector) ⇒ <code>QueryDefinition</code><a class="headerlink" href="#querydefinitionwhereselector-querydefinition" title="Permanent link">&para;</a></h4>
+<p>Query documents with a <a href="http://docs.couchdb.org/en/latest/api/database/find.html#find-selectors">mango selector</a>.
+Each field passed in the selector will be indexed, except if the indexField option is used.</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_QueryDefinition.QueryDefinition"><code>QueryDefinition</code></a><br />
+<strong>Returns</strong>: <code>QueryDefinition</code> - The QueryDefinition object.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>selector</td>
+<td><code>Object</code></td>
+<td>The Mango selector.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_QueryDefinition.QueryDefinition+select"></a></p>
+<h4 id="querydefinitionselectfields-querydefinition">queryDefinition.select(fields) ⇒ <code>QueryDefinition</code><a class="headerlink" href="#querydefinitionselectfields-querydefinition" title="Permanent link">&para;</a></h4>
+<p>Specify which fields of each object should be returned. If it is omitted, the entire object is returned.</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_QueryDefinition.QueryDefinition"><code>QueryDefinition</code></a><br />
+<strong>Returns</strong>: <code>QueryDefinition</code> - The QueryDefinition object.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fields</td>
+<td><code>Array</code></td>
+<td>The fields to return.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_QueryDefinition.QueryDefinition+indexFields"></a></p>
+<h4 id="querydefinitionindexfieldsfields-querydefinition">queryDefinition.indexFields(fields) ⇒ <code>QueryDefinition</code><a class="headerlink" href="#querydefinitionindexfieldsfields-querydefinition" title="Permanent link">&para;</a></h4>
+<p>Specify which fields should be indexed. This prevent the automatic indexing of the mango fields.</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_QueryDefinition.QueryDefinition"><code>QueryDefinition</code></a><br />
+<strong>Returns</strong>: <code>QueryDefinition</code> - The QueryDefinition object.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fields</td>
+<td><code>Array</code></td>
+<td>The fields to index.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_QueryDefinition.QueryDefinition+sortBy"></a></p>
+<h4 id="querydefinitionsortbysort-querydefinition">queryDefinition.sortBy(sort) ⇒ <code>QueryDefinition</code><a class="headerlink" href="#querydefinitionsortbysort-querydefinition" title="Permanent link">&para;</a></h4>
+<p>Specify how to sort documents, following the <a href="http://docs.couchdb.org/en/latest/api/database/find.html#find-sort">sort syntax</a></p>
+<p><strong>Kind</strong>: instance method of <a href="#module_QueryDefinition.QueryDefinition"><code>QueryDefinition</code></a><br />
+<strong>Returns</strong>: <code>QueryDefinition</code> - The QueryDefinition object.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sort</td>
+<td><code>Array</code></td>
+<td>The list of field name and direction pairs.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_QueryDefinition.QueryDefinition+include"></a></p>
+<h4 id="querydefinitionincludeincludes-querydefinition">queryDefinition.include(includes) ⇒ <code>QueryDefinition</code><a class="headerlink" href="#querydefinitionincludeincludes-querydefinition" title="Permanent link">&para;</a></h4>
+<p>Includes documents having a relationships with the ones queried.
+For example, query albums including the photos.</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_QueryDefinition.QueryDefinition"><code>QueryDefinition</code></a><br />
+<strong>Returns</strong>: <code>QueryDefinition</code> - The QueryDefinition object.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>includes</td>
+<td><code>Array</code></td>
+<td>The documents to include.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_QueryDefinition.QueryDefinition+limitBy"></a></p>
+<h4 id="querydefinitionlimitbylimit-querydefinition">queryDefinition.limitBy(limit) ⇒ <code>QueryDefinition</code><a class="headerlink" href="#querydefinitionlimitbylimit-querydefinition" title="Permanent link">&para;</a></h4>
+<p>Maximum number of documents returned, useful for pagination. Default is 100.</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_QueryDefinition.QueryDefinition"><code>QueryDefinition</code></a><br />
+<strong>Returns</strong>: <code>QueryDefinition</code> - The QueryDefinition object.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>limit</td>
+<td><code>number</code></td>
+<td>The document&rsquo;s limit.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_QueryDefinition.QueryDefinition+offset"></a></p>
+<h4 id="querydefinitionoffsetskip-querydefinition">queryDefinition.offset(skip) ⇒ <code>QueryDefinition</code><a class="headerlink" href="#querydefinitionoffsetskip-querydefinition" title="Permanent link">&para;</a></h4>
+<p>Skip the first ‘n’ documents, where ‘n’ is the value specified.</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_QueryDefinition.QueryDefinition"><code>QueryDefinition</code></a><br />
+<strong>Returns</strong>: <code>QueryDefinition</code> - The QueryDefinition object.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>skip</td>
+<td><code>number</code></td>
+<td>The number of documents to skip.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_QueryDefinition.QueryDefinition+referencedBy"></a></p>
+<h4 id="querydefinitionreferencedbydocument-querydefinition">queryDefinition.referencedBy(document) ⇒ <code>QueryDefinition</code><a class="headerlink" href="#querydefinitionreferencedbydocument-querydefinition" title="Permanent link">&para;</a></h4>
+<p>Use the <a href="https://docs.cozy.io/en/cozy-stack/references-docs-in-vfs/">file reference system</a></p>
+<p><strong>Kind</strong>: instance method of <a href="#module_QueryDefinition.QueryDefinition"><code>QueryDefinition</code></a><br />
+<strong>Returns</strong>: <code>QueryDefinition</code> - The QueryDefinition object.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>document</td>
+<td><code>Object</code></td>
+<td>The reference document</td>
 </tr>
 </tbody>
 </table>
@@ -946,6 +1330,7 @@ set some data in the store.</p>
 <li><a href="#module_CozyStackClient">CozyStackClient</a><ul>
 <li><a href="#module_CozyStackClient+collection">.collection(doctype)</a> ⇒ <code>DocumentCollection</code></li>
 <li><a href="#module_CozyStackClient+fetch">.fetch(method, path, body, options)</a> ⇒ <code>Object</code></li>
+<li><a href="#module_CozyStackClient+fetchJSON">.fetchJSON(method, path, body, options)</a> ⇒ <code>Object</code></li>
 </ul>
 </li>
 </ul>
@@ -971,6 +1356,45 @@ set some data in the store.</p>
 </table>
 <p><a name="module_CozyStackClient+fetch"></a></p>
 <h3 id="cozystackclientfetchmethod-path-body-options-object">cozyStackClient.fetch(method, path, body, options) ⇒ <code>Object</code><a class="headerlink" href="#cozystackclientfetchmethod-path-body-options-object" title="Permanent link">&para;</a></h3>
+<p>Fetches an endpoint in an authorized way.</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_CozyStackClient"><code>CozyStackClient</code></a><br />
+<strong>Throws</strong>:</p>
+<ul>
+<li><code>FetchError</code> </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>method</td>
+<td><code>String</code></td>
+<td>The HTTP method.</td>
+</tr>
+<tr>
+<td>path</td>
+<td><code>String</code></td>
+<td>The URI.</td>
+</tr>
+<tr>
+<td>body</td>
+<td><code>Object</code></td>
+<td>The payload.</td>
+</tr>
+<tr>
+<td>options</td>
+<td><code>Object</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_CozyStackClient+fetchJSON"></a></p>
+<h3 id="cozystackclientfetchjsonmethod-path-body-options-object">cozyStackClient.fetchJSON(method, path, body, options) ⇒ <code>Object</code><a class="headerlink" href="#cozystackclientfetchjsonmethod-path-body-options-object" title="Permanent link">&para;</a></h3>
 <p>Fetches JSON in an authorized way.</p>
 <p><strong>Kind</strong>: instance method of <a href="#module_CozyStackClient"><code>CozyStackClient</code></a><br />
 <strong>Throws</strong>:</p>
@@ -1108,6 +1532,8 @@ files associated to a specific document</p>
 <li><a href="#module_FileCollection">FileCollection</a><ul>
 <li><a href="#module_FileCollection+find">.find(selector, options)</a> ⇒ <code>Object</code></li>
 <li><a href="#module_FileCollection+findReferencedBy">.findReferencedBy(document, {, limit)</a> ⇒ <code>object</code></li>
+<li><a href="#module_FileCollection+createDirectoryByPath">.createDirectoryByPath(path)</a> ⇒ <code>object</code></li>
+<li><a href="#module_FileCollection+updateFileMetadata">.updateFileMetadata(id, attributes)</a> ⇒ <code>object</code></li>
 </ul>
 </li>
 </ul>
@@ -1170,6 +1596,51 @@ files associated to a specific document</p>
 <td>limit</td>
 <td><code>number</code></td>
 <td>} For pagination, the number of results to return.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_FileCollection+createDirectoryByPath"></a></p>
+<h3 id="filecollectioncreatedirectorybypathpath-object">fileCollection.createDirectoryByPath(path) ⇒ <code>object</code><a class="headerlink" href="#filecollectioncreatedirectorybypathpath-object" title="Permanent link">&para;</a></h3>
+<p>async createDirectoryByPath - Creates one or more folders until the given path exists</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_FileCollection"><code>FileCollection</code></a><br />
+<strong>Returns</strong>: <code>object</code> - The document corresponding to the last segment of the path  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>path</td>
+<td><code>string</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_FileCollection+updateFileMetadata"></a></p>
+<h3 id="filecollectionupdatefilemetadataid-attributes-object">fileCollection.updateFileMetadata(id, attributes) ⇒ <code>object</code><a class="headerlink" href="#filecollectionupdatefilemetadataid-attributes-object" title="Permanent link">&para;</a></h3>
+<p>async updateFileMetadata - Updates a file&rsquo;s metadata</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_FileCollection"><code>FileCollection</code></a><br />
+<strong>Returns</strong>: <code>object</code> - Updated document  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td><code>string</code></td>
+<td>File id</td>
+</tr>
+<tr>
+<td>attributes</td>
+<td><code>object</code></td>
+<td>New file meta data</td>
 </tr>
 </tbody>
 </table>
@@ -1342,7 +1813,7 @@ files associated to a specific document</p>
 <h3 id="oauthclientrefreshtoken-promise">oAuthClient.refreshToken() ⇒ <code>Promise</code><a class="headerlink" href="#oauthclientrefreshtoken-promise" title="Permanent link">&para;</a></h3>
 <p>Retrieves a new access token by refreshing the currently used token.</p>
 <p><strong>Kind</strong>: instance method of <a href="#module_OAuthClient"><code>OAuthClient</code></a><br />
-<strong>Returns</strong>: <code>Promise</code> - A promise that resolves with a new AccessToen object<br />
+<strong>Returns</strong>: <code>Promise</code> - A promise that resolves with a new AccessToken object<br />
 <strong>Throws</strong>:</p>
 <ul>
 <li><code>NotRegisteredException</code> When the client doesn&rsquo;t have it&rsquo;s registration information</li>
@@ -1473,7 +1944,14 @@ files associated to a specific document</p>
 </tr>
 </tbody>
 </table>
-<p><a name="encode"></a></p>
+<p><a name="resolveClass"></a></p>
+<h2 id="resolveclass">resolveClass<a class="headerlink" href="#resolveclass" title="Permanent link">&para;</a></h2>
+<p>Returns the relationship class for a given doctype/type.</p>
+<p>In the schema definition, some classes have string aliases
+so you do not have to import directly the association.</p>
+<p>Some doctypes can have built-in overriden relationships.</p>
+<p><strong>Kind</strong>: global constant<br />
+<a name="encode"></a></p>
 <h2 id="encode">encode<a class="headerlink" href="#encode" title="Permanent link">&para;</a></h2>
 <p>Encode an object as querystring, values are encoded as
 URI components, keys are not.</p>
@@ -1483,29 +1961,18 @@ URI components, keys are not.</p>
 <p>Returns a URL from base url and a query parameter object.
 Any undefined parameter is removed.</p>
 <p><strong>Kind</strong>: global constant<br />
-<a name="normalizeDoctypeSchema"></a></p>
-<h2 id="normalizedoctypeschema">normalizeDoctypeSchema()<a class="headerlink" href="#normalizedoctypeschema" title="Permanent link">&para;</a></h2>
-<p>Returns a normalized schema object from the schema definition.</p>
+<a name="addById"></a></p>
+<h2 id="addbyid">addById()<a class="headerlink" href="#addbyid" title="Permanent link">&para;</a></h2>
+<p>Add a referenced document by id. You need to call save()
+in order to synchronize your document with the store</p>
+<p><strong>Kind</strong>: global function<br />
+<strong>Todo</strong></p>
 <ul>
-<li>Relationships are resolved to classes if needed</li>
-<li>The name of the relationship (its key in the schema definition)
-  is included in the relationship</li>
-<li>Empty relationships are nulled</li>
+<li>[ ] We shouldn&rsquo;t create the array of relationship manually since
+it&rsquo;ll not be present in the store as well.
+We certainly should use something like <code>updateRelationship</code></li>
 </ul>
-<p><strong>Kind</strong>: global function<br />
-<a name="getDoctypeSchema"></a></p>
-<h2 id="getdoctypeschema">getDoctypeSchema()<a class="headerlink" href="#getdoctypeschema" title="Permanent link">&para;</a></h2>
-<p>Returns the schema for a doctype</p>
-<p><strong>Kind</strong>: global function<br />
-<a name="getRelationship"></a></p>
-<h2 id="getrelationship">getRelationship()<a class="headerlink" href="#getrelationship" title="Permanent link">&para;</a></h2>
-<p>Returns the relationship for a given doctype/name</p>
-<p><strong>Kind</strong>: global function<br />
-<a name="validate"></a></p>
-<h2 id="validate">validate()<a class="headerlink" href="#validate" title="Permanent link">&para;</a></h2>
-<p>Validates a document considering the descriptions in schema.attributes.</p>
-<p><strong>Kind</strong>: global function<br />
-<a name="withClient"></a></p>
+<p><a name="withClient"></a></p>
 <h2 id="withclientcomponent-function">withClient(Component) ⇒ <code>function</code><a class="headerlink" href="#withclientcomponent-function" title="Permanent link">&para;</a></h2>
 <p>HOC to provide client from context as prop</p>
 <p><strong>Kind</strong>: global function<br />
@@ -1547,7 +2014,81 @@ Any undefined parameter is removed.</p>
 </tr>
 </tbody>
 </table>
-<p><a name="startReplication"></a></p>
+<p><a name="optimizeDoctypeQueries"></a></p>
+<h2 id="optimizedoctypequeriesqueries-arrayquerydefinition">optimizeDoctypeQueries(queries) ⇒ <code>Array.&lt;QueryDefinition&gt;</code><a class="headerlink" href="#optimizedoctypequeriesqueries-arrayquerydefinition" title="Permanent link">&para;</a></h2>
+<p>Optimize queries on a single doctype</p>
+<p><strong>Kind</strong>: global function<br />
+<strong>Returns</strong>: <code>Array.&lt;QueryDefinition&gt;</code> - Optimized queries  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>queries</td>
+<td><code>Array.&lt;QueryDefinition&gt;</code></td>
+<td>Queries of a same doctype</td>
+</tr>
+</tbody>
+</table>
+<p><a name="optimizeQueries"></a></p>
+<h2 id="optimizequeriesqueries-arrayquerydefinition">optimizeQueries(queries) ⇒ <code>Array.&lt;QueryDefinition&gt;</code><a class="headerlink" href="#optimizequeriesqueries-arrayquerydefinition" title="Permanent link">&para;</a></h2>
+<p>Reduce the number of queries used to fetch documents.</p>
+<ul>
+<li>Deduplication of queries</li>
+<li>Groups id queries</li>
+</ul>
+<p><strong>Kind</strong>: global function<br />
+<strong>Returns</strong>: <code>Array.&lt;QueryDefinition&gt;</code> - Optimized queries  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>queries</td>
+<td><code>Array.&lt;QueryDefinition&gt;</code></td>
+<td>Queries to optimized</td>
+</tr>
+</tbody>
+</table>
+<p><a name="normalizeDoctypeSchema"></a></p>
+<h2 id="normalizedoctypeschema">normalizeDoctypeSchema()<a class="headerlink" href="#normalizedoctypeschema" title="Permanent link">&para;</a></h2>
+<p>Returns a normalized schema object from the schema definition.</p>
+<ul>
+<li>Relationships are resolved to classes if needed</li>
+<li>The name of the relationship (its key in the schema definition)
+  is included in the relationship</li>
+<li>Empty relationships are nulled</li>
+</ul>
+<p><strong>Kind</strong>: global function<br />
+<a name="getDoctypeSchema"></a></p>
+<h2 id="getdoctypeschema">getDoctypeSchema()<a class="headerlink" href="#getdoctypeschema" title="Permanent link">&para;</a></h2>
+<p>Returns the schema for a doctype</p>
+<p><strong>Kind</strong>: global function<br />
+<a name="getRelationship"></a></p>
+<h2 id="getrelationship">getRelationship()<a class="headerlink" href="#getrelationship" title="Permanent link">&para;</a></h2>
+<p>Returns the relationship for a given doctype/name</p>
+<p><strong>Kind</strong>: global function<br />
+<a name="validate"></a></p>
+<h2 id="validate">validate()<a class="headerlink" href="#validate" title="Permanent link">&para;</a></h2>
+<p>Validates a document considering the descriptions in schema.attributes.</p>
+<p><strong>Kind</strong>: global function<br />
+<a name="handleOnSync"></a></p>
+<h2 id="handleonsync">handleOnSync()<a class="headerlink" href="#handleonsync" title="Permanent link">&para;</a></h2>
+<p>Receives PouchDB updates (documents grouped by doctype).
+Normalizes the data (.id -&gt; ._id, .rev -&gt; _rev).
+Passes the data to the client and to the onSync handler.</p>
+<p><strong>Kind</strong>: global function<br />
+<a name="startReplication"></a></p>
 <h2 id="startreplication-void">startReplication() ⇒ <code>void</code><a class="headerlink" href="#startreplication-void" title="Permanent link">&para;</a></h2>
 <p>User of the link can call this to start ongoing replications.
 Typically, it can be used when the application regains focus.</p>
@@ -1559,18 +2100,6 @@ Typically, it can be used when the application regains focus.</p>
 Typically, it can be used when the applications loses focus.</p>
 <p><strong>Kind</strong>: global function<br />
 <strong>Access</strong>: public<br />
-<a name="startReplicationLoop"></a></p>
-<h2 id="startreplicationloop">startReplicationLoop()<a class="headerlink" href="#startreplicationloop" title="Permanent link">&para;</a></h2>
-<p>Starts periodic syncing of the pouches</p>
-<p><strong>Kind</strong>: global function<br />
-<a name="stopReplicationLoop"></a></p>
-<h2 id="stopreplicationloop">stopReplicationLoop()<a class="headerlink" href="#stopreplicationloop" title="Permanent link">&para;</a></h2>
-<p>Stop periodic syncing of the pouches</p>
-<p><strong>Kind</strong>: global function<br />
-<a name="replicateOnce"></a></p>
-<h2 id="replicateonce">replicateOnce()<a class="headerlink" href="#replicateonce" title="Permanent link">&para;</a></h2>
-<p>Starts replication</p>
-<p><strong>Kind</strong>: global function<br />
 <a name="defaultSelector"></a></p>
 <h2 id="defaultselectoroptions-array">defaultSelector(options) ⇒ <code>Array</code><a class="headerlink" href="#defaultselectoroptions-array" title="Permanent link">&para;</a></h2>
 <p>Compute fields that should be indexed for a mango
@@ -1593,7 +2122,25 @@ query to work</p>
 </tr>
 </tbody>
 </table>
-<p><a name="setIntervalPromise"></a></p>
+<p><a name="ensureDatabasesExist"></a></p>
+<h2 id="ensuredatabasesexist">ensureDatabasesExist()<a class="headerlink" href="#ensuredatabasesexist" title="Permanent link">&para;</a></h2>
+<p>Via a call to info() we ensure the database exist on the
+remote side. This is done only once since after the first
+call, we are sure that the databases have been created.</p>
+<p><strong>Kind</strong>: global function<br />
+<a name="startReplicationLoop"></a></p>
+<h2 id="startreplicationloop">startReplicationLoop()<a class="headerlink" href="#startreplicationloop" title="Permanent link">&para;</a></h2>
+<p>Starts periodic syncing of the pouches</p>
+<p><strong>Kind</strong>: global function<br />
+<a name="stopReplicationLoop"></a></p>
+<h2 id="stopreplicationloop">stopReplicationLoop()<a class="headerlink" href="#stopreplicationloop" title="Permanent link">&para;</a></h2>
+<p>Stop periodic syncing of the pouches</p>
+<p><strong>Kind</strong>: global function<br />
+<a name="replicateOnce"></a></p>
+<h2 id="replicateonce">replicateOnce()<a class="headerlink" href="#replicateonce" title="Permanent link">&para;</a></h2>
+<p>Starts replication</p>
+<p><strong>Kind</strong>: global function<br />
+<a name="setIntervalPromise"></a></p>
 <h2 id="setintervalpromise">setIntervalPromise()<a class="headerlink" href="#setintervalpromise" title="Permanent link">&para;</a></h2>
 <p>Will periodically run a function so that when the promise
 is resolved, the next function is called after <delay>ms.</p>

@@ -108,6 +108,7 @@ module.exports = {
   styleguideDir: path.resolve(__dirname, '../build/react'),
   require: [
     path.join(__dirname, './style.styl'),
+    'style-loader!css-loader!' + path.join(__dirname, '../transpiled/stylesheet.css'),
     path.join(__dirname, './styleguide.setup')
   ],
   exampleMode: 'collapse',

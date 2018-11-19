@@ -141,11 +141,11 @@
     <ul class="dropdown-menu">
             
 <li >
-    <a href="../../../cozy-client/guide/">Usage guide</a>
+    <a href="../../../cozy-client/getting-started/">Getting started</a>
 </li>
             
 <li >
-    <a href="../../../cozy-client/api/">API</a>
+    <a href="../../../cozy-client/how-tos/">How tos</a>
 </li>
     </ul>
   </li>
@@ -645,7 +645,8 @@
 <li><code>isThirdPartyPayer</code>: {boolean} - Indicate if the bill has been already covered by a third party payer. This attribute can be useful when Cozy retrieves bills issued by french medical insurances.
 When this attribute is in &ldquo;true&rdquo; no associated debit is expected to be found in the client bank
 statements.</li>
-<li><code>invoice</code>: {string} - The associated file. ex: <code>io.cozy.files:c43645a93831827c7ec512eac3006e51</code></li>
+<li><code>document</code>: {string} - The associated file. ex: <code>io.cozy.files:c43645a93831827c7ec512eac3006e51</code></li>
+<li><code>invoice</code>: {string} - (legacy) The associated file. ex: <code>io.cozy.files:c43645a93831827c7ec512eac3006e51</code></li>
 <li><code>fileUrl</code>: {string} - The url used to download the pdf from vendor.</li>
 <li><code>debitOperations</code>: {array[io.cozy.bank.operations._id]} - List of debit operations id</li>
 <li><code>creditOperations</code>: {array[io.cozy.bank.operations._id]} - List of credit operations id</li>
@@ -655,6 +656,7 @@ statements.</li>
 <ul>
 <li><code>health_costs</code>: Health related bills</li>
 <li><code>phone</code>: Phone related bills</li>
+<li><code>pay</code>: salary</li>
 </ul>
 <h3 id="some-more-attributes-for-reimbursement-bills">Some more attributes for reimbursement bills<a class="headerlink" href="#some-more-attributes-for-reimbursement-bills" title="Permanent link">&para;</a></h3>
 <p>The are some more possible attributes for reimbursement bills. The <code>original*</code> attributes
@@ -682,6 +684,32 @@ are there to help the connector to link this bills to their original debit opera
   &quot;subtype&quot;: &quot;Consultation spécialiste&quot;,
   &quot;type&quot;: &quot;health_costs&quot;,
   &quot;vendor&quot;: &quot;Harmonie&quot;
+}
+</pre></div>
+
+
+<h3 id="attributes-for-pay-type">Attributes for pay type<a class="headerlink" href="#attributes-for-pay-type" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>date</code>: {date} - The payment date</li>
+<li><code>periodStart</code>: {date} - The start of the payment period</li>
+<li><code>periodEnd</code>: {date} - The end of the payment period</li>
+<li><code>isRefund</code>: {boolean} - Indicates that the pay represents a positive operation</li>
+<li><code>employer</code>: {boolean} - The employer name</li>
+</ul>
+<h3 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>{
+  &quot;_id&quot;: &quot;62e5d80d6e11d19992b7efce794263f0&quot;,
+  &quot;vendor&quot;: &quot;Payfit&quot;,
+  &quot;type&quot;: &quot;pay&quot;,
+  &quot;amount&quot;: 1500,
+  &quot;date&quot;: &quot;2018-10-31T00:00:00.000Z&quot;,
+  &quot;periodStart&quot;: &quot;2018-10-01T00:00:00.000Z&quot;,
+  &quot;periodEnd&quot;: &quot;2018-10-31T00:00:00.000Z&quot;,
+  &quot;isRefund&quot;: true,
+  &quot;metadata&quot;: {
+    &quot;version&quot;: 1
+  }
+  &quot;payslip&quot;: &quot;io.cozy.files:c43645a93831827c7ec512eac3006e51&quot;
 }
 </pre></div>
                 </div>

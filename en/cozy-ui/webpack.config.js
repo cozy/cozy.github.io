@@ -34,9 +34,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new MiniCssExtractPlugin('[name].css'),
-    new webpack.DefinePlugin({
-      'process.env.USE_REACT': true
-    })
+    new MiniCssExtractPlugin('[name].css')
   ]
 }

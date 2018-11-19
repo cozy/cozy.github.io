@@ -141,11 +141,11 @@
     <ul class="dropdown-menu">
             
 <li >
-    <a href="../../cozy-client/guide/">Usage guide</a>
+    <a href="../../cozy-client/getting-started/">Getting started</a>
 </li>
             
 <li >
-    <a href="../../cozy-client/api/">API</a>
+    <a href="../../cozy-client/how-tos/">How tos</a>
 </li>
     </ul>
   </li>
@@ -579,6 +579,7 @@
             <li><a href="#running-a-couchdb-instance">Running a CouchDB instance</a></li>
             <li><a href="#building-a-cozy-stack-via-docker">Building a cozy-stack via Docker</a></li>
             <li><a href="#publishing-a-new-cozy-app-dev-image">Publishing a new cozy-app-dev image</a></li>
+            <li><a href="#docker-run-and-url-name">Docker run and url name</a></li>
     </ul>
   <div style='padding-left: 2rem'>
     
@@ -652,6 +653,10 @@ docker run -it --rm --name cozy-stack <span class="se">\</span>
 <h2 id="publishing-a-new-cozy-app-dev-image">Publishing a new cozy-app-dev image<a class="headerlink" href="#publishing-a-new-cozy-app-dev-image" title="Permanent link">&para;</a></h2>
 <p>We publish the cozy-app-dev image when we release a new version of the stack.
 See <code>scripts/release.sh</code> for details.</p>
+<h2 id="docker-run-and-url-name">Docker run and url name<a class="headerlink" href="#docker-run-and-url-name" title="Permanent link">&para;</a></h2>
+<p>A precision for the app name :</p>
+<p>docker run &ndash;rm -it -p 8080:8080 -v &ldquo;$(pwd)/build&rdquo;:/data/cozy-app/<strong><em>my-app</em></strong> cozy/cozy-app-dev</p>
+<p><strong><em>my-app</em></strong> will be the first part of : <strong><em>my-app</em></strong>.cozy.tools:8080</p>
                 </div>
         </div>
 
