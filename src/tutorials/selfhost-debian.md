@@ -196,7 +196,7 @@ For an instance `cozy.example.org`, `<app>.cozy.example.org` must be available t
  * `settings.cozy.example.org`
  * `drive.cozy.example.org`
  * `photos.cozy.example.org`
- * `collect.cozy.example.org`
+ * `home.cozy.example.org`
  * `store.cozy.example.org`
  * `<app>.cozy.example.org` for each application you use
 
