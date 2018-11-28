@@ -10,11 +10,6 @@ const WEBSOCKET_STATE = {
   OPEN: 1
 }
 
-const KEEPALIVE = {
-  INTERVAL: 30000,
-  METHOD_NAME: 'ping'
-}
-
 const NUM_RETRIES = 3
 const RETRY_BASE_DELAY = 1000
 
@@ -56,18 +51,6 @@ function getDomainFromUrl(url) {
     console.warn(`Cannot get domain from URL : ${error.message}`)
     return null
   }
-}
-
-function keepAlive(socket, interval, message) {
-  const keepAliveInterval = setInterval(() => {
-    if (socket.readyState === WEBSOCKET_STATE.OPEN) {
-      socket.send(message)
-    } else {
-      clearInterval(keepAliveInterval)
-    }
-  }, interval)
-
-  return socket
 }
 
 const isBoolean = [
@@ -167,13 +150,7 @@ async function connectWebSocket(
         // eslint-disable-next-line no-console
         console.error(`WebSocket error: ${error.message}`)
 
-      resolve(
-        keepAlive(
-          socket,
-          KEEPALIVE.INTERVAL,
-          `{"method":"${KEEPALIVE.METHOD_NAME}"}`
-        )
-      )
+      resolve(socket)
     }
   })
 }
@@ -192,12 +169,6 @@ function getCozySocket(config) {
       const payload = data.payload
 
       if (eventType === 'error') {
-        const isPingError =
-          data.payload &&
-          data.payload.source &&
-          data.payload.source.method === KEEPALIVE.METHOD_NAME
-        if (isPingError) return
-
         const realtimeError = new Error(payload.title)
         const errorFields = ['status', 'code', 'source']
         errorFields.forEach(property => {

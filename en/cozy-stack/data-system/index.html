@@ -1066,7 +1066,7 @@ This new endpoint skip the design docs (and does not count them in the
 <code>total_rows</code>). It only accepts two parameters in the query string: <code>skip</code>
 (default: 0) and <code>limit</code> (default: 100).</p>
 <p>Note that the response format is a bit different, it looks more like a <code>_find</code>
-response with mango.</p>
+response with mango. And, like for <code>_find</code>, the limit cannot be more than 100.</p>
 <h3 id="request_7">Request<a class="headerlink" href="#request_7" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/data/io.cozy.events/_normal_docs?skip=200&amp;limit=100</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
