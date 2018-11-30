@@ -637,18 +637,19 @@
 </ul>
 <div class="codehilite"><pre><span></span><span class="s2">&quot;commitlint&quot;</span><span class="err">:</span> <span class="p">{</span>
   <span class="nt">&quot;extends&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="s2">&quot;./packages/commitlint-config&quot;</span>
+    <span class="s2">&quot;cozy&quot;</span>
   <span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 
 
 <ul>
-<li>Add verification during a commit on your <code>package.json</code> (<a href="https://github.com/cozy/cozy-banks/blob/85572b6827cdaa45c1ed44d6922829ba6480b3c9/package.json#L65">see an example</a>):</li>
+<li>Add verification during a commit with husky (&gt; 1.0.0) on your <code>package.json</code> (<a href="https://github.com/cozy/cozy-libs/blob/ea325a4ea2b5bf0067875f625b5ad0a5b320e7e9/package.json#L24-L28">see an example</a>):</li>
 </ul>
-<div class="codehilite"><pre><span></span>&quot;scripts&quot;: {
-  &quot;commitmsg&quot;: &quot;commitlint -e $GIT_PARAMS&quot;
-  ...
+<div class="codehilite"><pre><span></span>&quot;husky&quot;: {
+  &quot;hooks&quot;: {
+    &quot;commit-msg&quot;: &quot;commitlint -e $GIT_PARAMS&quot;
+  }
 }
 </pre></div>
 
