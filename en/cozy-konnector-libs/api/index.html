@@ -367,6 +367,10 @@
 </li>
             
 <li >
+    <a href="../../cozy-stack/assets/">Working with the stacka assets</a>
+</li>
+            
+<li >
     <a href="../../cozy-stack/release/">Build a release</a>
 </li>
             
@@ -589,6 +593,7 @@
         <li class="main "><a href="#mkdirp">mkdirp</a></li>
         <li class="main "><a href="#normalizefilename">normalizeFilename</a></li>
         <li class="main "><a href="#savebills">saveBills</a></li>
+        <li class="main "><a href="#savebills_1">saveBills</a></li>
         <li class="main "><a href="#savefiles">saveFiles</a></li>
         <li class="main "><a href="#signin">signin</a></li>
         <li class="main "><a href="#updateorcreate">updateOrCreate</a></li>
@@ -598,6 +603,7 @@
             <li><a href="#utilsfindduplicates">utils~findDuplicates()</a></li>
             <li><a href="#utilsbatchupdateattributes">utils~batchUpdateAttributes()</a></li>
             <li><a href="#utilsbatchdelete">utils~batchDelete()</a></li>
+            <li><a href="#utilsgetpdftext">utils~getPdfText()</a></li>
         <li class="main "><a href="#basekonnector">BaseKonnector</a></li>
             <li><a href="#new-basekonnectorfetch">new BaseKonnector(fetch)</a></li>
             <li><a href="#basekonnectorend">baseKonnector.end()</a></li>
@@ -782,6 +788,10 @@ character in the given name.</p>
 const filename = normalizeFilename(&#39;*foo/bar: &lt;baz&gt; \\&quot;qux&quot;\t???&#39;, &#39;.txt&#39;)
 // `filename` === `foo bar baz qux.txt`
 </code></pre>
+</dd>
+<dt><a href="#module_saveBills">saveBills</a></dt>
+<dd><p>Encapsulate the saving of Bills : saves the files, saves the new data, and associate the files
+to an existing bank operation</p>
 </dd>
 <dt><a href="#module_saveBills">saveBills</a></dt>
 <dd><p>Combines the features of <code>saveFiles</code>, <code>hydrateAndFilter</code>, <code>addData</code> and <code>linkBankOperations</code> for a
@@ -1104,6 +1114,10 @@ character in the given name.</p>
 
 <p><a name="module_saveBills"></a></p>
 <h2 id="savebills">saveBills<a class="headerlink" href="#savebills" title="Permanent link">&para;</a></h2>
+<p>Encapsulate the saving of Bills : saves the files, saves the new data, and associate the files
+to an existing bank operation</p>
+<p><a name="module_saveBills"></a></p>
+<h2 id="savebills_1">saveBills<a class="headerlink" href="#savebills_1" title="Permanent link">&para;</a></h2>
 <p>Combines the features of <code>saveFiles</code>, <code>hydrateAndFilter</code>, <code>addData</code> and <code>linkBankOperations</code> for a
 common case: bills.
 Will create <code>io.cozy.bills</code> objects. The default deduplication keys are <code>['date', 'amount', 'vendor']</code>.
@@ -1278,6 +1292,7 @@ use this function.</p>
 <li><a href="#module_utils..findDuplicates">~findDuplicates()</a></li>
 <li><a href="#module_utils..batchUpdateAttributes">~batchUpdateAttributes()</a></li>
 <li><a href="#module_utils..batchDelete">~batchDelete()</a></li>
+<li><a href="#module_utils..getPdfText">~getPdfText()</a></li>
 </ul>
 </li>
 </ul>
@@ -1369,6 +1384,25 @@ documents, do not forget to clean linked bank operations</p>
 
 
 <p><strong>Kind</strong>: inner method of <a href="#module_utils"><code>utils</code></a><br />
+<a name="module_utils..getPdfText"></a></p>
+<h3 id="utilsgetpdftext">utils~getPdfText()<a class="headerlink" href="#utilsgetpdftext" title="Permanent link">&para;</a></h3>
+<p>This function can read the content of a cozy pdf file and output its text</p>
+<p>Parameters:</p>
+<ul>
+<li><code>fileId</code> (string): the id of the file in the cozy</li>
+<li><code>options</code> :</li>
+<li><code>pages</code> (array or number) : The list of page you want to interpret</li>
+</ul>
+<p>Returns a promise which resolves with an object with the following attributes:
+   - <code>text</code> (string) : The full text of the pdf
+   - <code>1</code> : The full pdfjs data for page 1
+   - <code>n</code> : The full pdfjs data for page n</p>
+<p>Example:</p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">pdfText</span> <span class="o">=</span> <span class="p">(</span><span class="nx">await</span> <span class="nx">getPdfText</span><span class="p">(</span><span class="s1">&#39;887ABCFE87687&#39;</span><span class="p">)).</span><span class="nx">text</span>
+</pre></div>
+
+
+<p><strong>Kind</strong>: inner method of <a href="#module_utils"><code>utils</code></a><br />
 <a name="BaseKonnector"></a></p>
 <h2 id="basekonnector">BaseKonnector<a class="headerlink" href="#basekonnector" title="Permanent link">&para;</a></h2>
 <p>The class from which all the connectors must inherit.
@@ -1441,7 +1475,7 @@ the konnector cannot know that asynchronous code has been called.</p>
 <p><strong>Kind</strong>: instance method of <a href="#BaseKonnector"><code>BaseKonnector</code></a><br />
 <a name="BaseKonnector+init"></a></p>
 <h3 id="basekonnectorinit-promise">baseKonnector.init() ⇒ <code>Promise</code><a class="headerlink" href="#basekonnectorinit-promise" title="Permanent link">&para;</a></h3>
-<p>Initializes the current connector with data comming from the associated account</p>
+<p>Initializes the current connector with data coming from the associated account</p>
 <p><strong>Kind</strong>: instance method of <a href="#BaseKonnector"><code>BaseKonnector</code></a><br />
 <strong>Returns</strong>: <code>Promise</code> - with the fields as an object<br />
 <a name="BaseKonnector+saveAccountData"></a></p>
