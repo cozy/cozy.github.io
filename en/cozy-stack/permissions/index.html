@@ -648,7 +648,7 @@ them later with the access token. The permissions are in the <code>scope</code> 
 users. It can be done in two ways:</p>
 <ul>
 <li>If the other user also has a cozy, it can be a cozy-to-cozy sharing.</li>
-<li>Else, the owner can give to him a link with a code.</li>
+<li>Else, the owner can give to him a link with a code or a shortcode.</li>
 </ul>
 <h2 id="what-is-a-permission">What is a permission?<a class="headerlink" href="#what-is-a-permission" title="Permanent link">&para;</a></h2>
 <p>A permission gives the right for a request having it to do something on the
@@ -806,11 +806,13 @@ between the components.</p>
 <h3 id="post-permissions">POST /permissions<a class="headerlink" href="#post-permissions" title="Permanent link">&para;</a></h3>
 <p>Create a new set of permissions. It can also associates one or more codes to it,
 via the <code>codes</code> parameter in the query string. These codes can then be sent to
-other people as a way to give these permissions (sharing by links). The
-parameter is comma separed list of values. The role of these values is to
-identify the codes if you want to revoke some of them later. A <code>ttl</code> parameter
-can also be given to make the codes expires after a delay
-(<a href="https://github.com/justincampbell/bigduration/blob/master/README.md">bigduration format</a>).</p>
+other people as a way to give these permissions (sharing by links). For each
+<code>code</code> created, a corresponding <code>shortcode</code> is generated and can be used to
+shorten links for sharing. The <code>code</code> parameter is a comma separed list of
+values. The role of these values is to identify the codes if you want to revoke
+some of them later. A <code>ttl</code> parameter can also be given to make the codes
+expires after a delay (<a href="https://github.com/justincampbell/bigduration/blob/master/README.md">bigduration
+format</a>).</p>
 <p><strong>Note</strong>: it is only possible to create a strict subset of the permissions
 associated to the sent token.</p>
 <h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
@@ -857,6 +859,10 @@ associated to the sent token.</p>
                 <span class="nt">&quot;bob&quot;</span><span class="p">:</span> <span class="s2">&quot;yuot7NaiaeGugh8T&quot;</span><span class="p">,</span>
                 <span class="nt">&quot;jane&quot;</span><span class="p">:</span> <span class="s2">&quot;Yohyoo8BHahh1lie&quot;</span>
             <span class="p">},</span>
+            <span class="nt">&quot;shortcodes&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;bob&quot;</span><span class="p">:</span> <span class="s2">&quot;abcdeFGHIJ01&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;jane&quot;</span><span class="p">:</span> <span class="s2">&quot;123456aBCdef&quot;</span>
+            <span class="p">},</span>
             <span class="nt">&quot;expires_at&quot;</span><span class="p">:</span> <span class="mi">1483951978</span><span class="p">,</span>
             <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="nt">&quot;images&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -897,6 +903,10 @@ associated to the sent token.</p>
             <span class="nt">&quot;codes&quot;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="nt">&quot;bob&quot;</span><span class="p">:</span> <span class="s2">&quot;yuot7NaiaeGugh8T&quot;</span><span class="p">,</span>
                 <span class="nt">&quot;jane&quot;</span><span class="p">:</span> <span class="s2">&quot;Yohyoo8BHahh1lie&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;shortcodes&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;bob&quot;</span><span class="p">:</span> <span class="s2">&quot;abcdeFGHIJ01&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;jane&quot;</span><span class="p">:</span> <span class="s2">&quot;123456aBCdef&quot;</span>
             <span class="p">},</span>
             <span class="nt">&quot;expires_at&quot;</span><span class="p">:</span> <span class="mi">1483951978</span><span class="p">,</span>
             <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -1003,6 +1013,9 @@ give the contacts application the permissions to use it.</p>
             <span class="nt">&quot;source_id&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.apps/my-awesome-game&quot;</span><span class="p">,</span>
             <span class="nt">&quot;codes&quot;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="nt">&quot;bob&quot;</span><span class="p">:</span> <span class="s2">&quot;yuot7NaiaeGugh8T&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;shortcodes&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;bob&quot;</span><span class="p">:</span> <span class="s2">&quot;abcdeFGHIJ01&quot;</span>
             <span class="p">},</span>
             <span class="nt">&quot;expires_at&quot;</span><span class="p">:</span> <span class="mi">1483951978</span><span class="p">,</span>
             <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -1112,7 +1125,12 @@ examples.</p>
                         <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;c47f82396d09bfcd270343c5855b0eea&quot;</span><span class="p">]</span>
                     <span class="p">}</span>
                 <span class="p">},</span>
-                <span class="nt">&quot;codes&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;bob&quot;</span><span class="p">:</span> <span class="s2">&quot;secret&quot;</span> <span class="p">}</span>
+                <span class="nt">&quot;codes&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;bob&quot;</span><span class="p">:</span> <span class="s2">&quot;secret&quot;</span>
+                <span class="p">},</span>
+                <span class="nt">&quot;shortcodes&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;bob&quot;</span><span class="p">:</span> <span class="s2">&quot;abcdeFGHIJ01&quot;</span>
+                <span class="p">}</span>
             <span class="p">},</span>
             <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-d46b6358683b80c8d59fc55d6de54127&quot;</span> <span class="p">},</span>
             <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/permissions/c47f82396d09bfcd270343c5855b30a0&quot;</span> <span class="p">}</span>
@@ -1129,7 +1147,12 @@ examples.</p>
                         <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;c47f82396d09bfcd270343c5855b169b&quot;</span><span class="p">]</span>
                     <span class="p">}</span>
                 <span class="p">},</span>
-                <span class="nt">&quot;codes&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;bob&quot;</span><span class="p">:</span> <span class="s2">&quot;secret&quot;</span> <span class="p">}</span>
+                <span class="nt">&quot;codes&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;bob&quot;</span><span class="p">:</span> <span class="s2">&quot;secret&quot;</span>
+                <span class="p">},</span>
+                <span class="nt">&quot;shortcodes&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;bob&quot;</span><span class="p">:</span> <span class="s2">&quot;abcdeFGHIJ01&quot;</span>
+                <span class="p">}</span>
             <span class="p">},</span>
             <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-920af658575a56e9e84685f1b09e5c23&quot;</span> <span class="p">},</span>
             <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/permissions/c47f82396d09bfcd270343c5855b351a&quot;</span> <span class="p">}</span>

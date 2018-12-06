@@ -1,6 +1,6 @@
 {
   "name": "cozy-flags",
-  "version": "1.2.11",
+  "version": "1.2.12",
   "description": "Flag library used in Cozy",
   "main": "dist/index.js",
   "author": "Cozy",
@@ -15,10 +15,17 @@
   },
   "scripts": {
     "build": "babel src -d dist",
-    "prepublishOnly": "yarn build"
+    "prepublishOnly": "yarn build",
+    "test": "jest"
   },
   "devDependencies": {
     "@babel/cli": "7.1.2",
-    "babel-preset-cozy-app": "^1.2.1"
+    "babel-preset-cozy-app": "^1.2.1",
+    "jest-localstorage-mock": "^2.3.0"
+  },
+  "jest": {
+    "setupFiles": [
+      "jest-localstorage-mock"
+    ]
   }
 }

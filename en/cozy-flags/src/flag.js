@@ -1,13 +1,13 @@
 /* global localStorage */
 
-const prefix = 'flag__'
-const getKey = name => prefix + name
+export const prefix = 'flag__'
+export const getKey = name => prefix + name
 
-const setFlag = (name, value) => {
+export const setFlag = (name, value) => {
   return localStorage.setItem(getKey(name), JSON.stringify(value))
 }
 
-const getFlag = name => {
+export const getFlag = name => {
   const val = localStorage.getItem(getKey(name))
   if (val) {
     return JSON.parse(val)
