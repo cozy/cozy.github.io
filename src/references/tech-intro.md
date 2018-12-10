@@ -39,7 +39,7 @@ The server consist of a single process. We call it *the Cozy stack*. It provides
 
  - create, update, delete documents inside the database;
  - send emails;
- - launch jobs on the server. Connectors that import data from remote websites are some sort of jobs. Jobs can be one time tasks (sending a message) or periodic tasks. Some jobs, like the connectors, that require executing third party code on the server side, are sandboxed (we user `nsjail` for now).
+ - launch jobs on the server. Connectors that import data from remote websites are some sort of jobs. Jobs can be one time tasks (sending a message) or periodic tasks. Some jobs, like the connectors, that require executing third party code on the server side, are sandboxed (we use `nsjail` for now).
  - …
 
 The server also allow to access the database replication API, allowing to sync documents between the server and local databases, for example in mobile clients.
