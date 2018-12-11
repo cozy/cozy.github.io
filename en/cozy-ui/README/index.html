@@ -639,34 +639,20 @@
 <p>Check out <a href="https://cozy.github.io/cozy-ui/react/">UI components</a> to see how to use ready made (p)React components.</p>
 <h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
 <h3 id="as-a-components-library">As a Components library<a class="headerlink" href="#as-a-components-library" title="Permanent link">&para;</a></h3>
-<p>Use <a href="https://yarnpkg.com/"><code>yarn</code></a> to add Cozy UI to a dependency to your project.</p>
-<div class="codehilite"><pre><span></span>yarn add cozy-ui
+<p>Add Cozy UI to a dependency to your project.</p>
+<div class="codehilite"><pre><span></span>npm install cozy-ui
+</pre></div>
+
+
+<p>If you use the transpiled components (from <code>cozy-ui/transpiled/react</code>), you need to import the stylesheet (once):</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">Button</span> <span class="nn">from</span> <span class="s1">&#39;cozy-ui/transpiled/react/Button&#39;</span>
+<span class="kn">import</span> <span class="s1">&#39;cozy-ui/transpiled/stylesheet.css&#39;</span>
+
+<span class="o">&lt;</span><span class="n">Button</span> <span class="o">/&gt;</span>
 </pre></div>
 
 
 <p>You&rsquo;re now ready to use <a href="https://cozy.github.io/cozy-ui/react/">Cozy UI&rsquo;s (p)React components</a></p>
-<h3 id="as-a-stylus-plugin">As a Stylus plugin<a class="headerlink" href="#as-a-stylus-plugin" title="Permanent link">&para;</a></h3>
-<p><a href="http://stylus-lang.com/">Stylus</a> is used as a preprocessor. You can add it as a library in your project to use it out-of-the-box.</p>
-<p>Cozy UI can be distributed as a plugin.</p>
-<div class="codehilite"><pre><span></span>$ yarn add -D cozy-ui
-</pre></div>
-
-
-<p>Then simply add it to your plugins stack:</p>
-<div class="codehilite"><pre><span></span><span class="kd">var</span> <span class="nx">stylus</span>  <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;stylus&#39;</span><span class="p">)</span>
-  <span class="p">,</span> <span class="nx">cozyui</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-ui/stylus&#39;</span><span class="p">);</span>
-
-
-<span class="kd">function</span> <span class="nx">compile</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">path</span><span class="p">)</span> <span class="p">{</span>
-<span class="k">return</span> <span class="nx">stylus</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span>
-  <span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;filename&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">)</span>
-  <span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;compress&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
-  <span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">cozyui</span><span class="p">());</span>
-<span class="p">}</span>
-</pre></div>
-
-
-<p>Then, you just need to add a <code>@import 'cozy-ui'</code> statement at top of your main stylus file.</p>
 <h3 id="as-a-vanilla-css-library">As a vanilla CSS library<a class="headerlink" href="#as-a-vanilla-css-library" title="Permanent link">&para;</a></h3>
 <p>The entire library is also available as a good ol’ CSS library. You can simply add it to your app by linking the distributed minified file.</p>
 <div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">link</span> <span class="na">media</span><span class="o">=</span><span class="s">&quot;all&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">“cozy-ui/dist/cozy-ui.min.css&quot;</span> <span class="p">/&gt;</span>
