@@ -4,6 +4,14 @@ module.exports = {
   title: 'Cozy UI React components',
   sections: [
     {
+      name: 'Material-UI',
+      components: () => [
+        '../react/MuiCozyTheme/index.jsx',
+        '../react/MuiCozyTheme/Buttons',
+        '../react/MuiCozyTheme/Menus'
+      ]
+    },
+    {
       name: 'Basics',
       components: () => [
         '../react/Badge/index.jsx',
