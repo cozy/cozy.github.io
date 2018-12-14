@@ -47,6 +47,19 @@
         {% include "nav.html" %}
 
         <div class="wrapper">
+            {% if page and page.is_homepage %}
+            <div class="search-block">
+              <h2 class="section-header text-center">Welcome to the Cozy documentation</h2>
+              <p class="section-desc text-center">Tutorials, guides and all the references you need to develop with Cozy.</p>
+              <form>
+                <div class="search">
+                  <input type="search" id="mkdocs-search-query" placeholder="Search in documentation">
+                  <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                  <div class="mkdocs-search-results"></div>
+                </div>
+              </form>
+            </div>
+            {% endif %}
             {%- block content %}
                 {%- if page.meta.title %}
                     <div class="main-page-head">
