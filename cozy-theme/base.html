@@ -47,6 +47,7 @@
         {% include "nav.html" %}
 
         <div class="wrapper">
+            {%- block before_content %}{%- endblock %}
             {% if page and page.is_homepage %}
             <div class="search-block">
               <h2 class="section-header text-center">Welcome to the Cozy documentation</h2>
@@ -60,6 +61,7 @@
               </form>
             </div>
             {% endif %}
+
             {%- block content %}
                 {%- if page.meta.title %}
                     <div class="main-page-head">

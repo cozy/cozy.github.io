@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{%- block before_content %}
+    {%- if nav|length>1 %}
+        <!-- Main navigation -->
+        <ul>
+        {%- for nav_item in nav if not nav_item.title == 'hidden' %}
+        {%- if nav_item.children %}
+            <li class="">
+                <a href="#">{{ nav_item.title }} <b class="caret"></b></a>
+                <ul>
+                {%- for nav_item in nav_item.children %}
+
+                <li>{{ nav_item.title }} <b class="caret"></b></li>
+                {%- endfor %}
+                </ul>
+                </ul>
+            </li>
+        {%- else %}
+            <li>
+                <a href="{{ nav_item.url }}">{{ nav_item.title }}</a>
+            </li>
+        {%- endif %}
+        {%- endfor %}
+        </ul>
+    {%- endif %}
+{%- endblock %}
