@@ -678,13 +678,23 @@
   <img src="../../img/dev/cca-create.gif" />
 </div>
 
-<p>That&rsquo;s it! You can already start hacking:</p>
+<p>That&rsquo;s it! You can already start developing:</p>
 <div class="codehilite"><pre><span></span>cd mycozyapp
 yarn start
 </pre></div>
 
 
-<p>After the webpack build and the Cozy inside Docker is started, the app <code>mycozyapp</code> app should be available at <code>http://mycozyapp.cozy.tools:8080</code> (the password is <code>cozy</code>), as noticed by the output:</p>
+<p>This command will run </p>
+<ul>
+<li><code>webpack</code> in a watching mode with a server (webpack-dev-server) to serve application assets.</li>
+<li>a Cozy <code>stack</code> using docker (the image <code>cozy/cozy-app-dev</code>) to serve your application inside it.</li>
+<li>The same docker image starts a CouchDB containing your data (be careful, since a data volume is not attached by default, your data will disappear on restart. You should start the docker image manually if you want to persist your data).</li>
+</ul>
+<p>Your application will be available at http://<MY_APP_SLUG>.cozy.tools:8080. Password is <code>cozy</code>.</p>
+<div class="codehilite"><pre><span></span>In this mode HMR (Hot Module Replacement) is available to help you with the application development.
+</pre></div>
+
+
 <div align="center">
   <img src="../../img/dev/cca-start.gif" />
 </div>
