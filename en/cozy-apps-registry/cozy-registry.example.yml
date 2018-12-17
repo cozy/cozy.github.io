@@ -1,0 +1,30 @@
+# server host (serve command) - flag --host
+host: "127.0.0.1"
+# server port (serve command) - flag --port
+port: 8081
+
+couchdb:
+  # CouchDB server url - flag --couchdb-url
+  url: http://localhost:5984
+  # CouchDB user - flag --couchdb-user
+  user: admin
+  # CouchDB password - flag --couchdb-password
+  password: password
+  # CouchDB prefix for the registries databases - flag --couchdb-prefix
+  # prefix: registry1
+
+# List of supported spaces by the registry.
+#
+# If specified, the routes of the registry API will be formed with as follow:
+#   /:space-name/registry/
+#
+# The `__default__` name is a special identifier to specify a space with an
+# empty name, that will respond on /registry/
+#
+# spaces: __default__ registry1 registry2
+
+# Path to the session secret file containing the master secret to generate
+# session token.
+#
+# Should be generated with the "gen-session-secret" command.
+session-secret: sessionsecret.key
