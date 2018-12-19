@@ -871,6 +871,10 @@ cozy-apps-registry gen-token --master Cozy -c cozy-registry.yml
 <td><em>(konnector specific)</em> Additional parameters which should be passed to the konnector. Used for example for bank konnectors to pass a <code>bankId</code> parameter.</td>
 </tr>
 <tr>
+<td><code>partnership</code></td>
+<td>an object to provide informations (to display in the Store for example) about a partnership related to the application (<code>icon</code> and <code>description</code>)</td>
+</tr>
+<tr>
 <td><code>permissions</code></td>
 <td>a map of permissions needed by the app (see <a href="https://cozy.github.io/cozy-stack/permissions.html">see cozy-stack permissions doc </a> for more details)</td>
 </tr>
@@ -903,6 +907,10 @@ cozy-apps-registry gen-token --master Cozy -c cozy-registry.yml
 <td>a list a tags describing your application and features (useful for indexing and search)</td>
 </tr>
 <tr>
+<td><code>terms</code></td>
+<td>an object defining some properties about a related terms that need to be displayed/accepted by the user when installing the application</td>
+</tr>
+<tr>
 <td><code>time_interval</code></td>
 <td><em>(konnector specific)</em> By defaults, konnector triggers are scheduled randomly between 00:00 AM and 05:00 AM. Those two values can be overwritten thanks to this property, by passing an array containing two values: first is the interval start hour, second is the interval end hour. Example: <code>[15, 21]</code> will randomly schedule the konnector trigger between 15:00 (03:00 PM) and 21:00 (09:00 PM).</td>
 </tr>
@@ -922,7 +930,7 @@ cozy-apps-registry gen-token --master Cozy -c cozy-registry.yml
 </table>
 <blockquote>
 <p><strong>Notices:</strong>
-- All images paths (<code>icon</code> and <code>screenshots</code>) should be relative to the build directory. For example, here, the <code>icon.svg</code> is stored in the build root directory and all <code>screenshots</code> are store in a folder <code>screenshots</code> in the build directory. Therefore, if you use a bundler (like webpack) be sure to know exactly where the bundler will store these assets in the build directory (and change it in the manifest if needed).
+- All images paths (<code>icon</code>, <code>partnership.icon</code> and <code>screenshots</code>) should be relative to the build directory. For example, here, the <code>icon.svg</code> is stored in the build root directory and all <code>screenshots</code> are store in a folder <code>screenshots</code> in the build directory. Therefore, if you use a bundler (like webpack) be sure to know exactly where the bundler will store these assets in the build directory (and change it in the manifest if needed).
 - All properties in <code>locales</code> objects will override the matched property of the main <code>manifest.webapp</code> body, if a property is not found in <code>locales</code> it will fallback to the main body one.
 - We use to have the <code>en</code> locale as default one if the one wanted by the user doesn&rsquo;t exist. Be sure to have, at least, that locale complete with the name and all descriptions.
 - In your build files, this <code>manifest.webapp</code> file must be at the root.</p>
@@ -936,6 +944,12 @@ cozy-apps-registry gen-token --master Cozy -c cozy-registry.yml
 <li><code>changes</code></li>
 <li><code>screenshots</code></li>
 <li><code>folders</code></li>
+</ul>
+<h5 id="application-terms">Application terms<a class="headerlink" href="#application-terms" title="Permanent link">&para;</a></h5>
+<p>You can provide a related <code>terms</code> property if you want to display and make the user accept some terms (ToS for example) just before installing the application. Here are all properties allowed and used:</p>
+<ul>
+<li><code>url</code>, the URL of the terms/contract to redirect the user to (<strong>REQUIRED</strong>)</li>
+<li><code>version</code>: A specific version of the terms, we need it handle terms updates and ask the user again to accept the update (<strong>REQUIRED</strong>)</li>
 </ul>
 <h5 id="konnectors-folders-handling">Konnectors folders handling<a class="headerlink" href="#konnectors-folders-handling" title="Permanent link">&para;</a></h5>
 <p>The <code>folders</code> property is a list of objects with these following properties:</p>
