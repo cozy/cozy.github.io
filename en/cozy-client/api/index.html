@@ -592,6 +592,7 @@
         <li class="main active"><a href="#modules">Modules</a></li>
         <li class="main "><a href="#constants">Constants</a></li>
         <li class="main "><a href="#functions">Functions</a></li>
+        <li class="main "><a href="#association">Association</a></li>
         <li class="main "><a href="#cozyclient">CozyClient</a></li>
             <li><a href="#moduleexports">module.exports ⏏</a></li>
         <li class="main "><a href="#querydefinition">QueryDefinition</a></li>
@@ -606,6 +607,7 @@
             <li><a href="#documentcollectionalloptions-object">documentCollection.all(options) ⇒ Object</a></li>
             <li><a href="#documentcollectionfindselector-options-object">documentCollection.find(selector, options) ⇒ Object</a></li>
             <li><a href="#documentcollectiongetindexfieldsoptions-array">documentCollection.getIndexFields(options) ⇒ Array</a></li>
+            <li><a href="#documentcollectionfetchchangessince-options">documentCollection.fetchChanges(since, options)</a></li>
         <li class="main "><a href="#filecollection">FileCollection</a></li>
             <li><a href="#filecollectionfindselector-options-object">fileCollection.find(selector, options) ⇒ Object</a></li>
             <li><a href="#filecollectionfindreferencedbydocument-limit-object">fileCollection.findReferencedBy(document, {, limit) ⇒ object</a></li>
@@ -695,6 +697,56 @@
 
 <h2 id="modules">Modules<a class="headerlink" href="#modules" title="Permanent link">&para;</a></h2>
 <dl>
+<dt><a href="#module_Association">Association</a></dt>
+<dd><p>Associations are used by components to access related store documents that are
+linked in a document. They are also responsible for building the query that is
+used by the client to automatically fetch relationship data.</p>
+<p>Hydrated documents used by components come with Association instances.</p>
+<p>Example: The schema defines an <code>author</code> relationship :</p>
+<pre><code>const BOOK_SCHEMA = {
+  relationships: {
+     author: &#39;has-one&#39;
+  }
+}
+</code></pre><p>Hydrated <code>books</code> will have the <code>author</code> association instance under the <code>author</code> key.
+Accessing <code>hydratedBook.author.data</code> gives you the author from the store, for example :</p>
+<pre><code>{
+  name: &#39;St-Exupery&#39;,
+  firstName: &#39;Antoine&#39;,
+  _id: &#39;antoine&#39;
+}
+</code></pre><p>It is the responsibility of the relationship to decide how the relationship data is stored.
+For example, here since we use the default <code>has-one</code> relationship, the relationship data
+is stored in the <code>relationships</code> attribute of the original document (in our case here, our book
+would be</p>
+<pre><code>{
+  title: &#39;Le petit prince&#39;,
+  relationships: {
+    author: {
+      data: {
+        doctype: &#39;io.cozy.authors&#39;,
+        _id: &#39;antoine&#39;
+      }
+    }
+  }
+}
+</code></pre><p>In the case of an &quot;in-place&quot; relationship, the relationship data is stored directly under the attribute named
+by the relationship (in our case <code>author</code>). Our book would be</p>
+<pre><code>{
+    title: &#39;Le petit prince&#39;,
+    author: &#39;antoine&#39;
+}
+</code></pre><hr>
+<p>Each different type of Association may change:</p>
+<ul>
+<li><code>get raw</code>: how the relationship data is stored (either as per the JSON API spec or
+in a custom way)</li>
+<li><code>get data</code>: how the store documents are then fetched from the store to be added to
+the hydrated document (.data method). View components will access
+<code>hydratedDoc[relationshipName].data</code>.</li>
+<li><code>get query</code>: how to build the query to fetch related documents</li>
+</ul>
+</dd>
 <dt><a href="#module_CozyClient">CozyClient</a></dt>
 <dd></dd>
 <dt><a href="#module_QueryDefinition">QueryDefinition</a></dt>
@@ -832,6 +884,68 @@ continue.</p>
 </dd>
 </dl>
 
+<p><a name="module_Association"></a></p>
+<h2 id="association">Association<a class="headerlink" href="#association" title="Permanent link">&para;</a></h2>
+<p>Associations are used by components to access related store documents that are
+linked in a document. They are also responsible for building the query that is
+used by the client to automatically fetch relationship data.</p>
+<p>Hydrated documents used by components come with Association instances.</p>
+<p>Example: The schema defines an <code>author</code> relationship :</p>
+<div class="codehilite"><pre><span></span>const BOOK_SCHEMA = {
+  relationships: {
+     author: &#39;has-one&#39;
+  }
+}
+</pre></div>
+
+
+<p>Hydrated <code>books</code> will have the <code>author</code> association instance under the <code>author</code> key.
+Accessing <code>hydratedBook.author.data</code> gives you the author from the store, for example :</p>
+<div class="codehilite"><pre><span></span>{
+  name: &#39;St-Exupery&#39;,
+  firstName: &#39;Antoine&#39;,
+  _id: &#39;antoine&#39;
+}
+</pre></div>
+
+
+<p>It is the responsibility of the relationship to decide how the relationship data is stored.
+For example, here since we use the default <code>has-one</code> relationship, the relationship data
+is stored in the <code>relationships</code> attribute of the original document (in our case here, our book
+would be</p>
+<div class="codehilite"><pre><span></span>{
+  title: &#39;Le petit prince&#39;,
+  relationships: {
+    author: {
+      data: {
+        doctype: &#39;io.cozy.authors&#39;,
+        _id: &#39;antoine&#39;
+      }
+    }
+  }
+}
+</pre></div>
+
+
+<p>In the case of an &ldquo;in-place&rdquo; relationship, the relationship data is stored directly under the attribute named
+by the relationship (in our case <code>author</code>). Our book would be</p>
+<div class="codehilite"><pre><span></span>{
+    title: &#39;Le petit prince&#39;,
+    author: &#39;antoine&#39;
+}
+</pre></div>
+
+
+<hr />
+<p>Each different type of Association may change:</p>
+<ul>
+<li><code>get raw</code>: how the relationship data is stored (either as per the JSON API spec or
+ in a custom way)</li>
+<li><code>get data</code>: how the store documents are then fetched from the store to be added to
+the hydrated document (.data method). View components will access
+<code>hydratedDoc[relationshipName].data</code>.</li>
+<li><code>get query</code>: how to build the query to fetch related documents</li>
+</ul>
 <p><a name="module_CozyClient"></a></p>
 <h2 id="cozyclient">CozyClient<a class="headerlink" href="#cozyclient" title="Permanent link">&para;</a></h2>
 <ul>
@@ -1454,6 +1568,7 @@ For example, query albums including the photos.</p>
 <li><a href="#module_DocumentCollection+all">.all(options)</a> ⇒ <code>Object</code></li>
 <li><a href="#module_DocumentCollection+find">.find(selector, options)</a> ⇒ <code>Object</code></li>
 <li><a href="#module_DocumentCollection+getIndexFields">.getIndexFields(options)</a> ⇒ <code>Array</code></li>
+<li><a href="#module_DocumentCollection+fetchChanges">.fetchChanges(since, options)</a></li>
 </ul>
 </li>
 </ul>
@@ -1533,6 +1648,31 @@ query to work</p>
 <td>options</td>
 <td><code>Object</code></td>
 <td>Mango query options</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_DocumentCollection+fetchChanges"></a></p>
+<h3 id="documentcollectionfetchchangessince-options">documentCollection.fetchChanges(since, options)<a class="headerlink" href="#documentcollectionfetchchangessince-options" title="Permanent link">&para;</a></h3>
+<p>Use Couch _changes API</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_DocumentCollection"><code>DocumentCollection</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>since</td>
+<td><code>String</code></td>
+<td>Starting sequence for changes</td>
+</tr>
+<tr>
+<td>options</td>
+<td><code>Object</code></td>
+<td false="false" false_="false," includeDeleted:="includeDeleted:" includeDesign:="includeDesign:"></td>
 </tr>
 </tbody>
 </table>
