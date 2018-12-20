@@ -912,7 +912,7 @@ cozy-apps-registry gen-token --master Cozy -c cozy-registry.yml
 </tr>
 <tr>
 <td><code>terms</code></td>
-<td>an object defining some properties about a related terms that need to be displayed/accepted by the user when installing the application</td>
+<td>an object defining  properties for terms that need to be displayed/accepted by the user when installing the application (<a href="#application-terms">more-info-below</a>)</td>
 </tr>
 <tr>
 <td><code>time_interval</code></td>
@@ -954,6 +954,7 @@ cozy-apps-registry gen-token --master Cozy -c cozy-registry.yml
 <ul>
 <li><code>url</code>, the URL of the terms/contract to redirect the user to (<strong>REQUIRED</strong>)</li>
 <li><code>version</code>: A specific version of the terms, we need it handle terms updates and ask the user again to accept the update (<strong>REQUIRED</strong>)</li>
+<li><code>id</code>: An id for the terms. When accepting terms, we store in <code>io.cozy.terms</code>, a document containing the <code>id</code> and <code>version</code> so that we know which terms have been accepted, and show the user a modal if the terms have not been accepted yet. (<strong>REQUIRED</strong>)</li>
 </ul>
 <h5 id="konnectors-folders-handling">Konnectors folders handling<a class="headerlink" href="#konnectors-folders-handling" title="Permanent link">&para;</a></h5>
 <p>The <code>folders</code> property is a list of objects with these following properties:</p>

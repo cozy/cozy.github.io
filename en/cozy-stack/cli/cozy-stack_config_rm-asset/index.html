@@ -7,10 +7,10 @@
         
         
         <meta name="author" content="CozyCloud - https://cozy.io">
-        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/cli/cozy-stack_config/">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/cli/cozy-stack_config_rm-asset/">
         <link rel="shortcut icon" href="../../../img/favicon.png">
         
-        <title>cozy-stack_config - Dev Documentation</title>
+        <title>cozy-stack_config_rm-asset - Dev Documentation</title>
         <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
@@ -589,15 +589,16 @@
                 <div class="col-md-3 main-toc">
 <div class="bs-sidebar hidden-print affix" role="complementary">
     <ul class="nav bs-sidenav well" style='padding-left: 0; padding-right: 0; margin-bottom: 1.5rem'>
-        <li class="main active"><a href="#cozy-stack-config">cozy-stack config</a></li>
+        <li class="main active"><a href="#cozy-stack-config-rm-asset">cozy-stack config rm-asset</a></li>
             <li><a href="#synopsis">Synopsis</a></li>
+            <li><a href="#examples">Examples</a></li>
             <li><a href="#options">Options</a></li>
             <li><a href="#options-inherited-from-parent-commands">Options inherited from parent commands</a></li>
             <li><a href="#see-also">SEE ALSO</a></li>
     </ul>
   <div style='padding-left: 2rem'>
     
-    <a id='edit-link' href='https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-stack/cli/cozy-stack_config.md'>Edit documentation</a>
+    <a id='edit-link' href='https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-stack/cli/cozy-stack_config_rm-asset.md'>Edit documentation</a>
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
@@ -635,12 +636,21 @@
                 <div class="col-md-9" role="main">
                     
 
-<h2 id="cozy-stack-config">cozy-stack config<a class="headerlink" href="#cozy-stack-config" title="Permanent link">&para;</a></h2>
-<p>Show and manage configuration elements</p>
+<h2 id="cozy-stack-config-rm-asset">cozy-stack config rm-asset<a class="headerlink" href="#cozy-stack-config-rm-asset" title="Permanent link">&para;</a></h2>
+<p>Removes an asset</p>
 <h3 id="synopsis">Synopsis<a class="headerlink" href="#synopsis" title="Permanent link">&para;</a></h3>
-<p>cozy-stack config allows to print and generate some parts of the configuration</p>
+<p>Removes a custom asset in a specific context</p>
+<div class="codehilite"><pre><span></span>cozy-stack config rm-asset [context] [name] [flags]
+</pre></div>
+
+
+<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>$ cozy-stack config rm-asset foobar /foo/bar/baz.js
+</pre></div>
+
+
 <h3 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span>  -h, --help   help for config
+<div class="codehilite"><pre><span></span>  -h, --help   help for rm-asset
 </pre></div>
 
 
@@ -655,17 +665,7 @@
 
 <h3 id="see-also">SEE ALSO<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h3>
 <ul>
-<li><a href="../cozy-stack/">cozy-stack</a>    - cozy-stack is the main command</li>
-<li><a href="../cozy-stack_config_decrypt-creds/">cozy-stack config decrypt-creds</a>  - Decrypt the given credentials cipher text with the specified decryption keyfile.</li>
-<li><a href="../cozy-stack_config_decrypt-data/">cozy-stack config decrypt-data</a>    - Decrypt data with the specified decryption keyfile.</li>
-<li><a href="../cozy-stack_config_encrypt-creds/">cozy-stack config encrypt-creds</a>  - Encrypt the given credentials with the specified decryption keyfile.</li>
-<li><a href="../cozy-stack_config_encrypt-data/">cozy-stack config encrypt-data</a>    - Encrypt data with the specified encryption keyfile.</li>
-<li><a href="../cozy-stack_config_gen-keys/">cozy-stack config gen-keys</a>    - Generate an key pair for encryption and decryption of credentials</li>
-<li><a href="../cozy-stack_config_insert-asset/">cozy-stack config insert-asset</a>    - Inserts an asset</li>
-<li><a href="../cozy-stack_config_ls-assets/">cozy-stack config ls-assets</a>  - List assets</li>
-<li><a href="../cozy-stack_config_passwd/">cozy-stack config passwd</a>    - Generate an admin passphrase</li>
-<li><a href="../cozy-stack_config_print/">cozy-stack config print</a>  - Display the configuration</li>
-<li><a href="../cozy-stack_config_rm-asset/">cozy-stack config rm-asset</a>    - Removes an asset</li>
+<li><a href="../cozy-stack_config/">cozy-stack config</a>  - Show and manage configuration elements</li>
 </ul>
                 </div>
         </div>
