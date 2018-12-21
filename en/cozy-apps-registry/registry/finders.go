@@ -176,7 +176,7 @@ func FindLatestVersion(c *Space, appSlug string, channel Channel) (*Version, err
 
 	channelStr := channelToStr(channel)
 
-	key := lru.Key(appSlug + "/" + channelStr)
+	key := lru.Key(c.prefix + "/" + appSlug + "/" + channelStr)
 	if data, ok := cacheVersionsLatest.Get(key); ok {
 		var latestVersion *Version
 		if err := json.Unmarshal(data, &latestVersion); err == nil {
@@ -218,7 +218,7 @@ func FindLatestVersion(c *Space, appSlug string, channel Channel) (*Version, err
 func FindAppVersions(c *Space, appSlug string, channel Channel) (*AppVersions, error) {
 	db := c.VersDB()
 
-	key := lru.Key(appSlug + "/" + channelToStr(channel))
+	key := lru.Key(c.prefix + "/" + appSlug + "/" + channelToStr(channel))
 	if data, ok := cacheVersionsList.Get(key); ok {
 		var versions *AppVersions
 		if err := json.Unmarshal(data, &versions); err == nil {

@@ -1087,15 +1087,32 @@ tags.</p>
 </pre></div>
 
 
-<h3 id="get-registryappscreenshotsfilename">GET /registry/:app/screenshots/:filename<a class="headerlink" href="#get-registryappscreenshotsfilename" title="Permanent link">&para;</a></h3>
-<p>Get the screenshot with the specified filename from the field <code>screenshots</code> of
-the application.</p>
+<h3 id="get-registryapppartnership_icon">GET /registry/:app/partnership_icon<a class="headerlink" href="#get-registryapppartnership_icon" title="Permanent link">&para;</a></h3>
+<p>Get the current application partnership_icon.</p>
 <h4 id="request_5">Request<a class="headerlink" href="#request_5" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/registry/drive/screenshots/screen1.jpg</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/registry/drive/partnership_icon</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 </pre></div>
 
 
 <h4 id="response_4">Response<a class="headerlink" href="#response_4" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">image/svg+xml</span>
+
+<span class="nt">&lt;svg</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/2000/svg&quot;</span> <span class="na">width=</span><span class="s">&quot;64&quot;</span> <span class="na">height=</span><span class="s">&quot;64&quot;</span> <span class="na">viewBox=</span><span class="s">&quot;0 0 64 64&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;g</span> <span class="na">fill=</span><span class="s">&quot;none&quot;</span> <span class="na">fill-rule=</span><span class="s">&quot;evenodd&quot;</span><span class="nt">&gt;&lt;/g&gt;</span>
+<span class="nt">&lt;/svg&gt;</span>
+</pre></div>
+
+
+<h3 id="get-registryappscreenshotsfilename">GET /registry/:app/screenshots/:filename<a class="headerlink" href="#get-registryappscreenshotsfilename" title="Permanent link">&para;</a></h3>
+<p>Get the screenshot with the specified filename from the field <code>screenshots</code> of
+the application.</p>
+<h4 id="request_6">Request<a class="headerlink" href="#request_6" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/registry/drive/screenshots/screen1.jpg</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
+
+
+<h4 id="response_5">Response<a class="headerlink" href="#response_5" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">image/jpeg</span>
 
@@ -1105,36 +1122,8 @@ the application.</p>
 
 <h3 id="get-registryappversion">GET /registry/:app/:version<a class="headerlink" href="#get-registryappversion" title="Permanent link">&para;</a></h3>
 <p>Get an application version.</p>
-<h4 id="request_6">Request<a class="headerlink" href="#request_6" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/registry/drive/3.1.1</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-</pre></div>
-
-
-<h4 id="response_5">Response<a class="headerlink" href="#response_5" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
-<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
-</pre></div>
-
-
-<div class="codehilite"><pre><span></span><span class="p">{</span>
-    <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;webapp&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.1.1&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://.../3.1.1&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;sha256&quot;</span><span class="p">:</span> <span class="s2">&quot;466aa0815926fdbf33fda523af2b9bf34520906ffbb9bf512ddf20df2992a46f&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="s2">&quot;1000&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-07-05T07:54:40.982Z&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;manifest&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="err">/*</span> <span class="err">...</span> <span class="err">*/</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-
-
-<h3 id="get-registryappchannellatest">GET /registry/:app/:channel/latest<a class="headerlink" href="#get-registryappchannellatest" title="Permanent link">&para;</a></h3>
-<p>Get the latest version available on the specified channel.</p>
 <h4 id="request_7">Request<a class="headerlink" href="#request_7" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/registry/drive/dev/latest</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/registry/drive/3.1.1</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 </pre></div>
 
 
@@ -1159,14 +1148,42 @@ the application.</p>
 </pre></div>
 
 
-<h3 id="get-registrymaintenance">GET /registry/maintenance<a class="headerlink" href="#get-registrymaintenance" title="Permanent link">&para;</a></h3>
-<p>Get the list of applications with maintenance mode activated.</p>
+<h3 id="get-registryappchannellatest">GET /registry/:app/:channel/latest<a class="headerlink" href="#get-registryappchannellatest" title="Permanent link">&para;</a></h3>
+<p>Get the latest version available on the specified channel.</p>
 <h4 id="request_8">Request<a class="headerlink" href="#request_8" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/registry/maintenance</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/registry/drive/dev/latest</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 </pre></div>
 
 
 <h4 id="response_7">Response<a class="headerlink" href="#response_7" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;webapp&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.1.1&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://.../3.1.1&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;sha256&quot;</span><span class="p">:</span> <span class="s2">&quot;466aa0815926fdbf33fda523af2b9bf34520906ffbb9bf512ddf20df2992a46f&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="s2">&quot;1000&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-07-05T07:54:40.982Z&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;manifest&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="err">/*</span> <span class="err">...</span> <span class="err">*/</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="get-registrymaintenance">GET /registry/maintenance<a class="headerlink" href="#get-registrymaintenance" title="Permanent link">&para;</a></h3>
+<p>Get the list of applications with maintenance mode activated.</p>
+<h4 id="request_9">Request<a class="headerlink" href="#request_9" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/registry/maintenance</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
+
+
+<h4 id="response_8">Response<a class="headerlink" href="#response_8" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </pre></div>

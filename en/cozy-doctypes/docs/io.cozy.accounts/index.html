@@ -591,8 +591,7 @@
     <ul class="nav bs-sidenav well" style='padding-left: 0; padding-right: 0; margin-bottom: 1.5rem'>
         <li class="main active"><a href="#cozy-accounts-doctype">Cozy Accounts doctype</a></li>
             <li><a href="#auth">auth</a></li>
-            <li><a href="#about-login">About login</a></li>
-            <li><a href="#examples">Examples</a></li>
+            <li><a href="#relationships">Relationships</a></li>
     </ul>
   <div style='padding-left: 2rem'>
     
@@ -654,6 +653,22 @@
 <li><code>namePath</code>: The name of the last folder. Usually saved along with <code>folderPath</code>.</li>
 </ul>
 <p>The <code>auth</code> attributes also contain all values for the fields attribute specified in the <code>manifest.konnector</code> file.</p>
+<h2 id="relationships">Relationships<a class="headerlink" href="#relationships" title="Permanent link">&para;</a></h2>
+<h3 id="parent"><code>parent</code><a class="headerlink" href="#parent" title="Permanent link">&para;</a></h3>
+<p>An account may have a <code>parent</code> relationship. It is used to indicate that this accounts depends on another one.
+Generally, the konnector should be able to handle by itself this kind of relationshiop, like querying the database to get the information it needs. A <code>parent</code> relationship is aimed to be an account overriden by the account it is linked to, but it can also be use as an <em>aggregator</em> account. See [Cozy-stack documentation about aggregator accounts)[https://github.com/cozy/cozy-stack/blob/master/docs/konnectors-workflow.md#aggregator-accounts].</p>
+<h4 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;parent&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;aggregator-service-account&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;_doctype&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.accounts&quot;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
 <h3 id="about-login">About <code>login</code><a class="headerlink" href="#about-login" title="Permanent link">&para;</a></h3>
 <p>Some konnectors does not use a <code>login</code> parameter, but <code>identifier</code> or <code>email</code>. The usage of anything except <code>login</code> is deprecated and should not be done.</p>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>

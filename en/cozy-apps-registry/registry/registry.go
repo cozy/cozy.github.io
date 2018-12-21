@@ -230,7 +230,6 @@ type VersionOptions struct {
 	Sha256      string          `json:"sha256"`
 	Parameters  json.RawMessage `json:"parameters"`
 	Icon        string          `json:"icon"`
-	Partnership Partnership     `json:"partnership"`
 	Screenshots []string        `json:"screenshots"`
 }
 
@@ -251,21 +250,15 @@ type Version struct {
 	TarPrefix string          `json:"tar_prefix"`
 }
 
-type Partnership struct {
-	Icon        string `json:"icon,omitempty"`
-	Description string `json:"description,omitempty"`
-}
-
 // Manifest type contains a subset of the attributes contained in the manifest
 // of applications. It is only here to help us reading some informations from
 // the manifest that are useful to us, without manipulating maps.
 type Manifest struct {
-	Editor      string      `json:"editor"`
-	Slug        string      `json:"slug"`
-	Version     string      `json:"version"`
-	Icon        string      `json:"icon"`
-	Partnership Partnership `json:"partnership"`
-	Screenshots []string    `json:"screenshots"`
+	Editor      string   `json:"editor"`
+	Slug        string   `json:"slug"`
+	Version     string   `json:"version"`
+	Icon        string   `json:"icon"`
+	Screenshots []string `json:"screenshots"`
 	Locales     map[string]struct {
 		Screenshots []string `json:"screenshots"`
 	} `json:"locales"`
@@ -555,7 +548,7 @@ func createVersion(c *Space, db *kivik.DB, ver *Version, attachments []*kivik.At
 	versionChannel := GetVersionChannel(ver.Version)
 	for _, channel := range []Channel{Stable, Beta, Dev} {
 		if channel >= versionChannel {
-			key := lru.Key(ver.Slug + "/" + channelToStr(channel))
+			key := lru.Key(c.prefix + "/" + ver.Slug + "/" + channelToStr(channel))
 			cacheVersionsLatest.Remove(key)
 			cacheVersionsList.Remove(key)
 		}
@@ -864,16 +857,6 @@ func downloadVersion(opts *VersionOptions) (ver *Version, attachments []*kivik.A
 			iconPath = path.Join("/", iconPath)
 		}
 
-		var partnershipIconPath string
-		if opts.Partnership.Icon != "" {
-			partnershipIconPath = opts.Partnership.Icon
-		} else {
-			partnershipIconPath = parsedManifest.Partnership.Icon
-		}
-		if partnershipIconPath != "" {
-			partnershipIconPath = path.Join("/", partnershipIconPath)
-		}
-
 		var screenshotPaths []string
 		if opts.Screenshots != nil {
 			screenshotPaths = opts.Screenshots
@@ -894,7 +877,7 @@ func downloadVersion(opts *VersionOptions) (ver *Version, attachments []*kivik.A
 			}
 		}
 
-		if len(screenshotPaths) > 0 || iconPath != "" || partnershipIconPath != "" {
+		if len(screenshotPaths) > 0 || iconPath != "" {
 			buf.Seek(0, io.SeekStart)
 			tr, err = tarReader(buf, contentType)
 			if err != nil {
@@ -934,10 +917,8 @@ func downloadVersion(opts *VersionOptions) (ver *Version, attachments []*kivik.A
 				}
 
 				isIcon := iconPath != "" && name == iconPath
-				isPartnershipIcon := partnershipIconPath != "" && name == partnershipIconPath
-
 				isShot := !isIcon && stringInArray(name, screenshotPaths)
-				if !isIcon && !isPartnershipIcon && !isShot {
+				if !isIcon && !isShot {
 					continue
 				}
 
@@ -953,8 +934,6 @@ func downloadVersion(opts *VersionOptions) (ver *Version, attachments []*kivik.A
 					filename = "icon"
 				} else if isShot {
 					filename = path.Join("screenshots", name)
-				} else if isPartnershipIcon {
-					filename = "partnership_icon"
 				} else {
 					panic("unreachable")
 				}

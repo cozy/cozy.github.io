@@ -658,6 +658,31 @@ saved in CouchDB, but we will show them as the konnectors will see them):</p>
 
 
 <p>Accounts are manipulated through the <code>/data/</code> API.</p>
+<h4 id="aggregator-accounts">Aggregator accounts<a class="headerlink" href="#aggregator-accounts" title="Permanent link">&para;</a></h4>
+<p>Some konnectors are based on an aggregator service. An aggregator is declared
+in the konnector manifest and specify an <code>accountId</code> property. When Cozy-Home
+detects this property, it checks if an account with this given id exists. If not,
+it creates it. Every account created for a konnector based on an aggregator is
+then related to this aggregator account. This relationship is called <code>parent</code>
+account.</p>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;auth&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;login&quot;</span><span class="p">:</span> <span class="s2">&quot;000000000&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;password&quot;</span><span class="p">:</span> <span class="s2">&quot;**********&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;folderPath&quot;</span><span class="p">:</span> <span class="s2">&quot;/Administratif/Bankbank&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Bankbank&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;namePath&quot;</span><span class="p">:</span> <span class="s2">&quot;Bankbank&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;parent&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;service-aggregator-account&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;_type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.accounts&quot;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
 <p><strong>Note:</strong> you can read more about the <a href="https://docs.cozy.io/en/cozy-doctypes/docs/io.cozy.accounts/">accounts doctype
 here</a>.</p>
 <h3 id="konnectors">Konnectors<a class="headerlink" href="#konnectors" title="Permanent link">&para;</a></h3>
