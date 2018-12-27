@@ -42,7 +42,7 @@ For each new app requested by the user, repeat steps
 
 - Can be activated by the user
 - Only works through emails right now
-- Once 2FA activated, and the user authenticated, a new chekbox "Trust this machine" create a new cookie (if checked)
+- Once 2FA activated, and the user authenticated, a new checkbox "Trust this machine" creates a new cookie (if checked)
 
  !!! warning ""
      There are a few timing issues with 2FA, as the code validation time is quite short, and some emails may be delayed.
