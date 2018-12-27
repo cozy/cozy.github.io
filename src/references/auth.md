@@ -5,7 +5,7 @@ title: Authentication
 ## Authentication Sequence
 
 1. The User opens up a browser to check his cozy, using his *cozy app domain* (`user-home.mycozy.cloud/`, or `user-drive.mycozy.cloud/`, or ...)
-2. he's redirected to his *cozy user domain* (`user.mycozy.cloud`)
+2. (s)he's redirected to his *cozy user domain* (`user.mycozy.cloud`)
 3. The browser request the *cozy user domain*, which send back the authentication form. The user fills his password, sending it back to the  *cozy user domain*
 4. The server *cozy user domain* set an auth cookie for *cozy user domain* ONLY
 5. A redirect status response code (302) for the requested app domain (`user-home.mycozy.cloud/`, or `user-drive.mycozy.cloud/`, or ...) is sent to the browser
