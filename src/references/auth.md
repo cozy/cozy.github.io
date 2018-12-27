@@ -41,7 +41,7 @@ For each new app requested by the user, repeat steps
 ### 2FA
 
 - Can be activated by the user
-- Only works through emails right window
+- Only works through emails right now
 - Once 2FA activated, and the user authenticated, a new chekbox "Trust this machine" create a new cookie (if checked)
 
  !!! warning ""
