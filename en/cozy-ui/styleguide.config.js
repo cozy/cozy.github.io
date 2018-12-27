@@ -56,6 +56,7 @@ module.exports = {
         '../react/Text/index.jsx',
         '../react/Empty/index.jsx',
         '../react/Well/index.jsx',
+        '../react/Infos/index.jsx',
         '../react/ContextHeader/index.jsx'
       ]
     },
@@ -116,7 +117,8 @@ module.exports = {
   styleguideDir: path.resolve(__dirname, '../build/react'),
   require: [
     path.join(__dirname, './style.styl'),
-    'style-loader!css-loader!' + path.join(__dirname, '../transpiled/stylesheet.css'),
+    'style-loader!css-loader!' +
+      path.join(__dirname, '../transpiled/stylesheet.css'),
     path.join(__dirname, './styleguide.setup')
   ],
   exampleMode: 'collapse',
