@@ -47,7 +47,7 @@ For each new app requested by the user, repeat steps
  !!! warning ""
      There are a few timing issues with 2FA, as the code validation time is quite short, and some emails may be delayed.
 
-### Authentication uses
+### Usecases and their authentication methods
 
 - User : password and Cookies
 - App (drive, photo, home...) : Cookie and Authorization Bearer Token
