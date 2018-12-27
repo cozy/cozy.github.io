@@ -10,7 +10,7 @@ title: Authentication
 4. The server *cozy user domain* sets an auth cookie for *cozy user domain* ONLY
 5. A redirect status response code (302) for the requested app domain (`user-home.mycozy.cloud/`, or `user-drive.mycozy.cloud/`, or ...) is sent to the browser
 5. The browser requests the *cozy app domain* with a [jwt code](https://jwt.io/)
-6. The jwt code  is checked and decoded through the stack, which send back a bearer token in the request header to *cozy app domain*
+6. The jwt code  is checked and decoded through the stack, which sends back a bearer token in the request header to *cozy app domain*
 7. *cozy app domain* uses the bearer token to communicate with the stack through XHR request
 8. *cozy app domain* sends back the authenticated UI to the browser, and a new cookie for the *cozy app domain* (`user-home.mycozy.cloud/`, or `user-drive.mycozy.cloud/`, or ...)
 
