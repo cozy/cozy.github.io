@@ -641,7 +641,6 @@
 </ul>
 <h3 id="mandatory-attributes">Mandatory attributes<a class="headerlink" href="#mandatory-attributes" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>type</code>: {string} - Type of the bill</li>
 <li><code>vendor</code>: {string} - Vendor which issued the bill</li>
 <li><code>date</code>: {date} - Date the bill was emitted, a string ISO8601 formated  (in JS you can have that with <code>(new Date()).toJSON()</code>)</li>
 <li><code>amount</code>: {number} - Amount of the bill, <strong>always positive</strong> even if it is a refund</li>
@@ -649,6 +648,7 @@
 </ul>
 <h3 id="optional-attributes-but-some-are-important-depending-the-context">Optional attributes (but some are important depending the context)<a class="headerlink" href="#optional-attributes-but-some-are-important-depending-the-context" title="Permanent link">&para;</a></h3>
 <ul>
+<li><code>type</code>: {string} - Type of the bill (see below for existing types)</li>
 <li><code>isRefund</code>: {boolean} - Indicate if the bill represents a refund/reimbursement</li>
 <li><code>subtype</code>: {string} - Used for labelling the bill. ie: &ldquo;Ostéopathie&rdquo;</li>
 <li><code>originalDate</code> - For health bills, represents the date of the health act (presumably the date the account was charged)</li>

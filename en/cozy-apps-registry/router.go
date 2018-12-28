@@ -17,12 +17,10 @@ import (
 	"github.com/cozy/cozy-apps-registry/auth"
 	"github.com/cozy/cozy-apps-registry/errshttp"
 	"github.com/cozy/cozy-apps-registry/registry"
-	"github.com/sirupsen/logrus"
-
 	"github.com/cozy/echo"
 	"github.com/cozy/echo/middleware"
-
 	"github.com/go-kivik/kivik"
+	"github.com/sirupsen/logrus"
 )
 
 const RegistryVersion = "0.1.0"
@@ -218,12 +216,18 @@ func approvePendingVersion(c echo.Context) (err error) {
 	}
 
 	appSlug := c.Param("app")
+	if appSlug == "" {
+		return errshttp.NewError(http.StatusNotFound, "App is missing in the URL")
+	}
 	app, err := registry.FindApp(getSpace(c), appSlug, registry.Stable)
 	if err != nil {
 		return err
 	}
 
 	ver := stripVersion(c.Param("version"))
+	if ver == "" {
+		return errshttp.NewError(http.StatusNotFound, "Version is missing in the URL")
+	}
 	version, err := registry.FindPendingVersion(getSpace(c), appSlug, ver)
 	if err != nil {
 		return err
@@ -454,6 +458,10 @@ func getAppIcon(c echo.Context) error {
 	return getAppAttachment(c, "icon")
 }
 
+func getAppPartnershipIcon(c echo.Context) error {
+	return getAppAttachment(c, "partnership_icon")
+}
+
 func getAppScreenshot(c echo.Context) error {
 	filename := path.Join("screenshots", c.Param("*"))
 	err := getAppAttachment(c, filename)
@@ -504,7 +512,7 @@ func getAppAttachment(c echo.Context, filename string) error {
 
 	contentType := att.ContentType
 	// force image/svg content-type for svg assets that start with <?xml
-	if filename == "icon" && contentType == "text/xml" {
+	if (filename == "icon" || filename == "partnership_icon") && contentType == "text/xml" {
 		contentType = "image/svg+xml"
 	}
 
@@ -517,6 +525,10 @@ func getAppAttachment(c echo.Context, filename string) error {
 
 func getVersionIcon(c echo.Context) error {
 	return getVersionAttachment(c, "icon")
+}
+
+func getVersionPartnershipIcon(c echo.Context) error {
+	return getVersionAttachment(c, "partnership_icon")
 }
 
 func getVersionScreenshot(c echo.Context) error {
@@ -541,7 +553,7 @@ func getVersionAttachment(c echo.Context, filename string) error {
 
 	contentType := att.ContentType
 	// force image/svg content-type for svg assets that start with <?xml
-	if filename == "icon" && contentType == "text/xml" {
+	if (filename == "icon" || filename == "partnership_icon") && contentType == "text/xml" {
 		contentType = "image/svg+xml"
 	}
 
@@ -871,6 +883,8 @@ func Router(addr string) *echo.Echo {
 
 		g.GET("/:app/icon", getAppIcon)
 		g.HEAD("/:app/icon", getAppIcon)
+		g.GET("/:app/partnership_icon", getAppPartnershipIcon)
+		g.HEAD("/:app/partnership_icon", getAppPartnershipIcon)
 		g.GET("/:app/screenshots/*", getAppScreenshot)
 		g.HEAD("/:app/screenshots/*", getAppScreenshot)
 		g.GET("/:app/:channel/latest/icon", getAppIcon)
@@ -879,6 +893,8 @@ func Router(addr string) *echo.Echo {
 		g.GET("/:app/:channel/latest/screenshots/*", getAppScreenshot)
 		g.HEAD("/:app/:version/icon", getVersionIcon)
 		g.GET("/:app/:version/icon", getVersionIcon)
+		g.HEAD("/:app/:version/partnership_icon", getVersionPartnershipIcon)
+		g.GET("/:app/:version/partnership_icon", getVersionPartnershipIcon)
 		g.HEAD("/:app/:version/screenshots/*", getVersionScreenshot)
 		g.GET("/:app/:version/screenshots/*", getVersionScreenshot)
 	}
