@@ -17,7 +17,8 @@ title: Authentication
 For each new app requested by the user, repeat steps
 (Steps 3 & 4 only happens when the user is not authenticated at all: meaning there is no auth cookie for *cozy user domain* )
 
-![Architecture](../img/dev/auth_sequence.png)
+![Architecture](../img/dev/auth.png)
+[Mermaid source](../img/dev/auth_source.mmdc)
 
 
 ## Authentication types

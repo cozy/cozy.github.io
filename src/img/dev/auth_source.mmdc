@@ -1,0 +1,21 @@
+sequenceDiagram
+
+participant user
+participant cozy app domain
+participant cozy user domain
+
+user->>cozy app domain: request app
+cozy app domain->>user: 302: redir to cozy user domain
+
+user->>cozy user domain: request
+
+opt if unauthenticated
+cozy user domain->>user: password form
+user->>cozy user domain: password
+end
+
+cozy user domain->>user: set auth cookie (restricted to cozy user domain) + 302: redir to cozy app domain with a jwt code
+user->>cozy app domain: request app with jwt code
+cozy app domain->>cozy app domain: decode jwt - get a bearer token (for this app only) in the html code returned from the stack
+cozy app domain->>cozy app domain: use the bearer token - for XHR requests to the cozy stack
+cozy app domain->>user: authenticated UI
