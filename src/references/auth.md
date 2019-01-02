@@ -37,8 +37,7 @@ When the password changes, all the old cookies are invalidated, and a new one is
 - The "Remember me" check box only affect the expiration date of the *cozy user domain* cookie
 
  !!! warning ""
-     - local dev servers (`cozy.tools`), selfHost server and Gandi server use sudomains: `home.user.cozy`
-     - dev servers (`cozy.wtf`), integration servers (`cozy.works`), staging servers (`cozy.rocks`) and production server (`mycozy.cloud`) use different domains `user-home.cozy...`
+For this documentation we use the domain and the configuration pattern of our production servers: `user.mycozy.cloud` for the user and `user-app.mycozy.cloud` for apps. This is only an example and you will have another domain if your are hosted elsewhere or if you are in a development environement. You may also have a different configuration pattern where the app is on a subdomain of the user domain (like `app.user.mydomain`). If so, cookies set on the user domain may be readable by the app domain.
 
 ### 2FA
 
