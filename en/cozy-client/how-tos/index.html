@@ -591,6 +591,7 @@
     <ul class="nav bs-sidenav well" style='padding-left: 0; padding-right: 0; margin-bottom: 1.5rem'>
         <li class="main active"><a href="#how-to-integrate-with-an-existing-store">How-to integrate with an existing store ?</a></li>
         <li class="main "><a href="#how-to-connect-to-the-documents-store-declaratively">How to connect to the documents store declaratively ?</a></li>
+        <li class="main "><a href="#how-to-connect-to-multiple-queries-at-once">How to connect to multiple queries at once ?</a></li>
         <li class="main "><a href="#how-to-provide-a-mutation-to-a-component">How to provide a mutation to a component ?</a></li>
         <li class="main "><a href="#how-to-specify-a-schema">How to specify a schema ?</a></li>
     </ul>
@@ -639,6 +640,7 @@
 <ul>
 <li><a href="#how-to-integrate-with-an-existing-store-">How-to integrate with an existing store ?</a></li>
 <li><a href="#how-to-connect-to-the-documents-store-declaratively-">How to connect to the documents store declaratively ?</a></li>
+<li><a href="#how-to-connect-to-multiple-queries-at-once-">How to connect to multiple queries at once ?</a></li>
 <li><a href="#how-to-provide-a-mutation-to-a-component-">How to provide a mutation to a component ?</a></li>
 <li><a href="#how-to-specify-a-schema-">How to specify a schema ?</a></li>
 </ul>
@@ -693,6 +695,37 @@
   <span class="nx">fetchStatus</span><span class="o">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">string</span><span class="p">.</span><span class="nx">isRequired</span><span class="p">,</span>
   <span class="nx">data</span><span class="o">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">array</span>
 <span class="p">}</span>
+</pre></div>
+
+
+<h2 id="how-to-connect-to-multiple-queries-at-once">How to connect to multiple queries at once ?<a class="headerlink" href="#how-to-connect-to-multiple-queries-at-once" title="Permanent link">&para;</a></h2>
+<p>The <code>queryConnect</code> HOC enables you to connect multiple queries to a component. In the following example, the <code>App</code> component needs todos and contacts. We use <code>queryConnect</code> to retrieve them all:</p>
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">queryConnect</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
+<span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span>
+<span class="kr">import</span> <span class="nx">TodoList</span> <span class="nx">from</span> <span class="s1">&#39;./TodoList&#39;</span>
+<span class="kr">import</span> <span class="nx">Contacts</span> <span class="nx">from</span> <span class="s1">&#39;./Contacts&#39;</span>
+
+<span class="kr">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">todos</span><span class="p">,</span> <span class="nx">contacts</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">{</span><span class="nx">todos</span><span class="p">.</span><span class="nx">fetchStatus</span> <span class="o">!==</span> <span class="s1">&#39;loaded&#39;</span> <span class="o">?</span> <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span><span class="nx">Loading</span><span class="p">...&lt;/</span><span class="nt">p</span><span class="p">&gt;</span> <span class="o">:</span> <span class="p">&lt;</span><span class="nt">TodoList</span> <span class="na">items</span><span class="o">=</span><span class="p">{</span><span class="nx">todos</span><span class="p">.</span><span class="nx">data</span><span class="p">}</span> <span class="p">/&gt;}</span>
+    <span class="p">{</span><span class="nx">contacts</span><span class="p">.</span><span class="nx">fetchStatus</span> <span class="o">!==</span> <span class="s1">&#39;loaded&#39;</span> <span class="o">?</span> <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span><span class="nx">Loading</span><span class="p">...&lt;/</span><span class="nt">p</span><span class="p">&gt;</span> <span class="o">:</span> <span class="p">&lt;</span><span class="nt">Contacts</span> <span class="na">items</span><span class="o">=</span><span class="p">{</span><span class="nx">contact</span><span class="p">.</span><span class="nx">data</span><span class="p">}</span> <span class="p">/&gt;}</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">)</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">queryConnect</span><span class="p">({</span>
+  <span class="nx">todos</span><span class="o">:</span> <span class="p">{</span> <span class="nx">query</span><span class="o">:</span> <span class="nx">client</span> <span class="p">=&gt;</span> <span class="nx">client</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">),</span> <span class="nx">as</span><span class="o">:</span> <span class="s1">&#39;todos&#39;</span> <span class="p">},</span>
+  <span class="nx">contacts</span><span class="o">:</span> <span class="p">{</span> <span class="nx">query</span><span class="o">:</span> <span class="nx">client</span> <span class="p">=&gt;</span> <span class="nx">client</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="s1">&#39;io.cozy.contacts&#39;</span><span class="p">),</span> <span class="nx">as</span><span class="o">:</span> <span class="s1">&#39;contact&#39;</span> <span class="p">}</span>
+<span class="p">})(</span><span class="nx">App</span><span class="p">)</span>
+</pre></div>
+
+
+<p><code>queryConnect</code> also allows us to make queries based on props by passing a function instead of a plain object. For example, if we want to fetch todos based on a selected contact:</p>
+<div class="codehilite"><pre><span></span><span class="nx">queryConnect</span><span class="p">({</span>
+  <span class="nx">todos</span><span class="o">:</span> <span class="nx">props</span> <span class="p">=&gt;</span> <span class="p">({</span>
+    <span class="nx">query</span><span class="o">:</span> <span class="nx">client</span> <span class="p">=&gt;</span> <span class="nx">client</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">).</span><span class="nx">where</span><span class="p">({</span> <span class="nx">author</span><span class="o">:</span> <span class="nx">props</span><span class="p">.</span><span class="nx">selectedContact</span> <span class="p">}),</span>
+    <span class="nx">as</span><span class="o">:</span> <span class="s1">&#39;todos&#39;</span>
+  <span class="p">})</span>
+<span class="p">})</span>
 </pre></div>
 
 
