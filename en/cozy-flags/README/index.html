@@ -592,6 +592,7 @@
         <li class="main active"><a href="#flags">Flags</a></li>
             <li><a href="#demo">Demo</a></li>
             <li><a href="#usage">Usage</a></li>
+            <li><a href="#flags-enabled-at-build-time">Flags enabled at build time</a></li>
     </ul>
   <div style='padding-left: 2rem'>
     
@@ -669,6 +670,13 @@ flags in use.</p>
   <span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
+
+
+<h3 id="flags-enabled-at-build-time">Flags enabled at build time<a class="headerlink" href="#flags-enabled-at-build-time" title="Permanent link">&para;</a></h3>
+<p>It is possible to handle flags enabled at build time. Your app should just
+provide a global <code>__ENABLED_FLAGS__</code> array with flag names that should be
+enabled. If such a global exists, <code>cozy-flags</code> will iterate on the array and
+enable all the flags it contains when it is imported.</p>
                 </div>
         </div>
 
