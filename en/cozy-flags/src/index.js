@@ -7,8 +7,22 @@ const flag = isNode
   ? require('./node/flag').default
   : require('./browser/flag').default
 
-if (__ENABLED_FLAGS__ && Array.isArray(__ENABLED_FLAGS__)) {
-  __ENABLED_FLAGS__.forEach(enabledFlag => flag(enabledFlag, true))
+/**
+ * Enables a list of flags
+ * @param {string[]} flagsToEnable
+ */
+export function enableFlags(flagsToEnable) {
+  if (!Array.isArray(flagsToEnable)) {
+    return
+  }
+
+  flagsToEnable.forEach(flagToEnable => flag(flagToEnable, true))
 }
+
+if (typeof __ENABLED_FLAGS__ !== 'undefined') {
+  enableFlags(__ENABLED_FLAGS__)
+}
+
+flag.enable = enableFlags
 
 export default flag
