@@ -22,7 +22,6 @@ Available channels are:
 
  * __stable__: official and supported releases
  * __testing__: future official releases, for testing purposes. Updated ± twice a month.
- * __unstable__: nightly builds, to be use with caution
 
 `cozy-couchdb` and `cozy-nsjail` are temporary packages. They will be removed when official `couchdb` and `nsjail` will be available
 
@@ -63,14 +62,12 @@ Then, fetch the GPG Cozy signing key:
 ```bash
 curl https://apt.cozy.io/cozy.gpg | \
     apt-key --keyring /etc/apt/trusted.gpg.d/cozy.gpg add -
-curl https://apt.cozy.io/nightly/cozy.gpg | \
-    apt-key --keyring /etc/apt/trusted.gpg.d/cozy.gpg add -
 ```
 
 Finally, setup your repository. Select the channel that best fit your needs:
 
 !!! warning ""
-    For now, we recommend to use `testing` repositories, or `nightly/unstable` channels.
+    For now, we recommend to use `testing` repositories.
     `stable` packages are quite old and currently provide deprecated and unsecured CouchDB version (2.0.x).
     Adapt your `sources.list` accordingly.
 
@@ -79,22 +76,13 @@ Supported repositories are:
  * Debian Stretch (9.x)
      * deb https://apt.cozy.io/debian/ stretch stable
      * deb https://apt.cozy.io/debian/ stretch testing
-     * deb https://apt.cozy.io/nightly/debian/ stretch unstable
  * Raspbian Stretch (9.x)
      * deb https://apt.cozy.io/raspbian/ stretch stable
      * deb https://apt.cozy.io/raspbian/ stretch testing
-     * deb https://apt.cozy.io/nightly/raspbian/ stretch unstable
 
 ```bash
 echo "deb https://apt.cozy.io/debian/ stretch testing" > /etc/apt/sources.list.d/cozy.list
 apt update
-```
-
-If you want to use unstable/nightly builds, you have to accept another key (weaker and passwordless on our side because of unattended automated builds)
-
-```bash
-curl https://apt.cozy.io/nightly/cozy.gpg | \
-    apt-key --keyring /etc/apt/trusted.gpg.d/cozy.gpg add -
 ```
 
 ## Setup
@@ -122,7 +110,6 @@ At this point, you must have a working CouchDB instance
 curl http://localhost:5984/
 {"couchdb":"Welcome","version":"2.1.0","features":["scheduler"],"vendor":{"name":"The Apache Software Foundation"}}
 ```
-If you want to use unstable/nightly builds, you might get another version of the database.
 
 ### Cozy stack
 
