@@ -54,14 +54,14 @@ Pin-Priority: 510" > /etc/apt/preferences.d/cozy
 First, install the packages required to install cozy
 
 ```bash
-apt install ca-certificates apt-transport-https curl
+apt install ca-certificates apt-transport-https wget
 ```
 
 Then, fetch the GPG Cozy signing key:
 
 ```bash
-curl https://apt.cozy.io/cozy.gpg | \
-    apt-key --keyring /etc/apt/trusted.gpg.d/cozy.gpg add -
+wget https://apt.cozy.io/cozy-keyring.deb
+dpkg -i cozy-keyring.deb
 ```
 
 Finally, setup your repository. Select the channel that best fit your needs:
