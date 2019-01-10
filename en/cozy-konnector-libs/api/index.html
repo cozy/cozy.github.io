@@ -611,7 +611,7 @@
         <li class="main "><a href="#savefiles">saveFiles</a></li>
             <li><a href="#savefiles_1">saveFiles() ⏏</a></li>
         <li class="main "><a href="#signin">signin</a></li>
-            <li><a href="#signin_1">signin() ⏏</a></li>
+            <li><a href="#moduleexports_5">module.exports() ⏏</a></li>
         <li class="main "><a href="#updateorcreate">updateOrCreate</a></li>
             <li><a href="#moduleexportsentries-doctype-matchingattributes-promise">module.exports(entries, doctype, matchingAttributes) ⇒ Promise ⏏</a></li>
         <li class="main "><a href="#utils">utils</a></li>
@@ -628,6 +628,7 @@
             <li><a href="#basekonnectorinit-promise">baseKonnector.init() ⇒ Promise</a></li>
             <li><a href="#basekonnectorsaveaccountdatadata-options-promise">baseKonnector.saveAccountData(data, options) ⇒ Promise</a></li>
             <li><a href="#basekonnectorgetaccountdata-object">baseKonnector.getAccountData() ⇒ object</a></li>
+            <li><a href="#basekonnectorupdateaccountattributes">baseKonnector.updateAccountAttributes()</a></li>
             <li><a href="#basekonnectorterminatemessage">baseKonnector.terminate(message)</a></li>
         <li class="main "><a href="#document">Document</a></li>
             <li><a href="#documentisequal">document.isEqual()</a></li>
@@ -841,7 +842,7 @@ use this function.</p>
 initialized and ready to use.</p>
 <p><a name="exp_module_cozyClient--module.exports"></a></p>
 <h3 id="moduleexports_1">module.exports ⏏<a class="headerlink" href="#moduleexports_1" title="Permanent link">&para;</a></h3>
-<p>This is a <a href="https://cozy.github.io/cozy-client-js/">cozy-client-js</a> instance already initialized and ready to use.</p>
+<p><a href="https://cozy.github.io/cozy-client-js/">cozy-client-js</a> instance already initialized and ready to use.</p>
 <p>If you want to access cozy-client-js directly, this method gives you directly an instance of it,
 initialized according to <code>COZY_URL</code> and <code>COZY_CREDENTIALS</code> environment variable given by cozy-stack
 You can refer to the <a href="https://cozy.github.io/cozy-client-js/">cozy-client-js documentation</a> for more information.</p>
@@ -1050,6 +1051,9 @@ full permission on <code>io.cozy.bank.operations</code> in your manifest, to be 
 </li>
 <li><code>contentType</code> (string) ex: &lsquo;application/pdf&rsquo; used to force the contentType of documents when
   they are badly recognized by cozy.</li>
+<li><code>concurrency</code> (number) default: <code>1</code> sets the maximum number of concurrent downloads</li>
+<li><code>fileAttributes</code> (object) ex: <code>{created_at: new Date()}</code> sets some additionnal file
+  attributes passed to cozyClient.file.create</li>
 </ul>
 <p><strong>Kind</strong>: Exported function<br />
 <strong>Example</strong>  </p>
@@ -1061,8 +1065,8 @@ full permission on <code>io.cozy.bank.operations</code> in your manifest, to be 
 <h2 id="signin">signin<a class="headerlink" href="#signin" title="Permanent link">&para;</a></h2>
 <p>Provides an handy method to log the user in,
 on HTML form pages. On success, it resolves to a promise with a parsed body.</p>
-<p><a name="exp_module_signin--signin"></a></p>
-<h3 id="signin_1">signin() ⏏<a class="headerlink" href="#signin_1" title="Permanent link">&para;</a></h3>
+<p><a name="exp_module_signin--module.exports"></a></p>
+<h3 id="moduleexports_5">module.exports() ⏏<a class="headerlink" href="#moduleexports_5" title="Permanent link">&para;</a></h3>
 <p>Provides an handy method to log the user in,
 on HTML form pages. On success, it resolves to a promise with a parsed body.</p>
 <p>Errors:</p>
@@ -1313,6 +1317,7 @@ fetch account information for your connector.</p>
 <li><a href="#BaseKonnector+init">.init()</a> ⇒ <code>Promise</code></li>
 <li><a href="#BaseKonnector+saveAccountData">.saveAccountData(data, options)</a> ⇒ <code>Promise</code></li>
 <li><a href="#BaseKonnector+getAccountData">.getAccountData()</a> ⇒ <code>object</code></li>
+<li><a href="#BaseKonnector+updateAccountAttributes">.updateAccountAttributes()</a></li>
 <li><a href="#BaseKonnector+terminate">.terminate(message)</a></li>
 </ul>
 </li>
@@ -1407,6 +1412,10 @@ account.</p>
 <p><a name="BaseKonnector+getAccountData"></a></p>
 <h3 id="basekonnectorgetaccountdata-object">baseKonnector.getAccountData() ⇒ <code>object</code><a class="headerlink" href="#basekonnectorgetaccountdata-object" title="Permanent link">&para;</a></h3>
 <p>Get the data saved by saveAccountData</p>
+<p><strong>Kind</strong>: instance method of <a href="#BaseKonnector"><code>BaseKonnector</code></a><br />
+<a name="BaseKonnector+updateAccountAttributes"></a></p>
+<h3 id="basekonnectorupdateaccountattributes">baseKonnector.updateAccountAttributes()<a class="headerlink" href="#basekonnectorupdateaccountattributes" title="Permanent link">&para;</a></h3>
+<p>Update account attributes and cache the account</p>
 <p><strong>Kind</strong>: instance method of <a href="#BaseKonnector"><code>BaseKonnector</code></a><br />
 <a name="BaseKonnector+terminate"></a></p>
 <h3 id="basekonnectorterminatemessage">baseKonnector.terminate(message)<a class="headerlink" href="#basekonnectorterminatemessage" title="Permanent link">&para;</a></h3>
