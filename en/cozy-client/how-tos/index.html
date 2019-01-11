@@ -591,7 +591,6 @@
     <ul class="nav bs-sidenav well" style='padding-left: 0; padding-right: 0; margin-bottom: 1.5rem'>
         <li class="main active"><a href="#how-to-integrate-with-an-existing-store">How-to integrate with an existing store ?</a></li>
         <li class="main "><a href="#how-to-connect-to-the-documents-store-declaratively">How to connect to the documents store declaratively ?</a></li>
-        <li class="main "><a href="#how-to-connect-to-multiple-queries-at-once">How to connect to multiple queries at once ?</a></li>
         <li class="main "><a href="#how-to-provide-a-mutation-to-a-component">How to provide a mutation to a component ?</a></li>
         <li class="main "><a href="#how-to-specify-a-schema">How to specify a schema ?</a></li>
     </ul>
@@ -640,7 +639,6 @@
 <ul>
 <li><a href="#how-to-integrate-with-an-existing-store-">How-to integrate with an existing store ?</a></li>
 <li><a href="#how-to-connect-to-the-documents-store-declaratively-">How to connect to the documents store declaratively ?</a></li>
-<li><a href="#how-to-connect-to-multiple-queries-at-once-">How to connect to multiple queries at once ?</a></li>
 <li><a href="#how-to-provide-a-mutation-to-a-component-">How to provide a mutation to a component ?</a></li>
 <li><a href="#how-to-specify-a-schema-">How to specify a schema ?</a></li>
 </ul>
@@ -672,34 +670,40 @@
 
 
 <h3 id="how-to-connect-to-the-documents-store-declaratively">How to connect to the documents store declaratively ?<a class="headerlink" href="#how-to-connect-to-the-documents-store-declaratively" title="Permanent link">&para;</a></h3>
-<p>Sometimes, HOCs are better suited than render-prop components, especially if you have multiple data-sources and you do not want to have multiple indent levelves. We provide a higher-order component called <code>connect</code>. Basic example of usage:</p>
+<p>Sometimes, HOCs are better suited than render-prop components, especially if you have multiple data-sources and you do not want to have multiple indent levelves. We provide a higher-order component called <code>queryConnect</code>. Basic example of usage:</p>
 <div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">connect</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">queryConnect</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 
 <span class="kr">const</span> <span class="nx">query</span> <span class="o">=</span> <span class="nx">client</span> <span class="p">=&gt;</span> <span class="nx">client</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">).</span><span class="nx">where</span><span class="p">({</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span> <span class="p">})</span>
 
-<span class="kr">const</span> <span class="nx">TodoList</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">fetchStatus</span> <span class="p">})</span> <span class="p">=&gt;</span>
-  <span class="nx">fetchStatus</span> <span class="o">!==</span> <span class="s1">&#39;loaded&#39;</span>
+<span class="kr">const</span> <span class="nx">TodoList</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">todos</span> <span class="p">})</span> <span class="p">=&gt;</span>
+  <span class="nx">todos</span><span class="p">.</span><span class="nx">fetchStatus</span> <span class="o">!==</span> <span class="s1">&#39;loaded&#39;</span>
     <span class="o">?</span> <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span><span class="nx">Loading</span><span class="p">...&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
-    <span class="o">:</span> <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;{</span><span class="nx">data</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">todo</span> <span class="p">=&gt;</span> <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;{</span><span class="nx">todo</span><span class="p">.</span><span class="nx">label</span><span class="p">}&lt;/</span><span class="nt">li</span><span class="p">&gt;)}&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="o">:</span> <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;{</span><span class="nx">todos</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">todo</span> <span class="p">=&gt;</span> <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;{</span><span class="nx">todo</span><span class="p">.</span><span class="nx">label</span><span class="p">}&lt;/</span><span class="nt">li</span><span class="p">&gt;)}&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
 
-<span class="kr">export</span> <span class="k">default</span> <span class="nx">connect</span><span class="p">(</span><span class="nx">query</span><span class="p">)(</span><span class="nx">TodoList</span><span class="p">)</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">queryConnect</span><span class="p">({</span>
+  <span class="nx">todos</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">query</span><span class="o">:</span> <span class="nx">query</span><span class="p">,</span>
+    <span class="nx">as</span><span class="o">:</span> <span class="s1">&#39;todos&#39;</span>
+  <span class="p">}</span>
+<span class="p">})(</span><span class="nx">TodoList</span><span class="p">)</span>
 </pre></div>
 
 
-<p>When we use <code>connect</code> to bind a query to a component, three things happen:
- - The query passed as an argument will be executed when the component mounts, resulting in the loading of data from the client-side store, or the server if the data is not in the store ;
+<p>When we use <code>queryConnect</code> to bind a query to a component, three things happen:
+ - The queries passed as an argument will be executed when the component mounts, resulting in the loading of data from the client-side store, or the server if the data is not in the store ;
  - Our component subscribes to the store, so that it is updated if the data changes ;
  - props are injected into the component: if we were to declare <code>propTypes</code> they would look like this:</p>
 <div class="codehilite"><pre><span></span><span class="nx">TodoList</span><span class="p">.</span><span class="nx">propTypes</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="nx">fetchStatus</span><span class="o">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">string</span><span class="p">.</span><span class="nx">isRequired</span><span class="p">,</span>
-  <span class="nx">data</span><span class="o">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">array</span>
+  <span class="nx">todos</span><span class="o">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">shape</span><span class="p">({</span>
+    <span class="nx">fetchStatus</span><span class="o">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">string</span><span class="p">.</span><span class="nx">isRequired</span><span class="p">,</span>
+    <span class="nx">data</span><span class="o">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">array</span>
+  <span class="p">})</span>
 <span class="p">}</span>
 </pre></div>
 
 
-<h2 id="how-to-connect-to-multiple-queries-at-once">How to connect to multiple queries at once ?<a class="headerlink" href="#how-to-connect-to-multiple-queries-at-once" title="Permanent link">&para;</a></h2>
-<p>The <code>queryConnect</code> HOC enables you to connect multiple queries to a component. In the following example, the <code>App</code> component needs todos and contacts. We use <code>queryConnect</code> to retrieve them all:</p>
+<p>You can also connect multiples queries by adding other properties to the object passed to <code>queryConnect</code>:</p>
 <div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">queryConnect</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 <span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span>
 <span class="kr">import</span> <span class="nx">TodoList</span> <span class="nx">from</span> <span class="s1">&#39;./TodoList&#39;</span>
@@ -719,7 +723,7 @@
 </pre></div>
 
 
-<p><code>queryConnect</code> also allows us to make queries based on props by passing a function instead of a plain object. For example, if we want to fetch todos based on a selected contact:</p>
+<p>Finally, <code>queryConnect</code> also allows us to make queries based on props by passing a function instead of a plain object. For example, if we want to fetch todos based on a selected contact:</p>
 <div class="codehilite"><pre><span></span><span class="nx">queryConnect</span><span class="p">({</span>
   <span class="nx">todos</span><span class="o">:</span> <span class="nx">props</span> <span class="p">=&gt;</span> <span class="p">({</span>
     <span class="nx">query</span><span class="o">:</span> <span class="nx">client</span> <span class="p">=&gt;</span> <span class="nx">client</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">).</span><span class="nx">where</span><span class="p">({</span> <span class="nx">author</span><span class="o">:</span> <span class="nx">props</span><span class="p">.</span><span class="nx">selectedContact</span> <span class="p">}),</span>
