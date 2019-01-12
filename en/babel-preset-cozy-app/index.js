@@ -3,13 +3,19 @@
 const { declare } = require('@babel/helper-plugin-utils')
 
 const browserEnv = {
-  targets: {
-    chrome: 42,
-    ie: 10,
-    firefox: 40,
-    browsers: ['last 2 versions']
-  },
-  // don't transform polyfills
+  targets: [
+    'last 2 Chrome major versions',
+    'last 2 ChromeAndroid major versions',
+    'last 2 Firefox major versions',
+    'last 2 FirefoxAndroid major versions',
+    'last 2 Safari major versions',
+    'last 2 iOS major versions',
+    'last 2 Edge major versions',
+    'Firefox ESR',
+    '> 1% in FR',
+    'not dead',
+    'not ie <= 11'
+  ],
   useBuiltIns: false
 }
 
