@@ -16,14 +16,12 @@ It provides:
 This repository currently supports:
 
  * __Debian Stretch__ (9.x): amd64
- * __Ubuntu Xenial__ (16.04 LTS): amd64
  * __Raspbian Stretch__ (9.x): armhf
 
 Available channels are:
 
  * __stable__: official and supported releases
  * __testing__: future official releases, for testing purposes. Updated ± twice a month.
- * __unstable__: nightly builds, to be use with caution
 
 `cozy-couchdb` and `cozy-nsjail` are temporary packages. They will be removed when official `couchdb` and `nsjail` will be available
 
@@ -36,10 +34,9 @@ Like CouchDB, you can choose to install your reverse proxy on the same host, or 
 ### Third party repositories
 
 [Let's Encrypt](https://letsencrypt.org/) official packages require to use unofficial/third party repositories to have recent and supported version of ACME libraries.
-Packages provided by standard Debian or Ubuntu repositories are quite old and not compatible with `cozy-coclyco`.
+Packages provided by standard Debian repositories are quite old and not compatible with `cozy-coclyco`.
 
   * For Debian/Raspbian, you need to [enable `backports` repository](https://certbot.eff.org/lets-encrypt/debianstretch-apache#using).
-  * For Ubuntu, you need to [activate a third party `ppa` repository](https://certbot.eff.org/lets-encrypt/ubuntuxenial-nginx#using).
 
 Refer to the [certbot](https://certbot.eff.org/) documentation to activate needed repositories.
 (You don't need to install packages like `certbot` or `python-certbot-xxx`, only to activate repositories.)
@@ -57,22 +54,20 @@ Pin-Priority: 510" > /etc/apt/preferences.d/cozy
 First, install the packages required to install cozy
 
 ```bash
-apt install ca-certificates apt-transport-https curl
+apt install ca-certificates apt-transport-https wget
 ```
 
 Then, fetch the GPG Cozy signing key:
 
 ```bash
-curl https://apt.cozy.io/cozy.gpg | \
-    apt-key --keyring /etc/apt/trusted.gpg.d/cozy.gpg add -
-curl https://apt.cozy.io/nightly/cozy.gpg | \
-    apt-key --keyring /etc/apt/trusted.gpg.d/cozy.gpg add -
+wget https://apt.cozy.io/cozy-keyring.deb
+dpkg -i cozy-keyring.deb
 ```
 
 Finally, setup your repository. Select the channel that best fit your needs:
 
 !!! warning ""
-    For now, we recommend to use `testing` repositories, or `nightly/unstable` channels.
+    For now, we recommend to use `testing` repositories.
     `stable` packages are quite old and currently provide deprecated and unsecured CouchDB version (2.0.x).
     Adapt your `sources.list` accordingly.
 
@@ -81,26 +76,13 @@ Supported repositories are:
  * Debian Stretch (9.x)
      * deb https://apt.cozy.io/debian/ stretch stable
      * deb https://apt.cozy.io/debian/ stretch testing
-     * deb https://apt.cozy.io/nightly/debian/ stretch unstable
- * Ubuntu Xenial (16.04 LTS)
-     * deb https://apt.cozy.io/ubuntu/ xenial stable
-     * deb https://apt.cozy.io/ubuntu/ xenial testing
-     * deb https://apt.cozy.io/nightly/ubuntu/ xenial unstable
  * Raspbian Stretch (9.x)
      * deb https://apt.cozy.io/raspbian/ stretch stable
      * deb https://apt.cozy.io/raspbian/ stretch testing
-     * deb https://apt.cozy.io/nightly/raspbian/ stretch unstable
 
 ```bash
 echo "deb https://apt.cozy.io/debian/ stretch testing" > /etc/apt/sources.list.d/cozy.list
 apt update
-```
-
-If you want to use unstable/nightly builds, you have to accept another key (weaker and passwordless on our side because of unattended automated builds)
-
-```bash
-curl https://apt.cozy.io/nightly/cozy.gpg | \
-    apt-key --keyring /etc/apt/trusted.gpg.d/cozy.gpg add -
 ```
 
 ## Setup
@@ -128,7 +110,6 @@ At this point, you must have a working CouchDB instance
 curl http://localhost:5984/
 {"couchdb":"Welcome","version":"2.1.0","features":["scheduler"],"vendor":{"name":"The Apache Software Foundation"}}
 ```
-If you want to use unstable/nightly builds, you might get another version of the database.
 
 ### Cozy stack
 
@@ -159,7 +140,7 @@ curl http://localhost:8080/version
 
 If you want to use konnectors, you need to initialize the NodeJS chroot
 
-(Currently this script only works for Debian and will be adapted for Ubuntu and Raspbian soon)
+(Currently this script only works for Debian and will be adapted for Raspbian soon)
 
 ```bash
 /usr/share/cozy/konnector-create-chroot.sh
