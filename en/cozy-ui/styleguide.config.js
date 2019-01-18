@@ -8,7 +8,8 @@ module.exports = {
       components: () => [
         '../react/MuiCozyTheme/index.jsx',
         '../react/MuiCozyTheme/Buttons',
-        '../react/MuiCozyTheme/Menus'
+        '../react/MuiCozyTheme/Menus',
+        '../react/MuiCozyTheme/ExpansionPanel'
       ]
     },
     {

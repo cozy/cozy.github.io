@@ -1,0 +1,1708 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <meta name="author" content="CozyCloud - https://cozy.io">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-client/api/cozy-client/">
+        <link rel="shortcut icon" href="../../../img/favicon.png">
+        
+        <title>Cozy Client API - Dev Documentation</title>
+        <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../../css/highlight.css">
+            <link href="../../../css/extra.css" rel="stylesheet">
+            <link href="../../../css/highlight_theme.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+	<script src="../../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://docs.cozy.io/">Dev Documentation</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorials <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../../tutorials/app/">Create Your Application</a>
+</li>
+                            
+<li >
+    <a href="../../../tutorials/konnector/">Develop a Connector</a>
+</li>
+                            
+<li >
+    <a href="../../../tutorials/selfhost-debian/">Self-Host on Debian</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">How-to <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Dev</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../howTos/dev/runCozyDocker/">Run an App in a Cozy using Docker</a>
+</li>
+            
+<li >
+    <a href="../../../howTos/dev/hmr/">Use Hot Module Replacement in Your App</a>
+</li>
+            
+<li >
+    <a href="../../../howTos/dev/cordova/">Make a Mobile App Using Cordova</a>
+</li>
+            
+<li >
+    <a href="../../../howTos/dev/connect-mobile-app-local-stack/">Connect a Mobile App to Your Local Stack</a>
+</li>
+            
+<li >
+    <a href="../../../howTos/dev/sendmail/">Send and Receive E-mails in Development</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Synchronize</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../howTos/sync/linux/">Install Cozy Drive on GNU/Linux</a>
+</li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">References <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../../references/tech-intro/">Technical introduction to the Cozy platform</a>
+</li>
+                            
+<li >
+    <a href="../../../references/git-flow/">Our Front-End Git Flow</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Stack and tools</a>
+    <ul class="dropdown-menu">
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-app-publish</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-app-publish/README/">CLI & Workflow</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-apps-registry</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-apps-registry/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-client</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../getting-started/">Getting started</a>
+</li>
+            
+<li >
+    <a href="../../how-tos/">How tos</a>
+</li>
+            
+<li class="active">
+    <a href="./">Cozy Client API</a>
+</li>
+            
+<li >
+    <a href="../cozy-pouch-link/">Cozy Pouch Link API</a>
+</li>
+            
+<li >
+    <a href="../cozy-stack-client/">Cozy Stack Client API</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-client-js</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-client-js/README/">README</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-client-js/intro/">Introduction</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-client-js/browser-sdk-transition/">Transition from cozy-browser-sdk</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-client-js/offline/">How to support offline</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-client-js/oauth/">OAuth guide</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-client-js/auth-api/">Authentication API</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-client-js/data-api/">Data System API</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-client-js/files-api/">Files API</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-client-js/jobs-api/">Jobs API</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-client-js/intents-api/">Intents API</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-client-js/settings-api/">Settings API</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-client-js/sharing-api/">Sharing API</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-ui</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-ui/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-doctypes</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/README/">README</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.accounts/">Accounts</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.photos.albums/">Albums</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.bank/">Banking doctypes</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.bills/">Bills</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.konnectors/">Connectors</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.contacts/">Contacts</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.files/">Files</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.notifications/">Notifications</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.remote.requests/">Remote requests</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.sessions.logins/">Session logins</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.sharings/">Sharings</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.triggers/">Triggers</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-konnector-libs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-konnector-libs/api/">API</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-konnector-libs/cli/">CLI</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-konnector-libs/dev/">Develop</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-konnector-libs/errors/">Errors</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-konnector-libs/operation-linking/">Operation linking</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-konnector-libs/synchronization/">Synchronization</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-stack</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-stack/README/">README</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Architecture</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-stack/architecture/">General overview</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/security/">Security</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Usage</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-stack/INSTALL/">Install the cozy-stack</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/cli/cozy-stack/">Manpages of the command-line tool</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/config/">Configuration file</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/instance/">Managing Instances</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/onboarding/">Onboarding</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">For developpers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-stack/client-app-dev/">Develop a client-side app</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/docker/">Running and building Docker images</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/assets/">Working with the stacka assets</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/release/">Build a release</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/CONTRIBUTING/">The contributing guide</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Services</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-stack/auth/">/auth - Authentication & OAuth</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/apps/">/apps - Applications Management</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/registry/"> /apps - Apps registry</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/konnectors/"> /apps - Konnectors</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/konnectors-workflow/"> /apps - Konnectors workflow</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/data-system/">/data - Data System</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/mango/"> /data - Mango</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/replication/"> /data - Replication</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/couchdb-quirks/"> /data - CouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/pouchdb-quirks/"> /data - PouchDB Quirks</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/files/">/files - Virtual File System</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/references-docs-in-vfs/"> /files - References of documents in VFS</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/intents/">/intents - Intents</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/jobs/">/jobs - Jobs</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/workers/"> /jobs - Workers</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/move/">/move - Move, export and import an instance</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/notifications/">/notifications - Notifications</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/permissions/">/permissions - Permissions</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/realtime/">/realtime - Realtime</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/remote/">/remote - Proxy for remote data/API</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/settings/">/settings - Settings</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/user-action-required/"> /settings - Terms of Services</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/sharing/">/sharings - Sharing</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-stack/sharing-design/"> /sharings - Request for comments</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">konitor</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../konitor/cli/">CLI</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">babel-preset-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../babel-preset-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">commitlint-config-cozy</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../commitlint-config-cozy/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-device-helper</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-device-helper/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">eslint-config-cozy-app</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../eslint-config-cozy-app/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-flags</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-flags/README/">README</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">cozy-realtime</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../cozy-realtime/README/">README</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://github.com/cozy/cozy.github.io/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3 main-toc">
+<div class="bs-sidebar hidden-print affix" role="complementary">
+    <ul class="nav bs-sidenav well" style='padding-left: 0; padding-right: 0; margin-bottom: 1.5rem'>
+        <li class="main active"><a href="#classes">Classes</a></li>
+        <li class="main "><a href="#functions">Functions</a></li>
+        <li class="main "><a href="#association">Association</a></li>
+            <li><a href="#new-associationtarget-name-doctype-options">new Association(target, name, doctype, options)</a></li>
+            <li><a href="#associationtarget-object">association.target : object</a></li>
+            <li><a href="#associationname-string">association.name : string</a></li>
+            <li><a href="#associationdoctype-string">association.doctype : string</a></li>
+            <li><a href="#associationget-function">association.get : function</a></li>
+            <li><a href="#associationsave-function">association.save : function</a></li>
+            <li><a href="#associationdispatch-function">association.dispatch : function</a></li>
+            <li><a href="#associationraw">association.raw</a></li>
+            <li><a href="#associationdata">association.data</a></li>
+            <li><a href="#associationqueryquerydefinition">association.query(queryDefinition)</a></li>
+            <li><a href="#associationmutate">association.mutate()</a></li>
+            <li><a href="#associationquery-querydefinition">Association.query() ⇒ QueryDefinition</a></li>
+        <li class="main "><a href="#hasmany">HasMany</a></li>
+            <li><a href="#new-hasmany">new HasMany()</a></li>
+            <li><a href="#hasmanyaddbyid">hasMany.addById()</a></li>
+        <li class="main "><a href="#hasmanyinplace">HasManyInPlace</a></li>
+            <li><a href="#new-hasmanyinplace">new HasManyInPlace()</a></li>
+        <li class="main "><a href="#cozyclient">CozyClient</a></li>
+            <li><a href="#new-cozyclientoptions">new CozyClient(options)</a></li>
+            <li><a href="#cozyclientcollectiondoctype-documentcollection">cozyClient.collection(doctype) ⇒ DocumentCollection</a></li>
+            <li><a href="#cozyclientgetdocumentsaveplandocument-relationships-arraymutation">cozyClient.getDocumentSavePlan(document, relationships) ⇒ Array.&lt;Mutation&gt;</a></li>
+            <li><a href="#cozyclientfetchrelationships">cozyClient.fetchRelationships()</a></li>
+            <li><a href="#cozyclienthydratedocument">cozyClient.hydrateDocument()</a></li>
+            <li><a href="#cozyclientmakenewdocument">cozyClient.makeNewDocument()</a></li>
+            <li><a href="#cozyclientgetassociation">cozyClient.getAssociation()</a></li>
+            <li><a href="#cozyclientgetrelationshipstoreaccessors">cozyClient.getRelationshipStoreAccessors()</a></li>
+            <li><a href="#cozyclientregistercozyurl-object">cozyClient.register(cozyURL) ⇒ object</a></li>
+            <li><a href="#cozyclientstartoauthflowopenurlcallback-object">cozyClient.startOAuthFlow(openURLCallback) ⇒ object</a></li>
+            <li><a href="#cozyclientrenewauthorization-object">cozyClient.renewAuthorization() ⇒ object</a></li>
+            <li><a href="#cozyclientsetdatadata">cozyClient.setData(data)</a></li>
+        <li class="main "><a href="#querydefinition">QueryDefinition</a></li>
+            <li><a href="#new-querydefinitiondoctype-id-ids-selector-fields-indexedfields-sort-includes-referenced-limit-skip">new QueryDefinition(doctype, id, ids, selector, fields, indexedFields, sort, includes, referenced, limit, skip)</a></li>
+            <li><a href="#querydefinitionwhereselector-querydefinition">queryDefinition.where(selector) ⇒ QueryDefinition</a></li>
+            <li><a href="#querydefinitionselectfields-querydefinition">queryDefinition.select(fields) ⇒ QueryDefinition</a></li>
+            <li><a href="#querydefinitionindexfieldsfields-querydefinition">queryDefinition.indexFields(fields) ⇒ QueryDefinition</a></li>
+            <li><a href="#querydefinitionsortbysort-querydefinition">queryDefinition.sortBy(sort) ⇒ QueryDefinition</a></li>
+            <li><a href="#querydefinitionincludeincludes-querydefinition">queryDefinition.include(includes) ⇒ QueryDefinition</a></li>
+            <li><a href="#querydefinitionlimitbylimit-querydefinition">queryDefinition.limitBy(limit) ⇒ QueryDefinition</a></li>
+            <li><a href="#querydefinitionoffsetskip-querydefinition">queryDefinition.offset(skip) ⇒ QueryDefinition</a></li>
+            <li><a href="#querydefinitionreferencedbydocument-querydefinition">queryDefinition.referencedBy(document) ⇒ QueryDefinition</a></li>
+        <li class="main "><a href="#schema">Schema</a></li>
+            <li><a href="#schemagetdoctypeschema">schema.getDoctypeSchema()</a></li>
+            <li><a href="#schemagetrelationship">schema.getRelationship()</a></li>
+            <li><a href="#schemavalidate">schema.validate()</a></li>
+        <li class="main "><a href="#withclientcomponent-function">withClient(Component) ⇒ function</a></li>
+        <li class="main "><a href="#queryconnectqueryspecs-function">queryConnect(querySpecs) ⇒ function</a></li>
+    </ul>
+  <div style='padding-left: 2rem'>
+    
+    <a id='edit-link' href='https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-client/api/cozy-client.md'>Edit documentation</a>
+    <script type='text/javascript'>
+        /* Here we detect if the current page is from an external documentation and we 
+        change the href of the editing link so it goes to the right repository and file */
+        const outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-apps-registry", "repo": "https://github.com/cozy/cozy-apps-registry.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-ui", "repo": "https://github.com/cozy/cozy-ui.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
+        const editNode = document.querySelector('#edit-link')
+        const pathname = window.location.pathname
+        const editURI = 'edit/master/'
+        const removeGitSuffix = function (x) { return x.replace(/\.git$/, '') }
+
+        // Returns the external repo associated to a pathname
+        const detectExternalRepo = function (pathname) {
+            for (var outsideDoc of outsideDocs) {
+                if (window.location.pathname.includes('/' + outsideDoc.name + '/')) {
+                    return outsideDoc
+                }
+            }
+        }
+
+        // Change the href attribute of a link to point to the correct edition page on GitHub
+        // for the passed external documentation
+        const fixEditLink = function (editNode, externalDoc) {
+            const repoFile = pathname.replace('/en/' + externalDoc.name, '').replace(/\/$/, '.md')
+            const baseRepo = removeGitSuffix(externalDoc.repo)
+            editNode.href = baseRepo + '/' + editURI + externalDoc.subdir + repoFile
+        }
+
+        const externalRepo = detectExternalRepo(pathname)
+        if (externalRepo) {
+            fixEditLink(editNode, externalRepo)
+        }
+    </script>
+    
+  </div>
+</div></div>
+                <div class="col-md-9" role="main">
+                    
+
+<h2 id="classes">Classes<a class="headerlink" href="#classes" title="Permanent link">&para;</a></h2>
+<dl>
+<dt><a href="#Association">Association</a></dt>
+<dd><p>Associations are used by components to access related store documents that are
+linked in a document. They are also responsible for building the <code>QueryDefinition</code> that is
+used by the client to automatically fetch relationship data.</p>
+<p>Hydrated documents used by components come with Association instances.</p>
+</dd>
+<dt><a href="#HasMany">HasMany</a></dt>
+<dd><p>Related documents are stored in the relationships attribute of the object,
+following the JSON API spec.</p>
+<p>Responsible for</p>
+<ul>
+<li>Creating relationships</li>
+<li>Removing relationships</li>
+</ul>
+</dd>
+<dt><a href="#HasManyInPlace">HasManyInPlace</a></dt>
+<dd><p>Used when related documents are stored directly under the attribute with
+only the ids.</p>
+</dd>
+<dt><a href="#CozyClient">CozyClient</a></dt>
+<dd><p>Responsible for</p>
+<ul>
+<li>Creating observable queries</li>
+<li>Hydration</li>
+<li>Creating plan for saving documents</li>
+<li>Associations</li>
+</ul>
+</dd>
+<dt><a href="#QueryDefinition">QueryDefinition</a></dt>
+<dd><p>Chainable API to create query definitions to retrieve documents
+from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
+</dd>
+<dt><a href="#Schema">Schema</a></dt>
+<dd><p>Stores information on a particular doctype.</p>
+<ul>
+<li>Attribute validation</li>
+<li>Relationship access</li>
+</ul>
+<pre><code class="language-javascript">const schema = new Schema({
+  todos: {
+    attributes: {
+      label: {
+        unique: true
+      }
+    },
+    relationships: {
+      author: &#39;has-one-in-place&#39;
+    }
+  }
+}, cozyStackClient)
+</code></pre>
+</dd>
+</dl>
+
+<h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
+<dl>
+<dt><a href="#withClient">withClient(Component)</a> ⇒ <code>function</code></dt>
+<dd><p>HOC to provide client from context as prop</p>
+</dd>
+<dt><a href="#queryConnect">queryConnect(querySpecs)</a> ⇒ <code>function</code></dt>
+<dd><p>HOC creator to connect component to several queries in a declarative manner</p>
+</dd>
+</dl>
+
+<p><a name="Association"></a></p>
+<h2 id="association">Association<a class="headerlink" href="#association" title="Permanent link">&para;</a></h2>
+<p>Associations are used by components to access related store documents that are
+linked in a document. They are also responsible for building the <code>QueryDefinition</code> that is
+used by the client to automatically fetch relationship data.</p>
+<p>Hydrated documents used by components come with Association instances.</p>
+<p><strong>Kind</strong>: global class  </p>
+<ul>
+<li><a href="#Association">Association</a><ul>
+<li><a href="#new_Association_new">new Association(target, name, doctype, options)</a></li>
+<li><em>instance</em><ul>
+<li><a href="#Association+target">.target</a> : <code>object</code></li>
+<li><a href="#Association+name">.name</a> : <code>string</code></li>
+<li><a href="#Association+doctype">.doctype</a> : <code>string</code></li>
+<li><a href="#Association+get">.get</a> : <code>function</code></li>
+<li><a href="#Association+save">.save</a> : <code>function</code></li>
+<li><a href="#Association+dispatch">.dispatch</a> : <code>function</code></li>
+<li><a href="#Association+raw">.raw</a></li>
+<li><a href="#Association+data">.data</a></li>
+<li><a href="#Association+query">.query(queryDefinition)</a></li>
+<li><a href="#Association+mutate">.mutate()</a></li>
+</ul>
+</li>
+<li><em>static</em><ul>
+<li><a href="#Association.query">.query()</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><a name="new_Association_new"></a></p>
+<h3 id="new-associationtarget-name-doctype-options">new Association(target, name, doctype, options)<a class="headerlink" href="#new-associationtarget-name-doctype-options" title="Permanent link">&para;</a></h3>
+<p>Example: The schema defines an <code>author</code> relationship :</p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">BOOK_SCHEMA</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">relationships</span><span class="o">:</span> <span class="p">{</span>
+     <span class="nx">author</span><span class="o">:</span> <span class="s1">&#39;has-one&#39;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Hydrated <code>books</code> will have the <code>author</code> association instance under the <code>author</code> key.
+Accessing <code>hydratedBook.author.data</code> gives you the author from the store, for example :</p>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;St-Exupery&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;firstName&quot;</span><span class="p">:</span> <span class="s2">&quot;Antoine&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;antoine&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>It is the responsibility of the relationship to decide how the relationship data is stored.
+For example, here since we use the default <code>has-one</code> relationship, the relationship data
+is stored in the <code>relationships</code> attribute of the original document (in our case here, our book
+would be</p>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Le petit prince&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;author&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;doctype&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.authors&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;antoine&quot;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>In the case of an &ldquo;in-place&rdquo; relationship, the relationship data is stored directly under the attribute named
+by the relationship (in our case <code>author</code>). Our book would be</p>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Le petit prince&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;antoine&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<hr />
+<p>Each different type of Association may change:</p>
+<ul>
+<li><code>get raw</code>: how the relationship data is stored (either as per the JSON API spec or
+ in a custom way)</li>
+<li><code>get data</code>: how the store documents are then fetched from the store to be added to
+the hydrated document (.data method). View components will access
+<code>hydratedDoc[relationshipName].data</code>.</li>
+<li><code>get query</code>: how to build the query to fetch related documents</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>target</td>
+<td><code>object</code></td>
+<td>Original object containing raw data</td>
+</tr>
+<tr>
+<td>name</td>
+<td><code>string</code></td>
+<td>Attribute under which the association is stored</td>
+</tr>
+<tr>
+<td>doctype</td>
+<td><code>string</code></td>
+<td>Doctype of the documents managed by the association</td>
+</tr>
+<tr>
+<td>options.dispatch</td>
+<td><code>function</code></td>
+<td>Store&rsquo;s dispatch, comes from the client</td>
+</tr>
+<tr>
+<td>options</td>
+<td><code>string</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><a name="Association+target"></a></p>
+<h3 id="associationtarget-object">association.target : <code>object</code><a class="headerlink" href="#associationtarget-object" title="Permanent link">&para;</a></h3>
+<p>The original document declaring the relationship</p>
+<p><strong>Kind</strong>: instance property of <a href="#Association"><code>Association</code></a><br />
+<a name="Association+name"></a></p>
+<h3 id="associationname-string">association.name : <code>string</code><a class="headerlink" href="#associationname-string" title="Permanent link">&para;</a></h3>
+<p>The name of the relationship.</p>
+<p><strong>Kind</strong>: instance property of <a href="#Association"><code>Association</code></a><br />
+<strong>Example</strong>  </p>
+<div class="codehilite"><pre><span></span><span class="s1">&#39;author&#39;</span>
+</pre></div>
+
+
+<p><a name="Association+doctype"></a></p>
+<h3 id="associationdoctype-string">association.doctype : <code>string</code><a class="headerlink" href="#associationdoctype-string" title="Permanent link">&para;</a></h3>
+<p>Doctype of the relationship</p>
+<p><strong>Kind</strong>: instance property of <a href="#Association"><code>Association</code></a><br />
+<strong>Example</strong>  </p>
+<div class="codehilite"><pre><span></span><span class="s1">&#39;io.cozy.authors&#39;</span>
+</pre></div>
+
+
+<p><a name="Association+get"></a></p>
+<h3 id="associationget-function">association.get : <code>function</code><a class="headerlink" href="#associationget-function" title="Permanent link">&para;</a></h3>
+<p>Returns the document from the store</p>
+<p><strong>Kind</strong>: instance property of <a href="#Association"><code>Association</code></a><br />
+<a name="Association+save"></a></p>
+<h3 id="associationsave-function">association.save : <code>function</code><a class="headerlink" href="#associationsave-function" title="Permanent link">&para;</a></h3>
+<p>Saves the relationship in store.</p>
+<p><strong>Kind</strong>: instance property of <a href="#Association"><code>Association</code></a><br />
+<a name="Association+dispatch"></a></p>
+<h3 id="associationdispatch-function">association.dispatch : <code>function</code><a class="headerlink" href="#associationdispatch-function" title="Permanent link">&para;</a></h3>
+<p>Dispatch an action on the store.</p>
+<p><strong>Kind</strong>: instance property of <a href="#Association"><code>Association</code></a><br />
+<a name="Association+raw"></a></p>
+<h3 id="associationraw">association.raw<a class="headerlink" href="#associationraw" title="Permanent link">&para;</a></h3>
+<p>Returns the raw relationship data as stored in the original document</p>
+<p>For a document with relationships stored as JSON API spec:</p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">book</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Moby Dick&#39;</span><span class="p">,</span>
+  <span class="nx">relationships</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">author</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">doctype</span><span class="o">:</span> <span class="s1">&#39;io.cozy.authors&#39;</span><span class="p">,</span>
+        <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;herman&#39;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+ <span class="p">}</span>
+</pre></div>
+
+
+<p>Raw value will be</p>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;doctype&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.authors&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;herman&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Derived <code>Association</code>s need to implement this method.</p>
+<p><strong>Kind</strong>: instance property of <a href="#Association"><code>Association</code></a><br />
+<a name="Association+data"></a></p>
+<h3 id="associationdata">association.data<a class="headerlink" href="#associationdata" title="Permanent link">&para;</a></h3>
+<p>Returns the document(s) from the store</p>
+<p>For document with relationships stored as JSON API spec :</p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">book</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Moby Dick&#39;</span><span class="p">,</span>
+  <span class="nx">relationships</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">author</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">doctype</span><span class="o">:</span> <span class="s1">&#39;io.cozy.authors&#39;</span><span class="p">,</span>
+        <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;herman&#39;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+ <span class="p">}</span>
+</pre></div>
+
+
+<p><code>data</code> will be</p>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;herman&quot;</span>
+  <span class="s2">&quot;_type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.authors&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;firstName&quot;</span><span class="p">:</span> <span class="s2">&quot;herman&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Melville&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Derived <code>Association</code>s need to implement this method.</p>
+<p><strong>Kind</strong>: instance property of <a href="#Association"><code>Association</code></a><br />
+<a name="Association+query"></a></p>
+<h3 id="associationqueryquerydefinition">association.query(queryDefinition)<a class="headerlink" href="#associationqueryquerydefinition" title="Permanent link">&para;</a></h3>
+<p>Performs a query to retrieve relationship documents.</p>
+<p><strong>Kind</strong>: instance method of <a href="#Association"><code>Association</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>queryDefinition</td>
+<td><a href="#QueryDefinition"><code>QueryDefinition</code></a></td>
+</tr>
+</tbody>
+</table>
+<p><a name="Association+mutate"></a></p>
+<h3 id="associationmutate">association.mutate()<a class="headerlink" href="#associationmutate" title="Permanent link">&para;</a></h3>
+<p>Performs a mutation on the relationship.</p>
+<p><strong>Kind</strong>: instance method of <a href="#Association"><code>Association</code></a><br />
+<a name="Association.query"></a></p>
+<h3 id="associationquery-querydefinition">Association.query() ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a><a class="headerlink" href="#associationquery-querydefinition" title="Permanent link">&para;</a></h3>
+<p>Derived <code>Association</code>s need to implement this method.</p>
+<p><strong>Kind</strong>: static method of <a href="#Association"><code>Association</code></a><br />
+<a name="HasMany"></a></p>
+<h2 id="hasmany">HasMany<a class="headerlink" href="#hasmany" title="Permanent link">&para;</a></h2>
+<p>Related documents are stored in the relationships attribute of the object,
+following the JSON API spec.</p>
+<p>Responsible for</p>
+<ul>
+<li>Creating relationships</li>
+<li>Removing relationships</li>
+</ul>
+<p><strong>Kind</strong>: global class  </p>
+<ul>
+<li><a href="#HasMany">HasMany</a><ul>
+<li><a href="#new_HasMany_new">new HasMany()</a></li>
+<li><a href="#HasMany+addById">.addById()</a></li>
+</ul>
+</li>
+</ul>
+<p><a name="new_HasMany_new"></a></p>
+<h3 id="new-hasmany">new HasMany()<a class="headerlink" href="#new-hasmany" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>const schema = {
+  todos: {
+     doctype: &#39;io.cozy.todos&#39;,
+     relationships: {
+       tasks: {
+         doctype: &#39;io.cozy.tasks&#39;,
+         type: &#39;has-many&#39;
+       }
+     }
+   }
+}
+
+const todo = {
+  label: &quot;Protect people&#39;s privacy&quot;,
+  relationships: {
+    tasks: {
+      data: [
+        {_id: 1, _type: &#39;io.cozy.tasks&#39;},
+        {_id: 2, _type: &#39;io.cozy.tasks&#39;}
+      ]
+    }
+  }
+}
+</pre></div>
+
+
+<p><a name="HasMany+addById"></a></p>
+<h3 id="hasmanyaddbyid">hasMany.addById()<a class="headerlink" href="#hasmanyaddbyid" title="Permanent link">&para;</a></h3>
+<p>Add a referenced document by id. You need to call save()
+in order to synchronize your document with the store.</p>
+<p><strong>Kind</strong>: instance method of <a href="#HasMany"><code>HasMany</code></a><br />
+<strong>Todo</strong></p>
+<ul>
+<li>[ ] We shouldn&rsquo;t create the array of relationship manually since
+it&rsquo;ll not be present in the store as well.
+We certainly should use something like <code>updateRelationship</code></li>
+</ul>
+<p><a name="HasManyInPlace"></a></p>
+<h2 id="hasmanyinplace">HasManyInPlace<a class="headerlink" href="#hasmanyinplace" title="Permanent link">&para;</a></h2>
+<p>Used when related documents are stored directly under the attribute with
+only the ids.</p>
+<p><strong>Kind</strong>: global class<br />
+<a name="new_HasManyInPlace_new"></a></p>
+<h3 id="new-hasmanyinplace">new HasManyInPlace()<a class="headerlink" href="#new-hasmanyinplace" title="Permanent link">&para;</a></h3>
+<p>An example document representing a TODO. See as the related
+tasks are represented via ids.</p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">todo</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">label</span><span class="o">:</span> <span class="s2">&quot;Protect people&#39;s privacy&quot;</span><span class="p">,</span>
+  <span class="nx">tasks</span><span class="o">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Here is the <code>Schema</code> that would represent this kind of document.
+Components receiving todos via <code>Query</code>s would have an instance of <code>HasManyInPlace</code>
+as their <code>tasks</code> attribute.</p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">schema</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">todos</span><span class="o">:</span> <span class="p">{</span>
+     <span class="nx">doctype</span><span class="o">:</span> <span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">,</span>
+     <span class="nx">relationships</span><span class="o">:</span> <span class="p">{</span>
+       <span class="nx">tasks</span><span class="o">:</span> <span class="p">{</span>
+         <span class="nx">doctype</span><span class="o">:</span> <span class="s1">&#39;io.cozy.tasks&#39;</span><span class="p">,</span>
+         <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;has-many-in-place&#39;</span>
+       <span class="p">}</span>
+     <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">const</span> <span class="nx">todo</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">label</span><span class="o">:</span> <span class="s2">&quot;Get rich&quot;</span><span class="p">,</span>
+  <span class="nx">tasks</span><span class="o">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p><a name="CozyClient"></a></p>
+<h2 id="cozyclient">CozyClient<a class="headerlink" href="#cozyclient" title="Permanent link">&para;</a></h2>
+<p>Responsible for</p>
+<ul>
+<li>Creating observable queries</li>
+<li>Hydration</li>
+<li>Creating plan for saving documents</li>
+<li>Associations</li>
+</ul>
+<p><strong>Kind</strong>: global class  </p>
+<ul>
+<li><a href="#CozyClient">CozyClient</a><ul>
+<li><a href="#new_CozyClient_new">new CozyClient(options)</a></li>
+<li><a href="#CozyClient+collection">.collection(doctype)</a> ⇒ <code>DocumentCollection</code></li>
+<li><a href="#CozyClient+getDocumentSavePlan">.getDocumentSavePlan(document, relationships)</a> ⇒ <code>Array.&lt;Mutation&gt;</code></li>
+<li><a href="#CozyClient+fetchRelationships">.fetchRelationships()</a></li>
+<li><a href="#CozyClient+hydrateDocument">.hydrateDocument()</a></li>
+<li><a href="#CozyClient+makeNewDocument">.makeNewDocument()</a></li>
+<li><a href="#CozyClient+getAssociation">.getAssociation()</a></li>
+<li><a href="#CozyClient+getRelationshipStoreAccessors">.getRelationshipStoreAccessors()</a></li>
+<li><a href="#CozyClient+register">.register(cozyURL)</a> ⇒ <code>object</code></li>
+<li><a href="#CozyClient+startOAuthFlow">.startOAuthFlow(openURLCallback)</a> ⇒ <code>object</code></li>
+<li><a href="#CozyClient+renewAuthorization">.renewAuthorization()</a> ⇒ <code>object</code></li>
+<li><a href="#CozyClient+setData">.setData(data)</a></li>
+</ul>
+</li>
+</ul>
+<p><a name="new_CozyClient_new"></a></p>
+<h3 id="new-cozyclientoptions">new CozyClient(options)<a class="headerlink" href="#new-cozyclientoptions" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>options</td>
+<td><code>Object</code></td>
+<td></td>
+</tr>
+<tr>
+<td>options.link</td>
+<td><code>Link</code></td>
+<td>Backward compatibility</td>
+</tr>
+<tr>
+<td>options.links</td>
+<td><code>Array.Link</code></td>
+<td>List of links</td>
+</tr>
+<tr>
+<td>options.schema</td>
+<td><code>Object</code></td>
+<td>Schema description for each doctypes</td>
+</tr>
+</tbody>
+</table>
+<p><a name="CozyClient+collection"></a></p>
+<h3 id="cozyclientcollectiondoctype-documentcollection">cozyClient.collection(doctype) ⇒ <code>DocumentCollection</code><a class="headerlink" href="#cozyclientcollectiondoctype-documentcollection" title="Permanent link">&para;</a></h3>
+<p>Forwards to a stack client instance and returns
+a <a href="../DocumentCollection">DocumentCollection</a> instance.</p>
+<p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>doctype</td>
+<td><code>String</code></td>
+<td>The collection doctype.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="CozyClient+getDocumentSavePlan"></a></p>
+<h3 id="cozyclientgetdocumentsaveplandocument-relationships-arraymutation">cozyClient.getDocumentSavePlan(document, relationships) ⇒ <code>Array.&lt;Mutation&gt;</code><a class="headerlink" href="#cozyclientgetdocumentsaveplandocument-relationships-arraymutation" title="Permanent link">&para;</a></h3>
+<p>Creates a list of mutations to execute to create a document and its relationships.</p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">baseDoc</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">_type</span><span class="o">:</span> <span class="s1">&#39;io.cozy.todo&#39;</span><span class="p">,</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Go hiking&#39;</span> <span class="p">}</span>
+<span class="c1">// relations can be arrays or single objects</span>
+<span class="kr">const</span> <span class="nx">relationships</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">attachments</span><span class="o">:</span> <span class="p">[{</span> <span class="nx">_id</span><span class="o">:</span> <span class="mi">12345</span><span class="p">,</span> <span class="nx">_type</span><span class="o">:</span> <span class="s1">&#39;io.cozy.files&#39;</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">_id</span><span class="o">:</span> <span class="mi">6789</span><span class="p">,</span> <span class="nx">_type</span><span class="o">:</span> <span class="s1">&#39;io.cozy.files&#39;</span> <span class="p">}],</span>
+  <span class="nx">bills</span><span class="o">:</span> <span class="p">{</span> <span class="nx">_id</span><span class="o">:</span> <span class="mi">9999</span><span class="p">,</span> <span class="nx">_type</span><span class="o">:</span> <span class="s1">&#39;io.cozy.bills&#39;</span> <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">client</span><span class="p">.</span><span class="nx">getDocumentSavePlan</span><span class="p">(</span><span class="nx">baseDoc</span><span class="p">,</span> <span class="nx">relationships</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a><br />
+<strong>Returns</strong>: <code>Array.&lt;Mutation&gt;</code> - One or more mutation to execute  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>document</td>
+<td><code>object</code></td>
+<td>The base document to create</td>
+</tr>
+<tr>
+<td>relationships</td>
+<td><code>object</code></td>
+<td>The list of relationships to add, as a dictionnary. Keys should be relationship names and values the documents to link.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="CozyClient+fetchRelationships"></a></p>
+<h3 id="cozyclientfetchrelationships">cozyClient.fetchRelationships()<a class="headerlink" href="#cozyclientfetchrelationships" title="Permanent link">&para;</a></h3>
+<p>Fetch relationships for a response (can be several docs).
+Fills the <code>relationships</code> attribute of each documents.</p>
+<p>Can potentially result in several fetch requests.
+Queries are optimized before being sent.</p>
+<p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a><br />
+<a name="CozyClient+hydrateDocument"></a></p>
+<h3 id="cozyclienthydratedocument">cozyClient.hydrateDocument()<a class="headerlink" href="#cozyclienthydratedocument" title="Permanent link">&para;</a></h3>
+<p>Instantiate relationships on a document</p>
+<p>The original document is kept in the target attribute of
+the relationship</p>
+<p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a><br />
+<a name="CozyClient+makeNewDocument"></a></p>
+<h3 id="cozyclientmakenewdocument">cozyClient.makeNewDocument()<a class="headerlink" href="#cozyclientmakenewdocument" title="Permanent link">&para;</a></h3>
+<p>Creates (locally) a new document for the given doctype.
+This document is hydrated : its relationships are there
+and working.</p>
+<p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a><br />
+<a name="CozyClient+getAssociation"></a></p>
+<h3 id="cozyclientgetassociation">cozyClient.getAssociation()<a class="headerlink" href="#cozyclientgetassociation" title="Permanent link">&para;</a></h3>
+<p>Creates an association that is linked to the store.</p>
+<p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a><br />
+<a name="CozyClient+getRelationshipStoreAccessors"></a></p>
+<h3 id="cozyclientgetrelationshipstoreaccessors">cozyClient.getRelationshipStoreAccessors()<a class="headerlink" href="#cozyclientgetrelationshipstoreaccessors" title="Permanent link">&para;</a></h3>
+<p>Returns the accessors that are given to the relationships for them
+to deal with the stores.</p>
+<p>Relationships need to have access to the store to ping it when
+a modification (addById/removeById etc&hellip;) has been done. This wakes
+the store up, which in turn will update the <code>&lt;Query&gt;</code>s and re-render the data.</p>
+<p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a><br />
+<a name="CozyClient+register"></a></p>
+<h3 id="cozyclientregistercozyurl-object">cozyClient.register(cozyURL) ⇒ <code>object</code><a class="headerlink" href="#cozyclientregistercozyurl-object" title="Permanent link">&para;</a></h3>
+<p>Performs a complete OAuth flow using a Cordova webview for auth.
+The <code>register</code> method&rsquo;s name has been chosen for compat reasons with the Authentication compo.</p>
+<p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a><br />
+<strong>Returns</strong>: <code>object</code> - Contains the fetched token and the client information.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cozyURL</td>
+<td><code>string</code></td>
+<td>Receives the URL of the cozy instance.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="CozyClient+startOAuthFlow"></a></p>
+<h3 id="cozyclientstartoauthflowopenurlcallback-object">cozyClient.startOAuthFlow(openURLCallback) ⇒ <code>object</code><a class="headerlink" href="#cozyclientstartoauthflowopenurlcallback-object" title="Permanent link">&para;</a></h3>
+<p>Performs a complete OAuth flow, including updating the internal token at the end.</p>
+<p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a><br />
+<strong>Returns</strong>: <code>object</code> - Contains the fetched token and the client information. These should be stored and used to restore the client.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>openURLCallback</td>
+<td><code>function</code></td>
+<td>Receives the URL to present to the user as a parameter, and should return a promise that resolves with the URL the user was redirected to after accepting the permissions.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="CozyClient+renewAuthorization"></a></p>
+<h3 id="cozyclientrenewauthorization-object">cozyClient.renewAuthorization() ⇒ <code>object</code><a class="headerlink" href="#cozyclientrenewauthorization-object" title="Permanent link">&para;</a></h3>
+<p>Renews the token if, for instance, new permissions are required or token
+has expired.</p>
+<p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a><br />
+<strong>Returns</strong>: <code>object</code> - Contains the fetched token and the client information.<br />
+<a name="CozyClient+setData"></a></p>
+<h3 id="cozyclientsetdatadata">cozyClient.setData(data)<a class="headerlink" href="#cozyclientsetdatadata" title="Permanent link">&para;</a></h3>
+<p>Directly set the data in the store, without using a query
+This is useful for cases like Pouch replication, which wants to
+set some data in the store.</p>
+<p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td><code>Object</code></td>
+<td _data_="[data]" doctype:="doctype:"></td>
+</tr>
+</tbody>
+</table>
+<p><a name="QueryDefinition"></a></p>
+<h2 id="querydefinition">QueryDefinition<a class="headerlink" href="#querydefinition" title="Permanent link">&para;</a></h2>
+<p>Chainable API to create query definitions to retrieve documents
+from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
+<p><strong>Kind</strong>: global class  </p>
+<ul>
+<li><a href="#QueryDefinition">QueryDefinition</a><ul>
+<li><a href="#new_QueryDefinition_new">new QueryDefinition(doctype, id, ids, selector, fields, indexedFields, sort, includes, referenced, limit, skip)</a></li>
+<li><a href="#QueryDefinition+where">.where(selector)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
+<li><a href="#QueryDefinition+select">.select(fields)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
+<li><a href="#QueryDefinition+indexFields">.indexFields(fields)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
+<li><a href="#QueryDefinition+sortBy">.sortBy(sort)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
+<li><a href="#QueryDefinition+include">.include(includes)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
+<li><a href="#QueryDefinition+limitBy">.limitBy(limit)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
+<li><a href="#QueryDefinition+offset">.offset(skip)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
+<li><a href="#QueryDefinition+referencedBy">.referencedBy(document)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
+</ul>
+</li>
+</ul>
+<p><a name="new_QueryDefinition_new"></a></p>
+<h3 id="new-querydefinitiondoctype-id-ids-selector-fields-indexedfields-sort-includes-referenced-limit-skip">new QueryDefinition(doctype, id, ids, selector, fields, indexedFields, sort, includes, referenced, limit, skip)<a class="headerlink" href="#new-querydefinitiondoctype-id-ids-selector-fields-indexedfields-sort-includes-referenced-limit-skip" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>doctype</td>
+<td><code>string</code></td>
+<td>The doctype of the doc.</td>
+</tr>
+<tr>
+<td>id</td>
+<td><code>string</code></td>
+<td>The id of the doc.</td>
+</tr>
+<tr>
+<td>ids</td>
+<td><code>Array</code></td>
+<td>The ids of the docs.</td>
+</tr>
+<tr>
+<td>selector</td>
+<td><code>Object</code></td>
+<td>The selector to query the docs.</td>
+</tr>
+<tr>
+<td>fields</td>
+<td><code>Array</code></td>
+<td>The fields to return.</td>
+</tr>
+<tr>
+<td>indexedFields</td>
+<td><code>Array</code></td>
+<td>The fields to index.</td>
+</tr>
+<tr>
+<td>sort</td>
+<td><code>Array</code></td>
+<td>The sorting params.</td>
+</tr>
+<tr>
+<td>includes</td>
+<td><code>string</code></td>
+<td>The docs to include.</td>
+</tr>
+<tr>
+<td>referenced</td>
+<td><code>string</code></td>
+<td>The referenced document.</td>
+</tr>
+<tr>
+<td>limit</td>
+<td><code>number</code></td>
+<td>The document&rsquo;s limit to return.</td>
+</tr>
+<tr>
+<td>skip</td>
+<td><code>number</code></td>
+<td>The number of docs to skip.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="QueryDefinition+where"></a></p>
+<h3 id="querydefinitionwhereselector-querydefinition">queryDefinition.where(selector) ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a><a class="headerlink" href="#querydefinitionwhereselector-querydefinition" title="Permanent link">&para;</a></h3>
+<p>Query documents with a <a href="http://docs.couchdb.org/en/latest/api/database/find.html#find-selectors">mango selector</a>.
+Each field passed in the selector will be indexed, except if the indexField option is used.</p>
+<p><strong>Kind</strong>: instance method of <a href="#QueryDefinition"><code>QueryDefinition</code></a><br />
+<strong>Returns</strong>: <a href="#QueryDefinition"><code>QueryDefinition</code></a> - The QueryDefinition object.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>selector</td>
+<td><code>Object</code></td>
+<td>The Mango selector.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="QueryDefinition+select"></a></p>
+<h3 id="querydefinitionselectfields-querydefinition">queryDefinition.select(fields) ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a><a class="headerlink" href="#querydefinitionselectfields-querydefinition" title="Permanent link">&para;</a></h3>
+<p>Specify which fields of each object should be returned. If it is omitted, the entire object is returned.</p>
+<p><strong>Kind</strong>: instance method of <a href="#QueryDefinition"><code>QueryDefinition</code></a><br />
+<strong>Returns</strong>: <a href="#QueryDefinition"><code>QueryDefinition</code></a> - The QueryDefinition object.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fields</td>
+<td><code>Array</code></td>
+<td>The fields to return.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="QueryDefinition+indexFields"></a></p>
+<h3 id="querydefinitionindexfieldsfields-querydefinition">queryDefinition.indexFields(fields) ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a><a class="headerlink" href="#querydefinitionindexfieldsfields-querydefinition" title="Permanent link">&para;</a></h3>
+<p>Specify which fields should be indexed. This prevent the automatic indexing of the mango fields.</p>
+<p><strong>Kind</strong>: instance method of <a href="#QueryDefinition"><code>QueryDefinition</code></a><br />
+<strong>Returns</strong>: <a href="#QueryDefinition"><code>QueryDefinition</code></a> - The QueryDefinition object.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fields</td>
+<td><code>Array</code></td>
+<td>The fields to index.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="QueryDefinition+sortBy"></a></p>
+<h3 id="querydefinitionsortbysort-querydefinition">queryDefinition.sortBy(sort) ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a><a class="headerlink" href="#querydefinitionsortbysort-querydefinition" title="Permanent link">&para;</a></h3>
+<p>Specify how to sort documents, following the <a href="http://docs.couchdb.org/en/latest/api/database/find.html#find-sort">sort syntax</a></p>
+<p><strong>Kind</strong>: instance method of <a href="#QueryDefinition"><code>QueryDefinition</code></a><br />
+<strong>Returns</strong>: <a href="#QueryDefinition"><code>QueryDefinition</code></a> - The QueryDefinition object.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sort</td>
+<td><code>Array</code></td>
+<td>The list of field name and direction pairs.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="QueryDefinition+include"></a></p>
+<h3 id="querydefinitionincludeincludes-querydefinition">queryDefinition.include(includes) ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a><a class="headerlink" href="#querydefinitionincludeincludes-querydefinition" title="Permanent link">&para;</a></h3>
+<p>Includes documents having a relationships with the ones queried.
+For example, query albums including the photos.</p>
+<p><strong>Kind</strong>: instance method of <a href="#QueryDefinition"><code>QueryDefinition</code></a><br />
+<strong>Returns</strong>: <a href="#QueryDefinition"><code>QueryDefinition</code></a> - The QueryDefinition object.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>includes</td>
+<td><code>Array</code></td>
+<td>The documents to include.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="QueryDefinition+limitBy"></a></p>
+<h3 id="querydefinitionlimitbylimit-querydefinition">queryDefinition.limitBy(limit) ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a><a class="headerlink" href="#querydefinitionlimitbylimit-querydefinition" title="Permanent link">&para;</a></h3>
+<p>Maximum number of documents returned, useful for pagination. Default is 100.</p>
+<p><strong>Kind</strong>: instance method of <a href="#QueryDefinition"><code>QueryDefinition</code></a><br />
+<strong>Returns</strong>: <a href="#QueryDefinition"><code>QueryDefinition</code></a> - The QueryDefinition object.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>limit</td>
+<td><code>number</code></td>
+<td>The document&rsquo;s limit.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="QueryDefinition+offset"></a></p>
+<h3 id="querydefinitionoffsetskip-querydefinition">queryDefinition.offset(skip) ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a><a class="headerlink" href="#querydefinitionoffsetskip-querydefinition" title="Permanent link">&para;</a></h3>
+<p>Skip the first ‘n’ documents, where ‘n’ is the value specified.</p>
+<p><strong>Kind</strong>: instance method of <a href="#QueryDefinition"><code>QueryDefinition</code></a><br />
+<strong>Returns</strong>: <a href="#QueryDefinition"><code>QueryDefinition</code></a> - The QueryDefinition object.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>skip</td>
+<td><code>number</code></td>
+<td>The number of documents to skip.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="QueryDefinition+referencedBy"></a></p>
+<h3 id="querydefinitionreferencedbydocument-querydefinition">queryDefinition.referencedBy(document) ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a><a class="headerlink" href="#querydefinitionreferencedbydocument-querydefinition" title="Permanent link">&para;</a></h3>
+<p>Use the <a href="https://docs.cozy.io/en/cozy-stack/references-docs-in-vfs/">file reference system</a></p>
+<p><strong>Kind</strong>: instance method of <a href="#QueryDefinition"><code>QueryDefinition</code></a><br />
+<strong>Returns</strong>: <a href="#QueryDefinition"><code>QueryDefinition</code></a> - The QueryDefinition object.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>document</td>
+<td><code>Object</code></td>
+<td>The reference document</td>
+</tr>
+</tbody>
+</table>
+<p><a name="Schema"></a></p>
+<h2 id="schema">Schema<a class="headerlink" href="#schema" title="Permanent link">&para;</a></h2>
+<p>Stores information on a particular doctype.</p>
+<ul>
+<li>Attribute validation</li>
+<li>Relationship access</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">schema</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Schema</span><span class="p">({</span>
+  <span class="nx">todos</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">attributes</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">label</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">unique</span><span class="o">:</span> <span class="kc">true</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nx">relationships</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">author</span><span class="o">:</span> <span class="s1">&#39;has-one-in-place&#39;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">},</span> <span class="nx">cozyStackClient</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>Kind</strong>: global class  </p>
+<ul>
+<li><a href="#Schema">Schema</a><ul>
+<li><a href="#Schema+getDoctypeSchema">.getDoctypeSchema()</a></li>
+<li><a href="#Schema+getRelationship">.getRelationship()</a></li>
+<li><a href="#Schema+validate">.validate()</a></li>
+</ul>
+</li>
+</ul>
+<p><a name="Schema+getDoctypeSchema"></a></p>
+<h3 id="schemagetdoctypeschema">schema.getDoctypeSchema()<a class="headerlink" href="#schemagetdoctypeschema" title="Permanent link">&para;</a></h3>
+<p>Returns the schema for a doctype</p>
+<p><strong>Kind</strong>: instance method of <a href="#Schema"><code>Schema</code></a><br />
+<a name="Schema+getRelationship"></a></p>
+<h3 id="schemagetrelationship">schema.getRelationship()<a class="headerlink" href="#schemagetrelationship" title="Permanent link">&para;</a></h3>
+<p>Returns the relationship for a given doctype/name</p>
+<p><strong>Kind</strong>: instance method of <a href="#Schema"><code>Schema</code></a><br />
+<a name="Schema+validate"></a></p>
+<h3 id="schemavalidate">schema.validate()<a class="headerlink" href="#schemavalidate" title="Permanent link">&para;</a></h3>
+<p>Validates a document considering the descriptions in schema.attributes.</p>
+<p><strong>Kind</strong>: instance method of <a href="#Schema"><code>Schema</code></a><br />
+<a name="withClient"></a></p>
+<h2 id="withclientcomponent-function">withClient(Component) ⇒ <code>function</code><a class="headerlink" href="#withclientcomponent-function" title="Permanent link">&para;</a></h2>
+<p>HOC to provide client from context as prop</p>
+<p><strong>Kind</strong>: global function<br />
+<strong>Returns</strong>: <code>function</code> - - Component that will receive client as prop  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Component</td>
+<td><code>Component</code></td>
+<td>wrapped component</td>
+</tr>
+</tbody>
+</table>
+<p><a name="queryConnect"></a></p>
+<h2 id="queryconnectqueryspecs-function">queryConnect(querySpecs) ⇒ <code>function</code><a class="headerlink" href="#queryconnectqueryspecs-function" title="Permanent link">&para;</a></h2>
+<p>HOC creator to connect component to several queries in a declarative manner</p>
+<p><strong>Kind</strong>: global function<br />
+<strong>Returns</strong>: <code>function</code> - - HOC to apply to a component  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>querySpecs</td>
+<td><code>object</code></td>
+<td>Definition of the queries</td>
+</tr>
+</tbody>
+</table>
+                </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//matomo.cozycloud.cc/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '7']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//matomo.cozycloud.cc/piwik.php?idsite=7&rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        <script>var base_url = '../../..';</script>
+        <script data-main="../../../mkdocs/js/search.js" src="../../../mkdocs/js/require.js"></script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../extra.js"></script>
+        <script src="../../../search/main.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
