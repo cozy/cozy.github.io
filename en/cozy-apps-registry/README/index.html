@@ -736,6 +736,12 @@ described to work with the <a href="https://github.com/cozy/cozy-stack">cozy-sta
 - Here the generated session token (step 1) is stored in the <code>sessionsecret.key</code> file of the working directory, this is so the value of the property <code>session-secret</code> at the end of the configuration file.
 - By default, the local couchdb allow all admin accesses without creating users, so there is no user and password here. But if an admin user has been created, you have to use the properties <code>user</code> and <code>password</code> in the <code>couchdb</code> part to provide these informations.</p>
 </blockquote>
+<p>It&rsquo;s also possible to use env variables for configuration. You can take the key from the configuration file and add the <code>COZY_REGISTRY</code> prefix. For example, you can run:</p>
+<div class="codehilite"><pre><span></span><span class="nv">COZY_REGISTRY_PORT</span><span class="o">=</span><span class="m">8081</span> cozy-apps-registry serve
+</pre></div>
+
+
+<p>There is also the <code>REGISTRY_SESSION_PASS</code> env variable for the password for the session secret.</p>
 <h3 id="3-run-the-registry-to-serve-the-apps">3) Run the registry to serve the apps<a class="headerlink" href="#3-run-the-registry-to-serve-the-apps" title="Permanent link">&para;</a></h3>
 <p>Run the registry using this followed command (here our configuration file is a <code>cozy-registry.yml</code> in the current working directory):</p>
 <div class="codehilite"><pre><span></span>cozy-apps-registry serve -c cozy-registry.yml
@@ -778,7 +784,7 @@ cozy-apps-registry gen-token --master Cozy -c cozy-registry.yml
 <p>To be publishable, your application requires some informations in its <code>manifest.webapp</code>, the manifest of a Cozy application. Here is an example for the application Drive:</p>
 <details>
 
-wzxhzdk:6
+wzxhzdk:7
 
 
 </details>
@@ -787,7 +793,7 @@ cozy-apps-registry gen-token --master Cozy -c cozy-registry.yml
 <p>To be publishable, your konnector requires some informations in its <code>manifest.konnector</code>, the manifest of a Cozy konnector. Here is an example for the konnector <code>cozy-konnector-trainline</code>:</p>
 <details>
 
-wzxhzdk:7
+wzxhzdk:8
 
 
 </details>
@@ -884,7 +890,7 @@ cozy-apps-registry gen-token --master Cozy -c cozy-registry.yml
 </tr>
 <tr>
 <td><code>partnership</code></td>
-<td>an object to provide informations (to display in the Store for example) about a partnership related to the application (<code>icon</code> and <code>description</code>)</td>
+<td>an object to provide informations (to display in the Store for example) about a partnership related to the application (<code>icon</code> <code>description</code>, <code>name</code> and <code>domain</code>)</td>
 </tr>
 <tr>
 <td><code>permissions</code></td>

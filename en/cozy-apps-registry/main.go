@@ -139,6 +139,13 @@ func init() {
 }
 
 func useConfig(cmd *cobra.Command) (err error) {
+	viper.SetEnvPrefix("cozy_registry")
+	viper.AutomaticEnv()
+	viper.SetDefault("port", 8080)
+	viper.SetDefault("host", "localhost")
+	viper.SetDefault("couchdb.url", "http://localhost:5984/")
+	viper.SetDefault("couchdb.prefix", "cozyregistry")
+
 	var cfgFile string
 	if cfgFileFlag == "" {
 		if file, ok := findConfigFile("cozy-registry"); ok {
@@ -170,13 +177,6 @@ func useConfig(cmd *cobra.Command) (err error) {
 	if ext := filepath.Ext(cfgFile); len(ext) > 0 {
 		viper.SetConfigType(ext[1:])
 	}
-
-	viper.SetDefault("port", 8080)
-	viper.SetDefault("host", "localhost")
-	viper.SetDefault("couchdb.url", "http://localhost:5984/")
-	viper.SetDefault("couchdb.prefix", "cozyregistry")
-	viper.SetEnvPrefix("cozy_registry")
-	viper.AutomaticEnv()
 
 	if err = viper.ReadConfig(dest); err != nil {
 		return fmt.Errorf("Failed to read cozy-apps-registry configuration %q: %s",
