@@ -16,7 +16,7 @@ To protect your data, each connector runs inside a container in order to sandbox
 ## How does it work?
 
 A connector is a NodeJS script.
-The target node version used to run your connector is the [current LTS version](https://github.com/nodejs/Release#release-schedule) (8 at the time this doc was written).
+The target node version used to run your connector is the version 8.
 
 Like client side apps, connectors communicate with the [Cozy Stack] using its HTTP API, and get a unique auth token every time they start.
 They need to register with a manifest, and ask the user for permissions.
