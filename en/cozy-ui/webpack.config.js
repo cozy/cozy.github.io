@@ -26,7 +26,7 @@ module.exports = {
           {
             loader: 'stylus-loader',
             options: {
-              use: [ require('../stylus')() ]
+              use: [require('../stylus')()]
             }
           }
         ]
@@ -34,6 +34,11 @@ module.exports = {
     ]
   },
   plugins: [
-    new MiniCssExtractPlugin('[name].css')
+    new MiniCssExtractPlugin('[name].css'),
+    new webpack.DefinePlugin({
+      'process.env': {
+        USE_REACT: 'true'
+      }
+    })
   ]
 }
