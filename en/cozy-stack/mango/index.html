@@ -471,6 +471,10 @@
 </li>
             
 <li >
+    <a href="../public/">/public - Public</a>
+</li>
+            
+<li >
     <a href="../permissions/">/permissions - Permissions</a>
 </li>
             
@@ -768,8 +772,9 @@ mango selectors
 <li><code>use_index</code> is optional but recommended.</li>
 </ul>
 <h2 id="pagination-cookbook">Pagination cookbook<a class="headerlink" href="#pagination-cookbook" title="Permanent link">&para;</a></h2>
-<p>Pagination of mango query should be handled by the client. The stack will always
-limit query results to maximum 100 docs.</p>
+<p>Pagination of mango query should be handled by the client. The stack will limit
+query results to a maximum of 100 documents. This limit can be raised up to
+1000 documents per page with the <code>limit</code> parameter, but not further.</p>
 <p>The limit applied to a query is visible in the HTTP response.</p>
 <p>If the limit cause some docs to not be returned, the response will have a
 <code>next=true</code> top level values.</p>
@@ -791,7 +796,7 @@ limit query results to maximum 100 docs.</p>
 
 
 <p>To paginate, the client should keep track of the value of the last index field.</p>
-<h3 id="exemple">Exemple :<a class="headerlink" href="#exemple" title="Permanent link">&para;</a></h3>
+<h3 id="example">Example:<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
 <p>Index on io.cozy.events with fields <code>["calendar", "date"]</code></p>
 <p>Try to get all events for a month :</p>
 <div class="codehilite"><pre><span></span><span class="err">selector:</span> <span class="p">{</span>
