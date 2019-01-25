@@ -655,7 +655,7 @@
 <code>admin-party-mode</code> (no user). This command exposes couchdb on the port <code>5984</code>.</p>
 <div class="codehilite"><pre><span></span>$ docker run -d <span class="se">\</span>
     --name cozy-stack-couch <span class="se">\</span>
-    -p <span class="m">5984</span>:5984 <span class="se">\</span>
+    --net<span class="o">=</span>host <span class="se">\</span>
     -v <span class="nv">$HOME</span>/.cozy-stack-couch:/opt/couchdb/data <span class="se">\</span>
     apache/couchdb:2.3
 $ curl -X PUT http://127.0.0.1:5984/<span class="o">{</span>_users,_replicator,_global_changes<span class="o">}</span>

@@ -666,14 +666,32 @@
 <li><code>name</code>: {string} the file name</li>
 <li><code>trashed</code>: {bool} true if the file is in the trash</li>
 <li><code>md5sum</code>: {string} the checksum of its content, computed with the MD5 algorithm</li>
-<li><code>created_at</code>: {timestamp} the date of the creation of this directory</li>
-<li><code>updated_at</code>: {timestamp} the date of the last update of this directory</li>
+<li><code>created_at</code>: {date} the date of the creation of this directory</li>
+<li><code>updated_at</code>: {date} the date of the last update of this directory</li>
 <li><code>tags</code>: {array of strings} a list of tags</li>
 <li><code>size</code>: {number} the size of its content, in bytes</li>
 <li><code>executable</code>: {bool} true is the file has the executable bit on UNIX (<code>chmod +x</code>)</li>
 <li><code>class</code>: {string} a class in the list: <code>['image', 'document', 'audio', 'video', 'text', 'binary']</code></li>
 <li><code>mime</code>: {string} the full mime-type</li>
 <li><code>metadata</code>: {map} an optional map of metadata (for example <code>width</code>, <code>height</code>, and <code>datetime</code> for an image)</li>
+<li><code>width</code>: {number}</li>
+<li><code>height</code>: {number}</li>
+<li><code>datetime</code>: {date} : date in original image file metadata</li>
+<li><code>gps</code>: {map} : localization metadata with the following attributes<ul>
+<li><code>lat</code>: {float}: latitude</li>
+<li><code>long</code>: {float}: longitude</li>
+<li><code>city</code>: {string}: nearest city (optional)</li>
+<li><code>zip</code>: {string}: postal code of the nearest city (optional)</li>
+<li><code>country</code>: {string}: name of the associated country if any (optional)</li>
+</ul>
+</li>
+<li><code>persons</code>: {array}: the maps can have the following attributes (optional)<ul>
+<li><code>name</code>: {string}: then name of the tagged person on the photo</li>
+<li><code>create_at</code>: {date}: date of creation of the tag</li>
+<li><code>x</code>: {float}: x coordinate in the photo where the person is</li>
+<li><code>y</code>: {float}: y coordinate in the photo where the person is</li>
+</ul>
+</li>
 </ul>
 <p>It also has a relationship with its <code>parent</code> in the JSON-API representation.</p>
 <p>For an <code>image</code>, there are 3 links to thumbnails: <code>small</code>, <code>medium</code>, and <code>large</code>.</p>
