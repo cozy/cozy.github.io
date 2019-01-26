@@ -7,10 +7,10 @@
         
         
         <meta name="author" content="CozyCloud - https://cozy.io">
-        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/cli/cozy-stack_instances/">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/cli/cozy-stack_instances_set-passphrase/">
         <link rel="shortcut icon" href="../../../img/favicon.png">
         
-        <title>cozy-stack_instances - Dev Documentation</title>
+        <title>cozy-stack_instances_set-passphrase - Dev Documentation</title>
         <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
@@ -601,15 +601,16 @@
                 <div class="col-md-3 main-toc">
 <div class="bs-sidebar hidden-print affix" role="complementary">
     <ul class="nav bs-sidenav well" style='padding-left: 0; padding-right: 0; margin-bottom: 1.5rem'>
-        <li class="main active"><a href="#cozy-stack-instances">cozy-stack instances</a></li>
+        <li class="main active"><a href="#cozy-stack-instances-set-passphrase">cozy-stack instances set-passphrase</a></li>
             <li><a href="#synopsis">Synopsis</a></li>
+            <li><a href="#examples">Examples</a></li>
             <li><a href="#options">Options</a></li>
             <li><a href="#options-inherited-from-parent-commands">Options inherited from parent commands</a></li>
             <li><a href="#see-also">SEE ALSO</a></li>
     </ul>
   <div style='padding-left: 2rem'>
     
-    <a id='edit-link' href='https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-stack/cli/cozy-stack_instances.md'>Edit documentation</a>
+    <a id='edit-link' href='https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-stack/cli/cozy-stack_instances_set-passphrase.md'>Edit documentation</a>
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
@@ -647,21 +648,21 @@
                 <div class="col-md-9" role="main">
                     
 
-<h2 id="cozy-stack-instances">cozy-stack instances<a class="headerlink" href="#cozy-stack-instances" title="Permanent link">&para;</a></h2>
-<p>Manage instances of a stack</p>
+<h2 id="cozy-stack-instances-set-passphrase">cozy-stack instances set-passphrase<a class="headerlink" href="#cozy-stack-instances-set-passphrase" title="Permanent link">&para;</a></h2>
+<p>Change the passphrase of the instance</p>
 <h3 id="synopsis">Synopsis<a class="headerlink" href="#synopsis" title="Permanent link">&para;</a></h3>
-<p>cozy-stack instances allows to manage the instances of this stack</p>
-<p>An instance is a logical space owned by one user and identified by a domain.
-For example, bob.cozycloud.cc is the instance of Bob. A single cozy-stack
-process can manage several instances.</p>
-<p>Each instance has a separate space for storing files and a prefix used to
-create its CouchDB databases.</p>
-<div class="codehilite"><pre><span></span>cozy-stack instances &lt;command&gt; [flags]
+<p>Change the passphrase of the instance</p>
+<div class="codehilite"><pre><span></span>cozy-stack instances set-passphrase &lt;domain&gt; &lt;new-passphrase&gt; [flags]
+</pre></div>
+
+
+<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>$ cozy-stack instances set-passphrase cozy.tools:8080 myN3wP4ssowrd!
 </pre></div>
 
 
 <h3 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span>  -h, --help   help for instances
+<div class="codehilite"><pre><span></span>  -h, --help   help for set-passphrase
 </pre></div>
 
 
@@ -676,29 +677,7 @@ create its CouchDB databases.</p>
 
 <h3 id="see-also">SEE ALSO<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h3>
 <ul>
-<li><a href="../cozy-stack/">cozy-stack</a>    - cozy-stack is the main command</li>
-<li><a href="../cozy-stack_instances_add/">cozy-stack instances add</a>    - Manage instances of a stack</li>
-<li><a href="../cozy-stack_instances_client-oauth/">cozy-stack instances client-oauth</a>  - Register a new OAuth client</li>
-<li><a href="../cozy-stack_instances_debug/">cozy-stack instances debug</a>    - Activate or deactivate debugging of the instance</li>
-<li><a href="../cozy-stack_instances_destroy/">cozy-stack instances destroy</a>    - Remove instance</li>
-<li><a href="../cozy-stack_instances_export/">cozy-stack instances export</a>  - Export an instance to a tarball</li>
-<li><a href="../cozy-stack_instances_find-oauth-client/">cozy-stack instances find-oauth-client</a>    - Find an OAuth client</li>
-<li><a href="../cozy-stack_instances_fsck/">cozy-stack instances fsck</a>  - Check and repair a vfs</li>
-<li><a href="../cozy-stack_instances_import/">cozy-stack instances import</a>  - Import a tarball</li>
-<li><a href="../cozy-stack_instances_ls/">cozy-stack instances ls</a>  - List instances</li>
-<li><a href="../cozy-stack_instances_modify/">cozy-stack instances modify</a>  - Modify the instance properties</li>
-<li><a href="../cozy-stack_instances_refresh-token-oauth/">cozy-stack instances refresh-token-oauth</a>    - Generate a new OAuth refresh token</li>
-<li><a href="../cozy-stack_instances_set-disk-quota/">cozy-stack instances set-disk-quota</a>  - Change the disk-quota of the instance</li>
-<li><a href="../cozy-stack_instances_set-passphrase/">cozy-stack instances set-passphrase</a>  - Change the passphrase of the instance</li>
-<li><a href="../cozy-stack_instances_show/">cozy-stack instances show</a>  - Show the instance of the specified domain</li>
-<li><a href="../cozy-stack_instances_show-app-version/">cozy-stack instances show-app-version</a>  - Show instances that have a particular app version</li>
-<li><a href="../cozy-stack_instances_show-db-prefix/">cozy-stack instances show-db-prefix</a>  - Show the instance DB prefix of the specified domain</li>
-<li><a href="../cozy-stack_instances_show-swift-prefix/">cozy-stack instances show-swift-prefix</a>    - Show the instance swift prefix of the specified domain</li>
-<li><a href="../cozy-stack_instances_token-app/">cozy-stack instances token-app</a>    - Generate a new application token</li>
-<li><a href="../cozy-stack_instances_token-cli/">cozy-stack instances token-cli</a>    - Generate a new CLI access token (global access)</li>
-<li><a href="../cozy-stack_instances_token-konnector/">cozy-stack instances token-konnector</a>    - Generate a new konnector token</li>
-<li><a href="../cozy-stack_instances_token-oauth/">cozy-stack instances token-oauth</a>    - Generate a new OAuth access token</li>
-<li><a href="../cozy-stack_instances_update/">cozy-stack instances update</a>  - Start the updates for the specified domain instance.</li>
+<li><a href="../cozy-stack_instances/">cozy-stack instances</a>    - Manage instances of a stack</li>
 </ul>
                 </div>
         </div>
