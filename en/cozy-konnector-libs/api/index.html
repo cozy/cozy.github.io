@@ -1041,10 +1041,14 @@ full permission on <code>io.cozy.bank.operations</code> in your manifest, to be 
 <p>fileurl: The url of the file. This attribute is mandatory or
     this item will be ignored</p>
 </li>
-<li>
-<p>filename : The file name of the item written on disk. This attribute is optional and as default value, the
+<li>filename : The file name of the item written on disk. This attribute is optional and as default value, the
     file name will be &ldquo;smartly&rdquo; guessed by the function. Use this attribute if the guess is not smart
-  enough for you.</p>
+  enough for you.</li>
+<li><code>shouldReplaceName</code> (string) default: <code>undefined</code> use to select the old filename to replace
+  by filename if possible</li>
+<li>
+<p><code>fileAttributes</code> (object) ex: <code>{created_at: new Date()}</code> sets some additionnal file
+  attributes passed to cozyClient.file.create</p>
 </li>
 <li>
 <p><code>fields</code> (string) is the argument given to the main function of your connector by the BaseKonnector.
@@ -1068,8 +1072,6 @@ full permission on <code>io.cozy.bank.operations</code> in your manifest, to be 
 <li><code>contentType</code> (string) ex: &lsquo;application/pdf&rsquo; used to force the contentType of documents when
   they are badly recognized by cozy.</li>
 <li><code>concurrency</code> (number) default: <code>1</code> sets the maximum number of concurrent downloads</li>
-<li><code>fileAttributes</code> (object) ex: <code>{created_at: new Date()}</code> sets some additionnal file
-  attributes passed to cozyClient.file.create</li>
 </ul>
 <p><strong>Kind</strong>: Exported function<br />
 <strong>Example</strong>  </p>
