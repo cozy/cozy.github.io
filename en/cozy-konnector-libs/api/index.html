@@ -1038,14 +1038,16 @@ full permission on <code>io.cozy.bank.operations</code> in your manifest, to be 
 <p><code>files</code> is an array of <code>{ fileurl, filename }</code> :</p>
 </li>
 <li>
-<p>fileurl: The url of the file. This attribute is mandatory or
-    this item will be ignored</p>
+<p>fileurl: The url of the file. This attribute is mandatory or this item will be ignored (can be a function returning the value)</p>
 </li>
+<li>filestream: the stream which will be directly passed to cozyClient.files.create (can also be
+  function returning the stream)</li>
+<li>requestOptions (object) : The options passed to request to fetch fileurl (can be a function returning the value)</li>
 <li>filename : The file name of the item written on disk. This attribute is optional and as default value, the
     file name will be &ldquo;smartly&rdquo; guessed by the function. Use this attribute if the guess is not smart
-  enough for you.</li>
+  enough for you (can be a function returning the value).</li>
 <li><code>shouldReplaceName</code> (string) default: <code>undefined</code> use to select the old filename to replace
-  by filename if possible</li>
+  by filename if possible (can be a function returning the value)</li>
 <li>
 <p><code>fileAttributes</code> (object) ex: <code>{created_at: new Date()}</code> sets some additionnal file
   attributes passed to cozyClient.file.create</p>
