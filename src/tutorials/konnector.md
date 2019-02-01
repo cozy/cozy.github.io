@@ -18,10 +18,10 @@ To protect your data, each connector runs inside a container in order to sandbox
 A connector is a NodeJS script.
 The target node version used to run your connector is the version 8.
 
-Like client side apps, connectors communicate with the [Cozy Stack] using its HTTP API, and get a unique auth token every time they start.
+Like client side apps, connectors communicate with the [Cozy Stack](https://docs.cozy.io/en/cozy-stack/README/) using its HTTP API, and get a unique auth token every time they start.
 They need to register with a manifest, and ask the user for permissions.
 
-To facilitate connector development, a npm package, [cozy-konnector-libs], provides some shared libraries that are adapted to be used for a connector:
+To facilitate connector development, a npm package, [cozy-konnector-libs](https://github.com/konnectors/libs), provides some shared libraries that are adapted to be used for a connector:
 
  - [cheerio](https://cheerio.js.org) to easily query a HTML page
  - [request-promise](https://github.com/request/request-promise): [request](https://github.com/request/request) with Promise support
@@ -48,7 +48,7 @@ From the server point of view, each connector is a `job` which is executed perio
 
 ## Let’s create our first connector
 
-The easiest way to create a new connector is to use [cozy-konnector-template]:
+The easiest way to create a new connector is to use [cozy-konnector-template](https://github.com/konnectors/cozy-konnector-template):
 
 ℹ There is also a [(french) youtube video to create your first connector](https://www.youtube.com/watch?v=gp0cE8kHEBc&list=PLBgB0F1WGyOXMqKZe-Q1ql0Fz-ohPkq6-)
 
@@ -85,8 +85,8 @@ This configuration comes from [Cozy Collect] when deployed.
 }
 ```
 
-The `fields` property allows you to set credentials for the targeted web service, such as `login` and `password` as if they come from [Cozy Stack].
-The `COZY_URL` property will be used later.
+The `fields` property allows you to set credentials for the targeted web service, such as `login` and `password` as if they come from [Cozy Stack] (so from a real Cozy Cloud instance). You can add as many fields as the targeted service needs. 
+The `COZY_URL` property will be used later. You do not need to change it for now.
 
 As explained earlier, the demo website [books.toscrape.com](http://books.toscrape.com) does not need any credentials.
 But for the code to run without error, you need to register a _fake_ login and a _fake_ password:
@@ -154,6 +154,8 @@ async function start(fields) {
 Open the `src/index.js` file, there are comments to guide you through it.
 The very first step is to be able to authenticate to the remote service, this is done with the line:
 
+_note: don't forget to add your additional fields if you have some._
+
 ```js
 await authenticate(fields.login, fields.password)
 ```
@@ -197,7 +199,7 @@ Let's say the remote service exposes a simple classical form like https://www.tr
 ```
 
 Find a CSS selector for the form tag: `form#signin-form`.
-Find the name of the input tags used to host user's credentials: `email` and `password`.
+Find the **name** of the input tags used to host user's credentials: `email` and `password`.
 
 You are ready to complete the `signin(options)` object called in the `authenticate(username, password)` function:
 
@@ -206,7 +208,7 @@ function authenticate(username, password) {
   return signin({
     url: `https://www.trainline.eu/signin`,
     formSelector: 'form#signin-form',
-    formData: { email: username, password },
+    formData: { email: username, password }, // "email" and "password" correspond to the name attribut of the HTML inputs
     validate: (statusCode, $) => {
       // write some code to validate the form submission
     }
@@ -243,6 +245,22 @@ function authenticate(username, password) {
 }
 ```
 
+However if the target website don't use `statusCode` correctly you can also use `fullResponse.request.uri.href` to check if there is a redirection to a page that require to be logged in :
+
+```js
+validate: (statusCode, $, fullResponse) => {
+  return fullResponse.request.uri.href == 'https://example.com/account' || log('error', 'Invalid credentials')
+}
+```
+
+It is also possible to use Cheerio to check if an HTML element is present in the web page or not :
+
+```js
+validate: (statusCode, $) => {
+  return $('a[href="https://example.com/logout"]').length == 1 || log('error', $('.error').text())
+}
+```
+
 #### Request data
 
 Once the connector is able to be authenticated by the online service, the next step is to fetch data.
@@ -262,6 +280,8 @@ const $ = await request('http://books.toscrape.com/index.html')
 
 The `$` variable is set to a [cheerio](https://cheerio.js.org/) object with [useful API to crawl the webpage](https://github.com/request/request-promise#crawl-a-webpage-better).
 
+ℹ You can name this variable as you want and create as many as you want Cheerio variables such as : `$doc` or `$page`.
+
 That object will be very useful for the next step.
 
 #### Parse the document
@@ -274,7 +294,7 @@ const articles = [].map.call($('article', node => node))
 
 For every book, we want to catch the title attribute of this tag `article h3 a`.
 This is a [CSS Selector](https://developer.mozilla.org/en-US/docs/Web/API/Document_object_model/Locating_DOM_elements_using_selectors) that [cheerio](https://cheerio.js.org/) understands to select some part of the tree.
-In order to crawl a list of items to create an Array of JSON object, we can use the function [scrape from the connector libs](https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md#scrape):
+In order to crawl a list of items to create an Array of JSON object, we can create our own function or use the function [scrape from the connector libs](https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md#scrape):
 
 ```js
 const docs = scrape(
@@ -307,6 +327,8 @@ const docs = scrape(
   'article'
 )
 ```
+
+>Keep in mind that there are many useful CSS [Pseudo-classes](https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS/Pseudo-classes_and_pseudo-elements) and [Combinators](https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS/Combinators_and_multiple_selectors)  that you can use in your CSS selectors to help you select HTML elements.
 
 This code will loop on `<article />` and for each item will create a JSON object with the selector `sel` and the value of attribute `attr` if specified, otherwise it takes the value of the child node, this value can be edited with the `parse` function.
 Here is a sample for the following markup from http://books.toscrape.com:
@@ -353,6 +375,14 @@ And we will get the following JSON object:
 }
 ```
 
+`fileurl` is used to tell Cozy where to find the file (here an image) to retreive. Then you can save it to Cozy Stack (see section below).
+
+There are many [document types](https://github.com/cozy/cozy-doctypes) (Doctypes) you can store in your Cozy, such as : 
+- [Bills](https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.bills.md)
+- [Contacts](https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.contacts.md)
+- [Bank](https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.bank.md)
+- and so on…
+
 The code sample includes some other function to manipulate the result object, but we have the idea.
 Once we build a correct object, we can save it to Cozy Stack.
 
@@ -363,9 +393,20 @@ But there is a bunch of functions available depending on what you want:
 
 - [`addData`](https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md#adddata)
 - [`hydrateAndFilter`](https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_hydrateAndFilter)
-- [`saveBills`](https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_saveBills)
-- [`saveFiles`](https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_saveFiles)
+- [`saveBills`](https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_saveBills) to save invoices files (this function use `saveFiles`) that can be linked to your bank transactions.
+- [`saveFiles`](https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_saveFiles) to upload files to Cozy Drive.
 - and so on…
+
+For example, to save bills to Cozy you have to start by recovering all required fields for a data type [io.cozy.bills](https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.bills.md) using the `scrape` function, and then you can use the function `saveBills` to save your docs to Cozy Stack as shown below:
+
+```dart
+await saveBills(documents, fields, {
+  idenditifiers: ['vendor'], // name of the target website
+  contentType: 'application/pdf'
+})
+```
+
+*`documents` is the list of bills returned by the function `parseDocuments` after the page scraping*.
 
 We can find more information in the [libs repository](https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md).
 
@@ -446,6 +487,8 @@ The Cozy Konnector Libs provide several useful methods for common tasks:
  - [linkBankOperations](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#linkbankoperations) to link a bill to a bank operation
  - [saveBills](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#savebills) which uses hydrateAndFilter, addData, saveFiles and linkBankOperations and which is specific to bills
  - [updateOrCreate](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#updateorcreate) create or update documents inside database
+  - [htmlToPDF]() to convert HTML code to PDF content to insert into a PDF file created with the `createCozyPDFDocument` function
+ - [createCozyPDFDocument]() to create a new PDF file to pass to `htmlToPDF`
 
 ## Linking your connector to a cozy : `dev mode`
 
@@ -540,10 +583,10 @@ You need to push an icon in `assets/`. Please respect this rules :
 
  - Edit the name with a nice name (Capitals and spaces allowed here)
  - Edit icon as needed
- - Edit slug
+ - Edit slug (no capitals and no spaces here)
  - Edit source with the correct repository URL
  - Add a correct vendor link
- - Choose one or more categories in this list : `banking, shopping, insurance, isp, telecom, energy, public_service, other`
+ - Choose one or more categories (used to sort connectors in Cozy Store)  in this list : `banking, shopping, insurance, isp, telecom, energy, public_service, other`.
  - If needed, change the input type the target website use to login the user: `text`, `email` or `phone` for instance, this will enforce pre-checking
  - Edit for both locales `en` and `fr` the short description and long description
 
