@@ -610,7 +610,7 @@
             <li><a href="#types">Types</a></li>
             <li><a href="#complete-flow-example">Complete flow example</a></li>
             <li><a href="#konnector-worker-specs">Konnector Worker specs</a></li>
-            <li><a href="#oauth">OAuth</a></li>
+            <li><a href="#oauth-and-service-secrets">OAuth (and service secrets)</a></li>
     </ul>
   <div style='padding-left: 2rem'>
     
@@ -911,7 +911,7 @@ failure by cozy-stack. It&rsquo;s also the case if the konnector reaches the tim
 or returns with a non-zero status code.</p>
 <p><strong>Note:</strong> debug and info level are not transmitted to syslog, except if the
 instance is in debug mode. It would be too verbose to do otherwise.</p>
-<h2 id="oauth">OAuth<a class="headerlink" href="#oauth" title="Permanent link">&para;</a></h2>
+<h2 id="oauth-and-service-secrets">OAuth (and service secrets)<a class="headerlink" href="#oauth-and-service-secrets" title="Permanent link">&para;</a></h2>
 <h3 id="doctypes">Doctypes<a class="headerlink" href="#doctypes" title="Permanent link">&para;</a></h3>
 <p><code>io.cozy.konnectors</code> gives their desiderata for an account</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
@@ -956,6 +956,23 @@ as the associated scope</p>
 <p><code>io.cozy.account_types</code> are not accessible to the applications: they are
 injected directly in CouchDB in a global database
 <code>secrets/io-cozy-accounts_type</code>.</p>
+<h3 id="secrets-that-are-not-oauth">Secrets that are not OAuth<a class="headerlink" href="#secrets-that-are-not-oauth" title="Permanent link">&para;</a></h3>
+<p>The <code>io.cozy.account_types</code> doctype can also be used for storing secrets that
+are not related to OAuth. The document still need to be injected manually in
+<code>secrets/io-cozy-accounts_type</code>:</p>
+<div class="codehilite"><pre><span></span>{
+    &quot;_id&quot;: &quot;service.example&quot;,
+    &quot;grant_mode&quot;: &quot;secret&quot;,
+    &quot;slug&quot;: &quot;service&quot;
+    &quot;secret&quot;: &quot;th1$_1$_th3_s3cr3t!&quot;
+}
+</pre></div>
+
+
+<p><strong>Note</strong>: <code>grant_mode</code> must be <code>secret</code>, <code>slug</code> must be the slug of the
+konnector,  but <code>secret</code> can be a map instead of a simple string if several
+secrets are needed for this service.</p>
+<p>The secret is given to the konnector in the <code>COZY_PARAMETERS</code> env variable.</p>
 <h3 id="reminder-oauth-flow">Reminder OAuth flow<a class="headerlink" href="#reminder-oauth-flow" title="Permanent link">&para;</a></h3>
 <p><strong>Service</strong> is the website from which konnector aims to retrieve informations.
 <strong>Stack</strong> is the cozy stack.</p>
