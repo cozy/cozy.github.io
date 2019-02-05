@@ -389,7 +389,7 @@
 </li>
             
 <li >
-    <a href="../assets/">Working with the stacka assets</a>
+    <a href="../assets/">Working with the stack assets</a>
 </li>
             
 <li >
@@ -1040,7 +1040,7 @@ allows to have a nice diff between two executions of the worker.</p>
             <span class="nt">&quot;arguments&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.invitations&quot;</span><span class="p">,</span>
             <span class="nt">&quot;debounce&quot;</span><span class="p">:</span> <span class="s2">&quot;10m&quot;</span><span class="p">,</span>
             <span class="nt">&quot;worker&quot;</span><span class="p">:</span> <span class="s2">&quot;sendmail&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;worker_arguments&quot;</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="p">{},</span>
             <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="nt">&quot;priority&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
                 <span class="nt">&quot;timeout&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
@@ -1052,6 +1052,8 @@ allows to have a nice diff between two executions of the worker.</p>
 </pre></div>
 
 
+<p><strong>Note</strong>: the <code>message</code> field was previously called <code>worker_arguments</code>. The
+latter version still works but is deprecated, you should use <code>message</code> instead.</p>
 <h4 id="response_3">Response<a class="headerlink" href="#response_3" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
     <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>

@@ -389,7 +389,7 @@
 </li>
             
 <li >
-    <a href="../assets/">Working with the stacka assets</a>
+    <a href="../assets/">Working with the stack assets</a>
 </li>
             
 <li >
@@ -687,10 +687,28 @@
 
 
 <h2 id="passphrase">Passphrase<a class="headerlink" href="#passphrase" title="Permanent link">&para;</a></h2>
-<h3 id="post-settingspassphrase">POST /settings/passphrase<a class="headerlink" href="#post-settingspassphrase" title="Permanent link">&para;</a></h3>
+<h3 id="post-settingspassphrase-form">POST /settings/passphrase (form)<a class="headerlink" href="#post-settingspassphrase-form" title="Permanent link">&para;</a></h3>
+<p>The suer can send its new passphrase to finish the onboarding.</p>
+<h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/settings/passphrase</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/x-www-form-urlencoded</span>
+
+passphrase=ThisIsTheNewShinnyPassphraseChoosedByAlice&amp;register_token=37cddf40d7724988860fa0e03efd30fe
+</pre></div>
+
+
+<h4 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">303</span> <span class="ne">See Other</span>
+<span class="na">Set-Cookie</span><span class="o">:</span> <span class="l">cozysessid=AAAAAFhSXT81MWU0ZTBiMzllMmI1OGUyMmZiN2Q0YTYzNDAxN2Y5NjCmp2Ja56hPgHwufpJCBBGJC2mLeJ5LCRrFFkHwaVVa; Path=/; Domain=alice.example.com; Max-Age=604800; HttpOnly; Secure</span>
+<span class="na">Location</span><span class="o">:</span> <span class="l">https://alice-home.example.com/</span>
+</pre></div>
+
+
+<h3 id="post-settingspassphrase-json">POST /settings/passphrase (json)<a class="headerlink" href="#post-settingspassphrase-json" title="Permanent link">&para;</a></h3>
 <p>The onboarding application can send a request to this endpoint to register the
 passphrase of the user. The registration token can only be used once.</p>
-<h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
+<h4 id="request_2">Request<a class="headerlink" href="#request_2" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/settings/passphrase</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
@@ -704,7 +722,7 @@ passphrase of the user. The registration token can only be used once.</p>
 </pre></div>
 
 
-<h4 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h4>
+<h4 id="response_2">Response<a class="headerlink" href="#response_2" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
 <span class="na">Set-Cookie</span><span class="o">:</span> <span class="l">cozysessid=AAAAAFhSXT81MWU0ZTBiMzllMmI1OGUyMmZiN2Q0YTYzNDAxN2Y5NjCmp2Ja56hPgHwufpJCBBGJC2mLeJ5LCRrFFkHwaVVa; Path=/; Domain=alice.example.com; Max-Age=604800; HttpOnly; Secure</span>
 </pre></div>
@@ -714,7 +732,7 @@ passphrase of the user. The registration token can only be used once.</p>
 <p>The user can change its passphrase with this route.</p>
 <p>For users with two-factor authentication activated, a second step on the same
 route is necessary to actually update the passphrase. See below.</p>
-<h4 id="request_2">Request<a class="headerlink" href="#request_2" title="Permanent link">&para;</a></h4>
+<h4 id="request_3">Request<a class="headerlink" href="#request_3" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">PUT</span> <span class="nn">/settings/passphrase</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
@@ -729,7 +747,7 @@ route is necessary to actually update the passphrase. See below.</p>
 </pre></div>
 
 
-<h4 id="response_2">Response<a class="headerlink" href="#response_2" title="Permanent link">&para;</a></h4>
+<h4 id="response_3">Response<a class="headerlink" href="#response_3" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
 <span class="na">Set-Cookie</span><span class="o">:</span> <span class="l">cozysessid=AAAAShoo3uo1Maic4VibuGohlik2eKUyMmZiN2Q0YTYzNDAxN2Y5NjCmp2Ja56hPgHwufpJCBBGJC2mLeJ5LCRrFFkHwaVVa; Path=/; Domain=alice.example.com; Max-Age=604800; HttpOnly; Secure</span>
 </pre></div>
@@ -789,7 +807,7 @@ passcode should have been sent to the user to authenticate on the second step.</
 </pre></div>
 
 
-<h4 id="response_3">Response<a class="headerlink" href="#response_3" title="Permanent link">&para;</a></h4>
+<h4 id="response_4">Response<a class="headerlink" href="#response_4" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
 </pre></div>
 
@@ -798,7 +816,7 @@ passcode should have been sent to the user to authenticate on the second step.</
 <h3 id="get-settingsinstance">GET /settings/instance<a class="headerlink" href="#get-settingsinstance" title="Permanent link">&para;</a></h3>
 <p>If the user is logged in, display all instance settings. If the user is not
 logged in, the register token can be used to read the informations.</p>
-<h4 id="request_3">Request<a class="headerlink" href="#request_3" title="Permanent link">&para;</a></h4>
+<h4 id="request_4">Request<a class="headerlink" href="#request_4" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/settings/instance</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
@@ -806,7 +824,7 @@ logged in, the register token can be used to read the informations.</p>
 </pre></div>
 
 
-<h4 id="response_4">Response<a class="headerlink" href="#response_4" title="Permanent link">&para;</a></h4>
+<h4 id="response_5">Response<a class="headerlink" href="#response_5" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
     <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.settings&quot;</span><span class="p">,</span>
@@ -831,7 +849,7 @@ logged in, the register token can be used to read the informations.</p>
 <code>io.cozy.settings</code> for the verb <code>GET</code>.</p>
 <h3 id="put-settingsinstance">PUT /settings/instance<a class="headerlink" href="#put-settingsinstance" title="Permanent link">&para;</a></h3>
 <p>If the user is logged in, allow to set the instance fields</p>
-<h4 id="request_4">Request<a class="headerlink" href="#request_4" title="Permanent link">&para;</a></h4>
+<h4 id="request_5">Request<a class="headerlink" href="#request_5" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/settings/instance</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
@@ -860,7 +878,7 @@ logged in, the register token can be used to read the informations.</p>
 </pre></div>
 
 
-<h4 id="response_5">Response<a class="headerlink" href="#response_5" title="Permanent link">&para;</a></h4>
+<h4 id="response_6">Response<a class="headerlink" href="#response_6" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span>HTTP/1.1 200 OK
 Content-type: application/json
 </pre></div>
@@ -915,7 +933,7 @@ authentication.</p>
     authentication is activated</li>
 <li><code>422 Unprocessable Entity</code>: when the given confirmation code is not good.</li>
 </ul>
-<h4 id="request_5">Request<a class="headerlink" href="#request_5" title="Permanent link">&para;</a></h4>
+<h4 id="request_6">Request<a class="headerlink" href="#request_6" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">PUT</span> <span class="nn">/settings/instance/auth_mode</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
@@ -937,7 +955,7 @@ authentication.</p>
 <li><code>204 No Content</code>: when the mail has been confirmed and two-factor
     authentication is activated</li>
 </ul>
-<h4 id="request_6">Request<a class="headerlink" href="#request_6" title="Permanent link">&para;</a></h4>
+<h4 id="request_7">Request<a class="headerlink" href="#request_7" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">PUT</span> <span class="nn">/settings/instance/sign_tos</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
@@ -981,7 +999,7 @@ authentication.</p>
 <h2 id="oauth-2-clients">OAuth 2 clients<a class="headerlink" href="#oauth-2-clients" title="Permanent link">&para;</a></h2>
 <h3 id="get-settingsclients">GET /settings/clients<a class="headerlink" href="#get-settingsclients" title="Permanent link">&para;</a></h3>
 <p>Get the list of the registered clients</p>
-<h4 id="request_7">Request<a class="headerlink" href="#request_7" title="Permanent link">&para;</a></h4>
+<h4 id="request_8">Request<a class="headerlink" href="#request_8" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/settings/clients</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
@@ -990,7 +1008,7 @@ authentication.</p>
 </pre></div>
 
 
-<h4 id="response_6">Response<a class="headerlink" href="#response_6" title="Permanent link">&para;</a></h4>
+<h4 id="response_7">Response<a class="headerlink" href="#response_7" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-type</span><span class="o">:</span> <span class="l">application/json</span>
 </pre></div>
@@ -1025,14 +1043,14 @@ authentication.</p>
 <p>To use this endpoint, an application needs a permission on the type
 <code>io.cozy.oauth.clients</code> for the verb <code>GET</code> (only client-side apps).</p>
 <h3 id="delete-settingsclientsclient-id">DELETE /settings/clients/:client-id<a class="headerlink" href="#delete-settingsclientsclient-id" title="Permanent link">&para;</a></h3>
-<h4 id="request_8">Request<a class="headerlink" href="#request_8" title="Permanent link">&para;</a></h4>
+<h4 id="request_9">Request<a class="headerlink" href="#request_9" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/settings/clients/30e84c10-e6cf-11e6-9bfd-a7106972de51</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
 <span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer oauth2-clients-token</span>
 </pre></div>
 
 
-<h4 id="response_7">Response<a class="headerlink" href="#response_7" title="Permanent link">&para;</a></h4>
+<h4 id="response_8">Response<a class="headerlink" href="#response_8" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
 </pre></div>
 
@@ -1044,14 +1062,14 @@ authentication.</p>
 <p>Any OAuth2 client can make a request to this endpoint with its token, no
 permission is needed. It will update the date of last synchronization for this
 device.</p>
-<h4 id="request_9">Request<a class="headerlink" href="#request_9" title="Permanent link">&para;</a></h4>
+<h4 id="request_10">Request<a class="headerlink" href="#request_10" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/settings/synchronized</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
 <span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer oauth2-access-token</span>
 </pre></div>
 
 
-<h4 id="response_8">Response<a class="headerlink" href="#response_8" title="Permanent link">&para;</a></h4>
+<h4 id="response_9">Response<a class="headerlink" href="#response_9" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
 </pre></div>
 
@@ -1063,7 +1081,7 @@ selected according to the context of the instance and the configuration of the
 stack.</p>
 <h3 id="get-settingscontext">GET /settings/context<a class="headerlink" href="#get-settingscontext" title="Permanent link">&para;</a></h3>
 <p>It gives the keys/values from the config for the context of the instance.</p>
-<h4 id="request_10">Request<a class="headerlink" href="#request_10" title="Permanent link">&para;</a></h4>
+<h4 id="request_11">Request<a class="headerlink" href="#request_11" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/settings/context</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
@@ -1071,7 +1089,7 @@ stack.</p>
 </pre></div>
 
 
-<h4 id="response_9">Response<a class="headerlink" href="#response_9" title="Permanent link">&para;</a></h4>
+<h4 id="response_10">Response<a class="headerlink" href="#response_10" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
     <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.settings&quot;</span><span class="p">,</span>

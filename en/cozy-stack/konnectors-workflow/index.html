@@ -389,7 +389,7 @@
 </li>
             
 <li >
-    <a href="../assets/">Working with the stacka assets</a>
+    <a href="../assets/">Working with the stack assets</a>
 </li>
             
 <li >
@@ -843,7 +843,7 @@ any accidental folder deletion:</p>
             <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;@cron&quot;</span><span class="p">,</span>
             <span class="nt">&quot;arguments&quot;</span><span class="p">:</span> <span class="s2">&quot;0 0 0 0 1 1 &quot;</span><span class="p">,</span>
             <span class="nt">&quot;worker&quot;</span><span class="p">:</span> <span class="s2">&quot;konnector&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;worker_arguments&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="nt">&quot;konnector&quot;</span><span class="p">:</span> <span class="s2">&quot;trainline&quot;</span><span class="p">,</span>
                 <span class="nt">&quot;account&quot;</span><span class="p">:</span> <span class="s2">&quot;5165621628784562148955&quot;</span><span class="p">,</span>
                 <span class="nt">&quot;folder_to_save&quot;</span><span class="p">:</span> <span class="s2">&quot;877854878455&quot;</span>
@@ -876,8 +876,8 @@ for the same konnector &amp; various accounts.</p>
 <p>Start the konnector through nsjail, passing as ENV variables :</p>
 <div class="codehilite"><pre><span></span>- `COZY_URL`:          the starting instance URL
 - `COZY_CREDENTIALS`:  security token to communicate with Cozy
-- `COZY_FIELDS`:       JSON-encoded worker_arguments
-- `COZY_PARAMETERS`:   JSON-encoded parameters associated with the konnector
+- `COZY_FIELDS`:       JSON-encoded message with the arguments from the trigger
+- `COZY_PARAMETERS`:   JSON-encoded parameters from the konnector manifest
 - `COZY_LANGUAGE`:     the language field of the konnector (eg. &quot;node&quot; etc.)
 - `COZY_LOCALE`:       the locale of the user (eg. &quot;en&quot; etc.)
 - `COZY_TIME_LIMIT`:   how much time the konnector can run before being killed
@@ -963,7 +963,7 @@ are not related to OAuth. The document still need to be injected manually in
 <div class="codehilite"><pre><span></span>{
     &quot;_id&quot;: &quot;service.example&quot;,
     &quot;grant_mode&quot;: &quot;secret&quot;,
-    &quot;slug&quot;: &quot;service&quot;
+    &quot;slug&quot;: &quot;service&quot;,
     &quot;secret&quot;: &quot;th1$_1$_th3_s3cr3t!&quot;
 }
 </pre></div>

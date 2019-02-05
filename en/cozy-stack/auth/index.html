@@ -389,7 +389,7 @@
 </li>
             
 <li >
-    <a href="../assets/">Working with the stacka assets</a>
+    <a href="../assets/">Working with the stack assets</a>
 </li>
             
 <li >
@@ -868,6 +868,18 @@ user is redirected to the login form.</p>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/x-www-form-urlencoded</span>
 
 csrf_token=123456890&amp;passphrase_reset_token=123456789&amp;passphrase=mynewpassphrase
+</pre></div>
+
+
+<h3 id="get-authpassphrase">GET /auth/passphrase<a class="headerlink" href="#get-authpassphrase" title="Permanent link">&para;</a></h3>
+<p>This page renders a form to set the password for an onboarding instance. This
+endpoint expects a valid <code>registerToken</code> parameter.</p>
+<p>In case of success, the instance is marked as onboarded and the user is
+redirected to his home.</p>
+<p>If the instance is already onboarded, the user is redirected to his home.</p>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/auth/passphrase/?registerToken=e0fbe2c5b90cdcdd9b3487b48b480e0b</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">text/html</span>
 </pre></div>
 
 
