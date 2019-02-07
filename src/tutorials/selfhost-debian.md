@@ -173,7 +173,6 @@ apt install cozy
 Cozy relies on sub-domains for each applications you installed on your instance.
 For an instance `cozy.example.org`, `<app>.cozy.example.org` must be available too. Currently, you need at least:
 
- * `onboarding.cozy.example.org`
  * `settings.cozy.example.org`
  * `drive.cozy.example.org`
  * `photos.cozy.example.org`
