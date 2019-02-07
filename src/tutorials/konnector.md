@@ -245,7 +245,7 @@ function authenticate(username, password) {
 }
 ```
 
-However if the target website don't use `statusCode` correctly you can also use `fullResponse.request.uri.href` to check if there is a redirection to a page that requires to be logged in :
+However if the target website doesn't use `statusCode` correctly you can also use `fullResponse.request.uri.href` to check if there is a redirection to a page that requires to be logged in :
 
 ```js
 validate: (statusCode, $, fullResponse) => {
