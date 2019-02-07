@@ -399,7 +399,7 @@ But there is a bunch of functions available depending on what you want:
 
 For example, to save bills to Cozy you have to start by recovering all required fields for a data type [io.cozy.bills](https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.bills.md) using the `scrape` function, and then you can use the function `saveBills` to save your docs to Cozy Stack as shown below:
 
-```dart
+```js
 await saveBills(documents, fields, {
   idenditifiers: ['vendor'], // name of the target website
   contentType: 'application/pdf'
