@@ -333,29 +333,11 @@
 </li>
             
   <li class="dropdown-submenu">
-    <a href="#">Architecture</a>
-    <ul class="dropdown-menu">
-            
-<li >
-    <a href="../../cozy-stack/architecture/">General overview</a>
-</li>
-            
-<li >
-    <a href="../../cozy-stack/security/">Security</a>
-</li>
-    </ul>
-  </li>
-            
-  <li class="dropdown-submenu">
     <a href="#">Usage</a>
     <ul class="dropdown-menu">
             
 <li >
     <a href="../../cozy-stack/INSTALL/">Install the cozy-stack</a>
-</li>
-            
-<li >
-    <a href="../../cozy-stack/cli/cozy-stack/">Manpages of the command-line tool</a>
 </li>
             
 <li >
@@ -367,17 +349,17 @@
 </li>
             
 <li >
-    <a href="../../cozy-stack/onboarding/">Onboarding</a>
+    <a href="../../cozy-stack/security/">Security</a>
 </li>
             
 <li >
-    <a href="../../cozy-stack/custom-context/">Context customization</a>
+    <a href="../../cozy-stack/cli/cozy-stack/">Manpages of the command-line tool</a>
 </li>
     </ul>
   </li>
             
   <li class="dropdown-submenu">
-    <a href="#">For developpers</a>
+    <a href="#">How-to guides for developpers</a>
     <ul class="dropdown-menu">
             
 <li >
@@ -403,7 +385,21 @@
   </li>
             
   <li class="dropdown-submenu">
-    <a href="#">Services</a>
+    <a href="#">Explanations</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/sharing-design/">Sharing design</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/konnectors-workflow/">Workflow of the konnectors</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">List of services</a>
     <ul class="dropdown-menu">
             
 <li >
@@ -420,10 +416,6 @@
             
 <li >
     <a href="../../cozy-stack/konnectors/"> /apps - Konnectors</a>
-</li>
-            
-<li >
-    <a href="../../cozy-stack/konnectors-workflow/"> /apps - Konnectors workflow</a>
 </li>
             
 <li >
@@ -500,10 +492,6 @@
             
 <li >
     <a href="../../cozy-stack/sharing/">/sharings - Sharing</a>
-</li>
-            
-<li >
-    <a href="../../cozy-stack/sharing-design/"> /sharings - Request for comments</a>
 </li>
     </ul>
   </li>
@@ -637,6 +625,7 @@
             <li><a href="#utilsbatchupdateattributes">utils~batchUpdateAttributes()</a></li>
             <li><a href="#utilsbatchdelete">utils~batchDelete()</a></li>
             <li><a href="#utilsgetpdftext">utils~getPdfText()</a></li>
+            <li><a href="#utilsformatdate">utils~formatDate()</a></li>
         <li class="main "><a href="#basekonnector">BaseKonnector</a></li>
             <li><a href="#new-basekonnectorfetch">new BaseKonnector(fetch)</a></li>
             <li><a href="#basekonnectorend">baseKonnector.end()</a></li>
@@ -646,6 +635,17 @@
             <li><a href="#basekonnectorgetaccountdata-object">baseKonnector.getAccountData() ⇒ object</a></li>
             <li><a href="#basekonnectorupdateaccountattributes">baseKonnector.updateAccountAttributes()</a></li>
             <li><a href="#basekonnectorterminatemessage">baseKonnector.terminate(message)</a></li>
+        <li class="main "><a href="#cookiekonnector">CookieKonnector</a></li>
+            <li><a href="#new-cookiekonnectorrequestfactoryoptions">new CookieKonnector(requestFactoryOptions)</a></li>
+            <li><a href="#cookiekonnectorinit-promise">cookieKonnector.init() ⇒ Promise</a></li>
+            <li><a href="#cookiekonnectorend">cookieKonnector.end()</a></li>
+            <li><a href="#cookiekonnectorrequestfactoryoptions-object">cookieKonnector.requestFactory(options) ⇒ object</a></li>
+            <li><a href="#cookiekonnectorresetsession-promise">cookieKonnector.resetSession() ⇒ Promise</a></li>
+            <li><a href="#cookiekonnectorinitsession-promise">cookieKonnector.initSession() ⇒ Promise</a></li>
+            <li><a href="#cookiekonnectorsavesession-promise">cookieKonnector.saveSession() ⇒ Promise</a></li>
+            <li><a href="#cookiekonnectorsignin-promise">cookieKonnector.signin() ⇒ Promise</a></li>
+            <li><a href="#cookiekonnectorsavefiles-promise">cookieKonnector.saveFiles() ⇒ Promise</a></li>
+            <li><a href="#cookiekonnectorsavebills-promise">cookieKonnector.saveBills() ⇒ Promise</a></li>
         <li class="main "><a href="#document">Document</a></li>
             <li><a href="#documentisequal">document.isEqual()</a></li>
         <li class="main "><a href="#login_failed-string">LOGIN_FAILED : String</a></li>
@@ -756,6 +756,15 @@ exist in the cozy or not</p>
 It takes a fetch function in parameter that must return a <code>Promise</code>.
 You need at least the <code>GET</code> permission on <code>io.cozy.accounts</code> in your manifest to allow it to
 fetch account information for your connector.</p>
+</dd>
+<dt><a href="#CookieKonnector">CookieKonnector</a></dt>
+<dd><p>Connector base class extending BaseKonnector which handles cookie session in a central way
+It also handles saving cookie session in the account and automatically restore it for the next
+connector run.
+All cozy-konnector-libs tools using request are proposed as methods of this class to force them
+to use the central cookie which can be saved/restored.
+You need at least the <code>GET</code> and <code>PUT</code> permissions on <code>io.cozy.accounts</code> in your manifest to allow
+it to save/restore cookies</p>
 </dd>
 <dt><a href="#Document">Document</a></dt>
 <dd><p>Simple Model for Documents. Allows to specify
@@ -1212,6 +1221,7 @@ use this function.</p>
 <li><a href="#module_utils..batchUpdateAttributes">~batchUpdateAttributes()</a></li>
 <li><a href="#module_utils..batchDelete">~batchDelete()</a></li>
 <li><a href="#module_utils..getPdfText">~getPdfText()</a></li>
+<li><a href="#module_utils..formatDate">~formatDate()</a></li>
 </ul>
 </li>
 </ul>
@@ -1318,6 +1328,20 @@ documents, do not forget to clean linked bank operations</p>
    - <code>n</code> : The full pdfjs data for page n</p>
 <p>Example:</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">pdfText</span> <span class="o">=</span> <span class="p">(</span><span class="nx">await</span> <span class="nx">getPdfText</span><span class="p">(</span><span class="s1">&#39;887ABCFE87687&#39;</span><span class="p">)).</span><span class="nx">text</span>
+</pre></div>
+
+
+<p><strong>Kind</strong>: inner method of <a href="#module_utils"><code>utils</code></a><br />
+<a name="module_utils..formatDate"></a></p>
+<h3 id="utilsformatdate">utils~formatDate()<a class="headerlink" href="#utilsformatdate" title="Permanent link">&para;</a></h3>
+<p>This function convert a Date Object to a ISO date string (2018-07-31)</p>
+<p>Parameters:</p>
+<ul>
+<li><code>date</code> (Date): the id of the file in the cozy</li>
+</ul>
+<p>Returns a string</p>
+<p>Example:</p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">date</span> <span class="o">=</span> <span class="nx">formatFrenchDate</span><span class="p">(</span><span class="nx">New</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">())</span>
 </pre></div>
 
 
@@ -1458,7 +1482,131 @@ connector now</p>
 </tr>
 </tbody>
 </table>
-<p><a name="Document"></a></p>
+<p><a name="CookieKonnector"></a></p>
+<h2 id="cookiekonnector">CookieKonnector<a class="headerlink" href="#cookiekonnector" title="Permanent link">&para;</a></h2>
+<p>Connector base class extending BaseKonnector which handles cookie session in a central way
+It also handles saving cookie session in the account and automatically restore it for the next
+connector run.
+All cozy-konnector-libs tools using request are proposed as methods of this class to force them
+to use the central cookie which can be saved/restored.
+You need at least the <code>GET</code> and <code>PUT</code> permissions on <code>io.cozy.accounts</code> in your manifest to allow
+it to save/restore cookies</p>
+<p><strong>Kind</strong>: global class  </p>
+<ul>
+<li><a href="#CookieKonnector">CookieKonnector</a><ul>
+<li><a href="#new_CookieKonnector_new">new CookieKonnector(requestFactoryOptions)</a></li>
+<li><a href="#CookieKonnector+init">.init()</a> ⇒ <code>Promise</code></li>
+<li><a href="#CookieKonnector+end">.end()</a></li>
+<li><a href="#CookieKonnector+requestFactory">.requestFactory(options)</a> ⇒ <code>object</code></li>
+<li><a href="#CookieKonnector+resetSession">.resetSession()</a> ⇒ <code>Promise</code></li>
+<li><a href="#CookieKonnector+initSession">.initSession()</a> ⇒ <code>Promise</code></li>
+<li><a href="#CookieKonnector+saveSession">.saveSession()</a> ⇒ <code>Promise</code></li>
+<li><a href="#CookieKonnector+signin">.signin()</a> ⇒ <code>Promise</code></li>
+<li><a href="#CookieKonnector+saveFiles">.saveFiles()</a> ⇒ <code>Promise</code></li>
+<li><a href="#CookieKonnector+saveBills">.saveBills()</a> ⇒ <code>Promise</code></li>
+</ul>
+</li>
+</ul>
+<p><a name="new_CookieKonnector_new"></a></p>
+<h3 id="new-cookiekonnectorrequestfactoryoptions">new CookieKonnector(requestFactoryOptions)<a class="headerlink" href="#new-cookiekonnectorrequestfactoryoptions" title="Permanent link">&para;</a></h3>
+<p>Constructor</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>requestFactoryOptions</td>
+<td><code>function</code></td>
+<td>Option object passed to requestFactory to initialize this.request. It is still possible to change this.request doing : <code>javascript this.request = this.requestFactory(...)</code> Please not you have to run the connector yourself doing : <code>javascript connector.run()</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong>  </p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">CookieKonnector</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-konnector-libs&#39;</span><span class="p">)</span>
+<span class="kr">class</span> <span class="nx">MyConnector</span> <span class="kr">extends</span> <span class="nx">CookieKonnector</span> <span class="p">{</span>
+  <span class="nx">async</span> <span class="nx">fetch</span><span class="p">(</span><span class="nx">fields</span><span class="p">)</span> <span class="p">{</span>
+     <span class="c1">// the code of your connector</span>
+     <span class="nx">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="s1">&#39;https://...&#39;</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="nx">async</span> <span class="nx">testSession</span><span class="p">()</span> <span class="p">{</span>
+     <span class="kr">const</span> <span class="nx">$</span> <span class="o">=</span> <span class="nx">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="s1">&#39;https://...&#39;</span><span class="p">)</span>
+     <span class="k">return</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="kr">const</span> <span class="nx">connector</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MyKonnector</span><span class="p">({</span>
+  <span class="nx">cheerio</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nx">json</span><span class="o">:</span> <span class="kc">false</span>
+<span class="p">})</span>
+<span class="nx">connector</span><span class="p">.</span><span class="nx">run</span><span class="p">()</span>
+</pre></div>
+
+
+<p><a name="CookieKonnector+init"></a></p>
+<h3 id="cookiekonnectorinit-promise">cookieKonnector.init() ⇒ <code>Promise</code><a class="headerlink" href="#cookiekonnectorinit-promise" title="Permanent link">&para;</a></h3>
+<p>Initializes the current connector with data coming from the associated account
+and also the session</p>
+<p><strong>Kind</strong>: instance method of <a href="#CookieKonnector"><code>CookieKonnector</code></a><br />
+<strong>Returns</strong>: <code>Promise</code> - with the fields as an object<br />
+<a name="CookieKonnector+end"></a></p>
+<h3 id="cookiekonnectorend">cookieKonnector.end()<a class="headerlink" href="#cookiekonnectorend" title="Permanent link">&para;</a></h3>
+<p>Hook called when the connector is ended</p>
+<p><strong>Kind</strong>: instance method of <a href="#CookieKonnector"><code>CookieKonnector</code></a><br />
+<a name="CookieKonnector+requestFactory"></a></p>
+<h3 id="cookiekonnectorrequestfactoryoptions-object">cookieKonnector.requestFactory(options) ⇒ <code>object</code><a class="headerlink" href="#cookiekonnectorrequestfactoryoptions-object" title="Permanent link">&para;</a></h3>
+<p>Calls cozy-konnector-libs requestFactory forcing this._jar as the cookie</p>
+<p><strong>Kind</strong>: instance method of <a href="#CookieKonnector"><code>CookieKonnector</code></a><br />
+<strong>Returns</strong>: <code>object</code> - - The resulting request object  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>options</td>
+<td><code>object</code></td>
+<td>requestFactory option</td>
+</tr>
+</tbody>
+</table>
+<p><a name="CookieKonnector+resetSession"></a></p>
+<h3 id="cookiekonnectorresetsession-promise">cookieKonnector.resetSession() ⇒ <code>Promise</code><a class="headerlink" href="#cookiekonnectorresetsession-promise" title="Permanent link">&para;</a></h3>
+<p>Reset cookie session with a new empty session and save it to the associated account</p>
+<p><strong>Kind</strong>: instance method of <a href="#CookieKonnector"><code>CookieKonnector</code></a><br />
+<a name="CookieKonnector+initSession"></a></p>
+<h3 id="cookiekonnectorinitsession-promise">cookieKonnector.initSession() ⇒ <code>Promise</code><a class="headerlink" href="#cookiekonnectorinitsession-promise" title="Permanent link">&para;</a></h3>
+<p>Get the cookie session from the account if any</p>
+<p><strong>Kind</strong>: instance method of <a href="#CookieKonnector"><code>CookieKonnector</code></a><br />
+<strong>Returns</strong>: <code>Promise</code> - true or false if the session in the account exists or not<br />
+<a name="CookieKonnector+saveSession"></a></p>
+<h3 id="cookiekonnectorsavesession-promise">cookieKonnector.saveSession() ⇒ <code>Promise</code><a class="headerlink" href="#cookiekonnectorsavesession-promise" title="Permanent link">&para;</a></h3>
+<p>Saves the current cookie session to the account</p>
+<p><strong>Kind</strong>: instance method of <a href="#CookieKonnector"><code>CookieKonnector</code></a><br />
+<a name="CookieKonnector+signin"></a></p>
+<h3 id="cookiekonnectorsignin-promise">cookieKonnector.signin() ⇒ <code>Promise</code><a class="headerlink" href="#cookiekonnectorsignin-promise" title="Permanent link">&para;</a></h3>
+<p>This is signin function from cozy-konnector-libs which is forced to use the current cookies
+and current request from CookieKonnector. It also automatically saves the session after
+signin if it is a success.</p>
+<p><strong>Kind</strong>: instance method of <a href="#CookieKonnector"><code>CookieKonnector</code></a><br />
+<a name="CookieKonnector+saveFiles"></a></p>
+<h3 id="cookiekonnectorsavefiles-promise">cookieKonnector.saveFiles() ⇒ <code>Promise</code><a class="headerlink" href="#cookiekonnectorsavefiles-promise" title="Permanent link">&para;</a></h3>
+<p>This is saveFiles function from cozy-konnector-libs which is forced to use the current cookies
+and current request from CookieKonnector.</p>
+<p><strong>Kind</strong>: instance method of <a href="#CookieKonnector"><code>CookieKonnector</code></a><br />
+<a name="CookieKonnector+saveBills"></a></p>
+<h3 id="cookiekonnectorsavebills-promise">cookieKonnector.saveBills() ⇒ <code>Promise</code><a class="headerlink" href="#cookiekonnectorsavebills-promise" title="Permanent link">&para;</a></h3>
+<p>This is saveBills function from cozy-konnector-libs which is forced to use the current cookies
+and current request from CookieKonnector.</p>
+<p><strong>Kind</strong>: instance method of <a href="#CookieKonnector"><code>CookieKonnector</code></a><br />
+<a name="Document"></a></p>
 <h2 id="document">Document<a class="headerlink" href="#document" title="Permanent link">&para;</a></h2>
 <p>Simple Model for Documents. Allows to specify
 <code>shouldSave</code>, <code>shouldUpdate</code> as methods.</p>

@@ -333,29 +333,11 @@
 </li>
             
   <li class="dropdown-submenu">
-    <a href="#">Architecture</a>
-    <ul class="dropdown-menu">
-            
-<li >
-    <a href="../architecture/">General overview</a>
-</li>
-            
-<li >
-    <a href="../security/">Security</a>
-</li>
-    </ul>
-  </li>
-            
-  <li class="dropdown-submenu">
     <a href="#">Usage</a>
     <ul class="dropdown-menu">
             
 <li >
     <a href="../INSTALL/">Install the cozy-stack</a>
-</li>
-            
-<li >
-    <a href="../cli/cozy-stack/">Manpages of the command-line tool</a>
 </li>
             
 <li >
@@ -367,17 +349,17 @@
 </li>
             
 <li >
-    <a href="../onboarding/">Onboarding</a>
+    <a href="../security/">Security</a>
 </li>
             
 <li >
-    <a href="../custom-context/">Context customization</a>
+    <a href="../cli/cozy-stack/">Manpages of the command-line tool</a>
 </li>
     </ul>
   </li>
             
   <li class="dropdown-submenu">
-    <a href="#">For developpers</a>
+    <a href="#">How-to guides for developpers</a>
     <ul class="dropdown-menu">
             
 <li >
@@ -403,7 +385,21 @@
   </li>
             
   <li class="dropdown-submenu">
-    <a href="#">Services</a>
+    <a href="#">Explanations</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../sharing-design/">Sharing design</a>
+</li>
+            
+<li >
+    <a href="../konnectors-workflow/">Workflow of the konnectors</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">List of services</a>
     <ul class="dropdown-menu">
             
 <li >
@@ -420,10 +416,6 @@
             
 <li >
     <a href="../konnectors/"> /apps - Konnectors</a>
-</li>
-            
-<li >
-    <a href="../konnectors-workflow/"> /apps - Konnectors workflow</a>
 </li>
             
 <li >
@@ -500,10 +492,6 @@
             
 <li >
     <a href="../sharing/">/sharings - Sharing</a>
-</li>
-            
-<li >
-    <a href="../sharing-design/"> /sharings - Request for comments</a>
 </li>
     </ul>
   </li>
@@ -607,11 +595,13 @@
     <ul class="nav bs-sidenav well" style='padding-left: 0; padding-right: 0; margin-bottom: 1.5rem'>
         <li class="main active"><a href="#workers">Workers</a></li>
             <li><a href="#log-worker">log worker</a></li>
+            <li><a href="#thumbnail-worker">thumbnail worker</a></li>
             <li><a href="#push-worker">push worker</a></li>
             <li><a href="#unzip-worker">unzip worker</a></li>
             <li><a href="#sendmail-worker">sendmail worker</a></li>
             <li><a href="#export">export</a></li>
             <li><a href="#share-workers">share workers</a></li>
+            <li><a href="#deprecated-workers">Deprecated workers</a></li>
     </ul>
   <div style='padding-left: 2rem'>
     
@@ -661,6 +651,9 @@ more about the API context in which you can see how to use these arguments.</p>
 <h2 id="log-worker">log worker<a class="headerlink" href="#log-worker" title="Permanent link">&para;</a></h2>
 <p>The <code>log</code> worker will just print in the log file the job sent to it. It can
 useful for debugging for example.</p>
+<h2 id="thumbnail-worker">thumbnail worker<a class="headerlink" href="#thumbnail-worker" title="Permanent link">&para;</a></h2>
+<p>The <code>thumbnail</code> worker is used internally by the stack to generate thumbnails
+from the image files of a cozy instance.</p>
 <h2 id="push-worker">push worker<a class="headerlink" href="#push-worker" title="Permanent link">&para;</a></h2>
 <p>The <code>push</code> worker can be used to send push-notifications to a user&rsquo;s device. The
 options are:</p>
@@ -857,6 +850,14 @@ optionaly the old version of this document.</p>
 <h3 id="share-replicate-and-share-upload">Share-replicate and share-upload<a class="headerlink" href="#share-replicate-and-share-upload" title="Permanent link">&para;</a></h3>
 <p>The message is composed of a sharing ID and a count of the number of errors
 (i.e. the number of times this job was retried).</p>
+<h2 id="deprecated-workers">Deprecated workers<a class="headerlink" href="#deprecated-workers" title="Permanent link">&para;</a></h2>
+<h3 id="migrations">migrations<a class="headerlink" href="#migrations" title="Permanent link">&para;</a></h3>
+<p>The <code>migrations</code> worker was used for migrating cozy instance that had their
+files in swift from a V1 layout to a V2 layout. The code is probably not in
+a good shape, and it would be safer to rework it before using it.</p>
+<h3 id="updates">updates<a class="headerlink" href="#updates" title="Permanent link">&para;</a></h3>
+<p>The <code>updates</code> worker was used for updating applications when there were no
+auto-update mechanism.</p>
                 </div>
         </div>
 

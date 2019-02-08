@@ -333,29 +333,11 @@
 </li>
             
   <li class="dropdown-submenu">
-    <a href="#">Architecture</a>
-    <ul class="dropdown-menu">
-            
-<li >
-    <a href="../architecture/">General overview</a>
-</li>
-            
-<li >
-    <a href="../security/">Security</a>
-</li>
-    </ul>
-  </li>
-            
-  <li class="dropdown-submenu">
     <a href="#">Usage</a>
     <ul class="dropdown-menu">
             
 <li class="active">
     <a href="./">Install the cozy-stack</a>
-</li>
-            
-<li >
-    <a href="../cli/cozy-stack/">Manpages of the command-line tool</a>
 </li>
             
 <li >
@@ -367,17 +349,17 @@
 </li>
             
 <li >
-    <a href="../onboarding/">Onboarding</a>
+    <a href="../security/">Security</a>
 </li>
             
 <li >
-    <a href="../custom-context/">Context customization</a>
+    <a href="../cli/cozy-stack/">Manpages of the command-line tool</a>
 </li>
     </ul>
   </li>
             
   <li class="dropdown-submenu">
-    <a href="#">For developpers</a>
+    <a href="#">How-to guides for developpers</a>
     <ul class="dropdown-menu">
             
 <li >
@@ -403,7 +385,21 @@
   </li>
             
   <li class="dropdown-submenu">
-    <a href="#">Services</a>
+    <a href="#">Explanations</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../sharing-design/">Sharing design</a>
+</li>
+            
+<li >
+    <a href="../konnectors-workflow/">Workflow of the konnectors</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">List of services</a>
     <ul class="dropdown-menu">
             
 <li >
@@ -420,10 +416,6 @@
             
 <li >
     <a href="../konnectors/"> /apps - Konnectors</a>
-</li>
-            
-<li >
-    <a href="../konnectors-workflow/"> /apps - Konnectors workflow</a>
 </li>
             
 <li >
@@ -500,10 +492,6 @@
             
 <li >
     <a href="../sharing/">/sharings - Sharing</a>
-</li>
-            
-<li >
-    <a href="../sharing-design/"> /sharings - Request for comments</a>
 </li>
     </ul>
   </li>
@@ -661,13 +649,13 @@
 </ul>
 <p>To install CouchDB 2 through Docker, take a look at our
 <a href="../docker/">Docker specific documentation</a>.</p>
-<p><strong>Note:</strong> to generate thumbnails for heic/heif images, the version 7.0.7-22 of
+<p><strong>Note:</strong> to generate thumbnails for heic/heif images, the version 7.0.7-22+ of
 Image Magick is required.</p>
 <h2 id="install-for-self-hosting">Install for self-hosting<a class="headerlink" href="#install-for-self-hosting" title="Permanent link">&para;</a></h2>
 <p>We have started to write documentation on how to install cozy on your own
-server. <a href="https://docs.cozy.io/en/install/manual/">The guide</a> is still work in
-progress. So, don&rsquo;t hesitate to report issues with it. It will help us improve
-it.</p>
+server. We have <a href="https://docs.cozy.io/en/tutorials/selfhost-debian/">a guide for
+debian</a>. Don&rsquo;t hesitate to
+report issues with it. It will help us improve it.</p>
 <h2 id="install-for-development-local-tests">Install for development / local tests<a class="headerlink" href="#install-for-development-local-tests" title="Permanent link">&para;</a></h2>
 <h3 id="install-the-binary">Install the binary<a class="headerlink" href="#install-the-binary" title="Permanent link">&para;</a></h3>
 <p>You can either download the binary or compile it.</p>
@@ -701,7 +689,7 @@ comand line arguments. Assuming CouchDB is installed and running on default port
 
 
 <p>And then create an instance for development:</p>
-<div class="codehilite"><pre><span></span>cozy-stack instances add --apps drive,photos,settings --passphrase cozy <span class="s2">&quot;cozy.tools:8080&quot;</span>
+<div class="codehilite"><pre><span></span>cozy-stack instances add --apps home,drive,settings,store --passphrase cozy <span class="s2">&quot;cozy.tools:8080&quot;</span>
 </pre></div>
 
 

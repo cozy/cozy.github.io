@@ -333,29 +333,11 @@
 </li>
             
   <li class="dropdown-submenu">
-    <a href="#">Architecture</a>
-    <ul class="dropdown-menu">
-            
-<li >
-    <a href="../../cozy-stack/architecture/">General overview</a>
-</li>
-            
-<li >
-    <a href="../../cozy-stack/security/">Security</a>
-</li>
-    </ul>
-  </li>
-            
-  <li class="dropdown-submenu">
     <a href="#">Usage</a>
     <ul class="dropdown-menu">
             
 <li >
     <a href="../../cozy-stack/INSTALL/">Install the cozy-stack</a>
-</li>
-            
-<li >
-    <a href="../../cozy-stack/cli/cozy-stack/">Manpages of the command-line tool</a>
 </li>
             
 <li >
@@ -367,17 +349,17 @@
 </li>
             
 <li >
-    <a href="../../cozy-stack/onboarding/">Onboarding</a>
+    <a href="../../cozy-stack/security/">Security</a>
 </li>
             
 <li >
-    <a href="../../cozy-stack/custom-context/">Context customization</a>
+    <a href="../../cozy-stack/cli/cozy-stack/">Manpages of the command-line tool</a>
 </li>
     </ul>
   </li>
             
   <li class="dropdown-submenu">
-    <a href="#">For developpers</a>
+    <a href="#">How-to guides for developpers</a>
     <ul class="dropdown-menu">
             
 <li >
@@ -403,7 +385,21 @@
   </li>
             
   <li class="dropdown-submenu">
-    <a href="#">Services</a>
+    <a href="#">Explanations</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../cozy-stack/sharing-design/">Sharing design</a>
+</li>
+            
+<li >
+    <a href="../../cozy-stack/konnectors-workflow/">Workflow of the konnectors</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">List of services</a>
     <ul class="dropdown-menu">
             
 <li >
@@ -420,10 +416,6 @@
             
 <li >
     <a href="../../cozy-stack/konnectors/"> /apps - Konnectors</a>
-</li>
-            
-<li >
-    <a href="../../cozy-stack/konnectors-workflow/"> /apps - Konnectors workflow</a>
 </li>
             
 <li >
@@ -500,10 +492,6 @@
             
 <li >
     <a href="../../cozy-stack/sharing/">/sharings - Sharing</a>
-</li>
-            
-<li >
-    <a href="../../cozy-stack/sharing-design/"> /sharings - Request for comments</a>
 </li>
     </ul>
   </li>
@@ -685,21 +673,29 @@
 or
 <code>yarn add cozy-realtime</code></p>
 <h2 id="api">API<a class="headerlink" href="#api" title="Permanent link">&para;</a></h2>
-<h4 id="subscribeallconfig-doctype-parse"><code>subscribeAll(config, doctype, parse)</code><a class="headerlink" href="#subscribeallconfig-doctype-parse" title="Permanent link">&para;</a></h4>
-<p>This method allow you to subscribe to realtime for all documents of a provided doctype. Here are the parameters:</p>
+<h4 id="subscribeconfig-doctype-options"><code>subscribe(config, doctype, options)</code><a class="headerlink" href="#subscribeconfig-doctype-options" title="Permanent link">&para;</a></h4>
+<p>This method allow you to subscribe to realtime for one document or all documents of a provided doctype. Here are the parameters:</p>
 <ul>
 <li><code>config</code>: a config object with the following keys :</li>
 <li><code>domain</code>: the instance domain (ex: <code>cozy.works</code>, <code>cozy.tools:8080</code>), must be provided if <code>url</code> is not set</li>
 <li><code>token</code>: the cozy token (ex: the global <code>cozy.client._token.token</code>)</li>
-<li><code>url</code>: the cozy url (ex: https://recette.cozy.works), must be provided if <code>domain</code> is not set</li>
+<li><code>url</code>: the cozy url (ex: https://recette.cozy.works)</li>
 <li><code>secure</code>: a boolean indicating if a secure protocol must be used (default <code>true</code>). Should not be provided along <code>url</code>.</li>
 <li><code>doctype</code>: the doctype to subscribe (ex: <code>io.cozy.accounts</code>)</li>
+<li><code>options</code>: an object to use optional parameters:</li>
+<li><code>docId</code>: a document <code>_id</code> attribute to target in order to get realtime only for this specific document</li>
 <li><code>parse</code>: a custom function to be use as parser for your resulting documents (default: <code>doc =&gt; doc</code>)</li>
 </ul>
+<p>It will return a subscription object with <code>onCreate</code> (except if subscribing on specific document), <code>onUpdate</code> and <code>onDelete</code> methods.</p>
 <p>Here is an example:</p>
 <div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">realtime</span> <span class="nx">from</span> <span class="s1">&#39;cozy-realtime&#39;</span>
 
-<span class="kr">const</span> <span class="nx">subscription</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">realtime</span><span class="p">.</span><span class="nx">subscribeAll</span><span class="p">(</span><span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">,</span> <span class="s1">&#39;io.mocks.mydocs&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">token</span><span class="o">:</span> <span class="nx">authToken</span><span class="p">,</span> <span class="c1">// app token provided by the stack or the client</span>
+    <span class="nx">domain</span><span class="o">:</span> <span class="s1">&#39;cozy.tools:8080&#39;</span><span class="p">,</span>
+    <span class="nx">secure</span><span class="o">:</span> <span class="kc">true</span> <span class="c1">// to use wss (with SSL) or not</span>
+  <span class="p">}</span>
+<span class="kr">const</span> <span class="nx">subscription</span> <span class="o">=</span> <span class="nx">realtime</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">config</span><span class="p">,</span> <span class="s1">&#39;io.mocks.mydocs&#39;</span><span class="p">)</span>
 
 <span class="c1">// your code when a new document is created</span>
 <span class="nx">subscription</span><span class="p">.</span><span class="nx">onCreate</span><span class="p">(</span><span class="nx">doc</span> <span class="p">=&gt;</span> <span class="nx">doSomethingOnCreate</span><span class="p">(</span><span class="nx">doc</span><span class="p">))</span>
@@ -708,40 +704,48 @@ or
 <span class="c1">// your code when a document is deleted</span>
 <span class="nx">subscription</span><span class="p">.</span><span class="nx">onDelete</span><span class="p">(</span><span class="nx">doc</span> <span class="p">=&gt;</span> <span class="nx">doSomethingOnDelete</span><span class="p">(</span><span class="nx">doc</span><span class="p">))</span>
 
-<span class="c1">// Unsubscribe from realtime</span>
+<span class="c1">// Unsubscribe all events from realtime</span>
 <span class="nx">subscription</span><span class="p">.</span><span class="nx">unsubscribe</span><span class="p">()</span>
+
+<span class="c1">// for a specific document</span>
+<span class="kr">const</span> <span class="nx">docSubscription</span> <span class="o">=</span> <span class="nx">realtime</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">config</span><span class="p">,</span> <span class="s1">&#39;io.mocks.mydocs&#39;</span><span class="p">)</span>
+
+<span class="c1">// There is no onCreate here since to have the id,</span>
+<span class="c1">// the document is already created</span>
+
+<span class="c1">// your code when your document is updated</span>
+<span class="nx">docSubscription</span><span class="p">.</span><span class="nx">onUpdate</span><span class="p">(</span><span class="nx">doc</span> <span class="p">=&gt;</span> <span class="nx">doSomethingOnUpdate</span><span class="p">(</span><span class="nx">doc</span><span class="p">))</span>
+<span class="c1">// your code when your document is deleted</span>
+<span class="nx">docSubscription</span><span class="p">.</span><span class="nx">onDelete</span><span class="p">(</span><span class="nx">doc</span> <span class="p">=&gt;</span> <span class="nx">doSomethingOnDelete</span><span class="p">(</span><span class="nx">doc</span><span class="p">))</span>
+
+<span class="c1">// Unsubscribe all events from realtime</span>
+<span class="nx">docSubscription</span><span class="p">.</span><span class="nx">unsubscribe</span><span class="p">()</span>
 </pre></div>
 
 
-<h4 id="subscribeconfig-doctype-doc-parse"><code>subscribe(config, doctype, doc, parse)</code><a class="headerlink" href="#subscribeconfig-doctype-doc-parse" title="Permanent link">&para;</a></h4>
-<p>This method is exactly the same working as the previous <code>subscribeAll()</code> function but to listen only one document. Here are the parameters:</p>
-<ul>
-<li><code>config</code>: a config object with the following keys :</li>
-<li><code>domain</code>: the instance domain (ex: <code>cozy.works</code>, <code>cozy.tools:8080</code>), must be provided if <code>url</code> is not set</li>
-<li><code>token</code>: the cozy token (ex: the global <code>cozy.client._token.token</code>)</li>
-<li><code>url</code>: the cozy url (ex: https://recette.cozy.works)</li>
-<li><code>secure</code>: a boolean indicating if a secure protocol must be used (default <code>true</code>). Should not be provided along <code>url</code>.</li>
-<li><code>doctype</code>: the doctype to subscribe (ex: <code>io.cozy.accounts</code>)</li>
-<li><code>doc</code>: the document to listen, it must be at least a JS object with the <code>_id</code> attribute of the wanted document (only the <code>_id</code> will be checked to know if this is the wanted document or not).</li>
-<li><code>parse</code>: a custom function to be use as parser for your resulting documents (default: <code>doc =&gt; doc</code>)</li>
-</ul>
-<p>Here is an example:</p>
+<p>All <code>onCreate</code>, <code>onUpdate</code> and <code>onDelete</code> methods will return the subscription so you can chain the call like below:</p>
 <div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">realtime</span> <span class="nx">from</span> <span class="s1">&#39;cozy-realtime&#39;</span>
 
-<span class="kr">const</span> <span class="nx">subscription</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">realtime</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">,</span> <span class="s1">&#39;io.mocks.mydocs&#39;</span><span class="p">,</span> <span class="nx">myDoc</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">token</span><span class="o">:</span> <span class="nx">authToken</span><span class="p">,</span> <span class="c1">// app token provided by the stack or the client</span>
+    <span class="nx">domain</span><span class="o">:</span> <span class="s1">&#39;cozy.tools:8080&#39;</span><span class="p">,</span>
+    <span class="nx">secure</span><span class="o">:</span> <span class="kc">true</span> <span class="c1">// to use wss (with SSL) or not</span>
+  <span class="p">}</span>
+<span class="kr">const</span> <span class="nx">subscription</span> <span class="o">=</span> <span class="nx">realtime</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">config</span><span class="p">,</span> <span class="s1">&#39;io.mocks.mydocs&#39;</span><span class="p">)</span>
+  <span class="c1">// your code when a new document is created</span>
+  <span class="p">.</span><span class="nx">onCreate</span><span class="p">(</span><span class="nx">doc</span> <span class="p">=&gt;</span> <span class="nx">doSomethingOnCreate</span><span class="p">(</span><span class="nx">doc</span><span class="p">))</span>
+  <span class="c1">// your code when a document is updated</span>
+  <span class="p">.</span><span class="nx">onUpdate</span><span class="p">(</span><span class="nx">doc</span> <span class="p">=&gt;</span> <span class="nx">doSomethingOnUpdate</span><span class="p">(</span><span class="nx">doc</span><span class="p">))</span>
+  <span class="c1">// your code when a document is deleted</span>
+  <span class="p">.</span><span class="nx">onDelete</span><span class="p">(</span><span class="nx">doc</span> <span class="p">=&gt;</span> <span class="nx">doSomethingOnDelete</span><span class="p">(</span><span class="nx">doc</span><span class="p">))</span>
 
-<span class="c1">// your code when your document is updated</span>
-<span class="nx">subscription</span><span class="p">.</span><span class="nx">onUpdate</span><span class="p">(</span><span class="nx">doc</span> <span class="p">=&gt;</span> <span class="nx">doSomethingOnUpdate</span><span class="p">(</span><span class="nx">doc</span><span class="p">))</span>
-<span class="c1">// your code when your document is deleted</span>
-<span class="nx">subscription</span><span class="p">.</span><span class="nx">onDelete</span><span class="p">(</span><span class="nx">doc</span> <span class="p">=&gt;</span> <span class="nx">doSomethingOnDelete</span><span class="p">(</span><span class="nx">doc</span><span class="p">))</span>
-
-<span class="c1">// Unsubscribe from realtime</span>
+<span class="c1">// Unsubscribe all events from realtime</span>
 <span class="nx">subscription</span><span class="p">.</span><span class="nx">unsubscribe</span><span class="p">()</span>
 </pre></div>
 
 
 <h3 id="maintainers">Maintainers<a class="headerlink" href="#maintainers" title="Permanent link">&para;</a></h3>
-<p>The maintainers for Cozy Realtime are <a href="https://github.com/gregorylegarec">Greg</a> and <a href="https://github.com/kosssi">kosssi</a> !</p>
+<p>The maintainers for Cozy Realtime are <a href="https://github.com/gregorylegarec">Greg</a> and <a href="https://github.com/CPatchane">CPatchane</a> !</p>
 <h2 id="license">License<a class="headerlink" href="#license" title="Permanent link">&para;</a></h2>
 <p><code>cozy-realtime</code> is distributed under the MIT license.</p>
                 </div>

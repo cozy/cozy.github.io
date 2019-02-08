@@ -333,29 +333,11 @@
 </li>
             
   <li class="dropdown-submenu">
-    <a href="#">Architecture</a>
-    <ul class="dropdown-menu">
-            
-<li >
-    <a href="../architecture/">General overview</a>
-</li>
-            
-<li >
-    <a href="../security/">Security</a>
-</li>
-    </ul>
-  </li>
-            
-  <li class="dropdown-submenu">
     <a href="#">Usage</a>
     <ul class="dropdown-menu">
             
 <li >
     <a href="../INSTALL/">Install the cozy-stack</a>
-</li>
-            
-<li >
-    <a href="../cli/cozy-stack/">Manpages of the command-line tool</a>
 </li>
             
 <li class="active">
@@ -367,17 +349,17 @@
 </li>
             
 <li >
-    <a href="../onboarding/">Onboarding</a>
+    <a href="../security/">Security</a>
 </li>
             
 <li >
-    <a href="../custom-context/">Context customization</a>
+    <a href="../cli/cozy-stack/">Manpages of the command-line tool</a>
 </li>
     </ul>
   </li>
             
   <li class="dropdown-submenu">
-    <a href="#">For developpers</a>
+    <a href="#">How-to guides for developpers</a>
     <ul class="dropdown-menu">
             
 <li >
@@ -403,7 +385,21 @@
   </li>
             
   <li class="dropdown-submenu">
-    <a href="#">Services</a>
+    <a href="#">Explanations</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../sharing-design/">Sharing design</a>
+</li>
+            
+<li >
+    <a href="../konnectors-workflow/">Workflow of the konnectors</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">List of services</a>
     <ul class="dropdown-menu">
             
 <li >
@@ -420,10 +416,6 @@
             
 <li >
     <a href="../konnectors/"> /apps - Konnectors</a>
-</li>
-            
-<li >
-    <a href="../konnectors-workflow/"> /apps - Konnectors workflow</a>
 </li>
             
 <li >
@@ -500,10 +492,6 @@
             
 <li >
     <a href="../sharing/">/sharings - Sharing</a>
-</li>
-            
-<li >
-    <a href="../sharing-design/"> /sharings - Request for comments</a>
 </li>
     </ul>
   </li>
@@ -610,6 +598,7 @@
             <li><a href="#stack-endpoints">Stack endpoints</a></li>
             <li><a href="#administration-secret">Administration secret</a></li>
             <li><a href="#hooks">Hooks</a></li>
+            <li><a href="#customizing-a-context">Customizing a context</a></li>
     </ul>
   <div style='padding-left: 2rem'>
     
@@ -701,9 +690,7 @@ environment variables.</p>
             <th>COZY_HOST / COZY_ADMIN_HOST</th>
             <td>localhost</td>
 <td>
-
 `[http[s]://]<fqdn>[:<port>]`
-
 </td>
         </tr>
         <tr>
@@ -717,7 +704,6 @@ environment variables.</p>
             <th>COZY_HOST_TIMEOUT / COZY_ADMIN_TIMOUT</th>
             <td>15s</td>
 <td>
-
 HTTP timeout to use  
 Must be [a valid golang duration](https://golang.org/pkg/time/#ParseDuration) like `10s` or `1m`
 </td>
@@ -727,11 +713,9 @@ Must be [a valid golang duration](https://golang.org/pkg/time/#ParseDuration) li
                     <th>COZY_HOST_VALIDATE / COZY_ADMIN_VALIDATE</th>
                     <td>true</td>
 <td>
-
 Enable HTTPS certificate validation  
 Can also be set via host URL query part, like
 `https://localhost:6060?validate=false`
-
 </td>
         </tr>
         <tr>
@@ -739,10 +723,8 @@ Can also be set via host URL query part, like
                     <th>COZY_HOST_CA / COZY_ADMIN_CA</th>
                     <td>none</td>
 <td>
-
 CA file to use for HTTPS certificate validation  
 Can also be set via host URL query part, like `https://localhost:6060?ca=<ca>`
-
 </td>
         </tr>
         <tr>
@@ -750,11 +732,9 @@ Can also be set via host URL query part, like `https://localhost:6060?ca=<ca>`
                     <th>COZY_HOST_CERT / COZY_ADMIN_CERT</th>
                     <td>none</td>
 <td>
-
 Client certificate to use  
 Can also be set via host URL query part, like
 `https://localhost:6060?cert=<cert>`
-
 </td>
         </tr>
         <tr>
@@ -762,10 +742,8 @@ Can also be set via host URL query part, like
                     <th>COZY_HOST_KEY / COZY_ADMIN_KEY</th>
                     <td>none</td>
 <td>
-
 Client certificate to use  
 Can also be set via host URL query part, like `https://localhost:6060?key=<key>`
-
 </td>
         </tr>
         <tr>
@@ -773,7 +751,6 @@ Can also be set via host URL query part, like `https://localhost:6060?key=<key>`
                     <th>COZY_HOST_FINGERPRINT / COZY_ADMIN_FINGERPRINT</th>
                     <td>none</td>
 <td>
-
 Hex-encoded SHA-256 key pinning to use  
 Can also be set via host URL query part, like `https://localhost:6060?fp=<fp>`
 
@@ -781,7 +758,6 @@ You can get the fingerprint of a given certificate with
 `openssl x509 -in <certificat.crt> -pubkey | openssl pkey -pubin -outform der | openssl dgst -sha256 -hex`  
 Or directly from a private key with
 `openssl pkey -in <key.pem> -pubout -outform der | openssl dgst -sha256 -hex`
-
 </td>
         </tr>
     </tbody>
@@ -792,17 +768,18 @@ Or directly from a private key with
 should be stored in a <code>cozy-admin-passphrase</code>. This file should be in one of the
 configuration directories, along with the main config file.</p>
 <p>The passphrase is stored in a salted-hashed representation using scrypt. To
-generate this file, you can use the
-<code>cozy-stack config passwd [config directory]</code> command. This command will ask you
-for a passphrase and will create the <code>cozy-admin-passphrase</code> in the specified
-directory.</p>
+generate this file, you can use the <code>cozy-stack config passwd [filepath]</code>
+command. This command will ask you for a passphrase and will create the
+<code>cozy-admin-passphrase</code> at the specified path.</p>
 <p>You can use the <code>COZY_ADMIN_PASSWORD</code> env variable if you do not want to type
 the passphrase each time you call <code>cozy-stack</code>.</p>
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span>cozy-stack config passwd ~/.cozy
-<span class="c1"># Hashed passphrase outputed in ~/.cozy/cozy-admin-passphrase</span>
-cat ~/.cozy/cozy-admin-passphrase
-<span class="c1"># scrypt$16384$8$1$936bd62faf633b5f946f653c21161a9b$4e0d11dfa5fc1676ed329938b11a6584d30e603e0d06b8a63a99e8cec392d682</span>
+<div class="codehilite"><pre><span></span>$ mkdir ~/.cozy <span class="o">&amp;&amp;</span> cozy-stack config passwd ~/.cozy/cozy-admin-passphrase
+Hashed passphrase will be writtent in ~/.cozy/cozy-admin-passphrase
+Passphrase:
+Confirmation:
+$ cat ~/.cozy/cozy-admin-passphrase
+scrypt<span class="nv">$16384$8$1$936</span>bd62faf633b5f946f653c21161a9b<span class="nv">$4</span>e0d11dfa5fc1676ed329938b11a6584d30e603e0d06b8a63a99e8cec392d682
 </pre></div>
 
 
@@ -864,6 +841,27 @@ for example. It is called with the following parameters:</p>
 <li>the instance on which the application has been uninstalled</li>
 <li>the application name that has been uninstalled.</li>
 </ol>
+<h2 id="customizing-a-context">Customizing a context<a class="headerlink" href="#customizing-a-context" title="Permanent link">&para;</a></h2>
+<h3 id="intro">Intro<a class="headerlink" href="#intro" title="Permanent link">&para;</a></h3>
+<p>In the config file of cozy-stack, it&rsquo;s possible to declare some contexts, that
+are a way to regroup some cozy instances to give similar configuration. For
+example, it is possible to give a <code>default_redirection</code> that will be used
+when the user logs into their cozy. You can find more example in the example
+config file.</p>
+<h3 id="assets">Assets<a class="headerlink" href="#assets" title="Permanent link">&para;</a></h3>
+<p>The visual appearance of a cozy instance can be customized via some assets
+(CSS, JS, images). These assets can be inserted from the command-line with the
+<a href="../cli/cozy-stack_config_insert-asset.md"><code>cozy-stack config insert-asset</code></a>
+command.</p>
+<p>Here are a small list of assets that you may want to customize:</p>
+<ul>
+<li><code>/styles/theme.css</code>: a CSS file where you can override the colors and put
+  other CSS rules</li>
+<li><code>/favicon-16x16.png</code> and <code>/favicon-32x32.png</code>: the two variants of the
+  favicon</li>
+<li><code>/apple-touch-icon.png</code>: the same but for Apple</li>
+<li><code>/images/default-avatar.png</code>: the image to use as the default avatar.</li>
+</ul>
                 </div>
         </div>
 

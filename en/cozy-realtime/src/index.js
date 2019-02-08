@@ -1,56 +1,67 @@
 /* global WebSocket */
 
-// Custom object wrapping logic to websocket and exposing a subscription
-// interface
+// cozySocket is a custom object wrapping logic to websocket and exposing a subscription
+// interface, it's a global variable to avoid creating multiple at a time
 let cozySocket
 
-// Important, must match the spec,
-// see https://developer.mozilla.org/en-US/docs/Web/API/WebSocket
-const WEBSOCKET_STATE = {
-  OPEN: 1
-}
+// Here it is wrapped into a promise to be sure to have it ready on resolved
+let socketPromise
 
 const NUM_RETRIES = 3
 const RETRY_BASE_DELAY = 1000
 
-// Send a subscribe message for the given doctype trough the given websocket, but
-// only if it is in a ready state. If not, retry a few milliseconds later.
-function subscribeWhenReady(doctype, socket) {
-  if (socket.readyState === WEBSOCKET_STATE.OPEN) {
-    try {
-      socket.send(
-        JSON.stringify({
-          method: 'SUBSCRIBE',
-          payload: {
-            type: doctype
-          }
-        })
-      )
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.warn(`Cannot subscribe to doctype ${doctype}: ${error.message}`)
-      throw error
-    }
-  } else {
-    setTimeout(() => {
-      subscribeWhenReady(doctype, socket)
-    }, 10)
+// stored listeners
+// stored as Map { [doctype]: Object { [event]: listeners } }
+let listeners = new Map()
+
+// getters
+export const getListeners = () => listeners
+export const getSocket = async () => socketPromise && (await socketPromise)
+export const getCozySocket = () => cozySocket
+
+// listener key computing, according to doctype only or with doc id
+const LISTENER_KEY_SEPARATOR = '/' // safe since we can't have a '/' in a doctype
+const getListenerKey = (doctype, docId) =>
+  docId ? [doctype, docId].join(LISTENER_KEY_SEPARATOR) : doctype
+
+const getTypeAndIdFromListenerKey = listenerKey => {
+  const splitResult = listenerKey.split(LISTENER_KEY_SEPARATOR)
+  return {
+    doctype: splitResult.shift(),
+    // if there still are some lements, this is the doc id
+    docId: splitResult.length ? splitResult.join(LISTENER_KEY_SEPARATOR) : null
+  }
+}
+
+// return true if the there is at least one event listener
+const hasListeners = socketListeners => {
+  for (let event of ['created', 'updated', 'deleted']) {
+    if (socketListeners[event] && socketListeners[event].length) return true
+  }
+  return false
+}
+
+// Send a subscribe message for the given doctype trough the given websocket
+export async function subscribeWhenReady(doctype, docId) {
+  const socket = await getSocket()
+  try {
+    const payload = { type: doctype }
+    if (docId) payload.id = docId
+    socket.send(
+      JSON.stringify({
+        method: 'SUBSCRIBE',
+        payload
+      })
+    )
+  } catch (error) {
+    console.warn(`Cannot subscribe to doctype ${doctype}: ${error.message}`)
+    throw error
   }
 }
 
 function isSecureURL(url) {
   const httpsRegexp = new RegExp(`^(https:/{2})`)
   return url.match(httpsRegexp)
-}
-
-function getDomainFromUrl(url) {
-  try {
-    return new URL(url).host
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.warn(`Cannot get domain from URL : ${error.message}`)
-    return null
-  }
 }
 
 const isBoolean = [
@@ -99,7 +110,7 @@ const configTypes = {
 
 const validateConfig = validate(configTypes)
 
-async function connectWebSocket(
+export function createWebSocket(
   config,
   onmessage,
   onclose,
@@ -107,220 +118,219 @@ async function connectWebSocket(
   retryDelay
 ) {
   validateConfig(config)
-  return new Promise((resolve, reject) => {
-    const options = {
-      secure: config.url ? isSecureURL(config.url) : true,
-      ...config
-    }
+  const options = {
+    secure: config.url ? isSecureURL(config.url) : true,
+    ...config
+  }
 
-    const protocol = options.secure ? 'wss:' : 'ws:'
-    const domain = options.domain || getDomainFromUrl(options.url)
+  const protocol = options.secure ? 'wss:' : 'ws:'
+  const domain = options.domain || new URL(options.url).host
 
-    if (!domain) {
-      throw new Error('Unable to detect domain')
-    }
+  if (!domain) {
+    throw new Error('Unable to detect domain')
+  }
 
-    const socket = new WebSocket(
-      `${protocol}//${domain}/realtime/`,
-      'io.cozy.websocket'
-    )
+  const socket = new WebSocket(
+    `${protocol}//${domain}/realtime/`,
+    'io.cozy.websocket'
+  )
 
+  const windowUnloadHandler = () => socket.close()
+  window.addEventListener('beforeunload', windowUnloadHandler)
+
+  socket.onmessage = onmessage
+  socket.onclose = event => {
+    window.removeEventListener('beforeunload', windowUnloadHandler)
+    if (typeof onclose === 'function') onclose(event, numRetries, retryDelay)
+  }
+  socket.onerror = error => console.error(`WebSocket error: ${error.message}`)
+
+  socketPromise = new Promise(resolve => {
     socket.onopen = () => {
-      try {
-        socket.send(
-          JSON.stringify({
-            method: 'AUTH',
-            payload: options.token
-          })
-        )
-      } catch (error) {
-        return reject(error)
-      }
-
-      const windowUnloadHandler = () => socket.close()
-      window.addEventListener('beforeunload', windowUnloadHandler)
-
-      socket.onmessage = onmessage
-      socket.onclose = event => {
-        window.removeEventListener('beforeunload', windowUnloadHandler)
-        if (typeof onclose === 'function')
-          onclose(event, numRetries, retryDelay)
-      }
-      socket.onerror = error =>
-        // eslint-disable-next-line no-console
-        console.error(`WebSocket error: ${error.message}`)
-
+      socket.send(
+        JSON.stringify({
+          method: 'AUTH',
+          payload: options.token
+        })
+      )
       resolve(socket)
     }
   })
 }
 
-function getCozySocket(config) {
-  return new Promise(async (resolve, reject) => {
-    if (cozySocket) return resolve(cozySocket)
+export function initCozySocket(config) {
+  const onSocketMessage = event => {
+    const data = JSON.parse(event.data)
+    const eventType = data.event.toLowerCase()
+    const payload = data.payload
 
-    const listeners = {}
+    if (eventType === 'error') {
+      const realtimeError = new Error(payload.title)
+      const errorFields = ['status', 'code', 'source']
+      errorFields.forEach(property => {
+        realtimeError[property] = payload[property]
+      })
 
-    let socket
-
-    const onSocketMessage = event => {
-      const data = JSON.parse(event.data)
-      const eventType = data.event.toLowerCase()
-      const payload = data.payload
-
-      if (eventType === 'error') {
-        const realtimeError = new Error(payload.title)
-        const errorFields = ['status', 'code', 'source']
-        errorFields.forEach(property => {
-          realtimeError[property] = payload[property]
-        })
-
-        throw realtimeError
-      }
-
-      if (listeners[payload.type] && listeners[payload.type][eventType]) {
-        listeners[payload.type][eventType].forEach(listener => {
-          listener(payload.doc)
-        })
-      }
+      throw realtimeError
     }
 
-    const onSocketClose = async (event, numRetries, retryDelay) => {
-      if (!event.wasClean) {
-        // eslint-disable-next-line no-console
-        console.warn(
-          `WebSocket closed unexpectedly with code ${event.code} and ${
-            event.reason ? `reason: '${event.reason}'` : 'no reason'
-          }.`
-        )
+    // the payload should always have an id here
+    const listenerKey = getListenerKey(payload.type, payload.id)
 
-        if (numRetries) {
-          // eslint-disable-next-line no-console
-          console.warn(`Reconnecting ... ${numRetries} tries left.`)
-          setTimeout(async () => {
-            try {
-              socket = await connectWebSocket(
-                config,
-                onSocketMessage,
-                onSocketClose,
-                --numRetries,
-                retryDelay + 1000
-              )
-            } catch (error) {
-              // eslint-disable-next-line no-console
-              console.error(
-                `Unable to reconnect to realtime. Error: ${error.message}`
-              )
-            }
-          }, retryDelay)
-        }
-      }
+    // id listener call
+    if (listeners.has(listenerKey) && listeners.get(listenerKey)[eventType]) {
+      listeners.get(listenerKey)[eventType].forEach(listener => {
+        listener(payload.doc)
+      })
     }
 
-    try {
-      socket = await connectWebSocket(
-        config,
-        onSocketMessage,
-        onSocketClose,
-        NUM_RETRIES,
-        RETRY_BASE_DELAY
+    if (listenerKey === payload.type) return
+
+    // doctype listener call
+    if (listeners.has(payload.type) && listeners.get(payload.type)[eventType]) {
+      listeners.get(payload.type)[eventType].forEach(listener => {
+        listener(payload.doc)
+      })
+    }
+  }
+
+  const onSocketClose = (event, numRetries, retryDelay) => {
+    if (!event.wasClean) {
+      console.warn(
+        `WebSocket closed unexpectedly with code ${event.code} and ${
+          event.reason ? `reason: '${event.reason}'` : 'no reason'
+        }.`
       )
-    } catch (error) {
-      reject(error)
+
+      if (numRetries) {
+        console.warn(`Reconnecting ... ${numRetries} tries left.`)
+        setTimeout(() => {
+          try {
+            createWebSocket(
+              config,
+              onSocketMessage,
+              onSocketClose,
+              --numRetries,
+              retryDelay + 1000
+            )
+            // retry
+            if (listeners.size) {
+              listeners.forEach((value, listenerKey) => {
+                const { doctype, docId } = getTypeAndIdFromListenerKey(
+                  listenerKey
+                )
+                subscribeWhenReady(doctype, docId)
+              })
+            }
+          } catch (error) {
+            console.error(
+              `Unable to reconnect to realtime. Error: ${error.message}`
+            )
+          }
+        }, retryDelay)
+      } else {
+        console.error(`0 tries left. Stop reconnecting realtime.`)
+        // remove cached socket and promise
+        if (socketPromise) socketPromise = null
+        if (cozySocket) cozySocket = null
+      }
     }
+  }
 
-    cozySocket = {
-      subscribe: (doctype, event, listener) => {
-        if (typeof listener !== 'function')
-          throw new Error('Realtime event listener must be a function')
+  createWebSocket(
+    config,
+    onSocketMessage,
+    onSocketClose,
+    NUM_RETRIES,
+    RETRY_BASE_DELAY
+  )
 
-        if (!listeners[doctype]) {
-          listeners[doctype] = {}
-          subscribeWhenReady(doctype, socket)
-        }
+  cozySocket = {
+    subscribe: (doctype, event, listener, docId) => {
+      if (typeof listener !== 'function')
+        throw new Error('Realtime event listener must be a function')
 
-        listeners[doctype][event] = (listeners[doctype][event] || []).concat([
-          listener
-        ])
-      },
-      unsubscribe: (doctype, event, listener) => {
+      const listenerKey = getListenerKey(doctype, docId)
+
+      if (!listeners.has(listenerKey)) {
+        listeners.set(listenerKey, {})
+        subscribeWhenReady(doctype, docId)
+      }
+
+      const eventListeners = listeners.get(listenerKey)[event] || []
+      eventListeners.push(listener)
+      listeners.set(listenerKey, {
+        ...listeners.get(listenerKey),
+        [event]: eventListeners
+      })
+    },
+    unsubscribe: (doctype, event, listener, docId) => {
+      const listenerKey = getListenerKey(doctype, docId)
+      if (listeners.has(listenerKey)) {
+        const socketListeners = listeners.get(listenerKey)
         if (
-          listeners[doctype] &&
-          listeners[doctype][event] &&
-          listeners[doctype][event].includes(listener)
+          socketListeners[event] &&
+          socketListeners[event].includes(listener)
         ) {
-          listeners[doctype][event] = listeners[doctype][event].filter(
-            l => l !== listener
-          )
+          listeners.set(listenerKey, {
+            ...socketListeners,
+            [event]: socketListeners[event].filter(l => l !== listener)
+          })
+        }
+        if (!hasListeners(listeners.get(listenerKey))) {
+          listeners.delete(listenerKey)
         }
       }
     }
-
-    resolve(cozySocket)
-  })
+  }
 }
 
-// Returns the Promise of a subscription to a given doctype and document
-export function subscribe(config, doctype, doc, parse = doc => doc) {
-  return subscribeAll(config, doctype, parse).then(subscription => {
-    // We will call the listener only for the given document, so let's curry it
-    const docListenerCurried = listener => {
-      return syncedDoc => {
-        if (syncedDoc._id === doc._id) {
-          listener(syncedDoc)
-        }
-      }
+// Returns a subscription to a given doctype (all documents)
+export function subscribe(config, doctype, { docId, parse = doc => doc } = {}) {
+  if (!cozySocket) initCozySocket(config)
+  // Some document need to have specific parsing, for example, decoding
+  // base64 encoded properties
+  const parseCurried = listener => {
+    return doc => {
+      listener(parse(doc))
     }
+  }
 
-    return {
-      onUpdate: listener => subscription.onUpdate(docListenerCurried(listener)),
-      onDelete: listener => subscription.onDelete(docListenerCurried(listener)),
-      unsubscribe: () => subscription.unsubscribe()
-    }
-  })
-}
+  const subscribeAllDocs = !docId
 
-// Returns the Promise of a subscription to a given doctype (all documents)
-export function subscribeAll(config, doctype, parse = doc => doc) {
-  return getCozySocket(config).then(cozySocket => {
-    // Some document need to have specific parsing, for example, decoding
-    // base64 encoded properties
-    const parseCurried = listener => {
-      return doc => {
-        listener(parse(doc))
-      }
-    }
+  let createListener, updateListener, deleteListener
 
-    let createListener, updateListener, deleteListener
-
-    const subscription = {
-      onCreate: listener => {
-        createListener = parseCurried(listener)
-        cozySocket.subscribe(doctype, 'created', createListener)
-        return subscription
-      },
-      onUpdate: listener => {
-        updateListener = parseCurried(listener)
-        cozySocket.subscribe(doctype, 'updated', updateListener)
-        return subscription
-      },
-      onDelete: listener => {
-        deleteListener = parseCurried(listener)
-        cozySocket.subscribe(doctype, 'deleted', deleteListener)
-        return subscription
-      },
-      unsubscribe: () => {
+  const subscription = {
+    onUpdate: listener => {
+      updateListener = parseCurried(listener)
+      cozySocket.subscribe(doctype, 'updated', updateListener, docId)
+      return subscription
+    },
+    onDelete: listener => {
+      deleteListener = parseCurried(listener)
+      cozySocket.subscribe(doctype, 'deleted', deleteListener, docId)
+      return subscription
+    },
+    unsubscribe: () => {
+      if (subscribeAllDocs) {
         cozySocket.unsubscribe(doctype, 'created', createListener)
-        cozySocket.unsubscribe(doctype, 'updated', updateListener)
-        cozySocket.unsubscribe(doctype, 'deleted', deleteListener)
       }
+      cozySocket.unsubscribe(doctype, 'updated', updateListener, docId)
+      cozySocket.unsubscribe(doctype, 'deleted', deleteListener, docId)
     }
+  }
 
-    return subscription
-  })
+  if (subscribeAllDocs) {
+    subscription.onCreate = listener => {
+      createListener = parseCurried(listener)
+      cozySocket.subscribe(doctype, 'created', createListener)
+      return subscription
+    }
+  }
+
+  return subscription
 }
 
 export default {
-  subscribeAll,
   subscribe
 }

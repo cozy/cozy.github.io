@@ -333,29 +333,11 @@
 </li>
             
   <li class="dropdown-submenu">
-    <a href="#">Architecture</a>
-    <ul class="dropdown-menu">
-            
-<li >
-    <a href="../architecture/">General overview</a>
-</li>
-            
-<li >
-    <a href="../security/">Security</a>
-</li>
-    </ul>
-  </li>
-            
-  <li class="dropdown-submenu">
     <a href="#">Usage</a>
     <ul class="dropdown-menu">
             
 <li >
     <a href="../INSTALL/">Install the cozy-stack</a>
-</li>
-            
-<li >
-    <a href="../cli/cozy-stack/">Manpages of the command-line tool</a>
 </li>
             
 <li >
@@ -367,17 +349,17 @@
 </li>
             
 <li >
-    <a href="../onboarding/">Onboarding</a>
+    <a href="../security/">Security</a>
 </li>
             
 <li >
-    <a href="../custom-context/">Context customization</a>
+    <a href="../cli/cozy-stack/">Manpages of the command-line tool</a>
 </li>
     </ul>
   </li>
             
   <li class="dropdown-submenu">
-    <a href="#">For developpers</a>
+    <a href="#">How-to guides for developpers</a>
     <ul class="dropdown-menu">
             
 <li >
@@ -403,7 +385,21 @@
   </li>
             
   <li class="dropdown-submenu">
-    <a href="#">Services</a>
+    <a href="#">Explanations</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../sharing-design/">Sharing design</a>
+</li>
+            
+<li >
+    <a href="../konnectors-workflow/">Workflow of the konnectors</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">List of services</a>
     <ul class="dropdown-menu">
             
 <li >
@@ -420,10 +416,6 @@
             
 <li >
     <a href="../konnectors/"> /apps - Konnectors</a>
-</li>
-            
-<li >
-    <a href="../konnectors-workflow/"> /apps - Konnectors workflow</a>
 </li>
             
 <li >
@@ -500,10 +492,6 @@
             
 <li >
     <a href="../sharing/">/sharings - Sharing</a>
-</li>
-            
-<li >
-    <a href="../sharing-design/"> /sharings - Request for comments</a>
 </li>
     </ul>
   </li>
@@ -607,7 +595,7 @@
     <ul class="nav bs-sidenav well" style='padding-left: 0; padding-right: 0; margin-bottom: 1.5rem'>
         <li class="main active"><a href="#instances">Instances</a></li>
             <li><a href="#creation">Creation</a></li>
-            <li><a href="#renaming">Renaming</a></li>
+            <li><a href="#onboarding">Onboarding</a></li>
             <li><a href="#destroying">Destroying</a></li>
     </ul>
   <div style='padding-left: 2rem'>
@@ -652,81 +640,55 @@
 
 <p><a href="../README/#table-of-contents">Table of contents</a></p>
 <h1 id="instances">Instances<a class="headerlink" href="#instances" title="Permanent link">&para;</a></h1>
-<p><strong>TODO</strong> it&rsquo;s still a work in progress that needs to be completed.</p>
 <p>A single cozy-stack can manage several instances. Requests to different
 instances are identified through the <code>Host</code> HTTP Header, any reverse proxy
 placed in front of the cozy-stack should forward this header.</p>
 <h2 id="creation">Creation<a class="headerlink" href="#creation" title="Permanent link">&para;</a></h2>
 <p>An instance is created on the command line:</p>
-<div class="codehilite"><pre><span></span>$ cozy-stack instances add &lt;domain&gt;
+<div class="codehilite"><pre><span></span>$ cozy-stack instances add &lt;domain&gt; <span class="o">[</span>flags<span class="o">]</span>
 </pre></div>
 
 
-<p>With some possible additional options</p>
-<ul>
-<li><code>--locale &lt;lang&gt;</code></li>
-<li><code>--tz &lt;timezone&gt;</code></li>
-<li><code>--email &lt;email&gt;</code></li>
-<li><code>--apps &lt;app1,app2,app3&gt;</code></li>
-</ul>
-<p>It registers the instance in a global couchdb database <code>global/instances</code></p>
-<div class="codehilite"><pre><span></span><span class="p">{</span>
-    <span class="nt">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;example.cozycloud.cc&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;dbprefix&quot;</span><span class="p">:</span> <span class="s2">&quot;example-clozycloud-cc/&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;fsroot&quot;</span><span class="p">:</span> <span class="s2">&quot;/var/lib/cozy/example.cozycloud.cc/fs/&quot;</span>
-<span class="p">}</span>
-</pre></div>
-
-
-<p>and creates the proper databases ($PREFIX/$DOCTYPE) for these doctypes:</p>
+<p>The flags are documented in the
+<a href="../cli/cozy-stack_instances_add/"><code>instances add manpage</code></a>.</p>
+<p>It registers the instance in a global couchdb database <code>global/instances</code>
+and creates the proper databases ($PREFIX/$DOCTYPE) for these doctypes:</p>
 <ul>
 <li><code>io.cozy.apps</code></li>
+<li><code>io.cozy.contacts</code></li>
 <li><code>io.cozy.files</code></li>
+<li><code>io.cozy.jobs</code></li>
+<li><code>io.cozy.konnectors</code></li>
 <li><code>io.cozy.notifications</code></li>
+<li><code>io.cozy.oauth.clients</code></li>
+<li><code>io.cozy.permissions</code></li>
+<li><code>io.cozy.sessions.logins</code></li>
 <li><code>io.cozy.settings</code></li>
+<li><code>io.cozy.shared</code></li>
+<li><code>io.cozy.sharings</code></li>
+<li><code>io.cozy.triggers</code></li>
 </ul>
-<p>Then, it creates the following indexes for these doctypes :</p>
-<ul>
-<li><strong>TODO :</strong> complete this list of indexes</li>
-</ul>
-<p>Then, it creates some directories:</p>
+<p>Then, it creates some indexes for these doctypes, and some directories:</p>
 <ul>
 <li><code>/</code>, with the id <code>io.cozy.files.root-dir</code></li>
-<li><code>/Apps</code>, with the id <code>io.cozy.files.apps-dir</code></li>
-<li><code>/Documents</code>, with the id <code>io.cozy.files.documents-dir</code></li>
-<li><code>/Documents/Downloads</code>, with the id <code>io.cozy.files.downloads-dir</code></li>
-<li><code>/Documents/Pictures</code>, with the id <code>io.cozy.files.pictures-dir</code></li>
-<li><code>/Documents/Music</code>, with the id <code>io.cozy.files.music-dir</code></li>
-<li><code>/Documents/Videos</code>, with the id <code>io.cozy.files.videos-dir</code></li>
+<li>the trash, with the id <code>io.cozy.files.trash-dir</code></li>
+<li><code>/Administrative</code></li>
+<li><code>/Photos</code></li>
+<li><code>/Photos/Uploaded from Cozy Photos</code></li>
+<li><code>/Photos/Backed up from my mobile</code></li>
 </ul>
-<p><strong>The ids are forced to known values:</strong> even if these directories are moved or
-renamed, they can still be found for the permissions.</p>
 <p><strong>The names are localized:</strong> If a locale is provided through the CLI, the
-directories will be created with names in this locale. Otherwise, theses
-directories will be created in english and renamed to localized name the first
-time the locale is set (during onboarding).</p>
-<p>Then it creates the basic settings</p>
-<ul>
-<li><code>email</code> if an email was provided through the CLI</li>
-<li><code>locale</code> if a locale was provided through the CLI</li>
-<li><code>tz</code> if a timezone was provided through the CLI</li>
-</ul>
-<p>Settings are created as named id in the <code>$PREFIX/io.cozy.settings</code> database.
-During onboarding, the fields will be prefilled with these value if they were
-provided.</p>
+directories will be created with names in this locale.</p>
+<p>Then it creates the basic settings with the options from the CLI.</p>
 <p>Finally, applications from the <code>--apps</code> CLI option are installed.</p>
-<hr />
-<h2 id="renaming">Renaming<a class="headerlink" href="#renaming" title="Permanent link">&para;</a></h2>
-<p>An instance is renamed through the command line.</p>
-<div class="codehilite"><pre><span></span>$ cozy-stack instances rename &lt;olddomain&gt; &lt;newdomain&gt;
-</pre></div>
-
-
-<p>Renaming an instance only change the HostName in global/instances base.</p>
-<hr />
+<h2 id="onboarding">Onboarding<a class="headerlink" href="#onboarding" title="Permanent link">&para;</a></h2>
+<p>At the end of the instance creation, the CLI returns a token, called
+<code>registerToken</code>. The <code>registerToken</code> can be used to send a link to the user,
+where they will be able to choose their password. After that, the instance
+is said to be onboarded, and the user can use it normally.</p>
 <h2 id="destroying">Destroying<a class="headerlink" href="#destroying" title="Permanent link">&para;</a></h2>
 <p>An instance is destroyed through the command line. A confirmation is asked from
-the CLI user unless the &ndash;yes flag is passed</p>
+the CLI user unless the &ndash;force flag is passed:</p>
 <div class="codehilite"><pre><span></span>$ cozy-stack instances destroy &lt;domain&gt;
 </pre></div>
                 </div>
