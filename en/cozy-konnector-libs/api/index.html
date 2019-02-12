@@ -1057,6 +1057,8 @@ full permission on <code>io.cozy.bank.operations</code> in your manifest, to be 
   enough for you (can be a function returning the value).</li>
 <li><code>shouldReplaceName</code> (string) default: <code>undefined</code> use to select the old filename to replace
   by filename if possible (can be a function returning the value)</li>
+<li><code>shouldReplaceFile</code> (function) default: use this function to state if the current file
+  should be redownloaded and replaced. You can use the same attribute directly in the entry.</li>
 <li>
 <p><code>fileAttributes</code> (object) ex: <code>{created_at: new Date()}</code> sets some additionnal file
   attributes passed to cozyClient.file.create</p>
