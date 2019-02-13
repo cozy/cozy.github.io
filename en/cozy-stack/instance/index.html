@@ -597,6 +597,7 @@
             <li><a href="#creation">Creation</a></li>
             <li><a href="#onboarding">Onboarding</a></li>
             <li><a href="#destroying">Destroying</a></li>
+            <li><a href="#blocking">Blocking</a></li>
     </ul>
   <div style='padding-left: 2rem'>
     
@@ -691,6 +692,22 @@ is said to be onboarded, and the user can use it normally.</p>
 the CLI user unless the &ndash;force flag is passed:</p>
 <div class="codehilite"><pre><span></span>$ cozy-stack instances destroy &lt;domain&gt;
 </pre></div>
+
+
+<h2 id="blocking">Blocking<a class="headerlink" href="#blocking" title="Permanent link">&para;</a></h2>
+<p>If you manage several instances on your stack, you can block some instances.
+When an instance is blocked (for whatever reason), the user cannot use his Cozy
+anymore and has to wait to be unblocked.</p>
+<div class="codehilite"><pre><span></span>$ cozy-stack instances modify &lt;domain&gt; --blocked
+</pre></div>
+
+
+<p>A <code>blocking_reason</code> can be added for specific cases and to inform a user the
+reason of the blocking.</p>
+<p>Several pre-included reasons are included, but you can define your owns if needed. These reasons are:
+- <code>"LOGIN_FAILED"</code>: The instance was blocked because of too many login attempts
+- <code>"PAYMENT_FAILED"</code>: The instance waits for a payment to be done
+- <code>"UNKNOWN"</code>: The instance was blocked for an unknown reason</p>
                 </div>
         </div>
 

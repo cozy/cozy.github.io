@@ -629,6 +629,9 @@
         <li class="main "><a href="#sharingcollection">SharingCollection</a></li>
             <li><a href="#sharingcollectionsharedocument-recipients-sharingtype-description-previewpath">sharingCollection.share(document, recipients, sharingType, description, [previewPath])</a></li>
             <li><a href="#sharingcollectiongetdiscoverylinksharingid-sharecode-string">sharingCollection.getDiscoveryLink(sharingId, sharecode) ⇒ string</a></li>
+        <li class="main "><a href="#triggercollection">TriggerCollection</a></li>
+            <li><a href="#triggercollectioncreateattributes-object">triggerCollection.create(attributes) ⇒ object</a></li>
+            <li><a href="#triggercollectionlaunchtrigger-object">triggerCollection.launch(Trigger) ⇒ object</a></li>
         <li class="main "><a href="#getcozyurl">getCozyURL()</a></li>
     </ul>
   <div style='padding-left: 2rem'>
@@ -699,6 +702,9 @@ through OAuth.</p>
 <dt><a href="#SharingCollection">SharingCollection</a></dt>
 <dd><p>Implements the <code>DocumentCollection</code> API along with specific methods for
 <code>io.cozy.sharings</code>.</p>
+</dd>
+<dt><a href="#TriggerCollection">TriggerCollection</a></dt>
+<dd><p>Implements <code>DocumentCollection</code> API along with specific methods for <code>io.cozy.triggers</code>.</p>
 </dd>
 </dl>
 
@@ -1420,6 +1426,61 @@ through OAuth.</p>
 <tr>
 <td>sharecode</td>
 <td><code>string</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="TriggerCollection"></a></p>
+<h2 id="triggercollection">TriggerCollection<a class="headerlink" href="#triggercollection" title="Permanent link">&para;</a></h2>
+<p>Implements <code>DocumentCollection</code> API along with specific methods for <code>io.cozy.triggers</code>.</p>
+<p><strong>Kind</strong>: global class  </p>
+<ul>
+<li><a href="#TriggerCollection">TriggerCollection</a><ul>
+<li><a href="#TriggerCollection+create">.create(attributes)</a> ⇒ <code>object</code></li>
+<li><a href="#TriggerCollection+launch">.launch(Trigger)</a> ⇒ <code>object</code></li>
+</ul>
+</li>
+</ul>
+<p><a name="TriggerCollection+create"></a></p>
+<h3 id="triggercollectioncreateattributes-object">triggerCollection.create(attributes) ⇒ <code>object</code><a class="headerlink" href="#triggercollectioncreateattributes-object" title="Permanent link">&para;</a></h3>
+<p>Creates a Trigger document</p>
+<p><strong>Kind</strong>: instance method of <a href="#TriggerCollection"><code>TriggerCollection</code></a><br />
+<strong>Returns</strong>: <code>object</code> - Stack response, containing trigger document under <code>data</code> attribute.<br />
+<strong>See</strong>: https://github.com/cozy/cozy-stack/blob/master/docs/jobs.md#post-jobstriggers  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>attributes</td>
+<td><code>object</code></td>
+<td>Trigger&rsquo;s attributes</td>
+</tr>
+</tbody>
+</table>
+<p><a name="TriggerCollection+launch"></a></p>
+<h3 id="triggercollectionlaunchtrigger-object">triggerCollection.launch(Trigger) ⇒ <code>object</code><a class="headerlink" href="#triggercollectionlaunchtrigger-object" title="Permanent link">&para;</a></h3>
+<p>Force given trigger execution.</p>
+<p><strong>Kind</strong>: instance method of <a href="#TriggerCollection"><code>TriggerCollection</code></a><br />
+<strong>Returns</strong>: <code>object</code> - Stack response, containing job launched by trigger, under <code>data</code> attribute.<br />
+<strong>See</strong>: https://github.com/cozy/cozy-stack/blob/master/docs/jobs.md#post-jobstriggerstrigger-idlaunch  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Trigger</td>
+<td><code>object</code></td>
+<td>to launch</td>
 </tr>
 </tbody>
 </table>

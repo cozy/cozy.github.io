@@ -4,15 +4,6 @@ module.exports = {
   title: 'Cozy UI React components',
   sections: [
     {
-      name: 'Material-UI',
-      components: () => [
-        '../react/MuiCozyTheme/index.jsx',
-        '../react/MuiCozyTheme/Buttons',
-        '../react/MuiCozyTheme/Menus',
-        '../react/MuiCozyTheme/ExpansionPanel'
-      ]
-    },
-    {
       name: 'Basics',
       components: () => [
         '../react/Badge/index.jsx',
@@ -89,6 +80,15 @@ module.exports = {
         '../react/Alerter/index.jsx',
         '../react/PopupOpener/index.jsx'
       ]
+    },
+    {
+      name: 'Material-UI',
+      components: () => [
+        '../react/MuiCozyTheme/index.jsx',
+        '../react/MuiCozyTheme/Buttons',
+        '../react/MuiCozyTheme/Menus',
+        '../react/MuiCozyTheme/ExpansionPanel'
+      ]
     }
   ],
   components: '../react/**/*.jsx',
@@ -120,7 +120,7 @@ module.exports = {
   require: [
     path.join(__dirname, './style.styl'),
     'style-loader!css-loader!' +
-      path.join(__dirname, '../transpiled/stylesheet.css'),
+      path.join(__dirname, '../transpiled/react/stylesheet.css'),
     path.join(__dirname, './styleguide.setup')
   ],
   exampleMode: 'collapse',
