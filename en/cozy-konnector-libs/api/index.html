@@ -616,6 +616,8 @@
             <li><a href="#savefiles_1">saveFiles() ⏏</a></li>
         <li class="main "><a href="#signin">signin</a></li>
             <li><a href="#moduleexports_5">module.exports() ⏏</a></li>
+        <li class="main "><a href="#solvecaptcha">solveCaptcha</a></li>
+            <li><a href="#moduleexports_6">module.exports() ⏏</a></li>
         <li class="main "><a href="#updateorcreate">updateOrCreate</a></li>
             <li><a href="#moduleexportsentries-doctype-matchingattributes-promise">module.exports(entries, doctype, matchingAttributes) ⇒ Promise ⏏</a></li>
         <li class="main "><a href="#utils">utils</a></li>
@@ -662,6 +664,7 @@
         <li class="main "><a href="#user_action_needed_change_password-string">USER_ACTION_NEEDED_CHANGE_PASSWORD : String</a></li>
         <li class="main "><a href="#user_action_needed_permissions_changed-string">USER_ACTION_NEEDED_PERMISSIONS_CHANGED : String</a></li>
         <li class="main "><a href="#user_action_needed_cgu_form-string">USER_ACTION_NEEDED_CGU_FORM : String</a></li>
+        <li class="main "><a href="#captcha_resolution_failed-string">CAPTCHA_RESOLUTION_FAILED : String</a></li>
         <li class="main "><a href="#mkspec">mkSpec()</a></li>
         <li class="main "><a href="#scrape-specs-childselector-object-124-array">scrape($, spec(s), [childSelector]) ⇒ object | array</a></li>
             <li><a href="#permissions">⚠ Permissions</a></li>
@@ -740,6 +743,10 @@ to an existing bank operation</p>
 <dd><p>Provides an handy method to log the user in,
 on HTML form pages. On success, it resolves to a promise with a parsed body.</p>
 </dd>
+<dt><a href="#module_solveCaptcha">solveCaptcha</a></dt>
+<dd><p>Use every possible means to solve a captcha. At the moment, Anticaptcha web service is used if
+any related secret key is found in COZY_PARAMETERS environment variable.</p>
+</dd>
 <dt><a href="#module_updateOrCreate">updateOrCreate</a></dt>
 <dd><p>Creates or updates the given entries according to if they already
 exist in the cozy or not</p>
@@ -816,6 +823,9 @@ it to save/restore cookies</p>
 </dd>
 <dt><a href="#USER_ACTION_NEEDED_CGU_FORM">USER_ACTION_NEEDED_CGU_FORM</a> : <code>String</code></dt>
 <dd><p>The user needs to accept a CGU form before accessing the rest of the website</p>
+</dd>
+<dt><a href="#CAPTCHA_RESOLUTION_FAILED">CAPTCHA_RESOLUTION_FAILED</a> : <code>String</code></dt>
+<dd><p>solveCaptcha failed to solve the captcha</p>
 </dd>
 </dl>
 
@@ -1175,7 +1185,39 @@ will allow you to:
 <p>Do not forget that the use of the signin function is not mandatory in a connector and won&rsquo;t work
 if the signin page does not use html forms. Here, a simple POST request may be a lot more
 simple.
-<a name="module_updateOrCreate"></a></p>
+<a name="module_solveCaptcha"></a></p>
+<h2 id="solvecaptcha">solveCaptcha<a class="headerlink" href="#solvecaptcha" title="Permanent link">&para;</a></h2>
+<p>Use every possible means to solve a captcha. At the moment, Anticaptcha web service is used if
+any related secret key is found in COZY_PARAMETERS environment variable.</p>
+<p><a name="exp_module_solveCaptcha--module.exports"></a></p>
+<h3 id="moduleexports_6">module.exports() ⏏<a class="headerlink" href="#moduleexports_6" title="Permanent link">&para;</a></h3>
+<p>Use every possible means to solve a captcha. At the moment, Anticaptcha web service is used if
+any related secret key is found in COZY_PARAMETERS environment variable.
+If you do not want to solve the captcha each time the connector is run, please also use
+CookieKonnector which will help you save the session.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>params</code> is an array of objects with any attributes with some mandatory attributes :</li>
+<li><code>type</code> (String): (default recaptcha) type of captcha to solve</li>
+<li><code>timeout</code> (Number): (default 4 minutes after now) time when the solver should stop trying to
+  solve the captcha</li>
+<li><code>websiteKey</code> (String): the key you can find on the targeted website</li>
+<li><code>websiteURL</code> (String): The URL of the page showing the captcha
+Returns: Promise with the solved captcha response as a string</li>
+</ul>
+<p><strong>Kind</strong>: Exported function<br />
+<strong>Example</strong>  </p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">solveCaptcha</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-konnector-libs&#39;</span><span class="p">)</span>
+
+<span class="kr">const</span> <span class="nx">solvedKey</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">solveCaptcha</span><span class="p">({</span>
+  <span class="nx">websiteKey</span><span class="o">:</span> <span class="s1">&#39;the key in the webpage&#39;</span><span class="p">,</span>
+  <span class="nx">websiteURL</span><span class="o">:</span> <span class="s1">&#39;http://quotes.toscrape.com/login&#39;</span><span class="p">,</span>
+<span class="p">})</span>
+<span class="c1">// now use the solveKey to submit your form</span>
+</pre></div>
+
+
+<p><a name="module_updateOrCreate"></a></p>
 <h2 id="updateorcreate">updateOrCreate<a class="headerlink" href="#updateorcreate" title="Permanent link">&para;</a></h2>
 <p>Creates or updates the given entries according to if they already
 exist in the cozy or not</p>
@@ -1677,6 +1719,10 @@ that just have been scraped where dates are <code>Date</code>s.</p>
 <a name="USER_ACTION_NEEDED_CGU_FORM"></a></p>
 <h2 id="user_action_needed_cgu_form-string">USER_ACTION_NEEDED_CGU_FORM : <code>String</code><a class="headerlink" href="#user_action_needed_cgu_form-string" title="Permanent link">&para;</a></h2>
 <p>The user needs to accept a CGU form before accessing the rest of the website</p>
+<p><strong>Kind</strong>: global constant<br />
+<a name="CAPTCHA_RESOLUTION_FAILED"></a></p>
+<h2 id="captcha_resolution_failed-string">CAPTCHA_RESOLUTION_FAILED : <code>String</code><a class="headerlink" href="#captcha_resolution_failed-string" title="Permanent link">&para;</a></h2>
+<p>solveCaptcha failed to solve the captcha</p>
 <p><strong>Kind</strong>: global constant<br />
 <a name="mkSpec"></a></p>
 <h2 id="mkspec">mkSpec()<a class="headerlink" href="#mkspec" title="Permanent link">&para;</a></h2>
