@@ -11,8 +11,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-// Package lru implements an LRU cache.
-package lru
+// Package cache implements an LRU cache and a redis cache.
+package cache
 
 import (
 	"container/list"
@@ -20,13 +20,30 @@ import (
 	"time"
 )
 
+type Cache interface {
+	Add(Key, Value)
+	Get(Key) (Value, bool)
+	Remove(Key)
+}
+
+type entry struct {
+	key   Key
+	value Value
+	date  time.Time
+}
+
 type (
 	Key   string
 	Value []byte
 )
 
-// Cache is an LRU cache.
-type Cache struct {
+// Key returns the key as a string
+func (k Key) String() string {
+	return string(k)
+}
+
+// LRUCache is an LRU cache.
+type LRUCache struct {
 	// MaxEntries is the maximum number of cache entries before
 	// an item is evicted. Zero means no limit.
 	MaxEntries int
@@ -38,17 +55,11 @@ type Cache struct {
 	cache map[Key]*list.Element
 }
 
-type entry struct {
-	key   Key
-	value Value
-	date  time.Time
-}
-
 // New creates a new Cache.
 // If maxEntries is zero, the cache has no limit and it's assumed
 // that eviction is done by the caller.
-func New(maxEntries int, ttl time.Duration) *Cache {
-	return &Cache{
+func NewLRUCache(maxEntries int, ttl time.Duration) *LRUCache {
+	return &LRUCache{
 		MaxEntries: maxEntries,
 		TTL:        ttl,
 		ll:         list.New(),
@@ -57,7 +68,7 @@ func New(maxEntries int, ttl time.Duration) *Cache {
 }
 
 // Add adds a value to the cache.
-func (c *Cache) Add(key Key, value Value) {
+func (c *LRUCache) Add(key Key, value Value) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	if ele, hit := c.cache[key]; hit {
@@ -74,7 +85,7 @@ func (c *Cache) Add(key Key, value Value) {
 }
 
 // Get looks up a key's value from the cache.
-func (c *Cache) Get(key Key) (value Value, ok bool) {
+func (c *LRUCache) Get(key Key) (value Value, ok bool) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	if ele, hit := c.cache[key]; hit {
@@ -88,7 +99,7 @@ func (c *Cache) Get(key Key) (value Value, ok bool) {
 }
 
 // Remove removes the provided key from the cache.
-func (c *Cache) Remove(key Key) {
+func (c *LRUCache) Remove(key Key) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	if ele, hit := c.cache[key]; hit {
@@ -96,14 +107,16 @@ func (c *Cache) Remove(key Key) {
 	}
 }
 
-func (c *Cache) removeOldest() {
+func (c *LRUCache) removeOldest() {
 	if ele := c.ll.Back(); ele != nil {
 		c.removeElement(ele)
 	}
 }
 
-func (c *Cache) removeElement(e *list.Element) {
+func (c *LRUCache) removeElement(e *list.Element) {
 	c.ll.Remove(e)
 	kv := e.Value.(*entry)
 	delete(c.cache, kv.key)
 }
+
+var _ Cache = (*LRUCache)(nil)

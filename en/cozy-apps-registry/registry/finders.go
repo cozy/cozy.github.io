@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
-	"time"
 
-	"github.com/cozy/cozy-apps-registry/lru"
+	"github.com/spf13/viper"
 
+	"github.com/cozy/cozy-apps-registry/cache"
 	"github.com/cozy/echo"
 	"github.com/go-kivik/kivik"
 )
@@ -28,14 +28,6 @@ var validSorts = []string{
 }
 
 const maxLimit = 200
-
-// basic caching system. could be generalized, was installed for a quick win:
-// two caches are added for latest versions ans versions list, since this data
-// is being fetched form couch for each application, this avoids 1+2*N rtts.
-var (
-	cacheVersionsLatest = lru.New(256, 5*time.Minute)
-	cacheVersionsList   = lru.New(256, 5*time.Minute)
-)
 
 func getVersionID(appSlug, version string) string {
 	return getAppID(appSlug) + "-" + version
@@ -176,7 +168,8 @@ func FindLatestVersion(c *Space, appSlug string, channel Channel) (*Version, err
 
 	channelStr := channelToStr(channel)
 
-	key := lru.Key(c.prefix + "/" + appSlug + "/" + channelStr)
+	key := cache.Key(c.prefix + "/" + appSlug + "/" + channelStr)
+	cacheVersionsLatest := viper.Get("cacheVersionsLatest").(cache.Cache)
 	if data, ok := cacheVersionsLatest.Get(key); ok {
 		var latestVersion *Version
 		if err := json.Unmarshal(data, &latestVersion); err == nil {
@@ -211,14 +204,15 @@ func FindLatestVersion(c *Space, appSlug string, channel Channel) (*Version, err
 	latestVersion.Rev = ""
 	latestVersion.Attachments = nil
 
-	cacheVersionsLatest.Add(key, lru.Value(data))
+	cacheVersionsLatest.Add(key, cache.Value(data))
 	return latestVersion, nil
 }
 
 func FindAppVersions(c *Space, appSlug string, channel Channel) (*AppVersions, error) {
 	db := c.VersDB()
 
-	key := lru.Key(c.prefix + "/" + appSlug + "/" + channelToStr(channel))
+	key := cache.Key(c.prefix + "/" + appSlug + "/" + channelToStr(channel))
+	cacheVersionsList := viper.Get("cacheVersionsList").(cache.Cache)
 	if data, ok := cacheVersionsList.Get(key); ok {
 		var versions *AppVersions
 		if err := json.Unmarshal(data, &versions); err == nil {

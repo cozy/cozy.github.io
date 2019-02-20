@@ -13,6 +13,26 @@ couchdb:
   # CouchDB prefix for the registries databases - flag --couchdb-prefix
   # prefix: registry1
 
+redis:
+  addrs: localhost:6379
+  master:
+  password: password
+  databases:
+    versionsList: 0
+    versionsLatest: 1
+
+  # advanced parameters for advanced users
+
+  # max_retries: 2
+  # dial_timeout: 5s
+  # read_timeout: 3s
+  # write_timeout: 3s
+  # pool_size: 10 * runtime.NumCPU()
+  # pool_timeout: 3s
+  # idle_timeout: 5m
+  # idle_check_frequency: 1m
+  # read_only_slave: false
+
 # List of supported spaces by the registry.
 #
 # If specified, the routes of the registry API will be formed with as follow:
