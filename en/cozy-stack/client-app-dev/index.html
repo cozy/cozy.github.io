@@ -771,6 +771,7 @@ a template and will insert the relevant values.</p>
     <a href="https://docs.cozy.io/en/cozy-stack/assets/#contexts">contexts</a> and <a href="https://docs.cozy.io/en/cozy-stack/cli/cozy-stack_config_insert-asset/">dynamic
     assets</a>
     for more informations.</li>
+<li><code>{{.Favicon}}</code> will be replaced by the favicon served by the stack.</li>
 </ul>
 <p>So, the <code>index.html</code> should probably looks like:</p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
@@ -778,15 +779,27 @@ a template and will insert the relevant values.</p>
   <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>My Awesome App for Cozy<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;theme-color&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;#ffffff&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;manifest&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/manifest.json&quot;</span> <span class="na">crossOrigin</span><span class="o">=</span><span class="s">&quot;use-credentials&quot;</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;my-app.css&quot;</span><span class="p">&gt;</span>
+    {{.ThemeCSS}}
     {{.CozyClientJS}}
     {{.CozyBar}}
-    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">defer</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;my-app.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1&quot;</span><span class="p">&gt;</span>
   <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">role</span><span class="o">=</span><span class="s">&quot;application&quot;</span> <span class="na">data-cozy-token</span><span class="o">=</span><span class="s">&quot;{{.Token}}&quot;</span> <span class="na">data-cozy-stack</span><span class="o">=</span><span class="s">&quot;{{.Domain}}&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span>
+      <span class="na">role</span><span class="o">=</span><span class="s">&quot;application&quot;</span>
+      <span class="na">data-cozy-token</span><span class="o">=</span><span class="s">&quot;{{.Token}}&quot;</span>
+      <span class="na">data-cozy-domain</span><span class="o">=</span><span class="s">&quot;{{.Domain}}&quot;</span>
+      <span class="na">data-cozy-locale</span><span class="o">=</span><span class="s">&quot;{{.Locale}}&quot;</span>
+      <span class="na">data-cozy-app-editor</span><span class="o">=</span><span class="s">&quot;{{.AppEditor}}&quot;</span>
+      <span class="na">data-cozy-app-name</span><span class="o">=</span><span class="s">&quot;{{.AppName}}&quot;</span>
+      <span class="na">data-cozy-app-slug</span><span class="o">=</span><span class="s">&quot;{{.AppSlug}}&quot;</span>
+      <span class="na">data-cozy-icon-path</span><span class="o">=</span><span class="s">&quot;{{.IconPath}}&quot;</span>
+      <span class="p">&gt;</span>
     <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;my-app.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
   <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
 </pre></div>
@@ -796,14 +809,23 @@ a template and will insert the relevant values.</p>
 <div class="codehilite"><pre><span></span><span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
 
 <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;DOMContentLoaded&quot;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="kr">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;[role=application]&quot;</span><span class="p">);</span>
-    <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">init</span><span class="p">({</span>
-        <span class="nx">cozyURL</span><span class="o">:</span> <span class="s2">&quot;//&quot;</span> <span class="o">+</span> <span class="nx">app</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">cozyStack</span><span class="p">,</span>
-        <span class="nx">token</span><span class="o">:</span> <span class="nx">app</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">cozyToken</span>
-    <span class="p">});</span>
-<span class="p">});</span>
+  <span class="kr">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;[role=application]&quot;</span><span class="p">);</span>
+  <span class="kr">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">app</span><span class="p">.</span><span class="nx">dataset</span><span class="p">;</span>
 
-<span class="c1">// ...</span>
+  <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">init</span><span class="p">({</span>
+      <span class="nx">cozyURL</span><span class="o">:</span> <span class="s2">&quot;//&quot;</span> <span class="o">+</span> <span class="nx">data</span><span class="p">.</span><span class="nx">cozyStack</span><span class="p">,</span>
+      <span class="nx">token</span><span class="o">:</span> <span class="nx">data</span><span class="p">.</span><span class="nx">cozyToken</span>
+  <span class="p">});</span>
+
+  <span class="nx">cozy</span><span class="p">.</span><span class="nx">bar</span><span class="p">.</span><span class="nx">init</span><span class="p">({</span>
+    <span class="nx">appEditor</span><span class="o">:</span> <span class="nx">data</span><span class="p">.</span><span class="nx">cozyAppEditor</span><span class="p">,</span>
+    <span class="nx">appName</span><span class="o">:</span> <span class="nx">data</span><span class="p">.</span><span class="nx">cozyAppName</span><span class="p">,</span>
+    <span class="nx">iconPath</span><span class="o">:</span> <span class="nx">data</span><span class="p">.</span><span class="nx">cozyIconPath</span><span class="p">,</span>
+    <span class="nx">lang</span><span class="o">:</span> <span class="nx">data</span><span class="p">.</span><span class="nx">cozyLocale</span>
+  <span class="p">});</span>
+
+  <span class="c1">// ...</span>
+<span class="p">});</span>
 </pre></div>
                 </div>
         </div>
