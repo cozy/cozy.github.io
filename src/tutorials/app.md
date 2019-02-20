@@ -113,7 +113,9 @@ You can use the following variables:
  - `{{.AppEditor}}`: the editor of the application
  - `{{.IconPath}}` will be replaced by HTML code to display the *favicon*
  - `{{.CozyClientJS}}` will be replaced with HTML code to inject the Cozy client library (old Cozy client)
- - `{{.CozyBar}}` will be replaced with HTML code to inject the upper menu bar.
+ - `{{.CozyBar}}` will be replaced with HTML code to inject the upper menu bar
+ - `{{.ThemeCSS}}` will be replaced by the `theme.css`. It is empty by default, but can be overrided by using `contexts`.
+ - `{{.Favicon}}` will be replaced by the favicon served by the stack.
 
 This allows to get this kind of `index.html`:
 
@@ -123,15 +125,16 @@ This allows to get this kind of `index.html`:
   <head>
     <meta charset="utf-8">
     <title>My Awesome App for Cozy</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" src="my-app.css">
+    {{.ThemeCSS}}
     {{.CozyClientJS}}
     {{.CozyBar}}
-    <script defer src="my-app.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
     <div role="application" data-cozy-token="{{.Token}}" data-cozy-stack="{{.Domain}}">
     </div>
+    <script src="my-app.js"></script>
   </body>
 </html>
 ```
