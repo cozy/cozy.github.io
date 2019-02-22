@@ -601,6 +601,9 @@
         <li class="main "><a href="#how-to-connect-to-the-documents-store-declaratively">How to connect to the documents store declaratively ?</a></li>
         <li class="main "><a href="#how-to-provide-a-mutation-to-a-component">How to provide a mutation to a component ?</a></li>
         <li class="main "><a href="#how-to-specify-a-schema">How to specify a schema ?</a></li>
+            <li><a href="#relationships">Relationships</a></li>
+            <li><a href="#metadata">Metadata</a></li>
+            <li><a href="#validation">Validation</a></li>
     </ul>
   <div style='padding-left: 2rem'>
     
@@ -767,10 +770,11 @@
 
 
 <h2 id="how-to-specify-a-schema">How to specify a schema ?<a class="headerlink" href="#how-to-specify-a-schema" title="Permanent link">&para;</a></h2>
-<p>Each doctypes accessed via cozy-client needs to have a schema declared. It is useful for </p>
+<p>Each doctype accessed via cozy-client needs to have a schema declared. It is useful for</p>
 <ul>
 <li>Validation</li>
 <li>Relationships</li>
+<li>Automatic metadata maintenance</li>
 </ul>
 <p>Here is a sample of a schema used in the Banks application.</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">HasMany</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-client&#39;</span><span class="p">)</span>
@@ -801,6 +805,24 @@
         <span class="nx">type</span><span class="o">:</span> <span class="nx">HasManyReimbursements</span><span class="p">,</span>
         <span class="nx">doctype</span><span class="o">:</span> <span class="s1">&#39;io.cozy.bills&#39;</span>
       <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nx">cozyMetadata</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">createdByApp</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">trigger</span><span class="o">:</span> <span class="s1">&#39;creation&#39;</span><span class="p">,</span>
+        <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;cozy-banks&#39;</span>
+      <span class="p">},</span>
+      <span class="nx">updatedByApps</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">trigger</span><span class="o">:</span> <span class="s1">&#39;update&#39;</span><span class="p">,</span>
+        <span class="nx">value</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;cozy-banks&#39;</span><span class="p">]</span>
+      <span class="p">},</span>
+      <span class="nx">createdAt</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">trigger</span><span class="o">:</span> <span class="s1">&#39;creation&#39;</span><span class="p">,</span>
+        <span class="nx">useCurrentDate</span><span class="o">:</span> <span class="kc">true</span>
+      <span class="p">},</span>
+      <span class="nx">updatedAt</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">trigger</span><span class="o">:</span> <span class="s1">&#39;update&#39;</span><span class="p">,</span>
+        <span class="nx">useCurrentDate</span><span class="o">:</span> <span class="kc">true</span>
+      <span class="p">},</span>
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>
@@ -813,6 +835,7 @@
 </pre></div>
 
 
+<h3 id="relationships">Relationships<a class="headerlink" href="#relationships" title="Permanent link">&para;</a></h3>
 <p>Here we can see that banking transactions are linked to</p>
 <ul>
 <li>their <em>account</em> via a &ldquo;belongs to&rdquo; relationship</li>
@@ -820,6 +843,15 @@
 <li><em>reimbursements</em> via a custom &ldquo;has many&rdquo; relationship</li>
 </ul>
 <p>Custom relationships are useful if the relationship data is not stored in a built-in way.</p>
+<h3 id="metadata">Metadata<a class="headerlink" href="#metadata" title="Permanent link">&para;</a></h3>
+<p>cozy-client will also automatically insert and update the standard document metadata if you provide a <code>cozyMetadata</code> object to the schema.</p>
+<p>Each metadata field can be configured with the following options:</p>
+<ul>
+<li><code>trigger</code>: Can be <code>creation</code> or <code>update</code>, and determines whether to update this value every time the document changes, or only on creation.</li>
+<li><code>value</code>: The value to use when setting the metadata field. If <code>value</code> is an array, the values will be appended to the array on each update.</li>
+<li><code>useCurrentDate</code>: Instead of a fixed value, use the current execution date for this field.</li>
+</ul>
+<h3 id="validation">Validation<a class="headerlink" href="#validation" title="Permanent link">&para;</a></h3>
 <p>Validation is not yet implemented in cozy-client.</p>
                 </div>
         </div>
