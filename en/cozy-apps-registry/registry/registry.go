@@ -14,12 +14,15 @@ import (
 	"net/http"
 	"net/url"
 	"path"
+	"path/filepath"
 	"regexp"
 	"strings"
 	"time"
 
 	"github.com/cozy/cozy-apps-registry/auth"
 	"github.com/cozy/cozy-apps-registry/cache"
+	"github.com/cozy/cozy-apps-registry/config"
+	"github.com/cozy/cozy-apps-registry/consts"
 	"github.com/cozy/cozy-apps-registry/errshttp"
 	"github.com/cozy/cozy-apps-registry/magic"
 	"github.com/spf13/viper"
@@ -131,7 +134,7 @@ const (
 )
 
 type Space struct {
-	prefix        string
+	Prefix        string
 	dbApps        *kivik.DB
 	dbVers        *kivik.DB
 	dbPendingVers *kivik.DB
@@ -150,8 +153,8 @@ func (c *Space) PendingVersDB() *kivik.DB {
 }
 
 func (c *Space) dbName(suffix string) (name string) {
-	if c.prefix != "" {
-		name = c.prefix + "-"
+	if c.Prefix != "" {
+		name = c.Prefix + "-"
 	}
 	name += suffix
 	return dbName(name)
@@ -273,7 +276,7 @@ type Manifest struct {
 }
 
 func NewSpace(prefix string) *Space {
-	return &Space{prefix: prefix}
+	return &Space{Prefix: prefix}
 }
 
 func InitGlobalClient(addr, user, pass, prefix string) (editorsDB *kivik.DB, err error) {
@@ -331,7 +334,7 @@ func RegisterSpace(name string) error {
 		spaces = make(map[string]*Space)
 	}
 	name = strings.TrimSpace(name)
-	if name == "__default__" {
+	if name == consts.DefaultSpacePrefix {
 		name = ""
 	} else {
 		if !validSpaceReg.MatchString(name) {
@@ -446,6 +449,14 @@ func IsValidVersion(ver *VersionOptions) error {
 	return nil
 }
 
+func (av *AppVersions) GetAll() []string {
+	res := []string{}
+	res = append(res, av.Stable...)
+	res = append(res, av.Beta...)
+	res = append(res, av.Dev...)
+	return res
+}
+
 func CreateApp(c *Space, opts *AppOptions, editor *auth.Editor) (*App, error) {
 	if err := IsValidApp(opts); err != nil {
 		return nil, err
@@ -534,6 +545,12 @@ func createVersion(c *Space, db *kivik.DB, ver *Version, attachments []*kivik.At
 		return ErrVersionSlugMismatch
 	}
 
+	conf, err := config.GetConfig()
+	if err != nil {
+		return err
+	}
+	sc := conf.SwiftConnection
+
 	if ensureVersion {
 		_, err := FindVersion(c, ver.Slug, ver.Version)
 		if err == nil {
@@ -556,7 +573,7 @@ func createVersion(c *Space, db *kivik.DB, ver *Version, attachments []*kivik.At
 	versionChannel := GetVersionChannel(ver.Version)
 	for _, channel := range []Channel{Stable, Beta, Dev} {
 		if channel >= versionChannel {
-			key := cache.Key(c.prefix + "/" + ver.Slug + "/" + channelToStr(channel))
+			key := cache.Key(c.Prefix + "/" + ver.Slug + "/" + channelToStr(channel))
 			cacheVersionsLatest := viper.Get("cacheVersionsLatest").(cache.Cache)
 			cacheVersionsList := viper.Get("cacheVersionsList").(cache.Cache)
 			cacheVersionsLatest.Remove(key)
@@ -564,8 +581,21 @@ func createVersion(c *Space, db *kivik.DB, ver *Version, attachments []*kivik.At
 		}
 	}
 
+	// Storing the attachments to swift (screenshots, icon, partnership_icon)
+	basePath := filepath.Join(ver.Slug, ver.Version)
+
+	prefix := c.Prefix
+	if prefix == "" {
+		prefix = consts.DefaultSpacePrefix
+	}
+
 	for _, att := range attachments {
-		ver.Rev, err = db.PutAttachment(ctx, ver.ID, ver.Rev, att)
+		f, err := sc.ObjectCreate(prefix, filepath.Join(basePath, att.Filename), false, "", att.ContentType, nil)
+		if err != nil {
+			return err
+		}
+		defer f.Close()
+		_, err = io.Copy(f, att.Content)
 		if err != nil {
 			return err
 		}
@@ -955,7 +985,7 @@ func downloadVersion(opts *VersionOptions) (ver *Version, attachments []*kivik.A
 				if isIcon {
 					filename = "icon"
 				} else if isShot {
-					filename = path.Join("screenshots", name)
+					filename = name
 				} else if isPartnershipIcon {
 					filename = "partnership_icon"
 				} else {

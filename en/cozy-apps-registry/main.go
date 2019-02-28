@@ -21,6 +21,8 @@ import (
 
 	"github.com/cozy/cozy-apps-registry/auth"
 	"github.com/cozy/cozy-apps-registry/cache"
+	"github.com/cozy/cozy-apps-registry/config"
+	"github.com/cozy/cozy-apps-registry/consts"
 	"github.com/cozy/cozy-apps-registry/registry"
 	"github.com/cozy/cozy-stack/pkg/utils"
 	"github.com/go-redis/redis"
@@ -43,6 +45,7 @@ var appSpaceFlag string
 var appNameFlag string
 var appDUCFlag string
 var appDUCByFlag string
+var fixerSpacesFlag []string
 
 var editorAutoPublicationFlag bool
 
@@ -52,6 +55,8 @@ var flagDisallowManualExec bool
 
 var editorRegistry *auth.EditorRegistry
 var sessionSecret []byte
+
+var ctx context.Context = context.Background()
 
 func init() {
 	flags := rootCmd.PersistentFlags()
@@ -107,6 +112,9 @@ func init() {
 	rootCmd.AddCommand(exportCmd)
 	rootCmd.AddCommand(importCmd)
 
+	rootCmd.AddCommand(fixerCmd)
+	fixerCmd.AddCommand(assetsCmd)
+
 	passphraseFlag = genSessionSecret.Flags().Bool("passphrase", false, "enforce or dismiss the session secret encryption")
 
 	genTokenCmd.Flags().StringVar(&tokenMaxAgeFlag, "max-age", "", "validity duration of the token")
@@ -126,6 +134,8 @@ func init() {
 	addAppCmd.Flags().StringVar(&appDUCByFlag, "data-usage-commitment-by", "", "Specify the usage commitment author: cozy, editor or none")
 	addAppCmd.MarkFlagRequired("editor")
 	addAppCmd.MarkFlagRequired("type")
+
+	fixerCmd.Flags().StringSliceVar(&fixerSpacesFlag, "spaces", nil, "Specify spaces")
 
 	modifyAppCmd.Flags().StringVar(&appSpaceFlag, "space", "", "specify the application space")
 	modifyAppCmd.Flags().StringVar(&appDUCFlag, "data-usage-commitment", "", "Specify the data usage commitment: user_ciphered, user_reserved or none")
@@ -310,6 +320,114 @@ var serveCmd = &cobra.Command{
 			defer cancel()
 			return router.Shutdown(ctx)
 		}
+	},
+}
+
+var fixerCmd = &cobra.Command{
+	Use:     "fixer",
+	Short:   "Fixer commands",
+	PreRunE: compose(prepareRegistry, prepareSpaces),
+	RunE: func(cmd *cobra.Command, args []string) (err error) {
+		return cmd.Help()
+	},
+}
+
+var assetsCmd = &cobra.Command{
+	Use:     "assets-swift",
+	Short:   "Move assets to swift",
+	Long:    "Move assets (like icon, partnership_icon or screenshots) from all apps and konnectors to swift",
+	PreRunE: compose(prepareRegistry, prepareSpaces),
+	RunE: func(cmd *cobra.Command, args []string) (err error) {
+		var spacePrefix string
+
+		conf, err := config.GetConfig()
+		if err != nil {
+			return err
+		}
+		sc := conf.SwiftConnection
+
+		var spaces []string
+		if len(fixerSpacesFlag) > 0 {
+			spaces = fixerSpacesFlag
+		} else {
+			spaces = registry.GetSpacesNames()
+		}
+		// Iterate over each space
+		for _, space := range spaces {
+			s, ok := registry.GetSpace(space)
+			spacePrefix = s.Prefix
+			db := s.VersDB()
+
+			if ok && spacePrefix == "" {
+				spacePrefix = consts.DefaultSpacePrefix
+			}
+			fmt.Println("Working on space ", spacePrefix)
+			// Create container if not exists
+			if _, _, err := sc.Container(spacePrefix); err != nil {
+				err = sc.ContainerCreate(spacePrefix, nil)
+				if err != nil {
+					return err
+				}
+			}
+			var cursor int = 0
+			for cursor != -1 {
+				next, apps, err := registry.GetAppsList(s, &registry.AppsListOptions{
+					Limit:                200,
+					Cursor:               cursor,
+					LatestVersionChannel: registry.Stable,
+					VersionsChannel:      registry.Dev,
+				})
+				if err != nil {
+					return err
+				}
+				cursor = next
+
+				for _, app := range apps { // Iterate over 200 apps
+					fmt.Println("Working on app", app.Slug)
+					// Skipping app with no versions
+					if !app.Versions.HasVersions {
+						continue
+					}
+					for _, version := range app.Versions.GetAll() {
+						v, err := registry.FindVersion(s, app.Slug, version)
+						if err != nil {
+							return err
+						}
+						fmt.Println("Retreiving attachments for", app.Slug+"/"+version)
+
+						versionRev := v.Rev
+
+						// Iterate over each attachment to move it from CouchDB to Swift
+						for name, attachment := range v.Attachments {
+
+							a := attachment.(map[string]interface{})
+							filename := name
+							contentType := a["content_type"].(string)
+							attachment, err := registry.FindVersionOldAttachment(s, app.Slug, version, filename)
+
+							fp := filepath.Join(app.Slug, version, filename)
+							f, err := sc.ObjectCreate(spacePrefix, fp, false, "", contentType, nil) // Create the swift object
+							if err != nil {
+								return err
+							}
+							content, err := ioutil.ReadAll(attachment.Content)
+							if err != nil {
+								return err
+							}
+							f.Write(content)
+							f.Close()
+
+							// Now the file is in Swift, removing the attachment from CouchDB
+							versionRev, err = db.DeleteAttachment(ctx, v.ID, versionRev, filename)
+							if err != nil {
+								return err
+							}
+						}
+					}
+				}
+			}
+		}
+		return
 	},
 }
 

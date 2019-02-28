@@ -19,7 +19,6 @@ import (
 	"github.com/cozy/cozy-apps-registry/registry"
 	"github.com/cozy/echo"
 	"github.com/cozy/echo/middleware"
-	"github.com/go-kivik/kivik"
 	"github.com/sirupsen/logrus"
 )
 
@@ -477,7 +476,7 @@ func getAppAttachment(c echo.Context, filename string) error {
 	appSlug := c.Param("app")
 	channel := c.Param("channel")
 
-	var att *kivik.Attachment
+	var att *registry.Attachment
 	{
 		if channel == "" {
 			var err error
@@ -503,10 +502,9 @@ func getAppAttachment(c echo.Context, filename string) error {
 				return err
 			}
 		}
-		defer att.Content.Close()
 	}
 
-	if cacheControl(c, att.Digest, oneHour) {
+	if cacheControl(c, att.Etag, oneHour) {
 		return c.NoContent(http.StatusNotModified)
 	}
 
@@ -549,7 +547,6 @@ func getVersionAttachment(c echo.Context, filename string) error {
 	if err != nil {
 		return err
 	}
-	defer att.Content.Close()
 
 	contentType := att.ContentType
 	// force image/svg content-type for svg assets that start with <?xml
@@ -558,7 +555,7 @@ func getVersionAttachment(c echo.Context, filename string) error {
 	}
 
 	c.Response().Header().Set(echo.HeaderContentType, contentType)
-	if cacheControl(c, att.Digest, oneHour) {
+	if cacheControl(c, att.Etag, oneHour) {
 		return c.NoContent(http.StatusNotModified)
 	}
 

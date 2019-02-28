@@ -1,15 +1,21 @@
 package registry
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
+	"path/filepath"
 	"strings"
+
+	"github.com/cozy/cozy-apps-registry/config"
+	"github.com/cozy/cozy-apps-registry/consts"
+	"github.com/cozy/echo"
 
 	"github.com/spf13/viper"
 
 	"github.com/cozy/cozy-apps-registry/cache"
-	"github.com/cozy/echo"
 	"github.com/go-kivik/kivik"
 )
 
@@ -77,7 +83,14 @@ func FindApp(c *Space, appSlug string, channel Channel) (*App, error) {
 	return doc, nil
 }
 
-func FindAppAttachment(c *Space, appSlug, filename string, channel Channel) (*kivik.Attachment, error) {
+type Attachment struct {
+	ContentType   string
+	Content       io.Reader
+	Etag          string
+	ContentLength string
+}
+
+func FindAppAttachment(c *Space, appSlug, filename string, channel Channel) (*Attachment, error) {
 	if !validSlugReg.MatchString(appSlug) {
 		return nil, ErrAppSlugInvalid
 	}
@@ -90,7 +103,33 @@ func FindAppAttachment(c *Space, appSlug, filename string, channel Channel) (*ki
 	return FindVersionAttachment(c, appSlug, ver.Version, filename)
 }
 
-func FindVersionAttachment(c *Space, appSlug, version, filename string) (*kivik.Attachment, error) {
+func FindVersionAttachment(c *Space, appSlug, version, filename string) (*Attachment, error) {
+	// Return from swift
+	conf, err := config.GetConfig()
+	if err != nil {
+		return nil, err
+	}
+	sc := conf.SwiftConnection
+	var buf bytes.Buffer
+	fp := filepath.Join(appSlug, version, filename)
+	prefix := c.Prefix
+	if prefix == "" {
+		prefix = consts.DefaultSpacePrefix
+	}
+	headers, err := sc.ObjectGet(prefix, fp, &buf, false, nil)
+	if err != nil {
+		return nil, err
+	}
+	att := &Attachment{
+		ContentType:   headers["Content-Type"],
+		Content:       bytes.NewReader(buf.Bytes()),
+		Etag:          headers["Etag"],
+		ContentLength: headers["Content-Length"],
+	}
+	return att, nil
+}
+
+func FindVersionOldAttachment(c *Space, appSlug, version, filename string) (*kivik.Attachment, error) {
 	db := c.VersDB()
 
 	att, err := db.GetAttachment(ctx, getVersionID(appSlug, version), "", filename)
@@ -168,7 +207,7 @@ func FindLatestVersion(c *Space, appSlug string, channel Channel) (*Version, err
 
 	channelStr := channelToStr(channel)
 
-	key := cache.Key(c.prefix + "/" + appSlug + "/" + channelStr)
+	key := cache.Key(c.Prefix + "/" + appSlug + "/" + channelStr)
 	cacheVersionsLatest := viper.Get("cacheVersionsLatest").(cache.Cache)
 	if data, ok := cacheVersionsLatest.Get(key); ok {
 		var latestVersion *Version
@@ -211,7 +250,7 @@ func FindLatestVersion(c *Space, appSlug string, channel Channel) (*Version, err
 func FindAppVersions(c *Space, appSlug string, channel Channel) (*AppVersions, error) {
 	db := c.VersDB()
 
-	key := cache.Key(c.prefix + "/" + appSlug + "/" + channelToStr(channel))
+	key := cache.Key(c.Prefix + "/" + appSlug + "/" + channelToStr(channel))
 	cacheVersionsList := viper.Get("cacheVersionsList").(cache.Cache)
 	if data, ok := cacheVersionsList.Get(key); ok {
 		var versions *AppVersions
