@@ -134,6 +134,7 @@ func init() {
 	addAppCmd.Flags().StringVar(&appDUCByFlag, "data-usage-commitment-by", "", "Specify the usage commitment author: cozy, editor or none")
 	addAppCmd.MarkFlagRequired("editor")
 	addAppCmd.MarkFlagRequired("type")
+	lsAppsCmd.Flags().StringVar(&appSpaceFlag, "space", "", "specify the application space")
 
 	fixerCmd.Flags().StringSliceVar(&fixerSpacesFlag, "spaces", nil, "Specify spaces")
 
