@@ -609,7 +609,7 @@
             <li><a href="#documentcollectionalloptions-object">documentCollection.all(options) ⇒ Object</a></li>
             <li><a href="#documentcollectionfindselector-options-object">documentCollection.find(selector, options) ⇒ Object</a></li>
             <li><a href="#documentcollectiongetindexfieldsoptions-array">documentCollection.getIndexFields(options) ⇒ Array</a></li>
-            <li><a href="#documentcollectionfetchchangessince-options">documentCollection.fetchChanges(since, options)</a></li>
+            <li><a href="#documentcollectionfetchchangescouchoptions-options">documentCollection.fetchChanges(couchOptions, options)</a></li>
         <li class="main "><a href="#filecollection">FileCollection</a></li>
             <li><a href="#filecollectionfindselector-options-object">fileCollection.find(selector, options) ⇒ Object</a></li>
             <li><a href="#filecollectionfindreferencedbydocument-limit-object">fileCollection.findReferencedBy(document, {, limit) ⇒ object</a></li>
@@ -625,7 +625,7 @@
             <li><a href="#oauthclientgetaccesscodefromurlpageurl-statecode-string">oAuthClient.getAccessCodeFromURL(pageURL, stateCode) ⇒ string</a></li>
             <li><a href="#oauthclientfetchaccesstokenaccesscode-promise">oAuthClient.fetchAccessToken(accessCode) ⇒ Promise</a></li>
             <li><a href="#oauthclientrefreshtoken-promise">oAuthClient.refreshToken() ⇒ Promise</a></li>
-            <li><a href="#oauthclientsetcredentialstoken">oAuthClient.setCredentials(token)</a></li>
+            <li><a href="#oauthclientsettokentoken">oAuthClient.setToken(token)</a></li>
             <li><a href="#oauthclientsetoauthoptionsoptions">oAuthClient.setOAuthOptions(options)</a></li>
             <li><a href="#oauthclientresetclient">oAuthClient.resetClient()</a></li>
         <li class="main "><a href="#permissioncollection">PermissionCollection</a></li>
@@ -861,7 +861,7 @@ through OAuth.</p>
 <li><a href="#DocumentCollection+all">.all(options)</a> ⇒ <code>Object</code></li>
 <li><a href="#DocumentCollection+find">.find(selector, options)</a> ⇒ <code>Object</code></li>
 <li><a href="#DocumentCollection+getIndexFields">.getIndexFields(options)</a> ⇒ <code>Array</code></li>
-<li><a href="#DocumentCollection+fetchChanges">.fetchChanges(since, options)</a></li>
+<li><a href="#DocumentCollection+fetchChanges">.fetchChanges(couchOptions, options)</a></li>
 </ul>
 </li>
 </ul>
@@ -945,7 +945,7 @@ query to work</p>
 </tbody>
 </table>
 <p><a name="DocumentCollection+fetchChanges"></a></p>
-<h3 id="documentcollectionfetchchangessince-options">documentCollection.fetchChanges(since, options)<a class="headerlink" href="#documentcollectionfetchchangessince-options" title="Permanent link">&para;</a></h3>
+<h3 id="documentcollectionfetchchangescouchoptions-options">documentCollection.fetchChanges(couchOptions, options)<a class="headerlink" href="#documentcollectionfetchchangescouchoptions-options" title="Permanent link">&para;</a></h3>
 <p>Use Couch _changes API</p>
 <p><strong>Kind</strong>: instance method of <a href="#DocumentCollection"><code>DocumentCollection</code></a>  </p>
 <table>
@@ -958,9 +958,9 @@ query to work</p>
 </thead>
 <tbody>
 <tr>
-<td>since</td>
-<td><code>String</code></td>
-<td>Starting sequence for changes</td>
+<td>couchOptions</td>
+<td><code>Object</code></td>
+<td>Couch options for changes https://kutt.it/5r7MNQ</td>
 </tr>
 <tr>
 <td>options</td>
@@ -1109,7 +1109,7 @@ through OAuth.</p>
 <li><a href="#OAuthClient+getAccessCodeFromURL">.getAccessCodeFromURL(pageURL, stateCode)</a> ⇒ <code>string</code></li>
 <li><a href="#OAuthClient+fetchAccessToken">.fetchAccessToken(accessCode)</a> ⇒ <code>Promise</code></li>
 <li><a href="#OAuthClient+refreshToken">.refreshToken()</a> ⇒ <code>Promise</code></li>
-<li><a href="#OAuthClient+setCredentials">.setCredentials(token)</a></li>
+<li><a href="#OAuthClient+setToken">.setToken(token)</a></li>
 <li><a href="#OAuthClient+setOAuthOptions">.setOAuthOptions(options)</a></li>
 <li><a href="#OAuthClient+resetClient">.resetClient()</a></li>
 </ul>
@@ -1272,8 +1272,8 @@ through OAuth.</p>
 <li><code>NotRegisteredException</code> When the client doesn&rsquo;t have it&rsquo;s registration information</li>
 <li><code>Error</code> The client should already have an access token to use this function</li>
 </ul>
-<p><a name="OAuthClient+setCredentials"></a></p>
-<h3 id="oauthclientsetcredentialstoken">oAuthClient.setCredentials(token)<a class="headerlink" href="#oauthclientsetcredentialstoken" title="Permanent link">&para;</a></h3>
+<p><a name="OAuthClient+setToken"></a></p>
+<h3 id="oauthclientsettokentoken">oAuthClient.setToken(token)<a class="headerlink" href="#oauthclientsettokentoken" title="Permanent link">&para;</a></h3>
 <p>Updates the client&rsquo;s stored token</p>
 <p><strong>Kind</strong>: instance method of <a href="#OAuthClient"><code>OAuthClient</code></a>  </p>
 <table>
