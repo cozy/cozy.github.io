@@ -844,13 +844,36 @@
 </ul>
 <p>Custom relationships are useful if the relationship data is not stored in a built-in way.</p>
 <h3 id="metadata">Metadata<a class="headerlink" href="#metadata" title="Permanent link">&para;</a></h3>
-<p>cozy-client will also automatically insert and update the standard document metadata if you provide a <code>cozyMetadata</code> object to the schema.</p>
-<p>Each metadata field can be configured with the following options:</p>
+<p>cozy-client will also automatically insert and update the standard document metadata. You may provide some info when you initialize the client:</p>
 <ul>
-<li><code>trigger</code>: Can be <code>creation</code> or <code>update</code>, and determines whether to update this value every time the document changes, or only on creation.</li>
-<li><code>value</code>: The value to use when setting the metadata field. If <code>value</code> is an array, the values will be appended to the array on each update.</li>
-<li><code>useCurrentDate</code>: Instead of a fixed value, use the current execution date for this field.</li>
+<li>in the <code>appMetadata</code> parameter:</li>
+<li><code>slug</code>: the app&rsquo;s slug</li>
+<li><code>sourceAccount</code>: in case of the app is a connector, the <code>io.cozy.accounts</code> (defaults to <code>null</code>)</li>
+<li><code>version</code>: the app&rsquo;s version</li>
+<li>in the <code>schema</code>, for each doctype:</li>
+<li><code>doctypeVersion</code>: the version of the doctype</li>
 </ul>
+<p>For example, to initialize the client for google connector that deals with <code>io.cozy.contacts</code> and <code>io.cozy.contacts.accounts</code>:</p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CozyClient</span><span class="p">({</span>
+  <span class="nx">schema</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">contacts</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">doctype</span><span class="o">:</span> <span class="s1">&#39;io.cozy.contacts&#39;</span><span class="p">,</span>
+      <span class="nx">doctypeVersion</span><span class="o">:</span> <span class="mi">2</span>
+    <span class="p">},</span>
+    <span class="nx">contactsAccounts</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">doctype</span><span class="o">:</span> <span class="s1">&#39;io.cozy.contacts.accounts&#39;</span><span class="p">,</span>
+      <span class="nx">doctypeVersion</span><span class="o">:</span> <span class="mi">1</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nx">appMetadata</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">slug</span><span class="o">:</span> <span class="s1">&#39;konnector-google&#39;</span><span class="p">,</span>
+    <span class="nx">sourceAccount</span><span class="o">:</span> <span class="s1">&#39;xxx&#39;</span><span class="p">,</span> <span class="c1">// id of the io.cozy.accounts object</span>
+    <span class="nx">version</span><span class="o">:</span> <span class="mi">3</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+</pre></div>
+
+
 <h3 id="validation">Validation<a class="headerlink" href="#validation" title="Permanent link">&para;</a></h3>
 <p>Validation is not yet implemented in cozy-client.</p>
                 </div>

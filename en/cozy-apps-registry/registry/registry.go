@@ -314,14 +314,15 @@ func InitGlobalClient(addr, user, pass, prefix string) (editorsDB *kivik.DB, err
 	}
 	if !exists {
 		fmt.Printf("Creating database %q...", editorsDBName)
-		if _, err = client.CreateDB(ctx, editorsDBName); err != nil {
+		db := client.CreateDB(ctx, editorsDBName)
+		if err = db.Err(); err != nil {
 			return
 		}
 		fmt.Println("ok.")
 	}
 
-	globalEditorsDB, err = client.DB(ctx, editorsDBName)
-	if err != nil {
+	globalEditorsDB = client.DB(ctx, editorsDBName)
+	if err = globalEditorsDB.Err(); err != nil {
 		return
 	}
 
@@ -372,15 +373,16 @@ func (c *Space) init() (err error) {
 		}
 		if !ok {
 			fmt.Printf("Creating database %q...", dbName)
-			if _, err = client.CreateDB(ctx, dbName); err != nil {
+			db := client.CreateDB(ctx, dbName)
+			if err = db.Err(); err != nil {
 				fmt.Println("failed")
 				return err
 			}
 			fmt.Println("ok.")
 		}
 		var db *kivik.DB
-		db, err = client.DB(context.Background(), dbName)
-		if err != nil {
+		db = client.DB(context.Background(), dbName)
+		if err = db.Err(); err != nil {
 			return
 		}
 		switch suffix {
@@ -628,7 +630,7 @@ func ApprovePendingVersion(c *Space, pending *Version, app *App) (*Version, erro
 
 	var attachments []*kivik.Attachment
 	for filename := range release.Attachments {
-		attachment, err := db.GetAttachment(ctx, pending.ID, pending.Rev, filename)
+		attachment, err := db.GetAttachment(ctx, pending.ID, filename)
 		if err != nil {
 			return nil, err
 		}

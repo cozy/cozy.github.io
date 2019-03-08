@@ -690,26 +690,33 @@
 <p>The following keys are reserved and have special meanings:</p>
 <ul>
 <li><code>doctypeVersion</code>: Name or identifier for the version of the schema used by this document (ie: <code>doctypeVersion: 2</code> for &ldquo;This document conforms to io.cozy.contacts in it&rsquo;s version 2&rdquo;)</li>
+<li><code>metadataVersion</code>: Version of the <code>cozyMetadata</code></li>
 <li><code>createdAt</code>: Creation date of the cozy document</li>
 <li><code>createdByApp</code>: Slug of the app or connector which created the document</li>
 <li><code>createdByAppVersion</code>: Version identifier of the app</li>
 <li><code>updatedAt</code>: Last modification date of the cozy document</li>
-<li><code>updatedByApps</code>: List of applications (slugs) which modified the cozy document in its life</li>
+<li><code>updatedByApps</code>: List of objects representing the applications (slugs and versions) which modified the cozy document in its life and the last update date for each of those apps (one entry per slug, apps should just update the value)</li>
 <li><code>sourceAccount</code>: When the document was imported from a connector, identifier of the account in io.cozy.accounts</li>
 </ul>
-<p>By convention, the first app (slug) listed in <code>updatedByApps</code> is the one which did the last update.</p>
 <p>Note: All these attributes are optionnal and taken care by the apps modifying the document. Unless specified otherwise in the documentation of the doctype, all these attributes may not be present or may have a <code>null</code> value.</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;xxxx&quot;</span><span class="p">,</span>
   <span class="nt">&quot;cozyMetadata&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;doctypeVersion&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="nt">&quot;metadataVersion&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
     <span class="nt">&quot;createdAt&quot;</span><span class="p">:</span> <span class="s2">&quot;xxxxx&quot;</span><span class="p">,</span>
     <span class="nt">&quot;createdByApp&quot;</span><span class="p">:</span> <span class="s2">&quot;xxxx&quot;</span><span class="p">,</span>
     <span class="nt">&quot;createdByAppVersion&quot;</span><span class="p">:</span> <span class="s2">&quot;xxxx&quot;</span><span class="p">,</span>
     <span class="nt">&quot;updatedAt&quot;</span><span class="p">:</span> <span class="s2">&quot;xxxxx&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;updatedByApps&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;…&quot;</span> <span class="p">],</span>
+    <span class="nt">&quot;updatedByApps&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;xxxxx&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;date&quot;</span><span class="p">:</span> <span class="s2">&quot;xxxxx&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mi">3</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
     <span class="nt">&quot;sourceAccount&quot;</span><span class="p">:</span> <span class="s2">&quot;xxxxx&quot;</span>
-  <span class="p">},</span>
+  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 

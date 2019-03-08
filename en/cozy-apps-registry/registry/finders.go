@@ -132,7 +132,7 @@ func FindVersionAttachment(c *Space, appSlug, version, filename string) (*Attach
 func FindVersionOldAttachment(c *Space, appSlug, version, filename string) (*kivik.Attachment, error) {
 	db := c.VersDB()
 
-	att, err := db.GetAttachment(ctx, getVersionID(appSlug, version), "", filename)
+	att, err := db.GetAttachment(ctx, getVersionID(appSlug, version), filename)
 	if err != nil {
 		if kivik.StatusCode(err) == http.StatusNotFound {
 			return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("Could not find attachment %q", filename))

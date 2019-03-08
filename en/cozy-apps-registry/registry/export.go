@@ -122,7 +122,7 @@ func writeDocs(db *kivik.DB, tw *tar.Writer) error {
 }
 
 func writeAttachment(db *kivik.DB, tw *tar.Writer, dbName, docID, filename string) error {
-	att, err := db.GetAttachment(ctx, docID, "", filename)
+	att, err := db.GetAttachment(ctx, docID, filename)
 	if err != nil {
 		return err
 	}
@@ -198,14 +198,15 @@ func Import(in io.Reader) (err error) {
 			return
 		}
 		if !ok {
-			if _, err = client.CreateDB(ctx, dbName); err != nil {
+			db := client.CreateDB(ctx, dbName)
+			if err = db.Err(); err != nil {
 				return
 			}
 		}
 
 		var db *kivik.DB
-		db, err = client.DB(ctx, dbName)
-		if err != nil {
+		db = client.DB(ctx, dbName)
+		if err = db.Err(); err != nil {
 			return
 		}
 
