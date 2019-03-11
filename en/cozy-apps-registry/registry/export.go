@@ -204,8 +204,7 @@ func Import(in io.Reader) (err error) {
 			}
 		}
 
-		var db *kivik.DB
-		db = client.DB(ctx, dbName)
+		db := client.DB(ctx, dbName)
 		if err = db.Err(); err != nil {
 			return
 		}

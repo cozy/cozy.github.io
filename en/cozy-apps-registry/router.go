@@ -761,22 +761,29 @@ func httpErrorHandler(err error, c echo.Context) {
 		log.Info()
 	}
 
+	err = nil
 	if !c.Response().Committed {
 		if isJSON {
 			if c.Request().Method == echo.HEAD {
 				c.Response().Header().Set(echo.HeaderContentType, echo.MIMEApplicationJSONCharsetUTF8)
-				c.NoContent(code)
+				err = c.NoContent(code)
 			} else {
-				c.JSON(code, echo.Map{"error": msg})
+				err = c.JSON(code, echo.Map{"error": msg})
 			}
 		} else {
 			if c.Request().Method == echo.HEAD {
 				c.Response().Header().Set(echo.HeaderContentType, echo.MIMETextPlain)
-				c.NoContent(code)
+				err = c.NoContent(code)
 			} else {
-				c.String(code, msg)
+				err = c.String(code, msg)
 			}
 		}
+	}
+
+	if err != nil {
+		logrus.WithFields(logrus.Fields{
+			"nspace": "http_error",
+		}).Debugf("Cannot send the error response: %s", err)
 	}
 }
 

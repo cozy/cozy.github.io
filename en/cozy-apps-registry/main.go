@@ -24,7 +24,7 @@ import (
 	"github.com/cozy/cozy-apps-registry/config"
 	"github.com/cozy/cozy-apps-registry/consts"
 	"github.com/cozy/cozy-apps-registry/registry"
-	"github.com/cozy/cozy-stack/pkg/utils"
+	"github.com/cozy/cozy-apps-registry/utils"
 	"github.com/go-redis/redis"
 	"github.com/howeyc/gopass"
 	"github.com/spf13/cobra"
@@ -56,7 +56,7 @@ var flagDisallowManualExec bool
 var editorRegistry *auth.EditorRegistry
 var sessionSecret []byte
 
-var ctx context.Context = context.Background()
+var ctx = context.Background()
 
 func init() {
 	flags := rootCmd.PersistentFlags()
@@ -132,8 +132,12 @@ func init() {
 	addAppCmd.Flags().StringVar(&appSpaceFlag, "app-space", "", "specify the application space")
 	addAppCmd.Flags().StringVar(&appDUCFlag, "data-usage-commitment", "", "Specify the data usage commitment: user_ciphered, user_reserved or none")
 	addAppCmd.Flags().StringVar(&appDUCByFlag, "data-usage-commitment-by", "", "Specify the usage commitment author: cozy, editor or none")
-	addAppCmd.MarkFlagRequired("editor")
-	addAppCmd.MarkFlagRequired("type")
+	if err := addAppCmd.MarkFlagRequired("editor"); err != nil {
+		fmt.Printf("Error on marking editor flag as required: %s", err)
+	}
+	if err := addAppCmd.MarkFlagRequired("type"); err != nil {
+		fmt.Printf("Error on marking type flag as required: %s", err)
+	}
 	lsAppsCmd.Flags().StringVar(&appSpaceFlag, "space", "", "specify the application space")
 
 	fixerCmd.Flags().StringSliceVar(&fixerSpacesFlag, "spaces", nil, "Specify spaces")
@@ -405,6 +409,9 @@ var assetsCmd = &cobra.Command{
 							filename := name
 							contentType := a["content_type"].(string)
 							attachment, err := registry.FindVersionOldAttachment(s, app.Slug, version, filename)
+							if err != nil {
+								return err
+							}
 
 							fp := filepath.Join(app.Slug, version, filename)
 							f, err := sc.ObjectCreate(spacePrefix, fp, false, "", contentType, nil) // Create the swift object
@@ -413,10 +420,14 @@ var assetsCmd = &cobra.Command{
 							}
 							content, err := ioutil.ReadAll(attachment.Content)
 							if err != nil {
+								f.Close()
 								return err
 							}
-							f.Write(content)
+							_, err = f.Write(content)
 							f.Close()
+							if err != nil {
+								return err
+							}
 
 							// Now the file is in Swift, removing the attachment from CouchDB
 							versionRev, err = db.DeleteAttachment(ctx, v.ID, versionRev, filename)
@@ -609,7 +620,8 @@ var verifyTokenCmd = &cobra.Command{
 		} else if appNameFlag == "" {
 			return fmt.Errorf("missing --app flag")
 		} else {
-			space, ok := registry.GetSpace(appSpaceFlag)
+			var space *registry.Space
+			space, ok = registry.GetSpace(appSpaceFlag)
 			if !ok {
 				return fmt.Errorf("Space %q does not exist", appSpaceFlag)
 			}
@@ -875,7 +887,9 @@ var lsAppsCmd = &cobra.Command{
 		var editors []string
 
 		for res.Next() {
-			res.ScanDoc(&app)
+			if err := res.ScanDoc(&app); err != nil {
+				return err
+			}
 			editors = append(editors, app["slug"])
 		}
 		if len(editors) == 0 {
@@ -997,7 +1011,7 @@ var maintenanceActivateAppCmd = &cobra.Command{
 				break
 			}
 			if len(locale) > 5 {
-				fmt.Errorf("Bad locale name %q", locale)
+				fmt.Printf("Invalid locale name: %q\n", locale)
 				continue
 			}
 			shortMessage := prompt("Short message:")

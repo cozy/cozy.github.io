@@ -93,7 +93,9 @@ func verifyToken(secret, token, additionalData []byte) ([]byte, bool) {
 	{
 		buf := append(additionalData, msg...)
 		mac := hmac.New(sha256.New, secret)
-		mac.Write(buf)
+		if _, err := mac.Write(buf); err != nil {
+			return nil, false
+		}
 		expectedMac = mac.Sum(nil)
 	}
 
@@ -139,7 +141,9 @@ func generateToken(secret, msg, additionalData []byte, maxAge time.Duration) ([]
 	{
 		buf := append(additionalData, msg...)
 		mac := hmac.New(sha256.New, secret)
-		mac.Write(buf)
+		if _, err := mac.Write(buf); err != nil {
+			panic(err)
+		}
 		computedMac = mac.Sum(nil)
 	}
 

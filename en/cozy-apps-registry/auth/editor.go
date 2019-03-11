@@ -76,7 +76,9 @@ func (e *Editor) VerifySignature(message, signature []byte) bool {
 	}
 
 	hash := sha256.New()
-	hash.Write(message)
+	if _, err = hash.Write(message); err != nil {
+		return false
+	}
 	hashed := hash.Sum(nil)
 
 	err = rsa.VerifyPKCS1v15(publicKey, crypto.SHA256, hashed, signature)

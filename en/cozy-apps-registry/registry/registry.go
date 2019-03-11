@@ -380,8 +380,7 @@ func (c *Space) init() (err error) {
 			}
 			fmt.Println("ok.")
 		}
-		var db *kivik.DB
-		db = client.DB(context.Background(), dbName)
+		db := client.DB(context.Background(), dbName)
 		if err = db.Err(); err != nil {
 			return
 		}
@@ -689,7 +688,9 @@ func downloadRequest(url string, shasum string) (reader *bytes.Reader, contentTy
 	}
 
 	h := sha256.New()
-	h.Write(buf.Bytes())
+	if _, err = h.Write(buf.Bytes()); err != nil {
+		return
+	}
 	e, _ := hex.DecodeString(shasum)
 	if !bytes.Equal(e, h.Sum(nil)) {
 		err = errshttp.NewError(http.StatusUnprocessableEntity,
@@ -930,7 +931,9 @@ func downloadVersion(opts *VersionOptions) (ver *Version, attachments []*kivik.A
 		}
 
 		if len(screenshotPaths) > 0 || iconPath != "" || partnershipIconPath != "" {
-			buf.Seek(0, io.SeekStart)
+			if _, err = buf.Seek(0, io.SeekStart); err != nil {
+				return
+			}
 			tr, err = tarReader(buf, contentType)
 			if err != nil {
 				err = errshttp.NewError(http.StatusUnprocessableEntity,
