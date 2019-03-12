@@ -11,15 +11,27 @@ var config *Config
 
 type Config struct {
 	SwiftConnection *swift.Connection
+	// Specifies how many major versions should be kept for app cleaning tasks
+	CleanNbMajorVersions int
+	// For each major version, specifies how many minor versions should be kept for app cleaning tasks
+	CleanNbMinorVersions int
+	// Specifies how many months to look up for app versions cleaning tasks
+	CleanNbMonths int
 }
 
 func New() (*Config, error) {
+	viper.SetDefault("conservation.major", 2)
+	viper.SetDefault("conservation.minor", 2)
+	viper.SetDefault("conservation.month", 2)
 	sc, err := initSwiftConnection()
 	if err != nil {
 		return nil, fmt.Errorf("Cannot access to swift: %s", err)
 	}
 	return &Config{
-		SwiftConnection: sc,
+		SwiftConnection:      sc,
+		CleanNbMajorVersions: viper.GetInt("conservation.major"),
+		CleanNbMinorVersions: viper.GetInt("conservation.minor"),
+		CleanNbMonths:        viper.GetInt("conservation.month"),
 	}, nil
 }
 

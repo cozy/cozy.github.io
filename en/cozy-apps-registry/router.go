@@ -14,6 +14,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/cozy/cozy-apps-registry/config"
+
 	"github.com/cozy/cozy-apps-registry/auth"
 	"github.com/cozy/cozy-apps-registry/errshttp"
 	"github.com/cozy/cozy-apps-registry/registry"
@@ -123,6 +125,10 @@ func checkAuthorized(c echo.Context) error {
 }
 
 func createVersion(c echo.Context) (err error) {
+	conf, err := config.GetConfig()
+	if err != nil {
+		return err
+	}
 	if err = checkAuthorized(c); err != nil {
 		return err
 	}
@@ -162,7 +168,29 @@ func createVersion(c echo.Context) (err error) {
 	}
 
 	if editor.AutoPublication() {
-		err = registry.CreateReleaseVersion(getSpace(c), ver, attachments, app, true)
+		space := getSpace(c)
+		err = registry.CreateReleaseVersion(space, ver, attachments, app, true)
+
+		// Cleaning old versions when adding a new one
+		channel := registry.GetVersionChannel(ver.Version)
+
+		// Cleaning the old versions
+		channelString := registry.ChannelToStr(channel)
+		go func() {
+			err := registry.CleanOldVersions(space, ver.Slug, channelString, conf.CleanNbMonths, conf.CleanNbMajorVersions, conf.CleanNbMinorVersions)
+			if err != nil {
+				log := logrus.WithFields(logrus.Fields{
+					"nspace":    "clean_version",
+					"space":     space.Prefix,
+					"slug":      ver.Slug,
+					"version":   ver.Version,
+					"channel":   channelString,
+					"error_msg": err,
+				})
+				log.Error()
+			}
+		}()
+
 	} else {
 		err = registry.CreatePendingVersion(getSpace(c), ver, attachments, app)
 	}
@@ -567,7 +595,7 @@ func getVersionAttachment(c echo.Context, filename string) error {
 
 func getAppVersions(c echo.Context) error {
 	appSlug := c.Param("app")
-	versions, err := registry.FindAppVersions(getSpace(c), appSlug, getVersionsChannel(c, registry.Dev))
+	versions, err := registry.FindAppVersions(getSpace(c), appSlug, getVersionsChannel(c, registry.Dev), registry.Concatenated)
 	if err != nil {
 		return err
 	}

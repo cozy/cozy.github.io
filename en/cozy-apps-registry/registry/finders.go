@@ -7,16 +7,17 @@ import (
 	"io"
 	"net/http"
 	"path/filepath"
+	"sort"
+	"strconv"
 	"strings"
+	"time"
 
-	"github.com/cozy/cozy-apps-registry/config"
-	"github.com/cozy/cozy-apps-registry/consts"
-	"github.com/cozy/echo"
-
-	"github.com/spf13/viper"
-
+	"github.com/Masterminds/semver"
 	"github.com/cozy/cozy-apps-registry/cache"
+	"github.com/cozy/cozy-apps-registry/config"
+	"github.com/cozy/echo"
 	"github.com/go-kivik/kivik"
+	"github.com/spf13/viper"
 )
 
 var validFilters = []string{
@@ -32,6 +33,14 @@ var validSorts = []string{
 	"editor",
 	"created_at",
 }
+
+// ConcatChannels type
+type ConcatChannels bool
+
+const (
+	Concatenated    ConcatChannels = true
+	NotConcatenated ConcatChannels = false
+)
 
 const maxLimit = 200
 
@@ -70,7 +79,7 @@ func FindApp(c *Space, appSlug string, channel Channel) (*App, error) {
 	}
 
 	doc.DataUsageCommitment, doc.DataUsageCommitmentBy = defaultDataUserCommitment(doc, nil)
-	doc.Versions, err = FindAppVersions(c, doc.Slug, channel)
+	doc.Versions, err = FindAppVersions(c, doc.Slug, channel, Concatenated)
 	if err != nil {
 		return nil, err
 	}
@@ -112,10 +121,7 @@ func FindVersionAttachment(c *Space, appSlug, version, filename string) (*Attach
 	sc := conf.SwiftConnection
 	var buf bytes.Buffer
 	fp := filepath.Join(appSlug, version, filename)
-	prefix := c.Prefix
-	if prefix == "" {
-		prefix = consts.DefaultSpacePrefix
-	}
+	prefix := GetPrefixOrDefault(c)
 	headers, err := sc.ObjectGet(prefix, fp, &buf, false, nil)
 	if err != nil {
 		return nil, err
@@ -200,12 +206,177 @@ func versionViewQuery(c *Space, db *kivik.DB, appSlug, channel string, opts map[
 	return rows, nil
 }
 
+// FindLastsVersionsSince returns versions of a channel up to a date
+//
+// Example: FindLastsVersionSince("foo", "stable", myDate) returns all the
+// versions created beetween myDate and now
+func FindLastsVersionsSince(c *Space, appSlug, channel string, date time.Time) ([]*Version, error) {
+	db := c.VersDB()
+	versions := []*Version{}
+
+	marshaled, err := json.Marshal(date.Format(time.RFC3339Nano))
+	if err != nil {
+		return nil, err
+	}
+
+	options := map[string]interface{}{
+		"startkey":     string(marshaled),
+		"include_docs": true,
+	}
+
+	rows, err := db.Query(ctx, "by-date", channel, options)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var version *Version
+		if err := rows.ScanDoc(&version); err != nil {
+			return nil, err
+		}
+		// Filter by version
+		if version.Slug == appSlug {
+			versions = append(versions, version)
+		}
+	}
+	return versions, nil
+}
+
+// findPreviousMinor tries to find the old previous minor version of semver-type
+// versions
+func findPreviousMinor(version string, versions []string) (string, bool) {
+	vs := []*semver.Version{}
+	currentVersion, _ := semver.NewVersion(version)
+
+	// Init
+	for _, v := range versions {
+		sv, _ := semver.NewVersion(v)
+		vs = append(vs, sv)
+	}
+
+	// Sorting by reverse
+	sort.Sort(sort.Reverse(semver.Collection(vs)))
+
+	// Create constraints
+	major := currentVersion.Major()
+	minor := currentVersion.Minor()
+	patch := currentVersion.Patch()
+	notActualMinor, _ := semver.NewConstraint(fmt.Sprintf("< %s.%s.%s", strconv.FormatInt(major, 10), strconv.FormatInt(minor, 10), strconv.FormatInt(patch, 10))) // Try to get the next minor version
+	inMajor, _ := semver.NewConstraint(fmt.Sprintf("> %s", strconv.FormatInt(major, 10)))
+
+	// Finding
+	for _, v := range vs {
+		if inMajor.Check(v) && notActualMinor.Check(v) {
+			return v.Original(), true
+		}
+	}
+	return "", false
+}
+
+// findPreviousMajor tries to find the old previous major version of semver-type
+// versions
+func findPreviousMajor(version string, versions []string) (string, bool) {
+	vs := []*semver.Version{}
+	currentVersion, _ := semver.NewVersion(version)
+
+	// Init
+	for _, v := range versions {
+		sv, _ := semver.NewVersion(v)
+		vs = append(vs, sv)
+	}
+
+	// Sorting by reverse
+	sort.Sort(sort.Reverse(semver.Collection(vs)))
+
+	// Create constraints
+	major := currentVersion.Major()
+	previousMajor, _ := semver.NewConstraint(fmt.Sprintf("< %s.0.0", strconv.FormatInt(major, 10)))
+
+	// Finding
+	for _, v := range vs {
+		if previousMajor.Check(v) {
+			return v.Original(), true
+		}
+	}
+	return "", false
+}
+
+// FindLastNVersions returns the N lasts versions of an app
+// If N is greater than available versions, only available are returned
+func FindLastNVersions(c *Space, appSlug string, channelStr string, nMajor, nMinor int) ([]*Version, error) {
+	channel, err := StrToChannel(channelStr)
+	if err != nil {
+		return nil, err
+	}
+	versions, err := FindAppVersions(c, appSlug, channel, NotConcatenated)
+	if err != nil {
+		return nil, err
+	}
+	latestVersion, err := FindLatestVersion(c, appSlug, channel)
+	if err != nil {
+		return nil, err
+	}
+	var versionsList []string
+
+	switch channel {
+	case Stable:
+		versionsList = versions.Stable
+	case Beta:
+		versionsList = versions.Beta
+	case Dev:
+		versionsList = versions.Dev
+	}
+
+	resVersions := []string{}
+	minor := latestVersion.Version
+	major := latestVersion.Version
+
+	majors := []string{}
+
+	for len(majors) < nMajor {
+		minors := []string{}
+		minors = append(minors, minor)
+		majors = append(majors, major)
+
+		for len(minors) < nMinor {
+			previousMinor, ok := findPreviousMinor(minor, versionsList)
+			if ok {
+				minors = append(minors, previousMinor)
+				minor = previousMinor
+			} else {
+				// No more versions available, append & break
+				resVersions = append(resVersions, minors...)
+				break
+			}
+			// Append to final result
+			resVersions = append(resVersions, minors...)
+		}
+		major, ok := findPreviousMajor(major, versionsList)
+		if ok {
+			minor = major
+		} else {
+			break
+		}
+	}
+	returned := []*Version{}
+
+	for _, toReturn := range resVersions {
+		v, err := FindVersion(c, appSlug, toReturn)
+		if err != nil {
+			return nil, err
+		}
+		returned = append(returned, v)
+	}
+	return returned, nil
+}
+
 func FindLatestVersion(c *Space, appSlug string, channel Channel) (*Version, error) {
 	if !validSlugReg.MatchString(appSlug) {
 		return nil, ErrAppSlugInvalid
 	}
 
-	channelStr := channelToStr(channel)
+	channelStr := ChannelToStr(channel)
 
 	key := cache.Key(c.Prefix + "/" + appSlug + "/" + channelStr)
 	cacheVersionsLatest := viper.Get("cacheVersionsLatest").(cache.Cache)
@@ -247,10 +418,13 @@ func FindLatestVersion(c *Space, appSlug string, channel Channel) (*Version, err
 	return latestVersion, nil
 }
 
-func FindAppVersions(c *Space, appSlug string, channel Channel) (*AppVersions, error) {
+// FindAppVersions return all the app versions. The concat params allows you to
+// concatenate stable & beta versions in dev list, and stable versions in beta
+// list
+func FindAppVersions(c *Space, appSlug string, channel Channel, concat ConcatChannels) (*AppVersions, error) {
 	db := c.VersDB()
 
-	key := cache.Key(c.Prefix + "/" + appSlug + "/" + channelToStr(channel))
+	key := cache.Key(c.Prefix + "/" + appSlug + "/" + ChannelToStr(channel))
 	cacheVersionsList := viper.Get("cacheVersionsList").(cache.Cache)
 	if data, ok := cacheVersionsList.Get(key); ok {
 		var versions *AppVersions
@@ -278,23 +452,38 @@ func FindAppVersions(c *Space, appSlug string, channel Channel) (*AppVersions, e
 	}
 
 	var stable, beta, dev []string
-	if channel == Dev {
-		dev = allVersions
-	}
+	if concat {
+		if channel == Dev {
+			dev = allVersions
+		}
 
-	for _, v := range allVersions {
-		switch GetVersionChannel(v) {
-		case Stable:
-			stable = append(stable, v)
-			fallthrough
-		case Beta:
-			if channel == Beta || channel == Dev {
-				beta = append(beta, v)
+		for _, v := range allVersions {
+			switch GetVersionChannel(v) {
+			case Stable:
+				stable = append(stable, v)
+				fallthrough
+			case Beta:
+				if channel == Beta || channel == Dev {
+					beta = append(beta, v)
+				}
+			case Dev:
+				// do nothing
+			default:
+				panic("unreachable")
 			}
-		case Dev:
-			// do nothing
-		default:
-			panic("unreachable")
+		}
+	} else {
+		for _, v := range allVersions {
+			switch GetVersionChannel(v) {
+			case Stable:
+				stable = append(stable, v)
+			case Beta:
+				beta = append(beta, v)
+			case Dev:
+				dev = append(dev, v)
+			default:
+				panic("unreachable")
+			}
 		}
 	}
 
@@ -345,6 +534,34 @@ func GetPendingVersions(c *Space) ([]*Version, error) {
 	}
 
 	return versions, nil
+}
+
+// GetAppChannelVersions returns the versions list of an app channel
+func GetAppChannelVersions(c *Space, appSlug string, channel Channel) ([]*Version, error) {
+	var versions []string
+	var resultVersions []*Version
+
+	fv, err := FindAppVersions(c, appSlug, channel, NotConcatenated)
+	if err != nil {
+		return nil, err
+	}
+	switch channel {
+	case Stable:
+		versions = fv.Stable
+	case Beta:
+		versions = fv.Beta
+	case Dev:
+		versions = fv.Dev
+	}
+	for _, v := range versions {
+		vers, err := FindVersion(c, appSlug, v)
+		if err != nil {
+			return nil, err
+		}
+		resultVersions = append(resultVersions, vers)
+	}
+
+	return resultVersions, nil
 }
 
 func GetAppsList(c *Space, opts *AppsListOptions) (int, []*App, error) {
@@ -439,7 +656,7 @@ func GetAppsList(c *Space, opts *AppsListOptions) (int, []*App, error) {
 
 	for _, app := range res {
 		app.DataUsageCommitment, app.DataUsageCommitmentBy = defaultDataUserCommitment(app, nil)
-		app.Versions, err = FindAppVersions(c, app.Slug, opts.VersionsChannel)
+		app.Versions, err = FindAppVersions(c, app.Slug, opts.VersionsChannel, Concatenated)
 		if err != nil {
 			return 0, nil, err
 		}

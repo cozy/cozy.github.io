@@ -19,6 +19,9 @@ import (
 	"strings"
 	"time"
 
+	"github.com/cozy/swift"
+	"github.com/sirupsen/logrus"
+
 	"github.com/cozy/cozy-apps-registry/auth"
 	"github.com/cozy/cozy-apps-registry/cache"
 	"github.com/cozy/cozy-apps-registry/config"
@@ -574,7 +577,7 @@ func createVersion(c *Space, db *kivik.DB, ver *Version, attachments []*kivik.At
 	versionChannel := GetVersionChannel(ver.Version)
 	for _, channel := range []Channel{Stable, Beta, Dev} {
 		if channel >= versionChannel {
-			key := cache.Key(c.Prefix + "/" + ver.Slug + "/" + channelToStr(channel))
+			key := cache.Key(c.Prefix + "/" + ver.Slug + "/" + ChannelToStr(channel))
 			cacheVersionsLatest := viper.Get("cacheVersionsLatest").(cache.Cache)
 			cacheVersionsList := viper.Get("cacheVersionsList").(cache.Cache)
 			cacheVersionsLatest.Remove(key)
@@ -585,10 +588,7 @@ func createVersion(c *Space, db *kivik.DB, ver *Version, attachments []*kivik.At
 	// Storing the attachments to swift (screenshots, icon, partnership_icon)
 	basePath := filepath.Join(ver.Slug, ver.Version)
 
-	prefix := c.Prefix
-	if prefix == "" {
-		prefix = consts.DefaultSpacePrefix
-	}
+	prefix := GetPrefixOrDefault(c)
 
 	for _, att := range attachments {
 		f, err := sc.ObjectCreate(prefix, filepath.Join(basePath, att.Filename), false, "", att.ContentType, nil)
@@ -623,6 +623,10 @@ func (version *Version) Clone() *Version {
 }
 
 func ApprovePendingVersion(c *Space, pending *Version, app *App) (*Version, error) {
+	conf, err := config.GetConfig()
+	if err != nil {
+		return nil, err
+	}
 	db := c.PendingVersDB()
 
 	release := pending.Clone()
@@ -642,7 +646,7 @@ func ApprovePendingVersion(c *Space, pending *Version, app *App) (*Version, erro
 
 	// We need to skip version check, because we don't drop pending
 	// version until the end to avoid data loss in case of error
-	err := CreateReleaseVersion(c, release, attachments, app, false)
+	err = CreateReleaseVersion(c, release, attachments, app, false)
 	if err != nil {
 		return nil, err
 	}
@@ -651,6 +655,26 @@ func ApprovePendingVersion(c *Space, pending *Version, app *App) (*Version, erro
 	if _, err := db.Delete(ctx, pending.ID, pending.Rev); err != nil {
 		return nil, err
 	}
+
+	// Get version channel
+	channel := GetVersionChannel(release.Version)
+
+	channelString := ChannelToStr(channel)
+	// Cleaning the old versions
+	go func() {
+		err := CleanOldVersions(c, release.Slug, channelString, conf.CleanNbMonths, conf.CleanNbMajorVersions, conf.CleanNbMinorVersions)
+		if err != nil {
+			log := logrus.WithFields(logrus.Fields{
+				"nspace":    "clean_version",
+				"space":     c.Prefix,
+				"slug":      release.Slug,
+				"version":   release.Version,
+				"channel":   channelString,
+				"error_msg": err,
+			})
+			log.Error()
+		}
+	}()
 
 	return release, nil
 }
@@ -1102,6 +1126,61 @@ func calculateAppLabel(app *App, ver *Version) Label {
 	return LabelF
 }
 
+// Expire function deletes a version from the database
+func (v *Version) Delete(c *Space) error {
+	// Delete attachments (swift or couchdb)
+	err := v.RemoveAllAttachments(c)
+	if err != nil {
+		return err
+	}
+
+	// Removing the CouchDB document
+	db := c.VersDB()
+	_, err = db.Delete(context.Background(), v.ID, v.Rev)
+	return err
+}
+
+// RemoveAttachment removes one attachment from a version
+func (v *Version) RemoveAttachment(c *Space, filename string) error {
+	prefix := GetPrefixOrDefault(c)
+
+	conf, err := config.GetConfig()
+	if err != nil {
+		return err
+	}
+	sc := conf.SwiftConnection
+	fp := filepath.Join(v.Slug, v.Version, filename)
+
+	return sc.ObjectDelete(prefix, fp)
+}
+
+// RemoveAllAttachments removes all the attachments of a version
+func (v *Version) RemoveAllAttachments(c *Space) error {
+	prefix := GetPrefixOrDefault(c)
+
+	conf, err := config.GetConfig()
+	if err != nil {
+		return err
+	}
+	sc := conf.SwiftConnection
+
+	fp := filepath.Join(v.Slug, v.Version)
+	opts := &swift.ObjectsOpts{Prefix: fp + "/"}
+	objs, err := sc.ObjectsAll(prefix, opts)
+	if err != nil {
+		return err
+	}
+	for _, obj := range objs {
+		// Deleting object
+		err := sc.ObjectDelete(prefix, obj.Name)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
 func defaultDataUserCommitment(app *App, opts *AppOptions) (duc, ducBy string) {
 	if opts != nil {
 		if opts.DataUsageCommitment != nil {
@@ -1136,7 +1215,7 @@ func StrToChannel(channel string) (Channel, error) {
 	}
 }
 
-func channelToStr(channel Channel) string {
+func ChannelToStr(channel Channel) string {
 	switch channel {
 	case Stable:
 		return "stable"
@@ -1146,4 +1225,12 @@ func channelToStr(channel Channel) string {
 		return "dev"
 	}
 	panic("Unknown channel")
+}
+
+func GetPrefixOrDefault(c *Space) string {
+	prefix := c.Prefix
+	if prefix == "" {
+		prefix = consts.DefaultSpacePrefix
+	}
+	return prefix
 }

@@ -38,9 +38,16 @@ swift:
   auth_url: http://localhost:1234
   username: admin
   api_key: s3cret!
-  endpointy_type: public
+  endpoint_type: public
   tenant: demo
   domain: default
+
+# Conservation configuration allows to manage paramaters of how many app versions
+# of each channel must be kept during cleaning tasks
+conservation:
+  month: 2 # Specifies how many months the cleaning job should lookup for. Versions anterior to this parameter will be removed.
+  major: 2 # Specifies how many major versions should be kept
+  minor: 2 # Specifies how many minor versions should be kept for each major version
 
 # List of supported spaces by the registry.
 #

@@ -129,3 +129,40 @@ func createVersionsViews(c *Space, db *kivik.DB, appSlug string) error {
 	}
 	return nil
 }
+
+func CreateVersionsDateView(db *kivik.DB) error {
+	var viewsBodies []string
+
+	for channel := range versionsViews {
+		code := fmt.Sprintf(`
+		function (doc) {
+			`+viewsHelpers+`
+			var channel = getVersionChannel(doc.version);
+			if (channel == "%s") {
+				emit(doc.created_at);
+			}
+			}`, channel)
+		viewsBodies = append(viewsBodies,
+			string(sprintfJSON(`%s: {"map": %s}`, channel, code)))
+	}
+
+	docID := fmt.Sprintf("_design/%s", "by-date")
+	doc := struct {
+		ID       string          `json:"_id"`
+		Views    json.RawMessage `json:"views"`
+		Language string          `json:"language"`
+	}{
+		ID:       docID,
+		Views:    json.RawMessage(`{` + strings.Join(viewsBodies, ",") + `}`),
+		Language: "javascript",
+	}
+	_, _, err := db.CreateDoc(ctx, doc)
+	if err != nil {
+		if kivik.StatusCode(err) == http.StatusConflict {
+			return nil
+		}
+		return fmt.Errorf("Could not create versions views: %s", err)
+	}
+
+	return nil
+}
