@@ -604,6 +604,7 @@
             <li><a href="#node-boolean-false-by-default">node (boolean): false by default</a></li>
             <li><a href="#react-boolean-true-by-default">react (boolean): true by default</a></li>
             <li><a href="#transformregenerator-boolean-true-by-default-for-browsers-only">transformRegenerator (boolean): true by default (for browsers only)</a></li>
+            <li><a href="#preset-and-plugin-options">Preset and plugin options</a></li>
         <li class="main "><a href="#community">Community</a></li>
             <li><a href="#whats-cozy">What's Cozy?</a></li>
             <li><a href="#get-in-touch">Get in touch</a></li>
@@ -725,6 +726,28 @@
 </pre></div>
 
 
+<h4 id="preset-and-plugin-options">Preset and plugin options<a class="headerlink" href="#preset-and-plugin-options" title="Permanent link">&para;</a></h4>
+<p>You can have control on the options passed to <code>babel-preset-env</code> and <code>babel-plugin-transform-runtime</code>:</p>
+<ul>
+<li><code>presetEnv</code> will be passed to <code>babel-preset-env</code></li>
+<li><code>transformRuntime</code> will be passed to <code>babel-plugin-transform-runtime</code></li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;presets&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">[</span><span class="s2">&quot;cozy-app&quot;</span><span class="p">,</span> <span class="p">{</span>
+      <span class="nt">&quot;presetEnv&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;modules&quot;</span><span class="p">:</span> <span class="kc">false</span> <span class="p">},</span>
+      <span class="nt">&quot;transformRuntime&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;helpers&quot;</span><span class="p">:</span> <span class="kc">true</span> <span class="p">}</span>
+    <span class="p">}]</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>In this case, we do not want <code>preset-env</code> to touch to <code>import/export</code> and want the inlined Babel helpers
+to be replaced by imports from <code>babel-runtime</code>.</p>
+<p>See the options on the official docs :</p>
+<p>https://babeljs.io/docs/en/babel-preset-env#modules
+https://babeljs.io/docs/en/babel-plugin-transform-runtime#helpers </p>
 <h2 id="community">Community<a class="headerlink" href="#community" title="Permanent link">&para;</a></h2>
 <h3 id="whats-cozy">What&rsquo;s Cozy?<a class="headerlink" href="#whats-cozy" title="Permanent link">&para;</a></h3>
 <div align="center">

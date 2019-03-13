@@ -2,13 +2,24 @@
 
 const { declare } = require('@babel/helper-plugin-utils')
 const browserslist = require('browserslist-config-cozy')
+const {
+  validate,
+  isFalse,
+  isOfType,
+  deprecated,
+  either
+} = require('./validate')
+const mapValues = require('lodash/mapValues')
+const merge = require('lodash/merge')
 
-const browserEnv = {
+const presetEnvBrowserOptions = {
   targets: browserslist,
+  // https://github.com/facebook/create-react-app/pull/5278
+  exclude: ['transform-typeof-symbol'],
   useBuiltIns: false
 }
 
-const nodeEnv = {
+const presetEnvNodeOptions = {
   targets: {
     node: 8
   },
@@ -16,43 +27,74 @@ const nodeEnv = {
   useBuiltIns: false
 }
 
-module.exports = declare((api, options) => {
-  // default options
-  let presetOptions = {
-    node: false,
-    react: true,
-    transformRegenerator: true
+const optionConfigs = {
+  node: {
+    default: false,
+    validator: isOfType('boolean')
+  },
+  react: {
+    default: true,
+    validator: isOfType('boolean')
+  },
+  transformRegenerator: {
+    default: undefined,
+    validator: deprecated(
+      isOfType('boolean'),
+      'Please use transformRuntime options.'
+    )
+  },
+  presetEnv: {
+    default: {},
+    validator: isOfType('object')
+  },
+  transformRuntime: {
+    default: {
+      helpers: false,
+      regenerator: true
+    },
+    validator: either(isOfType('object'), isFalse)
+  }
+}
+
+const validators = mapValues(optionConfigs, x => x.validator)
+const defaultOptions = mapValues(optionConfigs, x => x.default)
+
+const mkConfig = (api, options) => {
+  const presetOptions = merge(defaultOptions, options)
+
+  try {
+    validate(presetOptions, validators)
+  } catch (e) {
+    e.message = `babel-preset-cozy-app : Config validation error : ${e.message}`
+    throw e
   }
 
-  if (options) {
-    for (let option in presetOptions) {
-      if (options.hasOwnProperty(option)) {
-        if (typeof options[option] !== 'boolean') {
-          throw new Error(
-            `Preset cozy-app '${option}' option must be a boolean.`
-          )
-        }
-        presetOptions[option] = options[option]
-      }
-    }
-  }
-
-  const { node, react, transformRegenerator } = presetOptions
+  const {
+    node,
+    react,
+    presetEnv,
+    transformRuntime,
+    transformRegenerator
+  } = presetOptions
 
   const config = {}
 
-  // Latest ECMAScript features on previous browsers versions
-  let env = [require.resolve('@babel/preset-env')]
-  if (node) {
-    env.push(nodeEnv)
-  } else {
-    env.push(browserEnv)
+  // transformRegenerator is deprecated, should be removed
+  if (transformRegenerator !== undefined) {
+    transformRuntime.regenerator = transformRegenerator
   }
 
-  let presets = [env]
-  // if (P)React app
-  if (!node && react) presets.push(require.resolve('@babel/preset-react'))
-  config.presets = presets
+  // Latest ECMAScript features on previous browsers versions
+  const presetEnvOptions = {
+    ...(node ? presetEnvNodeOptions : presetEnvBrowserOptions),
+    ...presetEnv
+  }
+
+  config.presets = [
+    [require.resolve('@babel/preset-env'), presetEnvOptions],
+    // if (P)React app
+    !node && react ? require.resolve('@babel/preset-react') : null
+  ].filter(Boolean)
 
   const plugins = [
     // transform class attributes and methods with auto-binding
@@ -68,18 +110,20 @@ module.exports = declare((api, options) => {
       }
     ]
   ]
-  if (!node && transformRegenerator) {
+  if (!node && transformRuntime !== false) {
     plugins.push(
       // Polyfills generator functions (for async/await usage)
-      [
-        require.resolve('@babel/plugin-transform-runtime'),
-        {
-          helpers: false,
-          regenerator: true
-        }
-      ]
+      [require.resolve('@babel/plugin-transform-runtime'), transformRuntime]
     )
   }
   config.plugins = plugins
   return config
-})
+}
+
+module.exports = declare(mkConfig)
+
+if (require.main === module) {
+  const options = process.argv[2] ? JSON.parse(process.argv[2]) : {}
+  // eslint-disable-next-line no-console
+  console.log(JSON.stringify(mkConfig(null, options), null, 2))
+}
