@@ -600,7 +600,6 @@
         <li class="main active"><a href="#classes">Classes</a></li>
         <li class="main "><a href="#functions">Functions</a></li>
         <li class="main "><a href="#appcollection">AppCollection</a></li>
-            <li><a href="#new-appcollectiondoctype-stackclient">new AppCollection(doctype, stackClient)</a></li>
             <li><a href="#appcollectionall-object">appCollection.all() ⇒ Object</a></li>
         <li class="main "><a href="#cozystackclient">CozyStackClient</a></li>
             <li><a href="#cozystackclientcollectiondoctype-documentcollection">cozyStackClient.collection(doctype) ⇒ DocumentCollection</a></li>
@@ -636,6 +635,7 @@
             <li><a href="#sharingcollectionsharedocument-recipients-sharingtype-description-previewpath">sharingCollection.share(document, recipients, sharingType, description, [previewPath])</a></li>
             <li><a href="#sharingcollectiongetdiscoverylinksharingid-sharecode-string">sharingCollection.getDiscoveryLink(sharingId, sharecode) ⇒ string</a></li>
         <li class="main "><a href="#triggercollection">TriggerCollection</a></li>
+            <li><a href="#triggercollectionalloptions-object">triggerCollection.all(options) ⇒ Object</a></li>
             <li><a href="#triggercollectioncreateattributes-object">triggerCollection.create(attributes) ⇒ object</a></li>
             <li><a href="#triggercollectionlaunchtrigger-object">triggerCollection.launch(Trigger) ⇒ object</a></li>
         <li class="main "><a href="#garbagecollect">garbageCollect()</a></li>
@@ -685,7 +685,7 @@
 <h2 id="classes">Classes<a class="headerlink" href="#classes" title="Permanent link">&para;</a></h2>
 <dl>
 <dt><a href="#AppCollection">AppCollection</a></dt>
-<dd><p>Implements methods specific to applications: io.cozy.apps or io.cozy.konnectors</p>
+<dd><p>Implements <code>DocumentCollection</code> API along with specific methods for <code>io.cozy.apps</code>.</p>
 </dd>
 <dt><a href="#CozyStackClient">CozyStackClient</a></dt>
 <dd><p>Main API against the <code>cozy-stack</code> server.</p>
@@ -731,39 +731,9 @@ through OAuth.</p>
 
 <p><a name="AppCollection"></a></p>
 <h2 id="appcollection">AppCollection<a class="headerlink" href="#appcollection" title="Permanent link">&para;</a></h2>
-<p>Implements methods specific to applications: io.cozy.apps or io.cozy.konnectors</p>
-<p><strong>Kind</strong>: global class  </p>
-<ul>
-<li><a href="#AppCollection">AppCollection</a><ul>
-<li><a href="#new_AppCollection_new">new AppCollection(doctype, stackClient)</a></li>
-<li><a href="#AppCollection+all">.all()</a> ⇒ <code>Object</code></li>
-</ul>
-</li>
-</ul>
-<p><a name="new_AppCollection_new"></a></p>
-<h3 id="new-appcollectiondoctype-stackclient">new AppCollection(doctype, stackClient)<a class="headerlink" href="#new-appcollectiondoctype-stackclient" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>doctype</td>
-<td><code>string</code></td>
-<td>App doctype (io.cozy.apps or io.cozy.konnectors)</td>
-</tr>
-<tr>
-<td>stackClient</td>
-<td><a href="#CozyStackClient"><code>CozyStackClient</code></a></td>
-<td>The stackClient instance to use</td>
-</tr>
-</tbody>
-</table>
-<p><a name="AppCollection+all"></a></p>
+<p>Implements <code>DocumentCollection</code> API along with specific methods for <code>io.cozy.apps</code>.</p>
+<p><strong>Kind</strong>: global class<br />
+<a name="AppCollection+all"></a></p>
 <h3 id="appcollectionall-object">appCollection.all() ⇒ <code>Object</code><a class="headerlink" href="#appcollectionall-object" title="Permanent link">&para;</a></h3>
 <p>Lists all apps, without filters.</p>
 <p>The returned documents are not paginated by the stack.</p>
@@ -1484,11 +1454,38 @@ through OAuth.</p>
 <p><strong>Kind</strong>: global class  </p>
 <ul>
 <li><a href="#TriggerCollection">TriggerCollection</a><ul>
+<li><a href="#TriggerCollection+all">.all(options)</a> ⇒ <code>Object</code></li>
 <li><a href="#TriggerCollection+create">.create(attributes)</a> ⇒ <code>object</code></li>
 <li><a href="#TriggerCollection+launch">.launch(Trigger)</a> ⇒ <code>object</code></li>
 </ul>
 </li>
 </ul>
+<p><a name="TriggerCollection+all"></a></p>
+<h3 id="triggercollectionalloptions-object">triggerCollection.all(options) ⇒ <code>Object</code><a class="headerlink" href="#triggercollectionalloptions-object" title="Permanent link">&para;</a></h3>
+<p>Get the list of triggers.</p>
+<p><strong>Kind</strong>: instance method of <a href="#TriggerCollection"><code>TriggerCollection</code></a><br />
+<strong>Returns</strong>: <code>Object</code> - The JSON API conformant response.<br />
+<strong>Throws</strong>:</p>
+<ul>
+<li><code>FetchError</code> </li>
+</ul>
+<p><strong>See</strong>: https://docs.cozy.io/en/cozy-stack/jobs/#get-jobstriggers  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>options</td>
+<td><code>Object</code></td>
+<td>The fetch options: Worker allow to filter only triggers associated with a specific worker.</td>
+</tr>
+</tbody>
+</table>
 <p><a name="TriggerCollection+create"></a></p>
 <h3 id="triggercollectioncreateattributes-object">triggerCollection.create(attributes) ⇒ <code>object</code><a class="headerlink" href="#triggercollectioncreateattributes-object" title="Permanent link">&para;</a></h3>
 <p>Creates a Trigger document</p>
