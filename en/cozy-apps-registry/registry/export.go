@@ -198,9 +198,8 @@ func Import(in io.Reader) (err error) {
 			return
 		}
 		if !ok {
-			db := client.CreateDB(ctx, dbName)
-			if err = db.Err(); err != nil {
-				return
+			if err := client.CreateDB(ctx, dbName); err != nil {
+				return err
 			}
 		}
 

@@ -317,9 +317,8 @@ func InitGlobalClient(addr, user, pass, prefix string) (editorsDB *kivik.DB, err
 	}
 	if !exists {
 		fmt.Printf("Creating database %q...", editorsDBName)
-		db := client.CreateDB(ctx, editorsDBName)
-		if err = db.Err(); err != nil {
-			return
+		if err = client.CreateDB(ctx, editorsDBName); err != nil {
+			return nil, err
 		}
 		fmt.Println("ok.")
 	}
@@ -376,8 +375,7 @@ func (c *Space) init() (err error) {
 		}
 		if !ok {
 			fmt.Printf("Creating database %q...", dbName)
-			db := client.CreateDB(ctx, dbName)
-			if err = db.Err(); err != nil {
+			if err = client.CreateDB(ctx, dbName); err != nil {
 				fmt.Println("failed")
 				return err
 			}
@@ -1014,7 +1012,7 @@ func downloadVersion(opts *VersionOptions) (ver *Version, attachments []*kivik.A
 				if isIcon {
 					filename = "icon"
 				} else if isShot {
-					filename = name
+					filename = path.Join("screenshots", name)
 				} else if isPartnershipIcon {
 					filename = "partnership_icon"
 				} else {
