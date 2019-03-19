@@ -632,6 +632,8 @@
             <li><a href="#utilsbatchdelete">utils~batchDelete()</a></li>
             <li><a href="#utilsgetpdftext">utils~getPdfText()</a></li>
             <li><a href="#utilsformatdate">utils~formatDate()</a></li>
+        <li class="main "><a href="#categorization">categorization</a></li>
+            <li><a href="#categorizationcategorizetransactions-arrayobject">categorization~categorize(transactions) ⇒ Array.&lt;Object&gt;</a></li>
         <li class="main "><a href="#basekonnector">BaseKonnector</a></li>
             <li><a href="#new-basekonnectorfetch">new BaseKonnector(fetch)</a></li>
             <li><a href="#basekonnectorend">baseKonnector.end()</a></li>
@@ -757,6 +759,9 @@ exist in the cozy or not</p>
 </dd>
 <dt><a href="#module_utils">utils</a></dt>
 <dd><p>Small utilities helping to develop konnectors.</p>
+</dd>
+<dt><a href="#module_categorization">categorization</a></dt>
+<dd><p>Bank transactions categorization</p>
 </dd>
 </dl>
 
@@ -1394,7 +1399,51 @@ documents, do not forget to clean linked bank operations</p>
 
 
 <p><strong>Kind</strong>: inner method of <a href="#module_utils"><code>utils</code></a><br />
-<a name="BaseKonnector"></a></p>
+<a name="module_categorization"></a></p>
+<h2 id="categorization">categorization<a class="headerlink" href="#categorization" title="Permanent link">&para;</a></h2>
+<p>Bank transactions categorization</p>
+<p><a name="module_categorization..categorize"></a></p>
+<h3 id="categorizationcategorizetransactions-arrayobject">categorization~categorize(transactions) ⇒ <code>Array.&lt;Object&gt;</code><a class="headerlink" href="#categorizationcategorizetransactions-arrayobject" title="Permanent link">&para;</a></h3>
+<p>Apply both global and local categorization models to an array of transactions.</p>
+<p>The global model is a model specific to hosted Cozy instances. It is not available for self-hosted instances. It will just do nothing in that case.</p>
+<p>The local model is based on the user manual categorizations.</p>
+<p>Each model adds two properties to the transactions:
+  * The global model adds <code>cozyCategoryId</code> and <code>cozyCategoryProba</code>
+  * The local model adds <code>localCategoryId</code> and <code>localCategoryProba</code></p>
+<p>In the end, each transaction can have up to four different categories. An application can use these categories to show the most significant for the user. See https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.bank.md#categories for more informations.</p>
+<p><strong>Kind</strong>: inner method of <a href="#module_categorization"><code>categorization</code></a><br />
+<strong>Returns</strong>: <code>Array.&lt;Object&gt;</code> - The categorized transactions  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>transactions</td>
+<td><code>Array.&lt;Object&gt;</code></td>
+<td>The transactions to categorize</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong>  </p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">BaseKonnector</span><span class="p">,</span> <span class="nx">categorize</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-konnector-libs&#39;</span><span class="p">)</span>
+
+<span class="kr">class</span> <span class="nx">BankingKonnector</span> <span class="kr">extends</span> <span class="nx">BaseKonnector</span> <span class="p">{</span>
+  <span class="nx">saveTransactions</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">transactions</span> <span class="o">=</span> <span class="nx">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">fetchTransactions</span><span class="p">()</span>
+    <span class="kr">const</span> <span class="nx">categorizedTransactions</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">categorize</span><span class="p">(</span><span class="nx">transactions</span><span class="p">)</span>
+
+    <span class="c1">// Save categorizedTransactions</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p><a name="BaseKonnector"></a></p>
 <h2 id="basekonnector">BaseKonnector<a class="headerlink" href="#basekonnector" title="Permanent link">&para;</a></h2>
 <p>The class from which all the connectors must inherit.
 It takes a fetch function in parameter that must return a <code>Promise</code>.

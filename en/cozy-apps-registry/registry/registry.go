@@ -8,6 +8,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -239,6 +240,8 @@ type VersionOptions struct {
 	Icon        string          `json:"icon"`
 	Partnership Partnership     `json:"partnership"`
 	Screenshots []string        `json:"screenshots"`
+	Space       string
+	RegistryURL *url.URL
 }
 
 type Version struct {
@@ -276,6 +279,21 @@ type Manifest struct {
 	Locales     map[string]struct {
 		Screenshots []string `json:"screenshots"`
 	} `json:"locales"`
+}
+
+// Tarball holds all the data from a downloaded app version
+type Tarball struct {
+	Manifest        *Manifest
+	ManifestContent []byte
+	ManifestMap     map[string]interface{}
+	PackageVersion  string
+	HasPrefix       bool
+	TarPrefix       string
+	ContentType     string
+	AppType         string
+	Content         []byte
+	URL             string
+	Size            int64
 }
 
 func NewSpace(prefix string) *Space {
@@ -745,11 +763,70 @@ func tarReader(reader io.Reader, contentType string) (*tar.Reader, error) {
 	return tar.NewReader(reader), nil
 }
 
-func downloadVersion(opts *VersionOptions) (ver *Version, attachments []*kivik.Attachment, err error) {
-	url := opts.URL
+// CheckVersion controls the matching versions between retrieved tarball and
+// options
+func (t *Tarball) CheckVersion(expectedVersion string) (bool, error) {
+	tbManifestVersion := t.Manifest.Version
+	tbPackageVersion := t.PackageVersion
 
+	var match bool
+	var errm error
+
+	if tbManifestVersion != "" {
+		match = VersionMatch(expectedVersion, tbManifestVersion)
+	}
+	if !match {
+		errm = multierror.Append(errm,
+			fmt.Errorf("%q field does not match (%q != %q)",
+				"version", expectedVersion, tbManifestVersion))
+	}
+
+	if tbPackageVersion != "" {
+		match = VersionMatch(expectedVersion, tbPackageVersion)
+		if !match {
+			errm = multierror.Append(errm,
+				fmt.Errorf("\"version\" from package.json (%q != %q)",
+					expectedVersion, tbPackageVersion))
+		}
+	}
+
+	if errm != nil {
+		err := errshttp.NewError(http.StatusUnprocessableEntity,
+			"Content of the manifest does not match: %s", errm)
+		return false, err
+	}
+
+	return true, nil
+}
+
+// CheckEditor validates a tarball manifest editor
+func (t *Tarball) CheckEditor() (bool, error) {
+	editorName := t.Manifest.Editor
+
+	if editorName == "" {
+		return false, errors.New(`The "editor" field is empty`)
+	}
+
+	return true, nil
+}
+
+// CheckEditor validates a tarball manifest slug
+func (t *Tarball) CheckSlug() (bool, error) {
+	slug := t.Manifest.Slug
+
+	if slug == "" {
+		return false, errors.New(`The "slug" field is empty`)
+	}
+
+	return true, nil
+}
+
+func downloadTarball(opts *VersionOptions, url string) (*Tarball, error) {
 	var buf *bytes.Reader
+	var err error
 	var contentType string
+
+	// Downloading the file
 	tryCount := 0
 	for {
 		tryCount++
@@ -759,24 +836,301 @@ func downloadVersion(opts *VersionOptions) (ver *Version, attachments []*kivik.A
 		} else if tryCount <= 3 {
 			continue
 		} else {
-			return
+			return nil, err
 		}
 	}
 
+	// Reader for filesize
 	counter := &Counter{}
 	var reader io.Reader = buf
 	reader = io.TeeReader(reader, counter)
 
-	var packVersion string
+	// Reading the tarball content
+	tarball, err := ReadTarballVersion(reader, contentType, url)
+	if err != nil {
+		return nil, err
+	}
+
+	// Adding metadata to the tarball struct
+	tarball.ContentType = contentType
+	tarball.Size = counter.Written()
+
+	if !tarball.HasPrefix {
+		tarball.TarPrefix = ""
+	}
+
+	return tarball, nil
+}
+
+func downloadVersion(opts *VersionOptions) (*Version, []*kivik.Attachment, error) {
+	var err *multierror.Error
+	url := opts.URL
+
+	tarball, errd := downloadTarball(opts, url)
+	if errd != nil {
+		return nil, nil, errd
+	}
+
+	// Checks
+	if _, erre := tarball.CheckEditor(); erre != nil {
+		err = multierror.Append(err, erre)
+	}
+	if _, errs := tarball.CheckSlug(); errs != nil {
+		err = multierror.Append(err, errs)
+	}
+	if _, errv := tarball.CheckVersion(opts.Version); errv != nil {
+		err = multierror.Append(err, errv)
+	}
+
+	// Handling tarball assets
+	attachments, erra := HandleAssets(tarball, opts)
+	if erra != nil {
+		err = multierror.Append(err, erra)
+	}
+
+	// If there was any error during checks, we are not going further
+	if err != nil {
+		return nil, nil, err
+	}
+
+	manifestContent := tarball.ManifestContent
+	manifest := tarball.ManifestMap
+
+	// Adding custom parameters if needed
+	var errm error
+	if opts.Parameters != nil {
+		manifest["parameters"] = opts.Parameters
+		manifestContent, errm = json.Marshal(manifest)
+		if errm != nil {
+			return nil, nil, errm
+		}
+	}
+
+	// Retreiving the tarball manifest
+	parsedManifest := tarball.Manifest
+
+	filename := filepath.Base(url)
+	filepath := filepath.Join(parsedManifest.Slug, parsedManifest.Version, filename)
+
+	// Saving app tarball
+	errt := SaveTarball(opts.Space, filepath, tarball)
+	if err != nil {
+		return nil, nil, errt
+	}
+
+	// Creating version
+	ver := new(Version)
+	ver.ID = getVersionID(parsedManifest.Slug, opts.Version)
+	ver.Slug = parsedManifest.Slug
+	ver.Version = opts.Version
+	ver.Type = tarball.AppType
+	// Now the tarball has been downloaded, override the original tarball URL to
+	// local registry url for future downloads
+	ver.URL = opts.RegistryURL.String()
+	ver.Sha256 = opts.Sha256
+	ver.Editor = parsedManifest.Editor
+	ver.Manifest = manifestContent
+	ver.Size = tarball.Size
+	ver.TarPrefix = tarball.TarPrefix
+	ver.CreatedAt = time.Now().UTC()
+	return ver, attachments, nil
+}
+
+func getIconPath(parsedManifest *Manifest, opts *VersionOptions) string {
+	var iconPath string
+	if opts.Icon != "" {
+		iconPath = opts.Icon
+	} else {
+		iconPath = parsedManifest.Icon
+	}
+	if iconPath != "" {
+		iconPath = path.Join("/", iconPath)
+	}
+	return iconPath
+}
+
+func getPartnershipIconPath(parsedManifest *Manifest, opts *VersionOptions) string {
+	var partnershipIconPath string
+	if opts.Partnership.Icon != "" {
+		partnershipIconPath = opts.Partnership.Icon
+	} else {
+		partnershipIconPath = parsedManifest.Partnership.Icon
+	}
+	if partnershipIconPath != "" {
+		partnershipIconPath = path.Join("/", partnershipIconPath)
+	}
+	return partnershipIconPath
+}
+
+func getScreenshotPaths(parsedManifest *Manifest, opts *VersionOptions) []string {
+	var screenshotPaths []string
+	if opts.Screenshots != nil {
+		screenshotPaths = opts.Screenshots
+		for i, shot := range screenshotPaths {
+			screenshotPaths[i] = path.Join("/", shot)
+		}
+	} else {
+		for _, shot := range parsedManifest.Screenshots {
+			screenshotPaths = append(screenshotPaths, path.Join("/", shot))
+		}
+		for _, locale := range parsedManifest.Locales {
+			for _, shot := range locale.Screenshots {
+				shot = path.Join("/", shot)
+				if !stringInArray(shot, screenshotPaths) {
+					screenshotPaths = append(screenshotPaths, shot)
+				}
+			}
+		}
+	}
+
+	return screenshotPaths
+}
+
+// getAssetFilename computes the asset filename to write to the FS (icon,
+// partnership_icon, screenshot, ...)
+func getAssetFilename(iconPath, partnershipIconPath, name string, screenshotPaths []string) string {
+	isIcon := iconPath != "" && name == iconPath
+	isPartnershipIcon := partnershipIconPath != "" && name == partnershipIconPath
+
+	isShot := !isIcon && stringInArray(name, screenshotPaths)
+	if !isIcon && !isPartnershipIcon && !isShot {
+		return ""
+	}
+
+	// Sets filename
+	var filename string
+	if isIcon {
+		filename = "icon"
+	} else if isShot {
+		filename = name
+	} else if isPartnershipIcon {
+		filename = "partnership_icon"
+	} else {
+		panic("unreachable")
+	}
+
+	return filename
+}
+
+// HandleAssets handles all the assets of the app tarball (icon, partnership
+// icon, screenshots). Appened to attachments
+func HandleAssets(tarball *Tarball, opts *VersionOptions) ([]*kivik.Attachment, error) {
+	var attachments = []*kivik.Attachment{}
+	parsedManifest := tarball.Manifest
+
+	iconPath := getIconPath(parsedManifest, opts)
+	partnershipIconPath := getPartnershipIconPath(parsedManifest, opts)
+	screenshotPaths := getScreenshotPaths(parsedManifest, opts)
+
+	// Re-reading tarball content for assets
+	if len(screenshotPaths) == 0 && iconPath == "" && partnershipIconPath == "" {
+		return attachments, nil
+	}
+
+	var buf io.Reader = bytes.NewReader(tarball.Content)
+	tr, err := tarReader(buf, tarball.ContentType)
+	if err != nil {
+		err = errshttp.NewError(http.StatusUnprocessableEntity,
+			"Could not reach version on specified url %s: %s", tarball.URL, err)
+		return nil, err
+	}
+
+	for {
+		var hdr *tar.Header
+		hdr, err = tr.Next()
+		if err == io.EOF {
+			break
+		}
+		if err == io.ErrUnexpectedEOF {
+			err = errshttp.NewError(http.StatusUnprocessableEntity,
+				"Could not reach version on specified url %s: file is too big %s", tarball.URL, err)
+			return nil, err
+		}
+		if err != nil {
+			err = errshttp.NewError(http.StatusUnprocessableEntity,
+				"Could not reach version on specified url %s: %s", tarball.URL, err)
+			return nil, err
+		}
+
+		if hdr.Typeflag != tar.TypeReg && hdr.Typeflag != tar.TypeDir {
+			continue
+		}
+
+		name := path.Join("/", hdr.Name)
+		if tarball.TarPrefix != "" {
+			name = path.Join("/", strings.TrimPrefix(name, tarball.TarPrefix))
+		}
+		if name == "/" {
+			continue
+		}
+
+		filename := getAssetFilename(iconPath, partnershipIconPath, name, screenshotPaths)
+		if filename == "" {
+			continue
+		}
+		var data []byte
+		data, err = ioutil.ReadAll(tr)
+		if err != nil {
+			return nil, err
+		}
+
+		mime := magic.MIMEType(name, data)
+		body := ioutil.NopCloser(bytes.NewReader(data))
+		attachments = append(attachments, &kivik.Attachment{
+			Content:     body,
+			Size:        int64(len(data)),
+			Filename:    filename,
+			ContentType: mime,
+		})
+	}
+
+	return attachments, nil
+}
+
+// SaveTarball saves tarball to swift
+func SaveTarball(space, filepath string, tarball *Tarball) error {
+	// Saving the tar to Swift
+	var content = bytes.NewReader(tarball.Content)
+	conf, err := config.GetConfig()
+	if err != nil {
+		return err
+	}
+	sc := conf.SwiftConnection
+
+	f, err := sc.ObjectCreate(space, filepath, false, "", tarball.ContentType, nil)
+	if err != nil {
+		return err
+	}
+
+	defer f.Close()
+
+	_, err = io.Copy(f, content)
+	return err
+}
+
+// ReadTarballVersion reads the content of the version tarball which has been
+// downloaded. It reads the tarball to check if an app prefix exists, ensure
+// that the manifest and the package.json (if exists) files are correct, and
+// eventually returns a Tarball struct that holds these informations for the
+// next steps
+func ReadTarballVersion(reader io.Reader, contentType, url string) (*Tarball, error) {
 	var appType, tarPrefix string
+	var packVersion string
 	var manifestContent []byte
+	var manifest *Manifest
+	var manifestmap map[string]interface{}
+
+	var content = new(bytes.Buffer)
+
+	reader = io.TeeReader(reader, content)
+
 	hasPrefix := true
 
 	tr, err := tarReader(reader, contentType)
 	if err != nil {
 		err = errshttp.NewError(http.StatusUnprocessableEntity,
-			"Could not reach version on specified url %s: %s", url, err)
-		return
+			"Cannot read tarball for url %s: %s", url, err)
+		return nil, err
 	}
 	for {
 		var hdr *tar.Header
@@ -787,12 +1141,12 @@ func downloadVersion(opts *VersionOptions) (ver *Version, attachments []*kivik.A
 		if err == io.ErrUnexpectedEOF {
 			err = errshttp.NewError(http.StatusUnprocessableEntity,
 				"Could not reach version on specified url %s: file is too big %s", url, err)
-			return
+			return nil, err
 		}
 		if err != nil {
 			err = errshttp.NewError(http.StatusUnprocessableEntity,
 				"Could not reach version on specified url %s: %s", url, err)
-			return
+			return nil, err
 		}
 
 		if hdr.Typeflag != tar.TypeReg {
@@ -802,6 +1156,7 @@ func downloadVersion(opts *VersionOptions) (ver *Version, attachments []*kivik.A
 		fullname := path.Join("/", hdr.Name)
 		basename := path.Base(fullname)
 		dirname := path.Dir(fullname)
+
 		if hasPrefix && dirname != "/" {
 			rootDirname := path.Join("/", strings.SplitN(dirname, "/", 3)[1])
 			if tarPrefix == "" {
@@ -820,11 +1175,9 @@ func downloadVersion(opts *VersionOptions) (ver *Version, attachments []*kivik.A
 			} else if basename == "manifest.konnector" {
 				appType = "konnector"
 			}
-			manifestContent, err = ioutil.ReadAll(tr)
+			manifest, manifestContent, manifestmap, err = ReadTarballManifest(tr, url)
 			if err != nil {
-				err = errshttp.NewError(http.StatusUnprocessableEntity,
-					"Could not reach version on specified url %s: %s", url, err)
-				return
+				return nil, err
 			}
 		}
 
@@ -834,7 +1187,7 @@ func downloadVersion(opts *VersionOptions) (ver *Version, attachments []*kivik.A
 			if err != nil {
 				err = errshttp.NewError(http.StatusUnprocessableEntity,
 					"Could not reach version on specified url %s: %s", url, err)
-				return
+				return nil, err
 			}
 			var pack struct {
 				Version string `json:"version"`
@@ -842,215 +1195,57 @@ func downloadVersion(opts *VersionOptions) (ver *Version, attachments []*kivik.A
 			if err = json.Unmarshal(packageContent, &pack); err != nil {
 				err = errshttp.NewError(http.StatusUnprocessableEntity,
 					"File package.json is not valid in %s: %s", url, err)
-				return
+				return nil, err
 			}
 			packVersion = pack.Version
 		}
-	}
 
-	if !hasPrefix {
-		tarPrefix = ""
+	}
+	return &Tarball{
+		Manifest:        manifest,
+		ManifestMap:     manifestmap,
+		ManifestContent: manifestContent,
+		AppType:         appType,
+		PackageVersion:  packVersion,
+		HasPrefix:       hasPrefix,
+		TarPrefix:       tarPrefix,
+		Content:         content.Bytes(),
+		URL:             url,
+	}, nil
+}
+
+// ReadTarballManifest handles the tarball manifest. It checks if the manifest
+// exists, is valid JSON and tries to load it to the Manifest struct
+func ReadTarballManifest(tr io.Reader, url string) (*Manifest, []byte, map[string]interface{}, error) {
+	manifestContent, err := ioutil.ReadAll(tr)
+	if err != nil {
+		err = errshttp.NewError(http.StatusUnprocessableEntity,
+			"Could not reach version on specified url %s: %s", url, err)
+		return nil, nil, nil, err
 	}
 
 	if len(manifestContent) == 0 {
 		err = errshttp.NewError(http.StatusUnprocessableEntity,
 			"Application tarball does not contain a manifest")
-		return
+		return nil, nil, nil, err
 	}
 
 	var manifest map[string]interface{}
 	if err = json.Unmarshal(manifestContent, &manifest); err != nil {
 		err = errshttp.NewError(http.StatusUnprocessableEntity,
 			"Content of the manifest is not JSON valid: %s", err)
-		return
+		return nil, nil, nil, err
 	}
 
-	var parsedManifest Manifest
+	var parsedManifest *Manifest
 	if err = json.Unmarshal(manifestContent, &parsedManifest); err != nil {
 		err = errshttp.NewError(http.StatusUnprocessableEntity,
 			"Content of the manifest is not JSON valid: %s", err)
-		return
+		return nil, nil, nil, err
 	}
 
-	var errm error
-	editorName := parsedManifest.Editor
-	if editorName == "" {
-		errm = multierror.Append(errm,
-			fmt.Errorf("%q field is empty", "editor"))
-	}
+	return parsedManifest, manifestContent, manifest, nil
 
-	slug := parsedManifest.Slug
-	if slug == "" {
-		errm = multierror.Append(errm,
-			fmt.Errorf("%q field is empty", "slug"))
-	}
-
-	{
-		var match bool
-		version := parsedManifest.Version
-		if version != "" {
-			match = VersionMatch(opts.Version, version)
-		}
-		if !match {
-			errm = multierror.Append(errm,
-				fmt.Errorf("%q field does not match (%q != %q)",
-					"version", version, opts.Version))
-		}
-		if packVersion != "" {
-			match = VersionMatch(opts.Version, packVersion)
-			if !match {
-				errm = multierror.Append(errm,
-					fmt.Errorf("\"version\" from package.json (%q != %q)",
-						opts.Version, packVersion))
-			}
-		}
-	}
-	if errm != nil {
-		err = errshttp.NewError(http.StatusUnprocessableEntity,
-			"Content of the manifest does not match: %s", errm)
-		return
-	}
-
-	{
-		var iconPath string
-		if opts.Icon != "" {
-			iconPath = opts.Icon
-		} else {
-			iconPath = parsedManifest.Icon
-		}
-		if iconPath != "" {
-			iconPath = path.Join("/", iconPath)
-		}
-
-		var partnershipIconPath string
-		if opts.Partnership.Icon != "" {
-			partnershipIconPath = opts.Partnership.Icon
-		} else {
-			partnershipIconPath = parsedManifest.Partnership.Icon
-		}
-		if partnershipIconPath != "" {
-			partnershipIconPath = path.Join("/", partnershipIconPath)
-		}
-
-		var screenshotPaths []string
-		if opts.Screenshots != nil {
-			screenshotPaths = opts.Screenshots
-			for i, shot := range screenshotPaths {
-				screenshotPaths[i] = path.Join("/", shot)
-			}
-		} else {
-			for _, shot := range parsedManifest.Screenshots {
-				screenshotPaths = append(screenshotPaths, path.Join("/", shot))
-			}
-			for _, locale := range parsedManifest.Locales {
-				for _, shot := range locale.Screenshots {
-					shot = path.Join("/", shot)
-					if !stringInArray(shot, screenshotPaths) {
-						screenshotPaths = append(screenshotPaths, shot)
-					}
-				}
-			}
-		}
-
-		if len(screenshotPaths) > 0 || iconPath != "" || partnershipIconPath != "" {
-			if _, err = buf.Seek(0, io.SeekStart); err != nil {
-				return
-			}
-			tr, err = tarReader(buf, contentType)
-			if err != nil {
-				err = errshttp.NewError(http.StatusUnprocessableEntity,
-					"Could not reach version on specified url %s: %s", url, err)
-				return
-			}
-
-			for {
-				var hdr *tar.Header
-				hdr, err = tr.Next()
-				if err == io.EOF {
-					err = nil
-					break
-				}
-				if err == io.ErrUnexpectedEOF {
-					err = errshttp.NewError(http.StatusUnprocessableEntity,
-						"Could not reach version on specified url %s: file is too big %s", url, err)
-					return
-				}
-				if err != nil {
-					err = errshttp.NewError(http.StatusUnprocessableEntity,
-						"Could not reach version on specified url %s: %s", url, err)
-					return
-				}
-
-				if hdr.Typeflag != tar.TypeReg && hdr.Typeflag != tar.TypeDir {
-					continue
-				}
-
-				name := path.Join("/", hdr.Name)
-				if tarPrefix != "" {
-					name = path.Join("/", strings.TrimPrefix(name, tarPrefix))
-				}
-				if name == "/" {
-					continue
-				}
-
-				isIcon := iconPath != "" && name == iconPath
-				isPartnershipIcon := partnershipIconPath != "" && name == partnershipIconPath
-
-				isShot := !isIcon && stringInArray(name, screenshotPaths)
-				if !isIcon && !isPartnershipIcon && !isShot {
-					continue
-				}
-
-				var data []byte
-				data, err = ioutil.ReadAll(tr)
-				if err != nil {
-					err = errshttp.NewError(http.StatusUnprocessableEntity,
-						"Could not reach version on specified url %s: %s", url, err)
-					return
-				}
-				var filename string
-				if isIcon {
-					filename = "icon"
-				} else if isShot {
-					filename = path.Join("screenshots", name)
-				} else if isPartnershipIcon {
-					filename = "partnership_icon"
-				} else {
-					panic("unreachable")
-				}
-				mime := magic.MIMEType(name, data)
-				body := ioutil.NopCloser(bytes.NewReader(data))
-				attachments = append(attachments, &kivik.Attachment{
-					Content:     body,
-					Size:        int64(len(data)),
-					Filename:    filename,
-					ContentType: mime,
-				})
-			}
-		}
-	}
-
-	if opts.Parameters != nil {
-		manifest["parameters"] = opts.Parameters
-		manifestContent, err = json.Marshal(manifest)
-		if err != nil {
-			return
-		}
-	}
-
-	ver = new(Version)
-	ver.ID = getVersionID(slug, opts.Version)
-	ver.Slug = slug
-	ver.Version = opts.Version
-	ver.Type = appType
-	ver.URL = opts.URL
-	ver.Sha256 = opts.Sha256
-	ver.Editor = editorName
-	ver.Manifest = manifestContent
-	ver.Size = counter.Written()
-	ver.TarPrefix = tarPrefix
-	ver.CreatedAt = time.Now().UTC()
-	return
 }
 
 func VersionMatch(ver1, ver2 string) bool {

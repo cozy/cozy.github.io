@@ -368,12 +368,14 @@ var assetsCmd = &cobra.Command{
 		// Iterate over each space
 		for _, space := range spaces {
 			s, ok := registry.GetSpace(space)
-			spacePrefix = s.Prefix
 			db := s.VersDB()
 
-			if ok && spacePrefix == "" {
-				spacePrefix = consts.DefaultSpacePrefix
+			if !ok {
+				return fmt.Errorf("Cannot get space %s", space)
 			}
+
+			spacePrefix = registry.GetPrefixOrDefault(s)
+
 			fmt.Println("Working on space ", spacePrefix)
 			// Create container if not exists
 			if _, _, err := sc.Container(spacePrefix); err != nil {
