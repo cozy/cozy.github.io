@@ -2,6 +2,9 @@ package registry
 
 import (
 	"bytes"
+	"context"
+	"crypto/sha256"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -12,11 +15,15 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Masterminds/semver"
+	"github.com/cozy/cozy-apps-registry/asset"
 	"github.com/cozy/cozy-apps-registry/cache"
 	"github.com/cozy/cozy-apps-registry/config"
 	"github.com/cozy/echo"
+	"github.com/cozy/swift"
+
+	"github.com/Masterminds/semver"
 	"github.com/go-kivik/kivik"
+	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 )
 
@@ -113,26 +120,119 @@ func FindAppAttachment(c *Space, appSlug, filename string, channel Channel) (*At
 }
 
 func FindVersionAttachment(c *Space, appSlug, version, filename string) (*Attachment, error) {
+	var headers swift.Headers
+	var shasum, contentType string
+	var fileContent []byte
+
 	// Return from swift
-	conf, err := config.GetConfig()
-	if err != nil {
-		return nil, err
-	}
+	conf := config.GetConfig()
 	sc := conf.SwiftConnection
-	var buf bytes.Buffer
+
+	var contentBuffer = new(bytes.Buffer)
 	fp := filepath.Join(appSlug, version, filename)
-	prefix := GetPrefixOrDefault(c)
-	headers, err := sc.ObjectGet(prefix, fp, &buf, false, nil)
+
+	// First, we try to get the version from CouchDB
+	ver, err := FindVersion(c, appSlug, version)
 	if err != nil {
 		return nil, err
 	}
+
+	// Checks if the asset from the global database is referenced in the Version
+	// document
+	shasum, ok := ver.AttachmentReferences[filename]
+
+	if ok {
+		contentBuffer, headers, err = asset.AssetStore.FS.GetAsset(shasum)
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		// If we cannot find it, we try from the local database as a fallback
+		prefix := GetPrefixOrDefault(c)
+		headers, err = sc.ObjectGet(prefix, fp, contentBuffer, false, nil)
+		if err != nil {
+			return nil, err
+		}
+	}
+	fileContent = contentBuffer.Bytes()
+	contentType = headers["Content-Type"]
+
+	// If the asset was not found in the global database, move it for the next
+	// time.
+	if !ok {
+		go func() {
+			err = MoveAssetToGlobalDatabase(c, ver, fileContent, filename, contentType)
+			if err != nil {
+				log := logrus.WithFields(logrus.Fields{
+					"nspace":    "move_asset",
+					"space":     c.Prefix,
+					"slug":      appSlug,
+					"version":   version,
+					"filename":  filename,
+					"error_msg": err,
+				})
+				log.Error()
+			}
+		}()
+	}
+
+	content := bytes.NewReader(fileContent)
+
 	att := &Attachment{
-		ContentType:   headers["Content-Type"],
-		Content:       bytes.NewReader(buf.Bytes()),
+		ContentType:   contentType,
+		Content:       content,
 		Etag:          headers["Etag"],
 		ContentLength: headers["Content-Length"],
 	}
 	return att, nil
+}
+
+// MoveAssetToGlobalDatabase moves an asset located in the "local" container in
+// the global database. This function is not intended to stay forever and will
+// be removed when no more assets will be remaining in the app containers.
+// It does the following steps:
+// 1. Creating the new asset object in the global database
+// 2. Adds a reference to the asset in the couch version document
+// 3. Removes the old asset location
+func MoveAssetToGlobalDatabase(c *Space, ver *Version, content []byte, filename, contentType string) error {
+	globalFilepath := filepath.Join(c.Prefix, ver.Slug, ver.Version)
+
+	h := sha256.New()
+	_, err := h.Write(content)
+	if err != nil {
+		return err
+	}
+	shasum := h.Sum(nil)
+
+	a := &asset.GlobalAsset{
+		Name:        filename,
+		Shasum:      hex.EncodeToString(shasum),
+		AppSlug:     ver.Slug,
+		ContentType: contentType,
+	}
+
+	err = asset.AssetStore.AddAsset(a, bytes.NewReader(content), globalFilepath)
+	if err != nil {
+		return err
+	}
+
+	// Updating the couch document
+	if ver.AttachmentReferences == nil {
+		ver.AttachmentReferences = make(map[string]string)
+	}
+	ver.AttachmentReferences[filename] = hex.EncodeToString(shasum)
+
+	db := c.VersDB()
+	_, err = db.Put(context.Background(), ver.ID, ver)
+	if err != nil {
+		return err
+	}
+
+	// Remove the old object
+	conf := config.GetConfig()
+	sc := conf.SwiftConnection
+	fp := filepath.Join(GetPrefixOrDefault(c), ver.Slug, ver.Version)
+	return sc.ObjectDelete(fp, filename)
 }
 
 func FindVersionOldAttachment(c *Space, appSlug, version, filename string) (*kivik.Attachment, error) {

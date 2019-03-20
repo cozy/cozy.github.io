@@ -126,10 +126,7 @@ func checkAuthorized(c echo.Context) error {
 }
 
 func createVersion(c echo.Context) (err error) {
-	conf, err := config.GetConfig()
-	if err != nil {
-		return err
-	}
+	conf := config.GetConfig()
 	if err = checkAuthorized(c); err != nil {
 		return err
 	}

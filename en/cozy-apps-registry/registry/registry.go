@@ -20,23 +20,23 @@ import (
 	"strings"
 	"time"
 
-	"github.com/cozy/swift"
-	"github.com/sirupsen/logrus"
-
+	"github.com/cozy/cozy-apps-registry/asset"
 	"github.com/cozy/cozy-apps-registry/auth"
 	"github.com/cozy/cozy-apps-registry/cache"
 	"github.com/cozy/cozy-apps-registry/config"
 	"github.com/cozy/cozy-apps-registry/consts"
 	"github.com/cozy/cozy-apps-registry/errshttp"
 	"github.com/cozy/cozy-apps-registry/magic"
-	"github.com/spf13/viper"
-
-	multierror "github.com/hashicorp/go-multierror"
-
 	"github.com/cozy/echo"
+	"github.com/cozy/swift"
+
 	_ "github.com/go-kivik/couchdb" // for couchdb
 	"github.com/go-kivik/couchdb/chttp"
 	"github.com/go-kivik/kivik"
+
+	multierror "github.com/hashicorp/go-multierror"
+	"github.com/sirupsen/logrus"
+	"github.com/spf13/viper"
 )
 
 const maxApplicationSize = 20 * 1024 * 1024 // 20 Mo
@@ -101,8 +101,9 @@ var (
 	clientURL *url.URL
 	spaces    map[string]*Space
 
-	globalPrefix    string
-	globalEditorsDB *kivik.DB
+	globalPrefix       string
+	globalEditorsDB    *kivik.DB
+	globalAssetStoreDB *kivik.DB
 
 	ctx = context.Background()
 
@@ -154,6 +155,9 @@ func (c *Space) VersDB() *kivik.DB {
 
 func (c *Space) PendingVersDB() *kivik.DB {
 	return c.dbPendingVers
+}
+func GlobalAssetStoreDB() *kivik.DB {
+	return globalAssetStoreDB
 }
 
 func (c *Space) dbName(suffix string) (name string) {
@@ -249,16 +253,17 @@ type Version struct {
 	Rev         string                 `json:"_rev,omitempty"`
 	Attachments map[string]interface{} `json:"_attachments,omitempty"`
 
-	Slug      string          `json:"slug"`
-	Editor    string          `json:"editor"`
-	Type      string          `json:"type"`
-	Version   string          `json:"version"`
-	Manifest  json.RawMessage `json:"manifest"`
-	CreatedAt time.Time       `json:"created_at"`
-	URL       string          `json:"url"`
-	Size      int64           `json:"size,string"`
-	Sha256    string          `json:"sha256"`
-	TarPrefix string          `json:"tar_prefix"`
+	AttachmentReferences map[string]string `json:"attachments"`
+	Slug                 string            `json:"slug"`
+	Editor               string            `json:"editor"`
+	Type                 string            `json:"type"`
+	Version              string            `json:"version"`
+	Manifest             json.RawMessage   `json:"manifest"`
+	CreatedAt            time.Time         `json:"created_at"`
+	URL                  string            `json:"url"`
+	Size                 int64             `json:"size,string"`
+	Sha256               string            `json:"sha256"`
+	TarPrefix            string            `json:"tar_prefix"`
 }
 
 type Partnership struct {
@@ -565,12 +570,6 @@ func createVersion(c *Space, db *kivik.DB, ver *Version, attachments []*kivik.At
 		return ErrVersionSlugMismatch
 	}
 
-	conf, err := config.GetConfig()
-	if err != nil {
-		return err
-	}
-	sc := conf.SwiftConnection
-
 	if ensureVersion {
 		_, err := FindVersion(c, ver.Slug, ver.Version)
 		if err == nil {
@@ -585,7 +584,8 @@ func createVersion(c *Space, db *kivik.DB, ver *Version, attachments []*kivik.At
 	ver.Type = app.Type
 	ver.Editor = app.Editor
 
-	_, ver.Rev, err = db.CreateDoc(ctx, ver)
+	var verID string
+	verID, ver.Rev, err = db.CreateDoc(ctx, ver)
 	if err != nil {
 		return err
 	}
@@ -602,23 +602,44 @@ func createVersion(c *Space, db *kivik.DB, ver *Version, attachments []*kivik.At
 	}
 
 	// Storing the attachments to swift (screenshots, icon, partnership_icon)
-	basePath := filepath.Join(ver.Slug, ver.Version)
+	basePath := asset.MarshalAssetKey(c.Prefix, ver.Slug, ver.Version)
 
-	prefix := GetPrefixOrDefault(c)
+	var atts = map[string]string{}
 
 	for _, att := range attachments {
-		f, err := sc.ObjectCreate(prefix, filepath.Join(basePath, att.Filename), false, "", att.ContentType, nil)
+		var buf = new(bytes.Buffer)
+
+		// Sha256
+		h := sha256.New()
+		content := io.TeeReader(att.Content, buf)
+		_, err = io.Copy(h, content)
 		if err != nil {
 			return err
 		}
-		defer f.Close()
-		_, err = io.Copy(f, att.Content)
+		shasum := h.Sum(nil)
+
+		// Adding asset to the global asset store
+		a := &asset.GlobalAsset{
+			Name:        att.Filename,
+			Shasum:      hex.EncodeToString(shasum),
+			AppSlug:     app.Slug,
+			ContentType: att.ContentType,
+		}
+		err = asset.AssetStore.AddAsset(a, buf, basePath)
 		if err != nil {
 			return err
 		}
+
+		// We are going to use the attachment field to store a link to the
+		// global asset
+		atts[att.Filename] = hex.EncodeToString(shasum)
 	}
 
-	return nil
+	// Update the version document to add an attachment that references global
+	// database
+	ver.AttachmentReferences = atts
+	_, err = db.Put(ctx, verID, ver, nil)
+	return err
 }
 
 func CreatePendingVersion(c *Space, ver *Version, attachments []*kivik.Attachment, app *App) error {
@@ -639,10 +660,7 @@ func (version *Version) Clone() *Version {
 }
 
 func ApprovePendingVersion(c *Space, pending *Version, app *App) (*Version, error) {
-	conf, err := config.GetConfig()
-	if err != nil {
-		return nil, err
-	}
+	conf := config.GetConfig()
 	db := c.PendingVersDB()
 
 	release := pending.Clone()
@@ -662,7 +680,7 @@ func ApprovePendingVersion(c *Space, pending *Version, app *App) (*Version, erro
 
 	// We need to skip version check, because we don't drop pending
 	// version until the end to avoid data loss in case of error
-	err = CreateReleaseVersion(c, release, attachments, app, false)
+	err := CreateReleaseVersion(c, release, attachments, app, false)
 	if err != nil {
 		return nil, err
 	}
@@ -1333,29 +1351,24 @@ func (v *Version) Delete(c *Space) error {
 	return err
 }
 
-// RemoveAttachment removes one attachment from a version
-func (v *Version) RemoveAttachment(c *Space, filename string) error {
-	prefix := GetPrefixOrDefault(c)
-
-	conf, err := config.GetConfig()
-	if err != nil {
-		return err
-	}
-	sc := conf.SwiftConnection
-	fp := filepath.Join(v.Slug, v.Version, filename)
-
-	return sc.ObjectDelete(prefix, fp)
-}
-
 // RemoveAllAttachments removes all the attachments of a version
 func (v *Version) RemoveAllAttachments(c *Space) error {
+	var err error
 	prefix := GetPrefixOrDefault(c)
 
-	conf, err := config.GetConfig()
-	if err != nil {
-		return err
-	}
+	conf := config.GetConfig()
 	sc := conf.SwiftConnection
+
+	// Dereferences this version from global asset store
+	if v.AttachmentReferences != nil {
+		for _, shasum := range v.AttachmentReferences {
+			key := asset.MarshalAssetKey(prefix, v.Slug, v.Version)
+			err = asset.AssetStore.RemoveAsset(shasum, key)
+			if err != nil {
+				return err
+			}
+		}
+	}
 
 	fp := filepath.Join(v.Slug, v.Version)
 	opts := &swift.ObjectsOpts{Prefix: fp + "/"}

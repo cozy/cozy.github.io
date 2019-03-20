@@ -19,6 +19,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/cozy/cozy-apps-registry/asset"
 	"github.com/cozy/cozy-apps-registry/auth"
 	"github.com/cozy/cozy-apps-registry/cache"
 	"github.com/cozy/cozy-apps-registry/config"
@@ -110,6 +111,7 @@ func init() {
 	rootCmd.AddCommand(addAppCmd)
 	rootCmd.AddCommand(modifyAppCmd)
 	rootCmd.AddCommand(maintenanceCmd)
+	rootCmd.AddCommand(rmAppVersionCmd)
 	maintenanceCmd.AddCommand(maintenanceActivateAppCmd)
 	maintenanceCmd.AddCommand(maintenanceDeactivateAppCmd)
 	rootCmd.AddCommand(exportCmd)
@@ -143,6 +145,7 @@ func init() {
 		fmt.Printf("Error on marking type flag as required: %s", err)
 	}
 	lsAppsCmd.Flags().StringVar(&appSpaceFlag, "space", "", "specify the application space")
+	rmAppVersionCmd.Flags().StringVar(&appSpaceFlag, "space", "", "specify the application space")
 
 	fixerCmd.Flags().StringSliceVar(&fixerSpacesFlag, "spaces", nil, "Specify spaces")
 	oldVersionsCmd.Flags().StringVar(&appSpaceFlag, "space", "", "specify the application space")
@@ -207,6 +210,11 @@ func useConfig(cmd *cobra.Command) (err error) {
 	if err = viper.ReadConfig(dest); err != nil {
 		return fmt.Errorf("Failed to read cozy-apps-registry configuration %q: %s",
 			cfgFile, err)
+	}
+
+	err = config.Init()
+	if err != nil {
+		return err
 	}
 
 	// Create cache
@@ -353,10 +361,7 @@ var assetsCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) (err error) {
 		var spacePrefix string
 
-		conf, err := config.GetConfig()
-		if err != nil {
-			return err
-		}
+		conf := config.GetConfig()
 		sc := conf.SwiftConnection
 
 		var spaces []string
@@ -976,6 +981,30 @@ var addAppCmd = &cobra.Command{
 	},
 }
 
+var rmAppVersionCmd = &cobra.Command{
+	Use:     "rm-app-version <slug> <version>",
+	Short:   `Deletes an app version`,
+	PreRunE: compose(prepareRegistry, prepareSpaces),
+	RunE: func(cmd *cobra.Command, args []string) (err error) {
+		if len(args) != 2 {
+			return cmd.Help()
+		}
+		space, ok := registry.GetSpace(appSpaceFlag)
+		if !ok {
+			return fmt.Errorf("Space %q does not exist", appSpaceFlag)
+		}
+
+		slug := args[0]
+		version := args[1]
+
+		ver, err := registry.FindVersion(space, slug, version)
+		if err != nil {
+			return err
+		}
+		return ver.Delete(space)
+	},
+}
+
 var modifyAppCmd = &cobra.Command{
 	Use:     "modify-app [slug]",
 	Short:   `Modify the application properties`,
@@ -1136,6 +1165,15 @@ var importCmd = &cobra.Command{
 
 func prepareRegistry(cmd *cobra.Command, args []string) error {
 	editorsDB, err := registry.InitGlobalClient(
+		viper.GetString("couchdb.url"),
+		viper.GetString("couchdb.user"),
+		viper.GetString("couchdb.password"),
+		viper.GetString("couchdb.prefix"))
+	if err != nil {
+		return fmt.Errorf("Could not reach CouchDB: %s", err)
+	}
+
+	_, err = asset.InitGlobalAssetStore(
 		viper.GetString("couchdb.url"),
 		viper.GetString("couchdb.user"),
 		viper.GetString("couchdb.password"),

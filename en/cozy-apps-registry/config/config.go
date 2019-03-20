@@ -35,15 +35,17 @@ func New() (*Config, error) {
 	}, nil
 }
 
-func GetConfig() (*Config, error) {
+func GetConfig() *Config {
+	return config
+}
+
+func Init() error {
 	var err error
-	if config == nil {
-		config, err = New()
-		if err != nil {
-			return nil, err
-		}
+	config, err = New()
+	if err != nil {
+		return err
 	}
-	return config, nil
+	return nil
 }
 
 func initSwiftConnection() (*swift.Connection, error) {
