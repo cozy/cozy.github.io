@@ -25,7 +25,6 @@ import (
 	"github.com/cozy/cozy-apps-registry/config"
 	"github.com/cozy/cozy-apps-registry/consts"
 	"github.com/cozy/cozy-apps-registry/registry"
-	"github.com/cozy/cozy-apps-registry/utils"
 	"github.com/go-redis/redis"
 	"github.com/howeyc/gopass"
 	"github.com/spf13/cobra"
@@ -177,7 +176,7 @@ func useConfig(cmd *cobra.Command) (err error) {
 
 	var cfgFile string
 	if cfgFileFlag == "" {
-		if file, ok := findConfigFile("cozy-registry"); ok {
+		if file, ok := config.FindConfigFile("cozy-registry"); ok {
 			cfgFile = file
 		}
 	} else {
@@ -282,20 +281,6 @@ func useConfig(cmd *cobra.Command) (err error) {
 	viper.Set("cacheVersionsList", cache.NewLRUCache(256, defaultTTL))
 
 	return nil
-}
-
-func findConfigFile(name string) (string, bool) {
-	for _, cp := range []string{"/etc/cozy", ""} {
-		for _, ext := range viper.SupportedExts {
-			filename := filepath.Join(utils.AbsPath(cp), fmt.Sprintf("%s.%s", name, ext))
-			_, err := os.Stat(filename)
-			if err != nil {
-				continue
-			}
-			return filename, true
-		}
-	}
-	return "", false
 }
 
 func main() {

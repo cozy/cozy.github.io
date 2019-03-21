@@ -363,7 +363,7 @@ func findPreviousMinor(version string, versions []string) (string, bool) {
 	minor := currentVersion.Minor()
 	patch := currentVersion.Patch()
 	notActualMinor, _ := semver.NewConstraint(fmt.Sprintf("< %s.%s.%s", strconv.FormatInt(major, 10), strconv.FormatInt(minor, 10), strconv.FormatInt(patch, 10))) // Try to get the next minor version
-	inMajor, _ := semver.NewConstraint(fmt.Sprintf("> %s", strconv.FormatInt(major, 10)))
+	inMajor, _ := semver.NewConstraint(fmt.Sprintf(">= %s", strconv.FormatInt(major, 10)))
 
 	// Finding
 	for _, v := range vs {
@@ -439,19 +439,23 @@ func FindLastNVersions(c *Space, appSlug string, channelStr string, nMajor, nMin
 		minors = append(minors, minor)
 		majors = append(majors, major)
 
-		for len(minors) < nMinor {
+		for len(minors) < nMinor+1 {
 			previousMinor, ok := findPreviousMinor(minor, versionsList)
 			if ok {
 				minors = append(minors, previousMinor)
 				minor = previousMinor
+				continue
 			} else {
-				// No more versions available, append & break
+				// No more versions available, append, clean & break
 				resVersions = append(resVersions, minors...)
+				minors = []string{}
 				break
 			}
-			// Append to final result
-			resVersions = append(resVersions, minors...)
 		}
+
+		// Append to final result
+		resVersions = append(resVersions, minors...)
+
 		major, ok := findPreviousMajor(major, versionsList)
 		if ok {
 			minor = major
