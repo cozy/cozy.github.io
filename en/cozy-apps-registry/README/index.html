@@ -684,9 +684,12 @@
 <p>The <code>cozy-apps-registry</code> is a go project that implements the <a href="https://github.com/cozy/cozy-stack/blob/master/docs/registry.md">registry
 API</a>
 described to work with the <a href="https://github.com/cozy/cozy-stack">cozy-stack</a>.</p>
-<p>It requires Couchdb 2.0 to work properly.</p>
+<p>To work properly, it requires:
+- Couchdb &gt;= 2.0
+- Openstack Object Storage (Swift)</p>
 <h2 id="how-to-develop-with-a-cozy-apps-registry-working-in-local-environment">How to develop with a <code>cozy-apps-registry</code> working in local environment<a class="headerlink" href="#how-to-develop-with-a-cozy-apps-registry-working-in-local-environment" title="Permanent link">&para;</a></h2>
 <p>Before starting, you will need to have a couchdb running already. That can be the one used by the local <code>cozy-stack</code> if you have one. For this tutorial, couchdb will be running on the default port 5984.</p>
+<p>You also must have an OpenStack Object Storage (Swift) up and running. You can follow install instructions on <a href="https://docs.openstack.org/swift/latest/install/index.html">the official website</a></p>
 <h3 id="1-install-and-configure-the-local-cozy-apps-registry">1) Install and configure the local <code>cozy-apps-registry</code><a class="headerlink" href="#1-install-and-configure-the-local-cozy-apps-registry" title="Permanent link">&para;</a></h3>
 <p>Since this is a golang project, you can install it using <code>go</code> with the followed command:</p>
 <div class="codehilite"><pre><span></span>go get -u github.com/cozy/cozy-apps-registry
@@ -721,6 +724,20 @@ described to work with the <a href="https://github.com/cozy/cozy-stack">cozy-sta
   <span class="l l-Scalar l-Scalar-Plain">password</span><span class="p p-Indicator">:</span> <span class="s">&#39;&#39;</span>
   <span class="c1"># CouchDB prefix for the registries databases - flag --couchdb-prefix</span>
   <span class="l l-Scalar l-Scalar-Plain">prefix</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">registry1</span>
+
+<span class="l l-Scalar l-Scalar-Plain">swift</span><span class="p p-Indicator">:</span>
+  <span class="c1"># Swift auth URL (provided by keystone)</span>
+  <span class="l l-Scalar l-Scalar-Plain">auth_url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">http://172.28.128.3/identity/v3</span>
+  <span class="c1"># Swift username</span>
+  <span class="l l-Scalar l-Scalar-Plain">username</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">admin</span>
+  <span class="c1"># Swift password</span>
+  <span class="l l-Scalar l-Scalar-Plain">api_key</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">secret</span>
+  <span class="c1"># Endpoint type (public/admin/internal)</span>
+  <span class="l l-Scalar l-Scalar-Plain">endpointy_type</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">public</span>
+  <span class="c1"># Project name</span>
+  <span class="l l-Scalar l-Scalar-Plain">tenant</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">demo</span>
+  <span class="c1"># Swift domain</span>
+  <span class="l l-Scalar l-Scalar-Plain">domain</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
 
 <span class="c1"># Path to the session secret file containing the master secret to generate</span>
 <span class="c1"># session token.</span>

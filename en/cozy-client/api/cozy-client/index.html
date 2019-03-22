@@ -598,6 +598,7 @@
 <div class="bs-sidebar hidden-print affix" role="complementary">
     <ul class="nav bs-sidenav well" style='padding-left: 0; padding-right: 0; margin-bottom: 1.5rem'>
         <li class="main active"><a href="#classes">Classes</a></li>
+        <li class="main "><a href="#constants">Constants</a></li>
         <li class="main "><a href="#functions">Functions</a></li>
         <li class="main "><a href="#association">Association</a></li>
             <li><a href="#new-associationtarget-name-doctype-options">new Association(target, name, doctype, options)</a></li>
@@ -617,6 +618,9 @@
             <li><a href="#hasmanyaddbyid">hasMany.addById()</a></li>
         <li class="main "><a href="#hasmanyinplace">HasManyInPlace</a></li>
             <li><a href="#new-hasmanyinplace">new HasManyInPlace()</a></li>
+        <li class="main "><a href="#hasmanytriggers-hasmany">HasManyTriggers ⇐ HasMany</a></li>
+            <li><a href="#hasmanytriggersaddbyid">hasManyTriggers.addById()</a></li>
+            <li><a href="#hasmanytriggersquery">HasManyTriggers.query()</a></li>
         <li class="main "><a href="#cozyclient">CozyClient</a></li>
             <li><a href="#new-cozyclientoptions">new CozyClient(options)</a></li>
             <li><a href="#cozyclientcollectiondoctype-documentcollection">cozyClient.collection(doctype) ⇒ DocumentCollection</a></li>
@@ -644,6 +648,7 @@
             <li><a href="#schemagetdoctypeschema">schema.getDoctypeSchema()</a></li>
             <li><a href="#schemagetrelationship">schema.getRelationship()</a></li>
             <li><a href="#schemavalidate">schema.validate()</a></li>
+        <li class="main "><a href="#fetchkonnectortriggers">fetchKonnectorTriggers</a></li>
         <li class="main "><a href="#withclientcomponent-function">withClient(Component) ⇒ function</a></li>
         <li class="main "><a href="#queryconnectqueryspecs-function">queryConnect(querySpecs) ⇒ function</a></li>
     </ul>
@@ -708,6 +713,9 @@ following the JSON API spec.</p>
 <dd><p>Used when related documents are stored directly under the attribute with
 only the ids.</p>
 </dd>
+<dt><a href="#HasManyTriggers">HasManyTriggers</a> ⇐ <code><a href="#HasMany">HasMany</a></code></dt>
+<dd><p>Association used for konnectors to retrieve all their related triggers.</p>
+</dd>
 <dt><a href="#CozyClient">CozyClient</a></dt>
 <dd><p>Responsible for</p>
 <ul>
@@ -740,6 +748,14 @@ from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
   }
 }, cozyStackClient)
 </code></pre>
+</dd>
+</dl>
+
+<h2 id="constants">Constants<a class="headerlink" href="#constants" title="Permanent link">&para;</a></h2>
+<dl>
+<dt><a href="#fetchKonnectorTriggers">fetchKonnectorTriggers</a></dt>
+<dd><p>Memoize the fetch promise. For now we are only fetching it once but it will
+evolve in the future.</p>
 </dd>
 </dl>
 
@@ -1089,7 +1105,42 @@ as their <code>tasks</code> attribute.</p>
 </pre></div>
 
 
-<p><a name="CozyClient"></a></p>
+<p><a name="HasManyTriggers"></a></p>
+<h2 id="hasmanytriggers-hasmany">HasManyTriggers ⇐ <a href="#HasMany"><code>HasMany</code></a><a class="headerlink" href="#hasmanytriggers-hasmany" title="Permanent link">&para;</a></h2>
+<p>Association used for konnectors to retrieve all their related triggers.</p>
+<p><strong>Kind</strong>: global class<br />
+<strong>Extends</strong>: <a href="#HasMany"><code>HasMany</code></a>  </p>
+<ul>
+<li><a href="#HasManyTriggers">HasManyTriggers</a> ⇐ <a href="#HasMany"><code>HasMany</code></a><ul>
+<li><em>instance</em><ul>
+<li><a href="#HasMany+addById">.addById()</a></li>
+</ul>
+</li>
+<li><em>static</em><ul>
+<li><a href="#HasManyTriggers.query">.query()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><a name="HasMany+addById"></a></p>
+<h3 id="hasmanytriggersaddbyid">hasManyTriggers.addById()<a class="headerlink" href="#hasmanytriggersaddbyid" title="Permanent link">&para;</a></h3>
+<p>Add a referenced document by id. You need to call save()
+in order to synchronize your document with the store.</p>
+<p><strong>Kind</strong>: instance method of <a href="#HasManyTriggers"><code>HasManyTriggers</code></a><br />
+<strong>Todo</strong></p>
+<ul>
+<li>[ ] We shouldn&rsquo;t create the array of relationship manually since
+it&rsquo;ll not be present in the store as well.
+We certainly should use something like <code>updateRelationship</code></li>
+</ul>
+<p><a name="HasManyTriggers.query"></a></p>
+<h3 id="hasmanytriggersquery">HasManyTriggers.query()<a class="headerlink" href="#hasmanytriggersquery" title="Permanent link">&para;</a></h3>
+<p>In this association the query is special, we need to fetch all the triggers
+having for the &lsquo;konnector&rsquo; worker, and then filter them based on their
+<code>message.konnector</code> attribute</p>
+<p><strong>Kind</strong>: static method of <a href="#HasManyTriggers"><code>HasManyTriggers</code></a><br />
+<a name="CozyClient"></a></p>
 <h2 id="cozyclient">CozyClient<a class="headerlink" href="#cozyclient" title="Permanent link">&para;</a></h2>
 <p>Responsible for</p>
 <ul>
@@ -1613,6 +1664,11 @@ For example, query albums including the photos.</p>
 <h3 id="schemavalidate">schema.validate()<a class="headerlink" href="#schemavalidate" title="Permanent link">&para;</a></h3>
 <p>Validates a document considering the descriptions in schema.attributes.</p>
 <p><strong>Kind</strong>: instance method of <a href="#Schema"><code>Schema</code></a><br />
+<a name="fetchKonnectorTriggers"></a></p>
+<h2 id="fetchkonnectortriggers">fetchKonnectorTriggers<a class="headerlink" href="#fetchkonnectortriggers" title="Permanent link">&para;</a></h2>
+<p>Memoize the fetch promise. For now we are only fetching it once but it will
+evolve in the future.</p>
+<p><strong>Kind</strong>: global constant<br />
 <a name="withClient"></a></p>
 <h2 id="withclientcomponent-function">withClient(Component) ⇒ <code>function</code><a class="headerlink" href="#withclientcomponent-function" title="Permanent link">&para;</a></h2>
 <p>HOC to provide client from context as prop</p>

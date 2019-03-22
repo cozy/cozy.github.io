@@ -211,11 +211,6 @@ func useConfig(cmd *cobra.Command) (err error) {
 			cfgFile, err)
 	}
 
-	err = config.Init()
-	if err != nil {
-		return err
-	}
-
 	// Create cache
 	if redisURL := viper.GetString("redis.addrs"); redisURL != "" {
 		optsLatest := &redis.UniversalOptions{
@@ -296,7 +291,11 @@ var rootCmd = &cobra.Command{
 	SilenceUsage:  true,
 	SilenceErrors: true,
 	PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
-		return useConfig(cmd)
+		err := useConfig(cmd)
+		if err != nil {
+			return err
+		}
+		return config.Init()
 	},
 	RunE: func(cmd *cobra.Command, args []string) error {
 		return cmd.Help()
@@ -686,6 +685,9 @@ var revokeTokensCmd = &cobra.Command{
 var genSessionSecret = &cobra.Command{
 	Use:   "gen-session-secret [path]",
 	Short: `Generate a session secret file`,
+	PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
+		return useConfig(cmd)
+	},
 	RunE: func(cmd *cobra.Command, args []string) (err error) {
 		// go has no way to distinguish between a flag's default value or if a flag
 		// is actually set.
