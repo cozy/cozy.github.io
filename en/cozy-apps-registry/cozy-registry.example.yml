@@ -45,6 +45,7 @@ swift:
 # Conservation configuration allows to manage paramaters of how many app versions
 # of each channel must be kept during cleaning tasks
 conservation:
+  enable_background_cleaning: false # Specifies if the app cleaning task is enabled
   month: 2 # Specifies how many months the cleaning job should lookup for. Versions anterior to this parameter will be removed.
   major: 2 # Specifies how many major versions should be kept
   minor: 2 # Specifies how many minor versions should be kept for each major version
@@ -58,6 +59,24 @@ conservation:
 # empty name, that will respond on /registry/
 #
 # spaces: __default__ registry1 registry2
+
+# List of virtual spaces.
+#
+# A virtual space is a read-only view on another space with a filter to
+# restrict the list of available applications. For example, we can use a
+# `select` filter to create a virtual space with just a few applications, or a
+# `reject` filter to have all the connectors and webapps, but not the google
+# and facebook connectors.
+#
+# virtual_spaces:
+#   registry3:
+#     source: __default__
+#     filter: select
+#     slugs: ['home', 'settings', 'drive', 'contacts', 'store']
+#   registry4:
+#     source: __default__
+#     filter: reject
+#     slugs: ['google', 'facebook']
 
 # Path to the session secret file containing the master secret to generate
 # session token.

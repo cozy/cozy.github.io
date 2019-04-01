@@ -11,6 +11,7 @@ import (
 	"html/template"
 	"io"
 	"io/ioutil"
+	"log"
 	"os"
 	"os/signal"
 	"path/filepath"
@@ -49,6 +50,8 @@ var fixerSpacesFlag []string
 var minorFlag int
 var majorFlag int
 var durationFlag int
+var forceFlag bool
+var dryRunFlag bool
 
 var editorAutoPublicationFlag bool
 
@@ -111,6 +114,7 @@ func init() {
 	rootCmd.AddCommand(modifyAppCmd)
 	rootCmd.AddCommand(maintenanceCmd)
 	rootCmd.AddCommand(rmAppVersionCmd)
+	rootCmd.AddCommand(rmSpaceCmd)
 	maintenanceCmd.AddCommand(maintenanceActivateAppCmd)
 	maintenanceCmd.AddCommand(maintenanceDeactivateAppCmd)
 	rootCmd.AddCommand(exportCmd)
@@ -151,11 +155,13 @@ func init() {
 	oldVersionsCmd.Flags().IntVar(&minorFlag, "minor", 2, "specify the maximum number of major versions to keep")
 	oldVersionsCmd.Flags().IntVar(&majorFlag, "major", 2, "specify the maximum number of minor versions for each major version to keep")
 	oldVersionsCmd.Flags().IntVar(&durationFlag, "duration", 2, "number of months to check")
+	oldVersionsCmd.Flags().BoolVar(&dryRunFlag, "no-dry-run", false, "do no dry run and removes the apps")
 
 	modifyAppCmd.Flags().StringVar(&appSpaceFlag, "space", "", "specify the application space")
 	modifyAppCmd.Flags().StringVar(&appDUCFlag, "data-usage-commitment", "", "Specify the data usage commitment: user_ciphered, user_reserved or none")
 	modifyAppCmd.Flags().StringVar(&appDUCByFlag, "data-usage-commitment-by", "", "Specify the usage commitment author: cozy, editor or none")
 
+	rmSpaceCmd.Flags().BoolVar(&forceFlag, "force", false, "skip confirmation prompt")
 	maintenanceActivateAppCmd.Flags().BoolVar(&flagInfraMaintenance, "infra", false, "specify a maintenance specific to our infra")
 	maintenanceActivateAppCmd.Flags().BoolVar(&flagShortMaintenance, "short", false, "specify a short maintenance")
 	maintenanceActivateAppCmd.Flags().BoolVar(&flagDisallowManualExec, "no-manual-exec", false, "specify a maintenance disallowing manual execution")
@@ -365,7 +371,7 @@ var assetsCmd = &cobra.Command{
 
 			spacePrefix = registry.GetPrefixOrDefault(s)
 
-			fmt.Println("Working on space ", spacePrefix)
+			log.Println("Working on space ", spacePrefix)
 			// Create container if not exists
 			if _, _, err := sc.Container(spacePrefix); err != nil {
 				err = sc.ContainerCreate(spacePrefix, nil)
@@ -387,7 +393,7 @@ var assetsCmd = &cobra.Command{
 				cursor = next
 
 				for _, app := range apps { // Iterate over 200 apps
-					fmt.Println("Working on app", app.Slug)
+					log.Println("Working on app", app.Slug)
 					// Skipping app with no versions
 					if !app.Versions.HasVersions {
 						continue
@@ -397,7 +403,7 @@ var assetsCmd = &cobra.Command{
 						if err != nil {
 							return err
 						}
-						fmt.Println("Retreiving attachments for", app.Slug+"/"+version)
+						log.Println("Retreiving attachments for", app.Slug+"/"+version)
 
 						versionRev := v.Rev
 
@@ -454,11 +460,54 @@ var oldVersionsCmd = &cobra.Command{
 		channel := args[0]
 		appSlug := args[1]
 		space, _ := registry.GetSpace(appSpaceFlag)
-
-		return registry.CleanOldVersions(space, appSlug, channel, durationFlag, majorFlag, minorFlag)
+		noDryRun := dryRunFlag
+		if !noDryRun {
+			fmt.Println("Info: This is a dry run, the apps will not be removed")
+		}
+		return registry.CleanOldVersions(space, appSlug, channel, durationFlag, majorFlag, minorFlag, !noDryRun)
 	},
 }
 
+var rmSpaceCmd = &cobra.Command{
+	Use:     "rm-space <space>",
+	Short:   `Removes a space`,
+	Long:    `Removes a space, its applications and versions from the registry`,
+	PreRunE: compose(prepareRegistry, prepareSpaces),
+	RunE: func(cmd *cobra.Command, args []string) error {
+		if len(args) != 1 {
+			return cmd.Usage()
+		}
+		space := args[0]
+
+		// Check the space is not a virtual one
+		for _, vkey := range getVspaceKeys(viper.GetStringMap("virtual_spaces")) {
+			if space == vkey {
+				return fmt.Errorf("Warning: \"%s\" is a virtual space, just remove the entry from your config file.", space)
+			}
+		}
+
+		s, ok := registry.GetSpace(space)
+		if !ok {
+			return fmt.Errorf("Cannot find space %s", space)
+		}
+
+		if !forceFlag {
+			fmt.Printf("Warning: You are going to remove space %s and all its applications. This action is irreversible.\nPlease enter the space name to confirm: ", space)
+			var response string
+			_, err := fmt.Scanln(&response)
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			if response != args[0] {
+				return fmt.Errorf("Error: space names are not identical")
+			}
+		}
+
+		// Removing the space
+		return registry.RemoveSpace(s)
+	},
+}
 var printPublicKeyCmd = &cobra.Command{
 	Use:     "pubkey [editor]",
 	Short:   `Print the PEM encoded public key of the specified editor`,
@@ -1178,12 +1227,37 @@ func prepareRegistry(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+func getVspaceKeys(vspaces map[string]interface{}) []string {
+	vspaceKeys := make([]string, 0, len(vspaces))
+	for k := range vspaces {
+		vspaceKeys = append(vspaceKeys, k)
+	}
+	return vspaceKeys
+}
+
+// checkSpaceVspaceOverlap checks if a space and a vspace holds the same name
+func checkSpaceVspaceOverlap(spaces []string, vspaces map[string]interface{}) (bool, string) {
+	// Retreiving vspaces keys
+	vspaceKeys := getVspaceKeys(vspaces)
+	for _, vspace := range vspaceKeys {
+		for _, space := range spaces {
+			if vspace == space {
+				return true, vspace
+			}
+		}
+	}
+	return false, ""
+}
+
 func prepareSpaces(cmd *cobra.Command, args []string) error {
 	spacesNames := viper.GetStringSlice("spaces")
 	if len(spacesNames) == 0 {
 		spacesNames = viper.GetStringSlice("contexts") // retro-compat
 	}
 	if len(spacesNames) > 0 {
+		if ok, name := checkSpaceVspaceOverlap(spacesNames, viper.GetStringMap("virtual_spaces")); ok {
+			return fmt.Errorf("Error: %s is defined as a space and a virtual space. Check your config file.", name)
+		}
 		for _, spaceName := range spacesNames {
 			if err := registry.RegisterSpace(spaceName); err != nil {
 				return err

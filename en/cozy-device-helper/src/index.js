@@ -17,3 +17,4 @@ export {
 } from './plugins'
 
 export { nativeLinkOpen } from './link'
+export { openDeeplinkOrRedirect } from './deeplink'

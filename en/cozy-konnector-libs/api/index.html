@@ -431,10 +431,6 @@
 </li>
             
 <li >
-    <a href="../../cozy-stack/replication/"> /data - Replication</a>
-</li>
-            
-<li >
     <a href="../../cozy-stack/couchdb-quirks/"> /data - CouchDB Quirks</a>
 </li>
             
@@ -656,21 +652,22 @@
             <li><a href="#cookiekonnectorsavebills-promise">cookieKonnector.saveBills() ⇒ Promise</a></li>
         <li class="main "><a href="#document">Document</a></li>
             <li><a href="#documentisequal">document.isEqual()</a></li>
-        <li class="main "><a href="#login_failed-string">LOGIN_FAILED : String</a></li>
-        <li class="main "><a href="#not_existing_directory-string">NOT_EXISTING_DIRECTORY : String</a></li>
-        <li class="main "><a href="#vendor_down-string">VENDOR_DOWN : String</a></li>
-        <li class="main "><a href="#user_action_needed-string">USER_ACTION_NEEDED : String</a></li>
-        <li class="main "><a href="#file_download_failed-string">FILE_DOWNLOAD_FAILED : String</a></li>
-        <li class="main "><a href="#save_file_failed-string">SAVE_FILE_FAILED : String</a></li>
-        <li class="main "><a href="#disk_quota_exceeded-string">DISK_QUOTA_EXCEEDED : String</a></li>
-        <li class="main "><a href="#challenge_asked-string">CHALLENGE_ASKED : String</a></li>
-        <li class="main "><a href="#login_failed_too_many_attempts-string">LOGIN_FAILED_TOO_MANY_ATTEMPTS : String</a></li>
-        <li class="main "><a href="#user_action_needed_oauth_outdated-string">USER_ACTION_NEEDED_OAUTH_OUTDATED : String</a></li>
-        <li class="main "><a href="#user_action_needed_account_removed-string">USER_ACTION_NEEDED_ACCOUNT_REMOVED : String</a></li>
-        <li class="main "><a href="#user_action_needed_change_password-string">USER_ACTION_NEEDED_CHANGE_PASSWORD : String</a></li>
-        <li class="main "><a href="#user_action_needed_permissions_changed-string">USER_ACTION_NEEDED_PERMISSIONS_CHANGED : String</a></li>
-        <li class="main "><a href="#user_action_needed_cgu_form-string">USER_ACTION_NEEDED_CGU_FORM : String</a></li>
-        <li class="main "><a href="#captcha_resolution_failed-string">CAPTCHA_RESOLUTION_FAILED : String</a></li>
+        <li class="main "><a href="#fs">fs</a></li>
+        <li class="main "><a href="#login95failed-string">LOGIN_FAILED : String</a></li>
+        <li class="main "><a href="#not95existing95directory-string">NOT_EXISTING_DIRECTORY : String</a></li>
+        <li class="main "><a href="#vendor95down-string">VENDOR_DOWN : String</a></li>
+        <li class="main "><a href="#user95action95needed-string">USER_ACTION_NEEDED : String</a></li>
+        <li class="main "><a href="#file95download95failed-string">FILE_DOWNLOAD_FAILED : String</a></li>
+        <li class="main "><a href="#save95file95failed-string">SAVE_FILE_FAILED : String</a></li>
+        <li class="main "><a href="#disk95quota95exceeded-string">DISK_QUOTA_EXCEEDED : String</a></li>
+        <li class="main "><a href="#challenge95asked-string">CHALLENGE_ASKED : String</a></li>
+        <li class="main "><a href="#login95failed95too95many95attempts-string">LOGIN_FAILED_TOO_MANY_ATTEMPTS : String</a></li>
+        <li class="main "><a href="#user95action95needed95oauth95outdated-string">USER_ACTION_NEEDED_OAUTH_OUTDATED : String</a></li>
+        <li class="main "><a href="#user95action95needed95account95removed-string">USER_ACTION_NEEDED_ACCOUNT_REMOVED : String</a></li>
+        <li class="main "><a href="#user95action95needed95change95password-string">USER_ACTION_NEEDED_CHANGE_PASSWORD : String</a></li>
+        <li class="main "><a href="#user95action95needed95permissions95changed-string">USER_ACTION_NEEDED_PERMISSIONS_CHANGED : String</a></li>
+        <li class="main "><a href="#user95action95needed95cgu95form-string">USER_ACTION_NEEDED_CGU_FORM : String</a></li>
+        <li class="main "><a href="#captcha95resolution95failed-string">CAPTCHA_RESOLUTION_FAILED : String</a></li>
         <li class="main "><a href="#mkspec">mkSpec()</a></li>
         <li class="main "><a href="#scrape-specs-childselector-object-124-array">scrape($, spec(s), [childSelector]) ⇒ object | array</a></li>
             <li><a href="#permissions">⚠ Permissions</a></li>
@@ -791,6 +788,16 @@ it to save/restore cookies</p>
 
 <h2 id="constants">Constants<a class="headerlink" href="#constants" title="Permanent link">&para;</a></h2>
 <dl>
+<dt><a href="#fs">fs</a></dt>
+<dd><p>Manifest is provided differently in developement that in production.</p>
+<ul>
+<li><p>In production, the manifest has been &quot;merged&quot; via Webpack via the
+DefinePlugin</p>
+</li>
+<li><p>In development/test, we simply read the manifest from the fs</p>
+</li>
+</ul>
+</dd>
 <dt><a href="#LOGIN_FAILED">LOGIN_FAILED</a> : <code>String</code></dt>
 <dd><p>The konnector could not login</p>
 </dd>
@@ -1717,64 +1724,77 @@ and current request from CookieKonnector.</p>
 compare existing documents (dates in ISO string) with documents
 that just have been scraped where dates are <code>Date</code>s.</p>
 <p><strong>Kind</strong>: instance method of <a href="#Document"><code>Document</code></a><br />
+<a name="fs"></a></p>
+<h2 id="fs">fs<a class="headerlink" href="#fs" title="Permanent link">&para;</a></h2>
+<p>Manifest is provided differently in developement that in production.</p>
+<ul>
+<li>
+<p>In production, the manifest has been &ldquo;merged&rdquo; via Webpack via the
+  DefinePlugin</p>
+</li>
+<li>
+<p>In development/test, we simply read the manifest from the fs</p>
+</li>
+</ul>
+<p><strong>Kind</strong>: global constant<br />
 <a name="LOGIN_FAILED"></a></p>
-<h2 id="login_failed-string">LOGIN_FAILED : <code>String</code><a class="headerlink" href="#login_failed-string" title="Permanent link">&para;</a></h2>
+<h2 id="login95failed-string">LOGIN_FAILED : <code>String</code><a class="headerlink" href="#login95failed-string" title="Permanent link">&para;</a></h2>
 <p>The konnector could not login</p>
 <p><strong>Kind</strong>: global constant<br />
 <a name="NOT_EXISTING_DIRECTORY"></a></p>
-<h2 id="not_existing_directory-string">NOT_EXISTING_DIRECTORY : <code>String</code><a class="headerlink" href="#not_existing_directory-string" title="Permanent link">&para;</a></h2>
+<h2 id="not95existing95directory-string">NOT_EXISTING_DIRECTORY : <code>String</code><a class="headerlink" href="#not95existing95directory-string" title="Permanent link">&para;</a></h2>
 <p>The folder specified as folder_to_save does not exist (checked by BaseKonnector)</p>
 <p><strong>Kind</strong>: global constant<br />
 <a name="VENDOR_DOWN"></a></p>
-<h2 id="vendor_down-string">VENDOR_DOWN : <code>String</code><a class="headerlink" href="#vendor_down-string" title="Permanent link">&para;</a></h2>
+<h2 id="vendor95down-string">VENDOR_DOWN : <code>String</code><a class="headerlink" href="#vendor95down-string" title="Permanent link">&para;</a></h2>
 <p>The vendor&rsquo;s website is down</p>
 <p><strong>Kind</strong>: global constant<br />
 <a name="USER_ACTION_NEEDED"></a></p>
-<h2 id="user_action_needed-string">USER_ACTION_NEEDED : <code>String</code><a class="headerlink" href="#user_action_needed-string" title="Permanent link">&para;</a></h2>
+<h2 id="user95action95needed-string">USER_ACTION_NEEDED : <code>String</code><a class="headerlink" href="#user95action95needed-string" title="Permanent link">&para;</a></h2>
 <p>There was an unexpected error, please take a look at the logs to know what happened</p>
 <p><strong>Kind</strong>: global constant<br />
 <a name="FILE_DOWNLOAD_FAILED"></a></p>
-<h2 id="file_download_failed-string">FILE_DOWNLOAD_FAILED : <code>String</code><a class="headerlink" href="#file_download_failed-string" title="Permanent link">&para;</a></h2>
+<h2 id="file95download95failed-string">FILE_DOWNLOAD_FAILED : <code>String</code><a class="headerlink" href="#file95download95failed-string" title="Permanent link">&para;</a></h2>
 <p>There was a problem while downloading a file</p>
 <p><strong>Kind</strong>: global constant<br />
 <a name="SAVE_FILE_FAILED"></a></p>
-<h2 id="save_file_failed-string">SAVE_FILE_FAILED : <code>String</code><a class="headerlink" href="#save_file_failed-string" title="Permanent link">&para;</a></h2>
+<h2 id="save95file95failed-string">SAVE_FILE_FAILED : <code>String</code><a class="headerlink" href="#save95file95failed-string" title="Permanent link">&para;</a></h2>
 <p>There was a problem while saving a file</p>
 <p><strong>Kind</strong>: global constant<br />
 <a name="DISK_QUOTA_EXCEEDED"></a></p>
-<h2 id="disk_quota_exceeded-string">DISK_QUOTA_EXCEEDED : <code>String</code><a class="headerlink" href="#disk_quota_exceeded-string" title="Permanent link">&para;</a></h2>
+<h2 id="disk95quota95exceeded-string">DISK_QUOTA_EXCEEDED : <code>String</code><a class="headerlink" href="#disk95quota95exceeded-string" title="Permanent link">&para;</a></h2>
 <p>Could not save a file to the cozy because of disk quota exceeded</p>
 <p><strong>Kind</strong>: global constant<br />
 <a name="CHALLENGE_ASKED"></a></p>
-<h2 id="challenge_asked-string">CHALLENGE_ASKED : <code>String</code><a class="headerlink" href="#challenge_asked-string" title="Permanent link">&para;</a></h2>
+<h2 id="challenge95asked-string">CHALLENGE_ASKED : <code>String</code><a class="headerlink" href="#challenge95asked-string" title="Permanent link">&para;</a></h2>
 <p>It seems that the website requires a second authentification factor that we don’t support yet.</p>
 <p><strong>Kind</strong>: global constant<br />
 <a name="LOGIN_FAILED_TOO_MANY_ATTEMPTS"></a></p>
-<h2 id="login_failed_too_many_attempts-string">LOGIN_FAILED_TOO_MANY_ATTEMPTS : <code>String</code><a class="headerlink" href="#login_failed_too_many_attempts-string" title="Permanent link">&para;</a></h2>
+<h2 id="login95failed95too95many95attempts-string">LOGIN_FAILED_TOO_MANY_ATTEMPTS : <code>String</code><a class="headerlink" href="#login95failed95too95many95attempts-string" title="Permanent link">&para;</a></h2>
 <p>Temporarily blocked</p>
 <p><strong>Kind</strong>: global constant<br />
 <a name="USER_ACTION_NEEDED_OAUTH_OUTDATED"></a></p>
-<h2 id="user_action_needed_oauth_outdated-string">USER_ACTION_NEEDED_OAUTH_OUTDATED : <code>String</code><a class="headerlink" href="#user_action_needed_oauth_outdated-string" title="Permanent link">&para;</a></h2>
+<h2 id="user95action95needed95oauth95outdated-string">USER_ACTION_NEEDED_OAUTH_OUTDATED : <code>String</code><a class="headerlink" href="#user95action95needed95oauth95outdated-string" title="Permanent link">&para;</a></h2>
 <p>Access refresh required</p>
 <p><strong>Kind</strong>: global constant<br />
 <a name="USER_ACTION_NEEDED_ACCOUNT_REMOVED"></a></p>
-<h2 id="user_action_needed_account_removed-string">USER_ACTION_NEEDED_ACCOUNT_REMOVED : <code>String</code><a class="headerlink" href="#user_action_needed_account_removed-string" title="Permanent link">&para;</a></h2>
+<h2 id="user95action95needed95account95removed-string">USER_ACTION_NEEDED_ACCOUNT_REMOVED : <code>String</code><a class="headerlink" href="#user95action95needed95account95removed-string" title="Permanent link">&para;</a></h2>
 <p>Unavailable account</p>
 <p><strong>Kind</strong>: global constant<br />
 <a name="USER_ACTION_NEEDED_CHANGE_PASSWORD"></a></p>
-<h2 id="user_action_needed_change_password-string">USER_ACTION_NEEDED_CHANGE_PASSWORD : <code>String</code><a class="headerlink" href="#user_action_needed_change_password-string" title="Permanent link">&para;</a></h2>
+<h2 id="user95action95needed95change95password-string">USER_ACTION_NEEDED_CHANGE_PASSWORD : <code>String</code><a class="headerlink" href="#user95action95needed95change95password-string" title="Permanent link">&para;</a></h2>
 <p>Unavailable account</p>
 <p><strong>Kind</strong>: global constant<br />
 <a name="USER_ACTION_NEEDED_PERMISSIONS_CHANGED"></a></p>
-<h2 id="user_action_needed_permissions_changed-string">USER_ACTION_NEEDED_PERMISSIONS_CHANGED : <code>String</code><a class="headerlink" href="#user_action_needed_permissions_changed-string" title="Permanent link">&para;</a></h2>
+<h2 id="user95action95needed95permissions95changed-string">USER_ACTION_NEEDED_PERMISSIONS_CHANGED : <code>String</code><a class="headerlink" href="#user95action95needed95permissions95changed-string" title="Permanent link">&para;</a></h2>
 <p>Password update required</p>
 <p><strong>Kind</strong>: global constant<br />
 <a name="USER_ACTION_NEEDED_CGU_FORM"></a></p>
-<h2 id="user_action_needed_cgu_form-string">USER_ACTION_NEEDED_CGU_FORM : <code>String</code><a class="headerlink" href="#user_action_needed_cgu_form-string" title="Permanent link">&para;</a></h2>
+<h2 id="user95action95needed95cgu95form-string">USER_ACTION_NEEDED_CGU_FORM : <code>String</code><a class="headerlink" href="#user95action95needed95cgu95form-string" title="Permanent link">&para;</a></h2>
 <p>The user needs to accept a CGU form before accessing the rest of the website</p>
 <p><strong>Kind</strong>: global constant<br />
 <a name="CAPTCHA_RESOLUTION_FAILED"></a></p>
-<h2 id="captcha_resolution_failed-string">CAPTCHA_RESOLUTION_FAILED : <code>String</code><a class="headerlink" href="#captcha_resolution_failed-string" title="Permanent link">&para;</a></h2>
+<h2 id="captcha95resolution95failed-string">CAPTCHA_RESOLUTION_FAILED : <code>String</code><a class="headerlink" href="#captcha95resolution95failed-string" title="Permanent link">&para;</a></h2>
 <p>solveCaptcha failed to solve the captcha</p>
 <p><strong>Kind</strong>: global constant<br />
 <a name="mkSpec"></a></p>

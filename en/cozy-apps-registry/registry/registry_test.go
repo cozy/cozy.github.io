@@ -326,6 +326,34 @@ func TestGetAppsList(t *testing.T) {
 	assert.Equal(t, 2, len(apps))
 }
 
+func TestGetAppsListSelectFilter(t *testing.T) {
+	s, _ := GetSpace(testSpaceName)
+
+	_, apps, err := GetAppsList(s, &AppsListOptions{
+		Limit:                10,
+		LatestVersionChannel: Stable,
+		VersionsChannel:      Dev,
+		Filters:              map[string]string{"select": "app-test"},
+	})
+	assert.NoError(t, err)
+	assert.Equal(t, 1, len(apps))
+	assert.Equal(t, "app-test", apps[0].Slug)
+}
+
+func TestGetAppsListRejectFilter(t *testing.T) {
+	s, _ := GetSpace(testSpaceName)
+
+	_, apps, err := GetAppsList(s, &AppsListOptions{
+		Limit:                10,
+		LatestVersionChannel: Stable,
+		VersionsChannel:      Dev,
+		Filters:              map[string]string{"reject": "app-test"},
+	})
+	assert.NoError(t, err)
+	assert.Equal(t, 1, len(apps))
+	assert.Equal(t, "app-test2", apps[0].Slug)
+}
+
 func TestLastNVersions(t *testing.T) {
 	s, _ := GetSpace(testSpaceName)
 
@@ -489,6 +517,32 @@ func TestIsValidVersionBadVersion(t *testing.T) {
 	res := IsValidVersion(ver)
 	assert.Error(t, res)
 	assert.Contains(t, res.Error(), "version", "sha256", "url")
+}
+
+func TestRemoveSpace(t *testing.T) {
+	s, _ := GetSpace(testSpaceName)
+	err := RemoveSpace(s)
+	assert.NoError(t, err)
+
+	// Assert no container
+	conf := config.GetConfig()
+	sc := conf.SwiftConnection
+	_, _, err = sc.Container(s.Prefix)
+	assert.Equal(t, swift.ContainerNotFound, err)
+
+	// Assert no databases
+	client := s.AppsDB().Client()
+	ok, err := client.DBExists(ctx, s.AppsDB().Name())
+	assert.NoError(t, err)
+	assert.False(t, ok)
+
+	ok, err = client.DBExists(ctx, s.PendingVersDB().Name())
+	assert.NoError(t, err)
+	assert.False(t, ok)
+
+	ok, err = client.DBExists(ctx, s.VersDB().Name())
+	assert.NoError(t, err)
+	assert.False(t, ok)
 }
 
 func TestMain(m *testing.M) {

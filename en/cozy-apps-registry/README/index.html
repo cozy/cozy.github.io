@@ -431,10 +431,6 @@
 </li>
             
 <li >
-    <a href="../../cozy-stack/replication/"> /data - Replication</a>
-</li>
-            
-<li >
     <a href="../../cozy-stack/couchdb-quirks/"> /data - CouchDB Quirks</a>
 </li>
             
@@ -660,8 +656,13 @@
 <p><a href="https://cozy.io" title="Cozy Cloud">Cozy</a> is a platform that brings all your web services in the same private space.  With it, your webapps and your devices can share data easily, providing you with a new experience. You can install Cozy on your own hardware where no one&rsquo;s tracking you.</p>
 <h2 id="table-of-contents">Table of contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong><a href="#what-about-this-repository">What about this repository?</a></strong></li>
-<li><strong><a href="#how-to-develop-with-a-cozy-apps-registry-working-in-local-environment">Develop with <code>cozy-apps-registry</code></a></strong><ul>
+<li><a href="#cozy-apps-registry">cozy-apps-registry</a><ul>
+<li><a href="#whats-cozy">What&rsquo;s Cozy?</a></li>
+</ul>
+</li>
+<li><a href="#table-of-contents">Table of contents</a></li>
+<li><a href="#what-about-this-repository">What about this repository?</a></li>
+<li><a href="#how-to-develop-with-a-cozy-apps-registry-working-in-local-environment">How to develop with a <code>cozy-apps-registry</code> working in local environment</a><ul>
 <li><a href="#1-install-and-configure-the-local-cozy-apps-registry">1) Install and configure the local <code>cozy-apps-registry</code></a></li>
 <li><a href="#2-configure-the-registry-with-cozy-registryyml">2) Configure the registry with <code>cozy-registry.yml</code></a></li>
 <li><a href="#3-run-the-registry-to-serve-the-apps">3) Run the registry to serve the apps</a></li>
@@ -669,16 +670,37 @@
 <li><a href="#5-configure-cozy-stack-with-the-registry">5) Configure <code>cozy-stack</code> with the registry</a></li>
 </ul>
 </li>
-<li><strong><a href="#publish-your-application-on-the-registry">Publish your application on the registry</a></strong><ul>
-<li><a href="#1-prepare-your-application">1) Prepare your application</a></li>
+<li><a href="#publish-your-application-on-the-registry">Publish your application on the registry</a><ul>
+<li><a href="#1-prepare-your-application">1) Prepare your application</a><ul>
+<li><a href="#for-an-application">For an application</a></li>
+<li><a href="#for-a-connector">For a connector</a></li>
+<li><a href="#properties-meaning-reference">Properties meaning (reference)</a></li>
+<li><a href="#translated-manifest-fields">Translated manifest fields</a></li>
+<li><a href="#application-terms">Application terms</a></li>
+<li><a href="#konnectors-folders-handling">Konnectors folders handling</a></li>
+</ul>
+</li>
 <li><a href="#2-add-a-new-application-in-the-registry">2) Add a new application in the registry</a></li>
+<li><a href="#our-official-apps-registry">Our official apps registry</a></li>
+<li><a href="#custom-registry">Custom registry</a></li>
 <li><a href="#3-add-a-new-version-of-a-registered-application">3) Add a new version of a registered application</a></li>
+<li><a href="#via-cozy-app-publishcozy-app-publish-highly-recommanded">Via <a href="https://github.com/cozy/cozy-app-publish"><code>cozy-app-publish</code></a> (highly recommanded)</a></li>
+<li><a href="#via-curl">Via <code>curl</code></a></li>
+<li><a href="#spaces--virtual-spaces">Spaces &amp; Virtual Spaces</a></li>
+<li><a href="#spaces">Spaces</a><ul>
+<li><a href="#create-a-space">Create a space</a></li>
+<li><a href="#remove-a-space">Remove a space</a></li>
+</ul>
+</li>
+<li><a href="#virtual-spaces">Virtual Spaces</a></li>
 <li><a href="#automation-ci">Automation (CI)</a></li>
 <li><a href="#access-to-our-official-apps-registry">Access to our official apps registry</a></li>
 </ul>
 </li>
-<li><strong><a href="#access-control-and-tokens">Access control and tokens</a></strong></li>
-<li><strong><a href="#community">Community</a></strong></li>
+<li><a href="#access-control-and-tokens">Access control and tokens</a></li>
+<li><a href="#maintenance">Maintenance</a></li>
+<li><a href="#application-confidence-grade--labelling">Application confidence grade / labelling</a></li>
+<li><a href="#community">Community</a></li>
 </ul>
 <h2 id="what-about-this-repository">What about this repository?<a class="headerlink" href="#what-about-this-repository" title="Permanent link">&para;</a></h2>
 <p>The <code>cozy-apps-registry</code> is a go project that implements the <a href="https://github.com/cozy/cozy-stack/blob/master/docs/registry.md">registry
@@ -830,7 +852,7 @@ cozy-apps-registry gen-token --master Cozy -c cozy-registry.yml
 <td>Object containing aggregator data. Typically <code>{ accountId: 'aggregator-service' }</code>.</td>
 </tr>
 <tr>
-<td><code>categories</code>    </td>
+<td><code>categories</code></td>
 <td>array of categories for your apps (see authorized categories), it will be <code>['others']</code> by default if empty</td>
 </tr>
 <tr>
@@ -914,7 +936,7 @@ cozy-apps-registry gen-token --master Cozy -c cozy-registry.yml
 <td>a map of permissions needed by the app (see <a href="https://cozy.github.io/cozy-stack/permissions.html">see cozy-stack permissions doc </a> for more details)</td>
 </tr>
 <tr>
-<td><code>platforms</code>    </td>
+<td><code>platforms</code></td>
 <td><em>(application specific)</em> List of objects for platform native applications. For now there are only two properties: <code>type</code> (i.e. <code>'ios'</code> or <code>'linux'</code>) and the optional <code>url</code> to reach this application page.</td>
 </tr>
 <tr>
@@ -1055,7 +1077,7 @@ curl -X <span class="s2">&quot;POST&quot;</span> <span class="s2">&quot;http://l
 <td>kind of application (it can be only <code>webapp</code> or <code>konnector</code>)</td>
 </tr>
 <tr>
-<td>editor       </td>
+<td>editor</td>
 <td>Name of the editor matching the <code>{{EDITOR_TOKEN}}</code></td>
 </tr>
 </tbody>
@@ -1137,7 +1159,7 @@ curl -X <span class="s2">&quot;POST&quot;</span> <span class="s2">&quot;http://l
 <td>kind of application (it can be only <code>webapp</code> or <code>konnector</code>)</td>
 </tr>
 <tr>
-<td>editor       </td>
+<td>editor</td>
 <td>Name of the editor matching the <code>{{EDITOR_TOKEN}}</code></td>
 </tr>
 </tbody>
@@ -1146,6 +1168,57 @@ curl -X <span class="s2">&quot;POST&quot;</span> <span class="s2">&quot;http://l
 <p><strong>:warning: Important notices:</strong>
 - The version must match the one in the <code>manifest.webapp</code> file for stable release. For beta (X.X.X-betaX) or dev releases (X.X.X-dev.hash256), the version before the cyphen must match the one in the <code>manifest.webapp</code>.
 - For better integrity, the <code>sha256</code> provided must match the sha256 of the archive provided in <code>url</code>. If it&rsquo;s not the case, that will be considered as an error and the version won&rsquo;t be registered.</p>
+</blockquote>
+<h3 id="spaces-virtual-spaces">Spaces &amp; Virtual Spaces<a class="headerlink" href="#spaces-virtual-spaces" title="Permanent link">&para;</a></h3>
+<h4 id="spaces">Spaces<a class="headerlink" href="#spaces" title="Permanent link">&para;</a></h4>
+<p>You can divide your applications between several isolated places, called
+<code>spaces</code>.</p>
+<p>When an application and its versions are published in a <code>space</code>, they are only
+reachable in that one (you can consider a <code>space</code> like a entire sub-part of the
+registry). It is espacially useful for splitting up applications by logical
+topics.</p>
+<p>Most of the CLI and API endpoints have a <code>space</code> option. You can refer to the
+documentation or CLI help to view all available parameters.</p>
+<h5 id="create-a-space">Create a space<a class="headerlink" href="#create-a-space" title="Permanent link">&para;</a></h5>
+<p>Spaces are defined in the config file and are automatically created during registry
+launching.</p>
+<p>Add a <code>space</code> entry, followed by your spaces names, and let the registry do the work:</p>
+<div class="codehilite"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">spaces</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">__default__ myspace foospace</span>
+</pre></div>
+
+
+<h5 id="remove-a-space">Remove a space<a class="headerlink" href="#remove-a-space" title="Permanent link">&para;</a></h5>
+<p>To remove a space, you have to clean all the remaining apps &amp; versions before removing the <code>space</code> entry name.</p>
+<p>A CLI is available for the job:</p>
+<div class="codehilite"><pre><span></span>$ cozy-apps-registry rm-space &lt;your-space&gt;
+</pre></div>
+
+
+<p>Example:</p>
+<div class="codehilite"><pre><span></span>$ cozy-apps-registry rm-space foobar
+Warning: You are going to remove space foobar and all its applications. This action is irreversible.
+Please enter the space name to confirm: foobar
+Removing app1/0.7.3-dev.f26bf2b8db3da459071a074a1367ce36e78bb34c
+Removing app1/0.7.3-dev.cf1efba4c1b6dd08bb5857f5752790f0d2663d6d
+Removing app1/0.7.3-dev.0bbd57a6ce50af82cfbefb8c231fbfe04516e742
+Removing app1/0.7.3-dev.21338229a0c2317dc0f3b94e92b22a367f84c537
+Removing app1/0.7.3-dev.08ab3624136fb70dc996003aebc3049af51f7438
+Removing app1/0.7.3-dev.4e9d174a3b01acaf8a44b561455efc3f34871142
+Removing app1/0.7.3-dev.b2654bf00be393aa611fcbb7f70a8ef671895a84
+Removing app1/0.7.3-dev.860861868a5dfe294c7120d81fa9feb5387bb57f
+Removing app2/0.1.9-dev.954dac9e12e080d591cb76591c311611fed1bea9
+</pre></div>
+
+
+<p>You can now delete the name from your config file.</p>
+<h4 id="virtual-spaces">Virtual Spaces<a class="headerlink" href="#virtual-spaces" title="Permanent link">&para;</a></h4>
+<p>A <code>virtual space</code> is necessarily built over an existing <code>space</code>. It allows to
+filter by selecting or rejecting applications available on the underlying space.</p>
+<blockquote>
+<p>:warning: Please note that a <code>virtual space</code> does not have any database
+document or associated swift object, it does only enforce filters on a
+<code>space</code>. Therefore, <strong>it is not possible to publish applications or versions
+on a <code>virtual space</code></strong>.</p>
 </blockquote>
 <h3 id="automation-ci">Automation (CI)<a class="headerlink" href="#automation-ci" title="Permanent link">&para;</a></h3>
 <p>The following tutorial explains how to connect your continuous integration

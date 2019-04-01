@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"path/filepath"
 	"sort"
@@ -20,10 +21,10 @@ import (
 	"github.com/cozy/cozy-apps-registry/config"
 	"github.com/cozy/echo"
 	"github.com/cozy/swift"
+	"github.com/sirupsen/logrus"
 
 	"github.com/Masterminds/semver"
 	"github.com/go-kivik/kivik"
-	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 )
 
@@ -32,6 +33,8 @@ var validFilters = []string{
 	"editor",
 	"tags",
 	"locales",
+	"select",
+	"reject",
 }
 
 var validSorts = []string{
@@ -150,10 +153,33 @@ func FindVersionAttachment(c *Space, appSlug, version, filename string) (*Attach
 		// If we cannot find it, we try from the local database as a fallback
 		prefix := GetPrefixOrDefault(c)
 		headers, err = sc.ObjectGet(prefix, fp, contentBuffer, false, nil)
-		if err != nil {
+		if err != nil && err != swift.ObjectNotFound {
 			return nil, err
+		} else if err == swift.ObjectNotFound {
+			// Fallback for assets before/during migration
+			att, err := FindVersionOldAttachment(c, appSlug, version, filename)
+			if err != nil {
+				return nil, err
+			}
+
+			// We don't want to move the asset for the moment.
+			// We want to let the fixer assets couchdb->swift script doing it.
+			ok = true
+
+			content := att.Content
+			c, err := ioutil.ReadAll(content)
+			if err != nil {
+				return nil, err
+			}
+			contentBuffer = bytes.NewBuffer(c)
+			headers = map[string]string{
+				"Content-Type":   att.ContentType,
+				"Etag":           att.Digest,
+				"Content-Length": string(contentBuffer.Len()),
+			}
 		}
 	}
+
 	fileContent = contentBuffer.Bytes()
 	contentType = headers["Content-Type"]
 
@@ -699,10 +725,17 @@ func GetAppsList(c *Space, opts *AppsListOptions) (int, []*App, error) {
 		if selector != "" {
 			selector += ","
 		}
+
 		switch name {
 		case "tags", "locales":
 			tags := strings.Split(val, ",")
 			selector += string(sprintfJSON(`%s: {"$all": %s}`, name, tags))
+		case "select":
+			slugs := strings.Split(val, ",")
+			selector += string(sprintfJSON(`"slug": {"$in": %s}`, slugs))
+		case "reject":
+			slugs := strings.Split(val, ",")
+			selector += string(sprintfJSON(`"slug": {"$nin": %s}`, slugs))
 		default:
 			selector += string(sprintfJSON("%s: %s", name, val))
 		}

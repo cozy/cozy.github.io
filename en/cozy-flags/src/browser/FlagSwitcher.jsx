@@ -1,13 +1,13 @@
 import React from 'react'
 import flag from './flag'
 
-const FlagInput = ({ name }) => {
+const FlagInput = ({ name, onChange }) => {
   return (
     <input
       type="checkbox"
       checked={flag(name)}
       onChange={ev =>
-        flag(name, JSON.parse(ev.target.checked)) && this.props.onChange()
+        flag(name, JSON.parse(ev.target.checked)) && onChange && onChange()
       }
     />
   )
@@ -45,6 +45,20 @@ const human = name => {
   return name.replace(/[a-z][A-Z]/g, str => str[0] + ' ' + str[1].toLowerCase())
 }
 
+const FlagList = flag.connect(() => {
+  return (
+    <div>
+      {flag.list().map(name => {
+        return (
+          <div key={name}>
+            {human(name)} : <FlagInput onChange={() => {}} name={name} />
+          </div>
+        )
+      })}
+    </div>
+  )
+})
+
 export default class FlagSwitcher extends React.Component {
   constructor(props) {
     super(props)
@@ -78,16 +92,11 @@ export default class FlagSwitcher extends React.Component {
           >
             reset
           </button>
-          {flag.list().map(name => {
-            return (
-              <div key={name}>
-                {human(name)} :{' '}
-                <FlagInput onChange={() => this.forceUpdate()} name={name} />
-              </div>
-            )
-          })}
+          <FlagList />
         </div>
       )
     )
   }
 }
+
+FlagSwitcher.List = FlagList

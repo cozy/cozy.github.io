@@ -6,13 +6,12 @@ import (
 )
 
 // CleanOldVersions removes a specific app version of a space
-func CleanOldVersions(space *Space, appSlug, channel string, nbMonths int, major, minor int) error {
+func CleanOldVersions(space *Space, appSlug, channel string, nbMonths int, major, minor int, dryRun bool) error {
 	// Finding last versions of the app
 	versionsToKeepFromN, err := FindLastNVersions(space, appSlug, channel, major, minor)
 	if err != nil {
 		return err
 	}
-
 	d := time.Now().AddDate(0, -nbMonths, 0)
 	if err != nil {
 		return err
@@ -61,6 +60,9 @@ func CleanOldVersions(space *Space, appSlug, channel string, nbMonths int, major
 
 		if toExpire {
 			fmt.Printf("Removing %s\n", v.Slug+"/"+v.Version)
+			if dryRun {
+				continue
+			}
 			err := v.Delete(space)
 			if err != nil {
 				return err

@@ -17,6 +17,7 @@ import (
 
 	"github.com/cozy/cozy-apps-registry/auth"
 	"github.com/cozy/cozy-apps-registry/config"
+	"github.com/cozy/cozy-apps-registry/consts"
 	"github.com/cozy/cozy-apps-registry/errshttp"
 	"github.com/cozy/cozy-apps-registry/registry"
 
@@ -188,20 +189,22 @@ func createVersion(c echo.Context) (err error) {
 
 		// Cleaning the old versions
 		channelString := registry.ChannelToStr(channel)
-		go func() {
-			err := registry.CleanOldVersions(space, ver.Slug, channelString, conf.CleanNbMonths, conf.CleanNbMajorVersions, conf.CleanNbMinorVersions)
-			if err != nil {
-				log := logrus.WithFields(logrus.Fields{
-					"nspace":    "clean_version",
-					"space":     space.Prefix,
-					"slug":      ver.Slug,
-					"version":   ver.Version,
-					"channel":   channelString,
-					"error_msg": err,
-				})
-				log.Error()
-			}
-		}()
+		if conf.CleanEnabled {
+			go func() {
+				err := registry.CleanOldVersions(space, ver.Slug, channelString, conf.CleanNbMonths, conf.CleanNbMajorVersions, conf.CleanNbMinorVersions, false)
+				if err != nil {
+					log := logrus.WithFields(logrus.Fields{
+						"nspace":    "clean_version",
+						"space":     space.Prefix,
+						"slug":      ver.Slug,
+						"version":   ver.Version,
+						"channel":   channelString,
+						"error_msg": err,
+					})
+					log.Error()
+				}
+			}()
+		}
 
 	} else {
 		err = registry.CreatePendingVersion(getSpace(c), ver, attachments, app)
@@ -287,6 +290,22 @@ func getMaintenanceApps(c echo.Context) error {
 		return err
 	}
 	return writeJSON(c, apps)
+}
+
+func filterGetMaintenanceApps(virtual *config.VirtualSpace) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		apps, err := registry.GetMaintainanceApps(getSpace(c))
+		if err != nil {
+			return err
+		}
+		filtered := apps[:0]
+		for _, app := range apps {
+			if virtual.AcceptApp(app.Slug) {
+				filtered = append(filtered, app)
+			}
+		}
+		return writeJSON(c, filtered)
+	}
 }
 
 func activateMaintenanceApp(c echo.Context) (err error) {
@@ -437,7 +456,23 @@ func getAppsList(c echo.Context) error {
 		}
 	}
 
-	next, apps, err := registry.GetAppsList(getSpace(c), &registry.AppsListOptions{
+	space := getSpace(c)
+
+	// In case of virtual space, forcing the filters
+	if virtual := c.Get("virtual"); virtual != nil {
+		if filter == nil {
+			filter = make(map[string]string)
+		}
+		v := virtual.(*config.VirtualSpace)
+		filter[v.Filter] = strings.Join(v.Slugs, ",")
+
+		// Artificially altering the space prefix to force the cache to use a
+		// different key
+		clone := space.Clone(c.Get("virtual_name").(string))
+		space = &clone
+	}
+
+	next, apps, err := registry.GetAppsList(space, &registry.AppsListOptions{
 		Filters:              filter,
 		Limit:                limit,
 		Cursor:               cursor,
@@ -881,6 +916,23 @@ func writeJSON(c echo.Context, doc interface{}) error {
 	return c.JSON(http.StatusOK, doc)
 }
 
+func applyVirtualSpace(handler echo.HandlerFunc, virtual *config.VirtualSpace, virtualSpacename string) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		c.Set("virtual", virtual)
+		c.Set("virtual_name", virtualSpacename)
+		return handler(c)
+	}
+}
+
+func filterAppInVirtualSpace(handler echo.HandlerFunc, virtual *config.VirtualSpace) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		if !virtual.AcceptApp(c.Param("app")) {
+			return echo.NewHTTPError(http.StatusNotFound)
+		}
+		return handler(c)
+	}
+}
+
 func Router(addr string) *echo.Echo {
 	err := initAssets()
 	if err != nil {
@@ -921,9 +973,9 @@ func Router(addr string) *echo.Echo {
 		g.GET("/pending", getPendingVersions, jsonEndpoint, middleware.Gzip())
 		g.PUT("/pending/:app/:version/approval", approvePendingVersion, middleware.Gzip())
 
-		g.GET("/maintenance", getMaintenanceApps)
+		g.GET("/maintenance", getMaintenanceApps, jsonEndpoint, middleware.Gzip())
 		g.PUT("/maintenance/:app/activate", activateMaintenanceApp, jsonEndpoint, middleware.Gzip())
-		g.PUT("/maintenance/:app/deactivate", deactivateMaintenanceApp, middleware.Gzip())
+		g.PUT("/maintenance/:app/deactivate", deactivateMaintenanceApp, jsonEndpoint, middleware.Gzip())
 
 		g.HEAD("/:app", getApp, jsonEndpoint, middleware.Gzip())
 		g.GET("/:app", getApp, jsonEndpoint, middleware.Gzip())
@@ -953,6 +1005,62 @@ func Router(addr string) *echo.Echo {
 		g.GET("/:app/:version/tarball/:tarball", getVersionTarball)
 	}
 
+	virtuals := config.GetConfig().VirtualSpaces
+	for name, virtual := range virtuals {
+		groupName := fmt.Sprintf("/%s/registry", url.PathEscape(name))
+
+		source := virtual.Source
+		if source == consts.DefaultSpacePrefix {
+			source = ""
+		}
+		g := e.Group(groupName, ensureSpace(source))
+
+		v := virtuals[name]
+		virtualGetAppsList := applyVirtualSpace(getAppsList, &v, name)
+		g.GET("", virtualGetAppsList, jsonEndpoint, middleware.Gzip())
+
+		filteredGetMaintenanceApps := filterGetMaintenanceApps(&v)
+		g.GET("/maintenance", filteredGetMaintenanceApps, jsonEndpoint, middleware.Gzip())
+
+		filteredGetApp := filterAppInVirtualSpace(getApp, &v)
+		filteredGetAppVersions := filterAppInVirtualSpace(getAppVersions, &v)
+		filteredGetVersion := filterAppInVirtualSpace(getVersion, &v)
+		filteredGetLatestVersion := filterAppInVirtualSpace(getLatestVersion, &v)
+		g.HEAD("/:app", filteredGetApp, jsonEndpoint, middleware.Gzip())
+		g.GET("/:app", filteredGetApp, jsonEndpoint, middleware.Gzip())
+		g.GET("/:app/versions", filteredGetAppVersions, jsonEndpoint, middleware.Gzip())
+		g.HEAD("/:app/:version", filteredGetVersion, jsonEndpoint, middleware.Gzip())
+		g.GET("/:app/:version", filteredGetVersion, jsonEndpoint, middleware.Gzip())
+		g.HEAD("/:app/:channel/latest", filteredGetLatestVersion, jsonEndpoint, middleware.Gzip())
+		g.GET("/:app/:channel/latest", filteredGetLatestVersion, jsonEndpoint, middleware.Gzip())
+
+		filteredGetAppIcon := filterAppInVirtualSpace(getAppIcon, &v)
+		filteredGetAppPartnershipIcon := filterAppInVirtualSpace(getAppPartnershipIcon, &v)
+		filteredGetAppScreenshot := filterAppInVirtualSpace(getAppScreenshot, &v)
+		filteredGetVersionIcon := filterAppInVirtualSpace(getVersionIcon, &v)
+		filteredGetVersionPartnershipIcon := filterAppInVirtualSpace(getVersionPartnershipIcon, &v)
+		filteredGetVersionScreenshot := filterAppInVirtualSpace(getVersionScreenshot, &v)
+		filteredGetVersionTarball := filterAppInVirtualSpace(getVersionTarball, &v)
+		g.GET("/:app/icon", filteredGetAppIcon)
+		g.HEAD("/:app/icon", filteredGetAppIcon)
+		g.GET("/:app/partnership_icon", filteredGetAppPartnershipIcon)
+		g.HEAD("/:app/partnership_icon", filteredGetAppPartnershipIcon)
+		g.GET("/:app/screenshots/*", filteredGetAppScreenshot)
+		g.HEAD("/:app/screenshots/*", filteredGetAppScreenshot)
+		g.GET("/:app/:channel/latest/icon", filteredGetAppIcon)
+		g.HEAD("/:app/:channel/latest/icon", filteredGetAppIcon)
+		g.HEAD("/:app/:channel/latest/screenshots/*", filteredGetAppScreenshot)
+		g.GET("/:app/:channel/latest/screenshots/*", filteredGetAppScreenshot)
+		g.HEAD("/:app/:version/icon", filteredGetVersionIcon)
+		g.GET("/:app/:version/icon", filteredGetVersionIcon)
+		g.HEAD("/:app/:version/partnership_icon", filteredGetVersionPartnershipIcon)
+		g.GET("/:app/:version/partnership_icon", filteredGetVersionPartnershipIcon)
+		g.HEAD("/:app/:version/screenshots/*", filteredGetVersionScreenshot)
+		g.GET("/:app/:version/screenshots/*", filteredGetVersionScreenshot)
+		g.HEAD("/:app/:version/tarball/:tarball", filteredGetVersionTarball)
+		g.GET("/:app/:version/tarball/:tarball", filteredGetVersionTarball)
+	}
+
 	e.GET("/editors", getEditorsList, jsonEndpoint, middleware.Gzip())
 	e.HEAD("/editors/:editor", getEditor, jsonEndpoint, middleware.Gzip())
 	e.GET("/editors/:editor", getEditor, jsonEndpoint, middleware.Gzip())
@@ -964,6 +1072,9 @@ func Router(addr string) *echo.Echo {
 		return c.String(http.StatusOK, "User-agent: *\n"+
 			"Disallow: /")
 	}, middleware.Gzip())
+
+	// Status routes
+	StatusRoutes(e.Group("/status"))
 
 	return e
 }

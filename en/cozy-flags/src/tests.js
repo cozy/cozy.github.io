@@ -15,6 +15,18 @@ export default function testFlagAPI(flag) {
       flag('test', true)
       expect(flag('test')).toBe(true)
     })
+
+    if (flag.store) {
+      describe('observable', () => {
+        beforeEach(() => {
+          jest.spyOn(flag.store, 'emit')
+        })
+        it('should emit events', () => {
+          flag('test', true)
+          expect(flag.store.emit).toHaveBeenCalled()
+        })
+      })
+    }
   })
 
   describe('listFlags', () => {

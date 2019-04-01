@@ -147,6 +147,20 @@ type Space struct {
 	dbPendingVers *kivik.DB
 }
 
+// Clone takes an optionnal prefix parameter
+// If empty, use the original space prefix
+func (c *Space) Clone(prefix string) Space {
+	if prefix == "" {
+		prefix = c.Prefix
+	}
+	return Space{
+		Prefix:        prefix,
+		dbApps:        c.dbApps,
+		dbVers:        c.dbVers,
+		dbPendingVers: c.dbPendingVers,
+	}
+}
+
 func (c *Space) AppsDB() *kivik.DB {
 	return c.dbApps
 }
@@ -168,6 +182,78 @@ func (c *Space) dbName(suffix string) (name string) {
 	}
 	name += suffix
 	return dbName(name)
+}
+
+func RemoveSpace(c *Space) error {
+	var err error
+
+	// Removing the applications versions
+	var cursor int = 0
+	for cursor != -1 {
+		next, apps, err := GetAppsList(c, &AppsListOptions{
+			Limit:                200,
+			Cursor:               cursor,
+			LatestVersionChannel: Stable,
+			VersionsChannel:      Dev,
+		})
+
+		if err != nil {
+			return err
+		}
+		cursor = next
+
+		for _, app := range apps { // Iterate over 200 apps
+			// Skipping app with no versions
+			if !app.Versions.HasVersions {
+				continue
+			}
+
+			for _, version := range app.Versions.GetAll() {
+				v, err := FindVersion(c, app.Slug, version)
+				if err != nil {
+					continue
+				}
+				fmt.Printf("Removing %s/%s\n", v.Slug, v.Version)
+				err = v.Delete(c)
+				if err != nil {
+					return err
+				}
+			}
+		}
+	}
+
+	// Removing swift container
+	conf := config.GetConfig()
+	sc := conf.SwiftConnection
+	prefix := GetPrefixOrDefault(c)
+
+	// First emptying the container
+	objs, err := sc.ObjectNames(prefix, nil)
+	if err != nil {
+		return err
+	}
+	_, err = sc.BulkDelete(prefix, objs)
+	if err != nil {
+		return err
+	}
+
+	err = sc.ContainerDelete(prefix)
+	if err != nil {
+		return err
+	}
+
+	// Removing databases
+	err = client.DestroyDB(ctx, c.PendingVersDB().Name())
+	if err != nil {
+		return err
+	}
+
+	err = client.DestroyDB(ctx, c.VersDB().Name())
+	if err != nil {
+		return err
+	}
+
+	return client.DestroyDB(ctx, c.AppsDB().Name())
 }
 
 func dbName(name string) string {
@@ -696,21 +782,24 @@ func ApprovePendingVersion(c *Space, pending *Version, app *App) (*Version, erro
 	channel := GetVersionChannel(release.Version)
 
 	channelString := ChannelToStr(channel)
-	// Cleaning the old versions
-	go func() {
-		err := CleanOldVersions(c, release.Slug, channelString, conf.CleanNbMonths, conf.CleanNbMajorVersions, conf.CleanNbMinorVersions)
-		if err != nil {
-			log := logrus.WithFields(logrus.Fields{
-				"nspace":    "clean_version",
-				"space":     c.Prefix,
-				"slug":      release.Slug,
-				"version":   release.Version,
-				"channel":   channelString,
-				"error_msg": err,
-			})
-			log.Error()
-		}
-	}()
+
+	if conf.CleanEnabled {
+		// Cleaning the old versions
+		go func() {
+			err := CleanOldVersions(c, release.Slug, channelString, conf.CleanNbMonths, conf.CleanNbMajorVersions, conf.CleanNbMinorVersions, false)
+			if err != nil {
+				log := logrus.WithFields(logrus.Fields{
+					"nspace":    "clean_version",
+					"space":     c.Prefix,
+					"slug":      release.Slug,
+					"version":   release.Version,
+					"channel":   channelString,
+					"error_msg": err,
+				})
+				log.Error()
+			}
+		}()
+	}
 
 	return release, nil
 }
@@ -951,7 +1040,7 @@ func downloadVersion(opts *VersionOptions) (*Version, []*kivik.Attachment, error
 	parsedManifest := tarball.Manifest
 
 	filename := filepath.Base(url)
-	filepath := filepath.Join(parsedManifest.Slug, parsedManifest.Version, filename)
+	filepath := filepath.Join(parsedManifest.Slug, opts.Version, filename)
 
 	// Saving app tarball
 	errt := SaveTarball(opts.Space, filepath, tarball)
@@ -1043,7 +1132,7 @@ func getAssetFilename(iconPath, partnershipIconPath, name string, screenshotPath
 	if isIcon {
 		filename = "icon"
 	} else if isShot {
-		filename = name
+		filename = path.Join("screenshots", name)
 	} else if isPartnershipIcon {
 		filename = "partnership_icon"
 	} else {
