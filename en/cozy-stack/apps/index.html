@@ -1008,38 +1008,48 @@ application has been updated or failed.</p>
 </ul>
 <h4 id="advanced-usage">Advanced usage<a class="headerlink" href="#advanced-usage" title="Permanent link">&para;</a></h4>
 <p>Two optional query parameters are available for an app update:
-- <code>PermissionsAcked</code>: (defaults to <code>true</code>)
-  - Tells that the user accepted the permissions/ToS. It is useful if there are
+-   <code>PermissionsAcked</code>: (defaults to <code>true</code>)
+      - Tells that the user accepted the permissions/ToS. It is useful if there are
     newer permissions or Terms Of Service and you want to be sure they were read
     or accepted. If set to <code>false</code>, the update will be blocked and the user will
-    be told that a new app version is available</p>
+    be told that a new app version is available.\
+        &gt; Note: <code>PermissionsAcked</code> can be skipped. \
+        If an instance is in a <code>context</code> configured with the parameter
+        <code>permissions_skip_verification</code> sets to <code>true</code>, permissions
+        verification will be ignored.</p>
 <ul>
-<li><code>Source</code> (defaults to <code>SourceURL</code> installation parameter):</li>
+<li><code>Source</code> (defaults to <code>SourceURL</code> installation parameter):<ul>
 <li>Use a different source to update this app (e.g. to install a <code>beta</code> or <code>dev</code>
-    app version)</li>
+app version)</li>
+</ul>
+</li>
 </ul>
 <h5 id="examples">Examples:<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h5>
 <ul>
-<li>
-<p>You have an email application on a <code>stable</code> channel, and you want to update it
-  to a particular <code>beta</code> version:
-  <code>http
-  PUT /apps/emails?Source=https://&lt;apps-repository&gt;/emails/1.0.0-beta HTTP/1.1
-  Accept: application/vnd.api+json</code></p>
-</li>
-<li>
-<p>You want to attempt the email app update, but prevent it if new permissions
-  were added
-  <code>http
-  PUT /apps/emails?PermissionsAcked=false HTTP/1.1
-  Accept: application/vnd.api+json</code></p>
-</li>
+<li>You have an email application on a <code>stable</code> channel, and you want to update it
+  to a particular <code>beta</code> version:</li>
 </ul>
+<div class="codehilite"><pre><span></span><span class="nf">PUT</span> <span class="nn">/apps/emails?Source=https://&lt;apps-repository&gt;/emails/1.0.0-beta</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
+
+
+<ul>
+<li>You want to attempt the email app update, but prevent it if new permissions
+  were added</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="nf">PUT</span> <span class="nn">/apps/emails?PermissionsAcked=false</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
+
+
 <p>You can combine these parameters to use a precise app version and stay on
-another channel (when permissions are different):
-- Install a version (e.g. <code>1.0.0</code>)
-- Ask an update to <code>stable</code> channel with <code>PermissionsAcked</code> to <code>false</code>
-- <code>Source</code> will be <code>stable</code>, and your version remains <code>1.0.0</code></p>
+another channel (when permissions are different):</p>
+<ul>
+<li>Install a version (e.g. <code>1.0.0</code>)</li>
+<li>Ask an update to <code>stable</code> channel with <code>PermissionsAcked</code> to <code>false</code></li>
+<li><code>Source</code> will be <code>stable</code>, and your version remains <code>1.0.0</code></li>
+</ul>
 <h2 id="list-installed-applications">List installed applications<a class="headerlink" href="#list-installed-applications" title="Permanent link">&para;</a></h2>
 <h3 id="get-apps">GET /apps/<a class="headerlink" href="#get-apps" title="Permanent link">&para;</a></h3>
 <p>An application can be in one of these states:</p>
