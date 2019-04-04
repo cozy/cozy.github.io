@@ -594,6 +594,7 @@
 <div class="bs-sidebar hidden-print affix" role="complementary">
     <ul class="nav bs-sidenav well" style='padding-left: 0; padding-right: 0; margin-bottom: 1.5rem'>
         <li class="main active"><a href="#how-to-integrate-with-an-existing-store">How-to integrate with an existing store ?</a></li>
+        <li class="main "><a href="#how-to-use-the-client-on-node-environment-referenceerror-fetch-is-not-defined">How to use the client on Node environment (ReferenceError: fetch is not defined) ?</a></li>
         <li class="main "><a href="#how-to-connect-to-the-documents-store-declaratively">How to connect to the documents store declaratively ?</a></li>
         <li class="main "><a href="#how-to-provide-a-mutation-to-a-component">How to provide a mutation to a component ?</a></li>
         <li class="main "><a href="#how-to-specify-a-schema">How to specify a schema ?</a></li>
@@ -646,6 +647,7 @@
 
 <ul>
 <li><a href="#how-to-integrate-with-an-existing-store-">How-to integrate with an existing store ?</a></li>
+<li><a href="#how-to-use-the-client-on-node-environment-referenceerror-fetch-is-not-defined">How to use the client on Node environment ?</a></li>
 <li><a href="#how-to-connect-to-the-documents-store-declaratively-">How to connect to the documents store declaratively ?</a></li>
 <li><a href="#how-to-provide-a-mutation-to-a-component-">How to provide a mutation to a component ?</a></li>
 <li><a href="#how-to-specify-a-schema-">How to specify a schema ?</a></li>
@@ -678,6 +680,16 @@
 </pre></div>
 
 
+<h3 id="how-to-use-the-client-on-node-environment-referenceerror-fetch-is-not-defined">How to use the client on Node environment (<code>ReferenceError: fetch is not defined</code>) ?<a class="headerlink" href="#how-to-use-the-client-on-node-environment-referenceerror-fetch-is-not-defined" title="Permanent link">&para;</a></h3>
+<p>Cozy-Client relies on the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API"><code>fetch</code></a> function included in browsers (or polyfilled). This function does not exist on Node environments so we have to provide a polyfill. An example using <a href="https://www.npmjs.com/package/node-fetch"><code>node-fetch</code></a>:</p>
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">fetch</span> <span class="nx">from</span> <span class="s1">&#39;node-fetch&#39;</span>
+<span class="kr">import</span> <span class="nx">CozyClient</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
+
+<span class="nx">global</span><span class="p">.</span><span class="nx">fetch</span> <span class="o">=</span> <span class="nx">fetch</span>
+</pre></div>
+
+
+<p>Then you will be able to use all the client methods and fetch data correctly.</p>
 <h3 id="how-to-connect-to-the-documents-store-declaratively">How to connect to the documents store declaratively ?<a class="headerlink" href="#how-to-connect-to-the-documents-store-declaratively" title="Permanent link">&para;</a></h3>
 <p>Sometimes, HOCs are better suited than render-prop components, especially if you have multiple data-sources and you do not want to have multiple indent levelves. We provide a higher-order component called <code>queryConnect</code>. Basic example of usage:</p>
 <div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span>
