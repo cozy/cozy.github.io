@@ -827,6 +827,18 @@ service and its parameters following this example:</p>
 <p>The <code>trigger</code> field should follow the available triggers described in the
 <a href="../jobs/">jobs documentation</a>. The <code>file</code> field should specify the service
 code run and the <code>type</code> field describe the code type (only <code>"node"</code> for now).</p>
+<h3 id="available-fields-to-the-service">Available fields to the service<a class="headerlink" href="#available-fields-to-the-service" title="Permanent link">&para;</a></h3>
+<p>During the service execution, the stack will give some environment variables to the service if you need to use them.</p>
+<div class="codehilite"><pre><span></span>- <span class="s2">&quot;COZY_URL&quot;</span> <span class="c1"># Cozy URL</span>
+- <span class="s2">&quot;COZY_CREDENTIALS&quot;</span> <span class="c1"># The cozy app related token</span>
+- <span class="s2">&quot;COZY_LANGUAGE&quot;</span> <span class="c1"># Lang used for the service (ex: node)</span>
+- <span class="s2">&quot;COZY_LOCALE&quot;</span> <span class="c1"># Locale of the Cozy</span>
+- <span class="s2">&quot;COZY_TIME_LIMIT&quot;</span> <span class="c1"># Maximum execution time. After this, the job will be killed</span>
+- <span class="s2">&quot;COZY_JOB_ID&quot;</span> <span class="c1"># Job ID</span>
+- <span class="s2">&quot;COZY_COUCH_DOC&quot;</span> <span class="c1"># The CouchDB document which triggers the service</span>
+</pre></div>
+
+
 <h3 id="notifications">Notifications<a class="headerlink" href="#notifications" title="Permanent link">&para;</a></h3>
 <p>For more informations on how te declare notifications in the manifest, see the
 <a href="../notifications/">notifications documentation</a>.</p>
