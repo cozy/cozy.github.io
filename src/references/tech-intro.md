@@ -33,11 +33,16 @@ Several layers can be distinguished. From inside to outside:
 ![Architecture](../img/dev/cozy_archi.png)
 
 
-## The server (Cozy-stack)
+## The server (Cozy-stack - [documentation](https://docs.cozy.io/en/cozy-stack/README/))
 
-The server consist of a single process. We call it *the Cozy stack*. It provides services through a REST API that allow to:
+The server consist of a single process. We call it *the Cozy stack*. 
+
+The server is in charge of serving the Web applications users have installed from the application store.
+
+It provides its services through a REST API that allows to:
 
  - create, update, delete documents inside the database;
+ - authenticate users and client applications;
  - send emails;
  - launch jobs on the server. Connectors that import data from remote websites are some sort of jobs. Jobs can be one time tasks (sending a message) or periodic tasks. Some jobs, like the connectors, that require executing third party code on the server side, are sandboxed (we use `nsjail` for now).
  - …
@@ -48,8 +53,6 @@ Two authentication methods are available:
 
  - Web applications running on the server get a session token when the user log in;
  - OAuth2 for other applications.
-
-The server is in charge of serving the Web applications users have installed from the application store.
 
 
 ## The database
