@@ -30,7 +30,7 @@ Several layers can be distinguished. From inside to outside:
  - the database is accessible through a layer that control accesses and expose a REST API;
  - Web applications and other clients offer nice user interfaces to interact with the data.
 
-![Architecture](../img/dev/cozy_archi.png)
+<img src="../img/dev/cozy_archi.png" width="600">
 
 
 ## The server (Cozy-stack - [documentation](https://docs.cozy.io/en/cozy-stack/README/))
