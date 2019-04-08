@@ -725,7 +725,9 @@ func createVersion(c *Space, db *kivik.DB, ver *Version, attachments []*kivik.At
 
 	// Update the version document to add an attachment that references global
 	// database
-	ver.AttachmentReferences = atts
+	if len(atts) > 0 {
+		ver.AttachmentReferences = atts
+	}
 	_, err = db.Put(ctx, verID, ver, nil)
 	return err
 }
@@ -744,6 +746,10 @@ func (version *Version) Clone() *Version {
 	for k, v := range version.Attachments {
 		clone.Attachments[k] = v
 	}
+	clone.AttachmentReferences = make(map[string]string)
+	for k, v := range version.AttachmentReferences {
+		clone.AttachmentReferences[k] = v
+	}
 	return &clone
 }
 
@@ -753,18 +759,11 @@ func ApprovePendingVersion(c *Space, pending *Version, app *App) (*Version, erro
 
 	release := pending.Clone()
 
-	var attachments []*kivik.Attachment
-	for filename := range release.Attachments {
-		attachment, err := db.GetAttachment(ctx, pending.ID, filename)
-		if err != nil {
-			return nil, err
-		}
-		attachment.Filename = filename
-		attachments = append(attachments, attachment)
-	}
-
 	release.Rev = ""
 	release.Attachments = nil
+
+	// Attachments are already created, skipping them
+	var attachments = []*kivik.Attachment{}
 
 	// We need to skip version check, because we don't drop pending
 	// version until the end to avoid data loss in case of error
