@@ -175,7 +175,7 @@ func FindVersionAttachment(c *Space, appSlug, version, filename string) (*Attach
 			headers = map[string]string{
 				"Content-Type":   att.ContentType,
 				"Etag":           att.Digest,
-				"Content-Length": string(contentBuffer.Len()),
+				"Content-Length": strconv.FormatInt(att.Size, 10),
 			}
 		}
 	}
