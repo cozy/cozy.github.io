@@ -1108,9 +1108,13 @@ full permission on <code>io.cozy.bank.operations</code> in your manifest, to be 
   files, and so on. If you want the timeout to be in 10s, do <code>Date.now() + 10*1000</code>.
   You can try it in the previous code.</p>
 </li>
-<li><code>contentType</code> (string) ex: &lsquo;application/pdf&rsquo; used to force the contentType of documents when
-  they are badly recognized by cozy.</li>
+<li><code>contentType</code> (string or boolean) ex: &lsquo;application/pdf&rsquo; used to force the contentType of documents when
+  they are badly recognized by cozy. If &ldquo;true&rdquo; the content type will be recognized from the file
+  name and forced the same way.</li>
 <li><code>concurrency</code> (number) default: <code>1</code> sets the maximum number of concurrent downloads</li>
+<li><code>validateFile</code> (function) default: do not validate if file is empty or has bad mime type</li>
+<li><code>validateFileContent</code> (boolean) default false. Also check the content of the file to
+  recognize the mime type</li>
 </ul>
 <p><strong>Kind</strong>: Exported function<br />
 <strong>Example</strong>  </p>
