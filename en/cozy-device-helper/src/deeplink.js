@@ -74,12 +74,16 @@ const checkBrowser = () => {
     (ua.includes('safari') && !ua.includes('chrome')) ||
     Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') >
       0
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
+
+  const isIOS122 = isIOS && (ua.includes('os 12_2') || ua.includes('os 12_3'))
   return {
     isOpera,
     isFirefox: typeof InstallTrigger !== 'undefined',
     isSafari,
-    isIOS: /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream,
-    isChrome: !!window.chrome && !isOpera
+    isChrome: !!window.chrome && !isOpera,
+    isIOS122,
+    isIOS
   }
 }
 
@@ -95,9 +99,9 @@ export const openDeeplinkOrRedirect = (deeplink, failCb) => {
   } else {
     const browser = checkBrowser()
 
-    if (browser.isChrome || browser.isIOS) {
+    if (browser.isChrome || (browser.isIOS && !browser.isIOS122)) {
       openUriWithTimeoutHack(deeplink, failCb)
-    } else if (browser.isSafari || browser.isFirefox) {
+    } else if ((browser.isSafari && !browser.isIOS122) || browser.isFirefox) {
       openUriWithHiddenFrame(deeplink, failCb)
     } else {
       failCb()

@@ -15,6 +15,8 @@ import (
 	"github.com/spf13/viper"
 )
 
+var redisCacheVersionsLatest redis.UniversalClient
+
 type Entry struct {
 	Status string `json:"status"`
 	Reason string `json:"reason,omitempty"`
@@ -75,7 +77,9 @@ func Status(c echo.Context) error {
 		IdleCheckFrequency: viper.GetDuration("redis.idle_check_frequency"),
 		DB:                 viper.GetInt("redis.databases.versionsLatest"),
 	}
-	redisCacheVersionsLatest := redis.NewUniversalClient(optsLatest)
+	if redisCacheVersionsLatest == nil {
+		redisCacheVersionsLatest = redis.NewUniversalClient(optsLatest)
+	}
 	res := redisCacheVersionsLatest.Ping()
 	if res.Err() != nil {
 		r.Status = "failed"
