@@ -303,15 +303,18 @@ export function subscribe(config, doctype, { docId, parse = doc => doc } = {}) {
   const subscription = {
     onUpdate: listener => {
       updateListener = parseCurried(listener)
-      cozySocket.subscribe(doctype, 'updated', updateListener, docId)
+      cozySocket &&
+        cozySocket.subscribe(doctype, 'updated', updateListener, docId)
       return subscription
     },
     onDelete: listener => {
       deleteListener = parseCurried(listener)
-      cozySocket.subscribe(doctype, 'deleted', deleteListener, docId)
+      cozySocket &&
+        cozySocket.subscribe(doctype, 'deleted', deleteListener, docId)
       return subscription
     },
     unsubscribe: () => {
+      if (!cozySocket) return
       if (subscribeAllDocs) {
         cozySocket.unsubscribe(doctype, 'created', createListener)
       }
@@ -323,7 +326,7 @@ export function subscribe(config, doctype, { docId, parse = doc => doc } = {}) {
   if (subscribeAllDocs) {
     subscription.onCreate = listener => {
       createListener = parseCurried(listener)
-      cozySocket.subscribe(doctype, 'created', createListener)
+      cozySocket && cozySocket.subscribe(doctype, 'created', createListener)
       return subscription
     }
   }
