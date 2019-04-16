@@ -656,7 +656,7 @@ checking the JWT in the config, like this:</p>
 instance domain, and send the user to <code>https://&lt;instance&gt;/?jwt=...</code>. The user
 will be logged in, and redirected to its default application.</p>
 <h2 id="open-id-connect">Open ID Connect<a class="headerlink" href="#open-id-connect" title="Permanent link">&para;</a></h2>
-<p>For OpenID Connect, there is a more configuration parameters:</p>
+<p>For OpenID Connect, there are more configuration parameters:</p>
 <div class="codehilite"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">authentication</span><span class="p p-Indicator">:</span>
   <span class="l l-Scalar l-Scalar-Plain">the-context-name</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">oidc</span><span class="p p-Indicator">:</span>
@@ -667,7 +667,10 @@ will be logged in, and redirected to its default application.</p>
       <span class="l l-Scalar l-Scalar-Plain">authorize_url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://identity-prodiver/path/to/authorize</span>
       <span class="l l-Scalar l-Scalar-Plain">token_url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://identity-prodiver/path/to/token</span>
       <span class="l l-Scalar l-Scalar-Plain">userinfo_url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://identity-prodiver/path/to/userinfo</span>
-      <span class="l l-Scalar l-Scalar-Plain">userinfo_instance_field</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">cozy</span>
+      <span class="l l-Scalar l-Scalar-Plain">userinfo_instance_field</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">cozy_number</span>
+      <span class="l l-Scalar l-Scalar-Plain">userinfo_instance_prefix</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">name</span>
+      <span class="l l-Scalar l-Scalar-Plain">userinfo_instance_suffix</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">.mycozy.cloud</span>
+      <span class="l l-Scalar l-Scalar-Plain">allow_oauth_token</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
 </pre></div>
 
 
@@ -689,7 +692,7 @@ will be logged in, and redirected to its default application.</p>
 <p>To start the OpenID Connect dance, the user can go to this URL. It will
 redirect him/her to the identity provider with the rights parameter.</p>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/oidc/start</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">example.mycozy.cloud</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">name00001.mycozy.cloud</span>
 </pre></div>
 
 
@@ -709,20 +712,57 @@ cookies to log in the user).</p>
 
 
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">303</span> <span class="ne">See Other</span>
-<span class="na">Location</span><span class="o">:</span> <span class="l">https://example.mycozy.cloud/oidc/login?state=9f6873dfce7d&amp;code=ccd0032a</span>
+<span class="na">Location</span><span class="o">:</span> <span class="l">https://name00001.mycozy.cloud/oidc/login?state=9f6873dfce7d&amp;code=ccd0032a</span>
 </pre></div>
 
 
 <h3 id="get-oidclogin">GET /oidc/login<a class="headerlink" href="#get-oidclogin" title="Permanent link">&para;</a></h3>
 <p>On this route, the stack can create the session for the user, with the cookies.</p>
-<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/oidc/login?state=9f6873dfce7d&amp;code=ccd0032a</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">example.mycozy.cloud</span>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/oidc/login?code=ccd0032a</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">name00001.mycozy.cloud</span>
 </pre></div>
 
 
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">303</span> <span class="ne">See Other</span>
 <span class="na">Set-Cookie</span><span class="o">:</span> <span class="l">...</span>
-<span class="na">Location</span><span class="o">:</span> <span class="l">https://example-home.mycozy.cloud/</span>
+<span class="na">Location</span><span class="o">:</span> <span class="l">https://name00001-home.mycozy.cloud/</span>
+</pre></div>
+
+
+<p>If the <code>allow_oauth_token</code> option is enabled, it&rsquo;s possible to use an
+access_token instead of code on this URL.</p>
+<h3 id="post-oidcaccess_token">POST /oidc/access_token<a class="headerlink" href="#post-oidcaccess_token" title="Permanent link">&para;</a></h3>
+<p>This additional route can be used by an OAuth client when delegated
+authentication via OpenID Connect is enabled. It allows the client to obtain an
+<code>access_token</code> for requesting the cozy-stack in exchange of a token valid on the
+OpenID Connect Identity Provider.</p>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/oidc/access_token</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">name00001.mycozy.cloud</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;client_id&quot;</span><span class="p">:</span> <span class="s2">&quot;55eda056e85468fdfe2c8440d4009cbe&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;client_secret&quot;</span><span class="p">:</span> <span class="s2">&quot;DttCGIUOTniVNkivR_CsZ_xRoME9gghN&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;scope&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files io.cozy.photos.albums&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;oidc_token&quot;</span><span class="p">:</span> <span class="s2">&quot;769fa760-59de-11e9-a167-9bab3784e3e7&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;access_token&quot;</span><span class="p">:</span> <span class="s2">&quot;ooch1Yei&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;token_type&quot;</span><span class="p">:</span> <span class="s2">&quot;bearer&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;refresh_token&quot;</span><span class="p">:</span> <span class="s2">&quot;ui0Ohch8&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;scope&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files io.cozy.photos.albums&quot;</span>
+<span class="p">}</span>
 </pre></div>
                 </div>
         </div>
