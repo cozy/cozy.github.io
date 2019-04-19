@@ -1,4 +1,5 @@
 const path = require('path')
+const webpackMerge = require('webpack-merge')
 
 module.exports = {
   title: 'Cozy UI React components',
@@ -70,7 +71,8 @@ module.exports = {
       components: () => [
         '../react/ActionMenu/index.jsx',
         '../react/Menu/index.jsx',
-        '../react/Tabs/index.jsx'
+        '../react/Tabs/index.jsx',
+        '../react/AppLinker/index.jsx'
       ]
     },
     {
@@ -113,7 +115,16 @@ module.exports = {
       base: 'Lato, sans-serif'
     }
   },
-  webpackConfig: require('./webpack.config.js'),
+  webpackConfig: webpackMerge(
+    require('./webpack.config.js'),
+    {
+      resolve: {
+        alias: {
+          'cozy-ui': path.join(__dirname, '..')
+        }
+      }
+    }
+  ),
   serverPort: 6161,
   skipComponentsWithoutExample: true,
   styleguideDir: path.resolve(__dirname, '../build/react'),
