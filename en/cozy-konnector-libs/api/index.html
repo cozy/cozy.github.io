@@ -1218,11 +1218,12 @@ CookieKonnector which will help you save the session.</p>
 <p>Parameters:</p>
 <ul>
 <li><code>params</code> is an array of objects with any attributes with some mandatory attributes :</li>
-<li><code>type</code> (String): (default recaptcha) type of captcha to solve</li>
-<li><code>timeout</code> (Number): (default 4 minutes after now) time when the solver should stop trying to
+<li><code>type</code> (String): (default recaptcha) type of captcha to solve. can be &ldquo;recaptcha&rdquo; or &ldquo;image&rdquo; at the moment</li>
+<li><code>timeout</code> (Number): (default 3 minutes after now) time when the solver should stop trying to
   solve the captcha</li>
-<li><code>websiteKey</code> (String): the key you can find on the targeted website</li>
-<li><code>websiteURL</code> (String): The URL of the page showing the captcha
+<li><code>websiteKey</code> (String): the key you can find on the targeted website (for recaptcha)</li>
+<li><code>websiteURL</code> (String): The URL of the page showing the captcha (for recaptcha)</li>
+<li><code>body</code> (String): The base64 encoded image (for image captcha)
 Returns: Promise with the solved captcha response as a string</li>
 </ul>
 <p><strong>Kind</strong>: Exported function<br />

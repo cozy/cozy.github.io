@@ -618,6 +618,7 @@
             <li><a href="#hasmanytriggersquery">HasManyTriggers.query()</a></li>
         <li class="main "><a href="#cozyclient">CozyClient</a></li>
             <li><a href="#new-cozyclientoptions">new CozyClient(options)</a></li>
+            <li><a href="#cozyclientlogin">cozyClient.login()</a></li>
             <li><a href="#cozyclientcollectiondoctype-documentcollection">cozyClient.collection(doctype) ⇒ DocumentCollection</a></li>
             <li><a href="#cozyclientgetdocumentsaveplandocument-relationships-arraymutation">cozyClient.getDocumentSavePlan(document, relationships) ⇒ Array.&lt;Mutation&gt;</a></li>
             <li><a href="#cozyclientfetchrelationships">cozyClient.fetchRelationships()</a></li>
@@ -1139,6 +1140,7 @@ having for the &lsquo;konnector&rsquo; worker, and then filter them based on the
 <ul>
 <li><a href="#CozyClient">CozyClient</a><ul>
 <li><a href="#new_CozyClient_new">new CozyClient(options)</a></li>
+<li><a href="#CozyClient+login">.login()</a></li>
 <li><a href="#CozyClient+collection">.collection(doctype)</a> ⇒ <code>DocumentCollection</code></li>
 <li><a href="#CozyClient+getDocumentSavePlan">.getDocumentSavePlan(document, relationships)</a> ⇒ <code>Array.&lt;Mutation&gt;</code></li>
 <li><a href="#CozyClient+fetchRelationships">.fetchRelationships()</a></li>
@@ -1188,6 +1190,33 @@ having for the &lsquo;konnector&rsquo; worker, and then filter them based on the
 <td>options.appMetadata</td>
 <td><code>Object</code></td>
 <td>Metadata about the application that will be used in ensureCozyMetadata</td>
+</tr>
+</tbody>
+</table>
+<p><a name="CozyClient+login"></a></p>
+<h3 id="cozyclientlogin">cozyClient.login()<a class="headerlink" href="#cozyclientlogin" title="Permanent link">&para;</a></h3>
+<p>Notify the links that they can start and set isLoggedIn to true.</p>
+<p>On mobile, where url/token are set after instantiation, use this method
+to set the token and uri via options.</p>
+<p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>options.token</td>
+<td><code>options.token</code></td>
+<td>If passed, the token is set on the client</td>
+</tr>
+<tr>
+<td>options.uri</td>
+<td><code>options.uri</code></td>
+<td>If passed, the uri is set on the client</td>
 </tr>
 </tbody>
 </table>

@@ -619,7 +619,7 @@
             <li><a href="#oauthclientgeneratestatecode-string">oAuthClient.generateStateCode() ⇒ string</a></li>
             <li><a href="#oauthclientgetauthcodeurlstatecode-scopes-string">oAuthClient.getAuthCodeURL(stateCode, scopes) ⇒ string</a></li>
             <li><a href="#oauthclientgetaccesscodefromurlpageurl-statecode-string">oAuthClient.getAccessCodeFromURL(pageURL, stateCode) ⇒ string</a></li>
-            <li><a href="#oauthclientfetchaccesstokenaccesscode-promise">oAuthClient.fetchAccessToken(accessCode) ⇒ Promise</a></li>
+            <li><a href="#oauthclientfetchaccesstokenaccesscode-oauthoptions-uri-promise">oAuthClient.fetchAccessToken(accessCode, oauthOptions, uri) ⇒ Promise</a></li>
             <li><a href="#oauthclientrefreshtoken-promise">oAuthClient.refreshToken() ⇒ Promise</a></li>
             <li><a href="#oauthclientsettokentoken">oAuthClient.setToken(token)</a></li>
             <li><a href="#oauthclientsetoauthoptionsoptions">oAuthClient.setOAuthOptions(options)</a></li>
@@ -1104,7 +1104,7 @@ through OAuth.</p>
 <li><a href="#OAuthClient+generateStateCode">.generateStateCode()</a> ⇒ <code>string</code></li>
 <li><a href="#OAuthClient+getAuthCodeURL">.getAuthCodeURL(stateCode, scopes)</a> ⇒ <code>string</code></li>
 <li><a href="#OAuthClient+getAccessCodeFromURL">.getAccessCodeFromURL(pageURL, stateCode)</a> ⇒ <code>string</code></li>
-<li><a href="#OAuthClient+fetchAccessToken">.fetchAccessToken(accessCode)</a> ⇒ <code>Promise</code></li>
+<li><a href="#OAuthClient+fetchAccessToken">.fetchAccessToken(accessCode, oauthOptions, uri)</a> ⇒ <code>Promise</code></li>
 <li><a href="#OAuthClient+refreshToken">.refreshToken()</a> ⇒ <code>Promise</code></li>
 <li><a href="#OAuthClient+setToken">.setToken(token)</a></li>
 <li><a href="#OAuthClient+setOAuthOptions">.setOAuthOptions(options)</a></li>
@@ -1235,7 +1235,7 @@ through OAuth.</p>
 </tbody>
 </table>
 <p><a name="OAuthClient+fetchAccessToken"></a></p>
-<h3 id="oauthclientfetchaccesstokenaccesscode-promise">oAuthClient.fetchAccessToken(accessCode) ⇒ <code>Promise</code><a class="headerlink" href="#oauthclientfetchaccesstokenaccesscode-promise" title="Permanent link">&para;</a></h3>
+<h3 id="oauthclientfetchaccesstokenaccesscode-oauthoptions-uri-promise">oAuthClient.fetchAccessToken(accessCode, oauthOptions, uri) ⇒ <code>Promise</code><a class="headerlink" href="#oauthclientfetchaccesstokenaccesscode-oauthoptions-uri-promise" title="Permanent link">&para;</a></h3>
 <p>Exchanges an access code for an access token. This function does <strong>not</strong> update the client&rsquo;s token.</p>
 <p><strong>Kind</strong>: instance method of <a href="#OAuthClient"><code>OAuthClient</code></a><br />
 <strong>Returns</strong>: <code>Promise</code> - A promise that resolves with an AccessToken object.<br />
@@ -1255,7 +1255,17 @@ through OAuth.</p>
 <tr>
 <td>accessCode</td>
 <td><code>string</code></td>
-<td>The access code contained in the redirection URL — sett <code>client.getAccessCodeFromURL()</code></td>
+<td>The access code contained in the redirection URL — see <code>client.getAccessCodeFromURL()</code></td>
+</tr>
+<tr>
+<td>oauthOptions</td>
+<td><code>object</code></td>
+<td>— To use when OAuthClient is not yet registered (during login process)</td>
+</tr>
+<tr>
+<td>uri</td>
+<td><code>string</code></td>
+<td>— To use when OAuthClient is not yet registered (during login process)</td>
 </tr>
 </tbody>
 </table>
