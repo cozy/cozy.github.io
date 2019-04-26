@@ -545,7 +545,7 @@ For the first run, the CLI will open a tab in your browser asking you to grant p
 connector. The connector will then save data directly into your cozy. This will validate that your
 manifest has the needed permissions on the data you want to save.
 
-This is the *dev* mode
+This is the *dev* mode.
 
 ## Integration in the store for all the users
 
