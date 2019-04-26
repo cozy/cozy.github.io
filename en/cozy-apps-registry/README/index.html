@@ -602,6 +602,7 @@
             <li><a href="#access-control-and-tokens">Access control and tokens</a></li>
             <li><a href="#maintenance">Maintenance</a></li>
             <li><a href="#application-confidence-grade-labelling">Application confidence grade / labelling</a></li>
+            <li><a href="#universal-links">Universal links</a></li>
             <li><a href="#community">Community</a></li>
     </ul>
   <div style='padding-left: 2rem'>
@@ -700,6 +701,13 @@
 <li><a href="#access-control-and-tokens">Access control and tokens</a></li>
 <li><a href="#maintenance">Maintenance</a></li>
 <li><a href="#application-confidence-grade--labelling">Application confidence grade / labelling</a></li>
+<li><a href="#universal-links">Universal links</a><ul>
+<li><a href="#configuration">Configuration</a></li>
+<li><a href="#config-file">Config file</a></li>
+<li><a href="#files">Files</a></li>
+<li><a href="#usage">Usage</a></li>
+</ul>
+</li>
 <li><a href="#community">Community</a></li>
 </ul>
 <h2 id="what-about-this-repository">What about this repository?<a class="headerlink" href="#what-about-this-repository" title="Permanent link">&para;</a></h2>
@@ -1389,6 +1397,52 @@ application document.</p>
   -H&quot;Content-Type: application/json&quot; \
   -d&#39;{&quot;data_usage_commitment&quot;: &quot;user_reserved&quot;, &quot;data_usage_commitment_by&quot;: &quot;editor&quot;}
   https://apps-registry.cozycloud.cc/my_space/registry/banks
+</pre></div>
+
+
+<h2 id="universal-links">Universal links<a class="headerlink" href="#universal-links" title="Permanent link">&para;</a></h2>
+<p>The registry can manage <a href="https://developer.apple.com/ios/universal-links/">Universal links</a>.</p>
+<h3 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h3>
+<h4 id="config-file">Config file<a class="headerlink" href="#config-file" title="Permanent link">&para;</a></h4>
+<p>Each space holds its own files. The space determination is based on the request host, so you must bind a domain to a space in the config file.</p>
+<div class="codehilite"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">domain_space</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">mycloud.com</span><span class="p p-Indicator">:</span> <span class="s">&quot;__default__&quot;</span>
+  <span class="l l-Scalar l-Scalar-Plain">cloud.foobar.com</span><span class="p p-Indicator">:</span> <span class="s">&quot;foobar&quot;</span>
+</pre></div>
+
+
+<h4 id="files">Files<a class="headerlink" href="#files" title="Permanent link">&para;</a></h4>
+<p>Place your files (e.g <code>apple-app-site-association</code>) in the space container. The file must be prepended with <code>universallink/</code></p>
+<blockquote>
+<p>For the <code>foobar</code> space and file <code>apple-app-site-association</code>, the file has to be named
+<code>universallink/apple-app-site-association</code> and placed in the <code>foobar</code> container</p>
+</blockquote>
+<h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h3>
+<p>The following endpoint is available to get any file:</p>
+<blockquote>
+<p><code>http://&lt;yourdomain&gt;/.well-known/:filename</code></p>
+</blockquote>
+<p>You can now query your endpoint to get your file:</p>
+<div class="codehilite"><pre><span></span>curl -X GET http://cloud.foobar.com/.well-known/apple-app-site-association
+<span class="o">{</span>
+  <span class="s2">&quot;applinks&quot;</span>: <span class="o">{</span>
+    <span class="s2">&quot;apps&quot;</span>: <span class="o">[]</span>,
+    <span class="s2">&quot;details&quot;</span>: <span class="o">[</span>
+      <span class="o">{</span>
+        <span class="s2">&quot;appID&quot;</span>: <span class="s2">&quot;3AKXFMV43J.io.cozy.drive.mobile&quot;</span>,
+        <span class="s2">&quot;paths&quot;</span>: <span class="o">[</span><span class="s2">&quot;/drive&quot;</span><span class="o">]</span>
+      <span class="o">}</span>,
+      <span class="o">{</span>
+        <span class="s2">&quot;appID&quot;</span>: <span class="s2">&quot;3AKXFMV43J.io.cozy.banks.mobile&quot;</span>,
+        <span class="s2">&quot;paths&quot;</span>: <span class="o">[</span><span class="s2">&quot;/banks&quot;</span><span class="o">]</span>
+      <span class="o">}</span>,
+      <span class="o">{</span>
+        <span class="s2">&quot;appID&quot;</span>: <span class="s2">&quot;3AKXFMV43J.io.cozy.photos.mobile&quot;</span>,
+        <span class="s2">&quot;paths&quot;</span>: <span class="o">[</span><span class="s2">&quot;/photos&quot;</span><span class="o">]</span>
+      <span class="o">}</span>
+    <span class="o">]</span>
+  <span class="o">}</span>
+<span class="o">}</span>
 </pre></div>
 
 

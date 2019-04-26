@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"compress/gzip"
 	"encoding/base64"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -30,6 +31,11 @@ const RegistryVersion = "0.1.0"
 
 const authTokenScheme = "Token "
 const spaceKey = "space"
+
+// FS folder name containing the universal link files
+const universalLinkFolder = "universallink"
+
+var ErrSpaceNotFound = errors.New("Cannot find space")
 
 var queryFilterReg = regexp.MustCompile(`^filter\[([a-z]+)\]$`)
 
@@ -714,6 +720,55 @@ func getLatestVersion(c echo.Context) error {
 	return writeJSON(c, version)
 }
 
+func universalLink(c echo.Context) error {
+	space, err := getSpaceFromHost(c)
+	if err != nil {
+		return err
+	}
+	spacePrefix := registry.GetPrefixOrDefault(space)
+	filename := filepath.Join(universalLinkFolder, c.Param("filename"))
+	conf := config.GetConfig()
+	conn := conf.SwiftConnection
+
+	content := new(bytes.Buffer)
+
+	hdrs, err := conn.ObjectGet(spacePrefix, filename, content, true, nil)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusNotFound)
+	}
+
+	c.Response().Header().Set(echo.HeaderContentType, hdrs["Content-Type"])
+	return c.String(http.StatusOK, content.String())
+}
+
+func universalLinkRedirect(c echo.Context) error {
+	space, err := getSpaceFromHost(c)
+	if err != nil {
+		return err
+	}
+	spacePrefix := registry.GetPrefixOrDefault(space)
+	fallback := c.QueryParam("fallback")
+	if fallback == "" {
+		return echo.NewHTTPError(http.StatusNotFound)
+	}
+
+	// Disallow redirection for untrusted domains
+	parsedRedirect, err := url.Parse(fallback)
+	if err != nil {
+		return err
+	}
+
+	spaceTrustedDomains := config.GetConfig().TrustedDomains
+	if domains, ok := spaceTrustedDomains[spacePrefix]; ok {
+		for _, domain := range domains {
+			if strings.Contains(parsedRedirect.Host, domain) {
+				return c.Redirect(http.StatusSeeOther, fallback)
+			}
+		}
+	}
+	return echo.NewHTTPError(http.StatusBadRequest, "This domain is not allowed to be redirected")
+}
+
 func getEditor(c echo.Context) error {
 	editorName := c.Param("editor")
 	editor, err := editorRegistry.GetEditor(editorName)
@@ -776,6 +831,23 @@ func ensureSpace(spaceName string) echo.MiddlewareFunc {
 
 func getSpace(c echo.Context) *registry.Space {
 	return c.Get(spaceKey).(*registry.Space)
+}
+
+func getSpaceFromHost(c echo.Context) (*registry.Space, error) {
+	host := strings.Split(c.Request().Host, ":")[0]
+
+	conf := config.GetConfig()
+
+	if spaceName, ok := conf.DomainSpaces[host]; ok {
+		if spaceName == consts.DefaultSpacePrefix {
+			spaceName = ""
+		}
+		if space, ok := registry.GetSpace(spaceName); ok {
+			return space, nil
+		}
+	}
+
+	return nil, ErrSpaceNotFound
 }
 
 func getVersionsChannel(c echo.Context, defaultChannel registry.Channel) registry.Channel {
@@ -1064,6 +1136,9 @@ func Router(addr string) *echo.Echo {
 	e.GET("/editors", getEditorsList, jsonEndpoint, middleware.Gzip())
 	e.HEAD("/editors/:editor", getEditor, jsonEndpoint, middleware.Gzip())
 	e.GET("/editors/:editor", getEditor, jsonEndpoint, middleware.Gzip())
+
+	e.GET("/.well-known/:filename", universalLink, middleware.Gzip())
+	e.GET("/:slug", universalLinkRedirect)
 
 	e.GET("/favicon.ico", func(c echo.Context) error {
 		return c.Blob(http.StatusOK, "image/png", faviconBytes)

@@ -598,7 +598,7 @@
             <li><a href="#error-handling">Error Handling</a></li>
             <li><a href="#jobs-api">Jobs API</a></li>
             <li><a href="#worker-pool">Worker pool</a></li>
-            <li><a href="#permissions_8">Permissions</a></li>
+            <li><a href="#permissions_9">Permissions</a></li>
             <li><a href="#multi-stack">Multi-stack</a></li>
     </ul>
   <div style='padding-left: 2rem'>
@@ -1245,15 +1245,42 @@ permissions to fetch its state, even without permissions on the
 <h4 id="permissions_5">Permissions<a class="headerlink" href="#permissions_5" title="Permanent link">&para;</a></h4>
 <p>To use this endpoint, an application needs a permission on the type
 <code>io.cozy.triggers</code> for the verb <code>POST</code>.</p>
+<h3 id="delete-jobspurge">DELETE /jobs/purge<a class="headerlink" href="#delete-jobspurge" title="Permanent link">&para;</a></h3>
+<p>This endpoint allows to purge old jobs of an instance.
+Some parameters can be given to this route:</p>
+<ul>
+<li><code>duration</code> is the duration of jobs to keep. This is a human-readable string
+  (integer+suffix).
+  For example:</li>
+<li>&ldquo;3W&rdquo; will keep jobs up to 3 weeks</li>
+<li>&ldquo;2M&rdquo; will keep jobs up to 2 months</li>
+<li><code>workers</code> is a comma-separated list of workers to apply the purge job.</li>
+</ul>
+<h4 id="request_8">Request<a class="headerlink" href="#request_8" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/jobs/purge</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<h4 id="response_8">Response<a class="headerlink" href="#response_8" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;deleted&quot;</span><span class="p">:</span> <span class="mi">42</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h4 id="permissions_6">Permissions<a class="headerlink" href="#permissions_6" title="Permanent link">&para;</a></h4>
+<p>To use this endpoint, an application needs a permission on the type
+<code>io.cozy.jobs</code> for the verb <code>DELETE</code>.</p>
 <h3 id="delete-jobstriggerstrigger-id">DELETE /jobs/triggers/:trigger-id<a class="headerlink" href="#delete-jobstriggerstrigger-id" title="Permanent link">&para;</a></h3>
 <p>Delete a trigger given its ID.</p>
-<h4 id="request_8">Request<a class="headerlink" href="#request_8" title="Permanent link">&para;</a></h4>
+<h4 id="request_9">Request<a class="headerlink" href="#request_9" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/jobs/triggers/123123</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </pre></div>
 
 
-<h4 id="permissions_6">Permissions<a class="headerlink" href="#permissions_6" title="Permanent link">&para;</a></h4>
+<h4 id="permissions_7">Permissions<a class="headerlink" href="#permissions_7" title="Permanent link">&para;</a></h4>
 <p>To use this endpoint, an application needs a permission on the type
 <code>io.cozy.triggers</code> for the verb <code>DELETE</code>.</p>
 <p>Also, for konnector trigger, any application sharing the same doctype
@@ -1266,13 +1293,13 @@ permissions to delete the trigger, even without permissions on the
 <ul>
 <li><code>Worker</code>: to filter only triggers associated with a specific worker.</li>
 </ul>
-<h4 id="request_9">Request<a class="headerlink" href="#request_9" title="Permanent link">&para;</a></h4>
+<h4 id="request_10">Request<a class="headerlink" href="#request_10" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/jobs/triggers?Worker=konnector</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </pre></div>
 
 
-<h4 id="response_8">Response<a class="headerlink" href="#response_8" title="Permanent link">&para;</a></h4>
+<h4 id="response_9">Response<a class="headerlink" href="#response_9" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
     <span class="p">{</span>
@@ -1288,7 +1315,7 @@ permissions to delete the trigger, even without permissions on the
 </pre></div>
 
 
-<h4 id="permissions_7">Permissions<a class="headerlink" href="#permissions_7" title="Permanent link">&para;</a></h4>
+<h4 id="permissions_8">Permissions<a class="headerlink" href="#permissions_8" title="Permanent link">&para;</a></h4>
 <p>To use this endpoint, an application needs a permission on the type
 <code>io.cozy.triggers</code> for the verb <code>GET</code>. When used on a specific worker, the
 permission can be specified on the <code>worker</code> field.</p>
@@ -1298,7 +1325,7 @@ permission can be specified on the <code>worker</code> field.</p>
 workers. The default value is not yet determined. Each time a worker has
 finished a job, it check the queue and based on the priority and the queued date
 of the job, picks a new job to execute.</p>
-<h2 id="permissions_8">Permissions<a class="headerlink" href="#permissions_8" title="Permanent link">&para;</a></h2>
+<h2 id="permissions_9">Permissions<a class="headerlink" href="#permissions_9" title="Permanent link">&para;</a></h2>
 <p>In order to prevent jobs from leaking informations between applications, we may
 need to add filtering per applications: for instance one queue per applications.</p>
 <p>We should also have an explicit check on the permissions of the applications

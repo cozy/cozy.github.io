@@ -60,6 +60,22 @@ conservation:
 #
 # spaces: __default__ registry1 registry2
 
+#
+# Domain space links a domain host to a space
+domain_space:
+  link.cozycloud.cc: "__default__"
+  foo-link.bar.fr: "foobar"
+
+# Trusted domains is used by the universal link to allow redirections on trusted
+# domains
+trusted_domains:
+  __default__:
+    - cloud
+    - mycozy.cloud
+  foobar:
+    - foobar.com
+    - foobar.org
+
 # List of virtual spaces.
 #
 # A virtual space is a read-only view on another space with a filter to

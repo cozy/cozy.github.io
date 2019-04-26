@@ -629,6 +629,9 @@
             <li><a href="#cozyclientregistercozyurl-object">cozyClient.register(cozyURL) ⇒ object</a></li>
             <li><a href="#cozyclientstartoauthflowopenurlcallback-object">cozyClient.startOAuthFlow(openURLCallback) ⇒ object</a></li>
             <li><a href="#cozyclientrenewauthorization-object">cozyClient.renewAuthorization() ⇒ object</a></li>
+            <li><a href="#cozyclienthandlerevocationchange">cozyClient.handleRevocationChange()</a></li>
+            <li><a href="#cozyclienthandletokenrefresh">cozyClient.handleTokenRefresh()</a></li>
+            <li><a href="#cozyclientcreateclient">cozyClient.createClient()</a></li>
             <li><a href="#cozyclientsetdatadata">cozyClient.setData(data)</a></li>
         <li class="main "><a href="#querydefinition">QueryDefinition</a></li>
             <li><a href="#new-querydefinitiondoctype-id-ids-selector-fields-indexedfields-sort-includes-referenced-limit-skip">new QueryDefinition(doctype, id, ids, selector, fields, indexedFields, sort, includes, referenced, limit, skip)</a></li>
@@ -1151,6 +1154,9 @@ having for the &lsquo;konnector&rsquo; worker, and then filter them based on the
 <li><a href="#CozyClient+register">.register(cozyURL)</a> ⇒ <code>object</code></li>
 <li><a href="#CozyClient+startOAuthFlow">.startOAuthFlow(openURLCallback)</a> ⇒ <code>object</code></li>
 <li><a href="#CozyClient+renewAuthorization">.renewAuthorization()</a> ⇒ <code>object</code></li>
+<li><a href="#CozyClient+handleRevocationChange">.handleRevocationChange()</a></li>
+<li><a href="#CozyClient+handleTokenRefresh">.handleTokenRefresh()</a></li>
+<li><a href="#CozyClient+createClient">.createClient()</a></li>
 <li><a href="#CozyClient+setData">.setData(data)</a></li>
 </ul>
 </li>
@@ -1357,6 +1363,22 @@ The <code>register</code> method&rsquo;s name has been chosen for compat reasons
 has expired.</p>
 <p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a><br />
 <strong>Returns</strong>: <code>object</code> - Contains the fetched token and the client information.<br />
+<a name="CozyClient+handleRevocationChange"></a></p>
+<h3 id="cozyclienthandlerevocationchange">cozyClient.handleRevocationChange()<a class="headerlink" href="#cozyclienthandlerevocationchange" title="Permanent link">&para;</a></h3>
+<p>Sets public attribute and emits event related to revocation</p>
+<p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a><br />
+<a name="CozyClient+handleTokenRefresh"></a></p>
+<h3 id="cozyclienthandletokenrefresh">cozyClient.handleTokenRefresh()<a class="headerlink" href="#cozyclienthandletokenrefresh" title="Permanent link">&para;</a></h3>
+<p>Emits event when token is refreshed</p>
+<p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a><br />
+<a name="CozyClient+createClient"></a></p>
+<h3 id="cozyclientcreateclient">cozyClient.createClient()<a class="headerlink" href="#cozyclientcreateclient" title="Permanent link">&para;</a></h3>
+<p>If no stack client has been passed in options, creates a default stack
+client and attaches handlers for revocation and token refresh.
+If a stackClient has been passed in options, ensure it has handlers for
+revocation and token refresh.</p>
+<p>If <code>oauth</code> options are passed, stackClient is an OAuthStackClient.</p>
+<p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a><br />
 <a name="CozyClient+setData"></a></p>
 <h3 id="cozyclientsetdatadata">cozyClient.setData(data)<a class="headerlink" href="#cozyclientsetdatadata" title="Permanent link">&para;</a></h3>
 <p>Directly set the data in the store, without using a query
