@@ -639,6 +639,7 @@
             <li><a href="#basekonnectorsaveaccountdatadata-options-promise">baseKonnector.saveAccountData(data, options) ⇒ Promise</a></li>
             <li><a href="#basekonnectorgetaccountdata-object">baseKonnector.getAccountData() ⇒ object</a></li>
             <li><a href="#basekonnectorupdateaccountattributes">baseKonnector.updateAccountAttributes()</a></li>
+            <li><a href="#basekonnectorwaitfortwofacode">baseKonnector.waitForTwoFaCode()</a></li>
             <li><a href="#basekonnectorterminatemessage">baseKonnector.terminate(message)</a></li>
         <li class="main "><a href="#cookiekonnector">CookieKonnector</a></li>
             <li><a href="#new-cookiekonnectorrequestfactoryoptions">new CookieKonnector(requestFactoryOptions)</a></li>
@@ -1042,12 +1043,15 @@ full permission on <code>io.cozy.bank.operations</code> in your manifest, to be 
 <li><code>documents</code> is an array of objects with any attributes with some mandatory attributes :</li>
 <li><code>amount</code> (Number): the amount of the bill used to match bank operations</li>
 <li><code>date</code> (Date): the date of the bill also used to match bank operations</li>
-<li><code>vendor</code> (String): the name of the vendor associated to the bill. Ex: &lsquo;trainline&rsquo;
-  You can also pass attributes expected by <code>saveFiles</code>
-  Please take a look at <a href="https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.bills.md">io.cozy.bills doctype documentation</a></li>
-<li><code>fields</code> (object) this is the first parameter given to BaseKonnector&rsquo;s constructor</li>
-<li><code>options</code> is passed directly to <code>saveFiles</code>, <code>hydrateAndFilter</code>, <code>addData</code> and <code>linkBankOperations</code>.</li>
+<li><code>vendor</code> (String): the name of the vendor associated to the bill. Ex: &lsquo;trainline&rsquo;</li>
+<li><code>currency</code> (String) default: EUR:  The ISO currency value (not mandatory since there is a
+  default value.</li>
 </ul>
+<p>You can also pass attributes expected by <code>saveFiles</code> : fileurl, filename, requestOptions
+  and more</p>
+<p>Please take a look at <a href="https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.bills.md">io.cozy.bills doctype documentation</a>
+- <code>fields</code> (object) this is the first parameter given to BaseKonnector&rsquo;s constructor
+- <code>options</code> is passed directly to <code>saveFiles</code>, <code>hydrateAndFilter</code>, <code>addData</code> and <code>linkBankOperations</code>.</p>
 <p><strong>Kind</strong>: Exported function<br />
 <strong>Example</strong>  </p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">BaseKonnector</span><span class="p">,</span> <span class="nx">saveBills</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-konnector-libs&#39;</span><span class="p">)</span>
@@ -1071,21 +1075,23 @@ full permission on <code>io.cozy.bank.operations</code> in your manifest, to be 
 <p>You need the full permission on <code>io.cozy.files</code> in your manifest to use this function.</p>
 <ul>
 <li>
-<p><code>files</code> is an array of <code>{ fileurl, filename }</code> :</p>
+<p><code>files</code> is an array of object with the following possible attributes :</p>
 </li>
 <li>
-<p>fileurl: The url of the file. This attribute is mandatory or this item will be ignored (can be a function returning the value)</p>
+<p>fileurl: The url of the file (can be a function returning the value). Ignored if <code>filestream</code>
+  is given</p>
 </li>
 <li>filestream: the stream which will be directly passed to cozyClient.files.create (can also be
   function returning the stream)</li>
 <li>requestOptions (object) : The options passed to request to fetch fileurl (can be a function returning the value)</li>
 <li>filename : The file name of the item written on disk. This attribute is optional and as default value, the
     file name will be &ldquo;smartly&rdquo; guessed by the function. Use this attribute if the guess is not smart
-  enough for you (can be a function returning the value).</li>
-<li><code>shouldReplaceName</code> (string) default: <code>undefined</code> use to select the old filename to replace
-  by filename if possible (can be a function returning the value)</li>
-<li><code>shouldReplaceFile</code> (function) default: use this function to state if the current file
-  should be redownloaded and replaced. You can use the same attribute directly in the entry.</li>
+  enough for you, or if you use <code>filestream</code> (can be a function returning the value).</li>
+<li><code>shouldReplaceName</code> (string) used to migrate filename. If saveFiles find a file linked to this entry and this
+  file name matches <code>shouldReplaceName</code>, the file is renames to <code>filename</code> (can be a function returning the value)</li>
+<li><code>shouldReplaceFile</code> (function) use this function to state if the current entry should be forced
+  to be redownloaded and replaced. Usefull if we know the file content can change and we always
+  want the last version.</li>
 <li>
 <p><code>fileAttributes</code> (object) ex: <code>{created_at: new Date()}</code> sets some additionnal file
   attributes passed to cozyClient.file.create</p>
@@ -1485,6 +1491,7 @@ fetch account information for your connector.</p>
 <li><a href="#BaseKonnector+saveAccountData">.saveAccountData(data, options)</a> ⇒ <code>Promise</code></li>
 <li><a href="#BaseKonnector+getAccountData">.getAccountData()</a> ⇒ <code>object</code></li>
 <li><a href="#BaseKonnector+updateAccountAttributes">.updateAccountAttributes()</a></li>
+<li><a href="#BaseKonnector+waitForTwoFaCode">.waitForTwoFaCode()</a></li>
 <li><a href="#BaseKonnector+terminate">.terminate(message)</a></li>
 </ul>
 </li>
@@ -1584,7 +1591,38 @@ account.</p>
 <h3 id="basekonnectorupdateaccountattributes">baseKonnector.updateAccountAttributes()<a class="headerlink" href="#basekonnectorupdateaccountattributes" title="Permanent link">&para;</a></h3>
 <p>Update account attributes and cache the account</p>
 <p><strong>Kind</strong>: instance method of <a href="#BaseKonnector"><code>BaseKonnector</code></a><br />
-<a name="BaseKonnector+terminate"></a></p>
+<a name="BaseKonnector+waitForTwoFaCode"></a></p>
+<h3 id="basekonnectorwaitfortwofacode">baseKonnector.waitForTwoFaCode()<a class="headerlink" href="#basekonnectorwaitfortwofacode" title="Permanent link">&para;</a></h3>
+<p>Notices that 2FA code is needed and wait for the user to submit it.
+It uses the account to do the communication with the user</p>
+<p>Parameters:</p>
+<ul>
+<li><code>params</code> object with some mandatory attributes :</li>
+<li><code>type</code> (String): (default email) this is the type of expected 2FA code. The message displayed
+  to the user will follow it. Possible values: email, sms</li>
+<li><code>timeout</code> (Number): (default 3 minutes after now) time when the function will stop waiting
+  for a code and fail</li>
+<li><code>heartBeat</code> (Number): (default 5s) how much time is waited between each code check
+Returns: Promise with sucessfull code if any</li>
+</ul>
+<p><strong>Kind</strong>: instance method of <a href="#BaseKonnector"><code>BaseKonnector</code></a><br />
+<strong>Example</strong>  </p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">BaseKonnector</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-konnector-libs&#39;</span><span class="p">)</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BaseKonnector</span><span class="p">(</span><span class="nx">start</span><span class="p">)</span>
+
+<span class="nx">async</span> <span class="kd">function</span> <span class="nx">start</span><span class="p">()</span> <span class="p">{</span>
+   <span class="c1">// we detect the need of a 2FA code</span>
+   <span class="kr">const</span> <span class="nx">code</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">waitForTwoFaCode</span><span class="p">({</span>
+     <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;email&#39;</span><span class="p">,</span>
+     <span class="nx">timeout</span><span class="o">:</span> <span class="mi">5</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">1000</span>
+   <span class="p">})</span>
+   <span class="c1">// send the code to the targeted site</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p><a name="BaseKonnector+terminate"></a></p>
 <h3 id="basekonnectorterminatemessage">baseKonnector.terminate(message)<a class="headerlink" href="#basekonnectorterminatemessage" title="Permanent link">&para;</a></h3>
 <p>Send a special error code which is interpreted by the cozy stack to terminate the execution of the
 connector now</p>
