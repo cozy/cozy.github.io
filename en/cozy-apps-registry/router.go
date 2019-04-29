@@ -1139,6 +1139,7 @@ func Router(addr string) *echo.Echo {
 
 	e.GET("/.well-known/:filename", universalLink, middleware.Gzip())
 	e.GET("/:slug", universalLinkRedirect)
+	e.GET("/:slug/*", universalLinkRedirect)
 
 	e.GET("/favicon.ico", func(c echo.Context) error {
 		return c.Blob(http.StatusOK, "image/png", faviconBytes)

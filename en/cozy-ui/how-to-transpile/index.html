@@ -641,23 +641,17 @@
 <p>Having a transpiled version of cozy-ui allows application developers to
 remove the webpack specific configs.</p>
 <h2 id="how-to">How to<a class="headerlink" href="#how-to" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Install the next version of cozy-ui</li>
-</ol>
+<h3 id="1-install-the-next-version-of-cozy-ui">1. Install the next version of cozy-ui<a class="headerlink" href="#1-install-the-next-version-of-cozy-ui" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span>yarn add cozy-ui@next
 </pre></div>
 
 
-<ol start="2">
-<li>Add <code>stylesheet.css</code></li>
-</ol>
+<h3 id="2-add-stylesheetcss">2. Add <code>stylesheet.css</code><a class="headerlink" href="#2-add-stylesheetcss" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="o">+</span> <span class="kn">import</span> <span class="s1">&#39;cozy-ui/transpiled/react/stylesheet.css&#39;</span>
 </pre></div>
 
 
-<ol start="3">
-<li>Replace occurences of <code>cozy-ui/react</code> by <code>cozy-ui/transpiled/react</code></li>
-</ol>
+<h3 id="3-replace-occurences-of-cozy-uireact-by-cozy-uitranspiledreact">3. Replace occurences of <code>cozy-ui/react</code> by <code>cozy-ui/transpiled/react</code><a class="headerlink" href="#3-replace-occurences-of-cozy-uireact-by-cozy-uitranspiledreact" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="o">-</span><span class="kn">import</span> <span class="p">{</span> <span class="n">Icon</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;cozy-ui/react&#39;</span>
 <span class="o">+</span><span class="kn">import</span> <span class="p">{</span> <span class="n">Icon</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;cozy-ui/transpiled/react&#39;</span>
 </pre></div>
@@ -672,9 +666,7 @@ remove the webpack specific configs.</p>
 </pre></div>
 
 
-<ol start="3">
-<li>Add the icon sprite</li>
-</ol>
+<h3 id="4-add-the-icon-sprite">4. Add the icon sprite<a class="headerlink" href="#4-add-the-icon-sprite" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="p">{</span> <span class="n">IconSprite</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;cozy-ui/transpiled/react&#39;</span>
 
  <span class="n">const</span> <span class="n">App</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
@@ -691,9 +683,7 @@ remove the webpack specific configs.</p>
 </pre></div>
 
 
-<ol start="4">
-<li>Replace palette location</li>
-</ol>
+<h3 id="5-replace-palette-location">5. Replace palette location<a class="headerlink" href="#5-replace-palette-location" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="o">-</span><span class="kn">import</span> <span class="nn">palette</span> <span class="nn">from</span> <span class="s1">&#39;cozy-ui/stylus/settings/palette.json&#39;</span>
 <span class="o">+</span><span class="kn">import</span> <span class="nn">palette</span> <span class="nn">from</span> <span class="s1">&#39;cozy-ui/transpiled/react/palette&#39;</span>
 </pre></div>
