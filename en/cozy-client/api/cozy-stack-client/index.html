@@ -600,6 +600,7 @@
         <li class="main "><a href="#cozystackclient">CozyStackClient</a></li>
             <li><a href="#cozystackclientcollectiondoctype-documentcollection">cozyStackClient.collection(doctype) ⇒ DocumentCollection</a></li>
             <li><a href="#cozystackclientfetchmethod-path-body-options-object">cozyStackClient.fetch(method, path, body, options) ⇒ Object</a></li>
+            <li><a href="#cozystackclientrefreshtoken-promise">cozyStackClient.refreshToken() ⇒ Promise</a></li>
             <li><a href="#cozystackclientfetchjsonmethod-path-body-options-object">cozyStackClient.fetchJSON(method, path, body, options) ⇒ Object</a></li>
         <li class="main "><a href="#documentcollection">DocumentCollection</a></li>
             <li><a href="#documentcollectionalloptions-object">documentCollection.all(options) ⇒ Object</a></li>
@@ -747,6 +748,7 @@ through OAuth.</p>
 <li><a href="#CozyStackClient">CozyStackClient</a><ul>
 <li><a href="#CozyStackClient+collection">.collection(doctype)</a> ⇒ <a href="#DocumentCollection"><code>DocumentCollection</code></a></li>
 <li><a href="#CozyStackClient+fetch">.fetch(method, path, body, options)</a> ⇒ <code>Object</code></li>
+<li><a href="#CozyStackClient+refreshToken">.refreshToken()</a> ⇒ <code>Promise</code></li>
 <li><a href="#CozyStackClient+fetchJSON">.fetchJSON(method, path, body, options)</a> ⇒ <code>Object</code></li>
 </ul>
 </li>
@@ -810,6 +812,16 @@ through OAuth.</p>
 </tr>
 </tbody>
 </table>
+<p><a name="CozyStackClient+refreshToken"></a></p>
+<h3 id="cozystackclientrefreshtoken-promise">cozyStackClient.refreshToken() ⇒ <code>Promise</code><a class="headerlink" href="#cozystackclientrefreshtoken-promise" title="Permanent link">&para;</a></h3>
+<p>Retrieves a new app token by refreshing the currently used token.</p>
+<p><strong>Kind</strong>: instance method of <a href="#CozyStackClient"><code>CozyStackClient</code></a><br />
+<strong>Returns</strong>: <code>Promise</code> - A promise that resolves with a new AccessToken object<br />
+<strong>Throws</strong>:</p>
+<ul>
+<li><code>Error</code> The client should already have an access token to use this function</li>
+<li><code>Error</code> The client couldn&rsquo;t fetch a new token</li>
+</ul>
 <p><a name="CozyStackClient+fetchJSON"></a></p>
 <h3 id="cozystackclientfetchjsonmethod-path-body-options-object">cozyStackClient.fetchJSON(method, path, body, options) ⇒ <code>Object</code><a class="headerlink" href="#cozystackclientfetchjsonmethod-path-body-options-object" title="Permanent link">&para;</a></h3>
 <p>Fetches JSON in an authorized way.</p>
