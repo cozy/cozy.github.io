@@ -85,7 +85,7 @@ This configuration comes from [Cozy Collect] when deployed.
 }
 ```
 
-The `fields` property allows you to set credentials for the targeted web service, such as `login` and `password` as if they come from [Cozy Stack] (so from a real Cozy Cloud instance). You can add as many fields as the targeted service needs. 
+The `fields` property allows you to set credentials for the targeted web service, such as `login` and `password` as if they come from [Cozy Stack] (so from a real Cozy Cloud instance). You can add as many fields as the targeted service needs.
 The `COZY_URL` property will be used later. You do not need to change it for now.
 
 As explained earlier, the demo website [books.toscrape.com](http://books.toscrape.com) does not need any credentials.
@@ -377,7 +377,7 @@ And we will get the following JSON object:
 
 `fileurl` is used to tell Cozy where to find the file (here an image) to retreive. Then you can save it to Cozy Stack (see section below).
 
-There are many [document types](https://github.com/cozy/cozy-doctypes) (Doctypes) you can store in your Cozy, such as : 
+There are many [document types](https://github.com/cozy/cozy-doctypes) (Doctypes) you can store in your Cozy, such as :
 - [Bills](https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.bills.md)
 - [Contacts](https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.contacts.md)
 - [Bank](https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.bank.md)
@@ -647,7 +647,15 @@ module.exports = new BaseKonnector(function fetch (fields) {
 })
 ```
 
-[Cozy Collect]: https://github.com/cozy/cozy-collect
+### What does the `yarn deploy` command do ?
+
+This will deploy a compiled version of your connector in a dedicated branch of your git repository
+using [git-directory-deploy](https://github.com/lukekarrys/git-directory-deploy).
+This deployed version can then be referenced to
+[cozy-app-publish](https://github.com/cozy/cozy-libs/tree/master/packages/cozy-app-publish) to deploy your
+connector to the registry.
+
+[Cozy Home]: https://github.com/cozy/cozy-home
 [Cozy Stack]: https://cozy.github.io/cozy-stack/
 [cozy-konnector-libs]: https://github.com/cozy/cozy-konnector-libs
 [cozy-client-js]: https://github.com/cozy/cozy-client-js/
