@@ -616,6 +616,7 @@
         <li class="main "><a href="#faq">FAQ</a></li>
             <li><a href="#when-i-run-my-connector-a-ghost-node-process-eats-all-my-memory">When I run my connector, a ghost node process eats all my memory</a></li>
             <li><a href="#how-do-i-scrap-a-website">How do I scrap a website</a></li>
+            <li><a href="#what-does-the-yarn-deploy-command-do">What does the yarn deploy command do ?</a></li>
     </ul>
   <div style='padding-left: 2rem'>
     
@@ -659,7 +660,7 @@
 
 <h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
 <p>A connector (also known as <em>konnector</em>) is a script that imports data from another web service and put those data into your cozy.
-Each connector is an independent application, managed by the <a href="https://github.com/cozy/cozy-collect">Cozy Collect</a> application.</p>
+Each connector is an independent application, managed by the [Cozy Collect] application.</p>
 <p>To protect your data, each connector runs inside a container in order to sandbox all their interactions with your data.</p>
 <blockquote>
 <p>⚠️ For historical reasons, in the Cozy codebase, a cozy connector is named konnector, please follow this convention if modifying an existing application.</p>
@@ -685,7 +686,7 @@ They need to register with a manifest, and ask the user for permissions.</p>
 <ul>
 <li><code>COZY_CREDENTIALS</code>: an auth token used by <a href="https://github.com/cozy/cozy-client-js/">cozy-client-js</a> to communicate with the server</li>
 <li><code>COZY_URL</code>: the Cozy Stack API entry point</li>
-<li><code>COZY_FIELDS</code>: settings coming from <a href="https://github.com/cozy/cozy-collect">Cozy Collect</a> and filled by the user (login, password, directory path).</li>
+<li><code>COZY_FIELDS</code>: settings coming from [Cozy Collect] and filled by the user (login, password, directory path).</li>
 </ul>
 <p>These variables are used by the connector and the cozy-client to configure the connection to the <a href="https://cozy.github.io/cozy-stack/">Cozy Stack</a> with the right permissions as defined in the connector manifest.
 They are simulated in standalone mode so that you do not need a real Cozy Stack to develop a connector.
@@ -714,7 +715,7 @@ As a demo we will scrape a fictional website: <a href="http://books.toscrape.com
 
 
 <p>The very first run will create a <code>konnector-dev-config.json</code> file that allows you to configure the connector input when executing it with the CLI.
-This configuration comes from <a href="https://github.com/cozy/cozy-collect">Cozy Collect</a> when deployed.</p>
+This configuration comes from [Cozy Collect] when deployed.</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;COZY_URL&quot;</span><span class="p">:</span> <span class="s2">&quot;http://cozy.tools:8080&quot;</span><span class="p">,</span>
   <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -724,7 +725,7 @@ This configuration comes from <a href="https://github.com/cozy/cozy-collect">Coz
 </pre></div>
 
 
-<p>The <code>fields</code> property allows you to set credentials for the targeted web service, such as <code>login</code> and <code>password</code> as if they come from <a href="https://cozy.github.io/cozy-stack/">Cozy Stack</a> (so from a real Cozy Cloud instance). You can add as many fields as the targeted service needs. 
+<p>The <code>fields</code> property allows you to set credentials for the targeted web service, such as <code>login</code> and <code>password</code> as if they come from <a href="https://cozy.github.io/cozy-stack/">Cozy Stack</a> (so from a real Cozy Cloud instance). You can add as many fields as the targeted service needs.
 The <code>COZY_URL</code> property will be used later. You do not need to change it for now.</p>
 <p>As explained earlier, the demo website <a href="http://books.toscrape.com">books.toscrape.com</a> does not need any credentials.
 But for the code to run without error, you need to register a <em>fake</em> login and a <em>fake</em> password:</p>
@@ -984,7 +985,7 @@ Here is a sample for the following markup from http://books.toscrape.com:</p>
 
 
 <p><code>fileurl</code> is used to tell Cozy where to find the file (here an image) to retreive. Then you can save it to Cozy Stack (see section below).</p>
-<p>There are many <a href="https://github.com/cozy/cozy-doctypes">document types</a> (Doctypes) you can store in your Cozy, such as : 
+<p>There are many <a href="https://github.com/cozy/cozy-doctypes">document types</a> (Doctypes) you can store in your Cozy, such as :
 - <a href="https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.bills.md">Bills</a>
 - <a href="https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.contacts.md">Contacts</a>
 - <a href="https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.bank.md">Bank</a>
@@ -1046,7 +1047,7 @@ This function can then:</p>
 <li>save the related files using (<a href="https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#savefiles">saveFiles</a>)</li>
 </ol>
 <h4 id="error-handling">Error handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h4>
-<p>If your connector hits an issue fetching or saving the data, it can return an error code by throwing it as an error. The error codes are defined inside the <a href="https://github.com/cozy/cozy-collect">Cozy Collect</a> application and will display an explicit error to the user:</p>
+<p>If your connector hits an issue fetching or saving the data, it can return an error code by throwing it as an error. The error codes are defined inside the [Cozy Collect] application and will display an explicit error to the user:</p>
 <ul>
 <li><code>LOGIN_FAILED</code>: the connector could not login</li>
 <li><code>NOT_EXISTING_DIRECTORY</code>: the folder specified as folder_to_save does not exist (checked automatically by the BaseKonnector)</li>
@@ -1131,7 +1132,7 @@ but the last one needs to be configured in <code>package.json</code></p>
 <p>Once your public git repository is configured, you only have to declare it.</p>
 <p>Cozy will soon have a store for connectors and you will be able to publish connectors yourself. But
 at the moment, you need to declare your new connector on the <a href="https://forum.cozy.io">cozy forum</a>.
-The Cozy team will review your code and add your connector to the <a href="https://github.com/cozy/cozy-collect">Cozy Collect</a> application.</p>
+The Cozy team will review your code and add your connector to the [Cozy Collect] application.</p>
 <p>To make the connector available more quickly for all cozys, you can follow this few steps of
 packaging:</p>
 <h3 id="icon">Icon<a class="headerlink" href="#icon" title="Permanent link">&para;</a></h3>
@@ -1204,6 +1205,14 @@ about them. But when the error contains a cheerio object, the problem happens.</
   <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">entries</span> <span class="p">=&gt;</span> <span class="nx">addData</span><span class="p">(</span><span class="nx">entries</span><span class="p">,</span> <span class="s1">&#39;io.cozy.bills&#39;</span><span class="p">))</span>
 <span class="p">})</span>
 </pre></div>
+
+
+<h3 id="what-does-the-yarn-deploy-command-do">What does the <code>yarn deploy</code> command do ?<a class="headerlink" href="#what-does-the-yarn-deploy-command-do" title="Permanent link">&para;</a></h3>
+<p>This will deploy a compiled version of your connector in a dedicated branch of your git repository
+using <a href="https://github.com/lukekarrys/git-directory-deploy">git-directory-deploy</a>.
+This deployed version can then be referenced to
+<a href="https://github.com/cozy/cozy-libs/tree/master/packages/cozy-app-publish">cozy-app-publish</a> to deploy your
+connector to the registry.</p>
                 </div>
         </div>
 
