@@ -1,17 +1,20 @@
 /* global __ENABLED_FLAGS__ */
 
-import isNode from 'detect-node'
-export { default as FlagSwitcher } from './browser/FlagSwitcher'
+const isNode = require('detect-node')
 
 const flag = isNode
   ? require('./node/flag').default
   : require('./browser/flag').default
 
+if (!isNode) {
+  flag.FlagSwitcher = require('./browser/FlagSwitcher').default
+}
+
 /**
  * Enables a list of flags
  * @param {string[]} flagsToEnable
  */
-export function enableFlags(flagsToEnable) {
+function enableFlags(flagsToEnable) {
   if (!Array.isArray(flagsToEnable)) {
     return
   }
@@ -25,4 +28,4 @@ if (typeof __ENABLED_FLAGS__ !== 'undefined') {
 
 flag.enable = enableFlags
 
-export default flag
+module.exports = flag

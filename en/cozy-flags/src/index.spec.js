@@ -1,23 +1,23 @@
-import flag, { enableFlags } from '.'
+import flag from '.'
 
-describe('enableFlags', () => {
+describe('enable', () => {
   afterEach(() => {
     flag.reset()
   })
 
   it('should do nothing if the parameter is not an array', () => {
-    enableFlags('blablabla')
-    enableFlags(42)
-    enableFlags(true)
-    enableFlags({})
-    enableFlags()
+    flag.enable('blablabla')
+    flag.enable(42)
+    flag.enable(true)
+    flag.enable({})
+    flag.enable()
 
     expect(flag.list()).toEqual([])
   })
 
   it('should enable the flags if the parameter is an array', () => {
     const flagsToEnable = ['hello', 'world']
-    enableFlags(flagsToEnable)
+    flag.enable(flagsToEnable)
 
     expect(flag.list()).toEqual(flagsToEnable)
   })
