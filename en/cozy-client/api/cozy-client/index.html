@@ -618,7 +618,8 @@
             <li><a href="#hasmanytriggersquery">HasManyTriggers.query()</a></li>
         <li class="main "><a href="#cozyclient">CozyClient</a></li>
             <li><a href="#new-cozyclientoptions">new CozyClient(options)</a></li>
-            <li><a href="#cozyclientlogin">cozyClient.login()</a></li>
+            <li><a href="#cozyclientlogin-promise">cozyClient.login() ⇒ Promise</a></li>
+            <li><a href="#cozyclientlogout-promise">cozyClient.logout() ⇒ Promise</a></li>
             <li><a href="#cozyclientcollectiondoctype-documentcollection">cozyClient.collection(doctype) ⇒ DocumentCollection</a></li>
             <li><a href="#cozyclientgetdocumentsaveplandocument-relationships-arraymutation">cozyClient.getDocumentSavePlan(document, relationships) ⇒ Array.&lt;Mutation&gt;</a></li>
             <li><a href="#cozyclientfetchrelationships">cozyClient.fetchRelationships()</a></li>
@@ -1143,7 +1144,8 @@ having for the &lsquo;konnector&rsquo; worker, and then filter them based on the
 <ul>
 <li><a href="#CozyClient">CozyClient</a><ul>
 <li><a href="#new_CozyClient_new">new CozyClient(options)</a></li>
-<li><a href="#CozyClient+login">.login()</a></li>
+<li><a href="#CozyClient+login">.login()</a> ⇒ <code>Promise</code></li>
+<li><a href="#CozyClient+logout">.logout()</a> ⇒ <code>Promise</code></li>
 <li><a href="#CozyClient+collection">.collection(doctype)</a> ⇒ <code>DocumentCollection</code></li>
 <li><a href="#CozyClient+getDocumentSavePlan">.getDocumentSavePlan(document, relationships)</a> ⇒ <code>Array.&lt;Mutation&gt;</code></li>
 <li><a href="#CozyClient+fetchRelationships">.fetchRelationships()</a></li>
@@ -1200,11 +1202,17 @@ having for the &lsquo;konnector&rsquo; worker, and then filter them based on the
 </tbody>
 </table>
 <p><a name="CozyClient+login"></a></p>
-<h3 id="cozyclientlogin">cozyClient.login()<a class="headerlink" href="#cozyclientlogin" title="Permanent link">&para;</a></h3>
+<h3 id="cozyclientlogin-promise">cozyClient.login() ⇒ <code>Promise</code><a class="headerlink" href="#cozyclientlogin-promise" title="Permanent link">&para;</a></h3>
 <p>Notify the links that they can start and set isLogged to true.</p>
 <p>On mobile, where url/token are set after instantiation, use this method
 to set the token and uri via options.</p>
-<p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a>  </p>
+<p>Emits</p>
+<ul>
+<li>&ldquo;beforeLogin&rdquo; at the beginning, before links have been set up</li>
+<li>&ldquo;login&rdquo; when the client is fully logged in and links have been set up</li>
+</ul>
+<p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a><br />
+<strong>Returns</strong>: <code>Promise</code> - - Resolves when all links have been setup and client is fully logged in  </p>
 <table>
 <thead>
 <tr>
@@ -1226,7 +1234,17 @@ to set the token and uri via options.</p>
 </tr>
 </tbody>
 </table>
-<p><a name="CozyClient+collection"></a></p>
+<p><a name="CozyClient+logout"></a></p>
+<h3 id="cozyclientlogout-promise">cozyClient.logout() ⇒ <code>Promise</code><a class="headerlink" href="#cozyclientlogout-promise" title="Permanent link">&para;</a></h3>
+<p>Logs out the client and reset all the links</p>
+<p>Emits</p>
+<ul>
+<li>&ldquo;beforeLogout&rdquo; at the beginning, before links have been reset</li>
+<li>&ldquo;login&rdquo; when the client is fully logged out and links have been reset</li>
+</ul>
+<p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a><br />
+<strong>Returns</strong>: <code>Promise</code> - - Resolves when all links have been reset and client is fully logged out<br />
+<a name="CozyClient+collection"></a></p>
 <h3 id="cozyclientcollectiondoctype-documentcollection">cozyClient.collection(doctype) ⇒ <code>DocumentCollection</code><a class="headerlink" href="#cozyclientcollectiondoctype-documentcollection" title="Permanent link">&para;</a></h3>
 <p>Forwards to a stack client instance and returns
 a <a href="https://docs.cozy.io/en/cozy-client/api/cozy-stack-client/#DocumentCollection">DocumentCollection</a> instance.</p>
