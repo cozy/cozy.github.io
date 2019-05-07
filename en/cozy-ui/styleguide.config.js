@@ -80,7 +80,9 @@ module.exports = {
       components: () => [
         '../react/Overlay/index.jsx',
         '../react/Alerter/index.jsx',
-        '../react/PopupOpener/index.jsx'
+        '../react/PopupOpener/index.jsx',
+        '../react/PushClientButton/index.jsx',
+        '../react/PushClientBanner/index.jsx'
       ]
     },
     {

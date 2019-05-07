@@ -30,6 +30,10 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /\.(png|gif|jpe?g|svg)$/i,
+        loader: 'url-loader'
       }
     ]
   },
