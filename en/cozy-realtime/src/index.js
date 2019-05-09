@@ -1,339 +1,333 @@
-/* global WebSocket */
+import MicroEE from 'microee'
+import Socket from './Socket'
+import minilog_ from 'minilog'
 
-// cozySocket is a custom object wrapping logic to websocket and exposing a subscription
-// interface, it's a global variable to avoid creating multiple at a time
-let cozySocket
+const minilog = (typeof window !== undefined && window.minilog) || minilog_
+const logger = minilog('cozy-realtime')
+minilog.suggest.deny('cozy-realtime', 'info')
 
-// Here it is wrapped into a promise to be sure to have it ready on resolved
-let socketPromise
+const INDEX_KEY_SEPARATOR = '//'
 
-const NUM_RETRIES = 3
-const RETRY_BASE_DELAY = 1000
+/**
+ * Generate a key for an event
+ *
+ * @return {String}  Event key
+ */
+export const generateKey = (eventName, type, id) =>
+  `${eventName}${INDEX_KEY_SEPARATOR}${type}${INDEX_KEY_SEPARATOR}${id}`
 
-// stored listeners
-// stored as Map { [doctype]: Object { [event]: listeners } }
-let listeners = new Map()
+const getHandlerAndId = (handlerOrId, handlerOrUndefined) => {
+  if (
+    typeof handlerOrId !== 'function' &&
+    typeof handlerOrUndefined !== 'function'
+  ) {
+    throw new Error('You should call this function with an handler')
+  }
 
-// getters
-export const getListeners = () => listeners
-export const getSocket = async () => socketPromise && (await socketPromise)
-export const getCozySocket = () => cozySocket
+  let id, handler
+  if (!handlerOrUndefined) {
+    id = undefined
+    handler = handlerOrId
+  } else {
+    id = handlerOrId
+    handler = handlerOrUndefined
+  }
 
-// listener key computing, according to doctype only or with doc id
-const LISTENER_KEY_SEPARATOR = '/' // safe since we can't have a '/' in a doctype
-const getListenerKey = (doctype, docId) =>
-  docId ? [doctype, docId].join(LISTENER_KEY_SEPARATOR) : doctype
+  return { id, handler }
+}
 
-const getTypeAndIdFromListenerKey = listenerKey => {
-  const splitResult = listenerKey.split(LISTENER_KEY_SEPARATOR)
-  return {
-    doctype: splitResult.shift(),
-    // if there still are some lements, this is the doc id
-    docId: splitResult.length ? splitResult.join(LISTENER_KEY_SEPARATOR) : null
+const validateParameters = (eventName, type, id, handler) => {
+  let msg
+
+  if (!['created', 'updated', 'deleted'].includes(eventName)) {
+    msg = `'${eventName}' is not a valid event, valid events are 'created', 'updated' or 'deleted'.`
+  }
+
+  if (typeof type !== 'string') {
+    msg = `'${type}' is not a valide type, it should be a string.`
+  }
+
+  if (id && eventName === 'created') {
+    msg = `The 'id' should not be specified for 'created' event.`
+  }
+
+  if (typeof handler !== 'function') {
+    msg = `The handler '${handler}' should be a function.`
+  }
+
+  if (msg) {
+    logger.error(msg)
+    throw new Error(msg)
   }
 }
 
-// return true if the there is at least one event listener
-const hasListeners = socketListeners => {
-  for (let event of ['created', 'updated', 'deleted']) {
-    if (socketListeners[event] && socketListeners[event].length) return true
-  }
-  return false
+/**
+ * Return websocket url from cozyClient
+ *
+ * @return {String}  WebSocket url
+ */
+export const getWebSocketUrl = cozyClient => {
+  const isSecureURL = url => !!url.match(`^(https:/{2})`)
+
+  const url = cozyClient.stackClient.uri
+  const protocol = isSecureURL(url) ? 'wss:' : 'ws:'
+  const host = new URL(url).host
+
+  return `${protocol}//${host}/realtime/`
 }
 
-// Send a subscribe message for the given doctype trough the given websocket
-export async function subscribeWhenReady(doctype, docId) {
-  const socket = await getSocket()
-  try {
-    const payload = { type: doctype }
-    if (docId) payload.id = docId
-    socket.send(
-      JSON.stringify({
-        method: 'SUBSCRIBE',
-        payload
-      })
-    )
-  } catch (error) {
-    console.warn(`Cannot subscribe to doctype ${doctype}: ${error.message}`)
-    throw error
-  }
-}
+/**
+ * Return token from cozyClient
+ *
+ * @return {String}  token
+ */
+export const getWebSocketToken = cozyClient =>
+  cozyClient.stackClient.token.accessToken || cozyClient.stackClient.token.token
 
-function isSecureURL(url) {
-  const httpsRegexp = new RegExp(`^(https:/{2})`)
-  return url.match(httpsRegexp)
-}
+/**
+ * CozyRealtime class
+ *
+ * @class
+ */
+class CozyRealtime {
+  /**
+   * A cozy client
+   *
+   * @type {CozyClient}
+   */
+  _cozyClient = null
 
-const isBoolean = [
-  bool => typeof bool === 'undefined' || typeof bool === 'boolean',
-  'should be a boolean'
-]
-const isRequired = [attr => !!attr, 'is required']
-const isRequiredIfNo = keys => [
-  (attr, obj) => keys.find(key => !!obj[key]) || !!attr,
-  `is required if no attribute ${keys.join(' or ')} are provider.`
-]
-const isString = [
-  str => typeof str === 'undefined' || typeof str === 'string',
-  'should be a string'
-]
-const isURL = [
-  url => {
-    if (typeof url === 'undefined') return true
-    try {
-      new URL(url)
-    } catch (error) {
-      return false
+  /**
+   * A Socket class
+   *
+   * @type {Socket}
+   */
+  _socket = null
+
+  /**
+   * Delay (ms) to retry socket connection
+   *
+   * @type {Interger}
+   */
+  _retryDelay = 1000
+
+  /**
+   * Limit of socket connection
+   */
+  _retryLimit = 60
+
+  /**
+   * Constructor of CozyRealtime:
+   * - Save cozyClient
+   * - create socket
+   * - listen cozyClient events
+   * - unsubscribeAll if window unload
+   *
+   * @constructor
+   * @param {CozyClient} cozyClient  A cozy client
+   */
+  constructor({ cozyClient }) {
+    this._cozyClient = cozyClient
+
+    this._updateAuthentication = this._updateAuthentication.bind(this)
+    this.unsubscribeAll = this.unsubscribeAll.bind(this)
+    this._receiveMessage = this._receiveMessage.bind(this)
+    this._receiveError = this._receiveError.bind(this)
+    this._resubscribe = this._resubscribe.bind(this)
+    this._beforeUnload = this._beforeUnload.bind(this)
+    this._resetSocket = this._resetSocket.bind(this)
+
+    this._createSocket()
+
+    this._cozyClient.on('login', this._updateAuthentication)
+    this._cozyClient.on('tokenRefreshed', this._updateAuthentication)
+    this._cozyClient.on('logout', this.unsubscribeAll)
+
+    if (global) {
+      global.addEventListener('beforeunload', this._beforeUnload)
+      global.addEventListener('online', this._resubscribe)
+      global.removeEventListener('offline', this._resetSocket)
     }
+  }
 
-    return true
-  },
-  'should be an URL'
-]
+  _beforeUnload() {
+    global.removeEventListener('beforeunload', this._windowUnload)
+    this.unsubscribeAll()
+  }
 
-const validate = types => obj => {
-  for (const [attr, rules] of Object.entries(types)) {
-    for (const [validator, message] of rules) {
-      if (!validator(obj[attr], obj)) {
-        throw new Error(`${attr} ${message}.`)
+  /**
+   * Create a Socket with cozyClient credential
+   */
+  _createSocket() {
+    if (!this._socket) {
+      const getUrl = () => getWebSocketUrl(this._cozyClient)
+      const getToken = () => getWebSocketToken(this._cozyClient)
+
+      this._socket = new Socket(getUrl, getToken)
+      this._socket.on('message', this._receiveMessage)
+      this._socket.on('error', this._receiveError)
+    }
+  }
+
+  /**
+   * When socket send error it test to reconnect
+   */
+  _receiveError(error) {
+    logger.info(`Receive error: ${error}`)
+
+    this._resetSocket()
+
+    if (this._retryLimit === 0) {
+      this.emit('error', error)
+    } else {
+      if (this.retry) {
+        clearTimeout(this.retry)
+      }
+      if (global.navigator.onLine) {
+        this.retry = setTimeout(this._resubscribe, this._retryDelay)
       }
     }
   }
-}
 
-const configTypes = {
-  domain: [isRequiredIfNo(['url']), isString],
-  secure: [isBoolean],
-  token: [isRequired, isString],
-  url: [isRequiredIfNo(['domain']), isURL]
-}
+  /**
+   * Re subscribe on server
+   */
+  _resubscribe() {
+    this._retryLimit--
 
-const validateConfig = validate(configTypes)
+    const subscribeList = Object.keys(this._events)
+      .map(key => {
+        if (!key.includes(INDEX_KEY_SEPARATOR)) return
+        if (this._events[key].length === 0) return
+        let [, type, id] = key.split(INDEX_KEY_SEPARATOR)
+        if (id === 'undefined') id = undefined
+        return { type, id }
+      })
+      .filter(Boolean)
 
-export function createWebSocket(
-  config,
-  onmessage,
-  onclose,
-  numRetries,
-  retryDelay
-) {
-  validateConfig(config)
-  const options = {
-    secure: config.url ? isSecureURL(config.url) : true,
-    ...config
+    for (const { type, id } of subscribeList) {
+      this._socket.subscribe(type, id)
+    }
   }
 
-  const protocol = options.secure ? 'wss:' : 'ws:'
-  const domain = options.domain || new URL(options.url).host
+  /**
+   * Launch handlers
+   */
+  _receiveMessage({ type, id, eventName }, doc) {
+    const keys = [generateKey(eventName, type)]
+    if (id) {
+      keys.push(generateKey(eventName, type, id))
+    }
 
-  if (!domain) {
-    throw new Error('Unable to detect domain')
+    for (const key of keys) {
+      logger.debug('Emitting', key, doc)
+      this.emit(key, doc)
+    }
   }
 
-  const socket = new WebSocket(
-    `${protocol}//${domain}/realtime/`,
-    'io.cozy.websocket'
-  )
-
-  const windowUnloadHandler = () => socket.close()
-  window.addEventListener('beforeunload', windowUnloadHandler)
-
-  socket.onmessage = onmessage
-  socket.onclose = event => {
-    window.removeEventListener('beforeunload', windowUnloadHandler)
-    if (typeof onclose === 'function') onclose(event, numRetries, retryDelay)
+  /**
+   * Update token on socket
+   */
+  _updateAuthentication() {
+    logger.info('Update token on socket')
+    this._socket.authenticate()
   }
-  socket.onerror = error => console.error(`WebSocket error: ${error.message}`)
 
-  socketPromise = new Promise(resolve => {
-    socket.onopen = () => {
-      socket.send(
-        JSON.stringify({
-          method: 'AUTH',
-          payload: options.token
+  /**
+   * Reset socket
+   */
+  _resetSocket() {
+    if (this._socket) {
+      this._socket.close()
+      this._socket = null
+    }
+    this._createSocket()
+  }
+
+  /**
+   * Remove the given handler from the list of handlers for given
+   * doctype/document and event.
+   *
+   * @param  {String}  type      Document doctype to subscribe to
+   * @param  {String}  id        Document id to subscribe to
+   * @param  {String}  eventName Event to subscribe to
+   * @param  {Function}  handler   Function to call when an event of the
+   * given type on the given doctype or document is received from stack.
+   * @return {Promise}           Promise that the message has been sent.
+   */
+  subscribe(eventName, type, handlerOrId, handlerOrUndefined) {
+    const { handler, id } = getHandlerAndId(handlerOrId, handlerOrUndefined)
+    validateParameters(eventName, type, id, handler)
+
+    if (this._socket.isConnecting()) {
+      return new Promise(resolve => {
+        this._socket.once('open', async () => {
+          await this.subscribe(eventName, type, handlerOrId, handlerOrUndefined)
+          resolve()
         })
-      )
-      resolve(socket)
-    }
-  })
-}
-
-export function initCozySocket(config) {
-  const onSocketMessage = event => {
-    const data = JSON.parse(event.data)
-    const eventType = data.event.toLowerCase()
-    const payload = data.payload
-
-    if (eventType === 'error') {
-      const realtimeError = new Error(payload.title)
-      const errorFields = ['status', 'code', 'source']
-      errorFields.forEach(property => {
-        realtimeError[property] = payload[property]
-      })
-
-      throw realtimeError
-    }
-
-    // the payload should always have an id here
-    const listenerKey = getListenerKey(payload.type, payload.id)
-
-    // id listener call
-    if (listeners.has(listenerKey) && listeners.get(listenerKey)[eventType]) {
-      listeners.get(listenerKey)[eventType].forEach(listener => {
-        listener(payload.doc)
       })
     }
 
-    if (listenerKey === payload.type) return
+    return new Promise(resolve => {
+      const key = generateKey(eventName, type, id)
+      this.on(key, handler)
 
-    // doctype listener call
-    if (listeners.has(payload.type) && listeners.get(payload.type)[eventType]) {
-      listeners.get(payload.type)[eventType].forEach(listener => {
-        listener(payload.doc)
-      })
+      this._socket.once(`subscribe_${type}_${id}`, resolve)
+      this._socket.subscribe(type, id)
+    })
+  }
+
+  /**
+   * Remove the given handler from the list of handlers for given
+   * doctype/document and event.
+   *
+   * @param {String}  type      Document doctype to unsubscribe from
+   * @param {String}  id        Document id to unsubscribe from
+   * @param {String}  eventName Event to unsubscribe from
+   * @param {Function}  handler   Function to call when an event of the
+   * given type on the given doctype or document is received from stack.
+   */
+  unsubscribe(eventName, type, handlerOrId, handlerOrUndefined) {
+    const { handler, id } = getHandlerAndId(handlerOrId, handlerOrUndefined)
+    validateParameters(eventName, type, id, handler)
+    const key = generateKey(eventName, type, id)
+
+    this.removeListener(key, handler)
+
+    if (!this._haveEventHandler()) {
+      this._resetSocket()
     }
   }
 
-  const onSocketClose = (event, numRetries, retryDelay) => {
-    if (!event.wasClean) {
-      console.warn(
-        `WebSocket closed unexpectedly with code ${event.code} and ${
-          event.reason ? `reason: '${event.reason}'` : 'no reason'
-        }.`
-      )
+  /**
+   * Unsubscibe all handlers and close socket
+   */
+  unsubscribeAll() {
+    this._getEventKeys()
+      .map(key => this._events[key].length > 0 && key)
+      .filter(Boolean)
+      .forEach(key => (this._events[key] = []))
 
-      if (numRetries) {
-        console.warn(`Reconnecting ... ${numRetries} tries left.`)
-        setTimeout(() => {
-          try {
-            createWebSocket(
-              config,
-              onSocketMessage,
-              onSocketClose,
-              --numRetries,
-              retryDelay + 1000
-            )
-            // retry
-            if (listeners.size) {
-              listeners.forEach((value, listenerKey) => {
-                const { doctype, docId } = getTypeAndIdFromListenerKey(
-                  listenerKey
-                )
-                subscribeWhenReady(doctype, docId)
-              })
-            }
-          } catch (error) {
-            console.error(
-              `Unable to reconnect to realtime. Error: ${error.message}`
-            )
-          }
-        }, retryDelay)
-      } else {
-        console.error(`0 tries left. Stop reconnecting realtime.`)
-        // remove cached socket and promise
-        if (socketPromise) socketPromise = null
-        if (cozySocket) cozySocket = null
-      }
-    }
+    this._resetSocket()
   }
 
-  createWebSocket(
-    config,
-    onSocketMessage,
-    onSocketClose,
-    NUM_RETRIES,
-    RETRY_BASE_DELAY
-  )
+  _getEventKeys() {
+    if (!this._events) return []
 
-  cozySocket = {
-    subscribe: (doctype, event, listener, docId) => {
-      if (typeof listener !== 'function')
-        throw new Error('Realtime event listener must be a function')
+    return Object.keys(this._events)
+      .map(key => key.includes(INDEX_KEY_SEPARATOR) && key)
+      .filter(Boolean)
+  }
 
-      const listenerKey = getListenerKey(doctype, docId)
-
-      if (!listeners.has(listenerKey)) {
-        listeners.set(listenerKey, {})
-        subscribeWhenReady(doctype, docId)
-      }
-
-      const eventListeners = listeners.get(listenerKey)[event] || []
-      eventListeners.push(listener)
-      listeners.set(listenerKey, {
-        ...listeners.get(listenerKey),
-        [event]: eventListeners
-      })
-    },
-    unsubscribe: (doctype, event, listener, docId) => {
-      const listenerKey = getListenerKey(doctype, docId)
-      if (listeners.has(listenerKey)) {
-        const socketListeners = listeners.get(listenerKey)
-        if (
-          socketListeners[event] &&
-          socketListeners[event].includes(listener)
-        ) {
-          listeners.set(listenerKey, {
-            ...socketListeners,
-            [event]: socketListeners[event].filter(l => l !== listener)
-          })
-        }
-        if (!hasListeners(listeners.get(listenerKey))) {
-          listeners.delete(listenerKey)
-        }
-      }
-    }
+  _haveEventHandler() {
+    return (
+      this._getEventKeys()
+        .map(key => this._events[key].length)
+        .filter(Boolean).length > 0
+    )
   }
 }
 
-// Returns a subscription to a given doctype (all documents)
-export function subscribe(config, doctype, { docId, parse = doc => doc } = {}) {
-  if (!cozySocket) initCozySocket(config)
-  // Some document need to have specific parsing, for example, decoding
-  // base64 encoded properties
-  const parseCurried = listener => {
-    return doc => {
-      listener(parse(doc))
-    }
-  }
+MicroEE.mixin(CozyRealtime)
 
-  const subscribeAllDocs = !docId
-
-  let createListener, updateListener, deleteListener
-
-  const subscription = {
-    onUpdate: listener => {
-      updateListener = parseCurried(listener)
-      cozySocket &&
-        cozySocket.subscribe(doctype, 'updated', updateListener, docId)
-      return subscription
-    },
-    onDelete: listener => {
-      deleteListener = parseCurried(listener)
-      cozySocket &&
-        cozySocket.subscribe(doctype, 'deleted', deleteListener, docId)
-      return subscription
-    },
-    unsubscribe: () => {
-      if (!cozySocket) return
-      if (subscribeAllDocs) {
-        cozySocket.unsubscribe(doctype, 'created', createListener)
-      }
-      cozySocket.unsubscribe(doctype, 'updated', updateListener, docId)
-      cozySocket.unsubscribe(doctype, 'deleted', deleteListener, docId)
-    }
-  }
-
-  if (subscribeAllDocs) {
-    subscription.onCreate = listener => {
-      createListener = parseCurried(listener)
-      cozySocket && cozySocket.subscribe(doctype, 'created', createListener)
-      return subscription
-    }
-  }
-
-  return subscription
-}
-
-export default {
-  subscribe
-}
+export default CozyRealtime

@@ -112,6 +112,9 @@ module.exports = {
       ]
     }
   },
+  styleguideComponents: {
+    SectionsRenderer: path.join(__dirname, 'IconSpriteInjector.jsx')
+  },
   theme: {
     fontFamily: {
       base: 'Lato, sans-serif'

@@ -594,6 +594,10 @@
 <div class="bs-sidebar hidden-print affix" role="complementary">
     <ul class="nav bs-sidenav well" style='padding-left: 0; padding-right: 0; margin-bottom: 1.5rem'>
         <li class="main active"><a href="#change-log">Change Log</a></li>
+            <li><a href="#301-2019-05-09">3.0.1 (2019-05-09)</a></li>
+        <li class="main "><a href="#210-2019-05-09">2.1.0 (2019-05-09)</a></li>
+            <li><a href="#bug-fixes_1">Bug Fixes</a></li>
+            <li><a href="#features">Features</a></li>
             <li><a href="#208-2019-04-12">2.0.8 (2019-04-12)</a></li>
             <li><a href="#207-2019-03-18">2.0.7 (2019-03-18)</a></li>
             <li><a href="#206-2019-03-12">2.0.6 (2019-03-12)</a></li>
@@ -603,9 +607,9 @@
             <li><a href="#202-2019-02-11">2.0.2 (2019-02-11)</a></li>
             <li><a href="#201-2019-02-07">2.0.1 (2019-02-07)</a></li>
         <li class="main "><a href="#200-2019-02-07">2.0.0 (2019-02-07)</a></li>
-            <li><a href="#bug-fixes_1">Bug Fixes</a></li>
+            <li><a href="#bug-fixes_3">Bug Fixes</a></li>
             <li><a href="#code-refactoring">Code Refactoring</a></li>
-            <li><a href="#features">Features</a></li>
+            <li><a href="#features_1">Features</a></li>
             <li><a href="#breaking-changes">BREAKING CHANGES</a></li>
             <li><a href="#128-2019-01-28">1.2.8 (2019-01-28)</a></li>
             <li><a href="#127-2019-01-16">1.2.7 (2019-01-16)</a></li>
@@ -616,7 +620,7 @@
             <li><a href="#122-2018-12-10">1.2.2 (2018-12-10)</a></li>
             <li><a href="#121-2018-11-27">1.2.1 (2018-11-27)</a></li>
         <li class="main "><a href="#120-2018-10-04">1.2.0 (2018-10-04)</a></li>
-            <li><a href="#features_1">Features</a></li>
+            <li><a href="#features_2">Features</a></li>
             <li><a href="#1110-2018-10-02">1.1.10 (2018-10-02)</a></li>
             <li><a href="#119-2018-09-25">1.1.9 (2018-09-25)</a></li>
             <li><a href="#118-2018-09-25">1.1.8 (2018-09-25)</a></li>
@@ -671,24 +675,50 @@
 <h1 id="change-log">Change Log<a class="headerlink" href="#change-log" title="Permanent link">&para;</a></h1>
 <p>All notable changes to this project will be documented in this file.
 See <a href="https://conventionalcommits.org">Conventional Commits</a> for commit guidelines.</p>
-<div class="codehilite"><pre><span></span>   &amp;lt;a name=&quot;2.0.8&quot;&amp;gt;&amp;lt;/a&amp;gt;
+<div class="codehilite"><pre><span></span>   &amp;lt;a name=&quot;3.0.1&quot;&amp;gt;&amp;lt;/a&amp;gt;
 </pre></div>
 
 
-<h2 id="208-2019-04-12"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@2.0.7...cozy-realtime@2.0.8">2.0.8</a> (2019-04-12)<a class="headerlink" href="#208-2019-04-12" title="Permanent link">&para;</a></h2>
+<h2 id="301-2019-05-09"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@2.1.0...cozy-realtime@3.0.1">3.0.1</a> (2019-05-09)<a class="headerlink" href="#301-2019-05-09" title="Permanent link">&para;</a></h2>
 <h3 id="bug-fixes">Bug Fixes<a class="headerlink" href="#bug-fixes" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
-<p><strong>cozy-realtime:</strong> Imperfect fix for unsubscribe (<a href="https://github.com/cozy/cozy-libs/issues/378">#378</a>) (<a href="https://github.com/cozy/cozy-libs/commit/8e9e9ab">8e9e9ab</a>)</p>
-<p><a name="2.0.7"></a></p>
-<h2 id="207-2019-03-18"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@2.0.6...cozy-realtime@2.0.7">2.0.7</a> (2019-03-18)<a class="headerlink" href="#207-2019-03-18" title="Permanent link">&para;</a></h2>
+<p><strong>Realtime:</strong> Bump version to 3.0.0 (<a href="https://github.com/cozy/cozy-libs/commit/1396f2f">1396f2f</a>)</p>
+<p><a name="2.1.0"></a></p>
+<h1 id="210-2019-05-09">2.1.0 (2019-05-09)<a class="headerlink" href="#210-2019-05-09" title="Permanent link">&para;</a></h1>
 </li>
 </ul>
+<h3 id="bug-fixes_1">Bug Fixes<a class="headerlink" href="#bug-fixes_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Realtime:</strong> Complexifies the emission of the event (<a href="https://github.com/cozy/cozy-libs/commit/abd545b">abd545b</a>)</li>
+<li><strong>Realtime:</strong> Launch only one connection (<a href="https://github.com/cozy/cozy-libs/commit/29fbcb9">29fbcb9</a>)</li>
+<li><strong>Realtime:</strong> Lint (<a href="https://github.com/cozy/cozy-libs/commit/1c1a028">1c1a028</a>)</li>
+<li><strong>Realtime:</strong> Remove all listeners after socket closed (<a href="https://github.com/cozy/cozy-libs/commit/0563c81">0563c81</a>)</li>
+<li><strong>Realtime:</strong> Resubscribe with same parameters (<a href="https://github.com/cozy/cozy-libs/commit/f1aba47">f1aba47</a>)</li>
+</ul>
+<h3 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>realtime:</strong> New version of library (<a href="https://github.com/cozy/cozy-libs/commit/5a13957">5a13957</a>)</li>
+<li><strong>Realtime:</strong> Add limit to retry socket connection (<a href="https://github.com/cozy/cozy-libs/commit/11653a6">11653a6</a>)</li>
+<li><strong>Realtime:</strong> Add minilog (<a href="https://github.com/cozy/cozy-libs/commit/bcf98a0">bcf98a0</a>)</li>
+<li><strong>Realtime:</strong> Add tests (<a href="https://github.com/cozy/cozy-libs/commit/d5a7573">d5a7573</a>)</li>
+<li><strong>Realtime:</strong> Allow unsubscibe with not all config (<a href="https://github.com/cozy/cozy-libs/commit/47c582a">47c582a</a>)</li>
+<li><strong>Realtime:</strong> New API with same parameters of subscribe and unsubcribe (<a href="https://github.com/cozy/cozy-libs/commit/eff5ece">eff5ece</a>)</li>
+<li><strong>Realtime:</strong> Relaunch listerner on new socket (<a href="https://github.com/cozy/cozy-libs/commit/270fcdb">270fcdb</a>)</li>
+<li><strong>Realtime:</strong> Remove all subscribe before window is unloaded (<a href="https://github.com/cozy/cozy-libs/commit/a74fa65">a74fa65</a>)</li>
+<li><strong>Realtime:</strong> Use object on constructor (<a href="https://github.com/cozy/cozy-libs/commit/4744a23">4744a23</a>)</li>
+<li>Use minilog from window if available (<a href="https://github.com/cozy/cozy-libs/commit/1cc390a">1cc390a</a>)</li>
+</ul>
+<p><a name="2.0.8"></a></p>
+<h2 id="208-2019-04-12"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@2.0.7...cozy-realtime@2.0.8">2.0.8</a> (2019-04-12)<a class="headerlink" href="#208-2019-04-12" title="Permanent link">&para;</a></h2>
+<h3 id="bug-fixes_2">Bug Fixes<a class="headerlink" href="#bug-fixes_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>cozy-realtime:</strong> Imperfect fix for unsubscribe (<a href="https://github.com/cozy/cozy-libs/issues/378">#378</a>) (<a href="https://github.com/cozy/cozy-libs/commit/8e9e9ab">8e9e9ab</a>)</li>
+</ul>
+<p><a name="2.0.7"></a></p>
+<h2 id="207-2019-03-18"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@2.0.6...cozy-realtime@2.0.7">2.0.7</a> (2019-03-18)<a class="headerlink" href="#207-2019-03-18" title="Permanent link">&para;</a></h2>
 <p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
-<div class="codehilite"><pre><span></span>  &amp;lt;a name=&quot;2.0.6&quot;&amp;gt;&amp;lt;/a&amp;gt;
-</pre></div>
-
-
+<p><a name="2.0.6"></a></p>
 <h2 id="206-2019-03-12"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@2.0.5...cozy-realtime@2.0.6">2.0.6</a> (2019-03-12)<a class="headerlink" href="#206-2019-03-12" title="Permanent link">&para;</a></h2>
 <p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
 <p><a name="2.0.5"></a></p>
@@ -708,7 +738,7 @@ See <a href="https://conventionalcommits.org">Conventional Commits</a> for commi
 <p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
 <p><a name="2.0.0"></a></p>
 <h1 id="200-2019-02-07"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@1.4.0...cozy-realtime@2.0.0">2.0.0</a> (2019-02-07)<a class="headerlink" href="#200-2019-02-07" title="Permanent link">&para;</a></h1>
-<h3 id="bug-fixes_1">Bug Fixes<a class="headerlink" href="#bug-fixes_1" title="Permanent link">&para;</a></h3>
+<h3 id="bug-fixes_3">Bug Fixes<a class="headerlink" href="#bug-fixes_3" title="Permanent link">&para;</a></h3>
 <ul>
 <li>:nail_care: Handle correctly websocket retries (<a href="https://github.com/cozy/cozy-libs/commit/efd26d8">efd26d8</a>), closes <a href="https://github.com/cozy/cozy-libs/issues/199">#199</a></li>
 <li>:wrench: cache the socket promise instead of the socket itself (<a href="https://github.com/cozy/cozy-libs/commit/f5a6c1d">f5a6c1d</a>), closes <a href="https://github.com/cozy/cozy-libs/issues/143">#143</a></li>
@@ -724,7 +754,7 @@ See <a href="https://conventionalcommits.org">Conventional Commits</a> for commi
 <ul>
 <li><strong>realtime:</strong> :sparkles: Remove async + use simpler API (<a href="https://github.com/cozy/cozy-libs/commit/65e5a16">65e5a16</a>), closes <a href="https://github.com/cozy/cozy-libs/issues/145">#145</a></li>
 </ul>
-<h3 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h3>
+<h3 id="features_1">Features<a class="headerlink" href="#features_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>realtime:</strong> Use promise instead of polling to handle authenticating (<a href="https://github.com/cozy/cozy-libs/commit/bdbf440">bdbf440</a>)</li>
 </ul>
@@ -734,13 +764,13 @@ See <a href="https://conventionalcommits.org">Conventional Commits</a> for commi
 </ul>
 <p><a name="1.2.8"></a></p>
 <h2 id="128-2019-01-28"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@1.2.7...cozy-realtime@1.2.8">1.2.8</a> (2019-01-28)<a class="headerlink" href="#128-2019-01-28" title="Permanent link">&para;</a></h2>
-<h3 id="bug-fixes_2">Bug Fixes<a class="headerlink" href="#bug-fixes_2" title="Permanent link">&para;</a></h3>
+<h3 id="bug-fixes_4">Bug Fixes<a class="headerlink" href="#bug-fixes_4" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>realtime:</strong> Wrong links [skip ci] (<a href="https://github.com/cozy/cozy-libs/commit/d80b3a0">d80b3a0</a>)</li>
 </ul>
 <p><a name="1.2.7"></a></p>
 <h2 id="127-2019-01-16"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@1.2.6...cozy-realtime@1.2.7">1.2.7</a> (2019-01-16)<a class="headerlink" href="#127-2019-01-16" title="Permanent link">&para;</a></h2>
-<h3 id="bug-fixes_3">Bug Fixes<a class="headerlink" href="#bug-fixes_3" title="Permanent link">&para;</a></h3>
+<h3 id="bug-fixes_5">Bug Fixes<a class="headerlink" href="#bug-fixes_5" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>RealTime:</strong> Right repo URL (<a href="https://github.com/cozy/cozy-libs/commit/1cdef02">1cdef02</a>)</li>
 </ul>
@@ -764,7 +794,7 @@ See <a href="https://conventionalcommits.org">Conventional Commits</a> for commi
 <p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
 <p><a name="1.2.0"></a></p>
 <h1 id="120-2018-10-04"><a href="https://github.com/cozy/cozy-realtime/compare/cozy-realtime@1.1.10...cozy-realtime@1.2.0">1.2.0</a> (2018-10-04)<a class="headerlink" href="#120-2018-10-04" title="Permanent link">&para;</a></h1>
-<h3 id="features_1">Features<a class="headerlink" href="#features_1" title="Permanent link">&para;</a></h3>
+<h3 id="features_2">Features<a class="headerlink" href="#features_2" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>realtime:</strong> Add secure parameter ✨ (<a href="https://github.com/cozy/cozy-realtime/commit/8993ac0">8993ac0</a>)</li>
 <li><strong>realtime:</strong> Better string validation 📝 (<a href="https://github.com/cozy/cozy-realtime/commit/1c57d6b">1c57d6b</a>)</li>
@@ -796,7 +826,7 @@ See <a href="https://conventionalcommits.org">Conventional Commits</a> for commi
 <p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
 <p><a name="1.1.3"></a></p>
 <h2 id="113-2018-08-17"><a href="https://github.com/cozy/cozy-realtime/compare/cozy-realtime@1.1.2...cozy-realtime@1.1.3">1.1.3</a> (2018-08-17)<a class="headerlink" href="#113-2018-08-17" title="Permanent link">&para;</a></h2>
-<h3 id="bug-fixes_4">Bug Fixes<a class="headerlink" href="#bug-fixes_4" title="Permanent link">&para;</a></h3>
+<h3 id="bug-fixes_6">Bug Fixes<a class="headerlink" href="#bug-fixes_6" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>realtime:</strong> Domain parsing 🚑 (<a href="https://github.com/cozy/cozy-realtime/commit/9ffbc26">9ffbc26</a>)</li>
 </ul>

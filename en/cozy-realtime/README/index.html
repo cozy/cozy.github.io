@@ -595,7 +595,7 @@
     <ul class="nav bs-sidenav well" style='padding-left: 0; padding-right: 0; margin-bottom: 1.5rem'>
         <li class="main active"><a href="#whats-cozy-realtime">What's cozy-realtime?</a></li>
             <li><a href="#setup">Setup</a></li>
-            <li><a href="#api">API</a></li>
+            <li><a href="#example">Example</a></li>
             <li><a href="#license">License</a></li>
     </ul>
   <div style='padding-left: 2rem'>
@@ -672,80 +672,36 @@
 <p><code>npm install --save cozy-realtime</code>
 or
 <code>yarn add cozy-realtime</code></p>
-<h2 id="api">API<a class="headerlink" href="#api" title="Permanent link">&para;</a></h2>
-<h4 id="subscribeconfig-doctype-options"><code>subscribe(config, doctype, options)</code><a class="headerlink" href="#subscribeconfig-doctype-options" title="Permanent link">&para;</a></h4>
-<p>This method allow you to subscribe to realtime for one document or all documents of a provided doctype. Here are the parameters:</p>
-<ul>
-<li><code>config</code>: a config object with the following keys :</li>
-<li><code>domain</code>: the instance domain (ex: <code>cozy.works</code>, <code>cozy.tools:8080</code>), must be provided if <code>url</code> is not set</li>
-<li><code>token</code>: the cozy token (ex: the global <code>cozy.client._token.token</code>)</li>
-<li><code>url</code>: the cozy url (ex: https://recette.cozy.works)</li>
-<li><code>secure</code>: a boolean indicating if a secure protocol must be used (default <code>true</code>). Should not be provided along <code>url</code>.</li>
-<li><code>doctype</code>: the doctype to subscribe (ex: <code>io.cozy.accounts</code>)</li>
-<li><code>options</code>: an object to use optional parameters:</li>
-<li><code>docId</code>: a document <code>_id</code> attribute to target in order to get realtime only for this specific document</li>
-<li><code>parse</code>: a custom function to be use as parser for your resulting documents (default: <code>doc =&gt; doc</code>)</li>
-</ul>
-<p>It will return a subscription object with <code>onCreate</code> (except if subscribing on specific document), <code>onUpdate</code> and <code>onDelete</code> methods.</p>
-<p>Here is an example:</p>
-<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">realtime</span> <span class="nx">from</span> <span class="s1">&#39;cozy-realtime&#39;</span>
+<h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">CozyRealtime</span> <span class="nx">from</span> <span class="s1">&#39;cozy-realtime&#39;</span>
 
-<span class="kr">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="nx">token</span><span class="o">:</span> <span class="nx">authToken</span><span class="p">,</span> <span class="c1">// app token provided by the stack or the client</span>
-    <span class="nx">domain</span><span class="o">:</span> <span class="s1">&#39;cozy.tools:8080&#39;</span><span class="p">,</span>
-    <span class="nx">secure</span><span class="o">:</span> <span class="kc">true</span> <span class="c1">// to use wss (with SSL) or not</span>
-  <span class="p">}</span>
-<span class="kr">const</span> <span class="nx">subscription</span> <span class="o">=</span> <span class="nx">realtime</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">config</span><span class="p">,</span> <span class="s1">&#39;io.mocks.mydocs&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">realtime</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CozyRealtime</span><span class="p">({</span> <span class="nx">cozyClient</span> <span class="p">})</span>
+<span class="kr">const</span> <span class="nx">type</span> <span class="o">=</span> <span class="s1">&#39;io.cozy.accounts&#39;</span>
+<span class="kr">const</span> <span class="nx">id</span> <span class="o">=</span> <span class="s1">&#39;document_id&#39;</span>
+<span class="kr">const</span> <span class="nx">handlerCreate</span> <span class="o">=</span> <span class="nx">accounts</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`A new &#39;io.cozy.accounts&#39; is created with id &#39;</span><span class="si">${</span><span class="nx">accounts</span><span class="p">.</span><span class="nx">_id</span><span class="si">}</span><span class="sb">&#39;.`</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="kr">const</span> <span class="nx">handlerUpdate</span> <span class="o">=</span> <span class="nx">accounts</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`An account is updated with id &#39;</span><span class="si">${</span><span class="nx">accounts</span><span class="p">.</span><span class="nx">_id</span><span class="si">}</span><span class="sb">&#39;.`</span><span class="p">)</span>
+<span class="p">}</span>
 
-<span class="c1">// your code when a new document is created</span>
-<span class="nx">subscription</span><span class="p">.</span><span class="nx">onCreate</span><span class="p">(</span><span class="nx">doc</span> <span class="p">=&gt;</span> <span class="nx">doSomethingOnCreate</span><span class="p">(</span><span class="nx">doc</span><span class="p">))</span>
-<span class="c1">// your code when a document is updated</span>
-<span class="nx">subscription</span><span class="p">.</span><span class="nx">onUpdate</span><span class="p">(</span><span class="nx">doc</span> <span class="p">=&gt;</span> <span class="nx">doSomethingOnUpdate</span><span class="p">(</span><span class="nx">doc</span><span class="p">))</span>
-<span class="c1">// your code when a document is deleted</span>
-<span class="nx">subscription</span><span class="p">.</span><span class="nx">onDelete</span><span class="p">(</span><span class="nx">doc</span> <span class="p">=&gt;</span> <span class="nx">doSomethingOnDelete</span><span class="p">(</span><span class="nx">doc</span><span class="p">))</span>
+<span class="c1">// To subscribe</span>
+<span class="nx">await</span> <span class="nx">realtime</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="s1">&#39;created&#39;</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">handlerCreate</span><span class="p">)</span>
+<span class="nx">await</span> <span class="nx">realtime</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="s1">&#39;updated&#39;</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">handlerUpdate</span><span class="p">)</span>
+<span class="nx">await</span> <span class="nx">realtime</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="s1">&#39;updated&#39;</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">handlerUpdate</span><span class="p">)</span>
 
-<span class="c1">// Unsubscribe all events from realtime</span>
-<span class="nx">subscription</span><span class="p">.</span><span class="nx">unsubscribe</span><span class="p">()</span>
+<span class="c1">// To unsubscribe</span>
+<span class="nx">await</span> <span class="nx">realtime</span><span class="p">.</span><span class="nx">unsubscribe</span><span class="p">(</span><span class="s1">&#39;created&#39;</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">handlerCreate</span><span class="p">)</span>
+<span class="nx">await</span> <span class="nx">realtime</span><span class="p">.</span><span class="nx">unsubscribe</span><span class="p">(</span><span class="s1">&#39;updated&#39;</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">handlerCreate</span><span class="p">)</span>
+<span class="nx">await</span> <span class="nx">realtime</span><span class="p">.</span><span class="nx">unsubscribe</span><span class="p">(</span><span class="s1">&#39;updated&#39;</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">handlerCreate</span><span class="p">)</span>
 
-<span class="c1">// for a specific document</span>
-<span class="kr">const</span> <span class="nx">docSubscription</span> <span class="o">=</span> <span class="nx">realtime</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">config</span><span class="p">,</span> <span class="s1">&#39;io.mocks.mydocs&#39;</span><span class="p">)</span>
-
-<span class="c1">// There is no onCreate here since to have the id,</span>
-<span class="c1">// the document is already created</span>
-
-<span class="c1">// your code when your document is updated</span>
-<span class="nx">docSubscription</span><span class="p">.</span><span class="nx">onUpdate</span><span class="p">(</span><span class="nx">doc</span> <span class="p">=&gt;</span> <span class="nx">doSomethingOnUpdate</span><span class="p">(</span><span class="nx">doc</span><span class="p">))</span>
-<span class="c1">// your code when your document is deleted</span>
-<span class="nx">docSubscription</span><span class="p">.</span><span class="nx">onDelete</span><span class="p">(</span><span class="nx">doc</span> <span class="p">=&gt;</span> <span class="nx">doSomethingOnDelete</span><span class="p">(</span><span class="nx">doc</span><span class="p">))</span>
-
-<span class="c1">// Unsubscribe all events from realtime</span>
-<span class="nx">docSubscription</span><span class="p">.</span><span class="nx">unsubscribe</span><span class="p">()</span>
-</pre></div>
-
-
-<p>All <code>onCreate</code>, <code>onUpdate</code> and <code>onDelete</code> methods will return the subscription so you can chain the call like below:</p>
-<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">realtime</span> <span class="nx">from</span> <span class="s1">&#39;cozy-realtime&#39;</span>
-
-<span class="kr">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="nx">token</span><span class="o">:</span> <span class="nx">authToken</span><span class="p">,</span> <span class="c1">// app token provided by the stack or the client</span>
-    <span class="nx">domain</span><span class="o">:</span> <span class="s1">&#39;cozy.tools:8080&#39;</span><span class="p">,</span>
-    <span class="nx">secure</span><span class="o">:</span> <span class="kc">true</span> <span class="c1">// to use wss (with SSL) or not</span>
-  <span class="p">}</span>
-<span class="kr">const</span> <span class="nx">subscription</span> <span class="o">=</span> <span class="nx">realtime</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">config</span><span class="p">,</span> <span class="s1">&#39;io.mocks.mydocs&#39;</span><span class="p">)</span>
-  <span class="c1">// your code when a new document is created</span>
-  <span class="p">.</span><span class="nx">onCreate</span><span class="p">(</span><span class="nx">doc</span> <span class="p">=&gt;</span> <span class="nx">doSomethingOnCreate</span><span class="p">(</span><span class="nx">doc</span><span class="p">))</span>
-  <span class="c1">// your code when a document is updated</span>
-  <span class="p">.</span><span class="nx">onUpdate</span><span class="p">(</span><span class="nx">doc</span> <span class="p">=&gt;</span> <span class="nx">doSomethingOnUpdate</span><span class="p">(</span><span class="nx">doc</span><span class="p">))</span>
-  <span class="c1">// your code when a document is deleted</span>
-  <span class="p">.</span><span class="nx">onDelete</span><span class="p">(</span><span class="nx">doc</span> <span class="p">=&gt;</span> <span class="nx">doSomethingOnDelete</span><span class="p">(</span><span class="nx">doc</span><span class="p">))</span>
-
-<span class="c1">// Unsubscribe all events from realtime</span>
-<span class="nx">subscription</span><span class="p">.</span><span class="nx">unsubscribe</span><span class="p">()</span>
+<span class="c1">// To unsubscribe all</span>
+<span class="nx">await</span> <span class="nx">realtime</span><span class="p">.</span><span class="nx">unsubscribeAll</span><span class="p">()</span>
 </pre></div>
 
 
 <h3 id="maintainers">Maintainers<a class="headerlink" href="#maintainers" title="Permanent link">&para;</a></h3>
-<p>The maintainers for Cozy Realtime are <a href="https://github.com/gregorylegarec">Greg</a> and <a href="https://github.com/CPatchane">CPatchane</a> !</p>
+<p>The maintainers for Cozy Realtime are <a href="https://github.com/gregorylegarec">Greg</a>, <a href="https://github.com/CPatchane">CPatchane</a> and <a href="https://github.com/kosssi">kosssi</a> !</p>
 <h2 id="license">License<a class="headerlink" href="#license" title="Permanent link">&para;</a></h2>
 <p><code>cozy-realtime</code> is distributed under the MIT license.</p>
                 </div>
