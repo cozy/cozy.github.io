@@ -82,7 +82,8 @@ module.exports = {
         '../react/Alerter/index.jsx',
         '../react/PopupOpener/index.jsx',
         '../react/PushClientButton/index.jsx',
-        '../react/PushClientBanner/index.jsx'
+        '../react/PushClientBanner/index.jsx',
+        '../react/Viewer/index.jsx'
       ]
     },
     {
