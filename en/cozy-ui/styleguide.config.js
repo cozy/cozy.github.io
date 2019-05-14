@@ -5,6 +5,10 @@ module.exports = {
   title: 'Cozy UI React components',
   sections: [
     {
+      name: 'Bar',
+      components: () => ['../react/BarButton/index.jsx']
+    },
+    {
       name: 'Basics',
       components: () => [
         '../react/Badge/index.jsx',

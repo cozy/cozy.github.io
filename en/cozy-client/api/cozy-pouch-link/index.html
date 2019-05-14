@@ -598,10 +598,18 @@
             <li><a href="#pouchlinkhandleonsync">pouchLink.handleOnSync()</a></li>
             <li><a href="#pouchlinkstartreplication-void">pouchLink.startReplication() ⇒ void</a></li>
             <li><a href="#pouchlinkstopreplication-void">pouchLink.stopReplication() ⇒ void</a></li>
+        <li class="main "><a href="#loop">Loop</a></li>
+            <li><a href="#loopstart">loop.start()</a></li>
+            <li><a href="#loopstop">loop.stop()</a></li>
+            <li><a href="#looprunimmediatetasks">loop.runImmediateTasks()</a></li>
+            <li><a href="#loopscheduleimmediatetasktask">loop.scheduleImmediateTask(task)</a></li>
+            <li><a href="#loopruntask">loop.runTask()</a></li>
+            <li><a href="#loopround">loop.round()</a></li>
         <li class="main "><a href="#pouchmanager">PouchManager</a></li>
             <li><a href="#pouchmanagerensuredatabasesexist">pouchManager.ensureDatabasesExist()</a></li>
             <li><a href="#pouchmanagerstartreplicationloop">pouchManager.startReplicationLoop()</a></li>
             <li><a href="#pouchmanagerstopreplicationloop">pouchManager.stopReplicationLoop()</a></li>
+            <li><a href="#pouchmanagersyncimmediately">pouchManager.syncImmediately()</a></li>
             <li><a href="#pouchmanagerreplicateonce">pouchManager.replicateOnce()</a></li>
     </ul>
   <div style='padding-left: 2rem'>
@@ -651,6 +659,17 @@
 PouchDB collections for each doctype that it supports and knows how
 to respond to queries and mutations.</p>
 </dd>
+<dt><a href="#Loop">Loop</a></dt>
+<dd><p>Utility to call a function (task) periodically
+and on demand immediately.</p>
+<p>Public API</p>
+<ul>
+<li>start</li>
+<li>stop</li>
+<li>scheduleImmediateTask</li>
+<li>waitForCurrentTask</li>
+</ul>
+</dd>
 <dt><a href="#PouchManager">PouchManager</a></dt>
 <dd><p>Handles the lifecycle of several pouches</p>
 <ul>
@@ -692,6 +711,79 @@ Typically, it can be used when the application regains focus.</p>
 Typically, it can be used when the applications loses focus.</p>
 <p><strong>Kind</strong>: instance method of <a href="#PouchLink"><code>PouchLink</code></a><br />
 <strong>Access</strong>: public<br />
+<a name="Loop"></a></p>
+<h2 id="loop">Loop<a class="headerlink" href="#loop" title="Permanent link">&para;</a></h2>
+<p>Utility to call a function (task) periodically
+and on demand immediately.</p>
+<p>Public API</p>
+<ul>
+<li>start</li>
+<li>stop</li>
+<li>scheduleImmediateTask</li>
+<li>waitForCurrentTask</li>
+</ul>
+<p><strong>Kind</strong>: global class  </p>
+<ul>
+<li><a href="#Loop">Loop</a><ul>
+<li><a href="#Loop+start">.start()</a></li>
+<li><a href="#Loop+stop">.stop()</a></li>
+<li><a href="#Loop+runImmediateTasks">.runImmediateTasks()</a></li>
+<li><a href="#Loop+scheduleImmediateTask">.scheduleImmediateTask(task)</a></li>
+<li><a href="#Loop+runTask">.runTask()</a></li>
+<li><a href="#Loop+round">.round()</a></li>
+</ul>
+</li>
+</ul>
+<p><a name="Loop+start"></a></p>
+<h3 id="loopstart">loop.start()<a class="headerlink" href="#loopstart" title="Permanent link">&para;</a></h3>
+<p>Starts the loop. Will run the task periodically each <code>this.delay</code> ms.
+Ignores multiple starts.</p>
+<p><strong>Kind</strong>: instance method of <a href="#Loop"><code>Loop</code></a><br />
+<a name="Loop+stop"></a></p>
+<h3 id="loopstop">loop.stop()<a class="headerlink" href="#loopstop" title="Permanent link">&para;</a></h3>
+<p>Stops the loop, clears immediate tasks.
+Cancels current task if possible</p>
+<p><strong>Kind</strong>: instance method of <a href="#Loop"><code>Loop</code></a><br />
+<a name="Loop+runImmediateTasks"></a></p>
+<h3 id="looprunimmediatetasks">loop.runImmediateTasks()<a class="headerlink" href="#looprunimmediatetasks" title="Permanent link">&para;</a></h3>
+<p>Flushes the immediate tasks list and calls each task.
+Each task is awaited before the next is started.</p>
+<p><strong>Kind</strong>: instance method of <a href="#Loop"><code>Loop</code></a><br />
+<a name="Loop+scheduleImmediateTask"></a></p>
+<h3 id="loopscheduleimmediatetasktask">loop.scheduleImmediateTask(task)<a class="headerlink" href="#loopscheduleimmediatetasktask" title="Permanent link">&para;</a></h3>
+<p>Schedules a task to be run immediately at next round.
+Ignored if loop is not started.
+If not task is passed, the default task from the loop is used.</p>
+<p><strong>Kind</strong>: instance method of <a href="#Loop"><code>Loop</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>task</td>
+<td><code>function</code></td>
+<td><code></code></td>
+<td>Optional custom function to be run immediately</td>
+</tr>
+</tbody>
+</table>
+<p><a name="Loop+runTask"></a></p>
+<h3 id="loopruntask">loop.runTask()<a class="headerlink" href="#loopruntask" title="Permanent link">&para;</a></h3>
+<p>Calls and saves current task.
+Stops loop in case of error of the task.</p>
+<p><strong>Kind</strong>: instance method of <a href="#Loop"><code>Loop</code></a><br />
+<a name="Loop+round"></a></p>
+<h3 id="loopround">loop.round()<a class="headerlink" href="#loopround" title="Permanent link">&para;</a></h3>
+<p>Runs immediate tasks and then schedule the next round.
+Immediate tasks are called sequentially without delay
+There is a delay between immediate tasks and normal periodic tasks.</p>
+<p><strong>Kind</strong>: instance method of <a href="#Loop"><code>Loop</code></a><br />
 <a name="PouchManager"></a></p>
 <h2 id="pouchmanager">PouchManager<a class="headerlink" href="#pouchmanager" title="Permanent link">&para;</a></h2>
 <p>Handles the lifecycle of several pouches</p>
@@ -705,6 +797,7 @@ Typically, it can be used when the applications loses focus.</p>
 <li><a href="#PouchManager+ensureDatabasesExist">.ensureDatabasesExist()</a></li>
 <li><a href="#PouchManager+startReplicationLoop">.startReplicationLoop()</a></li>
 <li><a href="#PouchManager+stopReplicationLoop">.stopReplicationLoop()</a></li>
+<li><a href="#PouchManager+syncImmediately">.syncImmediately()</a></li>
 <li><a href="#PouchManager+replicateOnce">.replicateOnce()</a></li>
 </ul>
 </li>
@@ -722,6 +815,12 @@ call, we are sure that the databases have been created.</p>
 <a name="PouchManager+stopReplicationLoop"></a></p>
 <h3 id="pouchmanagerstopreplicationloop">pouchManager.stopReplicationLoop()<a class="headerlink" href="#pouchmanagerstopreplicationloop" title="Permanent link">&para;</a></h3>
 <p>Stop periodic syncing of the pouches</p>
+<p><strong>Kind</strong>: instance method of <a href="#PouchManager"><code>PouchManager</code></a><br />
+<a name="PouchManager+syncImmediately"></a></p>
+<h3 id="pouchmanagersyncimmediately">pouchManager.syncImmediately()<a class="headerlink" href="#pouchmanagersyncimmediately" title="Permanent link">&para;</a></h3>
+<p>If a replication is currently ongoing, will start a replication
+just after it has finished. Otherwise it will start a replication
+immediately</p>
 <p><strong>Kind</strong>: instance method of <a href="#PouchManager"><code>PouchManager</code></a><br />
 <a name="PouchManager+replicateOnce"></a></p>
 <h3 id="pouchmanagerreplicateonce">pouchManager.replicateOnce()<a class="headerlink" href="#pouchmanagerreplicateonce" title="Permanent link">&para;</a></h3>

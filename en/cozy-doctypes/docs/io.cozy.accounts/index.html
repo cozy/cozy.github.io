@@ -640,13 +640,18 @@
 <p><a href="../README/#table-of-contents">Table of contents</a></p>
 <h1 id="cozy-accounts-doctype">Cozy Accounts doctype<a class="headerlink" href="#cozy-accounts-doctype" title="Permanent link">&para;</a></h1>
 <p>The <code>io.cozy.accounts</code> doctype stores authentification informations used by <a href="https://github.com/konnectors">konnectors</a> to connect to external services or API.</p>
-<p>Accounts can be managed in <a href="http://github.com/cozy/cozy-collect/">Cozy-Collect</a>. They are generally associated to a <a href="../io.cozy.triggers"><code>io.cozy.triggers</code></a> document.</p>
+<p>Accounts can be managed in <a href="http://github.com/cozy/cozy-home/">Cozy-Home</a> (via <a href="https://github.com/cozy/cozy-libs/tree/master/packages/cozy-harvest-lib">Harvest</a>). They are generally associated to a <a href="../io.cozy.triggers"><code>io.cozy.triggers</code></a> document.</p>
 <p><code>io.cozy.accounts</code> attributes are:</p>
 <ul>
 <li><code>account_type</code> (<em>deprecated</em>) : {string} Slug of the konnector the account is related to.</li>
 <li><code>auth</code>: {object} Contains authentification data, typically a couple with <code>login</code>/<code>password</code>. It could also contain an attribute <code>token</code> for OAuth konnectors.</li>
 <li><code>data</code>: {object} Additional custom data.</li>
 <li><code>label</code>: {string} Label given by user.</li>
+<li><code>state</code>: {string} The account state is used to communicate between the konnector and <a href="https://github.com/cozy/cozy-libs/tree/master/packages/cozy-harvest-lib">Harvest</a> to ask for a needed 2FA Code or to tell to reset the konnector session for example. Here are the used values for now:</li>
+<li><code>TWOFA_NEEDED</code>: The service is asking for a Two Factor connexion and the related code (sent by the service) must be provided by the user.</li>
+<li><code>TWOFA_NEEDED_RETRY</code>: The 2FA code provided by the user is wrong, the user can retry by providing a new one.</li>
+<li><code>RESET_SESSION</code>: By finding this state, the konnector should reset the login session if there is one stored and reset the state.</li>
+<li><code>twoFACode</code>: When a 2FA code is asked by the service, <a href="https://github.com/cozy/cozy-libs/tree/master/packages/cozy-harvest-lib">Harvest</a> will ask the user for it from and send it to the konnector via this attribute.</li>
 </ul>
 <h3 id="auth"><code>auth</code><a class="headerlink" href="#auth" title="Permanent link">&para;</a></h3>
 <p>The <code>auth</code> attribute may also contain other data, like  <code>accountName</code>, <code>folderPath</code> or <code>frequency</code>. As <code>auth</code> should only be used for authentication mechanisms, those two values should disappear soon.</p>
