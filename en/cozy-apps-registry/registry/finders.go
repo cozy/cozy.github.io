@@ -791,17 +791,61 @@ func GetAppsList(c *Space, opts *AppsListOptions) (int, []*App, error) {
 		cursor = -1
 	}
 
+	// We are doing a lot of requests to cache or couchdb to fetch the data
+	// about the versions of each app. It would be better to avoid the n+1
+	// requests, but as a quick hack to limit the latency, we are using a pool
+	// of goroutines to parallelize the work.
+	const parallelVersionFinder = 8
+	done := make(chan error)
+	apps := make(chan *App)
+	stop := make(chan struct{})
+
+	for i := 0; i < parallelVersionFinder; i++ {
+		go func() {
+			for {
+				var app *App
+				var err error
+				select {
+				case app = <-apps:
+					// do work
+				case <-stop:
+					return
+				}
+				app.DataUsageCommitment, app.DataUsageCommitmentBy = defaultDataUserCommitment(app, nil)
+				app.Versions, err = FindAppVersions(c, app.Slug, opts.VersionsChannel, Concatenated)
+				if err != nil {
+					done <- err
+					continue
+				}
+				app.LatestVersion, err = FindLatestVersion(c, app.Slug, opts.LatestVersionChannel)
+				if err != nil && err != ErrVersionNotFound {
+					done <- err
+					continue
+				}
+				app.Label = calculateAppLabel(app, app.LatestVersion)
+				done <- nil
+			}
+		}()
+	}
+
 	for _, app := range res {
-		app.DataUsageCommitment, app.DataUsageCommitmentBy = defaultDataUserCommitment(app, nil)
-		app.Versions, err = FindAppVersions(c, app.Slug, opts.VersionsChannel, Concatenated)
-		if err != nil {
-			return 0, nil, err
+		go func(app *App) {
+			apps <- app
+		}(app)
+	}
+
+	for range res {
+		if e := <-done; e != nil {
+			err = e
 		}
-		app.LatestVersion, err = FindLatestVersion(c, app.Slug, opts.LatestVersionChannel)
-		if err != nil && err != ErrVersionNotFound {
-			return 0, nil, err
-		}
-		app.Label = calculateAppLabel(app, app.LatestVersion)
+	}
+
+	for i := 0; i < parallelVersionFinder; i++ {
+		stop <- struct{}{}
+	}
+
+	if err != nil {
+		return 0, nil, err
 	}
 
 	return cursor, res, nil
