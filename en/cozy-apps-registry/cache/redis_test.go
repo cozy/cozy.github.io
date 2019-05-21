@@ -23,7 +23,7 @@ func TestRedis(t *testing.T) {
 		t.Fatal("should have key", key)
 	}
 
-	time.Sleep(101 * time.Millisecond)
+	time.Sleep(121 * time.Millisecond)
 
 	if _, ok := redisCache.Get(key); ok {
 		t.Fatal("should not have key", key)

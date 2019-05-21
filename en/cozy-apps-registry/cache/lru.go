@@ -23,6 +23,7 @@ import (
 type Cache interface {
 	Add(Key, Value)
 	Get(Key) (Value, bool)
+	MGet([]Key) []interface{}
 	Remove(Key)
 }
 
@@ -96,6 +97,17 @@ func (c *LRUCache) Get(key Key) (value Value, ok bool) {
 		c.removeElement(ele)
 	}
 	return
+}
+
+// MGet looks up several keys at once from the cache.
+func (c *LRUCache) MGet(keys []Key) []interface{} {
+	values := make([]interface{}, len(keys))
+	for i, key := range keys {
+		if val, ok := c.Get(key); ok {
+			values[i] = []byte(val)
+		}
+	}
+	return values
 }
 
 // Remove removes the provided key from the cache.
