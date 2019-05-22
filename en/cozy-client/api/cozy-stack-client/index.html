@@ -610,6 +610,7 @@
         <li class="main "><a href="#filecollection">FileCollection</a></li>
             <li><a href="#filecollectionfindselector-options-object">fileCollection.find(selector, options) ⇒ Object</a></li>
             <li><a href="#filecollectionfindreferencedbydocument-limit-object">fileCollection.findReferencedBy(document, {, limit) ⇒ object</a></li>
+            <li><a href="#filecollectionupdatefiledata-params-object">fileCollection.updateFile(data, params) ⇒ object</a></li>
             <li><a href="#filecollectioncreatedirectorybypathpath-object">fileCollection.createDirectoryByPath(path) ⇒ object</a></li>
             <li><a href="#filecollectionupdatefilemetadataid-attributes-object">fileCollection.updateFileMetadata(id, attributes) ⇒ object</a></li>
         <li class="main "><a href="#oauthclient">OAuthClient</a></li>
@@ -990,6 +991,7 @@ files associated to a specific document</p>
 <li><a href="#FileCollection">FileCollection</a><ul>
 <li><a href="#FileCollection+find">.find(selector, options)</a> ⇒ <code>Object</code></li>
 <li><a href="#FileCollection+findReferencedBy">.findReferencedBy(document, {, limit)</a> ⇒ <code>object</code></li>
+<li><a href="#FileCollection+updateFile">.updateFile(data, params)</a> ⇒ <code>object</code></li>
 <li><a href="#FileCollection+createDirectoryByPath">.createDirectoryByPath(path)</a> ⇒ <code>object</code></li>
 <li><a href="#FileCollection+updateFileMetadata">.updateFileMetadata(id, attributes)</a> ⇒ <code>object</code></li>
 </ul>
@@ -1054,6 +1056,47 @@ files associated to a specific document</p>
 <td>limit</td>
 <td><code>number</code></td>
 <td>} For pagination, the number of results to return.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="FileCollection+updateFile"></a></p>
+<h3 id="filecollectionupdatefiledata-params-object">fileCollection.updateFile(data, params) ⇒ <code>object</code><a class="headerlink" href="#filecollectionupdatefiledata-params-object" title="Permanent link">&para;</a></h3>
+<p>updateFile - Updates a file&rsquo;s data</p>
+<p><strong>Kind</strong>: instance method of <a href="#FileCollection"><code>FileCollection</code></a><br />
+<strong>Returns</strong>: <code>object</code> - Updated document  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td><code>object</code></td>
+<td>Javascript File object</td>
+</tr>
+<tr>
+<td>params</td>
+<td><code>object</code></td>
+<td>Additional parameters</td>
+</tr>
+<tr>
+<td>params.fileId</td>
+<td><code>string</code></td>
+<td>The id of the file to update (required)</td>
+</tr>
+<tr>
+<td>params.executable</td>
+<td><code>boolean</code></td>
+<td>Whether the file is executable or not</td>
+</tr>
+<tr>
+<td>params.options</td>
+<td><code>object</code></td>
+<td>Options to pass to doUpload method (additional headers)</td>
 </tr>
 </tbody>
 </table>

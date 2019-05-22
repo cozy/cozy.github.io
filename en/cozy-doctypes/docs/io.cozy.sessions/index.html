@@ -7,10 +7,10 @@
         
         
         <meta name="author" content="CozyCloud - https://cozy.io">
-        <link rel="canonical" href="https://docs.cozy.io/cozy-doctypes/docs/README/">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-doctypes/docs/io.cozy.sessions/">
         <link rel="shortcut icon" href="../../../img/favicon.png">
         
-        <title>README - Dev Documentation</title>
+        <title>io.cozy.sessions - Dev Documentation</title>
         <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
@@ -110,7 +110,7 @@
   </li>
                         </ul>
                     </li>
-                    <li class="dropdown active">
+                    <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">References <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
@@ -240,8 +240,8 @@
     <a href="#">cozy-doctypes</a>
     <ul class="dropdown-menu">
             
-<li class="active">
-    <a href="./">README</a>
+<li >
+    <a href="../README/">README</a>
 </li>
             
 <li >
@@ -593,16 +593,13 @@
                 <div class="col-md-3 main-toc">
 <div class="bs-sidebar hidden-print affix" role="complementary">
     <ul class="nav bs-sidenav well" style='padding-left: 0; padding-right: 0; margin-bottom: 1.5rem'>
-        <li class="main active"><a href="#table-of-contents">Table of contents</a></li>
-            <li><a href="#cozy-doctypes">Cozy doctypes</a></li>
-            <li><a href="#technical-doctypes">Technical doctypes</a></li>
-            <li><a href="#remote-doctypes">Remote doctypes</a></li>
-            <li><a href="#external-doctypes">External doctypes</a></li>
-            <li><a href="#generic-model">Generic model</a></li>
+        <li class="main active"><a href="#cozy-sessions-doctype">Cozy sessions doctype</a></li>
+            <li><a href="#iocozysessions">io.cozy.sessions</a></li>
+            <li><a href="#example">Example</a></li>
     </ul>
   <div style='padding-left: 2rem'>
     
-    <a id='edit-link' href='https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-doctypes/docs/README.md'>Edit documentation</a>
+    <a id='edit-link' href='https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-doctypes/docs/io.cozy.sessions.md'>Edit documentation</a>
     <script type='text/javascript'>
         /* Here we detect if the current page is from an external documentation and we 
         change the href of the editing link so it goes to the right repository and file */
@@ -640,106 +637,29 @@
                 <div class="col-md-9" role="main">
                     
 
-<h1 id="table-of-contents">Table of contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h1>
-<h2 id="cozy-doctypes">Cozy doctypes<a class="headerlink" href="#cozy-doctypes" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="../io.cozy.accounts/">Accounts</a>: Konnector accounts</li>
-<li><a href="../io.cozy.apps/">Apps</a>: Apps</li>
-<li><a href="../io.cozy.bank/">Bank</a>: banking related data</li>
-<li><a href="../io.cozy.bills/">Bills</a>: bills</li>
-<li><a href="../io.cozy.contacts/">Contacts</a>: instance owner contacts</li>
-<li><a href="../io.cozy.files/">Files</a>: files documents</li>
-<li><a href="../io.cozy.konnectors/">Konnectors</a>: Connectors</li>
-<li><a href="../io.cozy.notifications/">Notifications</a>: notifications made by the apps</li>
-<li><a href="../io.cozy.permissions/">Permissions</a>: Permissions of the instance</li>
-<li><a href="../io.cozy.photos.albums/">Photos Albums</a>: photos albums</li>
-<li><a href="../io.cozy.sessions.logins/">Sessions Logins</a>: sessions logins entry</li>
-<li><a href="../io.cozy.settings/">Settings</a>: Instance settings</li>
-<li><a href="../io.cozy.sharings/">Sharings</a>: documents used for Cozy to Cozy sharings</li>
+<li><a href="#cozy-sessions-doctype">Cozy sessions doctype</a></li>
+<li><a href="#iocozysessions"><code>io.cozy.sessions</code></a></li>
+<li><a href="#example">Example</a></li>
 </ul>
-<h2 id="technical-doctypes">Technical doctypes<a class="headerlink" href="#technical-doctypes" title="Permanent link">&para;</a></h2>
+<h1 id="cozy-sessions-doctype">Cozy sessions doctype<a class="headerlink" href="#cozy-sessions-doctype" title="Permanent link">&para;</a></h1>
+<h2 id="iocozysessions"><code>io.cozy.sessions</code><a class="headerlink" href="#iocozysessions" title="Permanent link">&para;</a></h2>
+<p>The <code>io.cozy.sessions</code> doctype holds the web sessions informations.</p>
 <ul>
-<li><a href="../io.cozy.account_types/">Accounts Types</a>: OAuth informations and secrets
-  for apps &amp; konnectors</li>
-<li><a href="../cc.cozycloud.autocategorization/">Autocategorization</a>: Auto categorization remote doctype</li>
-<li><a href="../io.cozy.exports/">Exports</a>: Instances exports</li>
-<li><a href="../io.cozy.jobs/">Jobs</a>: Instance jobs</li>
-<li><a href="../io.cozy.oauth.clients/">OAuth Clients</a>: OAuth clients informations of the stack</li>
-<li><a href="../io.cozy.oauth.access_codes/">OAuth Access Codes</a>: Access codes specific to OAuth flow</li>
-<li><a href="../io.cozy.triggers/">Triggers</a>: Job triggers</li>
-<li><a href="../io.cozy.triggers.state/">Triggers state</a>: Job triggers states</li>
-<li><a href="../io.cozy.remote.requests/">Remote requests</a>: logs of requests via the remote doctypes</li>
-<li><a href="../io.cozy.sessions/">Sessions</a>: cozy-stack sessions</li>
-<li><a href="../io.cozy.shared/">Shared</a>: cozy-stack doctype for sharings</li>
+<li><code>created_at</code> {timestamp}: When the session has been created</li>
+<li><code>last_seen</code> {timestamp}: When the user has been seen for the last time</li>
+<li><code>long_run</code> {bool}: Either the session is a long run one or not (used for
+  cookies)</li>
 </ul>
-<h2 id="remote-doctypes">Remote doctypes<a class="headerlink" href="#remote-doctypes" title="Permanent link">&para;</a></h2>
-<p>This repository is where the declaration of remote doctypes is done. Read more about remote doctypes in the <a href="https://github.com/cozy/cozy-stack/blob/51f99a890dba85ff9c4b09124ee3b5bdd3d83300/docs/remote.md#declaring-a-remote-doctype">cozy stack repository</a>.</p>
-<h2 id="external-doctypes">External doctypes<a class="headerlink" href="#external-doctypes" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="../com.unibet.bets">Bets Unibet</a>: Bets from Unibet website</li>
-</ul>
-<h2 id="generic-model">Generic model<a class="headerlink" href="#generic-model" title="Permanent link">&para;</a></h2>
-<h3 id="relationships">Relationships<a class="headerlink" href="#relationships" title="Permanent link">&para;</a></h3>
-<p>Relations between documents are under a <code>relationships</code> object at the root of the document. Relations are referenced by their names.</p>
-<p>Each relation is an object with a <code>data</code> property containing either <code>null</code>, one reference or an array of references.</p>
-<p>A reference is an object containing at least a <code>_type</code> with the name of the referenced doctype and an <code>_id</code> with the id of the referenced document inside its doctype.</p>
+<h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;mobydick&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;authors&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span> <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;hermanmelville&quot;</span><span class="p">,</span> <span class="nt">&quot;_type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.contacts&quot;</span> <span class="p">}</span>
-      <span class="p">]</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
+  <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;add3ca2ca5532c0323df0ec7fc04ea6f&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;_rev&quot;</span><span class="p">:</span> <span class="s2">&quot;3-a01838aee2211b84df392381461362ed&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-05-10T17:01:12.150074836+02:00&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;last_seen&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-05-14T10:21:47.961429238+02:00&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;long_run&quot;</span><span class="p">:</span> <span class="kc">false</span>
 <span class="p">}</span>
 </pre></div>
-
-
-<h3 id="document-metadata">Document metadata<a class="headerlink" href="#document-metadata" title="Permanent link">&para;</a></h3>
-<p>We distinguish three levels : the data (a list of songs from a playlist), the metadata about the data (the creation date of the playlist itself), the metadata of the cozy document (the creation date of the cozy document describing the playlist).</p>
-<p>The third level (metadata of the wrapping document) is described by an object named <code>cozyMetadata</code> at the root of the document.</p>
-<p>The following keys are reserved and have special meanings:</p>
-<ul>
-<li><code>doctypeVersion</code>: Name or identifier for the version of the schema used by this document (ie: <code>doctypeVersion: 2</code> for &ldquo;This document conforms to io.cozy.contacts in its version 2&rdquo;)</li>
-<li><code>metadataVersion</code>: Version of the <code>cozyMetadata</code></li>
-<li><code>createdAt</code>: Creation date of the cozy document</li>
-<li><code>createdByApp</code>: Slug of the app or connector which created the document</li>
-<li><code>createdByAppVersion</code>: Version identifier of the app</li>
-<li><code>updatedAt</code>: Last modification date of the cozy document</li>
-<li><code>updatedByApps</code>: List of objects representing the applications (slugs and versions) which modified the cozy document in its life and the last update date for each of those apps (one entry per slug, apps should just update the value)</li>
-<li><code>sourceAccount</code>: When the document was imported from a connector, identifier of the account in io.cozy.accounts</li>
-</ul>
-<p>Note: All these attributes are optionnal and taken care by the apps modifying the document. Unless specified otherwise in the documentation of the doctype, all these attributes may not be present or may have a <code>null</code> value.</p>
-<div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;xxxx&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;cozyMetadata&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;doctypeVersion&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-    <span class="nt">&quot;metadataVersion&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">&quot;createdAt&quot;</span><span class="p">:</span> <span class="s2">&quot;xxxxx&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;createdByApp&quot;</span><span class="p">:</span> <span class="s2">&quot;xxxx&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;createdByAppVersion&quot;</span><span class="p">:</span> <span class="s2">&quot;xxxx&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;updatedAt&quot;</span><span class="p">:</span> <span class="s2">&quot;xxxxx&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;updatedByApps&quot;</span><span class="p">:</span> <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;xxxxx&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;date&quot;</span><span class="p">:</span> <span class="s2">&quot;xxxxx&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mi">3</span>
-      <span class="p">}</span>
-    <span class="p">],</span>
-    <span class="nt">&quot;sourceAccount&quot;</span><span class="p">:</span> <span class="s2">&quot;xxxxx&quot;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-
-
-<h3 id="date-format">Date format<a class="headerlink" href="#date-format" title="Permanent link">&para;</a></h3>
-<p>Date should be formatted in <a href="https://fr.wikipedia.org/wiki/ISO_8601">ISO8601</a> :</p>
-<ul>
-<li><code>2017-04-22T01:00:00-05:00</code> ✅</li>
-<li><code>2017-04-22T01:00:00Z</code> ✅</li>
-<li><code>2017-04-22 01:00</code> ❌</li>
-</ul>
                 </div>
         </div>
 
