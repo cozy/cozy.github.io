@@ -942,8 +942,8 @@ a way to give another app the permission for some data. For example, the contact
 application can send a &ldquo;<em>pick a photo</em>&rdquo; intent to the photos application with
 its permission id, and the photos app can then let the user choose a photo and
 give the contacts application the permissions to use it.</p>
-<p>It can also be used to add or remove codes.</p>
-<h4 id="request-to-add-remove-codes">Request to add / remove codes<a class="headerlink" href="#request-to-add-remove-codes" title="Permanent link">&para;</a></h4>
+<p>This route also accepts a <a href="https://github.com/cozy/cozy-doctypes/#document-metadata">document metadata</a> to update document informations.</p>
+<h4 id="request-to-add-remove-codes-with-a-document-metadata">Request to add / remove codes with a document metadata<a class="headerlink" href="#request-to-add-remove-codes-with-a-document-metadata" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">PATCH</span> <span class="nn">/permissions/a340d5e0-d647-11e6-b66c-5fc9ce1e17c6</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.net</span>
 <span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ</span>
@@ -960,6 +960,11 @@ give the contacts application the permissions to use it.</p>
             <span class="nt">&quot;codes&quot;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="nt">&quot;jane&quot;</span><span class="p">:</span> <span class="s2">&quot;Yohyoo8BHahh1lie&quot;</span>
             <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;cozyMetadata&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;doctypeVersion&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nt">&quot;metadataVersion&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nt">&quot;updatedAt&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-05-14T12:00:37.372193145+02:00&quot;</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
