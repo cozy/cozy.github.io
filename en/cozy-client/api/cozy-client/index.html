@@ -650,6 +650,7 @@
             <li><a href="#schemavalidate">schema.validate()</a></li>
         <li class="main "><a href="#withclientcomponent-function">withClient(Component) ⇒ function</a></li>
         <li class="main "><a href="#queryconnectqueryspecs-function">queryConnect(querySpecs) ⇒ function</a></li>
+        <li class="main "><a href="#cancelablepromise-augmentedpromise">cancelable(promise) ⇒ AugmentedPromise</a></li>
     </ul>
   <div style='padding-left: 2rem'>
     
@@ -757,6 +758,10 @@ from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
 </dd>
 <dt><a href="#queryConnect">queryConnect(querySpecs)</a> ⇒ <code>function</code></dt>
 <dd><p>HOC creator to connect component to several queries in a declarative manner</p>
+</dd>
+<dt><a href="#cancelable">cancelable(promise)</a> ⇒ <code>AugmentedPromise</code></dt>
+<dd><p>Wraps a promise so that it can be canceled</p>
+<p>Rejects with canceled: true as soon as cancel is called</p>
 </dd>
 </dl>
 
@@ -1758,6 +1763,26 @@ For example, query albums including the photos.</p>
 <td>querySpecs</td>
 <td><code>object</code></td>
 <td>Definition of the queries</td>
+</tr>
+</tbody>
+</table>
+<p><a name="cancelable"></a></p>
+<h2 id="cancelablepromise-augmentedpromise">cancelable(promise) ⇒ <code>AugmentedPromise</code><a class="headerlink" href="#cancelablepromise-augmentedpromise" title="Permanent link">&para;</a></h2>
+<p>Wraps a promise so that it can be canceled</p>
+<p>Rejects with canceled: true as soon as cancel is called</p>
+<p><strong>Kind</strong>: global function<br />
+<strong>Returns</strong>: <code>AugmentedPromise</code> - - Promise with .cancel method  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>promise</td>
+<td><code>Promise</code></td>
 </tr>
 </tbody>
 </table>

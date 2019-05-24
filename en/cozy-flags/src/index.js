@@ -1,13 +1,10 @@
 /* global __ENABLED_FLAGS__ */
 
-const isNode = require('detect-node')
+import flag from './flag'
 
-const flag = isNode
-  ? require('./node/flag').default
-  : require('./browser/flag').default
-
-if (!isNode) {
-  flag.FlagSwitcher = require('./browser/FlagSwitcher').default
+if (typeof window !== 'undefined') {
+  flag.connect = require('./connect').default
+  flag.FlagSwitcher = require('./FlagSwitcher').default
 }
 
 /**
