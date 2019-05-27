@@ -634,6 +634,7 @@
             <li><a href="#cozyclienthandletokenrefresh">cozyClient.handleTokenRefresh()</a></li>
             <li><a href="#cozyclientcreateclient">cozyClient.createClient()</a></li>
             <li><a href="#cozyclientsetdatadata">cozyClient.setData(data)</a></li>
+            <li><a href="#cozyclientfromenv">CozyClient.fromEnv()</a></li>
         <li class="main "><a href="#querydefinition">QueryDefinition</a></li>
             <li><a href="#new-querydefinitiondoctype-id-ids-selector-fields-indexedfields-sort-includes-referenced-limit-skip">new QueryDefinition(doctype, id, ids, selector, fields, indexedFields, sort, includes, referenced, limit, skip)</a></li>
             <li><a href="#querydefinitionwhereselector-querydefinition">queryDefinition.where(selector) ⇒ QueryDefinition</a></li>
@@ -1149,6 +1150,7 @@ having for the &lsquo;konnector&rsquo; worker, and then filter them based on the
 <ul>
 <li><a href="#CozyClient">CozyClient</a><ul>
 <li><a href="#new_CozyClient_new">new CozyClient(options)</a></li>
+<li><em>instance</em><ul>
 <li><a href="#CozyClient+login">.login()</a> ⇒ <code>Promise</code></li>
 <li><a href="#CozyClient+logout">.logout()</a> ⇒ <code>Promise</code></li>
 <li><a href="#CozyClient+collection">.collection(doctype)</a> ⇒ <code>DocumentCollection</code></li>
@@ -1165,6 +1167,12 @@ having for the &lsquo;konnector&rsquo; worker, and then filter them based on the
 <li><a href="#CozyClient+handleTokenRefresh">.handleTokenRefresh()</a></li>
 <li><a href="#CozyClient+createClient">.createClient()</a></li>
 <li><a href="#CozyClient+setData">.setData(data)</a></li>
+</ul>
+</li>
+<li><em>static</em><ul>
+<li><a href="#CozyClient.fromEnv">.fromEnv()</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -1424,7 +1432,11 @@ set some data in the store.</p>
 </tr>
 </tbody>
 </table>
-<p><a name="QueryDefinition"></a></p>
+<p><a name="CozyClient.fromEnv"></a></p>
+<h3 id="cozyclientfromenv">CozyClient.fromEnv()<a class="headerlink" href="#cozyclientfromenv" title="Permanent link">&para;</a></h3>
+<p>In konnector/service context, CozyClient can be instantiated from environment variables</p>
+<p><strong>Kind</strong>: static method of <a href="#CozyClient"><code>CozyClient</code></a><br />
+<a name="QueryDefinition"></a></p>
 <h2 id="querydefinition">QueryDefinition<a class="headerlink" href="#querydefinition" title="Permanent link">&para;</a></h2>
 <p>Chainable API to create query definitions to retrieve documents
 from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
