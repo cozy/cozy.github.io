@@ -651,6 +651,8 @@
             <li><a href="#schemavalidate">schema.validate()</a></li>
         <li class="main "><a href="#withclientcomponent-function">withClient(Component) ⇒ function</a></li>
         <li class="main "><a href="#queryconnectqueryspecs-function">queryConnect(querySpecs) ⇒ function</a></li>
+        <li class="main "><a href="#sanitizecategories">sanitizeCategories()</a></li>
+        <li class="main "><a href="#sanitizemanifest-manifest">sanitize(manifest) ⇒ Manifest</a></li>
         <li class="main "><a href="#cancelablepromise-augmentedpromise">cancelable(promise) ⇒ AugmentedPromise</a></li>
     </ul>
   <div style='padding-left: 2rem'>
@@ -759,6 +761,12 @@ from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
 </dd>
 <dt><a href="#queryConnect">queryConnect(querySpecs)</a> ⇒ <code>function</code></dt>
 <dd><p>HOC creator to connect component to several queries in a declarative manner</p>
+</dd>
+<dt><a href="#sanitizeCategories">sanitizeCategories()</a></dt>
+<dd><p>Filters unauthorized categories. Defaults to [&#39;others&#39;] if no suitable category.</p>
+</dd>
+<dt><a href="#sanitize">sanitize(manifest)</a> ⇒ <code>Manifest</code></dt>
+<dd><p>Normalize app manifest, retrocompatibility for old manifests</p>
 </dd>
 <dt><a href="#cancelable">cancelable(promise)</a> ⇒ <code>AugmentedPromise</code></dt>
 <dd><p>Wraps a promise so that it can be canceled</p>
@@ -1775,6 +1783,28 @@ For example, query albums including the photos.</p>
 <td>querySpecs</td>
 <td><code>object</code></td>
 <td>Definition of the queries</td>
+</tr>
+</tbody>
+</table>
+<p><a name="sanitizeCategories"></a></p>
+<h2 id="sanitizecategories">sanitizeCategories()<a class="headerlink" href="#sanitizecategories" title="Permanent link">&para;</a></h2>
+<p>Filters unauthorized categories. Defaults to [&lsquo;others&rsquo;] if no suitable category.</p>
+<p><strong>Kind</strong>: global function<br />
+<a name="sanitize"></a></p>
+<h2 id="sanitizemanifest-manifest">sanitize(manifest) ⇒ <code>Manifest</code><a class="headerlink" href="#sanitizemanifest-manifest" title="Permanent link">&para;</a></h2>
+<p>Normalize app manifest, retrocompatibility for old manifests</p>
+<p><strong>Kind</strong>: global function  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>manifest</td>
+<td><code>Manifest</code></td>
 </tr>
 </tbody>
 </table>

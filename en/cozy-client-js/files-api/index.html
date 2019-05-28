@@ -617,7 +617,7 @@
             <li><a href="#cozyclientdataaddreferencedfilesdoc-fileids">cozy.client.data.addReferencedFiles(doc, fileIds)</a></li>
             <li><a href="#cozyclientdataremovereferencedfilesdoc-fileids">cozy.client.data.removeReferencedFiles(doc, fileIds)</a></li>
             <li><a href="#cozyclientdatalistreferencedfilesdoc">cozy.client.data.listReferencedFiles(doc)</a></li>
-            <li><a href="#cozyclientdatafetchreferencedfilesdoc">cozy.client.data.fetchReferencedFiles(doc)</a></li>
+            <li><a href="#cozyclientdatafetchreferencedfilesdoc-options-sort">cozy.client.data.fetchReferencedFiles(doc, options, sort)</a></li>
             <li><a href="#cozyclientfilesqueryindexreference-query">cozy.client.files.query(indexReference, query)</a></li>
     </ul>
   <div style='padding-left: 2rem'>
@@ -937,18 +937,36 @@ You can use this link to start a browser download (see code in getDownloadLinkBy
 <code>cozy.client.files.downloadByPath</code>, <code>cozy.client.files.getDownloadLinkByPath</code> or <code>cozy.client.files.getArchiveLinkByPaths</code>.</p>
 <h3 id="cozyclientdataaddreferencedfilesdoc-fileids"><code>cozy.client.data.addReferencedFiles(doc, fileIds)</code><a class="headerlink" href="#cozyclientdataaddreferencedfilesdoc-fileids" title="Permanent link">&para;</a></h3>
 <p><code>cozy.client.data.addReferencedFiles(doc, fileIds)</code> binds the files to the document.
-(see cozy-stack <a href="https://cozy.github.io/cozy-stack/references-docs-in-vfs.html">documentation</a> for more details)</p>
+(see cozy-stack <a href="https://docs.cozy.io/en/cozy-stack/references-docs-in-vfs/">documentation</a> for more details)</p>
 <h3 id="cozyclientdataremovereferencedfilesdoc-fileids"><code>cozy.client.data.removeReferencedFiles(doc, fileIds)</code><a class="headerlink" href="#cozyclientdataremovereferencedfilesdoc-fileids" title="Permanent link">&para;</a></h3>
 <p><code>cozy.client.data.removeReferencedFiles(doc, fileIds)</code> unbinds the files to the document.
-(see cozy-stack <a href="https://cozy.github.io/cozy-stack/references-docs-in-vfs.html">documentation</a> for more details)</p>
+(see cozy-stack <a href="https://docs.cozy.io/en/cozy-stack/references-docs-in-vfs/">documentation</a> for more details)</p>
 <h3 id="cozyclientdatalistreferencedfilesdoc"><code>cozy.client.data.listReferencedFiles(doc)</code><a class="headerlink" href="#cozyclientdatalistreferencedfilesdoc" title="Permanent link">&para;</a></h3>
 <p><code>cozy.client.data.listReferencedFiles(doc)</code> list the files bound to the document.
-(see cozy-stack <a href="https://cozy.github.io/cozy-stack/references-docs-in-vfs.html">documentation</a> for more details).</p>
+(see cozy-stack <a href="https://docs.cozy.io/en/cozy-stack/references-docs-in-vfs/">documentation</a> for more details).</p>
 <p>It returns a promise for a list of filesIds. Files must then be fetched separately.</p>
-<h3 id="cozyclientdatafetchreferencedfilesdoc"><code>cozy.client.data.fetchReferencedFiles(doc)</code><a class="headerlink" href="#cozyclientdatafetchreferencedfilesdoc" title="Permanent link">&para;</a></h3>
-<p><code>cozy.client.data.fetchReferencedFiles(doc)</code> fetches the files bound to the document.
-(see cozy-stack <a href="https://cozy.github.io/cozy-stack/references-docs-in-vfs.html">documentation</a> for more details).</p>
+<h3 id="cozyclientdatafetchreferencedfilesdoc-options-sort"><code>cozy.client.data.fetchReferencedFiles(doc, options, sort)</code><a class="headerlink" href="#cozyclientdatafetchreferencedfilesdoc-options-sort" title="Permanent link">&para;</a></h3>
+<p><code>cozy.client.data.fetchReferencedFiles(doc, options, sort)</code> fetches the files bound to the document.
+(see cozy-stack <a href="https://docs.cozy.io/en/cozy-stack/references-docs-in-vfs/">documentation</a> for more details).</p>
 <p>It returns a promise for a list of files.</p>
+<p>There are 2 alternatives for pagination, that can be used through the <code>option</code> parameter: <code>cursor</code> and <code>skip</code>. For more details, see how the stack handles <a href="https://docs.cozy.io/en/cozy-stack/jsonapi/#pagination">pagination</a>. Note that cursor-based pagination performs way better than skip-based on large volumes.</p>
+<ul>
+<li><code>option</code> is an object with the following fields:</li>
+<li><code>cursor</code> (recommended): specify the view&rsquo;s key and the starting docid. The starting docid can be empty for the first query and take the last returned docid for the next ones.</li>
+<li><code>skip</code> (not recommended): ignore the first x results for pagination.</li>
+<li><code>limit</code>: maximum number of results.</li>
+<li><code>sort</code> is a string which can be <code>datetime</code> (default) or <code>id</code>. <em>Warning:</em>  <code>datetime</code> is not compatible with cursor-based pagination. </li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">key</span> <span class="o">=</span> <span class="p">[</span><span class="nx">DOCTYPE_ALBUMS</span><span class="p">,</span> <span class="nx">album</span><span class="p">.</span><span class="nx">_id</span><span class="p">]</span>
+<span class="kr">const</span> <span class="nx">cursor</span> <span class="o">=</span> <span class="p">[</span><span class="nx">key</span><span class="p">,</span> <span class="nx">startDocid</span><span class="p">]</span>
+<span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozyClient</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">fetchReferencedFiles</span><span class="p">(</span>
+  <span class="nx">album</span><span class="p">,</span>
+  <span class="p">{</span> <span class="nx">cursor</span> <span class="p">},</span>
+  <span class="s1">&#39;id&#39;</span>
+<span class="p">)</span>
+</pre></div>
+
+
 <h3 id="cozyclientfilesqueryindexreference-query"><code>cozy.client.files.query(indexReference, query)</code><a class="headerlink" href="#cozyclientfilesqueryindexreference-query" title="Permanent link">&para;</a></h3>
 <p><code>cozy.client.files.query(indexReference, query)</code> find files using an index.</p>
 <p>It returns a promise with a list of files matching the query. Results will be returned in the order defined for the index.</p>
