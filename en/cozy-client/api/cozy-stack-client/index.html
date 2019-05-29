@@ -610,6 +610,7 @@
         <li class="main "><a href="#filecollection">FileCollection</a></li>
             <li><a href="#filecollectionfindselector-options-object">fileCollection.find(selector, options) ⇒ Object</a></li>
             <li><a href="#filecollectionfindreferencedbydocument-limit-object">fileCollection.findReferencedBy(document, {, limit) ⇒ object</a></li>
+            <li><a href="#filecollectionrestoreid-promise">fileCollection.restore(id) ⇒ Promise</a></li>
             <li><a href="#filecollectionupdatefiledata-params-object">fileCollection.updateFile(data, params) ⇒ object</a></li>
             <li><a href="#filecollectioncreatedirectorybypathpath-object">fileCollection.createDirectoryByPath(path) ⇒ object</a></li>
             <li><a href="#filecollectionupdatefilemetadataid-attributes-object">fileCollection.updateFileMetadata(id, attributes) ⇒ object</a></li>
@@ -991,6 +992,7 @@ files associated to a specific document</p>
 <li><a href="#FileCollection">FileCollection</a><ul>
 <li><a href="#FileCollection+find">.find(selector, options)</a> ⇒ <code>Object</code></li>
 <li><a href="#FileCollection+findReferencedBy">.findReferencedBy(document, {, limit)</a> ⇒ <code>object</code></li>
+<li><a href="#FileCollection+restore">.restore(id)</a> ⇒ <code>Promise</code></li>
 <li><a href="#FileCollection+updateFile">.updateFile(data, params)</a> ⇒ <code>object</code></li>
 <li><a href="#FileCollection+createDirectoryByPath">.createDirectoryByPath(path)</a> ⇒ <code>object</code></li>
 <li><a href="#FileCollection+updateFileMetadata">.updateFileMetadata(id, attributes)</a> ⇒ <code>object</code></li>
@@ -1056,6 +1058,31 @@ files associated to a specific document</p>
 <td>limit</td>
 <td><code>number</code></td>
 <td>} For pagination, the number of results to return.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="FileCollection+restore"></a></p>
+<h3 id="filecollectionrestoreid-promise">fileCollection.restore(id) ⇒ <code>Promise</code><a class="headerlink" href="#filecollectionrestoreid-promise" title="Permanent link">&para;</a></h3>
+<p>Restores a trashed file.</p>
+<p><strong>Kind</strong>: instance method of <a href="#FileCollection"><code>FileCollection</code></a><br />
+<strong>Returns</strong>: <code>Promise</code> - - A promise that returns the restored file if resolved.<br />
+<strong>Throws</strong>:</p>
+<ul>
+<li><code>FetchError</code> </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td><code>string</code></td>
+<td>The file&rsquo;s id</td>
 </tr>
 </tbody>
 </table>
