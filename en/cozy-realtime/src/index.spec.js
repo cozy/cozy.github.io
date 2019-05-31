@@ -25,7 +25,7 @@ describe('CozyRealtime', () => {
   let realtime, cozyStack
 
   beforeEach(() => {
-    realtime = new CozyRealtime({ cozyClient })
+    realtime = new CozyRealtime({ client: cozyClient })
     cozyStack = new Server(WS_URL)
     cozyStack.emitMessage = (type, doc, event, id) => {
       cozyStack.emit(

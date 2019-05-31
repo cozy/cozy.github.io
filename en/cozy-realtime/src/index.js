@@ -124,10 +124,21 @@ class CozyRealtime {
    * - unsubscribeAll if window unload
    *
    * @constructor
-   * @param {CozyClient} cozyClient  A cozy client
+   * @param {CozyClient} client  A cozy client
+   * @param {CozyClient} cozyClient  A cozy client [DEPRECATED]
    */
-  constructor({ cozyClient }) {
-    this._cozyClient = cozyClient
+  constructor({ cozyClient, client }) {
+    if (cozyClient) {
+      console.warn(
+        'Realtime: options.cozyClient is deprecated, please use options.client'
+      )
+    }
+    this._cozyClient = client || cozyClient
+    if (!this._cozyClient) {
+      throw new Error(
+        'Realtime must be initialized with a client. Ex: new Realtime({ client })'
+      )
+    }
 
     this._updateAuthentication = this._updateAuthentication.bind(this)
     this.unsubscribeAll = this.unsubscribeAll.bind(this)
