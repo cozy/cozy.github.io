@@ -30,7 +30,8 @@ module.exports = {
         '../react/Radio/index.jsx',
         '../react/SelectBox/SelectBox.jsx',
         '../react/Textarea/index.jsx',
-        '../react/Toggle/index.jsx'
+        '../react/Toggle/index.jsx',
+        '../react/FileInput/index.jsx'
       ]
     },
     {

@@ -653,6 +653,8 @@
         <li class="main "><a href="#queryconnectqueryspecs-function">queryConnect(querySpecs) ⇒ function</a></li>
         <li class="main "><a href="#sanitizecategories">sanitizeCategories()</a></li>
         <li class="main "><a href="#sanitizemanifest-manifest">sanitize(manifest) ⇒ Manifest</a></li>
+        <li class="main "><a href="#currentresult-hydratedquerystate">currentResult() ⇒ HydratedQueryState</a></li>
+        <li class="main "><a href="#fetchmore">fetchMore()</a></li>
         <li class="main "><a href="#cancelablepromise-augmentedpromise">cancelable(promise) ⇒ AugmentedPromise</a></li>
     </ul>
   <div style='padding-left: 2rem'>
@@ -767,6 +769,13 @@ from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
 </dd>
 <dt><a href="#sanitize">sanitize(manifest)</a> ⇒ <code>Manifest</code></dt>
 <dd><p>Normalize app manifest, retrocompatibility for old manifests</p>
+</dd>
+<dt><a href="#currentResult">currentResult()</a> ⇒ <code>HydratedQueryState</code></dt>
+<dd><p>Returns the query from the store with hydrated documents.</p>
+</dd>
+<dt><a href="#fetchMore">fetchMore()</a></dt>
+<dd><p>Generates and execute a query that is offsetted by the number of documents
+we have in the store.</p>
 </dd>
 <dt><a href="#cancelable">cancelable(promise)</a> ⇒ <code>AugmentedPromise</code></dt>
 <dd><p>Wraps a promise so that it can be canceled</p>
@@ -1735,6 +1744,7 @@ For example, query albums including the photos.</p>
 <p><a name="Schema+getDoctypeSchema"></a></p>
 <h3 id="schemagetdoctypeschema">schema.getDoctypeSchema()<a class="headerlink" href="#schemagetdoctypeschema" title="Permanent link">&para;</a></h3>
 <p>Returns the schema for a doctype</p>
+<p>Creates an empty schema implicitly if it does not exist</p>
 <p><strong>Kind</strong>: instance method of <a href="#Schema"><code>Schema</code></a><br />
 <a name="Schema+getRelationship"></a></p>
 <h3 id="schemagetrelationship">schema.getRelationship()<a class="headerlink" href="#schemagetrelationship" title="Permanent link">&para;</a></h3>
@@ -1808,7 +1818,16 @@ For example, query albums including the photos.</p>
 </tr>
 </tbody>
 </table>
-<p><a name="cancelable"></a></p>
+<p><a name="currentResult"></a></p>
+<h2 id="currentresult-hydratedquerystate">currentResult() ⇒ <code>HydratedQueryState</code><a class="headerlink" href="#currentresult-hydratedquerystate" title="Permanent link">&para;</a></h2>
+<p>Returns the query from the store with hydrated documents.</p>
+<p><strong>Kind</strong>: global function<br />
+<a name="fetchMore"></a></p>
+<h2 id="fetchmore">fetchMore()<a class="headerlink" href="#fetchmore" title="Permanent link">&para;</a></h2>
+<p>Generates and execute a query that is offsetted by the number of documents
+we have in the store.</p>
+<p><strong>Kind</strong>: global function<br />
+<a name="cancelable"></a></p>
 <h2 id="cancelablepromise-augmentedpromise">cancelable(promise) ⇒ <code>AugmentedPromise</code><a class="headerlink" href="#cancelablepromise-augmentedpromise" title="Permanent link">&para;</a></h2>
 <p>Wraps a promise so that it can be canceled</p>
 <p>Rejects with canceled: true as soon as cancel is called</p>
