@@ -637,6 +637,8 @@
             <li><a href="#cozyclientfromenv">CozyClient.fromEnv()</a></li>
         <li class="main "><a href="#querydefinition">QueryDefinition</a></li>
             <li><a href="#new-querydefinitiondoctype-id-ids-selector-fields-indexedfields-sort-includes-referenced-limit-skip">new QueryDefinition(doctype, id, ids, selector, fields, indexedFields, sort, includes, referenced, limit, skip)</a></li>
+            <li><a href="#querydefinitiongetbyidid-querydefinition">queryDefinition.getById(id) ⇒ QueryDefinition</a></li>
+            <li><a href="#querydefinitiongetbyidsids-querydefinition">queryDefinition.getByIds(ids) ⇒ QueryDefinition</a></li>
             <li><a href="#querydefinitionwhereselector-querydefinition">queryDefinition.where(selector) ⇒ QueryDefinition</a></li>
             <li><a href="#querydefinitionselectfields-querydefinition">queryDefinition.select(fields) ⇒ QueryDefinition</a></li>
             <li><a href="#querydefinitionindexfieldsfields-querydefinition">queryDefinition.indexFields(fields) ⇒ QueryDefinition</a></li>
@@ -1461,6 +1463,8 @@ from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
 <ul>
 <li><a href="#QueryDefinition">QueryDefinition</a><ul>
 <li><a href="#new_QueryDefinition_new">new QueryDefinition(doctype, id, ids, selector, fields, indexedFields, sort, includes, referenced, limit, skip)</a></li>
+<li><a href="#QueryDefinition+getById">.getById(id)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
+<li><a href="#QueryDefinition+getByIds">.getByIds(ids)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
 <li><a href="#QueryDefinition+where">.where(selector)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
 <li><a href="#QueryDefinition+select">.select(fields)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
 <li><a href="#QueryDefinition+indexFields">.indexFields(fields)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
@@ -1537,6 +1541,48 @@ from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
 <td>skip</td>
 <td><code>number</code></td>
 <td>The number of docs to skip.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="QueryDefinition+getById"></a></p>
+<h3 id="querydefinitiongetbyidid-querydefinition">queryDefinition.getById(id) ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a><a class="headerlink" href="#querydefinitiongetbyidid-querydefinition" title="Permanent link">&para;</a></h3>
+<p>Query a single document on its id.</p>
+<p><strong>Kind</strong>: instance method of <a href="#QueryDefinition"><code>QueryDefinition</code></a><br />
+<strong>Returns</strong>: <a href="#QueryDefinition"><code>QueryDefinition</code></a> - The QueryDefinition object.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td><code>string</code></td>
+<td>The document id.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="QueryDefinition+getByIds"></a></p>
+<h3 id="querydefinitiongetbyidsids-querydefinition">queryDefinition.getByIds(ids) ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a><a class="headerlink" href="#querydefinitiongetbyidsids-querydefinition" title="Permanent link">&para;</a></h3>
+<p>Query several documents on their ids.</p>
+<p><strong>Kind</strong>: instance method of <a href="#QueryDefinition"><code>QueryDefinition</code></a><br />
+<strong>Returns</strong>: <a href="#QueryDefinition"><code>QueryDefinition</code></a> - The QueryDefinition object.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ids</td>
+<td><code>Array</code></td>
+<td>The documents ids.</td>
 </tr>
 </tbody>
 </table>
