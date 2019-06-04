@@ -602,6 +602,7 @@
             <li><a href="#cozystackclientfetchmethod-path-body-options-object">cozyStackClient.fetch(method, path, body, options) ⇒ Object</a></li>
             <li><a href="#cozystackclientrefreshtoken-promise">cozyStackClient.refreshToken() ⇒ Promise</a></li>
             <li><a href="#cozystackclientfetchjsonmethod-path-body-options-object">cozyStackClient.fetchJSON(method, path, body, options) ⇒ Object</a></li>
+            <li><a href="#cozystackclientgetaccesstoken-string">cozyStackClient.getAccessToken() ⇒ string</a></li>
         <li class="main "><a href="#documentcollection">DocumentCollection</a></li>
             <li><a href="#documentcollectionalloptions-object">documentCollection.all(options) ⇒ Object</a></li>
             <li><a href="#documentcollectionfindselector-options-object">documentCollection.find(selector, options) ⇒ Object</a></li>
@@ -638,6 +639,8 @@
             <li><a href="#triggercollectioncreateattributes-object">triggerCollection.create(attributes) ⇒ object</a></li>
             <li><a href="#triggercollectiondestroydocument-object">triggerCollection.destroy(document) ⇒ object</a></li>
             <li><a href="#triggercollectionlaunchtrigger-object">triggerCollection.launch(Trigger) ⇒ object</a></li>
+        <li class="main "><a href="#getaccesstoken-string">getAccessToken() ⇒ string</a></li>
+        <li class="main "><a href="#getaccesstoken-string_1">getAccessToken() ⇒ string</a></li>
         <li class="main "><a href="#garbagecollect">garbageCollect()</a></li>
         <li class="main "><a href="#memoize">memoize()</a></li>
         <li class="main "><a href="#getcozyurl">getCozyURL()</a></li>
@@ -718,6 +721,12 @@ through OAuth.</p>
 
 <h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
 <dl>
+<dt><a href="#getAccessToken">getAccessToken()</a> ⇒ <code>string</code></dt>
+<dd><p>Get the access token string</p>
+</dd>
+<dt><a href="#getAccessToken">getAccessToken()</a> ⇒ <code>string</code></dt>
+<dd><p>Get the app token string</p>
+</dd>
 <dt><a href="#garbageCollect">garbageCollect()</a></dt>
 <dd><p>Delete outdated results from cache</p>
 </dd>
@@ -753,6 +762,7 @@ through OAuth.</p>
 <li><a href="#CozyStackClient+fetch">.fetch(method, path, body, options)</a> ⇒ <code>Object</code></li>
 <li><a href="#CozyStackClient+refreshToken">.refreshToken()</a> ⇒ <code>Promise</code></li>
 <li><a href="#CozyStackClient+fetchJSON">.fetchJSON(method, path, body, options)</a> ⇒ <code>Object</code></li>
+<li><a href="#CozyStackClient+getAccessToken">.getAccessToken()</a> ⇒ <code>string</code></li>
 </ul>
 </li>
 </ul>
@@ -864,7 +874,12 @@ through OAuth.</p>
 </tr>
 </tbody>
 </table>
-<p><a name="DocumentCollection"></a></p>
+<p><a name="CozyStackClient+getAccessToken"></a></p>
+<h3 id="cozystackclientgetaccesstoken-string">cozyStackClient.getAccessToken() ⇒ <code>string</code><a class="headerlink" href="#cozystackclientgetaccesstoken-string" title="Permanent link">&para;</a></h3>
+<p>Get the access token string, being an oauth token or an app token</p>
+<p><strong>Kind</strong>: instance method of <a href="#CozyStackClient"><code>CozyStackClient</code></a><br />
+<strong>Returns</strong>: <code>string</code> - token<br />
+<a name="DocumentCollection"></a></p>
 <h2 id="documentcollection">DocumentCollection<a class="headerlink" href="#documentcollection" title="Permanent link">&para;</a></h2>
 <p>Abstracts a collection of documents of the same doctype, providing CRUD methods and other helpers.</p>
 <p><strong>Kind</strong>: global class  </p>
@@ -1642,7 +1657,19 @@ through OAuth.</p>
 </tr>
 </tbody>
 </table>
-<p><a name="garbageCollect"></a></p>
+<p><a name="getAccessToken"></a></p>
+<h2 id="getaccesstoken-string">getAccessToken() ⇒ <code>string</code><a class="headerlink" href="#getaccesstoken-string" title="Permanent link">&para;</a></h2>
+<p>Get the access token string</p>
+<p><strong>Kind</strong>: global function<br />
+<strong>Returns</strong>: <code>string</code> - token<br />
+<strong>See</strong>: CozyStackClient.getAccessToken<br />
+<a name="getAccessToken"></a></p>
+<h2 id="getaccesstoken-string_1">getAccessToken() ⇒ <code>string</code><a class="headerlink" href="#getaccesstoken-string_1" title="Permanent link">&para;</a></h2>
+<p>Get the app token string</p>
+<p><strong>Kind</strong>: global function<br />
+<strong>Returns</strong>: <code>string</code> - token<br />
+<strong>See</strong>: CozyStackClient.getAccessToken<br />
+<a name="garbageCollect"></a></p>
 <h2 id="garbagecollect">garbageCollect()<a class="headerlink" href="#garbagecollect" title="Permanent link">&para;</a></h2>
 <p>Delete outdated results from cache</p>
 <p><strong>Kind</strong>: global function<br />

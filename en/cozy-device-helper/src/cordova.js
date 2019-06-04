@@ -1,2 +1,3 @@
 // cordova
-export const isCordova = () => window.cordova !== undefined
+export const isCordova = () =>
+  typeof window !== 'undefined' && window.cordova !== undefined
