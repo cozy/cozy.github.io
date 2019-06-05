@@ -681,6 +681,7 @@ neither painful for the users nor the developers.</p>
 <li><strong>Client</strong>: the client is the application that <em>starts</em> an intent.</li>
 <li><strong>Service</strong>: the service is the application that <em>handles</em> an intent started
     by a client.</li>
+<li><strong>Available apps</strong>: Uninstalled applications that <em>handles</em> the intent.</li>
 </ul>
 <h2 id="proposal">Proposal<a class="headerlink" href="#proposal" title="Permanent link">&para;</a></h2>
 <p>In this proposal, services declare themselves through their manifest. When a
@@ -851,6 +852,12 @@ the intent.</p>
 </ul>
 <p>Finally, the service URL is suffixed with <code>?intent=</code> followed by the intent&rsquo;s
 id, and then sent to the client.</p>
+<h3 id="4-available-apps">4. Available apps<a class="headerlink" href="#4-available-apps" title="Permanent link">&para;</a></h3>
+<p>In addition to the services that manage intents, a list of available (but not
+installed) applications of the instance that handles the intent is returned.
+This object list is called <code>availableApps</code> and contains:
+- The application <code>slug</code>
+- The application <code>name</code></p>
 <h4 id="service-choice">Service choice<a class="headerlink" href="#service-choice" title="Permanent link">&para;</a></h4>
 <p>If more than one service match the intent&rsquo;s criteria, the stack returns the list
 of all matching service URLs to the client (and stores it in the service URL
@@ -868,10 +875,8 @@ case, the choice page will need to inform the client that the intent was
 aborted.</p>
 <h4 id="no-available-service">No available service<a class="headerlink" href="#no-available-service" title="Permanent link">&para;</a></h4>
 <p>If no service is available to handle an intent, the stack returns an error to
-the client.</p>
-<p>At a later phase of this project, the stack may traverse the applications
-registered in a store to find suitable services, and prompt the user to install
-one.</p>
+the client. However, some non-installed applications may handle the intent, and
+are listed in the <code>availableApps</code> field.</p>
 <h3 id="4-handshake">4. Handshake<a class="headerlink" href="#4-handshake" title="Permanent link">&para;</a></h3>
 <p>The next phase consist of the client and the service establishing a
 communication channel between them. The communication will be done using the
@@ -961,6 +966,12 @@ intent is aborted and the iframe can be closed.</p>
                     <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;files&quot;</span><span class="p">,</span>
                     <span class="nt">&quot;href&quot;</span><span class="p">:</span> <span class="s2">&quot;https://files.cozy.example.net/pick?intent=77bcc42c-0fd8-11e7-ac95-8f605f6e8338&quot;</span>
                 <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="nt">&quot;availableApps&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;myapp&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;My App&quot;</span>
+                <span class="p">}</span>
             <span class="p">]</span>
         <span class="p">},</span>
         <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -1003,6 +1014,12 @@ intent is aborted and the iframe can be closed.</p>
                 <span class="p">{</span>
                     <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;files&quot;</span><span class="p">,</span>
                     <span class="nt">&quot;href&quot;</span><span class="p">:</span> <span class="s2">&quot;https://files.cozy.example.net/pick?intent=77bcc42c-0fd8-11e7-ac95-8f605f6e8338&quot;</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="nt">&quot;availableApps&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;myapp&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;My App&quot;</span>
                 <span class="p">}</span>
             <span class="p">]</span>
         <span class="p">},</span>
