@@ -640,6 +640,7 @@
             <li><a href="#basekonnectorgetaccountdata-object">baseKonnector.getAccountData() ⇒ object</a></li>
             <li><a href="#basekonnectorupdateaccountattributes">baseKonnector.updateAccountAttributes()</a></li>
             <li><a href="#basekonnectorwaitfortwofacode">baseKonnector.waitForTwoFaCode()</a></li>
+            <li><a href="#basekonnectorsavebills-promise">baseKonnector.saveBills() ⇒ Promise</a></li>
             <li><a href="#basekonnectorterminatemessage">baseKonnector.terminate(message)</a></li>
             <li><a href="#basekonnectorgetcozymetadatadata">baseKonnector.getCozyMetadata(data)</a></li>
         <li class="main "><a href="#cookiekonnector">CookieKonnector</a></li>
@@ -873,6 +874,9 @@ use this function.</p>
 <ul>
 <li><code>documents</code>: an array of objects corresponding to the data you want to save in the cozy</li>
 <li><code>doctype</code> (string): the doctype where you want to save data (ex: &lsquo;io.cozy.bills&rsquo;)</li>
+<li><code>options</code> (object): option object</li>
+<li><code>sourceAccount</code> (String): id of the source account</li>
+<li><code>sourceAccountIdentifier</code> (String): identifier unique to the account targetted by the connector. It is the login most of the time</li>
 </ul>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">documents</span> <span class="o">=</span> <span class="p">[</span>
   <span class="p">{</span>
@@ -1493,6 +1497,7 @@ fetch account information for your connector.</p>
 <li><a href="#BaseKonnector+getAccountData">.getAccountData()</a> ⇒ <code>object</code></li>
 <li><a href="#BaseKonnector+updateAccountAttributes">.updateAccountAttributes()</a></li>
 <li><a href="#BaseKonnector+waitForTwoFaCode">.waitForTwoFaCode()</a></li>
+<li><a href="#BaseKonnector+saveBills">.saveBills()</a> ⇒ <code>Promise</code></li>
 <li><a href="#BaseKonnector+terminate">.terminate(message)</a></li>
 <li><a href="#BaseKonnector+getCozyMetadata">.getCozyMetadata(data)</a></li>
 </ul>
@@ -1626,7 +1631,12 @@ Returns: Promise with sucessfull code if any</li>
 </pre></div>
 
 
-<p><a name="BaseKonnector+terminate"></a></p>
+<p><a name="BaseKonnector+saveBills"></a></p>
+<h3 id="basekonnectorsavebills-promise">baseKonnector.saveBills() ⇒ <code>Promise</code><a class="headerlink" href="#basekonnectorsavebills-promise" title="Permanent link">&para;</a></h3>
+<p>This is saveBills function from cozy-konnector-libs which automatically adds sourceAccount in
+metadata of each entry</p>
+<p><strong>Kind</strong>: instance method of <a href="#BaseKonnector"><code>BaseKonnector</code></a><br />
+<a name="BaseKonnector+terminate"></a></p>
 <h3 id="basekonnectorterminatemessage">baseKonnector.terminate(message)<a class="headerlink" href="#basekonnectorterminatemessage" title="Permanent link">&para;</a></h3>
 <p>Send a special error code which is interpreted by the cozy stack to terminate the execution of the
 connector now</p>
