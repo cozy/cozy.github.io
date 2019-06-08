@@ -912,7 +912,11 @@ file/directory (optional).</p>
 </tr>
 <tr>
 <td>Metadata</td>
-<td>a JSON with metadata on this file (gps, persons)</td>
+<td>a JSON with metadata on this file (<em>deprecated</em>)</td>
+</tr>
+<tr>
+<td>MetadataID</td>
+<td>the identifier of a metadata object</td>
 </tr>
 </tbody>
 </table>
@@ -1033,16 +1037,60 @@ Hello world!
 
 <p><strong>Note</strong>: see <a href="../references-docs-in-vfs/">references of documents in VFS</a> for
 more informations about the references field.</p>
-<h3 id="get-filesdownloadfile-id">GET /files/download/:file-id<a class="headerlink" href="#get-filesdownloadfile-id" title="Permanent link">&para;</a></h3>
-<p>Download the file content.</p>
-<p>By default the <code>content-disposition</code> will be <code>inline</code>, but it will be
-<code>attachment</code> if the query string contains the parameter <code>Dl=1</code></p>
+<h3 id="post-filesuploadmetadata">POST /files/upload/metadata<a class="headerlink" href="#post-filesuploadmetadata" title="Permanent link">&para;</a></h3>
+<p>Send a metadata object that can be associated to a file uploaded after that,
+via the <code>MetadataID</code> query parameter.</p>
 <h4 id="request_3">Request<a class="headerlink" href="#request_3" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/files/download/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/files/upload/metadata</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files.metadata&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;report&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;subCategory&quot;</span><span class="p">:</span> <span class="s2">&quot;theft&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;datetime&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-04-22T01:00:00-05:00&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;foobar&quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 
 
 <h4 id="response_3">Response<a class="headerlink" href="#response_3" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">201</span> <span class="ne">Created</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files.metadata&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;42E6BD48&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;report&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;subCategory&quot;</span><span class="p">:</span> <span class="s2">&quot;theft&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;datetime&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-04-22T01:00:00-05:00&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;foobar&quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="get-filesdownloadfile-id">GET /files/download/:file-id<a class="headerlink" href="#get-filesdownloadfile-id" title="Permanent link">&para;</a></h3>
+<p>Download the file content.</p>
+<p>By default the <code>content-disposition</code> will be <code>inline</code>, but it will be
+<code>attachment</code> if the query string contains the parameter <code>Dl=1</code></p>
+<h4 id="request_4">Request<a class="headerlink" href="#request_4" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/files/download/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
+
+
+<h4 id="response_4">Response<a class="headerlink" href="#response_4" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Length</span><span class="o">:</span> <span class="l">12</span>
 <span class="na">Content-Disposition</span><span class="o">:</span> <span class="l">inline; filename=&quot;hello.txt&quot;</span>
@@ -1056,7 +1104,7 @@ Hello world!
 <p>Download the file content from its path.</p>
 <p>By default the <code>content-disposition</code> will be <code>inline</code>, but it will be
 <code>attachment</code> if the query string contains the parameter <code>Dl=1</code></p>
-<h4 id="request_4">Request<a class="headerlink" href="#request_4" title="Permanent link">&para;</a></h4>
+<h4 id="request_5">Request<a class="headerlink" href="#request_5" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/files/download?Path=/Documents/hello.txt&amp;Dl=1</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 </pre></div>
 
@@ -1066,10 +1114,29 @@ Hello world!
 (640x480), <code>medium</code> (1280x720), or <code>large</code> (1920x1080).</p>
 <h3 id="put-filesfile-id">PUT /files/:file-id<a class="headerlink" href="#put-filesfile-id" title="Permanent link">&para;</a></h3>
 <p>Overwrite a file</p>
+<h4 id="query-string_2">Query-String<a class="headerlink" href="#query-string_2" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tags</td>
+<td>an array of tags</td>
+</tr>
+<tr>
+<td>MetadataID</td>
+<td>the identifier of a metadata object</td>
+</tr>
+</tbody>
+</table>
 <h4 id="http-headers_3">HTTP headers<a class="headerlink" href="#http-headers_3" title="Permanent link">&para;</a></h4>
 <p>The HTTP headers are the same than for uploading a file. There is one additional
 header, <code>If-Match</code>, with the previous revision of the file (optional).</p>
-<h4 id="request_5">Request<a class="headerlink" href="#request_5" title="Permanent link">&para;</a></h4>
+<h4 id="request_6">Request<a class="headerlink" href="#request_6" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">PUT</span> <span class="nn">/files/9152d568-7e7c-11e6-a377-37cbfb190b4b</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 <span class="na">Content-Length</span><span class="o">:</span> <span class="l">12</span>
@@ -1089,7 +1156,7 @@ HELLO WORLD!
 <li>412 Precondition Failed, when the <code>If-Match</code> header is set and doesn&rsquo;t match
     the last revision of the file</li>
 </ul>
-<h4 id="response_4">Response<a class="headerlink" href="#response_4" title="Permanent link">&para;</a></h4>
+<h4 id="response_5">Response<a class="headerlink" href="#response_5" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </pre></div>
@@ -1139,12 +1206,12 @@ HELLO WORLD!
 <h2 id="common">Common<a class="headerlink" href="#common" title="Permanent link">&para;</a></h2>
 <h3 id="get-filesmetadata">GET /files/metadata<a class="headerlink" href="#get-filesmetadata" title="Permanent link">&para;</a></h3>
 <p>Same as <code>/files/:file-id</code> but to retrieve informations from a path.</p>
-<h4 id="request_6">Request<a class="headerlink" href="#request_6" title="Permanent link">&para;</a></h4>
+<h4 id="request_7">Request<a class="headerlink" href="#request_7" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/files/metadata?Path=/Documents/hello.txt</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 </pre></div>
 
 
-<h4 id="response_5">Response<a class="headerlink" href="#response_5" title="Permanent link">&para;</a></h4>
+<h4 id="response_6">Response<a class="headerlink" href="#response_6" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 <span class="na">Location</span><span class="o">:</span> <span class="l">http://cozy.example.com/files/9152d568-7e7c-11e6-a377-37cbfb190b4b</span>
@@ -1205,7 +1272,7 @@ file/directory to update, and the second one uses the path.</p>
 <h4 id="http-headers_4">HTTP headers<a class="headerlink" href="#http-headers_4" title="Permanent link">&para;</a></h4>
 <p>It&rsquo;s possible to send the <code>If-Match</code> header, with the previous revision of the
 file/directory (optional).</p>
-<h4 id="request_7">Request<a class="headerlink" href="#request_7" title="Permanent link">&para;</a></h4>
+<h4 id="request_8">Request<a class="headerlink" href="#request_8" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">PATCH</span> <span class="nn">/files/9152d568-7e7c-11e6-a377-37cbfb190b4b</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
@@ -1238,7 +1305,7 @@ file/directory (optional).</p>
 <li>422 Unprocessable Entity, when the sent data is invalid (for example, the
     parent doesn&rsquo;t exist)</li>
 </ul>
-<h4 id="response_6">Response<a class="headerlink" href="#response_6" title="Permanent link">&para;</a></h4>
+<h4 id="response_7">Response<a class="headerlink" href="#response_7" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 <span class="na">Location</span><span class="o">:</span> <span class="l">http://cozy.example.com/files/9152d568-7e7c-11e6-a377-37cbfb190b4b</span>
@@ -1287,7 +1354,7 @@ file/directory (optional).</p>
 <h3 id="patch-files">PATCH /files/<a class="headerlink" href="#patch-files" title="Permanent link">&para;</a></h3>
 <p>Endpoint to update the metadata of files and directories in batch. It can be
 used, for instance, to move many files in a single request.</p>
-<h4 id="request_8">Request<a class="headerlink" href="#request_8" title="Permanent link">&para;</a></h4>
+<h4 id="request_9">Request<a class="headerlink" href="#request_9" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="err">PATCH /files/</span>
 <span class="err">Content-Type: application/vnd.api+json</span>
 </pre></div>
@@ -1320,9 +1387,8 @@ will be included in the archive. For directories, it includes all the files and
 sub-directories in the archive.</p>
 <p>It&rsquo;s possible to give a file by its id (in the <code>ids</code> array) or by its path (in
 the <code>files</code> array).</p>
-<h4 id="request_9">Request<a class="headerlink" href="#request_9" title="Permanent link">&para;</a></h4>
+<h4 id="request_10">Request<a class="headerlink" href="#request_10" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/files/archive</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Accept</span><span class="o">:</span> <span class="l">application/zip</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </pre></div>
 
@@ -1344,7 +1410,7 @@ the <code>files</code> array).</p>
 </pre></div>
 
 
-<h4 id="response_7">Response<a class="headerlink" href="#response_7" title="Permanent link">&para;</a></h4>
+<h4 id="response_8">Response<a class="headerlink" href="#response_8" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </pre></div>
@@ -1398,7 +1464,7 @@ destroyed.</p>
 <p>The file <code>trashed</code> attribute will be set to true.</p>
 <h3 id="get-filestrash">GET /files/trash<a class="headerlink" href="#get-filestrash" title="Permanent link">&para;</a></h3>
 <p>List the files inside the trash. It&rsquo;s paginated.</p>
-<h3 id="query-string_2">Query-String<a class="headerlink" href="#query-string_2" title="Permanent link">&para;</a></h3>
+<h3 id="query-string_3">Query-String<a class="headerlink" href="#query-string_3" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -1417,13 +1483,13 @@ destroyed.</p>
 </tr>
 </tbody>
 </table>
-<h4 id="request_10">Request<a class="headerlink" href="#request_10" title="Permanent link">&para;</a></h4>
+<h4 id="request_11">Request<a class="headerlink" href="#request_11" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/files/trash</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </pre></div>
 
 
-<h4 id="response_8">Response<a class="headerlink" href="#response_8" title="Permanent link">&para;</a></h4>
+<h4 id="response_9">Response<a class="headerlink" href="#response_9" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </pre></div>
