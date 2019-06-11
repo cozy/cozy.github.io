@@ -1,0 +1,55 @@
+#!/usr/bin/env node
+
+const codemod = require.resolve('cozy-flags/dist/flag-codemod')
+const spawn = require('child_process').spawn
+
+const attachIO = stream => {
+  stream.stdout.on('data', d => process.stdout.write(d))
+  stream.stderr.on('data', d => process.stderr.write(d))
+}
+
+const sh = (command, args) => {
+  const s = spawn(command, args)
+  attachIO(s)
+}
+
+const applyJscodeshiftOptions = [
+  '--parser',
+  'babel',
+  '--extensions',
+  'js,jsx',
+]
+
+const applyFlag = (flag, ...args) => {
+  sh('env', [
+    `FLAG=${flag}`,
+    'jscodeshift',
+    '-t',
+    codemod,
+    ...applyJscodeshiftOptions,
+    ...args
+  ]);
+}
+
+const usage = () => {
+  console.log(`Usage: cozy-flags <mode> [modeOptions...]
+
+Modes:
+
+- apply : Applies a flag to a directory.
+  Usage: \`cozy-flags apply <flagName> [...jscodeshiftOptions]\`
+  Example: cozy-flags apply my-flag src/ducks
+  Already applied jscodeshift options : ${applyJscodeshiftOptions.join(' ')}`)
+}
+
+const main = (mode, ...args) => {
+  if (mode === 'apply') {
+    applyFlag(...args)
+  } else {
+    usage()
+    process.exit(1)
+  }
+}
+
+main(...process.argv.slice(2))
+
