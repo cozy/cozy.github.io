@@ -100,6 +100,7 @@ module.exports = {
         '../react/MuiCozyTheme/index.jsx',
         '../react/MuiCozyTheme/Buttons',
         '../react/MuiCozyTheme/Menus',
+        '../react/MuiCozyTheme/List',
         '../react/MuiCozyTheme/ExpansionPanel'
       ]
     }

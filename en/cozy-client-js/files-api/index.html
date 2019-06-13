@@ -672,6 +672,7 @@
 <li><code>contentType</code>: specify the content type of the uploaded data. For a <code>File</code> type, it is handled automatically in browsers (default: <code>application/octet-stream</code>). For nodejs, you can rely on an external module like <a href="https://github.com/broofa/node-mime">mime</a></li>
 <li><code>checksum</code>: the base64-encoded (with padding) MD5 digest of the file (optional).</li>
 <li><code>lastModifiedDate</code>: a date to specify the last modification time to use for the uploaded file. If the given <code>data</code> is a <code>File</code> instance, the <code>lastModifiedDate</code> is automatically used (not overridden).</li>
+<li><code>noSanitize</code>: by default, the filename is sanitized to remove trailing whitespace; this option disables it.</li>
 </ul>
 <p><strong>Warning</strong>: this API is not v2 compatible.</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">created</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">blob</span><span class="p">,</span> <span class="p">{</span>
