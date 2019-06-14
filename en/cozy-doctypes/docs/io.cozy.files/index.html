@@ -646,8 +646,8 @@
 <li><code>type</code>: {string} always <code>directory</code></li>
 <li><code>name</code>: {string} the directory name</li>
 <li><code>path</code>: {string} the path to this directory, which is the path of its parent, then <code>/</code>, then its name</li>
-<li><code>created_at</code>: {timestamp} the date of the creation of this directory</li>
-<li><code>updated_at</code>: {timestamp} the date of the last update of this directory</li>
+<li><code>created_at</code>: {timestamp} the date of the creation of this directory given by the client</li>
+<li><code>updated_at</code>: {timestamp} the date of the last update of this directory given by the client</li>
 <li><code>tags</code>: {array of strings} a list of tags</li>
 </ul>
 <p>It also has a relationship with its <code>parent</code> in the JSON-API representation, and another called <code>data</code> with the files and directory inside it.</p>
@@ -658,14 +658,14 @@
 <li><code>name</code>: {string} the file name</li>
 <li><code>trashed</code>: {bool} true if the file is in the trash</li>
 <li><code>md5sum</code>: {string} the checksum of its content, computed with the MD5 algorithm</li>
-<li><code>created_at</code>: {date} the date of the creation of this directory</li>
-<li><code>updated_at</code>: {date} the date of the last update of this directory</li>
+<li><code>created_at</code>: {date} the date of the creation of this file given by the client</li>
+<li><code>updated_at</code>: {date} the date of the last update of this file given by the client</li>
 <li><code>tags</code>: {array of strings} a list of tags</li>
 <li><code>size</code>: {number} the size of its content, in bytes</li>
 <li><code>executable</code>: {bool} true is the file has the executable bit on UNIX (<code>chmod +x</code>)</li>
 <li><code>class</code>: {string} a class in the list: <code>['image', 'document', 'audio', 'video', 'text', 'binary']</code></li>
 <li><code>mime</code>: {string} the full mime-type</li>
-<li><code>metadata</code>: {map} an optional map of metadata (for example <code>width</code>, <code>height</code>, and <code>datetime</code> for an image)</li>
+<li><code>metadata</code>: {map} an optional map of metadata, with for example:</li>
 <li><code>width</code>: {number}</li>
 <li><code>height</code>: {number}</li>
 <li><code>datetime</code>: {date} : date in original image file metadata</li>
@@ -689,8 +689,112 @@
 <p>For an <code>image</code>, there are 3 links to thumbnails: <code>small</code>, <code>medium</code>, and <code>large</code>.</p>
 <h3 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h3>
 <p>It&rsquo;s possible to link a file or a folder to another document.
-It&rsquo;s called <a href="https://cozy.github.io/cozy-stack/references-docs-in-vfs.html">a reference</a>.
+It&rsquo;s called <a href="https://docs.cozy.io/en/cozy-stack/references-docs-in-vfs/">a reference</a>.
 It appears in the JSON-API representation as a <code>refererenced_by</code> relationship.</p>
+<h3 id="cozymetadata">CozyMetadata<a class="headerlink" href="#cozymetadata" title="Permanent link">&para;</a></h3>
+<p>The <code>io.cozy.files</code> doctype has <a href="https://docs.cozy.io/en/cozy-doctypes/docs/README/#document-metadata">the standard <code>cozyMetadata</code></a>, but with some more fields:</p>
+<ul>
+<li><code>createdOn</code>: {string} the instance URL on which the file has created (useful if the file is shared between several cozy instances)</li>
+<li><code>uploadedAt</code>: {date} the server date/time of the last upload (when the content was changed)</li>
+<li><code>uploadedOn</code>: {string} the instance URL on which the file content was changed the last time</li>
+<li><code>uploadedBy</code>: {map} information on which app has made the last upload</li>
+<li><code>slug</code>: {string} the slug of the application that has made the upload</li>
+<li><code>version</code>: {string} the version number of this application</li>
+<li><code>oauthClient</code>: {map} if the upload was made by an OAuth Client, information about it (<code>id</code>, <code>name</code>, and <code>kind</code>)</li>
+</ul>
+<h3 id="example-json-api-format">Example (JSON-API format)<a class="headerlink" href="#example-json-api-format" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;3-0e6d5b72&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;sunset.jpg&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;trashed&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="nt">&quot;md5sum&quot;</span><span class="p">:</span> <span class="s2">&quot;ODZmYjI2OWQxOTBkMmM4NQo=&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-01-02T20:38:04Z&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-06-12T12:38:04Z&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[],</span>
+      <span class="nt">&quot;metadata&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;datetime&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-01-02T20:38:04Z&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;height&quot;</span><span class="p">:</span> <span class="mi">1080</span><span class="p">,</span>
+        <span class="nt">&quot;width&quot;</span><span class="p">:</span> <span class="mi">1920</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+      <span class="nt">&quot;executable&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="nt">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;mime&quot;</span><span class="p">:</span> <span class="s2">&quot;image/jpg&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;cozyMetadata&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;doctypeVersion&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nt">&quot;metadataVersion&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nt">&quot;createdAt&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-06-11T01:02:03Z&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;createdByApp&quot;</span><span class="p">:</span> <span class="s2">&quot;flickr&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;createdByAppVersion&quot;</span><span class="p">:</span> <span class="s2">&quot;1.2.3&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;createdOn&quot;</span><span class="p">:</span> <span class="s2">&quot;https://alice.cozy.example&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;updatedAt&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-06-12T12:40:06Z&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;updatedByApps&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="p">{</span>
+            <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;flickr&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;date&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-06-11T01:02:03Z&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.2.3&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;instance&quot;</span><span class="p">:</span> <span class="s2">&quot;https://alice.cozy.example&quot;</span>
+          <span class="p">},</span>
+          <span class="p">{</span>
+            <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;cozy-desktop&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;date&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-06-12T12:40:06Z&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.13.2&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;instance&quot;</span><span class="p">:</span> <span class="s2">&quot;https://alice.cozy.example&quot;</span>
+          <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="nt">&quot;uploadedAt&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-06-11T20:34:56Z&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;uploadedOn&quot;</span><span class="p">:</span> <span class="s2">&quot;https://alice.cozy.example&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;uploadedBy&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;cozy-desktop&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.13.2&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;oauthClient&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;9aaa6886-8b69-11e9-8412-b7855fb3838f&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;desktop&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Cozy Drive - mac book pro d&#39;Alice&quot;</span>
+          <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;sourceAccount&quot;</span><span class="p">:</span> <span class="s2">&quot;07b49550-8b60-11e9-bb7e-87717e829039&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;sourceAccountIdentifier&quot;</span><span class="p">:</span> <span class="s2">&quot;157ae784&quot;</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;parent&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;related&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81&quot;</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;referenced_by&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81/relationships/references&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.albums&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;94375086-e2e2-11e6-81b9-5bc0b9dd4aa4&quot;</span>
+          <span class="p">}</span>
+        <span class="p">]</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;small&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b/thumbnails/0f9cda56674282ac/small&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;medium&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b/thumbnails/0f9cda56674282ac/medium&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;large&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b/thumbnails/0f9cda56674282ac/large&quot;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
                 </div>
         </div>
 

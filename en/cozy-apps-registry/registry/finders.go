@@ -340,13 +340,8 @@ func FindLastsVersionsSince(c *Space, appSlug, channel string, date time.Time) (
 	db := c.VersDB()
 	versions := []*Version{}
 
-	marshaled, err := json.Marshal(date.Format(time.RFC3339Nano))
-	if err != nil {
-		return nil, err
-	}
-
 	options := map[string]interface{}{
-		"startkey":     string(marshaled),
+		"startkey":     date.Format(time.RFC3339Nano),
 		"include_docs": true,
 	}
 

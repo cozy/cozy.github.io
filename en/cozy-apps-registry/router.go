@@ -748,6 +748,35 @@ func universalLinkRedirect(c echo.Context) error {
 	}
 	spacePrefix := registry.GetPrefixOrDefault(space)
 	fallback := c.QueryParam("fallback")
+
+	// The following code has been made to handle an iOS bug during JSON recovery.
+	// It should be removed if a fix is found one day.
+	// See https://openradar.appspot.com/33893852
+	customScheme := c.QueryParam("custom_scheme")
+	if customScheme != "" {
+		customPath := c.QueryParam("custom_path")
+		code := c.QueryParam("code")
+		state := c.QueryParam("state")
+		accessCode := c.QueryParam("access_code")
+
+		if code != "" {
+			customScheme := strings.TrimSuffix(customScheme, "://")
+
+			params := url.Values{}
+			params.Add("code", code)
+			params.Add("state", state)
+			params.Add("access_code", accessCode)
+
+			redirect := url.URL{
+				Scheme: customScheme,
+				Path:   customPath,
+			}
+			redirect.RawQuery = params.Encode()
+
+			return c.Redirect(http.StatusSeeOther, redirect.String())
+		}
+	}
+
 	if fallback == "" {
 		return echo.NewHTTPError(http.StatusNotFound)
 	}

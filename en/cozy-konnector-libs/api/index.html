@@ -614,10 +614,12 @@
             <li><a href="#moduleexports_4">module.exports() ⏏</a></li>
         <li class="main "><a href="#savefiles">saveFiles</a></li>
             <li><a href="#savefiles_1">saveFiles() ⏏</a></li>
-        <li class="main "><a href="#signin">signin</a></li>
+        <li class="main "><a href="#saveidentity">saveIdentity</a></li>
             <li><a href="#moduleexports_5">module.exports() ⏏</a></li>
-        <li class="main "><a href="#solvecaptcha">solveCaptcha</a></li>
+        <li class="main "><a href="#signin">signin</a></li>
             <li><a href="#moduleexports_6">module.exports() ⏏</a></li>
+        <li class="main "><a href="#solvecaptcha">solveCaptcha</a></li>
+            <li><a href="#moduleexports_7">module.exports() ⏏</a></li>
         <li class="main "><a href="#updateorcreate">updateOrCreate</a></li>
             <li><a href="#moduleexportsentries-doctype-matchingattributes-promise">module.exports(entries, doctype, matchingAttributes) ⇒ Promise ⏏</a></li>
         <li class="main "><a href="#utils">utils</a></li>
@@ -745,6 +747,9 @@ to an existing bank operation</p>
 </dd>
 <dt><a href="#module_saveFiles">saveFiles</a></dt>
 <dd><p>Saves the given files in the given folder via the Cozy API.</p>
+</dd>
+<dt><a href="#module_saveIdentity">saveIdentity</a></dt>
+<dd><p>Helper to set or merge identities</p>
 </dd>
 <dt><a href="#module_signin">signin</a></dt>
 <dd><p>Provides an handy method to log the user in,
@@ -1134,12 +1139,37 @@ full permission on <code>io.cozy.bank.operations</code> in your manifest, to be 
 </pre></div>
 
 
-<p><a name="module_signin"></a></p>
+<p><a name="module_saveIdentity"></a></p>
+<h2 id="saveidentity">saveIdentity<a class="headerlink" href="#saveidentity" title="Permanent link">&para;</a></h2>
+<p>Helper to set or merge identities</p>
+<p><a name="exp_module_saveIdentity--module.exports"></a></p>
+<h3 id="moduleexports_5">module.exports() ⏏<a class="headerlink" href="#moduleexports_5" title="Permanent link">&para;</a></h3>
+<p>Set or merge a io.cozy.identities</p>
+<p>You need full permission for the doctype io.cozy.identities in your
+manifest, to be able to use this function.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>contact</code> (object): the identity to create/update as an object io.cozy.contacts</li>
+<li><code>accountIdentifier</code> (string): a string that represent the account use, if available fields.login</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">saveIdentity</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-konnector-libs&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">identity</span> <span class="o">=</span>
+  <span class="p">{</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;toto&#39;</span><span class="p">,</span>
+    <span class="nx">email</span><span class="o">:</span> <span class="p">{</span> <span class="s1">&#39;address&#39;</span><span class="o">:</span> <span class="s1">&#39;toto@example.com&#39;</span> <span class="p">}</span>
+  <span class="p">}</span>
+
+<span class="k">return</span> <span class="nx">saveIdentity</span><span class="p">(</span><span class="nx">identity</span><span class="p">,</span> <span class="nx">fields</span><span class="p">.</span><span class="nx">login</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>Kind</strong>: Exported function<br />
+<a name="module_signin"></a></p>
 <h2 id="signin">signin<a class="headerlink" href="#signin" title="Permanent link">&para;</a></h2>
 <p>Provides an handy method to log the user in,
 on HTML form pages. On success, it resolves to a promise with a parsed body.</p>
 <p><a name="exp_module_signin--module.exports"></a></p>
-<h3 id="moduleexports_5">module.exports() ⏏<a class="headerlink" href="#moduleexports_5" title="Permanent link">&para;</a></h3>
+<h3 id="moduleexports_6">module.exports() ⏏<a class="headerlink" href="#moduleexports_6" title="Permanent link">&para;</a></h3>
 <p>Provides an handy method to log the user in,
 on HTML form pages. On success, it resolves to a promise with a parsed body.</p>
 <p>Errors:</p>
@@ -1222,7 +1252,7 @@ simple.
 <p>Use every possible means to solve a captcha. At the moment, Anticaptcha web service is used if
 any related secret key is found in COZY_PARAMETERS environment variable.</p>
 <p><a name="exp_module_solveCaptcha--module.exports"></a></p>
-<h3 id="moduleexports_6">module.exports() ⏏<a class="headerlink" href="#moduleexports_6" title="Permanent link">&para;</a></h3>
+<h3 id="moduleexports_7">module.exports() ⏏<a class="headerlink" href="#moduleexports_7" title="Permanent link">&para;</a></h3>
 <p>Use every possible means to solve a captcha. At the moment, Anticaptcha web service is used if
 any related secret key is found in COZY_PARAMETERS environment variable.
 If you do not want to solve the captcha each time the connector is run, please also use

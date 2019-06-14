@@ -673,6 +673,7 @@
 <li><code>checksum</code>: the base64-encoded (with padding) MD5 digest of the file (optional).</li>
 <li><code>lastModifiedDate</code>: a date to specify the last modification time to use for the uploaded file. If the given <code>data</code> is a <code>File</code> instance, the <code>lastModifiedDate</code> is automatically used (not overridden).</li>
 <li><code>noSanitize</code>: by default, the filename is sanitized to remove trailing whitespace; this option disables it.</li>
+<li><code>metadata</code>: (object) metadata associated to the file</li>
 </ul>
 <p><strong>Warning</strong>: this API is not v2 compatible.</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">created</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">blob</span><span class="p">,</span> <span class="p">{</span>
@@ -725,12 +726,16 @@
 <li><code>checksum</code>: the base64-encoded (with padding) MD5 digest of the file (optional).</li>
 <li><code>lastModifiedDate</code>: a date to specify the last modification time to use for the uploaded file. If the given <code>data</code> is a <code>File</code> instance, the <code>lastModifiedDate</code> is automatically used (not overridden).</li>
 <li><code>ifMatch</code>: the previous revision of the file (optional). The update will be rejected if the remote revision doesn&rsquo;t match the given one.</li>
+<li><code>metadata</code>: (object) metadata associated to the file</li>
 </ul>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">updated</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">updateById</span><span class="p">(</span><span class="s2">&quot;654321&quot;</span><span class="p">,</span> <span class="nx">blob</span><span class="p">,</span> <span class="p">{</span>
   <span class="nx">contentType</span><span class="o">:</span> <span class="s2">&quot;text/plain&quot;</span><span class="p">,</span>
   <span class="nx">checksum</span><span class="o">:</span> <span class="s2">&quot;rL0Y20zC+Fzt72VPzMSk2A==&quot;</span><span class="p">,</span>
   <span class="nx">lastModifiedDate</span><span class="o">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(),</span>
-  <span class="nx">ifMatch</span><span class="o">:</span> <span class="s2">&quot;1-0e6d5b72&quot;</span>
+  <span class="nx">ifMatch</span><span class="o">:</span> <span class="s2">&quot;1-0e6d5b72&quot;</span><span class="p">,</span>
+  <span class="nx">metadata</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;brand&quot;</span><span class="o">:</span> <span class="s2">&quot;newBrand&quot;</span>
+  <span class="p">}</span>
 <span class="p">})</span>
 </pre></div>
 
@@ -956,7 +961,7 @@ You can use this link to start a browser download (see code in getDownloadLinkBy
 <li><code>cursor</code> (recommended): specify the view&rsquo;s key and the starting docid. The starting docid can be empty for the first query and take the last returned docid for the next ones.</li>
 <li><code>skip</code> (not recommended): ignore the first x results for pagination.</li>
 <li><code>limit</code>: maximum number of results.</li>
-<li><code>sort</code> is a string which can be <code>datetime</code> (default) or <code>id</code>. <em>Warning:</em>  <code>datetime</code> is not compatible with cursor-based pagination. </li>
+<li><code>sort</code> is a string which can be <code>datetime</code> (default) or <code>id</code>. <em>Warning:</em>  <code>datetime</code> is not compatible with cursor-based pagination.</li>
 </ul>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">key</span> <span class="o">=</span> <span class="p">[</span><span class="nx">DOCTYPE_ALBUMS</span><span class="p">,</span> <span class="nx">album</span><span class="p">.</span><span class="nx">_id</span><span class="p">]</span>
 <span class="kr">const</span> <span class="nx">cursor</span> <span class="o">=</span> <span class="p">[</span><span class="nx">key</span><span class="p">,</span> <span class="nx">startDocid</span><span class="p">]</span>
