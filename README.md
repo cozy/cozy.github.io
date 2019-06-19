@@ -13,13 +13,13 @@ If you want to see your updates, install mkdocs:
 ```shell
 pip install --user mkdocs
 ```
+> In most linux distribution, it will install binary in ~/local/bin/, add it to your path.
 
 Fetch external documentation and add it to mkdocs.yml (do not commit this the changes in `References`) :
 
 ```
-./fetch.sh
 pip install -r requirements.txt
-./add_external_docs.py --fetch
+./build.sh
 ```
 > Expected python version is 2.7.10
 
