@@ -599,6 +599,7 @@
             <li><a href="#service-worker">service worker</a></li>
             <li><a href="#push-worker">push worker</a></li>
             <li><a href="#unzip-worker">unzip worker</a></li>
+            <li><a href="#zip-worker">zip worker</a></li>
             <li><a href="#sendmail-worker">sendmail worker</a></li>
             <li><a href="#export">export</a></li>
             <li><a href="#share-workers">share workers</a></li>
@@ -729,6 +730,47 @@ permission. It is done by adding this to the manifest:</p>
 </pre></div>
 
 
+<h2 id="zip-worker">zip worker<a class="headerlink" href="#zip-worker" title="Permanent link">&para;</a></h2>
+<p>The <code>zip</code> worker does pretty much the opposite of the <code>unzip</code> worker: it
+creates a zip archive from files in the VFS. The options are:</p>
+<ul>
+<li><code>files</code>: a map with the the files to zip (their path in the zip as key, their
+  VFS identifier as value)</li>
+<li><code>dir_id</code>: the directory identifier where the zip archive will be put</li>
+<li><code>filename</code>: the name of the zip archive.</li>
+</ul>
+<h3 id="example_2">Example<a class="headerlink" href="#example_2" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;selection/one.pdf&quot;</span><span class="p">:</span> <span class="s2">&quot;36abc4c0-90fe-11e9-b05b-1fa43ca781ef&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;selection/two.pdf&quot;</span><span class="p">:</span> <span class="s2">&quot;36eb54c8-90fe-11e9-aeca-03ddc3acf91c&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;selection/three.pdf&quot;</span><span class="p">:</span> <span class="s2">&quot;37284586-90fe-11e9-be6d-179f72076e43&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;selection/four.pdf&quot;</span><span class="p">:</span> <span class="s2">&quot;37655462-90fe-11e9-9059-8739e3746720&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;selection/five.pdf&quot;</span><span class="p">:</span> <span class="s2">&quot;379fedfc-90fe-11e9-849f-0bbe172eba5f&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;dir_id&quot;</span><span class="p">:</span> <span class="s2">&quot;3657ce9c-90fe-11e9-b40b-33baf841bcb8&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;filename&quot;</span><span class="p">:</span> <span class="s2">&quot;selection.zip&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="permissions_2">Permissions<a class="headerlink" href="#permissions_2" title="Permanent link">&para;</a></h3>
+<p>To use this worker from a client-side application, you will need to ask the
+permission. It is done by adding this to the manifest:</p>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;create-a-zip-archive&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Required to create a zip archive inside the cozy&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">],</span>
+            <span class="nt">&quot;selector&quot;</span><span class="p">:</span> <span class="s2">&quot;worker&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;zip&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
 <h2 id="sendmail-worker">sendmail worker<a class="headerlink" href="#sendmail-worker" title="Permanent link">&para;</a></h2>
 <p>The <code>sendmail</code> worker can be used to send mail from the stack. It implies that
 the stack has properly configured an access to an SMTP server. You can see an
@@ -780,7 +822,7 @@ at the root of this repository.</p>
 </pre></div>
 
 
-<h3 id="permissions_2">Permissions<a class="headerlink" href="#permissions_2" title="Permanent link">&para;</a></h3>
+<h3 id="permissions_3">Permissions<a class="headerlink" href="#permissions_3" title="Permanent link">&para;</a></h3>
 <p>To use this worker from a client-side application, you will need to ask the
 permission. It is done by adding this to the manifest:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
@@ -813,7 +855,7 @@ doctype <code>io.cozy.exports</code>.</p>
 <li><code>without_files</code>: boolean to avoid exporting the index (preventing download
     file data)</li>
 </ul>
-<h3 id="example_2">Example<a class="headerlink" href="#example_2" title="Permanent link">&para;</a></h3>
+<h3 id="example_3">Example<a class="headerlink" href="#example_3" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
     <span class="nt">&quot;parts_size&quot;</span><span class="p">:</span> <span class="mi">52428800</span><span class="p">,</span>
     <span class="nt">&quot;max_age&quot;</span><span class="p">:</span> <span class="mi">60000000000</span><span class="p">,</span> <span class="err">//</span> <span class="err">1</span> <span class="err">minute</span>
@@ -823,7 +865,7 @@ doctype <code>io.cozy.exports</code>.</p>
 </pre></div>
 
 
-<h3 id="permissions_3">Permissions<a class="headerlink" href="#permissions_3" title="Permanent link">&para;</a></h3>
+<h3 id="permissions_4">Permissions<a class="headerlink" href="#permissions_4" title="Permanent link">&para;</a></h3>
 <p>To use this worker from a client-side application, you will need to ask the
 permission. It is done by adding this to the manifest:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
