@@ -15,6 +15,7 @@ module.exports = {
         '../react/Button/index.jsx',
         '../react/ButtonAction/index.jsx',
         '../react/Card/index.jsx',
+        '../react/InlineCard/index.jsx',
         '../react/Chip/index.jsx',
         '../react/Icon/index.jsx',
         '../react/Spinner/index.jsx',

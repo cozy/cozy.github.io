@@ -674,6 +674,9 @@
 <li><code>lastModifiedDate</code>: a date to specify the last modification time to use for the uploaded file. If the given <code>data</code> is a <code>File</code> instance, the <code>lastModifiedDate</code> is automatically used (not overridden).</li>
 <li><code>noSanitize</code>: by default, the filename is sanitized to remove trailing whitespace; this option disables it.</li>
 <li><code>metadata</code>: (object) metadata associated to the file</li>
+<li><code>sourceAccount</code>: (string) allow to associate the file with the given account id in cozyMetadata</li>
+<li><code>sourceAccountIdentifier</code>: (string) allow to associate the file with the given account
+    identifier (mostly the user login in the account) in cozyMetadata</li>
 </ul>
 <p><strong>Warning</strong>: this API is not v2 compatible.</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">created</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">blob</span><span class="p">,</span> <span class="p">{</span>

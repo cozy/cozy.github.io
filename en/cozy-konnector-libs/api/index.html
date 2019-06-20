@@ -621,7 +621,7 @@
         <li class="main "><a href="#solvecaptcha">solveCaptcha</a></li>
             <li><a href="#moduleexports_7">module.exports() ⏏</a></li>
         <li class="main "><a href="#updateorcreate">updateOrCreate</a></li>
-            <li><a href="#moduleexportsentries-doctype-matchingattributes-promise">module.exports(entries, doctype, matchingAttributes) ⇒ Promise ⏏</a></li>
+            <li><a href="#moduleexports_8">module.exports() ⏏</a></li>
         <li class="main "><a href="#utils">utils</a></li>
             <li><a href="#utilsfetchall">utils~fetchAll()</a></li>
             <li><a href="#utilsqueryall">utils~queryAll()</a></li>
@@ -643,6 +643,8 @@
             <li><a href="#basekonnectorupdateaccountattributes">baseKonnector.updateAccountAttributes()</a></li>
             <li><a href="#basekonnectorwaitfortwofacode">baseKonnector.waitForTwoFaCode()</a></li>
             <li><a href="#basekonnectorsavebills-promise">baseKonnector.saveBills() ⇒ Promise</a></li>
+            <li><a href="#basekonnectorupdateorcreate-promise">baseKonnector.updateOrCreate() ⇒ Promise</a></li>
+            <li><a href="#basekonnectorsaveidentity-promise">baseKonnector.saveIdentity() ⇒ Promise</a></li>
             <li><a href="#basekonnectorterminatemessage">baseKonnector.terminate(message)</a></li>
             <li><a href="#basekonnectorgetcozymetadatadata">baseKonnector.getCozyMetadata(data)</a></li>
         <li class="main "><a href="#cookiekonnector">CookieKonnector</a></li>
@@ -749,7 +751,8 @@ to an existing bank operation</p>
 <dd><p>Saves the given files in the given folder via the Cozy API.</p>
 </dd>
 <dt><a href="#module_saveIdentity">saveIdentity</a></dt>
-<dd><p>Helper to set or merge identities</p>
+<dd><p>Helper to set or merge io.cozy.identities
+See <a href="https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.identities.md">https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.identities.md</a></p>
 </dd>
 <dt><a href="#module_signin">signin</a></dt>
 <dd><p>Provides an handy method to log the user in,
@@ -1141,7 +1144,8 @@ full permission on <code>io.cozy.bank.operations</code> in your manifest, to be 
 
 <p><a name="module_saveIdentity"></a></p>
 <h2 id="saveidentity">saveIdentity<a class="headerlink" href="#saveidentity" title="Permanent link">&para;</a></h2>
-<p>Helper to set or merge identities</p>
+<p>Helper to set or merge io.cozy.identities
+See https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.identities.md</p>
 <p><a name="exp_module_saveIdentity--module.exports"></a></p>
 <h3 id="moduleexports_5">module.exports() ⏏<a class="headerlink" href="#moduleexports_5" title="Permanent link">&para;</a></h3>
 <p>Set or merge a io.cozy.identities</p>
@@ -1151,6 +1155,9 @@ manifest, to be able to use this function.</p>
 <ul>
 <li><code>contact</code> (object): the identity to create/update as an object io.cozy.contacts</li>
 <li><code>accountIdentifier</code> (string): a string that represent the account use, if available fields.login</li>
+<li><code>options</code> (object): options which will be given to updateOrCreate directly :</li>
+<li><code>sourceAccount</code> (String): id of the source account</li>
+<li><code>sourceAccountIdentifier</code> (String): identifier unique to the account targetted by the connector. It is the login most of the time</li>
 </ul>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">saveIdentity</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-konnector-libs&#39;</span><span class="p">)</span>
 <span class="kr">const</span> <span class="nx">identity</span> <span class="o">=</span>
@@ -1285,39 +1292,21 @@ Returns: Promise with the solved captcha response as a string</li>
 <p>Creates or updates the given entries according to if they already
 exist in the cozy or not</p>
 <p><a name="exp_module_updateOrCreate--module.exports"></a></p>
-<h3 id="moduleexportsentries-doctype-matchingattributes-promise">module.exports(entries, doctype, matchingAttributes) ⇒ <code>Promise</code> ⏏<a class="headerlink" href="#moduleexportsentries-doctype-matchingattributes-promise" title="Permanent link">&para;</a></h3>
+<h3 id="moduleexports_8">module.exports() ⏏<a class="headerlink" href="#moduleexports_8" title="Permanent link">&para;</a></h3>
 <p>Creates or updates the given entries according to if they already
 exist in the cozy or not</p>
 <p>You need the full permission for the given doctype in your manifest, to be able to
 use this function.</p>
-<p><strong>Kind</strong>: Exported function  </p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>entries</td>
-<td><code>Array.&lt;Object&gt;</code></td>
-<td>Documents to save</td>
-</tr>
-<tr>
-<td>doctype</td>
-<td><code>String</code></td>
-<td>Doctype of the documents</td>
-</tr>
-<tr>
-<td>matchingAttributes</td>
-<td><code>Array.&lt;String&gt;</code></td>
-<td>attributes in each entry used to check if an entry already exists in the Cozy</td>
-</tr>
-</tbody>
-</table>
-<p><a name="module_utils"></a></p>
+<ul>
+<li><code>entries</code> (object array): Documents to save</li>
+<li><code>doctype</code> (string): Doctype of the documents</li>
+<li><code>matchingAttributes</code> (string array): attributes in each entry used to check if an entry already exists in the Cozy</li>
+<li><code>options</code> (object): general option affecting metadata :</li>
+<li><code>sourceAccount</code> (String): id of the source account</li>
+<li><code>sourceAccountIdentifier</code> (String): identifier unique to the account targetted by the connector. It is the login most of the time</li>
+</ul>
+<p><strong>Kind</strong>: Exported function<br />
+<a name="module_utils"></a></p>
 <h2 id="utils">utils<a class="headerlink" href="#utils" title="Permanent link">&para;</a></h2>
 <p>Small utilities helping to develop konnectors.</p>
 <ul>
@@ -1528,6 +1517,8 @@ fetch account information for your connector.</p>
 <li><a href="#BaseKonnector+updateAccountAttributes">.updateAccountAttributes()</a></li>
 <li><a href="#BaseKonnector+waitForTwoFaCode">.waitForTwoFaCode()</a></li>
 <li><a href="#BaseKonnector+saveBills">.saveBills()</a> ⇒ <code>Promise</code></li>
+<li><a href="#BaseKonnector+updateOrCreate">.updateOrCreate()</a> ⇒ <code>Promise</code></li>
+<li><a href="#BaseKonnector+saveIdentity">.saveIdentity()</a> ⇒ <code>Promise</code></li>
 <li><a href="#BaseKonnector+terminate">.terminate(message)</a></li>
 <li><a href="#BaseKonnector+getCozyMetadata">.getCozyMetadata(data)</a></li>
 </ul>
@@ -1664,6 +1655,16 @@ Returns: Promise with sucessfull code if any</li>
 <p><a name="BaseKonnector+saveBills"></a></p>
 <h3 id="basekonnectorsavebills-promise">baseKonnector.saveBills() ⇒ <code>Promise</code><a class="headerlink" href="#basekonnectorsavebills-promise" title="Permanent link">&para;</a></h3>
 <p>This is saveBills function from cozy-konnector-libs which automatically adds sourceAccount in
+metadata of each entry</p>
+<p><strong>Kind</strong>: instance method of <a href="#BaseKonnector"><code>BaseKonnector</code></a><br />
+<a name="BaseKonnector+updateOrCreate"></a></p>
+<h3 id="basekonnectorupdateorcreate-promise">baseKonnector.updateOrCreate() ⇒ <code>Promise</code><a class="headerlink" href="#basekonnectorupdateorcreate-promise" title="Permanent link">&para;</a></h3>
+<p>This is updateOrCreate function from cozy-konnector-libs which automatically adds sourceAccount in
+metadata of each entry</p>
+<p><strong>Kind</strong>: instance method of <a href="#BaseKonnector"><code>BaseKonnector</code></a><br />
+<a name="BaseKonnector+saveIdentity"></a></p>
+<h3 id="basekonnectorsaveidentity-promise">baseKonnector.saveIdentity() ⇒ <code>Promise</code><a class="headerlink" href="#basekonnectorsaveidentity-promise" title="Permanent link">&para;</a></h3>
+<p>This is saveIdentity function from cozy-konnector-libs which automatically adds sourceAccount in
 metadata of each entry</p>
 <p><strong>Kind</strong>: instance method of <a href="#BaseKonnector"><code>BaseKonnector</code></a><br />
 <a name="BaseKonnector+terminate"></a></p>
