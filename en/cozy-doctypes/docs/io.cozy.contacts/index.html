@@ -644,20 +644,24 @@
 <p>The <code>io.cozy.contacts</code> doctype is loosely based on the <a href="https://tools.ietf.org/html/rfc6350">vCard RFC</a>, in that some of the attributes have been renamed for clarity. The attributes with a <code>?</code> are optional.</p>
 <ul>
 <li><code>fullname?</code>: {string} Unstructured representation of the name (example: <code>"Dr. Gregory House, M.D."</code>)</li>
-<li><code>name?</code>: {object} Optional structured representation of the name, with the following possible attributes:</li>
+<li><code>name?</code>: {object} Optional structured representation of the name, with the following possible attributes:<ul>
 <li><code>familyName?</code>: {string} (example: <code>"House"</code>)</li>
 <li><code>givenName?</code>: {string} (example: <code>"Gregory"</code>)</li>
 <li><code>additionalName?</code>: {string} (example: <code>"J."</code>)</li>
 <li><code>namePrefix?</code>: {string} (example: <code>"Dr."</code>)</li>
 <li><code>nameSuffix?</code>: {string} (example: <code>"III"</code>)</li>
+</ul>
+</li>
 <li><code>birthday?</code>: {date} (example: <code>"1959-05-15"</code>)</li>
 <li><code>note?</code>: {string}</li>
-<li><code>email?</code>: {array} An array of email addresses objects with the following attributes:</li>
+<li><code>email?</code>: {array} An array of email addresses objects with the following attributes:<ul>
 <li><code>address</code>: {string} Email adress</li>
 <li><code>type?</code>: {string} Programmatic type of email (<code>"work"</code>, <code>"home"</code>, <code>"other"</code>)</li>
 <li><code>label?</code>: {string} A user-provided localized type of email (example: <code>"Work"</code>)</li>
 <li><code>primary?</code>: {boolean} Indicates a preferred-use address</li>
-<li><code>address?</code>: {array} An array of postal addresses objects with the following attributes:</li>
+</ul>
+</li>
+<li><code>address?</code>: {array} An array of postal addresses objects with the following attributes:<ul>
 <li><code>street?</code>: {string}</li>
 <li><code>pobox?</code>: {string}</li>
 <li><code>city?</code>: {string}</li>
@@ -668,71 +672,63 @@
 <li><code>primary?</code>: {boolean} Indicates a preferred-use address</li>
 <li><code>label?</code>: {string}</li>
 <li><code>formattedAddress?</code>: {string} Unstructured version of the address</li>
-<li><code>phone?</code>: {array} An array of phone number objects with the following attributes:</li>
+</ul>
+</li>
+<li><code>phone?</code>: {array} An array of phone number objects with the following attributes:<ul>
 <li><code>number</code>: {string}</li>
 <li><code>type?</code>: {string} Programmatic type of phone number (<code>"work"</code>, <code>"home"</code>, <code>"mobile"</code>, <code>"fax"</code>, <code>"other"</code>)</li>
 <li><code>label?</code>: {string} A user-provided localized type of phone number (example: <code>"Work"</code>)</li>
 <li><code>primary?</code>: {boolean} Indicates a preferred-use number</li>
-<li><code>cozy?</code>: {array} An array of cozy instances with the following attributes:</li>
+</ul>
+</li>
+<li><code>cozy?</code>: {array} An array of cozy instances with the following attributes:<ul>
 <li><code>url</code>: {string}</li>
 <li><code>label?</code>: {string} A user-provided localized type of instance</li>
 <li><code>primary?</code>: {boolean} Indicates a preferred-use instance</li>
+</ul>
+</li>
 <li><code>company</code>: {string} Company</li>
 <li><code>jobTitle</code>: {string} Job title</li>
-<li>
-<p><code>relationships</code>: {object} links between documents</p>
-</li>
-<li>
-<p><code>groups</code>: {object} groups the contact belongs to</p>
-<ul>
-<li><code>data</code>: {array} list of groups</li>
+<li><code>relationships</code>: {object} links between documents<ul>
+<li><code>groups</code>: {object} groups the contact belongs to<ul>
+<li><code>data</code>: {array} list of groups<ul>
 <li><code>_id</code>: {string} id of the io.cozy.contacts.groups document</li>
 <li><code>_type</code>: {string} doctype &ldquo;io.cozy.contacts.groups&rdquo;</li>
 </ul>
 </li>
-<li>
-<p><code>accounts</code>: {object}</p>
-<ul>
-<li><code>data</code>: {array} list of accounts</li>
+</ul>
+</li>
+<li><code>accounts</code>: {object}<ul>
+<li><code>data</code>: {array} list of accounts<ul>
 <li><code>_id</code>: {string} id of the io.cozy.contacts.accounts document</li>
 <li><code>_type</code>: {string} doctype &ldquo;io.cozy.contacts.accounts&rdquo;</li>
 </ul>
 </li>
-<li>
-<p><code>trashed?</code>: {boolean} is <code>true</code> if the contact is marked for removal and will be deleted soon (e.g. after remote deletion is confirmed)</p>
+</ul>
 </li>
-<li>
-<p><code>me</code>: {boolean} whether the contact matches the cozy owner (defaults to <code>false</code>)</p>
+</ul>
 </li>
-<li>
-<p><code>metadata</code>: {object} previous metadata information.</p>
-</li>
-<li>
-<p><code>cozy</code>: {boolean} whether the contact has been created by cozy</p>
-</li>
+<li><code>trashed?</code>: {boolean} is <code>true</code> if the contact is marked for removal and will be deleted soon (e.g. after remote deletion is confirmed)</li>
+<li><code>me</code>: {boolean} whether the contact matches the cozy owner (defaults to <code>false</code>)</li>
+<li><code>metadata</code>: {object} previous metadata information.<ul>
+<li><code>cozy</code>: {boolean} whether the contact has been created by cozy</li>
 <li><code>google</code>: {object} Google metadata</li>
-<li>
-<p><code>version</code>: {integer} used for migrations. Current version is <strong>1</strong></p>
+<li><code>version</code>: {integer} used for migrations. Current version is <strong>1</strong></li>
+</ul>
 </li>
-<li>
-<p><code>cozyMetaData</code>: {object}</p>
-</li>
-<li>
-<p>&hellip;<code>cozyMetadata</code>: <a href="../README/#document-metadata">Document metadata</a></p>
-</li>
-<li>
-<p><code>sync</code>: {object}</p>
-<ul>
-<li>
-<p><code>ded4265b38c54b0683408c76d9ebd</code>: {object} id of the sourceContactsAccount</p>
-</li>
-<li>
-<p><code>konnector</code>: {string} example : <code>"google"</code></p>
-</li>
+<li><code>cozyMetaData</code>: {object}<ul>
+<li>&hellip;<code>cozyMetadata</code>: <a href="../README/#document-metadata">Document metadata</a></li>
+<li><code>sync</code>: {object}<ul>
+<li><code>ded4265b38c54b0683408c76d9ebd</code>: {object} id of the sourceContactsAccount<ul>
+<li><code>konnector</code>: {string} example : <code>"google"</code></li>
 <li><code>lastSync</code>: {date} (example: <code>"2018-10-19T10:58:37.025688+02:00"</code>) Last time a sync task updated this contact</li>
 <li><code>contactsAccountsId</code>: {string} id of the io.cozy.contacts.accounts object</li>
 <li><code>id</code>: {string} id of the remote object</li>
 <li><code>remoteRev</code>: {string} latest rev of the remote object</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -741,8 +737,10 @@
 <ul>
 <li><code>name</code>: {string} is the group&rsquo;s public name</li>
 <li><code>trashed?</code>: {boolean} is <code>true</code> if the group is marked for removal and will be deleted soon</li>
-<li><code>metadata</code>: {object}</li>
+<li><code>metadata</code>: {object}<ul>
 <li><code>version</code>: {integer} Used for migrations. Current version is <strong>1</strong></li>
+</ul>
+</li>
 </ul>
 <h2 id="iocozycontactsaccounts"><code>io.cozy.contacts.accounts</code><a class="headerlink" href="#iocozycontactsaccounts" title="Permanent link">&para;</a></h2>
 <p>Used to know which accounts (Google, Apple, etc) a contact is related to.</p>
