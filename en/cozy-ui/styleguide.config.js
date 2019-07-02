@@ -92,7 +92,8 @@ module.exports = {
         '../react/PushClientButton/index.jsx',
         '../react/PushClientBanner/index.jsx',
         '../react/Viewer/index.jsx',
-        '../react/AppSections/index.jsx'
+        '../react/AppSections/index.jsx',
+        '../react/AppIcon/index.jsx'
       ]
     },
     {
