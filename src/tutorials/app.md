@@ -7,7 +7,7 @@ summary: Have your first application ready to be run in a Cozy
 
 Developing an application for Cozy is quite easy. All you need to have is:
 
- - NodeJS 8+
+ - NodeJS 10+
  - [Yarn](https://yarnpkg.com): a NodeJS package manager, like `npm`
  - Docker to have a Cozy for dev
  - Some basics about developing a single page application in HTML/JS or you just want to learn :)
