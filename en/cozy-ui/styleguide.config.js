@@ -19,7 +19,8 @@ module.exports = {
         '../react/Chip/index.jsx',
         '../react/Icon/index.jsx',
         '../react/Spinner/index.jsx',
-        '../react/Counter/index.jsx'
+        '../react/Counter/index.jsx',
+        '../react/PercentageLine/index.jsx'
       ]
     },
     {
