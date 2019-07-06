@@ -596,6 +596,7 @@
         <li class="main active"><a href="#cozy-bank-doctypes">Cozy Bank doctypes</a></li>
             <li><a href="#iocozybanksettings">io.cozy.bank.settings</a></li>
             <li><a href="#iocozybankaccounts">io.cozy.bank.accounts</a></li>
+            <li><a href="#iocozybankaccountsstats">io.cozy.bank.accounts.stats</a></li>
             <li><a href="#iocozybankoperations">io.cozy.bank.operations</a></li>
             <li><a href="#iocozybankbalancehistories">io.cozy.bank.balancehistories</a></li>
     </ul>
@@ -683,6 +684,43 @@
 </pre></div>
 
 
+<h2 id="iocozybankaccountsstats"><code>io.cozy.bank.accounts.stats</code><a class="headerlink" href="#iocozybankaccountsstats" title="Permanent link">&para;</a></h2>
+<p>This doctype stores aggregated data about bank accounts:</p>
+<ul>
+<li><code>periodStart</code>: {date} - The start of the reference period</li>
+<li><code>periodEnd</code>: {date} - The end of the reference period</li>
+<li><code>income</code>: {number} - The average income on the reference period</li>
+<li><code>additionalIncome</code>: {number} - The average additional income on the reference period</li>
+<li><code>mortgage</code>: {number} - The average mortgage expense on the reference period</li>
+<li><code>loans</code>: {number} - The average total loans expense on the reference period</li>
+<li><code>currency</code>: {string} - A 3 uppercased chars defining the currecny used for the transaction as stated in <a href="https://www.currency-iso.org/en/home/tables/table-a1.html">ISO4217</a></li>
+</ul>
+<h3 id="relationships">Relationships<a class="headerlink" href="#relationships" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>account</code>: {object} - The associated account</li>
+</ul>
+<h3 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>{
+  &quot;_id&quot;: &quot;f1aacd3254509687c07e48279b42cd50&quot;,
+  &quot;periodStart&quot;: &quot;2019-03-01T00:00:00&quot;,
+  &quot;periodEnd&quot;: &quot;2019-06-30T23:59:59&quot;,
+  &quot;income&quot;: 2345.67,
+  &quot;additionalIncome&quot;: 123.45,
+  &quot;mortgage&quot;: 567.89,
+  &quot;loans&quot;: 678.9,
+  &quot;currency&quot;: &quot;EUR&quot;,
+  &quot;relationships&quot;: {
+    &quot;account&quot;: {
+      &quot;data&quot;: {
+        &quot;_id&quot;: &quot;f1aacd3254509687c07e48279b42f3de&quot;,
+        &quot;_type&quot;: &quot;io.cozy.bank.accounts&quot;
+      }
+    }
+  }
+}
+</pre></div>
+
+
 <h2 id="iocozybankoperations"><code>io.cozy.bank.operations</code><a class="headerlink" href="#iocozybankoperations" title="Permanent link">&para;</a></h2>
 <p>This doctype stors informations about a bank transaction:</p>
 <ul>
@@ -712,7 +750,7 @@ the time zones.</p>
 <h3 id="categories">Categories<a class="headerlink" href="#categories" title="Permanent link">&para;</a></h3>
 <p>There are up to four categories that can be assigned to a <code>io.cozy.bank.operations</code> document. But there is only one that a connector have to set when retrieving the transactions from a bank: <code>automaticCategoryId</code>. This property have to be one of the categories ID listed <a href="https://github.com/cozy/cozy-banks/blob/master/src/ducks/categories/tree.json">here</a>. If you want to see more human labels, you can check the translations of each label in <a href="https://github.com/cozy/cozy-banks/blob/master/src/locales/en.json">english</a> or <a href="https://github.com/cozy/cozy-banks/blob/master/src/locales/fr.json">french</a>.</p>
 <p>Other category properties are to be set by other sources: the user or Cozy Banks services.</p>
-<h3 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h3>
+<h3 id="example_2">Example<a class="headerlink" href="#example_2" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span>{
   &quot;_id&quot;: &quot;f0426fdeadbeef55755ee7f4d6555&quot;,
   &quot;account&quot;: &quot;15fb6402426bcdeadbeeffd5f4587bb&quot;,
@@ -741,11 +779,11 @@ the time zones.</p>
 <li><code>year</code>: {number} - The year of the balances</li>
 <li><code>balances</code>: {object} - A day (YYYY-MM-DD format) / balance (number) map</li>
 </ul>
-<h3 id="relationships">Relationships<a class="headerlink" href="#relationships" title="Permanent link">&para;</a></h3>
+<h3 id="relationships_1">Relationships<a class="headerlink" href="#relationships_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>account</code>: {object} - The associated account</li>
 </ul>
-<h3 id="example_2">Example<a class="headerlink" href="#example_2" title="Permanent link">&para;</a></h3>
+<h3 id="example_3">Example<a class="headerlink" href="#example_3" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span>{
   &quot;_id&quot;: &quot;f1aacd3254509687c07e48279b42cd50&quot;,
   &quot;year&quot;: 2018,
