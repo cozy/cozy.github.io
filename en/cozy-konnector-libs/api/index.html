@@ -643,6 +643,7 @@
             <li><a href="#basekonnectorupdateaccountattributes">baseKonnector.updateAccountAttributes()</a></li>
             <li><a href="#basekonnectorwaitfortwofacode">baseKonnector.waitForTwoFaCode()</a></li>
             <li><a href="#basekonnectorsavebills-promise">baseKonnector.saveBills() ⇒ Promise</a></li>
+            <li><a href="#basekonnectorsavefiles-promise">baseKonnector.saveFiles() ⇒ Promise</a></li>
             <li><a href="#basekonnectorupdateorcreate-promise">baseKonnector.updateOrCreate() ⇒ Promise</a></li>
             <li><a href="#basekonnectorsaveidentity-promise">baseKonnector.saveIdentity() ⇒ Promise</a></li>
             <li><a href="#basekonnectorterminatemessage">baseKonnector.terminate(message)</a></li>
@@ -1517,6 +1518,7 @@ fetch account information for your connector.</p>
 <li><a href="#BaseKonnector+updateAccountAttributes">.updateAccountAttributes()</a></li>
 <li><a href="#BaseKonnector+waitForTwoFaCode">.waitForTwoFaCode()</a></li>
 <li><a href="#BaseKonnector+saveBills">.saveBills()</a> ⇒ <code>Promise</code></li>
+<li><a href="#BaseKonnector+saveFiles">.saveFiles()</a> ⇒ <code>Promise</code></li>
 <li><a href="#BaseKonnector+updateOrCreate">.updateOrCreate()</a> ⇒ <code>Promise</code></li>
 <li><a href="#BaseKonnector+saveIdentity">.saveIdentity()</a> ⇒ <code>Promise</code></li>
 <li><a href="#BaseKonnector+terminate">.terminate(message)</a></li>
@@ -1589,7 +1591,10 @@ konnector run.</p>
 <code>options.merge = false</code> to overwrite the data.</p>
 <p>The data is saved under the <code>.data</code> attribute of the cozy
 account.</p>
-<p><strong>Kind</strong>: instance method of <a href="#BaseKonnector"><code>BaseKonnector</code></a>  </p>
+<p>Don&rsquo;t forget to modify the manifest.konnector file to give the right to write on the
+<code>io.cozy.accounts</code> doctype. The syntax can be : <code>"permissions": {"accounts": {"type": "io.cozy.accounts"}}</code> (here we juste removed the verb <code>GET</code>)</p>
+<p><strong>Kind</strong>: instance method of <a href="#BaseKonnector"><code>BaseKonnector</code></a><br />
+<strong>Returns</strong>: <code>Promise</code> - : resolved with the modified account  </p>
 <table>
 <thead>
 <tr>
@@ -1656,6 +1661,11 @@ Returns: Promise with sucessfull code if any</li>
 <h3 id="basekonnectorsavebills-promise">baseKonnector.saveBills() ⇒ <code>Promise</code><a class="headerlink" href="#basekonnectorsavebills-promise" title="Permanent link">&para;</a></h3>
 <p>This is saveBills function from cozy-konnector-libs which automatically adds sourceAccount in
 metadata of each entry</p>
+<p><strong>Kind</strong>: instance method of <a href="#BaseKonnector"><code>BaseKonnector</code></a><br />
+<a name="BaseKonnector+saveFiles"></a></p>
+<h3 id="basekonnectorsavefiles-promise">baseKonnector.saveFiles() ⇒ <code>Promise</code><a class="headerlink" href="#basekonnectorsavefiles-promise" title="Permanent link">&para;</a></h3>
+<p>This is saveFiles function from cozy-konnector-libs which automatically adds sourceAccount and
+sourceAccountIdentifier cozyMetadatas to files</p>
 <p><strong>Kind</strong>: instance method of <a href="#BaseKonnector"><code>BaseKonnector</code></a><br />
 <a name="BaseKonnector+updateOrCreate"></a></p>
 <h3 id="basekonnectorupdateorcreate-promise">baseKonnector.updateOrCreate() ⇒ <code>Promise</code><a class="headerlink" href="#basekonnectorupdateorcreate-promise" title="Permanent link">&para;</a></h3>
