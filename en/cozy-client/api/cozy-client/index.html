@@ -646,6 +646,7 @@
             <li><a href="#querydefinitionincludeincludes-querydefinition">queryDefinition.include(includes) ⇒ QueryDefinition</a></li>
             <li><a href="#querydefinitionlimitbylimit-querydefinition">queryDefinition.limitBy(limit) ⇒ QueryDefinition</a></li>
             <li><a href="#querydefinitionoffsetskip-querydefinition">queryDefinition.offset(skip) ⇒ QueryDefinition</a></li>
+            <li><a href="#querydefinitionoffsetcursorcursor-querydefinition">queryDefinition.offsetCursor(cursor) ⇒ QueryDefinition</a></li>
             <li><a href="#querydefinitionreferencedbydocument-querydefinition">queryDefinition.referencedBy(document) ⇒ QueryDefinition</a></li>
         <li class="main "><a href="#schema">Schema</a></li>
             <li><a href="#schemagetdoctypeschema">schema.getDoctypeSchema()</a></li>
@@ -1472,6 +1473,7 @@ from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
 <li><a href="#QueryDefinition+include">.include(includes)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
 <li><a href="#QueryDefinition+limitBy">.limitBy(limit)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
 <li><a href="#QueryDefinition+offset">.offset(skip)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
+<li><a href="#QueryDefinition+offsetCursor">.offsetCursor(cursor)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
 <li><a href="#QueryDefinition+referencedBy">.referencedBy(document)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
 </ul>
 </li>
@@ -1717,6 +1719,8 @@ For example, query albums including the photos.</p>
 <p><a name="QueryDefinition+offset"></a></p>
 <h3 id="querydefinitionoffsetskip-querydefinition">queryDefinition.offset(skip) ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a><a class="headerlink" href="#querydefinitionoffsetskip-querydefinition" title="Permanent link">&para;</a></h3>
 <p>Skip the first ‘n’ documents, where ‘n’ is the value specified.</p>
+<p>Beware, this <a href="http://docs.couchdb.org/en/stable/ddocs/views/pagination.html#paging-alternate-method">performs badly</a> on view&rsquo;s index.
+ Prefer cursor-based pagination in such situation.</p>
 <p><strong>Kind</strong>: instance method of <a href="#QueryDefinition"><code>QueryDefinition</code></a><br />
 <strong>Returns</strong>: <a href="#QueryDefinition"><code>QueryDefinition</code></a> - The QueryDefinition object.  </p>
 <table>
@@ -1732,6 +1736,32 @@ For example, query albums including the photos.</p>
 <td>skip</td>
 <td><code>number</code></td>
 <td>The number of documents to skip.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="QueryDefinition+offsetCursor"></a></p>
+<h3 id="querydefinitionoffsetcursorcursor-querydefinition">queryDefinition.offsetCursor(cursor) ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a><a class="headerlink" href="#querydefinitionoffsetcursorcursor-querydefinition" title="Permanent link">&para;</a></h3>
+<p>Use <a href="https://docs.cozy.io/en/cozy-stack/jsonapi/#pagination">cursor-based</a> pagination.
+<em>Warning</em>: this is only useful for views.
+The cursor is a [startkey, startkey_docid] array, where startkey is the view&rsquo;s key,
+e.g. [&ldquo;io.cozy.photos.albums&rdquo;, &ldquo;album-id&rdquo;] and startkey_docid is the id of
+the starting document of the query, e.g. &ldquo;file-id&rdquo;.
+Use the last docid of each query as startkey_docid to paginate or leave blank for the first query.</p>
+<p><strong>Kind</strong>: instance method of <a href="#QueryDefinition"><code>QueryDefinition</code></a><br />
+<strong>Returns</strong>: <a href="#QueryDefinition"><code>QueryDefinition</code></a> - The QueryDefinition object.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cursor</td>
+<td><code>Array</code></td>
+<td>The cursor for pagination.</td>
 </tr>
 </tbody>
 </table>

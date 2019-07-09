@@ -29,6 +29,7 @@ module.exports = {
         '../react/Checkbox/index.jsx',
         '../react/Field/index.jsx',
         '../react/Input/index.jsx',
+        '../react/InputGroup/index.jsx',
         '../react/Label/index.jsx',
         '../react/Radio/index.jsx',
         '../react/SelectBox/SelectBox.jsx',

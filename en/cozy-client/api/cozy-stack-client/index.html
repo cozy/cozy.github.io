@@ -610,7 +610,7 @@
             <li><a href="#documentcollectionfetchchangescouchoptions-options">documentCollection.fetchChanges(couchOptions, options)</a></li>
         <li class="main "><a href="#filecollection">FileCollection</a></li>
             <li><a href="#filecollectionfindselector-options-object">fileCollection.find(selector, options) ⇒ Object</a></li>
-            <li><a href="#filecollectionfindreferencedbydocument-limit-object">fileCollection.findReferencedBy(document, {, limit) ⇒ object</a></li>
+            <li><a href="#filecollectionfindreferencedbydocument-options-object">fileCollection.findReferencedBy(document, options) ⇒ object</a></li>
             <li><a href="#filecollectionrestoreid-promise">fileCollection.restore(id) ⇒ Promise</a></li>
             <li><a href="#filecollectionupdatefiledata-params-object">fileCollection.updateFile(data, params) ⇒ object</a></li>
             <li><a href="#filecollectioncreatedirectorybypathpath-object">fileCollection.createDirectoryByPath(path) ⇒ object</a></li>
@@ -1008,7 +1008,7 @@ files associated to a specific document</p>
 <ul>
 <li><a href="#FileCollection">FileCollection</a><ul>
 <li><a href="#FileCollection+find">.find(selector, options)</a> ⇒ <code>Object</code></li>
-<li><a href="#FileCollection+findReferencedBy">.findReferencedBy(document, {, limit)</a> ⇒ <code>object</code></li>
+<li><a href="#FileCollection+findReferencedBy">.findReferencedBy(document, options)</a> ⇒ <code>object</code></li>
 <li><a href="#FileCollection+restore">.restore(id)</a> ⇒ <code>Promise</code></li>
 <li><a href="#FileCollection+updateFile">.updateFile(data, params)</a> ⇒ <code>object</code></li>
 <li><a href="#FileCollection+createDirectoryByPath">.createDirectoryByPath(path)</a> ⇒ <code>object</code></li>
@@ -1049,7 +1049,7 @@ files associated to a specific document</p>
 </tbody>
 </table>
 <p><a name="FileCollection+findReferencedBy"></a></p>
-<h3 id="filecollectionfindreferencedbydocument-limit-object">fileCollection.findReferencedBy(document, {, limit) ⇒ <code>object</code><a class="headerlink" href="#filecollectionfindreferencedbydocument-limit-object" title="Permanent link">&para;</a></h3>
+<h3 id="filecollectionfindreferencedbydocument-options-object">fileCollection.findReferencedBy(document, options) ⇒ <code>object</code><a class="headerlink" href="#filecollectionfindreferencedbydocument-options-object" title="Permanent link">&para;</a></h3>
 <p>async findReferencedBy - Returns the list of files referenced by a document — see https://docs.cozy.io/en/cozy-stack/references-docs-in-vfs/</p>
 <p><strong>Kind</strong>: instance method of <a href="#FileCollection"><code>FileCollection</code></a><br />
 <strong>Returns</strong>: <code>object</code> - The JSON API conformant response.  </p>
@@ -1068,14 +1068,24 @@ files associated to a specific document</p>
 <td>A JSON representing a document, with at least a <code>_type</code> and <code>_id</code> field.</td>
 </tr>
 <tr>
-<td>{</td>
-<td><code>number</code></td>
-<td>skip = 0   For pagination, the number of referenced files to skip</td>
+<td>options</td>
+<td><code>object</code></td>
+<td>Additional options</td>
 </tr>
 <tr>
-<td>limit</td>
+<td>options.skip</td>
 <td><code>number</code></td>
-<td>} For pagination, the number of results to return.</td>
+<td>For skip-based pagination, the number of referenced files to skip.</td>
+</tr>
+<tr>
+<td>options.limit</td>
+<td><code>number</code></td>
+<td>For pagination, the number of results to return.</td>
+</tr>
+<tr>
+<td>options.cursor</td>
+<td><code>object</code></td>
+<td>For cursor-based pagination, the index cursor.</td>
 </tr>
 </tbody>
 </table>
