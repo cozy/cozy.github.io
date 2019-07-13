@@ -10,8 +10,8 @@ import (
 	"testing"
 
 	"github.com/cozy/cozy-apps-registry/config"
-	"github.com/cozy/swift"
-	"github.com/cozy/swift/swifttest"
+	"github.com/ncw/swift"
+	"github.com/ncw/swift/swifttest"
 
 	_ "github.com/go-kivik/couchdb" // The CouchDB driver
 	"github.com/go-kivik/kivik"

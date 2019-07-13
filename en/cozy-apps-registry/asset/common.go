@@ -10,7 +10,7 @@ import (
 
 	"github.com/cozy/cozy-apps-registry/config"
 	"github.com/cozy/cozy-apps-registry/consts"
-	"github.com/cozy/swift"
+	"github.com/ncw/swift"
 
 	"github.com/go-kivik/couchdb/chttp"
 	"github.com/go-kivik/kivik"

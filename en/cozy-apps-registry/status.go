@@ -8,7 +8,7 @@ import (
 	"net/url"
 
 	"github.com/cozy/cozy-apps-registry/config"
-	"github.com/cozy/echo"
+	"github.com/labstack/echo"
 	"github.com/go-kivik/couchdb/chttp"
 	"github.com/go-kivik/kivik"
 	"github.com/go-redis/redis"

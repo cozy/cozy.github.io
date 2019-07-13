@@ -5,7 +5,7 @@ import (
 	"io"
 	"io/ioutil"
 
-	"github.com/cozy/swift"
+	"github.com/ncw/swift"
 )
 
 type SwiftFS struct {
