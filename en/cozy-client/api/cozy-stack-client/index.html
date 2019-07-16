@@ -612,7 +612,9 @@
             <li><a href="#filecollectionfindselector-options-object">fileCollection.find(selector, options) ⇒ Object</a></li>
             <li><a href="#filecollectionfindreferencedbydocument-options-object">fileCollection.findReferencedBy(document, options) ⇒ object</a></li>
             <li><a href="#filecollectionrestoreid-promise">fileCollection.restore(id) ⇒ Promise</a></li>
+            <li><a href="#filecollectiondeletefilepermanentlyid-object">fileCollection.deleteFilePermanently(id) ⇒ object</a></li>
             <li><a href="#filecollectionupdatefiledata-params-object">fileCollection.updateFile(data, params) ⇒ object</a></li>
+            <li><a href="#filecollectionischildofchild-parent-boolean">fileCollection.isChildOf(child, parent) ⇒ boolean</a></li>
             <li><a href="#filecollectioncreatedirectorybypathpath-object">fileCollection.createDirectoryByPath(path) ⇒ object</a></li>
             <li><a href="#filecollectionupdatefilemetadataid-attributes-object">fileCollection.updateFileMetadata(id, attributes) ⇒ object</a></li>
             <li><a href="#filecollectioncreatefilemetadataattributes-object">fileCollection.createFileMetadata(attributes) ⇒ object</a></li>
@@ -1010,7 +1012,9 @@ files associated to a specific document</p>
 <li><a href="#FileCollection+find">.find(selector, options)</a> ⇒ <code>Object</code></li>
 <li><a href="#FileCollection+findReferencedBy">.findReferencedBy(document, options)</a> ⇒ <code>object</code></li>
 <li><a href="#FileCollection+restore">.restore(id)</a> ⇒ <code>Promise</code></li>
+<li><a href="#FileCollection+deleteFilePermanently">.deleteFilePermanently(id)</a> ⇒ <code>object</code></li>
 <li><a href="#FileCollection+updateFile">.updateFile(data, params)</a> ⇒ <code>object</code></li>
+<li><a href="#FileCollection+isChildOf">.isChildOf(child, parent)</a> ⇒ <code>boolean</code></li>
 <li><a href="#FileCollection+createDirectoryByPath">.createDirectoryByPath(path)</a> ⇒ <code>object</code></li>
 <li><a href="#FileCollection+updateFileMetadata">.updateFileMetadata(id, attributes)</a> ⇒ <code>object</code></li>
 <li><a href="#FileCollection+createFileMetadata">.createFileMetadata(attributes)</a> ⇒ <code>object</code></li>
@@ -1114,6 +1118,27 @@ files associated to a specific document</p>
 </tr>
 </tbody>
 </table>
+<p><a name="FileCollection+deleteFilePermanently"></a></p>
+<h3 id="filecollectiondeletefilepermanentlyid-object">fileCollection.deleteFilePermanently(id) ⇒ <code>object</code><a class="headerlink" href="#filecollectiondeletefilepermanentlyid-object" title="Permanent link">&para;</a></h3>
+<p>async deleteFilePermanently - Definitely delete a file</p>
+<p><strong>Kind</strong>: instance method of <a href="#FileCollection"><code>FileCollection</code></a><br />
+<strong>Returns</strong>: <code>object</code> - The deleted file object  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td><code>string</code></td>
+<td>The id of the file to delete</td>
+</tr>
+</tbody>
+</table>
 <p><a name="FileCollection+updateFile"></a></p>
 <h3 id="filecollectionupdatefiledata-params-object">fileCollection.updateFile(data, params) ⇒ <code>object</code><a class="headerlink" href="#filecollectionupdatefiledata-params-object" title="Permanent link">&para;</a></h3>
 <p>updateFile - Updates a file&rsquo;s data</p>
@@ -1149,9 +1174,40 @@ files associated to a specific document</p>
 <td>Whether the file is executable or not</td>
 </tr>
 <tr>
+<td>params.metadata</td>
+<td><code>object</code></td>
+<td>Metadata to be attached to the File io.cozy.file</td>
+</tr>
+<tr>
 <td>params.options</td>
 <td><code>object</code></td>
 <td>Options to pass to doUpload method (additional headers)</td>
+</tr>
+</tbody>
+</table>
+<p><a name="FileCollection+isChildOf"></a></p>
+<h3 id="filecollectionischildofchild-parent-boolean">fileCollection.isChildOf(child, parent) ⇒ <code>boolean</code><a class="headerlink" href="#filecollectionischildofchild-parent-boolean" title="Permanent link">&para;</a></h3>
+<p>Checks if the file belongs to the parent&rsquo;s hierarchy.</p>
+<p><strong>Kind</strong>: instance method of <a href="#FileCollection"><code>FileCollection</code></a><br />
+<strong>Returns</strong>: <code>boolean</code> - Whether the file is a parent&rsquo;s child  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>child</td>
+<td><code>string</code> | <code>object</code></td>
+<td>The file which can either be an id or an object</td>
+</tr>
+<tr>
+<td>parent</td>
+<td><code>string</code> | <code>object</code></td>
+<td>The parent target which can either be an id or an object</td>
 </tr>
 </tbody>
 </table>

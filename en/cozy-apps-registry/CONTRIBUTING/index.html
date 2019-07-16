@@ -593,7 +593,7 @@
                 <div class="col-md-3 main-toc">
 <div class="bs-sidebar hidden-print affix" role="complementary">
     <ul class="nav bs-sidenav well" style='padding-left: 0; padding-right: 0; margin-bottom: 1.5rem'>
-        <li class="main active"><a href="#how-to-contribute-to-the-cozy-regsitry-v3">How to contribute to the Cozy Regsitry v3?</a></li>
+        <li class="main active"><a href="#how-to-contribute-to-the-cozy-registry-v3">How to contribute to the Cozy Registry v3?</a></li>
             <li><a href="#security-issues">Security Issues</a></li>
             <li><a href="#bug-reports">Bug Reports</a></li>
             <li><a href="#pull-requests">Pull Requests</a></li>
@@ -639,7 +639,7 @@
                 <div class="col-md-9" role="main">
                     
 
-<h1 id="how-to-contribute-to-the-cozy-regsitry-v3">How to contribute to the Cozy Regsitry v3?<a class="headerlink" href="#how-to-contribute-to-the-cozy-regsitry-v3" title="Permanent link">&para;</a></h1>
+<h1 id="how-to-contribute-to-the-cozy-registry-v3">How to contribute to the Cozy Registry v3?<a class="headerlink" href="#how-to-contribute-to-the-cozy-registry-v3" title="Permanent link">&para;</a></h1>
 <p>Thank you for your interest in contributing to Cozy! There are many ways to
 contribute, and we appreciate all of them.</p>
 <h2 id="security-issues">Security Issues<a class="headerlink" href="#security-issues" title="Permanent link">&para;</a></h2>
@@ -671,10 +671,9 @@ has some <a href="https://help.github.com/categories/collaborating-with-issues-a
 on using the Pull Request feature. We use the &lsquo;fork and pull&rsquo; model described
 there.</p>
 <h4 id="step-1-fork">Step 1: Fork<a class="headerlink" href="#step-1-fork" title="Permanent link">&para;</a></h4>
-<p>Fork the project on GitHub and <a href="http://blog.campoy.cat/2014/03/github-and-go-forking-pull-requests-and.html">check out your copy
-locally</a>.</p>
-<div class="codehilite"><pre><span></span>$ go get -u github.com/cozy/cozy-apps-registry.git
-$ <span class="nb">cd</span> <span class="nv">$GOPATH</span>/src/github.com/cozy/cozy-apps-registry
+<p>Fork the project on GitHub and check out your copy locally:</p>
+<div class="codehilite"><pre><span></span>$ git clone https://github.com/cozy/cozy-apps-registry.git
+$ <span class="nb">cd</span> cozy-apps-registry
 $ git remote add fork git://github.com/username/cozy-apps-registry.git
 </pre></div>
 
@@ -700,9 +699,9 @@ Go</a>, comment the code, etc.).</p>
 messages</a>
 is important. A commit message should describe what changed and why.</p>
 <h4 id="step-6-rebase">Step 6: Rebase<a class="headerlink" href="#step-6-rebase" title="Permanent link">&para;</a></h4>
-<p>Use <code>git rebase</code> (not <code>git merge</code>) to sync your work from time to time.</p>
-<div class="codehilite"><pre><span></span>$ git fetch origin
-$ git rebase origin/master
+<p>Use <code>git pull --rebase</code>, or <code>git rebase</code> (but not <code>git merge</code>), to sync your
+work from time to time:</p>
+<div class="codehilite"><pre><span></span>$ git pull origin master --rebase
 </pre></div>
 
 
@@ -714,9 +713,7 @@ $ git rebase origin/master
 <p>Go to https://github.com/username/cozy-apps-registry and select your branch. Click the
 &lsquo;Pull Request&rsquo; button and fill out the form.</p>
 <p>Pull requests are usually reviewed within a few days. If there are comments to
-address, apply your changes in a separate commit and push that to your branch.
-Post a comment in the pull request afterwards; GitHub does not send out
-notifications when you add commits.</p>
+address, apply your changes in a separate commit and push that to your branch.</p>
 <h2 id="community">Community<a class="headerlink" href="#community" title="Permanent link">&para;</a></h2>
 <p>You can help us by making our community even more vibrant. For example, you
 can write a blog post, take some videos, answer the questions on <a href="https://forum.cozycloud.cc">the

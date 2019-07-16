@@ -28,7 +28,7 @@ import (
 	"github.com/cozy/cozy-apps-registry/consts"
 	"github.com/cozy/cozy-apps-registry/errshttp"
 	"github.com/cozy/cozy-apps-registry/magic"
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 	"github.com/ncw/swift"
 
 	_ "github.com/go-kivik/couchdb" // for couchdb
