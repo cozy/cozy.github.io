@@ -678,10 +678,9 @@ some
 on using the Pull Request feature. We use the &lsquo;fork and pull&rsquo; model described
 there.</p>
 <h4 id="step-1-fork">Step 1: Fork<a class="headerlink" href="#step-1-fork" title="Permanent link">&para;</a></h4>
-<p>Fork the project on GitHub and
-<a href="http://blog.campoy.cat/2014/03/github-and-go-forking-pull-requests-and.html">check out your copy locally</a>.</p>
-<div class="codehilite"><pre><span></span>$ go get -u github.com/cozy/cozy-stack
-$ <span class="nb">cd</span> <span class="k">$(</span>go env GOPATH<span class="k">)</span>/src/github.com/cozy/cozy-stack
+<p>Fork the project on GitHub and check out your copy locally:</p>
+<div class="codehilite"><pre><span></span>$ git clone https://github.com/cozy/cozy-stack.git
+$ <span class="nb">cd</span> cozy-stack
 $ git remote add fork git://github.com/username/cozy-stack.git
 </pre></div>
 
@@ -700,6 +699,9 @@ etc.).</p>
 <p>We are using <a href="https://godoc.org/golang.org/x/tools/cmd/goimports">goimports</a> to
 format code, and <a href="https://github.com/golangci/golangci-lint">golangci-lint</a> to
 detect code smells.</p>
+<p>We are using <a href="https://eslint.org/">eslint</a> to lint JavaScript code. The linting
+rules are based on
+<a href="https://github.com/cozy/cozy-libs/tree/master/packages/eslint-config-cozy-app">cozy-app</a></p>
 <h4 id="step-4-test">Step 4: Test<a class="headerlink" href="#step-4-test" title="Permanent link">&para;</a></h4>
 <p>Don&rsquo;t forget to add tests and be sure they are green:</p>
 <div class="codehilite"><pre><span></span>$ go <span class="nb">test</span> -v ./...
@@ -717,9 +719,9 @@ webapp), you can build it locally and start it with this command:</p>
 <a href="http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html">good commit messages</a>
 is important. A commit message should describe what changed and why.</p>
 <h4 id="step-6-rebase">Step 6: Rebase<a class="headerlink" href="#step-6-rebase" title="Permanent link">&para;</a></h4>
-<p>Use <code>git rebase</code> (not <code>git merge</code>) to sync your work from time to time.</p>
-<div class="codehilite"><pre><span></span>$ git fetch origin
-$ git rebase origin/master
+<p>Use <code>git pull --rebase</code>, or <code>git rebase</code> (but not <code>git merge</code>), to sync your
+work from time to time:</p>
+<div class="codehilite"><pre><span></span>$ git pull origin master --rebase
 </pre></div>
 
 
@@ -731,9 +733,7 @@ $ git rebase origin/master
 <p>Go to https://github.com/username/cozy-stack and select your branch. Click the
 &lsquo;Pull Request&rsquo; button and fill out the form.</p>
 <p>Pull requests are usually reviewed within a few days. If there are comments to
-address, apply your changes in a separate commit and push that to your branch.
-Post a comment in the pull request afterwards; GitHub does not send out
-notifications when you add commits.</p>
+address, apply your changes in a separate commit and push that to your branch.</p>
 <h2 id="code-organization">Code organization<a class="headerlink" href="#code-organization" title="Permanent link">&para;</a></h2>
 <p>The codebase of cozy-stack contains several packages, and it is quite easy to
 have circular import issues in go. To limit the risk, we have split the
