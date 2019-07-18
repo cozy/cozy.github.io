@@ -655,6 +655,33 @@ This deployed version can then be referenced to
 [cozy-app-publish](https://github.com/cozy/cozy-libs/tree/master/packages/cozy-app-publish) to deploy your
 connector to the registry.
 
+### I want to pass secret variables to my connector without hardcoding it in the source code
+
+**COZY_PARAMETERS** environment variable will help you.
+
+In standalone mode or dev mode, you can init it in konnector-dev-config.json :
+
+```json
+  "COZY_PARAMETERS": {
+    "secret": {
+      "mySecretKey": "s3cr3tk3y"
+    }
+  }
+```
+
+In your connector, you will get these secrets as a second parameter in your main function.
+
+```js
+module.exports = new BaseKonnector(start)
+
+async function start(fields, cozyParameters) {
+  log('info', cozyParameters.secret.mySecretKey)
+}
+// -> "s3cr3tk3y"
+```
+
+If you want to know how this works in a real cozy, you can find more information on [Stack documentation](https://docs.cozy.io/en/cozy-stack/konnectors-workflow/#secrets-that-are-not-oauth)
+
 [Cozy Home]: https://github.com/cozy/cozy-home
 [Cozy Stack]: https://cozy.github.io/cozy-stack/
 [cozy-konnector-libs]: https://github.com/cozy/cozy-konnector-libs
