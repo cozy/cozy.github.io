@@ -617,6 +617,7 @@
             <li><a href="#when-i-run-my-connector-a-ghost-node-process-eats-all-my-memory">When I run my connector, a ghost node process eats all my memory</a></li>
             <li><a href="#how-do-i-scrap-a-website">How do I scrap a website</a></li>
             <li><a href="#what-does-the-yarn-deploy-command-do">What does the yarn deploy command do ?</a></li>
+            <li><a href="#i-want-to-pass-secret-variables-to-my-connector-without-hardcoding-it-in-the-source-code">I want to pass secret variables to my connector without hardcoding it in the source code</a></li>
     </ul>
   <div style='padding-left: 2rem'>
     
@@ -1213,6 +1214,28 @@ using <a href="https://github.com/lukekarrys/git-directory-deploy">git-directory
 This deployed version can then be referenced to
 <a href="https://github.com/cozy/cozy-libs/tree/master/packages/cozy-app-publish">cozy-app-publish</a> to deploy your
 connector to the registry.</p>
+<h3 id="i-want-to-pass-secret-variables-to-my-connector-without-hardcoding-it-in-the-source-code">I want to pass secret variables to my connector without hardcoding it in the source code<a class="headerlink" href="#i-want-to-pass-secret-variables-to-my-connector-without-hardcoding-it-in-the-source-code" title="Permanent link">&para;</a></h3>
+<p><strong>COZY_PARAMETERS</strong> environment variable will help you.</p>
+<p>In standalone mode or dev mode, you can init it in konnector-dev-config.json :</p>
+<div class="codehilite"><pre><span></span>  <span class="s2">&quot;COZY_PARAMETERS&quot;</span><span class="err">:</span> <span class="p">{</span>
+    <span class="nt">&quot;secret&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;mySecretKey&quot;</span><span class="p">:</span> <span class="s2">&quot;s3cr3tk3y&quot;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+</pre></div>
+
+
+<p>In your connector, you will get these secrets as a second parameter in your main function.</p>
+<div class="codehilite"><pre><span></span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BaseKonnector</span><span class="p">(</span><span class="nx">start</span><span class="p">)</span>
+
+<span class="nx">async</span> <span class="kd">function</span> <span class="nx">start</span><span class="p">(</span><span class="nx">fields</span><span class="p">,</span> <span class="nx">cozyParameters</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">log</span><span class="p">(</span><span class="s1">&#39;info&#39;</span><span class="p">,</span> <span class="nx">cozyParameters</span><span class="p">.</span><span class="nx">secret</span><span class="p">.</span><span class="nx">mySecretKey</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="c1">// -&gt; &quot;s3cr3tk3y&quot;</span>
+</pre></div>
+
+
+<p>If you want to know how this works in a real cozy, you can find more information on <a href="https://docs.cozy.io/en/cozy-stack/konnectors-workflow/#secrets-that-are-not-oauth">Stack documentation</a></p>
                 </div>
         </div>
 
