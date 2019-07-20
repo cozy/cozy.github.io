@@ -49,7 +49,7 @@ const optionConfigs = {
   },
   transformRuntime: {
     default: {
-      helpers: false,
+      helpers: true,
       regenerator: true
     },
     validator: either(isOfType('object'), isFalse)
@@ -67,6 +67,22 @@ const mkConfig = (api, options) => {
   } catch (e) {
     e.message = `babel-preset-cozy-app : Config validation error : ${e.message}`
     throw e
+  }
+
+  if (presetOptions.lib) {
+    const libConfigs = []
+
+    // Jest does not understand ES6 import by default
+    if (process.env.BABEL_ENV !== 'test') {
+      libConfigs.push({
+        presetEnv: {
+          // Libraries are shipped with es6 imports for downstream bundler
+          // to be able to prune unused modules away
+          modules: false
+        }
+      })
+    }
+    merge(presetOptions, ...libConfigs)
   }
 
   const {
