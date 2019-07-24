@@ -594,9 +594,12 @@
 <div class="bs-sidebar hidden-print affix" role="complementary">
     <ul class="nav bs-sidenav well" style='padding-left: 0; padding-right: 0; margin-bottom: 1.5rem'>
         <li class="main active"><a href="#classes">Classes</a></li>
+        <li class="main "><a href="#constants">Constants</a></li>
         <li class="main "><a href="#functions">Functions</a></li>
         <li class="main "><a href="#appcollection">AppCollection</a></li>
             <li><a href="#appcollectionall-object">appCollection.all() ⇒ Object</a></li>
+        <li class="main "><a href="#collection">Collection</a></li>
+            <li><a href="#collectiongetstackclient-endpoint-options-object">Collection.get(stackClient, endpoint, options) ⇒ Object</a></li>
         <li class="main "><a href="#cozystackclient">CozyStackClient</a></li>
             <li><a href="#cozystackclientcollectiondoctype-documentcollection">cozyStackClient.collection(doctype) ⇒ DocumentCollection</a></li>
             <li><a href="#cozystackclientfetchmethod-path-body-options-object">cozyStackClient.fetch(method, path, body, options) ⇒ Object</a></li>
@@ -642,6 +645,7 @@
             <li><a href="#triggercollectioncreateattributes-object">triggerCollection.create(attributes) ⇒ object</a></li>
             <li><a href="#triggercollectiondestroydocument-object">triggerCollection.destroy(document) ⇒ object</a></li>
             <li><a href="#triggercollectionlaunchtrigger-object">triggerCollection.launch(Trigger) ⇒ object</a></li>
+        <li class="main "><a href="#dontthrownotfounderror-object">dontThrowNotFoundError ⇒ Object</a></li>
         <li class="main "><a href="#getaccesstoken-string">getAccessToken() ⇒ string</a></li>
         <li class="main "><a href="#getaccesstoken-string_1">getAccessToken() ⇒ string</a></li>
         <li class="main "><a href="#garbagecollect">garbageCollect()</a></li>
@@ -693,6 +697,10 @@
 <dt><a href="#AppCollection">AppCollection</a></dt>
 <dd><p>Extends <code>DocumentCollection</code> API along with specific methods for <code>io.cozy.apps</code>.</p>
 </dd>
+<dt><a href="#Collection">Collection</a></dt>
+<dd><p>Utility class to abstract an regroup identical methods and logics for
+specific collections.</p>
+</dd>
 <dt><a href="#CozyStackClient">CozyStackClient</a></dt>
 <dd><p>Main API against the <code>cozy-stack</code> server.</p>
 </dd>
@@ -719,6 +727,13 @@ through OAuth.</p>
 </dd>
 <dt><a href="#TriggerCollection">TriggerCollection</a></dt>
 <dd><p>Implements <code>DocumentCollection</code> API along with specific methods for <code>io.cozy.triggers</code>.</p>
+</dd>
+</dl>
+
+<h2 id="constants">Constants<a class="headerlink" href="#constants" title="Permanent link">&para;</a></h2>
+<dl>
+<dt><a href="#dontThrowNotFoundError">dontThrowNotFoundError</a> ⇒ <code>Object</code></dt>
+<dd><p>Handler for error response which return a empty value for &quot;not found&quot; error</p>
 </dd>
 </dl>
 
@@ -755,6 +770,53 @@ through OAuth.</p>
 <ul>
 <li><code>FetchError</code> </li>
 </ul>
+<p><a name="Collection"></a></p>
+<h2 id="collection">Collection<a class="headerlink" href="#collection" title="Permanent link">&para;</a></h2>
+<p>Utility class to abstract an regroup identical methods and logics for
+specific collections.</p>
+<p><strong>Kind</strong>: global class<br />
+<a name="Collection.get"></a></p>
+<h3 id="collectiongetstackclient-endpoint-options-object">Collection.get(stackClient, endpoint, options) ⇒ <code>Object</code><a class="headerlink" href="#collectiongetstackclient-endpoint-options-object" title="Permanent link">&para;</a></h3>
+<p>Utility method aimed to return only one document.</p>
+<p><strong>Kind</strong>: static method of <a href="#Collection"><code>Collection</code></a><br />
+<strong>Returns</strong>: <code>Object</code> - JsonAPI response containing normalized
+document as data attribute  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stackClient</td>
+<td><code>Object</code></td>
+<td></td>
+</tr>
+<tr>
+<td>endpoint</td>
+<td><code>String</code></td>
+<td>Stack endpoint</td>
+</tr>
+<tr>
+<td>options</td>
+<td><code>Object</code></td>
+<td></td>
+</tr>
+<tr>
+<td>options.normalize</td>
+<td><code>Func</code></td>
+<td>Callback to normalize response data (default <code>data =&gt; data</code>)</td>
+</tr>
+<tr>
+<td>options.method</td>
+<td><code>String</code></td>
+<td>HTTP method (default <code>GET</code>)</td>
+</tr>
+</tbody>
+</table>
 <p><a name="CozyStackClient"></a></p>
 <h2 id="cozystackclient">CozyStackClient<a class="headerlink" href="#cozystackclient" title="Permanent link">&para;</a></h2>
 <p>Main API against the <code>cozy-stack</code> server.</p>
@@ -1745,6 +1807,33 @@ through OAuth.</p>
 <td>Trigger</td>
 <td><code>object</code></td>
 <td>to launch</td>
+</tr>
+</tbody>
+</table>
+<p><a name="dontThrowNotFoundError"></a></p>
+<h2 id="dontthrownotfounderror-object">dontThrowNotFoundError ⇒ <code>Object</code><a class="headerlink" href="#dontthrownotfounderror-object" title="Permanent link">&para;</a></h2>
+<p>Handler for error response which return a empty value for &ldquo;not found&rdquo; error</p>
+<p><strong>Kind</strong>: global constant<br />
+<strong>Returns</strong>: <code>Object</code> - JsonAPI response with empty data in case of &ldquo;not
+found&rdquo; error.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>error</td>
+<td><code>Error</code></td>
+<td></td>
+</tr>
+<tr>
+<td>data</td>
+<td><code>Array</code> | <code>Object</code></td>
+<td>Data to return in case of &ldquo;not found&rdquo; error</td>
 </tr>
 </tbody>
 </table>
