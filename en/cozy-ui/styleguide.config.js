@@ -61,7 +61,9 @@ module.exports = {
         '../react/Infos/index.jsx',
         '../react/ContextHeader/index.jsx',
         '../react/Filename/index.jsx',
-        '../react/AppTitle/index.jsx'
+        '../react/AppTitle/index.jsx',
+        '../react/Figure/Figure.jsx',
+        '../react/Figure/FigureBlock.jsx'
       ]
     },
     {
@@ -90,6 +92,7 @@ module.exports = {
       components: () => [
         '../react/Overlay/index.jsx',
         '../react/Alerter/index.jsx',
+        '../react/Popup/index.jsx',
         '../react/PopupOpener/index.jsx',
         '../react/PushClientButton/index.jsx',
         '../react/PushClientBanner/index.jsx',
