@@ -1105,7 +1105,58 @@ another channel (when permissions are different):</p>
       <span class="nt">&quot;icon&quot;</span><span class="p">:</span> <span class="s2">&quot;/apps/calendar/icon&quot;</span><span class="p">,</span>
       <span class="nt">&quot;related&quot;</span><span class="p">:</span> <span class="s2">&quot;https://calendar.alice.example.com/&quot;</span>
     <span class="p">}</span>
-  <span class="p">}]</span>
+  <span class="p">}],</span>
+  <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;count&quot;</span><span class="p">:</span> <span class="mi">1</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>This endpoint is paginated, default limit is currently <code>100</code>.
+Two flags are available to retreieve the other apps if there are more than <code>100</code>
+apps installed:
+- <code>limit</code>
+- <code>start_key</code>: The first following doc ID of the next apps</p>
+<p>The <code>links</code> object contains a <code>ǹext</code> generated-link for the next docs.</p>
+<h4 id="request_3">Request<a class="headerlink" href="#request_3" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/apps/?limit=50</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
+
+
+<h4 id="response_3">Response<a class="headerlink" href="#response_3" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[{</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;4cfbd8be-8968-11e6-9708-ef55b7c20863&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.apps&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;2-bbfb0fc32dfcdb5333b28934f195b96a&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;calendar&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;ready&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;calendar&quot;</span><span class="p">,</span>
+      <span class="err">...</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/apps/calendar&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;icon&quot;</span><span class="p">:</span> <span class="s2">&quot;/apps/calendar/icon&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;related&quot;</span><span class="p">:</span> <span class="s2">&quot;https://calendar.alice.example.com/&quot;</span>
+    <span class="p">}</span>
+  <span class="p">},</span> <span class="p">{</span><span class="err">...</span><span class="p">}],</span>
+  <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;next&quot;</span><span class="p">:</span> <span class="s2">&quot;http://alice.example.com/apps/?limit=50&amp;start_key=io.cozy.apps%2Fhome&quot;</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;count&quot;</span><span class="p">:</span> <span class="mi">50</span>
+  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -1114,12 +1165,12 @@ another channel (when permissions are different):</p>
 <h3 id="get-appsslug">GET /apps/:slug<a class="headerlink" href="#get-appsslug" title="Permanent link">&para;</a></h3>
 <h2 id="get-the-icon-of-an-application">Get the icon of an application<a class="headerlink" href="#get-the-icon-of-an-application" title="Permanent link">&para;</a></h2>
 <h3 id="get-appsslugicon">GET /apps/:slug/icon<a class="headerlink" href="#get-appsslugicon" title="Permanent link">&para;</a></h3>
-<h4 id="request_3">Request<a class="headerlink" href="#request_3" title="Permanent link">&para;</a></h4>
+<h4 id="request_4">Request<a class="headerlink" href="#request_4" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/apps/calendar/icon</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 </pre></div>
 
 
-<h4 id="response_3">Response<a class="headerlink" href="#response_3" title="Permanent link">&para;</a></h4>
+<h4 id="response_4">Response<a class="headerlink" href="#response_4" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">image/svg+xml</span>
 </pre></div>
@@ -1135,12 +1186,12 @@ another channel (when permissions are different):</p>
 
 <h2 id="uninstall-an-application">Uninstall an application<a class="headerlink" href="#uninstall-an-application" title="Permanent link">&para;</a></h2>
 <h3 id="delete-appsslug">DELETE /apps/:slug<a class="headerlink" href="#delete-appsslug" title="Permanent link">&para;</a></h3>
-<h4 id="request_4">Request<a class="headerlink" href="#request_4" title="Permanent link">&para;</a></h4>
+<h4 id="request_5">Request<a class="headerlink" href="#request_5" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/apps/tasky</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 </pre></div>
 
 
-<h4 id="response_4">Response<a class="headerlink" href="#response_4" title="Permanent link">&para;</a></h4>
+<h4 id="response_5">Response<a class="headerlink" href="#response_5" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
 </pre></div>
 
