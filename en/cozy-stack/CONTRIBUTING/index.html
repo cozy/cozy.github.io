@@ -679,6 +679,7 @@ on using the Pull Request feature. We use the &lsquo;fork and pull&rsquo; model 
 there.</p>
 <h4 id="step-1-fork">Step 1: Fork<a class="headerlink" href="#step-1-fork" title="Permanent link">&para;</a></h4>
 <p>Fork the project on GitHub and check out your copy locally:</p>
+<p>⚠️ Be sure to clone outside the <code>$GOPATH</code> otherwise gomodules will not work.</p>
 <div class="codehilite"><pre><span></span>$ git clone https://github.com/cozy/cozy-stack.git
 $ <span class="nb">cd</span> cozy-stack
 $ git remote add fork git://github.com/username/cozy-stack.git
@@ -763,10 +764,9 @@ in go code (to make the repository go gettable).</p>
 <h2 id="useful-commands">Useful commands<a class="headerlink" href="#useful-commands" title="Permanent link">&para;</a></h2>
 <p>There are some useful commands to know in order to develop with the go code of
 cozy-stack:</p>
-<div class="codehilite"><pre><span></span>go get -u github.com/cozy/cozy-stack
-<span class="nb">cd</span> <span class="k">$(</span>go env GOPATH<span class="k">)</span>/src/github.com/cozy/cozy-stack
-
-go get -t -u ./...      <span class="c1"># To install or update the go dependencies</span>
+<div class="codehilite"><pre><span></span><span class="nb">cd</span> cozy-stack
+go build                <span class="c1"># Build the stack, also takes care of updating dependencies through gomodules</span>
+go install              <span class="c1"># Installs the `cozy-stack` binary</span>
 go <span class="nb">test</span> -v ./...        <span class="c1"># To launch the tests</span>
 go run main.go serve    <span class="c1"># To start the API server</span>
 godoc -http<span class="o">=</span>:6060       <span class="c1"># To start the documentation server</span>

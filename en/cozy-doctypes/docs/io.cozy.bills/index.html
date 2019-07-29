@@ -641,7 +641,7 @@
 <h2 id="iocozybills"><code>io.cozy.bills</code><a class="headerlink" href="#iocozybills" title="Permanent link">&para;</a></h2>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Represents the a bill (invoice) or refund from a vendor.</li>
+<li>Represents a bill (invoice) or a refund from a vendor.</li>
 </ul>
 <h3 id="mandatory-attributes">Mandatory attributes<a class="headerlink" href="#mandatory-attributes" title="Permanent link">&para;</a></h3>
 <ul>
@@ -652,6 +652,19 @@
 </ul>
 <h3 id="optional-attributes-but-some-are-important-depending-the-context">Optional attributes (but some are important depending the context)<a class="headerlink" href="#optional-attributes-but-some-are-important-depending-the-context" title="Permanent link">&para;</a></h3>
 <ul>
+<li><code>matchingCriterias</code>: {object} some criterias which can be used to match bills with bank
+  operations<ul>
+<li><code>labelRegex</code>: {string} (example: <code>"\\bcpam\\b"</code>) : regexp used to match operation label</li>
+<li><code>amountLowerDelta</code>: (float): dafault 0.001 : positive value. Authorized lower difference between bill amount and
+  bank operation value</li>
+<li><code>amountUpperDelta</code>: (float): default 0.001 : positive value. Authorized upper difference between bill amount and
+  bank operation value</li>
+<li><code>dateLowerDelta</code>: (int): default 15 : (positive value). Authorized lower difference in days between the
+  bill date and the bank operation date</li>
+<li><code>dateUpperDelta</code>: (int): default 29 : (positive value). Authorized upper difference in days between the
+  bill date and the bank operation date</li>
+</ul>
+</li>
 <li><code>type</code>: {string} - Type of the bill (see below for existing types)</li>
 <li><code>isRefund</code>: {boolean} - Indicate if the bill represents a refund/reimbursement</li>
 <li><code>subtype</code>: {string} - Used for labelling the bill. ie: &ldquo;Ostéopathie&rdquo;</li>
