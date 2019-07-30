@@ -899,6 +899,10 @@ failure by cozy-stack. It&rsquo;s also the case if the konnector reaches the tim
 or returns with a non-zero status code.</p>
 <p><strong>Note:</strong> debug and info level are not transmitted to syslog, except if the
 instance is in debug mode. It would be too verbose to do otherwise.</p>
+<h3 id="account-deleted">Account deleted<a class="headerlink" href="#account-deleted" title="Permanent link">&para;</a></h3>
+<p>When an account is deleted, or a konnector is going to be uninstalled, the
+konnector is executed with the <code>account_deleted</code> field to true, so it can clean
+the account remotely.</p>
 <h2 id="oauth-and-service-secrets">OAuth (and service secrets)<a class="headerlink" href="#oauth-and-service-secrets" title="Permanent link">&para;</a></h2>
 <h3 id="doctypes">Doctypes<a class="headerlink" href="#doctypes" title="Permanent link">&para;</a></h3>
 <p><code>io.cozy.konnectors</code> gives their desiderata for an account</p>

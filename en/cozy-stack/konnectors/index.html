@@ -913,6 +913,16 @@ Two flags are available to retreieve the other konnectors if there are more than
 <h4 id="response_4">Response<a class="headerlink" href="#response_4" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
 </pre></div>
+
+
+<p>Or, if the konnector has still some accounts configured:</p>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">202</span> <span class="ne">Accepted</span>
+</pre></div>
+
+
+<p>In this case, the stack will accept the uninstall request, then it will clean
+the accounts (locally and remotely), and only after that, the konnector will be
+removed.</p>
                 </div>
         </div>
 

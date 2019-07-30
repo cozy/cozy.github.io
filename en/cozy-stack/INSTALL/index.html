@@ -668,14 +668,13 @@ executable bit (<code>chmod +x cozy-stack</code>) and put it in your <code>$PATH
 <h4 id="using-go">Using <code>go</code><a class="headerlink" href="#using-go" title="Permanent link">&para;</a></h4>
 <p><a href="https://golang.org/doc/install">Install go</a>, version &gt;= 1.12. With <code>go</code>
 installed and configured, you can run the following command:</p>
-<div class="codehilite"><pre><span></span>go get -u github.com/cozy/cozy-stack
+<div class="codehilite"><pre><span></span>go get github.com/cozy/cozy-stack
 </pre></div>
 
 
-<p>This will fetch the sources in <code>$GOPATH/src/github.com/cozy/cozy-stack</code> and
-build a binary in <code>$GOPATH/bin/cozy-stack</code>.</p>
-<p>Don&rsquo;t forget to add your <code>$GOPATH</code> to your <code>$PATH</code> in your <code>*rc</code> file so that
-you can execute the binary without entering its full path.</p>
+<p>This will fetch the sources and build a binary in <code>$GOPATH/bin/cozy-stack</code>.</p>
+<p>Don&rsquo;t forget to add your <code>$GOPATH/bin</code> to your <code>$PATH</code> in your <code>*rc</code> file so
+that you can execute the binary without entering its full path.</p>
 <div class="codehilite"><pre><span></span>export PATH=&quot;$(go env GOPATH)/bin:$PATH&quot;
 </pre></div>
 
