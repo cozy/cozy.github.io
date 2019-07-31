@@ -20,7 +20,8 @@ module.exports = {
         '../react/Icon/index.jsx',
         '../react/Spinner/index.jsx',
         '../react/Counter/index.jsx',
-        '../react/PercentageLine/index.jsx'
+        '../react/PercentageLine/index.jsx',
+        '../react/Stack/index.jsx'
       ]
     },
     {
