@@ -273,6 +273,10 @@
 </li>
             
 <li >
+    <a href="../io.cozy.files_metadata/">Files metadata</a>
+</li>
+            
+<li >
     <a href="../io.cozy.notifications/">Notifications</a>
 </li>
             
@@ -597,6 +601,7 @@
         <li class="main "><a href="#apps-doctype">Apps doctype</a></li>
             <li><a href="#attributes">Attributes</a></li>
             <li><a href="#example">Example</a></li>
+        <li class="main "><a href="#special-iocozyapps-doctypes">Special io.cozy.apps doctypes</a></li>
     </ul>
   <div style='padding-left: 2rem'>
     
@@ -704,6 +709,18 @@ https://docs.cozy.io/en/cozy-apps-registry/README/#properties-meaning-reference<
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>
+</pre></div>
+
+
+<h1 id="special-iocozyapps-doctypes">Special <code>io.cozy.apps</code> doctypes<a class="headerlink" href="#special-iocozyapps-doctypes" title="Permanent link">&para;</a></h1>
+<p>Some folders are remarkable, like the &lsquo;Administrative&rsquo; and the &lsquo;Photos&rsquo; folders. You shouldn&rsquo;t address them by their path as it may vary depending on the user language and the user may have renamed them anyways.
+To identify them, you can ask for a special <a href="https://docs.cozy.io/en/cozy-stack/references-docs-in-vfs/#post-filesfile-idrelationshipsreferenced_by"><code>referenced_by</code> attribute</a>.
+For example, a request for all io.cozy.files referended by the doctype <code>io.cozy.apps</code> and the document id <code>administrative</code> will return you the io.cozy.files document of the folder &lsquo;Administrative&rsquo; whatever its name or path.</p>
+<p>Here is the list:</p>
+<div class="codehilite"><pre><span></span>ADMINISTRATIVE FOLDER: io.cozy.apps/administrative
+PHOTOS FOLDER: io.cozy.apps/photos Root Folder of Photos. Used to create PHOTOS_BACKUP FOLDER &amp; PHOTOS_UPLOAD FOLDER
+PHOTOS_BACKUP FOLDER: io.cozy.apps/photos/mobile Folder used to put photos synched by the native app
+PHOTOS_UPLOAD FOLDER: io.cozy.apps/photos/upload Folder used to put photos uploaded by the Photo web app.
 </pre></div>
                 </div>
         </div>
