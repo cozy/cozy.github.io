@@ -648,6 +648,7 @@
             <li><a href="#triggercollectionalloptions-object">triggerCollection.all(options) ⇒ Object</a></li>
             <li><a href="#triggercollectioncreateattributes-object">triggerCollection.create(attributes) ⇒ object</a></li>
             <li><a href="#triggercollectiondestroydocument-object">triggerCollection.destroy(document) ⇒ object</a></li>
+            <li><a href="#triggercollectionfindselector-options-object">triggerCollection.find(selector, options) ⇒ Object</a></li>
             <li><a href="#triggercollectionlaunchtrigger-object">triggerCollection.launch(Trigger) ⇒ object</a></li>
         <li class="main "><a href="#dontthrownotfounderror-object">dontThrowNotFoundError ⇒ Object</a></li>
         <li class="main "><a href="#getaccesstoken-string">getAccessToken() ⇒ string</a></li>
@@ -1718,6 +1719,7 @@ through OAuth.</p>
 <li><a href="#TriggerCollection+all">.all(options)</a> ⇒ <code>Object</code></li>
 <li><a href="#TriggerCollection+create">.create(attributes)</a> ⇒ <code>object</code></li>
 <li><a href="#TriggerCollection+destroy">.destroy(document)</a> ⇒ <code>object</code></li>
+<li><a href="#TriggerCollection+find">.find(selector, options)</a> ⇒ <code>Object</code></li>
 <li><a href="#TriggerCollection+launch">.launch(Trigger)</a> ⇒ <code>object</code></li>
 </ul>
 </li>
@@ -1789,6 +1791,35 @@ through OAuth.</p>
 <td>document</td>
 <td><code>object</code></td>
 <td>The trigger to delete — must have an _id field</td>
+</tr>
+</tbody>
+</table>
+<p><a name="TriggerCollection+find"></a></p>
+<h3 id="triggercollectionfindselector-options-object">triggerCollection.find(selector, options) ⇒ <code>Object</code><a class="headerlink" href="#triggercollectionfindselector-options-object" title="Permanent link">&para;</a></h3>
+<p>Be warned, ATM /jobs/triggers does not return the same informations
+than /data/io.cozy.triggers (used by the super.find method).</p>
+<p>See https://github.com/cozy/cozy-stack/pull/2010</p>
+<p><strong>Kind</strong>: instance method of <a href="#TriggerCollection"><code>TriggerCollection</code></a><br />
+<strong>Returns</strong>: <code>Object</code> - The JSON API conformant response.<br />
+<strong>Throws</strong>:</p>
+<ul>
+<li><code>FetchError</code> </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>selector</td>
+<td><code>Object</code></td>
+</tr>
+<tr>
+<td>options</td>
+<td><code>Object</code></td>
 </tr>
 </tbody>
 </table>
