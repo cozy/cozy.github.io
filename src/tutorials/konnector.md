@@ -44,7 +44,7 @@ They are simulated in standalone mode so that you do not need a real Cozy Stack 
 [[More about BaseKonnector](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#basekonnector)]
 
 From the server point of view, each connector is a `job` which is executed periodically via a `trigger`.
-[[More about Cozy Stack jobs](https://cozy.github.io/cozy-stack/jobs.html)]
+[[More about Cozy Stack jobs](https://docs.cozy.io/en/cozy-stack/jobs/)]
 
 ## Let’s create our first connector
 
@@ -683,7 +683,7 @@ async function start(fields, cozyParameters) {
 If you want to know how this works in a real cozy, you can find more information on [Stack documentation](https://docs.cozy.io/en/cozy-stack/konnectors-workflow/#secrets-that-are-not-oauth)
 
 [Cozy Home]: https://github.com/cozy/cozy-home
-[Cozy Stack]: https://cozy.github.io/cozy-stack/
+[Cozy Stack]: https://docs.cozy.io/en/cozy-stack/README/
 [cozy-konnector-libs]: https://github.com/cozy/cozy-konnector-libs
 [cozy-client-js]: https://github.com/cozy/cozy-client-js/
 [cozy-konnector-template]: https://github.com/cozy/cozy-konnector-template

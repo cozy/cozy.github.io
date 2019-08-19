@@ -2,7 +2,7 @@
 title: Share and send mail in development
 ---
 
-Cozy apps let users [share documents from cozy to cozy](https://cozy.github.io/cozy-stack/sharing.html#cozy-to-cozy-sharing).
+Cozy apps let users [share documents from cozy to cozy](https://docs.cozy.io/en/cozy-stack/sharing/#cozy-to-cozy-sharing).
 
 Meet Alice and Bob.
 Alice wants to share a folder with Bob.
@@ -15,13 +15,13 @@ Bob sees Alice's shared folder in his own cozy.
 
 ## With the docker image
 
-If you develop with the [cozy-app-dev docker image](https://cozy.github.io/cozy-stack/client-app-dev.html#with-docker), [MailHog](https://github.com/mailhog/MailHog) is running inside it to catch emails.
+If you develop with the [cozy-app-dev docker image](https://docs.cozy.io/en/cozy-stack/client-app-dev/#with-docker), [MailHog](https://github.com/mailhog/MailHog) is running inside it to catch emails.
 
 If cozy-stack has to send an email, MailHog catches it and exposes it on its web interface on http://cozy.tools:8025/.
 
 ## With the binary cozy-stack
 
-If you develop with the [cozy-stack CLI](https://cozy.github.io/cozy-stack/cli/cozy-stack.html), you have to run [MailHog](https://github.com/mailhog/MailHog) on your computer and tell `cozy-stack serve` where to find the mail server with some [options](https://cozy.github.io/cozy-stack/cli/cozy-stack_serve.html#options):
+If you develop with the [cozy-stack CLI](https://docs.cozy.io/en/cozy-stack/cli/cozy-stack/), you have to run [MailHog](https://github.com/mailhog/MailHog) on your computer and tell `cozy-stack serve` where to find the mail server with some [options](https://docs.cozy.io/en/cozy-stack/cli/cozy-stack_serve/#options):
 
 ```
 ./cozy-stack serve --appdir drive:../cozy-drive/build,settings:../cozy-settings/build --mail-disable-tls --mail-port 1025

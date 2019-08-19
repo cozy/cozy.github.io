@@ -6,7 +6,7 @@ summary: Execute server-side and asynchronous code from your application.
 
 ## What is it for?
 
-Applications may require server-side code execution that could not, or should not, be in the client. This might be useful for heavy computations or for tasks triggered after some events, typically after data is retrieved through [konnectors](https://cozy.github.io/cozy-stack/konnectors.html) or mobile/desktop sync, without the user being on the application.
+Applications may require server-side code execution that could not, or should not, be in the client. This might be useful for heavy computations or for tasks triggered after some events, typically after data is retrieved through [konnectors](https://docs.cozy.io/en/cozy-stack/konnectors/) or mobile/desktop sync, without the user being on the application.
 
 In contrast to konnectors, services have the same permissions as the web application and are not intended to collect information from the outside. It is rather meant to asynchronously analyse data inside the cozy and emit some output once the task is done. However, they share the same mechanisms as the konnectors to describe how and when they should be executed: via our [trigger system](https://github.com/cozy/cozy-stack/blob/master/docs/jobs.md).
 
