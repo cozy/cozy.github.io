@@ -10,7 +10,7 @@ import (
 	"github.com/cozy/cozy-apps-registry/config"
 	"github.com/go-kivik/couchdb/chttp"
 	"github.com/go-kivik/kivik"
-	"github.com/go-redis/redis"
+	"github.com/go-redis/redis/v7"
 	"github.com/labstack/echo/v4"
 	"github.com/spf13/viper"
 )

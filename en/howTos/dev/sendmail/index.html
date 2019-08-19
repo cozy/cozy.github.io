@@ -155,7 +155,19 @@
 </li>
             
 <li >
-    <a href="../../../cozy-client/how-tos/">How tos</a>
+    <a href="../../../cozy-client/relationships/">Using relationship</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-client/metadata/">cozyMetadata maintenance</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-client/react-integration/">React integration</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-client/details/">Other details</a>
 </li>
             
 <li >
@@ -249,7 +261,7 @@
 </li>
             
 <li >
-    <a href="../../../cozy-doctypes/docs/io.cozy.photos.albums/">Albums</a>
+    <a href="../../../cozy-doctypes/docs/io.cozy.apps/">Apps</a>
 </li>
             
 <li >
@@ -277,6 +289,10 @@
 </li>
             
 <li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.identities/">Identities</a>
+</li>
+            
+<li >
     <a href="../../../cozy-doctypes/docs/io.cozy.notifications/">Notifications</a>
 </li>
             
@@ -289,11 +305,79 @@
 </li>
             
 <li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.permissions/">Permissions</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.photos.albums/">Photos Albums</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.procedures/">Procedures</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.sessions.logins/">Sessions Logins</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.settings/">Settings</a>
+</li>
+            
+<li >
     <a href="../../../cozy-doctypes/docs/io.cozy.sharings/">Sharings</a>
 </li>
             
 <li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.account_types/">Accounts Types</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/cc.cozycloud.autocategorization/">Autocategorization</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.exports/">Exports</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.jobs/">Jobs</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.oauth.clients/">OAuth Clients</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.oauth.access_codes/">OAuth Access Codes</a>
+</li>
+            
+<li >
     <a href="../../../cozy-doctypes/docs/io.cozy.triggers/">Triggers</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.triggers.state/">Triggers state</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.remote.requests/">Remote requests</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.sessions/">Sessions</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.shared/">Shared</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.terms/">Terms</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/com.unibet.bets/">Bets Unibet</a>
 </li>
     </ul>
   </li>
@@ -645,7 +729,7 @@
                 <div class="col-md-9" role="main">
                     
 
-<p>Cozy apps let users <a href="https://cozy.github.io/cozy-stack/sharing.html#cozy-to-cozy-sharing">share documents from cozy to cozy</a>.</p>
+<p>Cozy apps let users <a href="https://docs.cozy.io/en/cozy-stack/sharing/#cozy-to-cozy-sharing">share documents from cozy to cozy</a>.</p>
 <p>Meet Alice and Bob.
 Alice wants to share a folder with Bob.
 Alice clicks on the share button and fills in the email input with Bob&rsquo;s email address.
@@ -654,10 +738,10 @@ Bob clicks on that button and is redirected to Alice&rsquo;s cozy to enter his o
 Bob sees Alice&rsquo;s shared folder in his own cozy.</p>
 <p>🤔 But how could we do this scenario on development environment?</p>
 <h2 id="with-the-docker-image">With the docker image<a class="headerlink" href="#with-the-docker-image" title="Permanent link">&para;</a></h2>
-<p>If you develop with the <a href="https://cozy.github.io/cozy-stack/client-app-dev.html#with-docker">cozy-app-dev docker image</a>, <a href="https://github.com/mailhog/MailHog">MailHog</a> is running inside it to catch emails.</p>
+<p>If you develop with the <a href="https://docs.cozy.io/en/cozy-stack/client-app-dev/#with-docker">cozy-app-dev docker image</a>, <a href="https://github.com/mailhog/MailHog">MailHog</a> is running inside it to catch emails.</p>
 <p>If cozy-stack has to send an email, MailHog catches it and exposes it on its web interface on http://cozy.tools:8025/.</p>
 <h2 id="with-the-binary-cozy-stack">With the binary cozy-stack<a class="headerlink" href="#with-the-binary-cozy-stack" title="Permanent link">&para;</a></h2>
-<p>If you develop with the <a href="https://cozy.github.io/cozy-stack/cli/cozy-stack.html">cozy-stack CLI</a>, you have to run <a href="https://github.com/mailhog/MailHog">MailHog</a> on your computer and tell <code>cozy-stack serve</code> where to find the mail server with some <a href="https://cozy.github.io/cozy-stack/cli/cozy-stack_serve.html#options">options</a>:</p>
+<p>If you develop with the <a href="https://docs.cozy.io/en/cozy-stack/cli/cozy-stack/">cozy-stack CLI</a>, you have to run <a href="https://github.com/mailhog/MailHog">MailHog</a> on your computer and tell <code>cozy-stack serve</code> where to find the mail server with some <a href="https://docs.cozy.io/en/cozy-stack/cli/cozy-stack_serve/#options">options</a>:</p>
 <div class="codehilite"><pre><span></span>./cozy-stack serve --appdir drive:../cozy-drive/build,settings:../cozy-settings/build --mail-disable-tls --mail-port 1025
 </pre></div>
 

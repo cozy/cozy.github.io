@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/cozy/cozy-apps-registry/utils"
-	"github.com/go-redis/redis"
+	"github.com/go-redis/redis/v7"
 )
 
 // Cache is an redis cache.

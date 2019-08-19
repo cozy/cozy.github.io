@@ -155,7 +155,19 @@
 </li>
             
 <li >
-    <a href="../../cozy-client/how-tos/">How tos</a>
+    <a href="../../cozy-client/relationships/">Using relationship</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client/metadata/">cozyMetadata maintenance</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client/react-integration/">React integration</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client/details/">Other details</a>
 </li>
             
 <li >
@@ -249,7 +261,7 @@
 </li>
             
 <li >
-    <a href="../../cozy-doctypes/docs/io.cozy.photos.albums/">Albums</a>
+    <a href="../../cozy-doctypes/docs/io.cozy.apps/">Apps</a>
 </li>
             
 <li >
@@ -277,6 +289,10 @@
 </li>
             
 <li >
+    <a href="../../cozy-doctypes/docs/io.cozy.identities/">Identities</a>
+</li>
+            
+<li >
     <a href="../../cozy-doctypes/docs/io.cozy.notifications/">Notifications</a>
 </li>
             
@@ -289,11 +305,79 @@
 </li>
             
 <li >
+    <a href="../../cozy-doctypes/docs/io.cozy.permissions/">Permissions</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.photos.albums/">Photos Albums</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.procedures/">Procedures</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/">Sessions Logins</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.settings/">Settings</a>
+</li>
+            
+<li >
     <a href="../../cozy-doctypes/docs/io.cozy.sharings/">Sharings</a>
 </li>
             
 <li >
+    <a href="../../cozy-doctypes/docs/io.cozy.account_types/">Accounts Types</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/cc.cozycloud.autocategorization/">Autocategorization</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.exports/">Exports</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.jobs/">Jobs</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.oauth.clients/">OAuth Clients</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.oauth.access_codes/">OAuth Access Codes</a>
+</li>
+            
+<li >
     <a href="../../cozy-doctypes/docs/io.cozy.triggers/">Triggers</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.triggers.state/">Triggers state</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/">Remote requests</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.sessions/">Sessions</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.shared/">Shared</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.terms/">Terms</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/com.unibet.bets/">Bets Unibet</a>
 </li>
     </ul>
   </li>
@@ -693,11 +777,11 @@ They need to register with a manifest, and ask the user for permissions.</p>
 <li><code>COZY_URL</code>: the Cozy Stack API entry point</li>
 <li><code>COZY_FIELDS</code>: settings coming from [Cozy Collect] and filled by the user (login, password, directory path).</li>
 </ul>
-<p>These variables are used by the connector and the cozy-client to configure the connection to the <a href="https://cozy.github.io/cozy-stack/">Cozy Stack</a> with the right permissions as defined in the connector manifest.
+<p>These variables are used by the connector and the cozy-client to configure the connection to the <a href="https://docs.cozy.io/en/cozy-stack/README/">Cozy Stack</a> with the right permissions as defined in the connector manifest.
 They are simulated in standalone mode so that you do not need a real Cozy Stack to develop a connector.
 [<a href="https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#basekonnector">More about BaseKonnector</a>]</p>
 <p>From the server point of view, each connector is a <code>job</code> which is executed periodically via a <code>trigger</code>.
-[<a href="https://cozy.github.io/cozy-stack/jobs.html">More about Cozy Stack jobs</a>]</p>
+[<a href="https://docs.cozy.io/en/cozy-stack/jobs/">More about Cozy Stack jobs</a>]</p>
 <h2 id="lets-create-our-first-connector">Let’s create our first connector<a class="headerlink" href="#lets-create-our-first-connector" title="Permanent link">&para;</a></h2>
 <p>The easiest way to create a new connector is to use <a href="https://github.com/konnectors/cozy-konnector-template">cozy-konnector-template</a>:</p>
 <p>ℹ There is also a <a href="https://www.youtube.com/watch?v=gp0cE8kHEBc&amp;list=PLBgB0F1WGyOXMqKZe-Q1ql0Fz-ohPkq6-">(french) youtube video to create your first connector</a></p>
@@ -730,7 +814,7 @@ This configuration comes from [Cozy Collect] when deployed.</p>
 </pre></div>
 
 
-<p>The <code>fields</code> property allows you to set credentials for the targeted web service, such as <code>login</code> and <code>password</code> as if they come from <a href="https://cozy.github.io/cozy-stack/">Cozy Stack</a> (so from a real Cozy Cloud instance). You can add as many fields as the targeted service needs.
+<p>The <code>fields</code> property allows you to set credentials for the targeted web service, such as <code>login</code> and <code>password</code> as if they come from <a href="https://docs.cozy.io/en/cozy-stack/README/">Cozy Stack</a> (so from a real Cozy Cloud instance). You can add as many fields as the targeted service needs.
 The <code>COZY_URL</code> property will be used later. You do not need to change it for now.</p>
 <p>As explained earlier, the demo website <a href="http://books.toscrape.com">books.toscrape.com</a> does not need any credentials.
 But for the code to run without error, you need to register a <em>fake</em> login and a <em>fake</em> password:</p>
@@ -747,10 +831,10 @@ But for the code to run without error, you need to register a <em>fake</em> logi
 <p><strong>In the template, this configuration file is already added to <code>.gitignore</code> file to be sure your credentials stay private.</strong></p>
 <p>Now you can run the connector again in <em>standalone</em> mode to see how jpg and related data are downloaded.
 In this mode, [<code>cozy-client-js</code>] is stubbed and all data meant to be saved in a cozy are displayed in the standard output and files are saved in the ./data directory of the connector.
-This is useful to start developing your connector without handling the state of a real <a href="https://cozy.github.io/cozy-stack/">Cozy Stack</a>.</p>
+This is useful to start developing your connector without handling the state of a real <a href="https://docs.cozy.io/en/cozy-stack/README/">Cozy Stack</a>.</p>
 <p>Please check <a href="https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/cli.md">CLI section of the documentation</a> for more information.</p>
 <h3 id="implement-your-connector">Implement your connector<a class="headerlink" href="#implement-your-connector" title="Permanent link">&para;</a></h3>
-<p>There are four steps for a connector to save data to <a href="https://cozy.github.io/cozy-stack/">Cozy Stack</a>:</p>
+<p>There are four steps for a connector to save data to <a href="https://docs.cozy.io/en/cozy-stack/README/">Cozy Stack</a>:</p>
 <ol>
 <li>authentication</li>
 <li>request data</li>

@@ -155,7 +155,19 @@
 </li>
             
 <li >
-    <a href="../../how-tos/">How tos</a>
+    <a href="../../relationships/">Using relationship</a>
+</li>
+            
+<li >
+    <a href="../../metadata/">cozyMetadata maintenance</a>
+</li>
+            
+<li >
+    <a href="../../react-integration/">React integration</a>
+</li>
+            
+<li >
+    <a href="../../details/">Other details</a>
 </li>
             
 <li >
@@ -249,7 +261,7 @@
 </li>
             
 <li >
-    <a href="../../../cozy-doctypes/docs/io.cozy.photos.albums/">Albums</a>
+    <a href="../../../cozy-doctypes/docs/io.cozy.apps/">Apps</a>
 </li>
             
 <li >
@@ -277,6 +289,10 @@
 </li>
             
 <li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.identities/">Identities</a>
+</li>
+            
+<li >
     <a href="../../../cozy-doctypes/docs/io.cozy.notifications/">Notifications</a>
 </li>
             
@@ -289,11 +305,79 @@
 </li>
             
 <li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.permissions/">Permissions</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.photos.albums/">Photos Albums</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.procedures/">Procedures</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.sessions.logins/">Sessions Logins</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.settings/">Settings</a>
+</li>
+            
+<li >
     <a href="../../../cozy-doctypes/docs/io.cozy.sharings/">Sharings</a>
 </li>
             
 <li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.account_types/">Accounts Types</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/cc.cozycloud.autocategorization/">Autocategorization</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.exports/">Exports</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.jobs/">Jobs</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.oauth.clients/">OAuth Clients</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.oauth.access_codes/">OAuth Access Codes</a>
+</li>
+            
+<li >
     <a href="../../../cozy-doctypes/docs/io.cozy.triggers/">Triggers</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.triggers.state/">Triggers state</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.remote.requests/">Remote requests</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.sessions/">Sessions</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.shared/">Shared</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/io.cozy.terms/">Terms</a>
+</li>
+            
+<li >
+    <a href="../../../cozy-doctypes/docs/com.unibet.bets/">Bets Unibet</a>
 </li>
     </ul>
   </li>
@@ -618,6 +702,8 @@
         <li class="main "><a href="#filecollection">FileCollection</a></li>
             <li><a href="#filecollectionfindselector-options-object">fileCollection.find(selector, options) ⇒ Object</a></li>
             <li><a href="#filecollectionfindreferencedbydocument-options-object">fileCollection.findReferencedBy(document, options) ⇒ object</a></li>
+            <li><a href="#filecollectionaddreferencedbydocument-documents-object">fileCollection.addReferencedBy(document, documents) ⇒ object</a></li>
+            <li><a href="#filecollectionaddreferencestodocument-documents-object">fileCollection.addReferencesTo(document, documents) ⇒ object</a></li>
             <li><a href="#filecollectionrestoreid-promise">fileCollection.restore(id) ⇒ Promise</a></li>
             <li><a href="#filecollectiondeletefilepermanentlyid-object">fileCollection.deleteFilePermanently(id) ⇒ object</a></li>
             <li><a href="#filecollectionupdatefiledata-params-object">fileCollection.updateFile(data, params) ⇒ object</a></li>
@@ -1078,6 +1164,10 @@ files associated to a specific document</p>
 <li><a href="#FileCollection">FileCollection</a><ul>
 <li><a href="#FileCollection+find">.find(selector, options)</a> ⇒ <code>Object</code></li>
 <li><a href="#FileCollection+findReferencedBy">.findReferencedBy(document, options)</a> ⇒ <code>object</code></li>
+<li><a href="#FileCollection+addReferencedBy">.addReferencedBy(document, documents)</a> ⇒ <code>object</code></li>
+<li><a href="#FileCollection+removeReferencedBy">.removeReferencedBy(document, documents)</a> ⇒ <code>object</code></li>
+<li><a href="#FileCollection+addReferencesTo">.addReferencesTo(document, documents)</a> ⇒ <code>object</code></li>
+<li><a href="#FileCollection+removeReferencesTo">.removeReferencesTo(document, documents)</a> ⇒ <code>object</code></li>
 <li><a href="#FileCollection+restore">.restore(id)</a> ⇒ <code>Promise</code></li>
 <li><a href="#FileCollection+deleteFilePermanently">.deleteFilePermanently(id)</a> ⇒ <code>object</code></li>
 <li><a href="#FileCollection+updateFile">.updateFile(data, params)</a> ⇒ <code>object</code></li>
@@ -1157,6 +1247,102 @@ files associated to a specific document</p>
 <td>options.cursor</td>
 <td><code>object</code></td>
 <td>For cursor-based pagination, the index cursor.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="FileCollection+addReferencedBy"></a></p>
+<h3 id="filecollectionaddreferencedbydocument-documents-object">fileCollection.addReferencedBy(document, documents) ⇒ <code>object</code><a class="headerlink" href="#filecollectionaddreferencedbydocument-documents-object" title="Permanent link">&para;</a></h3>
+<p>Add referenced_by documents to a file — see https://docs.cozy.io/en/cozy-stack/references-docs-in-vfs/#post-filesfile-idrelationshipsreferenced_by</p>
+<p>For example, to have an album referenced by a file:
+ ```
+addReferencedBy({_id: 123, _type: &ldquo;io.cozy.files&rdquo;, name: &ldquo;cozy.jpg&rdquo;}, [{_id: 456, _type: &ldquo;io.cozy.photos.albums&rdquo;, name: &ldquo;Happy Cloud&rdquo;}])</p>
+<div class="codehilite"><pre><span></span>**Kind**: instance method of [<span class="nt">&lt;code&gt;</span>FileCollection<span class="nt">&lt;/code&gt;</span>](#FileCollection)  
+**Returns**: <span class="nt">&lt;code&gt;</span>object<span class="nt">&lt;/code&gt;</span> - The JSON API conformant response.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| document | <span class="nt">&lt;code&gt;</span>object<span class="nt">&lt;/code&gt;</span> | A JSON representing the file |
+| documents | <span class="nt">&lt;code&gt;</span>Array<span class="nt">&lt;/code&gt;</span> | An array of JSON documents having a `_type` and `_id` field. |
+
+<span class="nt">&lt;a</span> <span class="na">name=</span><span class="s">&quot;FileCollection+removeReferencedBy&quot;</span><span class="nt">&gt;&lt;/a&gt;</span>
+
+### fileCollection.removeReferencedBy(document, documents) ⇒ <span class="nt">&lt;code&gt;</span>object<span class="nt">&lt;/code&gt;</span>
+Remove referenced_by documents from a file — see https://docs.cozy.io/en/cozy-stack/references-docs-in-vfs/#delete-filesfile-idrelationshipsreferenced_by
+
+ For example, to remove an album reference from a file:
+ ```
+ removeReferencedBy({_id: 123, _type: &quot;io.cozy.files&quot;, name: &quot;cozy.jpg&quot;}, [{_id: 456, _type: &quot;io.cozy.photos.albums&quot;, name: &quot;Happy Cloud&quot;}])
+</pre></div>
+
+
+<p><strong>Kind</strong>: instance method of <a href="#FileCollection"><code>FileCollection</code></a><br />
+<strong>Returns</strong>: <code>object</code> - The JSON API conformant response.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>document</td>
+<td><code>object</code></td>
+<td>A JSON representing the file</td>
+</tr>
+<tr>
+<td>documents</td>
+<td><code>Array</code></td>
+<td>An array of JSON documents having a <code>_type</code> and <code>_id</code> field.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="FileCollection+addReferencesTo"></a></p>
+<h3 id="filecollectionaddreferencestodocument-documents-object">fileCollection.addReferencesTo(document, documents) ⇒ <code>object</code><a class="headerlink" href="#filecollectionaddreferencestodocument-documents-object" title="Permanent link">&para;</a></h3>
+<p>Add files references to a document — see https://docs.cozy.io/en/cozy-stack/references-docs-in-vfs/#post-datatypedoc-idrelationshipsreferences</p>
+<p>For example, to add a photo to an album:
+ ```
+ addReferencesTo({_id: 456, _type: &ldquo;io.cozy.photos.albums&rdquo;, name: &ldquo;Happy Cloud&rdquo;}, [{_id: 123, _type: &ldquo;io.cozy.files&rdquo;, name: &ldquo;cozy.jpg&rdquo;}])</p>
+<div class="codehilite"><pre><span></span>**Kind**: instance method of [<span class="nt">&lt;code&gt;</span>FileCollection<span class="nt">&lt;/code&gt;</span>](#FileCollection)  
+**Returns**: <span class="nt">&lt;code&gt;</span>object<span class="nt">&lt;/code&gt;</span> - The JSON API conformant response.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| document | <span class="nt">&lt;code&gt;</span>object<span class="nt">&lt;/code&gt;</span> | A JSON representing a document, with at least a `_type` and `_id` field. |
+| documents | <span class="nt">&lt;code&gt;</span>Array<span class="nt">&lt;/code&gt;</span> | An array of JSON files having an `_id` field. |
+
+<span class="nt">&lt;a</span> <span class="na">name=</span><span class="s">&quot;FileCollection+removeReferencesTo&quot;</span><span class="nt">&gt;&lt;/a&gt;</span>
+
+### fileCollection.removeReferencesTo(document, documents) ⇒ <span class="nt">&lt;code&gt;</span>object<span class="nt">&lt;/code&gt;</span>
+Remove files references to a document — see https://docs.cozy.io/en/cozy-stack/references-docs-in-vfs/#delete-datatypedoc-idrelationshipsreferences
+
+ For example, to remove a photo from an album:
+ ```
+ removeReferencesTo({_id: 456, _type: &quot;io.cozy.photos.albums&quot;, name: &quot;Happy Cloud&quot;}, [{_id: 123, _type: &quot;io.cozy.files&quot;, name: &quot;cozy.jpg&quot;}])
+</pre></div>
+
+
+<p><strong>Kind</strong>: instance method of <a href="#FileCollection"><code>FileCollection</code></a><br />
+<strong>Returns</strong>: <code>object</code> - The JSON API conformant response.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>document</td>
+<td><code>object</code></td>
+<td>A JSON representing a document, with at least a <code>_type</code> and <code>_id</code> field.</td>
+</tr>
+<tr>
+<td>documents</td>
+<td><code>Array</code></td>
+<td>An array of JSON files having an <code>_id</code> field.</td>
 </tr>
 </tbody>
 </table>

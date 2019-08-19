@@ -155,7 +155,19 @@
 </li>
             
 <li >
-    <a href="../../cozy-client/how-tos/">How tos</a>
+    <a href="../../cozy-client/relationships/">Using relationship</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client/metadata/">cozyMetadata maintenance</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client/react-integration/">React integration</a>
+</li>
+            
+<li >
+    <a href="../../cozy-client/details/">Other details</a>
 </li>
             
 <li >
@@ -249,7 +261,7 @@
 </li>
             
 <li >
-    <a href="../../cozy-doctypes/docs/io.cozy.photos.albums/">Albums</a>
+    <a href="../../cozy-doctypes/docs/io.cozy.apps/">Apps</a>
 </li>
             
 <li >
@@ -277,6 +289,10 @@
 </li>
             
 <li >
+    <a href="../../cozy-doctypes/docs/io.cozy.identities/">Identities</a>
+</li>
+            
+<li >
     <a href="../../cozy-doctypes/docs/io.cozy.notifications/">Notifications</a>
 </li>
             
@@ -289,11 +305,79 @@
 </li>
             
 <li >
+    <a href="../../cozy-doctypes/docs/io.cozy.permissions/">Permissions</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.photos.albums/">Photos Albums</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.procedures/">Procedures</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/">Sessions Logins</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.settings/">Settings</a>
+</li>
+            
+<li >
     <a href="../../cozy-doctypes/docs/io.cozy.sharings/">Sharings</a>
 </li>
             
 <li >
+    <a href="../../cozy-doctypes/docs/io.cozy.account_types/">Accounts Types</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/cc.cozycloud.autocategorization/">Autocategorization</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.exports/">Exports</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.jobs/">Jobs</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.oauth.clients/">OAuth Clients</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.oauth.access_codes/">OAuth Access Codes</a>
+</li>
+            
+<li >
     <a href="../../cozy-doctypes/docs/io.cozy.triggers/">Triggers</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.triggers.state/">Triggers state</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/">Remote requests</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.sessions/">Sessions</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.shared/">Shared</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/io.cozy.terms/">Terms</a>
+</li>
+            
+<li >
+    <a href="../../cozy-doctypes/docs/com.unibet.bets/">Bets Unibet</a>
 </li>
     </ul>
   </li>
@@ -1293,7 +1377,7 @@ permissions as the konnector launched by the trigger will be granted the
 permissions to delete the trigger, even without permissions on the
 <code>io.cozy.triggers</code> doctype.</p>
 <h3 id="get-jobstriggers">GET /jobs/triggers<a class="headerlink" href="#get-jobstriggers" title="Permanent link">&para;</a></h3>
-<p>Get the list of triggers.</p>
+<p>Get the list of triggers. This route only accept <code>Worker</code> query parameters and returns the trigger but also in <code>attributes</code> its <code>current_state</code> (the same <code>current_state</code> returned by <a href="../jobs/#get-jobstriggerstrigger-id">GET /jobs/triggers/:trigger-id</a>). Be warned that <code>/data/io.cozy.triggers/_find</code> does not return this <code>current_state</code> attribute and you&rsquo;ll need to query <code>/jobs/triggers/:trigger-id</code> to have it.</p>
 <p>Query parameters:</p>
 <ul>
 <li><code>Worker</code>: to filter only triggers associated with a specific worker.</li>
@@ -1310,7 +1394,28 @@ permissions to delete the trigger, even without permissions on the
     <span class="p">{</span>
       <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.triggers&quot;</span><span class="p">,</span>
       <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;123123&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{},</span>
+      <span class="nt">&quot;arguments&quot;</span><span class="p">:</span> <span class="s2">&quot;0 40 0 * * *&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;current_state&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;last_error&quot;</span><span class="p">:</span> <span class="s2">&quot;LOGIN_FAILED&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;last_executed_job_id&quot;</span><span class="p">:</span> <span class="s2">&quot;abc&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;last_execution&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-01-07T08:23:22.069902888Z&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;last_failed_job_id&quot;</span><span class="p">:</span> <span class="s2">&quot;abcd&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;last_failure&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-01-07T08:23:22.069902888Z&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;last_manual_execution&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-01-07T08:23:22.069902888Z&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;last_manual_job_id&quot;</span><span class="p">:</span> <span class="s2">&quot;azer&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;errored&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;trigger_id&quot;</span><span class="p">:</span> <span class="s2">&quot;123123&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;debounce&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;xxx.mycozy.cloud&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;konnector&quot;</span><span class="p">:</span> <span class="s2">&quot;slug&quot;</span><span class="p">,</span> 
+        <span class="nt">&quot;account&quot;</span><span class="p">:</span> <span class="s2">&quot;XXX&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;@cron&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;worker&quot;</span><span class="p">:</span> <span class="s2">&quot;konnector&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;123123&quot;</span><span class="p">,</span>
       <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/jobs/triggers/123123&quot;</span>
       <span class="p">}</span>
