@@ -1,4 +1,4 @@
-site_name: Dev Documentation
+site_name: Cozy Developer Documentation
 docs_dir: src
 site_url: https://docs.cozy.io/
 site_dir: docs/en
@@ -9,7 +9,6 @@ site_description: Cozy documentation
 site_author: CozyCloud - https://cozy.io
 extra_css:
 - css/extra.css
-- css/highlight_theme.css
 extra_javascript:
 - extra.js
 pages:
@@ -32,8 +31,17 @@ pages:
   - Our Front-End Git Flow: references/git-flow.md
   - Stack and tools:
     - null # This is filled automatically via add_external_docs.py
-theme: mkdocs
-theme_dir: cozy-theme
+theme:
+  custom_dir: cozy-theme
+  name: material
+  palette:
+    primary: blue
+    accent: blue
+  logo:
+    icon: cloud
+  font:
+    text: Lato
+    code: Ubuntu Mono
 markdown_extensions:
 - admonition
 - codehilite
