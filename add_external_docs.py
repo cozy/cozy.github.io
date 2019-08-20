@@ -87,12 +87,6 @@ def walk_dict(d):
         yield d
 
 
-def find_not_referenced(tocs):
-    files = set([f.replace('src/', '') for f in simple_glob('src', '*.md')])
-    referenced_files = set([r for toc in tocs for r in walk_dict(toc)])
-    return list(files - referenced_files)
-
-
 def get_name(filename):
     return '.'.join(osp.basename(filename).split('.')[:-1])
 
@@ -179,11 +173,9 @@ def main(argv):
     name_to_tocs = read_tocs(outside_doc_names)
     toc_entries = [{ k: v } for k, v in name_to_tocs.items()]
     tocs = list(name_to_tocs.values())
-    hidden_pages = [{get_name(k): k} for n, k in enumerate(sorted(find_not_referenced(tocs)))]
 
     pages = data['pages']
     set_entry_content(pages, ['References', 'Stack and tools'], toc_entries)
-    set_entry_content(pages, ['hidden'], hidden_pages)
 
     outside_docs_entry = {"outside_docs": outside_docs_conf}
     if 'extra' not in data:
