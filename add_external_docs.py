@@ -128,7 +128,8 @@ def read_tocs(outside_doc_names):
     for dir in outside_doc_names:
         abs = osp.join('./src', dir)
         toc = read_toc(dir)
-        tocs[dir] = toc
+        if toc:
+            tocs[dir] = toc
     return tocs
 
 
