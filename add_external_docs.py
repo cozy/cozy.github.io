@@ -153,6 +153,12 @@ def set_entry_content(obj, path, items):
         for item in items:
             cur.append(item)
 
+def flatten_entry_if_single(entries):
+    if len(entries) == 1:
+        return entries[0].values()[0]
+    else:
+        return entries
+
 def main(argv):
     OUTSIDE_DOCS = 'OUTSIDE_DOCS'
 
@@ -171,11 +177,9 @@ def main(argv):
 
     outside_doc_names = [c['name'] for c in outside_docs_conf]
     name_to_tocs = read_tocs(outside_doc_names)
-    toc_entries = [{ k: v } for k, v in name_to_tocs.items()]
-    tocs = list(name_to_tocs.values())
-
-    pages = data['pages']
     set_entry_content(pages, ['References', 'Stack and tools'], toc_entries)
+    toc_entries = [{ k: flatten_entry_if_single(v) } for k, v in name_to_tocs.items()]
+    nav = data['nav']
 
     outside_docs_entry = {"outside_docs": outside_docs_conf}
     if 'extra' not in data:
