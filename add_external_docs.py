@@ -177,9 +177,9 @@ def main(argv):
 
     outside_doc_names = [c['name'] for c in outside_docs_conf]
     name_to_tocs = read_tocs(outside_doc_names)
-    set_entry_content(pages, ['References', 'Stack and tools'], toc_entries)
     toc_entries = [{ k: flatten_entry_if_single(v) } for k, v in name_to_tocs.items()]
     nav = data['nav']
+    set_entry_content(nav, ['Stack and tools'], toc_entries)
 
     outside_docs_entry = {"outside_docs": outside_docs_conf}
     if 'extra' not in data:
