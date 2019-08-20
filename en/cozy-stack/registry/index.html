@@ -765,8 +765,8 @@ differentiate the version channel:</p>
     a shasum of the git commit)</li>
 </ul>
 <h2 id="version-order">Version order<a class="headerlink" href="#version-order" title="Permanent link">&para;</a></h2>
-<p>TLDR: 1.0.0-dev.<em> &lt; 1.0.0 and 1.0.0-beta.</em> &lt; 1.0.0, make sure you upgrade your
-app version after publishing stable.</p>
+<p>TLDR: <code>1.0.0-dev._ &lt; 1.0.0</code> and <code>1.0.0-beta._ &lt; 1.0.0</code>, make sure you upgrade
+your app version after publishing stable.</p>
 <p>The order used to determine the latest version of a channel is the following:</p>
 <div class="codehilite"><pre><span></span>- `1.0.0-dev.*  &amp;lt; 1.0.0 (dev &amp;lt; stable)`
 - `1.0.0-beta.* &amp;lt; 1.0.0 (beta &amp;lt; stable)`
@@ -1074,12 +1074,16 @@ tags.</p>
 </tr>
 <tr>
 <td>versionsChannel</td>
+<td>the channels from which we list the version numbers</td>
+</tr>
+<tr>
+<td>latestChannelVersion</td>
 <td>the channel from which we select the latest version</td>
 </tr>
 </tbody>
 </table>
 <h4 id="request_2">Request<a class="headerlink" href="#request_2" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/registry?filter[category]=main&amp;limit=20&amp;sort=slug&amp;latest&amp;latestVersionChannel=beta</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/registry?filter[category]=main&amp;limit=20&amp;sort=slug&amp;versionsChannel=dev&amp;latestChannelVersion=beta</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 </pre></div>
 
 
@@ -1103,8 +1107,8 @@ tags.</p>
             <span class="nt">&quot;latest_version&quot;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
                 <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;webapp&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.1.1&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://.../3.1.1&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.1.1-beta.1&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://.../3.1.1-beta.1&quot;</span><span class="p">,</span>
                 <span class="nt">&quot;sha256&quot;</span><span class="p">:</span> <span class="s2">&quot;466aa0815926fdbf33fda523af2b9bf34520906ffbb9bf512ddf20df2992a46f&quot;</span><span class="p">,</span>
                 <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="s2">&quot;1000&quot;</span><span class="p">,</span>
                 <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-07-05T07:54:40.982Z&quot;</span><span class="p">,</span>
