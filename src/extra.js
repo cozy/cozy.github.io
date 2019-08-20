@@ -12,11 +12,10 @@ window.addEventListener('load', function () {
   }
 });
 
-
-$(function () {
+var setupSearchHotkey = function () {
   var openSearch = function () {
-    var searchModalBtn = $('[data-target=#mkdocs_search_modal]')
-    searchModalBtn.click();
+    var searchModalBtn = document.querySelector('[data-target=#mkdocs_search_modal]')
+    searchModalBtn.dispatchEvent(new Event('click'));
   }
   var checkForSearchSlash = function (ev) {
     var SLASH_KEY = 191
@@ -25,5 +24,10 @@ $(function () {
       ev.preventDefault()
     }
   }
-  $(document).on('keydown', checkForSearchSlash)
+  document.addEventListener('keydown', checkForSearchSlash)
+}
+
+
+window.addEventListener('load', function () {
+  setupSearchHotkey()
 })
