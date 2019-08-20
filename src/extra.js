@@ -27,6 +27,9 @@ var setupSearchHotkey = function () {
   document.addEventListener('keydown', checkForSearchSlash)
 }
 
+/**
+ * Change the href of the edit link for docs that are pulled from outside the main doc repository
+ */
 const fixEditLinkIfNecessary = function () {
   /* Here we detect if the current page is from an external documentation and we 
   change the href of the editing link so it goes to the right repository and file */
