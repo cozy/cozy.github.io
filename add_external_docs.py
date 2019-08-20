@@ -15,7 +15,7 @@ import sh
 
 def simple_glob(directory, glob_pattern):
     matches = []
-    for root, dirnames, filenames in os.walk('src', followlinks=True):
+    for root, dirnames, filenames in os.walk(directory, followlinks=True):
         for filename in fnmatch.filter(filenames, glob_pattern):
             matches.append(osp.join(root, filename))
     return matches
