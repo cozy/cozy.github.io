@@ -68,8 +68,10 @@ def read_toc(directory):
 
 
 def find_entry(tree, name):
-    return [p for p in tree if p.get(name)][0][name]
-
+    try:
+        return [p for p in tree if p.get(name)][0][name]
+    except IndexError:
+        return None
 
 def walk_dict(d):
     it = None
@@ -127,6 +129,36 @@ def fetch_all_external_docs_from_file(filename):
         sh.ln('-s', osp.join(tmpdir, doc_directory), src_dir)
 
 
+def read_tocs(outside_doc_names):
+    tocs = {}
+    for dir in outside_doc_names:
+        abs = osp.join('./src', dir)
+        toc = read_toc(dir)
+        tocs[dir] = toc
+    return tocs
+
+
+def set_entry_content(obj, path, items):
+    cur = obj
+    for i, p in enumerate(path):
+        next = find_entry(cur, p) 
+        if not next:
+            # Adding a new entry
+            if i == len(path) - 1:
+                print('Adding', len('items'), ' items to path ', path)
+                cur.append({ p: items })
+                return
+            else:
+                raise ValueError('Cannot find %s in %s' % (path, obj))
+            break
+        else:
+            cur = next
+    if cur:
+        # Replacing all the content
+        del cur[:]
+        for item in items:
+            cur.append(item)
+
 def main(argv):
     OUTSIDE_DOCS = 'OUTSIDE_DOCS'
 
@@ -142,23 +174,21 @@ def main(argv):
         {'name': c[0], 'repo': c[1], 'subdir': c[2]}
         for c in outside_docs_conf
     ]
+
     outside_doc_names = [c['name'] for c in outside_docs_conf]
+    name_to_tocs = read_tocs(outside_doc_names)
+    toc_entries = [{ k: v } for k, v in name_to_tocs.items()]
+    tocs = list(name_to_tocs.values())
+    hidden_pages = [{get_name(k): k} for n, k in enumerate(sorted(find_not_referenced(tocs)))]
 
-    develop = find_entry(data['pages'], 'References')
-    references = find_entry(develop, 'Stack and tools')
+    pages = data['pages']
+    set_entry_content(pages, ['References', 'Stack and tools'], toc_entries)
+    set_entry_content(pages, ['hidden'], hidden_pages)
 
-    del references[:]
-
-    tocs = []
-    for dir in outside_doc_names:
-        abs = osp.join('./src', dir)
-        toc = read_toc(dir)
-        if toc:
-            references.append({ dir: toc })
-        tocs.append(toc)
-
-    data['pages'].append({'hidden': [{get_name(k): k} for n, k in enumerate(sorted(find_not_referenced(tocs)))]})
-    data['extra'] = {"outside_docs": outside_docs_conf}
+    outside_docs_entry = {"outside_docs": outside_docs_conf}
+    if 'extra' not in data:
+        data['extra'] = {}
+    data['extra'] = dict(data['extra'], **outside_docs_entry)
 
     with open('mkdocs.yml', 'w+') as f:
         ordered_dump(data, f, indent=2, default_flow_style=False, Dumper=yaml.SafeDumper)
