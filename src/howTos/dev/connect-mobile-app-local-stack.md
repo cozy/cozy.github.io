@@ -70,7 +70,7 @@ adb push hosts /system/etc/hosts
 Then try to ping `cozy.tools` to see if everything is working well :
 
 ```
-adb shell ping api.dev.local
+adb shell ping cozy.tools
 ```
 
 You can now enter `http://cozy.tools` in the login page of your mobile app and you will not get an error anymore.
