@@ -73,18 +73,22 @@ def find_entry(tree, name):
     except IndexError:
         return None
 
-def walk_dict(d):
+def walk_dict(d, path=None):
+    if path is None:
+        path = []
     it = None
     if isinstance(d, list):
-        it = iter(d)
+        it = enumerate(iter(d))
     elif isinstance(d, dict):
-        it = d.values()
+        it = d.items()
     if it:
-        for item in it:
-            for leaf in walk_dict(item):
-                yield leaf
+        for key, item in it:
+            path.append(key)
+            for key, leaf in walk_dict(item, path):
+                yield key, leaf
+            path.pop()
     else:
-        yield d
+        yield path, d
 
 
 def get_name(filename):
@@ -144,7 +148,7 @@ def set_entry_content(obj, path, items):
                 cur.append({ p: items })
                 return
             else:
-                raise ValueError('Cannot find %s in %s' % (path, obj))
+                raise ValueError('Cannot find %s in %s (last crumb: %s)' % (path, obj, p))
             break
         else:
             cur = next
@@ -156,9 +160,29 @@ def set_entry_content(obj, path, items):
 
 def flatten_entry_if_single(entries):
     if len(entries) == 1:
-        return entries[0].values()[0]
+        return next(iter(entries[0].values()))
     else:
         return entries
+
+
+def find_node(tree, finder):
+    for path_leaf in walk_dict(tree):
+        if finder(path_leaf):
+            return path_leaf
+    return None
+
+
+def replace_toc_placeholders(nav, named_tocs):
+    for name, toc in named_tocs.items():
+        path_leaf = find_node(nav, lambda x: ('<%s>' % name) == x[1])
+        if path_leaf:
+            path, content = path_leaf
+            cur = nav
+            for tok in path[:-1]:
+                cur = cur[tok]
+            single_key = next(iter(cur.keys()))
+            cur[single_key] = flatten_entry_if_single(toc)
+
 
 def main(argv):
     OUTSIDE_DOCS = 'OUTSIDE_DOCS'
@@ -178,9 +202,9 @@ def main(argv):
 
     outside_doc_names = [c['name'] for c in outside_docs_conf]
     name_to_tocs = read_tocs(outside_doc_names)
-    toc_entries = [{ k: flatten_entry_if_single(v) } for k, v in name_to_tocs.items()]
     nav = data['nav']
-    set_entry_content(nav, ['Stack and tools'], toc_entries)
+
+    replace_toc_placeholders(data['nav'], name_to_tocs)
 
     outside_docs_entry = {"outside_docs": outside_docs_conf}
     if 'extra' not in data:
