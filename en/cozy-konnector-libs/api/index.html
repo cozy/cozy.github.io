@@ -1180,7 +1180,7 @@ full permission on <code>io.cozy.bank.operations</code> in your manifest, to be 
 <p>You need the full permission on <code>io.cozy.files</code> in your manifest to use this function.</p>
 <ul>
 <li>
-<p><code>files</code> is an array of object with the following possible attributes :</p>
+<p><code>files</code> is an array of objects with the following possible attributes :</p>
 </li>
 <li>
 <p>fileurl: The url of the file (can be a function returning the value). Ignored if <code>filestream</code>
@@ -1227,10 +1227,15 @@ full permission on <code>io.cozy.bank.operations</code> in your manifest, to be 
 <li><code>validateFile</code> (function) default: do not validate if file is empty or has bad mime type</li>
 <li><code>validateFileContent</code> (boolean or function) default false. Also check the content of the file to
   recognize the mime type</li>
+<li><code>fileIdAttributes</code> (array of strings). Describes which attributes of files will be taken as primary key for
+  files to check if they already exist, even if they are moved. If not given, the file path will
+  used for deduplication as before.</li>
 </ul>
 <p><strong>Kind</strong>: Exported function<br />
 <strong>Example</strong>  </p>
-<div class="codehilite"><pre><span></span><span class="nx">await</span> <span class="nx">saveFiles</span><span class="p">([{</span><span class="nx">fileurl</span><span class="o">:</span> <span class="s1">&#39;https://...&#39;</span><span class="p">,</span> <span class="nx">filename</span><span class="o">:</span> <span class="s1">&#39;bill1.pdf&#39;</span><span class="p">}],</span> <span class="nx">fields</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><span class="nx">await</span> <span class="nx">saveFiles</span><span class="p">([{</span><span class="nx">fileurl</span><span class="o">:</span> <span class="s1">&#39;https://...&#39;</span><span class="p">,</span> <span class="nx">filename</span><span class="o">:</span> <span class="s1">&#39;bill1.pdf&#39;</span><span class="p">}],</span> <span class="nx">fields</span><span class="p">,</span> <span class="p">{</span>
+   <span class="nx">fileIdAttributes</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;fileurl&#39;</span><span class="p">]</span>
+<span class="p">})</span>
 </pre></div>
 
 
