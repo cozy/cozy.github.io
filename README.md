@@ -10,18 +10,16 @@ To edit the documentation, just edit the files inside `src`.
 
 If you want to see your updates, install mkdocs:
 
-```shell
-pip install --user mkdocs
-```
 > In most linux distribution, it will install binary in ~/local/bin/, add it to your path.
 
 Fetch external documentation and add it to mkdocs.yml (do not commit this the changes in `References`) :
 
-```
+```bash
+# Activate a virtualenv if you want (recommended)
 pip install -r requirements.txt
 ./build.sh
 ```
-> Expected python version is 2.7.10
+> Expected python version is 3
 
 Run MkDocs:
 
@@ -54,6 +52,9 @@ The documentation is built automatically by Travis
 
 After the build, it is available on https://docs.cozy.io/.
 
+You can trigger a manual build on https://travis-ci.org/cozy/cozy.github.io > `More options` > `Trigger build`.
+
+## Testing the statically built site
 
 To test the whole site:
 
