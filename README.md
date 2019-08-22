@@ -42,6 +42,9 @@ which controls what is shown under the References menu.
 
 See [./build.sh](./build.sh), and [./add_external_docs.py](./add_external_docs.py) scripts for more information.
 
+The edit links displayed in the header of each article are modified via Javascript to handle outside repositories (mkdocs does not support
+this natively).
+
 ## When are the docs deployed ?
 
 The documentation is built automatically by Travis
