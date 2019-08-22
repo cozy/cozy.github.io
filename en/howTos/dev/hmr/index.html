@@ -63,7 +63,7 @@
     <script type="text/javascript">
         // Used in extra.js, we have to define the variable here since
         // we need access to the "config" jinja variable
-        window.outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-apps-registry", "repo": "https://github.com/cozy/cozy-apps-registry.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-ui", "repo": "https://github.com/cozy/cozy-ui.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
+        window.outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-apps-registry", "repo": "https://github.com/cozy/cozy-apps-registry.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-ui", "repo": "https://github.com/cozy/cozy-ui.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/cozy/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
     </script>
 
     
@@ -2102,20 +2102,20 @@
 <p>For a Cozy application, having this feature allows you to have the specific changed part reloaded in your browser without reloading again the <code>cozy-bar</code>, the <code>cozy-client</code> and other layout components.</p>
 <p><em>Notice: The HMR will be explained here only for applications build using Webpack.</em></p>
 <h2 id="is-it-available-for-my-app">Is it available for my app?<a class="headerlink" href="#is-it-available-for-my-app" title="Permanent link">&para;</a></h2>
-<p>If you created your application (React or Vue) using <a href="https://github.com/CPatchane/create-cozy-app">Create Cozy App a.k.a CCA (from v1)</a> and:</p>
+<p>If you created your application (React or Vue) using <a href="https://github.com/cozy/create-cozy-app">Create Cozy App a.k.a CCA (from v1)</a> and:</p>
 <ul>
 <li>For React, you didn&rsquo;t change the way <a href="https://github.com/gaearon/react-hot-loader"><code>react-hot-loader</code></a> is used</li>
 <li>For Vue, you didn&rsquo;t change the <code>module.hot</code> part in your entry point <code>index.js</code> (in <code>src/targets/&lt;target&gt;</code>)</li>
 </ul>
 <p>Then, you dont&rsquo; have anything to do. See the next part of this tutorial to use HMR 😎</p>
-<p>If you did change these parts or you didn&rsquo;t create your application initialy using <a href="https://github.com/CPatchane/create-cozy-app">Create Cozy App</a>, you can see the part <a href="#make-hmr-available-in-my-application"><strong>Make HMR available in my application</strong></a>.</p>
+<p>If you did change these parts or you didn&rsquo;t create your application initialy using <a href="https://github.com/cozy/create-cozy-app">Create Cozy App</a>, you can see the part <a href="#make-hmr-available-in-my-application"><strong>Make HMR available in my application</strong></a>.</p>
 <h2 id="run-my-app-with-hmr">Run my app with HMR<a class="headerlink" href="#run-my-app-with-hmr" title="Permanent link">&para;</a></h2>
 <p>To have a full HMR experience, you&rsquo;ll have to do two things here:</p>
 <ul>
 <li>Run webpack watching your changes with a <a href="https://github.com/webpack/webpack-dev-server"><code>webpack-dev-server</code></a> and <code>--hot</code> option</li>
 <li>Disable CSPs in the target Cozy (the Cozy CSPs is blocking HMR script)</li>
 </ul>
-<p>But thanks to the last version of <a href="https://github.com/CPatchane/create-cozy-app/tree/master/packages/cozy-scripts"><code>cozy-scripts</code></a>, all of that are handled for you with the command <code>cozy-scripts start</code>:</p>
+<p>But thanks to the last version of <a href="https://github.com/cozy/create-cozy-app/tree/master/packages/cozy-scripts"><code>cozy-scripts</code></a>, all of that are handled for you with the command <code>cozy-scripts start</code>:</p>
 <div class="codehilite"><pre><span></span>yarn cozy-scripts start --hot --browser
 <span class="c1"># or if you have the last package.json from CCA, you can do</span>
 yarn start
@@ -2130,7 +2130,7 @@ yarn start --no-stack
 </pre></div>
 
 
-<p>Then, as said, to have your application running in a Cozy with HMR, your have to disable CSPs when running the stack. For that, <a href="https://github.com/CPatchane/create-cozy-app/tree/master/packages/cozy-scripts"><code>cozy-scripts</code></a> has a dedicated config file to pass to your Docker image in <code>cozy-scripts/stack/disableCSP.yaml</code>.
+<p>Then, as said, to have your application running in a Cozy with HMR, your have to disable CSPs when running the stack. For that, <a href="https://github.com/cozy/create-cozy-app/tree/master/packages/cozy-scripts"><code>cozy-scripts</code></a> has a dedicated config file to pass to your Docker image in <code>cozy-scripts/stack/disableCSP.yaml</code>.
 You can use this config by running your stack in another terminal like:</p>
 <div class="codehilite"><pre><span></span><span class="c1"># in your app root directory</span>
 docker run --rm -it

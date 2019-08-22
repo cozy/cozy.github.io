@@ -63,7 +63,7 @@
     <script type="text/javascript">
         // Used in extra.js, we have to define the variable here since
         // we need access to the "config" jinja variable
-        window.outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-apps-registry", "repo": "https://github.com/cozy/cozy-apps-registry.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-ui", "repo": "https://github.com/cozy/cozy-ui.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/CPatchane/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
+        window.outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-apps-registry", "repo": "https://github.com/cozy/cozy-apps-registry.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-ui", "repo": "https://github.com/cozy/cozy-ui.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/cozy/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}]
     </script>
 
     
@@ -2654,15 +2654,13 @@
 </ul>
 </li>
 <li><a href="#publish-your-application-on-the-registry">Publish your application on the registry</a><ul>
-<li><a href="#1-prepare-your-application">1) Prepare your application</a><ul>
+<li><a href="#1-prepare-your-application">1) Prepare your application</a></li>
 <li><a href="#for-an-application">For an application</a></li>
 <li><a href="#for-a-connector">For a connector</a></li>
 <li><a href="#properties-meaning-reference">Properties meaning (reference)</a></li>
 <li><a href="#translated-manifest-fields">Translated manifest fields</a></li>
 <li><a href="#application-terms">Application terms</a></li>
 <li><a href="#konnectors-folders-handling">Konnectors folders handling</a></li>
-</ul>
-</li>
 <li><a href="#2-add-a-new-application-in-the-registry">2) Add a new application in the registry</a></li>
 <li><a href="#our-official-apps-registry">Our official apps registry</a></li>
 <li><a href="#custom-registry">Custom registry</a></li>
@@ -2696,9 +2694,11 @@
 <p>The <code>cozy-apps-registry</code> is a go project that implements the <a href="https://github.com/cozy/cozy-stack/blob/master/docs/registry.md">registry
 API</a>
 described to work with the <a href="https://github.com/cozy/cozy-stack">cozy-stack</a>.</p>
-<p>To work properly, it requires:
-- Couchdb &gt;= 2.0
-- Openstack Object Storage (Swift)</p>
+<p>To work properly, it requires:</p>
+<ul>
+<li>Couchdb &gt;= 2.0</li>
+<li>Openstack Object Storage (Swift)</li>
+</ul>
 <h2 id="how-to-develop-with-a-cozy-apps-registry-working-in-local-environment">How to develop with a <code>cozy-apps-registry</code> working in local environment<a class="headerlink" href="#how-to-develop-with-a-cozy-apps-registry-working-in-local-environment" title="Permanent link">&para;</a></h2>
 <p>Before starting, you will need to have a couchdb running already. That can be the one used by the local <code>cozy-stack</code> if you have one. For this tutorial, couchdb will be running on the default port 5984.</p>
 <p>You also must have an OpenStack Object Storage (Swift) up and running. You can follow install instructions on <a href="https://docs.openstack.org/swift/latest/install/index.html">the official website</a></p>
@@ -2761,9 +2761,11 @@ described to work with the <a href="https://github.com/cozy/cozy-stack">cozy-sta
 
 <p>Feel free to change it if some configurations change in your case (the couchdb user, the server parameters or the databases prefix for example).</p>
 <blockquote>
-<p><strong>Notices :</strong>
-- Here the generated session token (step 1) is stored in the <code>sessionsecret.key</code> file of the working directory, this is so the value of the property <code>session-secret</code> at the end of the configuration file.
-- By default, the local couchdb allow all admin accesses without creating users, so there is no user and password here. But if an admin user has been created, you have to use the properties <code>user</code> and <code>password</code> in the <code>couchdb</code> part to provide these informations.</p>
+<p><strong>Notices :</strong></p>
+<ul>
+<li>Here the generated session token (step 1) is stored in the <code>sessionsecret.key</code> file of the working directory, this is so the value of the property <code>session-secret</code> at the end of the configuration file.</li>
+<li>By default, the local couchdb allow all admin accesses without creating users, so there is no user and password here. But if an admin user has been created, you have to use the properties <code>user</code> and <code>password</code> in the <code>couchdb</code> part to provide these informations.</li>
+</ul>
 </blockquote>
 <p>It&rsquo;s also possible to use env variables for configuration. You can take the key from the configuration file and add the <code>COZY_REGISTRY</code> prefix. For example, you can run:</p>
 <div class="codehilite"><pre><span></span><span class="nv">COZY_REGISTRY_PORT</span><span class="o">=</span><span class="m">8081</span> cozy-apps-registry serve
@@ -2976,11 +2978,13 @@ cozy-apps-registry gen-token --master Cozy -c cozy-registry.yml
 </tbody>
 </table>
 <blockquote>
-<p><strong>Notices:</strong>
-- All images paths (<code>icon</code>, <code>partnership.icon</code> and <code>screenshots</code>) should be relative to the build directory. For example, here, the <code>icon.svg</code> is stored in the build root directory and all <code>screenshots</code> are store in a folder <code>screenshots</code> in the build directory. Therefore, if you use a bundler (like webpack) be sure to know exactly where the bundler will store these assets in the build directory (and change it in the manifest if needed).
-- All properties in <code>locales</code> objects will override the matched property of the main <code>manifest.webapp</code> body, if a property is not found in <code>locales</code> it will fallback to the main body one.
-- We use to have the <code>en</code> locale as default one if the one wanted by the user doesn&rsquo;t exist. Be sure to have, at least, that locale complete with the name and all descriptions.
-- In your build files, this <code>manifest.webapp</code> file must be at the root.</p>
+<p><strong>Notices:</strong></p>
+<ul>
+<li>All images paths (<code>icon</code>, <code>partnership.icon</code> and <code>screenshots</code>) should be relative to the build directory. For example, here, the <code>icon.svg</code> is stored in the build root directory and all <code>screenshots</code> are store in a folder <code>screenshots</code> in the build directory. Therefore, if you use a bundler (like webpack) be sure to know exactly where the bundler will store these assets in the build directory (and change it in the manifest if needed).</li>
+<li>All properties in <code>locales</code> objects will override the matched property of the main <code>manifest.webapp</code> body, if a property is not found in <code>locales</code> it will fallback to the main body one.</li>
+<li>We use to have the <code>en</code> locale as default one if the one wanted by the user doesn&rsquo;t exist. Be sure to have, at least, that locale complete with the name and all descriptions.</li>
+<li>In your build files, this <code>manifest.webapp</code> file must be at the root.</li>
+</ul>
 </blockquote>
 <h5 id="translated-manifest-fields">Translated manifest fields<a class="headerlink" href="#translated-manifest-fields" title="Permanent link">&para;</a></h5>
 <p>Here are the properties that you can override using <code>locales</code> (we recommand to automatically build these properties according to your locales files if you&rsquo;re using a translating tool like <code>transifex</code>) :</p>
@@ -3078,9 +3082,11 @@ curl -X <span class="s2">&quot;POST&quot;</span> <span class="s2">&quot;http://l
 <h4 id="via-cozy-app-publish-highly-recommanded">Via <a href="https://github.com/cozy/cozy-app-publish"><code>cozy-app-publish</code></a> (highly recommanded)<a class="headerlink" href="#via-cozy-app-publish-highly-recommanded" title="Permanent link">&para;</a></h4>
 <p><strong>Here we will show the classical way to add a version using the manual mode of <a href="https://github.com/cozy/cozy-app-publish"><code>cozy-app-publish</code></a> as reference. But you may need to look at  the <a href="#automation-ci">Automation CI part</a> of this documentation instead.</strong></p>
 <blockquote>
-<p><strong>Prequisites</strong>:
-- For this step, you will need your editor token access generated when you created your editor (see <a href="#4-create-an-editor">below</a>). You have to replace all <code>{{EDITOR_TOKEN}}</code> in this documentation by this token.
-- Don&rsquo;t forget to build your application first (run <code>yarn build</code>), <code>cozy-app-publish</code> will read the manifest from your build</p>
+<p><strong>Prequisites</strong>:</p>
+<ul>
+<li>For this step, you will need your editor token access generated when you created your editor (see <a href="#4-create-an-editor">below</a>). You have to replace all <code>{{EDITOR_TOKEN}}</code> in this documentation by this token.</li>
+<li>Don&rsquo;t forget to build your application first (run <code>yarn build</code>), <code>cozy-app-publish</code> will read the manifest from your build</li>
+</ul>
 </blockquote>
 <p>Firstly, install the <a href="https://github.com/cozy/cozy-app-publish"><code>cozy-app-publish</code></a> package using
  <code>yarn</code> or <code>npm</code>:</p>
@@ -3155,9 +3161,11 @@ curl -X <span class="s2">&quot;POST&quot;</span> <span class="s2">&quot;http://l
 </tbody>
 </table>
 <blockquote>
-<p><strong>:warning: Important notices:</strong>
-- The version must match the one in the <code>manifest.webapp</code> file for stable release. For beta (X.X.X-betaX) or dev releases (X.X.X-dev.hash256), the version before the cyphen must match the one in the <code>manifest.webapp</code>.
-- For better integrity, the <code>sha256</code> provided must match the sha256 of the archive provided in <code>url</code>. If it&rsquo;s not the case, that will be considered as an error and the version won&rsquo;t be registered.</p>
+<p><strong>:warning: Important notices:</strong></p>
+<ul>
+<li>The version must match the one in the <code>manifest.webapp</code> file for stable release. For beta (X.X.X-betaX) or dev releases (X.X.X-dev.hash256), the version before the cyphen must match the one in the <code>manifest.webapp</code>.</li>
+<li>For better integrity, the <code>sha256</code> provided must match the sha256 of the archive provided in <code>url</code>. If it&rsquo;s not the case, that will be considered as an error and the version won&rsquo;t be registered.</li>
+</ul>
 </blockquote>
 <h3 id="spaces-virtual-spaces">Spaces &amp; Virtual Spaces<a class="headerlink" href="#spaces-virtual-spaces" title="Permanent link">&para;</a></h3>
 <h4 id="spaces">Spaces<a class="headerlink" href="#spaces" title="Permanent link">&para;</a></h4>
@@ -3264,18 +3272,22 @@ deploy:
 
 
 <blockquote>
-<p><strong>Important notices:</strong>
-- A commit push to the branch master will publish your application in the <code>dev</code> channel of the registry.
-- A tag push (Github release) will publish a stable version (ex: <code>1.0.0</code>) or a beta version (ex: <code>1.0.1-beta2</code>) to the registry (automatically handled by the registry).
-- <a href="https://github.com/cozy/cozy-app-publish"><code>cozy-app-publish</code></a> will use the github archive URL computing to get the application tarball. If your applicaiton is not on Github, you may need to use the manual mode of the command.</p>
+<p><strong>Important notices:</strong></p>
+<ul>
+<li>A commit push to the branch master will publish your application in the <code>dev</code> channel of the registry.</li>
+<li>A tag push (Github release) will publish a stable version (ex: <code>1.0.0</code>) or a beta version (ex: <code>1.0.1-beta2</code>) to the registry (automatically handled by the registry).</li>
+<li><a href="https://github.com/cozy/cozy-app-publish"><code>cozy-app-publish</code></a> will use the github archive URL computing to get the application tarball. If your applicaiton is not on Github, you may need to use the manual mode of the command.</li>
+</ul>
 </blockquote>
 <h3 id="access-to-our-official-apps-registry">Access to our official apps registry<a class="headerlink" href="#access-to-our-official-apps-registry" title="Permanent link">&para;</a></h3>
 <p>Official registry URL: <code>https://apps-registry.cozycloud.cc</code></p>
 <p>In order to use our official repository, you need a token for a specific
 editor. To do so, contact us directly at the address contact@cozycloud.cc
-with a mail using the following title prefix: <code>[registry]</code> and provide us these folowing information (not changeable after):
-- <code>slug</code> of your application
-- <code>editor</code> name that you want</p>
+with a mail using the following title prefix: <code>[registry]</code> and provide us these folowing information (not changeable after):</p>
+<ul>
+<li><code>slug</code> of your application</li>
+<li><code>editor</code> name that you want</li>
+</ul>
 <p>We will provide you with the correct token.</p>
 <h2 id="access-control-and-tokens">Access control and tokens<a class="headerlink" href="#access-control-and-tokens" title="Permanent link">&para;</a></h2>
 <p>The read-only routes of the registry are all public and do not require any
