@@ -431,8 +431,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#remount-the-file-sytem-as-writable" title="Remount the file sytem as writable" class="md-nav__link">
-    Remount the file sytem as writable
+  <a href="#remount-the-file-system-as-writable" title="Remount the file system as writable" class="md-nav__link">
+    Remount the file system as writable
   </a>
   
 </li>
@@ -2019,8 +2019,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#remount-the-file-sytem-as-writable" title="Remount the file sytem as writable" class="md-nav__link">
-    Remount the file sytem as writable
+  <a href="#remount-the-file-system-as-writable" title="Remount the file system as writable" class="md-nav__link">
+    Remount the file system as writable
   </a>
   
 </li>
@@ -2074,49 +2074,49 @@
 <li>Have an Android emulator created</li>
 </ul>
 <h2 id="start-the-emulator-with-the-ability-to-remount-its-file-system-as-writable">Start the emulator with the ability to remount its file system as writable<a class="headerlink" href="#start-the-emulator-with-the-ability-to-remount-its-file-system-as-writable" title="Permanent link">&para;</a></h2>
-<p>Since we will need to edit the hosts of the emulator, we need to be able to remount its file system as writable. For that, we need to start our emulator with the following command :</p>
+<p>Since we will need to edit the hosts of the emulator, we need to be able to remount its file system as writable. For that, we need to start our emulator with the following command:</p>
 <div class="codehilite"><pre><span></span>./emulator -writable-system -avd Pixel_API_27
 </pre></div>
 
 
-<p>The <code>emulator</code> binary is located at <code>/home/user/Android/Sdk/emulator/</code> on Linux systems by default. <code>Pixel_API_27</code> is the name of the emulator I want to start. If you don&rsquo;t know the name of your emulator, you can get it with :</p>
+<p>The <code>emulator</code> binary is located at <code>/home/user/Android/Sdk/emulator/</code> on Linux systems by default. <code>Pixel_API_27</code> is the name of the emulator I want to start. If you don&rsquo;t know the name of your emulator, you can get it with:</p>
 <div class="codehilite"><pre><span></span>./emulator -list-avds
 </pre></div>
 
 
 <h2 id="root-the-emulator">Root the emulator<a class="headerlink" href="#root-the-emulator" title="Permanent link">&para;</a></h2>
-<p>Now that the emulator is started, we need to gain root access on it. Run the following command :</p>
+<p>Now that the emulator is started, we need to gain root access on it. Run the following command:</p>
 <div class="codehilite"><pre><span></span>adb root
 </pre></div>
 
 
 <p>This restarts the adb daemon with root privileges.</p>
-<h2 id="remount-the-file-sytem-as-writable">Remount the file sytem as writable<a class="headerlink" href="#remount-the-file-sytem-as-writable" title="Permanent link">&para;</a></h2>
-<p>By default, the file system is read-only. We need it to be writable, so we run this command :</p>
+<h2 id="remount-the-file-system-as-writable">Remount the file system as writable<a class="headerlink" href="#remount-the-file-system-as-writable" title="Permanent link">&para;</a></h2>
+<p>By default, the file system is read-only. We need it to be writable, so we run this command:</p>
 <div class="codehilite"><pre><span></span>adb remount
 </pre></div>
 
 
 <h2 id="pull-the-emulators-hosts-file">Pull the emulator&rsquo;s hosts file<a class="headerlink" href="#pull-the-emulators-hosts-file" title="Permanent link">&para;</a></h2>
-<p>To edit the <code>hosts</code> file, we need to pull it on our system :</p>
+<p>To edit the <code>hosts</code> file, we need to pull it on our system:</p>
 <div class="codehilite"><pre><span></span>adb pull /etc/hosts hosts
 </pre></div>
 
 
 <p>This creates a <code>hosts</code> file in your current directory.</p>
 <h2 id="edit-the-hosts">Edit the hosts<a class="headerlink" href="#edit-the-hosts" title="Permanent link">&para;</a></h2>
-<p>For the emulator to be able to connect to our stack, we need to add the IP address of our machine to the hosts. Actually, we don&rsquo;t really need it since in an Android emulator <code>10.0.2.2</code> is automatically pointing to our machine. So we just need to add this to the <code>hosts</code> file :</p>
+<p>For the emulator to be able to connect to our stack, we need to add the IP address of our machine to the hosts. Actually, we don&rsquo;t really need it since in an Android emulator <code>10.0.2.2</code> is automatically pointing to our machine. So we just need to add this to the <code>hosts</code> file:</p>
 <div class="codehilite"><pre><span></span>10.0.2.2 cozy.tools
 </pre></div>
 
 
 <h2 id="push-the-new-file-to-the-emulator">Push the new file to the emulator<a class="headerlink" href="#push-the-new-file-to-the-emulator" title="Permanent link">&para;</a></h2>
-<p>Now that we have added what&rsquo;s necessary in the file, we have to push it to the emulator :</p>
+<p>Now that we have added what&rsquo;s necessary in the file, we have to push it to the emulator:</p>
 <div class="codehilite"><pre><span></span>adb push hosts /system/etc/hosts
 </pre></div>
 
 
-<p>Then try to ping <code>cozy.tools</code> to see if everything is working well :</p>
+<p>Then try to ping <code>cozy.tools</code> to see if everything is working well:</p>
 <div class="codehilite"><pre><span></span>adb shell ping cozy.tools
 </pre></div>
 
