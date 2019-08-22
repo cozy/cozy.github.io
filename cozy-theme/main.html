@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block libs %}
+    {{ super() }}
+    <script type="text/javascript">
+        // Used in extra.js, we have to define the variable here since
+        // we need access to the "config" jinja variable
+        window.outsideDocs = {{ config.extra.outside_docs | tojson }}
+    </script>
+{% endblock %}

@@ -1,4 +1,4 @@
-site_name: Dev Documentation
+site_name: Cozy Developer Documentation
 docs_dir: src
 site_url: https://docs.cozy.io/
 site_dir: docs/en
@@ -9,10 +9,9 @@ site_description: Cozy documentation
 site_author: CozyCloud - https://cozy.io
 extra_css:
 - css/extra.css
-- css/highlight_theme.css
 extra_javascript:
 - extra.js
-pages:
+nav:
 - Home: index.md
 - Tutorials:
   - Create Your Application: tutorials/app.md
@@ -25,22 +24,50 @@ pages:
     - Make a Mobile App Using Cordova: howTos/dev/cordova.md
     - Connect a Mobile App to Your Local Stack: howTos/dev/connect-mobile-app-local-stack.md
     - Send and Receive E-mails in Development: howTos/dev/sendmail.md
+    - Our Front-End Git Flow: references/git-flow.md
+    - Technical introduction to the Cozy platform: references/tech-intro.md
   - Synchronize:
     - Install Cozy Drive on GNU/Linux: howTos/sync/linux.md
-- References:
-  - Technical introduction to the Cozy platform: references/tech-intro.md
-  - Our Front-End Git Flow: references/git-flow.md
-  - Stack and tools:
-    - null # This is filled automatically via add_external_docs.py
-theme: mkdocs
-theme_dir: cozy-theme
+- Libraries:
+  - Develop an application:
+    - Define data (doctypes): <cozy-doctypes>
+    - Access data (client): <cozy-client>
+    - Build a UI (ui): <cozy-ui>
+    - Advanced:
+      - Realtime data (realtime): <cozy-realtime>
+      - Native devices (device-helper): <cozy-device-helper>
+  - Develop a konnector:
+    - Scrape data (konnector-libs): <cozy-konnector-libs>
+    - konitor: <konitor>
+  - Publish on the store (app-publish): <cozy-app-publish>
+  - Dev tools:
+    - Babel preset: <babel-preset-cozy-app>
+    - Commitlint: <commitlint-config-cozy>
+    - ESLint: <eslint-config-cozy-app>
+  - Advanced:
+    - Stack server: <cozy-stack>
+    - Registry server: <cozy-apps-registry>
+theme:
+  custom_dir: cozy-theme
+  name: material
+  palette:
+    primary: blue
+    accent: blue
+  logo:
+    icon: cloud
+  font:
+    text: Lato
+    code: Ubuntu Mono
 markdown_extensions:
-  - admonition
-  - codehilite
-  - extra
-  - footnotes
-  - meta
-  - sane_lists
-  - smarty
-  - toc:
-      permalink: True
+- admonition
+- codehilite
+- extra
+- footnotes
+- meta
+- sane_lists
+- smarty
+- toc:
+    permalink: true
+extra:
+  search:
+    tokenizer: "[^a-z\u0430-\u044F\u04510-9\\-\\.]"

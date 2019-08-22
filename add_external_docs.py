@@ -15,7 +15,7 @@ import sh
 
 def simple_glob(directory, glob_pattern):
     matches = []
-    for root, dirnames, filenames in os.walk('src', followlinks=True):
+    for root, dirnames, filenames in os.walk(directory, followlinks=True):
         for filename in fnmatch.filter(filenames, glob_pattern):
             matches.append(osp.join(root, filename))
     return matches
@@ -68,27 +68,27 @@ def read_toc(directory):
 
 
 def find_entry(tree, name):
-    return [p for p in tree if p.get(name)][0][name]
+    try:
+        return [p for p in tree if p.get(name)][0][name]
+    except IndexError:
+        return None
 
-
-def walk_dict(d):
+def walk_dict(d, path=None):
+    if path is None:
+        path = []
     it = None
     if isinstance(d, list):
-        it = iter(d)
+        it = enumerate(iter(d))
     elif isinstance(d, dict):
-        it = d.values()
+        it = d.items()
     if it:
-        for item in it:
-            for leaf in walk_dict(item):
-                yield leaf
+        for key, item in it:
+            path.append(key)
+            for key, leaf in walk_dict(item, path):
+                yield key, leaf
+            path.pop()
     else:
-        yield d
-
-
-def find_not_referenced(tocs):
-    files = set([f.replace('src/', '') for f in simple_glob('src', '*.md')])
-    referenced_files = set([r for toc in tocs for r in walk_dict(toc)])
-    return list(files - referenced_files)
+        yield path, d
 
 
 def get_name(filename):
@@ -127,6 +127,63 @@ def fetch_all_external_docs_from_file(filename):
         sh.ln('-s', osp.join(tmpdir, doc_directory), src_dir)
 
 
+def read_tocs(outside_doc_names):
+    tocs = {}
+    for dir in outside_doc_names:
+        abs = osp.join('./src', dir)
+        toc = read_toc(dir)
+        if toc:
+            tocs[dir] = toc
+    return tocs
+
+
+def set_entry_content(obj, path, items):
+    cur = obj
+    for i, p in enumerate(path):
+        next = find_entry(cur, p) 
+        if not next:
+            # Adding a new entry
+            if i == len(path) - 1:
+                print('Adding', len('items'), ' items to path ', path)
+                cur.append({ p: items })
+                return
+            else:
+                raise ValueError('Cannot find %s in %s (last crumb: %s)' % (path, obj, p))
+            break
+        else:
+            cur = next
+    if cur:
+        # Replacing all the content
+        del cur[:]
+        for item in items:
+            cur.append(item)
+
+def flatten_entry_if_single(entries):
+    if len(entries) == 1:
+        return next(iter(entries[0].values()))
+    else:
+        return entries
+
+
+def find_node(tree, finder):
+    for path_leaf in walk_dict(tree):
+        if finder(path_leaf):
+            return path_leaf
+    return None
+
+
+def replace_toc_placeholders(nav, named_tocs):
+    for name, toc in named_tocs.items():
+        path_leaf = find_node(nav, lambda x: ('<%s>' % name) == x[1])
+        if path_leaf:
+            path, content = path_leaf
+            cur = nav
+            for tok in path[:-1]:
+                cur = cur[tok]
+            single_key = next(iter(cur.keys()))
+            cur[single_key] = flatten_entry_if_single(toc)
+
+
 def main(argv):
     OUTSIDE_DOCS = 'OUTSIDE_DOCS'
 
@@ -142,23 +199,17 @@ def main(argv):
         {'name': c[0], 'repo': c[1], 'subdir': c[2]}
         for c in outside_docs_conf
     ]
+
     outside_doc_names = [c['name'] for c in outside_docs_conf]
+    name_to_tocs = read_tocs(outside_doc_names)
+    nav = data['nav']
 
-    develop = find_entry(data['pages'], 'References')
-    references = find_entry(develop, 'Stack and tools')
+    replace_toc_placeholders(data['nav'], name_to_tocs)
 
-    del references[:]
-
-    tocs = []
-    for dir in outside_doc_names:
-        abs = osp.join('./src', dir)
-        toc = read_toc(dir)
-        if toc:
-            references.append({ dir: toc })
-        tocs.append(toc)
-
-    data['pages'].append({'hidden': [{get_name(k): k} for n, k in enumerate(sorted(find_not_referenced(tocs)))]})
-    data['extra'] = {"outside_docs": outside_docs_conf}
+    outside_docs_entry = {"outside_docs": outside_docs_conf}
+    if 'extra' not in data:
+        data['extra'] = {}
+    data['extra'] = dict(data['extra'], **outside_docs_entry)
 
     with open('mkdocs.yml', 'w+') as f:
         ordered_dump(data, f, indent=2, default_flow_style=False, Dumper=yaml.SafeDumper)
