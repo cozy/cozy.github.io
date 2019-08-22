@@ -52,6 +52,8 @@ const fixEditLinkIfNecessary = function () {
   // Change the href attribute of a link to point to the correct edition page on GitHub
   // for the passed external documentation
   const fixEditLink = function (editNode, externalDoc) {
+    // We base ourselves on the original href which contains the information on the path of the file.
+    // We have to add the subdir though.
     const filePath = editNode.href.replace(/.*\/src\//, '').replace(externalDoc.name + '/', externalDoc.subdir + '/')
     const baseRepo = removeGitSuffix(externalDoc.repo)
     const href = baseRepo + '/' + editURI + '/' + filePath
