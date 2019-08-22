@@ -306,7 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
 `cozy-client` is a simple and declarative way of managing [cozy-stack](https://github.com/cozy/cozy-stack) API callsand resulting data. It is a convenient yet powerful way to bind `cozy-stack` queries to your components.
 
 - [Getting started](https://docs.cozy.io/en/cozy-client/getting-started/)
-- [How to](https://docs.cozy.io/en/cozy-client/how-tos/)
+- [React integration](https://docs.cozy.io/en/cozy-client/react-integration/)
 - [API docs](https://docs.cozy.io/en/cozy-client/api/cozy-client/)
 
 ### Discover the Cozy Bar
