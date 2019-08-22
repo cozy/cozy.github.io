@@ -6,7 +6,7 @@ summary: And import data from a service to your Cozy
 ## Introduction
 
 A connector (also known as _konnector_) is a script that imports data from another web service and put those data into your cozy.
-Each connector is an independent application, managed by the [Cozy Collect] application.
+Each connector is an independent application, managed by the [Cozy Home] application.
 
 To protect your data, each connector runs inside a container in order to sandbox all their interactions with your data.
 
@@ -37,7 +37,7 @@ When the connector is started, it also receives some data via environment variab
 
  - `COZY_CREDENTIALS`: an auth token used by [cozy-client-js] to communicate with the server
  - `COZY_URL`: the Cozy Stack API entry point
- - `COZY_FIELDS`: settings coming from [Cozy Collect] and filled by the user (login, password, directory path).
+ - `COZY_FIELDS`: settings coming from [Cozy Home] and filled by the user (login, password, directory path).
 
 These variables are used by the connector and the cozy-client to configure the connection to the [Cozy Stack] with the right permissions as defined in the connector manifest.
 They are simulated in standalone mode so that you do not need a real Cozy Stack to develop a connector.
