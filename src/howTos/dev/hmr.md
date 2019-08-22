@@ -108,7 +108,7 @@ if (module.hot) {
 
 That's it. Then, just use the last version of cozy-scripts to [run your application with HMR](#run-my-application-with-hmr).
 
-[create-cozy-app]: https://github.com/CPatchane/create-cozy-app
-[cozy-scripts]: https://github.com/CPatchane/create-cozy-app/tree/master/packages/cozy-scripts
+[create-cozy-app]: https://github.com/cozy/create-cozy-app
+[cozy-scripts]: https://github.com/cozy/create-cozy-app/tree/master/packages/cozy-scripts
 [react-hot-loader]: https://github.com/gaearon/react-hot-loader
 [webpack-dev-server]: https://github.com/webpack/webpack-dev-server

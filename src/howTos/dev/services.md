@@ -39,7 +39,7 @@ Here is an explanation of the fields:
 
 ## Build
 
-The service must be packaged into a single file containing all the dependencies. An example of a webpack rule is available [here](https://github.com/CPatchane/create-cozy-app/blob/master/packages/cozy-scripts/config/webpack.config.services.js). Note that `target: 'node'` is important as the service is run as a Node.js process.
+The service must be packaged into a single file containing all the dependencies. An example of a webpack rule is available [here](https://github.com/cozy/create-cozy-app/blob/master/packages/cozy-scripts/config/webpack.config.services.js). Note that `target: 'node'` is important as the service is run as a Node.js process.
 
 In this example, the services are built alongside your app using `yarn watch`.
 

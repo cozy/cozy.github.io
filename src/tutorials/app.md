@@ -40,13 +40,13 @@ docker pull cozy/cozy-app-dev
 
 ## Create your application
 
-You can boostrap your application from scratch if you want, but we highly recommand to use our dedicated community tool [`create-cozy-app`](https://github.com/CPatchane/create-cozy-app) to bootstrap very easily a Cozy application for you.
+You can boostrap your application from scratch if you want, but we highly recommand to use our dedicated community tool [`create-cozy-app`](https://github.com/cozy/create-cozy-app) to bootstrap very easily a Cozy application for you.
 
 <div align="center">
-  <img src="https://github.com/CPatchane/create-cozy-app/blob/master/docs/assets/CCA_logo_wording.png?raw=true" height="150px"/>
+  <img src="https://github.com/cozy/create-cozy-app/blob/master/docs/assets/CCA_logo_wording.png?raw=true" height="150px"/>
 </div>
 
-This tool will generate an application using React, the framework we internally use in the Cozy Front team. But [options](https://github.com/CPatchane/create-cozy-app#options) are available if you want to use other frameworks.
+This tool will generate an application using React, the framework we internally use in the Cozy Front team. But [options](https://github.com/cozy/create-cozy-app#options) are available if you want to use other frameworks.
 
 To do so, run directly `create-cozy-app` without installing it globally by using the `yarn create cozy-app` command to bootstrap your application:
 
