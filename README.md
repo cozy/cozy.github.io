@@ -12,7 +12,7 @@ If you want to see your updates, install mkdocs:
 
 > In most linux distribution, it will install binary in ~/local/bin/, add it to your path.
 
-Fetch external documentation and add it to mkdocs.yml (do not commit this the changes in `References`) :
+Fetch external documentation and add it to mkdocs.yml (do not commit done in `mkdocs.yml`) :
 
 ```bash
 # Activate a virtualenv if you want (recommended)
@@ -24,7 +24,7 @@ pip install -r requirements.txt
 Run MkDocs:
 
 ```shell
-./serve.sh
+mkdoc serve
 ```
 
 And point your favorite browser to `http://127.0.0.1:8000/`
