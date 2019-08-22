@@ -30,10 +30,10 @@ Several layers can be distinguished. From inside to outside:
  - the database is accessible through a layer that control accesses and expose a REST API;
  - Web applications and other clients offer nice user interfaces to interact with the data.
 
-<img src="../img/dev/cozy_archi.png" width="600">
+<img src="../../img/dev/cozy_archi.png" width="600">
 
 
-## The server (Cozy-stack - [documentation](https://docs.cozy.io/en/cozy-stack/README/))
+## The server (Cozy-stack - [documentation](https://docs.cozy.io/en/cozy-stack/))
 
 The server consist of a single process. We call it *the Cozy stack*. 
 
@@ -104,7 +104,7 @@ We use *Content Security Policy* to control what the application is allowed to d
 ## Further reading
 
  * Coding tutorials :
-     * [Create a client application](/tutorials/app.md)
-     * [Develop a connector](/tutorials/konnector.md).
- * Selfhosting : [How to to self-host a Cozy server](/howTos/selfHost/debian.md)
- * The [cozy server documentation](https://docs.cozy.io/en/cozy-stack/architecture/)(cozy-stack)
+     * [Create a client application](../tutorials/app.md)
+     * [Develop a connector](../tutorials/konnector.md).
+ * Selfhosting : [How to to self-host a Cozy server](../tutorials/selfhost-debian.md)
+ * The [cozy server documentation](https://docs.cozy.io/en/cozy-stack/) (cozy-stack)
