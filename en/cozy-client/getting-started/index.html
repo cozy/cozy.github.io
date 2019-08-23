@@ -1005,6 +1005,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#different-entrypoints-for-nodebrowser" title="Different entrypoints for node/browser" class="md-nav__link">
+    Different entrypoints for node/browser
+  </a>
+  
+</li>
+      
       
       
       
@@ -2032,6 +2039,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#different-entrypoints-for-nodebrowser" title="Different entrypoints for node/browser" class="md-nav__link">
+    Different entrypoints for node/browser
+  </a>
+  
+</li>
+      
       
       
       
@@ -2175,6 +2189,29 @@ or
 <p>Both <code>create()</code> and <code>save()</code> will return a Promise with a <code>data</code> attribute containing the saved document.</p>
 <h2 id="connecting-with-you-react-components">Connecting with you React components<a class="headerlink" href="#connecting-with-you-react-components" title="Permanent link">&para;</a></h2>
 <p>CozyClient comes with HOC and render props functions to connect to your data inside you own components. See the specific documentation for <a href="../react-integration/">React integration</a></p>
+<h2 id="different-entrypoints-for-nodebrowser">Different entrypoints for node/browser<a class="headerlink" href="#different-entrypoints-for-nodebrowser" title="Permanent link">&para;</a></h2>
+<p>cozy-client has different entry points for browser and node (the node version does export React components). It is implemented by using fields in <code>package.json</code>: </p>
+<ul>
+<li><code>browser</code> field is the entrypoint for browsers</li>
+<li><code>main</code> field is for node</li>
+</ul>
+<p>It causes an issue when writing tests that use React components from cozy-client (<code>Provider</code> for example) since Jest does not support the <code>browser</code> field (contrary to webpack).</p>
+<p>⚠️ If you use react APIs, you should configure Jest with the <a href="https://jest-bot.github.io/jest/docs/configuration.html#browser-boolean"><code>browser</code> option</a> in your <code>package.json</code> or <code>jest.config.js</code>:</p>
+<div class="codehilite"><pre><span></span>   &quot;jest&quot;: {
++    &quot;browser&quot;: true
+   }
+</pre></div>
+
+
+<p>There can be some problems since the <code>browser</code> field can clash with other node detection mechanism in other libraries (for example <code>iconv-lite</code>, see this <a href="https://github.com/ashtuchkin/iconv-lite/pull/222">PR</a>), an alternative is to use the <code>moduleNameMapper</code> option to point Jest to the correct entrypoint only for <code>cozy-client</code>.</p>
+<div class="codehilite"><pre><span></span>&quot;moduleNameMapper&quot;: {
+  &quot;^cozy-client$&quot;: &quot;cozy-client/dist/index&quot;
+}
+</pre></div>
+
+
+<p>This will force Jest to use the browser entry point.</p>
+<p>See <a href="https://github.com/marko-js/jest#why-override-the-resolver-enhanced-resolve-jest">this page</a> for another alternative solution that overrides the jest resolver so that it supports the <code>browser</code> field.</p>
                 
                   
                 

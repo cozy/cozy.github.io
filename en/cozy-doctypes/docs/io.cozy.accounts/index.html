@@ -2145,10 +2145,12 @@
 <li><code>auth</code>: {object} Contains authentification data, typically a couple with <code>login</code>/<code>password</code>. It could also contain an attribute <code>token</code> for OAuth konnectors.</li>
 <li><code>data</code>: {object} Additional custom data.</li>
 <li><code>label</code>: {string} Label given by user.</li>
-<li><code>state</code>: {string} The account state is used to communicate between the konnector and <a href="https://github.com/cozy/cozy-libs/tree/master/packages/cozy-harvest-lib">Harvest</a> to ask for a needed 2FA Code or to tell to reset the konnector session for example. Here are the used values for now:</li>
+<li><code>state</code>: {string} The account state is used to communicate between the konnector and <a href="https://github.com/cozy/cozy-libs/tree/master/packages/cozy-harvest-lib">Harvest</a> to ask for a needed 2FA Code or to tell to reset the konnector session for example. Here are the used values for now:<ul>
 <li><code>TWOFA_NEEDED</code>: The service is asking for a Two Factor connexion and the related code (sent by the service) must be provided by the user.</li>
 <li><code>TWOFA_NEEDED_RETRY</code>: The 2FA code provided by the user is wrong, the user can retry by providing a new one.</li>
 <li><code>RESET_SESSION</code>: By finding this state, the konnector should reset the login session if there is one stored and reset the state.</li>
+</ul>
+</li>
 <li><code>twoFACode</code>: When a 2FA code is asked by the service, <a href="https://github.com/cozy/cozy-libs/tree/master/packages/cozy-harvest-lib">Harvest</a> will ask the user for it from and send it to the konnector via this attribute.</li>
 </ul>
 <h3 id="auth"><code>auth</code><a class="headerlink" href="#auth" title="Permanent link">&para;</a></h3>
