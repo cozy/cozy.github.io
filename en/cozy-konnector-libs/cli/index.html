@@ -1152,6 +1152,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../README.md" title="README" class="md-nav__link">
+      README
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../api/" title="API" class="md-nav__link">
       API
     </a>
@@ -2118,19 +2130,28 @@
                   <h1>CLI</h1>
                 
                 <h3 id="cli">CLI<a class="headerlink" href="#cli" title="Permanent link">&para;</a></h3>
-<p>There is a specific npm package which provides cli tools to allow to run your connector in
-standalone or development mode or in dedicated REPL : cozy-jobs-cli. You can install it in your connector as a dev
-dependency.</p>
+<p><code>cozy-jobs-cli</code> is a npm package providing CLI tools allowing to run your connector in different modes.</p>
+<ul>
+<li>standalone</li>
+<li>development</li>
+<li>or in dedicated REPL</li>
+</ul>
+<p>You can install it in your connector as a dev dependency.</p>
 <h4 id="cozy-run-standalone">cozy-run-standalone<a class="headerlink" href="#cozy-run-standalone" title="Permanent link">&para;</a></h4>
-<p>If you just want to test your connector without any cozy available, add the following code in
-the <code>scripts</code> section of your package.json file</p>
-<div class="codehilite"><pre><span></span>  <span class="nx">scripts</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">standalone</span><span class="o">:</span> <span class="s2">&quot;cozy-run-standalone&quot;</span>
+<p>It can be handy to run a konnector without inserting the data in a cozy. This mode is called &ldquo;standalone&rdquo;.
+You can run your connector in standalone mode with :</p>
+<div class="codehilite"><pre><span></span>$ cozy-run-standalone
+</pre></div>
+
+
+<p>If you want, you can add the following code in the <code>scripts</code> section of your package.json file:</p>
+<div class="codehilite"><pre><span></span>  <span class="s2">&quot;scripts&quot;</span><span class="err">:</span> <span class="p">{</span>
+    <span class="nt">&quot;standalone&quot;</span><span class="p">:</span> <span class="s2">&quot;cozy-run-standalone&quot;</span>
   <span class="p">}</span>
 </pre></div>
 
 
-<p>and run:</p>
+<p>It will then possible to do:</p>
 <div class="codehilite"><pre><span></span>yarn standalone
 </pre></div>
 
@@ -2159,11 +2180,11 @@ the corresponding html page in your default browser.</p>
 
 
 <h4 id="cozy-run-dev">cozy-run-dev<a class="headerlink" href="#cozy-run-dev" title="Permanent link">&para;</a></h4>
-<p>If you want to run your connector linked to a cozy-stack, even remotely. Just add the follwing code
-in the <code>scripts</code> section of your package.json file:</p>
-<div class="codehilite"><pre><span></span>  <span class="nx">scripts</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">dev</span><span class="o">:</span> <span class="s2">&quot;cozy-run-dev&quot;</span>
-  <span class="p">}</span>
+<p>If you want to run your connector linked to a cozy-stack, even remotely, the &ldquo;dev&rdquo; mode is for you.
+Add the following code in the <code>scripts</code> section of your package.json file:</p>
+<div class="codehilite"><pre><span></span>   &quot;scripts&quot;: {
++    &quot;dev&quot;: &quot;cozy-run-dev&quot;
+   }
 </pre></div>
 
 
@@ -2173,10 +2194,16 @@ in the <code>scripts</code> section of your package.json file:</p>
 
 
 <p>This command will register your konnector as an OAuth application to the cozy-stack and then set the <code>COZY_CREDENTIALS</code> and <code>COZY_FIELDS</code> environment variable. By default,
-the cozy-stack is supposed to be located in http://cozy.tools:8080. If this is not your case, just
-update the COZY_URL field in [./konnector-dev-config.json].</p>
-<p>After that, your connector is running but should not work since you did not specify any credentials to
-the target service. You can do this also in [./konnector-dev-config.json] in the &ldquo;fields&rdquo; section.</p>
+the cozy-stack is expected to run at http://cozy.tools:8080. If this is not your case, update the COZY_URL field in [./konnector-dev-config.json].</p>
+<p>After that, your connector is running but will not work since credentials to
+the target service are not configured. You can do this also in [./konnector-dev-config.json] in the &ldquo;fields&rdquo; section.</p>
+<div class="codehilite"><pre><span></span> &quot;fields&quot;: {
++  &quot;login&quot;: &quot;homer.simpson@gmail.com&quot;,
++  &quot;password&quot;: &quot;maggieisthebest&quot;
+ }
+</pre></div>
+
+
 <p>Please note that the [./konnector-dev-config.json] file accepts javascript comments. They will be
 stripped out when read by cozy-run commands.</p>
 <p>The files are saved in the <code>/cozy-konnector-dev-root</code> directory of your cozy.</p>
@@ -2196,7 +2223,7 @@ the corresponding html page in your default browser.</p>
 </ul>
 <h4 id="cozy-run-shell">cozy-run-shell<a class="headerlink" href="#cozy-run-shell" title="Permanent link">&para;</a></h4>
 <p>When you are developping a connector, it is possible to get a REPL with all the cozy-konnector-libs
-tools available and some enhancement.</p>
+tools available and some enhancements.</p>
 <div class="codehilite"><pre><span></span>  <span class="nx">scripts</span><span class="o">:</span> <span class="p">{</span>
     <span class="nx">dev</span><span class="o">:</span> <span class="s2">&quot;cozy-run-shell&quot;</span>
   <span class="p">}</span>
@@ -2214,7 +2241,7 @@ request instance initialized with cheerio and cookie handling is available. For 
 </pre></div>
 
 
-<p>After running a request, a global $ object with a cheerio instance is available. Run :</p>
+<p>After running a request, a global $ object with a cheerio instance is available. Enter :</p>
 <div class="codehilite"><pre><span></span><span class="nx">$</span>
 </pre></div>
 
