@@ -48,7 +48,7 @@ Each connector is described by a manifest. This is a JSON file named `manifest.k
 }
 ```
 
-[cozy-konnector-template] already has a manifest which you can customize.
+[cozy-konnector-template][] already has a manifest which you can customize.
 
 You may add some permissions for your own doctype. [Here](https://docs.cozy.io/en/cozy-stack/konnectors/#the-manifest) is the detailed list of fields for a
 connector manifest file.
@@ -87,3 +87,6 @@ connector. The connector will then save data directly into your cozy. This will 
 manifest has the needed permissions on the data you want to save.
 
 Now that we have successfully scraped and saved our data, the next step is to [build the connector and send it to Cozy store](./packaging.md) !
+
+[cozy-konnector-template]: https://github.com/konnectors/cozy-konnector-template
+

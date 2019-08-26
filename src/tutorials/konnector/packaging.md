@@ -18,14 +18,14 @@ it installs it.
 
 To avoid this, the connectors need to be compiled into one file in a dedicated branch of the
 repository and the repository needs to be a public git repository. The `package.json` file
-from [cozy-konnector-template] gives you the commands to do this : `yarn build` and `yarn deploy`
+from [cozy-konnector-template][] gives you the commands to do this : `yarn build` and `yarn deploy`
 but the last one needs to be configured in `package.json`
 
 Once your public git repository is configured, you only have to declare it.
 
 Cozy will soon have a store for connectors and you will be able to publish connectors yourself. But
 at the moment, you need to declare your new connector on the [cozy forum](https://forum.cozy.io).
-The Cozy team will review your code and add your connector to the [Cozy Home] application.
+The Cozy team will review your code and add your connector to the [Cozy Home][] application.
 
 To make the connector available more quickly for all cozys, you can follow this few steps of
 packaging:
@@ -59,3 +59,7 @@ You need to push an icon in `assets/`. Please respect this rules :
 This will deploy a compiled version of your connector in a dedicated branch of your git repository using [git-directory-deploy](https://github.com/lukekarrys/git-directory-deploy).
 
 This deployed version can then be referenced to [cozy-app-publish](https://github.com/cozy/cozy-libs/tree/master/packages/cozy-app-publish) to deploy your connector to the registry.
+
+[cozy-konnector-template]: https://github.com/konnectors/cozy-konnector-template
+[Cozy Home]: https://github.com/cozy/cozy-home
+

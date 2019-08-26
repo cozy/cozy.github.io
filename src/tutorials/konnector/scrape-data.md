@@ -16,7 +16,7 @@ In this part, we are going to see how to scrape data from the service you want t
 
 ### Implement your connector
 
-There are four steps for a connector to save data to [Cozy Stack]:
+There are four steps for a connector to save data to [Cozy Stack][]:
 
 1. authentication
 1. request data
@@ -73,7 +73,7 @@ There are many obstacles at this level:
 
 _note: if the remote service exposes an API, you should use classical [request](https://github.com/request/request-promise) call._
 
-Let's say the remote service exposes a simple classical form like https://www.trainline.eu/signin:
+Let's say the remote service exposes a simple classical form like <https://www.trainline.eu/signin>:
 
 ```html
 <form id="signin-form" novalidate="" class="signin__form" data-ember-action="" data-ember-action-680="680">
@@ -122,7 +122,7 @@ function authenticate(username, password) {
 ```
 
 To implement the `validate` function, you need to check what is happening on a successful login and on an unsuccessful login.
-With the https://www.trainline.eu/signin example, fill the form with wrong credentials, open your browser's devtools (and check the network tab) and submit the form.
+With the <https://www.trainline.eu/signin> example, fill the form with wrong credentials, open your browser's devtools (and check the network tab) and submit the form.
 Here it is clear, on incorrect credentials, the response have a status code `422`:
 
 ```http
@@ -175,7 +175,7 @@ So to request data, we fetch the target webpage that contains invoices list.
 But sometimes, the webpage is a JavaScript page that uses a JSON API URL.
 JSON is easier to parse than full HTML webpages.
 
-For the purpose of this guide, let's consider we are in the case of a full HTML webpage, like the service given as an example in the template: http://books.toscrape.com
+For the purpose of this guide, let's consider we are in the case of a full HTML webpage, like the service given as an example in the template: <http://books.toscrape.com>
 
 This is the easiest part, just fetch the webpage:
 
@@ -237,7 +237,7 @@ const docs = scrape(
 >Keep in mind that there are many useful CSS [Pseudo-classes](https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS/Pseudo-classes_and_pseudo-elements) and [Combinators](https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS/Combinators_and_multiple_selectors)  that you can use in your CSS selectors to help you select HTML elements.
 
 This code will loop on `<article />` and for each item will create a JSON object with the selector `sel` and the value of attribute `attr` if specified, otherwise it takes the value of the child node, this value can be edited with the `parse` function.
-Here is a sample for the following markup from http://books.toscrape.com:
+Here is a sample for the following markup from <http://books.toscrape.com>:
 
 ```html
 <article class="product_pod">
@@ -322,9 +322,4 @@ We can find more information in the [libs repository](https://github.com/konnect
 __Now that we pass on every steps, it is time to test the connector with `yarn standalone`.__ For now, we have not inserted the data in the Cozy, in the next section , you will learn how to plug your connector to your Cozy.
 
 
-
-[Cozy Home]: https://github.com/cozy/cozy-home
 [Cozy Stack]: https://cozy.github.io/cozy-stack/README/
-[cozy-konnector-libs]: https://github.com/cozy/cozy-konnector-libs
-[cozy-client-js]: https://github.com/cozy/cozy-client-js/
-[cozy-konnector-template]: https://github.com/cozy/cozy-konnector-template

@@ -21,13 +21,19 @@ Besides, you'll probably need some other npm packages to help you run your conne
 
 When the connector is started, it also receives some data via environment variables:
 
- - `COZY_CREDENTIALS`: an auth token used by [cozy-client-js] to communicate with the server
+ - `COZY_CREDENTIALS`: an auth token used by [cozy-client-js][] to communicate with the server
  - `COZY_URL`: the Cozy Stack API entry point
- - `COZY_FIELDS`: settings coming from [Cozy Home] and filled by the user (login, password, directory path).
+ - `COZY_FIELDS`: settings coming from [Cozy Home][] and filled by the user (login, password, directory path).
 
-These variables are used by the connector and the cozy-client to configure the connection to the [Cozy Stack] with the right permissions as defined in the connector manifest.
+These variables are used by the connector and the cozy-client to configure the connection to the [Cozy Stack][] with the right permissions as defined in the connector manifest.
 They are simulated in standalone mode so that you do not need a real Cozy Stack to develop a connector.
 [[More about BaseKonnector](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#basekonnector)]
 
 From the server point of view, each connector is a `job` which is executed periodically via a `trigger`.
 [[More about Cozy Stack jobs](https://cozy.github.io/cozy-stack/jobs/)]
+
+
+[Cozy Home]: https://github.com/cozy/cozy-home
+[Cozy Stack]: https://github.com/cozy/cozy-stack
+[cozy-client-js]: https://github.com/cozy/cozy-client-js
+

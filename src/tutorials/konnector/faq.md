@@ -27,7 +27,7 @@ If you get this problem, catch the error yourself and only display the message :
 
 ### How do I scrap a website
 
-Use the request function from [cozy-konnector-libs] with the proper options.
+Use the request function from [cozy-konnector-libs][] with the proper options.
 
 Here’s a sample code that will fetch the login page to get the value of the anti-CSRF token, submit the login form, browse to the bills page and fetch a bill:
 
@@ -62,3 +62,5 @@ module.exports = new BaseKonnector(function fetch (fields) {
   .then(entries => addData(entries, 'io.cozy.bills'))
 })
 ```
+
+[cozy-konnector-libs]: https://github.com/konnectors/libs

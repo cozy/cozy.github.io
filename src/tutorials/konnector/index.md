@@ -16,7 +16,7 @@ items:
 ## Introduction
 
 A connector (also known as _konnector_) is a script that imports data from another web service and put those data into your cozy.
-Each connector is an independent application, managed by the [Cozy Home] application.
+Each connector is an independent application, managed by the [Cozy Home][] application.
 
 To protect your data, each connector runs inside a container in order to sandbox all their interactions with your data.
 
@@ -33,3 +33,5 @@ If you want to go further:
 
 - [Learn how konnectors are run by the Cozy stack](./how-it-works.md)
 - [Learn how konnectors are run by the Cozy stack](./how-it-works.md)
+
+[Cozy Home]: https://github.com/cozy/cozy-home

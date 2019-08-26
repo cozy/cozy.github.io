@@ -36,7 +36,7 @@ A basic connector workflow involves:
 
 #### Error handling
 
-If your connector hits an issue fetching or saving the data, it can return an error code by throwing it as an error. The error codes are defined inside the [Cozy Home] application and will display an explicit error to the user:
+If your connector hits an issue fetching or saving the data, it can return an error code by throwing it as an error. The error codes are defined inside the [Cozy Home][] application and will display an explicit error to the user:
 
   - `LOGIN_FAILED`: the connector could not login
   - `NOT_EXISTING_DIRECTORY`: the folder specified as folder_to_save does not exist (checked automatically by the BaseKonnector)
@@ -83,12 +83,12 @@ async function start(fields, cozyParameters) {
 If you want to know how this works in a real cozy, you can find more information on [Stack documentation](https://docs.cozy.io/en/cozy-stack/konnectors-workflow/#secrets-that-are-not-oauth)
 
 
-#### [cozy-konnector-libs]
+#### [cozy-konnector-libs][]
 
 The Cozy Konnector Libs provide several useful methods for common tasks:
 
 - [BaseKonnector](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#basekonnector): creates the connector and fetches from the stack the connector's parameters (COZY_FIELDS...)
-- [cozyClient](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#cozyclient) gives an instance of [cozy-client-js] already initialized according to `COZY_URL`, and `COZY_CREDENTIALS`. Your code can immediately interact with the server thanks to this client.
+- [cozyClient](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#cozyclient) gives an instance of [cozy-client-js][] already initialized according to `COZY_URL`, and `COZY_CREDENTIALS`. Your code can immediately interact with the server thanks to this client.
 - [requestFactory](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_requestFactory) a function which returns an instance of request-promise initialized with defaults often used in connector development.
 - [log](https://github.com/cozy/cozy-konnector-libs/blob/3cad316bac1898ef3c2656577af786f6549b40b0/packages/cozy-logger/src/index.js#L35-L41) allows to log messages with different levels
 - [hydrateAndFilter](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#hydrateAndFilter) to filter data
@@ -98,3 +98,8 @@ The Cozy Konnector Libs provide several useful methods for common tasks:
 - [updateOrCreate](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#updateorcreate) create or update documents inside database
 - [htmlToPDF]() to convert HTML code to PDF content to insert into a PDF file created with the `createCozyPDFDocument` function
 - [createCozyPDFDocument]() to create a new PDF file to pass to `htmlToPDF`
+
+
+[Cozy Home]: https://github.com/cozy/cozy-home
+[cozy-konnector-libs]: https://github.com/konnectors/libs
+[cozy-client-js]: https://github.com/cozy/cozy-client-js
