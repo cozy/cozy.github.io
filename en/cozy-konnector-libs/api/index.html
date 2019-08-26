@@ -1552,8 +1552,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#categorizationcategorize-arrayobject" title="categorization~categorize() ⇒ Array.&lt;Object&gt;" class="md-nav__link">
-    categorization~categorize() ⇒ Array.&lt;Object&gt;
+  <a href="#categorizationcategorize-array-object" title="categorization~categorize() ⇒ [ &#x27;Array&#x27; ].&lt;Object&gt;" class="md-nav__link">
+    categorization~categorize() ⇒ [ &#x27;Array&#x27; ].&lt;Object&gt;
   </a>
   
 </li>
@@ -1621,8 +1621,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#basekonnectorwaitfortwofacode" title="baseKonnector.waitForTwoFaCode()" class="md-nav__link">
-    baseKonnector.waitForTwoFaCode()
+  <a href="#basekonnectorwaitfortwofacode-promise" title="baseKonnector.waitForTwoFaCode() ⇒ Promise" class="md-nav__link">
+    baseKonnector.waitForTwoFaCode() ⇒ Promise
   </a>
   
 </li>
@@ -3058,8 +3058,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#categorizationcategorize-arrayobject" title="categorization~categorize() ⇒ Array.&lt;Object&gt;" class="md-nav__link">
-    categorization~categorize() ⇒ Array.&lt;Object&gt;
+  <a href="#categorizationcategorize-array-object" title="categorization~categorize() ⇒ [ &#x27;Array&#x27; ].&lt;Object&gt;" class="md-nav__link">
+    categorization~categorize() ⇒ [ &#x27;Array&#x27; ].&lt;Object&gt;
   </a>
   
 </li>
@@ -3127,8 +3127,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#basekonnectorwaitfortwofacode" title="baseKonnector.waitForTwoFaCode()" class="md-nav__link">
-    baseKonnector.waitForTwoFaCode()
+  <a href="#basekonnectorwaitfortwofacode-promise" title="baseKonnector.waitForTwoFaCode() ⇒ Promise" class="md-nav__link">
+    baseKonnector.waitForTwoFaCode() ⇒ Promise
   </a>
   
 </li>
@@ -4179,7 +4179,7 @@ documents, do not forget to clean linked bank operations</p>
 <ul>
 <li><a href="#module_categorization">categorization</a><ul>
 <li><a href="#module_categorization..createCategorizer">~createCategorizer()</a> ⇒ <code>Object</code></li>
-<li><a href="#module_categorization..categorize">~categorize()</a> ⇒ <code>Array.&lt;Object&gt;</code></li>
+<li><a href="#module_categorization..categorize">~categorize()</a> ⇒ <code>[ &#x27;Array&#x27; ].&lt;Object&gt;</code></li>
 </ul>
 </li>
 </ul>
@@ -4211,10 +4211,10 @@ documents, do not forget to clean linked bank operations</p>
 
 
 <p><a name="module_categorization..categorize"></a></p>
-<h3 id="categorizationcategorize-arrayobject">categorization~categorize() ⇒ <code>Array.&lt;Object&gt;</code><a class="headerlink" href="#categorizationcategorize-arrayobject" title="Permanent link">&para;</a></h3>
+<h3 id="categorizationcategorize-array-object">categorization~categorize() ⇒ <code>[ &#x27;Array&#x27; ].&lt;Object&gt;</code><a class="headerlink" href="#categorizationcategorize-array-object" title="Permanent link">&para;</a></h3>
 <p>Initialize global and local models and categorize the given array of transactions</p>
 <p><strong>Kind</strong>: inner method of <a href="#module_categorization"><code>categorization</code></a><br />
-<strong>Returns</strong>: <code>Array.&lt;Object&gt;</code> - the categorized transactions<br />
+<strong>Returns</strong>: <code>[ &#x27;Array&#x27; ].&lt;Object&gt;</code> - the categorized transactions<br />
 <strong>See</strong>: <a href="createCategorizer">createCategorizer</a> for more informations about models initialization<br />
 <strong>Example</strong>  </p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">BaseKonnector</span><span class="p">,</span> <span class="nx">categorize</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-konnector-libs&#39;</span><span class="p">)</span>
@@ -4246,7 +4246,7 @@ fetch account information for your connector.</p>
 <li><a href="#BaseKonnector+saveAccountData">.saveAccountData(data, options)</a> ⇒ <code>Promise</code></li>
 <li><a href="#BaseKonnector+getAccountData">.getAccountData()</a> ⇒ <code>object</code></li>
 <li><a href="#BaseKonnector+updateAccountAttributes">.updateAccountAttributes()</a></li>
-<li><a href="#BaseKonnector+waitForTwoFaCode">.waitForTwoFaCode()</a></li>
+<li><a href="#BaseKonnector+waitForTwoFaCode">.waitForTwoFaCode()</a> ⇒ <code>Promise</code></li>
 <li><a href="#BaseKonnector+saveBills">.saveBills()</a> ⇒ <code>Promise</code></li>
 <li><a href="#BaseKonnector+saveFiles">.saveFiles()</a> ⇒ <code>Promise</code></li>
 <li><a href="#BaseKonnector+updateOrCreate">.updateOrCreate()</a> ⇒ <code>Promise</code></li>
@@ -4355,23 +4355,43 @@ account.</p>
 <p>Update account attributes and cache the account</p>
 <p><strong>Kind</strong>: instance method of <a href="#BaseKonnector"><code>BaseKonnector</code></a><br />
 <a name="BaseKonnector+waitForTwoFaCode"></a></p>
-<h3 id="basekonnectorwaitfortwofacode">baseKonnector.waitForTwoFaCode()<a class="headerlink" href="#basekonnectorwaitfortwofacode" title="Permanent link">&para;</a></h3>
+<h3 id="basekonnectorwaitfortwofacode-promise">baseKonnector.waitForTwoFaCode() ⇒ <code>Promise</code><a class="headerlink" href="#basekonnectorwaitfortwofacode-promise" title="Permanent link">&para;</a></h3>
 <p>Notices that 2FA code is needed and wait for the user to submit it.
 It uses the account to do the communication with the user</p>
-<p>Parameters:</p>
-<ul>
-<li><code>params</code> object with some mandatory attributes :</li>
-<li><code>type</code> (String): (default email) this is the type of expected 2FA code. The message displayed
-  to the user will follow it. Possible values: email, sms</li>
-<li><code>timeout</code> (Number): (default 3 minutes after now) time when the function will stop waiting
-  for a code and fail</li>
-<li><code>heartBeat</code> (Number): (default 5s) how much time is waited between each code check</li>
-<li><code>retry</code> (boolen): (default false) is it a retry. If true, an error message will be
-  displayed to the user
-Returns: Promise with sucessfull code if any</li>
-</ul>
 <p><strong>Kind</strong>: instance method of <a href="#BaseKonnector"><code>BaseKonnector</code></a><br />
-<strong>Example</strong>  </p>
+<strong>Returns</strong>: <code>Promise</code> - Contains twoFa code entered by user  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>options.type</td>
+<td><code>String</code></td>
+<td>(default: &ldquo;email&rdquo;) - Type of the expected 2FA code. The message displayed   to the user will depend on it. Possible values: email, sms</td>
+</tr>
+<tr>
+<td>options.timeout</td>
+<td><code>Number</code></td>
+<td>(default 3 minutes after now) - After this date, the stop will stop waiting and and an error will be shown to the user</td>
+</tr>
+<tr>
+<td>options.heartBeat</td>
+<td><code>Number</code></td>
+<td>(default: 5000) - How many milliseconds between each code check</td>
+</tr>
+<tr>
+<td>options.retry</td>
+<td><code>Boolean</code></td>
+<td>(default: false) - Is it a retry. If true, an error message will be   displayed to the user</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong>  </p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">BaseKonnector</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-konnector-libs&#39;</span><span class="p">)</span>
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BaseKonnector</span><span class="p">(</span><span class="nx">start</span><span class="p">)</span>
