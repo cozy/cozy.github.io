@@ -999,6 +999,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-to-mutate-the-data" title="How to mutate the data" class="md-nav__link">
+    How to mutate the data
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#connecting-with-you-react-components" title="Connecting with you React components" class="md-nav__link">
     Connecting with you React components
   </a>
@@ -2033,6 +2040,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-to-mutate-the-data" title="How to mutate the data" class="md-nav__link">
+    How to mutate the data
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#connecting-with-you-react-components" title="Connecting with you React components" class="md-nav__link">
     Connecting with you React components
   </a>
@@ -2119,7 +2133,7 @@ or
 </pre></div>
 
 
-<p>If you need guidance to get the URI of your instance and/or the token, see (https://docs.cozy.io/en/tutorials/app/#behind-the-magic).</p>
+<p>If you need guidance to get the URI of your instance and/or the token, see <a href="https://docs.cozy.io/en/tutorials/app/#behind-the-magic">the app tutorial</a>.</p>
 <p>Every doctype accessed in <code>cozy-client</code> needs to be declared in the schema section of the options. See the specific <a href="./how-tos.md#how-to-specify-a-schema-">how-to</a> on how to use the schema features.</p>
 <h2 id="how-to-query-with-cozy-client">How to query with Cozy Client<a class="headerlink" href="#how-to-query-with-cozy-client" title="Permanent link">&para;</a></h2>
 <p>The two main methods to query data with cozyClient are <code>find()</code> and <code>get()</code>. Both take an doctype as first argument and return a <code>QueryDefinition</code> object: </p>
@@ -2153,25 +2167,23 @@ or
 <span class="p">).</span><span class="nx">then</span><span class="p">(</span>
   <span class="p">({</span> <span class="nx">data</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
 <span class="p">)</span>
-<span class="sb">````</span>
-
-<span class="err">##</span> <span class="nx">How</span> <span class="nx">to</span> <span class="nx">mutate</span> <span class="nx">the</span> <span class="nx">data</span>
-
-<span class="nx">An</span> <span class="nx">instance</span> <span class="k">of</span> <span class="sb">`CozyClient`</span> <span class="nx">allows</span> <span class="nx">you</span> <span class="nx">to</span> <span class="nx">query</span> <span class="nx">and</span> <span class="nx">mutate</span> <span class="p">(</span><span class="nx">update</span><span class="p">)</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">here</span><span class="s1">&#39;s how it looks:</span>
-
-<span class="s1">```javascript</span>
-<span class="s1">import CozyClient from &#39;</span><span class="nx">cozy</span><span class="o">-</span><span class="nx">client</span><span class="s1">&#39;</span>
-
-<span class="s1">const client = new CozyClient({</span>
-<span class="s1">  /*...*/</span>
-<span class="s1">})</span>
+</pre></div>
 
 
-<span class="s1">// create a new io.cozy.todo</span>
-<span class="s1">await client.create(&#39;</span><span class="nx">io</span><span class="p">.</span><span class="nx">cozy</span><span class="p">.</span><span class="nx">todos</span><span class="s1">&#39;, { label: &#39;</span><span class="nx">Buy</span> <span class="nx">bread</span><span class="s1">&#39;, checked: false })</span>
+<h2 id="how-to-mutate-the-data">How to mutate the data<a class="headerlink" href="#how-to-mutate-the-data" title="Permanent link">&para;</a></h2>
+<p>An instance of <code>CozyClient</code> allows you to query and mutate (update) data, here&rsquo;s how it looks:</p>
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">CozyClient</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 
-<span class="s1">client.query(</span>
-<span class="s1">  client.find(&#39;</span><span class="nx">io</span><span class="p">.</span><span class="nx">cozy</span><span class="p">.</span><span class="nx">todos</span><span class="err">&#39;</span><span class="p">).</span><span class="nx">where</span><span class="p">({</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span> <span class="p">})</span>
+<span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CozyClient</span><span class="p">({</span>
+  <span class="cm">/*...*/</span>
+<span class="p">})</span>
+
+
+<span class="c1">// create a new io.cozy.todo</span>
+<span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Buy bread&#39;</span><span class="p">,</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span> <span class="p">})</span>
+
+<span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span>
+  <span class="nx">client</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">).</span><span class="nx">where</span><span class="p">({</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span> <span class="p">})</span>
 <span class="p">).</span><span class="nx">then</span><span class="p">(</span>
 
   <span class="p">({</span> <span class="nx">data</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="p">{</span>
