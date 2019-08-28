@@ -1,10 +1,11 @@
 ## Let’s create our first connector
 
-The easiest way to create a new connector is to use [cozy-konnector-template](https://github.com/konnectors/cozy-konnector-template):
-
-ℹ There is also a [(french) youtube video to create your first connector](https://www.youtube.com/watch?v=gp0cE8kHEBc&list=PLBgB0F1WGyOXMqKZe-Q1ql0Fz-ohPkq6-)
+!!! note
+  🎬 A [video tutorial](https://www.youtube.com/watch?v=gp0cE8kHEBc&list=PLBgB0F1WGyOXMqKZe-Q1ql0Fz-ohPkq6-)  to create your first connector is available
 
 ### Run the sample
+
+The easiest way to create a new connector is to use [cozy-konnector-template](https://github.com/konnectors/cozy-konnector-template).
 
 First of all, [download](https://github.com/konnectors/cozy-konnector-template/archive/master.zip) or clone the repository:
 
