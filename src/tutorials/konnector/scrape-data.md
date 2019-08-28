@@ -4,16 +4,6 @@ title: Scrape data
 
 In this part, we are going to see how to scrape data from the service you want to retrieve your data from. If not done yet, you want to check the [getting started guide](./getting-started.md). 
 
-<!-- MarkdownTOC autolink=true -->
-
-- [Implement your connector](#implement-your-connector)
-  - [Authentication](#authentication)
-  - [Request data](#request-data)
-  - [Parse the document](#parse-the-document)
-  - [Save data to Cozy Stack](#save-data-to-cozy-stack)
-
-<!-- /MarkdownTOC -->
-
 ### Implement your connector
 
 There are four steps for a connector to save data to [Cozy Stack][]:

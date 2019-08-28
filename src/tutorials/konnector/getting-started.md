@@ -1,10 +1,3 @@
-<!-- MarkdownTOC autolink=true -->
-
-- [Let’s create our first connector](#let%E2%80%99s-create-our-first-connector)
-  - [Run the sample](#run-the-sample)
-
-<!-- /MarkdownTOC -->
-
 ## Let’s create our first connector
 
 The easiest way to create a new connector is to use [cozy-konnector-template](https://github.com/konnectors/cozy-konnector-template):

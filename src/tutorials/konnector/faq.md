@@ -1,13 +1,6 @@
 
 ## FAQ
 
-<!-- MarkdownTOC autolink=true -->
-
-- [When I run my connector, a ghost node process eats all my memory](#when-i-run-my-connector-a-ghost-node-process-eats-all-my-memory)
-- [How do I scrap a website](#how-do-i-scrap-a-website)
-
-<!-- /MarkdownTOC -->
-
 ### When I run my connector, a ghost node process eats all my memory
 
 Cozy-konnector-libs uses [cheerio](https://cheerio.js.org) which is great but causes some problems

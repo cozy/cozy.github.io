@@ -1,16 +1,5 @@
 You've successfully created your connector and saved your personal data a service you're using. Now, you want to help others free their data, it's great ! To allow other users to use your connector, it must be packaged and sent to the store.
 
-<!-- MarkdownTOC autolink=true -->
-
-- [Integration in the store for all the users](#integration-in-the-store-for-all-the-users)
-    - [Icon](#icon)
-    - [Package.json](#packagejson)
-    - [Manifest.konnector](#manifestkonnector)
-    - [Deploy command](#deploy-command)
-
-<!-- /MarkdownTOC -->
-
-
 ## Integration in the store for all the users
 
 To run a connector, we do not want the cozy to install all dependencies of the connector each time
