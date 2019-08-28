@@ -1,7 +1,7 @@
 ## Let’s create our first connector
 
 !!! note
-  🎬 A [video tutorial](https://www.youtube.com/watch?v=gp0cE8kHEBc&list=PLBgB0F1WGyOXMqKZe-Q1ql0Fz-ohPkq6-)  to create your first connector is available
+    A [video tutorial](https://www.youtube.com/watch?v=gp0cE8kHEBc&list=PLBgB0F1WGyOXMqKZe-Q1ql0Fz-ohPkq6-)  to create your first connector is available 🎬
 
 ### Run the sample
 
