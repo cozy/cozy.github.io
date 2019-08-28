@@ -280,7 +280,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../tutorials/konnector/" title="Develop a Connector" class="md-nav__link">
+    <a href="../../../tutorials/index.md" title="Develop a Connector" class="md-nav__link">
       Develop a Connector
     </a>
   </li>
@@ -2146,8 +2146,12 @@
 <li><code>data</code>: {object} Additional custom data.</li>
 <li><code>label</code>: {string} Label given by user.</li>
 <li><code>state</code>: {string} The account state is used to communicate between the konnector and <a href="https://github.com/cozy/cozy-libs/tree/master/packages/cozy-harvest-lib">Harvest</a> to ask for a needed 2FA Code or to tell to reset the konnector session for example. Here are the used values for now:<ul>
-<li><code>TWOFA_NEEDED</code>: The service is asking for a Two Factor connexion and the related code (sent by the service) must be provided by the user.</li>
-<li><code>TWOFA_NEEDED_RETRY</code>: The 2FA code provided by the user is wrong, the user can retry by providing a new one.</li>
+<li><code>TWOFA_NEEDED</code>: The service is asking for a Two Factor connexion and the related code (sent by the service) must be provided by the user. This status can be further precised with its type. This allows the UI presented to the user to have custom messages, depending on the type of two factor authentication required by the vendor.<ul>
+<li><code>TWOFA_NEEDED.EMAIL</code>: If the two factor authentication is done by email</li>
+<li><code>TWOFA_NEEDED.SMS</code>: If the two factor authentication is done by SMS </li>
+</ul>
+</li>
+<li><code>TWOFA_NEEDED_RETRY</code>: The 2FA code provided by the user is wrong, the user can retry by providing a new one. <code>TWO_FA_NEEDED_RETRY.EMAIL</code> and <code>TWO_FA_NEEDED_RETRY.SMS</code> can also be used.</li>
 <li><code>RESET_SESSION</code>: By finding this state, the konnector should reset the login session if there is one stored and reset the state.</li>
 </ul>
 </li>
