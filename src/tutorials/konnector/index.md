@@ -1,20 +1,3 @@
----
-title: How to write a connector
-summary: And import data from a service to your Cozy
-table_of_contents:
-  page: false
-items:
-  - installation.md
-  - getting-started.md
-  - scrape-data.md
-  - save-data.md
-  - packaging.md
-  - how-does-it-works.md
-  - going-further.md
----
-
-## Introduction
-
 A connector (also known as _konnector_) is a script that imports data from another web service and put those data into your cozy.
 Each connector is an independent application, managed by the [Cozy Home][] application.
 
