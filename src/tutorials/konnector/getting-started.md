@@ -63,7 +63,7 @@ This is useful to start developing your connector without handling the state of 
 
 Please check [CLI section of the documentation](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/cli.md) for more information.
 
-If you have arrived here, good job ! You are ready to [implement your connector](./implement.md).
+If you have arrived here, good job ! You are ready to [implement your connector](./scrape-data.md).
 
 [Cozy Home]: https://github.com/cozy/cozy-home
 [Cozy Stack]: https://github.com/cozy/cozy-stack
