@@ -103,7 +103,6 @@ class Component extends React.Component {
 
     const healthOrGeneric = brand.health ? 'health' : 'generic'
     const label = t(`Transactions.actions.konnector.${healthOrGeneric}`)
-    const translationKey = `Transactions.actions.informativeModal.${healthOrGeneric}`
 
     return (
       <>
@@ -114,10 +113,15 @@ class Component extends React.Component {
           <InformativeModal
             onCancel={this.hideInformativeModal}
             onConfirm={this.onInformativeModalConfirm}
-            title={t(`${translationKey}.title`)}
-            description={t(`${translationKey}.description`, {
-              brandName: brand.name
-            })}
+            title={t(
+              `Transactions.actions.informativeModal.${healthOrGeneric}.title`
+            )}
+            description={t(
+              `Transactions.actions.informativeModal.${healthOrGeneric}.description`,
+              {
+                brandName: brand.name
+              }
+            )}
             caption={t('Transactions.actions.informativeModal.caption')}
             cancelText={t('Transactions.actions.informativeModal.cancel')}
             confirmText={t('Transactions.actions.informativeModal.confirm')}

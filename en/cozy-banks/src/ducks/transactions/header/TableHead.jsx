@@ -24,11 +24,9 @@ class TableHead extends React.PureComponent {
         <thead>
           <tr>
             <td className={transactionsStyles.ColumnSizeDesc}>
-              {t(
-                isSubcategory
-                  ? 'Categories.headers.movements'
-                  : 'Transactions.header.description'
-              )}
+              {isSubcategory
+                ? t('Categories.headers.movements')
+                : t('Transactions.header.description')}
             </td>
             <td className={transactionsStyles.ColumnSizeDate}>
               {t('Transactions.header.date')}

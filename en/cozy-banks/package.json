@@ -7,6 +7,7 @@
     "build:browser": "NODE_ENV=${NODE_ENV:-browser:production} npm run commons:build",
     "build:mobile": "NODE_ENV=mobile:production npm run commons:build -- --env.target=mobile",
     "build:mobile:hot": "npm run util:check-dev-server && HOT_RELOAD=1 NODE_ENV=mobile:development npm run commons:build -- --env.target=mobile",
+    "check-locales": "./scripts/check-locales.sh",
     "clean:browser": "rm -rf build/*",
     "clean:mobile": "rm -rf src/targets/mobile/www",
     "commons:build": "webpack --config webpack.config.js --bail",

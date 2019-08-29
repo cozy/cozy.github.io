@@ -27,8 +27,6 @@ import { getLabel, getDate } from 'ducks/transactions/helpers'
 import styles from 'ducks/transactions/Transactions.styl'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 
-const WILL_BE_DEBITED = 'Transactions.will-be-debited-on'
-
 class _TransactionDate extends React.PureComponent {
   render() {
     const { t, f, isExtraLarge, transaction } = this.props
@@ -37,7 +35,9 @@ class _TransactionDate extends React.PureComponent {
         title={
           transaction.realisationDate &&
           transaction.date !== transaction.realisationDate
-            ? t(WILL_BE_DEBITED, { date: f(transaction.date, 'D MMMM YYYY') })
+            ? t('Transactions.will-be-debited-on', {
+                date: f(transaction.date, 'D MMMM YYYY')
+              })
             : null
         }
       >
