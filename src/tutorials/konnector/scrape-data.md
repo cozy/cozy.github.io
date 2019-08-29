@@ -13,7 +13,7 @@ There are four steps for a connector to save data to [Cozy Stack][]:
 1. parse and format data
 1. save data to cozy stack
 
-You can see these steps in the `src/index.js` in the [konnectors/template](https://github.com/konnectors/template/blob/master/src/index.js):
+You can see these steps in the `src/index.js` in the [konnectors/template](https://github.com/konnectors/cozy-konnector-template/blob/master/src/index.js):
 
 ```javascript
 async function start(fields) {
