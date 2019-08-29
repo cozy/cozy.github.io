@@ -2328,9 +2328,14 @@
                   <h1>Cozy stack fixer orphan account</h1>
                 
                 <h2 id="cozy-stack-fixer-orphan-account">cozy-stack fixer orphan-account<a class="headerlink" href="#cozy-stack-fixer-orphan-account" title="Permanent link">&para;</a></h2>
-<p>Rebuild scheduling data structures in redis</p>
+<p>Remove the orphan accounts</p>
 <h3 id="synopsis">Synopsis<a class="headerlink" href="#synopsis" title="Permanent link">&para;</a></h3>
-<p>Rebuild scheduling data structures in redis</p>
+<p>This fixer detects the accounts that are linked to a konnector that has been
+uninstalled, and then removed them.</p>
+<p>For banking accounts, the konnector must run to also clean the account
+remotely. To do so, the konnector is installed, the account is deleted,
+the stack runs the konnector with the AccountDeleted flag, and when it&rsquo;s
+done, the konnector is uninstalled again.</p>
 <div class="codehilite"><pre><span></span>cozy-stack fixer orphan-account &lt;domain&gt; [flags]
 </pre></div>
 

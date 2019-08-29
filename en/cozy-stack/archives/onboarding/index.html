@@ -2331,7 +2331,7 @@ owner to register to its cozy instance.</p>
 <h2 id="instance-creation">Instance creation<a class="headerlink" href="#instance-creation" title="Permanent link">&para;</a></h2>
 <p>Creating an instance is done through CLI or through the (future) partner farm
 manager system. Some <strong>settings</strong> can be pre-defined on instance creation.
-(<a href="instance.md#creation">doc</a>).</p>
+(<a href="../../instance/#creation">doc</a>).</p>
 <p>The CLI also allows to specify which source to use for <code>onboarding</code> and <code>home</code>
 applications. The defaults will be hosted on <code>github.com/cozy</code>.</p>
 <p>After creation, an instance has a <code>registerToken</code> generated randomly.</p>
@@ -2343,7 +2343,7 @@ registering step which are important for security.</p>
 <ul>
 <li>When started with a <code>registerToken</code>, allow the user to create a passphrase</li>
 <li>When started with a <code>contextToken</code>
-    (<a href="auth.md#how-to-get-a-token">see auth doc</a>) use it to retrieve instance
+    (<a href="../../auth/#how-to-get-a-token">see auth doc</a>) use it to retrieve instance
     document.<ul>
 <li>If the instance document is complete <strong>according to the <code>onboarding</code>
     app</strong>, redirect to <code>home</code> application.</li>
@@ -2371,7 +2371,7 @@ redirected :</p>
 is the <code>onboarding</code> application responsibility to check if registering is
 complete and reredirect to home.</p>
 <h2 id="routes">Routes<a class="headerlink" href="#routes" title="Permanent link">&para;</a></h2>
-<p>See <a href="settings.md">settings</a>.</p>
+<p>See <a href="../../settings/">settings</a>.</p>
 <h2 id="flow-example">Flow Example<a class="headerlink" href="#flow-example" title="Permanent link">&para;</a></h2>
 <ul>
 <li>The server administrator Bob creates an instance through the CLI. He knows
@@ -2406,7 +2406,7 @@ complete and reredirect to home.</p>
     redirect her back to the <code>onboarding</code> app.</li>
 <li>Afterward, the <code>onboarding</code> app receive its token normally through the
     <code>data-cozy-token</code> body attribute, as described in
-    <a href="./auth.md">auth documentation</a>. and can do whatever it needs to do :<ul>
+    <a href="../../auth/">auth documentation</a>. and can do whatever it needs to do :<ul>
 <li>read from the instance document to prefill/bypass form fields</li>
 <li>add more informations to the instance document.</li>
 <li>create <code>io.cozy.accounts</code> documents for external accounts.</li>
