@@ -1,0 +1,138 @@
+@require 'settings/breakpoints'
+@require '~styles/variables.styl'
+
+// Due to discrepancies between Chrome and Firefox in
+// how select height is computed, we set it directly
+select-date-height=3rem
+select-date-width=20rem
+select-date-height-small = 2.75rem
+
+.SelectDates
+    display flex
+    white-space nowrap
+
+    .prev-button, .next-button
+        height 100%
+        margin 0
+        margin 0
+        padding 0
+
+        svg
+            margin-top 5px
+
+.SelectDatesColor_default
+    width select-date-width
+    height select-date-height
+
+    .prev-button, .next-button
+        width select-date-height
+
+    .SelectDates__separator
+        border-left 1px solid var(--silver)
+
+    +small-screen()
+        border-bottom 1px solid var(--silver)
+        background var(--white)
+        width auto
+        height select-date-height-small
+        color var(--slateGrey)
+
+        .SelectDates__chip
+            height select-date-height-small
+
+.SelectDatesColor_primary
+    border-bottom 0
+
+    .SelectDates__separator
+        border-left 1px solid var(--selectDatesSeparatorPrimaryColor)
+
+    .SelectDates__chip
+        background-color var(--selectDatesChipPrimaryBackgroundColor)
+        margin 0
+
+        svg
+            color var(--selectDatesIconPrimaryColor)
+
+        &.SelectDates__Button
+            margin-left .5rem
+
+        &.SelectDatesButtonDisabled
+            background-color var(--selectDatesButtonDisabledPrimaryBackgroundColor)
+
+            svg
+                color var(--selectDatesButtonDisabledPrimaryColor)
+        
+        .SelectDatesButtonColor
+            color var(--selectDatesButtonPrimaryColor)
+
+    +small-screen()
+        padding .5rem
+
+        .SelectDates__chip
+            height 2rem
+
+            &.SelectDates__Button
+                width 2rem
+                padding 0
+
+.SelectDates__Select
+    color var(--slateGrey)
+
+.SelectDates__month
+    width 9rem
+
++small-screen()
+    .SelectDates
+        z-index 2
+        display flex
+        justify-content center
+        align-content center
+
+    .SelectDates__DateYearSelector
+        flex-grow 1
+
+        .SelectDates__SelectYearContainer
+            flex-grow 1
+        .SelectDates__SelectMonthContainer
+            flex-grow 2
+
+    .SelectDates__chip.SelectDates__chip
+        margin-bottom 0
+        margin-right 0
+        padding 0
+        border 0
+        width 100%
+
+        select
+            width 100%
+            margin-right -1.3rem
+
+    .SelectDates__separator.SelectDates__separator
+        height 1.5rem
+        margin-left 0
+        margin-right 0
+
+    .SelectDates__buttons.SelectDates__buttons
+        display flex
+        align-items center
+
+    .SelectDates__Button.SelectDates__Button
+        width auto
+        color var(--coolGrey)
+        padding-left 0.875rem
+        padding-right 0.875rem
+
+    .SelectDates__Button--disabled svg
+        color var(--silver)
+
+    .SelectDates__Select
+        color inherit
+
+.SelectDates__Button
+    cursor pointer
+    transition transform 0.3s ease
+    color var(--coolGrey)
+
+.SelectDates__Button--disabled
+    color var(--silver)
+    cursor not-allowed

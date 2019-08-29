@@ -1,0 +1,42 @@
+@require 'settings/breakpoints'
+
+select-date-height-small=2.75rem
+
+.Select
+    appearance none
+    border 0
+    outline 0
+    background transparent
+
+    // So that you can click on arrow icon to open the select
+    padding-right 2rem
+    margin-right -2rem
+    cursor pointer
+
+.Select::-ms-expand
+    display none /* hide the default arrow in ie10 and ie11 */
+
+.Select__Icon
+    // Let click go through to the select
+    pointer-events none
+    cursor pointer
+    color var(--coolGrey)
+
+/* target Internet Explorer 9 to undo the custom arrow */
+@media screen and (min-width:0\0)
+    .Select__Icon
+        display none
+
+:global
+    +small-screen()
+        .cz__indicators
+            height select-date-height-small
+            justify-content center
+            padding-right 0.75rem
+
+    .cz__menu.cz__menu
+        // Not to have the years inside the menu be truncated
+        // We should have a better solution but I did not find
+        // why the content inside the menu was not automatically
+        // growing the menu.
+        min-width 100px

@@ -1,0 +1,63 @@
+{
+  "description": "combined bills should have their matching criterias merged",
+  "bills": [
+    {
+      "_id": "b1",
+      "amount": 10,
+      "groupAmount": 20,
+      "originalDate": "2018-07-19T00:00:00.000Z",
+      "date": "2018-07-25T00:00:00.000Z",
+      "isRefund": true,
+      "vendor": "Ameli",
+      "type": "health_costs",
+      "matchingCriterias": {
+        "amountLowerDelta": 0.1,
+        "amountUpperDelta": 0.1,
+        "dateLowerDelta": 20,
+        "dateUpperDelta": 20
+      }
+    },
+    {
+      "_id": "b2",
+      "amount": 10,
+      "groupAmount": 20,
+      "originalDate": "2018-07-19T00:00:00.000Z",
+      "date": "2018-07-25T00:00:00.000Z",
+      "isRefund": true,
+      "vendor": "Ameli",
+      "type": "health_costs",
+      "matchingCriterias": {
+        "amountLowerDelta": 0.2,
+        "amountUpperDelta": 0.2,
+        "dateLowerDelta": 40,
+        "dateUpperDelta": 40
+      }
+    }
+  ],
+  "operations": [
+    {
+      "_id": "op1",
+      "date": "2018-06-19T12:00:00.000Z",
+      "label": "Ophtalmo",
+      "amount": -20.2,
+      "manualCategoryId": "400610"
+    },
+    {
+      "_id": "reimbur",
+      "date": "2018-07-20T12:00:00.000Z",
+      "label": "CPAM",
+      "amount": 20,
+      "manualCategoryId": "400610"
+    }
+  ],
+  "expectedResult": {
+    "b1": {
+      "debitOperation": "op1",
+      "creditOperation": "reimbur"
+    },
+    "b2": {
+      "debitOperation": "op1",
+      "creditOperation": "reimbur"
+    }
+  }
+}

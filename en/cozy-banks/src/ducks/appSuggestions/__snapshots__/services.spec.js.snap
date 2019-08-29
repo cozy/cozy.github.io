@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`findSuggestionForTransaction should return a fresh io.cozy.apps.suggestions document 1`] = `
+Object {
+  "reason": Object {
+    "code": "FOUND_TRANSACTION",
+  },
+  "relationships": Object {
+    "transactions": Object {
+      "data": Array [
+        Object {
+          "_id": "o1",
+          "_type": "io.cozy.bank.operations",
+        },
+      ],
+    },
+  },
+  "silenced": false,
+  "slug": "boulanger",
+}
+`;
+
+exports[`findSuggestionForTransaction should update an existing io.cozy.apps.suggestions document 1`] = `
+Object {
+  "reason": Object {
+    "code": "FOUND_TRANSACTION",
+  },
+  "relationships": Object {
+    "transactions": Object {
+      "data": Array [
+        Object {
+          "_id": "o1",
+          "_type": "io.cozy.bank.operations",
+        },
+        Object {
+          "_id": "o2",
+          "_type": "io.cozy.bank.operations",
+        },
+      ],
+    },
+  },
+  "silenced": false,
+  "slug": "boulanger",
+}
+`;
+
+exports[`normalizeSuggestions should merge suggestions with the same slug 1`] = `
+Array [
+  Object {
+    "relationships": Object {
+      "transactions": Object {
+        "data": Array [
+          Object {
+            "_id": "o1",
+            "_type": "io.cozy.bank.operations",
+          },
+          Object {
+            "_id": "o2",
+            "_type": "io.cozy.bank.operations",
+          },
+          Object {
+            "_id": "o3",
+            "_type": "io.cozy.bank.operations",
+          },
+          Object {
+            "_id": "o4",
+            "_type": "io.cozy.bank.operations",
+          },
+        ],
+      },
+    },
+    "slug": "boulanger",
+  },
+  Object {
+    "relationships": Object {
+      "transactions": Object {
+        "data": Array [
+          Object {
+            "_id": "o5",
+            "_type": "io.cozy.bank.operations",
+          },
+        ],
+      },
+    },
+    "slug": "ovh",
+  },
+]
+`;

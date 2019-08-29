@@ -1,0 +1,49 @@
+@require 'settings/breakpoints'
+
+.BalancePanels
+    +small-screen('min')
+        padding-bottom 6rem
+
+.BalancePanels__actions
+    display flex
+    padding-left 4px
+    padding-right 4px
+    margin-top 2rem
+
+    +small-screen('min')
+        padding-left 0
+        padding-right 0
+        justify-content flex-end
+
+.BalancePanels__action.BalancePanels__action
+    flex 1
+    text-align center
+    max-width none
+    min-height 3rem
+    padding-right 1rem
+    padding: 0.375rem 1rem
+    border-radius 4px
+    font-size 12px
+    font-weight bold
+    text-transform uppercase
+    line-height 1.5
+
+    > span
+        justify-content center
+
+        > span
+            padding-right 0
+            white-space normal
+
+            +small-screen('min')
+                white-space nowrap
+
+    +small-screen('min')
+        flex-grow 0
+        min-width unset
+
+        &:first-child
+            margin-left 0
+
+        &:last-child
+            margin-right 0

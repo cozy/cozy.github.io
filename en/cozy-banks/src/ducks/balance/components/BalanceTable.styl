@@ -1,0 +1,41 @@
+@require 'settings/breakpoints'
+@require '~styles/mixins.styl'
+
+.BalanceTable
+    @extend $full-width-table
+
+    tbody
+        .ColumnName
+        .ColumnSolde
+            color var(--charcoalGrey)
+
+.ColumnName
+    maxed-flex-basis 25%
+    color var(--charcoalGrey)
+
+    +small-screen()
+        maxed-flex-basis 60%
+
+.ColumnSolde
+    maxed-flex-basis 20%
+    text-align right
+
+    +small-screen()
+        maxed-flex-basis 40%
+
+.ColumnAccount
+    maxed-flex-basis 25%
+    color var(--coolGrey)
+    composes mobile-row-label from '../../../components/Table/styles.styl'
+
+    +small-screen()
+        maxed-flex-basis 100%
+
+.ColumnBank
+    maxed-flex-basis 30%
+    color var(--coolGrey)
+    composes mobile-row-label from '../../../components/Table/styles.styl'
+
+    +small-screen()
+        .Balance__bank
+            maxed-flex-basis 60%

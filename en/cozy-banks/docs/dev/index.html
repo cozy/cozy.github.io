@@ -1,0 +1,3196 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Cozy documentation">
+      
+      
+        <link rel="canonical" href="https://docs.cozy.io/cozy-banks/docs/dev/">
+      
+      
+        <meta name="author" content="CozyCloud - https://cozy.io">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[^a-zа-яё0-9\-\.]">
+      
+      <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
+    
+    
+      
+        <title>Develop - Cozy Developer Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/application.0284f74d.css">
+      
+        <link rel="stylesheet" href="../../../assets/stylesheets/application-palette.01803549.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#2196f3">
+      
+    
+    
+    
+      <script src="../../../assets/javascripts/modernizr.74668098.js"></script>
+    
+    <script type="text/javascript">
+        // Used in extra.js, we have to define the variable here since
+        // we need access to the "config" jinja variable
+        window.outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-apps-registry", "repo": "https://github.com/cozy/cozy-apps-registry.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-ui", "repo": "https://github.com/cozy/cozy-ui.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/cozy/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}, {"name": "cozy-banks", "repo": "https://github.com/cozy/cozy-banks.git", "subdir": "."}]
+    </script>
+
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Ubuntu+Mono&display=fallback">
+        <style>body,input{font-family:"Lato","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Ubuntu Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../../css/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#development" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://docs.cozy.io/" title="Cozy Developer Documentation" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon">cloud</i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Cozy Developer Documentation
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Develop
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/cozy/cozy.github.io/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../../.." title="Home" class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../tutorials/app/" title="Tutorials" class="md-tabs__link">
+          Tutorials
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../howTos/dev/runCozyDocker/" title="How-to" class="md-tabs__link">
+          How-to
+        </a>
+      
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    
+    
+  
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../cozy-doctypes/docs/" title="Libraries" class="md-tabs__link">
+          Libraries
+        </a>
+      
+    </li>
+  
+
+  
+
+  
+
+      
+        
+  
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../" title="Applications" class="md-tabs__link md-tabs__link--active">
+          Applications
+        </a>
+      
+    </li>
+  
+
+  
+
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://docs.cozy.io/" title="Cozy Developer Documentation" class="md-nav__button md-logo">
+      
+        <i class="md-icon">cloud</i>
+      
+    </a>
+    Cozy Developer Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/cozy/cozy.github.io/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Tutorials
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Tutorials
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/app/" title="Create Your Application" class="md-nav__link">
+      Create Your Application
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-2" type="checkbox" id="nav-2-2">
+    
+    <label class="md-nav__link" for="nav-2-2">
+      Develop a Connector
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-2">
+        Develop a Connector
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/konnector/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/konnector/getting-started/" title="Basic structure" class="md-nav__link">
+      Basic structure
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/konnector/scrape-data/" title="Scrape data" class="md-nav__link">
+      Scrape data
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/konnector/save-data/" title="Save data" class="md-nav__link">
+      Save data
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/konnector/packaging/" title="Package your connector" class="md-nav__link">
+      Package your connector
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/selfhost-debian/" title="Self-Host on Debian" class="md-nav__link">
+      Self-Host on Debian
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      How-to
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        How-to
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-1" type="checkbox" id="nav-3-1">
+    
+    <label class="md-nav__link" for="nav-3-1">
+      Dev
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-1">
+        Dev
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../howTos/dev/runCozyDocker/" title="Run an App in a Cozy using Docker" class="md-nav__link">
+      Run an App in a Cozy using Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../howTos/dev/hmr/" title="Use Hot Module Replacement in Your App" class="md-nav__link">
+      Use Hot Module Replacement in Your App
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../howTos/dev/cordova/" title="Make a Mobile App Using Cordova" class="md-nav__link">
+      Make a Mobile App Using Cordova
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../howTos/dev/connect-mobile-app-local-stack/" title="Connect a Mobile App to Your Local Stack" class="md-nav__link">
+      Connect a Mobile App to Your Local Stack
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../howTos/dev/sendmail/" title="Send and Receive E-mails in Development" class="md-nav__link">
+      Send and Receive E-mails in Development
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../references/git-flow/" title="Our Front-End Git Flow" class="md-nav__link">
+      Our Front-End Git Flow
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../references/tech-intro/" title="Technical introduction to the Cozy platform" class="md-nav__link">
+      Technical introduction to the Cozy platform
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2">
+    
+    <label class="md-nav__link" for="nav-3-2">
+      Synchronize
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-2">
+        Synchronize
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../howTos/sync/linux/" title="Install Cozy Drive on GNU/Linux" class="md-nav__link">
+      Install Cozy Drive on GNU/Linux
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Libraries
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Libraries
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-1" type="checkbox" id="nav-4-1">
+    
+    <label class="md-nav__link" for="nav-4-1">
+      Develop an application
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-1">
+        Develop an application
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-1-1" type="checkbox" id="nav-4-1-1">
+    
+    <label class="md-nav__link" for="nav-4-1-1">
+      Define data (doctypes)
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-1">
+        Define data (doctypes)
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/" title="README" class="md-nav__link">
+      README
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.accounts/" title="Accounts" class="md-nav__link">
+      Accounts
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.apps/" title="Apps" class="md-nav__link">
+      Apps
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.bank/" title="Banking doctypes" class="md-nav__link">
+      Banking doctypes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.bills/" title="Bills" class="md-nav__link">
+      Bills
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.konnectors/" title="Connectors" class="md-nav__link">
+      Connectors
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.contacts/" title="Contacts" class="md-nav__link">
+      Contacts
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.files/" title="Files" class="md-nav__link">
+      Files
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.files_metadata/" title="Files metadata" class="md-nav__link">
+      Files metadata
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.identities/" title="Identities" class="md-nav__link">
+      Identities
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.notifications/" title="Notifications" class="md-nav__link">
+      Notifications
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.remote.requests/" title="Remote requests" class="md-nav__link">
+      Remote requests
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.sessions.logins/" title="Session logins" class="md-nav__link">
+      Session logins
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.permissions/" title="Permissions" class="md-nav__link">
+      Permissions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.photos.albums/" title="Photos Albums" class="md-nav__link">
+      Photos Albums
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.procedures/" title="Procedures" class="md-nav__link">
+      Procedures
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.sessions.logins/" title="Sessions Logins" class="md-nav__link">
+      Sessions Logins
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.settings/" title="Settings" class="md-nav__link">
+      Settings
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.sharings/" title="Sharings" class="md-nav__link">
+      Sharings
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.account_types/" title="Accounts Types" class="md-nav__link">
+      Accounts Types
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/cc.cozycloud.autocategorization/" title="Autocategorization" class="md-nav__link">
+      Autocategorization
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.exports/" title="Exports" class="md-nav__link">
+      Exports
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.jobs/" title="Jobs" class="md-nav__link">
+      Jobs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.oauth.clients/" title="OAuth Clients" class="md-nav__link">
+      OAuth Clients
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.oauth.access_codes/" title="OAuth Access Codes" class="md-nav__link">
+      OAuth Access Codes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.triggers/" title="Triggers" class="md-nav__link">
+      Triggers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.triggers.state/" title="Triggers state" class="md-nav__link">
+      Triggers state
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.remote.requests/" title="Remote requests" class="md-nav__link">
+      Remote requests
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.sessions/" title="Sessions" class="md-nav__link">
+      Sessions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.shared/" title="Shared" class="md-nav__link">
+      Shared
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.terms/" title="Terms" class="md-nav__link">
+      Terms
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/com.unibet.bets/" title="Bets Unibet" class="md-nav__link">
+      Bets Unibet
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-1-2" type="checkbox" id="nav-4-1-2">
+    
+    <label class="md-nav__link" for="nav-4-1-2">
+      Access data (client)
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-2">
+        Access data (client)
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-client/getting-started/" title="Getting started" class="md-nav__link">
+      Getting started
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-client/relationships/" title="Using relationships" class="md-nav__link">
+      Using relationships
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-client/metadata/" title="cozyMetadata maintenance" class="md-nav__link">
+      cozyMetadata maintenance
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-client/react-integration/" title="React integration" class="md-nav__link">
+      React integration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-client/details/" title="Other details" class="md-nav__link">
+      Other details
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-client/api/cozy-client/" title="Cozy Client API" class="md-nav__link">
+      Cozy Client API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-client/api/cozy-pouch-link/" title="Cozy Pouch Link API" class="md-nav__link">
+      Cozy Pouch Link API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-client/api/cozy-stack-client/" title="Cozy Stack Client API" class="md-nav__link">
+      Cozy Stack Client API
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-ui/" title="Build a UI (ui)" class="md-nav__link">
+      Build a UI (ui)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-1-4" type="checkbox" id="nav-4-1-4">
+    
+    <label class="md-nav__link" for="nav-4-1-4">
+      Advanced
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-4">
+        Advanced
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-realtime/" title="Realtime data (realtime)" class="md-nav__link">
+      Realtime data (realtime)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-device-helper/" title="Native devices (device-helper)" class="md-nav__link">
+      Native devices (device-helper)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-2" type="checkbox" id="nav-4-2">
+    
+    <label class="md-nav__link" for="nav-4-2">
+      Develop a konnector
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-2">
+        Develop a konnector
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-2-1" type="checkbox" id="nav-4-2-1">
+    
+    <label class="md-nav__link" for="nav-4-2-1">
+      Scrape data (konnector-libs)
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-2-1">
+        Scrape data (konnector-libs)
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-konnector-libs/README.md" title="README" class="md-nav__link">
+      README
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-konnector-libs/api/" title="API" class="md-nav__link">
+      API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-konnector-libs/cli/" title="CLI" class="md-nav__link">
+      CLI
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-konnector-libs/dev/" title="Develop" class="md-nav__link">
+      Develop
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-konnector-libs/errors/" title="Errors" class="md-nav__link">
+      Errors
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-konnector-libs/operation-linking/" title="Operation linking" class="md-nav__link">
+      Operation linking
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-konnector-libs/synchronization/" title="Synchronization" class="md-nav__link">
+      Synchronization
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../konitor/cli/" title="konitor" class="md-nav__link">
+      konitor
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-app-publish/" title="Publish on the store (app-publish)" class="md-nav__link">
+      Publish on the store (app-publish)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-4" type="checkbox" id="nav-4-4">
+    
+    <label class="md-nav__link" for="nav-4-4">
+      Dev tools
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-4">
+        Dev tools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../babel-preset-cozy-app/" title="Babel preset" class="md-nav__link">
+      Babel preset
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../commitlint-config-cozy/" title="Commitlint" class="md-nav__link">
+      Commitlint
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../eslint-config-cozy-app/" title="ESLint" class="md-nav__link">
+      ESLint
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-5" type="checkbox" id="nav-4-5">
+    
+    <label class="md-nav__link" for="nav-4-5">
+      Advanced
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-5">
+        Advanced
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-5-1" type="checkbox" id="nav-4-5-1">
+    
+    <label class="md-nav__link" for="nav-4-5-1">
+      Stack server
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-5-1">
+        Stack server
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/" title="README" class="md-nav__link">
+      README
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-5-1-2" type="checkbox" id="nav-4-5-1-2">
+    
+    <label class="md-nav__link" for="nav-4-5-1-2">
+      Usage
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-5-1-2">
+        Usage
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/INSTALL/" title="Install the cozy-stack" class="md-nav__link">
+      Install the cozy-stack
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/config/" title="Configuration file" class="md-nav__link">
+      Configuration file
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/instance/" title="Managing Instances" class="md-nav__link">
+      Managing Instances
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/security/" title="Security" class="md-nav__link">
+      Security
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/cli/cozy-stack/" title="Manpages of the command-line tool" class="md-nav__link">
+      Manpages of the command-line tool
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-5-1-3" type="checkbox" id="nav-4-5-1-3">
+    
+    <label class="md-nav__link" for="nav-4-5-1-3">
+      How-to guides for developpers
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-5-1-3">
+        How-to guides for developpers
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/client-app-dev/" title="Develop a client-side app" class="md-nav__link">
+      Develop a client-side app
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/docker/" title="Running and building Docker images" class="md-nav__link">
+      Running and building Docker images
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/doctype/" title="Adding a new doctype" class="md-nav__link">
+      Adding a new doctype
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/assets/" title="Working with the stack assets" class="md-nav__link">
+      Working with the stack assets
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/release/" title="Build a release" class="md-nav__link">
+      Build a release
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/CONTRIBUTING/" title="The contributing guide" class="md-nav__link">
+      The contributing guide
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-5-1-4" type="checkbox" id="nav-4-5-1-4">
+    
+    <label class="md-nav__link" for="nav-4-5-1-4">
+      Explanations
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-5-1-4">
+        Explanations
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/sharing-design/" title="Sharing design" class="md-nav__link">
+      Sharing design
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/konnectors-workflow/" title="Workflow of the konnectors" class="md-nav__link">
+      Workflow of the konnectors
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-5-1-5" type="checkbox" id="nav-4-5-1-5">
+    
+    <label class="md-nav__link" for="nav-4-5-1-5">
+      List of services
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-5-1-5">
+        List of services
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/auth/" title="/auth - Authentication & OAuth" class="md-nav__link">
+      /auth - Authentication & OAuth
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/apps/" title="/apps - Applications Management" class="md-nav__link">
+      /apps - Applications Management
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/registry/" title="/apps - Apps registry" class="md-nav__link">
+       /apps - Apps registry
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/konnectors/" title="/apps - Konnectors" class="md-nav__link">
+       /apps - Konnectors
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/data-system/" title="/data - Data System" class="md-nav__link">
+      /data - Data System
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/mango/" title="/data - Mango" class="md-nav__link">
+       /data - Mango
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/couchdb-quirks/" title="/data - CouchDB Quirks" class="md-nav__link">
+       /data - CouchDB Quirks
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/pouchdb-quirks/" title="/data - PouchDB Quirks" class="md-nav__link">
+       /data - PouchDB Quirks
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/files/" title="/files - Virtual File System" class="md-nav__link">
+      /files - Virtual File System
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/references-docs-in-vfs/" title="/files - References of documents in VFS" class="md-nav__link">
+       /files - References of documents in VFS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/intents/" title="/intents - Intents" class="md-nav__link">
+      /intents - Intents
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/jobs/" title="/jobs - Jobs" class="md-nav__link">
+      /jobs - Jobs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/workers/" title="/jobs - Workers" class="md-nav__link">
+       /jobs - Workers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/move/" title="/move - Move, export and import an instance" class="md-nav__link">
+      /move - Move, export and import an instance
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/notifications/" title="/notifications - Notifications" class="md-nav__link">
+      /notifications - Notifications
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/public/" title="/public - Public" class="md-nav__link">
+      /public - Public
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/permissions/" title="/permissions - Permissions" class="md-nav__link">
+      /permissions - Permissions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/realtime/" title="/realtime - Realtime" class="md-nav__link">
+      /realtime - Realtime
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/remote/" title="/remote - Proxy for remote data/API" class="md-nav__link">
+      /remote - Proxy for remote data/API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/settings/" title="/settings - Settings" class="md-nav__link">
+      /settings - Settings
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/user-action-required/" title="/settings - Terms of Services" class="md-nav__link">
+       /settings - Terms of Services
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/sharing/" title="/sharings - Sharing" class="md-nav__link">
+      /sharings - Sharing
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-apps-registry/" title="Registry server" class="md-nav__link">
+      Registry server
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" checked>
+    
+    <label class="md-nav__link" for="nav-5">
+      Applications
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Applications
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-1" type="checkbox" id="nav-5-1" checked>
+    
+    <label class="md-nav__link" for="nav-5-1">
+      Cozy Banks
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-5-1">
+        Cozy Banks
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../" title="README" class="md-nav__link">
+      README
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Develop
+      </label>
+    
+    <a href="./" title="Develop" class="md-nav__link md-nav__link--active">
+      Develop
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" title="Table of Contents" class="md-nav__link">
+    Table of Contents
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" title="Getting started" class="md-nav__link">
+    Getting started
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fixtures" title="Fixtures" class="md-nav__link">
+    Fixtures
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#develop-on-mobile" title="Develop on mobile" class="md-nav__link">
+    Develop on mobile
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-a-working-android-environment" title="Get a working Android environment" class="md-nav__link">
+    Get a working Android environment
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-and-run-the-mobile-app" title="Build and run the mobile app" class="md-nav__link">
+    Build and run the mobile app
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hot-reload-on-mobile-app" title="Hot reload on mobile app" class="md-nav__link">
+    Hot reload on mobile app
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release" title="Release" class="md-nav__link">
+    Release
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#start-a-release-branch" title="Start a release branch" class="md-nav__link">
+    Start a release branch
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workflow" title="Workflow" class="md-nav__link">
+    Workflow
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mobile-apps-version-codes" title="Mobile apps version codes" class="md-nav__link">
+    Mobile apps version codes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#publish-manually-on-the-cozy-registry" title="Publish manually on the Cozy registry" class="md-nav__link">
+    Publish manually on the Cozy registry
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#publish-to-mobile-stores" title="Publish to mobile stores" class="md-nav__link">
+    Publish to mobile stores
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pre-requisites" title="Pre-requisites" class="md-nav__link">
+    Pre-requisites
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fastlane" title="Fastlane" class="md-nav__link">
+    Fastlane
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ios" title="iOS" class="md-nav__link">
+    iOS
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signing" title="Signing" class="md-nav__link">
+    Signing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#push-ios-build" title="Push iOS build" class="md-nav__link">
+    Push iOS build
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#android" title="Android" class="md-nav__link">
+    Android
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notifications" title="Notifications" class="md-nav__link">
+    Notifications
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-to-develop-on-templates" title="How to develop on templates" class="md-nav__link">
+    How to develop on templates
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#under-the-covers" title="Under the covers" class="md-nav__link">
+    Under the covers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assets" title="Assets" class="md-nav__link">
+    Assets
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debug-notification-triggers" title="Debug notification triggers" class="md-nav__link">
+    Debug notification triggers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-creating-a-notification" title="When creating a notification" class="md-nav__link">
+    When creating a notification
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#misc" title="Misc" class="md-nav__link">
+    Misc
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pouch-on-web" title="Pouch On Web" class="md-nav__link">
+    Pouch On Web
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#important-credentials" title="Important credentials" class="md-nav__link">
+    Important credentials
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../account-types/" title="Bank account types" class="md-nav__link">
+      Bank account types
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../bills-matching/" title="Matching algorithm" class="md-nav__link">
+      Matching algorithm
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../brand-dictionary/" title="Brands dictionary" class="md-nav__link">
+      Brands dictionary
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../demo/" title="Demo tricks" class="md-nav__link">
+      Demo tricks
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../notifications/" title="Notifications" class="md-nav__link">
+      Notifications
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../override-cordova-config/" title="Override Cordova project config.xml" class="md-nav__link">
+      Override Cordova project config.xml
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../services/" title="Services" class="md-nav__link">
+      Services
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../tracking/" title="Tracking" class="md-nav__link">
+      Tracking
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" title="Table of Contents" class="md-nav__link">
+    Table of Contents
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" title="Getting started" class="md-nav__link">
+    Getting started
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fixtures" title="Fixtures" class="md-nav__link">
+    Fixtures
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#develop-on-mobile" title="Develop on mobile" class="md-nav__link">
+    Develop on mobile
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-a-working-android-environment" title="Get a working Android environment" class="md-nav__link">
+    Get a working Android environment
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-and-run-the-mobile-app" title="Build and run the mobile app" class="md-nav__link">
+    Build and run the mobile app
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hot-reload-on-mobile-app" title="Hot reload on mobile app" class="md-nav__link">
+    Hot reload on mobile app
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release" title="Release" class="md-nav__link">
+    Release
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#start-a-release-branch" title="Start a release branch" class="md-nav__link">
+    Start a release branch
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workflow" title="Workflow" class="md-nav__link">
+    Workflow
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mobile-apps-version-codes" title="Mobile apps version codes" class="md-nav__link">
+    Mobile apps version codes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#publish-manually-on-the-cozy-registry" title="Publish manually on the Cozy registry" class="md-nav__link">
+    Publish manually on the Cozy registry
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#publish-to-mobile-stores" title="Publish to mobile stores" class="md-nav__link">
+    Publish to mobile stores
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pre-requisites" title="Pre-requisites" class="md-nav__link">
+    Pre-requisites
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fastlane" title="Fastlane" class="md-nav__link">
+    Fastlane
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ios" title="iOS" class="md-nav__link">
+    iOS
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signing" title="Signing" class="md-nav__link">
+    Signing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#push-ios-build" title="Push iOS build" class="md-nav__link">
+    Push iOS build
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#android" title="Android" class="md-nav__link">
+    Android
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notifications" title="Notifications" class="md-nav__link">
+    Notifications
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-to-develop-on-templates" title="How to develop on templates" class="md-nav__link">
+    How to develop on templates
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#under-the-covers" title="Under the covers" class="md-nav__link">
+    Under the covers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assets" title="Assets" class="md-nav__link">
+    Assets
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debug-notification-triggers" title="Debug notification triggers" class="md-nav__link">
+    Debug notification triggers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-creating-a-notification" title="When creating a notification" class="md-nav__link">
+    When creating a notification
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#misc" title="Misc" class="md-nav__link">
+    Misc
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pouch-on-web" title="Pouch On Web" class="md-nav__link">
+    Pouch On Web
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#important-credentials" title="Important credentials" class="md-nav__link">
+    Important credentials
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-banks/docs/dev.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="development">Development<a class="headerlink" href="#development" title="Permanent link">&para;</a></h1>
+<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+<!-- MarkdownTOC autolink=true -->
+
+<ul>
+<li><a href="#getting-started">Getting started</a></li>
+<li><a href="#fixtures">Fixtures</a></li>
+<li><a href="#develop-on-mobile">Develop on mobile</a></li>
+<li><a href="#get-a-working-android-environment">Get a working Android environment</a></li>
+<li><a href="#build-and-run-the-mobile-app">Build and run the mobile app</a></li>
+<li><a href="#hot-reload-on-mobile-app">Hot reload on mobile app</a></li>
+<li><a href="#release">Release</a></li>
+<li><a href="#start-a-release-branch">Start a release branch</a></li>
+<li><a href="#workflow">Workflow</a></li>
+<li><a href="#publish-manually-on-the-cozy-registry">Publish manually on the Cozy registry</a></li>
+<li><a href="#publish-to-mobile-stores">Publish to mobile stores</a></li>
+<li><a href="#notifications">Notifications</a></li>
+<li><a href="#how-to-develop-on-templates">How to develop on templates</a></li>
+<li><a href="#debug-notification-triggers">Debug notification triggers</a></li>
+<li><a href="#when-creating-a-notification">When creating a notification</a></li>
+<li><a href="#misc">Misc</a></li>
+<li><a href="#pouch-on-web">Pouch On Web</a></li>
+<li><a href="#important-credentials">Important credentials</a></li>
+</ul>
+<!-- /MarkdownTOC -->
+
+<h2 id="getting-started">Getting started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
+<p>You need to have <code>yarn</code> installed. If you don&rsquo;t, please check the <a href="https://yarnpkg.com/en/docs/install">official
+documentation</a> and follow the instructions
+to install it on your system.</p>
+<p>Then you can install the dependencies:</p>
+<div class="codehilite"><pre><span></span><span class="gp">$</span> yarn
+</pre></div>
+
+
+<p>Develop:</p>
+<div class="codehilite"><pre><span></span><span class="gp">$</span> yarn watch
+</pre></div>
+
+
+<p>And build:</p>
+<div class="codehilite"><pre><span></span><span class="gp">$</span> yarn build
+</pre></div>
+
+
+<p>Please note that for the project to work, you will need to have a working
+cozy-stack. See <a href="https://docs.cozy.io/en/howTos/dev/runCozyDocker/#ephemeral-instance">how to run a cozy
+application</a>
+for more information.</p>
+<p>When watching, you still need to have a cozy-stack running to serve the files
+of the app (do not use the webpack-dev-server directly). This is important as
+the stack injects through template variables the <em>token</em> and <em>domain</em> used to
+connect to the cozy.</p>
+<p>⚠️ CSPs must be disabled when working with the development server (as the
+<code>index.html</code> is served via the stack but the JS assets are served via
+webpack-dev-server). You can do this via a browser extension
+(<a href="https://chrome.google.com/webstore/detail/disable-content-security/ieelmcmcagommplceebfedjlakkhpden">Chrome</a>)
+or you can tell the stack to disable CSPs via its config file (<code>disable_csp: true</code>, check here for <a href="https://docs.cozy.io/en/cozy-stack/config/#main-configuration-file">more
+info</a> on
+the config file). See an example config file
+<a href="https://github.com/CPatchane/create-cozy-app/blob/8329c7161a400119076a7e2734191607437f0dcc/packages/cozy-scripts/stack/disableCSP.yaml#L6">here</a>.</p>
+<h2 id="fixtures">Fixtures<a class="headerlink" href="#fixtures" title="Permanent link">&para;</a></h2>
+<p>While developing, it is convenient to be able to inject and remove arbitraty data on your local instance.</p>
+<p>We have a set of fake banking data in the
+<a href="https://github.com/cozy/cozy-banks/blob/master/test/fixtures/demo.json"><code>test/fixtures/demo.json</code></a>
+file that you can inject in your instance using the <code>yarn fixtures</code> command.</p>
+<p>If you want to inject other data or remove some data, you can use <a href="https://github.com/cozy/ACH"><code>ACH</code></a>.</p>
+<h2 id="develop-on-mobile">Develop on mobile<a class="headerlink" href="#develop-on-mobile" title="Permanent link">&para;</a></h2>
+<h3 id="get-a-working-android-environment">Get a working Android environment<a class="headerlink" href="#get-a-working-android-environment" title="Permanent link">&para;</a></h3>
+<p>To be able to build the app for Android, you can follow <a href="https://gist.github.com/drazik/11dfe2014a6b967821df93b9e10353f4">this
+guide</a> (in
+french for now, will be translated soon, don&rsquo;t hesitate to open a pull
+request).</p>
+<h3 id="build-and-run-the-mobile-app">Build and run the mobile app<a class="headerlink" href="#build-and-run-the-mobile-app" title="Permanent link">&para;</a></h3>
+<p>To build the mobile app, you first have to run one of the following commands:</p>
+<div class="codehilite"><pre><span></span><span class="gp">#</span> One-shot build
+<span class="gp">$</span> yarn build:mobile
+<span class="gp">#</span> To develop
+<span class="gp">$</span> yarn watch:mobile
+</pre></div>
+
+
+<p>Then you can run the app on the desired platform. For Android:</p>
+<div class="codehilite"><pre><span></span><span class="gp">#</span> Run on a real device
+<span class="gp">$</span> yarn android:run
+<span class="gp">#</span> Run on an emulator
+<span class="gp">$</span> yarn android:run:emulator
+</pre></div>
+
+
+<p>For iOS:</p>
+<div class="codehilite"><pre><span></span><span class="gp">#</span> Run on a real device
+<span class="gp">$</span> yarn ios:run
+<span class="gp">#</span> Run on an emulator
+<span class="gp">$</span> yarn ios:run:emulator
+</pre></div>
+
+
+<h3 id="hot-reload-on-mobile-app">Hot reload on mobile app<a class="headerlink" href="#hot-reload-on-mobile-app" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="c c-Singleline"># Replace the host with your own host (find it with ifconfig)</span>
+$ <span class="n">env</span> <span class="n">DEV_SERVER_HOST</span>=<span class="mf">192.168.1.36</span> <span class="n">yarn</span> <span class="n">build:mobile:hot</span>
+$ <span class="n">yarn</span> <span class="n">ios:run</span> <span class="c c-Singleline"># at this point the app is blank since it cannot access the files from your host</span>
+$ <span class="n">env</span> <span class="n">DEV_SERVER_HOST</span>=<span class="mf">192.168.1.36</span> <span class="n">yarn</span> <span class="n">watch:mobile:hot</span> <span class="c c-Singleline"># launch a webpack-dev-server</span>
+</pre></div>
+
+
+<p>⚠️⚠️⚠️ If you watch a production build, you must edit the webpack config to have
+the filepath without the [hash] otherwise you will not hit the right JS file.</p>
+<p>⚠️ You need to have the final <code>/</code> at the end of the PUBLIC_PATH, otherwise some some CSS resources like fonts will not load</p>
+<h2 id="release">Release<a class="headerlink" href="#release" title="Permanent link">&para;</a></h2>
+<p>A release consists in publishing the app on all platforms: web (via the <a href="https://apps-registry.cozycloud.cc/banks/registry">Cozy
+Registry</a>), Android (via the
+Google Play Store, APKs are also linked to <a href="https://github.com/cozy/cozy-banks/releases">Github
+releases</a>) and iOS (via the App
+Store).</p>
+<h3 id="start-a-release-branch">Start a release branch<a class="headerlink" href="#start-a-release-branch" title="Permanent link">&para;</a></h3>
+<p>When starting a release, start the checklist PR with :</p>
+<div class="codehilite"><pre><span></span>yarn release
+</pre></div>
+
+
+<p>This will ask for the next version number and create a release branch with it.
+If you have <a href="https://github.com/github/hub">Hub</a> installed (recommended), it
+will also create the related pull request for you.</p>
+<h3 id="workflow">Workflow<a class="headerlink" href="#workflow" title="Permanent link">&para;</a></h3>
+<p>When a release branch is created, features are frozen and the branch should only receive bugfixes.</p>
+<p>To create beta versions, you have to do two thinkgs:</p>
+<ul>
+<li>Bump the different version codes in <code>src/targets/mobile/config.xml</code> file (see below for more details<code>android-versionCode</code>, <code>ios-CFBundleVersion</code>, <code>version</code> and <code>AppendUserAgent</code>)</li>
+<li>Commit it and create a tag with the <code>X.Y.Z-beta.M</code> scheme (for example <code>1.5.0-beta.1</code>) and push them</li>
+</ul>
+<p>The web app beta version will be automatically built and published on the cozy
+registry. An APK for Android will also be automatically created. For iOS, you
+have to build the app and upload it on Testflight.</p>
+<h3 id="mobile-apps-version-codes">Mobile apps version codes<a class="headerlink" href="#mobile-apps-version-codes" title="Permanent link">&para;</a></h3>
+<p>In the <code>src/targets/mobile/config.xml</code> file, you have to update multiple version codes:</p>
+<ul>
+<li><code>version</code>: the generic version code</li>
+<li><code>ios-CFBundleVersion</code>: the version code specific to iOS</li>
+<li><code>android-versionCode</code>: the version code specific to Android</li>
+<li><code>AppendUserAgent</code>: a version code that is appended to the user agent string so we can know which version is related to messages in error logs</li>
+</ul>
+<p>Each version code is not built in the same way:</p>
+<ul>
+<li><code>version</code> is the same as <code>version</code> in the <code>package.json</code></li>
+<li><code>ios-CFBundleVersion</code> is the same as <code>version</code>, but with a fourth number representing the beta version number (for example <code>1.5.0.1</code> for <code>1.5.0-beta.1</code>)</li>
+<li>For <code>android-versionCode</code>, follow the following formula: <code>beta + patch*100 + minor * 10000 + major * 1000000</code>. For example, <code>1.5.1-beta.1</code> gives us <code>1050101</code></li>
+<li><code>AppendUserAgent</code> is the same as <code>version</code></li>
+</ul>
+<h3 id="publish-manually-on-the-cozy-registry">Publish manually on the Cozy registry<a class="headerlink" href="#publish-manually-on-the-cozy-registry" title="Permanent link">&para;</a></h3>
+<p>To publish manually on the Cozy registry, you need a token also stored in Cozy internal <a href="pass">password store</a>:</p>
+<div class="codehilite"><pre><span></span>export REGISTRY_TOKEN=`pass registry/spaces/banks/banks.token`
+</pre></div>
+
+
+<p>After, you can use <a href="https://github.com/cozy/cozy-app-publish">cozy-app-publish</a> to push the app to the registry.</p>
+<p>More information : https://github.com/cozy/cozy-stack/blob/master/docs/registry-publish.md</p>
+<h3 id="publish-to-mobile-stores">Publish to mobile stores<a class="headerlink" href="#publish-to-mobile-stores" title="Permanent link">&para;</a></h3>
+<h4 id="pre-requisites">Pre-requisites<a class="headerlink" href="#pre-requisites" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Install cordova globally (necessary for the fastlane cordova plugin)</li>
+</ul>
+<div class="codehilite"><pre><span></span>yarn global add cordova@&lt;same version as in package.json&gt;
+</pre></div>
+
+
+<ul>
+<li>Generate icons</li>
+</ul>
+<div class="codehilite"><pre><span></span>yarn mobile:icon
+</pre></div>
+
+
+<ul>
+<li>Install Ruby, Bundler and project dependencies</li>
+</ul>
+<p>See <a href="https://www.ruby-lang.org/fr/documentation/installation/">Ruby installation page</a> to get the installation method for your system.</p>
+<p>Install Bundler :</p>
+<div class="codehilite"><pre><span></span>gem install bundler
+</pre></div>
+
+
+<p>Then install the project dependencies :</p>
+<div class="codehilite"><pre><span></span>cd &lt;path_to_project_root&gt;/src/targets/mobile
+bundler
+</pre></div>
+
+
+<ul>
+<li>Manage iOS native libraries</li>
+</ul>
+<div class="codehilite"><pre><span></span>sudo gem install cocoapods
+pod setup
+yarn ios:install_pods # Install pods according to the Podfile.lock
+</pre></div>
+
+
+<p>You must also have the <code>keys/</code> folder available from the internal password store.</p>
+<h4 id="fastlane">Fastlane<a class="headerlink" href="#fastlane" title="Permanent link">&para;</a></h4>
+<p>Fastlane is used to manage automatically the deployment process. Its configuration is localed in<code>src/targets/mobile/fastlane/Fastfile</code>.</p>
+<h4 id="ios">iOS<a class="headerlink" href="#ios" title="Permanent link">&para;</a></h4>
+<h5 id="signing">Signing<a class="headerlink" href="#signing" title="Permanent link">&para;</a></h5>
+<p>⚠️ You need to have your device registered to iTunes Connect. If you have trouble deploying your app on your device, check that the Build settings in XCode are correct :</p>
+<p>While developing, in XCode, in the &ldquo;Signing&rdquo; section :</p>
+<ul>
+<li>Check &ldquo;Manage automatically&rdquo;</li>
+<li>Team &ldquo;Cozy Cloud&rdquo;</li>
+<li>Signing certificate : use a personal certificate belonging to the Cozy team (can be created when you have no matching certificate in the menu &gt; Add an account).</li>
+</ul>
+<p>When deploying, Fastlane manages the certificate and may change it.</p>
+<h5 id="push-ios-build">Push iOS build<a class="headerlink" href="#push-ios-build" title="Permanent link">&para;</a></h5>
+<p>To push an iOS build on Testflight, use the following command :</p>
+<div class="codehilite"><pre><span></span>yarn run ios:publish
+</pre></div>
+
+
+<p>To fully publish the app, go to iTunes Connect using the credentials in the password store and &ldquo;submit for review&rdquo;.</p>
+<h4 id="android">Android<a class="headerlink" href="#android" title="Permanent link">&para;</a></h4>
+<p>Two keys will be asked during publishing, they are available in the password store in <code>Gangsters/cozy-banks/keys/android</code> :</p>
+<ul>
+<li>1: <code>jks-pass.gpg</code></li>
+<li>2: <code>cozy-banks-key-pass.gpg</code></li>
+</ul>
+<p>You will also have to have apksigner in your PATH. It is located in the Android SDK folder.</p>
+<div class="codehilite"><pre><span></span>export PATH $PATH:$HOME/.android/sdk/tools
+export PATH $PATH:$HOME/.android/sdk/build-tools/26.0.2
+</pre></div>
+
+
+<p>When publishing a new version on the Play Store, you can use :</p>
+<div class="codehilite"><pre><span></span>yarn run android:publish
+</pre></div>
+
+
+<p>This will upload create a new version in the store, in the <code>beta</code> track that you can review visually on the Play Store and then promote to the normal track.</p>
+<h2 id="notifications">Notifications<a class="headerlink" href="#notifications" title="Permanent link">&para;</a></h2>
+<h3 id="how-to-develop-on-templates">How to develop on templates<a class="headerlink" href="#how-to-develop-on-templates" title="Permanent link">&para;</a></h3>
+<p>With the <code>TEST_TEMPLATES</code> environment variable, an express server serving the HTML emails will be built.</p>
+<div class="codehilite"><pre><span></span>$ env <span class="nv">TEST_TEMPLATES</span><span class="o">=</span><span class="nb">true</span> yarn watch:services
+$ node build/testTemplates.js
+Rendering emails at http://localhost:8081!
+</pre></div>
+
+
+<p>You can open your browser to check the emails. The Preview feature
+in Mailchimp is also useful to check that everything is correctly rendered on the various email clients (just copy/paste the content of the page).</p>
+<h4 id="under-the-covers">Under the covers<a class="headerlink" href="#under-the-covers" title="Permanent link">&para;</a></h4>
+<p>The templates are <a href="handlebarsjs.com">Handlebars</a> templates using the
+<a href="https://mjml.io/documentation">mjml</a> language. <code>mjml</code> greatly reduces the pains to develop an
+email template as it deals with a lot of quirks for you. It features ready-made
+components to make responsive email templates. Behind the scene, it uses <code>React</code>
+to implement custom components, and <a href="https://github.com/Automattic/juice">juice</a>
+to inline the CSS into the HTML. The <a href="https://github.com/shannonmoeller/handlebars-layouts">handlebars-layouts</a> plugin is used to provide an easy way to extend a base template (à la <code>jinja</code>)</p>
+<p>Other templates :</p>
+<div class="codehilite"><pre><span></span>nodemon --exec &quot;node transactions-notification.js&quot; -e js,css,hbs,json
+</pre></div>
+
+
+<h4 id="assets">Assets<a class="headerlink" href="#assets" title="Permanent link">&para;</a></h4>
+<p>Assets in <code>assets/</code> are uploaded to <code>https://downcloud.cozycloud.cc</code> on every deployment on CI. It can also be done manually with the <code>yarn uploadStaticFiles</code> script.</p>
+<h3 id="debug-notification-triggers">Debug notification triggers<a class="headerlink" href="#debug-notification-triggers" title="Permanent link">&para;</a></h3>
+<p>To debug notifications, you have to launch a watch on the notifications.js and then
+launch it with <code>cozy-run-dev</code>.</p>
+<p>⚠️ You have to temporarily add <code>io.cozy.accounts</code> to your manifest so that you can
+create a dev account to test the service.</p>
+<div class="codehilite"><pre><span></span>       &quot;type&quot;: &quot;io.cozy.notifications&quot;,
+       &quot;verbs&quot;: [&quot;POST&quot;]
+     },
+<span class="gi">+    &quot;account&quot;: {</span>
+<span class="gi">+      &quot;description&quot;: &quot;Used to send notifications&quot;,</span>
+<span class="gi">+      &quot;type&quot;: &quot;io.cozy.accounts&quot;,</span>
+<span class="gi">+      &quot;verbs&quot;: [&quot;POST&quot;]</span>
+<span class="gi">+    },</span>
+     &quot;bank.settings&quot;: {
+       &quot;description&quot;: &quot;Used to manage your bank settings&quot;,
+       &quot;type&quot;: &quot;io.cozy.bank.settings&quot;,
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>$ yarn watch:services <span class="c1"># will continuously build `build/notifications.js`</span>
+$ nodemon --delay <span class="m">1</span> -w build/notifications.js --exec <span class="s2">&quot;cozy-konnector-dev -t /tmp/token.json -m manifest.webapp build/notifications.js&quot;</span> <span class="c1"># will launch build/notifications.js (and relaunch it when it changes) with the right COZY_CREDENTIALS, /tmp/token.json is where the token will be stored</span>
+</pre></div>
+
+
+<p>To see the emails that the stack sends, launch a MailHog instance :</p>
+<div class="codehilite"><pre><span></span>docker run -p 1025:1025 -p 8025:8025 mailhog/mailhog
+</pre></div>
+
+
+<p>The stack will send the emails through the SMTP port of MailHog and you
+will be able to see the mails in its web interface on http://localhost:8025.</p>
+<p>https://github.com/cozy/cozy-banks/tree/master/src/ducks/notifications/html</p>
+<h3 id="when-creating-a-notification">When creating a notification<a class="headerlink" href="#when-creating-a-notification" title="Permanent link">&para;</a></h3>
+<p>If you want to test the notifications in a workflow that is very close to the real one, you can import some fixtures to trigger the service execution. For that, you must open the <code>test/fixtures/operations-notifs.json</code> file and edit the following :</p>
+<ul>
+<li>the <code>_id</code> field of the documents, so they are unique and will create a new document</li>
+<li>the <code>account</code> field of the <code>io.cozy.bank.operations</code> documents to match an account id that exist on the instance you will import the fixtures to</li>
+<li>the dates and the labels to be able to see the imported documents easily</li>
+</ul>
+<p>Then you can use <a href="https://github.com/cozy/ACH">ACH</a> to import the fixtures :</p>
+<div class="codehilite"><pre><span></span><span class="go">ACH import test/fixtures/operations-notifs.json test/fixtures/helpers.js --url &lt;instance_url&gt;</span>
+</pre></div>
+
+
+<h3 id="misc">Misc<a class="headerlink" href="#misc" title="Permanent link">&para;</a></h3>
+<p>🖼 The PNG icons that are included in the emails are generated manually from the SVG via <code>scripts/icons-to-png.sh</code> and uploaded automatically to files.cozycloud.cc via Jenkins (which follows the file <code>files.cozycloud.cc</code> at the root of the repo).</p>
+<h2 id="pouch-on-web">Pouch On Web<a class="headerlink" href="#pouch-on-web" title="Permanent link">&para;</a></h2>
+<p>If you want activate Pouch on web app, you need:
+- a token
+- launch your build with <code>FORCE_POUCH</code></p>
+<div class="codehilite"><pre><span></span>cozy-stack instances token-cli cozy.tools:8080 $(cat manifest.webapp | jq -r &#39;[.permissions[] | .type] | join(&quot; &quot;)&#39;)
+env FORCE_POUCH=true yarn watch
+</pre></div>
+
+
+<p>Launch your web application and in console javascript fill in the token and refresh the page:</p>
+<div class="codehilite"><pre><span></span>flag(&#39;cozyToken&#39;, &lt;your token&gt;)
+</pre></div>
+
+
+<p>Now you can play with replication:</p>
+<div class="codehilite"><pre><span></span>cozyClient.links[0].startReplication()
+cozyClient.links[0].stopReplication()
+</pre></div>
+
+
+<h2 id="important-credentials">Important credentials<a class="headerlink" href="#important-credentials" title="Permanent link">&para;</a></h2>
+<p>All important credentials are stored in Cozy internal <a href="pass">password store</a>.
+To import it execute <code>./scripts/import_mobile_keys</code></p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../../" title="README" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                README
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../account-types/" title="Bank account types" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Bank account types
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/application.245445c6.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../../.."}})</script>
+      
+        <script src="../../../extra.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,19 @@
+@require 'settings/breakpoints'
+
+.HeaderFixed
+    position sticky
+    position -webkit-sticky
+    z-index 2
+    top 0
+
+    +medium-screen()
+        top 3rem
+
+.HeaderColor_default
+    background-color var(--headerDefaultBackgroundColor)
+
+.HeaderColor_primary
+    background-color var(--headerPrimaryBackgroundColor)
+
+.HeaderColor_primary.HeaderFixed
+    box-shadow 0 2px 4px 0 rgba(0, 0, 0, 0.24), 0 0 4px 0 rgba(0, 0, 0, 0.16)

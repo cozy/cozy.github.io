@@ -1,0 +1,56 @@
+{{#extend "bank-layout"}}
+  {{#content "emailTitle"}}
+    {{t 'Notifications.when_late_health_reimbursement.email.innerTitle'}}
+  {{/content}}
+
+  {{#content "emailSubtitle"}}
+    {{ formatDate date }}
+  {{/content}}
+
+  {{#content "content"}}
+    {{#each byAccounts as |transactionsByDate accountId| }}
+      <mj-section css-class="account" padding-top="0" padding-bottom="10px">
+        <mj-column>
+          <mj-text padding-top="0" padding-bottom="0">
+            <h3 class="js-account">{{ get ../accounts accountId 'label' }} - {{ get ../accounts accountId 'institutionLabel' }}</h3>
+          </mj-text>
+          {{#eachPair transactionsByDate as |date transactions|}}
+            <mj-text padding-top="0" padding-bottom="0">
+              <h4 class="js-date text"><span>{{ formatDate date }}</span></h4>
+            </mj-text>
+            {{#each transactions as |tr reimbursements|}}
+              <mj-table>
+                <tr class="js-transaction tableRow">
+                  <td width="40px"><a href="{{../../../transactionsUrl}}" style="color: inherit; text-decoration: none;"><img style="width: 32px; height: 32px" src='https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-cat-{{ parentCategory this }}.png' /></a></td>
+                  <td>
+                    <a href="{{../../../transactionsUrl}}" style="color: inherit; text-decoration: none;">{{ capitalize this.label }}</a>
+                  </td>
+                  <td align="right">
+                    <a href="{{../../../transactionsUrl}}" style="color: inherit; text-decoration: none;">
+                      <img style="width: 16px; height: 16px; vertical-align: middle;" src='https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-hourglass-red.png' />
+                    </a>
+                  </td>
+                  <td width="100px" align='right'>
+                    <a href="{{../../../transactionsUrl}}" style="text-decoration: none;">{{ colored this.amount }}
+                    </a>
+                  </td>
+                </tr>
+              </mj-table>
+              {{#unless @last}}<mj-divider padding-bottom="0" padding-top="0" border-width="1px" border-color="#ececec" />{{/unless}}
+            {{/each}}
+          {{/eachPair }}
+          {{#unless @last}}
+            <mj-divider padding-bottom="8px" padding-top="8px" border-width="1px" border-color="#d6d8da" />
+          {{/unless}}
+        </mj-column>
+      </mj-section>
+    {{/each}}
+    <mj-section>
+      <mj-column>
+        <mj-text>
+          <a href="{{ healthReimbursementsUrl }}">{{t 'Notifications.when_late_health_reimbursement.email.accessReimbursements'}}</a>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+  {{/content}}
+{{/extend}}

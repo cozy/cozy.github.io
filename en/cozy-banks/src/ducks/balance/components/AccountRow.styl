@@ -1,0 +1,98 @@
+@require 'settings/breakpoints'
+
+.AccountRow
+    display flex
+    justify-content space-between
+    height 4rem
+    align-items center
+    padding-left 1rem
+    padding-right 0.5rem
+    background-color var(--white)
+    color var(--charcoalGrey)
+
+    & + &
+        border-top 0.0625rem solid var(--silver)
+
+.AccountRow__figure
+    font-size 0.875rem
+    font-weight normal
+    color inherit
+    margin-right 0.25rem
+
+.AccountRow__column
+    white-space nowrap
+    overflow hidden
+    text-overflow ellipsis
+    display flex
+    align-items center
+
+    // Each column will have the same size since they are
+    // sized relative to their container
+    flex-basis 100%
+
+    &:not(:first-child)
+        margin-left 1rem
+
+    +small-screen()
+        // On mobile the label is twice as large as the other
+        // column
+        &:first-child
+            // Cannot use flex-grow since content inside
+            // is ellipsed and therefore won't grow
+            flex-basis 200%
+
+.AccountRow__column--secondary
+    font-size 0.875rem
+    color var(--coolGrey)
+
+.AccountRow__label
+    text-overflow ellipsis
+    overflow hidden
+    line-height 1.25
+    margin-bottom 0.125rem
+
+.AccountRow--hasWarning
+    .AccountRow__figure
+        color var(--texasRose)
+
+.AccountRow--hasAlert
+    .AccountRow__figure
+        color var(--pomegranate)
+
+.AccountRow__updatedAt
+    font-size 0.75rem
+    color var(--coolGrey)
+    line-height 1.5
+
+.AccountRow__updatedAt--old
+    color var(--pomegranate)
+
+.AccountRow__updatedAtIcon
+    vertical-align top
+    margin-right 0.25rem
+
+.AccountRow__labelUpdatedAtWrapper
+    flex 1
+    overflow hidden
+
+.AccountRow__logo
+    flex-basis 1.5rem
+    flex-shrink 0
+    flex-grow 0
+    max-height 1.5rem
+    margin-right 1rem
+
+    +small-screen('min')
+        margin-right 1.6875rem
+
+.AccountRow__figureSwitchWrapper
+    display flex
+    justify-content flex-end
+    overflow initial // let the switch have a big click area
+
+.AccountRow--disabled
+    color var(--coolGrey)
+
+    .AccountRow__logo
+        opacity 0.5
+

@@ -1,0 +1,5 @@
+# The files will be put in files.cozycloud.cc/bank by Jenkins
+# See the Jenkins job for more information
+# The files will be copied via rsync so be sure to check
+# its man for the behavior of the trailing slash
+src/ducks/notifications/html/assets/ email-assets/

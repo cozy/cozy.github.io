@@ -1,0 +1,95 @@
+@require '~components/Table/styles' // table need to be required before since we override some styles
+@require '~styles/mixins.styl'
+@require 'settings/breakpoints'
+
+.ScrollingElement
+    overflow-y auto
+
+.ColumnSizeDesc
+    maxed-flex-basis 40%
+    padding-left 4rem
+
+.ColumnSizeDate
+    maxed-flex-basis 15%
+    color var(--coolGrey)
+    text-align right
+
+.ColumnSizeAmount
+    maxed-flex-basis 20%
+    text-align right
+
+.ColumnSizeAction
+    maxed-flex-basis 25%
+
+.TransactionTable
+    color var(--charcoalGrey)
+
+    thead
+        // Force to have the same alignment as the tbody
+        // otherwise the scroll track is only on the tbody and
+        // causes a misalignment between the thead and tbody
+        overflow-y scroll
+
+    .bnk-op-desc-caption
+        margin-top 0
+
+    .bnk-transaction-mobile-action
+        position relative
+        flex-basis 2.5rem
+        flex-shrink 0
+        flex-grow 0
+        margin-left 1rem
+
+        &:before
+            content ''
+            position absolute
+            top 50%
+            left -.0635rem
+            width: .0635rem
+            height 1.5rem
+            background-color var(--silver)
+            transform translateY(-50%)
+
+    .bnk-op-caticon
+        cursor pointer
+
+    tbody
+        overflow inherit!important
+
+        .bnk-op-actions
+            padding 0 2rem 0 0
+
+            > div
+                float right
+
+// For now, all mouvements from same category use the same icon
+categories = kids dailyLife educationAndTraining health homeAndRealEstate incomeCat activities excludeFromBudgetCat services tax transportation goingOutAndTravel uncategorized
+
+// TODO use function to get each movement icon instead of category icon
+getTemporaryCatBkg(categoryLabel)
+
+
+for category in categories
+    .bnk-table-desc--{category}
+        icon = '../../assets/icons/categories/icon-cat-%s.svg' % category
+        background-image embedurl(icon) // @stylint ignore
+
++medium-screen()
+    .c-table-body .c-table-row
+        font-size 0.8em
+    .c-table-cell.bnk-table-desc
+        padding-left    4em
+
+.TransactionRowMobile
+    flex-direction column
+    align-items flex-start
+    justify-content center
+
+.TransactionRowMobile__actions
+    display inline-block
+
+    // We may have an action that matches, but render nothing. In that case,
+    // this element exists, but is empty. We want to hide it to avoid extra
+    // margins
+    &:empty
+        display none

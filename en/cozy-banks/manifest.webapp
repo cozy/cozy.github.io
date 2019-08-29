@@ -1,0 +1,211 @@
+{
+  "name": "Banks",
+  "name_prefix": "Cozy",
+  "slug": "banks",
+  "registry_namespace": "banks",
+  "icon": "icon-banks.svg",
+  "description": "The banking application for Cozy",
+  "category": "cozy",
+  "licence": "AGPL-3.0",
+  "source": "git://github.com/cozy/cozy-banks.git",
+  "type": "webapp",
+  "developer": {
+    "name": "Cozy Cloud",
+    "url": "https://cozy.io"
+  },
+  "default_locale": "en",
+  "locales": {
+    "en": {
+      "short_description": "Cozy Banks is the personal financial management application available on Cozy.",
+      "long_description": "Cozy Banks is the all-in-one personal data banking application to manage and control your money\nAll Cozy Banks is free\n- Automatic categorisation of your transactions\n- Simple graph to balances follow-up (New)\n- Smart notifications (New)\n- Multi-bank synchronisation\n- Personal Financial Management\n- Unlimited historic\n- Privacy by design application: 100% control of your personal finances\n\nMAIN FEATURES FOR MORE CONTROL AND SERVICES\n- Detailed overview of your finances\nYour transactions are automatically categorised and even more as you can re-categorise if need be. In-depth understand of your finances with smart graphs\n- All your bank accounts in one place - even different banks\nUnlimited history for all your transactions.\nReal difference with your actuel bank application.\n\nCheck out the list of 25+ banks and account types available in your Cozy:\nAxa Banque, Banque Populaire, BforBank, BNP Paribas, Boursorama, Bred, Carrefour Banque, Caisse d’Epargne, Casden, CIC, Crédit Agricole, Crédit Coopératif, Crédit Maritime, Crédit Mutuel, Crédit du Nord & banques du groupe, Crédit Mutuel, Fortuneo, HelloBank!, HSBC, ING Direct, LCL, Monabanq, La Banque Postale, Société Générale, Société Marseillaise de Crédit\n- One-click follow up of your health expenses\nCheck out directly in one place all your health expenses and be notified in real-time once reimbursed\n- Smart notifications\nCozy Banks warns you when something important occurs on your bank accounts\n- Magic link between your bills and expenses\nCozy Banks imports and associates automatically your bills to your expenses.\nAWARDS\n- Award-Winning Innovation Grand Prix - Ville de Paris 2018\n- Best Secure Data Service - Disruptive Night - 2018\n- Finance Innovation Label - 2018\nSAFE AND SECURE\n- Encrypted storage, connections and credentials\n- Two-factor authentication\n- Hosting in France \n- User is king\n- Using technology of our provider Budget Insight\n- Open source\n- Decentralized model in opposition to the current GAFA model\n- Cozy Cloud is a French company\nMore information available on https://help.cozy.io/article/268-all-my-data-in-a-secure-place",
+      "changes": ""
+    },
+    "fr": {
+      "short_description": "Cozy Banks est l’application gratuite et sécurisée pour gérer votre argent et tous vos comptes bancaires.",
+      "long_description": "Avec Cozy Banks, vous pouvez facilement :\n- Regrouper tous vos comptes même issus de banques différentes\n- Catégoriser automatiquement vos dépenses : revenus, loisirs, santé, logement... avec la possibilité de re-catégoriser si nécessaire\n- Suivre l’évolution des soldes de vos différents comptes bancaires (Nouveauté)\n- Paramétrer vos alertes en temps réel en cas de risque de solde négatif ou entrée d’argent importante\n- Accéder à une vision d’ensemble de toutes vos dépenses\n- Accéder directement aux factures des services que vous avez payés grâce à l’importation automatique des données par les connecteurs\n- Suivre vos dépenses et remboursements de santé entre vos différents services et pour tous les membres de la famille\n\nNOS RÉCOMPENSES & PRIX\n- Lauréat Grand Prix de l’Innovation - Catégorie Moonshot 2040 - Ville de Paris - 2018\n- Lauréat d’Or “Sécurité des données” - Disruptive Night - 2018\n- Label Finance Innovation - 2018\n\nNOS ENGAGEMENTS & GARANTIES DE SÉCURITÉ\n- Chiffrement des données stockées, connexions et identifiants\n- Isolation des rôles côté serveur\n- Authentification en deux étapes\n- Hébergement en France\n- Utilisateur comme client-roi\n- Solution open-source\n- Modèle décentralisé en rupture avec le modèle économique actuel des GAFA\n- Cozy Banks est développé par Cozy Cloud, entreprise française dont les serveurs sont situés en France\n- Pour plus d'informations sur la sécurité : https://support.cozy.io/category/5-securite\n\nL'application Cozy Banks est connectée à plus de 100 institutions financières : Caisse d’Epargne, Crédit Agricole, Société Générale, Boursorama, Crédit Mutuel, La Banque Postale, LCL, Banque Populaire, HSBC, Axa Banque, Bred, CIC, BforBank, Hello Bank, Fortuneo Banque, ING Direct, Monabanq, Barclays, BNP Paribas...",
+      "changes": ""
+    }
+  },
+  "langs": ["en", "fr"],
+  "screenshots": [
+    "screenshots/fr/screenshot1.png",
+    "screenshots/fr/screenshot2.png",
+    "screenshots/fr/screenshot3.png",
+    "screenshots/fr/screenshot4.png",
+    "screenshots/fr/screenshot5.png"
+  ],
+  "platforms": [
+    {
+      "type": "ios",
+      "url": "https://itunes.apple.com/us/app/cozy-banks/id1349814380"
+    },
+    {
+      "type": "android",
+      "url": "https://play.google.com/store/apps/details?id=io.cozy.banks.mobile"
+    }
+  ],
+  "editor": "Cozy",
+  "tags": [
+    "bank",
+    "banks",
+    "money",
+    "account"
+  ],
+  "routes": {
+    "/": {
+      "folder": "/",
+      "index": "index.html",
+      "public": false
+    },
+    "/public": {
+      "folder": "/public",
+      "public": true
+    }
+  },
+  "services": {
+    "onOperationOrBillCreate": {
+      "type": "node",
+      "file": "onOperationOrBillCreate.js",
+      "trigger": "@event io.cozy.bills:CREATED",
+      "debounce": "75s"
+    },
+    "categorization": {
+      "type": "node",
+      "file": "categorization.js",
+      "trigger": "@at 2000-01-01T00:00:00.000Z"
+    },
+    "stats": {
+      "type": "node",
+      "file": "stats.js",
+      "trigger": "@event io.cozy.bank.operations:CREATED,UPDATED",
+      "debounce": "1m"
+    }
+  },
+  "notifications": {
+    "balance-lower": {
+      "description": "Alert the user when his account balance is lower than a certain value",
+      "collapsible": true,
+      "stateful": false,
+      "multiple": false,
+      "default_priority": "normal",
+      "templates": {}
+    },
+    "health-bill-linked": {
+      "description": "Alert the user when a health bill has been linked to a health expense",
+      "collapsible": false,
+      "stateful": false,
+      "multiple": false,
+      "default_priority": "normal",
+      "templates": {}
+    },
+    "transaction-greater": {
+      "description": "Alert the user when a transaction amount is greater than a certain value",
+      "collapsible": false,
+      "stateful": false,
+      "multiple": false,
+      "default_priority": "normal",
+      "templates": {}
+    },
+    "late-health-reimbursement": {
+      "description": "Alert the user when a health reimbursement is late",
+      "collapsible": false,
+      "stateful": false,
+      "multiple": false,
+      "default_priority": "normal",
+      "templates": {}
+    },
+    "delayed-debit": {
+      "description": "Alert the user when an account balance is going to be negative after delayed debit",
+      "collapsible": false,
+      "stateful": false,
+      "multiple": false,
+      "default_priority": "normal",
+      "templates": {}
+    }
+  },
+  "permissions": {
+    "bank.groups": {
+      "description": "Manage groups of bank accounts",
+      "type": "io.cozy.bank.groups",
+      "verbs": ["GET", "POST", "PUT", "DELETE"]
+    },
+    "bank.accounts": {
+      "description": "Used to list your bank accounts",
+      "type": "io.cozy.bank.accounts",
+      "verbs": ["GET", "POST", "PUT", "DELETE"]
+    },
+    "bank.accounts.stats": {
+      "description": "Used to aggregate stats about bank accounts",
+      "type": "io.cozy.bank.accounts.stats",
+      "verbs": ["GET", "POST", "PUT", "DELETE"]
+    },
+    "bank.operations": {
+      "description": "Used to manage your bank operations",
+      "type": "io.cozy.bank.operations",
+      "verbs": ["GET", "POST", "PUT"]
+    },
+    "bank.settings": {
+      "description": "Used to manage your bank settings",
+      "type": "io.cozy.bank.settings",
+      "verbs": ["GET", "POST", "PUT"]
+    },
+    "bank.recipients": {
+      "description": "Show recipients of transfers",
+      "type": "io.cozy.bank.recipients"
+    },
+    "bills": {
+      "description": "Manage bills",
+      "type": "io.cozy.bills",
+      "verbs": ["GET", "POST", "PUT", "DELETE"]
+    },
+    "notifications": {
+      "description": "Used to send notifications",
+      "type": "io.cozy.notifications",
+      "verbs": ["POST"]
+    },
+    "apps": {
+      "description": "Required by the cozy-bar to display the icons of the apps",
+      "type": "io.cozy.apps",
+      "verbs": ["GET"]
+    },
+    "triggers": {
+      "description": "Used to add CTA to collect",
+      "type": "io.cozy.triggers",
+      "verbs": ["GET"]
+    },
+    "settings": {
+      "description": "Required by the cozy-bar to display Claudy and know which applications are coming soon",
+      "type": "io.cozy.settings",
+      "verbs": ["GET"]
+    },
+    "reporting": {
+      "description": "Allow to report unexpected errors to the support team",
+      "type": "cc.cozycloud.sentry",
+      "verbs": ["POST"]
+    },
+    "autocategorization": {
+      "description": "Allow to anonymously send categorized transactions",
+      "type": "cc.cozycloud.autocategorization",
+      "verbs": ["POST"]
+    },
+    "konnectors": {
+      "description": "Required to know if a konnector is waiting for a manual update",
+      "type": "io.cozy.konnectors",
+      "verbs": ["GET"]
+    },
+    "apps.suggestions": {
+      "description": "Used to suggest which apps / connectors might be useful for the user",
+      "type": "io.cozy.apps.suggestions",
+      "verbs": ["GET", "POST", "PUT"]
+    },
+    "jobs": {
+      "description": "Used in services to start other services",
+      "type": "io.cozy.jobs"
+    },
+    "accounts": {
+      "description": "Used to create a temporary account for transfers",
+      "type": "io.cozy.accounts",
+      "verbs": ["POST", "DELETE", "GET"]
+    }
+  }
+}

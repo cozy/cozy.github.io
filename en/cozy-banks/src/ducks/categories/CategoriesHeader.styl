@@ -1,0 +1,65 @@
+@require 'settings/breakpoints'
+
+.CategoriesHeader
+    display flex
+    justify-content space-between
+    align-items flex-start
+    flex-shrink 0
+
+    +small-screen()
+        flex-direction column
+        align-items flex-start
+
+    &.NoAccount
+        position relative
+        height calc(50vh - 24px - 3rem)
+        min-height 354px
+
+.NoAccount_container
+    display flex
+    flex-direction column
+    flex-shrink 0
+    height calc(100vh - 48px * 3)
+
+    .NoAccount_box
+        display flex
+        flex-direction column
+        justify-content center
+        flex-grow 1
+
+    .NoAccount_chart
+        position relative
+        bottom inherit
+        left inherit
+        margin-top 0
+
+.NoAccount_chart
+    position absolute
+    bottom 3.5rem
+    left calc(50% - 93px)
+
+.CategoriesHeader__Toggle
+    > span
+        margin-right 1em
+    > label
+        font-size .8em
+        position absolute
+        line-height 1.5rem
+
+    &.default
+        padding-top 2rem
+
+    &.primary
+        padding-top 1rem
+        padding-bottom 1rem
+        color var(--categoriesHeaderTogglePrimaryContrastTextColor)
+
+        input + label
+            background-color var(--categoriesHeaderTogglePrimaryBackgroundColor)
+
+        input:checked + label
+            background-color var(--emerald)
+
+    +small-screen()
+        &.default, &.primary
+            padding-top 0

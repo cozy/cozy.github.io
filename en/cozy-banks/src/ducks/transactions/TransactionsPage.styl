@@ -1,0 +1,34 @@
+@require 'settings/breakpoints'
+@require '~styles/mixins.styl'
+
+.TransactionPage__bottom
+    overflow auto // TODO remove in small screen
+
+.bnk-mov-figures
+    margin          1em 0
+    display         flex
+    flex-direction  row
+    flex-wrap       wrap
+
+    > div
+        margin 0 1em 1em 0
+        flex 1
+
+        +medium-screen()
+            &
+                margin 0
+                flex-basis 50%
+
+.TransactionsHeader__chart
+    margin-bottom -72px
+
+    +small-screen()
+        margin-bottom -40px
+
+.TransactionsHeader__selectDatesContainer
+    position relative
+    padding-bottom 12px
+
+.TransactionHeader__accountSwitchContainer
+    display flex
+    align-items center

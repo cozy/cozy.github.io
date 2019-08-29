@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -eu
+cozyDomain=$1
+
+PERMISSIONS="$(cat manifest.webapp | jq -r '[.permissions[] | .type] | join(" ")')"
+
+if [[ $cozyDomain == "cozy.tools:8080" ]]; then
+  cozy-stack instances token-cli $cozyDomain $PERMISSIONS
+
+else
+  tokenFile=$(make-token $cozyDomain $PERMISSIONS)
+  cat $tokenFile | jq -r '.token'
+fi

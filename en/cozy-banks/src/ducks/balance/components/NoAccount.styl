@@ -1,0 +1,46 @@
+@require 'settings/breakpoints'
+
+.NoAccount
+    background var(--primaryColor)
+    color var(--primaryContrastTextColor)
+    text-align center
+    position relative
+    height calc(50vh - 24px) // 24 is cozy-bar size / 2
+    min-height 200px
+    +small-screen()
+        height calc(50vh - 48px) // 48 is cozy-bar + bottom nav size / 2
+
+.NoAccount_addButton.NoAccount_addButton
+    position absolute
+    bottom -24px
+    left 0
+    right 0
+    margin 0 auto
+    width 512px
+    +small-screen()
+        width calc(100vw - 2rem)
+        margin 0 1rem
+
+$chart-desktop-size = 88px
+$chart-mobile-size = 63px
+$timeline-size = 34px
+.NoAccount_bottom
+    height $chart-desktop-size + $timeline-size
+    margin 2rem 0 2.5rem
+    overflow hidden
+
+    +small-screen()
+      height $chart-mobile-size + $timeline-size
+
+    .NoAccount_chart
+        height $chart-desktop-size
+        background-size auto 100%
+        background-position center
+        background-image url('./NoAccount.svg')
+        background-repeat no-repeat
+
+        +small-screen()
+            height $chart-mobile-size
+
+    .NoAccount_timeline
+        height $timeline-size

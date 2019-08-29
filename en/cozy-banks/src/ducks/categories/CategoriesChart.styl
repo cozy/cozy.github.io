@@ -1,0 +1,50 @@
+@require 'settings/breakpoints'
+
+.CategoriesChart
+    height 182px
+    width 182px
+    margin-left auto
+    position relative
+    z-index 1
+
+    &.primary
+        background-color var(--white)
+        border-radius 50%
+        border 2px solid var(--white)
+
+        +small-screen()
+            margin-top 0
+
+    +small-screen()
+        margin-right auto
+        margin-top 1.5rem
+
+    &.NoAccount
+        background url('./pie-demo.svg') white
+
+.CategoriesChart__FigureBlockContainer
+    position absolute
+    top 25px
+    bottom 25px
+    left 25px
+    right 25px
+    border-radius 50%
+    display flex
+    flex-direction column
+    justify-content center
+    align-items center
+    z-index -1
+
+.CategoriesChart__FigureBlock
+    z-index -1
+    display flex
+    flex-direction column-reverse
+    align-items center
+    text-align center
+
+.CategoriesChart__Figure
+    font-size 1.5rem
+    line-height 1.33
+
+    +small-screen()
+        padding-bottom 0

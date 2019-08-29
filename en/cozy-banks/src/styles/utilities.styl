@@ -1,0 +1,78 @@
+@require '~styles/spacers.styl'
+@require 'generic/animations'
+
+:global
+    // Global utils classes comes here
+    .u-ellipsis
+        white-space nowrap
+        text-overflow ellipsis
+        overflow hidden
+
+    .u-spin
+        animation  spin 1s linear infinite
+        display inline-block
+
+    .u-text-bold
+        font-weight bold
+
+    .u-hover:hover
+        background var(--paleGrey)
+        cursor pointer
+
+    .u-clickable
+        cursor pointer
+
+    // To remove when utility classes in cozy-ui work correctly
+    // https://github.com/cozy/cozy-ui/issues/866
+    .u-w-100
+        width 100%
+
+    .u-click-xl::after
+      width 130%
+      height 130%
+      top -15%
+      left -15%
+      content '\00a0'
+      display block
+      position absolute
+
+    // To remove when utility classes in cozy-ui work properly
+    // https://github.com/cozy/cozy-ui/issues/866
+    .u-flex-grow-0
+      flex-grow 0
+
+    // To remove when utility classes in cozy-ui work properly
+    // https://github.com/cozy/cozy-ui/issues/866
+    .u-shake
+        // For animation with keyframes to work with cssmodules and :global,
+        // it was necessary to add :local. A bit weird...
+        // https://github.com/css-modules/css-modules/issues/141#issuecomment-243011699
+        :local
+            animation-name shake
+
+        animation-duration 820ms
+        animation-timing-function cubic-bezier(.36,.07,.19,.97)
+        animation-fill-mode both
+
+    .u-invisible-form-field input[type=date]
+        border 0
+        background none
+
+
+    @keyframes shake
+      10%, 90%
+        transform translate3d(-1px, 0, 0)
+
+      20%, 80%
+        transform translate3d(2px, 0, 0)
+
+      30%, 50%, 70%
+        transform translate3d(-4px, 0, 0)
+
+      40%, 60%
+        transform translate3d(4px, 0, 0)
+
+    // @TODO move this to ui
+    // See https://github.com/cozy/cozy-ui/issues/1096
+    .u-stack > * + *
+        margin-top 1rem

@@ -1,0 +1,30 @@
+{
+  "description": "bill with own label regex",
+  "bills": [
+    {
+      "_id": "b1",
+      "amount": 2000,
+      "date": "2019-07-31T00:00:00.000Z",
+      "vendor": "Payfit",
+      "isRefund": true,
+      "matchingCriterias": {
+        "labelRegex": "\\bCOZY CLOUD\\b"
+      }
+    }
+  ],
+  "operations": [
+    {
+      "_id": "salary",
+      "date": "2019-07-30T12:00:00.000Z",
+      "label": "3019287s DE: COZY CLOUD MOTIF: 07/2019",
+      "amount": 2000,
+      "manualCategoryId": "200110"
+    }
+  ],
+  "expectedResult": {
+    "b1": {
+      "creditOperation": "salary",
+      "debitOperation": null
+    }
+  }
+}

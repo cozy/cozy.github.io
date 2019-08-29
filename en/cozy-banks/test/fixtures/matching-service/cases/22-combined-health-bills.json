@@ -1,0 +1,51 @@
+{
+  "description": "health bills on the same date should combine",
+  "bills": [
+    {
+      "_id": "b1",
+      "amount": 10,
+      "groupAmount": 20,
+      "originalDate": "2018-07-19T00:00:00.000Z",
+      "date": "2018-07-25T00:00:00.000Z",
+      "isRefund": true,
+      "vendor": "Ameli",
+      "type": "health_costs"
+    },
+    {
+      "_id": "b2",
+      "amount": 10,
+      "groupAmount": 20,
+      "originalDate": "2018-07-19T00:00:00.000Z",
+      "date": "2018-07-25T00:00:00.000Z",
+      "isRefund": true,
+      "vendor": "Ameli",
+      "type": "health_costs"
+    }
+  ],
+  "operations": [
+    {
+      "_id": "op1",
+      "date": "2018-07-19T12:00:00.000Z",
+      "label": "Ophtalmo",
+      "amount": -20,
+      "manualCategoryId": "400610"
+    },
+    {
+      "_id": "reimbur",
+      "date": "2018-07-20T12:00:00.000Z",
+      "label": "CPAM",
+      "amount": 20,
+      "manualCategoryId": "400610"
+    }
+  ],
+  "expectedResult": {
+    "b1": {
+      "debitOperation": "op1",
+      "creditOperation": "reimbur"
+    },
+    "b2": {
+      "debitOperation": "op1",
+      "creditOperation": "reimbur"
+    }
+  }
+}

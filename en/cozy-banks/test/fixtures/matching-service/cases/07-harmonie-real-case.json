@@ -1,0 +1,38 @@
+{
+  "description": "harmonie real case",
+  "bills": [
+    {
+      "_id": "harmonie_bill",
+      "amount": 6.9,
+      "groupAmount": 6.9,
+      "originalAmount": 80,
+      "originalDate": "2018-05-23T00:00:00.000Z",
+      "date": "2018-05-16T00:00:00.000Z",
+      "isRefund": true,
+      "vendor": "Harmonie",
+      "type": "health_costs"
+    }
+  ],
+  "operations": [
+    {
+      "_id": "ophtalmo",
+      "date": "2018-05-22T12:00:00.000Z",
+      "label": "CENTRE OPHTALM",
+      "amount": -80,
+      "manualCategoryId": "400610"
+    },
+    {
+      "_id": "harmonie_reimbur",
+      "date": "2018-05-24T12:00:00.000Z",
+      "label": "HARMONIE MUTUELLE IP0169697530 MUTUELLE -609143-4152-20970487",
+      "amount": 6.9,
+      "manualCategoryId": "400610"
+    }
+  ],
+  "expectedResult": {
+    "harmonie_bill": {
+      "creditOperation": "harmonie_reimbur",
+      "debitOperation": "ophtalmo"
+    }
+  }
+}

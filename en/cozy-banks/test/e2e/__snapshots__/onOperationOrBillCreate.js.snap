@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`onOperationOrBillCreate 1`] = `
+"{
+  \\"io.cozy.bank.operations\\": [
+    {
+      \\"_id\\": \\"ikea_operation\\",
+      \\"account\\": \\"compteisa1\\",
+      \\"amount\\": -15,
+      \\"automaticCategoryId\\": \\"401060\\",
+      \\"currency\\": \\"EUR\\",
+      \\"date\\": \\"2018-10-17T00:00:00+02:00\\",
+      \\"label\\": \\"IKEA\\",
+      \\"originalBankLabel\\": \\"IKEA\\",
+      \\"type\\": \\"credit card\\",
+      \\"bills\\": [
+        \\"io.cozy.bills:ikea_bill\\"
+      ]
+    },
+    {
+      \\"_id\\": \\"remboursement_cpam\\",
+      \\"account\\": \\"compteisa1\\",
+      \\"amount\\": 5,
+      \\"automaticCategoryId\\": \\"400610\\",
+      \\"currency\\": \\"EUR\\",
+      \\"date\\": \\"2018-10-18T00:00:00+02:00\\",
+      \\"label\\": \\"Remboursement CPAM\\",
+      \\"bills\\": [
+        \\"io.cozy.bills:ameli_bill\\"
+      ]
+    },
+    {
+      \\"_id\\": \\"visite_medecin\\",
+      \\"account\\": \\"compteisa1\\",
+      \\"amount\\": -20,
+      \\"automaticCategoryId\\": \\"400610\\",
+      \\"currency\\": \\"EUR\\",
+      \\"date\\": \\"2018-10-18T00:00:00+02:00\\",
+      \\"label\\": \\"Visite chez le médecin\\",
+      \\"bills\\": [
+        \\"io.cozy.bills:ameli_bill\\"
+      ],
+      \\"reimbursements\\": [
+        {
+          \\"billId\\": \\"io.cozy.bills:ameli_bill\\",
+          \\"amount\\": 5,
+          \\"operationId\\": \\"remboursement_cpam\\"
+        }
+      ]
+    }
+  ],
+  \\"io.cozy.bills\\": [
+    {
+      \\"_id\\": \\"ameli_bill\\",
+      \\"amount\\": 5,
+      \\"currency\\": \\"EUR\\",
+      \\"date\\": \\"2018-10-18T00:00:00.000Z\\",
+      \\"invoice\\": \\"io.cozy.files:ameli_invoice\\",
+      \\"isRefund\\": true,
+      \\"originalAmount\\": 20,
+      \\"originalDate\\": \\"2018-10-18T00:00:00.000Z\\",
+      \\"type\\": \\"health_costs\\",
+      \\"vendor\\": \\"Ameli\\"
+    },
+    {
+      \\"_id\\": \\"ikea_bill\\",
+      \\"amount\\": 15,
+      \\"date\\": \\"2018-10-17T00:00:00Z\\",
+      \\"invoice\\": \\"io.cozy.files:ikea_invoice_id\\",
+      \\"vendor\\": \\"Ikea\\"
+    }
+  ]
+}"
+`;

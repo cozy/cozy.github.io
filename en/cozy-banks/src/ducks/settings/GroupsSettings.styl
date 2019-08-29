@@ -1,0 +1,58 @@
+@require 'components/forms.styl'
+@require 'settings/breakpoints'
+@require '~styles/mixins.styl'
+
+.GrpsStg
+    &__table
+        @extend $full-width-table
+
+        td
+            text-overflow ellipsis
+            overflow hidden
+            white-space nowrap
+
+    &__label
+        maxed-flex-basis 25%
+        composes mobile-row-main from '../../components/Table/styles.styl'
+
+    &__accounts
+        maxed-flex-basis 75%
+        composes mobile-row-label from '../../components/Table/styles.styl'
+
+        +small-screen()
+            flex-basis 100%
+
+    &__row
+        composes mobile-row from '../../components/Table/styles.styl'
+        composes nav-row from '../commons/mobile.styl' // @stylint ignore
+
+.GrpStg
+    &__accntLabel
+        maxed-flex-basis 25%
+
+    &__accntBank
+        maxed-flex-basis 25%
+
+    &__accntNumber
+        maxed-flex-basis 30%
+
+    &__accntToggle
+        maxed-flex-basis 20%
+
+    &__table
+        @extend $full-width-table
+
+    &__form
+        @extend $form
+        @extend $form-text
+
+        input[type=text]
+            // to have the same height as the buttons
+            padding 0.625rem
+
+        +small-screen()
+            .save-button
+                margin-left 0
+                margin-top 0.25rem
+            input[type=text]
+                width 100%

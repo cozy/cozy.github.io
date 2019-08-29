@@ -1,0 +1,46 @@
+@require 'components/list'
+
+$height=3rem
+
+.List--papered
+    box-shadow 0 0 20px rgba(0, 0, 0, 0.1)
+
+.List--bordered
+    border 1px solid var(--silver)
+
+.List--bordered-v
+    border-left 1px solid var(--silver)
+    border-right 1px solid var(--silver)
+
+.List--bordered-h
+    border-top 1px solid var(--silver)
+    border-bottom 1px solid var(--silver)
+
+.c-list-row
+    min-height $height
+    padding .375rem .75rem
+    border-bottom 1px solid var(--silver)
+    display flex
+    align-items center
+    &:last-child
+        border-bottom 0
+
+.c-list-header
+    background-color var(--paleGrey)
+    border-width 0
+    color var(--coolGrey)
+    font-size 0.75rem
+    text-transform uppercase
+    font-weight bold
+    padding 0.125rem 1rem
+    line-height 1rem
+
+    .c-list-row + &
+        position relative
+        top -1px
+        border-top 1px solid var(--white)
+
+.Radio
+    width 100%
+    margin-bottom 0
+    height $height // Give the same height as the List row

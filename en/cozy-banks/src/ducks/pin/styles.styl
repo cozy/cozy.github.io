@@ -1,0 +1,119 @@
+// Should be put in cozy-ui
+
+.Pin__button
+    border-radius 100%
+    height 4rem
+    margin .5rem
+    width 26%
+    border-radius 4rem
+    display inline-flex
+    align-items center
+    justify-content center
+    color var(--white)
+    background-color rgba(255, 255, 255, 0)
+    transition background-color 0.3s ease
+    font-size 2rem
+    border 0
+    text-transform uppercase
+
+    // Disable orange outline
+    // https://stackoverflow.com/questions/5210481/disable-orange-outline-highlight-on-focus
+    -webkit-tap-highlight-color rgba(255, 255, 255, 0)
+    -webkit-tap-highlight-color transparent
+    outline none
+
+.Pin__button--text
+    font-size .875rem
+    font-weight bold
+
+.Pin__button:active, .Pin__button:focus
+    background-color rgba(255, 255, 255, 0.25)
+    cursor pointer
+
+.PinKeyboard
+    display flex
+    flex-direction column
+    align-items stretch
+    max-width 500px
+    height 100%
+
+.PinKeyboard__top
+  flex-grow 1
+  align-items center
+  justify-content center
+  display flex
+  flex-direction column
+  padding 1rem
+
+.PinKeyboard__topMessage
+    font-weight bold
+
+.PinKeyboard__keyboard
+    flex-grow 0
+    align-items center
+    justify-content center
+    display flex
+    flex-direction row
+    flex-wrap wrap
+    margin auto
+
+.PinWrapper
+    background var(--pinPrimaryBackgroundColor)
+    color var(--pinPrimaryContrastTextColor)
+    transition background 0.3s ease
+    width 100vw
+    height 100vh
+    z-index 100
+    position fixed
+    display flex
+    justify-content center
+    align-items center
+    flex-direction column
+    text-align center
+    top 0
+    bottom 0
+    left 0
+    right 0
+
+.PinWrapper p
+    opacity 0.64
+    font-size 1rem
+    font-weight normal
+    opacity 0.85
+    margin 0
+
+.PinWrapper h2
+    font-size 1.5rem
+    font-weight bold
+    margin 1rem 0
+
+.PinWrapper--success
+    background var(--emerald)
+
+.Pin__dots
+    font-size 3rem
+    margin .5rem
+
+.Pin__dot
+    display inline-block
+    text-align center
+    width 2rem
+
+.Pin__error
+    color #fbbabb
+    font-weight bold
+    margin-top 1rem
+
+.Pin__FingerprintChoice
+    display flex
+    flex-direction column
+    height 100%
+    padding 1rem
+    box-sizing border-box
+
+.Pin__FingerprintChoice__top
+    display flex
+    flex-direction column
+    flex-grow 1
+    justify-content center
+    align-items center

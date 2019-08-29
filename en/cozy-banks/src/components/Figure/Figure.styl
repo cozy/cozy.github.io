@@ -1,0 +1,50 @@
+@require 'settings/breakpoints'
+
+.default
+    &.Figure-currency
+        color var(--coolGrey)
+
+    &.Figure-content--positive
+        color var(--emerald)
+
+        .Figure-currency
+            color var(--emerald)
+
+    &.Figure-content--negative
+        color var(--pomegranate)
+
+        .Figure-currency
+            color var(--pomegranate)
+
+    &.Figure-content--warning
+        color var(--texasRose)
+
+        .Figure-currency
+            color var(--texasRose)
+
+.primary
+    color var(--white)
+
+.Figure-total
+    font-weight    900
+
+.Figure__currency--withSpacing
+    margin-left .2em
+
+.Figure--big
+    font-size 2rem
+    line-height 2.625rem
+
++small-screen()
+    .Figure--big
+        font-size 1.5rem
+        line-height 1.75rem
+
+.Figure--clickable
+    cursor pointer
+
+.Figure_blur
+    filter blur(8px)
+
+.Figure--inline
+    display inline

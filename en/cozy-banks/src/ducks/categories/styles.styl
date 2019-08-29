@@ -1,0 +1,108 @@
+@require 'settings/breakpoints'
+@require '~styles/mixins.styl'
+
+.PercentageLine
+    position absolute
+    bottom -1px
+    left 0
+    height 2px
+
+// Table
+.bnk-table-category
+    @extend $full-width-table
+
+    thead
+        font-weight bold
+
+    tbody
+        tr
+            cursor  pointer
+
+        td
+            +small-screen()
+                vertical-padding = 0.625rem
+                padding-top vertical-padding
+                padding-bottom vertical-padding
+
+    .bnk-table-percentage
+        text-align right
+        white-space nowrap
+
+    .bnk-table-operation
+        text-align right
+
+    .bnk-table-amount
+    .bnk-table-total
+        text-align right
+
+    tbody
+        .bnk-table-total
+        .bnk-table-percentage
+            font-size 1rem
+
+    .bnk-table-percentage-sign
+        display inline-block
+        margin-left 0.125em
+        color var(--coolGrey)
+
+    .bnk-table-amount-figure
+        color var(--coolGrey)
+        font-weight normal
+
+    .bnk-table-amount-figure-total
+        font-weight inherit
+
+    .bnk-table-row
+    .bnk-table-row--uncollapsed
+        color var(--charcoalGrey)
+        position relative
+
+        .bnk-table-percentage
+            font-weight bold
+
+    .bnk-table-row-caption
+        margin-top 0
+
+    .bnk-table-percentage-caption
+        display inline-block
+        margin-right 0.1875rem
+        color var(--charcoalGrey)
+
+    +small-screen('min')
+        .bnk-table-category-category
+            maxed-flex-basis 50%
+
+        .bnk-table-percentage
+            maxed-flex-basis 10%
+
+        .bnk-table-operation
+            maxed-flex-basis 10%
+
+        .bnk-table-total
+            maxed-flex-basis 30%
+
+    +medium-screen('min')
+        .bnk-table-category-category
+            maxed-flex-basis 30%
+        .bnk-table-percentage
+            maxed-flex-basis 10%
+        .bnk-table-operation
+            maxed-flex-basis 18%
+        .bnk-table-amount
+        .bnk-table-total
+            maxed-flex-basis 14%
+
+
+.bnk-category-total-mobile
+    min-width 5rem
+    font-size 0.875rem
+
+
+.bnk-table-category-name-icon
+    $iconHeight=2rem
+    $textHeight=1rem
+    $heightIncrease=($iconHeight - $textHeight) / 2
+    // We apply negative margins so that the container of name
+    // and icon has the height of the text instead of the icon
+    margin-top -($heightIncrease/2)
+    margin-bottom -($heightIncrease/2)

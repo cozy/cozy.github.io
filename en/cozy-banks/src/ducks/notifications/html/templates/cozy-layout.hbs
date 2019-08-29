@@ -1,0 +1,116 @@
+<mjml>
+   <mj-head>
+      <mj-font name="Lato" href="https://fonts.googleapis.com/css?family=Lato:400,700" />
+      <mj-style inline="inline">
+        {{{ embedFile 'style.css' }}}
+      </mj-style>
+      <mj-style>
+        @media screen and (max-width: 480px) {
+          .header__desc__title {
+            text-align: center !important;
+          }
+          .header__desc__subtitle {
+            text-align: center !important;
+          }
+          .header__title > td {
+            text-align: center !important;
+          }
+          .header__title > td > table {
+            width: 100px;
+            margin: auto;
+          }
+
+          .footer__settings > td > div {
+            text-align: center !important;
+          }
+
+          .footer__help > td > div,
+          td.footer__help > div,
+          emailHeader {
+            text-align: center !important;
+          }
+          .header__title table {
+            margin: 0 auto;
+            text-align: center;
+          }
+        }
+      </mj-style>
+      <mj-attributes>
+        <mj-all font-family="Lato, Helvetica, Arial, sans-serif"></mj-all>
+      </mj-attributes>
+   </mj-head>
+  <mj-body>
+    <mj-container background-color="#f5f6f7">
+      <mj-section padding-top="0" padding-bottom="0">
+        <mj-column>
+          {{#block 'topLogo'}}<mj-image width="100px" src="https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/logo-cozy.png" />{{/block}}
+        </mj-column>
+      </mj-section>
+
+      <!-- white sheet -->
+      <mj-wrapper background-color="white" border='1px solid #d6d6d8' border-top="none">
+        <!-- header -->
+        <mj-section padding-bottom="0" padding-top="0">
+          <mj-column>
+            <mj-table width="auto" css-class="header__title" cellpadding='4px'>
+              <tr>
+                <td width="30px">
+                  <a href="{{banksUrl}}">
+                    <img align="left" width="30px" src="{{#block 'logoUrl'}}{{/block}}" alt="{{#block 'appName'}}{{/block}}" />
+                  </a>
+                </td>
+                <td>
+                  <h1 style="line-height: 32px"><a href="{{banksUrl}}">{{#block 'appName'}}{{/block}}</a></h1>
+                </td>
+              </tr>
+            </mj-table>
+          </mj-column>
+          <mj-column css-class="emailHeader">
+            <mj-text padding-top="0" padding-bottom="0">
+              {{#block 'emailHeader' }}
+                <div class="header__desc__title txtRight">
+                  {{#block 'emailTitle' }}{{/block}}
+                </div>
+                <div class="header__desc__subtitle txtRight">
+                  {{#block 'emailSubtitle' }}{{/block}}
+                </div>
+              {{/block}}
+            </mj-text>
+          </mj-column>
+        </mj-section>
+
+        <mj-section padding-top="8px" padding-bottom="8px">
+          <mj-column>
+            <mj-divider border-width="1px" border-color="#95999d" />
+          </mj-column>
+        </mj-section>
+
+
+        <!-- content -->
+        {{#block 'content' }}{{/block}}
+      </mj-wrapper>
+      <mj-section padding-top="0">
+        <mj-column>
+          {{#block 'footerLeft' }}{{/block}}
+        </mj-column>
+        <mj-column>
+          {{#block 'footerRight' }}
+          <mj-text css-class="footer__help">
+            <a css-class="footer__help" href="{{settingsUrl}}">
+              {{tGlobal 'settings'}}
+            </a>
+            {{#block 'supportLink'}}
+              <a css-class="footer__help" href="{{#block 'supportUrl'}}https://support.cozy.io/{{/block}}">
+                {{tGlobal 'support'}}
+              </a>
+            {{/block}}
+          </mj-text>
+          {{/block}}
+        </mj-column>
+      </mj-section>
+    </mj-container>
+  </mj-body>
+</mjml>
+
+
+

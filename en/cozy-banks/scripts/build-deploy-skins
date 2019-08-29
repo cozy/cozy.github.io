@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Fails at first error
+set -e
+
+echo "Building vanilla"
+yarn run build
+yarn run build:services
+
+echo "Deploying vanilla"
+yarn run deploy -- --username Cozy --email contact@cozycloud.cc
+
+SKINS=(mesinfos)
+
+for skin in ${SKINS[@]}; do
+  echo "Building $skin"
+  env SKIN=$skin yarn run build
+  env SKIN=$skin yarn run build:services
+
+  echo "Deploying $skin"
+
+  # Take DEPLOY_BRANCH from the env or try to guess to it from
+  # the git branch
+  DEPLOY_BRANCH=${DEPLOY_BRANCH:-$(npm run get-deploy-branch -s)}
+
+  # Add -$skin to the DEPLOY_BRANCH for the deploy process
+  env DEPLOY_BRANCH=$DEPLOY_BRANCH-$skin yarn run deploy -- --username Cozy --email contact@cozycloud.cc
+done

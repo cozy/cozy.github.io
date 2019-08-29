@@ -1,0 +1,53 @@
+{
+  "description": "health bills with group amount with credit and debit",
+  "bills": [
+    {
+      "_id": "b1",
+      "amount": 3.5,
+      "groupAmount": 5,
+      "originalAmount": 20,
+      "originalDate": "2017-12-13T00:00:00.000Z",
+      "date": "2017-12-15T00:00:00.000Z",
+      "isRefund": true,
+      "vendor": "Ameli",
+      "type": "health_costs"
+    },
+    {
+      "_id": "b2",
+      "amount": 1.5,
+      "groupAmount": 5,
+      "originalAmount": 20,
+      "originalDate": "2017-12-14T00:00:00.000Z",
+      "date": "2017-12-16T00:00:00.000Z",
+      "isRefund": true,
+      "vendor": "Ameli",
+      "type": "health_costs"
+    }
+  ],
+  "operations": [
+    {
+      "_id": "medecin",
+      "date": "2017-12-13T12:00:00.000Z",
+      "label": "Visite chez le médecin",
+      "amount": -20,
+      "manualCategoryId": "400610"
+    },
+    {
+      "_id": "cpam",
+      "date": "2017-12-15T12:00:00.000Z",
+      "label": "Remboursement CPAM",
+      "amount": 5,
+      "manualCategoryId": "400610"
+    }
+  ],
+  "expectedResult": {
+    "b1": {
+      "creditOperation": "cpam",
+      "debitOperation": "medecin"
+    },
+    "b2": {
+      "creditOperation": "cpam",
+      "debitOperation": "medecin"
+    }
+  }
+}

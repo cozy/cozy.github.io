@@ -1,0 +1,119 @@
+@require 'settings/breakpoints'
+@require '~styles/mixins.styl'
+
+.c-table
+    position        relative
+    display         flex
+    flex-direction  column
+    flex            1 1 100%
+    text-align      left
+
+    &.primary
+        thead
+            background-color var(--tableHeadPrimaryBackgroundColor)
+            padding .5rem 0
+            tr
+                border-bottom-width 0
+            td
+                padding 0 1rem
+                line-height 1rem
+                font-weight bold
+                color var(--tableHeadPrimaryContrastTextColor)
+                &:last-child
+                    padding-right 2rem
+                &:first-child
+                    padding-left 2rem
+            td + td
+                border-left 1px solid var(--tableHeadSeparatorPrimaryColor)
+
+    thead, tbody
+        display   flex
+        flex-direction column
+        flex-grow 1
+        flex-shrink 0
+
+    tbody
+        max-width 100%
+        flex-basis auto
+        overflow  auto
+
+    tr
+        flex            1 0 auto
+        display         flex
+        flex-direction  row
+        align-items     center
+        border-bottom   1px solid var(--silver)
+
+    tbody
+        tr:hover
+            background-color var(--paleGrey)
+
+    th
+        text-align left
+        font-weight normal
+
+    thead
+        td, th
+            font-size       .75em
+            text-transform  uppercase
+            display block
+        color           var(--coolGrey)
+
+
+    td, th
+        box-sizing  border-box
+        padding 1em 0 1em 2rem
+        font-size 1em
+        flex-grow 1
+        flex-shrink 0
+        display block
+
+        &:last-child
+            padding-right 2rem
+
+        &.c-table-td-secondary
+            font-size .875em
+
+        &.c-table-td-fix
+            flex-grow 0
+
+    +medium-screen()
+        tr
+            max-width  100vw
+
+    +small-screen()
+        thead
+            display none
+
+        tbody
+            max-height  100%
+            font-size .9em
+
+        td
+            padding 1em 0 1em 1rem
+            flex-shrink unset
+
+            &:last-child
+                padding-right 1rem
+
++small-screen()
+    .c-table
+        .mobile-row
+            flex-wrap wrap
+
+        .mobile-row:first-child
+            border-top 1px solid var(--silver)
+
+        .mobile-row-main
+            maxed-flex-basis 100%
+            padding-top .5rem
+            padding-bottom .25rem
+            font-size 1rem
+            color var(--charcoalGrey)
+
+        .mobile-row-label
+            padding-top .25rem
+            padding-bottom .5rem
+            font-size .75rem
+            color var(--coolGrey)
+            max-width fit-content

@@ -1,0 +1,104 @@
+{
+  "io.cozy.files": [
+    {
+      "__SRC__": "{{ dir }}/../Fichiers_de_démo/Free mobile/Demo_cozy-freemobile_15082017.pdf",
+      "__DEST__": "/Fichiers_de_démo/Free mobile/Demo_cozy-freemobile_15082017.pdf"
+    },
+    {
+      "__SRC__": "{{ dir }}/../Fichiers_de_démo/Free mobile/Demo_cozy-freemobile_15092017.pdf",
+      "__DEST__": "/Fichiers_de_démo/Free mobile/Demo_cozy-freemobile_15092017.pdf"
+    }
+  ],
+  "io.cozy.bank.accounts": [
+    {
+      "_id": "compteisa1",
+      "label": "Isabelle checkings",
+      "institutionLabel": "BNPP",
+      "number": "3652983",
+      "balance": 3974.25,
+      "type": "Checkings",
+      "cozyMetadata": {
+        "updatedAt": "2019-01-08T00:00:00Z",
+        "createdByApp": "bnpparibas82"
+      }
+    }
+  ],
+  "io.cozy.bank.operations": [
+    {
+      "_id": "pushnotif_201906190931_paiement",
+      "account": "compteisa1",
+      "amount": -25,
+      "manualCategoryId": "400610",
+      "currency": "€",
+      "date": "2019-06-19T00:00:00Z",
+      "label": "Docteur Push Notifs 2019-06-19 09:24",
+      "reimbursements": [
+        {
+          "billId": "io.cozy.bills:pushnotif_201906190931_bill_ameli",
+          "amount": 17.5,
+          "operationId": "pushnotif_201906190931_remboursementameli"
+        },
+        {
+          "billId": "io.cozy.bills:pushnotif_201906190931_bill_complementaire",
+          "amount": 7.5,
+          "operationId": "pushnotif_201906190931_remboursementcomplementaire"
+        }
+      ]
+    },
+    {
+      "_id": "pushnotif_201906190931_remboursementcomplementaire",
+      "account": "compteisa1",
+      "amount": 7.5,
+      "manualCategoryId": "400620",
+      "currency": "€",
+      "date": "2019-06-19T00:00:00Z",
+      "label": "Complementaire Push Notifs 2019-06-19 09:24",
+      "bills": [
+        "io.cozy.bills:b2"
+      ]
+    },
+    {
+      "_id": "pushnotif_201906190931_remboursementameli",
+      "account": "compteisa1",
+      "amount": 17.5,
+      "manualCategoryId": "400620",
+      "currency": "€",
+      "date": "2018-01-06T00:00:00Z",
+      "label": "Ameli Push Notifs 2019-06-19 09:24",
+      "bills": [
+        "io.cozy.bills:7a8cefd5a1ac1a5aecf862482df0225c"
+      ]
+    }
+  ],
+  "io.cozy.bills": [
+    {
+      "_id": "pushnotif_201906190931_bill_complementaire",
+      "date": "2019-06-19T00:00:00Z",
+      "originalDate": "2019-06-19T00:00:00Z",
+      "type": "health_costs",
+      "subtype": "VIR COMPL SANTE",
+      "vendor": "Malakoff Mederic",
+      "socialSecurityRefund": 17.5,
+      "isThirdPartyPayer": false,
+      "amount": 7.5,
+      "originalAmount": 25,
+      "isRefund": true,
+      "originalOperation": "io.cozy.bank.operations:pushnotif_201906190931_paiement",
+      "invoice": "io.cozy.files:{{reference 'io.cozy.files' 0 '_id' }}"
+    },
+    {
+      "_id": "pushnotif_201906190931_bill_ameli",
+      "date": "2019-06-19T00:00:00Z",
+      "originalDate": "2019-06-19T00:00:00Z",
+      "type": "health_costs",
+      "subtype": "C GENERALISTE",
+      "vendor": "Ameli",
+      "isThirdPartyPayer": false,
+      "amount": 17.5,
+      "originalAmount": 25,
+      "originalOperation": "io.cozy.bank.operations:pushnotif_201906190931_paiement",
+      "isRefund": true,
+      "invoice": "io.cozy.files:{{reference 'io.cozy.files' 1 '_id' }}"
+    }
+  ]
+}
