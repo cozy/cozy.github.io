@@ -1,4 +1,4 @@
 #!/bin/sh
 
-python add_external_docs.py
+python generate_config.py
 mkdocs serve

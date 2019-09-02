@@ -38,7 +38,7 @@ to search for information only in one location.
 Each repository maintains its own [table of contents](https://github.com/cozy/cozy-doctypes/blob/master/toc.yml),
 which controls what is shown under the References menu.
 
-See [./build.sh](./build.sh), and [./add_external_docs.py](./add_external_docs.py) scripts for more information.
+See [./build.sh](./build.sh), and [./generate_config.py](./generate_config.py) scripts for more information.
 
 The edit links displayed in the header of each article are modified via Javascript to handle outside repositories (mkdocs does not support
 this natively).

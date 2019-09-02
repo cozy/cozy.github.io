@@ -6,6 +6,6 @@ rm -rf docs/*
 cp index.html docs/
 cp CNAME docs/
 
-python add_external_docs.py --fetch
+python generate_config.py --fetch
 
 mkdocs build -f mkdocs.yml
