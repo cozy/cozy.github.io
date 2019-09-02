@@ -49,6 +49,7 @@ nav:
     - Babel preset: <babel-preset-cozy-app>
     - Commitlint: <commitlint-config-cozy>
     - ESLint: <eslint-config-cozy-app>
+    - ACH: <ach>
   - Advanced:
     - Stack server: <cozy-stack>
     - Registry server: <cozy-apps-registry>
