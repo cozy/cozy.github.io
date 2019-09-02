@@ -10,7 +10,7 @@ require (
 	github.com/go-kivik/couchdb v2.0.0-pre3+incompatible
 	github.com/go-kivik/kivik v2.0.0-pre2+incompatible
 	github.com/go-kivik/kiviktest v1.1.2 // indirect
-	github.com/go-redis/redis/v7 v7.0.0-beta.3
+	github.com/go-redis/redis/v7 v7.0.0-beta.4
 	github.com/gopherjs/gopherjs v0.0.0-20190812055157-5d271430af9f // indirect
 	github.com/h2non/filetype v1.0.10
 	github.com/hashicorp/go-multierror v1.0.0
@@ -25,6 +25,6 @@ require (
 	github.com/spf13/viper v1.4.0
 	github.com/stretchr/testify v1.4.0
 	gitlab.com/flimzy/testy v0.0.0-20190816103046-aca1ef5ffe7e // indirect
-	golang.org/x/crypto v0.0.0-20190825224455-60c769a6c586
+	golang.org/x/crypto v0.0.0-20190829043050-9756ffdc2472
 	golang.org/x/xerrors v0.0.0-20190717185122-a985d3407aa7 // indirect
 )
