@@ -12,9 +12,9 @@ In this tutorial you will learn how to:
 - [Save data to your Cozy](./link-cozy.md)
 - [Package your connector and send it to the store](./packaging.md)
 
-If you want to go further: 
+If you want to go further:
 
 - [Learn how konnectors are run by the Cozy stack](./how-it-works.md)
-- [Learn how konnectors are run by the Cozy stack](./how-it-works.md)
+- [Add Two Factor Authentication to your connector](./2fa.md)
 
 [Cozy Home]: https://github.com/cozy/cozy-home
