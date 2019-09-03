@@ -993,6 +993,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#cozyclientregisterplugin" title="cozyClient.registerPlugin()" class="md-nav__link">
+    cozyClient.registerPlugin()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#cozyclientlogin-promise" title="cozyClient.login() ⇒ Promise" class="md-nav__link">
     cozyClient.login() ⇒ Promise
   </a>
@@ -1100,6 +1107,13 @@
           <li class="md-nav__item">
   <a href="#cozyclientsetdatadata" title="cozyClient.setData(data)" class="md-nav__link">
     cozyClient.setData(data)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cozyclientfromoldclient" title="CozyClient.fromOldClient()" class="md-nav__link">
+    CozyClient.fromOldClient()
   </a>
   
 </li>
@@ -3005,6 +3019,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#cozyclientregisterplugin" title="cozyClient.registerPlugin()" class="md-nav__link">
+    cozyClient.registerPlugin()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#cozyclientlogin-promise" title="cozyClient.login() ⇒ Promise" class="md-nav__link">
     cozyClient.login() ⇒ Promise
   </a>
@@ -3112,6 +3133,13 @@
           <li class="md-nav__item">
   <a href="#cozyclientsetdatadata" title="cozyClient.setData(data)" class="md-nav__link">
     cozyClient.setData(data)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cozyclientfromoldclient" title="CozyClient.fromOldClient()" class="md-nav__link">
+    CozyClient.fromOldClient()
   </a>
   
 </li>
@@ -3800,6 +3828,7 @@ having for the &lsquo;konnector&rsquo; worker, and then filter them based on the
 <li><a href="#CozyClient">CozyClient</a><ul>
 <li><a href="#new_CozyClient_new">new CozyClient(options)</a></li>
 <li><em>instance</em><ul>
+<li><a href="#CozyClient+registerPlugin">.registerPlugin()</a></li>
 <li><a href="#CozyClient+login">.login()</a> ⇒ <code>Promise</code></li>
 <li><a href="#CozyClient+logout">.logout()</a> ⇒ <code>Promise</code></li>
 <li><a href="#CozyClient+collection">.collection(doctype)</a> ⇒ <code>DocumentCollection</code></li>
@@ -3819,6 +3848,7 @@ having for the &lsquo;konnector&rsquo; worker, and then filter them based on the
 </ul>
 </li>
 <li><em>static</em><ul>
+<li><a href="#CozyClient.fromOldClient">.fromOldClient()</a></li>
 <li><a href="#CozyClient.fromEnv">.fromEnv()</a></li>
 </ul>
 </li>
@@ -3863,6 +3893,25 @@ having for the &lsquo;konnector&rsquo; worker, and then filter them based on the
 </tr>
 </tbody>
 </table>
+<p><a name="CozyClient+registerPlugin"></a></p>
+<h3 id="cozyclientregisterplugin">cozyClient.registerPlugin()<a class="headerlink" href="#cozyclientregisterplugin" title="Permanent link">&para;</a></h3>
+<p>A plugin is a function that receives the client as first argument.
+The main mean of interaction with the client should be with events
+like &ldquo;login&rdquo;/&rdquo;logout&rdquo;.</p>
+<p>The plugin system is meant to encourage separation of concerns, modularity
+and testability : instead of registering events at module level, please
+create a plugin that subscribes to events.</p>
+<p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a><br />
+<strong>Example</strong>  </p>
+<div class="codehilite"><pre><span></span>const alertPlugin = client =&gt; {
+  client.on(&quot;login&quot;, () =&gt; { alert(&quot;client has logged in !&quot;) }
+  client.on(&quot;logout&quot;, () =&gt; { alert(&quot;client has logged out !&quot;) }
+}
+
+client.registerPlugin(alertPlugin)
+</pre></div>
+
+
 <p><a name="CozyClient+login"></a></p>
 <h3 id="cozyclientlogin-promise">cozyClient.login() ⇒ <code>Promise</code><a class="headerlink" href="#cozyclientlogin-promise" title="Permanent link">&para;</a></h3>
 <p>Notify the links that they can start and set isLogged to true.</p>
@@ -4081,7 +4130,12 @@ set some data in the store.</p>
 </tr>
 </tbody>
 </table>
-<p><a name="CozyClient.fromEnv"></a></p>
+<p><a name="CozyClient.fromOldClient"></a></p>
+<h3 id="cozyclientfromoldclient">CozyClient.fromOldClient()<a class="headerlink" href="#cozyclientfromoldclient" title="Permanent link">&para;</a></h3>
+<p>To help with the transition from cozy-client-js to cozy-client, it is possible to instantiate
+a client with an instance of cozy-client-js.</p>
+<p><strong>Kind</strong>: static method of <a href="#CozyClient"><code>CozyClient</code></a><br />
+<a name="CozyClient.fromEnv"></a></p>
 <h3 id="cozyclientfromenv">CozyClient.fromEnv()<a class="headerlink" href="#cozyclientfromenv" title="Permanent link">&para;</a></h3>
 <p>In konnector/service context, CozyClient can be instantiated from environment variables</p>
 <p><strong>Kind</strong>: static method of <a href="#CozyClient"><code>CozyClient</code></a><br />

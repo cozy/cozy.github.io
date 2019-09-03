@@ -4715,7 +4715,12 @@ It uses the account to do the communication with the user</p>
 <tr>
 <td>options.timeout</td>
 <td><code>Number</code></td>
-<td>(default 3 minutes after now) - After this date, the stop will stop waiting and and an error will be shown to the user</td>
+<td>(default 3 minutes after now) - After this date, the stop will stop waiting and and an error will be shown to the user (deprecated and alias of endTime)</td>
+</tr>
+<tr>
+<td>options.endTime</td>
+<td><code>Number</code></td>
+<td>(default 3 minutes after now) - After this timestamp, the home will stop waiting and and an error will be shown to the user</td>
 </tr>
 <tr>
 <td>options.heartBeat</td>
@@ -4737,8 +4742,7 @@ It uses the account to do the communication with the user</p>
 <span class="nx">async</span> <span class="kd">function</span> <span class="nx">start</span><span class="p">()</span> <span class="p">{</span>
    <span class="c1">// we detect the need of a 2FA code</span>
    <span class="kr">const</span> <span class="nx">code</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">waitForTwoFaCode</span><span class="p">({</span>
-     <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;email&#39;</span><span class="p">,</span>
-     <span class="nx">timeout</span><span class="o">:</span> <span class="mi">5</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">1000</span>
+     <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;email&#39;</span>
    <span class="p">})</span>
    <span class="c1">// send the code to the targeted site</span>
 <span class="p">}</span>
