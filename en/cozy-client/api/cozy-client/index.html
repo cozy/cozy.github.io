@@ -3907,20 +3907,42 @@ having for the &lsquo;konnector&rsquo; worker, and then filter them based on the
 </table>
 <p><a name="CozyClient+registerPlugin"></a></p>
 <h3 id="cozyclientregisterplugin">cozyClient.registerPlugin()<a class="headerlink" href="#cozyclientregisterplugin" title="Permanent link">&para;</a></h3>
-<p>A plugin is a function that receives the client as first argument.
+<p>A plugin is a class whose constructor receives the client as first argument.
 The main mean of interaction with the client should be with events
 like &ldquo;login&rdquo;/&rdquo;logout&rdquo;.</p>
 <p>The plugin system is meant to encourage separation of concerns, modularity
 and testability : instead of registering events at module level, please
 create a plugin that subscribes to events.</p>
+<p>Plugin instances are stored internally in the <code>plugins</code> attribute of the client
+and can be accessed via this mean. A plugin class must have the attribute
+<code>pluginName</code> that will be use as the key in the <code>plugins</code> object.</p>
+<p>Two plugins with the same <code>pluginName</code> cannot co-exist.</p>
 <p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a><br />
 <strong>Example</strong>  </p>
-<div class="codehilite"><pre><span></span>const alertPlugin = client =&gt; {
-  client.on(&quot;login&quot;, () =&gt; { alert(&quot;client has logged in !&quot;) }
-  client.on(&quot;logout&quot;, () =&gt; { alert(&quot;client has logged out !&quot;) }
-}
+<div class="codehilite"><pre><span></span><span class="kr">class</span> <span class="nx">AlertPlugin</span> <span class="p">{</span>
+  <span class="kr">constructor</span><span class="p">(</span><span class="nx">client</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">client</span> <span class="o">=</span> <span class="nx">client</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">handleLogin</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleLogin</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">handleLogout</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleLogout</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;login&quot;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleLogin</span><span class="p">)</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;logout&quot;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleLogout</span><span class="p">)</span>
+  <span class="p">}</span>
 
-client.registerPlugin(alertPlugin)
+  <span class="nx">handleLogin() {</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;client has logged in !&quot;</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="nx">handleLogout() {</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;client has logged out !&quot;</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">AlertPlugin</span><span class="p">.</span><span class="nx">pluginName</span> <span class="o">=</span> <span class="s1">&#39;alerts&#39;</span>
+
+<span class="nx">client</span><span class="p">.</span><span class="nx">registerPlugin</span><span class="p">(</span><span class="nx">AlertPlugin</span><span class="p">)</span>
+
+<span class="c1">// the instance of the plugin is accessible via</span>
+<span class="nx">client</span><span class="p">.</span><span class="nx">plugins</span><span class="p">.</span><span class="nx">alerts</span>
 </pre></div>
 
 
