@@ -909,7 +909,7 @@ var rmEditorCmd = &cobra.Command{
 var lsEditorsCmd = &cobra.Command{
 	Use:     "ls-editors",
 	Aliases: []string{"ls-editor", "list-editor", "list-editors"},
-	Short:   `List all editors from registry.`,
+	Short:   `List all editors from registry`,
 	PreRunE: prepareRegistry,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		editors, err := editorRegistry.AllEditors()
@@ -925,7 +925,7 @@ var lsEditorsCmd = &cobra.Command{
 
 var lsAppsCmd = &cobra.Command{
 	Use:     "ls-apps [editor]",
-	Short:   `List all apps from an editor.`,
+	Short:   `List all apps from an editor`,
 	PreRunE: compose(prepareRegistry, prepareSpaces),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		c, ok := registry.GetSpace(appSpaceFlag)
@@ -1142,7 +1142,7 @@ var maintenanceDeactivateAppCmd = &cobra.Command{
 
 var exportCmd = &cobra.Command{
 	Use:     "export [file]",
-	Short:   `Export the entire registry into one tarball file.`,
+	Short:   `Export the entire registry into one tarball file`,
 	PreRunE: compose(prepareRegistry, prepareSpaces),
 	RunE: func(cmd *cobra.Command, args []string) (err error) {
 		var out io.Writer
