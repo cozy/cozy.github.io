@@ -74,6 +74,7 @@ def find_entry(tree, name):
     except IndexError:
         return None
 
+
 def walk_dict(d, path=None):
     if path is None:
         path = []
@@ -115,16 +116,25 @@ def fetch_external_doc(repository, destination):
             sh.git('clone', repository, '--depth', '1', '.')
 
 
+TMP_DIR = '/tmp/cozy_docs'
+def ensure_root_tmp_dir():
+    sh.mkdir('-p', TMP_DIR)
+
+def get_doc_tmp_dir(doc_name):
+    return osp.join(TMP_DIR, doc_name)
+
+
 def fetch_all_external_docs_from_file(filename):
+    ensure_root_tmp_dir()
     with open(filename) as f:
         external_docs = [parse_external_doc_line(l) for l in f]
-    for name, repository, doc_directory in external_docs:
-        tmpdir = osp.join('/tmp', name)
-        print('Fetching %s...' % name)
+    for docname, repository, doc_directory in external_docs:
+        print('Fetching %s...' % docname)
+        tmpdir = get_doc_tmp_dir(docname)
         fetch_external_doc(repository, tmpdir)
-        src_dir = osp.join('src', name)
+        src_dir = osp.join('src', docname)
         sh.rm('-f', src_dir)
-        print('Linking %s...' % name)
+        print('Linking %s...' % docname)
         sh.ln('-s', osp.join(tmpdir, doc_directory), src_dir)
 
 
