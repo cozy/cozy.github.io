@@ -7,6 +7,8 @@
 
 The easiest way to create a new connector is to use [cozy-konnector-template](https://github.com/konnectors/cozy-konnector-template).
 
+---> BaseKonnector# waitForTwoFaCode
+
 First of all, [download](https://github.com/konnectors/cozy-konnector-template/archive/master.zip) or clone the repository:
 
 ```sh
