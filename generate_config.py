@@ -13,6 +13,8 @@ import os.path as osp
 from collections import OrderedDict, namedtuple
 import fnmatch
 import sh
+from markdown_sphinxjs import gather_doclets_from_dir
+
 
 def simple_glob(directory, glob_pattern):
     matches = []
@@ -120,6 +122,7 @@ TMP_DIR = '/tmp/cozy_docs'
 def ensure_root_tmp_dir():
     sh.mkdir('-p', TMP_DIR)
 
+
 def get_doc_tmp_dir(doc_name):
     return osp.join(TMP_DIR, doc_name)
 
@@ -195,6 +198,10 @@ def replace_toc_placeholders(nav, named_tocs):
             cur[single_key] = flatten_entry_if_single(toc)
 
 
+def ensure_jsdoc_cache_exists(src_dir, force=False):
+    cache_file = '/tmp/jsdoc_data_cache.json'
+    gather_doclets_from_dir(src_dir, jsdoc_cache=cache_file, force=force)
+
 
 def main():
     OUTSIDE_DOCS = 'OUTSIDE_DOCS'
@@ -206,6 +213,8 @@ def main():
 
     if args.fetch:
         fetch_all_external_docs_from_file(OUTSIDE_DOCS)
+
+    ensure_jsdoc_cache_exists(TMP_DIR, force=args.force_jsdoc)
 
     with open('./mkdocs.yml.tpl') as f:
         data = ordered_load(f, yaml.SafeLoader)
