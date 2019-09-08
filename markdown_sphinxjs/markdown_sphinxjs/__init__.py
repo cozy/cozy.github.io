@@ -1,11 +1,13 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
-from markdown.extensions import Extension
-from markdown.blockprocessors import BlockProcessor
-from markdown.util import etree
 import re
 import os
 import json
+import tempfile
+
+from markdown.extensions import Extension
+from markdown.blockprocessors import BlockProcessor
+from markdown.util import etree
 
 from sphinx_js import gather_doclets
 
@@ -25,14 +27,39 @@ class App:
         self.confdir = "/tmp"
 
 
-def gather_doclets_from_dir(src_dir):
-    app = App({
-        'js_source_path': src_dir,
-        'js_language': 'javascript',
-        'root_for_relative_js_paths': src_dir,
-        'jsdoc_config_path': None
-    })
-    gather_doclets(app)
+DEFAULT_JSDOC_CONFIG = {
+  "opts": {
+    "recurse": True
+  },
+  "source": {
+    "includePattern": ".+\\.js(doc)?x?$",
+    "excludePattern": "((^|\\/|\\\\)_)|(min)|(dist)",
+    "exclude": [
+      "node_modules",
+      "plugins"
+    ]
+  }
+}
+
+
+def gather_doclets_from_dir(src_dir, jsdoc_cache=None, force=False):
+    if force and os.path.isfile(jsdoc_cache):
+        os.unlink(jsdoc_cache)
+
+    with tempfile.NamedTemporaryFile(mode='w', delete=False) as configfile:
+        configfile.write(json.dumps(DEFAULT_JSDOC_CONFIG, indent=2))
+        configfile.seek(0)
+        app = App(
+            {
+                "js_source_path": src_dir,
+                "js_language": "javascript",
+                "root_for_relative_js_paths": src_dir,
+                "jsdoc_config_path": configfile.name,
+                "jsdoc_cache": jsdoc_cache,
+                "sphinx_js_lax": True
+            }
+        )
+        gather_doclets(app)
     return {
         "by_class": app._sphinxjs_doclets_by_class,
         "by_path": app._sphinxjs_doclets_by_path,
