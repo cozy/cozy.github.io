@@ -110,11 +110,18 @@ def make_definition_node(ancestor, definition, path):
 
 
 class MarkdownJSExtension(Extension):
-    def __init__(self, directory, **kwargs):
+    doclets = None
+    def __init__(self, directory, jsdoc_cache, **kwargs):
         super(MarkdownJSExtension, self).__init__(**kwargs)
         self.config = {"directory": directory}
         self.index = {}
-        self.doclets = gather_doclets_from_dir(directory)
+        if not MarkdownJSExtension.doclets:
+            # Markdown extensions are instantiated for each file processed but doclets
+            # gathering is costly and we do not want to do it every time, this is why
+            # we store the generated doclets in the class. 
+            # This is a hacky way to have doclets computation be done only once.
+            MarkdownJSExtension.doclets = gather_doclets_from_dir(directory, jsdoc_cache)
+        self.doclets = MarkdownJSExtension.doclets
 
     def extendMarkdown(self, md, **kwargs):
         md.registerExtension(self)
