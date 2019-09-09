@@ -109,6 +109,7 @@ module.exports = {
         '../react/MuiCozyTheme/Buttons',
         '../react/MuiCozyTheme/Menus',
         '../react/MuiCozyTheme/List',
+        '../react/MuiCozyTheme/RaisedList',
         '../react/MuiCozyTheme/ExpansionPanel'
       ]
     }

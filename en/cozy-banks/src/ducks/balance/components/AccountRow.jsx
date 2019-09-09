@@ -17,6 +17,45 @@ import styles from 'ducks/balance/components/AccountRow.styl'
 import { HealthReimbursementsIcon } from 'ducks/balance/components/HealthReimbursementsIcon'
 import AccountIcon from 'components/AccountIcon'
 
+const UpdatedAt = React.memo(function UpdatedAt({ account, t }) {
+  const updatedAt = getAccountUpdatedAt(account)
+  const accountLabel = getAccountLabel(account)
+  return (
+    <div className={styles.AccountRow__labelUpdatedAtWrapper}>
+      <div className={styles.AccountRow__label}>
+        {account.virtual ? t(accountLabel) : accountLabel}
+      </div>
+      <div
+        className={cx(styles.AccountRow__updatedAt, {
+          [styles['AccountRow__updatedAt--old']]: updatedAt.params.nbDays > 1
+        })}
+      >
+        <Icon
+          icon="sync"
+          width="10"
+          color="currentColor"
+          className={styles.AccountRow__updatedAtIcon}
+        />
+        {t(updatedAt.translateKey, updatedAt.params)}
+      </div>
+    </div>
+  )
+})
+
+const Number = React.memo(function Number({ account }) {
+  return (
+    <div
+      className={cx(
+        styles.AccountRow__column,
+        styles['AccountRow__column--secondary']
+      )}
+    >
+      N°
+      {account.number}
+    </div>
+  )
+})
+
 class AccountRow extends React.PureComponent {
   static propTypes = {
     account: PropTypes.object.isRequired,
@@ -47,12 +86,9 @@ class AccountRow extends React.PureComponent {
       id
     } = this.props
 
-    const updatedAt = getAccountUpdatedAt(account)
     const hasWarning = account.balance < warningLimit
     const hasAlert = account.balance < 0
-    const accountLabel = getAccountLabel(account)
     const isHealthReimbursements = isHealthReimbursementsAccount(account)
-
     return (
       <li
         className={cx(styles.AccountRow, 'u-clickable', {
@@ -68,37 +104,10 @@ class AccountRow extends React.PureComponent {
             <AccountIcon account={account} />
             {isHealthReimbursements && <HealthReimbursementsIcon />}
           </div>
-          <div className={styles.AccountRow__labelUpdatedAtWrapper}>
-            <div className={styles.AccountRow__label}>
-              {account.virtual ? t(accountLabel) : accountLabel}
-            </div>
-            <div
-              className={cx(styles.AccountRow__updatedAt, {
-                [styles['AccountRow__updatedAt--old']]:
-                  updatedAt.params.nbDays > 1
-              })}
-            >
-              <Icon
-                icon="sync"
-                width="10"
-                color="currentColor"
-                className={styles.AccountRow__updatedAtIcon}
-              />
-              {t(updatedAt.translateKey, updatedAt.params)}
-            </div>
-          </div>
+
+          <UpdatedAt account={account} t={t} />
         </div>
-        {!isMobile && account.number && (
-          <div
-            className={cx(
-              styles.AccountRow__column,
-              styles['AccountRow__column--secondary']
-            )}
-          >
-            N°
-            {account.number}
-          </div>
-        )}
+        {!isMobile && account.number && <Number account={account} />}
         {!isMobile && (
           <div
             className={cx(
@@ -122,11 +131,11 @@ class AccountRow extends React.PureComponent {
             totalClassName={styles.AccountRow__figure}
             currencyClassName={styles.AccountRow__figure}
           />
+          {/* color: Do not deactivate interactions with the button,
+            only color it to look disabled */}
           <Switch
             disableRipple
             checked={checked}
-            // Do not deactivate interactions with the button,
-            // only color it to look disabled
             color={disabled ? 'default' : 'primary'}
             onClick={this.handleSwitchClick}
             id={id}
@@ -140,5 +149,6 @@ class AccountRow extends React.PureComponent {
 
 export default compose(
   withBreakpoints(),
-  translate()
+  translate(),
+  React.memo
 )(AccountRow)

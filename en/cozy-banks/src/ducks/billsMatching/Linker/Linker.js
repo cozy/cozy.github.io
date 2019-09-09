@@ -24,7 +24,7 @@ export const DEFAULT_FUTURE_WINDOW = 29
 
 Transaction.registerClient(cozyClient)
 
-export default class Linker {
+class Linker {
   constructor() {
     this.toUpdate = []
     this.groupVendors = ['Numéricable']
@@ -649,3 +649,5 @@ export default class Linker {
     return matchingCriterias
   }
 }
+
+export default Linker

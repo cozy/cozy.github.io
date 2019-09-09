@@ -1,6 +1,6 @@
 import React from 'react'
 import { translate } from 'cozy-ui/react'
-import { isCollectionLoading } from 'ducks/client/utils'
+import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { queryConnect, withMutations } from 'cozy-client'
 import { settingsConn, accountsConn } from 'doctypes'
 import { flowRight as compose, set } from 'lodash'
@@ -73,8 +73,10 @@ export class Configuration extends React.Component {
     const { t, settingsCollection, accountsCollection } = this.props
 
     if (
-      isCollectionLoading(settingsCollection) ||
-      isCollectionLoading(accountsCollection)
+      (isCollectionLoading(settingsCollection) &&
+        !hasBeenLoaded(settingsCollection)) ||
+      (isCollectionLoading(accountsCollection) &&
+        !hasBeenLoaded(accountsCollection))
     ) {
       return <Loading />
     }
