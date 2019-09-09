@@ -9,7 +9,7 @@ Every target website being different, you will have to develop it yourself. Some
 specific url, some others display a special html content. Take a look at [the github connector](https://github.com/konnectors/github) for
 real life example.
 
-## Home Automatic Successul Login deactivation
+## Home Automatic Successful Login deactivation
 
 By default, the "Home" application will suppose the connector's login is a success after 8s, which is bad when
 your connector needs to wait for the user to send his code.
