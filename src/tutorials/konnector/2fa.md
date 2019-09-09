@@ -44,6 +44,9 @@ display an appropriate message in the "Home" application.
 
 You can get more information [in the documentation](https://docs.cozy.io/en/cozy-konnector-libs/api/#basekonnectorwaitfortwofacode-promise)
 
+Please take a look espacially at the `type` option wich allows the connector to specify which type
+of 2FA code is expected (sms or email at the moment).
+
 When you get your 2FA code, send it to the target website the way it wants.
 
 ## What is the point of handling 2FA code if my connector asks it every time it is run ?
