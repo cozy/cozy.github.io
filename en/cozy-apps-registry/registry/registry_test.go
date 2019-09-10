@@ -18,9 +18,9 @@ import (
 	"github.com/cozy/cozy-apps-registry/auth"
 	"github.com/cozy/cozy-apps-registry/cache"
 	"github.com/cozy/cozy-apps-registry/config"
+	"github.com/go-kivik/kivik"
 	"github.com/ncw/swift"
 	"github.com/ncw/swift/swifttest"
-	"github.com/go-kivik/kivik"
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 )
@@ -92,6 +92,7 @@ func TestDownloadVersion(t *testing.T) {
 		Sha256:      shasum,
 		Version:     "1.0.0",
 		RegistryURL: buildedURL,
+		Space:       testSpaceName,
 	}
 
 	ver, att, err := DownloadVersion(opts)
@@ -587,7 +588,10 @@ func TestMain(m *testing.M) {
 	if err != nil {
 		fmt.Println("Error while creating editor:", err)
 	}
-	editor, _ = editorRegistry.CreateEditorWithoutPublicKey("cozytesteditor", true)
+	editor, err = editorRegistry.CreateEditorWithoutPublicKey("cozytesteditor", true)
+	if err != nil {
+		fmt.Println("Error while creating editor:", err)
+	}
 
 	// Mocking a Swift in memory for versions creation tests
 	swiftSrv, err := swifttest.NewSwiftServer("localhost")

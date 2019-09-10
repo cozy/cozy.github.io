@@ -2423,7 +2423,7 @@ docker run -it --rm --name cozy-stack <span class="se">\</span>
     --workdir /app <span class="se">\</span>
     -v <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/app <span class="se">\</span>
     -v <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/go/bin <span class="se">\</span>
-    golang:1.12 <span class="se">\</span>
+    golang:1.13 <span class="se">\</span>
     go get -v github.com/cozy/cozy-stack
 </pre></div>
 
@@ -2432,9 +2432,12 @@ docker run -it --rm --name cozy-stack <span class="se">\</span>
 <p>We publish the cozy-app-dev image when we release a new version of the stack.
 See <code>scripts/release.sh</code> for details.</p>
 <h2 id="docker-run-and-url-name">Docker run and url name<a class="headerlink" href="#docker-run-and-url-name" title="Permanent link">&para;</a></h2>
-<p>A precision for the app name :</p>
-<p>docker run &ndash;rm -it -p 8080:8080 -v &ldquo;$(pwd)/build&rdquo;:/data/cozy-app/<strong><em>my-app</em></strong> cozy/cozy-app-dev</p>
-<p><strong><em>my-app</em></strong> will be the first part of : <strong><em>my-app</em></strong>.cozy.tools:8080</p>
+<p>A precision for the app name:</p>
+<div class="codehilite"><pre><span></span>docker run --rm -it -p <span class="m">8080</span>:8080 -v <span class="s2">&quot;</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">/build&quot;</span>:/data/cozy-app/***my-app*** cozy/cozy-app-dev
+</pre></div>
+
+
+<p><strong><em>my-app</em></strong> will be the first part of: <strong><em>my-app</em></strong>.cozy.tools:8080</p>
                 
                   
                 

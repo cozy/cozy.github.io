@@ -13,9 +13,6 @@ func CleanOldVersions(space *Space, appSlug, channel string, nbMonths int, major
 		return err
 	}
 	d := time.Now().AddDate(0, -nbMonths, 0)
-	if err != nil {
-		return err
-	}
 
 	// Finding all the versions of apps from a date
 	versionsToKeepFromDate, err := FindLastsVersionsSince(space, appSlug, channel, d)

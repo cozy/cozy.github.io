@@ -234,7 +234,12 @@ func RemoveSpace(c *Space) error {
 	}
 	_, err = sc.BulkDelete(prefix, objs)
 	if err != nil {
-		return err
+		for _, obj := range objs {
+			err = sc.ObjectDelete(prefix, obj)
+			if err != nil {
+				return err
+			}
+		}
 	}
 
 	err = sc.ContainerDelete(prefix)
@@ -1043,7 +1048,7 @@ func downloadVersion(opts *VersionOptions) (*Version, []*kivik.Attachment, error
 
 	// Saving app tarball
 	errt := SaveTarball(opts.Space, filepath, tarball)
-	if err != nil {
+	if errt != nil {
 		return nil, nil, errt
 	}
 

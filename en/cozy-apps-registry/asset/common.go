@@ -58,9 +58,6 @@ func InitGlobalAssetStore(addr, user, pass, prefix string) (*GlobalAssetStore, e
 		DB: globalAssetDB,
 		FS: &SwiftFS{Connection: sc},
 	}
-	if err != nil {
-		return nil, err
-	}
 	return AssetStore, nil
 }
 
