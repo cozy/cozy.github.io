@@ -13,7 +13,7 @@
         <meta name="description" content="Cozy documentation">
       
       
-        <link rel="canonical" href="https://docs.cozy.io/tutorials/konnector/">
+        <link rel="canonical" href="https://docs.cozy.io/tutorials/konnector/2fa/">
       
       
         <meta name="author" content="CozyCloud - https://cozy.io">
@@ -37,18 +37,18 @@
       
         <meta name="lang:search.tokenizer" content="[^a-zа-яё0-9\-\.]">
       
-      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <link rel="shortcut icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
     
     
       
-        <title>Introduction - Cozy Developer Documentation</title>
+        <title>2fa - Cozy Developer Documentation</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.0284f74d.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/application.0284f74d.css">
       
-        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.01803549.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/application-palette.01803549.css">
       
       
         
@@ -58,7 +58,7 @@
     
     
     
-      <script src="../../assets/javascripts/modernizr.74668098.js"></script>
+      <script src="../../../assets/javascripts/modernizr.74668098.js"></script>
     
     <script type="text/javascript">
         // Used in extra.js, we have to define the variable here since
@@ -73,10 +73,10 @@
         <style>body,input{font-family:"Lato","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Ubuntu Mono","Courier New",Courier,monospace}</style>
       
     
-    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    <link rel="stylesheet" href="../../../assets/fonts/material-icons.css">
     
     
-      <link rel="stylesheet" href="../../css/extra.css">
+      <link rel="stylesheet" href="../../../css/extra.css">
     
     
       
@@ -100,6 +100,10 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
+      <a href="#2fa-detection" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid">
@@ -122,7 +126,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Introduction
+                2fa
               
             </span>
           
@@ -190,16 +194,14 @@
       
         
 
-  
-
-<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+<nav class="md-tabs" data-md-component="tabs">
   <div class="md-tabs__inner md-grid">
     <ul class="md-tabs__list">
       
         
   <li class="md-tabs__item">
     
-      <a href="../.." title="Home" class="md-tabs__link">
+      <a href="../../.." title="Home" class="md-tabs__link md-tabs__link--active">
         Home
       </a>
     
@@ -211,7 +213,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="../app/" title="Tutorials" class="md-tabs__link md-tabs__link--active">
+        <a href="../../app/" title="Tutorials" class="md-tabs__link">
           Tutorials
         </a>
       
@@ -228,7 +230,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="../../howTos/dev/runCozyDocker/" title="How-to" class="md-tabs__link">
+        <a href="../../../howTos/dev/runCozyDocker/" title="How-to" class="md-tabs__link">
           How-to
         </a>
       
@@ -251,7 +253,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="../../cozy-client/getting-started/" title="Libraries" class="md-tabs__link">
+        <a href="../../../cozy-client/getting-started/" title="Libraries" class="md-tabs__link">
           Libraries
         </a>
       
@@ -272,7 +274,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="../../cozy-banks/" title="Applications" class="md-tabs__link">
+        <a href="../../../cozy-banks/" title="Applications" class="md-tabs__link">
           Applications
         </a>
       
@@ -331,7 +333,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../.." title="Home" class="md-nav__link">
+    <a href="../../.." title="Home" class="md-nav__link">
       Home
     </a>
   </li>
@@ -341,12 +343,10 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
     
     <label class="md-nav__link" for="nav-2">
       Tutorials
@@ -364,7 +364,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../app/" title="Create Your Application" class="md-nav__link">
+    <a href="../../app/" title="Create Your Application" class="md-nav__link">
       Create Your Application
     </a>
   </li>
@@ -374,12 +374,10 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-2" type="checkbox" id="nav-2-2" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-2" type="checkbox" id="nav-2-2">
     
     <label class="md-nav__link" for="nav-2-2">
       Develop a Connector
@@ -395,18 +393,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-    
-    <a href="./" title="Introduction" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../" title="Introduction" class="md-nav__link">
       Introduction
     </a>
-    
   </li>
 
         
@@ -416,7 +407,7 @@
 
 
   <li class="md-nav__item">
-    <a href="getting-started/" title="Basic structure" class="md-nav__link">
+    <a href="../getting-started/" title="Basic structure" class="md-nav__link">
       Basic structure
     </a>
   </li>
@@ -428,7 +419,7 @@
 
 
   <li class="md-nav__item">
-    <a href="scrape-data/" title="Scrape data" class="md-nav__link">
+    <a href="../scrape-data/" title="Scrape data" class="md-nav__link">
       Scrape data
     </a>
   </li>
@@ -440,7 +431,7 @@
 
 
   <li class="md-nav__item">
-    <a href="save-data/" title="Save data" class="md-nav__link">
+    <a href="../save-data/" title="Save data" class="md-nav__link">
       Save data
     </a>
   </li>
@@ -452,7 +443,7 @@
 
 
   <li class="md-nav__item">
-    <a href="packaging/" title="Package your connector" class="md-nav__link">
+    <a href="../packaging/" title="Package your connector" class="md-nav__link">
       Package your connector
     </a>
   </li>
@@ -469,7 +460,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../selfhost-debian/" title="Self-Host on Debian" class="md-nav__link">
+    <a href="../../selfhost-debian/" title="Self-Host on Debian" class="md-nav__link">
       Self-Host on Debian
     </a>
   </li>
@@ -524,7 +515,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../howTos/dev/runCozyDocker/" title="Run an App in a Cozy using Docker" class="md-nav__link">
+    <a href="../../../howTos/dev/runCozyDocker/" title="Run an App in a Cozy using Docker" class="md-nav__link">
       Run an App in a Cozy using Docker
     </a>
   </li>
@@ -536,7 +527,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../howTos/dev/hmr/" title="Use Hot Module Replacement in Your App" class="md-nav__link">
+    <a href="../../../howTos/dev/hmr/" title="Use Hot Module Replacement in Your App" class="md-nav__link">
       Use Hot Module Replacement in Your App
     </a>
   </li>
@@ -548,7 +539,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../howTos/dev/cordova/" title="Make a Mobile App Using Cordova" class="md-nav__link">
+    <a href="../../../howTos/dev/cordova/" title="Make a Mobile App Using Cordova" class="md-nav__link">
       Make a Mobile App Using Cordova
     </a>
   </li>
@@ -560,7 +551,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../howTos/dev/connect-mobile-app-local-stack/" title="Connect a Mobile App to Your Local Stack" class="md-nav__link">
+    <a href="../../../howTos/dev/connect-mobile-app-local-stack/" title="Connect a Mobile App to Your Local Stack" class="md-nav__link">
       Connect a Mobile App to Your Local Stack
     </a>
   </li>
@@ -572,7 +563,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../howTos/dev/sendmail/" title="Send and Receive E-mails in Development" class="md-nav__link">
+    <a href="../../../howTos/dev/sendmail/" title="Send and Receive E-mails in Development" class="md-nav__link">
       Send and Receive E-mails in Development
     </a>
   </li>
@@ -584,7 +575,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../references/git-flow/" title="Our Front-End Git Flow" class="md-nav__link">
+    <a href="../../../references/git-flow/" title="Our Front-End Git Flow" class="md-nav__link">
       Our Front-End Git Flow
     </a>
   </li>
@@ -596,7 +587,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../references/tech-intro/" title="Technical introduction to the Cozy platform" class="md-nav__link">
+    <a href="../../../references/tech-intro/" title="Technical introduction to the Cozy platform" class="md-nav__link">
       Technical introduction to the Cozy platform
     </a>
   </li>
@@ -632,7 +623,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../howTos/sync/linux/" title="Install Cozy Drive on GNU/Linux" class="md-nav__link">
+    <a href="../../../howTos/sync/linux/" title="Install Cozy Drive on GNU/Linux" class="md-nav__link">
       Install Cozy Drive on GNU/Linux
     </a>
   </li>
@@ -711,7 +702,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-client/getting-started/" title="Getting started" class="md-nav__link">
+    <a href="../../../cozy-client/getting-started/" title="Getting started" class="md-nav__link">
       Getting started
     </a>
   </li>
@@ -723,7 +714,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-client/relationships/" title="Using relationships" class="md-nav__link">
+    <a href="../../../cozy-client/relationships/" title="Using relationships" class="md-nav__link">
       Using relationships
     </a>
   </li>
@@ -735,7 +726,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-client/metadata/" title="cozyMetadata maintenance" class="md-nav__link">
+    <a href="../../../cozy-client/metadata/" title="cozyMetadata maintenance" class="md-nav__link">
       cozyMetadata maintenance
     </a>
   </li>
@@ -747,7 +738,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-client/react-integration/" title="React integration" class="md-nav__link">
+    <a href="../../../cozy-client/react-integration/" title="React integration" class="md-nav__link">
       React integration
     </a>
   </li>
@@ -759,7 +750,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-client/details/" title="Other details" class="md-nav__link">
+    <a href="../../../cozy-client/details/" title="Other details" class="md-nav__link">
       Other details
     </a>
   </li>
@@ -771,7 +762,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-client/api/cozy-client/" title="Cozy Client API" class="md-nav__link">
+    <a href="../../../cozy-client/api/cozy-client/" title="Cozy Client API" class="md-nav__link">
       Cozy Client API
     </a>
   </li>
@@ -783,7 +774,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-client/api/cozy-pouch-link/" title="Cozy Pouch Link API" class="md-nav__link">
+    <a href="../../../cozy-client/api/cozy-pouch-link/" title="Cozy Pouch Link API" class="md-nav__link">
       Cozy Pouch Link API
     </a>
   </li>
@@ -795,7 +786,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-client/api/cozy-stack-client/" title="Cozy Stack Client API" class="md-nav__link">
+    <a href="../../../cozy-client/api/cozy-stack-client/" title="Cozy Stack Client API" class="md-nav__link">
       Cozy Stack Client API
     </a>
   </li>
@@ -812,7 +803,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-ui/" title="Build a UI (ui)" class="md-nav__link">
+    <a href="../../../cozy-ui/" title="Build a UI (ui)" class="md-nav__link">
       Build a UI (ui)
     </a>
   </li>
@@ -843,7 +834,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-doctypes/docs/" title="README" class="md-nav__link">
+    <a href="../../../cozy-doctypes/docs/" title="README" class="md-nav__link">
       README
     </a>
   </li>
@@ -855,7 +846,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-doctypes/docs/io.cozy.accounts/" title="Accounts" class="md-nav__link">
+    <a href="../../../cozy-doctypes/docs/io.cozy.accounts/" title="Accounts" class="md-nav__link">
       Accounts
     </a>
   </li>
@@ -867,7 +858,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-doctypes/docs/io.cozy.apps/" title="Apps" class="md-nav__link">
+    <a href="../../../cozy-doctypes/docs/io.cozy.apps/" title="Apps" class="md-nav__link">
       Apps
     </a>
   </li>
@@ -879,7 +870,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-doctypes/docs/io.cozy.bank/" title="Banking doctypes" class="md-nav__link">
+    <a href="../../../cozy-doctypes/docs/io.cozy.bank/" title="Banking doctypes" class="md-nav__link">
       Banking doctypes
     </a>
   </li>
@@ -891,7 +882,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-doctypes/docs/io.cozy.bills/" title="Bills" class="md-nav__link">
+    <a href="../../../cozy-doctypes/docs/io.cozy.bills/" title="Bills" class="md-nav__link">
       Bills
     </a>
   </li>
@@ -903,7 +894,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-doctypes/docs/io.cozy.konnectors/" title="Connectors" class="md-nav__link">
+    <a href="../../../cozy-doctypes/docs/io.cozy.konnectors/" title="Connectors" class="md-nav__link">
       Connectors
     </a>
   </li>
@@ -915,7 +906,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-doctypes/docs/io.cozy.contacts/" title="Contacts" class="md-nav__link">
+    <a href="../../../cozy-doctypes/docs/io.cozy.contacts/" title="Contacts" class="md-nav__link">
       Contacts
     </a>
   </li>
@@ -927,7 +918,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-doctypes/docs/io.cozy.files/" title="Files" class="md-nav__link">
+    <a href="../../../cozy-doctypes/docs/io.cozy.files/" title="Files" class="md-nav__link">
       Files
     </a>
   </li>
@@ -939,7 +930,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-doctypes/docs/io.cozy.files_metadata/" title="Files metadata" class="md-nav__link">
+    <a href="../../../cozy-doctypes/docs/io.cozy.files_metadata/" title="Files metadata" class="md-nav__link">
       Files metadata
     </a>
   </li>
@@ -951,7 +942,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-doctypes/docs/io.cozy.identities/" title="Identities" class="md-nav__link">
+    <a href="../../../cozy-doctypes/docs/io.cozy.identities/" title="Identities" class="md-nav__link">
       Identities
     </a>
   </li>
@@ -963,7 +954,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-doctypes/docs/io.cozy.notifications/" title="Notifications" class="md-nav__link">
+    <a href="../../../cozy-doctypes/docs/io.cozy.notifications/" title="Notifications" class="md-nav__link">
       Notifications
     </a>
   </li>
@@ -975,7 +966,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/" title="Remote requests" class="md-nav__link">
+    <a href="../../../cozy-doctypes/docs/io.cozy.remote.requests/" title="Remote requests" class="md-nav__link">
       Remote requests
     </a>
   </li>
@@ -987,7 +978,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/" title="Session logins" class="md-nav__link">
+    <a href="../../../cozy-doctypes/docs/io.cozy.sessions.logins/" title="Session logins" class="md-nav__link">
       Session logins
     </a>
   </li>
@@ -999,7 +990,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-doctypes/docs/io.cozy.permissions/" title="Permissions" class="md-nav__link">
+    <a href="../../../cozy-doctypes/docs/io.cozy.permissions/" title="Permissions" class="md-nav__link">
       Permissions
     </a>
   </li>
@@ -1011,7 +1002,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-doctypes/docs/io.cozy.photos.albums/" title="Photos Albums" class="md-nav__link">
+    <a href="../../../cozy-doctypes/docs/io.cozy.photos.albums/" title="Photos Albums" class="md-nav__link">
       Photos Albums
     </a>
   </li>
@@ -1023,7 +1014,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-doctypes/docs/io.cozy.procedures/" title="Procedures" class="md-nav__link">
+    <a href="../../../cozy-doctypes/docs/io.cozy.procedures/" title="Procedures" class="md-nav__link">
       Procedures
     </a>
   </li>
@@ -1035,7 +1026,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/" title="Sessions Logins" class="md-nav__link">
+    <a href="../../../cozy-doctypes/docs/io.cozy.sessions.logins/" title="Sessions Logins" class="md-nav__link">
       Sessions Logins
     </a>
   </li>
@@ -1047,7 +1038,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-doctypes/docs/io.cozy.settings/" title="Settings" class="md-nav__link">
+    <a href="../../../cozy-doctypes/docs/io.cozy.settings/" title="Settings" class="md-nav__link">
       Settings
     </a>
   </li>
@@ -1059,7 +1050,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-doctypes/docs/io.cozy.sharings/" title="Sharings" class="md-nav__link">
+    <a href="../../../cozy-doctypes/docs/io.cozy.sharings/" title="Sharings" class="md-nav__link">
       Sharings
     </a>
   </li>
@@ -1071,7 +1062,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-doctypes/docs/io.cozy.account_types/" title="Accounts Types" class="md-nav__link">
+    <a href="../../../cozy-doctypes/docs/io.cozy.account_types/" title="Accounts Types" class="md-nav__link">
       Accounts Types
     </a>
   </li>
@@ -1083,7 +1074,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-doctypes/docs/cc.cozycloud.autocategorization/" title="Autocategorization" class="md-nav__link">
+    <a href="../../../cozy-doctypes/docs/cc.cozycloud.autocategorization/" title="Autocategorization" class="md-nav__link">
       Autocategorization
     </a>
   </li>
@@ -1095,7 +1086,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-doctypes/docs/io.cozy.exports/" title="Exports" class="md-nav__link">
+    <a href="../../../cozy-doctypes/docs/io.cozy.exports/" title="Exports" class="md-nav__link">
       Exports
     </a>
   </li>
@@ -1107,7 +1098,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-doctypes/docs/io.cozy.jobs/" title="Jobs" class="md-nav__link">
+    <a href="../../../cozy-doctypes/docs/io.cozy.jobs/" title="Jobs" class="md-nav__link">
       Jobs
     </a>
   </li>
@@ -1119,7 +1110,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-doctypes/docs/io.cozy.oauth.clients/" title="OAuth Clients" class="md-nav__link">
+    <a href="../../../cozy-doctypes/docs/io.cozy.oauth.clients/" title="OAuth Clients" class="md-nav__link">
       OAuth Clients
     </a>
   </li>
@@ -1131,7 +1122,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-doctypes/docs/io.cozy.oauth.access_codes/" title="OAuth Access Codes" class="md-nav__link">
+    <a href="../../../cozy-doctypes/docs/io.cozy.oauth.access_codes/" title="OAuth Access Codes" class="md-nav__link">
       OAuth Access Codes
     </a>
   </li>
@@ -1143,7 +1134,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-doctypes/docs/io.cozy.triggers/" title="Triggers" class="md-nav__link">
+    <a href="../../../cozy-doctypes/docs/io.cozy.triggers/" title="Triggers" class="md-nav__link">
       Triggers
     </a>
   </li>
@@ -1155,7 +1146,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-doctypes/docs/io.cozy.triggers.state/" title="Triggers state" class="md-nav__link">
+    <a href="../../../cozy-doctypes/docs/io.cozy.triggers.state/" title="Triggers state" class="md-nav__link">
       Triggers state
     </a>
   </li>
@@ -1167,7 +1158,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/" title="Remote requests" class="md-nav__link">
+    <a href="../../../cozy-doctypes/docs/io.cozy.remote.requests/" title="Remote requests" class="md-nav__link">
       Remote requests
     </a>
   </li>
@@ -1179,7 +1170,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-doctypes/docs/io.cozy.sessions/" title="Sessions" class="md-nav__link">
+    <a href="../../../cozy-doctypes/docs/io.cozy.sessions/" title="Sessions" class="md-nav__link">
       Sessions
     </a>
   </li>
@@ -1191,7 +1182,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-doctypes/docs/io.cozy.shared/" title="Shared" class="md-nav__link">
+    <a href="../../../cozy-doctypes/docs/io.cozy.shared/" title="Shared" class="md-nav__link">
       Shared
     </a>
   </li>
@@ -1203,7 +1194,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-doctypes/docs/io.cozy.terms/" title="Terms" class="md-nav__link">
+    <a href="../../../cozy-doctypes/docs/io.cozy.terms/" title="Terms" class="md-nav__link">
       Terms
     </a>
   </li>
@@ -1215,7 +1206,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-doctypes/docs/com.unibet.bets/" title="Bets Unibet" class="md-nav__link">
+    <a href="../../../cozy-doctypes/docs/com.unibet.bets/" title="Bets Unibet" class="md-nav__link">
       Bets Unibet
     </a>
   </li>
@@ -1251,7 +1242,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-realtime/" title="Realtime data (realtime)" class="md-nav__link">
+    <a href="../../../cozy-realtime/" title="Realtime data (realtime)" class="md-nav__link">
       Realtime data (realtime)
     </a>
   </li>
@@ -1263,7 +1254,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-device-helper/" title="Native devices (device-helper)" class="md-nav__link">
+    <a href="../../../cozy-device-helper/" title="Native devices (device-helper)" class="md-nav__link">
       Native devices (device-helper)
     </a>
   </li>
@@ -1323,7 +1314,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-konnector-libs/" title="README" class="md-nav__link">
+    <a href="../../../cozy-konnector-libs/" title="README" class="md-nav__link">
       README
     </a>
   </li>
@@ -1335,7 +1326,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-konnector-libs/api/" title="API" class="md-nav__link">
+    <a href="../../../cozy-konnector-libs/api/" title="API" class="md-nav__link">
       API
     </a>
   </li>
@@ -1347,7 +1338,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-konnector-libs/cli/" title="CLI" class="md-nav__link">
+    <a href="../../../cozy-konnector-libs/cli/" title="CLI" class="md-nav__link">
       CLI
     </a>
   </li>
@@ -1359,7 +1350,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-konnector-libs/dev/" title="Develop" class="md-nav__link">
+    <a href="../../../cozy-konnector-libs/dev/" title="Develop" class="md-nav__link">
       Develop
     </a>
   </li>
@@ -1371,7 +1362,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-konnector-libs/errors/" title="Errors" class="md-nav__link">
+    <a href="../../../cozy-konnector-libs/errors/" title="Errors" class="md-nav__link">
       Errors
     </a>
   </li>
@@ -1383,7 +1374,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-konnector-libs/operation-linking/" title="Operation linking" class="md-nav__link">
+    <a href="../../../cozy-konnector-libs/operation-linking/" title="Operation linking" class="md-nav__link">
       Operation linking
     </a>
   </li>
@@ -1395,7 +1386,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-konnector-libs/synchronization/" title="Synchronization" class="md-nav__link">
+    <a href="../../../cozy-konnector-libs/synchronization/" title="Synchronization" class="md-nav__link">
       Synchronization
     </a>
   </li>
@@ -1412,7 +1403,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../konitor/cli/" title="konitor" class="md-nav__link">
+    <a href="../../../konitor/cli/" title="konitor" class="md-nav__link">
       konitor
     </a>
   </li>
@@ -1429,7 +1420,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-app-publish/" title="Publish on the store (app-publish)" class="md-nav__link">
+    <a href="../../../cozy-app-publish/" title="Publish on the store (app-publish)" class="md-nav__link">
       Publish on the store (app-publish)
     </a>
   </li>
@@ -1460,7 +1451,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../babel-preset-cozy-app/" title="Babel preset" class="md-nav__link">
+    <a href="../../../babel-preset-cozy-app/" title="Babel preset" class="md-nav__link">
       Babel preset
     </a>
   </li>
@@ -1472,7 +1463,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../commitlint-config-cozy/" title="Commitlint" class="md-nav__link">
+    <a href="../../../commitlint-config-cozy/" title="Commitlint" class="md-nav__link">
       Commitlint
     </a>
   </li>
@@ -1484,7 +1475,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../eslint-config-cozy-app/" title="ESLint" class="md-nav__link">
+    <a href="../../../eslint-config-cozy-app/" title="ESLint" class="md-nav__link">
       ESLint
     </a>
   </li>
@@ -1496,7 +1487,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../ach/" title="ACH" class="md-nav__link">
+    <a href="../../../ach/" title="ACH" class="md-nav__link">
       ACH
     </a>
   </li>
@@ -1551,7 +1542,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/" title="README" class="md-nav__link">
+    <a href="../../../cozy-stack/" title="README" class="md-nav__link">
       README
     </a>
   </li>
@@ -1582,7 +1573,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/INSTALL/" title="Install the cozy-stack" class="md-nav__link">
+    <a href="../../../cozy-stack/INSTALL/" title="Install the cozy-stack" class="md-nav__link">
       Install the cozy-stack
     </a>
   </li>
@@ -1594,7 +1585,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/config/" title="Configuration file" class="md-nav__link">
+    <a href="../../../cozy-stack/config/" title="Configuration file" class="md-nav__link">
       Configuration file
     </a>
   </li>
@@ -1606,7 +1597,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/instance/" title="Managing Instances" class="md-nav__link">
+    <a href="../../../cozy-stack/instance/" title="Managing Instances" class="md-nav__link">
       Managing Instances
     </a>
   </li>
@@ -1618,7 +1609,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/security/" title="Security" class="md-nav__link">
+    <a href="../../../cozy-stack/security/" title="Security" class="md-nav__link">
       Security
     </a>
   </li>
@@ -1630,7 +1621,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/cli/cozy-stack/" title="Manpages of the command-line tool" class="md-nav__link">
+    <a href="../../../cozy-stack/cli/cozy-stack/" title="Manpages of the command-line tool" class="md-nav__link">
       Manpages of the command-line tool
     </a>
   </li>
@@ -1666,7 +1657,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/client-app-dev/" title="Develop a client-side app" class="md-nav__link">
+    <a href="../../../cozy-stack/client-app-dev/" title="Develop a client-side app" class="md-nav__link">
       Develop a client-side app
     </a>
   </li>
@@ -1678,7 +1669,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/docker/" title="Running and building Docker images" class="md-nav__link">
+    <a href="../../../cozy-stack/docker/" title="Running and building Docker images" class="md-nav__link">
       Running and building Docker images
     </a>
   </li>
@@ -1690,7 +1681,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/doctype/" title="Adding a new doctype" class="md-nav__link">
+    <a href="../../../cozy-stack/doctype/" title="Adding a new doctype" class="md-nav__link">
       Adding a new doctype
     </a>
   </li>
@@ -1702,7 +1693,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/assets/" title="Working with the stack assets" class="md-nav__link">
+    <a href="../../../cozy-stack/assets/" title="Working with the stack assets" class="md-nav__link">
       Working with the stack assets
     </a>
   </li>
@@ -1714,7 +1705,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/release/" title="Build a release" class="md-nav__link">
+    <a href="../../../cozy-stack/release/" title="Build a release" class="md-nav__link">
       Build a release
     </a>
   </li>
@@ -1726,7 +1717,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/CONTRIBUTING/" title="The contributing guide" class="md-nav__link">
+    <a href="../../../cozy-stack/CONTRIBUTING/" title="The contributing guide" class="md-nav__link">
       The contributing guide
     </a>
   </li>
@@ -1762,7 +1753,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/sharing-design/" title="Sharing design" class="md-nav__link">
+    <a href="../../../cozy-stack/sharing-design/" title="Sharing design" class="md-nav__link">
       Sharing design
     </a>
   </li>
@@ -1774,7 +1765,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/konnectors-workflow/" title="Workflow of the konnectors" class="md-nav__link">
+    <a href="../../../cozy-stack/konnectors-workflow/" title="Workflow of the konnectors" class="md-nav__link">
       Workflow of the konnectors
     </a>
   </li>
@@ -1810,7 +1801,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/auth/" title="/auth - Authentication & OAuth" class="md-nav__link">
+    <a href="../../../cozy-stack/auth/" title="/auth - Authentication & OAuth" class="md-nav__link">
       /auth - Authentication & OAuth
     </a>
   </li>
@@ -1822,7 +1813,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/apps/" title="/apps - Applications Management" class="md-nav__link">
+    <a href="../../../cozy-stack/apps/" title="/apps - Applications Management" class="md-nav__link">
       /apps - Applications Management
     </a>
   </li>
@@ -1834,7 +1825,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/registry/" title="/apps - Apps registry" class="md-nav__link">
+    <a href="../../../cozy-stack/registry/" title="/apps - Apps registry" class="md-nav__link">
        /apps - Apps registry
     </a>
   </li>
@@ -1846,7 +1837,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/konnectors/" title="/apps - Konnectors" class="md-nav__link">
+    <a href="../../../cozy-stack/konnectors/" title="/apps - Konnectors" class="md-nav__link">
        /apps - Konnectors
     </a>
   </li>
@@ -1858,7 +1849,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/data-system/" title="/data - Data System" class="md-nav__link">
+    <a href="../../../cozy-stack/data-system/" title="/data - Data System" class="md-nav__link">
       /data - Data System
     </a>
   </li>
@@ -1870,7 +1861,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/mango/" title="/data - Mango" class="md-nav__link">
+    <a href="../../../cozy-stack/mango/" title="/data - Mango" class="md-nav__link">
        /data - Mango
     </a>
   </li>
@@ -1882,7 +1873,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/couchdb-quirks/" title="/data - CouchDB Quirks" class="md-nav__link">
+    <a href="../../../cozy-stack/couchdb-quirks/" title="/data - CouchDB Quirks" class="md-nav__link">
        /data - CouchDB Quirks
     </a>
   </li>
@@ -1894,7 +1885,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/pouchdb-quirks/" title="/data - PouchDB Quirks" class="md-nav__link">
+    <a href="../../../cozy-stack/pouchdb-quirks/" title="/data - PouchDB Quirks" class="md-nav__link">
        /data - PouchDB Quirks
     </a>
   </li>
@@ -1906,7 +1897,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/files/" title="/files - Virtual File System" class="md-nav__link">
+    <a href="../../../cozy-stack/files/" title="/files - Virtual File System" class="md-nav__link">
       /files - Virtual File System
     </a>
   </li>
@@ -1918,7 +1909,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/references-docs-in-vfs/" title="/files - References of documents in VFS" class="md-nav__link">
+    <a href="../../../cozy-stack/references-docs-in-vfs/" title="/files - References of documents in VFS" class="md-nav__link">
        /files - References of documents in VFS
     </a>
   </li>
@@ -1930,7 +1921,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/intents/" title="/intents - Intents" class="md-nav__link">
+    <a href="../../../cozy-stack/intents/" title="/intents - Intents" class="md-nav__link">
       /intents - Intents
     </a>
   </li>
@@ -1942,7 +1933,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/jobs/" title="/jobs - Jobs" class="md-nav__link">
+    <a href="../../../cozy-stack/jobs/" title="/jobs - Jobs" class="md-nav__link">
       /jobs - Jobs
     </a>
   </li>
@@ -1954,7 +1945,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/workers/" title="/jobs - Workers" class="md-nav__link">
+    <a href="../../../cozy-stack/workers/" title="/jobs - Workers" class="md-nav__link">
        /jobs - Workers
     </a>
   </li>
@@ -1966,7 +1957,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/move/" title="/move - Move, export and import an instance" class="md-nav__link">
+    <a href="../../../cozy-stack/move/" title="/move - Move, export and import an instance" class="md-nav__link">
       /move - Move, export and import an instance
     </a>
   </li>
@@ -1978,7 +1969,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/notifications/" title="/notifications - Notifications" class="md-nav__link">
+    <a href="../../../cozy-stack/notifications/" title="/notifications - Notifications" class="md-nav__link">
       /notifications - Notifications
     </a>
   </li>
@@ -1990,7 +1981,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/public/" title="/public - Public" class="md-nav__link">
+    <a href="../../../cozy-stack/public/" title="/public - Public" class="md-nav__link">
       /public - Public
     </a>
   </li>
@@ -2002,7 +1993,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/permissions/" title="/permissions - Permissions" class="md-nav__link">
+    <a href="../../../cozy-stack/permissions/" title="/permissions - Permissions" class="md-nav__link">
       /permissions - Permissions
     </a>
   </li>
@@ -2014,7 +2005,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/realtime/" title="/realtime - Realtime" class="md-nav__link">
+    <a href="../../../cozy-stack/realtime/" title="/realtime - Realtime" class="md-nav__link">
       /realtime - Realtime
     </a>
   </li>
@@ -2026,7 +2017,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/remote/" title="/remote - Proxy for remote data/API" class="md-nav__link">
+    <a href="../../../cozy-stack/remote/" title="/remote - Proxy for remote data/API" class="md-nav__link">
       /remote - Proxy for remote data/API
     </a>
   </li>
@@ -2038,7 +2029,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/settings/" title="/settings - Settings" class="md-nav__link">
+    <a href="../../../cozy-stack/settings/" title="/settings - Settings" class="md-nav__link">
       /settings - Settings
     </a>
   </li>
@@ -2050,7 +2041,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/user-action-required/" title="/settings - Terms of Services" class="md-nav__link">
+    <a href="../../../cozy-stack/user-action-required/" title="/settings - Terms of Services" class="md-nav__link">
        /settings - Terms of Services
     </a>
   </li>
@@ -2062,7 +2053,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-stack/sharing/" title="/sharings - Sharing" class="md-nav__link">
+    <a href="../../../cozy-stack/sharing/" title="/sharings - Sharing" class="md-nav__link">
       /sharings - Sharing
     </a>
   </li>
@@ -2084,7 +2075,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-apps-registry/" title="Registry server" class="md-nav__link">
+    <a href="../../../cozy-apps-registry/" title="Registry server" class="md-nav__link">
       Registry server
     </a>
   </li>
@@ -2144,7 +2135,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-banks/" title="README" class="md-nav__link">
+    <a href="../../../cozy-banks/" title="README" class="md-nav__link">
       README
     </a>
   </li>
@@ -2156,7 +2147,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-banks/docs/dev/" title="Develop" class="md-nav__link">
+    <a href="../../../cozy-banks/docs/dev/" title="Develop" class="md-nav__link">
       Develop
     </a>
   </li>
@@ -2168,7 +2159,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-banks/docs/account-types/" title="Bank account types" class="md-nav__link">
+    <a href="../../../cozy-banks/docs/account-types/" title="Bank account types" class="md-nav__link">
       Bank account types
     </a>
   </li>
@@ -2180,7 +2171,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-banks/docs/bills-matching/" title="Matching algorithm" class="md-nav__link">
+    <a href="../../../cozy-banks/docs/bills-matching/" title="Matching algorithm" class="md-nav__link">
       Matching algorithm
     </a>
   </li>
@@ -2192,7 +2183,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-banks/docs/brand-dictionary/" title="Brands dictionary" class="md-nav__link">
+    <a href="../../../cozy-banks/docs/brand-dictionary/" title="Brands dictionary" class="md-nav__link">
       Brands dictionary
     </a>
   </li>
@@ -2204,7 +2195,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-banks/docs/demo/" title="Demo tricks" class="md-nav__link">
+    <a href="../../../cozy-banks/docs/demo/" title="Demo tricks" class="md-nav__link">
       Demo tricks
     </a>
   </li>
@@ -2216,7 +2207,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-banks/docs/notifications/" title="Notifications" class="md-nav__link">
+    <a href="../../../cozy-banks/docs/notifications/" title="Notifications" class="md-nav__link">
       Notifications
     </a>
   </li>
@@ -2228,7 +2219,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-banks/docs/override-cordova-config/" title="Override Cordova project config.xml" class="md-nav__link">
+    <a href="../../../cozy-banks/docs/override-cordova-config/" title="Override Cordova project config.xml" class="md-nav__link">
       Override Cordova project config.xml
     </a>
   </li>
@@ -2240,7 +2231,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-banks/docs/services/" title="Services" class="md-nav__link">
+    <a href="../../../cozy-banks/docs/services/" title="Services" class="md-nav__link">
       Services
     </a>
   </li>
@@ -2252,7 +2243,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-banks/docs/tracking/" title="Tracking" class="md-nav__link">
+    <a href="../../../cozy-banks/docs/tracking/" title="Tracking" class="md-nav__link">
       Tracking
     </a>
   </li>
@@ -2275,34 +2266,119 @@
               </div>
             
             
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#2fa-detection" title="2FA detection" class="md-nav__link">
+    2FA detection
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#home-automatic-successful-login-deactivation" title="Home Automatic Successful Login deactivation" class="md-nav__link">
+    Home Automatic Successful Login deactivation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#request-a-2fa-code-from-the-user" title="Request a 2FA code from the user" class="md-nav__link">
+    Request a 2FA code from the user
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-point-of-handling-2fa-code-if-my-connector-asks-it-every-time-it-is-run" title="What is the point of handling 2FA code if my connector asks it every time it is run ?" class="md-nav__link">
+    What is the point of handling 2FA code if my connector asks it every time it is run ?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#technical-details" title="Technical details" class="md-nav__link">
+    Technical details
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content">
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/cozy/cozy.github.io/edit/dev/src/tutorials/konnector/index.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/cozy/cozy.github.io/edit/dev/src/tutorials/konnector/2fa.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                  <h1>Introduction</h1>
+                  <h1>2fa</h1>
                 
-                <p>A connector (also known as <em>konnector</em>) is a script that imports data from another web service and put those data into your cozy.
-Each connector is an independent application, managed by the <a href="https://github.com/cozy/cozy-home">Cozy Home</a> application.</p>
-<p>To protect your data, each connector runs inside a container in order to sandbox all their interactions with your data.</p>
-<blockquote>
-<p>⚠️ For historical reasons, in the Cozy codebase, a cozy connector is named konnector, please follow this convention if modifying an existing application.</p>
-</blockquote>
-<p>In this tutorial you will learn how to:</p>
-<ul>
-<li><a href="getting-started/">Create the basic structure for your connector</a></li>
-<li><a href="./implement.md">Scrape data from the service</a></li>
-<li><a href="./link-cozy.md">Save data to your Cozy</a></li>
-<li><a href="packaging/">Package your connector and send it to the store</a></li>
-</ul>
-<p>If you want to go further:</p>
-<ul>
-<li><a href="./how-it-works.md">Learn how konnectors are run by the Cozy stack</a></li>
-<li><a href="2fa/">Add Two Factor Authentication to your connector</a></li>
-</ul>
+                <p>You have successfully developped your connector but you realize that some accounts need two factor
+authentication (2FA) to work.</p>
+<p>Here is how you can add this to your connector</p>
+<h2 id="2fa-detection">2FA detection<a class="headerlink" href="#2fa-detection" title="Permanent link">&para;</a></h2>
+<p>Every target website being different, you will have to develop it yourself. Some websites return a
+specific url, some others display a special html content. Take a look at <a href="https://github.com/konnectors/github">the github connector</a> for
+real life example.</p>
+<h2 id="home-automatic-successful-login-deactivation">Home Automatic Successful Login deactivation<a class="headerlink" href="#home-automatic-successful-login-deactivation" title="Permanent link">&para;</a></h2>
+<p>By default, the &ldquo;Home&rdquo; application will suppose the connector&rsquo;s login is a success after 8s, which is bad when
+your connector needs to wait for the user to send his code.</p>
+<p>For this, call :</p>
+<div class="codehilite"><pre><span></span><span class="nx">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">deactivateAutoSuccessfulLogin</span><span class="p">()</span>
+</pre></div>
+
+
+<p>where <code>this</code> is your connector instance.</p>
+<p>And when the 2FA process is finished, call :</p>
+<div class="codehilite"><pre><span></span><span class="nx">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">notifySuccessfulLogin</span><span class="p">()</span>
+</pre></div>
+
+
+<p>To notify the &ldquo;Home&rdquo; application that the login process is a success.</p>
+<h2 id="request-a-2fa-code-from-the-user">Request a 2FA code from the user<a class="headerlink" href="#request-a-2fa-code-from-the-user" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">code</span> <span class="o">=</span> <span class="nx">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">waitForTwoFaCode</span><span class="p">()</span>
+</pre></div>
+
+
+<p><img alt="Home 2FA popup" src="../2fa_popup.png" /></p>
+<p>Will display this popup in &ldquo;Home&rdquo; application and return the 2FA code when ready.
+It will handle error messages on timeout and won&rsquo;t request a 2FA code if the connector is run in
+background and throw the <code>USER_ACTION_NEEDED.TWOFA_EXPIRED</code> error instead, which will automatically
+display an appropriate message in the &ldquo;Home&rdquo; application.</p>
+<p>You can get more information <a href="https://docs.cozy.io/en/cozy-konnector-libs/api/#basekonnectorwaitfortwofacode-promise">in the documentation</a></p>
+<p>Please take a look espacially at the <code>type</code> option wich allows the connector to specify which type
+of 2FA code is expected (sms or email at the moment).</p>
+<p>When you get your 2FA code, send it to the target website the way it wants.</p>
+<h2 id="what-is-the-point-of-handling-2fa-code-if-my-connector-asks-it-every-time-it-is-run">What is the point of handling 2FA code if my connector asks it every time it is run ?<a class="headerlink" href="#what-is-the-point-of-handling-2fa-code-if-my-connector-asks-it-every-time-it-is-run" title="Permanent link">&para;</a></h2>
+<p>Most of the time, a website will request a 2FA code one time and keep you logged in with the cookie
+session for a long time. Your connector will have to maintain a session between each run.</p>
+<p>For this, you have the <a href="https://docs.cozy.io/en/cozy-konnector-libs/api/#cookiekonnector">CookieKonnector</a> which does most of the work.</p>
+<p>Sadly, it is possible that a webservice does not allow you to keep a session long enough between each
+run, and this is the only case where the connector must be run by the user manually each time.
+Did you check if the targeted service offers an api ?</p>
+<h2 id="technical-details">Technical details<a class="headerlink" href="#technical-details" title="Permanent link">&para;</a></h2>
+<p><img alt="2FA sequence diagram" src="../2fa_sequence_diagram.png" /></p>
+<p>Some connectors using this feature: <a href="https://github.com/konnectors/amazon">Amazon</a>, <a href="https://github.com/konnectors/github">Github</a></p>
                 
                   
                 
@@ -2319,41 +2395,6 @@ Each connector is an independent application, managed by the <a href="https://gi
       
         
 <footer class="md-footer">
-  
-    <div class="md-footer-nav">
-      <nav class="md-footer-nav__inner md-grid">
-        
-          <a href="../app/" title="Create Your Application" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
-            </div>
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
-                <span class="md-footer-nav__direction">
-                  Previous
-                </span>
-                Create Your Application
-              </span>
-            </div>
-          </a>
-        
-        
-          <a href="getting-started/" title="Basic structure" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
-                <span class="md-footer-nav__direction">
-                  Next
-                </span>
-                Basic structure
-              </span>
-            </div>
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
-            </div>
-          </a>
-        
-      </nav>
-    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -2372,11 +2413,11 @@ Each connector is an independent application, managed by the <a href="https://gi
       
     </div>
     
-      <script src="../../assets/javascripts/application.245445c6.js"></script>
+      <script src="../../../assets/javascripts/application.245445c6.js"></script>
       
-      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      <script>app.initialize({version:"1.0.4",url:{base:"../../.."}})</script>
       
-        <script src="../../extra.js"></script>
+        <script src="../../../extra.js"></script>
       
     
   </body>

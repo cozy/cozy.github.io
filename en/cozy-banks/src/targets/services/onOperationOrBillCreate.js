@@ -10,6 +10,7 @@ import matchFromTransactions from 'ducks/billsMatching/matchFromTransactions'
 import { logResult } from 'ducks/billsMatching/utils'
 import { findAppSuggestions } from 'ducks/appSuggestions/services'
 import { isNew as isNewTransaction } from 'ducks/transactions/helpers'
+import { fetchChangesOrAll, getOptions } from './helpers'
 
 const log = logger.namespace('onOperationOrBillCreate')
 
@@ -21,28 +22,11 @@ process.on('unhandledRejection', err => {
   log('warn', JSON.stringify(err.stack))
 })
 
-/**
- * If lastSeq is 0, it's more efficient to fetch all documents.
- */
-const fetchChangesOrAll = async (Model, lastSeq) => {
-  if (lastSeq === '0') {
-    log('info', 'Shortcut for changes, using fetchAll since no lastSeq')
-    const documents = await Model.fetchAll()
-    // fetch last change to have the last_seq
-    const lastChanges = await Model.fetchChanges('', {
-      descending: true,
-      limit: 1
-    })
-    return { documents, newLastSeq: lastChanges.newLastSeq }
-  } else {
-    return Model.fetchChanges(lastSeq)
-  }
-}
-
-const doBillsMatching = async setting => {
+const doBillsMatching = async (setting, options = {}) => {
   // Bills matching
   log('info', 'Bills matching')
-  const billsLastSeq = setting.billsMatching.billsLastSeq || '0'
+  const billsLastSeq =
+    options.lastSeq || setting.billsMatching.billsLastSeq || '0'
 
   try {
     log('info', 'Fetching bills changes...')
@@ -69,8 +53,9 @@ const doBillsMatching = async setting => {
   }
 }
 
-const doTransactionsMatching = async setting => {
-  const transactionsLastSeq = setting.billsMatching.transactionsLastSeq || '0'
+const doTransactionsMatching = async (setting, options = {}) => {
+  const transactionsLastSeq =
+    options.lastSeq || setting.billsMatching.transactionsLastSeq || '0'
 
   try {
     log('info', 'Fetching transactions changes...')
@@ -119,14 +104,6 @@ const doAppSuggestions = async setting => {
   }
 }
 
-const getOptions = argv => {
-  try {
-    return JSON.parse(argv.slice(-1)[0])
-  } catch (e) {
-    return {}
-  }
-}
-
 const updateSettings = async settings => {
   log('info', 'Updating settings...')
   const newSettings = await Settings.createOrUpdate(settings)
@@ -157,16 +134,20 @@ const onOperationOrBillCreate = async options => {
 
   const notifChanges = await fetchChangesOrAll(Transaction, notifLastSeq)
 
-  if (options.billMatching !== false) {
+  if (options.billsMatching !== false) {
     log('info', 'Do bills matching...')
-    await doBillsMatching(setting)
+    await doBillsMatching(setting, options.billsMatching)
     setting = await updateSettings(setting)
+  } else {
+    log('info', 'Skip bills matching')
   }
 
-  if (options.transactionMatching !== false) {
+  if (options.transactionsMatching !== false) {
     log('info', 'Do transaction matching...')
-    await doTransactionsMatching(setting)
+    await doTransactionsMatching(setting, options.transactionsMatching)
     setting = await updateSettings(setting)
+  } else {
+    log('info', 'Skip transactions matching')
   }
 
   log('info', 'Do send notifications...')
@@ -178,10 +159,12 @@ const onOperationOrBillCreate = async options => {
   setting = await updateSettings(setting)
 }
 
-const main = argv => {
+const main = async () => {
   Document.registerClient(cozyClient)
-  const options = getOptions(argv)
+  const options = await getOptions(cozyClient)
+  log('info', 'Options:')
+  log('info', JSON.stringify(options))
   onOperationOrBillCreate(options)
 }
 
-main(process.argv)
+main()
