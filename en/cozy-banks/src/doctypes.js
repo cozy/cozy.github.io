@@ -1,5 +1,5 @@
 import fromPairs from 'lodash/fromPairs'
-import { QueryDefinition, HasManyInPlace } from 'cozy-client'
+import CozyClient, { QueryDefinition, HasManyInPlace } from 'cozy-client'
 
 export const RECIPIENT_DOCTYPE = 'io.cozy.mocks.recipients'
 export const ACCOUNT_DOCTYPE = 'io.cozy.bank.accounts'
@@ -154,14 +154,18 @@ export const schema = {
   }
 }
 
+const older30s = CozyClient.fetchPolicies.olderThan(30 * 1000)
+
 export const accountsConn = {
   query: client => client.all(ACCOUNT_DOCTYPE),
-  as: 'accounts'
+  as: 'accounts',
+  fetchPolicy: older30s
 }
 
 export const groupsConn = {
   query: client => client.all(GROUP_DOCTYPE),
-  as: 'groups'
+  as: 'groups',
+  fetchPolicy: older30s
 }
 
 export const triggersConn = {
@@ -175,7 +179,8 @@ export const transactionsConn = {
       .all(TRANSACTION_DOCTYPE)
       .UNSAFE_noLimit()
       .include(['bills', 'account', 'reimbursements']),
-  as: 'transactions'
+  as: 'transactions',
+  fetchPolicy: older30s
 }
 
 export const appsConn = {
@@ -185,10 +190,12 @@ export const appsConn = {
 
 export const billsConn = {
   query: client => client.all(BILLS_DOCTYPE),
-  as: 'bills'
+  as: 'bills',
+  fetchPolicy: older30s
 }
 
 export const settingsConn = {
   query: client => client.all(SETTINGS_DOCTYPE),
-  as: 'settings'
+  as: 'settings',
+  fetchPolicy: older30s
 }

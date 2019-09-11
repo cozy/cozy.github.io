@@ -41,19 +41,17 @@ const GroupPanelSummary = withStyles(() => ({
   }
 }))(ExpansionPanelSummary)
 
-class GroupPanelExpandIcon extends React.PureComponent {
-  render() {
-    return (
-      <span className="u-click-xl">
-        <Icon
-          icon="bottom"
-          className={styles.GroupPanelSummary__icon}
-          width={12}
-        />
-      </span>
-    )
-  }
-}
+const GroupPanelExpandIcon = React.memo(function GroupPanelExpandIcon() {
+  return (
+    <span className="u-click-xl">
+      <Icon
+        icon="bottom"
+        className={styles.GroupPanelSummary__icon}
+        width={12}
+      />
+    </span>
+  )
+})
 
 class GroupPanel extends React.PureComponent {
   constructor(props) {
@@ -123,12 +121,14 @@ class GroupPanel extends React.PureComponent {
   render() {
     const {
       group,
+      groupLabel,
       warningLimit,
       switches,
       onSwitchChange,
       checked,
       withBalance,
-      t
+      t,
+      className
     } = this.props
 
     const nbAccounts = group.accounts.data.length
@@ -146,7 +146,11 @@ class GroupPanel extends React.PureComponent {
     const isUncheckable = !group.loading
 
     return (
-      <ExpansionPanel expanded={expanded} onChange={this.handlePanelChange}>
+      <ExpansionPanel
+        className={className}
+        expanded={expanded}
+        onChange={this.handlePanelChange}
+      >
         <GroupPanelSummary
           expandIcon={<GroupPanelExpandIcon />}
           IconButtonProps={{
@@ -162,7 +166,7 @@ class GroupPanel extends React.PureComponent {
               onClick={this.handleSummaryContentClick}
             >
               <div className={styles.GroupPanelSummary__label}>
-                {group.label}
+                {groupLabel}
                 <br />
                 {nbCheckedAccounts < nbAccounts && (
                   <Caption className={styles.GroupPanelSummary__caption}>

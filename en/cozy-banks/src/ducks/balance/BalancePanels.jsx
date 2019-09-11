@@ -8,6 +8,7 @@ import { withRouter } from 'react-router'
 import AddAccountLink from 'ducks/settings/AddAccountLink'
 import { translateAndSortGroups } from 'ducks/groups/helpers'
 import styles from 'ducks/balance/BalancePanels.styl'
+import Delayed from 'components/Delayed'
 
 class BalancePanels extends React.PureComponent {
   static propTypes = {
@@ -43,18 +44,22 @@ class BalancePanels extends React.PureComponent {
 
     return (
       <div className={styles.BalancePanels}>
-        {groupsSorted.map(group => (
-          <GroupPanel
-            key={group._id}
-            group={group}
-            warningLimit={warningLimit}
-            expanded={panelsState[group._id].expanded}
-            checked={panelsState[group._id].checked}
-            switches={panelsState[group._id].accounts}
-            onSwitchChange={onSwitchChange}
-            onChange={onPanelChange}
-            withBalance={withBalance}
-          />
+        {groupsSorted.map(({ group, label }, i) => (
+          <Delayed key={group._id} delay={i * 150}>
+            {/* ^ Delay rendering of group panels after the first two */}
+            <GroupPanel
+              className="u-fx-from-bottom"
+              group={group}
+              groupLabel={label}
+              warningLimit={warningLimit}
+              expanded={panelsState[group._id].expanded}
+              checked={panelsState[group._id].checked}
+              switches={panelsState[group._id].accounts}
+              onSwitchChange={onSwitchChange}
+              onChange={onPanelChange}
+              withBalance={withBalance}
+            />
+          </Delayed>
         ))}
         <div className={styles.BalancePanels__actions}>
           <AddAccountLink>

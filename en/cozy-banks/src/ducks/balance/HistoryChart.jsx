@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import * as d3 from 'utils/d3'
 import { withBreakpoints, translate } from 'cozy-ui/react'
 import LineChart from 'components/Chart/LineChart'
@@ -27,18 +27,14 @@ class HistoryChart extends Component {
       maximumFractionDigits: 2
     })
 
-    return (
-      <Fragment>
-        {date}
-        <strong
-          className={cx(styles.HistoryChart__tooltipBalance, {
-            [styles.Balance_blur]: flag('amount_blur')
-          })}
-        >
-          {balance} €
-        </strong>
-      </Fragment>
-    )
+    return [
+      { content: date },
+      {
+        content: flag('amount_blur') ? 'XXX' : balance,
+        style: 'font-weight: bold'
+      },
+      { content: '€' }
+    ]
   }
 
   componentDidMount() {

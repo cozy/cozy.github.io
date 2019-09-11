@@ -1,6 +1,6 @@
 import {
   buildVirtualGroups,
-  translateGroup,
+  mkGetTranslatedLabel,
   translateAndSortGroups
 } from './helpers'
 import { associateDocuments } from 'ducks/client/utils'
@@ -63,6 +63,7 @@ describe('translateGroup', () => {
   })
 
   it("should translate the group label only if it's a virtual group", () => {
+    const getTranslatedLabel = mkGetTranslatedLabel(translate)
     const virtualGroup = {
       virtual: true,
       label: 'label'
@@ -73,11 +74,8 @@ describe('translateGroup', () => {
       label: 'label'
     }
 
-    expect(translateGroup(virtualGroup, translate)).toEqual({
-      ...virtualGroup,
-      label: 'Data.accountTypes.label'
-    })
-    expect(translateGroup(normalGroup, translate)).toEqual(normalGroup)
+    expect(getTranslatedLabel(virtualGroup)).toEqual('Data.accountTypes.label')
+    expect(getTranslatedLabel(normalGroup)).toEqual(normalGroup.label)
   })
 })
 
@@ -87,6 +85,14 @@ describe('translateAndSortGroups', () => {
   afterEach(() => {
     translate.mockClear()
   })
+
+  const setup = groups => {
+    // Merge translated label into the group for easier testing
+    return translateAndSortGroups(groups, translate).map(groupAndLabel => ({
+      ...groupAndLabel.group,
+      label: groupAndLabel.label
+    }))
+  }
 
   it('should sort groups by translated label', () => {
     const groups = [
@@ -105,7 +111,7 @@ describe('translateAndSortGroups', () => {
       { virtual: false, label: 'Z' }
     ]
 
-    expect(translateAndSortGroups(groups, translate)).toEqual(expected)
+    expect(setup(groups)).toEqual(expected)
   })
 
   it('should put group with label "Other" at the end', () => {
@@ -123,7 +129,7 @@ describe('translateAndSortGroups', () => {
       { virtual: true, label: 'Data.accountTypes.Other' }
     ]
 
-    expect(translateAndSortGroups(groups, translate)).toEqual(expected)
+    expect(setup(groups)).toEqual(expected)
   })
 
   it('should put reimbursements virtual group at the end', () => {
@@ -145,6 +151,6 @@ describe('translateAndSortGroups', () => {
       }
     ]
 
-    expect(translateAndSortGroups(groups, translate)).toEqual(expected)
+    expect(setup(groups)).toEqual(expected)
   })
 })

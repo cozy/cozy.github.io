@@ -8,6 +8,7 @@ import { PageTitle } from 'components/Title'
 import KonnectorUpdateInfo from 'components/KonnectorUpdateInfo'
 import History from 'ducks/balance/History'
 import HeaderTitle from 'ducks/balance/components/HeaderTitle'
+import Delayed from 'components/Delayed'
 
 import styles from 'ducks/balance/components/BalanceHeader.styl'
 
@@ -39,7 +40,9 @@ const BalanceHeader = ({
         onClickBalance={onClickBalance}
       />
       {accounts && (
-        <History accounts={accounts} transactions={transactionsCollection} />
+        <Delayed delay={1000}>
+          <History accounts={accounts} transactions={transactionsCollection} />
+        </Delayed>
       )}
       <KonnectorUpdateInfo />
     </Header>

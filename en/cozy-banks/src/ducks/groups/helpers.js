@@ -29,52 +29,56 @@ export const buildVirtualGroups = (accounts, translate) => {
 }
 
 /**
- * Translate group properties
- * @param {Object} group - The group to translate
- * @param {Function} translate - The translation function
- * @returns {Object} The translated group
+ * Returns a function that returns the translated label of a group
+ *
+ * @param {Object} group - Group
+ * @param {Function} translate - Translation function
+ * @returns {Object} Translated label
  */
-export const translateGroup = (group, translate) => {
-  return {
-    ...group,
-    label: group.virtual
-      ? translate(`Data.accountTypes.${group.label}`, { _: 'other' })
-      : group.label
+export const mkGetTranslatedLabel = translate => group =>
+  group.virtual
+    ? translate(`Data.accountTypes.${group.label}`, { _: 'other' })
+    : group.label
+
+const isOtherVirtualGroup = group => group.virtual && group.label === 'Other'
+
+export const isReimbursementsVirtualGroup = group =>
+  group.virtual && group._id === 'Reimbursements'
+
+const getCategory = group => {
+  if (isReimbursementsVirtualGroup(group)) {
+    return 'virtualReimbursements'
+  } else if (isOtherVirtualGroup(group)) {
+    return 'virtualOther'
+  } else {
+    return 'normal'
   }
 }
 
-const isOtherVirtualGroup = group => group.virtual && group.label === 'Other'
-export const isReimbursementsVirtualGroup = group =>
-  group.virtual && group._id === 'Reimbursements'
+const groupSortingPriorities = {
+  normal: 0,
+  virtualOther: 1,
+  virtualReimbursements: 2
+}
 
 /**
  * Translate groups labels then sort them on their translated label. But always put "others accounts" last
  * @param {Object[]} groups - The groups to sort
  * @param {Function} translate - The translation function
- * @returns {Object[]} The sorted groups
+ * @returns {Object[]} The sorted wrapped groups ({ category, label, group })
  */
 export const translateAndSortGroups = (groups, translate) => {
-  const groupsToSort = groups
-    .filter(
-      group =>
-        !isOtherVirtualGroup(group) && !isReimbursementsVirtualGroup(group)
-    )
-    .map(group => translateGroup(group, translate))
+  const getTranslatedLabel = mkGetTranslatedLabel(translate)
 
-  const sortedGroups = sortBy(groupsToSort, group =>
-    deburr(group.label).toLowerCase()
-  )
+  // Wrap groups to add necessary information for sorting
+  const wrappedGroups = groups.map(group => ({
+    group,
+    category: getCategory(group),
+    label: getTranslatedLabel(group)
+  }))
 
-  const otherGroup = groups.find(isOtherVirtualGroup)
-  const reimbursementsGroup = groups.find(isReimbursementsVirtualGroup)
-
-  if (otherGroup) {
-    sortedGroups.push(translateGroup(otherGroup, translate))
-  }
-
-  if (reimbursementsGroup) {
-    sortedGroups.push(translateGroup(reimbursementsGroup, translate))
-  }
-
-  return sortedGroups
+  return sortBy(wrappedGroups, ({ label, category }) => [
+    groupSortingPriorities[category],
+    deburr(label).toLowerCase()
+  ])
 }

@@ -99,7 +99,8 @@ module.exports = {
         '../react/PushClientBanner/index.jsx',
         '../react/Viewer/index.jsx',
         '../react/AppSections/index.jsx',
-        '../react/AppIcon/index.jsx'
+        '../react/AppIcon/index.jsx',
+        '../react/CipherIcon/index.jsx'
       ]
     },
     {

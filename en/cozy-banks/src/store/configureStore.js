@@ -8,7 +8,7 @@ import {
   getTracker,
   createTrackerMiddleware
 } from 'cozy-ui/react/helpers/tracker'
-import { isReporterEnabled, getReporterMiddleware } from 'lib/sentry'
+import { isSentryEnabled, getSentryMiddleware } from 'lib/sentry'
 
 import appReducers from 'reducers'
 
@@ -30,8 +30,8 @@ const configureStore = (cozyClient, persistedState) => {
     const loggerMiddleware = createLogger()
     middlewares.push(loggerMiddleware)
   }
-  if (isReporterEnabled()) {
-    middlewares.push(getReporterMiddleware(cozyClient))
+  if (isSentryEnabled()) {
+    middlewares.push(getSentryMiddleware(cozyClient))
   }
 
   const store = createStore(

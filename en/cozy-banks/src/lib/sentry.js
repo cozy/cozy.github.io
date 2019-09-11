@@ -8,9 +8,9 @@ let slug
 
 // Configure
 
-export const isReporterEnabled = () => typeof __SENTRY_URL__ !== 'undefined'
+export const isSentryEnabled = () => typeof __SENTRY_URL__ !== 'undefined'
 
-const getReporterConfiguration = cozyClient => {
+const getSentryConfiguration = cozyClient => {
   const config = {
     shouldSendCallback: true,
     environment: __DEV__ ? 'development' : 'production',
@@ -42,12 +42,12 @@ export const setURLContext = url => {
   slug = getSlug(url)
 }
 
-export const getReporterMiddleware = cozyClient => {
-  return RavenMiddleWare(__SENTRY_URL__, getReporterConfiguration(cozyClient))
+export const getSentryMiddleware = cozyClient => {
+  return RavenMiddleWare(__SENTRY_URL__, getSentryConfiguration(cozyClient))
 }
 
-export const configureReporter = cozyClient => {
-  Raven.config(__SENTRY_URL__, getReporterConfiguration(cozyClient)).install()
+export const configureSentry = cozyClient => {
+  Raven.config(__SENTRY_URL__, getSentryConfiguration(cozyClient)).install()
   Raven.setTagsContext({ target: __TARGET__ })
 }
 

@@ -3,7 +3,13 @@ import PropTypes from 'prop-types'
 import * as d3 from 'utils/d3'
 import { max, minBy, keyBy, memoize } from 'lodash'
 import styles from 'components/Chart/LineChart.styl'
-import Tooltip from 'components/Chart/Tooltip'
+
+// TODO replace by import { getCSSVariableValue } from 'cozy-ui/transpiled/utils/colors'
+// when https://github.com/cozy/cozy-ui/issues/1153 is solved
+const getCSSPropertyValue = memoize(varName => {
+  const computedStyle = getComputedStyle(document.body)
+  return computedStyle.getPropertyValue(varName)
+})
 
 class LineChart extends Component {
   constructor(props) {
@@ -70,6 +76,7 @@ class LineChart extends Component {
     this.createPointLine()
     this.createLine()
     this.createPoint()
+    this.createTooltip()
     this.createAxis()
   }
 
@@ -79,6 +86,7 @@ class LineChart extends Component {
     this.updateGradient()
     this.updateAxis()
     this.updateLine()
+    this.updateTooltip()
   }
 
   /**
@@ -275,6 +283,49 @@ class LineChart extends Component {
       .call(drag.on('end', this.stopPointDrag))
   }
 
+  createTooltip() {
+    this.tooltip = this.svg.append('g')
+    this.tooltipBg = this.tooltip.append('rect')
+    this.tooltipArrow = this.tooltip
+      .append('polygon')
+      .attr('points', '-5,6  5,6 0,12')
+      .attr('fill', getCSSPropertyValue('--historyTooltipBackgroundColor'))
+    this.tooltipText = this.tooltip
+      .append('text')
+      .attr('fill', getCSSPropertyValue('--historyTooltipTextColor'))
+      .attr('style', 'font-size: 0.6875rem; font-family: Lato')
+    this.tooltip.attr('style', 'opacity: 0')
+  }
+
+  updateTooltip() {
+    const item = this.getSelectedItem()
+    const x = this.x(item.x)
+    const y = -10
+    this.tooltip.attr('transform', `translate(${x}, ${y})`)
+
+    const tspans = this.props.getTooltipContent(item)
+    this.tooltipText.selectAll('*').remove()
+
+    tspans.forEach(tspan => {
+      this.tooltipText
+        .append('tspan')
+        .text(tspan.content + ' ')
+        .attr('style', tspan.style)
+    })
+    const tl = this.tooltipText.node().getComputedTextLength()
+
+    const switchOrientation = x < tl
+
+    const rectPadding = { h: 5, v: 5 }
+    this.tooltipBg
+      .attr('x', switchOrientation ? -rectPadding.h : -tl - rectPadding.h)
+      .attr('y', y - 2)
+      .attr('width', tl + rectPadding.h * 2)
+      .attr('height', '18px')
+
+    this.tooltipText.attr('text-anchor', switchOrientation ? 'start' : 'end')
+  }
+
   updatePoint() {
     const item = this.getSelectedItem()
     const x = this.x(item.x)
@@ -381,9 +432,14 @@ class LineChart extends Component {
       this.mask.attr('opacity', 0)
     }
 
+    // We do not know where exactly this comes from but without it a bit of the end
+    // of the line is visible just before the animation as if the line was too offsetted.
+    // This is why we need to remove a bit of the offset.
+    const OFFSET = -60
+
     this.line
       .attr('stroke-dasharray', lineTotalLength)
-      .attr('stroke-dashoffset', lineTotalLength)
+      .attr('stroke-dashoffset', lineTotalLength + OFFSET)
       .transition()
       .duration(this.props.enterAnimationDuration)
       .ease(d3.easeExpInOut)
@@ -408,6 +464,12 @@ class LineChart extends Component {
             .duration(400)
             .ease(d3.easeExpIn)
             .attr('opacity', 1)
+
+          this.tooltip
+            .transition()
+            .duration(200)
+            .ease(d3.easeLinear)
+            .style('opacity', 1)
         }
 
         this.line.attr('stroke-dasharray', null)
@@ -436,6 +498,7 @@ class LineChart extends Component {
 
     this.updatePoint()
     this.updatePointLine()
+    this.updateTooltip()
   }
 
   startPointDrag = () => {
@@ -463,22 +526,10 @@ class LineChart extends Component {
   }
 
   render() {
-    const { width, height, gradient, margin, getTooltipContent } = this.props
-
-    const selectedItem = this.getSelectedItem()
-    const itemX = this.x(selectedItem.x)
-
-    const isLeftPosition = itemX < width / 2
-    const position = isLeftPosition ? 'left' : 'right'
-    const tooltipX = (isLeftPosition ? 0 : -width) + itemX + margin.left
+    const { width, height, gradient } = this.props
 
     return (
       <div className={styles.LineChart}>
-        {selectedItem && getTooltipContent && (
-          <Tooltip x={tooltipX} position={position}>
-            {getTooltipContent(selectedItem)}
-          </Tooltip>
-        )}
         <svg
           ref={node => (this.root = node)}
           width={width}

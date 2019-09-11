@@ -54,6 +54,11 @@
         animation-timing-function cubic-bezier(.36,.07,.19,.97)
         animation-fill-mode both
 
+    .u-fx-from-bottom
+        animation from-bottom 0.3s ease-out
+        animation-fill-mode both
+
+
     .u-invisible-form-field input[type=date]
         border 0
         background none
@@ -71,6 +76,15 @@
 
       40%, 60%
         transform translate3d(4px, 0, 0)
+
+    @keyframes from-bottom
+        0%
+            opacity 0
+            transform translateY(50px)
+        100%
+            opacity 1
+            transform translateY(0px)
+
 
     // @TODO move this to ui
     // See https://github.com/cozy/cozy-ui/issues/1096
