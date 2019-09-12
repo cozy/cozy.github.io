@@ -285,7 +285,9 @@ class LineChart extends Component {
 
   createTooltip() {
     this.tooltip = this.svg.append('g')
-    this.tooltipBg = this.tooltip.append('rect')
+    this.tooltipBg = this.tooltip
+      .append('rect')
+      .attr('fill', getCSSPropertyValue('--historyTooltipBackgroundColor'))
     this.tooltipArrow = this.tooltip
       .append('polygon')
       .attr('points', '-5,6  5,6 0,12')
