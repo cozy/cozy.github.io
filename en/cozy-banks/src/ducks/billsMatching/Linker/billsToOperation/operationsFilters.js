@@ -1,4 +1,3 @@
-const includes = require('lodash/includes')
 const sumBy = require('lodash/sumBy')
 const isWithinRange = require('date-fns/is_within_range')
 const { log } = require('../../utils')
@@ -11,19 +10,6 @@ const {
 } = require('./helpers')
 
 // constants
-
-const HEALTH_VENDORS = [
-  'Ameli',
-  'Harmonie',
-  'Malakoff Mederic',
-  'MGEN',
-  'Generali',
-  'ascoreSante',
-  'EoviMCD',
-  'Humanis',
-  'Alan',
-  'lamutuellegenerale'
-] // TODO: to import from each konnector
 const HEALTH_EXPENSE_CAT = '400610'
 const HEALTH_INSURANCE_CAT = '400620'
 const UNCATEGORIZED_CAT_ID_OPERATION = '0' // TODO: import it from cozy-bank
@@ -45,7 +31,7 @@ const isUncategorizedOperation = operation => {
 }
 
 const isHealthBill = bill => {
-  return includes(HEALTH_VENDORS, bill.vendor)
+  return bill.type === 'health_costs'
 }
 
 // filters
@@ -58,7 +44,7 @@ const filterByBrand = bill => {
     }
 
     const label = operation.label.toLowerCase()
-    return label.match(regexp)
+    return Boolean(label.match(regexp))
   }
 
   brandFilter.name = 'byBrand'

@@ -13,7 +13,7 @@
     "commons:build": "webpack --config webpack.config.js --bail",
     "commons:watch": "webpack --config webpack.config.js --watch --progress",
     "commons:watch:hot": "HOT_RELOAD=1 webpack-dev-server --progress --config webpack.config.js --port 8282 --inline --hot",
-    "deploy": "git-directory-deploy --directory build/ --branch=${DEPLOY_BRANCH:-build} --repo=${DEPLOY_REPOSITORY:-https://$GH_TOKEN@github.com/cozy/cozy-banks.git}",
+    "deploy": "env HUSKY_SKIP_HOOKS=1 git-directory-deploy --directory build/ --branch=${DEPLOY_BRANCH:-build} --repo=${DEPLOY_REPOSITORY:-https://$GH_TOKEN@github.com/cozy/cozy-banks.git}",
     "cozyPublish": "cozy-app-publish --token $REGISTRY_TOKEN --prepublish downcloud --postpublish mattermost --space banks",
     "uploadStaticFiles": "babel-node ./scripts/upload-static-files.js",
     "tx": "true || tx pull --all || true",
@@ -244,7 +244,7 @@
     ],
     "transform": {
       "^.+\\.jsx?$": "babel-jest",
-      "\\.css$": "<rootDir>/test/readFile.js",
+      "\\.css$": "<rootDir>/test/readFileESM.js",
       "\\.hbs$": "<rootDir>/test/readFileESM.js"
     },
     "transformIgnorePatterns": [

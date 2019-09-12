@@ -13,18 +13,18 @@ describe('operations filters', () => {
       const bill = { vendor: 'Trainline' }
       const fByBrand = filterByBrand(bill)
 
-      expect(fByBrand({ label: 'Trainline !!!' })).toBeTruthy()
-      expect(fByBrand({ label: 'Yes Trainline' })).toBeTruthy()
-      expect(fByBrand({ label: 'CapitainTrain' })).toBeFalsy()
+      expect(fByBrand({ label: 'Trainline !!!' })).toBe(true)
+      expect(fByBrand({ label: 'Yes Trainline' })).toBe(true)
+      expect(fByBrand({ label: 'CapitainTrain' })).toBe(false)
     })
 
     it("should generate a regexp with the bill vendor if the brand doesn't exist in the dictionnary", () => {
       const bill = { vendor: 'Tartanpion' }
       const fByBrand = filterByBrand(bill)
 
-      expect(fByBrand({ label: 'Chez Tartanpion !!!' })).toBeTruthy()
-      expect(fByBrand({ label: 'tartanpion 17/09' })).toBeTruthy()
-      expect(fByBrand({ label: 'Rien à voir' })).toBeFalsy()
+      expect(fByBrand({ label: 'Chez Tartanpion !!!' })).toBe(true)
+      expect(fByBrand({ label: 'tartanpion 17/09' })).toBe(true)
+      expect(fByBrand({ label: 'Rien à voir' })).toBe(false)
     })
 
     it('should use the regexp from the bill if it has one', () => {
@@ -78,8 +78,8 @@ describe('operations filters', () => {
   const HEALTH_INSURANCE_CAT = '400620'
 
   describe('filtering by category', () => {
-    fit('should only match bills with the right categoryId when the vendor is known to be a health insurance provider', () => {
-      const fByCategory = filterByCategory({ vendor: 'Ameli' })
+    it('should only match bills with the right categoryId when the bill type is health_costs', () => {
+      const fByCategory = filterByCategory({ type: 'health_costs' })
       expect(fByCategory({ manualCategoryId: HEALTH_EXPENSE_CAT })).toBeTruthy()
 
       expect(
@@ -112,13 +112,13 @@ describe('operations filters', () => {
     })
 
     it('should not match bills with categoryId that are not health insurance/expense', () => {
-      const fByCategory = filterByCategory({ vendor: 'Ameli' })
+      const fByCategory = filterByCategory({ type: 'health_costs' })
       expect(fByCategory({ manualCategoryId: '400611' })).toBeFalsy()
       expect(fByCategory({ automaticCategoryId: '400611' })).toBeFalsy()
     })
 
     it('should match check debits against health expense category', () => {
-      const fByCategory = filterByCategory({ vendor: 'Ameli' })
+      const fByCategory = filterByCategory({ type: 'health_costs' })
       expect(
         fByCategory({ manualCategoryId: HEALTH_INSURANCE_CAT, amount: -10 })
       ).toBeFalsy()
@@ -128,7 +128,7 @@ describe('operations filters', () => {
     })
 
     it('should match check credits against health insurance category and health expense category', () => {
-      const fByCategory = filterByCategory({ vendor: 'Ameli' })
+      const fByCategory = filterByCategory({ type: 'health_costs' })
       expect(
         fByCategory({ manualCategoryId: HEALTH_INSURANCE_CAT, amount: 10 })
       ).toBeTruthy()
@@ -140,14 +140,9 @@ describe('operations filters', () => {
     test('not health bill', () => {
       const fByCategory = filterByCategory({ vendor: 'SFR' })
       expect(fByCategory({ manualCategoryId: HEALTH_EXPENSE_CAT })).toBeFalsy()
-      expect(
-        fByCategory({ automaticCategoryId: HEALTH_EXPENSE_CAT })
-      ).toBeFalsy()
       expect(fByCategory({ manualCategoryId: '0' })).toBeTruthy()
-      expect(fByCategory({ automaticCategoryId: '0' })).toBeTruthy()
       expect(fByCategory({})).toBeTruthy()
       expect(fByCategory({ manualCategoryId: '400611' })).toBeTruthy()
-      expect(fByCategory({ automaticCategoryId: '400611' })).toBeTruthy()
     })
   })
 
@@ -177,14 +172,14 @@ describe('operations filters', () => {
         label: 'Visite chez le médecin',
         _id: 'o1',
         date: new Date(2017, 11, 13),
-        automaticCategoryId: '400610'
+        manualCategoryId: '400610'
       },
       {
         amount: 5,
         label: 'Remboursement CPAM',
         _id: 'o2',
         date: new Date(2017, 11, 15),
-        automaticCategoryId: '400610'
+        manualCategoryId: '400610'
       },
       {
         amount: -120,
@@ -216,14 +211,14 @@ describe('operations filters', () => {
         label: 'Remboursement CPAM',
         _id: 'o8',
         date: new Date(2017, 11, 15),
-        automaticCategoryId: '400610',
+        manualCategoryId: '400610',
         reimbursements: [{ amount: 50 }]
       },
       {
         amount: -50,
         label: 'Visite chez le dentiste',
         _id: 'o9',
-        automaticCategoryId: '400610',
+        manualCategoryId: '400610',
         date: new Date(2017, 11, 16),
         reimbursements: []
       },
@@ -231,7 +226,7 @@ describe('operations filters', () => {
         amount: -7.5,
         label: 'Dafalgan',
         _id: 'o10',
-        automaticCategoryId: '400610',
+        manualCategoryId: '400610',
         date: new Date(2017, 11, 16),
         reimbursements: []
       },
@@ -239,7 +234,7 @@ describe('operations filters', () => {
         amount: 57.5,
         label: 'Remboursement CPAM',
         _id: 'o11',
-        automaticCategoryId: '400610',
+        manualCategoryId: '400610',
         date: new Date(2017, 11, 16),
         reimbursements: []
       }
@@ -309,7 +304,7 @@ describe('operations filters', () => {
         type: 'health_costs',
         isRefund: true
       }
-      const debitOptions = { ...defaultOptions, identifiers: ['CPAM'] }
+      const debitOptions = { ...defaultOptions }
       const creditOptions = { ...debitOptions, credit: true }
       it('get debit operation', () => {
         expect(operationsFilters(bill, operations, debitOptions)).toEqual([
@@ -317,7 +312,7 @@ describe('operations filters', () => {
         ])
       })
 
-      test('get credit operation', () => {
+      it('get credit operation', () => {
         expect(operationsFilters(bill, operations, creditOptions)).toEqual([
           operations[10]
         ])

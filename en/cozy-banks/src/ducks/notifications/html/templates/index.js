@@ -19,7 +19,9 @@ const capitalizeWord = str => {
 }
 
 const embeds = {
-  'style.css': require('!!raw-loader!ducks/notifications/html/templates/style.css') // eslint-disable-line import/no-webpack-loader-syntax
+  // eslint-disable-next-line import/no-webpack-loader-syntax
+  'style.css': require('!!raw-loader!ducks/notifications/html/templates/style.css')
+    .default
 }
 
 Handlebars.registerHelper({

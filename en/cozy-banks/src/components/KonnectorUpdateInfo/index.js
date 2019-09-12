@@ -11,6 +11,14 @@ import { queryConnect } from 'cozy-client'
 import { KONNECTOR_DOCTYPE } from 'doctypes'
 import { isCollectionLoading } from 'ducks/client/utils'
 import { Padded } from 'components/Spacing'
+import CozyClient from 'cozy-client'
+
+// Utilities on konnectors
+const konnectors = {
+  hasCategory: category => konnector => {
+    return konnector.categories && konnector.categories.includes(category)
+  }
+}
 
 class KonnectorUpdateInfo extends React.PureComponent {
   intents = new Intents({ client: this.props.client })
@@ -49,17 +57,20 @@ class KonnectorUpdateInfo extends React.PureComponent {
       return null
     }
 
-    const { t, breakpoints, konnectorsCollection } = this.props
+    const { t, breakpoints, outdatedKonnectors } = this.props
 
-    if (isCollectionLoading(konnectorsCollection)) {
+    if (isCollectionLoading(outdatedKonnectors)) {
       return null
     }
 
-    if (konnectorsCollection.hasMore) {
-      konnectorsCollection.fetchMore()
+    if (outdatedKonnectors.hasMore) {
+      outdatedKonnectors.fetchMore()
     }
 
-    if (konnectorsCollection.data.length === 0) {
+    const bankingKonnectors = outdatedKonnectors.data.filter(
+      konnectors.hasCategory('banking')
+    )
+    if (bankingKonnectors.length === 0) {
       return null
     }
 
@@ -90,16 +101,20 @@ class KonnectorUpdateInfo extends React.PureComponent {
   }
 }
 
+const outdatedKonnectors = {
+  query: client =>
+    client
+      .all(KONNECTOR_DOCTYPE)
+      .where({ available_version: { $exists: true } }),
+  fetchPolicy: CozyClient.fetchPolicies.olderThan(30 * 1000),
+  as: 'outdatedKonnectors'
+}
+
 export default compose(
   translate(),
   withClient,
   withBreakpoints(),
   queryConnect({
-    konnectorsCollection: {
-      query: client =>
-        client
-          .all(KONNECTOR_DOCTYPE)
-          .where({ available_version: { $exists: true } })
-    }
+    outdatedKonnectors
   })
 )(KonnectorUpdateInfo)

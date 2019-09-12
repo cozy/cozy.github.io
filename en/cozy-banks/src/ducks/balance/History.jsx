@@ -87,14 +87,20 @@ class History extends Component {
   }
 
   render() {
-    const { transactions, className } = this.props
+    const {
+      transactions,
+      className,
+      size: { width }
+    } = this.props
+
+    const hasWidth = width !== undefined
 
     const isTransactionsLoading =
       isCollectionLoading(transactions) && !hasBeenLoaded(transactions)
 
     return (
       <div className={cx(styles.History, className)}>
-        {isTransactionsLoading ? (
+        {isTransactionsLoading || !hasWidth ? (
           <Spinner size="xxlarge" color="white" />
         ) : (
           <HistoryChart {...this.getChartProps()} />
