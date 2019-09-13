@@ -11,6 +11,22 @@ const getCSSPropertyValue = memoize(varName => {
   return computedStyle.getPropertyValue(varName)
 })
 
+const makeDownwardTriangle = (centerTop, size) => {
+  const [x, y] = centerTop
+  return [
+    [x - size / 2, y],
+    [x + size / 2, y],
+    [x, y + Math.sqrt(Math.pow(size, 2) - Math.pow(size / 2, 2))] // 0.75 is approx
+  ]
+}
+
+const tooltipDimensions = {
+  arrowSize: 5,
+  bgHeight: 20,
+  bgPadding: [5, 5],
+  fontSize: 11
+}
+
 class LineChart extends Component {
   constructor(props) {
     super(props)
@@ -284,25 +300,41 @@ class LineChart extends Component {
   }
 
   createTooltip() {
+    const { bgHeight, arrowSize, fontSize } = tooltipDimensions
+
+    // The tooltip group oriign will be positionned at the x,y-arrowSize
+    // of the point on the curve
     this.tooltip = this.svg.append('g')
+
+    // The width of the background will be automatically updated based on the
+    // width of the text
     this.tooltipBg = this.tooltip
       .append('rect')
       .attr('fill', getCSSPropertyValue('--historyTooltipBackgroundColor'))
+      .attr('y', -bgHeight)
+      .attr('height', bgHeight)
+
+    const trianglePoints = makeDownwardTriangle([0, 0], arrowSize)
+      .map(p => p.join(','))
+      .join(' ')
     this.tooltipArrow = this.tooltip
       .append('polygon')
-      .attr('points', '-5,6  5,6 0,12')
+      .attr('points', trianglePoints)
       .attr('fill', getCSSPropertyValue('--historyTooltipBackgroundColor'))
+
     this.tooltipText = this.tooltip
       .append('text')
       .attr('fill', getCSSPropertyValue('--historyTooltipTextColor'))
-      .attr('style', 'font-size: 0.6875rem; font-family: Lato')
-    this.tooltip.attr('style', 'opacity: 0')
+      .attr('style', `font-size: ${fontSize}px; font-family: Lato`)
+      .attr('x', 0)
+      .attr('y', -fontSize / 2) // half the font-size
   }
 
   updateTooltip() {
+    const { bgPadding, arrowSize } = tooltipDimensions
     const item = this.getSelectedItem()
     const x = this.x(item.x)
-    const y = -10
+    const y = -arrowSize
     this.tooltip.attr('transform', `translate(${x}, ${y})`)
 
     const tspans = this.props.getTooltipContent(item)
@@ -318,12 +350,10 @@ class LineChart extends Component {
 
     const switchOrientation = x < tl
 
-    const rectPadding = { h: 5, v: 5 }
+    const [paddingH] = bgPadding
     this.tooltipBg
-      .attr('x', switchOrientation ? -rectPadding.h : -tl - rectPadding.h)
-      .attr('y', y - 2)
-      .attr('width', tl + rectPadding.h * 2)
-      .attr('height', '18px')
+      .attr('x', switchOrientation ? -paddingH : -tl - paddingH)
+      .attr('width', tl + paddingH * 2)
 
     this.tooltipText.attr('text-anchor', switchOrientation ? 'start' : 'end')
   }
@@ -426,6 +456,8 @@ class LineChart extends Component {
 
   enterAnimation() {
     const lineTotalLength = this.line.node().getTotalLength()
+
+    this.tooltip.attr('style', 'opacity: 0')
 
     this.point.attr('r', 0).attr('stroke-width', 0)
     this.pointLine.attr('opacity', 0)

@@ -18,8 +18,9 @@ import {
   getAccountInstitutionLabel,
   getAccountType
 } from 'ducks/account/helpers'
+import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 
-import { ACCOUNT_DOCTYPE, APP_DOCTYPE } from 'doctypes'
+import { accountsConn, APP_DOCTYPE } from 'doctypes'
 
 // See comment below about sharings
 // import { ACCOUNT_DOCTYPE } from 'doctypes'
@@ -83,7 +84,10 @@ class AccountsSettings extends Component {
   render() {
     const { t, accountsCollection } = this.props
 
-    if (accountsCollection.fetchStatus === 'loading') {
+    if (
+      isCollectionLoading(accountsCollection) &&
+      !hasBeenLoaded(accountsCollection)
+    ) {
       return <Loading />
     }
 
@@ -141,10 +145,7 @@ const mapStateToProps = state => ({
 
 export default compose(
   queryConnect({
-    accountsCollection: {
-      query: client => client.all(ACCOUNT_DOCTYPE),
-      as: 'accounts'
-    },
+    accountsCollection: accountsConn,
     apps: { query: client => client.all(APP_DOCTYPE), as: 'apps' }
   }),
   connect(mapStateToProps),

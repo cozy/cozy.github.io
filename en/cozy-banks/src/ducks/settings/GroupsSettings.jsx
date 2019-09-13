@@ -11,7 +11,7 @@ import plus from 'assets/icons/16/plus.svg'
 import styles from 'ducks/settings/GroupsSettings.styl'
 import btnStyles from 'styles/buttons.styl'
 import { sortBy, flowRight as compose, get } from 'lodash'
-import { isCollectionLoading } from 'ducks/client/utils'
+import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 
 const GroupList = compose(
   withRouter,
@@ -55,17 +55,13 @@ const Groups = withRouter(
   class _Groups extends Component {
     render() {
       const { t, groups, router } = this.props
-      if (isCollectionLoading(groups)) {
+      if (isCollectionLoading(groups) && !hasBeenLoaded(groups)) {
         return <Loading />
       }
 
       return (
         <div>
-          {groups.fetchStatus === 'loading' ? (
-            <Loading />
-          ) : (
-            <GroupList groups={sortBy(groups.data.filter(x => x), 'label')} />
-          )}
+          <GroupList groups={sortBy(groups.data.filter(x => x), 'label')} />
           <p>
             <Button
               icon={<Icon icon={plus} className="u-mr-half" />}

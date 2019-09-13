@@ -6,6 +6,7 @@ import { translate, Text, Modal } from 'cozy-ui/transpiled/react'
 import { withClient, queryConnect } from 'cozy-client'
 import Realtime from 'cozy-realtime'
 import { logException } from 'lib/sentry'
+import { recipientsConn, accountsConn } from 'doctypes'
 
 import Loading from 'components/Loading'
 import Stepper from 'components/Stepper'
@@ -25,6 +26,7 @@ import ChooseAmount from 'ducks/transfers/steps/Amount'
 import Summary from 'ducks/transfers/steps/Summary'
 import Password from 'ducks/transfers/steps/Password'
 import { isLoginFailed } from 'ducks/transfers/utils'
+import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 
 const THIRTY_SECONDS = 30 * 1000
 
@@ -329,8 +331,8 @@ class TransferPage extends React.Component {
     } = this.state
 
     if (
-      recipients.fetchStatus === 'loading' ||
-      accounts.fetchStatus === 'loading'
+      (isCollectionLoading(recipients) && !hasBeenLoaded(recipients)) ||
+      (isCollectionLoading(accounts) && !hasBeenLoaded(accounts))
     ) {
       return (
         <Padded>
@@ -417,14 +419,8 @@ const enhance = compose(
   withClient,
   withRouter,
   queryConnect({
-    accounts: {
-      query: client => client.all('io.cozy.bank.accounts'),
-      as: 'accounts'
-    },
-    recipients: {
-      query: client => client.all('io.cozy.bank.recipients'),
-      as: 'recipients'
-    }
+    accounts: accountsConn,
+    recipients: recipientsConn
   }),
   translate()
 )

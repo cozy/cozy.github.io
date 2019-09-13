@@ -114,6 +114,7 @@ const updateSettings = async settings => {
 const onOperationOrBillCreate = async options => {
   log('info', `COZY_CREDENTIALS: ${process.env.COZY_CREDENTIALS}`)
   log('info', `COZY_URL: ${process.env.COZY_URL}`)
+  log('info', `COZY_JOB_ID: ${process.env.COZY_JOB_ID}`)
   log('info', 'Fetching settings...')
   let setting = await Settings.fetchWithDefault()
 

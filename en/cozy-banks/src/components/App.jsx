@@ -15,6 +15,7 @@ import { withRouter } from 'react-router'
 import { flowRight as compose } from 'lodash'
 import { hasParameter } from 'utils/qs'
 import { pinGuarded } from 'ducks/pin'
+import styles from './App.styl'
 
 const ReactHint = ReactHintFactory(React)
 
@@ -33,7 +34,7 @@ const App = props => {
       </Sidebar>
 
       <Main>
-        <Content>
+        <Content className={styles.Main}>
           {hasParameter(props.location.query, 'error') ? (
             <Error />
           ) : (

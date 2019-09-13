@@ -1,5 +1,9 @@
 import last from 'lodash/last'
 import get from 'lodash/get'
+import errors from 'errors'
+import logger from 'cozy-logger'
+
+const log = logger.namespace('services')
 
 /**
  * Returns the changes or all documents. If we want to fetch all changes, it is
@@ -36,6 +40,11 @@ export const fetchChangesOrAll = async (Model, lastSeq) => {
 
 const getJobIdFromEnv = env => {
   const cozyJobId = env.COZY_JOB_ID
+
+  if (!cozyJobId) {
+    throw new Error(errors.NO_COZY_JOB_ID)
+  }
+
   const jobId = last(cozyJobId.split('/'))
 
   return jobId
@@ -61,7 +70,18 @@ export const getOptions = async (
   env = process.env,
   argv = process.argv
 ) => {
-  const optsFromEnv = await getOptionsFromEnv(client, env)
+  let optsFromEnv = {}
+
+  try {
+    optsFromEnv = await getOptionsFromEnv(client, env)
+  } catch (err) {
+    if (err.message === errors.NO_COZY_JOB_ID) {
+      log(
+        'warning',
+        'No COZY_JOB_ID in environment variables. Impossible to fetch the job to get its arguments. The service will not receive options passed via job arguments'
+      )
+    }
+  }
   const optsFromCLI = getOptionsFromCLI(argv)
 
   const options = {

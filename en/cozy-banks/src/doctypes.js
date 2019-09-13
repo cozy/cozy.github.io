@@ -1,7 +1,7 @@
 import fromPairs from 'lodash/fromPairs'
 import CozyClient, { QueryDefinition, HasManyInPlace } from 'cozy-client'
 
-export const RECIPIENT_DOCTYPE = 'io.cozy.mocks.recipients'
+export const RECIPIENT_DOCTYPE = 'io.cozy.bank.recipients'
 export const ACCOUNT_DOCTYPE = 'io.cozy.bank.accounts'
 export const GROUP_DOCTYPE = 'io.cozy.bank.groups'
 export const TRANSACTION_DOCTYPE = 'io.cozy.bank.operations'
@@ -197,5 +197,11 @@ export const billsConn = {
 export const settingsConn = {
   query: client => client.all(SETTINGS_DOCTYPE),
   as: 'settings',
+  fetchPolicy: older30s
+}
+
+export const recipientsConn = {
+  query: client => client.all(RECIPIENT_DOCTYPE),
+  as: 'recipients',
   fetchPolicy: older30s
 }

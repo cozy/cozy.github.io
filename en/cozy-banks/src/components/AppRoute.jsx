@@ -19,6 +19,7 @@ import {
 import { Balance } from 'ducks/balance'
 import { TransferPage } from 'ducks/transfers'
 import UserActionRequired from 'components/UserActionRequired'
+import scrollToTopOnMount from 'components/scrollToTopOnMount'
 
 // Use a function to delay instantation and have access to AppRoute.renderExtraRoutes
 const AppRoute = () => (
@@ -26,23 +27,41 @@ const AppRoute = () => (
     <Route component={App}>
       {isWebApp() && <Redirect from="/" to="balances" />}
       <Route path="balances">
-        <IndexRoute component={Balance} />
-        <Route path="reimbursements" component={ReimbursementsPage} />
-        <Route path="details" component={TransactionsPageWithBackButton} />
+        <IndexRoute component={scrollToTopOnMount(Balance)} />
+        <Route
+          path="reimbursements"
+          component={scrollToTopOnMount(ReimbursementsPage)}
+        />
+        <Route
+          path="details"
+          component={scrollToTopOnMount(TransactionsPageWithBackButton)}
+        />
       </Route>
       <Route path="categories">
-        <IndexRoute component={CategoriesPage} />
+        <IndexRoute component={scrollToTopOnMount(CategoriesPage)} />
         <Route
           path=":categoryName/:subcategoryName"
-          component={TransactionsPageWithBackButton}
+          component={scrollToTopOnMount(TransactionsPageWithBackButton)}
         />
-        <Route path=":categoryName" component={CategoriesPage} />
+        <Route
+          path=":categoryName"
+          component={scrollToTopOnMount(CategoriesPage)}
+        />
       </Route>
       <Route path="settings">
-        <Route path="groups/new" component={NewGroupSettings} />
-        <Route path="groups/:groupId" component={GroupSettings} />
-        <Route path="accounts/:accountId" component={AccountSettings} />
-        <Route component={Settings}>
+        <Route
+          path="groups/new"
+          component={scrollToTopOnMount(NewGroupSettings)}
+        />
+        <Route
+          path="groups/:groupId"
+          component={scrollToTopOnMount(GroupSettings)}
+        />
+        <Route
+          path="accounts/:accountId"
+          component={scrollToTopOnMount(AccountSettings)}
+        />
+        <Route component={scrollToTopOnMount(Settings)}>
           <IndexRoute component={Configuration} />
           <Route path="accounts" component={AccountsSettings} />
           <Route path="groups" component={GroupsSettings} />
@@ -50,7 +69,7 @@ const AppRoute = () => (
           <Route path="debug" component={Debug} />
         </Route>
       </Route>
-      <Route path="transfers" component={TransferPage} />
+      <Route path="transfers" component={scrollToTopOnMount(TransferPage)} />
       <Route path="transfers/:slideName" component={TransferPage} />
       {AppRoute.renderExtraRoutes()}
       {isWebApp() && <Redirect from="*" to="balances" />}

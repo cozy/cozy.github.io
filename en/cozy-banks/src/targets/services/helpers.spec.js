@@ -79,6 +79,23 @@ describe('getOptions', () => {
       transactionsMatching: false
     })
   })
+
+  it('should not crash if no job is has been passed in env vars', async () => {
+    client.fetchJSON.mockResolvedValueOnce({})
+    const argv = [
+      '{"billsMatching": { "lastSeq": "0" }, "transactionsMatching": false}'
+    ]
+    env.COZY_JOB_ID = undefined
+
+    const options = await getOptions(client, env, argv)
+
+    expect(options).toEqual({
+      billsMatching: {
+        lastSeq: '0'
+      },
+      transactionsMatching: false
+    })
+  })
 })
 
 describe('fetchChangesOrAll', () => {

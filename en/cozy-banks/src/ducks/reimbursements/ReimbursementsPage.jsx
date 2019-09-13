@@ -11,7 +11,6 @@ import BackButton from 'components/BackButton'
 import { ConnectedSelectDates } from 'components/SelectDates'
 import HealthReimbursements from 'ducks/reimbursements/HealthReimbursements'
 import styles from 'ducks/reimbursements/ReimbursementsPage.styl'
-import ScrollToTop from 'components/ScrollToTop'
 
 function getSubComponent(filteringDoc) {
   switch (filteringDoc._id) {
@@ -36,7 +35,6 @@ class RawReimbursementsPage extends React.Component {
 
     return (
       <>
-        <ScrollToTop />
         <BarTheme theme="primary" />
         <Header color="primary" fixed>
           <Padded
