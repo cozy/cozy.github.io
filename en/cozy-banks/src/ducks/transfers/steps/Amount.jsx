@@ -68,6 +68,7 @@ class _ChooseAmount extends React.PureComponent {
               onChange={ev => {
                 onChange(ev.target.value)
               }}
+              step="any"
               type="number"
               onBlur={this.handleBlur}
               error={validation.error}

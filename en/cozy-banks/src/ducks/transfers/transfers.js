@@ -28,7 +28,7 @@ export const prepareJobAccount = async (client, konnSlug, auth) => {
   )
 
   if (!konnector) {
-    throw new Error('Could not find suitable konnector')
+    throw new Error(`Could not find suitable konnector for slug: ${konnSlug}`)
   }
 
   const { data: permission } = await permissions.add(konnector, {
@@ -48,13 +48,16 @@ export const prepareJobAccount = async (client, konnSlug, auth) => {
  * @param  {Integer} options.amount    - Amount to send
  * @param  {String} options.recipientId - io.cozy.bank.recipients id
  * @param  {String} options.senderAccount - io.cozy.bank.accounts id
+ * @param  {String} options.password - Password of the bank account
+ * @param  {String} options.label - Label of the operation
+ * @param  {String} options.executionDate - Date of the operation in DD/MM/YYYY
  * @return {Promise}
  */
 export const createJob = async (
   client,
   { amount, recipientId, senderAccount, password, label, executionDate }
 ) => {
-  const konnector = 'caissedepargne1' // senderAccount.cozyMetadata.createdByApp
+  const konnector = senderAccount.cozyMetadata.createdByApp
   const { account } = await prepareJobAccount(client, konnector, {
     password
   })
