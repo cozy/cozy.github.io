@@ -10,6 +10,8 @@ import { translateAndSortGroups } from 'ducks/groups/helpers'
 import styles from 'ducks/balance/BalancePanels.styl'
 import Delayed from 'components/Delayed'
 
+const GROUP_PANEL_RENDER_DELAY = 150
+
 class BalancePanels extends React.PureComponent {
   static propTypes = {
     groups: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -45,7 +47,7 @@ class BalancePanels extends React.PureComponent {
     return (
       <div className={styles.BalancePanels}>
         {groupsSorted.map(({ group, label }, i) => (
-          <Delayed key={group._id} delay={i * 150}>
+          <Delayed key={group._id} delay={i * GROUP_PANEL_RENDER_DELAY}>
             {/* ^ Delay rendering of group panels after the first two */}
             <GroupPanel
               className="u-fx-from-bottom"
@@ -61,21 +63,23 @@ class BalancePanels extends React.PureComponent {
             />
           </Delayed>
         ))}
-        <div className={styles.BalancePanels__actions}>
-          <AddAccountLink>
+        <Delayed delay={groupsSorted.length * GROUP_PANEL_RENDER_DELAY}>
+          <div className={styles.BalancePanels__actions}>
+            <AddAccountLink>
+              <ButtonAction
+                type="new"
+                label={t('Accounts.add_bank')}
+                className={styles.BalancePanels__action}
+              />
+            </AddAccountLink>
             <ButtonAction
-              type="new"
-              label={t('Accounts.add_bank')}
+              onClick={this.goToGroupsSettings}
+              type="normal"
+              label={t('Balance.manage_accounts')}
               className={styles.BalancePanels__action}
             />
-          </AddAccountLink>
-          <ButtonAction
-            onClick={this.goToGroupsSettings}
-            type="normal"
-            label={t('Balance.manage_accounts')}
-            className={styles.BalancePanels__action}
-          />
-        </div>
+          </div>
+        </Delayed>
       </div>
     )
   }

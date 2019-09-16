@@ -84,6 +84,8 @@ const domainToEnv = {
   'cozy.works': 'int',
   'cozy.rocks': 'stg',
   'mycozy.cloud': 'prod',
+  'cozyorange.cloud': 'prod',
+  'mytoutatice.cloud': 'prod',
   'tools:8080': 'local'
 }
 

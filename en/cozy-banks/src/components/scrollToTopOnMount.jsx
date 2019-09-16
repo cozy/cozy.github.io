@@ -1,12 +1,21 @@
 import React, { useEffect } from 'react'
 import { withBreakpoints } from 'cozy-ui/react'
 
-const useScrollToTopOnMount = node => {
+const useScrollToOnMount = (node, scrollTop, scrollLeft) => {
   useEffect(() => {
-    if (node) {
-      node.scrollTop = 0
+    if (node && scrollTop !== undefined) {
+      node.scrollTop = scrollTop
+    }
+    if (node && scrollLeft !== undefined) {
+      node.scrollLeft = scrollLeft
     }
   }, [])
+}
+
+const getMainNode = isMobile => {
+  return isMobile
+    ? document.scrollingElement || document.documentElement
+    : document.querySelector('[role="main"]')
 }
 
 /**
@@ -15,11 +24,8 @@ const useScrollToTopOnMount = node => {
  */
 const scrollToTopOnMount = Component =>
   withBreakpoints()(({ breakpoints, ...props }) => {
-    useScrollToTopOnMount(
-      breakpoints.isMobile
-        ? document.scrollingElement || document.documentElement
-        : document.querySelector('[role="main"]')
-    )
+    const node = getMainNode(breakpoints.isMobile)
+    useScrollToOnMount(node, 0)
     return <Component {...props} />
   })
 

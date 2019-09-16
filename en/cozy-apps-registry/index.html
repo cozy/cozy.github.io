@@ -2193,20 +2193,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#for-an-application" title="For an application" class="md-nav__link">
-    For an application
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#for-a-connector" title="For a connector" class="md-nav__link">
-    For a connector
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#properties-meaning-reference" title="Properties meaning (reference)" class="md-nav__link">
     Properties meaning (reference)
   </a>
@@ -2230,6 +2216,27 @@
           <li class="md-nav__item">
   <a href="#konnectors-folders-handling" title="Konnectors folders handling" class="md-nav__link">
     Konnectors folders handling
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#konnectors-fields-property" title="Konnectors fields property" class="md-nav__link">
+    Konnectors fields property
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#konnectors-message-property" title="Konnectors message property" class="md-nav__link">
+    Konnectors message property
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#categories-and-data-types" title="Categories and Data types" class="md-nav__link">
+    Categories and Data types
   </a>
   
 </li>
@@ -2729,20 +2736,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#for-an-application" title="For an application" class="md-nav__link">
-    For an application
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#for-a-connector" title="For a connector" class="md-nav__link">
-    For a connector
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#properties-meaning-reference" title="Properties meaning (reference)" class="md-nav__link">
     Properties meaning (reference)
   </a>
@@ -2766,6 +2759,27 @@
           <li class="md-nav__item">
   <a href="#konnectors-folders-handling" title="Konnectors folders handling" class="md-nav__link">
     Konnectors folders handling
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#konnectors-fields-property" title="Konnectors fields property" class="md-nav__link">
+    Konnectors fields property
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#konnectors-message-property" title="Konnectors message property" class="md-nav__link">
+    Konnectors message property
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#categories-and-data-types" title="Categories and Data types" class="md-nav__link">
+    Categories and Data types
   </a>
   
 </li>
@@ -3173,24 +3187,9 @@ cozy-apps-registry gen-token --master Cozy -c cozy-registry.yml
 <p>If you need more details about the registry you can go to <a href="https://docs.cozy.io/en/cozy-stack/registry/">the official registry documentation</a></p>
 <p><strong>:warning: Important:</strong> In this whole documentation, by the term <code>application</code>, we mean a web application or a konnector. Indeed, for the registry, all entities are applications and they can be either <code>webapp</code> or <code>konnector</code> type.</p>
 <h3 id="1-prepare-your-application">1) Prepare your application<a class="headerlink" href="#1-prepare-your-application" title="Permanent link">&para;</a></h3>
-<h5 id="for-an-application">For an application<a class="headerlink" href="#for-an-application" title="Permanent link">&para;</a></h5>
-<p>To be publishable, your application requires some informations in its <code>manifest.webapp</code>, the manifest of a Cozy application. Here is an example for the application Drive:</p>
-<details>
-
-wzxhzdk:7
-
-
-</details>
-
-<h5 id="for-a-connector">For a connector<a class="headerlink" href="#for-a-connector" title="Permanent link">&para;</a></h5>
-<p>To be publishable, your konnector requires some informations in its <code>manifest.konnector</code>, the manifest of a Cozy konnector. Here is an example for the konnector <code>cozy-konnector-trainline</code>:</p>
-<details>
-
-wzxhzdk:8
-
-
-</details>
-
+<p>To be publishable, your application requires some informations in its <code>manifest.webapp</code>, the manifest of a Cozy application. </p>
+<p>You can find an example of manifest for an application <a href="https://github.com/cozy/cozy-drive/blob/master/src/drive/targets/manifest.webapp">in Cozy-Drive</a> and one for a konnector <a href="https://github.com/konnectors/cozy-konnector-trainline/blob/master/manifest.konnector">in cozy-konnector-trainline</a>.</p>
+<p>Most properties are common to both applications and konnectors but platforms, screenshots, services, routes and intents are only used in applications. Properties oauth, data_types, doctypes, fields, frequency, language, messages, parameters, time_interval, uuid and vendor_link ar only used in konnectors.</p>
 <h5 id="properties-meaning-reference">Properties meaning (reference)<a class="headerlink" href="#properties-meaning-reference" title="Permanent link">&para;</a></h5>
 <p>Here are all properties meaning for the manifest file (for webapp and konnectors) sorted alphabetically:</p>
 <table>
@@ -3223,7 +3222,7 @@ cozy-apps-registry gen-token --master Cozy -c cozy-registry.yml
 </tr>
 <tr>
 <td><code>fields</code></td>
-<td><em>(konnector specific)</em> JSON object describing the fields need by the konnector (<strong>except folder path</strong>). Used to generate a form. See <a href="https://github.com/cozy/cozy-collect/blob/master/docs/konnector-manifest.md#fields-property">collect documentation</a></td>
+<td><em>(konnector specific)</em> JSON object describing the fields need by the konnector (<strong>except folder path</strong>). Used to generate a form. See <a href="#konnectors-fields-property">below</a></td>
 </tr>
 <tr>
 <td><code>folders</code></td>
@@ -3263,7 +3262,7 @@ cozy-apps-registry gen-token --master Cozy -c cozy-registry.yml
 </tr>
 <tr>
 <td><code>messages</code></td>
-<td><em>(konnector specific)</em> Array of message identifiers, which can be used by application to display information at known areas. See example in <a href="https://github.com/cozy/cozy-collect/blob/master/docs/konnector-manifest.md#messages-example">collect documentation</a>.</td>
+<td><em>(konnector specific)</em> Array of message identifiers, which can be used by application to display information at known areas. See <a href="#konnectors-message-property">example below</a>.</td>
 </tr>
 <tr>
 <td><code>name</code></td>
@@ -3351,13 +3350,42 @@ cozy-apps-registry gen-token --master Cozy -c cozy-registry.yml
 <h5 id="translated-manifest-fields">Translated manifest fields<a class="headerlink" href="#translated-manifest-fields" title="Permanent link">&para;</a></h5>
 <p>Here are the properties that you can override using <code>locales</code> (we recommand to automatically build these properties according to your locales files if you&rsquo;re using a translating tool like <code>transifex</code>):</p>
 <ul>
-<li><code>name</code></li>
-<li><code>short_description</code></li>
-<li><code>long_description</code></li>
-<li><code>changes</code></li>
+<li><code>name</code>, the app&rsquo;s name</li>
+<li><code>short_description</code>, short description of what the app do</li>
+<li><code>long_description</code>, longer and more complete description of the app behaviour</li>
+<li><code>changes</code>, description of your new version of the konnector or all changes since the last version</li>
+<li><code>fields</code>, An object containing translations for fields.</li>
 <li><code>screenshots</code></li>
 <li><code>folders</code></li>
 </ul>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;email&quot;</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;locales&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;en&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;short_description&quot;</span><span class="p">:</span> <span class="s2">&quot;Collect your Orange&#39;s bills&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Identifier (your email)&quot;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;fr&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;short_description&quot;</span><span class="p">:</span> <span class="s2">&quot;Récupère vos factures Orange&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Identifiant (votre adresse mail)&quot;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
 <h5 id="application-terms">Application terms<a class="headerlink" href="#application-terms" title="Permanent link">&para;</a></h5>
 <p>You can provide a related <code>terms</code> property if you want to display and make the user accept some terms (ToS for example) just before installing the application. Here are all properties allowed and used:</p>
 <ul>
@@ -3380,6 +3408,136 @@ cozy-apps-registry gen-token --master Cozy -c cozy-registry.yml
 </blockquote>
 </li>
 </ul>
+<h5 id="konnectors-fields-property">Konnectors fields property<a class="headerlink" href="#konnectors-fields-property" title="Permanent link">&para;</a></h5>
+<p>The <code>fields</code> property is a JSON object describing the input fields needed to generate the konnector&rsquo;s configuration form. A typical example will be:</p>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;identifier&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;secret&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;password&quot;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>The keys of the <code>fields</code> object are the name/id of the fields. They will be passed as parameters to the konnector at every run.</p>
+<p>Each fields may also have the following properties:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>advanced</td>
+<td>Indicates if the field should be displayed in the &ldquo;advanced&rdquo; area of the form (default: <code>false</code>)</td>
+</tr>
+<tr>
+<td>default</td>
+<td>Default value. It can a string for a text field, or an object for a select field (<code>"default": {"value": "foo","name": "bar"},</code>)</td>
+</tr>
+<tr>
+<td>description</td>
+<td>Field description, as a locale key.</td>
+</tr>
+<tr>
+<td>label</td>
+<td>Predefined label. This value must match a locale key provided by Cozy-Home. Example: With <code>label: "identifier"</code>, Cozy-Home will use the locale key <code>account.form.label.identifier</code>. Translations for these fields use the <code>locales</code> property in the manifest.</td>
+</tr>
+<tr>
+<td>max</td>
+<td>Maximum length of the value (number of characters)</td>
+</tr>
+<tr>
+<td>min</td>
+<td>Minimum length of the value (number of characters)</td>
+</tr>
+<tr>
+<td>options</td>
+<td>When the field is a dropdown, list of available options</td>
+</tr>
+<tr>
+<td>pattern</td>
+<td>Define a regex used to validate the field.</td>
+</tr>
+<tr>
+<td>isRequired</td>
+<td>Boolean indicating if the field is required or not (default <code>true</code>)</td>
+</tr>
+<tr>
+<td>type</td>
+<td><em>Required</em>. Field type from <code>dropdown</code>, <code>email</code>, <code>hidden</code>, <code>password</code>, <code>text</code>, <code>checkbox</code>.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="konnectors-message-property">Konnectors message property<a class="headerlink" href="#konnectors-message-property" title="Permanent link">&para;</a></h5>
+<p>Messages are a common way to provide custom information to display in application. An app like cozy-home should have some specific area to display custom messages provided by the konnector.</p>
+<p>Example:</p>
+<div class="codehilite"><pre><span></span>  <span class="c1">// The final example will be available after the implementation of the whole mechanism,</span>
+  <span class="c1">// but here is the global idea:</span>
+  <span class="p">{</span><span class="nx">installSuccess</span> <span class="o">&amp;&amp;</span>
+    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;{</span><span class="nx">t</span><span class="p">(</span><span class="s1">&#39;home.konnector.install.success.message&#39;</span><span class="p">)}&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+  <span class="p">}</span>
+  <span class="p">{</span><span class="nx">installSuccess</span> <span class="o">&amp;&amp;</span> <span class="nx">konnector</span><span class="p">.</span><span class="nx">manifest</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s1">&#39;success_message&#39;</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;{</span><span class="nx">t</span><span class="p">(</span><span class="s1">&#39;konnector.manifest.locales.messages.success_message&#39;</span><span class="p">)}</span>
+  <span class="p">}</span>
+</pre></div>
+
+
+<h5 id="categories-and-data-types">Categories and Data types<a class="headerlink" href="#categories-and-data-types" title="Permanent link">&para;</a></h5>
+<p>Categories are slugs from the following list:
+<em> <code>energy</code>
+</em> <code>insurance</code>
+<em> <code>isp</code>
+</em> <code>shopping</code>
+<em> <code>telecom</code>
+</em> <code>transport</code>
+<em> <code>banking</code>
+</em> <code>health</code>
+<em> <code>host_provider</code>
+</em> <code>online_services</code>
+<em> <code>partners</code>
+</em> <code>press</code>
+<em> <code>productivity</code>
+</em> <code>public_service</code>
+* <code>social</code></p>
+<p>Data types are slugs from the following list:
+<em> <code>activity</code>
+</em> <code>appointment</code>
+<em> <code>bankTransactions</code>
+</em> <code>bankAccounts</code>
+<em> <code>bill</code>
+</em> <code>bloodPressure</code>
+<em> <code>calendar</code>
+</em> <code>certificate</code>
+<em> <code>commit</code>
+</em> <code>consumption</code>
+<em> <code>contact</code>
+</em> <code>contract</code>
+<em> <code>courseMaterial</code>
+</em> <code>document</code>
+<em> <code>event</code>
+</em> <code>family</code>
+<em> <code>geopoint</code>
+</em> <code>heartbeat</code>
+<em> <code>home</code>
+</em> <code>phonecommunicationlog</code>
+<em> <code>podcast</code>
+</em> <code>profile</code>
+<em> <code>refund</code>
+</em> <code>sinister</code>
+<em> <code>sleepTime</code>
+</em> <code>stepsNumber</code>
+<em> <code>temperature</code>
+</em> <code>travelDate</code>
+<em> <code>tweet</code>
+</em> <code>videostream</code>
+* <code>weight</code></p>
 <h3 id="2-add-a-new-application-in-the-registry">2) Add a new application in the registry<a class="headerlink" href="#2-add-a-new-application-in-the-registry" title="Permanent link">&para;</a></h3>
 <h4 id="our-official-apps-registry">Our official apps registry<a class="headerlink" href="#our-official-apps-registry" title="Permanent link">&para;</a></h4>
 <p>Official registry URL: <code>https://apps-registry.cozycloud.cc</code></p>

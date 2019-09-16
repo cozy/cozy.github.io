@@ -3,7 +3,7 @@ module github.com/cozy/cozy-apps-registry
 go 1.12
 
 require (
-	github.com/Masterminds/semver v1.4.2
+	github.com/Masterminds/semver v1.5.0
 	github.com/flimzy/diff v0.1.6 // indirect
 	github.com/flimzy/kivik v1.8.1 // indirect
 	github.com/flimzy/testy v0.1.16 // indirect
@@ -11,20 +11,20 @@ require (
 	github.com/go-kivik/kivik v2.0.0-pre2+incompatible
 	github.com/go-kivik/kiviktest v1.1.2 // indirect
 	github.com/go-redis/redis/v7 v7.0.0-beta.4
-	github.com/gopherjs/gopherjs v0.0.0-20190909024252-1852f3ae2951 // indirect
+	github.com/gopherjs/gopherjs v0.0.0-20190915194858-d3ddacdb130f // indirect
 	github.com/h2non/filetype v1.0.10
 	github.com/hashicorp/go-multierror v1.0.0
-	github.com/howeyc/gopass v0.0.0-20170109162249-bf9dde6d0d2c
+	github.com/howeyc/gopass v0.0.0-20190910152052-7cb4b85ec19c
 	github.com/imdario/mergo v0.3.7 // indirect
 	github.com/labstack/echo/v4 v4.1.10
 	github.com/ncw/swift v1.0.49
-	github.com/otiai10/copy v1.0.1 // indirect
+	github.com/otiai10/copy v1.0.2 // indirect
 	github.com/otiai10/curr v0.0.0-20190513014714-f5a3d24e5776 // indirect
 	github.com/sirupsen/logrus v1.4.2
 	github.com/spf13/cobra v0.0.5
 	github.com/spf13/viper v1.4.0
 	github.com/stretchr/testify v1.4.0
 	gitlab.com/flimzy/testy v0.0.0-20190816103046-aca1ef5ffe7e // indirect
-	golang.org/x/crypto v0.0.0-20190907121410-71b5226ff739
+	golang.org/x/crypto v0.0.0-20190911031432-227b76d455e7
 	golang.org/x/xerrors v0.0.0-20190717185122-a985d3407aa7 // indirect
 )
