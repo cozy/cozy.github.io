@@ -14,7 +14,7 @@ In this tutorial you will learn how to:
 
 If you want to go further:
 
-- [Learn how konnectors are run by the Cozy stack](./how-it-works.md)
+- [Learn how konnectors are run by the Cozy stack](./how-does-it-work.md)
 - [Add Two Factor Authentication to your connector](./2fa.md)
 
 [Cozy Home]: https://github.com/cozy/cozy-home
