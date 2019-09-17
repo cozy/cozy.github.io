@@ -5,7 +5,7 @@ A connector is a NodeJS script.
 
 Like client side apps, connectors communicate with the [Cozy Stack](https://docs.cozy.io/en/cozy-stack/README/) using its HTTP API, and get a unique auth token every time they start.
 
-They need to register with a manifest, and ask the user for permissions.
+They need to register with a [manifest](https://docs.cozy.io/en/cozy-apps-registry/#properties-meaning-reference), and ask the user for permissions.
 
 To facilitate connector development, a npm package, [cozy-konnector-libs](https://github.com/konnectors/libs), provides some shared libraries that are adapted to be used for a connector:
 
@@ -25,7 +25,7 @@ When the connector is started, it also receives some data via environment variab
  - `COZY_URL`: the Cozy Stack API entry point
  - `COZY_FIELDS`: settings coming from [Cozy Home][] and filled by the user (login, password, directory path).
 
-These variables are used by the connector and the cozy-client to configure the connection to the [Cozy Stack][] with the right permissions as defined in the connector manifest.
+These variables are used by the connector and the cozy-client to configure the connection to the [Cozy Stack][] with the right [permissions](https://docs.cozy.io/en/cozy-stack/permissions/) as defined in the connector [manifest](https://docs.cozy.io/en/cozy-apps-registry/#properties-meaning-reference).
 They are simulated in standalone mode so that you do not need a real Cozy Stack to develop a connector.
 [[More about BaseKonnector](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#basekonnector)]
 

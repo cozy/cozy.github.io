@@ -50,10 +50,8 @@ Each connector is described by a manifest. This is a JSON file named `manifest.k
 
 [cozy-konnector-template][] already has a manifest which you can customize.
 
-You may add some permissions for your own doctype. [Here](https://docs.cozy.io/en/cozy-stack/konnectors/#the-manifest) is the detailed list of fields for a
+You may add some [permissions](https://docs.cozy.io/en/cozy-stack/permissions/) for your own doctype. [Here](https://docs.cozy.io/en/cozy-stack/konnectors/#the-manifest) is the detailed list of fields for a
 connector manifest file.
-
-You can also get more information on permissions in the official [cozy-stack documentation](https://github.com/cozy/cozy-stack/blob/master/docs/permissions.md)
 
 ### konnector-dev-config.json
 
