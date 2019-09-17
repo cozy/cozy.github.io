@@ -1006,8 +1006,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-doctypes/docs/io.cozy.photos.albums/" title="Photos Albums" class="md-nav__link">
-      Photos Albums
+    <a href="../../cozy-doctypes/docs/io.cozy.photos/" title="Photos" class="md-nav__link">
+      Photos
     </a>
   </li>
 
@@ -3064,7 +3064,7 @@ for the same konnector &amp; various accounts.</p>
   and has the permission to write in this folder.</li>
 </ul>
 <h3 id="execute-the-konnector">Execute the konnector<a class="headerlink" href="#execute-the-konnector" title="Permanent link">&para;</a></h3>
-<p>Start the konnector through nsjail, passing as ENV variables :</p>
+<p>Start the konnector through nsjail, passing as ENV variables:</p>
 <div class="codehilite"><pre><span></span>- `COZY_URL`:          the starting instance URL
 - `COZY_CREDENTIALS`:  security token to communicate with Cozy
 - `COZY_FIELDS`:       JSON-encoded message with the arguments from the trigger
@@ -3326,7 +3326,7 @@ to performs a request to fetch data:</p>
 <h3 id="refreshing-token">Refreshing token<a class="headerlink" href="#refreshing-token" title="Permanent link">&para;</a></h3>
 <p>When using the server-flow, we also get a refresh_token. It is used to get a new
 access_token when it expires. However, if konnectors are responsible for
-refreshing token there is a race condition risk :</p>
+refreshing token there is a race condition risk:</p>
 <div class="codehilite"><pre><span></span>(konnector A) GET  https://api.service.com/resource TOKEN1     -&gt; expired
 (konnector B) GET  https://api.service.com/resource TOKEN1     -&gt; expired
 (konnector A) POST https://api.service.com/token REFRESH_TOKEN -&gt; TOKEN2a

@@ -13,7 +13,7 @@
         <meta name="description" content="Cozy documentation">
       
       
-        <link rel="canonical" href="https://docs.cozy.io/cozy-doctypes/docs/io.cozy.photos.albums/">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-doctypes/docs/io.cozy.photos/">
       
       
         <meta name="author" content="CozyCloud - https://cozy.io">
@@ -42,7 +42,7 @@
     
     
       
-        <title>Photos Albums - Cozy Developer Documentation</title>
+        <title>Photos - Cozy Developer Documentation</title>
       
     
     
@@ -100,7 +100,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#photos-albums-doctype" tabindex="1" class="md-skip">
+      <a href="#cozy-photos-doctype" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -126,7 +126,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Photos Albums
+                Photos
               
             </span>
           
@@ -1019,11 +1019,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Photos Albums
+        Photos
       </label>
     
-    <a href="./" title="Photos Albums" class="md-nav__link md-nav__link--active">
-      Photos Albums
+    <a href="./" title="Photos" class="md-nav__link md-nav__link--active">
+      Photos
     </a>
     
       
@@ -1040,6 +1040,26 @@
   <a href="#iocozyphotosalbums" title="io.cozy.photos.albums" class="md-nav__link">
     io.cozy.photos.albums
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iocozyphotossettings" title="io.cozy.photos.settings" class="md-nav__link">
+    io.cozy.photos.settings
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clustering-settings" title="Clustering settings" class="md-nav__link">
+    Clustering settings
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2332,6 +2352,26 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#iocozyphotossettings" title="io.cozy.photos.settings" class="md-nav__link">
+    io.cozy.photos.settings
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clustering-settings" title="Clustering settings" class="md-nav__link">
+    Clustering settings
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
       
@@ -2348,17 +2388,52 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-doctypes/docs/io.cozy.photos.albums.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-doctypes/docs/io.cozy.photos.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
                 <p><a href="../#table-of-contents">Table of contents</a></p>
-<h1 id="photos-albums-doctype">Photos Albums doctype<a class="headerlink" href="#photos-albums-doctype" title="Permanent link">&para;</a></h1>
+<h1 id="cozy-photos-doctype">Cozy Photos doctype<a class="headerlink" href="#cozy-photos-doctype" title="Permanent link">&para;</a></h1>
 <h2 id="iocozyphotosalbums"><code>io.cozy.photos.albums</code><a class="headerlink" href="#iocozyphotosalbums" title="Permanent link">&para;</a></h2>
-<p>This doctype is really simple. It just has one attribute:</p>
+<p>This doctype is used both for manual albums and for clusters.</p>
 <ul>
-<li><code>name</code>: {string} the name of the album</li>
+<li><code>name</code>: {string} the name of the album. It is the date of the oldest photo for a cluster.</li>
+<li><code>auto</code>: {bool} <code>true</code> if the album was automatically computed, and is therefore a cluster.</li>
+<li><code>period</code>: {object} if cluster, the temporal period of the album.</li>
+<li><code>start</code>: {date} the date of the oldest photo.</li>
+<li><code>end</code>: {date} the date of the newest photo.</li>
 </ul>
-<p>The photos in an album are files (with the class <code>image</code>) that are <a href="https://docs.cozy.io/en/cozy-stack/references-docs-in-vfs/">referenced</a> by the album document.</p>
+<p>The photos in an album are files (with the class <code>image</code>) that are <a href="https://cozy.github.io/cozy-stack/references-docs-in-vfs.html">referenced</a> by the album document.</p>
+<h2 id="iocozyphotossettings"><code>io.cozy.photos.settings</code><a class="headerlink" href="#iocozyphotossettings" title="Permanent link">&para;</a></h2>
+<p>This doctype is used to store settings for photos, useful for the clustering.</p>
+<ul>
+<li><code>type</code>: {string} the type of settings, e.g. <code>clustering</code>.</li>
+</ul>
+<h3 id="clustering-settings">Clustering settings<a class="headerlink" href="#clustering-settings" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>lastDate</code>: {date} the date of the last clustered photo (based on <code>created_at</code>).</li>
+<li><code>jobStatus</code>: {string} the execution status, can be <code>running</code> if the service is running, <code>postponed</code> if an execution is planned later, or empty.</li>
+<li><code>lastExecution</code>: {timestamp} the last service execution timestamp. Useful when <code>jobStatus</code> is <code>postponed</code>, to know if the service should be run or not.</li>
+<li><code>evaluationCount</code>: {number} indicates the number of photos clustered since the last parameters evaluation. If this number is greater than a threshold, it triggers a new parameter evaluation and reset this number to 0.</li>
+<li><code>runs</code>: {number} number of all clustering runs, it is incremented at each new successful execution.</li>
+<li><code>parameters</code>: {array} a list of parameters for the clustering with the following attributes:</li>
+<li><code>period</code>: {object} the temporal period of the clustered photos for this set of parameters.<ul>
+<li><code>start</code>: {date} the start of the period.</li>
+<li><code>end</code>: {date} the end of the period.</li>
+</ul>
+</li>
+<li><code>modes</code>: {array} a list of granularity modes parameters, with the following attributes:<ul>
+<li><code>name</code>: {string} the name of the mode, e.g. <code>default</code> or <code>macro</code>.</li>
+<li><code>eps_temporal</code>: {number} the temporal epsilon parameter.</li>
+<li><code>eps_spatial</code>: {number} the spatial epsilon parameter.</li>
+</ul>
+</li>
+<li><code>evaluation</code>: {object} the evaluation period on which the parameters have been computed.<ul>
+<li><code>start</code>: {date} the start of the period.</li>
+<li><code>end</code>: {date} the end of the period.</li>
+</ul>
+</li>
+<li><code>defaultEvaluation</code>: {bool} if the current evaluation use default parameters because there was not enough photos.</li>
+</ul>
                 
                   
                 
