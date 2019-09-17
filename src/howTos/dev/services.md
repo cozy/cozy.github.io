@@ -17,7 +17,7 @@ You can find an example of an existing service in the [cozy-banks app](https://g
 
 ## Service declaration
 
-The service must be declared in the app [manifest](https://docs.cozy.io/en/dev/app/#read-the-manifest). For example:
+The service must be declared in the app [manifest](https://docs.cozy.io/en/tutorials/app/#read-the-application-manifest). For example:
 
 ```json
 "services": {
