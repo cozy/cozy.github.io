@@ -5,11 +5,14 @@ const { addUtilityMethods } = require('./cozy-client-mixin')
 const path = require('path')
 const AppToken = cozy.auth.AppToken
 const log = require('./log')
+const { ChainedError } = require('./errors')
 const jwt = require('jsonwebtoken')
 const CLIENT_NAME = appPackage.name.toUpperCase()
 const SOFTWARE_ID = CLIENT_NAME + '-' + appPackage.version
 
 const enableDestroy = require('server-destroy')
+
+const exported = {}
 
 const revokeACHClients = (cozyClient, options) => {
   const { exclude } = options
@@ -28,7 +31,7 @@ const revokeACHClients = (cozyClient, options) => {
   })
 }
 
-const getClientWithoutToken = tokenPath => (url, docTypes = []) => {
+exported.getClientWithoutToken = tokenPath => (url, docTypes = []) => {
   let permissions = docTypes.map(docType => docType.toString() + ':ALL')
 
   // Needed for ACH revocation after execution
@@ -97,7 +100,7 @@ const onRegistered = (client, url) => {
 }
 
 // returns a client when there is already a stored token
-const getClientWithToken = tokenPath => url => {
+exported.getClientWithToken = tokenPath => url => {
   return new Promise((resolve, reject) => {
     try {
       // try to load a locally stored token and use that
@@ -117,7 +120,7 @@ const getClientWithToken = tokenPath => url => {
   })
 }
 
-const getClientWithTokenString = tokenString => async url => {
+exported.getClientWithTokenString = tokenString => async url => {
   const client = new cozy.Client()
   client.init({ cozyURL: url, token: tokenString })
   return client
@@ -125,17 +128,19 @@ const getClientWithTokenString = tokenString => async url => {
 
 // convenience wrapper around the 2 client getters
 module.exports = (tokenPath, cozyUrl, docTypes) => {
-  const absoluteTokenPath = path.resolve(tokenPath)
+  const absoluteTokenPath = tokenPath.startsWith('/')
+    ? tokenPath
+    : path.join(process.cwd(), tokenPath)
 
   let getClientFn
   if (fs.existsSync(absoluteTokenPath)) {
-    getClientFn = getClientWithToken(absoluteTokenPath)
+    getClientFn = exported.getClientWithToken(absoluteTokenPath)
   } else {
     const decoded = jwt.decode(tokenPath, { complete: true })
     if (decoded) {
-      getClientFn = getClientWithTokenString(tokenPath)
+      getClientFn = exported.getClientWithTokenString(tokenPath)
     } else {
-      getClientFn = getClientWithoutToken(absoluteTokenPath)
+      getClientFn = exported.getClientWithoutToken(absoluteTokenPath)
     }
   }
 
@@ -153,9 +158,11 @@ module.exports = (tokenPath, cozyUrl, docTypes) => {
           'No stored token found, are you sure you generated one? Use option "-t" if you want to generate one next time.'
         )
       } else {
-        console.warn(err)
+        throw new ChainedError('Could not create client', err)
       }
 
       return err
     })
 }
+
+Object.assign(module.exports, { exported })

@@ -29,7 +29,9 @@ const bankingSlug = [
   'lcl-linxo',
   'monabanq96',
   'cdngroup109',
-  'societegenerale'
+  'revolut',
+  'societegenerale',
+  'n26'
 ]
 
 export const getKonnectorFromTrigger = trigger => {
@@ -46,6 +48,10 @@ export const getKonnectorFromTrigger = trigger => {
   }
 }
 
+export const isErrored = trigger => {
+  return trigger.current_state.status === 'errored'
+}
+
 export const isBankTrigger = trigger =>
-  get(trigger, 'attributes.worker') === 'konnector' &&
-  includes(bankingSlug, get(trigger, 'attributes.message.konnector'))
+  get(trigger, 'worker') === 'konnector' &&
+  includes(bankingSlug, get(trigger, 'message.konnector'))

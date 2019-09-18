@@ -35,6 +35,9 @@ const baseFetch = (domain, route, options) => {
   })
 }
 
+/**
+ * Creates a token from the stack's admin
+ */
 const createToken = (domain, doctypes) => {
   const params = new URLSearchParams({
     Domain: domain,

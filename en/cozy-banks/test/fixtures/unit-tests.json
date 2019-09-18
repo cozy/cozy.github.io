@@ -28,7 +28,10 @@
       "number": "{{int 1000000 9999999}}",
       "balance": 1421.22,
       "description": "Premier compte sans connaitre l id pour generer le doc",
-      "type": "Savings"
+      "type": "Savings",
+      "cozyMetadata": {
+        "createdByApp": "caissedepargne1"
+      }
     },
     {
       "_id": "comptecla1",
@@ -38,6 +41,9 @@
       "balance": 4135.62,
       "shared": "true",
       "type": "Checkings",
+      "cozyMetadata": {
+        "createdByApp": "boursorama83"
+      },
       "recipients": [
         {
           "status": "pending",
@@ -54,7 +60,10 @@
       "institutionLabel": "BNPP",
       "number": "{{int 1000000 9999999}}",
       "balance": 3974.25,
-      "type": "Checkings"
+      "type": "Checkings",
+      "cozyMetadata": {
+        "createdByApp": "bnpparibas82"
+      }
     },
     {
       "_id": "compteisa3",
@@ -62,7 +71,10 @@
       "institutionLabel": "La Banque Postale",
       "number": "{{int 1000000 9999999}}",
       "balance": 11635.12,
-      "type": "Savings"
+      "type": "Savings",
+      "cozyMetadata": {
+        "createdByApp": "bnpparibas82"
+      }
     },
     {
       "_id": "comptegene1",
@@ -80,7 +92,10 @@
             "type": "io.cozy.mocks.recipients"
           }
         }
-      ]
+      ],
+      "cozyMetadata": {
+        "createdByApp": "bnpparibas82"
+      }
     },
     {
       "_id": "comptelou1",
@@ -98,7 +113,10 @@
             "type": "io.cozy.mocks.recipients"
           }
         }
-      ]
+      ],
+      "cozyMetadata": {
+        "createdByApp": "bnpparibas82"
+      }
     },
     {
       "_id": "compteisa2",
@@ -107,7 +125,10 @@
       "number": "{{int 1000000 9999999}}",
       "balance": 0,
       "type": "CreditCard",
-      "comingBalance": -1000
+      "comingBalance": -1000,
+      "cozyMetadata": {
+        "createdByApp": "bnpparibas82"
+      }
     }
   ],
   "io.cozy.bank.groups": [
@@ -1546,6 +1567,48 @@
       "originalOperation": "io.cozy.bank.operations:paiementdocteur",
       "isRefund": true,
       "invoice": "io.cozy.files:{{reference 'io.cozy.files' 1 '_id' }}"
+    }
+  ],
+  "io.cozy.triggers": [
+    {
+      "message": {
+        "konnector": "revolut",
+        "account": "account-revolut"
+      },
+      "worker": "konnector",
+      "current_state": {
+        "status": "errored"
+      }
+    },
+    {
+      "message": {
+        "konnector": "boursorama83",
+        "account": "account-boursorama"
+      },
+      "worker": "konnector",
+      "current_state": {
+        "status": "errored"
+      }
+    },
+    {
+      "message": {
+        "konnector": "bnpparibas82",
+        "account": "account-bnp"
+      },
+      "worker": "konnector",
+      "current_state": {
+        "status": "done"
+      }
+    },
+    {
+      "message": {
+        "konnector": "caissedepargne1",
+        "account": "account-caissedepargne"
+      },
+      "worker": "konnector",
+      "current_state": {
+        "status": "done"
+      }
     }
   ]
 }

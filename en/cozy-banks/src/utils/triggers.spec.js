@@ -53,16 +53,12 @@ describe('isBankTrigger', () => {
   const triggerWithUnknownBank = merge({}, trigger, {
     attributes: { message: { konnector: 'unknownBank' } }
   })
-  const triggerWithoutAttributes = {}
-  const triggerNull = null
   const triggerWithoutMessage = { attributes: {} }
 
   it('should return if is bank trigger', () => {
-    expect(isBankTrigger(trigger)).toBe(true)
-    expect(isBankTrigger(triggerNotKonnector)).toBe(false)
-    expect(isBankTrigger(triggerWithUnknownBank)).toBe(false)
-    expect(isBankTrigger(triggerWithoutAttributes)).toBe(false)
-    expect(isBankTrigger(triggerNull)).toBe(false)
-    expect(isBankTrigger(triggerWithoutMessage)).toBe(false)
+    expect(isBankTrigger(trigger.attributes)).toBe(true)
+    expect(isBankTrigger(triggerNotKonnector.attributes)).toBe(false)
+    expect(isBankTrigger(triggerWithUnknownBank.attributes)).toBe(false)
+    expect(isBankTrigger(triggerWithoutMessage.attributes)).toBe(false)
   })
 })

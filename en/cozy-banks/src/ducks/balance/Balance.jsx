@@ -353,11 +353,14 @@ class Balance extends PureComponent {
       flag('no-account') ||
       flag('account-loading')
     ) {
-      let konnectorInfos = triggers.filter(isBankTrigger).map(t => ({
-        konnector: get(t, 'attributes.message.konnector'),
-        account: get(t, 'attributes.message.account'),
-        status: get(t, 'attributes.current_state.status')
-      }))
+      let konnectorInfos = triggers
+        .map(x => x.attributes)
+        .filter(isBankTrigger)
+        .map(t => ({
+          konnector: get(t, 'message.konnector'),
+          account: get(t, 'message.account'),
+          status: get(t, 'current_state.status')
+        }))
 
       if (flag('account-loading')) {
         // eslint-disable-next-line no-console

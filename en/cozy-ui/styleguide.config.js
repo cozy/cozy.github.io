@@ -45,7 +45,8 @@ module.exports = {
         '../react/Layout/Layout.jsx',
         '../react/Hero/index.jsx',
         '../react/Sidebar/index.jsx',
-        '../react/Circle/index.jsx'
+        '../react/Circle/index.jsx',
+        '../react/Page/index.jsx'
       ]
     },
     {
@@ -154,6 +155,8 @@ module.exports = {
     path.join(__dirname, './style.styl'),
     'style-loader!css-loader!' +
       path.join(__dirname, '../transpiled/react/stylesheet.css'),
+    'style-loader!css-loader!' +
+      path.join(__dirname, '../dist/cozy-ui.utils.min.css'),
     path.join(__dirname, './styleguide.setup')
   ],
   exampleMode: 'collapse',

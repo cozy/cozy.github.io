@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import CozyClient, { queryConnect } from 'cozy-client'
 import { withBreakpoints, translate } from 'cozy-ui/react'
 import Icon from 'cozy-ui/react/Icon'
 import cx from 'classnames'
-import { flowRight as compose } from 'lodash'
+import { get, flowRight as compose } from 'lodash'
 import Switch from 'components/Switch'
 import { Figure } from 'components/Figure'
 import {
@@ -16,31 +17,29 @@ import {
 import styles from 'ducks/balance/components/AccountRow.styl'
 import { HealthReimbursementsIcon } from 'ducks/balance/components/HealthReimbursementsIcon'
 import AccountIcon from 'components/AccountIcon'
+import { triggersConn } from 'doctypes'
+import { isErrored } from 'utils/triggers'
 
 const UpdatedAt = React.memo(function UpdatedAt({ account, t }) {
   const updatedAt = getAccountUpdatedAt(account)
-  const accountLabel = getAccountLabel(account)
   return (
-    <div className={styles.AccountRow__labelUpdatedAtWrapper}>
-      <div className={styles.AccountRow__label}>
-        {account.virtual ? t(accountLabel) : accountLabel}
-      </div>
-      <div
-        className={cx(styles.AccountRow__updatedAt, {
-          [styles['AccountRow__updatedAt--old']]: updatedAt.params.nbDays > 1
-        })}
-      >
-        <Icon
-          icon="sync"
-          width="10"
-          color="currentColor"
-          className={styles.AccountRow__updatedAtIcon}
-        />
-        {t(updatedAt.translateKey, updatedAt.params)}
-      </div>
-    </div>
+    <span className={updatedAt.params.nbDays > 1 ? 'u-warn' : null}>
+      <Icon
+        icon="sync"
+        width="10"
+        color="currentColor"
+        className={styles.AccountRow__updatedAtIcon}
+      />
+      {t(updatedAt.translateKey, updatedAt.params)}
+    </span>
   )
 })
+
+const FailedTriggerMessage = translate()(
+  React.memo(function FailedTriggerMessage({ t }) {
+    return <span className="u-error">{t('Balance.trigger-problem')}</span>
+  })
+)
 
 const Number = React.memo(function Number({ account }) {
   return (
@@ -83,12 +82,22 @@ class AccountRow extends React.PureComponent {
       checked,
       disabled,
       onSwitchChange,
-      id
+      id,
+      triggerCol
     } = this.props
 
     const hasWarning = account.balance < warningLimit
     const hasAlert = account.balance < 0
     const isHealthReimbursements = isHealthReimbursementsAccount(account)
+    const { data: triggers } = triggerCol
+    const failedTrigger = triggers.find(
+      x =>
+        isErrored(x.attributes) &&
+        get(x, 'attributes.message.konnector') ===
+          get(account, 'cozyMetadata.createdByApp')
+    )
+    const accountLabel = getAccountLabel(account)
+
     return (
       <li
         className={cx(styles.AccountRow, 'u-clickable', {
@@ -105,7 +114,18 @@ class AccountRow extends React.PureComponent {
             {isHealthReimbursements && <HealthReimbursementsIcon />}
           </div>
 
-          <UpdatedAt account={account} t={t} />
+          <div className={styles.AccountRow__labelWrapper}>
+            <div className={styles.AccountRow__label}>
+              {account.virtual ? t(accountLabel) : accountLabel}
+            </div>
+            <div className={styles.AccountRow__subText}>
+              {failedTrigger ? (
+                <FailedTriggerMessage trigger={failedTrigger} />
+              ) : (
+                <UpdatedAt account={account} t={t} />
+              )}
+            </div>
+          </div>
         </div>
         {!isMobile && account.number && <Number account={account} />}
         {!isMobile && (
@@ -148,6 +168,12 @@ class AccountRow extends React.PureComponent {
 }
 
 export default compose(
+  queryConnect({
+    triggerCol: {
+      ...triggersConn,
+      fetchPolicy: CozyClient.fetchPolicies.noFetch
+    }
+  }),
   withBreakpoints(),
   translate(),
   React.memo
