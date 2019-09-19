@@ -1,7 +1,6 @@
 import React from 'react'
 import styles from 'components/KonnectorUpdateInfo/styles.styl'
 import { translate } from 'cozy-ui/react'
-import Icon from 'cozy-ui/react/Icon'
 import { withClient } from 'cozy-client'
 import { flowRight as compose } from 'lodash'
 import { queryConnect } from 'cozy-client'
@@ -9,8 +8,10 @@ import { KONNECTOR_DOCTYPE } from 'doctypes'
 import { isCollectionLoading } from 'ducks/client/utils'
 import { Padded } from 'components/Spacing'
 import CozyClient from 'cozy-client'
-import ErrorCard from 'components/ErrorCard'
+import Infos from 'cozy-ui/transpiled/react/Infos'
+import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import { useRedirectionURL } from 'components/effects'
+import { ButtonLink } from 'cozy-ui/transpiled/react/Button'
 
 // Utilities on konnectors
 const konnectors = {
@@ -19,8 +20,6 @@ const konnectors = {
   }
 }
 
-const openWithIcon = <Icon icon="openwith" />
-
 const APP_DOCTYPE = 'io.cozy.apps'
 const redirectionOptions = {
   type: 'konnector',
@@ -28,7 +27,12 @@ const redirectionOptions = {
   pendingUpdate: true
 }
 
-const KonnectorUpdateInfo = ({ t, outdatedKonnectors, client }) => {
+const KonnectorUpdateInfo = ({
+  t,
+  outdatedKonnectors,
+  client,
+  breakpoints
+}) => {
   const url = useRedirectionURL(client, APP_DOCTYPE, redirectionOptions)
 
   if (!url || isCollectionLoading(outdatedKonnectors)) {
@@ -48,12 +52,28 @@ const KonnectorUpdateInfo = ({ t, outdatedKonnectors, client }) => {
 
   return (
     <Padded className={styles.KonnectorUpdateInfo}>
-      <ErrorCard
+      <Infos
+        className="u-maw-none u-p-1-half"
+        actionButton={
+          <ButtonLink
+            theme="secondary"
+            extension={breakpoints.isMobile ? 'full' : 'narrow'}
+            className="u-mh-0"
+            label={t('KonnectorUpdateInfo.cta')}
+            icon="openwith"
+            href={url}
+          />
+        }
         title={t('KonnectorUpdateInfo.title')}
-        content={t('KonnectorUpdateInfo.content')}
-        buttonHref={url}
-        buttonLabel={t('KonnectorUpdateInfo.cta')}
-        buttonIcon={openWithIcon}
+        text={
+          <span
+            dangerouslySetInnerHTML={{
+              __html: t('KonnectorUpdateInfo.content')
+            }}
+          />
+        }
+        icon="warning"
+        isImportant
       />
     </Padded>
   )
@@ -73,5 +93,7 @@ export default compose(
   withClient,
   queryConnect({
     outdatedKonnectors
-  })
+  }),
+  withBreakpoints(),
+  React.memo
 )(KonnectorUpdateInfo)
