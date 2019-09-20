@@ -1,5 +1,3 @@
-import Handlebars from 'handlebars'
-import htmlTemplate from './html/delayed-debit-html'
 import * as utils from './html/utils'
 import Notification from './Notification'
 import logger from 'cozy-logger'
@@ -10,10 +8,26 @@ import {
 } from 'ducks/account/helpers'
 import { endOfMonth, subDays, isWithinRange } from 'date-fns'
 import { BankAccount } from 'cozy-doctypes'
-import { get, keyBy } from 'lodash'
+import { get, keyBy, groupBy, map } from 'lodash'
 import { getAccountNewBalance } from './helpers'
+import { getCurrentDate } from './html/utils'
+import template from './html/templates/delayed-debit.hbs'
 
 const log = logger.namespace('delayedDebit')
+
+const groupAccountsByInstitution = accounts => {
+  return map(groupBy(accounts, 'institutionLabel'), (accounts, name) => ({
+    name,
+    accounts
+  }))
+}
+
+/**
+ * Returns true if account is a credit card account linked to a checkings account
+ */
+export const isCreditCardAccount = account =>
+  getAccountType(account) === 'CreditCard' &&
+  get(account, 'relationships.checkingsAccount.data')
 
 class DelayedDebit extends Notification {
   constructor(config) {
@@ -30,18 +44,6 @@ class DelayedDebit extends Notification {
     const limitDate = subDays(lastDayOfMonth, this.nbDaysBeforeEndOfMonth + 1)
 
     return isWithinRange(today, limitDate, lastDayOfMonth)
-  }
-
-  /**
-   * Filters the CreditCard accounts that have a relationship with a Checkings
-   * accounts out of an array of accounts
-   */
-  filterCreditCardAccounts(accounts) {
-    return accounts.filter(
-      account =>
-        getAccountType(account) === 'CreditCard' &&
-        get(account, 'relationships.checkingsAccount.data')
-    )
   }
 
   /**
@@ -71,101 +73,102 @@ class DelayedDebit extends Notification {
     })
   }
 
-  async buildNotification() {
+  prepareHandlebars(Handlebars) {
+    super.prepareHandlebars(Handlebars)
+    Handlebars.registerHelper({ getAccountBalance })
+    Handlebars.registerHelper({ getAccountNewBalance })
+  }
+
+  async fetchData() {
     if (!this.checkDate()) {
       return
     }
 
     const accounts = await BankAccount.fetchAll()
-    const creditCards = this.filterCreditCardAccounts(accounts)
+    return { accounts }
+  }
+
+  async buildTemplateData() {
+    const data = await this.fetchData()
+    if (!data) {
+      return
+    }
+    const { accounts } = data
+    const creditCards = accounts.filter(isCreditCardAccount)
     this.linkCreditCardsToCheckings(creditCards, accounts)
 
     const creditCardsToNotify = creditCards.filter(this.shouldBeNotified)
     log('info', `${creditCardsToNotify.length} accounts to notify`)
 
-    if (creditCardsToNotify.length === 0) {
-      return
-    }
-
-    const mailContent = this.getMailContent(creditCardsToNotify)
-    const pushContent = this.getPushContent(creditCardsToNotify)
-
-    const title = this.t('Notifications.delayed_debit.notification.title', {
-      balance: getAccountNewBalance(creditCardsToNotify[0]),
-      currency: '€',
-      label: getAccountLabel(creditCardsToNotify[0].checkingsAccount.data)
-    })
-
     return {
-      category: 'delayed-debit',
-      title,
-      message: pushContent,
-      preferred_channels: ['mail', 'mobile'],
-      content: mailContent.text,
-      content_html: mailContent.html,
+      institutions: groupAccountsByInstitution(creditCards),
+      date: getCurrentDate(),
+      ...this.urls
+    }
+  }
+
+  shouldSendNotification(templateData) {
+    return templateData && templateData.institutions.length > 0
+  }
+
+  getNotificationAttributes() {
+    return {
       data: {
         route: '/balances'
       }
     }
   }
 
+  getTitle(templateData) {
+    const account = templateData.institutions[0].accounts[0]
+    return this.t('Notifications.delayed_debit.notification.title', {
+      balance: getAccountNewBalance(account),
+      currency: '€',
+      label: getAccountLabel(account.checkingsAccount.data)
+    })
+  }
+
   getPushContent() {
     return ''
   }
-
-  htmlToText(html) {
-    const INSTITUTION_SEL = '.js-institution'
-    const ACCOUNT_SEL = '.js-account'
-
-    const getContent = $ =>
-      $([ACCOUNT_SEL, INSTITUTION_SEL].join(', '))
-        .toArray()
-        .map(node => {
-          const $node = $(node)
-          if ($node.is(INSTITUTION_SEL)) {
-            return '\n ### ' + $node.text() + '\n'
-          } else if ($node.is(ACCOUNT_SEL)) {
-            return (
-              '- ' +
-              $node
-                .find('td')
-                .map((i, td) =>
-                  $(td)
-                    .text()
-                    .replace(/\n/g, '')
-                    .replace(' €', '€')
-                    .trim()
-                )
-                .toArray()
-                .join(' ')
-            )
-          }
-        })
-        .join('\n')
-    return utils.toText(html, getContent)
-  }
-
-  getMailContent(creditCards) {
-    Handlebars.registerHelper({ t: this.t })
-    Handlebars.registerHelper({ getAccountBalance })
-    Handlebars.registerHelper({ getAccountNewBalance })
-
-    const templateData = {
-      accounts: creditCards,
-      urls: this.urls
-    }
-
-    const htmlContent = htmlTemplate(templateData)
-    const textContent = this.htmlToText(htmlContent)
-
-    return {
-      text: textContent,
-      html: htmlContent
-    }
-  }
 }
 
+DelayedDebit.template
+DelayedDebit.category = 'delayed-debit'
+DelayedDebit.preferredChannels = ['mail', 'mobile']
 DelayedDebit.settingKey = 'delayedDebit'
 DelayedDebit.isValidConfig = config => Number.isFinite(config.value)
+DelayedDebit.template = template
+DelayedDebit.toText = html => {
+  const INSTITUTION_SEL = '.js-institution'
+  const ACCOUNT_SEL = '.js-account'
+
+  const getContent = $ =>
+    $([ACCOUNT_SEL, INSTITUTION_SEL].join(', '))
+      .toArray()
+      .map(node => {
+        const $node = $(node)
+        if ($node.is(INSTITUTION_SEL)) {
+          return '\n ### ' + $node.text() + '\n'
+        } else if ($node.is(ACCOUNT_SEL)) {
+          return (
+            '- ' +
+            $node
+              .find('td')
+              .map((i, td) =>
+                $(td)
+                  .text()
+                  .replace(/\n/g, '')
+                  .replace(' €', '€')
+                  .trim()
+              )
+              .toArray()
+              .join(' ')
+          )
+        }
+      })
+      .join('\n')
+  return utils.toText(html, getContent)
+}
 
 export default DelayedDebit

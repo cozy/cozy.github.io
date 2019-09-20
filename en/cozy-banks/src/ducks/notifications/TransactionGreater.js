@@ -1,13 +1,13 @@
-import Handlebars from 'handlebars'
-import htmlTemplate from './html/transaction-greater-html'
 import * as utils from './html/utils'
 import { subDays } from 'date-fns'
 import { isTransactionAmountGreaterThan } from './helpers'
 import Notification from './Notification'
-import { sortBy } from 'lodash'
+import { sortBy, fromPairs } from 'lodash'
 import log from 'cozy-logger'
 import { getDate, isNew as isNewTransaction } from 'ducks/transactions/helpers'
 import { getCurrencySymbol } from 'utils/currencySymbol'
+import template from './html/templates/transaction-greater.hbs'
+import { prepareTransactions, getCurrentDate } from './html/utils'
 
 const ACCOUNT_SEL = '.js-account'
 const DATE_SEL = '.js-date'
@@ -62,23 +62,48 @@ class TransactionGreater extends Notification {
       .filter(isTransactionAmountGreaterThan(this.maxAmount))
   }
 
-  buildNotification({ accounts, transactions }) {
+  async fetchData() {
+    const { accounts, transactions } = this.data
     const transactionsFiltered = this.filterTransactions(transactions)
+    return {
+      accounts,
+      transactions: transactionsFiltered
+    }
+  }
 
-    if (transactionsFiltered.length === 0) {
+  async buildTemplateData() {
+    const { accounts, transactions } = await this.fetchData()
+    if (transactions.length === 0) {
       log('info', 'TransactionGreater: no matched transactions')
       return
     }
 
-    Handlebars.registerHelper({ t: this.t })
+    const accountsById = fromPairs(
+      accounts.map(account => [account._id, account])
+    )
+    const transactionsByAccounts = prepareTransactions(transactions)
 
-    const onlyOne = transactionsFiltered.length === 1
-    const templateData = {
-      accounts: accounts,
-      transactions: transactionsFiltered,
-      urls: this.urls
+    return {
+      accounts: accountsById,
+      transactions: transactions,
+      byAccounts: transactionsByAccounts,
+      date: getCurrentDate(),
+      ...this.urls
     }
-    const firstTransaction = transactionsFiltered[0]
+  }
+
+  getNotificationAttributes() {
+    return {
+      data: {
+        route: '/transactions'
+      }
+    }
+  }
+
+  getTitle(templateData) {
+    const { transactions } = templateData
+    const onlyOne = transactions.length === 1
+    const firstTransaction = transactions[0]
     const titleData = onlyOne
       ? {
           firstTransaction: firstTransaction,
@@ -86,7 +111,7 @@ class TransactionGreater extends Notification {
           currency: getCurrencySymbol(firstTransaction.currency)
         }
       : {
-          transactionsLength: transactionsFiltered.length,
+          transactionsLength: transactions.length,
           maxAmount: this.maxAmount
         }
 
@@ -96,24 +121,11 @@ class TransactionGreater extends Notification {
         ? `${translateKey}.credit.title`
         : `${translateKey}.debit.title`
       : `${translateKey}.others.title`
-    const title = this.t(titleKey, titleData)
-
-    const contentHTML = htmlTemplate(templateData)
-
-    return {
-      category: 'transaction-greater',
-      title,
-      message: this.getPushContent(transactionsFiltered),
-      preferred_channels: ['mail', 'mobile'],
-      content: toText(contentHTML),
-      content_html: contentHTML,
-      data: {
-        route: '/transactions'
-      }
-    }
+    return this.t(titleKey, titleData)
   }
 
-  getPushContent(transactions) {
+  getPushContent(templateData) {
+    const transactions = templateData.transactions
     const [transaction] = sortBy(transactions, getDate).reverse()
 
     return `${transaction.label} : ${transaction.amount} ${getCurrencySymbol(
@@ -122,6 +134,10 @@ class TransactionGreater extends Notification {
   }
 }
 
+TransactionGreater.category = 'transaction-greater'
+TransactionGreater.toText = toText
+TransactionGreater.preferredChannels = ['mail', 'mobile']
+TransactionGreater.template = template
 TransactionGreater.settingKey = 'transactionGreater'
 TransactionGreater.isValidConfig = config => Number.isFinite(config.value)
 

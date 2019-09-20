@@ -2,13 +2,16 @@
  * Compiles the templates with helpers and partials
  */
 
-const Handlebars = require('handlebars')
-const layouts = require('handlebars-layouts')
-const { parse, format } = require('date-fns')
-const { getCategoryId } = require('ducks/categories/helpers')
-const { getAccountBalance } = require('ducks/account/helpers')
-const { getParentCategory } = require('ducks/categories/categoriesMap')
-const utils = require('../utils')
+import Handlebars from 'handlebars'
+import { parse, format } from 'date-fns'
+import { getCategoryId } from 'ducks/categories/helpers'
+import { getAccountBalance } from 'ducks/account/helpers'
+import { getParentCategory } from 'ducks/categories/categoriesMap'
+import { treatedByFormat } from '../utils'
+
+import cozyLayout from 'ducks/notifications/html/templates/cozy-layout.hbs'
+import bankLayout from 'ducks/notifications/html/templates/bank-layout.hbs'
+import styleCSS from '!!raw-loader!ducks/notifications/html/templates/style.css'
 
 const capitalizeWord = str => {
   if (str.length > 3) {
@@ -20,11 +23,10 @@ const capitalizeWord = str => {
 
 const embeds = {
   // eslint-disable-next-line import/no-webpack-loader-syntax
-  'style.css': require('!!raw-loader!ducks/notifications/html/templates/style.css')
-    .default
+  'style.css': styleCSS
 }
 
-Handlebars.registerHelper({
+export const helpers = {
   colored: amount => {
     return new Handlebars.SafeString(
       `<span class='amount amount${amount > 0 ? 'Pos' : 'Neg'}'>
@@ -81,39 +83,12 @@ ${Math.abs(amount)} €
     return n > 0
   },
 
-  treatedByFormat: utils.treatedByFormat,
+  treatedByFormat,
 
   getAccountBalance
-})
-
-layouts.register(Handlebars)
-
-const partials = {
-  'bank-layout': Handlebars.compile(
-    require('ducks/notifications/html/templates/bank-layout.hbs').default
-  ),
-  'cozy-layout': Handlebars.compile(
-    require('ducks/notifications/html/templates/cozy-layout.hbs').default
-  ),
-  'balance-lower': Handlebars.compile(
-    require('ducks/notifications/html/templates/balance-lower.hbs').default
-  ),
-  'transaction-greater': Handlebars.compile(
-    require('ducks/notifications/html/templates/transaction-greater.hbs')
-      .default
-  ),
-  'health-bill-linked': Handlebars.compile(
-    require('ducks/notifications/html/templates/health-bill-linked.hbs').default
-  ),
-  'late-health-reimbursement': Handlebars.compile(
-    require('ducks/notifications/html/templates/late-health-reimbursement.hbs')
-      .default
-  ),
-  'delayed-debit': Handlebars.compile(
-    require('ducks/notifications/html/templates/delayed-debit.hbs').default
-  )
 }
 
-Handlebars.registerPartial(partials)
-
-module.exports = Handlebars.partials
+export const partials = {
+  'bank-layout': Handlebars.compile(bankLayout),
+  'cozy-layout': Handlebars.compile(cozyLayout)
+}

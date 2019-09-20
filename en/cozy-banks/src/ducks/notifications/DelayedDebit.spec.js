@@ -1,4 +1,4 @@
-import DelayedDebit from './DelayedDebit'
+import DelayedDebit, { isCreditCardAccount } from './DelayedDebit'
 import keyBy from 'lodash/keyBy'
 import MockDate from 'mockdate'
 
@@ -81,9 +81,7 @@ describe('DelayedDebit', () => {
 
   describe('filterCreditCardAccounts', () => {
     it('should return the credit card accounts with associated checkings account', () => {
-      expect(notification.filterCreditCardAccounts(accounts)).toEqual(
-        creditCards
-      )
+      expect(accounts.filter(isCreditCardAccount)).toEqual(creditCards)
     })
   })
 

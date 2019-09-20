@@ -12,7 +12,7 @@
       <mj-section css-class="account" padding-top="0" padding-bottom="10px">
         <mj-column>
           <mj-text padding-top="0" padding-bottom="0">
-            <h3 class="js-account">{{ get ../accounts accountId 'label' }} - {{ get ../accounts accountId 'institutionLabel' }}</h3>
+            <h3 class="js-account">{{ get @root.accounts accountId 'label' }} - {{ get @root.accounts accountId 'institutionLabel' }}</h3>
           </mj-text>
           {{#eachPair transactionsByDate as |date transactions|}}
             <mj-text padding-top="0" padding-bottom="0">
@@ -29,7 +29,7 @@
                     <a href="{{../../../transactionsUrl}}" style="color: inherit; text-decoration: none;">
                       <img style="width: 16px; height: 16px; vertical-align: middle;" src='https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-hourglass-blue.png' />
                       {{ t 'Notifications.when_health_bill_linked.notification.content.treated_by' }}
-                      {{ treatedByFormat this.reimbursements ../../../../bills }}
+                      {{ treatedByFormat this.reimbursements @root.billsById }}
                       </a>
                   </td>
                   <td width="100px" align='right'>

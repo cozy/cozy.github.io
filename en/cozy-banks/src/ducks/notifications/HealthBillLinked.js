@@ -1,13 +1,13 @@
-import Handlebars from 'handlebars'
 import Notification from './Notification'
 import { isHealthExpense } from '../categories/helpers'
-import htmlTemplate from './html/health-bill-linked-html'
 import { Bill } from 'models'
 import * as utils from './html/utils'
 import keyBy from 'lodash/keyBy'
 import log from 'cozy-logger'
 import { treatedByFormat } from './html/utils'
 import { getReimbursementBillIds } from './helpers'
+import { prepareTransactions, getCurrentDate } from './html/utils'
+import template from './html/templates/health-bill-linked.hbs'
 
 const ACCOUNT_SEL = '.js-account'
 const DATE_SEL = '.js-date'
@@ -46,6 +46,11 @@ const toText = cozyHTMLEmail => {
   return utils.toText(cozyHTMLEmail, getContent)
 }
 
+const hasReimbursements = transaction =>
+  isHealthExpense(transaction) &&
+  transaction.reimbursements &&
+  transaction.reimbursements.length > 0
+
 class HealthBillLinked extends Notification {
   constructor(config) {
     super(config)
@@ -53,56 +58,59 @@ class HealthBillLinked extends Notification {
     this.data = config.data
   }
 
-  filterTransactions(transactions) {
-    return transactions.filter(
-      transaction =>
-        isHealthExpense(transaction) &&
-        transaction.reimbursements &&
-        transaction.reimbursements.length > 0
+  async fetchData() {
+    const { accounts, transactions } = this.data
+    const transactionsWithReimbursements = transactions.filter(
+      hasReimbursements
     )
+    const billIds = getReimbursementBillIds(transactions)
+    const bills = await Bill.getAll(billIds)
+    return {
+      transactions: transactionsWithReimbursements,
+      accounts,
+      bills
+    }
   }
 
-  buildNotification({ accounts, transactions }) {
-    const transactionsWithReimbursements = this.filterTransactions(transactions)
-
-    if (transactionsWithReimbursements.length === 0) {
+  async buildTemplateData() {
+    const { accounts, transactions, bills } = await this.fetchData()
+    if (transactions.length === 0) {
       log('info', 'HealthBillLinked: no transactions with reimbursements')
       return
     }
 
-    Handlebars.registerHelper({ t: this.t })
+    const accountsById = keyBy(accounts, '_id')
+    const billsById = keyBy(bills, '_id')
+    const transactionsByAccounts = prepareTransactions(transactions)
 
-    const billIds = getReimbursementBillIds(transactionsWithReimbursements)
-
-    return Bill.getAll(billIds).then(bills => {
-      const templateData = {
-        accounts: accounts,
-        transactions: transactionsWithReimbursements,
-        bills: bills,
-        urls: this.urls
-      }
-
-      const contentHTML = htmlTemplate(templateData)
-
-      return {
-        category: 'health-bill-linked',
-        title: this.t(
-          `Notifications.when_health_bill_linked.notification.content.title`
-        ),
-        message: this.getPushContent(transactionsWithReimbursements, bills),
-        preferred_channels: ['mail', 'mobile'],
-        content: toText(contentHTML),
-        content_html: contentHTML,
-        data: {
-          route: '/transactions'
-        }
-      }
-    })
+    return {
+      accounts: accountsById,
+      bills,
+      transactions,
+      byAccounts: transactionsByAccounts,
+      billsById: billsById,
+      date: getCurrentDate(),
+      ...this.urls
+    }
   }
 
-  getPushContent(transactions, bills) {
+  getNotificationAttributes() {
+    return {
+      data: {
+        route: '/transactions'
+      }
+    }
+  }
+
+  getTitle() {
+    return this.t(
+      `Notifications.when_health_bill_linked.notification.content.title`
+    )
+  }
+
+  getPushContent(templateData) {
+    const { transactions, billsById } = templateData
     const [transaction] = transactions
-    const billsById = keyBy(bills, x => x._id)
     const vendors = treatedByFormat(transaction.reimbursements, billsById)
 
     return `${transaction.label} ${this.t(
@@ -111,6 +119,10 @@ class HealthBillLinked extends Notification {
   }
 }
 
+HealthBillLinked.preferredChannels = ['mail', 'mobile']
+HealthBillLinked.category = 'health-bill-linked'
+HealthBillLinked.toText = toText
+HealthBillLinked.template = template
 HealthBillLinked.settingKey = 'healthBillLinked'
 
 export default HealthBillLinked

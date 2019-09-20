@@ -1,12 +1,20 @@
-import Handlebars from 'handlebars'
-import htmlTemplate from './html/balance-lower-html'
 import * as utils from './html/utils'
 import Notification from './Notification'
+import { map, groupBy } from 'lodash'
 import log from 'cozy-logger'
 import { getAccountBalance } from 'ducks/account/helpers'
 import { getCurrencySymbol } from 'utils/currencySymbol'
+import { getCurrentDate } from './html/utils'
+import template from './html/templates/balance-lower.hbs'
 
 const addCurrency = o => ({ ...o, currency: '€' })
+
+const groupAccountsByInstitution = accounts => {
+  return map(groupBy(accounts, 'institutionLabel'), (accounts, name) => ({
+    name,
+    accounts
+  }))
+}
 
 const INSTITUTION_SEL = '.js-institution'
 const ACCOUNT_SEL = '.js-account'
@@ -55,27 +63,50 @@ class BalanceLower extends Notification {
     )
   }
 
-  buildNotification({ accounts }) {
+  prepareHandlebars(Handlebars) {
+    super.prepareHandlebars(Handlebars)
+    Handlebars.registerHelper({ getAccountBalance })
+  }
+
+  fetchData() {
+    const { accounts } = this.data
     const accountsFiltered = accounts
       .filter(acc => this.filter(acc))
       .map(addCurrency)
-    if (accountsFiltered.length === 0) {
+    return {
+      accounts: accountsFiltered
+    }
+  }
+
+  async buildTemplateData() {
+    const { accounts } = await this.fetchData()
+    if (accounts.length === 0) {
       log('info', 'BalanceLower: no matched accounts')
       return
     }
 
-    log('info', `BalanceLower: ${accountsFiltered.length} accountsFiltered`)
+    log('info', `BalanceLower: ${accounts.length} accountsFiltered`)
 
-    Handlebars.registerHelper({ t: this.t })
-    Handlebars.registerHelper({ getAccountBalance })
-
-    const onlyOne = accountsFiltered.length === 1
-    const firstAccount = accountsFiltered[0]
-
-    const templateData = {
-      accounts: accountsFiltered,
-      urls: this.urls
+    return {
+      accounts: accounts,
+      institutions: groupAccountsByInstitution(accounts),
+      date: getCurrentDate(),
+      ...this.urls
     }
+  }
+
+  getNotificationAttributes() {
+    return {
+      data: {
+        route: '/balances'
+      }
+    }
+  }
+
+  getTitle(templateData) {
+    const { accounts } = templateData
+    const onlyOne = accounts.length === 1
+    const firstAccount = accounts[0]
 
     const titleData = onlyOne
       ? {
@@ -84,7 +115,7 @@ class BalanceLower extends Notification {
           label: firstAccount.shortLabel || firstAccount.label
         }
       : {
-          accountsLength: accountsFiltered.length,
+          accountsLength: accounts.length,
           lowerBalance: this.lowerBalance,
           currency: '€'
         }
@@ -92,24 +123,11 @@ class BalanceLower extends Notification {
     const titleKey = `Notifications.if_balance_lower.notification.${
       onlyOne ? 'one' : 'several'
     }.title`
-    const title = this.t(titleKey, titleData)
-
-    const contentHTML = htmlTemplate(templateData)
-
-    return {
-      category: 'balance-lower',
-      title,
-      message: this.getPushContent(accountsFiltered),
-      preferred_channels: ['mail', 'mobile'],
-      content: toText(contentHTML),
-      content_html: contentHTML,
-      data: {
-        route: '/balances'
-      }
-    }
+    return this.t(titleKey, titleData)
   }
 
-  getPushContent(accounts) {
+  getPushContent(templateData) {
+    const { accounts } = templateData
     const [account] = accounts
     const balance = getAccountBalance(account)
 
@@ -119,6 +137,10 @@ class BalanceLower extends Notification {
   }
 }
 
+BalanceLower.template = template
+BalanceLower.toText = toText
+BalanceLower.category = 'balance-lower'
+BalanceLower.preferredChannels = ['mail', 'mobile']
 BalanceLower.settingKey = 'balanceLower'
 BalanceLower.isValidConfig = config => Number.isFinite(config.value)
 

@@ -43,7 +43,7 @@
     <mj-container background-color="#f5f6f7">
       <mj-section padding-top="0" padding-bottom="0">
         <mj-column>
-          {{#block 'topLogo'}}<mj-image width="100px" src="https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/logo-cozy.png" />{{/block}}
+          {{#block 'topLogo'}}{{/block}}
         </mj-column>
       </mj-section>
 
@@ -55,12 +55,12 @@
             <mj-table width="auto" css-class="header__title" cellpadding='4px'>
               <tr>
                 <td width="30px">
-                  <a href="{{banksUrl}}">
+                  <a href="{{#block 'appURL'}}{{/block}}">
                     <img align="left" width="30px" src="{{#block 'logoUrl'}}{{/block}}" alt="{{#block 'appName'}}{{/block}}" />
                   </a>
                 </td>
                 <td>
-                  <h1 style="line-height: 32px"><a href="{{banksUrl}}">{{#block 'appName'}}{{/block}}</a></h1>
+                  <h1 style="line-height: 32px"><a href="{{#block 'appURL'}}{{/block}}">{{#block 'appName'}}{{/block}}</a></h1>
                 </td>
               </tr>
             </mj-table>

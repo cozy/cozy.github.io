@@ -11,7 +11,7 @@ const main = () => {
   const express = require('express')
   const app = express()
 
-  app.get('/:templateName/:lang', function(req, res) {
+  app.get('/:templateName/:lang', async function(req, res) {
     const { templateName, lang } = req.params
     const nav = `
     <div>
@@ -23,7 +23,13 @@ const main = () => {
         .join('  ')}
     </div>
     `
-    res.send(nav + '<br/><br/>' + renderTemplate(templateName, lang))
+
+    try {
+      const renderedTemplate = await renderTemplate(templateName, lang)
+      res.send(nav + '<br/><br/>' + renderedTemplate)
+    } catch (e) {
+      res.send('Error while rendering template. <pre>' + e.stack + '</pre>')
+    }
   })
 
   app.get('/', function(req, res) {

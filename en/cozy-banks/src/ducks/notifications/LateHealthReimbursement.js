@@ -1,7 +1,5 @@
-import Handlebars from 'handlebars'
 import Notification from './Notification'
 import { isHealthExpense } from '../categories/helpers'
-import htmlTemplate from './html/late-health-reimbursement-html'
 import * as utils from './html/utils'
 import { keyBy, uniq } from 'lodash'
 import logger from 'cozy-logger'
@@ -13,6 +11,8 @@ import {
 import { subDays, subMonths, format as formatDate } from 'date-fns'
 import { Bill } from 'models'
 import { getReimbursementBillId, getReimbursementBillIds } from './helpers'
+import templateRaw from 'ducks/notifications/html/templates/late-health-reimbursement.hbs'
+import { prepareTransactions, getCurrentDate } from './html/utils'
 
 const log = logger.namespace('lateHealthReimbursement')
 
@@ -139,7 +139,7 @@ class LateHealthReimbursement extends Notification {
     return BankAccount.getAll(accountIds)
   }
 
-  async buildNotification() {
+  async fetchData() {
     const transactions = await this.getTransactions()
 
     if (transactions.length === 0) {
@@ -156,29 +156,31 @@ class LateHealthReimbursement extends Notification {
       `${accounts.length} accounts fetched for late health reimbursements`
     )
 
-    Handlebars.registerHelper({ t: this.t })
+    return { transactions, accounts }
+  }
 
-    const templateData = {
-      accounts,
-      transactions,
-      urls: this.urls
-    }
-
-    const contentHTML = htmlTemplate(templateData)
+  async buildTemplateData() {
+    const { transactions, accounts } = await this.fetchData()
+    const accountsById = keyBy(accounts, '_id')
+    const transactionsByAccounts = prepareTransactions(transactions)
 
     return {
-      category: 'late-health-reimbursement',
-      title: this.t(
-        'Notifications.when_late_health_reimbursement.notification.content.title'
-      ),
-      message: this.getPushContent(transactions),
-      preferred_channels: ['mail', 'mobile'],
-      content: toText(contentHTML),
-      content_html: contentHTML
+      accounts: accountsById,
+      byAccounts: transactionsByAccounts,
+      date: getCurrentDate(),
+      transactions: transactions,
+      ...this.urls
     }
   }
 
-  getPushContent(transactions) {
+  getTitle() {
+    return this.t(
+      'Notifications.when_late_health_reimbursement.notification.content.title'
+    )
+  }
+
+  getPushContent(templateData) {
+    const { transactions } = templateData
     return this.t(
       'Notifications.when_late_health_reimbursement.notification.content.message',
       { smart_count: transactions.length }
@@ -209,6 +211,10 @@ class LateHealthReimbursement extends Notification {
   }
 }
 
+LateHealthReimbursement.toText = toText
+LateHealthReimbursement.category = 'late-health-reimbursement'
+LateHealthReimbursement.template = templateRaw
 LateHealthReimbursement.settingKey = 'lateHealthReimbursement'
+LateHealthReimbursement.preferredChannels = ['mail', 'mobile']
 
 export default LateHealthReimbursement

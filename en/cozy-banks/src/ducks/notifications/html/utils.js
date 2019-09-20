@@ -48,14 +48,22 @@ const billIdFromReimbursement = reimbursement => {
 }
 
 export const treatedByFormat = function(reimbursements, billsById) {
-  return unique(
+  if (!billsById) {
+    throw new Error('No billsById passed')
+  }
+  const vendors = unique(
     (reimbursements || [])
       .map(reimbursement => {
         const billId = billIdFromReimbursement(reimbursement)
         return get(billsById, billId + '.vendor')
       })
       .filter(x => x && x !== '')
-  ).join(', ')
+  )
+
+  if (!vendors.length) {
+    throw new Error('No vendor found')
+  }
+  return vendors.join(', ')
 }
 
 export const renderMJML = mjmlContent => {

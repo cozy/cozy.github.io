@@ -13,8 +13,9 @@ const { EMAILS, renderTemplate } = require('./common-test')
 describe('emails', () => {
   for (const lang of ['en', 'fr']) {
     for (const templateName of Object.keys(EMAILS)) {
-      it(`should render ${templateName} in ${lang}`, () => {
-        expect(renderTemplate(templateName, lang)).toMatchSnapshot()
+      it(`should render ${templateName} in ${lang}`, async () => {
+        const renderedTemplate = await renderTemplate(templateName, lang)
+        expect(renderedTemplate).toMatchSnapshot()
       })
     }
   }

@@ -1,7 +1,4 @@
-const fs = require('fs')
-const Handlebars = require('handlebars').default
-const Notification = require('../Notification').default
-const { getAccountNewBalance } = require('../helpers')
+import fs from 'fs'
 
 const readJSONSync = filename => {
   return JSON.parse(fs.readFileSync(filename))
@@ -9,51 +6,54 @@ const readJSONSync = filename => {
 
 export const EMAILS = {
   balanceLower: {
-    template: require('./balance-lower-html').default,
+    klass: require('../BalanceLower').default,
     data: readJSONSync('src/ducks/notifications/html/data/balance-lower.json')
   },
 
   healthBillLinked: {
-    template: require('./health-bill-linked-html').default,
+    klass: require('../HealthBillLinked').default,
     data: readJSONSync(
       'src/ducks/notifications/html/data/health-bill-linked.json'
     )
   },
 
   transactionGreater: {
-    template: require('./transaction-greater-html').default,
+    klass: require('../TransactionGreater').default,
     data: readJSONSync(
       'src/ducks/notifications/html/data/transactions-greater.json'
     )
   },
 
   lateHealthReimbursement: {
-    template: require('./late-health-reimbursement-html').default,
+    klass: require('../LateHealthReimbursement').default,
     data: readJSONSync(
       'src/ducks/notifications/html/data/late-health-reimbursement.json'
     )
   },
 
   delayedDebit: {
-    template: require('./delayed-debit-html').default,
+    klass: require('../DelayedDebit').default,
     data: readJSONSync('src/ducks/notifications/html/data/delayed-debit.json')
   }
 }
 
-export const renderTemplate = (templateName, lang) => {
+export const renderTemplate = async (templateName, lang) => {
   const localeStrings = require(`../../../locales/${lang}`)
   const { initTranslation } = require('cozy-ui/react/I18n/translation')
   const translation = initTranslation(lang, () => localeStrings)
   const t = translation.t.bind(translation)
-  Handlebars.registerHelper({
-    tGlobal: key => t('Notifications.email.' + key),
-    t,
-    getAccountNewBalance
-  })
-  const data = EMAILS[templateName].data
-  const tpl = EMAILS[templateName].template
   const cozyURL = 'https://test.mycozy.cloud'
-  const urls = Notification.generateURLs(cozyURL)
-  const allData = { ...data, urls }
-  return tpl(allData)
+  const notification = new EMAILS[templateName].klass({
+    t,
+    cozyClient: {
+      _url: cozyURL
+    }
+  })
+  notification.fetchData = async () => {
+    return EMAILS[templateName].data
+  }
+
+  const notificationAttributes = await notification.buildNotification()
+  const html = notificationAttributes.content_html
+  return html
 }
