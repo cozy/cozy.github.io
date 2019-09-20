@@ -66,7 +66,7 @@
     "onOperationOrBillCreate": {
       "type": "node",
       "file": "onOperationOrBillCreate.js",
-      "trigger": "@event io.cozy.bills:CREATED",
+      "trigger": "@event io.cozy.bills:CREATED io.cozy.bank.operations:UPDATED:!=:manualCategoryId",
       "debounce": "75s"
     },
     "categorization": {

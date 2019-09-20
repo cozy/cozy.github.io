@@ -9,7 +9,6 @@ import matchFromBills from 'ducks/billsMatching/matchFromBills'
 import matchFromTransactions from 'ducks/billsMatching/matchFromTransactions'
 import { logResult } from 'ducks/billsMatching/utils'
 import { findAppSuggestions } from 'ducks/appSuggestions/services'
-import { isNew as isNewTransaction } from 'ducks/transactions/helpers'
 import { fetchChangesOrAll, getOptions } from './helpers'
 
 const log = logger.namespace('onOperationOrBillCreate')
@@ -63,9 +62,7 @@ const doTransactionsMatching = async (setting, options = {}) => {
       Transaction,
       transactionsLastSeq
     )
-    transactionsChanges.documents = transactionsChanges.documents.filter(
-      isNewTransaction
-    )
+
     setting.billsMatching.transactionsLastSeq = transactionsChanges.newLastSeq
 
     if (transactionsChanges.documents.length === 0) {
