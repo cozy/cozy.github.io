@@ -54,7 +54,9 @@ program
       fileExists(handlebarsOptionsFile),
       `${handlebarsOptionsFile} does not exist`
     )
-    const { url, token } = program
+    const { url } = program
+    const doctypes = Object.keys(JSON.parse(fs.readFileSync(filepath)))
+    const token = program.token || autotoken(url, doctypes)
     return importData(url, token, filepath, handlebarsOptionsFile).catch(
       logAndExit
     )
