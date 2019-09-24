@@ -6,14 +6,10 @@ import {
 } from 'ducks/transactions/scroll/utils'
 
 class ScrollRestore extends React.Component {
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     if (this.props.shouldRestore(this.props, nextProps)) {
       this.restoreScroll = this.getRestoreScroll()
     }
-  }
-
-  UNSAFE_componentWillUpdate(nextProps) {
-    this.componentWillUpdate(nextProps)
   }
 
   componentDidUpdate() {

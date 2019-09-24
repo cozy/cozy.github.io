@@ -11,7 +11,7 @@ import flag from 'cozy-flags'
 import 'element-scroll-polyfill'
 
 // on iOS white transparency on SVG failed so we should calculate hexa color
-const gradientColor = getCssVariableValue('historyGradientColor')
+const gradientColor = getCssVariableValue('historyGradientColor') || '#297ef2'
 const gradientStyle = {
   '0%': lighten(gradientColor, 0.48),
   '100%': gradientColor

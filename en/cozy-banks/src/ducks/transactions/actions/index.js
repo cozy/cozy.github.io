@@ -12,25 +12,25 @@ import HealthExpenseStatusAction from 'ducks/transactions/actions/HealthExpenseS
 import ReimbursementStatusAction from 'ducks/transactions/actions/ReimbursementStatusAction'
 import AttachedDocsAction from 'ducks/transactions/actions/AttachedDocsAction'
 
-const actions = {
-  AttachedDocsAction,
-  HealthExpenseStatusAction: HealthExpenseStatusAction,
-  HealthExpenseAction: HealthExpenseAction,
-  HealthLinkAction: HealthLinkAction,
-  BillAction: BillAction,
-  KonnectorAction: KonnectorAction,
-  UrlLinkAction: UrlLinkAction,
-  AppLinkAction: AppLinkAction,
-  AttachAction: AttachAction,
-  CommentAction: CommentAction,
-  AlertAction: AlertAction,
-  ReimbursementStatusAction
-}
+const actions = [
+  ['AttachedDocsAction', AttachedDocsAction],
+  ['HealthExpenseStatusAction', HealthExpenseStatusAction],
+  ['HealthExpenseAction', HealthExpenseAction],
+  ['HealthLinkAction', HealthLinkAction],
+  ['BillAction', BillAction],
+  ['AppLinkAction', AppLinkAction],
+  ['KonnectorAction', KonnectorAction],
+  ['UrlLinkAction', UrlLinkAction],
+  ['AttachAction', AttachAction],
+  ['CommentAction', CommentAction],
+  ['AlertAction', AlertAction],
+  ['ReimbursementStatusAction', ReimbursementStatusAction]
+]
 
 export const findMatchingActions = async (transaction, actionProps) => {
   const matchingActions = []
 
-  for (const [actionName, action] of Object.entries(actions)) {
+  for (const [actionName, action] of actions) {
     try {
       const matching = await action.match(transaction, actionProps)
       if (matching) {

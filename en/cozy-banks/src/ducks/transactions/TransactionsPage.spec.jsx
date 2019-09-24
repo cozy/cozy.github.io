@@ -20,12 +20,21 @@ const saveWindowWidth = () => {
   }
 }
 
+jest.mock(
+  'ducks/transactions/TransactionActionsProvider',
+  () => ({ children }) => children
+)
 jest.mock('ducks/balance/HistoryChart', () => () => null)
 
 const useMobile = () => (window.innerWidth = 400)
 
+const mkCollection = (data, options) => ({
+  data,
+  ...options
+})
+
 describe('TransactionsPage', () => {
-  let root, subcategoryName, restoreWindowWidth
+  let root, categoryName, subcategoryName, restoreWindowWidth
   beforeEach(() => {
     restoreWindowWidth = saveWindowWidth()
     jest
@@ -43,6 +52,8 @@ describe('TransactionsPage', () => {
   const Wrapper = ({ filteringDoc }) => (
     <AppLike>
       <UnpluggedTransactionsPage
+        transactions={mkCollection(allTransactions, { fetchStatus: 'loaded' })}
+        accounts={mkCollection(allAccounts, { fetchStatus: 'loaded' })}
         filteredTransactions={allTransactions}
         filteredAccounts={allAccounts}
         filteringDoc={filteringDoc}
@@ -53,8 +64,16 @@ describe('TransactionsPage', () => {
   const setup = () => {
     const context = {
       router: {
+        push: () => {},
+        replace: () => {},
+        go: () => {},
+        goBack: () => {},
+        goForward: () => {},
+        setRouteLeaveHook: () => {},
+        isActive: () => {},
         params: {
-          subcategoryName
+          subcategoryName,
+          categoryName
         }
       }
     }
@@ -77,7 +96,8 @@ describe('TransactionsPage', () => {
 
   it('should not show the top balance on movements page on mobile if inside category', () => {
     useMobile()
-    subcategoryName = 'family'
+    categoryName = 'dailyLife'
+    subcategoryName = 'supermarket'
     setup()
     expect(root.find(TransactionsPageBar).length).toBe(0)
   })

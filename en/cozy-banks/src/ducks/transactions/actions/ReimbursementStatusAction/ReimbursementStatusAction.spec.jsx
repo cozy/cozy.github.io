@@ -8,120 +8,80 @@ jest.mock('../../helpers')
 describe('DumbReimbursementStatusAction', () => {
   const t = key => key
 
+  const setup = ({ reimbursementStatus, isLate, isModalItem = false }) => {
+    getReimbursementStatus.mockReturnValueOnce(reimbursementStatus)
+    isReimbursementLate.mockReturnValueOnce(isLate)
+
+    const wrapper = shallow(
+      <DumbReimbursementStatusAction
+        t={t}
+        transaction={{ reimbursementStatus }}
+        isModalItem={isModalItem}
+        createDocument={() => {}}
+        deleteDocument={() => {}}
+        saveDocument={() => {}}
+      />
+    )
+    return { wrapper }
+  }
+
   describe('transaction row context', () => {
     it('should render correctly for a pending reimbursement', () => {
-      getReimbursementStatus.mockReturnValueOnce('pending')
-
-      const wrapper = shallow(
-        <DumbReimbursementStatusAction
-          t={t}
-          transaction={{ reimbursementStatus: 'pending' }}
-          isModalItem={false}
-        />
-      )
-
+      const { wrapper } = setup({ reimbursementStatus: 'pending' })
       expect(wrapper.html()).toMatchSnapshot()
     })
 
     it('should render correctly for a reimbursed transaction', () => {
-      getReimbursementStatus.mockReturnValueOnce('reimbursed')
-
-      const wrapper = shallow(
-        <DumbReimbursementStatusAction
-          t={t}
-          transaction={{ reimbursementStatus: 'reimbursed' }}
-          isModalItem={false}
-        />
-      )
-
+      const { wrapper } = setup({ reimbursementStatus: 'reimbursed' })
       expect(wrapper.html()).toMatchSnapshot()
     })
 
     it('should render correctly for a late reimbursement', () => {
-      getReimbursementStatus.mockReturnValueOnce('pending')
-      isReimbursementLate.mockReturnValueOnce(true)
-
-      const wrapper = shallow(
-        <DumbReimbursementStatusAction
-          t={t}
-          transaction={{ reimbursementStatus: 'pending' }}
-          isModalItem={false}
-        />
-      )
-
+      const { wrapper } = setup({
+        reimbursementStatus: 'pending',
+        isLate: true
+      })
       expect(wrapper.html()).toMatchSnapshot()
     })
 
     it('should render correctly for a transaction that will not be reimbursed', () => {
-      getReimbursementStatus.mockReturnValueOnce('no-reimbursement')
-
-      const wrapper = shallow(
-        <DumbReimbursementStatusAction
-          t={t}
-          transaction={{ reimbursementStatus: 'no-reimbursement' }}
-          isModalItem={false}
-        />
-      )
-
+      const { wrapper } = setup({ reimbursementStatus: 'no-reimbursement' })
       expect(wrapper.html()).toMatchSnapshot()
     })
   })
 
   describe('modal item context', () => {
     it('should render correctly for a pending reimbursement', () => {
-      getReimbursementStatus.mockReturnValueOnce('pending')
-
-      const wrapper = shallow(
-        <DumbReimbursementStatusAction
-          t={t}
-          transaction={{ reimbursementStatus: 'pending' }}
-          isModalItem={true}
-        />
-      )
+      const { wrapper } = setup({
+        reimbursementStatus: 'pending',
+        isModalItem: true
+      })
 
       expect(wrapper.html()).toMatchSnapshot()
     })
 
     it('should render correctly for a reimbursed transaction', () => {
-      getReimbursementStatus.mockReturnValueOnce('reimbursed')
-
-      const wrapper = shallow(
-        <DumbReimbursementStatusAction
-          t={t}
-          transaction={{ reimbursementStatus: 'reimbursed' }}
-          isModalItem={true}
-        />
-      )
-
+      const { wrapper } = setup({
+        reimbursementStatus: 'reimbursed',
+        isModalItem: true
+      })
       expect(wrapper.html()).toMatchSnapshot()
     })
 
     it('should render correctly for a late reimbursement', () => {
-      getReimbursementStatus.mockReturnValueOnce('pending')
-      isReimbursementLate.mockReturnValueOnce(true)
-
-      const wrapper = shallow(
-        <DumbReimbursementStatusAction
-          t={t}
-          transaction={{ reimbursementStatus: 'pending' }}
-          isModalItem={true}
-        />
-      )
-
+      const { wrapper } = setup({
+        reimbursementStatus: 'pending',
+        isLate: true,
+        isModalItem: true
+      })
       expect(wrapper.html()).toMatchSnapshot()
     })
 
     it('should render correctly for a transaction that will not be reimbursed', () => {
-      getReimbursementStatus.mockReturnValueOnce('no-reimbursement')
-
-      const wrapper = shallow(
-        <DumbReimbursementStatusAction
-          t={t}
-          transaction={{ reimbursementStatus: 'no-reimbursement' }}
-          isModalItem={true}
-        />
-      )
-
+      const { wrapper } = setup({
+        reimbursementStatus: 'no-reimbursement',
+        isModalItem: true
+      })
       expect(wrapper.html()).toMatchSnapshot()
     })
   })

@@ -34,6 +34,8 @@ const bankingSlug = [
   'n26'
 ]
 
+export const isKonnectorTrigger = trigger => trigger.worker === 'konnector'
+
 export const getKonnectorFromTrigger = trigger => {
   if (trigger.worker !== 'konnector') {
     return

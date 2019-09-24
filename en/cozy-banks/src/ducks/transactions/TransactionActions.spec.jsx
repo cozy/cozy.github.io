@@ -52,7 +52,7 @@ const tests = [
   }],
   ['salaireisa1', null, 'Accéder à votre paie', 'openwith', 'url'],
   ['fnac', null, 'Accéder au site Fnac', 'openwith', 'url'],
-  ['edf', null, 'My invoices', null, 'konnector'],
+  ['edf', null, 'EDF', null, 'app'],
   ['remboursementcomplementaire', null, '1 invoice', null, 'bill', {
     brands: brands.filter(x => x.name == 'Malakoff Mederic')
   }, 'remboursementcomplementaire konnector not installed'],

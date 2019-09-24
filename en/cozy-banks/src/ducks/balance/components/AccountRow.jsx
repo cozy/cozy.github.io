@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import CozyClient, { queryConnect } from 'cozy-client'
 import { withBreakpoints, translate } from 'cozy-ui/react'
+import flag from 'cozy-flags'
 import Icon from 'cozy-ui/react/Icon'
 import cx from 'classnames'
 import { get, flowRight as compose } from 'lodash'
@@ -119,7 +120,7 @@ class AccountRow extends React.PureComponent {
               {account.virtual ? t(accountLabel) : accountLabel}
             </div>
             <div className={styles.AccountRow__subText}>
-              {failedTrigger ? (
+              {failedTrigger && !flag('demo') ? (
                 <FailedTriggerMessage trigger={failedTrigger} />
               ) : (
                 <UpdatedAt account={account} t={t} />

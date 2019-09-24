@@ -12,6 +12,7 @@ import PropTypes from 'prop-types'
 import palette from 'cozy-ui/react/palette'
 import { findMatchingActions } from 'ducks/transactions/actions'
 import { TransactionActionsContext } from 'ducks/transactions/TransactionActionsContext'
+import withContext from 'components/withContext'
 
 // TODO delete or rename this variable (see https://gitlab.cozycloud.cc/labs/cozy-bank/merge_requests/237)
 const PRIMARY_ACTION_COLOR = palette.dodgerBlue
@@ -83,8 +84,6 @@ export const SyncTransactionActions = ({
 )
 
 class TransactionActions extends Component {
-  static contextType = TransactionActionsContext
-
   state = {
     actions: false,
     actionProps: false
@@ -96,7 +95,8 @@ class TransactionActions extends Component {
       const { bill } = this.props
       const actionProps = {
         bill,
-        ...this.context
+        brands: this.props.brands,
+        urls: this.props.urls
       }
       const actions = await findMatchingActions(transaction, actionProps)
       if (!this.unmounted) {
@@ -120,11 +120,12 @@ class TransactionActions extends Component {
   }
 
   componentDidUpdate(nextProps) {
+    const { transaction, brands, urls, bill } = this.props
     if (
-      nextProps.transaction !== this.props.transaction ||
-      nextProps.urls !== this.props.urls ||
-      nextProps.brands !== this.props.brands ||
-      nextProps.bill !== this.props.bill
+      nextProps.transaction !== transaction ||
+      nextProps.urls !== urls ||
+      nextProps.brands !== brands ||
+      nextProps.bill !== bill
     ) {
       this.findMatchingActions()
     }
@@ -149,4 +150,4 @@ TransactionActions.propTypes = {
   transaction: PropTypes.object.isRequired
 }
 
-export default TransactionActions
+export default withContext(TransactionActionsContext)(TransactionActions)

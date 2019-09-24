@@ -14,7 +14,8 @@ const TriggerErrorCard = ({
   count,
   client,
   bankName,
-  breakpoints
+  breakpoints,
+  className
 }) => {
   const url = useRedirectionURL(client, 'io.cozy.accounts', {
     account: trigger.message.account,
@@ -22,7 +23,7 @@ const TriggerErrorCard = ({
   })
   return (
     <Infos
-      className="u-bdrs-0 u-maw-none u-p-1-half"
+      className={'u-bdrs-0 u-maw-none u-p-1-half ' + (className || '')}
       actionButton={
         <ButtonLink
           theme="secondary"
