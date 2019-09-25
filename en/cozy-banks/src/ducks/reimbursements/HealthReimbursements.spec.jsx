@@ -12,6 +12,7 @@ describe('HealthReimbursements', () => {
       <DumbHealthReimbursements
         fetchStatus="loading"
         triggers={{ fetchStatus: 'loaded' }}
+        transactions={{ fetchStatus: 'loading' }}
         filteredTransactions={[]}
         addFilterByPeriod={jest.fn()}
       />
@@ -25,6 +26,7 @@ describe('HealthReimbursements', () => {
       <DumbHealthReimbursements
         fetchStatus="loaded"
         triggers={{ fetchStatus: 'loading' }}
+        transactions={{ fetchStatus: 'loading' }}
         filteredTransactions={[]}
         addFilterByPeriod={jest.fn()}
       />
@@ -42,7 +44,7 @@ describe('HealthReimbursements', () => {
     // fail: no `TransactionsWithSelection` exists
     const root = shallow(
       <DumbHealthReimbursements
-        fetchStatus="loaded"
+        transactions={{ fetchStatus: 'loaded' }}
         filteredTransactions={pending}
         t={key => key}
         addFilterByPeriod={jest.fn()}
@@ -61,7 +63,7 @@ describe('HealthReimbursements', () => {
 
     const root = shallow(
       <DumbHealthReimbursements
-        fetchStatus="loaded"
+        transactions={{ fetchStatus: 'loaded' }}
         filteredTransactions={reimbursed}
         t={key => key}
         addFilterByPeriod={jest.fn()}
@@ -76,7 +78,7 @@ describe('HealthReimbursements', () => {
   it('should show a button to open the store if there is no reimbursed transactions and no health brand with trigger', () => {
     const root = shallow(
       <DumbHealthReimbursements
-        fetchStatus="loaded"
+        transactions={{ fetchStatus: 'loaded' }}
         filteredTransactions={[]}
         t={key => key}
         addFilterByPeriod={jest.fn()}

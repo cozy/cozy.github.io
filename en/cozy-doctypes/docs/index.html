@@ -909,6 +909,19 @@
     Relationships
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#external-relationships" title="External relationships" class="md-nav__link">
+    External relationships
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -2421,6 +2434,19 @@
     Relationships
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#external-relationships" title="External relationships" class="md-nav__link">
+    External relationships
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -2523,6 +2549,20 @@ for another doctype, feel free to open a PR with the description and role of you
   <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;authors&quot;</span><span class="p">:</span> <span class="p">{</span>
       <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[{</span> <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;hermanmelville&quot;</span><span class="p">,</span> <span class="nt">&quot;_type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.contacts&quot;</span> <span class="p">}]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h4 id="external-relationships">External relationships<a class="headerlink" href="#external-relationships" title="Permanent link">&para;</a></h4>
+<p>Relationships that reference a document that lives outside the couchdb of the user will have a <code>_type</code> in a different namespace than <code>io.cozy.*</code>, and will have an additional <code>_protocol</code> field.</p>
+<p>At the moment the only available external relationship is <code>bitwarden</code> with the following format:</p>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;secretsafe&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;vaultCipher&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[{</span> <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;123abc&quot;</span><span class="p">,</span> <span class="nt">&quot;_type&quot;</span><span class="p">:</span> <span class="s2">&quot;com.bitwarden.ciphers&quot;</span><span class="p">,</span> <span class="nt">&quot;_protocol&quot;</span><span class="p">:</span> <span class="s2">&quot;bitwarden&quot;</span> <span class="p">}]</span>
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>

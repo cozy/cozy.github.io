@@ -24,7 +24,7 @@ import withFilters from 'components/withFilters'
 import { getYear } from 'date-fns'
 import TransactionActionsProvider from 'ducks/transactions/TransactionActionsProvider'
 import withBrands from 'ducks/brandDictionary/withBrands'
-import { isCollectionLoading } from 'ducks/client/utils'
+import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 
 const Caption = props => {
   const { className, ...rest } = props
@@ -55,14 +55,17 @@ export class DumbHealthReimbursements extends Component {
   render() {
     const {
       filteredTransactions,
-      fetchStatus,
       t,
       triggers,
+      transactions,
       brands
     } = this.props
     const reimbursementTagFlag = flag('reimbursement-tag')
 
-    if (fetchStatus !== 'loaded' || isCollectionLoading(triggers)) {
+    if (
+      (isCollectionLoading(transactions) && !hasBeenLoaded(transactions)) ||
+      (isCollectionLoading(triggers) && !hasBeenLoaded(triggers))
+    ) {
       return <Loading />
     }
 
@@ -145,9 +148,7 @@ function mapStateToProps(state, ownProps) {
     ...state,
     transactions: ownProps.transactions
   }
-
   return {
-    fetchStatus: ownProps.transactions.fetchStatus,
     filteredTransactions: getHealthExpensesByPeriod(enhancedState)
   }
 }
