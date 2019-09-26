@@ -1,0 +1,4764 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Cozy documentation">
+      
+      
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/bitwarden/">
+      
+      
+        <meta name="author" content="CozyCloud - https://cozy.io">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[^a-zа-яё0-9\-\.]">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
+    
+    
+      
+        <title>/bitwarden - Bitwarden - Cozy Developer Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.0284f74d.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.01803549.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#2196f3">
+      
+    
+    
+    
+      <script src="../../assets/javascripts/modernizr.74668098.js"></script>
+    
+    <script type="text/javascript">
+        // Used in extra.js, we have to define the variable here since
+        // we need access to the "config" jinja variable
+        window.outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-apps-registry", "repo": "https://github.com/cozy/cozy-apps-registry.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-ui", "repo": "https://github.com/cozy/cozy-ui.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/cozy/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}, {"name": "cozy-banks", "repo": "https://github.com/cozy/cozy-banks.git", "subdir": "."}, {"name": "ach", "repo": "https://github.com/cozy/ach.git", "subdir": "."}]
+    </script>
+
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Ubuntu+Mono&display=fallback">
+        <style>body,input{font-family:"Lato","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Ubuntu Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../css/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#bitwarden" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://docs.cozy.io/" title="Cozy Developer Documentation" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon">cloud</i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Cozy Developer Documentation
+            </span>
+            <span class="md-header-nav__topic">
+              
+                /bitwarden - Bitwarden
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/cozy/cozy.github.io/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../.." title="Home" class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../tutorials/app/" title="Tutorials" class="md-tabs__link">
+          Tutorials
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../howTos/dev/runCozyDocker/" title="How-to" class="md-tabs__link">
+          How-to
+        </a>
+      
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    
+    
+  
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../cozy-client/getting-started/" title="Libraries" class="md-tabs__link">
+          Libraries
+        </a>
+      
+    </li>
+  
+
+  
+
+  
+
+      
+        
+  
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../cozy-banks/" title="Applications" class="md-tabs__link">
+          Applications
+        </a>
+      
+    </li>
+  
+
+  
+
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://docs.cozy.io/" title="Cozy Developer Documentation" class="md-nav__button md-logo">
+      
+        <i class="md-icon">cloud</i>
+      
+    </a>
+    Cozy Developer Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/cozy/cozy.github.io/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Tutorials
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Tutorials
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tutorials/app/" title="Create Your Application" class="md-nav__link">
+      Create Your Application
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-2" type="checkbox" id="nav-2-2">
+    
+    <label class="md-nav__link" for="nav-2-2">
+      Develop a Connector
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-2">
+        Develop a Connector
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tutorials/konnector/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tutorials/konnector/getting-started/" title="Basic structure" class="md-nav__link">
+      Basic structure
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tutorials/konnector/scrape-data/" title="Scrape data" class="md-nav__link">
+      Scrape data
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tutorials/konnector/save-data/" title="Save data" class="md-nav__link">
+      Save data
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tutorials/konnector/packaging/" title="Package your connector" class="md-nav__link">
+      Package your connector
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tutorials/selfhost-debian/" title="Self-Host on Debian" class="md-nav__link">
+      Self-Host on Debian
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      How-to
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        How-to
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-1" type="checkbox" id="nav-3-1">
+    
+    <label class="md-nav__link" for="nav-3-1">
+      Dev
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-1">
+        Dev
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../howTos/dev/runCozyDocker/" title="Run an App in a Cozy using Docker" class="md-nav__link">
+      Run an App in a Cozy using Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../howTos/dev/hmr/" title="Use Hot Module Replacement in Your App" class="md-nav__link">
+      Use Hot Module Replacement in Your App
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../howTos/dev/cordova/" title="Make a Mobile App Using Cordova" class="md-nav__link">
+      Make a Mobile App Using Cordova
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../howTos/dev/connect-mobile-app-local-stack/" title="Connect a Mobile App to Your Local Stack" class="md-nav__link">
+      Connect a Mobile App to Your Local Stack
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../howTos/dev/sendmail/" title="Send and Receive E-mails in Development" class="md-nav__link">
+      Send and Receive E-mails in Development
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../references/git-flow/" title="Our Front-End Git Flow" class="md-nav__link">
+      Our Front-End Git Flow
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../references/tech-intro/" title="Technical introduction to the Cozy platform" class="md-nav__link">
+      Technical introduction to the Cozy platform
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2">
+    
+    <label class="md-nav__link" for="nav-3-2">
+      Synchronize
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-2">
+        Synchronize
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../howTos/sync/linux/" title="Install Cozy Drive on GNU/Linux" class="md-nav__link">
+      Install Cozy Drive on GNU/Linux
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    
+    <label class="md-nav__link" for="nav-4">
+      Libraries
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Libraries
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-1" type="checkbox" id="nav-4-1">
+    
+    <label class="md-nav__link" for="nav-4-1">
+      Develop an application
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-1">
+        Develop an application
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-1-1" type="checkbox" id="nav-4-1-1">
+    
+    <label class="md-nav__link" for="nav-4-1-1">
+      Access data (client)
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-1">
+        Access data (client)
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-client/getting-started/" title="Getting started" class="md-nav__link">
+      Getting started
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-client/relationships/" title="Using relationships" class="md-nav__link">
+      Using relationships
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-client/metadata/" title="cozyMetadata maintenance" class="md-nav__link">
+      cozyMetadata maintenance
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-client/react-integration/" title="React integration" class="md-nav__link">
+      React integration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-client/details/" title="Other details" class="md-nav__link">
+      Other details
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-client/api/cozy-client/" title="Cozy Client API" class="md-nav__link">
+      Cozy Client API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-client/api/cozy-pouch-link/" title="Cozy Pouch Link API" class="md-nav__link">
+      Cozy Pouch Link API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-client/api/cozy-stack-client/" title="Cozy Stack Client API" class="md-nav__link">
+      Cozy Stack Client API
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-ui/" title="Build a UI (ui)" class="md-nav__link">
+      Build a UI (ui)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-1-3" type="checkbox" id="nav-4-1-3">
+    
+    <label class="md-nav__link" for="nav-4-1-3">
+      Define data (doctypes)
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-3">
+        Define data (doctypes)
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/" title="README" class="md-nav__link">
+      README
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/io.cozy.accounts/" title="Accounts" class="md-nav__link">
+      Accounts
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/io.cozy.apps/" title="Apps" class="md-nav__link">
+      Apps
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/io.cozy.bank/" title="Banking doctypes" class="md-nav__link">
+      Banking doctypes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/io.cozy.bills/" title="Bills" class="md-nav__link">
+      Bills
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/io.cozy.konnectors/" title="Connectors" class="md-nav__link">
+      Connectors
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/io.cozy.contacts/" title="Contacts" class="md-nav__link">
+      Contacts
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/io.cozy.files/" title="Files" class="md-nav__link">
+      Files
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/io.cozy.files_metadata/" title="Files metadata" class="md-nav__link">
+      Files metadata
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/io.cozy.identities/" title="Identities" class="md-nav__link">
+      Identities
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/io.cozy.notifications/" title="Notifications" class="md-nav__link">
+      Notifications
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/" title="Remote requests" class="md-nav__link">
+      Remote requests
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/" title="Session logins" class="md-nav__link">
+      Session logins
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/io.cozy.permissions/" title="Permissions" class="md-nav__link">
+      Permissions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/io.cozy.photos/" title="Photos" class="md-nav__link">
+      Photos
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/io.cozy.procedures/" title="Procedures" class="md-nav__link">
+      Procedures
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/" title="Sessions Logins" class="md-nav__link">
+      Sessions Logins
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/io.cozy.settings/" title="Settings" class="md-nav__link">
+      Settings
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/io.cozy.sharings/" title="Sharings" class="md-nav__link">
+      Sharings
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/io.cozy.account_types/" title="Accounts Types" class="md-nav__link">
+      Accounts Types
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/cc.cozycloud.autocategorization/" title="Autocategorization" class="md-nav__link">
+      Autocategorization
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/io.cozy.exports/" title="Exports" class="md-nav__link">
+      Exports
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/io.cozy.jobs/" title="Jobs" class="md-nav__link">
+      Jobs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/io.cozy.oauth.clients/" title="OAuth Clients" class="md-nav__link">
+      OAuth Clients
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/io.cozy.oauth.access_codes/" title="OAuth Access Codes" class="md-nav__link">
+      OAuth Access Codes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/io.cozy.triggers/" title="Triggers" class="md-nav__link">
+      Triggers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/io.cozy.triggers.state/" title="Triggers state" class="md-nav__link">
+      Triggers state
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/" title="Remote requests" class="md-nav__link">
+      Remote requests
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/io.cozy.sessions/" title="Sessions" class="md-nav__link">
+      Sessions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/io.cozy.shared/" title="Shared" class="md-nav__link">
+      Shared
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/io.cozy.terms/" title="Terms" class="md-nav__link">
+      Terms
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/com.bitwarden.ciphers/" title="Bitwarden ciphers" class="md-nav__link">
+      Bitwarden ciphers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/com.bitwarden.folders/" title="Bitwarden folders" class="md-nav__link">
+      Bitwarden folders
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/com.unibet.bets/" title="Bets Unibet" class="md-nav__link">
+      Bets Unibet
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-1-4" type="checkbox" id="nav-4-1-4">
+    
+    <label class="md-nav__link" for="nav-4-1-4">
+      Advanced
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-4">
+        Advanced
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-realtime/" title="Realtime data (realtime)" class="md-nav__link">
+      Realtime data (realtime)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-device-helper/" title="Native devices (device-helper)" class="md-nav__link">
+      Native devices (device-helper)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-2" type="checkbox" id="nav-4-2">
+    
+    <label class="md-nav__link" for="nav-4-2">
+      Develop a konnector
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-2">
+        Develop a konnector
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-2-1" type="checkbox" id="nav-4-2-1">
+    
+    <label class="md-nav__link" for="nav-4-2-1">
+      Scrape data (konnector-libs)
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-2-1">
+        Scrape data (konnector-libs)
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-konnector-libs/" title="README" class="md-nav__link">
+      README
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-konnector-libs/api/" title="API" class="md-nav__link">
+      API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-konnector-libs/cli/" title="CLI" class="md-nav__link">
+      CLI
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-konnector-libs/dev/" title="Develop" class="md-nav__link">
+      Develop
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-konnector-libs/errors/" title="Errors" class="md-nav__link">
+      Errors
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-konnector-libs/operation-linking/" title="Operation linking" class="md-nav__link">
+      Operation linking
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-konnector-libs/synchronization/" title="Synchronization" class="md-nav__link">
+      Synchronization
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../konitor/cli/" title="konitor" class="md-nav__link">
+      konitor
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-app-publish/" title="Publish on the store (app-publish)" class="md-nav__link">
+      Publish on the store (app-publish)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-4" type="checkbox" id="nav-4-4">
+    
+    <label class="md-nav__link" for="nav-4-4">
+      Dev tools
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-4">
+        Dev tools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../babel-preset-cozy-app/" title="Babel preset" class="md-nav__link">
+      Babel preset
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../commitlint-config-cozy/" title="Commitlint" class="md-nav__link">
+      Commitlint
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../eslint-config-cozy-app/" title="ESLint" class="md-nav__link">
+      ESLint
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ach/" title="ACH" class="md-nav__link">
+      ACH
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-5" type="checkbox" id="nav-4-5" checked>
+    
+    <label class="md-nav__link" for="nav-4-5">
+      Advanced
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-5">
+        Advanced
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-5-1" type="checkbox" id="nav-4-5-1" checked>
+    
+    <label class="md-nav__link" for="nav-4-5-1">
+      Stack server
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-5-1">
+        Stack server
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="README" class="md-nav__link">
+      README
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-5-1-2" type="checkbox" id="nav-4-5-1-2">
+    
+    <label class="md-nav__link" for="nav-4-5-1-2">
+      Usage
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-5-1-2">
+        Usage
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../INSTALL/" title="Install the cozy-stack" class="md-nav__link">
+      Install the cozy-stack
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../config/" title="Configuration file" class="md-nav__link">
+      Configuration file
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../instance/" title="Managing Instances" class="md-nav__link">
+      Managing Instances
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../security/" title="Security" class="md-nav__link">
+      Security
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cli/cozy-stack/" title="Manpages of the command-line tool" class="md-nav__link">
+      Manpages of the command-line tool
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-5-1-3" type="checkbox" id="nav-4-5-1-3">
+    
+    <label class="md-nav__link" for="nav-4-5-1-3">
+      How-to guides for developpers
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-5-1-3">
+        How-to guides for developpers
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../client-app-dev/" title="Develop a client-side app" class="md-nav__link">
+      Develop a client-side app
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../docker/" title="Running and building Docker images" class="md-nav__link">
+      Running and building Docker images
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../doctype/" title="Adding a new doctype" class="md-nav__link">
+      Adding a new doctype
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../assets/" title="Working with the stack assets" class="md-nav__link">
+      Working with the stack assets
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../release/" title="Build a release" class="md-nav__link">
+      Build a release
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../CONTRIBUTING/" title="The contributing guide" class="md-nav__link">
+      The contributing guide
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-5-1-4" type="checkbox" id="nav-4-5-1-4">
+    
+    <label class="md-nav__link" for="nav-4-5-1-4">
+      Explanations
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-5-1-4">
+        Explanations
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../sharing-design/" title="Sharing design" class="md-nav__link">
+      Sharing design
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../konnectors-workflow/" title="Workflow of the konnectors" class="md-nav__link">
+      Workflow of the konnectors
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-5-1-5" type="checkbox" id="nav-4-5-1-5" checked>
+    
+    <label class="md-nav__link" for="nav-4-5-1-5">
+      List of services
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-5-1-5">
+        List of services
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../auth/" title="/auth - Authentication & OAuth" class="md-nav__link">
+      /auth - Authentication & OAuth
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../apps/" title="/apps - Applications Management" class="md-nav__link">
+      /apps - Applications Management
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../registry/" title="/apps - Apps registry" class="md-nav__link">
+       /apps - Apps registry
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../konnectors/" title="/apps - Konnectors" class="md-nav__link">
+       /apps - Konnectors
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        /bitwarden - Bitwarden
+      </label>
+    
+    <a href="./" title="/bitwarden - Bitwarden" class="md-nav__link md-nav__link--active">
+      /bitwarden - Bitwarden
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#setup" title="Setup" class="md-nav__link">
+    Setup
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routes-for-accounts-and-connect" title="Routes for accounts and connect" class="md-nav__link">
+    Routes for accounts and connect
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post-bitwardenapiaccountsprelogin" title="POST /bitwarden/api/accounts/prelogin" class="md-nav__link">
+    POST /bitwarden/api/accounts/prelogin
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-bitwardenidentityconnecttoken" title="POST /bitwarden/identity/connect/token" class="md-nav__link">
+    POST /bitwarden/identity/connect/token
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request-initial-connection" title="Request (initial connection)" class="md-nav__link">
+    Request (initial connection)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-refresh-token" title="Request (refresh token)" class="md-nav__link">
+    Request (refresh token)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_1" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-bitwardenapiaccountsprofile" title="GET /bitwarden/api/accounts/profile" class="md-nav__link">
+    GET /bitwarden/api/accounts/profile
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_1" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_2" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#put-bitwardenapiaccountsprofile" title="PUT /bitwarden/api/accounts/profile" class="md-nav__link">
+    PUT /bitwarden/api/accounts/profile
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_2" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_3" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-bitwardenapiaccountskeys" title="POST /bitwarden/api/accounts/keys" class="md-nav__link">
+    POST /bitwarden/api/accounts/keys
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_3" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_4" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-bitwardenapiaccountssecurity-stamp" title="POST /bitwarden/api/accounts/security-stamp" class="md-nav__link">
+    POST /bitwarden/api/accounts/security-stamp
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_4" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_5" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#put-bitwardenapisettingsdomains" title="PUT /bitwarden/api/settings/domains" class="md-nav__link">
+    PUT /bitwarden/api/settings/domains
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_5" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_6" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-bitwardenapisettingsdomains" title="GET /bitwarden/api/settings/domains" class="md-nav__link">
+    GET /bitwarden/api/settings/domains
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_6" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_7" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#route-for-sync" title="Route for sync" class="md-nav__link">
+    Route for sync
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-bitwardenapisync" title="GET /bitwarden/api/sync" class="md-nav__link">
+    GET /bitwarden/api/sync
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_7" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_8" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routes-for-ciphers" title="Routes for ciphers" class="md-nav__link">
+    Routes for ciphers
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-bitwardenapiciphers" title="GET /bitwarden/api/ciphers" class="md-nav__link">
+    GET /bitwarden/api/ciphers
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_8" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_9" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-bitwardenapiciphers" title="POST /bitwarden/api/ciphers" class="md-nav__link">
+    POST /bitwarden/api/ciphers
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_9" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_10" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-bitwardenapicipherscreate" title="POST /bitwarden/api/ciphers/create" class="md-nav__link">
+    POST /bitwarden/api/ciphers/create
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_10" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_11" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-bitwardenapiciphersid" title="GET /bitwarden/api/ciphers/:id" class="md-nav__link">
+    GET /bitwarden/api/ciphers/:id
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_11" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_12" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#put-bitwardenapiciphersid" title="PUT /bitwarden/api/ciphers/:id" class="md-nav__link">
+    PUT /bitwarden/api/ciphers/:id
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_12" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_13" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-bitwardenapiciphersidshare" title="POST /bitwarden/api/ciphers/:id/share" class="md-nav__link">
+    POST /bitwarden/api/ciphers/:id/share
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_13" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_14" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-bitwardenapiciphersid" title="DELETE /bitwarden/api/ciphers/:id" class="md-nav__link">
+    DELETE /bitwarden/api/ciphers/:id
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_14" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_15" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routes-for-folders" title="Routes for folders" class="md-nav__link">
+    Routes for folders
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-bitwardenapifolders" title="GET /bitwarden/api/folders" class="md-nav__link">
+    GET /bitwarden/api/folders
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_15" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_16" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-bitwardenapifolders" title="POST /bitwarden/api/folders" class="md-nav__link">
+    POST /bitwarden/api/folders
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_16" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_17" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-bitwardenapifoldersid" title="GET /bitwarden/api/folders/:id" class="md-nav__link">
+    GET /bitwarden/api/folders/:id
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_17" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_18" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#put-bitwardenapifoldersid" title="PUT /bitwarden/api/folders/:id" class="md-nav__link">
+    PUT /bitwarden/api/folders/:id
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_18" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_19" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-bitwardenapifoldersid" title="DELETE /bitwarden/api/folders/:id" class="md-nav__link">
+    DELETE /bitwarden/api/folders/:id
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_19" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_20" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cozy-organization" title="Cozy Organization" class="md-nav__link">
+    Cozy Organization
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-bitwardenorganizationscozy" title="GET /bitwarden/organizations/cozy" class="md-nav__link">
+    GET /bitwarden/organizations/cozy
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_20" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_21" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#icons" title="Icons" class="md-nav__link">
+    Icons
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-bitwardeniconsdomainiconpng" title="GET /bitwarden/icons/:domain/icon.png" class="md-nav__link">
+    GET /bitwarden/icons/:domain/icon.png
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_21" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../data-system/" title="/data - Data System" class="md-nav__link">
+      /data - Data System
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../mango/" title="/data - Mango" class="md-nav__link">
+       /data - Mango
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../couchdb-quirks/" title="/data - CouchDB Quirks" class="md-nav__link">
+       /data - CouchDB Quirks
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../pouchdb-quirks/" title="/data - PouchDB Quirks" class="md-nav__link">
+       /data - PouchDB Quirks
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../files/" title="/files - Virtual File System" class="md-nav__link">
+      /files - Virtual File System
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../references-docs-in-vfs/" title="/files - References of documents in VFS" class="md-nav__link">
+       /files - References of documents in VFS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../intents/" title="/intents - Intents" class="md-nav__link">
+      /intents - Intents
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../jobs/" title="/jobs - Jobs" class="md-nav__link">
+      /jobs - Jobs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../workers/" title="/jobs - Workers" class="md-nav__link">
+       /jobs - Workers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../move/" title="/move - Move, export and import an instance" class="md-nav__link">
+      /move - Move, export and import an instance
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../notifications/" title="/notifications - Notifications" class="md-nav__link">
+      /notifications - Notifications
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../public/" title="/public - Public" class="md-nav__link">
+      /public - Public
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../permissions/" title="/permissions - Permissions" class="md-nav__link">
+      /permissions - Permissions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../realtime/" title="/realtime - Realtime" class="md-nav__link">
+      /realtime - Realtime
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../remote/" title="/remote - Proxy for remote data/API" class="md-nav__link">
+      /remote - Proxy for remote data/API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../settings/" title="/settings - Settings" class="md-nav__link">
+      /settings - Settings
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../user-action-required/" title="/settings - Terms of Services" class="md-nav__link">
+       /settings - Terms of Services
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../sharing/" title="/sharings - Sharing" class="md-nav__link">
+      /sharings - Sharing
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-apps-registry/" title="Registry server" class="md-nav__link">
+      Registry server
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Applications
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Applications
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-1" type="checkbox" id="nav-5-1">
+    
+    <label class="md-nav__link" for="nav-5-1">
+      Cozy Banks
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-5-1">
+        Cozy Banks
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-banks/" title="README" class="md-nav__link">
+      README
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-banks/docs/dev/" title="Develop" class="md-nav__link">
+      Develop
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-banks/docs/account-types/" title="Bank account types" class="md-nav__link">
+      Bank account types
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-banks/docs/bills-matching/" title="Matching algorithm" class="md-nav__link">
+      Matching algorithm
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-banks/docs/brand-dictionary/" title="Brands dictionary" class="md-nav__link">
+      Brands dictionary
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-banks/docs/demo/" title="Demo tricks" class="md-nav__link">
+      Demo tricks
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-banks/docs/notifications/" title="Notifications" class="md-nav__link">
+      Notifications
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-banks/docs/override-cordova-config/" title="Override Cordova project config.xml" class="md-nav__link">
+      Override Cordova project config.xml
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-banks/docs/services/" title="Services" class="md-nav__link">
+      Services
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-banks/docs/tracking/" title="Tracking" class="md-nav__link">
+      Tracking
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#setup" title="Setup" class="md-nav__link">
+    Setup
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routes-for-accounts-and-connect" title="Routes for accounts and connect" class="md-nav__link">
+    Routes for accounts and connect
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post-bitwardenapiaccountsprelogin" title="POST /bitwarden/api/accounts/prelogin" class="md-nav__link">
+    POST /bitwarden/api/accounts/prelogin
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-bitwardenidentityconnecttoken" title="POST /bitwarden/identity/connect/token" class="md-nav__link">
+    POST /bitwarden/identity/connect/token
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request-initial-connection" title="Request (initial connection)" class="md-nav__link">
+    Request (initial connection)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-refresh-token" title="Request (refresh token)" class="md-nav__link">
+    Request (refresh token)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_1" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-bitwardenapiaccountsprofile" title="GET /bitwarden/api/accounts/profile" class="md-nav__link">
+    GET /bitwarden/api/accounts/profile
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_1" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_2" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#put-bitwardenapiaccountsprofile" title="PUT /bitwarden/api/accounts/profile" class="md-nav__link">
+    PUT /bitwarden/api/accounts/profile
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_2" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_3" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-bitwardenapiaccountskeys" title="POST /bitwarden/api/accounts/keys" class="md-nav__link">
+    POST /bitwarden/api/accounts/keys
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_3" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_4" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-bitwardenapiaccountssecurity-stamp" title="POST /bitwarden/api/accounts/security-stamp" class="md-nav__link">
+    POST /bitwarden/api/accounts/security-stamp
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_4" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_5" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#put-bitwardenapisettingsdomains" title="PUT /bitwarden/api/settings/domains" class="md-nav__link">
+    PUT /bitwarden/api/settings/domains
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_5" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_6" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-bitwardenapisettingsdomains" title="GET /bitwarden/api/settings/domains" class="md-nav__link">
+    GET /bitwarden/api/settings/domains
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_6" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_7" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#route-for-sync" title="Route for sync" class="md-nav__link">
+    Route for sync
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-bitwardenapisync" title="GET /bitwarden/api/sync" class="md-nav__link">
+    GET /bitwarden/api/sync
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_7" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_8" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routes-for-ciphers" title="Routes for ciphers" class="md-nav__link">
+    Routes for ciphers
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-bitwardenapiciphers" title="GET /bitwarden/api/ciphers" class="md-nav__link">
+    GET /bitwarden/api/ciphers
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_8" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_9" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-bitwardenapiciphers" title="POST /bitwarden/api/ciphers" class="md-nav__link">
+    POST /bitwarden/api/ciphers
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_9" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_10" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-bitwardenapicipherscreate" title="POST /bitwarden/api/ciphers/create" class="md-nav__link">
+    POST /bitwarden/api/ciphers/create
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_10" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_11" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-bitwardenapiciphersid" title="GET /bitwarden/api/ciphers/:id" class="md-nav__link">
+    GET /bitwarden/api/ciphers/:id
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_11" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_12" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#put-bitwardenapiciphersid" title="PUT /bitwarden/api/ciphers/:id" class="md-nav__link">
+    PUT /bitwarden/api/ciphers/:id
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_12" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_13" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-bitwardenapiciphersidshare" title="POST /bitwarden/api/ciphers/:id/share" class="md-nav__link">
+    POST /bitwarden/api/ciphers/:id/share
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_13" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_14" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-bitwardenapiciphersid" title="DELETE /bitwarden/api/ciphers/:id" class="md-nav__link">
+    DELETE /bitwarden/api/ciphers/:id
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_14" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_15" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routes-for-folders" title="Routes for folders" class="md-nav__link">
+    Routes for folders
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-bitwardenapifolders" title="GET /bitwarden/api/folders" class="md-nav__link">
+    GET /bitwarden/api/folders
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_15" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_16" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-bitwardenapifolders" title="POST /bitwarden/api/folders" class="md-nav__link">
+    POST /bitwarden/api/folders
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_16" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_17" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-bitwardenapifoldersid" title="GET /bitwarden/api/folders/:id" class="md-nav__link">
+    GET /bitwarden/api/folders/:id
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_17" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_18" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#put-bitwardenapifoldersid" title="PUT /bitwarden/api/folders/:id" class="md-nav__link">
+    PUT /bitwarden/api/folders/:id
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_18" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_19" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-bitwardenapifoldersid" title="DELETE /bitwarden/api/folders/:id" class="md-nav__link">
+    DELETE /bitwarden/api/folders/:id
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_19" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_20" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cozy-organization" title="Cozy Organization" class="md-nav__link">
+    Cozy Organization
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-bitwardenorganizationscozy" title="GET /bitwarden/organizations/cozy" class="md-nav__link">
+    GET /bitwarden/organizations/cozy
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_20" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_21" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#icons" title="Icons" class="md-nav__link">
+    Icons
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-bitwardeniconsdomainiconpng" title="GET /bitwarden/icons/:domain/icon.png" class="md-nav__link">
+    GET /bitwarden/icons/:domain/icon.png
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_21" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-stack/bitwarden.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <p><a href="../#table-of-contents">Table of contents</a></p>
+<h1 id="bitwarden">Bitwarden<a class="headerlink" href="#bitwarden" title="Permanent link">&para;</a></h1>
+<p>Cozy-stack exposes an API compatible with
+<a href="https://github.com/bitwarden">Bitwarden</a> on <code>/bitwarden</code>.</p>
+<p>The author of the <a href="https://github.com/jcs/rubywarden">unofficial Bitwarden-ruby
+server</a> did some reverse engineering and
+wrote a short <a href="https://github.com/jcs/rubywarden/blob/master/API.md">API
+documentation</a>.</p>
+<h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h2>
+<p>The signup is disabled, there is one account per Cozy instance, with the email
+<code>me@&lt;domain&gt;</code>. When the user chooses his/her password (onboarding), an encryption key
+is also generated to keep safe the secrets in the bitwarden vault.</p>
+<p><img alt="Setting a new passphrase" src="../diagrams/bitwarden-onboarding.png" /></p>
+<p>A cozy organization is also created: it will be used to share some passwords
+with the stack, to be used for the konnectors.</p>
+<p><img alt="Creating the organization key" src="../diagrams/bitwarden-organization.png" /></p>
+<p>The bitwarden clients can connect to the cozy-stack APIs by setting their URL
+to <code>https://&lt;instance&gt;/bitwarden</code>.</p>
+<h2 id="routes-for-accounts-and-connect">Routes for accounts and connect<a class="headerlink" href="#routes-for-accounts-and-connect" title="Permanent link">&para;</a></h2>
+<h3 id="post-bitwardenapiaccountsprelogin">POST /bitwarden/api/accounts/prelogin<a class="headerlink" href="#post-bitwardenapiaccountsprelogin" title="Permanent link">&para;</a></h3>
+<p>It allows the client to know the number of KDF iterations to apply when hashing
+the master password.</p>
+<h4 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/bitwarden/api/accounts/prelogin</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;me@alice.example.com&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h4 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;Kdf&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="nt">&quot;KdfIterations&quot;</span><span class="p">:</span> <span class="mi">10000</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="post-bitwardenidentityconnecttoken">POST /bitwarden/identity/connect/token<a class="headerlink" href="#post-bitwardenidentityconnecttoken" title="Permanent link">&para;</a></h3>
+<h4 id="request-initial-connection">Request (initial connection)<a class="headerlink" href="#request-initial-connection" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/bitwarden/identity/connect/token</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/x-www-form-urlencoded</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>grant_type=password&amp;
+username=me@alice.example.com&amp;
+password=r5CFRR+n9NQI8a525FY+0BPR0HGOjVJX0cR1KEMnIOo=&amp;
+scope=api offline_access&amp;
+client_id=browser&amp;
+deviceType=3&amp;
+deviceIdentifier=aac2e34a-44db-42ab-a733-5322dd582c3d&amp;
+deviceName=firefox&amp;
+devicePushToken=
+</pre></div>
+
+
+<p>If authentication with two factors is enabled on the instance, this request
+will fail with a 400 status, but it will send an email with the code. The
+request can be retried with an additional paramter: <code>twoFactorToken</code>.</p>
+<h4 id="request-refresh-token">Request (refresh token)<a class="headerlink" href="#request-refresh-token" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/bitwarden/identity/connect/token</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/x-www-form-urlencoded</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>grant_type=refresh_token&amp;
+client_id=browser&amp;
+refresh_token=28fb1911ef6db24025ce1bae5aa940e117eb09dfe609b425b69bff73d73c03bf
+</pre></div>
+
+
+<h4 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;access_token&quot;</span><span class="p">:</span> <span class="s2">&quot;eyJhbGciOiJSUzI1NiIsImtpZCI6IkJDMz[...](JWT string)&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;expires_in&quot;</span><span class="p">:</span> <span class="mi">3600</span><span class="p">,</span>
+  <span class="nt">&quot;token_type&quot;</span><span class="p">:</span> <span class="s2">&quot;Bearer&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;refresh_token&quot;</span><span class="p">:</span> <span class="s2">&quot;28fb1911ef6db24025ce1bae5aa940e117eb09dfe609b425b69bff73d73c03bf&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;Key&quot;</span><span class="p">:</span> <span class="s2">&quot;0.uRcMe+Mc2nmOet4yWx9BwA==|PGQhpYUlTUq/vBEDj1KOHVMlTIH1eecMl0j80+Zu0VRVfFa7X/MWKdVM6OM/NfSZicFEwaLWqpyBlOrBXhR+trkX/dPRnfwJD2B93hnLNGQ=&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="get-bitwardenapiaccountsprofile">GET /bitwarden/api/accounts/profile<a class="headerlink" href="#get-bitwardenapiaccountsprofile" title="Permanent link">&para;</a></h3>
+<h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/bitwarden/api/accounts/profile</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
+</pre></div>
+
+
+<h4 id="response_2">Response<a class="headerlink" href="#response_2" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;0fbfc68d-ba11-416a-ac8a-a82600f0e601&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;Email&quot;</span><span class="p">:</span> <span class="s2">&quot;me@alice.example.com&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;EmailVerified&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="nt">&quot;Premium&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="nt">&quot;MasterPasswordHint&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="nt">&quot;Culture&quot;</span><span class="p">:</span> <span class="s2">&quot;en-US&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;TwoFactorEnabled&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="nt">&quot;Key&quot;</span><span class="p">:</span> <span class="s2">&quot;0.uRcMe+Mc2nmOet4yWx9BwA==|PGQhpYUlTUq/vBEDj1KOHVMlTIH1eecMl0j80+Zu0VRVfFa7X/MWKdVM6OM/NfSZicFEwaLWqpyBlOrBXhR+trkX/dPRnfwJD2B93hnLNGQ=&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;PrivateKey&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="nt">&quot;SecurityStamp&quot;</span><span class="p">:</span> <span class="s2">&quot;5d203c3f-bc89-499e-85c4-4431248e1196&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;Organizations&quot;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="nt">&quot;Object&quot;</span><span class="p">:</span> <span class="s2">&quot;profile&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="put-bitwardenapiaccountsprofile">PUT /bitwarden/api/accounts/profile<a class="headerlink" href="#put-bitwardenapiaccountsprofile" title="Permanent link">&para;</a></h3>
+<p>This route allows to change the profile (currently, only the hint for the
+master password). It can also be called with a <code>POST</code> (I think it is used by
+the web vault).</p>
+<h4 id="request_2">Request<a class="headerlink" href="#request_2" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">PUT</span> <span class="nn">/bitwarden/api/accounts/profile</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;masterPasswordHint&quot;</span><span class="p">:</span> <span class="s2">&quot;blah blah blah&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h4 id="response_3">Response<a class="headerlink" href="#response_3" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;0fbfc68d-ba11-416a-ac8a-a82600f0e601&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;Email&quot;</span><span class="p">:</span> <span class="s2">&quot;me@alice.example.com&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;EmailVerified&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="nt">&quot;Premium&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="nt">&quot;MasterPasswordHint&quot;</span><span class="p">:</span> <span class="s2">&quot;blah blah blah&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;Culture&quot;</span><span class="p">:</span> <span class="s2">&quot;en-US&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;TwoFactorEnabled&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="nt">&quot;Key&quot;</span><span class="p">:</span> <span class="s2">&quot;0.uRcMe+Mc2nmOet4yWx9BwA==|PGQhpYUlTUq/vBEDj1KOHVMlTIH1eecMl0j80+Zu0VRVfFa7X/MWKdVM6OM/NfSZicFEwaLWqpyBlOrBXhR+trkX/dPRnfwJD2B93hnLNGQ=&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;PrivateKey&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="nt">&quot;SecurityStamp&quot;</span><span class="p">:</span> <span class="s2">&quot;5d203c3f-bc89-499e-85c4-4431248e1196&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;Organizations&quot;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="nt">&quot;Object&quot;</span><span class="p">:</span> <span class="s2">&quot;profile&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="post-bitwardenapiaccountskeys">POST /bitwarden/api/accounts/keys<a class="headerlink" href="#post-bitwardenapiaccountskeys" title="Permanent link">&para;</a></h3>
+<p>This route is used to save a key pair (public and private keys), to be used
+with organizations.</p>
+<h4 id="request_3">Request<a class="headerlink" href="#request_3" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/bitwarden/api/accounts/keys</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;encryptedPrivateKey&quot;</span><span class="p">:</span> <span class="s2">&quot;2.wZuKkufLV31Cpw1v1TQUDA==|u6bUNTaaGxu...y7s=&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;publicKey&quot;</span><span class="p">:</span> <span class="s2">&quot;MIIBIjANBgkqhkiG9w...AQAB&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h4 id="response_4">Response<a class="headerlink" href="#response_4" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;0fbfc68d-ba11-416a-ac8a-a82600f0e601&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;Email&quot;</span><span class="p">:</span> <span class="s2">&quot;me@alice.example.com&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;EmailVerified&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="nt">&quot;Premium&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="nt">&quot;MasterPasswordHint&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="nt">&quot;Culture&quot;</span><span class="p">:</span> <span class="s2">&quot;en-US&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;TwoFactorEnabled&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="nt">&quot;Key&quot;</span><span class="p">:</span> <span class="s2">&quot;0.uRcMe+Mc2nmOet4yWx9BwA==|PGQhpYUlTUq/vBEDj1KOHVMlTIH1eecMl0j80+Zu0VRVfFa7X/MWKdVM6OM/NfSZicFEwaLWqpyBlOrBXhR+trkX/dPRnfwJD2B93hnLNGQ=&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;PrivateKey&quot;</span><span class="p">:</span> <span class="s2">&quot;2.wZuKkufLV31Cpw1v1TQUDA==|u6bUNTaaGxu...y7s=&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;SecurityStamp&quot;</span><span class="p">:</span> <span class="s2">&quot;5d203c3f-bc89-499e-85c4-4431248e1196&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;Organizations&quot;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="nt">&quot;Object&quot;</span><span class="p">:</span> <span class="s2">&quot;profile&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="post-bitwardenapiaccountssecurity-stamp">POST /bitwarden/api/accounts/security-stamp<a class="headerlink" href="#post-bitwardenapiaccountssecurity-stamp" title="Permanent link">&para;</a></h3>
+<p>It allows to set a new security stamp, which has the effect to disconnect all
+the clients. It can be used, for example, if the encryption key is changed to
+avoid the clients to corrupt the vault with ciphers encrypted with the old key.</p>
+<h4 id="request_4">Request<a class="headerlink" href="#request_4" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/bitwarden/api/accounts/security-stamp</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;masterPasswordHash&quot;</span><span class="p">:</span> <span class="s2">&quot;r5CFRR+n9NQI8a525FY+0BPR0HGOjVJX0cR1KEMnIOo=&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h4 id="response_5">Response<a class="headerlink" href="#response_5" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+
+
+<h3 id="put-bitwardenapisettingsdomains">PUT /bitwarden/api/settings/domains<a class="headerlink" href="#put-bitwardenapisettingsdomains" title="Permanent link">&para;</a></h3>
+<p>This route is also available via a <code>POST</code>, for compatibility with the web vault.</p>
+<h4 id="request_5">Request<a class="headerlink" href="#request_5" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">PUT</span> <span class="nn">/bitwarden/api/settings/domains</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;equivalentDomains&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">[</span><span class="s2">&quot;stackoverflow.com&quot;</span><span class="p">,</span> <span class="s2">&quot;serverfault.com&quot;</span><span class="p">,</span> <span class="s2">&quot;superuser.com&quot;</span><span class="p">]</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;globalEquivalentDomains&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">42</span><span class="p">,</span> <span class="mi">69</span><span class="p">],</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h4 id="response_6">Response<a class="headerlink" href="#response_6" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;EquivalentDomains&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">[</span><span class="s2">&quot;stackoverflow.com&quot;</span><span class="p">,</span> <span class="s2">&quot;serverfault.com&quot;</span><span class="p">,</span> <span class="s2">&quot;superuser.com&quot;</span><span class="p">]</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;GlobalEquivalentDomains&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="err">Type:</span> <span class="err">2,</span> <span class="err">Domains:</span> <span class="err">[</span><span class="nt">&quot;ameritrade.com&quot;</span><span class="p">,</span> <span class="nt">&quot;tdameritrade.com&quot;</span><span class="err">]</span><span class="p">,</span> <span class="err">Excluded:</span> <span class="err">false</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="err">Type:</span> <span class="err">3,</span> <span class="err">Domains:</span> <span class="err">[</span><span class="nt">&quot;bankofamerica.com&quot;</span><span class="p">,</span> <span class="nt">&quot;bofa.com&quot;</span><span class="p">,</span> <span class="nt">&quot;mbna.com&quot;</span><span class="p">,</span> <span class="nt">&quot;usecfo.com&quot;</span><span class="err">]</span><span class="p">,</span> <span class="err">Excluded:</span> <span class="err">false</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="err">Type:</span> <span class="err">42,</span> <span class="err">Domains:</span> <span class="err">[</span><span class="nt">&quot;playstation.com&quot;</span><span class="p">,</span> <span class="nt">&quot;sonyentertainmentnetwork.com&quot;</span><span class="err">]</span><span class="p">,</span> <span class="err">Excluded:</span> <span class="err">true</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="err">Type:</span> <span class="err">69,</span> <span class="err">Domains:</span> <span class="err">[</span><span class="nt">&quot;morganstanley.com&quot;</span><span class="p">,</span> <span class="nt">&quot;morganstanleyclientserv.com&quot;</span><span class="err">]</span><span class="p">,</span> <span class="err">Excluded:</span> <span class="err">true</span> <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;Object&quot;</span><span class="p">:</span> <span class="s2">&quot;domains&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="get-bitwardenapisettingsdomains">GET /bitwarden/api/settings/domains<a class="headerlink" href="#get-bitwardenapisettingsdomains" title="Permanent link">&para;</a></h3>
+<h4 id="request_6">Request<a class="headerlink" href="#request_6" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/bitwarden/api/settings/domains</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
+</pre></div>
+
+
+<h4 id="response_7">Response<a class="headerlink" href="#response_7" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;EquivalentDomains&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">[</span><span class="s2">&quot;stackoverflow.com&quot;</span><span class="p">,</span> <span class="s2">&quot;serverfault.com&quot;</span><span class="p">,</span> <span class="s2">&quot;superuser.com&quot;</span><span class="p">]</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;GlobalEquivalentDomains&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="err">Type:</span> <span class="err">2,</span> <span class="err">Domains:</span> <span class="err">[</span><span class="nt">&quot;ameritrade.com&quot;</span><span class="p">,</span> <span class="nt">&quot;tdameritrade.com&quot;</span><span class="err">]</span><span class="p">,</span> <span class="err">Excluded:</span> <span class="err">false</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="err">Type:</span> <span class="err">3,</span> <span class="err">Domains:</span> <span class="err">[</span><span class="nt">&quot;bankofamerica.com&quot;</span><span class="p">,</span> <span class="nt">&quot;bofa.com&quot;</span><span class="p">,</span> <span class="nt">&quot;mbna.com&quot;</span><span class="p">,</span> <span class="nt">&quot;usecfo.com&quot;</span><span class="err">]</span><span class="p">,</span> <span class="err">Excluded:</span> <span class="err">false</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="err">Type:</span> <span class="err">42,</span> <span class="err">Domains:</span> <span class="err">[</span><span class="nt">&quot;playstation.com&quot;</span><span class="p">,</span> <span class="nt">&quot;sonyentertainmentnetwork.com&quot;</span><span class="err">]</span><span class="p">,</span> <span class="err">Excluded:</span> <span class="err">true</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="err">Type:</span> <span class="err">69,</span> <span class="err">Domains:</span> <span class="err">[</span><span class="nt">&quot;morganstanley.com&quot;</span><span class="p">,</span> <span class="nt">&quot;morganstanleyclientserv.com&quot;</span><span class="err">]</span><span class="p">,</span> <span class="err">Excluded:</span> <span class="err">true</span> <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;Object&quot;</span><span class="p">:</span> <span class="s2">&quot;domains&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h2 id="route-for-sync">Route for sync<a class="headerlink" href="#route-for-sync" title="Permanent link">&para;</a></h2>
+<h3 id="get-bitwardenapisync">GET /bitwarden/api/sync<a class="headerlink" href="#get-bitwardenapisync" title="Permanent link">&para;</a></h3>
+<p>The main action of the client is a one-way sync, which just fetches all objects
+from the server and updates its local database.</p>
+<h4 id="request_7">Request<a class="headerlink" href="#request_7" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/bitwarden/api/sync</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
+
+
+<h4 id="response_8">Response<a class="headerlink" href="#response_8" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;Profile&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;0fbfc68d-ba11-416a-ac8a-a82600f0e601&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;Email&quot;</span><span class="p">:</span> <span class="s2">&quot;me@alice.example.com&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;EmailVerified&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="nt">&quot;Premium&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="nt">&quot;MasterPasswordHint&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="nt">&quot;Culture&quot;</span><span class="p">:</span> <span class="s2">&quot;en-US&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;TwoFactorEnabled&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="nt">&quot;Key&quot;</span><span class="p">:</span> <span class="s2">&quot;0.uRcMe+Mc2nmOet4yWx9BwA==|PGQhpYUlTUq/vBEDj1KOHVMlTIH1eecMl0j80+Zu0VRVfFa7X/MWKdVM6OM/NfSZicFEwaLWqpyBlOrBXhR+trkX/dPRnfwJD2B93hnLNGQ=&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;PrivateKey&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="nt">&quot;SecurityStamp&quot;</span><span class="p">:</span> <span class="s2">&quot;5d203c3f-bc89-499e-85c4-4431248e1196&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;Organizations&quot;</span><span class="p">:</span> <span class="p">[{</span>
+      <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;38ac39d0-d48d-11e9-91bf-f37e45d48c79&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;Cozy&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;Key&quot;</span><span class="p">:</span> <span class="s2">&quot;4.HUzVDQVAFc4JOpW3/j/QwZeET0mXOiDW5s/HdpxLZ2GFnGcxOm1FE4XD2p7XTSwORXO/Lo8y0A87UhXKEXzfHZmpJR04pbpUPr4NJbjRKv/cSkNFlvm0rIUw/m0Jkft/gew9v3QfkVSGdSZk5XIimwkTQ5WM+WCStxbQJIKAH+AoEA5q6t9mpNNlTAQvMgqs8u7CJwSjeZ7qbabfEUVX1HIPgxC3BtVUkySRSws/gUNeMwY23kAJJQYT+uuMooZUr7umU6YkEHG2RQZwCCjVHX4czxZRWsVo/xQOYoNr7DjgCf92D7OrJlFmDtQjzSy2BjotN6vn+1SwtHbeDILWaQ==&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;BillingEmail&quot;</span><span class="p">:</span> <span class="s2">&quot;me@cozy.tools&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;Plan&quot;</span><span class="p">:</span> <span class="s2">&quot;TeamsAnnually&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;PlanType&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+      <span class="nt">&quot;Seats&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+      <span class="nt">&quot;MaxCollections&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="nt">&quot;MaxStorageGb&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="nt">&quot;SelfHost&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nt">&quot;Use2fa&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nt">&quot;UseDirectory&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="nt">&quot;UseEvents&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="nt">&quot;UseGroups&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="nt">&quot;UseTotp&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nt">&quot;UsersGetPremium&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nt">&quot;Enabled&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nt">&quot;Status&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+      <span class="nt">&quot;Type&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+      <span class="nt">&quot;Object&quot;</span><span class="p">:</span> <span class="s2">&quot;profileOrganization&quot;</span>
+    <span class="p">}],</span>
+        <span class="nt">&quot;Object&quot;</span><span class="p">:</span> <span class="s2">&quot;profile&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;Folders&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;14220912-d002-471d-a364-a82a010cb8f2&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;2.tqb+y2z4ChCYHj4romVwGQ==|E8+D7aR5CNnd+jF7fdb9ow==|wELCxyy341G2F+w8bTb87PAUi6sdXeIFTFb4N8tk3E0=&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;RevisionDate&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-11-13T16:20:56.5633333&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;Object&quot;</span><span class="p">:</span> <span class="s2">&quot;folder&quot;</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;Ciphers&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;FolderId&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+            <span class="nt">&quot;Favorite&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">&quot;Edit&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;0f01a66f-7802-42bc-9647-a82600f11e10&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;OrganizationId&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+            <span class="nt">&quot;Type&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+            <span class="nt">&quot;Login&quot;</span><span class="p">:{</span>
+                <span class="nt">&quot;Uris&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="nt">&quot;Uri&quot;</span><span class="p">:</span> <span class="s2">&quot;2.6DmdNKlm3a+9k/5DFg+pTg==|7q1Arwz/ZfKEx+fksV3yo0HMQdypHJvyiix6hzgF3gY=|7lSXqjfq5rD3/3ofNZVpgv1ags696B2XXJryiGjDZvk=&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;Match&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+                    <span class="p">},</span>
+                <span class="p">],</span>
+                <span class="nt">&quot;Username&quot;</span><span class="p">:</span> <span class="s2">&quot;2.4Dwitdv4Br85MABzhMJ4hg==|0BJtHtXbfZWwQXbFcBn0aA==|LM4VC+qNpezmub1f4l1TMLDb9g/Q+sIis2vDbU32ZGA=&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;Password&quot;</span><span class="p">:</span><span class="s2">&quot;2.OOlWRBGib6G8WRvBOziKzQ==|Had/obAdd2/6y4qzM1Kc/A==|LtHXwZc5PkiReFhkzvEHIL01NrsWGvintQbmqwxoXSI=&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;Totp&quot;</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;2.zAgCKbTvGowtaRn1er5WGA==|oVaVLIjfBQoRr5EvHTwfhQ==|lHSTUO5Rgfkjl3J/zGJVRfL8Ab5XrepmyMv9iZL5JBE=&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;Notes&quot;</span><span class="p">:</span> <span class="s2">&quot;2.NLkXMHtgR8u9azASR4XPOQ==|6/9QPcnoeQJDKBZTjcBAjVYJ7U/ArTch0hUSHZns6v8=|p55cl9FQK/Hef+7yzM7Cfe0w07q5hZI9tTbxupZepyM=&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;Fields&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+            <span class="nt">&quot;Attachments&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+            <span class="nt">&quot;OrganizationUseTotp&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">&quot;RevisionDate&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-11-09T14:37:52.9033333&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;Object&quot;</span><span class="p">:</span><span class="s2">&quot;cipher&quot;</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+  <span class="nt">&quot;Collections&quot;</span><span class="p">:</span> <span class="p">[{</span>
+    <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;385aaa2a-d48d-11e9-bb5f-6b31dfebcb4d&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;OrganizationId&quot;</span><span class="p">:</span> <span class="s2">&quot;38ac39d0-d48d-11e9-91bf-f37e45d48c79&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;2.PowfE263ZLz7+Jqrpuezqw==|OzuXDsJnQdfa/eMKxsms6Q==|RpEB7qqs26X9dqa+KaxSE5+52TFVs4dAdfU7DCu3QXM=&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Object&quot;</span><span class="p">:</span> <span class="s2">&quot;collection&quot;</span>
+  <span class="p">}],</span>
+    <span class="nt">&quot;Domains&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;EquivalentDomains&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="nt">&quot;GlobalEquivalentDomains&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="nt">&quot;Object&quot;</span><span class="p">:</span> <span class="s2">&quot;domains&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;Object&quot;</span><span class="p">:</span> <span class="s2">&quot;sync&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h2 id="routes-for-ciphers">Routes for ciphers<a class="headerlink" href="#routes-for-ciphers" title="Permanent link">&para;</a></h2>
+<h3 id="get-bitwardenapiciphers">GET /bitwarden/api/ciphers<a class="headerlink" href="#get-bitwardenapiciphers" title="Permanent link">&para;</a></h3>
+<p>It retrieves the list of ciphers.</p>
+<h4 id="request_8">Request<a class="headerlink" href="#request_8" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/bitwarden/api/ciphers</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
+
+
+<h4 id="response_9">Response<a class="headerlink" href="#response_9" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;Data&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;Object&quot;</span><span class="p">:</span> <span class="s2">&quot;cipher&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;4c2869dd-0e1c-499f-b116-a824016df251&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;Type&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="nt">&quot;Favorite&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;2.d7MttWzJTSSKx1qXjHUxlQ==|01Ath5UqFZHk7csk5DVtkQ==|EMLoLREgCUP5Cu4HqIhcLqhiZHn+NsUDp8dAg1Xu0Io=&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;FolderId&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="nt">&quot;OrganizationId&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="nt">&quot;Notes&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="nt">&quot;Login&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;Uris&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="p">{</span>
+            <span class="nt">&quot;Uri&quot;</span><span class="p">:</span> <span class="s2">&quot;2.T57BwAuV8ubIn/sZPbQC+A==|EhUSSpJWSzSYOdJ/AQzfXuUXxwzcs/6C4tOXqhWAqcM=|OWV2VIqLfoWPs9DiouXGUOtTEkVeklbtJQHkQFIXkC8=&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;Match&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+          <span class="p">},</span>
+        <span class="p">],</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;Username&quot;</span><span class="p">:</span> <span class="s2">&quot;2.JbFkAEZPnuMm70cdP44wtA==|fsN6nbT+udGmOWv8K4otgw==|JbtwmNQa7/48KszT2hAdxpmJ6DRPZst0EDEZx5GzesI=&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;Password&quot;</span><span class="p">:</span> <span class="s2">&quot;2.e83hIsk6IRevSr/H1lvZhg==|48KNkSCoTacopXRmIZsbWg==|CIcWgNbaIN2ix2Fx1Gar6rWQeVeboehp4bioAwngr0o=&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;Totp&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="nt">&quot;Fields&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="nt">&quot;Attachments&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="nt">&quot;RevisionDate&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-11-07T22:12:22.235914Z&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;Edit&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nt">&quot;OrganizationUseTotp&quot;</span><span class="p">:</span> <span class="kc">false</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;Object&quot;</span><span class="p">:</span> <span class="s2">&quot;list&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="post-bitwardenapiciphers">POST /bitwarden/api/ciphers<a class="headerlink" href="#post-bitwardenapiciphers" title="Permanent link">&para;</a></h3>
+<p>When a new item (login, secure note, etc.) is created on a device, it is sent
+to the server with its fields encrypted via this route.</p>
+<h4 id="request_9">Request<a class="headerlink" href="#request_9" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/bitwarden/api/ciphers</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;favorite&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;2.d7MttWzJTSSKx1qXjHUxlQ==|01Ath5UqFZHk7csk5DVtkQ==|EMLoLREgCUP5Cu4HqIhcLqhiZHn+NsUDp8dAg1Xu0Io=&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;folderId&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&quot;organizationId&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&quot;notes&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&quot;login&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;uri&quot;</span><span class="p">:</span> <span class="s2">&quot;2.T57BwAuV8ubIn/sZPbQC+A==|EhUSSpJWSzSYOdJ/AQzfXuUXxwzcs/6C4tOXqhWAqcM=|OWV2VIqLfoWPs9DiouXGUOtTEkVeklbtJQHkQFIXkC8=&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;username&quot;</span><span class="p">:</span> <span class="s2">&quot;2.JbFkAEZPnuMm70cdP44wtA==|fsN6nbT+udGmOWv8K4otgw==|JbtwmNQa7/48KszT2hAdxpmJ6DRPZst0EDEZx5GzesI=&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;password&quot;</span><span class="p">:</span> <span class="s2">&quot;2.e83hIsk6IRevSr/H1lvZhg==|48KNkSCoTacopXRmIZsbWg==|CIcWgNbaIN2ix2Fx1Gar6rWQeVeboehp4bioAwngr0o=&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;totp&quot;</span><span class="p">:</span> <span class="kc">null</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h4 id="response_10">Response<a class="headerlink" href="#response_10" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;Object&quot;</span><span class="p">:</span> <span class="s2">&quot;cipher&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;4c2869dd-0e1c-499f-b116-a824016df251&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Type&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;Favorite&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;2.d7MttWzJTSSKx1qXjHUxlQ==|01Ath5UqFZHk7csk5DVtkQ==|EMLoLREgCUP5Cu4HqIhcLqhiZHn+NsUDp8dAg1Xu0Io=&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;FolderId&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&quot;OrganizationId&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&quot;Notes&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&quot;Login&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;Uris&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="nt">&quot;Uri&quot;</span><span class="p">:</span> <span class="s2">&quot;2.T57BwAuV8ubIn/sZPbQC+A==|EhUSSpJWSzSYOdJ/AQzfXuUXxwzcs/6C4tOXqhWAqcM=|OWV2VIqLfoWPs9DiouXGUOtTEkVeklbtJQHkQFIXkC8=&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;Match&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">],</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;Username&quot;</span><span class="p">:</span> <span class="s2">&quot;2.JbFkAEZPnuMm70cdP44wtA==|fsN6nbT+udGmOWv8K4otgw==|JbtwmNQa7/48KszT2hAdxpmJ6DRPZst0EDEZx5GzesI=&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Password&quot;</span><span class="p">:</span> <span class="s2">&quot;2.e83hIsk6IRevSr/H1lvZhg==|48KNkSCoTacopXRmIZsbWg==|CIcWgNbaIN2ix2Fx1Gar6rWQeVeboehp4bioAwngr0o=&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Totp&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&quot;Fields&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&quot;Attachments&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&quot;RevisionDate&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-11-07T22:12:22.235914Z&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Edit&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;OrganizationUseTotp&quot;</span><span class="p">:</span> <span class="kc">false</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="post-bitwardenapicipherscreate">POST /bitwarden/api/ciphers/create<a class="headerlink" href="#post-bitwardenapicipherscreate" title="Permanent link">&para;</a></h3>
+<p>This route also allows to create a cipher, but this time, it is for a cipher
+shared with an organization.</p>
+<h4 id="request_10">Request<a class="headerlink" href="#request_10" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/bitwarden/api/ciphers/create</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;cipher&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;favorite&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;2.d7MttWzJTSSKx1qXjHUxlQ==|01Ath5UqFZHk7csk5DVtkQ==|EMLoLREgCUP5Cu4HqIhcLqhiZHn+NsUDp8dAg1Xu0Io=&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;folderId&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&quot;organizationId&quot;</span><span class="p">:</span> <span class="s2">&quot;38ac39d0-d48d-11e9-91bf-f37e45d48c79&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;notes&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&quot;login&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;uri&quot;</span><span class="p">:</span> <span class="s2">&quot;2.T57BwAuV8ubIn/sZPbQC+A==|EhUSSpJWSzSYOdJ/AQzfXuUXxwzcs/6C4tOXqhWAqcM=|OWV2VIqLfoWPs9DiouXGUOtTEkVeklbtJQHkQFIXkC8=&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;username&quot;</span><span class="p">:</span> <span class="s2">&quot;2.JbFkAEZPnuMm70cdP44wtA==|fsN6nbT+udGmOWv8K4otgw==|JbtwmNQa7/48KszT2hAdxpmJ6DRPZst0EDEZx5GzesI=&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;password&quot;</span><span class="p">:</span> <span class="s2">&quot;2.e83hIsk6IRevSr/H1lvZhg==|48KNkSCoTacopXRmIZsbWg==|CIcWgNbaIN2ix2Fx1Gar6rWQeVeboehp4bioAwngr0o=&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;totp&quot;</span><span class="p">:</span> <span class="kc">null</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;collectionIds&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;385aaa2a-d48d-11e9-bb5f-6b31dfebcb4d&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h4 id="response_11">Response<a class="headerlink" href="#response_11" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;Object&quot;</span><span class="p">:</span> <span class="s2">&quot;cipher&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;4c2869dd-0e1c-499f-b116-a824016df251&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Type&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;Favorite&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;2.d7MttWzJTSSKx1qXjHUxlQ==|01Ath5UqFZHk7csk5DVtkQ==|EMLoLREgCUP5Cu4HqIhcLqhiZHn+NsUDp8dAg1Xu0Io=&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;FolderId&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&quot;OrganizationId&quot;</span><span class="p">:</span> <span class="s2">&quot;38ac39d0-d48d-11e9-91bf-f37e45d48c79&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Notes&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&quot;Login&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;Uris&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="nt">&quot;Uri&quot;</span><span class="p">:</span> <span class="s2">&quot;2.T57BwAuV8ubIn/sZPbQC+A==|EhUSSpJWSzSYOdJ/AQzfXuUXxwzcs/6C4tOXqhWAqcM=|OWV2VIqLfoWPs9DiouXGUOtTEkVeklbtJQHkQFIXkC8=&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;Match&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">],</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;Username&quot;</span><span class="p">:</span> <span class="s2">&quot;2.JbFkAEZPnuMm70cdP44wtA==|fsN6nbT+udGmOWv8K4otgw==|JbtwmNQa7/48KszT2hAdxpmJ6DRPZst0EDEZx5GzesI=&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Password&quot;</span><span class="p">:</span> <span class="s2">&quot;2.e83hIsk6IRevSr/H1lvZhg==|48KNkSCoTacopXRmIZsbWg==|CIcWgNbaIN2ix2Fx1Gar6rWQeVeboehp4bioAwngr0o=&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Totp&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&quot;Fields&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&quot;Attachments&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&quot;RevisionDate&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-11-07T22:12:22.235914Z&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Edit&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;OrganizationUseTotp&quot;</span><span class="p">:</span> <span class="kc">false</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="get-bitwardenapiciphersid">GET /bitwarden/api/ciphers/:id<a class="headerlink" href="#get-bitwardenapiciphersid" title="Permanent link">&para;</a></h3>
+<h4 id="request_11">Request<a class="headerlink" href="#request_11" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/bitwarden/api/ciphers/4c2869dd-0e1c-499f-b116-a824016df251</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
+
+
+<h4 id="response_12">Response<a class="headerlink" href="#response_12" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;Object&quot;</span><span class="p">:</span> <span class="s2">&quot;cipher&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;4c2869dd-0e1c-499f-b116-a824016df251&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Type&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;Favorite&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;2.d7MttWzJTSSKx1qXjHUxlQ==|01Ath5UqFZHk7csk5DVtkQ==|EMLoLREgCUP5Cu4HqIhcLqhiZHn+NsUDp8dAg1Xu0Io=&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;FolderId&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&quot;OrganizationId&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&quot;Notes&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&quot;Login&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;Uris&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="nt">&quot;Uri&quot;</span><span class="p">:</span> <span class="s2">&quot;2.T57BwAuV8ubIn/sZPbQC+A==|EhUSSpJWSzSYOdJ/AQzfXuUXxwzcs/6C4tOXqhWAqcM=|OWV2VIqLfoWPs9DiouXGUOtTEkVeklbtJQHkQFIXkC8=&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;Match&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">],</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;Username&quot;</span><span class="p">:</span> <span class="s2">&quot;2.JbFkAEZPnuMm70cdP44wtA==|fsN6nbT+udGmOWv8K4otgw==|JbtwmNQa7/48KszT2hAdxpmJ6DRPZst0EDEZx5GzesI=&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Password&quot;</span><span class="p">:</span> <span class="s2">&quot;2.e83hIsk6IRevSr/H1lvZhg==|48KNkSCoTacopXRmIZsbWg==|CIcWgNbaIN2ix2Fx1Gar6rWQeVeboehp4bioAwngr0o=&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Totp&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&quot;Fields&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&quot;Attachments&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&quot;RevisionDate&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-11-07T22:12:22.235914Z&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Edit&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;OrganizationUseTotp&quot;</span><span class="p">:</span> <span class="kc">false</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="put-bitwardenapiciphersid">PUT /bitwarden/api/ciphers/:id<a class="headerlink" href="#put-bitwardenapiciphersid" title="Permanent link">&para;</a></h3>
+<p>This route is used to change a cipher. It can also be called via
+<code>POST /bitwarden/api/ciphers/:id</code> (I think it is used by the web vault).</p>
+<h4 id="request_12">Request<a class="headerlink" href="#request_12" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">PUT</span> <span class="nn">/bitwarden/api/ciphers/4c2869dd-0e1c-499f-b116-a824016df251</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&quot;favorite&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;2.G38TIU3t1pGOfkzjCQE7OQ==|Xa1RupttU7zrWdzIT6oK+w==|J3C6qU1xDrfTgyJD+OrDri1GjgGhU2nmRK75FbZHXoI=&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;folderId&quot;</span><span class="p">:</span> <span class="s2">&quot;14220912-d002-471d-a364-a82a010cb8f2&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;organizationId&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&quot;notes&quot;</span><span class="p">:</span> <span class="s2">&quot;2.rSw0uVQEFgUCEmOQx0JnDg==|MKqHLD25aqaXYHeYJPH/mor7l3EeSQKsI7A/R+0bFTI=|ODcUScISzKaZWHlUe4MRGuTT2S7jpyDmbOHl7d+6HiM=&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;secureNote&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h4 id="response_13">Response<a class="headerlink" href="#response_13" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;Object&quot;</span><span class="p">:</span> <span class="s2">&quot;cipher&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;4c2869dd-0e1c-499f-b116-a824016df251&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Type&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&quot;Favorite&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;2.G38TIU3t1pGOfkzjCQE7OQ==|Xa1RupttU7zrWdzIT6oK+w==|J3C6qU1xDrfTgyJD+OrDri1GjgGhU2nmRK75FbZHXoI=&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;FolderId&quot;</span><span class="p">:</span> <span class="s2">&quot;14220912-d002-471d-a364-a82a010cb8f2&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;OrganizationId&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&quot;Notes&quot;</span><span class="p">:</span> <span class="s2">&quot;2.rSw0uVQEFgUCEmOQx0JnDg==|MKqHLD25aqaXYHeYJPH/mor7l3EeSQKsI7A/R+0bFTI=|ODcUScISzKaZWHlUe4MRGuTT2S7jpyDmbOHl7d+6HiM=&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;SecureNote&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;Type&quot;</span><span class="p">:</span> <span class="mi">0</span>
+  <span class="p">},</span>
+    <span class="nt">&quot;Fields&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&quot;Attachments&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&quot;RevisionDate&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-11-07T22:12:22.235914Z&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Edit&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;OrganizationUseTotp&quot;</span><span class="p">:</span> <span class="kc">false</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="post-bitwardenapiciphersidshare">POST /bitwarden/api/ciphers/:id/share<a class="headerlink" href="#post-bitwardenapiciphersidshare" title="Permanent link">&para;</a></h3>
+<p>This route is used to share a cipher with an organization. The fields must be
+encrypted with the organization key.</p>
+<h4 id="request_13">Request<a class="headerlink" href="#request_13" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/bitwarden/api/ciphers/4c2869dd-0e1c-499f-b116-a824016df251/share</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;cipher&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&quot;favorite&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;2.d00W2bB8LhE86LybnoPnEQ==|QqJqmzMMv2Cdm9wieUH66Q==|TV++tKNF0+4/axjAeRXMxAkTdRBuIsXnCuhOKE0ESh0=&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;organizationId&quot;</span><span class="p">:</span> <span class="s2">&quot;38ac39d0-d48d-11e9-91bf-f37e45d48c79&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;notes&quot;</span><span class="p">:</span> <span class="s2">&quot;2.9m3XIbiJLk86thmF3UsO/A==|YC7plTgNQuMCkzYZC3iRjQ==|o8wZNQ3czr9sdeGXjOCalQwgPWsqOHZVnA2utZ+o/l4=&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;secureNote&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;collectionIds&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;385aaa2a-d48d-11e9-bb5f-6b31dfebcb4d&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h4 id="response_14">Response<a class="headerlink" href="#response_14" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;Object&quot;</span><span class="p">:</span> <span class="s2">&quot;cipher&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;4c2869dd-0e1c-499f-b116-a824016df251&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Type&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&quot;Favorite&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;2.d00W2bB8LhE86LybnoPnEQ==|QqJqmzMMv2Cdm9wieUH66Q==|TV++tKNF0+4/axjAeRXMxAkTdRBuIsXnCuhOKE0ESh0=&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;OrganizationId&quot;</span><span class="p">:</span> <span class="s2">&quot;38ac39d0-d48d-11e9-91bf-f37e45d48c79&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;Notes&quot;</span><span class="p">:</span> <span class="s2">&quot;2.9m3XIbiJLk86thmF3UsO/A==|YC7plTgNQuMCkzYZC3iRjQ==|o8wZNQ3czr9sdeGXjOCalQwgPWsqOHZVnA2utZ+o/l4=&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;SecureNote&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;Type&quot;</span><span class="p">:</span> <span class="mi">0</span>
+  <span class="p">},</span>
+    <span class="nt">&quot;Fields&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&quot;Attachments&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&quot;RevisionDate&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-11-07T22:12:22.235914Z&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Edit&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;OrganizationUseTotp&quot;</span><span class="p">:</span> <span class="kc">false</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="delete-bitwardenapiciphersid">DELETE /bitwarden/api/ciphers/:id<a class="headerlink" href="#delete-bitwardenapiciphersid" title="Permanent link">&para;</a></h3>
+<p>This route is used to delete a cipher. It can also be called via
+<code>POST /bitwarden/api/ciphers/:id/delete</code> (I think it is used by the web vault).</p>
+<h4 id="request_14">Request<a class="headerlink" href="#request_14" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/bitwarden/api/ciphers/4c2869dd-0e1c-499f-b116-a824016df251</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
+</pre></div>
+
+
+<h4 id="response_15">Response<a class="headerlink" href="#response_15" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+
+
+<h2 id="routes-for-folders">Routes for folders<a class="headerlink" href="#routes-for-folders" title="Permanent link">&para;</a></h2>
+<h3 id="get-bitwardenapifolders">GET /bitwarden/api/folders<a class="headerlink" href="#get-bitwardenapifolders" title="Permanent link">&para;</a></h3>
+<p>It retrieves the list of folders.</p>
+<h4 id="request_15">Request<a class="headerlink" href="#request_15" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/bitwarden/api/folders</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
+
+
+<h4 id="response_16">Response<a class="headerlink" href="#response_16" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;Data&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;14220912-d002-471d-a364-a82a010cb8f2&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;2.FQAwIBaDbczEGnEJw4g4hw==|7KreXaC0duAj0ulzZJ8ncA==|nu2sEvotjd4zusvGF8YZJPnS9SiJPDqc1VIfCrfve/o=&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;RevisionDate&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-11-13T16:18:23.3078169Z&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;Object&quot;</span><span class="p">:</span> <span class="s2">&quot;folder&quot;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;Object&quot;</span><span class="p">:</span> <span class="s2">&quot;list&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="post-bitwardenapifolders">POST /bitwarden/api/folders<a class="headerlink" href="#post-bitwardenapifolders" title="Permanent link">&para;</a></h3>
+<p>It adds a new folder on the server. The name is encrypted on client-side.</p>
+<h4 id="request_16">Request<a class="headerlink" href="#request_16" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/bitwarden/api/folders</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;2.FQAwIBaDbczEGnEJw4g4hw==|7KreXaC0duAj0ulzZJ8ncA==|nu2sEvotjd4zusvGF8YZJPnS9SiJPDqc1VIfCrfve/o=&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h4 id="response_17">Response<a class="headerlink" href="#response_17" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;14220912-d002-471d-a364-a82a010cb8f2&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;2.FQAwIBaDbczEGnEJw4g4hw==|7KreXaC0duAj0ulzZJ8ncA==|nu2sEvotjd4zusvGF8YZJPnS9SiJPDqc1VIfCrfve/o=&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;RevisionDate&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-11-13T16:18:23.3078169Z&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Object&quot;</span><span class="p">:</span> <span class="s2">&quot;folder&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="get-bitwardenapifoldersid">GET /bitwarden/api/folders/:id<a class="headerlink" href="#get-bitwardenapifoldersid" title="Permanent link">&para;</a></h3>
+<h4 id="request_17">Request<a class="headerlink" href="#request_17" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/bitwarden/api/folders/14220912-d002-471d-a364-a82a010cb8f2</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
+
+
+<h4 id="response_18">Response<a class="headerlink" href="#response_18" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;14220912-d002-471d-a364-a82a010cb8f2&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;2.FQAwIBaDbczEGnEJw4g4hw==|7KreXaC0duAj0ulzZJ8ncA==|nu2sEvotjd4zusvGF8YZJPnS9SiJPDqc1VIfCrfve/o=&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;RevisionDate&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-11-13T16:18:23.3078169Z&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Object&quot;</span><span class="p">:</span> <span class="s2">&quot;folder&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="put-bitwardenapifoldersid">PUT /bitwarden/api/folders/:id<a class="headerlink" href="#put-bitwardenapifoldersid" title="Permanent link">&para;</a></h3>
+<p>This route is used to rename a folder. It can also be called via
+<code>POST /bitwarden/api/folders/:id</code> (I think it is used by the web vault).</p>
+<h4 id="request_18">Request<a class="headerlink" href="#request_18" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">PUT</span> <span class="nn">/bitwarden/api/folders/14220912-d002-471d-a364-a82a010cb8f2</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;2.d7MttWzJTSSKx1qXjHUxlQ==|01Ath5UqFZHk7csk5DVtkQ==|EMLoLREgCUP5Cu4HqIhcLqhiZHn+NsUDp8dAg1Xu0Io=&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h4 id="response_19">Response<a class="headerlink" href="#response_19" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;14220912-d002-471d-a364-a82a010cb8f2&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;2.d7MttWzJTSSKx1qXjHUxlQ==|01Ath5UqFZHk7csk5DVtkQ==|EMLoLREgCUP5Cu4HqIhcLqhiZHn+NsUDp8dAg1Xu0Io=&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;RevisionDate&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-11-13T16:18:23.3078169Z&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Object&quot;</span><span class="p">:</span> <span class="s2">&quot;folder&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="delete-bitwardenapifoldersid">DELETE /bitwarden/api/folders/:id<a class="headerlink" href="#delete-bitwardenapifoldersid" title="Permanent link">&para;</a></h3>
+<p>This route is used to delete a folder. It can also be called via
+<code>POST /bitwarden/api/folders/:id/delete</code> (I think it is used by the web vault).</p>
+<h4 id="request_19">Request<a class="headerlink" href="#request_19" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/bitwarden/api/folders/14220912-d002-471d-a364-a82a010cb8f2</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
+</pre></div>
+
+
+<h4 id="response_20">Response<a class="headerlink" href="#response_20" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+
+
+<h2 id="cozy-organization">Cozy Organization<a class="headerlink" href="#cozy-organization" title="Permanent link">&para;</a></h2>
+<h3 id="get-bitwardenorganizationscozy">GET /bitwarden/organizations/cozy<a class="headerlink" href="#get-bitwardenorganizationscozy" title="Permanent link">&para;</a></h3>
+<p>This route can be used to get information about the Cozy Organization. It
+requires a permission on the whole <code>com.bitwarden.organizations</code> doctype to
+access it. In particular, it gives the key to encrypt/decrypt the ciphers in
+this organization (encoded in base64).</p>
+<h4 id="request_20">Request<a class="headerlink" href="#request_20" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/bitwarden/organizations/cozy</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
+</pre></div>
+
+
+<h4 id="response_21">Response<a class="headerlink" href="#response_21" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;organizationId&quot;</span><span class="p">:</span> <span class="s2">&quot;38ac39d0-d48d-11e9-91bf-f37e45d48c79&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;collectionId&quot;</span><span class="p">:</span> <span class="s2">&quot;385aaa2a-d48d-11e9-bb5f-6b31dfebcb4d&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;organizationKey&quot;</span><span class="p">:</span> <span class="s2">&quot;oWeRYokoCMFsAja6lrp3RQ1PYOrex4tgAMECP4nX+a4IXdijbejQscvWqy9bMgLsX0HRc2igqBRMWdsPuFK0PQ==&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h2 id="icons">Icons<a class="headerlink" href="#icons" title="Permanent link">&para;</a></h2>
+<h3 id="get-bitwardeniconsdomainiconpng">GET /bitwarden/icons/:domain/icon.png<a class="headerlink" href="#get-bitwardeniconsdomainiconpng" title="Permanent link">&para;</a></h3>
+<p>This route returns an icon for the given domain, that can be used by the
+bitwarden clients. No authorization token is required.</p>
+<h4 id="request_21">Request<a class="headerlink" href="#request_21" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/bitwarden/icons/cozy.io/icon.png</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
+</pre></div>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../konnectors/" title=" /apps - Konnectors" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                 /apps - Konnectors
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../data-system/" title="/data - Data System" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                /data - Data System
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.245445c6.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+        <script src="../../extra.js"></script>
+      
+    
+  </body>
+</html>

@@ -1210,6 +1210,30 @@
 
 
   <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/com.bitwarden.ciphers/" title="Bitwarden ciphers" class="md-nav__link">
+      Bitwarden ciphers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/com.bitwarden.folders/" title="Bitwarden folders" class="md-nav__link">
+      Bitwarden folders
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../cozy-doctypes/docs/com.unibet.bets/" title="Bets Unibet" class="md-nav__link">
       Bets Unibet
     </a>
@@ -1874,6 +1898,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#post-authtwofactor" title="POST /auth/twofactor" class="md-nav__link">
+    POST /auth/twofactor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#delete-authlogin" title="DELETE /auth/login" class="md-nav__link">
     DELETE /auth/login
   </a>
@@ -2190,6 +2221,18 @@
   <li class="md-nav__item">
     <a href="../konnectors/" title="/apps - Konnectors" class="md-nav__link">
        /apps - Konnectors
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../bitwarden/" title="/bitwarden - Bitwarden" class="md-nav__link">
+      /bitwarden - Bitwarden
     </a>
   </li>
 
@@ -2667,6 +2710,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#post-authtwofactor" title="POST /auth/twofactor" class="md-nav__link">
+    POST /auth/twofactor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#delete-authlogin" title="DELETE /auth/login" class="md-nav__link">
     DELETE /auth/login
   </a>
@@ -3088,14 +3138,15 @@ case, a <code>200 OK</code> response is sent along with a token value in the res
 (either in JSON if requested or directly in a new HTML form).</p>
 <p>Along with this token, on 2FA passcode is sent to the user via another transport
 (email for instance, depending on the user&rsquo;s preferences). Another request
-should be sent to the same endpoint with a valid pair <code>(token, passcode)</code>,
+should be sent to <code>/auth/twofactor</code> with a valid pair <code>(token, passcode)</code>,
 ensuring that the user correctly entered its passphrase <em>and</em> received a fresh
 passcode by another mean.</p>
-<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/auth/login</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<h3 id="post-authtwofactor">POST /auth/twofactor<a class="headerlink" href="#post-authtwofactor" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/auth/twofactor</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/x-www-form-urlencoded</span>
 
-two-factor-token=123123123123&amp;passcode=678678&amp;redirect=https%3A%2F%2Fcontacts.cozy.example.org
+two-factor-token=123123123123&amp;two-factor-passcode=678678&amp;redirect=https%3A%2F%2Fcontacts.cozy.example.org
 </pre></div>
 
 
@@ -3712,11 +3763,16 @@ The token is then extracted from the title of the page. See
 <a href="https://github.com/AdrianArroyoCalle/firefox-addons/blob/master/addon-google-oauth2/addon-google-oauth2.js">this addon for google oauth2</a>
 as an example.</p>
 <h2 id="security-considerations">Security considerations<a class="headerlink" href="#security-considerations" title="Permanent link">&para;</a></h2>
-<p>The password will be stored in a secure fashion, with a password hashing
-function. The hashing function and its parameter will be stored with the hash,
-in order to make it possible to change the algorithm and/or the parameters later
-if we had any suspicion that it became too weak. The initial algorithm is
-<a href="https://godoc.org/golang.org/x/crypto/scrypt">scrypt</a>.</p>
+<p>The master password, the password known by the user, is derived on the clients
+to give two keys. The first key is used to login on the stack, the second key
+is used to do client-side encryption. The derivation for the login password is
+currently done with the PBKDF2 algorithm (with SHA256), but we have anticipated
+the possibility of changing to another algorithm if desirable.</p>
+<p>The derived password is stored on the server in a secure fashion, with a
+password hashing function. The hashing function and its parameter are stored
+with the hash, in order to make it possible to change the algorithm and/or the
+parameters later if we had any suspicion that it became too weak. The initial
+algorithm is <a href="https://godoc.org/golang.org/x/crypto/scrypt">scrypt</a>.</p>
 <p>The access code is valid only once, and will expire after 5 minutes</p>
 <p>Dynamically registered applications won&rsquo;t have access to all possible scopes.
 For example, an application that has been dynamically registered can&rsquo;t ask the
