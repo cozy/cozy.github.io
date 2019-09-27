@@ -5,7 +5,7 @@
 global.window = { cordova: false }
 
 /* CLI used in development to generate emails from template and data */
-const { EMAILS, renderTemplate } = require('./common-test')
+const { EMAILS, buildNotificationAttributes } = require('./common-test')
 
 const main = () => {
   const express = require('express')
@@ -25,8 +25,23 @@ const main = () => {
     `
 
     try {
-      const renderedTemplate = await renderTemplate(templateName, lang)
-      res.send(nav + '<br/><br/>' + renderedTemplate)
+      const { content, content_html } = await buildNotificationAttributes(
+        templateName,
+        lang
+      )
+
+      res.send(`
+        ${nav}
+        <br/><br/>
+        <div>
+          <div>
+            ${content_html}
+          </div>
+          <div>
+            <pre>${content}</pre>
+          </div>
+        </div>
+      `)
     } catch (e) {
       res.send('Error while rendering template. <pre>' + e.stack + '</pre>')
     }

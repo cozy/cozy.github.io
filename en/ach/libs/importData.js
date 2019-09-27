@@ -215,7 +215,6 @@ const importData = async function(cozyClient, data, options) {
           ' document' +
           (results.length > 1 ? 's' : '')
       )
-      console.log(results.map(result => result._id))
     } catch (error) {
       throw new Error(error)
     }

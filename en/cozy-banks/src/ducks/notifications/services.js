@@ -1,13 +1,14 @@
 import logger from 'cozy-logger'
 import { initTranslation } from 'cozy-ui/react/I18n/translation'
-import {
-  BalanceLower,
-  TransactionGreater,
-  HealthBillLinked,
-  LateHealthReimbursement,
-  DelayedDebit
-} from 'ducks/notifications'
+
+import BalanceLower from './BalanceLower'
+import TransactionGreater from './TransactionGreater'
+import HealthBillLinked from './HealthBillLinked'
+import LateHealthReimbursement from './LateHealthReimbursement'
+import DelayedDebit from './DelayedDebit'
+
 import { BankAccount } from 'models'
+import { sendNotification } from 'cozy-notifications'
 
 const log = logger.namespace('notification-service')
 
@@ -63,14 +64,18 @@ export const sendNotifications = async (config, transactions, cozyClient) => {
   )
   for (const Klass of enabledNotificationClasses) {
     const klassConfig = getClassConfig(Klass, config)
-    const notification = new Klass({
+    const notificationView = new Klass({
       ...klassConfig,
-      cozyClient,
+      client: cozyClient.new,
       t,
+      locales: {
+        [lang]: dictRequire(lang)
+      },
+      lang,
       data: { accounts, transactions }
     })
     try {
-      await notification.sendNotification()
+      await sendNotification(notificationView)
     } catch (err) {
       log('warn', JSON.stringify(err))
     }

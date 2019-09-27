@@ -1,4 +1,4 @@
-import DelayedDebit, { isCreditCardAccount } from './DelayedDebit'
+import DelayedDebit, { isCreditCardAccount } from '.'
 import keyBy from 'lodash/keyBy'
 import MockDate from 'mockdate'
 
@@ -10,8 +10,16 @@ describe('DelayedDebit', () => {
 
   beforeEach(() => {
     notification = new DelayedDebit({
-      cozyClient: { _url: 'http://cozy.tools:8080' },
-      value: 2
+      lang: 'en',
+      locales: {},
+      t: () => {},
+      client: {
+        stackClient: {
+          uri: 'http://cozy.tools:8080'
+        }
+      },
+      value: 2,
+      data: {}
     })
 
     accounts = [

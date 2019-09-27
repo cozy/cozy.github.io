@@ -1,5 +1,4 @@
-import * as utils from './html/utils'
-import Notification from './Notification'
+import NotificationView from '../BaseNotificationView'
 import logger from 'cozy-logger'
 import {
   getAccountBalance,
@@ -9,9 +8,10 @@ import {
 import { endOfMonth, subDays, isWithinRange } from 'date-fns'
 import { BankAccount } from 'cozy-doctypes'
 import { get, keyBy, groupBy, map } from 'lodash'
-import { getAccountNewBalance } from './helpers'
-import { getCurrentDate } from './html/utils'
-import template from './html/templates/delayed-debit.hbs'
+import { getAccountNewBalance } from 'ducks/notifications/helpers'
+import { getCurrentDate } from 'ducks/notifications/utils'
+import template from './template.hbs'
+import { toText } from 'cozy-notifications'
 
 const log = logger.namespace('delayedDebit')
 
@@ -29,7 +29,7 @@ export const isCreditCardAccount = account =>
   getAccountType(account) === 'CreditCard' &&
   get(account, 'relationships.checkingsAccount.data')
 
-class DelayedDebit extends Notification {
+class DelayedDebit extends NotificationView {
   constructor(config) {
     super(config)
     log('info', `value of delayedDebit: ${config.value}`)
@@ -73,10 +73,12 @@ class DelayedDebit extends Notification {
     })
   }
 
-  prepareHandlebars(Handlebars) {
-    super.prepareHandlebars(Handlebars)
-    Handlebars.registerHelper({ getAccountBalance })
-    Handlebars.registerHelper({ getAccountNewBalance })
+  getHelpers() {
+    return {
+      ...super.getHelpers(),
+      getAccountBalance,
+      getAccountNewBalance
+    }
   }
 
   async fetchData() {
@@ -88,7 +90,7 @@ class DelayedDebit extends Notification {
     return { accounts }
   }
 
-  async buildTemplateData() {
+  async buildData() {
     const data = await this.fetchData()
     if (!data) {
       return
@@ -107,11 +109,11 @@ class DelayedDebit extends Notification {
     }
   }
 
-  shouldSendNotification(templateData) {
+  shouldSend(templateData) {
     return templateData && templateData.institutions.length > 0
   }
 
-  getNotificationAttributes() {
+  getExtraAttributes() {
     return {
       data: {
         route: '/balances'
@@ -168,7 +170,7 @@ DelayedDebit.toText = html => {
         }
       })
       .join('\n')
-  return utils.toText(html, getContent)
+  return toText(html, getContent)
 }
 
 export default DelayedDebit

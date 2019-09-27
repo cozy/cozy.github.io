@@ -1,19 +1,19 @@
-import Notification from './Notification'
-import { isHealthExpense } from '../categories/helpers'
+import NotificationView from 'ducks/notifications/BaseNotificationView'
+import { isHealthExpense } from 'ducks/categories/helpers'
 import { Bill } from 'models'
-import * as utils from './html/utils'
 import keyBy from 'lodash/keyBy'
 import log from 'cozy-logger'
-import { treatedByFormat } from './html/utils'
-import { getReimbursementBillIds } from './helpers'
-import { prepareTransactions, getCurrentDate } from './html/utils'
-import template from './html/templates/health-bill-linked.hbs'
+import { treatedByFormat } from 'ducks/notifications/utils'
+import { getReimbursementBillIds } from 'ducks/notifications/helpers'
+import { prepareTransactions, getCurrentDate } from 'ducks/notifications/utils'
+import template from './template.hbs'
+import { toText } from 'cozy-notifications'
 
 const ACCOUNT_SEL = '.js-account'
 const DATE_SEL = '.js-date'
 const TRANSACTION_SEL = '.js-transaction'
 
-const toText = cozyHTMLEmail => {
+const customToText = cozyHTMLEmail => {
   const getTextTransactionRow = $row =>
     $row
       .find('td')
@@ -43,7 +43,7 @@ const toText = cozyHTMLEmail => {
         }
       })
       .join('\n')
-  return utils.toText(cozyHTMLEmail, getContent)
+  return toText(cozyHTMLEmail, getContent)
 }
 
 const hasReimbursements = transaction =>
@@ -51,13 +51,7 @@ const hasReimbursements = transaction =>
   transaction.reimbursements &&
   transaction.reimbursements.length > 0
 
-class HealthBillLinked extends Notification {
-  constructor(config) {
-    super(config)
-
-    this.data = config.data
-  }
-
+class HealthBillLinked extends NotificationView {
   async fetchData() {
     const { accounts, transactions } = this.data
     const transactionsWithReimbursements = transactions.filter(
@@ -72,7 +66,7 @@ class HealthBillLinked extends Notification {
     }
   }
 
-  async buildTemplateData() {
+  async buildData() {
     const { accounts, transactions, bills } = await this.fetchData()
     if (transactions.length === 0) {
       log('info', 'HealthBillLinked: no transactions with reimbursements')
@@ -94,7 +88,7 @@ class HealthBillLinked extends Notification {
     }
   }
 
-  getNotificationAttributes() {
+  getExtraAttributes() {
     return {
       data: {
         route: '/transactions'
@@ -121,7 +115,7 @@ class HealthBillLinked extends Notification {
 
 HealthBillLinked.preferredChannels = ['mail', 'mobile']
 HealthBillLinked.category = 'health-bill-linked'
-HealthBillLinked.toText = toText
+HealthBillLinked.toText = customToText
 HealthBillLinked.template = template
 HealthBillLinked.settingKey = 'healthBillLinked'
 

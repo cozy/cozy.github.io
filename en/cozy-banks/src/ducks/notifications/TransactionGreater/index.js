@@ -1,19 +1,22 @@
-import * as utils from './html/utils'
 import { subDays } from 'date-fns'
-import { isTransactionAmountGreaterThan } from './helpers'
-import Notification from './Notification'
+import NotificationView from 'ducks/notifications/BaseNotificationView'
 import { sortBy, fromPairs } from 'lodash'
 import log from 'cozy-logger'
-import { getDate, isNew as isNewTransaction } from 'ducks/transactions/helpers'
+import {
+  getDate,
+  isNew as isNewTransaction,
+  isTransactionAmountGreaterThan
+} from 'ducks/transactions/helpers'
 import { getCurrencySymbol } from 'utils/currencySymbol'
-import template from './html/templates/transaction-greater.hbs'
-import { prepareTransactions, getCurrentDate } from './html/utils'
+import template from './template.hbs'
+import { prepareTransactions, getCurrentDate } from 'ducks/notifications/utils'
+import { toText } from 'cozy-notifications'
 
 const ACCOUNT_SEL = '.js-account'
 const DATE_SEL = '.js-date'
 const TRANSACTION_SEL = '.js-transaction'
 
-const toText = cozyHTMLEmail => {
+const customToText = cozyHTMLEmail => {
   const getTextTransactionRow = $row =>
     $row
       .find('td')
@@ -43,10 +46,10 @@ const toText = cozyHTMLEmail => {
         }
       })
       .join('\n')
-  return utils.toText(cozyHTMLEmail, getContent)
+  return toText(cozyHTMLEmail, getContent)
 }
 
-class TransactionGreater extends Notification {
+class TransactionGreater extends NotificationView {
   constructor(config) {
     super(config)
 
@@ -71,7 +74,7 @@ class TransactionGreater extends Notification {
     }
   }
 
-  async buildTemplateData() {
+  async buildData() {
     const { accounts, transactions } = await this.fetchData()
     if (transactions.length === 0) {
       log('info', 'TransactionGreater: no matched transactions')
@@ -92,7 +95,7 @@ class TransactionGreater extends Notification {
     }
   }
 
-  getNotificationAttributes() {
+  getExtraAttributes() {
     return {
       data: {
         route: '/transactions'
@@ -135,7 +138,7 @@ class TransactionGreater extends Notification {
 }
 
 TransactionGreater.category = 'transaction-greater'
-TransactionGreater.toText = toText
+TransactionGreater.toText = customToText
 TransactionGreater.preferredChannels = ['mail', 'mobile']
 TransactionGreater.template = template
 TransactionGreater.settingKey = 'transactionGreater'

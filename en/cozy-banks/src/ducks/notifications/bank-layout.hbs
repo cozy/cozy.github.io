@@ -9,4 +9,12 @@
 
   {{#content "appURL"}}{{ banksUrl }}{{/content}}
 
+  {{#content "footerHelp"}}
+    <a css-class="footer__help" href="{{ settingsUrl }}">
+      {{tGlobal @root.lang 'settings'}}
+    </a>
+    <a css-class="footer__help" href="https://support.cozy.io/">
+      {{tGlobal @root.lang 'support'}}
+    </a>
+  {{/content}}
 {{/extend}}

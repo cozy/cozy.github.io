@@ -26,7 +26,7 @@ const entries = {
 if (process.env.TEST_TEMPLATES) {
   entries.testTemplates = path.resolve(
     SRC_DIR,
-    './ducks/notifications/html/testTemplates.js'
+    './ducks/notifications/testTemplates.js'
   )
 }
 
@@ -74,13 +74,7 @@ module.exports = {
       // warnings on Webpack. We should think of a way to precompile
       // our Handlebars template. At the moment it is not possible
       // since we pass helpers at runtime.
-      handlebars: 'handlebars/dist/handlebars.min.js',
-      // Alias react to mjml's react since it needs react 15.6
-      // Otherwise it is aliases to node_modules/react
-      react: path.resolve(
-        __dirname,
-        '../node_modules/mjml-core/node_modules/react'
-      )
+      handlebars: 'handlebars/dist/handlebars.min.js'
     }
   },
 
@@ -93,6 +87,7 @@ module.exports = {
 
     /* Does not work in a bundle, we do not use it */
     new webpack.NormalModuleReplacementPlugin(/image-size/, noop),
+    new webpack.NormalModuleReplacementPlugin(/uglify-js/, noop),
     new MomentLocalesPlugin({
       localesToKeep: ['fr']
     })
