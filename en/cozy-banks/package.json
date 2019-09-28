@@ -35,7 +35,7 @@
     "watch:mobile": "npm run util:check-dev-server && NODE_ENV=mobile:development npm run commons:watch:hot",
     "watch:mobile:production": "NODE_ENV=mobile:production npm run commons:watch -- --env.target=mobile",
     "serve:mobile": "(cd src/targets/mobile/www && http-server -p 8005)",
-    "mobile:icon": "(cd src/targets/mobile && splashicon-generator --imagespath='./res/model')",
+    "mobile:icon": "(cd src/targets/mobile && splashicon-generator --imagespath='./res/model' && cp ./res/model/splash.png ./res/screens/ios/Default@2x~universal~anyany.png)",
     "mobile:prepare": "(cd src/targets/mobile && cordova prepare && bundle install) && if [[ $(uname) == 'Darwin' ]] ; then npm run ios:install_pods ; fi",
     "mobile:clean": "(cd src/targets/mobile && rm -rf package.json node_modules platforms plugins)",
     "mobile:build": "npm run build:mobile && npm run mobile:clean && npm run mobile:prepare",

@@ -3008,6 +3008,13 @@ have to build the app and upload it on Testflight.</p>
 </pre></div>
 
 
+<p>On iOS, if the given splashscreens are not to the resoution of the device, iOS
+falls back to compatibility mode and adds blacks bars to the top/bottom of the
+screen. This is particularly disgraceful on the iPhoneX which has an unusual screen
+shape.</p>
+<p>To fix this, we use a single splashscreen file and set XCode for it to use
+Cordova&rsquo;s launch screen functionality.</p>
+<p><code>CozyBanks &gt; Resources &gt; Images.xcassets &gt; LaunchStoryBoard &gt; App icons and Launch images &gt; LaunchScreenFile "CDVLaunchScreen"</code></p>
 <ul>
 <li>Install Ruby, Bundler and project dependencies</li>
 </ul>
