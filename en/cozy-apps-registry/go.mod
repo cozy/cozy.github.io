@@ -3,7 +3,7 @@ module github.com/cozy/cozy-apps-registry
 go 1.12
 
 require (
-	github.com/Masterminds/semver/v3 v3.0.1
+	github.com/Masterminds/semver v1.5.0
 	github.com/flimzy/diff v0.1.6 // indirect
 	github.com/flimzy/kivik v1.8.1 // indirect
 	github.com/flimzy/testy v0.1.16 // indirect
@@ -25,6 +25,6 @@ require (
 	github.com/spf13/viper v1.4.0
 	github.com/stretchr/testify v1.4.0
 	gitlab.com/flimzy/testy v0.0.0-20190816103046-aca1ef5ffe7e // indirect
-	golang.org/x/crypto v0.0.0-20190911031432-227b76d455e7
+	golang.org/x/crypto v0.0.0-20190927123631-a832865fa7ad
 	golang.org/x/xerrors v0.0.0-20190717185122-a985d3407aa7 // indirect
 )
