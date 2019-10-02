@@ -17,9 +17,9 @@ export const luminosity = hex => {
   return 0.21 * R + 0.72 * G + 0.07 * B
 }
 
-// Luminosity goes from 0 to 255. At the middle point, we switch
-// the bar theme
-const lumThresold = 127
+// Luminosity goes from 0 to 255. We set a thresold past which we change
+// the text color to white.
+const lumThresold = 180
 
 export const setColor = colorHex => {
   if (!window.StatusBar) {
@@ -28,6 +28,10 @@ export const setColor = colorHex => {
   const StatusBar = window.StatusBar
   const lum = luminosity(colorHex)
   if (lum > lumThresold) {
+    // Black text color when background is light
+    // Also see https://github.com/apache/cordova-plugin-statusbar/issues/148#issuecomment-524354985
+    // since StatusBar has a problem with ios dark mode, we had to add lines to config.xml to force
+    // light mode in Banks (by setting UIUserInterfaceStyle)
     StatusBar.styleDefault()
   } else {
     StatusBar.styleBlackTranslucent()

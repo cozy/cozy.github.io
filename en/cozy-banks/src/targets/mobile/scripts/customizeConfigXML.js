@@ -2,6 +2,7 @@
 
 const path = require('path')
 const fs = require('fs-extra')
+const { execSync } = require('child_process')
 
 const readConfig = () => {
   if (!process.env.OVERRIDE_CONFIG_FILE) {
@@ -67,7 +68,8 @@ const customizeConfigXML = function(context) {
           .replace('$IOS_VERSION_CODE', overrideConfig.fullVersion)
           .replace('$USER_AGENT_VERSION', 'io.cozy.banks.mobile-' + versionCode)
 
-        fs.writeFileSync(configPath, output)
+        fs.writeFileSync(tmpPath, output)
+        execSync(`xmllint --format ${tmpPath} > ${configPath}`)
       }
     })
   } catch (error) {

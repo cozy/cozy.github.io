@@ -2564,6 +2564,10 @@ should be present in one of these directories (ordered by priority):</p>
 </ul>
 <p>The path of the configuration file can also be define from an absolute path
 given by the <code>--config</code> (or <code>-c</code>) flag of the <a href="../cli/cozy-stack_serve/">cozy-stack command</a>.</p>
+<p>Note that is is possible to have an additional configuration file, with the
+<code>.local</code> suffix. For example, it can be used to have <code>/etc/cozy/cozy.yml</code>
+managed by a package manager, and <code>/etc/cozy/cozy.yml.local</code> for things that a
+user can customize.</p>
 <h3 id="templating-and-environment-variables">Templating and Environment Variables<a class="headerlink" href="#templating-and-environment-variables" title="Permanent link">&para;</a></h3>
 <p>It is possible to pass environnment variable to this configuration using the
 <a href="https://golang.org/pkg/text/template/">template language of golang</a>, delimited
@@ -2762,7 +2766,7 @@ config file.</p>
 <h3 id="assets">Assets<a class="headerlink" href="#assets" title="Permanent link">&para;</a></h3>
 <p>The visual appearance of a cozy instance can be customized via some assets
 (CSS, JS, images). These assets can be inserted from the command-line with the
-<a href="../cli/cozy-stack_config_insert-asset/"><code>cozy-stack config insert-asset</code></a>
+<a href="../cli/cozy-stack_assets_add/"><code>cozy-stack assets add</code></a>
 command.</p>
 <p>Here are a small list of assets that you may want to customize:</p>
 <ul>

@@ -13,7 +13,7 @@
         <meta name="description" content="Cozy documentation">
       
       
-        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/cli/cozy-stack_serve/">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/cli/cozy-stack_assets/">
       
       
         <meta name="author" content="CozyCloud - https://cozy.io">
@@ -42,7 +42,7 @@
     
     
       
-        <title>Cozy stack serve - Cozy Developer Documentation</title>
+        <title>Cozy stack assets - Cozy Developer Documentation</title>
       
     
     
@@ -100,7 +100,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#cozy-stack-serve" tabindex="1" class="md-skip">
+      <a href="#cozy-stack-assets" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -126,7 +126,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Cozy stack serve
+                Cozy stack assets
               
             </span>
           
@@ -2314,8 +2314,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#cozy-stack-serve" title="cozy-stack serve" class="md-nav__link">
-    cozy-stack serve
+  <a href="#cozy-stack-assets" title="cozy-stack assets" class="md-nav__link">
+    cozy-stack assets
   </a>
   
     <nav class="md-nav">
@@ -2324,13 +2324,6 @@
           <li class="md-nav__item">
   <a href="#synopsis" title="Synopsis" class="md-nav__link">
     Synopsis
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#examples" title="Examples" class="md-nav__link">
-    Examples
   </a>
   
 </li>
@@ -2377,73 +2370,17 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-stack/cli/cozy-stack_serve.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-stack/cli/cozy-stack_assets.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                  <h1>Cozy stack serve</h1>
+                  <h1>Cozy stack assets</h1>
                 
-                <h2 id="cozy-stack-serve">cozy-stack serve<a class="headerlink" href="#cozy-stack-serve" title="Permanent link">&para;</a></h2>
-<p>Starts the stack and listens for HTTP calls</p>
+                <h2 id="cozy-stack-assets">cozy-stack assets<a class="headerlink" href="#cozy-stack-assets" title="Permanent link">&para;</a></h2>
+<p>Show and manage dynamic assets</p>
 <h3 id="synopsis">Synopsis<a class="headerlink" href="#synopsis" title="Permanent link">&para;</a></h3>
-<p>Starts the stack and listens for HTTP calls
-It will accept HTTP requests on localhost:8080 by default.
-Use the &ndash;port and &ndash;host flags to change the listening option.</p>
-<p>The SIGINT signal will trigger a graceful stop of cozy-stack: it will wait that
-current HTTP requests and jobs are finished (in a limit of 2 minutes) before
-exiting.</p>
-<p>If you are the developer of a client-side app, you can use &ndash;appdir
-to mount a directory as the application with the &lsquo;app&rsquo; slug.</p>
-<div class="codehilite"><pre><span></span>cozy-stack serve [flags]
-</pre></div>
-
-
-<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span>The most often, this command is used in its simple form:
-
-    $ cozy-stack serve
-
-But if you want to develop two apps in local (to test their interactions for
-example), you can use the --appdir flag like this:
-
-    $ cozy-stack serve --appdir appone:/path/to/app_one,apptwo:/path/to/app_two
-</pre></div>
-
-
+<p>cozy-stack assets can be used to list, insert or remove dynamic assets</p>
 <h3 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span>      --allow-root                       Allow to start as root (disabled by default)
-      --appdir strings                   Mount a directory as the &#39;app&#39; application
-      --assets string                    path to the directory with the assets (use the packed assets by default)
-      --couchdb-url string               CouchDB URL (default &quot;http://localhost:5984/&quot;)
-      --csp-whitelist string             Whitelisted domains for the default allowed origins of the Content Secury Policy
-      --dev                              Allow to run in dev mode for a prod release (disabled by default)
-      --disable-csp                      Disable the Content Security Policy (only available for development)
-      --doctypes string                  path to the directory with the doctypes (for developing/testing a remote doctype)
-      --downloads-url string             URL for the download secret storage, redis or in-memory
-      --fs-default-layout int            Default layout for Swift (2 for layout v3) (default -1)
-      --fs-url string                    filesystem url (default &quot;file:///home/runner/work/cozy-stack/cozy-stack/storage&quot;)
-      --geodb string                     define the location of the database for IP -&gt; City lookups (default &quot;.&quot;)
-  -h, --help                             help for serve
-      --hooks string                     define the directory used for hook scripts (default &quot;.&quot;)
-      --jobs-url string                  URL for the jobs system synchronization, redis or in-memory
-      --konnectors-cmd string            konnectors command to be executed
-      --konnectors-oauthstate string     URL for the storage of OAuth state for konnectors, redis or in-memory
-      --lock-url string                  URL for the locks, redis or in-memory
-      --log-level string                 define the log level (default &quot;info&quot;)
-      --log-syslog                       use the local syslog for logging
-      --mail-disable-tls                 disable smtp over tls
-      --mail-host string                 mail smtp host (default &quot;localhost&quot;)
-      --mail-noreply-address string      mail address used for sending mail as a noreply (forgot passwords for example)
-      --mail-noreply-name string         mail name used for sending mail as a noreply (forgot passwords for example)
-      --mail-password string             mail smtp password
-      --mail-port int                    mail smtp port (default 465)
-      --mail-username string             mail smtp username
-      --password-reset-interval string   minimal duration between two password reset (default &quot;15m&quot;)
-      --rate-limiting-url string         URL for rate-limiting counters, redis or in-memory
-      --realtime-url string              URL for realtime in the browser via webocket, redis or in-memory
-      --sessions-url string              URL for the sessions storage, redis or in-memory
-      --subdomains string                how to structure the subdomains for apps (can be nested or flat) (default &quot;nested&quot;)
-      --vault-decryptor-key string       the path to the key used to decrypt credentials
-      --vault-encryptor-key string       the path to the key used to encrypt credentials
+<div class="codehilite"><pre><span></span>  -h, --help   help for assets
 </pre></div>
 
 
@@ -2459,6 +2396,9 @@ example), you can use the --appdir flag like this:
 <h3 id="see-also">SEE ALSO<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h3>
 <ul>
 <li><a href="../cozy-stack/">cozy-stack</a>    - cozy-stack is the main command</li>
+<li><a href="../cozy-stack_assets_add/">cozy-stack assets add</a>  - Insert a dynamic asset</li>
+<li><a href="../cozy-stack_assets_ls/">cozy-stack assets ls</a>    - List assets</li>
+<li><a href="../cozy-stack_assets_rm/">cozy-stack assets rm</a>    - Removes an asset</li>
 </ul>
                 
                   

@@ -112,7 +112,8 @@ module.exports = {
         '../react/MuiCozyTheme/Menus',
         '../react/MuiCozyTheme/List',
         '../react/MuiCozyTheme/RaisedList',
-        '../react/MuiCozyTheme/ExpansionPanel'
+        '../react/MuiCozyTheme/ExpansionPanel',
+        '../react/MuiCozyTheme/Grid'
       ]
     }
   ],
