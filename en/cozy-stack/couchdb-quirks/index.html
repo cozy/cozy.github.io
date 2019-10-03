@@ -1967,6 +1967,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#comparison-of-strings" title="Comparison of strings" class="md-nav__link">
+    Comparison of strings
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2426,6 +2433,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#comparison-of-strings" title="Comparison of strings" class="md-nav__link">
+    Comparison of strings
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2505,6 +2519,15 @@ reasons. In general, you can follow these two rules of thumb:</p>
    order).</p>
 </li>
 </ol>
+<h3 id="comparison-of-strings">Comparison of strings<a class="headerlink" href="#comparison-of-strings" title="Permanent link">&para;</a></h3>
+<p>Comparison of strings is done using ICU which implements the Unicode Collation
+Algorithm, giving a dictionary sorting of keys. This can give surprising
+results if you were expecting ASCII ordering. Note that:</p>
+<ul>
+<li>All symbols sort before numbers and letters (even the “high” symbols like tilde, <code>0x7e</code>)</li>
+<li>Differing sequences of letters are compared without regard to case, so <code>a &lt; aa</code> but also <code>A &lt; aa</code> and <code>a &lt; AA</code></li>
+<li>Identical sequences of letters are compared with regard to case, with lowercase before uppercase, so <code>a &lt; A</code>.</li>
+</ul>
 <h2 id="old-revisions">Old revisions<a class="headerlink" href="#old-revisions" title="Permanent link">&para;</a></h2>
 <p>CouchDB keeps for each document a list of its revision (or more exactly a tree
 with replication and conflicts).</p>
