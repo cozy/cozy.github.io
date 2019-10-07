@@ -2181,6 +2181,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#trash-files-worker" title="trash-files worker" class="md-nav__link">
+    trash-files worker
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#share-workers" title="share workers" class="md-nav__link">
     share workers
   </a>
@@ -2750,6 +2757,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#trash-files-worker" title="trash-files worker" class="md-nav__link">
+    trash-files worker
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#share-workers" title="share workers" class="md-nav__link">
     share workers
   </a>
@@ -3076,6 +3090,20 @@ permission. It is done by adding this to the manifest:</p>
 </pre></div>
 
 
+<h2 id="trash-files-worker">trash-files worker<a class="headerlink" href="#trash-files-worker" title="Permanent link">&para;</a></h2>
+<p>This worker is used only by the stack: when the user asks to clean the trash,
+the stack will delete the files from CouchDB and put a job for this worker. The
+deletion of files in Swift is slow, and can be done via this worker
+asynchronously. The behavior is not the same for all the VFS:</p>
+<ul>
+<li>afero: all the work is done during the HTTP request, no job is pushed</li>
+<li>Swift layout v1: all the work is done during the HTTP request, no job is pushed</li>
+<li>Swift layout v2: the files are deleted in CouchDB during the HTTP request,
+  and they are deleted in Swift via the job</li>
+<li>Swift layout v3: the files are deleted in CouchDB during the HTTP request,
+  the file versions are deleted in CouchDB via the job, and the files and their
+  versions are deleted in Swift via the job.</li>
+</ul>
 <h2 id="share-workers">share workers<a class="headerlink" href="#share-workers" title="Permanent link">&para;</a></h2>
 <p>The stack have 3 workers to power the sharings (internal usage only):</p>
 <ol>

@@ -3702,7 +3702,8 @@ burst. It delays the creation of the job on the first input by the given time
 argument, and if the trigger has its condition matched again during this period,
 it won&rsquo;t create another job. It can be useful to combine it with the changes
 feed of couchdb with a last sequence number persisted by the worker, as it
-allows to have a nice diff between two executions of the worker.</p>
+allows to have a nice diff between two executions of the worker. Its syntax is the
+one understood by go&rsquo;s <a href="https://golang.org/pkg/time/#ParseDuration">time.ParseDuration</a>.</p>
 <h4 id="request_3">Request<a class="headerlink" href="#request_3" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/jobs/triggers</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>

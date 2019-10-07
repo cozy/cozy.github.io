@@ -1105,6 +1105,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#cozyclientsetstorestore" title="cozyClient.setStore(store)" class="md-nav__link">
+    cozyClient.setStore(store)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#cozyclienthandlerevocationchange" title="cozyClient.handleRevocationChange()" class="md-nav__link">
     cozyClient.handleRevocationChange()
   </a>
@@ -3227,6 +3234,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#cozyclientsetstorestore" title="cozyClient.setStore(store)" class="md-nav__link">
+    cozyClient.setStore(store)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#cozyclienthandlerevocationchange" title="cozyClient.handleRevocationChange()" class="md-nav__link">
     cozyClient.handleRevocationChange()
   </a>
@@ -3988,6 +4002,7 @@ having for the &lsquo;konnector&rsquo; worker, and then filter them based on the
 <li><a href="#CozyClient+register">.register(cozyURL)</a> ⇒ <code>object</code></li>
 <li><a href="#CozyClient+startOAuthFlow">.startOAuthFlow(openURLCallback)</a> ⇒ <code>object</code></li>
 <li><a href="#CozyClient+renewAuthorization">.renewAuthorization()</a> ⇒ <code>object</code></li>
+<li><a href="#CozyClient+setStore">.setStore(store)</a></li>
 <li><a href="#CozyClient+handleRevocationChange">.handleRevocationChange()</a></li>
 <li><a href="#CozyClient+handleTokenRefresh">.handleTokenRefresh()</a></li>
 <li><a href="#CozyClient+createClient">.createClient()</a></li>
@@ -4062,6 +4077,7 @@ and can be accessed via this mean. A plugin class must have the attribute
 <div class="codehilite"><pre><span></span><span class="kr">class</span> <span class="nx">AlertPlugin</span> <span class="p">{</span>
   <span class="kr">constructor</span><span class="p">(</span><span class="nx">client</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">client</span> <span class="o">=</span> <span class="nx">client</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">options</span> <span class="o">=</span> <span class="nx">options</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">handleLogin</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleLogin</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">handleLogout</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleLogout</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;login&quot;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleLogin</span><span class="p">)</span>
@@ -4069,17 +4085,20 @@ and can be accessed via this mean. A plugin class must have the attribute
   <span class="p">}</span>
 
   <span class="nx">handleLogin() {</span>
-    <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;client has logged in !&quot;</span><span class="p">)</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">onLoginAlert</span><span class="p">)</span>
   <span class="p">}</span>
 
   <span class="nx">handleLogout() {</span>
-    <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;client has logged out !&quot;</span><span class="p">)</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">onLogoutAlert</span><span class="p">)</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="nx">AlertPlugin</span><span class="p">.</span><span class="nx">pluginName</span> <span class="o">=</span> <span class="s1">&#39;alerts&#39;</span>
 
-<span class="nx">client</span><span class="p">.</span><span class="nx">registerPlugin</span><span class="p">(</span><span class="nx">AlertPlugin</span><span class="p">)</span>
+<span class="nx">client</span><span class="p">.</span><span class="nx">registerPlugin</span><span class="p">(</span><span class="nx">AlertPlugin</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">onLoginAlert</span><span class="o">:</span> <span class="s1">&#39;client has logged in !&#39;</span><span class="p">,</span>
+  <span class="nx">onLogoutAlert</span><span class="o">:</span> <span class="s1">&#39;client has logged out !&#39;</span>
+<span class="p">})</span>
 
 <span class="c1">// the instance of the plugin is accessible via</span>
 <span class="nx">client</span><span class="p">.</span><span class="nx">plugins</span><span class="p">.</span><span class="nx">alerts</span>
@@ -4334,7 +4353,46 @@ The <code>register</code> method&rsquo;s name has been chosen for compat reasons
 has expired.</p>
 <p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a><br />
 <strong>Returns</strong>: <code>object</code> - Contains the fetched token and the client information.<br />
-<a name="CozyClient+handleRevocationChange"></a></p>
+<a name="CozyClient+setStore"></a></p>
+<h3 id="cozyclientsetstorestore">cozyClient.setStore(store)<a class="headerlink" href="#cozyclientsetstorestore" title="Permanent link">&para;</a></h3>
+<p>Sets the internal store of the client. Use this when you want to have cozy-client&rsquo;s
+internal store colocated with your existing Redux store.</p>
+<p>Typically, you would need to do this only once in your application, this is why
+setStore throws if you do it twice. If you really need to set the store again,
+use options.force = true.</p>
+<p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>store</td>
+<td><code>ReduxStore</code></td>
+<td>A redux store</td>
+</tr>
+<tr>
+<td>options.force</td>
+<td><code>Boolean</code></td>
+<td>Will deactivate throwing when client&rsquo;s store already exists</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong>  </p>
+<div class="codehilite"><pre><span></span>const client = new CozyClient()
+const store = createStore(combineReducers({
+  todos: todoReducer,
+  cozy: client.reducer()
+})
+client.setStore(store)
+</pre></div>
+
+
+<p><a name="CozyClient+handleRevocationChange"></a></p>
 <h3 id="cozyclienthandlerevocationchange">cozyClient.handleRevocationChange()<a class="headerlink" href="#cozyclienthandlerevocationchange" title="Permanent link">&para;</a></h3>
 <p>Sets public attribute and emits event related to revocation</p>
 <p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a><br />

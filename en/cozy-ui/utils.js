@@ -27,7 +27,12 @@ export const fakeIntentCreate = (action, doctype, options) => {
       })
 
       ReactDOM.render(
-        React.createElement(IntentExample, { onComplete, action, doctype, options }),
+        React.createElement(IntentExample, {
+          onComplete,
+          action,
+          doctype,
+          options
+        }),
         iframe.contentDocument.body
       )
     }
@@ -37,6 +42,6 @@ export const fakeIntentCreate = (action, doctype, options) => {
   return p
 }
 
-export const t = (path) => {
+export const t = path => {
   return get(translations, path)
 }
