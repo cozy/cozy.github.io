@@ -72,6 +72,7 @@
     "categorization": {
       "type": "node",
       "file": "categorization.js",
+      "comment": "This service is called manually, this is why the trigger is in the past",
       "trigger": "@at 2000-01-01T00:00:00.000Z"
     },
     "stats": {
@@ -79,6 +80,12 @@
       "file": "stats.js",
       "trigger": "@event io.cozy.bank.operations:CREATED,UPDATED",
       "debounce": "1m"
+    },
+    "autogroups": {
+      "type": "node",
+      "file": "groups.js",
+      "trigger": "@event io.cozy.bank.accounts:CREATED",
+      "debounce": "5s"
     }
   },
   "notifications": {

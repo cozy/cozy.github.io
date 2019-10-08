@@ -6,12 +6,12 @@ let client
 const lib =
   __TARGET__ === 'mobile' ? require('./mobile/mobile') : require('./web')
 
-export const getClient = (state, getStore) => {
+export const getClient = () => {
   if (client) {
     return client
   }
 
-  client = lib.getClient(state, getStore)
+  client = lib.getClient()
 
   const intents = new Intents({ client })
   client.intents = intents

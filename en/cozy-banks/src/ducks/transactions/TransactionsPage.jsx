@@ -3,8 +3,9 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
-import { subMonths } from 'date-fns'
 import PropTypes from 'prop-types'
+
+import { subMonths } from 'date-fns'
 
 import { isMobileApp } from 'cozy-device-helper'
 import { translate, withBreakpoints } from 'cozy-ui/react'
@@ -22,7 +23,6 @@ import {
 
 import { getCategoryIdFromName } from 'ducks/categories/categoriesMap'
 import { getDate, getDisplayDate } from 'ducks/transactions/helpers'
-import { getCategoryId } from 'ducks/categories/helpers'
 
 import { queryConnect } from 'cozy-client'
 
@@ -42,11 +42,9 @@ import TransactionHeader from 'ducks/transactions/TransactionHeader'
 import TransactionPageErrors from 'ducks/transactions/TransactionPageErrors'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { findNearestMonth } from 'ducks/transactions/helpers'
-import {
-  getBalanceHistories,
-  sumBalanceHistories,
-  balanceHistoryToChartData
-} from 'ducks/balance/helpers'
+
+import { getChartTransactions, getChartData } from 'ducks/chart/selectors'
+
 import BarTheme from 'ducks/bar/BarTheme'
 import TransactionActionsProvider from 'ducks/transactions/TransactionActionsProvider'
 
@@ -56,9 +54,7 @@ const STEP_INFINITE_SCROLL = 30
 const SCROLL_THRESOLD_TO_ACTIVATE_TOP_INFINITE_SCROLL = 150
 const getMonth = date => date.slice(0, 7)
 
-const FakeTransactions = () => {
-  return <Padded>{null}</Padded>
-}
+const FakeTransactions = () => <Padded>{null}</Padded>
 
 class TransactionsPage extends Component {
   constructor(props) {
@@ -76,7 +72,6 @@ class TransactionsPage extends Component {
     )
 
     this.state = {
-      fetching: false,
       limitMin: 0,
       limitMax: STEP_INFINITE_SCROLL,
       infiniteScrollTop: false
@@ -200,15 +195,10 @@ class TransactionsPage extends Component {
         params: { subcategoryName }
       }
     } = this.props
-
-    if (!subcategoryName) {
-      return filteredTransactions
-    }
-
-    const categoryId = getCategoryIdFromName(subcategoryName)
-    return filteredTransactions.filter(
-      transaction => getCategoryId(transaction) === categoryId
-    )
+    const categoryId = subcategoryName
+      ? getCategoryIdFromName(subcategoryName)
+      : null
+    return getChartTransactions(filteredTransactions, categoryId)
   }
 
   getFilteringOnAccount = () => {
@@ -248,40 +238,18 @@ class TransactionsPage extends Component {
     )
   }
 
-  getBalanceHistory(accounts, transactions) {
+  getChartData() {
     const today = new Date()
     const twoMonthsBefore = subMonths(today, 2)
 
-    const balanceHistories = getBalanceHistories(
-      accounts,
-      transactions,
+    return getChartData(
+      this.props.accounts,
+      this.props.transactions,
+      this.getTransactions(),
+      this.props.filteredAccounts,
       today,
       twoMonthsBefore
     )
-    const balanceHistory = sumBalanceHistories(Object.values(balanceHistories))
-
-    return balanceHistory
-  }
-
-  getChartData() {
-    const { accounts: accountsCol, transactions: transactionsCol } = this.props
-    const isLoading =
-      (isCollectionLoading(transactionsCol) &&
-        !hasBeenLoaded(transactionsCol)) ||
-      (isCollectionLoading(accountsCol) && !hasBeenLoaded(accountsCol)) ||
-      this.state.fetching
-
-    if (isLoading) {
-      return null
-    }
-
-    const transactions = this.getTransactions()
-    const accounts = this.props.filteredAccounts
-
-    const history = this.getBalanceHistory(accounts, transactions)
-    const data = balanceHistoryToChartData(history)
-
-    return data
   }
 
   render() {
@@ -293,8 +261,7 @@ class TransactionsPage extends Component {
     } = this.props
 
     const isFetching =
-      (isCollectionLoading(transactions) && !hasBeenLoaded(transactions)) ||
-      this.state.fetching
+      isCollectionLoading(transactions) && !hasBeenLoaded(transactions)
     const areAccountsLoading =
       isCollectionLoading(accounts) && !hasBeenLoaded(accounts)
     const filteredTransactions = this.getTransactions()
@@ -335,21 +302,14 @@ export const TransactionsPageBar = ({ accounts, theme }) => (
 const onSubcategory = ownProps => ownProps.router.params.subcategoryName
 
 const mapStateToProps = (state, ownProps) => {
-  const enhancedState = {
-    ...state,
-    accounts: ownProps.accounts,
-    groups: ownProps.groups,
-    transactions: ownProps.transactions
-  }
-
   const filteredTransactions = onSubcategory(ownProps)
-    ? getFilteredTransactions(enhancedState)
-    : getTransactionsFilteredByAccount(enhancedState)
+    ? getFilteredTransactions(state)
+    : getTransactionsFilteredByAccount(state)
 
   return {
-    accountIds: getFilteredAccountIds(enhancedState),
+    accountIds: getFilteredAccountIds(state),
     filteringDoc: getFilteringDoc(state),
-    filteredAccounts: getFilteredAccounts(enhancedState),
+    filteredAccounts: getFilteredAccounts(state),
     filteredTransactions: filteredTransactions
   }
 }

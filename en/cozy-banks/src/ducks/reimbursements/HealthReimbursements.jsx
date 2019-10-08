@@ -143,13 +143,9 @@ export class DumbHealthReimbursements extends Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
-  const enhancedState = {
-    ...state,
-    transactions: ownProps.transactions
-  }
+function mapStateToProps(state) {
   return {
-    filteredTransactions: getHealthExpensesByPeriod(enhancedState)
+    filteredTransactions: getHealthExpensesByPeriod(state)
   }
 }
 

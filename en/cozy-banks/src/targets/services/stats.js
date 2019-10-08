@@ -1,7 +1,5 @@
-import fetch from 'node-fetch'
-import CozyClient from 'cozy-client'
-import { TRANSACTION_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
-import { Document, BankAccountStats } from 'cozy-doctypes'
+import { ACCOUNT_DOCTYPE } from 'doctypes'
+import { BankAccountStats } from 'cozy-doctypes'
 import { groupBy, keyBy } from 'lodash'
 import logger from 'cozy-logger'
 import {
@@ -9,47 +7,14 @@ import {
   fetchTransactionsForPeriod,
   getMeanOnPeriod
 } from 'ducks/stats/services'
-import { getCategoryId } from 'ducks/categories/helpers'
 import { Settings } from 'models'
 import flag from 'cozy-flags'
-import { getCategoryIdFromName } from 'ducks/categories/categoriesMap'
-
-global.fetch = fetch
+import { getCategoryId, getCategoryIdFromName } from 'ducks/categories/helpers'
+import { runService } from './service'
 
 const log = logger.namespace('stats')
 
-const schema = {
-  transactions: {
-    doctype: TRANSACTION_DOCTYPE,
-    attributes: {},
-    relationships: {
-      account: {
-        type: 'belongs-to-in-place',
-        doctype: ACCOUNT_DOCTYPE
-      }
-    }
-  },
-  stats: {
-    doctype: 'io.cozy.bank.accounts.stats',
-    attributes: {},
-    relationships: {
-      account: {
-        type: 'has-one',
-        doctype: ACCOUNT_DOCTYPE
-      }
-    }
-  }
-}
-
-const client = new CozyClient({
-  uri: process.env.COZY_URL.trim(),
-  schema,
-  token: process.env.COZY_CREDENTIALS.trim()
-})
-
-const main = async () => {
-  Document.registerClient(client)
-
+const computeBankAccountStats = async () => {
   log('info', 'Fetching settings...')
   let setting = await Settings.fetchWithDefault()
 
@@ -149,4 +114,4 @@ const main = async () => {
   )
 }
 
-main()
+runService(computeBankAccountStats)

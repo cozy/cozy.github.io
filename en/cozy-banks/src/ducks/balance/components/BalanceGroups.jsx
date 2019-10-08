@@ -9,6 +9,7 @@ import btnStyles from 'styles/buttons.styl'
 
 import BalanceTable from 'ducks/balance/components/BalanceTable'
 import BalanceRow from 'ducks/balance/components/BalanceRow'
+import { getGroupLabel } from 'ducks/groups/helpers'
 
 class BalanceGroups extends React.PureComponent {
   render() {
@@ -28,7 +29,7 @@ class BalanceGroups extends React.PureComponent {
             {groups.map(group => (
               <BalanceRow
                 getAccount={id => accountsById[id]}
-                key={group.label}
+                key={getGroupLabel(group, t)}
                 group={group}
                 warningLimit={balanceLower}
               />

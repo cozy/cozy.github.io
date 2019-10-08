@@ -23,6 +23,7 @@ import { checkToRefreshToken } from 'utils/token'
 import Alerter from 'cozy-ui/react/Alerter'
 import flag from 'cozy-flags'
 import { makeItShine } from 'utils/display.debug'
+import { resetFilterByDoc } from 'ducks/filters'
 
 const D3_LOCALES_MAP = {
   fr: require('d3-time-format/locale/fr-FR.json'),
@@ -48,6 +49,21 @@ const initRender = () => {
   )
 }
 
+/** Used to cleanup redux store when client disconnects */
+class StoreClientPlugin {
+  constructor(client, { store }) {
+    this.client = client
+    this.store = store
+    client.on('logout', this.handleLogout.bind(this))
+  }
+
+  handleLogout() {
+    this.store.dispatch(resetFilterByDoc())
+  }
+}
+
+StoreClientPlugin.pluginName = 'store'
+
 const setupApp = async persistedState => {
   const root = document.querySelector('[role=application]')
   const data = root.dataset
@@ -60,8 +76,11 @@ const setupApp = async persistedState => {
 
   history = setupHistory()
 
-  client = await getClient(persistedState, () => store)
+  client = await getClient(persistedState)
   store = configureStore(client, persistedState)
+  client.registerPlugin(StoreClientPlugin, { store })
+
+  client.setStore(store)
 
   persistState(store)
 
@@ -81,8 +100,8 @@ const setupApp = async persistedState => {
       }
     })
     const openUniversalLink = (/*eventData*/) => {
-      /* 
-      banks just need to be waked up by an universal link. 
+      /*
+      banks just need to be waked up by an universal link.
       We currently do not manage any path
     */
     }

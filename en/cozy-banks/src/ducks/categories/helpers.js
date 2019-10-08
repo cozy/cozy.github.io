@@ -1,10 +1,10 @@
 import flag from 'cozy-flags'
-import parentCategory, { categoriesStyle } from 'ducks/categories/categoriesMap'
+import parentCategory from 'ducks/categories/categoriesMap'
+import { categoriesStyle } from 'ducks/categories/categoriesMap'
 import categoryNames from 'ducks/categories/tree'
-import { getCurrencySymbol } from 'utils/currencySymbol'
 import { BankTransaction } from 'cozy-doctypes'
 
-const getParent = parentCategory.get.bind(parentCategory)
+export const getParent = parentCategory.get.bind(parentCategory)
 
 const makeCategory = parent => ({
   id: parent.id,
@@ -20,28 +20,7 @@ const makeSubcategory = catId => ({
   transactions: []
 })
 
-/**
- * Return the category id of the transaction
- * @param {Object} transaction
- * @return {String|null} A category id or null if the transaction has not been categorized yet
- */
-export const getCategoryId = transaction => {
-  const localModelOverride = flag('local-model-override')
-
-  return BankTransaction.getCategoryId(transaction, { localModelOverride })
-}
-
-export const getParentCategory = transaction => {
-  return getParent(getCategoryId(transaction))
-}
-
-export const isAwaitingCategorization = transaction => {
-  return getCategoryId(transaction) === null
-}
-
-// This function builds a map of categories and sub-categories, each containing
-// a list of related transactions, a name and a color
-export const transactionsByCategory = transactions => {
+export const getTransactionsByCategory = transactions => {
   let categories = {}
   for (let catName of Object.keys(categoriesStyle)) {
     const category = { name: catName, ...categoriesStyle[catName] }
@@ -77,65 +56,23 @@ export const transactionsByCategory = transactions => {
   return categories
 }
 
-// Very specific to this component: takes the transactions by category as returned by the
-// `transactionsByCategory` function, and turns it into a flat array, while computing derived
-// data such as totals and currencies.
-// The result is used pretty much as is down the chain by other components, so changing property
-// names here should be done with care.
-export const computeCategorieData = transactionsByCategory => {
-  return Object.values(transactionsByCategory).map(category => {
-    let subcategories = Object.values(category.subcategories).map(
-      subcategory => {
-        const debit = subcategory.transactions.reduce(
-          (total, op) => (op.amount < 0 ? total + op.amount : total),
-          0
-        )
-        const credit = subcategory.transactions.reduce(
-          (total, op) => (op.amount > 0 ? total + op.amount : total),
-          0
-        )
+/**
+ * Return the category id of the transaction
+ * @param {Object} transaction
+ * @return {String|null} A category id or null if the transaction has not been categorized yet
+ */
+export const getCategoryId = transaction => {
+  const localModelOverride = flag('local-model-override')
 
-        return {
-          id: subcategory.id,
-          name: subcategory.name,
-          amount: credit + debit,
-          debit: debit,
-          credit: credit,
-          percentage: 0,
-          currency:
-            subcategory.transactions.length > 0
-              ? getCurrencySymbol(subcategory.transactions[0].currency)
-              : '',
-          transactionsNumber: subcategory.transactions.length
-        }
-      }
-    )
+  return BankTransaction.getCategoryId(transaction, { localModelOverride })
+}
 
-    const debit = category.transactions.reduce(
-      (total, op) => (op.amount < 0 ? total + op.amount : total),
-      0
-    )
-    const credit = category.transactions.reduce(
-      (total, op) => (op.amount > 0 ? total + op.amount : total),
-      0
-    )
+export const getParentCategory = transaction => {
+  return getParent(getCategoryId(transaction))
+}
 
-    return {
-      id: category.id,
-      name: category.name,
-      color: category.color,
-      amount: credit + debit,
-      debit: debit,
-      credit: credit,
-      percentage: 0,
-      currency:
-        category.transactions.length > 0
-          ? getCurrencySymbol(category.transactions[0].currency)
-          : '',
-      transactionsNumber: category.transactions.length,
-      subcategories: subcategories
-    }
-  })
+export const isAwaitingCategorization = transaction => {
+  return getCategoryId(transaction) === null
 }
 
 export const isHealthExpense = transaction => {

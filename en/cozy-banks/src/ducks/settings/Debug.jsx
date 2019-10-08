@@ -1,6 +1,6 @@
 /* global __VERSIONS__ */
 
-import React from 'react'
+import React, { useState } from 'react'
 import Checkbox from 'cozy-ui/react/Checkbox'
 import Button from 'cozy-ui/react/Button'
 import Alerter from 'cozy-ui/react/Alerter'
@@ -28,6 +28,48 @@ const Versions = () => {
         </div>
       ))}
     </div>
+  )
+}
+
+const startAndWaitService = async (client, serviceName) => {
+  const jobs = client.collection('io.cozy.jobs')
+  const { data: job } = await jobs.create('service', {
+    message: {
+      name: serviceName,
+      slug: 'banks'
+    }
+  })
+  const finalJob = await jobs.waitFor(job.id)
+  if (finalJob.state === 'errored') {
+    Alerter.error(`Job finished with error. Error is ${finalJob.error}`)
+  } else if (finalJob.state === 'done') {
+    Alerter.success(`Job finished successfully`)
+  } else {
+    Alerter.error(`Job finished with state ${finalJob.state}`)
+  }
+  return finalJob
+}
+
+const ServiceButton = ({ name: serviceName, client }) => {
+  const [running, setRunning] = useState(false)
+  const startService = async () => {
+    try {
+      setRunning(true)
+      await startAndWaitService(client, serviceName)
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error(e)
+      Alerter.error(`Something wrong happened, see console.`)
+    } finally {
+      setRunning(false)
+    }
+  }
+  return (
+    <Button
+      busy={running}
+      label={`Run ${serviceName} service`}
+      onClick={() => startService(serviceName)}
+    />
   )
 }
 
@@ -118,6 +160,13 @@ class DumbDebugSettings extends React.PureComponent {
             label="Send notification"
             onClick={() => this.sendNotification()}
           />
+        </div>
+        <div>
+          <Title>Services</Title>
+          <ServiceButton client={client} name="autogroups" />
+          <ServiceButton client={client} name="stats" />
+          <ServiceButton client={client} name="categorization" />
+          <ServiceButton client={client} name="onOperationOrBillCreate" />
         </div>
         <div>
           <Title>Flags</Title>

@@ -28,6 +28,7 @@ describe('Balance page', () => {
       <DumbBalance
         accounts={fakeCollection('io.cozy.bank.accounts', accountsData || [])}
         groups={fakeCollection('io.cozy.bank.groups')}
+        virtualGroups={[]}
         settings={fakeCollection('io.cozy.bank.settings', [settingDoc])}
         triggers={fakeCollection('io.cozy.triggers')}
         transactions={fakeCollection('io.cozy.bank.operations')}

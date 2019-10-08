@@ -1,9 +1,21 @@
 jest.mock('cozy-flags')
 
-import { isAwaitingCategorization, transactionsByCategory } from './helpers'
+import { isAwaitingCategorization, getTransactionsByCategory } from './helpers'
 
-describe('transactionsByCategory', () => {
-  const byCategory = transactionsByCategory([
+describe('isAwaitingCategorization', () => {
+  it('should return true if the transaction is awaiting cozy categorization', () => {
+    const transaction = { _id: 't1', automaticCategoryId: '400110' }
+    expect(isAwaitingCategorization(transaction)).toBe(true)
+  })
+
+  it('should return false if the transaction have a cozy categorization', () => {
+    const transaction = { _id: 't1', cozyCategoryId: '400110' }
+    expect(isAwaitingCategorization(transaction)).toBe(false)
+  })
+})
+
+describe('getTransactionsByCategory', () => {
+  const byCategory = getTransactionsByCategory([
     {
       manualCategoryId: '200110',
       automaticCategoryId: '200120',
@@ -18,16 +30,4 @@ describe('transactionsByCategory', () => {
   expect(byCategory.incomeCat.subcategories['200110'].name).toBe(
     'activityIncome'
   )
-})
-
-describe('isAwaitingCategorization', () => {
-  it('should return true if the transaction is awaiting cozy categorization', () => {
-    const transaction = { _id: 't1', automaticCategoryId: '400110' }
-    expect(isAwaitingCategorization(transaction)).toBe(true)
-  })
-
-  it('should return false if the transaction have a cozy categorization', () => {
-    const transaction = { _id: 't1', cozyCategoryId: '400110' }
-    expect(isAwaitingCategorization(transaction)).toBe(false)
-  })
 })

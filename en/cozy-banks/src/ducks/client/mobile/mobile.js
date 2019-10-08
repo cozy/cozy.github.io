@@ -12,7 +12,6 @@ import { clientPlugin as sentryPlugin } from 'lib/sentry'
 
 import { SOFTWARE_ID } from 'ducks/mobile/constants'
 import { getRedirectUri } from 'ducks/client/mobile/redirect'
-import { resetFilterByDoc } from 'ducks/filters'
 
 export const getScope = m => {
   if (m.permissions === undefined) {
@@ -76,17 +75,12 @@ const registerPlugin = (client, plugin) => {
   plugin(client)
 }
 
-const registerPluginsAndHandlers = (client, getStore) => {
+const registerPluginsAndHandlers = client => {
   registerPlugin(client, pushPlugin)
   registerPlugin(client, sentryPlugin)
-
-  client.on('logout', () => {
-    const store = getStore()
-    store.dispatch(resetFilterByDoc())
-  })
 }
 
-export const getClient = (state, getStore) => {
+export const getClient = () => {
   const manifestOptions = getManifestOptions(manifest)
   const appSlug = manifest.slug
 
@@ -113,6 +107,6 @@ export const getClient = (state, getStore) => {
   }
 
   client = new CozyClient(merge(manifestOptions, banksOptions))
-  registerPluginsAndHandlers(client, getStore)
+  registerPluginsAndHandlers(client)
   return client
 }

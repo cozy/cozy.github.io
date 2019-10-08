@@ -27,10 +27,10 @@ import NoAccount from 'ducks/balance/components/NoAccount'
 import AccountsImporting from 'ducks/balance/components/AccountsImporting'
 
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
-import { buildVirtualGroups } from 'ducks/groups/helpers'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
-import { getAccountBalance, buildVirtualAccounts } from 'ducks/account/helpers'
+import { getAccountBalance } from 'ducks/account/helpers'
 import { isBankTrigger } from 'utils/triggers'
+import { getVirtualAccounts, getVirtualGroups } from 'selectors'
 
 import styles from 'ducks/balance/Balance.styl'
 import BalancePanels from 'ducks/balance/BalancePanels'
@@ -38,6 +38,7 @@ import { getPanelsState } from 'ducks/balance/helpers'
 import BarTheme from 'ducks/bar/BarTheme'
 import { filterByAccounts } from 'ducks/filters'
 import CozyRealtime from 'cozy-realtime'
+import { createStructuredSelector } from 'reselect'
 
 const syncPouchImmediately = async client => {
   const pouchLink = client.links.find(link => link.pouches)
@@ -83,24 +84,21 @@ class Balance extends PureComponent {
       groups,
       accounts,
       settings: settingsCollection,
-      transactions
+      virtualGroups
     } = props
 
     const isLoading =
       (isCollectionLoading(groups) && !hasBeenLoaded(groups)) ||
       (isCollectionLoading(accounts) && !hasBeenLoaded(accounts)) ||
       (isCollectionLoading(settingsCollection) &&
-        !hasBeenLoaded(settingsCollection)) ||
-      (isCollectionLoading(transactions) && !hasBeenLoaded(transactions))
+        !hasBeenLoaded(settingsCollection))
 
     if (isLoading) {
       return null
     }
 
-    const virtualAccounts = buildVirtualAccounts(transactions.data)
-    const allAccounts = [...accounts.data, ...virtualAccounts]
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
-    const allGroups = [...groups.data, ...buildVirtualGroups(allAccounts)]
+    const allGroups = [...groups.data, ...virtualGroups]
     const currentPanelsState = state.panels || settings.panelsState || {}
     const newPanelsState = getPanelsState(allGroups, currentPanelsState)
 
@@ -318,7 +316,7 @@ class Balance extends PureComponent {
       groups: groupsCollection,
       settings: settingsCollection,
       triggers: triggersCollection,
-      transactions: transactionsCollection
+      virtualGroups
     } = this.props
 
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
@@ -326,7 +324,6 @@ class Balance extends PureComponent {
       accountsCollection,
       groupsCollection,
       triggersCollection,
-      transactionsCollection,
       settingsCollection
     ]
 
@@ -336,7 +333,7 @@ class Balance extends PureComponent {
       return (
         <Fragment>
           <BarTheme theme="primary" />
-          <BalanceHeader transactionsCollection={transactionsCollection} />
+          <BalanceHeader />
           <Loading />
         </Fragment>
       )
@@ -344,9 +341,6 @@ class Balance extends PureComponent {
 
     const accounts = accountsCollection.data
     const triggers = triggersCollection.data
-    const transactions = transactionsCollection.data
-    const virtualAccounts = buildVirtualAccounts(transactions)
-    const allAccounts = [...accounts, ...virtualAccounts]
 
     if (
       accounts.length === 0 ||
@@ -388,10 +382,7 @@ class Balance extends PureComponent {
       return <NoAccount />
     }
 
-    const groups = [
-      ...groupsCollection.data,
-      ...buildVirtualGroups(allAccounts)
-    ]
+    const groups = [...groupsCollection.data, ...virtualGroups]
 
     const balanceLower = get(settings, 'notifications.balanceLower.value')
 
@@ -415,7 +406,6 @@ class Balance extends PureComponent {
           accountsBalance={accountsBalance}
           accounts={checkedAccounts}
           subtitleParams={subtitleParams}
-          transactionsCollection={transactionsCollection}
         />
         <Padded
           className={cx({
@@ -454,6 +444,12 @@ export default compose(
     triggers: triggersConn,
     transactions: transactionsConn
   }),
+  connect(
+    createStructuredSelector({
+      virtualAccounts: getVirtualAccounts,
+      virtualGroups: getVirtualGroups
+    })
+  ),
   withClient,
   withMutations()
 )(Balance)

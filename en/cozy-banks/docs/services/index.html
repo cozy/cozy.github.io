@@ -2314,6 +2314,20 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#account-stats" title="Account stats" class="md-nav__link">
+    Account stats
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#automatic-groups" title="Automatic groups" class="md-nav__link">
+    Automatic groups
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#i-am-writing-a-banking-konnector-what-should-i-do" title="I am writing a banking konnector, what should I do?" class="md-nav__link">
     I am writing a banking konnector, what should I do?
   </a>
@@ -2388,6 +2402,20 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#account-stats" title="Account stats" class="md-nav__link">
+    Account stats
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#automatic-groups" title="Automatic groups" class="md-nav__link">
+    Automatic groups
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#i-am-writing-a-banking-konnector-what-should-i-do" title="I am writing a banking konnector, what should I do?" class="md-nav__link">
     I am writing a banking konnector, what should I do?
   </a>
@@ -2418,14 +2446,17 @@
 <ul>
 <li><a href="#categorization">categorization</a></li>
 <li><a href="#onoperationorbillcreate">onOperationOrBillCreate</a></li>
+<li><a href="#stats">Account stats</a></li>
+<li><a href="#goups">Automatic groups</a></li>
 </ul>
 <h2 id="categorization">Categorization<a class="headerlink" href="#categorization" title="Permanent link">&para;</a></h2>
 <p>This service role is to categorize transactions. It is bound to no event at
 all, so it&rsquo;s not automatically triggered and needs to be explicitly called by a
-konnector or another service.</p>
+konnector or another service.  This service is called from konnectors so that
+transactions are categorized as soon as possible (no debounce involved).</p>
 <p>When this service is ran, it gets all <code>io.cozy.bank.operations</code> that has the
 <code>toCategorize</code> property with a <code>true</code> value. Then it slices it into chunks and
-categories the most chunks it can before the service is stopped by the stack.
+categorizes the most chunks it can before the service is stopped by the stack.
 If there are some uncategorized transactions remaining, it restarts itself to
 finish the work. If all transactions have been categorized, it calls the
 <code>onOperationOrBillCreate</code> service to trigger all other features.</p>
@@ -2442,6 +2473,12 @@ finish the work. If all transactions have been categorized, it calls the
 service. See <a href="#i-am-writing-a-banking-konnector-what-should-i-do">the next
 section</a> for more precise
 informations about that.</p>
+<h2 id="account-stats">Account stats<a class="headerlink" href="#account-stats" title="Permanent link">&para;</a></h2>
+<p>Computes statistics on bank accounts and save the results in <code>io.cozy.bank.accounts.stats</code> doctype.</p>
+<h2 id="automatic-groups">Automatic groups<a class="headerlink" href="#automatic-groups" title="Permanent link">&para;</a></h2>
+<p>Whenever an <code>io.cozy.bank.accounts</code> is created, we check if it could belong in an automatic group based
+on its type (checkings, savings, credit cards). These <code>io.cozy.bank.groups</code> documents are created with
+the <code>auto: true</code> attributes.</p>
 <h2 id="i-am-writing-a-banking-konnector-what-should-i-do">I am writing a banking konnector, what should I do?<a class="headerlink" href="#i-am-writing-a-banking-konnector-what-should-i-do" title="Permanent link">&para;</a></h2>
 <p>If you want to benefit from all the features of these services, the most
 straightforward is to add <code>toCategorize: true</code> to the <code>io.cozy.bank.operations</code>

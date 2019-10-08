@@ -2,27 +2,54 @@ import { groupBy, sortBy, deburr } from 'lodash'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { associateDocuments } from 'ducks/client/utils'
 import { getAccountType } from 'ducks/account/helpers'
+import flag from 'cozy-flags'
 
-export const buildVirtualGroup = (type, accounts) => {
+export const getGroupLabel = (group, t) => {
+  if (group.virtual) {
+    return (
+      t(`Data.accountTypes.${group.label}`, { _: 'other' }) +
+      (flag('debug-groups') ? ' (virtual)' : '')
+    )
+  } else if (isAutoGroup(group) && !isFormerAutoGroup(group)) {
+    return (
+      t(`Data.accountTypes.${group.accountType}`) +
+      (flag('debug-groups') ? ' (auto)' : '')
+    )
+  } else {
+    return group.label
+  }
+}
+
+export const buildAutoGroup = (accountType, accounts, options = {}) => {
+  const { virtual = true, client = null } = options
+
   const group = {
-    _id: type,
     _type: GROUP_DOCTYPE,
-    label: type,
-    virtual: true
+    label: accountType,
+    accountType: accountType
+  }
+
+  if (virtual) {
+    group.virtual = true
+    group._id = accountType
   }
 
   associateDocuments(group, 'accounts', ACCOUNT_DOCTYPE, accounts)
 
-  return group
+  if (client) {
+    group.accounts = accounts.map(x => x._id)
+    return client.hydrateDocument(group)
+  } else {
+    associateDocuments(group, 'accounts', ACCOUNT_DOCTYPE, accounts)
+    return group
+  }
 }
 
-export const buildVirtualGroups = (accounts, translate) => {
-  const accountsByType = groupBy(accounts, account =>
-    getAccountType(account, translate)
-  )
+export const buildAutoGroups = (accounts, options) => {
+  const accountsByType = groupBy(accounts, getAccountType)
 
-  const virtualGroups = Object.entries(accountsByType).map(([type, accounts]) =>
-    buildVirtualGroup(type, accounts)
+  const virtualGroups = Object.entries(accountsByType).map(
+    ([accountType, accounts]) => buildAutoGroup(accountType, accounts, options)
   )
 
   return virtualGroups
@@ -35,10 +62,6 @@ export const buildVirtualGroups = (accounts, translate) => {
  * @param {Function} translate - Translation function
  * @returns {Object} Translated label
  */
-export const mkGetTranslatedLabel = translate => group =>
-  group.virtual
-    ? translate(`Data.accountTypes.${group.label}`, { _: 'other' })
-    : group.label
 
 const isOtherVirtualGroup = group => group.virtual && group.label === 'Other'
 
@@ -68,13 +91,11 @@ const groupSortingPriorities = {
  * @returns {Object[]} The sorted wrapped groups ({ category, label, group })
  */
 export const translateAndSortGroups = (groups, translate) => {
-  const getTranslatedLabel = mkGetTranslatedLabel(translate)
-
   // Wrap groups to add necessary information for sorting
   const wrappedGroups = groups.map(group => ({
     group,
     category: getCategory(group),
-    label: getTranslatedLabel(group)
+    label: getGroupLabel(group, translate)
   }))
 
   return sortBy(wrappedGroups, ({ label, category }) => [
@@ -82,3 +103,8 @@ export const translateAndSortGroups = (groups, translate) => {
     deburr(label).toLowerCase()
   ])
 }
+
+// For automatically created groups, the `accountType` attribute is present.
+export const isFormerAutoGroup = group => group.accountType === null
+export const isAutoGroup = group => group.accountType !== undefined
+export const getGroupAccountType = group => group.accountType

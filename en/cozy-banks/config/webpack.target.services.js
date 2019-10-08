@@ -14,13 +14,15 @@ const mimerPath = require.resolve(
 // Used to disable node modules we do not use
 const noop = require.resolve(path.join(SRC_DIR, 'ducks/notifications/noop'))
 
+const serviceDir = path.resolve(SRC_DIR, './targets/services/')
 const entries = {
   onOperationOrBillCreate: path.resolve(
     SRC_DIR,
     './targets/services/onOperationOrBillCreate'
   ),
-  categorization: path.resolve(SRC_DIR, './targets/services/categorization.js'),
-  stats: path.resolve(SRC_DIR, './targets/services/stats.js')
+  categorization: path.resolve(serviceDir, './categorization.js'),
+  stats: path.resolve(serviceDir, './stats.js'),
+  groups: path.resolve(serviceDir, './groups.js')
 }
 
 if (process.env.TEST_TEMPLATES) {

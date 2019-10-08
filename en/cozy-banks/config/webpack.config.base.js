@@ -53,7 +53,14 @@ module.exports = {
         'pouchdb-utils',
         'dom-helpers',
         'inherits',
-        'react-markdown'
+        'react-markdown',
+        'uuid',
+        'tough-cookie',
+        'string_decoder',
+        'safe-buffer',
+        'qs',
+        'extsprintf',
+        'domutils'
       ]),
 
       // We do not need mime-db (used in cozy-stack-client::FileCollection) so we fake it

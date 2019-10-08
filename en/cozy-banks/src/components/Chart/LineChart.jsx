@@ -27,6 +27,8 @@ const tooltipDimensions = {
   fontSize: 11
 }
 
+const getDataByDate = memoize(data => keyBy(data, i => i.x.getTime()))
+
 class LineChart extends Component {
   constructor(props) {
     super(props)
@@ -37,18 +39,16 @@ class LineChart extends Component {
     this.dragging = false
 
     const { data } = props
-    const dataByDate = this.getDataByDate(data)
+    const dataByDate = getDataByDate(data)
     const itemKey = max(Object.keys(dataByDate))
 
     this.state = { itemKey }
   }
 
-  getDataByDate = memoize(data => keyBy(data, i => i.x.getTime()))
-
   getSelectedItem = () => {
     const { data } = this.props
     const { itemKey } = this.state
-    const dataByDate = this.getDataByDate(data)
+    const dataByDate = getDataByDate(data)
 
     return dataByDate[itemKey]
   }

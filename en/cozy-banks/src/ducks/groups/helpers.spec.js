@@ -1,12 +1,12 @@
 import {
-  buildVirtualGroups,
-  mkGetTranslatedLabel,
+  buildAutoGroups,
+  getGroupLabel,
   translateAndSortGroups
 } from './helpers'
 import { associateDocuments } from 'ducks/client/utils'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 
-describe('buildVirtualGroups', () => {
+describe('buildAutoGroups', () => {
   it('should generate a virtual group for every account types', () => {
     const accounts = [
       { _id: '1', type: 'Checkings' },
@@ -16,27 +16,30 @@ describe('buildVirtualGroups', () => {
       { _id: '5' }
     ]
 
-    const virtualGroups = buildVirtualGroups(accounts)
+    const virtualGroups = buildAutoGroups(accounts)
 
     const checkingsGroup = {
       _id: 'Checkings',
       _type: 'io.cozy.bank.groups',
       label: 'Checkings',
-      virtual: true
+      virtual: true,
+      accountType: 'Checkings'
     }
 
     const savingsGroup = {
       _id: 'Savings',
       _type: 'io.cozy.bank.groups',
       label: 'Savings',
-      virtual: true
+      virtual: true,
+      accountType: 'Savings'
     }
 
     const otherGroup = {
       _id: 'Other',
       _type: 'io.cozy.bank.groups',
       label: 'Other',
-      virtual: true
+      virtual: true,
+      accountType: 'Other'
     }
 
     associateDocuments(checkingsGroup, 'accounts', ACCOUNT_DOCTYPE, [
@@ -63,7 +66,6 @@ describe('translateGroup', () => {
   })
 
   it("should translate the group label only if it's a virtual group", () => {
-    const getTranslatedLabel = mkGetTranslatedLabel(translate)
     const virtualGroup = {
       virtual: true,
       label: 'label'
@@ -74,8 +76,10 @@ describe('translateGroup', () => {
       label: 'label'
     }
 
-    expect(getTranslatedLabel(virtualGroup)).toEqual('Data.accountTypes.label')
-    expect(getTranslatedLabel(normalGroup)).toEqual(normalGroup.label)
+    expect(getGroupLabel(virtualGroup, translate)).toEqual(
+      'Data.accountTypes.label'
+    )
+    expect(getGroupLabel(normalGroup, translate)).toEqual(normalGroup.label)
   })
 })
 

@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { flowRight as compose, uniq, get } from 'lodash'
-import { withBreakpoints } from 'cozy-ui/react'
+import { withBreakpoints, translate } from 'cozy-ui/react'
 import cx from 'classnames'
 import { TdSecondary } from 'components/Table'
 import { Figure } from 'components/Figure'
@@ -15,6 +15,7 @@ import styles from 'ducks/balance/components/BalanceRow.styl'
 import tableStyles from 'ducks/balance/components/BalanceTable.styl'
 import { filterByDoc } from 'ducks/filters'
 import { getGroupBalance } from 'ducks/balance/helpers'
+import { getGroupLabel } from 'ducks/groups/helpers'
 
 const sameId = (filteringDoc, accountOrGroup) => {
   return filteringDoc && filteringDoc._id === accountOrGroup._id
@@ -37,6 +38,7 @@ class BalanceRow extends React.PureComponent {
 
   render() {
     const {
+      t,
       account,
       group,
       warningLimit,
@@ -49,7 +51,7 @@ class BalanceRow extends React.PureComponent {
       : getGroupBalance(group)
     const isWarning = balance ? balance < warningLimit : false
     const isAlert = balance ? balance < 0 : false
-    const label = account ? getAccountLabel(account) : group.label
+    const label = account ? getAccountLabel(account) : getGroupLabel(group, t)
     return (
       <tr
         className={cx(styles.BalanceRow, {
@@ -130,6 +132,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default compose(
+  translate(),
   withRouter,
   withBreakpoints(),
   connect(

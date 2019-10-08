@@ -2,6 +2,7 @@ import React from 'react'
 import { keyBy, sortBy } from 'lodash'
 import { translate } from 'cozy-ui/react'
 import { BalanceAccounts, BalanceGroups } from 'ducks/balance/components'
+import { getGroupLabel } from 'ducks/groups/helpers'
 
 class BalanceTables extends React.PureComponent {
   render() {
@@ -11,11 +12,9 @@ class BalanceTables extends React.PureComponent {
     const groupsSorted = sortBy(
       groups.map(group => ({
         ...group,
-        label: group.virtual
-          ? t(`Data.accountTypes.${group.label}`)
-          : group.label
+        label: getGroupLabel(group, t)
       })),
-      group => group.label
+      group => getGroupLabel(group, t)
     )
 
     const groupsC = (

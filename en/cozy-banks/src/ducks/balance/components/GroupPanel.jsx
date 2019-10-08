@@ -11,12 +11,14 @@ import { withStyles } from '@material-ui/core/styles'
 
 import { translate } from 'cozy-ui/react'
 import Icon from 'cozy-ui/react/Icon'
+import { ButtonLink } from 'cozy-ui/react/Button'
 import { Caption } from 'cozy-ui/react/Text'
 import { Figure } from 'components/Figure'
 import Switch from 'components/Switch'
 import AccountsList from 'ducks/balance/components/AccountsList'
 import withFilters from 'components/withFilters'
-
+import Stack from 'cozy-ui/react/Stack'
+import Text from 'cozy-ui/react/Text'
 import { getGroupBalance } from 'ducks/balance/helpers'
 import styles from 'ducks/balance/components/GroupPanel.styl'
 
@@ -200,12 +202,24 @@ class GroupPanel extends React.PureComponent {
           </div>
         </GroupPanelSummary>
         <ExpansionPanelDetails>
-          <AccountsList
-            group={group}
-            warningLimit={warningLimit}
-            switches={switches}
-            onSwitchChange={onSwitchChange}
-          />
+          {group.accounts.data && group.accounts.data.length > 0 ? (
+            <AccountsList
+              group={group}
+              warningLimit={warningLimit}
+              switches={switches}
+              onSwitchChange={onSwitchChange}
+            />
+          ) : (
+            <Stack className="u-m-1">
+              <Text>{t('Balance.no-accounts-in-group.description')}</Text>
+              <ButtonLink
+                className="u-ml-0"
+                href={`#/settings/groups/${group._id}`}
+              >
+                {t('Balance.no-accounts-in-group.button')}
+              </ButtonLink>
+            </Stack>
+          )}
         </ExpansionPanelDetails>
       </ExpansionPanel>
     )
