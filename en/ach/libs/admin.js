@@ -19,7 +19,7 @@ const httpsAgent = new https.Agent({
  */
 const baseFetch = (domain, route, options) => {
   const { adminAuth, adminURL } = getAdminConfigForDomain(domain)
-  const auth = Buffer(adminAuth).toString('base64')
+  const auth = Buffer.from(adminAuth).toString('base64')
   const url = `${adminURL}${route}`
   const allOptions = {
     ...options,

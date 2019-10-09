@@ -81,7 +81,10 @@ const loadConfig = async () => {
 
 const domainToEnv = {
   'cozy.wtf': 'dev',
+  'cozy.blue': 'dev',
+  'cozy.red': 'int',
   'cozy.works': 'int',
+  'cozy.company': 'int',
   'cozy.rocks': 'stg',
   'mycozy.cloud': 'prod',
   'cozyorange.cloud': 'prod',

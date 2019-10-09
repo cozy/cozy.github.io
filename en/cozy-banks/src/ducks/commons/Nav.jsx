@@ -1,71 +1,100 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { translate } from 'cozy-ui/react'
 import cx from 'classnames'
 import UINav, {
   NavItem,
   NavIcon,
   NavText,
-  genNavLink,
   NavLink as UINavLink
 } from 'cozy-ui/react/Nav'
-import { Link, withRouter } from 'react-router'
+import { withRouter } from 'react-router'
 import flag from 'cozy-flags'
 
 import wallet from 'assets/icons/icon-wallet.svg'
 import graph from 'assets/icons/icon-graph.svg'
 import transfers from 'assets/icons/icon-transfers.svg'
 
-const NavLink = genNavLink(Link)
+/**
+ * Matches between the `to` prop and the router current location.
+ * Supports `rx` for regex matches.
+ */
+const navLinkMatch = props =>
+  props.rx
+    ? props.rx.test(props.location.pathname)
+    : props.location.pathname.slice(1) === props.to
 
-export const RegexNavLink = React.memo(
-  withRouter(props => (
-    <a
-      href={`#/${props.to}`}
-      className={cx(
-        UINavLink.className,
-        props.rx.test(props.location.pathname)
-          ? UINavLink.activeClassName
-          : null
-      )}
-    >
-      {props.children}
-    </a>
-  ))
+/**
+ * Like react-router NavLink but sets the lastClicked state (passed in props)
+ * to have a faster change of active (not waiting for the route to completely
+ * change).
+ */
+export const NavLink = React.memo(
+  withRouter(props => {
+    const {
+      children,
+      to,
+      clickState: [lastClicked, setLastClicked]
+    } = props
+    return (
+      <a
+        style={{ outline: 'none' }}
+        onClick={() => setLastClicked(to)}
+        href={`#/${to}`}
+        className={cx(
+          UINavLink.className,
+          (!lastClicked && navLinkMatch(props)) || lastClicked === to
+            ? UINavLink.activeClassName
+            : null
+        )}
+      >
+        {children}
+      </a>
+    )
+  })
 )
 
 const transferRoute = /\/transfers\/.*/
 
-export const Nav = ({ t }) => (
-  <UINav>
-    <NavItem>
-      <NavLink to="balances">
-        <NavIcon icon={wallet} />
-        <NavText>{t('Nav.my-accounts')}</NavText>
-      </NavLink>
-    </NavItem>
-    <NavItem>
-      <NavLink to="categories">
-        <NavIcon icon={graph} />
-        <NavText>{t('Nav.categorisation')}</NavText>
-      </NavLink>
-    </NavItem>
-    {flag('transfers') ? (
-      <NavItem>
-        <RegexNavLink to="transfers" rx={transferRoute}>
-          <NavIcon icon={transfers} />
-          <NavText>{t('Transfer.nav')}</NavText>
-        </RegexNavLink>
-      </NavItem>
-    ) : null}
-    <NavItem>
-      <NavLink to="settings">
-        <NavIcon icon="gear" />
-        <NavText>{t('Nav.settings')}</NavText>
-      </NavLink>
-    </NavItem>
-    {Nav.renderExtra()}
-  </UINav>
-)
+const NavItems = ({ items }) => {
+  const clickState = useState(null)
+  return (
+    <>
+      {items.map(item =>
+        item ? (
+          <NavItem>
+            <NavLink to={item.to} rx={item.rx} clickState={clickState}>
+              <NavIcon icon={item.icon} />
+              <NavText>{item.label}</NavText>
+            </NavLink>
+          </NavItem>
+        ) : null
+      )}
+    </>
+  )
+}
+
+export const Nav = ({ t }) => {
+  return (
+    <UINav>
+      <NavItems
+        items={[
+          { to: 'balance', icon: wallet, label: t('Nav.my-accounts') },
+          { to: 'categories', icon: graph, label: t('Nav.categorisation') },
+          flag('transfers')
+            ? {
+                to: 'transfers',
+                icon: transfers,
+                label: t('Transfer.nav'),
+                rx: transferRoute
+              }
+            : null,
+          { to: 'settings', icon: 'gear', label: t('Nav.settings') }
+        ]}
+      />
+      {Nav.renderExtra()}
+    </UINav>
+  )
+}
 
 Nav.renderExtra = () => null
 
