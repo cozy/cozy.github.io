@@ -8,8 +8,8 @@ To protect your data, each connector runs inside a container in order to sandbox
 In this tutorial you will learn how to:
 
 - [Create the basic structure for your connector](./getting-started.md)
-- [Scrape data from the service](./implement.md)
-- [Save data to your Cozy](./link-cozy.md)
+- [Scrape data from the service](./scrape-data.md)
+- [Save data to your Cozy](./save-data.md)
 - [Package your connector and send it to the store](./packaging.md)
 
 If you want to go further:
