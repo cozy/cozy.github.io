@@ -10,7 +10,7 @@ import flag, { FlagSwitcher } from 'cozy-flags'
 import { withClient } from 'cozy-client'
 import { isMobileApp } from 'cozy-device-helper'
 import cx from 'classnames'
-import { getRegistrationToken } from 'ducks/mobile/push'
+import { getNotificationToken } from 'ducks/client/utils'
 
 const Title = ({ className, ...props }) => (
   <UITitle {...props} className={cx(className, 'u-mb-1')} />
@@ -153,7 +153,7 @@ class DumbDebugSettings extends React.PureComponent {
           {isMobileApp() ? (
             <>
               <SubTitle>Device token</SubTitle>
-              <p>{getRegistrationToken(client)}</p>
+              <p>{getNotificationToken(client)}</p>
             </>
           ) : null}
           <Button

@@ -1,6 +1,7 @@
 const { spawn } = require('child_process')
 const { URLSearchParams } = require('url')
 const fetch = require('node-fetch')
+const flatten = require('lodash/flatten')
 const {
   getAdminConfigForDomain,
   loadConfig,
@@ -68,41 +69,41 @@ const disableDebug = domain => {
 
 const sleep = delay => new Promise(resolve => setTimeout(resolve, delay))
 
-const startEnvTunnel = async env => {
+const startEnvTunnels = async envs => {
   await loadConfig()
 
-  const config = getAdminConfigForEnv(env)
-  const host = config['host']
-  const remotePort = '6060'
-  const localPort = config['adminURL'].split(':').slice(-1)[0]
-  return startSSHTunnel({ host, remotePort, localPort })
+  const tunnelConfigs = envs.map(env => {
+    const config = getAdminConfigForEnv(env)
+    const remoteHost = config['host']
+    const remotePort = '6060'
+    const localPort = config['adminURL'].split(':').slice(-1)[0]
+    return { remoteHost, remotePort, localPort }
+  })
+  return startSSHTunnels(tunnelConfigs)
 }
 
-const withEnvTunnel = async (env, cb) => {
+const withEnvTunnel = async (envs, cb) => {
+  envs = typeof envs === 'string' ? [envs] : envs
+
   let tunnel
   try {
-    tunnel = await startEnvTunnel(env)
+    tunnel = await startEnvTunnels(envs)
     return await cb()
   } finally {
     tunnel && tunnel.kill()
   }
 }
 
-const startSSHTunnel = async ({
-  localPort,
-  remoteHost = 'localhost',
-  remotePort,
-  host
-}) => {
+const startSSHTunnels = async tunnelConfigs => {
   let killed = false
   console.log('Starting ssh tunnel')
-  const ssh = spawn('ssh', [
-    '-tt',
-    '-fN',
-    '-L',
-    `${localPort}:${remoteHost}:${remotePort}`,
-    `${host}`
-  ])
+  const tunnelArgs = flatten(
+    tunnelConfigs.map(tc => {
+      const { localPort, remoteHost, remotePort } = tc
+      return ['-L', `${localPort}:${remoteHost}:${remotePort}`]
+    })
+  )
+  const ssh = spawn('ssh', ['-tt', '-fN', ...tunnelArgs, `bounce2`])
 
   ssh.stdout.on('data', data => {
     console.log('ssh-tunnel: ', data.toString().trim())

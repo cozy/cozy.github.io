@@ -718,6 +718,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../cozy-client/architecture/" title="Architecture" class="md-nav__link">
+      Architecture
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../cozy-client/relationships/" title="Using relationships" class="md-nav__link">
       Using relationships
     </a>
@@ -2532,8 +2544,8 @@ notification:</p>
 <ul>
 <li><code>category</code> (string): name of the notification category</li>
 <li><code>category_id</code> (string): category name if the category is multiple</li>
-<li><code>title</code> (string): title of the notification (optionnal)</li>
-<li><code>message</code> (string): message of of the notification (optionnal)</li>
+<li><code>title</code> (string): title of the notification (optional)</li>
+<li><code>message</code> (string): message of of the notification (optional)</li>
 <li><code>priority</code> (string): priority of the notification (<code>high</code> or <code>normal</code>), sent
     to the underlying channel to prioritize the notification</li>
 <li><code>state</code> (string): state of the notification, used for <code>stateful</code>
@@ -2544,6 +2556,8 @@ notification:</p>
     try to send a mobile notification, and if it fails, it will try by mail.</li>
 <li><code>data</code> (map): key/value map used to create the notification from its
     template, or sent in the notification payload for mobiles</li>
+<li><code>at</code> (string): send the notification later, at this date formatted in
+    ISO-8601 (optional)</li>
 </ul>
 <h4 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/notifications</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>

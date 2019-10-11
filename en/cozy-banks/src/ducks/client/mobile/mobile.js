@@ -7,8 +7,9 @@ import { merge } from 'lodash'
 import { getLinks } from '../links'
 import { schema } from 'doctypes'
 import manifest from 'ducks/client/manifest'
-import pushPlugin from 'ducks/mobile/push'
-import { clientPlugin as sentryPlugin } from 'lib/sentry'
+import PushPlugin from 'ducks/mobile/push'
+import { checkForRevocation } from 'ducks/client/utils'
+import { SentryCozyClientPlugin as SentryPlugin } from 'lib/sentry'
 
 import { SOFTWARE_ID } from 'ducks/mobile/constants'
 import { getRedirectUri } from 'ducks/client/mobile/redirect'
@@ -47,37 +48,9 @@ export const getManifestOptions = manifest => {
   }
 }
 
-// TODO: the revocation check via cozy-pouch-link should not be
-// done in the app. We should find a way to have this in a shared
-// repository, possibly in cozy-client or cozy-pouch-link
-export const isRevoked = async client => {
-  try {
-    await client.stackClient.fetchInformation()
-    return false
-  } catch (err) {
-    if (err.message && err.message.indexOf('Client not found') > -1) {
-      return true
-    } else {
-      return false
-    }
-  }
-}
-
-const checkForRevocation = async client => {
-  const revoked = await isRevoked(client)
-  if (revoked) {
-    client.stackClient.unregister()
-    client.handleRevocationChange(true)
-  }
-}
-
-const registerPlugin = (client, plugin) => {
-  plugin(client)
-}
-
 const registerPluginsAndHandlers = client => {
-  registerPlugin(client, pushPlugin)
-  registerPlugin(client, sentryPlugin)
+  client.register(PushPlugin)
+  client.register(SentryPlugin)
 }
 
 export const getClient = () => {
@@ -99,6 +72,9 @@ export const getClient = () => {
     },
     links: getLinks({
       pouchLink: {
+        // TODO: the revocation check via cozy-pouch-link should not be
+        // done in the app. We should find a way to have this in a shared
+        // repository, possibly in cozy-client or cozy-pouch-link
         onSyncError: async () => {
           checkForRevocation(client)
         }

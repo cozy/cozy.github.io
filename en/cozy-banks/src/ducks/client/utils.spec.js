@@ -1,4 +1,4 @@
-const { isRevoked } = require('./mobile')
+const { isRevoked } = require('./utils')
 
 describe('isRevoked', () => {
   let fetchInformation, client

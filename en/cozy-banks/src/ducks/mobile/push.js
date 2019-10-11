@@ -5,6 +5,8 @@ import { fetchSettings, isNotificationEnabled } from 'ducks/settings/helpers'
 import flag from 'cozy-flags'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import { isIOS } from 'cozy-device-helper'
+import { updateNotificationToken } from 'ducks/client/utils'
+
 let push
 
 export const startPushNotificationsIfSettingEnabled = async cozyClient => {
@@ -38,21 +40,6 @@ const handleNotification = notification => {
   }
 }
 
-// TODO move this to cozy-client
-const updateRegistrationToken = (client, token) => {
-  // Updates local and remote information
-  const clientInfos = client.stackClient.oauthOptions
-  client.stackClient.updateInformation({
-    ...clientInfos,
-    notificationDeviceToken: token
-  })
-}
-
-// TODO move this to cozy-client
-export const getRegistrationToken = client => {
-  return client.stackClient.oauthOptions.notification_device_token
-}
-
 export const startPushNotifications = cozyClient => {
   if (push) {
     // eslint-disable-next-line no-console
@@ -74,7 +61,7 @@ export const startPushNotifications = cozyClient => {
   const handleRegistrationSuccess = ({ registrationId }) => {
     // eslint-disable-next-line no-console
     console.info('PushNotifications registered', { registrationId })
-    updateRegistrationToken(cozyClient, registrationId)
+    updateNotificationToken(cozyClient, registrationId)
   }
 
   push = window.PushNotification.init({
@@ -137,12 +124,16 @@ export const stopPushNotifications = async () => {
  * - register push notifications on login
  * - stop push notifications on logout
  */
-export default client => {
-  client.on('login', async () => {
-    await startPushNotificationsIfSettingEnabled(client)
-  })
+export default class PushPlugin {
+  constructor(client) {
+    client.on('login', async () => {
+      await startPushNotificationsIfSettingEnabled(client)
+    })
 
-  client.on('logout', async () => {
-    await stopPushNotifications()
-  })
+    client.on('logout', async () => {
+      await stopPushNotifications()
+    })
+  }
 }
+
+PushPlugin.pluginName = 'push'

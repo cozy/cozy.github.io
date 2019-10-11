@@ -151,8 +151,12 @@ export const logException = err => {
 
 export const logInfo = message => logMessage(message)
 
-export const clientPlugin = client => {
-  client.on('login', () => {
-    setURLContext(client.stackClient.uri)
-  })
+export class SentryCozyClientPlugin {
+  constructor(client) {
+    client.on('login', () => {
+      setURLContext(client.stackClient.uri)
+    })
+  }
 }
+
+SentryCozyClientPlugin.pluginName = 'sentry'
