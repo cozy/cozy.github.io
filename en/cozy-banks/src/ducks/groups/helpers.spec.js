@@ -1,7 +1,8 @@
 import {
   buildAutoGroups,
   getGroupLabel,
-  translateAndSortGroups
+  translateAndSortGroups,
+  renamedGroup
 } from './helpers'
 import { associateDocuments } from 'ducks/client/utils'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
@@ -156,5 +157,26 @@ describe('translateAndSortGroups', () => {
     ]
 
     expect(setup(groups)).toEqual(expected)
+  })
+})
+
+describe('when the given group has an accountType', () => {
+  it('should not set accountType to null', () => {
+    const group = { accountType: 'checkings' }
+
+    expect(renamedGroup(group, 'My super group')).toEqual({
+      label: 'My super group',
+      accountType: null
+    })
+  })
+})
+
+describe('when the given group does not have an accountType', () => {
+  it('should not set accountType to null', () => {
+    const group = { label: 'My group' }
+
+    expect(renamedGroup(group, 'My super group')).toEqual({
+      label: 'My super group'
+    })
   })
 })

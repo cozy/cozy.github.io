@@ -104,6 +104,20 @@ export const translateAndSortGroups = (groups, translate) => {
   ])
 }
 
+export const renamedGroup = (group, label) => {
+  const updatedGroup = {
+    ...group,
+    label
+  }
+
+  if (group.accountType) {
+    // As soon as the account is renamed it loses its accountType
+    updatedGroup.accountType = null
+  }
+
+  return updatedGroup
+}
+
 // For automatically created groups, the `accountType` attribute is present.
 export const isFormerAutoGroup = group => group.accountType === null
 export const isAutoGroup = group => group.accountType !== undefined

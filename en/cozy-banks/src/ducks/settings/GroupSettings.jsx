@@ -15,7 +15,7 @@ import { PageTitle } from 'components/Title'
 import { Padded } from 'components/Spacing'
 import { getAccountInstitutionLabel } from 'ducks/account/helpers'
 import { logException } from 'lib/sentry'
-import { getGroupLabel } from 'ducks/groups/helpers'
+import { getGroupLabel, renamedGroup } from 'ducks/groups/helpers'
 
 import styles from 'ducks/settings/GroupsSettings.styl'
 import btnStyles from 'styles/buttons.styl'
@@ -91,23 +91,20 @@ class _AccountsList extends PureComponent {
 
 const AccountsList = translate()(_AccountsList)
 
-class DumbGroupSettings extends Component {
+export class DumbGroupSettings extends Component {
   state = { modifying: false, saving: false }
-  rename = () => {
-    const { group } = this.props
+  handleRename = () => {
     const label = this.inputRef.value
+    this.rename(label)
+  }
+
+  rename(label) {
     this.setState({ saving: true })
-    this.updateOrCreate(
-      {
-        ...group,
-        label,
-        // As soon as the account is renamed it loses its accountType
-        accountType: null
-      },
-      () => {
-        this.setState({ saving: false, modifying: false })
-      }
-    )
+    const { group } = this.props
+    const updatedGroup = renamedGroup(group, label)
+    return this.updateOrCreate(updatedGroup, () => {
+      this.setState({ saving: false, modifying: false })
+    })
   }
 
   async updateOrCreate(group, cb) {
@@ -198,7 +195,7 @@ class DumbGroupSettings extends Component {
                 className={styles['save-button']}
                 disabled={saving}
                 theme="regular"
-                onClick={this.rename}
+                onClick={this.handleRename}
                 label={t('Groups.save')}
                 busy={saving}
               />

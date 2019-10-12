@@ -143,3 +143,5 @@ export const getGlobalCurrency = categories => {
 
   return currency
 }
+
+export { getCategoryIdFromName } from 'ducks/categories/categoriesMap'
