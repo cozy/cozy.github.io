@@ -120,7 +120,9 @@ class AccountRow extends React.PureComponent {
               {account.virtual ? t(accountLabel) : accountLabel}
             </div>
             <div className={styles.AccountRow__subText}>
-              {failedTrigger && !flag('demo') ? (
+              {failedTrigger &&
+              !flag('demo') &&
+              flag('transactions-error-banner') ? (
                 <FailedTriggerMessage trigger={failedTrigger} />
               ) : (
                 <UpdatedAt account={account} t={t} />
