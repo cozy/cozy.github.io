@@ -56,9 +56,10 @@ const commaSeparatedArray = x => x.split(/\s*,\s*/)
 
 const parseOptions = parser({
   allowUncategorized: htmlFormBoolean,
-  minDateDelta: float,
-  maxDateDelta: float,
-  amountDelta: float,
+  dateLowerDelta: float,
+  dateUpperDelta: float,
+  amountLowerDelta: float,
+  amountUpperDelta: float,
   identifiers: commaSeparatedArray
 })
 

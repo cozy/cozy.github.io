@@ -1,5 +1,8 @@
 import Linker from './Linker/Linker'
-import { DEFAULT_PAST_WINDOW, DEFAULT_FUTURE_WINDOW } from './Linker/Linker'
+import {
+  DEFAULT_DATE_LOWER_DELTA,
+  DEFAULT_DATE_UPPER_DELTA
+} from './Linker/Linker'
 import { format as formatDate } from 'date-fns'
 import { Transaction } from 'models'
 import { getDateRangeFromBill } from './Linker/billsToOperation/helpers'
@@ -8,8 +11,8 @@ const DATE_FORMAT = 'YYYY-MM-DD'
 
 export default async function matchFromBills(bills) {
   const options = {
-    pastWindow: DEFAULT_PAST_WINDOW,
-    futureWindow: DEFAULT_FUTURE_WINDOW
+    dateLowerDelta: DEFAULT_DATE_LOWER_DELTA,
+    dateUpperDelta: DEFAULT_DATE_UPPER_DELTA
   }
 
   const dateRange = bills.reduce((range, bill) => {

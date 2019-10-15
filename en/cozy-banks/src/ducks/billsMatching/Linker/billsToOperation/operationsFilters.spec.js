@@ -241,10 +241,10 @@ describe('operations filters', () => {
     ]
 
     const defaultOptions = {
-      minAmountDelta: 1,
-      maxAmountDelta: 1,
-      pastWindow: 1,
-      futureWindow: 1
+      amountLowerDelta: 1,
+      amountUpperDelta: 1,
+      dateLowerDelta: 1,
+      dateUpperDelta: 1
     }
 
     describe('health bill', () => {

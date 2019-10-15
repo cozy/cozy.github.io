@@ -33,10 +33,12 @@ const Settings = ({ t, children, router, breakpoints: { isMobile } }) => {
     <React.Fragment>
       <BarTheme theme="primary" />
       <Padded className={cx({ ['u-p-0']: isMobile })}>
-        <PageTitle color="primary">{t('Settings.title')}</PageTitle>
+        <PageTitle color={isMobile ? 'primary' : null}>
+          {t('Settings.title')}
+        </PageTitle>
       </Padded>
       <Tabs className={styles['bnk-tabs']} initialActiveTab={defaultTab}>
-        <TabList inverted className={styles['bnk-coz-tab-list']}>
+        <TabList inverted={isMobile} className={styles['bnk-coz-tab-list']}>
           {tabs}
         </TabList>
         <TabPanels className={styles.TabPanels}>

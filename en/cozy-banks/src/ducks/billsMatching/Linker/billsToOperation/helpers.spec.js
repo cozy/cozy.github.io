@@ -52,11 +52,11 @@ describe('getterHelper', () => {
   })
 
   describe('getDateRangeFromBill', () => {
-    const pastWindow = 1
-    const futureWindow = 1
+    const dateLowerDelta = 1
+    const dateUpperDelta = 1
     const date = '2018-01-08'
     const originalDate = '2018-01-03'
-    const options = { pastWindow, futureWindow }
+    const options = { dateLowerDelta, dateUpperDelta }
     const creditOptions = { ...options, credit: true }
 
     const matchingCriterias = {
@@ -89,9 +89,9 @@ describe('getterHelper', () => {
   })
 
   describe('getAmountRangeFromBill', () => {
-    const minAmountDelta = 1
-    const maxAmountDelta = 1
-    const options = { minAmountDelta, maxAmountDelta }
+    const amountLowerDelta = 1
+    const amountUpperDelta = 1
+    const options = { amountLowerDelta, amountUpperDelta }
     const creditOptions = { ...options, credit: true }
     const amount = 7.5
     const originalAmount = 25

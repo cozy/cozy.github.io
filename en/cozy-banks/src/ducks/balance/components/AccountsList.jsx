@@ -41,9 +41,6 @@ class AccountsList extends React.PureComponent {
       <ol className={styles.AccountsList}>
         {sortBy(accounts.filter(Boolean), getAccountBalance).map((a, i) => {
           const switchState = switches[a._id]
-          if (!switchState) {
-            throw new Error('Could not find switchState for account ' + a._id)
-          }
           return a.loading ? (
             // When loading, a._id is the slug of the connector and can be non-unique, this is why we concat the index
             <AccountRowLoading

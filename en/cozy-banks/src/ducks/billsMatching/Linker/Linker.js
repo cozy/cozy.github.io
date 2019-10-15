@@ -6,6 +6,7 @@ const {
   findCreditOperation
 } = require('./billsToOperation')
 const defaults = require('lodash/defaults')
+const defaultTo = require('lodash/defaultTo')
 const groupBy = require('lodash/groupBy')
 const flatten = require('lodash/flatten')
 const sumBy = require('lodash/sumBy')
@@ -19,8 +20,8 @@ const { cozyClient } = require('cozy-konnector-libs')
 
 const DOCTYPE_OPERATIONS = 'io.cozy.bank.operations'
 const DEFAULT_AMOUNT_DELTA = 0.001
-export const DEFAULT_PAST_WINDOW = 15
-export const DEFAULT_FUTURE_WINDOW = 29
+export const DEFAULT_DATE_LOWER_DELTA = 15
+export const DEFAULT_DATE_UPPER_DELTA = 29
 
 Transaction.registerClient(cozyClient)
 
@@ -255,10 +256,10 @@ class Linker {
    * Get defaulted options
    *
    * @param {Object} [opts={}]
-   * @param {number} [opts.minAmountDelta=0.001]
-   * @param {number} [opts.maxAmountDelta=0.001]
-   * @param {number} [opts.pastWindow=15]
-   * @param {number} [opts.futureWindow=29]
+   * @param {number} [opts.amountLowerDelta=0.001]
+   * @param {number} [opts.amountUpperDelta=0.001]
+   * @param {number} [opts.dateLowerDelta=15]
+   * @param {number} [opts.dateUpperDelta=29]
    */
   getOptions(opts = {}) {
     const options = { ...opts }
@@ -266,10 +267,22 @@ class Linker {
     // TODO Use the same names as the bills matchingCriterias
     defaults(options, { amountDelta: DEFAULT_AMOUNT_DELTA })
     defaults(options, {
-      minAmountDelta: options.amountDelta,
-      maxAmountDelta: options.amountDelta,
-      pastWindow: DEFAULT_PAST_WINDOW,
-      futureWindow: DEFAULT_FUTURE_WINDOW
+      amountLowerDelta: defaultTo(
+        options.amountLowerDelta,
+        DEFAULT_AMOUNT_DELTA
+      ),
+      amountUpperDelta: defaultTo(
+        options.amountUpperDelta,
+        DEFAULT_AMOUNT_DELTA
+      ),
+      dateLowerDelta: defaultTo(
+        options.dateLowerDelta,
+        DEFAULT_DATE_LOWER_DELTA
+      ),
+      dateUpperDelta: defaultTo(
+        options.dateUpperDelta,
+        DEFAULT_DATE_UPPER_DELTA
+      )
     })
 
     return options
@@ -353,10 +366,10 @@ class Linker {
    * @param {Object[]} bills - The array of io.cozy.bills to match
    * @param {Object[]} operations - The array of io.cozy.bank.operations to match
    * @param {Object} options - The options to apply to the matching algorithm
-   * @param {number} options.minAmountDelta - Lower delta for amount window
-   * @param {number} options.maxAmountDelta - Upper delta for amount window
-   * @param {number} options.pastWindow - Lower delta for date window
-   * @param {number} options.futureWindow - Upper delta for date window
+   * @param {number} options.amountLowerDelta - Lower delta for amount window
+   * @param {number} options.amountUpperDelta - Upper delta for amount window
+   * @param {number} options.dateLowerDelta - Lower delta for date window
+   * @param {number} options.dateUpperDelta - Upper delta for date window
    *
    * @returns {Object} An object that contains matchings for each bill
    *
@@ -607,8 +620,8 @@ class Linker {
     const defaultCriterias = {
       amountLowerDelta: DEFAULT_AMOUNT_DELTA,
       amountUpperDelta: DEFAULT_AMOUNT_DELTA,
-      dateLowerDelta: DEFAULT_PAST_WINDOW,
-      dateUpperDelta: DEFAULT_FUTURE_WINDOW
+      dateLowerDelta: DEFAULT_DATE_LOWER_DELTA,
+      dateUpperDelta: DEFAULT_DATE_UPPER_DELTA
     }
 
     const matchingCriterias = bills.reduce((criterias, bill) => {

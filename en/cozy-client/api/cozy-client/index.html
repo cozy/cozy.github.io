@@ -812,6 +812,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#constants" title="Constants" class="md-nav__link">
+    Constants
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#functions" title="Functions" class="md-nav__link">
     Functions
   </a>
@@ -1035,6 +1042,13 @@
           <li class="md-nav__item">
   <a href="#cozyclientgetdocumentsaveplandocument-relationships-arraymutation" title="cozyClient.getDocumentSavePlan(document, relationships) ⇒ Array.&lt;Mutation&gt;" class="md-nav__link">
     cozyClient.getDocumentSavePlan(document, relationships) ⇒ Array.&lt;Mutation&gt;
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cozyclientqueryquerydefinition-queryresult" title="cozyClient.query(queryDefinition) ⇒ QueryResult" class="md-nav__link">
+    cozyClient.query(queryDefinition) ⇒ QueryResult
   </a>
   
 </li>
@@ -1319,6 +1333,33 @@
           <li class="md-nav__item">
   <a href="#schemavalidate" title="schema.validate()" class="md-nav__link">
     schema.validate()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#triggerstates" title="triggerStates" class="md-nav__link">
+    triggerStates
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#triggerstatesgetlastexecution" title="triggerStates.getLastExecution()" class="md-nav__link">
+    triggerStates.getLastExecution()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#triggerstatesiserrored" title="triggerStates.isErrored()" class="md-nav__link">
+    triggerStates.isErrored()
   </a>
   
 </li>
@@ -2941,6 +2982,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#constants" title="Constants" class="md-nav__link">
+    Constants
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#functions" title="Functions" class="md-nav__link">
     Functions
   </a>
@@ -3164,6 +3212,13 @@
           <li class="md-nav__item">
   <a href="#cozyclientgetdocumentsaveplandocument-relationships-arraymutation" title="cozyClient.getDocumentSavePlan(document, relationships) ⇒ Array.&lt;Mutation&gt;" class="md-nav__link">
     cozyClient.getDocumentSavePlan(document, relationships) ⇒ Array.&lt;Mutation&gt;
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cozyclientqueryquerydefinition-queryresult" title="cozyClient.query(queryDefinition) ⇒ QueryResult" class="md-nav__link">
+    cozyClient.query(queryDefinition) ⇒ QueryResult
   </a>
   
 </li>
@@ -3458,6 +3513,33 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#triggerstates" title="triggerStates" class="md-nav__link">
+    triggerStates
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#triggerstatesgetlastexecution" title="triggerStates.getLastExecution()" class="md-nav__link">
+    triggerStates.getLastExecution()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#triggerstatesiserrored" title="triggerStates.isErrored()" class="md-nav__link">
+    triggerStates.isErrored()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#withclientcomponent-function" title="withClient(Component) ⇒ function" class="md-nav__link">
     withClient(Component) ⇒ function
   </a>
@@ -3583,6 +3665,13 @@ from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
   }
 }, cozyStackClient)
 </code></pre>
+</dd>
+</dl>
+
+<h2 id="constants">Constants<a class="headerlink" href="#constants" title="Permanent link">&para;</a></h2>
+<dl>
+<dt><a href="#triggerStates">triggerStates</a></dt>
+<dd><p>Trigger states come from /jobs/triggers</p>
 </dd>
 </dl>
 
@@ -4003,6 +4092,7 @@ having for the &lsquo;konnector&rsquo; worker, and then filter them based on the
 <li><a href="#CozyClient+logout">.logout()</a> ⇒ <code>Promise</code></li>
 <li><a href="#CozyClient+collection">.collection(doctype)</a> ⇒ <code>DocumentCollection</code></li>
 <li><a href="#CozyClient+getDocumentSavePlan">.getDocumentSavePlan(document, relationships)</a> ⇒ <code>Array.&lt;Mutation&gt;</code></li>
+<li><a href="#CozyClient+query">.query(queryDefinition)</a> ⇒ <code>QueryResult</code></li>
 <li><a href="#CozyClient+fetchRelationships">.fetchRelationships()</a></li>
 <li><a href="#CozyClient+hydrateDocument">.hydrateDocument()</a></li>
 <li><a href="#CozyClient+makeNewDocument">.makeNewDocument()</a></li>
@@ -4214,6 +4304,34 @@ a <a href="https://docs.cozy.io/en/cozy-client/api/cozy-stack-client/#DocumentCo
 <td>relationships</td>
 <td><code>object</code></td>
 <td>The list of relationships to add, as a dictionnary. Keys should be relationship names and values the documents to link.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="CozyClient+query"></a></p>
+<h3 id="cozyclientqueryquerydefinition-queryresult">cozyClient.query(queryDefinition) ⇒ <code>QueryResult</code><a class="headerlink" href="#cozyclientqueryquerydefinition-queryresult" title="Permanent link">&para;</a></h3>
+<p>Executes a query and returns its results.</p>
+<p>Results from the query will be saved internally and can be retrieved via
+<code>getQueryFromState</code> or directly using <code>&lt;Query /&gt;</code>. <code>&lt;Query /&gt;</code> automatically
+executes its query when mounted if no fetch policy has been indicated.</p>
+<p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>queryDefinition</td>
+<td><a href="#QueryDefinition"><code>QueryDefinition</code></a></td>
+<td></td>
+</tr>
+<tr>
+<td>options.as</td>
+<td><code>String</code></td>
+<td>Names the query so it can be reused (by multiple components for example)</td>
 </tr>
 </tbody>
 </table>
@@ -4868,6 +4986,25 @@ Use the last docid of each query as startkey_docid to paginate or leave blank fo
 <h3 id="schemavalidate">schema.validate()<a class="headerlink" href="#schemavalidate" title="Permanent link">&para;</a></h3>
 <p>Validates a document considering the descriptions in schema.attributes.</p>
 <p><strong>Kind</strong>: instance method of <a href="#Schema"><code>Schema</code></a><br />
+<a name="triggerStates"></a></p>
+<h2 id="triggerstates">triggerStates<a class="headerlink" href="#triggerstates" title="Permanent link">&para;</a></h2>
+<p>Trigger states come from /jobs/triggers</p>
+<p><strong>Kind</strong>: global constant  </p>
+<ul>
+<li><a href="#triggerStates">triggerStates</a><ul>
+<li><a href="#triggerStates.getLastExecution">.getLastExecution()</a></li>
+<li><a href="#triggerStates.isErrored">.isErrored()</a></li>
+</ul>
+</li>
+</ul>
+<p><a name="triggerStates.getLastExecution"></a></p>
+<h3 id="triggerstatesgetlastexecution">triggerStates.getLastExecution()<a class="headerlink" href="#triggerstatesgetlastexecution" title="Permanent link">&para;</a></h3>
+<p>Returns when the trigger was last executed. Need a trigger</p>
+<p><strong>Kind</strong>: static method of <a href="#triggerStates"><code>triggerStates</code></a><br />
+<a name="triggerStates.isErrored"></a></p>
+<h3 id="triggerstatesiserrored">triggerStates.isErrored()<a class="headerlink" href="#triggerstatesiserrored" title="Permanent link">&para;</a></h3>
+<p>Returns whether last job failed</p>
+<p><strong>Kind</strong>: static method of <a href="#triggerStates"><code>triggerStates</code></a><br />
 <a name="withClient"></a></p>
 <h2 id="withclientcomponent-function">withClient(Component) ⇒ <code>function</code><a class="headerlink" href="#withclientcomponent-function" title="Permanent link">&para;</a></h2>
 <p>HOC to provide client from context as prop</p>

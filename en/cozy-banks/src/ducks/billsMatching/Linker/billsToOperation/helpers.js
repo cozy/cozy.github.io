@@ -23,21 +23,21 @@ const getIdentifiers = options => options.identifiers
 const getDateRangeFromBill = (bill, options) => {
   const date = getOperationDateFromBill(bill, options)
 
-  const pastWindow = get(
+  const lowerDelta = get(
     bill,
     'matchingCriterias.dateLowerDelta',
-    options.pastWindow
+    options.dateLowerDelta
   )
 
-  const futureWindow = get(
+  const upperDelta = get(
     bill,
     'matchingCriterias.dateUpperDelta',
-    options.futureWindow
+    options.dateUpperDelta
   )
 
   return {
-    minDate: subDays(date, pastWindow),
-    maxDate: addDays(date, futureWindow)
+    minDate: subDays(date, lowerDelta),
+    maxDate: addDays(date, upperDelta)
   }
 }
 
@@ -47,13 +47,13 @@ const getAmountRangeFromBill = (bill, options) => {
   const lowerDelta = get(
     bill,
     'matchingCriterias.amountLowerDelta',
-    options.minAmountDelta
+    options.amountLowerDelta
   )
 
   const upperDelta = get(
     bill,
     'matchingCriterias.amountUpperDelta',
-    options.maxAmountDelta
+    options.amountUpperDelta
   )
 
   return {

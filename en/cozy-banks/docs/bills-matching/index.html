@@ -2600,10 +2600,10 @@ parameters:</p>
 </ul>
 <p>The options object can contain the following properties:</p>
 <ul>
-<li><code>minAmountDelta</code>: defaults to <code>0.001</code></li>
-<li><code>maxAmountDelta</code>: defaults to <code>0.001</code></li>
-<li><code>pastWindow</code>: defaults to 15 (days)</li>
-<li><code>futureWindow</code>: defaults to 29 (days)</li>
+<li><code>amountLowerDelta</code>: defaults to <code>0.001</code></li>
+<li><code>amountUpperDelta</code>: defaults to <code>0.001</code></li>
+<li><code>dateLowerDelta</code>: defaults to 15 (days)</li>
+<li><code>dateUpperDelta</code>: defaults to 29 (days)</li>
 </ul>
 <p>These options will determine the default date and amount windows in which a
 transaction should be to match with a bill.</p>
@@ -2628,8 +2628,8 @@ the ones that fits in the amount and date windows of the bill.</p>
 <p>The date window is <code>[bill date - dateLowerDelta; bill date + dateUpperDelta]</code>. Where:</p>
 <ul>
 <li><code>bill date</code> is <code>bill.date</code> if we are looking for a credit; <code>bill.originalDate</code> with a fallback on <code>bill.date</code> if we are looking for a debit</li>
-<li><code>dateLowerDelta</code> is <code>bill.matchingCriterias.dateLowerDelta</code> if it exists, <code>options.pastWindow</code> otherwise</li>
-<li><code>dateUpperDelta</code> is <code>bill.matchingCriterias.dateUpperDelta</code> if it exists, <code>options.futureWindow</code> otherwise</li>
+<li><code>dateLowerDelta</code> is <code>bill.matchingCriterias.dateLowerDelta</code> if it exists, <code>options.dateLowerDelta</code> otherwise</li>
+<li><code>dateUpperDelta</code> is <code>bill.matchingCriterias.dateUpperDelta</code> if it exists, <code>options.dateUpperDelta</code> otherwise</li>
 </ul>
 <p>The amount window is <code>[bill amount - amountLowerDelta; bill amount + amountUpperDelta]</code>. Where:</p>
 <ul>
