@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
-import { flowRight as compose, max } from 'lodash'
+import { flowRight as compose } from 'lodash'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 import cx from 'classnames'
 
@@ -10,7 +10,7 @@ import Breadcrumb from 'components/Breadcrumb'
 import { ConnectedSelectDates } from 'components/SelectDates'
 import { AccountSwitch } from 'ducks/account'
 import TransactionSelectDates from 'ducks/transactions/TransactionSelectDates'
-import HistoryChart from 'ducks/balance/HistoryChart'
+import { ConnectedHistoryChart as HistoryChart } from 'ducks/balance/HistoryChart'
 import Header from 'components/Header'
 import { Padded } from 'components/Spacing'
 
@@ -84,15 +84,14 @@ class TransactionHeader extends Component {
 
   renderBalanceHistory() {
     const {
-      chartData,
       breakpoints: { isMobile },
-      size
+      size,
+      currentMonth
     } = this.props
     const height = isMobile ? 66 : 96
-    if (!chartData || !size) {
+    if (!size) {
       return <div style={{ height }} />
     }
-    const intervalBetweenPoints = 2
     const marginBottom = isMobile ? 48 : 64
     const historyChartMargin = {
       top: 26,
@@ -105,9 +104,9 @@ class TransactionHeader extends Component {
       <HistoryChart
         animation={false}
         margin={historyChartMargin}
-        data={chartData}
+        currentMonth={currentMonth}
         height={height + marginBottom}
-        width={max([size.width, intervalBetweenPoints * chartData.length])}
+        minWidth={size.width}
         className={styles.TransactionsHeader__chart}
       />
     )

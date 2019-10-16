@@ -22,3 +22,6 @@ export const getClient = () => {
 
   return client
 }
+
+export { default as CleanupStoreClientPlugin } from './cleanup'
+export { default as StartupChecksPlugin } from './checks'

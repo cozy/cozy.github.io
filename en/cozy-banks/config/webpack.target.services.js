@@ -22,7 +22,7 @@ const entries = {
   ),
   categorization: path.resolve(serviceDir, './categorization.js'),
   stats: path.resolve(serviceDir, './stats.js'),
-  groups: path.resolve(serviceDir, './groups.js')
+  autogroups: path.resolve(serviceDir, './autogroups.js')
 }
 
 if (process.env.TEST_TEMPLATES) {

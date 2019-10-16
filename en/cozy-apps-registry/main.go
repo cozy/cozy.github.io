@@ -276,7 +276,6 @@ func useConfig(cmd *cobra.Command) (err error) {
 			viper.Set("cacheVersionsList", cache.NewRedisCache(defaultTTL, redisCacheVersionsList))
 			return nil
 		}
-
 	}
 
 	viper.Set("cacheVersionsLatest", cache.NewLRUCache(256, defaultTTL))
@@ -483,13 +482,13 @@ var rmSpaceCmd = &cobra.Command{
 		// Check the space is not a virtual one
 		for _, vkey := range getVspaceKeys(viper.GetStringMap("virtual_spaces")) {
 			if space == vkey {
-				return fmt.Errorf("Warning: \"%s\" is a virtual space, just remove the entry from your config file.", space)
+				return fmt.Errorf("%q is a virtual space, just remove the entry from your config file", space)
 			}
 		}
 
 		s, ok := registry.GetSpace(space)
 		if !ok {
-			return fmt.Errorf("Cannot find space %s", space)
+			return fmt.Errorf("cannot find space %q", space)
 		}
 
 		if !forceFlag {
@@ -501,7 +500,7 @@ var rmSpaceCmd = &cobra.Command{
 			}
 
 			if response != args[0] {
-				return fmt.Errorf("Error: space names are not identical")
+				return fmt.Errorf("space names are not identical")
 			}
 		}
 
@@ -1257,7 +1256,7 @@ func prepareSpaces(cmd *cobra.Command, args []string) error {
 	}
 	if len(spacesNames) > 0 {
 		if ok, name := checkSpaceVspaceOverlap(spacesNames, viper.GetStringMap("virtual_spaces")); ok {
-			return fmt.Errorf("Error: %s is defined as a space and a virtual space. Check your config file.", name)
+			return fmt.Errorf("%q is defined as a space and a virtual space (check your config file)", name)
 		}
 		for _, spaceName := range spacesNames {
 			if err := registry.RegisterSpace(spaceName); err != nil {
@@ -1354,7 +1353,7 @@ func getEditorName(args []string) (editorName string, rest []string, err error) 
 	for {
 		editorName = prompt("Editor name:")
 		if err = auth.CheckEditorName(editorName); err != nil {
-			fmt.Fprintf(os.Stderr, err.Error())
+			fmt.Fprintf(os.Stderr, "%s\n", err.Error())
 			continue
 		}
 		return

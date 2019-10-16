@@ -211,7 +211,6 @@ func createVersion(c echo.Context) (err error) {
 				}
 			}()
 		}
-
 	} else {
 		err = registry.CreatePendingVersion(getSpace(c), ver, attachments, app)
 	}

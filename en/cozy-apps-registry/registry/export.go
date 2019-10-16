@@ -222,8 +222,8 @@ func Import(in io.Reader) (err error) {
 				Content:         ioutil.NopCloser(tr),
 				Size:            hdr.Size,
 				Filename:        attName,
-				ContentType:     hdr.Xattrs["content-type"],
-				ContentEncoding: hdr.Xattrs["content-encoding"],
+				ContentType:     hdr.PAXRecords["SCHILY.xattr.content-type"],
+				ContentEncoding: hdr.PAXRecords["SCHILY.xattr.content-encoding"],
 			}
 			rev, err = db.PutAttachment(ctx, docID, rev, a)
 			if err != nil {

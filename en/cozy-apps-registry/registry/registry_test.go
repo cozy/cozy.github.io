@@ -46,7 +46,6 @@ func TestFindPreviousMinorExisting(t *testing.T) {
 	v, ok = findPreviousMinor(ver, versions)
 	assert.True(t, ok)
 	assert.Equal(t, "1.15.0", v)
-
 }
 
 func TestFindPreviousMinorNotExisting(t *testing.T) {
@@ -409,7 +408,6 @@ func TestLastNVersions(t *testing.T) {
 	assert.Equal(t, 2, len(versions))
 	assert.Equal(t, "2.3.0", versions[0].Version)
 	assert.Equal(t, "2.0.0", versions[1].Version)
-
 }
 
 func TestFindLastsVersionsSince(t *testing.T) {
@@ -457,7 +455,6 @@ func TestDeleteVersion(t *testing.T) {
 	assert.NoError(t, err)
 	_, err = sc.ObjectGet(asset.AssetContainerName, ver.AttachmentReferences["myfile1"], buf, false, nil)
 	assert.Equal(t, swift.ObjectNotFound, err)
-
 }
 
 // Download version
@@ -471,6 +468,7 @@ func TestDownloadVersioNoManifest(t *testing.T) {
 		os.Remove(missingManifestFile.Name())
 	}()
 	packageContent, err := json.Marshal(defaultPackage())
+	assert.NoError(t, err)
 	packageHeaders := &tar.Header{
 		Name: "package.json",
 		Size: int64(len(packageContent)),

@@ -1047,8 +1047,22 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#cozyclientdestroydocument-document" title="cozyClient.destroy(document) ⇒ Document" class="md-nav__link">
+    cozyClient.destroy(document) ⇒ Document
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#cozyclientqueryquerydefinition-queryresult" title="cozyClient.query(queryDefinition) ⇒ QueryResult" class="md-nav__link">
     cozyClient.query(queryDefinition) ⇒ QueryResult
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cozyclientqueryallquerydefinition-options-array" title="cozyClient.queryAll(queryDefinition, options) ⇒ Array" class="md-nav__link">
+    cozyClient.queryAll(queryDefinition, options) ⇒ Array
   </a>
   
 </li>
@@ -1061,8 +1075,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cozyclienthydratedocument" title="cozyClient.hydrateDocument()" class="md-nav__link">
-    cozyClient.hydrateDocument()
+  <a href="#cozyclienthydratedocumentsdoctype-documents-arrayhydrateddocument" title="cozyClient.hydrateDocuments(doctype, documents) ⇒ Array.&lt;HydratedDocument&gt;" class="md-nav__link">
+    cozyClient.hydrateDocuments(doctype, documents) ⇒ Array.&lt;HydratedDocument&gt;
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cozyclienthydratedocumentdocument-schema-hydratedocument" title="cozyClient.hydrateDocument(document, schema) ⇒ HydrateDocument" class="md-nav__link">
+    cozyClient.hydrateDocument(document, schema) ⇒ HydrateDocument
   </a>
   
 </li>
@@ -1202,6 +1223,13 @@
           <li class="md-nav__item">
   <a href="#cozyclientfromenv" title="CozyClient.fromEnv()" class="md-nav__link">
     CozyClient.fromEnv()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cozyclientregisterhookdoctype-name-fn" title="CozyClient.registerHook(doctype, name, fn)" class="md-nav__link">
+    CozyClient.registerHook(doctype, name, fn)
   </a>
   
 </li>
@@ -3217,8 +3245,22 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#cozyclientdestroydocument-document" title="cozyClient.destroy(document) ⇒ Document" class="md-nav__link">
+    cozyClient.destroy(document) ⇒ Document
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#cozyclientqueryquerydefinition-queryresult" title="cozyClient.query(queryDefinition) ⇒ QueryResult" class="md-nav__link">
     cozyClient.query(queryDefinition) ⇒ QueryResult
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cozyclientqueryallquerydefinition-options-array" title="cozyClient.queryAll(queryDefinition, options) ⇒ Array" class="md-nav__link">
+    cozyClient.queryAll(queryDefinition, options) ⇒ Array
   </a>
   
 </li>
@@ -3231,8 +3273,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cozyclienthydratedocument" title="cozyClient.hydrateDocument()" class="md-nav__link">
-    cozyClient.hydrateDocument()
+  <a href="#cozyclienthydratedocumentsdoctype-documents-arrayhydrateddocument" title="cozyClient.hydrateDocuments(doctype, documents) ⇒ Array.&lt;HydratedDocument&gt;" class="md-nav__link">
+    cozyClient.hydrateDocuments(doctype, documents) ⇒ Array.&lt;HydratedDocument&gt;
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cozyclienthydratedocumentdocument-schema-hydratedocument" title="cozyClient.hydrateDocument(document, schema) ⇒ HydrateDocument" class="md-nav__link">
+    cozyClient.hydrateDocument(document, schema) ⇒ HydrateDocument
   </a>
   
 </li>
@@ -3372,6 +3421,13 @@
           <li class="md-nav__item">
   <a href="#cozyclientfromenv" title="CozyClient.fromEnv()" class="md-nav__link">
     CozyClient.fromEnv()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cozyclientregisterhookdoctype-name-fn" title="CozyClient.registerHook(doctype, name, fn)" class="md-nav__link">
+    CozyClient.registerHook(doctype, name, fn)
   </a>
   
 </li>
@@ -3693,7 +3749,7 @@ from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
 <dd><p>Returns the query from the store with hydrated documents.</p>
 </dd>
 <dt><a href="#fetchMore">fetchMore()</a></dt>
-<dd><p>Generates and execute a query that is offsetted by the number of documents
+<dd><p>Generates and executes a query that is offsetted by the number of documents
 we have in the store.</p>
 </dd>
 <dt><a href="#cancelable">cancelable(promise)</a> ⇒ <code>AugmentedPromise</code></dt>
@@ -4092,9 +4148,12 @@ having for the &lsquo;konnector&rsquo; worker, and then filter them based on the
 <li><a href="#CozyClient+logout">.logout()</a> ⇒ <code>Promise</code></li>
 <li><a href="#CozyClient+collection">.collection(doctype)</a> ⇒ <code>DocumentCollection</code></li>
 <li><a href="#CozyClient+getDocumentSavePlan">.getDocumentSavePlan(document, relationships)</a> ⇒ <code>Array.&lt;Mutation&gt;</code></li>
+<li><a href="#CozyClient+destroy">.destroy(document)</a> ⇒ <code>Document</code></li>
 <li><a href="#CozyClient+query">.query(queryDefinition)</a> ⇒ <code>QueryResult</code></li>
+<li><a href="#CozyClient+queryAll">.queryAll(queryDefinition, options)</a> ⇒ <code>Array</code></li>
 <li><a href="#CozyClient+fetchRelationships">.fetchRelationships()</a></li>
-<li><a href="#CozyClient+hydrateDocument">.hydrateDocument()</a></li>
+<li><a href="#CozyClient+hydrateDocuments">.hydrateDocuments(doctype, documents)</a> ⇒ <code>Array.&lt;HydratedDocument&gt;</code></li>
+<li><a href="#CozyClient+hydrateDocument">.hydrateDocument(document, schema)</a> ⇒ <code>HydrateDocument</code></li>
 <li><a href="#CozyClient+makeNewDocument">.makeNewDocument()</a></li>
 <li><a href="#CozyClient+getAssociation">.getAssociation()</a></li>
 <li><a href="#CozyClient+getRelationshipStoreAccessors">.getRelationshipStoreAccessors()</a></li>
@@ -4119,6 +4178,7 @@ having for the &lsquo;konnector&rsquo; worker, and then filter them based on the
 </li>
 <li><a href="#CozyClient.fromOldClient">.fromOldClient()</a></li>
 <li><a href="#CozyClient.fromEnv">.fromEnv()</a></li>
+<li><a href="#CozyClient.registerHook">.registerHook(doctype, name, fn)</a></li>
 </ul>
 </li>
 </ul>
@@ -4137,7 +4197,7 @@ having for the &lsquo;konnector&rsquo; worker, and then filter them based on the
 <tbody>
 <tr>
 <td>options</td>
-<td><code>Object</code></td>
+<td><code>object</code></td>
 <td></td>
 </tr>
 <tr>
@@ -4152,12 +4212,12 @@ having for the &lsquo;konnector&rsquo; worker, and then filter them based on the
 </tr>
 <tr>
 <td>options.schema</td>
-<td><code>Object</code></td>
+<td><code>object</code></td>
 <td>Schema description for each doctypes</td>
 </tr>
 <tr>
 <td>options.appMetadata</td>
-<td><code>Object</code></td>
+<td><code>object</code></td>
 <td>Metadata about the application that will be used in ensureCozyMetadata Cozy-Client will automatically call <code>this.login()</code> if provided with a token and an uri</td>
 </tr>
 </tbody>
@@ -4266,7 +4326,7 @@ a <a href="https://docs.cozy.io/en/cozy-client/api/cozy-stack-client/#DocumentCo
 <tbody>
 <tr>
 <td>doctype</td>
-<td><code>String</code></td>
+<td><code>string</code></td>
 <td>The collection doctype.</td>
 </tr>
 </tbody>
@@ -4307,6 +4367,25 @@ a <a href="https://docs.cozy.io/en/cozy-client/api/cozy-stack-client/#DocumentCo
 </tr>
 </tbody>
 </table>
+<p><a name="CozyClient+destroy"></a></p>
+<h3 id="cozyclientdestroydocument-document">cozyClient.destroy(document) ⇒ <code>Document</code><a class="headerlink" href="#cozyclientdestroydocument-document" title="Permanent link">&para;</a></h3>
+<p>Destroys a document. {before,after}:destroy hooks will be fired.</p>
+<p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a><br />
+<strong>Returns</strong>: <code>Document</code> - The document that has been deleted  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>document</td>
+<td><code>Document</code></td>
+</tr>
+</tbody>
+</table>
 <p><a name="CozyClient+query"></a></p>
 <h3 id="cozyclientqueryquerydefinition-queryresult">cozyClient.query(queryDefinition) ⇒ <code>QueryResult</code><a class="headerlink" href="#cozyclientqueryquerydefinition-queryresult" title="Permanent link">&para;</a></h3>
 <p>Executes a query and returns its results.</p>
@@ -4330,8 +4409,36 @@ executes its query when mounted if no fetch policy has been indicated.</p>
 </tr>
 <tr>
 <td>options.as</td>
-<td><code>String</code></td>
+<td><code>string</code></td>
 <td>Names the query so it can be reused (by multiple components for example)</td>
+</tr>
+</tbody>
+</table>
+<p><a name="CozyClient+queryAll"></a></p>
+<h3 id="cozyclientqueryallquerydefinition-options-array">cozyClient.queryAll(queryDefinition, options) ⇒ <code>Array</code><a class="headerlink" href="#cozyclientqueryallquerydefinition-options-array" title="Permanent link">&para;</a></h3>
+<p>Will fetch all documents for a <code>queryDefinition</code>, automatically fetching more
+documents if the total of documents is superior to the pagination limit. Can
+result in a lot of network requests.</p>
+<p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a><br />
+<strong>Returns</strong>: <code>Array</code> - All documents matching the query  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>queryDefinition</td>
+<td><a href="#QueryDefinition"><code>QueryDefinition</code></a></td>
+<td></td>
+</tr>
+<tr>
+<td>options</td>
+<td><code>object</code></td>
+<td>Options to the query</td>
 </tr>
 </tbody>
 </table>
@@ -4340,15 +4447,61 @@ executes its query when mounted if no fetch policy has been indicated.</p>
 <p>Fetch relationships for a response (can be several docs).
 Fills the <code>relationships</code> attribute of each documents.</p>
 <p>Can potentially result in several fetch requests.
-Queries are optimized before being sent.</p>
+Queries are optimized before being sent (multiple single documents queries can be packed into
+one multiple document query) for example.</p>
 <p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a><br />
-<a name="CozyClient+hydrateDocument"></a></p>
-<h3 id="cozyclienthydratedocument">cozyClient.hydrateDocument()<a class="headerlink" href="#cozyclienthydratedocument" title="Permanent link">&para;</a></h3>
-<p>Instantiate relationships on a document</p>
+<a name="CozyClient+hydrateDocuments"></a></p>
+<h3 id="cozyclienthydratedocumentsdoctype-documents-arrayhydrateddocument">cozyClient.hydrateDocuments(doctype, documents) ⇒ <code>Array.&lt;HydratedDocument&gt;</code><a class="headerlink" href="#cozyclienthydratedocumentsdoctype-documents-arrayhydrateddocument" title="Permanent link">&para;</a></h3>
+<p>Returns documents with their relationships resolved according to their schema.
+If related documents are not in the store, they will not be fetched automatically.
+Instead, the relationships will have null documents.</p>
+<p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>doctype</td>
+<td><code>string</code></td>
+</tr>
+<tr>
+<td>documents</td>
+<td><code>Array.&lt;Document&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="CozyClient+hydrateDocument"></a></p>
+<h3 id="cozyclienthydratedocumentdocument-schema-hydratedocument">cozyClient.hydrateDocument(document, schema) ⇒ <code>HydrateDocument</code><a class="headerlink" href="#cozyclienthydratedocumentdocument-schema-hydratedocument" title="Permanent link">&para;</a></h3>
+<p>Resolves relationships on a document.</p>
 <p>The original document is kept in the target attribute of
 the relationship</p>
-<p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a><br />
-<a name="CozyClient+makeNewDocument"></a></p>
+<p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>document</td>
+<td><code>Document</code></td>
+<td>for which relationships must be resolved</td>
+</tr>
+<tr>
+<td>schema</td>
+<td><a href="#Schema"><code>Schema</code></a></td>
+<td>for the document doctype</td>
+</tr>
+</tbody>
+</table>
+<p><a name="CozyClient+makeNewDocument"></a></p>
 <h3 id="cozyclientmakenewdocument">cozyClient.makeNewDocument()<a class="headerlink" href="#cozyclientmakenewdocument" title="Permanent link">&para;</a></h3>
 <p>Creates (locally) a new document for the given doctype.
 This document is hydrated : its relationships are there
@@ -4382,7 +4535,7 @@ the store up, which in turn will update the <code>&lt;Query&gt;</code>s and re-r
 <tbody>
 <tr>
 <td>type</td>
-<td><code>String</code></td>
+<td><code>string</code></td>
 <td>Doctype of the collection</td>
 </tr>
 </tbody>
@@ -4403,12 +4556,12 @@ the store up, which in turn will update the <code>&lt;Query&gt;</code>s and re-r
 <tbody>
 <tr>
 <td>type</td>
-<td><code>String</code></td>
+<td><code>string</code></td>
 <td>Doctype of the document</td>
 </tr>
 <tr>
 <td>id</td>
-<td><code>String</code></td>
+<td><code>string</code></td>
 <td>Id of the document</td>
 </tr>
 </tbody>
@@ -4429,8 +4582,13 @@ the store up, which in turn will update the <code>&lt;Query&gt;</code>s and re-r
 <tbody>
 <tr>
 <td>id</td>
-<td><code>String</code></td>
+<td><code>string</code></td>
 <td>Id of the query (set via Query.props.as)</td>
+</tr>
+<tr>
+<td>options.hydrated</td>
+<td><code>boolean</code></td>
+<td>Whether documents should be returned already hydrated (default: false)</td>
 </tr>
 </tbody>
 </table>
@@ -4507,7 +4665,7 @@ use options.force = true.</p>
 </tr>
 <tr>
 <td>options.force</td>
-<td><code>Boolean</code></td>
+<td><code>boolean</code></td>
 <td>Will deactivate throwing when client&rsquo;s store already exists</td>
 </tr>
 </tbody>
@@ -4594,7 +4752,7 @@ than <code>&lt;delay&gt;</code> ms.</p>
 <tbody>
 <tr>
 <td>delay</td>
-<td><code>Number</code></td>
+<td><code>number</code></td>
 <td>Milliseconds since the query has been fetched</td>
 </tr>
 </tbody>
@@ -4612,7 +4770,49 @@ a client with an instance of cozy-client-js.</p>
 <h3 id="cozyclientfromenv">CozyClient.fromEnv()<a class="headerlink" href="#cozyclientfromenv" title="Permanent link">&para;</a></h3>
 <p>In konnector/service context, CozyClient can be instantiated from environment variables</p>
 <p><strong>Kind</strong>: static method of <a href="#CozyClient"><code>CozyClient</code></a><br />
-<a name="QueryDefinition"></a></p>
+<a name="CozyClient.registerHook"></a></p>
+<h3 id="cozyclientregisterhookdoctype-name-fn">CozyClient.registerHook(doctype, name, fn)<a class="headerlink" href="#cozyclientregisterhookdoctype-name-fn" title="Permanent link">&para;</a></h3>
+<p>Hooks are an observable system for events on documents.
+There are at the moment only 2 hooks available.</p>
+<ul>
+<li>before:destroy, called just before a document is destroyed via CozyClient::destroy</li>
+<li>after:destroy, called after a document is destroyed via CozyClient::destroy</li>
+</ul>
+<p><strong>Kind</strong>: static method of <a href="#CozyClient"><code>CozyClient</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>doctype</td>
+<td><code>string</code></td>
+<td></td>
+</tr>
+<tr>
+<td>name</td>
+<td><code>string</code></td>
+<td>Name of the hook</td>
+</tr>
+<tr>
+<td>fn</td>
+<td><code>function</code></td>
+<td>Callback</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong>  </p>
+<div class="codehilite"><pre><span></span>CozyClient.registerHook(&#39;io.cozy.bank.accounts&#39;, &#39;before:destroy&#39;, () =&gt; {
+  console.log(&#39;A io.cozy.bank.accounts is being destroyed&#39;)
+})
+</pre></div>
+
+
+<p><a name="QueryDefinition"></a></p>
 <h2 id="querydefinition">QueryDefinition<a class="headerlink" href="#querydefinition" title="Permanent link">&para;</a></h2>
 <p>Chainable API to create query definitions to retrieve documents
 from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
@@ -4662,7 +4862,7 @@ from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
 </tr>
 <tr>
 <td>selector</td>
-<td><code>Object</code></td>
+<td><code>object</code></td>
 <td>The selector to query the docs.</td>
 </tr>
 <tr>
@@ -4761,7 +4961,7 @@ Each field passed in the selector will be indexed, except if the indexField opti
 <tbody>
 <tr>
 <td>selector</td>
-<td><code>Object</code></td>
+<td><code>object</code></td>
 <td>The Mango selector.</td>
 </tr>
 </tbody>
@@ -4937,7 +5137,7 @@ Use the last docid of each query as startkey_docid to paginate or leave blank fo
 <tbody>
 <tr>
 <td>document</td>
-<td><code>Object</code></td>
+<td><code>object</code></td>
 <td>The reference document</td>
 </tr>
 </tbody>
@@ -5075,7 +5275,7 @@ Use the last docid of each query as startkey_docid to paginate or leave blank fo
 <p><strong>Kind</strong>: global function<br />
 <a name="fetchMore"></a></p>
 <h2 id="fetchmore">fetchMore()<a class="headerlink" href="#fetchmore" title="Permanent link">&para;</a></h2>
-<p>Generates and execute a query that is offsetted by the number of documents
+<p>Generates and executes a query that is offsetted by the number of documents
 we have in the store.</p>
 <p><strong>Kind</strong>: global function<br />
 <a name="cancelable"></a></p>

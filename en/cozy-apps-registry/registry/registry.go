@@ -110,11 +110,11 @@ var (
 	ctx = context.Background()
 
 	appsIndexes = map[string][]string{
-		"slug":        []string{"slug", "editor", "type"},
-		"type":        []string{"type", "slug", "editor"},
-		"editor":      []string{"editor", "slug", "type"},
-		"created_at":  []string{"created_at", "slug", "editor", "type"},
-		"maintenance": []string{"maintenance_activated"},
+		"slug":        {"slug", "editor", "type"},
+		"type":        {"type", "slug", "editor"},
+		"editor":      {"editor", "slug", "type"},
+		"created_at":  {"created_at", "slug", "editor", "type"},
+		"maintenance": {"maintenance_activated"},
 	}
 )
 
@@ -1330,7 +1330,6 @@ func ReadTarballVersion(reader io.Reader, contentType, url string) (*Tarball, er
 			}
 			packVersion = pack.Version
 		}
-
 	}
 
 	if manifest == nil {
@@ -1381,7 +1380,6 @@ func ReadTarballManifest(tr io.Reader, url string) (*Manifest, []byte, map[strin
 	}
 
 	return parsedManifest, manifestContent, manifest, nil
-
 }
 
 func VersionMatch(ver1, ver2 string) bool {

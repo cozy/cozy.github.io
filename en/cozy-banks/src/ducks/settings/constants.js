@@ -3,6 +3,9 @@ export const COLLECTION_NAME = 'settings'
 
 export const DEFAULTS_SETTINGS = {
   _type: 'io.cozy.bank.settings',
+  autogroups: {
+    processedAccounts: []
+  },
   notifications: {
     lastSeq: 0,
     balanceLower: {

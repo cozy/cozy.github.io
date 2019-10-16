@@ -24,7 +24,9 @@ jest.mock(
   'ducks/transactions/TransactionActionsProvider',
   () => ({ children }) => children
 )
-jest.mock('ducks/balance/HistoryChart', () => () => null)
+jest.mock('ducks/balance/HistoryChart', () => ({
+  ConnectedHistoryChart: () => null
+}))
 
 const useMobile = () => (window.innerWidth = 400)
 

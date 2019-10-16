@@ -141,7 +141,6 @@ func (a *GlobalAssetStore) AddAsset(asset *GlobalAsset, content io.Reader, sourc
 		if err != nil {
 			return err
 		}
-
 	}
 
 	// Updating the UsedBy field to add the new app version

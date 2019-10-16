@@ -4,6 +4,7 @@ import omit from 'lodash/omit'
 import keyBy from 'lodash/keyBy'
 import { runService } from './service'
 import difference from 'lodash/difference'
+import { updateSettings, fetchSettings } from 'ducks/settings/helpers'
 
 import { GROUP_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
 import {
@@ -14,15 +15,40 @@ import {
 
 const log = logger.namespace('auto-groups')
 
+const mergeSets = (s1, s2) => {
+  const s3 = new Set()
+  s1.forEach(item => s3.add(item))
+  s2.forEach(item => s3.add(item))
+  return s3
+}
+
 const createAutoGroups = async ({ client }) => {
+  const settings = await fetchSettings(client)
   const groups = await client.queryAll(client.all(GROUP_DOCTYPE))
   const accounts = await client.queryAll(client.all(ACCOUNT_DOCTYPE))
+
+  const alreadyProcessed = new Set(settings.autogroups.processedAccounts)
+
+  log(
+    'info',
+    `Number of accounts already processed by autogroups: ${
+      alreadyProcessed.size
+    }`
+  )
+  const accountsToProcess = accounts.filter(
+    account => !alreadyProcessed.has(account._id)
+  )
+
+  if (accountsToProcess.length === 0) {
+    log('info', 'No accounts to process for autogroups, bailing out.')
+    return
+  }
 
   const groupsByAccountType = keyBy(
     groups.filter(isAutoGroup),
     getGroupAccountType
   )
-  const autoGroups = buildAutoGroups(accounts, {
+  const autoGroups = buildAutoGroups(accountsToProcess, {
     virtual: false,
     client
   })
@@ -57,6 +83,13 @@ const createAutoGroups = async ({ client }) => {
       await client.save(autoGroup)
     }
   }
+
+  const processedAccounts = new Set(accountsToProcess.map(x => x._id))
+
+  settings.autogroups.accountsProcessed = Array.from(
+    mergeSets(alreadyProcessed, processedAccounts)
+  )
+  await updateSettings(client, settings)
 }
 
 const listAutoGroups = async ({ client }) => {

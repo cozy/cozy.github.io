@@ -18,6 +18,11 @@ export const fetchSettings = async client => {
   return getDefaultedSettingsFromCollection(settingsCol)
 }
 
+export const updateSettings = async (client, newSettings) => {
+  const col = client.collection(DOCTYPE)
+  await col.update(newSettings)
+}
+
 export const getDefaultedSettingsFromCollection = col => {
   const settings = get(col, 'data[0]')
   return getDefaultedSettings(settings)

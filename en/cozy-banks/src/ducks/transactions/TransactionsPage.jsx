@@ -5,8 +5,6 @@ import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import { subMonths } from 'date-fns'
-
 import { isMobileApp } from 'cozy-device-helper'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 
@@ -43,7 +41,7 @@ import TransactionPageErrors from 'ducks/transactions/TransactionPageErrors'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { findNearestMonth } from 'ducks/transactions/helpers'
 
-import { getChartTransactions, getChartData } from 'ducks/chart/selectors'
+import { getChartTransactions } from 'ducks/chart/selectors'
 
 import BarTheme from 'ducks/bar/BarTheme'
 import TransactionActionsProvider from 'ducks/transactions/TransactionActionsProvider'
@@ -238,20 +236,6 @@ class TransactionsPage extends Component {
     )
   }
 
-  getChartData() {
-    const today = new Date()
-    const twoMonthsBefore = subMonths(today, 2)
-
-    return getChartData(
-      this.props.accounts,
-      this.props.transactions,
-      this.getTransactions(),
-      this.props.filteredAccounts,
-      today,
-      twoMonthsBefore
-    )
-  }
-
   render() {
     const {
       accounts,
@@ -266,7 +250,6 @@ class TransactionsPage extends Component {
       isCollectionLoading(accounts) && !hasBeenLoaded(accounts)
     const filteredTransactions = this.getTransactions()
 
-    const chartData = this.getChartData()
     const isOnSubcategory = onSubcategory(this.props)
     const theme = 'primary'
     return (
@@ -276,7 +259,6 @@ class TransactionsPage extends Component {
           transactions={filteredTransactions}
           handleChangeMonth={this.handleChangeMonth}
           currentMonth={this.state.currentMonth}
-          chartData={chartData}
           showBackButton={this.props.showBackButton}
         />
         <TransactionPageErrors accounts={filteredAccounts} />

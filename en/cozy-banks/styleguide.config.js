@@ -12,7 +12,10 @@ module.exports = {
   styleguideDir: 'docs/build/styleguide',
   styleguideComponents: {
     Wrapper: path.resolve(__dirname, 'docs/styleguide/Wrapper'),
-    SectionsRenderer: path.resolve('cozy-ui/docs/IconSpriteInjector.jsx')
+    SectionsRenderer: path.resolve(
+      __dirname,
+      'docs/styleguide/IconSpriteInjector'
+    )
   },
   sections: [
     {

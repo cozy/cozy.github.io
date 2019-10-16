@@ -59,9 +59,9 @@ const NavItems = ({ items }) => {
   const clickState = useState(null)
   return (
     <>
-      {items.map(item =>
+      {items.map((item, i) =>
         item ? (
-          <NavItem>
+          <NavItem key={i}>
             <NavLink to={item.to} rx={item.rx} clickState={clickState}>
               <NavIcon icon={item.icon} />
               <NavText>{item.label}</NavText>

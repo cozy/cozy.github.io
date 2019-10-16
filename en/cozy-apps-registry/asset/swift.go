@@ -29,7 +29,6 @@ func (s *SwiftFS) AddAsset(asset *GlobalAsset, content io.Reader) error {
 
 	_, err = f.Write(buf)
 	return err
-
 }
 
 func (s *SwiftFS) GetAsset(shasum string) (*bytes.Buffer, map[string]string, error) {

@@ -1,6 +1,8 @@
 import { merge } from 'lodash'
 import { getKonnectorFromTrigger, isBankTrigger } from './triggers'
 
+// TODO remove when https://github.com/cozy/cozy-client/pull/538
+// is merged
 describe('getKonnectorFromTrigger', () => {
   it('should work with normal triggers', () => {
     const normalTrigger = {
