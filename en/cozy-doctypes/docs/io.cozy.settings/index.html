@@ -2405,11 +2405,29 @@
 </ul>
 <h1 id="cozy-settings-doctype">Cozy settings doctype<a class="headerlink" href="#cozy-settings-doctype" title="Permanent link">&para;</a></h1>
 <h2 id="iocozysettings"><code>io.cozy.settings</code><a class="headerlink" href="#iocozysettings" title="Permanent link">&para;</a></h2>
-<p>The <code>io.cozy.settings</code> doctype contains all the stack instance-related settings.</p>
+<p>The <code>io.cozy.settings</code> doctype contains some documents. The most important one
+is the stack instance-related settings.</p>
 <ul>
-<li><code>tz</code> {string}: Timezone of the instance (ex: <code>Europe/Paris</code>)</li>
-<li><code>email</code> {string}: Email of the instance</li>
-<li><code>public_name</code> {string}: Public displayed name of the instance</li>
+<li><code>_id</code>: <code>io.cozy.settings.instance</code></li>
+<li><code>tz</code>: {string} Timezone of the instance (ex: <code>Europe/Paris</code>)</li>
+<li><code>email</code>: {string} Email of the instance</li>
+<li><code>public_name</code>: {string} Public displayed name of the instance</li>
+</ul>
+<p>There is also a document with the stuff related to authentication and Bitwarden:</p>
+<ul>
+<li><code>_id</code>: <code>io.cozy.settings.bitwarden</code></li>
+<li><code>passphrase_kdf</code>: {int} the type of KDF (0 for PBKDF2 with SHA256)</li>
+<li><code>passphrase_kdf_iterations</code>: {int} the number of iterations to derive the master key from the password</li>
+<li><code>passphrase_hint</code>: {string} a message displayed in bitwarden clients to help the user finding again their password</li>
+<li><code>security_stamp</code>: {string} a value changed when the password is modified, to ensure that bitwarden clients don&rsquo;t send ciphers encrypted with the old password</li>
+<li><code>key</code>: {string} the key used to encrypt ciphers, itself encrypted with the master key</li>
+<li><code>public_key</code>: {string} the public key of the user for the cozy organization</li>
+<li><code>private_key</code>: {string} the private key of the user for the cozy organization (encrypted)</li>
+<li><code>encrypted_organization_key</code>: {string} the key to encrypt/decrypt the ciphers in the Cozy organization (encrypted)</li>
+<li><code>organization_id</code>: {string} the identifier of the Cozy organization</li>
+<li><code>collection_id</code>: {string} the identifier of the collection for the Cozy organization</li>
+<li><code>equivalent_domains</code>: {array} an array with lists of equivalent domains</li>
+<li><code>global_equivalent_domains</code>: {array} an array of integers used by bitwarden clients</li>
 </ul>
                 
                   

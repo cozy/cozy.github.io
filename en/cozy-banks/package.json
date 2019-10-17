@@ -162,19 +162,20 @@
     "cozy-authentication": "1.19.2",
     "cozy-bar": "7.7.2",
     "cozy-ci": "0.4.1",
-    "cozy-client": "7.3.0",
+    "cozy-client": "7.5.1",
     "cozy-client-js": "0.16.4",
     "cozy-device-helper": "1.8.0",
     "cozy-doctypes": "1.67.0",
     "cozy-flags": "1.10.0",
+    "cozy-harvest-lib": "1.9.0",
     "cozy-interapp": "0.5.0",
     "cozy-konnector-libs": "4.17.1",
     "cozy-logger": "1.6.0",
     "cozy-notifications": "0.3.2",
     "cozy-pouch-link": "6.64.7",
     "cozy-realtime": "3.2.1",
-    "cozy-stack-client": "7.1.1",
-    "cozy-ui": "24.2.2",
+    "cozy-stack-client": "7.5.0",
+    "cozy-ui": "^25.3.2",
     "d3": "5.11.0",
     "date-fns": "1.30.1",
     "detect-node": "2.0.4",
@@ -239,6 +240,9 @@
       "css$": "identity-obj-proxy",
       "^cozy-client$": "cozy-client/dist/index"
     },
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
     "testPathIgnorePatterns": [
       "node_modules",
       "src/targets/mobile/"
@@ -250,7 +254,7 @@
       "\\.hbs$": "<rootDir>/test/readFileESM.js"
     },
     "transformIgnorePatterns": [
-      "node_modules/(?!(cozy-ui|cozy-client|cozy-notifications))"
+      "node_modules/(?!(cozy-harvest-lib|cozy-ui|cozy-client|cozy-notifications))"
     ],
     "globals": {
       "__ALLOW_HTTP__": false,

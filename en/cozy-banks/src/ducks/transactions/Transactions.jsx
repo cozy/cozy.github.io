@@ -17,6 +17,7 @@ import Button from 'cozy-ui/react/Button'
 import * as List from 'components/List'
 import { Table } from 'components/Table'
 
+import TransactionPageErrors from 'ducks/transactions/TransactionPageErrors'
 import styles from 'ducks/transactions/Transactions.styl'
 import {
   InfiniteScroll,
@@ -224,6 +225,7 @@ export class TransactionsDumb extends React.Component {
         onScroll={this.handleScroll}
         className={this.props.className}
       >
+        <TransactionPageErrors />
         <ScrollRestore
           limitMin={limitMin}
           limitMax={limitMax}

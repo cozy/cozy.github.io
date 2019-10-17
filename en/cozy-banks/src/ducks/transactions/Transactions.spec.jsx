@@ -10,6 +10,9 @@ import { Caption } from 'cozy-ui/react/Text'
 import { getClient } from 'test/client'
 import { normalizeData } from 'test/store'
 
+// No need to test this here
+jest.mock('ducks/transactions/TransactionPageErrors', () => () => null)
+
 const allTransactions = data['io.cozy.bank.operations']
 
 describe('transaction row', () => {

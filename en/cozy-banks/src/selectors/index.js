@@ -4,15 +4,18 @@ import { buildVirtualAccounts } from 'ducks/account/helpers'
 
 import { getQueryFromState } from 'cozy-client'
 
-const querySelector = queryName => state => getQueryFromState(state, queryName)
+const querySelector = (queryName, options) => state =>
+  getQueryFromState(state, queryName, options)
 
-export const queryDataSelector = queryName =>
+export const queryDataSelector = (queryName, options) =>
   createSelector(
-    [querySelector(queryName)],
+    [querySelector(queryName, options)],
     query => (query && query.data) || []
   )
 
-export const getTransactionsRaw = queryDataSelector('transactions')
+export const getTransactionsRaw = queryDataSelector('transactions', {
+  hydrated: true
+})
 export const getGroups = queryDataSelector('groups')
 export const getAccounts = queryDataSelector('accounts')
 export const getApps = queryDataSelector('apps')

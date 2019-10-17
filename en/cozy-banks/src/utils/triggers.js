@@ -6,6 +6,7 @@ import { includes, get } from 'lodash'
 const bankingSlug = [
   'axabanque102',
   'banquepopulaire',
+  'bankingconnectortest',
   'barclays136',
   'bforbank97',
   'bnpparibas82',

@@ -1,10 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import compose from 'lodash/flowRight'
 import sortBy from 'lodash/sortBy'
 import get from 'lodash/get'
 import keyBy from 'lodash/keyBy'
 import mapValues from 'lodash/mapValues'
+import { getFilteredAccounts } from 'ducks/filters'
 
 import CozyClient, { queryConnect } from 'cozy-client'
 
@@ -83,6 +85,9 @@ TransactionPageErrors.propTypes = {
 export const DumbTransactionPageErrors = TransactionPageErrors
 
 export default compose(
+  connect(state => ({
+    accounts: getFilteredAccounts(state)
+  })),
   queryConnect({
     triggerCol: {
       ...triggersConn,

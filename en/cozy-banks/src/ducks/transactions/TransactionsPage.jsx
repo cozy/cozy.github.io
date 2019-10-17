@@ -37,7 +37,6 @@ import {
 } from 'doctypes'
 
 import TransactionHeader from 'ducks/transactions/TransactionHeader'
-import TransactionPageErrors from 'ducks/transactions/TransactionPageErrors'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { findNearestMonth } from 'ducks/transactions/helpers'
 
@@ -261,7 +260,6 @@ class TransactionsPage extends Component {
           currentMonth={this.state.currentMonth}
           showBackButton={this.props.showBackButton}
         />
-        <TransactionPageErrors accounts={filteredAccounts} />
         {isMobile && !areAccountsLoading && !isOnSubcategory && (
           <TransactionsPageBar accounts={filteredAccounts} theme={theme} />
         )}

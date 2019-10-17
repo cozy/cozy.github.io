@@ -903,6 +903,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#ui-regression-testing" title="UI regression testing" class="md-nav__link">
+    UI regression testing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#license" title="License" class="md-nav__link">
     License
   </a>
@@ -2496,6 +2503,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#ui-regression-testing" title="UI regression testing" class="md-nav__link">
+    UI regression testing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#license" title="License" class="md-nav__link">
     License
   </a>
@@ -2599,6 +2613,22 @@ yarn deploy:doc --repo git@github.com:USERNAME/cozy-ui.git
 </pre></div>
 
 
+<h2 id="ui-regression-testing">UI regression testing<a class="headerlink" href="#ui-regression-testing" title="Permanent link">&para;</a></h2>
+<p>Components in <code>cozy-ui</code> are showcased with <a href="https://react-styleguidist.js.org/">React Styleguidist</a>. To prevent UI regressions,
+for each PR, each component is screenshotted and compared to the master version to find any
+regression (thanks <a href="https://github.com/argos-ci/argos">Argos</a> !).</p>
+<p>If your app uses <a href="https://react-styleguidist.js.org/">React Styleguidist</a>, <code>cozy-ui</code> provides <code>rsg-screenshots</code>, a CLI tool to take
+screenshots of your components (uses Puppeteer under the hood).</p>
+<div class="codehilite"><pre><span></span>$ yarn add cozy-ui
+$ <span class="c1"># The rsg-screenshots binary is now installed</span>
+$ yarn build:doc:react <span class="c1"># Build our styleguide, the output directory is docs/react</span>
+$ rsg-screenshots --screenshot-dir screenshots/ --styleguide-dir docs/react
+<span class="c1"># Each component in the styleguide will be screenshotted and saved inside the</span>
+<span class="c1"># screenshots/ directory</span>
+</pre></div>
+
+
+<p>See our <a href="./travis.yml">travis configuration</a> for more information.</p>
 <h2 id="license">License<a class="headerlink" href="#license" title="Permanent link">&para;</a></h2>
 <p>Cozy UI is developed by Cozy Cloud and distributed under the AGPL-3.0 license.</p>
 <h2 id="what-is-cozy">What is Cozy?<a class="headerlink" href="#what-is-cozy" title="Permanent link">&para;</a></h2>
