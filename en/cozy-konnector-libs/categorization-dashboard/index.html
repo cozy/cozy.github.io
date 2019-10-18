@@ -2328,8 +2328,22 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#run-tests" title="Run tests" class="md-nav__link">
-    Run tests
+  <a href="#download-and-decrypt-data" title="Download and decrypt data" class="md-nav__link">
+    Download and decrypt data
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-the-tests" title="Run the tests" class="md-nav__link">
+    Run the tests
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#update-the-tests" title="Update the tests" class="md-nav__link">
+    Update the tests
   </a>
   
 </li>
@@ -2354,27 +2368,50 @@
                 
                 
                 <h1 id="categorization-dashboard">Categorization dashboard<a class="headerlink" href="#categorization-dashboard" title="Permanent link">&para;</a></h1>
-<p>To check that the categorization works well, we have tests that generate a dashboard showing global and local models performances.</p>
-<h2 id="run-tests">Run tests<a class="headerlink" href="#run-tests" title="Permanent link">&para;</a></h2>
-<p>Since these tests are executed on real data, the data is encrypted. To be able to run the tests, you have to decrypt it:</p>
+<p>To check that the banking categorization works well, we have tests that generate a dashboard showing global and local models performances based on sanitized datasets.</p>
+<h2 id="download-and-decrypt-data">Download and decrypt data<a class="headerlink" href="#download-and-decrypt-data" title="Permanent link">&para;</a></h2>
+<p>Since these tests are executed on real data, it is kept encrypted. To be able to run the tests, you first have to decrypt it (you need the encryption passphrase):</p>
 <div class="codehilite"><pre><span></span>yarn decrypt-banking-tests
 </pre></div>
 
 
+<p>You now have two new directories in the dashboard:</p>
+<ul>
+<li><code>fixtures</code>: the actual operations with the categories information.</li>
+<li><code>__snapshots__</code>: snapshot of the categorization results.</li>
+</ul>
 <p>The global categorization model tests also needs the current and latest model parameters. These parameters should be downloaded:</p>
 <div class="codehilite"><pre><span></span>yarn download-banking-tests
 </pre></div>
 
 
 <p>Now you have everything to run the tests.</p>
-<div class="codehilite"><pre><span></span>env BACKUP_DIR=/path/to/dir yarn jest src/ducks/categorization/services-fixtures.spec.js
+<h2 id="run-the-tests">Run the tests<a class="headerlink" href="#run-the-tests" title="Permanent link">&para;</a></h2>
+<p>There are two tests files :</p>
+<ul>
+<li><code>services-global-fixtures.spec.js</code>: only test the global model.</li>
+<li><code>services-fixtures.spec.js</code>: test both the global and local models.</li>
+</ul>
+<p>Each test will categorize all the operations and check if it matches the snapshot. To run it:</p>
+<div class="codehilite"><pre><span></span>env BACKUP_DIR=/path/to/dir LOG_LEVEL=error yarn jest src/libs/categorization/dashboard/services-fixtures.spec.js
 </pre></div>
 
 
 <ul>
-<li><code>BACKUP_DIR</code> environment variable is the path to the directory in which you want to write the result of the tests (csv and txt files)</li>
-<li>You can add the jest flags you need: <code>-u</code> to update snapshots and <code>--watch</code> to run the tests in watch mode, for example</li>
+<li><code>BACKUP_DIR</code> environment variable is the path to the directory in which you want to write the result of the tes. Default is <code>/tmp</code></li>
+<li><code>LOG_LEVEL</code> environment variable is the log level used by <a href="https://github.com/cozy/cozy-libs/tree/master/packages/cozy-logger">cozy-logger</a>. As the tests can be quite verbose, using the error level avoids unecessary information.</li>
+<li>You can add  <code>--watch</code> to run the tests in watch mode to avoid running everything each time.</li>
+<li>Adding <code>IT_IS_A_TEST=true</code> will run the tests on a reduced dataset, as the whole tests can take a long time to complete.</li>
 </ul>
+<h2 id="update-the-tests">Update the tests<a class="headerlink" href="#update-the-tests" title="Permanent link">&para;</a></h2>
+<p>To update the snapshots of the tests:</p>
+<div class="codehilite"><pre><span></span>yarn jest src/libs/categorization/dashboard/ -u
+</pre></div>
+
+
+<p>Then, to save the results with a new encrypted archive (you need the encryption passphrase):</p>
+<div class="codehilite"><pre><span></span>yarn encrypt-banking-tests
+</pre></div>
                 
                   
                 

@@ -14,6 +14,9 @@ describe('trigger error card', () => {
         count={1}
         index={0}
         trigger={{
+          current_state: {
+            last_error: 'LOGIN_FAILED'
+          },
           message: {
             account: '1234',
             konnector: 'boursorama83'

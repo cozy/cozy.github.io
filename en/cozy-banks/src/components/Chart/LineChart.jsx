@@ -58,18 +58,14 @@ class LineChart extends Component {
 
   static getDerivedStateFromProps(props, state) {
     const { data } = props
-    const { itemKey: prevItemKey } = state || {}
 
-    const dataByDate = getDataByDate(data)
-
-    // When dataByDate changes and the current selected item does not belong
-    // to the new data, we have to reset it. This happens for example when
-    // navigating from month to month
-    if (!dataByDate || !prevItemKey || !dataByDate[prevItemKey]) {
+    // If currently displayed data changes, we recompute selected itemkey
+    if (!state || state.prevData !== data) {
+      const dataByDate = getDataByDate(data)
       const itemKey = max(Object.keys(dataByDate))
-      return { itemKey }
-    } else {
-      return null
+      // Have to keep prevData in derivedState to access it in later calls
+      // of getDerivedStateFromProps. See https://github.com/facebook/react/issues/12188
+      return { prevData: data, itemKey }
     }
   }
 

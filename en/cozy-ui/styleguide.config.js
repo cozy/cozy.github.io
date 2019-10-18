@@ -119,7 +119,10 @@ module.exports = {
     },
     {
       name: 'Labs',
-      components: () => ['../react/Labs/GridItem']
+      components: () => [
+        '../react/Labs/GridItem',
+        '../react/Labs/ExperimentalModal'
+      ]
     }
   ],
   components: '../react/**/*.jsx',

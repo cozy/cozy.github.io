@@ -26,7 +26,7 @@ const TriggerErrorCard = ({
     konnector: trigger.message.konnector
   })
 
-  const konnError = new KonnectorJobError(trigger.last_error)
+  const konnError = new KonnectorJobError(trigger.current_state.last_error)
   // We do not have a full konnector object here but we can create a simple
   // one, that is sufficient for getErrorLocaleBound, from the information in
   // the trigger

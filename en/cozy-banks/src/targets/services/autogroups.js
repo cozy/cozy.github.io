@@ -86,7 +86,7 @@ const createAutoGroups = async ({ client }) => {
 
   const processedAccounts = new Set(accountsToProcess.map(x => x._id))
 
-  settings.autogroups.accountsProcessed = Array.from(
+  settings.autogroups.processedAccounts = Array.from(
     mergeSets(alreadyProcessed, processedAccounts)
   )
   await updateSettings(client, settings)
