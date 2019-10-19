@@ -2631,6 +2631,26 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#real-time-via-websockets" title="Real-time via websockets" class="md-nav__link">
+    Real-time via websockets
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example" title="Example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
       
@@ -3665,6 +3685,26 @@
   <a href="#trashed-attribute" title="Trashed attribute" class="md-nav__link">
     Trashed attribute
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#real-time-via-websockets" title="Real-time via websockets" class="md-nav__link">
+    Real-time via websockets
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example" title="Example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -4897,6 +4937,28 @@ backups).</p>
 <h2 id="trashed-attribute">Trashed attribute<a class="headerlink" href="#trashed-attribute" title="Permanent link">&para;</a></h2>
 <p>All files that are inside the trash will have a <code>trashed: true</code> attribute. This
 attribute can be used in mango queries to only get &ldquo;interesting&rdquo; files.</p>
+<h2 id="real-time-via-websockets">Real-time via websockets<a class="headerlink" href="#real-time-via-websockets" title="Permanent link">&para;</a></h2>
+<p>In addition to the normal events for files, the stack also injects some events
+when a thumbnail is generated. A permission on <code>io.cozy.files</code> is required to
+subscribe to those events on <code>io.cozy.files.thumbnails</code>.</p>
+<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>client &gt; {&quot;method&quot;: &quot;AUTH&quot;,
+          &quot;payload&quot;: &quot;xxAppOrAuthTokenxx=&quot;}
+client &gt; {&quot;method&quot;: &quot;SUBSCRIBE&quot;,
+          &quot;payload&quot;: {&quot;type&quot;: &quot;io.cozy.files.thumbnails&quot; }
+server &gt; {&quot;event&quot;: &quot;CREATED&quot;,
+          &quot;payload&quot;: {&quot;id&quot;: &quot;9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;,
+                      &quot;type&quot;: &quot;io.cozy.files.thumbnails&quot;,
+                      &quot;doc&quot;: {&quot;format&quot;: &quot;large&quot;}}}
+server &gt; {&quot;event&quot;: &quot;CREATED&quot;,
+          &quot;payload&quot;: {&quot;id&quot;: &quot;9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;,
+                      &quot;type&quot;: &quot;io.cozy.files.thumbnails&quot;,
+                      &quot;doc&quot;: {&quot;format&quot;: &quot;medium&quot;}}}
+server &gt; {&quot;event&quot;: &quot;CREATED&quot;,
+          &quot;payload&quot;: {&quot;id&quot;: &quot;9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;,
+                      &quot;type&quot;: &quot;io.cozy.files.thumbnails&quot;,
+                      &quot;doc&quot;: {&quot;format&quot;: &quot;small&quot;}}}
+</pre></div>
                 
                   
                 

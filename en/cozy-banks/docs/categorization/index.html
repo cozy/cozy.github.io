@@ -2362,6 +2362,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#category-choice" title="Category choice" class="md-nav__link">
+    Category choice
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#auto-categorization-setting" title="Auto categorization setting" class="md-nav__link">
     Auto categorization setting
   </a>
@@ -2404,8 +2411,7 @@ to an API via a remote doctype.</p>
 categorization habits and predict the category of some transactions based on
 this.</p>
 <p>This model is applied to transactions when the <code>onOperationOrBillCreate</code> service is
-ran. For now, it doesn&rsquo;t replace the Linxo categorization. We just write its
-results in the <code>localCategoryId</code> and <code>localCategoryProba</code> properties of the
+run and write its results in the <code>localCategoryId</code> and <code>localCategoryProba</code> properties of the
 <code>io.cozy.bank.operations</code> documents.</p>
 <h3 id="implementation-details">Implementation details<a class="headerlink" href="#implementation-details" title="Permanent link">&para;</a></h3>
 <p>Currently, the local categorization model fetches all the manually categorized
@@ -2414,14 +2420,14 @@ compute the entire model everytime because the pros/cons balance of saving the
 model in a specific doctype is not good for this model.</p>
 <p>Pros:</p>
 <ul>
-<li>Don&rsquo;t need to regenerate the whole model everytime the service is ran</li>
+<li>Don&rsquo;t need to regenerate the whole model everytime the service is run</li>
 </ul>
 <p>Cons:</p>
 <ul>
-<li>Need to do some migrations if we want to update the model algorythm</li>
+<li>Need to do some migrations if we want to update the model algorithm</li>
 </ul>
-<p>Since the CPU time needed to compute the whole model is low (users will never recategorize the majority of their transactions since it&rsquo;s already almost accurately categorized by Linxo), the main advantage is weak in front of the disadvantage.</p>
-<p>The solution of saving the model in the DB has already been implemented and
+<p>Since the CPU time needed to compute the whole model is low (users will never recategorize the majority of their transactions, as the global model has most of the time the correct category), the main advantage is weak in front of the disadvantage. Therefore we chose to recompute the model on every run. </p>
+<p>The solution of saving the model in the database was first implemented and then
 reverted following this decision. If we finally need to use this solution, we
 can find it in
 <a href="https://github.com/cozy/cozy-banks/commit/9bbc96b0e2db1c769d86b19ae760b5811ae86884">9bbc96b0</a>
@@ -2431,16 +2437,31 @@ which has been reverted by
 <p>This model analyzes the category of transactions from instances that enabled
 the <a href="#auto-categorization-setting">auto categorization setting</a> in their Banks
 app. It is computed on a distant server, and we fetch it via the remote
-assets(learn more
+assets each time transactions are retrieved (learn more
 <a href="https://docs.cozy.io/en/cozy-stack/remote/#get-remoteassetsasset-name">here</a>
 and
 <a href="https://github.com/cozy/cozy-stack/blob/master/cozy.example.yaml#L24">here</a>).
 The remote asset name used for this is <code>bank_classifier_nb_and_voc</code>. Its value
 should be an URL to a JSON file.</p>
 <p>This model is applied to transactions when the <code>onOperationOrBillCreate</code> service is
-ran. For now, it doesn&rsquo;t replace the Linxo categorization. We just write its
-results in the <code>cozyCategoryId</code> and <code>cozyCategoryProba</code> properties of the
+run and writes its results in the <code>cozyCategoryId</code> and <code>cozyCategoryProba</code> properties of the
 <code>io.cozy.bank.operations</code> documents.</p>
+<h2 id="category-choice">Category choice<a class="headerlink" href="#category-choice" title="Permanent link">&para;</a></h2>
+<p>After the categorization execution, we may have 4 different levels of categories for the transactions:</p>
+<ul>
+<li><code>manualCategoryId</code>: the category manually chosen by the user.</li>
+<li><code>localCategoryId</code>: computed by the local model.</li>
+<li><code>cozyCategoryId</code>: computed by the global.</li>
+<li><code>automaticCategoryId</code>: automatic category retrieved from our banking provider.</li>
+</ul>
+<p>To determine which category will be shown to the user, we use the following rules:</p>
+<ol>
+<li>If the <code>manualCategoryId</code> exists, use it.</li>
+<li>Else, use <code>localCategoryId</code> if <code>localCategoryProba</code> &gt; <code>LOCAL_MODEL_USAGE_THRESHOLD</code>.</li>
+<li>Else, use <code>cozyCategoryId</code>if <code>cozyCategoryProba</code> &gt; <code>GLOBAL_MODEL_USAGE_THRESHOLD</code></li>
+<li>Else, use <code>automaticCategoryId</code></li>
+</ol>
+<p>For more details, see the <a href="https://github.com/cozy/cozy-libs/blob/master/packages/cozy-doctypes/src/banking/BankTransaction.js">code</a>.</p>
 <h2 id="auto-categorization-setting">Auto categorization setting<a class="headerlink" href="#auto-categorization-setting" title="Permanent link">&para;</a></h2>
 <p>In banks, there is a setting that the user can enable (it is disabled by
 default) if he wants to share his bank transactions with us to improve our

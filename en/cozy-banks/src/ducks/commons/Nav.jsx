@@ -28,32 +28,33 @@ const navLinkMatch = props =>
  * to have a faster change of active (not waiting for the route to completely
  * change).
  */
-export const NavLink = React.memo(
-  withRouter(props => {
-    const {
-      children,
-      to,
-      clickState: [lastClicked, setLastClicked]
-    } = props
-    return (
-      <a
-        style={{ outline: 'none' }}
-        onClick={() => setLastClicked(to)}
-        href={`#/${to}`}
-        className={cx(
-          UINavLink.className,
-          (!lastClicked && navLinkMatch(props)) || lastClicked === to
-            ? UINavLink.activeClassName
-            : null
-        )}
-      >
-        {children}
-      </a>
-    )
-  })
-)
+export const NavLink = withRouter(props => {
+  const {
+    children,
+    to,
+    clickState: [lastClicked, setLastClicked]
+  } = props
+  return (
+    <a
+      style={{ outline: 'none' }}
+      onClick={() => setLastClicked(to)}
+      href={`#/${to}`}
+      className={cx(
+        UINavLink.className,
+        (!lastClicked && navLinkMatch(props)) || lastClicked === to
+          ? UINavLink.activeClassName
+          : null
+      )}
+    >
+      {children}
+    </a>
+  )
+})
 
 const transferRoute = /\/transfers(\/.*)?/
+const settingsRoute = /\/settings(\/.*)?/
+const balancesRoute = /\/balances(\/.*)?/
+const categoriesRoute = /\/categories(\/.*)?/
 
 const NavItems = ({ items }) => {
   const clickState = useState(null)
@@ -78,8 +79,18 @@ export const Nav = ({ t }) => {
     <UINav>
       <NavItems
         items={[
-          { to: 'balances', icon: wallet, label: t('Nav.my-accounts') },
-          { to: 'categories', icon: graph, label: t('Nav.categorisation') },
+          {
+            to: 'balances',
+            icon: wallet,
+            label: t('Nav.my-accounts'),
+            rx: balancesRoute
+          },
+          {
+            to: 'categories',
+            icon: graph,
+            label: t('Nav.categorisation'),
+            rx: categoriesRoute
+          },
           flag('transfers')
             ? {
                 to: 'transfers',
@@ -88,7 +99,12 @@ export const Nav = ({ t }) => {
                 rx: transferRoute
               }
             : null,
-          { to: 'settings', icon: 'gear', label: t('Nav.settings') }
+          {
+            to: 'settings',
+            icon: 'gear',
+            label: t('Nav.settings'),
+            rx: settingsRoute
+          }
         ]}
       />
       {Nav.renderExtra()}
