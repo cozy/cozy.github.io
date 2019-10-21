@@ -50,6 +50,7 @@ describe('startup checks', () => {
       id: '1234',
       attributes: {
         type: '@event',
+        current_state: {},
         message: {
           slug: 'banks',
           name: 'autogroups'
@@ -89,7 +90,11 @@ describe('startup checks', () => {
       existingTriggers: [
         triggers[0],
         merge(triggers[1], {
-          attributes: { last_execution: '2019-10-31T00:00' }
+          attributes: {
+            current_state: {
+              last_execution: '2019-10-31T00:00'
+            }
+          }
         })
       ]
     })
