@@ -5,7 +5,7 @@ summary: Have your first application ready to be run in a Cozy
 
 ## Prerequisites
 
-Developing an application for Cozy is quite easy. All you need to have is:
+Developing an application for Cozy is like developing a front-end JS application. All you need to have is:
 
  - NodeJS 10+
  - [Yarn](https://yarnpkg.com): a NodeJS package manager, like `npm`
@@ -303,7 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 ### Handle data with `cozy-client`
 
-`cozy-client` is a simple and declarative way of managing [cozy-stack](https://github.com/cozy/cozy-stack) API callsand resulting data. It is a convenient yet powerful way to bind `cozy-stack` queries to your components.
+`cozy-client` is a simple and declarative way of managing [cozy-stack](https://github.com/cozy/cozy-stack) API calls and resulting data. It is a convenient and powerful way to bind `cozy-stack` queries to your components.
 
 - [Getting started](https://docs.cozy.io/en/cozy-client/getting-started/)
 - [React integration](https://docs.cozy.io/en/cozy-client/react-integration/)
