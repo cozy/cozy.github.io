@@ -208,6 +208,7 @@ class TransactionsPage extends Component {
     const { limitMin, limitMax, infiniteScrollTop } = this.state
     const { t } = this.props
     const transactions = this.getTransactions()
+    const isOnSubcategory = onSubcategory(this.props)
 
     if (transactions.length === 0) {
       return (
@@ -220,6 +221,7 @@ class TransactionsPage extends Component {
     return (
       <Delayed delay={0} fallback={<FakeTransactions />}>
         <TransactionsWithSelection
+          isOnSubcategory={isOnSubcategory}
           limitMin={limitMin}
           limitMax={limitMax}
           onReachTop={this.handleDecreaseLimitMin}

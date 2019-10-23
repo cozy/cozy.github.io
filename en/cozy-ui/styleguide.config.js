@@ -15,6 +15,7 @@ module.exports = {
         '../react/Button/index.jsx',
         '../react/ButtonAction/index.jsx',
         '../react/Card/index.jsx',
+        '../react/CompositeRow/index.jsx',
         '../react/InlineCard/index.jsx',
         '../react/Chip/index.jsx',
         '../react/Icon/index.jsx',
@@ -153,6 +154,7 @@ module.exports = {
   webpackConfig: webpackMerge(require('./webpack.config.js'), {
     resolve: {
       alias: {
+        'cozy-ui/transpiled/react': path.resolve(__dirname, '../react/'),
         'cozy-ui': path.join(__dirname, '..')
       }
     }

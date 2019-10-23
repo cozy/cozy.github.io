@@ -209,7 +209,7 @@ export class TransactionsDumb extends React.Component {
   }
 
   render() {
-    const { limitMin, limitMax, manualLoadMore } = this.props
+    const { limitMin, limitMax, manualLoadMore, isOnSubcategory } = this.props
     return (
       <InfiniteScroll
         manual={manualLoadMore}
@@ -225,7 +225,7 @@ export class TransactionsDumb extends React.Component {
         onScroll={this.handleScroll}
         className={this.props.className}
       >
-        <TransactionPageErrors />
+        {!isOnSubcategory ? <TransactionPageErrors /> : null}
         <ScrollRestore
           limitMin={limitMin}
           limitMax={limitMax}

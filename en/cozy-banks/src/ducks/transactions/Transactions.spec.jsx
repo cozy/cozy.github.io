@@ -9,6 +9,7 @@ import AppLike from '../../../test/AppLike'
 import { Caption } from 'cozy-ui/react/Text'
 import { getClient } from 'test/client'
 import { normalizeData } from 'test/store'
+import TransactionPageErrors from 'ducks/transactions/TransactionPageErrors'
 
 // No need to test this here
 jest.mock('ducks/transactions/TransactionPageErrors', () => () => null)
@@ -80,15 +81,32 @@ describe('Transactions', () => {
     .spyOn(TransactionsDumb.prototype, 'renderTransactions')
     .mockReturnValue(<div />)
 
-  it('should sort transactions from props on mount and on update', () => {
+  const setup = ({ isOnSubcategory }) => {
     const transactions = data['io.cozy.bank.operations']
 
     const root = mount(
       <TransactionsDumb
         breakpoints={{ isDesktop: false }}
         transactions={transactions}
+        isOnSubcategory={isOnSubcategory}
       />
     )
+
+    return { root, transactions }
+  }
+
+  it('should not show transaction errors while on subcateg', () => {
+    const { root } = setup({ isOnSubcategory: true })
+    expect(root.find(TransactionPageErrors).length).toBe(0)
+  })
+
+  it('should show transaction errors while not on subcateg', () => {
+    const { root } = setup({ isOnSubcategory: false })
+    expect(root.find(TransactionPageErrors).length).toBe(1)
+  })
+
+  it('should sort transactions from props on mount and on update', () => {
+    const { root, transactions } = setup({ isOnSubcategory: false })
 
     expect(root.instance().transactions).toEqual(sortByDate(transactions))
 

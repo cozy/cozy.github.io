@@ -23,4 +23,4 @@ export const findMatchingBrandWithoutTrigger = (transaction, brands) => {
   return matchingBrand
 }
 
-export const hasUrls = urls => urls['COLLECT'] || urls['HOME']
+export const hasUrls = urls => urls && (urls['COLLECT'] || urls['HOME'])

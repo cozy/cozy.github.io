@@ -3,6 +3,9 @@ const webpack = require('webpack')
 
 module.exports = {
   resolve: {
+    alias: {
+      docs: __dirname
+    },
     extensions: ['.jsx', '.js', '.json', '.styl']
   },
   module: {
