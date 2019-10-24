@@ -18,6 +18,19 @@ import flag from 'cozy-flags'
 
 const getCreatedByApp = acc => get(acc, 'cozyMetadata.createdByApp')
 
+const isActionableError = trigger => {
+  const actionableErrors = [
+    'CHALLENGE_ASKED',
+    'DISK_QUOTA_EXCEEDED',
+    'TERMS_VERSION_MISMATCH',
+    'USER_ACTION_NEEDED',
+    'USER_ACTION_NEEDED.CHANGE_PASSWORD',
+    'USER_ACTION_NEEDED.ACCOUNT_REMOVED'
+  ]
+
+  return actionableErrors.includes(trigger.current_state.last_error)
+}
+
 /**
  * Returns
  * - failed triggers corresponding to the given accounts.
@@ -36,6 +49,7 @@ export const getDerivedData = ({ triggerCol, accounts }) => {
     triggers
       .filter(isBankTrigger)
       .filter(isErrored)
+      .filter(isActionableError)
       .filter(tr => konnectorToAccounts[tr.message.konnector]),
     tr => tr.message.konnector
   )
