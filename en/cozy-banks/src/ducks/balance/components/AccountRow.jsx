@@ -122,7 +122,7 @@ class AccountRow extends React.PureComponent {
             <div className={styles.AccountRow__subText}>
               {failedTrigger &&
               !flag('demo') &&
-              flag('transactions-error-banner') ? (
+              flag('balance-account-errors') ? (
                 <FailedTriggerMessage trigger={failedTrigger} />
               ) : (
                 <UpdatedAt account={account} t={t} />

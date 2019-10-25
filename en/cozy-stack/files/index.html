@@ -3799,8 +3799,6 @@ the directory is created at the root of the virtual file system.</p>
 <li>201 Created, when the directory has been successfully created</li>
 <li>404 Not Found, when the parent directory does not exist</li>
 <li>409 Conflict, when a directory with the same name already exists</li>
-<li>413 Payload Too Large, when there is not enough available space on the cozy
-  to upload the file</li>
 <li>422 Unprocessable Entity, when the <code>Type</code> or <code>Name</code> parameter is missing or
   invalid</li>
 </ul>
@@ -4120,6 +4118,8 @@ Hello world!
 <li>409 Conflict, when a file with the same name already exists</li>
 <li>412 Precondition Failed, when the md5sum is <code>Content-MD5</code> is not equal to
   the md5sum computed by the server</li>
+<li>413 Payload Too Large, when there is not enough available space on the cozy
+  to upload the file</li>
 <li>422 Unprocessable Entity, when the sent data is invalid (for example, the
   parent doesn&rsquo;t exist, <code>Type</code> or <code>Name</code> parameter is missing or invalid,
   etc.)</li>
