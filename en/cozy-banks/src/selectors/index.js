@@ -2,10 +2,25 @@ import { createSelector } from 'reselect'
 import { buildAutoGroups, isAutoGroup } from 'ducks/groups/helpers'
 import { buildVirtualAccounts } from 'ducks/account/helpers'
 
-import { getQueryFromState } from 'cozy-client'
+let client
+const getClient = () => {
+  if (!client) {
+    client = window.cozyClient
+  }
+  return client
+}
 
-const querySelector = (queryName, options) => state =>
-  getQueryFromState(state, queryName, options)
+// We need the client here since selectors that are directly exported
+// from cozy-client cannot hydrate. We should find a better way to do
+// that :
+//  - Be able to hydrate without a client.
+//  - Put the schema inside the store.
+//  - The problem is that some methods used by relationships are bound
+//    to the client
+const querySelector = (queryName, options) => () => {
+  const client = getClient()
+  return client.getQueryFromState(queryName, options)
+}
 
 export const queryDataSelector = (queryName, options) =>
   createSelector(

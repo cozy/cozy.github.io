@@ -37,6 +37,11 @@ class LineChart extends Component {
     this.updateDomains()
 
     this.dragging = false
+
+    this.state = {
+      itemKey: null, // Currently "selected" point
+      prevData: null
+    }
   }
 
   getSelectedItem = () => {
