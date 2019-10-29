@@ -103,7 +103,8 @@ module.exports = {
         '../react/Viewer/index.jsx',
         '../react/AppSections/index.jsx',
         '../react/AppIcon/index.jsx',
-        '../react/CipherIcon/index.jsx'
+        '../react/CipherIcon/index.jsx',
+        '../react/QuotaAlert/index.jsx'
       ]
     },
     {
