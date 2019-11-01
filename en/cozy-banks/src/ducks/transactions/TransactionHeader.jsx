@@ -89,7 +89,7 @@ class TransactionHeader extends Component {
       currentMonth
     } = this.props
     const height = isMobile ? 66 : 96
-    if (!size || !size.width) {
+    if (!size) {
       return <div style={{ height }} />
     }
     const marginBottom = isMobile ? 48 : 64

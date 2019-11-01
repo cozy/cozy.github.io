@@ -1270,6 +1270,26 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#settingscollection" title="SettingsCollection" class="md-nav__link">
+    SettingsCollection
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#settingscollectiongetpath-object" title="settingsCollection.get(path) ⇒ object" class="md-nav__link">
+    settingsCollection.get(path) ⇒ object
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#sharingcollection" title="SharingCollection" class="md-nav__link">
     SharingCollection
   </a>
@@ -3360,6 +3380,26 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#settingscollection" title="SettingsCollection" class="md-nav__link">
+    SettingsCollection
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#settingscollectiongetpath-object" title="settingsCollection.get(path) ⇒ object" class="md-nav__link">
+    settingsCollection.get(path) ⇒ object
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#sharingcollection" title="SharingCollection" class="md-nav__link">
     SharingCollection
   </a>
@@ -3525,6 +3565,9 @@ through OAuth.</p>
 </dd>
 <dt><a href="#PermissionCollection">PermissionCollection</a></dt>
 <dd><p>Implements <code>DocumentCollection</code> API along with specific methods for <code>io.cozy.permissions</code>.</p>
+</dd>
+<dt><a href="#SettingsCollection">SettingsCollection</a></dt>
+<dd><p>Implements <code>DocumentCollection</code> API to interact with the /settings endpoint of the stack</p>
 </dd>
 <dt><a href="#SharingCollection">SharingCollection</a></dt>
 <dd><p>Implements the <code>DocumentCollection</code> API along with specific methods for
@@ -4752,7 +4795,32 @@ through OAuth.</p>
 <h3 id="permissioncollectiongetownpermissions-object">permissionCollection.getOwnPermissions() ⇒ <code>object</code><a class="headerlink" href="#permissioncollectiongetownpermissions-object" title="Permanent link">&para;</a></h3>
 <p>async getOwnPermissions - Gets the permission for the current token</p>
 <p><strong>Kind</strong>: instance method of <a href="#PermissionCollection"><code>PermissionCollection</code></a><br />
-<a name="SharingCollection"></a></p>
+<a name="SettingsCollection"></a></p>
+<h2 id="settingscollection">SettingsCollection<a class="headerlink" href="#settingscollection" title="Permanent link">&para;</a></h2>
+<p>Implements <code>DocumentCollection</code> API to interact with the /settings endpoint of the stack</p>
+<p><strong>Kind</strong>: global class<br />
+<a name="SettingsCollection+get"></a></p>
+<h3 id="settingscollectiongetpath-object">settingsCollection.get(path) ⇒ <code>object</code><a class="headerlink" href="#settingscollectiongetpath-object" title="Permanent link">&para;</a></h3>
+<p>async get - Calls a route on the /settings API</p>
+<p><strong>Kind</strong>: instance method of <a href="#SettingsCollection"><code>SettingsCollection</code></a><br />
+<strong>Returns</strong>: <code>object</code> - The response from the route  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>path</td>
+<td><code>string</code></td>
+<td>The setting route to call, eg <code>instance</code> or <code>context</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="SharingCollection"></a></p>
 <h2 id="sharingcollection">SharingCollection<a class="headerlink" href="#sharingcollection" title="Permanent link">&para;</a></h2>
 <p>Implements the <code>DocumentCollection</code> API along with specific methods for
 <code>io.cozy.sharings</code>.</p>

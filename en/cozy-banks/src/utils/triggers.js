@@ -32,7 +32,11 @@ const bankingSlug = [
   'cdngroup109',
   'revolut',
   'societegenerale',
-  'n26'
+  'n26',
+  'banquecasino',
+  'cetelem',
+  'sofinco',
+  'oney'
 ]
 
 // TODO remove when https://github.com/cozy/cozy-client/pull/538
