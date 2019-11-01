@@ -2578,33 +2578,21 @@
 </ul>
 <p>This repository currently supports:</p>
 <ul>
-<li><strong>Debian Stretch</strong> (9.x): amd64</li>
-<li><strong>Raspbian Stretch</strong> (9.x): armhf</li>
+<li><strong>Debian Buster</strong> (10.x): amd64 armhf arm64</li>
+<li><strong>Raspbian Buster</strong> (10.x): armhf</li>
+<li><strong>Ubuntu Disco</strong> (19.04): amd64 armhf arm64</li>
 </ul>
 <p>Available channels are:</p>
 <ul>
-<li><strong>stable</strong>: official and supported releases</li>
-<li><strong>testing</strong>: future official releases, for testing purposes. Updated ± twice a month.</li>
+<li><strong>testing</strong>: Updated ± twice a month.</li>
 </ul>
 <p><code>cozy-couchdb</code> and <code>cozy-nsjail</code> are temporary packages. They will be removed when official <code>couchdb</code> and <code>nsjail</code> will be available</p>
 <p>You can choose to install <code>cozy-couchdb</code> on the same host as <code>cozy-stack</code>, or use a remote CouchDB server. Cozy only needs a 2.x CouchDB (1.x not supported).</p>
 <p>Like CouchDB, you can choose to install your reverse proxy on the same host, or use a remote one. Right now <code>cozy-coclyco</code> supports only local <code>nginx</code>. If you want to use <code>apache2</code> or remote reverse proxy, you need to manually configure it for vhost or TLS certificate issuances.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <h3 id="third-party-repositories">Third party repositories<a class="headerlink" href="#third-party-repositories" title="Permanent link">&para;</a></h3>
-<p><a href="https://letsencrypt.org/">Let&rsquo;s Encrypt</a> official packages require to use unofficial/third party repositories to have recent and supported version of ACME libraries.
-Packages provided by standard Debian repositories are quite old and not compatible with <code>cozy-coclyco</code>.</p>
-<ul>
-<li>For Debian/Raspbian, you need to <a href="https://certbot.eff.org/lets-encrypt/debianstretch-apache#using">enable <code>backports</code> repository</a>.</li>
-</ul>
-<p>Refer to the <a href="https://certbot.eff.org/">certbot</a> documentation to activate needed repositories.
-(You don&rsquo;t need to install packages like <code>certbot</code> or <code>python-certbot-xxx</code>, only to activate repositories.)</p>
-<p>You may change your <a href="https://manpages.debian.org/stretch/apt/apt_preferences.5.html">APT preferences</a> to allow APT to install from backports/ppa by default instead of from official repositories. For example:</p>
-<div class="codehilite"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;Package: python3-acme</span>
-<span class="s2">Pin: release n=stretch-backports</span>
-<span class="s2">Pin-Priority: 510&quot;</span> &gt; /etc/apt/preferences.d/cozy
-</pre></div>
-
-
+<p>Cozy requires NodeJS 12, but this version is not available on official distribution repositories.
+You need to activate NodeSource repository, following the documentation available <a href="https://github.com/nodesource/distributions#user-content-installation-instructions">here</a></p>
 <h3 id="cozy-repositories">Cozy repositories<a class="headerlink" href="#cozy-repositories" title="Permanent link">&para;</a></h3>
 <p>First, install the packages required to install cozy</p>
 <div class="codehilite"><pre><span></span>apt install ca-certificates apt-transport-https wget
@@ -2625,18 +2613,20 @@ Adapt your <code>sources.list</code> accordingly.</p>
 </div>
 <p>Supported repositories are:</p>
 <ul>
-<li>Debian Stretch (9.x)<ul>
-<li>deb https://apt.cozy.io/debian/ stretch stable</li>
-<li>deb https://apt.cozy.io/debian/ stretch testing</li>
+<li>Debian Buster (10.x)<ul>
+<li>deb https://apt.cozy.io/debian/ buster testing</li>
 </ul>
 </li>
-<li>Raspbian Stretch (9.x)<ul>
-<li>deb https://apt.cozy.io/raspbian/ stretch stable</li>
-<li>deb https://apt.cozy.io/raspbian/ stretch testing</li>
+<li>Raspbian Buster (10.x)<ul>
+<li>deb https://apt.cozy.io/raspbian/ buster testing</li>
+</ul>
+</li>
+<li>Ubuntu Disco (19.04)<ul>
+<li>deb https://apt.cozy.io/ubuntu/ disco testing</li>
 </ul>
 </li>
 </ul>
-<div class="codehilite"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;deb https://apt.cozy.io/debian/ stretch testing&quot;</span> &gt; /etc/apt/sources.list.d/cozy.list
+<div class="codehilite"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;deb https://apt.cozy.io/debian/ buster testing&quot;</span> &gt; /etc/apt/sources.list.d/cozy.list
 apt update
 </pre></div>
 
@@ -2682,21 +2672,8 @@ When invoking <code>cozy-stack</code> (or <code>cozy-coclyco</code> which use it
 </pre></div>
 
 
-<p>If you want to use konnectors, you need to initialize the NodeJS chroot</p>
-<p>(Currently this script only works for Debian and will be adapted for Raspbian soon)</p>
-<div class="codehilite"><pre><span></span>/usr/share/cozy/konnector-create-chroot.sh
-</pre></div>
-
-
-<p>You also need to enable user namespaces:</p>
+<p>You need to enable user namespaces:</p>
 <div class="codehilite"><pre><span></span>sysctl -w kernel.unprivileged_userns_clone<span class="o">=</span><span class="m">1</span>
-</pre></div>
-
-
-<p>If you use a self-signed certificate or a not official certificate authority, you need to deploy the corresponding root certificate in <code>/usr/share/cozy/chroot/etc/ssl/certs/custom.crt</code>.
-For example, if you use <a href="https://letsencrypt.org/docs/staging-environment/">Let&rsquo;s Encrypt staging environment</a> for testing purpose :</p>
-<div class="codehilite"><pre><span></span>wget -q https://letsencrypt.org/certs/fakelerootx1.pem <span class="se">\</span>
-    -O /usr/share/cozy/chroot/etc/ssl/certs/custom.crt
 </pre></div>
 
 
