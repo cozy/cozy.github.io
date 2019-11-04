@@ -164,7 +164,7 @@ const action = {
   name,
   icon,
   match: async (transaction, actionProps) => {
-    if (flag('reimbursement-tag')) {
+    if (flag('reimbursements.tag')) {
       return false
     }
 

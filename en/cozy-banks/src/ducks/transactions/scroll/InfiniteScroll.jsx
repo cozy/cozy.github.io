@@ -17,7 +17,11 @@ function elementInViewport(el, thresold) {
 class InfiniteScroll extends React.Component {
   constructor(props) {
     super(props)
-    this.checkForLimits = throttle(this.checkForLimits.bind(this), 100)
+    // We deactivate the leading call to avoid layout trashing during
+    // componentDidMount/componentDidUpdate
+    this.checkForLimits = throttle(this.checkForLimits.bind(this), 100, {
+      leading: false
+    })
     this.onWindowResize = debounce(this.onWindowResize.bind(this), 500)
   }
 

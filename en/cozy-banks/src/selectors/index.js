@@ -1,11 +1,57 @@
-import { createSelector } from 'reselect'
+import { createSelector, createSelectorCreator, defaultMemoize } from 'reselect'
 import { buildAutoGroups, isAutoGroup } from 'ducks/groups/helpers'
 import { buildVirtualAccounts } from 'ducks/account/helpers'
-
 import { getQueryFromState } from 'cozy-client'
 
-const querySelector = (queryName, options) => state =>
-  getQueryFromState(state, queryName, options)
+let client
+const getClient = () => {
+  if (!client) {
+    client = window.cozyClient
+  }
+  return client
+}
+
+const updatedAtSameTime = (currentQuery, prevQuery) => {
+  return (
+    currentQuery &&
+    prevQuery &&
+    currentQuery.lastUpdate === prevQuery.lastUpdate
+  )
+}
+
+const queryCreateSelector = createSelectorCreator(
+  defaultMemoize,
+  updatedAtSameTime
+)
+
+const hydratedQuery = queryResult => {
+  // We need the client here since selectors that are directly exported
+  // from cozy-client cannot hydrate. We should find a better way to do
+  // that :
+  //  - Be able to hydrate without a client.
+  //  - Put the schema inside the store.
+  //  - The problem is that some methods used by relationships are bound
+  //    to the client
+  const client = getClient()
+  const doctype = queryResult.definition && queryResult.definition.doctype
+  const data = client.hydrateDocuments(doctype, queryResult.data)
+  return { ...queryResult, data }
+}
+
+const getRawQuery = queryName => state => getQueryFromState(state, queryName)
+
+/**
+ * Hydratation is expensive as it creates new objects that do not play well
+ * with React's triple equal checks to bypass renders.
+ * This is why we memoize based on the queryResult which should change
+ * identity more rarely (only when updating results inside).
+ */
+const getHydratedQuery = queryName =>
+  queryCreateSelector([getRawQuery(queryName)], hydratedQuery)
+
+export const querySelector = (queryName, options = {}) => {
+  return options.hydrated ? getHydratedQuery(queryName) : getRawQuery(queryName)
+}
 
 export const queryDataSelector = (queryName, options) =>
   createSelector(
@@ -16,9 +62,10 @@ export const queryDataSelector = (queryName, options) =>
 export const getTransactionsRaw = queryDataSelector('transactions', {
   hydrated: true
 })
-export const getGroups = queryDataSelector('groups')
+export const getGroups = queryDataSelector('groups', {
+  hydrated: true
+})
 export const getAccounts = queryDataSelector('accounts')
-export const getApps = queryDataSelector('apps')
 
 export const getTransactions = createSelector(
   [getTransactionsRaw],
@@ -62,18 +109,4 @@ export const getVirtualGroups = createSelector(
 export const getAllGroups = createSelector(
   [getGroups, getVirtualGroups],
   (groups, virtualGroups) => [...groups, ...virtualGroups]
-)
-
-export const getAppUrlById = createSelector(
-  [getApps],
-  (apps, id) => {
-    if (apps && apps.length > 0) {
-      for (const app of apps) {
-        if (app._id === id) {
-          return app.links.related
-        }
-      }
-    }
-    return
-  }
 )

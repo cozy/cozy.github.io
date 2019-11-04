@@ -46,9 +46,10 @@ const human = name => {
 }
 
 const FlagList = flag.connect(() => {
+  const allFlags = flag.list()
   return (
     <div>
-      {flag.list().map(name => {
+      {allFlags.map(name => {
         return (
           <div key={name}>
             {human(name)} : <FlagInput onChange={() => {}} name={name} />

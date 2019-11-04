@@ -30,13 +30,13 @@ export default function testFlagAPI(flag) {
   })
 
   describe('listFlags', () => {
-    it('should return all the flag keys', () => {
+    it('should return all the flag keys sorted', () => {
       const expectedFlags = ['test', 'feature', 'thing']
       expectedFlags.forEach(expectedFlag => flag(expectedFlag, true))
 
       const flags = flag.list()
 
-      expect(flags).toEqual(expectedFlags)
+      expect(flags).toEqual(['feature', 'test', 'thing'])
     })
   })
 

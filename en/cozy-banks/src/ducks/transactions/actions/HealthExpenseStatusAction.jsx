@@ -172,7 +172,7 @@ const action = {
     return (
       isHealthExpense(transaction) &&
       getVendors(transaction) &&
-      !flag('reimbursement-tag')
+      !flag('reimbursements.tag')
     )
   },
   Component: compose(

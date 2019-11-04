@@ -8,7 +8,13 @@ const DumbKonnectorChip = props => {
   const { t, konnectorType, ...rest } = props
 
   return (
-    <Chip size="small" variant="dashed" theme="primary" {...rest}>
+    <Chip
+      className="u-mb-0"
+      size="small"
+      variant="dashed"
+      theme="primary"
+      {...rest}
+    >
       <Icon icon="plus" className="u-mr-half" />
       {t(`KonnectorChip.${konnectorType}`)}
     </Chip>

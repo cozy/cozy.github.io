@@ -71,7 +71,7 @@ const action = {
   name: 'AttachedDocs',
   match: transaction => {
     return (
-      flag('reimbursement-tag') &&
+      flag('reimbursements.tag') &&
       (hasBills(transaction) || hasReimbursements(transaction))
     )
   },

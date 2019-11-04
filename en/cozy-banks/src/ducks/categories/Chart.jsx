@@ -6,6 +6,13 @@ import styles from 'ducks/categories/Chart.styl'
 import React, { Component } from 'react'
 import { Doughnut, Chart as ReactChart } from 'react-chartjs-2'
 import pieceLabel from 'lib/chartjsPieLabels'
+import { defaults } from 'react-chartjs-2'
+import flag from 'cozy-flags'
+
+// Disable animating charts by default.
+if (flag('analysis.no-animation')) {
+  defaults.global.animation = false
+}
 
 class Chart extends Component {
   state = {

@@ -21,23 +21,23 @@ class Page extends Component {
   }
 
   render() {
+    const { dismissAction, title, className, children } = this.props
     return (
       <Modal
         mobileFullscreen
-        dismissAction={this.props.dismissAction}
+        dismissAction={dismissAction}
         closable={false}
         into="body"
-        className={cx(styles.Page, this.props.className)}
+        title={title}
+        className={cx(styles.Page, className)}
         overlayClassName={styles.Page__Overlay}
         wrapperClassName={styles.Page__Wrapper}
       >
         <ModalHeader className={styles.Page__title}>
-          <BackButton onClick={this.props.dismissAction} />
-          {this.props.title}
+          <BackButton onClick={dismissAction} />
+          {title}
         </ModalHeader>
-        <ModalContent className={styles.Page__content}>
-          {this.props.children}
-        </ModalContent>
+        <ModalContent className={styles.Page__content}>{children}</ModalContent>
       </Modal>
     )
   }

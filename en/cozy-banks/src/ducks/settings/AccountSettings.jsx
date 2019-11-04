@@ -19,7 +19,7 @@ import {
   getAccountInstitutionLabel,
   getAccountType
 } from 'ducks/account/helpers'
-import { getAppUrlById } from 'selectors'
+import { getHomeURL } from 'ducks/apps/selectors'
 import { Query } from 'cozy-client'
 import { queryConnect, withClient } from 'cozy-client'
 import { ACCOUNT_DOCTYPE, APP_DOCTYPE } from 'doctypes'
@@ -217,9 +217,8 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-const mapStateToProps = (state, ownProps) => ({
-  collectUrl: getAppUrlById(ownProps, 'io.cozy.apps/collect'),
-  homeUrl: getAppUrlById(ownProps, 'io.cozy.apps/home')
+const mapStateToProps = state => ({
+  homeUrl: getHomeURL(state)
 })
 
 const GeneralSettings = compose(

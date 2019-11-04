@@ -22,9 +22,9 @@ require (
 	github.com/otiai10/curr v0.0.0-20190513014714-f5a3d24e5776 // indirect
 	github.com/sirupsen/logrus v1.4.2
 	github.com/spf13/cobra v0.0.5
-	github.com/spf13/viper v1.4.0
+	github.com/spf13/viper v1.5.0
 	github.com/stretchr/testify v1.4.0
 	gitlab.com/flimzy/testy v0.0.0-20190816103046-aca1ef5ffe7e // indirect
-	golang.org/x/crypto v0.0.0-20191011191535-87dc89f01550
+	golang.org/x/crypto v0.0.0-20191029031824-8986dd9e96cf
 	golang.org/x/xerrors v0.0.0-20191011141410-1b5146add898 // indirect
 )

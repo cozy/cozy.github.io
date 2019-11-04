@@ -9,6 +9,7 @@ import AddAccountLink from 'ducks/settings/AddAccountLink'
 import { translateAndSortGroups } from 'ducks/groups/helpers'
 import styles from 'ducks/balance/BalancePanels.styl'
 import Delayed from 'components/Delayed'
+import flag from 'cozy-flags'
 
 const GROUP_PANEL_RENDER_DELAY = 150
 
@@ -43,14 +44,19 @@ class BalancePanels extends React.PureComponent {
     } = this.props
 
     const groupsSorted = translateAndSortGroups(groups, t)
+    const groupPanelDelay = flag('balance.no-delay-groups')
+      ? 0
+      : GROUP_PANEL_RENDER_DELAY
 
     return (
       <div className={styles.BalancePanels}>
         {groupsSorted.map(({ group, label }, i) => (
-          <Delayed key={group._id} delay={i * GROUP_PANEL_RENDER_DELAY}>
+          <Delayed key={group._id} delay={i * groupPanelDelay}>
             {/* ^ Delay rendering of group panels after the first two */}
             <GroupPanel
-              className="u-fx-from-bottom"
+              className={
+                flag('balance.no-delay-groups') ? '' : 'u-fx-from-bottom'
+              }
               group={group}
               groupLabel={label}
               warningLimit={warningLimit}

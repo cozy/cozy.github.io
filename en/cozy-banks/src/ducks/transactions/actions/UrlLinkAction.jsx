@@ -26,7 +26,7 @@ const Component = ({ transaction, compact, isModalItem }) => {
     )
   }
 
-  return flag('reimbursement-tag') ? (
+  return flag('reimbursements.tag') ? (
     <Chip
       size="small"
       variant="outlined"

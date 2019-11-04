@@ -74,7 +74,7 @@ const flag = function() {
 }
 
 export const listFlags = () => {
-  return store.keys()
+  return store.keys().sort()
 }
 
 export const resetFlags = () => {

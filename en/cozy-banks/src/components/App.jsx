@@ -23,7 +23,7 @@ const App = props => {
   const settings = getDefaultedSettingsFromCollection(props.settingsCollection)
   flag('local-model-override', settings.community.localModelOverride.enabled)
   flag(
-    'late-health-reimbursement-limit',
+    'reimbursements.late-health-limit',
     settings.notifications.lateHealthReimbursement.value
   )
 

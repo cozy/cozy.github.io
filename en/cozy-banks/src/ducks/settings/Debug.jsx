@@ -34,10 +34,8 @@ const Versions = () => {
 const startAndWaitService = async (client, serviceName) => {
   const jobs = client.collection('io.cozy.jobs')
   const { data: job } = await jobs.create('service', {
-    message: {
-      name: serviceName,
-      slug: 'banks'
-    }
+    name: serviceName,
+    slug: 'banks'
   })
   const finalJob = await jobs.waitFor(job.id)
   if (finalJob.state === 'errored') {
@@ -75,20 +73,20 @@ const ServiceButton = ({ name: serviceName, client }) => {
 
 class DumbDebugSettings extends React.PureComponent {
   toggleNoAccount() {
-    const noAccountValue = !flag('no-account')
+    const noAccountValue = !flag('balance.no-account')
 
-    flag('no-account', noAccountValue)
+    flag('balance.no-account', noAccountValue)
     if (noAccountValue) {
-      flag('account-loading', false)
+      flag('balance.account-loading', false)
     }
   }
 
   toggleAccountsLoading() {
-    const accountLoadingValue = !flag('account-loading')
+    const accountLoadingValue = !flag('balance.account-loading')
 
-    flag('account-loading', accountLoadingValue)
+    flag('balance.account-loading', accountLoadingValue)
     if (accountLoadingValue) {
-      flag('no-account', false)
+      flag('balance.no-account', false)
     }
   }
 
@@ -117,8 +115,8 @@ class DumbDebugSettings extends React.PureComponent {
   }
 
   render() {
-    const noAccountChecked = !!flag('no-account')
-    const accountLoadingChecked = !!flag('account-loading')
+    const noAccountChecked = !!flag('balance.no-account')
+    const accountLoadingChecked = !!flag('balance.account-loading')
 
     const { client } = this.props
 

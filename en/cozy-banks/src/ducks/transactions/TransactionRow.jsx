@@ -144,7 +144,7 @@ class _RowMobile extends React.PureComponent {
       rowRest.id = transaction._id
     }
 
-    if (flag('reimbursement-tag')) {
+    if (flag('reimbursements.tag')) {
       rowRest.className = cx(styles.TransactionRowMobile)
     }
 
@@ -183,7 +183,7 @@ class _RowMobile extends React.PureComponent {
               signed
             />
           </Img>
-          {!flag('reimbursement-tag') && (
+          {!flag('reimbursements.tag') && (
             <Img className={styles['bnk-transaction-mobile-action']}>
               <TransactionActions
                 transaction={transaction}
@@ -194,7 +194,7 @@ class _RowMobile extends React.PureComponent {
             </Img>
           )}
         </Media>
-        {flag('reimbursement-tag') && (
+        {flag('reimbursements.tag') && (
           <TransactionActions
             transaction={transaction}
             onlyDefault

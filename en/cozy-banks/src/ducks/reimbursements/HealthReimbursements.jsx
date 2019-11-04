@@ -60,7 +60,7 @@ export class DumbHealthReimbursements extends Component {
       transactions,
       brands
     } = this.props
-    const reimbursementTagFlag = flag('reimbursement-tag')
+    const reimbursementTagFlag = flag('reimbursements.tag')
 
     if (
       (isCollectionLoading(transactions) && !hasBeenLoaded(transactions)) ||

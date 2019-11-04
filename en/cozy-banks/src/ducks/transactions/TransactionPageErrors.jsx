@@ -71,7 +71,7 @@ const TransactionPageErrors = props => {
         }
       : null
 
-  if (flag('demo') || !flag('transactions-error-banner')) {
+  if (flag('demo') || !flag('transactions.error-banner')) {
     return null
   }
 

@@ -119,10 +119,8 @@ export const canCategorizeNextChunk = () => {
  */
 export const startService = name => {
   const args = {
-    message: {
-      name,
-      slug: 'banks'
-    }
+    name,
+    slug: 'banks'
   }
 
   return cozyClient.jobs.create('service', args)

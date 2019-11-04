@@ -43,7 +43,7 @@ describe('transaction page errors', () => {
 
   beforeEach(() => {
     flag.mockImplementation(key => {
-      if (key === 'transactions-error-banner') {
+      if (key === 'transactions.error-banner') {
         return true
       }
 

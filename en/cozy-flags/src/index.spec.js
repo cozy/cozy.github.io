@@ -16,9 +16,9 @@ describe('enable', () => {
   })
 
   it('should enable the flags if the parameter is an array', () => {
-    const flagsToEnable = ['hello', 'world']
+    const flagsToEnable = ['hello', 'world', 'a']
     flag.enable(flagsToEnable)
 
-    expect(flag.list()).toEqual(flagsToEnable)
+    expect(flag.list()).toEqual(['a', 'hello', 'world'])
   })
 })

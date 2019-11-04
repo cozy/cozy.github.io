@@ -13,7 +13,7 @@ const tooLong = /\b[A-Z\d]{15,}\b/g
 const punctuations = /[-:++]/g
 const spaces = /\s+/g
 
-const cleanLabel = flag('clean-label')
+const cleanLabel = flag('transactions.clean-label')
   ? label => {
       return label
         .replace(prevRecurRx, ' ')
@@ -187,7 +187,7 @@ export const isReimbursementLate = transaction => {
 
   return (
     differenceInDays(today, transactionDate) >
-    flag('late-health-reimbursement-limit')
+    flag('reimbursements.late-health-limit')
   )
 }
 

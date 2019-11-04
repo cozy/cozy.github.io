@@ -29,7 +29,7 @@ const Component = ({ t, actionProps: { urls }, compact, isModalItem }) => {
     )
   }
 
-  return flag('reimbursement-tag') ? (
+  return flag('reimbursements.tag') ? (
     <Chip size="small" variant="outlined" onClick={() => open(url)}>
       {label}
       <Chip.Separator />

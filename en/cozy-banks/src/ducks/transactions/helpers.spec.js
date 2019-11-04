@@ -184,7 +184,7 @@ describe('getReimbursementStatus', () => {
 
 describe('isReimbursementLate', () => {
   beforeEach(() => {
-    flag('late-health-reimbursement-limit', 30)
+    flag('reimbursements.late-health-limit', 30)
   })
 
   afterEach(() => {

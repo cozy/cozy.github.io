@@ -9,9 +9,13 @@ import {
 import data from '../../../test/fixtures'
 import PropTypes from 'prop-types'
 import AppLike from 'test/AppLike'
+import { getClient } from 'ducks/client'
 
 const allAccounts = data['io.cozy.bank.accounts']
 const allTransactions = data['io.cozy.bank.operations']
+
+// eslint-disable-next-line no-unused-vars
+const client = getClient()
 
 const saveWindowWidth = () => {
   let windowWidth = window.innerWidth
