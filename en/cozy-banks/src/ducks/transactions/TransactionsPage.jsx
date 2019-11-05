@@ -15,7 +15,6 @@ import { Padded } from 'components/Spacing'
 
 import {
   getTransactionsFilteredByAccount,
-  getFilteredAccountIds,
   getFilteredTransactions
 } from 'ducks/filters'
 
@@ -47,7 +46,9 @@ import TransactionActionsProvider from 'ducks/transactions/TransactionActionsPro
 
 const { BarRight } = cozy.bar
 
-const STEP_INFINITE_SCROLL = 30
+export const STEP_INFINITE_SCROLL = 30
+export const MIN_NB_TRANSACTIONS_SHOWN = 10
+
 const SCROLL_THRESOLD_TO_ACTIVATE_TOP_INFINITE_SCROLL = 150
 const getMonth = date => date.slice(0, 7)
 
@@ -84,23 +85,18 @@ class TransactionsPage extends Component {
     if (!mostRecentTransaction) {
       return
     }
-    this.setState({
-      currentMonth: getMonth(getDisplayDate(mostRecentTransaction))
-    })
+    const mostRecentMonth = getMonth(getDisplayDate(mostRecentTransaction))
+    this.handleChangeMonth(mostRecentMonth)
   }
 
   componentDidUpdate(prevProps) {
-    if (!isEqual(this.props.accountIds, prevProps.accountIds)) {
+    if (!isEqual(this.props.filteringDoc, prevProps.filteringDoc)) {
       this.setCurrentMonthFollowingMostRecentTransaction()
-    }
-    if (
+    } else if (
       isCollectionLoading(prevProps.transactions) &&
       !isCollectionLoading(this.props.transactions)
     ) {
       this.setCurrentMonthFollowingMostRecentTransaction()
-    }
-    if (prevProps.filteringDoc !== this.props.filteringDoc) {
-      this.handleChangeMonth(this.state.currentMonth)
     }
   }
 
@@ -132,6 +128,15 @@ class TransactionsPage extends Component {
     })
   }
 
+  /**
+   * Updates this.state after
+   *  - month change request from children
+   *  - filtering doc change
+   *
+   * - Updates limitMin/limitMax slicing the transactions array so that
+   *   we see only transactions for the selected month
+   * - Updates currentMonth to be `month`
+   */
   handleChangeMonth(month) {
     const transactions = this.props.filteredTransactions
     const findMonthIndex = month =>
@@ -158,7 +163,7 @@ class TransactionsPage extends Component {
     this.setState(
       {
         limitMin: limitMin,
-        limitMax: limitMin + 10,
+        limitMax: limitMin + MIN_NB_TRANSACTIONS_SHOWN,
         currentMonth: month,
         infiniteScrollTop: false
       },
@@ -289,7 +294,6 @@ const mapStateToProps = (state, ownProps) => {
     : getTransactionsFilteredByAccount(state)
 
   return {
-    accountIds: getFilteredAccountIds(state),
     filteringDoc: getFilteringDoc(state),
     filteredAccounts: getFilteredAccounts(state),
     filteredTransactions: filteredTransactions

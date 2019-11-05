@@ -232,6 +232,20 @@ program
   })
 
 program
+  .command('token <doctypes...>')
+  .description('Generate token')
+  .action(doctypes => {
+    const { url, token } = program
+    const ach = new ACH(token, url, doctypes)
+    ach
+      .connect()
+      .then(() => {
+        console.log(ach.client._token.token)
+      })
+      .catch(logAndExit)
+  })
+
+program
   .command('script <scriptName>')
   .option('--autotoken', 'Automatically generate the permission token')
   .option('-x, --execute', 'Execute the script (disable dry run)')

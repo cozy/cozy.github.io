@@ -4413,6 +4413,8 @@ full permission on <code>io.cozy.bank.operations</code> in your manifest, to be 
 <li><code>vendor</code> (String): the name of the vendor associated to the bill. Ex: &lsquo;trainline&rsquo;</li>
 <li><code>currency</code> (String) default: EUR:  The ISO currency value (not mandatory since there is a
   default value.</li>
+<li><code>contractId</code> (String): Contract unique identicator used to deduplicate bills</li>
+<li><code>contractLabel</code>: (String) User label if define, must be used with contractId</li>
 <li><code>matchingCriterias</code> (Object): criterias that can be used by an external service to match bills
   with bank operations. If not specified but the &lsquo;banksTransactionRegExp&rsquo; attribute is specified in the
   manifest of the connector, this value is automatically added to the bill</li>
