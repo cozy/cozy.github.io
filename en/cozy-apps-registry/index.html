@@ -2429,6 +2429,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#importexport" title="Import/export" class="md-nav__link">
+    Import/export
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#application-confidence-grade-labelling" title="Application confidence grade / labelling" class="md-nav__link">
     Application confidence grade / labelling
   </a>
@@ -2972,6 +2979,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#importexport" title="Import/export" class="md-nav__link">
+    Import/export
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#application-confidence-grade-labelling" title="Application confidence grade / labelling" class="md-nav__link">
     Application confidence grade / labelling
   </a>
@@ -3104,6 +3118,7 @@
 </li>
 <li><a href="#access-control-and-tokens">Access control and tokens</a></li>
 <li><a href="#maintenance">Maintenance</a></li>
+<li><a href="#import-export">Import/export</a></li>
 <li><a href="#application-confidence-grade--labelling">Application confidence grade / labelling</a></li>
 <li><a href="#universal-links">Universal links</a><ul>
 <li><a href="#configuration">Configuration</a></li>
@@ -3934,6 +3949,18 @@ curl -XPUT <span class="se">\</span>
 </pre></div>
 
 
+<h2 id="importexport">Import/export<a class="headerlink" href="#importexport" title="Permanent link">&para;</a></h2>
+<p>CouchDB &amp; Swift can be exported into a single archive with <code>cozy-apps-registry export &lt;dump.tar.gz&gt;</code>.
+Registry data are exported as below:</p>
+<ul>
+<li><code>registry/couchdb/{db}/{uuid}.json</code>: CouchDB document exported as JSON</li>
+<li><code>registry/swift/{file/path}</code>: Swift document, with the following tar custom metadata<ul>
+<li><code>COZY.content-type</code>: associated content type</li>
+</ul>
+</li>
+</ul>
+<p>The generated archive can be imported with <code>cozy-apps-registry import -d &lt;dump.tar.gz&gt;</code>.
+The <code>-d</code> option will drop CouchDB databases and Swift containers related to declared spaces on the registry configuration.</p>
 <h2 id="application-confidence-grade-labelling">Application confidence grade / labelling<a class="headerlink" href="#application-confidence-grade-labelling" title="Permanent link">&para;</a></h2>
 <p>The confidence grade of an applications can be specified by specifying the
 <code>data_usage_commitment</code> and <code>data_usage_commitment_by</code> fields of the

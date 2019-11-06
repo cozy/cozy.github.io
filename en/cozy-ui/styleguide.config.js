@@ -22,6 +22,7 @@ module.exports = {
         '../react/Spinner/index.jsx',
         '../react/Counter/index.jsx',
         '../react/PercentageLine/index.jsx',
+        '../react/PercentageBar/index.jsx',
         '../react/Stack/index.jsx',
         '../react/IconStack/index.jsx'
       ]
@@ -112,11 +113,12 @@ module.exports = {
       components: () => [
         '../react/MuiCozyTheme/index.jsx',
         '../react/MuiCozyTheme/Buttons',
-        '../react/MuiCozyTheme/Menus',
-        '../react/MuiCozyTheme/List',
-        '../react/MuiCozyTheme/RaisedList',
         '../react/MuiCozyTheme/ExpansionPanel',
-        '../react/MuiCozyTheme/Grid'
+        '../react/MuiCozyTheme/Grid',
+        '../react/MuiCozyTheme/List',
+        '../react/MuiCozyTheme/Menus',
+        '../react/MuiCozyTheme/RaisedList',
+        '../react/MuiCozyTheme/TextField'
       ]
     },
     {

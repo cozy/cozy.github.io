@@ -12,7 +12,7 @@ type SwiftFS struct {
 	Connection *swift.Connection
 }
 
-func (s *SwiftFS) AddAsset(asset *GlobalAsset, content io.Reader) error {
+func (s *SwiftFS) AddAsset(asset *GlobalAsset, content io.Reader) (err error) {
 	// Creating object in swift
 	sc := s.Connection
 
@@ -25,7 +25,11 @@ func (s *SwiftFS) AddAsset(asset *GlobalAsset, content io.Reader) error {
 	if err != nil {
 		return err
 	}
-	defer f.Close()
+	defer func() {
+		if e := f.Close(); e != nil && err == nil {
+			err = e
+		}
+	}()
 
 	_, err = f.Write(buf)
 	return err

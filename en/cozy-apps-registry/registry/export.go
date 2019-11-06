@@ -2,11 +2,13 @@ package registry
 
 import (
 	"archive/tar"
-	"bufio"
 	"bytes"
 	"compress/gzip"
 	"encoding/json"
 	"fmt"
+	"github.com/cozy/cozy-apps-registry/asset"
+	"github.com/cozy/cozy-apps-registry/config"
+	"github.com/ncw/swift"
 	"io"
 	"io/ioutil"
 	"path"
@@ -15,240 +17,194 @@ import (
 	"github.com/go-kivik/kivik"
 )
 
-func Export(out io.Writer) (err error) {
-	buf := bufio.NewWriter(out)
-	defer func() {
-		if err == nil {
-			err = buf.Flush()
-		}
-	}()
+const rootPrefix = "registry"
+const couchPrefix = "couchdb"
+const swiftPrefix = "swift"
+const documentSuffix = ".json"
+const contentTypeAttr = "COZY.content-type"
 
-	zw := gzip.NewWriter(buf)
-	defer func() {
-		if err == nil {
-			err = zw.Close()
-		}
-	}()
-
-	tw := tar.NewWriter(zw)
-	defer func() {
-		if err == nil {
-			err = tw.Close()
-		}
-	}()
-
-	for _, c := range spaces {
-		if err = writeDocs(c.AppsDB(), tw); err != nil {
-			return
-		}
-		if err = writeDocs(c.VersDB(), tw); err != nil {
-			return
-		}
+func writeFile(writer *tar.Writer, path string, content []byte, attrs map[string]string) error {
+	header := &tar.Header{
+		Typeflag:   tar.TypeReg,
+		Name:       path,
+		Mode:       0640,
+		Size:       int64(len(content)),
+		PAXRecords: attrs,
 	}
-
-	err = writeDocs(globalEditorsDB, tw)
-	return
-}
-
-func writeDocs(db *kivik.DB, tw *tar.Writer) error {
-	rows, err := db.AllDocs(ctx, map[string]interface{}{
-		"include_docs": true,
-		"limit":        2000,
-	})
-	if err != nil {
+	if err := writer.WriteHeader(header); err != nil {
 		return err
 	}
-
-	type attachment struct {
-		docID string
-		name  string
-	}
-
-	dbName := db.Name()
-
-	var atts []*attachment
-	for rows.Next() {
-		if strings.HasPrefix(rows.ID(), "_design") {
-			continue
-		}
-
-		var v map[string]interface{}
-		if err = rows.ScanDoc(&v); err != nil {
-			return err
-		}
-
-		if attachments, ok := v["_attachments"].(map[string]interface{}); ok {
-			for name := range attachments {
-				atts = append(atts, &attachment{docID: rows.ID(), name: name})
-			}
-			delete(v, "_attachments")
-		}
-
-		delete(v, "_rev")
-
-		var data []byte
-		data, err = json.Marshal(v)
-		if err != nil {
-			return err
-		}
-
-		hdr := &tar.Header{
-			Name:     path.Join(dbName, rows.ID()),
-			Size:     int64(len(data)),
-			Mode:     0640,
-			Typeflag: tar.TypeReg,
-		}
-		if err = tw.WriteHeader(hdr); err != nil {
-			return err
-		}
-
-		fmt.Printf(`Writing document "%s/%s"... `, db.Name(), rows.ID())
-		_, err = io.Copy(tw, bytes.NewReader(data))
-		if err != nil {
-			return err
-		}
-		fmt.Println("ok.")
-	}
-
-	for _, att := range atts {
-		fmt.Printf(`Writing attachment "%s/%s/%s"... `, db.Name(), att.docID, att.name)
-		if err = writeAttachment(db, tw, dbName, att.docID, att.name); err != nil {
-			return fmt.Errorf(`Could not write attachment "%s/%s/%s": %s`, db.Name(), att.docID, att.name, err)
-		}
-		fmt.Println("ok.")
-	}
-
-	return nil
-}
-
-func writeAttachment(db *kivik.DB, tw *tar.Writer, dbName, docID, filename string) error {
-	att, err := db.GetAttachment(ctx, docID, filename)
-	if err != nil {
-		return err
-	}
-	defer att.Content.Close()
-
-	var body io.Reader
-	size := att.Size
-	if size < 0 {
-		var b []byte
-		b, err = ioutil.ReadAll(att.Content)
-		if err != nil {
-			return err
-		}
-		size = int64(len(b))
-		body = bytes.NewReader(b)
-	} else {
-		body = att.Content
-	}
-
-	hdr := &tar.Header{
-		Name:     path.Join(dbName, docID, filename),
-		Size:     size,
-		Mode:     0640,
-		Typeflag: tar.TypeReg,
-		Xattrs: map[string]string{
-			"content-type":     att.ContentType,
-			"content-encoding": att.ContentEncoding,
-		},
-	}
-	if err = tw.WriteHeader(hdr); err != nil {
-		return err
-	}
-
-	_, err = io.Copy(tw, body)
+	_, err := writer.Write(content)
 	return err
 }
 
-func Import(in io.Reader) (err error) {
-	zr, err := gzip.NewReader(in)
+func writeReaderFile(writer *tar.Writer, path string, reader io.Reader, attrs map[string]string) error {
+	content, err := ioutil.ReadAll(reader)
 	if err != nil {
 		return err
 	}
-	defer func() {
-		if err == nil {
-			err = zr.Close()
-		}
-	}()
+	return writeFile(writer, path, content, attrs)
+}
 
-	docs := make(map[string]string) // id -> rev of created documents
+func exportCouchDocument(writer *tar.Writer, prefix string, db *kivik.DB, rows *kivik.Rows) error {
+	id := rows.ID()
+	if strings.HasPrefix(id, "_design") {
+		return nil
+	}
 
-	tr := tar.NewReader(zr)
+	file := path.Join(prefix, fmt.Sprintf("%s%s", id, documentSuffix))
+	fmt.Printf("    Exporting document %s\n", id)
+
+	var value map[string]interface{}
+	if err := rows.ScanDoc(&value); err != nil {
+		return err
+	}
+
+	delete(value, "_rev")
+	delete(value, "_attachments")
+
+	var data []byte
+	data, err := json.Marshal(value)
+	if err != nil {
+		return err
+	}
+	return writeFile(writer, file, data, nil)
+}
+
+func exportSingleCouchDb(writer *tar.Writer, prefix string, db *kivik.DB) error {
+	name := db.Name()
+	clean := strings.TrimPrefix(name, globalPrefix)
+	if clean != name {
+		clean = "__prefix__" + clean
+	}
+
+	prefix = path.Join(prefix, clean)
+	fmt.Printf("  Exporting database %s\n", name)
+
+	startKey, perPage := "", 1000
 	for {
-		var hdr *tar.Header
-		hdr, err = tr.Next()
-		if err == io.EOF {
-			break
-		}
+		rows, err := db.AllDocs(ctx, map[string]interface{}{
+			"include_docs": true,
+			"limit":        perPage + 1,
+			"start_key":    startKey,
+		})
 		if err != nil {
-			return
+			return err
 		}
 
-		parts := strings.SplitN(hdr.Name, "/", 3)
-		if len(parts) < 2 {
-			continue
-		}
-
-		dbName := parts[0]
-		docID := parts[1]
-
-		var ok bool
-		ok, err = client.DBExists(ctx, dbName)
-		if err != nil {
-			return
-		}
-		if !ok {
-			if err := client.CreateDB(ctx, dbName); err != nil {
+		startKey = ""
+		i := 0
+		for rows.Next() {
+			if i == perPage {
+				startKey = rows.Key()
+				break
+			}
+			if err := exportCouchDocument(writer, prefix, db, rows); err != nil {
 				return err
 			}
+			i++
 		}
-
-		db := client.DB(ctx, dbName)
-		if err = db.Err(); err != nil {
-			return
+		if startKey == "" {
+			break
 		}
-
-		if len(parts) == 3 {
-			attName := parts[2]
-			attLong := fmt.Sprintf("%s/%s/%s", dbName, docID, attName)
-			rev, ok := docs[docID]
-			if !ok {
-				return fmt.Errorf("Could not create attachment %q: document was not created",
-					attLong)
-			}
-
-			fmt.Printf("Creating attachment %q...", attLong)
-			a := &kivik.Attachment{
-				Content:         ioutil.NopCloser(tr),
-				Size:            hdr.Size,
-				Filename:        attName,
-				ContentType:     hdr.PAXRecords["SCHILY.xattr.content-type"],
-				ContentEncoding: hdr.PAXRecords["SCHILY.xattr.content-encoding"],
-			}
-			rev, err = db.PutAttachment(ctx, docID, rev, a)
-			if err != nil {
-				return fmt.Errorf("Could not create attachment %q: %s",
-					attLong, err)
-			}
-			fmt.Println("ok.")
-
-			docs[docID] = rev
-			continue
-		}
-
-		var v json.RawMessage
-		if err = json.NewDecoder(tr).Decode(&v); err != nil {
-			return err
-		}
-		fmt.Printf("Creating document %q...", fmt.Sprintf("%s/%s", dbName, docID))
-		id, rev, err := db.CreateDoc(ctx, v)
-		if err != nil {
-			return err
-		}
-		fmt.Println("ok.")
-
-		docs[id] = rev
 	}
 
 	return nil
+}
+
+func couchDatabases() []*kivik.DB {
+	dbs := []*kivik.DB{asset.AssetStore.DB}
+	for _, c := range spaces {
+		dbs = append(dbs, c.DBs()...)
+	}
+	return dbs
+}
+
+func exportAllCouchDbs(writer *tar.Writer, prefix string) error {
+	fmt.Printf("  Exporting CouchDB\n")
+	prefix = path.Join(prefix, couchPrefix)
+
+	dbs := couchDatabases()
+	for _, db := range dbs {
+		if err := exportSingleCouchDb(writer, prefix, db); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func exportSwiftContainer(writer *tar.Writer, prefix string, connection *swift.Connection, container string) error {
+	fmt.Printf("    Exporting container %s\n", container)
+	prefix = path.Join(prefix, container)
+
+	return connection.ObjectsWalk(container, nil, func(opts *swift.ObjectsOpts) (interface{}, error) {
+		objects, err := connection.Objects(container, opts)
+		if err != nil {
+			return nil, err
+		}
+		for _, object := range objects {
+			name := object.Name
+			fmt.Printf("      Exporting object %s\n", name)
+
+			buffer := new(bytes.Buffer)
+			if _, err := connection.ObjectGet(container, name, buffer, false, nil); err != nil {
+				return nil, err
+			}
+
+			file := path.Join(prefix, name)
+			metadata := map[string]string{
+				contentTypeAttr: object.ContentType,
+			}
+			if err := writeReaderFile(writer, file, buffer, metadata); err != nil {
+				return nil, err
+			}
+		}
+		return objects, nil
+	})
+}
+
+func swiftContainers() []string {
+	containers := []string{asset.AssetContainerName}
+	for _, space := range spaces {
+		container := GetPrefixOrDefault(space)
+		containers = append(containers, container)
+	}
+	return containers
+}
+
+func exportSwift(writer *tar.Writer, prefix string) error {
+	fmt.Printf("  Exporting Swift\n")
+	prefix = path.Join(prefix, swiftPrefix)
+
+	containers := swiftContainers()
+
+	connection := config.GetConfig().SwiftConnection
+	for _, container := range containers {
+		if err := exportSwiftContainer(writer, prefix, connection, container); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func Export(writer io.Writer) (err error) {
+	zw := gzip.NewWriter(writer)
+	defer func() {
+		if e := zw.Close(); e != nil && err == nil {
+			err = e
+		}
+	}()
+	tw := tar.NewWriter(zw)
+	defer func() {
+		if e := tw.Close(); e != nil && err == nil {
+			err = e
+		}
+	}()
+
+	if err := exportAllCouchDbs(tw, rootPrefix); err != nil {
+		return err
+	}
+	return exportSwift(tw, rootPrefix)
 }

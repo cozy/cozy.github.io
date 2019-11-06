@@ -27,7 +27,7 @@ type GlobalAsset struct {
 }
 
 var client *kivik.Client
-var ctx context.Context = context.Background()
+var ctx = context.Background()
 var AssetStore *GlobalAssetStore
 
 const assetStoreDBSuffix string = "assets"

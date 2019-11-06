@@ -54,6 +54,7 @@ var forceFlag bool
 var dryRunFlag bool
 
 var editorAutoPublicationFlag bool
+var importDrop bool
 
 var flagInfraMaintenance bool
 var flagShortMaintenance bool
@@ -170,6 +171,8 @@ func init() {
 	maintenanceDeactivateAppCmd.Flags().StringVar(&appSpaceFlag, "space", "", "specify the application space")
 
 	addEditorCmd.Flags().BoolVar(&editorAutoPublicationFlag, "auto-publication", false, "activate auto-publication of version for this editor")
+
+	importCmd.Flags().BoolVarP(&importDrop, "drop", "d", false, "drop couchdb database & swift container before import")
 }
 
 func useConfig(cmd *cobra.Command) (err error) {
@@ -768,8 +771,11 @@ var genSessionSecret = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		fmt.Println("ok")
-		defer file.Close()
+		defer func() {
+			if e := file.Close(); e != nil && err == nil {
+				err = e
+			}
+		}()
 
 		var passphrase []byte
 		if passphraseFlag == nil || *passphraseFlag {
@@ -1147,22 +1153,16 @@ var exportCmd = &cobra.Command{
 		var out io.Writer
 		if len(args) > 0 {
 			filename := args[0]
-			var f *os.File
-			f, err = os.OpenFile(filename, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0440)
+			file, err := os.OpenFile(filename, os.O_WRONLY|os.O_CREATE, 0600)
 			if err != nil {
 				return err
 			}
 			defer func() {
-				if errc := f.Close(); err == nil && errc != nil {
-					err = errc
-				}
-				if err != nil {
-					os.Remove(filename)
-				} else {
-					fmt.Printf("Export finished successfully in file %q.\n", filename)
+				if e := file.Close(); e != nil && err == nil {
+					err = e
 				}
 			}()
-			out = f
+			out = file
 		} else {
 			out = os.Stdout
 		}
@@ -1177,20 +1177,27 @@ var importCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) (err error) {
 		var in io.Reader
 		if len(args) > 0 {
-			var f *os.File
-			f, err = os.Open(args[0])
-			if err != nil {
-				return err
+			filename := args[0]
+			file, e := os.Open(filename)
+			if e != nil {
+				return e
 			}
 			defer func() {
-				if errc := f.Close(); err == nil && errc != nil {
-					err = errc
+				if e := file.Close(); e != nil && err == nil {
+					err = e
 				}
 			}()
-			in = f
+			in = file
 		} else {
 			in = os.Stdin
 		}
+
+		if importDrop {
+			if err := registry.Drop(); err != nil {
+				return err
+			}
+		}
+
 		if err = registry.Import(in); err != nil {
 			return err
 		}

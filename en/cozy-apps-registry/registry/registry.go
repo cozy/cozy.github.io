@@ -103,9 +103,8 @@ var (
 	clientURL *url.URL
 	spaces    map[string]*Space
 
-	globalPrefix       string
-	globalEditorsDB    *kivik.DB
-	globalAssetStoreDB *kivik.DB
+	globalPrefix    string
+	globalEditorsDB *kivik.DB
 
 	ctx = context.Background()
 
@@ -172,8 +171,9 @@ func (c *Space) VersDB() *kivik.DB {
 func (c *Space) PendingVersDB() *kivik.DB {
 	return c.dbPendingVers
 }
-func GlobalAssetStoreDB() *kivik.DB {
-	return globalAssetStoreDB
+
+func (c *Space) DBs() []*kivik.DB {
+	return []*kivik.DB{c.AppsDB(), c.VersDB(), c.PendingVersDB()}
 }
 
 func (c *Space) dbName(suffix string) (name string) {
@@ -446,6 +446,20 @@ func InitGlobalClient(addr, user, pass, prefix string) (editorsDB *kivik.DB, err
 
 	editorsDB = globalEditorsDB
 	return
+}
+
+func initCouch() error {
+	if err := client.CreateDB(ctx, asset.AssetStore.DB.Name()); err != nil {
+		return err
+	}
+
+	for _, c := range spaces {
+		if err := c.init(); err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 func RegisterSpace(name string) error {
