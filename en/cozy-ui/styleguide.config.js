@@ -49,7 +49,8 @@ module.exports = {
         '../react/Hero/index.jsx',
         '../react/Sidebar/index.jsx',
         '../react/Circle/index.jsx',
-        '../react/Page/index.jsx'
+        '../react/Page/index.jsx',
+        '../react/NarrowContent/index.jsx'
       ]
     },
     {

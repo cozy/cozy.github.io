@@ -15,16 +15,18 @@ import styles from './styles.styl'
  */
 class Stepper extends React.Component {
   render() {
-    const { currentIndex, children, onBack } = this.props
+    const { currentIndex, children, onBack, showPercentage } = this.props
     return (
       <>
-        <div className={styles.ProgressBackground}>
-          <PercentageLine
-            color="var(--primaryColor)"
-            className={styles.ProgressLine}
-            value={Math.max(((currentIndex + 1) / children.length) * 100, 1)}
-          />
-        </div>
+        {showPercentage ? (
+          <div className={styles.ProgressBackground}>
+            <PercentageLine
+              color="var(--primaryColor)"
+              className={styles.ProgressLine}
+              value={Math.max(((currentIndex + 1) / children.length) * 100, 1)}
+            />
+          </div>
+        ) : null}
         {currentIndex > 0 ? <BackButtonMobile onClick={onBack} /> : null}
         <SwipeableViews animateHeight disabled index={currentIndex}>
           {React.Children.map(children, (child, i) => {
@@ -38,7 +40,13 @@ class Stepper extends React.Component {
 
 Stepper.propTypes = {
   currentIndex: PropTypes.number.isRequired,
-  onBack: PropTypes.func.isRequired
+  onBack: PropTypes.func.isRequired,
+  /** Whether to show the percentage line showing how far we are in the stepper */
+  showPercentage: PropTypes.bool
+}
+
+Stepper.defaultProps = {
+  showPercentage: true
 }
 
 export default Stepper

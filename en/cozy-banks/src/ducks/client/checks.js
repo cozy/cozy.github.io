@@ -48,11 +48,13 @@ class StartupChecksPlugin {
       }
     }
 
-    const trigger = triggers.find(
-      matches({
-        attributes: matchAttributes
-      })
-    )
+    const trigger =
+      triggers &&
+      triggers.find(
+        matches({
+          attributes: matchAttributes
+        })
+      )
     if (!trigger) {
       // eslint-disable-next-line no-console
       console.warn(

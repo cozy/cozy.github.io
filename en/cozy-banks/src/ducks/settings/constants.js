@@ -37,6 +37,7 @@ export const DEFAULTS_SETTINGS = {
       enabled: false
     }
   },
+  categoryBudgetAlerts: [],
   billsMatching: {
     billsLastSeq: '0',
     transactionsLastSeq: '0'

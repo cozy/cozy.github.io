@@ -2,14 +2,7 @@ import { createSelector, createSelectorCreator, defaultMemoize } from 'reselect'
 import { buildAutoGroups, isAutoGroup } from 'ducks/groups/helpers'
 import { buildVirtualAccounts } from 'ducks/account/helpers'
 import { getQueryFromState } from 'cozy-client'
-
-let client
-const getClient = () => {
-  if (!client) {
-    client = window.cozyClient
-  }
-  return client
-}
+import getClient from './getClient'
 
 const updatedAtSameTime = (currentQuery, prevQuery) => {
   return (

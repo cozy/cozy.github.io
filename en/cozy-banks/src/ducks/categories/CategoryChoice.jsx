@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { translate } from 'cozy-ui/react'
 import PopupSelect from 'components/PopupSelect'
+import MultiSelect from 'components/MultiSelect'
 import {
   getCategories,
   CategoryIcon,
@@ -52,10 +54,11 @@ class CategoryChoice extends Component {
   }
 
   render() {
-    const { t, onCancel, onSelect } = this.props
+    const { t, onCancel, onSelect, modal } = this.props
 
+    const Component = modal ? PopupSelect : MultiSelect
     return (
-      <PopupSelect
+      <Component
         closeBtnClassName={styles.TransactionModalCross}
         title={t('Categories.choice.title')}
         options={this.options}
@@ -65,6 +68,18 @@ class CategoryChoice extends Component {
       />
     )
   }
+}
+
+CategoryChoice.propTypes = {
+  categoryId: PropTypes.string.isRequired,
+  onCancel: PropTypes.func.isRequired,
+  onSelect: PropTypes.func.isRequired,
+  /** Whether categoryChoice should be shown in a modal */
+  modal: PropTypes.bool
+}
+
+CategoryChoice.defaultProps = {
+  modal: true
 }
 
 export default translate()(CategoryChoice)

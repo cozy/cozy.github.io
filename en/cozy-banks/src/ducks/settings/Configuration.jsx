@@ -21,6 +21,7 @@ import ToggleRow, {
   ToggleRowWrapper
 } from 'ducks/settings/ToggleRow'
 import DelayedDebitAlert from 'ducks/settings/DelayedDebitAlert'
+import CategoryAlertSettingsPane from 'ducks/settings/CategoryAlerts/CategoryAlertSettingsPane'
 
 export class Configuration extends React.Component {
   saveDocument = async doc => {
@@ -159,6 +160,9 @@ export class Configuration extends React.Component {
             </div>
           </ToggleRowWrapper>
         </TogglePane>
+        {flag('settings.budget-category-alerts') ? (
+          <CategoryAlertSettingsPane />
+        ) : null}
         <TogglePane>
           <TogglePaneTitle>
             {t('AdvancedFeaturesSettings.title')}

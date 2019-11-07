@@ -6,12 +6,18 @@ import langEn from 'locales/en.json'
 import store from 'test/store'
 import getClient from 'test/client'
 
+export const TestI18n = ({ children }) => {
+  return (
+    <I18n lang={'en'} dictRequire={() => langEn}>
+      {children}
+    </I18n>
+  )
+}
+
 const AppLike = ({ children, store, client }) => (
   <Provider store={store}>
-    <CozyProvider client={client || getClient()}>
-      <I18n lang={'en'} dictRequire={() => langEn}>
-        {children}
-      </I18n>
+    <CozyProvider client={client || getClient()}>
+      <TestI18n>{children}</TestI18n>
     </CozyProvider>
   </Provider>
 )
