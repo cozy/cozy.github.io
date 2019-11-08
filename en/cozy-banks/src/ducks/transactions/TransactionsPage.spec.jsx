@@ -4,7 +4,6 @@ import React from 'react'
 import {
   DumbTransactionsPage,
   UnpluggedTransactionsPage,
-  TransactionsPageBar,
   STEP_INFINITE_SCROLL,
   MIN_NB_TRANSACTIONS_SHOWN
 } from './TransactionsPage'
@@ -34,7 +33,7 @@ jest.mock('ducks/balance/HistoryChart', () => ({
   ConnectedHistoryChart: () => null
 }))
 
-const useMobile = () => (window.innerWidth = 400)
+// const useMobile = () => (window.innerWidth = 400)
 
 const mkCollection = (data, options) => ({
   data,
@@ -79,6 +78,9 @@ describe('TransactionsPage', () => {
         goForward: () => {},
         setRouteLeaveHook: () => {},
         isActive: () => {},
+        getCurrentLocation: () => ({
+          pathname: '/'
+        }),
         params: {
           subcategoryName,
           categoryName
@@ -90,25 +92,6 @@ describe('TransactionsPage', () => {
     }
     root = mount(<Wrapper />, { context, childContextTypes })
   }
-
-  it('should not show the top balance on movements page on non mobile', () => {
-    setup()
-    expect(root.find(TransactionsPageBar).length).toBe(0)
-  })
-
-  it('should show the top balance on movements page on mobile', () => {
-    useMobile()
-    setup()
-    expect(root.find(TransactionsPageBar).length).toBe(1)
-  })
-
-  it('should not show the top balance on movements page on mobile if inside category', () => {
-    useMobile()
-    categoryName = 'dailyLife'
-    subcategoryName = 'supermarket'
-    setup()
-    expect(root.find(TransactionsPageBar).length).toBe(0)
-  })
 
   it('should handle change in top most transaction', () => {
     setup()

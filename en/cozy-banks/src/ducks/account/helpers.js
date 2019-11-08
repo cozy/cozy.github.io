@@ -1,7 +1,7 @@
 import { get, sumBy, overEvery, flowRight as compose } from 'lodash'
 import {
   getDate,
-  getReimbursedAmount,
+  getReimbursedAmount as getTransactionReimbursedAmount,
   hasPendingReimbursement
 } from 'ducks/transactions/helpers'
 import { isHealthExpense } from 'ducks/categories/helpers'
@@ -141,7 +141,7 @@ export const buildHealthReimbursementsVirtualAccount = transactions => {
   const healthExpenses = transactions.filter(healthExpensesFilter)
 
   const balance = sumBy(healthExpenses, expense => {
-    const reimbursedAmount = getReimbursedAmount(expense)
+    const reimbursedAmount = getTransactionReimbursedAmount(expense)
     return -expense.amount - reimbursedAmount
   })
 
@@ -164,4 +164,19 @@ export const buildVirtualAccounts = transactions => {
 
 export const isHealthReimbursementsAccount = account => {
   return account._id === 'health_reimbursements' && account.virtual
+}
+
+export const getReimbursedAmount = account => {
+  const usedAmount = get(account, 'loan.usedAmount')
+  const remaining = -get(account, 'balance')
+
+  return usedAmount - remaining
+}
+
+export const getReimbursedPercentage = account => {
+  const reimbursedAmount = getReimbursedAmount(account)
+  const totalAmount = get(account, 'loan.usedAmount')
+  const percentage = (reimbursedAmount / totalAmount) * 100
+
+  return percentage
 }

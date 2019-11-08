@@ -122,3 +122,13 @@ export const renamedGroup = (group, label) => {
 export const isFormerAutoGroup = group => group.accountType === null
 export const isAutoGroup = group => group.accountType !== undefined
 export const getGroupAccountType = group => group.accountType
+
+export const isLoanGroup = group => {
+  for (const account of group.accounts.data) {
+    if (getAccountType(account) !== 'Loan') {
+      return false
+    }
+  }
+
+  return true
+}

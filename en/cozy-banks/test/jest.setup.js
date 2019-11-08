@@ -12,7 +12,7 @@ global.shallow = shallow
 global.cozy = {
   bar: {
     BarLeft: () => null,
-    BarRight: () => null,
+    BarRight: ({ children }) => children,
     BarCenter: () => null,
     setTheme: () => null
   }

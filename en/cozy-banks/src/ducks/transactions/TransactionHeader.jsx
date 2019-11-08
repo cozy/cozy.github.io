@@ -5,13 +5,11 @@ import { flowRight as compose } from 'lodash'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 import cx from 'classnames'
 
-import BackButton from 'components/BackButton'
 import Breadcrumb from 'components/Breadcrumb'
 import { ConnectedSelectDates } from 'components/SelectDates'
-import { AccountSwitch } from 'ducks/account'
+import { BalanceDetailsHeader } from 'ducks/balance'
 import TransactionSelectDates from 'ducks/transactions/TransactionSelectDates'
 import { ConnectedHistoryChart as HistoryChart } from 'ducks/balance/HistoryChart'
-import Header from 'components/Header'
 import { Padded } from 'components/Spacing'
 
 import withSize from 'components/withSize'
@@ -52,16 +50,6 @@ class TransactionHeader extends Component {
     const { router } = this.props
 
     return router.params.subcategoryName !== undefined
-  }
-
-  renderAccountSwitch = () => {
-    const isSubcategory = this.isSubcategory()
-    return (
-      <div className={styles.TransactionHeader__accountSwitchContainer}>
-        {this.props.showBackButton && <BackButton theme="primary" arrow />}
-        <AccountSwitch small={isSubcategory} color="primary" />
-      </div>
-    )
   }
 
   renderSelectDates = () => {
@@ -117,15 +105,13 @@ class TransactionHeader extends Component {
       transactions,
       breakpoints: { isMobile },
       router,
+      showBalance,
       t
     } = this.props
     const isSubcategory = this.isSubcategory()
 
     return (
-      <Header color="primary" fixed>
-        <Padded className={isMobile ? 'u-p-0' : 'u-pb-half'}>
-          {this.renderAccountSwitch()}
-        </Padded>
+      <BalanceDetailsHeader small={isSubcategory} showBalance={showBalance}>
         {!isSubcategory && this.renderBalanceHistory()}
         <Padded
           className={cx(
@@ -147,7 +133,7 @@ class TransactionHeader extends Component {
         {transactions.length > 0 && (
           <TableHead isSubcategory={isSubcategory} color="primary" />
         )}
-      </Header>
+      </BalanceDetailsHeader>
     )
   }
 }

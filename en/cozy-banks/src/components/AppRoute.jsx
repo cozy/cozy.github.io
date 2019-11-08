@@ -4,7 +4,6 @@ import App from 'components/App'
 import { isWebApp } from 'cozy-device-helper'
 
 import { TransactionsPageWithBackButton } from 'ducks/transactions'
-import { ReimbursementsPage } from 'ducks/reimbursements'
 import { CategoriesPage } from 'ducks/categories'
 import {
   Settings,
@@ -16,7 +15,7 @@ import {
   Configuration,
   Debug
 } from 'ducks/settings'
-import { Balance } from 'ducks/balance'
+import { Balance, BalanceDetailsPage } from 'ducks/balance'
 import { TransferPage } from 'ducks/transfers'
 import UserActionRequired from 'components/UserActionRequired'
 import scrollToTopOnMount from 'components/scrollToTopOnMount'
@@ -29,12 +28,8 @@ const AppRoute = () => (
       <Route path="balances">
         <IndexRoute component={scrollToTopOnMount(Balance)} />
         <Route
-          path="reimbursements"
-          component={scrollToTopOnMount(ReimbursementsPage)}
-        />
-        <Route
           path="details"
-          component={scrollToTopOnMount(TransactionsPageWithBackButton)}
+          component={scrollToTopOnMount(BalanceDetailsPage)}
         />
       </Route>
       <Route path="categories">

@@ -1,5 +1,3 @@
-/* global cozy */
-
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
@@ -9,8 +7,7 @@ import { isMobileApp } from 'cozy-device-helper'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 
 import { flowRight as compose, isEqual, findIndex, uniq, maxBy } from 'lodash'
-import { getFilteredAccounts, getFilteringDoc } from 'ducks/filters'
-import BarBalance from 'components/BarBalance'
+import { getFilteringDoc } from 'ducks/filters'
 import { Padded } from 'components/Spacing'
 
 import {
@@ -43,8 +40,6 @@ import { getChartTransactions } from 'ducks/chart/selectors'
 
 import BarTheme from 'ducks/bar/BarTheme'
 import TransactionActionsProvider from 'ducks/transactions/TransactionActionsProvider'
-
-const { BarRight } = cozy.bar
 
 export const STEP_INFINITE_SCROLL = 30
 export const MIN_NB_TRANSACTIONS_SHOWN = 10
@@ -246,8 +241,7 @@ class TransactionsPage extends Component {
     const {
       accounts,
       transactions,
-      breakpoints: { isMobile },
-      filteredAccounts
+      breakpoints: { isMobile }
     } = this.props
 
     const isFetching =
@@ -266,10 +260,8 @@ class TransactionsPage extends Component {
           handleChangeMonth={this.handleChangeMonth}
           currentMonth={this.state.currentMonth}
           showBackButton={this.props.showBackButton}
+          showBalance={isMobile && !areAccountsLoading && !isOnSubcategory}
         />
-        {isMobile && !areAccountsLoading && !isOnSubcategory && (
-          <TransactionsPageBar accounts={filteredAccounts} theme={theme} />
-        )}
         {isFetching ? (
           <Loading loadingType="movements" />
         ) : (
@@ -280,12 +272,6 @@ class TransactionsPage extends Component {
   }
 }
 
-export const TransactionsPageBar = ({ accounts, theme }) => (
-  <BarRight>
-    <BarBalance accounts={accounts} theme={theme} />
-  </BarRight>
-)
-
 const onSubcategory = ownProps => ownProps.router.params.subcategoryName
 
 const mapStateToProps = (state, ownProps) => {
@@ -295,7 +281,6 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     filteringDoc: getFilteringDoc(state),
-    filteredAccounts: getFilteredAccounts(state),
     filteredTransactions: filteredTransactions
   }
 }
@@ -308,8 +293,7 @@ export const UnpluggedTransactionsPage = compose(
 )(TransactionsPage)
 
 UnpluggedTransactionsPage.propTypes = {
-  filteredTransactions: PropTypes.array.isRequired,
-  filteredAccounts: PropTypes.array.isRequired
+  filteredTransactions: PropTypes.array.isRequired
 }
 
 const ConnectedTransactionsPage = compose(

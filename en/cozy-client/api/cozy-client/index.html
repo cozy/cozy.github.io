@@ -1398,6 +1398,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#createclientinteractive" title="createClientInteractive()" class="md-nav__link">
+    createClientInteractive()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#withclientcomponent-function" title="withClient(Component) ⇒ function" class="md-nav__link">
     withClient(Component) ⇒ function
   </a>
@@ -1549,6 +1556,18 @@
   <li class="md-nav__item">
     <a href="../../../cozy-doctypes/docs/io.cozy.apps/" title="Apps" class="md-nav__link">
       Apps
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.apps.suggestions/" title="App suggestions" class="md-nav__link">
+      App suggestions
     </a>
   </li>
 
@@ -3596,6 +3615,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#createclientinteractive" title="createClientInteractive()" class="md-nav__link">
+    createClientInteractive()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#withclientcomponent-function" title="withClient(Component) ⇒ function" class="md-nav__link">
     withClient(Component) ⇒ function
   </a>
@@ -3736,6 +3762,14 @@ from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
 
 <h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
 <dl>
+<dt><a href="#createClientInteractive">createClientInteractive()</a></dt>
+<dd><p>Creates a client with interactive authentication.</p>
+<ul>
+<li>Will start an OAuth flow and open an authentication page</li>
+<li>Starts a local server to listen for the oauth callback</li>
+<li>Resolves with the client after user authentication</li>
+</ul>
+</dd>
 <dt><a href="#withClient">withClient(Component)</a> ⇒ <code>function</code></dt>
 <dd><p>HOC to provide client from context as prop</p>
 </dd>
@@ -5204,7 +5238,29 @@ than <code>&lt;delay&gt;</code> ms.</p>
 <h3 id="fetchpoliciesnofetch">fetchPolicies.noFetch()<a class="headerlink" href="#fetchpoliciesnofetch" title="Permanent link">&para;</a></h3>
 <p>Fetch policy that deactivates any fetching.</p>
 <p><strong>Kind</strong>: static method of <a href="#fetchPolicies"><code>fetchPolicies</code></a><br />
-<a name="withClient"></a></p>
+<a name="createClientInteractive"></a></p>
+<h2 id="createclientinteractive">createClientInteractive()<a class="headerlink" href="#createclientinteractive" title="Permanent link">&para;</a></h2>
+<p>Creates a client with interactive authentication.</p>
+<ul>
+<li>Will start an OAuth flow and open an authentication page</li>
+<li>Starts a local server to listen for the oauth callback</li>
+<li>Resolves with the client after user authentication</li>
+</ul>
+<p><strong>Kind</strong>: global function<br />
+<strong>Params</strong>: <code>Object</code> clientOptions Same as CozyClient::constructor.<br />
+<strong>Example</strong>  </p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="p">{</span> <span class="n">createClientInteractive</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;cozy-client/dist/cli&#39;</span>
+<span class="n">await</span> <span class="n">createClientInteractive</span><span class="p">({</span>
+  <span class="n">uri</span><span class="p">:</span> <span class="s1">&#39;http://cozy.tools:8080&#39;</span><span class="p">,</span>
+  <span class="n">scope</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;io.cozy.bills&#39;</span><span class="p">],</span>
+  <span class="n">oauth</span><span class="p">:</span> <span class="p">{</span>
+    <span class="n">softwareID</span><span class="p">:</span> <span class="s1">&#39;my-cli-application-using-bills&#39;</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+</pre></div>
+
+
+<p><a name="withClient"></a></p>
 <h2 id="withclientcomponent-function">withClient(Component) ⇒ <code>function</code><a class="headerlink" href="#withclientcomponent-function" title="Permanent link">&para;</a></h2>
 <p>HOC to provide client from context as prop</p>
 <p><strong>Kind</strong>: global function<br />

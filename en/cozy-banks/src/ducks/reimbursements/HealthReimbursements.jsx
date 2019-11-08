@@ -12,7 +12,6 @@ import {
   getReimbursementStatus
 } from 'ducks/transactions/helpers'
 import { translate } from 'cozy-ui/react'
-import { Title as BaseTitle } from 'cozy-ui/react/Text'
 import { Padded } from 'components/Spacing'
 import { Figure } from 'components/Figure'
 import styles from 'ducks/reimbursements/HealthReimbursements.styl'
@@ -30,17 +29,6 @@ const Caption = props => {
   const { className, ...rest } = props
 
   return <p className={cx(styles.Caption, className)} {...rest} />
-}
-
-const Title = props => {
-  const { className, ...rest } = props
-
-  return (
-    <BaseTitle
-      className={cx(styles.HealthReimbursements__title, className)}
-      {...rest}
-    />
-  )
 }
 
 export class DumbHealthReimbursements extends Component {
@@ -91,9 +79,9 @@ export class DumbHealthReimbursements extends Component {
 
     return (
       <TransactionActionsProvider>
-        <Section>
-          <Title>
-            <Padded className="u-pv-0">
+        <Section
+          title={
+            <>
               {t('Reimbursements.pending')}
               <Figure
                 symbol="€"
@@ -101,8 +89,9 @@ export class DumbHealthReimbursements extends Component {
                 className={styles.HealthReimbursements__figure}
                 signed
               />{' '}
-            </Padded>
-          </Title>
+            </>
+          }
+        >
           {pendingTransactions ? (
             <TransactionsWithSelection
               transactions={pendingTransactions}
@@ -115,12 +104,7 @@ export class DumbHealthReimbursements extends Component {
             </Padded>
           )}
         </Section>
-        <Section>
-          <Title>
-            <Padded className="u-pv-0">
-              {t('Reimbursements.alreadyReimbursed')}
-            </Padded>
-          </Title>
+        <Section title={t('Reimbursements.alreadyReimbursed')}>
           {reimbursedTransactions ? (
             <TransactionsWithSelection
               transactions={reimbursedTransactions}
