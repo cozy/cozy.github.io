@@ -34,7 +34,7 @@ describe('category alert edition modal', () => {
         _id: 'compteisa4',
         _type: 'io.cozy.bank.accounts'
       },
-      balanceThresholdMin: 200,
+      maxThreshold: 200,
       categoryId: '400110'
     }
     const root = mount(

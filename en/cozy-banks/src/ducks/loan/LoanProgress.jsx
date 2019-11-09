@@ -2,18 +2,18 @@ import React from 'react'
 import PercentageBar from 'cozy-ui/transpiled/react/PercentageBar'
 import { translate } from 'cozy-ui/transpiled/react/I18n'
 import { Caption } from 'cozy-ui/transpiled/react/Text'
-import { get } from 'lodash'
 import { Figure } from 'components/Figure'
 import {
   getReimbursedPercentage,
-  getReimbursedAmount
+  getReimbursedAmount,
+  getBorrowedAmount
 } from 'ducks/account/helpers'
 
 const DumbLoanProgress = props => {
   const { account, t } = props
   const percentage = getReimbursedPercentage(account)
   const reimbursedAmount = getReimbursedAmount(account)
-  const totalAmount = get(account, 'loan.usedAmount')
+  const borrowedAmount = getBorrowedAmount(account)
 
   return (
     <>
@@ -24,7 +24,7 @@ const DumbLoanProgress = props => {
           <Caption>{t('LoanProgress.reimbursedAmount')}</Caption>
         </div>
         <div className="u-flex-grow-1 u-ta-right">
-          <Figure total={totalAmount} symbol="€" />
+          <Figure total={borrowedAmount} symbol="€" />
           <Caption>{t('LoanProgress.borrowedAmount')}</Caption>
         </div>
       </div>

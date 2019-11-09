@@ -2,7 +2,13 @@ import { combineReducers } from 'redux'
 import { createSelector } from 'reselect'
 import { parse, format, isWithinRange } from 'date-fns'
 import logger from 'cozy-logger'
-import { getTransactions, getAllGroups, getAccounts } from 'selectors'
+import {
+  getTransactions,
+  getAllGroups,
+  getAccounts,
+  getGroupsById,
+  getAccountsById
+} from 'selectors'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { sortBy, last, keyBy, find } from 'lodash'
 import { DESTROY_ACCOUNT } from 'actions/accounts'
@@ -19,8 +25,29 @@ const RESET_FILTER_BY_DOC = 'RESET_FILTER_BY_DOC'
 
 // selectors
 export const getPeriod = state => state.filters && state.filters.period
-export const getFilteringDoc = state =>
+
+export const getRawFilteringDoc = state =>
   state.filters && state.filters.filteringDoc
+
+export const getFilteringDoc = createSelector(
+  [getAccountsById, getGroupsById, getRawFilteringDoc],
+  (accountsById, groupsById, rawFilteringDoc) => {
+    if (!rawFilteringDoc) {
+      return null
+    }
+
+    switch (rawFilteringDoc._type) {
+      case ACCOUNT_DOCTYPE:
+        return accountsById[rawFilteringDoc._id]
+
+      case GROUP_DOCTYPE:
+        return groupsById[rawFilteringDoc._id]
+
+      default:
+        return rawFilteringDoc
+    }
+  }
+)
 
 export const getFilteredAccountIds = state => {
   const availableAccountIds = getAccounts(state).map(x => x._id)

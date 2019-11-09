@@ -167,16 +167,24 @@ export const isHealthReimbursementsAccount = account => {
 }
 
 export const getReimbursedAmount = account => {
-  const usedAmount = get(account, 'loan.usedAmount')
-  const remaining = -get(account, 'balance')
+  const borrowedAmount = getBorrowedAmount(account)
+  const remainingAmount = getRemainingAmount(account)
 
-  return usedAmount - remaining
+  return borrowedAmount - remainingAmount
 }
 
 export const getReimbursedPercentage = account => {
   const reimbursedAmount = getReimbursedAmount(account)
-  const totalAmount = get(account, 'loan.usedAmount')
-  const percentage = (reimbursedAmount / totalAmount) * 100
+  const borrowedAmount = getBorrowedAmount(account)
+  const percentage = (reimbursedAmount / borrowedAmount) * 100
 
   return percentage
+}
+
+export const getBorrowedAmount = account => {
+  return get(account, 'loan.usedAmount') || get(account, 'loan.totalAmount')
+}
+
+export const getRemainingAmount = account => {
+  return Math.abs(account.balance)
 }

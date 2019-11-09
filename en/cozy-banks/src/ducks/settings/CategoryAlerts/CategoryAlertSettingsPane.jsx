@@ -17,7 +17,7 @@ import CategoryAlertEditModal from 'ducks/settings/CategoryAlerts/CategoryAlertE
 
 const makeNewAlert = () => ({
   categoryId: '400110',
-  balanceThresholdMin: 100,
+  maxThreshold: 100,
   accountOrGroup: null
 })
 

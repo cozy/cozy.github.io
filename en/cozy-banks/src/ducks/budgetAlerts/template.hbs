@@ -1,0 +1,38 @@
+
+{{#extend "bank-layout"}}
+  {{#content "emailTitle"}}
+    {{t 'Notifications.categoryBudgets.email.innerTitle'}}
+  {{/content}}
+  {{#content "emailSubtitle"}}
+    {{ formatDate date }}
+  {{/content}}
+
+  {{#content "content"}}
+    <mj-section padding-top="0" padding-bottom="10px">
+      <mj-column>
+        <mj-text padding-top="0" padding-bottom="0">
+          <h3 class='js-institution'>
+            {{ budgetAlert.accountOrGroupLabel }}
+          </h3>
+        </mj-text>
+        {{#each budgetAlerts as |budgetAlert| }}
+          <mj-table>
+            <tr class="js-transaction tableRow">
+              <td width="40px">
+                {{ categoryIcon budgetAlert.categoryId }}
+              </td>
+              <td>
+                <mj-text>
+                  {{ budgetAlert.categoryLabel }}
+                </mj-text>
+              </td>
+              <td width="150px" align='right'>
+                {{ budgetAlert.currentAmount }}€ {{ t "Notifications.categoryBudgets.email.budgetOutOf" }} {{ budgetAlert.maxThreshold }}€
+              </td>
+            </tr>
+          </mj-table>
+        {{/each}}
+      </mj-column>
+    </mj-section
+  {{/content}}
+{{/extend}}

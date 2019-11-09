@@ -8,6 +8,7 @@ import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { ReimbursementsPage } from 'ducks/reimbursements'
 import flag from 'cozy-flags'
 import BarTheme from 'ducks/bar/BarTheme'
+import { getFilteringDoc } from 'ducks/filters'
 
 const getComponent = filteringDoc => {
   if (filteringDoc._type === ACCOUNT_DOCTYPE) {
@@ -45,7 +46,7 @@ export const RawBalanceDetailsPage = props => {
 
 function mapStateToProps(state) {
   return {
-    filteringDoc: state.filters.filteringDoc
+    filteringDoc: getFilteringDoc(state)
   }
 }
 

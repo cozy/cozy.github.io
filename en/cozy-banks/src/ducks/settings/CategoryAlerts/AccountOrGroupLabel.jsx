@@ -1,7 +1,4 @@
-import {
-  getGroupsById,
-  getAccountsById
-} from 'ducks/settings/CategoryAlerts/selectors'
+import { getGroupsById, getAccountsById } from 'selectors'
 import { connect } from 'react-redux'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 

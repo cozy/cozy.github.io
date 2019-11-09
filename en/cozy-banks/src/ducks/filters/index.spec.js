@@ -9,15 +9,22 @@ import reducer, {
 
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
 import { DESTROY_ACCOUNT } from 'actions/accounts'
-import { getTransactions, getAllGroups, getAccounts } from 'selectors'
+import {
+  getTransactions,
+  getAllGroups,
+  getAccounts,
+  getGroupsById,
+  getAccountsById
+} from 'selectors'
 import tz from 'timezone'
 import find from 'lodash/find'
+import keyBy from 'lodash/keyBy'
 
 const eu = tz(require('timezone/Europe'))
 const jp = tz(require('timezone/Asia'))
 const us = tz(require('timezone/America'))
 
-jest.mock('selectors/index.js')
+jest.mock('selectors')
 
 describe('filter reducer', function() {
   let state
@@ -199,6 +206,11 @@ describe('filter selectors', () => {
     getTransactions.mockReturnValue(docStore['io.cozy.bank.operations'])
     getAccounts.mockReturnValue(docStore[ACCOUNT_DOCTYPE])
     getAllGroups.mockReturnValue(docStore['io.cozy.bank.groups'])
+    // TODO use createClientWithData instead of mocked selectors
+    getGroupsById.mockReturnValue(keyBy(docStore['io.cozy.bank.groups'], '_id'))
+    getAccountsById.mockReturnValue(
+      keyBy(docStore['io.cozy.bank.accounts'], '_id')
+    )
 
     findDoc = attrs => {
       const docs = docStore[attrs._type]

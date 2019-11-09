@@ -3,6 +3,7 @@ import { buildAutoGroups, isAutoGroup } from 'ducks/groups/helpers'
 import { buildVirtualAccounts } from 'ducks/account/helpers'
 import { getQueryFromState } from 'cozy-client'
 import getClient from './getClient'
+import keyBy from 'lodash/keyBy'
 
 const updatedAtSameTime = (currentQuery, prevQuery) => {
   return (
@@ -102,4 +103,14 @@ export const getVirtualGroups = createSelector(
 export const getAllGroups = createSelector(
   [getGroups, getVirtualGroups],
   (groups, virtualGroups) => [...groups, ...virtualGroups]
+)
+
+export const getGroupsById = createSelector(
+  [getAllGroups],
+  groups => keyBy(groups, '_id')
+)
+
+export const getAccountsById = createSelector(
+  [getAccounts],
+  accounts => keyBy(accounts, '_id')
 )

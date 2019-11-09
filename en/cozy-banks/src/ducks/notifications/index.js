@@ -28,6 +28,13 @@ ${Math.abs(amount)} €
     )
   },
 
+  categoryIcon: categoryId => {
+    const parentCategoryName = getParentCategory(categoryId)
+    return new Handlebars.SafeString(
+      `<img style="width: 32px; height: 32px" src='https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-cat-${parentCategoryName}.png' />`
+    )
+  },
+
   parentCategory: function(transaction) {
     return getParentCategory(getCategoryId(transaction))
   },

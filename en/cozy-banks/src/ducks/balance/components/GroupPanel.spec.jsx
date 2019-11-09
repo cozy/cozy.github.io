@@ -10,6 +10,8 @@ import { schema } from 'doctypes'
 import AppLike from 'test/AppLike'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 
+jest.mock('selectors')
+
 const addType = data => {
   return mapValues(data, (docs, doctype) => {
     return docs.map(doc => ({ ...doc, _type: doctype }))

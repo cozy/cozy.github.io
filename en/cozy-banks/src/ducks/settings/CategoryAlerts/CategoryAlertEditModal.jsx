@@ -20,7 +20,7 @@ import AccountIcon from 'components/AccountIcon'
 import { CategoryChoice, CategoryIcon, getCategoryName } from 'ducks/categories'
 import AccountGroupChoice from 'ducks/settings/CategoryAlerts/AccountGroupChoice'
 import AccountOrGroupLabel from 'ducks/settings/CategoryAlerts/AccountOrGroupLabel'
-import { getAccountsById } from './selectors'
+import { getAccountsById } from 'selectors'
 
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 
@@ -88,7 +88,7 @@ const CategoryAlertInfoSlide = ({
           <Input
             type="text"
             onChange={handleChangeBalanceThreshold}
-            defaultValue={alert.balanceThresholdMin}
+            defaultValue={alert.maxThreshold}
           />
         </InputGroup>
       </ModalContent>
@@ -158,7 +158,7 @@ const CategoryAlertEditModal = translate()(
     const handleChangeBalanceThreshold = ev => {
       const updatedAlert = {
         ...alert,
-        balanceThresholdMin: parseInt(ev.target.value)
+        maxThreshold: parseInt(ev.target.value)
       }
       setAlert(updatedAlert)
     }
@@ -217,7 +217,7 @@ const CategoryAlertEditModal = translate()(
             <Button
               onClick={handleConfirmEdit}
               label={
-                alert.id
+                alert.id !== undefined
                   ? t('Settings.budget-category-alerts.edit.update-ok')
                   : t('Settings.budget-category-alerts.edit.create-ok')
               }

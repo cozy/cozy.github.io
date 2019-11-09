@@ -10,7 +10,7 @@ import AccountOrGroupLabel from 'ducks/settings/CategoryAlerts/AccountOrGroupLab
 
 const CategoryAlertPropType = PropTypes.shape({
   categoryId: PropTypes.string.isRequired,
-  balanceThresholdMin: PropTypes.number.isRequired
+  maxThreshold: PropTypes.number.isRequired
 })
 
 /**
@@ -74,7 +74,7 @@ const CategoryAlertCard = ({ removeAlert, updateAlert, alert, t }) => {
             {saving ? <Spinner size="small" /> : null}
             <br />
             {t('Settings.budget-category-alerts.budget-inferior-to', {
-              threshold: alert.balanceThresholdMin
+              threshold: alert.maxThreshold
             })}
             <br />
             {alert.accountOrGroup ? (

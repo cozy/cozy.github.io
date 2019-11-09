@@ -12,6 +12,7 @@ import styles from 'ducks/loan/LoanDetailsPage.styl'
 import LoanProgress from 'ducks/loan/LoanProgress'
 import { Padded } from 'components/Spacing'
 import { flowRight as compose } from 'lodash'
+import { getBorrowedAmount } from 'ducks/account/helpers'
 
 const DATE_FORMAT = 'DD/MM/YY'
 
@@ -75,35 +76,26 @@ const DumbRow = props => {
   )
 }
 
-const Row = compose(
+export const Row = compose(
   translate(),
   withBreakpoints()
 )(DumbRow)
 
-const Section = props => {
+export const Section = props => {
   const { title, children } = props
 
   return <BaseSection title={title}>{children}</BaseSection>
 }
 
-const hasSomeInfos = (account, paths) => {
-  for (const path of paths) {
-    if (get(account, path)) {
-      return true
-    }
-  }
+const isExistingData = data => data !== undefined && data !== null
 
-  return false
-}
-
-const KeyInfosSection = translate()(props => {
+export const KeyInfosSection = translate()(props => {
   const { account, t } = props
 
-  const shouldRender = hasSomeInfos(account, [
-    'loan.usedAmount',
-    'balance',
-    'loan.rate'
-  ])
+  const borrowedAmount = getBorrowedAmount(account)
+  const balance = get(account, 'balance')
+  const rate = get(account, 'loan.rate')
+  const shouldRender = [borrowedAmount, balance, rate].some(isExistingData)
 
   if (!shouldRender) {
     return null
@@ -114,33 +106,38 @@ const KeyInfosSection = translate()(props => {
       <Row
         type="amount"
         title={t('LoanDetails.keyInfos.borrowedAmount')}
-        value={get(account, 'loan.usedAmount')}
+        value={borrowedAmount}
       />
       <Row
         type="amount"
         title={t('LoanDetails.keyInfos.remainingCapital')}
-        value={-get(account, 'balance')}
+        value={Math.abs(balance)}
       />
       <Row
         type="rate"
         title={t('LoanDetails.keyInfos.interestRate')}
-        value={get(account, 'loan.rate')}
+        value={rate}
       />
     </Section>
   )
 })
 
-const PaymentsSection = translate()(props => {
+export const PaymentsSection = translate()(props => {
   const { account, t, f } = props
 
-  const shouldRender = hasSomeInfos(account, [
-    'loan.lastPaymentDate',
-    'loan.nextPaymentDate'
-  ])
+  const lastPaymentAmount = get(account, 'loan.lastPaymentAmount')
+  const nextPaymentAmount = get(account, 'loan.nextPaymentAmount')
+
+  const shouldRender = [lastPaymentAmount, nextPaymentAmount].some(
+    isExistingData
+  )
 
   if (!shouldRender) {
     return null
   }
+
+  const lastPaymentDate = get(account, 'loan.lastPaymentDate')
+  const nextPaymentDate = get(account, 'loan.nextPaymentDate')
 
   return (
     <Section title={t('LoanDetails.payments.title')}>
@@ -149,9 +146,9 @@ const PaymentsSection = translate()(props => {
         title={t('LoanDetails.payments.lastPayment')}
         value={get(account, 'loan.lastPaymentAmount')}
         caption={
-          t('LoanDetails.dateGlue') +
-          ' ' +
-          f(get(account, 'loan.lastPaymentDate'), DATE_FORMAT)
+          lastPaymentDate
+            ? `${t('LoanDetails.dateGlue')} ${f(lastPaymentDate, DATE_FORMAT)}`
+            : undefined
         }
       />
       <Row
@@ -159,24 +156,29 @@ const PaymentsSection = translate()(props => {
         title={t('LoanDetails.payments.nextPayment')}
         value={get(account, 'loan.nextPaymentAmount')}
         caption={
-          t('LoanDetails.dateGlue') +
-          ' ' +
-          f(get(account, 'loan.nextPaymentDate'), DATE_FORMAT)
+          nextPaymentDate
+            ? `${t('LoanDetails.dateGlue')} ${f(nextPaymentDate, DATE_FORMAT)}`
+            : undefined
         }
       />
     </Section>
   )
 })
 
-const CharacteristicsSection = translate()(props => {
+export const CharacteristicsSection = translate()(props => {
   const { account, t } = props
 
-  const shouldRender = hasSomeInfos(account, [
-    'loan.subscriptionDate',
-    'loan.maturityDate',
-    'loan.nbPaymentsLeft',
-    'loan.nbPaymentsDone'
-  ])
+  const subscriptionDate = get(account, 'loan.subscriptionDate')
+  const maturityDate = get(account, 'loan.maturityDate')
+  const nbPaymentsLeft = get(account, 'loan.nbPaymentsLeft')
+  const nbPaymentsDone = get(account, 'loan.nbPaymentsDone')
+
+  const shouldRender = [
+    subscriptionDate,
+    maturityDate,
+    nbPaymentsLeft,
+    nbPaymentsDone
+  ].some(isExistingData)
 
   if (!shouldRender) {
     return null
@@ -187,34 +189,36 @@ const CharacteristicsSection = translate()(props => {
       <Row
         type="date"
         title={t('LoanDetails.characteristics.subscriptionDate')}
-        value={get(account, 'loan.subscriptionDate')}
+        value={subscriptionDate}
       />
       <Row
         type="date"
         title={t('LoanDetails.characteristics.maturityDate')}
-        value={get(account, 'loan.maturityDate')}
+        value={maturityDate}
       />
       <Row
         type="nb-payments"
         title={t('LoanDetails.characteristics.nbPaymentsLeft')}
-        value={get(account, 'loan.nbPaymentsLeft')}
+        value={nbPaymentsLeft}
       />
       <Row
         type="nb-payments"
         title={t('LoanDetails.characteristics.nbPaymentsDone')}
-        value={get(account, 'loan.nbPaymentsDone')}
+        value={nbPaymentsDone}
       />
     </Section>
   )
 })
 
-const CreditReserveSection = translate()(props => {
+export const CreditReserveSection = translate()(props => {
   const { account, t } = props
 
-  const shouldRender = hasSomeInfos(account, [
-    'loan.totalAmount',
-    'loan.availableAmount'
-  ])
+  const totalAmount = get(account, 'loan.totalAmount')
+  const availableAmount = get(account, 'loan.availableAmount')
+
+  const shouldRender =
+    account.type === 'RevolvingCredit' &&
+    [totalAmount, availableAmount].some(isExistingData)
 
   if (!shouldRender) {
     return null
@@ -225,12 +229,12 @@ const CreditReserveSection = translate()(props => {
       <Row
         type="amount"
         title={t('LoanDetails.creditReserve.totalUsedAmount')}
-        value={get(account, 'loan.totalAmount')}
+        value={totalAmount}
       />
       <Row
         type="amount"
         title={t('LoanDetails.creditReserve.availableAmount')}
-        value={get(account, 'loan.availableAmount')}
+        value={availableAmount}
       />
     </Section>
   )

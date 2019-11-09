@@ -10,6 +10,7 @@ import matchFromTransactions from 'ducks/billsMatching/matchFromTransactions'
 import { logResult } from 'ducks/billsMatching/utils'
 import { findAppSuggestions } from 'ducks/appSuggestions/services'
 import { fetchChangesOrAll, getOptions } from './helpers'
+import { runCategoryBudgetService } from 'ducks/budgetAlerts'
 
 const log = logger.namespace('onOperationOrBillCreate')
 
@@ -155,6 +156,9 @@ const onOperationOrBillCreate = async options => {
   log('info', 'Do apps suggestions...')
   await doAppSuggestions(setting)
   setting = await updateSettings(setting)
+
+  log('info', 'Do category budgets notification')
+  await runCategoryBudgetService(cozyClient)
 }
 
 const main = async () => {
