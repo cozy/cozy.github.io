@@ -1,5 +1,5 @@
 import CozyClient from 'cozy-client'
-import { fetchExpensesForAlert } from './index.js'
+import { getNextAlertId, fetchExpensesForAlert } from './index.js'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 
 const alert = {
@@ -10,6 +10,8 @@ const alert = {
 /**
  * Creates a function suitable for mocking CozyClient::query with
  * existing data
+ *
+ * @private
  */
 const makeQueryMock = existingData => {
   return async spec => {
@@ -40,7 +42,7 @@ describe('fetch transactions for alert', () => {
       expect.objectContaining({
         selector: {
           amount: {
-            $gt: 0
+            $lt: 0
           },
           date: {
             $lt: '2020-01',
@@ -69,7 +71,7 @@ describe('fetch transactions for alert', () => {
       expect.objectContaining({
         selector: {
           amount: {
-            $gt: 0
+            $lt: 0
           },
           account: 'c0ffeedeadbeef',
           date: {
@@ -108,7 +110,7 @@ describe('fetch transactions for alert', () => {
       expect.objectContaining({
         selector: {
           amount: {
-            $gt: 0
+            $lt: 0
           },
           date: {
             $lt: '2020-01',
@@ -117,5 +119,14 @@ describe('fetch transactions for alert', () => {
         }
       })
     )
+  })
+})
+
+describe('get next alert id ', () => {
+  it('should return the next id', () => {
+    expect(getNextAlertId([])).toBe(0)
+
+    expect(getNextAlertId([{ id: 0 }, { id: 4 }])).toBe(5)
+    expect(getNextAlertId([{ id: 6 }, { id: 2 }])).toBe(7)
   })
 })

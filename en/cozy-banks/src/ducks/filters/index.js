@@ -38,10 +38,10 @@ export const getFilteringDoc = createSelector(
 
     switch (rawFilteringDoc._type) {
       case ACCOUNT_DOCTYPE:
-        return accountsById[rawFilteringDoc._id]
+        return accountsById[rawFilteringDoc._id] || rawFilteringDoc
 
       case GROUP_DOCTYPE:
-        return groupsById[rawFilteringDoc._id]
+        return groupsById[rawFilteringDoc._id] || rawFilteringDoc
 
       default:
         return rawFilteringDoc

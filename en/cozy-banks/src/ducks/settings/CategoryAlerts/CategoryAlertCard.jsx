@@ -7,6 +7,7 @@ import { CategoryIcon, getCategoryName } from 'ducks/categories'
 import CategoryAlertEditModal from 'ducks/settings/CategoryAlerts/CategoryAlertEditModal'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import AccountOrGroupLabel from 'ducks/settings/CategoryAlerts/AccountOrGroupLabel'
+import { ACCOUNT_DOCTYPE } from 'doctypes'
 
 const CategoryAlertPropType = PropTypes.shape({
   categoryId: PropTypes.string.isRequired,
@@ -70,16 +71,30 @@ const CategoryAlertCard = ({ removeAlert, updateAlert, alert, t }) => {
             <CategoryIcon categoryId={alert.categoryId} />
           </div>
           <div className="u-grow">
-            {t(`Data.subcategories.${categoryName}`)}
-            {saving ? <Spinner size="small" /> : null}
-            <br />
             {t('Settings.budget-category-alerts.budget-inferior-to', {
               threshold: alert.maxThreshold
             })}
+            {saving ? <Spinner size="small" /> : null}
+            <br />
+            {t('Settings.budget-category-alerts.for-category', {
+              categoryName: t(`Data.subcategories.${categoryName}`)
+            })}
             <br />
             {alert.accountOrGroup ? (
-              <AccountOrGroupLabel doc={alert.accountOrGroup} />
-            ) : null}
+              <>
+                {t(
+                  alert.accountOrGroup._type === ACCOUNT_DOCTYPE
+                    ? 'Settings.budget-category-alerts.for-account'
+                    : 'Settings.budget-category-alerts.for-groups',
+                  {
+                    threshold: alert.maxThreshold
+                  }
+                )}{' '}
+                <AccountOrGroupLabel doc={alert.accountOrGroup} />
+              </>
+            ) : (
+              t('Settings.budget-category-alerts.for-all-accounts')
+            )}
           </div>
           <div className="u-fixed u-ml-1">
             <Icon

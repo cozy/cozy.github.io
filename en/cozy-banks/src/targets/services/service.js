@@ -11,6 +11,7 @@ const assertEnvVar = varName => {
   }
 }
 
+// TODO Check to use CozyClient.fromEnv
 export const runService = service => {
   assertEnvVar('COZY_URL')
   assertEnvVar('COZY_CREDENTIALS')

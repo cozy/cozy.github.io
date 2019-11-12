@@ -2355,6 +2355,14 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#routes" title="Routes" class="md-nav__link">
+    Routes
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#get-oidcstart" title="GET /oidc/start" class="md-nav__link">
     GET /oidc/start
   </a>
@@ -2386,6 +2394,11 @@
     </nav>
   
 </li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
       
       
@@ -2408,9 +2421,9 @@
                 
                 <p><a href="../#table-of-contents">Table of contents</a></p>
 <h1 id="delegated-authentication">Delegated authentication<a class="headerlink" href="#delegated-authentication" title="Permanent link">&para;</a></h1>
-<p>In general, the cozy stack manages the authentication itself. In some special
-cases, an integration with other softwares can be mandatory. It&rsquo;s possible to
-use JWT or OpenID Connect, with a bit of configuration to do that.</p>
+<p>In general, the cozy stack manages the authentication itself. In some cases, an
+integration with other softwares can be mandatory. It&rsquo;s possible to use JWT or
+OpenID Connect, with a bit of configuration to do that.</p>
 <h2 id="jwt">JWT<a class="headerlink" href="#jwt" title="Permanent link">&para;</a></h2>
 <p>To enable an external system to create links with a JWT to log in users for
 cozy instances in a given context, we just need to add the secret to use for
@@ -2425,9 +2438,13 @@ checking the JWT in the config, like this:</p>
 instance domain, and send the user to <code>https://&lt;instance&gt;/?jwt=...</code>. The user
 will be logged in, and redirected to its default application.</p>
 <h2 id="open-id-connect">Open ID Connect<a class="headerlink" href="#open-id-connect" title="Permanent link">&para;</a></h2>
-<p>For OpenID Connect, there are more configuration parameters:</p>
+<p>OpenID Connect can also be used, and is more adapted when the</p>
+<p>For OpenID Connect, there are more configuration parameters and they must be
+configured per context. A context is set of configuration parameters and each
+Cozy instance belongs to one context.</p>
 <div class="codehilite"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">authentication</span><span class="p p-Indicator">:</span>
   <span class="l l-Scalar l-Scalar-Plain">the-context-name</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">disable_password_authentication</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
     <span class="l l-Scalar l-Scalar-Plain">oidc</span><span class="p p-Indicator">:</span>
       <span class="l l-Scalar l-Scalar-Plain">client_id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">aClientID</span>
       <span class="l l-Scalar l-Scalar-Plain">client_secret</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">s3cret3</span>
@@ -2445,21 +2462,39 @@ will be logged in, and redirected to its default application.</p>
 
 <p>Let&rsquo;s see what it means:</p>
 <ul>
+<li><code>disable_password_authentication</code> can be set to <code>true</code> to disable the classic
+  password authentication on the Cozy, and forces the user to login with OpenID
+  Connect.</li>
+</ul>
+<p>And in the <code>oidc</code> section, we have:</p>
+<ul>
 <li><code>client_id</code> and <code>client_secret</code> are the OAuth client that will be used to
   talk to the identity provider</li>
-<li><code>scope</code> is the OAuth scope parameter</li>
+<li><code>scope</code> is the OAuth scope parameter (it is often <code>openid profile</code>)</li>
 <li><code>redirect_uri</code> is where the user will be redirected by the identity provider
   after login (it must often be declared when creating the OAuth client, and we
   have to use a static hostname, not the hostname of a cozy instance)</li>
 <li><code>token_url</code>, <code>authorize_url</code>, and <code>userinfo_url</code> are the URLs used to talk to
-  the identity provider</li>
+  the identity provider (they ofter can be found by the discovery mechanism of
+  OpenID Connect with the names <code>token_endpoint</code>, <code>authorization_endpoint</code>, and
+  <code>userinfo_endpoint</code>)</li>
 <li><code>userinfo_instance_field</code> is the JSON field to use in the UserInfo response
   to know the cozy instance of the logged in user.</li>
+<li><code>userinfo_instance_prefix</code> and <code>userinfo_instance_suffix</code> are optional, and
+  will be put before and after the field fetched from the UserInfo response to
+  give the complete instance URL</li>
+<li><code>allow_oauth_token</code> must be set to true to enable the
+  <code>POST /oidc/access_token</code> route (see below for more details).</li>
 </ul>
+<p>With the example config, if the UserInfo response contains <code>"cozy_number":
+"00001"</code>, the user can login on the instance <code>name00001.mycozy.cloud</code>.</p>
+<h3 id="routes">Routes<a class="headerlink" href="#routes" title="Permanent link">&para;</a></h3>
 <p>Let&rsquo;s see the 3 routes used in this process</p>
-<h3 id="get-oidcstart">GET /oidc/start<a class="headerlink" href="#get-oidcstart" title="Permanent link">&para;</a></h3>
+<h4 id="get-oidcstart">GET /oidc/start<a class="headerlink" href="#get-oidcstart" title="Permanent link">&para;</a></h4>
 <p>To start the OpenID Connect dance, the user can go to this URL. It will
-redirect him/her to the identity provider with the rights parameter.</p>
+redirect him/her to the identity provider with the rights parameter. The user
+will also be redirected here if they are not connected and that the password
+authentication is disabled.</p>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/oidc/start</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">name00001.mycozy.cloud</span>
 </pre></div>
@@ -2470,7 +2505,7 @@ redirect him/her to the identity provider with the rights parameter.</p>
 </pre></div>
 
 
-<h3 id="get-oidcredirect">GET /oidc/redirect<a class="headerlink" href="#get-oidcredirect" title="Permanent link">&para;</a></h3>
+<h4 id="get-oidcredirect">GET /oidc/redirect<a class="headerlink" href="#get-oidcredirect" title="Permanent link">&para;</a></h4>
 <p>Then, the user can log in on the identity provider, and then he/she will be
 redirected to this URL. Note that the URL is on a generic domain: the stack
 will redirect the user to his/her instance (where it&rsquo;s possible to create
@@ -2485,7 +2520,7 @@ cookies to log in the user).</p>
 </pre></div>
 
 
-<h3 id="get-oidclogin">GET /oidc/login<a class="headerlink" href="#get-oidclogin" title="Permanent link">&para;</a></h3>
+<h4 id="get-oidclogin">GET /oidc/login<a class="headerlink" href="#get-oidclogin" title="Permanent link">&para;</a></h4>
 <p>On this route, the stack can create the session for the user, with the cookies.</p>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/oidc/login?code=ccd0032a</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">name00001.mycozy.cloud</span>
@@ -2500,11 +2535,11 @@ cookies to log in the user).</p>
 
 <p>If the <code>allow_oauth_token</code> option is enabled, it&rsquo;s possible to use an
 access_token instead of code on this URL.</p>
-<h3 id="post-oidcaccess_token">POST /oidc/access_token<a class="headerlink" href="#post-oidcaccess_token" title="Permanent link">&para;</a></h3>
-<p>This additional route can be used by an OAuth client when delegated
-authentication via OpenID Connect is enabled. It allows the client to obtain an
-<code>access_token</code> for requesting the cozy-stack in exchange of a token valid on the
-OpenID Connect Identity Provider.</p>
+<h4 id="post-oidcaccess_token">POST /oidc/access_token<a class="headerlink" href="#post-oidcaccess_token" title="Permanent link">&para;</a></h4>
+<p>This additional route can be used by an OAuth client (like a mobile app) when
+delegated authentication via OpenID Connect is enabled. It allows the client to
+obtain an <code>access_token</code> for requesting the cozy-stack in exchange of a token
+valid on the OpenID Connect Identity Provider.</p>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/oidc/access_token</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">name00001.mycozy.cloud</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>

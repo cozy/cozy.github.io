@@ -50,7 +50,10 @@ const CategoryAlertInfoSlide = ({
               alert.accountOrGroup &&
               alert.accountOrGroup._type === ACCOUNT_DOCTYPE &&
               accountsById[alert.accountOrGroup._id] ? (
-                <AccountIcon account={accountsById[alert.accountOrGroup._id]} />
+                <AccountIcon
+                  key={alert.accountOrGroup._id}
+                  account={accountsById[alert.accountOrGroup._id]}
+                />
               ) : null
             }
             label={

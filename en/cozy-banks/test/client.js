@@ -27,10 +27,10 @@ export const getClient = ({ uri, token, fetchJSONReturn } = defaultOptions) => {
   return client
 }
 
-export const createClientWithData = ({ queries }) => {
-  const client = new CozyClient({})
+export const createClientWithData = ({ queries, data, clientOptions }) => {
+  const client = new CozyClient(clientOptions || {})
   client.ensureStore()
-  for (let [queryName, queryOptions] of Object.entries(queries)) {
+  for (let [queryName, queryOptions] of Object.entries(queries || {})) {
     client.store.dispatch(
       initQuery(
         queryName,
@@ -45,6 +45,13 @@ export const createClientWithData = ({ queries }) => {
       })
     )
   }
+  client.query = jest.fn().mockImplementation(qdef => {
+    if (data[qdef.doctype]) {
+      return { data: data[qdef.doctype] }
+    } else {
+      return { data: [] }
+    }
+  })
   return client
 }
 

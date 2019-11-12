@@ -86,6 +86,12 @@
       "file": "autogroups.js",
       "trigger": "@event io.cozy.bank.accounts:CREATED",
       "debounce": "5s"
+    },
+    "budgetAlerts": {
+      "type": "node",
+      "file": "budgetAlerts.js",
+      "comment": "Service is run inside onOperationOrBillCreate. This is why the trigger is in the past. The service described here is for diagnosis/debug.",
+      "trigger": "@at 2000-01-01T00:00:00.000Z"
     }
   },
   "notifications": {

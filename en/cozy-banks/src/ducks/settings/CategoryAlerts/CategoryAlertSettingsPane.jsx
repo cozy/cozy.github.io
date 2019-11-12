@@ -1,13 +1,11 @@
 import React, { useState } from 'react'
 import compose from 'lodash/flowRight'
-import maxBy from 'lodash/maxBy'
 import { withClient, queryConnect } from 'cozy-client'
 import { Button, Stack, Alerter, translate } from 'cozy-ui/transpiled/react'
 
-import TogglePane, {
-  TogglePaneTitle,
-  TogglePaneText
-} from 'ducks/settings/TogglePane'
+import { TogglePaneSubtitle, TogglePaneText } from 'ducks/settings/TogglePane'
+
+import { ToggleRowWrapper } from 'ducks/settings/ToggleRow'
 
 import { settingsConn } from 'doctypes'
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
@@ -15,11 +13,7 @@ import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import CategoryAlertCard from 'ducks/settings/CategoryAlerts/CategoryAlertCard'
 import CategoryAlertEditModal from 'ducks/settings/CategoryAlerts/CategoryAlertEditModal'
 
-const makeNewAlert = () => ({
-  categoryId: '400110',
-  maxThreshold: 100,
-  accountOrGroup: null
-})
+import { getAlertId, getNextAlertId, makeNewAlert } from 'ducks/budgetAlerts'
 
 const CreateCategoryAlert = translate()(({ createAlert, t, ...props }) => {
   const [creating, setCreating] = useState(false)
@@ -56,8 +50,6 @@ const CreateCategoryAlert = translate()(({ createAlert, t, ...props }) => {
   )
 })
 
-const Grid = ({ children }) => <div>{children}</div>
-
 /**
  * Replace item in arr, finding item through idFn.
  * If previous item cannot be found, the new item is pushed at the
@@ -69,12 +61,6 @@ const replaceBy = (arr, item, idFn) => {
   return index !== -1
     ? [...arr.slice(0, index), item, ...arr.slice(index + 1)]
     : [...arr, item]
-}
-
-const getAlertId = x => x.id
-
-const getNextAlertId = alerts => {
-  return alerts.length === 0 ? 0 : getAlertId(maxBy(alerts, getAlertId))
 }
 
 const CategoryAlertsPane = ({ client, settingsCollection, t }) => {
@@ -113,31 +99,28 @@ const CategoryAlertsPane = ({ client, settingsCollection, t }) => {
   }
 
   return (
-    <TogglePane>
-      <TogglePaneTitle>
+    <ToggleRowWrapper>
+      <TogglePaneSubtitle>
         {t('Settings.budget-category-alerts.pane-title')}
-      </TogglePaneTitle>
+      </TogglePaneSubtitle>
       <TogglePaneText>
         {t('Settings.budget-category-alerts.pane-description')}
       </TogglePaneText>
       <Stack spacing="s">
-        <div>
-          <Grid>
-            {alerts
-              ? alerts.map((alert, i) => (
-                  <CategoryAlertCard
-                    key={i}
-                    updateAlert={createOrUpdateAlert}
-                    removeAlert={removeAlert}
-                    alert={alert}
-                  />
-                ))
-              : null}
-          </Grid>
-        </div>
+        {alerts
+          ? alerts.map((alert, i) => (
+              <div key={i}>
+                <CategoryAlertCard
+                  updateAlert={createOrUpdateAlert}
+                  removeAlert={removeAlert}
+                  alert={alert}
+                />
+              </div>
+            ))
+          : null}
         <CreateCategoryAlert createAlert={createOrUpdateAlert} />
       </Stack>
-    </TogglePane>
+    </ToggleRowWrapper>
   )
 }
 

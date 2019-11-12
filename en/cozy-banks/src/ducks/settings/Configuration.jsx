@@ -23,6 +23,9 @@ import ToggleRow, {
 import DelayedDebitAlert from 'ducks/settings/DelayedDebitAlert'
 import CategoryAlertSettingsPane from 'ducks/settings/CategoryAlerts/CategoryAlertSettingsPane'
 
+/**
+ * Configure notifications and other features
+ */
 export class Configuration extends React.Component {
   saveDocument = async doc => {
     const { saveDocument } = this.props
@@ -121,7 +124,9 @@ export class Configuration extends React.Component {
             name="transactionGreater"
             unit="€"
           />
-
+          {flag('settings.budget-category-alerts') ? (
+            <CategoryAlertSettingsPane />
+          ) : null}
           <ToggleRowWrapper>
             <ToggleRowTitle>
               {t('Notifications.health_section.title')}
@@ -160,9 +165,6 @@ export class Configuration extends React.Component {
             </div>
           </ToggleRowWrapper>
         </TogglePane>
-        {flag('settings.budget-category-alerts') ? (
-          <CategoryAlertSettingsPane />
-        ) : null}
         <TogglePane>
           <TogglePaneTitle>
             {t('AdvancedFeaturesSettings.title')}

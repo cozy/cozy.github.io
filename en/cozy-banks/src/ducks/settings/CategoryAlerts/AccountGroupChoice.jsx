@@ -6,6 +6,8 @@ import Row from 'components/Row'
 import { translate, Label } from 'cozy-ui/transpiled/react'
 import compose from 'lodash/flowRight'
 import AccountIcon from 'components/AccountIcon'
+import { getGroupLabel } from 'ducks/groups/helpers'
+import { getAccountLabel } from 'ducks/account/helpers.js'
 
 /**
  * Displays Rows to select among either
@@ -32,7 +34,7 @@ const AccountGroupChoice = ({ current, accounts, groups, onSelect, t }) => {
           icon={<AccountIcon account={account} />}
           key={account._id}
           isSelected={current && current._id === account._id}
-          label={account.label}
+          label={getAccountLabel(account)}
           onClick={() => onSelect(account)}
         />
       ))}
@@ -43,7 +45,7 @@ const AccountGroupChoice = ({ current, accounts, groups, onSelect, t }) => {
         <Row
           key={group._id}
           isSelected={current && current._id === group._id}
-          label={group.label}
+          label={getGroupLabel(group)}
           onClick={() => onSelect(group)}
         />
       ))}

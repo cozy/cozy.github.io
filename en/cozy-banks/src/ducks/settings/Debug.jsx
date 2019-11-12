@@ -165,6 +165,7 @@ class DumbDebugSettings extends React.PureComponent {
           <ServiceButton client={client} name="stats" />
           <ServiceButton client={client} name="categorization" />
           <ServiceButton client={client} name="onOperationOrBillCreate" />
+          <ServiceButton client={client} name="budgetAlerts" />
         </div>
         <div>
           <Title>Flags</Title>

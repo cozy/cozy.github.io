@@ -2352,6 +2352,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#budget-alerts" title="Budget alerts" class="md-nav__link">
+    Budget alerts
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#i-am-writing-a-banking-konnector-what-should-i-do" title="I am writing a banking konnector, what should I do?" class="md-nav__link">
     I am writing a banking konnector, what should I do?
   </a>
@@ -2440,6 +2447,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#budget-alerts" title="Budget alerts" class="md-nav__link">
+    Budget alerts
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#i-am-writing-a-banking-konnector-what-should-i-do" title="I am writing a banking konnector, what should I do?" class="md-nav__link">
     I am writing a banking konnector, what should I do?
   </a>
@@ -2503,6 +2517,15 @@ informations about that.</p>
 <p>Whenever an <code>io.cozy.bank.accounts</code> is created, we check if it could belong in an automatic group based
 on its type (checkings, savings, credit cards). These <code>io.cozy.bank.groups</code> documents are created with
 the <code>auto: true</code> attributes.</p>
+<h2 id="budget-alerts">Budget alerts<a class="headerlink" href="#budget-alerts" title="Permanent link">&para;</a></h2>
+<p>A user can configure alerts to be alerted whenever the sum of its expenses has
+gone past a maximum threshold per month. The notification is sent as part of the
+onOperationOrBillCreate service.</p>
+<p>It is configured from a <code>io.cozy.bank.settings</code> document and the last notification
+date and amount are saved.</p>
+<p>A debug service is built to be able to only run this particular part and not the
+whole onOperationOrBillCreate service. It is possible to run it from the Debug
+tab in the application (or via Bender).</p>
 <h2 id="i-am-writing-a-banking-konnector-what-should-i-do">I am writing a banking konnector, what should I do?<a class="headerlink" href="#i-am-writing-a-banking-konnector-what-should-i-do" title="Permanent link">&para;</a></h2>
 <p>If you want to benefit from all the features of these services, the most
 straightforward is to add <code>toCategorize: true</code> to the <code>io.cozy.bank.operations</code>

@@ -10,7 +10,7 @@ import matchFromTransactions from 'ducks/billsMatching/matchFromTransactions'
 import { logResult } from 'ducks/billsMatching/utils'
 import { findAppSuggestions } from 'ducks/appSuggestions/services'
 import { fetchChangesOrAll, getOptions } from './helpers'
-import { runCategoryBudgetService } from 'ducks/budgetAlerts'
+import { runCategoryBudgetService } from 'ducks/budgetAlerts/service'
 
 const log = logger.namespace('onOperationOrBillCreate')
 
