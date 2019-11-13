@@ -2457,6 +2457,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#post-filesdownloadsversionidfile_idversion_id" title="POST /files/downloads?VersionId=file_id/version_id" class="md-nav__link">
+    POST /files/downloads?VersionId=file_id/version_id
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#get-filesdownloadssecretname" title="GET /files/downloads/:secret/:name" class="md-nav__link">
     GET /files/downloads/:secret/:name
   </a>
@@ -3509,6 +3516,13 @@
           <li class="md-nav__item">
   <a href="#post-filesdownloadsidfile_id" title="POST /files/downloads?Id=file_id" class="md-nav__link">
     POST /files/downloads?Id=file_id
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-filesdownloadsversionidfile_idversion_id" title="POST /files/downloads?VersionId=file_id/version_id" class="md-nav__link">
+    POST /files/downloads?VersionId=file_id/version_id
   </a>
   
 </li>
@@ -4736,6 +4750,11 @@ The response json API links contains a <code>related</code> link for downloading
 see below.</p>
 <h3 id="post-filesdownloadsidfile_id">POST /files/downloads?Id=file_id<a class="headerlink" href="#post-filesdownloadsidfile_id" title="Permanent link">&para;</a></h3>
 <p>Also create a file download. But it takes the id of the file and not its path.</p>
+<h3 id="post-filesdownloadsversionidfile_idversion_id">POST /files/downloads?VersionId=file_id/version_id<a class="headerlink" href="#post-filesdownloadsversionidfile_idversion_id" title="Permanent link">&para;</a></h3>
+<p>This is a third way to create a file download. But, this time, it is for
+downloading an old version of a file.</p>
+<p>These 3 routes also accept a <code>Filename=...</code> parameter in the query-string to
+change the filename that will be used for the downloaded file.</p>
 <h3 id="get-filesdownloadssecretname">GET /files/downloads/:secret/:name<a class="headerlink" href="#get-filesdownloadssecretname" title="Permanent link">&para;</a></h3>
 <p>Allows to download a file with a secret created from the route above.</p>
 <p>The name parameter is not used in the stack but aims to allow setting a name
@@ -4744,6 +4763,10 @@ even for browser / downloader that do not support Content-Disposition filename.<
 <code>attachment</code> if the query string contains the parameter <code>Dl=1</code></p>
 <p><strong>This route does not require Basic Authentification</strong></p>
 <h2 id="versions">Versions<a class="headerlink" href="#versions" title="Permanent link">&para;</a></h2>
+<p>The identifier of the <code>io.cozy.files.versions</code> is composed of the <code>file-id</code> and
+another string called the <code>version-id</code>, separated by a <code>/</code>. So, when a route
+makes reference to <code>/something/:file-id/:version-id</code>, you can use the identifier
+of the version document (without having to prepend the file identifier).</p>
 <h3 id="get-filesdownloadfile-idversion-id">GET /files/download/:file-id/:version-id<a class="headerlink" href="#get-filesdownloadfile-idversion-id" title="Permanent link">&para;</a></h3>
 <p>Download an old version of the file content</p>
 <p>By default the <code>content-disposition</code> will be <code>inline</code>, but it will be

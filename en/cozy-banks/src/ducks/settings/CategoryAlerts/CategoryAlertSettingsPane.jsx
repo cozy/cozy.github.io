@@ -15,7 +15,7 @@ import CategoryAlertEditModal from 'ducks/settings/CategoryAlerts/CategoryAlertE
 
 import { getAlertId, getNextAlertId, makeNewAlert } from 'ducks/budgetAlerts'
 
-const CreateCategoryAlert = translate()(({ createAlert, t, ...props }) => {
+export const CreateCategoryAlert = translate()(({ createAlert, t }) => {
   const [creating, setCreating] = useState(false)
   const [saving, setSaving] = useState(false)
   const handleCreateAlert = async newAlert => {
@@ -37,7 +37,6 @@ const CreateCategoryAlert = translate()(({ createAlert, t, ...props }) => {
         onClick={() => {
           setCreating(true)
         }}
-        {...props}
       />
       {creating ? (
         <CategoryAlertEditModal
@@ -83,7 +82,7 @@ const CategoryAlertsPane = ({ client, settingsCollection, t }) => {
   }
 
   const createOrUpdateAlert = async updatedAlert => {
-    if (!updatedAlert.id) {
+    if (updatedAlert.id === undefined) {
       updatedAlert.id = getNextAlertId(alerts)
     }
     const updatedAlerts = replaceBy(alerts, updatedAlert, getAlertId)

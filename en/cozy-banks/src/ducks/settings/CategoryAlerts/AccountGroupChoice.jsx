@@ -4,7 +4,6 @@ import { queryConnect } from 'cozy-client'
 import { accountsConn, groupsConn } from 'doctypes'
 import Row from 'components/Row'
 import { translate, Label } from 'cozy-ui/transpiled/react'
-import compose from 'lodash/flowRight'
 import AccountIcon from 'components/AccountIcon'
 import { getGroupLabel } from 'ducks/groups/helpers'
 import { getAccountLabel } from 'ducks/account/helpers.js'
@@ -16,7 +15,15 @@ import { getAccountLabel } from 'ducks/account/helpers.js'
  * - an account
  * - a group
  */
-const AccountGroupChoice = ({ current, accounts, groups, onSelect, t }) => {
+export const AccountGroupChoice = ({
+  current,
+  accounts: accountsCol,
+  groups: groupsCol,
+  onSelect,
+  t
+}) => {
+  const accounts = accountsCol.data || []
+  const groups = groupsCol.data || []
   return (
     <div>
       <div>
@@ -29,7 +36,7 @@ const AccountGroupChoice = ({ current, accounts, groups, onSelect, t }) => {
       <div className="u-ph-1">
         <Label>{t('AccountSwitch.accounts')}</Label>
       </div>
-      {accounts.data.map(account => (
+      {accounts.map(account => (
         <Row
           icon={<AccountIcon account={account} />}
           key={account._id}
@@ -41,11 +48,11 @@ const AccountGroupChoice = ({ current, accounts, groups, onSelect, t }) => {
       <div className="u-ph-1">
         <Label>{t('AccountSwitch.groups')}</Label>
       </div>
-      {groups.data.map(group => (
+      {groups.map(group => (
         <Row
           key={group._id}
           isSelected={current && current._id === group._id}
-          label={getGroupLabel(group)}
+          label={getGroupLabel(group, t)}
           onClick={() => onSelect(group)}
         />
       ))}
@@ -57,10 +64,9 @@ AccountGroupChoice.propTypes = {
   onChoose: PropTypes.func.isRequired
 }
 
-export default compose(
-  translate(),
-  queryConnect({
-    accounts: accountsConn,
-    groups: groupsConn
-  })
-)(AccountGroupChoice)
+export const DumbAccountGroupChoice = translate()(AccountGroupChoice)
+
+export default queryConnect({
+  accounts: accountsConn,
+  groups: groupsConn
+})(DumbAccountGroupChoice)

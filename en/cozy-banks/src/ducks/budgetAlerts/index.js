@@ -105,7 +105,7 @@ export const fetchExpensesForAlert = async (client, alert, currentDate) => {
  *
  * @param {Boolean} options.force Bypass last report checks
  *
- * @return {CategoryBudgetAlert}  - Updated alert (lastNotificationDate, lastNotificationAmount)
+ * @return {AlertInfo}  - { updatedAlert, expenses }
  */
 export const collectAlertInfo = async (client, alert, options) => {
   const expenses = await fetchExpensesForAlert(

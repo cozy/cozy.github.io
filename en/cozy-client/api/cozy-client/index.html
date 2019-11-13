@@ -1398,6 +1398,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#q" title="Q" class="md-nav__link">
+    Q
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#createclientinteractive" title="createClientInteractive()" class="md-nav__link">
     createClientInteractive()
   </a>
@@ -3615,6 +3622,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#q" title="Q" class="md-nav__link">
+    Q
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#createclientinteractive" title="createClientInteractive()" class="md-nav__link">
     createClientInteractive()
   </a>
@@ -3757,6 +3771,10 @@ from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
 </dd>
 <dt><a href="#fetchPolicies">fetchPolicies</a></dt>
 <dd><p>Use those fetch policies with <code>&lt;Query /&gt;</code> to limit the number of re-fetch.</p>
+</dd>
+<dt><a href="#Q">Q</a></dt>
+<dd><p>Helper to create a QueryDefinition. Recommended way to create
+query definitions.</p>
 </dd>
 </dl>
 
@@ -5238,7 +5256,19 @@ than <code>&lt;delay&gt;</code> ms.</p>
 <h3 id="fetchpoliciesnofetch">fetchPolicies.noFetch()<a class="headerlink" href="#fetchpoliciesnofetch" title="Permanent link">&para;</a></h3>
 <p>Fetch policy that deactivates any fetching.</p>
 <p><strong>Kind</strong>: static method of <a href="#fetchPolicies"><code>fetchPolicies</code></a><br />
-<a name="createClientInteractive"></a></p>
+<a name="Q"></a></p>
+<h2 id="q">Q<a class="headerlink" href="#q" title="Permanent link">&para;</a></h2>
+<p>Helper to create a QueryDefinition. Recommended way to create
+query definitions.</p>
+<p><strong>Kind</strong>: global constant<br />
+<strong>Example</strong>  </p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="p">{</span> <span class="n">Q</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;cozy-client&#39;</span>
+
+<span class="n">const</span> <span class="n">qDef</span> <span class="o">=</span> <span class="n">Q</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">where</span><span class="p">({</span> <span class="n">_id</span><span class="p">:</span> <span class="s1">&#39;1234&#39;</span> <span class="p">})</span>
+</pre></div>
+
+
+<p><a name="createClientInteractive"></a></p>
 <h2 id="createclientinteractive">createClientInteractive()<a class="headerlink" href="#createclientinteractive" title="Permanent link">&para;</a></h2>
 <p>Creates a client with interactive authentication.</p>
 <ul>

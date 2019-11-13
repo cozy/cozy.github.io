@@ -124,7 +124,7 @@ export class Configuration extends React.Component {
             name="transactionGreater"
             unit="€"
           />
-          {flag('settings.budget-category-alerts') ? (
+          {flag('budget-alerts.settings') ? (
             <CategoryAlertSettingsPane />
           ) : null}
           <ToggleRowWrapper>

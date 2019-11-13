@@ -23,6 +23,7 @@ module.exports = {
         '../react/Counter/index.jsx',
         '../react/PercentageLine/index.jsx',
         '../react/PercentageBar/index.jsx',
+        '../react/ThresholdBar/index.jsx',
         '../react/Stack/index.jsx',
         '../react/IconStack/index.jsx'
       ]

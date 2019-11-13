@@ -33,8 +33,18 @@ export class DumbBillChip extends React.PureComponent {
     return [doctype, id]
   }
 
+  getChipLabel(vendorName) {
+    const { t } = this.props
+
+    return vendorName
+      ? t('Transactions.actions.attachedDocs.billWithVendor', {
+          vendorName: vendorName
+        })
+      : t('Transactions.actions.attachedDocs.billWithoutVendor')
+  }
+
   render() {
-    const { bill, t } = this.props
+    const { bill } = this.props
     let invoiceId
 
     try {
@@ -71,7 +81,7 @@ export class DumbBillChip extends React.PureComponent {
               <Figure total={bill.amount} coloredPositive signed symbol="€" />
             </>
           ) : (
-            t('Transactions.actions.attachedDocs.bill')
+            this.getChipLabel(vendorName)
           )}
         </Chip>
       </Wrapper>

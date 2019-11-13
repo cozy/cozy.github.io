@@ -9,10 +9,25 @@ import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import AccountOrGroupLabel from 'ducks/settings/CategoryAlerts/AccountOrGroupLabel'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 
+import flag from 'cozy-flags'
+
 const CategoryAlertPropType = PropTypes.shape({
   categoryId: PropTypes.string.isRequired,
   maxThreshold: PropTypes.number.isRequired
 })
+
+const CategoryAlertDebug = ({ alert }) => (
+  <>
+    <hr />
+    alert id: {alert.id}
+    <br />
+    last notification date: {alert.lastNotificationDate}
+    <br />
+    last notification amount: {alert.lastNotificationAmount}
+    <br />
+    category id: {alert.categoryId}
+  </>
+)
 
 /**
  * Shows informations on a category alert
@@ -95,6 +110,9 @@ const CategoryAlertCard = ({ removeAlert, updateAlert, alert, t }) => {
             ) : (
               t('Settings.budget-category-alerts.for-all-accounts')
             )}
+            {flag('budget-alerts.debug') ? (
+              <CategoryAlertDebug alert={alert} />
+            ) : null}
           </div>
           <div className="u-fixed u-ml-1">
             <Icon
