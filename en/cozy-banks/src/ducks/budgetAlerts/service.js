@@ -65,6 +65,7 @@ export const buildNotificationView = (client, options) => {
  * Sends category budget notification and updates settings if successful
  */
 export const runCategoryBudgetService = async (client, options) => {
+  log('info', `Run category budget service`)
   const notifView = buildNotificationView(client, options)
   await sendNotification(client, notifView)
   log('info', `Saving updated alerts`)

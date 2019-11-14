@@ -1,3 +1,4 @@
+import CozyClient from 'cozy-client'
 import { cozyClient } from 'cozy-konnector-libs'
 import logger from 'cozy-logger'
 import flag from 'cozy-flags'
@@ -10,17 +11,8 @@ import matchFromTransactions from 'ducks/billsMatching/matchFromTransactions'
 import { logResult } from 'ducks/billsMatching/utils'
 import { findAppSuggestions } from 'ducks/appSuggestions/services'
 import { fetchChangesOrAll, getOptions } from './helpers'
-import { runCategoryBudgetService } from 'ducks/budgetAlerts/service'
 
 const log = logger.namespace('onOperationOrBillCreate')
-
-process.on('uncaughtException', err => {
-  log('warn', JSON.stringify(err.stack))
-})
-
-process.on('unhandledRejection', err => {
-  log('warn', JSON.stringify(err.stack))
-})
 
 const doBillsMatching = async (setting, options = {}) => {
   // Bills matching
@@ -54,6 +46,7 @@ const doBillsMatching = async (setting, options = {}) => {
 }
 
 const doTransactionsMatching = async (setting, options = {}) => {
+  log('info', 'Do transaction matching...')
   const transactionsLastSeq =
     options.lastSeq || setting.billsMatching.transactionsLastSeq || '0'
 
@@ -85,9 +78,10 @@ const doTransactionsMatching = async (setting, options = {}) => {
 }
 
 const doSendNotifications = async (setting, notifChanges) => {
+  log('info', 'Do send notifications...')
   try {
     const transactionsToNotify = notifChanges.documents
-    await sendNotifications(setting, transactionsToNotify, cozyClient)
+    await sendNotifications(setting, transactionsToNotify)
     setting.notifications.lastSeq = setting.billsMatching.transactionsLastSeq
   } catch (e) {
     log('warn', 'Error while sending notifications : ' + e)
@@ -95,8 +89,9 @@ const doSendNotifications = async (setting, notifChanges) => {
 }
 
 const doAppSuggestions = async setting => {
+  log('info', 'Do apps suggestions...')
   try {
-    await findAppSuggestions(setting, cozyClient)
+    await findAppSuggestions(setting)
   } catch (e) {
     log('warn', 'Error while finding app suggestions: ' + e)
   }
@@ -109,6 +104,26 @@ const updateSettings = async settings => {
   return newSettings
 }
 
+const launchBudgetAlertService = async () => {
+  log('info', 'Launching budget alert service...')
+  const client = CozyClient.fromEnv(process.env)
+  const jobs = client.collection('io.cozy.jobs')
+  await jobs.create('service', {
+    name: 'budgetAlerts',
+    slug: 'banks'
+  })
+}
+
+const setFlagsFromSettings = settings => {
+  // The flag is needed to use local model when getting a transaction category ID
+  flag('local-model-override', settings.community.localModelOverride.enabled)
+
+  flag(
+    'late-health-reimbursement-limit',
+    settings.notifications.lateHealthReimbursement.value
+  )
+}
+
 const onOperationOrBillCreate = async options => {
   log('info', `COZY_CREDENTIALS: ${process.env.COZY_CREDENTIALS}`)
   log('info', `COZY_URL: ${process.env.COZY_URL}`)
@@ -116,13 +131,7 @@ const onOperationOrBillCreate = async options => {
   log('info', 'Fetching settings...')
   let setting = await Settings.fetchWithDefault()
 
-  // The flag is needed to use local model when getting a transaction category ID
-  flag('local-model-override', setting.community.localModelOverride.enabled)
-
-  flag(
-    'late-health-reimbursement-limit',
-    setting.notifications.lateHealthReimbursement.value
-  )
+  setFlagsFromSettings(setting)
 
   // We fetch the notifChanges before anything else because we need to know if
   // some transactions are totally new in `TransactionGreater` notification.
@@ -134,7 +143,6 @@ const onOperationOrBillCreate = async options => {
   const notifChanges = await fetchChangesOrAll(Transaction, notifLastSeq)
 
   if (options.billsMatching !== false) {
-    log('info', 'Do bills matching...')
     await doBillsMatching(setting, options.billsMatching)
     setting = await updateSettings(setting)
   } else {
@@ -142,26 +150,33 @@ const onOperationOrBillCreate = async options => {
   }
 
   if (options.transactionsMatching !== false) {
-    log('info', 'Do transaction matching...')
     await doTransactionsMatching(setting, options.transactionsMatching)
     setting = await updateSettings(setting)
   } else {
     log('info', 'Skip transactions matching')
   }
 
-  log('info', 'Do send notifications...')
   await doSendNotifications(setting, notifChanges)
   setting = await updateSettings(setting)
 
-  log('info', 'Do apps suggestions...')
   await doAppSuggestions(setting)
   setting = await updateSettings(setting)
 
-  log('info', 'Do category budgets notification')
-  await runCategoryBudgetService(cozyClient)
+  await launchBudgetAlertService()
+}
+
+const attachProcessEventHandlers = () => {
+  process.on('uncaughtException', err => {
+    log('warn', JSON.stringify(err.stack))
+  })
+
+  process.on('unhandledRejection', err => {
+    log('warn', JSON.stringify(err.stack))
+  })
 }
 
 const main = async () => {
+  attachProcessEventHandlers()
   Document.registerClient(cozyClient)
   const options = await getOptions(cozyClient)
   log('info', 'Options:')

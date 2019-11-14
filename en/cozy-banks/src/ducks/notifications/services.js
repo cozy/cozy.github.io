@@ -1,4 +1,5 @@
 import logger from 'cozy-logger'
+import CozyClient from 'cozy-client'
 import { initTranslation } from 'cozy-ui/react/I18n/translation'
 
 import BalanceLower from './BalanceLower'
@@ -25,17 +26,24 @@ const notificationClasses = [
   DelayedDebit
 ]
 
-const fetchTransactionAccounts = async transactions => {
-  const accountsIds = Array.from(new Set(transactions.map(x => x.account)))
+const setDifference = (a, b) => {
+  return new Set([...a].filter(x => !b.has(x)))
+}
+
+export const fetchTransactionAccounts = async transactions => {
+  const accountsIds = new Set(transactions.map(x => x.account))
   const accounts = await BankAccount.getAll(accountsIds)
-  const existingAccountIds = new Set(accounts.map(x => x._Id))
-  const absentAccountIds = accountsIds.filter(_id =>
-    existingAccountIds.has(_id)
-  )
-  const delta = accountsIds.length - accounts.length
+  const existingAccountIds = new Set(accounts.map(x => x._id))
+  const absentAccountIds = setDifference(accountsIds, existingAccountIds)
+
+  const delta = accountsIds.size - existingAccountIds.size
   if (delta) {
-    log('warn', delta + ' accounts do not exist')
-    log('warn', JSON.stringify(absentAccountIds))
+    log(
+      'warn',
+      `${delta} account(s) do not exist (ids: ${Array.from(
+        absentAccountIds
+      ).join(',')})`
+    )
   }
 
   return accounts
@@ -55,7 +63,7 @@ export const getEnabledNotificationClasses = config => {
   })
 }
 
-export const sendNotifications = async (config, transactions, cozyClient) => {
+export const sendNotifications = async (config, transactions) => {
   const enabledNotificationClasses = getEnabledNotificationClasses(config)
   const accounts = await fetchTransactionAccounts(transactions)
   log(
@@ -64,9 +72,10 @@ export const sendNotifications = async (config, transactions, cozyClient) => {
   )
   for (const Klass of enabledNotificationClasses) {
     const klassConfig = getClassConfig(Klass, config)
+    const client = CozyClient.fromEnv(process.env)
     const notificationView = new Klass({
       ...klassConfig,
-      client: cozyClient.new,
+      client,
       t,
       locales: {
         [lang]: dictRequire(lang)
@@ -75,7 +84,7 @@ export const sendNotifications = async (config, transactions, cozyClient) => {
       data: { accounts, transactions }
     })
     try {
-      await sendNotification(notificationView)
+      await sendNotification(client, notificationView)
     } catch (err) {
       log('warn', JSON.stringify(err))
     }

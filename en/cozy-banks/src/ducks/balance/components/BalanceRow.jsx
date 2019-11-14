@@ -9,7 +9,8 @@ import { Figure } from 'components/Figure'
 import { getFilteringDoc } from 'ducks/filters'
 import {
   getAccountInstitutionLabel,
-  getAccountBalance
+  getAccountBalance,
+  getAccountLabel
 } from 'ducks/account/helpers'
 import styles from 'ducks/balance/components/BalanceRow.styl'
 import tableStyles from 'ducks/balance/components/BalanceTable.styl'
@@ -25,9 +26,6 @@ const isAccountPartOf = (filteringDoc, account) => {
   const accounts = get(filteringDoc, 'accounts.accounts')
   return accounts && account && accounts.indexOf(account._id) > -1
 }
-
-// TODO should be using this everywhere, where to put it ?
-const getAccountLabel = account => account.shortLabel || account.label
 
 class BalanceRow extends React.PureComponent {
   goToTransactionsFilteredByDoc = () => {

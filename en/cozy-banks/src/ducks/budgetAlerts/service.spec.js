@@ -7,7 +7,6 @@ import {
   updateCategoryAlerts
 } from 'ducks/settings/helpers'
 import MockDate from 'mockdate'
-import CategoryBudgetNotificationView from './CategoryBudgetNotificationView'
 
 jest.mock('ducks/settings/helpers', () => ({
   fetchCategoryAlerts: jest.fn(),
@@ -34,9 +33,6 @@ const settings = {
     }
   ]
 }
-
-CategoryBudgetNotificationView.prototype.getTitle = () =>
-  'categoryBudgets.email.title'
 
 beforeEach(() => {
   fetchCategoryAlerts.mockReset()
@@ -172,5 +168,25 @@ describe('service', () => {
     await runCategoryBudgetService(client, { currentDate: '2019-07-15' })
     expect(updateCategoryAlerts).toHaveBeenCalled()
     expect(mockPostNotification).toHaveBeenCalled()
+  })
+
+  describe('email content', () => {
+    it('should have the correct push content', async () => {
+      const budgetAlert = settings.budgetAlerts[0]
+      const { client, mockPostNotification } = setup({
+        budgetAlerts: [budgetAlert],
+        expenses: julyExpenses
+      })
+      await runCategoryBudgetService(client, { currentDate: '2019-07-15' })
+      expect(mockPostNotification).toHaveBeenCalledWith(
+        expect.objectContaining({
+          data: expect.objectContaining({
+            attributes: expect.objectContaining({
+              message: 'Health expenses: 251€ > 100€'
+            })
+          })
+        })
+      )
+    })
   })
 })

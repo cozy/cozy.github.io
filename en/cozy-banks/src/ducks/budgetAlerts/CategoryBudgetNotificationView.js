@@ -1,25 +1,66 @@
+import sumBy from 'lodash/sumBy'
+import keyBy from 'lodash/keyBy'
+
+import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import NotificationView from 'ducks/notifications/BaseNotificationView'
-import template from './template.hbs'
-import { fetchCategoryAlerts } from './index'
-import { buildNotificationData } from './service'
 import { getCurrentDate } from 'ducks/notifications/utils'
 import { getParentCategory } from 'ducks/categories/helpers'
 import { getCategoryName } from 'ducks/categories/categoriesMap'
-import sumBy from 'lodash/sumBy'
+import { getGroupLabel } from 'ducks/groups/helpers'
+import { getAccountLabel } from 'ducks/account/helpers'
+
+import template from './template.hbs'
+import { fetchCategoryAlerts } from './index'
+import { buildNotificationData } from './service'
+
 import logger from 'cozy-logger'
 
 const log = logger.namespace('category-budgets')
 
-const transformForTemplate = (budgetAlert, t) => {
+const fetchDoctypeById = async (client, doctype) => {
+  const { data } = await client.query(client.all(doctype))
+  return keyBy(data, x => x._id)
+}
+
+const getAccountOrGroupLabelFromAlert = (
+  alert,
+  accountsById,
+  groupsById,
+  t
+) => {
+  if (!alert.accountOrGroup) {
+    return t('AccountSwitch.all_accounts')
+  } else {
+    const { _id, _type } = alert.accountOrGroup
+    const col = _type === ACCOUNT_DOCTYPE ? accountsById : groupsById
+    const doc = col[_id]
+    if (doc) {
+      return _type === ACCOUNT_DOCTYPE
+        ? getAccountLabel(doc)
+        : getGroupLabel(doc, t)
+    } else {
+      return ''
+    }
+  }
+}
+
+const transformForTemplate = (budgetAlert, t, accountsById, groupsById) => {
   const catId = budgetAlert.alert.categoryId
   const parentCategoryId = getParentCategory(catId)
   const catName = getCategoryName(catId)
   const type = parentCategoryId === catId ? 'categories' : 'subcategories'
+  const accountOrGroupLabel = getAccountOrGroupLabelFromAlert(
+    budgetAlert.alert,
+    accountsById,
+    groupsById,
+    t
+  )
+
   return {
     ...budgetAlert.alert,
     categoryLabel: t(`Data.${type}.${catName}`),
-    currentAmount: -sumBy(budgetAlert.expenses, tr => tr.amount),
-    accountOrGroupLabel: 'Account or group label'
+    currentAmount: (-sumBy(budgetAlert.expenses, tr => tr.amount)).toFixed(0),
+    accountOrGroupLabel
   }
 }
 
@@ -32,7 +73,6 @@ class CategoryBudget extends NotificationView {
 
   shouldSend(templateData) {
     log('info', 'Nothing to send, bailing out')
-
     return !!templateData.budgetAlerts
   }
 
@@ -51,11 +91,17 @@ class CategoryBudget extends NotificationView {
       return {}
     }
 
+    const accountsById = await fetchDoctypeById(client, ACCOUNT_DOCTYPE)
+    const groupsById = await fetchDoctypeById(client, GROUP_DOCTYPE)
+
+    const alertsToShow = budgetAlerts
+      ? budgetAlerts.filter(x => x.expenses)
+      : null
     const data = {
       date: getCurrentDate(),
-      budgetAlerts: budgetAlerts
-        ? budgetAlerts.map(budgetAlert =>
-            transformForTemplate(budgetAlert, this.t)
+      budgetAlerts: alertsToShow
+        ? alertsToShow.map(budgetAlert =>
+            transformForTemplate(budgetAlert, this.t, accountsById, groupsById)
           )
         : null
     }
@@ -76,11 +122,28 @@ class CategoryBudget extends NotificationView {
     return this.t('Notifications.categoryBudgets.email.title')
   }
 
-  getPushContent() {}
+  getPushContent(templateData) {
+    return templateData.budgetAlerts
+      .map(
+        alert =>
+          `${alert.categoryLabel}: ${alert.currentAmount}€ > ${
+            alert.maxThreshold
+          }€`
+      )
+      .join(', ')
+  }
+
+  getExtraAttributes() {
+    return {
+      data: {
+        route: '/categories'
+      }
+    }
+  }
 }
 
 CategoryBudget.template = template
 CategoryBudget.category = 'budget-alerts'
-CategoryBudget.preferredChannels = ['mail']
+CategoryBudget.preferredChannels = ['mail', 'mobile']
 
 export default CategoryBudget
