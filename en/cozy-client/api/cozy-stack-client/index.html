@@ -1099,6 +1099,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#filecollectiondownloadfile-versionid-filename" title="fileCollection.download(file, versionId, filename)" class="md-nav__link">
+    fileCollection.download(file, versionId, filename)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filecollectiongetbeautifulsizefile-decimal" title="fileCollection.getBeautifulSize(file, decimal)" class="md-nav__link">
+    fileCollection.getBeautifulSize(file, decimal)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#filecollectionischildofchild-parent-boolean" title="fileCollection.isChildOf(child, parent) ⇒ boolean" class="md-nav__link">
     fileCollection.isChildOf(child, parent) ⇒ boolean
   </a>
@@ -3221,6 +3235,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#filecollectiondownloadfile-versionid-filename" title="fileCollection.download(file, versionId, filename)" class="md-nav__link">
+    fileCollection.download(file, versionId, filename)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filecollectiongetbeautifulsizefile-decimal" title="fileCollection.getBeautifulSize(file, decimal)" class="md-nav__link">
+    fileCollection.getBeautifulSize(file, decimal)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#filecollectionischildofchild-parent-boolean" title="fileCollection.isChildOf(child, parent) ⇒ boolean" class="md-nav__link">
     fileCollection.isChildOf(child, parent) ⇒ boolean
   </a>
@@ -3979,6 +4007,8 @@ files associated to a specific document</p>
 <li><a href="#FileCollection+upload">.upload(data, dirPath)</a> ⇒ <code>object</code></li>
 <li><a href="#FileCollection+createFile">.createFile(data, params)</a></li>
 <li><a href="#FileCollection+updateFile">.updateFile(data, params)</a> ⇒ <code>object</code></li>
+<li><a href="#FileCollection+download">.download(file, versionId, filename)</a></li>
+<li><a href="#FileCollection+getBeautifulSize">.getBeautifulSize(file, decimal)</a></li>
 <li><a href="#FileCollection+isChildOf">.isChildOf(child, parent)</a> ⇒ <code>boolean</code></li>
 <li><a href="#FileCollection+createDirectoryByPath">.createDirectoryByPath(path)</a> ⇒ <code>object</code></li>
 <li><a href="#FileCollection+updateAttributes">.updateAttributes(id, attributes)</a> ⇒ <code>object</code></li>
@@ -4347,6 +4377,67 @@ files associated to a specific document</p>
 <td>params.options</td>
 <td><code>object</code></td>
 <td>Options to pass to doUpload method (additional headers)</td>
+</tr>
+</tbody>
+</table>
+<p><a name="FileCollection+download"></a></p>
+<h3 id="filecollectiondownloadfile-versionid-filename">fileCollection.download(file, versionId, filename)<a class="headerlink" href="#filecollectiondownloadfile-versionid-filename" title="Permanent link">&para;</a></h3>
+<p>Download a file or a specific version of the file</p>
+<p><strong>Kind</strong>: instance method of <a href="#FileCollection"><code>FileCollection</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>file</td>
+<td><code>object</code></td>
+<td></td>
+<td>io.cozy.files object</td>
+</tr>
+<tr>
+<td>versionId</td>
+<td><code>string</code></td>
+<td><code>null</code></td>
+<td>Id of the io.cozy.files.version</td>
+</tr>
+<tr>
+<td>filename</td>
+<td><code>string</code></td>
+<td></td>
+<td>The name you want for the downloaded file                            (by default the same as the file)</td>
+</tr>
+</tbody>
+</table>
+<p><a name="FileCollection+getBeautifulSize"></a></p>
+<h3 id="filecollectiongetbeautifulsizefile-decimal">fileCollection.getBeautifulSize(file, decimal)<a class="headerlink" href="#filecollectiongetbeautifulsizefile-decimal" title="Permanent link">&para;</a></h3>
+<p>Get a beautified size for a given file
+1024B =&gt; 1KB
+102404500404B =&gt; 95.37 GB</p>
+<p><strong>Kind</strong>: instance method of <a href="#FileCollection"><code>FileCollection</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>file</td>
+<td><code>object</code></td>
+<td>io.cozy.files object</td>
+</tr>
+<tr>
+<td>decimal</td>
+<td><code>int</code></td>
+<td>number of decimal</td>
 </tr>
 </tbody>
 </table>
