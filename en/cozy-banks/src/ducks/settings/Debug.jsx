@@ -71,6 +71,20 @@ const ServiceButton = ({ name: serviceName, client }) => {
   )
 }
 
+const DeviceToken = ({ client }) => {
+  const notificationToken = getNotificationToken(client)
+  return (
+    <>
+      <SubTitle>Device token</SubTitle>
+      <p>
+        {notificationToken
+          ? notificationToken
+          : '⚠️ Cannot receive notifications'}
+      </p>
+    </>
+  )
+}
+
 class DumbDebugSettings extends React.PureComponent {
   toggleNoAccount() {
     const noAccountValue = !flag('balance.no-account')
@@ -101,7 +115,7 @@ class DumbDebugSettings extends React.PureComponent {
             category: 'transaction-greater',
             title: 'Test notification',
             message: 'This is a test notification message',
-            preferred_channels: ['mail', 'mobile'],
+            preferred_channels: ['mobile', 'mail'],
             content: 'This is a test notification text content',
             content_html: 'This is a test notification HTML content'
           }
@@ -138,7 +152,7 @@ class DumbDebugSettings extends React.PureComponent {
         <div>
           <Title>Client info</Title>
           <SubTitle>URI</SubTitle>
-          <p>{this.props.client.stackClient.uri}</p>
+          <p>{client.stackClient.uri}</p>
           {client.stackClient.oauthOptions ? (
             <>
               <SubTitle>OAuth document id</SubTitle>
@@ -148,12 +162,7 @@ class DumbDebugSettings extends React.PureComponent {
         </div>
         <div>
           <Title>Notifications</Title>
-          {isMobileApp() ? (
-            <>
-              <SubTitle>Device token</SubTitle>
-              <p>{getNotificationToken(client)}</p>
-            </>
-          ) : null}
+          {isMobileApp() ? <DeviceToken client={client} /> : null}
           <Button
             label="Send notification"
             onClick={() => this.sendNotification()}

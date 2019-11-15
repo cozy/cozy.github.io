@@ -113,7 +113,7 @@ class HealthBillLinked extends NotificationView {
   }
 }
 
-HealthBillLinked.preferredChannels = ['mail', 'mobile']
+HealthBillLinked.preferredChannels = ['mobile', 'mail']
 HealthBillLinked.category = 'health-bill-linked'
 HealthBillLinked.toText = customToText
 HealthBillLinked.template = template

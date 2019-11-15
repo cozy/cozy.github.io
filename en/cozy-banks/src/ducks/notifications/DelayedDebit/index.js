@@ -137,7 +137,7 @@ class DelayedDebit extends NotificationView {
 
 DelayedDebit.template
 DelayedDebit.category = 'delayed-debit'
-DelayedDebit.preferredChannels = ['mail', 'mobile']
+DelayedDebit.preferredChannels = ['mobile', 'mail']
 DelayedDebit.settingKey = 'delayedDebit'
 DelayedDebit.isValidConfig = config => Number.isFinite(config.value)
 DelayedDebit.template = template

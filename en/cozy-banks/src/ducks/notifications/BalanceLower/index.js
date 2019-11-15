@@ -140,7 +140,7 @@ class BalanceLower extends NotificationView {
 BalanceLower.template = template
 BalanceLower.toText = customToText
 BalanceLower.category = 'balance-lower'
-BalanceLower.preferredChannels = ['mail', 'mobile']
+BalanceLower.preferredChannels = ['mobile', 'mail']
 BalanceLower.settingKey = 'balanceLower'
 BalanceLower.isValidConfig = config => Number.isFinite(config.value)
 

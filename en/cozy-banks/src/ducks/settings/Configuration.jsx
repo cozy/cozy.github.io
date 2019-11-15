@@ -124,9 +124,7 @@ export class Configuration extends React.Component {
             name="transactionGreater"
             unit="€"
           />
-          {flag('budget-alerts.settings') ? (
-            <CategoryAlertSettingsPane />
-          ) : null}
+          <CategoryAlertSettingsPane />
           <ToggleRowWrapper>
             <ToggleRowTitle>
               {t('Notifications.health_section.title')}

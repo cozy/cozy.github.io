@@ -2365,6 +2365,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#developing" title="Developing" class="md-nav__link">
+    Developing
+  </a>
+  
+</li>
+      
       
       
       
@@ -2460,6 +2467,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#developing" title="Developing" class="md-nav__link">
+    Developing
+  </a>
+  
+</li>
+      
       
       
       
@@ -2480,6 +2494,19 @@
                 
                 
                 <h1 id="services">Services<a class="headerlink" href="#services" title="Permanent link">&para;</a></h1>
+<!-- MarkdownTOC autolink=true -->
+
+<ul>
+<li><a href="#categorization">Categorization</a></li>
+<li><a href="#onoperationorbillcreate">onOperationOrBillCreate</a></li>
+<li><a href="#account-stats">Account stats</a></li>
+<li><a href="#automatic-groups">Automatic groups</a></li>
+<li><a href="#budget-alerts">Budget alerts</a></li>
+<li><a href="#i-am-writing-a-banking-konnector-what-should-i-do">I am writing a banking konnector, what should I do?</a></li>
+<li><a href="#developing">Developing</a></li>
+</ul>
+<!-- /MarkdownTOC -->
+
 <p>Banks exposes the following services:</p>
 <ul>
 <li><a href="#categorization">categorization</a></li>
@@ -2565,6 +2592,20 @@ following permission to your <code>manifest.konnector</code>:</p>
 
 <p>With this, the transactions you created will be categorized, then the
 <code>onOperationOrBillCreate</code> service will be launched and do its work.</p>
+<h2 id="developing">Developing<a class="headerlink" href="#developing" title="Permanent link">&para;</a></h2>
+<p>You can manually create an app token and launch the built service.</p>
+<div class="codehilite"><pre><span></span># Watch services
+$ env NODE_ENV=services:development yarn run webpack --config webpack.config.js --bail --watch
+# In another terminal
+$ export COZY_URL=&#39;http://cozy.tools:8080&#39;
+$ export COZY_CREDENTIALS=$(cozy-stack instances token-app cozy.tools:8080 banks)
+$ node build/budgetAlerts.js
+</pre></div>
+
+
+<p>Some services like the &ldquo;budgetAlerts&rdquo; one expose a CLI that can perform service related tasks.</p>
+<div class="codehilite"><pre><span></span>yarn run services:budgetAlerts --help
+</pre></div>
                 
                   
                 

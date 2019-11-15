@@ -49,8 +49,8 @@ export const getManifestOptions = manifest => {
 }
 
 const registerPluginsAndHandlers = client => {
-  client.register(PushPlugin)
-  client.register(SentryPlugin)
+  client.registerPlugin(PushPlugin)
+  client.registerPlugin(SentryPlugin)
 }
 
 export const getClient = () => {

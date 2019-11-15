@@ -139,7 +139,7 @@ class TransactionGreater extends NotificationView {
 
 TransactionGreater.category = 'transaction-greater'
 TransactionGreater.toText = customToText
-TransactionGreater.preferredChannels = ['mail', 'mobile']
+TransactionGreater.preferredChannels = ['mobile', 'mail']
 TransactionGreater.template = template
 TransactionGreater.settingKey = 'transactionGreater'
 TransactionGreater.isValidConfig = config => Number.isFinite(config.value)

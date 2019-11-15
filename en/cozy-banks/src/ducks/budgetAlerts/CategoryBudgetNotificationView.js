@@ -72,8 +72,11 @@ class CategoryBudget extends NotificationView {
   }
 
   shouldSend(templateData) {
-    log('info', 'Nothing to send, bailing out')
-    return !!templateData.budgetAlerts
+    const willSend = !!templateData.budgetAlerts
+    if (!willSend) {
+      log('info', 'Nothing to send, bailing out')
+    }
+    return willSend
   }
 
   async buildData() {
@@ -118,19 +121,30 @@ class CategoryBudget extends NotificationView {
     return this.updatedAlerts
   }
 
-  getTitle() {
-    return this.t('Notifications.categoryBudgets.email.title')
+  getTitle(templateData) {
+    const { budgetAlerts } = templateData
+    const hasMultipleAlerts = budgetAlerts.length > 1
+    return hasMultipleAlerts
+      ? this.t('Notifications.categoryBudgets.email.title-multi', {
+          alertCount: budgetAlerts.length
+        })
+      : this.t('Notifications.categoryBudgets.email.title-single', {
+          categoryLabel: budgetAlerts[0].categoryLabel
+        })
   }
 
   getPushContent(templateData) {
-    return templateData.budgetAlerts
-      .map(
-        alert =>
-          `${alert.categoryLabel}: ${alert.currentAmount}€ > ${
-            alert.maxThreshold
-          }€`
-      )
-      .join(', ')
+    const { budgetAlerts } = templateData
+    return budgetAlerts.length > 1
+      ? budgetAlerts
+          .map(
+            alert =>
+              `${alert.categoryLabel}: ${alert.currentAmount}€ > ${
+                alert.maxThreshold
+              }€`
+          )
+          .join(', ')
+      : `${budgetAlerts[0].currentAmount}€ > ${budgetAlerts[0].maxThreshold}€`
   }
 
   getExtraAttributes() {
@@ -144,6 +158,6 @@ class CategoryBudget extends NotificationView {
 
 CategoryBudget.template = template
 CategoryBudget.category = 'budget-alerts'
-CategoryBudget.preferredChannels = ['mail', 'mobile']
+CategoryBudget.preferredChannels = ['mobile', 'mail']
 
 export default CategoryBudget

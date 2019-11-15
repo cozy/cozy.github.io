@@ -170,22 +170,53 @@ describe('service', () => {
     expect(mockPostNotification).toHaveBeenCalled()
   })
 
-  describe('email content', () => {
-    it('should have the correct push content', async () => {
+  describe('push/email content', () => {
+    it('should have the correct content (single)', async () => {
       const budgetAlert = settings.budgetAlerts[0]
       const { client, mockPostNotification } = setup({
         budgetAlerts: [budgetAlert],
         expenses: julyExpenses
       })
       await runCategoryBudgetService(client, { currentDate: '2019-07-15' })
-      expect(mockPostNotification).toHaveBeenCalledWith(
-        expect.objectContaining({
-          data: expect.objectContaining({
-            attributes: expect.objectContaining({
-              message: 'Health expenses: 251€ > 100€'
-            })
-          })
-        })
+
+      const lastPostNotificationCall = mockPostNotification.mock.calls.slice(
+        -1
+      )[0][0]
+      expect(lastPostNotificationCall.data.attributes.title).toEqual(
+        'Health expenses budget has exceeded its limit'
+      )
+      expect(lastPostNotificationCall.data.attributes.message).toEqual(
+        '251€ > 100€'
+      )
+    })
+
+    it('should have the correct content (multi)', async () => {
+      const GOING_OUT_CATEGORY_ID = '400800'
+      const budgetAlert = settings.budgetAlerts[0]
+      const { client, mockPostNotification } = setup({
+        budgetAlerts: [
+          budgetAlert,
+          {
+            ...budgetAlert,
+            maxThreshold: 10,
+            categoryId: GOING_OUT_CATEGORY_ID
+          }
+        ],
+        expenses: [
+          ...julyExpenses,
+          { ...julyExpenses[0], manualCategoryId: GOING_OUT_CATEGORY_ID }
+        ]
+      })
+      await runCategoryBudgetService(client, { currentDate: '2019-07-15' })
+
+      const lastPostNotificationCall = mockPostNotification.mock.calls.slice(
+        -1
+      )[0][0]
+      expect(lastPostNotificationCall.data.attributes.title).toEqual(
+        '2 budgets have exceeded their limit'
+      )
+      expect(lastPostNotificationCall.data.attributes.message).toEqual(
+        'Health expenses: 251€ > 100€, Others : Outings, trips: 16€ > 10€'
       )
     })
   })

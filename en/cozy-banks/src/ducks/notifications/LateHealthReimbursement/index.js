@@ -215,6 +215,6 @@ LateHealthReimbursement.toText = customToText
 LateHealthReimbursement.category = 'late-health-reimbursement'
 LateHealthReimbursement.template = templateRaw
 LateHealthReimbursement.settingKey = 'lateHealthReimbursement'
-LateHealthReimbursement.preferredChannels = ['mail', 'mobile']
+LateHealthReimbursement.preferredChannels = ['mobile', 'mail']
 
 export default LateHealthReimbursement
