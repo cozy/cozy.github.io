@@ -103,15 +103,13 @@ export class Configuration extends React.Component {
             name="balanceLower"
             unit="€"
           />
-          {flag('delayed-debit-alert') && (
-            <DelayedDebitAlert
-              accounts={accounts}
-              onToggle={this.onToggle('notifications.delayedDebit')}
-              onChangeValue={this.onChangeValue('notifications.delayedDebit')}
-              onAccountsChange={this.onDelayedDebitAccountsChange}
-              {...settings.notifications.delayedDebit}
-            />
-          )}
+          <DelayedDebitAlert
+            accounts={accounts}
+            onToggle={this.onToggle('notifications.delayedDebit')}
+            onChangeValue={this.onChangeValue('notifications.delayedDebit')}
+            onAccountsChange={this.onDelayedDebitAccountsChange}
+            {...settings.notifications.delayedDebit}
+          />
           <ToggleRow
             title={t('Notifications.if_transaction_greater.settingTitle')}
             description={t('Notifications.if_transaction_greater.description')}

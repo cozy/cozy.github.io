@@ -203,3 +203,20 @@ export const isAlreadyNotified = (transaction, notificationClass) => {
     )
   )
 }
+
+export const updateTransactionCategory = async (
+  client,
+  transaction,
+  category
+) => {
+  try {
+    const newTransaction = {
+      ...transaction,
+      manualCategoryId: category.id
+    }
+    return await client.save(newTransaction)
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log(err)
+  }
+}

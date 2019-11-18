@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import CategoryChoice from 'ducks/categories/CategoryChoice'
 import { getCategoryId } from 'ducks/categories/helpers'
 import { withClient } from 'cozy-client'
+import { updateTransactionCategory } from 'ducks/transactions/helpers'
 
 export default (options = {}) => Wrapped =>
   withClient(
@@ -21,22 +22,8 @@ export default (options = {}) => Wrapped =>
 
       handleSelect = category => {
         this.hide()
-        this.updateCategory(category)
-      }
-
-      updateCategory = async category => {
-        const { transaction, client } = this.props
-
-        try {
-          const newTransaction = {
-            ...transaction,
-            manualCategoryId: category.id
-          }
-          await client.save(newTransaction)
-        } catch (err) {
-          // eslint-disable-next-line no-console
-          console.log(err)
-        }
+        const { client, transaction } = this.props
+        updateTransactionCategory(client, transaction, category)
       }
 
       render() {

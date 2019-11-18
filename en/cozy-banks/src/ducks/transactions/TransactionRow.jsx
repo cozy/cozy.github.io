@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import compose from 'lodash/flowRight'
@@ -26,6 +26,34 @@ import { withUpdateCategory } from 'ducks/categories'
 import { getLabel, getDate } from 'ducks/transactions/helpers'
 import styles from 'ducks/transactions/Transactions.styl'
 import { getCurrencySymbol } from 'utils/currencySymbol'
+import TransactionModal from 'ducks/transactions/TransactionModal'
+
+const useSwitch = initialState => {
+  const [state, setState] = useState(initialState)
+  const toggleOn = () => setState(true)
+  const toggleOff = () => setState(false)
+  return [state, toggleOn, toggleOff]
+}
+
+const withSelection = Component => {
+  const Wrapped = props => {
+    const [modalOpened, show, hide] = useSwitch(false)
+    return (
+      <>
+        <Component {...props} selectTransaction={show} />
+        {modalOpened ? (
+          <TransactionModal
+            requestClose={hide}
+            transactionId={props.transaction._id}
+          />
+        ) : null}
+      </>
+    )
+  }
+  Wrapped.displayName = `withSelection(${Component.displayName ||
+    Component.name})`
+  return Wrapped
+}
 
 class _TransactionDate extends React.PureComponent {
   render() {
@@ -130,6 +158,7 @@ class _RowDesktop extends React.PureComponent {
 export const RowDesktop = compose(
   translate(),
   withDispatch,
+  withSelection,
   withUpdateCategory()
 )(_RowDesktop)
 
@@ -220,4 +249,7 @@ _RowMobile.propTypes = {
   transaction: PropTypes.object.isRequired
 }
 
-export const RowMobile = translate()(_RowMobile)
+export const RowMobile = compose(
+  withSelection,
+  translate()
+)(_RowMobile)

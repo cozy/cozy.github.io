@@ -2,15 +2,13 @@
  * Is used in mobile/tablet mode when you click on the more button
  */
 
-import React, { Component } from 'react'
+import React from 'react'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 import Icon from 'cozy-ui/react/Icon'
 import { Media, Bd, Img } from 'cozy-ui/react/Media'
 import { withDispatch } from 'utils'
 import { flowRight as compose } from 'lodash'
 import cx from 'classnames'
-
-import { Query } from 'cozy-client'
 
 import { Figure } from 'components/Figure'
 import { PageModal } from 'components/PageModal'
@@ -33,11 +31,19 @@ import {
   getAccountInstitutionLabel
 } from 'ducks/account/helpers'
 import { TRANSACTION_DOCTYPE } from 'doctypes'
-import { isCollectionLoading } from 'ducks/client/utils'
 import flag from 'cozy-flags'
 import { getDate } from 'ducks/transactions/helpers'
 
-const Separator = () => <hr className={styles.TransactionModalSeparator} />
+import { MainTitle } from 'cozy-ui/transpiled/react/Text'
+
+import withDocs from 'components/withDocs'
+
+const TransactionModalRowIcon = ({ icon }) =>
+  icon ? (
+    <Img>
+      {Icon.isProperIcon(icon) ? <Icon icon={icon} width={16} /> : icon}
+    </Img>
+  ) : null
 
 export const TransactionModalRow = ({
   children,
@@ -46,36 +52,25 @@ export const TransactionModalRow = ({
   disabled = false,
   className,
   onClick,
+  align,
   ...props
 }) => (
   <Media
     className={cx(
       styles.TransactionModalRow,
+      'u-row-m',
       {
         [styles['TransactionModalRow-disabled']]: disabled,
-        [styles['TransactionModalRow-clickable']]: onClick,
-        'u-pl-1-half': iconLeft,
-        'u-pr-1-half': iconRight
+        'u-c-pointer': onClick
       },
       className
     )}
+    align={align}
     onClick={onClick}
     {...props}
   >
-    {iconLeft && (
-      <Img
-        className={cx(styles.TransactionModalRowIcon, {
-          [styles['TransactionModalRowIcon-alignTop']]: props.align === 'top'
-        })}
-      >
-        {Icon.isProperIcon(iconLeft) ? (
-          <Icon icon={iconLeft} width={16} />
-        ) : (
-          iconLeft
-        )}
-      </Img>
-    )}
-    <Bd className={styles.TransactionModalRowContent}>{children}</Bd>
+    <TransactionModalRowIcon icon={iconLeft} align={align} />
+    <Bd className="u-stack-xs">{children}</Bd>
     {iconRight && <Img>{iconRight}</Img>}
   </Media>
 )
@@ -92,7 +87,7 @@ const TransactionInfo = ({ label, value }) => (
 )
 
 const TransactionInfos = ({ infos }) => (
-  <div className={styles.TransactionInfos}>
+  <div>
     {infos.map(({ label, value }) => (
       <TransactionInfo key={label} label={label} value={value} />
     ))}
@@ -100,102 +95,85 @@ const TransactionInfos = ({ infos }) => (
 )
 
 const transactionModalRowStyle = { textTransform: 'capitalize' }
-class TransactionModal extends Component {
-  renderContent() {
-    const { t, f, transaction, showCategoryChoice, ...props } = this.props
 
-    const categoryId = getCategoryId(transaction)
-    const account = transaction.account.data
+const TransactionModalInfo = props => {
+  const { t, f, transaction, showCategoryChoice, ...restProps } = props
 
-    const typeIcon = (
-      <Icon
-        icon={iconCredit}
-        width={16}
-        className={cx(styles['TransactionModalRowIcon-alignTop'], {
-          [styles['TransactionModalRowIcon-reversed']]: transaction.amount < 0
-        })}
-      />
-    )
+  const typeIcon = (
+    <Icon
+      icon={iconCredit}
+      width={16}
+      className={cx({
+        [styles['TransactionModalRowIcon-reversed']]: transaction.amount < 0
+      })}
+    />
+  )
 
-    return (
-      <div>
-        <TransactionModalRow
-          iconLeft={typeIcon}
-          className={styles['TransactionModalRow-multiline']}
-          align="top"
-        >
-          <TransactionLabel label={getLabel(transaction)} />
-          <TransactionInfos
-            infos={[
-              {
-                label: t('Transactions.infos.account'),
-                value: getAccountLabel(account)
-              },
-              {
-                label: t('Transactions.infos.institution'),
-                value: getAccountInstitutionLabel(account)
-              },
-              {
-                label: t('Transactions.infos.originalBankLabel'),
-                value:
-                  flag('originalBankLabel') && transaction.originalBankLabel
-              }
-            ].filter(x => x.value)}
-          />
-        </TransactionModalRow>
-        <Separator />
-        <TransactionModalRow iconLeft={iconCalendar}>
-          <span style={transactionModalRowStyle}>
-            {f(getDate(transaction), 'dddd DD MMMM')}
-          </span>
-        </TransactionModalRow>
-        <Separator />
-        <TransactionModalRow
-          iconLeft={iconGraph}
-          iconRight={<CategoryIcon categoryId={categoryId} />}
-          onClick={showCategoryChoice}
-        >
-          {t(
-            `Data.subcategories.${getCategoryName(getCategoryId(transaction))}`
-          )}
-        </TransactionModalRow>
-        <Separator />
-        <TransactionActions
-          transaction={transaction}
-          {...props}
-          displayDefaultAction
-          isModalItem
+  const categoryId = getCategoryId(transaction)
+  const account = transaction.account.data
+
+  return (
+    <div className={styles['Separated']}>
+      <TransactionModalRow iconLeft={typeIcon} align="top" className>
+        <TransactionLabel label={getLabel(transaction)} />
+        <TransactionInfos
+          infos={[
+            {
+              label: t('Transactions.infos.account'),
+              value: getAccountLabel(account)
+            },
+            {
+              label: t('Transactions.infos.institution'),
+              value: getAccountInstitutionLabel(account)
+            },
+            {
+              label: t('Transactions.infos.originalBankLabel'),
+              value: flag('originalBankLabel') && transaction.originalBankLabel
+            }
+          ].filter(x => x.value)}
         />
-      </div>
-    )
-  }
-
-  renderHeader() {
-    const { transaction } = this.props
-
-    return (
-      <h2 className={styles.TransactionModalHeading}>
-        <Figure
-          total={transaction.amount}
-          symbol={getCurrencySymbol(transaction.currency)}
-          signed
-        />
-      </h2>
-    )
-  }
-
-  render() {
-    return (
-      <PageModal
-        dismissAction={this.props.requestClose}
-        into="body"
-        title={this.renderHeader()}
+      </TransactionModalRow>
+      <TransactionModalRow iconLeft={iconCalendar}>
+        <span style={transactionModalRowStyle}>
+          {f(getDate(transaction), 'dddd DD MMMM')}
+        </span>
+      </TransactionModalRow>
+      <TransactionModalRow
+        iconLeft={iconGraph}
+        iconRight={<CategoryIcon categoryId={categoryId} />}
+        onClick={showCategoryChoice}
       >
-        {this.renderContent()}
-      </PageModal>
-    )
-  }
+        {t(`Data.subcategories.${getCategoryName(getCategoryId(transaction))}`)}
+      </TransactionModalRow>
+      <TransactionActions
+        transaction={transaction}
+        {...restProps}
+        displayDefaultAction
+        isModalItem
+      />
+    </div>
+  )
 }
+
+const TransactionModalHeader = ({ transaction }) => (
+  <MainTitle className="u-ta-center">
+    <Figure
+      total={transaction.amount}
+      symbol={getCurrencySymbol(transaction.currency)}
+      signed
+    />
+  </MainTitle>
+)
+
+const TransactionModal = ({ requestClose, ...props }) => (
+  <PageModal
+    dismissAction={requestClose}
+    into="body"
+    title={<TransactionModalHeader transaction={props.transaction} />}
+  >
+    <TransactionModalInfo {...props} />
+  </PageModal>
+)
 
 TransactionModal.propTypes = {
   showCategoryChoice: PropTypes.func.isRequired,
@@ -204,44 +182,14 @@ TransactionModal.propTypes = {
   transaction: PropTypes.object.isRequired
 }
 
+const withTransaction = withDocs(ownProps => ({
+  transaction: [TRANSACTION_DOCTYPE, ownProps.transactionId]
+}))
+
 const DumbTransactionModal = compose(
   translate(),
   withBreakpoints()
 )(TransactionModal)
-
-const NeedResult = props => {
-  const { children: renderFun, ...restProps } = props
-  return (
-    <Query {...restProps}>
-      {collection => {
-        if (isCollectionLoading(collection)) {
-          return null
-        } else {
-          return renderFun(collection)
-        }
-      }}
-    </Query>
-  )
-}
-
-const withTransaction = Component => {
-  const Wrapped = props => {
-    return (
-      <NeedResult
-        query={client =>
-          client
-            .get(TRANSACTION_DOCTYPE, props.transactionId)
-            .include(['account'])
-        }
-      >
-        {({ data: transaction }) => {
-          return <Component {...props} transaction={transaction} />
-        }}
-      </NeedResult>
-    )
-  }
-  return Wrapped
-}
 
 export default compose(
   withDispatch,

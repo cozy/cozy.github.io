@@ -6,6 +6,16 @@ import PercentageLine from 'components/PercentageLine'
 import { BackButtonMobile } from 'components/BackButton'
 import styles from './styles.styl'
 
+const StepperProgress = ({ currentIndex, steps }) => (
+  <div className={styles.ProgressBackground}>
+    <PercentageLine
+      color="var(--primaryColor)"
+      className={styles.ProgressLine}
+      value={Math.max(((currentIndex + 1) / steps.length) * 100, 1)}
+    />
+  </div>
+)
+
 /**
  * Controlled component displaying a list of views like a carousel.
  *
@@ -13,30 +23,19 @@ import styles from './styles.styl'
  * - A back button is displayed when not on the first view.
  * - Every child gets an `active` prop
  */
-class Stepper extends React.Component {
-  render() {
-    const { currentIndex, children, onBack, showPercentage } = this.props
-    return (
-      <>
-        {showPercentage ? (
-          <div className={styles.ProgressBackground}>
-            <PercentageLine
-              color="var(--primaryColor)"
-              className={styles.ProgressLine}
-              value={Math.max(((currentIndex + 1) / children.length) * 100, 1)}
-            />
-          </div>
-        ) : null}
-        {currentIndex > 0 ? <BackButtonMobile onClick={onBack} /> : null}
-        <SwipeableViews animateHeight disabled index={currentIndex}>
-          {React.Children.map(children, (child, i) => {
-            return React.cloneElement(child, { active: i === currentIndex })
-          })}
-        </SwipeableViews>
-      </>
-    )
-  }
-}
+const Stepper = ({ currentIndex, children, onBack, showPercentage }) => (
+  <>
+    {showPercentage ? (
+      <StepperProgress steps={children} currentIndex={currentIndex} />
+    ) : null}
+    {currentIndex > 0 ? <BackButtonMobile onClick={onBack} /> : null}
+    <SwipeableViews animateHeight disabled index={currentIndex}>
+      {React.Children.map(children, (child, i) => {
+        return React.cloneElement(child, { active: i === currentIndex })
+      })}
+    </SwipeableViews>
+  </>
+)
 
 Stepper.propTypes = {
   currentIndex: PropTypes.number.isRequired,

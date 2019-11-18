@@ -24,7 +24,6 @@ import {
   ScrollRestore,
   TopMost
 } from 'ducks/transactions/scroll'
-import TransactionModal from 'ducks/transactions/TransactionModal'
 import { RowDesktop, RowMobile } from 'ducks/transactions/TransactionRow'
 import { getDate } from 'ducks/transactions/helpers'
 
@@ -249,21 +248,8 @@ export class TransactionsWithSelection extends React.Component {
     withScroll: true
   }
 
-  state = {
-    transaction: null
-  }
-
-  selectTransaction = transaction => {
-    this.setState({ transactionId: transaction._id })
-  }
-
-  unselectTransaction = () => {
-    this.setState({ transactionId: null })
-  }
-
   render() {
     const { withScroll, className, ...rest } = this.props
-    const { transactionId } = this.state
     return (
       <div
         className={cx(
@@ -275,13 +261,6 @@ export class TransactionsWithSelection extends React.Component {
         )}
       >
         <Transactions selectTransaction={this.selectTransaction} {...rest} />
-        {transactionId && (
-          <TransactionModal
-            requestClose={this.unselectTransaction}
-            transactionId={transactionId}
-            {...rest}
-          />
-        )}
       </div>
     )
   }
