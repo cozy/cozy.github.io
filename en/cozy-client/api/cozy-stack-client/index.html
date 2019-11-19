@@ -1106,6 +1106,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#filecollectionfetchfilecontentid" title="fileCollection.fetchFileContent(id)" class="md-nav__link">
+    fileCollection.fetchFileContent(id)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#filecollectiongetbeautifulsizefile-decimal" title="fileCollection.getBeautifulSize(file, decimal)" class="md-nav__link">
     fileCollection.getBeautifulSize(file, decimal)
   </a>
@@ -3242,6 +3249,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#filecollectionfetchfilecontentid" title="fileCollection.fetchFileContent(id)" class="md-nav__link">
+    fileCollection.fetchFileContent(id)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#filecollectiongetbeautifulsizefile-decimal" title="fileCollection.getBeautifulSize(file, decimal)" class="md-nav__link">
     fileCollection.getBeautifulSize(file, decimal)
   </a>
@@ -4008,6 +4022,7 @@ files associated to a specific document</p>
 <li><a href="#FileCollection+createFile">.createFile(data, params)</a></li>
 <li><a href="#FileCollection+updateFile">.updateFile(data, params)</a> ⇒ <code>object</code></li>
 <li><a href="#FileCollection+download">.download(file, versionId, filename)</a></li>
+<li><a href="#FileCollection+fetchFileContent">.fetchFileContent(id)</a></li>
 <li><a href="#FileCollection+getBeautifulSize">.getBeautifulSize(file, decimal)</a></li>
 <li><a href="#FileCollection+isChildOf">.isChildOf(child, parent)</a> ⇒ <code>boolean</code></li>
 <li><a href="#FileCollection+createDirectoryByPath">.createDirectoryByPath(path)</a> ⇒ <code>object</code></li>
@@ -4411,6 +4426,29 @@ files associated to a specific document</p>
 <td><code>string</code></td>
 <td></td>
 <td>The name you want for the downloaded file                            (by default the same as the file)</td>
+</tr>
+</tbody>
+</table>
+<p><a name="FileCollection+fetchFileContent"></a></p>
+<h3 id="filecollectionfetchfilecontentid">fileCollection.fetchFileContent(id)<a class="headerlink" href="#filecollectionfetchfilecontentid" title="Permanent link">&para;</a></h3>
+<p>Fetch the binary of a file or a specific version of a file
+Useful for instance when you can&rsquo;t download the file directly
+(via a content-disposition attachement header) and need to store
+it before doing an operation.</p>
+<p><strong>Kind</strong>: instance method of <a href="#FileCollection"><code>FileCollection</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td><code>string</code></td>
+<td>Id of the io.cozy.files or io.cozy.files.version</td>
 </tr>
 </tbody>
 </table>

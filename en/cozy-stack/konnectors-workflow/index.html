@@ -3120,7 +3120,7 @@ for the same konnector &amp; various accounts.</p>
 <h3 id="prepare-the-execution">Prepare the execution<a class="headerlink" href="#prepare-the-execution" title="Permanent link">&para;</a></h3>
 <p>The cozy-stack prepares the execution of the konnector by doing these steps:</p>
 <ul>
-<li>it checks that the konnector is not in maintenance in the registry (execpt
+<li>it checks that the konnector is not in maintenance in the registry (except
   for manual execution)</li>
 <li>it ensures that the konnector has a folder where it can write its files,
   and has the permission to write in this folder.</li>
@@ -3143,7 +3143,7 @@ for the same konnector &amp; various accounts.</p>
 object), the konnector worker pass these events to the realtime hub as
 <code>io.cozy.jobs.events</code>.</p>
 <ul>
-<li>Only JSON formatted events are forwarded to the client-side throught
+<li>Only JSON formatted events are forwarded to the client-side through
     realtime</li>
 <li>Otherwise formatted lines (such as node Error) will be kept in some system
     logs.</li>
@@ -3212,11 +3212,11 @@ as the associated scope</p>
 
 <p><code>io.cozy.account_types</code> are not accessible to the applications: they are
 injected directly in CouchDB in a global database
-<code>secrets/io-cozy-accounts_type</code>.</p>
+<code>secrets/io-cozy-account_types</code>.</p>
 <h3 id="secrets-that-are-not-oauth">Secrets that are not OAuth<a class="headerlink" href="#secrets-that-are-not-oauth" title="Permanent link">&para;</a></h3>
 <p>The <code>io.cozy.account_types</code> doctype can also be used for storing secrets that
 are not related to OAuth. The document still need to be injected manually in
-<code>secrets/io-cozy-accounts_type</code>:</p>
+<code>secrets/io-cozy-account_types</code>:</p>
 <div class="codehilite"><pre><span></span>{
     &quot;_id&quot;: &quot;service.example&quot;,
     &quot;grant_mode&quot;: &quot;secret&quot;,
@@ -3287,7 +3287,7 @@ client_secret=$CLIENT_SECRET
 
 
 <h4 id="dynamic-registration-protocol">Dynamic Registration Protocol<a class="headerlink" href="#dynamic-registration-protocol" title="Permanent link">&para;</a></h4>
-<p>A few services allows client to register programaticaly through the Dynamic
+<p>A few services allows client to register programatically through the Dynamic
 Client Registration Protocol <a href="https://tools.ietf.org/html/rfc7591">RFC7591</a>, we
 should allow the Stack to register using this protocol when we first need to
 implement a Konnector connecting to such a Service.</p>
