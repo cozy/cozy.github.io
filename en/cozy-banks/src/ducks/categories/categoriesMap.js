@@ -112,6 +112,11 @@ export const getParentCategory = catId => {
   return parent && parent.name
 }
 
+export const isParentOf = (possibleParentCatId, catId) => {
+  const parent = categoryToParent.get(catId)
+  return Boolean(parent && parent.id == possibleParentCatId)
+}
+
 Object.keys(tree).forEach(catId => {
   const catName = tree[catId]
   const parentName = getParentCategory(catId)

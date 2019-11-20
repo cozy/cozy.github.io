@@ -32,6 +32,10 @@ describe('GroupPanel', () => {
     )
   })
 
+  const fakeRouter = {
+    push: jest.fn()
+  }
+
   const Wrapper = ({ expanded }) => (
     <AppLike client={client}>
       <GroupPanel
@@ -42,6 +46,7 @@ describe('GroupPanel', () => {
         switches={switches}
         onSwitchChange={() => {}}
         onChange={onChange}
+        router={fakeRouter}
       />
     </AppLike>
   )

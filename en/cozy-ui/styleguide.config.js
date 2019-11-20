@@ -130,6 +130,10 @@ module.exports = {
         '../react/Labs/ExperimentalModal',
         '../react/Labs/IconGrid'
       ]
+    },
+    {
+      name: 'Files',
+      components: () => ['../react/HistoryRow']
     }
   ],
   components: '../react/**/*.jsx',

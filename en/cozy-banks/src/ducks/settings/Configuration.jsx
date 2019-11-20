@@ -103,13 +103,6 @@ export class Configuration extends React.Component {
             name="balanceLower"
             unit="€"
           />
-          <DelayedDebitAlert
-            accounts={accounts}
-            onToggle={this.onToggle('notifications.delayedDebit')}
-            onChangeValue={this.onChangeValue('notifications.delayedDebit')}
-            onAccountsChange={this.onDelayedDebitAccountsChange}
-            {...settings.notifications.delayedDebit}
-          />
           <ToggleRow
             title={t('Notifications.if_transaction_greater.settingTitle')}
             description={t('Notifications.if_transaction_greater.description')}
@@ -123,6 +116,13 @@ export class Configuration extends React.Component {
             unit="€"
           />
           <CategoryAlertSettingsPane />
+          <DelayedDebitAlert
+            accounts={accounts}
+            onToggle={this.onToggle('notifications.delayedDebit')}
+            onChangeValue={this.onChangeValue('notifications.delayedDebit')}
+            onAccountsChange={this.onDelayedDebitAccountsChange}
+            {...settings.notifications.delayedDebit}
+          />
           <ToggleRowWrapper>
             <ToggleRowTitle>
               {t('Notifications.health_section.title')}

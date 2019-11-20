@@ -4,7 +4,6 @@ import keyBy from 'lodash/keyBy'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import NotificationView from 'ducks/notifications/BaseNotificationView'
 import { getCurrentDate } from 'ducks/notifications/utils'
-import { getParentCategory } from 'ducks/categories/helpers'
 import { getCategoryName } from 'ducks/categories/categoriesMap'
 import { getGroupLabel } from 'ducks/groups/helpers'
 import { getAccountLabel } from 'ducks/account/helpers'
@@ -46,9 +45,10 @@ const getAccountOrGroupLabelFromAlert = (
 
 const transformForTemplate = (budgetAlert, t, accountsById, groupsById) => {
   const catId = budgetAlert.alert.categoryId
-  const parentCategoryId = getParentCategory(catId)
   const catName = getCategoryName(catId)
-  const type = parentCategoryId === catId ? 'categories' : 'subcategories'
+  const type = budgetAlert.alert.categoryIsParent
+    ? 'categories'
+    : 'subcategories'
   const accountOrGroupLabel = getAccountOrGroupLabelFromAlert(
     budgetAlert.alert,
     accountsById,

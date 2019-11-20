@@ -52,4 +52,7 @@ flag('reimbursements.tag', true)
 // Turn on error banner on transactions page
 flag('transactions.error-banner', true)
 
+// Turn on loan details page
+flag('loan-details-page', true)
+
 window.flag = flag

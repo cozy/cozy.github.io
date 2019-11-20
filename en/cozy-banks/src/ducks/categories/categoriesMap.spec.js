@@ -1,4 +1,4 @@
-import categoriesMap, { getCategories } from './categoriesMap'
+import categoriesMap, { getCategories, isParentOf } from './categoriesMap'
 
 describe('categories map', function() {
   it('should map ids to categories', function() {
@@ -30,5 +30,14 @@ describe('categories map', function() {
         }
       })
     })
+  })
+
+  it('should be possible to know if a category is parent of another', () => {
+    expect(isParentOf('400100', '400110')).toBe(true)
+    expect(isParentOf('400100', '400111')).toBe(true)
+    expect(isParentOf('400500', '400510')).toBe(true)
+    expect(isParentOf('400100', '400510')).toBe(false)
+    expect(isParentOf('400100', '400710')).toBe(false)
+    expect(isParentOf('400100', '400100')).toBe(true)
   })
 })

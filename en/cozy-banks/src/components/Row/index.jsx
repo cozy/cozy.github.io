@@ -3,15 +3,33 @@ import { Media, Bd, Img, Icon } from 'cozy-ui/transpiled/react'
 import styles from './Row.styl'
 import cx from 'classnames'
 
-const Row = ({ isSelected, icon, label, hasArrow, onClick, className }) => (
+export const RowBody = ({ children }) => (
+  <Bd className="u-ellipsis">{children}</Bd>
+)
+
+const Row = ({
+  isSelected,
+  icon,
+  label,
+  children,
+  hasArrow,
+  onClick,
+  className
+}) => (
   <Media
-    className={cx(styles.Row, isSelected ? ' u-text-bold' : '', className)}
+    className={cx(
+      styles.Row,
+      'u-row-m',
+      isSelected ? 'u-text-bold' : '',
+      className
+    )}
     onClick={onClick}
   >
-    {icon && <Img className="u-pr-1">{icon}</Img>}
-    <Bd className="u-ellipsis">{label}</Bd>
+    {icon && <Img>{icon}</Img>}
+    {label ? <RowBody>{label}</RowBody> : null}
+    {children}
     {hasArrow && (
-      <Img className="u-pl-1">
+      <Img>
         <Icon icon="right" color="var(--coolGrey)" />
       </Img>
     )}

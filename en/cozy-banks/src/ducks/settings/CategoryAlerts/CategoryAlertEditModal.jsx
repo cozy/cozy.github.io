@@ -77,7 +77,11 @@ const CategoryAlertInfoSlide = ({
         <div>
           <ModalRow
             icon={<CategoryIcon categoryId={alert.categoryId} />}
-            label={t(`Data.subcategories.${categoryName}`)}
+            label={t(
+              `Data.${
+                alert.categoryIsParent ? 'categories' : 'subcategories'
+              }.${categoryName}`
+            )}
             onClick={handleRequestChooseCategory}
             hasArrow={true}
           />
@@ -116,6 +120,7 @@ const CategoryAlertEditModal = translate()(
     const handleSelectCategory = category => {
       const updatedAlert = {
         ...alert,
+        categoryIsParent: !!category.children,
         categoryId: category.id
       }
       setAlert(updatedAlert)
@@ -196,6 +201,7 @@ const CategoryAlertEditModal = translate()(
             {choosingCategory ? (
               <CategoryChoice
                 modal={false}
+                canSelectParent={true}
                 categoryId={alert.categoryId}
                 onSelect={handleSelectCategory}
                 onCancel={handleSelectCategoryCancel}

@@ -1,6 +1,7 @@
 import logger from 'cozy-logger'
 import { TRANSACTION_DOCTYPE, ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { getCategoryId } from 'ducks/categories/helpers'
+import { isParentOf } from 'ducks/categories/categoriesMap'
 import sumBy from 'lodash/sumBy'
 import { fetchCategoryAlerts } from 'ducks/settings/helpers'
 import { startOfMonth, endOfMonth, addDays, format } from 'date-fns'
@@ -48,6 +49,12 @@ const makeSelectorForAccountOrGroup = async (client, accountOrGroup) => {
   }
 }
 
+const categoryMatches = (categoryId, idToMatch, allowChildren) => {
+  return allowChildren
+    ? isParentOf(idToMatch, categoryId)
+    : idToMatch === categoryId
+}
+
 export const fetchExpensesForAlert = async (client, alert, currentDate) => {
   currentDate = currentDate ? new Date(currentDate) : new Date()
   const start = format(startOfMonth(currentDate), 'YYYY-MM')
@@ -80,8 +87,8 @@ export const fetchExpensesForAlert = async (client, alert, currentDate) => {
     client.all(TRANSACTION_DOCTYPE).where(selector)
   )
 
-  const categoryExpenses = monthExpenses.filter(
-    tr => getCategoryId(tr) === alert.categoryId
+  const categoryExpenses = monthExpenses.filter(tr =>
+    categoryMatches(getCategoryId(tr), alert.categoryId, alert.categoryIsParent)
   )
 
   let groupFilter
@@ -121,7 +128,7 @@ export const collectAlertInfo = async (client, alert, options) => {
     })`
   )
 
-  const sum = -sumBy(expenses, tr => tr.amount)
+  const sum = Math.round(-sumBy(expenses, tr => tr.amount), 2)
 
   if (sum < alert.maxThreshold) {
     log(

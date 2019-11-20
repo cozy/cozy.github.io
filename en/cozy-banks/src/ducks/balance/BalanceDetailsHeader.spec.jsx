@@ -17,6 +17,9 @@ const setup = props => {
     {
       context: {
         router: {
+          push: jest.fn(),
+          replace: jest.fn(),
+          go: jest.fn(),
           getCurrentLocation: () => ({
             pathname: '/'
           })

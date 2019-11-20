@@ -9,6 +9,7 @@ import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import AccountOrGroupLabel from 'ducks/settings/CategoryAlerts/AccountOrGroupLabel'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 
+import styles from './CategoryAlertCard.styl'
 import flag from 'cozy-flags'
 
 const CategoryAlertPropType = PropTypes.shape({
@@ -76,23 +77,23 @@ const CategoryAlertCard = ({ removeAlert, updateAlert, alert, t }) => {
 
   return (
     <>
-      <Card
-        style={{ display: 'inline-flex' }}
-        className="u-c-pointer"
-        onClick={handleCardClick}
-      >
+      <Card className={styles.CategoryAlertCard} onClick={handleCardClick}>
         <div className="u-media u-media-top">
-          <div className="u-fixed u-mr-1">
+          <div className="u-media-fixed u-mr-1">
             <CategoryIcon categoryId={alert.categoryId} />
           </div>
-          <div className="u-grow">
+          <div className="u-media-grow">
             {t('Settings.budget-category-alerts.budget-inferior-to', {
               threshold: alert.maxThreshold
             })}
             {saving ? <Spinner size="small" /> : null}
             <br />
             {t('Settings.budget-category-alerts.for-category', {
-              categoryName: t(`Data.subcategories.${categoryName}`)
+              categoryName: t(
+                `Data.${
+                  alert.categoryIsParent ? 'categories' : 'subcategories'
+                }.${categoryName}`
+              )
             })}
             <br />
             {alert.accountOrGroup ? (
@@ -114,7 +115,7 @@ const CategoryAlertCard = ({ removeAlert, updateAlert, alert, t }) => {
               <CategoryAlertDebug alert={alert} />
             ) : null}
           </div>
-          <div className="u-fixed u-ml-1">
+          <div className="u-media-fixed u-ml-1">
             <Icon
               color="var(--coolGrey)"
               icon="cross"
