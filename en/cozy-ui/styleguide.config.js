@@ -40,7 +40,8 @@ module.exports = {
         '../react/SelectBox/SelectBox.jsx',
         '../react/Textarea/index.jsx',
         '../react/Toggle/index.jsx',
-        '../react/FileInput/index.jsx'
+        '../react/FileInput/index.jsx',
+        '../react/DateMonthPicker/index.jsx'
       ]
     },
     {
@@ -51,7 +52,8 @@ module.exports = {
         '../react/Sidebar/index.jsx',
         '../react/Circle/index.jsx',
         '../react/Page/index.jsx',
-        '../react/NarrowContent/index.jsx'
+        '../react/NarrowContent/index.jsx',
+        '../react/ViewStack/index.jsx'
       ]
     },
     {

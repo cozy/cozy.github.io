@@ -3,6 +3,7 @@ import omit from 'lodash/omit'
 import keyBy from 'lodash/keyBy'
 import difference from 'lodash/difference'
 import { updateSettings, fetchSettings } from 'ducks/settings/helpers'
+import mergeSets from 'utils/mergeSets'
 
 import { GROUP_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
 import {
@@ -12,13 +13,6 @@ import {
 } from 'ducks/groups/helpers'
 
 const log = logger.namespace('auto-groups')
-
-const mergeSets = (s1, s2) => {
-  const s3 = new Set()
-  s1.forEach(item => s3.add(item))
-  s2.forEach(item => s3.add(item))
-  return s3
-}
 
 export const createAutoGroups = async ({ client }) => {
   const settings = await fetchSettings(client)

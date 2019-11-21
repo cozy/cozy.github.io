@@ -4,8 +4,10 @@ import {
   getAccountType,
   getAccountBalance,
   buildHealthReimbursementsVirtualAccount,
-  buildVirtualAccounts
+  buildVirtualAccounts,
+  addOwnerToAccount
 } from './helpers'
+import { CONTACT_DOCTYPE } from 'doctypes'
 
 describe('getAccountUpdateDateDistance', () => {
   it('should return null if an argument is missing', () => {
@@ -150,5 +152,41 @@ describe('buildVirtualAccounts', () => {
       a => a._id === 'health_reimbursements'
     )
     expect(healthReimbursementsAccount).toHaveLength(1)
+  })
+})
+
+describe('addOwnerToAccount', () => {
+  const owner = { _id: 'owner' }
+  const ownerRel = { _id: owner._id, _type: CONTACT_DOCTYPE }
+
+  describe('when the account is not already linked to the owner', () => {
+    it('should add the owner to the account', () => {
+      const otherOwner = { _id: 'otherowner', _type: CONTACT_DOCTYPE }
+      const account = {
+        relationships: {
+          owners: {
+            data: [otherOwner]
+          }
+        }
+      }
+
+      addOwnerToAccount(account, owner)
+      expect(account.relationships.owners.data).toEqual([otherOwner, ownerRel])
+    })
+  })
+
+  describe('when the account is already linked to the owner', () => {
+    it('should not add the owner to the account', () => {
+      const account = {
+        relationships: {
+          owners: {
+            data: [ownerRel]
+          }
+        }
+      }
+
+      addOwnerToAccount(account, owner)
+      expect(account.relationships.owners.data).toEqual([ownerRel])
+    })
   })
 })

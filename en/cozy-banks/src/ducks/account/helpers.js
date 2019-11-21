@@ -1,4 +1,11 @@
-import { get, sumBy, overEvery, flowRight as compose } from 'lodash'
+import {
+  get,
+  sumBy,
+  overEvery,
+  flowRight as compose,
+  set,
+  uniqBy
+} from 'lodash'
 import {
   getDate,
   getReimbursedAmount as getTransactionReimbursedAmount,
@@ -8,7 +15,7 @@ import { isHealthExpense } from 'ducks/categories/helpers'
 import { differenceInCalendarDays, isThisYear } from 'date-fns'
 import flag from 'cozy-flags'
 import { BankAccount } from 'cozy-doctypes'
-import { ACCOUNT_DOCTYPE } from 'doctypes'
+import { ACCOUNT_DOCTYPE, CONTACT_DOCTYPE } from 'doctypes'
 
 const PARTS_TO_DELETE = ['(sans Secure Key)']
 
@@ -187,4 +194,16 @@ export const getBorrowedAmount = account => {
 
 export const getRemainingAmount = account => {
   return Math.abs(account.balance)
+}
+
+export const addOwnerToAccount = (account, owner) => {
+  const currentOwners = get(account, 'relationships.owners.data', [])
+  const newOwners = uniqBy(
+    [...currentOwners, { _id: owner._id, _type: CONTACT_DOCTYPE }],
+    o => o._id
+  )
+
+  set(account, 'relationships.owners.data', newOwners)
+
+  return account
 }

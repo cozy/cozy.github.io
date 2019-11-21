@@ -13,6 +13,7 @@ export const KONNECTOR_DOCTYPE = 'io.cozy.konnectors'
 export const COZY_ACCOUNT_DOCTYPE = 'io.cozy.accounts'
 export const PERMISSION_DOCTYPE = 'io.cozy.permissions'
 export const BANK_ACCOUNT_STATS_DOCTYPE = 'io.cozy.bank.accounts.stats'
+export const CONTACT_DOCTYPE = 'io.cozy.contacts'
 
 export const offlineDoctypes = [
   ACCOUNT_DOCTYPE,
@@ -125,6 +126,10 @@ export const schema = {
       checkingsAccount: {
         type: 'has-one',
         doctype: ACCOUNT_DOCTYPE
+      },
+      owners: {
+        type: 'has-many',
+        doctype: CONTACT_DOCTYPE
       }
     }
   },

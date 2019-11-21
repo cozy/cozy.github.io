@@ -52,6 +52,9 @@ export const createClientWithData = ({ queries, data, clientOptions }) => {
       return { data: [] }
     }
   })
+
+  client.save = jest.fn()
+
   return client
 }
 

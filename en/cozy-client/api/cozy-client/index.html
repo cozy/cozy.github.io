@@ -1180,6 +1180,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#cozyclientgetinstanceoptions-object" title="cozyClient.getInstanceOptions() ⇒ object" class="md-nav__link">
+    cozyClient.getInstanceOptions() ⇒ object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cozyclientloadinstanceoptionsfromdomselector-void" title="cozyClient.loadInstanceOptionsFromDOM([selector]) ⇒ void" class="md-nav__link">
+    cozyClient.loadInstanceOptionsFromDOM([selector]) ⇒ void
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#cozyclientsetdatadata" title="cozyClient.setData(data)" class="md-nav__link">
     cozyClient.setData(data)
   </a>
@@ -3404,6 +3418,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#cozyclientgetinstanceoptions-object" title="cozyClient.getInstanceOptions() ⇒ object" class="md-nav__link">
+    cozyClient.getInstanceOptions() ⇒ object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cozyclientloadinstanceoptionsfromdomselector-void" title="cozyClient.loadInstanceOptionsFromDOM([selector]) ⇒ void" class="md-nav__link">
+    cozyClient.loadInstanceOptionsFromDOM([selector]) ⇒ void
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#cozyclientsetdatadata" title="cozyClient.setData(data)" class="md-nav__link">
     cozyClient.setData(data)
   </a>
@@ -4222,6 +4250,8 @@ having for the &lsquo;konnector&rsquo; worker, and then filter them based on the
 <li><a href="#CozyClient+handleRevocationChange">.handleRevocationChange()</a></li>
 <li><a href="#CozyClient+handleTokenRefresh">.handleTokenRefresh()</a></li>
 <li><a href="#CozyClient+createClient">.createClient()</a></li>
+<li><a href="#CozyClient+getInstanceOptions">.getInstanceOptions()</a> ⇒ <code>object</code></li>
+<li><a href="#CozyClient+loadInstanceOptionsFromDOM">.loadInstanceOptionsFromDOM([selector])</a> ⇒ <code>void</code></li>
 <li><a href="#CozyClient+setData">.setData(data)</a></li>
 </ul>
 </li>
@@ -4746,7 +4776,33 @@ If a stackClient has been passed in options, ensure it has handlers for
 revocation and token refresh.</p>
 <p>If <code>oauth</code> options are passed, stackClient is an OAuthStackClient.</p>
 <p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a><br />
-<a name="CozyClient+setData"></a></p>
+<a name="CozyClient+getInstanceOptions"></a></p>
+<h3 id="cozyclientgetinstanceoptions-object">cozyClient.getInstanceOptions() ⇒ <code>object</code><a class="headerlink" href="#cozyclientgetinstanceoptions-object" title="Permanent link">&para;</a></h3>
+<p>getInstanceOptions - Returns current instance options, such as domain or app slug</p>
+<p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a><br />
+<a name="CozyClient+loadInstanceOptionsFromDOM"></a></p>
+<h3 id="cozyclientloadinstanceoptionsfromdomselector-void">cozyClient.loadInstanceOptionsFromDOM([selector]) ⇒ <code>void</code><a class="headerlink" href="#cozyclientloadinstanceoptionsfromdomselector-void" title="Permanent link">&para;</a></h3>
+<p>loadInstanceOptionsFromDOM - Loads the dataset injected by the Stack in web pages and exposes it through getInstanceOptions</p>
+<p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[selector]</td>
+<td><code>string</code></td>
+<td><code>&quot;[role&#x3D;application]&quot;</code></td>
+<td>A selector for the node that holds the dataset to load</td>
+</tr>
+</tbody>
+</table>
+<p><a name="CozyClient+setData"></a></p>
 <h3 id="cozyclientsetdatadata">cozyClient.setData(data)<a class="headerlink" href="#cozyclientsetdatadata" title="Permanent link">&para;</a></h3>
 <p>Directly set the data in the store, without using a query
 This is useful for cases like Pouch replication, which wants to

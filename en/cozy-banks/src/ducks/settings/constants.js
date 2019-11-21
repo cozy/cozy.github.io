@@ -6,6 +6,9 @@ export const DEFAULTS_SETTINGS = {
   autogroups: {
     processedAccounts: []
   },
+  linkMyselfToAccounts: {
+    processedAccounts: []
+  },
   notifications: {
     lastSeq: 0,
     balanceLower: {
