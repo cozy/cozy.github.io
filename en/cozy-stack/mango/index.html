@@ -2720,16 +2720,20 @@ query results to a maximum of 100 documents. This limit can be raised up to
 1000 documents per page with the <code>limit</code> parameter, but not further.</p>
 <p>The limit applied to a query is visible in the HTTP response.</p>
 <p>If the limit cause some docs to not be returned, the response will have a
-<code>next=true</code> top level values.</p>
+<code>next=true</code> top level values. Then, the returned <code>bookmark</code> value can be used in
+the next query to get the missing docs. It is also possible to use <code>skip</code>,
+to paginate, although this is not recommended for performances. For more details, see the
+<a href="https://docs.couchdb.org/en/latest/api/database/find.html#pagination">CouchDB documentation</a>.</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
     <span class="nt">&quot;limit&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
     <span class="nt">&quot;next&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-    <span class="nt">&quot;docs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;... first hundred docs ...&quot;</span><span class="p">]</span>
+    <span class="nt">&quot;docs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;... first hundred docs ...&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;bookmark&quot;</span><span class="p">:</span> <span class="s2">&quot;g1AAAAB2eJzLYWBgYMpgSmHgKy5JLCrJTq2MT8lPzkzJBYorGKQYpVqaJRoZm1paWFiapFkamhknGpilJiampZkYJRmC9HHA9OUAdTASpS0rCwAlah76&quot;</span>
 <span class="p">}</span>
 </pre></div>
 
 
-<p>If the number of docs is lower or equal to the limit, next will be false</p>
+<p>If the number of docs is lower or equal to the limit, next will be false.</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
     <span class="nt">&quot;limit&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
     <span class="nt">&quot;next&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
@@ -2738,11 +2742,10 @@ query results to a maximum of 100 documents. This limit can be raised up to
 </pre></div>
 
 
-<p>To paginate, the client should keep track of the value of the last index field.</p>
 <h3 id="example">Example:<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
 <p>Index on io.cozy.events with fields <code>["calendar", "date"]</code></p>
 <p>Try to get all events for a month:</p>
-<div class="codehilite"><pre><span></span><span class="err">selector:</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><span class="s2">&quot;selector&quot;</span><span class="err">:</span> <span class="p">{</span>
   <span class="nt">&quot;calendar&quot;</span><span class="p">:</span> <span class="s2">&quot;my-calendar&quot;</span><span class="p">,</span>
   <span class="nt">&quot;date&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;$gt&quot;</span><span class="p">:</span> <span class="s2">&quot;20161001&quot;</span><span class="p">,</span> <span class="nt">&quot;$lt&quot;</span><span class="p">:</span> <span class="s2">&quot;20161030&quot;</span> <span class="p">}</span>
 <span class="p">}</span>
@@ -2752,12 +2755,13 @@ query results to a maximum of 100 documents. This limit can be raised up to
 <p>If there is less than 100 events, the response <code>next</code> field will be false and
 there is nothing more to do. If there is more than 100 events for this month, we
 have a <code>next=true</code> in the response.</p>
-<p>To keep iterating, we can take the date from the last item we received in the
-results and use it as next request <code>$gte</code></p>
-<div class="codehilite"><pre><span></span><span class="err">selector:</span> <span class="p">{</span>
+<p>To keep iterating, we can use the <code>bookmark</code> field we received in the next
+request.</p>
+<div class="codehilite"><pre><span></span><span class="s2">&quot;selector&quot;</span><span class="err">:</span> <span class="p">{</span>
   <span class="nt">&quot;calendar&quot;</span><span class="p">:</span> <span class="s2">&quot;my-calendar&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;date&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;$gte&quot;</span><span class="p">:</span> <span class="s2">&quot;20161023&quot;</span><span class="p">,</span> <span class="nt">&quot;$lt&quot;</span><span class="p">:</span> <span class="s2">&quot;20161030&quot;</span> <span class="p">}</span>
-<span class="p">}</span>
+  <span class="nt">&quot;date&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;$gte&quot;</span><span class="p">:</span> <span class="s2">&quot;20161001&quot;</span><span class="p">,</span> <span class="nt">&quot;$lt&quot;</span><span class="p">:</span> <span class="s2">&quot;20161030&quot;</span> <span class="p">}</span>
+<span class="p">}</span><span class="err">,</span>
+<span class="s2">&quot;bookmark&quot;</span><span class="err">:</span> <span class="s2">&quot;g1AAAAB2eJzLYWBgYMpgSmHgKy5JLCrJTq2MT8lPzkzJBYorGKQYpVqaJRoZm1paWFiapFkamhknGpilJiampZkYJRmC9HHA9OUAdTASpS0rCwAlah76&quot;</span>
 </pre></div>
                 
                   

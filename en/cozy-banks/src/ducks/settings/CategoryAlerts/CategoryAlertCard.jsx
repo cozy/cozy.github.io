@@ -116,11 +116,12 @@ const CategoryAlertCard = ({ removeAlert, updateAlert, alert, t }) => {
             ) : null}
           </div>
           <div className="u-media-fixed u-ml-1">
-            <Icon
-              color="var(--coolGrey)"
-              icon="cross"
+            <span
               onClick={handleRequestRemoval}
-            />
+              className="u-expanded-click-area"
+            >
+              <Icon color="var(--coolGrey)" icon="cross" />
+            </span>
           </div>
         </div>
       </Card>

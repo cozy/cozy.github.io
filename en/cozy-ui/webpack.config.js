@@ -1,5 +1,6 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const webpack = require('webpack')
+const { isUsingDevStyleguidist } = require('./build-utils')
 
 module.exports = {
   resolve: {
@@ -18,7 +19,11 @@ module.exports = {
       {
         test: /\.styl$/,
         loader: [
-          MiniCssExtractPlugin.loader,
+          // While developing on the styleguidist, we do not want the CSS
+          // to be extract otherwise CSS hot reload does not work
+          isUsingDevStyleguidist()
+            ? 'style-loader'
+            : MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
             options: {
@@ -41,11 +46,11 @@ module.exports = {
     ]
   },
   plugins: [
-    new MiniCssExtractPlugin('[name].css'),
+    isUsingDevStyleguidist() ? null : new MiniCssExtractPlugin('[name].css'),
     new webpack.DefinePlugin({
       'process.env': {
         USE_REACT: 'true'
       }
     })
-  ]
+  ].filter(Boolean)
 }

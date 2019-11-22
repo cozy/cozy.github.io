@@ -45,13 +45,7 @@ const GroupPanelSummary = withStyles(() => ({
 
 const GroupPanelExpandIcon = React.memo(function GroupPanelExpandIcon() {
   return (
-    <span className="u-click-xl">
-      <Icon
-        icon="bottom"
-        className={styles.GroupPanelSummary__icon}
-        width={12}
-      />
-    </span>
+    <Icon icon="bottom" className={styles.GroupPanelSummary__icon} width={12} />
   )
 })
 

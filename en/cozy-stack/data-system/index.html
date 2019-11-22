@@ -3558,12 +3558,15 @@ header to prevent conflict on deletion:</p>
 <p>The <code>_all_docs</code> endpoint sends the design docs in the response. It makes it hard
 to use pagination on it. We have added a non-standard <code>_normal_docs</code> endpoint.
 This new endpoint skip the design docs (and does not count them in the
-<code>total_rows</code>). It only accepts two parameters in the query string: <code>skip</code>
-(default: 0) and <code>limit</code> (default: 100).</p>
+<code>total_rows</code>). It accepts three parameters in the query string: <code>limit</code>
+(default: 100), <code>skip</code> (default: 0),  and <code>bookmark</code> (default: &lsquo;&rsquo;).</p>
 <p>Note that the response format is a bit different, it looks more like a <code>_find</code>
-response with mango. And, like for <code>_find</code>, the limit cannot be more than 100.</p>
+response with mango. And, like for <code>_find</code>, the limit cannot be more than 1000.
+The <a href="https://github.com/cozy/cozy-stack/blob/master/docs/mango.md#pagination-cookbook">pagination</a>
+is also the same: both <code>bookmark</code> and <code>skip</code> can be used, but <code>bookmark</code> is
+recommended for performances.</p>
 <h3 id="request_7">Request<a class="headerlink" href="#request_7" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/data/io.cozy.events/_normal_docs?skip=200&amp;limit=100</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/data/io.cozy.events/_normal_docs?limit=100&amp;bookmark=g1AAAAB2eJzLYWBgYMpgSmHgKy5JLCrJTq2MT8lPzkzJBYorGKQYpVqaJRoZm1paWFiapFkamhknGpilJiampZkYJRmC9HHA9OUAdTASpS0rCwAlah76</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
 </pre></div>
 
@@ -3585,9 +3588,11 @@ response with mango. And, like for <code>_find</code>, the limit cannot be more 
             <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;f4ca7773ddea715afebc4b4b15d4f0b3&quot;</span><span class="p">,</span>
             <span class="nt">&quot;_rev&quot;</span><span class="p">:</span> <span class="s2">&quot;2-7051cbe5c8faecd085a3fa619e6e6337&quot;</span><span class="p">,</span>
             <span class="nt">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;other-value&quot;</span>
-        <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="err">...</span>
     <span class="p">],</span>
-    <span class="nt">&quot;total_rows&quot;</span><span class="p">:</span> <span class="mi">202</span>
+    <span class="nt">&quot;total_rows&quot;</span><span class="p">:</span> <span class="mi">202</span><span class="p">,</span>
+    <span class="nt">&quot;bookmark&quot;</span><span class="p">:</span> <span class="s2">&quot;g1AAAAB2eJzLYWBgYMpgSmHgKy5JLCrJTq2MT8lPzkzJBYorGKQYpVqaJRoZm1paWFiapFkamhknGpilJiampZkYJRmC9HHA9OUAdTASpS0rCwAlah76&quot;</span>
 <span class="p">}</span>
 </pre></div>
 

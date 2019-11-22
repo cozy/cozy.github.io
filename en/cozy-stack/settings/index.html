@@ -3496,7 +3496,8 @@
 <h2 id="disk-usage">Disk usage<a class="headerlink" href="#disk-usage" title="Permanent link">&para;</a></h2>
 <h3 id="get-settingsdisk-usage">GET /settings/disk-usage<a class="headerlink" href="#get-settingsdisk-usage" title="Permanent link">&para;</a></h3>
 <p>Says how many bytes are available and used to store files. When not limited the
-<code>quota</code> field is omitted.</p>
+<code>quota</code> field is omitted.
+Also says how many bytes are used by last version of files and how many bytes are taken by older versions.</p>
 <h4 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/settings/disk-usage</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
@@ -3518,7 +3519,9 @@
         <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="nt">&quot;is_limited&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
             <span class="nt">&quot;quota&quot;</span><span class="p">:</span> <span class="s2">&quot;123456789&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;used&quot;</span><span class="p">:</span> <span class="s2">&quot;12345678&quot;</span>
+            <span class="nt">&quot;used&quot;</span><span class="p">:</span> <span class="s2">&quot;12345678&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="s2">&quot;10305070&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;versions&quot;</span><span class="p">:</span> <span class="s2">&quot;2040608&quot;</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>

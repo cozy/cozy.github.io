@@ -1,6 +1,6 @@
 import React from 'react'
 import Icon from 'cozy-ui/react/Icon'
-import Modal, { ModalHeader, ModalDescription } from 'cozy-ui/react/Modal'
+import Modal, { ModalHeader, ModalContent } from 'cozy-ui/react/Modal'
 import { Media, Bd, Img } from 'cozy-ui/react/Media'
 import palette from 'cozy-ui/react/palette'
 import MultiSelect from 'components/MultiSelect'
@@ -20,24 +20,16 @@ const PopupTitle = ({ showBack, onClickBack, title }) => (
   </Media>
 )
 
-const PopupModalHeader = ({ showBack, onClickBack, title }) => {
-  return (
-    <div className={styles.PopupSelect__title}>
-      <ModalHeader>
-        <PopupTitle
-          showBack={showBack}
-          onClickBack={onClickBack}
-          title={title}
-        />
-      </ModalHeader>
-    </div>
-  )
-}
+const PopupModalHeader = ({ showBack, onClickBack, title }) => (
+  <ModalHeader className={styles.PopupSelect__title}>
+    <PopupTitle showBack={showBack} onClickBack={onClickBack} title={title} />
+  </ModalHeader>
+)
 
-const PopupModalDescription = ({ children }) => (
-  <div className={styles.PopupSelect__content}>
-    <ModalDescription className="u-pb-0">{children}</ModalDescription>
-  </div>
+const PopupModalContent = ({ children }) => (
+  <ModalContent className={styles.PopupSelect__content}>
+    {children}
+  </ModalContent>
 )
 
 const PopupSelectModal = props => {
@@ -51,7 +43,7 @@ const PopupSelectModal = props => {
       <MultiSelect
         {...props}
         HeaderComponent={PopupModalHeader}
-        ContentComponent={PopupModalDescription}
+        ContentComponent={PopupModalContent}
       />
     </Modal>
   )
