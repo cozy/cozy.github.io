@@ -129,7 +129,7 @@ module.exports = {
       name: 'Labs',
       components: () => [
         '../react/Labs/GridItem',
-        '../react/Labs/ExperimentalModal',
+        '../react/MuiCozyTheme/Dialog',
         '../react/Labs/IconGrid'
       ]
     },

@@ -209,14 +209,39 @@ export const updateTransactionCategory = async (
   transaction,
   category
 ) => {
-  try {
-    const newTransaction = {
-      ...transaction,
-      manualCategoryId: category.id
-    }
-    return await client.save(newTransaction)
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.log(err)
+  const newTransaction = {
+    ...transaction,
+    manualCategoryId: category.id
   }
+  const { data } = await client.save(newTransaction)
+  return data
+}
+
+const isSameMonth = (dateStr, otherDateStr) => {
+  return (
+    dateStr && otherDateStr && dateStr.slice(0, 7) == otherDateStr.slice(0, 7)
+  )
+}
+
+export const getApplicationDate = transaction => {
+  if (isSameMonth(transaction.applicationDate, transaction.date)) {
+    return null
+  }
+  return transaction.applicationDate
+}
+
+export const updateApplicationDate = async (
+  client,
+  transaction,
+  applicationDate
+) => {
+  const date = getDisplayDate(transaction)
+  if (isSameMonth(date, applicationDate)) {
+    applicationDate = null // reset the application date
+  }
+  const { data } = await client.save({
+    ...transaction,
+    applicationDate
+  })
+  return data
 }

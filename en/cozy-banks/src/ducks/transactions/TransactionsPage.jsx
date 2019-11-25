@@ -276,7 +276,7 @@ const onSubcategory = ownProps => ownProps.router.params.subcategoryName
 
 const mapStateToProps = (state, ownProps) => {
   const filteredTransactions = onSubcategory(ownProps)
-    ? getFilteredTransactions(state)
+    ? getFilteredTransactions(state, ownProps)
     : getTransactionsFilteredByAccount(state)
 
   return {
@@ -297,6 +297,7 @@ UnpluggedTransactionsPage.propTypes = {
 }
 
 const ConnectedTransactionsPage = compose(
+  withRouter,
   queryConnect({
     accounts: accountsConn,
     groups: groupsConn,

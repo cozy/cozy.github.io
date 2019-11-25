@@ -1358,6 +1358,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#shoulddisplayoffers" title="shouldDisplayOffers" class="md-nav__link">
+    shouldDisplayOffers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#triggerstates" title="triggerStates" class="md-nav__link">
     triggerStates
   </a>
@@ -3596,6 +3603,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#shoulddisplayoffers" title="shouldDisplayOffers" class="md-nav__link">
+    shouldDisplayOffers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#triggerstates" title="triggerStates" class="md-nav__link">
     triggerStates
   </a>
@@ -3794,6 +3808,9 @@ from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
 
 <h2 id="constants">Constants<a class="headerlink" href="#constants" title="Permanent link">&para;</a></h2>
 <dl>
+<dt><a href="#shouldDisplayOffers">shouldDisplayOffers</a></dt>
+<dd><p>Returns whether an instance is concerned by our offers</p>
+</dd>
 <dt><a href="#triggerStates">triggerStates</a></dt>
 <dd><p>Trigger states come from /jobs/triggers</p>
 </dd>
@@ -5249,7 +5266,42 @@ Use the last docid of each query as startkey_docid to paginate or leave blank fo
 <h3 id="schemavalidate">schema.validate()<a class="headerlink" href="#schemavalidate" title="Permanent link">&para;</a></h3>
 <p>Validates a document considering the descriptions in schema.attributes.</p>
 <p><strong>Kind</strong>: instance method of <a href="#Schema"><code>Schema</code></a><br />
-<a name="triggerStates"></a></p>
+<a name="shouldDisplayOffers"></a></p>
+<h2 id="shoulddisplayoffers">shouldDisplayOffers<a class="headerlink" href="#shoulddisplayoffers" title="Permanent link">&para;</a></h2>
+<p>Returns whether an instance is concerned by our offers</p>
+<p><strong>Kind</strong>: global constant  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td><code>object</code></td>
+<td>Object containing all the results from /settings/*</td>
+</tr>
+<tr>
+<td>data.context</td>
+<td><code>object</code></td>
+<td>Object returned by /settings/context</td>
+</tr>
+<tr>
+<td>data.instance</td>
+<td><code>object</code></td>
+<td>Object returned by /settings/instance</td>
+</tr>
+<tr>
+<td>data.diskUsage</td>
+<td><code>object</code></td>
+<td>Object returned by /settings/disk-usage</td>
+</tr>
+</tbody>
+</table>
+<p><a name="triggerStates"></a></p>
 <h2 id="triggerstates">triggerStates<a class="headerlink" href="#triggerstates" title="Permanent link">&para;</a></h2>
 <p>Trigger states come from /jobs/triggers</p>
 <p><strong>Kind</strong>: global constant  </p>

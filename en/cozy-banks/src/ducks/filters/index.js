@@ -13,7 +13,7 @@ import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { sortBy, last, keyBy, find } from 'lodash'
 import { DESTROY_ACCOUNT } from 'actions/accounts'
 import { dehydrate } from 'cozy-client'
-import { getDisplayDate } from 'ducks/transactions/helpers'
+import { getApplicationDate, getDisplayDate } from 'ducks/transactions/helpers'
 import { isHealthExpense } from 'ducks/categories/helpers'
 
 const log = logger.namespace('filters')
@@ -112,10 +112,31 @@ export const getTransactionsFilteredByAccount = createSelector(
   }
 )
 
+const getPathnameFromLocationProp = (state, ownProps) =>
+  ownProps && ownProps.location.pathname
+
+const getApplicationDateOrDisplayDate = transaction => {
+  const applicationDate = getApplicationDate(transaction)
+  if (applicationDate) {
+    return applicationDate
+  } else {
+    return getDisplayDate(transaction)
+  }
+}
+
+const getDateGetter = createSelector(
+  [getPathnameFromLocationProp],
+  pathname => {
+    if (pathname && pathname.startsWith('/categories')) {
+      return getApplicationDateOrDisplayDate
+    }
+  }
+)
+
 export const getFilteredTransactions = createSelector(
-  [getTransactionsFilteredByAccount, getPeriod],
-  (transactions, period) => {
-    return filterByPeriod(transactions, period)
+  [getTransactionsFilteredByAccount, getPeriod, getDateGetter],
+  (transactions, period, dateGetter) => {
+    return filterByPeriod(transactions, period, dateGetter)
   }
 )
 
@@ -143,7 +164,7 @@ const isDate = date => date instanceof Date
 const isString = str => typeof str === 'string'
 
 // filters
-const filterByPeriod = (transactions, period) => {
+const filterByPeriod = (transactions, period, dateGetter) => {
   let pred
   const l = period.length
   if (isString(period)) {
@@ -162,8 +183,9 @@ const filterByPeriod = (transactions, period) => {
     throw new Error('Invalid period: ' + period)
   }
 
+  dateGetter = dateGetter || getDisplayDate
   return transactions.filter(transaction => {
-    const date = getDisplayDate(transaction)
+    const date = dateGetter(transaction)
     if (!date) {
       return false
     }

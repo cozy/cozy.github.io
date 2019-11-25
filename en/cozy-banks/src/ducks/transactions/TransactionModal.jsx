@@ -2,24 +2,37 @@
  * Is used in mobile/tablet mode when you click on the more button
  */
 
-import React from 'react'
-import { translate, withBreakpoints } from 'cozy-ui/react'
-import Icon from 'cozy-ui/react/Icon'
-import { Media, Bd, Img } from 'cozy-ui/react/Media'
-import { withDispatch } from 'utils'
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { flowRight as compose } from 'lodash'
 import cx from 'classnames'
 
+import {
+  Icon,
+  Spinner,
+  Media,
+  Bd,
+  Img,
+  translate,
+  withBreakpoints,
+  Alerter,
+  useViewStack
+} from 'cozy-ui/react'
+
+import ModalStack from 'components/ModalStack'
+
 import { Figure } from 'components/Figure'
 import { PageModal } from 'components/PageModal'
+import { PageHeader, PageBackButton } from 'components/PageModal/Page'
 
-import { getLabel } from 'ducks/transactions'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { getCategoryName } from 'ducks/categories/categoriesMap'
-import TransactionActions from 'ducks/transactions/TransactionActions'
-import { withUpdateCategory } from 'ducks/categories'
-import PropTypes from 'prop-types'
 import { getCategoryId } from 'ducks/categories/helpers'
+
+import { getLabel } from 'ducks/transactions'
+import TransactionActions from 'ducks/transactions/TransactionActions'
+import { updateApplicationDate } from 'ducks/transactions/helpers'
+
 import styles from 'ducks/transactions/TransactionModal.styl'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 
@@ -32,9 +45,10 @@ import {
 } from 'ducks/account/helpers'
 import { TRANSACTION_DOCTYPE } from 'doctypes'
 import flag from 'cozy-flags'
-import { getDate } from 'ducks/transactions/helpers'
+import { getDate, getApplicationDate } from 'ducks/transactions/helpers'
 
-import { MainTitle } from 'cozy-ui/transpiled/react/Text'
+import TransactionCategoryEditor from './TransactionCategoryEditor'
+import TransactionApplicationDateEditor from './TransactionApplicationDateEditor'
 
 import withDocs from 'components/withDocs'
 
@@ -45,34 +59,37 @@ const TransactionModalRowIcon = ({ icon }) =>
     </Img>
   ) : null
 
+export const TransactionModalRowMedia = props => {
+  const { disabled, className, children, ...restProps } = props
+  return (
+    <Media
+      className={cx(
+        styles.TransactionModalRow,
+        'u-row-m',
+        {
+          [styles['TransactionModalRow-disabled']]: disabled,
+          'u-c-pointer': restProps.onClick
+        },
+        className
+      )}
+      {...restProps}
+    >
+      {children}
+    </Media>
+  )
+}
+
 export const TransactionModalRow = ({
   children,
   iconLeft,
   iconRight,
-  disabled = false,
-  className,
-  onClick,
-  align,
   ...props
 }) => (
-  <Media
-    className={cx(
-      styles.TransactionModalRow,
-      'u-row-m',
-      {
-        [styles['TransactionModalRow-disabled']]: disabled,
-        'u-c-pointer': onClick
-      },
-      className
-    )}
-    align={align}
-    onClick={onClick}
-    {...props}
-  >
-    <TransactionModalRowIcon icon={iconLeft} align={align} />
+  <TransactionModalRowMedia {...props}>
+    <TransactionModalRowIcon icon={iconLeft} />
     <Bd className="u-stack-xs">{children}</Bd>
     {iconRight && <Img>{iconRight}</Img>}
-  </Media>
+  </TransactionModalRowMedia>
 )
 
 const TransactionLabel = ({ label }) => (
@@ -94,10 +111,61 @@ const TransactionInfos = ({ infos }) => (
   </div>
 )
 
-const transactionModalRowStyle = { textTransform: 'capitalize' }
+const withTransaction = withDocs(ownProps => ({
+  transaction: [TRANSACTION_DOCTYPE, ownProps.transactionId]
+}))
 
-const TransactionModalInfo = props => {
-  const { t, f, transaction, showCategoryChoice, ...restProps } = props
+const TransactionCategoryEditorSlide = withBreakpoints()(
+  translate()(props => {
+    const { stackPop } = useViewStack()
+    const {
+      breakpoints: { isMobile }
+    } = props
+    return (
+      <div>
+        <PageHeader dismissAction={stackPop}>
+          {isMobile ? <PageBackButton onClick={stackPop} /> : null}
+          {props.t('Categories.choice.title')}
+        </PageHeader>
+        <TransactionCategoryEditor
+          beforeUpdate={stackPop}
+          onCancel={stackPop}
+          transaction={props.transaction}
+        />
+      </div>
+    )
+  })
+)
+
+const TransactionApplicationDateEditorSlide = translate()(
+  ({ transaction, beforeUpdate, afterUpdate, t }) => {
+    const { stackPop } = useViewStack()
+    const handleBeforeUpdate = () => {
+      beforeUpdate()
+      stackPop()
+    }
+
+    return (
+      <div>
+        <PageHeader dismissAction={stackPop}>
+          {t('Transactions.infos.chooseApplicationDate')}
+        </PageHeader>
+        <TransactionApplicationDateEditor
+          beforeUpdate={handleBeforeUpdate}
+          afterUpdate={afterUpdate}
+          transaction={transaction}
+        />
+      </div>
+    )
+  }
+)
+
+/**
+ * Show information of the transaction
+ */
+const TransactionModalInfoContent = withTransaction(props => {
+  const { stackPush } = useViewStack()
+  const { t, f, transaction, client, ...restProps } = props
 
   const typeIcon = (
     <Icon
@@ -111,6 +179,56 @@ const TransactionModalInfo = props => {
 
   const categoryId = getCategoryId(transaction)
   const account = transaction.account.data
+
+  const showCategoryChoice = () => {
+    stackPush(<TransactionCategoryEditorSlide transaction={transaction} />)
+  }
+
+  const [applicationDateBusy, setApplicationDateBusy] = useState(false)
+
+  const handleAfterUpdateApplicationDate = updatedTransaction => {
+    const applicationDate = getApplicationDate(updatedTransaction)
+    setApplicationDateBusy(false)
+    Alerter.success(
+      t('Transactions.infos.applicationDateChangedAlert', {
+        applicationDate: f(applicationDate, 'MMMM')
+      })
+    )
+  }
+
+  const handleShowApplicationEditor = ev => {
+    !ev.defaultPrevented &&
+      stackPush(
+        <TransactionApplicationDateEditorSlide
+          beforeUpdate={() => setApplicationDateBusy(true)}
+          afterUpdate={handleAfterUpdateApplicationDate}
+          transaction={transaction}
+        />,
+        { size: 'xsmall', mobileFullscreen: false }
+      )
+  }
+
+  const handleResetApplicationDate = async ev => {
+    ev.preventDefault()
+    try {
+      setApplicationDateBusy(true)
+      const newTransaction = await updateApplicationDate(
+        client,
+        transaction,
+        null
+      )
+      Alerter.success(
+        t('Transactions.infos.applicationDateChangedAlert', {
+          applicationDate: f(getDate(newTransaction), 'MMMM')
+        })
+      )
+    } finally {
+      setApplicationDateBusy(false)
+    }
+  }
+
+  const shouldShowRestoreApplicationDateIcon =
+    getApplicationDate(transaction) && !applicationDateBusy
 
   return (
     <div className={styles['Separated']}>
@@ -129,15 +247,42 @@ const TransactionModalInfo = props => {
             {
               label: t('Transactions.infos.originalBankLabel'),
               value: flag('originalBankLabel') && transaction.originalBankLabel
+            },
+            {
+              label: t('Transactions.infos.date'),
+              value: f(getDate(transaction), 'dddd D MMMM')
             }
           ].filter(x => x.value)}
         />
       </TransactionModalRow>
-      <TransactionModalRow iconLeft={iconCalendar}>
-        <span style={transactionModalRowStyle}>
-          {f(getDate(transaction), 'dddd DD MMMM')}
-        </span>
-      </TransactionModalRow>
+      <TransactionModalRowMedia onClick={handleShowApplicationEditor}>
+        <Img>
+          <Icon icon={iconCalendar} />
+        </Img>
+        <Bd>
+          {t('Transactions.infos.assignedToPeriod', {
+            date: f(
+              getApplicationDate(transaction) || getDate(transaction),
+              'MMM YYYY'
+            )
+          })}
+        </Bd>
+        {shouldShowRestoreApplicationDateIcon ? (
+          <Img>
+            <span
+              onClick={handleResetApplicationDate}
+              className="u-expanded-click-area"
+            >
+              <Icon color="var(--slateGrey)" icon="restore" />
+            </span>
+          </Img>
+        ) : null}
+        {applicationDateBusy ? (
+          <Img>
+            <Spinner />
+          </Img>
+        ) : null}
+      </TransactionModalRowMedia>
       <TransactionModalRow
         iconLeft={iconGraph}
         iconRight={<CategoryIcon categoryId={categoryId} />}
@@ -153,48 +298,46 @@ const TransactionModalInfo = props => {
       />
     </div>
   )
-}
+})
 
-const TransactionModalHeader = ({ transaction }) => (
-  <MainTitle className="u-ta-center">
-    <Figure
-      total={transaction.amount}
-      symbol={getCurrencySymbol(transaction.currency)}
-      signed
-    />
-  </MainTitle>
+const TransactionModalInfoHeader = withTransaction(({ transaction }) => (
+  <Figure
+    total={transaction.amount}
+    symbol={getCurrencySymbol(transaction.currency)}
+    signed
+  />
+))
+
+const TransactionModalInfo = withBreakpoints()(
+  ({ breakpoints: { isMobile }, ...props }) => (
+    <div>
+      <PageHeader dismissAction={props.requestClose}>
+        {isMobile ? <PageBackButton onClick={props.requestClose} /> : null}
+        <TransactionModalInfoHeader {...props} />
+      </PageHeader>
+      <TransactionModalInfoContent {...props} />
+    </div>
+  )
 )
 
 const TransactionModal = ({ requestClose, ...props }) => (
-  <PageModal
-    dismissAction={requestClose}
-    into="body"
-    title={<TransactionModalHeader transaction={props.transaction} />}
-  >
-    <TransactionModalInfo {...props} />
+  <PageModal dismissAction={requestClose} into="body">
+    <ModalStack>
+      <TransactionModalInfo {...props} requestClose={requestClose} />
+    </ModalStack>
   </PageModal>
 )
 
 TransactionModal.propTypes = {
-  showCategoryChoice: PropTypes.func.isRequired,
   requestClose: PropTypes.func.isRequired,
-  transactionId: PropTypes.string.isRequired,
-  transaction: PropTypes.object.isRequired
+  transactionId: PropTypes.string.isRequired
 }
-
-const withTransaction = withDocs(ownProps => ({
-  transaction: [TRANSACTION_DOCTYPE, ownProps.transactionId]
-}))
 
 const DumbTransactionModal = compose(
   translate(),
   withBreakpoints()
 )(TransactionModal)
 
-export default compose(
-  withDispatch,
-  withTransaction,
-  withUpdateCategory()
-)(DumbTransactionModal)
+export default DumbTransactionModal
 
 export { DumbTransactionModal }

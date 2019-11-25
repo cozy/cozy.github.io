@@ -1,11 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import compose from 'lodash/flowRight'
 
-import { translate } from 'cozy-ui/react'
-import { Media, Bd, Img } from 'cozy-ui/react/Media'
-import Text, { Caption } from 'cozy-ui/react/Text'
+import { translate, Media, Bd, Img, Icon, Text, Caption } from 'cozy-ui/react'
 import flag from 'cozy-flags'
 
 import { Figure } from 'components/Figure'
@@ -23,17 +21,16 @@ import { getCategoryName } from 'ducks/categories/categoriesMap'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { getCategoryId } from 'ducks/categories/helpers'
 import { withUpdateCategory } from 'ducks/categories'
-import { getLabel, getDate } from 'ducks/transactions/helpers'
+import {
+  getLabel,
+  getDate,
+  getApplicationDate
+} from 'ducks/transactions/helpers'
 import styles from 'ducks/transactions/Transactions.styl'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 import TransactionModal from 'ducks/transactions/TransactionModal'
 
-const useSwitch = initialState => {
-  const [state, setState] = useState(initialState)
-  const toggleOn = () => setState(true)
-  const toggleOff = () => setState(false)
-  return [state, toggleOn, toggleOff]
-}
+import useSwitch from 'hooks/useSwitch'
 
 const withSelection = Component => {
   const Wrapped = props => {
@@ -74,6 +71,29 @@ class _TransactionDate extends React.PureComponent {
     )
   }
 }
+
+const AccountCaption = React.memo(function AccountCaption({ account }) {
+  const accountInstitutionLabel = getAccountInstitutionLabel(account)
+  return (
+    <Caption className="u-ellipsis">
+      {getAccountLabel(account)}
+      {accountInstitutionLabel && ` - ${accountInstitutionLabel}`}
+    </Caption>
+  )
+})
+
+const ApplicationDateCaption = React.memo(function ApplicationDateCaption({
+  transaction,
+  f
+}) {
+  const applicationDate = getApplicationDate(transaction)
+  return (
+    <Caption>
+      <Icon size={10} icon="logout" /> {f(applicationDate, 'MMMM')}
+    </Caption>
+  )
+})
+
 const TransactionDate = translate()(_TransactionDate)
 
 class _RowDesktop extends React.PureComponent {
@@ -89,6 +109,7 @@ class _RowDesktop extends React.PureComponent {
   render() {
     const {
       t,
+      f,
       transaction,
       isExtraLarge,
       showCategoryChoice,
@@ -101,9 +122,9 @@ class _RowDesktop extends React.PureComponent {
     const categoryTitle = t(`Data.subcategories.${categoryName}`)
 
     const account = transaction.account.data
-    const accountInstitutionLabel = getAccountInstitutionLabel(account)
     const trRest = flag('show-transactions-ids') ? { id: transaction._id } : {}
 
+    const applicationDate = getApplicationDate(transaction)
     return (
       <tr ref={onRef} {...trRest} className="u-clickable">
         <td className={cx(styles.ColumnSizeDesc, 'u-pv-half', 'u-pl-1')}>
@@ -117,12 +138,10 @@ class _RowDesktop extends React.PureComponent {
             <Bd className="u-pl-1">
               <List.Content onClick={this.onSelectTransaction}>
                 <Text>{getLabel(transaction)}</Text>
-                {!filteringOnAccount && (
-                  <Caption className={styles['bnk-op-desc-caption']}>
-                    {getAccountLabel(account)}
-                    {accountInstitutionLabel && ` - ${accountInstitutionLabel}`}
-                  </Caption>
-                )}
+                {!filteringOnAccount && <AccountCaption account={account} />}
+                {applicationDate ? (
+                  <ApplicationDateCaption f={f} transaction={transaction} />
+                ) : null}
               </List.Content>
             </Bd>
           </Media>
@@ -164,9 +183,8 @@ export const RowDesktop = compose(
 
 class _RowMobile extends React.PureComponent {
   render() {
-    const { transaction, t, filteringOnAccount, onRef } = this.props
+    const { transaction, t, f, filteringOnAccount, onRef } = this.props
     const account = transaction.account.data
-    const accountInstitutionLabel = getAccountInstitutionLabel(account)
     const rowRest = {}
 
     if (flag('show-transactions-ids')) {
@@ -176,6 +194,8 @@ class _RowMobile extends React.PureComponent {
     if (flag('reimbursements.tag')) {
       rowRest.className = cx(styles.TransactionRowMobile)
     }
+
+    const applicationDate = getApplicationDate(transaction)
 
     return (
       <List.Row onRef={onRef} {...rowRest}>
@@ -194,14 +214,10 @@ class _RowMobile extends React.PureComponent {
           <Bd className="u-clickable u-mr-half">
             <List.Content onClick={this.handleSelect}>
               <Text className="u-ellipsis">{getLabel(transaction)}</Text>
-              {!filteringOnAccount && (
-                <Caption
-                  className={cx('u-ellipsis', styles['bnk-op-desc-caption'])}
-                >
-                  {getAccountLabel(account)}
-                  {accountInstitutionLabel && ` - ${accountInstitutionLabel}`}
-                </Caption>
-              )}
+              {!filteringOnAccount && <AccountCaption account={account} />}
+              {applicationDate ? (
+                <ApplicationDateCaption f={f} transaction={transaction} />
+              ) : null}
             </List.Content>
           </Bd>
           <Img onClick={this.handleSelect} className="u-clickable">

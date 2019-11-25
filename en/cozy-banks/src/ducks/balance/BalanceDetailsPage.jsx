@@ -11,7 +11,7 @@ import BarTheme from 'ducks/bar/BarTheme'
 import { getFilteringDoc } from 'ducks/filters'
 
 const getComponent = filteringDoc => {
-  if (filteringDoc._type === ACCOUNT_DOCTYPE) {
+  if (filteringDoc && filteringDoc._type === ACCOUNT_DOCTYPE) {
     const accountType = getAccountType(filteringDoc)
 
     if (accountType === 'Loan' && flag('loan-details-page')) {
@@ -21,7 +21,7 @@ const getComponent = filteringDoc => {
     } else {
       return TransactionsPageWithBackButton
     }
-  } else if (filteringDoc._type === GROUP_DOCTYPE) {
+  } else if (filteringDoc && filteringDoc._type === GROUP_DOCTYPE) {
     if (isLoanGroup(filteringDoc) && flag('loan-details-page')) {
       return LoanListPage
     } else if (isReimbursementsVirtualGroup(filteringDoc)) {

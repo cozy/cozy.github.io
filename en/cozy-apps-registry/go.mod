@@ -19,12 +19,12 @@ require (
 	github.com/labstack/echo/v4 v4.1.11
 	github.com/ncw/swift v1.0.49
 	github.com/otiai10/copy v1.0.2 // indirect
-	github.com/pbenner/threadpool v0.0.0-20180727071516-bb9baf9e6cb8
+	github.com/pbenner/threadpool v0.0.0-20191122191339-0302c226b91e
 	github.com/sirupsen/logrus v1.4.2
 	github.com/spf13/cobra v0.0.5
 	github.com/spf13/viper v1.5.0
 	github.com/stretchr/testify v1.4.0
 	gitlab.com/flimzy/testy v0.0.0-20190816103046-aca1ef5ffe7e // indirect
-	golang.org/x/crypto v0.0.0-20191117063200-497ca9f6d64f
+	golang.org/x/crypto v0.0.0-20191122220453-ac88ee75c92c
 	golang.org/x/xerrors v0.0.0-20191011141410-1b5146add898 // indirect
 )

@@ -1,7 +1,7 @@
 import React from 'react'
 import { withBreakpoints } from 'cozy-ui/react'
-import PageModalMobile from 'components/PageModal/PageModalMobile'
-import PageModalDesktop from 'components/PageModal/PageModalDesktop'
+import Page from 'components/PageModal/Page'
+import { Modal } from 'cozy-ui/transpiled/react'
 
 /**
  * This component renders a `Modal` on tablet and desktop viewports, and a
@@ -17,7 +17,7 @@ export const DumbPageModal = props => {
     ...rest
   } = props
 
-  const Component = isMobile ? PageModalMobile : PageModalDesktop
+  const Component = isMobile ? Page : Modal
 
   return <Component {...rest} />
 }

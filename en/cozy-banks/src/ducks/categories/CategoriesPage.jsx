@@ -26,6 +26,7 @@ import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import BarTheme from 'ducks/bar/BarTheme'
 import { getCategoriesData } from 'ducks/categories/selectors'
 import maxBy from 'lodash/maxBy'
+import { getDate } from 'ducks/transactions/helpers'
 
 const isCategoryDataEmpty = categoryData => {
   return categoryData[0] && isNaN(categoryData[0].percentage)
@@ -58,7 +59,7 @@ class CategoriesPage extends Component {
     if (isCategoryDataEmpty(this.props.categories)) {
       const transactions = this.props.filteredTransactionsByAccount
       if (transactions && transactions.length > 0) {
-        const maxDate = maxBy(transactions, tr => tr.date).date
+        const maxDate = getDate(maxBy(transactions, getDate))
         this.props.addFilterByPeriod(maxDate.slice(0, 7))
       }
     }
@@ -161,9 +162,9 @@ const mapDispatchToProps = dispatch => ({
   addFilterByPeriod: period => dispatch(addFilterByPeriod(period))
 })
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    categories: getCategoriesData(state),
+    categories: getCategoriesData(state, ownProps),
     filteringDoc: getFilteringDoc(state),
     filteredTransactionsByAccount: getTransactionsFilteredByAccount(state)
   }

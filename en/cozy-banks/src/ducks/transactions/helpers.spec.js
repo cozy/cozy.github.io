@@ -9,11 +9,14 @@ import {
   isReimbursementLate,
   hasReimbursements,
   hasBills,
-  isAlreadyNotified
+  isAlreadyNotified,
+  updateApplicationDate,
+  getApplicationDate
 } from './helpers'
 import { BILLS_DOCTYPE } from 'doctypes'
 import MockDate from 'mockdate'
 import flag from 'cozy-flags'
+import CozyClient from 'cozy-client'
 
 const fakeCozyClient = {
   attachStore: () => {},
@@ -334,5 +337,44 @@ describe('isAlreadyNotified', () => {
     expect(isAlreadyNotified(t2, notificationClass)).toBe(false)
     expect(isAlreadyNotified(t3, notificationClass)).toBe(false)
     expect(isAlreadyNotified(t4, notificationClass)).toBe(false)
+  })
+})
+
+describe('updateApplicationDate', () => {
+  const setup = () => {
+    const client = new CozyClient({})
+    jest.spyOn(client, 'save').mockImplementation(doc => ({ data: doc }))
+    return { client }
+  }
+
+  it('should save the document', async () => {
+    const { client } = setup()
+    const doc = await updateApplicationDate(
+      client,
+      {
+        date: '2019-08-07T12:00'
+      },
+      '2019-09-01'
+    )
+    expect(client.save).toHaveBeenCalledWith({
+      date: '2019-08-07T12:00',
+      applicationDate: '2019-09-01'
+    })
+    expect(getApplicationDate(doc)).toBe('2019-09-01')
+  })
+
+  it('should reset the applicationDate if changed to same month as display date', async () => {
+    const { client } = setup()
+    await updateApplicationDate(
+      client,
+      {
+        date: '2019-09-07T12:00'
+      },
+      '2019-09-01'
+    )
+    expect(client.save).toHaveBeenCalledWith({
+      date: '2019-09-07T12:00',
+      applicationDate: null
+    })
   })
 })

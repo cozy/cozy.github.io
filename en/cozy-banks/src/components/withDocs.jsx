@@ -1,6 +1,5 @@
 import { withClient } from 'cozy-client'
 import { connect } from 'react-redux'
-import { getDocumentFromState } from 'cozy-client/dist/store'
 import mapValues from 'lodash/mapValues'
 import compose from 'lodash/flowRight'
 
@@ -16,10 +15,9 @@ const withDocs = propToDocs =>
     // have to import getDocumentFromState and react-redux's connect
     connect((state, ownProps) => {
       const docSpecs = propToDocs(ownProps)
+      const { client } = ownProps
       return mapValues(docSpecs, ([doctype, id]) =>
-        ownProps.client.hydrateDocument(
-          getDocumentFromState(state, doctype, id)
-        )
+        client.hydrateDocument(client.getDocumentFromState(doctype, id))
       )
     })
   )
