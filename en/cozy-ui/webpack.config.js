@@ -1,6 +1,6 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const webpack = require('webpack')
-const { isUsingDevStyleguidist } = require('./build-utils')
+const { isUsingDevStyleguidist } = require('../scripts/build-utils')
 
 module.exports = {
   resolve: {

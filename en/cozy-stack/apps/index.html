@@ -2294,6 +2294,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../contacts/" title="/contacts - Contacts" class="md-nav__link">
+      /contacts - Contacts
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../data-system/" title="/data - Data System" class="md-nav__link">
       /data - Data System
     </a>
@@ -3200,9 +3212,9 @@ filename for this file: <code>manifest.webapp</code>.</p>
 </table>
 <h3 id="routes">Routes<a class="headerlink" href="#routes" title="Permanent link">&para;</a></h3>
 <p>A route make the mapping between the requested paths and the files. It can have
-an index, which is an HTML file, with a token injected on it that identify both
-the application. This token must be used with the user cookies to use the
-services of the cozy-stack.</p>
+an index, which is an HTML file, with a token injected on it that identify the
+application. This token must be used with the user cookies to use the services
+of the cozy-stack (except in the cases of a shared by link page).</p>
 <p>By default, a route can be only visited by the authenticated owner of the
 instance where the app is installed. But a route can be marked as public. In
 that case, anybody can visit the route.</p>
@@ -3220,7 +3232,7 @@ public page on <code>/public</code>, and shared assets in <code>/assets</code>:<
         <span class="nt">&quot;public&quot;</span><span class="p">:</span> <span class="kc">true</span>
     <span class="p">},</span>
     <span class="nt">&quot;/assets&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;folder&quot;</span><span class="p">:</span> <span class="s2">&quot;/assets&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;folder&quot;</span><span class="p">:</span> <span class="s2">&quot;/public-assets&quot;</span><span class="p">,</span>
         <span class="nt">&quot;public&quot;</span><span class="p">:</span> <span class="kc">true</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -3242,6 +3254,14 @@ route, this default one:</p>
 <p><strong>Note</strong>: if you have a public route, it&rsquo;s probably better to put the app icon
 in it. So, the cozy-bar can display it for the users that go on the public part
 of the app.</p>
+<p>When the stack receives a request, it chooses the more specific route that
+matches, then it looks inside the associated folder to find the file, and send
+it. If the route is an exact match, the file will be the index, and it will be
+interpreted as a template, cf <a href="https://docs.cozy.io/en/cozy-stack/client-app-dev/#good-practices-for-your-application">the list of
+variables</a>.</p>
+<p>For example, with the previous routes, a request to <code>/admin</code> will use the file
+<code>/admin.html</code> as a template for the response. And a request to
+<code>/assets/css/theme.css</code> will use the file <code>/public-assets/css/theme.css</code>.</p>
 <h3 id="services">Services<a class="headerlink" href="#services" title="Permanent link">&para;</a></h3>
 <p>Application may require background and offline process to analyse the user&rsquo;s
 data and emit some notification or warning even without the user being on the

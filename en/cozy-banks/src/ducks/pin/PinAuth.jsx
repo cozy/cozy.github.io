@@ -25,7 +25,7 @@ import fingerprint from 'assets/icons/icon-fingerprint.svg'
 const AttemptCount_ = ({ t, current, max }) => {
   return (
     <div className={styles['Pin__error']}>
-      {/* Have an unbreakspace so that the error when appearing does not // make
+      {/* Have an unbreakable space so that the error, when it appears, does not make
       the previous content jump */}
       {current > 0 ? t('Pin.attempt-count', { current, max }) : '\u00a0'}
     </div>
@@ -68,11 +68,6 @@ const FingerprintParagraph = ({ t, onSuccess, onError, onCancel }) => (
  * - It automatically confirms when entered password's length is <props.maxLength>
  */
 class PinAuth extends React.Component {
-  static contextTypes = {
-    store: PropTypes.object.isRequired,
-    client: PropTypes.object.isRequired
-  }
-
   constructor(props) {
     super(props)
     this.handleFingerprintSuccess = this.handleFingerprintSuccess.bind(this)
@@ -117,9 +112,10 @@ class PinAuth extends React.Component {
     this.logout()
   }
 
-  logout() {
+  async logout() {
     const { client } = this.props
-    client.logout()
+    await client.logout()
+    window.location.reload()
   }
 
   handleEnteredPin(pinValue) {

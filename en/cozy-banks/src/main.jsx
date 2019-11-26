@@ -26,6 +26,7 @@ import { checkToRefreshToken } from 'utils/token'
 import Alerter from 'cozy-ui/react/Alerter'
 import flag from 'cozy-flags'
 import { makeItShine } from 'utils/display.debug'
+import PinPlugin from 'ducks/pin/plugin'
 
 const D3_LOCALES_MAP = {
   fr: require('d3-time-format/locale/fr-FR.json'),
@@ -66,6 +67,7 @@ const setupApp = async persistedState => {
   client = await getClient(persistedState)
   store = configureStore(client, persistedState)
   client.registerPlugin(CleanupStoreClientPlugin, { store })
+  client.registerPlugin(PinPlugin)
   client.registerPlugin(StartupChecksPlugin, {
     launchTriggers: [
       {

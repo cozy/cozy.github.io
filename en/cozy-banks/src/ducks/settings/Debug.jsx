@@ -11,6 +11,7 @@ import { withClient } from 'cozy-client'
 import { isMobileApp } from 'cozy-device-helper'
 import cx from 'classnames'
 import { getNotificationToken } from 'ducks/client/utils'
+import { pinSettingStorage, lastInteractionStorage } from 'ducks/pin/storage'
 
 const Title = ({ className, ...props }) => (
   <UITitle {...props} className={cx(className, 'u-mb-1')} />
@@ -179,6 +180,15 @@ class DumbDebugSettings extends React.PureComponent {
         <div>
           <Title>Flags</Title>
           <FlagSwitcher.List />
+        </div>
+        <div>
+          <Title>Pin</Title>
+          Setting doc cache
+          <br />
+          <pre>{JSON.stringify(pinSettingStorage.load(), null, 2)}</pre>
+          Last interaction cache
+          <br />
+          <pre>{JSON.stringify(lastInteractionStorage.load(), null, 2)}</pre>
         </div>
         <Versions />
       </Stack>

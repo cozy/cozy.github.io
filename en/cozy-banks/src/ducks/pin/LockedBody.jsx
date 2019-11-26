@@ -8,6 +8,10 @@ const saveScroll = node => {
   }
 }
 
+/**
+ * While this component is mounted, it blocks the scroll on document.body
+ * When unmounted, it restores the scroll
+ */
 class LockedBody extends React.Component {
   componentDidMount() {
     this.restoreScroll = saveScroll(document.body)
