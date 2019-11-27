@@ -1,9 +1,15 @@
 import flag from 'cozy-flags'
-import { isExpense } from 'ducks/transactions/helpers'
+import {
+  getReimbursementStatus,
+  REIMBURSEMENTS_STATUS
+} from 'ducks/transactions/helpers'
 
 const match = transaction => {
-  // TODO match only if the component is going to render something
-  return isExpense(transaction) && flag('reimbursements.tag')
+  const status = getReimbursementStatus(transaction)
+  return (
+    status !== REIMBURSEMENTS_STATUS.noReimbursement &&
+    flag('reimbursements.tag')
+  )
 }
 
 export default match

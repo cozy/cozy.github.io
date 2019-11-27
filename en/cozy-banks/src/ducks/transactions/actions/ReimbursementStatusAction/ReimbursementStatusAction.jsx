@@ -4,7 +4,8 @@ import Chip from 'cozy-ui/react/Chip'
 import Alerter from 'cozy-ui/react/Alerter'
 import {
   getReimbursementStatus,
-  isReimbursementLate
+  isReimbursementLate,
+  REIMBURSEMENTS_STATUS
 } from 'ducks/transactions/helpers'
 import { TransactionModalRow } from 'ducks/transactions/TransactionModal'
 import ReimbursementStatusModal from 'ducks/transactions/actions/ReimbursementStatusAction/ReimbursementStatusModal'
@@ -61,7 +62,7 @@ export class DumbReimbursementStatusAction extends React.PureComponent {
     const status = getReimbursementStatus(transaction)
     const isLate = isReimbursementLate(transaction)
 
-    if (status === 'no-reimbursement') {
+    if (status === REIMBURSEMENTS_STATUS.noReimbursement) {
       return null
     }
 

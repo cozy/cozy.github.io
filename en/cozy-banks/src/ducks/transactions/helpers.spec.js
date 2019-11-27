@@ -11,7 +11,8 @@ import {
   hasBills,
   isAlreadyNotified,
   updateApplicationDate,
-  getApplicationDate
+  getApplicationDate,
+  REIMBURSEMENTS_STATUS
 } from './helpers'
 import { BILLS_DOCTYPE } from 'doctypes'
 import MockDate from 'mockdate'
@@ -167,8 +168,8 @@ describe('getReimbursementStatus', () => {
         }
       }
 
-      expect(getReimbursementStatus(t1)).toBe('pending')
-      expect(getReimbursementStatus(t2)).toBe('pending')
+      expect(getReimbursementStatus(t1)).toBe(REIMBURSEMENTS_STATUS.pending)
+      expect(getReimbursementStatus(t2)).toBe(REIMBURSEMENTS_STATUS.pending)
     })
 
     it('should return `reimbursed` if the status is undefined and the transaction is fully reimbursed', () => {
@@ -180,7 +181,9 @@ describe('getReimbursementStatus', () => {
         }
       }
 
-      expect(getReimbursementStatus(transaction)).toBe('reimbursed')
+      expect(getReimbursementStatus(transaction)).toBe(
+        REIMBURSEMENTS_STATUS.reimbursed
+      )
     })
   })
 })

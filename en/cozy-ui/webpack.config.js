@@ -47,10 +47,5 @@ module.exports = {
   },
   plugins: [
     isUsingDevStyleguidist() ? null : new MiniCssExtractPlugin('[name].css'),
-    new webpack.DefinePlugin({
-      'process.env': {
-        USE_REACT: 'true'
-      }
-    })
   ].filter(Boolean)
 }

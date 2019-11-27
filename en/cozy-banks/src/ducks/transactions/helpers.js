@@ -109,6 +109,13 @@ export const hasReimbursements = transaction => {
   return reimbursements.length > 0
 }
 
+export const REIMBURSEMENTS_STATUS = {
+  noReimbursement: 'no-reimbursement',
+  pending: 'pending',
+  reimbursed: 'reimbursed',
+  late: 'late'
+}
+
 export const getBills = transaction => {
   const allBills = get(transaction, 'bills.data', [])
 
@@ -168,7 +175,9 @@ export const getHealthExpenseReimbursementStatus = transaction => {
     return transaction.reimbursementStatus
   }
 
-  return isFullyReimbursed(transaction) ? 'reimbursed' : 'pending'
+  return isFullyReimbursed(transaction)
+    ? REIMBURSEMENTS_STATUS.reimbursed
+    : REIMBURSEMENTS_STATUS.pending
 }
 
 export const isReimbursementLate = transaction => {
@@ -178,7 +187,7 @@ export const isReimbursementLate = transaction => {
 
   const status = getReimbursementStatus(transaction)
 
-  if (status !== 'pending') {
+  if (status !== REIMBURSEMENTS_STATUS.pending) {
     return false
   }
 
@@ -192,7 +201,7 @@ export const isReimbursementLate = transaction => {
 }
 
 export const hasPendingReimbursement = transaction => {
-  return getReimbursementStatus(transaction) === 'pending'
+  return getReimbursementStatus(transaction) === REIMBURSEMENTS_STATUS.pending
 }
 
 export const isAlreadyNotified = (transaction, notificationClass) => {
