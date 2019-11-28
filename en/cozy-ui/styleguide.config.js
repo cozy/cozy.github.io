@@ -41,7 +41,8 @@ module.exports = {
         '../react/Textarea/index.jsx',
         '../react/Toggle/index.jsx',
         '../react/FileInput/index.jsx',
-        '../react/DateMonthPicker/index.jsx'
+        '../react/DateMonthPicker/index.jsx',
+        '../react/NestedSelect/NestedSelect.jsx'
       ]
     },
     {
