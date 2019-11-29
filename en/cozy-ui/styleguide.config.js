@@ -137,6 +137,14 @@ module.exports = {
     {
       name: 'Files',
       components: () => ['../react/HistoryRow']
+    },
+    {
+      name: 'Contacts',
+      components: () => [
+        '../react/ContactsList',
+        '../react/ContactsListModal',
+        '../react/ContactPicker'
+      ]
     }
   ],
   components: '../react/**/*.jsx',

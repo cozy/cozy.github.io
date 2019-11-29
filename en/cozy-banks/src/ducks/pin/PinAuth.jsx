@@ -34,7 +34,7 @@ const AttemptCount_ = ({ t, current, max }) => {
 
 const AttemptCount = translate()(AttemptCount_)
 
-const FingerprintParagraph = ({ t, onSuccess, onError, onCancel }) => (
+const DumbFingerprintParagraph = ({ t, onSuccess, onError, onCancel }) => (
   <WithFingerprint
     autoLaunch
     onSuccess={onSuccess}
@@ -48,8 +48,8 @@ const FingerprintParagraph = ({ t, onSuccess, onError, onCancel }) => (
           onClick={promptFinger}
           className={styles['Pin__FingerprintText'] + ' u-mv-half'}
         >
-          <Img className="u-pb-1-half">
-            <Icon size="4.5rem" icon={fingerprint} />
+          <Img className="u-pr-half">
+            <Icon size="2rem" icon={fingerprint} />
           </Img>
           <Bd>
             <p>{t('Pin.fingerprint-text')}</p>
@@ -59,6 +59,8 @@ const FingerprintParagraph = ({ t, onSuccess, onError, onCancel }) => (
     }}
   </WithFingerprint>
 )
+
+const FingerprintParagraph = translate()(DumbFingerprintParagraph)
 
 /**
  * Show pin keyboard and fingerprint button.
@@ -227,15 +229,16 @@ class PinAuth extends React.Component {
   }
 }
 
-export default compose(
+export const DumbPinAuth = compose(
   withBreakpoints({
     largeEnough: [375] // iPhone 6+
   }),
   withClient,
   connect(),
   translate(),
-  withRouter,
-  queryConnect({
-    pinSetting
-  })
+  withRouter
 )(PinAuth)
+
+export default queryConnect({
+  pinSetting
+})(DumbPinAuth)

@@ -3725,7 +3725,14 @@ passcode should have been sent to the user to authenticate on the second step.</
 <p>List the activated capabilities for this instance. An unadvertised capability
 should be considered <code>false</code> and, for backward compatibility, if you can&rsquo;t get a
 valid response from this endpoint (in particular in case of a <code>404 Not found</code>
-error), all capabilities should be considered <code>false</code>.</p>
+error), all capabilities should be considered <code>false</code>. The current capabilities
+are:</p>
+<ul>
+<li><code>file_versioning</code> is true when the VFS can create
+  <a href="https://docs.cozy.io/en/cozy-stack/files/#versions">old versions</a> of a file</li>
+<li><code>flat_subdomains</code> is true when the stack is configured to use flat subdomains
+  (not nested).</li>
+</ul>
 <h4 id="request_5">Request<a class="headerlink" href="#request_5" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/settings/capabilities</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
@@ -3739,7 +3746,11 @@ error), all capabilities should be considered <code>false</code>.</p>
         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.settings&quot;</span><span class="p">,</span>
         <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.settings.capabilities&quot;</span><span class="p">,</span>
         <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;file_versioning&quot;</span><span class="p">:</span> <span class="kc">true</span>
+            <span class="nt">&quot;file_versioning&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nt">&quot;flat_subdomains&quot;</span><span class="p">:</span> <span class="kc">false</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/settings/capabilities&quot;</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>

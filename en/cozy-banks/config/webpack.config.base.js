@@ -120,6 +120,9 @@ module.exports = {
       /date-fns[/\\]locale$/,
       /(en|fr)\/index\.js/
     ),
+    new webpack.IgnorePlugin({
+      resourceRegExp: /preact-portal/
+    }),
     new DuplicatePackageCheckerPlugin({ verbose: true })
   ]
 }

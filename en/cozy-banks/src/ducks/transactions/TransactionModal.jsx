@@ -16,7 +16,8 @@ import {
   translate,
   withBreakpoints,
   Alerter,
-  useViewStack
+  useViewStack,
+  ModalContent
 } from 'cozy-ui/react'
 
 import ModalStack from 'components/ModalStack'
@@ -122,17 +123,19 @@ const TransactionCategoryEditorSlide = withBreakpoints()(
       breakpoints: { isMobile }
     } = props
     return (
-      <div>
+      <>
         <PageHeader dismissAction={stackPop}>
           {isMobile ? <PageBackButton onClick={stackPop} /> : null}
           {props.t('Categories.choice.title')}
         </PageHeader>
-        <TransactionCategoryEditor
-          beforeUpdate={stackPop}
-          onCancel={stackPop}
-          transaction={props.transaction}
-        />
-      </div>
+        <ModalContent className="u-p-0">
+          <TransactionCategoryEditor
+            beforeUpdate={stackPop}
+            onCancel={stackPop}
+            transaction={props.transaction}
+          />
+        </ModalContent>
+      </>
     )
   })
 )

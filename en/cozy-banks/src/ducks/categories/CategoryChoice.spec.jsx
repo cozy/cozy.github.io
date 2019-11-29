@@ -1,19 +1,19 @@
-import React from 'react'
-import { mount } from 'enzyme'
-import CategoryChoice, { getCategoriesOptions } from './CategoryChoice'
-import Row from 'components/Row'
-import { ChooseButton } from 'components/MultiSelect'
-import { TestI18n } from 'test/AppLike'
-
-const isSelectedRow = n => n.type() == Row && n.props().isSelected
-
-const findSelectedRow = root => {
-  return root.findWhere(isSelectedRow)
-}
+import { isSelected, getCategoriesOptions } from './CategoryChoice'
 
 // Dressing category is under the Daily life parent category
 const DAILY_LIFE_CATEGORY_ID = '400100'
 const DRESSING_CATEGORY_ID = '400130'
+
+const dailyLifeOption = {
+  id: DAILY_LIFE_CATEGORY_ID,
+  name: 'dailyLife',
+  children: []
+}
+
+const dressingOption = {
+  id: DRESSING_CATEGORY_ID,
+  name: 'dressing'
+}
 
 describe('getCategoriesOptions', () => {
   it('should work', () => {
@@ -24,66 +24,26 @@ describe('getCategoriesOptions', () => {
   })
 })
 
-describe('CategoryChoice', () => {
-  const setup = ({ categoryId, canSelectParent }) => {
-    const root = mount(
-      <TestI18n>
-        <CategoryChoice
-          canSelectParent={canSelectParent}
-          categoryId={categoryId}
-          onSelect={jest.fn()}
-          onCancel={jest.fn()}
-        />
-      </TestI18n>
-    )
-    return { root }
-  }
-
-  describe('when selecting a normal category', () => {
-    it('should show only one selected item', () => {
-      const { root } = setup({ categoryId: DRESSING_CATEGORY_ID })
-      const selectedRow = findSelectedRow(root)
-      expect(selectedRow.length).toBe(1)
-      expect(selectedRow.text()).toBe('Everyday life')
-      selectedRow.simulate('click')
-
-      const selectedRow2 = findSelectedRow(root)
-      expect(selectedRow2.length).toBe(1)
-      expect(selectedRow2.text()).toBe('Dressing')
-    })
+describe('is selected logic', () => {
+  it('should mark a category as selected if one of its children is selected', () => {
+    expect(isSelected(dailyLifeOption, dressingOption, 0)).toBe(true)
   })
 
-  describe('when selecting a "others" category', () => {
-    it('should show only one selected item', () => {
-      const { root } = setup({ categoryId: DAILY_LIFE_CATEGORY_ID })
-      const selectedRow = findSelectedRow(root)
-      expect(selectedRow.length).toBe(1)
-      expect(selectedRow.text()).toBe('Everyday life')
-      selectedRow.simulate('click')
-
-      const selectedRow2 = findSelectedRow(root)
-      expect(selectedRow2.length).toBe(1)
-      expect(selectedRow2.text()).toBe('Others : Everyday life')
-    })
+  it('should mark a category as selected if it is selected', () => {
+    expect(isSelected(dailyLifeOption, dailyLifeOption, 1)).toBe(true)
   })
 
-  describe('when allowing parent to be selected', () => {
-    it('should show a ChooseButton', () => {
-      const { root } = setup({
-        categoryId: DRESSING_CATEGORY_ID,
-        canSelectParent: true
-      })
-      const selectedRow = findSelectedRow(root)
-      expect(selectedRow.length).toBe(1)
-
-      const chooseBtn = selectedRow.find(ChooseButton)
-      expect(chooseBtn.length).toBe(1)
-      chooseBtn.props().onClick()
-      expect(root.find(CategoryChoice).props().onSelect).toHaveBeenCalledWith(
-        expect.objectContaining({
+  it('should not mark a category as selected if they are not related', () => {
+    expect(
+      isSelected(
+        {
           id: DAILY_LIFE_CATEGORY_ID
-        })
+        },
+        {
+          id: 1337
+        },
+        0
       )
-    })
+    ).toBe(false)
   })
 })

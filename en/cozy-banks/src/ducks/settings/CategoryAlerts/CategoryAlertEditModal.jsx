@@ -120,7 +120,7 @@ const CategoryAlertEditModal = translate()(
     const handleSelectCategory = category => {
       const updatedAlert = {
         ...alert,
-        categoryIsParent: !!category.children,
+        categoryIsParent: !!category.isParent,
         categoryId: category.id
       }
       setAlert(updatedAlert)
@@ -200,9 +200,9 @@ const CategoryAlertEditModal = translate()(
           <div>
             {choosingCategory ? (
               <CategoryChoice
-                modal={false}
                 canSelectParent={true}
                 categoryId={alert.categoryId}
+                categoryIsParent={alert.categoryIsParent}
                 onSelect={handleSelectCategory}
                 onCancel={handleSelectCategoryCancel}
               />

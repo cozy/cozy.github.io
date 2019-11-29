@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { translate } from 'cozy-ui/react'
-import PopupSelect from 'components/PopupSelect'
-import MultiSelect from 'components/MultiSelect'
+import { NestedSelect, NestedSelectModal, translate } from 'cozy-ui/react'
 import {
   getCategories,
   CategoryIcon,
@@ -33,6 +31,16 @@ export const getOptions = (categories, subcategory = false, t) => {
   })
 }
 
+export const isSelected = (toCheck, selected, level) => {
+  const selectedCategoryParentName = getParentCategory(selected.id)
+  const isSelectedParentCategory =
+    selectedCategoryParentName === toCheck.name && toCheck.children
+  const isSelectedCategory =
+    selected.id === toCheck.id &&
+    (toCheck.isParent ? selected.isParent : !selected.isParent)
+  return Boolean(level === 0 ? isSelectedParentCategory : isSelectedCategory)
+}
+
 export const getCategoriesOptions = t => getOptions(getCategories(), false, t)
 
 class CategoryChoice extends Component {
@@ -45,20 +53,25 @@ class CategoryChoice extends Component {
     }
   }
 
-  isSelected = (categoryOption, level) => {
-    const { categoryId: selectedCategoryId } = this.props
-    const selectedCategoryParentName = getParentCategory(selectedCategoryId)
-    const isSelectedParentCategory =
-      selectedCategoryParentName === categoryOption.name
-    const isSelectedCategory = selectedCategoryId === categoryOption.id
+  transformParentItem = item => {
+    const { t } = this.props
+    return {
+      ...item,
+      isParent: true,
+      title: t('Categories.choice.select-all')
+    }
+  }
 
-    return level === 0 ? isSelectedParentCategory : isSelectedCategory
+  isSelected = (categoryItem, level) => {
+    const { categoryId, categoryIsParent } = this.props
+    const selected = { id: categoryId, isParent: categoryIsParent }
+    return isSelected(categoryItem, selected, level)
   }
 
   render() {
     const { t, onCancel, onSelect, modal, canSelectParent } = this.props
 
-    const Component = modal ? PopupSelect : MultiSelect
+    const Component = modal ? NestedSelectModal : NestedSelect
     return (
       <Component
         closeBtnClassName={styles.TransactionModalCross}
@@ -66,6 +79,7 @@ class CategoryChoice extends Component {
         options={this.options}
         isSelected={this.isSelected}
         canSelectParent={canSelectParent}
+        transformParentItem={this.transformParentItem}
         onSelect={subcategory => onSelect(subcategory)}
         onCancel={onCancel}
       />

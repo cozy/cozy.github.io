@@ -15,9 +15,6 @@ module.exports = {
     rules: []
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env.USE_REACT': 'true',
-    }),
     new webpack.LoaderOptionsPlugin({
       options: {
         stylus: {

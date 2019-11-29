@@ -1,6 +1,4 @@
-import configureStore from 'store/configureStore'
 import {
-  hydrateTransaction,
   getDate,
   getReimbursedAmount,
   isFullyReimbursed,
@@ -14,57 +12,66 @@ import {
   getApplicationDate,
   REIMBURSEMENTS_STATUS
 } from './helpers'
-import { BILLS_DOCTYPE } from 'doctypes'
+import { BILLS_DOCTYPE, TRANSACTION_DOCTYPE, schema } from 'doctypes'
 import MockDate from 'mockdate'
 import flag from 'cozy-flags'
 import CozyClient from 'cozy-client'
+import { createClientWithData } from 'test/client'
 
-const fakeCozyClient = {
-  attachStore: () => {},
-  createDocument: (doctype, doc) => {
-    doc._type = doctype
-    doc.id = doc._id
-    return Promise.resolve({ data: [doc] })
-  }
-}
-
-xdescribe('transaction', () => {
+describe('reimbursements', () => {
+  let client
   const healthId = '400610'
   const BILL_ID = '1234'
-  let store, transaction // , bill
-  beforeEach(() => {
-    transaction = {
+  const bills = [
+    {
+      _type: BILLS_DOCTYPE,
+      _id: `${BILL_ID}`
+    }
+  ]
+  const transactions = [
+    {
+      _type: TRANSACTION_DOCTYPE,
       automaticCategoryId: healthId,
       amount: -10,
       reimbursements: [{ billId: `${BILLS_DOCTYPE}:${BILL_ID}` }]
     }
-    // bill = { _id: BILL_ID, invoice: 'io.cozy.files:4567' }
-    store = configureStore(fakeCozyClient)
-    // store.dispatch(createDocument(BILLS_DOCTYPE, bill))
+  ]
+  const transaction = transactions[0]
+
+  const getFirstReimbursementBill = transaction =>
+    transaction.reimbursements.data[0].bill
+
+  beforeEach(() => {
+    client = createClientWithData({
+      queries: {
+        bills: {
+          doctype: BILLS_DOCTYPE,
+          data: bills
+        },
+        transactions: {
+          doctype: TRANSACTION_DOCTYPE,
+          data: transactions
+        }
+      },
+      clientOptions: {
+        schema
+      }
+    })
   })
 
-  describe('reimbursements', () => {
-    it('should be hydrated if transaction in health category', () => {
-      const transactions = [transaction].map(t =>
-        hydrateTransaction(store.getState(), t)
-      )
-      expect(transactions[0].reimbursements[0].bill).toBeTruthy()
-      expect(transactions[0].reimbursements[0].bill._id).toBe(BILL_ID)
-    })
+  it('should be hydrated if transaction in health category', () => {
+    const transactions = [transaction].map(transaction =>
+      client.hydrateDocument(transaction)
+    )
+    expect(getFirstReimbursementBill(transactions[0])).toBeTruthy()
+    expect(getFirstReimbursementBill(transactions[0])._id).toBe(BILL_ID)
+  })
 
-    it('should not be hydrated if transaction not in the health category', () => {
-      const transactions = [
-        { ...transaction, automaticCategoryId: '1000' }
-      ].map(t => hydrateTransaction(store.getState(), t))
-      expect(transactions[0].reimbursements[0].bill).toBe(undefined)
-    })
-
-    it('should not be hydrated if bill does not exist in store', () => {
-      const transactions = [
-        { ...transaction, reimbursements: [{ billId: undefined }] }
-      ].map(t => hydrateTransaction(store.getState(), t))
-      expect(transactions[0].reimbursements[0].bill).toBe(undefined)
-    })
+  it('should not be hydrated if bill does not exist in store', () => {
+    const transactions = [
+      { ...transaction, reimbursements: [{ billId: undefined }] }
+    ].map(transaction => client.hydrateDocument(transaction))
+    expect(getFirstReimbursementBill(transactions[0])).toBe(undefined)
   })
 })
 
