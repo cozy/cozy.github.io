@@ -37,7 +37,6 @@ import { updateApplicationDate } from 'ducks/transactions/helpers'
 import styles from 'ducks/transactions/TransactionModal.styl'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 
-import iconGraph from 'assets/icons/icon-graph.svg'
 import iconCredit from 'assets/icons/icon-credit.svg'
 import iconCalendar from 'assets/icons/icon-calendar.svg'
 import {
@@ -55,7 +54,7 @@ import withDocs from 'components/withDocs'
 
 const TransactionModalRowIcon = ({ icon }) =>
   icon ? (
-    <Img>
+    <Img className="u-ph-half">
       {Icon.isProperIcon(icon) ? <Icon icon={icon} width={16} /> : icon}
     </Img>
   ) : null
@@ -163,6 +162,8 @@ const TransactionApplicationDateEditorSlide = translate()(
   }
 )
 
+const RowArrow = () => <Icon icon="right" color="var(--coolGrey)" />
+
 /**
  * Show information of the transaction
  */
@@ -235,7 +236,7 @@ const TransactionModalInfoContent = withTransaction(props => {
 
   return (
     <div className={styles['Separated']}>
-      <TransactionModalRow iconLeft={typeIcon} align="top" className>
+      <TransactionModalRow iconLeft={typeIcon} align="top">
         <TransactionLabel label={getLabel(transaction)} />
         <TransactionInfos
           infos={[
@@ -259,9 +260,7 @@ const TransactionModalInfoContent = withTransaction(props => {
         />
       </TransactionModalRow>
       <TransactionModalRowMedia onClick={handleShowApplicationEditor}>
-        <Img>
-          <Icon icon={iconCalendar} />
-        </Img>
+        <TransactionModalRowIcon icon={iconCalendar} />
         <Bd>
           {t('Transactions.infos.assignedToPeriod', {
             date: f(
@@ -285,14 +284,23 @@ const TransactionModalInfoContent = withTransaction(props => {
             <Spinner />
           </Img>
         ) : null}
+        <Img>
+          <RowArrow />
+        </Img>
       </TransactionModalRowMedia>
-      <TransactionModalRow
-        iconLeft={iconGraph}
-        iconRight={<CategoryIcon categoryId={categoryId} />}
-        onClick={showCategoryChoice}
-      >
-        {t(`Data.subcategories.${getCategoryName(getCategoryId(transaction))}`)}
-      </TransactionModalRow>
+      <TransactionModalRowMedia onClick={showCategoryChoice}>
+        <Img>
+          <CategoryIcon categoryId={categoryId} />
+        </Img>
+        <Bd>
+          {t(
+            `Data.subcategories.${getCategoryName(getCategoryId(transaction))}`
+          )}
+        </Bd>
+        <Img>
+          <RowArrow />
+        </Img>
+      </TransactionModalRowMedia>
       <TransactionActions
         transaction={transaction}
         {...restProps}
