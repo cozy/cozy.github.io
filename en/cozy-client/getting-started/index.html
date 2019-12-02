@@ -2535,7 +2535,9 @@
 <p><code>npm install --save cozy-client</code>
 or
 <code>yarn add cozy-client</code></p>
-<p><code>CozyClient</code> is the master of your data: it manages data queries and their status </p>
+<p><code>CozyClient</code> is the master of your data: it manages data queries and their status.</p>
+<p>ℹ If you use Jest, you should also add a bit of configuration for imports to works properly,
+<a href="#different-entrypoints-for-nodebrowser">see at the end of this document</a>.</p>
 <h2 id="creating-a-client">Creating a client<a class="headerlink" href="#creating-a-client" title="Permanent link">&para;</a></h2>
 <div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">CozyClient</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 
@@ -2624,7 +2626,7 @@ or
 <h2 id="connecting-with-you-react-components">Connecting with you React components<a class="headerlink" href="#connecting-with-you-react-components" title="Permanent link">&para;</a></h2>
 <p>CozyClient comes with HOC and render props functions to connect to your data inside you own components. See the specific documentation for <a href="../react-integration/">React integration</a></p>
 <h2 id="different-entrypoints-for-nodebrowser">Different entrypoints for node/browser<a class="headerlink" href="#different-entrypoints-for-nodebrowser" title="Permanent link">&para;</a></h2>
-<p>cozy-client has different entry points for browser and node (the node version does export React components). It is implemented by using fields in <code>package.json</code>: </p>
+<p>cozy-client has different entry points for browser and node (the node version does not export React components). It is implemented by using fields in <code>package.json</code>: </p>
 <ul>
 <li><code>browser</code> field is the entrypoint for browsers</li>
 <li><code>main</code> field is for node</li>
