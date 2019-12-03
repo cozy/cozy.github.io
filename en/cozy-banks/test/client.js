@@ -54,6 +54,7 @@ export const createClientWithData = ({ queries, data, clientOptions }) => {
   })
 
   client.save = jest.fn()
+  client.stackClient.fetchJSON = jest.fn()
 
   return client
 }

@@ -15,7 +15,7 @@ import {
 import styles from 'ducks/balance/components/BalanceRow.styl'
 import tableStyles from 'ducks/balance/components/BalanceTable.styl'
 import { filterByDoc } from 'ducks/filters'
-import { getGroupBalance } from 'ducks/balance/helpers'
+import { getGroupBalance } from 'ducks/groups/helpers'
 import { getGroupLabel } from 'ducks/groups/helpers'
 
 const sameId = (filteringDoc, accountOrGroup) => {

@@ -1,6 +1,6 @@
 import logger from 'cozy-logger'
 import { updateSettings, fetchSettings } from 'ducks/settings/helpers'
-import { ACCOUNT_DOCTYPE, CONTACT_DOCTYPE } from 'doctypes'
+import { ACCOUNT_DOCTYPE } from 'doctypes'
 import get from 'lodash/get'
 import set from 'lodash/set'
 import mergeSets from 'utils/mergeSets'
@@ -9,11 +9,17 @@ import { addOwnerToAccount } from './helpers'
 const log = logger.namespace('link-myself-to-accounts')
 
 const fetchMyself = async client => {
-  const response = await client.query(
-    client.find(CONTACT_DOCTYPE, { me: true }).limitBy(1)
+  const response = await client.stackClient.fetchJSON(
+    'POST',
+    '/contacts/myself'
   )
 
-  const [myself] = response.data
+  const myself = response.data
+
+  // The stack responds with a document that has an `id` property,
+  // but no `_id`. We are accustomed to working with `_id`, so to avoid
+  // code like `_id || id`, we add the `_id` property to the document
+  myself._id = myself.id
 
   return myself
 }
@@ -35,10 +41,13 @@ export const linkMyselfToAccounts = async ({ client }) => {
     return
   }
 
-  const myself = await fetchMyself(client)
+  let myself
 
-  if (!myself) {
-    log('info', 'No myself contact found, bailing out.')
+  try {
+    myself = await fetchMyself(client)
+  } catch (err) {
+    log('error', 'Error while fetching myself contact')
+    log('error', err)
     return
   }
 
@@ -58,10 +67,13 @@ export const linkMyselfToAccounts = async ({ client }) => {
 }
 
 export const unlinkMyselfFromAccounts = async ({ client }) => {
-  const myself = await fetchMyself(client)
+  let myself
 
-  if (!myself) {
-    log('error', 'No myself, impossible to get its id to unlink it')
+  try {
+    myself = await fetchMyself(client)
+  } catch (err) {
+    log('error', 'Error while fetching myself contact')
+    log('error', err)
     return
   }
 

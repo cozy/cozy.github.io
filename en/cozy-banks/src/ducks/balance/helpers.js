@@ -147,26 +147,6 @@ export const balanceHistoryToChartData = history => {
   return data
 }
 
-/**
- * Returns a group balance (all its accounts balance sumed)
- * @param {Object} group
- * @param {string[]} accountsIdsToExclude - An array of accounts ids that should not be included in the sum
- * @returns {number}
- */
-export const getGroupBalance = (group, accountsIdsToExclude = []) => {
-  const accounts = get(group, 'accounts.data')
-
-  if (!accounts) {
-    return 0
-  }
-
-  const accountsToSum = accounts
-    .filter(Boolean)
-    .filter(account => !accountsIdsToExclude.includes(account._id))
-
-  return sumBy(accountsToSum, getAccountBalance)
-}
-
 export const getPanelsState = (groups, currentPanelsState) => {
   const switchesState = groups.reduce((acc, group) => {
     const groupChecked = get(

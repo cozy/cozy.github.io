@@ -19,7 +19,7 @@ import AccountsList from 'ducks/balance/components/AccountsList'
 import withFilters from 'components/withFilters'
 import Stack from 'cozy-ui/react/Stack'
 import Text from 'cozy-ui/react/Text'
-import { getGroupBalance } from 'ducks/balance/helpers'
+import { getGroupBalance } from 'ducks/groups/helpers'
 import styles from 'ducks/balance/components/GroupPanel.styl'
 
 const GroupPanelSummary = withStyles(() => ({

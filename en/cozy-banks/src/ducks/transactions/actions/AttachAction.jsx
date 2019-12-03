@@ -1,7 +1,7 @@
 import React from 'react'
 import { translate } from 'cozy-ui/react'
 import icon from 'assets/icons/actions/icon-link.svg'
-import { TransactionModalRow } from 'ducks/transactions/TransactionModal'
+import TransactionModalRow from 'ducks/transactions/TransactionModalRow'
 
 const name = 'attach'
 

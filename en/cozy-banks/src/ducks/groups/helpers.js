@@ -1,7 +1,7 @@
-import { groupBy, sortBy, deburr } from 'lodash'
+import { groupBy, sortBy, deburr, sumBy, get } from 'lodash'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { associateDocuments } from 'ducks/client/utils'
-import { getAccountType } from 'ducks/account/helpers'
+import { getAccountType, getAccountBalance } from 'ducks/account/helpers'
 import flag from 'cozy-flags'
 
 export const getGroupLabel = (group, t) => {
@@ -78,11 +78,36 @@ const getCategory = group => {
   }
 }
 
+/**
+ * If obj[name] is a function, invokes it with this binded to obj and with args
+ * Otherwise, returns obj[name]
+ *
+ * Similar to lodash's result but supports args
+ */
+const result = (obj, name, args) => {
+  const v = obj[name]
+  if (typeof v === 'function') {
+    return v.apply(obj, args)
+  } else {
+    return v
+  }
+}
+
 const groupSortingPriorities = {
   normal: 0,
   virtualOther: 1,
-  virtualReimbursements: 2
+  virtualReimbursements: group => {
+    const balance = getGroupBalance(group)
+    if (flag('demo') || flag('balance.reimbursements-top-position')) {
+      // Must be first if we have reimbursements waiting
+      return balance > 0 ? -1 : 2
+    } else {
+      return 2
+    }
+  }
 }
+const getGroupPriority = wrappedGroup =>
+  result(groupSortingPriorities, wrappedGroup.category, [wrappedGroup.group])
 
 /**
  * Translate groups labels then sort them on their translated label. But always put "others accounts" last
@@ -98,9 +123,9 @@ export const translateAndSortGroups = (groups, translate) => {
     label: getGroupLabel(group, translate)
   }))
 
-  return sortBy(wrappedGroups, ({ label, category }) => [
-    groupSortingPriorities[category],
-    deburr(label).toLowerCase()
+  return sortBy(wrappedGroups, wrappedGroup => [
+    getGroupPriority(wrappedGroup),
+    deburr(wrappedGroup.label).toLowerCase()
   ])
 }
 
@@ -131,4 +156,24 @@ export const isLoanGroup = group => {
   }
 
   return true
+}
+
+/**
+ * Returns a group balance (all its accounts balance sumed)
+ * @param {Object} group
+ * @param {string[]} excludedAccountIds - Account ids that should be exclude from the sum
+ * @returns {number}
+ */
+export const getGroupBalance = (group, excludedAccountIds = []) => {
+  const accounts = get(group, 'accounts.data')
+
+  if (!accounts) {
+    return 0
+  }
+
+  const accountsToSum = accounts
+    .filter(Boolean)
+    .filter(account => !excludedAccountIds.includes(account._id))
+
+  return sumBy(accountsToSum, getAccountBalance)
 }

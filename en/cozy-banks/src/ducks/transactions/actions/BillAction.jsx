@@ -7,16 +7,13 @@ import ButtonAction from 'cozy-ui/react/ButtonAction'
 import FileOpener from 'ducks/transactions/FileOpener'
 import icon from 'assets/icons/actions/icon-file.svg'
 import ActionLink from 'ducks/transactions/actions/ActionLink'
-import AugmentedModal from 'components/AugmentedModal'
 import flag from 'cozy-flags'
 import styles from 'ducks/transactions/TransactionActions.styl'
-import { TransactionModalRow } from 'ducks/transactions/TransactionModal'
+import TransactionModalRow from 'ducks/transactions/TransactionModalRow'
 import palette from 'cozy-ui/react/palette'
+import { AugmentedModalButton, isAugmentedModalTransaction } from 'ducks/demo'
 
 const name = 'bill'
-
-const isVentePrivee = transaction =>
-  transaction && transaction.label.indexOf('Vente-Privée') > -1
 
 const getBillInvoice = bill => {
   if (!bill.invoice) {
@@ -41,37 +38,6 @@ const getBill = (transaction, actionProps) => {
   }
 
   return get(transaction, 'bills.data[0]')
-}
-
-class AugmentedModalButton extends React.Component {
-  state = { opened: false }
-
-  open = event => {
-    event.stopPropagation()
-    this.setState({ opened: true })
-  }
-
-  close = event => {
-    event.stopPropagation()
-    this.setState({ opened: false })
-  }
-
-  render() {
-    const { fileId, text, compact } = this.props
-    return (
-      <ButtonAction
-        onClick={this.open}
-        label={text}
-        compact={compact}
-        rightIcon="file"
-        className={styles.TransactionActionButton}
-      >
-        {this.state.opened && (
-          <AugmentedModal fileId={fileId} onClose={this.close} />
-        )}
-      </ButtonAction>
-    )
-  }
 }
 
 const transactionModalRowStyle = { color: palette.dodgerBlue }
@@ -129,9 +95,14 @@ export class BillComponent extends Component {
 
     const text = actionProps.text || t('Transactions.actions.bill')
 
-    if (flag('demo') && isVentePrivee(transaction)) {
+    if (flag('demo') && isAugmentedModalTransaction(transaction)) {
       return (
-        <AugmentedModalButton compact={compact} fileId={fileId} text={text} />
+        <AugmentedModalButton
+          transaction={transaction}
+          compact={compact}
+          fileId={fileId}
+          text={text}
+        />
       )
     }
 

@@ -10,7 +10,7 @@ import { isHealthExpense } from 'ducks/categories/helpers'
 import { BillComponent } from './BillAction'
 import styles from 'ducks/transactions/TransactionActions.styl'
 import { flowRight as compose } from 'lodash'
-import { TransactionModalRow } from 'ducks/transactions/TransactionModal'
+import TransactionModalRow from 'ducks/transactions/TransactionModalRow'
 
 const name = 'HealthExpenseStatus'
 

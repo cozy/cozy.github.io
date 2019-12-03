@@ -27,6 +27,7 @@
     "test": "jest",
     "test:changes": "git diff --name-only master..HEAD | grep -E 'jsx?$' | xargs yarn test --bail --findRelatedTests",
     "test:e2e": "node test/e2e/onOperationOrBillCreate.js",
+    "check-fixtures": "node scripts/check-fixtures.js",
     "find-circular-dependencies": "madge -b src/ --webpack-config webpack.config.js -c --extensions js,jsx src/main.jsx",
     "posttest": "yarn find-circular-dependencies",
     "watch": "npm run watch:browser",

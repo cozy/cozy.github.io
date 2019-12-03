@@ -2,7 +2,8 @@ import {
   buildAutoGroups,
   getGroupLabel,
   translateAndSortGroups,
-  renamedGroup
+  renamedGroup,
+  getGroupBalance
 } from './helpers'
 import { associateDocuments } from 'ducks/client/utils'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
@@ -178,5 +179,42 @@ describe('when the given group does not have an accountType', () => {
     expect(renamedGroup(group, 'My super group')).toEqual({
       label: 'My super group'
     })
+  })
+})
+
+describe('getGroupBalance', () => {
+  it('should return 0 if no group is given', () => {
+    expect(getGroupBalance()).toBe(0)
+  })
+
+  it('should return 0 if the group has no account', () => {
+    expect(getGroupBalance({ accounts: null })).toBe(0)
+    expect(getGroupBalance({ accounts: { data: null } })).toBe(0)
+  })
+
+  it('should return the sum of all accounts balance', () => {
+    const accounts = [{ balance: 1000 }, { balance: -100 }, { balance: 8000 }]
+    const group = { accounts: { data: accounts } }
+
+    expect(getGroupBalance(group)).toBe(8900)
+  })
+
+  it('should not sum the excluded accounts balance', () => {
+    const accounts = [
+      { _id: 'a', balance: 1000 },
+      { _id: 'b', balance: -100 },
+      { _id: 'c', balance: 8000 }
+    ]
+
+    const group = { accounts: { data: accounts } }
+    const excludedAccounts = ['a', 'c']
+
+    expect(getGroupBalance(group, excludedAccounts)).toBe(-100)
+  })
+
+  it('should return 0 if the group has no account', () => {
+    const group = { accounts: { data: [] } }
+
+    expect(getGroupBalance(group)).toBe(0)
   })
 })

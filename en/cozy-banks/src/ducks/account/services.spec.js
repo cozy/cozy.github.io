@@ -36,10 +36,11 @@ describe('linkMyselfToAccounts', () => {
 
       const client = createClientWithData({
         data: {
-          [ACCOUNT_DOCTYPE]: accounts,
-          [CONTACT_DOCTYPE]: [myself]
+          [ACCOUNT_DOCTYPE]: accounts
         }
       })
+
+      client.stackClient.fetchJSON.mockResolvedValue({ data: myself })
 
       await linkMyselfToAccounts({ client })
 
@@ -47,7 +48,7 @@ describe('linkMyselfToAccounts', () => {
     })
   })
 
-  describe('when myself contact does not exist', () => {
+  describe('when myself contact fetching fails', () => {
     it('should bail out', async () => {
       const accounts = [
         { _id: 'a1' },
@@ -67,6 +68,8 @@ describe('linkMyselfToAccounts', () => {
         }
       })
 
+      client.stackClient.fetchJSON.mockRejectedValue()
+
       await linkMyselfToAccounts({ client })
 
       expect(accounts.every(isAccountLinkedToMyself)).toBe(false)
@@ -75,43 +78,42 @@ describe('linkMyselfToAccounts', () => {
 })
 
 describe('unlinkMyselfToAccounts', () => {
-  describe('when myself contact exists', () => {
-    it('should unlink myself contact from all accounts', async () => {
-      const myselfRel = { _id: myself._id, _type: CONTACT_DOCTYPE }
+  it('should unlink myself contact from all accounts', async () => {
+    const myselfRel = { _id: myself._id, _type: CONTACT_DOCTYPE }
 
-      const accounts = [
-        {
-          _id: 'a1',
-          relationships: {
-            owners: {
-              data: [myselfRel]
-            }
-          }
-        },
-        {
-          _id: 'a2',
-          relationships: {
-            owners: {
-              data: [myselfRel]
-            }
+    const accounts = [
+      {
+        _id: 'a1',
+        relationships: {
+          owners: {
+            data: [myselfRel]
           }
         }
-      ]
-
-      const client = createClientWithData({
-        data: {
-          [ACCOUNT_DOCTYPE]: accounts,
-          [CONTACT_DOCTYPE]: [myself]
+      },
+      {
+        _id: 'a2',
+        relationships: {
+          owners: {
+            data: [myselfRel]
+          }
         }
-      })
+      }
+    ]
 
-      await unlinkMyselfFromAccounts({ client })
-
-      expect(accounts.every(isAccountLinkedToMyself)).toBe(false)
+    const client = createClientWithData({
+      data: {
+        [ACCOUNT_DOCTYPE]: accounts
+      }
     })
+
+    client.stackClient.fetchJSON.mockResolvedValue({ data: myself })
+
+    await unlinkMyselfFromAccounts({ client })
+
+    expect(accounts.every(isAccountLinkedToMyself)).toBe(false)
   })
 
-  describe('when myself contact does not exist', () => {
+  describe('when myself contact fetching fails', () => {
     it('should bail out', async () => {
       const myselfRel = { _id: myself._id, _type: CONTACT_DOCTYPE }
 
@@ -139,6 +141,8 @@ describe('unlinkMyselfToAccounts', () => {
           [ACCOUNT_DOCTYPE]: accounts
         }
       })
+
+      client.stackClient.fetchJSON.mockRejectedValue()
 
       await unlinkMyselfFromAccounts({ client })
 

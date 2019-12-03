@@ -7,7 +7,7 @@ import Icon from 'cozy-ui/react/Icon'
 import flag from 'cozy-flags'
 import icon from 'assets/icons/actions/icon-link-out.svg'
 import styles from 'ducks/transactions/TransactionActions.styl'
-import { TransactionModalRow } from 'ducks/transactions/TransactionModal'
+import TransactionModalRow from 'ducks/transactions/TransactionModalRow'
 import palette from 'cozy-ui/react/palette'
 
 const name = 'app'

@@ -36,6 +36,11 @@ const CategoryAlertInfoSlide = ({
 }) => {
   const categoryName = getCategoryName(alert.categoryId)
 
+  const translatedCategoryName = t(
+    `Data.${
+      alert.categoryIsParent ? 'categories' : 'subcategories'
+    }.${categoryName}`
+  )
   return (
     <Stack spacing="xs">
       <div>
@@ -77,11 +82,13 @@ const CategoryAlertInfoSlide = ({
         <div>
           <ModalRow
             icon={<CategoryIcon categoryId={alert.categoryId} />}
-            label={t(
-              `Data.${
-                alert.categoryIsParent ? 'categories' : 'subcategories'
-              }.${categoryName}`
-            )}
+            label={
+              alert.categoryIsParent
+                ? t('Settings.budget-category-alerts.edit.all-category', {
+                    categoryName: translatedCategoryName
+                  })
+                : translatedCategoryName
+            }
             onClick={handleRequestChooseCategory}
             hasArrow={true}
           />

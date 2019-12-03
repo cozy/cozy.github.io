@@ -10,7 +10,6 @@ import cx from 'classnames'
 import {
   Icon,
   Spinner,
-  Media,
   Bd,
   Img,
   translate,
@@ -50,47 +49,13 @@ import { getDate, getApplicationDate } from 'ducks/transactions/helpers'
 import TransactionCategoryEditor from './TransactionCategoryEditor'
 import TransactionApplicationDateEditor from './TransactionApplicationDateEditor'
 
+import TransactionModalRow, {
+  TransactionModalRowIcon,
+  TransactionModalRowMedia,
+  RowArrow
+} from './TransactionModalRow'
+
 import withDocs from 'components/withDocs'
-
-const TransactionModalRowIcon = ({ icon }) =>
-  icon ? (
-    <Img className="u-ph-half">
-      {Icon.isProperIcon(icon) ? <Icon icon={icon} width={16} /> : icon}
-    </Img>
-  ) : null
-
-export const TransactionModalRowMedia = props => {
-  const { disabled, className, children, ...restProps } = props
-  return (
-    <Media
-      className={cx(
-        styles.TransactionModalRow,
-        'u-row-m',
-        {
-          [styles['TransactionModalRow-disabled']]: disabled,
-          'u-c-pointer': restProps.onClick
-        },
-        className
-      )}
-      {...restProps}
-    >
-      {children}
-    </Media>
-  )
-}
-
-export const TransactionModalRow = ({
-  children,
-  iconLeft,
-  iconRight,
-  ...props
-}) => (
-  <TransactionModalRowMedia {...props}>
-    <TransactionModalRowIcon icon={iconLeft} />
-    <Bd className="u-stack-xs">{children}</Bd>
-    {iconRight && <Img>{iconRight}</Img>}
-  </TransactionModalRowMedia>
-)
 
 const TransactionLabel = ({ label }) => (
   <div className={styles.TransactionLabel}>{label}</div>
@@ -161,8 +126,6 @@ const TransactionApplicationDateEditorSlide = translate()(
     )
   }
 )
-
-const RowArrow = () => <Icon icon="right" color="var(--coolGrey)" />
 
 /**
  * Show information of the transaction
@@ -332,7 +295,7 @@ const TransactionModalInfo = withBreakpoints()(
 )
 
 const TransactionModal = ({ requestClose, ...props }) => (
-  <PageModal dismissAction={requestClose} into="body">
+  <PageModal dismissAction={requestClose} into="body" overflowHidden>
     <ModalStack>
       <TransactionModalInfo {...props} requestClose={requestClose} />
     </ModalStack>
