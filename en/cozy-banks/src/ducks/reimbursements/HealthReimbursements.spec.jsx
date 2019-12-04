@@ -13,7 +13,7 @@ describe('HealthReimbursements', () => {
         fetchStatus="loading"
         triggers={{ fetchStatus: 'loaded' }}
         transactions={{ fetchStatus: 'loading' }}
-        filteredTransactions={[]}
+        groupedHealthExpenses={{}}
         addFilterByPeriod={jest.fn()}
       />
     )
@@ -27,7 +27,7 @@ describe('HealthReimbursements', () => {
         fetchStatus="loaded"
         triggers={{ fetchStatus: 'loading' }}
         transactions={{ fetchStatus: 'loading' }}
-        filteredTransactions={[]}
+        groupedHealthExpenses={{}}
         addFilterByPeriod={jest.fn()}
       />
     )
@@ -45,7 +45,9 @@ describe('HealthReimbursements', () => {
     const root = shallow(
       <DumbHealthReimbursements
         transactions={{ fetchStatus: 'loaded' }}
-        filteredTransactions={pending}
+        groupedHealthExpenses={{
+          pending
+        }}
         t={key => key}
         addFilterByPeriod={jest.fn()}
         brands={[]}
@@ -64,7 +66,9 @@ describe('HealthReimbursements', () => {
     const root = shallow(
       <DumbHealthReimbursements
         transactions={{ fetchStatus: 'loaded' }}
-        filteredTransactions={reimbursed}
+        groupedHealthExpenses={{
+          reimbursed
+        }}
         t={key => key}
         addFilterByPeriod={jest.fn()}
         brands={[]}
@@ -79,7 +83,7 @@ describe('HealthReimbursements', () => {
     const root = shallow(
       <DumbHealthReimbursements
         transactions={{ fetchStatus: 'loaded' }}
-        filteredTransactions={[]}
+        groupedHealthExpenses={{}}
         t={key => key}
         addFilterByPeriod={jest.fn()}
         brands={[]}

@@ -4,11 +4,15 @@ import logger from 'cozy-logger'
 
 const log = logger.namespace('settings.helpers')
 
+const allNotifications = [
+  'balanceLower',
+  'transactionGreater',
+  'healthBillLinked'
+]
+
 export const isNotificationEnabled = settings => {
-  return (
-    get(settings, 'notifications.balanceLower.enabled') ||
-    get(settings, 'notifications.transactionGreater.enabled') ||
-    get(settings, 'notifications.healthBillLinked.enabled')
+  return allNotifications.some(notificationName =>
+    get(settings, `notifications.${notificationName}.enabled`)
   )
 }
 
@@ -26,9 +30,29 @@ export const updateSettings = async (client, newSettings) => {
   await col.update(newSettings)
 }
 
+/**
+ * Make the difference between the pin setting doc and the doc where notifications
+ * are configured
+ */
+const isConfigurationSetting = settingDoc =>
+  settingDoc.notifications ||
+  settingDoc.autogroups ||
+  settingDoc.linkMyselfToAccounts ||
+  settingDoc.categoryBudgetAlerts ||
+  settingDoc.billsMatching ||
+  settingDoc.appSuggestions
+
 export const getDefaultedSettingsFromCollection = col => {
-  const settings = get(col, 'data[0]')
+  const settings = col && col.data && col.data.find(isConfigurationSetting)
   return getDefaultedSettings(settings)
+}
+
+export const getNotificationFromSettings = (settings, name) => {
+  if (!settings || settings.length === 0) {
+    return null
+  }
+  const configurationSettings = settings.find(isConfigurationSetting)
+  return get(configurationSettings, ['notifications', name])
 }
 
 export const fetchCategoryAlerts = async client => {

@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import compose from 'lodash/flowRight'
 import debounce from 'lodash/debounce'
+import cx from 'classnames'
 
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
@@ -198,7 +199,12 @@ class PinAuth extends React.Component {
     )
 
     return (
-      <PinWrapper className={success ? styles['PinWrapper--success'] : null}>
+      <PinWrapper
+        className={cx(
+          'u-fx-from-bottom',
+          success ? styles['PinWrapper--success'] : null
+        )}
+      >
         <PinKeyboard
           leftButton={
             this.props.leftButton || (

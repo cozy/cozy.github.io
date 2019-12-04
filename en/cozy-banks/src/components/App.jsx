@@ -58,7 +58,7 @@ export default compose(
   // in browsers
   flag('pin')
     ? pinGuarded({
-        timeout: flag('pin.debug') ? 10 * 1000 : null,
+        timeout: flag('pin.debug') ? 10 * 1000 : undefined,
         showTimeout: flag('pin.debug')
       })
     : x => x,

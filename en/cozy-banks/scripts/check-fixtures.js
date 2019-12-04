@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 const fs = require('fs')
 const path = require('path')
 const keyBy = require('lodash/keyBy')
@@ -19,7 +21,7 @@ const main = async () => {
       nErrors += 1
       console.warn(
         bill._id,
-        'Unkown vendor',
+        'Unknown vendor',
         bill.vendor,
         '. Check compatibility between brands.json and vendor.json (bill.vendor must map to brand.konnectorSlug)'
       )

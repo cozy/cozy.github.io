@@ -1,7 +1,10 @@
 import { mount } from 'enzyme'
 import React from 'react'
 import CozyClient from 'cozy-client'
-import { DumbPinGuard as PinGuard } from './PinGuard'
+import {
+  DumbPinGuard as PinGuard,
+  GREEN_BACKGROUND_EFFECT_DURATION
+} from './PinGuard'
 import AppLike from 'test/AppLike'
 import PinAuth from './PinAuth'
 import { pinSettingStorage, lastInteractionStorage } from './storage'
@@ -78,9 +81,27 @@ describe('PinGuard', () => {
       .find(PinAuth)
       .props()
       .onSuccess()
-    jest.runAllTimers()
+
+    root.update()
+    expect(pinAuthIsShown(root)).toBe(true)
+
+    jest.advanceTimersByTime(GREEN_BACKGROUND_EFFECT_DURATION)
     root.update()
     expect(pinAuthIsShown(root)).toBe(false)
+  })
+
+  it('should show PinAuth, eventually, after a success', () => {
+    const { root } = setup({ pinSetting: PIN_DOC })
+    jest.runAllTimers()
+    root.update()
+    expect(pinAuthIsShown(root)).toBe(true)
+    root
+      .find(PinAuth)
+      .props()
+      .onSuccess()
+    jest.runAllTimers()
+    root.update()
+    expect(pinAuthIsShown(root)).toBe(true)
   })
 
   it('should remember last interaction', () => {
@@ -118,6 +139,28 @@ describe('PinGuard', () => {
         pinSetting: { ...PIN_DOC, fetchStatus: 'loading' }
       })
       expect(pinAuthIsShown(root)).toBe(true)
+    })
+  })
+
+  describe('timeout management', () => {
+    it('should restart timeout after success', () => {
+      const { root } = setup({
+        pinSetting: { ...PIN_DOC, fetchStatus: 'loading' }
+      })
+      const instance = root.find(PinGuard).instance()
+      jest.spyOn(instance, 'restartTimeout')
+      instance.handlePinSuccess()
+      expect(instance.restartTimeout).toHaveBeenCalled()
+    })
+
+    it('should restart timeout after interaction', () => {
+      const { root } = setup({
+        pinSetting: { ...PIN_DOC, fetchStatus: 'loading' }
+      })
+      const instance = root.find(PinGuard).instance()
+      jest.spyOn(instance, 'restartTimeout')
+      instance.handleInteraction()
+      expect(instance.restartTimeout).toHaveBeenCalled()
     })
   })
 })

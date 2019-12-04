@@ -3,8 +3,9 @@ import React from 'react'
 import fixtures from 'test/fixtures/unit-tests'
 import Row from 'components/Row'
 import { TestI18n } from 'test/AppLike'
-
 import { DumbAccountGroupChoice as AccountGroupChoice } from './AccountGroupChoice'
+
+jest.mock('components/AccountIcon', () => () => null)
 
 const fakeCol = data => ({
   data,

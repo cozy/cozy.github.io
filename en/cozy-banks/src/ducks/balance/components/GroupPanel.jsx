@@ -3,6 +3,7 @@ import { flowRight as compose } from 'lodash'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { withRouter } from 'react-router'
+import { connect } from 'react-redux'
 
 import ExpansionPanel from 'cozy-ui/react/MuiCozyTheme/ExpansionPanel'
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
@@ -19,11 +20,16 @@ import AccountsList from 'ducks/balance/components/AccountsList'
 import withFilters from 'components/withFilters'
 import Stack from 'cozy-ui/react/Stack'
 import Text from 'cozy-ui/react/Text'
-import { getGroupBalance } from 'ducks/groups/helpers'
+import {
+  getGroupBalance,
+  isReimbursementsVirtualGroup
+} from 'ducks/groups/helpers'
 import styles from 'ducks/balance/components/GroupPanel.styl'
+import { getLateHealthExpenses } from 'ducks/reimbursements/selectors'
+import { getSettings } from 'ducks/settings/selectors'
+import { getNotificationFromSettings } from 'ducks/settings/helpers'
 
-const GroupPanelSummary = withStyles(() => ({
-  expanded: {},
+const GroupPanelSummary = withStyles({
   root: {
     maxHeight: '3.5rem',
     height: '3.5rem'
@@ -41,7 +47,7 @@ const GroupPanelSummary = withStyles(() => ({
       transform: 'translateY(-50%) rotate(0)'
     }
   }
-}))(ExpansionPanelSummary)
+})(ExpansionPanelSummary)
 
 const GroupPanelExpandIcon = React.memo(function GroupPanelExpandIcon() {
   return (
@@ -117,7 +123,8 @@ class GroupPanel extends React.PureComponent {
       checked,
       withBalance,
       t,
-      className
+      className,
+      groupPanelSummaryClasses
     } = this.props
 
     const nbAccounts = group.accounts.data.length
@@ -148,6 +155,7 @@ class GroupPanel extends React.PureComponent {
           className={cx({
             [styles['GroupPanelSummary--unchecked']]: !checked && isUncheckable
           })}
+          classes={groupPanelSummaryClasses}
         >
           <div className={styles.GroupPanelSummary__content}>
             <div
@@ -213,10 +221,33 @@ class GroupPanel extends React.PureComponent {
   }
 }
 
+export const getGroupPanelSummaryClasses = (group, state) => {
+  if (!isReimbursementsVirtualGroup(group)) {
+    return
+  }
+
+  const lateHealthExpenses = getLateHealthExpenses(state)
+  const hasLateHealthExpenses = lateHealthExpenses.length > 0
+  const settings = getSettings(state)
+  const lateHealthExpensesNotification = getNotificationFromSettings(
+    settings,
+    'lateHealthReimbursement'
+  )
+
+  if (hasLateHealthExpenses && lateHealthExpensesNotification.enabled) {
+    return {
+      content: styles['GroupPanelSummary--lateHealthReimbursements']
+    }
+  }
+}
+
 export const DumbGroupPanel = GroupPanel
 
 export default compose(
   withFilters,
   withRouter,
-  translate()
+  translate(),
+  connect((state, ownProps) => ({
+    groupPanelSummaryClasses: getGroupPanelSummaryClasses(ownProps.group, state)
+  }))
 )(GroupPanel)

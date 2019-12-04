@@ -7,6 +7,8 @@ import { queryConnect } from 'cozy-client'
 import { isCollectionLoading } from 'ducks/client/utils'
 import { lastInteractionStorage, pinSettingStorage } from './storage'
 
+export const GREEN_BACKGROUND_EFFECT_DURATION = 500
+
 /**
  * Wraps an App and display a Pin screen after a period
  * of inactivity (touch/click/resume events on document).
@@ -37,7 +39,7 @@ class PinGuard extends React.Component {
     document.addEventListener('click', this.handleInteraction)
     document.addEventListener('resume', this.handleResume)
     document.addEventListener('visibilitychange', this.handleResume)
-    this.resetTimeout()
+    this.restartTimeout()
   }
 
   componentWillUnmount() {
@@ -45,12 +47,12 @@ class PinGuard extends React.Component {
     document.removeEventListener('click', this.handleInteraction)
     document.removeEventListener('resume', this.handleResume)
     document.removeEventListener('visibilitychange', this.handleResume)
-    clearTimeout(this.timeout)
+    this.stopTimeout()
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.pinSetting.data !== prevProps.pinSetting.data) {
-      this.resetTimeout()
+      this.restartTimeout()
       pinSettingStorage.save(this.props.pinSetting.data)
     }
   }
@@ -90,22 +92,31 @@ class PinGuard extends React.Component {
     const now = Date.now()
     this.setState({ last: now })
     lastInteractionStorage.save(now)
-    this.resetTimeout()
+    this.restartTimeout()
   }
 
-  resetTimeout() {
-    clearTimeout(this.timeout)
+  startTimeout() {
     this.timeout = setTimeout(() => {
       this.showPin()
     }, this.props.timeout)
   }
 
+  stopTimeout() {
+    clearTimeout(this.timeout)
+  }
+
+  restartTimeout() {
+    this.stopTimeout()
+    this.startTimeout()
+  }
+
   handlePinSuccess() {
+    this.restartTimeout()
     // Delay a bit the success so that the user sees the success
     // effect
     setTimeout(() => {
       this.hidePin()
-    }, 500)
+    }, GREEN_BACKGROUND_EFFECT_DURATION)
   }
 
   render() {

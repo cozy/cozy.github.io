@@ -2,15 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { queryConnect } from 'cozy-client'
 import { transactionsConn } from 'doctypes'
-import { flowRight as compose, sumBy, groupBy } from 'lodash'
-import flag from 'cozy-flags'
+import { flowRight as compose, sumBy } from 'lodash'
 import cx from 'classnames'
-import { getHealthExpensesByPeriod } from 'ducks/filters'
 import { TransactionsWithSelection } from 'ducks/transactions/Transactions'
-import {
-  isFullyReimbursed,
-  getReimbursementStatus
-} from 'ducks/transactions/helpers'
 import { translate } from 'cozy-ui/react'
 import { Padded } from 'components/Spacing'
 import { Figure } from 'components/Figure'
@@ -24,6 +18,7 @@ import { getYear } from 'date-fns'
 import TransactionActionsProvider from 'ducks/transactions/TransactionActionsProvider'
 import withBrands from 'ducks/brandDictionary/withBrands'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
+import { getGroupedHealthExpensesByPeriod } from './selectors'
 
 const Caption = props => {
   const { className, ...rest } = props
@@ -36,19 +31,14 @@ export class DumbHealthReimbursements extends Component {
     this.props.addFilterByPeriod(getYear(new Date()).toString())
   }
 
-  getGroups() {
-    return groupBy(this.props.filteredTransactions, getReimbursementStatus)
-  }
-
   render() {
     const {
-      filteredTransactions,
+      groupedHealthExpenses,
       t,
       triggers,
       transactions,
       brands
     } = this.props
-    const reimbursementTagFlag = flag('reimbursements.tag')
 
     if (
       (isCollectionLoading(transactions) && !hasBeenLoaded(transactions)) ||
@@ -57,20 +47,10 @@ export class DumbHealthReimbursements extends Component {
       return <Loading />
     }
 
-    // This grouping logic should be extracted to a selector, so this is
-    // easily memoizable
-    const groupedTransactions = groupBy(
-      filteredTransactions,
-      reimbursementTagFlag ? getReimbursementStatus : isFullyReimbursed
-    )
-
-    const reimbursedTransactions = reimbursementTagFlag
-      ? groupedTransactions.reimbursed
-      : groupedTransactions.true
-
-    const pendingTransactions = reimbursementTagFlag
-      ? groupedTransactions.pending
-      : groupedTransactions.false
+    const {
+      reimbursed: reimbursedTransactions,
+      pending: pendingTransactions
+    } = groupedHealthExpenses
 
     const pendingAmount = sumBy(pendingTransactions, t => -t.amount)
 
@@ -92,7 +72,7 @@ export class DumbHealthReimbursements extends Component {
             </>
           }
         >
-          {pendingTransactions ? (
+          {pendingTransactions && pendingTransactions.length > 0 ? (
             <TransactionsWithSelection
               transactions={pendingTransactions}
               withScroll={false}
@@ -105,7 +85,7 @@ export class DumbHealthReimbursements extends Component {
           )}
         </Section>
         <Section title={t('Reimbursements.alreadyReimbursed')}>
-          {reimbursedTransactions ? (
+          {reimbursedTransactions && reimbursedTransactions.length > 0 ? (
             <TransactionsWithSelection
               transactions={reimbursedTransactions}
               withScroll={false}
@@ -129,7 +109,7 @@ export class DumbHealthReimbursements extends Component {
 
 function mapStateToProps(state) {
   return {
-    filteredTransactions: getHealthExpensesByPeriod(state)
+    groupedHealthExpenses: getGroupedHealthExpensesByPeriod(state)
   }
 }
 

@@ -66,7 +66,7 @@ export const buildAutoGroups = (accounts, options) => {
 const isOtherVirtualGroup = group => group.virtual && group.label === 'Other'
 
 export const isReimbursementsVirtualGroup = group =>
-  group.virtual && group._id === 'Reimbursements'
+  Boolean(group.virtual && group._id === 'Reimbursements')
 
 const getCategory = group => {
   if (isReimbursementsVirtualGroup(group)) {

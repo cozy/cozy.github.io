@@ -101,18 +101,7 @@ const setupApp = async persistedState => {
         Alerter.info('Token refreshed')
       }
     })
-    const openUniversalLink = (/*eventData*/) => {
-      /*
-      banks just need to be waked up by an universal link.
-      We currently do not manage any path
-    */
-    }
     document.addEventListener('deviceready', onStartOrResume)
-    document.addEventListener('deviceready', () => {
-      if (window.universalLinks) {
-        window.universalLinks.subscribe('openUniversalLink', openUniversalLink)
-      }
-    })
     document.addEventListener('resume', onStartOrResume)
   }
 

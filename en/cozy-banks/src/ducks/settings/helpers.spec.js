@@ -8,6 +8,9 @@ describe('defaulted settings', () => {
         return Promise.resolve({
           data: [
             {
+              pin: '1234'
+            },
+            {
               notifications: {
                 balanceLower: {
                   value: 600,
