@@ -3,18 +3,15 @@ import { connect } from 'react-redux'
 import {
   Button,
   Modal,
-  ModalContent,
   ModalFooter,
+  ModalContent,
   ModalButtons,
   translate,
   InputGroup,
-  Input,
-  Label,
-  Stack
+  Input
 } from 'cozy-ui/transpiled/react'
 
 import Stepper from 'components/Stepper'
-import Row from 'components/Row'
 import AccountIcon from 'components/AccountIcon'
 
 import { CategoryChoice, CategoryIcon, getCategoryName } from 'ducks/categories'
@@ -22,9 +19,8 @@ import AccountGroupChoice from 'ducks/settings/CategoryAlerts/AccountGroupChoice
 import AccountOrGroupLabel from 'ducks/settings/CategoryAlerts/AccountOrGroupLabel'
 import { getAccountsById } from 'selectors'
 
+import { ModalSections, ModalSection, ModalRow } from 'components/ModalSections'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
-
-const ModalRow = props => <Row className="u-ph-2" {...props} />
 
 const CategoryAlertInfoSlide = ({
   alert,
@@ -42,71 +38,62 @@ const CategoryAlertInfoSlide = ({
     }.${categoryName}`
   )
   return (
-    <Stack spacing="xs">
-      <div>
+    <ModalSections>
+      <ModalSection
+        label={t('Settings.budget-category-alerts.edit.account-group-label')}
+      >
+        <ModalRow
+          icon={
+            alert.accountOrGroup &&
+            alert.accountOrGroup._type === ACCOUNT_DOCTYPE &&
+            accountsById[alert.accountOrGroup._id] ? (
+              <AccountIcon
+                key={alert.accountOrGroup._id}
+                account={accountsById[alert.accountOrGroup._id]}
+              />
+            ) : null
+          }
+          label={
+            alert.accountOrGroup ? (
+              <AccountOrGroupLabel doc={alert.accountOrGroup} />
+            ) : (
+              t('AccountSwitch.all_accounts')
+            )
+          }
+          onClick={handleRequestChooseAccountOrGroup}
+          hasArrow={true}
+        />
+      </ModalSection>
+      <ModalSection
+        label={t('Settings.budget-category-alerts.edit.category-label')}
+      >
+        <ModalRow
+          icon={<CategoryIcon categoryId={alert.categoryId} />}
+          label={
+            alert.categoryIsParent
+              ? t('Settings.budget-category-alerts.edit.all-category', {
+                  categoryName: translatedCategoryName
+                })
+              : translatedCategoryName
+          }
+          onClick={handleRequestChooseCategory}
+          hasArrow={true}
+        />
+      </ModalSection>
+      <ModalSection
+        label={t('Settings.budget-category-alerts.edit.threshold-label')}
+      >
         <ModalContent>
-          <Label>
-            {t('Settings.budget-category-alerts.edit.account-group-label')}
-          </Label>
+          <InputGroup append={<InputGroup.Unit>€</InputGroup.Unit>}>
+            <Input
+              type="text"
+              onChange={handleChangeBalanceThreshold}
+              defaultValue={alert.maxThreshold}
+            />
+          </InputGroup>
         </ModalContent>
-        <div>
-          <ModalRow
-            icon={
-              alert.accountOrGroup &&
-              alert.accountOrGroup._type === ACCOUNT_DOCTYPE &&
-              accountsById[alert.accountOrGroup._id] ? (
-                <AccountIcon
-                  key={alert.accountOrGroup._id}
-                  account={accountsById[alert.accountOrGroup._id]}
-                />
-              ) : null
-            }
-            label={
-              alert.accountOrGroup ? (
-                <AccountOrGroupLabel doc={alert.accountOrGroup} />
-              ) : (
-                t('AccountSwitch.all_accounts')
-              )
-            }
-            onClick={handleRequestChooseAccountOrGroup}
-            hasArrow={true}
-          />
-        </div>
-      </div>
-      <div>
-        <ModalContent>
-          <Label>
-            {t('Settings.budget-category-alerts.edit.category-label')}
-          </Label>
-        </ModalContent>
-        <div>
-          <ModalRow
-            icon={<CategoryIcon categoryId={alert.categoryId} />}
-            label={
-              alert.categoryIsParent
-                ? t('Settings.budget-category-alerts.edit.all-category', {
-                    categoryName: translatedCategoryName
-                  })
-                : translatedCategoryName
-            }
-            onClick={handleRequestChooseCategory}
-            hasArrow={true}
-          />
-        </div>
-      </div>
-      <ModalContent>
-        <Label>
-          {t('Settings.budget-category-alerts.edit.threshold-label')}
-        </Label>
-        <InputGroup append={<InputGroup.Unit>€</InputGroup.Unit>}>
-          <Input
-            type="text"
-            onChange={handleChangeBalanceThreshold}
-            defaultValue={alert.maxThreshold}
-          />
-        </InputGroup>
-      </ModalContent>
-    </Stack>
+      </ModalSection>
+    </ModalSections>
   )
 }
 

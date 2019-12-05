@@ -14,9 +14,12 @@ import AddAccountLink from 'ducks/settings/AddAccountLink'
 import cx from 'classnames'
 import {
   getAccountInstitutionLabel,
-  getAccountType
+  getAccountType,
+  getAccountOwners
 } from 'ducks/account/helpers'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
+import { Contact } from 'cozy-doctypes'
+import flag from 'cozy-flags'
 
 import { accountsConn, APP_DOCTYPE } from 'doctypes'
 
@@ -46,9 +49,18 @@ const _AccountLine = ({ account, router, t }) => (
         _: t('Data.accountTypes.Other')
       })}
     </td>
-    <td className={styles.AcnsStg__shared}>
-      <AccountSharingStatus withText account={account} />
-    </td>
+    {flag('settings.show-accounts-owners') ? (
+      <td className={styles.AcnsStg__owner}>
+        {getAccountOwners(account)
+          .map(Contact.getDisplayName)
+          .join(' - ')}
+        <AccountSharingStatus withText account={account} />
+      </td>
+    ) : (
+      <td className={styles.AcnsStg__shared}>
+        <AccountSharingStatus withText account={account} />
+      </td>
+    )}
     <td className={styles.AcnsStg__actions} />
   </tr>
 )
@@ -62,21 +74,33 @@ const renderAccount = account => (
   <AccountLine account={account} key={account._id} />
 )
 
-const AccountsTable = ({ accounts, t }) => (
-  <Table className={styles.AcnsStg__accounts}>
-    <thead>
-      <tr>
-        <th className={styles.AcnsStg__libelle}>{t('Accounts.label')}</th>
-        <th className={styles.AcnsStg__bank}>{t('Accounts.bank')}</th>
-        <th className={styles.AcnsStg__number}>{t('Accounts.account')}</th>
-        <th className={styles.AcnsStg__type}>{t('Accounts.type')}</th>
-        <th className={styles.AcnsStg__shared}>{t('Accounts.shared')}</th>
-        <th className={styles.AcnsStg__actions} />
-      </tr>
-    </thead>
-    <tbody>{accounts.map(renderAccount)}</tbody>
-  </Table>
-)
+const AccountsTable = ({ accounts, t }) => {
+  const showAccountsOwners = flag('settings.show-accounts-owners')
+
+  return (
+    <Table className={styles.AcnsStg__accounts}>
+      <thead>
+        <tr>
+          <th className={styles.AcnsStg__libelle}>{t('Accounts.label')}</th>
+          <th className={styles.AcnsStg__bank}>{t('Accounts.bank')}</th>
+          <th className={styles.AcnsStg__number}>{t('Accounts.account')}</th>
+          <th className={styles.AcnsStg__type}>{t('Accounts.type')}</th>
+          <th
+            className={
+              showAccountsOwners
+                ? styles.AcnsStg__owner
+                : styles.AcnsStg__shared
+            }
+          >
+            {showAccountsOwners ? t('Accounts.owner') : t('Accounts.shared')}
+          </th>
+          <th className={styles.AcnsStg__actions} />
+        </tr>
+      </thead>
+      <tbody>{accounts.map(renderAccount)}</tbody>
+    </Table>
+  )
+}
 
 class AccountsSettings extends Component {
   render() {

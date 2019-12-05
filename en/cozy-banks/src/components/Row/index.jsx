@@ -1,5 +1,5 @@
 import React from 'react'
-import { Media, Bd, Img, Icon } from 'cozy-ui/transpiled/react'
+import { Media, Bd, Img, Icon, Radio } from 'cozy-ui/transpiled/react'
 import styles from './Row.styl'
 import cx from 'classnames'
 
@@ -13,6 +13,7 @@ const Row = ({
   label,
   children,
   hasArrow,
+  hasRadio,
   onClick,
   className
 }) => (
@@ -31,6 +32,11 @@ const Row = ({
     {hasArrow && (
       <Img>
         <Icon icon="right" color="var(--coolGrey)" />
+      </Img>
+    )}
+    {hasRadio && (
+      <Img>
+        <Radio readOnly checked={isSelected} />
       </Img>
     )}
   </Media>

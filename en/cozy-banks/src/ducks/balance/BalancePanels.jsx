@@ -21,7 +21,8 @@ class BalancePanels extends React.PureComponent {
     panelsState: PropTypes.object.isRequired,
     onSwitchChange: PropTypes.func,
     onPanelChange: PropTypes.func,
-    withBalance: PropTypes.bool
+    withBalance: PropTypes.bool,
+    showOwners: PropTypes.bool.isRequired
   }
 
   static defaultProps = {
@@ -40,7 +41,8 @@ class BalancePanels extends React.PureComponent {
       panelsState,
       onSwitchChange,
       onPanelChange,
-      withBalance
+      withBalance,
+      showOwners
     } = this.props
 
     const groupsSorted = translateAndSortGroups(groups, t)
@@ -66,6 +68,7 @@ class BalancePanels extends React.PureComponent {
               onSwitchChange={onSwitchChange}
               onChange={onPanelChange}
               withBalance={withBalance}
+              showOwners={showOwners}
             />
           </Delayed>
         ))}

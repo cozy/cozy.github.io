@@ -2,11 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { queryConnect } from 'cozy-client'
 import { accountsConn, groupsConn } from 'doctypes'
-import Row from 'components/Row'
-import { translate, Label } from 'cozy-ui/transpiled/react'
+import { translate } from 'cozy-ui/transpiled/react'
 import AccountIcon from 'components/AccountIcon'
 import { getGroupLabel } from 'ducks/groups/helpers'
 import { getAccountLabel } from 'ducks/account/helpers.js'
+import { ModalSection, ModalSections, ModalRow } from 'components/ModalSections'
 
 /**
  * Displays Rows to select among either
@@ -25,43 +25,44 @@ export const AccountGroupChoice = ({
   const accounts = accountsCol.data || []
   const groups = groupsCol.data || []
   return (
-    <div>
-      <div>
-        <Row
+    <ModalSections>
+      <ModalSection>
+        <ModalRow
           label={t('AccountSwitch.all_accounts')}
+          hasRadio
           isSelected={!current}
           onClick={() => onSelect(null)}
         />
-      </div>
-      <div className="u-ph-1">
-        <Label>{t('AccountSwitch.accounts')}</Label>
-      </div>
-      {accounts.map(account => (
-        <Row
-          icon={<AccountIcon account={account} />}
-          key={account._id}
-          isSelected={current && current._id === account._id}
-          label={getAccountLabel(account)}
-          onClick={() => onSelect(account)}
-        />
-      ))}
-      <div className="u-ph-1">
-        <Label>{t('AccountSwitch.groups')}</Label>
-      </div>
-      {groups.map(group => (
-        <Row
-          key={group._id}
-          isSelected={current && current._id === group._id}
-          label={getGroupLabel(group, t)}
-          onClick={() => onSelect(group)}
-        />
-      ))}
-    </div>
+      </ModalSection>
+      <ModalSection label={t('AccountSwitch.accounts')}>
+        {accounts.map(account => (
+          <ModalRow
+            icon={<AccountIcon account={account} />}
+            key={account._id}
+            isSelected={current && current._id === account._id}
+            hasRadio
+            label={getAccountLabel(account)}
+            onClick={() => onSelect(account)}
+          />
+        ))}
+      </ModalSection>
+      <ModalSection label={t('AccountSwitch.groups')}>
+        {groups.map(group => (
+          <ModalRow
+            key={group._id}
+            isSelected={current && current._id === group._id}
+            hasRadio
+            label={getGroupLabel(group, t)}
+            onClick={() => onSelect(group)}
+          />
+        ))}
+      </ModalSection>
+    </ModalSections>
   )
 }
 
 AccountGroupChoice.propTypes = {
-  onChoose: PropTypes.func.isRequired
+  onSelect: PropTypes.func.isRequired
 }
 
 export const DumbAccountGroupChoice = translate()(AccountGroupChoice)

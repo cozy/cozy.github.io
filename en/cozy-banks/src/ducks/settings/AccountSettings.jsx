@@ -26,6 +26,8 @@ import { ACCOUNT_DOCTYPE, APP_DOCTYPE } from 'doctypes'
 import { Padded } from 'components/Spacing'
 import { logException } from 'lib/sentry'
 import withFilters from 'components/withFilters'
+import flag from 'cozy-flags'
+import NewAccountSettings from './NewAccountSettings'
 
 const DeleteConfirm = ({
   cancel,
@@ -236,11 +238,7 @@ const GeneralSettings = compose(
   withFilters
 )(_GeneralSettings)
 
-const AccountSettings = function({
-  routeParams,
-  t,
-  breakpoints: { isMobile }
-}) {
+const OldAccountSettings = ({ routeParams, t, breakpoints: { isMobile } }) => {
   return (
     <Query query={client => client.get(ACCOUNT_DOCTYPE, routeParams.accountId)}>
       {({ data, fetchStatus }) => {
@@ -285,6 +283,14 @@ const AccountSettings = function({
       }}
     </Query>
   )
+}
+
+const AccountSettings = function(props) {
+  if (flag('settings.new-account-details-page')) {
+    return <NewAccountSettings {...props} />
+  } else {
+    return <OldAccountSettings {...props} />
+  }
 }
 
 export default compose(

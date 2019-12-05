@@ -18,9 +18,16 @@
     &__bank
         maxed-flex-basis 20%
 
+        +small-screen
+            maxed-flex-basis 33%
+
     &__number
         maxed-flex-basis 15%
         color var(--coolGrey)
+
+        +small-screen()
+            td&
+                maxed-flex-basis 33%
 
     &__type
         maxed-flex-basis 15%
@@ -30,18 +37,26 @@
             td& // increase selectivity with td
                 display none
 
-    &__shared
+    &__shared,
+    &__owner
         maxed-flex-basis 15%
+
+    &__owner
+        color var(--coolGrey)
 
     &__actions
         maxed-flex-basis 10%
         text-align right
 
+        +small-screen()
+            td& // increase selectivity with td
+                display none
+
     &__accountRow
         composes mobile-row from '../../components/Table/styles.styl'
         composes nav-row from '../commons/mobile.styl'// @stylint ignore
 
-    &__bank, &__number
+    &__bank, &__number, &__shared, &__owner
         composes mobile-row-label from '../../components/Table/styles.styl'
 
 .AcnStg

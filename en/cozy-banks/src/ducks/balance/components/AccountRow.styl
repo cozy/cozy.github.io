@@ -2,9 +2,9 @@
 
 .AccountRow
     display flex
-    justify-content space-between
+    flex-direction column
+    justify-content center
     height 4rem
-    align-items center
     padding-left 1rem
     padding-right 0.5rem
     background-color var(--white)
@@ -66,6 +66,8 @@
     font-size 0.75rem
     color var(--coolGrey)
     line-height 1.5
+    text-overflow ellipsis
+    overflow hidden
 
 .AccountRow__updatedAtIcon
     vertical-align top
@@ -96,3 +98,18 @@
     .AccountRow__logo
         opacity 0.5
 
+.AccountRow--withOwners
+    +small-screen()
+        height rem(82)
+
+.AccountRow__ownersIcon
+    margin-right 0.25rem
+
+.AccountRow__mainLine
+    display flex
+    justify-content space-between
+    align-items center
+    width 100%
+
+.AccountRow__subLine
+    padding-left rem(40)
