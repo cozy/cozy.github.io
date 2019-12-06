@@ -2461,6 +2461,7 @@ Cozy instance belongs to one context.</p>
       <span class="l l-Scalar l-Scalar-Plain">client_id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">aClientID</span>
       <span class="l l-Scalar l-Scalar-Plain">client_secret</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">s3cret3</span>
       <span class="l l-Scalar l-Scalar-Plain">scope</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">openid profile</span>
+      <span class="l l-Scalar l-Scalar-Plain">login_domain</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">login.mycozy.cloud</span>
       <span class="l l-Scalar l-Scalar-Plain">redirect_uri</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://oauthcallback.mycozy.cloud/oidc/redirect</span>
       <span class="l l-Scalar l-Scalar-Plain">authorize_url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://identity-prodiver/path/to/authorize</span>
       <span class="l l-Scalar l-Scalar-Plain">token_url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://identity-prodiver/path/to/token</span>
@@ -2483,6 +2484,8 @@ Cozy instance belongs to one context.</p>
 <li><code>client_id</code> and <code>client_secret</code> are the OAuth client that will be used to
   talk to the identity provider</li>
 <li><code>scope</code> is the OAuth scope parameter (it is often <code>openid profile</code>)</li>
+<li><code>login_domain</code> is a domain that is not tied to an instance, but allows to
+  login with OIDC with the provider configured on this context</li>
 <li><code>redirect_uri</code> is where the user will be redirected by the identity provider
   after login (it must often be declared when creating the OAuth client, and we
   have to use a static hostname, not the hostname of a cozy instance)</li>

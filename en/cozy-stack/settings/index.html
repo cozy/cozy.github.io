@@ -2523,6 +2523,19 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sessions" title="Sessions" class="md-nav__link">
+    Sessions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
           <li class="md-nav__item">
   <a href="#get-settingssessions" title="GET /settings/sessions" class="md-nav__link">
     GET /settings/sessions
@@ -2695,6 +2708,67 @@
         
           <li class="md-nav__item">
   <a href="#permissions_6" title="Permissions" class="md-nav__link">
+    Permissions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feature-flags" title="Feature flags" class="md-nav__link">
+    Feature flags
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-settingsflags" title="GET /settings/flags" class="md-nav__link">
+    GET /settings/flags
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_15" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_14" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request_16" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_15" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permissions_7" title="Permissions" class="md-nav__link">
     Permissions
   </a>
   
@@ -3351,6 +3425,19 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sessions" title="Sessions" class="md-nav__link">
+    Sessions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
           <li class="md-nav__item">
   <a href="#get-settingssessions" title="GET /settings/sessions" class="md-nav__link">
     GET /settings/sessions
@@ -3523,6 +3610,67 @@
         
           <li class="md-nav__item">
   <a href="#permissions_6" title="Permissions" class="md-nav__link">
+    Permissions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feature-flags" title="Feature flags" class="md-nav__link">
+    Feature flags
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-settingsflags" title="GET /settings/flags" class="md-nav__link">
+    GET /settings/flags
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_15" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_14" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request_16" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_15" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permissions_7" title="Permissions" class="md-nav__link">
     Permissions
   </a>
   
@@ -3985,6 +4133,7 @@ authentication.</p>
 </pre></div>
 
 
+<h2 id="sessions">Sessions<a class="headerlink" href="#sessions" title="Permanent link">&para;</a></h2>
 <h3 id="get-settingssessions">GET /settings/sessions<a class="headerlink" href="#get-settingssessions" title="Permanent link">&para;</a></h3>
 <p>This route allows to get all the currently active sessions.</p>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/settings/sessions</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
@@ -4032,7 +4181,7 @@ authentication.</p>
 
 <h4 id="response_10">Response<a class="headerlink" href="#response_10" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
-<span class="na">Content-type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Content-type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </pre></div>
 
 
@@ -4130,6 +4279,135 @@ stack.</p>
 
 
 <h4 id="permissions_6">Permissions<a class="headerlink" href="#permissions_6" title="Permanent link">&para;</a></h4>
+<p>To use this endpoint, an application needs a valid token, but no explicit
+permission is required.</p>
+<h2 id="feature-flags">Feature flags<a class="headerlink" href="#feature-flags" title="Permanent link">&para;</a></h2>
+<p>A feature flag is a name and an associated value (boolean, number, string or a
+JSON) that can be interpreted by the apps. It can be used for giving access to
+paid features, or to enable a feature progressively on all the cozy instances
+of a context. The stack computes the feature flags from several sources (in
+order of decreasing priority):</p>
+<ul>
+<li>the flags set on the instance by the command <code>cozy-stack feature flags</code></li>
+<li>the response of the manager for <code>GET /api/v1/flags?sets=s1,s2&amp;context=ctx</code>
+  (where <code>s1,s2</code> has been set via <code>cozy-stack feature sets</code>)</li>
+<li>the flags coming from the context configuration (<code>context.&lt;name&gt;.features</code>)</li>
+<li>the flags set on the context by the command <code>cozy-stack feature ratio</code></li>
+<li>the default value (<code>cozy-stack feature default</code>).</li>
+</ul>
+<p>For a given flag, the stack takes the value from the source with the highest
+priority, and does not look at the other sources (no merge).</p>
+<h3 id="get-settingsflags">GET /settings/flags<a class="headerlink" href="#get-settingsflags" title="Permanent link">&para;</a></h3>
+<p>This endpoint returns the computed list of feature flags for the given
+instance. It accepts an <code>include</code> parameter in the query string to see the
+details of how the flags were computed.</p>
+<h4 id="request_15">Request<a class="headerlink" href="#request_15" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/settings/flags</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
+
+
+<h4 id="response_14">Response<a class="headerlink" href="#response_14" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.settings&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.settings.flags&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;has_feature1&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nt">&quot;has_feature2&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="nt">&quot;number_of_foos&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+      <span class="nt">&quot;bar_config&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;qux&quot;</span><span class="p">:</span> <span class="s2">&quot;quux&quot;</span> <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/settings/flags&quot;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h4 id="request_16">Request<a class="headerlink" href="#request_16" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/settings/flags?include=source</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
+
+
+<h4 id="response_15">Response<a class="headerlink" href="#response_15" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.settings&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.settings.flags&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;has_feature1&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nt">&quot;has_feature2&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="nt">&quot;number_of_foos&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+      <span class="nt">&quot;bar_config&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;qux&quot;</span><span class="p">:</span> <span class="s2">&quot;quux&quot;</span> <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;included&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.settings&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.settings.flags.instance&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;number_of_foos&quot;</span><span class="p">:</span> <span class="mi">10</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.settings&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.settings.flags.manager&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;sets&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;s1&quot;</span><span class="p">,</span> <span class="s2">&quot;s2&quot;</span><span class="p">],</span>
+          <span class="nt">&quot;has_feature1&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+          <span class="nt">&quot;number_of_foos&quot;</span><span class="p">:</span> <span class="mi">5</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.settings&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.settings.flags.config&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;number_of_foos&quot;</span><span class="p">:</span> <span class="mi">2</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.settings&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.settings.flags.context&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;has_feature2&quot;</span><span class="p">:</span> <span class="p">[{</span> <span class="nt">&quot;ratio&quot;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span> <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="kc">true</span> <span class="p">}],</span>
+          <span class="nt">&quot;bar_config&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span> <span class="nt">&quot;ratio&quot;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;qux&quot;</span><span class="p">:</span> <span class="s2">&quot;quux&quot;</span> <span class="p">}</span> <span class="p">},</span>
+            <span class="p">{</span> <span class="nt">&quot;ratio&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">,</span> <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;qux&quot;</span><span class="p">:</span> <span class="s2">&quot;baz&quot;</span> <span class="p">}</span> <span class="p">},</span>
+          <span class="p">]</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.settings&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.settings.flags.default&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;bar_config&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;qux&quot;</span><span class="p">:</span> <span class="s2">&quot;courge&quot;</span> <span class="p">},</span>
+          <span class="nt">&quot;number_of_foos&quot;</span><span class="p">:</span> <span class="mi">2</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/settings/flags&quot;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h4 id="permissions_7">Permissions<a class="headerlink" href="#permissions_7" title="Permanent link">&para;</a></h4>
 <p>To use this endpoint, an application needs a valid token, but no explicit
 permission is required.</p>
                 

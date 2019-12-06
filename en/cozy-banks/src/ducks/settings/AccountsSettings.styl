@@ -44,6 +44,10 @@
     &__owner
         color var(--coolGrey)
 
+        +small-screen()
+            td&
+                display none
+
     &__actions
         maxed-flex-basis 10%
         text-align right
@@ -58,6 +62,16 @@
 
     &__bank, &__number, &__shared, &__owner
         composes mobile-row-label from '../../components/Table/styles.styl'
+
+.AcnsStg__libelleInner
+    display flex
+
+    > *
+        overflow hidden
+        text-overflow ellipsis
+
+    +small-screen()
+        padding-right 0.5rem
 
 .AcnStg
     &__tabList

@@ -3,6 +3,7 @@ import { withRouter } from 'react-router'
 import { translate } from 'cozy-ui/react'
 import Button from 'cozy-ui/react/Button'
 import Icon from 'cozy-ui/react/Icon'
+import { withBreakpoints } from 'cozy-ui/react'
 import { groupBy, flowRight as compose, sortBy } from 'lodash'
 import Table from 'components/Table'
 import Loading from 'components/Loading'
@@ -31,14 +32,26 @@ import { accountsConn, APP_DOCTYPE } from 'doctypes'
 import AccountSharingStatus from 'components/AccountSharingStatus'
 
 // TODO react-router v4
-const _AccountLine = ({ account, router, t }) => (
+const _AccountLine = ({ account, router, t, breakpoints: { isMobile } }) => (
   <tr
     key={account.id}
     onClick={() => router.push(`/settings/accounts/${account.id}`)}
     className={styles.AcnsStg__accountRow}
   >
     <td className={styles.AcnsStg__libelle}>
-      {account.shortLabel || account.label}
+      <div className={styles.AcnsStg__libelleInner}>
+        <div>{account.shortLabel || account.label}</div>
+        {isMobile ? (
+          <>
+            <div className="u-ph-half">-</div>
+            <div>
+              {getAccountOwners(account)
+                .map(Contact.getDisplayName)
+                .join(' - ')}
+            </div>
+          </>
+        ) : null}
+      </div>
     </td>
     <td className={styles.AcnsStg__bank}>
       {getAccountInstitutionLabel(account)}
@@ -54,7 +67,6 @@ const _AccountLine = ({ account, router, t }) => (
         {getAccountOwners(account)
           .map(Contact.getDisplayName)
           .join(' - ')}
-        <AccountSharingStatus withText account={account} />
       </td>
     ) : (
       <td className={styles.AcnsStg__shared}>
@@ -67,7 +79,8 @@ const _AccountLine = ({ account, router, t }) => (
 
 const AccountLine = compose(
   translate(),
-  withRouter
+  withRouter,
+  withBreakpoints()
 )(_AccountLine)
 
 const renderAccount = account => (

@@ -2610,7 +2610,7 @@
 <li><code>state</code>: {string} The account state is used to communicate between the konnector and <a href="https://github.com/cozy/cozy-libs/tree/master/packages/cozy-harvest-lib">Harvest</a> to ask for a needed 2FA Code or to tell to reset the konnector session for example. Here are the used values for now:<ul>
 <li><code>TWOFA_NEEDED</code>: The service is asking for a Two Factor connexion and the related code (sent by the service) must be provided by the user. This status can be further precised with its type. This allows the UI presented to the user to have custom messages, depending on the type of two factor authentication required by the vendor.<ul>
 <li><code>TWOFA_NEEDED.EMAIL</code>: If the two factor authentication is done by email</li>
-<li><code>TWOFA_NEEDED.SMS</code>: If the two factor authentication is done by SMS </li>
+<li><code>TWOFA_NEEDED.SMS</code>: If the two factor authentication is done by SMS</li>
 </ul>
 </li>
 <li><code>TWOFA_NEEDED_RETRY</code>: The 2FA code provided by the user is wrong, the user can retry by providing a new one. <code>TWO_FA_NEEDED_RETRY.EMAIL</code> and <code>TWO_FA_NEEDED_RETRY.SMS</code> can also be used.</li>
@@ -2636,8 +2636,10 @@ Generally, the konnector should be able to handle by itself this kind of relatio
 <div class="codehilite"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;parent&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;aggregator-service-account&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;_type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.accounts&quot;</span>
+      <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;aggregator-service-account&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;_type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.accounts&quot;</span>
+      <span class="p">}</span>
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>
@@ -2650,9 +2652,13 @@ Generally, the konnector should be able to handle by itself this kind of relatio
 <div class="codehilite"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;vaultCipher&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;123abc&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;_type&quot;</span><span class="p">:</span> <span class="s2">&quot;com.bitwarden.ciphers&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;_protocol&quot;</span><span class="p">:</span> <span class="s2">&quot;bitwarden&quot;</span>
+      <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;123abc&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;_type&quot;</span><span class="p">:</span> <span class="s2">&quot;com.bitwarden.ciphers&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;_protocol&quot;</span><span class="p">:</span> <span class="s2">&quot;bitwarden&quot;</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>

@@ -127,6 +127,15 @@ const TransactionApplicationDateEditorSlide = translate()(
   }
 )
 
+export const showAlertAfterApplicationDateUpdate = (transaction, t, f) => {
+  const date = getApplicationDate(transaction) || getDate(transaction)
+  Alerter.success(
+    t('Transactions.infos.applicationDateChangedAlert', {
+      applicationDate: f(date, 'MMMM')
+    })
+  )
+}
+
 /**
  * Show information of the transaction
  */
@@ -154,13 +163,8 @@ const TransactionModalInfoContent = withTransaction(props => {
   const [applicationDateBusy, setApplicationDateBusy] = useState(false)
 
   const handleAfterUpdateApplicationDate = updatedTransaction => {
-    const applicationDate = getApplicationDate(updatedTransaction)
     setApplicationDateBusy(false)
-    Alerter.success(
-      t('Transactions.infos.applicationDateChangedAlert', {
-        applicationDate: f(applicationDate, 'MMMM')
-      })
-    )
+    showAlertAfterApplicationDateUpdate(updatedTransaction, t, f)
   }
 
   const handleShowApplicationEditor = ev => {
@@ -184,11 +188,7 @@ const TransactionModalInfoContent = withTransaction(props => {
         transaction,
         null
       )
-      Alerter.success(
-        t('Transactions.infos.applicationDateChangedAlert', {
-          applicationDate: f(getDate(newTransaction), 'MMMM')
-        })
-      )
+      showAlertAfterApplicationDateUpdate(newTransaction, t, f)
     } finally {
       setApplicationDateBusy(false)
     }

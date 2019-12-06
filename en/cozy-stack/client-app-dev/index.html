@@ -2628,6 +2628,8 @@ a template and will insert the relevant values.</p>
 <li><code>{{.Favicon}}</code> will be replaced by the favicon served by the stack.</li>
 <li><code>{{.SubDomain}}</code> will be replaced by <code>flat</code> or <code>nested</code>.</li>
 <li><code>{{.DefaultWallpaper}}</code> will be replaced by the URL to the default wallpaper.</li>
+<li><code>{{.Flags}}</code> will be replaced by JSON with the
+    <a href="../settings/#feature-flags">feature flags</a>.</li>
 </ul>
 <p>So, the <code>index.html</code> should probably looks like:</p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
@@ -2653,6 +2655,7 @@ a template and will insert the relevant values.</p>
       <span class="na">data-cozy-app-name</span><span class="o">=</span><span class="s">&quot;{{.AppName}}&quot;</span>
       <span class="na">data-cozy-app-slug</span><span class="o">=</span><span class="s">&quot;{{.AppSlug}}&quot;</span>
       <span class="na">data-cozy-icon-path</span><span class="o">=</span><span class="s">&quot;{{.IconPath}}&quot;</span>
+      <span class="na">data-cozy-flags</span><span class="o">=</span><span class="s">&quot;{{.Flags}}&quot;</span>
       <span class="p">&gt;</span>
     <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;my-app.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>

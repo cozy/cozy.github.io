@@ -101,7 +101,7 @@ const CategoryAlertCard = ({ removeAlert, updateAlert, alert, t }) => {
                 {t(
                   alert.accountOrGroup._type === ACCOUNT_DOCTYPE
                     ? 'Settings.budget-category-alerts.for-account'
-                    : 'Settings.budget-category-alerts.for-groups',
+                    : 'Settings.budget-category-alerts.for-group',
                   {
                     threshold: alert.maxThreshold
                   }
