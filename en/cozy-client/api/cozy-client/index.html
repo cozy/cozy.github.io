@@ -1400,6 +1400,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#hasanoffer" title="hasAnOffer" class="md-nav__link">
+    hasAnOffer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#buildpremiumlink" title="buildPremiumLink" class="md-nav__link">
     buildPremiumLink
   </a>
@@ -2809,6 +2816,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../cozy-stack/notes/" title="/notes - Notes for collaborative edition" class="md-nav__link">
+      /notes - Notes for collaborative edition
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../cozy-stack/notifications/" title="/notifications - Notifications" class="md-nav__link">
       /notifications - Notifications
     </a>
@@ -3713,6 +3732,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#hasanoffer" title="hasAnOffer" class="md-nav__link">
+    hasAnOffer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#buildpremiumlink" title="buildPremiumLink" class="md-nav__link">
     buildPremiumLink
   </a>
@@ -3944,6 +3970,9 @@ from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
 </dd>
 <dt><a href="#shouldDisplayOffers">shouldDisplayOffers</a></dt>
 <dd><p>Returns whether an instance is concerned by our offers</p>
+</dd>
+<dt><a href="#hasAnOffer">hasAnOffer</a></dt>
+<dd><p>Returns if an instance has subscribed to one of our offers</p>
 </dd>
 <dt><a href="#buildPremiumLink">buildPremiumLink</a></dt>
 <dd><p>Returns the link to the Premium page on the Cozy&#39;s Manager</p>
@@ -5518,6 +5547,41 @@ Use the last docid of each query as startkey_docid to paginate or leave blank fo
 <p><a name="shouldDisplayOffers"></a></p>
 <h2 id="shoulddisplayoffers">shouldDisplayOffers<a class="headerlink" href="#shoulddisplayoffers" title="Permanent link">&para;</a></h2>
 <p>Returns whether an instance is concerned by our offers</p>
+<p><strong>Kind</strong>: global constant  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td><code>object</code></td>
+<td>Object containing all the results from /settings/*</td>
+</tr>
+<tr>
+<td>data.context</td>
+<td><code>object</code></td>
+<td>Object returned by /settings/context</td>
+</tr>
+<tr>
+<td>data.instance</td>
+<td><code>object</code></td>
+<td>Object returned by /settings/instance</td>
+</tr>
+<tr>
+<td>data.diskUsage</td>
+<td><code>object</code></td>
+<td>Object returned by /settings/disk-usage</td>
+</tr>
+</tbody>
+</table>
+<p><a name="hasAnOffer"></a></p>
+<h2 id="hasanoffer">hasAnOffer<a class="headerlink" href="#hasanoffer" title="Permanent link">&para;</a></h2>
+<p>Returns if an instance has subscribed to one of our offers</p>
 <p><strong>Kind</strong>: global constant  </p>
 <table>
 <thead>

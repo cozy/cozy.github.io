@@ -2251,6 +2251,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#notes-save" title="notes-save" class="md-nav__link">
+    notes-save
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#migrations" title="migrations" class="md-nav__link">
     migrations
   </a>
@@ -2309,6 +2316,18 @@
   <li class="md-nav__item">
     <a href="../move/" title="/move - Move, export and import an instance" class="md-nav__link">
       /move - Move, export and import an instance
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../notes/" title="/notes - Notes for collaborative edition" class="md-nav__link">
+      /notes - Notes for collaborative edition
     </a>
   </li>
 
@@ -2827,6 +2846,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#notes-save" title="notes-save" class="md-nav__link">
+    notes-save
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#migrations" title="migrations" class="md-nav__link">
     migrations
   </a>
@@ -3154,6 +3180,12 @@ optionaly the old version of this document.</p>
 <h3 id="share-replicate-and-share-upload">Share-replicate and share-upload<a class="headerlink" href="#share-replicate-and-share-upload" title="Permanent link">&para;</a></h3>
 <p>The message is composed of a sharing ID and a count of the number of errors
 (i.e. the number of times this job was retried).</p>
+<h2 id="notes-save">notes-save<a class="headerlink" href="#notes-save" title="Permanent link">&para;</a></h2>
+<p>This is another worker for the interal usage of the stack. It allows to write
+to the VFS a note in an asynchronous way. Writing to the VFS after each tiny
+change would kill the performance for realtime collaboration, so the stack
+writes the note to a cache, and has a trigger with debounce to persist the note
+to the VFS later.</p>
 <h2 id="migrations">migrations<a class="headerlink" href="#migrations" title="Permanent link">&para;</a></h2>
 <p>The <code>migrations</code> worker can be used to migrate a cozy instance. Currently, it
 has a single option, <code>type</code>, with two supported values:
