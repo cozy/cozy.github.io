@@ -13,8 +13,7 @@ class AccountsList extends React.PureComponent {
     group: PropTypes.object.isRequired,
     warningLimit: PropTypes.number.isRequired,
     switches: PropTypes.object.isRequired,
-    onSwitchChange: PropTypes.func,
-    showOwners: PropTypes.bool.isRequired
+    onSwitchChange: PropTypes.func
   }
 
   static defaultProps = {
@@ -29,13 +28,7 @@ class AccountsList extends React.PureComponent {
   }
 
   render() {
-    const {
-      group,
-      warningLimit,
-      switches,
-      onSwitchChange,
-      showOwners
-    } = this.props
+    const { group, warningLimit, switches, onSwitchChange } = this.props
     const accounts = group.accounts.data || []
 
     return (
@@ -61,7 +54,6 @@ class AccountsList extends React.PureComponent {
               disabled={switchState.disabled}
               id={`${group._id}.accounts.${a._id}`}
               onSwitchChange={onSwitchChange}
-              showOwners={showOwners}
             />
           )
         })}

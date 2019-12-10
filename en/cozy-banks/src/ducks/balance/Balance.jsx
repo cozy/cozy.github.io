@@ -28,7 +28,7 @@ import AccountsImporting from 'ducks/balance/components/AccountsImporting'
 
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
-import { getAccountBalance, getUniqueOwners } from 'ducks/account/helpers'
+import { getAccountBalance } from 'ducks/account/helpers'
 import { isBankTrigger } from 'utils/triggers'
 import { getVirtualAccounts, getVirtualGroups } from 'selectors'
 
@@ -398,11 +398,6 @@ class Balance extends PureComponent {
             nbAccounts: accounts.length
           }
 
-    const owners = getUniqueOwners(accounts)
-    const showOwners =
-      (owners.length > 1 && flag('balance.show-owners')) ||
-      flag('balance.force-show-owners')
-
     return (
       <Fragment>
         <BarTheme theme="primary" />
@@ -423,7 +418,6 @@ class Balance extends PureComponent {
             panelsState={this.state.panels}
             onSwitchChange={this.handleSwitchChange}
             onPanelChange={this.debouncedHandlePanelChange}
-            showOwners={showOwners}
           />
         </Padded>
       </Fragment>

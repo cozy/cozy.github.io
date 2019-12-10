@@ -2,7 +2,7 @@ import React from 'react'
 import { translate } from 'cozy-ui/react'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { queryConnect, withMutations } from 'cozy-client'
-import { settingsConn, accountsConn } from 'doctypes'
+import { settingsConn } from 'doctypes'
 import { flowRight as compose, set } from 'lodash'
 import Loading from 'components/Loading'
 
@@ -22,6 +22,74 @@ import ToggleRow, {
 } from 'ducks/settings/ToggleRow'
 import DelayedDebitAlert from 'ducks/settings/DelayedDebitAlert'
 import CategoryAlertSettingsPane from 'ducks/settings/CategoryAlerts/CategoryAlertSettingsPane'
+import TogglableSettingCard from './TogglableSettingCard'
+import { CHOOSING_TYPES } from 'components/EditionModal'
+
+const getValueFromNotification = notification => notification.value
+const updatedNotificationFromValue = (notification, value) => ({
+  ...notification,
+  value
+})
+
+const singleValueFieldOrder = ['value']
+
+// i18n
+const editModalProps = {
+  balanceLower: ({ t, initialDoc }) => ({
+    modalTitle: t('Notifications.editModal.title'),
+    fieldSpecs: {
+      value: {
+        type: CHOOSING_TYPES.number,
+        getValue: getValueFromNotification,
+        updater: updatedNotificationFromValue,
+        sectionProps: {
+          unit: '€'
+        }
+      }
+    },
+    fieldOrder: singleValueFieldOrder,
+    fieldLabels: {
+      value: t('Notifications.if_balance_lower.fieldLabels.value')
+    },
+    initialDoc
+  }),
+  transactionGreater: ({ t, initialDoc }) => ({
+    modalTitle: t('Notifications.editModal.title'),
+    fieldSpecs: {
+      value: {
+        type: CHOOSING_TYPES.number,
+        getValue: getValueFromNotification,
+        updater: updatedNotificationFromValue,
+        sectionProps: {
+          unit: '€'
+        }
+      }
+    },
+    fieldOrder: singleValueFieldOrder,
+    fieldLabels: {
+      value: t('Notifications.if_transaction_greater.fieldLabels.value')
+    },
+    initialDoc
+  }),
+  lateHealthReimbursement: ({ t, initialDoc }) => ({
+    modalTitle: t('Notifications.editModal.title'),
+    fieldSpecs: {
+      value: {
+        type: CHOOSING_TYPES.number,
+        getValue: getValueFromNotification,
+        updater: updatedNotificationFromValue,
+        sectionProps: {
+          unit: t('Notifications.when_late_health_reimbursement.unit')
+        }
+      }
+    },
+    fieldOrder: singleValueFieldOrder,
+    fieldLabels: {
+      value: t('Notifications.when_late_health_reimbursement.fieldLabels.value')
+    },
+    initialDoc
+  })
+}
 
 /**
  * Configure notifications and other features
@@ -51,77 +119,63 @@ export class Configuration extends React.Component {
   // TODO the displayed value and the persisted value should not be the same.
   // If the user empties the input, we may persist `0`, but we don't want to
   // show `0` until he blurs the input
-  onChangeValue = key => value => {
+  onChangeDoc = key => value => {
     const { settingsCollection } = this.props
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
-    set(settings, [...key.split('.'), 'value'], value)
+    set(settings, [...key.split('.')], value)
     this.saveDocument(settings, {
       updateCollections: ['settings']
     })
   }
 
-  onDelayedDebitAccountsChange = async changes => {
-    if (
-      changes.previousCreditCard &&
-      changes.previousCreditCard !== changes.newCreditCard
-    ) {
-      changes.previousCreditCard.checkingsAccount.unset()
-      await this.saveDocument(changes.previousCreditCard)
-    }
-
-    changes.newCreditCard.checkingsAccount.set(changes.newCheckings)
-    await this.saveDocument(changes.newCreditCard)
-  }
-
   render() {
-    const { t, settingsCollection, accountsCollection } = this.props
+    const { t, settingsCollection } = this.props
 
     if (
-      (isCollectionLoading(settingsCollection) &&
-        !hasBeenLoaded(settingsCollection)) ||
-      (isCollectionLoading(accountsCollection) &&
-        !hasBeenLoaded(accountsCollection))
+      isCollectionLoading(settingsCollection) &&
+      !hasBeenLoaded(settingsCollection)
     ) {
       return <Loading />
     }
 
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
-    const accounts = accountsCollection.data
 
     return (
       <div>
         <TogglePane>
           <TogglePaneTitle>{t('Notifications.title')}</TogglePaneTitle>
           <TogglePaneText>{t('Notifications.description')}</TogglePaneText>
-          <ToggleRow
+          <TogglableSettingCard
             title={t('Notifications.if_balance_lower.settingTitle')}
-            description={t('Notifications.if_balance_lower.description')}
+            descriptionKey="Notifications.if_balance_lower.description"
             onToggle={this.onToggle('notifications.balanceLower')}
-            onChangeValue={this.onChangeValue('notifications.balanceLower')}
+            onChangeDoc={this.onChangeDoc('notifications.balanceLower')}
             enabled={settings.notifications.balanceLower.enabled}
             value={settings.notifications.balanceLower.value}
-            name="balanceLower"
             unit="€"
+            editModalProps={editModalProps.balanceLower({
+              t,
+              initialDoc: settings.notifications.balanceLower
+            })}
           />
-          <ToggleRow
+          <TogglableSettingCard
             title={t('Notifications.if_transaction_greater.settingTitle')}
-            description={t('Notifications.if_transaction_greater.description')}
+            descriptionKey="Notifications.if_transaction_greater.description"
             onToggle={this.onToggle('notifications.transactionGreater')}
-            onChangeValue={this.onChangeValue(
-              'notifications.transactionGreater'
-            )}
+            onChangeDoc={this.onChangeDoc('notifications.transactionGreater')}
             enabled={settings.notifications.transactionGreater.enabled}
             value={settings.notifications.transactionGreater.value}
-            name="transactionGreater"
             unit="€"
+            editModalProps={editModalProps.transactionGreater({
+              t,
+              initialDoc: settings.notifications.transactionGreater
+            })}
           />
           <CategoryAlertSettingsPane />
           <DelayedDebitAlert
-            accounts={accounts}
             onToggle={this.onToggle('notifications.delayedDebit')}
-            onChangeValue={this.onChangeValue('notifications.delayedDebit')}
-            onAccountsChange={this.onDelayedDebitAccountsChange}
-            {...settings.notifications.delayedDebit}
+            onChangeDoc={this.onChangeDoc('notifications.delayedDebit')}
+            doc={settings.notifications.delayedDebit}
           />
           <ToggleRowWrapper>
             <ToggleRowTitle>
@@ -131,32 +185,31 @@ export class Configuration extends React.Component {
               {t('Notifications.health_section.description')}
             </ToggleRowDescription>
             <div className="u-pl-2 u-pt-1-half">
-              <ToggleRow
+              <TogglableSettingCard
                 title={t('Notifications.when_health_bill_linked.settingTitle')}
-                description={t(
-                  'Notifications.when_health_bill_linked.description'
-                )}
+                descriptionKey="Notifications.when_health_bill_linked.description"
                 onToggle={this.onToggle('notifications.healthBillLinked')}
                 enabled={settings.notifications.healthBillLinked.enabled}
-                name="healthBillLinked"
               />
-              <ToggleRow
+              <TogglableSettingCard
                 title={t(
                   'Notifications.when_late_health_reimbursement.settingTitle'
                 )}
-                description={t(
+                descriptionKey={
                   'Notifications.when_late_health_reimbursement.description'
-                )}
+                }
                 onToggle={this.onToggle(
                   'notifications.lateHealthReimbursement'
                 )}
-                onChangeValue={this.onChangeValue(
+                onChangeDoc={this.onChangeDoc(
                   'notifications.lateHealthReimbursement'
                 )}
                 enabled={settings.notifications.lateHealthReimbursement.enabled}
                 value={settings.notifications.lateHealthReimbursement.value}
-                name="lateHealthReimbursement"
-                unit={t('Notifications.when_late_health_reimbursement.unit')}
+                editModalProps={editModalProps.lateHealthReimbursement({
+                  t,
+                  initialDoc: settings.notifications.lateHealthReimbursement
+                })}
               />
             </div>
           </ToggleRowWrapper>
@@ -199,8 +252,7 @@ export class Configuration extends React.Component {
 export default compose(
   withMutations(),
   queryConnect({
-    settingsCollection: settingsConn,
-    accountsCollection: accountsConn
+    settingsCollection: settingsConn
   }),
   flag.connect,
   translate()

@@ -391,7 +391,10 @@
 
   "Notifications": {
     "title": "Notifications",
-    "description": "You will receive your notifications via email and via a mobile notification if you have the Cozy Banks mobile app on your device",
+    "description": "You will receive your notifications via email or mobile notification if you have the Cozy Banks mobile app on your device",
+    "editModal": {
+      "title": "Configure notification"
+    },
     "weekly_summary": {
       "description": "You will receive a summary of your expenses and revenues every Monday of every week.",
       "title": "Weekly Synthesis"
@@ -405,8 +408,11 @@
       "title": "Monthly summary"
     },
     "if_balance_lower": {
-      "description": "You will receive a notification if your balance is less than",
+      "description": "You will receive a notification if your balance goes under *%{value}€*.",
       "settingTitle": "Low balances",
+      "fieldLabels": {
+        "value": "Warn me when my balance goes under"
+      },
       "email": {
         "innerTitle": "Low balances notification",
         "access_accounts": "Access my accounts"
@@ -424,10 +430,13 @@
       }
     },
     "if_transaction_greater": {
-      "description": "You will receive a notification if a movement is greater than",
+      "description": "You will receive a notification if a movement is greater than *%{value}€*.",
       "settingTitle": "Transactions",
       "email": {
         "innerTitle": "Transaction notification"
+      },
+      "fieldLabels": {
+        "value": "Warn me for expenses greater than"
       },
       "notification": {
         "debit": {
@@ -465,11 +474,14 @@
     },
     "when_late_health_reimbursement": {
       "settingTitle": "Late",
-      "description": "You will be notified when no reimbursement have been found for one of your health expenses since",
+      "description": "You will be notified when no reimbursement have been found for one of your health expenses since *%{value} days*.",
       "unit": "days",
       "email": {
         "innerTitle": "Late health reimbursement notification",
         "accessReimbursements": "Access my reimbursements"
+      },
+      "fieldLabels": {
+        "value":  "Warn me when a health expense has not been reimbursed in"
       },
       "notification": {
         "title": "Late health reimbursements",
@@ -485,10 +497,11 @@
     },
     "delayed_debit": {
       "settingTitle": "Delayed debit alert",
-      "description": {
-        "start": "You will receive a notification when the outstanding card account ",
-        "accountsGlue": " generates a negative balance on its associated current account ",
-        "end": " before the end of the month"
+      "description": "You will receive a notification when the outstanding card account *%{creditCardLabel}* generates a negative balance on its associated current account *%{checkingsLabel}*, *%{value} days* before the end of the month.",
+      "fieldLabels": {
+        "creditCardAccount": "Credit card",
+        "checkingsAccount": "Associated checking account",
+        "days": "Warn before the end of the month"
       },
       "unit": "days",
       "email": {
@@ -751,5 +764,10 @@
       "totalUsedAmount": "Total used amount:",
       "availableAmount": "Available amount:"
     }
+  },
+
+  "AccountGroupChoice": {
+    "nothing-selected": "Select an account",
+    "all-accounts": "All accounts"
   }
 }

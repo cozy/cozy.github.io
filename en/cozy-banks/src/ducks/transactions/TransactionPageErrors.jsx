@@ -25,7 +25,8 @@ const isActionableError = trigger => {
     'TERMS_VERSION_MISMATCH',
     'USER_ACTION_NEEDED',
     'USER_ACTION_NEEDED.CHANGE_PASSWORD',
-    'USER_ACTION_NEEDED.ACCOUNT_REMOVED'
+    'USER_ACTION_NEEDED.ACCOUNT_REMOVED',
+    'LOGIN_FAILED'
   ]
 
   return actionableErrors.includes(trigger.current_state.last_error)

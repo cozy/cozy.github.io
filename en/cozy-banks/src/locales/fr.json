@@ -403,14 +403,20 @@
 
   "Notifications": {
     "title": "Notifications",
-    "description": "Vous recevrez les notifications par email, ainsi que par notification mobile si vous installez l'app Cozy Banks sur votre mobile",
+    "description": "Vous recevrez les notifications par email ou par notification mobile si vous installez l'app Cozy Banks sur votre mobile",
+    "editModal": {
+      "title": "Configurer la notification"
+    },
     "if_balance_lower": {
       "settingTitle": "Solde bas",
+      "fieldLabels": {
+        "value": "Me prévenir quand mon solde passe sous"
+      },
       "email": {
         "innerTitle": "Notification de solde bas",
         "access_accounts": "Accéder à mes comptes"
       },
-      "description": "Vous recevrez une notification, si votre solde est inférieur à",
+      "description": "Vous recevrez une notification si votre solde est inférieur à *%{value}*€",
       "notification": {
         "one": {
           "title": "Solde bas : le compte '%{label}' est à %{balance}%{currency}",
@@ -425,9 +431,12 @@
     },
     "if_transaction_greater": {
       "settingTitle": "Mouvements",
-      "description": "Vous recevrez une notification, si un mouvement est supérieur à",
+      "description": "Vous recevrez une notification si un mouvement est supérieur à *%{value}*€",
       "email": {
         "innerTitle": "Notification de mouvement"
+      },
+      "fieldLabels": {
+        "value": "Me prévenir pour les dépenses dépassant"
       },
       "notification": {
         "debit": {
@@ -477,11 +486,14 @@
     },
     "when_late_health_reimbursement": {
       "settingTitle": "En retard",
-      "description": "Vous recevrez une notification lorsqu'un remboursement n'a pas été trouvé pour une de vos dépenses de santé depuis",
+      "description": "Vous recevrez une notification lorsqu'un remboursement n'a pas été trouvé pour une de vos dépenses de santé depuis *%{value}* jours.",
       "unit": "jours",
       "email": {
         "innerTitle": "Notification de remboursement(s) en retard",
         "accessReimbursements": "Accéder à mes remboursements"
+      },
+      "fieldLabels": {
+        "value":  "Me prévenir quand une dépense de santé n'est pas remboursée depuis"
       },
       "notification": {
         "title": "Remboursements de santé en retard",
@@ -497,11 +509,12 @@
     },
     "delayed_debit": {
       "settingTitle": "Paiement de l'encours carte à débit différé",
-      "description": {
-        "start": "Vous recevrez une notification lorque l'encours carte du compte ",
-        "accountsGlue": " engendre un solde négatif sur son compte courant associé ",
-        "end": " avant la fin du mois"
+      "fieldLabels": {
+        "creditCardAccount": "Carte de crédit",
+        "checkingsAccount": "Compte courant de l'encours",
+        "days": "Me prévenir avant la fin du mois"
       },
+      "description": "Vous recevrez une notification lorque l'encours carte du compte *%{creditCardLabel}* engendre un solde négatif sur son compte courant associé *%{checkingsLabel}*, *%{value}* jour(s) avant la fin du mois",
       "unit": "jours",
       "email": {
         "innerTitle": "Notification de paiement de l'encours carte à débit différé",
@@ -763,5 +776,10 @@
       "totalUsedAmount": "Montant total utilisé :",
       "availableAmount": "Réserve disponible :"
     }
+  },
+
+  "AccountGroupChoice": {
+    "nothing-selected": "Sélectionner un compte",
+    "all-accounts": "Tous les comptes"
   }
 }

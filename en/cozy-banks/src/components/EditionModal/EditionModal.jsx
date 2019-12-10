@@ -15,17 +15,35 @@ import { ModalSections } from 'components/ModalSections'
 import AccountOrGroupSection from './AccountOrGroupSection'
 import CategorySection from './CategorySection'
 import ThresholdSection from './ThresholdSection'
+import NumberSection from './NumberSection'
+import resultWithArgs from 'utils/resultWithArgs'
+
+import { BackButton } from 'components/BackButton'
 
 export const CHOOSING_TYPES = {
   category: 'category',
   accountOrGroup: 'accountOrGroup',
-  threshold: 'threshold'
+  account: 'account',
+  threshold: 'threshold',
+  number: 'number'
 }
+
+const TYPES_WITH_SELECTOR = {
+  category: true,
+  accountOrGroup: true,
+  account: true
+}
+
+const BackArrow = ({ onClick }) => (
+  <BackButton className="u-mr-1" onClick={onClick} />
+)
 
 const SectionsPerType = {
   [CHOOSING_TYPES.category]: CategorySection,
   [CHOOSING_TYPES.accountOrGroup]: AccountOrGroupSection,
-  [CHOOSING_TYPES.threshold]: ThresholdSection
+  [CHOOSING_TYPES.account]: AccountOrGroupSection,
+  [CHOOSING_TYPES.threshold]: ThresholdSection,
+  [CHOOSING_TYPES.number]: NumberSection
 }
 
 const ChoosingSwitch = ({ choosing }) => {
@@ -39,13 +57,16 @@ const ChoosingSwitch = ({ choosing }) => {
           categoryIsParent={choosing.value.isParent}
           onSelect={choosing.onSelect}
           onCancel={choosing.onCancel}
+          {...choosing.chooserProps}
         />
       ) : null}
-      {choosing.type === CHOOSING_TYPES.accountOrGroup ? (
+      {choosing.type === CHOOSING_TYPES.accountOrGroup ||
+      choosing.type === CHOOSING_TYPES.account ? (
         <AccountGroupChoice
           current={choosing.value}
           onSelect={choosing.onSelect}
           onCancel={choosing.onCancel}
+          {...choosing.chooserProps}
         />
       ) : null}
     </>
@@ -66,21 +87,26 @@ const InfoSlide = ({
         const FieldSection = SectionsPerType[fieldSpecs[fieldName].type]
         const fieldSpec = fieldSpecs[fieldName]
         const fieldLabel = fieldLabels[fieldName]
+        const chooserProps = resultWithArgs(fieldSpec, 'chooserProps', [doc])
+        const sectionProps = resultWithArgs(fieldSpec, 'sectionProps', [doc])
+        const hasSelector = TYPES_WITH_SELECTOR[fieldSpec.type]
         return (
           <FieldSection
             key={fieldName}
             label={fieldLabel}
             value={fieldSpec.getValue(doc)}
             onClick={
-              fieldSpec.immediate ? null : () => onRequestChooseField(fieldName)
+              hasSelector ? () => onRequestChooseField(fieldName) : undefined
             }
             onChange={
-              fieldSpec.immediate
-                ? ev => {
-                    onChangeField(fieldName, ev.target.value)
+              hasSelector
+                ? undefined
+                : value => {
+                    onChangeField(fieldName, value)
                   }
-                : null
             }
+            {...sectionProps}
+            chooserProps={chooserProps}
           />
         )
       })}
@@ -121,6 +147,7 @@ const EditionModal = props => {
     setChoosing({
       type: fieldSpec.type,
       value: fieldSpec.getValue(doc),
+      chooserProps: fieldSpec.chooserProps,
       onSelect: val => {
         setChoosing(null)
         handleChangeField(name, val)
@@ -134,7 +161,17 @@ const EditionModal = props => {
   }
 
   return (
-    <Modal title={modalTitle} mobileFullscreen={true} dismissAction={onDismiss}>
+    <Modal
+      title={
+        <>
+          {choosing ? <BackArrow onClick={() => setChoosing(null)} /> : null}
+          {modalTitle}
+        </>
+      }
+      mobileFullscreen={true}
+      dismissAction={onDismiss}
+      closable={!choosing}
+    >
       <Stepper
         showPercentage={false}
         currentIndex={choosing ? CHOOSING_SLIDE_INDEX : INFO_SLIDE_INDEX}
@@ -150,16 +187,18 @@ const EditionModal = props => {
         />
         <div>{choosing ? <ChoosingSwitch choosing={choosing} /> : null}</div>
       </Stepper>
-      <ModalFooter>
-        <ModalButtons>
-          <Button
-            theme={'secondary'}
-            onClick={onDismiss}
-            label={cancelButtonLabel(props, doc)}
-          />
-          <Button onClick={handleConfirmEdit} label={okButtonLabel(doc)} />
-        </ModalButtons>
-      </ModalFooter>
+      {choosing ? null : (
+        <ModalFooter>
+          <ModalButtons>
+            <Button
+              theme={'secondary'}
+              onClick={onDismiss}
+              label={cancelButtonLabel(props, doc)}
+            />
+            <Button onClick={handleConfirmEdit} label={okButtonLabel(doc)} />
+          </ModalButtons>
+        </ModalFooter>
+      )}
     </Modal>
   )
 }

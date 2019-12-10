@@ -4,7 +4,7 @@
  */
 
 import React from 'react'
-import { Label, ModalContent } from 'cozy-ui/transpiled/react'
+import { ModalContent } from 'cozy-ui/transpiled/react'
 import Row from 'components/Row'
 import styles from './styles.styl'
 
@@ -12,7 +12,7 @@ export const ModalSection = ({ children, label }) => (
   <div>
     {label && (
       <ModalContent>
-        <Label>{label} </Label>
+        <h5>{label}</h5>
       </ModalContent>
     )}
     {children}

@@ -31,7 +31,8 @@ export const CreateCategoryAlert = translate()(({ createAlert, t }) => {
     <>
       <Button
         className="u-ml-0"
-        theme="secondary"
+        theme="subtle"
+        icon="plus"
         label={t('Settings.budget-category-alerts.create-alert')}
         busy={saving}
         onClick={() => {

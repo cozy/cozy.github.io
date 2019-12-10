@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import SwipeableViews from 'react-swipeable-views'
 
 import PercentageLine from 'components/PercentageLine'
-import { BackButtonMobile } from 'components/BackButton'
+import { BarBackButton } from 'components/BackButton'
 import styles from './styles.styl'
 
 const StepperProgress = ({ currentIndex, steps }) => (
@@ -28,7 +28,7 @@ const Stepper = ({ currentIndex, children, onBack, showPercentage }) => (
     {showPercentage ? (
       <StepperProgress steps={children} currentIndex={currentIndex} />
     ) : null}
-    {currentIndex > 0 ? <BackButtonMobile onClick={onBack} /> : null}
+    {currentIndex > 0 ? <BarBackButton onClick={onBack} /> : null}
     <SwipeableViews animateHeight disabled index={currentIndex}>
       {React.Children.map(children, (child, i) => {
         return React.cloneElement(child, { active: i === currentIndex })

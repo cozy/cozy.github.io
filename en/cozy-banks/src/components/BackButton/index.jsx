@@ -9,22 +9,37 @@ import { withBreakpoints } from 'cozy-ui/react'
 import Icon from 'cozy-ui/react/Icon'
 import arrowLeft from 'assets/icons/icon-arrow-left.svg'
 import { getCssVariableValue } from 'cozy-ui/react/utils/color'
+import cx from 'classnames'
 
 const { BarLeft } = cozy.bar
 
-export const BackButtonMobile = ({ onClick, theme }) => {
-  const arrowColor =
-    theme === 'primary'
-      ? getCssVariableValue('primaryContrastTextColor')
-      : getCssVariableValue('coolGrey')
-  return (
-    <BarLeft>
-      <button className="coz-bar-btn coz-bar-burger" onClick={onClick}>
-        <Icon icon={arrowLeft} color={arrowColor} />
-      </button>
-    </BarLeft>
-  )
+export const BackIcon = ({ color }) => <Icon icon={arrowLeft} color={color} />
+
+export const BackLink = ({ className, color, onClick }) => (
+  <a className={cx(styles.BackLink, className)} onClick={onClick}>
+    <BackIcon color={color} />
+  </a>
+)
+
+export const BackButton = ({ className, color, onClick }) => (
+  <button className={cx(styles.BackButton, className)} onClick={onClick}>
+    <BackIcon color={color} />
+  </button>
+)
+
+BackButton.defaultProps = {
+  color: 'var(--coolGrey)'
 }
+
+export const BarBackButton = ({ onClick, color }) => (
+  <BarLeft>
+    <BackButton
+      className="coz-bar-btn coz-bar-burger"
+      color={color}
+      onClick={onClick}
+    />
+  </BarLeft>
+)
 
 /**
  * Display a BackButton on mobile. When it is displayed,
@@ -36,7 +51,7 @@ export const BackButtonMobile = ({ onClick, theme }) => {
  * <BackButton to={ '/settings' } />
  * ```
  */
-const BackButton = ({
+const MobileAwareBackButton = ({
   onClick,
   to,
   router,
@@ -57,17 +72,13 @@ const BackButton = ({
       : getCssVariableValue('coolGrey')
   const handleClick = (onClick = onClick || (() => to && router.push(to)))
   return isMobile ? (
-    <BackButtonMobile onClick={handleClick} theme={theme} />
+    <BarBackButton onClick={handleClick} color={arrowColor} />
   ) : (
-    arrow && (
-      <a onClick={handleClick} className={styles['back-arrow']}>
-        <Icon icon={arrowLeft} color={arrowColor} />
-      </a>
-    )
+    arrow && <BackLink onClick={handleClick} color={arrowColor} />
   )
 }
 
-BackButton.propTypes = {
+MobileAwareBackButton.propTypes = {
   /** Location to go when clicking on the button. Uses react-router. */
   to: PropTypes.string,
   /** onClick handler. Mutually exclusive with `to` */
@@ -80,4 +91,4 @@ BackButton.propTypes = {
 export default compose(
   withBreakpoints(),
   withBackSwipe({ getLocation: ownProps => ownProps.to })
-)(BackButton)
+)(MobileAwareBackButton)

@@ -24,8 +24,7 @@ const fieldSpecs = {
   maxThreshold: {
     type: CHOOSING_TYPES.threshold,
     getValue: getMaxThresholdChoiceFromAlert,
-    updater: updatedAlertFromMaxThresholdChoice,
-    immediate: true
+    updater: updatedAlertFromMaxThresholdChoice
   }
 }
 

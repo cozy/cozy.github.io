@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-import { Card, Icon, translate, Modal } from 'cozy-ui/transpiled/react'
+import { Icon, translate, Modal } from 'cozy-ui/transpiled/react'
 
 import { CategoryIcon, getCategoryName } from 'ducks/categories'
 import CategoryAlertEditModal from 'ducks/settings/CategoryAlerts/CategoryAlertEditModal'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import AccountOrGroupLabel from 'ducks/settings/CategoryAlerts/AccountOrGroupLabel'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
+import SettingCard from 'components/SettingCard'
 
-import styles from './CategoryAlertCard.styl'
 import flag from 'cozy-flags'
 
 const CategoryAlertPropType = PropTypes.shape({
@@ -77,7 +77,7 @@ const CategoryAlertCard = ({ removeAlert, updateAlert, alert, t }) => {
 
   return (
     <>
-      <Card className={styles.CategoryAlertCard} onClick={handleCardClick}>
+      <SettingCard onClick={handleCardClick}>
         <div className="u-media u-media-top">
           <div className="u-media-fixed u-mr-1">
             <CategoryIcon categoryId={alert.categoryId} />
@@ -124,7 +124,7 @@ const CategoryAlertCard = ({ removeAlert, updateAlert, alert, t }) => {
             </span>
           </div>
         </div>
-      </Card>
+      </SettingCard>
       {editing ? (
         <CategoryAlertEditModal
           onDismiss={() => setEditing(null)}

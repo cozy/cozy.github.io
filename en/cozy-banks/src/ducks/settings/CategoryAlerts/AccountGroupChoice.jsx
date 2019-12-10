@@ -20,49 +20,67 @@ export const AccountGroupChoice = ({
   accounts: accountsCol,
   groups: groupsCol,
   onSelect,
-  t
+  t,
+  canSelectAll,
+  filter
 }) => {
-  const accounts = accountsCol.data || []
-  const groups = groupsCol.data || []
+  const unfilteredAccounts = accountsCol.data || []
+  const unfilteredGroups = groupsCol.data || []
+
+  const accounts = filter
+    ? unfilteredAccounts.filter(filter)
+    : unfilteredAccounts
+  const groups = filter ? unfilteredGroups.filter(filter) : unfilteredGroups
+
   return (
     <ModalSections>
-      <ModalSection>
-        <ModalRow
-          label={t('AccountSwitch.all_accounts')}
-          hasRadio
-          isSelected={!current}
-          onClick={() => onSelect(null)}
-        />
-      </ModalSection>
-      <ModalSection label={t('AccountSwitch.accounts')}>
-        {accounts.map(account => (
+      {canSelectAll ? (
+        <ModalSection>
           <ModalRow
-            icon={<AccountIcon account={account} />}
-            key={account._id}
-            isSelected={current && current._id === account._id}
+            label={t('AccountSwitch.all_accounts')}
             hasRadio
-            label={getAccountLabel(account)}
-            onClick={() => onSelect(account)}
+            isSelected={!current}
+            onClick={() => onSelect(null)}
           />
-        ))}
-      </ModalSection>
-      <ModalSection label={t('AccountSwitch.groups')}>
-        {groups.map(group => (
-          <ModalRow
-            key={group._id}
-            isSelected={current && current._id === group._id}
-            hasRadio
-            label={getGroupLabel(group, t)}
-            onClick={() => onSelect(group)}
-          />
-        ))}
-      </ModalSection>
+        </ModalSection>
+      ) : null}
+      {accounts.length > 0 ? (
+        <ModalSection label={t('AccountSwitch.accounts')}>
+          {accounts.map(account => (
+            <ModalRow
+              icon={<AccountIcon account={account} />}
+              key={account._id}
+              isSelected={current && current._id === account._id}
+              hasRadio
+              label={getAccountLabel(account)}
+              onClick={() => onSelect(account)}
+            />
+          ))}
+        </ModalSection>
+      ) : null}
+      {groups.length > 0 ? (
+        <ModalSection label={t('AccountSwitch.groups')}>
+          {groups.map(group => (
+            <ModalRow
+              key={group._id}
+              isSelected={current && current._id === group._id}
+              hasRadio
+              label={getGroupLabel(group, t)}
+              onClick={() => onSelect(group)}
+            />
+          ))}
+        </ModalSection>
+      ) : null}
     </ModalSections>
   )
 }
 
 AccountGroupChoice.propTypes = {
   onSelect: PropTypes.func.isRequired
+}
+
+AccountGroupChoice.defaultProps = {
+  canSelectAll: true
 }
 
 export const DumbAccountGroupChoice = translate()(AccountGroupChoice)

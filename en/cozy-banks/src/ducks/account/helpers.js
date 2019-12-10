@@ -73,31 +73,31 @@ export const accountTypesWithTranslation = [
   'Savings'
 ]
 
-export const getAccountType = account => {
-  const accountTypesMap = {
-    Article83: 'LongTermSavings',
-    Asset: 'Business',
-    Bank: 'Checkings',
-    Capitalisation: 'Business',
-    Cash: 'Checkings',
-    ConsumerCredit: 'Loan',
-    'Credit card': 'CreditCard',
-    Deposit: 'Checkings',
-    Liability: 'Business',
-    LifeInsurance: 'LongTermSavings',
-    Madelin: 'LongTermSavings',
-    Market: 'LongTermSavings',
-    Mortgage: 'LongTermSavings',
-    None: 'Other',
-    PEA: 'LongTermSavings',
-    PEE: 'LongTermSavings',
-    Perco: 'LongTermSavings',
-    Perp: 'LongTermSavings',
-    RevolvingCredit: 'Loan',
-    RSP: 'LongTermSavings',
-    Unkown: 'Other'
-  }
+const accountTypesMap = {
+  Article83: 'LongTermSavings',
+  Asset: 'Business',
+  Bank: 'Checkings',
+  Capitalisation: 'Business',
+  Cash: 'Checkings',
+  ConsumerCredit: 'Loan',
+  'Credit card': 'CreditCard',
+  Deposit: 'Checkings',
+  Liability: 'Business',
+  LifeInsurance: 'LongTermSavings',
+  Madelin: 'LongTermSavings',
+  Market: 'LongTermSavings',
+  Mortgage: 'LongTermSavings',
+  None: 'Other',
+  PEA: 'LongTermSavings',
+  PEE: 'LongTermSavings',
+  Perco: 'LongTermSavings',
+  Perp: 'LongTermSavings',
+  RevolvingCredit: 'Loan',
+  RSP: 'LongTermSavings',
+  Unkown: 'Other'
+}
 
+export const getAccountType = account => {
   const mappedType = accountTypesMap[account.type] || account.type || 'Other'
   const type = accountTypesWithTranslation.includes(mappedType)
     ? mappedType
@@ -219,3 +219,8 @@ export const getUniqueOwners = accounts => {
 
   return uniqOwners
 }
+
+export const isCreditCardAccount = account =>
+  getAccountType(account) === 'CreditCard'
+export const isCheckingsAccount = account =>
+  getAccountType(account) === 'Checkings'

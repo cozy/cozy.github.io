@@ -24,7 +24,7 @@ const connect = Component => {
       return <Component {...this.props} />
     }
   }
-  Wrapped.displayName = 'flag_' + Component.displayName
+  Wrapped.displayName = `withFlags(${Component.displayName || Component.name})`
   return Wrapped
 }
 

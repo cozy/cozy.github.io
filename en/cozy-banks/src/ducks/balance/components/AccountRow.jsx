@@ -125,8 +125,7 @@ class AccountRow extends React.PureComponent {
     checked: PropTypes.bool.isRequired,
     disabled: PropTypes.bool.isRequired,
     onSwitchChange: PropTypes.func.isRequired,
-    id: PropTypes.string.isRequired,
-    showOwners: PropTypes.bool.isRequired
+    id: PropTypes.string.isRequired
   }
 
   handleSwitchClick = e => {
@@ -145,7 +144,6 @@ class AccountRow extends React.PureComponent {
       onSwitchChange,
       id,
       triggersCol,
-      showOwners,
       client
     } = this.props
 
@@ -153,8 +151,12 @@ class AccountRow extends React.PureComponent {
     const contacts = client.getCollectionFromState(CONTACT_DOCTYPE)
     const contactsById = keyBy(contacts, contact => contact._id)
     const ownerRelationships = get(account, 'relationships.owners.data', [])
-    const owners = ownerRelationships.map(data => contactsById[data._id])
-    const shouldShowOwners = showOwners && owners && owners.length > 0
+
+    const owners = ownerRelationships
+      .map(data => contactsById[data._id])
+      .filter(owner => !owner.me)
+
+    const shouldShowOwners = owners.length > 0
 
     const hasWarning = account.balance < warningLimit
     const hasAlert = account.balance < 0

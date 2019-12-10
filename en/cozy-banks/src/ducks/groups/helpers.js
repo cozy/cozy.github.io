@@ -3,6 +3,7 @@ import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { associateDocuments } from 'ducks/client/utils'
 import { getAccountType, getAccountBalance } from 'ducks/account/helpers'
 import flag from 'cozy-flags'
+import resultWithArgs from 'utils/resultWithArgs'
 
 export const getGroupLabel = (group, t) => {
   if (group.virtual) {
@@ -78,21 +79,6 @@ const getCategory = group => {
   }
 }
 
-/**
- * If obj[name] is a function, invokes it with this binded to obj and with args
- * Otherwise, returns obj[name]
- *
- * Similar to lodash's result but supports args
- */
-const result = (obj, name, args) => {
-  const v = obj[name]
-  if (typeof v === 'function') {
-    return v.apply(obj, args)
-  } else {
-    return v
-  }
-}
-
 const groupSortingPriorities = {
   normal: 0,
   virtualOther: 1,
@@ -107,7 +93,9 @@ const groupSortingPriorities = {
   }
 }
 const getGroupPriority = wrappedGroup =>
-  result(groupSortingPriorities, wrappedGroup.category, [wrappedGroup.group])
+  resultWithArgs(groupSortingPriorities, wrappedGroup.category, [
+    wrappedGroup.group
+  ])
 
 /**
  * Translate groups labels then sort them on their translated label. But always put "others accounts" last

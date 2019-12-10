@@ -13,7 +13,8 @@ const DumbAccountOrGroupSection = ({
   value,
   onClick,
   accountsById,
-  t
+  t,
+  chooserProps
 }) => (
   <ModalSection label={label}>
     <ModalRow
@@ -25,8 +26,10 @@ const DumbAccountOrGroupSection = ({
       label={
         value ? (
           <AccountOrGroupLabel doc={value} />
+        ) : chooserProps && !chooserProps.canSelectAll ? (
+          <i>{t('AccountGroupChoice.nothing-selected')}</i>
         ) : (
-          t('AccountSwitch.all_accounts')
+          t('AccountGroupChoice.all-accounts')
         )
       }
       onClick={onClick}

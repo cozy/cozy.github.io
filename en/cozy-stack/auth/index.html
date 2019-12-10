@@ -1975,6 +1975,19 @@
     POST /auth/passphrase_renew
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters" title="Parameters" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -2818,6 +2831,19 @@
     POST /auth/passphrase_renew
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters" title="Parameters" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -3299,6 +3325,49 @@ csrf_token=123456890&amp;passphrase_reset_token=123456789&amp;passphrase=mynewpa
 </pre></div>
 
 
+<h4 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Form parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>passphrase_reset_token</td>
+<td>the token to authenticate the request</td>
+</tr>
+<tr>
+<td>csrf_token</td>
+<td>the token to protect against CSRF attacks</td>
+</tr>
+<tr>
+<td>passphrase</td>
+<td>the new password</td>
+</tr>
+<tr>
+<td>hint</td>
+<td>the hint to find again the password</td>
+</tr>
+<tr>
+<td>iterations</td>
+<td>the number of PBKDF2 iterations</td>
+</tr>
+<tr>
+<td>key</td>
+<td>the encrypted master key for bitwarden</td>
+</tr>
+<tr>
+<td>public_key</td>
+<td>the public key for the cozy organization</td>
+</tr>
+<tr>
+<td>private_key</td>
+<td>the private key for the cozy organization</td>
+</tr>
+</tbody>
+</table>
 <h3 id="get-authpassphrase">GET /auth/passphrase<a class="headerlink" href="#get-authpassphrase" title="Permanent link">&para;</a></h3>
 <p>This page renders a form to set the password for an onboarding instance. This
 endpoint expects a valid <code>registerToken</code> parameter.</p>

@@ -55,4 +55,9 @@ flag('transactions.error-banner', true)
 // Turn on loan details page
 flag('loan-details-page', true)
 
+// Turn on all flags related to owners
+flag('balance.show-owners', true)
+flag('settings.show-accounts-owners', true)
+flag('settings.new-account-details-page', true)
+
 window.flag = flag

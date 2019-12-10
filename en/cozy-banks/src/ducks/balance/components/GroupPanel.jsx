@@ -72,8 +72,7 @@ class GroupPanel extends React.PureComponent {
     expanded: PropTypes.bool.isRequired,
     onSwitchChange: PropTypes.func,
     onChange: PropTypes.func,
-    withBalance: PropTypes.bool,
-    showOwners: PropTypes.bool.isRequired
+    withBalance: PropTypes.bool
   }
 
   static defaultProps = {
@@ -125,8 +124,7 @@ class GroupPanel extends React.PureComponent {
       withBalance,
       t,
       className,
-      groupPanelSummaryClasses,
-      showOwners
+      groupPanelSummaryClasses
     } = this.props
 
     const nbAccounts = group.accounts.data.length
@@ -205,7 +203,6 @@ class GroupPanel extends React.PureComponent {
               warningLimit={warningLimit}
               switches={switches}
               onSwitchChange={onSwitchChange}
-              showOwners={showOwners}
             />
           ) : (
             <Stack className="u-m-1">

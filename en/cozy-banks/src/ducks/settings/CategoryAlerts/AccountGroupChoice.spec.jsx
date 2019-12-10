@@ -18,7 +18,7 @@ describe('AccountGroupChoice', () => {
     const root = mount(
       <TestI18n>
         <AccountGroupChoice
-          onChoose={() => {}}
+          onSelect={() => {}}
           groups={groups}
           accounts={accounts}
         />
