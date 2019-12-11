@@ -33,7 +33,7 @@ export const CreateCategoryAlert = translate()(({ createAlert, t }) => {
         className="u-ml-0"
         theme="subtle"
         icon="plus"
-        label={t('Settings.budget-category-alerts.create-alert')}
+        label={t('Settings.create-alert')}
         busy={saving}
         onClick={() => {
           setCreating(true)

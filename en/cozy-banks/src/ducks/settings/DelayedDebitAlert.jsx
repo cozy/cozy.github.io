@@ -16,14 +16,10 @@ import TogglableSettingCard from './TogglableSettingCard'
 import { CHOOSING_TYPES } from 'components/EditionModal'
 import { getAccountsById } from 'selectors'
 import compose from 'lodash/flowRight'
-
-const dehydrateAccount = account => ({
-  _id: account._id,
-  _type: account._type
-})
+import { getDocumentIdentity } from 'ducks/client/utils'
 
 const makeAccountChoiceFromAccount = account => {
-  return account ? dehydrateAccount(account) : null
+  return account ? getDocumentIdentity(account) : null
 }
 
 const getModalProps = ({ initialDoc, t }) => ({
@@ -49,7 +45,7 @@ const getModalProps = ({ initialDoc, t }) => ({
         makeAccountChoiceFromAccount(initialDoc.creditCardAccount),
       updater: (doc, creditCardAccount) => ({
         ...doc,
-        creditCardAccount: dehydrateAccount(creditCardAccount)
+        creditCardAccount: getDocumentIdentity(creditCardAccount)
       })
     },
     checkingsAccount: {
@@ -62,7 +58,7 @@ const getModalProps = ({ initialDoc, t }) => ({
         makeAccountChoiceFromAccount(initialDoc.checkingsAccount),
       updater: (doc, checkingsAccount) => ({
         ...doc,
-        checkingsAccount: dehydrateAccount(checkingsAccount)
+        checkingsAccount: getDocumentIdentity(checkingsAccount)
       })
     },
     value: {
@@ -134,22 +130,21 @@ class DelayedDebitCard extends React.Component {
       ? getAccountLabel(checkingsAccount)
       : '...'
 
-    const description = t('Notifications.delayed_debit.description', {
-      creditCardLabel,
-      checkingsLabel,
-      value
-    })
-
     return (
       <TogglableSettingCard
-        enabled={doc.enabled}
         onToggle={onToggle}
         onChangeDoc={onChangeDoc}
         editModalProps={getModalProps({ t, initialDoc })}
         shouldOpenOnToggle={() => {
           return !initialDoc.creditCardAccount || !initialDoc.checkingsAccount
         }}
-        description={description}
+        doc={doc}
+        descriptionKey="Notifications.delayed_debit.description"
+        descriptionProps={{
+          creditCardLabel,
+          checkingsLabel,
+          value
+        }}
       />
     )
   }

@@ -73,7 +73,8 @@ module.exports = {
         '../react/Filename/index.jsx',
         '../react/AppTitle/index.jsx',
         '../react/Figure/Figure.jsx',
-        '../react/Figure/FigureBlock.jsx'
+        '../react/Figure/FigureBlock.jsx',
+        '../react/Table/index.jsx'
       ]
     },
     {

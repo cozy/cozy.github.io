@@ -1,6 +1,12 @@
 import { merge, get } from 'lodash'
 import { DOCTYPE, DEFAULTS_SETTINGS } from 'ducks/settings/constants'
 import logger from 'cozy-logger'
+import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
+
+import { connect } from 'react-redux'
+import { getDocumentFromState } from 'cozy-client/dist/store'
+import { getAccountLabel } from 'ducks/account/helpers'
+import { getGroupLabel } from 'ducks/groups/helpers'
 
 const log = logger.namespace('settings.helpers')
 
@@ -69,4 +75,33 @@ export const updateCategoryAlerts = async (client, updatedAlerts) => {
   const settings = await fetchSettings(client)
   settings.categoryBudgetAlerts = updatedAlerts
   return updateSettings(client, settings)
+}
+
+export const getAccountOrGroupLabel = accountOrGroup => {
+  if (!accountOrGroup) {
+    return null
+  }
+  switch (accountOrGroup._type) {
+    case ACCOUNT_DOCTYPE:
+      return getAccountLabel(accountOrGroup)
+    case GROUP_DOCTYPE:
+      return getGroupLabel(accountOrGroup)
+    default:
+      return ''
+  }
+}
+
+export const withAccountOrGroupLabeller = propName =>
+  connect(state => ({
+    [propName]: partialDoc =>
+      getAccountOrGroupLabel(
+        getDocumentFromState(state, partialDoc._type, partialDoc._id)
+      )
+  }))
+
+const boldRx = /\*(.*?)\*/g
+export const markdownBold = str => {
+  return str.replace(boldRx, function(a) {
+    return '<b>' + a.slice(1, -1) + '</b>'
+  })
 }

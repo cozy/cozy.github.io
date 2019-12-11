@@ -8,7 +8,7 @@ const NumberSection = ({ label, value, onChange, unit }) => {
   }
   return (
     <ModalSection label={label}>
-      <ModalContent>
+      <ModalContent className="u-pb-0">
         <InputGroup
           append={unit ? <InputGroup.Unit>{unit}</InputGroup.Unit> : null}
         >

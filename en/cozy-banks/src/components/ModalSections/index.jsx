@@ -20,7 +20,7 @@ export const ModalSection = ({ children, label }) => (
 )
 
 export const ModalSections = ({ children }) => {
-  return <div className="u-stack-s">{children}</div>
+  return <div className="u-stack-l">{children}</div>
 }
 
 export const ModalRow = props => <Row className={styles.ModalRow} {...props} />

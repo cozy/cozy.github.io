@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import compose from 'lodash/flowRight'
 import PropTypes from 'prop-types'
 
 import { Icon, translate, Modal } from 'cozy-ui/transpiled/react'
@@ -6,9 +7,9 @@ import { Icon, translate, Modal } from 'cozy-ui/transpiled/react'
 import { CategoryIcon, getCategoryName } from 'ducks/categories'
 import CategoryAlertEditModal from 'ducks/settings/CategoryAlerts/CategoryAlertEditModal'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
-import AccountOrGroupLabel from 'ducks/settings/CategoryAlerts/AccountOrGroupLabel'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 import SettingCard from 'components/SettingCard'
+import { withAccountOrGroupLabeller, markdownBold } from '../helpers'
 
 import flag from 'cozy-flags'
 
@@ -16,6 +17,12 @@ const CategoryAlertPropType = PropTypes.shape({
   categoryId: PropTypes.string.isRequired,
   maxThreshold: PropTypes.number.isRequired
 })
+
+const RemoveCardIcon = ({ onClick }) => (
+  <span onClick={onClick} className="u-expanded-click-area">
+    <Icon color="var(--coolGrey)" icon="cross" />
+  </span>
+)
 
 const CategoryAlertDebug = ({ alert }) => (
   <>
@@ -41,8 +48,13 @@ const CategoryAlertDebug = ({ alert }) => (
  * Displays removal button and calls removeAlert callback
  *
  */
-const CategoryAlertCard = ({ removeAlert, updateAlert, alert, t }) => {
-  const categoryName = getCategoryName(alert.categoryId)
+const CategoryAlertCard = ({
+  removeAlert,
+  updateAlert,
+  alert,
+  t,
+  getAccountOrGroupLabel
+}) => {
   const [editing, setEditing] = useState(false)
   const [saving, setSaving] = useState(false)
   const [confirmingRemoval, setConfirmingRemoval] = useState(false)
@@ -75,6 +87,18 @@ const CategoryAlertCard = ({ removeAlert, updateAlert, alert, t }) => {
     setConfirmingRemoval(true)
   }
 
+  const categoryName = t(
+    `Data.${
+      alert.categoryIsParent ? 'categories' : 'subcategories'
+    }.${getCategoryName(alert.categoryId)}`
+  )
+
+  const accountOrGroupKey = alert.accountOrGroup
+    ? alert.accountOrGroup._type === ACCOUNT_DOCTYPE
+      ? 'Settings.budget-category-alerts.for-account'
+      : 'Settings.budget-category-alerts.for-group'
+    : null
+
   return (
     <>
       <SettingCard onClick={handleCardClick}>
@@ -83,30 +107,41 @@ const CategoryAlertCard = ({ removeAlert, updateAlert, alert, t }) => {
             <CategoryIcon categoryId={alert.categoryId} />
           </div>
           <div className="u-media-grow">
-            {t('Settings.budget-category-alerts.budget-inferior-to', {
-              threshold: alert.maxThreshold
-            })}
             {saving ? <Spinner size="small" /> : null}
+
+            <span
+              dangerouslySetInnerHTML={{
+                __html: markdownBold(
+                  t('Settings.budget-category-alerts.budget-inferior-to', {
+                    threshold: alert.maxThreshold
+                  })
+                )
+              }}
+            />
             <br />
-            {t('Settings.budget-category-alerts.for-category', {
-              categoryName: t(
-                `Data.${
-                  alert.categoryIsParent ? 'categories' : 'subcategories'
-                }.${categoryName}`
-              )
-            })}
+            <span
+              dangerouslySetInnerHTML={{
+                __html: markdownBold(
+                  t('Settings.budget-category-alerts.for-category', {
+                    categoryName: categoryName
+                  })
+                )
+              }}
+            />
             <br />
             {alert.accountOrGroup ? (
               <>
-                {t(
-                  alert.accountOrGroup._type === ACCOUNT_DOCTYPE
-                    ? 'Settings.budget-category-alerts.for-account'
-                    : 'Settings.budget-category-alerts.for-group',
-                  {
-                    threshold: alert.maxThreshold
-                  }
-                )}{' '}
-                <AccountOrGroupLabel doc={alert.accountOrGroup} />
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: markdownBold(
+                      t(accountOrGroupKey, {
+                        accountOrGroupLabel: getAccountOrGroupLabel(
+                          alert.accountOrGroup
+                        )
+                      })
+                    )
+                  }}
+                />
               </>
             ) : (
               t('Settings.budget-category-alerts.for-all-accounts')
@@ -116,12 +151,7 @@ const CategoryAlertCard = ({ removeAlert, updateAlert, alert, t }) => {
             ) : null}
           </div>
           <div className="u-media-fixed u-ml-1">
-            <span
-              onClick={handleRequestRemoval}
-              className="u-expanded-click-area"
-            >
-              <Icon color="var(--coolGrey)" icon="cross" />
-            </span>
+            <RemoveCardIcon onClick={handleRequestRemoval} />
           </div>
         </div>
       </SettingCard>
@@ -153,4 +183,7 @@ CategoryAlertCard.propTypes = {
   alert: CategoryAlertPropType
 }
 
-export default translate()(CategoryAlertCard)
+export default compose(
+  withAccountOrGroupLabeller('getAccountOrGroupLabel'),
+  translate()
+)(CategoryAlertCard)

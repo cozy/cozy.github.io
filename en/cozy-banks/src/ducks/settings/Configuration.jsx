@@ -1,5 +1,5 @@
 import React from 'react'
-import { translate } from 'cozy-ui/react'
+import { translate, Alerter, Button } from 'cozy-ui/react'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { queryConnect, withMutations } from 'cozy-client'
 import { settingsConn } from 'doctypes'
@@ -24,6 +24,8 @@ import DelayedDebitAlert from 'ducks/settings/DelayedDebitAlert'
 import CategoryAlertSettingsPane from 'ducks/settings/CategoryAlerts/CategoryAlertSettingsPane'
 import TogglableSettingCard from './TogglableSettingCard'
 import { CHOOSING_TYPES } from 'components/EditionModal'
+import { withAccountOrGroupLabeller } from './helpers'
+import { getDocumentIdentity } from 'ducks/client/utils'
 
 const getValueFromNotification = notification => notification.value
 const updatedNotificationFromValue = (notification, value) => ({
@@ -31,11 +33,22 @@ const updatedNotificationFromValue = (notification, value) => ({
   value
 })
 
-const singleValueFieldOrder = ['value']
+const getAccountOrGroupFromNotification = notification =>
+  notification.accountOrGroup
+const updatedNotificationFromAccountGroup = (notification, accountOrGroup) => ({
+  ...notification,
+  accountOrGroup: getDocumentIdentity(accountOrGroup)
+})
 
-// i18n
+const SettingSection = ({ children, title }) => (
+  <ToggleRowWrapper>
+    {title && <ToggleRowTitle>{title}</ToggleRowTitle>}
+    {children}
+  </ToggleRowWrapper>
+)
+
 const editModalProps = {
-  balanceLower: ({ t, initialDoc }) => ({
+  balanceLower: ({ t }) => ({
     modalTitle: t('Notifications.editModal.title'),
     fieldSpecs: {
       value: {
@@ -45,15 +58,25 @@ const editModalProps = {
         sectionProps: {
           unit: '€'
         }
+      },
+      accountOrGroup: {
+        type: CHOOSING_TYPES.accountOrGroup,
+        getValue: getAccountOrGroupFromNotification,
+        updater: updatedNotificationFromAccountGroup
       }
     },
-    fieldOrder: singleValueFieldOrder,
+    fieldOrder: [
+      'value',
+      flag('settings.notification-account-group') && 'accountOrGroup'
+    ].filter(Boolean),
     fieldLabels: {
-      value: t('Notifications.if_balance_lower.fieldLabels.value')
-    },
-    initialDoc
+      value: t('Notifications.if_balance_lower.fieldLabels.value'),
+      accountOrGroup: t(
+        'Notifications.if_balance_lower.fieldLabels.accountOrGroup'
+      )
+    }
   }),
-  transactionGreater: ({ t, initialDoc }) => ({
+  transactionGreater: ({ t }) => ({
     modalTitle: t('Notifications.editModal.title'),
     fieldSpecs: {
       value: {
@@ -63,15 +86,25 @@ const editModalProps = {
         sectionProps: {
           unit: '€'
         }
+      },
+      accountOrGroup: {
+        type: CHOOSING_TYPES.accountOrGroup,
+        getValue: getAccountOrGroupFromNotification,
+        updater: updatedNotificationFromAccountGroup
       }
     },
-    fieldOrder: singleValueFieldOrder,
+    fieldOrder: [
+      'value',
+      flag('settings.notification-account-group') && 'accountOrGroup'
+    ].filter(Boolean),
     fieldLabels: {
-      value: t('Notifications.if_transaction_greater.fieldLabels.value')
-    },
-    initialDoc
+      value: t('Notifications.if_transaction_greater.fieldLabels.value'),
+      accountOrGroup: t(
+        'Notifications.if_transaction_greater.fieldLabels.accountOrGroup'
+      )
+    }
   }),
-  lateHealthReimbursement: ({ t, initialDoc }) => ({
+  lateHealthReimbursement: ({ t }) => ({
     modalTitle: t('Notifications.editModal.title'),
     fieldSpecs: {
       value: {
@@ -83,12 +116,53 @@ const editModalProps = {
         }
       }
     },
-    fieldOrder: singleValueFieldOrder,
+    fieldOrder: ['value'],
     fieldLabels: {
       value: t('Notifications.when_late_health_reimbursement.fieldLabels.value')
-    },
-    initialDoc
+    }
   })
+}
+
+// descriptionProps getters below need the full props to have access to
+// `props.getAccountOrGroupLabel`.
+// `getAccountOrGroupLabel` must come from the props to have access to the
+// store since it needs to get the full accountOrGroup from the store, since
+// the accountOrGroup from the notification is only its identity (only _id
+// and _type).
+// We pass the full props to descriptionKey to keep the symmetry between
+// descriptionKey getter and descriptionProp getter
+const getTransactionGreaterDescriptionKey = props => {
+  if (props.doc && props.doc.accountOrGroup) {
+    return 'Notifications.if_transaction_greater.descriptionWithAccountGroup'
+  } else {
+    return 'Notifications.if_transaction_greater.description'
+  }
+}
+
+const getBalanceLowerDescriptionKey = props => {
+  if (props.doc && props.doc.accountOrGroup) {
+    return 'Notifications.if_balance_lower.descriptionWithAccountGroup'
+  } else {
+    return 'Notifications.if_balance_lower.description'
+  }
+}
+
+const getTransactionGreaterDescriptionProps = props => ({
+  accountOrGroupLabel: props.doc.accountOrGroup
+    ? props.getAccountOrGroupLabel(props.doc.accountOrGroup)
+    : null,
+  value: props.doc.value
+})
+
+const getBalanceLowerDescriptionProps = props => ({
+  accountOrGroupLabel: props.doc.accountOrGroup
+    ? props.getAccountOrGroupLabel(props.doc.accountOrGroup)
+    : null,
+  value: props.doc.value
+})
+
+const onToggleFlag = key => checked => {
+  flag(key, checked)
 }
 
 /**
@@ -110,10 +184,6 @@ export class Configuration extends React.Component {
     this.saveDocument(settings, {
       updateCollections: ['settings']
     })
-  }
-
-  onToggleFlag = key => checked => {
-    flag(key, checked)
   }
 
   // TODO the displayed value and the persisted value should not be the same.
@@ -145,51 +215,72 @@ export class Configuration extends React.Component {
         <TogglePane>
           <TogglePaneTitle>{t('Notifications.title')}</TogglePaneTitle>
           <TogglePaneText>{t('Notifications.description')}</TogglePaneText>
-          <TogglableSettingCard
+          <SettingSection
             title={t('Notifications.if_balance_lower.settingTitle')}
-            descriptionKey="Notifications.if_balance_lower.description"
-            onToggle={this.onToggle('notifications.balanceLower')}
-            onChangeDoc={this.onChangeDoc('notifications.balanceLower')}
-            enabled={settings.notifications.balanceLower.enabled}
-            value={settings.notifications.balanceLower.value}
-            unit="€"
-            editModalProps={editModalProps.balanceLower({
-              t,
-              initialDoc: settings.notifications.balanceLower
-            })}
-          />
-          <TogglableSettingCard
+          >
+            <TogglableSettingCard
+              descriptionKey={getBalanceLowerDescriptionKey}
+              descriptionProps={getBalanceLowerDescriptionProps}
+              onToggle={this.onToggle('notifications.balanceLower')}
+              onChangeDoc={this.onChangeDoc('notifications.balanceLower')}
+              unit="€"
+              getAccountOrGroupLabel={this.props.getAccountOrGroupLabel}
+              doc={settings.notifications.balanceLower}
+              editModalProps={editModalProps.balanceLower({
+                t
+              })}
+            />
+            <Button
+              className="u-ml-0"
+              theme="subtle"
+              icon="plus"
+              label={t('Settings.create-alert')}
+              onClick={() => {
+                Alerter.success(t('ComingSoon.description'))
+              }}
+            />
+          </SettingSection>
+          <SettingSection
             title={t('Notifications.if_transaction_greater.settingTitle')}
-            descriptionKey="Notifications.if_transaction_greater.description"
-            onToggle={this.onToggle('notifications.transactionGreater')}
-            onChangeDoc={this.onChangeDoc('notifications.transactionGreater')}
-            enabled={settings.notifications.transactionGreater.enabled}
-            value={settings.notifications.transactionGreater.value}
-            unit="€"
-            editModalProps={editModalProps.transactionGreater({
-              t,
-              initialDoc: settings.notifications.transactionGreater
-            })}
-          />
+          >
+            <TogglableSettingCard
+              descriptionKey={getTransactionGreaterDescriptionKey}
+              descriptionProps={getTransactionGreaterDescriptionProps}
+              onToggle={this.onToggle('notifications.transactionGreater')}
+              onChangeDoc={this.onChangeDoc('notifications.transactionGreater')}
+              doc={settings.notifications.transactionGreater}
+              getAccountOrGroupLabel={this.props.getAccountOrGroupLabel}
+              unit="€"
+              editModalProps={editModalProps.transactionGreater({
+                t
+              })}
+            />
+            <Button
+              className="u-ml-0"
+              theme="subtle"
+              icon="plus"
+              label={t('Settings.create-alert')}
+              onClick={() => {
+                Alerter.success(t('ComingSoon.description'))
+              }}
+            />
+          </SettingSection>
           <CategoryAlertSettingsPane />
           <DelayedDebitAlert
             onToggle={this.onToggle('notifications.delayedDebit')}
             onChangeDoc={this.onChangeDoc('notifications.delayedDebit')}
             doc={settings.notifications.delayedDebit}
           />
-          <ToggleRowWrapper>
-            <ToggleRowTitle>
-              {t('Notifications.health_section.title')}
-            </ToggleRowTitle>
+          <SettingSection title={t('Notifications.health_section.title')}>
             <ToggleRowDescription>
               {t('Notifications.health_section.description')}
             </ToggleRowDescription>
-            <div className="u-pl-2 u-pt-1-half">
+            <div className="u-pl-2 u-pt-1-half u-stack-xs">
               <TogglableSettingCard
                 title={t('Notifications.when_health_bill_linked.settingTitle')}
                 descriptionKey="Notifications.when_health_bill_linked.description"
                 onToggle={this.onToggle('notifications.healthBillLinked')}
-                enabled={settings.notifications.healthBillLinked.enabled}
+                doc={settings.notifications.healthBillLinked}
               />
               <TogglableSettingCard
                 title={t(
@@ -204,15 +295,13 @@ export class Configuration extends React.Component {
                 onChangeDoc={this.onChangeDoc(
                   'notifications.lateHealthReimbursement'
                 )}
-                enabled={settings.notifications.lateHealthReimbursement.enabled}
-                value={settings.notifications.lateHealthReimbursement.value}
+                doc={settings.notifications.lateHealthReimbursement}
                 editModalProps={editModalProps.lateHealthReimbursement({
-                  t,
-                  initialDoc: settings.notifications.lateHealthReimbursement
+                  t
                 })}
               />
             </div>
-          </ToggleRowWrapper>
+          </SettingSection>
         </TogglePane>
         <TogglePane>
           <TogglePaneTitle>
@@ -237,7 +326,7 @@ export class Configuration extends React.Component {
           <ToggleRow
             title={t('Settings.security.amount_blur.title')}
             description={t('Settings.security.amount_blur.description')}
-            onToggle={this.onToggleFlag('amount_blur')}
+            onToggle={onToggleFlag('amount_blur')}
             enabled={Boolean(flag('amount_blur'))}
             name="amountBlur"
           />
@@ -254,6 +343,7 @@ export default compose(
   queryConnect({
     settingsCollection: settingsConn
   }),
+  withAccountOrGroupLabeller('getAccountOrGroupLabel'),
   flag.connect,
   translate()
 )(Configuration)

@@ -81,3 +81,11 @@ export const updateNotificationToken = (client, token) => {
 export const getNotificationToken = client => {
   return client.stackClient.oauthOptions.notification_device_token
 }
+
+export const getDocumentIdentity = doc =>
+  doc
+    ? {
+        _id: doc._id,
+        _type: doc._type
+      }
+    : null
