@@ -22,6 +22,7 @@
     "prewatch:mobile:cold": "npm run clean:mobile",
     "lint": "npm-run-all --parallel 'lint:*'",
     "lint:js": "eslint --fix 'src/**/*.js' 'src/**/*.jsx' 'test/**/*.js'",
+    "lint:js:changes": "git diff --name-only master..HEAD | grep -E 'jsx?$' | xargs yarn eslint --fix",
     "lint:styles": "stylint src/styles --config ./.stylintrc",
     "stack:docker": "docker run --rm -it -p 8080:8080 -p 8025:8025 -v \"$(pwd)/build/\":/data/cozy-app/banks cozy/cozy-app-dev",
     "test": "jest --runInBand",

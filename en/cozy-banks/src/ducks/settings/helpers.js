@@ -7,6 +7,8 @@ import { connect } from 'react-redux'
 import { getDocumentFromState } from 'cozy-client/dist/store'
 import { getAccountLabel } from 'ducks/account/helpers'
 import { getGroupLabel } from 'ducks/groups/helpers'
+import { translate } from 'cozy-ui/transpiled/react'
+import compose from 'lodash/flowRight'
 
 const log = logger.namespace('settings.helpers')
 
@@ -77,7 +79,7 @@ export const updateCategoryAlerts = async (client, updatedAlerts) => {
   return updateSettings(client, settings)
 }
 
-export const getAccountOrGroupLabel = accountOrGroup => {
+export const getAccountOrGroupLabel = (accountOrGroup, t) => {
   if (!accountOrGroup) {
     return null
   }
@@ -85,19 +87,23 @@ export const getAccountOrGroupLabel = accountOrGroup => {
     case ACCOUNT_DOCTYPE:
       return getAccountLabel(accountOrGroup)
     case GROUP_DOCTYPE:
-      return getGroupLabel(accountOrGroup)
+      return getGroupLabel(accountOrGroup, t)
     default:
       return ''
   }
 }
 
 export const withAccountOrGroupLabeller = propName =>
-  connect(state => ({
-    [propName]: partialDoc =>
-      getAccountOrGroupLabel(
-        getDocumentFromState(state, partialDoc._type, partialDoc._id)
-      )
-  }))
+  compose(
+    translate(),
+    connect((state, ownProps) => ({
+      [propName]: partialDoc =>
+        getAccountOrGroupLabel(
+          getDocumentFromState(state, partialDoc._type, partialDoc._id),
+          ownProps.t
+        )
+    }))
+  )
 
 const boldRx = /\*(.*?)\*/g
 export const markdownBold = str => {

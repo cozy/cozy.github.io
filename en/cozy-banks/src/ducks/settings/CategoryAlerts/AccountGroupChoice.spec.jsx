@@ -32,7 +32,7 @@ describe('AccountGroupChoice', () => {
       groups: fakeCol(fixtures['io.cozy.bank.groups']),
       accounts: fakeCol(fixtures['io.cozy.bank.accounts'])
     })
-    expect(root.find(Row).length).toBe(10)
+    expect(root.find(Row).length).toBe(11)
   })
 
   it('should work with virtual groups', () => {

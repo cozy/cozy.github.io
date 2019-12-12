@@ -788,24 +788,24 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#setup" title="Setup" class="md-nav__link">
-    Setup
+  <a href="#1-setup" title="1. Setup" class="md-nav__link">
+    1. Setup
   </a>
   
     <nav class="md-nav">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-initialize-a-cozyclient-provider" title="1. Initialize a CozyClient provider" class="md-nav__link">
-    1. Initialize a CozyClient provider
+  <a href="#1a-initialize-a-cozyclient-provider" title="1.a Initialize a CozyClient provider" class="md-nav__link">
+    1.a Initialize a CozyClient provider
   </a>
   
     <nav class="md-nav">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1a-use-your-own-redux-store" title="1.a Use your own Redux store" class="md-nav__link">
-    1.a Use your own Redux store
+  <a href="#1b-use-your-own-redux-store" title="1.b Use your own Redux store" class="md-nav__link">
+    1.b Use your own Redux store
   </a>
   
 </li>
@@ -814,6 +814,19 @@
     </nav>
   
 </li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-usage" title="2. Usage" class="md-nav__link">
+    2. Usage
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#2a-requesting-data-with-ltquery-gt" title="2.a Requesting data with &lt;Query /&gt;" class="md-nav__link">
@@ -839,6 +852,13 @@
           <li class="md-nav__item">
   <a href="#3-mutating-data" title="3. Mutating data" class="md-nav__link">
     3. Mutating data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-testing" title="4. Testing" class="md-nav__link">
+    4. Testing
   </a>
   
 </li>
@@ -2472,24 +2492,24 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#setup" title="Setup" class="md-nav__link">
-    Setup
+  <a href="#1-setup" title="1. Setup" class="md-nav__link">
+    1. Setup
   </a>
   
     <nav class="md-nav">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-initialize-a-cozyclient-provider" title="1. Initialize a CozyClient provider" class="md-nav__link">
-    1. Initialize a CozyClient provider
+  <a href="#1a-initialize-a-cozyclient-provider" title="1.a Initialize a CozyClient provider" class="md-nav__link">
+    1.a Initialize a CozyClient provider
   </a>
   
     <nav class="md-nav">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1a-use-your-own-redux-store" title="1.a Use your own Redux store" class="md-nav__link">
-    1.a Use your own Redux store
+  <a href="#1b-use-your-own-redux-store" title="1.b Use your own Redux store" class="md-nav__link">
+    1.b Use your own Redux store
   </a>
   
 </li>
@@ -2498,6 +2518,19 @@
     </nav>
   
 </li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-usage" title="2. Usage" class="md-nav__link">
+    2. Usage
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#2a-requesting-data-with-ltquery-gt" title="2.a Requesting data with &lt;Query /&gt;" class="md-nav__link">
@@ -2523,6 +2556,13 @@
           <li class="md-nav__item">
   <a href="#3-mutating-data" title="3. Mutating data" class="md-nav__link">
     3. Mutating data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-testing" title="4. Testing" class="md-nav__link">
+    4. Testing
   </a>
   
 </li>
@@ -2556,9 +2596,26 @@
                 <h2 id="what-is-the-cozy-client-react-integration">What is the Cozy-Client React Integration?<a class="headerlink" href="#what-is-the-cozy-client-react-integration" title="Permanent link">&para;</a></h2>
 <p>In addition to the Javascript client, Cozy-Client provides a way to connect directly the data from your Cozy instance to your React components. </p>
 <p>Once connected, your components will receive the requesting data and a fetch status in their props. The data will automatically be refreshed upon modification.</p>
-<h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h2>
+<!-- MarkdownTOC autolink=true -->
+
+<ul>
+<li><a href="#1-setup">1. Setup</a></li>
+<li><a href="#1a-initialize-a-cozyclient-provider">1.a Initialize a CozyClient provider</a><ul>
+<li><a href="#1b-use-your-own-redux-store">1.b Use your own Redux store</a></li>
+</ul>
+</li>
+<li><a href="#2-usage">2. Usage</a></li>
+<li><a href="#2a-requesting-data-with-">2.a Requesting data with ``</a></li>
+<li><a href="#2b-requesting-data-with-the-queryconnect-hoc">2.b Requesting data with the <code>queryConnect</code> HOC</a></li>
+<li><a href="#2c-using-a-fetch-policy-to-decrease-network-requests">2.c Using a fetch policy to decrease network requests</a></li>
+<li><a href="#3-mutating-data">3. Mutating data</a></li>
+<li><a href="#4-testing">4. Testing</a></li>
+</ul>
+<!-- /MarkdownTOC -->
+
+<h2 id="1-setup">1. Setup<a class="headerlink" href="#1-setup" title="Permanent link">&para;</a></h2>
 <p>The following procedure requires you to already know how to initialize a CozyClient instance and create a query to fetch documents.</p>
-<h3 id="1-initialize-a-cozyclient-provider">1. Initialize a CozyClient provider<a class="headerlink" href="#1-initialize-a-cozyclient-provider" title="Permanent link">&para;</a></h3>
+<h3 id="1a-initialize-a-cozyclient-provider">1.a Initialize a CozyClient provider<a class="headerlink" href="#1a-initialize-a-cozyclient-provider" title="Permanent link">&para;</a></h3>
 <p>Import <code>CozyClient</code> and <code>CozyProvider</code></p>
 <div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">CozyClient</span><span class="p">,</span> <span class="p">{</span> <span class="nx">CozyProvider</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 </pre></div>
@@ -2586,7 +2643,7 @@
 
 
 <p>The CozyClient will be available for consumption to all components inside your wrapped application.</p>
-<h4 id="1a-use-your-own-redux-store">1.a Use your own Redux store<a class="headerlink" href="#1a-use-your-own-redux-store" title="Permanent link">&para;</a></h4>
+<h4 id="1b-use-your-own-redux-store">1.b Use your own Redux store<a class="headerlink" href="#1b-use-your-own-redux-store" title="Permanent link">&para;</a></h4>
 <p><code>cozy-client</code> uses redux internally to centralize the statuses of the various fetches and replications triggered by the library, and to store locally the data in a normalized way. If you already have a redux store in your app, you can configure <code>cozy-client</code> to use this existing store:</p>
 <div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">CozyClient</span><span class="p">,</span> <span class="p">{</span> <span class="nx">CozyProvider</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 <span class="kr">import</span> <span class="p">{</span> <span class="nx">combineReducers</span><span class="p">,</span> <span class="nx">createStore</span><span class="p">,</span> <span class="nx">applyMiddleware</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;redux&#39;</span>
@@ -2613,6 +2670,7 @@
 </pre></div>
 
 
+<h2 id="2-usage">2. Usage<a class="headerlink" href="#2-usage" title="Permanent link">&para;</a></h2>
 <h3 id="2a-requesting-data-with-ltquery-gt">2.a Requesting data with <code>&lt;Query /&gt;</code><a class="headerlink" href="#2a-requesting-data-with-ltquery-gt" title="Permanent link">&para;</a></h3>
 <p>To make it easy to fetch data and make it available to your component, we provide a Render Props component called <code>Query</code>. Basic example of usage:</p>
 <div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">Query</span><span class="p">,</span> <span class="nx">isQueryLoading</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
@@ -2824,6 +2882,53 @@ for the API documentation.</p>
     <span class="p">}</span>
   <span class="p">&lt;/</span><span class="nt">Query</span><span class="p">&gt;</span>
 <span class="p">}</span>
+</pre></div>
+
+
+<h3 id="4-testing">4. Testing<a class="headerlink" href="#4-testing" title="Permanent link">&para;</a></h3>
+<p>When testing, it is useful to prefill the client with data and mock the network. You can use a MockClient for this.</p>
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">mount</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;enzyme&#39;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">CozyProvider</span><span class="p">,</span> <span class="nx">getCollectionFromState</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">configureStore</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./store&#39;</span> 
+
+<span class="kr">const</span> <span class="nx">todoFixtures</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Write tests&#39;</span><span class="p">,</span> <span class="nx">done</span><span class="o">:</span> <span class="kc">true</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Write code&#39;</span><span class="p">,</span> <span class="nx">done</span><span class="o">:</span> <span class="kc">true</span><span class="p">},</span>
+  <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Take breaks&#39;</span><span class="p">,</span> <span class="nx">done</span><span class="o">:</span> <span class="kc">true</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Write documentation&#39;</span><span class="p">,</span> <span class="nx">done</span><span class="o">:</span> <span class="kc">false</span> <span class="p">}</span>
+<span class="p">]</span>
+
+<span class="nx">describe</span><span class="p">(</span><span class="s2">&quot;my component using the client&#39;s store&quot;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">setup</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="nx">mockClient</span><span class="p">({</span>
+      <span class="nx">queries</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">todos</span><span class="o">:</span> <span class="nx">todoFixtures</span>
+      <span class="p">}</span>
+    <span class="p">})</span>
+
+    <span class="kr">const</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">configureStore</span><span class="p">()</span>
+    <span class="nx">client</span><span class="p">.</span><span class="nx">setStore</span><span class="p">(</span><span class="nx">client</span><span class="p">)</span>
+
+    <span class="kr">const</span> <span class="nx">TodosLength</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">todos</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;{</span> <span class="nx">todos</span><span class="p">.</span><span class="nx">length</span> <span class="p">}&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+    <span class="kr">const</span> <span class="nx">ConnectedTodosLength</span> <span class="o">=</span> <span class="nx">connect</span><span class="p">(</span><span class="nx">state</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="nx">todos</span><span class="o">:</span> <span class="nx">getCollectionFromState</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">)</span>
+    <span class="p">})</span>
+
+    <span class="kr">const</span> <span class="nx">root</span> <span class="o">=</span> <span class="nx">mount</span><span class="p">(</span>
+      <span class="p">&lt;</span><span class="nt">CozyProvider</span> <span class="na">client</span><span class="o">=</span><span class="p">{</span><span class="nx">client</span><span class="p">}&gt;</span>
+        <span class="p">&lt;</span><span class="nt">ConnectedTodosLength</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">CozyProvider</span><span class="p">&gt;</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span> <span class="nx">client</span><span class="p">,</span> <span class="nx">root</span> <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should get the correct data&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="p">{</span> <span class="nx">client</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">setup</span><span class="p">()</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">html</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;&lt;span&gt;5&lt;/span&gt;&#39;</span><span class="p">)</span>
+  <span class="p">})</span>
+<span class="p">})</span>
 </pre></div>
                 
                   
