@@ -2,15 +2,13 @@ import { subDays } from 'date-fns'
 import NotificationView from 'ducks/notifications/BaseNotificationView'
 import { sortBy, fromPairs } from 'lodash'
 import log from 'cozy-logger'
-import {
-  getDate,
-  isNew as isNewTransaction,
-  isTransactionAmountGreaterThan
-} from 'ducks/transactions/helpers'
+import { getDate, isNew as isNewTransaction } from 'ducks/transactions/helpers'
+import { isTransactionAmountGreaterThan } from 'ducks/notifications/helpers'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 import template from './template.hbs'
 import { prepareTransactions, getCurrentDate } from 'ducks/notifications/utils'
 import { toText } from 'cozy-notifications'
+import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 
 const ACCOUNT_SEL = '.js-account'
 const DATE_SEL = '.js-date'
@@ -49,11 +47,32 @@ const customToText = cozyHTMLEmail => {
   return toText(cozyHTMLEmail, getContent)
 }
 
+const isTransactionFromAccount = account => transaction =>
+  transaction.account === account._id
+
+const isTransactionFromGroup = group => transaction =>
+  group.accounts.includes(transaction.account)
+
+const makeAccountOrGroupFilter = (groups, accountOrGroup) => {
+  const noFilter = () => true
+  if (!accountOrGroup) {
+    return noFilter
+  } else if (accountOrGroup._type === ACCOUNT_DOCTYPE) {
+    return isTransactionFromAccount(accountOrGroup)
+  } else if (accountOrGroup._type === GROUP_DOCTYPE) {
+    const group = groups.find(group => group._id === accountOrGroup._id)
+    if (!group || !group.accounts) {
+      return noFilter
+    } else {
+      return isTransactionFromGroup(group)
+    }
+  }
+}
+
 class TransactionGreater extends NotificationView {
   constructor(config) {
     super(config)
-
-    this.maxAmount = config.value
+    this.config = config
   }
 
   filterTransactions(transactions) {
@@ -62,7 +81,10 @@ class TransactionGreater extends NotificationView {
     return transactions
       .filter(isNewTransaction)
       .filter(tr => new Date(getDate(tr)) > fourDaysAgo)
-      .filter(isTransactionAmountGreaterThan(this.maxAmount))
+      .filter(isTransactionAmountGreaterThan(this.config.value))
+      .filter(
+        makeAccountOrGroupFilter(this.data.groups, this.config.accountOrGroup)
+      )
   }
 
   async fetchData() {
@@ -115,7 +137,7 @@ class TransactionGreater extends NotificationView {
         }
       : {
           transactionsLength: transactions.length,
-          maxAmount: this.maxAmount
+          maxAmount: this.config.value
         }
 
     const translateKey = 'Notifications.if_transaction_greater.notification'
@@ -142,6 +164,6 @@ TransactionGreater.toText = customToText
 TransactionGreater.preferredChannels = ['mobile', 'mail']
 TransactionGreater.template = template
 TransactionGreater.settingKey = 'transactionGreater'
-TransactionGreater.isValidConfig = config => Number.isFinite(config.value)
+TransactionGreater.isValidRule = config => Number.isFinite(config.value)
 
 export default TransactionGreater

@@ -139,7 +139,7 @@ DelayedDebit.template
 DelayedDebit.category = 'delayed-debit'
 DelayedDebit.preferredChannels = ['mobile', 'mail']
 DelayedDebit.settingKey = 'delayedDebit'
-DelayedDebit.isValidConfig = config => Number.isFinite(config.value)
+DelayedDebit.isValidRule = config => Number.isFinite(config.value)
 DelayedDebit.template = template
 DelayedDebit.toText = html => {
   const INSTITUTION_SEL = '.js-institution'

@@ -18,7 +18,8 @@ const readJSONSync = filename => {
 export const EMAILS = {
   BalanceLower: {
     klass: require('./BalanceLower').default,
-    data: readJSONSync('src/ducks/notifications/BalanceLower/data.json')
+    data: readJSONSync('src/ducks/notifications/BalanceLower/data.json'),
+    config: readJSONSync('src/ducks/notifications/BalanceLower/config.json')
   },
 
   HealthBillLinked: {
@@ -54,6 +55,7 @@ export const setup = (templateName, lang) => {
     t,
     lang,
     data: {},
+    ...EMAILS[templateName].config,
     locales: {
       [lang]: localeStrings
     },

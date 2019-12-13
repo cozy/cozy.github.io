@@ -3,6 +3,7 @@ jest.mock('handlebars')
 
 import CozyClient from 'cozy-client'
 import merge from 'lodash/merge'
+import clone from 'lodash/clone'
 import {
   getEnabledNotificationClasses,
   sendNotifications,
@@ -34,62 +35,71 @@ beforeEach(() => {
 })
 
 describe('getEnabledNotificationClasses', () => {
-  it('should return the right classes', () => {
-    const config = {
-      notifications: {
-        balanceLower: { enabled: true, value: 100 },
-        transactionGreater: { enabled: true, value: 600 },
-        healthBillLinked: { enabled: true }
-      }
+  const config = {
+    notifications: {
+      balanceLower: [{ enabled: true, value: 100 }],
+      transactionGreater: { enabled: true, value: 600 }, // Old way with only 1 object
+      healthBillLinked: { enabled: true }
     }
+  }
 
+  it('should return the right classes 1', () => {
     expect(getEnabledNotificationClasses(config)).toEqual([
       BalanceLower,
       TransactionGreater,
       HealthBillLinked
     ])
+  })
 
+  it('should return the right classes 2', () => {
     expect(
       getEnabledNotificationClasses(
-        merge(config, {
+        merge({}, config, {
           notifications: { transactionGreater: { enabled: false } }
         })
       )
     ).toEqual([BalanceLower, HealthBillLinked])
+  })
 
+  it('should return the right classes 3', () => {
     expect(
       getEnabledNotificationClasses(
-        merge(config, {
+        merge({}, config, {
           notifications: { transactionGreater: { value: null } }
         })
       )
     ).toEqual([BalanceLower, HealthBillLinked])
+  })
 
+  it('should return the right classes 4', () => {
+    const clonedConfig = clone(config)
+    clonedConfig.notifications.transactionGreater.value = undefined
+    expect(getEnabledNotificationClasses(clonedConfig)).toEqual([
+      BalanceLower,
+      HealthBillLinked
+    ])
+  })
+
+  it('should return the right classes 5', () => {
     expect(
       getEnabledNotificationClasses(
-        merge(config, {
-          notifications: { transactionGreater: { value: undefined } }
-        })
-      )
-    ).toEqual([BalanceLower, HealthBillLinked])
-
-    expect(
-      getEnabledNotificationClasses(
-        merge(config, {
+        merge({}, config, {
           notifications: {
             transactionGreater: { enabled: false },
-            balanceLower: { enabled: false }
+            balanceLower: [{ enabled: false }]
           }
         })
       )
     ).toEqual([HealthBillLinked])
+  })
 
+  it('should return the right classes 6', () => {
     expect(
       getEnabledNotificationClasses(
-        merge(config, {
+        merge({}, config, {
           notifications: {
             transactionGreater: { enabled: false },
-            balanceLower: { enabled: false },
+            balanceLower: [{ enabled: false }],
             healthBillLinked: { enabled: false }
           }
         })
@@ -117,6 +127,9 @@ const mockEnvForEachTest = values => {
 
 describe('service', () => {
   beforeEach(() => {
+    jest
+      .spyOn(CozyClient.prototype, 'query')
+      .mockReturnValue({ data: [{ _id: 'group-id-1', label: 'My group' }] })
     jest
       .spyOn(BankAccount, 'getAll')
       .mockReturnValue([

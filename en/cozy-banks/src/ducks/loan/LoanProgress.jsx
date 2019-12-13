@@ -15,6 +15,10 @@ const DumbLoanProgress = props => {
   const reimbursedAmount = getReimbursedAmount(account)
   const borrowedAmount = getBorrowedAmount(account)
 
+  if (!reimbursedAmount && !borrowedAmount) {
+    return null
+  }
+
   return (
     <>
       <PercentageBar value={percentage} color="var(--emerald)" />
