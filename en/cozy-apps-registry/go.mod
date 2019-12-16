@@ -22,9 +22,9 @@ require (
 	github.com/pbenner/threadpool v0.0.0-20191122191339-0302c226b91e
 	github.com/sirupsen/logrus v1.4.2
 	github.com/spf13/cobra v0.0.5
-	github.com/spf13/viper v1.5.0
+	github.com/spf13/viper v1.6.1
 	github.com/stretchr/testify v1.4.0
 	gitlab.com/flimzy/testy v0.0.0-20190816103046-aca1ef5ffe7e // indirect
-	golang.org/x/crypto v0.0.0-20191202143827-86a70503ff7e
+	golang.org/x/crypto v0.0.0-20191206172530-e9b2fee46413
 	golang.org/x/xerrors v0.0.0-20191011141410-1b5146add898 // indirect
 )
