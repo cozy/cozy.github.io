@@ -986,6 +986,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#mutederrors-field" title="mutedErrors field" class="md-nav__link">
+    mutedErrors field
+  </a>
+  
+</li>
+      
       
       
       
@@ -1113,30 +1120,6 @@
   <li class="md-nav__item">
     <a href="../io.cozy.notifications/" title="Notifications" class="md-nav__link">
       Notifications
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../io.cozy.remote.requests/" title="Remote requests" class="md-nav__link">
-      Remote requests
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../io.cozy.sessions.logins/" title="Session logins" class="md-nav__link">
-      Session logins
     </a>
   </li>
 
@@ -2590,6 +2573,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#mutederrors-field" title="mutedErrors field" class="md-nav__link">
+    mutedErrors field
+  </a>
+  
+</li>
+      
       
       
       
@@ -2619,7 +2609,7 @@
 <li><code>auth</code>: {object} Contains authentification data, typically a couple with <code>login</code>/<code>password</code>. It could also contain an attribute <code>token</code> for OAuth konnectors.</li>
 <li><code>data</code>: {object} Additional custom data.</li>
 <li><code>label</code>: {string} Label given by user.</li>
-<li><code>state</code>: {string} The account state is used to communicate between the konnector and <a href="https://github.com/cozy/cozy-libs/tree/master/packages/cozy-harvest-lib">Harvest</a> to ask for a needed 2FA Code or to tell to reset the konnector session for example. Here are the used values for now:<ul>
+<li><code>state</code>: {string} The account state is used to communicate between the konnector and <a href="https://github.com/cozy/cozy-libs/tree/master/packages/cozy-harvest-lib">Harvest</a> to ask for a needed 2FA Code or to tell to reset the konnector session for example. Here are the used values for now:</li>
 <li><code>TWOFA_NEEDED</code>: The service is asking for a Two Factor connexion and the related code (sent by the service) must be provided by the user. This status can be further precised with its type. This allows the UI presented to the user to have custom messages, depending on the type of two factor authentication required by the vendor.<ul>
 <li><code>TWOFA_NEEDED.EMAIL</code>: If the two factor authentication is done by email</li>
 <li><code>TWOFA_NEEDED.SMS</code>: If the two factor authentication is done by SMS</li>
@@ -2627,12 +2617,11 @@
 </li>
 <li><code>TWOFA_NEEDED_RETRY</code>: The 2FA code provided by the user is wrong, the user can retry by providing a new one. <code>TWO_FA_NEEDED_RETRY.EMAIL</code> and <code>TWO_FA_NEEDED_RETRY.SMS</code> can also be used.</li>
 <li><code>RESET_SESSION</code>: By finding this state, the konnector should reset the login session if there is one stored and reset the state.</li>
-</ul>
-</li>
 <li><code>twoFACode</code>: When a 2FA code is asked by the service, <a href="https://github.com/cozy/cozy-libs/tree/master/packages/cozy-harvest-lib">Harvest</a> will ask the user for it from and send it to the konnector via this attribute.</li>
+<li><code>mutedErrors</code>: {array} A list of errors that that have been discarded by the user and are no longer shown in the UI.</li>
 </ul>
 <h3 id="auth"><code>auth</code><a class="headerlink" href="#auth" title="Permanent link">&para;</a></h3>
-<p>The <code>auth</code> attribute may also contain other data, like  <code>accountName</code>, <code>folderPath</code> or <code>frequency</code>. As <code>auth</code> should only be used for authentication mechanisms, those two values should disappear soon.</p>
+<p>The <code>auth</code> attribute may also contain other data, like <code>accountName</code>, <code>folderPath</code> or <code>frequency</code>. As <code>auth</code> should only be used for authentication mechanisms, those two values should disappear soon.</p>
 <ul>
 <li><code>folderPath</code> should purely and simply disappear, the folder information is stored in <code>io.cozy.trigger</code>.</li>
 <li><code>accountName</code> is in reality the <code>label</code>, change should be made soon to fix this mistake.</li>
@@ -2678,7 +2667,7 @@ Generally, the konnector should be able to handle by itself this kind of relatio
 
 
 <h3 id="about-login">About <code>login</code><a class="headerlink" href="#about-login" title="Permanent link">&para;</a></h3>
-<p>Some konnectors does not use a <code>login</code> parameter, but <code>identifier</code> or <code>email</code>. The usage of anything except <code>login</code> is deprecated and should not be done.</p>
+<p>Some konnectors do not use a <code>login</code> parameter, but <code>identifier</code> or <code>email</code>. The usage of anything except <code>login</code> is deprecated and should not be done.</p>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
 <h4 id="freemobile-regular-connector-with-current-deprecation">Freemobile (regular connector, with current deprecation)<a class="headerlink" href="#freemobile-regular-connector-with-current-deprecation" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
@@ -2694,7 +2683,7 @@ Generally, the konnector should be able to handle by itself this kind of relatio
 </pre></div>
 
 
-<p>What we aim:</p>
+<p>What we aim for:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;auth&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;credentials_encrypted&quot;</span><span class="p">:</span> <span class="s2">&quot;aaDtwWSWsdpbbbbbbbbbbbbbbOzp2pBEbXlZLWjiTzOGumGRomrF2LwlRn4Y8c=&quot;</span><span class="p">,</span>
@@ -2726,8 +2715,24 @@ Generally, the konnector should be able to handle by itself this kind of relatio
     <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;connected&quot;</span><span class="p">,</span>
     <span class="nt">&quot;token&quot;</span><span class="p">:</span> <span class="s2">&quot;f415e&quot;</span><span class="p">,</span>
     <span class="nt">&quot;uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;deadbeef-912e-4ba8-9378-067c5c3e4f54&quot;</span>
-
   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h2 id="mutederrors-field"><code>mutedErrors</code> field<a class="headerlink" href="#mutederrors-field" title="Permanent link">&para;</a></h2>
+<p>This field is used to keep track of konnector errors that have been muted by the user and shouldn&rsquo;t be featured in the UI anymore.</p>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;account_type&quot;</span><span class="p">:</span> <span class="s2">&quot;example-konnector&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;auth&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;identifier&quot;</span><span class="p">:</span> <span class="s2">&quot;0000000000&quot;</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;mutedErrors&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;LOGIN_FAILED&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;mutedAt&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-12-01T00:48:01.404911778Z&quot;</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
                 

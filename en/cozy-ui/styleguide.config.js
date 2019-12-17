@@ -75,7 +75,8 @@ module.exports = {
         '../react/Figure/Figure.jsx',
         '../react/Figure/FigureBlock.jsx',
         '../react/Table/index.jsx',
-        '../react/UnorderedList/index.jsx'
+        '../react/UnorderedList/index.jsx',
+        '../react/OrderedList/index.jsx'
       ]
     },
     {
@@ -112,7 +113,8 @@ module.exports = {
         '../react/AppSections/index.jsx',
         '../react/AppIcon/index.jsx',
         '../react/CipherIcon/index.jsx',
-        '../react/QuotaAlert/index.jsx'
+        '../react/QuotaAlert/index.jsx',
+        '../react/PasswordExample/index.jsx'
       ]
     },
     {
@@ -134,7 +136,8 @@ module.exports = {
         '../react/Labs/GridItem',
         '../react/MuiCozyTheme/Dialog',
         '../react/Labs/IconGrid',
-        '../react/Labs/CollectionField'
+        '../react/Labs/CollectionField',
+        '../react/Labs/PasswordInput'
       ]
     },
     {
