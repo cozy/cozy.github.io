@@ -11,7 +11,14 @@ const addRev = doc => {
   return { ...doc, _rev: '1-deadbeef' }
 }
 
-const prepareTransactionForTest = compose(addRev)
+const addId = doc => {
+  return { ...doc, _id: doc._id || Math.random().toString() }
+}
+
+const prepareTransactionForTest = compose(
+  addRev,
+  addId
+)
 
 const unique = arr => Array.from(new Set(arr))
 
@@ -43,8 +50,12 @@ describe('transaction greater', () => {
     MockDate.set(maxDate)
 
     const config = {
-      value: value || 10,
-      accountOrGroup: accountOrGroup || null,
+      rules: [
+        {
+          value: value || 10,
+          accountOrGroup: accountOrGroup || null
+        }
+      ],
       data: {
         transactions: operations.map(prepareTransactionForTest),
         accounts: fixtures['io.cozy.bank.accounts'],
@@ -58,9 +69,9 @@ describe('transaction greater', () => {
     return { config, client, notification }
   }
 
-  it('should keep config in its internal state', () => {
+  it('should keep rules in its internal state', () => {
     const { notification, config } = setup()
-    expect(notification.config).toBe(config)
+    expect(notification.rules).toBe(config.rules)
   })
 
   describe('without accountOrGroup', () => {

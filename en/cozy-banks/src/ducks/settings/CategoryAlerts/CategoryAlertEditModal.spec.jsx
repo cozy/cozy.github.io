@@ -40,7 +40,11 @@ describe('category alert edition modal', () => {
     const root = mount(
       <CozyProvider client={client}>
         <TestI18n>
-          <CategoryAlertEditModal initialAlert={alert} />
+          <CategoryAlertEditModal
+            onEdit={() => {}}
+            onDismiss={() => {}}
+            initialDoc={alert}
+          />
         </TestI18n>
       </CozyProvider>
     )

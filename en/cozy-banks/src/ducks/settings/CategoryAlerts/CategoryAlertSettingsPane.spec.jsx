@@ -2,12 +2,12 @@ import { mount } from 'enzyme'
 import { createClientWithData } from 'test/client'
 import React from 'react'
 import AppLike from 'test/AppLike'
-import CategoryAlertSettingsPane, {
-  CreateCategoryAlert
-} from './CategoryAlertSettingsPane'
+import { Button } from 'cozy-ui/react'
+import CategoryAlertSettingsPane from './CategoryAlertSettingsPane'
 import CategoryAlertCard from './CategoryAlertCard'
 import { SETTINGS_DOCTYPE } from 'doctypes'
 import { act } from 'react-dom/test-utils'
+import EditionModal from 'components/EditionModal'
 
 describe('category alert settings pane', () => {
   const setup = ({ categoryBudgetAlerts }) => {
@@ -33,16 +33,21 @@ describe('category alert settings pane', () => {
     return { client, root }
   }
 
-  it('should create an alert', () => {
+  it('should create an alert', async () => {
     const { root, client } = setup({
       categoryBudgetAlerts: [{ id: 0, categoryId: '400600', maxThreshold: 100 }]
     })
     client.save = jest.fn()
     expect(root.find(CategoryAlertCard).length).toBe(1)
-    const createButton = root.find(CreateCategoryAlert)
-    const { createAlert } = createButton.props()
+    const btn = root.find(Button)
     act(() => {
-      createAlert({
+      btn.props().onClick()
+    })
+    root.update()
+    const editionModal = root.find(EditionModal)
+    const { onEdit } = editionModal.props()
+    await act(async () => {
+      await onEdit({
         categoryId: '400610',
         maxThreshold: 200
       })

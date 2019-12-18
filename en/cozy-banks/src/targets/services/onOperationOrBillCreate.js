@@ -84,6 +84,8 @@ const doSendNotifications = async (setting, notifChanges) => {
     await sendNotifications(setting, transactionsToNotify)
     setting.notifications.lastSeq = setting.billsMatching.transactionsLastSeq
   } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(e)
     log('warn', 'Error while sending notifications : ' + e)
   }
 }

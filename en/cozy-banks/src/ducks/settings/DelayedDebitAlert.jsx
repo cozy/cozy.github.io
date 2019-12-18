@@ -11,8 +11,8 @@ import {
 } from 'ducks/account/helpers'
 import { Spinner } from 'cozy-ui/react'
 
-import { ToggleRowWrapper, ToggleRowTitle } from 'ducks/settings/ToggleRow'
-import TogglableSettingCard from './TogglableSettingCard'
+import { SubSection } from 'ducks/settings/Sections'
+import EditableSettingCard from './EditableSettingCard'
 import { CHOOSING_TYPES } from 'components/EditionModal'
 import { getAccountsById } from 'selectors'
 import compose from 'lodash/flowRight'
@@ -131,7 +131,7 @@ class DelayedDebitCard extends React.Component {
       : '...'
 
     return (
-      <TogglableSettingCard
+      <EditableSettingCard
         onToggle={onToggle}
         onChangeDoc={onChangeDoc}
         editModalProps={getModalProps({ t, initialDoc })}
@@ -150,14 +150,17 @@ class DelayedDebitCard extends React.Component {
   }
 }
 
-const DumbDelayedDebitSettingSection = props => (
-  <ToggleRowWrapper>
-    <ToggleRowTitle>
-      {props.t('Notifications.delayed_debit.settingTitle')}
-    </ToggleRowTitle>
-    <DelayedDebitCard {...props} />
-  </ToggleRowWrapper>
-)
+const DumbDelayedDebitSettingSection = props => {
+  const { t } = props
+  return (
+    <SubSection
+      title={t('Notifications.delayed_debit.settingTitle')}
+      description={t('Notifications.delayed_debit.settingDescription')}
+    >
+      <DelayedDebitCard {...props} />
+    </SubSection>
+  )
+}
 
 const DelayedDebitSettingSection = translate()(DumbDelayedDebitSettingSection)
 

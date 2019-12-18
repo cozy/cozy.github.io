@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import compose from 'lodash/flowRight'
 import PropTypes from 'prop-types'
 
-import { Icon, translate, Modal } from 'cozy-ui/transpiled/react'
+import { translate } from 'cozy-ui/transpiled/react'
 
 import { CategoryIcon, getCategoryName } from 'ducks/categories'
 import CategoryAlertEditModal from 'ducks/settings/CategoryAlerts/CategoryAlertEditModal'
@@ -12,17 +12,12 @@ import SettingCard from 'components/SettingCard'
 import { withAccountOrGroupLabeller, markdownBold } from '../helpers'
 
 import flag from 'cozy-flags'
+import { SettingCardRemoveConfirmation } from 'ducks/settings/EditableSettingCard'
 
 const CategoryAlertPropType = PropTypes.shape({
   categoryId: PropTypes.string.isRequired,
   maxThreshold: PropTypes.number.isRequired
 })
-
-const RemoveCardIcon = ({ onClick }) => (
-  <span onClick={onClick} className="u-expanded-click-area">
-    <Icon color="var(--coolGrey)" icon="cross" />
-  </span>
-)
 
 const CategoryAlertDebug = ({ alert }) => (
   <>
@@ -57,7 +52,6 @@ const CategoryAlertCard = ({
 }) => {
   const [editing, setEditing] = useState(false)
   const [saving, setSaving] = useState(false)
-  const [confirmingRemoval, setConfirmingRemoval] = useState(false)
 
   const handleCardClick = ev => {
     if (ev.defaultPrevented) {
@@ -79,12 +73,6 @@ const CategoryAlertCard = ({
   const handleRemoveAlert = () => {
     setEditing(null)
     removeAlert(alert)
-    setConfirmingRemoval(false)
-  }
-
-  const handleRequestRemoval = ev => {
-    ev.preventDefault()
-    setConfirmingRemoval(true)
   }
 
   const categoryName = t(
@@ -151,28 +139,19 @@ const CategoryAlertCard = ({
             ) : null}
           </div>
           <div className="u-media-fixed u-ml-1">
-            <RemoveCardIcon onClick={handleRequestRemoval} />
+            <SettingCardRemoveConfirmation
+              title={t('Settings.rules.remove-modal.title')}
+              description={t('Settings.rules.remove-modal.desc')}
+              onRemove={handleRemoveAlert}
+            />
           </div>
         </div>
       </SettingCard>
       {editing ? (
         <CategoryAlertEditModal
           onDismiss={() => setEditing(null)}
-          initialAlert={alert}
-          onEditAlert={handleEditAlert}
-          onRemoveAlert={handleRemoveAlert}
-        />
-      ) : null}
-      {confirmingRemoval ? (
-        <Modal
-          primaryText={t('Settings.budget-category-alerts.remove.ok')}
-          primaryType="danger"
-          primaryAction={handleRemoveAlert}
-          secondaryText={t('Settings.budget-category-alerts.remove.cancel')}
-          secondaryAction={() => setConfirmingRemoval(false)}
-          dismissAction={() => setConfirmingRemoval(false)}
-          title={t('Settings.budget-category-alerts.remove.title')}
-          description={t('Settings.budget-category-alerts.remove.desc')}
+          initialDoc={alert}
+          onEdit={handleEditAlert}
         />
       ) : null}
     </>

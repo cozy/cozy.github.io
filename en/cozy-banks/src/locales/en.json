@@ -444,17 +444,16 @@
       },
       "notification": {
         "debit": {
-          "title": "Debit of %{amount}%{currency}",
-          "content": "%{label}"
+          "title": "Debit of %{amount}%{currency}"
         },
         "credit": {
-          "title": "Credit of %{amount}%{currency}",
-          "content": "%{label}"
+          "title": "Credit of %{amount}%{currency}"
         },
         "others": {
-          "title": "Alert: %{transactionsLength} transactions greater than %{maxAmount}€",
-          "debitContent": "Debit of %{amount}%{currency} with label '%{label}'.",
-          "creditContent": "Credit of %{amount}%{currency} with label '%{label}'."
+          "title": "Alert: %{transactionsLength} transactions greater than %{maxAmount}€"
+        },
+        "others-multi": {
+          "title": "Alert: %{transactionsLength} transactions greater than their max threshold"
         }
       }
     },
@@ -501,6 +500,7 @@
     },
     "delayed_debit": {
       "settingTitle": "Delayed debit alert",
+      "settingDescription": "You need a \"credit card\" account for this functionality",
       "description": "You will receive a notification when the outstanding card account *%{creditCardLabel}* generates a negative balance on its associated current account *%{checkingsLabel}*, *%{value} days* before the end of the month.",
       "fieldLabels": {
         "creditCardAccount": "Credit card",
@@ -545,7 +545,14 @@
         "description": "Navigate the app with hidden amounts"
       }
     },
-    "create-alert": "Create alert",
+    "rules": {
+      "create": "Create alert",
+      "remove-modal": {
+        "title": "Remove alert ?",
+        "desc": "Please confirm you want to remove the alert"
+      },
+      "saving-error": "Could not save alert, please try again later"
+    },
     "budget-category-alerts": {
       "pane-title": "Category budget",
       "pane-description": "Configure monthly budget notification per category",
@@ -554,7 +561,6 @@
       "for-account": "for account *%{accountOrGroupLabel}*",
       "for-group": "for group *%{accountOrGroupLabel}*",
       "for-all-accounts": "for all accounts",
-      "saving-error": "Could not save alert, please try again later",
       "edit": {
         "modal-title": "Edit alert",
         "category-label": "Category",
@@ -564,12 +570,6 @@
         "update-ok": "Update alert",
         "all-category": "All « %{categoryName} »",
         "cancel": "Cancel"
-      },
-      "remove": {
-        "title": "Remove alert ?",
-        "cancel": "Cancel",
-        "desc": "Please confirm you want to remove the alert",
-        "ok": "Remove the alert"
       }
     }
   },
@@ -773,5 +773,16 @@
   "AccountGroupChoice": {
     "nothing-selected": "Select an account",
     "all-accounts": "All accounts"
+  },
+
+  "Confirmation": {
+    "cancel": "Cancel",
+    "ok": "OK"
+  },
+
+  "EditionModal": {
+    "ok": "OK",
+    "cancel": "Cancel",
+    "remove": "Remove"
   }
 }

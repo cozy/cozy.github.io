@@ -3,12 +3,13 @@ import { Card } from 'cozy-ui/react'
 import styles from './styles.styl'
 import cx from 'classnames'
 
-const SettingCard = ({ enabled, ...props }) => {
+const SettingCard = ({ enabled, className, ...props }) => {
   return (
     <Card
       {...props}
       className={cx(
         styles.SettingCard,
+        className,
         !enabled && styles['SettingCard--disabled'],
         props.onClick && styles['SettingCard--clickable']
       )}

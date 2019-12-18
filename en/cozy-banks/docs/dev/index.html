@@ -2446,6 +2446,46 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#end-to-end-tests" title="End to end tests" class="md-nav__link">
+    End to end tests
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alert-rules" title="Alert rules" class="md-nav__link">
+    Alert rules
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#semi-automatic-test" title="Semi automatic test" class="md-nav__link">
+    Semi automatic test
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual-insertion-test" title="Manual insertion test" class="md-nav__link">
+    Manual insertion test
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#misc" title="Misc" class="md-nav__link">
     Misc
   </a>
@@ -2815,6 +2855,46 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#end-to-end-tests" title="End to end tests" class="md-nav__link">
+    End to end tests
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alert-rules" title="Alert rules" class="md-nav__link">
+    Alert rules
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#semi-automatic-test" title="Semi automatic test" class="md-nav__link">
+    Semi automatic test
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual-insertion-test" title="Manual insertion test" class="md-nav__link">
+    Manual insertion test
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#misc" title="Misc" class="md-nav__link">
     Misc
   </a>
@@ -2873,12 +2953,31 @@
 <li><a href="#release">Release</a></li>
 <li><a href="#start-a-release-branch">Start a release branch</a></li>
 <li><a href="#workflow">Workflow</a></li>
+<li><a href="#mobile-apps-version-codes">Mobile apps version codes</a></li>
 <li><a href="#publish-manually-on-the-cozy-registry">Publish manually on the Cozy registry</a></li>
-<li><a href="#publish-to-mobile-stores">Publish to mobile stores</a></li>
+<li><a href="#publish-to-mobile-stores">Publish to mobile stores</a><ul>
+<li><a href="#pre-requisites">Pre-requisites</a></li>
+<li><a href="#fastlane">Fastlane</a></li>
+<li><a href="#ios">iOS</a></li>
+<li><a href="#signing">Signing</a></li>
+<li><a href="#push-ios-build">Push iOS build</a></li>
+<li><a href="#android">Android</a></li>
+</ul>
+</li>
 <li><a href="#notifications">Notifications</a></li>
-<li><a href="#how-to-develop-on-templates">How to develop on templates</a></li>
+<li><a href="#how-to-develop-on-templates">How to develop on templates</a><ul>
+<li><a href="#under-the-covers">Under the covers</a></li>
+<li><a href="#assets">Assets</a></li>
+</ul>
+</li>
 <li><a href="#debug-notification-triggers">Debug notification triggers</a></li>
 <li><a href="#when-creating-a-notification">When creating a notification</a></li>
+<li><a href="#end-to-end-tests">End to end tests</a><ul>
+<li><a href="#alert-rules">Alert rules</a></li>
+<li><a href="#semi-automatic-test">Semi automatic test</a></li>
+<li><a href="#manual-insertion-test">Manual insertion test</a></li>
+</ul>
+</li>
 <li><a href="#misc">Misc</a></li>
 <li><a href="#pouch-on-web">Pouch On Web</a></li>
 <li><a href="#important-credentials">Important credentials</a></li>
@@ -3167,6 +3266,37 @@ will be able to see the mails in its web interface on http://localhost:8025.</p>
 </ul>
 <p>Then you can use <a href="https://github.com/cozy/ACH">ACH</a> to import the fixtures :</p>
 <div class="codehilite"><pre><span></span><span class="go">ACH import test/fixtures/operations-notifs.json test/fixtures/helpers.js --url &lt;instance_url&gt;</span>
+</pre></div>
+
+
+<h3 id="end-to-end-tests">End to end tests<a class="headerlink" href="#end-to-end-tests" title="Permanent link">&para;</a></h3>
+<h4 id="alert-rules">Alert rules<a class="headerlink" href="#alert-rules" title="Permanent link">&para;</a></h4>
+<h5 id="semi-automatic-test">Semi automatic test<a class="headerlink" href="#semi-automatic-test" title="Permanent link">&para;</a></h5>
+<p>Alert rules are tested with a semi automatic test that</p>
+<ul>
+<li>Inserts data inside the local cozy-stack</li>
+<li>Launches the onOperationOrBillCreate service</li>
+<li>Checks on mailhog the emails received.</li>
+</ul>
+<div class="codehilite"><pre><span></span>$ <span class="nb">export</span> <span class="nv">COZY_URL</span><span class="o">=</span>http://cozy.tools:8080
+$ <span class="nb">export</span> <span class="nv">COZY_CREDENTIALS</span><span class="o">=</span><span class="k">$(</span>cozy-stack instances token-app cozy.tools:8080 banks<span class="k">)</span>
+$ docker run -p <span class="m">1025</span>:1025 -p <span class="m">8025</span>:8025 mailhog/mailhog
+$ yarn build:services
+<span class="c1"># Use --watch when developing</span>
+<span class="c1"># Deactivate minification with minimize: false in webpack.optimize inside webpack.target.services.js</span>
+$ yarn test:e2e:alerts
+</pre></div>
+
+
+<p>At the moment, it needs to be launched on the computer of the developer but should
+be done on the CI in the future</p>
+<h5 id="manual-insertion-test">Manual insertion test<a class="headerlink" href="#manual-insertion-test" title="Permanent link">&para;</a></h5>
+<p>To test on a real Cozy, a script can insert fake transactions on accounts corresponding
+to alerts, for the onOperationOrBillCreate service to be started.</p>
+<div class="codehilite"><pre><span></span># Insert fake transactions
+yarn test:e2e:alerts-existing-cozy --url https://mydemocozy.mycozy.cloud insert
+# Cleanup fake transactions
+yarn test:e2e:alerts-existing-cozy --url https://mydemocozy.mycozy.cloud cleanup
 </pre></div>
 
 

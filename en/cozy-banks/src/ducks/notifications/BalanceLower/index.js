@@ -6,7 +6,7 @@ import { getCurrencySymbol } from 'utils/currencySymbol'
 import { getCurrentDate } from 'ducks/notifications/utils'
 import template from './template.hbs'
 import { toText } from 'cozy-notifications'
-import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
+import { ruleAccountFilter } from 'ducks/settings/ruleUtils'
 
 const addCurrency = o => ({ ...o, currency: '€' })
 
@@ -49,26 +49,6 @@ const customToText = cozyHTMLEmail => {
   return toText(cozyHTMLEmail, getContent)
 }
 
-const doesAccountCorrespondToAccountGroup = (
-  groups,
-  accountOrGroup
-) => account => {
-  if (!accountOrGroup) {
-    return true
-  } else if (accountOrGroup._type === ACCOUNT_DOCTYPE) {
-    return account._id === accountOrGroup._id
-  } else if (accountOrGroup._type === GROUP_DOCTYPE) {
-    const group = groups.find(group => accountOrGroup._id === group._id)
-    if (group && group.accounts) {
-      return group.accounts.includes(account._id)
-    } else {
-      // In case of non existent group, prefer to consider that no accounts
-      // belong to it
-      return false
-    }
-  }
-}
-
 class BalanceLower extends NotificationView {
   constructor(config) {
     super(config)
@@ -77,19 +57,16 @@ class BalanceLower extends NotificationView {
   }
 
   filterForRule(rule, account) {
-    return (
-      getAccountBalance(account) < rule.value &&
-      account.type !== 'CreditCard' && // CreditCard are always in negative balance
-      doesAccountCorrespondToAccountGroup(
-        this.data.groups,
-        rule.accountOrGroup
-      )(account)
-    )
+    const isBalanceUnder = getAccountBalance(account) < rule.value
+    const accountFilter = ruleAccountFilter(rule, this.data.groups)
+    const correspondsAccountToGroup = accountFilter(account)
+    const isNotCreditCard = account.type !== 'CreditCard'
+    return isBalanceUnder && correspondsAccountToGroup && isNotCreditCard // CreditCard are always in negative balance
   }
 
   /**
    * Returns a list of [{ rule, accounts }]
-   * For each rule, returns a list of accounts
+   * For each rule, returns a list of matching accounts
    * Rules that do not match any accounts are discarded
    */
   findMatchingRules() {
@@ -157,7 +134,7 @@ class BalanceLower extends NotificationView {
       ? 'Notifications.if_balance_lower.notification.several.title'
       : 'Notifications.if_balance_lower.notification.several-multi-rule.title'
 
-    const firstRule = this.rules[0].value
+    const firstRule = matchingRules[0].rule
     const titleData = onlyOne
       ? {
           balance: firstAccount.balance,
@@ -166,7 +143,7 @@ class BalanceLower extends NotificationView {
         }
       : {
           accountsLength: accounts.length,
-          lowerBalance: firstRule,
+          lowerBalance: firstRule.value,
           currency: '€'
         }
     return this.t(titleKey, titleData)
@@ -186,6 +163,7 @@ class BalanceLower extends NotificationView {
   }
 }
 
+BalanceLower.supportsMultipleRules = true
 BalanceLower.template = template
 BalanceLower.toText = customToText
 BalanceLower.category = 'balance-lower'

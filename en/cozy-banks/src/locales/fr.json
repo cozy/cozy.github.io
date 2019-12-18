@@ -444,17 +444,16 @@
       },
       "notification": {
         "debit": {
-          "title": "Dépense de %{amount}%{currency}",
-          "content": "%{label}"
+          "title": "Dépense de %{amount}%{currency}"
         },
         "credit": {
-          "title": "Versement de %{amount}%{currency}",
-          "content": "%{label}"
+          "title": "Versement de %{amount}%{currency}"
         },
         "others": {
-          "title": "Alerte : %{transactionsLength} mouvements de plus de %{maxAmount}€",
-          "debitContent": "Dépense de %{amount}%{currency} avec le libellé '%{label}'.",
-          "creditContent": "Versement de %{amount}%{currency} avec le libellé '%{label}'."
+          "title": "Alerte : %{transactionsLength} mouvements de plus de %{maxAmount}€"
+        },
+        "others-multi": {
+          "title": "Alerte : %{transactionsLength} mouvements au dessus du seuil"
         }
       }
     },
@@ -513,6 +512,7 @@
     },
     "delayed_debit": {
       "settingTitle": "Paiement de l'encours carte à débit différé",
+      "settingDescription": "Cela nécessite d'avoir connecté un compte de type \"carte de crédit\"",
       "fieldLabels": {
         "creditCardAccount": "Carte de crédit",
         "checkingsAccount": "Compte courant de l'encours",
@@ -556,7 +556,14 @@
         "description": "Naviguer dans l'app avec les montants cachés"
       }
     },
-    "create-alert": "Créer une alerte",
+    "rules": {
+      "create": "Créer une alerte",
+      "remove-modal": {
+        "title": "Supprimer l'alerte ?",
+        "desc": "Merci de confirmer vouloir supprimer l'alerte"
+      },
+      "saving-error": "Impossible de sauver l'alerte, merci de réessayer plus tard."
+    },
     "budget-category-alerts": {
       "pane-title": "Budget par catégorie",
       "pane-description": "Configurer les alertes de budget par catégorie",
@@ -565,7 +572,6 @@
       "for-group": "pour le groupe *%{accountOrGroupLabel}*",
       "for-all-accounts": "pour tous les comptes",
       "for-category": "en *%{categoryName}*",
-      "saving-error": "Impossible de sauver l'alerte, merci de réessayer plus tard.",
       "edit": {
         "modal-title": "Configurer la notification",
         "category-label": "Catégorie",
@@ -575,12 +581,6 @@
         "update-ok": "Mettre à jour",
         "all-category": "Tout « %{categoryName} »",
         "cancel": "Annuler"
-      },
-      "remove": {
-        "title": "Supprimer l'alerte ?",
-        "cancel": "Annuler",
-        "desc": "Merci de confirmer vouloir supprimer l'alerte",
-        "ok": "Supprimer l'alerte"
       }
     }
   },
@@ -785,5 +785,16 @@
   "AccountGroupChoice": {
     "nothing-selected": "Sélectionner un compte",
     "all-accounts": "Tous les comptes"
+  },
+
+  "Confirmation": {
+    "cancel": "Annuler",
+    "ok": "OK"
+  },
+
+  "EditionModal": {
+    "ok": "OK",
+    "cancel": "Annuler",
+    "remove": "Supprimer"
   }
 }

@@ -3,7 +3,8 @@ import {
   Button,
   Modal,
   ModalFooter,
-  ModalButtons
+  ModalButtons,
+  translate
 } from 'cozy-ui/transpiled/react'
 
 import Stepper from 'components/Stepper'
@@ -17,6 +18,8 @@ import CategorySection from './CategorySection'
 import ThresholdSection from './ThresholdSection'
 import NumberSection from './NumberSection'
 import resultWithArgs from 'utils/resultWithArgs'
+import Confirmation from 'components/Confirmation'
+import { withBreakpoints } from 'cozy-ui/react'
 
 import { BackButton } from 'components/BackButton'
 
@@ -73,49 +76,110 @@ const ChoosingSwitch = ({ choosing }) => {
   )
 }
 
-const InfoSlide = ({
-  doc,
-  fieldSpecs,
-  fieldOrder,
-  fieldLabels,
-  onRequestChooseField,
-  onChangeField
-}) => {
-  return (
-    <ModalSections>
-      {fieldOrder.map(fieldName => {
-        const FieldSection = SectionsPerType[fieldSpecs[fieldName].type]
-        const fieldSpec = fieldSpecs[fieldName]
-        const fieldLabel = fieldLabels[fieldName]
-        const chooserProps = resultWithArgs(fieldSpec, 'chooserProps', [doc])
-        const sectionProps = resultWithArgs(fieldSpec, 'sectionProps', [doc])
-        const hasSelector = TYPES_WITH_SELECTOR[fieldSpec.type]
-        return (
-          <FieldSection
-            key={fieldName}
-            label={fieldLabel}
-            value={fieldSpec.getValue(doc)}
-            onClick={
-              hasSelector ? () => onRequestChooseField(fieldName) : undefined
-            }
-            onChange={
-              hasSelector
-                ? undefined
-                : value => {
-                    onChangeField(fieldName, value)
-                  }
-            }
-            {...sectionProps}
-            chooserProps={chooserProps}
-          />
-        )
-      })}
-    </ModalSections>
-  )
-}
+const InfoSlide = translate()(
+  ({
+    doc,
+    fieldSpecs,
+    fieldOrder,
+    fieldLabels,
+    onRequestChooseField,
+    onChangeField,
+    t
+  }) => {
+    return (
+      <ModalSections>
+        {fieldOrder.map(fieldName => {
+          const fieldSpec = fieldSpecs[fieldName]
+          const FieldSection = SectionsPerType[fieldSpec.type]
+          const fieldLabel = fieldLabels[fieldName]
+          const chooserProps = resultWithArgs(fieldSpec, 'chooserProps', [doc])
+          const sectionProps = resultWithArgs(fieldSpec, 'sectionProps', [doc])
+          const hasSelector = TYPES_WITH_SELECTOR[fieldSpec.type]
+          return (
+            <FieldSection
+              key={fieldName}
+              label={t(fieldLabel)}
+              value={fieldSpec.getValue(doc)}
+              onClick={
+                hasSelector ? () => onRequestChooseField(fieldName) : undefined
+              }
+              onChange={
+                hasSelector
+                  ? undefined
+                  : value => {
+                      onChangeField(fieldName, value)
+                    }
+              }
+              {...sectionProps}
+              chooserProps={chooserProps}
+            />
+          )
+        })}
+      </ModalSections>
+    )
+  }
+)
 
 const INFO_SLIDE_INDEX = 0
 const CHOOSING_SLIDE_INDEX = 1
+
+const DumbEditionModalFooter = props => {
+  const {
+    breakpoints: { isMobile },
+    canBeRemoved,
+    doc,
+    onEdit,
+    onRemove,
+    removeModalTitle,
+    removeModalDescription,
+    removeButtonLabel,
+    cancelButtonLabel,
+    onDismiss,
+    okButtonLabel
+  } = props
+  const handleConfirmEdit = () => {
+    onEdit(doc)
+  }
+
+  const handleRemove = () => {
+    onRemove(doc)
+    onDismiss()
+  }
+
+  const removalButton = canBeRemoved && (
+    <Confirmation
+      title={removeModalTitle}
+      description={removeModalDescription}
+      onConfirm={handleRemove}
+    >
+      <Button theme="danger-outline" label={removeButtonLabel(props, doc)} />
+    </Confirmation>
+  )
+
+  return (
+    <ModalFooter>
+      <ModalButtons>
+        {canBeRemoved && !isMobile ? (
+          <>
+            {removalButton}
+            <div className="u-media-grow" />
+          </>
+        ) : null}
+        {!canBeRemoved || (canBeRemoved && !isMobile) ? (
+          <Button
+            theme="secondary"
+            onClick={onDismiss}
+            label={cancelButtonLabel(props, doc)}
+          />
+        ) : null}
+        {canBeRemoved && isMobile ? removalButton : null}
+        <Button onClick={handleConfirmEdit} label={okButtonLabel(doc)} />
+      </ModalButtons>
+    </ModalFooter>
+  )
+}
+
+const EditionModalFooter = withBreakpoints()(DumbEditionModalFooter)
 
 const EditionModal = props => {
   const {
@@ -126,8 +190,14 @@ const EditionModal = props => {
     modalTitle,
     okButtonLabel,
     cancelButtonLabel,
+    removeButtonLabel,
     onEdit,
-    onDismiss
+    onDismiss,
+    onRemove,
+    removeModalTitle,
+    removeModalDescription,
+    t,
+    canBeRemoved
   } = props
   const [doc, setDoc] = useState(initialDoc)
   const [choosing, setChoosing] = useState(null)
@@ -156,16 +226,12 @@ const EditionModal = props => {
     })
   }
 
-  const handleConfirmEdit = () => {
-    onEdit(doc)
-  }
-
   return (
     <Modal
       title={
         <>
           {choosing ? <BackArrow onClick={() => setChoosing(null)} /> : null}
-          {modalTitle}
+          {t(modalTitle)}
         </>
       }
       mobileFullscreen={true}
@@ -188,19 +254,21 @@ const EditionModal = props => {
         <div>{choosing ? <ChoosingSwitch choosing={choosing} /> : null}</div>
       </Stepper>
       {choosing ? null : (
-        <ModalFooter>
-          <ModalButtons>
-            <Button
-              theme={'secondary'}
-              onClick={onDismiss}
-              label={cancelButtonLabel(props, doc)}
-            />
-            <Button onClick={handleConfirmEdit} label={okButtonLabel(doc)} />
-          </ModalButtons>
-        </ModalFooter>
+        <EditionModalFooter
+          canBeRemoved={canBeRemoved}
+          doc={doc}
+          onEdit={onEdit}
+          onDismiss={onDismiss}
+          onRemove={onRemove}
+          removeModalTitle={removeModalTitle}
+          removeModalDescription={removeModalDescription}
+          removeButtonLabel={removeButtonLabel}
+          cancelButtonLabel={cancelButtonLabel}
+          okButtonLabel={okButtonLabel}
+        />
       )}
     </Modal>
   )
 }
 
-export default EditionModal
+export default translate()(EditionModal)

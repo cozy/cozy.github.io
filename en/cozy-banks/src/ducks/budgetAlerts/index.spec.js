@@ -1,5 +1,5 @@
 import CozyClient from 'cozy-client'
-import { getNextAlertId, fetchExpensesForAlert } from './index.js'
+import { fetchExpensesForAlert } from './index.js'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 
 const alert = {
@@ -119,14 +119,5 @@ describe('fetch transactions for alert', () => {
         }
       })
     )
-  })
-})
-
-describe('get next alert id ', () => {
-  it('should return the next id', () => {
-    expect(getNextAlertId([])).toBe(0)
-
-    expect(getNextAlertId([{ id: 0 }, { id: 4 }])).toBe(5)
-    expect(getNextAlertId([{ id: 6 }, { id: 2 }])).toBe(7)
   })
 })

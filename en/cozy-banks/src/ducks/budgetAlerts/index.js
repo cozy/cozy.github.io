@@ -5,7 +5,6 @@ import { isParentOf } from 'ducks/categories/categoriesMap'
 import sumBy from 'lodash/sumBy'
 import { fetchCategoryAlerts } from 'ducks/settings/helpers'
 import { startOfMonth, endOfMonth, addDays, format } from 'date-fns'
-import maxBy from 'lodash/maxBy'
 
 const log = logger.namespace('category-alerts')
 
@@ -24,12 +23,6 @@ export const makeNewAlert = () => ({
   maxThreshold: 100,
   accountOrGroup: null
 })
-
-export const getAlertId = x => x.id
-
-export const getNextAlertId = alerts => {
-  return alerts.length === 0 ? 0 : getAlertId(maxBy(alerts, getAlertId)) + 1
-}
 
 const makeSelectorForAccountOrGroup = async (client, accountOrGroup) => {
   if (!accountOrGroup) {

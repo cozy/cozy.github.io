@@ -1,11 +1,27 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Media, Bd, Img, translate } from 'cozy-ui/react'
+import { Media, Bd, Img, translate, Icon } from 'cozy-ui/react'
+import resultWithArgs from 'utils/resultWithArgs'
+import { markdownBold } from './helpers'
+
+import Confirmation from 'components/Confirmation'
 import SettingCard from 'components/SettingCard'
 import Switch from 'components/Switch'
 import EditionModal from 'components/EditionModal'
-import resultWithArgs from 'utils/resultWithArgs'
-import { markdownBold } from './helpers'
+
+export const CrossIcon = ({ onClick }) => (
+  <span onClick={onClick} className="u-expanded-click-area">
+    <Icon color="var(--coolGrey)" icon="cross" />
+  </span>
+)
+
+export const SettingCardRemoveConfirmation = translate()(
+  ({ onRemove, description, title }) => (
+    <Confirmation onConfirm={onRemove} title={title} description={description}>
+      <CrossIcon />
+    </Confirmation>
+  )
+)
 
 // Since the toggle has a large height, we need to compensate negatively
 // so that the height of the switch does not impact the height of the card
@@ -20,19 +36,44 @@ const resolveDescriptionKey = props => {
   return props.t(descriptionKeyStr, descriptionProps)
 }
 
+const SettingCardSwitch = ({ checked, onClick, onChange }) => (
+  <Switch
+    disableRipple
+    className="u-mh-s"
+    checked={checked}
+    color="primary"
+    onClick={onClick}
+    onChange={onChange}
+  />
+)
+
 const EditableSettingCard = props => {
   const {
     onChangeDoc,
     onToggle,
+    onRemove,
+    removeModalTitle,
+    removeModalDescription,
     editModalProps,
     shouldOpenOnToggle,
-    doc
+    doc,
+    canBeRemoved,
+    onRemoveDoc,
+    t
   } = props
 
   const enabled = doc.enabled
   const [editing, setEditing] = useState(false)
   const description = resolveDescriptionKey(props)
 
+  const handleSwitchChange = () => {
+    const shouldOpen = shouldOpenOnToggle ? shouldOpenOnToggle(props) : false
+    if (shouldOpen) {
+      setEditing(true)
+    } else {
+      onToggle(!enabled)
+    }
+  }
   return (
     <>
       <SettingCard
@@ -49,22 +90,19 @@ const EditableSettingCard = props => {
           </Bd>
           {onToggle ? (
             <Img style={toggleStyle}>
-              <Switch
-                disableRipple
-                className="u-mh-s"
+              <SettingCardSwitch
                 checked={enabled}
-                color="primary"
                 onClick={e => e.stopPropagation()}
-                onChange={() => {
-                  const shouldOpen = shouldOpenOnToggle
-                    ? shouldOpenOnToggle(props)
-                    : false
-                  if (shouldOpen) {
-                    setEditing(true)
-                  } else {
-                    onToggle(!enabled)
-                  }
-                }}
+                onChange={handleSwitchChange}
+              />
+            </Img>
+          ) : null}
+          {onRemove ? (
+            <Img>
+              <SettingCardRemoveConfirmation
+                title={removeModalTitle}
+                description={removeModalDescription}
+                onRemove={onRemove}
               />
             </Img>
           ) : null}
@@ -73,14 +111,19 @@ const EditableSettingCard = props => {
       {editing ? (
         <EditionModal
           {...editModalProps}
+          canBeRemoved={canBeRemoved}
+          onRemove={onRemoveDoc}
+          removeModalTitle={removeModalTitle}
+          removeModalDescription={removeModalDescription}
           initialDoc={doc}
           onEdit={updatedDoc => {
             onChangeDoc(updatedDoc)
             setEditing(false)
           }}
           onDismiss={() => setEditing(false)}
-          okButtonLabel={() => 'OK'}
-          cancelButtonLabel={() => 'Cancel'}
+          okButtonLabel={() => t('EditionModal.ok')}
+          cancelButtonLabel={() => t('EditionModal.cancel')}
+          removeButtonLabel={() => t('EditionModal.remove')}
         />
       ) : null}
     </>

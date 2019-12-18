@@ -45,6 +45,9 @@ export const getDisplayDate = transaction => {
 
 export const getDate = transaction => {
   const date = getDisplayDate(transaction)
+  if (!date) {
+    throw new Error(`Cannot get date on transaction ${transaction.label}`)
+  }
   return date.slice(0, 10)
 }
 

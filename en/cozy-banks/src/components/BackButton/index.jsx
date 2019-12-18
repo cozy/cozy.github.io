@@ -16,13 +16,13 @@ const { BarLeft } = cozy.bar
 export const BackIcon = ({ color }) => <Icon icon={arrowLeft} color={color} />
 
 export const BackLink = ({ className, color, onClick }) => (
-  <a className={cx(styles.BackLink, className)} onClick={onClick}>
+  <a className={cx(styles.BackArrow, className)} onClick={onClick}>
     <BackIcon color={color} />
   </a>
 )
 
 export const BackButton = ({ className, color, onClick }) => (
-  <button className={cx(styles.BackButton, className)} onClick={onClick}>
+  <button className={cx(styles.BackArrow, className)} onClick={onClick}>
     <BackIcon color={color} />
   </button>
 )

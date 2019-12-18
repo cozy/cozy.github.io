@@ -1,5 +1,5 @@
 import React from 'react'
-import { translate, Alerter, Button } from 'cozy-ui/react'
+import { translate } from 'cozy-ui/react'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { queryConnect, withMutations } from 'cozy-client'
 import { settingsConn } from 'doctypes'
@@ -10,156 +10,17 @@ import flag from 'cozy-flags'
 
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import PinSettings from 'ducks/settings/PinSettings'
-import TogglePane, {
-  TogglePaneTitle,
-  TogglePaneSubtitle,
-  TogglePaneText
-} from 'ducks/settings/TogglePane'
-import ToggleRow, {
-  ToggleRowTitle,
-  ToggleRowDescription,
-  ToggleRowWrapper
-} from 'ducks/settings/ToggleRow'
+import { Section, SubSection } from 'ducks/settings/Sections'
+
 import DelayedDebitAlert from 'ducks/settings/DelayedDebitAlert'
 import CategoryAlertSettingsPane from 'ducks/settings/CategoryAlerts/CategoryAlertSettingsPane'
-import TogglableSettingCard from './TogglableSettingCard'
-import { CHOOSING_TYPES } from 'components/EditionModal'
+import EditableSettingCard from './EditableSettingCard'
 import { withAccountOrGroupLabeller } from './helpers'
-import { getDocumentIdentity } from 'ducks/client/utils'
+import ToggleRow from 'ducks/settings/ToggleRow'
+import BalanceLowerRules from './BalanceLowerRules'
+import TransactionGreaterRules from './TransactionGreaterRules'
 
-const getValueFromNotification = notification => notification.value
-const updatedNotificationFromValue = (notification, value) => ({
-  ...notification,
-  value
-})
-
-const getAccountOrGroupFromNotification = notification =>
-  notification.accountOrGroup
-const updatedNotificationFromAccountGroup = (notification, accountOrGroup) => ({
-  ...notification,
-  accountOrGroup: getDocumentIdentity(accountOrGroup)
-})
-
-const SettingSection = ({ children, title }) => (
-  <ToggleRowWrapper>
-    {title && <ToggleRowTitle>{title}</ToggleRowTitle>}
-    {children}
-  </ToggleRowWrapper>
-)
-
-const editModalProps = {
-  balanceLower: ({ t }) => ({
-    modalTitle: t('Notifications.editModal.title'),
-    fieldSpecs: {
-      value: {
-        type: CHOOSING_TYPES.number,
-        getValue: getValueFromNotification,
-        updater: updatedNotificationFromValue,
-        sectionProps: {
-          unit: '€'
-        }
-      },
-      accountOrGroup: {
-        type: CHOOSING_TYPES.accountOrGroup,
-        getValue: getAccountOrGroupFromNotification,
-        updater: updatedNotificationFromAccountGroup
-      }
-    },
-    fieldOrder: [
-      'value',
-      flag('settings.notification-account-group') && 'accountOrGroup'
-    ].filter(Boolean),
-    fieldLabels: {
-      value: t('Notifications.if_balance_lower.fieldLabels.value'),
-      accountOrGroup: t(
-        'Notifications.if_balance_lower.fieldLabels.accountOrGroup'
-      )
-    }
-  }),
-  transactionGreater: ({ t }) => ({
-    modalTitle: t('Notifications.editModal.title'),
-    fieldSpecs: {
-      value: {
-        type: CHOOSING_TYPES.number,
-        getValue: getValueFromNotification,
-        updater: updatedNotificationFromValue,
-        sectionProps: {
-          unit: '€'
-        }
-      },
-      accountOrGroup: {
-        type: CHOOSING_TYPES.accountOrGroup,
-        getValue: getAccountOrGroupFromNotification,
-        updater: updatedNotificationFromAccountGroup
-      }
-    },
-    fieldOrder: [
-      'value',
-      flag('settings.notification-account-group') && 'accountOrGroup'
-    ].filter(Boolean),
-    fieldLabels: {
-      value: t('Notifications.if_transaction_greater.fieldLabels.value'),
-      accountOrGroup: t(
-        'Notifications.if_transaction_greater.fieldLabels.accountOrGroup'
-      )
-    }
-  }),
-  lateHealthReimbursement: ({ t }) => ({
-    modalTitle: t('Notifications.editModal.title'),
-    fieldSpecs: {
-      value: {
-        type: CHOOSING_TYPES.number,
-        getValue: getValueFromNotification,
-        updater: updatedNotificationFromValue,
-        sectionProps: {
-          unit: t('Notifications.when_late_health_reimbursement.unit')
-        }
-      }
-    },
-    fieldOrder: ['value'],
-    fieldLabels: {
-      value: t('Notifications.when_late_health_reimbursement.fieldLabels.value')
-    }
-  })
-}
-
-// descriptionProps getters below need the full props to have access to
-// `props.getAccountOrGroupLabel`.
-// `getAccountOrGroupLabel` must come from the props to have access to the
-// store since it needs to get the full accountOrGroup from the store, since
-// the accountOrGroup from the notification is only its identity (only _id
-// and _type).
-// We pass the full props to descriptionKey to keep the symmetry between
-// descriptionKey getter and descriptionProp getter
-const getTransactionGreaterDescriptionKey = props => {
-  if (props.doc && props.doc.accountOrGroup) {
-    return 'Notifications.if_transaction_greater.descriptionWithAccountGroup'
-  } else {
-    return 'Notifications.if_transaction_greater.description'
-  }
-}
-
-const getBalanceLowerDescriptionKey = props => {
-  if (props.doc && props.doc.accountOrGroup) {
-    return 'Notifications.if_balance_lower.descriptionWithAccountGroup'
-  } else {
-    return 'Notifications.if_balance_lower.description'
-  }
-}
-
-const getTransactionGreaterDescriptionProps = props => ({
-  accountOrGroupLabel: props.doc.accountOrGroup
-    ? props.getAccountOrGroupLabel(props.doc.accountOrGroup)
-    : null,
-  value: props.doc.value
-})
-
-const getBalanceLowerDescriptionProps = props => ({
-  accountOrGroupLabel: props.doc.accountOrGroup
-    ? props.getAccountOrGroupLabel(props.doc.accountOrGroup)
-    : null,
-  value: props.doc.value
-})
+import { lateHealthReimbursement } from './specs'
 
 const onToggleFlag = key => checked => {
   flag(key, checked)
@@ -181,9 +42,7 @@ export class Configuration extends React.Component {
     const { settingsCollection } = this.props
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
     set(settings, [...key.split('.'), 'enabled'], checked)
-    this.saveDocument(settings, {
-      updateCollections: ['settings']
-    })
+    this.saveDocument(settings)
   }
 
   // TODO the displayed value and the persisted value should not be the same.
@@ -193,9 +52,7 @@ export class Configuration extends React.Component {
     const { settingsCollection } = this.props
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
     set(settings, [...key.split('.')], value)
-    this.saveDocument(settings, {
-      updateCollections: ['settings']
-    })
+    this.saveDocument(settings)
   }
 
   render() {
@@ -212,77 +69,46 @@ export class Configuration extends React.Component {
 
     return (
       <div>
-        <TogglePane>
-          <TogglePaneTitle>{t('Notifications.title')}</TogglePaneTitle>
-          <TogglePaneText>{t('Notifications.description')}</TogglePaneText>
-          <SettingSection
-            title={t('Notifications.if_balance_lower.settingTitle')}
-          >
-            <TogglableSettingCard
-              descriptionKey={getBalanceLowerDescriptionKey}
-              descriptionProps={getBalanceLowerDescriptionProps}
-              onToggle={this.onToggle('notifications.balanceLower')}
-              onChangeDoc={this.onChangeDoc('notifications.balanceLower')}
-              unit="€"
+        <Section
+          title={t('Notifications.title')}
+          description={t('Notifications.description')}
+        >
+          <SubSection title={t('Notifications.if_balance_lower.settingTitle')}>
+            <BalanceLowerRules
+              rules={settings.notifications.balanceLower}
               getAccountOrGroupLabel={this.props.getAccountOrGroupLabel}
-              doc={settings.notifications.balanceLower}
-              editModalProps={editModalProps.balanceLower({
-                t
-              })}
+              onChangeRules={this.onChangeDoc('notifications.balanceLower')}
             />
-            <Button
-              className="u-ml-0"
-              theme="subtle"
-              icon="plus"
-              label={t('Settings.create-alert')}
-              onClick={() => {
-                Alerter.success(t('ComingSoon.description'))
-              }}
-            />
-          </SettingSection>
-          <SettingSection
+          </SubSection>
+          <SubSection
             title={t('Notifications.if_transaction_greater.settingTitle')}
           >
-            <TogglableSettingCard
-              descriptionKey={getTransactionGreaterDescriptionKey}
-              descriptionProps={getTransactionGreaterDescriptionProps}
-              onToggle={this.onToggle('notifications.transactionGreater')}
-              onChangeDoc={this.onChangeDoc('notifications.transactionGreater')}
-              doc={settings.notifications.transactionGreater}
+            <TransactionGreaterRules
+              rules={settings.notifications.transactionGreater}
               getAccountOrGroupLabel={this.props.getAccountOrGroupLabel}
-              unit="€"
-              editModalProps={editModalProps.transactionGreater({
-                t
-              })}
+              onChangeRules={this.onChangeDoc(
+                'notifications.transactionGreater'
+              )}
             />
-            <Button
-              className="u-ml-0"
-              theme="subtle"
-              icon="plus"
-              label={t('Settings.create-alert')}
-              onClick={() => {
-                Alerter.success(t('ComingSoon.description'))
-              }}
-            />
-          </SettingSection>
+          </SubSection>
           <CategoryAlertSettingsPane />
           <DelayedDebitAlert
             onToggle={this.onToggle('notifications.delayedDebit')}
             onChangeDoc={this.onChangeDoc('notifications.delayedDebit')}
             doc={settings.notifications.delayedDebit}
           />
-          <SettingSection title={t('Notifications.health_section.title')}>
-            <ToggleRowDescription>
-              {t('Notifications.health_section.description')}
-            </ToggleRowDescription>
-            <div className="u-pl-2 u-pt-1-half u-stack-xs">
-              <TogglableSettingCard
+          <SubSection
+            title={t('Notifications.health_section.title')}
+            description={t('Notifications.health_section.description')}
+          >
+            <div className="u-stack-xs">
+              <EditableSettingCard
                 title={t('Notifications.when_health_bill_linked.settingTitle')}
                 descriptionKey="Notifications.when_health_bill_linked.description"
                 onToggle={this.onToggle('notifications.healthBillLinked')}
                 doc={settings.notifications.healthBillLinked}
               />
-              <TogglableSettingCard
+              <EditableSettingCard
                 title={t(
                   'Notifications.when_late_health_reimbursement.settingTitle'
                 )}
@@ -296,41 +122,40 @@ export class Configuration extends React.Component {
                   'notifications.lateHealthReimbursement'
                 )}
                 doc={settings.notifications.lateHealthReimbursement}
-                editModalProps={editModalProps.lateHealthReimbursement({
-                  t
-                })}
+                editModalProps={lateHealthReimbursement}
               />
             </div>
-          </SettingSection>
-        </TogglePane>
-        <TogglePane>
-          <TogglePaneTitle>
-            {t('AdvancedFeaturesSettings.title')}
-          </TogglePaneTitle>
-          <TogglePaneSubtitle>
-            {t('AdvancedFeaturesSettings.automatic_categorization.title')}
-          </TogglePaneSubtitle>
-          <ToggleRow
-            description={t(
-              'AdvancedFeaturesSettings.automatic_categorization.local_model_override.description'
-            )}
-            onToggle={this.onToggle('community.localModelOverride')}
-            enabled={settings.community.localModelOverride.enabled}
-            name="localModelOverride"
-          />
-        </TogglePane>
+          </SubSection>
+        </Section>
+        <Section
+          title={t('AdvancedFeaturesSettings.title')}
+          description={t(
+            'AdvancedFeaturesSettings.automatic_categorization.title'
+          )}
+        >
+          <SubSection>
+            <ToggleRow
+              description={t(
+                'AdvancedFeaturesSettings.automatic_categorization.local_model_override.description'
+              )}
+              onToggle={this.onToggle('community.localModelOverride')}
+              enabled={settings.community.localModelOverride.enabled}
+              name="localModelOverride"
+            />
+          </SubSection>
+        </Section>
 
-        <TogglePane>
-          <TogglePaneTitle>{t('Settings.security.title')}</TogglePaneTitle>
+        <Section title={t('Settings.security.title')}>
           {flag('pin') && <PinSettings />}
-          <ToggleRow
-            title={t('Settings.security.amount_blur.title')}
-            description={t('Settings.security.amount_blur.description')}
-            onToggle={onToggleFlag('amount_blur')}
-            enabled={Boolean(flag('amount_blur'))}
-            name="amountBlur"
-          />
-        </TogglePane>
+          <SubSection title={t('Settings.security.amount_blur.title')}>
+            <ToggleRow
+              description={t('Settings.security.amount_blur.description')}
+              onToggle={onToggleFlag('amount_blur')}
+              enabled={Boolean(flag('amount_blur'))}
+              name="amountBlur"
+            />
+          </SubSection>
+        </Section>
 
         {Configuration.renderExtraItems()}
       </div>
