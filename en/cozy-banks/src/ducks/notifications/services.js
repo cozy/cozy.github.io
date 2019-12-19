@@ -115,7 +115,7 @@ export const sendNotificationForClass = async (
   try {
     await sendNotification(client, notificationView)
   } catch (err) {
-    log('warn', JSON.stringify(err))
+    log('error', JSON.stringify({ message: err.message, stack: err.stack }))
   }
 }
 

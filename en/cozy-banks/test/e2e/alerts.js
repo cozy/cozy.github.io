@@ -27,11 +27,32 @@ const ISA_CHECKING_ACCOUNT_ID = 'compteisa1'
 const ISA_SAVING_ACCOUNT_ID = 'compteisa3'
 const GENEVIEVE_ACCOUNT_ID = 'comptegene1'
 
+const SOFTWARE_ID = 'banks.alerts-e2e'
+
 const demoAccountsById = keyBy(demoData['io.cozy.bank.accounts'], getDocumentID)
 
 const louiseCheckings = demoAccountsById[LOUISE_ACCOUNT_ID]
 const isabelleCheckings = demoAccountsById[ISA_CHECKING_ACCOUNT_ID]
 const isabelleSavings = demoAccountsById[ISA_SAVING_ACCOUNT_ID]
+
+const revokeOtherOAuthClientsForSoftwareId = async (client, softwareID) => {
+  const { data: clients } = await client.stackClient.fetchJSON(
+    'GET',
+    `/settings/clients`
+  )
+  const currentOAuthClientId = client.stackClient.oauthOptions.clientID
+  const otherOAuthClients = clients.filter(
+    oauthClient =>
+      oauthClient.attributes.software_id === softwareID &&
+      oauthClient.id !== currentOAuthClientId
+  )
+  for (let oauthClient of otherOAuthClients) {
+    await client.stackClient.fetchJSON(
+      'DELETE',
+      `/settings/clients/${oauthClient.id}`
+    )
+  }
+}
 
 const louiseBurgerTransaction = {
   demo: false,
@@ -234,7 +255,7 @@ const scenarios = {
   transactionGreater2: {
     description: '2 transactions, single rule',
     expectedEmail: {
-      subject: 'Alert: 2 transactions greater than 50€'
+      subject: '2 transactions greater than 50€'
     },
     data: {
       [SETTINGS_DOCTYPE]: [
@@ -259,9 +280,9 @@ const scenarios = {
     }
   },
   transactionGreater3: {
-    description: '2 transactions, multi rules',
+    description: '3 transactions, multi rules',
     expectedEmail: {
-      subject: 'Alert: 2 transactions greater than their max threshold'
+      subject: '3 transactions greater than 2 thresholds'
     },
     data: {
       [SETTINGS_DOCTYPE]: [
@@ -281,6 +302,11 @@ const scenarios = {
         {
           ...isaBurgerTransaction,
           amount: -60 // such an expensive burger !
+        },
+        {
+          ...isaBurgerTransaction,
+          _id: 'isa_burger_0',
+          amount: -100 // such an expensive burger !
         }
       ]
     }
@@ -291,9 +317,8 @@ const parseArgs = () => {
   const parser = new ArgumentParser()
   parser.addArgument('--url', { defaultValue: 'http://cozy.tools:8080' })
   parser.addArgument(['-v', '--verbose'], { action: 'storeTrue' })
-  parser.addArgument('scenario', {
-    choices: Object.keys(scenarios).concat(['all'])
-  })
+  parser.addArgument(['--push'], { action: 'storeTrue' })
+  parser.addArgument('scenario')
   return parser.parseArgs()
 }
 
@@ -400,6 +425,7 @@ const main = async () => {
   const client = await createClientInteractive({
     uri: args.url,
     scope: [
+      'io.cozy.oauth.clients:ALL',
       SETTINGS_DOCTYPE,
       TRANSACTION_DOCTYPE,
       ACCOUNT_DOCTYPE,
@@ -407,14 +433,28 @@ const main = async () => {
       BILLS_DOCTYPE
     ],
     oauth: {
-      softwareID: 'banks.alerts-e2e'
+      softwareID: SOFTWARE_ID
     }
   })
 
-  const scenarioIds =
-    args.scenario === 'all' ? Object.keys(scenarios) : [args.scenario]
+  await revokeOtherOAuthClientsForSoftwareId(client, SOFTWARE_ID)
 
-  const mailhog = Mailhog({ host: 'localhost' })
+  if (args.push) {
+    const clientInfos = client.stackClient.oauthOptions
+    await client.stackClient.updateInformation({
+      ...clientInfos,
+      notificationPlatform: 'android',
+      notificationDeviceToken: 'fake-token'
+    })
+  }
+
+  const allScenarioIds = Object.keys(scenarios)
+  const scenarioIds =
+    args.scenario === 'all'
+      ? allScenarioIds
+      : allScenarioIds.filter(x => x.startsWith(args.scenario))
+
+  const mailhog = args.push ? null : Mailhog({ host: 'localhost' })
   const answers = {}
   for (const scenarioId of scenarioIds) {
     await cleanupDatabase(client)

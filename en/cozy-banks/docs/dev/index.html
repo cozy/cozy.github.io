@@ -2454,6 +2454,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#possible-problem-when-running-e2e-tests" title="Possible problem when running E2E tests" class="md-nav__link">
+    Possible problem when running E2E tests
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#alert-rules" title="Alert rules" class="md-nav__link">
     Alert rules
   </a>
@@ -2863,6 +2870,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#possible-problem-when-running-e2e-tests" title="Possible problem when running E2E tests" class="md-nav__link">
+    Possible problem when running E2E tests
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#alert-rules" title="Alert rules" class="md-nav__link">
     Alert rules
   </a>
@@ -2973,6 +2987,7 @@
 <li><a href="#debug-notification-triggers">Debug notification triggers</a></li>
 <li><a href="#when-creating-a-notification">When creating a notification</a></li>
 <li><a href="#end-to-end-tests">End to end tests</a><ul>
+<li><a href="#possible-problem-when-running-e2e-tests">Possible problem when running E2E tests</a></li>
 <li><a href="#alert-rules">Alert rules</a></li>
 <li><a href="#semi-automatic-test">Semi automatic test</a></li>
 <li><a href="#manual-insertion-test">Manual insertion test</a></li>
@@ -3270,6 +3285,18 @@ will be able to see the mails in its web interface on http://localhost:8025.</p>
 
 
 <h3 id="end-to-end-tests">End to end tests<a class="headerlink" href="#end-to-end-tests" title="Permanent link">&para;</a></h3>
+<h4 id="possible-problem-when-running-e2e-tests">Possible problem when running E2E tests<a class="headerlink" href="#possible-problem-when-running-e2e-tests" title="Permanent link">&para;</a></h4>
+<p>⚠️ When developing tests and launching them, you might encounter a weird error</p>
+<div class="codehilite"><pre><span></span>toInteger is not a function
+</pre></div>
+
+
+<p>coming from lodash. We haven&rsquo;t found the root cause of the problem but a simple
+touch on the file being launched solves it.</p>
+<div class="codehilite"><pre><span></span>touch test/e2e/alerts.js; yarn test:e2e:alerts
+</pre></div>
+
+
 <h4 id="alert-rules">Alert rules<a class="headerlink" href="#alert-rules" title="Permanent link">&para;</a></h4>
 <h5 id="semi-automatic-test">Semi automatic test<a class="headerlink" href="#semi-automatic-test" title="Permanent link">&para;</a></h5>
 <p>Alert rules are tested with a semi automatic test that</p>
@@ -3289,7 +3316,35 @@ $ yarn test:e2e:alerts
 
 
 <p>At the moment, it needs to be launched on the computer of the developer but should
-be done on the CI in the future</p>
+be done on the CI in the future.</p>
+<p>It is possible to test push notifications with the <code>--push</code> flag. You need first to
+configure the stack so that it uses a fake server that will receive push notifications.</p>
+<ul>
+<li>Add this to <code>~/.cozy.yml</code>:</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="n">notifications</span><span class="o">:</span>
+   <span class="n">android_api_key</span><span class="o">:</span> <span class="s1">&#39;fake_android_api_key&#39;</span>
+   <span class="n">fcm_server</span><span class="o">:</span> <span class="s1">&#39;http://localhost:3001&#39;</span>
+</pre></div>
+
+
+<ul>
+<li>Start the fake push notification server. It will output the content of notifications,
+  allowing you to check the content. In the future, the E2E test should automatically
+  fire up this server and check by itself that the content of notifications corresponds
+  (like we do with Mailhog).</li>
+</ul>
+<div class="codehilite"><pre><span></span>$ node test/e2e/fake-fcm-server
+</pre></div>
+
+
+<ul>
+<li>Launch tests with the push flag</li>
+</ul>
+<div class="codehilite"><pre><span></span>yarn test:e2e:alerts --push
+</pre></div>
+
+
 <h5 id="manual-insertion-test">Manual insertion test<a class="headerlink" href="#manual-insertion-test" title="Permanent link">&para;</a></h5>
 <p>To test on a real Cozy, a script can insert fake transactions on accounts corresponding
 to alerts, for the onOperationOrBillCreate service to be started.</p>

@@ -1293,6 +1293,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#permissioncollectioncreatesharinglinkdocument-options" title="permissionCollection.createSharingLink(document, options)" class="md-nav__link">
+    permissionCollection.createSharingLink(document, options)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#permissioncollectiongetownpermissions-object" title="permissionCollection.getOwnPermissions() ⇒ object" class="md-nav__link">
     permissionCollection.getOwnPermissions() ⇒ object
   </a>
@@ -1402,6 +1409,13 @@
         <li class="md-nav__item">
   <a href="#dontthrownotfounderror-object" title="dontThrowNotFoundError ⇒ object" class="md-nav__link">
     dontThrowNotFoundError ⇒ object
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getpermissionsfor-object" title="getPermissionsFor ⇒ object" class="md-nav__link">
+    getPermissionsFor ⇒ object
   </a>
   
 </li>
@@ -3450,6 +3464,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#permissioncollectioncreatesharinglinkdocument-options" title="permissionCollection.createSharingLink(document, options)" class="md-nav__link">
+    permissionCollection.createSharingLink(document, options)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#permissioncollectiongetownpermissions-object" title="permissionCollection.getOwnPermissions() ⇒ object" class="md-nav__link">
     permissionCollection.getOwnPermissions() ⇒ object
   </a>
@@ -3564,6 +3585,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#getpermissionsfor-object" title="getPermissionsFor ⇒ object" class="md-nav__link">
+    getPermissionsFor ⇒ object
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#getaccesstoken-string" title="getAccessToken() ⇒ string" class="md-nav__link">
     getAccessToken() ⇒ string
   </a>
@@ -3664,6 +3692,9 @@ through OAuth.</p>
 <dl>
 <dt><a href="#dontThrowNotFoundError">dontThrowNotFoundError</a> ⇒ <code>object</code></dt>
 <dd><p>Handler for error response which return a empty value for &quot;not found&quot; error</p>
+</dd>
+<dt><a href="#getPermissionsFor">getPermissionsFor</a> ⇒ <code>object</code></dt>
+<dd><p>Build a permission set</p>
 </dd>
 </dl>
 
@@ -4947,6 +4978,7 @@ through OAuth.</p>
 <ul>
 <li><a href="#PermissionCollection">PermissionCollection</a><ul>
 <li><a href="#PermissionCollection+add">.add(document, permission)</a> ⇒ <code>Promise</code></li>
+<li><a href="#PermissionCollection+createSharingLink">.createSharingLink(document, options)</a></li>
 <li><a href="#PermissionCollection+getOwnPermissions">.getOwnPermissions()</a> ⇒ <code>object</code></li>
 </ul>
 </li>
@@ -4987,6 +5019,36 @@ through OAuth.</p>
 </pre></div>
 
 
+<p><a name="PermissionCollection+createSharingLink"></a></p>
+<h3 id="permissioncollectioncreatesharinglinkdocument-options">permissionCollection.createSharingLink(document, options)<a class="headerlink" href="#permissioncollectioncreatesharinglinkdocument-options" title="Permanent link">&para;</a></h3>
+<p>Create a share link</p>
+<p><strong>Kind</strong>: instance method of <a href="#PermissionCollection"><code>PermissionCollection</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>document</td>
+<td><code>Object</code></td>
+<td>cozy document</td>
+</tr>
+<tr>
+<td>options</td>
+<td><code>object</code></td>
+<td>options</td>
+</tr>
+<tr>
+<td>options.verbs</td>
+<td><code>Array.&lt;string&gt;</code></td>
+<td>explicit permissions to use</td>
+</tr>
+</tbody>
+</table>
 <p><a name="PermissionCollection+getOwnPermissions"></a></p>
 <h3 id="permissioncollectiongetownpermissions-object">permissionCollection.getOwnPermissions() ⇒ <code>object</code><a class="headerlink" href="#permissioncollectiongetownpermissions-object" title="Permanent link">&para;</a></h3>
 <p>async getOwnPermissions - Gets the permission for the current token</p>
@@ -5255,6 +5317,42 @@ found&rdquo; error.  </p>
 <td>data</td>
 <td><code>Array</code> | <code>object</code></td>
 <td>Data to return in case of &ldquo;not found&rdquo; error</td>
+</tr>
+</tbody>
+</table>
+<p><a name="getPermissionsFor"></a></p>
+<h2 id="getpermissionsfor-object">getPermissionsFor ⇒ <code>object</code><a class="headerlink" href="#getpermissionsfor-object" title="Permanent link">&para;</a></h2>
+<p>Build a permission set</p>
+<p><strong>Kind</strong>: global constant<br />
+<strong>Returns</strong>: <code>object</code> - permissions object that can be sent through /permissions/*  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>document</td>
+<td><code>Object</code></td>
+<td>cozy document</td>
+</tr>
+<tr>
+<td>publicLink</td>
+<td><code>boolean</code></td>
+<td>are the permissions for a public link ?</td>
+</tr>
+<tr>
+<td>options</td>
+<td><code>object</code></td>
+<td>options</td>
+</tr>
+<tr>
+<td>options.verbs</td>
+<td><code>Array.&lt;string&gt;</code></td>
+<td>explicit permissions to use</td>
 </tr>
 </tbody>
 </table>

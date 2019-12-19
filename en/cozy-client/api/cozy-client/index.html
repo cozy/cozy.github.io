@@ -1372,6 +1372,20 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#getmutederrors-array" title="getMutedErrors ⇒ Array" class="md-nav__link">
+    getMutedErrors ⇒ Array
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#muteerror-object" title="muteError ⇒ object" class="md-nav__link">
+    muteError ⇒ object
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#getstoreinstallationurl-string" title="getStoreInstallationURL ⇒ string" class="md-nav__link">
     getStoreInstallationURL ⇒ string
   </a>
@@ -1464,8 +1478,22 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#triggerstatesgetlastsuccess" title="triggerStates.getLastsuccess()" class="md-nav__link">
+    triggerStates.getLastsuccess()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#triggerstatesiserrored" title="triggerStates.isErrored()" class="md-nav__link">
     triggerStates.isErrored()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#triggerstatesgetlasterrortype" title="triggerStates.getLastErrorType()" class="md-nav__link">
+    triggerStates.getLastErrorType()
   </a>
   
 </li>
@@ -3729,6 +3757,20 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#getmutederrors-array" title="getMutedErrors ⇒ Array" class="md-nav__link">
+    getMutedErrors ⇒ Array
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#muteerror-object" title="muteError ⇒ object" class="md-nav__link">
+    muteError ⇒ object
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#getstoreinstallationurl-string" title="getStoreInstallationURL ⇒ string" class="md-nav__link">
     getStoreInstallationURL ⇒ string
   </a>
@@ -3821,8 +3863,22 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#triggerstatesgetlastsuccess" title="triggerStates.getLastsuccess()" class="md-nav__link">
+    triggerStates.getLastsuccess()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#triggerstatesiserrored" title="triggerStates.isErrored()" class="md-nav__link">
     triggerStates.isErrored()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#triggerstatesgetlasterrortype" title="triggerStates.getLastErrorType()" class="md-nav__link">
+    triggerStates.getLastErrorType()
   </a>
   
 </li>
@@ -4032,6 +4088,12 @@ from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
 
 <h2 id="constants">Constants<a class="headerlink" href="#constants" title="Permanent link">&para;</a></h2>
 <dl>
+<dt><a href="#getMutedErrors">getMutedErrors</a> ⇒ <code>Array</code></dt>
+<dd><p>getMutedErrors - Returns the list of errors that have been muted for the given account</p>
+</dd>
+<dt><a href="#muteError">muteError</a> ⇒ <code>object</code></dt>
+<dd><p>muteError - Adds an error to the list of muted errors for the given account</p>
+</dd>
 <dt><a href="#getStoreInstallationURL">getStoreInstallationURL</a> ⇒ <code>string</code></dt>
 <dd><p>Returns the store URL to install/update an app/konnector</p>
 </dd>
@@ -5552,7 +5614,54 @@ Use the last docid of each query as startkey_docid to paginate or leave blank fo
 <h3 id="schemavalidate">schema.validate()<a class="headerlink" href="#schemavalidate" title="Permanent link">&para;</a></h3>
 <p>Validates a document considering the descriptions in schema.attributes.</p>
 <p><strong>Kind</strong>: instance method of <a href="#Schema"><code>Schema</code></a><br />
-<a name="getStoreInstallationURL"></a></p>
+<a name="getMutedErrors"></a></p>
+<h2 id="getmutederrors-array">getMutedErrors ⇒ <code>Array</code><a class="headerlink" href="#getmutederrors-array" title="Permanent link">&para;</a></h2>
+<p>getMutedErrors - Returns the list of errors that have been muted for the given account</p>
+<p><strong>Kind</strong>: global constant<br />
+<strong>Returns</strong>: <code>Array</code> - An array of errors with a <code>type</code> and <code>mutedAt</code> field  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>account</td>
+<td><code>object</code></td>
+<td>io.cozy.accounts</td>
+</tr>
+</tbody>
+</table>
+<p><a name="muteError"></a></p>
+<h2 id="muteerror-object">muteError ⇒ <code>object</code><a class="headerlink" href="#muteerror-object" title="Permanent link">&para;</a></h2>
+<p>muteError - Adds an error to the list of muted errors for the given account</p>
+<p><strong>Kind</strong>: global constant<br />
+<strong>Returns</strong>: <code>object</code> - An updated io.cozy.accounts  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>account</td>
+<td><code>object</code></td>
+<td>io.cozy.accounts</td>
+</tr>
+<tr>
+<td>errorType</td>
+<td><code>string</code></td>
+<td>The type of the error to mute</td>
+</tr>
+</tbody>
+</table>
+<p><a name="getStoreInstallationURL"></a></p>
 <h2 id="getstoreinstallationurl-string">getStoreInstallationURL ⇒ <code>string</code><a class="headerlink" href="#getstoreinstallationurl-string" title="Permanent link">&para;</a></h2>
 <p>Returns the store URL to install/update an app/konnector</p>
 <p><strong>Kind</strong>: global constant<br />
@@ -5828,7 +5937,9 @@ Use the last docid of each query as startkey_docid to paginate or leave blank fo
 <ul>
 <li><a href="#triggerStates">triggerStates</a><ul>
 <li><a href="#triggerStates.getLastExecution">.getLastExecution()</a></li>
+<li><a href="#triggerStates.getLastsuccess">.getLastsuccess()</a></li>
 <li><a href="#triggerStates.isErrored">.isErrored()</a></li>
+<li><a href="#triggerStates.getLastErrorType">.getLastErrorType()</a></li>
 </ul>
 </li>
 </ul>
@@ -5836,9 +5947,17 @@ Use the last docid of each query as startkey_docid to paginate or leave blank fo
 <h3 id="triggerstatesgetlastexecution">triggerStates.getLastExecution()<a class="headerlink" href="#triggerstatesgetlastexecution" title="Permanent link">&para;</a></h3>
 <p>Returns when the trigger was last executed. Need a trigger</p>
 <p><strong>Kind</strong>: static method of <a href="#triggerStates"><code>triggerStates</code></a><br />
+<a name="triggerStates.getLastsuccess"></a></p>
+<h3 id="triggerstatesgetlastsuccess">triggerStates.getLastsuccess()<a class="headerlink" href="#triggerstatesgetlastsuccess" title="Permanent link">&para;</a></h3>
+<p>Returns when the trigger was last successfully executed.</p>
+<p><strong>Kind</strong>: static method of <a href="#triggerStates"><code>triggerStates</code></a><br />
 <a name="triggerStates.isErrored"></a></p>
 <h3 id="triggerstatesiserrored">triggerStates.isErrored()<a class="headerlink" href="#triggerstatesiserrored" title="Permanent link">&para;</a></h3>
 <p>Returns whether last job failed</p>
+<p><strong>Kind</strong>: static method of <a href="#triggerStates"><code>triggerStates</code></a><br />
+<a name="triggerStates.getLastErrorType"></a></p>
+<h3 id="triggerstatesgetlasterrortype">triggerStates.getLastErrorType()<a class="headerlink" href="#triggerstatesgetlasterrortype" title="Permanent link">&para;</a></h3>
+<p>Returns the type of the last error to occur</p>
 <p><strong>Kind</strong>: static method of <a href="#triggerStates"><code>triggerStates</code></a><br />
 <a name="fetchPolicies"></a></p>
 <h2 id="fetchpolicies">fetchPolicies<a class="headerlink" href="#fetchpolicies" title="Permanent link">&para;</a></h2>
