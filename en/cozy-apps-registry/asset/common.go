@@ -5,6 +5,7 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"net/http"
 	"net/url"
 	"path/filepath"
 
@@ -127,12 +128,12 @@ func (a *GlobalAssetStore) AddAsset(asset *GlobalAsset, content io.Reader, sourc
 	var doc *GlobalAsset
 	row := AssetStore.DB.Get(ctx, asset.Shasum, nil)
 	err := row.ScanDoc(&doc)
-	if err != nil && kivik.StatusCode(err) != kivik.StatusNotFound {
+	if err != nil && kivik.StatusCode(err) != http.StatusNotFound {
 		return err
 	}
 
 	// If asset does not exist in CouchDB global asset database, initializes it
-	if kivik.StatusCode(err) == kivik.StatusNotFound {
+	if kivik.StatusCode(err) == http.StatusNotFound {
 		doc = asset
 		doc.ID = asset.Shasum
 

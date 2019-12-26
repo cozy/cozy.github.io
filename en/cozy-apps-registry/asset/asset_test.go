@@ -5,6 +5,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
+	"net/http"
 	"os"
 	"strings"
 	"testing"
@@ -126,7 +127,7 @@ func TestRemoveAsset(t *testing.T) {
 	row := store.DB.Get(ctx, hex.EncodeToString(shasum))
 	err = row.ScanDoc(asset)
 	assert.Error(t, err)
-	assert.Equal(t, kivik.StatusNotFound, kivik.StatusCode(err))
+	assert.Equal(t, http.StatusNotFound, kivik.StatusCode(err))
 
 	var buf = new(bytes.Buffer)
 	conf := config.GetConfig()

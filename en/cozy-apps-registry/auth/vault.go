@@ -2,6 +2,7 @@ package auth
 
 import (
 	"context"
+	"net/http"
 	"strings"
 
 	"github.com/go-kivik/kivik"
@@ -142,7 +143,7 @@ func (r *couchdbVault) getEditor(editorName string) (*editorForCouchdb, error) {
 	row := r.db.Get(r.ctx, editorID)
 	var doc editorForCouchdb
 	if err := row.ScanDoc(&doc); err != nil {
-		if kivik.StatusCode(err) == kivik.StatusNotFound {
+		if kivik.StatusCode(err) == http.StatusNotFound {
 			return nil, ErrEditorNotFound
 		}
 		return nil, err
