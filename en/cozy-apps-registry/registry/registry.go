@@ -1247,10 +1247,11 @@ func SaveTarball(space, filepath string, tarball *Tarball) error {
 		return err
 	}
 
-	defer f.Close()
-
-	_, err = io.Copy(f, content)
-	return err
+	if _, err = io.Copy(f, content); err != nil {
+		_ = f.Close()
+		return err
+	}
+	return f.Close()
 }
 
 // ReadTarballVersion reads the content of the version tarball which has been
