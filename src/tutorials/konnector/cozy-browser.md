@@ -26,7 +26,7 @@ Then you can use the zombie api to run http requests to the targetted website.
 
 `browser` will keep its own cookie session.
 
-There is an implementation of the template of connector using the Cozy Browser available :
+There is an implementation of the connector template using the Cozy Browser available :
 https://github.com/konnectors/cozy-konnector-template/tree/feat/zombiejs
 
 ## What if I want to use the browser session for saveFiles ?
