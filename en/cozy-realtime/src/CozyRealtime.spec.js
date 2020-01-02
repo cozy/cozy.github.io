@@ -2,7 +2,7 @@ import CozyRealtime, {
   generateKey,
   getWebSocketUrl,
   getWebSocketToken
-} from '.'
+} from './CozyRealtime'
 import { Server } from 'mock-socket'
 import MicroEE from 'microee'
 
