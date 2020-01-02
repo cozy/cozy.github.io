@@ -5,7 +5,7 @@ another solution: running a browser simulation in your connector.
 ## Zombie
 
 We chose a specific js browser implementation which is [zombie](https://github.com/assaf/zombie).
-It is a wraper around jsdom to make it easier for scraping.
+It is a wrapper around jsdom to make it easier for scraping.
 
 ## Initialisation
 
