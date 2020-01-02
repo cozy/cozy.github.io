@@ -22,7 +22,7 @@ const Browser = require('cozy-konnector-libs/dist/CozyBrowser')
 const browser = new Browser()
 ```
 
-Then you can use the zombie api to run http requests to the targetted website.
+Then you can use the zombie API to run HTTP requests to the targeted website.
 
 `browser` will keep its own cookie session.
 
