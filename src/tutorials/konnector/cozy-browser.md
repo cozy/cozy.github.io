@@ -9,7 +9,7 @@ It is a wrapper around jsdom to make it easier for scraping.
 
 ## Initialisation
 
-Just add the zombie npm package to your connector using :
+Add the zombie npm package to your connector using :
 
 ```
 yarn add zombie
