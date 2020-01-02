@@ -17,5 +17,6 @@ If you want to go further:
 - [Learn how konnectors are run by the Cozy stack](./how-does-it-work.md)
 - [Add Two Factor Authentication to your connector](./2fa.md)
 - [Developing an OAuth connector](./oauth.md)
+- [Use a browser simulation to request the website](./cozy-browser.md)
 
 [Cozy Home]: https://github.com/cozy/cozy-home
