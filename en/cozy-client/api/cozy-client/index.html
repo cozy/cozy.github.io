@@ -1594,6 +1594,20 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#normalizefile-object" title="normalize(file) ⇒ object" class="md-nav__link">
+    normalize(file) ⇒ object
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ensurefilepathfile-parent-object" title="ensureFilePath(file, parent) ⇒ object" class="md-nav__link">
+    ensureFilePath(file, parent) ⇒ object
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#currentresult-hydratedquerystate" title="currentResult() ⇒ HydratedQueryState" class="md-nav__link">
     currentResult() ⇒ HydratedQueryState
   </a>
@@ -3979,6 +3993,20 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#normalizefile-object" title="normalize(file) ⇒ object" class="md-nav__link">
+    normalize(file) ⇒ object
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ensurefilepathfile-parent-object" title="ensureFilePath(file, parent) ⇒ object" class="md-nav__link">
+    ensureFilePath(file, parent) ⇒ object
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#currentresult-hydratedquerystate" title="currentResult() ⇒ HydratedQueryState" class="md-nav__link">
     currentResult() ⇒ HydratedQueryState
   </a>
@@ -4168,6 +4196,13 @@ is loading.</p>
 <li>client.{query,save} are mocked</li>
 <li>client.stackClient.fetchJSON is mocked</li>
 </ul>
+</dd>
+<dt><a href="#normalize">normalize(file)</a> ⇒ <code>object</code></dt>
+<dd><p>Normalizes an object representing a io.cozy.files object</p>
+<p>Ensures existence of <code>_id</code> and <code>_type</code></p>
+</dd>
+<dt><a href="#ensureFilePath">ensureFilePath(file, parent)</a> ⇒ <code>object</code></dt>
+<dd><p>Ensure the file has a <code>path</code> attribute, or build it</p>
 </dd>
 <dt><a href="#currentResult">currentResult()</a> ⇒ <code>HydratedQueryState</code></dt>
 <dd><p>Returns the query from the store with hydrated documents.</p>
@@ -6141,6 +6176,56 @@ is loading.</p>
 <td>options.clientOptions</td>
 <td><code>object</code></td>
 <td>Options passed to the client</td>
+</tr>
+</tbody>
+</table>
+<p><a name="normalize"></a></p>
+<h2 id="normalizefile-object">normalize(file) ⇒ <code>object</code><a class="headerlink" href="#normalizefile-object" title="Permanent link">&para;</a></h2>
+<p>Normalizes an object representing a io.cozy.files object</p>
+<p>Ensures existence of <code>_id</code> and <code>_type</code></p>
+<p><strong>Kind</strong>: global function<br />
+<strong>Returns</strong>: <code>object</code> - full normalized object<br />
+<strong>Access</strong>: public  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>file</td>
+<td><code>object</code></td>
+<td>object representing the file</td>
+</tr>
+</tbody>
+</table>
+<p><a name="ensureFilePath"></a></p>
+<h2 id="ensurefilepathfile-parent-object">ensureFilePath(file, parent) ⇒ <code>object</code><a class="headerlink" href="#ensurefilepathfile-parent-object" title="Permanent link">&para;</a></h2>
+<p>Ensure the file has a <code>path</code> attribute, or build it</p>
+<p><strong>Kind</strong>: global function<br />
+<strong>Returns</strong>: <code>object</code> - file object with path attribute<br />
+<strong>Access</strong>: public  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>file</td>
+<td><code>object</code></td>
+<td>object representing the file</td>
+</tr>
+<tr>
+<td>parent</td>
+<td><code>object</code></td>
+<td>parent directory for the file</td>
 </tr>
 </tbody>
 </table>

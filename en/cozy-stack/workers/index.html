@@ -3165,10 +3165,13 @@ to the VFS later.</p>
 <h2 id="migrations">migrations<a class="headerlink" href="#migrations" title="Permanent link">&para;</a></h2>
 <p>The <code>migrations</code> worker can be used to migrate a cozy instance. Currently, it
 has a single option, <code>type</code>, with two supported values:
-<em> <code>to-swift-v3</code>: migrate a cozy instance that has files in swift from a V1 or V2 layout to a V3 layout.
+<em> <code>to-swift-v3</code>: migrate a cozy instance that has files in swift from a V1 or V2 layout to a V3 layout
 </em> <code>accounts-to-organization</code>: create <a href="https://docs.cozy.io/en/cozy-doctypes/docs/com.bitwarden.ciphers/">ciphers</a>
- from <a href="https://docs.cozy.io/en/cozy-doctypes/docs/io.cozy.accounts/">accounts</a>,
- re-encrypted with the organization key.</p>
+  from <a href="https://docs.cozy.io/en/cozy-doctypes/docs/io.cozy.accounts/">accounts</a>,
+  re-encrypted with the organization key
+* <code>notes-mime-type</code>: update the notes mime-type to
+  <code>text/vnd.cozy.note+markdown</code> to allow them to be listed in the cozy-notes
+  application.</p>
 <h3 id="example_4">Example<a class="headerlink" href="#example_4" title="Permanent link">&para;</a></h3>
 <p>It can be launched from command-line with:</p>
 <div class="codehilite"><pre><span></span>$ cozy-stack <span class="nb">jobs</span> run migrations --domain example.mycozy.cloud --json <span class="s1">&#39;{&quot;type&quot;: &quot;to-swift-v3&quot;}&#39;</span>

@@ -8,6 +8,7 @@ import {
   addOwnerToAccount
 } from './helpers'
 import { CONTACT_DOCTYPE } from 'doctypes'
+import MockDate from 'mockdate'
 
 describe('getAccountUpdateDateDistance', () => {
   it('should return null if an argument is missing', () => {
@@ -106,6 +107,11 @@ describe('buildHealthReimbursementsVirtualAccount', () => {
       { manualCategoryId: '400610', amount: -10, date: '2018-01-02' },
       { manualCategoryId: '400470', amount: 10 }
     ]
+    MockDate.set(new Date('2019-07-08T00:00:00.000Z'))
+  })
+
+  afterEach(() => {
+    MockDate.reset()
   })
 
   it('should return a balance equals to 0 if no transactions', () => {

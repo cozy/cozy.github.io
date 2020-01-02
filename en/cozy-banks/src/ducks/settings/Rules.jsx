@@ -8,9 +8,10 @@ import styles from './Rules.styl'
 
 export const AddRuleButton = ({ label, busy, onClick }) => (
   <Button
-    className={cx('u-ml-0 u-mb-0', styles.AddRuleButton)}
+    className={cx('u-ml-1 u-mb-0', styles.AddRuleButton)}
     theme="subtle"
     icon="plus"
+    size="small"
     label={label}
     busy={busy}
     onClick={onClick}

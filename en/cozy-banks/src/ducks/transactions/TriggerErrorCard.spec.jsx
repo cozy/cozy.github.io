@@ -1,13 +1,14 @@
-/* global mount */
 import React from 'react'
 import { DumbTriggerErrorCard as TriggerErrorCard } from './TriggerErrorCard'
+import { shallow } from 'enzyme'
+
 jest.mock('components/effects', () => ({
   useRedirectionURL: () => 'http://redirection'
 }))
 
 describe('trigger error card', () => {
   const setup = () => {
-    const wrapper = mount(
+    const wrapper = shallow(
       <TriggerErrorCard
         t={x => x}
         breakpoints={{ isMobile: true }}

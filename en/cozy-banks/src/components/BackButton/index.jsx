@@ -31,14 +31,17 @@ BackButton.defaultProps = {
   color: 'var(--coolGrey)'
 }
 
-export const BarBackButton = ({ onClick, color }) => (
-  <BarLeft>
-    <BackButton
-      className="coz-bar-btn coz-bar-burger"
-      color={color}
-      onClick={onClick}
-    />
-  </BarLeft>
+export const BarBackButton = withBreakpoints()(
+  ({ onClick, color, breakpoints: { isMobile } }) =>
+    isMobile ? (
+      <BarLeft>
+        <BackButton
+          className={cx(styles.BackArrow, 'coz-bar-btn coz-bar-burger')}
+          color={color}
+          onClick={onClick}
+        />
+      </BarLeft>
+    ) : null
 )
 
 /**

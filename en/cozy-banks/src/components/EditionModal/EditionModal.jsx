@@ -21,7 +21,7 @@ import resultWithArgs from 'utils/resultWithArgs'
 import Confirmation from 'components/Confirmation'
 import { withBreakpoints } from 'cozy-ui/react'
 
-import { BackButton } from 'components/BackButton'
+import { BackIcon } from 'components/BackButton'
 
 export const CHOOSING_TYPES = {
   category: 'category',
@@ -38,7 +38,9 @@ const TYPES_WITH_SELECTOR = {
 }
 
 const BackArrow = ({ onClick }) => (
-  <BackButton className="u-mr-1" onClick={onClick} />
+  <span className="u-mr-1" onClick={onClick}>
+    <BackIcon color="var(--coolGrey)" />
+  </span>
 )
 
 const SectionsPerType = {
