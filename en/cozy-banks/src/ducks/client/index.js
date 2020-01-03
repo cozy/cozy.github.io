@@ -1,5 +1,6 @@
 /* global __TARGET__ */
 import { Intents } from 'cozy-interapp'
+import { RealtimePlugin } from 'cozy-realtime'
 
 let client
 
@@ -15,6 +16,8 @@ export const getClient = () => {
 
   const intents = new Intents({ client })
   client.intents = intents
+
+  client.registerPlugin(RealtimePlugin)
 
   // Used as a hack to prevent circular dependency.
   // Some selectors need to access cozyClient to correctly hydrate.
