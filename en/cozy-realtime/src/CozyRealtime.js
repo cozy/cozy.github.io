@@ -117,6 +117,13 @@ class CozyRealtime {
   _retryLimit = 60
 
   /**
+   * Mapping between events and associated callbacks
+   *
+   * @type {Object}
+   */
+  _events = {}
+
+  /**
    * Constructor of CozyRealtime:
    * - Save cozyClient
    * - create socket
@@ -206,9 +213,8 @@ class CozyRealtime {
   _resubscribe() {
     this._retryLimit--
 
-    const subscribeList = Object.keys(this._events)
+    const subscribeList = this._getEventKeys(this._events)
       .map(key => {
-        if (!key.includes(INDEX_KEY_SEPARATOR)) return
         if (this._events[key].length === 0) return
         let [, type, id] = key.split(INDEX_KEY_SEPARATOR)
         if (id === 'undefined') id = undefined

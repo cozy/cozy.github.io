@@ -9,9 +9,12 @@ const any = require('lodash/some')
 function toMatchSnapshotStandalone(actual, testFile, testTitle) {
   // Intilize the SnapshotState, it's responsible for actually matching
   // actual snapshot with expected one and storing results to `__snapshots__` folder
-  const snapshotState = new SnapshotState(testFile, {
-    updateSnapshot: process.env.SNAPSHOT_UPDATE ? 'all' : 'new'
-  })
+  const snapshotState = new SnapshotState(
+    'test/e2e/__snapshots__/' + testFile + '.snap',
+    {
+      updateSnapshot: process.env.SNAPSHOT_UPDATE ? 'all' : 'new'
+    }
+  )
 
   // Bind the `toMatchSnapshot` to the object with snapshotState and
   // currentTest name, as `toMatchSnapshot` expects it as it's `this`

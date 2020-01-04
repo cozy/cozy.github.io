@@ -43,10 +43,12 @@ const dropData = async () => {
   return couch.dropDatabases(doctypes)
 }
 
+const isJSONFile = filename => filename.endsWith('.json')
+
 const loadData = async () => {
   log('info', 'Loading data...')
   const dir = 'test/fixtures/matching-service'
-  for (let fixture of fs.readdirSync(dir)) {
+  for (let fixture of fs.readdirSync(dir).filter(isJSONFile)) {
     await ach(['import', path.join(dir, fixture)])
   }
 }
@@ -57,7 +59,8 @@ const exportAndSnapshot = async () => {
   await ach(['export', 'io.cozy.bank.operations,io.cozy.bills', exportFilename])
   const actual = fs.readFileSync(exportFilename).toString()
   const testTitle = 'onOperationOrBillCreate'
-  const snapResult = toMatchSnapshot(actual, __filename, testTitle)
+  const filename = path.basename(__filename)
+  const snapResult = toMatchSnapshot(actual, filename, testTitle)
   if (snapResult.pass) {
     log('info', 'Snapshot OK !')
   } else {

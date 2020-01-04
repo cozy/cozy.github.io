@@ -44,23 +44,36 @@ describe('LateHealthReimbursement', () => {
   it('should fetch data', async () => {
     jest.spyOn(Transaction, 'queryAll').mockResolvedValue([
       {
+        _id: 't1',
         amount: 20,
         date: '2018-09-16T12:00',
         label: '1',
         account: 'accountId1'
       },
       {
+        _id: 't2',
         amount: 10,
         date: '2018-09-17T12:00',
         label: '2',
         account: 'accountId2'
       },
       {
+        _id: 't3',
         amount: -5,
         date: '2018-09-18T12:00',
         label: '3',
         manualCategoryId: '400610',
         account: 'accountId3',
+        reimbursements: [{ billId: 'io.cozy.bills:billId12345' }]
+      },
+      {
+        _id: 't4',
+        amount: -15,
+        // will never be late since the date is now
+        date: new Date().toISOString(),
+        label: '3',
+        manualCategoryId: '400610',
+        account: 'accountId5',
         reimbursements: [{ billId: 'io.cozy.bills:billId12345' }]
       }
     ])
@@ -74,9 +87,13 @@ describe('LateHealthReimbursement', () => {
     const { notification } = setup({ lang: 'en' })
 
     const res = await notification.fetchData()
+
     expect(Bill.getAll).toHaveBeenCalledWith(['billId12345'])
     expect(BankAccount.getAll).toHaveBeenCalledWith(['accountId3'])
     expect(res.transactions).toHaveLength(1)
+    expect(res.transactions[0]).toMatchObject({
+      account: 'accountId3'
+    })
     expect(res.accounts).toHaveLength(1)
   })
 })

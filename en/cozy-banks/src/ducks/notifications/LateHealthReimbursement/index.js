@@ -114,7 +114,7 @@ class LateHealthReimbursement extends NotificationView {
     const healthExpensesById = keyBy(healthExpenses, h => h._id)
 
     const lateReimbursements = enhancedHealthExpenses
-      .filter(isReimbursementLate)
+      .filter(tr => isReimbursementLate(tr, this.interval))
       .map(t => healthExpensesById[t._id])
 
     log('info', `${lateReimbursements.length} are late health reimbursements`)
@@ -135,7 +135,6 @@ class LateHealthReimbursement extends NotificationView {
     const accountIds = uniq(
       transactions.map(transaction => transaction.account)
     )
-
     return BankAccount.getAll(accountIds)
   }
 

@@ -7,6 +7,8 @@ import {
   isReimbursementLate,
   getReimbursementStatus
 } from 'ducks/transactions/helpers'
+import { getHealthReimbursementLateLimit } from 'ducks/settings/helpers'
+import { getSettings } from 'ducks/settings/selectors'
 
 const groupHealthExpenses = healthExpenses => {
   const reimbursementTagFlag = flag('reimbursements.tag')
@@ -42,8 +44,17 @@ export const getGroupedHealthExpenses = createSelector(
   groupHealthExpenses
 )
 
+export const getHealthReimbursementLateLimitSelector = createSelector(
+  [getSettings],
+  settings => {
+    return getHealthReimbursementLateLimit(settings)
+  }
+)
+
 export const getLateHealthExpenses = createSelector(
-  [getGroupedHealthExpenses],
-  groupedHealthExpenses =>
-    groupedHealthExpenses.pending.filter(isReimbursementLate)
+  [getGroupedHealthExpenses, getHealthReimbursementLateLimitSelector],
+  (groupedHealthExpenses, healthReimbursementLateLimit) =>
+    groupedHealthExpenses.pending.filter(tr =>
+      isReimbursementLate(tr, healthReimbursementLateLimit)
+    )
 )

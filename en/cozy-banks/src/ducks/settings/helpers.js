@@ -63,6 +63,19 @@ export const getNotificationFromSettings = (settings, name) => {
   return get(configurationSettings, ['notifications', name])
 }
 
+export const DEFAULT_HEALTH_REIMBURSEMENTS_LATE_LIMIT_IN_DAYS = 30
+
+export const getHealthReimbursementLateLimit = settings => {
+  const lateNotification = getNotificationFromSettings(
+    settings,
+    'lateHealthReimbursement'
+  )
+  return (
+    (lateNotification && lateNotification.value) ||
+    DEFAULT_HEALTH_REIMBURSEMENTS_LATE_LIMIT_IN_DAYS
+  )
+}
+
 export const fetchCategoryAlerts = async client => {
   try {
     const settings = await fetchSettings(client)

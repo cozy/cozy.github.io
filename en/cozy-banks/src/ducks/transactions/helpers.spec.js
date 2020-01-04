@@ -14,7 +14,6 @@ import {
 } from './helpers'
 import { BILLS_DOCTYPE, TRANSACTION_DOCTYPE, schema } from 'doctypes'
 import MockDate from 'mockdate'
-import flag from 'cozy-flags'
 import CozyClient from 'cozy-client'
 import { createClientWithData } from 'test/client'
 
@@ -196,10 +195,6 @@ describe('getReimbursementStatus', () => {
 })
 
 describe('isReimbursementLate', () => {
-  beforeEach(() => {
-    flag('reimbursements.late-health-limit', 30)
-  })
-
   afterEach(() => {
     MockDate.reset()
   })
@@ -209,7 +204,7 @@ describe('isReimbursementLate', () => {
       amount: 10
     }
 
-    expect(isReimbursementLate(transaction)).toBe(false)
+    expect(isReimbursementLate(transaction, 30)).toBe(false)
   })
 
   it('should return false if the transaction reimbursement status is not pending', () => {
@@ -224,8 +219,8 @@ describe('isReimbursementLate', () => {
       amount: -10
     }
 
-    expect(isReimbursementLate(t1)).toBe(false)
-    expect(isReimbursementLate(t2)).toBe(false)
+    expect(isReimbursementLate(t1, 30)).toBe(false)
+    expect(isReimbursementLate(t2, 30)).toBe(false)
   })
 
   it('should return false if the transaction reimbursement is pending but for less than one month', () => {
@@ -238,7 +233,7 @@ describe('isReimbursementLate', () => {
       amount: -10
     }
 
-    expect(isReimbursementLate(transaction)).toBe(false)
+    expect(isReimbursementLate(transaction, 30)).toBe(false)
   })
 
   it('should return true if the transaction reimbursement is pending for more than one month', () => {
@@ -251,7 +246,7 @@ describe('isReimbursementLate', () => {
       amount: -10
     }
 
-    expect(isReimbursementLate(transaction)).toBe(true)
+    expect(isReimbursementLate(transaction, 30)).toBe(true)
   })
 })
 
