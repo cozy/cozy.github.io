@@ -20,13 +20,6 @@ class MockServer {
     this.app = app
   }
 
-  flushWaiters() {
-    for (let w of this.waiters) {
-      w()
-    }
-    this.waiters = []
-  }
-
   clearRequests() {
     this.requests = []
   }
@@ -54,6 +47,13 @@ class MockServer {
         onRequest()
       }
     })
+  }
+
+  flushWaiters() {
+    for (let w of this.waiters) {
+      w()
+    }
+    this.waiters = []
   }
 
   listen() {

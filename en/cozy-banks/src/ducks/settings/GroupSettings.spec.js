@@ -75,11 +75,15 @@ describe('GroupSettings', () => {
 
     const root = mount(
       <AppLike>
-        <AccountLine
-          account={account}
-          group={group}
-          toggleAccount={toggleAccount}
-        />
+        <table>
+          <tbody>
+            <AccountLine
+              account={account}
+              group={group}
+              toggleAccount={toggleAccount}
+            />
+          </tbody>
+        </table>
       </AppLike>
     )
 

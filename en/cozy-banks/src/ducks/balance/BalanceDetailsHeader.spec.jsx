@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { DumbBalanceDetailsHeader } from './BalanceDetailsHeader'
 import BarBalance from 'components/BarBalance'
 import AppLike from 'test/AppLike'
+import mockRouter from 'test/mockRouter'
 import { getClient } from 'ducks/client'
 
 // eslint-disable-next-line no-unused-vars
@@ -17,9 +18,7 @@ const setup = props => {
     {
       context: {
         router: {
-          push: jest.fn(),
-          replace: jest.fn(),
-          go: jest.fn(),
+          ...mockRouter,
           getCurrentLocation: () => ({
             pathname: '/'
           })

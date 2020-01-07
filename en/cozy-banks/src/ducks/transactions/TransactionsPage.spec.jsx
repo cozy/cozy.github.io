@@ -10,13 +10,15 @@ import {
 import data from '../../../test/fixtures'
 import PropTypes from 'prop-types'
 import AppLike from 'test/AppLike'
+import { mkFakeChain } from 'test/client'
 import { getClient } from 'ducks/client'
+import mockRouter from 'test/mockRouter'
 
 const allAccounts = data['io.cozy.bank.accounts']
 const allTransactions = data['io.cozy.bank.operations']
 
-// eslint-disable-next-line no-unused-vars
 const client = getClient()
+client.chain = mkFakeChain()
 
 const saveWindowWidth = () => {
   let windowWidth = window.innerWidth
@@ -57,7 +59,7 @@ describe('TransactionsPage', () => {
   // Necessary wrapper to be able to use setProps since `setProps` is
   // only callable on the Enzyme root
   const Wrapper = ({ filteringDoc, filteredTransactions }) => (
-    <AppLike>
+    <AppLike client={client}>
       <UnpluggedTransactionsPage
         transactions={mkCollection(allTransactions, { fetchStatus: 'loaded' })}
         accounts={mkCollection(allAccounts, { fetchStatus: 'loaded' })}
@@ -71,13 +73,7 @@ describe('TransactionsPage', () => {
   const setup = () => {
     const context = {
       router: {
-        push: () => {},
-        replace: () => {},
-        go: () => {},
-        goBack: () => {},
-        goForward: () => {},
-        setRouteLeaveHook: () => {},
-        isActive: () => {},
+        ...mockRouter,
         getCurrentLocation: () => ({
           pathname: '/'
         }),

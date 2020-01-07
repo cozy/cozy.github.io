@@ -16,6 +16,7 @@ import { createClientWithData } from 'test/client'
 import { TRANSACTION_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
 import getClient from 'selectors/getClient'
 import MockDate from 'mockdate'
+import mockRouter from 'test/mockRouter'
 
 jest.mock('components/AccountIcon', () => () => null)
 jest.mock('selectors/getClient')
@@ -43,16 +44,6 @@ beforeAll(() => {
 describe('GroupPanel', () => {
   let root, onChange, switches
 
-  const fakeRouter = {
-    push: jest.fn(),
-    replace: jest.fn(),
-    go: jest.fn(),
-    goBack: jest.fn(),
-    goForward: jest.fn(),
-    setRouteLeaveHook: jest.fn(),
-    isActive: jest.fn()
-  }
-
   const Wrapper = ({ expanded }) => (
     <AppLike client={client}>
       <GroupPanel
@@ -63,7 +54,7 @@ describe('GroupPanel', () => {
         switches={switches}
         onSwitchChange={() => {}}
         onChange={onChange}
-        router={fakeRouter}
+        router={mockRouter}
       />
     </AppLike>
   )
@@ -154,6 +145,7 @@ describe('Reimbursement virtual group styling', () => {
   }
 
   const healthExpense = {
+    account: 'comptegene1',
     manualCategoryId: '400610',
     amount: -10,
     _id: 'transaction-1234',

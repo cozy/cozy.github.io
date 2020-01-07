@@ -39,6 +39,7 @@ const GroupPanelSummary = withStyles({
     paddingRight: '0',
     height: '100%'
   },
+  expanded: {},
   expandIcon: {
     left: '0.375rem',
     right: 'auto',

@@ -8,6 +8,10 @@ const defaultOptions = {
   token: 'MyOwnToken'
 }
 
+export const mkFakeChain = () => ({
+  request: jest.fn().mockReturnValue({ data: [] })
+})
+
 export const getClient = ({ uri, token, fetchJSONReturn } = defaultOptions) => {
   const client = new CozyClient({
     schema,
@@ -24,6 +28,7 @@ export const getClient = ({ uri, token, fetchJSONReturn } = defaultOptions) => {
       }
     }
   }
+  client.chain = mkFakeChain()
   return client
 }
 

@@ -52,7 +52,7 @@ export class DumbBillChip extends React.PureComponent {
       invoiceId = this.getInvoiceId(bill)[1]
     } catch (err) {
       // eslint-disable-next-line no-console
-      console.log(err)
+      console.warn(err)
       return null
     }
 

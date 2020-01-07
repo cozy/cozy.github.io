@@ -5,7 +5,7 @@ import { withBreakpoints, translate } from 'cozy-ui/react'
 import flag from 'cozy-flags'
 import Icon from 'cozy-ui/react/Icon'
 import cx from 'classnames'
-import { get, flowRight as compose, keyBy } from 'lodash'
+import { get, flowRight as compose, keyBy, omit } from 'lodash'
 import Switch from 'components/Switch'
 import { Figure } from 'components/Figure'
 import {
@@ -89,7 +89,7 @@ const OwnersColumn = props => {
 }
 
 const DumbUpdatedAtOrFail = props => {
-  const { triggersCol, account, t, className, ...rest } = props
+  const { triggersCol, account, t, className, ...rest } = omit(props, 'f')
   const triggers = triggersCol.data
 
   const failedTrigger = triggers.find(
