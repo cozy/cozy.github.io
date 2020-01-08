@@ -1,5 +1,5 @@
 import matches from 'lodash/matches'
-import { triggerStates } from 'cozy-client/dist/models/triggers'
+import { triggerStates } from 'cozy-client/dist/models/trigger'
 import { triggersConn } from 'doctypes'
 
 const sleep = delay => new Promise(resolve => setTimeout(resolve, delay))

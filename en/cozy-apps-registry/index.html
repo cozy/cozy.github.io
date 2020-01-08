@@ -3262,7 +3262,7 @@ cozy-apps-registry gen-token --master Cozy -c cozy-registry.yml
 <p>If you need more details about the registry you can go to <a href="https://docs.cozy.io/en/cozy-stack/registry/">the official registry documentation</a></p>
 <p><strong>:warning: Important:</strong> In this whole documentation, by the term <code>application</code>, we mean a web application or a konnector. Indeed, for the registry, all entities are applications and they can be either <code>webapp</code> or <code>konnector</code> type.</p>
 <h3 id="1-prepare-your-application">1) Prepare your application<a class="headerlink" href="#1-prepare-your-application" title="Permanent link">&para;</a></h3>
-<p>To be publishable, your application requires some informations in its <code>manifest.webapp</code>, the manifest of a Cozy application. </p>
+<p>To be publishable, your application requires some informations in its <code>manifest.webapp</code>, the manifest of a Cozy application.</p>
 <p>You can find an example of manifest for an application <a href="https://github.com/cozy/cozy-drive/blob/master/src/drive/targets/manifest.webapp">in Cozy-Drive</a> and one for a konnector <a href="https://github.com/konnectors/cozy-konnector-trainline/blob/master/manifest.konnector">in cozy-konnector-trainline</a>.</p>
 <p>Most properties are common to both applications and konnectors but platforms, screenshots, services, routes and intents are only used in applications. Properties oauth, data_types, doctypes, fields, frequency, language, messages, parameters, time_interval, uuid and vendor_link ar only used in konnectors.</p>
 <h5 id="properties-meaning-reference">Properties meaning (reference)<a class="headerlink" href="#properties-meaning-reference" title="Permanent link">&para;</a></h5>
@@ -3349,7 +3349,7 @@ cozy-apps-registry gen-token --master Cozy -c cozy-registry.yml
 </tr>
 <tr>
 <td><code>oauth</code></td>
-<td><em>(konnector specific)</em> JSON object containing oAuth information, like <code>scope</code>. If a manifest provides an <code>oauth</code> property, it is considered as an OAuth konnector.</td>
+<td><em>(konnector specific)</em> JSON object containing oAuth information, like <code>scope</code>. If a manifest provides an <code>oauth</code> property, it is considered as an OAuth konnector. Note: scope can be a string or an array. If it is an array, its values will be joined with a space. A <code>false</code> or <code>null</code> value in scope will remove any scope parameter in the request sent to the oauth provider.</td>
 </tr>
 <tr>
 <td><code>parameters</code></td>
