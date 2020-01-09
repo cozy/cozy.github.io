@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { useRedirectionURL } from 'components/effects'
-import { translate } from 'cozy-ui/transpiled/react'
+import { useI18n } from 'cozy-ui/transpiled/react'
 import compose from 'lodash/flowRight'
 import { withClient } from 'cozy-client'
 import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
@@ -11,7 +11,6 @@ import { ButtonLink } from 'cozy-ui/transpiled/react/Button'
 import { getErrorLocaleBound, KonnectorJobError } from 'cozy-harvest-lib'
 
 const TriggerErrorCard = ({
-  t,
   lang,
   trigger,
   index,
@@ -21,6 +20,7 @@ const TriggerErrorCard = ({
   breakpoints,
   className
 }) => {
+  const { t } = useI18n()
   const url = useRedirectionURL(client, 'io.cozy.accounts', {
     account: trigger.message.account,
     konnector: trigger.message.konnector
@@ -64,6 +64,5 @@ export const DumbTriggerErrorCard = TriggerErrorCard
 
 export default compose(
   withClient,
-  translate(),
   withBreakpoints()
 )(TriggerErrorCard)

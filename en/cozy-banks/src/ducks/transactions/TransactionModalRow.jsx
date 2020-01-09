@@ -1,5 +1,5 @@
 import React from 'react'
-import { Media, Bd, Img, Icon } from 'cozy-ui/react'
+import { Media, Bd, Img, Icon } from 'cozy-ui/transpiled/react'
 import cx from 'classnames'
 
 import styles from 'ducks/transactions/TransactionModalRow.styl'

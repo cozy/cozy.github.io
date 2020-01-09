@@ -1,5 +1,5 @@
 import React from 'react'
-import { I18n } from 'cozy-ui/react'
+import { I18n } from 'cozy-ui/transpiled/react'
 import { CozyProvider } from 'cozy-client'
 import { Provider } from 'react-redux'
 import langEn from 'locales/en.json'
@@ -15,7 +15,7 @@ export const TestI18n = ({ children }) => {
 }
 
 const AppLike = ({ children, store, client }) => (
-  <Provider store={store || (client && client.store)}>
+  <Provider store={(client && client.store) || store}>
     <CozyProvider client={client || getClient()}>
       <TestI18n>{children}</TestI18n>
     </CozyProvider>

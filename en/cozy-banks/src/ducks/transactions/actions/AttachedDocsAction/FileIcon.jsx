@@ -1,5 +1,5 @@
 import React from 'react'
-import Icon from 'cozy-ui/react/Icon'
+import Icon from 'cozy-ui/transpiled/react/Icon'
 import cx from 'classnames'
 
 const FileIcon = props => {

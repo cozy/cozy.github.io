@@ -85,10 +85,15 @@ class PinGuard extends React.Component {
   }
 
   hidePin() {
-    this.setState({ showPin: false })
+    this.setState({ showPin: false }, () => {
+      this.handleInteraction()
+    })
   }
 
   handleInteraction() {
+    if (this.state.showPin) {
+      return
+    }
     const now = Date.now()
     this.setState({ last: now })
     lastInteractionStorage.save(now)

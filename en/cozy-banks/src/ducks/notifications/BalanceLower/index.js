@@ -71,6 +71,7 @@ class BalanceLower extends NotificationView {
    */
   findMatchingRules() {
     return this.rules
+      .filter(rule => rule.enabled)
       .map(rule => ({
         rule,
         accounts: this.data.accounts.filter(acc =>

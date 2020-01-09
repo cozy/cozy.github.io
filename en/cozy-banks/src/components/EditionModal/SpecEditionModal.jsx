@@ -1,5 +1,5 @@
 import React from 'react'
-import { translate } from 'cozy-ui/react'
+import { translate } from 'cozy-ui/transpiled/react'
 import EditionModal from './EditionModal'
 
 export const makeEditionModalFromSpec = spec =>

@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import Icon from 'cozy-ui/react/Icon'
-import Chip from 'cozy-ui/react/Chip'
-import Alerter from 'cozy-ui/react/Alerter'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import Chip from 'cozy-ui/transpiled/react/Chip'
+import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import {
   getReimbursementStatus,
   isReimbursementLate,
@@ -15,7 +15,7 @@ import ReimbursementStatusModal from 'ducks/transactions/actions/ReimbursementSt
 import iconReimbursement from 'assets/icons/icon-reimbursement.svg'
 import { logException } from 'lib/sentry'
 import cx from 'classnames'
-import { translate } from 'cozy-ui/react'
+import { translate } from 'cozy-ui/transpiled/react'
 import { flowRight as compose } from 'lodash'
 import { withMutations } from 'cozy-client'
 import { getHealthReimbursementLateLimitSelector } from 'ducks/reimbursements/selectors'

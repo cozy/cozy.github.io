@@ -3,40 +3,44 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
 import tosIcon from 'assets/icons/icon-tos.svg'
-import { translate } from 'cozy-ui/react'
-import Modal from 'cozy-ui/react/Modal'
-import Icon from 'cozy-ui/react/Icon'
-import Button from 'cozy-ui/react/Button'
-import Alerter from 'cozy-ui/react/Alerter'
+import { useI18n } from 'cozy-ui/transpiled/react'
+import Modal from 'cozy-ui/transpiled/react/Modal'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import Button from 'cozy-ui/transpiled/react/Button'
+import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import { withClient } from 'cozy-client'
 import styles from 'components/UserActionRequired/styles.styl'
 
-const TosUpdatedModal = translate()(({ t, newTosLink, onAccept, onRefuse }) => (
-  <Modal closable={false} into="body">
-    <Modal.ModalHeader />
-    <Modal.ModalDescription className={styles['tosupdated']}>
-      <Icon icon={tosIcon} width={96} height={96} />
-      <h2 className={styles['tosupdated-title']}>{t('TOS.updated.title')}</h2>
-      <ReactMarkdown
-        className={styles['tosupdated-desc']}
-        source={t('TOS.updated.detail', { link: newTosLink })}
-      />
-      <Button
-        extension="full"
-        label={t('TOS.updated.cta')}
-        onClick={onAccept}
-      />
-      <Button
-        subtle
-        size="small"
-        extension="full"
-        className="u-mt-1-half"
-        label={t('TOS.updated.disconnect')}
-        onClick={onRefuse}
-      />
-    </Modal.ModalDescription>
-  </Modal>
-))
+const TosUpdatedModal = ({ newTosLink, onAccept, onRefuse }) => {
+  const { t } = useI18n()
+
+  return (
+    <Modal closable={false} into="body">
+      <Modal.ModalHeader />
+      <Modal.ModalDescription className={styles['tosupdated']}>
+        <Icon icon={tosIcon} width={96} height={96} />
+        <h2 className={styles['tosupdated-title']}>{t('TOS.updated.title')}</h2>
+        <ReactMarkdown
+          className={styles['tosupdated-desc']}
+          source={t('TOS.updated.detail', { link: newTosLink })}
+        />
+        <Button
+          extension="full"
+          label={t('TOS.updated.cta')}
+          onClick={onAccept}
+        />
+        <Button
+          subtle
+          size="small"
+          extension="full"
+          className="u-mt-1-half"
+          label={t('TOS.updated.disconnect')}
+          onClick={onRefuse}
+        />
+      </Modal.ModalDescription>
+    </Modal>
+  )
+}
 
 class UserActionRequired extends Component {
   static contextTypes = {

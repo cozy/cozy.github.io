@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styles from 'components/ErrorBoundary/Error.styl'
-import { translate } from 'cozy-ui/react'
-import Empty from 'cozy-ui/react/Empty'
+import { translate } from 'cozy-ui/transpiled/react'
+import Empty from 'cozy-ui/transpiled/react/Empty'
 import brokenIcon from 'assets/icons/icon-broken.svg'
 
 const refreshLinkID = 'error-refresh-link'

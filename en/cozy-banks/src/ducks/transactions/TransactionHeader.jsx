@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
 import { flowRight as compose } from 'lodash'
-import { translate, withBreakpoints } from 'cozy-ui/react'
+import { translate, withBreakpoints, useI18n } from 'cozy-ui/transpiled/react'
 import cx from 'classnames'
 
 import Breadcrumb from 'components/Breadcrumb'
@@ -16,7 +16,8 @@ import withSize from 'components/withSize'
 import TableHead from './header/TableHead'
 import styles from './TransactionsPage.styl'
 
-const HeaderBreadcrumb = ({ t, router }) => {
+const HeaderBreadcrumb = ({ router }) => {
+  const { t } = useI18n()
   const { categoryName, subcategoryName } = router.params
   const breadcrumbItems = [
     {

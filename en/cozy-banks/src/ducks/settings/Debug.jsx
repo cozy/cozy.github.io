@@ -1,11 +1,11 @@
 /* global __VERSIONS__ */
 
 import React, { useState } from 'react'
-import Checkbox from 'cozy-ui/react/Checkbox'
-import Button from 'cozy-ui/react/Button'
-import Alerter from 'cozy-ui/react/Alerter'
-import Stack from 'cozy-ui/react/Stack'
-import { Title as UITitle, SubTitle } from 'cozy-ui/react/Text'
+import Checkbox from 'cozy-ui/transpiled/react/Checkbox'
+import Button from 'cozy-ui/transpiled/react/Button'
+import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import Stack from 'cozy-ui/transpiled/react/Stack'
+import { Title as UITitle, SubTitle } from 'cozy-ui/transpiled/react/Text'
 import flag, { FlagSwitcher } from 'cozy-flags'
 import { withClient } from 'cozy-client'
 import { isMobileApp } from 'cozy-device-helper'

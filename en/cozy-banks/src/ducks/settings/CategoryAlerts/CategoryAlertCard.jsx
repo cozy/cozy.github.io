@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
-import compose from 'lodash/flowRight'
 import PropTypes from 'prop-types'
 
-import { translate } from 'cozy-ui/transpiled/react'
+import { useI18n } from 'cozy-ui/transpiled/react'
 
 import { CategoryIcon, getCategoryName } from 'ducks/categories'
 import CategoryAlertEditModal from 'ducks/settings/CategoryAlerts/CategoryAlertEditModal'
@@ -47,9 +46,9 @@ const CategoryAlertCard = ({
   removeAlert,
   updateAlert,
   alert,
-  t,
   getAccountOrGroupLabel
 }) => {
+  const { t } = useI18n()
   const [editing, setEditing] = useState(false)
   const [saving, setSaving] = useState(false)
 
@@ -162,7 +161,6 @@ CategoryAlertCard.propTypes = {
   alert: CategoryAlertPropType
 }
 
-export default compose(
-  withAccountOrGroupLabeller('getAccountOrGroupLabel'),
-  translate()
-)(CategoryAlertCard)
+export default withAccountOrGroupLabeller('getAccountOrGroupLabel')(
+  CategoryAlertCard
+)

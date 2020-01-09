@@ -1,20 +1,27 @@
 // Should be put in cozy-ui
 
 .Pin__button
-    border-radius 100%
-    height 4rem
+    size=4.5rem
     margin .5rem
-    width 26%
-    border-radius 4rem
+    width size
+    height size
+
     display inline-flex
+    flex-direction column
     align-items center
     justify-content center
+
     color var(--white)
     background-color rgba(255, 255, 255, 0)
-    transition background-color 0.5s ease
     font-size 2rem
-    border 0
     text-transform uppercase
+
+    transition background-color 0.3s ease
+
+    border-radius 100%
+    border 0
+
+    cursor pointer
 
     // Disable orange outline
     // https://stackoverflow.com/questions/5210481/disable-orange-outline-highlight-on-focus
@@ -22,13 +29,19 @@
     -webkit-tap-highlight-color transparent
     outline none
 
+    &.Pin__button--ios:not(.Pin__button--text)
+        border 2px solid rgba(255, 255, 255, 0.5)
+
+
 .Pin__button--text
     font-size .875rem
     font-weight bold
 
 .Pin__button:active
     background-color rgba(255, 255, 255, 0.25)
-    cursor pointer
+
+    // To have a one way transition
+    transition unset
 
 .PinKeyboard
     display flex
@@ -43,18 +56,14 @@
   justify-content center
   display flex
   flex-direction column
-  padding 1rem
 
 .PinKeyboard__topMessage
     font-weight bold
 
 .PinKeyboard__keyboard
     flex-grow 0
-    align-items center
-    justify-content center
-    display flex
-    flex-direction row
-    flex-wrap wrap
+    display grid
+    grid-template-columns repeat(3, 1fr)
     margin auto
 
 .PinWrapper
@@ -74,6 +83,10 @@
     bottom 0
     left 0
     right 0
+    box-sizing border-box
+    padding-top 2rem
+    padding-bottom 2rem
+    z-index 10000
 
 .PinWrapper p
     opacity 0.64
@@ -91,13 +104,21 @@
     background var(--emerald)
 
 .Pin__dots
-    font-size 3rem
-    margin .5rem
+    font-size 2rem
+    margin .75rem
 
 .Pin__dot
     display inline-block
     text-align center
     width 2rem
+
+.Pin__letters
+    font-variant small-caps
+    font-size 0.625rem
+    display none
+
+    .Pin__button--ios &
+        display block
 
 .Pin__error
     color #fbbabb
@@ -117,3 +138,14 @@
     flex-grow 1
     justify-content center
     align-items center
+
+.Pin__BackButton
+    top 0.5rem
+    left 0.5rem
+    position absolute
+    width 48px
+    height 48px
+    display flex
+    align-items center
+    justify-content center
+    cursor pointer

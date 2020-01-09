@@ -1,7 +1,7 @@
 import React from 'react'
-import Modal, { ModalDescription } from 'cozy-ui/react/Modal'
-import Spinner from 'cozy-ui/react/Spinner'
-import { translate } from 'cozy-ui/react/I18n'
+import Modal, { ModalDescription } from 'cozy-ui/transpiled/react/Modal'
+import Spinner from 'cozy-ui/transpiled/react/Spinner'
+import { translate } from 'cozy-ui/transpiled/react/I18n'
 import styles from 'components/LogoutModal/LogoutModal.styl'
 
 function LogoutModal(props) {

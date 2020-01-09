@@ -1,9 +1,9 @@
 import React from 'react'
-import Icon from 'cozy-ui/react/Icon'
+import Icon from 'cozy-ui/transpiled/react/Icon'
 import cx from 'classnames'
 import healthCatIcon from 'assets/icons/categories/icon-cat-health.svg'
 import styles from 'ducks/balance/components/ReimbursementsIcon.styl'
-import { getCssVariableValue } from 'cozy-ui/react/utils/color'
+import { getCssVariableValue } from 'cozy-ui/transpiled/react/utils/color'
 
 export default function ReimbursementsIcon(props) {
   const { className, icon, ...rest } = props

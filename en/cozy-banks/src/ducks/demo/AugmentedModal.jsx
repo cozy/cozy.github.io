@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import cx from 'classnames'
-import Modal, { ModalDescription } from 'cozy-ui/react/Modal'
-import Panel from 'cozy-ui/react/Panel'
+import Modal, { ModalDescription } from 'cozy-ui/transpiled/react/Modal'
+import Panel from 'cozy-ui/transpiled/react/Panel'
 import { withClient } from 'cozy-client'
-import IntentIframe from 'cozy-ui/react/IntentIframe'
+import IntentIframe from 'cozy-ui/transpiled/react/IntentIframe'
 import styles from './AugmentedModal.styl'
 import { Intents } from 'cozy-interapp'
 import {

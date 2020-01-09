@@ -5,10 +5,10 @@ import PropTypes from 'prop-types'
 import styles from 'components/BackButton/style.styl'
 import withBackSwipe from 'utils/backSwipe'
 import { flowRight as compose } from 'lodash'
-import { withBreakpoints } from 'cozy-ui/react'
-import Icon from 'cozy-ui/react/Icon'
+import { withBreakpoints } from 'cozy-ui/transpiled/react'
+import Icon from 'cozy-ui/transpiled/react/Icon'
 import arrowLeft from 'assets/icons/icon-arrow-left.svg'
-import { getCssVariableValue } from 'cozy-ui/react/utils/color'
+import { getCssVariableValue } from 'cozy-ui/transpiled/react/utils/color'
 import cx from 'classnames'
 
 const { BarLeft } = cozy.bar

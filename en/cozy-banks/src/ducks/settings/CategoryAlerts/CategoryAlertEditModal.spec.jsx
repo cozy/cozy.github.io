@@ -1,15 +1,14 @@
 import { mount } from 'enzyme'
 import React from 'react'
-import { CozyProvider } from 'cozy-client'
 import CategoryAlertEditModal from './CategoryAlertEditModal'
 import AccountIcon from 'components/AccountIcon'
 import fixtures from 'test/fixtures/unit-tests.json'
-import { TestI18n } from 'test/AppLike'
 import getClient from 'selectors/getClient'
 import { createClientWithData } from 'test/client'
 import Row from 'components/Row'
 import Input from 'cozy-ui/transpiled/react/Input'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
+import AppLike from 'test/AppLike'
 
 jest.mock('selectors/getClient', () => jest.fn())
 jest.mock('components/AccountIcon', () => () => null)
@@ -38,15 +37,13 @@ describe('category alert edition modal', () => {
       categoryId: '400110'
     }
     const root = mount(
-      <CozyProvider client={client}>
-        <TestI18n>
-          <CategoryAlertEditModal
-            onEdit={() => {}}
-            onDismiss={() => {}}
-            initialDoc={alert}
-          />
-        </TestI18n>
-      </CozyProvider>
+      <AppLike client={client}>
+        <CategoryAlertEditModal
+          onEdit={() => {}}
+          onDismiss={() => {}}
+          initialDoc={alert}
+        />
+      </AppLike>
     )
     const accountIcon = root.find(AccountIcon)
     expect(accountIcon.length).toBe(1)

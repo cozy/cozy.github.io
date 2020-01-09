@@ -1,5 +1,5 @@
 import React from 'react'
-import UIAppIcon from 'cozy-ui/react/AppIcon'
+import UIAppIcon from 'cozy-ui/transpiled/react/AppIcon'
 import { withClient } from 'cozy-client'
 
 // TODO: Move this in cozy-ui

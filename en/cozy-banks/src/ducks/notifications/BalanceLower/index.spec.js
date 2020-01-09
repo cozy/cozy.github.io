@@ -42,7 +42,8 @@ describe('balance lower', () => {
       rules: rules || [
         {
           value: value || 5000,
-          accountOrGroup: accountOrGroup || null
+          accountOrGroup: accountOrGroup || null,
+          enabled: true
         }
       ],
       data: {
@@ -155,17 +156,19 @@ describe('balance lower', () => {
 
     const lou1Rule = {
       value: 500,
+      enabled: true,
       accountOrGroup: { _type: ACCOUNT_DOCTYPE, _id: 'comptelou1' }
     }
 
     const allAccountsRule = {
-      value: 5000
+      value: 5000,
+      enabled: true
     }
 
     describe('one account matching', () => {
       it('should have the right content', async () => {
         const { title, pushContent } = await setupContent({
-          rules: [lou1Rule]
+          rules: [lou1Rule, { ...allAccountsRule, enabled: false }]
         })
         expect(title).toBe(
           "Balance alert: 'Compte jeune Louise' account is at 325.24€"

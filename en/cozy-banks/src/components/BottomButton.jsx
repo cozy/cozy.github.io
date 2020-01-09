@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, withBreakpoints } from 'cozy-ui/react'
+import { Button, withBreakpoints } from 'cozy-ui/transpiled/react'
 
 import Bottom from 'components/Bottom'
 import Padded from 'components/Spacing/Padded'

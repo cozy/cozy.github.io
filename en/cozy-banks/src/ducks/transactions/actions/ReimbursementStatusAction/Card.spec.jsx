@@ -2,10 +2,9 @@ import React from 'react'
 import { DumbPhoneCard, DumbWebCard, DumbAppCard } from './Card'
 import { mount } from 'enzyme'
 import { getPlatform } from 'cozy-device-helper'
+import { TestI18n } from 'test/AppLike'
 
 jest.mock('cozy-device-helper')
-
-const t = key => key
 
 describe('DumbPhoneCard', () => {
   it('should render correctly with number and price', () => {
@@ -15,7 +14,11 @@ describe('DumbPhoneCard', () => {
     }
 
     expect(
-      mount(<DumbPhoneCard contact={contact} t={t} />).html()
+      mount(
+        <TestI18n>
+          <DumbPhoneCard contact={contact} />
+        </TestI18n>
+      ).html()
     ).toMatchSnapshot()
   })
 
@@ -25,7 +28,11 @@ describe('DumbPhoneCard', () => {
     }
 
     expect(
-      mount(<DumbPhoneCard contact={contact} t={t} />).html()
+      mount(
+        <TestI18n>
+          <DumbPhoneCard contact={contact} />
+        </TestI18n>
+      ).html()
     ).toMatchSnapshot()
   })
 })
@@ -38,7 +45,11 @@ describe('DumbWebCard', () => {
     }
 
     expect(
-      mount(<DumbWebCard contact={contact} t={t} />).html()
+      mount(
+        <TestI18n>
+          <DumbWebCard contact={contact} />
+        </TestI18n>
+      ).html()
     ).toMatchSnapshot()
   })
 })
@@ -49,7 +60,13 @@ describe('DumbAppCard', () => {
 
     const contact = { platform: 'android', href: 'http://some.thing' }
 
-    expect(mount(<DumbAppCard contact={contact} t={t} />).html()).toBe(null)
+    expect(
+      mount(
+        <TestI18n>
+          <DumbAppCard contact={contact} />
+        </TestI18n>
+      ).html()
+    ).toBe('')
   })
 
   it('should render correctly if the platform matches with the current device', () => {
@@ -57,7 +74,11 @@ describe('DumbAppCard', () => {
 
     const contact = { platform: 'ios', href: 'http://some.thing' }
     expect(
-      mount(<DumbAppCard contact={contact} t={t} />).html()
+      mount(
+        <TestI18n>
+          <DumbAppCard contact={contact} />
+        </TestI18n>
+      ).html()
     ).toMatchSnapshot()
   })
 })

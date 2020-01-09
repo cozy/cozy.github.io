@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styles from 'ducks/settings/AppVersion.styl'
 import flag from 'cozy-flags'
-import Alerter from 'cozy-ui/react/Alerter'
+import Alerter from 'cozy-ui/transpiled/react/Alerter'
 
 const takeLast = (arr, n) => {
   const l = arr.length

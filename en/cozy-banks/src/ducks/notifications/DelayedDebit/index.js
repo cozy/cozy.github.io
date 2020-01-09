@@ -7,11 +7,13 @@ import {
 } from 'ducks/account/helpers'
 import { endOfMonth, subDays, isWithinRange } from 'date-fns'
 import { BankAccount } from 'cozy-doctypes'
-import { get, keyBy, groupBy, map } from 'lodash'
+import { keyBy, groupBy, map } from 'lodash'
 import { getAccountNewBalance } from 'ducks/notifications/helpers'
 import { getCurrentDate } from 'ducks/notifications/utils'
 import template from './template.hbs'
 import { toText } from 'cozy-notifications'
+
+const getDocumentId = x => x._id
 
 const log = logger.namespace('delayedDebit')
 
@@ -23,54 +25,59 @@ const groupAccountsByInstitution = accounts => {
 }
 
 /**
- * Returns true if account is a credit card account linked to a checkings account
+ * Returns true if account is a credit card account
  */
 export const isCreditCardAccount = account =>
-  getAccountType(account) === 'CreditCard' &&
-  get(account, 'relationships.checkingsAccount.data')
+  getAccountType(account) === 'CreditCard'
+
+export const isWithinEndOfMonthRange = nbDaysBeforeEndOfMonth => {
+  const today = new Date()
+  const lastDayOfMonth = endOfMonth(today)
+  // We need to add one to nbDaysBeforeEndOfMonth because `isWithinRange` is
+  // exclusive
+  const limitDate = subDays(lastDayOfMonth, nbDaysBeforeEndOfMonth + 1)
+
+  return isWithinRange(today, limitDate, lastDayOfMonth)
+}
+
+const isBalanceGreater = (account1, account2) => {
+  const balance1 = Math.abs(getAccountBalance(account1))
+  const balance2 = Math.abs(getAccountBalance(account2))
+
+  return balance1 > balance2
+}
 
 class DelayedDebit extends NotificationView {
   constructor(config) {
     super(config)
-    log('info', `value of delayedDebit: ${config.value}`)
-    this.nbDaysBeforeEndOfMonth = config.value
+    this.rules = config.rules
   }
 
-  checkDate() {
-    const today = new Date()
-    const lastDayOfMonth = endOfMonth(today)
-    // We need to add one to nbDaysBeforeEndOfMonth because `isWithinRange` is
-    // exclusive
-    const limitDate = subDays(lastDayOfMonth, this.nbDaysBeforeEndOfMonth + 1)
-
-    return isWithinRange(today, limitDate, lastDayOfMonth)
-  }
-
-  /**
-   * creditsCard should be an io.cozy.bank.accounts with relationships resolved
-   */
-  shouldBeNotified(creditCard) {
-    const creditCardBalance = Math.abs(getAccountBalance(creditCard))
-    const checkingsBalance = Math.abs(
-      getAccountBalance(creditCard.checkingsAccount.data)
-    )
-
-    return creditCardBalance > checkingsBalance
-  }
-
-  /**
-   * Resolve the relationships between accounts.
-   * This can be removed when we use cozy-client instead of cozy-client-js
-   */
-  linkCreditCardsToCheckings(creditCards, allAccounts) {
-    const allAccountsById = keyBy(allAccounts, a => a._id)
-
-    creditCards.forEach(creditCard => {
-      creditCard.checkingsAccount = {
-        data:
-          allAccountsById[creditCard.relationships.checkingsAccount.data._id]
+  makeRuleMatcher(accountsById) {
+    return rule => {
+      if (!rule.enabled) {
+        return false
       }
-    })
+      const creditCardAccount = accountsById[rule.creditCardAccount._id]
+      const checkingsAccount = accountsById[rule.checkingsAccount._id]
+      if (!creditCardAccount || !checkingsAccount) {
+        return false
+      }
+
+      const isOK =
+        isBalanceGreater(creditCardAccount, checkingsAccount) &&
+        isWithinEndOfMonthRange(rule.value)
+
+      if (!isOK) {
+        return false
+      }
+
+      return {
+        rule,
+        creditCardAccount,
+        checkingsAccount
+      }
+    }
   }
 
   getHelpers() {
@@ -81,13 +88,20 @@ class DelayedDebit extends NotificationView {
     }
   }
 
-  async fetchData() {
-    if (!this.checkDate()) {
-      return
-    }
-
+  async findMatchingRules() {
     const accounts = await BankAccount.fetchAll()
-    return { accounts }
+    const accountsById = keyBy(accounts, getDocumentId)
+    const matchingRules = this.rules
+      .map(this.makeRuleMatcher(accountsById))
+      .filter(Boolean)
+
+    return matchingRules
+  }
+
+  async fetchData() {
+    return {
+      matchingRules: await this.findMatchingRules()
+    }
   }
 
   async buildData() {
@@ -95,15 +109,20 @@ class DelayedDebit extends NotificationView {
     if (!data) {
       return
     }
-    const { accounts } = data
-    const creditCards = accounts.filter(isCreditCardAccount)
-    this.linkCreditCardsToCheckings(creditCards, accounts)
+    const { matchingRules } = data
 
-    const creditCardsToNotify = creditCards.filter(this.shouldBeNotified)
+    const creditCardsToNotify = matchingRules.map(match => {
+      return {
+        ...match.creditCardAccount,
+        checkingsAccount: {
+          data: match.checkingsAccount
+        }
+      }
+    })
+
     log('info', `${creditCardsToNotify.length} accounts to notify`)
-
     return {
-      institutions: groupAccountsByInstitution(creditCards),
+      institutions: groupAccountsByInstitution(creditCardsToNotify),
       date: getCurrentDate(),
       ...this.urls
     }
@@ -135,7 +154,7 @@ class DelayedDebit extends NotificationView {
   }
 }
 
-DelayedDebit.template
+DelayedDebit.supportsMultipleRules = true
 DelayedDebit.category = 'delayed-debit'
 DelayedDebit.preferredChannels = ['mobile', 'mail']
 DelayedDebit.settingKey = 'delayedDebit'

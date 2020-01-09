@@ -1,5 +1,5 @@
 import React from 'react'
-import ButtonAction from 'cozy-ui/react/ButtonAction'
+import ButtonAction from 'cozy-ui/transpiled/react/ButtonAction'
 import AugmentedModal from './AugmentedModal'
 import styles from 'ducks/transactions/TransactionActions.styl'
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import Modal from 'cozy-ui/react/Modal'
+import Modal from 'cozy-ui/transpiled/react/Modal'
 import ventePrivee from 'assets/vente-privee.png'
 import ventePriveeInfo from 'assets/venteprivee-info.png'
 import ventePriveeInfo2x from 'assets/venteprivee-info@2x.png'

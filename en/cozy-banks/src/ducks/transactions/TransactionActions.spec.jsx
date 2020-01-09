@@ -7,6 +7,7 @@ import mapValues from 'lodash/mapValues'
 import { SyncTransactionActions } from './TransactionActions'
 import { findMatchingActions } from 'ducks/transactions/actions'
 
+import { ButtonAction } from 'cozy-ui/transpiled/react'
 import brands from 'ducks/brandDictionary/brands'
 import AppLike from 'test/AppLike'
 import data from 'test/fixtures'
@@ -22,8 +23,8 @@ const brandInMaintenance = {
 
 brands.push(brandInMaintenance)
 
-jest.mock('cozy-ui/react/Icon', () => {
-  const OriginalIcon = jest.requireActual('cozy-ui/react/Icon')
+jest.mock('cozy-ui/transpiled/react/Icon', () => {
+  const OriginalIcon = jest.requireActual('cozy-ui/transpiled/react/Icon')
   const mockIcon = props => {
     const icon = props.icon
     return OriginalIcon.default.isProperIcon(icon) ? (
@@ -42,11 +43,11 @@ jest.mock('cozy-ui/react/Icon', () => {
 const tests = [
   // transaction id, class variant, text, icon, action name, [action props], [test name]
   ['paiementdocteur', null, '2 reimbursements', 'file', 'HealthExpenseStatus'],
-  ['paiementdocteur2', '.c-actionbtn--error', 'No reimbursement yet', 'hourglass', 'HealthExpenseStatus'],
-  ['depsantelou1', '.c-actionbtn--error', 'No reimbursement yet', 'hourglass', 'HealthExpenseStatus'],
-  ['depsantegene4', '.c-actionbtn--error', 'No reimbursement yet', 'hourglass', 'HealthExpenseStatus'],
-  ['depsanteisa2', '.c-actionbtn--error', 'No reimbursement yet', 'hourglass', 'HealthExpenseStatus'],
-  ['depsantecla3', '.c-actionbtn--error', 'No reimbursement yet', 'hourglass', 'HealthExpenseStatus'],
+  ['paiementdocteur2', 'error', 'No reimbursement yet', 'hourglass', 'HealthExpenseStatus'],
+  ['depsantelou1', 'error', 'No reimbursement yet', 'hourglass', 'HealthExpenseStatus'],
+  ['depsantegene4', 'error', 'No reimbursement yet', 'hourglass', 'HealthExpenseStatus'],
+  ['depsanteisa2', 'error', 'No reimbursement yet', 'hourglass', 'HealthExpenseStatus'],
+  ['depsantecla3', 'error', 'No reimbursement yet', 'hourglass', 'HealthExpenseStatus'],
   ['facturebouygues', null, '1 invoice', 'file', 'bill', {
     brands: brands.filter(x => x.name === 'Bouygues Telecom').map(b => ({ ...b, hasTrigger: true }))
   }],
@@ -140,7 +141,7 @@ describe('transaction action defaults', () => {
       if (actionName) {
         it('should render the correct text', () => {
           root.update() // https://github.com/airbnb/enzyme/issues/1233#issuecomment-340017108
-          const btn = root.find('.c-actionbtn')
+          const btn = root.find(ButtonAction)
           const btnText = btn.text()
           expect(btnText).toEqual(expect.stringContaining(text))
         })
@@ -154,7 +155,7 @@ describe('transaction action defaults', () => {
 
       if (variant) {
         it('should render the correct button', () => {
-          expect(root.find(variant).length).toBe(1)
+          expect(root.find(ButtonAction).props().type).toBe(variant)
         })
       }
     })

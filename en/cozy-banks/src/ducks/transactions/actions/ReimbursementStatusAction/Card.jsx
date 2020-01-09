@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { translate } from 'cozy-ui/react'
-import UICard from 'cozy-ui/react/Card'
-import { Caption, Text } from 'cozy-ui/react/Text'
-import Icon, { iconPropType } from 'cozy-ui/react/Icon'
+import { useI18n } from 'cozy-ui/transpiled/react'
+import UICard from 'cozy-ui/transpiled/react/Card'
+import { Caption, Text } from 'cozy-ui/transpiled/react/Text'
+import Icon, { iconPropType } from 'cozy-ui/transpiled/react/Icon'
 import cx from 'classnames'
 import styles from 'ducks/transactions/actions/ReimbursementStatusAction/Card.styl'
 import { getPlatform } from 'cozy-device-helper'
@@ -34,7 +34,8 @@ Card.propTypes = {
 }
 
 export const DumbPhoneCard = props => {
-  const { contact, t, ...rest } = props
+  const { t } = useI18n()
+  const { contact, ...rest } = props
   const href = `tel:${contact.number}`
   const caption = contact.price ? (
     <>
@@ -63,14 +64,14 @@ const phoneContactShape = PropTypes.shape({
 })
 
 DumbPhoneCard.propTypes = {
-  contact: phoneContactShape.isRequired,
-  t: PropTypes.func.isRequired
+  contact: phoneContactShape.isRequired
 }
 
-export const PhoneCard = translate()(DumbPhoneCard)
+export const PhoneCard = DumbPhoneCard
 
 export const DumbWebCard = props => {
-  const { contact, t, ...rest } = props
+  const { t } = useI18n()
+  const { contact, ...rest } = props
   const caption = new URL(contact.href).hostname
 
   return (
@@ -92,14 +93,14 @@ const webContactShape = PropTypes.shape({
 })
 
 DumbWebCard.propTypes = {
-  contact: webContactShape.isRequired,
-  t: PropTypes.func.isRequired
+  contact: webContactShape.isRequired
 }
 
-export const WebCard = translate()(DumbWebCard)
+export const WebCard = DumbWebCard
 
 export const DumbAppCard = props => {
-  const { contact, t, ...rest } = props
+  const { t } = useI18n()
+  const { contact, ...rest } = props
 
   if (getPlatform() !== contact.platform) {
     return null
@@ -124,11 +125,10 @@ const appContactShape = PropTypes.shape({
 })
 
 DumbAppCard.propTypes = {
-  contact: appContactShape.isRequired,
-  t: PropTypes.func.isRequired
+  contact: appContactShape.isRequired
 }
 
-export const AppCard = translate()(DumbAppCard)
+export const AppCard = DumbAppCard
 
 export const ContactCard = props => {
   const { type, ...rest } = props

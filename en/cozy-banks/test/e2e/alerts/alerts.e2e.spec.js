@@ -1,9 +1,6 @@
 /* eslint-disable no-console */
 
-import { spawnSync } from 'child_process'
 import pick from 'lodash/pick'
-import pickBy from 'lodash/pickBy'
-import omit from 'lodash/omit'
 
 import { createClientInteractive } from 'cozy-client/dist/cli'
 import {
@@ -12,35 +9,20 @@ import {
   SETTINGS_DOCTYPE,
   GROUP_DOCTYPE,
   BILLS_DOCTYPE
-} from '../../src/doctypes'
-import { importData } from './dataUtils'
+} from 'src/doctypes'
 import Mailhog from 'mailhog'
-import MockServer from './mock-server'
+import MockServer from '../mock-server'
 import scenarios from './scenarios'
-import fs from 'fs'
+import {
+  dropDoctype,
+  importACHData,
+  revokeOtherOAuthClientsForSoftwareId
+} from 'ducks/client/utils'
+import { runService } from 'test/e2e/serviceUtils'
 
 const SOFTWARE_ID = 'banks.alerts-e2e'
 
 jest.setTimeout(10 * 1000)
-
-const revokeOtherOAuthClientsForSoftwareId = async (client, softwareID) => {
-  const { data: clients } = await client.stackClient.fetchJSON(
-    'GET',
-    `/settings/clients`
-  )
-  const currentOAuthClientId = client.stackClient.oauthOptions.clientID
-  const otherOAuthClients = clients.filter(
-    oauthClient =>
-      oauthClient.attributes.software_id === softwareID &&
-      oauthClient.id !== currentOAuthClientId
-  )
-  for (let oauthClient of otherOAuthClients) {
-    await client.stackClient.fetchJSON(
-      'DELETE',
-      `/settings/clients/${oauthClient.id}`
-    )
-  }
-}
 
 const decodeEmail = (mailhog, attrs) =>
   attrs
@@ -50,33 +32,6 @@ const decodeEmail = (mailhog, attrs) =>
       }
     : attrs
 
-const runService = async options => {
-  const env = {
-    ...process.env,
-    IS_TESTING: 'test'
-  }
-  const processOptions = pickBy(
-    {
-      stdio: options.showOutput ? 'inherit' : undefined,
-      env
-    },
-    Boolean
-  )
-  const res = spawnSync(
-    'node',
-    ['build/onOperationOrBillCreate'],
-    processOptions
-  )
-
-  if (res.status !== 0) {
-    console.error(`Error: onOperationOrBillCreate exited with 1.`)
-    if (!options.showOutput) {
-      console.error(`Re-run with -v to see its output.`)
-    }
-    throw new Error('Error while running onOperationOrBillCreate')
-  }
-}
-
 const checkEmailForScenario = async (mailhog, scenario) => {
   const latestMessages = (await mailhog.messages(0, 1)).items
   const email = decodeEmail(
@@ -84,6 +39,7 @@ const checkEmailForScenario = async (mailhog, scenario) => {
     latestMessages.length > 0 ? pick(latestMessages[0], ['subject']) : null
   )
   if (scenario.expected.email) {
+    expect(email).not.toBe(null)
     expect(email).toMatchObject(scenario.expected.email)
   } else {
     expect(email).toBeFalsy()
@@ -99,6 +55,7 @@ const checkPushForScenario = async (pushServer, scenario) => {
     // eslint-disable-line empty-catch
   }
   if (scenario.expected.notification) {
+    expect(lastReq).not.toBe(null)
     expect(lastReq.body).toMatchObject(scenario.expected.notification)
   } else {
     expect(lastReq).toBeFalsy()
@@ -106,7 +63,7 @@ const checkPushForScenario = async (pushServer, scenario) => {
 }
 
 const runScenario = async (client, scenario, options) => {
-  await importData(client, scenario.data)
+  await importACHData(client, scenario.data)
 
   if (options.mailhog) {
     await options.mailhog.deleteAll()
@@ -115,7 +72,15 @@ const runScenario = async (client, scenario, options) => {
     options.pushServer.clearRequests()
   }
 
-  await runService(options)
+  try {
+    await runService('onOperationOrBillCreate', options)
+  } catch (e) {
+    console.error(e.message)
+    if (!options.showOutput) {
+      console.error(`Re-run with -v to see its output.`)
+    }
+    throw e
+  }
 
   if (options.mailhog) {
     const emailMatch = await checkEmailForScenario(options.mailhog, scenario)
@@ -134,35 +99,30 @@ const cleanupDatabase = async client => {
     GROUP_DOCTYPE,
     BILLS_DOCTYPE
   ]) {
-    const col = client.collection(doctype)
-    const { data: docs } = await col.getAll()
-    if (docs.length > 0) {
-      // The omit for _type can be removed when the following PR is resolved
-      // https://github.com/cozy/cozy-client/pull/597
-      await col.destroyAll(docs.map(doc => omit(doc, '_type')))
-    }
+    await dropDoctype(client, doctype)
   }
 }
 
+const areEnvVariablesProvided = Boolean(
+  process.env.COZY_URL && process.env.COZY_CREDENTIALS
+)
+
 const setupClient = async options => {
-  try {
-    fs.unlinkSync(
-      '/tmp/cozy-client-oauth-cozy-tools:8080-banks.alerts-e2e.json'
-    )
-  } catch (e) {
-    // eslint-disable-next-line empty-block
+  if (!areEnvVariablesProvided) {
+    return
   }
 
   const client = await createClientInteractive({
     uri: options.url,
     scope: [
       'io.cozy.oauth.clients:ALL',
+      options.push ? 'io.cozy.fake-doctype' : null,
       SETTINGS_DOCTYPE,
       TRANSACTION_DOCTYPE,
       ACCOUNT_DOCTYPE,
       GROUP_DOCTYPE,
       BILLS_DOCTYPE
-    ],
+    ].filter(Boolean),
     oauth: {
       softwareID: SOFTWARE_ID
     }
@@ -180,7 +140,13 @@ const setupClient = async options => {
   return client
 }
 
-describe('alert emails/notifications', () => {
+test('COZY_URL and COZY_CREDENTIALS must be provided to E2E test', () => {
+  expect(areEnvVariablesProvided).toBe(true)
+})
+
+const describer = areEnvVariablesProvided ? describe : xdescribe
+
+describer('alert emails/notifications', () => {
   let client
   let pushServer
   let mailhog
@@ -188,6 +154,12 @@ describe('alert emails/notifications', () => {
     url: process.env.COZY_URL || 'http://cozy.tools:8080',
     verbose: false
   }
+
+  beforeEach(() => {
+    if (!process.env.COZY_URL || !process.env.COZY_CREDENTIALS) {
+      throw new Error('Must provide COZY_URL and COZY_CREDENTIALS')
+    }
+  })
 
   beforeAll(async () => {
     pushServer = new MockServer()
@@ -212,7 +184,7 @@ describe('alert emails/notifications', () => {
       test(scenario.description, async () => {
         await runScenario(client, scenario, {
           showOutput: options.verbose,
-          mailhog
+          pushServer
         })
       })
     }
@@ -227,7 +199,7 @@ describe('alert emails/notifications', () => {
       test(scenario.description, async () => {
         await runScenario(client, scenario, {
           showOutput: options.verbose,
-          pushServer
+          mailhog
         })
       })
     }

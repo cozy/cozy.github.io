@@ -6,8 +6,8 @@
 
 import tree from './tree'
 import isNode from 'detect-node'
-import palette from 'cozy-ui/react/palette'
-import { getCssVariableValue } from 'cozy-ui/react/utils/color'
+import palette from 'cozy-ui/transpiled/react/palette'
+import { getCssVariableValue } from 'cozy-ui/transpiled/react/utils/color'
 
 const getColor = color => (isNode ? palette[color] : getCssVariableValue(color))
 

@@ -2,11 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import compose from 'lodash/flowRight'
 
-import { translate } from 'cozy-ui/react'
-import Alerter from 'cozy-ui/react/Alerter'
-import Spinner from 'cozy-ui/react/Spinner'
-import Icon from 'cozy-ui/react/Icon'
-import Button from 'cozy-ui/react/Button'
+import { translate, useI18n } from 'cozy-ui/transpiled/react'
+import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import Spinner from 'cozy-ui/transpiled/react/Spinner'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import Button from 'cozy-ui/transpiled/react/Button'
 import { queryConnect, withMutations } from 'cozy-client'
 
 import PinKeyboard from 'ducks/pin/PinKeyboard'
@@ -20,7 +20,8 @@ import fingerprint from 'assets/icons/icon-fingerprint.svg'
 
 const FullwidthButton = props => <Button {...props} className="u-m-0 u-w-100" />
 
-const FingerprintChoice = translate()(({ t, onChoice }) => {
+const FingerprintChoice = ({ onChoice }) => {
+  const { t } = useI18n()
   return (
     <div className={styles.Pin__FingerprintChoice}>
       <div className={styles.Pin__FingerprintChoice__top}>
@@ -43,7 +44,7 @@ const FingerprintChoice = translate()(({ t, onChoice }) => {
       </div>
     </div>
   )
-})
+}
 
 /**
  * Handles pin edit
@@ -129,7 +130,7 @@ class PinEditView extends React.Component {
     const topMessage = (
       <h2>
         {!this.state.pin1
-          ? t('Pin.please-enter-pin')
+          ? t('Pin.please-choose-pin')
           : t('Pin.please-repeat-pin')}
       </h2>
     )

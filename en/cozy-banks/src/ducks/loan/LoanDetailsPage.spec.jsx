@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { mount } from 'enzyme'
 import {
   CreditReserveSection,
@@ -9,18 +8,14 @@ import {
   Section,
   Row
 } from './LoanDetailsPage'
+import { TestI18n } from 'test/AppLike'
 
 const setup = (Component, props) => {
-  const wrapper = mount(<Component {...props} />, {
-    context: {
-      t: key => key,
-      f: date => date
-    },
-    childContextTypes: {
-      t: PropTypes.func,
-      f: PropTypes.func
-    }
-  })
+  const wrapper = mount(
+    <TestI18n>
+      <Component {...props} />
+    </TestI18n>
+  )
 
   return wrapper
 }

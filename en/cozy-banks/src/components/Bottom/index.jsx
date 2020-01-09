@@ -1,5 +1,5 @@
 import React from 'react'
-import Portal from 'cozy-ui/react/Portal'
+import Portal from 'cozy-ui/transpiled/react/Portal'
 import styles from './styles.styl'
 import cx from 'classnames'
 

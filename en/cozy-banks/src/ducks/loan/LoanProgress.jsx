@@ -1,6 +1,5 @@
 import React from 'react'
 import PercentageBar from 'cozy-ui/transpiled/react/PercentageBar'
-import { translate } from 'cozy-ui/transpiled/react/I18n'
 import { Caption } from 'cozy-ui/transpiled/react/Text'
 import { Figure } from 'components/Figure'
 import {
@@ -8,9 +7,11 @@ import {
   getReimbursedAmount,
   getBorrowedAmount
 } from 'ducks/account/helpers'
+import { useI18n } from 'cozy-ui/transpiled/react'
 
-const DumbLoanProgress = props => {
-  const { account, t } = props
+const LoanProgress = props => {
+  const { t } = useI18n()
+  const { account } = props
   const percentage = getReimbursedPercentage(account)
   const reimbursedAmount = getReimbursedAmount(account)
   const borrowedAmount = getBorrowedAmount(account)
@@ -35,7 +36,5 @@ const DumbLoanProgress = props => {
     </>
   )
 }
-
-const LoanProgress = translate()(DumbLoanProgress)
 
 export default LoanProgress

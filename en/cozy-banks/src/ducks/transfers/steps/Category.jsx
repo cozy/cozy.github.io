@@ -1,11 +1,12 @@
 import React from 'react'
 import Padded from 'components/Spacing/Padded'
-import { translate } from 'cozy-ui/transpiled/react'
+import { useI18n } from 'cozy-ui/transpiled/react'
 import { List, Row, Radio } from 'components/List'
 import PageTitle from 'components/Title/PageTitle'
 import Title from './Title'
 
-const ChooseRecipientCategory = ({ t, category, onSelect, active }) => {
+const ChooseRecipientCategory = ({ category, onSelect, active }) => {
+  const { t } = useI18n()
   return (
     <Padded>
       {active && <PageTitle>{t('Transfer.category.page-title')}</PageTitle>}
@@ -36,4 +37,4 @@ const ChooseRecipientCategory = ({ t, category, onSelect, active }) => {
   )
 }
 
-export default React.memo(translate()(ChooseRecipientCategory))
+export default React.memo(ChooseRecipientCategory)

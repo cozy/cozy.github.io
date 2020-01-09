@@ -1,3 +1,12 @@
+/**
+ * Contains edition specs for alerts settings
+ *
+ * - How an alert is shown (which locales, which properties)
+ * - How an alert is edited (which fields)
+ */
+
+import { isCheckingsAccount, isCreditCardAccount } from 'ducks/account/helpers'
+
 import { CHOOSING_TYPES } from 'components/EditionModal'
 import { getDocumentIdentity } from 'ducks/client/utils'
 import {
@@ -112,6 +121,58 @@ export const categoryBudgets = {
       type: CHOOSING_TYPES.threshold,
       getValue: getMaxThresholdChoiceFromAlert,
       updater: updatedAlertFromMaxThresholdChoice
+    }
+  }
+}
+
+const makeAccountChoiceFromAccount = account => {
+  return account ? getDocumentIdentity(account) : null
+}
+
+export const delayedDebits = {
+  modalTitle: 'Notifications.editModal.title',
+  fieldOrder: ['creditCardAccount', 'checkingsAccount', 'value'],
+  fieldLabels: {
+    creditCardAccount:
+      'Notifications.delayed_debit.fieldLabels.creditCardAccount',
+    checkingsAccount:
+      'Notifications.delayed_debit.fieldLabels.checkingsAccount',
+    value: 'Notifications.delayed_debit.fieldLabels.days'
+  },
+  fieldSpecs: {
+    creditCardAccount: {
+      type: CHOOSING_TYPES.account,
+      chooserProps: {
+        canSelectAll: false,
+        filter: isCreditCardAccount
+      },
+      getValue: initialDoc =>
+        makeAccountChoiceFromAccount(initialDoc.creditCardAccount),
+      updater: (doc, creditCardAccount) => ({
+        ...doc,
+        creditCardAccount: getDocumentIdentity(creditCardAccount)
+      })
+    },
+    checkingsAccount: {
+      type: CHOOSING_TYPES.account,
+      chooserProps: {
+        canSelectAll: false,
+        filter: isCheckingsAccount
+      },
+      getValue: initialDoc =>
+        makeAccountChoiceFromAccount(initialDoc.checkingsAccount),
+      updater: (doc, checkingsAccount) => ({
+        ...doc,
+        checkingsAccount: getDocumentIdentity(checkingsAccount)
+      })
+    },
+    value: {
+      sectionProps: {
+        unitKey: 'Notifications.delayed_debit.unit'
+      },
+      type: CHOOSING_TYPES.number,
+      getValue: doc => doc.value,
+      updater: (doc, value) => ({ ...doc, value })
     }
   }
 }

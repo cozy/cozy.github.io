@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import { Title as BaseTitle } from 'cozy-ui/react/Text'
+import { Title as BaseTitle } from 'cozy-ui/transpiled/react/Text'
 import styles from 'components/Section/Section.styl'
 import { Padded } from 'components/Spacing'
 

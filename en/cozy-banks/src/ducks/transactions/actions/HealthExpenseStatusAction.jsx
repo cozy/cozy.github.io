@@ -1,10 +1,10 @@
 import React from 'react'
-import { translate, withBreakpoints } from 'cozy-ui/react'
-import Icon from 'cozy-ui/react/Icon'
-import ButtonAction from 'cozy-ui/react/ButtonAction'
-import Menu, { MenuItem } from 'cozy-ui/react/Menu'
-import Badge from 'cozy-ui/react/Badge'
-import palette from 'cozy-ui/react/palette'
+import { translate, withBreakpoints, useI18n } from 'cozy-ui/transpiled/react'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import ButtonAction from 'cozy-ui/transpiled/react/ButtonAction'
+import Menu, { MenuItem } from 'cozy-ui/transpiled/react/Menu'
+import Badge from 'cozy-ui/transpiled/react/Badge'
+import palette from 'cozy-ui/transpiled/react/palette'
 import flag from 'cozy-flags'
 import { isHealthExpense } from 'ducks/categories/helpers'
 import { BillComponent } from './BillAction'
@@ -35,13 +35,13 @@ const isPending = transaction => {
 const transactionModalRowStyle = { color: palette.pomegranate }
 
 const Component = ({
-  t,
   transaction,
   compact,
   menuPosition,
   isModalItem,
   breakpoints: { isDesktop }
 }) => {
+  const { t } = useI18n()
   const pending = isPending(transaction)
   const vendors = getVendors(transaction)
   const text = pending

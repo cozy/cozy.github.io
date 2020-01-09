@@ -9,7 +9,7 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import palette from 'cozy-ui/react/palette'
+import palette from 'cozy-ui/transpiled/react/palette'
 import { findMatchingActions } from 'ducks/transactions/actions'
 import { TransactionActionsContext } from 'ducks/transactions/TransactionActionsContext'
 import withContext from 'components/withContext'

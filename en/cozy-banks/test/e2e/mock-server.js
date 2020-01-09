@@ -60,7 +60,6 @@ class MockServer {
     return new Promise(resolve => {
       const port = this.options.port || 3001
       const server = this.app.listen(port, () => {
-        console.log('FakeFCMServer listening on ' + port)
         this.server = server
         resolve(server)
       })

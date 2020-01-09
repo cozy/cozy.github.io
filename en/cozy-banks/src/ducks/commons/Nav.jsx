@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import { translate } from 'cozy-ui/react'
+import { useI18n } from 'cozy-ui/transpiled/react'
 import cx from 'classnames'
 import UINav, {
   NavItem,
   NavIcon,
   NavText,
   NavLink as UINavLink
-} from 'cozy-ui/react/Nav'
+} from 'cozy-ui/transpiled/react/Nav'
 import { withRouter } from 'react-router'
 import flag from 'cozy-flags'
 
@@ -74,7 +74,8 @@ const NavItems = ({ items }) => {
   )
 }
 
-export const Nav = ({ t }) => {
+export const Nav = () => {
+  const { t } = useI18n()
   return (
     <UINav>
       <NavItems
@@ -114,4 +115,4 @@ export const Nav = ({ t }) => {
 
 Nav.renderExtra = () => null
 
-export default React.memo(translate()(Nav))
+export default React.memo(Nav)

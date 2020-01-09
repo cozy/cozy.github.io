@@ -118,6 +118,7 @@ class TransactionGreater extends NotificationView {
    */
   findMatchingRules() {
     return this.rules
+      .filter(rule => rule.enabled)
       .map(rule => ({
         rule,
         transactions: this.data.transactions.filter(this.filterForRule(rule))

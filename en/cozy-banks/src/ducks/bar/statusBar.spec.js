@@ -1,6 +1,6 @@
 const { setTheme } = require('./statusBar')
 
-jest.mock('cozy-ui/react/utils/color', () => ({
+jest.mock('cozy-ui/transpiled/react/utils/color', () => ({
   getCssVariableValue: varName => {
     if (varName == 'statusBarDefaultAndroid') {
       return '#eee'

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Stack, Button, translate } from 'cozy-ui/react'
+import { Stack, Button, useI18n } from 'cozy-ui/transpiled/react'
 import useList from './useList'
 import { getRuleId, getNextRuleId } from './ruleUtils'
 import cx from 'classnames'
@@ -25,9 +25,9 @@ const Rules = ({
   onError,
   addButtonLabelKey,
   ItemEditionModal,
-  makeNewItem,
-  t
+  makeNewItem
 }) => {
+  const { t } = useI18n()
   const [items, createOrUpdate, remove] = useList({
     list: rules,
     onUpdate,
@@ -83,4 +83,4 @@ Rules.propTypes = {
   ItemEditionModal: PropTypes.elementType.isRequired
 }
 
-export default translate()(Rules)
+export default Rules

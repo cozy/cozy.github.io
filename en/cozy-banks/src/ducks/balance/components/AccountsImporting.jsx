@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { flowRight as compose } from 'lodash'
 import { withStyles } from '@material-ui/core/styles'
 import LinearProgress from '@material-ui/core/LinearProgress'
-import { translate } from 'cozy-ui/react'
+import { useI18n } from 'cozy-ui/transpiled/react'
 
 import { Figure } from 'components/Figure'
 import Header from 'components/Header'
@@ -59,7 +59,8 @@ const createPanelsState = types => {
   return panelsState
 }
 
-const AccountsImporting = ({ t, classes, konnectorInfos }) => {
+const AccountsImporting = ({ classes, konnectorInfos }) => {
+  const { t } = useI18n()
   const types = ['Checkings', 'Savings']
 
   const groups = createGroups(types, konnectorInfos)
@@ -111,6 +112,5 @@ AccountsImporting.propTypes = {
 
 export default compose(
   withStyles(muiStyles),
-  translate(),
   memo
 )(AccountsImporting)

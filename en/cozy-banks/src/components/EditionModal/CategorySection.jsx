@@ -1,9 +1,10 @@
 import React from 'react'
-import { translate } from 'cozy-ui/transpiled/react'
+import { useI18n } from 'cozy-ui/transpiled/react'
 import { ModalSection, ModalRow } from 'components/ModalSections'
 import { CategoryIcon, getCategoryName } from 'ducks/categories'
 
-const DumbCategorySection = ({ value, label, onClick, t }) => {
+const DumbCategorySection = ({ value, label, onClick }) => {
+  const { t } = useI18n()
   const categoryName = getCategoryName(value.id)
 
   const translatedCategoryName = t(
@@ -28,6 +29,6 @@ const DumbCategorySection = ({ value, label, onClick, t }) => {
   )
 }
 
-const CategorySection = translate()(DumbCategorySection)
+const CategorySection = DumbCategorySection
 
 export default CategorySection

@@ -4,7 +4,7 @@ import {
   Modal,
   ModalFooter,
   ModalButtons,
-  translate
+  useI18n
 } from 'cozy-ui/transpiled/react'
 
 import Stepper from 'components/Stepper'
@@ -19,7 +19,7 @@ import ThresholdSection from './ThresholdSection'
 import NumberSection from './NumberSection'
 import resultWithArgs from 'utils/resultWithArgs'
 import Confirmation from 'components/Confirmation'
-import { withBreakpoints } from 'cozy-ui/react'
+import { withBreakpoints } from 'cozy-ui/transpiled/react'
 
 import { BackIcon } from 'components/BackButton'
 
@@ -78,49 +78,47 @@ const ChoosingSwitch = ({ choosing }) => {
   )
 }
 
-const InfoSlide = translate()(
-  ({
-    doc,
-    fieldSpecs,
-    fieldOrder,
-    fieldLabels,
-    onRequestChooseField,
-    onChangeField,
-    t
-  }) => {
-    return (
-      <ModalSections>
-        {fieldOrder.map(fieldName => {
-          const fieldSpec = fieldSpecs[fieldName]
-          const FieldSection = SectionsPerType[fieldSpec.type]
-          const fieldLabel = fieldLabels[fieldName]
-          const chooserProps = resultWithArgs(fieldSpec, 'chooserProps', [doc])
-          const sectionProps = resultWithArgs(fieldSpec, 'sectionProps', [doc])
-          const hasSelector = TYPES_WITH_SELECTOR[fieldSpec.type]
-          return (
-            <FieldSection
-              key={fieldName}
-              label={t(fieldLabel)}
-              value={fieldSpec.getValue(doc)}
-              onClick={
-                hasSelector ? () => onRequestChooseField(fieldName) : undefined
-              }
-              onChange={
-                hasSelector
-                  ? undefined
-                  : value => {
-                      onChangeField(fieldName, value)
-                    }
-              }
-              {...sectionProps}
-              chooserProps={chooserProps}
-            />
-          )
-        })}
-      </ModalSections>
-    )
-  }
-)
+const InfoSlide = ({
+  doc,
+  fieldSpecs,
+  fieldOrder,
+  fieldLabels,
+  onRequestChooseField,
+  onChangeField
+}) => {
+  const { t } = useI18n()
+  return (
+    <ModalSections>
+      {fieldOrder.map(fieldName => {
+        const fieldSpec = fieldSpecs[fieldName]
+        const FieldSection = SectionsPerType[fieldSpec.type]
+        const fieldLabel = fieldLabels[fieldName]
+        const chooserProps = resultWithArgs(fieldSpec, 'chooserProps', [doc])
+        const sectionProps = resultWithArgs(fieldSpec, 'sectionProps', [doc])
+        const hasSelector = TYPES_WITH_SELECTOR[fieldSpec.type]
+        return (
+          <FieldSection
+            key={fieldName}
+            label={t(fieldLabel)}
+            value={fieldSpec.getValue(doc)}
+            onClick={
+              hasSelector ? () => onRequestChooseField(fieldName) : undefined
+            }
+            onChange={
+              hasSelector
+                ? undefined
+                : value => {
+                    onChangeField(fieldName, value)
+                  }
+            }
+            {...sectionProps}
+            chooserProps={chooserProps}
+          />
+        )
+      })}
+    </ModalSections>
+  )
+}
 
 const INFO_SLIDE_INDEX = 0
 const CHOOSING_SLIDE_INDEX = 1
@@ -184,6 +182,7 @@ const DumbEditionModalFooter = props => {
 const EditionModalFooter = withBreakpoints()(DumbEditionModalFooter)
 
 const EditionModal = props => {
+  const { t } = useI18n()
   const {
     fieldSpecs,
     fieldLabels,
@@ -198,7 +197,6 @@ const EditionModal = props => {
     onRemove,
     removeModalTitle,
     removeModalDescription,
-    t,
     canBeRemoved
   } = props
   const [doc, setDoc] = useState(initialDoc)
@@ -239,6 +237,7 @@ const EditionModal = props => {
       mobileFullscreen={true}
       dismissAction={onDismiss}
       closable={!choosing}
+      overflowHidden={true}
     >
       <Stepper
         showPercentage={false}
@@ -273,4 +272,4 @@ const EditionModal = props => {
   )
 }
 
-export default translate()(EditionModal)
+export default EditionModal

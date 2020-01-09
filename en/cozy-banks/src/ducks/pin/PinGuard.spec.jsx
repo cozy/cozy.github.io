@@ -145,7 +145,7 @@ describe('PinGuard', () => {
   describe('timeout management', () => {
     it('should restart timeout after success', () => {
       const { root } = setup({
-        pinSetting: { ...PIN_DOC, fetchStatus: 'loading' }
+        pinSetting: PIN_DOC
       })
       const instance = root.find(PinGuard).instance()
       jest.spyOn(instance, 'restartTimeout')
@@ -153,14 +153,48 @@ describe('PinGuard', () => {
       expect(instance.restartTimeout).toHaveBeenCalled()
     })
 
-    it('should restart timeout after interaction', () => {
-      const { root } = setup({
-        pinSetting: { ...PIN_DOC, fetchStatus: 'loading' }
+    describe('handle interaction when pin hidden', () => {
+      it('should restart timeout after interaction', () => {
+        jest.useFakeTimers()
+        const { root } = setup({
+          pinSetting: PIN_DOC
+        })
+        jest.runAllTimers()
+        root.update()
+        root
+          .find(PinAuth)
+          .props()
+          .onSuccess()
+        root.update()
+
+        jest.advanceTimersByTime(GREEN_BACKGROUND_EFFECT_DURATION)
+        root.update()
+
+        expect(root.find(PinGuard).state().showPin).toBe(false)
+
+        const instance = root.find(PinGuard).instance()
+        jest.spyOn(instance, 'restartTimeout')
+        instance.handleInteraction()
+        expect(instance.restartTimeout).toHaveBeenCalled()
       })
-      const instance = root.find(PinGuard).instance()
-      jest.spyOn(instance, 'restartTimeout')
-      instance.handleInteraction()
-      expect(instance.restartTimeout).toHaveBeenCalled()
+    })
+
+    describe('handle interaction when pin showing', () => {
+      it('should restart timeout after interaction', () => {
+        jest.useFakeTimers()
+        const { root } = setup({
+          pinSetting: PIN_DOC
+        })
+        jest.runAllTimers()
+        root.update()
+
+        expect(root.find(PinGuard).state().showPin).toBe(true)
+
+        const instance = root.find(PinGuard).instance()
+        jest.spyOn(instance, 'restartTimeout')
+        instance.handleInteraction()
+        expect(instance.restartTimeout).not.toHaveBeenCalled()
+      })
     })
   })
 })

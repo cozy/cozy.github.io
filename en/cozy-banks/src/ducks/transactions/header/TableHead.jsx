@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { flowRight as compose } from 'lodash'
-import { translate, withBreakpoints } from 'cozy-ui/react'
+import { translate, withBreakpoints } from 'cozy-ui/transpiled/react'
 import { Table } from 'components/Table'
 
 import transactionsStyles from 'ducks/transactions/Transactions.styl'

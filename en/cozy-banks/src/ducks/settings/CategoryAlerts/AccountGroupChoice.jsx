@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { queryConnect } from 'cozy-client'
 import { accountsConn, groupsConn } from 'doctypes'
-import { translate } from 'cozy-ui/transpiled/react'
+import { useI18n } from 'cozy-ui/transpiled/react'
 import AccountIcon from 'components/AccountIcon'
 import { getGroupLabel } from 'ducks/groups/helpers'
 import { getAccountLabel } from 'ducks/account/helpers.js'
@@ -20,10 +20,10 @@ export const AccountGroupChoice = ({
   accounts: accountsCol,
   groups: groupsCol,
   onSelect,
-  t,
   canSelectAll,
   filter
 }) => {
+  const { t } = useI18n()
   const unfilteredAccounts = accountsCol.data || []
   const unfilteredGroups = groupsCol.data || []
 
@@ -83,7 +83,7 @@ AccountGroupChoice.defaultProps = {
   canSelectAll: true
 }
 
-export const DumbAccountGroupChoice = translate()(AccountGroupChoice)
+export const DumbAccountGroupChoice = AccountGroupChoice
 
 export default queryConnect({
   accounts: accountsConn,

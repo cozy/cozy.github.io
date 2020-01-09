@@ -2,7 +2,7 @@
 
 // TODO Move this module to cozy-ui
 
-import { getCssVariableValue } from 'cozy-ui/react/utils/color'
+import { getCssVariableValue } from 'cozy-ui/transpiled/react/utils/color'
 
 export const luminosity = hex => {
   if (hex.length == 4) {

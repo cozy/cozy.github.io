@@ -1,12 +1,12 @@
 /* global __TARGET__ */
 
-import { I18n } from 'cozy-ui/react'
-import MuiCozyTheme from 'cozy-ui/react/MuiCozyTheme'
+import { I18n } from 'cozy-ui/transpiled/react'
+import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
 import React from 'react'
 import { CozyProvider } from 'cozy-client'
 import { Provider } from 'react-redux'
 import flag from 'cozy-flags'
-import { Sprite as IconSprite } from 'cozy-ui/react/Icon'
+import { Sprite as IconSprite } from 'cozy-ui/transpiled/react/Icon'
 
 const AppContainer = ({ store, lang, history, client }) => {
   const AppRoute = require('components/AppRoute').default

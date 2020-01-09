@@ -1,12 +1,12 @@
 import React from 'react'
 import Padded from 'components/Spacing/Padded'
 import {
-  translate,
   Input,
   Media,
   Bd,
   Img,
-  InlineCard
+  InlineCard,
+  useI18n
 } from 'cozy-ui/transpiled/react'
 import PageTitle from 'components/Title/PageTitle'
 import OptionalInput from 'components/OptionalInput'
@@ -20,13 +20,14 @@ const _Summary = ({
   onConfirm,
   active,
   selectSlide,
-  t,
   onChangeLabel,
   label,
   onChangeDate,
   date
-}) =>
-  amount && senderAccount && beneficiary ? (
+}) => {
+  const { t } = useI18n()
+
+  return amount && senderAccount && beneficiary ? (
     <Padded>
       {active && <PageTitle>{t('Transfer.summary.page-title')}</PageTitle>}
       <div>
@@ -84,7 +85,8 @@ const _Summary = ({
       </div>
     </Padded>
   ) : null
+}
 
-const Summary = React.memo(translate()(_Summary))
+const Summary = React.memo(_Summary)
 
 export default Summary

@@ -1,6 +1,6 @@
 import React from 'react'
 import Padded from 'components/Spacing/Padded'
-import { translate, Text, Button } from 'cozy-ui/transpiled/react'
+import { Text, Button, useI18n } from 'cozy-ui/transpiled/react'
 
 import styles from 'ducks/transfers/styles.styl'
 import transferDoneImg from 'assets/transfer-done.jpg'
@@ -25,8 +25,10 @@ const TransferStateModal = props => (
   </Padded>
 )
 
-export const TransferSuccess = React.memo(
-  translate()(({ t, onExit }) => (
+export const TransferSuccess = React.memo(function TransferSuccess({ onExit }) {
+  const { t } = useI18n()
+
+  return (
     <TransferStateModal
       title={t('Transfer.success.title')}
       img={transferDoneImg}
@@ -34,13 +36,14 @@ export const TransferSuccess = React.memo(
       onClickPrimaryButton={onExit}
       primaryLabel={t('Transfer.exit')}
     />
-  ))
-)
+  )
+})
 
 const isLoginFailed = error =>
   error.message && error.message.includes('LOGIN_FAILED')
 
-export const DumbTransferError = ({ t, onExit, error }) => {
+export const DumbTransferError = ({ onExit, error }) => {
+  const { t } = useI18n()
   const loginFailed = isLoginFailed(error)
   return (
     <TransferStateModal
@@ -57,4 +60,4 @@ export const DumbTransferError = ({ t, onExit, error }) => {
   )
 }
 
-export const TransferError = React.memo(translate()(DumbTransferError))
+export const TransferError = React.memo(DumbTransferError)

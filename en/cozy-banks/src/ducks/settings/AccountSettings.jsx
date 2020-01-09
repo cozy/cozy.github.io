@@ -1,11 +1,17 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
-import { translate, withBreakpoints } from 'cozy-ui/react'
-import Button from 'cozy-ui/react/Button'
-import { Tabs, TabPanels, TabPanel, TabList, Tab } from 'cozy-ui/react/Tabs'
-import Modal from 'cozy-ui/react/Modal'
-import Icon from 'cozy-ui/react/Icon'
-import Alerter from 'cozy-ui/react/Alerter'
+import { translate, withBreakpoints, useI18n } from 'cozy-ui/transpiled/react'
+import Button from 'cozy-ui/transpiled/react/Button'
+import {
+  Tabs,
+  TabPanels,
+  TabPanel,
+  TabList,
+  Tab
+} from 'cozy-ui/transpiled/react/Tabs'
+import Modal from 'cozy-ui/transpiled/react/Modal'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import Loading from 'components/Loading'
 import { withDispatch } from 'utils'
 import BackButton from 'components/BackButton'
@@ -238,7 +244,8 @@ const GeneralSettings = compose(
   withFilters
 )(_GeneralSettings)
 
-const OldAccountSettings = ({ routeParams, t, breakpoints: { isMobile } }) => {
+const OldAccountSettings = ({ routeParams, breakpoints: { isMobile } }) => {
+  const { t } = useI18n()
   return (
     <Query query={client => client.get(ACCOUNT_DOCTYPE, routeParams.accountId)}>
       {({ data, fetchStatus }) => {

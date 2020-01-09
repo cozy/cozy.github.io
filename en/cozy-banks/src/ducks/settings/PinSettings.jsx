@@ -2,13 +2,11 @@ import React from 'react'
 import { queryConnect, withMutations } from 'cozy-client'
 import compose from 'lodash/flowRight'
 
-import { translate } from 'cozy-ui/react'
-import Icon from 'cozy-ui/react/Icon'
+import { translate } from 'cozy-ui/transpiled/react'
 import ToggleRow from 'ducks/settings/ToggleRow'
 
 import PinEditView from 'ducks/pin/PinEditView'
 import PinAuth from 'ducks/pin/PinAuth'
-import PinButton from 'ducks/pin/PinButton'
 import { pinSetting } from 'ducks/pin/queries'
 
 class PinSettings extends React.Component {
@@ -77,11 +75,8 @@ class PinSettings extends React.Component {
         ) : null}
         {this.state.togglingOff ? (
           <PinAuth
-            leftButton={
-              <PinButton onClick={this.handleTogglingOffCancel}>
-                <Icon icon="left" />
-              </PinButton>
-            }
+            onClickBackButton={this.handleTogglingOffCancel}
+            leftButton={null}
             onSuccess={this.handlePinDeactivated}
           />
         ) : null}

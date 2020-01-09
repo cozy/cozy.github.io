@@ -16,8 +16,9 @@ import {
   withBreakpoints,
   Alerter,
   useViewStack,
-  ModalContent
-} from 'cozy-ui/react'
+  ModalContent,
+  useI18n
+} from 'cozy-ui/transpiled/react'
 
 import ModalStack from 'components/ModalStack'
 
@@ -104,28 +105,31 @@ const TransactionCategoryEditorSlide = withBreakpoints()(
   })
 )
 
-const TransactionApplicationDateEditorSlide = translate()(
-  ({ transaction, beforeUpdate, afterUpdate, t }) => {
-    const { stackPop } = useViewStack()
-    const handleBeforeUpdate = () => {
-      beforeUpdate()
-      stackPop()
-    }
-
-    return (
-      <div>
-        <PageHeader dismissAction={stackPop}>
-          {t('Transactions.infos.chooseApplicationDate')}
-        </PageHeader>
-        <TransactionApplicationDateEditor
-          beforeUpdate={handleBeforeUpdate}
-          afterUpdate={afterUpdate}
-          transaction={transaction}
-        />
-      </div>
-    )
+const TransactionApplicationDateEditorSlide = ({
+  transaction,
+  beforeUpdate,
+  afterUpdate
+}) => {
+  const { t } = useI18n()
+  const { stackPop } = useViewStack()
+  const handleBeforeUpdate = () => {
+    beforeUpdate()
+    stackPop()
   }
-)
+
+  return (
+    <div>
+      <PageHeader dismissAction={stackPop}>
+        {t('Transactions.infos.chooseApplicationDate')}
+      </PageHeader>
+      <TransactionApplicationDateEditor
+        beforeUpdate={handleBeforeUpdate}
+        afterUpdate={afterUpdate}
+        transaction={transaction}
+      />
+    </div>
+  )
+}
 
 export const showAlertAfterApplicationDateUpdate = (transaction, t, f) => {
   const date = getApplicationDate(transaction) || getDate(transaction)
@@ -140,8 +144,9 @@ export const showAlertAfterApplicationDateUpdate = (transaction, t, f) => {
  * Show information of the transaction
  */
 const TransactionModalInfoContent = withTransaction(props => {
+  const { t, f } = useI18n()
   const { stackPush } = useViewStack()
-  const { t, f, transaction, client, ...restProps } = props
+  const { transaction, client, ...restProps } = props
 
   const typeIcon = (
     <Icon

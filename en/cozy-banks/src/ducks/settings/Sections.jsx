@@ -1,5 +1,5 @@
 import React from 'react'
-import { Title } from 'cozy-ui/react/Text'
+import { Title } from 'cozy-ui/transpiled/react/Text'
 import cx from 'classnames'
 import styles from './Sections.styl'
 

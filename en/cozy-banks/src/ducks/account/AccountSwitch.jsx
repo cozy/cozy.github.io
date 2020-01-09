@@ -6,11 +6,11 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import { flowRight as compose, sortBy } from 'lodash'
 import cx from 'classnames'
-import { translate, withBreakpoints } from 'cozy-ui/react'
-import Icon from 'cozy-ui/react/Icon'
-import { Media, Bd, Img } from 'cozy-ui/react/Media'
-import Overlay from 'cozy-ui/react/Overlay'
-import Portal from 'cozy-ui/react/Portal'
+import { translate, withBreakpoints, useI18n } from 'cozy-ui/transpiled/react'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
+import Overlay from 'cozy-ui/transpiled/react/Overlay'
+import Portal from 'cozy-ui/transpiled/react/Portal'
 import flag from 'cozy-flags'
 import { createStructuredSelector } from 'reselect'
 
@@ -39,16 +39,17 @@ import {
 
 const { BarCenter } = cozy.bar
 
-const AccountSwitchDesktop = translate()(
-  ({
-    isFetching,
-    isOpen,
-    filteringDoc,
-    accounts,
-    t,
-    toggle,
-    accountExists
-  }) => (
+const AccountSwitchDesktop = ({
+  isFetching,
+  isOpen,
+  filteringDoc,
+  accounts,
+  toggle,
+  accountExists
+}) => {
+  const { t } = useI18n()
+
+  return (
     <button
       className={cx(
         styles['account-switch-button'],
@@ -86,7 +87,7 @@ const AccountSwitchDesktop = translate()(
       )}
     </button>
   )
-)
+}
 
 AccountSwitchDesktop.propTypes = {
   filteringDoc: PropTypes.object
@@ -120,28 +121,32 @@ const getFilteringDocLabel = (filteringDoc, t, accounts) => {
 
 // t is passed from above and not through translate() since AccountSwitchSelect can be
 // rendered in the Bar and in this case it has a different context
-const AccountSwitchSelect = ({ accounts, filteringDoc, onClick, t, color }) => (
-  <div
-    className={cx(
-      styles.AccountSwitch__Select,
-      styles[`AccountSwitchColor_${color}`]
-    )}
-    onClick={onClick}
-  >
-    {flag('account-switch.display-icon') &&
-    filteringDoc._type === ACCOUNT_DOCTYPE ? (
-      <span className="u-mr-1">
-        <AccountIcon account={filteringDoc} />
-      </span>
-    ) : null}
-    <Title className={styles.AccountSwitch__SelectText} color={color}>
-      {filteringDoc
-        ? getFilteringDocLabel(filteringDoc, t, accounts)
-        : t('AccountSwitch.all_accounts')}
-    </Title>
-    <DownArrow color={color} />
-  </div>
-)
+const AccountSwitchSelect = ({ accounts, filteringDoc, onClick, color }) => {
+  const { t } = useI18n()
+
+  return (
+    <div
+      className={cx(
+        styles.AccountSwitch__Select,
+        styles[`AccountSwitchColor_${color}`]
+      )}
+      onClick={onClick}
+    >
+      {flag('account-switch.display-icon') &&
+      filteringDoc._type === ACCOUNT_DOCTYPE ? (
+        <span className="u-mr-1">
+          <AccountIcon account={filteringDoc} />
+        </span>
+      ) : null}
+      <Title className={styles.AccountSwitch__SelectText} color={color}>
+        {filteringDoc
+          ? getFilteringDocLabel(filteringDoc, t, accounts)
+          : t('AccountSwitch.all_accounts')}
+      </Title>
+      <DownArrow color={color} />
+    </div>
+  )
+}
 
 AccountSwitchSelect.propTypes = {
   color: PropTypes.oneOf(['default', 'primary'])
@@ -151,17 +156,18 @@ AccountSwitchSelect.defaultProps = {
   color: 'default'
 }
 
-const AccountSwitchMenu = translate()(
-  ({
-    accounts,
-    groups,
-    filteringDoc,
-    filterByDoc,
-    resetFilterByDoc,
-    t,
-    accountExists,
-    close
-  }) => (
+const AccountSwitchMenu = ({
+  accounts,
+  groups,
+  filteringDoc,
+  filterByDoc,
+  resetFilterByDoc,
+  accountExists,
+  close
+}) => {
+  const { t } = useI18n()
+
+  return (
     <div className={styles['account-switch-menu-content']}>
       <div className={styles['account-switch-menu']}>
         <h4>{t('AccountSwitch.groups')}</h4>
@@ -249,7 +255,7 @@ const AccountSwitchMenu = translate()(
       </div>
     </div>
   )
-)
+}
 
 AccountSwitchMenu.propTypes = {
   filterByDoc: PropTypes.func.isRequired,

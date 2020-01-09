@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 import { flowRight as compose } from 'lodash'
-import { translate, withBreakpoints } from 'cozy-ui/react'
+import { withBreakpoints, useI18n } from 'cozy-ui/transpiled/react'
 
 import { transactionsConn } from 'doctypes'
 import { Padded } from 'components/Spacing'
@@ -16,7 +16,6 @@ import flag from 'cozy-flags'
 import styles from 'ducks/balance/components/BalanceHeader.styl'
 
 const BalanceHeader = ({
-  t,
   breakpoints: { isMobile },
   accountsBalance,
   accounts,
@@ -24,6 +23,7 @@ const BalanceHeader = ({
   onClickBalance,
   transactions
 }) => {
+  const { t } = useI18n()
   const titlePaddedClass = isMobile ? 'u-p-0' : 'u-pb-0'
   const titleColor = isMobile ? 'primary' : 'default'
   const subtitle = subtitleParams
@@ -60,7 +60,6 @@ export const DumbBalanceHeader = BalanceHeader
 
 export default compose(
   withBreakpoints(),
-  translate(),
   memo,
   queryConnect({
     transactions: transactionsConn

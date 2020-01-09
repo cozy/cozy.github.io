@@ -8,7 +8,7 @@ import {
   shouldEnableTracking,
   getTracker,
   createTrackerMiddleware
-} from 'cozy-ui/react/helpers/tracker'
+} from 'cozy-ui/transpiled/react/helpers/tracker'
 import { isSentryEnabled, getSentryMiddleware } from 'lib/sentry'
 
 import filters from 'ducks/filters'

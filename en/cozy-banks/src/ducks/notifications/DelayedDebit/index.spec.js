@@ -1,12 +1,58 @@
-import DelayedDebit, { isCreditCardAccount } from '.'
-import keyBy from 'lodash/keyBy'
+import DelayedDebit, { isCreditCardAccount, isWithinEndOfMonthRange } from '.'
 import MockDate from 'mockdate'
+import { ACCOUNT_DOCTYPE } from 'doctypes'
+import { BankAccount } from 'cozy-doctypes'
+
+const accounts = [
+  { _id: 'checkings1', type: 'Checkings', balance: 100 },
+  { _id: 'checkings2', type: 'Checkings', balance: 100 },
+  { _id: '¯\\_(ツ)_/¯', type: 'Other', balance: 100 },
+  {
+    _id: 'creditcard1',
+    type: 'CreditCard',
+    comingBalance: -200
+  },
+  {
+    _id: 'creditcard2',
+    type: 'CreditCard',
+    comingBalance: 0
+  }
+]
+
+describe('DelayedDebit::isWithinEndOfMonthRange', () => {
+  afterEach(() => {
+    MockDate.reset()
+  })
+
+  it('should return false when the date is not ok', () => {
+    MockDate.set(new Date(2019, 5, 24))
+
+    expect(isWithinEndOfMonthRange(2)).toBe(false)
+  })
+
+  it('should return true when the date is ok', () => {
+    MockDate.set(new Date(2019, 5, 28))
+    expect(isWithinEndOfMonthRange(2)).toBe(true)
+
+    MockDate.set(new Date(2019, 5, 29))
+    expect(isWithinEndOfMonthRange(2)).toBe(true)
+
+    MockDate.set(new Date(2019, 5, 30))
+    expect(isWithinEndOfMonthRange(2)).toBe(true)
+  })
+})
+
+describe('DelayedDebit::isCreditCardAccount', () => {
+  it('should return the credit card accounts with associated checkings account', () => {
+    expect(accounts.filter(isCreditCardAccount).map(x => x._id)).toEqual([
+      'creditcard1',
+      'creditcard2'
+    ])
+  })
+})
 
 describe('DelayedDebit', () => {
   let notification
-  let creditCards
-  let hydratedCreditCards
-  let accounts
 
   beforeEach(() => {
     notification = new DelayedDebit({
@@ -18,96 +64,72 @@ describe('DelayedDebit', () => {
           uri: 'http://cozy.tools:8080'
         }
       },
-      value: 2,
+      rules: [
+        {
+          enabled: true,
+          value: 2,
+          checkingsAccount: {
+            _type: ACCOUNT_DOCTYPE,
+            _id: 'checkings1'
+          },
+          creditCardAccount: {
+            _type: ACCOUNT_DOCTYPE,
+            _id: 'creditcard1'
+          }
+        },
+        {
+          enabled: true,
+          value: 2,
+          checkingsAccount: {
+            _type: ACCOUNT_DOCTYPE,
+            _id: 'checkings2'
+          },
+          creditCardAccount: {
+            _type: ACCOUNT_DOCTYPE,
+            _id: 'creditcard2'
+          }
+        }
+      ],
       data: {}
     })
-
-    accounts = [
-      { _id: 'checkings1', type: 'Checkings', balance: 100 },
-      { _id: 'checkings2', type: 'Checkings', balance: 100 },
-      { _id: '¯\\_(ツ)_/¯', type: 'Other', balance: 100 },
-      {
-        _id: 'creditcard1',
-        type: 'CreditCard',
-        comingBalance: -200,
-        relationships: {
-          checkingsAccount: {
-            data: {
-              _id: 'checkings1'
-            }
-          }
-        }
-      },
-      {
-        _id: 'creditcard2',
-        type: 'CreditCard',
-        comingBalance: 0,
-        relationships: {
-          checkingsAccount: {
-            data: {
-              _id: 'checkings2'
-            }
-          }
-        }
-      }
-    ]
-
-    const accountsById = keyBy(accounts, a => a._id)
-
-    creditCards = accounts.filter(account => account.type === 'CreditCard')
-
-    hydratedCreditCards = creditCards.map(creditCard => ({
-      ...creditCard,
-      checkingsAccount: {
-        data: accountsById[creditCard.relationships.checkingsAccount.data._id]
-      }
-    }))
   })
 
-  describe('checkDate', () => {
-    afterEach(() => {
-      MockDate.reset()
-    })
-
-    it('should return false when the date is not ok', () => {
-      MockDate.set(new Date(2019, 5, 24))
-
-      expect(notification.checkDate()).toBe(false)
-    })
-
-    it('should return true when the date is ok', () => {
-      MockDate.set(new Date(2019, 5, 28))
-      expect(notification.checkDate()).toBe(true)
-
+  describe('findMatchingRules', () => {
+    beforeEach(() => {
       MockDate.set(new Date(2019, 5, 29))
-      expect(notification.checkDate()).toBe(true)
-
-      MockDate.set(new Date(2019, 5, 30))
-      expect(notification.checkDate()).toBe(true)
+      jest.spyOn(BankAccount, 'fetchAll').mockReturnValue(accounts)
     })
-  })
-
-  describe('filterCreditCardAccounts', () => {
-    it('should return the credit card accounts with associated checkings account', () => {
-      expect(accounts.filter(isCreditCardAccount)).toEqual(creditCards)
-    })
-  })
-
-  describe('linkCreditCardsToCheckings', () => {
-    it('should resolve relationships between accounts', () => {
-      notification.linkCreditCardsToCheckings(creditCards, accounts)
-
-      expect(creditCards).toEqual(hydratedCreditCards)
-    })
-  })
-
-  describe('shouldBeNotified', () => {
-    it('should return true if the credit card account should be notified', () => {
-      expect(notification.shouldBeNotified(hydratedCreditCards[0])).toBe(true)
+    afterEach(() => {
+      BankAccount.fetchAll.mockRestore()
     })
 
-    it('should return false if the credit card account should not be notified', () => {
-      expect(notification.shouldBeNotified(hydratedCreditCards[1])).toBe(false)
+    it('should return the right rules', async () => {
+      expect(await notification.findMatchingRules()).toMatchObject([
+        {
+          checkingsAccount: {
+            _id: 'checkings1',
+            balance: 100,
+            type: 'Checkings'
+          },
+          creditCardAccount: {
+            _id: 'creditcard1',
+            comingBalance: -200,
+            type: 'CreditCard'
+          },
+          rule: {
+            checkingsAccount: {
+              _id: 'checkings1',
+              _type: 'io.cozy.bank.accounts'
+            },
+            creditCardAccount: {
+              _id: 'creditcard1',
+              _type: 'io.cozy.bank.accounts'
+            },
+            enabled: true,
+            value: 2
+          }
+        }
+      ])
     })
   })
 })

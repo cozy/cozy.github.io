@@ -1,11 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Chip from 'cozy-ui/react/Chip'
-import Icon from 'cozy-ui/react/Icon'
-import { translate } from 'cozy-ui/react'
+import Chip from 'cozy-ui/transpiled/react/Chip'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import { useI18n } from 'cozy-ui/transpiled/react'
 
 const DumbKonnectorChip = props => {
-  const { t, konnectorType, ...rest } = props
+  const { t } = useI18n()
+  const { konnectorType, ...rest } = props
 
   return (
     <Chip
@@ -29,6 +30,6 @@ DumbKonnectorChip.defaultProps = {
   konnectorType: 'generic'
 }
 
-const KonnectorChip = translate()(DumbKonnectorChip)
+const KonnectorChip = DumbKonnectorChip
 
 export default KonnectorChip

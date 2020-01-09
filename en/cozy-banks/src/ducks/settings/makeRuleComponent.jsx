@@ -1,5 +1,6 @@
 import React from 'react'
-import { Alerter, translate } from 'cozy-ui/react'
+import PropTypes from 'prop-types'
+import { Alerter, useI18n } from 'cozy-ui/react'
 
 import { makeEditionModalFromSpec } from 'components/EditionModal'
 import Rules from 'ducks/settings/Rules'
@@ -12,20 +13,28 @@ const makeRuleComponent = ({
   getNewRule,
   getInitialRules,
   spec,
-  displayName
+  displayName,
+  shouldOpenOnToggle
 }) => {
   const EditionModal = makeEditionModalFromSpec(spec)
 
   const RulesComponent = props => {
+    const { t } = useI18n()
     let {
       rules: rawInitialRules,
       getAccountOrGroupLabel,
       onChangeRules,
-      t
+      ruleProps
     } = props
 
     const initialRules = ensureNewRuleFormat(rawInitialRules)
-    const onError = () => Alerter.error(t('Settings.rules.saving-error'))
+    const onError = err => {
+      // eslint-disable-next-line no-console
+      console.warn('Could not save rule')
+      // eslint-disable-next-line no-console
+      console.error(err)
+      Alerter.error(t('Settings.rules.saving-error'))
+    }
 
     return (
       <Rules
@@ -52,6 +61,8 @@ const makeRuleComponent = ({
             getAccountOrGroupLabel={getAccountOrGroupLabel}
             descriptionKey={getRuleDescriptionKey}
             descriptionProps={getRuleDescriptionProps}
+            shouldOpenOnToggle={shouldOpenOnToggle}
+            ruleProps={ruleProps}
           />
         )}
       </Rules>
@@ -61,9 +72,14 @@ const makeRuleComponent = ({
     rules: getInitialRules()
   }
 
+  RulesComponent.propTypes = {
+    rules: PropTypes.array.isRequired,
+    onChangeRules: PropTypes.func.isRequired
+  }
+
   RulesComponent.displayName = displayName
 
-  return translate()(RulesComponent)
+  return RulesComponent
 }
 
 export default makeRuleComponent

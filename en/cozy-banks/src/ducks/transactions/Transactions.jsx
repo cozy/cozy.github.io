@@ -12,8 +12,8 @@ import {
 import cx from 'classnames'
 import { isIOSApp } from 'cozy-device-helper'
 
-import { translate, withBreakpoints } from 'cozy-ui/react'
-import Button from 'cozy-ui/react/Button'
+import { translate, withBreakpoints, useI18n } from 'cozy-ui/transpiled/react'
+import Button from 'cozy-ui/transpiled/react/Button'
 import * as List from 'components/List'
 import { Table } from 'components/Table'
 
@@ -64,7 +64,8 @@ const LoadMoreMobile = ({ children, onClick }) => (
 )
 
 const _SectionMobile = props => {
-  const { date, f, children } = props
+  const { f } = useI18n()
+  const { date, children } = props
   return (
     <React.Fragment>
       <List.Header>{f(date, 'dddd D MMMM')}</List.Header>
@@ -72,7 +73,7 @@ const _SectionMobile = props => {
     </React.Fragment>
   )
 }
-const SectionMobile = translate()(_SectionMobile)
+const SectionMobile = _SectionMobile
 
 const SectionDesktop = props => {
   return <tbody {...props} />

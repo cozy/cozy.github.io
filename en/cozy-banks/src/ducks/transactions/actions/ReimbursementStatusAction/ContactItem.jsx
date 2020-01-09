@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { SubTitle } from 'cozy-ui/react/Text'
+import { SubTitle } from 'cozy-ui/transpiled/react/Text'
 import cx from 'classnames'
 import { ContactCard } from 'ducks/transactions/actions/ReimbursementStatusAction/Card'
 

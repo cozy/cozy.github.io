@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import { Modal, ModalHeader } from 'cozy-ui/react'
+import { Modal, ModalHeader } from 'cozy-ui/transpiled/react'
 import styles from 'components/PageModal/Page.styl'
 import iconArrowLeft from 'assets/icons/icon-arrow-left.svg'
 import { BarButton } from 'cozy-ui/transpiled/react'

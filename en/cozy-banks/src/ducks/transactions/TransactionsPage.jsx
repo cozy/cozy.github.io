@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import { isMobileApp } from 'cozy-device-helper'
-import { translate, withBreakpoints } from 'cozy-ui/react'
+import { translate, withBreakpoints } from 'cozy-ui/transpiled/react'
 
 import { flowRight as compose, isEqual, findIndex, uniq, maxBy } from 'lodash'
 import { getFilteringDoc } from 'ducks/filters'

@@ -3,7 +3,7 @@ import {
   DumbGroupSettings as GroupSettings,
   AccountLine
 } from './GroupSettings'
-import Toggle from 'cozy-ui/react/Toggle'
+import Toggle from 'cozy-ui/transpiled/react/Toggle'
 import { mount } from 'enzyme'
 import AppLike from 'test/AppLike'
 import fixtures from 'test/fixtures'

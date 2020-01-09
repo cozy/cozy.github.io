@@ -1,9 +1,11 @@
 import React from 'react'
-import Icon from 'cozy-ui/react/Icon'
-import SelectBox, { SelectBoxWithFixedOptions } from 'cozy-ui/react/SelectBox'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import SelectBox, {
+  SelectBoxWithFixedOptions
+} from 'cozy-ui/transpiled/react/SelectBox'
 import styles from 'components/Select/styles.styl'
 import { find } from 'lodash'
-import palette from 'cozy-ui/react/palette'
+import palette from 'cozy-ui/transpiled/react/palette'
 import { mergeStyles } from 'components/Select/styleUtils'
 
 const smallArrowStyle = { paddingLeft: '0.25rem' }

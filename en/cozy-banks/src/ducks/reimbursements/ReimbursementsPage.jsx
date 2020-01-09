@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { flowRight as compose } from 'lodash'
-import { translate, withBreakpoints } from 'cozy-ui/react'
+import { translate, withBreakpoints } from 'cozy-ui/transpiled/react'
 import Header from 'components/Header'
 import { Padded } from 'components/Spacing'
 import { PageTitle } from 'components/Title'

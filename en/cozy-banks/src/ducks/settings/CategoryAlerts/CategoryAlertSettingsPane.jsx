@@ -1,7 +1,7 @@
 import React from 'react'
 import compose from 'lodash/flowRight'
 import { withClient, queryConnect } from 'cozy-client'
-import { Alerter, translate } from 'cozy-ui/transpiled/react'
+import { Alerter, useI18n } from 'cozy-ui/transpiled/react'
 
 import { SubSection } from 'ducks/settings/Sections'
 
@@ -22,7 +22,8 @@ const updateBudgetAlerts = async (client, settings, categoryBudgetAlerts) => {
   await client.save(updatedSettings)
 }
 
-const CategoryAlertsPane = ({ client, settingsCollection, t }) => {
+const CategoryAlertsPane = ({ client, settingsCollection }) => {
+  const { t } = useI18n()
   const settings = getDefaultedSettingsFromCollection(settingsCollection)
   const onUpdateError = () => Alerter.error(t('Settings.rules.saving-error'))
   const onUpdate = updatedAlerts =>
@@ -56,7 +57,6 @@ const CategoryAlertsPane = ({ client, settingsCollection, t }) => {
 
 export default compose(
   withClient,
-  translate(),
   queryConnect({
     settingsCollection: settingsConn
   })

@@ -10,7 +10,9 @@ beforeEach(() => {
 describe('LateHealthReimbursement', () => {
   const setup = ({ lang }) => {
     const localeStrings = require(`locales/${lang}.json`)
-    const { initTranslation } = require('cozy-ui/react/I18n/translation')
+    const {
+      initTranslation
+    } = require('cozy-ui/transpiled/react/I18n/translation')
     const translation = initTranslation(lang, () => localeStrings)
     const t = translation.t.bind(translation)
     const notification = new LateHealthReimbursement({

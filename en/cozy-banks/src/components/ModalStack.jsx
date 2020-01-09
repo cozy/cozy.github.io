@@ -5,8 +5,8 @@
  */
 
 import React, { useState } from 'react'
-import Modal from 'cozy-ui/react/Modal'
-import { ViewStackContext } from 'cozy-ui/react'
+import Modal from 'cozy-ui/transpiled/react/Modal'
+import { ViewStackContext } from 'cozy-ui/transpiled/react'
 
 const sleep = duration => new Promise(resolve => setTimeout(resolve, duration))
 

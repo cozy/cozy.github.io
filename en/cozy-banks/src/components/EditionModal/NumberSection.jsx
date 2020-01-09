@@ -1,9 +1,14 @@
 import React from 'react'
-import { ModalContent, InputGroup, Input } from 'cozy-ui/transpiled/react'
+import {
+  ModalContent,
+  InputGroup,
+  Input,
+  useI18n
+} from 'cozy-ui/transpiled/react'
 import { ModalSection } from 'components/ModalSections'
-import { translate } from 'cozy-ui/transpiled/react'
 
-const NumberSection = ({ label, value, onChange, unit, unitKey, t }) => {
+const NumberSection = ({ label, value, onChange, unit, unitKey }) => {
+  const { t } = useI18n()
   const handleChange = ev => {
     onChange(parseInt(ev.target.value, 10))
   }
@@ -12,7 +17,7 @@ const NumberSection = ({ label, value, onChange, unit, unitKey, t }) => {
       <ModalContent className="u-pb-0">
         <InputGroup
           append={
-            unit ? (
+            unit || unitKey ? (
               <InputGroup.Unit>{unit || t(unitKey)}</InputGroup.Unit>
             ) : (
               undefined
@@ -26,4 +31,4 @@ const NumberSection = ({ label, value, onChange, unit, unitKey, t }) => {
   )
 }
 
-export default translate()(NumberSection)
+export default NumberSection

@@ -53,7 +53,13 @@ describe('transaction greater', () => {
       rules: [
         {
           value: value || 10,
-          accountOrGroup: accountOrGroup || null
+          accountOrGroup: accountOrGroup || null,
+          enabled: true
+        },
+        {
+          value: value || 10,
+          accountOrGroup: accountOrGroup || null,
+          enabled: false
         }
       ],
       data: {

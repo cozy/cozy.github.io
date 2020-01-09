@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Types from 'prop-types'
-import { translate } from 'cozy-ui/react'
+import { translate } from 'cozy-ui/transpiled/react'
 
 const styles = {
   container: {

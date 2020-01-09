@@ -1,19 +1,20 @@
 import React from 'react'
-import { translate } from 'cozy-ui/react'
-import ButtonAction from 'cozy-ui/react/ButtonAction'
-import Chip from 'cozy-ui/react/Chip'
-import Icon from 'cozy-ui/react/Icon'
+import { useI18n } from 'cozy-ui/transpiled/react'
+import ButtonAction from 'cozy-ui/transpiled/react/ButtonAction'
+import Chip from 'cozy-ui/transpiled/react/Chip'
+import Icon from 'cozy-ui/transpiled/react/Icon'
 import flag from 'cozy-flags'
 import icon from 'assets/icons/actions/icon-link-out.svg'
 import { isHealth } from 'ducks/categories/helpers'
-import palette from 'cozy-ui/react/palette'
+import palette from 'cozy-ui/transpiled/react/palette'
 import styles from 'ducks/transactions/TransactionActions.styl'
 import TransactionModalRow from 'ducks/transactions/TransactionModalRow'
 
 const name = 'refund'
 
 const transactionModalRowStyle = { color: palette.dodgerBlue }
-const Component = ({ t, actionProps: { urls }, compact, isModalItem }) => {
+const Component = ({ actionProps: { urls }, compact, isModalItem }) => {
+  const { t } = useI18n()
   const url = `${urls['HEALTH']}#/remboursements`
   const label = t(`Transactions.actions.${name}`)
 
@@ -53,7 +54,7 @@ const action = {
   match: (transaction, { urls }) => {
     return isHealth(transaction) && urls['HEALTH']
   },
-  Component: translate()(Component)
+  Component: Component
 }
 
 export default action

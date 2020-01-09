@@ -5,21 +5,21 @@ import React from 'react'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 
-import ExpansionPanel from 'cozy-ui/react/MuiCozyTheme/ExpansionPanel'
+import ExpansionPanel from 'cozy-ui/transpiled/react/MuiCozyTheme/ExpansionPanel'
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import { withStyles } from '@material-ui/core/styles'
 
-import { translate } from 'cozy-ui/react'
-import Icon from 'cozy-ui/react/Icon'
-import { ButtonLink } from 'cozy-ui/react/Button'
-import { Caption } from 'cozy-ui/react/Text'
+import { translate } from 'cozy-ui/transpiled/react'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import { ButtonLink } from 'cozy-ui/transpiled/react/Button'
+import { Caption } from 'cozy-ui/transpiled/react/Text'
 import { Figure } from 'components/Figure'
 import Switch from 'components/Switch'
 import AccountsList from 'ducks/balance/components/AccountsList'
 import withFilters from 'components/withFilters'
-import Stack from 'cozy-ui/react/Stack'
-import Text from 'cozy-ui/react/Text'
+import Stack from 'cozy-ui/transpiled/react/Stack'
+import Text from 'cozy-ui/transpiled/react/Text'
 import {
   getGroupBalance,
   isReimbursementsVirtualGroup

@@ -1,3 +1,6 @@
+import keyBy from 'lodash/keyBy'
+import omit from 'lodash/omit'
+
 /**
  * All this file should be moved to cozy-client
  */
@@ -81,6 +84,73 @@ export const updateNotificationToken = (client, token) => {
 export const getNotificationToken = client => {
   return client.stackClient.oauthOptions.notification_device_token
 }
+
+/**
+ * Revokes all clients with the given softwareID apart from the current one
+ *
+ * @param  {CozyCLient} client
+ * @param  {string} softwareID
+ * @return {Promise}
+ */
+export const revokeOtherOAuthClientsForSoftwareId = async (
+  client,
+  softwareID
+) => {
+  const { data: clients } = await client.stackClient.fetchJSON(
+    'GET',
+    `/settings/clients`
+  )
+  const currentOAuthClientId = client.stackClient.oauthOptions.clientID
+  const otherOAuthClients = clients.filter(
+    oauthClient =>
+      oauthClient.attributes.software_id === softwareID &&
+      oauthClient.id !== currentOAuthClientId
+  )
+  for (let oauthClient of otherOAuthClients) {
+    await client.stackClient.fetchJSON(
+      'DELETE',
+      `/settings/clients/${oauthClient.id}`
+    )
+  }
+}
+
+/**
+ * Destroys every document of a particular doctype
+ */
+export const dropDoctype = async (client, doctype) => {
+  const col = client.collection(doctype)
+  const { data: docs } = await col.getAll()
+  if (docs.length > 0) {
+    // The omit for _type can be removed when the following PR is resolved
+    // https://github.com/cozy/cozy-client/pull/597
+    await col.destroyAll(docs.map(doc => omit(doc, '_type')))
+  }
+}
+
+export const importACHData = async (client, achData) => {
+  for (const [doctype, documents] of Object.entries(achData)) {
+    const col = client.collection(doctype)
+    const existingIds = documents.map(getDocumentID).filter(Boolean)
+    const existingDocsResp = await col.getAll(existingIds)
+    const existingDocs = keyBy(
+      existingDocsResp.data.map(x => omit(x, '_type')),
+      getDocumentID
+    )
+    const updatedDocs = documents.map(x => {
+      const existing = existingDocs[x._id]
+      const updatedDoc = { ...existing, ...x }
+      return updatedDoc
+    })
+    const responses = await col.updateAll(updatedDocs)
+    const errors = responses.filter(resp => resp.error)
+    if (errors.length > 0) {
+      // eslint-disable-next-line no-console
+      console.log('Errors while importing data', errors)
+    }
+  }
+}
+
+export const getDocumentID = doc => doc._id
 
 export const getDocumentIdentity = doc =>
   doc

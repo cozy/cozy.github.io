@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { withBreakpoints } from 'cozy-ui/react'
+import { withBreakpoints } from 'cozy-ui/transpiled/react'
 
 const useScrollToOnMount = (node, scrollTop, scrollLeft) => {
   useEffect(() => {

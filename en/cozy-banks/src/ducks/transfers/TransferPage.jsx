@@ -2,7 +2,7 @@ import React from 'react'
 import compose from 'lodash/flowRight'
 import { withRouter } from 'react-router'
 import Padded from 'components/Spacing/Padded'
-import { translate, Text, Modal } from 'cozy-ui/transpiled/react'
+import { translate, Text, Modal, useI18n } from 'cozy-ui/transpiled/react'
 import { withClient, queryConnect } from 'cozy-client'
 import Realtime from 'cozy-realtime'
 import { logException } from 'lib/sentry'
@@ -51,47 +51,55 @@ const subscribe = (rt, event, doc, id, cb) => {
   return unsubscribe
 }
 
-const NoRecipient = translate()(({ t }) => (
-  <Padded>
-    <Title>{t('Transfer.no-recipients.title')}</Title>
-    <Text>{t('Transfer.no-recipients.description')}</Text>
-    <ul>
-      <li>Axa Banque</li>
-      <li>BNP Paribas</li>
-      <li>Boursorama</li>
-      <li>Banque Postale Particuliers</li>
-      <li>CIC</li>
-      <li>Crédit Agricole</li>
-      <li>Crédit Coopératif</li>
-      <li>Crédit Foncier</li>
-      <li>Crédit Mutuel</li>
-      <li>Fortuneo</li>
-      <li>Hello Bank</li>
-      <li>ING</li>
-      <li>LCL</li>
-      <li>Société Générale</li>
-    </ul>
-    <AddAccountButton
-      extension="full"
-      label={t('Transfer.no-bank.add-bank')}
-      theme="primary"
-      className="u-mt-0"
-    />
-  </Padded>
-))
+const NoRecipient = () => {
+  const { t } = useI18n()
 
-const NoBank = translate()(({ t }) => (
-  <Padded>
-    <Title>{t('Transfer.no-bank.title')}</Title>
-    <AddAccountButton
-      absolute
-      extension="full"
-      label={t('Transfer.no-bank.add-bank')}
-      theme="primary"
-      className="u-mt-0"
-    />
-  </Padded>
-))
+  return (
+    <Padded>
+      <Title>{t('Transfer.no-recipients.title')}</Title>
+      <Text>{t('Transfer.no-recipients.description')}</Text>
+      <ul>
+        <li>Axa Banque</li>
+        <li>BNP Paribas</li>
+        <li>Boursorama</li>
+        <li>Banque Postale Particuliers</li>
+        <li>CIC</li>
+        <li>Crédit Agricole</li>
+        <li>Crédit Coopératif</li>
+        <li>Crédit Foncier</li>
+        <li>Crédit Mutuel</li>
+        <li>Fortuneo</li>
+        <li>Hello Bank</li>
+        <li>ING</li>
+        <li>LCL</li>
+        <li>Société Générale</li>
+      </ul>
+      <AddAccountButton
+        extension="full"
+        label={t('Transfer.no-bank.add-bank')}
+        theme="primary"
+        className="u-mt-0"
+      />
+    </Padded>
+  )
+}
+
+const NoBank = () => {
+  const { t } = useI18n()
+
+  return (
+    <Padded>
+      <Title>{t('Transfer.no-bank.title')}</Title>
+      <AddAccountButton
+        absolute
+        extension="full"
+        label={t('Transfer.no-bank.add-bank')}
+        theme="primary"
+        className="u-mt-0"
+      />
+    </Padded>
+  )
+}
 
 class TransferPage extends React.Component {
   constructor(props, context) {

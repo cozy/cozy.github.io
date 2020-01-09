@@ -3,7 +3,7 @@
 import React from 'react'
 import Header from 'components/Header'
 import { Padded } from 'components/Spacing'
-import { withBreakpoints } from 'cozy-ui/react'
+import { withBreakpoints } from 'cozy-ui/transpiled/react'
 import BackButton from 'components/BackButton'
 import { AccountSwitch } from 'ducks/account'
 import cx from 'classnames'

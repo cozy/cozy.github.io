@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { translate } from 'cozy-ui/react'
+import { useI18n, translate } from 'cozy-ui/transpiled/react'
 import { queryConnect, hasQueryBeenLoaded } from 'cozy-client'
 import { connect } from 'react-redux'
 import { accountsConn } from 'doctypes'
@@ -9,7 +9,7 @@ import {
   isCheckingsAccount,
   isCreditCardAccount
 } from 'ducks/account/helpers'
-import { Spinner } from 'cozy-ui/react'
+import { Spinner } from 'cozy-ui/transpiled/react'
 
 import { SubSection } from 'ducks/settings/Sections'
 import EditableSettingCard from './EditableSettingCard'
@@ -22,58 +22,60 @@ const makeAccountChoiceFromAccount = account => {
   return account ? getDocumentIdentity(account) : null
 }
 
-const getModalProps = ({ initialDoc, t }) => ({
-  modalTitle: t('Notifications.editModal.title'),
-  fieldOrder: ['creditCardAccount', 'checkingsAccount', 'value'],
-  fieldLabels: {
-    creditCardAccount: t(
-      'Notifications.delayed_debit.fieldLabels.creditCardAccount'
-    ),
-    checkingsAccount: t(
-      'Notifications.delayed_debit.fieldLabels.checkingsAccount'
-    ),
-    value: t('Notifications.delayed_debit.fieldLabels.days')
-  },
-  fieldSpecs: {
-    creditCardAccount: {
-      type: CHOOSING_TYPES.account,
-      chooserProps: {
-        canSelectAll: false,
-        filter: isCreditCardAccount
-      },
-      getValue: initialDoc =>
-        makeAccountChoiceFromAccount(initialDoc.creditCardAccount),
-      updater: (doc, creditCardAccount) => ({
-        ...doc,
-        creditCardAccount: getDocumentIdentity(creditCardAccount)
-      })
+const getModalProps = ({ initialDoc, t }) => {
+  return {
+    modalTitle: t('Notifications.editModal.title'),
+    fieldOrder: ['creditCardAccount', 'checkingsAccount', 'value'],
+    fieldLabels: {
+      creditCardAccount: t(
+        'Notifications.delayed_debit.fieldLabels.creditCardAccount'
+      ),
+      checkingsAccount: t(
+        'Notifications.delayed_debit.fieldLabels.checkingsAccount'
+      ),
+      value: t('Notifications.delayed_debit.fieldLabels.days')
     },
-    checkingsAccount: {
-      type: CHOOSING_TYPES.account,
-      chooserProps: {
-        canSelectAll: false,
-        filter: isCheckingsAccount
+    fieldSpecs: {
+      creditCardAccount: {
+        type: CHOOSING_TYPES.account,
+        chooserProps: {
+          canSelectAll: false,
+          filter: isCreditCardAccount
+        },
+        getValue: initialDoc =>
+          makeAccountChoiceFromAccount(initialDoc.creditCardAccount),
+        updater: (doc, creditCardAccount) => ({
+          ...doc,
+          creditCardAccount: getDocumentIdentity(creditCardAccount)
+        })
       },
-      getValue: initialDoc =>
-        makeAccountChoiceFromAccount(initialDoc.checkingsAccount),
-      updater: (doc, checkingsAccount) => ({
-        ...doc,
-        checkingsAccount: getDocumentIdentity(checkingsAccount)
-      })
+      checkingsAccount: {
+        type: CHOOSING_TYPES.account,
+        chooserProps: {
+          canSelectAll: false,
+          filter: isCheckingsAccount
+        },
+        getValue: initialDoc =>
+          makeAccountChoiceFromAccount(initialDoc.checkingsAccount),
+        updater: (doc, checkingsAccount) => ({
+          ...doc,
+          checkingsAccount: getDocumentIdentity(checkingsAccount)
+        })
+      },
+      value: {
+        sectionProps: {
+          unit: t('Notifications.delayed_debit.unit')
+        },
+        type: CHOOSING_TYPES.number,
+        getValue: doc => doc.value,
+        updater: (doc, value) => ({ ...doc, value })
+      }
     },
-    value: {
-      sectionProps: {
-        unit: t('Notifications.delayed_debit.unit')
-      },
-      type: CHOOSING_TYPES.number,
-      getValue: doc => doc.value,
-      updater: (doc, value) => ({ ...doc, value })
-    }
-  },
-  initialDoc
-})
+    initialDoc
+  }
+}
 
-class DelayedDebitCard extends React.Component {
+class DumbDelayedDebitCard extends React.Component {
   static propTypes = {
     // TODO replace `PropTypes.object` with a shape coming from cozy-doctypes
     accounts: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -96,7 +98,7 @@ class DelayedDebitCard extends React.Component {
   }
 
   render() {
-    const { doc, onToggle, onChangeDoc, t, accountsById, accounts } = this.props
+    const { doc, onToggle, onChangeDoc, accountsById, accounts, t } = this.props
 
     if (!hasQueryBeenLoaded(accounts)) {
       return <Spinner />
@@ -150,8 +152,10 @@ class DelayedDebitCard extends React.Component {
   }
 }
 
+const DelayedDebitCard = translate()(DumbDelayedDebitCard)
+
 const DumbDelayedDebitSettingSection = props => {
-  const { t } = props
+  const { t } = useI18n()
   return (
     <SubSection
       title={t('Notifications.delayed_debit.settingTitle')}
@@ -162,7 +166,7 @@ const DumbDelayedDebitSettingSection = props => {
   )
 }
 
-const DelayedDebitSettingSection = translate()(DumbDelayedDebitSettingSection)
+const DelayedDebitSettingSection = DumbDelayedDebitSettingSection
 
 const withAccounts = queryConnect({
   accounts: accountsConn

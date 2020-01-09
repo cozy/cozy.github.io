@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { translate } from 'cozy-ui/react'
+import { useI18n } from 'cozy-ui/transpiled/react'
 import EditionModal from 'components/EditionModal'
 import { categoryBudgets } from '../specs'
 
@@ -11,31 +11,30 @@ import { categoryBudgets } from '../specs'
  * - Edit threshold for the alert
  * - Edit account/group for the alert
  */
-const CategoryAlertEditModal = translate()(
-  ({ initialDoc, onEdit, onDismiss, t }) => {
-    const modalTitle = categoryBudgets.modalTitle
-    const okButtonLabel = doc =>
-      doc.id !== undefined
-        ? t('Settings.budget-category-alerts.edit.update-ok')
-        : t('Settings.budget-category-alerts.edit.create-ok')
+const CategoryAlertEditModal = ({ initialDoc, onEdit, onDismiss }) => {
+  const { t } = useI18n()
+  const modalTitle = categoryBudgets.modalTitle
+  const okButtonLabel = doc =>
+    doc.id !== undefined
+      ? t('Settings.budget-category-alerts.edit.update-ok')
+      : t('Settings.budget-category-alerts.edit.create-ok')
 
-    const cancelButtonLabel = () =>
-      t('Settings.budget-category-alerts.edit.cancel')
-    return (
-      <EditionModal
-        initialDoc={initialDoc}
-        onEdit={onEdit}
-        fieldSpecs={categoryBudgets.fieldSpecs}
-        fieldOrder={categoryBudgets.fieldOrder}
-        fieldLabels={categoryBudgets.fieldLabels}
-        onDismiss={onDismiss}
-        okButtonLabel={okButtonLabel}
-        cancelButtonLabel={cancelButtonLabel}
-        modalTitle={modalTitle}
-      />
-    )
-  }
-)
+  const cancelButtonLabel = () =>
+    t('Settings.budget-category-alerts.edit.cancel')
+  return (
+    <EditionModal
+      initialDoc={initialDoc}
+      onEdit={onEdit}
+      fieldSpecs={categoryBudgets.fieldSpecs}
+      fieldOrder={categoryBudgets.fieldOrder}
+      fieldLabels={categoryBudgets.fieldLabels}
+      onDismiss={onDismiss}
+      okButtonLabel={okButtonLabel}
+      cancelButtonLabel={cancelButtonLabel}
+      modalTitle={modalTitle}
+    />
+  )
+}
 
 CategoryAlertEditModal.propTypes = {
   initialDoc: PropTypes.object.isRequired,

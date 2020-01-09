@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
-import { translate } from 'cozy-ui/react'
-import Button from 'cozy-ui/react/Button'
-import Icon from 'cozy-ui/react/Icon'
-import { withBreakpoints } from 'cozy-ui/react'
+import { translate, useI18n } from 'cozy-ui/transpiled/react'
+import Button from 'cozy-ui/transpiled/react/Button'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import { withBreakpoints } from 'cozy-ui/transpiled/react'
 import { groupBy, flowRight as compose, sortBy } from 'lodash'
 import Table from 'components/Table'
 import Loading from 'components/Loading'
@@ -32,50 +32,54 @@ import { accountsConn, APP_DOCTYPE } from 'doctypes'
 import AccountSharingStatus from 'components/AccountSharingStatus'
 
 // TODO react-router v4
-const _AccountLine = ({ account, router, t, breakpoints: { isMobile } }) => (
-  <tr
-    key={account.id}
-    onClick={() => router.push(`/settings/accounts/${account.id}`)}
-    className={styles.AcnsStg__accountRow}
-  >
-    <td className={styles.AcnsStg__libelle}>
-      <div className={styles.AcnsStg__libelleInner}>
-        <div>{account.shortLabel || account.label}</div>
-        {isMobile ? (
-          <>
-            <div className="u-ph-half">-</div>
-            <div>
-              {getAccountOwners(account)
-                .map(Contact.getDisplayName)
-                .join(' - ')}
-            </div>
-          </>
-        ) : null}
-      </div>
-    </td>
-    <td className={styles.AcnsStg__bank}>
-      {getAccountInstitutionLabel(account)}
-    </td>
-    <td className={styles.AcnsStg__number}>{account.number}</td>
-    <td className={styles.AcnsStg__type}>
-      {t(`Data.accountTypes.${getAccountType(account)}`, {
-        _: t('Data.accountTypes.Other')
-      })}
-    </td>
-    {flag('settings.show-accounts-owners') ? (
-      <td className={styles.AcnsStg__owner}>
-        {getAccountOwners(account)
-          .map(Contact.getDisplayName)
-          .join(' - ')}
+const _AccountLine = ({ account, router, breakpoints: { isMobile } }) => {
+  const { t } = useI18n()
+
+  return (
+    <tr
+      key={account.id}
+      onClick={() => router.push(`/settings/accounts/${account.id}`)}
+      className={styles.AcnsStg__accountRow}
+    >
+      <td className={styles.AcnsStg__libelle}>
+        <div className={styles.AcnsStg__libelleInner}>
+          <div>{account.shortLabel || account.label}</div>
+          {isMobile ? (
+            <>
+              <div className="u-ph-half">-</div>
+              <div>
+                {getAccountOwners(account)
+                  .map(Contact.getDisplayName)
+                  .join(' - ')}
+              </div>
+            </>
+          ) : null}
+        </div>
       </td>
-    ) : (
-      <td className={styles.AcnsStg__shared}>
-        <AccountSharingStatus withText account={account} />
+      <td className={styles.AcnsStg__bank}>
+        {getAccountInstitutionLabel(account)}
       </td>
-    )}
-    <td className={styles.AcnsStg__actions} />
-  </tr>
-)
+      <td className={styles.AcnsStg__number}>{account.number}</td>
+      <td className={styles.AcnsStg__type}>
+        {t(`Data.accountTypes.${getAccountType(account)}`, {
+          _: t('Data.accountTypes.Other')
+        })}
+      </td>
+      {flag('settings.show-accounts-owners') ? (
+        <td className={styles.AcnsStg__owner}>
+          {getAccountOwners(account)
+            .map(Contact.getDisplayName)
+            .join(' - ')}
+        </td>
+      ) : (
+        <td className={styles.AcnsStg__shared}>
+          <AccountSharingStatus withText account={account} />
+        </td>
+      )}
+      <td className={styles.AcnsStg__actions} />
+    </tr>
+  )
+}
 
 const AccountLine = compose(
   translate(),
@@ -87,7 +91,8 @@ const renderAccount = account => (
   <AccountLine account={account} key={account._id} />
 )
 
-const AccountsTable = ({ accounts, t }) => {
+const AccountsTable = ({ accounts }) => {
+  const { t } = useI18n()
   const showAccountsOwners = flag('settings.show-accounts-owners')
 
   return (

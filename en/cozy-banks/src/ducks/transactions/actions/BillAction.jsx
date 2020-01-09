@@ -2,15 +2,15 @@
 
 import React, { Component } from 'react'
 import { get, some } from 'lodash'
-import { translate } from 'cozy-ui/react'
-import ButtonAction from 'cozy-ui/react/ButtonAction'
+import { translate } from 'cozy-ui/transpiled/react'
+import ButtonAction from 'cozy-ui/transpiled/react/ButtonAction'
 import FileOpener from 'ducks/transactions/FileOpener'
 import icon from 'assets/icons/actions/icon-file.svg'
 import ActionLink from 'ducks/transactions/actions/ActionLink'
 import flag from 'cozy-flags'
 import styles from 'ducks/transactions/TransactionActions.styl'
 import TransactionModalRow from 'ducks/transactions/TransactionModalRow'
-import palette from 'cozy-ui/react/palette'
+import palette from 'cozy-ui/transpiled/react/palette'
 import { AugmentedModalButton, isAugmentedModalTransaction } from 'ducks/demo'
 
 const name = 'bill'

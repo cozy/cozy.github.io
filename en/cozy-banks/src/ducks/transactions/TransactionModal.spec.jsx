@@ -10,12 +10,12 @@ import AppLike from 'test/AppLike'
 import pretty from 'pretty'
 import { createClientWithData } from 'test/client'
 import { ACCOUNT_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
-import Alerter from 'cozy-ui/react/Alerter'
+import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import { format } from 'date-fns'
 import Polyglot from 'node-polyglot'
 import en from 'locales/en.json'
 
-jest.mock('cozy-ui/react/Alerter', () => ({
+jest.mock('cozy-ui/transpiled/react/Alerter', () => ({
   success: jest.fn()
 }))
 

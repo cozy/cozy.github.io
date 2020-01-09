@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 import { flowRight as compose } from 'lodash'
-import { translate, withBreakpoints } from 'cozy-ui/react'
-import Button from 'cozy-ui/react/Button'
+import { withBreakpoints, useI18n } from 'cozy-ui/transpiled/react'
+import Button from 'cozy-ui/transpiled/react/Button'
 import HeaderTitle from 'ducks/balance/components/HeaderTitle'
 import AddAccountLink from 'ducks/settings/AddAccountLink'
 import { Container, Content } from 'components/VerticalBox'
@@ -9,7 +9,8 @@ import BarTheme from 'ducks/bar/BarTheme'
 
 import styles from 'ducks/balance/components/NoAccount.styl'
 
-const NoAccount = ({ lang, t, breakpoints: { isMobile } }) => {
+const NoAccount = ({ lang, breakpoints: { isMobile } }) => {
+  const { t } = useI18n()
   const timelineImg = require(`./timeline_${isMobile ? 'mobile' : 'desktop'}_${
     lang === 'fr' ? 'fr' : 'en'
   }.svg`)
@@ -38,7 +39,6 @@ const NoAccount = ({ lang, t, breakpoints: { isMobile } }) => {
 }
 
 export default compose(
-  translate(),
   withBreakpoints(),
   memo
 )(NoAccount)

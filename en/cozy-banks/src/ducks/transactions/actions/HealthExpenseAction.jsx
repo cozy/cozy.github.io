@@ -1,18 +1,18 @@
 import React from 'react'
 // import { some } from 'lodash'
-import { translate } from 'cozy-ui/react'
+import { useI18n } from 'cozy-ui/transpiled/react'
 import icon from 'assets/icons/actions/icon-file.svg'
 import { BillComponent } from 'ducks/transactions/actions/BillAction'
 
 const name = 'healthExpenseBill'
 
 export const Component = ({
-  t,
   transaction,
   actionProps,
   compact,
   isModalItem
 }) => {
+  const { t } = useI18n()
   return (
     <span>
       {transaction.reimbursements.data.map((reimbursement, index) => {
@@ -47,7 +47,7 @@ const action = {
   // match: transaction =>
   //   some(transaction.reimbursements, reimbursement => reimbursement.bill),
   match: () => false, // We temporary need to hide these actions
-  Component: translate()(Component)
+  Component: Component
 }
 
 export default action

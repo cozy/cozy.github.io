@@ -1,5 +1,5 @@
 import React from 'react'
-import { withBreakpoints } from 'cozy-ui/react'
+import { withBreakpoints } from 'cozy-ui/transpiled/react'
 import Page from 'components/PageModal/Page'
 import { Modal } from 'cozy-ui/transpiled/react'
 

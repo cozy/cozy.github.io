@@ -1,12 +1,12 @@
 import React from 'react'
 import icon from 'assets/icons/actions/icon-link-out.svg'
-import ButtonAction from 'cozy-ui/react/ButtonAction'
-import Chip from 'cozy-ui/react/Chip'
-import Icon from 'cozy-ui/react/Icon'
+import ButtonAction from 'cozy-ui/transpiled/react/ButtonAction'
+import Chip from 'cozy-ui/transpiled/react/Chip'
+import Icon from 'cozy-ui/transpiled/react/Icon'
 import flag from 'cozy-flags'
 import styles from 'ducks/transactions/TransactionActions.styl'
 import TransactionModalRow from 'ducks/transactions/TransactionModalRow'
-import palette from 'cozy-ui/react/palette'
+import palette from 'cozy-ui/transpiled/react/palette'
 
 const name = 'url'
 

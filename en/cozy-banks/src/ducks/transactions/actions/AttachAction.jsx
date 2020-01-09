@@ -1,11 +1,12 @@
 import React from 'react'
-import { translate } from 'cozy-ui/react'
+import { useI18n } from 'cozy-ui/transpiled/react'
 import icon from 'assets/icons/actions/icon-link.svg'
 import TransactionModalRow from 'ducks/transactions/TransactionModalRow'
 
 const name = 'attach'
 
-const Component = ({ t }) => {
+const Component = () => {
+  const { t } = useI18n()
   return (
     <TransactionModalRow iconLeft={icon} disabled>
       {t('Transactions.actions.attach')}
@@ -18,7 +19,7 @@ const action = {
   icon,
   disabled: true,
   match: () => false,
-  Component: translate()(Component)
+  Component: Component
 }
 
 export default action
