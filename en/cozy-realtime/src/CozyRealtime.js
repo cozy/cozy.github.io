@@ -2,7 +2,8 @@ import MicroEE from 'microee'
 import Socket from './Socket'
 import minilog_ from 'minilog'
 
-const minilog = (typeof window !== undefined && window.minilog) || minilog_
+const inBrowser = typeof window !== 'undefined'
+const minilog = (inBrowser && window.minilog) || minilog_
 const logger = minilog('cozy-realtime')
 minilog.suggest.deny('cozy-realtime', 'info')
 
@@ -36,15 +37,17 @@ const getHandlerAndId = (handlerOrId, handlerOrUndefined) => {
   return { id, handler }
 }
 
+const VALID_EVENTS = ['created', 'updated', 'deleted', 'notified']
+
 const validateParameters = (eventName, type, id, handler) => {
   let msg
 
-  if (!['created', 'updated', 'deleted'].includes(eventName)) {
+  if (!VALID_EVENTS.includes(eventName)) {
     msg = `'${eventName}' is not a valid event, valid events are 'created', 'updated' or 'deleted'.`
   }
 
   if (typeof type !== 'string') {
-    msg = `'${type}' is not a valide type, it should be a string.`
+    msg = `'${type}' is not a valid type, it should be a string.`
   }
 
   if (id && eventName === 'created') {
@@ -161,7 +164,7 @@ class CozyRealtime {
     this._cozyClient.on('tokenRefreshed', this._updateAuthentication)
     this._cozyClient.on('logout', this.unsubscribeAll)
 
-    if (global) {
+    if (inBrowser) {
       global.addEventListener('beforeunload', this._beforeUnload)
       global.addEventListener('online', this._resubscribe)
       global.removeEventListener('offline', this._resetSocket)
@@ -317,7 +320,7 @@ class CozyRealtime {
   }
 
   /**
-   * Unsubscibe all handlers and close socket
+   * Unsubscribe all handlers and close socket
    */
   unsubscribeAll() {
     this._getEventKeys()
@@ -326,6 +329,16 @@ class CozyRealtime {
       .forEach(key => (this._events[key] = []))
 
     this._resetSocket()
+  }
+
+  async send(doctype, id, data) {
+    return this._cozyClient.stackClient.fetchJSON(
+      'POST',
+      `/realtime/${doctype}/${id}`,
+      {
+        data
+      }
+    )
   }
 
   _getEventKeys() {

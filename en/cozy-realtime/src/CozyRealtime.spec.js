@@ -9,14 +9,17 @@ import MicroEE from 'microee'
 const COZY_URL = 'http://cozy.tools:8888'
 const WS_URL = 'ws://cozy.tools:8888/realtime/'
 const COZY_TOKEN = 'zvNpzsHILcXpnDBlUfmAqVuEEuyWvPYn'
+
 class CozyClient {
   stackClient = {
     uri: COZY_URL,
     token: {
       token: COZY_TOKEN
-    }
+    },
+    fetchJSON: jest.fn()
   }
 }
+
 MicroEE.mixin(CozyClient)
 const cozyClient = new CozyClient()
 const pause = time => new Promise(resolve => setTimeout(resolve, time))
@@ -289,5 +292,21 @@ describe('getWebSocketToken', () => {
     expect(getWebSocketToken(fakeCozyClient)).toBe(COZY_TOKEN)
     fakeCozyClient.stackClient.token.accessToken = 'token2'
     expect(getWebSocketToken(fakeCozyClient)).toBe('token2')
+  })
+})
+
+describe('send', () => {
+  beforeEach(() => {
+    cozyClient.stackClient.fetchJSON.mockReset()
+  })
+
+  it('should send a message', async () => {
+    const realtime = new CozyRealtime({ client: cozyClient })
+    await realtime.send('io.cozy.doctype', 'my-id', { message: 'hello' })
+    expect(cozyClient.stackClient.fetchJSON).toHaveBeenCalledWith(
+      'POST',
+      '/realtime/io.cozy.doctype/my-id',
+      { data: { message: 'hello' } }
+    )
   })
 })
