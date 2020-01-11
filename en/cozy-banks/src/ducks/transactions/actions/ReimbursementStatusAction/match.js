@@ -1,4 +1,3 @@
-import flag from 'cozy-flags'
 import { isExpense } from 'ducks/transactions/helpers'
 
 const match = transaction => {
@@ -8,7 +7,7 @@ const match = transaction => {
   // chip if a reimbursement is expected/reimbursed. At the moment, matching is done for
   // both purposes (transaction modal and transaction list), it might make sense to decouple
   // the "transaction list matching" from the "modal row matching".
-  return isExpense(transaction) && flag('reimbursements.tag')
+  return isExpense(transaction)
 }
 
 export default match

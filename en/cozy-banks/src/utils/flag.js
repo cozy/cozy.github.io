@@ -46,9 +46,6 @@ if (isDemoCozy()) {
   flag('demo', true)
 }
 
-// Turn on reimbursement tags + new CTAs UI
-flag('reimbursements.tag', true)
-
 // Turn on error banner on transactions page
 flag('transactions.error-banner', true)
 

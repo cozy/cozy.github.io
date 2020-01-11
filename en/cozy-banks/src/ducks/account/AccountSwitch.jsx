@@ -119,11 +119,9 @@ const getFilteringDocLabel = (filteringDoc, t, accounts) => {
   }
 }
 
-// t is passed from above and not through translate() since AccountSwitchSelect can be
+// t is passed from above and not through useI18n() since AccountSwitchSelect can be
 // rendered in the Bar and in this case it has a different context
-const AccountSwitchSelect = ({ accounts, filteringDoc, onClick, color }) => {
-  const { t } = useI18n()
-
+const AccountSwitchSelect = ({ accounts, filteringDoc, onClick, color, t }) => {
   return (
     <div
       className={cx(
@@ -149,7 +147,8 @@ const AccountSwitchSelect = ({ accounts, filteringDoc, onClick, color }) => {
 }
 
 AccountSwitchSelect.propTypes = {
-  color: PropTypes.oneOf(['default', 'primary'])
+  color: PropTypes.oneOf(['default', 'primary']),
+  t: PropTypes.func.isRequired
 }
 
 AccountSwitchSelect.defaultProps = {

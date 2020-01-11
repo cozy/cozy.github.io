@@ -19,6 +19,7 @@ import TransactionActionsProvider from 'ducks/transactions/TransactionActionsPro
 import withBrands from 'ducks/brandDictionary/withBrands'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { getGroupedHealthExpensesByPeriod } from './selectors'
+import { getPeriod, parsePeriod } from 'ducks/filters'
 
 const Caption = props => {
   const { className, ...rest } = props
@@ -35,9 +36,11 @@ export class DumbHealthReimbursements extends Component {
     const {
       groupedHealthExpenses,
       t,
+      f,
       triggers,
       transactions,
-      brands
+      brands,
+      currentPeriod
     } = this.props
 
     if (
@@ -56,6 +59,11 @@ export class DumbHealthReimbursements extends Component {
 
     const hasHealthBrands =
       brands.filter(brand => brand.hasTrigger && brand.health).length > 0
+
+    const formattedPeriod = f(
+      parsePeriod(currentPeriod),
+      currentPeriod.length === 4 ? 'YYYY' : 'MMMM YYYY'
+    )
 
     return (
       <TransactionActionsProvider>
@@ -80,7 +88,9 @@ export class DumbHealthReimbursements extends Component {
             />
           ) : (
             <Padded className="u-pv-0">
-              <Caption>{t('Reimbursements.noAwaiting')}</Caption>
+              <Caption>
+                {t('Reimbursements.noAwaiting', { period: formattedPeriod })}
+              </Caption>
             </Padded>
           )}
         </Section>
@@ -93,7 +103,9 @@ export class DumbHealthReimbursements extends Component {
             />
           ) : (
             <Padded className="u-pv-0">
-              <Caption>{t('Reimbursements.noReimbursed')}</Caption>
+              <Caption>
+                {t('Reimbursements.noReimbursed', { period: formattedPeriod })}
+              </Caption>
               {!hasHealthBrands && (
                 <StoreLink type="konnector" category="insurance">
                   <KonnectorChip konnectorType="health" />
@@ -109,7 +121,8 @@ export class DumbHealthReimbursements extends Component {
 
 function mapStateToProps(state) {
   return {
-    groupedHealthExpenses: getGroupedHealthExpensesByPeriod(state)
+    groupedHealthExpenses: getGroupedHealthExpensesByPeriod(state),
+    currentPeriod: getPeriod(state)
   }
 }
 

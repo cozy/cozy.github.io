@@ -22,6 +22,15 @@ const log = logger.namespace('filters')
 const FILTER_BY_PERIOD = 'FILTER_BY_PERIOD'
 const FILTER_BY_DOC = 'FILTER_BY_DOC'
 const RESET_FILTER_BY_DOC = 'RESET_FILTER_BY_DOC'
+const FILTER_YEAR_MONTH_FORMAT = 'YYYY-MM'
+const FILTER_YEAR_FORMAT = 'YYYY'
+
+export const parsePeriod = filter => {
+  return parse(
+    filter,
+    filter.length === 4 ? FILTER_YEAR_FORMAT : FILTER_YEAR_MONTH_FORMAT
+  )
+}
 
 // selectors
 export const getPeriod = state => state.filters && state.filters.period

@@ -13,7 +13,7 @@ import {
   hasPendingReimbursement
 } from 'ducks/transactions/helpers'
 import { isHealthExpense } from 'ducks/categories/helpers'
-import { differenceInCalendarDays, isThisYear } from 'date-fns'
+import { differenceInCalendarDays, isAfter, subMonths } from 'date-fns'
 import flag from 'cozy-flags'
 import { BankAccount } from 'cozy-doctypes'
 import { ACCOUNT_DOCTYPE, CONTACT_DOCTYPE } from 'doctypes'
@@ -134,15 +134,20 @@ export const getAccountUpdatedAt = account => {
   }
 }
 
+const isWithin6Months = () => {
+  const SIX_MONTHS_AGO = subMonths(new Date(), 6)
+  return date => isAfter(date, SIX_MONTHS_AGO)
+}
+
 export const buildHealthReimbursementsVirtualAccount = transactions => {
   const healthExpensesFilter = overEvery(
     [
       isHealthExpense,
       compose(
-        isThisYear,
+        isWithin6Months(),
         getDate
       ),
-      flag('reimbursements.tag') && hasPendingReimbursement
+      hasPendingReimbursement
     ].filter(Boolean)
   )
 

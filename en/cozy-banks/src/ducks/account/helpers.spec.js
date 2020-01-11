@@ -107,7 +107,7 @@ describe('buildHealthReimbursementsVirtualAccount', () => {
       { manualCategoryId: '400610', amount: -10, date: '2018-01-02' },
       { manualCategoryId: '400470', amount: 10 }
     ]
-    MockDate.set(new Date('2019-07-08T00:00:00.000Z'))
+    MockDate.set(new Date('2019-04-08T00:00:00.000Z'))
   })
 
   afterEach(() => {
