@@ -1,11 +1,16 @@
 import React from 'react'
 
+const redAffixStyle = {
+  color: 'white',
+  background: 'crimson',
+  borderRadius: 4,
+  position: 'fixed',
+  top: 0,
+  zIndex: 100000
+}
+
 export const RedAffix = props => {
-  return (
-    <div style={{ background: 'red', position: 'fixed', top: 0, zIndex: 1000 }}>
-      {props.children}
-    </div>
-  )
+  return <div style={redAffixStyle}>{props.children}</div>
 }
 
 export class Timeout extends React.Component {
@@ -28,7 +33,8 @@ export class Timeout extends React.Component {
 
   render() {
     const { duration, start } = this.props
-    return <span>{duration - (Date.now() - start)}</span>
+    const delta = ((duration - (Date.now() - start)) / 1000).toFixed(0)
+    return <span>{delta}s</span>
   }
 }
 

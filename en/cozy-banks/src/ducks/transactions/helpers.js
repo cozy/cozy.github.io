@@ -178,7 +178,7 @@ export const getHealthExpenseReimbursementStatus = transaction => {
     return transaction.reimbursementStatus
   }
 
-  return isFullyReimbursed(transaction)
+  return hasReimbursements(transaction)
     ? REIMBURSEMENTS_STATUS.reimbursed
     : REIMBURSEMENTS_STATUS.pending
 }

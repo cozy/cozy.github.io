@@ -1249,8 +1249,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#new-querydefinitiondoctype-id-ids-selector-fields-indexedfields-sort-includes-referenced-limit-skip" title="new QueryDefinition(doctype, id, ids, selector, fields, indexedFields, sort, includes, referenced, limit, skip)" class="md-nav__link">
-    new QueryDefinition(doctype, id, ids, selector, fields, indexedFields, sort, includes, referenced, limit, skip)
+  <a href="#new-querydefinitiondoctype-id-ids-selector-fields-indexedfields-sort-includes-referenced-limit-skip-cursor-bookmark" title="new QueryDefinition(doctype, id, ids, selector, fields, indexedFields, sort, includes, referenced, limit, skip, cursor, bookmark)" class="md-nav__link">
+    new QueryDefinition(doctype, id, ids, selector, fields, indexedFields, sort, includes, referenced, limit, skip, cursor, bookmark)
   </a>
   
 </li>
@@ -1321,6 +1321,13 @@
           <li class="md-nav__item">
   <a href="#querydefinitionoffsetcursorcursor-querydefinition" title="queryDefinition.offsetCursor(cursor) ⇒ QueryDefinition" class="md-nav__link">
     queryDefinition.offsetCursor(cursor) ⇒ QueryDefinition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#querydefinitionoffsetbookmarkbookmark-querydefinition" title="queryDefinition.offsetBookmark(bookmark) ⇒ QueryDefinition" class="md-nav__link">
+    queryDefinition.offsetBookmark(bookmark) ⇒ QueryDefinition
   </a>
   
 </li>
@@ -3655,8 +3662,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#new-querydefinitiondoctype-id-ids-selector-fields-indexedfields-sort-includes-referenced-limit-skip" title="new QueryDefinition(doctype, id, ids, selector, fields, indexedFields, sort, includes, referenced, limit, skip)" class="md-nav__link">
-    new QueryDefinition(doctype, id, ids, selector, fields, indexedFields, sort, includes, referenced, limit, skip)
+  <a href="#new-querydefinitiondoctype-id-ids-selector-fields-indexedfields-sort-includes-referenced-limit-skip-cursor-bookmark" title="new QueryDefinition(doctype, id, ids, selector, fields, indexedFields, sort, includes, referenced, limit, skip, cursor, bookmark)" class="md-nav__link">
+    new QueryDefinition(doctype, id, ids, selector, fields, indexedFields, sort, includes, referenced, limit, skip, cursor, bookmark)
   </a>
   
 </li>
@@ -3727,6 +3734,13 @@
           <li class="md-nav__item">
   <a href="#querydefinitionoffsetcursorcursor-querydefinition" title="queryDefinition.offsetCursor(cursor) ⇒ QueryDefinition" class="md-nav__link">
     queryDefinition.offsetCursor(cursor) ⇒ QueryDefinition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#querydefinitionoffsetbookmarkbookmark-querydefinition" title="queryDefinition.offsetBookmark(bookmark) ⇒ QueryDefinition" class="md-nav__link">
+    queryDefinition.offsetBookmark(bookmark) ⇒ QueryDefinition
   </a>
   
 </li>
@@ -5299,7 +5313,7 @@ from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
 <p><strong>Kind</strong>: global class  </p>
 <ul>
 <li><a href="#QueryDefinition">QueryDefinition</a><ul>
-<li><a href="#new_QueryDefinition_new">new QueryDefinition(doctype, id, ids, selector, fields, indexedFields, sort, includes, referenced, limit, skip)</a></li>
+<li><a href="#new_QueryDefinition_new">new QueryDefinition(doctype, id, ids, selector, fields, indexedFields, sort, includes, referenced, limit, skip, cursor, bookmark)</a></li>
 <li><a href="#QueryDefinition+getById">.getById(id)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
 <li><a href="#QueryDefinition+getByIds">.getByIds(ids)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
 <li><a href="#QueryDefinition+where">.where(selector)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
@@ -5310,12 +5324,13 @@ from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
 <li><a href="#QueryDefinition+limitBy">.limitBy(limit)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
 <li><a href="#QueryDefinition+offset">.offset(skip)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
 <li><a href="#QueryDefinition+offsetCursor">.offsetCursor(cursor)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
+<li><a href="#QueryDefinition+offsetBookmark">.offsetBookmark(bookmark)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
 <li><a href="#QueryDefinition+referencedBy">.referencedBy(document)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
 </ul>
 </li>
 </ul>
 <p><a name="new_QueryDefinition_new"></a></p>
-<h3 id="new-querydefinitiondoctype-id-ids-selector-fields-indexedfields-sort-includes-referenced-limit-skip">new QueryDefinition(doctype, id, ids, selector, fields, indexedFields, sort, includes, referenced, limit, skip)<a class="headerlink" href="#new-querydefinitiondoctype-id-ids-selector-fields-indexedfields-sort-includes-referenced-limit-skip" title="Permanent link">&para;</a></h3>
+<h3 id="new-querydefinitiondoctype-id-ids-selector-fields-indexedfields-sort-includes-referenced-limit-skip-cursor-bookmark">new QueryDefinition(doctype, id, ids, selector, fields, indexedFields, sort, includes, referenced, limit, skip, cursor, bookmark)<a class="headerlink" href="#new-querydefinitiondoctype-id-ids-selector-fields-indexedfields-sort-includes-referenced-limit-skip-cursor-bookmark" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -5379,6 +5394,16 @@ from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
 <td>skip</td>
 <td><code>number</code></td>
 <td>The number of docs to skip.</td>
+</tr>
+<tr>
+<td>cursor</td>
+<td><code>number</code></td>
+<td>The cursor to paginate views.</td>
+</tr>
+<tr>
+<td>bookmark</td>
+<td><code>number</code></td>
+<td>The bookmark to paginate mango queries.</td>
 </tr>
 </tbody>
 </table>
@@ -5598,6 +5623,30 @@ Use the last docid of each query as startkey_docid to paginate or leave blank fo
 <td>cursor</td>
 <td><code>Array</code></td>
 <td>The cursor for pagination.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="QueryDefinition+offsetBookmark"></a></p>
+<h3 id="querydefinitionoffsetbookmarkbookmark-querydefinition">queryDefinition.offsetBookmark(bookmark) ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a><a class="headerlink" href="#querydefinitionoffsetbookmarkbookmark-querydefinition" title="Permanent link">&para;</a></h3>
+<p>Use <a href="https://docs.couchdb.org/en/2.2.0/api/database/find.html#pagination">bookmark</a> pagination.
+Note this only applies for mango-queries (not views) and is way more efficient than skip pagination.
+The bookmark is a string returned by the _find response and can be seen as a pointer in
+the index for the next query.</p>
+<p><strong>Kind</strong>: instance method of <a href="#QueryDefinition"><code>QueryDefinition</code></a><br />
+<strong>Returns</strong>: <a href="#QueryDefinition"><code>QueryDefinition</code></a> - The QueryDefinition object.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bookmark</td>
+<td><code>string</code></td>
+<td>The bookmark to continue a previous paginated query.</td>
 </tr>
 </tbody>
 </table>

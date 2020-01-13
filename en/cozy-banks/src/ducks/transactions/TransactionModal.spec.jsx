@@ -1,8 +1,7 @@
 /* global mount */
 
 import React from 'react'
-import {
-  DumbTransactionModal as TransactionModal,
+import TransactionModal, {
   showAlertAfterApplicationDateUpdate
 } from './TransactionModal'
 import data from '../../../test/fixtures'

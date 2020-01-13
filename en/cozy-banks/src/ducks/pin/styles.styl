@@ -2,7 +2,7 @@
 
 .Pin__button
     size=4.5rem
-    margin .5rem
+    margin .5rem .75rem
     width size
     height size
 
@@ -50,18 +50,22 @@
     max-width 500px
     height 100%
 
-.PinKeyboard__top
-  flex-grow 1
+.PinKeyboard__top, .PinKeyboard__bottom
   align-items center
   justify-content center
   display flex
   flex-direction column
 
+.PinKeyboard__top
+  flex-grow 1
+
+.PinKeyboard__bottom
+  flex-grow 2
+
 .PinKeyboard__topMessage
     font-weight bold
 
 .PinKeyboard__keyboard
-    flex-grow 0
     display grid
     grid-template-columns repeat(3, 1fr)
     margin auto

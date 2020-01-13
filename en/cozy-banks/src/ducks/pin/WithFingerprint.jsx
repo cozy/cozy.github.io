@@ -6,6 +6,7 @@ class WithFingerprint extends React.PureComponent {
     super(props)
     this.state = {}
     this.showFingerprintAuth = this.showFingerprintAuth.bind(this)
+    this.handleError = this.handleError.bind(this)
   }
 
   componentDidMount() {

@@ -244,25 +244,24 @@ const Transactions = compose(
   translate()
 )(TransactionsDumb)
 
-export class TransactionsWithSelection extends React.Component {
-  static defaultProps = {
-    withScroll: true
-  }
+export const TransactionsWithSelection = ({
+  withScroll,
+  className,
+  ...rest
+}) => (
+  <div
+    className={cx(
+      {
+        [styles.ScrollingElement]: withScroll
+      },
+      'js-scrolling-element',
+      className
+    )}
+  >
+    <Transactions {...rest} />
+  </div>
+)
 
-  render() {
-    const { withScroll, className, ...rest } = this.props
-    return (
-      <div
-        className={cx(
-          {
-            [styles.ScrollingElement]: withScroll
-          },
-          'js-scrolling-element',
-          className
-        )}
-      >
-        <Transactions selectTransaction={this.selectTransaction} {...rest} />
-      </div>
-    )
-  }
+TransactionsWithSelection.defaultProps = {
+  withScroll: true
 }

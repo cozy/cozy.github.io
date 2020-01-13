@@ -42,11 +42,25 @@ const ignoredWarnings = {
   }
 }
 
+const callAndThrow = (fn, errorMessage) => {
+  return function() {
+    fn.apply(this, arguments)
+    throw new Error(errorMessage)
+  }
+}
+
 // Ignore warnings that we think are not problematic, see
 // https://github.com/cozy/cozy-ui/issues/1318
 // eslint-disable-next-line no-console
 console.warn = ignoreOnConditions(
   // eslint-disable-next-line no-console
-  console.warn,
+  callAndThrow(console.warn, 'console.warn should not be called during tests'),
   Object.values(ignoredWarnings).map(x => x.matcher)
+)
+
+// eslint-disable-next-line no-console
+console.error = callAndThrow(
+  // eslint-disable-next-line no-console
+  console.error,
+  'console.error should not be called during tests'
 )

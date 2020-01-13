@@ -4,7 +4,6 @@
 
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { flowRight as compose } from 'lodash'
 import cx from 'classnames'
 
 import {
@@ -299,29 +298,25 @@ const TransactionModalInfo = withBreakpoints()(
   )
 )
 
-const TransactionModal = ({ requestClose, ...props }) => (
-  <PageModal
-    aria-label={props.t('Transactions.infos.modal-label')}
-    dismissAction={requestClose}
-    into="body"
-    overflowHidden
-  >
-    <ModalStack>
-      <TransactionModalInfo {...props} requestClose={requestClose} />
-    </ModalStack>
-  </PageModal>
-)
+const TransactionModal = ({ requestClose, ...props }) => {
+  const { t } = useI18n()
+  return (
+    <PageModal
+      aria-label={t('Transactions.infos.modal-label')}
+      dismissAction={requestClose}
+      into="body"
+      overflowHidden
+    >
+      <ModalStack>
+        <TransactionModalInfo {...props} requestClose={requestClose} />
+      </ModalStack>
+    </PageModal>
+  )
+}
 
 TransactionModal.propTypes = {
   requestClose: PropTypes.func.isRequired,
   transactionId: PropTypes.string.isRequired
 }
 
-const DumbTransactionModal = compose(
-  translate(),
-  withBreakpoints()
-)(TransactionModal)
-
-export default DumbTransactionModal
-
-export { DumbTransactionModal }
+export default TransactionModal

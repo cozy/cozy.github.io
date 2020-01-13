@@ -1,6 +1,6 @@
 import { mount } from 'enzyme'
 import React from 'react'
-import { TestI18n } from 'test/AppLike'
+import AppLike from 'test/AppLike'
 import { RowMobile as TransactionRowMobile } from './TransactionRow'
 
 describe('TransactionRow', () => {
@@ -21,9 +21,9 @@ describe('TransactionRow', () => {
       ...transactionAttributes
     }
     const root = mount(
-      <TestI18n>
+      <AppLike>
         <TransactionRowMobile transaction={transaction} />
-      </TestI18n>
+      </AppLike>
     )
     return { root }
   }

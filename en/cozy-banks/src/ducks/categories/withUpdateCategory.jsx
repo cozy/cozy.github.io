@@ -15,6 +15,7 @@ export default () => Wrapped => props => {
       <Wrapped {...props} showCategoryChoice={handleShow} />
       {modalOpened ? (
         <TransactionCategoryEditor
+          modal={true}
           beforeUpdate={hide}
           onCancel={hide}
           transaction={props.transaction}

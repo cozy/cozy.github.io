@@ -11,14 +11,18 @@ export const DEFAULTS_SETTINGS = {
   },
   notifications: {
     lastSeq: 0,
-    balanceLower: {
-      value: 100,
-      enabled: false
-    },
-    transactionGreater: {
-      value: 600,
-      enabled: true
-    },
+    balanceLower: [
+      {
+        value: 100,
+        enabled: false
+      }
+    ],
+    transactionGreater: [
+      {
+        value: 600,
+        enabled: true
+      }
+    ],
     healthBillLinked: {
       enabled: true
     },
@@ -26,10 +30,12 @@ export const DEFAULTS_SETTINGS = {
       value: 30,
       enabled: false
     },
-    delayedDebit: {
-      enabled: false,
-      value: 2
-    },
+    delayedDebit: [
+      {
+        enabled: false,
+        value: 2
+      }
+    ],
     salaire: {
       enabled: false
     },

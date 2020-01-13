@@ -8,7 +8,14 @@ import { withClient } from 'cozy-client'
  * Edits a transaction's category through CategoryChoice
  */
 const TransactionCategoryEditor = withClient(props => {
-  const { client, transaction, beforeUpdate, afterUpdate, onCancel } = props
+  const {
+    client,
+    transaction,
+    beforeUpdate,
+    afterUpdate,
+    onCancel,
+    modal
+  } = props
 
   const handleSelect = async category => {
     if (beforeUpdate) {
@@ -30,12 +37,16 @@ const TransactionCategoryEditor = withClient(props => {
 
   return (
     <CategoryChoice
-      modal={false}
+      modal={modal}
       categoryId={getCategoryId(transaction)}
       onSelect={handleSelect}
       onCancel={handleCancel}
     />
   )
 })
+
+TransactionCategoryEditor.defaultProps = {
+  modal: false
+}
 
 export default TransactionCategoryEditor

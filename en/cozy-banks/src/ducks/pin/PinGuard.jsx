@@ -50,11 +50,16 @@ class PinGuard extends React.Component {
     this.stopTimeout()
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.pinSetting.data !== prevProps.pinSetting.data) {
+  checkToUpdateLocalPinDoc(prevPinSetting) {
+    const { pinSetting } = this.props
+    if (pinSetting.data !== prevPinSetting.data) {
       this.restartTimeout()
-      pinSettingStorage.save(this.props.pinSetting.data)
+      pinSettingStorage.save(pinSetting.data)
     }
+  }
+
+  componentDidUpdate(prevProps) {
+    this.checkToUpdateLocalPinDoc(prevProps.pinSetting)
   }
 
   isTooLate(lastInteractionTimestamp) {

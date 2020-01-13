@@ -118,23 +118,27 @@ class PinKeyboard extends React.PureComponent {
             {bottomMessage}
           </div>
         </div>
-        <div className={styles.PinKeyboard__keyboard}>
-          {range(1, 10).map(n => (
-            <PinButton
-              onClick={this.handleClickNumber.bind(null, n.toString())}
-              key={n}
-            >
-              {n}
-              <div className={styles['Pin__letters']}>{lettersToNumber[n]}</div>
+        <div className={styles.PinKeyboard__bottom}>
+          <div className={styles.PinKeyboard__keyboard}>
+            {range(1, 10).map(n => (
+              <PinButton
+                onClick={this.handleClickNumber.bind(null, n.toString())}
+                key={n}
+              >
+                {n}
+                <div className={styles['Pin__letters']}>
+                  {lettersToNumber[n]}
+                </div>
+              </PinButton>
+            ))}
+            {this.props.leftButton || <PinButton style={invisible} />}
+            <PinButton onClick={this.handleClickNumber.bind(null, '0')}>
+              0
             </PinButton>
-          ))}
-          {this.props.leftButton || <PinButton style={invisible} />}
-          <PinButton onClick={this.handleClickNumber.bind(null, '0')}>
-            0
-          </PinButton>
-          <PinButton isText onClick={this.handleRemoveCharacter}>
-            <Icon size="3rem" icon={backText} />
-          </PinButton>
+            <PinButton isText onClick={this.handleRemoveCharacter}>
+              <Icon size="3rem" icon={backText} />
+            </PinButton>
+          </div>
         </div>
       </div>
     )

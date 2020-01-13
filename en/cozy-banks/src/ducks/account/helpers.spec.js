@@ -126,13 +126,17 @@ describe('buildHealthReimbursementsVirtualAccount', () => {
   })
 
   it('should take reimbursements into account', () => {
-    transactions[0].reimbursements = {
-      data: [{ amount: 5 }]
-    }
+    const virtualAccount = buildHealthReimbursementsVirtualAccount([
+      {
+        ...transactions[0],
+        reimbursements: {
+          data: [{ amount: 5 }]
+        }
+      },
+      ...transactions.slice(1)
+    ])
 
-    const virtualAccount = buildHealthReimbursementsVirtualAccount(transactions)
-
-    expect(virtualAccount.balance).toBe(35)
+    expect(virtualAccount.balance).toBe(30)
   })
 
   it('should return a well formed account', () => {
