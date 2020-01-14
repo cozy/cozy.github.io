@@ -1,7 +1,7 @@
 /* global __DEV__ */
 
 import React, { Component } from 'react'
-import { get, some } from 'lodash'
+import { get } from 'lodash'
 import { translate } from 'cozy-ui/transpiled/react'
 import ButtonAction from 'cozy-ui/transpiled/react/ButtonAction'
 import FileOpener from 'ducks/transactions/FileOpener'
@@ -134,24 +134,7 @@ export class BillComponent extends Component {
 const action = {
   name,
   icon,
-  match: async (transaction, actionProps) => {
-    if (flag('reimbursements.tag')) {
-      return false
-    }
-
-    const bill = getBill(transaction, actionProps)
-    if (bill && bill._id) {
-      return !some(transaction.reimbursements, reimbursement => {
-        try {
-          if (reimbursement.billId) {
-            const [, billId] = reimbursement.billId.split(':')
-            return billId === bill._id
-          }
-          // eslint-disable-next-line no-empty
-        } catch (e) {}
-        return false
-      })
-    }
+  match: async () => {
     return false
   },
   Component: translate()(BillComponent)

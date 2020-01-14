@@ -199,9 +199,7 @@ class _RowMobile extends React.PureComponent {
       rowRest.id = transaction._id
     }
 
-    if (flag('reimbursements.tag')) {
-      rowRest.className = cx(styles.TransactionRowMobile)
-    }
+    rowRest.className = cx(styles.TransactionRowMobile)
 
     const applicationDate = getApplicationDate(transaction)
 
@@ -236,18 +234,9 @@ class _RowMobile extends React.PureComponent {
               signed
             />
           </Img>
-          {!flag('reimbursements.tag') && (
-            <Img className={styles['bnk-transaction-mobile-action']}>
-              <TransactionActions
-                transaction={transaction}
-                onlyDefault
-                compact
-                menuPosition="right"
-              />
-            </Img>
-          )}
+          {false}
         </Media>
-        {flag('reimbursements.tag') && (
+        {
           <TransactionActions
             transaction={transaction}
             onlyDefault
@@ -259,7 +248,7 @@ class _RowMobile extends React.PureComponent {
               styles.TransactionRowMobile__actions
             )}
           />
-        )}
+        }
       </List.Row>
     )
   }

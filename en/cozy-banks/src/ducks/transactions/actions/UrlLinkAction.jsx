@@ -1,17 +1,14 @@
 import React from 'react'
 import icon from 'assets/icons/actions/icon-link-out.svg'
-import ButtonAction from 'cozy-ui/transpiled/react/ButtonAction'
 import Chip from 'cozy-ui/transpiled/react/Chip'
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import flag from 'cozy-flags'
-import styles from 'ducks/transactions/TransactionActions.styl'
 import TransactionModalRow from 'ducks/transactions/TransactionModalRow'
 import palette from 'cozy-ui/transpiled/react/palette'
 
 const name = 'url'
 
 const transactionModalRowStyle = { color: palette.dodgerBlue }
-const Component = ({ transaction, compact, isModalItem }) => {
+const Component = ({ transaction, isModalItem }) => {
   const action = transaction.action
 
   if (isModalItem) {
@@ -26,7 +23,7 @@ const Component = ({ transaction, compact, isModalItem }) => {
     )
   }
 
-  return flag('reimbursements.tag') ? (
+  return (
     <Chip
       size="small"
       variant="outlined"
@@ -36,14 +33,6 @@ const Component = ({ transaction, compact, isModalItem }) => {
       <Chip.Separator />
       <Icon icon="openwith" />
     </Chip>
-  ) : (
-    <ButtonAction
-      onClick={() => open(action.url, action.target)}
-      label={action.trad}
-      rightIcon="openwith"
-      compact={compact}
-      className={styles.TransactionActionButton}
-    />
   )
 }
 

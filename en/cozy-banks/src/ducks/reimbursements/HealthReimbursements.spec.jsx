@@ -85,7 +85,9 @@ describe('HealthReimbursements', () => {
       },
       mount: true
     })
-    expect(root.text()).toContain('No awaiting reimbursement in January 2020.')
+    expect(root.text()).toContain(
+      'No awaiting reimbursement for expenses in January 2020.'
+    )
   })
 
   it('should show the reimbursed transactions', () => {

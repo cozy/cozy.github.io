@@ -1,12 +1,9 @@
 import React from 'react'
 import { capitalize, findKey, omit } from 'lodash'
 import { useI18n } from 'cozy-ui/transpiled/react'
-import ButtonAction from 'cozy-ui/transpiled/react/ButtonAction'
 import Chip from 'cozy-ui/transpiled/react/Chip'
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import flag from 'cozy-flags'
 import icon from 'assets/icons/actions/icon-link-out.svg'
-import styles from 'ducks/transactions/TransactionActions.styl'
 import TransactionModalRow from 'ducks/transactions/TransactionModalRow'
 import palette from 'cozy-ui/transpiled/react/palette'
 
@@ -27,12 +24,7 @@ const beautify = appName => {
 }
 
 const transactionModalRowStyle = { color: palette.dodgerBlue }
-const Component = ({
-  transaction,
-  actionProps: { urls },
-  compact,
-  isModalItem
-}) => {
+const Component = ({ transaction, actionProps: { urls }, isModalItem }) => {
   const { t } = useI18n()
   const appName = getAppName(urls, transaction)
   const label = t(`Transactions.actions.${name}`, {
@@ -52,20 +44,12 @@ const Component = ({
     )
   }
 
-  return flag('reimbursements.tag') ? (
+  return (
     <Chip size="small" variant="outlined" onClick={() => open(url)}>
       {label}
       <Chip.Separator />
       <Icon icon="openwith" />
     </Chip>
-  ) : (
-    <ButtonAction
-      onClick={() => open(url)}
-      label={label}
-      rightIcon="openwith"
-      compact={compact}
-      className={styles.TransactionActionButton}
-    />
   )
 }
 

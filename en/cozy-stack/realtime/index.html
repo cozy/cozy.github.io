@@ -2116,9 +2116,50 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#response-messages" title="Response messages" class="md-nav__link">
+    Response messages
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#synthetic-types" title="Synthetic types" class="md-nav__link">
     Synthetic types
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#post-realtimedoctypeid" title="POST /realtime/:doctype/:id" class="md-nav__link">
+    POST /realtime/:doctype/:id
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#websocket" title="Websocket" class="md-nav__link">
+    Websocket
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2416,9 +2457,50 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#response-messages" title="Response messages" class="md-nav__link">
+    Response messages
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#synthetic-types" title="Synthetic types" class="md-nav__link">
     Synthetic types
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#post-realtimedoctypeid" title="POST /realtime/:doctype/:id" class="md-nav__link">
+    POST /realtime/:doctype/:id
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#websocket" title="Websocket" class="md-nav__link">
+    Websocket
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2505,6 +2587,13 @@ selector. Otherwise an error is passed in the message feed.</p>
 </pre></div>
 
 
+<h2 id="response-messages">Response messages<a class="headerlink" href="#response-messages" title="Permanent link">&para;</a></h2>
+<p>A message sent by the server after a subscribe will be a JSON object with two
+keys at root: <code>event</code> and <code>payload</code>. <code>event</code> will be one of <code>CREATED</code>,
+<code>UPDATED</code>, <code>DELETED</code> (when a document is written in CouchDB), <code>NOTIFIED</code> (see
+below), or <code>error</code>. The <code>payload</code> will be a map with <code>type</code>, <code>id</code>, and <code>doc</code>.
+The <code>payload</code> can also contain an optional <code>old</code> with the old values for the
+document in case of <code>UPDATED</code> or <code>DELETED</code>.</p>
 <h2 id="synthetic-types">Synthetic types<a class="headerlink" href="#synthetic-types" title="Permanent link">&para;</a></h2>
 <p>The stack an inject some synthetic events for documents that are not persisted
 in CouchDB like classical doctypes:</p>
@@ -2513,6 +2602,38 @@ in CouchDB like classical doctypes:</p>
 <li><a href="https://docs.cozy.io/en/cozy-stack/files/#real-time-via-websockets">Thumbnails for files</a></li>
 <li><a href="https://docs.cozy.io/en/cozy-stack/notes/#real-time-via-websockets">Telepointers for notes</a></li>
 </ul>
+<h2 id="post-realtimedoctypeid"><code>POST /realtime/:doctype/:id</code><a class="headerlink" href="#post-realtimedoctypeid" title="Permanent link">&para;</a></h2>
+<p>This route can be used to send documents in the real-time without having to
+persist them in CouchDB (and they can&rsquo;t be used for triggers).</p>
+<p>A permission on POST for the document <code>:doctype/:id</code> is required to use this
+endpoint.</p>
+<h3 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/realtime/io.cozy.jobs/2c577f00-145a-0138-f569-543d7eb8149c</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;subtype&quot;</span><span class="p">:</span> <span class="s2">&quot;progress&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;imported&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+  <span class="nt">&quot;total&quot;</span><span class="p">:</span> <span class="mi">42</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+
+
+<h3 id="websocket">Websocket<a class="headerlink" href="#websocket" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>server &gt; {&quot;event&quot;: &quot;NOTIFIED&quot;,
+          &quot;payload&quot;: {&quot;id&quot;: &quot;2c577f00-145a-0138-f569-543d7eb8149c&quot;,
+                      &quot;type&quot;: &quot;io.cozy.jobs&quot;,
+                      &quot;doc&quot;: {&quot;subtype&quot;: &quot;progress&quot;,
+                              &quot;imported&quot;: 10,
+                              &quot;total&quot;: 42}}}
+</pre></div>
                 
                   
                 

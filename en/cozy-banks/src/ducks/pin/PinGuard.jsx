@@ -27,10 +27,12 @@ class PinGuard extends React.Component {
     const last = savedLast || Date.now()
     const cachedPinSetting = pinSettingStorage.load()
 
+    const willShowPin = this.isTooLate(last)
     return {
       last, // timestamp of last interaction
-      showPin: this.isTooLate(last),
-      cachedPinSetting
+      showPin: willShowPin,
+      cachedPinSetting,
+      hasBeenShownOnce: !willShowPin
     }
   }
 
@@ -90,7 +92,7 @@ class PinGuard extends React.Component {
   }
 
   hidePin() {
-    this.setState({ showPin: false }, () => {
+    this.setState({ showPin: false, hasBeenShownOnce: true }, () => {
       this.handleInteraction()
     })
   }
@@ -131,7 +133,7 @@ class PinGuard extends React.Component {
 
   render() {
     const { pinSetting, children, showTimeout, timeout } = this.props
-    const { cachedPinSetting } = this.state
+    const { cachedPinSetting, showPin, hasBeenShownOnce, last } = this.state
     const pinDoc = isCollectionLoading(pinSetting)
       ? cachedPinSetting
       : pinSetting.data
@@ -142,13 +144,9 @@ class PinGuard extends React.Component {
 
     return (
       <React.Fragment>
-        {children}
-        {this.state.showPin ? (
-          <PinAuth onSuccess={this.handlePinSuccess} />
-        ) : null}
-        {showTimeout ? (
-          <PinTimeout start={this.state.last} duration={timeout} />
-        ) : null}
+        {hasBeenShownOnce ? children : null}
+        {showPin ? <PinAuth onSuccess={this.handlePinSuccess} /> : null}
+        {showTimeout ? <PinTimeout start={last} duration={timeout} /> : null}
       </React.Fragment>
     )
   }

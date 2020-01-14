@@ -7,7 +7,7 @@ import mapValues from 'lodash/mapValues'
 import { SyncTransactionActions } from './TransactionActions'
 import { findMatchingActions } from 'ducks/transactions/actions'
 
-import { ButtonAction } from 'cozy-ui/transpiled/react'
+import { Chip } from 'cozy-ui/transpiled/react'
 import brands from 'ducks/brandDictionary/brands'
 import AppLike from 'test/AppLike'
 import data from 'test/fixtures'
@@ -42,22 +42,22 @@ jest.mock('cozy-ui/transpiled/react/Icon', () => {
 /* eslint-disable */
 const tests = [
   // transaction id, class variant, text, icon, action name, [action props], [test name]
-  ['paiementdocteur', null, '2 reimbursements', 'file', 'HealthExpenseStatus'],
-  ['paiementdocteur2', 'error', 'No reimbursement yet', 'hourglass', 'HealthExpenseStatus'],
-  ['depsantelou1', 'error', 'No reimbursement yet', 'hourglass', 'HealthExpenseStatus'],
-  ['depsantegene4', 'error', 'No reimbursement yet', 'hourglass', 'HealthExpenseStatus'],
-  ['depsanteisa2', 'error', 'No reimbursement yet', 'hourglass', 'HealthExpenseStatus'],
-  ['depsantecla3', 'error', 'No reimbursement yet', 'hourglass', 'HealthExpenseStatus'],
-  ['facturebouygues', null, '1 invoice', 'file', 'bill', {
+  ['paiementdocteur', null, 'Ameli+17.50€|Malakoff Mederic+7.50€', 'file-outline|file-outline', 'AttachedDocs'],
+  ['paiementdocteur2', 'error', 'Late reimbursement', 'hourglass', 'ReimbursementStatus'],
+  ['depsantelou1', 'error', 'Late reimbursement', 'hourglass', 'ReimbursementStatus'],
+  ['depsantegene4', 'error', 'Late reimbursement', 'hourglass', 'ReimbursementStatus'],
+  ['depsanteisa2', 'error', 'Late reimbursement', 'hourglass', 'ReimbursementStatus'],
+  ['depsantecla3', 'error', 'Late reimbursement', 'hourglass', 'ReimbursementStatus'],
+  ['facturebouygues', null, 'Invoice', 'file-outline', 'AttachedDocs', {
     brands: brands.filter(x => x.name === 'Bouygues Telecom').map(b => ({ ...b, hasTrigger: true }))
   }],
   ['salaireisa1', null, 'Accéder à votre paie', 'openwith', 'url'],
   ['fnac', null, 'Accéder au site Fnac', 'openwith', 'url'],
   ['edf', null, 'EDF', null, 'app'],
-  ['remboursementcomplementaire', null, '1 invoice', null, 'bill', {
+  ['remboursementcomplementaire', null, 'Invoice', null, 'AttachedDocs', {
     brands: brands.filter(x => x.name == 'Malakoff Mederic')
   }, 'remboursementcomplementaire konnector not installed'],
-  ['remboursementcomplementaire', null, '1 invoice', null, 'bill', {
+  ['remboursementcomplementaire', null, 'Invoice', null, 'AttachedDocs', {
     brands: brands.filter(x => x.name == 'Malakoff Mederic').map(b => ({ ...b, hasTrigger: true }))
   }, 'remboursementcomplementaire konnector installed'],
   ['normalshopping', null, 'toto', null],
@@ -102,7 +102,7 @@ describe('transaction action defaults', () => {
   for (let test of tests) {
     const [
       id,
-      variant,
+      theme,
       text,
       icon,
       actionName,
@@ -141,21 +141,27 @@ describe('transaction action defaults', () => {
       if (actionName) {
         it('should render the correct text', () => {
           root.update() // https://github.com/airbnb/enzyme/issues/1233#issuecomment-340017108
-          const btn = root.find(ButtonAction)
-          const btnText = btn.text()
-          expect(btnText).toEqual(expect.stringContaining(text))
+          const chips = root.find(Chip)
+          const chipTexts = chips.map(node => node.text()).join('|')
+          expect(chipTexts).toEqual(expect.stringContaining(text))
         })
       }
 
       if (icon) {
         it('should render the correct icon', () => {
-          expect(root.find(`[data-icon-id="${icon}"]`).length).toBe(1)
+          expect(
+            root
+              .find(`[data-icon-id]`)
+              .map(node => node.props()['data-icon-id'])
+              .join('|')
+          ).toBe(icon)
         })
       }
 
-      if (variant) {
-        it('should render the correct button', () => {
-          expect(root.find(ButtonAction).props().type).toBe(variant)
+      if (theme) {
+        it('should render the correct chip theme', () => {
+          const chip = root.find(Chip)
+          expect(chip.props().theme).toBe(theme)
         })
       }
     })

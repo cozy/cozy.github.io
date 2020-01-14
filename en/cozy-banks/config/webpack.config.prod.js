@@ -1,7 +1,7 @@
 'use strict'
 
 const webpack = require('webpack')
-const {target} = require('./webpack.vars')
+const { target } = require('./webpack.vars')
 
 module.exports = {
   output: {
@@ -10,7 +10,7 @@ module.exports = {
   devtool: false,
   mode: 'production',
   optimization: {
-    minimize: true
+    minimize: process.env.WEBPACK_MINIMIZE === 'false' ? false : true
   },
   plugins: [
     new webpack.DefinePlugin({

@@ -48,10 +48,10 @@ const DumbFingerprintParagraph = ({ t, onSuccess, onError, onCancel }) => (
         <Media
           style={{ display: 'inline-flex' }}
           onClick={promptFinger}
-          className={styles['Pin__FingerprintText'] + ' u-mv-half'}
+          className="u-mv-half"
         >
           <Img className="u-pr-half">
-            <Icon size="2rem" icon={fingerprint} />
+            <Icon size="1.5rem" icon={fingerprint} />
           </Img>
           <Bd>
             <p>{t('Pin.fingerprint-text')}</p>
@@ -106,7 +106,7 @@ class PinAuth extends React.Component {
   }
 
   handleFingerprintError() {
-    const { t } = this.props.t
+    const { t } = this.props
     Alerter.info(t('Pin.bad-pin'))
   }
 
@@ -192,10 +192,12 @@ class PinAuth extends React.Component {
           <Icon
             icon={success ? openLock : 'lock'}
             size="48px"
-            className="u-mb-1"
+            className="u-mb-half"
           />
         ) : null}
-        <h2>{this.props.message || t('Pin.please-enter-your-pin')}</h2>
+        <h2 className="u-mv-half">
+          {this.props.message || t('Pin.please-enter-your-pin')}
+        </h2>
         {pinDoc && pinDoc.fingerprint ? (
           <FingerprintParagraph
             onSuccess={this.handleFingerprintSuccess}

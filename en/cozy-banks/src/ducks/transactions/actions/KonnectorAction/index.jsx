@@ -2,10 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { flowRight as compose } from 'lodash'
 import { translate } from 'cozy-ui/transpiled/react'
-import ButtonAction from 'cozy-ui/transpiled/react/ButtonAction'
-import flag from 'cozy-flags'
 import icon from 'assets/icons/actions/icon-link-out.svg'
-import styles from 'ducks/transactions/TransactionActions.styl'
 import TransactionModalRow from 'ducks/transactions/TransactionModalRow'
 import palette from 'cozy-ui/transpiled/react/palette'
 import { triggersConn } from 'doctypes'
@@ -68,21 +65,10 @@ class Component extends React.Component {
   }
 
   renderTransactionRow(label, brand) {
-    const { compact } = this.props
-
-    return flag('reimbursements.tag') ? (
+    return (
       <KonnectorChip
         onClick={this.showInformativeModal}
         konnectorType={brand.health ? 'health' : 'generic'}
-      />
-    ) : (
-      <ButtonAction
-        label={label}
-        leftIcon="plus"
-        type="new"
-        compact={compact}
-        className={styles.TransactionActionButton}
-        onClick={this.showInformativeModal}
       />
     )
   }

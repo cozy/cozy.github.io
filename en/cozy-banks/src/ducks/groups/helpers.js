@@ -1,4 +1,4 @@
-import { groupBy, sortBy, deburr, sumBy, get } from 'lodash'
+import { groupBy, sortBy, deburr, sumBy, get, every } from 'lodash'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { associateDocuments } from 'ducks/client/utils'
 import { getAccountType, getAccountBalance } from 'ducks/account/helpers'
@@ -136,16 +136,13 @@ export const isFormerAutoGroup = group => group.accountType === null
 export const isAutoGroup = group => group.accountType !== undefined
 export const getGroupAccountType = group => group.accountType
 
+export const isLoanAccount = account =>
+  account ? getAccountType(account) == 'Loan' : false
 export const isLoanGroup = group => {
-  for (const account of group.accounts.data) {
-    if (getAccountType(account) !== 'Loan') {
-      return false
-    }
-  }
-
-  return true
+  return group.accounts && group.accounts.data
+    ? every(group.accounts.data, isLoanAccount)
+    : false
 }
-
 /**
  * Returns a group balance (all its accounts balance sumed)
  * @param {Object} group

@@ -3,7 +3,8 @@ import {
   getGroupLabel,
   translateAndSortGroups,
   renamedGroup,
-  getGroupBalance
+  getGroupBalance,
+  isLoanGroup
 } from './helpers'
 import { associateDocuments } from 'ducks/client/utils'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
@@ -216,5 +217,47 @@ describe('getGroupBalance', () => {
     const group = { accounts: { data: [] } }
 
     expect(getGroupBalance(group)).toBe(0)
+  })
+})
+
+describe('isLoanGroup', () => {
+  it('should return false if group is not yet hydrated', () => {
+    expect(
+      isLoanGroup({
+        accounts: ['1', '2', '3']
+      })
+    ).toBe(false)
+  })
+
+  it('should return true if every account is a loan', () => {
+    expect(
+      isLoanGroup({
+        accounts: {
+          data: [
+            {
+              type: 'ConsumerCredit'
+            }
+          ]
+        }
+      })
+    ).toBe(true)
+  })
+
+  it('should return false if one account is not a loan', () => {
+    expect(
+      isLoanGroup({
+        accounts: {
+          data: [
+            {
+              type: 'ConsumerCredit'
+            },
+            {
+              type: 'CreditCard'
+            },
+            null
+          ]
+        }
+      })
+    ).toBe(false)
   })
 })
