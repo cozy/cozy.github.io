@@ -130,7 +130,7 @@ describe('transaction greater', () => {
 
   describe('with group', () => {
     const isabelleGroup = {
-      _id: 'b3e33d6cc334ed5ef49738a2be2880a2',
+      _id: 'isabelle',
       _type: GROUP_DOCTYPE
     }
 

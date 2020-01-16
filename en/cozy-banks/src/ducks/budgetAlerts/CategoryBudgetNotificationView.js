@@ -14,10 +14,12 @@ import { buildNotificationData } from './service'
 
 import logger from 'cozy-logger'
 
+import { Q } from 'cozy-client'
+
 const log = logger.namespace('category-budgets')
 
 const fetchDoctypeById = async (client, doctype) => {
-  const { data } = await client.query(client.all(doctype))
+  const { data } = await client.query(Q(doctype))
   return keyBy(data, x => x._id)
 }
 

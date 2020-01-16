@@ -7,7 +7,7 @@ const pinGuarded = pinGuardProps => Component => {
       <Component {...props} />
     </PinGuard>
   )
-  Wrapped.displayName = 'PinGuarded__' + Component.displayName
+  Wrapped.displayName = `PinGuarded(${Component.displayName})`
   return Wrapped
 }
 

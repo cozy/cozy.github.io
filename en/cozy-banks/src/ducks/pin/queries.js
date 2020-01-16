@@ -2,8 +2,10 @@ import { SETTINGS_DOCTYPE } from 'doctypes'
 import { connect } from 'react-redux'
 import mapValues from 'lodash/mapValues'
 
-const getOne = (doctype, id) => client => {
-  const queryDef = client.all(doctype)
+import { Q } from 'cozy-client'
+
+const getOne = (doctype, id) => () => {
+  const queryDef = Q(doctype)
   queryDef.id = id
   return queryDef
 }

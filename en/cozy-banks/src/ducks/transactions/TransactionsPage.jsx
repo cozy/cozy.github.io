@@ -22,7 +22,8 @@ import { queryConnect } from 'cozy-client'
 
 import Loading from 'components/Loading'
 import Delayed from 'components/Delayed'
-import { TransactionsWithSelection } from 'ducks/transactions/Transactions.jsx'
+import { TransactionList } from 'ducks/transactions/Transactions.jsx'
+import styles from 'ducks/transactions/TransactionsPage.styl'
 
 import {
   ACCOUNT_DOCTYPE,
@@ -206,7 +207,14 @@ class TransactionsPage extends Component {
 
   renderTransactions() {
     const { limitMin, limitMax, infiniteScrollTop } = this.state
-    const { t } = this.props
+    const { t, transactions: transactionCol } = this.props
+    const isFetching =
+      isCollectionLoading(transactionCol) && !hasBeenLoaded(transactionCol)
+
+    if (isFetching) {
+      return <Loading loadingType="movements" />
+    }
+
     const transactions = this.getTransactions()
     const isOnSubcategory = onSubcategory(this.props)
 
@@ -220,7 +228,7 @@ class TransactionsPage extends Component {
 
     return (
       <Delayed delay={0} fallback={<FakeTransactions />}>
-        <TransactionsWithSelection
+        <TransactionList
           isOnSubcategory={isOnSubcategory}
           limitMin={limitMin}
           limitMax={limitMax}
@@ -240,12 +248,9 @@ class TransactionsPage extends Component {
   render() {
     const {
       accounts,
-      transactions,
       breakpoints: { isMobile }
     } = this.props
 
-    const isFetching =
-      isCollectionLoading(transactions) && !hasBeenLoaded(transactions)
     const areAccountsLoading =
       isCollectionLoading(accounts) && !hasBeenLoaded(accounts)
     const filteredTransactions = this.getTransactions()
@@ -262,11 +267,9 @@ class TransactionsPage extends Component {
           showBackButton={this.props.showBackButton}
           showBalance={isMobile && !areAccountsLoading && !isOnSubcategory}
         />
-        {isFetching ? (
-          <Loading loadingType="movements" />
-        ) : (
-          this.renderTransactions()
-        )}
+        <div className={styles.TransactionPage__transactions}>
+          {this.renderTransactions()}
+        </div>
       </TransactionActionsProvider>
     )
   }

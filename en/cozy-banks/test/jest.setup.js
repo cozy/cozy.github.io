@@ -58,9 +58,11 @@ console.warn = ignoreOnConditions(
   Object.values(ignoredWarnings).map(x => x.matcher)
 )
 
-// eslint-disable-next-line no-console
-console.error = callAndThrow(
+if (process.env.TRAVIS_CI) {
   // eslint-disable-next-line no-console
-  console.error,
-  'console.error should not be called during tests'
-)
+  console.error = callAndThrow(
+    // eslint-disable-next-line no-console
+    console.error,
+    'console.error should not be called during tests'
+  )
+}

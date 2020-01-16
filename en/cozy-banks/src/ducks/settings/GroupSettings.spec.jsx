@@ -53,10 +53,10 @@ describe('GroupSettings', () => {
     const { router, saveDocument, instance } = setup({ group })
     await instance.rename('Renamed group')
     expect(saveDocument).toHaveBeenCalledWith({
-      _id: 'f1d11eb324b64d604cbeee734e77de66',
+      _id: 'familleelargie',
       accountType: null,
       accounts: ['compteisa1', 'comptelou1', 'comptecla1', 'comptegene1'],
-      id: 'f1d11eb324b64d604cbeee734e77de66',
+      id: 'familleelargie',
       label: 'Renamed group'
     })
     expect(router.push).not.toHaveBeenCalled()

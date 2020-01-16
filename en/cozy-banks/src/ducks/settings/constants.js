@@ -13,12 +13,14 @@ export const DEFAULTS_SETTINGS = {
     lastSeq: 0,
     balanceLower: [
       {
+        id: 0,
         value: 100,
         enabled: false
       }
     ],
     transactionGreater: [
       {
+        id: 0,
         value: 600,
         enabled: true
       }
@@ -32,6 +34,7 @@ export const DEFAULTS_SETTINGS = {
     },
     delayedDebit: [
       {
+        id: 0,
         enabled: false,
         value: 2
       }

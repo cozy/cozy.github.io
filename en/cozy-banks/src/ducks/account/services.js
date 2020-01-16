@@ -6,6 +6,8 @@ import set from 'lodash/set'
 import mergeSets from 'utils/mergeSets'
 import { addOwnerToAccount } from './helpers'
 
+import { Q } from 'cozy-client'
+
 const log = logger.namespace('link-myself-to-accounts')
 
 const fetchMyself = async client => {
@@ -26,7 +28,7 @@ const fetchMyself = async client => {
 
 export const linkMyselfToAccounts = async ({ client }) => {
   const settings = await fetchSettings(client)
-  const accounts = await client.queryAll(client.all(ACCOUNT_DOCTYPE))
+  const accounts = await client.queryAll(Q(ACCOUNT_DOCTYPE))
 
   const alreadyProcessed = new Set(
     settings.linkMyselfToAccounts.processedAccounts
@@ -77,7 +79,7 @@ export const unlinkMyselfFromAccounts = async ({ client }) => {
     return
   }
 
-  const accounts = await client.queryAll(client.all(ACCOUNT_DOCTYPE))
+  const accounts = await client.queryAll(Q(ACCOUNT_DOCTYPE))
 
   for (const account of accounts) {
     const currentOwners = get(account, 'relationships.owners.data', [])

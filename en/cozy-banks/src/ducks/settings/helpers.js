@@ -1,4 +1,4 @@
-import { merge, get } from 'lodash'
+import { merge, get, groupBy, flatMap, maxBy } from 'lodash'
 import { DOCTYPE, DEFAULTS_SETTINGS } from 'ducks/settings/constants'
 import logger from 'cozy-logger'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
@@ -6,9 +6,14 @@ import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { connect } from 'react-redux'
 import { getDocumentFromState } from 'cozy-client/dist/store'
 import { getAccountLabel } from 'ducks/account/helpers'
-import { getGroupLabel } from 'ducks/groups/helpers'
+import { getGroupLabel, getGroupAccountIds } from 'ducks/groups/helpers'
 import { translate } from 'cozy-ui/transpiled/react'
 import compose from 'lodash/flowRight'
+import {
+  getRuleValue,
+  getRuleAccountOrGroupDoctype,
+  getRuleAccountOrGroupId
+} from './ruleUtils'
 
 const log = logger.namespace('settings.helpers')
 
@@ -38,11 +43,63 @@ export const updateSettings = async (client, newSettings) => {
   await col.update(newSettings)
 }
 
+export const reverseIndex = (items, getKeys) => {
+  const ri = {}
+  for (const item of items) {
+    const keys = getKeys(item)
+    if (!keys) {
+      continue
+    }
+    for (const key of keys) {
+      ri[key] = ri[key] || []
+      ri[key].push(item)
+    }
+  }
+  return ri
+}
+
+const maxValue = (arr, fn) => {
+  const minItem = maxBy(arr, fn)
+  return minItem ? fn(minItem) : -Infinity
+}
+
+export const getWarningLimitsPerAccount = (
+  balanceLowerRules,
+  accounts,
+  groups
+) => {
+  const enabledRules = balanceLowerRules.filter(x => x.enabled)
+  const accountIdToGroups = reverseIndex(groups, getGroupAccountIds)
+  const rulesPerDoctype = groupBy(enabledRules, getRuleAccountOrGroupDoctype)
+  const groupRulesById = groupBy(
+    rulesPerDoctype[GROUP_DOCTYPE],
+    getRuleAccountOrGroupId
+  )
+  const accountRulesById = groupBy(
+    rulesPerDoctype[ACCOUNT_DOCTYPE],
+    getRuleAccountOrGroupId
+  )
+  const unqualifiedRules = rulesPerDoctype['undefined'] || []
+  const limitPerAccount = {}
+  for (const account of accounts) {
+    const groupRules = flatMap(
+      accountIdToGroups[account._id] || [],
+      group => groupRulesById[group._id]
+    ).filter(Boolean)
+    const accountRules = accountRulesById[account._id] || []
+    limitPerAccount[account._id] = maxValue(
+      [...unqualifiedRules, ...accountRules, ...groupRules],
+      getRuleValue
+    )
+  }
+  return limitPerAccount
+}
+
 /**
  * Make the difference between the pin setting doc and the doc where notifications
  * are configured
  */
-const isConfigurationSetting = settingDoc =>
+export const isConfigurationSetting = settingDoc =>
   settingDoc.notifications ||
   settingDoc.autogroups ||
   settingDoc.linkMyselfToAccounts ||
@@ -55,12 +112,16 @@ export const getDefaultedSettingsFromCollection = col => {
   return getDefaultedSettings(settings)
 }
 
+export const getNotificationFromConfig = (config, name) => {
+  return get(config, ['notifications', name])
+}
+
 export const getNotificationFromSettings = (settings, name) => {
   if (!settings || settings.length === 0) {
     return null
   }
   const configurationSettings = settings.find(isConfigurationSetting)
-  return get(configurationSettings, ['notifications', name])
+  return getNotificationFromConfig(configurationSettings, name)
 }
 
 export const DEFAULT_HEALTH_REIMBURSEMENTS_LATE_LIMIT_IN_DAYS = 30

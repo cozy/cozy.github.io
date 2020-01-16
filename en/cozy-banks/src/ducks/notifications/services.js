@@ -1,5 +1,5 @@
 import logger from 'cozy-logger'
-import CozyClient from 'cozy-client'
+import CozyClient, { Q } from 'cozy-client'
 import { initTranslation } from 'cozy-ui/transpiled/react/I18n/translation'
 
 import BalanceLower from './BalanceLower'
@@ -51,7 +51,7 @@ export const fetchTransactionAccounts = async transactions => {
 }
 
 export const fetchGroups = async client => {
-  const groups = await client.query(client.all(GROUP_DOCTYPE))
+  const groups = await client.query(Q(GROUP_DOCTYPE))
   return groups
 }
 

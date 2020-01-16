@@ -1,8 +1,10 @@
-// const pinGuarded = () => x => x
+/* global __TARGET__ */
 
-// export { pinGuarded }
+import { default as mobilePinGuarded } from './hoc'
 
-// Temporary export, pinGuarded should not be used on
-// browsers, this is mainly for testing. It is behind
-// a flag at the moment.
-export { default as pinGuarded } from './hoc'
+const desktopPinGuarded = () => x => x
+
+const pinGuarded =
+  __TARGET__ === 'mobile' ? mobilePinGuarded : desktopPinGuarded
+
+export { pinGuarded }

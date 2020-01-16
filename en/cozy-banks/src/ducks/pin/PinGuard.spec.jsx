@@ -1,10 +1,7 @@
 import { mount } from 'enzyme'
 import React from 'react'
 import CozyClient from 'cozy-client'
-import {
-  DumbPinGuard as PinGuard,
-  GREEN_BACKGROUND_EFFECT_DURATION
-} from './PinGuard'
+import { DumbPinGuard as PinGuard } from './PinGuard'
 import AppLike from 'test/AppLike'
 import PinAuth from './PinAuth'
 import { pinSettingStorage, lastInteractionStorage } from './storage'
@@ -83,10 +80,6 @@ describe('PinGuard', () => {
       .onSuccess()
 
     root.update()
-    expect(pinAuthIsShown(root)).toBe(true)
-
-    jest.advanceTimersByTime(GREEN_BACKGROUND_EFFECT_DURATION)
-    root.update()
     expect(pinAuthIsShown(root)).toBe(false)
   })
 
@@ -153,47 +146,46 @@ describe('PinGuard', () => {
       expect(instance.restartTimeout).toHaveBeenCalled()
     })
 
-    describe('handle interaction when pin hidden', () => {
-      it('should restart timeout after interaction', () => {
-        jest.useFakeTimers()
-        const { root } = setup({
-          pinSetting: PIN_DOC
+    describe('handle interaction', () => {
+      describe('when pin hidden', () => {
+        it('should restart timeout after interaction', () => {
+          jest.useFakeTimers()
+          const { root } = setup({
+            pinSetting: PIN_DOC
+          })
+          jest.runAllTimers()
+          root.update()
+          root
+            .find(PinAuth)
+            .props()
+            .onSuccess()
+          root.update()
+
+          expect(root.find(PinGuard).state().showPin).toBe(false)
+
+          const instance = root.find(PinGuard).instance()
+          jest.spyOn(instance, 'restartTimeout')
+          instance.handleInteraction()
+          expect(instance.restartTimeout).toHaveBeenCalled()
         })
-        jest.runAllTimers()
-        root.update()
-        root
-          .find(PinAuth)
-          .props()
-          .onSuccess()
-        root.update()
-
-        jest.advanceTimersByTime(GREEN_BACKGROUND_EFFECT_DURATION)
-        root.update()
-
-        expect(root.find(PinGuard).state().showPin).toBe(false)
-
-        const instance = root.find(PinGuard).instance()
-        jest.spyOn(instance, 'restartTimeout')
-        instance.handleInteraction()
-        expect(instance.restartTimeout).toHaveBeenCalled()
       })
-    })
 
-    describe('handle interaction when pin showing', () => {
-      it('should restart timeout after interaction', () => {
-        jest.useFakeTimers()
-        const { root } = setup({
-          pinSetting: PIN_DOC
+      describe('when pin showing', () => {
+        it('should restart timeout after interaction', () => {
+          jest.useFakeTimers()
+          const { root } = setup({
+            pinSetting: PIN_DOC
+          })
+          jest.runAllTimers()
+          root.update()
+
+          expect(root.find(PinGuard).state().showPin).toBe(true)
+
+          const instance = root.find(PinGuard).instance()
+          jest.spyOn(instance, 'restartTimeout')
+          instance.handleInteraction()
+          expect(instance.restartTimeout).not.toHaveBeenCalled()
         })
-        jest.runAllTimers()
-        root.update()
-
-        expect(root.find(PinGuard).state().showPin).toBe(true)
-
-        const instance = root.find(PinGuard).instance()
-        jest.spyOn(instance, 'restartTimeout')
-        instance.handleInteraction()
-        expect(instance.restartTimeout).not.toHaveBeenCalled()
       })
     })
   })

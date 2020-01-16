@@ -17,7 +17,6 @@ class BalancePanels extends React.PureComponent {
   static propTypes = {
     groups: PropTypes.arrayOf(PropTypes.object).isRequired,
     router: PropTypes.object.isRequired,
-    warningLimit: PropTypes.number.isRequired,
     panelsState: PropTypes.object.isRequired,
     onSwitchChange: PropTypes.func,
     onPanelChange: PropTypes.func,
@@ -36,7 +35,6 @@ class BalancePanels extends React.PureComponent {
     const {
       groups,
       t,
-      warningLimit,
       panelsState,
       onSwitchChange,
       onPanelChange,
@@ -59,7 +57,6 @@ class BalancePanels extends React.PureComponent {
               }
               group={group}
               groupLabel={label}
-              warningLimit={warningLimit}
               expanded={panelsState[group._id].expanded}
               checked={panelsState[group._id].checked}
               switches={panelsState[group._id].accounts}

@@ -1,8 +1,5 @@
-const path = require('path')
-const fs = require('fs')
 const Handlebars = require('handlebars')
 const dirTree = require('directory-tree')
-const { merge, once } = require('lodash')
 const ACH = require('./ACH')
 const log = require('./log')
 const { uploadFile, handleBadToken } = require('./utils')
@@ -33,47 +30,6 @@ const getMetadata = function(doctype, index, field) {
   } catch (e) {
     console.warn('Could not find any metadata for ', doctype, index)
     throw e
-  }
-}
-
-const singleQuoteString = function(value) {
-  if (typeof value === 'string') {
-    return `'${value}'`
-  } else {
-    return value
-  }
-}
-
-/**
- * Creates a helper that will stay same after being processed by Handlebars
- *
- * There are two Handlebars passes on the data :
- *
- * 1. At load time to create dummy data
- * 2. When the data is being inserted so that we can reference data being created
- *
- * Since we need the `reference` helper to stay the same for the second pass, we
- * create it with `passthroughHelper`.
- *
- * @param  {string}   name     - The name of the created helper
- * @param  {function} callback - Callback to run when the helper is executed
- * @return {string}            - A helper that when called will creates itself
- *
- * @example
- * const reference = passthroughHelper('reference')
- * Handlebars.registerHelper({ reference })
- * const str = Handlebars.compile("{{ reference 'io.cozy.files' 0 '_id' }}")()
- * > str = "{{ reference 'io.cozy.files' 0 '_id' }}"
- */
-const passthroughHelper = function(name, callback) {
-  return function() {
-    callback && callback()
-    return new Handlebars.SafeString(
-      `{{ ${name} ${Array.from(arguments)
-        .slice(0, -1)
-        .map(singleQuoteString)
-        .join(' ')} }}`
-    )
   }
 }
 
@@ -222,10 +178,6 @@ const importData = async function(cozyClient, data, options) {
   return true
 }
 
-const parseBool = function(boolString, defaultVal) {
-  return boolString === undefined ? defaultVal : boolString === 'true'
-}
-
 /**
  * Imports data from a JSON file
  *
@@ -235,35 +187,7 @@ const parseBool = function(boolString, defaultVal) {
  * and reference objects created before them with {{ reference doctype index field }}
  *
  */
-module.exports = (cozyUrl, token, filepath, handlebarsOptionsFile) => {
-  if (!filepath) filepath = 'example-data.json'
-  const dummyjson = require('dummy-json')
-  const template = fs.readFileSync(filepath, { encoding: 'utf8' })
-  const templateDir = path.dirname(path.resolve(filepath))
-
-  // dummy-json pass helpers
-  const options = { parallel: parseBool(process.env.ACH_PARALLEL, true) }
-  const turnOffParallelism = once(function() {
-    log.debug('Turning off parallelism since {{ reference }} helper is used.')
-    options.parallel = false
-  })
-
-  let handlebarsOptions = {
-    helpers: {
-      dir: passthroughHelper('dir'),
-      reference: passthroughHelper('reference', turnOffParallelism)
-    }
-  }
-
-  if (handlebarsOptionsFile) {
-    handlebarsOptions = merge(
-      handlebarsOptions,
-      require(path.resolve(`./${handlebarsOptionsFile}`))
-    )
-  }
-
-  // dummy-json pass passthrough helpers
-  const data = JSON.parse(dummyjson.parse(template, handlebarsOptions))
+module.exports = (cozyUrl, token, data, templateDir, options) => {
   const doctypes = Object.keys(data)
 
   // We register 2nd pass helpers

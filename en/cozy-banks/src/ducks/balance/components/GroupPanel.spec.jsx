@@ -50,7 +50,6 @@ describe('GroupPanel', () => {
         expanded={expanded}
         checked={true}
         group={group}
-        warningLimit={400}
         switches={switches}
         onSwitchChange={() => {}}
         onChange={onChange}

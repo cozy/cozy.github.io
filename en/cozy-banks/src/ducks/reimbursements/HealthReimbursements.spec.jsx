@@ -3,7 +3,7 @@ import { mount, shallow } from 'enzyme'
 import { DumbHealthReimbursements } from './HealthReimbursements'
 import Loading from 'components/Loading'
 import fixtures from 'test/fixtures/unit-tests.json'
-import { TransactionsWithSelection } from 'ducks/transactions/Transactions'
+import { TransactionList } from 'ducks/transactions/Transactions'
 import { StoreLink } from 'components/StoreLink'
 import AppLike from 'test/AppLike'
 import Polyglot from 'node-polyglot'
@@ -73,7 +73,7 @@ describe('HealthReimbursements', () => {
       }
     })
 
-    expect(root.find(TransactionsWithSelection).length).toBe(1)
+    expect(root.find(TransactionList).length).toBe(1)
   })
 
   it('should show the current filter value if no pending reimbursements', () => {
@@ -101,7 +101,7 @@ describe('HealthReimbursements', () => {
       }
     })
 
-    expect(root.find(TransactionsWithSelection).length).toBe(1)
+    expect(root.find(TransactionList).length).toBe(1)
   })
 
   it('should show a button to open the store if there is no reimbursed transactions and no health brand with trigger', () => {

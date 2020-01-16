@@ -162,3 +162,11 @@ export const getGroupBalance = (group, excludedAccountIds = []) => {
 
   return sumBy(accountsToSum, getAccountBalance)
 }
+
+export const getGroupAccountIds = group => {
+  return group.accounts
+    ? group.accounts.raw
+      ? group.accounts.raw
+      : group.accounts
+    : []
+}

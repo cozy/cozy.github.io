@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from 'components/KonnectorUpdateInfo/styles.styl'
 import { useI18n } from 'cozy-ui/transpiled/react'
-import { withClient } from 'cozy-client'
+import { withClient, Q } from 'cozy-client'
 import { flowRight as compose } from 'lodash'
 import { queryConnect } from 'cozy-client'
 import { KONNECTOR_DOCTYPE } from 'doctypes'
@@ -76,10 +76,8 @@ const KonnectorUpdateInfo = ({ outdatedKonnectors, client, breakpoints }) => {
 }
 
 const outdatedKonnectors = {
-  query: client =>
-    client
-      .all(KONNECTOR_DOCTYPE)
-      .where({ available_version: { $exists: true } }),
+  query: () =>
+    Q(KONNECTOR_DOCTYPE).where({ available_version: { $exists: true } }),
   fetchPolicy: CozyClient.fetchPolicies.olderThan(30 * 1000),
   as: 'outdatedKonnectors'
 }

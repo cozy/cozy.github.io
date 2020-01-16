@@ -96,7 +96,6 @@ const AccountsImporting = ({ classes, konnectorInfos }) => {
         <BalancePanels
           groups={groups}
           panelsState={panelsState}
-          warningLimit={0}
           withBalance={false}
         />
       </Padded>

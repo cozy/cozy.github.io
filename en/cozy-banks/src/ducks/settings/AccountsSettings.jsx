@@ -7,7 +7,7 @@ import { withBreakpoints } from 'cozy-ui/transpiled/react'
 import { groupBy, flowRight as compose, sortBy } from 'lodash'
 import Table from 'components/Table'
 import Loading from 'components/Loading'
-import { queryConnect } from 'cozy-client'
+import { queryConnect, Q } from 'cozy-client'
 import plus from 'assets/icons/16/plus.svg'
 import styles from 'ducks/settings/AccountsSettings.styl'
 import btnStyles from 'styles/buttons.styl'
@@ -182,7 +182,7 @@ class AccountsSettings extends Component {
 export default compose(
   queryConnect({
     accountsCollection: accountsConn,
-    apps: { query: client => client.all(APP_DOCTYPE), as: 'apps' }
+    apps: { query: () => Q(APP_DOCTYPE), as: 'apps' }
   }),
   translate()
 )(AccountsSettings)

@@ -3119,7 +3119,7 @@ bser@^2.0.0:
   dependencies:
     node-int64 "^0.4.0"
 
-btoa@1.2.1:
+btoa@1.2.1, btoa@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/btoa/-/btoa-1.2.1.tgz#01a9909f8b2c93f6bf680ba26131eb30f7fa3d73"
   integrity sha512-SB4/MIGlsiVkMcHmT+pSmIPoNDoHg+7cMzmt3Uxt628MTz2487DKSqK/fuhFBrkuqrYv5UCEnACpF4dTFNKc/g==
@@ -4514,19 +4514,24 @@ cozy-client-js@^0.15.0:
     pouchdb-browser "7.0.0"
     pouchdb-find "7.0.0"
 
-cozy-client@9.4.0:
-  version "9.4.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-9.4.0.tgz#c57a05716a6d4184743fe2031e38a691fb85f93e"
-  integrity sha512-5YK7OhKH/hsHRYMWVfP4S8wzJk9D7VsQZb1gNUWbMtZnxKZ0lP6mIuyBL4iYg4olqmr4lj77k9utBzW1oZ8bag==
+cozy-client@9.7.0:
+  version "9.7.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-9.7.0.tgz#31b6d540b3d730aacbd4ef110b564f08b7dd5fbc"
+  integrity sha512-HnQ5LDb0u/Vkz3d9+stJdbjnAy/g1ee+5jMu2/q9+MWwSy8DVotouB1zJuDjzuHykqPZ71GS3pkDfv470gncmA==
   dependencies:
+    btoa "^1.2.1"
     cozy-device-helper "^1.7.3"
-    cozy-stack-client "^9.2.0"
+    cozy-logger "^1.6.0"
+    cozy-stack-client "^9.7.0"
+    isomorphic-fetch "^2.2.1"
     lodash "^4.17.13"
     microee "^0.0.6"
+    opn "^6.0.0"
     prop-types "^15.6.2"
     react-redux "^5.0.7"
     redux "^3.7.2"
     redux-thunk "^2.3.0"
+    server-destroy "^1.0.1"
     sift "^6.0.0"
     url-search-params-polyfill "^7.0.0"
 
@@ -4593,7 +4598,7 @@ cozy-doctypes@1.39.0:
     es6-promise-pool "2.5.0"
     lodash "4.17.11"
 
-cozy-doctypes@1.69.0, cozy-doctypes@^1.69.0:
+cozy-doctypes@1.69.0:
   version "1.69.0"
   resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.69.0.tgz#6718f016206f2afff75b9976d6f429e45f966bdc"
   integrity sha512-VsC/E1liapUuLXXAjd18o2b2pLEgO57KEh+L5qGVHjleoefaBzVH05HFBFpQ05BwyxbGl7XOAJt+jBGcQaco6g==
@@ -4617,6 +4622,18 @@ cozy-doctypes@^1.62.0:
     lodash "4.17.15"
     prop-types "^15.7.2"
 
+cozy-doctypes@^1.71.0:
+  version "1.71.0"
+  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.71.0.tgz#2b55f13099305765e6781d44f69d0ffe57f19073"
+  integrity sha512-oeQPPfAkas6uxjncgcS9ATFYPvVXA95EJFHmjhOxcgVp9DbUKGGh99M70JWMAJrC8U/+1F0mCKaQhpmxKnpsMA==
+  dependencies:
+    "@babel/runtime" "7.5.5"
+    cozy-logger "^1.6.0"
+    date-fns "1.30.1"
+    es6-promise-pool "2.5.0"
+    lodash "4.17.15"
+    prop-types "^15.7.2"
+
 cozy-flags@1.11.0:
   version "1.11.0"
   resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-1.11.0.tgz#d9d63ecd269ad3ba76ee4cec46226b9d44f140b6"
@@ -4624,14 +4641,14 @@ cozy-flags@1.11.0:
   dependencies:
     microee "^0.0.6"
 
-cozy-harvest-lib@1.15.1:
-  version "1.15.1"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-1.15.1.tgz#89b6d13558e5e4ab5f0c4d2c05217a195ef313c0"
-  integrity sha512-IS12vSWrfx4mh88BzYKGh6ZWIAy8CpY3b3X7F4DsFGTYX/097utGK0XQmGzzYVjSUyfgQwYjNiEnb/ayppHmKQ==
+cozy-harvest-lib@1.16.0:
+  version "1.16.0"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-1.16.0.tgz#74639f2d575c8bd4b19e1da9f2d0cc2eca8ba733"
+  integrity sha512-oLIvmE44InZbJScIbJ3uXtcWTou8bYbYI3hYAymJ5TLxUyTEwNlEh527gqnXX1Ugzbn7ZCRCNOjwE8PfWH0Spw==
   dependencies:
     "@babel/runtime" "^7.5.2"
     "@material-ui/core" "3"
-    cozy-doctypes "^1.69.0"
+    cozy-doctypes "^1.71.0"
     date-fns "^1.30.1"
     final-form "4.18.5"
     lodash "4.17.15"
@@ -4813,10 +4830,10 @@ cozy-stack-client@^6.65.0:
     mime "^2.4.0"
     qs "^6.7.0"
 
-cozy-stack-client@^9.2.0:
-  version "9.2.0"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-9.2.0.tgz#3d6a9af9e42f6f2d8fad7fe57e83713a3bcafc77"
-  integrity sha512-ivMjA+EtV7lu6lKzuOIiS00XcTVL6WRbycSmfO7SJrAU12kWp54rlKDS9rMFA2NjCEShjTVdu0intkxYbuimsw==
+cozy-stack-client@^9.7.0:
+  version "9.7.0"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-9.7.0.tgz#db052af3165ab11d89af214e183199aa47a6d138"
+  integrity sha512-VhQ0LpqJs22ID3oGy1RHxTwfjvZt5hMGMJlkPgaQvhN4upA5vT5KQXXqw+VVwXKJLrjbl73wXgcL7TBzITr32A==
   dependencies:
     detect-node "^2.0.4"
     mime "^2.4.0"
@@ -13022,6 +13039,13 @@ opn@^5.1.0, opn@^5.3.0, opn@^5.5.0:
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/opn/-/opn-5.5.0.tgz#fc7164fab56d235904c51c3b27da6758ca3b9bfc"
   integrity sha512-PqHpggC9bLV0VeWcdKhkpxY+3JTzetLSqTCWL/z/tFIbI6G8JCjondXklT1JinczLz2Xib62sSp0T/gKT4KksA==
+  dependencies:
+    is-wsl "^1.1.0"
+
+opn@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/opn/-/opn-6.0.0.tgz#3c5b0db676d5f97da1233d1ed42d182bc5a27d2d"
+  integrity sha512-I9PKfIZC+e4RXZ/qr1RhgyCnGgYX0UEIlXgWnCOVACIvFgaC9rz6Won7xbdhoHrd8IIhV7YEpHjreNUNkqCGkQ==
   dependencies:
     is-wsl "^1.1.0"
 

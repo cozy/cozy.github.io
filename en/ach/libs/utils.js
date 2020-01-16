@@ -151,3 +151,7 @@ module.exports.getWithInstanceLogger = function(client) {
     console.log.apply(console, args)
   }
 }
+
+module.exports.parseBool = function(boolString, defaultVal) {
+  return boolString === undefined ? defaultVal : boolString === 'true'
+}

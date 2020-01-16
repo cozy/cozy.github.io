@@ -26,7 +26,7 @@ import {
   getAccountType
 } from 'ducks/account/helpers'
 import { getHomeURL } from 'ducks/apps/selectors'
-import { Query } from 'cozy-client'
+import { Query, Q } from 'cozy-client'
 import { queryConnect, withClient } from 'cozy-client'
 import { ACCOUNT_DOCTYPE, APP_DOCTYPE } from 'doctypes'
 import { Padded } from 'components/Spacing'
@@ -232,7 +232,7 @@ const mapStateToProps = state => ({
 const GeneralSettings = compose(
   withRouter,
   queryConnect({
-    apps: { query: client => client.all(APP_DOCTYPE), as: 'apps' }
+    apps: { query: () => Q(APP_DOCTYPE), as: 'apps' }
   }),
   withClient,
   withDispatch,

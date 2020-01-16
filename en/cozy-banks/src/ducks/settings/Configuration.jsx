@@ -1,3 +1,5 @@
+/* global __TARGET__ */
+
 import React from 'react'
 import { translate } from 'cozy-ui/transpiled/react'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
@@ -151,7 +153,7 @@ export class Configuration extends React.Component {
         </Section>
 
         <Section title={t('Settings.security.title')}>
-          {flag('pin') && <PinSettings />}
+          {__TARGET__ === 'mobile' ? <PinSettings /> : null}
           <SubSection title={t('Settings.security.amount_blur.title')}>
             <ToggleRow
               description={t('Settings.security.amount_blur.description')}

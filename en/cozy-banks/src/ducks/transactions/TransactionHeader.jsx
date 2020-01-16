@@ -14,7 +14,7 @@ import { Padded } from 'components/Spacing'
 
 import withSize from 'components/withSize'
 import TableHead from './header/TableHead'
-import styles from './TransactionsPage.styl'
+import styles from './TransactionsHeader.styl'
 
 const HeaderBreadcrumb = ({ router }) => {
   const { t } = useI18n()

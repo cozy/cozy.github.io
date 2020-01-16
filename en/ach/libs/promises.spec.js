@@ -20,7 +20,7 @@ describe('promise tools', () => {
     ])
   })
 
-  it('should be possible to run promises in a pool (pool size < number of promises)', async () => {
+  it('should be possible to run promises in a pool (pool size >= number of promises)', async () => {
     const now = Date.now()
     const results = await runInPool(5)([10, 11, 12, 13, 14], promiseMaker)
     expect(Date.now() - now).toBeLessThanOrEqual(20)
@@ -33,9 +33,9 @@ describe('promise tools', () => {
     ])
   })
 
-  it('should be possible to run promises in a pool (pool size > number of promises)', async () => {
+  it('should be possible to run promises in a pool (pool size < number of promises)', async () => {
     const now = Date.now()
-    const results = await runInPool(5)([10, 11, 12, 13, 14, 10], promiseMaker)
+    const results = await runInPool(5)([10, 11, 12, 13, 14, 15], promiseMaker)
     expect(Date.now() - now).toBeGreaterThanOrEqual(20)
     expect(results).toEqual([
       'Hello 10',
@@ -43,7 +43,7 @@ describe('promise tools', () => {
       'Hello 12',
       'Hello 13',
       'Hello 14',
-      'Hello 10'
+      'Hello 15'
     ])
   })
 })

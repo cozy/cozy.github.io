@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { withClient } from 'cozy-client'
 import { sortBy, flowRight as compose } from 'lodash'
 import { withRouter } from 'react-router'
 import withFilters from 'components/withFilters'
@@ -7,11 +8,12 @@ import AccountRow from 'ducks/balance/components/AccountRow'
 import styles from 'ducks/balance/components/AccountsList.styl'
 import { getAccountBalance } from 'ducks/account/helpers'
 import AccountRowLoading from 'ducks/balance/components/AccountRowLoading'
+import { connect } from 'react-redux'
+import { getHydratedAccountsFromGroup } from 'selectors'
 
 class AccountsList extends React.PureComponent {
   static propTypes = {
     group: PropTypes.object.isRequired,
-    warningLimit: PropTypes.number.isRequired,
     switches: PropTypes.object.isRequired,
     onSwitchChange: PropTypes.func
   }
@@ -28,8 +30,7 @@ class AccountsList extends React.PureComponent {
   }
 
   render() {
-    const { group, warningLimit, switches, onSwitchChange } = this.props
-    const accounts = group.accounts.data || []
+    const { group, accounts, switches, onSwitchChange } = this.props
 
     return (
       <ol className={styles.AccountsList}>
@@ -49,7 +50,6 @@ class AccountsList extends React.PureComponent {
               account={a}
               group={group}
               onClick={this.goToAccountsDetails(a)}
-              warningLimit={warningLimit}
               checked={switchState.checked}
               disabled={switchState.disabled}
               id={`${group._id}.accounts.${a._id}`}
@@ -64,5 +64,9 @@ class AccountsList extends React.PureComponent {
 
 export default compose(
   withFilters,
-  withRouter
+  withRouter,
+  withClient,
+  connect((state, { group, client }) => ({
+    accounts: getHydratedAccountsFromGroup(state, group, client)
+  }))
 )(AccountsList)

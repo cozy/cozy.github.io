@@ -162,7 +162,9 @@ export class TransactionsDumb extends React.Component {
       limitMax,
       breakpoints: { isDesktop, isExtraLarge },
       manualLoadMore,
-      filteringOnAccount
+      filteringOnAccount,
+      withScroll,
+      className
     } = this.props
     const transactionsGrouped = groupByDate(
       this.transactions.slice(limitMin, limitMax)
@@ -173,7 +175,16 @@ export class TransactionsDumb extends React.Component {
     const Row = isDesktop ? RowDesktop : RowMobile
 
     return (
-      <TransactionContainer className={styles.TransactionTable}>
+      <TransactionContainer
+        className={cx(
+          styles.TransactionTable,
+          className,
+          'js-scrolling-element',
+          {
+            [styles.ScrollingElement]: withScroll
+          }
+        )}
+      >
         {manualLoadMore && limitMin > 0 && (
           <LoadMoreButton onClick={() => this.props.onReachTop(20)}>
             {t('Transactions.see-more')}
@@ -244,24 +255,4 @@ const Transactions = compose(
   translate()
 )(TransactionsDumb)
 
-export const TransactionsWithSelection = ({
-  withScroll,
-  className,
-  ...rest
-}) => (
-  <div
-    className={cx(
-      {
-        [styles.ScrollingElement]: withScroll
-      },
-      'js-scrolling-element',
-      className
-    )}
-  >
-    <Transactions {...rest} />
-  </div>
-)
-
-TransactionsWithSelection.defaultProps = {
-  withScroll: true
-}
+export const TransactionList = Transactions

@@ -2,11 +2,14 @@
 
 .HeaderFixed
     position sticky
-    position -webkit-sticky
     z-index 2
     top 0
 
     +medium-screen()
+        // We cannot use position: sticky on iOS since there are rendering bugs :
+        // an element with position: sticky would disappear during scroll
+        position fixed
+        width 100%
         top 3rem
 
 .HeaderColor_default
@@ -17,3 +20,10 @@
 
 .HeaderColor_primary.HeaderFixed
     box-shadow 0 2px 4px 0 rgba(0, 0, 0, 0.24), 0 0 4px 0 rgba(0, 0, 0, 0.16)
+
+
+// On mobile, the header is fixed so we need space for divs below it
+// for their content not to be behind the header
+belowHeader(headerHeight)
+    headerHeight=(headerHeight + .5rem)
+    padding-top headerHeight

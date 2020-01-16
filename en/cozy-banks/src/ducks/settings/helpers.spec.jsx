@@ -2,11 +2,15 @@ import React from 'react'
 import { mount } from 'enzyme'
 import fixtures from 'test/fixtures/unit-tests.json'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
-
 import AppLike from 'test/AppLike'
 import { createClientWithData } from 'test/client'
 
-import { fetchSettings, withAccountOrGroupLabeller } from './helpers'
+import {
+  fetchSettings,
+  withAccountOrGroupLabeller,
+  getWarningLimitsPerAccount,
+  reverseIndex
+} from './helpers'
 
 describe('defaulted settings', () => {
   it('should return defaulted settings', async () => {
@@ -77,7 +81,7 @@ describe('withAccountOrGroupLabeller', () => {
   })
 
   it('should correctly name a group', () => {
-    const ENLARGED_FAMILY_GROUP_ID = 'f1d11eb324b64d604cbeee734e77de66'
+    const ENLARGED_FAMILY_GROUP_ID = 'familleelargie'
     const { root } = setup({
       accountOrGroup: {
         _id: ENLARGED_FAMILY_GROUP_ID,
@@ -95,5 +99,66 @@ describe('withAccountOrGroupLabeller', () => {
       }
     })
     expect(root.text()).toBe('Checking accounts')
+  })
+})
+
+describe('reverseIndex', () => {
+  it('should work', () => {
+    const homer = { keys: [1, 2, 3], name: 'homer' }
+    const marge = { keys: [4, 2, 6], name: 'marge' }
+    expect(reverseIndex([homer, marge], x => x.keys)).toEqual({
+      1: [homer],
+      2: [homer, marge],
+      3: [homer],
+      4: [marge],
+      6: [marge]
+    })
+  })
+})
+
+describe('getWarningLimitsPerAccount', () => {
+  it('should return warningLimitsPerAccount from rules, groups and accounts', () => {
+    const groups = fixtures[GROUP_DOCTYPE]
+    const accounts = fixtures[ACCOUNT_DOCTYPE]
+    const rules = [
+      {
+        value: 75,
+        accountOrGroup: {
+          _type: GROUP_DOCTYPE,
+          _id: 'familleelargie'
+        },
+        enabled: true
+      },
+      {
+        value: 50,
+        accountOrGroup: {
+          _type: GROUP_DOCTYPE,
+          _id: 'isabelle'
+        },
+        enabled: true
+      },
+      {
+        value: 100,
+        accountOrGroup: {
+          _type: ACCOUNT_DOCTYPE,
+          _id: 'comptelou1'
+        },
+        enabled: true
+      },
+      {
+        value: 10,
+        enabled: true
+      },
+      {
+        value: 15
+      }
+    ]
+    const warningLimits = getWarningLimitsPerAccount(rules, accounts, groups)
+    expect(warningLimits['comptelou1']).toBe(100)
+    expect(warningLimits['compteisa3']).toBe(50)
+    expect(warningLimits['compteisa1']).toBe(75)
+    expect(warningLimits['comptegene1']).toBe(75)
+    // isa4 is not in the isabelle group
+    expect(warningLimits['compteisa4']).toBe(10)
   })
 })

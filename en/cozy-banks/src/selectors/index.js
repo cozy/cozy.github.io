@@ -4,6 +4,12 @@ import { buildVirtualAccounts } from 'ducks/account/helpers'
 import { getQueryFromState } from 'cozy-client'
 import getClient from './getClient'
 import keyBy from 'lodash/keyBy'
+import {
+  getDefaultedSettings,
+  isConfigurationSetting,
+  getNotificationFromConfig,
+  getWarningLimitsPerAccount as getWarningLimitsPerAccountRaw
+} from 'ducks/settings/helpers'
 
 const updatedAtSameTime = (currentQuery, prevQuery) => {
   return (
@@ -56,9 +62,20 @@ export const queryDataSelector = (queryName, options) =>
 export const getTransactionsRaw = queryDataSelector('transactions', {
   hydrated: true
 })
+
 export const getGroups = queryDataSelector('groups', {
   hydrated: true
 })
+
+export const getSettings = queryDataSelector('settings', {
+  hydrated: true
+})
+
+export const getConfig = createSelector(
+  [getSettings],
+  settings => getDefaultedSettings(settings.find(isConfigurationSetting))
+)
+
 export const getAccounts = queryDataSelector('accounts')
 
 export const getTransactions = createSelector(
@@ -99,6 +116,23 @@ export const getVirtualGroups = createSelector(
     }
   }
 )
+
+export const getWarningLimitPerAccount = createSelector(
+  [getConfig, getAccounts, getGroups],
+  (config, accounts, groups) => {
+    const balanceLowerRules = getNotificationFromConfig(config, 'balanceLower')
+    return getWarningLimitsPerAccountRaw(balanceLowerRules, accounts, groups)
+  }
+)
+
+export const getHydratedAccountsFromGroup = (state, group, client) => {
+  const rawAccounts = group.accounts.data.map(
+    account =>
+      client.getDocumentFromState('io.cozy.bank.accounts', account._id) ||
+      account
+  )
+  return client.hydrateDocuments('io.cozy.bank.accounts', rawAccounts)
+}
 
 export const getAllGroups = createSelector(
   [getGroups, getVirtualGroups],

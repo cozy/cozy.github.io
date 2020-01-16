@@ -1,20 +1,15 @@
 const webpack = require('webpack')
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin')
 
-const HOST = process.env.DEV_SERVER_HOST || 'localhost'
-const PORT = process.env.DEV_SERVER_PORT
-  ? parseInt(process.env.DEV_SERVER_PORT, 10)
-  : 8282
+const HOST = process.env.DEV_HOST || 'localhost'
+const PORT = process.env.DEV_PORT ? parseInt(process.env.DEV_PORT, 10) : 8282
 
 module.exports = {
   output: {
     filename: 'app.js',
     publicPath: `http://${HOST}:${PORT}/`
   },
-  plugins: [
-    new webpack.NamedModulesPlugin(),
-    new HtmlWebpackHarddiskPlugin()
-  ],
+  plugins: [new webpack.NamedModulesPlugin(), new HtmlWebpackHarddiskPlugin()],
   devServer: {
     host: HOST,
     port: PORT,

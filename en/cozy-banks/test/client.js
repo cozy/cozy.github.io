@@ -1,4 +1,4 @@
-import CozyClient from 'cozy-client'
+import CozyClient, { Q } from 'cozy-client'
 import { schema } from 'doctypes'
 import { receiveQueryResult, initQuery } from 'cozy-client/dist/store'
 import { normalizeDoc } from 'cozy-stack-client/dist/DocumentCollection'
@@ -39,7 +39,7 @@ export const createClientWithData = ({ queries, data, clientOptions }) => {
     client.store.dispatch(
       initQuery(
         queryName,
-        queryOptions.definition || client.all(queryOptions.doctype)
+        queryOptions.definition || Q(queryOptions.doctype)
       )
     )
     client.store.dispatch(

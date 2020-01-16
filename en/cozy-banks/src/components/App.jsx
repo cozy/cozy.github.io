@@ -49,15 +49,10 @@ const App = props => {
 }
 
 export default compose(
-  // When removing the pin flag, do not forget to replace the exports (uncomment)
-  // in ducks/pin/index.browser.jsx so that pin functionality is not included
-  // in browsers
-  flag('pin')
-    ? pinGuarded({
-        timeout: flag('pin.debug') ? 10 * 1000 : undefined,
-        showTimeout: flag('pin.debug')
-      })
-    : x => x,
+  pinGuarded({
+    timeout: flag('pin.debug') ? 10 * 1000 : undefined,
+    showTimeout: flag('pin.debug')
+  }),
   queryConnect({ settingsCollection: settingsConn }),
   withRouter
 )(App)

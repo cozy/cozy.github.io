@@ -319,7 +319,6 @@ class Balance extends PureComponent {
       virtualGroups
     } = this.props
 
-    const settings = getDefaultedSettingsFromCollection(settingsCollection)
     const collections = [
       accountsCollection,
       groupsCollection,
@@ -383,9 +382,6 @@ class Balance extends PureComponent {
     }
 
     const groups = [...groupsCollection.data, ...virtualGroups]
-
-    const balanceLower = get(settings, 'notifications.balanceLower.value')
-
     const checkedAccounts = this.getCheckedAccounts()
     const accountsBalance = isCollectionLoading(accounts)
       ? 0
@@ -414,7 +410,6 @@ class Balance extends PureComponent {
         >
           <BalancePanels
             groups={groups}
-            warningLimit={balanceLower}
             panelsState={this.state.panels}
             onSwitchChange={this.handleSwitchChange}
             onPanelChange={this.debouncedHandlePanelChange}

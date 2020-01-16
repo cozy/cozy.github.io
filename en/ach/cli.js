@@ -10,6 +10,9 @@ const spawnSync = require('child_process').spawnSync
 const { ACH, importData, assert, log, askConfirmation } = require('./libs')
 const runBatch = require('./libs/runBatch')
 const scriptLib = require('./libs/scripts')
+const parseDataFile = require('./libs/parseDataFile')
+const getHandlebarsOptions = require('./libs/getHandlebarsOptions')
+const { parseBool } = require('./libs/utils')
 
 const DEFAULT_COZY_URL = 'http://cozy.tools:8080'
 
@@ -54,12 +57,18 @@ program
       fileExists(handlebarsOptionsFile),
       `${handlebarsOptionsFile} does not exist`
     )
-    const { url } = program
-    const doctypes = Object.keys(JSON.parse(fs.readFileSync(filepath)))
-    const token = program.token || autotoken(url, doctypes)
-    return importData(url, token, filepath, handlebarsOptionsFile).catch(
-      logAndExit
+    const options = { parallel: parseBool(process.env.ACH_PARALLEL, true) }
+    const handlebarsOptions = getHandlebarsOptions(
+      handlebarsOptionsFile,
+      options
     )
+    const templateDir = path.dirname(path.resolve(filepath))
+    const data = parseDataFile(filepath, handlebarsOptions)
+    const doctypes = Object.keys(data)
+    const { url } = program
+    const token = program.token || autotoken(url, doctypes)
+
+    return importData(url, token, data, templateDir, options).catch(logAndExit)
   })
 
 program

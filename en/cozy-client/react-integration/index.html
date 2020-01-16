@@ -2766,7 +2766,8 @@ triggering n requests.</p>
 <p>A fetch policy is a function receiving the state of the current query and returning true if it should
 be fetched and false otherwise. It is important to name the query with <code>as</code> when using fetch policies
 otherwise query data cannot be shared across components.</p>
-<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">query</span> <span class="o">=</span> <span class="nx">client</span> <span class="p">=&gt;</span> <span class="nx">client</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">Q</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
+<span class="kr">const</span> <span class="nx">query</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">Q</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">)</span>
 
 <span class="c1">// io.cozy.todos will not be refetched if there are already io.cozy.todos</span>
 <span class="c1">// in the store and the data is fresh (updated less than 30s ago). </span>
@@ -2864,47 +2865,72 @@ for the API documentation.</p>
 
 
 <h3 id="4-testing">4. Testing<a class="headerlink" href="#4-testing" title="Permanent link">&para;</a></h3>
-<p>When testing, it is useful to prefill the client with data and mock the network. You can use a MockClient for this.</p>
-<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">mount</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;enzyme&#39;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">CozyProvider</span><span class="p">,</span> <span class="nx">getCollectionFromState</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
+<p>When testing, it is useful to prefill the client with data and mock the
+network. You can use <code>createMockClient</code> for this.</p>
+<p>Say we want to test the following component:</p>
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">queryConnect</span><span class="p">,</span> <span class="nx">Q</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">configureStore</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./store&#39;</span> 
+<span class="kd">function</span> <span class="nx">DumbTodoList</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="p">{</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">fetchStatus</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">props</span><span class="p">.</span><span class="nx">todos</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">fetchStatus</span> <span class="o">!==</span> <span class="s1">&#39;loaded&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span><span class="nx">Loading</span><span class="p">...&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+        <span class="p">{</span><span class="nx">data</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">todo</span> <span class="p">=&gt;</span> <span class="p">(</span>
+          <span class="p">&lt;</span><span class="nt">li</span> <span class="na">key</span><span class="o">=</span><span class="p">{</span><span class="nx">todo</span><span class="p">.</span><span class="nx">id</span><span class="p">}&gt;{</span><span class="nx">todo</span><span class="p">.</span><span class="nx">label</span><span class="p">}&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+        <span class="p">))}</span>
+      <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 
-<span class="kr">const</span> <span class="nx">todoFixtures</span> <span class="o">=</span> <span class="p">[</span>
-  <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Write tests&#39;</span><span class="p">,</span> <span class="nx">done</span><span class="o">:</span> <span class="kc">true</span> <span class="p">},</span>
-  <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Write code&#39;</span><span class="p">,</span> <span class="nx">done</span><span class="o">:</span> <span class="kc">true</span><span class="p">},</span>
-  <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Take breaks&#39;</span><span class="p">,</span> <span class="nx">done</span><span class="o">:</span> <span class="kc">true</span> <span class="p">},</span>
-  <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Write documentation&#39;</span><span class="p">,</span> <span class="nx">done</span><span class="o">:</span> <span class="kc">false</span> <span class="p">}</span>
-<span class="p">]</span>
+<span class="kr">const</span> <span class="nx">TodoList</span> <span class="o">=</span> <span class="nx">queryConnect</span><span class="p">({</span>
+  <span class="nx">todos</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">as</span><span class="o">:</span> <span class="s1">&#39;todos&#39;</span><span class="p">,</span>
+    <span class="nx">query</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">Q</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">})(</span><span class="nx">DumbTodoList</span><span class="p">)</span>
 
-<span class="nx">describe</span><span class="p">(</span><span class="s2">&quot;my component using the client&#39;s store&quot;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="kr">const</span> <span class="nx">setup</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="nx">mockClient</span><span class="p">({</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">TodoList</span>
+</pre></div>
+
+
+<p>We want to make sure the component renders correctly. In our test, we can
+create a mocked client with predefined data for the <code>todos</code> query, and snapshot
+it:</p>
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span>
+<span class="kr">import</span> <span class="p">{</span>
+  <span class="nx">createMockClient</span><span class="p">,</span>
+  <span class="nx">CozyProvider</span><span class="p">,</span>
+<span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">mount</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;enzyme&#39;</span>
+<span class="kr">import</span> <span class="nx">TodoList</span> <span class="nx">from</span> <span class="s1">&#39;./TodoList&#39;</span>
+
+<span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;TodoList&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should show the todos&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="nx">createMockClient</span><span class="p">({</span>
       <span class="nx">queries</span><span class="o">:</span> <span class="p">{</span>
-        <span class="nx">todos</span><span class="o">:</span> <span class="nx">todoFixtures</span>
+        <span class="nx">todos</span><span class="o">:</span> <span class="p">{</span>
+          <span class="nx">doctype</span><span class="o">:</span> <span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">,</span>
+          <span class="nx">data</span><span class="o">:</span> <span class="p">[</span>
+            <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;todo1&#39;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Write tests&#39;</span><span class="p">,</span> <span class="nx">done</span><span class="o">:</span> <span class="kc">true</span> <span class="p">},</span>
+            <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;todo2&#39;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Write code&#39;</span><span class="p">,</span> <span class="nx">done</span><span class="o">:</span> <span class="kc">true</span> <span class="p">},</span>
+            <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;todo3&#39;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Take breaks&#39;</span><span class="p">,</span> <span class="nx">done</span><span class="o">:</span> <span class="kc">true</span> <span class="p">},</span>
+            <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;todo4&#39;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Write documentation&#39;</span><span class="p">,</span> <span class="nx">done</span><span class="o">:</span> <span class="kc">false</span> <span class="p">}</span>
+          <span class="p">]</span>
+        <span class="p">}</span>
       <span class="p">}</span>
     <span class="p">})</span>
 
-    <span class="kr">const</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">configureStore</span><span class="p">()</span>
-    <span class="nx">client</span><span class="p">.</span><span class="nx">setStore</span><span class="p">(</span><span class="nx">client</span><span class="p">)</span>
-
-    <span class="kr">const</span> <span class="nx">TodosLength</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">todos</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;{</span> <span class="nx">todos</span><span class="p">.</span><span class="nx">length</span> <span class="p">}&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
-    <span class="kr">const</span> <span class="nx">ConnectedTodosLength</span> <span class="o">=</span> <span class="nx">connect</span><span class="p">(</span><span class="nx">state</span> <span class="p">=&gt;</span> <span class="p">{</span>
-      <span class="nx">todos</span><span class="o">:</span> <span class="nx">getCollectionFromState</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">)</span>
-    <span class="p">})</span>
-
-    <span class="kr">const</span> <span class="nx">root</span> <span class="o">=</span> <span class="nx">mount</span><span class="p">(</span>
+    <span class="kr">const</span> <span class="nx">wrapper</span> <span class="o">=</span> <span class="nx">mount</span><span class="p">(</span>
       <span class="p">&lt;</span><span class="nt">CozyProvider</span> <span class="na">client</span><span class="o">=</span><span class="p">{</span><span class="nx">client</span><span class="p">}&gt;</span>
-        <span class="p">&lt;</span><span class="nt">ConnectedTodosLength</span> <span class="p">/&gt;</span>
+        <span class="p">&lt;</span><span class="nt">TodoList</span> <span class="p">/&gt;</span>
       <span class="p">&lt;/</span><span class="nt">CozyProvider</span><span class="p">&gt;</span>
     <span class="p">)</span>
 
-    <span class="k">return</span> <span class="p">{</span> <span class="nx">client</span><span class="p">,</span> <span class="nx">root</span> <span class="p">}</span>
-  <span class="p">}</span>
-
-  <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should get the correct data&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="kr">const</span> <span class="p">{</span> <span class="nx">client</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">setup</span><span class="p">()</span>
-    <span class="nx">expect</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">html</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;&lt;span&gt;5&lt;/span&gt;&#39;</span><span class="p">)</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">wrapper</span><span class="p">.</span><span class="nx">html</span><span class="p">()).</span><span class="nx">toMatchSnapshot</span><span class="p">()</span>
   <span class="p">})</span>
 <span class="p">})</span>
 </pre></div>

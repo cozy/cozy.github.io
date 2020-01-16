@@ -1,6 +1,12 @@
 import maxBy from 'lodash/maxBy'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 
+export const getRuleValue = rule => rule.value
+export const getRuleAccountOrGroupDoctype = rule =>
+  rule.accountOrGroup ? rule.accountOrGroup._type : undefined
+export const getRuleAccountOrGroupId = rule =>
+  rule.accountOrGroup ? rule.accountOrGroup._id : undefined
+
 export const ensureNewRuleFormat = rules =>
   !Array.isArray(rules) ? [{ ...rules, id: 0 }] : rules
 

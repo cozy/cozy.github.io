@@ -67,7 +67,6 @@ class GroupPanel extends React.PureComponent {
     group: PropTypes.object.isRequired,
     filterByDoc: PropTypes.func.isRequired,
     router: PropTypes.object.isRequired,
-    warningLimit: PropTypes.number.isRequired,
     switches: PropTypes.object,
     checked: PropTypes.bool,
     expanded: PropTypes.bool.isRequired,
@@ -118,7 +117,6 @@ class GroupPanel extends React.PureComponent {
     const {
       group,
       groupLabel,
-      warningLimit,
       switches,
       onSwitchChange,
       checked,
@@ -201,7 +199,6 @@ class GroupPanel extends React.PureComponent {
           {group.accounts.data && group.accounts.data.length > 0 ? (
             <AccountsList
               group={group}
-              warningLimit={warningLimit}
               switches={switches}
               onSwitchChange={onSwitchChange}
             />
@@ -235,7 +232,11 @@ export const getGroupPanelSummaryClasses = (group, state) => {
     'lateHealthReimbursement'
   )
 
-  if (hasLateHealthExpenses && lateHealthExpensesNotification.enabled) {
+  if (
+    hasLateHealthExpenses &&
+    lateHealthExpensesNotification &&
+    lateHealthExpensesNotification.enabled
+  ) {
     return {
       content: styles['GroupPanelSummary--lateHealthReimbursements']
     }

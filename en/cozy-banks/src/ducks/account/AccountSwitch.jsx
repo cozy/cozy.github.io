@@ -27,7 +27,7 @@ import {
 } from 'ducks/filters'
 import styles from 'ducks/account/AccountSwitch.styl'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
-import { queryConnect } from 'cozy-client'
+import { queryConnect, Q } from 'cozy-client'
 
 import { getGroupLabel } from 'ducks/groups/helpers'
 import { getVirtualGroups } from 'selectors'
@@ -422,8 +422,8 @@ const mapDispatchToProps = dispatch => ({
 
 export default compose(
   queryConnect({
-    accounts: { query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts' },
-    groups: { query: client => client.all(GROUP_DOCTYPE), as: 'groups' }
+    accounts: { query: () => Q(ACCOUNT_DOCTYPE), as: 'accounts' },
+    groups: { query: () => Q(GROUP_DOCTYPE), as: 'groups' }
   }),
   translate(),
   withBreakpoints(),

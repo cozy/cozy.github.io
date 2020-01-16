@@ -7,7 +7,7 @@ import { queryConnect } from 'cozy-client'
 import { isCollectionLoading } from 'ducks/client/utils'
 import { lastInteractionStorage, pinSettingStorage } from './storage'
 
-export const GREEN_BACKGROUND_EFFECT_DURATION = 500
+const isPinOn = pinSetting => Boolean(pinSetting && pinSetting.pin)
 
 /**
  * Wraps an App and display a Pin screen after a period
@@ -55,8 +55,11 @@ class PinGuard extends React.Component {
   checkToUpdateLocalPinDoc(prevPinSetting) {
     const { pinSetting } = this.props
     if (pinSetting.data !== prevPinSetting.data) {
-      this.restartTimeout()
       pinSettingStorage.save(pinSetting.data)
+      this.restartTimeout()
+      if (!isPinOn(prevPinSetting.data) && isPinOn(pinSetting.data)) {
+        this.markInteraction()
+      }
     }
   }
 
@@ -97,13 +100,17 @@ class PinGuard extends React.Component {
     })
   }
 
+  markInteraction() {
+    const now = Date.now()
+    this.setState({ last: now })
+    lastInteractionStorage.save(now)
+  }
+
   handleInteraction() {
     if (this.state.showPin) {
       return
     }
-    const now = Date.now()
-    this.setState({ last: now })
-    lastInteractionStorage.save(now)
+    this.markInteraction()
     this.restartTimeout()
   }
 
@@ -124,11 +131,7 @@ class PinGuard extends React.Component {
 
   handlePinSuccess() {
     this.restartTimeout()
-    // Delay a bit the success so that the user sees the success
-    // effect
-    setTimeout(() => {
-      this.hidePin()
-    }, GREEN_BACKGROUND_EFFECT_DURATION)
+    this.hidePin()
   }
 
   render() {
