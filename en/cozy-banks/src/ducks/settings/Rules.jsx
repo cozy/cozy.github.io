@@ -46,6 +46,7 @@ const Rules = ({
       setSaving(false)
     }
   }
+
   return (
     <>
       {items.length > 0 ? (
@@ -53,15 +54,14 @@ const Rules = ({
           {items
             ? items.map((item, i) => children(item, i, createOrUpdate, remove))
             : null}
-
-          {creating ? (
-            <ItemEditionModal
-              onDismiss={() => setCreating(false)}
-              initialDoc={makeNewItem()}
-              onEdit={handleCreateItem}
-            />
-          ) : null}
         </Stack>
+      ) : null}
+      {creating ? (
+        <ItemEditionModal
+          onDismiss={() => setCreating(false)}
+          initialDoc={makeNewItem()}
+          onEdit={handleCreateItem}
+        />
       ) : null}
       <AddRuleButton
         label={t(addButtonLabelKey)}

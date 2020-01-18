@@ -37,10 +37,7 @@ export const createClientWithData = ({ queries, data, clientOptions }) => {
   client.ensureStore()
   for (let [queryName, queryOptions] of Object.entries(queries || {})) {
     client.store.dispatch(
-      initQuery(
-        queryName,
-        queryOptions.definition || Q(queryOptions.doctype)
-      )
+      initQuery(queryName, queryOptions.definition || Q(queryOptions.doctype))
     )
     client.store.dispatch(
       receiveQueryResult(queryName, {
