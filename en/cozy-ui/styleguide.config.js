@@ -19,6 +19,7 @@ module.exports = {
         '../react/InlineCard/index.jsx',
         '../react/Chip/index.jsx',
         '../react/Icon/index.jsx',
+        '../react/IconButton/index.jsx',
         '../react/Spinner/index.jsx',
         '../react/Counter/index.jsx',
         '../react/PercentageLine/index.jsx',

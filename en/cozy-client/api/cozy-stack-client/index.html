@@ -1188,6 +1188,33 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#notescollection" title="NotesCollection" class="md-nav__link">
+    NotesCollection
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#notescollectionall-object" title="notesCollection.all() ⇒ Object" class="md-nav__link">
+    notesCollection.all() ⇒ Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notescollectiondestroynote-object" title="notesCollection.destroy(note) ⇒ Object" class="md-nav__link">
+    notesCollection.destroy(note) ⇒ Object
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#oauthclient" title="OAuthClient" class="md-nav__link">
     OAuthClient
   </a>
@@ -3373,6 +3400,33 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#notescollection" title="NotesCollection" class="md-nav__link">
+    NotesCollection
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#notescollectionall-object" title="notesCollection.all() ⇒ Object" class="md-nav__link">
+    notesCollection.all() ⇒ Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notescollectiondestroynote-object" title="notesCollection.destroy(note) ⇒ Object" class="md-nav__link">
+    notesCollection.destroy(note) ⇒ Object
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#oauthclient" title="OAuthClient" class="md-nav__link">
     OAuthClient
   </a>
@@ -3696,6 +3750,9 @@ specific collections.</p>
 <p>Files are a special type of documents and are handled differently by the stack:
 special routes are to be used, and there is a notion of referenced files, aka
 files associated to a specific document</p>
+</dd>
+<dt><a href="#NotesCollection">NotesCollection</a></dt>
+<dd><p>Implements <code>DocumentCollection</code> API to interact with the /notes endpoint of the stack</p>
 </dd>
 <dt><a href="#OAuthClient">OAuthClient</a></dt>
 <dd><p>Specialized <code>CozyStackClient</code> for mobile, implementing stack registration
@@ -4784,6 +4841,48 @@ You should use <code>createFile</code></p>
 <td><code>string</code></td>
 <td><code>&quot;POST&quot;</code></td>
 <td>POST / PUT / PATCH</td>
+</tr>
+</tbody>
+</table>
+<p><a name="NotesCollection"></a></p>
+<h2 id="notescollection">NotesCollection<a class="headerlink" href="#notescollection" title="Permanent link">&para;</a></h2>
+<p>Implements <code>DocumentCollection</code> API to interact with the /notes endpoint of the stack</p>
+<p><strong>Kind</strong>: global class  </p>
+<ul>
+<li><a href="#NotesCollection">NotesCollection</a><ul>
+<li><a href="#NotesCollection+all">.all()</a> ⇒ <code>Object</code></li>
+<li><a href="#NotesCollection+destroy">.destroy(note)</a> ⇒ <code>Object</code></li>
+</ul>
+</li>
+</ul>
+<p><a name="NotesCollection+all"></a></p>
+<h3 id="notescollectionall-object">notesCollection.all() ⇒ <code>Object</code><a class="headerlink" href="#notescollectionall-object" title="Permanent link">&para;</a></h3>
+<p>all - Fetches all notes</p>
+<p><strong>Kind</strong>: instance method of <a href="#NotesCollection"><code>NotesCollection</code></a><br />
+<strong>Returns</strong>: <code>Object</code> - The JSON API conformant response.<br />
+<a name="NotesCollection+destroy"></a></p>
+<h3 id="notescollectiondestroynote-object">notesCollection.destroy(note) ⇒ <code>Object</code><a class="headerlink" href="#notescollectiondestroynote-object" title="Permanent link">&para;</a></h3>
+<p>destroy - Destroys the note on the server</p>
+<p><strong>Kind</strong>: instance method of <a href="#NotesCollection"><code>NotesCollection</code></a><br />
+<strong>Returns</strong>: <code>Object</code> - The deleted note  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>note</td>
+<td><code>io.cozy.notes</code></td>
+<td>The note document to destroy</td>
+</tr>
+<tr>
+<td>note._id</td>
+<td><code>string</code></td>
+<td>The note&rsquo;s id</td>
 </tr>
 </tbody>
 </table>
