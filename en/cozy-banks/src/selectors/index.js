@@ -10,6 +10,7 @@ import {
   getNotificationFromConfig,
   getWarningLimitsPerAccount as getWarningLimitsPerAccountRaw
 } from 'ducks/settings/helpers'
+import { ACCOUNT_DOCTYPE } from 'doctypes'
 
 const updatedAtSameTime = (currentQuery, prevQuery) => {
   return (
@@ -126,12 +127,13 @@ export const getWarningLimitPerAccount = createSelector(
 )
 
 export const getHydratedAccountsFromGroup = (state, group, client) => {
-  const rawAccounts = group.accounts.data.map(
-    account =>
-      client.getDocumentFromState('io.cozy.bank.accounts', account._id) ||
-      account
-  )
-  return client.hydrateDocuments('io.cozy.bank.accounts', rawAccounts)
+  const rawAccounts = group.accounts.data
+    .filter(Boolean)
+    .map(
+      account =>
+        client.getDocumentFromState(ACCOUNT_DOCTYPE, account._id) || account
+    )
+  return client.hydrateDocuments(ACCOUNT_DOCTYPE, rawAccounts)
 }
 
 export const getAllGroups = createSelector(

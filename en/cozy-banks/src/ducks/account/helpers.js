@@ -215,7 +215,7 @@ export const addOwnerToAccount = (account, owner) => {
 }
 
 export const getAccountOwners = account => {
-  return get(account, 'owners.data', [])
+  return get(account, 'owners.data', []).filter(Boolean)
 }
 
 export const getUniqueOwners = accounts => {

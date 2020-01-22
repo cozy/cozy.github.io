@@ -126,7 +126,8 @@ class GroupPanel extends React.PureComponent {
       groupPanelSummaryClasses
     } = this.props
 
-    const nbAccounts = group.accounts.data.length
+    const groupAccounts = group.accounts.data.filter(Boolean)
+    const nbAccounts = groupAccounts.length
     const nbCheckedAccounts = Object.values(switches).filter(s => s.checked)
       .length
     const uncheckedAccountsIds = Object.keys(switches).filter(
@@ -196,7 +197,7 @@ class GroupPanel extends React.PureComponent {
           </div>
         </GroupPanelSummary>
         <ExpansionPanelDetails>
-          {group.accounts.data && group.accounts.data.length > 0 ? (
+          {groupAccounts && groupAccounts.length > 0 ? (
             <AccountsList
               group={group}
               switches={switches}

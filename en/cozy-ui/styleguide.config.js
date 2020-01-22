@@ -3,6 +3,7 @@ const webpackMerge = require('webpack-merge')
 
 module.exports = {
   title: 'Cozy UI React components',
+  pagePerSection: true,
   sections: [
     {
       name: 'Bar',

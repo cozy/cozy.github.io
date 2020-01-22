@@ -3752,10 +3752,12 @@
 <h2 id="disk-usage">Disk usage<a class="headerlink" href="#disk-usage" title="Permanent link">&para;</a></h2>
 <h3 id="get-settingsdisk-usage">GET /settings/disk-usage<a class="headerlink" href="#get-settingsdisk-usage" title="Permanent link">&para;</a></h3>
 <p>Says how many bytes are available and used to store files. When not limited the
-<code>quota</code> field is omitted.
-Also says how many bytes are used by last version of files and how many bytes are taken by older versions.</p>
+<code>quota</code> field is omitted. Also says how many bytes are used by last version of
+files and how many bytes are taken by older versions.</p>
+<p>If the <code>include=trash</code> parameter is added to the query string, it will also
+compute the size of the files in the trash.</p>
 <h4 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/settings/disk-usage</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/settings/disk-usage?include=trash</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 <span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer ...</span>
@@ -3777,6 +3779,7 @@ Also says how many bytes are used by last version of files and how many bytes ar
             <span class="nt">&quot;quota&quot;</span><span class="p">:</span> <span class="s2">&quot;123456789&quot;</span><span class="p">,</span>
             <span class="nt">&quot;used&quot;</span><span class="p">:</span> <span class="s2">&quot;12345678&quot;</span><span class="p">,</span>
             <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="s2">&quot;10305070&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;trash&quot;</span><span class="p">:</span> <span class="s2">&quot;456789&quot;</span><span class="p">,</span>
             <span class="nt">&quot;versions&quot;</span><span class="p">:</span> <span class="s2">&quot;2040608&quot;</span>
         <span class="p">}</span>
     <span class="p">}</span>
@@ -4038,8 +4041,8 @@ are:</p>
 
 
 <h4 id="permissions">Permissions<a class="headerlink" href="#permissions" title="Permanent link">&para;</a></h4>
-<p>To use this endpoint, an application needs a permission on the type
-<code>io.cozy.settings</code> for the verb <code>GET</code>.</p>
+<p>No permissions are required to access this route, but the request needs to be
+authenticated (webapp token, OAuth token, etc.).</p>
 <h3 id="get-settingsinstance">GET /settings/instance<a class="headerlink" href="#get-settingsinstance" title="Permanent link">&para;</a></h3>
 <p>If the user is logged in, display all instance settings. If the user is not
 logged in, the register token can be used to read the informations.</p>

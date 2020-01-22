@@ -162,7 +162,9 @@ class AccountRow extends React.PureComponent {
       triggersCol
     } = this.props
 
-    const owners = account.owners.data.filter(owner => !owner.me)
+    const owners = account.owners.data
+      .filter(Boolean)
+      .filter(owner => !owner.me)
 
     const shouldShowOwners = owners.length > 0
 

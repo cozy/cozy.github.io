@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { useRedirectionURL } from 'components/effects'
-import { useI18n } from 'cozy-ui/transpiled/react'
+import { useI18n, translate } from 'cozy-ui/transpiled/react'
 import compose from 'lodash/flowRight'
 import { withClient } from 'cozy-client'
 import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
@@ -63,6 +63,7 @@ const TriggerErrorCard = ({
 export const DumbTriggerErrorCard = TriggerErrorCard
 
 export default compose(
+  translate(),
   withClient,
   withBreakpoints()
 )(TriggerErrorCard)
