@@ -1092,6 +1092,18 @@
 
 
   <li class="md-nav__item">
+    <a href="io.cozy.notes/" title="Notes" class="md-nav__link">
+      Notes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="io.cozy.notifications/" title="Notifications" class="md-nav__link">
       Notifications
     </a>
@@ -2570,6 +2582,7 @@ for another doctype, feel free to open a PR with the description and role of you
 <li><a href="io.cozy.files_metadata/">Files_metadatas</a>: Metadatas about files</li>
 <li><a href="io.cozy.konnectors/">Connectors</a>: Connectors installed in the cozy</li>
 <li><a href="io.cozy.identities/">Identities</a>: Instance owner identities</li>
+<li><a href="io.cozy.notes/">Notes</a>: Notes with collaborative edition</li>
 <li><a href="io.cozy.notifications/">Notifications</a>: Notifications made by the apps (Email or Push notifications)</li>
 <li><a href="io.cozy.permissions/">Permissions</a>: Permissions of the instance</li>
 <li><a href="io.cozy.photos/">Photos</a>: Photos</li>
@@ -2646,7 +2659,7 @@ for another doctype, feel free to open a PR with the description and role of you
 <li><code>updatedByApps</code>: List of objects representing the applications (slugs and versions) which modified the cozy document in its life and the last update date for each of those apps (one entry per slug, apps should just update the value)</li>
 <li><code>sourceAccount</code>: When the document was imported from a connector, identifier of the account in io.cozy.accounts</li>
 </ul>
-<p>Note: All these attributes are optionnal and taken care by the apps modifying the document. Unless specified otherwise in the documentation of the doctype, all these attributes may not be present or may have a <code>null</code> value.</p>
+<p>Note: All these attributes are optional and taken care by the apps modifying the document. Unless specified otherwise in the documentation of the doctype, all these attributes may not be present or may have a <code>null</code> value.</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;xxxx&quot;</span><span class="p">,</span>
   <span class="nt">&quot;cozyMetadata&quot;</span><span class="p">:</span> <span class="p">{</span>
