@@ -24,7 +24,7 @@ class FlagStore {
     const allValues = this.longtermStore.getAll()
     for (const [flag, val] of Object.entries(allValues)) {
       this.store[flag] = val
-      this.emit('change')
+      this.emit('change', flag)
     }
   }
 
@@ -44,7 +44,7 @@ class FlagStore {
       this.longtermStore.setItem(name, value)
     }
     this.store[name] = value
-    this.emit('change')
+    this.emit('change', name)
   }
 
   remove(name) {
@@ -52,7 +52,7 @@ class FlagStore {
     if (this.longtermStore) {
       this.longtermStore.removeItem(name)
     }
-    this.emit('change')
+    this.emit('change', name)
   }
 }
 
