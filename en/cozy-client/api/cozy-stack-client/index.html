@@ -1394,6 +1394,34 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#sharingcollectionaddrecipientssharing-recipients-sharingtype" title="sharingCollection.addRecipients(sharing, recipients, sharingType)" class="md-nav__link">
+    sharingCollection.addRecipients(sharing, recipients, sharingType)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sharingcollectionrevokerecipientsharing-recipientindex" title="sharingCollection.revokeRecipient(sharing, recipientIndex)" class="md-nav__link">
+    sharingCollection.revokeRecipient(sharing, recipientIndex)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sharingcollectionrevokeselfsharing" title="sharingCollection.revokeSelf(sharing)" class="md-nav__link">
+    sharingCollection.revokeSelf(sharing)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sharingcollectionrevokeallrecipientssharing" title="sharingCollection.revokeAllRecipients(sharing)" class="md-nav__link">
+    sharingCollection.revokeAllRecipients(sharing)
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3618,6 +3646,34 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#sharingcollectionaddrecipientssharing-recipients-sharingtype" title="sharingCollection.addRecipients(sharing, recipients, sharingType)" class="md-nav__link">
+    sharingCollection.addRecipients(sharing, recipients, sharingType)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sharingcollectionrevokerecipientsharing-recipientindex" title="sharingCollection.revokeRecipient(sharing, recipientIndex)" class="md-nav__link">
+    sharingCollection.revokeRecipient(sharing, recipientIndex)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sharingcollectionrevokeselfsharing" title="sharingCollection.revokeSelf(sharing)" class="md-nav__link">
+    sharingCollection.revokeSelf(sharing)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sharingcollectionrevokeallrecipientssharing" title="sharingCollection.revokeAllRecipients(sharing)" class="md-nav__link">
+    sharingCollection.revokeAllRecipients(sharing)
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -5270,6 +5326,10 @@ sets internal information from the server response</p>
 <li><a href="#SharingCollection">SharingCollection</a><ul>
 <li><a href="#SharingCollection+share">.share(document, recipients, sharingType, description, [previewPath])</a></li>
 <li><a href="#SharingCollection+getDiscoveryLink">.getDiscoveryLink(sharingId, sharecode)</a> ⇒ <code>string</code></li>
+<li><a href="#SharingCollection+addRecipients">.addRecipients(sharing, recipients, sharingType)</a></li>
+<li><a href="#SharingCollection+revokeRecipient">.revokeRecipient(sharing, recipientIndex)</a></li>
+<li><a href="#SharingCollection+revokeSelf">.revokeSelf(sharing)</a></li>
+<li><a href="#SharingCollection+revokeAllRecipients">.revokeAllRecipients(sharing)</a></li>
 </ul>
 </li>
 </ul>
@@ -5338,6 +5398,102 @@ sets internal information from the server response</p>
 <tr>
 <td>sharecode</td>
 <td><code>string</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="SharingCollection+addRecipients"></a></p>
+<h3 id="sharingcollectionaddrecipientssharing-recipients-sharingtype">sharingCollection.addRecipients(sharing, recipients, sharingType)<a class="headerlink" href="#sharingcollectionaddrecipientssharing-recipients-sharingtype" title="Permanent link">&para;</a></h3>
+<p>Add an array of contacts to the Sharing</p>
+<p><strong>Kind</strong>: instance method of <a href="#SharingCollection"><code>SharingCollection</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sharing</td>
+<td><code>object</code></td>
+<td>Sharing Object</td>
+</tr>
+<tr>
+<td>recipients</td>
+<td><code>Array</code></td>
+<td id:1_="id:1," type:_io.cozy.contacts_="type:&quot;io.cozy.contacts&quot;">Array of </td>
+</tr>
+<tr>
+<td>sharingType</td>
+<td><code>string</code></td>
+<td>Read and write: two-way. Other only read</td>
+</tr>
+</tbody>
+</table>
+<p><a name="SharingCollection+revokeRecipient"></a></p>
+<h3 id="sharingcollectionrevokerecipientsharing-recipientindex">sharingCollection.revokeRecipient(sharing, recipientIndex)<a class="headerlink" href="#sharingcollectionrevokerecipientsharing-recipientindex" title="Permanent link">&para;</a></h3>
+<p>Revoke only one recipient of the sharing.</p>
+<p><strong>Kind</strong>: instance method of <a href="#SharingCollection"><code>SharingCollection</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sharing</td>
+<td><code>object</code></td>
+<td>Sharing Object</td>
+</tr>
+<tr>
+<td>recipientIndex</td>
+<td><code>number</code></td>
+<td>Index of this recipient in the members array of the sharing</td>
+</tr>
+</tbody>
+</table>
+<p><a name="SharingCollection+revokeSelf"></a></p>
+<h3 id="sharingcollectionrevokeselfsharing">sharingCollection.revokeSelf(sharing)<a class="headerlink" href="#sharingcollectionrevokeselfsharing" title="Permanent link">&para;</a></h3>
+<p>Remove self from the sharing.</p>
+<p><strong>Kind</strong>: instance method of <a href="#SharingCollection"><code>SharingCollection</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sharing</td>
+<td><code>object</code></td>
+<td>Sharing Object</td>
+</tr>
+</tbody>
+</table>
+<p><a name="SharingCollection+revokeAllRecipients"></a></p>
+<h3 id="sharingcollectionrevokeallrecipientssharing">sharingCollection.revokeAllRecipients(sharing)<a class="headerlink" href="#sharingcollectionrevokeallrecipientssharing" title="Permanent link">&para;</a></h3>
+<p>Revoke the sharing for all the members. Must be called
+from the owner&rsquo;s cozy</p>
+<p><strong>Kind</strong>: instance method of <a href="#SharingCollection"><code>SharingCollection</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sharing</td>
+<td><code>object</code></td>
+<td>Sharing Objects</td>
 </tr>
 </tbody>
 </table>
