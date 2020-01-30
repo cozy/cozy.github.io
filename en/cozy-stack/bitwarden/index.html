@@ -4035,6 +4035,7 @@ client_id=browser&amp;
 deviceType=3&amp;
 deviceIdentifier=aac2e34a-44db-42ab-a733-5322dd582c3d&amp;
 deviceName=firefox&amp;
+clientName=Cozy&amp;
 devicePushToken=
 </pre></div>
 
@@ -4042,6 +4043,8 @@ devicePushToken=
 <p>If authentication with two factors is enabled on the instance, this request
 will fail with a 400 status, but it will send an email with the code. The
 request can be retried with an additional paramter: <code>twoFactorToken</code>.</p>
+<p><strong>Note:</strong> the <code>clientName</code> parameter is optional, and is not sent by the
+official bitwarden clients (a default value is used).</p>
 <h4 id="request-refresh-token">Request (refresh token)<a class="headerlink" href="#request-refresh-token" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/bitwarden/identity/connect/token</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
