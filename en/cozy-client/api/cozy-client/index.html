@@ -1400,6 +1400,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#generateweblink-string" title="generateWebLink ⇒ string" class="md-nav__link">
+    generateWebLink ⇒ string
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#getmutederrors-array" title="getMutedErrors ⇒ Array" class="md-nav__link">
     getMutedErrors ⇒ Array
   </a>
@@ -3846,6 +3853,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#generateweblink-string" title="generateWebLink ⇒ string" class="md-nav__link">
+    generateWebLink ⇒ string
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#getmutederrors-array" title="getMutedErrors ⇒ Array" class="md-nav__link">
     getMutedErrors ⇒ Array
   </a>
@@ -4198,6 +4212,13 @@ from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
 
 <h2 id="constants">Constants<a class="headerlink" href="#constants" title="Permanent link">&para;</a></h2>
 <dl>
+<dt><a href="#generateWebLink">generateWebLink</a> ⇒ <code>string</code></dt>
+<dd><p>generateWebLink - Construct a link to a web app</p>
+<p>This function does not get its cozy url from a CozyClient instance so it can
+be used to build urls that point to other Cozies than the user&#39;s own Cozy.
+This is useful when pointing to the Cozy of the owner of a shared note for
+example.</p>
+</dd>
 <dt><a href="#getMutedErrors">getMutedErrors</a> ⇒ <code>Array</code></dt>
 <dd><p>getMutedErrors - Returns the list of errors that have been muted for the given account</p>
 </dd>
@@ -5792,7 +5813,62 @@ the index for the next query.</p>
 <h3 id="schemavalidate">schema.validate()<a class="headerlink" href="#schemavalidate" title="Permanent link">&para;</a></h3>
 <p>Validates a document considering the descriptions in schema.attributes.</p>
 <p><strong>Kind</strong>: instance method of <a href="#Schema"><code>Schema</code></a><br />
-<a name="getMutedErrors"></a></p>
+<a name="generateWebLink"></a></p>
+<h2 id="generateweblink-string">generateWebLink ⇒ <code>string</code><a class="headerlink" href="#generateweblink-string" title="Permanent link">&para;</a></h2>
+<p>generateWebLink - Construct a link to a web app</p>
+<p>This function does not get its cozy url from a CozyClient instance so it can
+be used to build urls that point to other Cozies than the user&rsquo;s own Cozy.
+This is useful when pointing to the Cozy of the owner of a shared note for
+example.</p>
+<p><strong>Kind</strong>: global constant<br />
+<strong>Returns</strong>: <code>string</code> - Generated URL  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>options</td>
+<td><code>object</code></td>
+<td>Object of options</td>
+</tr>
+<tr>
+<td>options.cozyUrl</td>
+<td><code>string</code></td>
+<td>Base URL of the cozy, eg. cozy.tools or test.mycozy.cloud</td>
+</tr>
+<tr>
+<td>options.searchParams</td>
+<td><code>Array</code></td>
+<td>Array of search parameters as [key, value] arrays, eg. [&lsquo;username&rsquo;, &lsquo;bob&rsquo;]</td>
+</tr>
+<tr>
+<td>options.pathname</td>
+<td><code>string</code></td>
+<td>Path to a specific part of the app, eg. /public</td>
+</tr>
+<tr>
+<td>options.hash</td>
+<td><code>string</code></td>
+<td>Path inside the app, eg. /files/test.jpg</td>
+</tr>
+<tr>
+<td>options.slug</td>
+<td><code>string</code></td>
+<td>Slug of the app</td>
+</tr>
+<tr>
+<td>options.subDomainType</td>
+<td><code>string</code></td>
+<td>Whether the cozy is using flat or nested subdomains. Defaults to flat.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="getMutedErrors"></a></p>
 <h2 id="getmutederrors-array">getMutedErrors ⇒ <code>Array</code><a class="headerlink" href="#getmutederrors-array" title="Permanent link">&para;</a></h2>
 <p>getMutedErrors - Returns the list of errors that have been muted for the given account</p>
 <p><strong>Kind</strong>: global constant<br />

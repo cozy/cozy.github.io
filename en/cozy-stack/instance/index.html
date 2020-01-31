@@ -2536,6 +2536,12 @@ the CLI user unless the &ndash;force flag is passed:</p>
 </pre></div>
 
 
+<p>When the deletion of an instance starts, the stack puts a flag <code>deleting</code> on
+the instance. This flag avoids that someone can try again to destroy the
+instance while the stack is doing cleaning before the real deletion (like
+deleting accounts). It&rsquo;s possible to remove manually the flag via the command
+<code>cozy-stack instance modify --deleting=false &lt;domain&gt;</code> to force a deletion that
+has failed.</p>
 <h2 id="blocking">Blocking<a class="headerlink" href="#blocking" title="Permanent link">&para;</a></h2>
 <p>If you manage several instances on your stack, you can block some instances.
 When an instance is blocked (for whatever reason), the user cannot use his Cozy
