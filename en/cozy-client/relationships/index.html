@@ -812,6 +812,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#remove-a-relation-to-an-existing-document" title="Remove a relation to an existing document" class="md-nav__link">
+    Remove a relation to an existing document
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2501,6 +2508,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#remove-a-relation-to-an-existing-document" title="Remove a relation to an existing document" class="md-nav__link">
+    Remove a relation to an existing document
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2528,9 +2542,9 @@
                   <h1>Using relationships</h1>
                 
                 <h2 id="what-are-relations-in-cozy-client">What are relations in Cozy-Client?<a class="headerlink" href="#what-are-relations-in-cozy-client" title="Permanent link">&para;</a></h2>
-<p>CouchDb is a document store. It does not materialize relations between documents. We do, however, have a standardized way of describing relations between cozy documents. This allows Cozy-Client to give us some automation.</p>
+<p>CouchDB is a document store. It does not materialize relations between documents. We do, however, have a standardized way of describing relations between cozy documents. This allows Cozy-Client to give us some automation.</p>
 <h3 id="in-couchdb">In CouchDB<a class="headerlink" href="#in-couchdb" title="Permanent link">&para;</a></h3>
-<p>To materialize relations, we use a special key inside the document named <a href="https://github.com/cozy/cozy-doctypes#relationships"><code>relationships</code></a>. Please see the cozy-doctypes documentation for the exact syntax.</p>
+<p>To materialize relations, we use a special key inside the document named <code>relationships</code>. Please see the cozy-doctypes <a href="https://github.com/cozy/cozy-doctypes/#relationships">documentation</a> for the exact syntax.</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;_id&quot;</span><span class="o">:</span> <span class="s2">&quot;mobydick&quot;</span><span class="p">,</span>
   <span class="s2">&quot;relationships&quot;</span><span class="o">:</span> <span class="p">{</span>
@@ -2587,21 +2601,21 @@
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>
-<span class="sb">````</span>
+</pre></div>
 
-<span class="sb">```javascript</span>
-<span class="sb">const document = {</span>
-<span class="sb">  &quot;_id&quot;: &quot;mobydick&quot;,</span>
-<span class="sb">  &quot;relationships&quot;: {</span>
-<span class="sb">    &quot;authors&quot;: {</span>
-<span class="sb">      &quot;data&quot;: [</span>
-<span class="sb">        { &quot;_id&quot;: &quot;hermanmelville&quot;, &quot;_type&quot;: &quot;io.cozy.contacts&quot; }</span>
-<span class="sb">      ]</span>
-<span class="sb">    }</span>
-<span class="sb">  }</span>
-<span class="sb">}</span>
-<span class="sb">// there should be an io.cozy.contact document </span>
-<span class="sb">// for which the _id is &quot;hermanmelville&quot;</span>
+
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nb">document</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s2">&quot;_id&quot;</span><span class="o">:</span> <span class="s2">&quot;mobydick&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;relationships&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;authors&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;data&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span> <span class="s2">&quot;_id&quot;</span><span class="o">:</span> <span class="s2">&quot;hermanmelville&quot;</span><span class="p">,</span> <span class="s2">&quot;_type&quot;</span><span class="o">:</span> <span class="s2">&quot;io.cozy.contacts&quot;</span> <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="c1">// there should be an io.cozy.contact document </span>
+<span class="c1">// for which the _id is &quot;hermanmelville&quot;</span>
 </pre></div>
 
 
@@ -2655,18 +2669,16 @@
 <span class="kr">const</span> <span class="nx">docs</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">data</span>
 <span class="kr">const</span> <span class="nx">firstDoc</span> <span class="o">=</span> <span class="nx">docs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="nx">firstDoc</span><span class="p">.</span><span class="nx">authors</span><span class="p">.</span><span class="nx">addById</span><span class="p">(</span><span class="nx">otherAuthorId</span><span class="p">)</span>
-<span class="sb">````</span>
+</pre></div>
 
-<span class="sb">`addById`</span> <span class="nx">also</span> <span class="nx">accepts</span> <span class="nx">an</span> <span class="nx">array</span> <span class="k">of</span> <span class="nb">document</span> <span class="nx">ids</span><span class="o">:</span>
 
-<span class="sb">```javascript</span>
-<span class="sb">firstDoc.authors.addById([mainAuthorId, coAuthorId])</span>
-<span class="sb">````</span>
+<p><code>addById</code> also accepts an array of document ids:</p>
+<div class="codehilite"><pre><span></span><span class="nx">firstDoc</span><span class="p">.</span><span class="nx">authors</span><span class="p">.</span><span class="nx">addById</span><span class="p">([</span><span class="nx">mainAuthorId</span><span class="p">,</span> <span class="nx">coAuthorId</span><span class="p">])</span>
+</pre></div>
 
-<span class="sb">When the relationship is a `</span><span class="nx">has</span><span class="o">-</span><span class="nx">one</span><span class="sb">` type, use `</span><span class="nx">set</span><span class="p">(</span><span class="nb">document</span><span class="p">)</span><span class="sb">` instead:</span>
 
-<span class="sb">```</span><span class="nx">javascript</span> 
-<span class="kr">const</span> <span class="nx">printer</span> <span class="o">=</span> <span class="p">{</span>
+<p>When the relationship is a <code>has-one</code> type, use <code>set(document)</code> instead:</p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">printer</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">_id</span><span class="o">:</span> <span class="s1">&#39;abc123&#39;</span><span class="p">,</span>
   <span class="nx">_type</span><span class="o">:</span> <span class="s1">&#39;io.cozy.company&#39;</span><span class="p">,</span>
   <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Harper &amp; Brothers&#39;</span>
@@ -2675,27 +2687,22 @@
 <span class="kr">const</span> <span class="nx">docs</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">data</span>
 <span class="kr">const</span> <span class="nx">firstDoc</span> <span class="o">=</span> <span class="nx">docs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="nx">firstDoc</span><span class="p">.</span><span class="nx">printingCompany</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">printer</span><span class="p">)</span>
-<span class="sb">````</span>
-
-<span class="err">###</span> <span class="nx">Remove</span> <span class="nx">a</span> <span class="nx">relation</span> <span class="nx">to</span> <span class="nx">an</span> <span class="nx">existing</span> <span class="nb">document</span>
-
-<span class="nx">For</span> <span class="sb">`has-many`</span> <span class="nx">relationships</span><span class="p">,</span> <span class="nx">use</span> <span class="nx">the</span> <span class="sb">`removeById`</span> <span class="nx">method</span><span class="o">:</span>
-
-<span class="sb">```javascript </span>
-<span class="sb">const otherAuthorId = &#39;abc123&#39;</span>
-<span class="sb">const response = await client.query(query)</span>
-<span class="sb">const docs = response.data</span>
-<span class="sb">const firstDoc = docs[0]</span>
-<span class="sb">firstDoc.authors.removeById(otherAuthorId)</span>
-<span class="sb">````</span>
-
-<span class="sb">Just like `</span><span class="nx">addById</span><span class="sb">`, `</span><span class="nx">removeById</span><span class="sb">` accepts an array of ids as parameter.</span>
-
-<span class="sb">For `</span><span class="nx">has</span><span class="o">-</span><span class="nx">one</span><span class="sb">` relationships, use the `</span><span class="nx">unset</span><span class="p">()</span><span class="sb">` method:</span>
+</pre></div>
 
 
-<span class="sb">```</span><span class="nx">javascript</span> 
+<h3 id="remove-a-relation-to-an-existing-document">Remove a relation to an existing document<a class="headerlink" href="#remove-a-relation-to-an-existing-document" title="Permanent link">&para;</a></h3>
+<p>For <code>has-many</code> relationships, use the <code>removeById</code> method:</p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">otherAuthorId</span> <span class="o">=</span> <span class="s1">&#39;abc123&#39;</span>
 <span class="kr">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">query</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">docs</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">data</span>
+<span class="kr">const</span> <span class="nx">firstDoc</span> <span class="o">=</span> <span class="nx">docs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nx">firstDoc</span><span class="p">.</span><span class="nx">authors</span><span class="p">.</span><span class="nx">removeById</span><span class="p">(</span><span class="nx">otherAuthorId</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Just like <code>addById</code>, <code>removeById</code> accepts an array of ids as parameter.</p>
+<p>For <code>has-one</code> relationships, use the <code>unset()</code> method:</p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">query</span><span class="p">)</span>
 <span class="kr">const</span> <span class="nx">docs</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">data</span>
 <span class="kr">const</span> <span class="nx">firstDoc</span> <span class="o">=</span> <span class="nx">docs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="nx">firstDoc</span><span class="p">.</span><span class="nx">printingCompany</span><span class="p">.</span><span class="nx">unset</span><span class="p">()</span>
