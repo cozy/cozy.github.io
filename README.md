@@ -1,5 +1,15 @@
 # Cozy Documentation
 
+<!-- MarkdownTOC autolink=True -->
+
+- [Edit this documentation](#edit-this-documentation)
+- [External documentations](#external-documentations)
+- [When are the docs deployed ?](#when-are-the-docs-deployed-)
+- [Testing the statically built site](#testing-the-statically-built-site)
+
+<!-- /MarkdownTOC -->
+
+
 Learn how to [use Cozy](https://docs.cozy.io/en/use), [host your own server](https://docs.cozy.io/en/tutorials/selfhost-debian/) and [develop applications](https://docs.cozy.io/en/tutorials/app/).
 
 ## Edit this documentation
