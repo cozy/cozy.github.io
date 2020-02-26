@@ -7,7 +7,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/go-kivik/kivik"
+	"github.com/go-kivik/kivik/v3"
 )
 
 const (

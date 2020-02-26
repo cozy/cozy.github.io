@@ -229,7 +229,7 @@ class TransactionsPage extends Component {
     return (
       <Delayed delay={0} fallback={<FakeTransactions />}>
         <TransactionList
-          isOnSubcategory={isOnSubcategory}
+          showTriggerErrors={isOnSubcategory}
           limitMin={limitMin}
           limitMax={limitMax}
           onReachTop={this.handleDecreaseLimitMin}

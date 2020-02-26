@@ -5,13 +5,15 @@ import (
 	"compress/gzip"
 	"encoding/json"
 	"fmt"
-	"github.com/cozy/cozy-apps-registry/asset"
-	"github.com/cozy/cozy-apps-registry/config"
-	"github.com/pbenner/threadpool"
 	"io"
 	"io/ioutil"
 	"path"
 	"strings"
+
+	"github.com/cozy/cozy-apps-registry/base"
+	"github.com/cozy/cozy-apps-registry/config"
+	"github.com/cozy/cozy-apps-registry/storage"
+	"github.com/pbenner/threadpool"
 )
 
 type couchDb struct {
@@ -96,12 +98,12 @@ func parseCouchDocument(reader io.Reader, parts []string) (string, *interface{},
 }
 
 func cleanSwift() error {
+	// TODO don't initialize the storage here
 	connection := config.GetConfig().SwiftConnection
+	fs := storage.NewSwift(connection)
+	// TODO make swiftContainers returns a list of Prefix, not string
 	for _, container := range swiftContainers() {
-		if err := asset.DeleteContainer(connection, container); err != nil {
-			return err
-		}
-		if err := connection.ContainerCreate(container, nil); err != nil {
+		if err := fs.EnsureEmpty(base.Prefix(container)); err != nil {
 			return err
 		}
 	}

@@ -1,15 +1,16 @@
 // Package status is here just to say that the API is up and that it can
 // access CouchDB, Swift and Redis for debugging and monitoring purposes.
 
-package main
+package web
 
 import (
+	"context"
 	"net/http"
 	"net/url"
 
 	"github.com/cozy/cozy-apps-registry/config"
-	"github.com/go-kivik/couchdb/chttp"
-	"github.com/go-kivik/kivik"
+	"github.com/go-kivik/couchdb/v3/chttp"
+	"github.com/go-kivik/kivik/v3"
 	"github.com/go-redis/redis/v7"
 	"github.com/labstack/echo/v4"
 	"github.com/spf13/viper"
@@ -45,8 +46,9 @@ func Status(c echo.Context) error {
 	url := viper.GetString("couchdb.url")
 	user := viper.GetString("couchdb.user")
 	password := viper.GetString("couchdb.password")
+	ctx := c.Request().Context()
 
-	ok, err := checkCouch(url, user, password)
+	ok, err := checkCouch(ctx, url, user, password)
 	if !ok {
 		couchDB.Status = "failed"
 		couchDB.Reason = err.Error()
@@ -92,7 +94,7 @@ func Status(c echo.Context) error {
 	return c.JSON(http.StatusOK, check)
 }
 
-func checkCouch(addr, user, password string) (bool, error) {
+func checkCouch(ctx context.Context, addr, user, password string) (bool, error) {
 	u, err := url.Parse(addr)
 	if err != nil {
 		return false, err

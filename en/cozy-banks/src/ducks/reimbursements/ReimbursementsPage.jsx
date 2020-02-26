@@ -1,36 +1,53 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { flowRight as compose } from 'lodash'
-import { translate, withBreakpoints } from 'cozy-ui/transpiled/react'
+import { withBreakpoints, useI18n } from 'cozy-ui/transpiled/react'
 import Header from 'components/Header'
 import { Padded } from 'components/Spacing'
 import { PageTitle } from 'components/Title'
 import cx from 'classnames'
 import BackButton from 'components/BackButton'
 import { ConnectedSelectDates } from 'components/SelectDates'
-import HealthReimbursements from 'ducks/reimbursements/HealthReimbursements'
+import Reimbursements from 'ducks/reimbursements/Reimbursements'
 import styles from 'ducks/reimbursements/ReimbursementsPage.styl'
+import { getCategoryName } from 'ducks/categories/categoriesMap'
+import { GROUP_DOCTYPE } from 'doctypes'
 
-function getSubComponent(filteringDoc) {
-  switch (filteringDoc._id) {
-    case 'health_reimbursements':
-    case 'Reimbursements':
-      return HealthReimbursements
+const getTitleTranslationKey = doc => {
+  const base = 'Reimbursements.title'
+  let lastPart
 
-    default:
-      throw new Error()
+  if (doc._type === GROUP_DOCTYPE) {
+    lastPart = 'group'
+  } else if (doc.categoryId) {
+    lastPart = getCategoryName(doc.categoryId)
+  } else {
+    lastPart = 'othersExpenses'
   }
+
+  const key = [base, lastPart].join('.')
+
+  return key
+}
+
+const Title = ({ doc, ...props }) => {
+  const { t } = useI18n()
+
+  const translationKey = getTitleTranslationKey(doc)
+
+  return (
+    <PageTitle color="primary" {...props}>
+      {t(translationKey)}
+    </PageTitle>
+  )
 }
 
 class RawReimbursementsPage extends React.Component {
   render() {
     const {
       breakpoints: { isMobile },
-      t,
       filteringDoc
     } = this.props
-
-    const SubComponent = getSubComponent(filteringDoc)
 
     return (
       <>
@@ -44,12 +61,12 @@ class RawReimbursementsPage extends React.Component {
           >
             <div className={styles.ReimbursementsPage__title}>
               <BackButton theme="primary" arrow />
-              <PageTitle color="primary">{t('Reimbursements.title')}</PageTitle>
+              <Title doc={filteringDoc} />
             </div>
             <ConnectedSelectDates showFullYear color="primary" />
           </Padded>
         </Header>
-        <SubComponent />
+        <Reimbursements />
       </>
     )
   }
@@ -62,7 +79,6 @@ function mapStateToProps(state) {
 }
 
 const ReimbursementsPage = compose(
-  translate(),
   withBreakpoints(),
   connect(mapStateToProps)
 )(RawReimbursementsPage)

@@ -1,6 +1,9 @@
 import flag from 'cozy-flags'
 import parentCategory from 'ducks/categories/categoriesMap'
-import { categoriesStyle } from 'ducks/categories/categoriesMap'
+import {
+  categoriesStyle,
+  getCategoryIdFromName
+} from 'ducks/categories/categoriesMap'
 import categoryNames from 'ducks/categories/tree'
 import { BankTransaction } from 'cozy-doctypes'
 
@@ -144,4 +147,11 @@ export const getGlobalCurrency = categories => {
   return currency
 }
 
-export { getCategoryIdFromName } from 'ducks/categories/categoriesMap'
+export const isProfessionalExpense = transaction => {
+  return (
+    getCategoryId(transaction) ===
+      getCategoryIdFromName('professionalExpenses') && transaction.amount < 0
+  )
+}
+
+export { getCategoryIdFromName }

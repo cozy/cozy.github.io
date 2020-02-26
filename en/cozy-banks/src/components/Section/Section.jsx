@@ -4,7 +4,7 @@ import { Title as BaseTitle } from 'cozy-ui/transpiled/react/Text'
 import styles from 'components/Section/Section.styl'
 import { Padded } from 'components/Spacing'
 
-const SectionTitle = props => {
+export const SectionTitle = props => {
   const { className, children, ...rest } = props
 
   return (
@@ -14,12 +14,15 @@ const SectionTitle = props => {
   )
 }
 
+export const SectionSeparator = ({ className, ...props }) => {
+  return <div className={cx(styles.SectionSeparator, className)} {...props} />
+}
+
 const Section = props => {
-  const { className, title, children, ...rest } = props
+  const { className, children, ...rest } = props
 
   return (
     <section className={cx(styles.Section, className)} {...rest}>
-      {title && <SectionTitle>{title}</SectionTitle>}
       {children}
     </section>
   )

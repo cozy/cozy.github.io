@@ -753,10 +753,46 @@
           
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-1-1-5" type="checkbox" id="nav-4-1-1-5">
+    
+    <label class="md-nav__link" for="nav-4-1-1-5">
+      React
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-1-1-5">
+        React
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
   <li class="md-nav__item">
     <a href="../cozy-client/react-integration/" title="React integration" class="md-nav__link">
       React integration
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cozy-client/hooks/" title="Hooks" class="md-nav__link">
+      Hooks
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -2137,6 +2173,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cozy-stack/shortcuts/" title="/shortcuts - Shortcuts" class="md-nav__link">
+      /shortcuts - Shortcuts
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -2422,13 +2470,6 @@
           <li class="md-nav__item">
   <a href="#automation-ci" title="Automation (CI)" class="md-nav__link">
     Automation (CI)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#access-to-our-official-apps-registry" title="Access to our official apps registry" class="md-nav__link">
-    Access to our official apps registry
   </a>
   
 </li>
@@ -2976,13 +3017,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#access-to-our-official-apps-registry" title="Access to our official apps registry" class="md-nav__link">
-    Access to our official apps registry
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -3090,6 +3124,9 @@
                 
                 
                 <h1 id="cozy-apps-registry">cozy-apps-registry<a class="headerlink" href="#cozy-apps-registry" title="Permanent link">&para;</a></h1>
+<p><a href="https://pkg.go.dev/github.com/cozy/cozy-apps-registry"><img alt="go.dev reference" src="https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&amp;logoColor=white&amp;style=flat-square" /></a>
+<a href="https://github.com/cozy/cozy-apps-registry/actions"><img alt="Build Status" src="https://github.com/cozy/cozy-apps-registry/workflows/CI/badge.svg" /></a>
+<a href="https://goreportcard.com/report/github.com/cozy/cozy-apps-registry"><img alt="Go Report Card" src="https://goreportcard.com/badge/github.com/cozy/cozy-apps-registry" /></a></p>
 <h3 id="whats-cozy">What&rsquo;s Cozy?<a class="headerlink" href="#whats-cozy" title="Permanent link">&para;</a></h3>
 <div align="center">
   <a href="https://cozy.io">
@@ -3137,7 +3174,6 @@
 </li>
 <li><a href="#virtual-spaces">Virtual Spaces</a></li>
 <li><a href="#automation-ci">Automation (CI)</a></li>
-<li><a href="#access-to-our-official-apps-registry">Access to our official apps registry</a></li>
 </ul>
 </li>
 <li><a href="#access-control-and-tokens">Access control and tokens</a></li>
@@ -3159,12 +3195,13 @@ API</a>
 described to work with the <a href="https://github.com/cozy/cozy-stack">cozy-stack</a>.</p>
 <p>To work properly, it requires:</p>
 <ul>
-<li>Couchdb &gt;= 2.0</li>
+<li>Couchdb &gt;= 2.3</li>
+<li>Redis</li>
 <li>Openstack Object Storage (Swift)</li>
 </ul>
 <h2 id="how-to-develop-with-a-cozy-apps-registry-working-in-local-environment">How to develop with a <code>cozy-apps-registry</code> working in local environment<a class="headerlink" href="#how-to-develop-with-a-cozy-apps-registry-working-in-local-environment" title="Permanent link">&para;</a></h2>
 <p>Before starting, you will need to have a couchdb running already. That can be the one used by the local <code>cozy-stack</code> if you have one. For this tutorial, couchdb will be running on the default port 5984.</p>
-<p>You also must have an OpenStack Object Storage (Swift) up and running. You can follow install instructions on <a href="https://docs.openstack.org/swift/latest/install/index.html">the official website</a></p>
+<p>You also must have redis and an OpenStack Object Storage (Swift) up and running. You can follow install instructions on <a href="https://docs.openstack.org/swift/latest/install/index.html">the official website</a></p>
 <h3 id="1-install-and-configure-the-local-cozy-apps-registry">1) Install and configure the local <code>cozy-apps-registry</code><a class="headerlink" href="#1-install-and-configure-the-local-cozy-apps-registry" title="Permanent link">&para;</a></h3>
 <p>Since this is a golang project, you can install it using <code>go</code> with the followed command:</p>
 <div class="codehilite"><pre><span></span>go get -u github.com/cozy/cozy-apps-registry
@@ -3181,7 +3218,7 @@ described to work with the <a href="https://github.com/cozy/cozy-stack">cozy-sta
 <p>This password is important, you will need it to run the <code>cozy-apps-registry</code> again later. If you lose it, you will have to start again these steps.</p>
 </blockquote>
 <h3 id="2-configure-the-registry-with-cozy-registryyml">2) Configure the registry with <code>cozy-registry.yml</code><a class="headerlink" href="#2-configure-the-registry-with-cozy-registryyml" title="Permanent link">&para;</a></h3>
-<p>Before running the registry, you have to configure it correctly. Don&rsquo;t worry, here is the <code>.yaml</code> file to copy and paste in your <code>cozy-registry.yml</code> (should be in the root folder of <code>cozy-registry/</code>):</p>
+<p>Before running the registry, you have to configure it correctly. Don&rsquo;t worry, here is the yaml file to copy and paste in your <code>cozy-registry.yml</code> (should be in the root folder of <code>cozy-apps-registry/</code>):</p>
 <blockquote>
 <p>:bulb: You can find an <a href="cozy-registry.example.yml">example of this configuration file</a> at the root of the directory.</p>
 </blockquote>
@@ -3582,52 +3619,52 @@ cozy-apps-registry gen-token --master Cozy -c cozy-registry.yml
 
 <h5 id="categories-and-data-types">Categories and Data types<a class="headerlink" href="#categories-and-data-types" title="Permanent link">&para;</a></h5>
 <p>Categories are slugs from the following list:
-<em> <code>energy</code>
-</em> <code>insurance</code>
-<em> <code>isp</code>
-</em> <code>shopping</code>
-<em> <code>telecom</code>
-</em> <code>transport</code>
-<em> <code>banking</code>
-</em> <code>health</code>
-<em> <code>host_provider</code>
-</em> <code>online_services</code>
-<em> <code>partners</code>
-</em> <code>press</code>
-<em> <code>productivity</code>
-</em> <code>public_service</code>
+* <code>energy</code>
+* <code>insurance</code>
+* <code>isp</code>
+* <code>shopping</code>
+* <code>telecom</code>
+* <code>transport</code>
+* <code>banking</code>
+* <code>health</code>
+* <code>host_provider</code>
+* <code>online_services</code>
+* <code>partners</code>
+* <code>press</code>
+* <code>productivity</code>
+* <code>public_service</code>
 * <code>social</code></p>
 <p>Data types are slugs from the following list:
-<em> <code>activity</code>
-</em> <code>appointment</code>
-<em> <code>bankTransactions</code>
-</em> <code>bankAccounts</code>
-<em> <code>bill</code>
-</em> <code>bloodPressure</code>
-<em> <code>calendar</code>
-</em> <code>certificate</code>
-<em> <code>commit</code>
-</em> <code>consumption</code>
-<em> <code>contact</code>
-</em> <code>contract</code>
-<em> <code>courseMaterial</code>
-</em> <code>document</code>
-<em> <code>event</code>
-</em> <code>family</code>
-<em> <code>geopoint</code>
-</em> <code>heartbeat</code>
-<em> <code>home</code>
-</em> <code>phonecommunicationlog</code>
-<em> <code>podcast</code>
-</em> <code>profile</code>
-<em> <code>refund</code>
-</em> <code>sinister</code>
-<em> <code>sleepTime</code>
-</em> <code>stepsNumber</code>
-<em> <code>temperature</code>
-</em> <code>travelDate</code>
-<em> <code>tweet</code>
-</em> <code>videostream</code>
+* <code>activity</code>
+* <code>appointment</code>
+* <code>bankTransactions</code>
+* <code>bankAccounts</code>
+* <code>bill</code>
+* <code>bloodPressure</code>
+* <code>calendar</code>
+* <code>certificate</code>
+* <code>commit</code>
+* <code>consumption</code>
+* <code>contact</code>
+* <code>contract</code>
+* <code>courseMaterial</code>
+* <code>document</code>
+* <code>event</code>
+* <code>family</code>
+* <code>geopoint</code>
+* <code>heartbeat</code>
+* <code>home</code>
+* <code>phonecommunicationlog</code>
+* <code>podcast</code>
+* <code>profile</code>
+* <code>refund</code>
+* <code>sinister</code>
+* <code>sleepTime</code>
+* <code>stepsNumber</code>
+* <code>temperature</code>
+* <code>travelDate</code>
+* <code>tweet</code>
+* <code>videostream</code>
 * <code>weight</code></p>
 <h3 id="2-add-a-new-application-in-the-registry">2) Add a new application in the registry<a class="headerlink" href="#2-add-a-new-application-in-the-registry" title="Permanent link">&para;</a></h3>
 <h4 id="our-official-apps-registry">Our official apps registry<a class="headerlink" href="#our-official-apps-registry" title="Permanent link">&para;</a></h4>
@@ -3890,19 +3927,9 @@ deploy:
 <li><a href="https://github.com/cozy/cozy-app-publish"><code>cozy-app-publish</code></a> will use the github archive URL computing to get the application tarball. If your applicaiton is not on Github, you may need to use the manual mode of the command.</li>
 </ul>
 </blockquote>
-<h3 id="access-to-our-official-apps-registry">Access to our official apps registry<a class="headerlink" href="#access-to-our-official-apps-registry" title="Permanent link">&para;</a></h3>
-<p>Official registry URL: <code>https://apps-registry.cozycloud.cc</code></p>
-<p>In order to use our official repository, you need a token for a specific
-editor. To do so, contact us directly at the address contact@cozycloud.cc
-with a mail using the following title prefix: <code>[registry]</code> and provide us these folowing information (not changeable after):</p>
-<ul>
-<li><code>slug</code> of your application</li>
-<li><code>editor</code> name that you want</li>
-</ul>
-<p>We will provide you with the correct token.</p>
 <h2 id="access-control-and-tokens">Access control and tokens<a class="headerlink" href="#access-control-and-tokens" title="Permanent link">&para;</a></h2>
 <p>The read-only routes of the registry are all public and do not require any
-access-contre. However routes allowing to create applications and versions have
+access-control. However routes allowing to create applications and versions have
 access-control policies associated to them.</p>
 <p>The registry has two types of access permissions, that are associated to two
 different tokens:</p>
@@ -4091,7 +4118,7 @@ application document.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../cozy-stack/sharing/" title="/sharings - Sharing" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../cozy-stack/shortcuts/" title="/shortcuts - Shortcuts" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -4100,7 +4127,7 @@ application document.</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                /sharings - Sharing
+                /shortcuts - Shortcuts
               </span>
             </div>
           </a>

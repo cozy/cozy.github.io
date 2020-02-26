@@ -759,6 +759,27 @@
   
 
 
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-1-1-5" type="checkbox" id="nav-4-1-1-5" checked>
+    
+    <label class="md-nav__link" for="nav-4-1-1-5">
+      React
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-1-1-5">
+        React
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
   <li class="md-nav__item md-nav__item--active">
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
@@ -876,6 +897,23 @@
   
 </nav>
     
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../hooks/" title="Hooks" class="md-nav__link">
+      Hooks
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -2254,6 +2292,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-stack/shortcuts/" title="/shortcuts - Shortcuts" class="md-nav__link">
+      /shortcuts - Shortcuts
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -2830,32 +2880,7 @@ for the API documentation.</p>
 </pre></div>
 
 
-<p>Alternatively, you have <code>withMutation()</code> which returns an HOC. This HOC forwards you a <code>createDocument</code>, a <code>saveDocument</code> and a <code>deleteDocument</code> in your props. They are the <code>create()</code>, <code>save()</code>and <code>delete()</code> functions from CozyClient, bound to the instance you gave to the <code>&lt;CozyProvider /&gt;</code>.</p>
-<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">withMutations</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
-
-<span class="kd">function</span> <span class="nx">TodoList</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kr">const</span> <span class="p">{</span> <span class="nx">createDocument</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">props</span>
-  <span class="kr">const</span> <span class="nx">createNewTodo</span> <span class="o">=</span> <span class="nx">e</span> <span class="p">=&gt;</span> <span class="nx">createDocument</span><span class="p">(</span>
-    <span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">,</span> 
-    <span class="p">{</span> <span class="nx">label</span><span class="o">:</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">elements</span><span class="p">[</span><span class="s1">&#39;new-todo&#39;</span><span class="p">],</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span> <span class="p">}</span>
-  <span class="p">)</span>
-  <span class="k">return</span> <span class="p">(</span>
-    <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
-      <span class="p">{</span><span class="cm">/* todo items */</span><span class="p">}</span>
-    <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">form</span> <span class="na">onSubmit</span><span class="o">=</span><span class="p">{</span><span class="nx">createNewTodo</span><span class="p">}&gt;</span>
-      <span class="p">&lt;</span><span class="nt">label</span> <span class="na">htmlFor</span><span class="o">=</span><span class="s">&quot;new-todo&quot;</span><span class="p">&gt;</span><span class="nx">Todo</span><span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
-      <span class="p">&lt;</span><span class="nt">input</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;new-todo&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;new-todo&quot;</span> <span class="p">/&gt;</span>
-      <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span><span class="p">&gt;</span><span class="nx">Add</span> <span class="nx">todo</span><span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
-    <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
-  <span class="p">)</span>
-<span class="p">}</span>
-
-<span class="kr">const</span> <span class="nx">ConnectedTodoList</span> <span class="o">=</span> <span class="nx">withMutations</span><span class="p">()(</span><span class="nx">TodoList</span><span class="p">)</span>
-</pre></div>
-
-
-<p>Finally, <code>&lt;Query /&gt;</code> also takes a <code>mutations</code> optional props. It should have a function that will receive the CozyClient instance, the query requested and the rest of props given to the component, and should return a keyed object which will be added to the props of your wrapped component.</p>
+<p><code>&lt;Query /&gt;</code> also takes a <code>mutations</code> optional props. It should have a function that will receive the CozyClient instance, the query requested and the rest of props given to the component, and should return a keyed object which will be added to the props of your wrapped component.</p>
 <div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">Query</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 
 <span class="kr">const</span> <span class="nx">todos</span> <span class="o">=</span> <span class="s1">&#39;io.cozy.todos&#39;</span>
@@ -2981,13 +3006,13 @@ it:</p>
           </a>
         
         
-          <a href="../details/" title="Other details" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../hooks/" title="Hooks" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Other details
+                Hooks
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

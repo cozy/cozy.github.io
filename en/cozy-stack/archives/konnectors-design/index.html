@@ -749,10 +749,46 @@
           
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-1-1-5" type="checkbox" id="nav-4-1-1-5">
+    
+    <label class="md-nav__link" for="nav-4-1-1-5">
+      React
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-1-1-5">
+        React
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
   <li class="md-nav__item">
     <a href="../../../cozy-client/react-integration/" title="React integration" class="md-nav__link">
       React integration
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-client/hooks/" title="Hooks" class="md-nav__link">
+      Hooks
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -2131,6 +2167,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../shortcuts/" title="/shortcuts - Shortcuts" class="md-nav__link">
+      /shortcuts - Shortcuts
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -2928,7 +2976,7 @@ and without forcing self-hosted users to do complicated installation procedures.
 <p>I managed to run a nodejs container with just the following commands :</p>
 <div class="codehilite"><pre><span></span>rkt run --insecure-options=image --interactive docker://node:slim --name nodeslim -- -v
 rkt list   # to get the container uuid
-rkt export --app=nodeslim &amp;lt;uuid&amp;gt; nodeslim.aci
+rkt export --app=nodeslim &lt;uuid&gt; nodeslim.aci
 rkt run --insecure-options=image --interactive nodeslim.aci -- -v  # to run node -v in the new container
 </pre></div>
 
@@ -2948,7 +2996,7 @@ available in the cozy-stack docker image but I did not test it (TODO)</p>
 <h4 id="image-creation">Image creation<a class="headerlink" href="#image-creation" title="Permanent link">&para;</a></h4>
 <p>To create an ACI file image, you just need to run a docker image one time :</p>
 <div class="codehilite"><pre><span></span>rkt run  --uuid-file-save=$PWD/uuid --insecure-options=image --interactive docker://node:slim --name nodeslim -- -v
-rkt export --app=nodeslim `cat uuid` nodeslim.aci &amp;amp;&amp;amp; rm uuid
+rkt export --app=nodeslim `cat uuid` nodeslim.aci &amp;&amp; rm uuid
 </pre></div>
 
 
@@ -2972,7 +3020,7 @@ path is mounted inside the container. The following script does just that</p>
 9</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
 rm -rf ./container_dir
 cp -r ./container_dir_template ./container_dir
-rkt run --net<span class="o">=</span>host --environment<span class="o">=</span><span class="nv">CREDENTIAL</span><span class="o">=</span>value<span class="p">;</span><span class="nv">COZY_URL</span><span class="o">=</span>url --uuid-file-save<span class="o">=</span><span class="nv">$PWD</span>/uuid --volume data,kind<span class="o">=</span>host,source<span class="o">=</span><span class="nv">$PWD</span>/container_dir --insecure-options<span class="o">=</span>image nodeslim.aci --cpu<span class="o">=</span>100m --memory<span class="o">=</span>128M --name rktnode --mount <span class="nv">volume</span><span class="o">=</span>data,target<span class="o">=</span>/usr/src/app --exec node -- /usr/src/app/<span class="nv">$1</span> <span class="nv">$2</span> <span class="p">&amp;</span>amp<span class="p">;</span>
+rkt run --net<span class="o">=</span>host --environment<span class="o">=</span><span class="nv">CREDENTIAL</span><span class="o">=</span>value<span class="p">;</span><span class="nv">COZY_URL</span><span class="o">=</span>url --uuid-file-save<span class="o">=</span><span class="nv">$PWD</span>/uuid --volume data,kind<span class="o">=</span>host,source<span class="o">=</span><span class="nv">$PWD</span>/container_dir --insecure-options<span class="o">=</span>image nodeslim.aci --cpu<span class="o">=</span>100m --memory<span class="o">=</span>128M --name rktnode --mount <span class="nv">volume</span><span class="o">=</span>data,target<span class="o">=</span>/usr/src/app --exec node -- /usr/src/app/<span class="nv">$1</span> <span class="nv">$2</span> <span class="p">&amp;</span>
 <span class="c1"># the container will handle itself the communication with the stack</span>
 sleep <span class="m">60</span>
 rkt stop --force --uuid-file<span class="o">=</span>uuid

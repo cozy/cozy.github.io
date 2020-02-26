@@ -16,6 +16,7 @@ import { BILLS_DOCTYPE, TRANSACTION_DOCTYPE, schema } from 'doctypes'
 import MockDate from 'mockdate'
 import CozyClient from 'cozy-client'
 import { createClientWithData } from 'test/client'
+import { getCategoryIdFromName } from 'ducks/categories/helpers'
 
 describe('reimbursements', () => {
   let client
@@ -202,6 +203,39 @@ describe('getReimbursementStatus', () => {
       expect(getReimbursementStatus(transaction)).toBe(
         REIMBURSEMENTS_STATUS.reimbursed
       )
+    })
+  })
+
+  describe('when the transaction is a professional expense', () => {
+    const professionalExpensesCategoryId = getCategoryIdFromName(
+      'professionalExpenses'
+    )
+
+    describe('when the transaction has a reimbursementStatus', () => {
+      it('should return the reimbursementStatus', () => {
+        const transaction = {
+          manualCategoryId: professionalExpensesCategoryId,
+          amount: -10,
+          reimbursementStatus: REIMBURSEMENTS_STATUS.reimbursed
+        }
+
+        expect(getReimbursementStatus(transaction)).toBe(
+          REIMBURSEMENTS_STATUS.reimbursed
+        )
+      })
+    })
+
+    describe('when the transaction does not have a reimbursementStatus', () => {
+      it('should return pending', () => {
+        const transaction = {
+          manualCategoryId: professionalExpensesCategoryId,
+          amount: -10
+        }
+
+        expect(getReimbursementStatus(transaction)).toBe(
+          REIMBURSEMENTS_STATUS.pending
+        )
+      })
     })
   })
 })

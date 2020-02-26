@@ -2,11 +2,12 @@ package auth
 
 import (
 	"crypto/hmac"
-	"crypto/rsa"
+	"crypto/rand"
 	"crypto/sha256"
 	"encoding/asn1"
 	"encoding/binary"
 	"errors"
+	"io"
 	"net/http"
 	"regexp"
 	"time"
@@ -33,10 +34,6 @@ var (
 
 var editorReg = regexp.MustCompile("^[A-Za-z][A-Za-z0-9]*$")
 
-const (
-	pubKeyBlocType = "PUBLIC KEY"
-)
-
 type (
 	EditorRegistry struct {
 		Vault
@@ -54,8 +51,6 @@ type (
 		name               string
 		editorSalt         []byte
 		masterSalt         []byte
-		publicKeyBytes     []byte
-		publicKey          *rsa.PublicKey
 		autoPublication    bool
 		revocationCounters map[string]int
 	}
@@ -149,30 +144,6 @@ func generateToken(secret, msg, additionalData []byte, maxAge time.Duration) ([]
 
 	msg = append(msg, computedMac...)
 	return msg, nil
-}
-
-func (r *EditorRegistry) CreateEditorWithPublicKey(editorName string, publicKeyBytes []byte, autoPublication bool) (*Editor, error) {
-	if err := CheckEditorName(editorName); err != nil {
-		return nil, err
-	}
-
-	publicKey, err := unmarshalPublicKey(publicKeyBytes)
-	if err != nil {
-		return nil, err
-	}
-
-	editor := &Editor{
-		name:           editorName,
-		editorSalt:     readRand(saltsLen),
-		masterSalt:     readRand(saltsLen),
-		publicKeyBytes: publicKeyBytes,
-		publicKey:      publicKey,
-	}
-
-	if err = r.CreateEditor(editor); err != nil {
-		return nil, err
-	}
-	return editor, nil
 }
 
 func (r *EditorRegistry) CreateEditorWithoutPublicKey(editorName string, autoPublication bool) (*Editor, error) {
@@ -288,4 +259,13 @@ func EncryptMasterSecret(secret, passphrase []byte) ([]byte, error) {
 
 func GenerateMasterSecret() []byte {
 	return readRand(secretLen)
+}
+
+func readRand(n int) []byte {
+	b := make([]byte, n)
+	_, err := io.ReadFull(rand.Reader, b)
+	if err != nil {
+		panic(err)
+	}
+	return b
 }

@@ -4,6 +4,7 @@ import (
 	"fmt"
 )
 
+// TODO: use base.Errors instead
 type Error struct {
 	c int
 	e string

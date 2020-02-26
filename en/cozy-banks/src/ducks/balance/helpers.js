@@ -171,7 +171,7 @@ export const getPanelsState = (groups, currentPanelsState) => {
         acc2[account._id] = {
           checked: get(
             currentPanelsState,
-            `[${group._id}].accounts[${account.id}].checked`,
+            `[${group._id}].accounts[${account._id}].checked`,
             true
           ),
           disabled: !groupChecked

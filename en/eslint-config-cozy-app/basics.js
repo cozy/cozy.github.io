@@ -11,6 +11,7 @@ module.exports = {
     es6: true
   },
   rules: {
+    'no-console': 'error',
     'prettier/prettier': [
       'error',
       {

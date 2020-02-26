@@ -753,10 +753,46 @@
           
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-1-1-5" type="checkbox" id="nav-4-1-1-5">
+    
+    <label class="md-nav__link" for="nav-4-1-1-5">
+      React
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-1-1-5">
+        React
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
   <li class="md-nav__item">
     <a href="../../cozy-client/react-integration/" title="React integration" class="md-nav__link">
       React integration
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-client/hooks/" title="Hooks" class="md-nav__link">
+      Hooks
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -2511,6 +2547,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../shortcuts/" title="/shortcuts - Shortcuts" class="md-nav__link">
+      /shortcuts - Shortcuts
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -3118,7 +3166,7 @@ users. It can be done in two ways:</p>
 <p>A permission gives the right for a request having it to do something on the
 stack. It is defined by four components.</p>
 <h3 id="type">Type<a class="headerlink" href="#type" title="Permanent link">&para;</a></h3>
-<p><code>type</code> is the attribute used in JSON-API or the <code>docType</code> for the Data System.</p>
+<p><code>type</code> is the attribute used in JSON-API or the <code>doctype</code> for the Data System.</p>
 <p>It is the only mandatory component. If just the <code>type</code> is specified, it gives
 access to all the operations on this <code>type</code>. For example, a permission on type
 <code>io.cozy.contacts</code> gives the right to create, read, update and delete any
@@ -3132,6 +3180,10 @@ allow to access and modify any file or directory.</p>
 <li><code>io.cozy.jobs</code> and <code>io.cozy.triggers</code>, for <a href="../jobs/">jobs</a></li>
 <li><code>io.cozy.oauth.clients</code>, to list and revoke <a href="../auth/">OAuth 2 clients</a></li>
 </ul>
+<p>It is also possible to use a wildcard to use a doctype and its sub-doctypes.
+For example, <code>io.cozy.bank.*</code> will give access to <code>io.cozy.bank</code>,
+<code>io.cozy.bank.accounts</code>, <code>io.cozy.bank.accounts.stats</code>,
+<code>io.cozy.bank.settings</code>, etc.</p>
 <h3 id="verbs">Verbs<a class="headerlink" href="#verbs" title="Permanent link">&para;</a></h3>
 <p>It says which HTTP verbs can be used for requests to the cozy-stack. <code>GET</code> will
 give read-only access, <code>DELETE</code> can be used for deletions, etc. Verbs should be
@@ -3141,7 +3193,7 @@ shortcut for <code>["GET", "POST", "PUT", "PATCH", "DELETE"]</code> (it is the d
 Cross-Origin Resources Sharing is always allowed, the stack does not have the
 informations about the permission when it answers the request.</p>
 <h3 id="values">Values<a class="headerlink" href="#values" title="Permanent link">&para;</a></h3>
-<p>It&rsquo;s possible to restrict the permissions to only some documents of a docType,
+<p>It&rsquo;s possible to restrict the permissions to only some documents of a doctype,
 or to just some files and folders. You can give a list of ids in <code>values</code>.</p>
 <p><strong>Note</strong>: a permission for a folder also gives permissions with same verbs for
 files and folders inside it.</p>
@@ -3533,9 +3585,9 @@ cancel the sharing.</p>
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span> <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span> <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;94375086-e2e2-11e6-81b9-5bc0b9dd4aa4&quot;</span> <span class="p">}</span>
-    <span class="p">{</span> <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span> <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;4cfbd8be-8968-11e6-9708-ef55b7c20863&quot;</span> <span class="p">}</span>
-    <span class="p">{</span> <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span> <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot;</span> <span class="p">}</span>
+    <span class="p">{</span> <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span> <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;94375086-e2e2-11e6-81b9-5bc0b9dd4aa4&quot;</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span> <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;4cfbd8be-8968-11e6-9708-ef55b7c20863&quot;</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span> <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot;</span> <span class="p">},</span>
     <span class="p">{</span> <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span> <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;94375086-e2e2-11e6-81b9-5bc0b9dd4aa4&quot;</span> <span class="p">}</span>
   <span class="p">]</span>
 <span class="p">}</span>
@@ -3551,7 +3603,7 @@ cancel the sharing.</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
     <span class="p">{</span> <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span> <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;94375086-e2e2-11e6-81b9-5bc0b9dd4aa4&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;verbs&quot;</span><span class="p">:[</span><span class="s2">&quot;GET&quot;</span><span class="p">]</span> <span class="p">}</span>
+      <span class="nt">&quot;verbs&quot;</span><span class="p">:[</span><span class="s2">&quot;GET&quot;</span><span class="p">]</span> <span class="p">},</span>
     <span class="p">{</span> <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span> <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot;</span><span class="p">,</span>
       <span class="nt">&quot;verbs&quot;</span><span class="p">:[</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;POST&quot;</span><span class="p">]</span> <span class="p">}</span>
   <span class="p">]</span>

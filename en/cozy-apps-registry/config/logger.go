@@ -1,4 +1,4 @@
-package main
+package config
 
 import (
 	"io/ioutil"
@@ -8,11 +8,13 @@ import (
 	logrus_syslog "github.com/sirupsen/logrus/hooks/syslog"
 )
 
+// LoggerOptions is a struct with the options for initializing the logger.
 type LoggerOptions struct {
 	Syslog bool
 }
 
-func InitLogger(opts LoggerOptions) {
+// SetupLogger configures the logger.
+func SetupLogger(opts LoggerOptions) {
 	if opts.Syslog {
 		hook, err := logrus_syslog.NewSyslogHook("", "", syslog.LOG_INFO, "cozy-apps-registry")
 		if err == nil {

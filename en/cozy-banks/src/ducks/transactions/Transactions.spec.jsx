@@ -81,28 +81,32 @@ describe('Transactions', () => {
     .spyOn(TransactionsDumb.prototype, 'renderTransactions')
     .mockReturnValue(<div />)
 
-  const setup = ({ isOnSubcategory }) => {
+  const setup = ({ showTriggerErrors }) => {
     const transactions = data['io.cozy.bank.operations']
 
     const root = mount(
       <TransactionsDumb
         breakpoints={{ isDesktop: false }}
         transactions={transactions}
-        isOnSubcategory={isOnSubcategory}
+        showTriggerErrors={showTriggerErrors}
       />
     )
 
     return { root, transactions }
   }
 
-  it('should not show transaction errors while on subcateg', () => {
-    const { root } = setup({ isOnSubcategory: true })
-    expect(root.find(TransactionPageErrors).length).toBe(0)
+  describe('when showTriggerErrors is false', () => {
+    it('should not show transaction errors', () => {
+      const { root } = setup({ showTriggerErrors: false })
+      expect(root.find(TransactionPageErrors).length).toBe(0)
+    })
   })
 
-  it('should show transaction errors while not on subcateg', () => {
-    const { root } = setup({ isOnSubcategory: false })
-    expect(root.find(TransactionPageErrors).length).toBe(1)
+  describe('when showTriggerErrors is true', () => {
+    it('should show transaction errors', () => {
+      const { root } = setup({ showTriggerErrors: true })
+      expect(root.find(TransactionPageErrors).length).toBe(1)
+    })
   })
 
   it('should sort transactions from props on mount and on update', () => {

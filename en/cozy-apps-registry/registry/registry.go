@@ -12,6 +12,7 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"mime"
 	"net/http"
 	"net/url"
 	"os"
@@ -25,18 +26,14 @@ import (
 	"github.com/cozy/cozy-apps-registry/auth"
 	"github.com/cozy/cozy-apps-registry/cache"
 	"github.com/cozy/cozy-apps-registry/config"
-	"github.com/cozy/cozy-apps-registry/consts"
 	"github.com/cozy/cozy-apps-registry/errshttp"
-	"github.com/cozy/cozy-apps-registry/magic"
-	"github.com/labstack/echo/v4"
-	"github.com/ncw/swift"
-
-	_ "github.com/go-kivik/couchdb" // for couchdb
-	"github.com/go-kivik/couchdb/chttp"
-	"github.com/go-kivik/kivik"
-
+	_ "github.com/go-kivik/couchdb/v3" // for couchdb
+	"github.com/go-kivik/couchdb/v3/chttp"
+	"github.com/go-kivik/kivik/v3"
 	"github.com/h2non/filetype"
 	multierror "github.com/hashicorp/go-multierror"
+	"github.com/labstack/echo/v4"
+	"github.com/ncw/swift"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 )
@@ -342,9 +339,8 @@ type VersionOptions struct {
 }
 
 type Version struct {
-	ID          string                 `json:"_id,omitempty"`
-	Rev         string                 `json:"_rev,omitempty"`
-	Attachments map[string]interface{} `json:"_attachments,omitempty"`
+	ID  string `json:"_id,omitempty"`
+	Rev string `json:"_rev,omitempty"`
 
 	AttachmentReferences map[string]string `json:"attachments"`
 	Slug                 string            `json:"slug"`
@@ -467,7 +463,7 @@ func RegisterSpace(name string) error {
 		spaces = make(map[string]*Space)
 	}
 	name = strings.TrimSpace(name)
-	if name == consts.DefaultSpacePrefix {
+	if name == config.DefaultSpacePrefix {
 		name = ""
 	} else {
 		if !validSpaceReg.MatchString(name) {
@@ -761,10 +757,6 @@ func CreateReleaseVersion(c *Space, ver *Version, attachments []*kivik.Attachmen
 
 func (version *Version) Clone() *Version {
 	clone := *version
-	clone.Attachments = make(map[string]interface{})
-	for k, v := range version.Attachments {
-		clone.Attachments[k] = v
-	}
 	clone.AttachmentReferences = make(map[string]string)
 	for k, v := range version.AttachmentReferences {
 		clone.AttachmentReferences[k] = v
@@ -779,7 +771,6 @@ func ApprovePendingVersion(c *Space, pending *Version, app *App) (*Version, erro
 	release := pending.Clone()
 
 	release.Rev = ""
-	release.Attachments = nil
 
 	// Attachments are already created, skipping them
 	var attachments = []*kivik.Attachment{}
@@ -1222,7 +1213,7 @@ func HandleAssets(tarball *Tarball, opts *VersionOptions) ([]*kivik.Attachment, 
 			return nil, err
 		}
 
-		mime := magic.MIMEType(name, data)
+		mime := getMIMEType(name, data)
 		body := ioutil.NopCloser(bytes.NewReader(data))
 		attachments = append(attachments, &kivik.Attachment{
 			Content:     body,
@@ -1233,6 +1224,20 @@ func HandleAssets(tarball *Tarball, opts *VersionOptions) ([]*kivik.Attachment, 
 	}
 
 	return attachments, nil
+}
+
+// getMIMEType returns a MIME type for the given file (name & content). It
+// first tries to sniff the MIME type from the content, and if it doesn't give
+// a good result, we fallback on guessing from the filename extension.
+func getMIMEType(name string, data []byte) string {
+	sniffed := http.DetectContentType(data)
+	if sniffed != "application/octet-stream" && sniffed != "text/plain" {
+		return sniffed
+	}
+
+	ext := path.Ext(name)
+	mimeParts := strings.SplitN(mime.TypeByExtension(ext), ";", 2)
+	return strings.TrimSpace(mimeParts[0])
 }
 
 // SaveTarball saves tarball to swift
@@ -1567,7 +1572,7 @@ func ChannelToStr(channel Channel) string {
 func GetPrefixOrDefault(c *Space) string {
 	prefix := c.Prefix
 	if prefix == "" {
-		prefix = consts.DefaultSpacePrefix
+		prefix = config.DefaultSpacePrefix
 	}
 	return prefix
 }

@@ -749,10 +749,46 @@
           
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-1-1-5" type="checkbox" id="nav-4-1-1-5">
+    
+    <label class="md-nav__link" for="nav-4-1-1-5">
+      React
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-1-1-5">
+        React
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
   <li class="md-nav__item">
     <a href="../cozy-client/react-integration/" title="React integration" class="md-nav__link">
       React integration
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cozy-client/hooks/" title="Hooks" class="md-nav__link">
+      Hooks
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -2131,6 +2167,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cozy-stack/shortcuts/" title="/shortcuts - Shortcuts" class="md-nav__link">
+      /shortcuts - Shortcuts
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -2366,6 +2414,26 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#flags-enabled-on-the-server" title="Flags enabled on the server" class="md-nav__link">
+    Flags enabled on the server
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#client-plugin" title="Client plugin" class="md-nav__link">
+    Client plugin
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#flags-enabled-at-build-time" title="Flags enabled at build time" class="md-nav__link">
     Flags enabled at build time
   </a>
@@ -2426,6 +2494,18 @@ flags in use.</p>
     <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
   <span class="p">)</span>
 <span class="p">}</span>
+</pre></div>
+
+
+<h3 id="flags-enabled-on-the-server">Flags enabled on the server<a class="headerlink" href="#flags-enabled-on-the-server" title="Permanent link">&para;</a></h3>
+<p>Feature flags can be served by the server and injected in the HTML page of an
+application. See https://docs.cozy.io/en/cozy-stack/settings/#get-settingsflags
+and https://docs.cozy.io/en/cozy-stack/client-app-dev/#good-practices-for-your-application.</p>
+<h4 id="client-plugin">Client plugin<a class="headerlink" href="#client-plugin" title="Permanent link">&para;</a></h4>
+<p>A CozyClient plugin is exported that initializes and resets flags on client&rsquo;s login
+and logout. It will initialize flags either from DOM data (if <code>data-cozy={{ .CozyData }}</code>
+or <code>data-flags={{ .Flags }}</code>, on web) or by fetching data from the server (on mobile).</p>
+<div class="codehilite"><pre><span></span>client.registerPlugin(flag.plugin)
 </pre></div>
 
 

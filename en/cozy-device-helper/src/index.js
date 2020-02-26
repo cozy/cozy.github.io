@@ -13,8 +13,10 @@ export { checkApp, startApp } from './apps'
 export {
   hasDevicePlugin,
   hasInAppBrowserPlugin,
-  hasSafariPlugin
+  hasSafariPlugin,
+  hasNetworkInformationPlugin
 } from './plugins'
+export { isCordova } from './cordova'
 
 export { nativeLinkOpen } from './link'
 export { openDeeplinkOrRedirect } from './deeplink'

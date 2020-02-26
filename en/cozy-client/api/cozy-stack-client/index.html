@@ -757,10 +757,46 @@
           
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-1-1-5" type="checkbox" id="nav-4-1-1-5">
+    
+    <label class="md-nav__link" for="nav-4-1-1-5">
+      React
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-1-1-5">
+        React
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
   <li class="md-nav__item">
     <a href="../../react-integration/" title="React integration" class="md-nav__link">
       React integration
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hooks/" title="Hooks" class="md-nav__link">
+      Hooks
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -1210,8 +1246,22 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#notescollectioncreateoption-object" title="notesCollection.create(option) ⇒ Object" class="md-nav__link">
+    notesCollection.create(option) ⇒ Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#notescollectionfetchurlnote-object" title="notesCollection.fetchURL(note) ⇒ Object" class="md-nav__link">
     notesCollection.fetchURL(note) ⇒ Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notescollectiongetdefaultschema-object" title="notesCollection.getDefaultSchema() ⇒ object" class="md-nav__link">
+    notesCollection.getDefaultSchema() ⇒ object
   </a>
   
 </li>
@@ -2869,6 +2919,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/shortcuts/" title="/shortcuts - Shortcuts" class="md-nav__link">
+      /shortcuts - Shortcuts
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -3469,8 +3531,22 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#notescollectioncreateoption-object" title="notesCollection.create(option) ⇒ Object" class="md-nav__link">
+    notesCollection.create(option) ⇒ Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#notescollectionfetchurlnote-object" title="notesCollection.fetchURL(note) ⇒ Object" class="md-nav__link">
     notesCollection.fetchURL(note) ⇒ Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notescollectiongetdefaultschema-object" title="notesCollection.getDefaultSchema() ⇒ object" class="md-nav__link">
+    notesCollection.getDefaultSchema() ⇒ object
   </a>
   
 </li>
@@ -4951,7 +5027,9 @@ You should use <code>createFile</code></p>
 <li><a href="#NotesCollection">NotesCollection</a><ul>
 <li><a href="#NotesCollection+all">.all()</a> ⇒ <code>Object</code></li>
 <li><a href="#NotesCollection+destroy">.destroy(note)</a> ⇒ <code>Object</code></li>
+<li><a href="#NotesCollection+create">.create(option)</a> ⇒ <code>Object</code></li>
 <li><a href="#NotesCollection+fetchURL">.fetchURL(note)</a> ⇒ <code>Object</code></li>
+<li><a href="#NotesCollection+getDefaultSchema">.getDefaultSchema()</a> ⇒ <code>object</code></li>
 </ul>
 </li>
 </ul>
@@ -4986,6 +5064,32 @@ You should use <code>createFile</code></p>
 </tr>
 </tbody>
 </table>
+<p><a name="NotesCollection+create"></a></p>
+<h3 id="notescollectioncreateoption-object">notesCollection.create(option) ⇒ <code>Object</code><a class="headerlink" href="#notescollectioncreateoption-object" title="Permanent link">&para;</a></h3>
+<p>Create a note</p>
+<p><strong>Kind</strong>: instance method of <a href="#NotesCollection"><code>NotesCollection</code></a><br />
+<strong>Returns</strong>: <code>Object</code> - The JSON API conformant response.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>option</td>
+<td><code>object</code></td>
+<td></td>
+</tr>
+<tr>
+<td>option.dir_id</td>
+<td><code>string</code></td>
+<td>dir_id where to create the note</td>
+</tr>
+</tbody>
+</table>
 <p><a name="NotesCollection+fetchURL"></a></p>
 <h3 id="notescollectionfetchurlnote-object">notesCollection.fetchURL(note) ⇒ <code>Object</code><a class="headerlink" href="#notescollectionfetchurlnote-object" title="Permanent link">&para;</a></h3>
 <p>Returns the details to build the note&rsquo;s url</p>
@@ -5013,7 +5117,12 @@ You should use <code>createFile</code></p>
 </tr>
 </tbody>
 </table>
-<p><a name="OAuthClient"></a></p>
+<p><a name="NotesCollection+getDefaultSchema"></a></p>
+<h3 id="notescollectiongetdefaultschema-object">notesCollection.getDefaultSchema() ⇒ <code>object</code><a class="headerlink" href="#notescollectiongetdefaultschema-object" title="Permanent link">&para;</a></h3>
+<p>Returns promise mirror schema for a note</p>
+<p><strong>Kind</strong>: instance method of <a href="#NotesCollection"><code>NotesCollection</code></a><br />
+<strong>Returns</strong>: <code>object</code> - schema<br />
+<a name="OAuthClient"></a></p>
 <h2 id="oauthclient">OAuthClient<a class="headerlink" href="#oauthclient" title="Permanent link">&para;</a></h2>
 <p>Specialized <code>CozyStackClient</code> for mobile, implementing stack registration
 through OAuth.</p>

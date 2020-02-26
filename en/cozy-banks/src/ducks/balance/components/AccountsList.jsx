@@ -10,12 +10,19 @@ import { getAccountBalance } from 'ducks/account/helpers'
 import AccountRowLoading from 'ducks/balance/components/AccountRowLoading'
 import { connect } from 'react-redux'
 import { getHydratedAccountsFromGroup } from 'selectors'
+import { isReimbursementsVirtualGroup } from 'ducks/groups/helpers'
 
-class AccountsList extends React.PureComponent {
+export class DumbAccountsList extends React.PureComponent {
   static propTypes = {
     group: PropTypes.object.isRequired,
     switches: PropTypes.object.isRequired,
-    onSwitchChange: PropTypes.func
+    onSwitchChange: PropTypes.func,
+    filterByDoc: PropTypes.func.isRequired,
+    router: PropTypes.shape({
+      push: PropTypes.func
+    }).isRequired,
+    accounts: PropTypes.arrayOf(PropTypes.object).isRequired,
+    client: PropTypes.object.isRequired
   }
 
   static defaultProps = {
@@ -29,12 +36,23 @@ class AccountsList extends React.PureComponent {
     router.push('/balances/details')
   }
 
+  getSortedAccounts() {
+    const { group, accounts } = this.props
+    const realAccounts = accounts.filter(Boolean)
+
+    if (isReimbursementsVirtualGroup(group)) {
+      return realAccounts
+    } else {
+      return sortBy(realAccounts, getAccountBalance)
+    }
+  }
+
   render() {
-    const { group, accounts, switches, onSwitchChange } = this.props
+    const { group, switches, onSwitchChange } = this.props
 
     return (
       <ol className={styles.AccountsList}>
-        {sortBy(accounts.filter(Boolean), getAccountBalance).map((a, i) => {
+        {this.getSortedAccounts().map((a, i) => {
           const switchState = switches[a._id]
           return a.loading ? (
             // When loading, a._id is the slug of the connector and can be non-unique, this is why we concat the index
@@ -62,11 +80,13 @@ class AccountsList extends React.PureComponent {
   }
 }
 
-export default compose(
+const AccountsList = compose(
   withFilters,
   withRouter,
   withClient,
   connect((state, { group, client }) => ({
     accounts: getHydratedAccountsFromGroup(state, group, client)
   }))
-)(AccountsList)
+)(DumbAccountsList)
+
+export default AccountsList

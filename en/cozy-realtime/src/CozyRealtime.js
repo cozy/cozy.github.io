@@ -1,360 +1,644 @@
 import MicroEE from 'microee'
-import Socket from './Socket'
-import minilog_ from 'minilog'
+import { hasNetworkInformationPlugin, isCordova } from 'cozy-device-helper'
 
-const inBrowser = typeof window !== 'undefined'
-const minilog = (inBrowser && window.minilog) || minilog_
-const logger = minilog('cozy-realtime')
-minilog.suggest.deny('cozy-realtime', 'info')
-
-const INDEX_KEY_SEPARATOR = '//'
-
-/**
- * Generate a key for an event
- *
- * @return {String}  Event key
- */
-export const generateKey = (eventName, type, id) =>
-  `${eventName}${INDEX_KEY_SEPARATOR}${type}${INDEX_KEY_SEPARATOR}${id}`
-
-const getHandlerAndId = (handlerOrId, handlerOrUndefined) => {
-  if (
-    typeof handlerOrId !== 'function' &&
-    typeof handlerOrUndefined !== 'function'
-  ) {
-    throw new Error('You should call this function with an handler')
-  }
-
-  let id, handler
-  if (!handlerOrUndefined) {
-    id = undefined
-    handler = handlerOrId
-  } else {
-    id = handlerOrId
-    handler = handlerOrUndefined
-  }
-
-  return { id, handler }
-}
-
-const VALID_EVENTS = ['created', 'updated', 'deleted', 'notified']
-
-const validateParameters = (eventName, type, id, handler) => {
-  let msg
-
-  if (!VALID_EVENTS.includes(eventName)) {
-    msg = `'${eventName}' is not a valid event, valid events are 'created', 'updated' or 'deleted'.`
-  }
-
-  if (typeof type !== 'string') {
-    msg = `'${type}' is not a valid type, it should be a string.`
-  }
-
-  if (id && eventName === 'created') {
-    msg = `The 'id' should not be specified for 'created' event.`
-  }
-
-  if (typeof handler !== 'function') {
-    msg = `The handler '${handler}' should be a function.`
-  }
-
-  if (msg) {
-    logger.error(msg)
-    throw new Error(msg)
-  }
-}
+import logger from './logger'
+import SubscriptionList from './SubscriptionList'
+import RetryManager from './RetryManager'
+import {
+  getUrl,
+  getToken,
+  doctype,
+  hasBrowserContext,
+  getCozyClientFromOptions,
+  isOnline
+} from './utils'
+import {
+  raiseErrorAfterAttempts,
+  timeBeforeSuccessful,
+  baseWaitAfterFirstFailure,
+  maxWaitBetweenRetries
+} from './config'
 
 /**
- * Return websocket url from cozyClient
- *
- * @return {String}  WebSocket url
- */
-export const getWebSocketUrl = cozyClient => {
-  const isSecureURL = url => !!url.match(`^(https:/{2})`)
-
-  const url = cozyClient.stackClient.uri
-  const protocol = isSecureURL(url) ? 'wss:' : 'ws:'
-  const host = new URL(url).host
-
-  return `${protocol}//${host}/realtime/`
-}
-
-/**
- * Return token from cozyClient
- *
- * @return {String}  token
- */
-export const getWebSocketToken = cozyClient =>
-  cozyClient.stackClient.token.accessToken || cozyClient.stackClient.token.token
-
-/**
- * CozyRealtime class
- *
- * @class
+ * Manage the realtime interactions with a cozy stack
  */
 class CozyRealtime {
   /**
-   * A cozy client
-   *
-   * @type {CozyClient}
-   */
-  _cozyClient = null
-
-  /**
-   * A Socket class
-   *
-   * @type {Socket}
-   */
-  _socket = null
-
-  /**
-   * Delay (ms) to retry socket connection
-   *
-   * @type {Interger}
-   */
-  _retryDelay = 1000
-
-  /**
-   * Limit of socket connection
-   */
-  _retryLimit = 60
-
-  /**
-   * Mapping between events and associated callbacks
-   *
-   * @type {Object}
-   */
-  _events = {}
-
-  /**
-   * Constructor of CozyRealtime:
-   * - Save cozyClient
-   * - create socket
-   * - listen cozyClient events
-   * - unsubscribeAll if window unload
-   *
    * @constructor
-   * @param {CozyClient} client  A cozy client
-   * @param {CozyClient} cozyClient  A cozy client [DEPRECATED]
+   * @param {object} options
+   * @param {CozyClient}  options.client
    */
-  constructor({ cozyClient, client }) {
-    if (cozyClient) {
+  constructor(options) {
+    this.client = getCozyClientFromOptions(options)
+    this.subscriptions = new SubscriptionList()
+    this.retryManager = new RetryManager({
+      raiseErrorAfterAttempts,
+      timeBeforeSuccessful,
+      baseWaitAfterFirstFailure,
+      maxWaitBetweenRetries
+    })
+    this.retryManager.on('error', err => this.emit('error', err))
+    this.bindEventHandlers()
+    if (isCordova() && !hasNetworkInformationPlugin()) {
       console.warn(
-        'Realtime: options.cozyClient is deprecated, please use options.client'
+        `This seems a Cordova app and cordova-plugin-network-information doesn't seem to be installed. Please install it from https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-network-information/ to support online and offline events.`
       )
     }
-    this._cozyClient = client || cozyClient
-    if (!this._cozyClient) {
-      throw new Error(
-        'Realtime must be initialized with a client. Ex: new Realtime({ client })'
-      )
-    }
-
-    this._updateAuthentication = this._updateAuthentication.bind(this)
-    this.unsubscribeAll = this.unsubscribeAll.bind(this)
-    this._receiveMessage = this._receiveMessage.bind(this)
-    this._receiveError = this._receiveError.bind(this)
-    this._resubscribe = this._resubscribe.bind(this)
-    this._beforeUnload = this._beforeUnload.bind(this)
-    this._resetSocket = this._resetSocket.bind(this)
-
-    this._createSocket()
-
-    this._cozyClient.on('login', this._updateAuthentication)
-    this._cozyClient.on('tokenRefreshed', this._updateAuthentication)
-    this._cozyClient.on('logout', this.unsubscribeAll)
-
-    if (inBrowser) {
-      global.addEventListener('beforeunload', this._beforeUnload)
-      global.addEventListener('online', this._resubscribe)
-      global.removeEventListener('offline', this._resetSocket)
-    }
-  }
-
-  _beforeUnload() {
-    global.removeEventListener('beforeunload', this._windowUnload)
-    this.unsubscribeAll()
   }
 
   /**
-   * Create a Socket with cozyClient credential
+   * Starts all handlers and try to connect if online.
+   * If not online, the connection will take place when receiving
+   * the `online` event.
+   * @see onOnline()
+   * @private
    */
-  _createSocket() {
-    if (!this._socket) {
-      const getUrl = () => getWebSocketUrl(this._cozyClient)
-      const getToken = () => getWebSocketToken(this._cozyClient)
-
-      this._socket = new Socket(getUrl, getToken)
-      this._socket.on('message', this._receiveMessage)
-      this._socket.on('error', this._receiveError)
+  start() {
+    if (!this.isStarted) {
+      logger.info('started')
+      this.isStarted = true
+      this.retryManager.reset()
+      this.subscribeGlobalEvents()
+      this.subscribeClientEvents()
+      this.subscribeCordovaEvents()
+      this.emit('start')
+      if (isOnline()) this.connect()
     }
   }
 
   /**
-   * When socket send error it test to reconnect
-   */
-  _receiveError(error) {
-    logger.info(`Receive error: ${error}`)
-
-    this._resetSocket()
-
-    if (this._retryLimit === 0) {
-      this.emit('error', error)
-    } else {
-      if (this.retry) {
-        clearTimeout(this.retry)
-      }
-      if (global.navigator.onLine) {
-        this.retry = setTimeout(this._resubscribe, this._retryDelay)
-      }
-    }
-  }
-
-  /**
-   * Re subscribe on server
-   */
-  _resubscribe() {
-    this._retryLimit--
-
-    const subscribeList = this._getEventKeys(this._events)
-      .map(key => {
-        if (this._events[key].length === 0) return
-        let [, type, id] = key.split(INDEX_KEY_SEPARATOR)
-        if (id === 'undefined') id = undefined
-        return { type, id }
-      })
-      .filter(Boolean)
-
-    for (const { type, id } of subscribeList) {
-      this._socket.subscribe(type, id)
-    }
-  }
-
-  /**
-   * Launch handlers
-   */
-  _receiveMessage({ type, id, eventName }, doc) {
-    const keys = [generateKey(eventName, type)]
-    if (id) {
-      keys.push(generateKey(eventName, type, id))
-    }
-
-    for (const key of keys) {
-      logger.debug('Emitting', key, doc)
-      this.emit(key, doc)
-    }
-  }
-
-  /**
-   * Update token on socket
-   */
-  _updateAuthentication() {
-    logger.info('Update token on socket')
-    this._socket.authenticate()
-  }
-
-  /**
-   * Reset socket
-   */
-  _resetSocket() {
-    if (this._socket) {
-      this._socket.close()
-      this._socket = null
-    }
-    this._createSocket()
-  }
-
-  /**
-   * Remove the given handler from the list of handlers for given
-   * doctype/document and event.
+   * Creates and attach a WebSocket to the current instance
    *
-   * @param  {String}  type      Document doctype to subscribe to
-   * @param  {String}  id        Document id to subscribe to
-   * @param  {String}  eventName Event to subscribe to
-   * @param  {Function}  handler   Function to call when an event of the
-   * given type on the given doctype or document is received from stack.
-   * @return {Promise}           Promise that the message has been sent.
+   * @private
+   * @returns {WebSocket} the created websocket
    */
-  subscribe(eventName, type, handlerOrId, handlerOrUndefined) {
-    const { handler, id } = getHandlerAndId(handlerOrId, handlerOrUndefined)
-    validateParameters(eventName, type, id, handler)
-
-    if (this._socket.isConnecting()) {
-      return new Promise(resolve => {
-        this._socket.once('open', async () => {
-          await this.subscribe(eventName, type, handlerOrId, handlerOrUndefined)
-          resolve()
-        })
-      })
+  createSocket() {
+    if (this.websocket) {
+      logger.error(
+        'Unexpected replacement of an existing socket, this should not happen. A `revokeWebSocket()` should have been called first inside CozyRealtime'
+      )
+      this.revokeWebSocket()
     }
+    logger.info('creating a new websocket…')
+    const url = getUrl(this.client)
+    try {
+      this.websocket = new WebSocket(url, doctype)
+      this.websocket.authenticated = false
+      this.websocket.onmessage = this.onWebSocketMessage
+      this.websocket.onerror = this.onWebSocketError
+      this.websocket.onopen = this.onWebSocketOpen
+      this.websocket.onclose = this.onWebSocketClose
+      return this.websocket
+    } catch (error) {
+      this.onWebSocketError(error)
+    }
+  }
 
-    return new Promise(resolve => {
-      const key = generateKey(eventName, type, id)
-      this.on(key, handler)
+  /**
+   * Connects a new websocket as soon as possible
+   * @private
+   */
+  async connect() {
+    logger.info('connecting…')
+    // avoid multiple concurrent calls to connect, keeps the first one
+    if (this.waitingForConnect) {
+      logger.debug('Pending reconnection, skipping reconnect')
+      return
+    }
+    logger.debug('No pending reconnection, will reconnect')
+    try {
+      this.waitingForConnect = true
+      await this.retryManager.waitBeforeNextAttempt()
+      this.createSocket()
+    } finally {
+      this.waitingForConnect = false
+    }
+  }
 
-      this._socket.once(`subscribe_${type}_${id}`, resolve)
-      this._socket.subscribe(type, id)
+  /**
+   * Throws the previous socket and connect a new one
+   * @private
+   */
+  async reconnect() {
+    if (this.hasWebSocket()) this.revokeWebSocket()
+    this.connect()
+  }
+
+  /**
+   * Removes all handlers on a websocket to avoid callbacks from an old rejected socket
+   * @private
+   */
+  revokeWebSocket() {
+    this.emit('disconnected')
+    if (this.hasWebSocket()) {
+      logger.info('trashing the previous websocket…')
+      this.websocket.onmessage = null
+      this.websocket.onerror = null
+      this.websocket.onopen = null
+      this.websocket.onclose = null
+      try {
+        this.websocket.close()
+      } catch (e) {
+        // void
+      } finally {
+        this.websocket = null
+      }
+    } else {
+      logger.error(
+        'Trying to revoke a websocket that is not attached. This should not happen'
+      )
+    }
+  }
+
+  /**
+   * Closes the Realtime
+   * @private
+   */
+  stop() {
+    if (this.isStarted) {
+      logger.info('stopped')
+      this.unsubscribeCordovaEvents()
+      this.unsubscribeGlobalEvents()
+      this.unsubscribeClientEvents()
+      if (this.hasWebSocket()) {
+        this.revokeWebSocket()
+      }
+      this.isStarted = false
+      if (!this.subscriptions.isEmpty()) {
+        this.unsubscribeAll()
+      }
+      this.emit('close')
+    }
+  }
+
+  /**
+   * Authenticates to the websocket
+   * @private
+   */
+  authenticate() {
+    if (this.isWebSocketOpen()) {
+      const token = getToken(this.client)
+      logger.debug('authenticate with', token)
+      this.sendWebSocketMessage('AUTH', token)
+      this.websocket.authenticated = true
+    } else {
+      logger.error(
+        'Trying to authenticate to a non-opened websocket. This should not happen.',
+        this.websocket,
+        this.websocket && this.websocket.readyState
+      )
+    }
+  }
+
+  /**
+   * Sends a message through the websocket
+   *
+   * @private
+   * @param {string} method - like 'AUTH', 'SUBSCRIBE' or 'UNSUBSCRIBE'
+   * @param {object} payload - message to be sent
+   */
+  sendWebSocketMessage(method, payload) {
+    const message = JSON.stringify({ method, payload })
+    this.websocket.send(message)
+  }
+
+  /**
+   * Sends a realtime notification to the server
+   *
+   * @param {string} doctype
+   * @param {string} id
+   * @param {object} data
+   */
+  async sendNotification(doctype, id, data) {
+    return this.client
+      .getStackClient()
+      .fetchJSON('POST', `/realtime/${doctype}/${id}`, {
+        data
+      })
+  }
+  send(...args) {
+    if (!this.sendDeprecationNoticeSent) {
+      this.sendDeprecationNoticeSent = true
+      logger.warn(
+        'Deprecation notice: CozyRealtime.send() is deprecated, please use CozyRealtime.sendNotification() from now on'
+      )
+    }
+    return this.sendNotification(...args)
+  }
+
+  /**
+   * Waits until the socket is ready (and never fail)
+   */
+  async waitForSocketReady() {
+    if (this.isWebSocketAuthenticated()) return true
+    return new Promise((resolve, reject) => {
+      this.once('ready', resolve)
+      this.once('close', reject)
     })
   }
 
   /**
-   * Remove the given handler from the list of handlers for given
-   * doctype/document and event.
+   * Is there a websocket?
    *
-   * @param {String}  type      Document doctype to unsubscribe from
-   * @param {String}  id        Document id to unsubscribe from
-   * @param {String}  eventName Event to unsubscribe from
-   * @param {Function}  handler   Function to call when an event of the
-   * given type on the given doctype or document is received from stack.
+   * @private
+   * @returns {boolean} true if there is a websocket (may be not open or not authenticated)
    */
-  unsubscribe(eventName, type, handlerOrId, handlerOrUndefined) {
-    const { handler, id } = getHandlerAndId(handlerOrId, handlerOrUndefined)
-    validateParameters(eventName, type, id, handler)
-    const key = generateKey(eventName, type, id)
+  hasWebSocket() {
+    return !!this.websocket
+  }
 
-    this.removeListener(key, handler)
+  /**
+   * Is the websocket opened?
+   *
+   * @private
+   * @returns {boolean} true if opened, but may not be authenticated yet
+   */
+  isWebSocketOpen() {
+    return !!(
+      this.hasWebSocket() && this.websocket.readyState === WebSocket.OPEN
+    )
+  }
 
-    if (!this._haveEventHandler()) {
-      this._resetSocket()
+  /**
+   * Is the websocket ready and authenticated?
+   *
+   * @private
+   * @returns {boolean} true if opened and authenticated
+   */
+  isWebSocketAuthenticated() {
+    return !!(this.isWebSocketOpen() && this.websocket.authenticated)
+  }
+
+  /* * * * * * * * * * */
+  /* * SUBSCRIPTIONS * */
+  /* * * * * * * * * * */
+
+  /**
+   * Subscribes to an event, type, id
+   *
+   * @see `normalizeSubscription()` which describe the special signature
+   *
+   * @param {EventName} event
+   * @param {string} type
+   * @param {string|undefined|function} id - (or handler is `handler` is undefined)
+   * @param {function|undefined} handler - (not used if `id` is a function)
+   */
+  subscribe(event, type, id, handler) {
+    this.start() //  start the realtime in case it was stopped
+    const sub = this.normalizeSubscription(event, type, id, handler)
+    const has = this.subscriptions.hasSameTypeAndId(sub)
+    this.subscriptions.add(sub)
+    // send to the server if there wasn't any subscription with that type & id before
+    if (!has && this.isWebSocketAuthenticated()) {
+      this.sendSubscription(sub.type, sub.id)
     }
   }
 
   /**
-   * Unsubscribe all handlers and close socket
+   * Unsubscribes to an event, type, id
+   *
+   * @see `normalizeSubscription()` which describe the special signature
+   *
+   * @param {EventName} event
+   * @param {string} type
+   * @param {string|undefined|function} id - (or handler is `handler` is undefined)
+   * @param {function|undefined} handler - (not used if `id` is a function)
+   */
+  unsubscribe(event, type, id, handler) {
+    const sub = this.normalizeSubscription(event, type, id, handler)
+    this.subscriptions.remove(sub)
+    // if there is no more subscription of this type & id
+    // then unsubscribe to the server
+    const has = this.subscriptions.hasSameTypeAndId(sub)
+    if (!has && this.isWebSocketAuthenticated()) {
+      this.sendUnsubscription(sub.type, sub.id)
+    }
+    // if this was the last subscription, stop the realtime
+    if (this.subscriptions.isEmpty()) this.stop()
+  }
+
+  /**
+   * Unsubscribes to all events
    */
   unsubscribeAll() {
-    this._getEventKeys()
-      .map(key => this._events[key].length > 0 && key)
-      .filter(Boolean)
-      .forEach(key => (this._events[key] = []))
-
-    this._resetSocket()
+    const all = this.subscriptions.getAll()
+    for (const { event, type, id, handler } of all) {
+      this.unsubscribe(event, type, id, handler)
+    }
   }
 
-  async send(doctype, id, data) {
-    return this._cozyClient.stackClient.fetchJSON(
-      'POST',
-      `/realtime/${doctype}/${id}`,
-      {
-        data
-      }
-    )
+  /**
+   * Sends all subscriptions to the current socket
+   * @private
+   */
+  sendSubscriptions() {
+    const pairs = this.subscriptions.getAllTypeAndIdPairs()
+    for (const { type, id } of pairs) {
+      this.sendSubscription(type, id)
+    }
   }
 
-  _getEventKeys() {
-    if (!this._events) return []
-
-    return Object.keys(this._events)
-      .map(key => key.includes(INDEX_KEY_SEPARATOR) && key)
-      .filter(Boolean)
+  /**
+   * Sends subscription to the websocket
+   *
+   * @private
+   * @param {string} type - a doctype to subscribe to
+   * @param {string} id - optional, a id to subscribe to
+   */
+  sendSubscription(type, id) {
+    if (this.isWebSocketOpen()) {
+      const payload = id ? { type, id } : { type }
+      logger.debug('send subscription to', payload.type, payload.id)
+      this.sendWebSocketMessage('SUBSCRIBE', payload)
+    } else {
+      logger.error(
+        'Trying to subscribe on a non-ready socket. This should not happen. Type and id:',
+        type,
+        id
+      )
+    }
   }
 
-  _haveEventHandler() {
-    return (
-      this._getEventKeys()
-        .map(key => this._events[key].length)
-        .filter(Boolean).length > 0
-    )
+  /**
+   * Sends unsubscription to the websocket
+   *
+   * @private
+   * @param {string} type - a doctype to unsubscribe to
+   * @param {string} id - optional, a id to unsubscribe to
+   */
+  sendUnsubscription(type, id) {
+    if (this.isWebSocketOpen()) {
+      const payload = id ? { type, id } : { type }
+      logger.debug('send unsubscription to', payload.type, payload.id)
+      this.sendWebSocketMessage('UNSUBSCRIBE', payload)
+    } else {
+      logger.error(
+        'Trying to subscribe on a non-ready socket. This should not happen. Type and id:',
+        type,
+        id
+      )
+    }
+  }
+
+  /**
+   * Normalizes a subscription request object
+   *
+   * This allows to support the two different signatures possible
+   * for the subscribe() and the unsubscribe() methods.
+   *
+   * One can call subscribe(event, type, id, handler) or
+   * (event, type, handler) without an id. This method does normalize
+   * so we can receive { event, type, id, handler } correctly whatever
+   * the developper uses.
+   *
+   * @private
+   * @param {EventName} event
+   * @param {string} type
+   * @param {string|undefined|function} id - (or handler is `handler` is undefined)
+   * @param {function|undefined} handler - (not used if `id` is a function)
+   * @returns {Subscription}
+   */
+  normalizeSubscription(event, type, id, handler) {
+    return {
+      event: event ? event.toUpperCase() : event,
+      type: type,
+      id: handler ? id : null,
+      handler: handler || id
+    }
+  }
+
+  /* * * * * * * */
+  /* * EVENTS  * */
+  /* * * * * * * */
+
+  /**
+   * Binds event handlers to the current instance
+   * @private
+   */
+  async bindEventHandlers() {
+    // websocket
+    this.onWebSocketMessage = this.onWebSocketMessage.bind(this)
+    this.onWebSocketError = this.onWebSocketError.bind(this)
+    this.onWebSocketOpen = this.onWebSocketOpen.bind(this)
+    this.onWebSocketClose = this.onWebSocketClose.bind(this)
+    // cozy client
+    this.onClientLogin = this.onClientLogin.bind(this)
+    this.onClientTokenRefreshed = this.onClientTokenRefreshed.bind(this)
+    this.onClientLogout = this.onClientLogout.bind(this)
+    // global events
+    this.onOnline = this.onOnline.bind(this)
+    this.onOffline = this.onOffline.bind(this)
+    // cordova events
+    this.onDeviceReady = this.onDeviceReady.bind(this)
+    this.onResume = this.onResume.bind(this)
+  }
+
+  /* * * * * * * * * * * * */
+  /* * WebSocket EVENTS  * */
+  /* * * * * * * * * * * * */
+
+  /**
+   * When receiving a message from the Realtime socket - Invokes subscribed handlers
+   *
+   * @private
+   * @param {object} message
+   */
+  onWebSocketMessage(message) {
+    const { event, payload } = JSON.parse(message.data)
+    logger.info('receive message from server', { event, payload })
+    const handlers = this.subscriptions.getAllHandlersForEvent(event, payload)
+    for (const handler of handlers) {
+      handler(payload.doc)
+    }
+    if (event === 'error') {
+      logger.warn('Stack returned an error', payload)
+    }
+  }
+
+  /**
+   * When an error raises in a websocket - reconnects
+   * @private
+   */
+  onWebSocketError(error) {
+    logger.info('An error was raised on the websocket', error)
+    this.retryManager.onFailure(error)
+    this.reconnect()
+  }
+
+  /**
+   * When a websocket manages to get opened - authenticates and subscribes
+   * @private
+   */
+  onWebSocketOpen() {
+    this.retryManager.onSuccess()
+    this.authenticate()
+    this.sendSubscriptions()
+    this.emit('ready')
+  }
+
+  /**
+   * When a websocket is closed by something else - reconnects
+   * @private
+   */
+  onWebSocketClose(event) {
+    logger.info('The current websocket was closed by a third party', event)
+    this.retryManager.onFailure(event)
+    this.reconnect()
+  }
+
+  /* * * * * * * * * * * * * */
+  /* * Cozy Client EVENTS  * */
+  /* * * * * * * * * * * * * */
+
+  /**
+   * Registers event handlers for cozy-client events
+   * @private
+   */
+  subscribeClientEvents() {
+    this.client.on('login', this.onClientLogin)
+    this.client.on('tokenRefreshed', this.onClientTokenRefreshed)
+    this.client.on('logout', this.onClientLogout)
+  }
+
+  /**
+   * Unregisters event handlers for cozy-client events
+   * @private
+   */
+  unsubscribeClientEvents() {
+    this.client.removeListener('login', this.onClientLogin)
+    this.client.removeListener('tokenRefreshed', this.onClientTokenRefreshed)
+    this.client.removeListener('logout', this.onClientLogout)
+  }
+
+  /**
+   * When the cozy-client instance successfully login - re-authenticates
+   * @private
+   */
+  onClientLogin() {
+    logger.info('Received login from cozy-client')
+    if (this.isWebSocketOpen()) {
+      this.authenticate()
+      // send subscriptions again, permissions may have changed
+      this.sendSubscriptions()
+    }
+  }
+
+  /**
+   * When the cozy-client instance refresh its access token - re-authenticates
+   * @private
+   */
+  onClientTokenRefreshed() {
+    // The stack doesn't need a reconnection or a reauthentication
+    // if we already have authenticated correctly.
+    // We however can't assert that the token sent was not expired.
+    // If this happenned, we should throw the socket and reconnect.
+    //  Let's do that in all cases, as it won't be frequent anyways.
+    if (this.hasWebSocket()) {
+      this.revokeWebSocket()
+    }
+  }
+
+  /**
+   * When the cozy-client instance logs out - throws the socket, don't reconnect yet (no authentication)
+   * @private
+   */
+  onClientLogout() {
+    if (this.hasWebSocket()) {
+      this.revokeWebSocket()
+    }
+  }
+
+  /* * * * * * * * * * * */
+  /* * Cordova EVENTS  * */
+  /* * * * * * * * * * * */
+
+  /**
+   * Subscribes to cordova events
+   * @private
+   */
+  subscribeCordovaEvents() {
+    if (isCordova()) {
+      document.addEventListener('deviceready', this.onDeviceReady)
+      document.addEventListener('resume', this.onResume)
+    }
+  }
+
+  /**
+   * Unsubscribes to cordova events
+   * @private
+   */
+  unsubscribeCordovaEvents() {
+    if (isCordova()) {
+      document.removeEventListener('deviceready', this.onDeviceReady)
+      document.removeEventListener('resume', this.onResume)
+    }
+  }
+
+  /**
+   * when the device is ready (for Cordova)
+   * @private
+   */
+  onDeviceReady() {
+    // online and offline events were not ready
+    // detach them (should not be needed, but it doesnt' harm
+    // and we really  don't want to attach an event twice
+    this.unsubscribeGlobalEvents()
+    this.subscribeGlobalEvents()
+  }
+
+  /**
+   * when the device resumes (for Cordova)
+   * @see https://cordova.apache.org/docs/en/9.x/cordova/events/events.html#resume
+   * @private
+   */
+  onResume() {
+    this.reconnect()
+  }
+
+  /* * * * * * * * * * * * * * * */
+  /* * Global (browser) EVENTS * */
+  /* * * * * * * * * * * * * * * */
+
+  /**
+   * Subscribes to global events
+   * @private
+   */
+  subscribeGlobalEvents() {
+    if (hasBrowserContext && window.addEventListener) {
+      window.addEventListener('online', this.onOnline)
+      window.addEventListener('offline', this.onOffline)
+    }
+  }
+
+  /**
+   * Unsubscribes to global events
+   * @private
+   */
+  unsubscribeGlobalEvents() {
+    if (hasBrowserContext && window.removeEventListener) {
+      window.removeEventListener('online', this.onOnline)
+      window.removeEventListener('offline', this.onOffline)
+    }
+    if (isCordova()) {
+      document.removeEventListener('deviceready', this.onDeviceReady)
+    }
+  }
+
+  /**
+   * When going online again - throws the socket and reconnect
+   * @private
+   */
+  onOnline() {
+    logger.info('reconnect because receiving an online event')
+    this.reconnect()
+  }
+
+  /**
+   * When going offline - throws the socket, don't try to reconnect yet
+   * @private
+   */
+  onOffline() {
+    this.hasWebSocket() && this.revokeWebSocket()
   }
 }
 

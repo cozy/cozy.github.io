@@ -1,7 +1,6 @@
 package asset
 
 import (
-	"bytes"
 	"context"
 	"fmt"
 	"io"
@@ -9,12 +8,11 @@ import (
 	"net/url"
 	"path/filepath"
 
+	"github.com/cozy/cozy-apps-registry/base"
 	"github.com/cozy/cozy-apps-registry/config"
-	"github.com/cozy/cozy-apps-registry/consts"
-	"github.com/ncw/swift"
-
-	"github.com/go-kivik/couchdb/chttp"
-	"github.com/go-kivik/kivik"
+	"github.com/cozy/cozy-apps-registry/storage"
+	"github.com/go-kivik/couchdb/v3/chttp"
+	"github.com/go-kivik/kivik/v3"
 )
 
 type GlobalAsset struct {
@@ -32,16 +30,10 @@ var ctx = context.Background()
 var AssetStore *GlobalAssetStore
 
 const assetStoreDBSuffix string = "assets"
-const AssetContainerName string = "__assets__"
-
-type AssetStorage interface {
-	AddAsset(*GlobalAsset, io.Reader) error
-	GetAsset(string) (*bytes.Buffer, map[string]string, error)
-	RemoveAsset(string) error
-}
+const AssetContainerName base.Prefix = "__assets__"
 
 type GlobalAssetStore struct {
-	FS AssetStorage
+	FS base.Storage
 	DB *kivik.DB
 }
 
@@ -51,20 +43,20 @@ func InitGlobalAssetStore(addr, user, pass, prefix string) (*GlobalAssetStore, e
 	if err != nil {
 		return nil, err
 	}
-	sc, err := InitSwift()
+	fs, err := InitStorage()
 	if err != nil {
 		return nil, err
 	}
 	AssetStore = &GlobalAssetStore{
 		DB: globalAssetDB,
-		FS: &SwiftFS{Connection: sc},
+		FS: fs,
 	}
 	return AssetStore, nil
 }
 
 // MarshalAssetKey returns the string key store in UsedBy field for app versions
 func MarshalAssetKey(spacePrefix, appSlug, version string) string {
-	if spacePrefix == consts.DefaultSpacePrefix {
+	if spacePrefix == config.DefaultSpacePrefix {
 		spacePrefix = ""
 	}
 	return filepath.Join(spacePrefix, appSlug, version)
@@ -113,14 +105,12 @@ func InitCouchDB(addr, user, pass, prefix string) (*kivik.DB, error) {
 	return globalAssetStoreDB, nil
 }
 
-func InitSwift() (*swift.Connection, error) {
-	conf := config.GetConfig()
-	sc := conf.SwiftConnection
-
-	if err := sc.ContainerCreate(AssetContainerName, nil); err != nil {
+func InitStorage() (base.Storage, error) {
+	fs := storage.New()
+	if err := fs.EnsureExists(AssetContainerName); err != nil {
 		return nil, err
 	}
-	return sc, nil
+	return fs, nil
 }
 
 func (a *GlobalAssetStore) AddAsset(asset *GlobalAsset, content io.Reader, source string) error {
@@ -138,7 +128,7 @@ func (a *GlobalAssetStore) AddAsset(asset *GlobalAsset, content io.Reader, sourc
 		doc.ID = asset.Shasum
 
 		// Creating the asset in the FS
-		err := a.FS.AddAsset(asset, content)
+		err := a.FS.Create(AssetContainerName, asset.Shasum, asset.ContentType, content)
 		if err != nil {
 			return err
 		}
@@ -196,5 +186,5 @@ func (a *GlobalAssetStore) RemoveAsset(shasum, source string) error {
 	}
 
 	// Then, removing the asset from the FS
-	return AssetStore.FS.RemoveAsset(shasum)
+	return AssetStore.FS.Remove(AssetContainerName, shasum)
 }

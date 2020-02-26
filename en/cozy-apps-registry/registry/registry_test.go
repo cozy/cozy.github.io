@@ -18,7 +18,7 @@ import (
 	"github.com/cozy/cozy-apps-registry/auth"
 	"github.com/cozy/cozy-apps-registry/cache"
 	"github.com/cozy/cozy-apps-registry/config"
-	"github.com/go-kivik/kivik"
+	"github.com/go-kivik/kivik/v3"
 	"github.com/ncw/swift"
 	"github.com/ncw/swift/swifttest"
 	"github.com/spf13/viper"
@@ -257,7 +257,7 @@ func TestCreateVersionWithAttachment(t *testing.T) {
 	conf := config.GetConfig()
 	sc := conf.SwiftConnection
 	buf := new(bytes.Buffer)
-	headers, err := sc.ObjectGet(asset.AssetContainerName, sum, buf, false, nil)
+	headers, err := sc.ObjectGet(string(asset.AssetContainerName), sum, buf, false, nil)
 	assert.NoError(t, err)
 	assert.NoError(t, err)
 	assert.Equal(t, "text/plain", headers["Content-Type"])
@@ -447,13 +447,13 @@ func TestDeleteVersion(t *testing.T) {
 
 	var buf = new(bytes.Buffer)
 
-	_, err = sc.ObjectGet(asset.AssetContainerName, ver.AttachmentReferences["myfile1"], buf, false, nil)
+	_, err = sc.ObjectGet(string(asset.AssetContainerName), ver.AttachmentReferences["myfile1"], buf, false, nil)
 	assert.NoError(t, err)
 
 	// Delete the version and try to get the (normally) deleted object
 	err = ver.Delete(s)
 	assert.NoError(t, err)
-	_, err = sc.ObjectGet(asset.AssetContainerName, ver.AttachmentReferences["myfile1"], buf, false, nil)
+	_, err = sc.ObjectGet(string(asset.AssetContainerName), ver.AttachmentReferences["myfile1"], buf, false, nil)
 	assert.Equal(t, swift.ObjectNotFound, err)
 }
 

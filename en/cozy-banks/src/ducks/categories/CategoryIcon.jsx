@@ -23,20 +23,25 @@ const getCategoryIcon = categoryId => {
   return categoryIcons.uncategorized
 }
 
-const CategoryIcon = ({ categoryId, ...rest }) => {
+const CategoryIcon = ({ categoryId, size, ...rest }) => {
   if (!categoryId) {
-    return <PendingCategoryIcon size={32} {...rest} />
+    return <PendingCategoryIcon size={size} {...rest} />
   }
 
   const icon = getCategoryIcon(categoryId)
   if (!icon) {
     return null
   }
-  return <Icon icon={icon} width={32} height={32} {...rest} />
+  return <Icon icon={icon} size={size} {...rest} />
 }
 
 CategoryIcon.propTypes = {
-  categoryId: PropTypes.string
+  categoryId: PropTypes.string,
+  size: PropTypes.number
+}
+
+CategoryIcon.defaultProps = {
+  size: 32
 }
 
 export default CategoryIcon

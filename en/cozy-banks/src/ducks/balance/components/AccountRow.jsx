@@ -14,11 +14,11 @@ import {
   getAccountUpdatedAt,
   getAccountInstitutionLabel,
   getAccountBalance,
-  isHealthReimbursementsAccount
+  isReimbursementsAccount
 } from 'ducks/account/helpers'
 import { getWarningLimitPerAccount } from 'selectors'
 import styles from 'ducks/balance/components/AccountRow.styl'
-import { HealthReimbursementsIcon } from 'ducks/balance/components/HealthReimbursementsIcon'
+import ReimbursementsIcon from 'ducks/balance/components/ReimbursementsIcon'
 import AccountIcon from 'components/AccountIcon'
 import { triggersConn } from 'doctypes'
 import { isErrored } from 'utils/triggers'
@@ -102,10 +102,10 @@ const DumbAccountCaption = props => {
   const { t } = useI18n()
   const { triggersCol, account, className, ...rest } = props
 
-  if (isHealthReimbursementsAccount(account)) {
+  if (isReimbursementsAccount(account)) {
     return (
       <AccountRowSubText className={className} {...rest}>
-        {t('Balance.health-reimbursements-caption')}
+        {t('Balance.reimbursements-caption')}
       </AccountRowSubText>
     )
   }
@@ -169,7 +169,6 @@ class AccountRow extends React.PureComponent {
     const shouldShowOwners = owners.length > 0
 
     const hasAlert = account.balance < 0
-    const isHealthReimbursements = isHealthReimbursementsAccount(account)
     const accountLabel = getAccountLabel(account)
 
     const showUpdatedAtOutside = isMobile && shouldShowOwners
@@ -188,8 +187,11 @@ class AccountRow extends React.PureComponent {
         <div className={styles.AccountRow__mainLine}>
           <div className={styles.AccountRow__column}>
             <div className={styles.AccountRow__logo}>
-              <AccountIcon account={account} />
-              {isHealthReimbursements && <HealthReimbursementsIcon />}
+              {isReimbursementsAccount(account) ? (
+                <ReimbursementsIcon account={account} />
+              ) : (
+                <AccountIcon account={account} />
+              )}
             </div>
 
             <div className={styles.AccountRow__labelWrapper}>

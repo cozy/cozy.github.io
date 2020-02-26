@@ -8,6 +8,8 @@ import (
 	"github.com/spf13/viper"
 )
 
+const DefaultSpacePrefix string = "__default__"
+
 var config *Config
 
 // VirtualSpace is a view on another space, with a filter to restrict the list

@@ -751,10 +751,46 @@
           
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-1-1-5" type="checkbox" id="nav-4-1-1-5">
+    
+    <label class="md-nav__link" for="nav-4-1-1-5">
+      React
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-1-1-5">
+        React
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
   <li class="md-nav__item">
     <a href="../../../cozy-client/react-integration/" title="React integration" class="md-nav__link">
       React integration
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-client/hooks/" title="Hooks" class="md-nav__link">
+      Hooks
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -2133,6 +2169,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/shortcuts/" title="/shortcuts - Shortcuts" class="md-nav__link">
+      /shortcuts - Shortcuts
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -2501,6 +2549,26 @@
   <a href="#misc" title="Misc" class="md-nav__link">
     Misc
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#icons" title="Icons" class="md-nav__link">
+    Icons
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skins" title="Skins" class="md-nav__link">
+    Skins
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2911,6 +2979,26 @@
     Misc
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#icons" title="Icons" class="md-nav__link">
+    Icons
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skins" title="Skins" class="md-nav__link">
+    Skins
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -2990,7 +3078,11 @@
 <li><a href="#manual-insertion-test">Manual insertion test</a></li>
 </ul>
 </li>
-<li><a href="#misc">Misc</a></li>
+<li><a href="#misc">Misc</a><ul>
+<li><a href="#icons">Icons</a></li>
+<li><a href="#skins">Skins</a></li>
+</ul>
+</li>
 <li><a href="#pouch-on-web">Pouch On Web</a></li>
 <li><a href="#important-credentials">Important credentials</a></li>
 </ul>
@@ -3324,7 +3416,14 @@ yarn test:e2e:alerts-existing-cozy --url https://mydemocozy.mycozy.cloud cleanup
 
 
 <h3 id="misc">Misc<a class="headerlink" href="#misc" title="Permanent link">&para;</a></h3>
+<h4 id="icons">Icons<a class="headerlink" href="#icons" title="Permanent link">&para;</a></h4>
 <p>🖼 The PNG icons that are included in the emails are generated manually from the SVG via <code>scripts/icons-to-png.sh</code> and uploaded automatically to files.cozycloud.cc via Jenkins (which follows the file <code>files.cozycloud.cc</code> at the root of the repo).</p>
+<h4 id="skins">Skins<a class="headerlink" href="#skins" title="Permanent link">&para;</a></h4>
+<p>⚠️ The skin feature is not maintained.</p>
+<p>The Banks application can be &ldquo;skinned&rdquo; to MesInfos style.</p>
+<p>Use <code>env SKIN='mesinfos' yarn build</code> for example to build with the MesInfos icon and slug. To deploy to a branch different from build you can use <code>env DEPLOY_BRANCH='build-maif' yarn deploy</code>.</p>
+<p>You can use <code>scripts/build-deploy-skins</code> to automatically build and deploy
+the vanilla app and the skinned version of the app.</p>
 <h2 id="pouch-on-web">Pouch On Web<a class="headerlink" href="#pouch-on-web" title="Permanent link">&para;</a></h2>
 <p>If you want activate Pouch on web app, you need:
 - a token

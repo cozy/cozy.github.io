@@ -126,6 +126,12 @@ const mkConfig = (api, options) => {
       }
     ]
   ]
+  if (
+    process.env.BABEL_ENV === 'production' ||
+    process.env.BABEL_ENV === 'transpilation'
+  ) {
+    plugins.push(['transform-react-remove-prop-types'])
+  }
   if (!node && transformRuntime !== false) {
     plugins.push(
       // Polyfills generator functions (for async/await usage)

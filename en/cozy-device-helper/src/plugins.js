@@ -16,3 +16,12 @@ export const hasSafariPlugin = () => {
     window.SafariViewController.isAvailable(available => resolve(available))
   })
 }
+
+/**
+ * Check if the Cordova's cordova-plugin-network-information plugin is installed
+ * @see https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-network-information/
+ * @returns {boolean}
+ */
+export const hasNetworkInformationPlugin = () => {
+  return isCordova() && window.navigator.connection !== undefined
+}

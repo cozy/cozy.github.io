@@ -16,15 +16,14 @@ import (
 	"strings"
 	"time"
 
+	"github.com/Masterminds/semver"
 	"github.com/cozy/cozy-apps-registry/asset"
 	"github.com/cozy/cozy-apps-registry/cache"
 	"github.com/cozy/cozy-apps-registry/config"
+	"github.com/go-kivik/kivik/v3"
 	"github.com/labstack/echo/v4"
 	"github.com/ncw/swift"
 	"github.com/sirupsen/logrus"
-
-	"github.com/Masterminds/semver"
-	"github.com/go-kivik/kivik"
 	"github.com/spf13/viper"
 )
 
@@ -145,7 +144,7 @@ func FindVersionAttachment(c *Space, appSlug, version, filename string) (*Attach
 	shasum, ok := ver.AttachmentReferences[filename]
 
 	if ok {
-		contentBuffer, headers, err = asset.AssetStore.FS.GetAsset(shasum)
+		contentBuffer, headers, err = asset.AssetStore.FS.Get(asset.AssetContainerName, shasum)
 		if err != nil {
 			return nil, err
 		}
@@ -542,7 +541,6 @@ func FindLatestVersionCacheMiss(c *Space, appSlug string, channel Channel) (*Ver
 
 	latestVersion.ID = ""
 	latestVersion.Rev = ""
-	latestVersion.Attachments = nil
 
 	// Update the cache by using a goroutine to avoid waiting for the latency
 	// between the app server and redis.

@@ -1,6 +1,6 @@
 {
   "name": "cozy-realtime",
-  "version": "3.4.0",
+  "version": "3.6.2",
   "description": "Realtime interactions with cozy-stack using Websocket",
   "main": "dist/index.js",
   "author": "Cozy",
@@ -14,7 +14,7 @@
     "url": "https://github.com/cozy/cozy-libs/issues"
   },
   "scripts": {
-    "test": "jest --coverage --verbose",
+    "test": "jest",
     "build": "babel src -d dist",
     "prepublishOnly": "yarn build",
     "watch": "yarn build --watch"
@@ -22,7 +22,7 @@
   "devDependencies": {
     "@babel/cli": "7.4.4",
     "babel-plugin-rewire": "1.2.0",
-    "babel-preset-cozy-app": "^1.7.0",
+    "babel-preset-cozy-app": "^1.8.0",
     "cozy-client": "^9.3.0",
     "jest-cli": "24.7.1",
     "mock-socket": "9.0.0"
@@ -40,6 +40,7 @@
     ]
   },
   "dependencies": {
+    "cozy-device-helper": "^1.9.1",
     "minilog": "https://github.com/cozy/minilog.git#master"
   }
 }

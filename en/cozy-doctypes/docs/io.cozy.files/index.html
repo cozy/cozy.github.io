@@ -755,10 +755,46 @@
           
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-1-1-5" type="checkbox" id="nav-4-1-1-5">
+    
+    <label class="md-nav__link" for="nav-4-1-1-5">
+      React
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-1-1-5">
+        React
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
   <li class="md-nav__item">
     <a href="../../../cozy-client/react-integration/" title="React integration" class="md-nav__link">
       React integration
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-client/hooks/" title="Hooks" class="md-nav__link">
+      Hooks
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -1016,6 +1052,26 @@
   <a href="#example-json-api-format" title="Example (JSON-API format)" class="md-nav__link">
     Example (JSON-API format)
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shortcuts" title="Shortcuts" class="md-nav__link">
+    Shortcuts
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-json-format" title="Example (JSON format)" class="md-nav__link">
+    Example (JSON format)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2238,6 +2294,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/shortcuts/" title="/shortcuts - Shortcuts" class="md-nav__link">
+      /shortcuts - Shortcuts
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -2501,6 +2569,26 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#shortcuts" title="Shortcuts" class="md-nav__link">
+    Shortcuts
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-json-format" title="Example (JSON format)" class="md-nav__link">
+    Example (JSON format)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2705,6 +2793,65 @@ It appears in the JSON-API representation as a <code>refererenced_by</code> rela
       <span class="nt">&quot;medium&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b/thumbnails/0f9cda56674282ac/medium&quot;</span><span class="p">,</span>
       <span class="nt">&quot;large&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b/thumbnails/0f9cda56674282ac/large&quot;</span>
     <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="shortcuts">Shortcuts<a class="headerlink" href="#shortcuts" title="Permanent link">&para;</a></h3>
+<p>Shortcuts (or hyperlinks) are a special type of files. They are served with the
+<code>application/internet-shortcut</code> mime-type, they have a <code>.url</code> extension, and
+respect the <a href="http://www.lyberty.com/encyc/articles/tech/dot_url_format_-_an_unofficial_guide.html">URL file
+format</a>.</p>
+<p>They can have <code>metadata</code>:</p>
+<ul>
+<li><code>sharing.status</code> will be set if the link can be used to open a sharing. 2
+  values are possible: <code>new</code> and <code>seen</code>, depending on whether the link
+  has been opened.</li>
+<li><code>target.cozyMetadata.instance</code> is set to the cozy instance when relevant
+  (mostly sharing and internal links)</li>
+<li><code>target._type</code> is the doctype of the destination of the link (when the link
+  goes to a sharing or document inside a cozy)</li>
+<li><code>target.mime</code> is the mime-type of the destination of the link (when it is a
+  file)</li>
+<li><code>target.app</code> is the slug of the destination app (internal links only).</li>
+</ul>
+<h4 id="example-json-format">Example (JSON format)<a class="headerlink" href="#example-json-format" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;629fb233be550a21174ac8e19f0043af&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;_rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-61c7804bdb4f9f8dae5a363cb9a30dd8&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;sunset.jpg.url&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;dir_id&quot;</span><span class="p">:</span> <span class="s2">&quot;629fb233be550a21174ac8e19f003e4a&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;trashed&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="nt">&quot;md5sum&quot;</span><span class="p">:</span> <span class="s2">&quot;vfEMDpJShs8QeIlsDmw9VA==&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-02-10T20:38:04Z&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-02-10T20:38:04Z&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="nt">&quot;metadata&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;sharing&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;new&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;target&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;cozyMetadata&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;instance&quot;</span><span class="p">:</span> <span class="s2">&quot;https://alice.cozy.example/&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;_type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;mime&quot;</span><span class="p">:</span> <span class="s2">&quot;image/jpg&quot;</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">62</span><span class="p">,</span>
+  <span class="nt">&quot;executable&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="nt">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;shortcut&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;mime&quot;</span><span class="p">:</span> <span class="s2">&quot;application/shortcut&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;cozyMetadata&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;doctypeVersion&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;metadataVersion&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;createdAt&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-02-10T20:38:04Z&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;createdOn&quot;</span><span class="p">:</span> <span class="s2">&quot;https://bob.cozy.example/&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;updatedAt&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-02-10T20:38:04Z&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;uploadedAt&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-02-10T20:38:04Z&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;uploadedOn&quot;</span><span class="p">:</span> <span class="s2">&quot;https://bob.cozy.example/&quot;</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>

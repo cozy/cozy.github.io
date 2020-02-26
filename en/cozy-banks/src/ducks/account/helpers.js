@@ -5,14 +5,20 @@ import {
   flowRight as compose,
   set,
   uniqBy,
-  flatten
+  flatten,
+  overSome
 } from 'lodash'
 import {
   getDate,
   getReimbursedAmount as getTransactionReimbursedAmount,
-  hasPendingReimbursement
+  hasPendingReimbursement,
+  isExpense
 } from 'ducks/transactions/helpers'
-import { isHealthExpense } from 'ducks/categories/helpers'
+import {
+  isHealthExpense,
+  isProfessionalExpense,
+  getCategoryIdFromName
+} from 'ducks/categories/helpers'
 import { differenceInCalendarDays, isAfter, subMonths } from 'date-fns'
 import flag from 'cozy-flags'
 import { BankAccount } from 'cozy-doctypes'
@@ -139,10 +145,21 @@ const isWithin6Months = () => {
   return date => isAfter(date, SIX_MONTHS_AGO)
 }
 
-export const buildHealthReimbursementsVirtualAccount = transactions => {
-  const healthExpensesFilter = overEvery(
+/**
+ * Generate a reimbursements virtual account builder
+ *
+ * @param {Object} specs
+ * @param {Function} specs.filter - A function to filter transactions that fits in the virtual account
+ * @param {String} specs.id - The id of the generated virtual account
+ * @param {String} specs.translationKey - The translationKey that will be used to show the name of the virtual account
+ * @param {String} [specs.categoryId] - The category id of the transactions that matches the virtual account if there is any
+ *
+ * @returns {Function} The builder
+ */
+const buildReimbursementsVirtualAccount = specs => transactions => {
+  const combinedFilter = overEvery(
     [
-      isHealthExpense,
+      specs.filter,
       compose(
         isWithin6Months(),
         getDate
@@ -150,20 +167,21 @@ export const buildHealthReimbursementsVirtualAccount = transactions => {
       hasPendingReimbursement
     ].filter(Boolean)
   )
+  const filteredTransactions = transactions.filter(combinedFilter)
 
-  const healthExpenses = transactions.filter(healthExpensesFilter)
-
-  const balance = sumBy(healthExpenses, expense => {
+  const balance = sumBy(filteredTransactions, expense => {
     const reimbursedAmount = getTransactionReimbursedAmount(expense)
     return -expense.amount - reimbursedAmount
   })
 
   const account = {
-    _id: 'health_reimbursements',
+    _id: specs.id,
     _type: ACCOUNT_DOCTYPE,
-    label: 'Data.virtualAccounts.healthReimbursements',
+    id: specs.id,
+    label: `Data.virtualAccounts.${specs.translationKey}`,
     balance,
     type: 'Reimbursements',
+    categoryId: specs.categoryId,
     currency: '€',
     virtual: true
   }
@@ -171,8 +189,62 @@ export const buildHealthReimbursementsVirtualAccount = transactions => {
   return account
 }
 
+const healthExpensesCategoryId = getCategoryIdFromName('healthExpenses')
+const professionalExpensesCategoryId = getCategoryIdFromName(
+  'professionalExpenses'
+)
+
+export const reimbursementsVirtualAccountsSpecs = {
+  [healthExpensesCategoryId]: {
+    id: 'health_reimbursements',
+    translationKey: 'healthReimbursements',
+    categoryId: healthExpensesCategoryId,
+    filter: isHealthExpense
+  },
+  [professionalExpensesCategoryId]: {
+    id: 'professional_reimbursements',
+    translationKey: 'professionalReimbursements',
+    categoryId: professionalExpensesCategoryId,
+    filter: isProfessionalExpense
+  }
+}
+
+export const buildHealthReimbursementsVirtualAccount = buildReimbursementsVirtualAccount(
+  reimbursementsVirtualAccountsSpecs[healthExpensesCategoryId]
+)
+
+export const buildProfessionalReimbursementsVirtualAccount = buildReimbursementsVirtualAccount(
+  reimbursementsVirtualAccountsSpecs[professionalExpensesCategoryId]
+)
+
+const isSpecificReimbursement = overSome(
+  Object.values(reimbursementsVirtualAccountsSpecs).map(spec => spec.filter)
+)
+
+export const othersFilter = transaction => {
+  return !isSpecificReimbursement(transaction) && isExpense(transaction)
+}
+
+export const buildOthersReimbursementsVirtualAccount = buildReimbursementsVirtualAccount(
+  {
+    id: 'others_reimbursements',
+    translationKey: 'othersReimbursements',
+    filter: othersFilter
+  }
+)
+
 export const buildVirtualAccounts = transactions => {
-  return [buildHealthReimbursementsVirtualAccount(transactions)]
+  return [
+    buildHealthReimbursementsVirtualAccount(transactions),
+    flag('balance.professional-reimb-account') &&
+      buildProfessionalReimbursementsVirtualAccount(transactions),
+    flag('balance.others-reimb-account') &&
+      buildOthersReimbursementsVirtualAccount(transactions)
+  ].filter(Boolean)
+}
+
+export const isReimbursementsAccount = account => {
+  return account.type === 'Reimbursements'
 }
 
 export const isHealthReimbursementsAccount = account => {

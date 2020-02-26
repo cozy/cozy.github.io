@@ -1,11 +1,8 @@
 package auth
 
 import (
-	"crypto"
-	"crypto/rsa"
 	"crypto/sha256"
 	"encoding/json"
-	"encoding/pem"
 	"errors"
 	"fmt"
 	"io"
@@ -37,24 +34,11 @@ func (t *tokenData) UnmarshalJSON(data []byte) error {
 
 func (e *Editor) MarshalJSON() ([]byte, error) {
 	v := struct {
-		Name      string `json:"name"`
-		PublicKey string `json:"public_key,omitempty"`
+		Name string `json:"name"`
 	}{
-		Name:      e.name,
-		PublicKey: e.MarshalPublicKeyPEM(),
+		Name: e.name,
 	}
 	return json.Marshal(v)
-}
-
-func (e *Editor) MarshalPublicKeyPEM() string {
-	if len(e.publicKeyBytes) == 0 {
-		return ""
-	}
-	block := &pem.Block{
-		Type:  pubKeyBlocType,
-		Bytes: e.publicKeyBytes,
-	}
-	return string(pem.EncodeToMemory(block))
 }
 
 func (e *Editor) Name() string {
@@ -67,22 +51,6 @@ func (e *Editor) AutoPublication() bool {
 
 func (e *Editor) IsComplete() bool {
 	return len(e.name) > 0 && len(e.editorSalt) == saltsLen
-}
-
-func (e *Editor) VerifySignature(message, signature []byte) bool {
-	publicKey, err := e.PublicKey()
-	if err != nil {
-		return false
-	}
-
-	hash := sha256.New()
-	if _, err = hash.Write(message); err != nil {
-		return false
-	}
-	hashed := hash.Sum(nil)
-
-	err = rsa.VerifyPKCS1v15(publicKey, crypto.SHA256, hashed, signature)
-	return err == nil
 }
 
 func (e *Editor) GenerateMasterToken(masterSecret []byte, maxAge time.Duration) ([]byte, error) {
@@ -180,18 +148,4 @@ func (e *Editor) derivateSecret(masterSecret, salt []byte) ([]byte, error) {
 	}
 
 	return sessionSecret, nil
-}
-
-func (e *Editor) PublicKey() (*rsa.PublicKey, error) {
-	if len(e.publicKeyBytes) == 0 {
-		return nil, errors.New("Editor has no public key associated")
-	}
-	if e.publicKey == nil {
-		var err error
-		e.publicKey, err = unmarshalPublicKey(e.publicKeyBytes)
-		if err != nil {
-			return nil, err
-		}
-	}
-	return e.publicKey, nil
 }

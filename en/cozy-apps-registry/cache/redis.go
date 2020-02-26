@@ -1,19 +1,19 @@
 package cache
 
 import (
+	"math/rand"
 	"time"
 
-	"github.com/cozy/cozy-apps-registry/utils"
 	"github.com/go-redis/redis/v7"
 )
 
-// Cache is an redis cache.
+// RedisCache is a cache based on Redis.
 type RedisCache struct {
 	TTL   time.Duration
 	cache redis.UniversalClient
 }
 
-// New creates a new Cache.
+// NewRedisCache creates a new cache.
 func NewRedisCache(ttl time.Duration, client redis.UniversalClient) *RedisCache {
 	return &RedisCache{
 		TTL:   ttl,
@@ -23,8 +23,18 @@ func NewRedisCache(ttl time.Duration, client redis.UniversalClient) *RedisCache 
 
 // Add adds a value to the cache.
 func (c *RedisCache) Add(key Key, value Value) {
-	ttl := utils.DurationFuzzing(c.TTL, 0.2)
+	ttl := DurationFuzzing(c.TTL, 0.2)
 	c.cache.Set(key.String(), []byte(value), ttl)
+}
+
+// DurationFuzzing returns a duration that is near the given duration, but
+// randomized to avoid patterns like several cache entries that expires at the
+// same time.
+func DurationFuzzing(d time.Duration, variation float64) time.Duration {
+	if variation > 1.0 || variation < 0.0 {
+		panic("DurationRandomized: variation should be between 0.0 and 1.0")
+	}
+	return time.Duration(float64(d) * (1.0 + variation*(2.0*rand.Float64()-1.0)))
 }
 
 // Get looks up a key's value from the cache.

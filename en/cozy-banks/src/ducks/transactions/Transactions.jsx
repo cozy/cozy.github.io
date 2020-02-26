@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import PropTypes from 'prop-types'
 import {
   sortBy,
   throttle,
@@ -220,7 +221,7 @@ export class TransactionsDumb extends React.Component {
   }
 
   render() {
-    const { limitMin, limitMax, manualLoadMore, isOnSubcategory } = this.props
+    const { limitMin, limitMax, manualLoadMore, showTriggerErrors } = this.props
     return (
       <InfiniteScroll
         manual={manualLoadMore}
@@ -236,7 +237,7 @@ export class TransactionsDumb extends React.Component {
         onScroll={this.handleScroll}
         className={this.props.className}
       >
-        {!isOnSubcategory ? <TransactionPageErrors /> : null}
+        {showTriggerErrors ? <TransactionPageErrors /> : null}
         <ScrollRestore
           limitMin={limitMin}
           limitMax={limitMax}
@@ -248,6 +249,14 @@ export class TransactionsDumb extends React.Component {
       </InfiniteScroll>
     )
   }
+}
+
+TransactionsDumb.propTypes = {
+  showTriggerErrors: PropTypes.bool
+}
+
+TransactionsDumb.defaultProps = {
+  showTriggerErrors: true
 }
 
 const Transactions = compose(

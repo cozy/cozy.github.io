@@ -753,10 +753,46 @@
           
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-1-1-5" type="checkbox" id="nav-4-1-1-5">
+    
+    <label class="md-nav__link" for="nav-4-1-1-5">
+      React
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-1-1-5">
+        React
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
   <li class="md-nav__item">
     <a href="../../cozy-client/react-integration/" title="React integration" class="md-nav__link">
       React integration
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-client/hooks/" title="Hooks" class="md-nav__link">
+      Hooks
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -2148,6 +2184,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-stack/shortcuts/" title="/shortcuts - Shortcuts" class="md-nav__link">
+      /shortcuts - Shortcuts
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -2421,14 +2469,14 @@
 <li>Store it in CouchDB, even if it means overriding previously synchronized data.</li>
 </ul>
 <p>This process has at least two major flows :
-<em> We are always synchronizing <em>all</em> the data provided by the external service.
-</em> When something is modified (for example, the name of the stored file, it&rsquo;s almost sure that the previous one will be kept and that we&rsquo;ll have a duplicate)</p>
+* We are always synchronizing <em>all</em> the data provided by the external service.
+* When something is modified (for example, the name of the stored file, it&rsquo;s almost sure that the previous one will be kept and that we&rsquo;ll have a duplicate)</p>
 <p>Another side effect could be that in a very large set of documents to synchronize, the whole process may take more than 3 minutes and never synchronize documents at the end of the list.</p>
 <h2 id="current-usage">Current usage<a class="headerlink" href="#current-usage" title="Permanent link">&para;</a></h2>
 <p>When saving bills, <code>cozy-konnector-libs</code> provides a filtering and hydratation mechanism, to avoid overriding existing bills. It is done in function <a href="https://github.com/cozy/cozy-konnector-libs/blob/master/libs/hydrateAndFilter.js"><code>hydrateAndFilters</code></a>.</p>
 <p>This method performs two actions :
-<em> hydrate entries retrieved from service with usable data from couchDB (like existing bill id)
-</em> filter entries retrieved from service and return only entries that need to be saved/synchronized.</p>
+* hydrate entries retrieved from service with usable data from couchDB (like existing bill id)
+* filter entries retrieved from service and return only entries that need to be saved/synchronized.</p>
 <h2 id="objectives-of-this-document">Objectives of this document<a class="headerlink" href="#objectives-of-this-document" title="Permanent link">&para;</a></h2>
 <p>The goals of this document are:</p>
 <ul>
@@ -2507,8 +2555,8 @@ It could be for example the filename or a hash generated with the document conte
 
 <h2 id="saving-document-based-on-synchronization-strategy">Saving document based on synchronization strategy<a class="headerlink" href="#saving-document-based-on-synchronization-strategy" title="Permanent link">&para;</a></h2>
 <p>To solve the synchronization process we need to:
-<em> be able to add synchronization data on any type of document
-</em> be able to compare external entries to current database state
+* be able to add synchronization data on any type of document
+* be able to compare external entries to current database state
 * provide a default implementation while letting the contributors to define their own ones</p>
 <h3 id="adding-synchronization-data">Adding synchronization data<a class="headerlink" href="#adding-synchronization-data" title="Permanent link">&para;</a></h3>
 <p>We should provide an <code>addSyncData</code> function could, which look like this (naive implementation, this piece of code needs to be improved to handle cases where <code>synchronizationStrategy.idAttribute</code> is an array or a function):</p>

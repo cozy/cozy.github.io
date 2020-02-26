@@ -6,7 +6,8 @@ import {
   getPlatform,
   hasDevicePlugin,
   hasInAppBrowserPlugin,
-  hasSafariPlugin
+  hasSafariPlugin,
+  hasNetworkInformationPlugin
 } from './index'
 
 describe('platforms', () => {
@@ -69,5 +70,16 @@ describe('cordova plugins', () => {
     window.SafariViewController = undefined
     hasSafari = await hasSafariPlugin()
     expect(hasSafari).toBeFalsy()
+  })
+  it('should identify has Network  Information plugin', async () => {
+    window.cordova = true
+    window.navigator.connection = { type: 3 }
+    expect(hasNetworkInformationPlugin()).toBeTruthy()
+    window.cordova = undefined
+    window.navigator.connection = { type: 3 }
+    expect(hasNetworkInformationPlugin()).toBeFalsy()
+    window.cordova = true
+    window.navigator.connection = undefined
+    expect(hasNetworkInformationPlugin()).toBeFalsy()
   })
 })

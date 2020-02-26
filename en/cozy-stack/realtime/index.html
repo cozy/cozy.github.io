@@ -753,10 +753,46 @@
           
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-1-1-5" type="checkbox" id="nav-4-1-1-5">
+    
+    <label class="md-nav__link" for="nav-4-1-1-5">
+      React
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-1-1-5">
+        React
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
   <li class="md-nav__item">
     <a href="../../cozy-client/react-integration/" title="React integration" class="md-nav__link">
       React integration
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-client/hooks/" title="Hooks" class="md-nav__link">
+      Hooks
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -2128,6 +2164,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#unsubscribe" title="UNSUBSCRIBE" class="md-nav__link">
+    UNSUBSCRIBE
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#response-messages" title="Response messages" class="md-nav__link">
     Response messages
   </a>
@@ -2230,6 +2273,18 @@
   <li class="md-nav__item">
     <a href="../sharing/" title="/sharings - Sharing" class="md-nav__link">
       /sharings - Sharing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../shortcuts/" title="/shortcuts - Shortcuts" class="md-nav__link">
+      /shortcuts - Shortcuts
     </a>
   </li>
 
@@ -2469,6 +2524,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#unsubscribe" title="UNSUBSCRIBE" class="md-nav__link">
+    UNSUBSCRIBE
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#response-messages" title="Response messages" class="md-nav__link">
     Response messages
   </a>
@@ -2566,6 +2628,8 @@ server &gt; {&quot;event&quot;: &quot;UPDATED&quot;,
           &quot;payload&quot;: {&quot;id&quot;: &quot;idA&quot;, &quot;rev&quot;: &quot;2-705...&quot;, &quot;type&quot;: &quot;io.cozy.contacts&quot;, &quot;doc&quot;: {embeded doc ...}}}
 server &gt; {&quot;event&quot;: &quot;DELETED&quot;,
           &quot;payload&quot;: {&quot;id&quot;: &quot;idA&quot;, &quot;rev&quot;: &quot;3-541...&quot;, &quot;type&quot;: &quot;io.cozy.contacts&quot;}}
+client &gt; {&quot;method&quot;: &quot;UNSUBSCRIBE&quot;,
+          &quot;payload&quot;: {&quot;type&quot;: &quot;io.cozy.contacts&quot;}}
 server &gt; {&quot;event&quot;: &quot;UPDATED&quot;,
           &quot;payload&quot;: {&quot;id&quot;: &quot;idB&quot;, &quot;rev&quot;: &quot;6-457...&quot;, &quot;type&quot;: &quot;io.cozy.files&quot;, &quot;doc&quot;: {embeded doc ...}}}
 </pre></div>
@@ -2596,6 +2660,14 @@ selector. Otherwise an error is passed in the message feed.</p>
             &quot;title&quot;:&quot;The Application can&#39;t subscribe to io.cozy.files&quot;
             &quot;source&quot;: {&quot;method&quot;: &quot;SUBSCRIBE&quot;, &quot;payload&quot;: {&quot;type&quot;:&quot;io.cozy.files&quot;} }
           }}
+</pre></div>
+
+
+<h2 id="unsubscribe">UNSUBSCRIBE<a class="headerlink" href="#unsubscribe" title="Permanent link">&para;</a></h2>
+<p>A client can send an UNSUBSCRIBE request to no longer be notified of changes
+from a previous request.</p>
+<div class="codehilite"><pre><span></span><span class="p">{</span><span class="s">&quot;method&quot;</span><span class="o">:</span> <span class="s">&quot;UNSUBSCRIBE&quot;</span><span class="p">,</span> <span class="s">&quot;payload&quot;</span><span class="o">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="s">&quot;[desired doctype]&quot;</span><span class="p">}}</span>
+<span class="p">{</span><span class="s">&quot;method&quot;</span><span class="o">:</span> <span class="s">&quot;UNSUBSCRIBE&quot;</span><span class="p">,</span> <span class="s">&quot;payload&quot;</span><span class="o">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="s">&quot;[desired doctype]&quot;</span><span class="p">,</span> <span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="s">&quot;idA&quot;</span><span class="p">}}</span>
 </pre></div>
 
 

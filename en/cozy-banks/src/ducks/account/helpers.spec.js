@@ -5,10 +5,16 @@ import {
   getAccountBalance,
   buildHealthReimbursementsVirtualAccount,
   buildVirtualAccounts,
-  addOwnerToAccount
+  addOwnerToAccount,
+  buildProfessionalReimbursementsVirtualAccount,
+  buildOthersReimbursementsVirtualAccount
 } from './helpers'
+import { getCategoryIdFromName } from 'ducks/categories/helpers'
 import { CONTACT_DOCTYPE } from 'doctypes'
 import MockDate from 'mockdate'
+import flag from 'cozy-flags'
+
+jest.mock('cozy-flags')
 
 describe('getAccountUpdateDateDistance', () => {
   it('should return null if an argument is missing', () => {
@@ -96,15 +102,36 @@ describe('getAccountBalance', () => {
 })
 
 describe('buildHealthReimbursementsVirtualAccount', () => {
+  const healthExpensesCategory = getCategoryIdFromName('healthExpenses')
   let transactions
 
   beforeEach(() => {
     transactions = [
-      { manualCategoryId: '400610', amount: -10, date: '2019-01-02' },
-      { manualCategoryId: '400610', amount: -10, date: '2019-01-02' },
-      { manualCategoryId: '400610', amount: -10, date: '2019-01-02' },
-      { manualCategoryId: '400610', amount: -10, date: '2019-01-02' },
-      { manualCategoryId: '400610', amount: -10, date: '2018-01-02' },
+      {
+        manualCategoryId: healthExpensesCategory,
+        amount: -10,
+        date: '2019-01-02'
+      },
+      {
+        manualCategoryId: healthExpensesCategory,
+        amount: -10,
+        date: '2019-01-02'
+      },
+      {
+        manualCategoryId: healthExpensesCategory,
+        amount: -10,
+        date: '2019-01-02'
+      },
+      {
+        manualCategoryId: healthExpensesCategory,
+        amount: -10,
+        date: '2019-01-02'
+      },
+      {
+        manualCategoryId: healthExpensesCategory,
+        amount: -10,
+        date: '2018-01-02'
+      },
       { manualCategoryId: '400470', amount: 10 }
     ]
     MockDate.set(new Date('2019-04-08T00:00:00.000Z'))
@@ -142,11 +169,14 @@ describe('buildHealthReimbursementsVirtualAccount', () => {
   it('should return a well formed account', () => {
     const expected = {
       _id: 'health_reimbursements',
+      _type: 'io.cozy.bank.accounts',
+      id: 'health_reimbursements',
       virtual: true,
       balance: expect.any(Number),
       label: 'Data.virtualAccounts.healthReimbursements',
       type: 'Reimbursements',
-      currency: '€'
+      currency: '€',
+      categoryId: healthExpensesCategory
     }
 
     expect(buildHealthReimbursementsVirtualAccount(transactions)).toMatchObject(
@@ -156,12 +186,34 @@ describe('buildHealthReimbursementsVirtualAccount', () => {
 })
 
 describe('buildVirtualAccounts', () => {
+  afterEach(() => {
+    flag.mockReset()
+  })
+
   it('should contain a health reimbursements virtual account', () => {
     const virtualAccounts = buildVirtualAccounts([])
-    const healthReimbursementsAccount = virtualAccounts.filter(
+    const healthReimbursementsAccount = virtualAccounts.find(
       a => a._id === 'health_reimbursements'
     )
-    expect(healthReimbursementsAccount).toHaveLength(1)
+    expect(healthReimbursementsAccount).toBeDefined()
+  })
+
+  it('should contain a professional expenses virtual account', () => {
+    flag.mockReturnValue(true)
+    const virtualAccounts = buildVirtualAccounts([])
+    const professionalExpenseAccount = virtualAccounts.find(
+      a => a._id === 'professional_reimbursements'
+    )
+    expect(professionalExpenseAccount).toBeDefined()
+  })
+
+  it('should contain a others expenses virtual account', () => {
+    flag.mockReturnValue(true)
+    const virtualAccounts = buildVirtualAccounts([])
+    const othersExpenseAccount = virtualAccounts.find(
+      a => a._id === 'others_reimbursements'
+    )
+    expect(othersExpenseAccount).toBeDefined()
   })
 })
 
@@ -198,5 +250,153 @@ describe('addOwnerToAccount', () => {
       addOwnerToAccount(account, owner)
       expect(account.relationships.owners.data).toEqual([ownerRel])
     })
+  })
+})
+
+describe('buildProfessionalReimbursementsVirtualAccount', () => {
+  const professionalExpenseCategory = getCategoryIdFromName(
+    'professionalExpenses'
+  )
+
+  const transactions = [
+    {
+      manualCategoryId: professionalExpenseCategory,
+      amount: -10,
+      date: '2019-01-02',
+      reimbursementStatus: 'pending'
+    },
+    {
+      manualCategoryId: professionalExpenseCategory,
+      amount: -10,
+      date: '2019-01-02',
+      reimbursementStatus: 'pending'
+    },
+    {
+      manualCategoryId: professionalExpenseCategory,
+      amount: -10,
+      date: '2019-01-02',
+      reimbursementStatus: 'pending'
+    },
+    {
+      manualCategoryId: professionalExpenseCategory,
+      amount: -10,
+      date: '2019-01-02',
+      reimbursementStatus: 'pending'
+    },
+    {
+      manualCategoryId: professionalExpenseCategory,
+      amount: -10,
+      date: '2018-01-02',
+      reimbursementStatus: 'pending'
+    },
+    { manualCategoryId: '400470', amount: 10 }
+  ]
+
+  beforeEach(() => {
+    MockDate.set(new Date('2019-04-08T00:00:00.000Z'))
+  })
+
+  it('should return a balance equals to 0 if there is no transaction', () => {
+    const virtualAccount = buildProfessionalReimbursementsVirtualAccount([])
+    expect(virtualAccount.balance).toBe(0)
+  })
+
+  it('should sum only last 6 months and professional expenses amounts', () => {
+    const virtualAccount = buildProfessionalReimbursementsVirtualAccount(
+      transactions
+    )
+    expect(virtualAccount.balance).toBe(40)
+  })
+
+  it('should return a well formed account', () => {
+    const expected = {
+      _id: 'professional_reimbursements',
+      _type: 'io.cozy.bank.accounts',
+      id: 'professional_reimbursements',
+      virtual: true,
+      balance: expect.any(Number),
+      label: 'Data.virtualAccounts.professionalReimbursements',
+      type: 'Reimbursements',
+      currency: '€',
+      categoryId: professionalExpenseCategory
+    }
+
+    expect(
+      buildProfessionalReimbursementsVirtualAccount(transactions)
+    ).toMatchObject(expected)
+  })
+})
+
+describe('buildOthersReimbursementsVirtualAccount', () => {
+  const professionalExpenseCategory = getCategoryIdFromName(
+    'professionalExpenses'
+  )
+  const healthExpensesCategory = getCategoryIdFromName('healthExpenses')
+  const telecomCategory = getCategoryIdFromName('telecom')
+
+  const transactions = [
+    {
+      manualCategoryId: professionalExpenseCategory,
+      amount: -10,
+      date: '2019-01-02',
+      reimbursementStatus: 'pending'
+    },
+    {
+      manualCategoryId: healthExpensesCategory,
+      amount: -10,
+      date: '2019-01-02',
+      reimbursementStatus: 'pending'
+    },
+    {
+      manualCategoryId: telecomCategory,
+      amount: -10,
+      date: '2019-01-02',
+      reimbursementStatus: 'pending'
+    },
+    {
+      manualCategoryId: telecomCategory,
+      amount: -10,
+      date: '2019-01-02',
+      reimbursementStatus: 'pending'
+    },
+    {
+      manualCategoryId: telecomCategory,
+      amount: -10,
+      date: '2018-01-02',
+      reimbursementStatus: 'pending'
+    },
+    { manualCategoryId: '400470', amount: 10 }
+  ]
+
+  beforeEach(() => {
+    MockDate.set(new Date('2019-04-08T00:00:00.000Z'))
+  })
+
+  it('should return a balance equals to 0 if there is no transaction', () => {
+    const virtualAccount = buildOthersReimbursementsVirtualAccount([])
+    expect(virtualAccount.balance).toBe(0)
+  })
+
+  it('should sum only last 6 months and not professional nor health expenses amounts', () => {
+    const virtualAccount = buildOthersReimbursementsVirtualAccount(transactions)
+    expect(virtualAccount.balance).toBe(20)
+  })
+
+  it('should return a well formed account', () => {
+    const expected = {
+      _id: 'others_reimbursements',
+      _type: 'io.cozy.bank.accounts',
+      id: 'others_reimbursements',
+      virtual: true,
+      balance: expect.any(Number),
+      label: 'Data.virtualAccounts.othersReimbursements',
+      type: 'Reimbursements',
+      currency: '€',
+      categoryId: undefined
+    }
+
+    expect(buildOthersReimbursementsVirtualAccount(transactions)).toMatchObject(
+      expected
+    )
   })
 })

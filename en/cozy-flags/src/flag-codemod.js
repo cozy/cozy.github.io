@@ -1,3 +1,8 @@
+/**
+ * Replaces all occurences of flag('my-flag') by true, simplifies conditions
+ * and removes dead code.
+ */
+
 const flagCallFinder = name => ({
   callee: { name: 'flag' },
   arguments: [{ value: name }]

@@ -4,7 +4,10 @@ import get from 'lodash/get'
 import sumBy from 'lodash/sumBy'
 import flag from 'cozy-flags'
 import { differenceInDays, parse as parseDate } from 'date-fns'
-import { isHealthExpense } from 'ducks/categories/helpers'
+import {
+  isHealthExpense,
+  isProfessionalExpense
+} from 'ducks/categories/helpers'
 
 const prevRecurRx = /\bPRLV SEPA RECU RCUR\b/
 const longNumber = /\b\d{5,}\b/g
@@ -170,6 +173,10 @@ export const getReimbursementStatus = transaction => {
     return getHealthExpenseReimbursementStatus(transaction)
   }
 
+  if (isProfessionalExpense(transaction)) {
+    return getProfessionalExpenseReimbursementStatus(transaction)
+  }
+
   return transaction.reimbursementStatus || 'no-reimbursement'
 }
 
@@ -181,6 +188,10 @@ export const getHealthExpenseReimbursementStatus = transaction => {
   return hasReimbursements(transaction)
     ? REIMBURSEMENTS_STATUS.reimbursed
     : REIMBURSEMENTS_STATUS.pending
+}
+
+const getProfessionalExpenseReimbursementStatus = transaction => {
+  return transaction.reimbursementStatus || 'pending'
 }
 
 export const isReimbursementLate = (transaction, lateLimitInDays) => {

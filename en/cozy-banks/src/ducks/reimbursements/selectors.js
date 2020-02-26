@@ -1,16 +1,29 @@
 import groupBy from 'lodash/groupBy'
-import { getHealthExpenses, getHealthExpensesByPeriod } from 'ducks/filters'
+import {
+  getHealthExpenses,
+  getHealthExpensesByPeriod,
+  getFilteringDoc,
+  filterByPeriod,
+  getPeriod,
+  getDateGetter
+} from 'ducks/filters'
+import { getTransactions } from 'selectors'
 import { createSelector } from 'reselect'
 import {
   isReimbursementLate,
-  getReimbursementStatus
+  getReimbursementStatus,
+  isExpense
 } from 'ducks/transactions/helpers'
 import { getHealthReimbursementLateLimit } from 'ducks/settings/helpers'
 import { getSettings } from 'ducks/settings/selectors'
+import {
+  reimbursementsVirtualAccountsSpecs,
+  othersFilter
+} from 'ducks/account/helpers'
 
-const groupHealthExpenses = healthExpenses => {
+const groupExpenses = expenses => {
   const { reimbursed = [], pending = [] } = groupBy(
-    healthExpenses,
+    expenses,
     getReimbursementStatus
   )
 
@@ -22,12 +35,41 @@ const groupHealthExpenses = healthExpenses => {
 
 export const getGroupedHealthExpensesByPeriod = createSelector(
   [getHealthExpensesByPeriod],
-  groupHealthExpenses
+  groupExpenses
 )
 
 export const getGroupedHealthExpenses = createSelector(
   [getHealthExpenses],
-  groupHealthExpenses
+  groupExpenses
+)
+
+export const getExpensesByFilteringDoc = createSelector(
+  [getTransactions, getFilteringDoc],
+  (transactions, filteringDoc) => {
+    let filter
+
+    if (filteringDoc._type === 'io.cozy.bank.accounts') {
+      filter = filteringDoc.categoryId
+        ? reimbursementsVirtualAccountsSpecs[filteringDoc.categoryId].filter
+        : othersFilter
+    } else if (filteringDoc._type === 'io.cozy.bank.groups') {
+      filter = isExpense
+    }
+
+    return transactions.filter(filter)
+  }
+)
+
+export const getFilteredExpenses = createSelector(
+  [getExpensesByFilteringDoc, getPeriod, getDateGetter],
+  (transactions, period, dateGetter) => {
+    return filterByPeriod(transactions, period, dateGetter)
+  }
+)
+
+export const getGroupedFilteredExpenses = createSelector(
+  [getFilteredExpenses],
+  groupExpenses
 )
 
 export const getHealthReimbursementLateLimitSelector = createSelector(

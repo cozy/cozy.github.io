@@ -1,11 +1,14 @@
-package asset
+package storage
 
 import (
-	"github.com/cozy/cozy-apps-registry/utils"
+	"time"
+
 	"github.com/hashicorp/go-multierror"
 	"github.com/ncw/swift"
-	"time"
 )
+
+// This file is heavily inspired from
+// https://github.com/cozy/cozy-stack/blob/master/model/vfs/vfsswift/swift.go
 
 // maxNbFilesToDelete is the maximal number of files that we will try to delete
 // in a single call to swift.
@@ -15,9 +18,9 @@ const maxNbFilesToDelete = 8000
 // delete files in the same container.
 const maxSimultaneousCalls = 8
 
-// DeleteContainer removes all the files inside the given container, and then
+// deleteContainer removes all the files inside the given container, and then
 // deletes it.
-func DeleteContainer(c *swift.Connection, container string) error {
+func deleteContainer(c *swift.Connection, container string) error {
 	_, _, err := c.Container(container)
 	if err == swift.ContainerNotFound {
 		return nil
@@ -41,7 +44,7 @@ func DeleteContainer(c *swift.Connection, container string) error {
 	// send an error as some container servers will still have objects
 	// registered for this container. We will try several times to delete the
 	// container to work-around this limitation.
-	return utils.RetryWithExpBackoff(5, 2*time.Second, func() error {
+	return RetryWithExpBackoff(5, 2*time.Second, func() error {
 		err = c.ContainerDelete(container)
 		if err == swift.ContainerNotFound {
 			return nil
@@ -87,4 +90,24 @@ func deleteContainerFiles(c *swift.Connection, container string, objectNames []s
 		<-tokens
 	}
 	return errm
+}
+
+// RetryWithExpBackoff can be used to call several times a function until it
+// returns no error or the maximum count of calls has been reached. Between two
+// calls, it will wait, first by the given delay, and after that, the delay
+// will double after each failure.
+func RetryWithExpBackoff(count int, delay time.Duration, fn func() error) error {
+	err := fn()
+	if err == nil {
+		return nil
+	}
+	for i := 1; i < count; i++ {
+		time.Sleep(delay)
+		delay *= 2
+		err = fn()
+		if err == nil {
+			return nil
+		}
+	}
+	return err
 }

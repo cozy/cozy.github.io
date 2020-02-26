@@ -753,10 +753,46 @@
           
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-1-1-5" type="checkbox" id="nav-4-1-1-5">
+    
+    <label class="md-nav__link" for="nav-4-1-1-5">
+      React
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-1-1-5">
+        React
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
   <li class="md-nav__item">
     <a href="../../cozy-client/react-integration/" title="React integration" class="md-nav__link">
       React integration
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-client/hooks/" title="Hooks" class="md-nav__link">
+      Hooks
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -2770,7 +2806,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#post-sharingssharing-id95revs_diff" title="POST /sharings/:sharing-id/_revs_diff" class="md-nav__link">
+  <a href="#post-sharingssharing-id_revs_diff" title="POST /sharings/:sharing-id/_revs_diff" class="md-nav__link">
     POST /sharings/:sharing-id/_revs_diff
   </a>
   
@@ -2797,7 +2833,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#post-sharingssharing-id95bulk_docs" title="POST /sharings/:sharing-id/_bulk_docs" class="md-nav__link">
+  <a href="#post-sharingssharing-id_bulk_docs" title="POST /sharings/:sharing-id/_bulk_docs" class="md-nav__link">
     POST /sharings/:sharing-id/_bulk_docs
   </a>
   
@@ -2957,6 +2993,18 @@
   
 </nav>
     
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../shortcuts/" title="/shortcuts - Shortcuts" class="md-nav__link">
+      /shortcuts - Shortcuts
+    </a>
   </li>
 
         
@@ -3789,7 +3837,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#post-sharingssharing-id95revs_diff" title="POST /sharings/:sharing-id/_revs_diff" class="md-nav__link">
+  <a href="#post-sharingssharing-id_revs_diff" title="POST /sharings/:sharing-id/_revs_diff" class="md-nav__link">
     POST /sharings/:sharing-id/_revs_diff
   </a>
   
@@ -3816,7 +3864,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#post-sharingssharing-id95bulk_docs" title="POST /sharings/:sharing-id/_bulk_docs" class="md-nav__link">
+  <a href="#post-sharingssharing-id_bulk_docs" title="POST /sharings/:sharing-id/_bulk_docs" class="md-nav__link">
     POST /sharings/:sharing-id/_bulk_docs
   </a>
   
@@ -5012,7 +5060,7 @@ that this recipient no longer wants to be part of the sharing.</p>
 </pre></div>
 
 
-<h3 id="post-sharingssharing-id95revs_diff">POST /sharings/:sharing-id/_revs_diff<a class="headerlink" href="#post-sharingssharing-id95revs_diff" title="Permanent link">&para;</a></h3>
+<h3 id="post-sharingssharing-id_revs_diff">POST /sharings/:sharing-id/_revs_diff<a class="headerlink" href="#post-sharingssharing-id_revs_diff" title="Permanent link">&para;</a></h3>
 <p>This endpoint is used by the sharing replicator of the stack to know which
 documents must be sent to the other cozy. It is inspired by
 http://docs.couchdb.org/en/stable/api/database/misc.html#db-revs-diff.</p>
@@ -5052,7 +5100,7 @@ http://docs.couchdb.org/en/stable/api/database/misc.html#db-revs-diff.</p>
 </pre></div>
 
 
-<h3 id="post-sharingssharing-id95bulk_docs">POST /sharings/:sharing-id/_bulk_docs<a class="headerlink" href="#post-sharingssharing-id95bulk_docs" title="Permanent link">&para;</a></h3>
+<h3 id="post-sharingssharing-id_bulk_docs">POST /sharings/:sharing-id/_bulk_docs<a class="headerlink" href="#post-sharingssharing-id_bulk_docs" title="Permanent link">&para;</a></h3>
 <p>This endpoint is used by the sharing replicator of the stack to send documents
 in a bulk to the other cozy. It is inspired by
 http://docs.couchdb.org/en/stable/api/database/bulk-api.html#db-bulk-docs.</p>
@@ -5218,7 +5266,7 @@ initial sync is finished.</p>
 
 <h2 id="real-time-via-websockets">Real-time via websockets<a class="headerlink" href="#real-time-via-websockets" title="Permanent link">&para;</a></h2>
 <p>You can subscribe to the <a href="../realtime/">realtime</a> API for the normal doctypes,
-but also for a special <code>io.cozy.sharings.initial-sync</code> doctype. For this
+but also for a special <code>io.cozy.sharings.initial_sync</code> doctype. For this
 doctype, you can give the id of a sharing and you will be notified when a file
 will be received during the initial synchronisation (<code>UPDATED</code>), and when the
 sync will be done (<code>DELETED</code>).</p>
@@ -5226,13 +5274,13 @@ sync will be done (<code>DELETED</code>).</p>
 <div class="codehilite"><pre><span></span>client &gt; {&quot;method&quot;: &quot;AUTH&quot;,
           &quot;payload&quot;: &quot;xxAppOrAuthTokenxx=&quot;}
 client &gt; {&quot;method&quot;: &quot;SUBSCRIBE&quot;,
-          &quot;payload&quot;: {&quot;type&quot;: &quot;io.cozy.sharings.initial-sync&quot;, &quot;id&quot;: &quot;ce8835a061d0ef68947afe69a0046722&quot;}}
+          &quot;payload&quot;: {&quot;type&quot;: &quot;io.cozy.sharings.initial_sync&quot;, &quot;id&quot;: &quot;ce8835a061d0ef68947afe69a0046722&quot;}}
 server &gt; {&quot;event&quot;: &quot;UPDATED&quot;,
-          &quot;payload&quot;: {&quot;id&quot;: &quot;ce8835a061d0ef68947afe69a0046722&quot;, &quot;type&quot;: &quot;io.cozy.sharings.initial-sync&quot;, &quot;doc&quot;: {&quot;count&quot;: 12}}}
+          &quot;payload&quot;: {&quot;id&quot;: &quot;ce8835a061d0ef68947afe69a0046722&quot;, &quot;type&quot;: &quot;io.cozy.sharings.initial_sync&quot;, &quot;doc&quot;: {&quot;count&quot;: 12}}}
 server &gt; {&quot;event&quot;: &quot;UPDATED&quot;,
-          &quot;payload&quot;: {&quot;id&quot;: &quot;ce8835a061d0ef68947afe69a0046722&quot;, &quot;type&quot;: &quot;io.cozy.sharings.initial-sync&quot;, &quot;doc&quot;: {&quot;count&quot;: 13}}}
+          &quot;payload&quot;: {&quot;id&quot;: &quot;ce8835a061d0ef68947afe69a0046722&quot;, &quot;type&quot;: &quot;io.cozy.sharings.initial_sync&quot;, &quot;doc&quot;: {&quot;count&quot;: 13}}}
 server &gt; {&quot;event&quot;: &quot;DELETED&quot;,
-          &quot;payload&quot;: {&quot;id&quot;: &quot;ce8835a061d0ef68947afe69a0046722&quot;, &quot;type&quot;: &quot;io.cozy.sharings.initial-sync&quot;}}
+          &quot;payload&quot;: {&quot;id&quot;: &quot;ce8835a061d0ef68947afe69a0046722&quot;, &quot;type&quot;: &quot;io.cozy.sharings.initial_sync&quot;}}
 </pre></div>
                 
                   
@@ -5269,13 +5317,13 @@ server &gt; {&quot;event&quot;: &quot;DELETED&quot;,
           </a>
         
         
-          <a href="../../cozy-apps-registry/" title="Registry server" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../shortcuts/" title="/shortcuts - Shortcuts" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Registry server
+                /shortcuts - Shortcuts
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

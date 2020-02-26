@@ -27,6 +27,7 @@ describe('Balance page', () => {
     root = shallow(
       <DumbBalance
         accounts={fakeCollection('io.cozy.bank.accounts', accountsData || [])}
+        virtualAccounts={[]}
         groups={fakeCollection('io.cozy.bank.groups')}
         virtualGroups={[]}
         settings={fakeCollection('io.cozy.bank.settings', [settingDoc])}

@@ -133,7 +133,7 @@ const getApplicationDateOrDisplayDate = transaction => {
   }
 }
 
-const getDateGetter = createSelector(
+export const getDateGetter = createSelector(
   [getPathnameFromLocationProp],
   pathname => {
     if (pathname && pathname.startsWith('/categories')) {
@@ -173,7 +173,7 @@ const isDate = date => date instanceof Date
 const isString = str => typeof str === 'string'
 
 // filters
-const filterByPeriod = (transactions, period, dateGetter) => {
+export const filterByPeriod = (transactions, period, dateGetter) => {
   let pred
   const l = period.length
   if (isString(period)) {

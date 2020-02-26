@@ -1,62 +1,4 @@
-import MicroEE from 'microee'
-import lsAdapter from './ls-adapter'
-
-/**
- * In memory key value storage.
- *
- * Can potentially be backed by localStorage if present
-
- * Emits `change` when a key is set (eventEmitter)
- */
-class FlagStore {
-  constructor() {
-    this.store = {}
-    if (typeof localStorage !== 'undefined') {
-      this.longtermStore = lsAdapter
-    }
-    this.restore()
-  }
-
-  restore() {
-    if (!this.longtermStore) {
-      return
-    }
-    const allValues = this.longtermStore.getAll()
-    for (const [flag, val] of Object.entries(allValues)) {
-      this.store[flag] = val
-      this.emit('change', flag)
-    }
-  }
-
-  keys() {
-    return Object.keys(this.store)
-  }
-
-  get(name) {
-    if (!this.store.hasOwnProperty(name)) {
-      this.store[name] = null
-    }
-    return this.store[name]
-  }
-
-  set(name, value) {
-    if (this.longtermStore) {
-      this.longtermStore.setItem(name, value)
-    }
-    this.store[name] = value
-    this.emit('change', name)
-  }
-
-  remove(name) {
-    delete this.store[name]
-    if (this.longtermStore) {
-      this.longtermStore.removeItem(name)
-    }
-    this.emit('change', name)
-  }
-}
-
-MicroEE.mixin(FlagStore)
+import FlagStore from './store'
 
 const store = new FlagStore()
 
@@ -73,16 +15,157 @@ const flag = function() {
   }
 }
 
+/** List all flags from the store */
 export const listFlags = () => {
   return store.keys().sort()
 }
 
+/** Resets all the flags */
 export const resetFlags = () => {
   listFlags().forEach(name => store.remove(name))
 }
 
+/**
+ * Enables several flags
+ *
+ * Supports passing either  object flagName -> flagValue
+ *
+ * @param {string[]|Object} flagsToEnable
+ */
+export const enable = flagsToEnable => {
+  let flagNameToValue
+  if (Array.isArray(flagsToEnable)) {
+    // eslint-disable-next-line no-console
+    console.log(
+      'flags.enable: Deprecation warning: prefer to use an object { flag1: true, flag2: true } instead of an array when using flags.enable'
+    )
+    flagNameToValue = flagsToEnable.map(flagName => [flagName, true])
+  } else if (typeof flagsToEnable === 'object') {
+    flagNameToValue = Object.entries(flagsToEnable)
+  }
+
+  if (!flagNameToValue) {
+    return
+  }
+
+  for (const [flagName, flagValue] of flagNameToValue) {
+    flag(flagName, flagValue)
+  }
+}
+
+/**
+ * Initializes flags from the remote endpoint serving instance flags
+ *
+ * @private
+ * @see  https://docs.cozy.io/en/cozy-stack/settings/#get-settingsflags
+ * @param  {CozyClient} client
+ */
+export const initializeFromRemote = async client => {
+  const {
+    data: { attributes }
+  } = await client.stackClient.fetchJSON('/settings/flags')
+  enable(attributes)
+}
+
+const capitalize = str => str[0].toUpperCase() + str.slice(1)
+
+export const getTemplateData = attr => {
+  if (typeof document === 'undefined') {
+    return null
+  }
+  const allDataNode = document.querySelector('[data-cozy]')
+  const attrNode = document.querySelector(`[data-cozy-${attr}]`)
+  try {
+    if (allDataNode) {
+      return JSON.parse(allDataNode.dataset.cozy)[attr]
+    } else if (attrNode) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        'Prefer to use [data-cozy] to store template data. <div data-cozy="{{.CozyData}}></div>. "'
+      )
+      return JSON.parse(attrNode.dataset[`cozy${capitalize(attr)}`])
+    } else {
+      return null
+    }
+  } catch (e) {
+    return null
+  }
+}
+
+/**
+ * Initialize from the template data injected by cozy-stack into the DOM
+ *
+ * @private
+ * @see https://docs.cozy.io/en/cozy-stack/client-app-dev/#good-practices-for-your-application
+ *
+ * @returns {Boolean} - False is DOM initialization could not be completed, true otherwise
+ */
+export const initializeFromDOM = async () => {
+  const domData = getTemplateData('flags')
+  if (!domData) {
+    return false
+  }
+  enable(domData)
+  return true
+}
+
+/**
+ * Initialize flags from DOM if possible, otherwise from remote endpoint
+ *
+ * @example
+ *
+ * Flags can be taken from the flags injected by the stack
+ * ```
+ * <div data-cozy="{{ .CozyData }}"></div>
+ *
+ * // not recommended but possible
+ * <div data-flags="{{ .Flags }}"></div>
+ * ````
+ *
+ * @param  {CozyClient} client - A CozyClient
+ * @return {Promise} Resolves when flags have been initialized
+ */
+export const initialize = async client => {
+  const domRes = await initializeFromDOM()
+  if (domRes == false) {
+    await initializeFromRemote(client)
+  }
+}
+
+class FlagClientPlugin {
+  constructor(client) {
+    this.client = client
+    this.handleLogin = this.handleLogin.bind(this)
+    this.handleLogout = this.handleLogout.bind(this)
+    this.client.on('login', this.handleLogin)
+    this.client.on('logout', this.handleLogout)
+
+    this.initializing = new Promise(resolve => {
+      this.resolveInitializing = resolve
+    })
+
+    if (client.isLogged) this.handleLogin()
+  }
+
+  async handleLogin() {
+    await flag.initialize(this.client)
+    this.resolveInitializing()
+  }
+
+  async handleLogout() {
+    flag.reset()
+  }
+}
+
+FlagClientPlugin.pluginName = 'flags'
+
 flag.store = store
 flag.list = listFlags
 flag.reset = resetFlags
+flag.enable = enable
+flag.initializeFromRemote = initializeFromRemote
+flag.initializeFromDOM = initializeFromDOM
+flag.initialize = initialize
+flag.plugin = FlagClientPlugin
 
 export default flag

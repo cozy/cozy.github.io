@@ -1,6 +1,9 @@
 import { createSelector, createSelectorCreator, defaultMemoize } from 'reselect'
 import { buildAutoGroups, isAutoGroup } from 'ducks/groups/helpers'
-import { buildVirtualAccounts } from 'ducks/account/helpers'
+import {
+  buildVirtualAccounts,
+  isReimbursementsAccount
+} from 'ducks/account/helpers'
 import { getQueryFromState } from 'cozy-client'
 import getClient from './getClient'
 import keyBy from 'lodash/keyBy'
@@ -99,9 +102,6 @@ export const getAutoGroups = createSelector(
   groups => groups.filter(isAutoGroup)
 )
 
-const isHealthReimbursementVirtualAccount = account =>
-  account._id === 'health_reimbursements'
-
 export const getVirtualGroups = createSelector(
   [getAllAccounts, getAutoGroups],
   (accounts, autoGroups) => {
@@ -110,10 +110,9 @@ export const getVirtualGroups = createSelector(
     if (autoGroups.length === 0) {
       return buildAutoGroups(accounts, { virtual: true })
     } else {
-      return buildAutoGroups(
-        accounts.filter(isHealthReimbursementVirtualAccount),
-        { virtual: true }
-      )
+      return buildAutoGroups(accounts.filter(isReimbursementsAccount), {
+        virtual: true
+      })
     }
   }
 )

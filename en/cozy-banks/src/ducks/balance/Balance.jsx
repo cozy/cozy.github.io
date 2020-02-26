@@ -55,6 +55,32 @@ const REALTIME_DOCTYPES = [
   TRANSACTION_DOCTYPE
 ]
 
+const isLoading = props => {
+  const {
+    accounts: accountsCollection,
+    groups: groupsCollection,
+    settings: settingsCollection,
+    triggers: triggersCollection
+  } = props
+
+  const collections = [
+    accountsCollection,
+    groupsCollection,
+    triggersCollection,
+    settingsCollection
+  ]
+
+  return collections.some(
+    col => isCollectionLoading(col) && !hasBeenLoaded(col)
+  )
+}
+
+const getAllGroups = props => {
+  const { groups, virtualGroups } = props
+
+  return [...groups.data, ...virtualGroups]
+}
+
 class Balance extends PureComponent {
   constructor(props) {
     super(props)
@@ -80,25 +106,13 @@ class Balance extends PureComponent {
   }
 
   static getDerivedStateFromProps(props, state) {
-    const {
-      groups,
-      accounts,
-      settings: settingsCollection,
-      virtualGroups
-    } = props
-
-    const isLoading =
-      (isCollectionLoading(groups) && !hasBeenLoaded(groups)) ||
-      (isCollectionLoading(accounts) && !hasBeenLoaded(accounts)) ||
-      (isCollectionLoading(settingsCollection) &&
-        !hasBeenLoaded(settingsCollection))
-
-    if (isLoading) {
+    if (isLoading(props)) {
       return null
     }
 
+    const { settings: settingsCollection } = props
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
-    const allGroups = [...groups.data, ...virtualGroups]
+    const allGroups = getAllGroups(props)
     const currentPanelsState = state.panels || settings.panelsState || {}
     const newPanelsState = getPanelsState(allGroups, currentPanelsState)
 
@@ -160,9 +174,13 @@ class Balance extends PureComponent {
       .filter(Boolean)
   }
 
+  getAllAccounts() {
+    const { accounts: accountsCollection, virtualAccounts } = this.props
+    return [...accountsCollection.data, ...virtualAccounts]
+  }
+
   getCheckedAccounts() {
-    const { accounts: accountsCollection } = this.props
-    const accounts = accountsCollection.data
+    const accounts = this.getAllAccounts()
 
     return accounts.filter(account => {
       const occurrences = this.getAccountOccurrencesInState(account)
@@ -269,12 +287,12 @@ class Balance extends PureComponent {
   _ensureListenersProperlyConfigured() {
     const { accounts: accountsCollection } = this.props
 
-    const accounts = accountsCollection.data
-
     const collections = [accountsCollection]
     if (collections.some(isCollectionLoading)) {
       return
     }
+
+    const accounts = this.getAllAccounts()
 
     if (accounts.length > 0) {
       this.stopRealtime()
@@ -311,24 +329,7 @@ class Balance extends PureComponent {
   }
 
   render() {
-    const {
-      accounts: accountsCollection,
-      groups: groupsCollection,
-      settings: settingsCollection,
-      triggers: triggersCollection,
-      virtualGroups
-    } = this.props
-
-    const collections = [
-      accountsCollection,
-      groupsCollection,
-      triggersCollection,
-      settingsCollection
-    ]
-
-    if (
-      collections.some(col => isCollectionLoading(col) && !hasBeenLoaded(col))
-    ) {
+    if (isLoading(this.props)) {
       return (
         <Fragment>
           <BarTheme theme="primary" />
@@ -338,7 +339,8 @@ class Balance extends PureComponent {
       )
     }
 
-    const accounts = accountsCollection.data
+    const { triggers: triggersCollection } = this.props
+    const accounts = this.getAllAccounts()
     const triggers = triggersCollection.data
 
     if (
@@ -381,11 +383,9 @@ class Balance extends PureComponent {
       return <NoAccount />
     }
 
-    const groups = [...groupsCollection.data, ...virtualGroups]
+    const groups = getAllGroups(this.props)
     const checkedAccounts = this.getCheckedAccounts()
-    const accountsBalance = isCollectionLoading(accounts)
-      ? 0
-      : sumBy(checkedAccounts, getAccountBalance)
+    const accountsBalance = sumBy(checkedAccounts, getAccountBalance)
     const subtitleParams =
       checkedAccounts.length === accounts.length
         ? undefined

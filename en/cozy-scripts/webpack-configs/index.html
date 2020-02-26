@@ -749,10 +749,46 @@
           
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-1-1-5" type="checkbox" id="nav-4-1-1-5">
+    
+    <label class="md-nav__link" for="nav-4-1-1-5">
+      React
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-1-1-5">
+        React
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
   <li class="md-nav__item">
     <a href="../../cozy-client/react-integration/" title="React integration" class="md-nav__link">
       React integration
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-client/hooks/" title="Hooks" class="md-nav__link">
+      Hooks
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -2131,6 +2167,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-stack/shortcuts/" title="/shortcuts - Shortcuts" class="md-nav__link">
+      /shortcuts - Shortcuts
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -2999,7 +3047,7 @@ The <code>emitWarning</code> option is set to true for production environment or
 <p>This config will provide a separate config to build app services using <a href="https://webpack.js.org/api/compiler/#multicompiler">Webpack multi-compiling</a>.
 In this case, all services files (<code>.js</code> files in the <code>/src/targets/services/</code> folder) will be built using this separate webpack config.</p>
 <p>This config will:
-- use <code>__mergeStrategy</code> to drive the <a href="../webpack-merge-strategies/"><code>webpack-merge</code> strategy</a>:
+- use <code>__mergeStrategy</code> to drive the <a href="docs/webpack-merge-strategy.md"><code>webpack-merge</code> strategy</a>:
     - disable smart merging
     - use the <code>replace</code> mode <code>plugins</code>, <code>output</code>, <code>entry</code>, <code>optimization</code> and <code>module</code>
 - define as webpack entry an array of all <code>.js</code> files contained in <code>/src/target/services</code> folder
@@ -3066,6 +3114,7 @@ In this case, all services files (<code>.js</code> files in the <code>/src/targe
 </ul>
 <h5 id="plugins_3">Plugins:<a class="headerlink" href="#plugins_3" title="Permanent link">&para;</a></h5>
 <ul>
+<li><code>script-ext-html-webpack-plugin</code> to load the main application <code>.js</code> file using the <code>defer</code> attribute (to be loaded after the initial loading) and used with <code>html-webpack-plugin</code></li>
 <li><code>html-webpack-plugin</code> configured to use <code>index.ejs</code> HTML template from <code>src/targets/browser/</code> with options:<ul>
 <li><code>title</code>: <code>name</code> property of the <code>package.json</code></li>
 <li><code>inject</code> to <code>false</code></li>
@@ -3086,9 +3135,11 @@ In this case, all services files (<code>.js</code> files in the <code>/src/targe
 </ul>
 <h5 id="plugins_4">Plugins:<a class="headerlink" href="#plugins_4" title="Permanent link">&para;</a></h5>
 <ul>
+<li><code>script-ext-html-webpack-plugin</code> to load the main application <code>.js</code> file using the <code>defer</code> attribute (to be loaded after the initial loading) and used with <code>html-webpack-plugin</code></li>
 <li><code>html-webpack-plugin</code> configured to use <code>index.ejs</code> HTML template from <code>src/targets/mobile/</code> with options:<ul>
 <li><code>title</code>: <code>name</code> property of the <code>package.json</code></li>
 <li><code>excludeChunks</code>: to exclude chunk <code>intents</code></li>
+<li><code>inject</code> to <code>head</code></li>
 <li><code>minify</code> with <code>collapseWhitespace</code> to <code>true</code></li>
 </ul>
 </li>
