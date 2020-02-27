@@ -244,8 +244,8 @@ describe('SubscriptionList', () => {
       list.add(subscriptions.updatedAlbum)
       list.add(subscriptions.updated33)
       const event = 'CREATED'
-      const payload = { type: 'io.cozy.notes' }
-      const matching = list.getAllHandlersForEvent(event, payload)
+      const type = 'io.cozy.notes'
+      const matching = list.getAllHandlersForEvent(event, type)
       expect(matching).toEqual([])
     })
 
@@ -257,8 +257,10 @@ describe('SubscriptionList', () => {
       list.add(subscriptions.updatedAlbum)
       list.add(subscriptions.updated33)
       const event = 'UPDATED'
-      const payload = { type: 'io.cozy.files', id: '33' }
-      const matching = list.getAllHandlersForEvent(event, payload)
+
+      const type = 'io.cozy.files'
+      const id = '33'
+      const matching = list.getAllHandlersForEvent(event, type, id)
       expect(matching).toEqual(
         expect.arrayContaining([
           subscriptions.updated.handler,
@@ -272,8 +274,8 @@ describe('SubscriptionList', () => {
       const list = new SubscriptionList()
       list.add(subscriptions.created)
       const event = 'CREATED'
-      const payload = { type: 'io.cozy.files' }
-      const matching = list.getAllHandlersForEvent(event, payload)
+      const type = 'io.cozy.files'
+      const matching = list.getAllHandlersForEvent(event, type)
       expect(matching).toHaveLength(1)
     })
   })

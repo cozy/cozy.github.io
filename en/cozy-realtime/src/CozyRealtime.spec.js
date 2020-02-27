@@ -117,6 +117,7 @@ describe('CozyRealtime', () => {
       await realtime.sendNotification(doctype, id, message)
       const route = `/realtime/${doctype}/${id}`
       expect(fetchJSON).toHaveBeenCalledWith('POST', route, { data: message })
+      realtime.unsubscribeAll()
     })
   })
 
@@ -126,6 +127,7 @@ describe('CozyRealtime', () => {
       const realtime = createRealtime()
       server.onsubscribe.mockImplementation(data => {
         expect(data).toHaveProperty('type', type)
+        realtime.unsubscribeAll()
         server.stop(done)
       })
       realtime.subscribe(event, type, jest.fn())
@@ -138,6 +140,7 @@ describe('CozyRealtime', () => {
 
         const handler = jest.fn().mockImplementation(data => {
           expect(data).toEqual(doc)
+          realtime.unsubscribeAll()
           server.stop(done)
         })
         realtime.subscribe(event, type, handler)
@@ -154,6 +157,7 @@ describe('CozyRealtime', () => {
 
         const handler = jest.fn().mockImplementation(data => {
           expect(data).toEqual(doc)
+          realtime.unsubscribeAll()
           server.stop(done)
         })
 
@@ -178,6 +182,7 @@ describe('CozyRealtime', () => {
       await sleep(100)
 
       expect(handler).not.toHaveBeenCalled()
+      realtime.unsubscribeAll()
       server.stop(done)
     })
 
@@ -193,6 +198,7 @@ describe('CozyRealtime', () => {
       await sleep(100)
 
       expect(handler).not.toHaveBeenCalled()
+      realtime.unsubscribeAll()
       server.stop(done)
     })
 
@@ -203,6 +209,7 @@ describe('CozyRealtime', () => {
 
         const handler = jest.fn().mockImplementation(data => {
           expect(data).toEqual(doc)
+          realtime.unsubscribeAll()
           server.stop(done)
         })
         realtime.subscribe(event, type, handler)
@@ -217,6 +224,7 @@ describe('CozyRealtime', () => {
 
         const handler = jest.fn().mockImplementation(data => {
           expect(data).toEqual(doc)
+          realtime.unsubscribeAll()
           server.stop(done)
         })
         realtime.subscribe('CREATED', type, handler)
@@ -233,6 +241,7 @@ describe('CozyRealtime', () => {
 
         const handler = jest.fn().mockImplementation(data => {
           expect(data).toEqual(doc)
+          realtime.unsubscribeAll()
           server.stop(done)
         })
         realtime.subscribe(event, type, id, handler)
@@ -253,6 +262,7 @@ describe('CozyRealtime', () => {
         await sleep(100)
 
         expect(handler).not.toHaveBeenCalled()
+        realtime.unsubscribeAll()
         server.stop(done)
       })
     })
@@ -263,6 +273,7 @@ describe('CozyRealtime', () => {
 
       const handler = jest.fn().mockImplementation(data => {
         expect(data).toEqual(doc)
+        realtime.unsubscribeAll()
         server.stop(done)
       })
       realtime.subscribe(event, type, undefined, handler)
@@ -285,9 +296,13 @@ describe('CozyRealtime', () => {
       })
 
       function finish() {
-        handler1.mock.calls.length == 1 &&
-          handler2.mock.calls.length == 1 &&
+        if (
+          handler1.mock.calls.length == 1 &&
+          handler2.mock.calls.length == 1
+        ) {
+          realtime.unsubscribeAll()
           server.stop(done)
+        }
       }
 
       realtime.subscribe(event, type, undefined, handler1)
@@ -308,7 +323,10 @@ describe('CozyRealtime', () => {
         })
 
         function finish() {
-          handler.mock.calls.length == 2 && server.stop(done)
+          if (handler.mock.calls.length == 2) {
+            realtime.unsubscribeAll()
+            server.stop(done)
+          }
         }
 
         realtime.subscribe(event, type, undefined, handler)
@@ -331,6 +349,7 @@ describe('CozyRealtime', () => {
         await sleep(100)
 
         expect(handler).toHaveBeenCalledTimes(1)
+        realtime.unsubscribeAll()
         server.stop(done)
       })
     }
@@ -351,6 +370,7 @@ describe('CozyRealtime', () => {
         await sleep(100)
 
         expect(handler).not.toHaveBeenCalled()
+        realtime.unsubscribeAll()
         server.stop(done)
       })
     })
@@ -370,6 +390,7 @@ describe('CozyRealtime', () => {
         await sleep(100)
 
         expect(handler).not.toHaveBeenCalled()
+        realtime.unsubscribeAll()
         server.stop(done)
       })
     })
@@ -384,6 +405,7 @@ describe('CozyRealtime', () => {
 
       await realtime.waitForSocketReady()
       await sleep(10)
+      realtime.unsubscribeAll()
       server.stop(done)
     })
 
@@ -410,6 +432,7 @@ describe('CozyRealtime', () => {
 
           await sleep(100)
           expect(handler).toHaveBeenCalledTimes(1)
+          realtime.unsubscribeAll()
           server.stop(done)
         })
       } else {
@@ -426,6 +449,7 @@ describe('CozyRealtime', () => {
           server.emitMessage(event, payload)
           await sleep(100)
           expect(handler).not.toHaveBeenCalled()
+          realtime.unsubscribeAll()
           server.stop(done)
         })
       }
@@ -444,6 +468,7 @@ describe('CozyRealtime', () => {
         await sleep(200)
 
         expect(server.hasClosedLastSocket()).toBeTruthy()
+        realtime.unsubscribeAll()
         server.stop(done)
       })
     })
@@ -464,6 +489,7 @@ describe('CozyRealtime', () => {
       await sleep(100)
 
       expect(handler).not.toHaveBeenCalled()
+      realtime.unsubscribeAll()
       server.stop(done)
     })
 
@@ -481,6 +507,7 @@ describe('CozyRealtime', () => {
       await sleep(100)
 
       expect(server.hasClosedLastSocket()).toBeTruthy()
+      realtime.unsubscribeAll()
       server.stop(done)
     })
   })
@@ -501,6 +528,7 @@ describe('CozyRealtime', () => {
         await sleep(100)
         expect(server.onauth).toHaveBeenCalledTimes(2)
         expect(server.onsubscribe).toHaveBeenCalledTimes(2)
+        realtime.unsubscribeAll()
         server.stop(done)
       })
     })
@@ -519,6 +547,7 @@ describe('CozyRealtime', () => {
 
         await sleep(100)
         expect(server.hasClosedLastSocket()).toBeTruthy()
+        realtime.unsubscribeAll()
         server.stop(done)
       })
     })
@@ -544,6 +573,7 @@ describe('CozyRealtime', () => {
 
         await sleep(100)
         expect(server.onconnect).toHaveBeenCalledTimes(2)
+        realtime.unsubscribeAll()
         server.stop(done)
       })
 
@@ -559,17 +589,19 @@ describe('CozyRealtime', () => {
         await realtime.waitForSocketReady()
 
         expect(server.hasClosedLastSocket()).toBeFalsy()
+        realtime.unsubscribeAll()
         server.stop(done)
       })
 
       it('should not connect a non connected socket', async done => {
         const server = createSocketServer()
-        createRealtime()
+        const realtime = createRealtime()
 
         server.simulate('error')
 
         await sleep(100)
         expect(server.onconnect).not.toHaveBeenCalled()
+        realtime.unsubscribeAll()
         server.stop(done)
       })
     })
@@ -587,6 +619,7 @@ describe('CozyRealtime', () => {
 
         await sleep(100)
         expect(server.onconnect).toHaveBeenCalledTimes(2)
+        realtime.unsubscribeAll()
         server.stop(done)
       })
     })
@@ -605,6 +638,7 @@ describe('CozyRealtime', () => {
         await realtime.waitForSocketReady()
 
         expect(server.onconnect).toHaveBeenCalled()
+        realtime.unsubscribeAll()
         server.stop(done)
       })
     })

@@ -40,7 +40,7 @@ class CozyRealtime {
     this.retryManager.on('error', err => this.emit('error', err))
     this.bindEventHandlers()
     if (isCordova() && !hasNetworkInformationPlugin()) {
-      console.warn(
+      logger.warn(
         `This seems a Cordova app and cordova-plugin-network-information doesn't seem to be installed. Please install it from https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-network-information/ to support online and offline events.`
       )
     }
@@ -446,9 +446,19 @@ class CozyRealtime {
   onWebSocketMessage(message) {
     const { event, payload } = JSON.parse(message.data)
     logger.info('receive message from server', { event, payload })
-    const handlers = this.subscriptions.getAllHandlersForEvent(event, payload)
+    const handlers = this.subscriptions.getAllHandlersForEvent(
+      event,
+      payload.type,
+      payload.id
+    )
     for (const handler of handlers) {
-      handler(payload.doc)
+      try {
+        handler(payload.doc)
+      } catch (e) {
+        logger.error(
+          `handler did throw for ${event}, ${payload.type}, ${payload.id}`
+        )
+      }
     }
     if (event === 'error') {
       logger.warn('Stack returned an error', payload)
@@ -618,9 +628,6 @@ class CozyRealtime {
     if (hasBrowserContext && window.removeEventListener) {
       window.removeEventListener('online', this.onOnline)
       window.removeEventListener('offline', this.onOffline)
-    }
-    if (isCordova()) {
-      document.removeEventListener('deviceready', this.onDeviceReady)
     }
   }
 

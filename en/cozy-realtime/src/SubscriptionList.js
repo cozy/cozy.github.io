@@ -59,10 +59,14 @@ export default class SubscriptionList {
     if (requireDoubleUnsubscriptions) {
       // remove only the first matching
       const found = this.subscriptions.findIndex(s => isEqual(s, subscription))
-      if (found >= 0) pullAt(this.subscriptions, found)
+      if (found >= 0) {
+        pullAt(this.subscriptions, found)
+        return
+      }
     } else {
       // remove all matching
-      remove(this.subscriptions, s => isEqual(s, subscription))
+      const removed = remove(this.subscriptions, s => isEqual(s, subscription))
+      if (removed && removed.length > 0) return
     }
     logger.warn(
       'Trying to unsubscribe to an unknown subscription',
@@ -106,11 +110,12 @@ export default class SubscriptionList {
    * Get all handlers for an event
    *
    * @param {string} event
-   * @param {object} payload
+   * @param {string} type
+   * @param {string} id
    * @returns {function[]}
    */
-  getAllHandlersForEvent(event, payload) {
-    const matcher = s => this.isMatchingEvent(s, event, payload)
+  getAllHandlersForEvent(event, type, id) {
+    const matcher = s => this.isMatchingEvent(s, event, type, id)
     const matching = this.subscriptions.filter(matcher)
     return matching.map(s => s.handler)
   }
@@ -121,13 +126,14 @@ export default class SubscriptionList {
    * @private
    * @param {Subscription} sub
    * @param {string} event
-   * @param {payload} payload
+   * @param {string} type
+   * @param {string} id
    * @returns {boolean}
    */
-  isMatchingEvent(sub, event, payload) {
+  isMatchingEvent(sub, event, type, id) {
     if (sub.event && sub.event !== event) return false
-    if (sub.id && sub.id !== (payload.id || null)) return false
-    if (sub.type && sub.type !== (payload.type || null)) return false
+    if (sub.id && sub.id !== (id || null)) return false
+    if (sub.type && sub.type !== (type || null)) return false
     return true
   }
 

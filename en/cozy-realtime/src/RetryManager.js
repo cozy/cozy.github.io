@@ -46,7 +46,7 @@ class RetryManager {
    */
   onSuccess() {
     if (this.timeBeforeSuccessful > 0) {
-      this.startSuccessWatcher(
+      this.startSuccessTimer(
         this.onSuccessAcknowledged,
         this.timeBeforeSuccessful
       )
@@ -66,36 +66,36 @@ class RetryManager {
   }
 
   /**
-   * Clears the success watcher
+   * Clears the success timer
    *
    * @private
    */
-  clearSuccessWatcher() {
-    if (this.successWatcher) {
-      global.clearTimeout(this.successWatcher)
-      this.successWatcher = null
+  clearSuccessTimer() {
+    if (this.successTimer) {
+      global.clearTimeout(this.successTimer)
+      this.successTimer = null
     }
   }
 
   /**
-   * Starts the success watcher
+   * Starts the success timer
    *
    * We don't want to consider a success immediatly when the connection is opened.
    * We wait a short amount of time to see if some error raises, and only acknowledge
    * a success if no error raises in this timeframe.
-   * The success watcher is the function that start this timer.
+   * The success timer is the function that start this timer.
    *
    * @private
    * @param {function} ack - will be called after the wait time
    * @param {number} time - waiting time
    */
-  startSuccessWatcher(ack, time) {
-    if (!this.successWatcher) {
+  startSuccessTimer(ack, time) {
+    if (!this.successTimer) {
       const callback = () => {
-        this.successWatcher = null
+        this.successTimer = null
         ack()
       }
-      this.successWatcher = global.setTimeout(callback, time)
+      this.successTimer = global.setTimeout(callback, time)
     }
   }
 
@@ -112,14 +112,14 @@ class RetryManager {
    */
   onFailure(error) {
     logger.debug('failure, increase the failure counter of the retry manager')
-    this.clearSuccessWatcher()
+    this.clearSuccessTimer()
     this.increaseFailureCounter()
     this.emit('failure', error)
     if (this.shouldEmitError()) this.emit('error', error)
   }
 
   /**
-   * Returns if we reached a level where we need to raise an error
+   * Returns if we reached a level where we need to emit an error
    *
    * @returns {boolean}
    */
@@ -132,7 +132,7 @@ class RetryManager {
    */
   reset() {
     logger.debug('reset the retry manager')
-    this.clearSuccessWatcher()
+    this.clearSuccessTimer()
     this.retries = 0
     this.wait = 0
   }
