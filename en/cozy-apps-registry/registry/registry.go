@@ -1507,6 +1507,7 @@ func (v *Version) RemoveAllAttachments(c *Space) error {
 	}
 
 	fp := filepath.Join(v.Slug, v.Version)
+	// TODO use base.Storage for this operation
 	opts := &swift.ObjectsOpts{Prefix: fp + "/"}
 	objs, err := sc.ObjectsAll(prefix, opts)
 	if err != nil {

@@ -10,8 +10,9 @@ import (
 // string for the default space.
 type Prefix string
 
-// Storage is an interface with the operations that can be done on the storage.
-type Storage interface {
+// VirtualStorage is an interface with the operations that can be done on the
+// storage.
+type VirtualStorage interface {
 	// EnsureExists make sure that the Swift container or local directory
 	// exists.
 	EnsureExists(prefix Prefix) error

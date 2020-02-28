@@ -18,6 +18,7 @@ import (
 
 	"github.com/Masterminds/semver"
 	"github.com/cozy/cozy-apps-registry/asset"
+	"github.com/cozy/cozy-apps-registry/base"
 	"github.com/cozy/cozy-apps-registry/cache"
 	"github.com/cozy/cozy-apps-registry/config"
 	"github.com/go-kivik/kivik/v3"
@@ -144,11 +145,13 @@ func FindVersionAttachment(c *Space, appSlug, version, filename string) (*Attach
 	shasum, ok := ver.AttachmentReferences[filename]
 
 	if ok {
-		contentBuffer, headers, err = asset.AssetStore.FS.Get(asset.AssetContainerName, shasum)
+		// TODO add a method on asset module instead of accessing directly to base.Storage
+		contentBuffer, headers, err = base.Storage.Get(asset.AssetContainerName, shasum)
 		if err != nil {
 			return nil, err
 		}
 	} else {
+		// TODO do we still need this fallback
 		// If we cannot find it, we try from the local database as a fallback
 		prefix := GetPrefixOrDefault(c)
 		headers, err = sc.ObjectGet(prefix, fp, contentBuffer, false, nil)

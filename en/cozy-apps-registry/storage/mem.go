@@ -10,7 +10,7 @@ import (
 
 // NewMemFS returns a storage where files are kept in memory. Obviously, it
 // must not be used in production, but it can be convenient for unit tests.
-func NewMemFS() base.Storage {
+func NewMemFS() base.VirtualStorage {
 	return &memFS{
 		prefixes: make(map[base.Prefix]memPrefix),
 	}

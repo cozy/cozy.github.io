@@ -9,7 +9,7 @@ import (
 )
 
 // TODO remove NewSwift
-func NewSwift(conn *swift.Connection) base.Storage {
+func NewSwift(conn *swift.Connection) base.VirtualStorage {
 	return &swiftFS{conn: conn}
 }
 

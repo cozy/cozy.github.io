@@ -1,44 +1,18 @@
 package config
 
 import (
-	"errors"
 	"fmt"
 
+	"github.com/cozy/cozy-apps-registry/base"
+	"github.com/cozy/cozy-apps-registry/storage"
 	"github.com/ncw/swift"
 	"github.com/spf13/viper"
 )
 
+// TODO move this to base package
 const DefaultSpacePrefix string = "__default__"
 
 var config *Config
-
-// VirtualSpace is a view on another space, with a filter to restrict the list
-// of available applications.
-type VirtualSpace struct {
-	// Source is the name of a space
-	Source string
-	// Filter can be select (whitelist) or reject (blacklist)
-	Filter string
-	// Slugs is a list of webapp/connector slugs to filter
-	Slugs []string
-}
-
-func inList(target string, slugs []string) bool {
-	for _, slug := range slugs {
-		if slug == target {
-			return true
-		}
-	}
-	return false
-}
-
-func (v *VirtualSpace) AcceptApp(slug string) bool {
-	filtered := inList(slug, v.Slugs)
-	if v.Filter == "select" {
-		return filtered
-	}
-	return !filtered
-}
 
 type Config struct {
 	SwiftConnection *swift.Connection
@@ -54,6 +28,21 @@ type Config struct {
 	VirtualSpaces  map[string]VirtualSpace
 	DomainSpaces   map[string]string
 	TrustedDomains map[string][]string
+}
+
+// TODO remove GetConfig
+func GetConfig() *Config {
+	return config
+}
+
+func Init() error {
+	var err error
+	config, err = New()
+	if err != nil {
+		return err
+	}
+	base.Storage = storage.NewSwift(config.SwiftConnection)
+	return prepareContainers()
 }
 
 func New() (*Config, error) {
@@ -81,55 +70,6 @@ func New() (*Config, error) {
 	}, nil
 }
 
-func getVirtualSpaces() (map[string]VirtualSpace, error) {
-	virtuals := make(map[string]VirtualSpace)
-	for name, value := range viper.GetStringMap("virtual_spaces") {
-		virtual, ok := value.(map[string]interface{})
-		if !ok {
-			return nil, errors.New("Invalid virtual space configuration")
-		}
-		source, ok := virtual["source"].(string)
-		if !ok || source == "" {
-			return nil, errors.New("Invalid source for a virtual space")
-		}
-		filter, ok := virtual["filter"].(string)
-		if !ok || (filter != "select" && filter != "reject") {
-			return nil, errors.New("Invalid filter for a virtual space")
-		}
-		list, ok := virtual["slugs"].([]interface{})
-		if !ok || len(list) == 0 {
-			return nil, errors.New("Invalid slugs for a virtual space")
-		}
-		slugs := make([]string, len(list))
-		for i, slug := range list {
-			s, ok := slug.(string)
-			if !ok || s == "" {
-				return nil, errors.New("Invalid slug for a virtual space")
-			}
-			slugs[i] = s
-		}
-		virtuals[name] = VirtualSpace{
-			Source: source,
-			Filter: filter,
-			Slugs:  slugs,
-		}
-	}
-	return virtuals, nil
-}
-
-func GetConfig() *Config {
-	return config
-}
-
-func Init() error {
-	var err error
-	config, err = New()
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
 func initSwiftConnection() (*swift.Connection, error) {
 	endpointType := viper.GetString("swift.endpoint_type")
 
@@ -140,8 +80,7 @@ func initSwiftConnection() (*swift.Connection, error) {
 		AuthUrl:      viper.GetString("swift.auth_url"),
 		EndpointType: swift.EndpointType(endpointType),
 		Tenant:       viper.GetString("swift.tenant"), // Projet name
-
-		Domain: viper.GetString("swift.domain"),
+		Domain:       viper.GetString("swift.domain"),
 	}
 
 	// Authenticate to swift
@@ -150,14 +89,28 @@ func initSwiftConnection() (*swift.Connection, error) {
 	}
 
 	// Prepare containers
+	return &swiftConnection, nil
+}
+
+// TestSetup can be used to setup the services with in-memory implementations
+// for tests.
+func TestSetup() {
+	base.Storage = storage.NewMemFS()
+	if err := prepareContainers(); err != nil {
+		panic(err)
+	}
+
+	// Use https://github.com/go-kivik/memorydb for CouchDB when it will be
+	// more complete.
+}
+
+func prepareContainers() error {
 	spacesNames := viper.GetStringSlice("spaces")
 	for _, space := range spacesNames {
-		if _, _, err := swiftConnection.Container(space); err != nil {
-			err = swiftConnection.ContainerCreate(space, nil)
-			if err != nil {
-				return nil, err
-			}
+		// TODO we should have a method to convert a space name to a prefix
+		if err := base.Storage.EnsureExists(base.Prefix(space)); err != nil {
+			return err
 		}
 	}
-	return &swiftConnection, nil
+	return nil
 }

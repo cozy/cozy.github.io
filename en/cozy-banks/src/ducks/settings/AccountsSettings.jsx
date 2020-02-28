@@ -20,7 +20,6 @@ import {
 } from 'ducks/account/helpers'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { Contact } from 'cozy-doctypes'
-import flag from 'cozy-flags'
 
 import { accountsConn, APP_DOCTYPE } from 'doctypes'
 
@@ -28,8 +27,6 @@ import { accountsConn, APP_DOCTYPE } from 'doctypes'
 // import { ACCOUNT_DOCTYPE } from 'doctypes'
 // import { fetchSharingInfo } from 'modules/SharingStatus'
 // import fetchData from 'components/fetchData'
-
-import AccountSharingStatus from 'components/AccountSharingStatus'
 
 // TODO react-router v4
 const _AccountLine = ({ account, router, breakpoints: { isMobile } }) => {
@@ -65,20 +62,14 @@ const _AccountLine = ({ account, router, breakpoints: { isMobile } }) => {
           _: t('Data.accountTypes.Other')
         })}
       </td>
-      {flag('settings.show-accounts-owners') ? (
-        <td className={styles.AcnsStg__owner}>
-          {getAccountOwners(account)
-            .map(Contact.getDisplayName)
-            .join(' - ')}
-        </td>
-      ) : (
-        <td className={styles.AcnsStg__shared}>
-          <AccountSharingStatus withText account={account} />
-        </td>
-      )}
+      {<td className={styles.AcnsStg__owner}>
+        {getAccountOwners(account)
+          .map(Contact.getDisplayName)
+          .join(' - ')}
+      </td>}
       <td className={styles.AcnsStg__actions} />
     </tr>
-  )
+  );
 }
 
 const AccountLine = compose(
@@ -93,7 +84,6 @@ const renderAccount = account => (
 
 const AccountsTable = ({ accounts }) => {
   const { t } = useI18n()
-  const showAccountsOwners = flag('settings.show-accounts-owners')
 
   return (
     <Table className={styles.AcnsStg__accounts}>
@@ -105,12 +95,10 @@ const AccountsTable = ({ accounts }) => {
           <th className={styles.AcnsStg__type}>{t('Accounts.type')}</th>
           <th
             className={
-              showAccountsOwners
-                ? styles.AcnsStg__owner
-                : styles.AcnsStg__shared
+              styles.AcnsStg__owner
             }
           >
-            {showAccountsOwners ? t('Accounts.owner') : t('Accounts.shared')}
+            {t('Accounts.owner')}
           </th>
           <th className={styles.AcnsStg__actions} />
         </tr>

@@ -10,7 +10,6 @@ import (
 
 	"github.com/cozy/cozy-apps-registry/base"
 	"github.com/cozy/cozy-apps-registry/config"
-	"github.com/cozy/cozy-apps-registry/storage"
 	"github.com/go-kivik/couchdb/v3/chttp"
 	"github.com/go-kivik/kivik/v3"
 )
@@ -33,7 +32,6 @@ const assetStoreDBSuffix string = "assets"
 const AssetContainerName base.Prefix = "__assets__"
 
 type GlobalAssetStore struct {
-	FS base.Storage
 	DB *kivik.DB
 }
 
@@ -43,14 +41,15 @@ func InitGlobalAssetStore(addr, user, pass, prefix string) (*GlobalAssetStore, e
 	if err != nil {
 		return nil, err
 	}
-	fs, err := InitStorage()
-	if err != nil {
-		return nil, err
-	}
 	AssetStore = &GlobalAssetStore{
 		DB: globalAssetDB,
-		FS: fs,
 	}
+
+	// TODO move this to config.prepareContainers
+	if err := base.Storage.EnsureExists(AssetContainerName); err != nil {
+		return nil, err
+	}
+
 	return AssetStore, nil
 }
 
@@ -105,14 +104,6 @@ func InitCouchDB(addr, user, pass, prefix string) (*kivik.DB, error) {
 	return globalAssetStoreDB, nil
 }
 
-func InitStorage() (base.Storage, error) {
-	fs := storage.New()
-	if err := fs.EnsureExists(AssetContainerName); err != nil {
-		return nil, err
-	}
-	return fs, nil
-}
-
 func (a *GlobalAssetStore) AddAsset(asset *GlobalAsset, content io.Reader, source string) error {
 	// Handles the CouchDB updates
 	var doc *GlobalAsset
@@ -128,7 +119,7 @@ func (a *GlobalAssetStore) AddAsset(asset *GlobalAsset, content io.Reader, sourc
 		doc.ID = asset.Shasum
 
 		// Creating the asset in the FS
-		err := a.FS.Create(AssetContainerName, asset.Shasum, asset.ContentType, content)
+		err := base.Storage.Create(AssetContainerName, asset.Shasum, asset.ContentType, content)
 		if err != nil {
 			return err
 		}
@@ -186,5 +177,5 @@ func (a *GlobalAssetStore) RemoveAsset(shasum, source string) error {
 	}
 
 	// Then, removing the asset from the FS
-	return AssetStore.FS.Remove(AssetContainerName, shasum)
+	return base.Storage.Remove(AssetContainerName, shasum)
 }

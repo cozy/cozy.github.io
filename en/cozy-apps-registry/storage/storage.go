@@ -6,11 +6,10 @@ package storage
 
 import (
 	"github.com/cozy/cozy-apps-registry/base"
-	"github.com/cozy/cozy-apps-registry/config"
+	"github.com/ncw/swift"
 )
 
 // New returns a storage operator.
-func New() base.Storage {
-	conf := config.GetConfig()
-	return &swiftFS{conn: conf.SwiftConnection}
+func New(conn *swift.Connection) base.VirtualStorage {
+	return &swiftFS{conn: conn}
 }

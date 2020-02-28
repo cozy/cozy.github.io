@@ -131,14 +131,17 @@ class CategoriesHeader extends PureComponent {
           </Header>
           {accountSwitch}
           {hasAccount ? (
-            <Header color="default">
+            <Header color="default" className="u-mt-3">
               <Padded>
                 {incomeToggle}
                 {chart}
               </Padded>
             </Header>
           ) : (
-            <Header color="default" className={styles.NoAccount_container}>
+            <Header
+              color="default"
+              className={cx(styles.NoAccount_container, 'u-mt-3')}
+            >
               <Padded className={styles.NoAccount_box}>
                 {chart}
                 <AddAccountButton absolute label={t('Accounts.add_bank')} />

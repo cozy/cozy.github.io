@@ -1,20 +1,19 @@
 package asset
 
 import (
-	"bytes"
 	"crypto/sha256"
 	"encoding/hex"
+	"errors"
 	"fmt"
 	"net/http"
 	"os"
 	"strings"
 	"testing"
 
+	"github.com/cozy/cozy-apps-registry/base"
 	"github.com/cozy/cozy-apps-registry/config"
 	_ "github.com/go-kivik/couchdb/v3" // The CouchDB driver
 	"github.com/go-kivik/kivik/v3"
-	"github.com/ncw/swift"
-	"github.com/ncw/swift/swifttest"
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 )
@@ -46,18 +45,15 @@ func TestAddAsset(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Equal(t, len(asset.UsedBy), 1)
 
-	// Check the FS
-	conf := config.GetConfig()
-	buf := new(bytes.Buffer)
-
-	hdrs, err := conf.SwiftConnection.ObjectGet(string(AssetContainerName), hex.EncodeToString(shasum), buf, false, nil)
+	// Check the storage
+	buf, hdrs, err := base.Storage.Get(AssetContainerName, hex.EncodeToString(shasum))
 	assert.NoError(t, err)
 	assert.Equal(t, "foobar content", buf.String())
 	assert.Equal(t, "image/jpeg", hdrs["Content-Type"])
 }
 
 func TestGetAsset(t *testing.T) {
-	buf, hdrs, err := store.FS.Get(AssetContainerName, hex.EncodeToString(shasum))
+	buf, hdrs, err := base.Storage.Get(AssetContainerName, hex.EncodeToString(shasum))
 	assert.NoError(t, err)
 	assert.Equal(t, "image/jpeg", hdrs["Content-Type"])
 	assert.Equal(t, "foobar content", buf.String())
@@ -111,9 +107,7 @@ func TestRemoveAssetRemainingOthers(t *testing.T) {
 	assert.NoError(t, err)
 
 	// Assert asset in FS
-	var buf = new(bytes.Buffer)
-	conf := config.GetConfig()
-	_, err = conf.SwiftConnection.ObjectGet(string(AssetContainerName), hex.EncodeToString(shasum), buf, false, nil)
+	buf, _, err := base.Storage.Get(AssetContainerName, hex.EncodeToString(shasum))
 	assert.NoError(t, err)
 	assert.NotEmpty(t, buf)
 }
@@ -128,11 +122,9 @@ func TestRemoveAsset(t *testing.T) {
 	assert.Error(t, err)
 	assert.Equal(t, http.StatusNotFound, kivik.StatusCode(err))
 
-	var buf = new(bytes.Buffer)
-	conf := config.GetConfig()
-	_, err = conf.SwiftConnection.ObjectGet(string(AssetContainerName), hex.EncodeToString(shasum), buf, false, nil)
+	_, _, err = base.Storage.Get(AssetContainerName, hex.EncodeToString(shasum))
 	assert.Error(t, err)
-	assert.Equal(t, swift.ObjectNotFound, err)
+	assert.True(t, errors.Is(err, base.ErrFileNotFound))
 }
 
 func TestMarshalAssetKey(t *testing.T) {
@@ -141,8 +133,8 @@ func TestMarshalAssetKey(t *testing.T) {
 }
 
 func TestMain(m *testing.M) {
+	// TODO we should only use config.TestSetup()
 	viper.SetDefault("couchdb.url", "http://localhost:5984")
-
 	configFile, ok := config.FindConfigFile("cozy-registry-test")
 	if ok {
 		viper.SetConfigFile(configFile)
@@ -156,20 +148,16 @@ func TestMain(m *testing.M) {
 	pass := viper.GetString("couchdb.password")
 	prefix := viper.GetString("couchdb.prefix")
 
-	// Mocking a Swift in memory for asset store FS
-	swiftSrv, err := swifttest.NewSwiftServer("localhost")
-	if err != nil {
-		fmt.Printf("failed to create swift server %s", err)
-	}
-
 	viper.Set("swift.username", "swifttest")
 	viper.Set("swift.api_key", "swifttest")
-	viper.Set("swift.auth_url", swiftSrv.AuthURL)
+	viper.Set("swift.auth_url", "localhost:12345")
 
-	err = config.Init()
+	err := config.Init()
 	if err != nil {
 		fmt.Println("Error while initializing config", err)
 	}
+
+	config.TestSetup()
 	store, err = InitGlobalAssetStore(url, user, pass, prefix)
 	if err != nil {
 		fmt.Println("Error while initializing global asset store", err)

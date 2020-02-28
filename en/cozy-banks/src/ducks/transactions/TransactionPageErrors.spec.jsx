@@ -8,9 +8,6 @@ import {
 import fixtures from 'test/fixtures'
 import TriggerErrorCard from 'ducks/transactions/TriggerErrorCard'
 import Carrousel from 'components/Carrousel'
-import flag from 'cozy-flags'
-
-jest.mock('cozy-flags')
 
 const DEFAULT_TRIGGERS = fixtures['io.cozy.triggers']
 const DEFAULT_ACCOUNTS = fixtures['io.cozy.bank.accounts']
@@ -40,16 +37,6 @@ describe('transaction page errors', () => {
       instance
     }
   }
-
-  beforeEach(() => {
-    flag.mockImplementation(key => {
-      if (key === 'transactions.error-banner') {
-        return true
-      }
-
-      return false
-    })
-  })
 
   it('should only show errors for currently filtered accounts', () => {
     const { instance } = setup()

@@ -6,7 +6,6 @@ import { LoanDetailsPage, LoanListPage } from 'ducks/loan'
 import { isLoanGroup, isReimbursementsVirtualGroup } from 'ducks/groups/helpers'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { ReimbursementsPage } from 'ducks/reimbursements'
-import flag from 'cozy-flags'
 import BarTheme from 'ducks/bar/BarTheme'
 import { getFilteringDoc } from 'ducks/filters'
 
@@ -14,7 +13,7 @@ const getComponent = filteringDoc => {
   if (filteringDoc && filteringDoc._type === ACCOUNT_DOCTYPE) {
     const accountType = getAccountType(filteringDoc)
 
-    if (accountType === 'Loan' && flag('loan-details-page')) {
+    if (accountType === 'Loan') {
       return LoanDetailsPage
     } else if (accountType === 'Reimbursements') {
       return ReimbursementsPage
@@ -22,7 +21,7 @@ const getComponent = filteringDoc => {
       return TransactionsPageWithBackButton
     }
   } else if (filteringDoc && filteringDoc._type === GROUP_DOCTYPE) {
-    if (isLoanGroup(filteringDoc) && flag('loan-details-page')) {
+    if (isLoanGroup(filteringDoc)) {
       return LoanListPage
     } else if (isReimbursementsVirtualGroup(filteringDoc)) {
       return ReimbursementsPage

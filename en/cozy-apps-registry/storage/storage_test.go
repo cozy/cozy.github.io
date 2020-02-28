@@ -43,7 +43,7 @@ func TestMem(t *testing.T) {
 	testStorage(t, mem)
 }
 
-func testStorage(t *testing.T, storage base.Storage) {
+func testStorage(t *testing.T, storage base.VirtualStorage) {
 	fooPrefix := base.Prefix("foo-prefix")
 	barPrefix := base.Prefix("bar-prefix")
 	bazPrefix := base.Prefix("baz-prefix")
