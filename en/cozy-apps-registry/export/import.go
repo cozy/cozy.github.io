@@ -1,8 +1,9 @@
-package registry
+package export
 
 import (
 	"archive/tar"
 	"compress/gzip"
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -10,8 +11,10 @@ import (
 	"path"
 	"strings"
 
+	"github.com/cozy/cozy-apps-registry/asset"
 	"github.com/cozy/cozy-apps-registry/base"
 	"github.com/cozy/cozy-apps-registry/config"
+	"github.com/cozy/cozy-apps-registry/registry"
 	"github.com/cozy/cozy-apps-registry/storage"
 	"github.com/pbenner/threadpool"
 )
@@ -29,7 +32,8 @@ func (db *couchDb) bulkImport() error {
 	}
 	fmt.Printf("Bulk import %d CouchDB documents into %s\n", len(docs), db.db)
 
-	c := client.DB(ctx, db.db)
+	ctx := context.Background()
+	c := registry.Client.DB(ctx, db.db)
 	_, err := c.BulkDocs(ctx, docs)
 	if err != nil {
 		return err
@@ -71,21 +75,21 @@ func cleanCouch() error {
 	for _, db := range couchDatabases() {
 		name := db.Name()
 		fmt.Printf("  Clean CouchDB %s\n", name)
-		if err := client.DestroyDB(ctx, name); err != nil {
+		if err := registry.Client.DestroyDB(context.Background(), name); err != nil {
 			return err
 		}
 	}
 
-	if err := initCouch(); err != nil {
+	if err := registry.Client.CreateDB(context.Background(), asset.AssetStore.DB.Name()); err != nil {
 		return err
 	}
 
-	return nil
+	return registry.InitializeSpaces()
 }
 
 func parseCouchDocument(reader io.Reader, parts []string) (string, *interface{}, error) {
 	db, id := parts[0], parts[1]
-	db = strings.Replace(db, "__prefix__", globalPrefix, 1)
+	db = strings.Replace(db, "__prefix__", base.DatabaseNamespace, 1)
 	id = strings.TrimSuffix(id, documentSuffix)
 	fmt.Printf("Parse CouchDB document %s.%s\n", db, id)
 

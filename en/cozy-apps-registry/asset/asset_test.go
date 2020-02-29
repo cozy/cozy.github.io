@@ -133,34 +133,35 @@ func TestMarshalAssetKey(t *testing.T) {
 }
 
 func TestMain(m *testing.M) {
-	// TODO we should only use config.TestSetup()
-	viper.SetDefault("couchdb.url", "http://localhost:5984")
-	configFile, ok := config.FindConfigFile("cozy-registry-test")
-	if ok {
-		viper.SetConfigFile(configFile)
-		err := viper.ReadInConfig()
-		if err != nil {
-			fmt.Println("Error while parsing viper config:", err)
-		}
+	config.SetDefaults()
+	if err := config.ReadFile("", "cozy-registry-test"); err != nil {
+		fmt.Println("Cannot load test config:", err)
 	}
-	url := viper.GetString("couchdb.url")
-	user := viper.GetString("couchdb.user")
-	pass := viper.GetString("couchdb.password")
-	prefix := viper.GetString("couchdb.prefix")
 
+	// TODO remove those lines
 	viper.Set("swift.username", "swifttest")
 	viper.Set("swift.api_key", "swifttest")
 	viper.Set("swift.auth_url", "localhost:12345")
 
-	err := config.Init()
-	if err != nil {
-		fmt.Println("Error while initializing config", err)
+	if err := config.SetupForTests(); err != nil {
+		fmt.Println("Cannot configure the services:", err)
+		os.Exit(1)
 	}
 
-	config.TestSetup()
-	store, err = InitGlobalAssetStore(url, user, pass, prefix)
+	// TODO initialize the global asset store in config
+	url := viper.GetString("couchdb.url")
+	user := viper.GetString("couchdb.user")
+	pass := viper.GetString("couchdb.password")
+
+	var err error
+	store, err = InitGlobalAssetStore(url, user, pass)
 	if err != nil {
 		fmt.Println("Error while initializing global asset store", err)
+	}
+
+	if err := config.PrepareSpaces(); err != nil {
+		fmt.Println("Cannot prepare the spaces:", err)
+		os.Exit(1)
 	}
 
 	os.Exit(m.Run())

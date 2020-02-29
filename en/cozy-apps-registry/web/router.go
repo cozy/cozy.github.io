@@ -26,10 +26,13 @@ import (
 const authTokenScheme = "Token "
 const spaceKey = "space"
 
-// FS folder name containing the universal link files
-const universalLinkFolder = "universallink"
+var errSpaceNotFound = base.Error{Code: 404, Wrapped: errors.New("Cannot find space")}
 
-var ErrSpaceNotFound = errors.New("Cannot find space")
+var (
+	fiveMinute = 5 * time.Minute
+	oneHour    = 1 * time.Hour
+	oneYear    = 365 * 24 * time.Hour
+)
 
 // Do not show internal identifier and revision
 func cleanVersion(version *registry.Version) {
@@ -51,7 +54,7 @@ func checkAuthorized(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	if !auth.VerifyTokenAuthentication(sessionSecret, token) {
+	if !auth.VerifyTokenAuthentication(base.SessionSecret, token) {
 		return errshttp.NewError(http.StatusUnauthorized, "Token could not be verified")
 	}
 	return nil
@@ -62,21 +65,21 @@ func checkPermissions(c echo.Context, editorName string, appName string, master 
 	if err != nil {
 		return nil, err
 	}
-	editor, err := editorRegistry.GetEditor(editorName)
+	editor, err := auth.Editors.GetEditor(editorName)
 	if err != nil {
 		return nil, errshttp.NewError(http.StatusUnauthorized, "Could not find editor: %s", editorName)
 	}
 	ok := false
 	if !master {
-		ok = editor.VerifyEditorToken(sessionSecret, token, appName)
+		ok = editor.VerifyEditorToken(base.SessionSecret, token, appName)
 	}
 	if !ok {
-		editors, err := editorRegistry.AllEditors()
+		editors, err := auth.Editors.AllEditors()
 		if err != nil {
 			return nil, err
 		}
 		for _, e := range editors {
-			if ok = e.VerifyMasterToken(sessionSecret, token); ok {
+			if ok = e.VerifyMasterToken(base.SessionSecret, token); ok {
 				break
 			}
 		}
@@ -167,7 +170,7 @@ func getSpaceFromHost(c echo.Context) (*registry.Space, error) {
 	conf := config.GetConfig()
 
 	if spaceName, ok := conf.DomainSpaces[host]; ok {
-		if spaceName == config.DefaultSpacePrefix {
+		if spaceName == base.DefaultSpacePrefix {
 			spaceName = ""
 		}
 		if space, ok := registry.GetSpace(spaceName); ok {
@@ -175,7 +178,7 @@ func getSpaceFromHost(c echo.Context) (*registry.Space, error) {
 		}
 	}
 
-	return nil, ErrSpaceNotFound
+	return nil, errSpaceNotFound
 }
 
 func getVersionsChannel(c echo.Context, defaultChannel registry.Channel) registry.Channel {
@@ -335,9 +338,8 @@ func filterAppInVirtualSpace(handler echo.HandlerFunc, virtual *config.VirtualSp
 	}
 }
 
-func Router(addr string, editor *auth.EditorRegistry, secret []byte) *echo.Echo {
-	editorRegistry = editor
-	sessionSecret = secret
+// Router sets up the HTTP routes.
+func Router(addr string) *echo.Echo {
 	err := initAssets()
 	if err != nil {
 		panic(err)
@@ -408,7 +410,7 @@ func Router(addr string, editor *auth.EditorRegistry, secret []byte) *echo.Echo 
 		groupName := fmt.Sprintf("/%s/registry", url.PathEscape(name))
 
 		source := virtual.Source
-		if source == config.DefaultSpacePrefix {
+		if source == base.DefaultSpacePrefix {
 			source = ""
 		}
 		g := e.Group(groupName, ensureSpace(source))

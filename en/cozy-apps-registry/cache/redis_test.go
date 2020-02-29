@@ -4,11 +4,12 @@ import (
 	"testing"
 	"time"
 
+	"github.com/cozy/cozy-apps-registry/base"
 	"github.com/go-redis/redis/v7"
 )
 
 func TestRedis(t *testing.T) {
-	key := Key("toto")
+	key := base.Key("toto")
 	value := []byte("toto")
 
 	testClient := redis.NewClient(&redis.Options{

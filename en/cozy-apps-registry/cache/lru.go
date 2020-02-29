@@ -18,29 +18,14 @@ import (
 	"container/list"
 	"sync"
 	"time"
-)
 
-type Cache interface {
-	Add(Key, Value)
-	Get(Key) (Value, bool)
-	MGet([]Key) []interface{}
-	Remove(Key)
-}
+	"github.com/cozy/cozy-apps-registry/base"
+)
 
 type entry struct {
-	key   Key
-	value Value
+	key   base.Key
+	value base.Value
 	date  time.Time
-}
-
-type (
-	Key   string
-	Value []byte
-)
-
-// Key returns the key as a string
-func (k Key) String() string {
-	return string(k)
 }
 
 // LRUCache is an LRU cache.
@@ -53,7 +38,7 @@ type LRUCache struct {
 
 	mu    sync.Mutex
 	ll    *list.List
-	cache map[Key]*list.Element
+	cache map[base.Key]*list.Element
 }
 
 // New creates a new Cache.
@@ -64,12 +49,12 @@ func NewLRUCache(maxEntries int, ttl time.Duration) *LRUCache {
 		MaxEntries: maxEntries,
 		TTL:        ttl,
 		ll:         list.New(),
-		cache:      make(map[Key]*list.Element),
+		cache:      make(map[base.Key]*list.Element),
 	}
 }
 
 // Add adds a value to the cache.
-func (c *LRUCache) Add(key Key, value Value) {
+func (c *LRUCache) Add(key base.Key, value base.Value) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	if ele, hit := c.cache[key]; hit {
@@ -86,7 +71,7 @@ func (c *LRUCache) Add(key Key, value Value) {
 }
 
 // Get looks up a key's value from the cache.
-func (c *LRUCache) Get(key Key) (value Value, ok bool) {
+func (c *LRUCache) Get(key base.Key) (value base.Value, ok bool) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	if ele, hit := c.cache[key]; hit {
@@ -100,7 +85,7 @@ func (c *LRUCache) Get(key Key) (value Value, ok bool) {
 }
 
 // MGet looks up several keys at once from the cache.
-func (c *LRUCache) MGet(keys []Key) []interface{} {
+func (c *LRUCache) MGet(keys []base.Key) []interface{} {
 	values := make([]interface{}, len(keys))
 	for i, key := range keys {
 		if val, ok := c.Get(key); ok {
@@ -111,7 +96,7 @@ func (c *LRUCache) MGet(keys []Key) []interface{} {
 }
 
 // Remove removes the provided key from the cache.
-func (c *LRUCache) Remove(key Key) {
+func (c *LRUCache) Remove(key base.Key) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	if ele, hit := c.cache[key]; hit {
@@ -131,4 +116,4 @@ func (c *LRUCache) removeElement(e *list.Element) {
 	delete(c.cache, kv.key)
 }
 
-var _ Cache = (*LRUCache)(nil)
+var _ base.Cache = (*LRUCache)(nil)

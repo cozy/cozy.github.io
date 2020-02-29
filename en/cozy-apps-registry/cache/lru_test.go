@@ -3,10 +3,12 @@ package cache
 import (
 	"testing"
 	"time"
+
+	"github.com/cozy/cozy-apps-registry/base"
 )
 
 func TestLRU(t *testing.T) {
-	key := Key("toto")
+	key := base.Key("toto")
 	value := []byte("toto")
 
 	lru := NewLRUCache(32, 100*time.Millisecond)

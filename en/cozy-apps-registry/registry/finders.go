@@ -8,7 +8,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"path/filepath"
 	"sort"
@@ -19,13 +18,10 @@ import (
 	"github.com/Masterminds/semver"
 	"github.com/cozy/cozy-apps-registry/asset"
 	"github.com/cozy/cozy-apps-registry/base"
-	"github.com/cozy/cozy-apps-registry/cache"
 	"github.com/cozy/cozy-apps-registry/config"
 	"github.com/go-kivik/kivik/v3"
-	"github.com/labstack/echo/v4"
 	"github.com/ncw/swift"
 	"github.com/sirupsen/logrus"
-	"github.com/spf13/viper"
 )
 
 var validFilters = []string{
@@ -127,11 +123,7 @@ func FindVersionAttachment(c *Space, appSlug, version, filename string) (*Attach
 	var shasum, contentType string
 	var fileContent []byte
 
-	// Return from swift
-	conf := config.GetConfig()
-	sc := conf.SwiftConnection
-
-	var contentBuffer = new(bytes.Buffer)
+	var contentBuffer *bytes.Buffer
 	fp := filepath.Join(appSlug, version, filename)
 
 	// First, we try to get the version from CouchDB
@@ -154,31 +146,10 @@ func FindVersionAttachment(c *Space, appSlug, version, filename string) (*Attach
 		// TODO do we still need this fallback
 		// If we cannot find it, we try from the local database as a fallback
 		prefix := GetPrefixOrDefault(c)
-		headers, err = sc.ObjectGet(prefix, fp, contentBuffer, false, nil)
-		if err != nil && err != swift.ObjectNotFound {
+		// TODO space->prefix conversion to check
+		contentBuffer, headers, err = base.Storage.Get(base.Prefix(prefix), fp)
+		if err != nil {
 			return nil, err
-		} else if err == swift.ObjectNotFound {
-			// Fallback for assets before/during migration
-			att, err := FindVersionOldAttachment(c, appSlug, version, filename)
-			if err != nil {
-				return nil, err
-			}
-
-			// We don't want to move the asset for the moment.
-			// We want to let the fixer assets couchdb->swift script doing it.
-			ok = true
-
-			content := att.Content
-			c, err := ioutil.ReadAll(content)
-			if err != nil {
-				return nil, err
-			}
-			contentBuffer = bytes.NewBuffer(c)
-			headers = map[string]string{
-				"Content-Type":   att.ContentType,
-				"Etag":           att.Digest,
-				"Content-Length": strconv.FormatInt(att.Size, 10),
-			}
 		}
 	}
 
@@ -256,25 +227,12 @@ func MoveAssetToGlobalDatabase(c *Space, ver *Version, content []byte, filename,
 		return err
 	}
 
+	// TODO use base.Storage
 	// Remove the old object
 	conf := config.GetConfig()
 	sc := conf.SwiftConnection
 	fp := filepath.Join(GetPrefixOrDefault(c), ver.Slug, ver.Version)
 	return sc.ObjectDelete(fp, filename)
-}
-
-func FindVersionOldAttachment(c *Space, appSlug, version, filename string) (*kivik.Attachment, error) {
-	db := c.VersDB()
-
-	att, err := db.GetAttachment(ctx, getVersionID(appSlug, version), filename)
-	if err != nil {
-		if kivik.StatusCode(err) == http.StatusNotFound {
-			return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("Could not find attachment %q", filename))
-		}
-		return nil, err
-	}
-
-	return att, nil
 }
 
 func findVersion(appSlug, version string, dbs ...*kivik.DB) (*Version, error) {
@@ -500,9 +458,8 @@ func FindLastNVersions(c *Space, appSlug string, channelStr string, nMajor, nMin
 
 func FindLatestVersion(c *Space, appSlug string, channel Channel) (*Version, error) {
 	// Try to get the latest version from the cache
-	key := cache.Key(c.Prefix + "/" + appSlug + "/" + ChannelToStr(channel))
-	cacheVersionsLatest := viper.Get("cacheVersionsLatest").(cache.Cache)
-	if data, ok := cacheVersionsLatest.Get(key); ok {
+	key := base.Key(c.Prefix + "/" + appSlug + "/" + ChannelToStr(channel))
+	if data, ok := base.LatestVersionsCache.Get(key); ok {
 		var latestVersion *Version
 		if err := json.Unmarshal(data, &latestVersion); err == nil {
 			return latestVersion, nil
@@ -547,9 +504,8 @@ func FindLatestVersionCacheMiss(c *Space, appSlug string, channel Channel) (*Ver
 
 	// Update the cache by using a goroutine to avoid waiting for the latency
 	// between the app server and redis.
-	cacheVersionsLatest := viper.Get("cacheVersionsLatest").(cache.Cache)
-	key := cache.Key(c.Prefix + "/" + appSlug + "/" + channelStr)
-	go cacheVersionsLatest.Add(key, cache.Value(data))
+	key := base.Key(c.Prefix + "/" + appSlug + "/" + channelStr)
+	go base.LatestVersionsCache.Add(key, base.Value(data))
 
 	return latestVersion, nil
 }
@@ -559,9 +515,8 @@ func FindLatestVersionCacheMiss(c *Space, appSlug string, channel Channel) (*Ver
 // list
 func FindAppVersions(c *Space, appSlug string, channel Channel, concat ConcatChannels) (*AppVersions, error) {
 	// Try to get the app versions from the cache
-	key := cache.Key(c.Prefix + "/" + appSlug + "/" + ChannelToStr(channel))
-	cacheVersionsList := viper.Get("cacheVersionsList").(cache.Cache)
-	if data, ok := cacheVersionsList.Get(key); ok {
+	key := base.Key(c.Prefix + "/" + appSlug + "/" + ChannelToStr(channel))
+	if data, ok := base.ListVersionsCache.Get(key); ok {
 		var versions *AppVersions
 		if err := json.Unmarshal(data, &versions); err == nil {
 			return versions, nil
@@ -638,9 +593,8 @@ func FindAppVersionsCacheMiss(c *Space, appSlug string, channel Channel, concat 
 	// Update the cache by using a goroutine to avoid waiting for the latency
 	// between the app server and redis.
 	if data, err := json.Marshal(versions); err == nil {
-		cacheVersionsList := viper.Get("cacheVersionsList").(cache.Cache)
-		key := cache.Key(c.Prefix + "/" + appSlug + "/" + ChannelToStr(channel))
-		go cacheVersionsList.Add(key, data)
+		key := base.Key(c.Prefix + "/" + appSlug + "/" + ChannelToStr(channel))
+		go base.ListVersionsCache.Add(key, data)
 	}
 
 	return versions, nil
@@ -889,13 +843,12 @@ func fillAppVersions(c *Space, opts *AppsListOptions, entry *appVersionEntry) er
 }
 
 func GetVersionsListFromCache(c *Space, channelStr string, apps []*App) []*AppVersions {
-	cacheVersionsList := viper.Get("cacheVersionsList").(cache.Cache)
-	keys := make([]cache.Key, len(apps))
+	keys := make([]base.Key, len(apps))
 	for i, app := range apps {
-		keys[i] = cache.Key(c.Prefix + "/" + app.Slug + "/" + channelStr)
+		keys[i] = base.Key(c.Prefix + "/" + app.Slug + "/" + channelStr)
 	}
 
-	cachedList := cacheVersionsList.MGet(keys)
+	cachedList := base.ListVersionsCache.MGet(keys)
 	versionsList := make([]*AppVersions, len(apps))
 	for i, entry := range cachedList {
 		if entry != nil {
@@ -911,13 +864,12 @@ func GetVersionsListFromCache(c *Space, channelStr string, apps []*App) []*AppVe
 }
 
 func GetVersionsLatestFromCache(c *Space, channelStr string, apps []*App) []*Version {
-	cacheVersionsLatest := viper.Get("cacheVersionsLatest").(cache.Cache)
-	keys := make([]cache.Key, len(apps))
+	keys := make([]base.Key, len(apps))
 	for i, app := range apps {
-		keys[i] = cache.Key(c.Prefix + "/" + app.Slug + "/" + channelStr)
+		keys[i] = base.Key(c.Prefix + "/" + app.Slug + "/" + channelStr)
 	}
 
-	cachedList := cacheVersionsLatest.MGet(keys)
+	cachedList := base.LatestVersionsCache.MGet(keys)
 	latestList := make([]*Version, len(apps))
 	for i, entry := range cachedList {
 		if entry != nil {

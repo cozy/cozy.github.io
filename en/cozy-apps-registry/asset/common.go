@@ -9,7 +9,6 @@ import (
 	"path/filepath"
 
 	"github.com/cozy/cozy-apps-registry/base"
-	"github.com/cozy/cozy-apps-registry/config"
 	"github.com/go-kivik/couchdb/v3/chttp"
 	"github.com/go-kivik/kivik/v3"
 )
@@ -36,8 +35,8 @@ type GlobalAssetStore struct {
 }
 
 // InitGlobalAssetStore initializes the global asset store database
-func InitGlobalAssetStore(addr, user, pass, prefix string) (*GlobalAssetStore, error) {
-	globalAssetDB, err := InitCouchDB(addr, user, pass, prefix)
+func InitGlobalAssetStore(addr, user, pass string) (*GlobalAssetStore, error) {
+	globalAssetDB, err := InitCouchDB(addr, user, pass)
 	if err != nil {
 		return nil, err
 	}
@@ -55,13 +54,13 @@ func InitGlobalAssetStore(addr, user, pass, prefix string) (*GlobalAssetStore, e
 
 // MarshalAssetKey returns the string key store in UsedBy field for app versions
 func MarshalAssetKey(spacePrefix, appSlug, version string) string {
-	if spacePrefix == config.DefaultSpacePrefix {
+	if spacePrefix == base.DefaultSpacePrefix {
 		spacePrefix = ""
 	}
 	return filepath.Join(spacePrefix, appSlug, version)
 }
 
-func InitCouchDB(addr, user, pass, prefix string) (*kivik.DB, error) {
+func InitCouchDB(addr, user, pass string) (*kivik.DB, error) {
 	u, err := url.Parse(addr)
 	if err != nil {
 		return nil, err
@@ -83,7 +82,7 @@ func InitCouchDB(addr, user, pass, prefix string) (*kivik.DB, error) {
 		}
 	}
 
-	assetsStoreDBName := "registry-" + assetStoreDBSuffix
+	assetsStoreDBName := base.DBName(assetStoreDBSuffix)
 	exists, err := client.DBExists(ctx, assetsStoreDBName)
 	if err != nil {
 		return nil, err

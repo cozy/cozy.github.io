@@ -1,9 +1,10 @@
-package registry
+package export
 
 import (
 	"archive/tar"
 	"bytes"
 	"compress/gzip"
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -12,7 +13,9 @@ import (
 	"strings"
 
 	"github.com/cozy/cozy-apps-registry/asset"
+	"github.com/cozy/cozy-apps-registry/base"
 	"github.com/cozy/cozy-apps-registry/config"
+	"github.com/cozy/cozy-apps-registry/registry"
 	"github.com/go-kivik/kivik/v3"
 	"github.com/ncw/swift"
 )
@@ -73,17 +76,14 @@ func exportCouchDocument(writer *tar.Writer, prefix string, db *kivik.DB, rows *
 
 func exportSingleCouchDb(writer *tar.Writer, prefix string, db *kivik.DB) error {
 	name := db.Name()
-	clean := strings.TrimPrefix(name, globalPrefix)
-	if clean != name {
-		clean = "__prefix__" + clean
-	}
+	clean := strings.Replace(name, base.DatabaseNamespace, "__prefix__", 1)
 
 	prefix = path.Join(prefix, clean)
 	fmt.Printf("  Exporting database %s\n", name)
 
 	startKey, perPage := "", 1000
 	for {
-		rows, err := db.AllDocs(ctx, map[string]interface{}{
+		rows, err := db.AllDocs(context.Background(), map[string]interface{}{
 			"include_docs": true,
 			"limit":        perPage + 1,
 			"start_key":    startKey,
@@ -114,7 +114,7 @@ func exportSingleCouchDb(writer *tar.Writer, prefix string, db *kivik.DB) error 
 
 func couchDatabases() []*kivik.DB {
 	dbs := []*kivik.DB{asset.AssetStore.DB}
-	for _, c := range spaces {
+	for _, c := range registry.Spaces {
 		dbs = append(dbs, c.DBs()...)
 	}
 	return dbs
@@ -167,8 +167,8 @@ func exportSwiftContainer(writer *tar.Writer, prefix string, connection *swift.C
 // TODO: use storage package
 func swiftContainers() []string {
 	containers := []string{string(asset.AssetContainerName)}
-	for _, space := range spaces {
-		container := GetPrefixOrDefault(space)
+	for _, space := range registry.Spaces {
+		container := registry.GetPrefixOrDefault(space)
 		containers = append(containers, container)
 	}
 	return containers

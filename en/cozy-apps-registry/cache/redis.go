@@ -4,6 +4,7 @@ import (
 	"math/rand"
 	"time"
 
+	"github.com/cozy/cozy-apps-registry/base"
 	"github.com/go-redis/redis/v7"
 )
 
@@ -22,7 +23,7 @@ func NewRedisCache(ttl time.Duration, client redis.UniversalClient) *RedisCache 
 }
 
 // Add adds a value to the cache.
-func (c *RedisCache) Add(key Key, value Value) {
+func (c *RedisCache) Add(key base.Key, value base.Value) {
 	ttl := DurationFuzzing(c.TTL, 0.2)
 	c.cache.Set(key.String(), []byte(value), ttl)
 }
@@ -38,7 +39,7 @@ func DurationFuzzing(d time.Duration, variation float64) time.Duration {
 }
 
 // Get looks up a key's value from the cache.
-func (c *RedisCache) Get(key Key) (value Value, ok bool) {
+func (c *RedisCache) Get(key base.Key) (value base.Value, ok bool) {
 	if val, err := c.cache.Get(key.String()).Result(); err == nil {
 		return []byte(val), true
 	}
@@ -46,7 +47,7 @@ func (c *RedisCache) Get(key Key) (value Value, ok bool) {
 }
 
 // MGet looks up several keys at once from the cache.
-func (c *RedisCache) MGet(keys []Key) []interface{} {
+func (c *RedisCache) MGet(keys []base.Key) []interface{} {
 	strs := make([]string, len(keys))
 	for i, k := range keys {
 		strs[i] = k.String()
@@ -67,8 +68,8 @@ func (c *RedisCache) MGet(keys []Key) []interface{} {
 }
 
 // Remove removes the provided key from the cache.
-func (c *RedisCache) Remove(key Key) {
+func (c *RedisCache) Remove(key base.Key) {
 	c.cache.Del(key.String())
 }
 
-var _ Cache = (*RedisCache)(nil)
+var _ base.Cache = (*RedisCache)(nil)

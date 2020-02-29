@@ -24,7 +24,7 @@ import (
 
 	"github.com/cozy/cozy-apps-registry/asset"
 	"github.com/cozy/cozy-apps-registry/auth"
-	"github.com/cozy/cozy-apps-registry/cache"
+	"github.com/cozy/cozy-apps-registry/base"
 	"github.com/cozy/cozy-apps-registry/config"
 	"github.com/cozy/cozy-apps-registry/errshttp"
 	_ "github.com/go-kivik/couchdb/v3" // for couchdb
@@ -35,7 +35,6 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/ncw/swift"
 	"github.com/sirupsen/logrus"
-	"github.com/spf13/viper"
 )
 
 const maxApplicationSize = 20 * 1024 * 1024 // 20 Mo
@@ -96,11 +95,11 @@ var (
 )
 
 var (
-	client    *kivik.Client
+	// TODO move those globals to base
+	Client    *kivik.Client
 	clientURL *url.URL
-	spaces    map[string]*Space
+	Spaces    map[string]*Space
 
-	globalPrefix    string
 	globalEditorsDB *kivik.DB
 
 	ctx = context.Background()
@@ -178,7 +177,7 @@ func (c *Space) dbName(suffix string) (name string) {
 		name = c.Prefix + "-"
 	}
 	name += suffix
-	return dbName(name)
+	return base.DBName(name)
 }
 
 func RemoveSpace(c *Space) error {
@@ -220,6 +219,7 @@ func RemoveSpace(c *Space) error {
 	}
 
 	// Removing swift container
+	// TODO use storage
 	conf := config.GetConfig()
 	sc := conf.SwiftConnection
 	prefix := GetPrefixOrDefault(c)
@@ -245,24 +245,17 @@ func RemoveSpace(c *Space) error {
 	}
 
 	// Removing databases
-	err = client.DestroyDB(ctx, c.PendingVersDB().Name())
+	err = Client.DestroyDB(ctx, c.PendingVersDB().Name())
 	if err != nil {
 		return err
 	}
 
-	err = client.DestroyDB(ctx, c.VersDB().Name())
+	err = Client.DestroyDB(ctx, c.VersDB().Name())
 	if err != nil {
 		return err
 	}
 
-	return client.DestroyDB(ctx, c.AppsDB().Name())
-}
-
-func dbName(name string) string {
-	if globalPrefix != "" {
-		return globalPrefix + "-" + name
-	}
-	return "registry-" + name
+	return Client.DestroyDB(ctx, c.AppsDB().Name())
 }
 
 type AppOptions struct {
@@ -394,20 +387,20 @@ func NewSpace(prefix string) *Space {
 	return &Space{Prefix: prefix}
 }
 
-func InitGlobalClient(addr, user, pass, prefix string) (editorsDB *kivik.DB, err error) {
+func InitGlobalClient(addr, user, pass string) (editorsDB *kivik.DB, err error) {
 	u, err := url.Parse(addr)
 	if err != nil {
 		return
 	}
 	u.User = nil
 
-	client, err = kivik.New("couch", u.String())
+	Client, err = kivik.New("couch", u.String())
 	if err != nil {
 		return
 	}
 
 	if user != "" {
-		err = client.Authenticate(ctx, &chttp.BasicAuth{
+		err = Client.Authenticate(ctx, &chttp.BasicAuth{
 			Username: user,
 			Password: pass,
 		})
@@ -420,22 +413,20 @@ func InitGlobalClient(addr, user, pass, prefix string) (editorsDB *kivik.DB, err
 	clientURL.Path = ""
 	clientURL.RawPath = ""
 
-	globalPrefix = prefix
-
-	editorsDBName := dbName(editorsDBSuffix)
-	exists, err := client.DBExists(ctx, editorsDBName)
+	editorsDBName := base.DBName(editorsDBSuffix)
+	exists, err := Client.DBExists(ctx, editorsDBName)
 	if err != nil {
 		return
 	}
 	if !exists {
 		fmt.Printf("Creating database %q...", editorsDBName)
-		if err = client.CreateDB(ctx, editorsDBName); err != nil {
+		if err = Client.CreateDB(ctx, editorsDBName); err != nil {
 			return nil, err
 		}
 		fmt.Println("ok.")
 	}
 
-	globalEditorsDB = client.DB(ctx, editorsDBName)
+	globalEditorsDB = Client.DB(ctx, editorsDBName)
 	if err = globalEditorsDB.Err(); err != nil {
 		return
 	}
@@ -444,12 +435,8 @@ func InitGlobalClient(addr, user, pass, prefix string) (editorsDB *kivik.DB, err
 	return
 }
 
-func initCouch() error {
-	if err := client.CreateDB(ctx, asset.AssetStore.DB.Name()); err != nil {
-		return err
-	}
-
-	for _, c := range spaces {
+func InitializeSpaces() error {
+	for _, c := range Spaces {
 		if err := c.init(); err != nil {
 			return err
 		}
@@ -459,35 +446,35 @@ func initCouch() error {
 }
 
 func RegisterSpace(name string) error {
-	if spaces == nil {
-		spaces = make(map[string]*Space)
+	if Spaces == nil {
+		Spaces = make(map[string]*Space)
 	}
 	name = strings.TrimSpace(name)
-	if name == config.DefaultSpacePrefix {
+	if name == base.DefaultSpacePrefix {
 		name = ""
 	} else {
 		if !validSpaceReg.MatchString(name) {
 			return fmt.Errorf("Space named %q contains invalid characters", name)
 		}
 	}
-	if _, ok := spaces[name]; ok {
+	if _, ok := Spaces[name]; ok {
 		return fmt.Errorf("Space %q already registered", name)
 	}
 	c := NewSpace(name)
-	spaces[name] = c
+	Spaces[name] = c
 	return c.init()
 }
 
 func GetSpacesNames() (cs []string) {
-	cs = make([]string, 0, len(spaces))
-	for n := range spaces {
+	cs = make([]string, 0, len(Spaces))
+	for n := range Spaces {
 		cs = append(cs, n)
 	}
 	return cs
 }
 
 func GetSpace(name string) (*Space, bool) {
-	c, ok := spaces[name]
+	c, ok := Spaces[name]
 	return c, ok
 }
 
@@ -495,19 +482,19 @@ func (c *Space) init() (err error) {
 	for _, suffix := range []string{appsDBSuffix, versDBSuffix, pendingVersDBSuffix} {
 		var ok bool
 		dbName := c.dbName(suffix)
-		ok, err = client.DBExists(ctx, dbName)
+		ok, err = Client.DBExists(ctx, dbName)
 		if err != nil {
 			return
 		}
 		if !ok {
 			fmt.Printf("Creating database %q...", dbName)
-			if err = client.CreateDB(ctx, dbName); err != nil {
+			if err = Client.CreateDB(ctx, dbName); err != nil {
 				fmt.Println("failed")
 				return err
 			}
 			fmt.Println("ok.")
 		}
-		db := client.DB(context.Background(), dbName)
+		db := Client.DB(context.Background(), dbName)
 		if err = db.Err(); err != nil {
 			return
 		}
@@ -696,11 +683,9 @@ func createVersion(c *Space, db *kivik.DB, ver *Version, attachments []*kivik.At
 	versionChannel := GetVersionChannel(ver.Version)
 	for _, channel := range []Channel{Stable, Beta, Dev} {
 		if channel >= versionChannel {
-			key := cache.Key(c.Prefix + "/" + ver.Slug + "/" + ChannelToStr(channel))
-			cacheVersionsLatest := viper.Get("cacheVersionsLatest").(cache.Cache)
-			cacheVersionsList := viper.Get("cacheVersionsList").(cache.Cache)
-			cacheVersionsLatest.Remove(key)
-			cacheVersionsList.Remove(key)
+			key := base.Key(c.Prefix + "/" + ver.Slug + "/" + ChannelToStr(channel))
+			base.LatestVersionsCache.Remove(key)
+			base.ListVersionsCache.Remove(key)
 		}
 	}
 
@@ -980,7 +965,7 @@ func downloadTarball(opts *VersionOptions, url string) (*Tarball, error) {
 	}
 
 	// Reader for filesize
-	counter := &Counter{}
+	counter := &bytesCounter{}
 	var reader io.Reader = buf
 	reader = io.TeeReader(reader, counter)
 
@@ -1244,19 +1229,9 @@ func getMIMEType(name string, data []byte) string {
 func SaveTarball(space, filepath string, tarball *Tarball) error {
 	// Saving the tar to Swift
 	var content = bytes.NewReader(tarball.Content)
-	conf := config.GetConfig()
-	sc := conf.SwiftConnection
 
-	f, err := sc.ObjectCreate(space, filepath, false, "", tarball.ContentType, nil)
-	if err != nil {
-		return err
-	}
-
-	if _, err = io.Copy(f, content); err != nil {
-		_ = f.Close()
-		return err
-	}
-	return f.Close()
+	// TODO fix space->prefix conversion
+	return base.Storage.Create(base.Prefix(space), filepath, tarball.ContentType, content)
 }
 
 // ReadTarballVersion reads the content of the version tarball which has been
@@ -1492,7 +1467,11 @@ func (v *Version) RemoveAllAttachments(c *Space) error {
 	var err error
 	prefix := GetPrefixOrDefault(c)
 
+	// TODO do not use config from here
 	conf := config.GetConfig()
+	if conf == nil {
+		return errors.New("No swift configuration")
+	}
 	sc := conf.SwiftConnection
 
 	// Dereferences this version from global asset store
@@ -1573,7 +1552,7 @@ func ChannelToStr(channel Channel) string {
 func GetPrefixOrDefault(c *Space) string {
 	prefix := c.Prefix
 	if prefix == "" {
-		prefix = config.DefaultSpacePrefix
+		prefix = base.DefaultSpacePrefix
 	}
 	return prefix
 }

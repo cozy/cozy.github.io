@@ -25,16 +25,16 @@ func sprintfJSON(format string, a ...interface{}) json.RawMessage {
 	return json.RawMessage([]byte(fmt.Sprintf(format, a...)))
 }
 
-type Counter struct {
+type bytesCounter struct {
 	total int64
 }
 
-func (c *Counter) Write(p []byte) (int, error) {
+func (c *bytesCounter) Write(p []byte) (int, error) {
 	n := len(p)
 	c.total += int64(n)
 	return n, nil
 }
 
-func (c *Counter) Written() int64 {
+func (c *bytesCounter) Written() int64 {
 	return c.total
 }
