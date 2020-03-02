@@ -8,9 +8,15 @@ const DefaultCacheTTL = 5 * time.Minute
 
 // Cache is an interface for a key-value caching service.
 type Cache interface {
+	// Status check if the cache is up, and returns an error if it is not.
+	Status() error
+	// Add adds a value to the cache.
 	Add(Key, Value)
+	// Get looks up a key's value from the cache.
 	Get(Key) (Value, bool)
+	// MGet looks up several keys at once from the cache.
 	MGet([]Key) []interface{}
+	// Remove removes the provided key from the cache.
 	Remove(Key)
 }
 

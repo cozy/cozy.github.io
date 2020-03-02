@@ -2,7 +2,6 @@ package export
 
 import (
 	"archive/tar"
-	"bytes"
 	"compress/gzip"
 	"context"
 	"encoding/json"
@@ -14,10 +13,8 @@ import (
 
 	"github.com/cozy/cozy-apps-registry/asset"
 	"github.com/cozy/cozy-apps-registry/base"
-	"github.com/cozy/cozy-apps-registry/config"
 	"github.com/cozy/cozy-apps-registry/registry"
 	"github.com/go-kivik/kivik/v3"
-	"github.com/ncw/swift"
 )
 
 const rootPrefix = "registry"
@@ -134,37 +131,27 @@ func exportAllCouchDbs(writer *tar.Writer, prefix string) error {
 	return nil
 }
 
-func exportSwiftContainer(writer *tar.Writer, prefix string, connection *swift.Connection, container string) error {
+func exportSwiftContainer(writer *tar.Writer, prefix string, container string) error {
 	fmt.Printf("    Exporting container %s\n", container)
 	prefix = path.Join(prefix, container)
 
-	return connection.ObjectsWalk(container, nil, func(opts *swift.ObjectsOpts) (interface{}, error) {
-		objects, err := connection.Objects(container, opts)
+	return base.Storage.Walk(base.Prefix(container), func(name, contentType string) error {
+		fmt.Printf("      Exporting object %s\n", name)
+
+		buffer, _, err := base.Storage.Get(base.Prefix(container), name)
 		if err != nil {
-			return nil, err
+			return err
 		}
-		for _, object := range objects {
-			name := object.Name
-			fmt.Printf("      Exporting object %s\n", name)
 
-			buffer := new(bytes.Buffer)
-			if _, err := connection.ObjectGet(container, name, buffer, false, nil); err != nil {
-				return nil, err
-			}
-
-			file := path.Join(prefix, name)
-			metadata := map[string]string{
-				contentTypeAttr: object.ContentType,
-			}
-			if err := writeReaderFile(writer, file, buffer, metadata); err != nil {
-				return nil, err
-			}
+		file := path.Join(prefix, name)
+		metadata := map[string]string{
+			contentTypeAttr: contentType,
 		}
-		return objects, nil
+		return writeReaderFile(writer, file, buffer, metadata)
 	})
 }
 
-// TODO: use storage package
+// TODO: returns []base.Prefix
 func swiftContainers() []string {
 	containers := []string{string(asset.AssetContainerName)}
 	for _, space := range registry.Spaces {
@@ -177,12 +164,10 @@ func swiftContainers() []string {
 func exportSwift(writer *tar.Writer, prefix string) error {
 	fmt.Printf("  Exporting Swift\n")
 	prefix = path.Join(prefix, swiftPrefix)
-
 	containers := swiftContainers()
 
-	connection := config.GetConfig().SwiftConnection
 	for _, container := range containers {
-		if err := exportSwiftContainer(writer, prefix, connection, container); err != nil {
+		if err := exportSwiftContainer(writer, prefix, container); err != nil {
 			return err
 		}
 	}
@@ -190,6 +175,7 @@ func exportSwift(writer *tar.Writer, prefix string) error {
 	return nil
 }
 
+// Export creates a tarball with the CouchDB documents and Swift files.
 func Export(writer io.Writer) (err error) {
 	zw := gzip.NewWriter(writer)
 	defer func() {

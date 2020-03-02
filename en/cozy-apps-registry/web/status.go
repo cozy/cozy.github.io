@@ -1,6 +1,3 @@
-// Package status is here just to say that the API is up and that it can
-// access CouchDB, Swift and Redis for debugging and monitoring purposes.
-
 package web
 
 import (
@@ -8,33 +5,27 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/cozy/cozy-apps-registry/config"
+	"github.com/cozy/cozy-apps-registry/base"
 	"github.com/go-kivik/couchdb/v3/chttp"
 	"github.com/go-kivik/kivik/v3"
-	"github.com/go-redis/redis/v7"
 	"github.com/labstack/echo/v4"
 	"github.com/spf13/viper"
 )
 
-var redisCacheVersionsLatest redis.UniversalClient
-
-type Entry struct {
+type entry struct {
 	Status string `json:"status"`
 	Reason string `json:"reason,omitempty"`
 }
 
-// Status responds with the status of the service
+// Status responds with the status of the cache, couch and storage services.
 func Status(c echo.Context) error {
 	var global string
 	check := map[string]interface{}{}
 	global = "ok"
 
 	// Swift
-	conf := config.GetConfig()
-	sc := conf.SwiftConnection
-
-	swift := Entry{Status: "ok"}
-	if _, err := sc.QueryInfo(); err != nil {
+	swift := entry{Status: "ok"}
+	if err := base.Storage.Status(); err != nil {
 		swift.Status = "failed"
 		swift.Reason = err.Error()
 		global = "failed"
@@ -42,7 +33,8 @@ func Status(c echo.Context) error {
 	check["swift"] = swift
 
 	// CouchDB
-	couchDB := Entry{Status: "ok"}
+	couchDB := entry{Status: "ok"}
+	// TODO do not access viper from the web package
 	url := viper.GetString("couchdb.url")
 	user := viper.GetString("couchdb.user")
 	password := viper.GetString("couchdb.password")
@@ -57,35 +49,10 @@ func Status(c echo.Context) error {
 	check["couchDB"] = couchDB
 
 	// Redis
-	r := Entry{Status: "ok"}
-	optsLatest := &redis.UniversalOptions{
-		Addrs: viper.GetStringSlice("redis.addrs"),
-
-		// The sentinel master name.
-		// Only failover clients.
-		MasterName: viper.GetString("redis.master"),
-
-		// Enables read only queries on slave nodes.
-		ReadOnly: viper.GetBool("redis.read_only_slave"),
-
-		MaxRetries:         viper.GetInt("redis.max_retries"),
-		Password:           viper.GetString("redis.password"),
-		DialTimeout:        viper.GetDuration("redis.dial_timeout"),
-		ReadTimeout:        viper.GetDuration("redis.read_timeout"),
-		WriteTimeout:       viper.GetDuration("redis.write_timeout"),
-		PoolSize:           viper.GetInt("redis.pool_size"),
-		PoolTimeout:        viper.GetDuration("redis.pool_timeout"),
-		IdleTimeout:        viper.GetDuration("redis.idle_timeout"),
-		IdleCheckFrequency: viper.GetDuration("redis.idle_check_frequency"),
-		DB:                 viper.GetInt("redis.databases.versionsLatest"),
-	}
-	if redisCacheVersionsLatest == nil {
-		redisCacheVersionsLatest = redis.NewUniversalClient(optsLatest)
-	}
-	res := redisCacheVersionsLatest.Ping()
-	if res.Err() != nil {
+	r := entry{Status: "ok"}
+	if err := base.LatestVersionsCache.Status(); err != nil {
 		r.Status = "failed"
-		r.Reason = res.Err().Error()
+		r.Reason = err.Error()
 		global = "failed"
 	}
 	check["redis"] = r
@@ -124,7 +91,7 @@ func checkCouch(ctx context.Context, addr, user, password string) (bool, error) 
 	return ok, nil
 }
 
-// Routes sets the routing for the status service
+// StatusRoutes sets the routing for the status service.
 func StatusRoutes(router *echo.Group) {
 	router.GET("", Status)
 	router.HEAD("", Status)

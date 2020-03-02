@@ -33,7 +33,6 @@ import (
 	"github.com/h2non/filetype"
 	multierror "github.com/hashicorp/go-multierror"
 	"github.com/labstack/echo/v4"
-	"github.com/ncw/swift"
 	"github.com/sirupsen/logrus"
 )
 
@@ -181,8 +180,6 @@ func (c *Space) dbName(suffix string) (name string) {
 }
 
 func RemoveSpace(c *Space) error {
-	var err error
-
 	// Removing the applications versions
 	var cursor int = 0
 	for cursor != -1 {
@@ -219,39 +216,17 @@ func RemoveSpace(c *Space) error {
 	}
 
 	// Removing swift container
-	// TODO use storage
-	conf := config.GetConfig()
-	sc := conf.SwiftConnection
 	prefix := GetPrefixOrDefault(c)
-
-	// First emptying the container
-	objs, err := sc.ObjectNames(prefix, nil)
-	if err != nil {
-		return err
-	}
-	_, err = sc.BulkDelete(prefix, objs)
-	if err != nil {
-		for _, obj := range objs {
-			err = sc.ObjectDelete(prefix, obj)
-			if err != nil {
-				return err
-			}
-		}
-	}
-
-	err = sc.ContainerDelete(prefix)
-	if err != nil {
+	if err := base.Storage.EnsureDeleted(base.Prefix(prefix)); err != nil {
 		return err
 	}
 
 	// Removing databases
-	err = Client.DestroyDB(ctx, c.PendingVersDB().Name())
-	if err != nil {
+	if err := Client.DestroyDB(ctx, c.PendingVersDB().Name()); err != nil {
 		return err
 	}
 
-	err = Client.DestroyDB(ctx, c.VersDB().Name())
-	if err != nil {
+	if err := Client.DestroyDB(ctx, c.VersDB().Name()); err != nil {
 		return err
 	}
 
@@ -1464,38 +1439,27 @@ func (v *Version) Delete(c *Space) error {
 
 // RemoveAllAttachments removes all the attachments of a version
 func (v *Version) RemoveAllAttachments(c *Space) error {
-	var err error
 	prefix := GetPrefixOrDefault(c)
-
-	// TODO do not use config from here
-	conf := config.GetConfig()
-	if conf == nil {
-		return errors.New("No swift configuration")
-	}
-	sc := conf.SwiftConnection
 
 	// Dereferences this version from global asset store
 	if v.AttachmentReferences != nil {
 		for _, shasum := range v.AttachmentReferences {
 			key := asset.MarshalAssetKey(prefix, v.Slug, v.Version)
-			err = asset.AssetStore.RemoveAsset(shasum, key)
+			err := asset.AssetStore.RemoveAsset(shasum, key)
 			if err != nil {
 				return err
 			}
 		}
 	}
 
+	// XXX: legacy
 	fp := filepath.Join(v.Slug, v.Version)
-	// TODO use base.Storage for this operation
-	opts := &swift.ObjectsOpts{Prefix: fp + "/"}
-	objs, err := sc.ObjectsAll(prefix, opts)
+	names, err := base.Storage.FindByPrefix(base.Prefix(prefix), fp+"/")
 	if err != nil {
 		return err
 	}
-	for _, obj := range objs {
-		// Deleting object
-		err := sc.ObjectDelete(prefix, obj.Name)
-		if err != nil {
+	for _, name := range names {
+		if err := base.Storage.Remove(base.Prefix(prefix), name); err != nil {
 			return err
 		}
 	}

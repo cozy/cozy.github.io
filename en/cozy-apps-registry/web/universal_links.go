@@ -1,12 +1,12 @@
 package web
 
 import (
-	"bytes"
 	"net/http"
 	"net/url"
 	"path/filepath"
 	"strings"
 
+	"github.com/cozy/cozy-apps-registry/base"
 	"github.com/cozy/cozy-apps-registry/config"
 	"github.com/cozy/cozy-apps-registry/registry"
 	"github.com/labstack/echo/v4"
@@ -22,12 +22,8 @@ func universalLink(c echo.Context) error {
 	}
 	spacePrefix := registry.GetPrefixOrDefault(space)
 	filename := filepath.Join(universalLinkFolder, c.Param("filename"))
-	conf := config.GetConfig()
-	conn := conf.SwiftConnection
 
-	content := new(bytes.Buffer)
-
-	hdrs, err := conn.ObjectGet(spacePrefix, filename, content, true, nil)
+	content, hdrs, err := base.Storage.Get(base.Prefix(spacePrefix), filename)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusNotFound)
 	}

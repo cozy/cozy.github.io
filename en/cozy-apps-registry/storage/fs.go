@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/cozy/cozy-apps-registry/base"
 	"github.com/pkg/xattr"
@@ -18,6 +19,10 @@ type localFS struct {
 	baseDir string
 }
 
+func (m *localFS) Status() error {
+	return nil
+}
+
 func (m *localFS) EnsureExists(prefix base.Prefix) error {
 	dir := filepath.Join(m.baseDir, string(prefix))
 	if err := os.MkdirAll(dir, 0755); err != nil {
@@ -27,11 +32,18 @@ func (m *localFS) EnsureExists(prefix base.Prefix) error {
 }
 
 func (m *localFS) EnsureEmpty(prefix base.Prefix) error {
+	if err := m.EnsureDeleted(prefix); err != nil {
+		return err
+	}
+	return m.EnsureExists(prefix)
+}
+
+func (m *localFS) EnsureDeleted(prefix base.Prefix) error {
 	dir := filepath.Join(m.baseDir, string(prefix))
 	if err := os.RemoveAll(dir); err != nil {
 		return base.NewInternalError(err)
 	}
-	return m.EnsureExists(prefix)
+	return nil
 }
 
 func (m *localFS) getPath(prefix base.Prefix, original string) (string, error) {
@@ -97,4 +109,31 @@ func (m *localFS) Remove(prefix base.Prefix, name string) error {
 		return base.NewInternalError(err)
 	}
 	return nil
+}
+
+func (m *localFS) Walk(prefix base.Prefix, fn base.WalkFn) error {
+	dir := filepath.Join(m.baseDir, string(prefix))
+
+	return filepath.Walk(dir, func(name string, _ os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		contentType := "application/octet-stream"
+		path := filepath.Join(dir, name)
+		if mime, err := xattr.Get(path, xattrMime); err == nil {
+			contentType = string(mime)
+		}
+		return fn(name, contentType)
+	})
+}
+
+func (m *localFS) FindByPrefix(prefix base.Prefix, namePrefix string) ([]string, error) {
+	var names []string
+	err := m.Walk(prefix, func(name, _ string) error {
+		if strings.HasPrefix(name, namePrefix) {
+			names = append(names, name)
+		}
+		return nil
+	})
+	return names, err
 }

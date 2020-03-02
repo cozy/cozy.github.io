@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"io"
+	"strings"
 
 	"github.com/cozy/cozy-apps-registry/base"
 )
@@ -25,6 +26,10 @@ type memFile struct {
 	content *bytes.Buffer
 }
 
+func (m *memFS) Status() error {
+	return nil
+}
+
 func (m *memFS) EnsureExists(prefix base.Prefix) error {
 	if _, ok := m.prefixes[prefix]; !ok {
 		m.prefixes[prefix] = make(memPrefix)
@@ -34,6 +39,11 @@ func (m *memFS) EnsureExists(prefix base.Prefix) error {
 
 func (m *memFS) EnsureEmpty(prefix base.Prefix) error {
 	m.prefixes[prefix] = make(memPrefix)
+	return nil
+}
+
+func (m *memFS) EnsureDeleted(prefix base.Prefix) error {
+	delete(m.prefixes, prefix)
 	return nil
 }
 
@@ -74,4 +84,30 @@ func (m *memFS) Remove(prefix base.Prefix, name string) error {
 
 	delete(m.prefixes[prefix], name)
 	return nil
+}
+
+func (m *memFS) Walk(prefix base.Prefix, fn base.WalkFn) error {
+	p, ok := m.prefixes[prefix]
+	if !ok {
+		return base.NewFileNotFoundError(fmt.Errorf("Prefix %s not found", prefix))
+	}
+
+	for key, f := range p {
+		if err := fn(key, f.mime); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *memFS) FindByPrefix(prefix base.Prefix, namePrefix string) ([]string, error) {
+	var names []string
+	err := m.Walk(prefix, func(name, _ string) error {
+		if strings.HasPrefix(name, namePrefix) {
+			names = append(names, name)
+		}
+		return nil
+	})
+	return names, err
 }

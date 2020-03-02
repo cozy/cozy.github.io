@@ -21,8 +21,6 @@ var config *Config
 
 // Config is a list of parameters that can be configured.
 type Config struct {
-	// TODO remove SwiftConnection from the config
-	SwiftConnection *swift.Connection
 	// Specifies if the app cleaning task is enabled or not
 	CleanEnabled bool
 	// Specifies how many major versions should be kept for app cleaning tasks
@@ -120,7 +118,11 @@ func SetupServices() error {
 	base.DatabaseNamespace = viper.GetString("couchdb.prefix")
 
 	// TODO allow to use a local FS storage
-	base.Storage = storage.NewSwift(config.SwiftConnection)
+	sc, err := initSwiftConnection()
+	if err != nil {
+		return fmt.Errorf("Cannot access to swift: %s", err)
+	}
+	base.Storage = storage.NewSwift(sc)
 	return nil
 }
 
@@ -146,16 +148,11 @@ func SetupForTests() error {
 
 // New returns a new config object with the fields filled from viper.
 func New() (*Config, error) {
-	sc, err := initSwiftConnection()
-	if err != nil {
-		return nil, fmt.Errorf("Cannot access to swift: %s", err)
-	}
 	virtuals, err := getVirtualSpaces()
 	if err != nil {
 		return nil, err
 	}
 	return &Config{
-		SwiftConnection:      sc,
 		CleanEnabled:         viper.GetBool("conservation.enable_background_cleaning"),
 		CleanNbMajorVersions: viper.GetInt("conservation.major"),
 		CleanNbMinorVersions: viper.GetInt("conservation.minor"),

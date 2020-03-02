@@ -18,7 +18,6 @@ import (
 	"github.com/Masterminds/semver"
 	"github.com/cozy/cozy-apps-registry/asset"
 	"github.com/cozy/cozy-apps-registry/base"
-	"github.com/cozy/cozy-apps-registry/config"
 	"github.com/go-kivik/kivik/v3"
 	"github.com/ncw/swift"
 	"github.com/sirupsen/logrus"
@@ -227,12 +226,9 @@ func MoveAssetToGlobalDatabase(c *Space, ver *Version, content []byte, filename,
 		return err
 	}
 
-	// TODO use base.Storage
 	// Remove the old object
-	conf := config.GetConfig()
-	sc := conf.SwiftConnection
-	fp := filepath.Join(GetPrefixOrDefault(c), ver.Slug, ver.Version)
-	return sc.ObjectDelete(fp, filename)
+	prefix := GetPrefixOrDefault(c)
+	return base.Storage.Remove(base.Prefix(prefix), filename)
 }
 
 func findVersion(appSlug, version string, dbs ...*kivik.DB) (*Version, error) {

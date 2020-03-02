@@ -7,15 +7,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"path"
 	"strings"
 
 	"github.com/cozy/cozy-apps-registry/asset"
 	"github.com/cozy/cozy-apps-registry/base"
-	"github.com/cozy/cozy-apps-registry/config"
 	"github.com/cozy/cozy-apps-registry/registry"
-	"github.com/cozy/cozy-apps-registry/storage"
 	"github.com/pbenner/threadpool"
 )
 
@@ -102,12 +99,9 @@ func parseCouchDocument(reader io.Reader, parts []string) (string, *interface{},
 }
 
 func cleanSwift() error {
-	// TODO don't initialize the storage here
-	connection := config.GetConfig().SwiftConnection
-	fs := storage.NewSwift(connection)
 	// TODO make swiftContainers returns a list of Prefix, not string
 	for _, container := range swiftContainers() {
-		if err := fs.EnsureEmpty(base.Prefix(container)); err != nil {
+		if err := base.Storage.EnsureEmpty(base.Prefix(container)); err != nil {
 			return err
 		}
 	}
@@ -116,22 +110,17 @@ func cleanSwift() error {
 }
 
 func importSwift(reader io.Reader, header *tar.Header, parts []string, pool threadpool.ThreadPool, group int) error {
-	container, parts := parts[0], parts[1:]
+	container, parts := base.Prefix(parts[0]), parts[1:]
 	path := path.Join(parts...)
+	contentType := header.PAXRecords[contentTypeAttr]
 	fmt.Printf("Import Swift document %s %s\n", container, path)
 
-	data, err := ioutil.ReadAll(reader)
-	if err != nil {
-		return err
-	}
-	contentType := header.PAXRecords[contentTypeAttr]
-
-	connection := config.GetConfig().SwiftConnection
 	return pool.AddJob(group, func(pool threadpool.ThreadPool, erf func() error) error {
-		return connection.ObjectPutBytes(container, path, data, contentType)
+		return base.Storage.Create(container, path, contentType, reader)
 	})
 }
 
+// Drop can be used to clean CouchDB and Swift before importing a tarball.
 func Drop() error {
 	if err := cleanCouch(); err != nil {
 		return err
@@ -139,6 +128,7 @@ func Drop() error {
 	return cleanSwift()
 }
 
+// Import will create the couchDB documents and Swift files from a tarball.
 func Import(reader io.Reader) (err error) {
 	zr, err := gzip.NewReader(reader)
 	if err != nil {

@@ -513,11 +513,10 @@ func TestRemoveSpace(t *testing.T) {
 	assert.NoError(t, err)
 
 	// Assert no container
-	// FIXME
-	// conf := config.GetConfig()
-	// sc := conf.SwiftConnection
-	// _, _, err = sc.Container(s.Prefix)
-	// assert.Equal(t, swift.ContainerNotFound, err)
+	err = base.Storage.Walk(base.Prefix(s.Prefix), func(_, _ string) error {
+		return nil
+	})
+	assert.True(t, errors.Is(err, base.ErrFileNotFound))
 
 	// Assert no databases
 	client := s.AppsDB().Client()
