@@ -30,6 +30,32 @@ const defaultClientToken = 'MY-TOKEN'
 const defaultWebsocketUri =
   defaultClientUri.replace(/^http/, 'ws') + 'realtime/'
 
+class TaskQueue {
+  constructor() {
+    this.tasks = []
+  }
+  registerLast(task) {
+    this.tasks.push(task)
+  }
+  registerFirst(task) {
+    this.tasks.unshift(task)
+  }
+
+  async flush() {
+    for (let task of this.tasks) {
+      try {
+        await task()
+      } catch (e) {
+        console.error(e)
+        console.warn('Could not execute task, see error above')
+      }
+    }
+    this.tasks = []
+  }
+}
+
+const cleaner = new TaskQueue()
+
 function createCozyClient({ uri, token } = {}) {
   const stackClient = {
     getAccessToken: () => token || defaultClientToken,
@@ -47,7 +73,9 @@ function createCozyClient({ uri, token } = {}) {
 
 function createRealtime(options = {}) {
   const client = options.client || createCozyClient(options)
-  return new CozyRealtime({ client })
+  const realtime = new CozyRealtime({ client })
+  cleaner.registerFirst(() => realtime.unsubscribeAll())
+  return realtime
 }
 
 function createSocketServer({
@@ -101,6 +129,11 @@ function createSocketServer({
   server.hasClosedLastSocket = () => {
     return server.lastOpenedSocket.readyState === 3
   }
+  cleaner.registerLast(() => {
+    return new Promise(resolve => {
+      server.stop(resolve)
+    })
+  })
   return server
 }
 
@@ -109,6 +142,10 @@ const sleep = time => new Promise(resolve => setTimeout(resolve, time))
 /*** TEST ***/
 
 describe('CozyRealtime', () => {
+  afterEach(async () => {
+    await cleaner.flush()
+  })
+
   describe('sendNotification', () => {
     it('posts a message to the stack', async () => {
       const client = createCozyClient()
@@ -117,7 +154,6 @@ describe('CozyRealtime', () => {
       await realtime.sendNotification(doctype, id, message)
       const route = `/realtime/${doctype}/${id}`
       expect(fetchJSON).toHaveBeenCalledWith('POST', route, { data: message })
-      realtime.unsubscribeAll()
     })
   })
 
@@ -127,8 +163,7 @@ describe('CozyRealtime', () => {
       const realtime = createRealtime()
       server.onsubscribe.mockImplementation(data => {
         expect(data).toHaveProperty('type', type)
-        realtime.unsubscribeAll()
-        server.stop(done)
+        done()
       })
       realtime.subscribe(event, type, jest.fn())
     })
@@ -140,8 +175,7 @@ describe('CozyRealtime', () => {
 
         const handler = jest.fn().mockImplementation(data => {
           expect(data).toEqual(doc)
-          realtime.unsubscribeAll()
-          server.stop(done)
+          done()
         })
         realtime.subscribe(event, type, handler)
 
@@ -157,8 +191,7 @@ describe('CozyRealtime', () => {
 
         const handler = jest.fn().mockImplementation(data => {
           expect(data).toEqual(doc)
-          realtime.unsubscribeAll()
-          server.stop(done)
+          done()
         })
 
         realtime.subscribe('DELETED', 'io.cozy.notes', 'other-id', handler)
@@ -170,7 +203,7 @@ describe('CozyRealtime', () => {
       })
     })
 
-    it('should not trigger on message for other types', async done => {
+    it('should not trigger on message for other types', async () => {
       const server = createSocketServer()
       const realtime = createRealtime()
 
@@ -182,11 +215,9 @@ describe('CozyRealtime', () => {
       await sleep(100)
 
       expect(handler).not.toHaveBeenCalled()
-      realtime.unsubscribeAll()
-      server.stop(done)
     })
 
-    it('should not trigger on message for other events', async done => {
+    it('should not trigger on message for other events', async () => {
       const server = createSocketServer()
       const realtime = createRealtime()
 
@@ -198,8 +229,6 @@ describe('CozyRealtime', () => {
       await sleep(100)
 
       expect(handler).not.toHaveBeenCalled()
-      realtime.unsubscribeAll()
-      server.stop(done)
     })
 
     describe('without an id', () => {
@@ -209,8 +238,7 @@ describe('CozyRealtime', () => {
 
         const handler = jest.fn().mockImplementation(data => {
           expect(data).toEqual(doc)
-          realtime.unsubscribeAll()
-          server.stop(done)
+          done()
         })
         realtime.subscribe(event, type, handler)
 
@@ -224,8 +252,7 @@ describe('CozyRealtime', () => {
 
         const handler = jest.fn().mockImplementation(data => {
           expect(data).toEqual(doc)
-          realtime.unsubscribeAll()
-          server.stop(done)
+          done()
         })
         realtime.subscribe('CREATED', type, handler)
 
@@ -241,8 +268,7 @@ describe('CozyRealtime', () => {
 
         const handler = jest.fn().mockImplementation(data => {
           expect(data).toEqual(doc)
-          realtime.unsubscribeAll()
-          server.stop(done)
+          done()
         })
         realtime.subscribe(event, type, id, handler)
 
@@ -250,7 +276,7 @@ describe('CozyRealtime', () => {
         server.emitMessage(event, payload)
       })
 
-      it('should not trigger for other ids', async done => {
+      it('should not trigger for other ids', async () => {
         const server = createSocketServer()
         const realtime = createRealtime()
 
@@ -262,8 +288,6 @@ describe('CozyRealtime', () => {
         await sleep(100)
 
         expect(handler).not.toHaveBeenCalled()
-        realtime.unsubscribeAll()
-        server.stop(done)
       })
     })
 
@@ -273,8 +297,7 @@ describe('CozyRealtime', () => {
 
       const handler = jest.fn().mockImplementation(data => {
         expect(data).toEqual(doc)
-        realtime.unsubscribeAll()
-        server.stop(done)
+        done()
       })
       realtime.subscribe(event, type, undefined, handler)
 
@@ -300,8 +323,7 @@ describe('CozyRealtime', () => {
           handler1.mock.calls.length == 1 &&
           handler2.mock.calls.length == 1
         ) {
-          realtime.unsubscribeAll()
-          server.stop(done)
+          done()
         }
       }
 
@@ -324,8 +346,7 @@ describe('CozyRealtime', () => {
 
         function finish() {
           if (handler.mock.calls.length == 2) {
-            realtime.unsubscribeAll()
-            server.stop(done)
+            done()
           }
         }
 
@@ -336,7 +357,7 @@ describe('CozyRealtime', () => {
         server.emitMessage(event, payload)
       })
     } else {
-      it('should not call the handler twice in case of double subscription', async done => {
+      it('should not call the handler twice in case of double subscription', async () => {
         const server = createSocketServer()
         const realtime = createRealtime()
 
@@ -349,15 +370,13 @@ describe('CozyRealtime', () => {
         await sleep(100)
 
         expect(handler).toHaveBeenCalledTimes(1)
-        realtime.unsubscribeAll()
-        server.stop(done)
       })
     }
   })
 
   describe('unsubscribe', () => {
     describe('when unsubscribing before the socket being ready', () => {
-      it('should not trigger the handler after unsubscription', async done => {
+      it('should not trigger the handler after unsubscription', async () => {
         const server = createSocketServer()
         const realtime = createRealtime()
 
@@ -370,13 +389,11 @@ describe('CozyRealtime', () => {
         await sleep(100)
 
         expect(handler).not.toHaveBeenCalled()
-        realtime.unsubscribeAll()
-        server.stop(done)
       })
     })
 
     describe('when unsubscribing after the socket being ready', () => {
-      it('should not trigger the handler after unsubscription', async done => {
+      it('should not trigger the handler after unsubscription', async () => {
         const server = createSocketServer()
         const realtime = createRealtime()
 
@@ -390,13 +407,11 @@ describe('CozyRealtime', () => {
         await sleep(100)
 
         expect(handler).not.toHaveBeenCalled()
-        realtime.unsubscribeAll()
-        server.stop(done)
       })
     })
 
-    it('should allow unattended unsubscription', async done => {
-      const server = createSocketServer()
+    it('should allow unattended unsubscription', async () => {
+      createSocketServer()
       const realtime = createRealtime()
 
       const handler = jest.fn()
@@ -404,14 +419,12 @@ describe('CozyRealtime', () => {
       realtime.unsubscribe(event, 'io.cozy.notes', undefined, handler)
 
       await realtime.waitForSocketReady()
-      await sleep(10)
-      realtime.unsubscribeAll()
-      server.stop(done)
+      await sleep(10) // no error just after success
     })
 
     if (allowDoubleSubscriptions) {
       if (requireDoubleUnsubscriptions) {
-        it('should require a double unsubscription for a double subscription', async done => {
+        it('should require a double unsubscription for a double subscription', async () => {
           const server = createSocketServer()
           const realtime = createRealtime()
 
@@ -432,11 +445,9 @@ describe('CozyRealtime', () => {
 
           await sleep(100)
           expect(handler).toHaveBeenCalledTimes(1)
-          realtime.unsubscribeAll()
-          server.stop(done)
         })
       } else {
-        it('should not require a double unsubscription for a double subscription', async done => {
+        it('should not require a double unsubscription for a double subscription', async () => {
           const server = createSocketServer()
           const realtime = createRealtime()
 
@@ -449,14 +460,12 @@ describe('CozyRealtime', () => {
           server.emitMessage(event, payload)
           await sleep(100)
           expect(handler).not.toHaveBeenCalled()
-          realtime.unsubscribeAll()
-          server.stop(done)
         })
       }
     }
 
     describe('when unsubscribing the last subscription', () => {
-      it('should close the websocket', async done => {
+      it('should close the websocket', async () => {
         const server = createSocketServer()
         const realtime = createRealtime()
 
@@ -468,14 +477,12 @@ describe('CozyRealtime', () => {
         await sleep(200)
 
         expect(server.hasClosedLastSocket()).toBeTruthy()
-        realtime.unsubscribeAll()
-        server.stop(done)
       })
     })
   })
 
   describe('unsubscribeAll', () => {
-    it('should remove all subscriptions', async done => {
+    it('should remove all subscriptions', async () => {
       const server = createSocketServer()
       const realtime = createRealtime()
 
@@ -489,11 +496,9 @@ describe('CozyRealtime', () => {
       await sleep(100)
 
       expect(handler).not.toHaveBeenCalled()
-      realtime.unsubscribeAll()
-      server.stop(done)
     })
 
-    it('should close the socket', async done => {
+    it('should close the socket', async () => {
       const server = createSocketServer()
       const realtime = createRealtime()
 
@@ -507,14 +512,12 @@ describe('CozyRealtime', () => {
       await sleep(100)
 
       expect(server.hasClosedLastSocket()).toBeTruthy()
-      realtime.unsubscribeAll()
-      server.stop(done)
     })
   })
 
   describe('cozy-client events', () => {
     describe('login', () => {
-      it('should authenticate again', async done => {
+      it('should authenticate again', async () => {
         const client = createCozyClient()
         const server = createSocketServer()
         const realtime = createRealtime({ client })
@@ -528,13 +531,11 @@ describe('CozyRealtime', () => {
         await sleep(100)
         expect(server.onauth).toHaveBeenCalledTimes(2)
         expect(server.onsubscribe).toHaveBeenCalledTimes(2)
-        realtime.unsubscribeAll()
-        server.stop(done)
       })
     })
 
     describe('logout', () => {
-      it('should close the socket', async done => {
+      it('should close the socket', async () => {
         const client = createCozyClient()
         const server = createSocketServer()
         const realtime = createRealtime({ client })
@@ -547,21 +548,19 @@ describe('CozyRealtime', () => {
 
         await sleep(100)
         expect(server.hasClosedLastSocket()).toBeTruthy()
-        realtime.unsubscribeAll()
-        server.stop(done)
       })
     })
 
     describe('tokenRefreshed', () => {
       it('has nothing to do', () => {
-        // no neeed to re-authenticate on realtime
+        expect(true).toEqual(true)
       })
     })
   })
 
   describe('socket events', () => {
     describe('error', () => {
-      it('should restart a connected socket', async done => {
+      it('should restart a connected socket', async () => {
         const server = createSocketServer()
         const realtime = createRealtime()
 
@@ -573,11 +572,9 @@ describe('CozyRealtime', () => {
 
         await sleep(100)
         expect(server.onconnect).toHaveBeenCalledTimes(2)
-        realtime.unsubscribeAll()
-        server.stop(done)
       })
 
-      it('should restart a connecting socket', async done => {
+      it('should restart a connecting socket', async () => {
         const server = createSocketServer()
         const realtime = createRealtime()
 
@@ -589,25 +586,21 @@ describe('CozyRealtime', () => {
         await realtime.waitForSocketReady()
 
         expect(server.hasClosedLastSocket()).toBeFalsy()
-        realtime.unsubscribeAll()
-        server.stop(done)
       })
 
-      it('should not connect a non connected socket', async done => {
+      it('should not connect a non connected socket', async () => {
         const server = createSocketServer()
-        const realtime = createRealtime()
+        createRealtime()
 
         server.simulate('error')
 
         await sleep(100)
         expect(server.onconnect).not.toHaveBeenCalled()
-        realtime.unsubscribeAll()
-        server.stop(done)
       })
     })
 
     describe('close', () => {
-      it('should  try to reconnect', async done => {
+      it('should  try to reconnect', async () => {
         const server = createSocketServer()
         const realtime = createRealtime()
 
@@ -619,15 +612,13 @@ describe('CozyRealtime', () => {
 
         await sleep(100)
         expect(server.onconnect).toHaveBeenCalledTimes(2)
-        realtime.unsubscribeAll()
-        server.stop(done)
       })
     })
   })
 
   describe('network conditions', () => {
     describe('offline when connecting', () => {
-      it('should connect as soon as possible', async done => {
+      it('should connect as soon as possible', async () => {
         const realtime = createRealtime()
 
         const handler = jest.fn()
@@ -638,13 +629,11 @@ describe('CozyRealtime', () => {
         await realtime.waitForSocketReady()
 
         expect(server.onconnect).toHaveBeenCalled()
-        realtime.unsubscribeAll()
-        server.stop(done)
       })
     })
 
     describe('connection concurrency', () => {
-      it('should not start two concurrent connections', async done => {
+      it('should not start two concurrent connections', async () => {
         const server = createSocketServer()
         const realtime = createRealtime()
         const handler = jest.fn()
@@ -657,7 +646,7 @@ describe('CozyRealtime', () => {
         realtime.retryManager.onFailure()
         realtime.retryManager.onFailure()
         realtime.retryManager.onFailure()
-        realtime.onOnline()
+        realtime.onWebSocketError()
         await sleep(25)
 
         // reconnect before the previous connection finishes to wait
@@ -665,7 +654,69 @@ describe('CozyRealtime', () => {
         await realtime.waitForSocketReady()
 
         expect(server.onconnect).toHaveBeenCalledTimes(2)
-        server.stop(done)
+      })
+    })
+
+    describe('on becoming online', () => {
+      it('reconnects', async () => {
+        const server = createSocketServer()
+        const realtime = createRealtime()
+        const handler = jest.fn()
+        realtime.subscribe(event, type, undefined, handler)
+        await realtime.waitForSocketReady()
+
+        const event = new Event('online')
+        window.dispatchEvent(event)
+
+        await sleep(100)
+        await realtime.waitForSocketReady()
+        expect(server.onconnect).toHaveBeenCalledTimes(2)
+      })
+
+      it('reconnects immediatly', async () => {
+        const server = createSocketServer()
+        const realtime = createRealtime()
+        const handler = jest.fn()
+        realtime.subscribe(event, type, undefined, handler)
+        await realtime.waitForSocketReady()
+
+        realtime.retryManager.onFailure()
+        realtime.retryManager.onFailure()
+        realtime.retryManager.onFailure()
+        realtime.retryManager.onFailure()
+        const event = new Event('online')
+        window.dispatchEvent(event)
+
+        await sleep(100)
+        expect(server.onconnect).toHaveBeenCalledTimes(2)
+      })
+    })
+
+    describe('on visibility change', () => {
+      describe('when the page is visible', () => {
+        it('connect immediately if it was waiting for connection', async () => {
+          const server = createSocketServer()
+          const realtime = createRealtime()
+          const handler = jest.fn()
+          realtime.subscribe(event, type, undefined, handler)
+          await realtime.waitForSocketReady()
+
+          // makes the reconnect wait
+          realtime.retryManager.onFailure()
+          realtime.retryManager.onFailure()
+          realtime.retryManager.onFailure()
+          realtime.retryManager.onFailure()
+          realtime.retryManager.onFailure()
+          realtime.retryManager.onFailure()
+          realtime.onWebSocketClose()
+          await sleep(25)
+
+          const event = new Event('visibilitychange')
+          window.dispatchEvent(event)
+
+          await sleep(100)
+          expect(server.onconnect).toHaveBeenCalledTimes(2)
+        })
       })
     })
   })

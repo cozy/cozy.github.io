@@ -1,8 +1,8 @@
 import React from 'react'
 import Modal from 'cozy-ui/transpiled/react/Modal'
-import ventePrivee from 'assets/vente-privee.png'
-import ventePriveeInfo from 'assets/venteprivee-info.png'
-import ventePriveeInfo2x from 'assets/venteprivee-info@2x.png'
+import veepeeLogo from 'assets/veepee.png'
+import veepeeInfo from 'assets/veepee-info.png'
+import veepeeInfo2x from 'assets/veepee-info@2x.png'
 import styles from './AugmentedModal.styl'
 
 const { ModalBrandedHeader } = Modal
@@ -23,14 +23,14 @@ const Side = () => (
       target="_blank"
       rel="noreferrer noopener"
     />
-    <img src={ventePriveeInfo} srcSet={`${ventePriveeInfo2x} 2x`} alt="" />
+    <img src={veepeeInfo} srcSet={`${veepeeInfo2x} 2x`} alt="" />
   </>
 )
 
 const Header = () => (
   <ModalBrandedHeader
     bg="#eee"
-    logo={ventePrivee}
+    logo={veepeeLogo}
     style={modalBrandedHeaderStyle}
   />
 )

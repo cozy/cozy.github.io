@@ -209,13 +209,14 @@ func prepareRegistry(cmd *cobra.Command, args []string) error {
 		return fmt.Errorf("Could not reach CouchDB: %s", err)
 	}
 
-	_, err = asset.InitGlobalAssetStore(
+	store, err := asset.NewStore(
 		viper.GetString("couchdb.url"),
 		viper.GetString("couchdb.user"),
 		viper.GetString("couchdb.password"))
 	if err != nil {
 		return fmt.Errorf("Could not reach CouchDB: %s", err)
 	}
+	base.GlobalAssetStore = store
 
 	vault := auth.NewCouchDBVault(editorsDB)
 	auth.Editors = auth.NewEditorRegistry(vault)
@@ -256,7 +257,7 @@ func prepareSpaces(cmd *cobra.Command, args []string) error {
 				return err
 			}
 
-			if spaceName == base.DefaultSpacePrefix {
+			if spaceName == base.DefaultSpacePrefix.String() {
 				spaceName = ""
 			}
 
@@ -270,7 +271,7 @@ func prepareSpaces(cmd *cobra.Command, args []string) error {
 			}
 		}
 	} else {
-		if err := registry.RegisterSpace(base.DefaultSpacePrefix); err != nil {
+		if err := registry.RegisterSpace(""); err != nil {
 			return err
 		}
 	}

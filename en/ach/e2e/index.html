@@ -13,7 +13,7 @@
         <meta name="description" content="Cozy documentation">
       
       
-        <link rel="canonical" href="https://docs.cozy.io/cozy-realtime/CHANGELOG/">
+        <link rel="canonical" href="https://docs.cozy.io/ach/e2e/">
       
       
         <meta name="author" content="CozyCloud - https://cozy.io">
@@ -42,7 +42,7 @@
     
     
       
-        <title>Change Log - Cozy Developer Documentation</title>
+        <title>Cozy Developer Documentation</title>
       
     
     
@@ -100,7 +100,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#change-log" tabindex="1" class="md-skip">
+      <a href="#e2e-flow" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -126,7 +126,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Change Log
+                E2E flow
               
             </span>
           
@@ -1314,7 +1314,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../" title="Realtime data (realtime)" class="md-nav__link">
+    <a href="../../cozy-realtime/" title="Realtime data (realtime)" class="md-nav__link">
       Realtime data (realtime)
     </a>
   </li>
@@ -1559,7 +1559,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../ach/" title="ACH" class="md-nav__link">
+    <a href="../" title="ACH" class="md-nav__link">
       ACH
     </a>
   </li>
@@ -2406,270 +2406,36 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-realtime/CHANGELOG.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/cozy/cozy.github.io/edit/dev/src/ach/e2e/README.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="change-log">Change Log<a class="headerlink" href="#change-log" title="Permanent link">&para;</a></h1>
-<p>All notable changes to this project will be documented in this file.
-See <a href="https://conventionalcommits.org">Conventional Commits</a> for commit guidelines.</p>
-<h1 id="370-2020-03-03"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@3.6.4...cozy-realtime@3.7.0">3.7.0</a> (2020-03-03)<a class="headerlink" href="#370-2020-03-03" title="Permanent link">&para;</a></h1>
-<h3 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h3>
+                <h1 id="e2e-flow">E2E flow<a class="headerlink" href="#e2e-flow" title="Permanent link">&para;</a></h1>
 <ul>
-<li><strong>realtime:</strong> Allows for immediate reconnect (<a href="https://github.com/cozy/cozy-libs/commit/a2170a8">a2170a8</a>)</li>
-<li><strong>realtime:</strong> Reacts to visibility changes (<a href="https://github.com/cozy/cozy-libs/commit/4ce703e">4ce703e</a>)</li>
+<li>Create a cozy via Cloudery (or reuse an existing one, see below)</li>
+<li>Sets passphrase</li>
+<li>When setting the passphrase, the stack responds with a cookie that is kept
+  for future logins</li>
 </ul>
-<h2 id="364-2020-02-27"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@3.6.3...cozy-realtime@3.6.4">3.6.4</a> (2020-02-27)<a class="headerlink" href="#364-2020-02-27" title="Permanent link">&para;</a></h2>
-<p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
-<h2 id="363-2020-02-26"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@3.6.2...cozy-realtime@3.6.3">3.6.3</a> (2020-02-26)<a class="headerlink" href="#363-2020-02-26" title="Permanent link">&para;</a></h2>
-<h3 id="bug-fixes">Bug Fixes<a class="headerlink" href="#bug-fixes" title="Permanent link">&para;</a></h3>
+<p>⚠️ Since the passphrase is not hashed properly before being sent to the Cozy),
+we cannot login to the Cozy afterwards, this is not a real problem since 1)
+the Cozy is temporary, 2) we already are logged into the Cozy after setting
+the passphrase</p>
 <ul>
-<li><strong>realtime:</strong> Comments in RetryManager (<a href="https://github.com/cozy/cozy-libs/commit/9974e9d">9974e9d</a>)</li>
-<li><strong>realtime:</strong> Ensures we always clean up tests (<a href="https://github.com/cozy/cozy-libs/commit/f0a49cf">f0a49cf</a>)</li>
-<li><strong>realtime:</strong> Erroneous warning on unsubscribe (<a href="https://github.com/cozy/cozy-libs/commit/3447a6f">3447a6f</a>)</li>
-<li><strong>realtime:</strong> Remove a console.log (<a href="https://github.com/cozy/cozy-libs/commit/fe1a304">fe1a304</a>)</li>
-<li><strong>realtime:</strong> Removes legacy code (<a href="https://github.com/cozy/cozy-libs/commit/eb1bf74">eb1bf74</a>)</li>
-<li><strong>realtime:</strong> Resilience to errors in subscribe (<a href="https://github.com/cozy/cozy-libs/commit/30f5d33">30f5d33</a>)</li>
+<li>To create a usable token for ACH, we use the OAuth flow and reuse the
+  session created after the passphrase is sent.</li>
 </ul>
-<h2 id="362-2020-02-26"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@3.6.1...cozy-realtime@3.6.2">3.6.2</a> (2020-02-26)<a class="headerlink" href="#362-2020-02-26" title="Permanent link">&para;</a></h2>
-<h3 id="bug-fixes_1">Bug Fixes<a class="headerlink" href="#bug-fixes_1" title="Permanent link">&para;</a></h3>
+<p>ℹ️  The cookie jar used for the session is saved, this means that if the test
+suite is run locally, the Cozy will be reused.</p>
+<p>ℹ️ The slug of the Cozy is random and in the form <code>test&lt;adjective&gt;&lt;name&gt;</code>.</p>
 <ul>
-<li><strong>realtime:</strong> Connect concurrency (<a href="https://github.com/cozy/cozy-libs/commit/eb04d84">eb04d84</a>)</li>
+<li>Then the <code>ach</code> executable is used to <code>import</code>/<code>export</code>/<code>drop</code>and the output
+  is compared to what is expected.</li>
 </ul>
-<h2 id="361-2020-02-25"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@3.6.0...cozy-realtime@3.6.1">3.6.1</a> (2020-02-25)<a class="headerlink" href="#361-2020-02-25" title="Permanent link">&para;</a></h2>
-<p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
-<h1 id="360-2020-02-24"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@3.5.0...cozy-realtime@3.6.0">3.6.0</a> (2020-02-24)<a class="headerlink" href="#360-2020-02-24" title="Permanent link">&para;</a></h1>
-<h3 id="features_1">Features<a class="headerlink" href="#features_1" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Rewrite of realtime (<a href="https://github.com/cozy/cozy-libs/commit/1022af7">1022af7</a>)</li>
-</ul>
-<h1 id="350-2020-02-24"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@3.3.1...cozy-realtime@3.5.0">3.5.0</a> (2020-02-24)<a class="headerlink" href="#350-2020-02-24" title="Permanent link">&para;</a></h1>
-<h3 id="features_2">Features<a class="headerlink" href="#features_2" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Update cozy-bi-auth (<a href="https://github.com/cozy/cozy-libs/commit/fc191ee">fc191ee</a>)</li>
-</ul>
-<h1 id="340-2020-01-10"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@3.3.1...cozy-realtime@3.4.0">3.4.0</a> (2020-01-10)<a class="headerlink" href="#340-2020-01-10" title="Permanent link">&para;</a></h1>
-<h3 id="bug-fixes_2">Bug Fixes<a class="headerlink" href="#bug-fixes_2" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Correctly check that window exists (<a href="https://github.com/cozy/cozy-libs/commit/c5da980">c5da980</a>)</li>
-<li>Do not handle {add,remove}EventListener when not in browser (<a href="https://github.com/cozy/cozy-libs/commit/19d10e2">19d10e2</a>)</li>
-<li>Typo in docstring (<a href="https://github.com/cozy/cozy-libs/commit/c98e84a">c98e84a</a>)</li>
-<li>Typo in error message (<a href="https://github.com/cozy/cozy-libs/commit/29054a9">29054a9</a>)</li>
-</ul>
-<h3 id="features_3">Features<a class="headerlink" href="#features_3" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Ability to send realtime event (<a href="https://github.com/cozy/cozy-libs/commit/dc95cb9">dc95cb9</a>)</li>
-<li>Add chat example (<a href="https://github.com/cozy/cozy-libs/commit/40bf01e">40bf01e</a>)</li>
-<li>Support &ldquo;notified&rdquo; event (<a href="https://github.com/cozy/cozy-libs/commit/7c7f524">7c7f524</a>)</li>
-</ul>
-<h2 id="331-2020-01-03"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@3.3.0...cozy-realtime@3.3.1">3.3.1</a> (2020-01-03)<a class="headerlink" href="#331-2020-01-03" title="Permanent link">&para;</a></h2>
-<h3 id="bug-fixes_3">Bug Fixes<a class="headerlink" href="#bug-fixes_3" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>cozy-realtime:</strong> Don&rsquo;t crash if no event exist (<a href="https://github.com/cozy/cozy-libs/commit/654c3ed">654c3ed</a>)</li>
-</ul>
-<h1 id="330-2020-01-02">3.3.0 (2020-01-02)<a class="headerlink" href="#330-2020-01-02" title="Permanent link">&para;</a></h1>
-<h3 id="features_4">Features<a class="headerlink" href="#features_4" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>cozy-realtime:</strong> Add cozy-client plugin (<a href="https://github.com/cozy/cozy-libs/commit/820d663">820d663</a>)</li>
-</ul>
-<h2 id="323-2019-10-25"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@3.2.2...cozy-realtime@3.2.3">3.2.3</a> (2019-10-25)<a class="headerlink" href="#323-2019-10-25" title="Permanent link">&para;</a></h2>
-<p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
-<h2 id="322-2019-10-23">3.2.2 (2019-10-23)<a class="headerlink" href="#322-2019-10-23" title="Permanent link">&para;</a></h2>
-<h3 id="bug-fixes_4">Bug Fixes<a class="headerlink" href="#bug-fixes_4" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Make account selection control larger (<a href="https://github.com/cozy/cozy-libs/commit/74abddc">74abddc</a>)</li>
-<li>Use cozy-minilog to fix octal (<a href="https://github.com/cozy/cozy-libs/commit/8ac3248">8ac3248</a>)</li>
-</ul>
-<h2 id="321-2019-09-13"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@3.2.0...cozy-realtime@3.2.1">3.2.1</a> (2019-09-13)<a class="headerlink" href="#321-2019-09-13" title="Permanent link">&para;</a></h2>
-<p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
-<h1 id="320-2019-09-05">3.2.0 (2019-09-05)<a class="headerlink" href="#320-2019-09-05" title="Permanent link">&para;</a></h1>
-<h3 id="features_5">Features<a class="headerlink" href="#features_5" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Add account route (<a href="https://github.com/cozy/cozy-libs/commit/7986708">7986708</a>)</li>
-</ul>
-<h2 id="316-2019-09-04"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@3.1.5...cozy-realtime@3.1.6">3.1.6</a> (2019-09-04)<a class="headerlink" href="#316-2019-09-04" title="Permanent link">&para;</a></h2>
-<p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
-<h2 id="315-2019-08-30"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@3.1.4...cozy-realtime@3.1.5">3.1.5</a> (2019-08-30)<a class="headerlink" href="#315-2019-08-30" title="Permanent link">&para;</a></h2>
-<p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
-<h2 id="314-2019-08-22">3.1.4 (2019-08-22)<a class="headerlink" href="#314-2019-08-22" title="Permanent link">&para;</a></h2>
-<h3 id="bug-fixes_5">Bug Fixes<a class="headerlink" href="#bug-fixes_5" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Add chalk as dependency (<a href="https://github.com/cozy/cozy-libs/commit/7be5f33">7be5f33</a>)</li>
-</ul>
-<h2 id="313-2019-07-19"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@3.1.2...cozy-realtime@3.1.3">3.1.3</a> (2019-07-19)<a class="headerlink" href="#313-2019-07-19" title="Permanent link">&para;</a></h2>
-<p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
-<h2 id="312-2019-07-19"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@3.1.1...cozy-realtime@3.1.2">3.1.2</a> (2019-07-19)<a class="headerlink" href="#312-2019-07-19" title="Permanent link">&para;</a></h2>
-<p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
-<h2 id="311-2019-07-11">3.1.1 (2019-07-11)<a class="headerlink" href="#311-2019-07-11" title="Permanent link">&para;</a></h2>
-<p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
-<div class="codehilite"><pre><span></span>   <span class="nt">&lt;a</span> <span class="na">name=</span><span class="s">&quot;3.1.0&quot;</span><span class="nt">&gt;&lt;/a&gt;</span>
+<p>⚠️ E2E tests use a cloudery token accessed via environment variables. It can be
+found in the password store. If this variable is not set, the e2e test suite will
+be skipped.</p>
+<div class="codehilite"><pre><span></span>export CLOUDERY_TOKEN=$(pass show cozy/e2e-front/manager-token | head -n 1)
 </pre></div>
-
-
-<h1 id="310-2019-05-31"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@3.0.1...cozy-realtime@3.1.0">3.1.0</a> (2019-05-31)<a class="headerlink" href="#310-2019-05-31" title="Permanent link">&para;</a></h1>
-<h3 id="features_6">Features<a class="headerlink" href="#features_6" title="Permanent link">&para;</a></h3>
-<ul>
-<li>
-<p>Deprecate options.cozyClient, use options.client (<a href="https://github.com/cozy/cozy-libs/commit/ed3f8ad">ed3f8ad</a>)</p>
-<p><a name="3.0.1"></a></p>
-<h2 id="301-2019-05-09"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@2.1.0...cozy-realtime@3.0.1">3.0.1</a> (2019-05-09)<a class="headerlink" href="#301-2019-05-09" title="Permanent link">&para;</a></h2>
-</li>
-</ul>
-<h3 id="bug-fixes_6">Bug Fixes<a class="headerlink" href="#bug-fixes_6" title="Permanent link">&para;</a></h3>
-<ul>
-<li>
-<p><strong>Realtime:</strong> Bump version to 3.0.0 (<a href="https://github.com/cozy/cozy-libs/commit/1396f2f">1396f2f</a>)</p>
-<p><a name="2.1.0"></a></p>
-<h1 id="210-2019-05-09">2.1.0 (2019-05-09)<a class="headerlink" href="#210-2019-05-09" title="Permanent link">&para;</a></h1>
-</li>
-</ul>
-<h3 id="bug-fixes_7">Bug Fixes<a class="headerlink" href="#bug-fixes_7" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>Realtime:</strong> Complexifies the emission of the event (<a href="https://github.com/cozy/cozy-libs/commit/abd545b">abd545b</a>)</li>
-<li><strong>Realtime:</strong> Launch only one connection (<a href="https://github.com/cozy/cozy-libs/commit/29fbcb9">29fbcb9</a>)</li>
-<li><strong>Realtime:</strong> Lint (<a href="https://github.com/cozy/cozy-libs/commit/1c1a028">1c1a028</a>)</li>
-<li><strong>Realtime:</strong> Remove all listeners after socket closed (<a href="https://github.com/cozy/cozy-libs/commit/0563c81">0563c81</a>)</li>
-<li><strong>Realtime:</strong> Resubscribe with same parameters (<a href="https://github.com/cozy/cozy-libs/commit/f1aba47">f1aba47</a>)</li>
-</ul>
-<h3 id="features_7">Features<a class="headerlink" href="#features_7" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>realtime:</strong> New version of library (<a href="https://github.com/cozy/cozy-libs/commit/5a13957">5a13957</a>)</li>
-<li><strong>Realtime:</strong> Add limit to retry socket connection (<a href="https://github.com/cozy/cozy-libs/commit/11653a6">11653a6</a>)</li>
-<li><strong>Realtime:</strong> Add minilog (<a href="https://github.com/cozy/cozy-libs/commit/bcf98a0">bcf98a0</a>)</li>
-<li><strong>Realtime:</strong> Add tests (<a href="https://github.com/cozy/cozy-libs/commit/d5a7573">d5a7573</a>)</li>
-<li><strong>Realtime:</strong> Allow unsubscibe with not all config (<a href="https://github.com/cozy/cozy-libs/commit/47c582a">47c582a</a>)</li>
-<li><strong>Realtime:</strong> New API with same parameters of subscribe and unsubcribe (<a href="https://github.com/cozy/cozy-libs/commit/eff5ece">eff5ece</a>)</li>
-<li><strong>Realtime:</strong> Relaunch listerner on new socket (<a href="https://github.com/cozy/cozy-libs/commit/270fcdb">270fcdb</a>)</li>
-<li><strong>Realtime:</strong> Remove all subscribe before window is unloaded (<a href="https://github.com/cozy/cozy-libs/commit/a74fa65">a74fa65</a>)</li>
-<li><strong>Realtime:</strong> Use object on constructor (<a href="https://github.com/cozy/cozy-libs/commit/4744a23">4744a23</a>)</li>
-<li>Use minilog from window if available (<a href="https://github.com/cozy/cozy-libs/commit/1cc390a">1cc390a</a>)</li>
-</ul>
-<p><a name="2.0.8"></a></p>
-<h2 id="208-2019-04-12"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@2.0.7...cozy-realtime@2.0.8">2.0.8</a> (2019-04-12)<a class="headerlink" href="#208-2019-04-12" title="Permanent link">&para;</a></h2>
-<h3 id="bug-fixes_8">Bug Fixes<a class="headerlink" href="#bug-fixes_8" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>cozy-realtime:</strong> Imperfect fix for unsubscribe (<a href="https://github.com/cozy/cozy-libs/issues/378">#378</a>) (<a href="https://github.com/cozy/cozy-libs/commit/8e9e9ab">8e9e9ab</a>)</li>
-</ul>
-<p><a name="2.0.7"></a></p>
-<h2 id="207-2019-03-18"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@2.0.6...cozy-realtime@2.0.7">2.0.7</a> (2019-03-18)<a class="headerlink" href="#207-2019-03-18" title="Permanent link">&para;</a></h2>
-<p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
-<p><a name="2.0.6"></a></p>
-<h2 id="206-2019-03-12"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@2.0.5...cozy-realtime@2.0.6">2.0.6</a> (2019-03-12)<a class="headerlink" href="#206-2019-03-12" title="Permanent link">&para;</a></h2>
-<p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
-<p><a name="2.0.5"></a></p>
-<h2 id="205-2019-03-12"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@2.0.4...cozy-realtime@2.0.5">2.0.5</a> (2019-03-12)<a class="headerlink" href="#205-2019-03-12" title="Permanent link">&para;</a></h2>
-<p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
-<p><a name="2.0.4"></a></p>
-<h2 id="204-2019-03-12"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@2.0.2...cozy-realtime@2.0.4">2.0.4</a> (2019-03-12)<a class="headerlink" href="#204-2019-03-12" title="Permanent link">&para;</a></h2>
-<p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
-<p><a name="2.0.3"></a></p>
-<h2 id="203-2019-02-12"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@2.0.2...cozy-realtime@2.0.3">2.0.3</a> (2019-02-12)<a class="headerlink" href="#203-2019-02-12" title="Permanent link">&para;</a></h2>
-<p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
-<p><a name="2.0.2"></a></p>
-<h2 id="202-2019-02-11"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@2.0.1...cozy-realtime@2.0.2">2.0.2</a> (2019-02-11)<a class="headerlink" href="#202-2019-02-11" title="Permanent link">&para;</a></h2>
-<p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
-<p><a name="2.0.1"></a></p>
-<h2 id="201-2019-02-07"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@2.0.0...cozy-realtime@2.0.1">2.0.1</a> (2019-02-07)<a class="headerlink" href="#201-2019-02-07" title="Permanent link">&para;</a></h2>
-<p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
-<p><a name="2.0.0"></a></p>
-<h1 id="200-2019-02-07"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@1.4.0...cozy-realtime@2.0.0">2.0.0</a> (2019-02-07)<a class="headerlink" href="#200-2019-02-07" title="Permanent link">&para;</a></h1>
-<h3 id="bug-fixes_9">Bug Fixes<a class="headerlink" href="#bug-fixes_9" title="Permanent link">&para;</a></h3>
-<ul>
-<li>:nail_care: Handle correctly websocket retries (<a href="https://github.com/cozy/cozy-libs/commit/efd26d8">efd26d8</a>), closes <a href="https://github.com/cozy/cozy-libs/issues/199">#199</a></li>
-<li>:wrench: cache the socket promise instead of the socket itself (<a href="https://github.com/cozy/cozy-libs/commit/f5a6c1d">f5a6c1d</a>), closes <a href="https://github.com/cozy/cozy-libs/issues/143">#143</a></li>
-<li><strong>realtime:</strong> :bug: Better handling subscriptions state cleaning (<a href="https://github.com/cozy/cozy-libs/commit/f6bc6fb">f6bc6fb</a>)</li>
-<li><strong>realtime:</strong> :bug: Func initCozySocket must define global cozySocket (<a href="https://github.com/cozy/cozy-libs/commit/9d4c8c3">9d4c8c3</a>)</li>
-<li><strong>realtime:</strong> :nail_care: Remove async (<a href="https://github.com/cozy/cozy-libs/commit/c426ffa">c426ffa</a>)</li>
-<li><strong>realtime:</strong> :nail_care: Use only global cozySocket (<a href="https://github.com/cozy/cozy-libs/commit/d3b62e0">d3b62e0</a>)</li>
-<li><strong>realtime:</strong> :wrench: Minor review changes (<a href="https://github.com/cozy/cozy-libs/commit/fbc7dfa">fbc7dfa</a>)</li>
-<li><strong>realtime:</strong> :wrench: Reorder subscribeWhenReady arguments (<a href="https://github.com/cozy/cozy-libs/commit/40b81dc">40b81dc</a>)</li>
-<li><strong>realtime:</strong> 💅  Add max poll tries + tests to subscribeWhenReady (<a href="https://github.com/cozy/cozy-libs/commit/3849ac6">3849ac6</a>)</li>
-</ul>
-<h3 id="code-refactoring">Code Refactoring<a class="headerlink" href="#code-refactoring" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>realtime:</strong> :sparkles: Remove async + use simpler API (<a href="https://github.com/cozy/cozy-libs/commit/65e5a16">65e5a16</a>), closes <a href="https://github.com/cozy/cozy-libs/issues/145">#145</a></li>
-</ul>
-<h3 id="features_8">Features<a class="headerlink" href="#features_8" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>realtime:</strong> Use promise instead of polling to handle authenticating (<a href="https://github.com/cozy/cozy-libs/commit/bdbf440">bdbf440</a>)</li>
-</ul>
-<h3 id="breaking-changes">BREAKING CHANGES<a class="headerlink" href="#breaking-changes" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>realtime:</strong> New and simpler API + no more async usage</li>
-</ul>
-<p><a name="1.2.8"></a></p>
-<h2 id="128-2019-01-28"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@1.2.7...cozy-realtime@1.2.8">1.2.8</a> (2019-01-28)<a class="headerlink" href="#128-2019-01-28" title="Permanent link">&para;</a></h2>
-<h3 id="bug-fixes_10">Bug Fixes<a class="headerlink" href="#bug-fixes_10" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>realtime:</strong> Wrong links [skip ci] (<a href="https://github.com/cozy/cozy-libs/commit/d80b3a0">d80b3a0</a>)</li>
-</ul>
-<p><a name="1.2.7"></a></p>
-<h2 id="127-2019-01-16"><a href="https://github.com/cozy/cozy-libs/compare/cozy-realtime@1.2.6...cozy-realtime@1.2.7">1.2.7</a> (2019-01-16)<a class="headerlink" href="#127-2019-01-16" title="Permanent link">&para;</a></h2>
-<h3 id="bug-fixes_11">Bug Fixes<a class="headerlink" href="#bug-fixes_11" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>RealTime:</strong> Right repo URL (<a href="https://github.com/cozy/cozy-libs/commit/1cdef02">1cdef02</a>)</li>
-</ul>
-<p><a name="1.2.6"></a></p>
-<h2 id="126-2019-01-11"><a href="https://github.com/cozy/cozy-realtime/compare/cozy-realtime@1.2.5...cozy-realtime@1.2.6">1.2.6</a> (2019-01-11)<a class="headerlink" href="#126-2019-01-11" title="Permanent link">&para;</a></h2>
-<p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
-<p><a name="1.2.5"></a></p>
-<h2 id="125-2018-12-28"><a href="https://github.com/cozy/cozy-realtime/compare/cozy-realtime@1.2.4...cozy-realtime@1.2.5">1.2.5</a> (2018-12-28)<a class="headerlink" href="#125-2018-12-28" title="Permanent link">&para;</a></h2>
-<p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
-<p><a name="1.2.4"></a></p>
-<h2 id="124-2018-12-26"><a href="https://github.com/cozy/cozy-realtime/compare/cozy-realtime@1.2.3...cozy-realtime@1.2.4">1.2.4</a> (2018-12-26)<a class="headerlink" href="#124-2018-12-26" title="Permanent link">&para;</a></h2>
-<p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
-<p><a name="1.2.3"></a></p>
-<h2 id="123-2018-12-17"><a href="https://github.com/cozy/cozy-realtime/compare/cozy-realtime@1.2.1...cozy-realtime@1.2.3">1.2.3</a> (2018-12-17)<a class="headerlink" href="#123-2018-12-17" title="Permanent link">&para;</a></h2>
-<p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
-<p><a name="1.2.2"></a></p>
-<h2 id="122-2018-12-10"><a href="https://github.com/cozy/cozy-realtime/compare/cozy-realtime@1.2.1...cozy-realtime@1.2.2">1.2.2</a> (2018-12-10)<a class="headerlink" href="#122-2018-12-10" title="Permanent link">&para;</a></h2>
-<p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
-<p><a name="1.2.1"></a></p>
-<h2 id="121-2018-11-27"><a href="https://github.com/cozy/cozy-realtime/compare/cozy-realtime@1.2.0...cozy-realtime@1.2.1">1.2.1</a> (2018-11-27)<a class="headerlink" href="#121-2018-11-27" title="Permanent link">&para;</a></h2>
-<p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
-<p><a name="1.2.0"></a></p>
-<h1 id="120-2018-10-04"><a href="https://github.com/cozy/cozy-realtime/compare/cozy-realtime@1.1.10...cozy-realtime@1.2.0">1.2.0</a> (2018-10-04)<a class="headerlink" href="#120-2018-10-04" title="Permanent link">&para;</a></h1>
-<h3 id="features_9">Features<a class="headerlink" href="#features_9" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>realtime:</strong> Add secure parameter ✨ (<a href="https://github.com/cozy/cozy-realtime/commit/8993ac0">8993ac0</a>)</li>
-<li><strong>realtime:</strong> Better string validation 📝 (<a href="https://github.com/cozy/cozy-realtime/commit/1c57d6b">1c57d6b</a>)</li>
-<li><strong>realtime:</strong> Handle domain in config ✨ (<a href="https://github.com/cozy/cozy-realtime/commit/55b2be6">55b2be6</a>)</li>
-<li><strong>realtime:</strong> New validation rules ✨ (<a href="https://github.com/cozy/cozy-realtime/commit/6f58276">6f58276</a>)</li>
-<li><strong>realtime:</strong> Throw error when no domain 💥 (<a href="https://github.com/cozy/cozy-realtime/commit/e5b7669">e5b7669</a>)</li>
-<li><strong>realtime:</strong> Validate url ✅ (<a href="https://github.com/cozy/cozy-realtime/commit/86f59b7">86f59b7</a>)</li>
-</ul>
-<p><a name="1.1.10"></a></p>
-<h2 id="1110-2018-10-02"><a href="https://github.com/cozy/cozy-realtime/compare/cozy-realtime@1.1.9...cozy-realtime@1.1.10">1.1.10</a> (2018-10-02)<a class="headerlink" href="#1110-2018-10-02" title="Permanent link">&para;</a></h2>
-<p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
-<p><a name="1.1.9"></a></p>
-<h2 id="119-2018-09-25"><a href="https://github.com/cozy/cozy-realtime/compare/cozy-realtime@1.1.8...cozy-realtime@1.1.9">1.1.9</a> (2018-09-25)<a class="headerlink" href="#119-2018-09-25" title="Permanent link">&para;</a></h2>
-<p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
-<p><a name="1.1.8"></a></p>
-<h2 id="118-2018-09-25"><a href="https://github.com/cozy/cozy-realtime/compare/cozy-realtime@1.1.7...cozy-realtime@1.1.8">1.1.8</a> (2018-09-25)<a class="headerlink" href="#118-2018-09-25" title="Permanent link">&para;</a></h2>
-<p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
-<p><a name="1.1.7"></a></p>
-<h2 id="117-2018-09-24"><a href="https://github.com/cozy/cozy-realtime/compare/cozy-realtime@1.1.6...cozy-realtime@1.1.7">1.1.7</a> (2018-09-24)<a class="headerlink" href="#117-2018-09-24" title="Permanent link">&para;</a></h2>
-<p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
-<p><a name="1.1.6"></a></p>
-<h2 id="116-2018-09-21"><a href="https://github.com/cozy/cozy-realtime/compare/cozy-realtime@1.1.5...cozy-realtime@1.1.6">1.1.6</a> (2018-09-21)<a class="headerlink" href="#116-2018-09-21" title="Permanent link">&para;</a></h2>
-<p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
-<p><a name="1.1.5"></a></p>
-<h2 id="115-2018-08-30"><a href="https://github.com/cozy/cozy-realtime/compare/cozy-realtime@1.1.4...cozy-realtime@1.1.5">1.1.5</a> (2018-08-30)<a class="headerlink" href="#115-2018-08-30" title="Permanent link">&para;</a></h2>
-<p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
-<p><a name="1.1.4"></a></p>
-<h2 id="114-2018-08-22"><a href="https://github.com/cozy/cozy-realtime/compare/cozy-realtime@1.1.3...cozy-realtime@1.1.4">1.1.4</a> (2018-08-22)<a class="headerlink" href="#114-2018-08-22" title="Permanent link">&para;</a></h2>
-<p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
-<p><a name="1.1.3"></a></p>
-<h2 id="113-2018-08-17"><a href="https://github.com/cozy/cozy-realtime/compare/cozy-realtime@1.1.2...cozy-realtime@1.1.3">1.1.3</a> (2018-08-17)<a class="headerlink" href="#113-2018-08-17" title="Permanent link">&para;</a></h2>
-<h3 id="bug-fixes_12">Bug Fixes<a class="headerlink" href="#bug-fixes_12" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>realtime:</strong> Domain parsing 🚑 (<a href="https://github.com/cozy/cozy-realtime/commit/9ffbc26">9ffbc26</a>)</li>
-</ul>
-<p><a name="1.1.2"></a></p>
-<h2 id="112-2018-08-09"><a href="https://github.com/cozy/cozy-realtime/compare/cozy-realtime@1.1.1...cozy-realtime@1.1.2">1.1.2</a> (2018-08-09)<a class="headerlink" href="#112-2018-08-09" title="Permanent link">&para;</a></h2>
-<p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
-<p><a name="1.1.1"></a></p>
-<h2 id="111-2018-08-08">1.1.1 (2018-08-08)<a class="headerlink" href="#111-2018-08-08" title="Permanent link">&para;</a></h2>
-<p><strong>Note:</strong> Version bump only for package cozy-realtime</p>
                 
                   
                 

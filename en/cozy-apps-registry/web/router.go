@@ -170,7 +170,7 @@ func getSpaceFromHost(c echo.Context) (*registry.Space, error) {
 	conf := config.GetConfig()
 
 	if spaceName, ok := conf.DomainSpaces[host]; ok {
-		if spaceName == base.DefaultSpacePrefix {
+		if spaceName == base.DefaultSpacePrefix.String() {
 			spaceName = ""
 		}
 		if space, ok := registry.GetSpace(spaceName); ok {
@@ -410,7 +410,7 @@ func Router(addr string) *echo.Echo {
 		groupName := fmt.Sprintf("/%s/registry", url.PathEscape(name))
 
 		source := virtual.Source
-		if source == base.DefaultSpacePrefix {
+		if source == base.DefaultSpacePrefix.String() {
 			source = ""
 		}
 		g := e.Group(groupName, ensureSpace(source))

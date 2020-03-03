@@ -20,7 +20,7 @@ func createVersion(c echo.Context) (err error) {
 		return err
 	}
 	space := getSpace(c)
-	prefix := registry.GetPrefixOrDefault(space)
+	prefix := space.GetPrefix()
 
 	appSlug := c.Param("app")
 	app, err := registry.FindApp(space, appSlug, registry.Stable)
@@ -33,7 +33,7 @@ func createVersion(c echo.Context) (err error) {
 		return err
 	}
 	opts.Version = stripVersion(opts.Version)
-	opts.Space = prefix
+	opts.Space = prefix.String()
 
 	editor, err := checkPermissions(c, app.Editor, app.Slug, false /* = not master */)
 	if err != nil {

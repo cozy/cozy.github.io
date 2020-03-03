@@ -98,20 +98,21 @@ class CozyRealtime {
    * Connects a new websocket as soon as possible
    * @private
    */
-  async connect() {
+  async connect({ immediate = false } = {}) {
     logger.info('connecting…')
     // avoid multiple concurrent calls to connect, keeps the first one
     if (this.waitingForConnect) {
       logger.debug('Pending reconnection, skipping reconnect')
-      return
-    }
-    logger.debug('No pending reconnection, will reconnect')
-    try {
-      this.waitingForConnect = true
-      await this.retryManager.waitBeforeNextAttempt()
-      this.createSocket()
-    } finally {
-      this.waitingForConnect = false
+      if (immediate) this.retryManager.stopCurrentAttemptWaitingTime()
+    } else {
+      logger.debug('No pending reconnection, will reconnect')
+      try {
+        this.waitingForConnect = true
+        if (!immediate) await this.retryManager.waitBeforeNextAttempt()
+        this.createSocket()
+      } finally {
+        this.waitingForConnect = false
+      }
     }
   }
 
@@ -119,9 +120,9 @@ class CozyRealtime {
    * Throws the previous socket and connect a new one
    * @private
    */
-  async reconnect() {
+  async reconnect({ immediate = false } = {}) {
     if (this.hasWebSocket()) this.revokeWebSocket()
-    this.connect()
+    this.connect({ immediate })
   }
 
   /**
@@ -428,6 +429,7 @@ class CozyRealtime {
     // global events
     this.onOnline = this.onOnline.bind(this)
     this.onOffline = this.onOffline.bind(this)
+    this.onVisibilityChange = this.onVisibilityChange.bind(this)
     // cordova events
     this.onDeviceReady = this.onDeviceReady.bind(this)
     this.onResume = this.onResume.bind(this)
@@ -602,7 +604,7 @@ class CozyRealtime {
    * @private
    */
   onResume() {
-    this.reconnect()
+    this.reconnect({ immediate: true })
   }
 
   /* * * * * * * * * * * * * * * */
@@ -617,6 +619,7 @@ class CozyRealtime {
     if (hasBrowserContext && window.addEventListener) {
       window.addEventListener('online', this.onOnline)
       window.addEventListener('offline', this.onOffline)
+      window.addEventListener('visibilitychange', this.onVisibilityChange)
     }
   }
 
@@ -628,6 +631,7 @@ class CozyRealtime {
     if (hasBrowserContext && window.removeEventListener) {
       window.removeEventListener('online', this.onOnline)
       window.removeEventListener('offline', this.onOffline)
+      window.removeEventListener('visibilitychange', this.onVisibilityChange)
     }
   }
 
@@ -637,7 +641,7 @@ class CozyRealtime {
    */
   onOnline() {
     logger.info('reconnect because receiving an online event')
-    this.reconnect()
+    this.reconnect({ immediate: true })
   }
 
   /**
@@ -646,6 +650,17 @@ class CozyRealtime {
    */
   onOffline() {
     this.hasWebSocket() && this.revokeWebSocket()
+  }
+
+  /**
+   * When the page visibility changes
+   * @private
+   */
+  onVisibilityChange() {
+    if (document.visibilityState && document.visibilityState === 'visible') {
+      // if we have a reconnect waiting, do it immediatly
+      this.retryManager.stopCurrentAttemptWaitingTime()
+    }
   }
 }
 

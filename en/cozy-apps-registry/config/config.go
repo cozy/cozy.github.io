@@ -266,5 +266,6 @@ func PrepareSpaces() error {
 			return err
 		}
 	}
-	return nil
+
+	return base.GlobalAssetStore.Prepare()
 }

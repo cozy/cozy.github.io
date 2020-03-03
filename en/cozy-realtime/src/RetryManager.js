@@ -161,10 +161,30 @@ class RetryManager {
   async waitBeforeNextAttempt() {
     logger.debug('waitBeforeNextAttempt', this.wait)
     if (this.wait) {
-      await new Promise(resolve => {
-        global.setTimeout(resolve, this.wait)
-      })
+      if (!this.waiting) {
+        let stop
+        const promise = new Promise(resolve => {
+          stop = () => {
+            // only remove the waiting status if it's still
+            // the current promise that is waiting and not a new one
+            if (this.waiting === promise) this.waiting = null
+            resolve()
+          }
+          global.setTimeout(stop, this.wait)
+        })
+        promise.stop = stop
+        this.waiting = promise
+      }
+      await this.waiting
     }
+  }
+
+  /**
+   * If an attempt is waiting, stop the wait and retry now
+   * @see waitBeforeNextAttempt()
+   */
+  stopCurrentAttemptWaitingTime() {
+    if (this.waiting) this.waiting.stop()
   }
 }
 

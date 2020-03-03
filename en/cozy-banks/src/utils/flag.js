@@ -46,4 +46,8 @@ if (isDemoCozy()) {
   flag('demo', true)
 }
 
+// Turn on flags for professional and others reimbursements accounts
+flag('balance.professional-reimb-account', true)
+flag('balance.others-reimb-account', true)
+
 window.flag = flag

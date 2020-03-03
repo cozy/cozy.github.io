@@ -10,8 +10,8 @@ import (
 	"path"
 	"strings"
 
-	"github.com/cozy/cozy-apps-registry/asset"
 	"github.com/cozy/cozy-apps-registry/base"
+	"github.com/cozy/cozy-apps-registry/config"
 	"github.com/cozy/cozy-apps-registry/registry"
 	"github.com/pbenner/threadpool"
 )
@@ -30,7 +30,7 @@ func (db *couchDb) bulkImport() error {
 	fmt.Printf("Bulk import %d CouchDB documents into %s\n", len(docs), db.db)
 
 	ctx := context.Background()
-	c := registry.Client.DB(ctx, db.db)
+	c := base.DBClient.DB(ctx, db.db)
 	_, err := c.BulkDocs(ctx, docs)
 	if err != nil {
 		return err
@@ -72,15 +72,16 @@ func cleanCouch() error {
 	for _, db := range couchDatabases() {
 		name := db.Name()
 		fmt.Printf("  Clean CouchDB %s\n", name)
-		if err := registry.Client.DestroyDB(context.Background(), name); err != nil {
+		if err := base.DBClient.DestroyDB(context.Background(), name); err != nil {
 			return err
 		}
 	}
 
-	if err := registry.Client.CreateDB(context.Background(), asset.AssetStore.DB.Name()); err != nil {
+	if err := config.PrepareSpaces(); err != nil {
 		return err
 	}
 
+	// TODO can we remove this call?
 	return registry.InitializeSpaces()
 }
 
@@ -99,9 +100,8 @@ func parseCouchDocument(reader io.Reader, parts []string) (string, *interface{},
 }
 
 func cleanSwift() error {
-	// TODO make swiftContainers returns a list of Prefix, not string
 	for _, container := range swiftContainers() {
-		if err := base.Storage.EnsureEmpty(base.Prefix(container)); err != nil {
+		if err := base.Storage.EnsureEmpty(container); err != nil {
 			return err
 		}
 	}

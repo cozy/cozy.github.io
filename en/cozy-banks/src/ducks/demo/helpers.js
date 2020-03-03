@@ -4,7 +4,7 @@ export const isVentePriveeTransaction = transaction =>
 export const isAmeliTransaction = transaction =>
   transaction && transaction._id === 'paiement_docteur_martin'
 
-export const isVentePriveeBill = bill => bill.vendor === 'Vente Privée'
+export const isVentePriveeBill = bill => bill.vendor === 'venteprivee'
 export const isAmeliBill = bill => bill._id === 'bill_cpam_demo'
 
 export const isAugmentedModalTransaction = transaction => {

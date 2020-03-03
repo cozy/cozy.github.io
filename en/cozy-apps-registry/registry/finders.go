@@ -16,7 +16,6 @@ import (
 	"time"
 
 	"github.com/Masterminds/semver"
-	"github.com/cozy/cozy-apps-registry/asset"
 	"github.com/cozy/cozy-apps-registry/base"
 	"github.com/go-kivik/kivik/v3"
 	"github.com/ncw/swift"
@@ -66,7 +65,7 @@ func findApp(c *Space, appSlug string) (*App, error) {
 	var err error
 
 	db := c.AppsDB()
-	row := db.Get(ctx, getAppID(appSlug))
+	row := db.Get(context.Background(), getAppID(appSlug))
 	if err = row.ScanDoc(&doc); err != nil {
 		if kivik.StatusCode(err) == http.StatusNotFound {
 			return nil, ErrAppNotFound
@@ -136,17 +135,14 @@ func FindVersionAttachment(c *Space, appSlug, version, filename string) (*Attach
 	shasum, ok := ver.AttachmentReferences[filename]
 
 	if ok {
-		// TODO add a method on asset module instead of accessing directly to base.Storage
-		contentBuffer, headers, err = base.Storage.Get(asset.AssetContainerName, shasum)
+		contentBuffer, headers, err = base.GlobalAssetStore.Get(shasum)
 		if err != nil {
 			return nil, err
 		}
 	} else {
-		// TODO do we still need this fallback
-		// If we cannot find it, we try from the local database as a fallback
-		prefix := GetPrefixOrDefault(c)
-		// TODO space->prefix conversion to check
-		contentBuffer, headers, err = base.Storage.Get(base.Prefix(prefix), fp)
+		// If we cannot find it, we try from the app swift container as a fallback
+		prefix := c.GetPrefix()
+		contentBuffer, headers, err = base.Storage.Get(prefix, fp)
 		if err != nil {
 			return nil, err
 		}
@@ -202,14 +198,14 @@ func MoveAssetToGlobalDatabase(c *Space, ver *Version, content []byte, filename,
 	}
 	shasum := h.Sum(nil)
 
-	a := &asset.GlobalAsset{
+	a := &base.Asset{
 		Name:        filename,
 		Shasum:      hex.EncodeToString(shasum),
 		AppSlug:     ver.Slug,
 		ContentType: contentType,
 	}
 
-	err = asset.AssetStore.AddAsset(a, bytes.NewReader(content), globalFilepath)
+	err = base.GlobalAssetStore.Add(a, bytes.NewReader(content), globalFilepath)
 	if err != nil {
 		return err
 	}
@@ -227,8 +223,8 @@ func MoveAssetToGlobalDatabase(c *Space, ver *Version, content []byte, filename,
 	}
 
 	// Remove the old object
-	prefix := GetPrefixOrDefault(c)
-	return base.Storage.Remove(base.Prefix(prefix), filename)
+	prefix := c.GetPrefix()
+	return base.Storage.Remove(prefix, filename)
 }
 
 func findVersion(appSlug, version string, dbs ...*kivik.DB) (*Version, error) {
@@ -240,7 +236,7 @@ func findVersion(appSlug, version string, dbs ...*kivik.DB) (*Version, error) {
 	}
 
 	for _, db := range dbs {
-		row := db.Get(ctx, getVersionID(appSlug, version))
+		row := db.Get(context.Background(), getVersionID(appSlug, version))
 
 		var doc *Version
 		err := row.ScanDoc(&doc)
@@ -275,7 +271,7 @@ func FindVersion(c *Space, appSlug, version string) (*Version, error) {
 }
 
 func versionViewQuery(c *Space, db *kivik.DB, appSlug, channel string, opts map[string]interface{}) (*kivik.Rows, error) {
-	rows, err := db.Query(ctx, versViewDocName(appSlug), channel, opts)
+	rows, err := db.Query(context.Background(), versViewDocName(appSlug), channel, opts)
 	if err != nil {
 		if kivik.StatusCode(err) == http.StatusNotFound {
 			if err = createVersionsViews(c, db, appSlug); err != nil {
@@ -301,7 +297,7 @@ func FindLastsVersionsSince(c *Space, appSlug, channel string, date time.Time) (
 		"include_docs": true,
 	}
 
-	rows, err := db.Query(ctx, "by-date", channel, options)
+	rows, err := db.Query(context.Background(), "by-date", channel, options)
 	if err != nil {
 		return nil, err
 	}
@@ -607,7 +603,7 @@ type AppsListOptions struct {
 
 func GetPendingVersions(c *Space) ([]*Version, error) {
 	db := c.dbPendingVers
-	rows, err := db.AllDocs(ctx, map[string]interface{}{
+	rows, err := db.AllDocs(context.Background(), map[string]interface{}{
 		"include_docs": true,
 	})
 	if err != nil {
@@ -726,7 +722,7 @@ func GetAppsList(c *Space, opts *AppsListOptions) (int, []*App, error) {
   "limit": %s
 }`, useIndex, cursor, limit)
 
-	rows, err := db.Find(ctx, req)
+	rows, err := db.Find(context.Background(), req)
 	if err != nil {
 		return 0, nil, err
 	}
@@ -887,7 +883,7 @@ func GetMaintainanceApps(c *Space) ([]*App, error) {
   "selector": {"maintenance_activated": true},
   "limit": 1000
 }`, useIndex)
-	rows, err := c.dbApps.Find(ctx, req)
+	rows, err := c.dbApps.Find(context.Background(), req)
 	if err != nil {
 		return nil, err
 	}

@@ -8,6 +8,8 @@
 // in-memory service for other tests.
 package base
 
+import "github.com/go-kivik/kivik/v3"
+
 // SessionSecret is the secret used to check the tokens.
 var SessionSecret []byte
 
@@ -16,6 +18,12 @@ var LatestVersionsCache Cache
 
 // ListVersionsCache is used for caching the list of apps in a space.
 var ListVersionsCache Cache
+
+// GlobalAssetStore is used for persisting assets like icons and screenshots.
+var GlobalAssetStore AssetStore
+
+// DBClient is the kivik client to use to make requests to CouchDB.
+var DBClient *kivik.Client
 
 // Storage is the global variable that can be used to perform operations on
 // files.

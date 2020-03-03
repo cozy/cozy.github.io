@@ -941,8 +941,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cozystackclientfetchmethod-path-body-options-object" title="cozyStackClient.fetch(method, path, body, options) ⇒ object" class="md-nav__link">
-    cozyStackClient.fetch(method, path, body, options) ⇒ object
+  <a href="#cozystackclientfetchmethod-path-body-opts-object" title="cozyStackClient.fetch(method, path, body, opts) ⇒ object" class="md-nav__link">
+    cozyStackClient.fetch(method, path, body, opts) ⇒ object
   </a>
   
 </li>
@@ -1521,8 +1521,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#triggercollectionlaunchtrigger-object" title="triggerCollection.launch(Trigger) ⇒ object" class="md-nav__link">
-    triggerCollection.launch(Trigger) ⇒ object
+  <a href="#triggercollectionlaunchtrigger-object" title="triggerCollection.launch(trigger) ⇒ object" class="md-nav__link">
+    triggerCollection.launch(trigger) ⇒ object
   </a>
   
 </li>
@@ -3226,8 +3226,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cozystackclientfetchmethod-path-body-options-object" title="cozyStackClient.fetch(method, path, body, options) ⇒ object" class="md-nav__link">
-    cozyStackClient.fetch(method, path, body, options) ⇒ object
+  <a href="#cozystackclientfetchmethod-path-body-opts-object" title="cozyStackClient.fetch(method, path, body, opts) ⇒ object" class="md-nav__link">
+    cozyStackClient.fetch(method, path, body, opts) ⇒ object
   </a>
   
 </li>
@@ -3806,8 +3806,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#triggercollectionlaunchtrigger-object" title="triggerCollection.launch(Trigger) ⇒ object" class="md-nav__link">
-    triggerCollection.launch(Trigger) ⇒ object
+  <a href="#triggercollectionlaunchtrigger-object" title="triggerCollection.launch(trigger) ⇒ object" class="md-nav__link">
+    triggerCollection.launch(trigger) ⇒ object
   </a>
   
 </li>
@@ -4028,7 +4028,7 @@ document as data attribute  </p>
 <ul>
 <li><a href="#CozyStackClient">CozyStackClient</a><ul>
 <li><a href="#CozyStackClient+collection">.collection(doctype)</a> ⇒ <a href="#DocumentCollection"><code>DocumentCollection</code></a></li>
-<li><a href="#CozyStackClient+fetch">.fetch(method, path, body, options)</a> ⇒ <code>object</code></li>
+<li><a href="#CozyStackClient+fetch">.fetch(method, path, body, opts)</a> ⇒ <code>object</code></li>
 <li><a href="#CozyStackClient+checkForRevocation">.checkForRevocation()</a></li>
 <li><a href="#CozyStackClient+refreshToken">.refreshToken()</a> ⇒ <code>Promise</code></li>
 <li><a href="#CozyStackClient+fetchJSON">.fetchJSON(method, path, body, options)</a> ⇒ <code>object</code></li>
@@ -4058,7 +4058,7 @@ document as data attribute  </p>
 </tbody>
 </table>
 <p><a name="CozyStackClient+fetch"></a></p>
-<h3 id="cozystackclientfetchmethod-path-body-options-object">cozyStackClient.fetch(method, path, body, options) ⇒ <code>object</code><a class="headerlink" href="#cozystackclientfetchmethod-path-body-options-object" title="Permanent link">&para;</a></h3>
+<h3 id="cozystackclientfetchmethod-path-body-opts-object">cozyStackClient.fetch(method, path, body, opts) ⇒ <code>object</code><a class="headerlink" href="#cozystackclientfetchmethod-path-body-opts-object" title="Permanent link">&para;</a></h3>
 <p>Fetches an endpoint in an authorized way.</p>
 <p><strong>Kind</strong>: instance method of <a href="#CozyStackClient"><code>CozyStackClient</code></a><br />
 <strong>Throws</strong>:</p>
@@ -4090,7 +4090,7 @@ document as data attribute  </p>
 <td>The payload.</td>
 </tr>
 <tr>
-<td>options</td>
+<td>opts</td>
 <td><code>object</code></td>
 <td></td>
 </tr>
@@ -5658,7 +5658,7 @@ from the owner&rsquo;s cozy</p>
 <li><a href="#TriggerCollection+create">.create(attributes)</a> ⇒ <code>object</code></li>
 <li><a href="#TriggerCollection+destroy">.destroy(document)</a> ⇒ <code>object</code></li>
 <li><a href="#TriggerCollection+find">.find(selector, options)</a> ⇒ <code>Object</code></li>
-<li><a href="#TriggerCollection+launch">.launch(Trigger)</a> ⇒ <code>object</code></li>
+<li><a href="#TriggerCollection+launch">.launch(trigger)</a> ⇒ <code>object</code></li>
 </ul>
 </li>
 </ul>
@@ -5762,7 +5762,7 @@ than /data/io.cozy.triggers (used by the super.find method).</p>
 </tbody>
 </table>
 <p><a name="TriggerCollection+launch"></a></p>
-<h3 id="triggercollectionlaunchtrigger-object">triggerCollection.launch(Trigger) ⇒ <code>object</code><a class="headerlink" href="#triggercollectionlaunchtrigger-object" title="Permanent link">&para;</a></h3>
+<h3 id="triggercollectionlaunchtrigger-object">triggerCollection.launch(trigger) ⇒ <code>object</code><a class="headerlink" href="#triggercollectionlaunchtrigger-object" title="Permanent link">&para;</a></h3>
 <p>Force given trigger execution.</p>
 <p><strong>Kind</strong>: instance method of <a href="#TriggerCollection"><code>TriggerCollection</code></a><br />
 <strong>Returns</strong>: <code>object</code> - Stack response, containing job launched by trigger, under <code>data</code> attribute.<br />
@@ -5777,9 +5777,9 @@ than /data/io.cozy.triggers (used by the super.find method).</p>
 </thead>
 <tbody>
 <tr>
-<td>Trigger</td>
+<td>trigger</td>
 <td><code>object</code></td>
-<td>to launch</td>
+<td>Trigger to launch</td>
 </tr>
 </tbody>
 </table>

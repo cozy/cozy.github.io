@@ -110,7 +110,7 @@ func exportSingleCouchDb(writer *tar.Writer, prefix string, db *kivik.DB) error 
 }
 
 func couchDatabases() []*kivik.DB {
-	dbs := []*kivik.DB{asset.AssetStore.DB}
+	dbs := []*kivik.DB{base.GlobalAssetStore.GetDB()}
 	for _, c := range registry.Spaces {
 		dbs = append(dbs, c.DBs()...)
 	}
@@ -131,19 +131,19 @@ func exportAllCouchDbs(writer *tar.Writer, prefix string) error {
 	return nil
 }
 
-func exportSwiftContainer(writer *tar.Writer, prefix string, container string) error {
+func exportSwiftContainer(writer *tar.Writer, prefix string, container base.Prefix) error {
 	fmt.Printf("    Exporting container %s\n", container)
-	prefix = path.Join(prefix, container)
+	dir := path.Join(prefix, container.String())
 
-	return base.Storage.Walk(base.Prefix(container), func(name, contentType string) error {
+	return base.Storage.Walk(container, func(name, contentType string) error {
 		fmt.Printf("      Exporting object %s\n", name)
 
-		buffer, _, err := base.Storage.Get(base.Prefix(container), name)
+		buffer, _, err := base.Storage.Get(container, name)
 		if err != nil {
 			return err
 		}
 
-		file := path.Join(prefix, name)
+		file := path.Join(dir, name)
 		metadata := map[string]string{
 			contentTypeAttr: contentType,
 		}
@@ -151,11 +151,10 @@ func exportSwiftContainer(writer *tar.Writer, prefix string, container string) e
 	})
 }
 
-// TODO: returns []base.Prefix
-func swiftContainers() []string {
-	containers := []string{string(asset.AssetContainerName)}
+func swiftContainers() []base.Prefix {
+	containers := []base.Prefix{asset.AssetContainerName}
 	for _, space := range registry.Spaces {
-		container := registry.GetPrefixOrDefault(space)
+		container := space.GetPrefix()
 		containers = append(containers, container)
 	}
 	return containers

@@ -18,7 +18,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-var store *GlobalAssetStore
+var testStore *store
 var shasum []byte
 
 func TestAddAsset(t *testing.T) {
@@ -29,18 +29,18 @@ func TestAddAsset(t *testing.T) {
 	assert.NoError(t, err)
 	shasum = sha256.Sum(nil)
 
-	asset := &GlobalAsset{
+	asset := &base.Asset{
 		Name:        "icon",
 		Shasum:      hex.EncodeToString(shasum),
 		AppSlug:     "app1",
 		ContentType: "image/jpeg",
 	}
 
-	err = store.AddAsset(asset, strings.NewReader(content), "app1")
+	err = testStore.Add(asset, strings.NewReader(content), "app1")
 	assert.NoError(t, err)
 
 	// Check CouchDB
-	row := store.DB.Get(ctx, hex.EncodeToString(shasum))
+	row := testStore.db.Get(testStore.ctx, hex.EncodeToString(shasum))
 	err = row.ScanDoc(asset)
 	assert.NoError(t, err)
 	assert.Equal(t, len(asset.UsedBy), 1)
@@ -53,7 +53,7 @@ func TestAddAsset(t *testing.T) {
 }
 
 func TestGetAsset(t *testing.T) {
-	buf, hdrs, err := base.Storage.Get(AssetContainerName, hex.EncodeToString(shasum))
+	buf, hdrs, err := testStore.Get(hex.EncodeToString(shasum))
 	assert.NoError(t, err)
 	assert.Equal(t, "image/jpeg", hdrs["Content-Type"])
 	assert.Equal(t, "foobar content", buf.String())
@@ -61,18 +61,18 @@ func TestGetAsset(t *testing.T) {
 
 func TestAddAssetAlreadyExists(t *testing.T) {
 	content := "foobar content"
-	asset := &GlobalAsset{
+	asset := &base.Asset{
 		Name:        "icon",
 		Shasum:      hex.EncodeToString(shasum),
 		AppSlug:     "app1",
 		ContentType: "image/jpeg",
 	}
 
-	err := store.AddAsset(asset, strings.NewReader(content), "app2")
+	err := testStore.Add(asset, strings.NewReader(content), "app2")
 	assert.NoError(t, err)
 
 	// Check CouchDB
-	row := store.DB.Get(ctx, hex.EncodeToString(shasum))
+	row := testStore.db.Get(testStore.ctx, hex.EncodeToString(shasum))
 	err = row.ScanDoc(asset)
 	assert.NoError(t, err)
 	assert.Equal(t, len(asset.UsedBy), 2)
@@ -80,29 +80,29 @@ func TestAddAssetAlreadyExists(t *testing.T) {
 
 func TestAddAssetSameApp(t *testing.T) {
 	content := "foobar content"
-	asset := &GlobalAsset{
+	asset := &base.Asset{
 		Name:        "icon",
 		Shasum:      hex.EncodeToString(shasum),
 		AppSlug:     "app1",
 		ContentType: "image/jpeg",
 	}
 
-	err := store.AddAsset(asset, strings.NewReader(content), "app1")
+	err := testStore.Add(asset, strings.NewReader(content), "app1")
 	assert.NoError(t, err)
 
 	// Check CouchDB
-	row := store.DB.Get(ctx, hex.EncodeToString(shasum))
+	row := testStore.db.Get(testStore.ctx, hex.EncodeToString(shasum))
 	err = row.ScanDoc(asset)
 	assert.NoError(t, err)
 	assert.Equal(t, len(asset.UsedBy), 2)
 }
 
 func TestRemoveAssetRemainingOthers(t *testing.T) {
-	err := store.RemoveAsset(hex.EncodeToString(shasum), "app2")
+	err := testStore.Remove(hex.EncodeToString(shasum), "app2")
 	assert.NoError(t, err)
 
-	var asset = &GlobalAsset{}
-	row := store.DB.Get(ctx, hex.EncodeToString(shasum))
+	asset := &base.Asset{}
+	row := testStore.db.Get(testStore.ctx, hex.EncodeToString(shasum))
 	err = row.ScanDoc(asset)
 	assert.NoError(t, err)
 
@@ -113,11 +113,11 @@ func TestRemoveAssetRemainingOthers(t *testing.T) {
 }
 
 func TestRemoveAsset(t *testing.T) {
-	err := store.RemoveAsset(hex.EncodeToString(shasum), "app1")
+	err := testStore.Remove(hex.EncodeToString(shasum), "app1")
 	assert.NoError(t, err)
 
-	var asset *GlobalAsset
-	row := store.DB.Get(ctx, hex.EncodeToString(shasum))
+	asset := &base.Asset{}
+	row := testStore.db.Get(testStore.ctx, hex.EncodeToString(shasum))
 	err = row.ScanDoc(asset)
 	assert.Error(t, err)
 	assert.Equal(t, http.StatusNotFound, kivik.StatusCode(err))
@@ -127,9 +127,9 @@ func TestRemoveAsset(t *testing.T) {
 	assert.True(t, errors.Is(err, base.ErrFileNotFound))
 }
 
-func TestMarshalAssetKey(t *testing.T) {
-	assert.Equal(t, "foo/1.0.0", MarshalAssetKey("__default__", "foo", "1.0.0"))
-	assert.Equal(t, "myspace/foo/2.0.0", MarshalAssetKey("myspace", "foo", "2.0.0"))
+func TestComputeSource(t *testing.T) {
+	assert.Equal(t, "foo/1.0.0", ComputeSource("__default__", "foo", "1.0.0"))
+	assert.Equal(t, "myspace/foo/2.0.0", ComputeSource("myspace", "foo", "2.0.0"))
 }
 
 func TestMain(m *testing.M) {
@@ -137,11 +137,6 @@ func TestMain(m *testing.M) {
 	if err := config.ReadFile("", "cozy-registry-test"); err != nil {
 		fmt.Println("Cannot load test config:", err)
 	}
-
-	// TODO remove those lines
-	viper.Set("swift.username", "swifttest")
-	viper.Set("swift.api_key", "swifttest")
-	viper.Set("swift.auth_url", "localhost:12345")
 
 	if err := config.SetupForTests(); err != nil {
 		fmt.Println("Cannot configure the services:", err)
@@ -153,11 +148,12 @@ func TestMain(m *testing.M) {
 	user := viper.GetString("couchdb.user")
 	pass := viper.GetString("couchdb.password")
 
-	var err error
-	store, err = InitGlobalAssetStore(url, user, pass)
+	s, err := NewStore(url, user, pass)
 	if err != nil {
 		fmt.Println("Error while initializing global asset store", err)
 	}
+	testStore = s.(*store)
+	base.GlobalAssetStore = s
 
 	if err := config.PrepareSpaces(); err != nil {
 		fmt.Println("Cannot prepare the spaces:", err)

@@ -2,12 +2,10 @@
 
 set -e
 
-COZY_DIRECTORY=${COZY_DIRECTORY:-""}
-PASSWORD_STORE_PATH=${PASSWORD_STORE_PATH:-"$HOME/.password-store/${COZY_DIRECTORY}"}
-
 function check_dir {
-  if [[ ! -d $PASSWORD_STORE_PATH ]]; then
-    echo "${PASSWORD_STORE_PATH} is not a directory :("
+  dir=$1
+  if [[ ! -d $dir ]]; then
+    echo "${dir} is not a directory :("
     echo "If your cozy passwords are not stored at the root of your password-store, you can maybe"
     echo "use the COZY_DIRECTORY env variable, for example (slash at the end) :"
     echo "env COZY_DIRECTORY='cozy/' ./scripts/import_mobile_keys"
@@ -28,10 +26,14 @@ function cp_from_keepass {
   cp "$path" "$2"
 }
 
-check_dir
+
+COZY_DIRECTORY=${COZY_DIRECTORY:-""}
+PASSWORD_STORE_PATH=${PASSWORD_STORE_PATH:-"$HOME/.password-store/${COZY_DIRECTORY}"}
+BANKS_DIR_IN_PASSWORD_STORE=${PASSWORD_STORE_PATH}cozy-banks
+check_dir $BANKS_DIR_IN_PASSWORD_STORE
 
 mkdir -p src/targets/mobile/keys/{android,ios}
-cp_from_keepass Gangsters/cozy-banks/keys/android/cozy-banks-release-key.jks ./src/targets/mobile/keys/android/cozy-banks-release-key.jks
-cp_from_keepass Gangsters/cozy-banks/keys/android/key.json ./src/targets/mobile/keys/android/key.json
-extract_from_keepass Gangsters/cozy-banks/keys/android/google-services.json ./src/targets/mobile/keys/android/google-services.json
-extract_from_keepass Gangsters/cozy-banks/keys/ios/GoogleService-Info.plist ./src/targets/mobile/keys/ios/GoogleService-Info.plist
+cp_from_keepass cozy-banks/keys/android/cozy-banks-release-key.jks ./src/targets/mobile/keys/android/cozy-banks-release-key.jks
+cp_from_keepass cozy-banks/keys/android/key.json ./src/targets/mobile/keys/android/key.json
+extract_from_keepass cozy-banks/keys/android/google-services.json ./src/targets/mobile/keys/android/google-services.json
+extract_from_keepass cozy-banks/keys/ios/GoogleService-Info.plist ./src/targets/mobile/keys/ios/GoogleService-Info.plist

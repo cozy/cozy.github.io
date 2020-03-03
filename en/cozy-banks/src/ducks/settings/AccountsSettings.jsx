@@ -62,14 +62,16 @@ const _AccountLine = ({ account, router, breakpoints: { isMobile } }) => {
           _: t('Data.accountTypes.Other')
         })}
       </td>
-      {<td className={styles.AcnsStg__owner}>
-        {getAccountOwners(account)
-          .map(Contact.getDisplayName)
-          .join(' - ')}
-      </td>}
+      {
+        <td className={styles.AcnsStg__owner}>
+          {getAccountOwners(account)
+            .map(Contact.getDisplayName)
+            .join(' - ')}
+        </td>
+      }
       <td className={styles.AcnsStg__actions} />
     </tr>
-  );
+  )
 }
 
 const AccountLine = compose(
@@ -93,13 +95,7 @@ const AccountsTable = ({ accounts }) => {
           <th className={styles.AcnsStg__bank}>{t('Accounts.bank')}</th>
           <th className={styles.AcnsStg__number}>{t('Accounts.account')}</th>
           <th className={styles.AcnsStg__type}>{t('Accounts.type')}</th>
-          <th
-            className={
-              styles.AcnsStg__owner
-            }
-          >
-            {t('Accounts.owner')}
-          </th>
+          <th className={styles.AcnsStg__owner}>{t('Accounts.owner')}</th>
           <th className={styles.AcnsStg__actions} />
         </tr>
       </thead>

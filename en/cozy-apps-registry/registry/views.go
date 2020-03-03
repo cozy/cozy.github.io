@@ -1,6 +1,7 @@
 package registry
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -120,7 +121,7 @@ func createVersionsViews(c *Space, db *kivik.DB, appSlug string) error {
 		Language: "javascript",
 	}
 
-	_, _, err := db.CreateDoc(ctx, doc)
+	_, _, err := db.CreateDoc(context.Background(), doc)
 	if err != nil {
 		if kivik.StatusCode(err) == http.StatusConflict {
 			return nil
@@ -156,7 +157,7 @@ func CreateVersionsDateView(db *kivik.DB) error {
 		Views:    json.RawMessage(`{` + strings.Join(viewsBodies, ",") + `}`),
 		Language: "javascript",
 	}
-	_, _, err := db.CreateDoc(ctx, doc)
+	_, _, err := db.CreateDoc(context.Background(), doc)
 	if err != nil {
 		if kivik.StatusCode(err) == http.StatusConflict {
 			return nil

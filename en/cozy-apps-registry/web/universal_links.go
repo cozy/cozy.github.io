@@ -8,7 +8,6 @@ import (
 
 	"github.com/cozy/cozy-apps-registry/base"
 	"github.com/cozy/cozy-apps-registry/config"
-	"github.com/cozy/cozy-apps-registry/registry"
 	"github.com/labstack/echo/v4"
 )
 
@@ -20,10 +19,10 @@ func universalLink(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	spacePrefix := registry.GetPrefixOrDefault(space)
+	spacePrefix := space.GetPrefix()
 	filename := filepath.Join(universalLinkFolder, c.Param("filename"))
 
-	content, hdrs, err := base.Storage.Get(base.Prefix(spacePrefix), filename)
+	content, hdrs, err := base.Storage.Get(spacePrefix, filename)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusNotFound)
 	}
@@ -37,7 +36,7 @@ func universalLinkRedirect(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	spacePrefix := registry.GetPrefixOrDefault(space)
+	spacePrefix := space.GetPrefix()
 	fallback := c.QueryParam("fallback")
 
 	// The following code has been made to handle an iOS bug during JSON recovery.
@@ -79,7 +78,7 @@ func universalLinkRedirect(c echo.Context) error {
 	}
 
 	spaceTrustedDomains := config.GetConfig().TrustedDomains
-	if domains, ok := spaceTrustedDomains[spacePrefix]; ok {
+	if domains, ok := spaceTrustedDomains[spacePrefix.String()]; ok {
 		for _, domain := range domains {
 			if strings.Contains(parsedRedirect.Host, domain) {
 				return c.Redirect(http.StatusSeeOther, fallback)

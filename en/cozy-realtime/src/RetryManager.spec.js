@@ -149,4 +149,22 @@ describe('RetryManager', () => {
       expect(retry.shouldEmitError()).toBeFalsy()
     })
   })
+
+  describe('stopCurrentAttemptWaitingTime', () => {
+    it('stop the waiting time', async () => {
+      const handler = jest.fn()
+      const retry = new RetryManager()
+      retry.onFailure()
+      retry.onFailure()
+      retry.onFailure()
+      retry.onFailure()
+      retry.onFailure()
+      retry.onFailure()
+      retry.onFailure()
+      retry.waitBeforeNextAttempt().then(handler)
+      retry.stopCurrentAttemptWaitingTime()
+      await sleep(25)
+      expect(handler).toHaveBeenCalled()
+    })
+  })
 })
