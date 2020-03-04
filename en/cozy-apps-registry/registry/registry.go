@@ -24,10 +24,9 @@ import (
 	"github.com/cozy/cozy-apps-registry/asset"
 	"github.com/cozy/cozy-apps-registry/auth"
 	"github.com/cozy/cozy-apps-registry/base"
-	"github.com/cozy/cozy-apps-registry/config"
 	"github.com/cozy/cozy-apps-registry/errshttp"
+	"github.com/cozy/cozy-apps-registry/space"
 	_ "github.com/go-kivik/couchdb/v3" // for couchdb
-	"github.com/go-kivik/couchdb/v3/chttp"
 	"github.com/go-kivik/kivik/v3"
 	"github.com/h2non/filetype"
 	multierror "github.com/hashicorp/go-multierror"
@@ -39,7 +38,6 @@ const maxApplicationSize = 20 * 1024 * 1024 // 20 Mo
 var (
 	validSlugReg    = regexp.MustCompile(`^[a-z0-9\-]*$`)
 	validVersionReg = regexp.MustCompile(`^(0|[1-9][0-9]{0,4})\.(0|[1-9][0-9]{0,4})\.(0|[1-9][0-9]{0,4})(-dev\.[a-f0-9]{1,40}|-beta.(0|[1-9][0-9]{0,4}))?$`)
-	validSpaceReg   = regexp.MustCompile(`^[a-z]+[a-z0-9\_\-]*$`)
 
 	validAppTypes = []string{"webapp", "konnector"}
 )
@@ -187,48 +185,6 @@ type Tarball struct {
 	Size            int64
 }
 
-func InitGlobalClient(addr, user, pass string) (editorsDB *kivik.DB, err error) {
-	u, err := url.Parse(addr)
-	if err != nil {
-		return
-	}
-	u.User = nil
-
-	var client *kivik.Client
-	client, err = kivik.New("couch", u.String())
-	if err != nil {
-		return
-	}
-
-	if user != "" {
-		err = client.Authenticate(context.Background(), &chttp.BasicAuth{
-			Username: user,
-			Password: pass,
-		})
-		if err != nil {
-			return
-		}
-	}
-	base.DBClient = client
-
-	editorsDBName := base.DBName(editorsDBSuffix)
-	exists, err := client.DBExists(context.Background(), editorsDBName)
-	if err != nil {
-		return
-	}
-	if !exists {
-		fmt.Printf("Creating database %q...", editorsDBName)
-		if err = client.CreateDB(context.Background(), editorsDBName); err != nil {
-			return nil, err
-		}
-		fmt.Println("ok.")
-	}
-
-	editorsDB = client.DB(context.Background(), editorsDBName)
-	err = editorsDB.Err()
-	return
-}
-
 func IsValidApp(app *AppOptions) error {
 	if app.Slug == "" || !validSlugReg.MatchString(app.Slug) {
 		return ErrAppSlugInvalid
@@ -280,7 +236,7 @@ func (av *AppVersions) GetAll() []string {
 	return res
 }
 
-func CreateApp(c *Space, opts *AppOptions, editor *auth.Editor) (*App, error) {
+func CreateApp(c *space.Space, opts *AppOptions, editor *auth.Editor) (*App, error) {
 	if err := IsValidApp(opts); err != nil {
 		return nil, err
 	}
@@ -316,7 +272,7 @@ func CreateApp(c *Space, opts *AppOptions, editor *auth.Editor) (*App, error) {
 	return app, nil
 }
 
-func ModifyApp(c *Space, appSlug string, opts AppOptions) (*App, error) {
+func ModifyApp(c *space.Space, appSlug string, opts AppOptions) (*App, error) {
 	app, err := findApp(c, appSlug)
 	if err != nil {
 		return nil, err
@@ -334,7 +290,7 @@ func ModifyApp(c *Space, appSlug string, opts AppOptions) (*App, error) {
 	return app, nil
 }
 
-func ActivateMaintenanceApp(c *Space, appSlug string, opts MaintenanceOptions) error {
+func ActivateMaintenanceApp(c *space.Space, appSlug string, opts MaintenanceOptions) error {
 	app, err := findApp(c, appSlug)
 	if err != nil {
 		return err
@@ -348,7 +304,7 @@ func ActivateMaintenanceApp(c *Space, appSlug string, opts MaintenanceOptions) e
 	return err
 }
 
-func DeactivateMaintenanceApp(c *Space, appSlug string) error {
+func DeactivateMaintenanceApp(c *space.Space, appSlug string) error {
 	app, err := findApp(c, appSlug)
 	if err != nil {
 		return err
@@ -363,7 +319,7 @@ func DownloadVersion(opts *VersionOptions) (*Version, []*kivik.Attachment, error
 	return downloadVersion(opts)
 }
 
-func createVersion(c *Space, db *kivik.DB, ver *Version, attachments []*kivik.Attachment, app *App, ensureVersion bool) (err error) {
+func createVersion(c *space.Space, db *kivik.DB, ver *Version, attachments []*kivik.Attachment, app *App, ensureVersion bool) (err error) {
 	if ver.Slug != app.Slug {
 		return ErrVersionSlugMismatch
 	}
@@ -438,11 +394,11 @@ func createVersion(c *Space, db *kivik.DB, ver *Version, attachments []*kivik.At
 	return err
 }
 
-func CreatePendingVersion(c *Space, ver *Version, attachments []*kivik.Attachment, app *App) error {
+func CreatePendingVersion(c *space.Space, ver *Version, attachments []*kivik.Attachment, app *App) error {
 	return createVersion(c, c.PendingVersDB(), ver, attachments, app, true)
 }
 
-func CreateReleaseVersion(c *Space, ver *Version, attachments []*kivik.Attachment, app *App, ensureVersion bool) (err error) {
+func CreateReleaseVersion(c *space.Space, ver *Version, attachments []*kivik.Attachment, app *App, ensureVersion bool) (err error) {
 	return createVersion(c, c.VersDB(), ver, attachments, app, ensureVersion)
 }
 
@@ -455,12 +411,9 @@ func (version *Version) Clone() *Version {
 	return &clone
 }
 
-func ApprovePendingVersion(c *Space, pending *Version, app *App) (*Version, error) {
-	conf := config.GetConfig()
+func ApprovePendingVersion(c *space.Space, pending *Version, app *App) (*Version, error) {
 	db := c.PendingVersDB()
-
 	release := pending.Clone()
-
 	release.Rev = ""
 
 	// Attachments are already created, skipping them
@@ -483,10 +436,10 @@ func ApprovePendingVersion(c *Space, pending *Version, app *App) (*Version, erro
 
 	channelString := ChannelToStr(channel)
 
-	if conf.CleanEnabled {
+	if base.Config.CleanEnabled {
 		// Cleaning the old versions
 		go func() {
-			err := CleanOldVersions(c, release.Slug, channelString, conf.CleanNbMonths, conf.CleanNbMajorVersions, conf.CleanNbMinorVersions, false)
+			err := CleanOldVersions(c, release.Slug, channelString, base.Config.CleanParameters, RealRun)
 			if err != nil {
 				log := logrus.WithFields(logrus.Fields{
 					"nspace":    "clean_version",
@@ -1070,7 +1023,7 @@ func ReadTarballManifest(tr io.Reader, url string) (*Manifest, []byte, map[strin
 }
 
 // Expire function deletes a version from the database
-func (v *Version) Delete(c *Space) error {
+func (v *Version) Delete(c *space.Space) error {
 	// Delete attachments (swift or couchdb)
 	err := v.RemoveAllAttachments(c)
 	if err != nil {
@@ -1084,7 +1037,7 @@ func (v *Version) Delete(c *Space) error {
 }
 
 // RemoveAllAttachments removes all the attachments of a version
-func (v *Version) RemoveAllAttachments(c *Space) error {
+func (v *Version) RemoveAllAttachments(c *space.Space) error {
 	prefix := c.GetPrefix()
 
 	// Dereferences this version from global asset store
@@ -1111,4 +1064,60 @@ func (v *Version) RemoveAllAttachments(c *Space) error {
 	}
 
 	return nil
+}
+
+// RemoveSpace deletes CouchDB databases and Swift container for this space.
+func RemoveSpace(s *space.Space) error {
+	// Removing the applications versions, to clean the assets in the
+	// __assets__ container.
+	var cursor int = 0
+	for cursor != -1 {
+		next, apps, err := GetAppsList(s, &AppsListOptions{
+			Limit:                200,
+			Cursor:               cursor,
+			LatestVersionChannel: Stable,
+			VersionsChannel:      Dev,
+		})
+
+		if err != nil {
+			return err
+		}
+		cursor = next
+
+		for _, app := range apps { // Iterate over 200 apps
+			// Skipping app with no versions
+			if !app.Versions.HasVersions {
+				continue
+			}
+
+			for _, version := range app.Versions.GetAll() {
+				v, err := FindVersion(s, app.Slug, version)
+				if err != nil {
+					continue
+				}
+				fmt.Printf("Removing %s/%s\n", v.Slug, v.Version)
+				err = v.Delete(s)
+				if err != nil {
+					return err
+				}
+			}
+		}
+	}
+
+	// Removing swift container
+	prefix := s.GetPrefix()
+	if err := base.Storage.EnsureDeleted(prefix); err != nil {
+		return err
+	}
+
+	// Removing databases
+	if err := base.DBClient.DestroyDB(context.Background(), s.PendingVersDB().Name()); err != nil {
+		return err
+	}
+
+	if err := base.DBClient.DestroyDB(context.Background(), s.VersDB().Name()); err != nil {
+		return err
+	}
+
+	return base.DBClient.DestroyDB(context.Background(), s.AppsDB().Name())
 }

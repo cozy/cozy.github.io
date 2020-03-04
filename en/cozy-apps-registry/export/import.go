@@ -12,7 +12,7 @@ import (
 
 	"github.com/cozy/cozy-apps-registry/base"
 	"github.com/cozy/cozy-apps-registry/config"
-	"github.com/cozy/cozy-apps-registry/registry"
+	"github.com/cozy/cozy-apps-registry/space"
 	"github.com/pbenner/threadpool"
 )
 
@@ -82,7 +82,7 @@ func cleanCouch() error {
 	}
 
 	// TODO can we remove this call?
-	return registry.InitializeSpaces()
+	return space.InitializeSpaces()
 }
 
 func parseCouchDocument(reader io.Reader, parts []string) (string, *interface{}, error) {

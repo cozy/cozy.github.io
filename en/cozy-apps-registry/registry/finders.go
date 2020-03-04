@@ -17,6 +17,7 @@ import (
 
 	"github.com/Masterminds/semver"
 	"github.com/cozy/cozy-apps-registry/base"
+	"github.com/cozy/cozy-apps-registry/space"
 	"github.com/go-kivik/kivik/v3"
 	"github.com/ncw/swift"
 	"github.com/sirupsen/logrus"
@@ -56,7 +57,7 @@ func getAppID(appSlug string) string {
 	return strings.ToLower(appSlug)
 }
 
-func findApp(c *Space, appSlug string) (*App, error) {
+func findApp(c *space.Space, appSlug string) (*App, error) {
 	if !validSlugReg.MatchString(appSlug) {
 		return nil, ErrAppSlugInvalid
 	}
@@ -76,7 +77,7 @@ func findApp(c *Space, appSlug string) (*App, error) {
 	return doc, nil
 }
 
-func FindApp(c *Space, appSlug string, channel Channel) (*App, error) {
+func FindApp(c *space.Space, appSlug string, channel Channel) (*App, error) {
 	doc, err := findApp(c, appSlug)
 	if err != nil {
 		return nil, err
@@ -103,7 +104,7 @@ type Attachment struct {
 	ContentLength string
 }
 
-func FindAppAttachment(c *Space, appSlug, filename string, channel Channel) (*Attachment, error) {
+func FindAppAttachment(c *space.Space, appSlug, filename string, channel Channel) (*Attachment, error) {
 	if !validSlugReg.MatchString(appSlug) {
 		return nil, ErrAppSlugInvalid
 	}
@@ -116,7 +117,7 @@ func FindAppAttachment(c *Space, appSlug, filename string, channel Channel) (*At
 	return FindVersionAttachment(c, appSlug, ver.Version, filename)
 }
 
-func FindVersionAttachment(c *Space, appSlug, version, filename string) (*Attachment, error) {
+func FindVersionAttachment(c *space.Space, appSlug, version, filename string) (*Attachment, error) {
 	var headers swift.Headers
 	var shasum, contentType string
 	var fileContent []byte
@@ -188,7 +189,7 @@ func FindVersionAttachment(c *Space, appSlug, version, filename string) (*Attach
 // 1. Creating the new asset object in the global database
 // 2. Adds a reference to the asset in the couch version document
 // 3. Removes the old asset location
-func MoveAssetToGlobalDatabase(c *Space, ver *Version, content []byte, filename, contentType string) error {
+func MoveAssetToGlobalDatabase(c *space.Space, ver *Version, content []byte, filename, contentType string) error {
 	globalFilepath := filepath.Join(c.Prefix, ver.Slug, ver.Version)
 
 	h := sha256.New()
@@ -255,26 +256,26 @@ func findVersion(appSlug, version string, dbs ...*kivik.DB) (*Version, error) {
 	return nil, ErrVersionNotFound
 }
 
-func FindPendingVersion(c *Space, appSlug, version string) (*Version, error) {
+func FindPendingVersion(c *space.Space, appSlug, version string) (*Version, error) {
 	// Test for pending version
-	return findVersion(appSlug, version, c.dbPendingVers)
+	return findVersion(appSlug, version, c.PendingVersDB())
 }
 
-func FindPublishedVersion(c *Space, appSlug, version string) (*Version, error) {
+func FindPublishedVersion(c *space.Space, appSlug, version string) (*Version, error) {
 	// Test for released version only
-	return findVersion(appSlug, version, c.dbVers)
+	return findVersion(appSlug, version, c.VersDB())
 }
 
-func FindVersion(c *Space, appSlug, version string) (*Version, error) {
+func FindVersion(c *space.Space, appSlug, version string) (*Version, error) {
 	// Test for pending and released version
-	return findVersion(appSlug, version, c.dbVers, c.dbPendingVers)
+	return findVersion(appSlug, version, c.VersDB(), c.PendingVersDB())
 }
 
-func versionViewQuery(c *Space, db *kivik.DB, appSlug, channel string, opts map[string]interface{}) (*kivik.Rows, error) {
-	rows, err := db.Query(context.Background(), versViewDocName(appSlug), channel, opts)
+func versionViewQuery(c *space.Space, db *kivik.DB, appSlug, channel string, opts map[string]interface{}) (*kivik.Rows, error) {
+	rows, err := db.Query(context.Background(), space.VersViewDocName(appSlug), channel, opts)
 	if err != nil {
 		if kivik.StatusCode(err) == http.StatusNotFound {
-			if err = createVersionsViews(c, db, appSlug); err != nil {
+			if err = space.CreateVersionsViews(c, db, appSlug); err != nil {
 				return nil, err
 			}
 			return versionViewQuery(c, db, appSlug, channel, opts)
@@ -288,7 +289,7 @@ func versionViewQuery(c *Space, db *kivik.DB, appSlug, channel string, opts map[
 //
 // Example: FindLastsVersionSince("foo", "stable", myDate) returns all the
 // versions created beetween myDate and now
-func FindLastsVersionsSince(c *Space, appSlug, channel string, date time.Time) ([]*Version, error) {
+func FindLastsVersionsSince(c *space.Space, appSlug, channel string, date time.Time) ([]*Version, error) {
 	db := c.VersDB()
 	versions := []*Version{}
 
@@ -377,7 +378,7 @@ func findPreviousMajor(version string, versions []string) (string, bool) {
 
 // FindLastNVersions returns the N lasts versions of an app
 // If N is greater than available versions, only available are returned
-func FindLastNVersions(c *Space, appSlug string, channelStr string, nMajor, nMinor int) ([]*Version, error) {
+func FindLastNVersions(c *space.Space, appSlug string, channelStr string, nMajor, nMinor int) ([]*Version, error) {
 	channel, err := StrToChannel(channelStr)
 	if err != nil {
 		return nil, err
@@ -448,7 +449,7 @@ func FindLastNVersions(c *Space, appSlug string, channelStr string, nMajor, nMin
 	return returned, nil
 }
 
-func FindLatestVersion(c *Space, appSlug string, channel Channel) (*Version, error) {
+func FindLatestVersion(c *space.Space, appSlug string, channel Channel) (*Version, error) {
 	// Try to get the latest version from the cache
 	key := base.Key(c.Prefix + "/" + appSlug + "/" + ChannelToStr(channel))
 	if data, ok := base.LatestVersionsCache.Get(key); ok {
@@ -461,7 +462,7 @@ func FindLatestVersion(c *Space, appSlug string, channel Channel) (*Version, err
 	return FindLatestVersionCacheMiss(c, appSlug, channel)
 }
 
-func FindLatestVersionCacheMiss(c *Space, appSlug string, channel Channel) (*Version, error) {
+func FindLatestVersionCacheMiss(c *space.Space, appSlug string, channel Channel) (*Version, error) {
 	if !validSlugReg.MatchString(appSlug) {
 		return nil, ErrAppSlugInvalid
 	}
@@ -505,7 +506,7 @@ func FindLatestVersionCacheMiss(c *Space, appSlug string, channel Channel) (*Ver
 // FindAppVersions return all the app versions. The concat params allows you to
 // concatenate stable & beta versions in dev list, and stable versions in beta
 // list
-func FindAppVersions(c *Space, appSlug string, channel Channel, concat ConcatChannels) (*AppVersions, error) {
+func FindAppVersions(c *space.Space, appSlug string, channel Channel, concat ConcatChannels) (*AppVersions, error) {
 	// Try to get the app versions from the cache
 	key := base.Key(c.Prefix + "/" + appSlug + "/" + ChannelToStr(channel))
 	if data, ok := base.ListVersionsCache.Get(key); ok {
@@ -518,7 +519,7 @@ func FindAppVersions(c *Space, appSlug string, channel Channel, concat ConcatCha
 	return FindAppVersionsCacheMiss(c, appSlug, channel, concat)
 }
 
-func FindAppVersionsCacheMiss(c *Space, appSlug string, channel Channel, concat ConcatChannels) (*AppVersions, error) {
+func FindAppVersionsCacheMiss(c *space.Space, appSlug string, channel Channel, concat ConcatChannels) (*AppVersions, error) {
 	db := c.VersDB()
 
 	rows, err := versionViewQuery(c, db, appSlug, "dev", map[string]interface{}{
@@ -601,8 +602,8 @@ type AppsListOptions struct {
 	VersionsChannel      Channel
 }
 
-func GetPendingVersions(c *Space) ([]*Version, error) {
-	db := c.dbPendingVers
+func GetPendingVersions(c *space.Space) ([]*Version, error) {
+	db := c.PendingVersDB()
 	rows, err := db.AllDocs(context.Background(), map[string]interface{}{
 		"include_docs": true,
 	})
@@ -628,7 +629,7 @@ func GetPendingVersions(c *Space) ([]*Version, error) {
 }
 
 // GetAppChannelVersions returns the versions list of an app channel
-func GetAppChannelVersions(c *Space, appSlug string, channel Channel) ([]*Version, error) {
+func GetAppChannelVersions(c *space.Space, appSlug string, channel Channel) ([]*Version, error) {
 	var versions []string
 	var resultVersions []*Version
 
@@ -655,7 +656,7 @@ func GetAppChannelVersions(c *Space, appSlug string, channel Channel) ([]*Versio
 	return resultVersions, nil
 }
 
-func GetAppsList(c *Space, opts *AppsListOptions) (int, []*App, error) {
+func GetAppsList(c *space.Space, opts *AppsListOptions) (int, []*App, error) {
 	db := c.AppsDB()
 	order := "asc"
 
@@ -668,8 +669,8 @@ func GetAppsList(c *Space, opts *AppsListOptions) (int, []*App, error) {
 		sortField = "slug"
 	}
 
-	useIndex := appIndexName(sortField)
-	sortFields := appsIndexes[sortField]
+	useIndex := space.AppIndexName(sortField)
+	sortFields := space.AppsIndexes[sortField]
 	sort := ""
 	for _, field := range sortFields {
 		if sort != "" {
@@ -711,7 +712,7 @@ func GetAppsList(c *Space, opts *AppsListOptions) (int, []*App, error) {
 		opts.Limit = maxLimit
 	}
 
-	designsCount := len(appsIndexes)
+	designsCount := len(space.AppsIndexes)
 	limit := opts.Limit + designsCount + 1
 	cursor := opts.Cursor
 	req := sprintfJSON(`{
@@ -809,7 +810,7 @@ type appVersionEntry struct {
 	cachedLatest   *Version
 }
 
-func fillAppVersions(c *Space, opts *AppsListOptions, entry *appVersionEntry) error {
+func fillAppVersions(c *space.Space, opts *AppsListOptions, entry *appVersionEntry) error {
 	var err error
 	app := entry.app
 
@@ -834,7 +835,7 @@ func fillAppVersions(c *Space, opts *AppsListOptions, entry *appVersionEntry) er
 	return nil
 }
 
-func GetVersionsListFromCache(c *Space, channelStr string, apps []*App) []*AppVersions {
+func GetVersionsListFromCache(c *space.Space, channelStr string, apps []*App) []*AppVersions {
 	keys := make([]base.Key, len(apps))
 	for i, app := range apps {
 		keys[i] = base.Key(c.Prefix + "/" + app.Slug + "/" + channelStr)
@@ -855,7 +856,7 @@ func GetVersionsListFromCache(c *Space, channelStr string, apps []*App) []*AppVe
 	return versionsList
 }
 
-func GetVersionsLatestFromCache(c *Space, channelStr string, apps []*App) []*Version {
+func GetVersionsLatestFromCache(c *space.Space, channelStr string, apps []*App) []*Version {
 	keys := make([]base.Key, len(apps))
 	for i, app := range apps {
 		keys[i] = base.Key(c.Prefix + "/" + app.Slug + "/" + channelStr)
@@ -876,14 +877,14 @@ func GetVersionsLatestFromCache(c *Space, channelStr string, apps []*App) []*Ver
 	return latestList
 }
 
-func GetMaintainanceApps(c *Space) ([]*App, error) {
-	useIndex := appIndexName("maintenance")
+func GetMaintainanceApps(c *space.Space) ([]*App, error) {
+	useIndex := space.AppIndexName("maintenance")
 	req := sprintfJSON(`{
   "use_index": %s,
   "selector": {"maintenance_activated": true},
   "limit": 1000
 }`, useIndex)
-	rows, err := c.dbApps.Find(context.Background(), req)
+	rows, err := c.AppsDB().Find(context.Background(), req)
 	if err != nil {
 		return nil, err
 	}

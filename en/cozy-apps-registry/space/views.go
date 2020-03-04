@@ -1,4 +1,4 @@
-package registry
+package space
 
 import (
 	"context"
@@ -95,12 +95,12 @@ var versionsViews = map[string]view{
 	"stable": {Map: stableView},
 }
 
-func versViewDocName(appSlug string) string {
+func VersViewDocName(appSlug string) string {
 	return "versions-" + appSlug + "-v2"
 }
 
-func createVersionsViews(c *Space, db *kivik.DB, appSlug string) error {
-	docID := fmt.Sprintf("_design/%s", url.PathEscape(versViewDocName(appSlug)))
+func CreateVersionsViews(c *Space, db *kivik.DB, appSlug string) error {
+	docID := fmt.Sprintf("_design/%s", url.PathEscape(VersViewDocName(appSlug)))
 
 	var viewsBodies []string
 	for name, view := range versionsViews {
@@ -166,4 +166,16 @@ func CreateVersionsDateView(db *kivik.DB) error {
 	}
 
 	return nil
+}
+
+// TODO we also have a copy of sprintfJSON in registry/utils.go
+func sprintfJSON(format string, a ...interface{}) json.RawMessage {
+	for i, input := range a {
+		b, err := json.Marshal(input)
+		if err != nil {
+			panic(err)
+		}
+		a[i] = string(b)
+	}
+	return json.RawMessage([]byte(fmt.Sprintf(format, a...)))
 }

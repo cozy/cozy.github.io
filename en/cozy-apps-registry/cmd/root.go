@@ -12,11 +12,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/cozy/cozy-apps-registry/asset"
 	"github.com/cozy/cozy-apps-registry/auth"
 	"github.com/cozy/cozy-apps-registry/base"
 	"github.com/cozy/cozy-apps-registry/config"
-	"github.com/cozy/cozy-apps-registry/registry"
 	"github.com/cozy/cozy-apps-registry/web"
 	"github.com/howeyc/gopass"
 	"github.com/spf13/cobra"
@@ -39,7 +37,7 @@ var minorFlag int
 var majorFlag int
 var durationFlag int
 var forceFlag bool
-var dryRunFlag bool
+var noDryRunFlag bool
 var editorAutoPublicationFlag bool
 var importDropFlag bool
 var infraMaintenanceFlag bool
@@ -134,7 +132,7 @@ func Root() *cobra.Command {
 	oldVersionsCmd.Flags().IntVar(&minorFlag, "minor", 2, "specify the maximum number of major versions to keep")
 	oldVersionsCmd.Flags().IntVar(&majorFlag, "major", 2, "specify the maximum number of minor versions for each major version to keep")
 	oldVersionsCmd.Flags().IntVar(&durationFlag, "duration", 2, "number of months to check")
-	oldVersionsCmd.Flags().BoolVar(&dryRunFlag, "no-dry-run", false, "do no dry run and removes the apps")
+	oldVersionsCmd.Flags().BoolVar(&noDryRunFlag, "no-dry-run", false, "do no dry run and removes the apps")
 
 	modifyAppCmd.Flags().StringVar(&appSpaceFlag, "space", "", "specify the application space")
 	modifyAppCmd.Flags().StringVar(&appDUCFlag, "data-usage-commitment", "", "Specify the data usage commitment: user_ciphered, user_reserved or none")
@@ -195,87 +193,11 @@ var serveCmd = &cobra.Command{
 	},
 }
 
-// TODO move prepareRegistry to config
 func prepareRegistry(cmd *cobra.Command, args []string) error {
-	if err := config.SetupServices(); err != nil {
-		return err
-	}
-
-	editorsDB, err := registry.InitGlobalClient(
-		viper.GetString("couchdb.url"),
-		viper.GetString("couchdb.user"),
-		viper.GetString("couchdb.password"))
-	if err != nil {
-		return fmt.Errorf("Could not reach CouchDB: %s", err)
-	}
-
-	store, err := asset.NewStore(
-		viper.GetString("couchdb.url"),
-		viper.GetString("couchdb.user"),
-		viper.GetString("couchdb.password"))
-	if err != nil {
-		return fmt.Errorf("Could not reach CouchDB: %s", err)
-	}
-	base.GlobalAssetStore = store
-
-	vault := auth.NewCouchDBVault(editorsDB)
-	auth.Editors = auth.NewEditorRegistry(vault)
-	return nil
+	return config.SetupServices()
 }
 
-func getVspaceKeys(vspaces map[string]interface{}) []string {
-	vspaceKeys := make([]string, 0, len(vspaces))
-	for k := range vspaces {
-		vspaceKeys = append(vspaceKeys, k)
-	}
-	return vspaceKeys
-}
-
-// checkSpaceVspaceOverlap checks if a space and a vspace holds the same name
-func checkSpaceVspaceOverlap(spaces []string, vspaces map[string]interface{}) (bool, string) {
-	// Retreiving vspaces keys
-	vspaceKeys := getVspaceKeys(vspaces)
-	for _, vspace := range vspaceKeys {
-		for _, space := range spaces {
-			if vspace == space {
-				return true, vspace
-			}
-		}
-	}
-	return false, ""
-}
-
-// TODO move prepareSpaces to config
 func prepareSpaces(cmd *cobra.Command, args []string) error {
-	spacesNames := viper.GetStringSlice("spaces")
-	if len(spacesNames) > 0 {
-		if ok, name := checkSpaceVspaceOverlap(spacesNames, viper.GetStringMap("virtual_spaces")); ok {
-			return fmt.Errorf("%q is defined as a space and a virtual space (check your config file)", name)
-		}
-		for _, spaceName := range spacesNames {
-			if err := registry.RegisterSpace(spaceName); err != nil {
-				return err
-			}
-
-			if spaceName == base.DefaultSpacePrefix.String() {
-				spaceName = ""
-			}
-
-			// Create apps view
-			s, ok := registry.GetSpace(spaceName)
-			if ok {
-				db := s.VersDB()
-				if err := registry.CreateVersionsDateView(db); err != nil {
-					return err
-				}
-			}
-		}
-	} else {
-		if err := registry.RegisterSpace(""); err != nil {
-			return err
-		}
-	}
-
 	return config.PrepareSpaces()
 }
 

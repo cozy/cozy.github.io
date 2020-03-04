@@ -8,6 +8,7 @@ import (
 
 	"github.com/cozy/cozy-apps-registry/auth"
 	"github.com/cozy/cozy-apps-registry/registry"
+	"github.com/cozy/cozy-apps-registry/space"
 	"github.com/spf13/cobra"
 )
 
@@ -16,7 +17,7 @@ var lsAppsCmd = &cobra.Command{
 	Short:   `List all apps from an editor`,
 	PreRunE: compose(prepareRegistry, prepareSpaces),
 	RunE: func(cmd *cobra.Command, args []string) error {
-		c, ok := registry.GetSpace(appSpaceFlag)
+		c, ok := space.GetSpace(appSpaceFlag)
 		if !ok {
 			return fmt.Errorf("cannot get space %s", appSpaceFlag)
 		}
@@ -72,7 +73,7 @@ var addAppCmd = &cobra.Command{
 			return err
 		}
 
-		space, ok := registry.GetSpace(appSpaceFlag)
+		space, ok := space.GetSpace(appSpaceFlag)
 		if !ok {
 			return fmt.Errorf("Space %q does not exist", appSpaceFlag)
 		}
@@ -115,7 +116,7 @@ var modifyAppCmd = &cobra.Command{
 			return cmd.Help()
 		}
 
-		space, ok := registry.GetSpace(appSpaceFlag)
+		space, ok := space.GetSpace(appSpaceFlag)
 		if !ok {
 			return fmt.Errorf("Space %q does not exist", appSpaceFlag)
 		}
@@ -156,7 +157,7 @@ var maintenanceActivateAppCmd = &cobra.Command{
 		if len(args) != 1 {
 			return cmd.Help()
 		}
-		space, ok := registry.GetSpace(appSpaceFlag)
+		space, ok := space.GetSpace(appSpaceFlag)
 		if !ok {
 			return fmt.Errorf("Space %q does not exist", appSpaceFlag)
 		}
@@ -196,7 +197,7 @@ var maintenanceDeactivateAppCmd = &cobra.Command{
 		if len(args) != 1 {
 			return cmd.Help()
 		}
-		space, ok := registry.GetSpace(appSpaceFlag)
+		space, ok := space.GetSpace(appSpaceFlag)
 		if !ok {
 			return fmt.Errorf("Space %q does not exist", appSpaceFlag)
 		}

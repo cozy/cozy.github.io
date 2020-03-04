@@ -3,7 +3,9 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/cozy/cozy-apps-registry/base"
 	"github.com/cozy/cozy-apps-registry/registry"
+	"github.com/cozy/cozy-apps-registry/space"
 	"github.com/spf13/cobra"
 )
 
@@ -18,12 +20,19 @@ var oldVersionsCmd = &cobra.Command{
 
 		channel := args[0]
 		appSlug := args[1]
-		space, _ := registry.GetSpace(appSpaceFlag)
-		noDryRun := dryRunFlag
-		if !noDryRun {
+		space, _ := space.GetSpace(appSpaceFlag)
+		run := registry.DryRun
+		if noDryRunFlag {
+			run = registry.RealRun
+		} else {
 			fmt.Println("Info: This is a dry run, the apps will not be removed")
 		}
-		return registry.CleanOldVersions(space, appSlug, channel, durationFlag, majorFlag, minorFlag, !noDryRun)
+		params := base.CleanParameters{
+			NbMajor:  majorFlag,
+			NbMinor:  minorFlag,
+			NbMonths: durationFlag,
+		}
+		return registry.CleanOldVersions(space, appSlug, channel, params, run)
 	},
 }
 
@@ -35,7 +44,7 @@ var rmAppVersionCmd = &cobra.Command{
 		if len(args) != 2 {
 			return cmd.Help()
 		}
-		space, ok := registry.GetSpace(appSpaceFlag)
+		space, ok := space.GetSpace(appSpaceFlag)
 		if !ok {
 			return fmt.Errorf("Space %q does not exist", appSpaceFlag)
 		}

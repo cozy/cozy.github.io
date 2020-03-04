@@ -13,6 +13,7 @@ import (
 	"github.com/cozy/cozy-apps-registry/auth"
 	"github.com/cozy/cozy-apps-registry/base"
 	"github.com/cozy/cozy-apps-registry/registry"
+	"github.com/cozy/cozy-apps-registry/space"
 	"github.com/spf13/cobra"
 )
 
@@ -36,7 +37,7 @@ var genTokenCmd = &cobra.Command{
 		if tokenMasterFlag {
 			token, err = editor.GenerateMasterToken(base.SessionSecret, maxAge)
 		} else if appNameFlag != "" {
-			space, ok := registry.GetSpace(appSpaceFlag)
+			space, ok := space.GetSpace(appSpaceFlag)
 			if !ok {
 				err = fmt.Errorf("Space %q does not exist", appSpaceFlag)
 			} else {
@@ -129,12 +130,12 @@ var verifyTokenCmd = &cobra.Command{
 		} else if appNameFlag == "" {
 			return fmt.Errorf("missing --app flag")
 		} else {
-			var space *registry.Space
-			space, ok = registry.GetSpace(appSpaceFlag)
+			var s *space.Space
+			s, ok = space.GetSpace(appSpaceFlag)
 			if !ok {
 				return fmt.Errorf("Space %q does not exist", appSpaceFlag)
 			}
-			app, err := registry.FindApp(space, appNameFlag, registry.Stable)
+			app, err := registry.FindApp(s, appNameFlag, registry.Stable)
 			if err != nil {
 				return err
 			}

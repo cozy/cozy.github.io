@@ -13,7 +13,7 @@ import (
 
 	"github.com/cozy/cozy-apps-registry/asset"
 	"github.com/cozy/cozy-apps-registry/base"
-	"github.com/cozy/cozy-apps-registry/registry"
+	"github.com/cozy/cozy-apps-registry/space"
 	"github.com/go-kivik/kivik/v3"
 )
 
@@ -111,7 +111,7 @@ func exportSingleCouchDb(writer *tar.Writer, prefix string, db *kivik.DB) error 
 
 func couchDatabases() []*kivik.DB {
 	dbs := []*kivik.DB{base.GlobalAssetStore.GetDB()}
-	for _, c := range registry.Spaces {
+	for _, c := range space.Spaces {
 		dbs = append(dbs, c.DBs()...)
 	}
 	return dbs
@@ -153,7 +153,7 @@ func exportSwiftContainer(writer *tar.Writer, prefix string, container base.Pref
 
 func swiftContainers() []base.Prefix {
 	containers := []base.Prefix{asset.AssetContainerName}
-	for _, space := range registry.Spaces {
+	for _, space := range space.Spaces {
 		container := space.GetPrefix()
 		containers = append(containers, container)
 	}

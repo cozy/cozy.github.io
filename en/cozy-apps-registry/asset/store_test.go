@@ -1,6 +1,7 @@
-package asset
+package asset_test
 
 import (
+	"context"
 	"crypto/sha256"
 	"encoding/hex"
 	"errors"
@@ -10,15 +11,16 @@ import (
 	"strings"
 	"testing"
 
+	assetpkg "github.com/cozy/cozy-apps-registry/asset"
 	"github.com/cozy/cozy-apps-registry/base"
 	"github.com/cozy/cozy-apps-registry/config"
 	_ "github.com/go-kivik/couchdb/v3" // The CouchDB driver
 	"github.com/go-kivik/kivik/v3"
-	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 )
 
-var testStore *store
+var testStore base.AssetStore
+var testDB *kivik.DB
 var shasum []byte
 
 func TestAddAsset(t *testing.T) {
@@ -40,13 +42,13 @@ func TestAddAsset(t *testing.T) {
 	assert.NoError(t, err)
 
 	// Check CouchDB
-	row := testStore.db.Get(testStore.ctx, hex.EncodeToString(shasum))
+	row := testDB.Get(context.Background(), hex.EncodeToString(shasum))
 	err = row.ScanDoc(asset)
 	assert.NoError(t, err)
 	assert.Equal(t, len(asset.UsedBy), 1)
 
 	// Check the storage
-	buf, hdrs, err := base.Storage.Get(AssetContainerName, hex.EncodeToString(shasum))
+	buf, hdrs, err := base.Storage.Get(assetpkg.AssetContainerName, hex.EncodeToString(shasum))
 	assert.NoError(t, err)
 	assert.Equal(t, "foobar content", buf.String())
 	assert.Equal(t, "image/jpeg", hdrs["Content-Type"])
@@ -72,7 +74,7 @@ func TestAddAssetAlreadyExists(t *testing.T) {
 	assert.NoError(t, err)
 
 	// Check CouchDB
-	row := testStore.db.Get(testStore.ctx, hex.EncodeToString(shasum))
+	row := testDB.Get(context.Background(), hex.EncodeToString(shasum))
 	err = row.ScanDoc(asset)
 	assert.NoError(t, err)
 	assert.Equal(t, len(asset.UsedBy), 2)
@@ -91,7 +93,7 @@ func TestAddAssetSameApp(t *testing.T) {
 	assert.NoError(t, err)
 
 	// Check CouchDB
-	row := testStore.db.Get(testStore.ctx, hex.EncodeToString(shasum))
+	row := testDB.Get(context.Background(), hex.EncodeToString(shasum))
 	err = row.ScanDoc(asset)
 	assert.NoError(t, err)
 	assert.Equal(t, len(asset.UsedBy), 2)
@@ -102,12 +104,12 @@ func TestRemoveAssetRemainingOthers(t *testing.T) {
 	assert.NoError(t, err)
 
 	asset := &base.Asset{}
-	row := testStore.db.Get(testStore.ctx, hex.EncodeToString(shasum))
+	row := testDB.Get(context.Background(), hex.EncodeToString(shasum))
 	err = row.ScanDoc(asset)
 	assert.NoError(t, err)
 
 	// Assert asset in FS
-	buf, _, err := base.Storage.Get(AssetContainerName, hex.EncodeToString(shasum))
+	buf, _, err := base.Storage.Get(assetpkg.AssetContainerName, hex.EncodeToString(shasum))
 	assert.NoError(t, err)
 	assert.NotEmpty(t, buf)
 }
@@ -117,19 +119,19 @@ func TestRemoveAsset(t *testing.T) {
 	assert.NoError(t, err)
 
 	asset := &base.Asset{}
-	row := testStore.db.Get(testStore.ctx, hex.EncodeToString(shasum))
+	row := testDB.Get(context.Background(), hex.EncodeToString(shasum))
 	err = row.ScanDoc(asset)
 	assert.Error(t, err)
 	assert.Equal(t, http.StatusNotFound, kivik.StatusCode(err))
 
-	_, _, err = base.Storage.Get(AssetContainerName, hex.EncodeToString(shasum))
+	_, _, err = base.Storage.Get(assetpkg.AssetContainerName, hex.EncodeToString(shasum))
 	assert.Error(t, err)
 	assert.True(t, errors.Is(err, base.ErrFileNotFound))
 }
 
 func TestComputeSource(t *testing.T) {
-	assert.Equal(t, "foo/1.0.0", ComputeSource("__default__", "foo", "1.0.0"))
-	assert.Equal(t, "myspace/foo/2.0.0", ComputeSource("myspace", "foo", "2.0.0"))
+	assert.Equal(t, "foo/1.0.0", assetpkg.ComputeSource("__default__", "foo", "1.0.0"))
+	assert.Equal(t, "myspace/foo/2.0.0", assetpkg.ComputeSource("myspace", "foo", "2.0.0"))
 }
 
 func TestMain(m *testing.M) {
@@ -143,22 +145,19 @@ func TestMain(m *testing.M) {
 		os.Exit(1)
 	}
 
-	// TODO initialize the global asset store in config
-	url := viper.GetString("couchdb.url")
-	user := viper.GetString("couchdb.user")
-	pass := viper.GetString("couchdb.password")
-
-	s, err := NewStore(url, user, pass)
-	if err != nil {
-		fmt.Println("Error while initializing global asset store", err)
-	}
-	testStore = s.(*store)
-	base.GlobalAssetStore = s
-
 	if err := config.PrepareSpaces(); err != nil {
 		fmt.Println("Cannot prepare the spaces:", err)
 		os.Exit(1)
 	}
 
-	os.Exit(m.Run())
+	testStore = base.GlobalAssetStore
+	testDB = testStore.GetDB()
+
+	out := m.Run()
+
+	if err := config.CleanupTests(); err != nil {
+		fmt.Println("Error while cleaning:", err)
+	}
+
+	os.Exit(out)
 }

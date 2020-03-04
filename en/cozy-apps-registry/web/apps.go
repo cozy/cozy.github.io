@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/cozy/cozy-apps-registry/config"
+	"github.com/cozy/cozy-apps-registry/base"
 	"github.com/cozy/cozy-apps-registry/errshttp"
 	"github.com/cozy/cozy-apps-registry/registry"
 	"github.com/labstack/echo/v4"
@@ -276,7 +276,7 @@ func getAppsList(c echo.Context) error {
 		if filter == nil {
 			filter = make(map[string]string)
 		}
-		v := virtual.(*config.VirtualSpace)
+		v := virtual.(*base.VirtualSpace)
 		filter[v.Filter] = strings.Join(v.Slugs, ",")
 
 		// Artificially altering the space prefix to force the cache to use a

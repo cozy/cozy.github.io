@@ -3,39 +3,44 @@ package config
 import (
 	"errors"
 
+	"github.com/cozy/cozy-apps-registry/base"
 	"github.com/spf13/viper"
 )
 
-// VirtualSpace is a view on another space, with a filter to restrict the list
-// of available applications.
-type VirtualSpace struct {
-	// Source is the name of a space
-	Source string
-	// Filter can be select (whitelist) or reject (blacklist)
-	Filter string
-	// Slugs is a list of webapp/connector slugs to filter
-	Slugs []string
-}
-
-func inList(target string, slugs []string) bool {
-	for _, slug := range slugs {
-		if slug == target {
+// IsVirtualSpace returns true if the given space name matches a virtual space.
+func IsVirtualSpace(spaceName string) bool {
+	for _, vkey := range getVspaceKeys(viper.GetStringMap("virtual_spaces")) {
+		if spaceName == vkey {
 			return true
 		}
 	}
 	return false
 }
 
-func (v *VirtualSpace) AcceptApp(slug string) bool {
-	filtered := inList(slug, v.Slugs)
-	if v.Filter == "select" {
-		return filtered
+// checkSpaceVspaceOverlap checks if a space and a vspace holds the same name
+func checkSpaceVspaceOverlap(spaces []string, vspaces map[string]interface{}) (bool, string) {
+	// Retreiving vspaces keys
+	vspaceKeys := getVspaceKeys(vspaces)
+	for _, vspace := range vspaceKeys {
+		for _, space := range spaces {
+			if vspace == space {
+				return true, vspace
+			}
+		}
 	}
-	return !filtered
+	return false, ""
 }
 
-func getVirtualSpaces() (map[string]VirtualSpace, error) {
-	virtuals := make(map[string]VirtualSpace)
+func getVspaceKeys(vspaces map[string]interface{}) []string {
+	vspaceKeys := make([]string, 0, len(vspaces))
+	for k := range vspaces {
+		vspaceKeys = append(vspaceKeys, k)
+	}
+	return vspaceKeys
+}
+
+func getVirtualSpaces() (map[string]base.VirtualSpace, error) {
+	virtuals := make(map[string]base.VirtualSpace)
 	for name, value := range viper.GetStringMap("virtual_spaces") {
 		virtual, ok := value.(map[string]interface{})
 		if !ok {
@@ -61,7 +66,7 @@ func getVirtualSpaces() (map[string]VirtualSpace, error) {
 			}
 			slugs[i] = s
 		}
-		virtuals[name] = VirtualSpace{
+		virtuals[name] = base.VirtualSpace{
 			Source: source,
 			Filter: filter,
 			Slugs:  slugs,

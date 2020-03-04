@@ -13,6 +13,10 @@ import "github.com/go-kivik/kivik/v3"
 // SessionSecret is the secret used to check the tokens.
 var SessionSecret []byte
 
+// Config is the parameters that have been read from the config file,
+// environment or flags.
+var Config ConfigParameters
+
 // LatestVersionsCache is used for caching the latest version of an app.
 var LatestVersionsCache Cache
 

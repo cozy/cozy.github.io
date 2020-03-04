@@ -14,9 +14,9 @@ import (
 
 	"github.com/cozy/cozy-apps-registry/auth"
 	"github.com/cozy/cozy-apps-registry/base"
-	"github.com/cozy/cozy-apps-registry/config"
 	"github.com/cozy/cozy-apps-registry/errshttp"
 	"github.com/cozy/cozy-apps-registry/registry"
+	"github.com/cozy/cozy-apps-registry/space"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -106,7 +106,7 @@ func extractAuthHeader(c echo.Context) ([]byte, error) {
 	return token, nil
 }
 
-func filterGetMaintenanceApps(virtual *config.VirtualSpace) echo.HandlerFunc {
+func filterGetMaintenanceApps(virtual *base.VirtualSpace) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		apps, err := registry.GetMaintainanceApps(getSpace(c))
 		if err != nil {
@@ -150,7 +150,7 @@ func jsonEndpoint(next echo.HandlerFunc) echo.HandlerFunc {
 func ensureSpace(spaceName string) echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
-			space, ok := registry.GetSpace(spaceName)
+			space, ok := space.GetSpace(spaceName)
 			if !ok {
 				return echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("Space %q does not exist", spaceName))
 			}
@@ -160,20 +160,18 @@ func ensureSpace(spaceName string) echo.MiddlewareFunc {
 	}
 }
 
-func getSpace(c echo.Context) *registry.Space {
-	return c.Get(spaceKey).(*registry.Space)
+func getSpace(c echo.Context) *space.Space {
+	return c.Get(spaceKey).(*space.Space)
 }
 
-func getSpaceFromHost(c echo.Context) (*registry.Space, error) {
+func getSpaceFromHost(c echo.Context) (*space.Space, error) {
 	host := strings.Split(c.Request().Host, ":")[0]
 
-	conf := config.GetConfig()
-
-	if spaceName, ok := conf.DomainSpaces[host]; ok {
+	if spaceName, ok := base.Config.DomainSpaces[host]; ok {
 		if spaceName == base.DefaultSpacePrefix.String() {
 			spaceName = ""
 		}
-		if space, ok := registry.GetSpace(spaceName); ok {
+		if space, ok := space.GetSpace(spaceName); ok {
 			return space, nil
 		}
 	}
@@ -321,7 +319,7 @@ func writeJSON(c echo.Context, doc interface{}) error {
 	return c.JSON(http.StatusOK, doc)
 }
 
-func applyVirtualSpace(handler echo.HandlerFunc, virtual *config.VirtualSpace, virtualSpacename string) echo.HandlerFunc {
+func applyVirtualSpace(handler echo.HandlerFunc, virtual *base.VirtualSpace, virtualSpacename string) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		c.Set("virtual", virtual)
 		c.Set("virtual_name", virtualSpacename)
@@ -329,7 +327,7 @@ func applyVirtualSpace(handler echo.HandlerFunc, virtual *config.VirtualSpace, v
 	}
 }
 
-func filterAppInVirtualSpace(handler echo.HandlerFunc, virtual *config.VirtualSpace) echo.HandlerFunc {
+func filterAppInVirtualSpace(handler echo.HandlerFunc, virtual *base.VirtualSpace) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		if !virtual.AcceptApp(c.Param("app")) {
 			return echo.NewHTTPError(http.StatusNotFound)
@@ -354,7 +352,7 @@ func Router(addr string) *echo.Echo {
 	e.Use(middleware.BodyLimit("100K"))
 	e.Use(middleware.Recover())
 
-	for _, c := range registry.GetSpacesNames() {
+	for _, c := range space.GetSpacesNames() {
 		var groupName string
 		if c == "" {
 			groupName = "/registry"
@@ -405,17 +403,15 @@ func Router(addr string) *echo.Echo {
 		g.GET("/:app/:version/tarball/:tarball", getVersionTarball)
 	}
 
-	virtuals := config.GetConfig().VirtualSpaces
-	for name, virtual := range virtuals {
+	for name, v := range base.Config.VirtualSpaces {
 		groupName := fmt.Sprintf("/%s/registry", url.PathEscape(name))
 
-		source := virtual.Source
+		source := v.Source
 		if source == base.DefaultSpacePrefix.String() {
 			source = ""
 		}
 		g := e.Group(groupName, ensureSpace(source))
 
-		v := virtuals[name]
 		virtualGetAppsList := applyVirtualSpace(getAppsList, &v, name)
 		g.GET("", virtualGetAppsList, jsonEndpoint, middleware.Gzip())
 

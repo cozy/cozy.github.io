@@ -202,7 +202,7 @@ module.exports = {
   usageMode: 'collapse',
   context: {
     utils: path.resolve(__dirname, 'utils'),
-    isTesting: path.resolve(__dirname, 'isTesting'),
+    isTesting: path.resolve(__dirname, '../helpers/isTesting'),
     content: path.resolve(__dirname, 'fixtures/content')
   }
 }

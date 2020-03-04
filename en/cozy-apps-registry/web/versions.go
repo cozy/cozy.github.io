@@ -7,7 +7,7 @@ import (
 	"path"
 	"path/filepath"
 
-	"github.com/cozy/cozy-apps-registry/config"
+	"github.com/cozy/cozy-apps-registry/base"
 	"github.com/cozy/cozy-apps-registry/errshttp"
 	"github.com/cozy/cozy-apps-registry/registry"
 	"github.com/labstack/echo/v4"
@@ -15,7 +15,6 @@ import (
 )
 
 func createVersion(c echo.Context) (err error) {
-	conf := config.GetConfig()
 	if err = checkAuthorized(c); err != nil {
 		return err
 	}
@@ -77,9 +76,10 @@ func createVersion(c echo.Context) (err error) {
 
 		// Cleaning the old versions
 		channelString := registry.ChannelToStr(channel)
-		if conf.CleanEnabled {
+		if base.Config.CleanEnabled {
 			go func() {
-				err := registry.CleanOldVersions(space, ver.Slug, channelString, conf.CleanNbMonths, conf.CleanNbMajorVersions, conf.CleanNbMinorVersions, false)
+				err := registry.CleanOldVersions(space, ver.Slug, channelString,
+					base.Config.CleanParameters, registry.RealRun)
 				if err != nil {
 					log := logrus.WithFields(logrus.Fields{
 						"nspace":    "clean_version",

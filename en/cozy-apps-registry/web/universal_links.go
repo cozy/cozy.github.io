@@ -7,7 +7,6 @@ import (
 	"strings"
 
 	"github.com/cozy/cozy-apps-registry/base"
-	"github.com/cozy/cozy-apps-registry/config"
 	"github.com/labstack/echo/v4"
 )
 
@@ -77,7 +76,7 @@ func universalLinkRedirect(c echo.Context) error {
 		return err
 	}
 
-	spaceTrustedDomains := config.GetConfig().TrustedDomains
+	spaceTrustedDomains := base.Config.TrustedDomains
 	if domains, ok := spaceTrustedDomains[spacePrefix.String()]; ok {
 		for _, domain := range domains {
 			if strings.Contains(parsedRedirect.Host, domain) {

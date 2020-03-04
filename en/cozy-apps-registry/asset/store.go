@@ -10,11 +10,9 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"net/url"
 	"path/filepath"
 
 	"github.com/cozy/cozy-apps-registry/base"
-	"github.com/go-kivik/couchdb/v3/chttp"
 	"github.com/go-kivik/kivik/v3"
 )
 
@@ -33,36 +31,12 @@ func ComputeSource(spacePrefix base.Prefix, appSlug, version string) string {
 	return filepath.Join(space, appSlug, version)
 }
 
-// NewStore initializes the global asset store database
-// TODO move client creation to config
-func NewStore(addr, user, pass string) (base.AssetStore, error) {
-	ctx := context.Background()
-	u, err := url.Parse(addr)
-	if err != nil {
-		return nil, err
-	}
-	u.User = nil
-
-	client, err := kivik.New("couch", u.String())
-	if err != nil {
-		return nil, err
-	}
-
-	if pass != "" {
-		err = client.Authenticate(ctx, &chttp.BasicAuth{
-			Username: user,
-			Password: pass,
-		})
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	store := &store{
+// NewStore returns a store with the given client.
+func NewStore(client *kivik.Client) base.AssetStore {
+	return &store{
 		client: client,
 		ctx:    context.Background(),
 	}
-	return store, nil
 }
 
 type store struct {
