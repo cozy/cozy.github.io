@@ -8,6 +8,7 @@ import (
 	"net/url"
 	"strings"
 
+	"github.com/cozy/cozy-apps-registry/base"
 	"github.com/go-kivik/kivik/v3"
 )
 
@@ -106,7 +107,7 @@ func CreateVersionsViews(c *Space, db *kivik.DB, appSlug string) error {
 	for name, view := range versionsViews {
 		code := fmt.Sprintf(view.Map, appSlug)
 		viewsBodies = append(viewsBodies,
-			string(sprintfJSON(`%s: {"map": %s}`, name, code)))
+			string(base.SprintfJSON(`%s: {"map": %s}`, name, code)))
 	}
 
 	viewsBody := json.RawMessage(`{` + strings.Join(viewsBodies, ",") + `}`)
@@ -144,7 +145,7 @@ func CreateVersionsDateView(db *kivik.DB) error {
 			}
 			}`, channel)
 		viewsBodies = append(viewsBodies,
-			string(sprintfJSON(`%s: {"map": %s}`, channel, code)))
+			string(base.SprintfJSON(`%s: {"map": %s}`, channel, code)))
 	}
 
 	docID := fmt.Sprintf("_design/%s", "by-date")
@@ -166,16 +167,4 @@ func CreateVersionsDateView(db *kivik.DB) error {
 	}
 
 	return nil
-}
-
-// TODO we also have a copy of sprintfJSON in registry/utils.go
-func sprintfJSON(format string, a ...interface{}) json.RawMessage {
-	for i, input := range a {
-		b, err := json.Marshal(input)
-		if err != nil {
-			panic(err)
-		}
-		a[i] = string(b)
-	}
-	return json.RawMessage([]byte(fmt.Sprintf(format, a...)))
 }

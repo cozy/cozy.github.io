@@ -129,7 +129,7 @@ type VersionOptions struct {
 	Icon        string          `json:"icon"`
 	Partnership Partnership     `json:"partnership"`
 	Screenshots []string        `json:"screenshots"`
-	Space       string
+	SpacePrefix base.Prefix
 	RegistryURL *url.URL
 }
 
@@ -357,32 +357,20 @@ func createVersion(c *space.Space, db *kivik.DB, ver *Version, attachments []*ki
 	source := asset.ComputeSource(c.GetPrefix(), ver.Slug, ver.Version)
 	atts := map[string]string{}
 	for _, att := range attachments {
-		var buf = new(bytes.Buffer)
-
-		// Sha256
-		h := sha256.New()
-		content := io.TeeReader(att.Content, buf)
-		_, err = io.Copy(h, content)
-		if err != nil {
-			return err
-		}
-		shasum := h.Sum(nil)
-
 		// Adding asset to the global asset store
 		a := &base.Asset{
 			Name:        att.Filename,
-			Shasum:      hex.EncodeToString(shasum),
 			AppSlug:     app.Slug,
 			ContentType: att.ContentType,
 		}
-		err = base.GlobalAssetStore.Add(a, buf, source)
+		err = base.GlobalAssetStore.Add(a, att.Content, source)
 		if err != nil {
 			return err
 		}
 
 		// We are going to use the attachment field to store a link to the
 		// global asset
-		atts[att.Filename] = hex.EncodeToString(shasum)
+		atts[att.Filename] = a.Shasum
 	}
 
 	// Update the version document to add an attachment that references global
@@ -696,7 +684,7 @@ func downloadVersion(opts *VersionOptions) (*Version, []*kivik.Attachment, error
 	filepath := filepath.Join(parsedManifest.Slug, opts.Version, filename)
 
 	// Saving app tarball
-	errt := SaveTarball(opts.Space, filepath, tarball)
+	errt := saveTarball(opts.SpacePrefix, filepath, tarball)
 	if errt != nil {
 		return nil, nil, errt
 	}
@@ -870,13 +858,9 @@ func HandleAssets(tarball *Tarball, opts *VersionOptions) ([]*kivik.Attachment, 
 	return attachments, nil
 }
 
-// SaveTarball saves tarball to swift
-func SaveTarball(space, filepath string, tarball *Tarball) error {
-	// Saving the tar to Swift
+func saveTarball(prefix base.Prefix, filepath string, tarball *Tarball) error {
 	var content = bytes.NewReader(tarball.Content)
-
-	// TODO fix space->prefix conversion
-	return base.Storage.Create(base.Prefix(space), filepath, tarball.ContentType, content)
+	return base.Storage.Create(prefix, filepath, tarball.ContentType, content)
 }
 
 // ReadTarballVersion reads the content of the version tarball which has been

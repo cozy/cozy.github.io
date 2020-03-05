@@ -7,6 +7,8 @@ package asset
 import (
 	"bytes"
 	"context"
+	"crypto/sha256"
+	"encoding/hex"
 	"fmt"
 	"io"
 	"net/http"
@@ -68,8 +70,16 @@ func (s *store) Prepare() error {
 	return base.Storage.EnsureExists(AssetContainerName)
 }
 
-// TODO move the shasum computation in Add
 func (s *store) Add(asset *base.Asset, content io.Reader, source string) error {
+	// Sha256
+	var buf = new(bytes.Buffer)
+	h := sha256.New()
+	tee := io.TeeReader(content, buf)
+	if _, err := io.Copy(h, tee); err != nil {
+		return err
+	}
+	asset.Shasum = hex.EncodeToString(h.Sum(nil))
+
 	// Handles the CouchDB updates
 	var doc *base.Asset
 	row := s.db.Get(s.ctx, asset.Shasum, nil)
@@ -84,7 +94,7 @@ func (s *store) Add(asset *base.Asset, content io.Reader, source string) error {
 		doc.ID = asset.Shasum
 
 		// Creating the asset in the FS
-		err := base.Storage.Create(AssetContainerName, asset.Shasum, asset.ContentType, content)
+		err := base.Storage.Create(AssetContainerName, asset.Shasum, asset.ContentType, buf)
 		if err != nil {
 			return err
 		}

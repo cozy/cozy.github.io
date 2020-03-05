@@ -1,15 +1,10 @@
 package web
 
 import (
-	"context"
 	"net/http"
-	"net/url"
 
 	"github.com/cozy/cozy-apps-registry/base"
-	"github.com/go-kivik/couchdb/v3/chttp"
-	"github.com/go-kivik/kivik/v3"
 	"github.com/labstack/echo/v4"
-	"github.com/spf13/viper"
 )
 
 type entry struct {
@@ -34,13 +29,8 @@ func Status(c echo.Context) error {
 
 	// CouchDB
 	couchDB := entry{Status: "ok"}
-	// TODO do not access viper from the web package
-	url := viper.GetString("couchdb.url")
-	user := viper.GetString("couchdb.user")
-	password := viper.GetString("couchdb.password")
 	ctx := c.Request().Context()
-
-	ok, err := checkCouch(ctx, url, user, password)
+	ok, err := base.DBClient.Ping(ctx)
 	if !ok {
 		couchDB.Status = "failed"
 		couchDB.Reason = err.Error()
@@ -59,36 +49,6 @@ func Status(c echo.Context) error {
 
 	check["status"] = global
 	return c.JSON(http.StatusOK, check)
-}
-
-func checkCouch(ctx context.Context, addr, user, password string) (bool, error) {
-	u, err := url.Parse(addr)
-	if err != nil {
-		return false, err
-	}
-	u.User = nil
-
-	client, err := kivik.New("couch", u.String())
-	if err != nil {
-		return false, err
-	}
-
-	if user != "" {
-		err = client.Authenticate(ctx, &chttp.BasicAuth{
-			Username: user,
-			Password: password,
-		})
-		if err != nil {
-			return false, err
-		}
-	}
-
-	ok, err := client.Ping(ctx)
-	if err != nil {
-		return false, err
-	}
-
-	return ok, nil
 }
 
 // StatusRoutes sets the routing for the status service.

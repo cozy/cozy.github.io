@@ -2,8 +2,6 @@ package asset_test
 
 import (
 	"context"
-	"crypto/sha256"
-	"encoding/hex"
 	"errors"
 	"fmt"
 	"net/http"
@@ -21,41 +19,36 @@ import (
 
 var testStore base.AssetStore
 var testDB *kivik.DB
-var shasum []byte
+var shasum string
 
 func TestAddAsset(t *testing.T) {
 	content := "foobar content"
 
-	sha256 := sha256.New()
-	_, err := sha256.Write([]byte(content))
-	assert.NoError(t, err)
-	shasum = sha256.Sum(nil)
-
 	asset := &base.Asset{
 		Name:        "icon",
-		Shasum:      hex.EncodeToString(shasum),
 		AppSlug:     "app1",
 		ContentType: "image/jpeg",
 	}
 
-	err = testStore.Add(asset, strings.NewReader(content), "app1")
+	err := testStore.Add(asset, strings.NewReader(content), "app1")
 	assert.NoError(t, err)
+	shasum = asset.Shasum
 
 	// Check CouchDB
-	row := testDB.Get(context.Background(), hex.EncodeToString(shasum))
+	row := testDB.Get(context.Background(), shasum)
 	err = row.ScanDoc(asset)
 	assert.NoError(t, err)
 	assert.Equal(t, len(asset.UsedBy), 1)
 
 	// Check the storage
-	buf, hdrs, err := base.Storage.Get(assetpkg.AssetContainerName, hex.EncodeToString(shasum))
+	buf, hdrs, err := base.Storage.Get(assetpkg.AssetContainerName, shasum)
 	assert.NoError(t, err)
 	assert.Equal(t, "foobar content", buf.String())
 	assert.Equal(t, "image/jpeg", hdrs["Content-Type"])
 }
 
 func TestGetAsset(t *testing.T) {
-	buf, hdrs, err := testStore.Get(hex.EncodeToString(shasum))
+	buf, hdrs, err := testStore.Get(shasum)
 	assert.NoError(t, err)
 	assert.Equal(t, "image/jpeg", hdrs["Content-Type"])
 	assert.Equal(t, "foobar content", buf.String())
@@ -65,7 +58,6 @@ func TestAddAssetAlreadyExists(t *testing.T) {
 	content := "foobar content"
 	asset := &base.Asset{
 		Name:        "icon",
-		Shasum:      hex.EncodeToString(shasum),
 		AppSlug:     "app1",
 		ContentType: "image/jpeg",
 	}
@@ -74,7 +66,7 @@ func TestAddAssetAlreadyExists(t *testing.T) {
 	assert.NoError(t, err)
 
 	// Check CouchDB
-	row := testDB.Get(context.Background(), hex.EncodeToString(shasum))
+	row := testDB.Get(context.Background(), shasum)
 	err = row.ScanDoc(asset)
 	assert.NoError(t, err)
 	assert.Equal(t, len(asset.UsedBy), 2)
@@ -84,7 +76,6 @@ func TestAddAssetSameApp(t *testing.T) {
 	content := "foobar content"
 	asset := &base.Asset{
 		Name:        "icon",
-		Shasum:      hex.EncodeToString(shasum),
 		AppSlug:     "app1",
 		ContentType: "image/jpeg",
 	}
@@ -93,38 +84,38 @@ func TestAddAssetSameApp(t *testing.T) {
 	assert.NoError(t, err)
 
 	// Check CouchDB
-	row := testDB.Get(context.Background(), hex.EncodeToString(shasum))
+	row := testDB.Get(context.Background(), shasum)
 	err = row.ScanDoc(asset)
 	assert.NoError(t, err)
 	assert.Equal(t, len(asset.UsedBy), 2)
 }
 
 func TestRemoveAssetRemainingOthers(t *testing.T) {
-	err := testStore.Remove(hex.EncodeToString(shasum), "app2")
+	err := testStore.Remove(shasum, "app2")
 	assert.NoError(t, err)
 
 	asset := &base.Asset{}
-	row := testDB.Get(context.Background(), hex.EncodeToString(shasum))
+	row := testDB.Get(context.Background(), shasum)
 	err = row.ScanDoc(asset)
 	assert.NoError(t, err)
 
 	// Assert asset in FS
-	buf, _, err := base.Storage.Get(assetpkg.AssetContainerName, hex.EncodeToString(shasum))
+	buf, _, err := base.Storage.Get(assetpkg.AssetContainerName, shasum)
 	assert.NoError(t, err)
 	assert.NotEmpty(t, buf)
 }
 
 func TestRemoveAsset(t *testing.T) {
-	err := testStore.Remove(hex.EncodeToString(shasum), "app1")
+	err := testStore.Remove(shasum, "app1")
 	assert.NoError(t, err)
 
 	asset := &base.Asset{}
-	row := testDB.Get(context.Background(), hex.EncodeToString(shasum))
+	row := testDB.Get(context.Background(), shasum)
 	err = row.ScanDoc(asset)
 	assert.Error(t, err)
 	assert.Equal(t, http.StatusNotFound, kivik.StatusCode(err))
 
-	_, _, err = base.Storage.Get(assetpkg.AssetContainerName, hex.EncodeToString(shasum))
+	_, _, err = base.Storage.Get(assetpkg.AssetContainerName, shasum)
 	assert.Error(t, err)
 	assert.True(t, errors.Is(err, base.ErrFileNotFound))
 }

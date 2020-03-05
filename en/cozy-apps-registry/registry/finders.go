@@ -3,8 +3,6 @@ package registry
 import (
 	"bytes"
 	"context"
-	"crypto/sha256"
-	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -192,21 +190,13 @@ func FindVersionAttachment(c *space.Space, appSlug, version, filename string) (*
 func MoveAssetToGlobalDatabase(c *space.Space, ver *Version, content []byte, filename, contentType string) error {
 	globalFilepath := filepath.Join(c.Prefix, ver.Slug, ver.Version)
 
-	h := sha256.New()
-	_, err := h.Write(content)
-	if err != nil {
-		return err
-	}
-	shasum := h.Sum(nil)
-
 	a := &base.Asset{
 		Name:        filename,
-		Shasum:      hex.EncodeToString(shasum),
 		AppSlug:     ver.Slug,
 		ContentType: contentType,
 	}
 
-	err = base.GlobalAssetStore.Add(a, bytes.NewReader(content), globalFilepath)
+	err := base.GlobalAssetStore.Add(a, bytes.NewReader(content), globalFilepath)
 	if err != nil {
 		return err
 	}
@@ -215,7 +205,7 @@ func MoveAssetToGlobalDatabase(c *space.Space, ver *Version, content []byte, fil
 	if ver.AttachmentReferences == nil {
 		ver.AttachmentReferences = make(map[string]string)
 	}
-	ver.AttachmentReferences[filename] = hex.EncodeToString(shasum)
+	ver.AttachmentReferences[filename] = a.Shasum
 
 	db := c.VersDB()
 	_, err = db.Put(context.Background(), ver.ID, ver)
@@ -691,19 +681,19 @@ func GetAppsList(c *space.Space, opts *AppsListOptions) (int, []*App, error) {
 		switch name {
 		case "tags", "locales":
 			tags := strings.Split(val, ",")
-			selector += string(sprintfJSON(`%s: {"$all": %s}`, name, tags))
+			selector += string(base.SprintfJSON(`%s: {"$all": %s}`, name, tags))
 		case "select":
 			slugs := strings.Split(val, ",")
-			selector += string(sprintfJSON(`"slug": {"$in": %s}`, slugs))
+			selector += string(base.SprintfJSON(`"slug": {"$in": %s}`, slugs))
 		case "reject":
 			slugs := strings.Split(val, ",")
-			selector += string(sprintfJSON(`"slug": {"$nin": %s}`, slugs))
+			selector += string(base.SprintfJSON(`"slug": {"$nin": %s}`, slugs))
 		default:
-			selector += string(sprintfJSON("%s: %s", name, val))
+			selector += string(base.SprintfJSON("%s: %s", name, val))
 		}
 	}
 	if selector == "" {
-		selector = string(sprintfJSON(`%s: {"$gt": null}`, sortField))
+		selector = string(base.SprintfJSON(`%s: {"$gt": null}`, sortField))
 	}
 
 	if opts.Limit == 0 {
@@ -715,7 +705,7 @@ func GetAppsList(c *space.Space, opts *AppsListOptions) (int, []*App, error) {
 	designsCount := len(space.AppsIndexes)
 	limit := opts.Limit + designsCount + 1
 	cursor := opts.Cursor
-	req := sprintfJSON(`{
+	req := base.SprintfJSON(`{
   "use_index": %s,
   "selector": {`+selector+`},
   "skip": %s,
@@ -879,7 +869,7 @@ func GetVersionsLatestFromCache(c *space.Space, channelStr string, apps []*App) 
 
 func GetMaintainanceApps(c *space.Space) ([]*App, error) {
 	useIndex := space.AppIndexName("maintenance")
-	req := sprintfJSON(`{
+	req := base.SprintfJSON(`{
   "use_index": %s,
   "selector": {"maintenance_activated": true},
   "limit": 1000

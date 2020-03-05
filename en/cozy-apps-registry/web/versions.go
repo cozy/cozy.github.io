@@ -32,7 +32,7 @@ func createVersion(c echo.Context) (err error) {
 		return err
 	}
 	opts.Version = stripVersion(opts.Version)
-	opts.Space = prefix.String()
+	opts.SpacePrefix = prefix
 
 	editor, err := checkPermissions(c, app.Editor, app.Slug, false /* = not master */)
 	if err != nil {

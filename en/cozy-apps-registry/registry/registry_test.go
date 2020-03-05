@@ -89,7 +89,7 @@ func TestDownloadVersion(t *testing.T) {
 		Sha256:      shasum,
 		Version:     "1.0.0",
 		RegistryURL: buildedURL,
-		Space:       testSpaceName,
+		SpacePrefix: base.Prefix(testSpaceName),
 	}
 
 	ver, att, err := DownloadVersion(opts)

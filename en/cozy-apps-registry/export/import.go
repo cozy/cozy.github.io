@@ -81,7 +81,6 @@ func cleanCouch() error {
 		return err
 	}
 
-	// TODO can we remove this call?
 	return space.InitializeSpaces()
 }
 
