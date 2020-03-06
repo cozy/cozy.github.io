@@ -27,6 +27,11 @@ type (
 	Value []byte
 )
 
+// NewKey builds a key for the cache.
+func NewKey(spaceName, appSlug, channelStr string) Key {
+	return Key(spaceName + "/" + appSlug + "/" + channelStr)
+}
+
 // String returns the key as a string.
 func (k Key) String() string {
 	return string(k)

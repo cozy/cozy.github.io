@@ -15,8 +15,8 @@ couchdb:
 
 redis:
   addrs: localhost:6379
-  master:
-  password: password
+  # master:
+  # password: password
   databases:
     versionsList: 0
     versionsLatest: 1
@@ -32,6 +32,11 @@ redis:
   # idle_timeout: 5m
   # idle_check_frequency: 1m
   # read_only_slave: false
+
+# Storage - you should use swift in production, but for local development, it
+# can easier to use the local file system. If present, the fs configuration
+# parameter allows to use a directory for the storage (and will skip Swift).
+fs: .storage
 
 # Swift configuration
 swift:

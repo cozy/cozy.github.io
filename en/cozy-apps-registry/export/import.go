@@ -88,7 +88,6 @@ func parseCouchDocument(reader io.Reader, parts []string) (string, *interface{},
 	db, id := parts[0], parts[1]
 	db = strings.Replace(db, "__prefix__", base.DatabaseNamespace, 1)
 	id = strings.TrimSuffix(id, documentSuffix)
-	fmt.Printf("Parse CouchDB document %s.%s\n", db, id)
 
 	var doc interface{}
 	if err := json.NewDecoder(reader).Decode(&doc); err != nil {
@@ -112,8 +111,6 @@ func importSwift(reader io.Reader, header *tar.Header, parts []string, pool thre
 	container, parts := base.Prefix(parts[0]), parts[1:]
 	path := path.Join(parts...)
 	contentType := header.PAXRecords[contentTypeAttr]
-	fmt.Printf("Import Swift document %s %s\n", container, path)
-
 	return pool.AddJob(group, func(pool threadpool.ThreadPool, erf func() error) error {
 		return base.Storage.Create(container, path, contentType, reader)
 	})

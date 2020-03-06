@@ -57,7 +57,7 @@ func createVersion(c echo.Context) (err error) {
 	buildedURL := &url.URL{
 		Scheme: c.Scheme(),
 		Host:   c.Request().Host,
-		Path:   fmt.Sprintf("%s/registry/%s/%s/tarball/%s", space.Prefix, appSlug, opts.Version, filename),
+		Path:   fmt.Sprintf("%s/registry/%s/%s/tarball/%s", space.Name, appSlug, opts.Version, filename),
 	}
 
 	opts.RegistryURL = buildedURL
@@ -83,7 +83,7 @@ func createVersion(c echo.Context) (err error) {
 				if err != nil {
 					log := logrus.WithFields(logrus.Fields{
 						"nspace":    "clean_version",
-						"space":     space.Prefix,
+						"space":     space.Name,
 						"slug":      ver.Slug,
 						"version":   ver.Version,
 						"channel":   channelString,

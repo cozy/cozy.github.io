@@ -59,16 +59,10 @@ const isLoading = props => {
   const {
     accounts: accountsCollection,
     groups: groupsCollection,
-    settings: settingsCollection,
-    triggers: triggersCollection
+    settings: settingsCollection
   } = props
 
-  const collections = [
-    accountsCollection,
-    groupsCollection,
-    triggersCollection,
-    settingsCollection
-  ]
+  const collections = [accountsCollection, groupsCollection, settingsCollection]
 
   return collections.some(
     col => isCollectionLoading(col) && !hasBeenLoaded(col)

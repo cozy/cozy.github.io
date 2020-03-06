@@ -33,15 +33,18 @@ func SetupServices() error {
 
 	base.DatabaseNamespace = viper.GetString("couchdb.prefix")
 	if err := configureCouch(); err != nil {
-		return err
+		return fmt.Errorf("Cannot configure CouchDB: %w", err)
 	}
 
-	// TODO allow to use a local FS storage
-	sc, err := initSwiftConnection()
-	if err != nil {
-		return fmt.Errorf("Cannot access to swift: %s", err)
+	if dir := viper.GetString("fs"); dir != "" {
+		base.Storage = storage.NewFS(dir)
+	} else {
+		sc, err := initSwiftConnection()
+		if err != nil {
+			return fmt.Errorf("Cannot access to swift: %s", err)
+		}
+		base.Storage = storage.NewSwift(sc)
 	}
-	base.Storage = storage.NewSwift(sc)
 	return nil
 }
 
@@ -297,12 +300,12 @@ func PrepareSpaces() error {
 
 		// Register the space in registry spaces list and prepare CouchDB.
 		if err := space.Register(spaceName); err != nil {
-			return err
+			return fmt.Errorf("Cannot register space %q: %w", spaceName, err)
 		}
 
 		// Prepare the storage.
 		if err := base.Storage.EnsureExists(prefix); err != nil {
-			return err
+			return fmt.Errorf("Cannot create storage container %q: %w", prefix, err)
 		}
 	}
 

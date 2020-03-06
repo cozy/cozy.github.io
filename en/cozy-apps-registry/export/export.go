@@ -53,7 +53,6 @@ func exportCouchDocument(writer *tar.Writer, prefix string, db *kivik.DB, rows *
 	}
 
 	file := path.Join(prefix, fmt.Sprintf("%s%s", id, documentSuffix))
-	fmt.Printf("    Exporting document %s\n", id)
 
 	var value map[string]interface{}
 	if err := rows.ScanDoc(&value); err != nil {
@@ -93,7 +92,7 @@ func exportSingleCouchDb(writer *tar.Writer, prefix string, db *kivik.DB) error 
 		i := 0
 		for rows.Next() {
 			if i == perPage {
-				startKey = rows.Key()
+				startKey = rows.ID()
 				break
 			}
 			if err := exportCouchDocument(writer, prefix, db, rows); err != nil {
@@ -136,8 +135,6 @@ func exportSwiftContainer(writer *tar.Writer, prefix string, container base.Pref
 	dir := path.Join(prefix, container.String())
 
 	return base.Storage.Walk(container, func(name, contentType string) error {
-		fmt.Printf("      Exporting object %s\n", name)
-
 		buffer, _, err := base.Storage.Get(container, name)
 		if err != nil {
 			return err

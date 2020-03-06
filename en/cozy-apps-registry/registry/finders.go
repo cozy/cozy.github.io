@@ -158,7 +158,7 @@ func FindVersionAttachment(c *space.Space, appSlug, version, filename string) (*
 			if err != nil {
 				log := logrus.WithFields(logrus.Fields{
 					"nspace":    "move_asset",
-					"space":     c.Prefix,
+					"space":     c.Name,
 					"slug":      appSlug,
 					"version":   version,
 					"filename":  filename,
@@ -188,7 +188,7 @@ func FindVersionAttachment(c *space.Space, appSlug, version, filename string) (*
 // 2. Adds a reference to the asset in the couch version document
 // 3. Removes the old asset location
 func MoveAssetToGlobalDatabase(c *space.Space, ver *Version, content []byte, filename, contentType string) error {
-	globalFilepath := filepath.Join(c.Prefix, ver.Slug, ver.Version)
+	globalFilepath := filepath.Join(c.Name, ver.Slug, ver.Version)
 
 	a := &base.Asset{
 		Name:        filename,
@@ -441,7 +441,7 @@ func FindLastNVersions(c *space.Space, appSlug string, channelStr string, nMajor
 
 func FindLatestVersion(c *space.Space, appSlug string, channel Channel) (*Version, error) {
 	// Try to get the latest version from the cache
-	key := base.Key(c.Prefix + "/" + appSlug + "/" + ChannelToStr(channel))
+	key := base.NewKey(c.Name, appSlug, ChannelToStr(channel))
 	if data, ok := base.LatestVersionsCache.Get(key); ok {
 		var latestVersion *Version
 		if err := json.Unmarshal(data, &latestVersion); err == nil {
@@ -487,7 +487,7 @@ func FindLatestVersionCacheMiss(c *space.Space, appSlug string, channel Channel)
 
 	// Update the cache by using a goroutine to avoid waiting for the latency
 	// between the app server and redis.
-	key := base.Key(c.Prefix + "/" + appSlug + "/" + channelStr)
+	key := base.NewKey(c.Name, appSlug, channelStr)
 	go base.LatestVersionsCache.Add(key, base.Value(data))
 
 	return latestVersion, nil
@@ -498,7 +498,7 @@ func FindLatestVersionCacheMiss(c *space.Space, appSlug string, channel Channel)
 // list
 func FindAppVersions(c *space.Space, appSlug string, channel Channel, concat ConcatChannels) (*AppVersions, error) {
 	// Try to get the app versions from the cache
-	key := base.Key(c.Prefix + "/" + appSlug + "/" + ChannelToStr(channel))
+	key := base.NewKey(c.Name, appSlug, ChannelToStr(channel))
 	if data, ok := base.ListVersionsCache.Get(key); ok {
 		var versions *AppVersions
 		if err := json.Unmarshal(data, &versions); err == nil {
@@ -576,7 +576,7 @@ func FindAppVersionsCacheMiss(c *space.Space, appSlug string, channel Channel, c
 	// Update the cache by using a goroutine to avoid waiting for the latency
 	// between the app server and redis.
 	if data, err := json.Marshal(versions); err == nil {
-		key := base.Key(c.Prefix + "/" + appSlug + "/" + ChannelToStr(channel))
+		key := base.NewKey(c.Name, appSlug, ChannelToStr(channel))
 		go base.ListVersionsCache.Add(key, data)
 	}
 
@@ -828,7 +828,7 @@ func fillAppVersions(c *space.Space, opts *AppsListOptions, entry *appVersionEnt
 func GetVersionsListFromCache(c *space.Space, channelStr string, apps []*App) []*AppVersions {
 	keys := make([]base.Key, len(apps))
 	for i, app := range apps {
-		keys[i] = base.Key(c.Prefix + "/" + app.Slug + "/" + channelStr)
+		keys[i] = base.NewKey(c.Name, app.Slug, channelStr)
 	}
 
 	cachedList := base.ListVersionsCache.MGet(keys)
@@ -849,7 +849,7 @@ func GetVersionsListFromCache(c *space.Space, channelStr string, apps []*App) []
 func GetVersionsLatestFromCache(c *space.Space, channelStr string, apps []*App) []*Version {
 	keys := make([]base.Key, len(apps))
 	for i, app := range apps {
-		keys[i] = base.Key(c.Prefix + "/" + app.Slug + "/" + channelStr)
+		keys[i] = base.NewKey(c.Name, app.Slug, channelStr)
 	}
 
 	cachedList := base.LatestVersionsCache.MGet(keys)

@@ -15,6 +15,12 @@ import (
 
 const xattrMime = "user.mime_type"
 
+// NewFS returns a VirtualStorage where the files are persisted in the given
+// directory of the local file system.
+func NewFS(baseDir string) base.VirtualStorage {
+	return &localFS{baseDir: baseDir}
+}
+
 type localFS struct {
 	baseDir string
 }
@@ -114,12 +120,18 @@ func (m *localFS) Remove(prefix base.Prefix, name string) error {
 func (m *localFS) Walk(prefix base.Prefix, fn base.WalkFn) error {
 	dir := filepath.Join(m.baseDir, string(prefix))
 
-	return filepath.Walk(dir, func(name string, _ os.FileInfo, err error) error {
+	return filepath.Walk(dir, func(path string, _ os.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}
+		name, err := filepath.Rel(dir, path)
+		if err != nil {
+			return err
+		}
+		if name == "." {
+			return nil
+		}
 		contentType := "application/octet-stream"
-		path := filepath.Join(dir, name)
 		if mime, err := xattr.Get(path, xattrMime); err == nil {
 			contentType = string(mime)
 		}

@@ -217,7 +217,7 @@ Consider using the "gen-session-secret" command to generate the file and adding
 it to you configuration file.`, sessionSecretPath)
 	}
 	if err != nil {
-		return err
+		return fmt.Errorf("Cannot load session secret: %w", err)
 	}
 
 	var data []byte
@@ -232,7 +232,7 @@ it to you configuration file.`, sessionSecretPath)
 
 	data, err = base64.StdEncoding.DecodeString(string(data))
 	if err != nil {
-		return fmt.Errorf("Session secret is not properly base64 encoded in %q: %s",
+		return fmt.Errorf("Session secret is not properly base64 encoded in %q: %w",
 			sessionSecretPath, err)
 	}
 
@@ -246,7 +246,7 @@ it to you configuration file.`, sessionSecretPath)
 		if len(envPassphrase) > 0 {
 			base.SessionSecret, err = auth.DecryptMasterSecret(data, envPassphrase)
 			if err != nil {
-				return fmt.Errorf("Could not decrypt session secret: %s", err)
+				return fmt.Errorf("Could not decrypt session secret: %w", err)
 			}
 			return nil
 		}

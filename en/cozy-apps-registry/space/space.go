@@ -36,16 +36,15 @@ func AppIndexName(name string) string {
 // instances. For example, it can make sense to have a space for the
 // self-hosted users, with dedicated apps and konnectors.
 type Space struct {
-	// TODO rename Prefix in Name
-	Prefix        string
+	Name          string
 	dbApps        *kivik.DB
 	dbVers        *kivik.DB
 	dbPendingVers *kivik.DB
 }
 
 // NewSpace returns a space with the given name.
-func NewSpace(prefix string) *Space {
-	return &Space{Prefix: prefix}
+func NewSpace(name string) *Space {
+	return &Space{Name: name}
 }
 
 func (s *Space) init() (err error) {
@@ -92,14 +91,14 @@ func (s *Space) init() (err error) {
 	return CreateVersionsDateView(s.VersDB())
 }
 
-// Clone takes an optionnal prefix parameter
-// If empty, use the original space prefix
-func (s *Space) Clone(prefix string) Space {
-	if prefix == "" {
-		prefix = s.Prefix
+// Clone takes an optionnal name parameter.
+// If empty, use the original space name.
+func (s *Space) Clone(name string) Space {
+	if name == "" {
+		name = s.Name
 	}
 	return Space{
-		Prefix:        prefix,
+		Name:          name,
 		dbApps:        s.dbApps,
 		dbVers:        s.dbVers,
 		dbPendingVers: s.dbPendingVers,
@@ -128,8 +127,8 @@ func (s *Space) DBs() []*kivik.DB {
 
 func (s *Space) dbName(suffix string) string {
 	name := suffix
-	if s.Prefix != "" {
-		name = s.Prefix + "-" + name
+	if s.Name != "" {
+		name = s.Name + "-" + name
 	}
 	return base.DBName(name)
 }
@@ -179,9 +178,8 @@ func GetSpace(name string) (*Space, bool) {
 
 // GetPrefix returns the prefix for this space.
 func (s *Space) GetPrefix() base.Prefix {
-	prefix := base.Prefix(s.Prefix)
-	if prefix == "" {
-		prefix = base.DefaultSpacePrefix
+	if s.Name == "" {
+		return base.DefaultSpacePrefix
 	}
-	return prefix
+	return base.Prefix(s.Name)
 }

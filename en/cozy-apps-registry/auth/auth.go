@@ -32,7 +32,6 @@ var (
 	ErrEditorNotFound = errshttp.NewError(http.StatusNotFound, "Editor not found")
 	ErrEditorExists   = errshttp.NewError(http.StatusConflict, "Editor already exists")
 	ErrBadEditorName  = errshttp.NewError(http.StatusBadRequest, "Editor name should only contain alphanumeric characters")
-	ErrUnauthorized   = errshttp.NewError(http.StatusUnauthorized, "Unauthorized")
 
 	ErrMissingPassphrase = errors.New("Missing passphrase")
 )

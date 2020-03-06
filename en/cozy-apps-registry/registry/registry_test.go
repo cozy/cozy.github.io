@@ -515,7 +515,7 @@ func TestRemoveSpace(t *testing.T) {
 	assert.NoError(t, err)
 
 	// Assert no container
-	err = base.Storage.Walk(base.Prefix(s.Prefix), func(_, _ string) error {
+	err = base.Storage.Walk(s.GetPrefix(), func(_, _ string) error {
 		return nil
 	})
 	assert.True(t, errors.Is(err, base.ErrFileNotFound))

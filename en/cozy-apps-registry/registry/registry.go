@@ -347,7 +347,7 @@ func createVersion(c *space.Space, db *kivik.DB, ver *Version, attachments []*ki
 	versionChannel := GetVersionChannel(ver.Version)
 	for _, channel := range []Channel{Stable, Beta, Dev} {
 		if channel >= versionChannel {
-			key := base.Key(c.Prefix + "/" + ver.Slug + "/" + ChannelToStr(channel))
+			key := base.NewKey(c.Name, ver.Slug, ChannelToStr(channel))
 			base.LatestVersionsCache.Remove(key)
 			base.ListVersionsCache.Remove(key)
 		}
@@ -431,7 +431,7 @@ func ApprovePendingVersion(c *space.Space, pending *Version, app *App) (*Version
 			if err != nil {
 				log := logrus.WithFields(logrus.Fields{
 					"nspace":    "clean_version",
-					"space":     c.Prefix,
+					"space":     c.Name,
 					"slug":      release.Slug,
 					"version":   release.Version,
 					"channel":   channelString,
