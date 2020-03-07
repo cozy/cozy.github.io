@@ -10,11 +10,13 @@ import (
 	"io/ioutil"
 	"path"
 	"strings"
+	"time"
 
 	"github.com/cozy/cozy-apps-registry/asset"
 	"github.com/cozy/cozy-apps-registry/base"
 	"github.com/cozy/cozy-apps-registry/space"
 	"github.com/go-kivik/kivik/v3"
+	"golang.org/x/sync/errgroup"
 )
 
 const rootPrefix = "registry"
@@ -28,6 +30,7 @@ func writeFile(writer *tar.Writer, path string, content []byte, attrs map[string
 		Typeflag:   tar.TypeReg,
 		Name:       path,
 		Mode:       0640,
+		ModTime:    time.Now(),
 		Size:       int64(len(content)),
 		PAXRecords: attrs,
 	}
@@ -36,14 +39,6 @@ func writeFile(writer *tar.Writer, path string, content []byte, attrs map[string
 	}
 	_, err := writer.Write(content)
 	return err
-}
-
-func writeReaderFile(writer *tar.Writer, path string, reader io.Reader, attrs map[string]string) error {
-	content, err := ioutil.ReadAll(reader)
-	if err != nil {
-		return err
-	}
-	return writeFile(writer, path, content, attrs)
 }
 
 func exportCouchDocument(writer *tar.Writer, prefix string, db *kivik.DB, rows *kivik.Rows) error {
@@ -133,19 +128,58 @@ func exportAllCouchDbs(writer *tar.Writer, prefix string) error {
 func exportSwiftContainer(writer *tar.Writer, prefix string, container base.Prefix) error {
 	fmt.Printf("    Exporting container %s\n", container)
 	dir := path.Join(prefix, container.String())
+	g, ctx := errgroup.WithContext(context.Background())
 
-	return base.Storage.Walk(container, func(name, contentType string) error {
-		buffer, _, err := base.Storage.Get(container, name)
-		if err != nil {
+	toRead := make(chan entry)
+	g.Go(func() error {
+		defer close(toRead)
+		return base.Storage.Walk(container, func(name, contentType string) error {
+			e := entry{name: name, contentType: contentType}
+			select {
+			case toRead <- e:
+			case <-ctx.Done():
+				return ctx.Err()
+			}
+			return nil
+		})
+	})
+
+	// Start a fixed number of goroutines to read files.
+	toWrite := make(chan entry)
+	const numReaders = 10
+	for i := 0; i < numReaders; i++ {
+		g.Go(func() error {
+			for entry := range toRead {
+				reader, _, err := base.Storage.Get(container, entry.name)
+				if err != nil {
+					return err
+				}
+				content, err := ioutil.ReadAll(reader)
+				if err != nil {
+					return err
+				}
+				entry.content = content
+				toWrite <- entry
+			}
+			return nil
+		})
+	}
+	go func() {
+		_ = g.Wait()
+		close(toWrite)
+	}()
+
+	for entry := range toWrite {
+		file := path.Join(dir, entry.name)
+		metadata := map[string]string{
+			contentTypeAttr: entry.contentType,
+		}
+		if err := writeFile(writer, file, entry.content, metadata); err != nil {
 			return err
 		}
+	}
 
-		file := path.Join(dir, name)
-		metadata := map[string]string{
-			contentTypeAttr: contentType,
-		}
-		return writeReaderFile(writer, file, buffer, metadata)
-	})
+	return g.Wait()
 }
 
 func swiftContainers() []base.Prefix {

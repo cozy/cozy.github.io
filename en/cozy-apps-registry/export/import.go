@@ -2,18 +2,20 @@ package export
 
 import (
 	"archive/tar"
+	"bytes"
 	"compress/gzip"
 	"context"
 	"encoding/json"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"path"
 	"strings"
 
 	"github.com/cozy/cozy-apps-registry/base"
 	"github.com/cozy/cozy-apps-registry/config"
 	"github.com/cozy/cozy-apps-registry/space"
-	"github.com/pbenner/threadpool"
+	"golang.org/x/sync/errgroup"
 )
 
 type couchDb struct {
@@ -85,9 +87,8 @@ func cleanCouch() error {
 }
 
 func parseCouchDocument(reader io.Reader, parts []string) (string, *interface{}, error) {
-	db, id := parts[0], parts[1]
+	db := parts[0]
 	db = strings.Replace(db, "__prefix__", base.DatabaseNamespace, 1)
-	id = strings.TrimSuffix(id, documentSuffix)
 
 	var doc interface{}
 	if err := json.NewDecoder(reader).Decode(&doc); err != nil {
@@ -107,21 +108,19 @@ func cleanSwift() error {
 	return nil
 }
 
-func importSwift(reader io.Reader, header *tar.Header, parts []string, pool threadpool.ThreadPool, group int) error {
-	container, parts := base.Prefix(parts[0]), parts[1:]
-	path := path.Join(parts...)
-	contentType := header.PAXRecords[contentTypeAttr]
-	return pool.AddJob(group, func(pool threadpool.ThreadPool, erf func() error) error {
-		return base.Storage.Create(container, path, contentType, reader)
-	})
-}
-
 // Drop can be used to clean CouchDB and Swift before importing a tarball.
 func Drop() error {
 	if err := cleanCouch(); err != nil {
 		return err
 	}
 	return cleanSwift()
+}
+
+type entry struct {
+	container   string
+	name        string
+	contentType string
+	content     []byte
 }
 
 // Import will create the couchDB documents and Swift files from a tarball.
@@ -137,8 +136,22 @@ func Import(reader io.Reader) (err error) {
 	}()
 	tr := tar.NewReader(zr)
 
-	pool := threadpool.New(10, 10)
-	swiftGroup := pool.NewJobGroup()
+	// Start a fixed number of goroutines to read files.
+	var g errgroup.Group
+	toImport := make(chan entry)
+	const numWriters = 10
+	for i := 0; i < numWriters; i++ {
+		g.Go(func() error {
+			for e := range toImport {
+				prefix := base.Prefix(e.container)
+				reader := bytes.NewReader(e.content)
+				if err := base.Storage.Create(prefix, e.name, e.contentType, reader); err != nil {
+					return err
+				}
+			}
+			return nil
+		})
+	}
 
 	dbs := couchDbs{}
 	for {
@@ -172,15 +185,25 @@ func Import(reader io.Reader) (err error) {
 				return err
 			}
 		case swiftPrefix:
-			if err := importSwift(tr, header, parts, pool, swiftGroup); err != nil {
+			contentType := header.PAXRecords[contentTypeAttr]
+			container, parts := parts[0], parts[1:]
+			name := path.Join(parts...)
+			content, err := ioutil.ReadAll(tr)
+			if err != nil {
 				return err
+			}
+			toImport <- entry{
+				container:   container,
+				name:        name,
+				contentType: contentType,
+				content:     content,
 			}
 		}
 	}
 
-	if err := pool.Wait(swiftGroup); err != nil {
+	close(toImport)
+	if err := dbs.flush(); err != nil {
 		return err
 	}
-
-	return dbs.flush()
+	return g.Wait()
 }

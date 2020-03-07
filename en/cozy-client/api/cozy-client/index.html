@@ -1125,13 +1125,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cozyclientfetchrelationships" title="cozyClient.fetchRelationships()" class="md-nav__link">
-    cozyClient.fetchRelationships()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#cozyclienthydratedocumentsdoctype-documents-arrayhydrateddocument" title="cozyClient.hydrateDocuments(doctype, documents) ⇒ Array.&lt;HydratedDocument&gt;" class="md-nav__link">
     cozyClient.hydrateDocuments(doctype, documents) ⇒ Array.&lt;HydratedDocument&gt;
   </a>
@@ -1672,6 +1665,27 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#withclientcomponent-function" title="withClient(Component) ⇒ function" class="md-nav__link">
+    withClient(Component) ⇒ function
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#queryconnectqueryspecs-function" title="queryConnect(querySpecs) ⇒ function" class="md-nav__link">
+    queryConnect(querySpecs) ⇒ function
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usequeryquerydefinition-options-object" title="useQuery(queryDefinition, options) ⇒ object" class="md-nav__link">
+    useQuery(queryDefinition, options) ⇒ object
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#sanitizecategories" title="sanitizeCategories()" class="md-nav__link">
     sanitizeCategories()
   </a>
@@ -1735,8 +1749,22 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#getqueryattributes" title="getQueryAttributes()" class="md-nav__link">
+    getQueryAttributes()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cancelablepromise-augmentedpromise" title="cancelable(promise) ⇒ AugmentedPromise" class="md-nav__link">
     cancelable(promise) ⇒ AugmentedPromise
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#withmutationsmutations-function" title="~~withMutations(...mutations) ⇒ function~~" class="md-nav__link">
+    ~~withMutations(...mutations) ⇒ function~~
   </a>
   
 </li>
@@ -3694,13 +3722,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cozyclientfetchrelationships" title="cozyClient.fetchRelationships()" class="md-nav__link">
-    cozyClient.fetchRelationships()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#cozyclienthydratedocumentsdoctype-documents-arrayhydrateddocument" title="cozyClient.hydrateDocuments(doctype, documents) ⇒ Array.&lt;HydratedDocument&gt;" class="md-nav__link">
     cozyClient.hydrateDocuments(doctype, documents) ⇒ Array.&lt;HydratedDocument&gt;
   </a>
@@ -4241,6 +4262,27 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#withclientcomponent-function" title="withClient(Component) ⇒ function" class="md-nav__link">
+    withClient(Component) ⇒ function
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#queryconnectqueryspecs-function" title="queryConnect(querySpecs) ⇒ function" class="md-nav__link">
+    queryConnect(querySpecs) ⇒ function
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usequeryquerydefinition-options-object" title="useQuery(queryDefinition, options) ⇒ object" class="md-nav__link">
+    useQuery(queryDefinition, options) ⇒ object
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#sanitizecategories" title="sanitizeCategories()" class="md-nav__link">
     sanitizeCategories()
   </a>
@@ -4304,8 +4346,22 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#getqueryattributes" title="getQueryAttributes()" class="md-nav__link">
+    getQueryAttributes()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cancelablepromise-augmentedpromise" title="cancelable(promise) ⇒ AugmentedPromise" class="md-nav__link">
     cancelable(promise) ⇒ AugmentedPromise
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#withmutationsmutations-function" title="~~withMutations(...mutations) ⇒ function~~" class="md-nav__link">
+    ~~withMutations(...mutations) ⇒ function~~
   </a>
   
 </li>
@@ -4554,6 +4610,15 @@ is loading.</p>
 <li>Resolves with the client after user authentication</li>
 </ul>
 </dd>
+<dt><a href="#withClient">withClient(Component)</a> ⇒ <code>function</code></dt>
+<dd><p>HOC to provide client from context as prop</p>
+</dd>
+<dt><a href="#queryConnect">queryConnect(querySpecs)</a> ⇒ <code>function</code></dt>
+<dd><p>HOC creator to connect component to several queries in a declarative manner</p>
+</dd>
+<dt><a href="#useQuery">useQuery(queryDefinition, options)</a> ⇒ <code>object</code></dt>
+<dd><p>Fetches a queryDefinition and returns the queryState</p>
+</dd>
 <dt><a href="#sanitizeCategories">sanitizeCategories()</a></dt>
 <dd><p>Filters unauthorized categories. Defaults to [&#39;others&#39;] if no suitable category.</p>
 </dd>
@@ -4587,9 +4652,15 @@ is loading.</p>
 <dd><p>Generates and executes a query that is offsetted by the number of documents
 we have in the store.</p>
 </dd>
+<dt><a href="#getQueryAttributes">getQueryAttributes()</a></dt>
+<dd><p>Get attributes that will be assigned to the instance of a Query</p>
+</dd>
 <dt><a href="#cancelable">cancelable(promise)</a> ⇒ <code>AugmentedPromise</code></dt>
 <dd><p>Wraps a promise so that it can be canceled</p>
 <p>Rejects with canceled: true as soon as cancel is called</p>
+</dd>
+<dt><del><a href="#withMutations">withMutations(...mutations)</a> ⇒ <code>function</code></del></dt>
+<dd><p>HOC to provide mutations to components. Needs client in context or as prop.</p>
 </dd>
 </dl>
 
@@ -5017,7 +5088,6 @@ having for the &lsquo;konnector&rsquo; worker, and then filter them based on the
 <li><a href="#CozyClient+destroy">.destroy(document)</a> ⇒ <a href="#Document"><code>Document</code></a></li>
 <li><a href="#CozyClient+query">.query(queryDefinition, options)</a> ⇒ <code>QueryResult</code></li>
 <li><a href="#CozyClient+queryAll">.queryAll(queryDefinition, options)</a> ⇒ <code>Array</code></li>
-<li><a href="#CozyClient+fetchRelationships">.fetchRelationships()</a></li>
 <li><a href="#CozyClient+hydrateDocuments">.hydrateDocuments(doctype, documents)</a> ⇒ <code>Array.&lt;HydratedDocument&gt;</code></li>
 <li><a href="#CozyClient+hydrateDocument">.hydrateDocument(document, schema)</a> ⇒ <code>HydratedDocument</code></li>
 <li><a href="#CozyClient+makeNewDocument">.makeNewDocument()</a></li>
@@ -5290,6 +5360,11 @@ executes its query when mounted if no fetch policy has been indicated.</p>
 <td><code>string</code></td>
 <td>Names the query so it can be reused (by multiple components for example)</td>
 </tr>
+<tr>
+<td>options.fetchPolicy</td>
+<td><code>string</code></td>
+<td>Fetch policy to bypass fetching based on what&rsquo;s already inside the state. See &ldquo;Fetch policies&rdquo;</td>
+</tr>
 </tbody>
 </table>
 <p><a name="CozyClient+queryAll"></a></p>
@@ -5320,15 +5395,7 @@ result in a lot of network requests.</p>
 </tr>
 </tbody>
 </table>
-<p><a name="CozyClient+fetchRelationships"></a></p>
-<h3 id="cozyclientfetchrelationships">cozyClient.fetchRelationships()<a class="headerlink" href="#cozyclientfetchrelationships" title="Permanent link">&para;</a></h3>
-<p>Fetch relationships for a response (can be several docs).
-Fills the <code>relationships</code> attribute of each documents.</p>
-<p>Can potentially result in several fetch requests.
-Queries are optimized before being sent (multiple single documents queries can be packed into
-one multiple document query) for example.</p>
-<p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a><br />
-<a name="CozyClient+hydrateDocuments"></a></p>
+<p><a name="CozyClient+hydrateDocuments"></a></p>
 <h3 id="cozyclienthydratedocumentsdoctype-documents-arrayhydrateddocument">cozyClient.hydrateDocuments(doctype, documents) ⇒ <code>Array.&lt;HydratedDocument&gt;</code><a class="headerlink" href="#cozyclienthydratedocumentsdoctype-documents-arrayhydrateddocument" title="Permanent link">&para;</a></h3>
 <p>Returns documents with their relationships resolved according to their schema.
 If related documents are not in the store, they will not be fetched automatically.
@@ -6774,6 +6841,83 @@ is loading.</p>
 </pre></div>
 
 
+<p><a name="withClient"></a></p>
+<h2 id="withclientcomponent-function">withClient(Component) ⇒ <code>function</code><a class="headerlink" href="#withclientcomponent-function" title="Permanent link">&para;</a></h2>
+<p>HOC to provide client from context as prop</p>
+<p><strong>Kind</strong>: global function<br />
+<strong>Returns</strong>: <code>function</code> - - Component that will receive client as prop  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Component</td>
+<td><code>Component</code></td>
+<td>wrapped component</td>
+</tr>
+</tbody>
+</table>
+<p><a name="queryConnect"></a></p>
+<h2 id="queryconnectqueryspecs-function">queryConnect(querySpecs) ⇒ <code>function</code><a class="headerlink" href="#queryconnectqueryspecs-function" title="Permanent link">&para;</a></h2>
+<p>HOC creator to connect component to several queries in a declarative manner</p>
+<p><strong>Kind</strong>: global function<br />
+<strong>Returns</strong>: <code>function</code> - - HOC to apply to a component  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>querySpecs</td>
+<td><code>object</code></td>
+<td>Definition of the queries</td>
+</tr>
+</tbody>
+</table>
+<p><a name="useQuery"></a></p>
+<h2 id="usequeryquerydefinition-options-object">useQuery(queryDefinition, options) ⇒ <code>object</code><a class="headerlink" href="#usequeryquerydefinition-options-object" title="Permanent link">&para;</a></h2>
+<p>Fetches a queryDefinition and returns the queryState</p>
+<p><strong>Kind</strong>: global function  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>queryDefinition</td>
+<td><code>object</code></td>
+<td>Definition created with Q()</td>
+</tr>
+<tr>
+<td>options</td>
+<td><code>object</code></td>
+<td>Options</td>
+</tr>
+<tr>
+<td>options.as</td>
+<td><code>object</code></td>
+<td>Name for the query [required]</td>
+</tr>
+<tr>
+<td>options.fetchPolicy</td>
+<td><code>object</code></td>
+<td>Fetch policy</td>
+</tr>
+</tbody>
+</table>
 <p><a name="sanitizeCategories"></a></p>
 <h2 id="sanitizecategories">sanitizeCategories()<a class="headerlink" href="#sanitizecategories" title="Permanent link">&para;</a></h2>
 <p>Filters unauthorized categories. Defaults to [&lsquo;others&rsquo;] if no suitable category.</p>
@@ -6940,6 +7084,10 @@ is loading.</p>
 <p>Generates and executes a query that is offsetted by the number of documents
 we have in the store.</p>
 <p><strong>Kind</strong>: global function<br />
+<a name="getQueryAttributes"></a></p>
+<h2 id="getqueryattributes">getQueryAttributes()<a class="headerlink" href="#getqueryattributes" title="Permanent link">&para;</a></h2>
+<p>Get attributes that will be assigned to the instance of a Query</p>
+<p><strong>Kind</strong>: global function<br />
 <a name="cancelable"></a></p>
 <h2 id="cancelablepromise-augmentedpromise">cancelable(promise) ⇒ <code>AugmentedPromise</code><a class="headerlink" href="#cancelablepromise-augmentedpromise" title="Permanent link">&para;</a></h2>
 <p>Wraps a promise so that it can be canceled</p>
@@ -6957,6 +7105,28 @@ we have in the store.</p>
 <tr>
 <td>promise</td>
 <td><code>Promise</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="withMutations"></a></p>
+<h2 id="withmutationsmutations-function">~~withMutations(&hellip;mutations) ⇒ <code>function</code>~~<a class="headerlink" href="#withmutationsmutations-function" title="Permanent link">&para;</a></h2>
+<p><strong><em>Deprecated</em></strong></p>
+<p>HOC to provide mutations to components. Needs client in context or as prop.</p>
+<p><strong>Kind</strong>: global function<br />
+<strong>Returns</strong>: <code>function</code> - - Component that will receive mutations as props  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&hellip;mutations</td>
+<td><code>function</code></td>
+<td>One ore more mutations, which are function taking CozyClient as parameter and returning an object containing one or more mutations as attributes.</td>
 </tr>
 </tbody>
 </table>
