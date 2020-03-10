@@ -696,14 +696,16 @@ func GetAppsList(c *space.Space, opts *AppsListOptions) (int, []*App, error) {
 		selector = string(base.SprintfJSON(`%s: {"$gt": null}`, sortField))
 	}
 
+	// Note: we can ignore design docs below as we always have a selector that
+	// will reject them.
+
 	if opts.Limit == 0 {
 		opts.Limit = 50
 	} else if opts.Limit > maxLimit {
 		opts.Limit = maxLimit
 	}
 
-	designsCount := len(space.AppsIndexes)
-	limit := opts.Limit + designsCount + 1
+	limit := opts.Limit + 1
 	cursor := opts.Cursor
 	req := base.SprintfJSON(`{
   "use_index": %s,
@@ -721,9 +723,6 @@ func GetAppsList(c *space.Space, opts *AppsListOptions) (int, []*App, error) {
 
 	res := make([]*App, 0)
 	for rows.Next() {
-		if strings.HasPrefix(rows.ID(), "_design") {
-			continue
-		}
 		var doc *App
 		if err = rows.ScanDoc(&doc); err != nil {
 			return 0, nil, err

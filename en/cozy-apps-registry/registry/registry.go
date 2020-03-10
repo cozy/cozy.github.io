@@ -1050,6 +1050,49 @@ func (v *Version) RemoveAllAttachments(c *space.Space) error {
 	return nil
 }
 
+func deleteAllVersionsOfAnApp(s *space.Space, app *App) error {
+	// Skipping app with no versions
+	if !app.Versions.HasVersions {
+		return nil
+	}
+
+	for _, version := range app.Versions.GetAll() {
+		v, err := FindVersion(s, app.Slug, version)
+		if err != nil {
+			fmt.Printf("Version not found: %s/%s\n", app.Slug, version)
+			continue
+		}
+		fmt.Printf("Removing %s/%s\n", v.Slug, v.Version)
+		err = v.Delete(s)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+// RemoveAppFromSpace deletes an application and all its versions from a space.
+func RemoveAppFromSpace(s *space.Space, appSlug string) error {
+	app, err := findApp(s, appSlug)
+	if err != nil {
+		return err
+	}
+
+	app.Versions, err = FindAppVersionsCacheMiss(s, appSlug, Dev, Concatenated)
+	if err != nil {
+		return err
+	}
+
+	if err := deleteAllVersionsOfAnApp(s, app); err != nil {
+		return err
+	}
+
+	db := s.AppsDB()
+	_, err = db.Delete(context.Background(), app.ID, app.Rev)
+	return err
+}
+
 // RemoveSpace deletes CouchDB databases and Swift container for this space.
 func RemoveSpace(s *space.Space) error {
 	// Removing the applications versions, to clean the assets in the
@@ -1069,21 +1112,8 @@ func RemoveSpace(s *space.Space) error {
 		cursor = next
 
 		for _, app := range apps { // Iterate over 200 apps
-			// Skipping app with no versions
-			if !app.Versions.HasVersions {
-				continue
-			}
-
-			for _, version := range app.Versions.GetAll() {
-				v, err := FindVersion(s, app.Slug, version)
-				if err != nil {
-					continue
-				}
-				fmt.Printf("Removing %s/%s\n", v.Slug, v.Version)
-				err = v.Delete(s)
-				if err != nil {
-					return err
-				}
+			if err := deleteAllVersionsOfAnApp(s, app); err != nil {
+				return err
 			}
 		}
 	}

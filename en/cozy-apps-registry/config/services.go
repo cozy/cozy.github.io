@@ -77,28 +77,28 @@ func CleanupTests() error {
 	ctx := context.Background()
 	for _, s := range space.Spaces {
 		if err := base.DBClient.DestroyDB(ctx, s.PendingVersDB().Name()); err != nil {
-			return err
+			fmt.Printf("Error while cleaning database %q: %s", s.PendingVersDB().Name(), err)
 		}
 
 		if err := base.DBClient.DestroyDB(ctx, s.VersDB().Name()); err != nil {
-			return err
+			fmt.Printf("Error while cleaning database %q: %s", s.VersDB().Name(), err)
 		}
 
 		if err := base.DBClient.DestroyDB(ctx, s.AppsDB().Name()); err != nil {
-			return err
+			fmt.Printf("Error while cleaning database %q: %s", s.AppsDB().Name(), err)
 		}
 	}
 	space.Spaces = make(map[string]*space.Space)
 
 	editorsDBName := base.DBName(editorsDBSuffix)
 	if err := base.DBClient.DestroyDB(ctx, editorsDBName); err != nil {
-		return err
+		fmt.Printf("Error while cleaning database %q: %s", editorsDBName, err)
 	}
 	auth.Editors = nil
 
 	if db := base.GlobalAssetStore.GetDB(); db != nil {
 		if err := base.DBClient.DestroyDB(ctx, db.Name()); err != nil {
-			return err
+			fmt.Printf("Error while cleaning database %q: %s", db.Name(), err)
 		}
 	}
 	base.GlobalAssetStore = nil

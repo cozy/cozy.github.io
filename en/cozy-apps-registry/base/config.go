@@ -43,7 +43,7 @@ type VirtualSpace struct {
 
 // AcceptApp returns if the configuration says that the app can be seen in this
 // virtual space.
-func (v *VirtualSpace) AcceptApp(slug string) bool {
+func (v VirtualSpace) AcceptApp(slug string) bool {
 	filtered := inList(slug, v.Slugs)
 	if v.Filter == "select" {
 		return filtered

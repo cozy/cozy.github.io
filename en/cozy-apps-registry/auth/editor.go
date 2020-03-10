@@ -32,6 +32,10 @@ func (t *tokenData) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+func NewEditorForTest(name string) *Editor {
+	return &Editor{name: name}
+}
+
 func (e *Editor) MarshalJSON() ([]byte, error) {
 	v := struct {
 		Name string `json:"name"`

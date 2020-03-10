@@ -106,7 +106,7 @@ func extractAuthHeader(c echo.Context) ([]byte, error) {
 	return token, nil
 }
 
-func filterGetMaintenanceApps(virtual *base.VirtualSpace) echo.HandlerFunc {
+func filterGetMaintenanceApps(virtual base.VirtualSpace) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		apps, err := registry.GetMaintainanceApps(getSpace(c))
 		if err != nil {
@@ -319,15 +319,15 @@ func writeJSON(c echo.Context, doc interface{}) error {
 	return c.JSON(http.StatusOK, doc)
 }
 
-func applyVirtualSpace(handler echo.HandlerFunc, virtual *base.VirtualSpace, virtualSpacename string) echo.HandlerFunc {
+func applyVirtualSpace(handler echo.HandlerFunc, virtual base.VirtualSpace, virtualSpacename string) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		c.Set("virtual", virtual)
+		c.Set("virtual", &virtual)
 		c.Set("virtual_name", virtualSpacename)
 		return handler(c)
 	}
 }
 
-func filterAppInVirtualSpace(handler echo.HandlerFunc, virtual *base.VirtualSpace) echo.HandlerFunc {
+func filterAppInVirtualSpace(handler echo.HandlerFunc, virtual base.VirtualSpace) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		if !virtual.AcceptApp(c.Param("app")) {
 			return echo.NewHTTPError(http.StatusNotFound)
@@ -337,7 +337,7 @@ func filterAppInVirtualSpace(handler echo.HandlerFunc, virtual *base.VirtualSpac
 }
 
 // Router sets up the HTTP routes.
-func Router(addr string) *echo.Echo {
+func Router() *echo.Echo {
 	err := initAssets()
 	if err != nil {
 		panic(err)
@@ -412,16 +412,16 @@ func Router(addr string) *echo.Echo {
 		}
 		g := e.Group(groupName, ensureSpace(source))
 
-		virtualGetAppsList := applyVirtualSpace(getAppsList, &v, name)
+		virtualGetAppsList := applyVirtualSpace(getAppsList, v, name)
 		g.GET("", virtualGetAppsList, jsonEndpoint, middleware.Gzip())
 
-		filteredGetMaintenanceApps := filterGetMaintenanceApps(&v)
+		filteredGetMaintenanceApps := filterGetMaintenanceApps(v)
 		g.GET("/maintenance", filteredGetMaintenanceApps, jsonEndpoint, middleware.Gzip())
 
-		filteredGetApp := filterAppInVirtualSpace(getApp, &v)
-		filteredGetAppVersions := filterAppInVirtualSpace(getAppVersions, &v)
-		filteredGetVersion := filterAppInVirtualSpace(getVersion, &v)
-		filteredGetLatestVersion := filterAppInVirtualSpace(getLatestVersion, &v)
+		filteredGetApp := filterAppInVirtualSpace(getApp, v)
+		filteredGetAppVersions := filterAppInVirtualSpace(getAppVersions, v)
+		filteredGetVersion := filterAppInVirtualSpace(getVersion, v)
+		filteredGetLatestVersion := filterAppInVirtualSpace(getLatestVersion, v)
 		g.HEAD("/:app", filteredGetApp, jsonEndpoint, middleware.Gzip())
 		g.GET("/:app", filteredGetApp, jsonEndpoint, middleware.Gzip())
 		g.GET("/:app/versions", filteredGetAppVersions, jsonEndpoint, middleware.Gzip())
@@ -430,13 +430,13 @@ func Router(addr string) *echo.Echo {
 		g.HEAD("/:app/:channel/latest", filteredGetLatestVersion, jsonEndpoint, middleware.Gzip())
 		g.GET("/:app/:channel/latest", filteredGetLatestVersion, jsonEndpoint, middleware.Gzip())
 
-		filteredGetAppIcon := filterAppInVirtualSpace(getAppIcon, &v)
-		filteredGetAppPartnershipIcon := filterAppInVirtualSpace(getAppPartnershipIcon, &v)
-		filteredGetAppScreenshot := filterAppInVirtualSpace(getAppScreenshot, &v)
-		filteredGetVersionIcon := filterAppInVirtualSpace(getVersionIcon, &v)
-		filteredGetVersionPartnershipIcon := filterAppInVirtualSpace(getVersionPartnershipIcon, &v)
-		filteredGetVersionScreenshot := filterAppInVirtualSpace(getVersionScreenshot, &v)
-		filteredGetVersionTarball := filterAppInVirtualSpace(getVersionTarball, &v)
+		filteredGetAppIcon := filterAppInVirtualSpace(getAppIcon, v)
+		filteredGetAppPartnershipIcon := filterAppInVirtualSpace(getAppPartnershipIcon, v)
+		filteredGetAppScreenshot := filterAppInVirtualSpace(getAppScreenshot, v)
+		filteredGetVersionIcon := filterAppInVirtualSpace(getVersionIcon, v)
+		filteredGetVersionPartnershipIcon := filterAppInVirtualSpace(getVersionPartnershipIcon, v)
+		filteredGetVersionScreenshot := filterAppInVirtualSpace(getVersionScreenshot, v)
+		filteredGetVersionTarball := filterAppInVirtualSpace(getVersionTarball, v)
 		g.GET("/:app/icon", filteredGetAppIcon)
 		g.HEAD("/:app/icon", filteredGetAppIcon)
 		g.GET("/:app/partnership_icon", filteredGetAppPartnershipIcon)

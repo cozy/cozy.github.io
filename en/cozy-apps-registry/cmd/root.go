@@ -92,6 +92,9 @@ func Root() *cobra.Command {
 	rootCmd.AddCommand(lsAppsCmd)
 	rootCmd.AddCommand(addAppCmd)
 	rootCmd.AddCommand(modifyAppCmd)
+	rootCmd.AddCommand(rmAppCmd)
+	rootCmd.AddCommand(overwriteAppNameCmd)
+	rootCmd.AddCommand(overwriteAppIconCmd)
 	rootCmd.AddCommand(maintenanceCmd)
 	rootCmd.AddCommand(rmAppVersionCmd)
 	rootCmd.AddCommand(rmSpaceCmd)
@@ -126,6 +129,9 @@ func Root() *cobra.Command {
 		fmt.Printf("Error on marking type flag as required: %s", err)
 	}
 	lsAppsCmd.Flags().StringVar(&appSpaceFlag, "space", "", "specify the application space")
+	rmAppCmd.Flags().StringVar(&appSpaceFlag, "space", "", "specify the application space")
+	overwriteAppNameCmd.Flags().StringVar(&appSpaceFlag, "space", "", "specify the application space")
+	overwriteAppIconCmd.Flags().StringVar(&appSpaceFlag, "space", "", "specify the application space")
 	rmAppVersionCmd.Flags().StringVar(&appSpaceFlag, "space", "", "specify the application space")
 
 	oldVersionsCmd.Flags().StringVar(&appSpaceFlag, "space", "", "specify the application space")
@@ -176,7 +182,7 @@ var serveCmd = &cobra.Command{
 		address := fmt.Sprintf("%s:%d", viper.GetString("host"), viper.GetInt("port"))
 		fmt.Printf("Listening on %s...\n", address)
 		errc := make(chan error)
-		router := web.Router(address)
+		router := web.Router()
 		go func() {
 			errc <- router.Start(address)
 		}()

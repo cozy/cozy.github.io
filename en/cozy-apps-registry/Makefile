@@ -34,7 +34,7 @@ bin/golangci-lint:
 
 ## tests: run the tests
 tests:
-	@go test ./...
+	@go test -p 1 ./...
 .PHONY: tests
 
 ## clean: clean the generated files and directories
