@@ -75,30 +75,34 @@ func CleanupTests() error {
 	base.ListVersionsCache = nil
 
 	ctx := context.Background()
+	for name := range base.Config.VirtualSpaces {
+		_ = base.DBClient.DestroyDB(ctx, base.VirtualDBName(name))
+	}
+
 	for _, s := range space.Spaces {
 		if err := base.DBClient.DestroyDB(ctx, s.PendingVersDB().Name()); err != nil {
-			fmt.Printf("Error while cleaning database %q: %s", s.PendingVersDB().Name(), err)
+			fmt.Printf("Error while cleaning database %q: %s\n", s.PendingVersDB().Name(), err)
 		}
 
 		if err := base.DBClient.DestroyDB(ctx, s.VersDB().Name()); err != nil {
-			fmt.Printf("Error while cleaning database %q: %s", s.VersDB().Name(), err)
+			fmt.Printf("Error while cleaning database %q: %s\n", s.VersDB().Name(), err)
 		}
 
 		if err := base.DBClient.DestroyDB(ctx, s.AppsDB().Name()); err != nil {
-			fmt.Printf("Error while cleaning database %q: %s", s.AppsDB().Name(), err)
+			fmt.Printf("Error while cleaning database %q: %s\n", s.AppsDB().Name(), err)
 		}
 	}
 	space.Spaces = make(map[string]*space.Space)
 
 	editorsDBName := base.DBName(editorsDBSuffix)
 	if err := base.DBClient.DestroyDB(ctx, editorsDBName); err != nil {
-		fmt.Printf("Error while cleaning database %q: %s", editorsDBName, err)
+		fmt.Printf("Error while cleaning database %q: %s\n", editorsDBName, err)
 	}
 	auth.Editors = nil
 
 	if db := base.GlobalAssetStore.GetDB(); db != nil {
 		if err := base.DBClient.DestroyDB(ctx, db.Name()); err != nil {
-			fmt.Printf("Error while cleaning database %q: %s", db.Name(), err)
+			fmt.Printf("Error while cleaning database %q: %s\n", db.Name(), err)
 		}
 	}
 	base.GlobalAssetStore = nil

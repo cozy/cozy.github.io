@@ -12,6 +12,13 @@ import (
 	"github.com/go-kivik/kivik/v3"
 )
 
+// TODO: to improve performances, we should use a single mango index instead of
+// several views. To do that, we need to add the channel and a field with the
+// version which can be sorted via mango to each document: for new document, it
+// would be added in go, and for the existing ones, we need a migration. Then, we
+// can index [slug, channel, version_array]. And the mango request should use the
+// fields parameter to only include version numbers in the response. Finally,
+// we should not forget to remove the CouchDB views.
 const (
 	viewsHelpers = `
 function getVersionChannel(version) {

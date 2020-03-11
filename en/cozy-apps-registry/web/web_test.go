@@ -3,6 +3,7 @@ package web
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -21,7 +22,7 @@ const (
 	myAppsSpace    = "my-apps"
 	keptApp        = "kept"
 	rejectedApp    = "rejected"
-	overwrittenApp = "overwritten"
+	overwrittenApp = "overwritten" // its name and icon are overwritten
 )
 
 const (
@@ -30,8 +31,8 @@ const (
 	fooKonn            = "foo"    // foo is rejected from the virtual space
 	barKonn            = "bar"    // bar is not in maintenance
 	bazKonn            = "baz"    // baz is not in maintenance, but its maintenance status is overwritten in my-konnectors
-	quxKonn            = "qux"    // qux is in maintenance, but is maintenance status is overwritten in my-konnectors
-	quuxKonn           = "quux"   // quux is like qux (its role is just to change the number of konnectors in maintenance)
+	quxKonn            = "qux"    // qux is in maintenance, but is maintenance status is overwritten in my-konnectors to a new message
+	quuxKonn           = "quux"   // quux is in maintenance in the normal space, but not in the virtual space
 	courgeKonn         = "courge" // courge is in maintenance
 )
 
@@ -113,6 +114,32 @@ func TestListKonnsFromVirtualSpace(t *testing.T) {
 	assert.Contains(t, konns, courgeKonn)
 }
 
+func TestAppIconFromVirtualSpace(t *testing.T) {
+	expected, err := ioutil.ReadFile("../scripts/drive-icon.svg")
+	assert.NoError(t, err)
+	u := fmt.Sprintf("%s/%s/registry/%s/icon", server.URL, myAppsSpace, overwrittenApp)
+	res, err := http.Get(u)
+	assert.NoError(t, err)
+	assert.Equal(t, 200, res.StatusCode)
+	defer res.Body.Close()
+	body, err := ioutil.ReadAll(res.Body)
+	assert.NoError(t, err)
+	assert.Equal(t, expected, body)
+}
+
+func TestVersionIconFromVirtualSpace(t *testing.T) {
+	expected, err := ioutil.ReadFile("../scripts/drive-icon.svg")
+	assert.NoError(t, err)
+	u := fmt.Sprintf("%s/%s/registry/%s/1.2.3/icon", server.URL, myAppsSpace, overwrittenApp)
+	res, err := http.Get(u)
+	assert.NoError(t, err)
+	assert.Equal(t, 200, res.StatusCode)
+	defer res.Body.Close()
+	body, err := ioutil.ReadAll(res.Body)
+	assert.NoError(t, err)
+	assert.Equal(t, expected, body)
+}
+
 func TestMain(m *testing.M) {
 	config.SetDefaults()
 	viper.Set("spaces", []string{"__default__", allAppsSpace, allKonnectorsSpace})
@@ -177,6 +204,12 @@ func createApps() error {
 			return err
 		}
 	}
+	if err := registry.OverwriteAppName(myAppsSpace, overwrittenApp, "my new name"); err != nil {
+		return err
+	}
+	if err := registry.OverwriteAppIcon(myAppsSpace, overwrittenApp, "../scripts/drive-icon.svg"); err != nil {
+		return err
+	}
 
 	s, _ = space.GetSpace(allKonnectorsSpace)
 	konns := []string{fooKonn, barKonn, bazKonn, quxKonn, quuxKonn, courgeKonn}
@@ -191,5 +224,36 @@ func createApps() error {
 		}
 	}
 
-	return nil
+	inMaintenance := []string{quxKonn, quuxKonn, courgeKonn}
+	for _, konn := range inMaintenance {
+		opts := registry.MaintenanceOptions{
+			Messages: map[string]registry.MaintenanceMessage{
+				"en": {
+					ShortMessage: fmt.Sprintf("%s is in maintenance", konn),
+					LongMessage:  fmt.Sprintf("%s is really in maintenance", konn),
+				},
+			},
+		}
+		if err := registry.ActivateMaintenanceApp(s, konn, opts); err != nil {
+			return err
+		}
+	}
+
+	overs := []string{bazKonn, quxKonn}
+	for _, konn := range overs {
+		opts := registry.MaintenanceOptions{
+			Messages: map[string]registry.MaintenanceMessage{
+				"en": {
+					ShortMessage: fmt.Sprintf("Maintenance for %s", konn),
+					LongMessage:  fmt.Sprintf("Maintenance for %s", konn),
+				},
+			},
+		}
+		err := registry.ActivateMaintenanceVirtualSpace(myKonnectorsSpace, konn, opts)
+		if err != nil {
+			return err
+		}
+	}
+
+	return registry.DeactivateMaintenanceVirtualSpace(myKonnectorsSpace, quuxKonn)
 }

@@ -7,3 +7,10 @@ var DatabaseNamespace = "registry"
 func DBName(name string) string {
 	return DatabaseNamespace + "-" + name
 }
+
+const virtualSuffix = "overwrites"
+
+// VirtualDBName returns the name of the database used for overwrites.
+func VirtualDBName(virtualSpaceName string) string {
+	return DBName(virtualSpaceName + "-" + virtualSuffix)
+}

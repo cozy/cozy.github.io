@@ -73,7 +73,8 @@ func (m *memFS) Get(prefix base.Prefix, name string) (*bytes.Buffer, map[string]
 	}
 
 	buf := bytes.NewBuffer(f.content.Bytes())
-	headers := map[string]string{"Content-Type": f.mime}
+	length := fmt.Sprintf("%d", buf.Len())
+	headers := map[string]string{"Content-Type": f.mime, "Content-Length": length}
 	return buf, headers, nil
 }
 

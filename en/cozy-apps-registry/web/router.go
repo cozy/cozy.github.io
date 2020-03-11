@@ -430,10 +430,10 @@ func Router() *echo.Echo {
 		g.HEAD("/:app/:channel/latest", filteredGetLatestVersion, jsonEndpoint, middleware.Gzip())
 		g.GET("/:app/:channel/latest", filteredGetLatestVersion, jsonEndpoint, middleware.Gzip())
 
-		filteredGetAppIcon := filterAppInVirtualSpace(getAppIcon, v)
+		filteredGetAppIcon := applyVirtualSpace(filterAppInVirtualSpace(getAppIcon, v), v, name)
 		filteredGetAppPartnershipIcon := filterAppInVirtualSpace(getAppPartnershipIcon, v)
 		filteredGetAppScreenshot := filterAppInVirtualSpace(getAppScreenshot, v)
-		filteredGetVersionIcon := filterAppInVirtualSpace(getVersionIcon, v)
+		filteredGetVersionIcon := applyVirtualSpace(filterAppInVirtualSpace(getVersionIcon, v), v, name)
 		filteredGetVersionPartnershipIcon := filterAppInVirtualSpace(getVersionPartnershipIcon, v)
 		filteredGetVersionScreenshot := filterAppInVirtualSpace(getVersionScreenshot, v)
 		filteredGetVersionTarball := filterAppInVirtualSpace(getVersionTarball, v)

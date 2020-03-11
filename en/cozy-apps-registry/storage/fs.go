@@ -96,7 +96,8 @@ func (m *localFS) Get(prefix base.Prefix, name string) (*bytes.Buffer, map[strin
 		return nil, nil, base.NewInternalError(err)
 	}
 	buf := bytes.NewBuffer(content)
-	headers := map[string]string{}
+	length := fmt.Sprintf("%d", buf.Len())
+	headers := map[string]string{"Content-Length": length}
 	if mime, err := xattr.Get(path, xattrMime); err == nil {
 		headers["Content-Type"] = string(mime)
 	}

@@ -197,9 +197,17 @@ func getVersionTarball(c echo.Context) error {
 func getVersionAttachment(c echo.Context, filename string) error {
 	appSlug := c.Param("app")
 	version := c.Param("version")
-	att, err := registry.FindVersionAttachment(getSpace(c), appSlug, version, filename)
-	if err != nil {
-		return err
+
+	var att *registry.Attachment
+	if v, ok := c.Get("virtual_name").(string); ok && v != "" {
+		att = registry.FindAppAttachmentFromOverwrite(v, appSlug, filename)
+	}
+	if att == nil {
+		var err error
+		att, err = registry.FindVersionAttachment(getSpace(c), appSlug, version, filename)
+		if err != nil {
+			return err
+		}
 	}
 
 	contentType := att.ContentType
