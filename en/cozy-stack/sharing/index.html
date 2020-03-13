@@ -5002,9 +5002,10 @@ pending members can no longer accept this sharing.</p>
 
 
 <h3 id="delete-sharingssharing-idrecipientsindex">DELETE /sharings/:sharing-id/recipients/:index<a class="headerlink" href="#delete-sharingssharing-idrecipientsindex" title="Permanent link">&para;</a></h3>
-<p>This route is used to revoke only one recipient of the sharing. The parameter is
-the index of this recipient in the <code>members</code> array of the sharing. The status
-for this member will be set to <code>revoked</code>, its cozy will be informed of the
+<p>This route can be only be called on the cozy instance of the sharer to revoke
+only one recipient of the sharing. The parameter is the index of this recipient 
+in the <code>members</code> array of the sharing. 
+The status for this member will be set to <code>revoked</code>, its cozy will be informed of the
 revokation, and the credentials for this cozy will be deleted.</p>
 <p><strong>Note</strong>: 0 is not accepted for <code>index</code>, as it is the sharer him-self.</p>
 <h4 id="request_14">Request<a class="headerlink" href="#request_14" title="Permanent link">&para;</a></h4>
