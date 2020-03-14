@@ -81,7 +81,8 @@ module.exports = {
         '../react/Figure/FigureBlock.jsx',
         '../react/Table/index.jsx',
         '../react/UnorderedList/index.jsx',
-        '../react/OrderedList/index.jsx'
+        '../react/OrderedList/index.jsx',
+        '../react/LoadMore/index.jsx'
       ]
     },
     {
