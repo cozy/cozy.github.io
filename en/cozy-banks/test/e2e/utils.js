@@ -1,10 +1,15 @@
 const readline = require('readline')
 const fs = require('fs')
 const childProcess = require('child_process')
+const { spawnSync } = require('child_process')
 const fetch = require('node-fetch')
 const { SnapshotState, toMatchSnapshot } = require('jest-snapshot')
 const log = require('cozy-logger').namespace('e2e-utils')
 const any = require('lodash/some')
+const pickBy = require('lodash/pickBy')
+
+const PREFIX = 'cozy-banks-e2e'
+const TOKEN_FILE = `/tmp/${PREFIX}-token.json`
 
 function toMatchSnapshotStandalone(actual, testFile, testTitle) {
   // Intilize the SnapshotState, it's responsible for actually matching
@@ -105,11 +110,77 @@ const credentialsFromACHTokenFile = tokenFile => {
   }
 }
 
+const isErrorLine = line => {
+  return line.includes('Error') || line.includes('critical')
+}
+
+const assertNoError = processResult => {
+  const lines = processResult.stdout.toString().split('\n')
+  const errorLines = lines.filter(isErrorLine)
+  if (errorLines.length > 0) {
+    throw new Error('Error in process: \n' + errorLines.join('\n'))
+  }
+}
+
+const runService = async (serviceName, args, options = {}) => {
+  log('info', 'Running service...')
+  const credentials = credentialsFromACHTokenFile(TOKEN_FILE)
+  const env = {
+    ...process.env,
+    COZY_URL: 'http://cozy.tools:8080',
+    COZY_CREDENTIALS: JSON.stringify(credentials),
+    IS_TESTING: 'test'
+  }
+  const processOptions = pickBy(
+    {
+      stdio: options.showOutput ? 'inherit' : undefined,
+      env
+    },
+    Boolean
+  )
+  const res = spawnSync(
+    'node',
+    [`build/${serviceName}`, ...args],
+    processOptions
+  )
+
+  if (res.status !== 0) {
+    // eslint-disable-next-line no-console
+    console.error(res.stdout.toString())
+    throw new Error(`Error while running ${serviceName}`)
+  }
+
+  assertNoError(res)
+
+  return res
+}
+
+/**
+ * Spawns ACH, adds token argument automatically
+ */
+const ach = (args, options) => {
+  args = args.slice()
+  args.splice(1, 0, '-t', TOKEN_FILE)
+  log('debug', JSON.stringify(args))
+  return spawnSync('ACH', args, options)
+}
+
+const makeToken = async () => {
+  log('info', 'Making token...')
+  await spawn('bash', [
+    '-c',
+    `scripts/make-token cozy.tools:8080 | jq -R '{token: .}' > ${TOKEN_FILE}`
+  ])
+}
+
 module.exports = {
   toMatchSnapshot: toMatchSnapshotStandalone,
   spawn,
   couch,
   endsWith,
   prompt,
-  credentialsFromACHTokenFile
+  credentialsFromACHTokenFile,
+  runService,
+  ach,
+  makeToken
 }

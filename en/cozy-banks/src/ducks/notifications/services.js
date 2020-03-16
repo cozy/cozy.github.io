@@ -11,6 +11,7 @@ import DelayedDebit from './DelayedDebit'
 import { BankAccount } from 'models'
 import { sendNotification } from 'cozy-notifications'
 import { GROUP_DOCTYPE } from 'doctypes'
+import get from 'lodash/get'
 
 const log = logger.namespace('notification-service')
 
@@ -62,7 +63,7 @@ export const fetchGroups = async client => {
  * where a single class can have several alert.
  */
 const getClassRules = (Klass, config) => {
-  const classRules = config.notifications[Klass.settingKey]
+  const classRules = get(config, ['notifications', Klass.settingKey])
   if (typeof classRules === 'object' && !Array.isArray(classRules)) {
     return [classRules]
   } else {

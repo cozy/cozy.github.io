@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { getDocumentFromState } from 'cozy-client/dist/store'
 import { getAccountLabel } from 'ducks/account/helpers'
 import { getGroupLabel, getGroupAccountIds } from 'ducks/groups/helpers'
-import { translate } from 'cozy-ui/transpiled/react'
+import { translate } from 'cozy-ui/transpiled/react/I18n'
 import compose from 'lodash/flowRight'
 import {
   getRuleValue,

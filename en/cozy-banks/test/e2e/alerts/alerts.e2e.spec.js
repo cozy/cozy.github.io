@@ -18,7 +18,8 @@ import {
   importACHData,
   revokeOtherOAuthClientsForSoftwareId
 } from 'ducks/client/utils'
-import { runService } from 'test/e2e/serviceUtils'
+import { runService, makeToken } from 'test/e2e/utils'
+import assert from '../../../src/utils/assert'
 
 const SOFTWARE_ID = 'banks.alerts-e2e'
 
@@ -39,7 +40,7 @@ const checkEmailForScenario = async (mailhog, scenario) => {
     latestMessages.length > 0 ? pick(latestMessages[0], ['subject']) : null
   )
   if (scenario.expected.email) {
-    expect(email).not.toBe(null)
+    expect(email).not.toBeFalsy()
     expect(email).toMatchObject(scenario.expected.email)
   } else {
     expect(email).toBeFalsy()
@@ -55,14 +56,17 @@ const checkPushForScenario = async (pushServer, scenario) => {
     // eslint-disable-line empty-catch
   }
   if (scenario.expected.notification) {
-    expect(lastReq).not.toBe(null)
+    expect(lastReq).not.toBeFalsy()
     expect(lastReq.body).toMatchObject(scenario.expected.notification)
   } else {
     expect(lastReq).toBeFalsy()
   }
 }
 
+const sleep = duration => new Promise(resolve => setTimeout(resolve, duration))
+
 const runScenario = async (client, scenario, options) => {
+  assert(client, 'No client')
   await importACHData(client, scenario.data)
 
   if (options.mailhog) {
@@ -73,7 +77,8 @@ const runScenario = async (client, scenario, options) => {
   }
 
   try {
-    await runService('onOperationOrBillCreate', options)
+    await runService('onOperationOrBillCreate', [], options)
+    await sleep(1000)
   } catch (e) {
     console.error(e.message)
     if (!options.showOutput) {
@@ -91,7 +96,23 @@ const runScenario = async (client, scenario, options) => {
   }
 }
 
+const activatePushNotifications = async client => {
+  const clientInfos = client.stackClient.oauthOptions
+  console.log(
+    'Activating push notifications for OAuth client',
+    clientInfos.clientName
+  )
+  await client.stackClient.updateInformation({
+    ...clientInfos,
+    notificationPlatform: 'android',
+    notificationDeviceToken: 'fake-token'
+  })
+}
+
 const cleanupDatabase = async client => {
+  if (!client) {
+    return
+  }
   for (let doctype of [
     SETTINGS_DOCTYPE,
     TRANSACTION_DOCTYPE,
@@ -103,20 +124,12 @@ const cleanupDatabase = async client => {
   }
 }
 
-const areEnvVariablesProvided = Boolean(
-  process.env.COZY_URL && process.env.COZY_CREDENTIALS
-)
-
 const setupClient = async options => {
-  if (!areEnvVariablesProvided) {
-    return
-  }
-
   const client = await createClientInteractive({
     uri: options.url,
     scope: [
       'io.cozy.oauth.clients:ALL',
-      options.push ? 'io.cozy.fake-doctype' : null,
+      options.push ? 'io.cozy.fakedoctype' : null,
       SETTINGS_DOCTYPE,
       TRANSACTION_DOCTYPE,
       ACCOUNT_DOCTYPE,
@@ -130,36 +143,22 @@ const setupClient = async options => {
 
   await revokeOtherOAuthClientsForSoftwareId(client, SOFTWARE_ID)
   if (options.push) {
-    const clientInfos = client.stackClient.oauthOptions
-    await client.stackClient.updateInformation({
-      ...clientInfos,
-      notificationPlatform: 'android',
-      notificationDeviceToken: 'fake-token'
-    })
+    await activatePushNotifications(client)
   }
   return client
 }
 
-test('COZY_URL and COZY_CREDENTIALS must be provided to E2E test', () => {
-  expect(areEnvVariablesProvided).toBe(true)
+beforeAll(() => {
+  makeToken()
 })
 
-const describer = areEnvVariablesProvided ? describe : xdescribe
-
-describer('alert emails/notifications', () => {
-  let client
+describe('alert emails/notifications', () => {
   let pushServer
   let mailhog
   let options = {
     url: process.env.COZY_URL || 'http://cozy.tools:8080',
     verbose: false
   }
-
-  beforeEach(() => {
-    if (!process.env.COZY_URL || !process.env.COZY_CREDENTIALS) {
-      throw new Error('Must provide COZY_URL and COZY_CREDENTIALS')
-    }
-  })
 
   beforeAll(async () => {
     pushServer = new MockServer()
@@ -171,13 +170,15 @@ describer('alert emails/notifications', () => {
     await pushServer.close()
   })
 
-  beforeEach(async () => {
-    await cleanupDatabase(client)
-  })
-
   describe('push', () => {
+    let client
+
     beforeAll(async () => {
-      client = await setupClient({ url: options.url })
+      client = await setupClient({ url: options.url, push: true })
+    })
+
+    beforeEach(async () => {
+      await cleanupDatabase(client)
     })
 
     for (const scenario of Object.values(scenarios)) {
@@ -191,8 +192,14 @@ describer('alert emails/notifications', () => {
   })
 
   describe('email', () => {
+    let client
+
     beforeAll(async () => {
-      client = await setupClient({ url: options.url, push: true })
+      client = await setupClient({ url: options.url })
+    })
+
+    beforeEach(async () => {
+      await cleanupDatabase(client)
     })
 
     for (const scenario of Object.values(scenarios)) {

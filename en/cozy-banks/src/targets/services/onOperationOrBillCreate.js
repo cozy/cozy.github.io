@@ -11,6 +11,9 @@ import matchFromTransactions from 'ducks/billsMatching/matchFromTransactions'
 import { logResult } from 'ducks/billsMatching/utils'
 import { findAppSuggestions } from 'ducks/appSuggestions/services'
 import { fetchChangesOrAll, getOptions } from './helpers'
+import get from 'lodash/get'
+import set from 'lodash/set'
+import assert from '../../utils/assert'
 
 const log = logger.namespace('onOperationOrBillCreate')
 
@@ -46,9 +49,10 @@ const doBillsMatching = async (setting, options = {}) => {
 }
 
 const doTransactionsMatching = async (setting, options = {}) => {
+  assert(setting, 'No setting passed')
   log('info', 'Do transaction matching...')
   const transactionsLastSeq =
-    options.lastSeq || setting.billsMatching.transactionsLastSeq || '0'
+    options.lastSeq || get(setting, 'billsMatching.transactionsLastSeq') || '0'
 
   try {
     log('info', 'Fetching transactions changes...')
@@ -57,7 +61,11 @@ const doTransactionsMatching = async (setting, options = {}) => {
       transactionsLastSeq
     )
 
-    setting.billsMatching.transactionsLastSeq = transactionsChanges.newLastSeq
+    set(
+      setting,
+      'billsMatching.transactionsLastSeq',
+      transactionsChanges.newLastSeq
+    )
 
     if (transactionsChanges.documents.length === 0) {
       log('info', '[matching service] No new operations since last execution')
@@ -78,11 +86,16 @@ const doTransactionsMatching = async (setting, options = {}) => {
 }
 
 const doSendNotifications = async (setting, notifChanges) => {
+  assert(setting, 'No setting passed')
   log('info', 'Do send notifications...')
   try {
     const transactionsToNotify = notifChanges.documents
     await sendNotifications(setting, transactionsToNotify)
-    setting.notifications.lastSeq = setting.billsMatching.transactionsLastSeq
+    set(
+      setting,
+      'notifications.lastSeq',
+      get(setting, 'billsMatching.transactionsLastSeq')
+    )
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(e)
@@ -91,6 +104,7 @@ const doSendNotifications = async (setting, notifChanges) => {
 }
 
 const doAppSuggestions = async setting => {
+  assert(setting, 'No setting passed')
   log('info', 'Do apps suggestions...')
   try {
     await findAppSuggestions(setting)
@@ -101,19 +115,19 @@ const doAppSuggestions = async setting => {
 
 const updateSettings = async settings => {
   log('info', 'Updating settings...')
-  const newSettings = await Settings.createOrUpdate(settings)
+  const { data: newSettings } = await Settings.createOrUpdate(settings)
   log('info', 'Settings updated')
   return newSettings
 }
 
-const launchBudgetAlertService = async () => {
+const launchBudgetAlertService = async client => {
   log('info', 'Launching budget alert service...')
-  const client = CozyClient.fromEnv(process.env)
   const jobs = client.collection('io.cozy.jobs')
   await jobs.create('service', {
     name: 'budgetAlerts',
     slug: 'banks'
   })
+  log('info', 'Budget alert service launched')
 }
 
 const setFlagsFromSettings = settings => {
@@ -126,7 +140,7 @@ const setFlagsFromSettings = settings => {
   )
 }
 
-const onOperationOrBillCreate = async options => {
+const onOperationOrBillCreate = async (client, options) => {
   log('info', `COZY_CREDENTIALS: ${process.env.COZY_CREDENTIALS}`)
   log('info', `COZY_URL: ${process.env.COZY_URL}`)
   log('info', `COZY_JOB_ID: ${process.env.COZY_JOB_ID}`)
@@ -164,7 +178,7 @@ const onOperationOrBillCreate = async options => {
   await doAppSuggestions(setting)
   setting = await updateSettings(setting)
 
-  await launchBudgetAlertService()
+  await launchBudgetAlertService(client)
 }
 
 const attachProcessEventHandlers = () => {
@@ -179,11 +193,15 @@ const attachProcessEventHandlers = () => {
 
 const main = async () => {
   attachProcessEventHandlers()
-  Document.registerClient(cozyClient)
+  const client = CozyClient.fromEnv(process.env)
+  Document.registerClient(client)
   const options = await getOptions(cozyClient)
   log('info', 'Options:')
   log('info', JSON.stringify(options))
-  onOperationOrBillCreate(options)
+  await onOperationOrBillCreate(client, options)
 }
 
-main()
+main().catch(e => {
+  log('critical', e)
+  process.exit(e)
+})

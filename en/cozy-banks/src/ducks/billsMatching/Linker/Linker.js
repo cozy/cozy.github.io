@@ -10,20 +10,20 @@ const defaultTo = require('lodash/defaultTo')
 const groupBy = require('lodash/groupBy')
 const flatten = require('lodash/flatten')
 const sumBy = require('lodash/sumBy')
+const omit = require('lodash/omit')
 const max = require('lodash/max')
 const geco = require('geco')
 const format = require('date-fns/format')
 const { getBillDate, log } = require('../utils')
 const { getTracker } = require('ducks/tracking')
 const { Transaction, Bill } = require('models')
-const { cozyClient } = require('cozy-konnector-libs')
 
 const DOCTYPE_OPERATIONS = 'io.cozy.bank.operations'
 const DEFAULT_AMOUNT_DELTA = 0.001
 export const DEFAULT_DATE_LOWER_DELTA = 15
 export const DEFAULT_DATE_UPPER_DELTA = 29
 
-Transaction.registerClient(cozyClient)
+const omitType = x => omit(x, '_type')
 
 class Linker {
   constructor() {
@@ -249,7 +249,7 @@ class Linker {
       'debug',
       `linkBankOperations: commiting ${this.toUpdate.length} changes`
     )
-    return Transaction.updateAll(this.toUpdate)
+    return Transaction.updateAll(this.toUpdate.map(omitType))
   }
 
   /**

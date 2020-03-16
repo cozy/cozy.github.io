@@ -6,6 +6,8 @@ import { BankTransaction } from 'cozy-doctypes'
 import AppSuggestion from './AppSuggestion'
 import Trigger from './Trigger'
 import { groupBy, flatMap } from 'lodash'
+import get from 'lodash/get'
+import set from 'lodash/set'
 
 const log = logger.namespace('app-suggestions')
 
@@ -77,7 +79,7 @@ const mergeSuggestions = suggestions => {
 export const findAppSuggestions = async setting => {
   log('info', 'Fetch transactions changes, triggers and apps suggestions')
   const [transactionsToCheck, triggers, suggestions] = await Promise.all([
-    BankTransaction.fetchChanges(setting.appSuggestions.lastSeq),
+    BankTransaction.fetchChanges(get(setting, 'appSuggestions.lastSeq')),
     Trigger.fetchAll(),
     AppSuggestion.fetchAll()
   ])
@@ -86,7 +88,7 @@ export const findAppSuggestions = async setting => {
   log('info', `Fetched ${triggers.length} triggers`)
   log('info', `Fetched ${suggestions.length} apps suggestions`)
 
-  setting.appSuggestions.lastSeq = transactionsToCheck.newLastSeq
+  set(setting, 'appSuggestions.lastSeq', transactionsToCheck.newLastSeq)
 
   log('info', 'Get not installed brands')
   const installedSlugs = triggers.map(getKonnectorFromTrigger)

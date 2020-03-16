@@ -3,34 +3,23 @@ process.env.NODE_ENV = 'development'
 const fs = require('fs')
 const path = require('path')
 const {
-  credentialsFromACHTokenFile,
+  runService,
   toMatchSnapshot,
-  spawn,
+  ach,
+  makeToken,
   prompt,
   couch
 } = require('./utils')
+const get = require('lodash/get')
 const log = require('cozy-logger').namespace('e2e-onOperationOrBillCreate')
 
+const assert = (cond, msg) => {
+  if (!cond) {
+    throw new Error(msg)
+  }
+}
+
 const PREFIX = 'cozy-banks-e2e-onOperationOrBillCreate'
-const TOKEN_FILE = `/tmp/${PREFIX}-token.json`
-
-/**
- * Spawns ACH, adds token argument automatically
- */
-const ach = args => {
-  args = args.slice()
-  args.splice(1, 0, '-t', TOKEN_FILE)
-  log('debug', JSON.stringify(args))
-  return spawn('ACH', args)
-}
-
-const makeToken = async () => {
-  log('info', 'Making token...')
-  await spawn('bash', [
-    '-c',
-    `scripts/make-token cozy.tools:8080 | jq -R '{token: .}' > ${TOKEN_FILE}`
-  ])
-}
 
 const dropData = async () => {
   log('info', 'Dropping data...')
@@ -49,14 +38,14 @@ const loadData = async () => {
   log('info', 'Loading data...')
   const dir = 'test/fixtures/matching-service'
   for (let fixture of fs.readdirSync(dir).filter(isJSONFile)) {
-    await ach(['import', path.join(dir, fixture)])
+    ach(['import', path.join(dir, fixture)])
   }
 }
 
 const exportAndSnapshot = async () => {
   log('info', 'Exporting and snapshotting...')
   const exportFilename = `/tmp/${PREFIX}-export.json`
-  await ach(['export', 'io.cozy.bank.operations,io.cozy.bills', exportFilename])
+  ach(['export', 'io.cozy.bank.operations,io.cozy.bills', exportFilename])
   const actual = fs.readFileSync(exportFilename).toString()
   const testTitle = 'onOperationOrBillCreate'
   const filename = path.basename(__filename)
@@ -69,23 +58,35 @@ const exportAndSnapshot = async () => {
   }
 }
 
-const runService = async options => {
-  log('info', 'Running service...')
-  process.env.COZY_URL = 'http://cozy.tools:8080'
-  process.env.COZY_CREDENTIALS = JSON.stringify(
-    credentialsFromACHTokenFile(TOKEN_FILE)
-  )
-  await spawn('node', [
-    'build/onOperationOrBillCreate.js',
-    JSON.stringify(options)
-  ])
+const checkSettings = async () => {
+  const res = ach(['export', 'io.cozy.bank.settings'], {
+    stdio: 'pipe'
+  })
+  const data = JSON.parse(res.stdout.toString())
+  const settings = data['io.cozy.bank.settings']
+  const settingDoc = settings[0]
+  assert(settings.length == 1, 'There should be only 1 setting document')
+
+  const definedPaths = [
+    'appSuggestions.lastSeq',
+    'billsMatching.transactionsLastSeq',
+    'billsMatching.billsLastSeq',
+    'notifications.lastSeq'
+  ]
+  for (let path of definedPaths) {
+    assert(
+      typeof get(settingDoc, path) !== 'undefined',
+      `settings.${path} should not be undefined`
+    )
+  }
 }
 
 const testService = async options => {
   await dropData()
   await loadData()
-  await runService(options)
+  await runService('onOperationOrBillCreate', [JSON.stringify(options)])
   await exportAndSnapshot()
+  await checkSettings()
 }
 
 const main = async () => {
@@ -94,7 +95,7 @@ const main = async () => {
     log('info', 'Aborting...')
     return
   }
-  await makeToken()
+  await makeToken(PREFIX)
   await testService({ transactionMatching: false })
   await testService({ billMatching: false })
 }
