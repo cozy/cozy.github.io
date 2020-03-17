@@ -74,6 +74,7 @@ module.exports = {
         '../react/Well/index.jsx',
         '../react/Infos/index.jsx',
         '../react/InfosCarrousel/index.jsx',
+        '../react/Tooltip/index.jsx',
         '../react/ContextHeader/index.jsx',
         '../react/Filename/index.jsx',
         '../react/AppTitle/index.jsx',

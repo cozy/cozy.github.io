@@ -2400,33 +2400,21 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#table-of-content" title="Table of content" class="md-nav__link">
-    Table of content
+  <a href="#introduction" title="Introduction" class="md-nav__link">
+    Introduction
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#introduction" title="Introduction" class="md-nav__link">
-    Introduction
+  <a href="#config-file-types" title="Config file types" class="md-nav__link">
+    Config file types
   </a>
   
     <nav class="md-nav">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#kind-of-config-file" title="Kind of config file:" class="md-nav__link">
-    Kind of config file:
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#bundles" title="Bundles" class="md-nav__link">
     Bundles
   </a>
@@ -2441,17 +2429,8 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#webpackbundlepreactjs" title="webpack.bundle.preact.js" class="md-nav__link">
-    webpack.bundle.preact.js
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#webpackbundlevuejs" title="webpack.bundle.vue.js" class="md-nav__link">
-    webpack.bundle.vue.js
-  </a>
+      </ul>
+    </nav>
   
 </li>
         
@@ -2498,8 +2477,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#plugins" title="Plugins:" class="md-nav__link">
-    Plugins:
+  <a href="#plugins" title="Plugins" class="md-nav__link">
+    Plugins
   </a>
   
 </li>
@@ -2573,13 +2552,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#webpackconfigpreactjs" title="webpack.config.preact.js" class="md-nav__link">
-    webpack.config.preact.js
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#webpackconfigprogressjs" title="webpack.config.progress.js" class="md-nav__link">
     webpack.config.progress.js
   </a>
@@ -2603,13 +2575,6 @@
           <li class="md-nav__item">
   <a href="#webpackconfigvendorsjs" title="webpack.config.vendors.js" class="md-nav__link">
     webpack.config.vendors.js
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#webpackconfigvuejs" title="webpack.config.vue.js" class="md-nav__link">
-    webpack.config.vue.js
   </a>
   
 </li>
@@ -2643,8 +2608,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#plugins_1" title="Plugins:" class="md-nav__link">
-    Plugins:
+  <a href="#plugins_1" title="Plugins" class="md-nav__link">
+    Plugins
   </a>
   
 </li>
@@ -2663,8 +2628,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#plugins_2" title="Plugins:" class="md-nav__link">
-    Plugins:
+  <a href="#plugins_2" title="Plugins" class="md-nav__link">
+    Plugins
   </a>
   
 </li>
@@ -2703,8 +2668,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#plugins_3" title="Plugins:" class="md-nav__link">
-    Plugins:
+  <a href="#plugins_3" title="Plugins" class="md-nav__link">
+    Plugins
   </a>
   
 </li>
@@ -2786,155 +2751,91 @@
                 
                 
                 <h1 id="the-cozy-scripts-webpack-configurations">The <code>cozy-scripts</code> Webpack configurations<a class="headerlink" href="#the-cozy-scripts-webpack-configurations" title="Permanent link">&para;</a></h1>
-<h2 id="table-of-content">Table of content<a class="headerlink" href="#table-of-content" title="Permanent link">&para;</a></h2>
+<!-- MarkdownTOC autolink=True -->
+
 <ul>
-<li><strong><a href="#introduction">Introduction</a></strong></li>
-<li><strong><a href="#bundles">Bundles</a></strong><ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#config-file-types">Config file types</a><ul>
+<li><a href="#bundles">Bundles</a><ul>
 <li><a href="#webpackbundledefaultjs"><code>webpack.bundle.default.js</code></a></li>
-<li><a href="#webpackbundlepreactjs"><code>webpack.bundle.preact.js</code></a></li>
-<li><a href="#webpackbundlevuejs"><code>webpack.bundle.vue.js</code></a></li>
 </ul>
 </li>
-<li><strong><a href="#unit-configs">Unit Configs</a></strong><ul>
+</ul>
+</li>
+<li><a href="#unit-configs">Unit Configs</a><ul>
 <li><a href="#webpackconfiganalyzerjs"><code>webpack.config.analyzer.js</code></a></li>
-<li><a href="#webpackconfigbasejs"><code>webpack.config.base.js</code></a></li>
+<li><a href="#webpackconfigbasejs"><code>webpack.config.base.js</code></a><ul>
+<li><a href="#properties">Properties</a></li>
+<li><a href="#rules">Rules</a></li>
+<li><a href="#plugins">Plugins</a></li>
+</ul>
+</li>
 <li><a href="#webpackconfigchunksjs"><code>webpack.config.chunks.js</code></a></li>
 <li><a href="#webpackconfigcozy-uijs"><code>webpack.config.cozy-ui.js</code></a></li>
 <li><a href="#webpackconfigcozy-uireactjs"><code>webpack.config.cozy-ui.react.js</code></a></li>
 <li><a href="#webpackconfigcss-modulesjs"><code>webpack.config.css-modules.js</code></a></li>
 <li><a href="#webpackconfigeslintjs"><code>webpack.config.eslint.js</code></a></li>
-<li><a href="#webpackconfighashjs"><code>webpack.config.hash.js</code></a></li>
 <li><a href="#webpackconfigintentsjs"><code>webpack.config.intents.js</code></a></li>
+<li><a href="#webpackconfighashjs"><code>webpack.config.hash.js</code></a></li>
 <li><a href="#webpackconfigmanifestjs"><code>webpack.config.manifest.js</code></a></li>
 <li><a href="#webpackconfigpicturesjs"><code>webpack.config.pictures.js</code></a></li>
-<li><a href="#webpackconfigpreactjs"><code>webpack.config.preact.js</code></a></li>
 <li><a href="#webpackconfigprogressjs"><code>webpack.config.progress.js</code></a></li>
-<li><a href="#webpackconfigreactjs"><code>webpack.config.react.js</code></a></li>
 <li><a href="#webpackconfigservicesjs"><code>webpack.config.services.js</code></a></li>
+<li><a href="#webpackconfigreactjs"><code>webpack.config.react.js</code></a></li>
 <li><a href="#webpackconfigvendorsjs"><code>webpack.config.vendors.js</code></a></li>
-<li><a href="#webpackconfigvuejs"><code>webpack.config.vue.js</code></a></li>
 </ul>
 </li>
-<li><strong><a href="#environments">Environments</a></strong><ul>
-<li><a href="#webpackenvironmentdevjs"><code>webpack.environment.dev.js</code></a></li>
-<li><a href="#webpackenvironmentprodjs"><code>webpack.environment.prod.js</code></a></li>
+<li><a href="#environments">Environments</a><ul>
+<li><a href="#webpackenvironmentdevjs"><code>webpack.environment.dev.js</code></a><ul>
+<li><a href="#properties-1">Properties</a></li>
+<li><a href="#plugins-1">Plugins</a></li>
 </ul>
 </li>
-<li><strong><a href="#targets">Targets</a></strong><ul>
-<li><a href="#webpacktargetbrowserjs"><code>webpack.target.browser.js</code></a></li>
-<li><a href="#webpacktargetmobilejs"><code>webpack.target.mobile.js</code></a></li>
+<li><a href="#webpackenvironmentprodjs"><code>webpack.environment.prod.js</code></a><ul>
+<li><a href="#plugins-2">Plugins</a></li>
 </ul>
 </li>
-<li><strong><a href="#miscellaneous">Miscellaneous</a></strong><ul>
+</ul>
+</li>
+<li><a href="#targets">Targets</a><ul>
+<li><a href="#webpacktargetbrowserjs"><code>webpack.target.browser.js</code></a><ul>
+<li><a href="#properties-2">Properties</a></li>
+<li><a href="#plugins-3">Plugins</a></li>
+</ul>
+</li>
+<li><a href="#webpacktargetmobilejs"><code>webpack.target.mobile.js</code></a><ul>
+<li><a href="#properties-3">Properties</a></li>
+<li><a href="#plugins-4">Plugins:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#miscellaneous">Miscellaneous</a><ul>
 <li><a href="#webpackvarsjs"><code>webpack.vars.js</code></a></li>
 </ul>
 </li>
 </ul>
+<!-- /MarkdownTOC -->
+
 <h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
 <p>To build a Cozy application, <code>cozy-scripts</code> uses <code>webpack</code> under the hood, and this documentation is dedicated to all webpack configuration files.
-In order to organize all these webpack configurations, they are classified in many files according to the concern.
-Having many unit files for the configuration will also allow to support specific application needs without &lsquo;ejecting&rsquo; (removing <code>cozy-scripts</code> dependency and copy all webpack configurations and dependencies to the application repository).
-These files are supposed to be enoughly independant to be usable upon request as far as possible without conflicts.</p>
-<h4 id="kind-of-config-file">Kind of config file:<a class="headerlink" href="#kind-of-config-file" title="Permanent link">&para;</a></h4>
-<p><strong>Bundle:</strong> A bundle regroup many unit configuration for a specific use case like the default React application or an VueJS application.</p>
-<p><strong>Environment:</strong> An environment config is in charge of provided variables and pluging specific to a compiling context (development or production for example).</p>
-<p><strong>Target:</strong> A target means the one which will use the built. For now we only have to targets, <code>browser</code> for the default web application and <code>mobile</code> for the native mobile application using Cordova (in progress).</p>
-<h2 id="bundles">Bundles<a class="headerlink" href="#bundles" title="Permanent link">&para;</a></h2>
-<h3 id="webpackbundledefaultjs"><code>webpack.bundle.default.js</code><a class="headerlink" href="#webpackbundledefaultjs" title="Permanent link">&para;</a></h3>
-<p>This file is the default config bundle used for the application built from <code>cozy-scripts</code>. It uses all following configs files:
-- <code>webpack.config.base.js</code>
-- <code>webpack.config.chunks.js</code>
-- <code>webpack.config.cozy-ui.js</code>
-- <code>webpack.config.cozy-ui.react.js</code>
-- <code>webpack.config.eslint.js</code>
-- <code>webpack.config.intents.js</code>
-- <code>webpack.config.manifest.js</code>
-- <code>webpack.config.pictures.js</code>
-- <code>webpack.config.progress.js</code>
-- <code>webpack.config.react.js</code>
-- <code>webpack.config.vendors.js</code>
-- <code>webpack.environment.dev.js</code>
-- <code>webpack.environment.prod.js</code>
-- <code>webpack.target.browser.js</code>
-- <code>webpack.target.mobile.js</code>
-- <code>webpack.vars.js</code></p>
-<p>By default <code>cozy-scripts</code> uses this bundle in an opinionated way, but you can overload this configuration by creating a custom <code>app.config.js</code> in your application root directory:</p>
+The webpack config is split to facilitate understanding.
+Having many unit files for the configuration allows to support specific application needs without &lsquo;ejecting&rsquo; (removing <code>cozy-scripts</code> dependency and copy all webpack configurations and dependencies to the application repository).
+These files should be independent enough to be usable upon request as far as possible without conflicts.</p>
+<h2 id="config-file-types">Config file types<a class="headerlink" href="#config-file-types" title="Permanent link">&para;</a></h2>
+<p><strong>Bundle:</strong> A bundle regroups many unit configuration for a specific use case like the default React application.</p>
+<p><strong>Environment:</strong> An environment config is in charge of providing variables and plugins specific to a compiling context (development or production for example).</p>
+<p><strong>Target:</strong> For now we only have two targets, <code>browser</code> for the default web application and <code>mobile</code> for native mobile applications using Cordova (in progress).</p>
+<h3 id="bundles">Bundles<a class="headerlink" href="#bundles" title="Permanent link">&para;</a></h3>
+<h4 id="webpackbundledefaultjs"><code>webpack.bundle.default.js</code><a class="headerlink" href="#webpackbundledefaultjs" title="Permanent link">&para;</a></h4>
+<p>This file is the default config bundle used for the application built from <code>cozy-scripts</code>.</p>
+<p>If you wish to customize a behavior, you can overload this configuration by creating a
+custom <code>app.config.js</code> in your application root directory:</p>
 <div class="codehilite"><pre><span></span><span class="c1">// app.config.js</span>
 
 <span class="c1">// using ES Modules</span>
 <span class="kr">import</span> <span class="nx">configs</span> <span class="nx">from</span> <span class="s1">&#39;cozy-scripts/config/webpack.bundle.default.js&#39;</span>
 <span class="kr">import</span> <span class="nx">myConfig</span> <span class="nx">from</span> <span class="s1">&#39;./config/webpack.myconfig.js&#39;</span>
-<span class="c1">// or using CommonJS</span>
-<span class="kr">const</span> <span class="nx">configs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-scripts/config/webpack.bundle.default.js&#39;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">myConfig</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./config/webpack.myconfig.js&#39;</span><span class="p">)</span>
-
-<span class="c1">// it&#39;s possible to add many custom configurations using this way,</span>
-<span class="c1">// the last will overwrite the previous in case of conflicts</span>
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">[</span><span class="nx">configs</span><span class="p">,</span> <span class="nx">myConfig</span><span class="p">]</span>
-</pre></div>
-
-
-<h3 id="webpackbundlepreactjs"><code>webpack.bundle.preact.js</code><a class="headerlink" href="#webpackbundlepreactjs" title="Permanent link">&para;</a></h3>
-<p>This file is the same default bundle but using preact instead (previous default config bundle used for the application built from <code>cozy-scripts</code>). It uses all following configs files:
-- <code>webpack.config.base.js</code>
-- <code>webpack.config.chunks.js</code>
-- <code>webpack.config.cozy-ui.js</code>
-- <code>webpack.config.cozy-ui.react.js</code>
-- <code>webpack.config.eslint.js</code>
-- <code>webpack.config.intents.js</code>
-- <code>webpack.config.manifest.js</code>
-- <code>webpack.config.pictures.js</code>
-- <strong><code>webpack.config.preact.js</code></strong>
-- <code>webpack.config.progress.js</code>
-- <code>webpack.config.vendors.js</code>
-- <code>webpack.environment.dev.js</code>
-- <code>webpack.environment.prod.js</code>
-- <code>webpack.target.browser.js</code>
-- <code>webpack.target.mobile.js</code>
-- <code>webpack.vars.js</code></p>
-<p>This config will replace <code>react</code> usage by <code>preact-compat</code> in a transparent manner (webpack aliases).
-<strong>The <code>app.config.js</code> is needed to use this bundle since it&rsquo;s not the default one for <code>cozy-scripts</code></strong>. But you can still overload it using a custom config like the default bundle:</p>
-<div class="codehilite"><pre><span></span><span class="c1">// app.config.js</span>
-
-<span class="c1">// using ES Modules</span>
-<span class="kr">import</span> <span class="nx">configs</span> <span class="nx">from</span> <span class="s1">&#39;cozy-scripts/config/webpack.bundle.preact.js&#39;</span>
-<span class="kr">import</span> <span class="nx">myConfig</span> <span class="nx">from</span> <span class="s1">&#39;./config/webpack.myconfig.js&#39;</span>
-<span class="c1">// or using CommonJS</span>
-<span class="kr">const</span> <span class="nx">configs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-scripts/config/webpack.bundle.preact.js&#39;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">myConfig</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./config/webpack.myconfig.js&#39;</span><span class="p">)</span>
-
-<span class="c1">// it&#39;s possible to add many custom configurations using this way,</span>
-<span class="c1">// the last will overwrite the previous in case of conflicts</span>
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">[</span><span class="nx">configs</span><span class="p">,</span> <span class="nx">myConfig</span><span class="p">]</span>
-</pre></div>
-
-
-<h3 id="webpackbundlevuejs"><code>webpack.bundle.vue.js</code><a class="headerlink" href="#webpackbundlevuejs" title="Permanent link">&para;</a></h3>
-<p>This file is the VueJS config bundle used for the application built from <code>cozy-scripts</code> with the option <code>--vue</code>. It uses all following configs files:
-- <code>webpack.config.base.js</code>
-- <code>webpack.config.chunks.js</code>
-- <code>webpack.config.cozy-ui.js</code>
-- <code>webpack.config.eslint.js</code>
-- <code>webpack.config.intents.js</code>
-- <code>webpack.config.manifest.js</code>
-- <code>webpack.config.pictures.js</code>
-- <code>webpack.config.progress.js</code>
-- <code>webpack.config.vendors.js</code>
-- <code>webpack.config.vue.js</code>
-- <code>webpack.environment.dev.js</code>
-- <code>webpack.environment.prod.js</code>
-- <code>webpack.target.browser.js</code>
-- <code>webpack.target.mobile.js</code>
-- <code>webpack.vars.js</code></p>
-<p>You can still overload it using a custom config like the default bundle using the <code>app.config.js</code> file:</p>
-<div class="codehilite"><pre><span></span><span class="c1">// app.config.js</span>
-
-<span class="c1">// ES Modules</span>
-<span class="kr">import</span> <span class="nx">configs</span> <span class="nx">from</span> <span class="s1">&#39;cozy-scripts/config/webpack.bundle.vue.js&#39;</span>
-<span class="kr">import</span> <span class="nx">myConfig</span> <span class="nx">from</span> <span class="s1">&#39;./config/webpack.myconfig.js&#39;</span>
-<span class="c1">// or CommonJS</span>
-<span class="kr">const</span> <span class="nx">configs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-scripts/config/webpack.bundle.vue.js&#39;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">myConfig</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./config/webpack.myconfig.js&#39;</span><span class="p">)</span>
 
 <span class="c1">// it&#39;s possible to add many custom configurations using this way,</span>
 <span class="c1">// the last will overwrite the previous in case of conflicts</span>
@@ -2948,7 +2849,7 @@ These files are supposed to be enoughly independant to be usable upon request as
 <p>It will run a server (on port <code>8889</code> to not be in conflict with the webpack dev server) and open an interactive treemap visualization of the contents of all your bundles in your browser.</p>
 <h3 id="webpackconfigbasejs"><code>webpack.config.base.js</code><a class="headerlink" href="#webpackconfigbasejs" title="Permanent link">&para;</a></h3>
 <p>The default basic configuration of the application.</p>
-<h5 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">&para;</a></h5>
+<h4 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">&para;</a></h4>
 <ul>
 <li><code>output</code> to <code>[name].js</code> filename</li>
 <li>resolve:<ul>
@@ -2957,7 +2858,7 @@ These files are supposed to be enoughly independant to be usable upon request as
 </ul>
 </li>
 </ul>
-<h5 id="rules">Rules<a class="headerlink" href="#rules" title="Permanent link">&para;</a></h5>
+<h4 id="rules">Rules<a class="headerlink" href="#rules" title="Permanent link">&para;</a></h4>
 <ul>
 <li>all <code>.js</code> (excluding <code>node_modules</code>, <code>cozy-bar</code> and <code>cozy-client-js</code>) to be loaded using <code>babel-loader</code> (with <code>cacheDirectory</code> option for caching in <code>node_modules/.cache/babel-loader</code>)</li>
 <li>all <code>.css</code> to be loaded using options:<ul>
@@ -2968,7 +2869,7 @@ These files are supposed to be enoughly independant to be usable upon request as
 </li>
 </ul>
 <p>A specific <code>noParse</code> property is enabled on <code>/localforage/dist</code>.</p>
-<h5 id="plugins">Plugins:<a class="headerlink" href="#plugins" title="Permanent link">&para;</a></h5>
+<h4 id="plugins">Plugins<a class="headerlink" href="#plugins" title="Permanent link">&para;</a></h4>
 <ul>
 <li><code>postcss-assets-webpack-plugin</code> (logs from this plugin are shown only in <code>--debug</code> mode) to load all <code>.css</code> files with:<ul>
 <li><code>css-mqpacker</code> (pack all CSS media query rules into one)</li>
@@ -3032,15 +2933,6 @@ The <code>emitWarning</code> option is set to true for production environment or
     - <code>path</code> to <code>img</code>, the ouput folder
     - <code>symbolId</code> to <code>[name].[hash].[ext]</code> for production environment, <code>[name].[ext]</code> for other environments</p>
 <p>It also adds <code>svg-sprite-loader/plugin</code> as plugin to use it with the related loader.</p>
-<h3 id="webpackconfigpreactjs"><code>webpack.config.preact.js</code><a class="headerlink" href="#webpackconfigpreactjs" title="Permanent link">&para;</a></h3>
-<p>A config to resolve all <code>react</code> aliases using <a href="https://preactjs.com"><code>Preact</code></a> instead.</p>
-<p>It will:
-- resolve <code>.jsx</code> extensions
-- add aliases:
-    - <code>react</code> to <code>preact-compat</code>
-    - <code>react-dom</code> to <code>preact-compat</code>
-    - Due to <a href="https://github.com/developit/preact-compat/issues/392">an HMR issue</a>, <code>preact-compat</code> to <code>preact-compat/dist/preact-compat</code>
-- add a rule for <code>.jsx</code> files excluding <code>node_modules</code> (exception for <code>node_modules/cozy-ui</code>) to be loaded using <code>babel-loader</code> (with <code>cacheDirectory</code> option for caching in <code>node_modules/.cache/babel-loader</code>)</p>
 <h3 id="webpackconfigprogressjs"><code>webpack.config.progress.js</code><a class="headerlink" href="#webpackconfigprogressjs" title="Permanent link">&para;</a></h3>
 <p>This config will just add a custom webpack plugin to display a progress bar when webpack building/watching. It internally uses the included webpack plugin <code>webpack.ProgressPlugin</code>.</p>
 <h3 id="webpackconfigservicesjs"><code>webpack.config.services.js</code><a class="headerlink" href="#webpackconfigservicesjs" title="Permanent link">&para;</a></h3>
@@ -3064,20 +2956,15 @@ In this case, all services files (<code>.js</code> files in the <code>/src/targe
 <h3 id="webpackconfigvendorsjs"><code>webpack.config.vendors.js</code><a class="headerlink" href="#webpackconfigvendorsjs" title="Permanent link">&para;</a></h3>
 <p>A <code>copy-webpack-plugin</code> plugin usage to copy all files from the <code>vendors/assets/</code> folder to the output build folder.</p>
 <p>This config will also process the application icon and run <a href="https://github.com/svg/svgo"><code>svgo</code></a> to optimize it if this is a SVG file.</p>
-<h3 id="webpackconfigvuejs"><code>webpack.config.vue.js</code><a class="headerlink" href="#webpackconfigvuejs" title="Permanent link">&para;</a></h3>
-<p>A config to use the VueJS (v2+) framework.</p>
-<p>It will:
-- resolve <code>.vue</code> extensions
-- add a rule for <code>.vue</code> files, excluding <code>node_modules</code>, to be loaded using <code>vue-loader</code>.</p>
 <h2 id="environments">Environments<a class="headerlink" href="#environments" title="Permanent link">&para;</a></h2>
 <h3 id="webpackenvironmentdevjs"><code>webpack.environment.dev.js</code><a class="headerlink" href="#webpackenvironmentdevjs" title="Permanent link">&para;</a></h3>
-<h5 id="properties_1">Properties<a class="headerlink" href="#properties_1" title="Permanent link">&para;</a></h5>
+<h4 id="properties_1">Properties<a class="headerlink" href="#properties_1" title="Permanent link">&para;</a></h4>
 <ul>
 <li><code>devtool</code> to <code>#source-map</code></li>
 <li><code>externals</code> with <code>['cozy']</code> to exclude all <code>cozy.*</code> dependencies from the output bundle (since it will be serve by <code>ProvidePlugin</code>)</li>
 <li><code>mode</code> to <code>development</code></li>
 </ul>
-<h5 id="plugins_1">Plugins:<a class="headerlink" href="#plugins_1" title="Permanent link">&para;</a></h5>
+<h4 id="plugins_1">Plugins<a class="headerlink" href="#plugins_1" title="Permanent link">&para;</a></h4>
 <ul>
 <li><code>webpack.DefinePlugin</code> to define globals variables at compiling time:<ul>
 <li><code>__DEVELOPMENT__</code> to <code>true</code></li>
@@ -3092,7 +2979,7 @@ In this case, all services files (<code>.js</code> files in the <code>/src/targe
 - <code>webpack.HotModuleReplacementPlugin</code> which allows all kinds of modules to be updated at runtime without the need for a full refresh
 - <code>write-file-webpack-plugin</code> to write all the build file from <code>webpack-dev-server</code> to the disk (necessary for the hot-reloading)</p>
 <h3 id="webpackenvironmentprodjs"><code>webpack.environment.prod.js</code><a class="headerlink" href="#webpackenvironmentprodjs" title="Permanent link">&para;</a></h3>
-<h5 id="plugins_2">Plugins:<a class="headerlink" href="#plugins_2" title="Permanent link">&para;</a></h5>
+<h4 id="plugins_2">Plugins<a class="headerlink" href="#plugins_2" title="Permanent link">&para;</a></h4>
 <ul>
 <li><code>webpack.optimize.OccurrenceOrderPlugin</code></li>
 <li><code>webpack.DefinePlugin</code> to define globals variables at compiling time:<ul>
@@ -3106,13 +2993,13 @@ In this case, all services files (<code>.js</code> files in the <code>/src/targe
 <p>In this production mode, webpack will automatically use the <code>Terser</code> plugin to optimize the build (with <code>parallel: true</code> to speedup the build).</p>
 <h2 id="targets">Targets<a class="headerlink" href="#targets" title="Permanent link">&para;</a></h2>
 <h3 id="webpacktargetbrowserjs"><code>webpack.target.browser.js</code><a class="headerlink" href="#webpacktargetbrowserjs" title="Permanent link">&para;</a></h3>
-<h5 id="properties_2">Properties<a class="headerlink" href="#properties_2" title="Permanent link">&para;</a></h5>
+<h4 id="properties_2">Properties<a class="headerlink" href="#properties_2" title="Permanent link">&para;</a></h4>
 <ul>
 <li><code>entry</code>: the <a href="https://babeljs.io/docs/en/babel-polyfill.html"><code>babel-polyfill</code></a> import and the <code>index.jsx</code> from <code>src/targets/browser/</code></li>
 <li><code>output</code>: <code>build/</code> path with <code>filename</code> to <code>[name].js</code> and <code>pathinfo</code> enabling only with the <code>COZY_SCRIPTS_DEBUG</code> mode</li>
 <li><code>externals</code> with <code>{ 'cozy-client-js': 'cozy' }</code> to exclude <code>cozy-client-js</code> (via <code>cozy.*</code>) dependency from the output bundle</li>
 </ul>
-<h5 id="plugins_3">Plugins:<a class="headerlink" href="#plugins_3" title="Permanent link">&para;</a></h5>
+<h4 id="plugins_3">Plugins<a class="headerlink" href="#plugins_3" title="Permanent link">&para;</a></h4>
 <ul>
 <li><code>script-ext-html-webpack-plugin</code> to load the main application <code>.js</code> file using the <code>defer</code> attribute (to be loaded after the initial loading) and used with <code>html-webpack-plugin</code></li>
 <li><code>html-webpack-plugin</code> configured to use <code>index.ejs</code> HTML template from <code>src/targets/browser/</code> with options:<ul>
@@ -3128,12 +3015,12 @@ In this case, all services files (<code>.js</code> files in the <code>/src/targe
 </li>
 </ul>
 <h3 id="webpacktargetmobilejs"><code>webpack.target.mobile.js</code><a class="headerlink" href="#webpacktargetmobilejs" title="Permanent link">&para;</a></h3>
-<h5 id="properties_3">Properties<a class="headerlink" href="#properties_3" title="Permanent link">&para;</a></h5>
+<h4 id="properties_3">Properties<a class="headerlink" href="#properties_3" title="Permanent link">&para;</a></h4>
 <ul>
 <li><code>entry</code>: the <a href="https://babeljs.io/docs/en/babel-polyfill.html"><code>babel-polyfill</code></a> import and the <code>index.jsx</code> from <code>src/targets/mobile</code></li>
 <li><code>output</code>: <code>src/targets/mobile/www</code> path and <code>pathinfo</code> enabling only with the <code>COZY_SCRIPTS_DEBUG</code> mode</li>
 </ul>
-<h5 id="plugins_4">Plugins:<a class="headerlink" href="#plugins_4" title="Permanent link">&para;</a></h5>
+<h4 id="plugins_4">Plugins:<a class="headerlink" href="#plugins_4" title="Permanent link">&para;</a></h4>
 <ul>
 <li><code>script-ext-html-webpack-plugin</code> to load the main application <code>.js</code> file using the <code>defer</code> attribute (to be loaded after the initial loading) and used with <code>html-webpack-plugin</code></li>
 <li><code>html-webpack-plugin</code> configured to use <code>index.ejs</code> HTML template from <code>src/targets/mobile/</code> with options:<ul>
