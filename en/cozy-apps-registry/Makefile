@@ -29,8 +29,8 @@ lint: bin/golangci-lint
 	@bin/golangci-lint run -E gofmt -E unconvert -E misspell -E whitespace
 .PHONY: lint
 
-bin/golangci-lint:
-	@curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s v1.23.8
+bin/golangci-lint: Makefile
+	@curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s v1.24.0
 
 ## tests: run the tests
 tests:
