@@ -125,10 +125,11 @@ curl http://localhost:8080/version
 {"build_mode":"production","build_time":"2017-09-28T10:26:03Z","runtime_version":"go1.8.1","version":"0.1.0"}#
 ```
 
-You need to enable user namespaces:
+You need to enable user namespaces and set permanently :
 
 ```bash
 sysctl -w kernel.unprivileged_userns_clone=1
+echo 'kernel.unprivileged_userns_clone=1' > /etc/sysctl.d/99-cozy.conf
 ```
 
 ### Finally
