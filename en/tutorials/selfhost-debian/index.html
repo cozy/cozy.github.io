@@ -2744,8 +2744,9 @@ When invoking <code>cozy-stack</code> (or <code>cozy-coclyco</code> which use it
 </pre></div>
 
 
-<p>You need to enable user namespaces:</p>
+<p>You need to enable user namespaces and set permanently :</p>
 <div class="codehilite"><pre><span></span>sysctl -w kernel.unprivileged_userns_clone<span class="o">=</span><span class="m">1</span>
+<span class="nb">echo</span> <span class="s1">&#39;kernel.unprivileged_userns_clone=1&#39;</span> &gt; /etc/sysctl.d/99-cozy.conf
 </pre></div>
 
 
