@@ -13,7 +13,7 @@
         <meta name="description" content="Cozy documentation">
       
       
-        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/cli/cozy-stack_features/">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/cli/cozy-stack_features_config/">
       
       
         <meta name="author" content="CozyCloud - https://cozy.io">
@@ -42,7 +42,7 @@
     
     
       
-        <title>Cozy stack features - Cozy Developer Documentation</title>
+        <title>Cozy stack features config - Cozy Developer Documentation</title>
       
     
     
@@ -100,7 +100,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#cozy-stack-features" tabindex="1" class="md-skip">
+      <a href="#cozy-stack-features-config" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -126,7 +126,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Cozy stack features
+                Cozy stack features config
               
             </span>
           
@@ -2398,8 +2398,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#cozy-stack-features" title="cozy-stack features" class="md-nav__link">
-    cozy-stack features
+  <a href="#cozy-stack-features-config" title="cozy-stack features config" class="md-nav__link">
+    cozy-stack features config
   </a>
   
     <nav class="md-nav">
@@ -2408,6 +2408,13 @@
           <li class="md-nav__item">
   <a href="#synopsis" title="Synopsis" class="md-nav__link">
     Synopsis
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples" title="Examples" class="md-nav__link">
+    Examples
   </a>
   
 </li>
@@ -2454,17 +2461,28 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-stack/cli/cozy-stack_features.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-stack/cli/cozy-stack_features_config.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                  <h1>Cozy stack features</h1>
+                  <h1>Cozy stack features config</h1>
                 
-                <h2 id="cozy-stack-features">cozy-stack features<a class="headerlink" href="#cozy-stack-features" title="Permanent link">&para;</a></h2>
-<p>Manage the feature flags</p>
+                <h2 id="cozy-stack-features-config">cozy-stack features config<a class="headerlink" href="#cozy-stack-features-config" title="Permanent link">&para;</a></h2>
+<p>Display the feature flags from configuration for a context</p>
 <h3 id="synopsis">Synopsis<a class="headerlink" href="#synopsis" title="Permanent link">&para;</a></h3>
-<p>Manage the feature flags</p>
+<p>cozy-stack feature config displays the feature flags from configuration for a context.</p>
+<p>These flags are read only and can only be updated by changing configuration and restarting the stack.</p>
+<div class="codehilite"><pre><span></span>cozy-stack features config &lt;context-name&gt; [flags]
+</pre></div>
+
+
+<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>$ cozy-stack feature config --context beta
+</pre></div>
+
+
 <h3 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span>  -h, --help   help for features
+<div class="codehilite"><pre><span></span>      --context string   The context for the feature flags
+  -h, --help             help for config
 </pre></div>
 
 
@@ -2479,13 +2497,7 @@
 
 <h3 id="see-also">SEE ALSO<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h3>
 <ul>
-<li><a href="../cozy-stack/">cozy-stack</a>    - cozy-stack is the main command</li>
-<li><a href="../cozy-stack_features_config/">cozy-stack features config</a>    - Display the feature flags from configuration for a context</li>
-<li><a href="../cozy-stack_features_defaults/">cozy-stack features defaults</a>    - Display and update the default values for feature flags</li>
-<li><a href="../cozy-stack_features_flags/">cozy-stack features flags</a>  - Display and update the feature flags for an instance</li>
-<li><a href="../cozy-stack_features_ratio/">cozy-stack features ratio</a>  - Display and update the feature flags for a context</li>
-<li><a href="../cozy-stack_features_sets/">cozy-stack features sets</a>    - Display and update the feature sets for an instance</li>
-<li><a href="../cozy-stack_features_show/">cozy-stack features show</a>    - Display the computed feature flags for an instance</li>
+<li><a href="../cozy-stack_features/">cozy-stack features</a>  - Manage the feature flags</li>
 </ul>
                 
                   

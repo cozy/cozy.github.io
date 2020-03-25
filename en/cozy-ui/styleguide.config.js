@@ -149,7 +149,7 @@ module.exports = {
     },
     {
       name: 'Files',
-      components: () => ['../react/HistoryRow']
+      components: () => ['../react/HistoryRow', '../react/UploadQueue']
     },
     {
       name: 'Contacts',
