@@ -22,3 +22,16 @@ it('should expose the same API as CozyRealtime', () => {
   expect(client.plugins.realtime.unsubscribe).toBeInstanceOf(Function)
   expect(client.plugins.realtime.unsubscribeAll).toBeInstanceOf(Function)
 })
+
+it('should login/logout correctly', async () => {
+  client = new CozyClient({})
+  client.registerPlugin(RealtimePlugin)
+  expect(client.plugins.realtime.realtime).toBeNull()
+  await client.login({
+    uri: 'http://cozy.tools:8080',
+    token: 'fake-token'
+  })
+  expect(client.plugins.realtime.realtime).not.toBeNull()
+  await client.logout()
+  expect(client.plugins.realtime.realtime).toBeNull()
+})

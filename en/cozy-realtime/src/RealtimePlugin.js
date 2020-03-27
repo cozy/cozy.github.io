@@ -3,6 +3,9 @@ import CozyRealtime from './CozyRealtime'
 /**
  * Realtime plugin for cozy-client
  *
+ * - Handles login/logout
+ * - Proxies subscribe/unsubscribe/unsubscribeAll to CozyRealtime
+ *
  * @class
  */
 class RealtimePlugin {
@@ -13,7 +16,25 @@ class RealtimePlugin {
    * @param {CozyClient} client A cozy-client instance
    */
   constructor(client) {
-    this.realtime = new CozyRealtime({ client })
+    this.client = client
+    this.realtime = null
+    this.handleLogin = this.handleLogin.bind(this)
+    this.handleLogout = this.handleLogout.bind(this)
+    this.client.on('login', this.handleLogin)
+    this.client.on('logout', this.handleLogout)
+
+    if (client.isLogged) this.handleLogin()
+  }
+
+  handleLogin() {
+    this.realtime = new CozyRealtime({
+      client: this.client
+    })
+  }
+
+  handleLogout() {
+    this.unsubscribeAll()
+    this.realtime = null
   }
 
   /**
