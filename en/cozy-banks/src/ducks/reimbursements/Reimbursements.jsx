@@ -114,7 +114,7 @@ export class DumbReimbursements extends Component {
 
     return (
       <TransactionActionsProvider>
-        <div className={styles.Reimbursements}>
+        <div className={`${styles.Reimbursements} js-scrolling-element`}>
           <Section>
             <SectionTitle>
               {t('Reimbursements.pending')}
@@ -128,7 +128,6 @@ export class DumbReimbursements extends Component {
             {hasPendingExpenses ? (
               <TransactionList
                 transactions={pendingExpenses}
-                withScroll={false}
                 className={styles.Reimbursements__transactionsList}
                 showTriggerErrors={false}
               />
@@ -147,7 +146,6 @@ export class DumbReimbursements extends Component {
             {hasReimbursedExpenses ? (
               <TransactionList
                 transactions={reimbursedExpenses}
-                withScroll={false}
                 className={styles.Reimbursements__transactionsList}
                 showTriggerErrors={false}
               />

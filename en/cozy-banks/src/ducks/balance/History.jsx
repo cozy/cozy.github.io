@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import cx from 'classnames'
 import { withBreakpoints } from 'cozy-ui/transpiled/react'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
-import { flowRight as compose, uniq, groupBy, max } from 'lodash'
+import { flowRight as compose, uniq, groupBy, max, memoize } from 'lodash'
 import styles from 'ducks/balance/History.styl'
 import HistoryChart from 'ducks/balance/HistoryChart'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
@@ -20,6 +20,12 @@ const today = new Date()
 const oneYearBefore = subYears(today, 1)
 
 class History extends Component {
+  constructor(props, context) {
+    super(props, context)
+    this.getTransactionsFilteredHelper = memoize(
+      this.getTransactionsFilteredHelper
+    )
+  }
   getBalanceHistory(accounts, transactions) {
     const balanceHistories = getBalanceHistories(
       accounts,
@@ -35,6 +41,10 @@ class History extends Component {
   getTransactionsFiltered() {
     const { transactions } = this.props
 
+    return this.getTransactionsFilteredHelper(transactions)
+  }
+
+  getTransactionsFilteredHelper(transactions) {
     return {
       ...transactions,
       data: transactions.data.filter(t => {

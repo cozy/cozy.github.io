@@ -164,7 +164,6 @@ export class TransactionsDumb extends React.Component {
       breakpoints: { isDesktop, isExtraLarge },
       manualLoadMore,
       filteringOnAccount,
-      withScroll,
       className
     } = this.props
     const transactionsGrouped = groupByDate(
@@ -176,16 +175,7 @@ export class TransactionsDumb extends React.Component {
     const Row = isDesktop ? RowDesktop : RowMobile
 
     return (
-      <TransactionContainer
-        className={cx(
-          styles.TransactionTable,
-          className,
-          'js-scrolling-element',
-          {
-            [styles.ScrollingElement]: withScroll
-          }
-        )}
-      >
+      <TransactionContainer className={cx(styles.TransactionTable, className)}>
         {manualLoadMore && limitMin > 0 && (
           <LoadMoreButton onClick={() => this.props.onReachTop(20)}>
             {t('Transactions.see-more')}

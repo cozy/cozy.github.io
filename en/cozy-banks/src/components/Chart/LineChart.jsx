@@ -72,6 +72,8 @@ class LineChart extends Component {
       // of getDerivedStateFromProps. See https://github.com/facebook/react/issues/12188
       return { prevData: data, itemKey }
     }
+
+    return null
   }
 
   componentDidUpdate(prevProps, prevState) {

@@ -3,13 +3,13 @@ import { debounce, throttle } from 'lodash'
 import ReactDOM from 'react-dom'
 import { getScroll, getScrollHeight } from 'ducks/transactions/scroll/utils'
 
-function elementInViewport(el, thresold) {
+function isElementInViewport(el, thresold) {
   if (!el) {
     return false
   }
   const bcr = el.getBoundingClientRect()
   const top = bcr.top + thresold
-  const viewportTop = window.pageYOffset
+  const viewportTop = 0
   const viewportBottom = viewportTop + window.innerHeight
   return top >= viewportTop && top <= viewportBottom
 }
@@ -98,11 +98,11 @@ class InfiniteScroll extends React.Component {
     if (this.props.manual) {
       return
     }
-    const reachingTop = elementInViewport(
+    const reachingTop = isElementInViewport(
       this.limitMinRef,
       -this.props.thresoldTop
     )
-    const reachingBottom = elementInViewport(
+    const reachingBottom = isElementInViewport(
       this.limitMaxRef,
       this.props.thresoldBottom
     )

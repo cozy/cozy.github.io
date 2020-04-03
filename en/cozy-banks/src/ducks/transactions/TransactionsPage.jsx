@@ -43,7 +43,7 @@ import BarTheme from 'ducks/bar/BarTheme'
 import TransactionActionsProvider from 'ducks/transactions/TransactionActionsProvider'
 
 export const STEP_INFINITE_SCROLL = 30
-export const MIN_NB_TRANSACTIONS_SHOWN = 10
+export const MIN_NB_TRANSACTIONS_SHOWN = 30
 
 const SCROLL_THRESOLD_TO_ACTIVATE_TOP_INFINITE_SCROLL = 150
 const getMonth = date => date.slice(0, 7)
@@ -103,12 +103,25 @@ class TransactionsPage extends Component {
   }
 
   handleIncreaseLimitMax() {
-    this.setState({
-      limitMax: this.state.limitMax + STEP_INFINITE_SCROLL
-    })
+    if (this.increasing) {
+      return
+    }
+    this.increasing = true
+    this.setState(
+      {
+        limitMax: this.state.limitMax + STEP_INFINITE_SCROLL
+      },
+      () => {
+        this.increasing = false
+      }
+    )
   }
 
   handleDecreaseLimitMin(amount = STEP_INFINITE_SCROLL) {
+    if (!this.increasing) {
+      return
+    }
+    this.increasing = true
     const transactions = this.props.filteredTransactions
     let goal = Math.max(this.state.limitMin - amount, 0)
 
@@ -119,9 +132,14 @@ class TransactionsPage extends Component {
     ) {
       goal--
     }
-    this.setState({
-      limitMin: goal
-    })
+    this.setState(
+      {
+        limitMin: goal
+      },
+      () => {
+        this.increasing = false
+      }
+    )
   }
 
   /**
@@ -267,7 +285,11 @@ class TransactionsPage extends Component {
           showBackButton={this.props.showBackButton}
           showBalance={isMobile && !areAccountsLoading && !isOnSubcategory}
         />
-        <div className={styles.TransactionPage__transactions}>
+        <div
+          className={`${
+            styles.TransactionPage__transactions
+          } js-scrolling-element`}
+        >
           {this.renderTransactions()}
         </div>
       </TransactionActionsProvider>
