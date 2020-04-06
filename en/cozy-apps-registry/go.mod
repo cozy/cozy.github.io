@@ -8,15 +8,15 @@ require (
 	github.com/go-kivik/kivik/v3 v3.0.2
 	github.com/go-redis/redis/v7 v7.2.0
 	github.com/h2non/filetype v1.0.12
-	github.com/hashicorp/go-multierror v1.0.0
+	github.com/hashicorp/go-multierror v1.1.0
 	github.com/howeyc/gopass v0.0.0-20190910152052-7cb4b85ec19c
-	github.com/labstack/echo/v4 v4.1.15
+	github.com/labstack/echo/v4 v4.1.16
 	github.com/ncw/swift v1.0.50
 	github.com/pkg/xattr v0.4.1
 	github.com/sirupsen/logrus v1.5.0
 	github.com/spf13/cobra v0.0.7
 	github.com/spf13/viper v1.6.2
 	github.com/stretchr/testify v1.5.1
-	golang.org/x/crypto v0.0.0-20200323165209-0ec3e9974c59
+	golang.org/x/crypto v0.0.0-20200403201458-baeed622b8d8
 	golang.org/x/sync v0.0.0-20200317015054-43a5402ce75a
 )
