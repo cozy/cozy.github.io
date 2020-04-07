@@ -15,6 +15,7 @@ module.exports = {
         '../react/Badge/index.jsx',
         '../react/Button/index.jsx',
         '../react/ButtonAction/index.jsx',
+        '../react/DropdownButton/index.jsx',
         '../react/Card/index.jsx',
         '../react/CompositeRow/index.jsx',
         '../react/InlineCard/index.jsx',
