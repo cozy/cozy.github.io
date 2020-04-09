@@ -1,4 +1,4 @@
-/* global __SENTRY_URL__, __TARGET__, __DEV__, __APP_VERSION__ */
+/* global __SENTRY_URL__, __TARGET__, __DEVELOPMENT__, __APP_VERSION__ */
 import Raven from 'raven-js'
 import RavenMiddleWare from 'redux-raven-middleware'
 import { getDomain, getSlug } from 'lib/cozyUrl'
@@ -13,7 +13,7 @@ export const isSentryEnabled = () => typeof __SENTRY_URL__ !== 'undefined'
 const getSentryConfiguration = cozyClient => {
   const config = {
     shouldSendCallback: true,
-    environment: __DEV__ ? 'development' : 'production',
+    environment: __DEVELOPMENT__ ? 'development' : 'production',
     release: __APP_VERSION__,
     allowSecretKey: true,
     dataCallback: normalizeData

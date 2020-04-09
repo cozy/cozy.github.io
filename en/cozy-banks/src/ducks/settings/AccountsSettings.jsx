@@ -22,6 +22,7 @@ import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { Contact } from 'cozy-doctypes'
 
 import { accountsConn, APP_DOCTYPE } from 'doctypes'
+import { Row, Cell } from 'components/Table'
 
 // See comment below about sharings
 // import { ACCOUNT_DOCTYPE } from 'doctypes'
@@ -29,48 +30,48 @@ import { accountsConn, APP_DOCTYPE } from 'doctypes'
 // import fetchData from 'components/fetchData'
 
 // TODO react-router v4
+
+const AccountOwners = ({ account }) => {
+  const owners = getAccountOwners(account)
+  return owners.length > 0 ? (
+    <>
+      <div className="u-ph-half">-</div>
+      <div>{owners.map(Contact.getDisplayName).join(' - ')}</div>
+    </>
+  ) : null
+}
+
 const _AccountLine = ({ account, router, breakpoints: { isMobile } }) => {
   const { t } = useI18n()
 
   return (
-    <tr
+    <Row
+      nav
       key={account.id}
       onClick={() => router.push(`/settings/accounts/${account.id}`)}
-      className={styles.AcnsStg__accountRow}
     >
-      <td className={styles.AcnsStg__libelle}>
+      <Cell main className={styles.AcnsStg__libelle}>
         <div className={styles.AcnsStg__libelleInner}>
           <div>{account.shortLabel || account.label}</div>
-          {isMobile ? (
-            <>
-              <div className="u-ph-half">-</div>
-              <div>
-                {getAccountOwners(account)
-                  .map(Contact.getDisplayName)
-                  .join(' - ')}
-              </div>
-            </>
-          ) : null}
+          {isMobile ? <AccountOwners account={account} /> : null}
         </div>
-      </td>
-      <td className={styles.AcnsStg__bank}>
+      </Cell>
+      <Cell className={styles.AcnsStg__bank}>
         {getAccountInstitutionLabel(account)}
-      </td>
-      <td className={styles.AcnsStg__number}>{account.number}</td>
-      <td className={styles.AcnsStg__type}>
+      </Cell>
+      <Cell className={styles.AcnsStg__number}>{account.number}</Cell>
+      <Cell className={styles.AcnsStg__type}>
         {t(`Data.accountTypes.${getAccountType(account)}`, {
           _: t('Data.accountTypes.Other')
         })}
-      </td>
-      {
-        <td className={styles.AcnsStg__owner}>
-          {getAccountOwners(account)
-            .map(Contact.getDisplayName)
-            .join(' - ')}
-        </td>
-      }
-      <td className={styles.AcnsStg__actions} />
-    </tr>
+      </Cell>
+      <Cell className={styles.AcnsStg__owner}>
+        {getAccountOwners(account)
+          .map(Contact.getDisplayName)
+          .join(' - ')}
+      </Cell>
+      <Cell className={styles.AcnsStg__actions} />
+    </Row>
   )
 }
 

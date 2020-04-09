@@ -1,4 +1,4 @@
-/* global __DEV__ */
+/* global __DEVELOPMENT__ */
 
 import flag from 'cozy-flags'
 import { some } from 'lodash'
@@ -18,7 +18,7 @@ const garbageCollectFlags = () => {
 
 garbageCollectFlags()
 
-if (__DEV__ && flag('switcher') === null) {
+if (__DEVELOPMENT__ && flag('switcher') === null) {
   flag('switcher', true)
 }
 

@@ -27,7 +27,6 @@ describe('LateHealthReimbursement', () => {
     })
     return { notification }
   }
-
   ;['fr', 'en'].forEach(lang => {
     it(`should return push content for lang ${lang}`, () => {
       const { notification } = setup({ lang })

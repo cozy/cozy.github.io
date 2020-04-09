@@ -13,6 +13,7 @@ import btnStyles from 'styles/buttons.styl'
 import { sortBy, flowRight as compose, get } from 'lodash'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { getGroupLabel } from 'ducks/groups/helpers'
+import { Cell, Row } from 'components/Table'
 
 const GroupList = compose(
   withRouter,
@@ -30,21 +31,23 @@ const GroupList = compose(
 
       <tbody>
         {groups.map(group => (
-          <tr
+          <Row
+            nav
             key={group._id}
             onClick={() => router.push(`/settings/groups/${group._id}`)}
-            className={styles.GrpsStg__row}
           >
-            <td className={styles.GrpsStg__label}>{getGroupLabel(group, t)}</td>
-            <td className={styles.GrpsStg__accounts}>
+            <Cell main className={styles.GrpsStg__label}>
+              {getGroupLabel(group, t)}
+            </Cell>
+            <Cell className={styles.GrpsStg__accounts}>
               {group.accounts.data
                 .map(
                   account => get(account, 'shortLabel') || get(account, 'label')
                 )
                 .filter(Boolean)
                 .join(', ')}
-            </td>
-          </tr>
+            </Cell>
+          </Row>
         ))}
       </tbody>
     </Table>

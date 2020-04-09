@@ -1,4 +1,4 @@
-/* global __DEV__ */
+/* global __DEVELOPMENT__ */
 
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -18,7 +18,7 @@ export class DumbBillChip extends React.PureComponent {
 
   getInvoiceId(bill) {
     if (!bill.invoice) {
-      if (__DEV__) {
+      if (__DEVELOPMENT__) {
         console.warn('Bill without invoice', bill) // eslint-disable-line no-console
       }
       throw new Error('Bill without invoice')

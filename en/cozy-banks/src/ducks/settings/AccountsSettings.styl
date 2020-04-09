@@ -13,7 +13,6 @@
 
     &__libelle
         maxed-flex-basis 25%
-        composes mobile-row-main from '../../components/Table/styles.styl'
 
     &__bank
         maxed-flex-basis 20%
@@ -37,7 +36,6 @@
             td& // increase selectivity with td
                 display none
 
-    &__shared,
     &__owner
         maxed-flex-basis 15%
 
@@ -55,13 +53,6 @@
         +small-screen()
             td& // increase selectivity with td
                 display none
-
-    &__accountRow
-        composes mobile-row from '../../components/Table/styles.styl'
-        composes nav-row from '../commons/mobile.styl'// @stylint ignore
-
-    &__bank, &__number, &__shared, &__owner
-        composes mobile-row-label from '../../components/Table/styles.styl'
 
 .AcnsStg__libelleInner
     display flex

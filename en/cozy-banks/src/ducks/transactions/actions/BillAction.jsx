@@ -1,4 +1,4 @@
-/* global __DEV__ */
+/* global __DEVELOPMENT__ */
 
 import React, { Component } from 'react'
 import { get } from 'lodash'
@@ -17,7 +17,7 @@ const name = 'bill'
 
 const getBillInvoice = bill => {
   if (!bill.invoice) {
-    if (__DEV__) {
+    if (__DEVELOPMENT__) {
       console.warn('Bill without invoice', bill) // eslint-disable-line no-console
     }
     throw new Error('Bill without invoice')
