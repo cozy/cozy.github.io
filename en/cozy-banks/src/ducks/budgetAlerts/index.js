@@ -116,9 +116,7 @@ export const collectAlertInfo = async (client, alert, options) => {
 
   log(
     'info',
-    `Found ${expenses.length} expenses for alert ${alert.id} (currentDate: ${
-      options.currentDate
-    })`
+    `Found ${expenses.length} expenses for alert ${alert.id} (currentDate: ${options.currentDate})`
   )
 
   const sum = Math.round(-sumBy(expenses, tr => tr.amount), 2)
@@ -126,9 +124,7 @@ export const collectAlertInfo = async (client, alert, options) => {
   if (sum < alert.maxThreshold) {
     log(
       'info',
-      `Threshold (${
-        alert.maxThreshold
-      }) has not been passed, bailing out (alertId: ${alert.id})`
+      `Threshold (${alert.maxThreshold}) has not been passed, bailing out (alertId: ${alert.id})`
     )
     return
   }

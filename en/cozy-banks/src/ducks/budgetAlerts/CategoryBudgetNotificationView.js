@@ -141,9 +141,7 @@ class CategoryBudget extends NotificationView {
       ? budgetAlerts
           .map(
             alert =>
-              `${alert.categoryLabel}: ${alert.currentAmount}€ > ${
-                alert.maxThreshold
-              }€`
+              `${alert.categoryLabel}: ${alert.currentAmount}€ > ${alert.maxThreshold}€`
           )
           .join(', ')
       : `${budgetAlerts[0].currentAmount}€ > ${budgetAlerts[0].maxThreshold}€`

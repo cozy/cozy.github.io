@@ -32,9 +32,7 @@ const computeBankAccountStats = async () => {
 
   log(
     'info',
-    `${transactions.length} transactions between ${period.start} and ${
-      period.end
-    }`
+    `${transactions.length} transactions between ${period.start} and ${period.end}`
   )
 
   const transactionsByAccount = groupBy(

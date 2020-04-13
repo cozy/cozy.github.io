@@ -50,9 +50,7 @@ const accountOrGroupFormatter = (accountsById, groupsById) => {
         getGroupLabel(groupsById[accountOrGroup._id], fakeT) || 'Unknown group'
       )
     } else {
-      return `Unknown<_type: ${accountOrGroup._type}, _id: ${
-        accountOrGroup._id
-      }>`
+      return `Unknown<_type: ${accountOrGroup._type}, _id: ${accountOrGroup._id}>`
     }
   }
 }

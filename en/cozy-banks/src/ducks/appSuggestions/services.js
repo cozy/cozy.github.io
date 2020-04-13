@@ -35,9 +35,7 @@ export const findSuggestionForTransaction = (
   } else {
     log(
       'info',
-      `No existing suggestion for ${
-        matchingBrand.konnectorSlug
-      }. Creating a new one`
+      `No existing suggestion for ${matchingBrand.konnectorSlug}. Creating a new one`
     )
     suggestion = AppSuggestion.init(
       matchingBrand.konnectorSlug,

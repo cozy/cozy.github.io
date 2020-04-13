@@ -1,5 +1,4 @@
 const webpack = require('webpack')
-const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin')
 
 const HOST = process.env.DEV_HOST || 'localhost'
 const PORT = process.env.DEV_PORT ? parseInt(process.env.DEV_PORT, 10) : 8282
@@ -8,7 +7,7 @@ module.exports = {
   output: {
     publicPath: process.env.PUBLIC_PATH || `http://${HOST}:${PORT}/`
   },
-  plugins: [new webpack.NamedModulesPlugin(), new HtmlWebpackHarddiskPlugin()],
+  plugins: [new webpack.NamedModulesPlugin()],
   devServer: {
     host: HOST,
     port: PORT,

@@ -61,27 +61,21 @@ const logResult = matchingResult => {
     if (value.debitOperation) {
       log(
         'info',
-        `Bill ${key} matched with transaction ${
-          value.debitOperation._id
-        } (debit)`
+        `Bill ${key} matched with transaction ${value.debitOperation._id} (debit)`
       )
     }
 
     if (value.creditOperation) {
       log(
         'info',
-        `Bill ${key} matched with transaction ${
-          value.creditOperation._id
-        } (credit)`
+        `Bill ${key} matched with transaction ${value.creditOperation._id} (credit)`
       )
     }
   })
 }
 
 const formatOperationLog = operation =>
-  `${operation._id} (${operation.date} - ${operation.amount} - ${
-    operation.label
-  })`
+  `${operation._id} (${operation.date} - ${operation.amount} - ${operation.label})`
 
 const formatBillLog = bill =>
   `${bill._id} (${bill.date} - ${bill.amount} - ${bill.vendor})`

@@ -2,14 +2,19 @@ import React, { useEffect } from 'react'
 import { withBreakpoints } from 'cozy-ui/transpiled/react'
 
 const useScrollToOnMount = (node, scrollTop, scrollLeft) => {
-  useEffect(() => {
-    if (node && scrollTop !== undefined) {
-      node.scrollTop = scrollTop
-    }
-    if (node && scrollLeft !== undefined) {
-      node.scrollLeft = scrollLeft
-    }
-  }, [])
+  useEffect(
+    () => {
+      if (node && scrollTop !== undefined) {
+        node.scrollTop = scrollTop
+      }
+      if (node && scrollLeft !== undefined) {
+        node.scrollLeft = scrollLeft
+      }
+    },
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  )
 }
 
 const getMainNode = isMobile => {

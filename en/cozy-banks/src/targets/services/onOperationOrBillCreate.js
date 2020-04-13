@@ -35,9 +35,7 @@ const doBillsMatching = async (setting, options = {}) => {
     } else {
       log(
         'info',
-        `[matching service] ${
-          billsChanges.documents.length
-        } new bills since last execution. Trying to find transactions for them`
+        `[matching service] ${billsChanges.documents.length} new bills since last execution. Trying to find transactions for them`
       )
 
       const result = await matchFromBills(billsChanges.documents)
@@ -72,9 +70,7 @@ const doTransactionsMatching = async (setting, options = {}) => {
     } else {
       log(
         'info',
-        `[matching service] ${
-          transactionsChanges.documents.length
-        } new transactions since last execution. Trying to find bills for them`
+        `[matching service] ${transactionsChanges.documents.length} new transactions since last execution. Trying to find bills for them`
       )
 
       const result = await matchFromTransactions(transactionsChanges.documents)

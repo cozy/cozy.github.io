@@ -141,9 +141,7 @@ class Linker {
     if (operation.bills && operation.bills.indexOf(billId) > -1) {
       log(
         'warn',
-        `Tried to add bill ${bill._id} to operation ${
-          operation._id
-        } but it's already linked`
+        `Tried to add bill ${bill._id} to operation ${operation._id} but it's already linked`
       )
       return false
     }
@@ -160,9 +158,7 @@ class Linker {
 
       log(
         'warn',
-        `Impossible to match bill ${bill._id} with transation ${
-          operation._id
-        } because the linked bills amount would overflow the transaction amount`
+        `Impossible to match bill ${bill._id} with transation ${operation._id} because the linked bills amount would overflow the transaction amount`
       )
       return false
     }
@@ -188,9 +184,7 @@ class Linker {
 
     log(
       'debug',
-      `Adding bill ${bill._id} as a reimbursement to operation ${
-        debitOperation._id
-      }`
+      `Adding bill ${bill._id} as a reimbursement to operation ${debitOperation._id}`
     )
 
     if (!bill._id) {
@@ -208,9 +202,7 @@ class Linker {
     ) {
       log(
         'warn',
-        `Tried to add bill ${bill._id} as a reimbursement to operation ${
-          debitOperation._id
-        } but it's already linked`
+        `Tried to add bill ${bill._id} as a reimbursement to operation ${debitOperation._id} but it's already linked`
       )
       return Promise.resolve()
     }
@@ -392,9 +384,7 @@ class Linker {
 
     log(
       'debug',
-      `Trying to find matchings between ${bills.length} bills and ${
-        allOperations.length
-      } operations`
+      `Trying to find matchings between ${bills.length} bills and ${allOperations.length} operations`
     )
 
     if (options.billsToRemove && options.billsToRemove.length) {

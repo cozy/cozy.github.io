@@ -25,9 +25,7 @@ export const createAutoGroups = async ({ client }) => {
 
   log(
     'info',
-    `Number of accounts already processed by autogroups: ${
-      alreadyProcessed.size
-    }`
+    `Number of accounts already processed by autogroups: ${alreadyProcessed.size}`
   )
   const accountsToProcess = accounts.filter(
     account => !alreadyProcessed.has(account._id)
@@ -75,9 +73,7 @@ export const createAutoGroups = async ({ client }) => {
     } else {
       log(
         'info',
-        `Creating automatic group for ${accountType} accounts (${
-          autoGroup.accounts.target.accounts.length
-        } account)`
+        `Creating automatic group for ${accountType} accounts (${autoGroup.accounts.target.accounts.length} account)`
       )
       await client.save(autoGroup)
     }

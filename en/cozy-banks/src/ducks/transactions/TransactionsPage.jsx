@@ -286,9 +286,7 @@ class TransactionsPage extends Component {
           showBalance={isMobile && !areAccountsLoading && !isOnSubcategory}
         />
         <div
-          className={`${
-            styles.TransactionPage__transactions
-          } js-scrolling-element`}
+          className={`${styles.TransactionPage__transactions} js-scrolling-element`}
         >
           {this.renderTransactions()}
         </div>

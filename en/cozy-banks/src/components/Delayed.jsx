@@ -7,15 +7,20 @@ const useDelay = delay => {
   // Pass empty dep list to useEffect to have a behavior similar to
   // componentDid{Mount,Unmount}
   // https://fr.reactjs.org/docs/hooks-effect.html#tip-optimizing-performance-by-skipping-effects
-  useEffect(() => {
-    function setOKToTrue() {
-      setOK(true)
-    }
-    const timeout = delay === 0 ? null : setTimeout(setOKToTrue, delay)
-    return () => {
-      clearTimeout(timeout)
-    }
-  }, [])
+  useEffect(
+    () => {
+      function setOKToTrue() {
+        setOK(true)
+      }
+      const timeout = delay === 0 ? null : setTimeout(setOKToTrue, delay)
+      return () => {
+        clearTimeout(timeout)
+      }
+    },
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  )
   return ok
 }
 
