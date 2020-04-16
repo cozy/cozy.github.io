@@ -15,7 +15,7 @@ import Categories from 'ducks/categories/Categories'
 import { flowRight as compose, sortBy, some, includes } from 'lodash'
 import CategoriesHeader from 'ducks/categories/CategoriesHeader'
 import { queryConnect } from 'cozy-client'
-import { withMutations } from 'cozy-client'
+import { withClient } from 'cozy-client'
 import {
   accountsConn,
   settingsConn,
@@ -76,12 +76,12 @@ class CategoriesPage extends Component {
   }
 
   onWithIncomeToggle = checked => {
-    const { saveDocument } = this.props
+    const { client } = this.props
     const settings = this.getSettings()
 
     settings.showIncomeCategory = checked
 
-    saveDocument(settings)
+    client.save(settings)
   }
 
   getSettings = () => {
@@ -174,7 +174,7 @@ export default compose(
   withRouter,
   withBreakpoints(),
   translate(),
-  withMutations(),
+  withClient,
   queryConnect({
     accounts: accountsConn,
     transactions: transactionsConn,

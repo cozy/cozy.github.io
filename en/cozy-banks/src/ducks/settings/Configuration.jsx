@@ -3,7 +3,7 @@
 import React from 'react'
 import { translate } from 'cozy-ui/transpiled/react'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
-import { queryConnect, withMutations } from 'cozy-client'
+import { queryConnect, withClient } from 'cozy-client'
 import { settingsConn } from 'doctypes'
 import { flowRight as compose, set } from 'lodash'
 import Loading from 'components/Loading'
@@ -33,8 +33,8 @@ const onToggleFlag = key => checked => {
  */
 export class Configuration extends React.Component {
   saveDocument = async doc => {
-    const { saveDocument } = this.props
-    await saveDocument(doc)
+    const { client } = this.props
+    await client.save(doc)
     this.forceUpdate()
   }
 
@@ -171,7 +171,7 @@ export class Configuration extends React.Component {
 }
 
 export default compose(
-  withMutations(),
+  withClient,
   queryConnect({
     settingsCollection: settingsConn
   }),

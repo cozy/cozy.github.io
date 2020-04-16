@@ -17,28 +17,30 @@ describe('GroupSettings', () => {
     const router = {
       push: jest.fn()
     }
-    const saveDocument = jest.fn().mockResolvedValue({ data: { id: '1234' } })
+    const client = {
+      save: jest.fn().mockResolvedValue({ data: { id: '1234' } })
+    }
     const root = mount(
       <AppLike>
         <GroupSettings
           account={account}
           group={group}
           router={router}
-          saveDocument={saveDocument}
+          client={client}
           breakpoints={{ isMobile: false }}
           t={x => x}
         />
       </AppLike>
     )
     const instance = root.find(GroupSettings).instance()
-    return { router, saveDocument, root, instance }
+    return { router, client, root, instance }
   }
 
   it('should rename new group', async () => {
     const group = omit(fixtures['io.cozy.bank.groups'][0], ['_id', 'id'])
-    const { router, saveDocument, instance } = setup({ group })
+    const { router, client, instance } = setup({ group })
     await instance.rename('Renamed group')
-    expect(saveDocument).toHaveBeenCalledWith({
+    expect(client.save).toHaveBeenCalledWith({
       accounts: ['compteisa1', 'comptelou1', 'comptecla1', 'comptegene1'],
       label: 'Renamed group'
     })
@@ -50,9 +52,9 @@ describe('GroupSettings', () => {
       ...fixtures['io.cozy.bank.groups'][0],
       accountType: 'checkings'
     }
-    const { router, saveDocument, instance } = setup({ group })
+    const { router, client, instance } = setup({ group })
     await instance.rename('Renamed group')
-    expect(saveDocument).toHaveBeenCalledWith({
+    expect(client.save).toHaveBeenCalledWith({
       _id: 'familleelargie',
       accountType: null,
       accounts: ['compteisa1', 'comptelou1', 'comptecla1', 'comptegene1'],

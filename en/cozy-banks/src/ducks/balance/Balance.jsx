@@ -3,7 +3,7 @@
 import React, { PureComponent, Fragment } from 'react'
 import { flowRight as compose, get, sumBy, set, debounce } from 'lodash'
 
-import { queryConnect, withMutations, withClient } from 'cozy-client'
+import { queryConnect, withClient } from 'cozy-client'
 import flag from 'cozy-flags'
 import {
   groupsConn,
@@ -145,7 +145,7 @@ class Balance extends PureComponent {
 
   savePanelState() {
     const { panels } = this.state
-    const { settings: settingsCollection } = this.props
+    const { settings: settingsCollection, client } = this.props
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
 
     const newSettings = {
@@ -153,7 +153,7 @@ class Balance extends PureComponent {
       panelsState: panels
     }
 
-    return this.props.saveDocument(newSettings)
+    return client.save(newSettings)
   }
 
   getAccountOccurrencesInState(account) {
@@ -439,6 +439,5 @@ export default compose(
       virtualGroups: getVirtualGroups
     })
   ),
-  withClient,
-  withMutations()
+  withClient
 )(Balance)

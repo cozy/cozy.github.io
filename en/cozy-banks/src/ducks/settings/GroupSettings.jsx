@@ -1,7 +1,7 @@
 import React, { Component, PureComponent } from 'react'
 import { withRouter } from 'react-router'
 import { sortBy, flowRight as compose } from 'lodash'
-import { Query, withMutations, withClient } from 'cozy-client'
+import { Query, withClient } from 'cozy-client'
 import { translate, withBreakpoints } from 'cozy-ui/transpiled/react'
 import Button from 'cozy-ui/transpiled/react/Button'
 import Toggle from 'cozy-ui/transpiled/react/Toggle'
@@ -108,10 +108,10 @@ export class DumbGroupSettings extends Component {
   }
 
   async updateOrCreate(group, cb) {
-    const { router, saveDocument } = this.props
+    const { router, client } = this.props
     const isNew = !group.id
     try {
-      const response = await saveDocument(group)
+      const response = await client.save(group)
       if (response && response.data) {
         const doc = response.data
         if (isNew) {
@@ -134,10 +134,10 @@ export class DumbGroupSettings extends Component {
   }
 
   onRemove = async () => {
-    const { group, router, deleteDocument, t } = this.props
+    const { group, router, client, t } = this.props
 
     try {
-      await deleteDocument(group)
+      await client.destroy(group)
       router.push('/settings/groups')
     } catch (err) {
       logException(err)
@@ -249,20 +249,11 @@ const enhance = Component =>
 
 const ExistingGroupSettings = enhance(props => (
   <Query query={client => client.get(GROUP_DOCTYPE, props.routeParams.groupId)}>
-    {(
-      { data: group, fetchStatus },
-      { saveDocument, deleteDocument, getAssociation }
-    ) =>
+    {({ data: group, fetchStatus }) =>
       fetchStatus === 'loading' || fetchStatus === 'pending' ? (
         <Loading />
       ) : (
-        <GroupSettings
-          group={group}
-          saveDocument={saveDocument}
-          deleteDocument={deleteDocument}
-          getAssociation={getAssociation}
-          {...props}
-        />
+        <GroupSettings group={group} {...props} />
       )
     }
   </Query>
@@ -277,10 +268,8 @@ export default ExistingGroupSettings
  * to refetch the group but it seems easier to do that to force the usage
  * of a brand new component
  */
-export const NewGroupSettings = withMutations()(
-  enhance(
-    translate()(props => (
-      <GroupSettings {...props} group={makeNewGroup(props.client, props.t)} />
-    ))
-  )
+export const NewGroupSettings = enhance(
+  translate()(props => (
+    <GroupSettings {...props} group={makeNewGroup(props.client, props.t)} />
+  ))
 )

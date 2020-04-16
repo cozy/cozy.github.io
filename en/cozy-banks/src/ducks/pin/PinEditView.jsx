@@ -7,7 +7,7 @@ import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import Button from 'cozy-ui/transpiled/react/Button'
-import { queryConnect, withMutations } from 'cozy-client'
+import { queryConnect, withClient } from 'cozy-client'
 
 import PinKeyboard from 'ducks/pin/PinKeyboard'
 import PinWrapper from 'ducks/pin/PinWrapper'
@@ -75,8 +75,9 @@ class PinEditView extends React.Component {
   }
 
   async savePin(pinValue, fingerprint) {
+    const { client } = this.props
     const doc = this.props.pinSetting.data
-    await this.props.saveDocument({
+    await client.save({
       _type: SETTINGS_DOCTYPE,
       _id: 'pin',
       ...doc,
@@ -170,7 +171,7 @@ PinEditView.propTypes = {
 export const DumbPinEditView = PinEditView
 export default compose(
   translate(),
-  withMutations(),
+  withClient,
   queryConnect({
     pinSetting
   })

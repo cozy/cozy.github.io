@@ -17,7 +17,7 @@ import { logException } from 'lib/sentry'
 import cx from 'classnames'
 import { translate } from 'cozy-ui/transpiled/react'
 import { flowRight as compose } from 'lodash'
-import { withMutations } from 'cozy-client'
+import { withClient } from 'cozy-client'
 import { getHealthReimbursementLateLimitSelector } from 'ducks/reimbursements/selectors'
 
 export class DumbReimbursementStatusAction extends React.PureComponent {
@@ -29,13 +29,13 @@ export class DumbReimbursementStatusAction extends React.PureComponent {
   hideModal = () => this.setState({ showModal: false })
 
   handleChange = async e => {
-    const { transaction, saveDocument, t } = this.props
+    const { transaction, client, t } = this.props
     transaction.reimbursementStatus = e.target.value
 
     this.hideModal()
 
     try {
-      await saveDocument(transaction)
+      await client.save(transaction)
     } catch (err) {
       logException(err)
       Alerter.error(t('Transactions.reimbursementStatusUpdateError'))
@@ -121,7 +121,7 @@ export class DumbReimbursementStatusAction extends React.PureComponent {
 
 const ReimbursementStatusAction = compose(
   translate(),
-  withMutations(),
+  withClient,
   connect(state => ({
     healthReimbursementLateLimit: getHealthReimbursementLateLimitSelector(state)
   }))

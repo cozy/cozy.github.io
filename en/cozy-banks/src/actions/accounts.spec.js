@@ -1,11 +1,14 @@
 import { removeStats } from './accounts'
 import CozyClient from 'cozy-client'
 
-jest.mock('cozy-client')
-
-const client = new CozyClient()
+const client = new CozyClient({})
 
 describe('removeStats', () => {
+  beforeEach(() => {
+    client.query = jest.fn()
+    client.destroy = jest.fn()
+  })
+
   afterEach(() => {
     jest.resetAllMocks()
   })

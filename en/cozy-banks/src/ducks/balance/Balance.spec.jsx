@@ -25,9 +25,10 @@ const router = {
 
 describe('Balance page', () => {
   const setup = ({ accountsData } = {}) => {
-    const saveDocumentMock = jest.fn()
     const filterByAccounts = jest.fn()
     const settingDoc = {}
+    const client = getClient()
+    client.save = jest.fn()
     const root = shallow(
       <DumbBalance
         accounts={fakeCollection('io.cozy.bank.accounts', accountsData || [])}
@@ -37,15 +38,14 @@ describe('Balance page', () => {
         settings={fakeCollection('io.cozy.bank.settings', [settingDoc])}
         triggers={fakeCollection('io.cozy.triggers')}
         transactions={fakeCollection('io.cozy.bank.operations')}
-        saveDocument={saveDocumentMock}
         filterByAccounts={filterByAccounts}
         router={router}
-        client={getClient()}
+        client={client}
       />
     )
     const instance = root.instance()
 
-    return { root, instance, saveDocumentMock, router, filterByAccounts }
+    return { root, client, instance, router, filterByAccounts }
   }
 
   afterEach(() => {
@@ -138,10 +138,10 @@ describe('Balance page', () => {
       expect(instance.savePanelState).toHaveBeenCalledTimes(3)
     })
 
-    it('should call saveDocument when saving panel state', () => {
-      const { instance, saveDocumentMock } = setup()
+    it('should call save when saving panel state', () => {
+      const { instance, client } = setup()
       instance.savePanelState()
-      expect(saveDocumentMock).toHaveBeenCalled()
+      expect(client.save).toHaveBeenCalled()
     })
   })
 
@@ -150,7 +150,6 @@ describe('Balance page', () => {
       virtualAccounts: [],
       virtualGroups: [],
       triggers: fakeCollection('io.cozy.triggers'),
-      saveDocument: jest.fn(),
       filterByAccounts: jest.fn(),
       router: router,
       client: getClient()

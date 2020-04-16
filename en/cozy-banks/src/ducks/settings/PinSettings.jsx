@@ -1,5 +1,5 @@
 import React from 'react'
-import { queryConnect, withMutations } from 'cozy-client'
+import { queryConnect } from 'cozy-client'
 import compose from 'lodash/flowRight'
 
 import { translate } from 'cozy-ui/transpiled/react'
@@ -49,7 +49,7 @@ class PinSettings extends React.Component {
   handlePinDeactivated() {
     const pinDoc = this.getPinDoc()
     if (pinDoc && pinDoc.pin) {
-      this.props.saveDocument({ ...pinDoc, pin: null })
+      this.props.client.save({ ...pinDoc, pin: null })
       this.setState({ togglingOff: false })
     }
   }
@@ -87,7 +87,6 @@ class PinSettings extends React.Component {
 
 export default compose(
   translate(),
-  withMutations(),
   queryConnect({
     pinSetting
   })
