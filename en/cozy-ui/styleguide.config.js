@@ -7,7 +7,10 @@ module.exports = {
   sections: [
     {
       name: 'Bar',
-      components: () => ['../react/BarButton/index.jsx']
+      components: () => [
+        '../react/BarButton/index.jsx',
+        '../react/BarTitle/index.jsx'
+      ]
     },
     {
       name: 'Basics',
