@@ -48,7 +48,8 @@ module.exports = {
         '../react/Toggle/index.jsx',
         '../react/FileInput/index.jsx',
         '../react/DateMonthPicker/index.jsx',
-        '../react/NestedSelect/NestedSelect.jsx'
+        '../react/NestedSelect/NestedSelect.jsx',
+        '../react/Stepper/index.jsx'
       ]
     },
     {
@@ -108,7 +109,8 @@ module.exports = {
         '../react/ActionMenu/index.jsx',
         '../react/Menu/index.jsx',
         '../react/Tabs/index.jsx',
-        '../react/AppLinker/index.jsx'
+        '../react/AppLinker/index.jsx',
+        '../react/Breadcrumbs/index.jsx'
       ]
     },
     {
