@@ -2963,8 +2963,11 @@ conflicts for files and folder by using a special conflict resolution process.</
 <p>For 1. and 2., we will reconciliate the changes except for a file with two
 versions having a distinct binary (we rely on <code>size</code> and <code>checksum</code> to detect
 that). In such a case, we create a copy of the file with one version, while
-keeping the other version in the original file.</p>
-<p>For 3., we rename the file or folder with the smaller <code>id</code>.</p>
+keeping the other version in the original file (the higher revision wins).</p>
+<p>For 3., we say that the owner instance wins: the file with the name in conflict
+on the owner instance will keep its name, and the other file with the same name
+will be renamed. This rule helps to minimize the number of exchanges between
+the cozy instances, which is a factor of stability to avoid more conflicts.</p>
 <p>For 4., we restore the trashed parent, or recreate it if it the trash was
 emptied.</p>
 <h3 id="conflict-with-no-reconciliation">Conflict with no reconciliation<a class="headerlink" href="#conflict-with-no-reconciliation" title="Permanent link">&para;</a></h3>
