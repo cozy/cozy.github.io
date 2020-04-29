@@ -1,11 +1,12 @@
-import React, { Component } from 'react'
-import { translate } from 'cozy-ui/transpiled/react'
+import React, { useMemo } from 'react'
 import Chart from 'ducks/categories/Chart'
 import styles from 'ducks/categories/CategoriesChart.styl'
 import FigureBlock from 'components/Figure/FigureBlock'
 import { sortBy } from 'lodash'
 import cx from 'classnames'
 import { getCurrencySymbol } from 'utils/currencySymbol'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import useTheme from 'components/useTheme'
 
 const hexToRGBA = (hex, a) => {
   const cutHex = hex.substring(1)
@@ -15,89 +16,92 @@ const hexToRGBA = (hex, a) => {
   return `rgba(${r}, ${g}, ${b}, ${a})`
 }
 
-class CategoriesChart extends Component {
-  getSortedCategories() {
-    const sortedCategories = sortBy(this.props.categories, category =>
-      Math.abs(category.amount)
-    ).reverse()
-
-    return sortedCategories
+const getCategoriesColors = (categories, selectedCategory) => {
+  if (selectedCategory === undefined) {
+    return categories.map(category => category.color)
   }
 
-  getCategoriesColors(categories) {
-    const { selectedCategory } = this.props
+  const alphaDiff = 0.7 / categories.length
 
-    if (selectedCategory === undefined) {
-      return categories.map(category => category.color)
-    }
-
-    const alphaDiff = 0.7 / categories.length
-
-    return categories.map((category, index) =>
-      hexToRGBA(selectedCategory.color, 1 - alphaDiff * index)
-    )
-  }
-
-  render() {
-    const {
-      t,
-      categories,
-      selectedCategory,
-      width,
-      height,
-      total,
-      currency,
-      hasAccount,
-      color,
-      className,
-      label
-    } = this.props
-    if (categories.length === 0) return null
-
-    const sortedCategories = this.getSortedCategories()
-
-    const labels = sortedCategories.map(category =>
-      t(
-        `Data.${selectedCategory ? 'subcategories' : 'categories'}.${
-          category.name
-        }`
-      )
-    )
-    const data = sortedCategories.map(category =>
-      Math.abs(category.amount).toFixed(2)
-    )
-    const colors = this.getCategoriesColors(sortedCategories)
-
-    return (
-      <div
-        className={cx(styles.CategoriesChart, styles[color], {
-          [styles.NoAccount]: !hasAccount,
-          [className]: className
-        })}
-      >
-        <div className={styles.CategoriesChart__FigureBlockContainer}>
-          <FigureBlock
-            label={label}
-            total={total}
-            symbol={getCurrencySymbol(currency)}
-            signed
-            className={styles.CategoriesChart__FigureBlock}
-            figureClassName={styles.CategoriesChart__Figure}
-            withCurrencySpacing={false}
-          />
-        </div>
-        {hasAccount && (
-          <Chart
-            labels={labels}
-            data={data}
-            colors={colors}
-            width={width}
-            height={height}
-          />
-        )}
-      </div>
-    )
-  }
+  return categories.map((category, index) =>
+    hexToRGBA(selectedCategory.color, 1 - alphaDiff * index)
+  )
 }
 
-export default translate()(CategoriesChart)
+const getSortedCategories = categories => {
+  const sortedCategories = sortBy(categories, category =>
+    Math.abs(category.amount)
+  ).reverse()
+
+  return sortedCategories
+}
+
+const CategoriesChart = props => {
+  const {
+    categories,
+    selectedCategory,
+    width,
+    height,
+    total,
+    currency,
+    hasAccount,
+    className,
+    label
+  } = props
+
+  const { t } = useI18n()
+  const theme = useTheme()
+
+  const sortedCategories = useMemo(() => getSortedCategories(categories), [
+    categories
+  ])
+  const colors = useMemo(
+    () => getCategoriesColors(sortedCategories, selectedCategory),
+    [selectedCategory, sortedCategories]
+  )
+
+  const labels = sortedCategories.map(category =>
+    t(
+      `Data.${selectedCategory ? 'subcategories' : 'categories'}.${
+        category.name
+      }`
+    )
+  )
+  const data = sortedCategories.map(category =>
+    Math.abs(category.amount).toFixed(2)
+  )
+
+  if (categories.length === 0) return null
+
+  return (
+    <div
+      className={cx(styles.CategoriesChart, styles[theme], {
+        [styles.NoAccount]: !hasAccount,
+        [className]: className
+      })}
+    >
+      <div className={styles.CategoriesChart__FigureBlockContainer}>
+        <FigureBlock
+          label={label}
+          total={total}
+          symbol={getCurrencySymbol(currency)}
+          signed
+          className={styles.CategoriesChart__FigureBlock}
+          figureClassName={styles.CategoriesChart__Figure}
+          withCurrencySpacing={false}
+        />
+      </div>
+      {hasAccount && (
+        <Chart
+          labels={labels}
+          data={data}
+          colors={colors}
+          width={width}
+          height={height}
+        />
+      )}
+    </div>
+  )
+}
+
+export default CategoriesChart

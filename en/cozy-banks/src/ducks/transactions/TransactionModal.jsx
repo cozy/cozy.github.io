@@ -11,14 +11,16 @@ import {
   Spinner,
   Bd,
   Img,
-  translate,
-  withBreakpoints,
   Alerter,
   useViewStack,
   ModalContent,
-  useI18n
+  useI18n,
+  useBreakpoints,
+  Caption,
+  Chip
 } from 'cozy-ui/transpiled/react'
 
+import { withRouter, Link } from 'react-router'
 import ModalStack from 'components/ModalStack'
 
 import { Figure } from 'components/Figure'
@@ -38,6 +40,7 @@ import { getCurrencySymbol } from 'utils/currencySymbol'
 
 import iconCredit from 'assets/icons/icon-credit.svg'
 import iconCalendar from 'assets/icons/icon-calendar.svg'
+import iconRecurrence from 'assets/icons/icon-recurrence.svg'
 import {
   getAccountLabel,
   getAccountInstitutionLabel
@@ -48,7 +51,9 @@ import { getDate, getApplicationDate } from 'ducks/transactions/helpers'
 
 import TransactionCategoryEditor from './TransactionCategoryEditor'
 import TransactionApplicationDateEditor from './TransactionApplicationDateEditor'
+import TransactionRecurrenceEditor from 'ducks/transactions/TransactionRecurrenceEditor'
 
+import { prettyLabel } from 'ducks/recurrence/utils'
 import TransactionModalRow, {
   TransactionModalRowIcon,
   TransactionModalRowMedia,
@@ -80,29 +85,26 @@ const withTransaction = withDocs(ownProps => ({
   transaction: [TRANSACTION_DOCTYPE, ownProps.transactionId]
 }))
 
-const TransactionCategoryEditorSlide = withBreakpoints()(
-  translate()(props => {
-    const { stackPop } = useViewStack()
-    const {
-      breakpoints: { isMobile }
-    } = props
-    return (
-      <>
-        <PageHeader dismissAction={stackPop}>
-          {isMobile ? <PageBackButton onClick={stackPop} /> : null}
-          {props.t('Categories.choice.title')}
-        </PageHeader>
-        <ModalContent className="u-p-0">
-          <TransactionCategoryEditor
-            beforeUpdate={stackPop}
-            onCancel={stackPop}
-            transaction={props.transaction}
-          />
-        </ModalContent>
-      </>
-    )
-  })
-)
+const TransactionCategoryEditorSlide = ({ transaction }) => {
+  const { t } = useI18n()
+  const { stackPop } = useViewStack()
+  const { isMobile } = useBreakpoints()
+  return (
+    <>
+      <PageHeader dismissAction={stackPop}>
+        {isMobile ? <PageBackButton onClick={stackPop} /> : null}
+        {t('Categories.choice.title')}
+      </PageHeader>
+      <ModalContent className="u-p-0">
+        <TransactionCategoryEditor
+          beforeUpdate={stackPop}
+          onCancel={stackPop}
+          transaction={transaction}
+        />
+      </ModalContent>
+    </>
+  )
+}
 
 const TransactionApplicationDateEditorSlide = ({
   transaction,
@@ -139,6 +141,82 @@ export const showAlertAfterApplicationDateUpdate = (transaction, t, f) => {
   )
 }
 
+const stopPropagation = ev => ev.stopPropagation()
+
+const RecurrenceRow = withRouter(({ transaction, onClick, router }) => {
+  const recurrence = transaction.recurrence && transaction.recurrence.data
+  const { t } = useI18n()
+
+  const recurrenceRoute = recurrence ? `/recurrence/${recurrence._id}` : null
+
+  return (
+    <TransactionModalRowMedia
+      align={recurrence ? 'top' : undefined}
+      onClick={onClick}
+    >
+      <Img>
+        <TransactionModalRowIcon icon={iconRecurrence} />
+      </Img>
+      <Bd>
+        <div>
+          {recurrence ? (
+            prettyLabel(recurrence.label)
+          ) : (
+            <i>{t('Recurrence.choice.not-recurrent')}</i>
+          )}
+          {recurrence ? (
+            <>
+              <br />
+              <Caption>
+                {t('Recurrence.frequency', {
+                  frequency: Math.floor(recurrence.stats.deltas.mean)
+                })}
+              </Caption>
+              {router.location.pathname !== recurrenceRoute ? (
+                <Link to={recurrenceRoute}>
+                  <Chip
+                    onClick={stopPropagation}
+                    variant="outlined"
+                    size="small"
+                    className="u-w-100 u-ph-2 u-mt-half u-flex-justify-center"
+                  >
+                    {t('Recurrence.see-transaction-history')}
+                  </Chip>
+                </Link>
+              ) : null}
+            </>
+          ) : null}
+        </div>
+      </Bd>
+      <Img>
+        <RowArrow />
+      </Img>
+    </TransactionModalRowMedia>
+  )
+})
+
+const TransactionRecurrenceEditorSlide = ({ transaction }) => {
+  const { t } = useI18n()
+
+  const { stackPop } = useViewStack()
+
+  return (
+    <div>
+      <PageHeader dismissAction={stackPop}>
+        {t('Transactions.infos.chooseRecurrence')}
+      </PageHeader>
+      <ModalContent className="u-p-0">
+        <TransactionRecurrenceEditor
+          onSelect={x => x}
+          beforeUpdate={stackPop}
+          onCancel={stackPop}
+          transaction={transaction}
+        />
+      </ModalContent>
+    </div>
+  )
+}
+
 /**
  * Show information of the transaction
  */
@@ -160,8 +238,12 @@ const TransactionModalInfoContent = withTransaction(props => {
   const categoryId = getCategoryId(transaction)
   const account = transaction.account.data
 
-  const showCategoryChoice = () => {
+  const handleShowCategoryChoice = () => {
     stackPush(<TransactionCategoryEditorSlide transaction={transaction} />)
+  }
+
+  const handleShowRecurrenceChoice = () => {
+    stackPush(<TransactionRecurrenceEditorSlide transaction={transaction} />)
   }
 
   const [applicationDateBusy, setApplicationDateBusy] = useState(false)
@@ -255,7 +337,7 @@ const TransactionModalInfoContent = withTransaction(props => {
           <RowArrow />
         </Img>
       </TransactionModalRowMedia>
-      <TransactionModalRowMedia onClick={showCategoryChoice}>
+      <TransactionModalRowMedia onClick={handleShowCategoryChoice}>
         <Img>
           <CategoryIcon categoryId={categoryId} />
         </Img>
@@ -268,6 +350,10 @@ const TransactionModalInfoContent = withTransaction(props => {
           <RowArrow />
         </Img>
       </TransactionModalRowMedia>
+      <RecurrenceRow
+        transaction={transaction}
+        onClick={handleShowRecurrenceChoice}
+      />
       <TransactionActions
         transaction={transaction}
         {...restProps}
@@ -286,8 +372,9 @@ const TransactionModalInfoHeader = withTransaction(({ transaction }) => (
   />
 ))
 
-const TransactionModalInfo = withBreakpoints()(
-  ({ breakpoints: { isMobile }, ...props }) => (
+const TransactionModalInfo = props => {
+  const { isMobile } = useBreakpoints()
+  return (
     <div>
       <PageHeader dismissAction={props.requestClose}>
         {isMobile ? <PageBackButton onClick={props.requestClose} /> : null}
@@ -296,7 +383,7 @@ const TransactionModalInfo = withBreakpoints()(
       <TransactionModalInfoContent {...props} />
     </div>
   )
-)
+}
 
 const TransactionModal = ({ requestClose, ...props }) => {
   const { t } = useI18n()

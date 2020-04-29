@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react'
+import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import { sortBy, flowRight as compose } from 'lodash'
 import { Query, withClient } from 'cozy-client'
@@ -17,6 +17,7 @@ import { getAccountInstitutionLabel } from 'ducks/account/helpers'
 import { logException } from 'lib/sentry'
 import { getGroupLabel, renamedGroup } from 'ducks/groups/helpers'
 
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import styles from 'ducks/settings/GroupsSettings.styl'
 import btnStyles from 'styles/buttons.styl'
 
@@ -26,70 +27,78 @@ const makeNewGroup = (client, t) => {
   return obj
 }
 
-export class AccountLine extends PureComponent {
-  render() {
-    const { account, group, toggleAccount } = this.props
+export const AccountLine = props => {
+  const { account, group, toggleAccount } = props
 
-    return (
-      <tr>
-        <td className={styles.GrpStg__accntLabel}>
-          {account.shortLabel || account.label}
-        </td>
-        <td className={styles.GrpStg__accntBank}>
-          {getAccountInstitutionLabel(account)}
-        </td>
-        <td className={styles.GrpStg__accntNumber}>{account.number}</td>
-        <td className={styles.GrpStg__accntToggle}>
-          {group ? (
-            <Toggle
-              id={account._id}
-              checked={group.accounts.existsById(account._id)}
-              onToggle={toggleAccount.bind(null, account._id, group)}
+  return (
+    <tr>
+      <td className={styles.GrpStg__accntLabel}>
+        {account.shortLabel || account.label}
+      </td>
+      <td className={styles.GrpStg__accntBank}>
+        {getAccountInstitutionLabel(account)}
+      </td>
+      <td className={styles.GrpStg__accntNumber}>{account.number}</td>
+      <td className={styles.GrpStg__accntToggle}>
+        {group ? (
+          <Toggle
+            id={account._id}
+            checked={group.accounts.existsById(account._id)}
+            onToggle={toggleAccount.bind(null, account._id, group)}
+          />
+        ) : (
+          <Toggle id={account._id} disabled />
+        )}
+      </td>
+    </tr>
+  )
+}
+
+const AccountsList = props => {
+  const { t } = useI18n()
+  const { accounts, group, toggleAccount } = props
+
+  return (
+    <Table className={styles.GrpStg__table}>
+      <thead>
+        <tr>
+          <th className={styles.GrpStg__accntLabel}>{t('Groups.label')}</th>
+          <th className={styles.GrpStg__accntBank}>{t('Groups.bank')}</th>
+          <th className={styles.GrpStg__accntNumber}>
+            {t('Groups.account-number')}
+          </th>
+          <th className={styles.GrpStg__accntToggle}>{t('Groups.included')}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {accounts &&
+          sortBy(accounts, ['institutionLabel', 'label']).map(account => (
+            <AccountLine
+              account={account}
+              group={group}
+              toggleAccount={toggleAccount}
+              key={account._id}
             />
-          ) : (
-            <Toggle id={account._id} disabled />
-          )}
-        </td>
-      </tr>
-    )
-  }
+          ))}
+      </tbody>
+    </Table>
+  )
 }
 
-class _AccountsList extends PureComponent {
-  render() {
-    const { accounts, group, t, toggleAccount } = this.props
-
-    return (
-      <Table className={styles.GrpStg__table}>
-        <thead>
-          <tr>
-            <th className={styles.GrpStg__accntLabel}>{t('Groups.label')}</th>
-            <th className={styles.GrpStg__accntBank}>{t('Groups.bank')}</th>
-            <th className={styles.GrpStg__accntNumber}>
-              {t('Groups.account-number')}
-            </th>
-            <th className={styles.GrpStg__accntToggle}>
-              {t('Groups.included')}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {accounts &&
-            sortBy(accounts, ['institutionLabel', 'label']).map(account => (
-              <AccountLine
-                account={account}
-                group={group}
-                toggleAccount={toggleAccount}
-                key={account._id}
-              />
-            ))}
-        </tbody>
-      </Table>
-    )
+const updateOrCreateGroup = async (client, group, router, successCallback) => {
+  const isNew = !group.id
+  try {
+    const response = await client.save(group)
+    if (response && response.data) {
+      const doc = response.data
+      if (isNew) {
+        router.push(`/settings/groups/${doc.id}`)
+      }
+    }
+  } finally {
+    successCallback && successCallback()
   }
 }
-
-const AccountsList = translate()(_AccountsList)
 
 export class DumbGroupSettings extends Component {
   state = { modifying: false, saving: false }
@@ -109,18 +118,7 @@ export class DumbGroupSettings extends Component {
 
   async updateOrCreate(group, cb) {
     const { router, client } = this.props
-    const isNew = !group.id
-    try {
-      const response = await client.save(group)
-      if (response && response.data) {
-        const doc = response.data
-        if (isNew) {
-          router.push(`/settings/groups/${doc.id}`)
-        }
-      }
-    } finally {
-      cb && cb()
-    }
+    await updateOrCreateGroup(client, group, router, cb)
   }
 
   toggleAccount = async (accountId, group, enabled) => {

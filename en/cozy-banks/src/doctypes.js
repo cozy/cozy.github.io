@@ -14,6 +14,7 @@ export const COZY_ACCOUNT_DOCTYPE = 'io.cozy.accounts'
 export const PERMISSION_DOCTYPE = 'io.cozy.permissions'
 export const BANK_ACCOUNT_STATS_DOCTYPE = 'io.cozy.bank.accounts.stats'
 export const CONTACT_DOCTYPE = 'io.cozy.contacts'
+export const RECURRENCE_DOCTYPE = 'io.cozy.bank.recurrence'
 
 export const offlineDoctypes = [
   ACCOUNT_DOCTYPE,
@@ -100,6 +101,10 @@ export const schema = {
       account: {
         type: 'belongs-to-in-place',
         doctype: ACCOUNT_DOCTYPE
+      },
+      recurrence: {
+        type: 'has-one',
+        doctype: RECURRENCE_DOCTYPE
       },
       bills: {
         type: HasManyBills,
@@ -189,11 +194,26 @@ export const triggersConn = {
   as: 'triggers'
 }
 
+export const bundleTransactionsQueryConn = ({ bundle }) => {
+  return {
+    query: () =>
+      Q(TRANSACTION_DOCTYPE)
+        .where({
+          'relationships.recurrence.data._id': bundle._id
+        })
+        .UNSAFE_noLimit()
+        .sortBy([{ date: 'desc' }])
+        .include(['bills', 'account', 'reimbursements', 'recurrence']),
+    as: `bundle-transactions-${bundle._id}`,
+    fetchPolicy: older30s
+  }
+}
+
 export const transactionsConn = {
   query: () =>
     Q(TRANSACTION_DOCTYPE)
       .UNSAFE_noLimit()
-      .include(['bills', 'account', 'reimbursements']),
+      .include(['bills', 'account', 'reimbursements', 'recurrence']),
   as: 'transactions',
   fetchPolicy: older30s
 }
@@ -218,5 +238,11 @@ export const settingsConn = {
 export const recipientsConn = {
   query: () => Q(RECIPIENT_DOCTYPE),
   as: 'recipients',
+  fetchPolicy: older30s
+}
+
+export const recurrenceConn = {
+  query: () => Q(RECURRENCE_DOCTYPE),
+  as: 'recurrence',
   fetchPolicy: older30s
 }

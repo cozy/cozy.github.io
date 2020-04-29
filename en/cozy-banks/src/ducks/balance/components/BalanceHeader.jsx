@@ -25,16 +25,15 @@ const BalanceHeader = ({
 }) => {
   const { t } = useI18n()
   const titlePaddedClass = isMobile ? 'u-p-0' : 'u-pb-0'
-  const titleColor = isMobile ? 'primary' : 'default'
   const subtitle = subtitleParams
     ? t('BalanceHistory.checked_accounts', subtitleParams)
     : t('BalanceHistory.all_accounts')
 
   return (
-    <Header className={styles.BalanceHeader} color="primary">
+    <Header className={styles.BalanceHeader} theme="primary">
       {isMobile && (
         <Padded className={titlePaddedClass}>
-          <PageTitle color={titleColor}>{t('Balance.title')}</PageTitle>
+          <PageTitle>{t('Balance.title')}</PageTitle>
         </Padded>
       )}
       <HeaderTitle

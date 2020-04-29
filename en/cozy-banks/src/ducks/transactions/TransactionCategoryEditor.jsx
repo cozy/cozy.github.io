@@ -1,21 +1,15 @@
 import React from 'react'
+import { useClient } from 'cozy-client'
 import { updateTransactionCategory } from 'ducks/transactions/helpers'
 import { getCategoryId } from 'ducks/categories/helpers'
 import CategoryChoice from 'ducks/categories/CategoryChoice'
-import { withClient } from 'cozy-client'
 
 /**
  * Edits a transaction's category through CategoryChoice
  */
-const TransactionCategoryEditor = withClient(props => {
-  const {
-    client,
-    transaction,
-    beforeUpdate,
-    afterUpdate,
-    onCancel,
-    modal
-  } = props
+const TransactionCategoryEditor = props => {
+  const client = useClient()
+  const { transaction, beforeUpdate, afterUpdate, onCancel, modal } = props
 
   const handleSelect = async category => {
     if (beforeUpdate) {
@@ -43,7 +37,7 @@ const TransactionCategoryEditor = withClient(props => {
       onCancel={handleCancel}
     />
   )
-})
+}
 
 TransactionCategoryEditor.defaultProps = {
   modal: false

@@ -1,30 +1,21 @@
-/* global cozy */
-
 import React from 'react'
 import Header from 'components/Header'
 import { Padded } from 'components/Spacing'
-import { withBreakpoints } from 'cozy-ui/transpiled/react'
 import BackButton from 'components/BackButton'
 import { AccountSwitch } from 'ducks/account'
 import cx from 'classnames'
 import { connect } from 'react-redux'
-import { flowRight as compose } from 'lodash'
 import { getFilteredAccounts } from 'ducks/filters'
 import BarBalance from 'components/BarBalance'
-
-const { BarRight } = cozy.bar
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import { BarRight } from 'components/Bar'
 
 export const DumbBalanceDetailsHeader = props => {
-  const {
-    breakpoints: { isMobile },
-    small,
-    showBalance,
-    filteredAccounts,
-    children
-  } = props
+  const { isMobile } = useBreakpoints()
+  const { small, showBalance, filteredAccounts, children } = props
 
   return (
-    <Header color="primary" fixed>
+    <Header theme="primary" fixed>
       <Padded
         className={cx({
           'u-p-0': isMobile,
@@ -33,7 +24,7 @@ export const DumbBalanceDetailsHeader = props => {
       >
         <div className={'u-flex u-flex-items-center'}>
           <BackButton theme="primary" arrow />
-          <AccountSwitch small={small} color="primary" />
+          <AccountSwitch small={small} theme="primary" />
         </div>
       </Padded>
       {showBalance && isMobile && (
@@ -52,9 +43,6 @@ const mapStateToProps = state => {
   }
 }
 
-const BalanceDetailsHeader = compose(
-  withBreakpoints(),
-  connect(mapStateToProps)
-)(DumbBalanceDetailsHeader)
+const BalanceDetailsHeader = connect(mapStateToProps)(DumbBalanceDetailsHeader)
 
 export default BalanceDetailsHeader

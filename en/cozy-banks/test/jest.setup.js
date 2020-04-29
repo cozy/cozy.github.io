@@ -28,6 +28,10 @@ global.cozy = {
 }
 
 const ignoredWarnings = {
+  Select: {
+    reason: 'False positive',
+    matcher: makeDeprecatedLifecycleMatcher('Select')
+  },
   I18n: {
     reason: 'Preact compatibility',
     matcher: makeDeprecatedLifecycleMatcher('I18n')

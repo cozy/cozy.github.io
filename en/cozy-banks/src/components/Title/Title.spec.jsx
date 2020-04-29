@@ -1,6 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import Title from './Title'
+import { ThemeContext } from '../useTheme'
 
 describe('Title', () => {
   it(`should display children`, () => {
@@ -13,15 +14,13 @@ describe('Title', () => {
     ).toMatchSnapshot()
   })
 
-  it(`should set color default`, () => {
+  it(`should handle theme`, () => {
     expect(
-      shallow(<Title color="default">content</Title>).getElement()
-    ).toMatchSnapshot()
-  })
-
-  it(`should set color primary`, () => {
-    expect(
-      shallow(<Title color="primary">content</Title>).getElement()
+      shallow(
+        <ThemeContext.Provider theme="primary">
+          <Title>content</Title>
+        </ThemeContext.Provider>
+      ).getElement()
     ).toMatchSnapshot()
   })
 })

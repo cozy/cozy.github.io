@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Alerter, useI18n } from 'cozy-ui/react'
+import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 
 import { makeEditionModalFromSpec } from 'components/EditionModal'
 import Rules from 'ducks/settings/Rules'

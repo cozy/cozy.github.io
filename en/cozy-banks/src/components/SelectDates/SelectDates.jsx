@@ -19,6 +19,7 @@ import Select from 'components/Select'
 import cx from 'classnames'
 import scrollAware from 'components/SelectDates/scrollAware'
 import { rangedSome } from 'components/SelectDates/utils'
+import { themed } from 'components/useTheme'
 const start2016 = new Date(2015, 11, 31)
 
 const getDefaultOptions = () => {
@@ -255,10 +256,10 @@ class SelectDates extends PureComponent {
       scrolling,
       showFullYear,
       value,
-      color,
       t,
       breakpoints: { isMobile },
-      className
+      className,
+      theme
     } = this.props
     const index = this.getSelectedIndex()
     const options = this.getOptions()
@@ -305,12 +306,12 @@ class SelectDates extends PureComponent {
 
     const selectMonthStyle = getSelectStyle(
       isMobile,
-      color === 'primary',
+      theme === 'primary',
       'Month'
     )
     const selectYearStyle = getSelectStyle(
       isMobile,
-      color === 'primary',
+      theme === 'primary',
       'Year'
     )
 
@@ -318,7 +319,7 @@ class SelectDates extends PureComponent {
       <div
         className={cx(
           styles.SelectDates,
-          styles[`SelectDatesColor_${color}`],
+          styles[`SelectDatesColor_${theme}`],
           scrolling && styles['SelectDates--scrolling'],
           className
         )}
@@ -356,7 +357,7 @@ class SelectDates extends PureComponent {
         </span>
 
         <span className={styles.SelectDates__buttons}>
-          {isMobile && color !== 'primary' && <Separator />}
+          {isMobile && theme !== 'primary' && <Separator />}
           <SelectDateButton
             onClick={this.handleChoosePrev}
             disabled={isPrevButtonDisabled}
@@ -383,17 +384,16 @@ class SelectDates extends PureComponent {
 }
 
 SelectDates.defaultProps = {
-  color: 'default',
   options: getDefaultOptions()
 }
 
 SelectDates.propTypes = {
-  color: PropTypes.oneOf(['default', 'primary']),
   onChange: PropTypes.func.isRequired
 }
 
 export default compose(
   translate(),
   scrollAware,
-  withBreakpoints()
+  withBreakpoints(),
+  themed
 )(SelectDates)

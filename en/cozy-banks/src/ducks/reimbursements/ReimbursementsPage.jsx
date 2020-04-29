@@ -30,16 +30,12 @@ const getTitleTranslationKey = doc => {
   return key
 }
 
-const Title = ({ doc, ...props }) => {
+const Title = ({ doc }) => {
   const { t } = useI18n()
 
   const translationKey = getTitleTranslationKey(doc)
 
-  return (
-    <PageTitle color="primary" {...props}>
-      {t(translationKey)}
-    </PageTitle>
-  )
+  return <PageTitle>{t(translationKey)}</PageTitle>
 }
 
 class RawReimbursementsPage extends React.Component {

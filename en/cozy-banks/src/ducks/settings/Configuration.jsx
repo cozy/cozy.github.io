@@ -70,7 +70,7 @@ export class Configuration extends React.Component {
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
 
     return (
-      <div>
+      <>
         <Section
           title={t('Notifications.title')}
           description={t('Notifications.description')}
@@ -165,7 +165,7 @@ export class Configuration extends React.Component {
         </Section>
 
         {Configuration.renderExtraItems()}
-      </div>
+      </>
     )
   }
 }

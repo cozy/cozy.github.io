@@ -16,6 +16,7 @@ import { flowRight as compose } from 'lodash'
 import { hasParameter } from 'utils/qs'
 import { pinGuarded } from 'ducks/pin'
 import styles from './App.styl'
+import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
 const ReactHint = ReactHintFactory(React)
 
@@ -24,27 +25,29 @@ const App = props => {
   flag('local-model-override', settings.community.localModelOverride.enabled)
 
   return (
-    <Layout>
-      <Sidebar>
-        <Nav />
-      </Sidebar>
+    <BreakpointsProvider>
+      <Layout>
+        <Sidebar>
+          <Nav />
+        </Sidebar>
 
-      <Main>
-        <Content className={styles.Main}>
-          {hasParameter(props.location.query, 'error') ? (
-            <Error />
-          ) : (
-            <ErrorBoundary>{props.children}</ErrorBoundary>
-          )}
-        </Content>
-      </Main>
+        <Main>
+          <Content className={styles.Main}>
+            {hasParameter(props.location.query, 'error') ? (
+              <Error />
+            ) : (
+              <ErrorBoundary>{props.children}</ErrorBoundary>
+            )}
+          </Content>
+        </Main>
 
-      {/* Outside every other component to bypass overflow:hidden */}
-      <ReactHint />
+        {/* Outside every other component to bypass overflow:hidden */}
+        <ReactHint />
 
-      <Warnings />
-      <Alerter />
-    </Layout>
+        <Warnings />
+        <Alerter />
+      </Layout>
+    </BreakpointsProvider>
   )
 }
 

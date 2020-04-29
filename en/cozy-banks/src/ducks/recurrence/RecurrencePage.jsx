@@ -1,238 +1,182 @@
-import React, { useState, useMemo, useCallback } from 'react'
+import React from 'react'
 import { useQuery } from 'cozy-client'
-import { transactionsConn } from 'doctypes'
-import { findRecurringBundles, getRulesFromConfig, rulesPerName } from './rules'
-import Card from 'cozy-ui/transpiled/react/Card'
-import { Caption, SubTitle } from 'cozy-ui/transpiled/react/Text'
-import { Padded } from 'components/Spacing'
-import setWith from 'lodash/setWith'
-import sortBy from 'lodash/sortBy'
-import clone from 'lodash/clone'
-import tree from 'ducks/categories/tree'
-import defaultConfig from './config.json'
+import CompositeRow from 'cozy-ui/transpiled/react/CompositeRow'
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import Breadcrumbs from 'cozy-ui/transpiled/react/Breadcrumbs'
+import { Media, Img, Bd } from 'cozy-ui/transpiled/react/Media'
 
-const immutableSet = (object, path, value) => {
-  return setWith(clone(object), path, value, clone)
-}
+import Loading from 'components/Loading'
+import distanceInWords from 'date-fns/distance_in_words'
+import CategoryIcon from 'ducks/categories/CategoryIcon'
+import { recurrenceConn } from 'doctypes'
+import BarTheme from 'ducks/bar/BarTheme'
+import { TdSecondary } from 'components/Table'
+import AnalysisTabs from 'ducks/analysis/AnalysisTabs'
+import { withRouter } from 'react-router'
 
-const RuleDetails = () => {
+import Padded from 'components/Spacing/Padded'
+import Table from 'components/Table'
+import Header from 'components/Header'
+import BackButton from 'components/BackButton'
+import PageTitle from 'components/Title/PageTitle'
+import styles from './styles.styl'
+import { prettyLabel, getCategories } from './utils'
+import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
+
+const BundleFrequency = ({ bundle }) => {
+  const { t } = useI18n()
   return (
-    <details>
-      <summary>How rules work</summary>
-      <ol>
-        <li>
-          First operations are grouped into bundles based on their <b>amount</b>{' '}
-          and their <b>category</b>.
-        </li>
-        <li>
-          Filtering according to the <b>preStat</b> rules.
-        </li>
-        <li>
-          Then stats are computed on those bundles to compute intervals in days
-          between operations, their standard deviation and mean. The idea is to
-          be able to remove bundles where operations are not evenly spaced in
-          time.
-        </li>
-        <li>
-          Filtering according to the <b>postStat</b> rules.
-        </li>
-        <li>Merging of similar bundles.</li>
-      </ol>
-    </details>
+    <>
+      {t('Recurrence.frequency', {
+        frequency: Math.floor(bundle.stats.deltas.mean)
+      })}
+    </>
   )
 }
 
-const RuleInput = ({ ruleName, config, onChange }) => {
-  const handleChangeActive = () => {
-    onChange(`${ruleName}.active`, !config.active)
-  }
-
-  const handleChangeOptions = ev => {
-    const parsed = parseInt(ev.target.value, 10)
-    if (isNaN(parsed)) {
-      return
-    }
-    onChange(`${ruleName}.options`, parsed)
-  }
+const BundleMobileRow = withRouter(({ bundle, router }) => {
+  const catId = getCategories(bundle)[0]
   return (
-    <div key={ruleName} className="u-m-half u-miw-6">
-      {ruleName} (<em>{rulesPerName[ruleName].stage}</em>)
-      <Caption>{rulesPerName[ruleName].description}</Caption>
-      <input
-        type="checkbox"
-        onChange={handleChangeActive}
-        checked={config.active}
-      />
-      {config.options !== undefined ? (
-        <input
-          type="text"
-          onChange={handleChangeOptions}
-          value={config.options}
-        />
-      ) : null}
-    </div>
+    <CompositeRow
+      onClick={() => router.push(`/recurrence/${bundle._id}`)}
+      image={<CategoryIcon categoryId={catId} />}
+      className="u-pv-half u-ph-1 u-c-pointer"
+      key={bundle._id}
+      primaryText={prettyLabel(bundle.label)}
+      secondaryText={
+        <>
+          {distanceInWords(Date.now(), bundle.latestDate)} -{' '}
+          <BundleFrequency bundle={bundle} />
+        </>
+      }
+      right={<BundleAmount bundle={bundle} />}
+    />
   )
+})
+
+const BundleAmount = ({ bundle }) => {
+  return <>{bundle.amount + '€'}</>
 }
 
-const Rules = ({ rulesConfig, onChangeConfig, onResetConfig }) => {
-  const handleChangeRule = useCallback(
-    (path, value) => {
-      const updatedConfig = immutableSet(rulesConfig, path, value)
-      onChangeConfig(updatedConfig)
-    },
-    [rulesConfig, onChangeConfig]
-  )
+const BundleDesktopRow = withRouter(({ bundle, router }) => {
+  const catId = bundle.categoryId.split(' / ')[0]
   return (
-    <Card className="u-mv-1">
-      <RuleDetails />
-      <div className="u-flex u-flex-wrap">
-        {Object.entries(rulesConfig).map(([ruleName, config]) => (
-          <RuleInput
-            key={ruleName}
-            ruleName={ruleName}
-            config={config}
-            onChange={handleChangeRule}
-          />
-        ))}
-        <button onClick={onResetConfig}>Reset</button>
-      </div>
-    </Card>
-  )
-}
-
-const hash = function(str) {
-  var hash = 0,
-    i,
-    chr
-  for (i = 0; i < str.length; i++) {
-    chr = str.charCodeAt(i)
-    hash = (hash << 5) - hash + chr
-    hash |= 0 // Convert to 32bit integer
-  }
-  return hash
-}
-
-const palette = [
-  '#71c554',
-  '#d67cd3',
-  '#c5d65b',
-  '#8e87e7',
-  '#d3a336',
-  '#6ba5de',
-  '#ec5f62',
-  '#69cc8e',
-  '#e2779d',
-  '#5ccec4',
-  '#de8251',
-  '#bab16c'
-]
-
-const getColor = bundle => {
-  const h = Math.abs(hash(bundle.ops[0].label))
-  return palette[h % (palette.length - 1)]
-}
-
-const List = ({ children }) => {
-  return <ul className="u-m-0 u-ph-1 u-pv-half">{children}</ul>
-}
-
-const CategoryNames = ({ categoryId }) => {
-  const categoryIds = categoryId.split(' / ')
-  return (
-    <List>
-      {categoryIds.map((catId, i) => (
-        <li key={i}>{tree[catId]}</li>
-      ))}
-    </List>
-  )
-}
-
-const RecurrenceBundle = ({ bundle }) => {
-  return (
-    <Card
-      className="u-m-half"
-      style={{ border: `2px solid ${getColor(bundle)}` }}
+    <tr
+      className="u-c-pointer"
+      onClick={() => router.push(`recurrence/${bundle._id}`)}
     >
-      <SubTitle>{bundle.ops[0].label}</SubTitle>
-      <p>
-        categories: <CategoryNames categoryId={bundle.categoryId} />
-        frequency: {bundle.stats.deltas.mean.toFixed(0)} days
-        <br />
-        amount: {bundle.amount}
-        <br />
-        sigma: {bundle.stats.deltas.sigma.toFixed(2)}
-        <br />
-        mad: {bundle.stats.deltas.mad.toFixed(2)}
-      </p>
-      <table style={{ fontSize: 'small' }}>
-        {sortBy(bundle.ops, x => x.date).map(x => (
-          <tr key={x._id}>
-            <td>{x.label}</td>
-            <td>{x.date.slice(0, 10)}</td>
-            <td>{x.amount}</td>
-          </tr>
-        ))}
-      </table>
-    </Card>
+      <td className={styles.ColumnSizeLabel}>
+        <Media>
+          <Img className="u-mr-1">
+            <CategoryIcon categoryId={catId} />
+          </Img>
+          <Bd>{prettyLabel(bundle.label)}</Bd>
+        </Media>
+      </td>
+      <TdSecondary className={styles.ColumnSizeLastOccurence}>
+        {distanceInWords(Date.now(), bundle.latestDate)}
+      </TdSecondary>
+      <TdSecondary className={styles.ColumnSizeFrequency}>
+        <BundleFrequency bundle={bundle} />
+      </TdSecondary>
+      <TdSecondary className={styles.ColumnSizeAmount}>
+        <BundleAmount bundle={bundle} />
+      </TdSecondary>
+    </tr>
+  )
+})
+
+const BundleRow = ({ bundle }) => {
+  const { isMobile } = useBreakpoints()
+  return isMobile ? (
+    <BundleMobileRow bundle={bundle} />
+  ) : (
+    <BundleDesktopRow bundle={bundle} />
   )
 }
 
-const useStickyState = (defaultValue, localStorageKey) => {
-  const savedValue = useMemo(() => {
-    const savedValue = localStorage.getItem(localStorageKey)
-    return savedValue ? JSON.parse(savedValue) : null
-  }, [localStorageKey])
-  const [value, rawSetValue] = useState(savedValue || defaultValue)
-  const setValue = newValue => {
-    localStorage.setItem(localStorageKey, JSON.stringify(newValue))
-    rawSetValue(newValue)
-  }
-
-  const clearValue = () => {
-    localStorage.removeItem(localStorageKey)
-  }
-
-  return [value, setValue, clearValue]
-}
-
-const RecurrencePage = () => {
-  const { data: transactions } = useQuery(
-    transactionsConn.query,
-    transactionsConn
-  )
-
-  const [rulesConfig, setRulesConfig, clearSavedConfig] = useStickyState(
-    defaultConfig,
-    'banks.recurrence-config'
-  )
-
-  const handleResetConfig = useCallback(() => {
-    clearSavedConfig()
-    setRulesConfig(defaultConfig)
-  }, [clearSavedConfig, setRulesConfig])
-
-  const handleChangeRules = newRules => setRulesConfig(newRules)
-
-  const rules = useMemo(() => getRulesFromConfig(rulesConfig), [rulesConfig])
-
-  const bundles = useMemo(() => findRecurringBundles(transactions, rules), [
-    transactions,
-    rules
-  ])
+const BundlesTableHead = () => {
+  const { t } = useI18n()
   return (
-    <Padded>
-      <Rules
-        rulesConfig={rulesConfig}
-        onResetConfig={handleResetConfig}
-        onChangeConfig={handleChangeRules}
-      />
-      <div className="u-flex" style={{ flexWrap: 'wrap' }}>
-        {bundles.map((bundle, i) => (
-          <RecurrenceBundle key={i} bundle={bundle} />
-        ))}
-      </div>
-    </Padded>
+    <Table color="primary">
+      <thead>
+        <tr>
+          <td className={styles.ColumnSizeLabel}>
+            {t('Recurrence.table.label')}
+          </td>
+          <td className={styles.ColumnSizeLastOccurence}>
+            {t('Recurrence.table.last-occurence')}
+          </td>
+          <td className={styles.ColumnSizeFrequency}>
+            {t('Recurrence.table.frequency')}
+          </td>
+          <td className={styles.ColumnSizeAmount}>
+            {t('Recurrence.table.amount')}
+          </td>
+        </tr>
+      </thead>
+    </Table>
   )
 }
 
-export default RecurrencePage
+const BundlesTable = ({ children }) => {
+  return (
+    <Table>
+      <tbody>{children}</tbody>
+    </Table>
+  )
+}
+
+const RecurrencesPage = ({ router }) => {
+  const { isMobile } = useBreakpoints()
+  const bundleCol = useQuery(recurrenceConn.query, recurrenceConn)
+  const { data: bundles } = bundleCol
+  const { t } = useI18n()
+  const BundlesWrapper = isMobile ? React.Fragment : BundlesTable
+
+  return (
+    <>
+      <BarTheme theme="primary" />
+      <Header fixed theme="primary">
+        {!isMobile ? (
+          <>
+            <Padded>
+              <Breadcrumbs
+                items={[
+                  {
+                    name: t('Recurrence.title'),
+                    onClick: () => router.push('/recurrence')
+                  }
+                ]}
+                theme="primary"
+              />
+            </Padded>
+            <BackButton theme="primary" />
+            <BundlesTableHead />
+          </>
+        ) : null}
+        {isMobile ? (
+          <>
+            <PageTitle>{t('Recurrence.title')}</PageTitle>
+            <AnalysisTabs />
+          </>
+        ) : null}
+      </Header>
+      {isCollectionLoading(bundleCol) && !hasBeenLoaded(bundleCol) ? (
+        <Padded>
+          <Loading />
+        </Padded>
+      ) : null}
+      <BundlesWrapper>
+        {bundles
+          ? bundles.map(bundle => (
+              <BundleRow key={bundle._id} bundle={bundle} />
+            ))
+          : null}
+      </BundlesWrapper>
+    </>
+  )
+}
+
+export default withRouter(RecurrencesPage)

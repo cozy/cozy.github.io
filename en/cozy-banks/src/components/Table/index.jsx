@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from 'components/Table/styles.styl'
 import cx from 'classnames'
+import useTheme from 'components/useTheme'
 
 export const Row = ({ nav, ...props }) => {
   return (
@@ -34,11 +35,14 @@ export const Cell = ({ main, children, ...props }) => {
  *
  * https://github.com/philipwalton/flexbugs/issues/3
  */
-export const Table = ({ children, className, color, ...rest }) => (
-  <table className={cx(styles['Table'], styles[color], className)} {...rest}>
-    {children}
-  </table>
-)
+export const Table = ({ children, className, ...rest }) => {
+  const theme = useTheme()
+  return (
+    <table className={cx(styles['Table'], styles[theme], className)} {...rest}>
+      {children}
+    </table>
+  )
+}
 
 export const TdSecondary = ({ children, className, ...rest }) => (
   <td className={cx(styles['Table-td-secondary'], className)} {...rest}>

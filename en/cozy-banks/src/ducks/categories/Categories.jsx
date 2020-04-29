@@ -12,6 +12,7 @@ import styles from 'ducks/categories/styles.styl'
 import { flowRight as compose } from 'lodash'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 import PercentageLine from 'components/PercentageLine'
+import Padded from 'components/Spacing/Padded'
 
 const stAmount = styles['bnk-table-amount']
 const stCategory = styles['bnk-table-category-category']
@@ -29,12 +30,7 @@ class Categories extends Component {
   }
 
   render() {
-    const {
-      t,
-      categories: categoriesProps,
-      selectedCategory,
-      breakpoints: { isDesktop, isTablet, isMobile }
-    } = this.props
+    const { t, categories: categoriesProps, selectedCategory } = this.props
     let categories = categoriesProps || []
     if (selectedCategory) {
       categories = [selectedCategory]
@@ -43,40 +39,14 @@ class Categories extends Component {
       categories.length > 0 && categories[0].transactionsNumber > 0
 
     return (
-      <div>
-        {!hasData && <p>{t('Categories.title.empty_text')}</p>}
+      <>
+        {!hasData && (
+          <Padded>
+            <p>{t('Categories.title.empty_text')}</p>
+          </Padded>
+        )}
         {hasData && (
-          <Table className={stTableCategory} color="primary">
-            {!isMobile && (
-              <thead>
-                <tr>
-                  <td className={stCategory}>
-                    {t(
-                      `Categories.headers.${
-                        selectedCategory ? 'subcategories' : 'categories'
-                      }`
-                    )}
-                  </td>
-                  {(isDesktop || isTablet) && (
-                    <td className={styles['bnk-table-operation']}>
-                      {t('Categories.headers.transactions.plural')}
-                    </td>
-                  )}
-                  {isDesktop && (
-                    <td className={stAmount}>
-                      {t('Categories.headers.credit')}
-                    </td>
-                  )}
-                  {isDesktop && (
-                    <td className={stAmount}>
-                      {t('Categories.headers.debit')}
-                    </td>
-                  )}
-                  <td className={stTotal}>{t('Categories.headers.total')}</td>
-                  <td className={stPercentage}>%</td>
-                </tr>
-              </thead>
-            )}
+          <Table className={stTableCategory}>
             <tbody>
               {categories.map(category =>
                 this.renderCategory(
@@ -87,7 +57,7 @@ class Categories extends Component {
             </tbody>
           </Table>
         )}
-      </div>
+      </>
     )
   }
 

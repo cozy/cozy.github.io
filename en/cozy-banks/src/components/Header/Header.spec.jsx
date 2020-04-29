@@ -1,33 +1,44 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
 import Header from './Header'
+import useTheme from '../useTheme'
 
 describe('Header', () => {
+  const setup = element => mount(element).find('div')
+
   it(`should display children`, () => {
-    expect(shallow(<Header>content</Header>).getElement()).toMatchSnapshot()
+    expect(setup(<Header>content</Header>)).toMatchSnapshot()
   })
 
   it(`should extend className`, () => {
     expect(
-      shallow(<Header className="noPaddingBottom">content</Header>).getElement()
+      setup(<Header className="noPaddingBottom">content</Header>)
     ).toMatchSnapshot()
   })
 
   it(`should set position fixed`, () => {
-    expect(
-      shallow(<Header fixed>content</Header>).getElement()
-    ).toMatchSnapshot()
+    expect(setup(<Header fixed>content</Header>)).toMatchSnapshot()
   })
 
-  it(`should set color default`, () => {
-    expect(
-      shallow(<Header color="default">content</Header>).getElement()
-    ).toMatchSnapshot()
+  it(`should set theme default`, () => {
+    expect(setup(<Header theme="default">content</Header>)).toMatchSnapshot()
   })
 
-  it(`should set color primary`, () => {
+  it(`should set theme primary`, () => {
+    expect(setup(<Header theme="primary">content</Header>)).toMatchSnapshot()
+  })
+
+  it('should set cozy theme', () => {
+    const Component = () => {
+      const theme = useTheme()
+      return <>{theme}</>
+    }
     expect(
-      shallow(<Header color="primary">content</Header>).getElement()
-    ).toMatchSnapshot()
+      mount(
+        <Header theme="primary">
+          <Component />
+        </Header>
+      ).text()
+    ).toBe('primary')
   })
 })

@@ -6,11 +6,19 @@ import BarBalance from 'components/BarBalance'
 import AppLike from 'test/AppLike'
 import mockRouter from 'test/mockRouter'
 import { getClient } from 'ducks/client'
-
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 // eslint-disable-next-line no-unused-vars
 const client = getClient()
 
-const setup = props => {
+jest.mock('cozy-ui/transpiled/react/hooks/useBreakpoints', () => ({
+  __esModule: true,
+  default: jest.fn(),
+  BreakpointsProvider: ({ children }) => children
+}))
+
+const setup = options => {
+  const { props, breakpoints } = options
+  useBreakpoints.mockReturnValue(breakpoints)
   return mount(
     <AppLike>
       <DumbBalanceDetailsHeader filteredAccounts={[]} {...props} />
@@ -35,8 +43,8 @@ describe('when showBalance is true', () => {
   describe('when rendered on mobile', () => {
     it('should show the balance in the bar', () => {
       const wrapper = setup({
-        breakpoints: { isMobile: true },
-        showBalance: true
+        props: { showBalance: true },
+        breakpoints: { isMobile: true }
       })
 
       expect(wrapper.find(BarBalance)).toHaveLength(1)
@@ -46,8 +54,8 @@ describe('when showBalance is true', () => {
   describe('when rendered on tablet/desktop', () => {
     it('should not show the balance in the bar', () => {
       const wrapper = setup({
-        breakpoints: { isMobile: false },
-        showBalance: true
+        props: { showBalance: true },
+        breakpoints: { isMobile: false }
       })
 
       expect(wrapper.find(BarBalance)).toHaveLength(0)
@@ -59,12 +67,12 @@ describe('when showBalance is false', () => {
   it('should not show the balance in the bar', () => {
     const mobileWrapper = setup({
       breakpoints: { isMobile: true },
-      showBalance: false
+      props: { showBalance: false }
     })
 
     const notMobileWrapper = setup({
       breakpoints: { isMobile: false },
-      showBalance: false
+      props: { showBalance: false }
     })
 
     expect(mobileWrapper.find(BarBalance)).toHaveLength(0)

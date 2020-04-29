@@ -1,14 +1,7 @@
 /* global __TARGET__, __APP_VERSION__ */
 import React from 'react'
 import { withBreakpoints, useI18n } from 'cozy-ui/transpiled/react'
-import {
-  Tabs,
-  TabPanels,
-  TabPanel,
-  TabList,
-  Tab
-} from 'cozy-ui/transpiled/react/Tabs'
-import styles from 'ducks/settings/Settings.styl'
+import { Tabs, TabList, Tab } from 'cozy-ui/transpiled/react/Tabs'
 import { withRouter } from 'react-router'
 import { flowRight as compose } from 'lodash'
 import AppVersion from 'ducks/settings/AppVersion'
@@ -17,6 +10,9 @@ import { Padded } from 'components/Spacing'
 import BarTheme from 'ducks/bar/BarTheme'
 import cx from 'classnames'
 import flag from 'cozy-flags'
+import tabsStyle from 'components/Tabs.styl'
+import Header from 'components/Header'
+import styles from './Settings.styl'
 
 const Settings = ({ children, router, breakpoints: { isMobile } }) => {
   const { t } = useI18n()
@@ -30,8 +26,13 @@ const Settings = ({ children, router, breakpoints: { isMobile } }) => {
   if (flag('debug')) {
     tabNames.push('debug')
   }
-  const tabs = tabNames.map(tabName => (
-    <Tab key={tabName} name={tabName} onClick={goTo(`/settings/${tabName}`)}>
+  const tabs = tabNames.map((tabName, i) => (
+    <Tab
+      className={i === 0 && !isMobile ? 'u-ml-2' : 0}
+      key={tabName}
+      name={tabName}
+      onClick={goTo(`/settings/${tabName}`)}
+    >
       {t(`Settings.${tabName}`)}
     </Tab>
   ))
@@ -40,20 +41,17 @@ const Settings = ({ children, router, breakpoints: { isMobile } }) => {
     <React.Fragment>
       <BarTheme theme="primary" />
       <Padded className={cx({ ['u-p-0']: isMobile })}>
-        <PageTitle color={isMobile ? 'primary' : null}>
-          {t('Settings.title')}
-        </PageTitle>
+        <PageTitle>{t('Settings.title')}</PageTitle>
       </Padded>
-      <Tabs className={styles['bnk-tabs']} initialActiveTab={defaultTab}>
-        <TabList inverted={isMobile} className={styles['bnk-coz-tab-list']}>
-          {tabs}
-        </TabList>
-        <TabPanels className={styles.TabPanels}>
-          <TabPanel active>
-            <Padded>{children}</Padded>
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
+      <Header fixed theme={isMobile ? 'primary' : null}>
+        <Tabs className={tabsStyle['Tabs']} initialActiveTab={defaultTab}>
+          <TabList inverted={isMobile} className={tabsStyle['TabList']}>
+            {tabs}
+          </TabList>
+        </Tabs>
+      </Header>
+
+      <Padded className={styles.Settings__Content}>{children}</Padded>
       {__TARGET__ === 'mobile' && (
         <Padded>
           <AppVersion version={__APP_VERSION__} />

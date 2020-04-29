@@ -1,8 +1,9 @@
 import React from 'react'
-import { Button, withBreakpoints } from 'cozy-ui/transpiled/react'
+import { Button } from 'cozy-ui/transpiled/react'
 
 import Bottom from 'components/Bottom'
 import Padded from 'components/Spacing/Padded'
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
 const buttonStyle = {
   transition: 'transform 0.5s ease'
@@ -50,7 +51,8 @@ BottomButtonMobile.defaultProps = {
   visible: true
 }
 
-const BottomButton = ({ breakpoints: { isMobile }, ...props }) => {
+const BottomButton = props => {
+  const { isMobile } = useBreakpoints()
   return isMobile ? (
     <BottomButtonMobile {...props} />
   ) : (
@@ -58,4 +60,4 @@ const BottomButton = ({ breakpoints: { isMobile }, ...props }) => {
   )
 }
 
-export default withBreakpoints()(BottomButton)
+export default BottomButton

@@ -1,4 +1,3 @@
-/* global cozy */
 import React, { useState } from 'react'
 import BarTheme from 'ducks/bar/BarTheme'
 import { PageTitle } from 'components/Title'
@@ -32,8 +31,7 @@ import Stack from 'cozy-ui/transpiled/react/Stack'
 import BaseContactPicker from 'cozy-ui/transpiled/react/ContactPicker'
 import withFilters from 'components/withFilters'
 import { withBreakpoints } from 'cozy-ui/transpiled/react'
-
-const { BarRight } = cozy.bar
+import { BarRight } from 'components/Bar'
 
 const ContactPicker = props => {
   const { t } = useI18n()
@@ -302,7 +300,7 @@ const NewAccountSettings = props => {
                   </BarRight>
                 </>
               )}
-              <PageTitle color={isMobile ? 'primary' : 'default'}>
+              <PageTitle>
                 {!isMobile && <BackButton to="/settings/accounts" arrow />}
                 {getAccountLabel(account)}
                 {!isMobile && (

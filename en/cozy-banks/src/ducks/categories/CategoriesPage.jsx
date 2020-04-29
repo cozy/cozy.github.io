@@ -136,22 +136,21 @@ class CategoriesPage extends Component {
           isFetching={isFetching}
           hasAccount={hasAccount}
         />
-        {hasAccount && (
-          <Padded className="u-pt-0">
-            {isFetching ? (
+        {hasAccount &&
+          (isFetching ? (
+            <Padded className="u-pt-0">
               <Loading loadingType="categories" />
-            ) : (
-              <Categories
-                categories={sortedCategories}
-                selectedCategory={selectedCategory}
-                selectedCategoryName={selectedCategoryName}
-                selectCategory={this.selectCategory}
-                withIncome={showIncomeCategory}
-                filterWithInCome={this.filterWithInCome}
-              />
-            )}
-          </Padded>
-        )}
+            </Padded>
+          ) : (
+            <Categories
+              categories={sortedCategories}
+              selectedCategory={selectedCategory}
+              selectedCategoryName={selectedCategoryName}
+              selectCategory={this.selectCategory}
+              withIncome={showIncomeCategory}
+              filterWithInCome={this.filterWithInCome}
+            />
+          ))}
       </Fragment>
     )
   }

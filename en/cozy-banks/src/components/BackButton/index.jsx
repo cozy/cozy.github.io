@@ -1,17 +1,14 @@
-/* global cozy */
-
 import React from 'react'
 import PropTypes from 'prop-types'
 import styles from 'components/BackButton/style.styl'
 import withBackSwipe from 'utils/backSwipe'
-import { flowRight as compose } from 'lodash'
-import { withBreakpoints } from 'cozy-ui/transpiled/react'
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import arrowLeft from 'assets/icons/icon-arrow-left.svg'
 import { getCssVariableValue } from 'cozy-ui/transpiled/react/utils/color'
 import cx from 'classnames'
-
-const { BarLeft } = cozy.bar
+import { BarLeft } from 'components/Bar'
+import useTheme from 'components/useTheme'
 
 export const BackIcon = ({ color }) => <Icon icon={arrowLeft} color={color} />
 
@@ -31,19 +28,18 @@ BackButton.defaultProps = {
   color: 'var(--coolGrey)'
 }
 
-export const BarBackButton = withBreakpoints()(
-  ({ onClick, color, breakpoints: { isMobile } }) =>
-    isMobile ? (
-      <BarLeft>
-        <BackButton
-          className={cx(styles.BackArrow, 'coz-bar-btn coz-bar-burger')}
-          color={color}
-          onClick={onClick}
-        />
-      </BarLeft>
-    ) : null
-)
-
+export const BarBackButton = ({ onClick, color }) => {
+  const { isMobile } = useBreakpoints()
+  return isMobile ? (
+    <BarLeft>
+      <BackButton
+        color={color}
+        className={cx(styles.BackArrow, 'coz-bar-btn coz-bar-burger')}
+        onClick={onClick}
+      />
+    </BarLeft>
+  ) : null
+}
 /**
  * Display a BackButton on mobile. When it is displayed,
  * a right swipe on the screen or a click will bring
@@ -54,14 +50,9 @@ export const BarBackButton = withBreakpoints()(
  * <BackButton to={ '/settings' } />
  * ```
  */
-const MobileAwareBackButton = ({
-  onClick,
-  to,
-  router,
-  breakpoints: { isMobile },
-  arrow = false,
-  theme = 'default'
-}) => {
+const MobileAwareBackButton = ({ onClick, to, router, arrow = false }) => {
+  const { isMobile } = useBreakpoints()
+  const theme = useTheme()
   const location = router.getCurrentLocation()
   if (!onClick && !to) {
     to = location.pathname
@@ -69,6 +60,7 @@ const MobileAwareBackButton = ({
       .slice(0, -1)
       .join('/')
   }
+
   const arrowColor =
     theme === 'primary'
       ? getCssVariableValue('primaryContrastTextColor')
@@ -87,11 +79,9 @@ MobileAwareBackButton.propTypes = {
   /** onClick handler. Mutually exclusive with `to` */
   onClick: PropTypes.func,
   /** Provided by `withRouter` in `withBackSwipe` */
-  router: PropTypes.object,
-  theme: PropTypes.oneOf(['primary', 'default'])
+  router: PropTypes.object
 }
 
-export default compose(
-  withBreakpoints(),
-  withBackSwipe({ getLocation: ownProps => ownProps.to })
-)(MobileAwareBackButton)
+export default withBackSwipe({ getLocation: ownProps => ownProps.to })(
+  MobileAwareBackButton
+)

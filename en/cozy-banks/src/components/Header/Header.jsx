@@ -1,23 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
-
+import { ThemeContext } from 'components/useTheme'
 import styles from 'components/Header/Header.styl'
 
 class Header extends React.PureComponent {
   render() {
-    const { children, className, color, fixed } = this.props
+    const { children, className, theme, fixed } = this.props
 
     return (
-      <div
-        className={cx(
-          styles[`HeaderColor_${color}`],
-          { [styles.HeaderFixed]: fixed },
-          className
-        )}
-      >
-        {children}
-      </div>
+      <ThemeContext.Provider value={theme}>
+        <div
+          className={cx(
+            styles[`HeaderColor_${theme}`],
+            { [styles.HeaderFixed]: fixed },
+            className
+          )}
+        >
+          {children}
+        </div>
+      </ThemeContext.Provider>
     )
   }
 }
@@ -25,11 +27,11 @@ class Header extends React.PureComponent {
 Header.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
-  color: PropTypes.oneOf(['default', 'primary'])
+  theme: PropTypes.oneOf(['default', 'primary'])
 }
 
 Header.defaultProps = {
-  color: 'default',
+  theme: 'default',
   fixed: false
 }
 

@@ -10,18 +10,17 @@ import UINav, {
 import { withRouter } from 'react-router'
 import flag from 'cozy-flags'
 
-import wallet from 'assets/icons/icon-wallet.svg'
-import graph from 'assets/icons/icon-graph.svg'
-import transfers from 'assets/icons/icon-transfers.svg'
+import walletIcon from 'assets/icons/icon-wallet.svg'
+import graphIcon from 'assets/icons/icon-graph.svg'
+import transfersIcon from 'assets/icons/icon-transfers.svg'
 
 /**
- * Matches between the `to` prop and the router current location.
+ * Returns true if `to` and `pathname` match
  * Supports `rx` for regex matches.
  */
-const navLinkMatch = props =>
-  props.rx
-    ? props.rx.test(props.location.pathname)
-    : props.location.pathname.slice(1) === props.to
+const navLinkMatch = (rx, to, pathname) => {
+  return rx ? rx.test(pathname) : pathname.slice(1) === to
+}
 
 /**
  * Like react-router NavLink but sets the lastClicked state (passed in props)
@@ -32,18 +31,21 @@ export const NavLink = withRouter(props => {
   const {
     children,
     to,
+    rx,
+    location,
     clickState: [lastClicked, setLastClicked]
   } = props
+
+  const pathname = lastClicked ? lastClicked : location.pathname
+  const isActive = navLinkMatch(rx, to, pathname)
   return (
     <a
       style={{ outline: 'none' }}
       onClick={() => setLastClicked(to)}
-      href={`#/${to}`}
+      href={`#${to}`}
       className={cx(
         UINavLink.className,
-        (!lastClicked && navLinkMatch(props)) || lastClicked === to
-          ? UINavLink.activeClassName
-          : null
+        isActive ? UINavLink.activeClassName : null
       )}
     >
       {children}
@@ -54,7 +56,9 @@ export const NavLink = withRouter(props => {
 const transferRoute = /\/transfers(\/.*)?/
 const settingsRoute = /\/settings(\/.*)?/
 const balancesRoute = /\/balances(\/.*)?/
+const analysisRoute = /\/(categories|recurrence).*?/
 const categoriesRoute = /\/categories(\/.*)?/
+const recurrenceRoute = /\/recurrence(\/.*)?/
 
 const NavItems = ({ items }) => {
   const clickState = useState(null)
@@ -62,9 +66,9 @@ const NavItems = ({ items }) => {
     <>
       {items.map((item, i) =>
         item ? (
-          <NavItem key={i}>
+          <NavItem key={i} secondary={item.secondary}>
             <NavLink to={item.to} rx={item.rx} clickState={clickState}>
-              <NavIcon icon={item.icon} />
+              {item.icon ? <NavIcon icon={item.icon} /> : null}
               <NavText>{item.label}</NavText>
             </NavLink>
           </NavItem>
@@ -81,27 +85,39 @@ export const Nav = () => {
       <NavItems
         items={[
           {
-            to: 'balances',
-            icon: wallet,
+            to: '/balances',
+            icon: walletIcon,
             label: t('Nav.my-accounts'),
             rx: balancesRoute
           },
           {
-            to: 'categories',
-            icon: graph,
-            label: t('Nav.categorisation'),
-            rx: categoriesRoute
+            to: '/categories',
+            icon: graphIcon,
+            label: t('Nav.analysis'),
+            rx: analysisRoute
           },
-          flag('transfers')
+          {
+            to: '/categories',
+            label: t('Nav.categories'),
+            rx: categoriesRoute,
+            secondary: true
+          },
+          {
+            to: '/recurrence',
+            label: t('Nav.recurrence'),
+            rx: recurrenceRoute,
+            secondary: true
+          },
+          flag('/ransfers')
             ? {
-                to: 'transfers',
-                icon: transfers,
+                to: '/transfers',
+                icon: transfersIcon,
                 label: t('Transfer.nav'),
                 rx: transferRoute
               }
             : null,
           {
-            to: 'settings',
+            to: '/settings',
             icon: 'gear',
             label: t('Nav.settings'),
             rx: settingsRoute

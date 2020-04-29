@@ -89,22 +89,20 @@ const assert = (pred, msg) => {
   }
 }
 
+export const groupBundles = (bundles, rules) => {
+  const grouper = compose(rules)
+  const groups = groupBy(bundles, grouper)
+  return Object.values(groups).map(mergeBundles)
+}
+
 /**
  * How rules work:
  *
- * 1. Operations are grouped into bundles based on their <b>amount</b>{' '}
- * and their category.
+ * There are different stages that find and process bundles
  *
- * 2. Filtering according to the preStat rules.
- *
- * 3. Then stats are computed on those bundles to compute intervals in days
- * between operations, their standard deviation and mean. The idea is to
- * be able to remove bundles where operations are not evenly spaced in
- * time.
- *
- * 4. Filtering according to the <b>postStat</b> rules.
- *
- * 5. Merging of similar bundles.
+ * - Some stages filter bundles
+ * - Some change the bundles (map)
+ * - Some regroup bundles
  *
  * @param  {array} operations
  * @param  {array} rules
@@ -142,15 +140,14 @@ export const findRecurringBundles = (operations, rules) => {
     } else if (type === 'map') {
       bundles = bundles.map(compose(rules))
     } else if (type === 'group') {
-      const groups = groupBy(bundles, compose(rules))
-      bundles = Object.values(groups).map(mergeBundles)
+      bundles = groupBundles(bundles, rules)
     }
   }
 
   return bundles
 }
 
-const sameFirstLabel = bundle => {
+export const sameFirstLabel = bundle => {
   return bundle.ops[0].label
 }
 
@@ -189,6 +186,8 @@ export const madInferiorTo = n =>
     return bundle.stats.deltas.mad < n
   }
 
+export const addStats = bundle => ({ ...bundle, stats: makeStats(bundle.ops) })
+
 export const rulesPerName = {
   categoryShouldBeSet: {
     rule: categoryShouldBeSet,
@@ -208,9 +207,9 @@ export const rulesPerName = {
     stage: 0,
     type: 'filter'
   },
-  computeStats: {
-    rule: () => bundle => ({ ...bundle, stats: makeStats(bundle.ops) }),
-    description: 'Compute stats',
+  addStats: {
+    rule: () => addStats,
+    description: 'Add stats',
     stage: 1,
     type: 'map'
   },
@@ -255,7 +254,9 @@ export const getRulesFromConfig = config => {
         return null
       }
       if (!rulesPerName[ruleName]) {
-        throw new Error(`Unknown rule ${ruleName}`)
+        // eslint-disable-next-line no-console
+        console.warn(`Unknown rule ${ruleName}`)
+        return null
       }
       const { rule: makeRule, ...rest } = rulesPerName[ruleName]
       return { rule: makeRule(config.options), ...rest }

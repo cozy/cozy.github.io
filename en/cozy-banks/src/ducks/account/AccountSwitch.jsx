@@ -1,5 +1,3 @@
-/* global cozy */
-
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
@@ -19,6 +17,8 @@ import AccountIcon from 'components/AccountIcon'
 import BarItem from 'components/BarItem'
 import Title from 'components/Title'
 
+import useTheme from 'components/useTheme'
+
 import {
   filterByDoc,
   getFilteringDoc,
@@ -37,7 +37,7 @@ import {
   getAccountLabel
 } from 'ducks/account/helpers.js'
 
-const { BarCenter } = cozy.bar
+import { BarCenter } from 'components/Bar'
 
 const AccountSwitchDesktop = ({
   isFetching,
@@ -93,17 +93,16 @@ AccountSwitchDesktop.propTypes = {
   filteringDoc: PropTypes.object
 }
 
-const DownArrow = ({ color }) => (
-  <Icon
-    width={12}
-    height={12}
-    icon="bottom"
-    className={cx(styles.DownArrow, styles[`DownArrowColor_${color}`])}
-  />
-)
-
-DownArrow.propTypes = {
-  color: PropTypes.oneOf(['default', 'primary'])
+const DownArrow = () => {
+  const theme = useTheme()
+  return (
+    <Icon
+      width={12}
+      height={12}
+      icon="bottom"
+      className={cx(styles.DownArrow, styles[`DownArrowColor_${theme}`])}
+    />
+  )
 }
 
 const getFilteringDocLabel = (filteringDoc, t, accounts) => {
@@ -121,12 +120,13 @@ const getFilteringDocLabel = (filteringDoc, t, accounts) => {
 
 // t is passed from above and not through useI18n() since AccountSwitchSelect can be
 // rendered in the Bar and in this case it has a different context
-const AccountSwitchSelect = ({ accounts, filteringDoc, onClick, color, t }) => {
+const AccountSwitchSelect = ({ accounts, filteringDoc, onClick, t }) => {
+  const theme = useTheme()
   return (
     <div
       className={cx(
         styles.AccountSwitch__Select,
-        styles[`AccountSwitchColor_${color}`]
+        styles[`AccountSwitchColor_${theme}`]
       )}
       onClick={onClick}
     >
@@ -136,23 +136,18 @@ const AccountSwitchSelect = ({ accounts, filteringDoc, onClick, color, t }) => {
           <AccountIcon account={filteringDoc} />
         </span>
       ) : null}
-      <Title className={styles.AccountSwitch__SelectText} color={color}>
+      <Title className={styles.AccountSwitch__SelectText}>
         {filteringDoc
           ? getFilteringDocLabel(filteringDoc, t, accounts)
           : t('AccountSwitch.all_accounts')}
       </Title>
-      <DownArrow color={color} />
+      <DownArrow />
     </div>
   )
 }
 
 AccountSwitchSelect.propTypes = {
-  color: PropTypes.oneOf(['default', 'primary']),
   t: PropTypes.func.isRequired
-}
-
-AccountSwitchSelect.defaultProps = {
-  color: 'default'
 }
 
 const AccountSwitchMenu = ({
@@ -262,6 +257,24 @@ AccountSwitchMenu.propTypes = {
   filteringDoc: PropTypes.object
 }
 
+const AccountSwitchWrapper = ({ small, children }) => {
+  const theme = useTheme()
+
+  return (
+    <div
+      className={cx(
+        styles['account-switch'],
+        styles[`account-switch_${theme}`],
+        {
+          [styles['AccountSwitch--small']]: small
+        }
+      )}
+    >
+      {children}
+    </div>
+  )
+}
+
 const barItemStyle = { overflow: 'hidden', paddingRight: '1rem' }
 
 // Note that everything is set up to be able to combine filters (even the redux store).
@@ -298,7 +311,6 @@ class AccountSwitch extends Component {
       resetFilterByDoc,
       breakpoints: { isMobile },
       small,
-      color,
       accounts: accountsCollection,
       groups: groupsCollection,
       virtualGroups
@@ -317,17 +329,13 @@ class AccountSwitch extends Component {
           <BarItem style={barItemStyle}>
             <Title
               className={cx(styles.AccountSwitch__SelectText, styles.disable)}
-              color={color}
             >
               {t('Categories.noAccount')}
             </Title>
           </BarItem>
         </BarCenter>
       ) : (
-        <Title
-          className={cx(styles.AccountSwitch__SelectText, styles.disable)}
-          color={color}
-        >
+        <Title className={cx(styles.AccountSwitch__SelectText, styles.disable)}>
           {t('Categories.noAccount')}
         </Title>
       )
@@ -345,15 +353,7 @@ class AccountSwitch extends Component {
       x.label.toLowerCase()
     )
     return (
-      <div
-        className={cx(
-          styles['account-switch'],
-          styles[`account-switch_${color}`],
-          {
-            [styles['AccountSwitch--small']]: small
-          }
-        )}
-      >
+      <AccountSwitchWrapper small={small}>
         {isMobile ? (
           <BarCenter>
             <BarItem style={barItemStyle}>
@@ -363,7 +363,6 @@ class AccountSwitch extends Component {
                 filteringDoc={filteringDoc}
                 onClick={this.toggle}
                 t={t}
-                color={color}
               />
             </BarItem>
           </BarCenter>
@@ -373,7 +372,6 @@ class AccountSwitch extends Component {
             filteredAccounts={filteredAccounts}
             filteringDoc={filteringDoc}
             onClick={this.toggle}
-            color={color}
             t={t}
           />
         )}
@@ -392,7 +390,7 @@ class AccountSwitch extends Component {
             </Overlay>
           </Portal>
         )}
-      </div>
+      </AccountSwitchWrapper>
     )
   }
 }
@@ -400,13 +398,11 @@ class AccountSwitch extends Component {
 AccountSwitch.propTypes = {
   filterByDoc: PropTypes.func.isRequired,
   resetFilterByDoc: PropTypes.func.isRequired,
-  filteringDoc: PropTypes.object,
-  color: PropTypes.oneOf(['default', 'primary'])
+  filteringDoc: PropTypes.object
 }
 
 AccountSwitch.defaultProps = {
-  small: false,
-  color: 'default'
+  small: false
 }
 
 const mapStateToProps = createStructuredSelector({
