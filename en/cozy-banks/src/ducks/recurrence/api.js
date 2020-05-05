@@ -3,6 +3,7 @@ import flatten from 'lodash/flatten'
 import omit from 'lodash/omit'
 import { dehydrate } from 'cozy-client'
 import maxBy from 'lodash/maxBy'
+import { getAutomaticLabelFromBundle } from './utils'
 
 const RECURRENCE_DOCTYPE = 'io.cozy.bank.recurrence'
 
@@ -15,7 +16,7 @@ export const saveBundles = async (client, recurrenceClientBundles) => {
   const saveBundlesResp = await recurrenceCol.updateAll(
     recurrenceClientBundles.map(bundle => {
       const withoutOps = omit(bundle, 'ops')
-      withoutOps.label = bundle.ops[0].label
+      withoutOps.automaticLabel = getAutomaticLabelFromBundle(bundle)
       const latestOperation = maxBy(bundle.ops, x => x.date)
       withoutOps.latestDate = latestOperation.date
       return withoutOps
@@ -44,4 +45,51 @@ export const resetBundles = async client => {
   const recurrenceCol = client.collection(RECURRENCE_DOCTYPE)
   const { data: serverBundles } = await recurrenceCol.all()
   await recurrenceCol.destroyAll(serverBundles)
+}
+
+export const renameRecurrenceManually = async (
+  client,
+  recurrence,
+  newLabel
+) => {
+  return client.save({
+    ...recurrence,
+    manualLabel: newLabel
+  })
+}
+
+const STATUS_ONGOING = 'ongoing'
+const STATUS_FINISHED = 'finished'
+
+export const getStatus = recurrence => {
+  if (recurrence.status) {
+    return recurrence.status
+  } else {
+    return STATUS_ONGOING
+  }
+}
+
+export const isOngoing = recurrence => {
+  const status = getStatus(recurrence)
+  return status === STATUS_ONGOING
+}
+
+export const isFinished = recurrence => {
+  const status = getStatus(recurrence)
+  return status === STATUS_FINISHED
+}
+
+export const setStatusOngoing = async (client, recurrence) => {
+  return setStatus(client, recurrence, STATUS_ONGOING)
+}
+
+export const setStatusFinished = async (client, recurrence) => {
+  return setStatus(client, recurrence, STATUS_FINISHED)
+}
+
+export const setStatus = async (client, recurrence, status) => {
+  client.save({
+    ...recurrence,
+    status
+  })
 }

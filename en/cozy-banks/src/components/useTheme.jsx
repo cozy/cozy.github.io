@@ -1,19 +1,11 @@
 import React from 'react'
-import { createContext, useContext } from 'react'
-
-export const ThemeContext = createContext()
-
-const useTheme = () => {
-  return useContext(ThemeContext) || 'default'
-}
+import { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
 
 export const themed = Component => {
   const ThemedComponent = props => {
-    const theme = useTheme()
+    const theme = useCozyTheme()
     return <Component {...props} theme={theme} />
   }
 
   return ThemedComponent
 }
-
-export default useTheme

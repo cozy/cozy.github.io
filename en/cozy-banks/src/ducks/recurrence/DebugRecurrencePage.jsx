@@ -9,6 +9,7 @@ import {
   sameFirstLabel,
   addStats
 } from './rules'
+import { getAutomaticLabelFromBundle } from './utils'
 import Card from 'cozy-ui/transpiled/react/Card'
 import { Caption, SubTitle } from 'cozy-ui/transpiled/react/Text'
 import { Padded } from 'components/Spacing'
@@ -123,7 +124,7 @@ const palette = [
 ]
 
 const getColor = bundle => {
-  const h = Math.abs(hash(bundle.ops[0].label))
+  const h = Math.abs(hash(getAutomaticLabelFromBundle(bundle)))
   return palette[h % (palette.length - 1)]
 }
 
@@ -144,22 +145,33 @@ const CategoryNames = ({ categoryId }) => {
 
 const newStyle = { color: 'var(--malachite)' }
 
+const BundleStats = ({ bundle }) => {
+  const deltas = bundle.stats ? bundle.stats.deltas : null
+  return (
+    <>
+      mean frequency: {deltas.mean.toFixed(0)} days
+      <br />
+      median frequency: {deltas.median ? deltas.median.toFixed(0) : null} days
+      <br />
+      sigma: {deltas.sigma.toFixed(2)}
+      <br />
+      mad: {deltas.mad.toFixed(2)}
+    </>
+  )
+}
+
 const RecurrenceBundle = ({ bundle }) => {
   return (
     <Card
       className="u-m-half"
       style={{ border: `2px solid ${getColor(bundle)}` }}
     >
-      <SubTitle>{bundle.ops[0].label}</SubTitle>
+      <SubTitle>{getAutomaticLabelFromBundle(bundle)}</SubTitle>
       <p>
         categories: <CategoryNames categoryId={bundle.categoryId} />
-        frequency: {bundle.stats.deltas.mean.toFixed(0)} days
-        <br />
         amount: {bundle.amount}
         <br />
-        sigma: {bundle.stats.deltas.sigma.toFixed(2)}
-        <br />
-        mad: {bundle.stats.deltas.mad.toFixed(2)}
+        {bundle.stats ? <BundleStats bundle={bundle} /> : null}
       </p>
       <table style={{ fontSize: 'small' }}>
         {sortBy(bundle.ops, x => x.date).map(x => (

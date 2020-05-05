@@ -43,7 +43,7 @@ const Settings = ({ children, router, breakpoints: { isMobile } }) => {
       <Padded className={cx({ ['u-p-0']: isMobile })}>
         <PageTitle>{t('Settings.title')}</PageTitle>
       </Padded>
-      <Header fixed theme={isMobile ? 'primary' : null}>
+      <Header fixed theme={isMobile ? 'inverted' : 'normal'}>
         <Tabs className={tabsStyle['Tabs']} initialActiveTab={defaultTab}>
           <TabList inverted={isMobile} className={tabsStyle['TabList']}>
             {tabs}

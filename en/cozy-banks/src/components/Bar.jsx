@@ -1,15 +1,15 @@
 /* global cozy */
 
 import React from 'react'
-import { ThemeContext } from './useTheme'
+import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
 
 const wrap = Component => {
   const WrappedBarComponent = ({ children }) => {
     return (
       <Component>
-        <ThemeContext.Provider value="primary">
+        <CozyTheme className="u-flex u-flex-center" variant="inverted">
           {children}
-        </ThemeContext.Provider>
+        </CozyTheme>
       </Component>
     )
   }

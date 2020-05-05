@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import Title from './Title'
-import { ThemeContext } from '../useTheme'
+import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
 
 describe('Title', () => {
   it(`should display children`, () => {
@@ -17,9 +17,9 @@ describe('Title', () => {
   it(`should handle theme`, () => {
     expect(
       shallow(
-        <ThemeContext.Provider theme="primary">
+        <CozyTheme variant="inverted">
           <Title>content</Title>
-        </ThemeContext.Provider>
+        </CozyTheme>
       ).getElement()
     ).toMatchSnapshot()
   })

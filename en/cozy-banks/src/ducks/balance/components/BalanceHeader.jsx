@@ -30,7 +30,7 @@ const BalanceHeader = ({
     : t('BalanceHistory.all_accounts')
 
   return (
-    <Header className={styles.BalanceHeader} theme="primary">
+    <Header className={styles.BalanceHeader} theme="inverted">
       {isMobile && (
         <Padded className={titlePaddedClass}>
           <PageTitle>{t('Balance.title')}</PageTitle>

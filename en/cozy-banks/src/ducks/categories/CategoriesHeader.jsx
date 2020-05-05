@@ -18,7 +18,8 @@ import { flowRight as compose } from 'lodash'
 import styles from 'ducks/categories/CategoriesHeader.styl'
 import AddAccountButton from 'ducks/categories/AddAccountButton'
 import AnalysisTabs from 'ducks/analysis/AnalysisTabs'
-import useTheme, { themed } from 'components/useTheme'
+import { themed } from 'components/useTheme'
+import { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import Table from 'components/Table'
@@ -33,7 +34,7 @@ const stTotal = catStyles['bnk-table-total']
 const stTableCategory = catStyles['bnk-table-category']
 
 const IncomeToggle = ({ withIncome, onToggle }) => {
-  const theme = useTheme()
+  const theme = useCozyTheme()
   const { t } = useI18n()
   return (
     <div className={cx(styles.CategoriesHeader__Toggle, styles[theme])}>
@@ -175,20 +176,20 @@ class CategoriesHeader extends PureComponent {
     if (isMobile) {
       return (
         <Fragment>
-          <Header fixed theme="primary">
+          <Header fixed theme="inverted">
             <AnalysisTabs />
             <SelectDates showFullYear />
             {accountSwitch}
           </Header>
           {hasAccount ? (
-            <Header theme={isMobile ? 'default' : 'primary'}>
+            <Header theme={isMobile ? 'normal' : 'primary'}>
               <Padded>
                 {incomeToggle}
                 {chart}
               </Padded>
             </Header>
           ) : (
-            <Header theme="default" className={cx(styles.NoAccount_container)}>
+            <Header theme="normal" className={cx(styles.NoAccount_container)}>
               <Padded className={styles.NoAccount_box}>
                 {chart}
                 <AddAccountButton absolute label={t('Accounts.add_bank')} />
@@ -200,7 +201,7 @@ class CategoriesHeader extends PureComponent {
     }
 
     return (
-      <Header theme="primary" fixed>
+      <Header theme="inverted" fixed>
         <Padded
           className={cx(styles.CategoriesHeader, {
             [styles.NoAccount]: !hasAccount

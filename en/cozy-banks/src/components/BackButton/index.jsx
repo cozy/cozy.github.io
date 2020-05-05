@@ -4,11 +4,11 @@ import styles from 'components/BackButton/style.styl'
 import withBackSwipe from 'utils/backSwipe'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import Icon from 'cozy-ui/transpiled/react/Icon'
+import { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
 import arrowLeft from 'assets/icons/icon-arrow-left.svg'
 import { getCssVariableValue } from 'cozy-ui/transpiled/react/utils/color'
 import cx from 'classnames'
 import { BarLeft } from 'components/Bar'
-import useTheme from 'components/useTheme'
 
 export const BackIcon = ({ color }) => <Icon icon={arrowLeft} color={color} />
 
@@ -52,7 +52,7 @@ export const BarBackButton = ({ onClick, color }) => {
  */
 const MobileAwareBackButton = ({ onClick, to, router, arrow = false }) => {
   const { isMobile } = useBreakpoints()
-  const theme = useTheme()
+  const theme = useCozyTheme()
   const location = router.getCurrentLocation()
   if (!onClick && !to) {
     to = location.pathname
@@ -62,7 +62,7 @@ const MobileAwareBackButton = ({ onClick, to, router, arrow = false }) => {
   }
 
   const arrowColor =
-    theme === 'primary'
+    theme === 'inverted'
       ? getCssVariableValue('primaryContrastTextColor')
       : getCssVariableValue('coolGrey')
   const handleClick = (onClick = onClick || (() => to && router.push(to)))

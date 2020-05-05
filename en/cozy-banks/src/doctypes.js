@@ -242,7 +242,10 @@ export const recipientsConn = {
 }
 
 export const recurrenceConn = {
-  query: () => Q(RECURRENCE_DOCTYPE),
+  query: () =>
+    Q(RECURRENCE_DOCTYPE)
+      .where({ _id: { $gt: null } })
+      .sortBy([{ latestDate: 'desc' }]),
   as: 'recurrence',
   fetchPolicy: older30s
 }

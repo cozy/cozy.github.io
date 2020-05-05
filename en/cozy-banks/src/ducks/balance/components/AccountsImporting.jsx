@@ -69,7 +69,7 @@ const AccountsImporting = ({ classes, konnectorInfos }) => {
   return (
     <Fragment>
       <BarTheme theme="primary" />
-      <Header className={styles.content} color="primary">
+      <Header className={styles.content} theme="inverted">
         <VerticalBox center className={styles.header}>
           <Padded>
             <Figure

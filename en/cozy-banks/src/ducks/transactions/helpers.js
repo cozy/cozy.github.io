@@ -8,8 +8,6 @@ import {
   isHealthExpense,
   isProfessionalExpense
 } from 'ducks/categories/helpers'
-import { RECURRENCE_DOCTYPE } from 'doctypes'
-import merge from 'lodash/merge'
 
 const prevRecurRx = /\bPRLV SEPA RECU RCUR\b/
 const longNumber = /\b\d{5,}\b/g
@@ -244,17 +242,13 @@ export const updateTransactionRecurrence = async (
   transaction,
   recurrence
 ) => {
-  const newTransaction = merge({}, transaction, {
-    relationships: {
-      recurrence: {
-        data: {
-          _type: RECURRENCE_DOCTYPE,
-          _id: recurrence.id
-        }
-      }
-    }
-  })
-  const { data } = await client.save(newTransaction)
+  const recurrenceRelationshipData = {
+    _id: recurrence._id,
+    _type: recurrence._type
+  }
+  transaction.recurrence.set(recurrenceRelationshipData)
+
+  const { data } = await client.save(transaction)
   return data
 }
 

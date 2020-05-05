@@ -17,7 +17,7 @@ import AccountIcon from 'components/AccountIcon'
 import BarItem from 'components/BarItem'
 import Title from 'components/Title'
 
-import useTheme from 'components/useTheme'
+import { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
 
 import {
   filterByDoc,
@@ -94,7 +94,7 @@ AccountSwitchDesktop.propTypes = {
 }
 
 const DownArrow = () => {
-  const theme = useTheme()
+  const theme = useCozyTheme()
   return (
     <Icon
       width={12}
@@ -121,15 +121,8 @@ const getFilteringDocLabel = (filteringDoc, t, accounts) => {
 // t is passed from above and not through useI18n() since AccountSwitchSelect can be
 // rendered in the Bar and in this case it has a different context
 const AccountSwitchSelect = ({ accounts, filteringDoc, onClick, t }) => {
-  const theme = useTheme()
   return (
-    <div
-      className={cx(
-        styles.AccountSwitch__Select,
-        styles[`AccountSwitchColor_${theme}`]
-      )}
-      onClick={onClick}
-    >
+    <div className={styles.AccountSwitch__Select} onClick={onClick}>
       {flag('account-switch.display-icon') &&
       filteringDoc._type === ACCOUNT_DOCTYPE ? (
         <span className="u-mr-1">
@@ -258,17 +251,11 @@ AccountSwitchMenu.propTypes = {
 }
 
 const AccountSwitchWrapper = ({ small, children }) => {
-  const theme = useTheme()
-
   return (
     <div
-      className={cx(
-        styles['account-switch'],
-        styles[`account-switch_${theme}`],
-        {
-          [styles['AccountSwitch--small']]: small
-        }
-      )}
+      className={cx(styles['account-switch'], {
+        [styles['AccountSwitch--small']]: small
+      })}
     >
       {children}
     </div>

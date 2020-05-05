@@ -6,7 +6,7 @@ import { sortBy } from 'lodash'
 import cx from 'classnames'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import useTheme from 'components/useTheme'
+import { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
 
 const hexToRGBA = (hex, a) => {
   const cutHex = hex.substring(1)
@@ -50,7 +50,7 @@ const CategoriesChart = props => {
   } = props
 
   const { t } = useI18n()
-  const theme = useTheme()
+  const theme = useCozyTheme()
 
   const sortedCategories = useMemo(() => getSortedCategories(categories), [
     categories

@@ -9,6 +9,7 @@ const {
   hotReload,
   addAnalyzer
 } = require('./config/webpack.vars')
+const mqpacker = require('css-mqpacker')
 
 const provided = {}
 
@@ -57,6 +58,25 @@ const modeConfig = production
   : require('cozy-scripts/config/webpack.environment.dev')
 
 const config = merge(modeConfig, withTarget)
+
+const removeCSSMQPackerPlugin = config => {
+  config.plugins.forEach(plugin => {
+    if (plugin.constructor.name === 'PostCSSAssetsPlugin') {
+      const prevLength = plugin.plugins.length
+      plugin.plugins = plugin.plugins.filter(
+        postcssPlugin => postcssPlugin !== mqpacker
+      )
+      if (prevLength > plugin.plugins.length) {
+        // eslint-disable-next-line no-console
+        console.log('Removed mqpacker plugin from PostCSSAssetsPlugin')
+      }
+    }
+  })
+}
+
+// TODO remove those lines after https://github.com/cozy/create-cozy-app/pull/1326
+// is fixed
+removeCSSMQPackerPlugin(config)
 
 module.exports = config
 

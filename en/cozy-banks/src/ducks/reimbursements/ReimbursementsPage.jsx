@@ -47,7 +47,7 @@ class RawReimbursementsPage extends React.Component {
 
     return (
       <>
-        <Header color="primary" fixed>
+        <Header theme="inverted" fixed>
           <Padded
             className={cx({
               'u-ph-half': isMobile,

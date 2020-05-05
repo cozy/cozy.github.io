@@ -18,8 +18,8 @@ import {
 import { Balance, BalanceDetailsPage } from 'ducks/balance'
 import {
   DebugRecurrencePage,
-  RecurrencePage,
-  RecurrenceBundlePage
+  RecurrencesPage,
+  RecurrencePage
 } from 'ducks/recurrence'
 import { TransferPage } from 'ducks/transfers'
 import UserActionRequired from 'components/UserActionRequired'
@@ -49,10 +49,10 @@ const AppRoute = () => (
         />
       </Route>
       <Route path="recurrence">
-        <IndexRoute component={scrollToTopOnMount(RecurrencePage)} />
+        <IndexRoute component={scrollToTopOnMount(RecurrencesPage)} />
         <Route
           path=":bundleId"
-          component={scrollToTopOnMount(RecurrenceBundlePage)}
+          component={scrollToTopOnMount(RecurrencePage)}
         />
       </Route>
       <Route path="settings">

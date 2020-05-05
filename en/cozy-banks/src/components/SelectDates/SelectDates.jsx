@@ -306,12 +306,12 @@ class SelectDates extends PureComponent {
 
     const selectMonthStyle = getSelectStyle(
       isMobile,
-      theme === 'primary',
+      theme === 'inverted',
       'Month'
     )
     const selectYearStyle = getSelectStyle(
       isMobile,
-      theme === 'primary',
+      theme === 'inverted',
       'Year'
     )
 

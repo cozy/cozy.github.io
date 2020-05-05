@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from 'components/Table/styles.styl'
 import cx from 'classnames'
-import useTheme from 'components/useTheme'
+import { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
 
 export const Row = ({ nav, ...props }) => {
   return (
@@ -36,9 +36,12 @@ export const Cell = ({ main, children, ...props }) => {
  * https://github.com/philipwalton/flexbugs/issues/3
  */
 export const Table = ({ children, className, ...rest }) => {
-  const theme = useTheme()
+  const theme = useCozyTheme()
   return (
-    <table className={cx(styles['Table'], styles[theme], className)} {...rest}>
+    <table
+      className={cx(styles['Table'], theme && styles[theme], className)}
+      {...rest}
+    >
       {children}
     </table>
   )

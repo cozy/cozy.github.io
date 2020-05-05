@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
 import { flowRight as compose } from 'lodash'
 import { translate, withBreakpoints, useI18n } from 'cozy-ui/transpiled/react'
+import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
 import cx from 'classnames'
 
 import Breadcrumb from 'cozy-ui/transpiled/react/Breadcrumbs'
@@ -15,7 +16,6 @@ import { Padded } from 'components/Spacing'
 import withSize from 'components/withSize'
 import TableHead from './header/TableHead'
 import styles from './TransactionsHeader.styl'
-import { ThemeContext } from 'components/useTheme'
 
 const HeaderBreadcrumb = ({ router }) => {
   const { t } = useI18n()
@@ -132,11 +132,11 @@ class TransactionHeader extends Component {
             <HeaderBreadcrumb router={router} t={t} />
           </Padded>
         )}
-        <ThemeContext.Provider value="primary">
+        <CozyTheme variant="inverted">
           {transactions.length > 0 && (
             <TableHead isSubcategory={isSubcategory} />
           )}
-        </ThemeContext.Provider>
+        </CozyTheme>
       </BalanceDetailsHeader>
     )
   }

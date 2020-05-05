@@ -1,10 +1,10 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import Header from './Header'
-import useTheme from '../useTheme'
+import { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
 
 describe('Header', () => {
-  const setup = element => mount(element).find('div')
+  const setup = element => mount(element).html()
 
   it(`should display children`, () => {
     expect(setup(<Header>content</Header>)).toMatchSnapshot()
@@ -21,24 +21,24 @@ describe('Header', () => {
   })
 
   it(`should set theme default`, () => {
-    expect(setup(<Header theme="default">content</Header>)).toMatchSnapshot()
+    expect(setup(<Header theme="normal">content</Header>)).toMatchSnapshot()
   })
 
-  it(`should set theme primary`, () => {
-    expect(setup(<Header theme="primary">content</Header>)).toMatchSnapshot()
+  it(`should set theme inverted`, () => {
+    expect(setup(<Header theme="inverted">content</Header>)).toMatchSnapshot()
   })
 
   it('should set cozy theme', () => {
     const Component = () => {
-      const theme = useTheme()
+      const theme = useCozyTheme()
       return <>{theme}</>
     }
     expect(
       mount(
-        <Header theme="primary">
+        <Header theme="inverted">
           <Component />
         </Header>
       ).text()
-    ).toBe('primary')
+    ).toBe('inverted')
   })
 })

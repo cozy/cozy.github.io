@@ -3170,7 +3170,7 @@ any accidental folder deletion:</p>
     <span class="nt">&quot;_rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-asasasasa&quot;</span><span class="p">,</span>
     <span class="nt">&quot;account_type&quot;</span><span class="p">:</span> <span class="s2">&quot;trainline&quot;</span><span class="p">,</span>
     <span class="nt">&quot;auth&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;login&quot;</span><span class="p">:</span> <span class="s2">&quot;xxxx&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;login&quot;</span><span class="p">:</span> <span class="s2">&quot;xxxx&quot;</span>
     <span class="p">},</span>
     <span class="nt">&quot;folderPath&quot;</span><span class="p">:</span> <span class="s2">&quot;/Administrative/Trainline&quot;</span>
 <span class="p">}</span>
@@ -3420,6 +3420,10 @@ grant_type=authorization_code&amp;
 </pre></div>
 
 
+<p>Note: the stack will also send the <code>state</code> parameter on this request. It is not
+mandatory per the OAuth 2.0 spec, and the <code>skip_state_on_token</code> option can be
+used to cancel this behavior if the provider throw an error if this parameter
+is present.</p>
 <p>D. The Service responds (server side) with:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
     <span class="nt">&quot;access_token&quot;</span><span class="p">:</span> <span class="s2">&quot;ACCESS_TOKEN&quot;</span><span class="p">,</span>

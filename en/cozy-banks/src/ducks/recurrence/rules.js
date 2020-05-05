@@ -37,11 +37,12 @@ const makeStats = operations => {
   const sqDistToAverage = deltas.map(d => Math.pow(d, 2) - Math.pow(m, 2))
   const sigma = Math.sqrt(sum(sqDistToAverage) / deltas.length)
   const mad = median(deltas.map(d => Math.abs(d - med)))
+
   return {
     deltas: {
       sigma,
       mean: m,
-      median: median,
+      median: med,
       mad
     }
   }

@@ -1,126 +1,351 @@
-import React from 'react'
-import { useQuery } from 'cozy-client'
-import CompositeRow from 'cozy-ui/transpiled/react/CompositeRow'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import React, { useState, useCallback, useRef } from 'react'
+import ReactDOM from 'react-dom'
+import { useClient, useQuery } from 'cozy-client'
+import { withRouter } from 'react-router'
+import {
+  recurrenceConn,
+  RECURRENCE_DOCTYPE,
+  bundleTransactionsQueryConn
+} from 'doctypes'
+
+import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import Modal, { ModalTitle, ModalContent } from 'cozy-ui/transpiled/react/Modal'
+import Button from 'cozy-ui/transpiled/react/Button'
+import Field from 'cozy-ui/transpiled/react/Field'
+import { Media, Img, Bd } from 'cozy-ui/transpiled/react/Media'
+import { SubTitle, Caption } from 'cozy-ui/transpiled/react/Text'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Breadcrumbs from 'cozy-ui/transpiled/react/Breadcrumbs'
-import { Media, Img, Bd } from 'cozy-ui/transpiled/react/Media'
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
 import Loading from 'components/Loading'
-import distanceInWords from 'date-fns/distance_in_words'
-import CategoryIcon from 'ducks/categories/CategoryIcon'
-import { recurrenceConn } from 'doctypes'
-import BarTheme from 'ducks/bar/BarTheme'
-import { TdSecondary } from 'components/Table'
-import AnalysisTabs from 'ducks/analysis/AnalysisTabs'
-import { withRouter } from 'react-router'
-
 import Padded from 'components/Spacing/Padded'
+import {
+  RowDesktop as TransactionRowDesktop,
+  RowMobile as TransactionRowMobile
+} from 'ducks/transactions/TransactionRow'
 import Table from 'components/Table'
 import Header from 'components/Header'
 import BackButton from 'components/BackButton'
-import PageTitle from 'components/Title/PageTitle'
+import BarTheme from 'ducks/bar/BarTheme'
+import { getLabel, getFrequencyText } from 'ducks/recurrence/utils'
+import {
+  renameRecurrenceManually,
+  setStatusOngoing,
+  setStatusFinished,
+  isFinished,
+  isOngoing,
+  getStatus
+} from 'ducks/recurrence/api'
+
+import AnalysisTabs from 'ducks/analysis/AnalysisTabs'
+import { BarTitle } from 'components/Title/PageTitle'
+import TransactionsTableHead from 'ducks/transactions/header/TableHead'
+
+import { BarRight } from 'components/Bar'
+import { BarButton, ActionMenu, Icon } from 'cozy-ui/transpiled/react'
+import {
+  ActionMenuHeader,
+  ActionMenuItem,
+  ActionMenuRadio
+} from 'cozy-ui/transpiled/react/ActionMenu'
 import styles from './styles.styl'
-import { prettyLabel, getCategories } from './utils'
-import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 
-const BundleFrequency = ({ bundle }) => {
-  const { t } = useI18n()
-  return (
-    <>
-      {t('Recurrence.frequency', {
-        frequency: Math.floor(bundle.stats.deltas.mean)
-      })}
-    </>
-  )
+const useDocument = (doctype, id) => {
+  const client = useClient()
+  return client.getDocumentFromState(doctype, id)
 }
 
-const BundleMobileRow = withRouter(({ bundle, router }) => {
-  const catId = getCategories(bundle)[0]
-  return (
-    <CompositeRow
-      onClick={() => router.push(`/recurrence/${bundle._id}`)}
-      image={<CategoryIcon categoryId={catId} />}
-      className="u-pv-half u-ph-1 u-c-pointer"
-      key={bundle._id}
-      primaryText={prettyLabel(bundle.label)}
-      secondaryText={
-        <>
-          {distanceInWords(Date.now(), bundle.latestDate)} -{' '}
-          <BundleFrequency bundle={bundle} />
-        </>
-      }
-      right={<BundleAmount bundle={bundle} />}
-    />
-  )
-})
+// TODO We should need to do this (isMobile ? portal : identity) but see
+// Cozy-UI's issue: https://github.com/cozy/cozy-ui/issues/1462
+const identity = x => x
+const portal = children => ReactDOM.createPortal(children, document.body)
 
-const BundleAmount = ({ bundle }) => {
-  return <>{bundle.amount + '€'}</>
-}
-
-const BundleDesktopRow = withRouter(({ bundle, router }) => {
-  const catId = bundle.categoryId.split(' / ')[0]
-  return (
-    <tr
-      className="u-c-pointer"
-      onClick={() => router.push(`recurrence/${bundle._id}`)}
-    >
-      <td className={styles.ColumnSizeLabel}>
-        <Media>
-          <Img className="u-mr-1">
-            <CategoryIcon categoryId={catId} />
-          </Img>
-          <Bd>{prettyLabel(bundle.label)}</Bd>
-        </Media>
-      </td>
-      <TdSecondary className={styles.ColumnSizeLastOccurence}>
-        {distanceInWords(Date.now(), bundle.latestDate)}
-      </TdSecondary>
-      <TdSecondary className={styles.ColumnSizeFrequency}>
-        <BundleFrequency bundle={bundle} />
-      </TdSecondary>
-      <TdSecondary className={styles.ColumnSizeAmount}>
-        <BundleAmount bundle={bundle} />
-      </TdSecondary>
-    </tr>
-  )
-})
-
-const BundleRow = ({ bundle }) => {
+const RecurrenceActionMenu = ({
+  recurrence,
+  onClickRename,
+  onClickOngoing,
+  onClickFinished,
+  ...props
+}) => {
   const { isMobile } = useBreakpoints()
-  return isMobile ? (
-    <BundleMobileRow bundle={bundle} />
-  ) : (
-    <BundleDesktopRow bundle={bundle} />
+  const { t } = useI18n()
+  const wrapper = isMobile ? portal : identity
+  return wrapper(
+    <ActionMenu {...props}>
+      <ActionMenuHeader>
+        <SubTitle>{getLabel(recurrence)}</SubTitle>
+        <Caption>{getFrequencyText(t, recurrence)}</Caption>
+      </ActionMenuHeader>
+      {isMobile ? (
+        <>
+          <OngoingActionItem recurrence={recurrence} onClick={onClickOngoing} />
+          <FinishedActionItem
+            recurrence={recurrence}
+            onClick={onClickFinished}
+          />
+          <hr />
+        </>
+      ) : null}
+      <RenameActionItem onClick={onClickRename} />
+    </ActionMenu>
   )
 }
 
-const BundlesTableHead = () => {
+const RenameActionItem = ({ onClick }) => {
   const { t } = useI18n()
   return (
-    <Table color="primary">
-      <thead>
-        <tr>
-          <td className={styles.ColumnSizeLabel}>
-            {t('Recurrence.table.label')}
-          </td>
-          <td className={styles.ColumnSizeLastOccurence}>
-            {t('Recurrence.table.last-occurence')}
-          </td>
-          <td className={styles.ColumnSizeFrequency}>
-            {t('Recurrence.table.frequency')}
-          </td>
-          <td className={styles.ColumnSizeAmount}>
-            {t('Recurrence.table.amount')}
-          </td>
-        </tr>
-      </thead>
-    </Table>
+    <ActionMenuItem onClick={onClick} left={<Icon icon="pen" />}>
+      {t('Recurrence.action-menu.rename')}
+    </ActionMenuItem>
   )
 }
 
-const BundlesTable = ({ children }) => {
+const OngoingActionItem = ({ recurrence, onClick }) => {
+  const { t } = useI18n()
+  return (
+    <ActionMenuItem
+      onClick={onClick}
+      left={<ActionMenuRadio readOnly checked={isOngoing(recurrence)} />}
+    >
+      {t('Recurrence.action-menu.ongoing')}
+      <br />
+      <Caption>{t('Recurrence.action-menu.ongoing-caption')}</Caption>
+    </ActionMenuItem>
+  )
+}
+
+const FinishedActionItem = ({ recurrence, onClick }) => {
+  const { t } = useI18n()
+  return (
+    <ActionMenuItem
+      onClick={onClick}
+      left={<ActionMenuRadio readOnly checked={isFinished(recurrence)} />}
+    >
+      {t('Recurrence.action-menu.finished')}
+    </ActionMenuItem>
+  )
+}
+
+const RecurrenceStatusMenu = ({
+  recurrence,
+  onClickOngoing,
+  onClickFinished,
+  ...props
+}) => {
+  return (
+    <ActionMenu {...props}>
+      <OngoingActionItem recurrence={recurrence} onClick={onClickOngoing} />
+      <FinishedActionItem recurrence={recurrence} onClick={onClickFinished} />
+    </ActionMenu>
+  )
+}
+
+const RenameBundleModal = ({ bundle, dismissAction }) => {
+  const client = useClient()
+  const { t } = useI18n()
+  const renameInputRef = useRef()
+
+  const handleRename = async () => {
+    try {
+      await renameRecurrenceManually(
+        client,
+        bundle,
+        renameInputRef.current.value
+      )
+      dismissAction()
+      Alerter.success(t('Recurrence.rename.save-success'))
+    } catch (e) {
+      Alerter.error(t('Recurrence.rename.save-error'))
+    }
+  }
+
+  return (
+    <Modal
+      size="small"
+      primaryAction={() => handleRename()}
+      primaryText={t('Recurrence.rename.save')}
+      secondaryAction={dismissAction}
+      secondaryText={t('Recurrence.rename.cancel')}
+      dismissAction={dismissAction}
+    >
+      <ModalTitle>{t('Recurrence.rename.modal-title')}</ModalTitle>
+      <ModalContent>
+        <Field
+          fieldProps={{ defaultValue: getLabel(bundle) }}
+          inputRef={renameInputRef}
+          label={t('Recurrence.table.label')}
+        />
+      </ModalContent>
+    </Modal>
+  )
+}
+
+const useToggle = initial => {
+  const [val, setVal] = useState(initial)
+  const setTrue = useCallback(() => setVal(true), [setVal])
+  const setFalse = useCallback(() => setVal(false), [setVal])
+  return [val, setTrue, setFalse]
+}
+
+const ActionMenuHelper = ({ opener, menu }) => {
+  const [opened, openMenu, closeMenu] = useToggle(false)
+  const openerRef = useRef()
+  return (
+    <div className="u-inline-flex">
+      {React.cloneElement(opener, { onClick: openMenu, ref: openerRef })}
+      {opened
+        ? React.cloneElement(menu, {
+            autoclose: true,
+            onClose: closeMenu,
+            placement: 'bottom-end'
+          })
+        : null}
+    </div>
+  )
+}
+
+const BundleInfo = withRouter(({ bundle, router }) => {
+  const { t } = useI18n()
+  const client = useClient()
+  const { isMobile } = useBreakpoints()
+  if (!bundle) {
+    return null
+  }
+
+  const [showingActionsMenu, showActionsMenu, hideActionsMenu] = useToggle(
+    false
+  )
+  const [showingRename, showRename, hideRename] = useToggle(false)
+
+  const goToRecurrenceRoot = () => router.push('/recurrence')
+
+  const handleOpenRename = useCallback(() => {
+    showRename()
+  }, [showRename])
+
+  const handleSetStatusOngoing = useCallback(async () => {
+    try {
+      await setStatusOngoing(client, bundle)
+      Alerter.success(t('Recurrence.status.save-success'))
+    } catch (e) {
+      Alerter.error(t('Recurrence.status.save-error'))
+    }
+  }, [bundle, client, t])
+
+  const handleSetStatusFinished = useCallback(async () => {
+    try {
+      await setStatusFinished(client, bundle)
+      Alerter.success(t('Recurrence.status.save-success'))
+    } catch (e) {
+      Alerter.error(t('Recurrence.status.save-error'))
+    }
+  }, [bundle, client, t])
+
+  return (
+    <Header fixed theme="inverted">
+      {isMobile ? (
+        <>
+          <BackButton theme="primary" onClick={goToRecurrenceRoot} />
+          <BarTitle>{getLabel(bundle)}</BarTitle>
+          <BarRight>
+            <BarButton
+              className={styles.BarRightButton}
+              icon="dots"
+              onClick={showActionsMenu}
+            />
+          </BarRight>
+          <AnalysisTabs />
+          {showingActionsMenu ? (
+            <RecurrenceActionMenu
+              onClose={hideActionsMenu}
+              recurrence={bundle}
+              onClickOngoing={handleSetStatusOngoing}
+              onClickFinished={handleSetStatusFinished}
+              onClickRename={handleOpenRename}
+            />
+          ) : null}
+        </>
+      ) : (
+        <>
+          <Padded>
+            <Media>
+              <Bd>
+                <SubTitle>
+                  <Breadcrumbs
+                    items={[
+                      {
+                        name: t('Recurrence.title'),
+                        onClick: goToRecurrenceRoot
+                      },
+                      {
+                        name: getLabel(bundle)
+                      }
+                    ]}
+                    theme="primary"
+                  />
+                  <BackButton theme="primary" />
+                </SubTitle>
+              </Bd>
+              <Img className="u-flex">
+                <ActionMenuHelper
+                  opener={
+                    <Button extension="narrow" theme="secondary">
+                      {t(`Recurrence.status.${getStatus(bundle)}`)}
+                      <Icon className="u-ml-half" icon="bottom" />
+                    </Button>
+                  }
+                  menu={
+                    <RecurrenceStatusMenu
+                      recurrence={bundle}
+                      onClickRename={handleOpenRename}
+                      onClickOngoing={handleSetStatusOngoing}
+                      onClickFinished={handleSetStatusFinished}
+                    />
+                  }
+                />
+                <ActionMenuHelper
+                  opener={
+                    <Button
+                      iconOnly
+                      label={t('Recurrence.action-menu.open-button')}
+                      extension="narrow"
+                      icon="dots"
+                      theme="secondary"
+                    />
+                  }
+                  menu={
+                    <RecurrenceActionMenu
+                      recurrence={bundle}
+                      onClickRename={handleOpenRename}
+                      onClickOngoing={handleSetStatusOngoing}
+                      onClickFinished={handleSetStatusFinished}
+                    />
+                  }
+                />
+              </Img>
+            </Media>
+          </Padded>
+          <TransactionsTableHead />
+        </>
+      )}
+
+      {showingRename ? (
+        <RenameBundleModal
+          bundle={bundle}
+          onSuccess={hideRename}
+          dismissAction={hideRename}
+        />
+      ) : null}
+    </Header>
+  )
+})
+
+const BundleMobileWrapper = ({ children }) => {
+  return <div className={styles.RecurrencesMobileContent}>{children}</div>
+}
+
+const BundleDesktopWrapper = ({ children }) => {
   return (
     <Table>
       <tbody>{children}</tbody>
@@ -128,55 +353,55 @@ const BundlesTable = ({ children }) => {
   )
 }
 
-const RecurrencesPage = ({ router }) => {
+const BundleTransactions = ({ bundle }) => {
+  const transactionsConn = bundleTransactionsQueryConn({ bundle })
   const { isMobile } = useBreakpoints()
-  const bundleCol = useQuery(recurrenceConn.query, recurrenceConn)
-  const { data: bundles } = bundleCol
-  const { t } = useI18n()
-  const BundlesWrapper = isMobile ? React.Fragment : BundlesTable
+  const { data: transactions } = useQuery(
+    transactionsConn.query,
+    transactionsConn
+  )
 
+  if (!transactions) {
+    return null
+  }
+
+  const TransactionRow = isMobile ? TransactionRowMobile : TransactionRowDesktop
+  const Wrapper = isMobile ? BundleMobileWrapper : BundleDesktopWrapper
   return (
     <>
-      <BarTheme theme="primary" />
-      <Header fixed theme="primary">
-        {!isMobile ? (
-          <>
-            <Padded>
-              <Breadcrumbs
-                items={[
-                  {
-                    name: t('Recurrence.title'),
-                    onClick: () => router.push('/recurrence')
-                  }
-                ]}
-                theme="primary"
-              />
-            </Padded>
-            <BackButton theme="primary" />
-            <BundlesTableHead />
-          </>
-        ) : null}
-        {isMobile ? (
-          <>
-            <PageTitle>{t('Recurrence.title')}</PageTitle>
-            <AnalysisTabs />
-          </>
-        ) : null}
-      </Header>
-      {isCollectionLoading(bundleCol) && !hasBeenLoaded(bundleCol) ? (
-        <Padded>
-          <Loading />
-        </Padded>
-      ) : null}
-      <BundlesWrapper>
-        {bundles
-          ? bundles.map(bundle => (
-              <BundleRow key={bundle._id} bundle={bundle} />
-            ))
-          : null}
-      </BundlesWrapper>
+      <Wrapper>
+        {transactions.map(tr => (
+          <TransactionRow
+            showRecurrence={false}
+            transaction={tr}
+            key={tr._id}
+          />
+        ))}
+      </Wrapper>
     </>
   )
 }
 
-export default withRouter(RecurrencesPage)
+const RecurrenceBundlePage = ({ params }) => {
+  const { data: bundles, fetchStatus } = useQuery(
+    recurrenceConn.query,
+    recurrenceConn
+  )
+
+  const bundleId = params.bundleId
+  const bundle = useDocument(RECURRENCE_DOCTYPE, bundleId)
+
+  if (fetchStatus === 'loading' && !bundles) {
+    return <Loading />
+  }
+
+  return (
+    <>
+      <BarTheme theme="primary" />
+      {bundle ? <BundleInfo bundle={bundle} /> : null}
+      {bundle ? <BundleTransactions bundle={bundle} /> : null}
+    </>
+  )
+}
+
+export default withRouter(RecurrenceBundlePage)

@@ -1,24 +1,40 @@
 import React, { useMemo } from 'react'
 import { useClient, useQuery } from 'cozy-client'
-import { NestedSelect, useI18n } from 'cozy-ui/transpiled/react'
-import { prettyLabel } from 'ducks/recurrence/utils'
+import { NestedSelect, useI18n, Icon } from 'cozy-ui/transpiled/react'
+import { getLabel, makeRecurrenceFromTransaction } from 'ducks/recurrence/utils'
 import { recurrenceConn } from 'doctypes'
 import { updateTransactionRecurrence } from 'ducks/transactions/helpers'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
+import { RECURRENCE_DOCTYPE } from 'doctypes'
+import styles from './TransactionRecurrenceEditor.styl'
 
-const optionFromRecurrence = rec => {
+const makeOptionFromRecurrence = rec => {
   return {
     _id: rec._id,
-    title: prettyLabel(rec.label),
+    _type: RECURRENCE_DOCTYPE,
+    title: getLabel(rec),
     icon: <CategoryIcon categoryId={rec.categoryId} />
   }
 }
 
+const NewRecurrenceIcon = () => {
+  return <Icon icon="plus" style={styles.NewRecurrenceIcon} />
+}
+
+const makeNewRecurrenceOption = t => {
+  return {
+    _id: NEW_RECURRENCE_ID,
+    _type: RECURRENCE_DOCTYPE,
+    title: t('Recurrence.choice.new-recurrence'),
+    icon: <NewRecurrenceIcon />
+  }
+}
+
 const isSelectedHelper = (item, currentId) => {
-  if (item.id === 'not-recurrent' && !currentId) {
+  if (item._id === 'not-recurrent' && !currentId) {
     return true
   }
-  if (item.id === 'recurrent' && currentId) {
+  if (item._id === 'recurrent' && currentId) {
     return true
   }
   if (item._id === currentId) {
@@ -26,6 +42,10 @@ const isSelectedHelper = (item, currentId) => {
   }
   return false
 }
+
+const NOT_RECURRENT_ID = 'not-recurrent'
+const RECURRENT_ID = 'recurrent'
+const NEW_RECURRENCE_ID = 'new-recurrence'
 
 const TransactionRecurrenceEditor = ({
   transaction,
@@ -43,18 +63,35 @@ const TransactionRecurrenceEditor = ({
   )
 
   const recurrenceOptions = useMemo(
-    () => allRecurrences.map(optionFromRecurrence),
-    [allRecurrences]
+    () =>
+      allRecurrences
+        ? [makeNewRecurrenceOption(t)].concat(
+            allRecurrences.map(makeOptionFromRecurrence)
+          )
+        : null,
+    [allRecurrences, t]
   )
 
-  const handleSelect = async category => {
+  const handleSelect = async recurrenceChoice => {
     if (beforeUpdate) {
       await beforeUpdate()
     }
+
+    if (recurrenceChoice._id === NEW_RECURRENCE_ID) {
+      const { data: recurrence } = await client.save(
+        makeRecurrenceFromTransaction(transaction)
+      )
+
+      recurrenceChoice = {
+        _id: recurrence._id,
+        _type: RECURRENCE_DOCTYPE
+      }
+    }
+
     const newTransaction = await updateTransactionRecurrence(
       client,
       transaction,
-      category
+      recurrenceChoice
     )
     if (afterUpdate) {
       await afterUpdate(newTransaction)
@@ -71,13 +108,14 @@ const TransactionRecurrenceEditor = ({
       options={{
         children: [
           {
-            id: 'not-recurrent',
+            _id: NOT_RECURRENT_ID,
+            _type: RECURRENCE_DOCTYPE,
             title: t('Recurrence.choice.not-recurrent')
           },
           {
-            id: 'recurrent',
+            _id: RECURRENT_ID,
             title: t('Recurrence.choice.recurrent'),
-            description: current && prettyLabel(current.label),
+            description: current && getLabel(current),
             children: recurrenceOptions
           }
         ]

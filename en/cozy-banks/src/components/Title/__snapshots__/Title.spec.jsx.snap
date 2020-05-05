@@ -2,7 +2,7 @@
 
 exports[`Title should display children 1`] = `
 <ForwardRef
-  className="Title TitleColor_default"
+  className="Title"
   ellipsis={true}
   tag="h1"
 >
@@ -12,7 +12,7 @@ exports[`Title should display children 1`] = `
 
 exports[`Title should extend className 1`] = `
 <ForwardRef
-  className="Title TitleColor_default noPaddingBottom"
+  className="Title noPaddingBottom"
   ellipsis={true}
   tag="h1"
 >
@@ -21,7 +21,19 @@ exports[`Title should extend className 1`] = `
 `;
 
 exports[`Title should handle theme 1`] = `
-<Title>
-  content
-</Title>
+<Context.Provider
+  value="inverted"
+>
+  <MuiCozyTheme
+    variant="inverted"
+  >
+    <div
+      className="styles__CozyTheme--inverted___1ygHa"
+    >
+      <Title>
+        content
+      </Title>
+    </div>
+  </MuiCozyTheme>
+</Context.Provider>
 `;
