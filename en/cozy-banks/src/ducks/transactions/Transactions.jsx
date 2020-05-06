@@ -64,7 +64,7 @@ const LoadMoreMobile = ({ children, onClick }) => (
   </div>
 )
 
-const _SectionMobile = props => {
+const SectionMobile = props => {
   const { f } = useI18n()
   const { date, children } = props
   return (
@@ -74,7 +74,6 @@ const _SectionMobile = props => {
     </React.Fragment>
   )
 }
-const SectionMobile = _SectionMobile
 
 const SectionDesktop = props => {
   return <tbody {...props} />

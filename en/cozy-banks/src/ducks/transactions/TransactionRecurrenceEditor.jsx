@@ -2,6 +2,7 @@ import React, { useMemo } from 'react'
 import { useClient, useQuery } from 'cozy-client'
 import { NestedSelect, useI18n, Icon } from 'cozy-ui/transpiled/react'
 import { getLabel, makeRecurrenceFromTransaction } from 'ducks/recurrence/utils'
+import { NOT_RECURRENT_ID } from 'ducks/recurrence/api'
 import { recurrenceConn } from 'doctypes'
 import { updateTransactionRecurrence } from 'ducks/transactions/helpers'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
@@ -18,7 +19,7 @@ const makeOptionFromRecurrence = rec => {
 }
 
 const NewRecurrenceIcon = () => {
-  return <Icon icon="plus" style={styles.NewRecurrenceIcon} />
+  return <Icon icon="plus" className={styles.NewRecurrenceIcon} />
 }
 
 const makeNewRecurrenceOption = t => {
@@ -43,7 +44,6 @@ const isSelectedHelper = (item, currentId) => {
   return false
 }
 
-const NOT_RECURRENT_ID = 'not-recurrent'
 const RECURRENT_ID = 'recurrent'
 const NEW_RECURRENCE_ID = 'new-recurrence'
 

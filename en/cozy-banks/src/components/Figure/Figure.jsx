@@ -3,6 +3,7 @@ import Types from 'prop-types'
 import cx from 'classnames'
 import styles from 'components/Figure/Figure.styl'
 import flag from 'cozy-flags'
+import { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
 
 /**
  * Shows a number, typically a balance or an important financial
@@ -24,7 +25,6 @@ const Figure = props => {
     warningLimit,
     signed,
     className,
-    theme = 'default',
     total,
     totalClassName,
     currencyClassName,
@@ -32,6 +32,8 @@ const Figure = props => {
     onClick,
     inline
   } = props
+
+  const theme = useCozyTheme()
 
   let { decimalNumbers } = props
   decimalNumbers = isNaN(decimalNumbers) ? 2 : decimalNumbers
@@ -50,7 +52,8 @@ const Figure = props => {
   return (
     <div
       className={cx(
-        styles[theme],
+        styles.Figure,
+        theme && styles[theme],
         {
           [stylePositive]: isTotalPositive && coloredPositive,
           [styleNegative]:
@@ -74,7 +77,7 @@ const Figure = props => {
           className={cx(
             styles['Figure-currency'],
             {
-              [styles['Figure__currency--withSpacing']]: withCurrencySpacing
+              [styles['Figure-currency--withSpacing']]: withCurrencySpacing
             },
             currencyClassName
           )}

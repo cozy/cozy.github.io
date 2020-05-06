@@ -132,11 +132,10 @@ const List = ({ children }) => {
   return <ul className="u-m-0 u-ph-1 u-pv-half">{children}</ul>
 }
 
-const CategoryNames = ({ categoryId }) => {
-  const categoryIds = categoryId.split(' / ')
+const CategoryNames = ({ bundle }) => {
   return (
     <List>
-      {categoryIds.map((catId, i) => (
+      {bundle.categoryIds.map((catId, i) => (
         <li key={i}>{tree[catId]}</li>
       ))}
     </List>
@@ -168,8 +167,8 @@ const RecurrenceBundle = ({ bundle }) => {
     >
       <SubTitle>{getAutomaticLabelFromBundle(bundle)}</SubTitle>
       <p>
-        categories: <CategoryNames categoryId={bundle.categoryId} />
-        amount: {bundle.amount}
+        categories: <CategoryNames bundle={bundle} />
+        amounts: {bundle.amounts}
         <br />
         {bundle.stats ? <BundleStats bundle={bundle} /> : null}
       </p>

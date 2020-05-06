@@ -2,11 +2,8 @@ import React, { useState, useCallback, useRef } from 'react'
 import ReactDOM from 'react-dom'
 import { useClient, useQuery } from 'cozy-client'
 import { withRouter } from 'react-router'
-import {
-  recurrenceConn,
-  RECURRENCE_DOCTYPE,
-  bundleTransactionsQueryConn
-} from 'doctypes'
+import { recurrenceConn, RECURRENCE_DOCTYPE } from 'doctypes'
+import { bundleTransactionsQueryConn } from './queries'
 
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import Modal, { ModalTitle, ModalContent } from 'cozy-ui/transpiled/react/Modal'
@@ -33,6 +30,7 @@ import {
   renameRecurrenceManually,
   setStatusOngoing,
   setStatusFinished,
+  deleteRecurrence,
   isFinished,
   isOngoing,
   getStatus
@@ -50,6 +48,7 @@ import {
   ActionMenuRadio
 } from 'cozy-ui/transpiled/react/ActionMenu'
 import styles from './styles.styl'
+import * as List from 'components/List'
 
 const useDocument = (doctype, id) => {
   const client = useClient()
@@ -66,6 +65,7 @@ const RecurrenceActionMenu = ({
   onClickRename,
   onClickOngoing,
   onClickFinished,
+  onClickDelete,
   ...props
 }) => {
   const { isMobile } = useBreakpoints()
@@ -88,6 +88,7 @@ const RecurrenceActionMenu = ({
         </>
       ) : null}
       <RenameActionItem onClick={onClickRename} />
+      <DeleteActionItem onClick={onClickDelete} />
     </ActionMenu>
   )
 }
@@ -97,6 +98,17 @@ const RenameActionItem = ({ onClick }) => {
   return (
     <ActionMenuItem onClick={onClick} left={<Icon icon="pen" />}>
       {t('Recurrence.action-menu.rename')}
+    </ActionMenuItem>
+  )
+}
+
+const DeleteActionItem = ({ onClick }) => {
+  const { t } = useI18n()
+  return (
+    <ActionMenuItem onClick={onClick} left={<Icon icon="trash" />}>
+      {t('Recurrence.action-menu.delete')}
+      <br />
+      <Caption>{t('Recurrence.action-menu.delete-caption')}</Caption>
     </ActionMenuItem>
   )
 }
@@ -218,11 +230,23 @@ const BundleInfo = withRouter(({ bundle, router }) => {
   )
   const [showingRename, showRename, hideRename] = useToggle(false)
 
-  const goToRecurrenceRoot = () => router.push('/recurrence')
+  const goToRecurrenceRoot = useCallback(() => router.push('/recurrence'), [
+    router
+  ])
 
   const handleOpenRename = useCallback(() => {
     showRename()
   }, [showRename])
+
+  const handleDelete = useCallback(async () => {
+    try {
+      goToRecurrenceRoot()
+      await deleteRecurrence(client, bundle)
+      Alerter.success(t('Recurrence.delete-success'))
+    } catch (e) {
+      Alerter.error(t('Recurrence.delete-error'))
+    }
+  }, [bundle, client, goToRecurrenceRoot, t])
 
   const handleSetStatusOngoing = useCallback(async () => {
     try {
@@ -263,6 +287,7 @@ const BundleInfo = withRouter(({ bundle, router }) => {
               onClickOngoing={handleSetStatusOngoing}
               onClickFinished={handleSetStatusFinished}
               onClickRename={handleOpenRename}
+              onClickDelete={handleDelete}
             />
           ) : null}
         </>
@@ -320,6 +345,7 @@ const BundleInfo = withRouter(({ bundle, router }) => {
                       onClickRename={handleOpenRename}
                       onClickOngoing={handleSetStatusOngoing}
                       onClickFinished={handleSetStatusFinished}
+                      onClickDelete={handleDelete}
                     />
                   }
                 />
@@ -353,6 +379,17 @@ const BundleDesktopWrapper = ({ children }) => {
   )
 }
 
+const BundleTransactionMobile = ({ transaction }) => {
+  const { f } = useI18n()
+  const { date } = transaction
+  return (
+    <>
+      <List.Header>{f(date, 'dddd D MMMM')}</List.Header>
+      <TransactionRowMobile showRecurrence={false} transaction={transaction} />
+    </>
+  )
+}
+
 const BundleTransactions = ({ bundle }) => {
   const transactionsConn = bundleTransactionsQueryConn({ bundle })
   const { isMobile } = useBreakpoints()
@@ -365,8 +402,11 @@ const BundleTransactions = ({ bundle }) => {
     return null
   }
 
-  const TransactionRow = isMobile ? TransactionRowMobile : TransactionRowDesktop
+  const TransactionRow = isMobile
+    ? BundleTransactionMobile
+    : TransactionRowDesktop
   const Wrapper = isMobile ? BundleMobileWrapper : BundleDesktopWrapper
+
   return (
     <>
       <Wrapper>

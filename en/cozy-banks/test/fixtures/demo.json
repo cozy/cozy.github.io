@@ -1524,7 +1524,15 @@
       "date": "{{ freshDate '2018-10-19T00:00:00Z' }}",
       "bills": [
         "io.cozy.bills:bouyges_telecom_44_90"
-      ]
+      ],
+      "relationships": {
+        "recurrence": {
+          "data": {
+            "_id": "recurrence-bouygues-isa",
+            "_type": "io.cozy.bank.recurrence"
+          }
+        }
+      }
     },
     {
       "demo": true,
@@ -1616,17 +1624,33 @@
       "_id": "446ae26d705b2eb461ca264d384a6ee6",
       "bills": [
         "io.cozy.bills:bouyges_telecom_44_90"
-      ]
+      ],
+      "relationships": {
+        "recurrence": {
+          "data": {
+            "_id": "recurrence-bouygues-isa",
+            "_type": "io.cozy.bank.recurrence"
+          }
+        }
+      }
     },
     {
       "manualCategoryId": "{{ categoryId 'activityIncome' }}",
-      "account": "comptegene1",
+      "account": "compteisa1",
       "label": "Salaire novembre 2018",
       "currency": "€",
       "amount": 3870.54,
       "date": "{{ freshDate '2018-11-01T00:00:00Z' }}",
       "_id": "isa_salaire_nov_2018",
-      "demo": true
+      "demo": true,
+      "relationships": {
+        "recurrence": {
+          "data": {
+            "_id": "recurrence-salaire-isa",
+            "_type": "io.cozy.bank.recurrence"
+          }
+        }
+      }
     },
     {
       "account": "comptegene1",
@@ -2265,6 +2289,24 @@
       "invoice": "io.cozy.files:{{reference 'io.cozy.files' 13 '_id' }}",
       "vendor": "maifecheancier",
       "demo": true
+    }
+  ],
+  "io.cozy.bank.recurrence": [
+    {
+      "_id": "recurrence-salaire-isa",
+      "demo": true,
+      "categoryId": "200110",
+      "manualLabel": "Salaire",
+      "automaticLabel": "Salaire",
+      "amount": 3870.54
+    },
+    {
+      "_id": "recurrence-bouygues-isa",
+      "demo": true,
+      "categoryId": "200110",
+      "manualLabel": "Bouygues",
+      "automaticLabel": "Bouygues Telecom",
+      "amount": -44.9
     }
   ]
 }

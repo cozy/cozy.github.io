@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { withRouter, Link } from 'react-router'
 import cx from 'classnames'
 
@@ -26,6 +26,9 @@ import BackButton from 'components/BackButton'
 import PageTitle from 'components/Title/PageTitle'
 import { Figure } from 'components/Figure'
 
+import frLocale from 'date-fns/locale/fr'
+import enLocale from 'date-fns/locale/en'
+
 import styles from './styles.styl'
 import {
   getFrequency,
@@ -46,6 +49,24 @@ const BundleFrequency = ({ bundle }) => {
   )
 }
 
+const dateFnsLocales = {
+  en: enLocale,
+  fr: frLocale
+}
+
+const BundleDistance = ({ bundle }) => {
+  const { lang } = useI18n()
+  const d = useMemo(
+    () =>
+      distanceInWords(Date.now(), bundle.latestDate, {
+        addSuffix: true,
+        locale: dateFnsLocales[lang]
+      }),
+    [bundle, lang]
+  )
+  return <>{d}</>
+}
+
 const BundleMobileRow = withRouter(({ bundle, router }) => {
   const catId = getCategories(bundle)[0]
   return (
@@ -57,7 +78,7 @@ const BundleMobileRow = withRouter(({ bundle, router }) => {
       primaryText={getLabel(bundle)}
       secondaryText={
         <>
-          {distanceInWords(Date.now(), bundle.latestDate)} -{' '}
+          <BundleDistance bundle={bundle} /> -{' '}
           <BundleFrequency bundle={bundle} />
         </>
       }
@@ -73,7 +94,7 @@ const BundleAmount = ({ bundle }) => {
 }
 
 const BundleDesktopRow = withRouter(({ bundle, router }) => {
-  const catId = bundle.categoryId.split(' / ')[0]
+  const catId = getCategories(bundle)[0]
   return (
     <tr
       className="u-c-pointer"
@@ -88,7 +109,7 @@ const BundleDesktopRow = withRouter(({ bundle, router }) => {
         </Media>
       </td>
       <TdSecondary className={styles.ColumnSizeLastOccurence}>
-        {distanceInWords(Date.now(), bundle.latestDate)}
+        <BundleDistance bundle={bundle} />
       </TdSecondary>
       <TdSecondary className={styles.ColumnSizeFrequency}>
         <BundleFrequency bundle={bundle} />

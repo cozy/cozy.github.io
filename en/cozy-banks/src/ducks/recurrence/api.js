@@ -4,8 +4,8 @@ import omit from 'lodash/omit'
 import { dehydrate } from 'cozy-client'
 import maxBy from 'lodash/maxBy'
 import { getAutomaticLabelFromBundle } from './utils'
-
-const RECURRENCE_DOCTYPE = 'io.cozy.bank.recurrence'
+import { queryRecurrenceTransactions } from './queries'
+import { TRANSACTION_DOCTYPE, RECURRENCE_DOCTYPE } from 'doctypes'
 
 const addRelationship = (doc, relationshipName, definition) => {
   return set(doc, ['relationships', relationshipName], { data: definition })
@@ -45,6 +45,25 @@ export const resetBundles = async client => {
   const recurrenceCol = client.collection(RECURRENCE_DOCTYPE)
   const { data: serverBundles } = await recurrenceCol.all()
   await recurrenceCol.destroyAll(serverBundles)
+}
+
+const setTransactionAsUnrecurrent = transaction =>
+  addRelationship(transaction, 'recurrence', {
+    _id: NOT_RECURRENT_ID,
+    _type: RECURRENCE_DOCTYPE
+  })
+
+export const NOT_RECURRENT_ID = 'not-recurrent'
+
+export const deleteRecurrence = async (client, recurrence) => {
+  const opCollection = client.collection(TRANSACTION_DOCTYPE)
+  const { data: ops } = await client.query(
+    queryRecurrenceTransactions(recurrence)
+  )
+  await opCollection.updateAll(
+    ops.map(op => setTransactionAsUnrecurrent(omit(op, '_type')))
+  )
+  await client.destroy(recurrence)
 }
 
 export const renameRecurrenceManually = async (

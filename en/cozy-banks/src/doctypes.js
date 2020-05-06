@@ -194,21 +194,6 @@ export const triggersConn = {
   as: 'triggers'
 }
 
-export const bundleTransactionsQueryConn = ({ bundle }) => {
-  return {
-    query: () =>
-      Q(TRANSACTION_DOCTYPE)
-        .where({
-          'relationships.recurrence.data._id': bundle._id
-        })
-        .UNSAFE_noLimit()
-        .sortBy([{ date: 'desc' }])
-        .include(['bills', 'account', 'reimbursements', 'recurrence']),
-    as: `bundle-transactions-${bundle._id}`,
-    fetchPolicy: older30s
-  }
-}
-
 export const transactionsConn = {
   query: () =>
     Q(TRANSACTION_DOCTYPE)

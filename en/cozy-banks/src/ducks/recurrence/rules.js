@@ -6,6 +6,7 @@ import isArray from 'lodash/isArray'
 import unique from 'lodash/uniq'
 import isString from 'lodash/isString'
 import compose from 'lodash/flowRight'
+import some from 'lodash/some'
 
 const ONE_DAY = 86400 * 1000
 
@@ -118,8 +119,8 @@ export const findRecurringBundles = (operations, rules) => {
   let bundles = Object.entries(groups).map(([key, ops]) => {
     const [categoryId, amount] = key.split('/')
     return {
-      categoryId,
-      amount,
+      categoryIds: [categoryId],
+      amounts: [parseInt(amount, 10)],
       key,
       ops
     }
@@ -154,7 +155,7 @@ export const sameFirstLabel = bundle => {
 
 export const categoryShouldBeSet = () =>
   function categoryShouldBeSet(bundle) {
-    return bundle.categoryId !== '0'
+    return bundle.categoryIds[0] !== '0'
   }
 
 export const bundleSizeShouldBeMoreThan = n =>
@@ -162,10 +163,10 @@ export const bundleSizeShouldBeMoreThan = n =>
     return bundle.ops.length > n
   }
 
-export const amountShouldBeMoreThan = amount =>
-  function amountShouldBeMoreThan(bundle) {
-    return Math.abs(bundle.amount) > amount
-  }
+export const amountShouldBeMoreThan = amount => {
+  const condition = bundleAmount => Math.abs(bundleAmount) > amount
+  return bundle => some(bundle.amounts, condition)
+}
 
 export const deltaMeanSuperiorTo = n =>
   function deltaMeanSuperiorTo(bundle) {
