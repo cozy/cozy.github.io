@@ -3,7 +3,9 @@ import { withRouter, Link } from 'react-router'
 import cx from 'classnames'
 
 import { useQuery } from 'cozy-client'
+import { ButtonLink } from 'cozy-ui/transpiled/react/Button'
 import CompositeRow from 'cozy-ui/transpiled/react/CompositeRow'
+import Empty from 'cozy-ui/transpiled/react/Empty'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Breadcrumbs from 'cozy-ui/transpiled/react/Breadcrumbs'
@@ -24,7 +26,7 @@ import Table from 'components/Table'
 import Header from 'components/Header'
 import BackButton from 'components/BackButton'
 import PageTitle from 'components/Title/PageTitle'
-import { Figure } from 'components/Figure'
+import Figure from 'cozy-ui/transpiled/react/Figure'
 
 import frLocale from 'date-fns/locale/fr'
 import enLocale from 'date-fns/locale/en'
@@ -37,6 +39,8 @@ import {
   getLabel,
   getCategories
 } from './utils'
+
+import withError from 'components/withError'
 
 const BundleFrequency = ({ bundle }) => {
   const { t } = useI18n()
@@ -208,16 +212,41 @@ const RecurrencesPage = ({ router }) => {
         <Padded>
           <Loading />
         </Padded>
-      ) : null}
-      <BundlesWrapper>
-        {bundles
-          ? bundles.map(bundle => (
-              <BundleRow key={bundle._id} bundle={bundle} />
-            ))
-          : null}
-      </BundlesWrapper>
+      ) : bundles && bundles.length > 0 ? (
+        <BundlesWrapper>
+          {bundles.map(bundle => (
+            <BundleRow key={bundle._id} bundle={bundle} />
+          ))}
+        </BundlesWrapper>
+      ) : (
+        <Padded>
+          <Empty
+            icon={{}}
+            title={t('Recurrence.no-recurrences.title')}
+            text={t('Recurrence.no-recurrences.text')}
+          />
+        </Padded>
+      )}
     </>
   )
 }
 
-export default withRouter(RecurrencesPage)
+const RecurrenceError = ({ error }) => {
+  const { t } = useI18n()
+
+  return (
+    <Padded>
+      <p>{t('Recurrence.display-error')}</p>
+      <ButtonLink
+        href="#/recurrencedebug"
+        label={t('Recurrence.go-to-debug-page')}
+      />
+      <pre>
+        {error.message}
+        {error.stack}
+      </pre>
+    </Padded>
+  )
+}
+
+export default withError(withRouter(RecurrencesPage), RecurrenceError)

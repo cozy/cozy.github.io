@@ -16,7 +16,7 @@ import {
 import AddAccountButton from 'ducks/categories/AddAccountButton'
 import { List, Row } from 'components/List'
 import PageTitle from 'components/Title/PageTitle'
-import Figure from 'components/Figure'
+import Figure from 'cozy-ui/transpiled/react/Figure'
 import AccountIcon from 'components/AccountIcon'
 
 import Title from './Title'

@@ -4,7 +4,7 @@
 
 import Handlebars from 'handlebars'
 import { parse, format } from 'date-fns'
-import { getCategoryId } from 'ducks/categories/helpers'
+import { getCategoryId } from 'ducks/transactions/helpers'
 import { getAccountBalance } from 'ducks/account/helpers'
 import { getParentCategory } from 'ducks/categories/categoriesMap'
 import { treatedByFormat } from './utils'

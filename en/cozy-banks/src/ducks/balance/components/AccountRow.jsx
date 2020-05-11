@@ -8,7 +8,7 @@ import Icon from 'cozy-ui/transpiled/react/Icon'
 import cx from 'classnames'
 import { get, flowRight as compose } from 'lodash'
 import Switch from 'components/Switch'
-import { Figure } from 'components/Figure'
+import Figure from 'cozy-ui/transpiled/react/Figure'
 import {
   getAccountLabel,
   getAccountUpdatedAt,

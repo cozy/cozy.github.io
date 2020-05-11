@@ -2438,6 +2438,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#recurrences" title="Recurrences" class="md-nav__link">
+    Recurrences
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#developing" title="Developing" class="md-nav__link">
     Developing
   </a>
@@ -2540,6 +2547,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#recurrences" title="Recurrences" class="md-nav__link">
+    Recurrences
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#developing" title="Developing" class="md-nav__link">
     Developing
   </a>
@@ -2566,6 +2580,8 @@
                 
                 
                 <h1 id="services">Services<a class="headerlink" href="#services" title="Permanent link">&para;</a></h1>
+<p>This document describes services running as part of the
+Banks application.</p>
 <!-- MarkdownTOC autolink=true -->
 
 <ul>
@@ -2575,17 +2591,11 @@
 <li><a href="#automatic-groups">Automatic groups</a></li>
 <li><a href="#budget-alerts">Budget alerts</a></li>
 <li><a href="#i-am-writing-a-banking-konnector-what-should-i-do">I am writing a banking konnector, what should I do?</a></li>
+<li><a href="#recurrences">Recurrences</a></li>
 <li><a href="#developing">Developing</a></li>
 </ul>
 <!-- /MarkdownTOC -->
 
-<p>Banks exposes the following services:</p>
-<ul>
-<li><a href="#categorization">categorization</a></li>
-<li><a href="#onoperationorbillcreate">onOperationOrBillCreate</a></li>
-<li><a href="#stats">Account stats</a></li>
-<li><a href="#goups">Automatic groups</a></li>
-</ul>
 <h2 id="categorization">Categorization<a class="headerlink" href="#categorization" title="Permanent link">&para;</a></h2>
 <p>This service role is to categorize transactions. It is bound to no event at
 all, so it&rsquo;s not automatically triggered and needs to be explicitly called by a
@@ -2664,6 +2674,11 @@ following permission to your <code>manifest.konnector</code>:</p>
 
 <p>With this, the transactions you created will be categorized, then the
 <code>onOperationOrBillCreate</code> service will be launched and do its work.</p>
+<h2 id="recurrences">Recurrences<a class="headerlink" href="#recurrences" title="Permanent link">&para;</a></h2>
+<p>A service tries to find recurrence groups when new operations are inserted
+in the Cozy. It either creates new recurrence groups or attaches transactions
+to existing recurrence groups.</p>
+<p>See Paper &ldquo;Paiements recurrents&rdquo; for more information on the service.</p>
 <h2 id="developing">Developing<a class="headerlink" href="#developing" title="Permanent link">&para;</a></h2>
 <p>You can manually create an app token and launch the built service.</p>
 <div class="codehilite"><pre><span></span># Watch services

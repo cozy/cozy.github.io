@@ -9,7 +9,8 @@ import {
 } from 'ducks/stats/services'
 import { Settings } from 'models'
 import flag from 'cozy-flags'
-import { getCategoryId, getCategoryIdFromName } from 'ducks/categories/helpers'
+import { getCategoryIdFromName } from 'ducks/categories/helpers'
+import { getCategoryId } from 'ducks/transactions/helpers'
 import { runService } from './service'
 
 const log = logger.namespace('stats')

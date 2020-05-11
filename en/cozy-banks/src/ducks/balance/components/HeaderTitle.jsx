@@ -2,7 +2,7 @@ import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import styles from 'ducks/balance/components/HeaderTitle.styl'
-import { Figure } from 'components/Figure'
+import Figure from 'cozy-ui/transpiled/react/Figure'
 
 const HeaderTitle = ({ balance, subtitle, onClickBalance, className }) => (
   <div className={cx(styles.HeaderTitle, className)}>

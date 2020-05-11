@@ -185,7 +185,7 @@ module.exports = {
     }
   },
   styleguideComponents: {
-    SectionsRenderer: path.join(__dirname, 'IconSpriteInjector.jsx')
+    SectionsRenderer: path.join(__dirname, 'components/SectionsRenderer.jsx'),
   },
   theme: {
     fontFamily: {

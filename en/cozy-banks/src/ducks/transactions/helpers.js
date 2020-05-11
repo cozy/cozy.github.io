@@ -8,6 +8,7 @@ import {
   isHealthExpense,
   isProfessionalExpense
 } from 'ducks/categories/helpers'
+export { default as getCategoryId } from './getCategoryId'
 
 const prevRecurRx = /\bPRLV SEPA RECU RCUR\b/
 const longNumber = /\b\d{5,}\b/g

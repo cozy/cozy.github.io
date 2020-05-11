@@ -23,13 +23,13 @@ import {
 import { withRouter, Link } from 'react-router'
 import ModalStack from 'components/ModalStack'
 
-import { Figure } from 'components/Figure'
+import Figure from 'cozy-ui/transpiled/react/Figure'
 import { PageModal } from 'components/PageModal'
 import { PageHeader, PageBackButton } from 'components/PageModal/Page'
 
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { getCategoryName } from 'ducks/categories/categoriesMap'
-import { getCategoryId } from 'ducks/categories/helpers'
+import { getCategoryId } from 'ducks/transactions/helpers'
 
 import { getLabel } from 'ducks/transactions'
 import TransactionActions from 'ducks/transactions/TransactionActions'

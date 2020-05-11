@@ -8,6 +8,13 @@ export const queryRecurrenceTransactions = recurrence =>
     'relationships.recurrence.data._id': recurrence._id
   })
 
+export const queryRecurrencesTransactions = recurrences =>
+  Q(TRANSACTION_DOCTYPE).where({
+    'relationships.recurrence.data._id': {
+      $in: recurrences.map(x => x._id)
+    }
+  })
+
 export const bundleTransactionsQueryConn = ({ bundle }) => {
   return {
     query: () =>

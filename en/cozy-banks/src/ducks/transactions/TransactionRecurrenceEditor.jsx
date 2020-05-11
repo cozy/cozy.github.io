@@ -8,18 +8,19 @@ import { updateTransactionRecurrence } from 'ducks/transactions/helpers'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { RECURRENCE_DOCTYPE } from 'doctypes'
 import styles from './TransactionRecurrenceEditor.styl'
+import { getCategories } from 'ducks/recurrence/utils'
 
 const makeOptionFromRecurrence = rec => {
   return {
     _id: rec._id,
     _type: RECURRENCE_DOCTYPE,
     title: getLabel(rec),
-    icon: <CategoryIcon categoryId={rec.categoryId} />
+    icon: <CategoryIcon categoryId={getCategories(rec)[0]} />
   }
 }
 
 const NewRecurrenceIcon = () => {
-  return <Icon icon="plus" className={styles.NewRecurrenceIcon} />
+  return <Icon icon="plus" className={styles.FakeCategoryIcon} />
 }
 
 const makeNewRecurrenceOption = t => {

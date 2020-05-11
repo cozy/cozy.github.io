@@ -1,33 +1,29 @@
 import React, { useState, useMemo, useCallback } from 'react'
-import { useQuery } from 'cozy-client'
-import { transactionsConn } from 'doctypes'
-import {
-  findRecurringBundles,
-  getRulesFromConfig,
-  rulesPerName,
-  groupBundles,
-  sameFirstLabel,
-  addStats
-} from './rules'
-import { getAutomaticLabelFromBundle } from './utils'
-import Card from 'cozy-ui/transpiled/react/Card'
-import { Caption, SubTitle } from 'cozy-ui/transpiled/react/Text'
-import { Padded } from 'components/Spacing'
+
 import setWith from 'lodash/setWith'
 import sortBy from 'lodash/sortBy'
 import clone from 'lodash/clone'
-import tree from 'ducks/categories/tree'
-import defaultConfig from './config.json'
-import maxBy from 'lodash/maxBy'
-import minBy from 'lodash/minBy'
-import { useClient } from 'cozy-client'
-import { saveBundles, resetBundles } from './api'
-import RulesDetails from './RulesDetails'
-import DateSlider from './DateSlider'
-import useStickyState from './useStickyState'
+import groupBy from 'lodash/groupBy'
+
+import { useQuery, useClient } from 'cozy-client'
+import Card from 'cozy-ui/transpiled/react/Card'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import Button from 'cozy-ui/transpiled/react/Button'
+import { Caption, SubTitle } from 'cozy-ui/transpiled/react/Text'
+
 import Loading from 'components/Loading/Loading'
+import { Padded } from 'components/Spacing'
+import { transactionsConn } from 'doctypes'
+import tree from 'ducks/categories/tree'
+
+import defaultConfig from './config.json'
+import { saveHydratedBundles, resetBundles } from './api'
+import RulesDetails from './RulesDetails'
+import DateSlider from './DateSlider'
+import { getRulesFromConfig, rulesPerName } from './rules'
+import { getAutomaticLabelFromBundle } from './utils'
+import { findRecurrences, updateRecurrences } from './search'
+import useStickyState from './useStickyState'
 
 const immutableSet = (object, path, value) => {
   return setWith(clone(object), path, value, clone)
@@ -185,32 +181,6 @@ const RecurrenceBundle = ({ bundle }) => {
   )
 }
 
-const ONE_DAY = 86400 * 1000
-
-const updateBundles = (bundles, newTransactions, rules) => {
-  if (!newTransactions.length) {
-    return bundles
-  }
-  const maxDate = new Date(maxBy(newTransactions, 'date').date)
-  const minDate = new Date(minBy(newTransactions, 'date').date)
-  const dateSpan = (maxDate - minDate) / ONE_DAY
-
-  let updatedBundles
-
-  if (dateSpan > 90 && newTransactions.length > 100) {
-    const newBundles = findRecurringBundles(newTransactions, rules)
-    const allBundles = [...bundles, ...newBundles]
-    updatedBundles = groupBundles(allBundles, sameFirstLabel)
-  } else {
-    const newBundles = newTransactions.map(t => ({ ops: [t] }))
-    const allBundles = [...bundles, ...newBundles]
-    updatedBundles = groupBundles(allBundles, sameFirstLabel)
-  }
-
-  updatedBundles = bundles.map(addStats)
-  return updatedBundles
-}
-
 const makeTextFilter = (searchStr, accessor) => {
   const lw = searchStr.toLowerCase()
   return item => {
@@ -265,10 +235,10 @@ const RecurrencePage = () => {
     [transactions, bundlesDate]
   )
 
-  const bundles = useMemo(
-    () => findRecurringBundles(bundlesTransactions, rules),
-    [bundlesTransactions, rules]
-  )
+  const bundles = useMemo(() => findRecurrences(bundlesTransactions, rules), [
+    bundlesTransactions,
+    rules
+  ])
 
   const newTransactions = useMemo(
     () =>
@@ -285,10 +255,16 @@ const RecurrencePage = () => {
     'banks.recurrence.bundleFilter'
   )
 
-  const updatedBundles = useMemo(
-    () => updateBundles(bundles, newTransactions, rules),
-    [bundles, newTransactions, rules]
-  )
+  const updatedBundles = useMemo(() => {
+    let curBundles = bundles
+    const byDay = groupBy(newTransactions, x => x.date.slice(0, 10))
+    const days = sortBy(Object.keys(byDay), x => x)
+    for (let day of days) {
+      const newTransactionsOfDay = byDay[day]
+      curBundles = updateRecurrences(bundles, newTransactionsOfDay, rules)
+    }
+    return curBundles
+  }, [bundles, newTransactions, rules])
 
   const finalBundles = useMemo(() => {
     const filteredBundles = updatedBundles.filter(
@@ -306,7 +282,7 @@ const RecurrencePage = () => {
     async function() {
       setSavingBundles(true)
       try {
-        await saveBundles(client, finalBundles)
+        await saveHydratedBundles(client, finalBundles)
       } catch (error) {
         Alerter.error(error.message)
       } finally {

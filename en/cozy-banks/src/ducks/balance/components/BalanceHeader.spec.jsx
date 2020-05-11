@@ -1,7 +1,7 @@
 /* global mount */
 
 import React from 'react'
-import { Figure } from 'components/Figure'
+import Figure from 'cozy-ui/transpiled/react/Figure'
 import { DumbBalanceHeader } from './BalanceHeader'
 import AppLike from 'test/AppLike'
 

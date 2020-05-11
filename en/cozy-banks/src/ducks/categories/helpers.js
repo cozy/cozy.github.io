@@ -1,11 +1,10 @@
-import flag from 'cozy-flags'
 import parentCategory from 'ducks/categories/categoriesMap'
 import {
   categoriesStyle,
   getCategoryIdFromName
 } from 'ducks/categories/categoriesMap'
 import categoryNames from 'ducks/categories/tree'
-import { BankTransaction } from 'cozy-doctypes'
+import getCategoryId from 'ducks/transactions/getCategoryId'
 
 export const getParent = parentCategory.get.bind(parentCategory)
 
@@ -57,17 +56,6 @@ export const getTransactionsByCategory = transactions => {
   }
 
   return categories
-}
-
-/**
- * Return the category id of the transaction
- * @param {Object} transaction
- * @return {String|null} A category id or null if the transaction has not been categorized yet
- */
-export const getCategoryId = transaction => {
-  const localModelOverride = flag('local-model-override')
-
-  return BankTransaction.getCategoryId(transaction, { localModelOverride })
 }
 
 export const getParentCategory = transaction => {

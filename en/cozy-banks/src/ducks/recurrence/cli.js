@@ -1,30 +1,42 @@
-/* eslint-disable no-console */
+import 'module-alias/register'
 import fs from 'fs'
-import { ArgumentParser } from 'argparse'
-import { findRecurringBundles, getRulesFromConfig } from './rules'
-import defaultConfig from './config.json'
+import path from 'path'
 
-const loadOperations = filename => {
-  const file = fs.readFileSync(filename)
-  return JSON.parse(file)['io.cozy.bank.operations']
+/* eslint-disable no-console */
+import { ArgumentParser } from 'argparse'
+import { createClientInteractive } from 'cozy-client/dist/cli'
+import { doRecurrenceMatching } from './service'
+global.__POUCH__ = false
+global.__DEV__ = false
+
+export const getScope = m => {
+  if (m.permissions === undefined) {
+    throw new Error(`Your manifest must have a 'permissions' key.`)
+  }
+
+  return Object.keys(m.permissions).map(permission => {
+    const { type /*, verbs, selector, values*/ } = m.permissions[permission]
+
+    return type
+  })
 }
 
-const rules = getRulesFromConfig(defaultConfig)
+const manifest = JSON.parse(
+  fs.readFileSync(path.join(__dirname, '../../../manifest.webapp'))
+)
 
 const main = async () => {
-  const parser = ArgumentParser({
-    description: 'Finds recurring bundles in operations'
-  })
-  parser.addArgument('filename', {
-    help: 'ACH file containing io.cozy.bank.operations'
-  })
+  const parser = new ArgumentParser()
+  parser.addArgument('--url', { defaultValue: 'http://cozy.tools:8080' })
   const args = parser.parseArgs()
-  const operations = loadOperations(args.filename)
-  const bundles = findRecurringBundles(operations, rules)
-  for (let bundle of bundles) {
-    console.log({ categoryId: bundle.categoryId, amount: bundle.amount })
-    bundle.ops.forEach(op => console.log(op.label))
-  }
+  const client = await createClientInteractive({
+    uri: args.url,
+    scope: getScope(manifest),
+    oauth: {
+      softwareID: 'banks.recurrence-cli'
+    }
+  })
+  await doRecurrenceMatching(client)
 }
 
 if (require.main === module) {

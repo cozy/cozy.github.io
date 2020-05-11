@@ -5,7 +5,6 @@ import AppLike from 'test/AppLike'
 import { createMockClient } from 'cozy-client/dist/mock'
 import fixtures from 'test/fixtures/unit-tests.json'
 import { schema, TRANSACTION_DOCTYPE, RECURRENCE_DOCTYPE } from 'doctypes'
-import Radio from 'cozy-ui/transpiled/react/Radio'
 import { findOptions } from 'cozy-ui/transpiled/react/NestedSelect/testing'
 
 describe('transaction recurrence editor', () => {
@@ -51,11 +50,9 @@ describe('transaction recurrence editor', () => {
     expect(optionTexts[0]).toContain('Occasional transaction')
     expect(optionTexts[1]).toContain('Recurrent transaction')
     expect(optionTexts[1]).toContain('Salaire')
-    expect(
-      options
-        .at(1)
-        .find(Radio)
-        .props().checked
-    ).toBe(true)
+
+    const recurrentOption = options.at(1)
+    const recurrentOptionProps = recurrentOption.props()
+    expect(recurrentOptionProps.isSelected).toBe(true)
   })
 })

@@ -7,7 +7,7 @@ import Chip from 'cozy-ui/transpiled/react/Chip'
 import flag from 'cozy-flags'
 import FileOpener from 'ducks/transactions/FileOpener'
 import FileIcon from 'ducks/transactions/actions/AttachedDocsAction/FileIcon'
-import { Figure } from 'components/Figure'
+import Figure from 'cozy-ui/transpiled/react/Figure'
 import { AugmentedModalOpener, isAugmentedModalBill } from 'ducks/demo'
 import { getBrands } from 'ducks/brandDictionary'
 

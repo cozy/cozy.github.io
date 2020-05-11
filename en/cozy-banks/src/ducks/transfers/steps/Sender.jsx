@@ -11,7 +11,7 @@ import {
 } from 'cozy-ui/transpiled/react'
 import { List, Row } from 'components/List'
 import PageTitle from 'components/Title/PageTitle'
-import Figure from 'components/Figure'
+import Figure from 'cozy-ui/transpiled/react/Figure'
 import AccountIcon from 'components/AccountIcon'
 
 import Title from 'ducks/transfers/steps/Title'

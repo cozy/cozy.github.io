@@ -3,15 +3,54 @@ import flatten from 'lodash/flatten'
 import omit from 'lodash/omit'
 import { dehydrate } from 'cozy-client'
 import maxBy from 'lodash/maxBy'
+import get from 'lodash/get'
+import groupBy from 'lodash/groupBy'
 import { getAutomaticLabelFromBundle } from './utils'
-import { queryRecurrenceTransactions } from './queries'
+import {
+  queryRecurrenceTransactions,
+  queryRecurrencesTransactions
+} from './queries'
 import { TRANSACTION_DOCTYPE, RECURRENCE_DOCTYPE } from 'doctypes'
 
 const addRelationship = (doc, relationshipName, definition) => {
   return set(doc, ['relationships', relationshipName], { data: definition })
 }
 
-export const saveBundles = async (client, recurrenceClientBundles) => {
+const getRecurrenceIdFromRawTransaction = tr =>
+  get(tr, 'relationships.recurrence.data._id', null)
+
+/**
+ * Fetch bundles and associated transactions from CouchDB
+ * Returns "hydrated" bundles with an `ops` field containing all its transactions
+ *
+ * @param  {CozyClient} client
+ * @return {Promise<HydratedRecurrences>}
+ */
+export const fetchHydratedBundles = async client => {
+  const recurrenceCol = client.collection(RECURRENCE_DOCTYPE)
+  const { data: recurrences } = await recurrenceCol.all()
+  const { data: transactions } = await client.query(
+    queryRecurrencesTransactions(recurrences)
+  )
+  const byRecurrence = groupBy(transactions, getRecurrenceIdFromRawTransaction)
+  return recurrences.map(rec => ({
+    ...rec,
+    ops: byRecurrence[rec._id] || []
+  }))
+}
+
+/**
+ * Saves recurrence bundles and update related transactions
+ *
+ * Recurrence bundles here are "hydrated" with an `ops` attribute with
+ * all its operations. In CouchDB, the `ops` field is not present, the
+ * transactions have a HasOne relationship to the bundle.
+ *
+ * @param  {CozyClient} client
+ * @param  {HydratedRecurrence} recurrences - Bundles with `ops` attributes
+ * @return {Promise}
+ */
+export const saveHydratedBundles = async (client, recurrenceClientBundles) => {
   const recurrenceCol = client.collection(RECURRENCE_DOCTYPE)
   const saveBundlesResp = await recurrenceCol.updateAll(
     recurrenceClientBundles.map(bundle => {

@@ -1,8 +1,10 @@
 import startCase from 'lodash/startCase'
 import maxBy from 'lodash/maxBy'
 import groupBy from 'lodash/groupBy'
-import { getLabel as getTransactionLabel } from 'ducks/transactions/helpers'
-import { getCategoryId } from 'ducks/categories/helpers'
+import {
+  getCategoryId,
+  getLabel as getTransactionLabel
+} from 'ducks/transactions/helpers'
 
 const RECURRENCE_DOCTYPE = 'io.cozy.bank.recurrence'
 

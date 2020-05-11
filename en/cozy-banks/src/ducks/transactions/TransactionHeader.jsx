@@ -6,6 +6,7 @@ import { translate, withBreakpoints, useI18n } from 'cozy-ui/transpiled/react'
 import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
 import cx from 'classnames'
 
+import AnalysisTabs from 'ducks/analysis/AnalysisTabs'
 import Breadcrumb from 'cozy-ui/transpiled/react/Breadcrumbs'
 import { ConnectedSelectDates } from 'components/SelectDates'
 import { BalanceDetailsHeader } from 'ducks/balance'
@@ -114,7 +115,13 @@ class TransactionHeader extends Component {
 
     return (
       <BalanceDetailsHeader small={isSubcategory} showBalance={showBalance}>
-        {!isSubcategory && this.renderBalanceHistory()}
+        {isSubcategory ? (
+          isMobile ? (
+            <AnalysisTabs />
+          ) : null
+        ) : (
+          this.renderBalanceHistory()
+        )}
         <Padded
           className={cx(
             {

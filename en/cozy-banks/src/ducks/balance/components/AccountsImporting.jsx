@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import { useI18n } from 'cozy-ui/transpiled/react'
 
-import { Figure } from 'components/Figure'
+import Figure from 'cozy-ui/transpiled/react/Figure'
 import Header from 'components/Header'
 import { Padded } from 'components/Spacing'
 import VerticalBox from 'components/VerticalBox'

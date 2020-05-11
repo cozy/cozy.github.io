@@ -1,6 +1,6 @@
 import logger from 'cozy-logger'
 import { TRANSACTION_DOCTYPE, ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
-import { getCategoryId } from 'ducks/categories/helpers'
+import { getCategoryId } from 'ducks/transactions/helpers'
 import { isParentOf } from 'ducks/categories/categoriesMap'
 import sumBy from 'lodash/sumBy'
 import { fetchCategoryAlerts } from 'ducks/settings/helpers'

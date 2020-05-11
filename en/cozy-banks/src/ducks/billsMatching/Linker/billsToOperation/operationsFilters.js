@@ -1,7 +1,7 @@
 const sumBy = require('lodash/sumBy')
 const isWithinRange = require('date-fns/is_within_range')
 const { log } = require('../../utils')
-const { getCategoryId } = require('../../../categories/helpers')
+const { getCategoryId } = require('../../../transactions/helpers')
 
 const {
   getDateRangeFromBill,

@@ -12,6 +12,7 @@ import Field from 'cozy-ui/transpiled/react/Field'
 import { Media, Img, Bd } from 'cozy-ui/transpiled/react/Media'
 import { SubTitle, Caption } from 'cozy-ui/transpiled/react/Text'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import Empty from 'cozy-ui/transpiled/react/Empty'
 import Breadcrumbs from 'cozy-ui/transpiled/react/Breadcrumbs'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
@@ -49,6 +50,7 @@ import {
 } from 'cozy-ui/transpiled/react/ActionMenu'
 import styles from './styles.styl'
 import * as List from 'components/List'
+import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 
 const useDocument = (doctype, id) => {
   const client = useClient()
@@ -393,14 +395,14 @@ const BundleTransactionMobile = ({ transaction }) => {
 const BundleTransactions = ({ bundle }) => {
   const transactionsConn = bundleTransactionsQueryConn({ bundle })
   const { isMobile } = useBreakpoints()
-  const { data: transactions } = useQuery(
-    transactionsConn.query,
-    transactionsConn
-  )
+  const { t } = useI18n()
+  const transactionCol = useQuery(transactionsConn.query, transactionsConn)
 
-  if (!transactions) {
-    return null
+  if (isCollectionLoading(transactionCol) && !hasBeenLoaded(transactionCol)) {
+    return <Loading />
   }
+
+  const transactions = transactionCol.data
 
   const TransactionRow = isMobile
     ? BundleTransactionMobile
@@ -410,6 +412,15 @@ const BundleTransactions = ({ bundle }) => {
   return (
     <>
       <Wrapper>
+        {transactions.length === 0 ? (
+          <Padded>
+            <Empty
+              icon={{}}
+              title={t('Recurrence.no-transactions.title')}
+              text={t('Recurrence.no-transactions.text')}
+            />
+          </Padded>
+        ) : null}
         {transactions.map(tr => (
           <TransactionRow
             showRecurrence={false}
@@ -423,15 +434,12 @@ const BundleTransactions = ({ bundle }) => {
 }
 
 const RecurrenceBundlePage = ({ params }) => {
-  const { data: bundles, fetchStatus } = useQuery(
-    recurrenceConn.query,
-    recurrenceConn
-  )
+  const recurrenceCol = useQuery(recurrenceConn.query, recurrenceConn)
 
   const bundleId = params.bundleId
   const bundle = useDocument(RECURRENCE_DOCTYPE, bundleId)
 
-  if (fetchStatus === 'loading' && !bundles) {
+  if (isCollectionLoading(recurrenceCol) && !hasBeenLoaded(recurrenceCol)) {
     return <Loading />
   }
 

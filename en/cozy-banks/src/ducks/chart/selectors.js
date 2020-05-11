@@ -11,7 +11,7 @@ import {
   getFilteredAccounts
 } from 'ducks/filters'
 
-import { getCategoryId } from 'ducks/categories/helpers'
+import { getCategoryId } from 'ducks/transactions/helpers'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { createSelector } from 'reselect'
 

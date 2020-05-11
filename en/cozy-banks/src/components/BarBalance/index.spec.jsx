@@ -2,7 +2,7 @@
 
 import React from 'react'
 import BarBalance from '.'
-import { Figure } from 'components/Figure'
+import Figure from 'cozy-ui/transpiled/react/Figure'
 import data from '../../../test/fixtures'
 
 describe('BarBalance', () => {

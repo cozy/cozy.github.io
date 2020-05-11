@@ -1,18 +1,22 @@
+import get from 'lodash/get'
+import set from 'lodash/set'
+
 import CozyClient from 'cozy-client'
 import { cozyClient } from 'cozy-konnector-libs'
 import logger from 'cozy-logger'
 import flag from 'cozy-flags'
-import { sendNotifications } from 'ducks/notifications/services'
 import { Document } from 'cozy-doctypes'
-import { Transaction, Bill, Settings } from 'models'
-import isCreatedDoc from 'utils/isCreatedDoc'
+
+import { sendNotifications } from 'ducks/notifications/services'
 import matchFromBills from 'ducks/billsMatching/matchFromBills'
 import matchFromTransactions from 'ducks/billsMatching/matchFromTransactions'
 import { logResult } from 'ducks/billsMatching/utils'
+import { doRecurrenceMatching } from 'ducks/recurrence/service'
+
+import { Transaction, Bill, Settings } from 'models'
+import isCreatedDoc from 'utils/isCreatedDoc'
 import { findAppSuggestions } from 'ducks/appSuggestions/services'
 import { fetchChangesOrAll, getOptions } from './helpers'
-import get from 'lodash/get'
-import set from 'lodash/set'
 import assert from '../../utils/assert'
 
 const log = logger.namespace('onOperationOrBillCreate')
@@ -164,6 +168,12 @@ const onOperationOrBillCreate = async (client, options) => {
   if (options.transactionsMatching !== false) {
     await doTransactionsMatching(setting, options.transactionsMatching)
     setting = await updateSettings(setting)
+  } else {
+    log('info', 'Skip transactions matching')
+  }
+
+  if (options.recurrenceMatching !== false) {
+    await doRecurrenceMatching(client)
   } else {
     log('info', 'Skip transactions matching')
   }

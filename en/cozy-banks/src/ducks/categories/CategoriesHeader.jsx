@@ -114,7 +114,6 @@ class CategoriesHeader extends PureComponent {
     const hasData =
       categories.length > 0 && categories[0].transactionsNumber > 0
     const showIncomeToggle = hasData && selectedCategory === undefined
-
     if (!showIncomeToggle) {
       return null
     }
@@ -139,10 +138,10 @@ class CategoriesHeader extends PureComponent {
     if (isFetching) {
       return null
     }
-    const className = hasAccount
-      ? undefined
-      : { className: styles.NoAccount_chart }
-
+    const className = cx(
+      hasAccount ? null : styles.NoAccount_chart,
+      selectedCategory ? styles.SubcategoryChart : null
+    )
     return (
       <CategoriesChart
         width={chartSize}
@@ -155,7 +154,7 @@ class CategoriesHeader extends PureComponent {
         currency={globalCurrency}
         label={t('Categories.title.total')}
         hasAccount={hasAccount}
-        {...className}
+        className={className}
       />
     )
   }
@@ -182,7 +181,12 @@ class CategoriesHeader extends PureComponent {
             {accountSwitch}
           </Header>
           {hasAccount ? (
-            <Header theme={isMobile ? 'normal' : 'primary'}>
+            <Header
+              className={cx(styles.CategoriesHeader, {
+                [styles.NoAccount]: !hasAccount
+              })}
+              theme={isMobile ? 'normal' : 'inverted'}
+            >
               <Padded>
                 {incomeToggle}
                 {chart}
@@ -213,7 +217,7 @@ class CategoriesHeader extends PureComponent {
                 <Padded className="u-ph-0 u-pt-0 u-pb-half">
                   {accountSwitch}
                 </Padded>
-                <Padded className="u-pv-1 u-ph-0">
+                <Padded className="u-ph-0 u-pv-1">
                   <SelectDates showFullYear />
                 </Padded>
                 {breadcrumbItems.length > 1 && (

@@ -1,12 +1,12 @@
 import React, { useMemo } from 'react'
 import Chart from 'ducks/categories/Chart'
 import styles from 'ducks/categories/CategoriesChart.styl'
-import FigureBlock from 'components/Figure/FigureBlock'
+import { FigureBlock } from 'cozy-ui/transpiled/react/Figure'
 import { sortBy } from 'lodash'
 import cx from 'classnames'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
+import CozyTheme, { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
 
 const hexToRGBA = (hex, a) => {
   const cutHex = hex.substring(1)
@@ -80,17 +80,19 @@ const CategoriesChart = props => {
         [className]: className
       })}
     >
-      <div className={styles.CategoriesChart__FigureBlockContainer}>
-        <FigureBlock
-          label={label}
-          total={total}
-          symbol={getCurrencySymbol(currency)}
-          signed
-          className={styles.CategoriesChart__FigureBlock}
-          figureClassName={styles.CategoriesChart__Figure}
-          withCurrencySpacing={false}
-        />
-      </div>
+      <CozyTheme variant="normal">
+        <div className={styles.CategoriesChart__FigureBlockContainer}>
+          <FigureBlock
+            label={label}
+            total={total}
+            symbol={getCurrencySymbol(currency)}
+            signed
+            className={styles.CategoriesChart__FigureBlock}
+            figureClassName={styles.CategoriesChart__Figure}
+            withCurrencySpacing={false}
+          />
+        </div>
+      </CozyTheme>
       {hasAccount && (
         <Chart
           labels={labels}
