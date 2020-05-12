@@ -13,12 +13,16 @@ import { getLabel } from './utils'
 import addDays from 'date-fns/add_days'
 
 const NB_MONTH_LOOKBACK = 3
+const DAYS_IN_MONTH = 30.5
 
 const makeQueryForTransactions = recurrences => {
   if (recurrences.length === 0) {
     return Q(TRANSACTION_DOCTYPE)
   } else {
-    const lookbackDateLimit = addDays(new Date(), -NB_MONTH_LOOKBACK * 30.5)
+    const lookbackDateLimit = addDays(
+      new Date(),
+      -NB_MONTH_LOOKBACK * DAYS_IN_MONTH
+    )
     const query = Q(TRANSACTION_DOCTYPE).where({
       date: {
         $gt: lookbackDateLimit.toISOString().slice(0, 10)
@@ -44,6 +48,12 @@ const logDifferences = (oldRecurrences, updatedRecurrences) => {
       'info',
       `${getLabel(existing)}: ${existing.ops.length} operations (+${existing.ops
         .length - oldById[id].ops.length})`
+    )
+  }
+  for (const rec of newRecurrences) {
+    log(
+      'info',
+      `${getLabel(rec)}: ${rec.ops.length} operations (+${rec.ops.length})`
     )
   }
 }

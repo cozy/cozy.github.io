@@ -6,6 +6,10 @@ import isArray from 'lodash/isArray'
 import isString from 'lodash/isString'
 import compose from 'lodash/flowRight'
 import some from 'lodash/some'
+import maxBy from 'lodash/maxBy'
+import uniq from 'lodash/uniq'
+import uniqBy from 'lodash/uniqBy'
+import getCategoryId from 'ducks/transactions/getCategoryId'
 
 const ONE_DAY = 86400 * 1000
 
@@ -67,8 +71,29 @@ export const overEvery = predicates => item => {
   return true
 }
 
-function customizer(objValue, srcValue) {
-  if (isString(objValue)) {
+const getTransactionDate = x => x.date
+
+export const mergeCategoryIds = (objValue, srcValue, key, obj, src) => {
+  // When merging two bundles, we put the most recent categoryId in front
+  const mostRecentObjOp = maxBy(obj.ops, getTransactionDate)
+  const mostRecentSrcOp = maxBy(src.ops, getTransactionDate)
+  const mostRecentOp = maxBy(
+    [mostRecentObjOp, mostRecentSrcOp],
+    getTransactionDate
+  )
+  const firstCat = getCategoryId(mostRecentOp)
+  const otherCats = uniq(
+    [...obj.categoryIds, ...src.categoryIds].filter(x => x !== firstCat)
+  )
+  return [firstCat, ...otherCats]
+}
+
+function customizer(objValue, srcValue, key, obj, src) {
+  if (key === 'categoryIds') {
+    return mergeCategoryIds(objValue, srcValue, key, obj, src)
+  } else if (key == 'ops') {
+    return uniqBy(objValue.concat(srcValue), x => x._id)
+  } else if (isString(objValue)) {
     return objValue
   } else if (isArray(objValue)) {
     return objValue.concat(srcValue)
@@ -77,7 +102,7 @@ function customizer(objValue, srcValue) {
   }
 }
 
-const mergeBundles = bundles => {
+export const mergeBundles = bundles => {
   if (bundles.length < 2) {
     return bundles[0]
   } else {

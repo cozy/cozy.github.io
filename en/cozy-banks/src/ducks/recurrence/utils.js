@@ -47,11 +47,11 @@ export const getFrequency = recurrence => {
 }
 
 export const getFrequencyText = (t, recurrence) => {
-  const frequency = getFrequency(recurrence)
+  const frequency = Math.floor(getFrequency(recurrence))
   const freqWord = getFrequencyWord(frequency)
   const text = freqWord
-    ? t(`Recurrence.transaction.freq-info-word.${freqWord}`)
-    : t(`Recurrence.transaction.freq-info`, { frequency })
+    ? t(`Recurrence.freq-info-word.${freqWord}`)
+    : t(`Recurrence.freq-info`, { frequency })
   return text
 }
 

@@ -53,10 +53,7 @@ import TransactionCategoryEditor from './TransactionCategoryEditor'
 import TransactionApplicationDateEditor from './TransactionApplicationDateEditor'
 import TransactionRecurrenceEditor from 'ducks/transactions/TransactionRecurrenceEditor'
 
-import {
-  getLabel as getRecurrenceLabel,
-  getFrequency
-} from 'ducks/recurrence/utils'
+import { getFrequencyText } from 'ducks/recurrence/utils'
 import TransactionModalRow, {
   TransactionModalRowIcon,
   TransactionModalRowMedia,
@@ -163,16 +160,12 @@ const RecurrenceRow = withRouter(({ transaction, onClick, router }) => {
       <Bd>
         <div>
           {recurrence
-            ? getRecurrenceLabel(recurrence)
+            ? t('Recurrence.choice.recurrent')
             : t('Recurrence.choice.not-recurrent')}
           {recurrence ? (
             <>
               <br />
-              <Caption>
-                {t('Recurrence.frequency', {
-                  frequency: Math.floor(getFrequency(recurrence))
-                })}
-              </Caption>
+              <Caption>{getFrequencyText(t, recurrence)}</Caption>
               {router.location.pathname !== recurrenceRoute ? (
                 <Link to={recurrenceRoute}>
                   <Chip
@@ -309,6 +302,19 @@ const TransactionModalInfoContent = withTransaction(props => {
           ].filter(x => x.value)}
         />
       </TransactionModalRow>
+      <TransactionModalRowMedia onClick={handleShowCategoryChoice}>
+        <Img>
+          <CategoryIcon categoryId={categoryId} />
+        </Img>
+        <Bd>
+          {t(
+            `Data.subcategories.${getCategoryName(getCategoryId(transaction))}`
+          )}
+        </Bd>
+        <Img>
+          <RowArrow />
+        </Img>
+      </TransactionModalRowMedia>
       <TransactionModalRowMedia onClick={handleShowApplicationEditor}>
         <TransactionModalRowIcon icon={iconCalendar} />
         <Bd>
@@ -334,19 +340,6 @@ const TransactionModalInfoContent = withTransaction(props => {
             <Spinner />
           </Img>
         ) : null}
-        <Img>
-          <RowArrow />
-        </Img>
-      </TransactionModalRowMedia>
-      <TransactionModalRowMedia onClick={handleShowCategoryChoice}>
-        <Img>
-          <CategoryIcon categoryId={categoryId} />
-        </Img>
-        <Bd>
-          {t(
-            `Data.subcategories.${getCategoryName(getCategoryId(transaction))}`
-          )}
-        </Bd>
         <Img>
           <RowArrow />
         </Img>

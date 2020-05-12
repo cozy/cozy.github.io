@@ -2,6 +2,7 @@
 
 import flag from 'cozy-flags'
 import { some } from 'lodash'
+import Figure from 'cozy-ui/transpiled/react/Figure'
 
 /** Reset flags, keeping only those set to true */
 const garbageCollectFlags = () => {
@@ -49,5 +50,9 @@ if (isDemoCozy()) {
 // Turn on flags for professional and others reimbursements accounts
 flag('balance.professional-reimb-account', true)
 flag('balance.others-reimb-account', true)
+
+Figure.defaultProps = Object.assign({}, Figure.defaultProps, {
+  blurred: flag('amount_blur') ? true : false
+})
 
 window.flag = flag

@@ -1,3 +1,14 @@
+/**
+ * TODO Handle pagination
+ *
+ * As of now, paginations for recurrence bundles and for transactions inside
+ * recurrence has not been dealt with, both in the API and on the UI side
+ * of things. Since having more than 100 hundred recurrences is infrequent,
+ * we do not think it is a major hurdle if users only see their 100 most recent
+ * recurrences, or only the most recent 100 transactions inside this recurrence
+ * bundle.
+ */
+
 import set from 'lodash/set'
 import flatten from 'lodash/flatten'
 import omit from 'lodash/omit'

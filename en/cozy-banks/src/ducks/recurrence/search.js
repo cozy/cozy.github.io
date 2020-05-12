@@ -13,6 +13,7 @@ import {
   addStats,
   overEvery
 } from './rules'
+import getCategoryId from 'ducks/transactions/getCategoryId'
 
 import { getLabel } from 'ducks/transactions/helpers'
 
@@ -62,10 +63,7 @@ export const updateRecurrences = (bundles, newTransactions, rules) => {
  * @return {array} recurrence groups
  */
 export const findRecurrences = (operations, rules) => {
-  const groups = groupBy(
-    operations,
-    x => `${x.manualCategoryId || x.automaticCategoryId}`
-  )
+  const groups = groupBy(operations, x => getCategoryId(x))
 
   let bundles = flatMap(Object.entries(groups), ([categoryId, ops]) => {
     const perAmount = groupBy(ops, op => op.amount)

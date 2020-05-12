@@ -24,6 +24,8 @@ import { getRulesFromConfig, rulesPerName } from './rules'
 import { getAutomaticLabelFromBundle } from './utils'
 import { findRecurrences, updateRecurrences } from './search'
 import useStickyState from './useStickyState'
+import CategoryIcon from 'ducks/categories/CategoryIcon'
+import getCategoryId from 'ducks/transactions/getCategoryId'
 
 const immutableSet = (object, path, value) => {
   return setWith(clone(object), path, value, clone)
@@ -124,17 +126,21 @@ const getColor = bundle => {
   return palette[h % (palette.length - 1)]
 }
 
-const List = ({ children }) => {
-  return <ul className="u-m-0 u-ph-1 u-pv-half">{children}</ul>
-}
-
 const CategoryNames = ({ bundle }) => {
   return (
-    <List>
+    <div>
       {bundle.categoryIds.map((catId, i) => (
-        <li key={i}>{tree[catId]}</li>
+        <div key={i} className="u-flex u-flex-align-center">
+          <CategoryIcon
+            className="u-ml-0 u-mr-half"
+            size={16}
+            style={{ width: '1rem' }}
+            categoryId={catId}
+          />{' '}
+          {tree[catId]}
+        </div>
       ))}
-    </List>
+    </div>
   )
 }
 
@@ -171,6 +177,7 @@ const RecurrenceBundle = ({ bundle }) => {
       <table style={{ fontSize: 'small' }}>
         {sortBy(bundle.ops, x => x.date).map(x => (
           <tr key={x._id} style={x.new ? newStyle : null}>
+            <td>{<CategoryIcon categoryId={getCategoryId(x)} size={8} />}</td>
             <td>{x.label}</td>
             <td>{x.date.slice(0, 10)}</td>
             <td>{x.amount}</td>
@@ -257,6 +264,9 @@ const RecurrencePage = () => {
 
   const updatedBundles = useMemo(() => {
     let curBundles = bundles
+
+    // To mimic as much as possible the entry of new operations per day
+    // (a connector is run per day), we update bundles day per day
     const byDay = groupBy(newTransactions, x => x.date.slice(0, 10))
     const days = sortBy(Object.keys(byDay), x => x)
     for (let day of days) {

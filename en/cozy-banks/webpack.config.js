@@ -17,27 +17,32 @@ if (target !== 'mobile') {
   provided['cozy.bar'] = 'cozy-bar/dist/cozy-bar.js'
 }
 
+const barConfig = {
+  plugins: [new ProvidePlugin(provided)],
+  module: {
+    rules: [
+      {
+        test: /cozy-bar\/dist\/cozy-bar\.js$/,
+        loader: 'imports-loader?css=./cozy-bar.css'
+      }
+    ]
+  }
+}
+
+const appOnlyConfigs = [
+  require('cozy-scripts/config/webpack.config.react'),
+  require('cozy-scripts/config/webpack.config.cozy-ui'),
+  require('cozy-scripts/config/webpack.config.cozy-ui.react'),
+  require('cozy-scripts/config/webpack.config.css-modules'),
+  require('cozy-scripts/config/webpack.config.pictures'),
+  barConfig
+]
+
 const common = mergeAppConfigs(
   [
     require('cozy-scripts/config/webpack.config.eslint'),
     require('cozy-scripts/config/webpack.config.base'),
-    require('cozy-scripts/config/webpack.config.react'),
-    require('cozy-scripts/config/webpack.config.cozy-ui'),
-    require('cozy-scripts/config/webpack.config.cozy-ui.react'),
-    {
-      plugins: [new ProvidePlugin(provided)],
-      module: {
-        rules: [
-          {
-            test: /cozy-bar\/dist\/cozy-bar\.js$/,
-            loader: 'imports-loader?css=./cozy-bar.css'
-          }
-        ]
-      }
-    },
-    require('cozy-scripts/config/webpack.config.css-modules'),
-    require('cozy-scripts/config/webpack.config.pictures'),
-
+    ...(target !== 'services' ? appOnlyConfigs : []),
     addAnalyzer ? require('cozy-scripts/config/webpack.config.analyzer') : null,
     require('./config/webpack.config.base'),
     require('./config/webpack.config.manual-resolves'),

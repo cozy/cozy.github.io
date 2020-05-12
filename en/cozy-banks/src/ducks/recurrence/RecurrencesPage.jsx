@@ -33,7 +33,7 @@ import enLocale from 'date-fns/locale/en'
 
 import styles from './styles.styl'
 import {
-  getFrequency,
+  getFrequencyText,
   getAmount,
   getCurrency,
   getLabel,
@@ -44,13 +44,7 @@ import withError from 'components/withError'
 
 const BundleFrequency = ({ bundle }) => {
   const { t } = useI18n()
-  return (
-    <>
-      {t('Recurrence.frequency', {
-        frequency: Math.floor(getFrequency(bundle))
-      })}
-    </>
-  )
+  return <>{getFrequencyText(t, bundle)}</>
 }
 
 const dateFnsLocales = {

@@ -11,7 +11,6 @@ import { sendNotifications } from 'ducks/notifications/services'
 import matchFromBills from 'ducks/billsMatching/matchFromBills'
 import matchFromTransactions from 'ducks/billsMatching/matchFromTransactions'
 import { logResult } from 'ducks/billsMatching/utils'
-import { doRecurrenceMatching } from 'ducks/recurrence/service'
 
 import { Transaction, Bill, Settings } from 'models'
 import isCreatedDoc from 'utils/isCreatedDoc'
@@ -168,12 +167,6 @@ const onOperationOrBillCreate = async (client, options) => {
   if (options.transactionsMatching !== false) {
     await doTransactionsMatching(setting, options.transactionsMatching)
     setting = await updateSettings(setting)
-  } else {
-    log('info', 'Skip transactions matching')
-  }
-
-  if (options.recurrenceMatching !== false) {
-    await doRecurrenceMatching(client)
   } else {
     log('info', 'Skip transactions matching')
   }
