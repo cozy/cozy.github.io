@@ -86,10 +86,18 @@ export const doRecurrenceMatching = async client => {
 
     const transactionQuery = makeQueryForTransactions(recurrences)
     const transactions = await client.queryAll(transactionQuery)
-    log(
-      'info',
-      `Loaded transactions from ${NB_MONTH_LOOKBACK} months back, ${transactions.length} transactions to consider`
-    )
+
+    if (recurrences.length > 0) {
+      log(
+        'info',
+        `Loaded transactions from ${NB_MONTH_LOOKBACK} months back, ${transactions.length} transactions to consider`
+      )
+    } else {
+      log(
+        'info',
+        `Loaded all transactions (since there were no recurrences yet), ${transactions.length} transactions to consider`
+      )
+    }
 
     const updatedRecurrences = findAndUpdateRecurrences(
       recurrences.map(r => ({ ...r })),

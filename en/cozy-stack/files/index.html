@@ -4398,9 +4398,12 @@ file/directory (optional).</p>
 </ul>
 <p>The <code>updated_at</code> field will be the first value in this list:</p>
 <ul>
+<li>the <code>UpdatedAt</code> parameter from the query-string</li>
 <li>the <code>Date</code> HTTP header</li>
 <li>the current time from the server.</li>
 </ul>
+<p>/!\ If the <code>updated_at</code> filed is older than the <code>created_at</code> one, 
+then the <code>updated_at</code> will be set with the value of the <code>created_at</code>.</p>
 <h4 id="query-string_1">Query-String<a class="headerlink" href="#query-string_1" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
@@ -4437,6 +4440,10 @@ file/directory (optional).</p>
 <tr>
 <td>CreatedAt</td>
 <td>the creation date of the file</td>
+</tr>
+<tr>
+<td>UpdatedAt</td>
+<td>the modification date of the file</td>
 </tr>
 <tr>
 <td>SourceAccount</td>
