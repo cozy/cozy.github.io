@@ -1686,6 +1686,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#queryconnectflatqueryspecs-function" title="queryConnectFlat(querySpecs) ⇒ function" class="md-nav__link">
+    queryConnectFlat(querySpecs) ⇒ function
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#geterrorcomponenterror-function-null" title="getErrorComponent(error) ⇒ function | null" class="md-nav__link">
     getErrorComponent(error) ⇒ function | null
   </a>
@@ -4316,6 +4323,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#queryconnectflatqueryspecs-function" title="queryConnectFlat(querySpecs) ⇒ function" class="md-nav__link">
+    queryConnectFlat(querySpecs) ⇒ function
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#geterrorcomponenterror-function-null" title="getErrorComponent(error) ⇒ function | null" class="md-nav__link">
     getErrorComponent(error) ⇒ function | null
   </a>
@@ -4672,6 +4686,11 @@ is loading.</p>
 </dd>
 <dt><a href="#queryConnect">queryConnect(querySpecs)</a> ⇒ <code>function</code></dt>
 <dd><p>HOC creator to connect component to several queries in a declarative manner</p>
+</dd>
+<dt><a href="#queryConnectFlat">queryConnectFlat(querySpecs)</a> ⇒ <code>function</code></dt>
+<dd><p>HOC creator to connect component to several queries in a declarative manner
+The only difference with queryConnect is that it does not wrap the component in N component
+if there are N queries, only 1 extra level of nesting is introduced.</p>
 </dd>
 <dt><a href="#getErrorComponent">getErrorComponent(error)</a> ⇒ <code>function</code> | <code>null</code></dt>
 <dd><p>Returns the handler for an error</p>
@@ -6951,6 +6970,29 @@ is loading.</p>
 <p><a name="queryConnect"></a></p>
 <h2 id="queryconnectqueryspecs-function">queryConnect(querySpecs) ⇒ <code>function</code><a class="headerlink" href="#queryconnectqueryspecs-function" title="Permanent link">&para;</a></h2>
 <p>HOC creator to connect component to several queries in a declarative manner</p>
+<p><strong>Kind</strong>: global function<br />
+<strong>Returns</strong>: <code>function</code> - - HOC to apply to a component  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>querySpecs</td>
+<td><code>object</code></td>
+<td>Definition of the queries</td>
+</tr>
+</tbody>
+</table>
+<p><a name="queryConnectFlat"></a></p>
+<h2 id="queryconnectflatqueryspecs-function">queryConnectFlat(querySpecs) ⇒ <code>function</code><a class="headerlink" href="#queryconnectflatqueryspecs-function" title="Permanent link">&para;</a></h2>
+<p>HOC creator to connect component to several queries in a declarative manner
+The only difference with queryConnect is that it does not wrap the component in N component
+if there are N queries, only 1 extra level of nesting is introduced.</p>
 <p><strong>Kind</strong>: global function<br />
 <strong>Returns</strong>: <code>function</code> - - HOC to apply to a component  </p>
 <table>
