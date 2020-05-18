@@ -100,9 +100,7 @@ async function removeBillsFromOperations(bills, operations, dryRun, instance) {
   }
 
   console.log(
-    `Will update ${batchTodo.length} operations / ${
-      operations.length
-    } on ${instance}`
+    `Will update ${batchTodo.length} operations / ${operations.length} on ${instance}`
   )
 
   if (!dryRun && batchTodo.length) {

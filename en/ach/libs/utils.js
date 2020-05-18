@@ -80,9 +80,7 @@ const uploadFolderContent = (module.exports.uploadFolderContent = (
             // it's a file
             return uploadFile(client, child, folderDoc._id).then(fileDoc => {
               console.log(
-                `  _id: ${fileDoc._id},  file.path: ${
-                  folderDoc.attributes.path
-                }/${fileDoc.attributes.name}`
+                `  _id: ${fileDoc._id},  file.path: ${folderDoc.attributes.path}/${fileDoc.attributes.name}`
               )
               return fileDoc
             })

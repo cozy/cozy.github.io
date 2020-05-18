@@ -71,9 +71,7 @@ const fixAccountFolderPath = (account, dryRun = true) => {
     if (!account.auth || typeof account.auth.folderPath === 'undefined') {
       if (dryRun) {
         console.info(
-          `👌  Would move \`folderPath\` from ${
-            account._id
-          } to \`auth.folderPath\``
+          `👌  Would move \`folderPath\` from ${account._id} to \`auth.folderPath\``
         )
       } else {
         console.info(
@@ -131,41 +129,29 @@ const fixAccountFolderPathConsistency = async (
           // folderPath
           if (folder) {
             console.log(
-              `❌  Account ${
-                account._id
-              } does not contain \`auth.folderPath\` attribute`
+              `❌  Account ${account._id} does not contain \`auth.folderPath\` attribute`
             )
 
             actualFolderPath = folder.attributes.path
             if (dryRun) {
               console.info(
-                `👌  Would update \`auth.folderPath\` to ${actualFolderPath} in ${
-                  account._id
-                }`
+                `👌  Would update \`auth.folderPath\` to ${actualFolderPath} in ${account._id}`
               )
             } else {
               console.info(
-                `👌  Updating \`auth.folderPath\` to ${actualFolderPath} in ${
-                  account._id
-                }`
+                `👌  Updating \`auth.folderPath\` to ${actualFolderPath} in ${account._id}`
               )
               sanitizedAccount.auth.folderPath = actualFolderPath
             }
           } else {
             console.log(
-              `❌  Account ${
-                account._id
-              }'s trigger is not related to any existing folder\n\r`
+              `❌  Account ${account._id}'s trigger is not related to any existing folder\n\r`
             )
             return
           }
         } else {
           console.log(
-            `✅  No attribute \`folderPath\` in account ${
-              account._id
-            } but related trigger ${
-              trigger._id
-            } does not contain \`message.folder_to_save\`\n\r`
+            `✅  No attribute \`folderPath\` in account ${account._id} but related trigger ${trigger._id} does not contain \`message.folder_to_save\`\n\r`
           )
           return sanitizedAccount
         }
@@ -213,15 +199,11 @@ const fixAccountFolderPathConsistency = async (
 
       if (dryRun) {
         console.info(
-          `👌  Would update \`auth.folderPath\` to ${sanitizedFolderPath} in ${
-            account._id
-          }`
+          `👌  Would update \`auth.folderPath\` to ${sanitizedFolderPath} in ${account._id}`
         )
       } else {
         console.info(
-          `👌  Updating \`auth.folderPath\` to ${sanitizedFolderPath} in ${
-            account._id
-          }`
+          `👌  Updating \`auth.folderPath\` to ${sanitizedFolderPath} in ${account._id}`
         )
         sanitizedAccount.auth.folderPath = sanitizedFolderPath
       }

@@ -116,9 +116,7 @@ const runKonnectorAndReport = async (client, konnector) => {
 
   const jobId = finalJob._id
   console.log(
-    `Finished job ${job.message.konnector} on domain ${domain}. State is ${
-      finalJob.state
-    } (jobid: ${jobId})`
+    `Finished job ${job.message.konnector} on domain ${domain}. State is ${finalJob.state} (jobid: ${jobId})`
   )
   const logFilename = `job-${domain}-${job.message.konnector}-${jobId}.txt`
   const env = getEnvFromClient(client)

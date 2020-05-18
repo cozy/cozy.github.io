@@ -1,7 +1,7 @@
 const { omit } = require('lodash')
 const { fixAccount } = require('./fixAccounts')
 
-describe('fixAccount', async () => {
+describe('fixAccount', () => {
   let client
 
   const mockedFolder = {
@@ -187,7 +187,7 @@ describe('fixAccount', async () => {
     expect(client.data.update.mock.calls[0][2]).toMatchObject(expectedAccount)
   })
 
-  describe('`auth.namePath` creation from source fields', async () => {
+  describe('`auth.namePath` creation from source fields', () => {
     const namePathSourceFields = ['accountName', 'login', 'identifier', 'email']
 
     const expectedAccountBase = {
@@ -233,7 +233,7 @@ describe('fixAccount', async () => {
     expect(client.data.update.mock.calls.length).toBe(0)
   })
 
-  describe('with related trigger', async () => {
+  describe('with related trigger', () => {
     it('restores `auth.folderPath` from related trigger', async () => {
       const invalidAccount = {
         ...expectedAccount,

@@ -134,16 +134,12 @@ const ensureAccountHasRelationship = async (client, account, dryRun) => {
   } else {
     log(
       'debug',
-      `Adding "parent" relationship to ${AGGREGATOR_ACCOUNT_ID} to ${
-        account._id
-      }...`
+      `Adding "parent" relationship to ${AGGREGATOR_ACCOUNT_ID} to ${account._id}...`
     )
     if (dryRun) {
       log(
         'debug',
-        `Would have added "parent" relationship to ${AGGREGATOR_ACCOUNT_ID} to ${
-          account._id
-        }`
+        `Would have added "parent" relationship to ${AGGREGATOR_ACCOUNT_ID} to ${account._id}`
       )
     } else {
       await client.data.updateAttributes(ACCOUNT_DOCTYPE, account._id, {
@@ -159,9 +155,7 @@ const ensureAccountHasRelationship = async (client, account, dryRun) => {
       })
       log(
         'debug',
-        `Added "parent" relationship to ${AGGREGATOR_ACCOUNT_ID} to ${
-          account._id
-        }`
+        `Added "parent" relationship to ${AGGREGATOR_ACCOUNT_ID} to ${account._id}`
       )
     }
     return { created: true }
