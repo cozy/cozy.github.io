@@ -344,10 +344,12 @@ const TransactionModalInfoContent = withTransaction(props => {
           <RowArrow />
         </Img>
       </TransactionModalRowMedia>
-      <RecurrenceRow
-        transaction={transaction}
-        onClick={handleShowRecurrenceChoice}
-      />
+      {flag('banks.recurrence') ? (
+        <RecurrenceRow
+          transaction={transaction}
+          onClick={handleShowRecurrenceChoice}
+        />
+      ) : null}
       <TransactionActions
         transaction={transaction}
         {...restProps}

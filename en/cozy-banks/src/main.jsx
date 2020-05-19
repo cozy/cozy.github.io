@@ -68,6 +68,7 @@ const setupApp = async persistedState => {
   store = configureStore(client, persistedState)
   client.registerPlugin(CleanupStoreClientPlugin, { store })
   client.registerPlugin(PinPlugin)
+  client.registerPlugin(flag.plugin)
   client.registerPlugin(StartupChecksPlugin, {
     launchTriggers: [
       {

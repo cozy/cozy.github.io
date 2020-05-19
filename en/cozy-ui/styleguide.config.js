@@ -18,77 +18,77 @@ module.exports = {
         '../react/Badge/index.jsx',
         '../react/Button/index.jsx',
         '../react/ButtonAction/index.jsx',
-        '../react/DropdownButton/index.jsx',
         '../react/Card/index.jsx',
-        '../react/CompositeRow/index.jsx',
-        '../react/InlineCard/index.jsx',
         '../react/Chip/index.jsx',
+        '../react/CompositeRow/index.jsx',
+        '../react/Counter/index.jsx',
+        '../react/DropdownButton/index.jsx',
         '../react/Icon/index.jsx',
         '../react/IconButton/index.jsx',
-        '../react/Spinner/index.jsx',
-        '../react/Counter/index.jsx',
-        '../react/PercentageLine/index.jsx',
+        '../react/IconStack/index.jsx',
+        '../react/InlineCard/index.jsx',
         '../react/PercentageBar/index.jsx',
-        '../react/ThresholdBar/index.jsx',
+        '../react/PercentageLine/index.jsx',
+        '../react/Spinner/index.jsx',
         '../react/Stack/index.jsx',
-        '../react/IconStack/index.jsx'
+        '../react/ThresholdBar/index.jsx'
       ]
     },
     {
       name: 'Forms',
       components: () => [
         '../react/Checkbox/index.jsx',
+        '../react/DateMonthPicker/index.jsx',
         '../react/Field/index.jsx',
+        '../react/FileInput/index.jsx',
         '../react/Input/index.jsx',
         '../react/InputGroup/index.jsx',
         '../react/Label/index.jsx',
+        '../react/NestedSelect/NestedSelect.jsx',
         '../react/Radio/index.jsx',
         '../react/SelectBox/SelectBox.jsx',
+        '../react/Stepper/index.jsx',
         '../react/Textarea/index.jsx',
-        '../react/Toggle/index.jsx',
-        '../react/FileInput/index.jsx',
-        '../react/DateMonthPicker/index.jsx',
-        '../react/NestedSelect/NestedSelect.jsx',
-        '../react/Stepper/index.jsx'
+        '../react/Toggle/index.jsx'
       ]
     },
     {
       name: 'Layout components',
       components: () => [
-        '../react/Layout/Layout.jsx',
-        '../react/Hero/index.jsx',
-        '../react/Sidebar/index.jsx',
         '../react/Circle/index.jsx',
-        '../react/Page/index.jsx',
+        '../react/Hero/index.jsx',
+        '../react/hooks/useBreakpoints/index.jsx',
+        '../react/Layout/Layout.jsx',
         '../react/NarrowContent/index.jsx',
-        '../react/ViewStack/index.jsx',
-        '../react/hooks/useBreakpoints/index.jsx'
+        '../react/Page/index.jsx',
+        '../react/Sidebar/index.jsx',
+        '../react/ViewStack/index.jsx'
       ]
     },
     {
       name: 'Content',
       components: () => [
+        '../react/Accordion/index.jsx',
+        '../react/AppTitle/index.jsx',
         '../react/Avatar/index.jsx',
+        '../react/BottomDrawer/index.jsx',
+        '../react/ContextHeader/index.jsx',
+        '../react/Empty/index.jsx',
+        '../react/Figure/Figure.jsx',
+        '../react/Figure/FigureBlock.jsx',
+        '../react/Filename/index.jsx',
+        '../react/Infos/index.jsx',
+        '../react/InfosCarrousel/index.jsx',
+        '../react/LoadMore/index.jsx',
         '../react/Media/Media.jsx',
         '../react/MidEllipsis/index.jsx',
         '../react/Modal/index.jsx',
-        '../react/BottomDrawer/index.jsx',
-        '../react/Accordion/index.jsx',
-        '../react/Text/index.jsx',
-        '../react/Empty/index.jsx',
-        '../react/Well/index.jsx',
-        '../react/Infos/index.jsx',
-        '../react/InfosCarrousel/index.jsx',
-        '../react/Tooltip/index.jsx',
-        '../react/ContextHeader/index.jsx',
-        '../react/Filename/index.jsx',
-        '../react/AppTitle/index.jsx',
-        '../react/Figure/Figure.jsx',
-        '../react/Figure/FigureBlock.jsx',
-        '../react/Table/index.jsx',
-        '../react/UnorderedList/index.jsx',
         '../react/OrderedList/index.jsx',
-        '../react/LoadMore/index.jsx'
+        '../react/Table/index.jsx',
+        '../react/Text/index.jsx',
+        '../react/Tooltip/index.jsx',
+        '../react/UnorderedList/index.jsx',
+        '../react/Well/index.jsx'
       ]
     },
     {
@@ -107,37 +107,37 @@ module.exports = {
       name: 'Navigation',
       components: () => [
         '../react/ActionMenu/index.jsx',
-        '../react/Menu/index.jsx',
-        '../react/Tabs/index.jsx',
         '../react/AppLinker/index.jsx',
-        '../react/Breadcrumbs/index.jsx'
+        '../react/Breadcrumbs/index.jsx',
+        '../react/Menu/index.jsx',
+        '../react/Tabs/index.jsx'
       ]
     },
     {
       name: 'Special',
       components: () => [
-        '../react/Overlay/index.jsx',
         '../react/Alerter/index.jsx',
+        '../react/AppIcon/index.jsx',
+        '../react/AppSections/index.jsx',
+        '../react/CipherIcon/index.jsx',
+        '../react/CozyTheme/index.jsx',
+        '../react/Overlay/index.jsx',
+        '../react/PasswordExample/index.jsx',
         '../react/Popup/index.jsx',
         '../react/PopupOpener/index.jsx',
-        '../react/PushClientButton/index.jsx',
         '../react/PushClientBanner/index.jsx',
-        '../react/Viewer/index.jsx',
-        '../react/AppSections/index.jsx',
-        '../react/AppIcon/index.jsx',
-        '../react/CipherIcon/index.jsx',
+        '../react/PushClientButton/index.jsx',
         '../react/QuotaAlert/index.jsx',
-        '../react/PasswordExample/index.jsx',
-        '../react/CozyTheme/index.jsx'
+        '../react/Viewer/index.jsx'
       ]
     },
     {
       name: 'Material-UI',
       components: () => [
-        '../react/MuiCozyTheme/index.jsx',
         '../react/MuiCozyTheme/Buttons',
         '../react/MuiCozyTheme/ExpansionPanel',
         '../react/MuiCozyTheme/Grid',
+        '../react/MuiCozyTheme/index.jsx',
         '../react/MuiCozyTheme/List',
         '../react/MuiCozyTheme/Menus',
         '../react/MuiCozyTheme/RaisedList',
@@ -185,7 +185,7 @@ module.exports = {
     }
   },
   styleguideComponents: {
-    SectionsRenderer: path.join(__dirname, 'components/SectionsRenderer.jsx'),
+    SectionsRenderer: path.join(__dirname, 'components/SectionsRenderer.jsx')
   },
   theme: {
     fontFamily: {

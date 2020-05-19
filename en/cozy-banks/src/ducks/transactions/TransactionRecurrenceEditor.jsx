@@ -9,6 +9,8 @@ import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { RECURRENCE_DOCTYPE } from 'doctypes'
 import styles from './TransactionRecurrenceEditor.styl'
 import { getCategories } from 'ducks/recurrence/utils'
+import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
+import Loading from 'components/Loading'
 
 const makeOptionFromRecurrence = rec => {
   return {
@@ -32,11 +34,14 @@ const makeNewRecurrenceOption = t => {
   }
 }
 
+const RECURRENT_ID = 'recurrent'
+const NEW_RECURRENCE_ID = 'new-recurrence'
+
 const isSelectedHelper = (item, currentId) => {
-  if (item._id === 'not-recurrent' && !currentId) {
+  if (item._id === NOT_RECURRENT_ID && !currentId) {
     return true
   }
-  if (item._id === 'recurrent' && currentId) {
+  if (item._id === RECURRENT_ID && currentId) {
     return true
   }
   if (item._id === currentId) {
@@ -44,9 +49,6 @@ const isSelectedHelper = (item, currentId) => {
   }
   return false
 }
-
-const RECURRENT_ID = 'recurrent'
-const NEW_RECURRENCE_ID = 'new-recurrence'
 
 const TransactionRecurrenceEditor = ({
   transaction,
@@ -58,10 +60,9 @@ const TransactionRecurrenceEditor = ({
 
   const current = transaction.recurrence.data
   const currentId = current && current._id
-  const { data: allRecurrences } = useQuery(
-    recurrenceConn.query,
-    recurrenceConn
-  )
+  const recurrenceCol = useQuery(recurrenceConn.query, recurrenceConn)
+
+  const { data: allRecurrences } = recurrenceCol
 
   const recurrenceOptions = useMemo(
     () =>
@@ -99,6 +100,10 @@ const TransactionRecurrenceEditor = ({
     }
   }
 
+  if (isCollectionLoading(recurrenceCol) && !hasBeenLoaded(recurrenceCol)) {
+    return <Loading spinnerSize="xlarge" />
+  }
+
   const isSelected = item => isSelectedHelper(item, currentId)
 
   return (
@@ -116,7 +121,9 @@ const TransactionRecurrenceEditor = ({
           {
             _id: RECURRENT_ID,
             title: t('Recurrence.choice.recurrent'),
-            description: current && getLabel(current),
+            description: current && (
+              <div className="u-ellipsis">{getLabel(current)}</div>
+            ),
             children: recurrenceOptions
           }
         ]

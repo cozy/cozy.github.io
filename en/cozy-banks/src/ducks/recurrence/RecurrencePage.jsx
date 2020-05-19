@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react'
+import React, { useCallback, useRef } from 'react'
 import ReactDOM from 'react-dom'
 import { useClient, useQuery } from 'cozy-client'
 import { withRouter } from 'react-router'
@@ -26,7 +26,7 @@ import Table from 'components/Table'
 import Header from 'components/Header'
 import BackButton from 'components/BackButton'
 import BarTheme from 'ducks/bar/BarTheme'
-import { getLabel, getFrequencyText } from 'ducks/recurrence/utils'
+import { getLabel } from 'ducks/recurrence/utils'
 import {
   renameRecurrenceManually,
   setStatusOngoing,
@@ -44,13 +44,14 @@ import TransactionsTableHead from 'ducks/transactions/header/TableHead'
 import { BarRight } from 'components/Bar'
 import { BarButton, ActionMenu, Icon } from 'cozy-ui/transpiled/react'
 import {
-  ActionMenuHeader,
   ActionMenuItem,
   ActionMenuRadio
 } from 'cozy-ui/transpiled/react/ActionMenu'
 import styles from './styles.styl'
 import * as List from 'components/List'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
+import useToggle from 'components/useToggle'
+import ActionMenuHelper from 'components/ActionMenuHelper'
 
 const useDocument = (doctype, id) => {
   const client = useClient()
@@ -71,26 +72,21 @@ const RecurrenceActionMenu = ({
   ...props
 }) => {
   const { isMobile } = useBreakpoints()
-  const { t } = useI18n()
   const wrapper = isMobile ? portal : identity
   return wrapper(
     <ActionMenu {...props}>
-      <ActionMenuHeader>
-        <SubTitle>{getLabel(recurrence)}</SubTitle>
-        <Caption>{getFrequencyText(t, recurrence)}</Caption>
-      </ActionMenuHeader>
+      <RenameActionItem onClick={onClickRename} />
+      <DeleteActionItem onClick={onClickDelete} />
       {isMobile ? (
         <>
+          <hr />
           <OngoingActionItem recurrence={recurrence} onClick={onClickOngoing} />
           <FinishedActionItem
             recurrence={recurrence}
             onClick={onClickFinished}
           />
-          <hr />
         </>
       ) : null}
-      <RenameActionItem onClick={onClickRename} />
-      <DeleteActionItem onClick={onClickDelete} />
     </ActionMenu>
   )
 }
@@ -192,30 +188,6 @@ const RenameBundleModal = ({ bundle, dismissAction }) => {
         />
       </ModalContent>
     </Modal>
-  )
-}
-
-const useToggle = initial => {
-  const [val, setVal] = useState(initial)
-  const setTrue = useCallback(() => setVal(true), [setVal])
-  const setFalse = useCallback(() => setVal(false), [setVal])
-  return [val, setTrue, setFalse]
-}
-
-const ActionMenuHelper = ({ opener, menu }) => {
-  const [opened, openMenu, closeMenu] = useToggle(false)
-  const openerRef = useRef()
-  return (
-    <div className="u-inline-flex">
-      {React.cloneElement(opener, { onClick: openMenu, ref: openerRef })}
-      {opened
-        ? React.cloneElement(menu, {
-            autoclose: true,
-            onClose: closeMenu,
-            placement: 'bottom-end'
-          })
-        : null}
-    </div>
   )
 }
 

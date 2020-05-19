@@ -167,7 +167,7 @@ class _RowDesktop extends React.PureComponent {
                 {applicationDate ? (
                   <ApplicationDateCaption f={f} transaction={transaction} />
                 ) : null}
-                {recurrence && showRecurrence ? (
+                {recurrence && showRecurrence && flag('banks.recurrence') ? (
                   <RecurrenceCaption recurrence={recurrence} />
                 ) : null}
               </List.Content>

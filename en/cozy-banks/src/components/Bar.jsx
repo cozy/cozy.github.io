@@ -2,12 +2,13 @@
 
 import React from 'react'
 import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
+import cx from 'classnames'
 
-const wrap = Component => {
+const wrap = (Component, className) => {
   const WrappedBarComponent = ({ children }) => {
     return (
       <Component>
-        <CozyTheme className="u-flex u-flex-center" variant="inverted">
+        <CozyTheme className={cx('u-flex', className)} variant="inverted">
           {children}
         </CozyTheme>
       </Component>
@@ -16,6 +17,6 @@ const wrap = Component => {
   return WrappedBarComponent
 }
 
-export const BarCenter = wrap(cozy.bar.BarCenter)
+export const BarCenter = wrap(cozy.bar.BarCenter, 'u-ellipsis')
 export const BarRight = wrap(cozy.bar.BarRight)
 export const BarLeft = wrap(cozy.bar.BarLeft)

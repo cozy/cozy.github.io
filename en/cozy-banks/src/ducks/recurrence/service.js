@@ -9,6 +9,7 @@ import { TRANSACTION_DOCTYPE } from 'doctypes'
 import { findAndUpdateRecurrences } from './search'
 import { fetchHydratedBundles, saveHydratedBundles } from './api'
 import { getLabel } from './utils'
+import tree from 'ducks/categories/tree'
 
 import addDays from 'date-fns/add_days'
 
@@ -53,7 +54,9 @@ const logDifferences = (oldRecurrences, updatedRecurrences) => {
   for (const rec of newRecurrences) {
     log(
       'info',
-      `${getLabel(rec)}: ${rec.ops.length} operations (+${rec.ops.length})`
+      `${getLabel(rec)}: ${rec.ops.length} operations (+${
+        rec.ops.length
+      }), category: ${tree[rec.categoryIds[0]]}`
     )
   }
 }
