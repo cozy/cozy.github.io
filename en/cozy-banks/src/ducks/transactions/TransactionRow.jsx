@@ -270,7 +270,7 @@ class _RowMobile extends React.PureComponent {
               coloredPositive
               signed
             />
-            {recurrence && showRecurrence ? (
+            {recurrence && showRecurrence && flag('banks.recurrence') ? (
               <RecurrenceCaption recurrence={recurrence} />
             ) : null}
           </Img>
