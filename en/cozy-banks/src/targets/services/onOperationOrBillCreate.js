@@ -2,7 +2,6 @@ import get from 'lodash/get'
 import set from 'lodash/set'
 
 import CozyClient from 'cozy-client'
-import { cozyClient } from 'cozy-konnector-libs'
 import logger from 'cozy-logger'
 import flag from 'cozy-flags'
 import { Document } from 'cozy-doctypes'
@@ -194,7 +193,7 @@ const main = async () => {
   attachProcessEventHandlers()
   const client = CozyClient.fromEnv(process.env)
   Document.registerClient(client)
-  const options = await getOptions(cozyClient)
+  const options = await getOptions(client)
   log('info', 'Options:')
   log('info', JSON.stringify(options))
   await onOperationOrBillCreate(client, options)

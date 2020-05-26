@@ -8,15 +8,16 @@ import {
   CHUNK_SIZE,
   startService
 } from 'ducks/categorization/services'
+import { runService } from './service'
 
 const log = logger.namespace('service/categorization')
 
-const categorization = async () => {
+const runCategorization = async client => {
   log('info', 'Fetching chunks to categorize...')
   let chunks
 
   try {
-    chunks = await fetchChunksToCategorize()
+    chunks = await fetchChunksToCategorize(client)
   } catch (err) {
     log('error', 'Error while fetching chunks to categorize ' + err)
     return
@@ -48,7 +49,7 @@ const categorization = async () => {
         'info',
         'Not enough time remaining to categorize next chunk, starting a new service run.'
       )
-      await startService('categorization')
+      await startService(client, 'categorization')
       return
     }
   }
@@ -56,7 +57,7 @@ const categorization = async () => {
   log('info', 'All transactions have been successfuly categorized.')
 
   log('info', 'Starting onOperationOrBillCreate service...')
-  await startService('onOperationOrBillCreate')
+  await startService(client, 'onOperationOrBillCreate')
 }
 
-categorization()
+runService(({ client }) => runCategorization(client))

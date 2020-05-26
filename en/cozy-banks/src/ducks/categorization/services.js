@@ -1,13 +1,12 @@
 /* global __TARGET__ */
 
-import { cozyClient } from 'cozy-konnector-libs'
+import { Q } from 'cozy-client'
 import { BankTransaction } from 'cozy-doctypes'
 import { sortBy, chunk } from 'lodash'
 import { differenceInSeconds } from 'date-fns'
 import { getTracker } from 'ducks/tracking'
 import { LOCAL_MODEL_USAGE_THRESHOLD } from 'ducks/categories/helpers'
-
-BankTransaction.registerClient(cozyClient)
+import { TRANSACTION_DOCTYPE } from 'doctypes'
 
 // Each chunk will contain 100 transactions
 export const CHUNK_SIZE = 100
@@ -21,10 +20,11 @@ let highestTime = 0
  *
  * @return {Promise} Promise that resolves with an array of io.cozy.bank.operations documents
  */
-export const fetchTransactionsToCategorize = () => {
-  return BankTransaction.queryAll({
-    toCategorize: true
-  })
+export const fetchTransactionsToCategorize = async client => {
+  const transactions = await client.queryAll(
+    Q(TRANSACTION_DOCTYPE).where({ toCategorize: true })
+  )
+  return transactions
 }
 
 /**
@@ -32,8 +32,8 @@ export const fetchTransactionsToCategorize = () => {
  *
  * @return {io.cozy.bank.operations[][]} The chunks to categorize
  */
-export const fetchChunksToCategorize = async () => {
-  const toCategorize = await fetchTransactionsToCategorize()
+export const fetchChunksToCategorize = async client => {
+  const toCategorize = await fetchTransactionsToCategorize(client)
   const sortedToCategorize = sortBy(toCategorize, t => t.date).reverse()
   const chunks = chunk(sortedToCategorize, CHUNK_SIZE)
 
@@ -117,11 +117,11 @@ export const canCategorizeNextChunk = () => {
  *
  * @return {Promise}
  */
-export const startService = name => {
+export const startService = (client, name) => {
   const args = {
     name,
     slug: 'banks'
   }
-
-  return cozyClient.jobs.create('service', args)
+  const jobCollection = client.collection('io.cozy.jobs')
+  return jobCollection.create('service', args)
 }
