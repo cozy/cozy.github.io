@@ -1024,15 +1024,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#documentcollectionupdate" title="documentCollection.update()" class="md-nav__link">
-    documentCollection.update()
+  <a href="#documentcollectioncreatedoc" title="documentCollection.create(doc)" class="md-nav__link">
+    documentCollection.create(doc)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#documentcollectiondestroy" title="documentCollection.destroy()" class="md-nav__link">
-    documentCollection.destroy()
+  <a href="#documentcollectionupdatedocument" title="documentCollection.update(document)" class="md-nav__link">
+    documentCollection.update(document)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentcollectiondestroydoc" title="documentCollection.destroy(doc)" class="md-nav__link">
+    documentCollection.destroy(doc)
   </a>
   
 </li>
@@ -3321,15 +3328,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#documentcollectionupdate" title="documentCollection.update()" class="md-nav__link">
-    documentCollection.update()
+  <a href="#documentcollectioncreatedoc" title="documentCollection.create(doc)" class="md-nav__link">
+    documentCollection.create(doc)
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#documentcollectiondestroy" title="documentCollection.destroy()" class="md-nav__link">
-    documentCollection.destroy()
+  <a href="#documentcollectionupdatedocument" title="documentCollection.update(document)" class="md-nav__link">
+    documentCollection.update(document)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentcollectiondestroydoc" title="documentCollection.destroy(doc)" class="md-nav__link">
+    documentCollection.destroy(doc)
   </a>
   
 </li>
@@ -4196,8 +4210,9 @@ document as data attribute  </p>
 <li><a href="#DocumentCollection+find">.find(selector, options)</a> ⇒ <code>Object</code></li>
 <li><a href="#DocumentCollection+get">.get(id)</a> ⇒ <code>object</code></li>
 <li><a href="#DocumentCollection+getAll">.getAll()</a></li>
-<li><a href="#DocumentCollection+update">.update()</a></li>
-<li><a href="#DocumentCollection+destroy">.destroy()</a></li>
+<li><a href="#DocumentCollection+create">.create(doc)</a></li>
+<li><a href="#DocumentCollection+update">.update(document)</a></li>
+<li><a href="#DocumentCollection+destroy">.destroy(doc)</a></li>
 <li><a href="#DocumentCollection+updateAll">.updateAll(docs)</a></li>
 <li><a href="#DocumentCollection+destroyAll">.destroyAll(docs)</a></li>
 <li><a href="#DocumentCollection+fetchChanges">.fetchChanges(couchOptions, options)</a></li>
@@ -4286,15 +4301,67 @@ document as data attribute  </p>
 <h3 id="documentcollectiongetall">documentCollection.getAll()<a class="headerlink" href="#documentcollectiongetall" title="Permanent link">&para;</a></h3>
 <p>Get many documents by id</p>
 <p><strong>Kind</strong>: instance method of <a href="#DocumentCollection"><code>DocumentCollection</code></a><br />
-<a name="DocumentCollection+update"></a></p>
-<h3 id="documentcollectionupdate">documentCollection.update()<a class="headerlink" href="#documentcollectionupdate" title="Permanent link">&para;</a></h3>
+<a name="DocumentCollection+create"></a></p>
+<h3 id="documentcollectioncreatedoc">documentCollection.create(doc)<a class="headerlink" href="#documentcollectioncreatedoc" title="Permanent link">&para;</a></h3>
+<p>Creates a document</p>
+<p><strong>Kind</strong>: instance method of <a href="#DocumentCollection"><code>DocumentCollection</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>doc</td>
+<td><code>object</code></td>
+<td>Document to create. Optional: you can force the id with the _id attribute</td>
+</tr>
+</tbody>
+</table>
+<p><a name="DocumentCollection+update"></a></p>
+<h3 id="documentcollectionupdatedocument">documentCollection.update(document)<a class="headerlink" href="#documentcollectionupdatedocument" title="Permanent link">&para;</a></h3>
 <p>Updates a document</p>
-<p><strong>Kind</strong>: instance method of <a href="#DocumentCollection"><code>DocumentCollection</code></a><br />
-<a name="DocumentCollection+destroy"></a></p>
-<h3 id="documentcollectiondestroy">documentCollection.destroy()<a class="headerlink" href="#documentcollectiondestroy" title="Permanent link">&para;</a></h3>
+<p><strong>Kind</strong>: instance method of <a href="#DocumentCollection"><code>DocumentCollection</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>document</td>
+<td><code>object</code></td>
+<td>Document to update. Do not forget the _id attribute</td>
+</tr>
+</tbody>
+</table>
+<p><a name="DocumentCollection+destroy"></a></p>
+<h3 id="documentcollectiondestroydoc">documentCollection.destroy(doc)<a class="headerlink" href="#documentcollectiondestroydoc" title="Permanent link">&para;</a></h3>
 <p>Destroys a document</p>
-<p><strong>Kind</strong>: instance method of <a href="#DocumentCollection"><code>DocumentCollection</code></a><br />
-<a name="DocumentCollection+updateAll"></a></p>
+<p><strong>Kind</strong>: instance method of <a href="#DocumentCollection"><code>DocumentCollection</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>doc</td>
+<td><code>object</code></td>
+<td>Document to destroy. Do not forget _id and _rev attributes</td>
+</tr>
+</tbody>
+</table>
+<p><a name="DocumentCollection+updateAll"></a></p>
 <h3 id="documentcollectionupdatealldocs">documentCollection.updateAll(docs)<a class="headerlink" href="#documentcollectionupdatealldocs" title="Permanent link">&para;</a></h3>
 <p>Updates several documents in one batch</p>
 <p><strong>Kind</strong>: instance method of <a href="#DocumentCollection"><code>DocumentCollection</code></a>  </p>
@@ -4303,12 +4370,14 @@ document as data attribute  </p>
 <tr>
 <th>Param</th>
 <th>Type</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>docs</td>
 <td><code>Array.&lt;Document&gt;</code></td>
+<td>Documents to be updated</td>
 </tr>
 </tbody>
 </table>
