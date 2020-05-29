@@ -55,4 +55,10 @@ Figure.defaultProps = Object.assign({}, Figure.defaultProps, {
   blurred: flag('amount_blur') ? true : false
 })
 
+flag.store.on('change', function(flagName) {
+  if (flagName == 'amount_blur') {
+    Figure.defaultProps.blurred = flag('amount_blur')
+  }
+})
+
 window.flag = flag
