@@ -13,7 +13,7 @@
         <meta name="description" content="Cozy documentation">
       
       
-        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/cli/cozy-stack_fixer_indexes/">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/cli/cozy-stack_check_shared/">
       
       
         <meta name="author" content="CozyCloud - https://cozy.io">
@@ -42,7 +42,7 @@
     
     
       
-        <title>Cozy stack fixer indexes - Cozy Developer Documentation</title>
+        <title>Cozy stack check shared - Cozy Developer Documentation</title>
       
     
     
@@ -100,7 +100,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#cozy-stack-fixer-indexes" tabindex="1" class="md-skip">
+      <a href="#cozy-stack-check-shared" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -126,7 +126,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Cozy stack fixer indexes
+                Cozy stack check shared
               
             </span>
           
@@ -2410,8 +2410,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#cozy-stack-fixer-indexes" title="cozy-stack fixer indexes" class="md-nav__link">
-    cozy-stack fixer indexes
+  <a href="#cozy-stack-check-shared" title="cozy-stack check shared" class="md-nav__link">
+    cozy-stack check shared
   </a>
   
     <nav class="md-nav">
@@ -2466,22 +2466,23 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-stack/cli/cozy-stack_fixer_indexes.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-stack/cli/cozy-stack_check_shared.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                  <h1>Cozy stack fixer indexes</h1>
+                  <h1>Cozy stack check shared</h1>
                 
-                <h2 id="cozy-stack-fixer-indexes">cozy-stack fixer indexes<a class="headerlink" href="#cozy-stack-fixer-indexes" title="Permanent link">&para;</a></h2>
-<p>Rebuild the CouchDB views and indexes</p>
+                <h2 id="cozy-stack-check-shared">cozy-stack check shared<a class="headerlink" href="#cozy-stack-check-shared" title="Permanent link">&para;</a></h2>
+<p>Check the io.cozy.shared documents</p>
 <h3 id="synopsis">Synopsis<a class="headerlink" href="#synopsis" title="Permanent link">&para;</a></h3>
-<p>This fixer ensures that the CouchDB views and indexes used by the stack for
-this instance are correctly set.</p>
-<div class="codehilite"><pre><span></span>cozy-stack fixer indexes &lt;domain&gt; [flags]
+<p>The io.cozy.shared documents have a tree of revisions. This command will check
+that all revisions in this tree are either the root or their parent have a
+generation smaller than their generation.</p>
+<div class="codehilite"><pre><span></span>cozy-stack check shared &lt;domain&gt; [flags]
 </pre></div>
 
 
 <h3 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span>  -h, --help   help for indexes
+<div class="codehilite"><pre><span></span>  -h, --help   help for shared
 </pre></div>
 
 
@@ -2496,7 +2497,7 @@ this instance are correctly set.</p>
 
 <h3 id="see-also">SEE ALSO<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h3>
 <ul>
-<li><a href="../cozy-stack_fixer/">cozy-stack fixer</a>    - A set of tools to fix issues or migrate content for retro-compatibility.</li>
+<li><a href="../cozy-stack_check/">cozy-stack check</a>    - A set of tools to check that instances are in the expected state.</li>
 </ul>
                 
                   

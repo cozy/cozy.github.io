@@ -13,7 +13,7 @@
         <meta name="description" content="Cozy documentation">
       
       
-        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/cli/cozy-stack_fixer_jobs/">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/cli/cozy-stack_fix_orphan-account/">
       
       
         <meta name="author" content="CozyCloud - https://cozy.io">
@@ -42,7 +42,7 @@
     
     
       
-        <title>Cozy stack fixer jobs - Cozy Developer Documentation</title>
+        <title>Cozy stack fix orphan account - Cozy Developer Documentation</title>
       
     
     
@@ -100,7 +100,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#cozy-stack-fixer-jobs" tabindex="1" class="md-skip">
+      <a href="#cozy-stack-fix-orphan-account" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -126,7 +126,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Cozy stack fixer jobs
+                Cozy stack fix orphan account
               
             </span>
           
@@ -2410,8 +2410,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#cozy-stack-fixer-jobs" title="cozy-stack fixer jobs" class="md-nav__link">
-    cozy-stack fixer jobs
+  <a href="#cozy-stack-fix-orphan-account" title="cozy-stack fix orphan-account" class="md-nav__link">
+    cozy-stack fix orphan-account
   </a>
   
     <nav class="md-nav">
@@ -2466,21 +2466,26 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-stack/cli/cozy-stack_fixer_jobs.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-stack/cli/cozy-stack_fix_orphan-account.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                  <h1>Cozy stack fixer jobs</h1>
+                  <h1>Cozy stack fix orphan account</h1>
                 
-                <h2 id="cozy-stack-fixer-jobs">cozy-stack fixer jobs<a class="headerlink" href="#cozy-stack-fixer-jobs" title="Permanent link">&para;</a></h2>
-<p>Take a look at the consistency of the jobs</p>
+                <h2 id="cozy-stack-fix-orphan-account">cozy-stack fix orphan-account<a class="headerlink" href="#cozy-stack-fix-orphan-account" title="Permanent link">&para;</a></h2>
+<p>Remove the orphan accounts</p>
 <h3 id="synopsis">Synopsis<a class="headerlink" href="#synopsis" title="Permanent link">&para;</a></h3>
-<p>Take a look at the consistency of the jobs</p>
-<div class="codehilite"><pre><span></span>cozy-stack fixer jobs &lt;domain&gt; [flags]
+<p>This fixer detects the accounts that are linked to a konnector that has been
+uninstalled, and then removed them.</p>
+<p>For banking accounts, the konnector must run to also clean the account
+remotely. To do so, the konnector is installed, the account is deleted,
+the stack runs the konnector with the AccountDeleted flag, and when it&rsquo;s
+done, the konnector is uninstalled again.</p>
+<div class="codehilite"><pre><span></span>cozy-stack fix orphan-account &lt;domain&gt; [flags]
 </pre></div>
 
 
 <h3 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span>  -h, --help   help for jobs
+<div class="codehilite"><pre><span></span>  -h, --help   help for orphan-account
 </pre></div>
 
 
@@ -2495,7 +2500,7 @@
 
 <h3 id="see-also">SEE ALSO<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h3>
 <ul>
-<li><a href="../cozy-stack_fixer/">cozy-stack fixer</a>    - A set of tools to fix issues or migrate content for retro-compatibility.</li>
+<li><a href="../cozy-stack_fix/">cozy-stack fix</a>    - A set of tools to fix issues or migrate content.</li>
 </ul>
                 
                   

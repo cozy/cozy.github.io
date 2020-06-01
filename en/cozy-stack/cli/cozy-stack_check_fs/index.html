@@ -13,7 +13,7 @@
         <meta name="description" content="Cozy documentation">
       
       
-        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/cli/cozy-stack_fixer_thumbnails/">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/cli/cozy-stack_check_fs/">
       
       
         <meta name="author" content="CozyCloud - https://cozy.io">
@@ -42,7 +42,7 @@
     
     
       
-        <title>Cozy stack fixer thumbnails - Cozy Developer Documentation</title>
+        <title>Cozy stack check fs - Cozy Developer Documentation</title>
       
     
     
@@ -100,7 +100,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#cozy-stack-fixer-thumbnails" tabindex="1" class="md-skip">
+      <a href="#cozy-stack-check-fs" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -126,7 +126,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Cozy stack fixer thumbnails
+                Cozy stack check fs
               
             </span>
           
@@ -2410,8 +2410,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#cozy-stack-fixer-thumbnails" title="cozy-stack fixer thumbnails" class="md-nav__link">
-    cozy-stack fixer thumbnails
+  <a href="#cozy-stack-check-fs" title="cozy-stack check fs" class="md-nav__link">
+    cozy-stack check fs
   </a>
   
     <nav class="md-nav">
@@ -2466,23 +2466,35 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-stack/cli/cozy-stack_fixer_thumbnails.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-stack/cli/cozy-stack_check_fs.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                  <h1>Cozy stack fixer thumbnails</h1>
+                  <h1>Cozy stack check fs</h1>
                 
-                <h2 id="cozy-stack-fixer-thumbnails">cozy-stack fixer thumbnails<a class="headerlink" href="#cozy-stack-fixer-thumbnails" title="Permanent link">&para;</a></h2>
-<p>Rebuild thumbnails image for images files</p>
+                <h2 id="cozy-stack-check-fs">cozy-stack check fs<a class="headerlink" href="#cozy-stack-check-fs" title="Permanent link">&para;</a></h2>
+<p>Check a vfs</p>
 <h3 id="synopsis">Synopsis<a class="headerlink" href="#synopsis" title="Permanent link">&para;</a></h3>
-<p>Rebuild thumbnails image for images files</p>
-<div class="codehilite"><pre><span></span>cozy-stack fixer thumbnails &lt;domain&gt; [flags]
+<p>This command checks that the files in the VFS are not desynchronized, ie a file
+present in CouchDB but not swift/localfs, or present in swift/localfs but not
+couchdb.</p>
+<p>There are 2 steps:</p>
+<ul>
+<li>index integrity checks that there are nothing wrong in the index (CouchDB),
+  like a file present in a directory that has been deleted</li>
+<li>files consistency checks that the files are the same in the index (CouchDB)
+  and the storage (Swift or localfs).</li>
+</ul>
+<p>By default, both operations are done, but you can choose one or the other via
+the flags.</p>
+<div class="codehilite"><pre><span></span>cozy-stack check fs &lt;domain&gt; [flags]
 </pre></div>
 
 
 <h3 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span>      --dry-run         Dry run
-  -h, --help            help for thumbnails
-      --with-metadata   Recalculate images metadata
+<div class="codehilite"><pre><span></span>      --fail-fast           Stop the FSCK on the first error
+      --files-consistency   Check the files consistency only (between CouchDB and Swift)
+  -h, --help                help for fs
+      --index-integrity     Check the index integrity only
 </pre></div>
 
 
@@ -2497,7 +2509,7 @@
 
 <h3 id="see-also">SEE ALSO<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h3>
 <ul>
-<li><a href="../cozy-stack_fixer/">cozy-stack fixer</a>    - A set of tools to fix issues or migrate content for retro-compatibility.</li>
+<li><a href="../cozy-stack_check/">cozy-stack check</a>    - A set of tools to check that instances are in the expected state.</li>
 </ul>
                 
                   
