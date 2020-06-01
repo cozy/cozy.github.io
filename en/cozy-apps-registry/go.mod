@@ -16,7 +16,7 @@ require (
 	github.com/sirupsen/logrus v1.6.0
 	github.com/spf13/cobra v1.0.0
 	github.com/spf13/viper v1.7.0
-	github.com/stretchr/testify v1.5.1
+	github.com/stretchr/testify v1.6.0
 	golang.org/x/crypto v0.0.0-20200510223506-06a226fb4e37
 	golang.org/x/sync v0.0.0-20200317015054-43a5402ce75a
 )
