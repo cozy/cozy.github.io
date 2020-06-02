@@ -22,6 +22,7 @@ import {
   RecurrencePage
 } from 'ducks/recurrence'
 import { TransferPage } from 'ducks/transfers'
+import { SearchPage } from 'ducks/search'
 import UserActionRequired from 'components/UserActionRequired'
 import scrollToTopOnMount from 'components/scrollToTopOnMount'
 
@@ -77,6 +78,8 @@ const AppRoute = () => (
         </Route>
       </Route>
       <Route path="transfers" component={scrollToTopOnMount(TransferPage)} />
+      <Route path="search" component={scrollToTopOnMount(SearchPage)} />
+      <Route path="search/:search" component={scrollToTopOnMount(SearchPage)} />
       <Route path="transfers/:slideName" component={TransferPage} />
       <Route
         path="recurrencedebug"

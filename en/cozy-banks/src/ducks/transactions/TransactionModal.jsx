@@ -62,9 +62,30 @@ import TransactionModalRow, {
 
 import withDocs from 'components/withDocs'
 
-const TransactionLabel = ({ label }) => (
-  <div className={styles.TransactionLabel}>{label}</div>
-)
+const SearchForTransactionIcon = ({ transaction }) => {
+  const label = getLabel(transaction)
+  return (
+    <a href={`#/search/${label}`}>
+      <Icon className="u-ml-half u-coolGrey" icon="magnifier" />
+    </a>
+  )
+}
+
+const TransactionLabel = ({ transaction }) => {
+  const label = getLabel(transaction)
+
+  return (
+    <div className={styles.TransactionLabel}>
+      {label}
+      {flag('banks.search') ? (
+        <>
+          {' '}
+          <SearchForTransactionIcon transaction={transaction} />
+        </>
+      ) : null}
+    </div>
+  )
+}
 
 const TransactionInfo = ({ label, value }) => (
   <div className={styles.TransactionInfo}>
@@ -280,7 +301,7 @@ const TransactionModalInfoContent = withTransaction(props => {
   return (
     <div className={styles['Separated']}>
       <TransactionModalRow iconLeft={typeIcon} align="top">
-        <TransactionLabel label={getLabel(transaction)} />
+        <TransactionLabel transaction={transaction} />
         <TransactionInfos
           infos={[
             {

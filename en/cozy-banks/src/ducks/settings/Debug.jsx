@@ -138,6 +138,13 @@ class DumbDebugSettings extends React.PureComponent {
     return (
       <Stack spacing="xl">
         <div>
+          <a href="#/recurrencedebug">Recurrence debug</a>
+          <br />
+          <a href="#/transfers">Transfers</a>
+          <br />
+          <a href="#/search">Search</a>
+        </div>
+        <div>
           <Title>Misc</Title>
           <Checkbox
             defaultChecked={noAccountChecked}
