@@ -1,3 +1,5 @@
+#!/bin/bash
+
 set -e
 
 echo 'Build www' && echo 'travis_fold:start:build_www\\r'

@@ -20,11 +20,11 @@ module.exports = {
     // ChartJS uses moment :( To remove when we do not use it anymore
     new webpack.ContextReplacementPlugin(
       /moment[/\\]locale$/,
-      /(en|fr)\/index\.js/
+      /(en|fr|es)\/index\.js/
     ),
     new webpack.ContextReplacementPlugin(
       /date-fns[/\\]locale$/,
-      /(en|fr)\/index\.js/
+      /(en|fr|es)\/index\.js/
     ),
     new webpack.IgnorePlugin({
       resourceRegExp: /preact-portal/

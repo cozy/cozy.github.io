@@ -30,6 +30,7 @@ import Figure from 'cozy-ui/transpiled/react/Figure'
 
 import frLocale from 'date-fns/locale/fr'
 import enLocale from 'date-fns/locale/en'
+import esLocale from 'date-fns/locale/es'
 
 import styles from './styles.styl'
 import {
@@ -49,7 +50,8 @@ const BundleFrequency = ({ bundle }) => {
 
 const dateFnsLocales = {
   en: enLocale,
-  fr: frLocale
+  fr: frLocale,
+  es: esLocale
 }
 
 const BundleDistance = ({ bundle }) => {
@@ -58,7 +60,7 @@ const BundleDistance = ({ bundle }) => {
     () =>
       distanceInWords(Date.now(), bundle.latestDate, {
         addSuffix: true,
-        locale: dateFnsLocales[lang]
+        locale: dateFnsLocales[lang] || dateFnsLocales.en
       }),
     [bundle, lang]
   )
