@@ -1,6 +1,5 @@
 'use strict'
 
-const { ProvidePlugin } = require('webpack')
 const merge = require('webpack-merge')
 const { mergeAppConfigs } = require('cozy-scripts/utils/merge')
 const {
@@ -11,14 +10,7 @@ const {
 } = require('./config/webpack.vars')
 const mqpacker = require('css-mqpacker')
 
-const provided = {}
-
-if (target !== 'mobile') {
-  provided['cozy.bar'] = 'cozy-bar/dist/cozy-bar.js'
-}
-
 const barConfig = {
-  plugins: [new ProvidePlugin(provided)],
   module: {
     rules: [
       {

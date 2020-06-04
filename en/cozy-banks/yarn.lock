@@ -4917,25 +4917,26 @@ cozy-authentication@1.19.2:
     snarkdown "1.2.2"
     url-polyfill "1.1.7"
 
-cozy-bar@7.10.0:
-  version "7.10.0"
-  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-7.10.0.tgz#a148180f17ef629886ec3324bcc0423689468fe4"
-  integrity sha512-ZB1++ylV4eqt8cyHMDpD3tSFwLYNQEjomKoulq89beKoHwD94Z25GVMlAdHh0nFj7J4P2WuQpf5oNOxAviIeyQ==
+cozy-bar@7.13.2:
+  version "7.13.2"
+  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-7.13.2.tgz#4df37837585fb76b895fde9209086aad4d0664f7"
+  integrity sha512-u1+txX38EmbEKBXFR0WRsrGbavlW+LLYYipcjlEq9C8KlriQTXIUGOe2qOJ+cuZahT46iBap7zgY2d0f8bI/hQ==
   dependencies:
     "@babel/core" "7.6.2"
     babel-core "7.0.0-bridge.0"
     babel-preset-cozy-app "1.7.0"
+    cozy-client "13.8.3"
     cozy-device-helper "1.8.0"
     cozy-interapp "0.4.9"
     cozy-realtime "3.2.1"
-    cozy-ui "22.3.1"
+    cozy-ui "35.22.0"
     enzyme-to-json "3.3.5"
     hammerjs "2.0.8"
     lerna-changelog "0.8.2"
     localforage "1.7.3"
     lodash.debounce "4.0.8"
     lodash.unionwith "4.6.0"
-    minilog "3.1.0"
+    minilog "https://github.com/cozy/minilog.git#master"
     parcel "1.12.3"
     piwik-react-router "0.12.1"
     prop-types "15.7.2"
@@ -4971,15 +4972,15 @@ cozy-client-js@^0.15.0:
     pouchdb-browser "7.0.0"
     pouchdb-find "7.0.0"
 
-cozy-client@13.8.1:
-  version "13.8.1"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-13.8.1.tgz#090ba7bcf01317dfb5359e09cd13be2f50d7662a"
-  integrity sha512-oaZ6ghre7cjZXU4yfJqrQIRCs/Saub0TsyDERoHxheS6zsoG+oVzPTKA88UlQkJmlLQ+zybNV6O89LiQHaWSwg==
+cozy-client@13.8.3:
+  version "13.8.3"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-13.8.3.tgz#0bf27284fd2b7708a3ea37fc77e3d58fc923f3db"
+  integrity sha512-SLipjE0rh5YLQBuvOi8yeXTcQeuvdfzJD5B/TTlwgOsWcvJuLh5yazOLtL8A0oRty8SsCWWZe/SbGqVlI7Ue6Q==
   dependencies:
     btoa "^1.2.1"
     cozy-device-helper "^1.7.3"
     cozy-logger "^1.6.0"
-    cozy-stack-client "^13.5.3"
+    cozy-stack-client "^13.8.3"
     isomorphic-fetch "^2.2.1"
     lodash "^4.17.13"
     microee "^0.0.6"
@@ -5362,7 +5363,16 @@ cozy-scripts@3.1.0-beta.1:
     webpack-dev-server "3.10.3"
     webpack-merge "4.2.2"
 
-cozy-stack-client@13.5.3, cozy-stack-client@^13.5.3:
+cozy-stack-client@13.8.3, cozy-stack-client@^13.8.3:
+  version "13.8.3"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-13.8.3.tgz#7e87b18b853ae60b0df5bee1b78203d04e5ebc4a"
+  integrity sha512-ffSC6DVCi+LU8KP6dhV+A7u5aMeRtSvrhEGTdeZn1AbrS6cD11OZPOveCzMHYUXzuAwbov8sRLi0BF8cTENWfQ==
+  dependencies:
+    detect-node "^2.0.4"
+    mime "^2.4.0"
+    qs "^6.7.0"
+
+cozy-stack-client@^13.5.3:
   version "13.5.3"
   resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-13.5.3.tgz#d8f2489becd6c8da5b558ec07c1c7bdfced35971"
   integrity sha512-VpnDGeSjlmaoKOtM/b0tEbJgceQXdd9fyHn5/GkXUWfdhFazjNw8Tw4SOlF8cJC4keEhVw0oAdIgh4BhlJQ/Rg==
@@ -5397,23 +5407,6 @@ cozy-stack-client@^6.66.0:
     detect-node "^2.0.4"
     mime "^2.4.0"
     qs "^6.7.0"
-
-cozy-ui@22.3.1:
-  version "22.3.1"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-22.3.1.tgz#9bd22099255e88ab2a9694a8b18d21cde3f627f5"
-  integrity sha512-yK4XO7RkV2lTbmYIgXHNBl7mw69VrB3VQMFIkSZWdzI27XIxTTT2jDUQYuIornKd0BFw81mmL2yp4um3KJuCsQ==
-  dependencies:
-    "@babel/runtime" "^7.3.4"
-    body-scroll-lock "^2.5.8"
-    classnames "^2.2.5"
-    date-fns "^1.28.5"
-    hammerjs "^2.0.8"
-    node-polyglot "^2.2.2"
-    normalize.css "^7.0.0"
-    react-hot-loader "^4.3.11"
-    react-markdown "^4.0.8"
-    react-pdf "^4.0.5"
-    react-select "2.2.0"
 
 cozy-ui@27.11.2:
   version "27.11.2"
@@ -9085,7 +9078,7 @@ html-entities@^1.2.1:
   resolved "https://registry.yarnpkg.com/html-entities/-/html-entities-1.2.1.tgz#0df29351f0721163515dfb9e5543e5f6eed5162f"
   integrity sha1-DfKTUfByEWNRXfueVUPl9u7VFi8=
 
-html-minifier@^3.2.3, html-minifier@^3.5.3:
+html-minifier@^3.2.3, html-minifier@^3.5.20, html-minifier@^3.5.3:
   version "3.5.21"
   resolved "https://registry.yarnpkg.com/html-minifier/-/html-minifier-3.5.21.tgz#d0040e054730e354db008463593194015212d20c"
   integrity sha512-LKUKwuJDhxNa3uf/LPR/KVjm/l3rBqtYeCOAekvG8F1vItxMUpueGd94i/asDDr8/1u7InxzFA5EeGjhhG5mMA==
@@ -9130,7 +9123,7 @@ html-webpack-include-assets-plugin@1.0.7:
     minimatch "^3.0.4"
     slash "^2.0.0"
 
-html-webpack-plugin@3, html-webpack-plugin@3.2.0, html-webpack-plugin@^3.2.0:
+html-webpack-plugin@3.2.0, html-webpack-plugin@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-3.2.0.tgz#b01abbd723acaaa7b37b6af4492ebda03d9dd37b"
   integrity sha1-sBq71yOsqqeze2r0SS69oD2d03s=
@@ -9141,6 +9134,18 @@ html-webpack-plugin@3, html-webpack-plugin@3.2.0, html-webpack-plugin@^3.2.0:
     pretty-error "^2.0.2"
     tapable "^1.0.0"
     toposort "^1.0.0"
+    util.promisify "1.0.0"
+
+html-webpack-plugin@4.0.0-beta.5:
+  version "4.0.0-beta.5"
+  resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-4.0.0-beta.5.tgz#2c53083c1151bfec20479b1f8aaf0039e77b5513"
+  integrity sha512-y5l4lGxOW3pz3xBTFdfB9rnnrWRPVxlAhX6nrBYIcW+2k2zC3mSp/3DxlWVCMBfnO6UAnoF8OcFn0IMy6kaKAQ==
+  dependencies:
+    html-minifier "^3.5.20"
+    loader-utils "^1.1.0"
+    lodash "^4.17.11"
+    pretty-error "^2.1.1"
+    tapable "^1.1.0"
     util.promisify "1.0.0"
 
 htmlescape@^1.1.0:
@@ -12311,16 +12316,16 @@ mini-html-webpack-plugin@^0.2.3:
   dependencies:
     webpack-sources "^1.1.0"
 
-minilog@3.1.0, minilog@^3.1.0:
+minilog@3.1.0, minilog@^3.1.0, "minilog@https://github.com/cozy/minilog.git#master":
   version "3.1.0"
-  resolved "https://registry.yarnpkg.com/minilog/-/minilog-3.1.0.tgz#d2d0f1887ca363d1acf0ea86d5c4df293b3fb675"
-  integrity sha1-0tDxiHyjY9Gs8OqG1cTfKTs/tnU=
+  resolved "https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
   dependencies:
     microee "0.0.6"
 
-"minilog@https://github.com/cozy/minilog.git#master":
+"minilog@git+https://github.com/cozy/minilog.git#master":
   version "3.1.0"
-  resolved "https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
+  uid f01f7d9dfe20981177dd34b9662c2f077d818f82
+  resolved "git+https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
   dependencies:
     microee "0.0.6"
 
@@ -15517,7 +15522,7 @@ prettier@1.18.2:
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.18.2.tgz#6823e7c5900017b4bd3acf46fe9ac4b4d7bda9ea"
   integrity sha512-OeHeMc0JhFE9idD4ZdtNibzY0+TPHSpSSb9h8FqtP+YnoZZ1sl8Vc9b1sasjfymH3SonAF4QcA2+mzHPhMvIiw==
 
-pretty-error@^2.0.2:
+pretty-error@^2.0.2, pretty-error@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/pretty-error/-/pretty-error-2.1.1.tgz#5f4f87c8f91e5ae3f3ba87ab4cf5e03b1a17f1a3"
   integrity sha1-X0+HyPkeWuPzuoerTPXgOxoX8aM=
@@ -18816,7 +18821,7 @@ tail@^0.4.0:
   resolved "https://registry.yarnpkg.com/tail/-/tail-0.4.0.tgz#d29de72750cc99db1e053aff13c359ecfb713002"
   integrity sha1-0p3nJ1DMmdseBTr/E8NZ7PtxMAI=
 
-tapable@^1.0.0, tapable@^1.1.3:
+tapable@^1.0.0, tapable@^1.1.0, tapable@^1.1.3:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/tapable/-/tapable-1.1.3.tgz#a1fccc06b58db61fd7a45da2da44f5f3a3e67ba2"
   integrity sha512-4WK/bYZmj8xLr+HUCODHGF1ZFzsYffasLUgEiMBY4fgtltdO6B4WJtlSbPaDTLpYTcGVwM2qLnFTICEcNxs3kA==

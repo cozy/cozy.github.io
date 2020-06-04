@@ -1,5 +1,4 @@
-/* global cozy */
-
+import cozyBar from 'utils/cozyBar'
 import iconBanks from 'targets/favicons/icon-banks.svg'
 
 const getLang = () =>
@@ -23,7 +22,7 @@ export default async client => {
     }
   }
 
-  await cozy.bar.init({
+  await cozyBar.init({
     appNamePrefix: 'Cozy',
     appName: 'Banks',
     appEditor: 'Cozy',

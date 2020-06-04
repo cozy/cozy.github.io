@@ -7,7 +7,10 @@ const appConfig = require('./webpack.target.app')
 
 module.exports = merge(appConfig, {
   resolve: {
-    extensions: ['.mobile.js', '.mobile.jsx']
+    extensions: ['.mobile.js', '.mobile.jsx'],
+    alias: {
+      'cozy-bar/dist/cozy-bar': 'cozy-bar/dist/cozy-bar.mobile'
+    }
   },
   output: {
     path: path.resolve(__dirname, '../src/targets/mobile/www')
@@ -20,9 +23,7 @@ module.exports = merge(appConfig, {
     new webpack.ProvidePlugin({
       PouchDB: 'pouchdb',
       pouchdbFind: 'pouchdb-find',
-      pouchdbAdapterCordovaSqlite: 'pouchdb-adapter-cordova-sqlite',
-      'cozy.client': 'cozy-client-js/dist/cozy-client.js',
-      'cozy.bar': `cozy-bar/dist/cozy-bar.mobile.js`
+      pouchdbAdapterCordovaSqlite: 'pouchdb-adapter-cordova-sqlite'
     })
   ]
 })

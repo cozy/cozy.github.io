@@ -10,6 +10,12 @@ import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 // eslint-disable-next-line no-unused-vars
 const client = getClient()
 
+jest.mock('components/Bar', () => ({
+  BarCenter: ({ children }) => children,
+  BarRight: ({ children }) => children,
+  BarLeft: ({ children }) => children
+}))
+
 jest.mock('cozy-ui/transpiled/react/hooks/useBreakpoints', () => ({
   __esModule: true,
   default: jest.fn(),

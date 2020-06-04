@@ -1,19 +1,20 @@
-/* global cozy, __TARGET__ */
+/* global __TARGET__ */
 
 import React from 'react'
 import PropTypes from 'prop-types'
 import withSideEffect from 'react-side-effect'
 import { setTheme as setStatusBarTheme } from 'ducks/bar/statusBar'
 import barOverrides from 'ducks/bar/overrides'
+import cozyBar from 'utils/cozyBar'
 
 export const setBarTheme = theme => {
   if (__TARGET__ === 'mobile') {
     setStatusBarTheme(theme)
   }
 
-  if (cozy.bar && cozy.bar.setTheme) {
+  if (cozyBar && cozyBar.setTheme) {
     const overrides = barOverrides[theme]
-    cozy.bar.setTheme(theme, overrides)
+    cozyBar.setTheme(theme, overrides)
   }
 }
 

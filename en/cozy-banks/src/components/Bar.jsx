@@ -1,8 +1,7 @@
-/* global cozy */
-
 import React from 'react'
 import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
 import cx from 'classnames'
+import cozyBar from 'utils/cozyBar'
 
 const wrap = (Component, className) => {
   const WrappedBarComponent = ({ children }) => {
@@ -17,6 +16,6 @@ const wrap = (Component, className) => {
   return WrappedBarComponent
 }
 
-export const BarCenter = wrap(cozy.bar.BarCenter, 'u-ellipsis')
-export const BarRight = wrap(cozy.bar.BarRight)
-export const BarLeft = wrap(cozy.bar.BarLeft)
+export const BarCenter = wrap(cozyBar.BarCenter, 'u-ellipsis')
+export const BarRight = wrap(cozyBar.BarRight)
+export const BarLeft = wrap(cozyBar.BarLeft)

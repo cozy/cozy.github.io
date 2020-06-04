@@ -1,4 +1,4 @@
-/* global cozy, __TARGET__ */
+/* global __TARGET__ */
 
 import 'utils/react-exposer'
 import 'whatwg-fetch'
@@ -27,6 +27,8 @@ import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import flag from 'cozy-flags'
 import { makeItShine } from 'utils/display.debug'
 import PinPlugin from 'ducks/pin/plugin'
+
+import cozyBar from 'utils/cozyBar'
 
 if (__TARGET__ === 'mobile') {
   require('styles/mobile.styl')
@@ -84,7 +86,7 @@ const setupApp = async persistedState => {
 
   if (__TARGET__ !== 'mobile') {
     !flag('authentication') &&
-      cozy.bar.init({
+      cozyBar.init({
         appName: data.cozyAppName,
         cozyClient: client,
         iconPath: data.cozyIconPath,
