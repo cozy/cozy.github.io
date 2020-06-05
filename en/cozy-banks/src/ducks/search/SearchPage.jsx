@@ -12,6 +12,7 @@ import TransactionTableHead from 'ducks/transactions/header/TableHead'
 import Header from 'components/Header'
 import Padded from 'components/Spacing/Padded'
 import { PageTitle } from 'components/Title'
+import BackButton from 'components/BackButton'
 
 const makeSearch = searchStr => op => {
   return op.label.toLowerCase().includes(searchStr.toLowerCase())
@@ -44,7 +45,10 @@ const SearchPage = ({ router }) => {
       <Header theme="inverted" fixed>
         <Padded>
           <Stack spacing="l">
-            <PageTitle className="u-lh-tiny">{t('Search.title')}</PageTitle>
+            <div>
+              <BackButton to="/balances" arrow={true} />
+              <PageTitle className="u-lh-tiny">{t('Search.title')}</PageTitle>
+            </div>
             <Input
               placeholder={t('Search.input-placeholder')}
               type="text"

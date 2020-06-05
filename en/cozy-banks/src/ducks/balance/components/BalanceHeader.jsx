@@ -12,8 +12,26 @@ import HeaderTitle from 'ducks/balance/components/HeaderTitle'
 import Delayed from 'components/Delayed'
 import { queryConnect } from 'cozy-client'
 import flag from 'cozy-flags'
+import { Icon } from 'cozy-ui/transpiled/react'
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
+import { BarRight } from 'components/Bar'
 import styles from 'ducks/balance/components/BalanceHeader.styl'
+
+const SearchIcon = () => {
+  const { isMobile } = useBreakpoints()
+  return isMobile ? (
+    <BarRight>
+      <a className={styles.SearchIcon} href="#/search">
+        <Icon icon="magnifier" />
+      </a>
+    </BarRight>
+  ) : (
+    <a className={styles.SearchIcon} href="#/search">
+      <Icon icon="magnifier" />
+    </a>
+  )
+}
 
 const BalanceHeader = ({
   breakpoints: { isMobile },
@@ -36,6 +54,7 @@ const BalanceHeader = ({
           <PageTitle>{t('Balance.title')}</PageTitle>
         </Padded>
       )}
+      {flag('banks.search') ? <SearchIcon /> : null}
       <HeaderTitle
         balance={accountsBalance}
         subtitle={subtitle}
