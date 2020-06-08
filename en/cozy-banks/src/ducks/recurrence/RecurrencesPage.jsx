@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
 import { withRouter, Link } from 'react-router'
 import cx from 'classnames'
+import orderBy from 'lodash/orderBy'
 
 import { useQuery } from 'cozy-client'
 import { ButtonLink } from 'cozy-ui/transpiled/react/Button'
@@ -166,10 +167,20 @@ const BundlesTable = ({ children }) => {
   )
 }
 
+const sortBundlesForViewing = bundles => {
+  return orderBy(
+    bundles,
+    [bundle => getCategories(bundle)[0], bundle => bundle.latestDate],
+    ['desc', 'desc']
+  )
+}
+
 const RecurrencesPage = ({ router }) => {
   const { isMobile } = useBreakpoints()
   const bundleCol = useQuery(recurrenceConn.query, recurrenceConn)
-  const { data: bundles } = bundleCol
+  const { data: rawBundles } = bundleCol
+  const bundles = sortBundlesForViewing(rawBundles)
+
   const { t } = useI18n()
   const BundlesWrapper = isMobile ? BundleMobileWrapper : BundlesTable
 

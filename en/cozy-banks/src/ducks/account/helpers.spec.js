@@ -12,6 +12,7 @@ import {
 import { getCategoryIdFromName } from 'ducks/categories/helpers'
 import { CONTACT_DOCTYPE } from 'doctypes'
 import MockDate from 'mockdate'
+import fixtures from 'test/fixtures/unit-tests'
 import flag from 'cozy-flags'
 
 jest.mock('cozy-flags')
@@ -190,8 +191,10 @@ describe('buildVirtualAccounts', () => {
     flag.mockReset()
   })
 
+  const mockTransactions = fixtures['io.cozy.bank.operations'].slice(0, 5)
+
   it('should contain a health reimbursements virtual account', () => {
-    const virtualAccounts = buildVirtualAccounts([])
+    const virtualAccounts = buildVirtualAccounts(mockTransactions)
     const healthReimbursementsAccount = virtualAccounts.find(
       a => a._id === 'health_reimbursements'
     )
@@ -200,7 +203,7 @@ describe('buildVirtualAccounts', () => {
 
   it('should contain a professional expenses virtual account', () => {
     flag.mockReturnValue(true)
-    const virtualAccounts = buildVirtualAccounts([])
+    const virtualAccounts = buildVirtualAccounts(mockTransactions)
     const professionalExpenseAccount = virtualAccounts.find(
       a => a._id === 'professional_reimbursements'
     )
@@ -209,11 +212,17 @@ describe('buildVirtualAccounts', () => {
 
   it('should contain a others expenses virtual account', () => {
     flag.mockReturnValue(true)
-    const virtualAccounts = buildVirtualAccounts([])
+    const virtualAccounts = buildVirtualAccounts(mockTransactions)
     const othersExpenseAccount = virtualAccounts.find(
       a => a._id === 'others_reimbursements'
     )
     expect(othersExpenseAccount).toBeDefined()
+  })
+
+  it('should not build virtual accounts if there are no transactions', () => {
+    flag.mockReturnValue(true)
+    const virtualAccounts = buildVirtualAccounts([])
+    expect(virtualAccounts.length).toBe(0)
   })
 })
 
