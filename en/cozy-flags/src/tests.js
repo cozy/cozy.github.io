@@ -85,7 +85,7 @@ export default function testFlagAPI(flag) {
 
     const setup = () => {
       const client = new CozyClient({})
-      client.stackClient.fetchJSON = jest.fn(() => flagRemoteResponse)
+      client.query = jest.fn(() => flagRemoteResponse)
       return { client }
     }
 
@@ -159,6 +159,10 @@ export default function testFlagAPI(flag) {
       expect(flag('has_feature2')).toBe(false)
       expect(flag('from_remote')).toBe(true)
       expect(flag('number_of_foos')).toBe(10)
+      expect(client.query).toHaveBeenCalledWith({
+        doctype: 'io.cozy.settings',
+        id: 'flags'
+      })
       expect(flag('bar_config')).toEqual({ qux: 'quux' })
     })
   })

@@ -63,7 +63,7 @@ export const enable = flagsToEnable => {
 export const initializeFromRemote = async client => {
   const {
     data: { attributes }
-  } = await client.stackClient.fetchJSON('/settings/flags')
+  } = await client.query(client.get('io.cozy.settings', 'flags'))
   enable(attributes)
 }
 
