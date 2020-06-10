@@ -3192,10 +3192,11 @@ allow to access and modify any file or directory.</p>
 <li><code>io.cozy.jobs</code> and <code>io.cozy.triggers</code>, for <a href="../jobs/">jobs</a></li>
 <li><code>io.cozy.oauth.clients</code>, to list and revoke <a href="../auth/">OAuth 2 clients</a></li>
 </ul>
-<p>It is also possible to use a wildcard to use a doctype and its sub-doctypes.
+<p>It is also possible to use a wildcard to use a doctype and its sub-doctypes if 
+the doctype contains at least 3 <code>.</code>.
 For example, <code>io.cozy.bank.*</code> will give access to <code>io.cozy.bank</code>,
 <code>io.cozy.bank.accounts</code>, <code>io.cozy.bank.accounts.stats</code>,
-<code>io.cozy.bank.settings</code>, etc.</p>
+<code>io.cozy.bank.settings</code>, etc. <code>io.cozy.*</code> will give you an error.</p>
 <h3 id="verbs">Verbs<a class="headerlink" href="#verbs" title="Permanent link">&para;</a></h3>
 <p>It says which HTTP verbs can be used for requests to the cozy-stack. <code>GET</code> will
 give read-only access, <code>DELETE</code> can be used for deletions, etc. Verbs should be

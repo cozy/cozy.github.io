@@ -1,22 +1,12 @@
 import { SETTINGS_DOCTYPE } from 'doctypes'
 import { connect } from 'react-redux'
 import mapValues from 'lodash/mapValues'
-
-import { Q } from 'cozy-client'
+import { Q, getDocumentFromState } from 'cozy-client'
 
 const getOne = (doctype, id) => () => {
   const queryDef = Q(doctype)
   queryDef.id = id
   return queryDef
-}
-
-// Should be removed when cozy-client exports this function
-const getDocumentFromState = (cozyState, doctype, id) => {
-  try {
-    return cozyState.documents[doctype][id]
-  } catch (e) {
-    return null
-  }
 }
 
 export const pinIdentity = {

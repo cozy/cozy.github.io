@@ -31,7 +31,7 @@ export const categoriesStyle = {
     color: getColor('emerald')
   },
   activities: {
-    color: getColor('fushsia')
+    color: getColor('fuchsia')
   },
   excludeFromBudgetCat: {
     color: getColor('darkPeriwinkle')
