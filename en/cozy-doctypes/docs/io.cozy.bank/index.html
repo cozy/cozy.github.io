@@ -1072,6 +1072,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#iocozybankrecurrence" title="io.cozy.bank.recurrence" class="md-nav__link">
+    io.cozy.bank.recurrence
+  </a>
+  
+</li>
+      
       
       
       
@@ -2666,6 +2673,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#iocozybankrecurrence" title="io.cozy.bank.recurrence" class="md-nav__link">
+    io.cozy.bank.recurrence
+  </a>
+  
+</li>
+      
       
       
       
@@ -2870,6 +2884,21 @@ the time zones.</p>
   }
 }
 </pre></div>
+
+
+<h2 id="iocozybankrecurrence">io.cozy.bank.recurrence<a class="headerlink" href="#iocozybankrecurrence" title="Permanent link">&para;</a></h2>
+<p>Stores a recurrence group information. Those objects are created by the recurrence service
+that tries to find recurring transactions. Transactions that are found as recurrent have
+a HasOne relationship to a <code>io.cozy.bank.recurrence</code> object.</p>
+<ul>
+<li><code>manualLabel</code>: {string} - The year of the balances</li>
+<li><code>automaticLabel</code>: {string} - A day (YYYY-MM-DD format) / balance (number) map</li>
+<li><code>amounts</code>: {Array<number>} - Amounts that can be matched to the recurrence (come from the transactions)</li>
+<li><code>categoryIds</code>: {Array<string>} - Category ids of the transactions that have been linked</li>
+<li><code>status</code>: {Enum&lt;&rdquo;ongoing&rdquo;,&rdquo;finished&rdquo;&gt;} - A recurrence can be stated as &ldquo;finished&rdquo; if transactions should not longer match it. For example if a telco contract has finished.</li>
+<li><code>stats</code>: {Object} - Statistics used during matching</li>
+<li><code>stats.deltas.median</code> : Median time distance in days between operations. For example, for a monthly recurrence, this should be 30.</li>
+</ul>
                 
                   
                 
