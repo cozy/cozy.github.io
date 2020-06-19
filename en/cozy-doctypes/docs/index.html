@@ -2718,6 +2718,7 @@ for another doctype, feel free to open a PR with the description and role of you
 <li><code>updatedAt</code>: Last modification date of the cozy document</li>
 <li><code>updatedByApps</code>: List of objects representing the applications (slugs and versions) which modified the cozy document in its life and the last update date for each of those apps (one entry per slug, apps should just update the value)</li>
 <li><code>sourceAccount</code>: When the document was imported from a connector, identifier of the account in io.cozy.accounts</li>
+<li><code>sourceAccountIdentifier</code>: When the document was imported from a connector, identifier of the account on targeted web service (the email address most of the time)</li>
 </ul>
 <p>Note: All these attributes are optional and taken care by the apps modifying the document. Unless specified otherwise in the documentation of the doctype, all these attributes may not be present or may have a <code>null</code> value.</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
@@ -2736,7 +2737,8 @@ for another doctype, feel free to open a PR with the description and role of you
         <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mi">3</span>
       <span class="p">}</span>
     <span class="p">],</span>
-    <span class="nt">&quot;sourceAccount&quot;</span><span class="p">:</span> <span class="s2">&quot;xxxxx&quot;</span>
+    <span class="nt">&quot;sourceAccount&quot;</span><span class="p">:</span> <span class="s2">&quot;xxxxx&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;sourceAccountIdentifier&quot;</span><span class="p">:</span> <span class="s2">&quot;test@mail.fr&quot;</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
