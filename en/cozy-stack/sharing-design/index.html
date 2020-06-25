@@ -100,7 +100,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#request-for-comments-about-the-sharings" tabindex="1" class="md-skip">
+      <a href="#sharing-design" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -1862,9 +1862,50 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#hypothesis" title="Hypothesis" class="md-nav__link">
-    Hypothesis
+  <a href="#baseline" title="Baseline" class="md-nav__link">
+    Baseline
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-sync" title="Data sync" class="md-nav__link">
+    Data sync
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contacts-discovery" title="Contacts discovery" class="md-nav__link">
+    Contacts discovery
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recipient-preview" title="Recipient preview" class="md-nav__link">
+    Recipient preview
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specific-data-type-support" title="Specific data type support" class="md-nav__link">
+    Specific data type support
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#safety-principles" title="Safety principles" class="md-nav__link">
+    Safety principles
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2616,9 +2657,50 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#hypothesis" title="Hypothesis" class="md-nav__link">
-    Hypothesis
+  <a href="#baseline" title="Baseline" class="md-nav__link">
+    Baseline
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-sync" title="Data sync" class="md-nav__link">
+    Data sync
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contacts-discovery" title="Contacts discovery" class="md-nav__link">
+    Contacts discovery
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recipient-preview" title="Recipient preview" class="md-nav__link">
+    Recipient preview
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specific-data-type-support" title="Specific data type support" class="md-nav__link">
+    Specific data type support
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#safety-principles" title="Safety principles" class="md-nav__link">
+    Safety principles
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2797,38 +2879,62 @@
                   <a href="https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-stack/sharing-design.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="request-for-comments-about-the-sharings">Request for comments about the sharings<a class="headerlink" href="#request-for-comments-about-the-sharings" title="Permanent link">&para;</a></h1>
-<h2 id="hypothesis">Hypothesis<a class="headerlink" href="#hypothesis" title="Permanent link">&para;</a></h2>
-<ol>
-<li>A sharer may not know the adresses of the recipients&rsquo; cozy instances, but
-   he/she has a way to send them an URL on his/her cozy to start the process.</li>
-<li>A user can preview a sharing before accepting it if the application supports
-   this option. Else, he/she will have only the description and rules to make
-   his/her mind about accepting or refusing the sharing.</li>
-<li>The data is duplicated: it is both on the owner&rsquo;s cozy, and on the
-   recipients&rsquo; cozy (no cloud federation like NextCloud).</li>
-<li>The applications say what is shared, the stack synchronizes that. The stack
-   does the low-level stuff and gives primitives to the applications. The
-   applications must use them in a responsible manner, and in particular, to
-   avoid transitivity issues.</li>
-<li>The CouchDB replication will be used to synchronize the documents. It means
-   that the documents will be same on the owner and on the recipients (&ldquo;symetric
-   sharing&rdquo;).</li>
-<li>For files and folders, the replicator will be customized to handle the
-   specificities of the <code>io.cozy.files</code> doctype.</li>
-<li>The applications must be able to work with broken relationships between
-   documents.</li>
-<li>The applications should know how to deal with CouchDB conflicts. At least,
-   the default choice of a winner for conflicts by CouchDB should be acceptable
-   if the applications don&rsquo;t do anything to detect and resolve conflicts.</li>
-<li>First safety principle: when a user B accepts a sharing from user A, the
-   documents that were on the user B&rsquo;s cozy before the sharing are not sent to
-   user A without an explicit action of user B (like moving a file to a shared
-   directory).</li>
-<li>Second safety principle: when two users, A and B, are sharing documents, a
-    change of a document on the user A&rsquo;s cozy can&rsquo;t make an exiting document of
-    user B enter in the sharing.</li>
-</ol>
+                <h1 id="sharing-design">Sharing design<a class="headerlink" href="#sharing-design" title="Permanent link">&para;</a></h1>
+<h2 id="baseline">Baseline<a class="headerlink" href="#baseline" title="Permanent link">&para;</a></h2>
+<p>Here we detail the baseline of the Cozy sharing design and provide some core
+statements.</p>
+<h3 id="data-sync">Data sync<a class="headerlink" href="#data-sync" title="Permanent link">&para;</a></h3>
+<ul>
+<li>The shared data is duplicated among members: it is both on the sharer&rsquo;s cozy
+  (the owner), and on the recipients&rsquo; cozy. This is a core difference compared
+  to a federated sharing such as the one in
+  <a href="https://docs.nextcloud.com/server/latest/user_manual/files/federated_cloud_sharing.html">NextCloud</a>.</li>
+<li>The <a href="https://docs.couchdb.org/en/stable/replication/protocol.html">CouchDB replication
+  protocol</a> is
+  used to synchronize the documents. It means that the documents will be same
+  on the owner side and on the recipients side (&ldquo;symmetric sharing&rdquo;).</li>
+<li>The applications say what is shared, the cozy stack synchronizes that. The
+  stack does the low-level work and gives primitives to the applications. The
+  applications must use them in a responsible manner, and in particular, to
+  avoid transitivity issues.</li>
+<li>The applications should know how to deal with documents&rsquo; conflicts, e.g. what
+  to do with a document updated by several members at the same time with
+  different content. At least, the default <a href="https://docs.couchdb.org/en/stable/replication/conflicts.html">CouchDB
+  behaviour</a> to
+  handle conflicts and select winning revisions should be acceptable if the
+  applications don&rsquo;t do anything to detect and resolve conflicts.</li>
+</ul>
+<h3 id="contacts-discovery">Contacts discovery<a class="headerlink" href="#contacts-discovery" title="Permanent link">&para;</a></h3>
+<ul>
+<li>A sharer may not know the addresses of the recipients&rsquo; cozy instances, but
+  he/she has a way to send them an URL on his/her cozy to start the process.</li>
+</ul>
+<h3 id="recipient-preview">Recipient preview<a class="headerlink" href="#recipient-preview" title="Permanent link">&para;</a></h3>
+<ul>
+<li>A recipient can preview a sharing before accepting it if the application
+  supports this option. Else, he/she will have only the description and rules to
+  make his/her mind about accepting or refusing the sharing.</li>
+</ul>
+<h3 id="specific-data-type-support">Specific data type support<a class="headerlink" href="#specific-data-type-support" title="Permanent link">&para;</a></h3>
+<ul>
+<li>For files and folders, the documents replication process (the replicator) is
+  customized to handle the specificities of the
+  <a href="https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.files.md">io.cozy.files</a>
+  doctype.</li>
+<li>The applications must be able to work with broken
+  <a href="https://github.com/cozy/cozy-doctypes/#relationships">relationships</a> between
+  documents, which can happen if one shares a document without its relationships.</li>
+</ul>
+<h3 id="safety-principles">Safety principles<a class="headerlink" href="#safety-principles" title="Permanent link">&para;</a></h3>
+<ul>
+<li><em>First safety principle</em>: when a user B accepts a sharing from user A, the
+  documents that were on the user B&rsquo;s cozy before the sharing are not sent to
+  user A without an explicit action of user B (like moving a file to a shared
+  directory).</li>
+<li><em>Second safety principle</em>: when two users, A and B, are sharing documents, a
+  change of a document on the user A&rsquo;s cozy can&rsquo;t make an exiting document of
+  user B enter in the sharing.</li>
+</ul>
 <h2 id="setup-of-a-sharing">Setup of a sharing<a class="headerlink" href="#setup-of-a-sharing" title="Permanent link">&para;</a></h2>
 <h3 id="step-1-the-owner-creates-the-sharing">Step 1: the owner creates the sharing<a class="headerlink" href="#step-1-the-owner-creates-the-sharing" title="Permanent link">&para;</a></h3>
 <p>One person decides to share something with other people from an application on
