@@ -1944,9 +1944,29 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#workflow" title="Workflow" class="md-nav__link">
-    Workflow
+  <a href="#data-sync_1" title="Data sync" class="md-nav__link">
+    Data sync
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general-workflow" title="General workflow" class="md-nav__link">
+    General workflow
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#revisions-syncing" title="Revisions syncing" class="md-nav__link">
+    Revisions syncing
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2739,9 +2759,29 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#workflow" title="Workflow" class="md-nav__link">
-    Workflow
+  <a href="#data-sync_1" title="Data sync" class="md-nav__link">
+    Data sync
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general-workflow" title="General workflow" class="md-nav__link">
+    General workflow
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#revisions-syncing" title="Revisions syncing" class="md-nav__link">
+    Revisions syncing
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2940,8 +2980,12 @@ statements.</p>
 <p>One person decides to share something with other people from an application on
 her cozy. In our example, Alice wants to share a todo list with her friends, Bob
 and Charlie, and it is done from the <em>Todo</em> application. The application calls
-the stack with the rules for this sharing and the identifiers of the contacts
-with whom to share. The stack persists an <code>io.cozy.sharings</code> document and sends
+the stack with the rules for this sharing, including the documents to target and
+the rights granted to the recipients, to add/update/delete todos. It also
+specifies the contacts with whom to share by providing their identifiers.
+See the <a href="#description-of-a-sharing">sharing schema</a> for a complete description
+of the expected fields.</p>
+<p>The stack persists an <code>io.cozy.sharings</code> document and sends
 an email to the recipients (Bob an Charlie).</p>
 <h3 id="step-2-a-recipient-accepts-the-sharing">Step 2: a recipient accepts the sharing<a class="headerlink" href="#step-2-a-recipient-accepts-the-sharing" title="Permanent link">&para;</a></h3>
 <p>A recipient, let’s say Bob, receives the email and clicks on the link. His
@@ -2955,16 +2999,17 @@ him how the sharing will work and what technical permissions it implies. It also
 asks him to confirm the sharing. If he accepts, his instance will send to
 Alice’s instance the answer.</p>
 <h3 id="step-3-the-initial-replication-starts">Step 3: the initial replication starts<a class="headerlink" href="#step-3-the-initial-replication-starts" title="Permanent link">&para;</a></h3>
-<p>Alice’s Cozy instance creates token and sends them with other informations as
-the response of the answer request from Bob’s instance. At this moment, both
-instances are ready to start to replicate data to the other instances. So, let’s
-do the initial replication.</p>
+<p>Alice’s Cozy instance creates some tokens and sends them with other informations
+such as the response of the answer request from Bob’s instance. At this moment,
+both instances are ready to start to replicate data to the other instances. So,
+let’s do the initial replication.</p>
 <p>Alice’s instance starts to fill the <code>io.cozy.shared</code> database with all the
 documents that match a rule of the sharing (except the rules with
 <code>local: true</code>), and create triggers for the future documents to be also added in
 this database (the exact triggers depend of the parameters of the rules). And,
 when done, it creates a job for the replicator, and setups a trigger for future
-changes in the <code>io.cozy.shared</code> start a replicator job.</p>
+changes in the <code>io.cozy.shared</code> to start a replicator job. This mechanism is
+further explained in <a href="#data-sync">the data sync</a> section.</p>
 <p>Bob’s instance also checks if any document matches a sharing rule. In most
 cases, it won’t. But in some very special cases (e.g. a previous revoked sharing
 on the same documents), there are some documents that match a rule. They are
@@ -2972,11 +3017,38 @@ added to the <code>io.cozy.shared</code> database, but with a <code>conflict</co
 be replicated unless Bob accepts to in his <em>Todo</em> application. Triggers are also
 added on Bob’s instance for filling the <code>io.cozy.shared</code> database, and to call
 the replicator after that.</p>
-<p><strong>Note:</strong> there will be a lock around the initial filling of the
+<p><strong>Note:</strong> there is a lock around the initial filling of the
 <code>io.cozy.shared</code> database to avoid concurrency issues if two recipients accept
 the sharing at the same time.</p>
-<h2 id="workflow">Workflow<a class="headerlink" href="#workflow" title="Permanent link">&para;</a></h2>
-<p><img alt="Alice has shared a todo-list with Bob and Charlie, and Bob has added an item to this todo-list" src="../diagrams/sharing.png" /></p>
+<h2 id="data-sync_1">Data sync<a class="headerlink" href="#data-sync_1" title="Permanent link">&para;</a></h2>
+<p>As stated in the baseline, the shared data is copied among the databases of all
+the members for a sharing.
+Therefore, contrarily to centralized or federated sharing, where the same data
+is accessed by all members, extra work must be done to replicate changes between
+all members.</p>
+<p>The replication mode is specified in a sharing rule for each document action:
+add, update or delete. It can be:</p>
+<ul>
+<li><code>none</code>: the changes won&rsquo;t be replicated between members.</li>
+<li><code>push</code>: only the changes made by the owner will be propaged to the recipients.</li>
+<li><code>sync</code>: the changes made by any member are propagated to the other members.</li>
+</ul>
+<p>See the <a href="#description-of-a-sharing">sharing schema</a> for more details and
+examples.</p>
+<p>The data synchronization is based on the document&rsquo;s revisions. Each time a
+document is updated in database, a new revision is created with the following
+format: <code>1-abc</code>, where <code>1</code> is a number incremented at each new change and <code>abc</code>
+a hash of the document.
+The revisions history of each shared document is saved in a <code>io.cozy.shared</code>
+document. This history is used to compare revisions between sharing members and
+propagate updates. Hence, not only the shared documents are synced, but also
+their whole revisions history through the <code>io.cozy.shared</code> database. See the
+<a href="#revisions-syncing">revisions syncing</a> section for a complete example.</p>
+<h3 id="general-workflow">General workflow<a class="headerlink" href="#general-workflow" title="Permanent link">&para;</a></h3>
+<p>In the following, we assume the a <code>sync</code> sharing for all actions between Alice,
+Bob and Charlie.</p>
+<p><img alt="Alice has shared a todo-list with Bob and Charlie, and Bob has added an item
+to this todo-list" src="../diagrams/sharing.png" /></p>
 <p><strong>Step 1:</strong> a todo item is added on Bob’s Cozy, a trigger is fired and it adds
 the new document to the <code>io.cozy.shared</code> database</p>
 <p><strong>Step 2:</strong> a debounced trigger on the <code>io.cozy.shared</code> database is used to
@@ -2984,17 +3056,17 @@ start a replicator</p>
 <p><strong>Step 3:</strong> the replicator does the following steps</p>
 <ul>
 <li>it queries a local document of the <code>io.cozy.shared</code> database to get the last
-    sequence number of a successful replication</li>
+  sequence number of a successful replication</li>
 <li>with this sequence number, it requests the changes feed of <code>io.cozy.shared</code>
-    with a filter on the sharing id</li>
+  with a filter on the sharing id</li>
 <li>the results is a list of document doctype + id + rev that is sent to Alice’s
-    Cozy</li>
+  Cozy</li>
 <li>Alice’s Cozy checks which revisions are known, and send a response with the
-    list of those that are not</li>
+  list of those that are not</li>
 <li>for each not known revision, Bob’s Cozy send the document to Alice’s Cozy
-    (in bulk)</li>
+  (in bulk)</li>
 <li>and, if it’s all good, it persists the new sequence number in the local
-    document, as a start point for the next replication</li>
+  document, as a start point for the next replication</li>
 </ul>
 <p><strong>Step 4:</strong> the changes are put in the <code>io.cozy.shared</code> database on Alice’s Cozy</p>
 <p><strong>Step 5:</strong> it starts a replicator on Alice’s Cozy</p>
@@ -3004,6 +3076,31 @@ instances are synchronized again!</p>
 list, the document in <code>io.cozy.shared</code> for the todo item is kept, and the
 sharing id is associated to the keyword <code>removed</code> inside it. The <code>remove</code>
 behavior of the sharing rule is then applied.</p>
+<h3 id="revisions-syncing">Revisions syncing<a class="headerlink" href="#revisions-syncing" title="Permanent link">&para;</a></h3>
+<p>Here, we detail the internals of the revisions-based syncing mechanism through
+an example: Alice, Bob and Charlie share a Todo with the id &ldquo;todo1&rdquo;. Note that
+in reality this id would be an UUID, but we give it a simple name for the sake
+of clarity.</p>
+<p>This Todo had only one update (its creation), made by Alice that generated the
+revision <code>1-a</code>.
+After the initial replication, all the members have a <code>io.cozy.shared</code> document,
+with this sole revision as history. This history is
+actually a tree: when a CouchDB conflict occurs, a new branch is created,
+containing the losing revision, so we can keep track of it and avoid losing any
+data. Note the document id is in the form <code>&lt;doctype&gt;/&lt;docid&gt;</code> to easily
+reference the shared document. Here, it is <code>io.cozy.todos/todo1</code>.</p>
+<p>In the sequence diagram below, we illustrate the steps occuring when Alice
+generates updates. We also illustrate how a CouchDB can occur and how it is
+handled, by making Charlie updating the same document than Alice at the same
+time. This update leads to a conflict between the revisions <code>2-a</code>, generated by
+Alice, and <code>2-c</code>, generated by Charlie: a winning revision is then elected
+by CouchDB, <code>2-a</code>, but <code>2-c</code> is saved in another branch of the revision tree.
+Thanks to it, the conflict is propagated to other members that will be able to
+resolve it through the Todo application (by manually erasing or merging the
+conflicted revision for instance).</p>
+<p>Eventually, all members converge to the same state with the same docs and the
+same revisions histories.</p>
+<p><img alt="Revisions sync between Alice, Bob and Charlie" src="../diagrams/sharing-revisions.png" /></p>
 <h2 id="files-and-folders">Files and folders<a class="headerlink" href="#files-and-folders" title="Permanent link">&para;</a></h2>
 <h3 id="why-are-they-special">Why are they special?<a class="headerlink" href="#why-are-they-special" title="Permanent link">&para;</a></h3>
 <p>Files are special for several reasons. First and foremost, they have a binary
