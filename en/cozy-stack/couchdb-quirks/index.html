@@ -2063,6 +2063,26 @@
     Conflicts
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conflict-example" title="Conflict example" class="md-nav__link">
+    Conflict example
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sharing" title="Sharing" class="md-nav__link">
+    Sharing
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2553,6 +2573,26 @@
     Conflicts
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conflict-example" title="Conflict example" class="md-nav__link">
+    Conflict example
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sharing" title="Sharing" class="md-nav__link">
+    Sharing
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2641,12 +2681,82 @@ It is a manual operation, triggered by a
 <a href="http://docs.couchdb.org/en/stable/api/database/misc.html"><code>POST /db/_purge</code></a>.</p>
 <h2 id="conflicts">Conflicts<a class="headerlink" href="#conflicts" title="Permanent link">&para;</a></h2>
 <p>It is possible to create a conflict on CouchDB like it does for the replication
-by using <code>new_edits</code>, but it is not well documented to say the least. The more
-accurate description is on the old wiki:
-https://wiki.apache.org/couchdb/HTTP_Bulk_Document_API#Posting_Existing_Revisions.</p>
-<p>In short, it&rsquo;s a <code>PUT /doc/{id}?new_edits=false</code> with <code>_rev</code> the new revision of
+by using <code>new_edits: false</code>, but it is not well documented to say the least. The
+more accurate description was in the old wiki, that <a href="https://wiki.apache.org/couchdb/HTTP_Bulk_Document_API#Posting_Existing_Revisions">no longer
+exists</a>.
+Here is a copy of what it said:</p>
+<blockquote>
+<p>The replicator uses a special mode of _bulk_docs. The documents it writes to
+the destination database already have revision IDs that need to be preserved for
+the two databases to be in sync (otherwise it would not be possible to tell that
+the two represent the same revision.) To prevent the database from assigning
+them new revision IDs, a &ldquo;new_edits&rdquo;:false property is added to the JSON request
+body.</p>
+<p>Note that this changes the interpretation of the _rev parameter in each
+document: rather than being the parent revision ID to be matched against, it&rsquo;s
+the existing revision ID that will be saved as-is into the database. And since
+it&rsquo;s important to retain revision history when adding to the database, each
+document body in this mode should have a _revisions property that lists its
+revision history; the format of this property is described on the HTTP document
+API. For example:</p>
+<p><code>curl -X POST -d '{"new_edits":false,"docs":[{"_id":"person","_rev":"2-3595405","_revisions":{"start":2,"ids":["3595405","877727288"]},"name":"jim"}]}' "$OTHER_DB/_bulk_docs"</code></p>
+<p>This command will replicate one of the revisions created above, into a
+separate database <code>OTHER_DB</code>. It will have the same revision ID as in <code>DB</code>,
+<code>2-3595405</code>, and it will be known to have a parent revision with ID
+<code>1-877727288</code>. (Even though <code>OTHER_DB</code> will not have the body of that revision,
+the history will help it detect conflicts in future replications.)</p>
+<p>As with _all_or_nothing, this mode can create conflicts; in fact, this is
+where the conflicts created by replication come from.
+In short, it&rsquo;s a <code>PUT /doc/{id}?new_edits=false</code> with <code>_rev</code> the new revision of
 the document, and <code>_revisions</code> the parents of this revision in the revisions
 tree of this document.</p>
+</blockquote>
+<h3 id="conflict-example">Conflict example<a class="headerlink" href="#conflict-example" title="Permanent link">&para;</a></h3>
+<p>Here is an example of a CouchDB conflict.</p>
+<p>Let&rsquo;s assume the following document with the revision history <code>[1-abc, 2-def]</code>
+saved in database:</p>
+<div class="codehilite"><pre><span></span>{
+  &quot;_id&quot;: foo,
+  &quot;_rev&quot;: 2-def,
+  &quot;bar&quot;: &quot;tender&quot;,
+  &quot;_revisions&quot;: {
+    &quot;ids&quot;: [
+      &quot;def&quot;,
+      &quot;abc&quot;
+    ]
+  }
+}
+</pre></div>
+
+
+<p>The <code>_revisions</code> block is returned when passing <code>revs=true</code> to the query and
+gives all the revision ids, which the revision part after the dash.
+For instance, in <code>2-def</code>, <code>2</code> is called the &ldquo;generation&rdquo; and <code>def</code> the &ldquo;id&rdquo;.</p>
+<p>We update the document with a <code>POST /bulk_docs</code> query, with the following
+content:</p>
+<div class="codehilite"><pre><span></span>{
+    &quot;docs&quot;: [
+        {
+            &quot;_id&quot;: &quot;foo&quot;,
+            &quot;_rev&quot;: &quot;3-ghi&quot;,
+            &quot;_revisions&quot;: { &quot;start&quot;: 3, &quot;ids&quot;: [&quot;ghi&quot;, &quot;xyz&quot;, &quot;abc&quot;] }
+            ,
+            &quot;bar&quot;: &quot;racuda&quot;
+        }
+    ],
+    &quot;new_edits&quot;: false
+}
+</pre></div>
+
+
+<p>This produces a conflict bewteen <code>2-def</code> and <code>2-xyz</code>: the former was first saved
+in database, but we forced the latter to be a new child of <code>1-abc</code>. Hence, this
+document will have two revisions branches: <code>1-abc, 2-def</code> and <code>1-abc, 2-xyz, 3-ghi</code>.</p>
+<h3 id="sharing">Sharing<a class="headerlink" href="#sharing" title="Permanent link">&para;</a></h3>
+<p>In the <a href="https://docs.cozy.io/en/cozy-stack/sharing-design/">sharing protocol</a>,
+we implement this behaviour as we follow the CouchDB replication model. However,
+we prevent CouchDB conflicts for files and directories: see <a href="https://docs.cozy.io/en/cozy-stack/sharing-design/#couchdb-conflicts">this
+explanation</a></p>
 <h2 id="design-docs-in-_all_docs">Design docs in _all_docs<a class="headerlink" href="#design-docs-in-_all_docs" title="Permanent link">&para;</a></h2>
 <p>When querying <code>GET /{db}/_all_docs</code>, the response include the design docs. It&rsquo;s
 quite difficult to filter them, particulary when pagination is involved. We have

@@ -1965,6 +1965,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#couchdb-conflicts" title="CouchDB conflicts" class="md-nav__link">
+    CouchDB conflicts
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2780,6 +2787,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#couchdb-conflicts" title="CouchDB conflicts" class="md-nav__link">
+    CouchDB conflicts
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3101,6 +3115,23 @@ conflicted revision for instance).</p>
 <p>Eventually, all members converge to the same state with the same docs and the
 same revisions histories.</p>
 <p><img alt="Revisions sync between Alice, Bob and Charlie" src="../diagrams/sharing-revisions.png" /></p>
+<h3 id="couchdb-conflicts">CouchDB conflicts<a class="headerlink" href="#couchdb-conflicts" title="Permanent link">&para;</a></h3>
+<p>A <a href="https://docs.couchdb.org/en/stable/replication/conflicts.html">CouchDB
+conflict</a> is when
+a document has conflicting revisions, i.e. it has at least two revisions
+branches in its revision history. Hence, these conflicts are made on the
+database level.
+<a href="https://docs.couchdb.org/en/stable/replication/protocol.html#upload-batch-of-changed-documents">By
+design</a>,
+CouchDB can produce conflicts in its replication protocol, as the revision
+history is replicated and forced among nodes.</p>
+<p>We detail <a href="https://docs.cozy.io/en/cozy-stack/couchdb-quirks/#conflicts">here</a>
+how a CouchDB conflict can be made.</p>
+<p>In the particular case of files and folders, we implemented specific strategies
+to avoid having to deal with conflicts at the application level: the stack is
+able to prevent CouchDB conflicts for <code>io.cozy.files</code> documents and enforce
+<a href="#conflict-resolution">reconciliation</a> when possible. We also detail what is
+done when <a href="#conflict-with-no-reconciliation">no reconciliation</a> can be made.</p>
 <h2 id="files-and-folders">Files and folders<a class="headerlink" href="#files-and-folders" title="Permanent link">&para;</a></h2>
 <h3 id="why-are-they-special">Why are they special?<a class="headerlink" href="#why-are-they-special" title="Permanent link">&para;</a></h3>
 <p>Files are special for several reasons. First and foremost, they have a binary
@@ -3127,12 +3158,12 @@ seen as a cache, and recomputed when a cozy instance receives a folder document
 from a sharing replication.</p>
 <p>We will continue to have a replication as close to the CouchDB replication as
 possible. It means we synchronize a state, and not looking for the history of
-operations like cozy-desktop does. It is less accurate and can lead more often
-to conflicts. The cozy instances are expected to be online most of the time and
-have a short delay for replications: we think that the conflicts will happen
-only on rares occasions. This make acceptable to take this shortcut. And, in
-case of conflicts, we will preserve the content of the files (no data loss),
-even if it means duplicating the files.</p>
+operations like <a href="https://github.com/cozy-labs/cozy-desktop/">cozy-desktop</a> does.
+It is less accurate and can lead more often to conflicts. The cozy instances are
+expected to be online most of the time and have a short delay for replications:
+we think that the conflicts will happen only on rares occasions. This make
+acceptable to take this shortcut. And, in case of conflicts, we will preserve
+the content of the files (no data loss), even if it means duplicating the files.</p>
 <h3 id="how-a-sharing-involving-files-works">How a sharing involving files works?<a class="headerlink" href="#how-a-sharing-involving-files-works" title="Permanent link">&para;</a></h3>
 <p>When a sharing involves a rule on the <code>io.cozy.files</code> doctype, a folder is
 created on the recipients cozy where the files will be put. It is created inside
@@ -3154,7 +3185,9 @@ conflicts for files and folder by using a special conflict resolution process.</
 <h3 id="sequence-diagram">Sequence diagram<a class="headerlink" href="#sequence-diagram" title="Permanent link">&para;</a></h3>
 <p><img alt="Replicator and upload" src="../diagrams/replicator.png" /></p>
 <h3 id="conflict-resolution">Conflict resolution<a class="headerlink" href="#conflict-resolution" title="Permanent link">&para;</a></h3>
-<p>We have several cases of conflicts:</p>
+<p>In the case of <code>io.cozy.files</code> documents, we prevent CouchDB conflicts to happen
+by implementing specific strategies. Here, we detail the conflicts situations
+where a resolution is possible:</p>
 <ol>
 <li>When two cozy instances have modified the same file concurrently</li>
 <li>Same for a folder</li>
