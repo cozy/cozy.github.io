@@ -1205,6 +1205,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#filecollectionstatbyidid-options-object" title="fileCollection.statById(id, [options]) ⇒ object" class="md-nav__link">
+    fileCollection.statById(id, [options]) ⇒ object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#filecollectioncreatedirectorybypathpath-object" title="fileCollection.createDirectoryByPath(path) ⇒ object" class="md-nav__link">
     fileCollection.createDirectoryByPath(path) ⇒ object
   </a>
@@ -3530,6 +3537,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#filecollectionstatbyidid-options-object" title="fileCollection.statById(id, [options]) ⇒ object" class="md-nav__link">
+    fileCollection.statById(id, [options]) ⇒ object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#filecollectioncreatedirectorybypathpath-object" title="fileCollection.createDirectoryByPath(path) ⇒ object" class="md-nav__link">
     fileCollection.createDirectoryByPath(path) ⇒ object
   </a>
@@ -4505,6 +4519,7 @@ files associated to a specific document</p>
 <li><a href="#FileCollection+fetchFileContent">.fetchFileContent(id)</a></li>
 <li><a href="#FileCollection+getBeautifulSize">.getBeautifulSize(file, decimal)</a></li>
 <li><a href="#FileCollection+isChildOf">.isChildOf(child, parent)</a> ⇒ <code>boolean</code></li>
+<li><a href="#FileCollection+statById">.statById(id, [options])</a> ⇒ <code>object</code></li>
 <li><a href="#FileCollection+createDirectoryByPath">.createDirectoryByPath(path)</a> ⇒ <code>object</code></li>
 <li><a href="#FileCollection+createFileMetadata">.createFileMetadata(attributes)</a> ⇒ <code>object</code></li>
 <li><a href="#FileCollection+updateMetadataAttribute">.updateMetadataAttribute(id, metadata)</a> ⇒ <code>object</code></li>
@@ -4983,6 +4998,53 @@ it before doing an operation.</p>
 <td>parent</td>
 <td><code>string</code> | <code>object</code></td>
 <td>The parent target which can either be an id or an object</td>
+</tr>
+</tbody>
+</table>
+<p><a name="FileCollection+statById"></a></p>
+<h3 id="filecollectionstatbyidid-options-object">fileCollection.statById(id, [options]) ⇒ <code>object</code><a class="headerlink" href="#filecollectionstatbyidid-options-object" title="Permanent link">&para;</a></h3>
+<p>statById - Fetches the metadata about a document. For folders, the results include the list of child files and folders.</p>
+<p><strong>Kind</strong>: instance method of <a href="#FileCollection"><code>FileCollection</code></a><br />
+<strong>Returns</strong>: <code>object</code> - A promise resolving to an object containing &ldquo;data&rdquo; (the document metadata), &ldquo;included&rdquo; (the child documents) and &ldquo;links&rdquo; (pagination informations)  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td><code>string</code></td>
+<td></td>
+<td>ID of the document</td>
+</tr>
+<tr>
+<td>[options]</td>
+<td><code>object</code></td>
+<td><code></td>
+<td>Description</td>
+</tr>
+<tr>
+<td>[options.page[limit]]</td>
+<td><code>number</code></td>
+<td></td>
+<td>Max number of children documents to return</td>
+</tr>
+<tr>
+<td>[options.page[skip]]</td>
+<td><code>number</code></td>
+<td></td>
+<td>Number of children documents to skip from the start</td>
+</tr>
+<tr>
+<td>[options.page[cursor]]</td>
+<td><code>string</code></td>
+<td></td>
+<td>A cursor id for pagination</td>
 </tr>
 </tbody>
 </table>

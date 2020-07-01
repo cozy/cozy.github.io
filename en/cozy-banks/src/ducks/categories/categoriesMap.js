@@ -5,62 +5,19 @@
 */
 
 import tree from './tree'
-import isNode from 'detect-node'
-import palette from 'cozy-ui/transpiled/react/palette'
-import { getCssVariableValue } from 'cozy-ui/transpiled/react/utils/color'
-
-const getColor = color => (isNode ? palette[color] : getCssVariableValue(color))
-
-export const categoriesStyle = {
-  kids: {
-    color: getColor('azure')
-  },
-  dailyLife: {
-    color: getColor('melon')
-  },
-  educationAndTraining: {
-    color: getColor('blazeOrange')
-  },
-  health: {
-    color: getColor('pomegranate')
-  },
-  homeAndRealEstate: {
-    color: getColor('mango')
-  },
-  incomeCat: {
-    color: getColor('emerald')
-  },
-  activities: {
-    color: getColor('fuchsia')
-  },
-  excludeFromBudgetCat: {
-    color: getColor('darkPeriwinkle')
-  },
-  services: {
-    color: getColor('purpley')
-  },
-  tax: {
-    color: getColor('lightishPurple')
-  },
-  transportation: {
-    color: getColor('puertoRico')
-  },
-  goingOutAndTravel: {
-    color: getColor('weirdGreen')
-  },
-  uncategorized: {
-    color: getColor('coolGrey')
-  }
-}
+import categoryColors from 'ducks/categories/colors'
 
 export const getCategoryIdFromName = name =>
   Object.keys(tree).find(id => tree[id] === name)
 
-for (const catName in categoriesStyle) {
-  const category = categoriesStyle[catName]
+export const categoriesStyle = {}
+for (const catName in categoryColors) {
+  const category = {}
+  category.color = categoryColors[catName]
   category.name = catName
   category.id = getCategoryIdFromName(catName)
   category.children = {}
+  categoriesStyle[catName] = category
 }
 
 export const getCategories = () => {

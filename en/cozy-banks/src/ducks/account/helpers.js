@@ -239,10 +239,8 @@ export const buildVirtualAccounts = transactions => {
   }
   return [
     buildHealthReimbursementsVirtualAccount(transactions),
-    flag('balance.professional-reimb-account') &&
-      buildProfessionalReimbursementsVirtualAccount(transactions),
-    flag('balance.others-reimb-account') &&
-      buildOthersReimbursementsVirtualAccount(transactions)
+    buildProfessionalReimbursementsVirtualAccount(transactions),
+    buildOthersReimbursementsVirtualAccount(transactions)
   ].filter(Boolean)
 }
 

@@ -47,10 +47,6 @@ if (isDemoCozy()) {
   flag('demo', true)
 }
 
-// Turn on flags for professional and others reimbursements accounts
-flag('balance.professional-reimb-account', true)
-flag('balance.others-reimb-account', true)
-
 Figure.defaultProps = Object.assign({}, Figure.defaultProps, {
   blurred: flag('amount_blur') ? true : false
 })

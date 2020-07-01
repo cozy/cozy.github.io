@@ -1,9 +1,10 @@
 import React from 'react'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import PropTypes from 'prop-types'
 import GroupPanel from 'ducks/balance/components/GroupPanel'
 import { flowRight as compose } from 'lodash'
 import { translate } from 'cozy-ui/transpiled/react'
-import ButtonAction from 'cozy-ui/transpiled/react/ButtonAction'
+import { Button } from 'cozy-ui/transpiled/react/Button'
 import { withRouter } from 'react-router'
 import AddAccountLink from 'ducks/settings/AddAccountLink'
 import { translateAndSortGroups } from 'ducks/groups/helpers'
@@ -69,23 +70,27 @@ class BalancePanels extends React.PureComponent {
         <Delayed delay={groupsSorted.length * GROUP_PANEL_RENDER_DELAY}>
           <div className={styles.BalancePanels__actions}>
             <AddAccountLink>
-              <ButtonAction
-                type="new"
-                label={t('Accounts.add_bank')}
-                className={styles.BalancePanels__action}
-              />
+              <AddAccountButton />
             </AddAccountLink>
-            <ButtonAction
+            <Button
               onClick={this.goToGroupsSettings}
-              type="normal"
+              theme="secondary"
               label={t('Balance.manage_accounts')}
-              className={styles.BalancePanels__action}
             />
           </div>
         </Delayed>
       </div>
     )
   }
+}
+
+export const AddAccountButton = ({ theme }) => {
+  const { t } = useI18n()
+  return <Button theme={theme} label={t('Accounts.add_bank')} />
+}
+
+AddAccountButton.defaultProps = {
+  theme: 'ghost'
 }
 
 export default compose(
