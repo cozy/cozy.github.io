@@ -19,7 +19,6 @@ import { getGroupLabel, renamedGroup } from 'ducks/groups/helpers'
 
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import styles from 'ducks/settings/GroupsSettings.styl'
-import btnStyles from 'styles/buttons.styl'
 
 const makeNewGroup = (client, t) => {
   const obj = client.makeNewDocument('io.cozy.bank.groups')
@@ -199,7 +198,7 @@ export class DumbGroupSettings extends Component {
               />
             ) : (
               <Button
-                className={btnStyles['btn--no-outline']}
+                theme="text"
                 onClick={this.modifyName}
                 label={t('Groups.rename')}
               />

@@ -10,9 +10,7 @@ import Loading from 'components/Loading'
 import { queryConnect, Q } from 'cozy-client'
 import plus from 'assets/icons/16/plus.svg'
 import styles from 'ducks/settings/AccountsSettings.styl'
-import btnStyles from 'styles/buttons.styl'
 import AddAccountLink from 'ducks/settings/AddAccountLink'
-import cx from 'classnames'
 import {
   getAccountInstitutionLabel,
   getAccountType,
@@ -131,7 +129,7 @@ class AccountsSettings extends Component {
       <div>
         <AddAccountLink>
           <Button
-            className={cx(btnStyles['btn--no-outline'], 'u-pb-1')}
+            theme="text"
             icon={<Icon icon={plus} className="u-mr-half" />}
             label={t('Accounts.add_bank')}
           />

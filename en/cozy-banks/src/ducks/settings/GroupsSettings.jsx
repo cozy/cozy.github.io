@@ -9,7 +9,6 @@ import { queryConnect } from 'cozy-client'
 import Loading from 'components/Loading'
 import plus from 'assets/icons/16/plus.svg'
 import styles from 'ducks/settings/GroupsSettings.styl'
-import btnStyles from 'styles/buttons.styl'
 import { sortBy, flowRight as compose, get } from 'lodash'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { getGroupLabel } from 'ducks/groups/helpers'
@@ -71,7 +70,7 @@ const Groups = withRouter(
             <Button
               icon={<Icon icon={plus} className="u-mr-half" />}
               label={t('Groups.create')}
-              className={btnStyles['btn--no-outline']}
+              theme="text"
               onClick={() => router.push('/settings/groups/new')}
             />
           </p>

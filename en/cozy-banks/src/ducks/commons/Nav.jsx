@@ -10,6 +10,7 @@ import UINav, {
 import { withRouter } from 'react-router'
 import flag from 'cozy-flags'
 
+import settingsIcon from 'assets/icons/icon-gear.svg'
 import walletIcon from 'assets/icons/icon-wallet.svg'
 import graphIcon from 'assets/icons/icon-graph.svg'
 import transfersIcon from 'assets/icons/icon-transfers.svg'
@@ -122,7 +123,7 @@ export const Nav = () => {
             : null,
           {
             to: '/settings',
-            icon: 'gear',
+            icon: settingsIcon,
             label: t('Nav.settings'),
             rx: settingsRoute
           }
