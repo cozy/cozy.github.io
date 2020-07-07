@@ -868,6 +868,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#new-pouchlinkopts" title="new PouchLink([opts])" class="md-nav__link">
+    new PouchLink([opts])
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#pouchlinkhandleonsync" title="pouchLink.handleOnSync()" class="md-nav__link">
     pouchLink.handleOnSync()
   </a>
@@ -2604,6 +2611,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#new-pouchlinkopts" title="new PouchLink([opts])" class="md-nav__link">
+    new PouchLink([opts])
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#pouchlinkhandleonsync" title="pouchLink.handleOnSync()" class="md-nav__link">
     pouchLink.handleOnSync()
   </a>
@@ -2788,12 +2802,52 @@ to respond to queries and mutations.</p>
 <p><strong>Kind</strong>: global class  </p>
 <ul>
 <li><a href="#PouchLink">PouchLink</a><ul>
+<li><a href="#new_PouchLink_new">new PouchLink([opts])</a></li>
 <li><a href="#PouchLink+handleOnSync">.handleOnSync()</a></li>
 <li><a href="#PouchLink+startReplication">.startReplication()</a> ⇒ <code>void</code></li>
 <li><a href="#PouchLink+stopReplication">.stopReplication()</a> ⇒ <code>void</code></li>
 </ul>
 </li>
 </ul>
+<p><a name="new_PouchLink_new"></a></p>
+<h3 id="new-pouchlinkopts">new PouchLink([opts])<a class="headerlink" href="#new-pouchlinkopts" title="Permanent link">&para;</a></h3>
+<p>constructor - Initializes a new PouchLink</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[opts]</td>
+<td><code>object</code></td>
+<td><code></td>
+<td></td>
+</tr>
+<tr>
+<td>[opts.replicationInterval]</td>
+<td><code>number</code></td>
+<td></td>
+<td>Milliseconds between replications</td>
+</tr>
+<tr>
+<td>opts.doctypes</td>
+<td><code>Array.&lt;string&gt;</code></td>
+<td></td>
+<td>Doctypes to replicate</td>
+</tr>
+<tr>
+<td>opts.doctypesReplicationOptions</td>
+<td><code>Array.&lt;object&gt;</code></td>
+<td></td>
+<td>A mapping from doctypes to replication options. All pouch replication options can be used, as well as the &ldquo;strategy&rdquo; option that determines which way the replication is done (can be &ldquo;sync&rdquo;, &ldquo;fromRemote&rdquo; or &ldquo;toRemote&rdquo;)</td>
+</tr>
+</tbody>
+</table>
 <p><a name="PouchLink+handleOnSync"></a></p>
 <h3 id="pouchlinkhandleonsync">pouchLink.handleOnSync()<a class="headerlink" href="#pouchlinkhandleonsync" title="Permanent link">&para;</a></h3>
 <p>Receives PouchDB updates (documents grouped by doctype).

@@ -3,8 +3,9 @@ import PropTypes from 'prop-types'
 import SwipeableViews from 'react-swipeable-views'
 
 import PercentageLine from 'components/PercentageLine'
-import { BarBackButton } from 'components/BackButton'
+import MobileAwareBackButton from 'components/BackButton'
 import styles from './styles.styl'
+import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
 
 const StepperProgress = ({ currentIndex, steps }) => (
   <div className={styles.ProgressBackground}>
@@ -28,7 +29,9 @@ const Stepper = ({ currentIndex, children, onBack, showPercentage }) => (
     {showPercentage ? (
       <StepperProgress steps={children} currentIndex={currentIndex} />
     ) : null}
-    {currentIndex > 0 ? <BarBackButton onClick={onBack} /> : null}
+    <CozyTheme variant="inverted">
+      {currentIndex > 0 ? <MobileAwareBackButton onClick={onBack} /> : null}
+    </CozyTheme>
     <SwipeableViews animateHeight disabled index={currentIndex}>
       {React.Children.map(children, (child, i) => {
         return React.cloneElement(child, { active: i === currentIndex })

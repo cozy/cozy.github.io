@@ -2647,6 +2647,23 @@ it is reached first when we query the link chain :</p>
 synchronize them with the distant CouchDB. All doctypes that are not managed by
 the <code>PouchLink</code> will be passed to the next link in the chain (in the previous
 example, the <code>StackLink</code>).</p>
+<p>Additionally, it is possible to replicate some doctypes only in a specific direction:</p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">pouchLink</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PouchLink</span><span class="p">({</span>
+  <span class="nx">doctypes</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">,</span> <span class="s1">&#39;io.cozy.files&#39;</span><span class="p">,</span> <span class="s1">&#39;io.cozy.localtype&#39;</span><span class="p">],</span>
+  <span class="nx">doctypesReplicationOptions</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s1">&#39;io.cozy.todos&#39;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">strategy</span><span class="o">:</span> <span class="s1">&#39;sync&#39;</span> <span class="c1">// default, replicate both ways</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;io.cozy.files&#39;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">strategy</span><span class="o">:</span> <span class="s1">&#39;fromRemote&#39;</span> <span class="c1">// replicate changes from the remote locally, but don&#39;t push any changes</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;io.cozy.localtype&#39;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">strategy</span><span class="o">:</span> <span class="s1">&#39;toRemote&#39;</span> <span class="c1">// push changes to remote, but don&#39;t replicate changes from it</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="nx">initialSync</span><span class="o">:</span> <span class="kc">true</span>
+<span class="p">})</span>
+</pre></div>
                 
                   
                 

@@ -26,6 +26,7 @@ import ChooseAmount from 'ducks/transfers/steps/Amount'
 import Summary from 'ducks/transfers/steps/Summary'
 import Password from 'ducks/transfers/steps/Password'
 import { isLoginFailed } from 'ducks/transfers/utils'
+import BarTheme from 'ducks/bar/BarTheme'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 
 const THIRTY_SECONDS = 30 * 1000
@@ -423,7 +424,17 @@ class TransferPage extends React.Component {
   }
 }
 
+const barTheme = theme => Component => props => {
+  return (
+    <>
+      <BarTheme theme={theme} />
+      <Component {...props} />
+    </>
+  )
+}
+
 const enhance = compose(
+  barTheme('primary'),
   withClient,
   withRouter,
   queryConnect({
