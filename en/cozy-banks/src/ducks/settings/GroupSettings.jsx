@@ -6,16 +6,18 @@ import { translate, withBreakpoints } from 'cozy-ui/transpiled/react'
 import Button from 'cozy-ui/transpiled/react/Button'
 import Toggle from 'cozy-ui/transpiled/react/Toggle'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import { Media, Img } from 'cozy-ui/transpiled/react/Media'
 
+import BarTheme from 'ducks/bar/BarTheme'
+import { getAccountInstitutionLabel } from 'ducks/account/helpers'
 import { GROUP_DOCTYPE, accountsConn } from 'doctypes'
+import { getGroupLabel, renamedGroup } from 'ducks/groups/helpers'
 import Loading from 'components/Loading'
 import BackButton from 'components/BackButton'
 import Table from 'components/Table'
 import { PageTitle } from 'components/Title'
 import { Padded } from 'components/Spacing'
-import { getAccountInstitutionLabel } from 'ducks/account/helpers'
 import { logException } from 'lib/sentry'
-import { getGroupLabel, renamedGroup } from 'ducks/groups/helpers'
 
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import styles from 'ducks/settings/GroupsSettings.styl'
@@ -176,34 +178,38 @@ export class DumbGroupSettings extends Component {
           className={styles.GrpStg__form}
           onSubmit={e => e.preventDefault()}
         >
-          <p>
-            {!modifying ? (
-              getGroupLabel(group, t)
-            ) : (
-              <input
-                ref={this.saveInputRef}
-                autoFocus
-                type="text"
-                defaultValue={getGroupLabel(group, t)}
-              />
-            )}
-            {modifying ? (
-              <Button
-                className={styles['save-button']}
-                disabled={saving}
-                theme="regular"
-                onClick={this.handleRename}
-                label={t('Groups.save')}
-                busy={saving}
-              />
-            ) : (
-              <Button
-                theme="text"
-                onClick={this.modifyName}
-                label={t('Groups.rename')}
-              />
-            )}
-          </p>
+          <Media>
+            <Img>
+              {!modifying ? (
+                getGroupLabel(group, t)
+              ) : (
+                <input
+                  ref={this.saveInputRef}
+                  autoFocus
+                  type="text"
+                  defaultValue={getGroupLabel(group, t)}
+                />
+              )}
+            </Img>
+            <Img>
+              {modifying ? (
+                <Button
+                  className={styles['save-button']}
+                  disabled={saving}
+                  theme="regular"
+                  onClick={this.handleRename}
+                  label={t('Groups.save')}
+                  busy={saving}
+                />
+              ) : (
+                <Button
+                  theme="text"
+                  onClick={this.modifyName}
+                  label={t('Groups.rename')}
+                />
+              )}
+            </Img>
+          </Media>
         </form>
         <h3>{t('Groups.accounts')}</h3>
         <Query query={accountsConn.query} as={accountsConn.as}>
@@ -248,9 +254,15 @@ const ExistingGroupSettings = enhance(props => (
   <Query query={client => client.get(GROUP_DOCTYPE, props.routeParams.groupId)}>
     {({ data: group, fetchStatus }) =>
       fetchStatus === 'loading' || fetchStatus === 'pending' ? (
-        <Loading />
+        <>
+          <BarTheme theme="primary" />
+          <Loading />
+        </>
       ) : (
-        <GroupSettings group={group} {...props} />
+        <>
+          <BarTheme theme="primary" />
+          <GroupSettings group={group} {...props} />
+        </>
       )
     }
   </Query>
@@ -267,6 +279,9 @@ export default ExistingGroupSettings
  */
 export const NewGroupSettings = enhance(
   translate()(props => (
-    <GroupSettings {...props} group={makeNewGroup(props.client, props.t)} />
+    <>
+      <BarTheme theme="primary" />
+      <GroupSettings {...props} group={makeNewGroup(props.client, props.t)} />
+    </>
   ))
 )

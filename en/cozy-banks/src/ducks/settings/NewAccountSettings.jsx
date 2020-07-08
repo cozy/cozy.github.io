@@ -1,36 +1,40 @@
-import React, { useState } from 'react'
-import BarTheme from 'ducks/bar/BarTheme'
-import { PageTitle } from 'components/Title'
-import BackButton from 'components/BackButton'
-import { Query, withClient } from 'cozy-client'
-import { ACCOUNT_DOCTYPE } from 'doctypes'
-import Loading from 'components/Loading'
-import {
-  getAccountLabel,
-  getAccountInstitutionLabel,
-  getAccountType,
-  getAccountOwners
-} from 'ducks/account/helpers'
-import { Padded } from 'components/Spacing'
-import Button from 'cozy-ui/transpiled/react/Button'
-import NarrowContent from 'cozy-ui/transpiled/react/NarrowContent'
-import cx from 'classnames'
-import styles from 'ducks/settings/NewAccountSettings.styl'
-import Alerter from 'cozy-ui/transpiled/react/Alerter'
-import Menu from 'cozy-ui/transpiled/react/MuiCozyTheme/Menus'
-import MenuItem from '@material-ui/core/MenuItem'
-import Modal from 'cozy-ui/transpiled/react/Modal'
-import { connect } from 'react-redux'
-import { getHomeURL } from 'ducks/apps/selectors'
 import { flowRight as compose, set } from 'lodash'
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import MenuItem from '@material-ui/core/MenuItem'
+
+import { Query, withClient } from 'cozy-client'
+import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import Button from 'cozy-ui/transpiled/react/Button'
+import Menu from 'cozy-ui/transpiled/react/MuiCozyTheme/Menus'
 import { translate, useI18n } from 'cozy-ui/transpiled/react'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import Field from 'cozy-ui/transpiled/react/Field'
 import CollectionField from 'cozy-ui/transpiled/react/Labs/CollectionField'
 import Stack from 'cozy-ui/transpiled/react/Stack'
 import BaseContactPicker from 'cozy-ui/transpiled/react/ContactPicker'
-import withFilters from 'components/withFilters'
 import { withBreakpoints } from 'cozy-ui/transpiled/react'
+import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
+import Modal from 'cozy-ui/transpiled/react/Modal'
+
+import BarTheme from 'ducks/bar/BarTheme'
+import { ACCOUNT_DOCTYPE } from 'doctypes'
+import {
+  getAccountLabel,
+  getAccountInstitutionLabel,
+  getAccountType,
+  getAccountOwners
+} from 'ducks/account/helpers'
+import NarrowContent from 'cozy-ui/transpiled/react/NarrowContent'
+import cx from 'classnames'
+import styles from 'ducks/settings/NewAccountSettings.styl'
+import { getHomeURL } from 'ducks/apps/selectors'
+
+import { Padded } from 'components/Spacing'
+import { PageTitle } from 'components/Title'
+import BackButton from 'components/BackButton'
+import Loading from 'components/Loading'
+import withFilters from 'components/withFilters'
 import { BarRight } from 'components/Bar'
 
 const ContactPicker = props => {
@@ -279,7 +283,9 @@ const NewAccountSettings = props => {
             >
               {isMobile && (
                 <>
-                  <BackButton to="/settings/accounts" arrow theme="primary" />
+                  <CozyTheme theme="primary">
+                    <BackButton to="/settings/accounts" arrow theme="primary" />
+                  </CozyTheme>
                   <BarRight>
                     <Menu
                       position="right"
@@ -288,6 +294,7 @@ const NewAccountSettings = props => {
                           icon="dots"
                           iconOnly
                           label="click"
+                          theme="secondary"
                           extension="narrow"
                           className={styles.Menu__btn}
                         />

@@ -105,12 +105,15 @@ export default function testFlagAPI(flag) {
         const { client } = setup()
         client.isLogged = true
         client.registerPlugin(flag.plugin)
+        const onLogin = jest.fn()
+        client.on('plugin:flag:login', onLogin)
         await client.plugins.flags.initializing
         expect(flag('has_feature1')).toBe(true)
         expect(flag('has_feature2')).toBe(false)
         expect(flag('from_remote')).toBe(true)
         expect(flag('number_of_foos')).toBe(10)
         expect(flag('bar_config')).toEqual({ qux: 'quux' })
+        expect(onLogin).toHaveBeenCalled()
       })
     })
 

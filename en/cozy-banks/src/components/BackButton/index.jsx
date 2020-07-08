@@ -6,34 +6,39 @@ import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
 import arrowLeft from 'assets/icons/icon-arrow-left.svg'
-import { getCssVariableValue } from 'cozy-ui/transpiled/react/utils/color'
 import cx from 'classnames'
 import { BarLeft } from 'components/Bar'
 
-export const BackIcon = ({ color }) => <Icon icon={arrowLeft} color={color} />
+export const BackIcon = () => {
+  const theme = useCozyTheme()
+  return (
+    <Icon
+      className={cx(
+        theme ? styles[`BackIcon--${theme}`] : null,
+        styles.BackIcon
+      )}
+      icon={arrowLeft}
+    />
+  )
+}
 
-export const BackLink = ({ className, color, onClick }) => (
+export const BackLink = ({ className, onClick }) => (
   <a className={cx(styles.BackArrow, className)} onClick={onClick}>
-    <BackIcon color={color} />
+    <BackIcon />
   </a>
 )
 
-export const BackButton = ({ className, color, onClick }) => (
+export const BackButton = ({ className, onClick }) => (
   <button className={cx(styles.BackArrow, className)} onClick={onClick}>
-    <BackIcon color={color} />
+    <BackIcon />
   </button>
 )
 
-BackButton.defaultProps = {
-  color: 'var(--coolGrey)'
-}
-
-export const BarBackButton = ({ onClick, color }) => {
+export const BarBackButton = ({ onClick }) => {
   const { isMobile } = useBreakpoints()
   return isMobile ? (
     <BarLeft>
       <BackButton
-        color={color}
         className={cx(styles.BackArrow, 'coz-bar-btn coz-bar-burger')}
         onClick={onClick}
       />
@@ -52,7 +57,6 @@ export const BarBackButton = ({ onClick, color }) => {
  */
 const MobileAwareBackButton = ({ onClick, to, router, arrow = false }) => {
   const { isMobile } = useBreakpoints()
-  const theme = useCozyTheme()
   const location = router.getCurrentLocation()
   if (!onClick && !to) {
     to = location.pathname
@@ -61,15 +65,11 @@ const MobileAwareBackButton = ({ onClick, to, router, arrow = false }) => {
       .join('/')
   }
 
-  const arrowColor =
-    theme === 'inverted'
-      ? getCssVariableValue('primaryContrastTextColor')
-      : getCssVariableValue('coolGrey')
   const handleClick = (onClick = onClick || (() => to && router.push(to)))
   return isMobile ? (
-    <BarBackButton onClick={handleClick} color={arrowColor} />
+    <BarBackButton onClick={handleClick} />
   ) : (
-    arrow && <BackLink onClick={handleClick} color={arrowColor} />
+    arrow && <BackLink onClick={handleClick} />
   )
 }
 

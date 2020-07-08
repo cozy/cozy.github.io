@@ -70,7 +70,7 @@ class BalancePanels extends React.PureComponent {
         <Delayed delay={groupsSorted.length * GROUP_PANEL_RENDER_DELAY}>
           <div className={styles.BalancePanels__actions}>
             <AddAccountLink>
-              <AddAccountButton />
+              <BalanceAddAccountButton />
             </AddAccountLink>
             <Button
               onClick={this.goToGroupsSettings}
@@ -84,12 +84,14 @@ class BalancePanels extends React.PureComponent {
   }
 }
 
-export const AddAccountButton = ({ theme }) => {
+export const BalanceAddAccountButton = ({ theme, onClick }) => {
   const { t } = useI18n()
-  return <Button theme={theme} label={t('Accounts.add_bank')} />
+  return (
+    <Button onClick={onClick} theme={theme} label={t('Accounts.add_bank')} />
+  )
 }
 
-AddAccountButton.defaultProps = {
+BalanceAddAccountButton.defaultProps = {
   theme: 'ghost'
 }
 

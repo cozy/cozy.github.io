@@ -4398,6 +4398,7 @@ file/directory (optional).</p>
 </ul>
 <p>The <code>updated_at</code> field will be the first value in this list:</p>
 <ul>
+<li>the datetime extracted from the EXIF for a photo if it is greater than the other values</li>
 <li>the <code>UpdatedAt</code> parameter from the query-string</li>
 <li>the <code>Date</code> HTTP header</li>
 <li>the current time from the server.</li>
@@ -4733,6 +4734,13 @@ Hello world!
 (640x480), <code>medium</code> (1280x720), or <code>large</code> (1920x1080).</p>
 <h3 id="put-filesfile-id">PUT /files/:file-id<a class="headerlink" href="#put-filesfile-id" title="Permanent link">&para;</a></h3>
 <p>Overwrite a file</p>
+<p>The <code>updated_at</code> field will be the first value in this list:</p>
+<ul>
+<li>the datetime extracted from the EXIF for a photo if it is greater than the other values</li>
+<li>the <code>UpdatedAt</code> parameter from the query-string</li>
+<li>the <code>Date</code> HTTP header</li>
+<li>the current time from the server.</li>
+</ul>
 <h4 id="query-string_2">Query-String<a class="headerlink" href="#query-string_2" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
@@ -4747,8 +4755,16 @@ Hello world!
 <td>an array of tags</td>
 </tr>
 <tr>
+<td>Executable</td>
+<td><code>true</code> if the file is executable (UNIX permission)</td>
+</tr>
+<tr>
 <td>MetadataID</td>
 <td>the identifier of a metadata object</td>
+</tr>
+<tr>
+<td>UpdatedAt</td>
+<td>the modification date of the file</td>
 </tr>
 </tbody>
 </table>

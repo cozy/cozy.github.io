@@ -14,10 +14,11 @@
     align-items center
     border 0
     background transparent
+    --iconColor: var(--coolGrey)
 
     +small-screen()
         &
-            margin-right 0.25rem
+            margin-right .5rem
 
 .BackArrow.BackArrow:active
     background rgba(255, 255, 255, 0.2)
@@ -25,3 +26,12 @@
     padding 0
     background none
     border 0
+
+.BackIcon
+    color var(--iconColor)
+
+.BackIcon--primary
+    --iconColor: white
+
+.BackIcon--inverted
+    --iconColor: white
