@@ -140,11 +140,19 @@ class FlagClientPlugin {
     this.client.on('login', this.handleLogin)
     this.client.on('logout', this.handleLogout)
 
+    this.setupInitializing()
+
+    if (client.isLogged) this.handleLogin()
+  }
+
+  /**
+   * Sets up a promise that can be awaited to wait for flag complete
+   * initialization
+   */
+  setupInitializing() {
     this.initializing = new Promise(resolve => {
       this.resolveInitializing = resolve
     })
-
-    if (client.isLogged) this.handleLogin()
   }
 
   async handleLogin() {
@@ -155,6 +163,7 @@ class FlagClientPlugin {
 
   async handleLogout() {
     flag.reset()
+    this.setupInitializing()
     this.client.emit('plugin:flag:logout')
   }
 }

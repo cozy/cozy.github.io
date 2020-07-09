@@ -1,4 +1,5 @@
 import CozyClient from 'cozy-client'
+import util from 'util'
 
 export default function testFlagAPI(flag) {
   afterEach(() => {
@@ -114,6 +115,23 @@ export default function testFlagAPI(flag) {
         expect(flag('number_of_foos')).toBe(10)
         expect(flag('bar_config')).toEqual({ qux: 'quux' })
         expect(onLogin).toHaveBeenCalled()
+      })
+
+      it('should reset the initializing promise on logout', async () => {
+        const { client } = setup()
+        client.isLogged = true
+        client.registerPlugin(flag.plugin)
+
+        const initializing1 = client.plugins.flags.initializing
+        const state = util.inspect(initializing1)
+        expect(state).toContain('pending')
+        await client.plugins.flags.initializing
+        const state2 = util.inspect(initializing1)
+        expect(state2).not.toContain('pending')
+        await client.logout()
+        const initializing2 = client.plugins.flags.initializing
+        expect(initializing2).not.toBe(initializing1)
+        expect(util.inspect(initializing2)).toContain('pending')
       })
     })
 
