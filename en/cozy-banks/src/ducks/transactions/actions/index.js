@@ -3,27 +3,15 @@ import KonnectorAction from 'ducks/transactions/actions/KonnectorAction'
 import HealthLinkAction from 'ducks/transactions/actions/HealthLinkAction'
 import AppLinkAction from 'ducks/transactions/actions/AppLinkAction'
 import UrlLinkAction from 'ducks/transactions/actions/UrlLinkAction'
-import BillAction from 'ducks/transactions/actions/BillAction'
-import AlertAction from 'ducks/transactions/actions/AlertAction'
-import CommentAction from 'ducks/transactions/actions/CommentAction'
-import AttachAction from 'ducks/transactions/actions/AttachAction'
-import HealthExpenseAction from 'ducks/transactions/actions/HealthExpenseAction'
-import HealthExpenseStatusAction from 'ducks/transactions/actions/HealthExpenseStatusAction'
 import ReimbursementStatusAction from 'ducks/transactions/actions/ReimbursementStatusAction'
 import AttachedDocsAction from 'ducks/transactions/actions/AttachedDocsAction'
 
 const actions = [
   ['AttachedDocsAction', AttachedDocsAction],
-  ['HealthExpenseStatusAction', HealthExpenseStatusAction],
-  ['HealthExpenseAction', HealthExpenseAction],
   ['HealthLinkAction', HealthLinkAction],
-  ['BillAction', BillAction],
   ['AppLinkAction', AppLinkAction],
   ['KonnectorAction', KonnectorAction],
   ['UrlLinkAction', UrlLinkAction],
-  ['AttachAction', AttachAction],
-  ['CommentAction', CommentAction],
-  ['AlertAction', AlertAction],
   ['ReimbursementStatusAction', ReimbursementStatusAction]
 ]
 

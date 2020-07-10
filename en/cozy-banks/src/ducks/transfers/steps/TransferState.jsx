@@ -3,35 +3,36 @@ import Padded from 'components/Spacing/Padded'
 import { Text, Button, useI18n } from 'cozy-ui/transpiled/react'
 
 import styles from 'ducks/transfers/styles.styl'
-import transferDoneImg from 'assets/transfer-done.jpg'
-import transferErrorImg from 'assets/transfer-error.jpg'
 import Title from 'ducks/transfers/steps/Title'
+import TransferDoneImg from 'ducks/transfers/steps/TransferDoneImg'
+import TransferErrorImg from 'ducks/transfers/steps/TransferErrorImg'
 
-const TransferStateModal = props => (
-  <Padded className={styles.TransferStateModal}>
-    <Title className="u-mb-1-half">{props.title}</Title>
-    <img
-      style={{ maxHeight: '7.5rem' }}
-      className="u-mb-1-half"
-      src={props.img}
-    />
-    <Text className="u-mb-1-half">{props.description}</Text>
+const TransferState = ({
+  title,
+  description,
+  onClickPrimaryButton,
+  primaryLabel,
+  Img
+}) => (
+  <Padded className={styles.TransferState}>
+    <Title className="u-mb-1-half">{title}</Title>
+    { Img }
+    <Text className="u-mb-1-half">{description}</Text>
     <Button
       extension="full"
       className="u-mb-half"
-      onClick={props.onClickPrimaryButton}
-      label={props.primaryLabel}
+      onClick={onClickPrimaryButton}
+      label={primaryLabel}
     />
   </Padded>
 )
 
 export const TransferSuccess = React.memo(function TransferSuccess({ onExit }) {
   const { t } = useI18n()
-
   return (
-    <TransferStateModal
+    <TransferState
       title={t('Transfer.success.title')}
-      img={transferDoneImg}
+      Img={<TransferDoneImg />}
       description={t('Transfer.success.description')}
       onClickPrimaryButton={onExit}
       primaryLabel={t('Transfer.exit')}
@@ -46,9 +47,9 @@ export const DumbTransferError = ({ onExit, error }) => {
   const { t } = useI18n()
   const loginFailed = isLoginFailed(error)
   return (
-    <TransferStateModal
+    <TransferState
       title={t('Transfer.error.title')}
-      img={transferErrorImg}
+      Img={<TransferErrorImg />}
       description={
         loginFailed
           ? t('Transfer.error.description-login-failed')

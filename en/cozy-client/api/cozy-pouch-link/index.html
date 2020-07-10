@@ -2853,17 +2853,20 @@ to respond to queries and mutations.</p>
 <p>Receives PouchDB updates (documents grouped by doctype).
 Normalizes the data (.id -&gt; ._id, .rev -&gt; _rev).
 Passes the data to the client and to the onSync handler.</p>
+<p>Emits an event (pouchlink:sync:end) when the sync (all doctypes) is done</p>
 <p><strong>Kind</strong>: instance method of <a href="#PouchLink"><code>PouchLink</code></a><br />
 <a name="PouchLink+startReplication"></a></p>
 <h3 id="pouchlinkstartreplication-void">pouchLink.startReplication() ⇒ <code>void</code><a class="headerlink" href="#pouchlinkstartreplication-void" title="Permanent link">&para;</a></h3>
 <p>User of the link can call this to start ongoing replications.
 Typically, it can be used when the application regains focus.</p>
+<p>Emits pouchlink:sync:start event when the replication begins</p>
 <p><strong>Kind</strong>: instance method of <a href="#PouchLink"><code>PouchLink</code></a><br />
 <strong>Access</strong>: public<br />
 <a name="PouchLink+stopReplication"></a></p>
 <h3 id="pouchlinkstopreplication-void">pouchLink.stopReplication() ⇒ <code>void</code><a class="headerlink" href="#pouchlinkstopreplication-void" title="Permanent link">&para;</a></h3>
 <p>User of the link can call this to stop ongoing replications.
 Typically, it can be used when the applications loses focus.</p>
+<p>Emits pouchlink:sync:stop event</p>
 <p><strong>Kind</strong>: instance method of <a href="#PouchLink"><code>PouchLink</code></a><br />
 <strong>Access</strong>: public<br />
 <a name="Loop"></a></p>

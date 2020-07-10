@@ -1,13 +1,16 @@
 import React from 'react'
 import compose from 'lodash/flowRight'
 import { withRouter } from 'react-router'
-import Padded from 'components/Spacing/Padded'
+
 import { translate, Text, Modal, useI18n } from 'cozy-ui/transpiled/react'
 import { withClient, queryConnect } from 'cozy-client'
 import Realtime from 'cozy-realtime'
+import flag from 'cozy-flags'
+
 import { logException } from 'lib/sentry'
 import { recipientsConn, accountsConn } from 'doctypes'
 
+import Padded from 'components/Spacing/Padded'
 import Loading from 'components/Loading'
 import Stepper from 'components/Stepper'
 import AddAccountButton from 'ducks/categories/AddAccountButton'
@@ -128,7 +131,7 @@ class TransferPage extends React.Component {
     return {
       category: null, // Currently selected category
       slide: 0,
-      transferState: null,
+      transferState: flag('banks.transfers.mock-state'),
       senderAccount: null,
       senderAccounts: [], // Possible sender accounts for chosen person
       amount: '',

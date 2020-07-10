@@ -4,16 +4,15 @@ import flag from 'cozy-flags'
 import { some } from 'lodash'
 import Figure from 'cozy-ui/transpiled/react/Figure'
 
-/** Reset flags, keeping only those set to true */
+/** Reset flags, keeping only those set to a truthy value */
 const garbageCollectFlags = () => {
   const trueFlags = flag
     .list()
     .map(name => [name, flag(name)])
     .filter(x => x[1])
-    .map(x => x[0])
   flag.reset()
-  for (const trueFlag of trueFlags) {
-    flag(trueFlag, true)
+  for (const [flagName, flagValue] of trueFlags) {
+    flag(flagName, flagValue)
   }
 }
 
