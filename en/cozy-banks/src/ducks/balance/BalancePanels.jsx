@@ -1,7 +1,7 @@
 import React from 'react'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import PropTypes from 'prop-types'
-import GroupPanel from 'ducks/balance/components/GroupPanel'
+import GroupPanel from 'ducks/balance/GroupPanel'
 import { flowRight as compose } from 'lodash'
 import { translate } from 'cozy-ui/transpiled/react'
 import { Button } from 'cozy-ui/transpiled/react/Button'

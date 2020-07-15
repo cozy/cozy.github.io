@@ -10,7 +10,7 @@ import { Padded } from 'components/Spacing'
 import CozyClient from 'cozy-client'
 import Infos from 'cozy-ui/transpiled/react/Infos'
 import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
-import { useRedirectionURL } from 'components/effects'
+import useRedirectionURL from 'components/useRedirectionURL'
 import { ButtonLink } from 'cozy-ui/transpiled/react/Button'
 
 // Utilities on konnectors

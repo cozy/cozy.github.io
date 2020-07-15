@@ -8,7 +8,7 @@ import Header from 'components/Header'
 import { PageTitle } from 'components/Title'
 import KonnectorUpdateInfo from 'components/KonnectorUpdateInfo'
 import History from 'ducks/balance/History'
-import HeaderTitle from 'ducks/balance/components/HeaderTitle'
+import HeaderTitle from 'ducks/balance/HeaderTitle'
 import Delayed from 'components/Delayed'
 import { queryConnect } from 'cozy-client'
 import flag from 'cozy-flags'
@@ -16,7 +16,7 @@ import { Icon } from 'cozy-ui/transpiled/react'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
 import { BarRight } from 'components/Bar'
-import styles from 'ducks/balance/components/BalanceHeader.styl'
+import styles from 'ducks/balance/BalanceHeader.styl'
 
 const SearchIcon = () => {
   const { isMobile } = useBreakpoints()

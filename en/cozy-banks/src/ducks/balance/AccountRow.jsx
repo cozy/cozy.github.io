@@ -2,48 +2,25 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import CozyClient, { queryConnect, withClient } from 'cozy-client'
-import { withBreakpoints, translate, useI18n } from 'cozy-ui/transpiled/react'
-import flag from 'cozy-flags'
+import { withBreakpoints, translate } from 'cozy-ui/transpiled/react'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import cx from 'classnames'
-import { get, flowRight as compose } from 'lodash'
+import { flowRight as compose } from 'lodash'
 import Switch from 'components/Switch'
 import Figure from 'cozy-ui/transpiled/react/Figure'
 import {
   getAccountLabel,
-  getAccountUpdatedAt,
   getAccountInstitutionLabel,
   getAccountBalance,
   isReimbursementsAccount
 } from 'ducks/account/helpers'
 import { getWarningLimitPerAccount } from 'selectors'
-import styles from 'ducks/balance/components/AccountRow.styl'
-import ReimbursementsIcon from 'ducks/balance/components/ReimbursementsIcon'
+import styles from 'ducks/balance/AccountRow.styl'
+import ReimbursementsIcon from 'ducks/balance/ReimbursementsIcon'
 import AccountIcon from 'components/AccountIcon'
 import { triggersConn } from 'doctypes'
-import { isErrored } from 'utils/triggers'
 import { Contact } from 'cozy-doctypes'
-
-const UpdatedAt = React.memo(function UpdatedAt({ account, t }) {
-  const updatedAt = getAccountUpdatedAt(account)
-  return (
-    <span className={updatedAt.params.nbDays > 1 ? 'u-warn' : null}>
-      <Icon
-        icon="sync"
-        width="10"
-        color="currentColor"
-        className={styles.AccountRow__updatedAtIcon}
-      />
-      {t(updatedAt.translateKey, updatedAt.params)}
-    </span>
-  )
-})
-
-const FailedTriggerMessage = translate()(
-  React.memo(function FailedTriggerMessage({ t }) {
-    return <span className="u-error">{t('Balance.trigger-problem')}</span>
-  })
-)
+import AccountCaption from 'ducks/balance/AccountRowCaption'
 
 const Number = React.memo(function Number({ account }) {
   return (
@@ -89,47 +66,6 @@ const OwnersColumn = props => {
     </div>
   )
 }
-
-const AccountRowSubText = ({ className, children, ...rest }) => {
-  return (
-    <div className={cx(styles.AccountRow__subText, className)} {...rest}>
-      {children}
-    </div>
-  )
-}
-
-const DumbAccountCaption = props => {
-  const { t } = useI18n()
-  const { triggersCol, account, className, ...rest } = props
-
-  if (isReimbursementsAccount(account)) {
-    return (
-      <AccountRowSubText className={className} {...rest}>
-        {t('Balance.reimbursements-caption')}
-      </AccountRowSubText>
-    )
-  }
-
-  const triggers = triggersCol.data
-  const failedTrigger = triggers.find(
-    x =>
-      isErrored(x.attributes) &&
-      get(x, 'attributes.message.konnector') ===
-        get(account, 'cozyMetadata.createdByApp')
-  )
-
-  return (
-    <AccountRowSubText className={className} {...rest}>
-      {failedTrigger && !flag('demo') && flag('balance-account-errors') ? (
-        <FailedTriggerMessage trigger={failedTrigger} />
-      ) : (
-        <UpdatedAt account={account} t={t} />
-      )}
-    </AccountRowSubText>
-  )
-}
-
-const AccountCaption = React.memo(DumbAccountCaption)
 
 class AccountRow extends React.PureComponent {
   static propTypes = {

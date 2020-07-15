@@ -16,7 +16,7 @@ import { ButtonLink } from 'cozy-ui/transpiled/react/Button'
 import { Caption } from 'cozy-ui/transpiled/react/Text'
 import Figure from 'cozy-ui/transpiled/react/Figure'
 import Switch from 'components/Switch'
-import AccountsList from 'ducks/balance/components/AccountsList'
+import AccountsList from 'ducks/balance/AccountsList'
 import withFilters from 'components/withFilters'
 import Stack from 'cozy-ui/transpiled/react/Stack'
 import Text from 'cozy-ui/transpiled/react/Text'
@@ -24,7 +24,7 @@ import {
   getGroupBalance,
   isReimbursementsVirtualGroup
 } from 'ducks/groups/helpers'
-import styles from 'ducks/balance/components/GroupPanel.styl'
+import styles from 'ducks/balance/GroupPanel.styl'
 import { getLateHealthExpenses } from 'ducks/reimbursements/selectors'
 import { getSettings } from 'ducks/settings/selectors'
 import { getNotificationFromSettings } from 'ducks/settings/helpers'

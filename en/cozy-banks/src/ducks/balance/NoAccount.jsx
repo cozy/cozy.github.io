@@ -2,12 +2,12 @@ import React, { memo } from 'react'
 import { flowRight as compose } from 'lodash'
 import { withBreakpoints, useI18n } from 'cozy-ui/transpiled/react'
 import Button from 'cozy-ui/transpiled/react/Button'
-import HeaderTitle from 'ducks/balance/components/HeaderTitle'
+import HeaderTitle from 'ducks/balance/HeaderTitle'
 import AddAccountLink from 'ducks/settings/AddAccountLink'
 import { Container, Content } from 'components/VerticalBox'
 import BarTheme from 'ducks/bar/BarTheme'
 
-import styles from 'ducks/balance/components/NoAccount.styl'
+import styles from 'ducks/balance/NoAccount.styl'
 
 const NoAccount = ({ lang, breakpoints: { isMobile } }) => {
   const { t } = useI18n()

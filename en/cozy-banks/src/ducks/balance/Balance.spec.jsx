@@ -8,8 +8,8 @@ import Loading from 'components/Loading'
 
 jest.mock('lodash/debounce', () => jest.fn(fn => fn))
 
-jest.mock('ducks/balance/components/BalanceHeader', () => () => null)
-jest.mock('ducks/balance/components/NoAccount', () => () => null)
+jest.mock('ducks/balance/BalanceHeader', () => () => null)
+jest.mock('ducks/balance/NoAccount', () => () => null)
 jest.mock('components/Loading', () => () => null)
 
 jest.useFakeTimers()

@@ -1,5 +1,5 @@
 import React from 'react'
-import KonnectorIcon from 'ducks/balance/components/KonnectorIcon'
+import KonnectorIcon from 'ducks/balance/KonnectorIcon'
 import { getAccountInstitutionSlug } from 'ducks/account/helpers'
 import styles from './styles.styl'
 import cx from 'classnames'

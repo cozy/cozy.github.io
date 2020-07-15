@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Intents } from 'cozy-interapp'
 
-export const useRedirectionURL = (client, doctype, options) => {
+const useRedirectionURL = (client, doctype, options) => {
   const [redirectionURL, setRedirectionURL] = useState(null)
   useEffect(
     () => {
@@ -17,3 +17,5 @@ export const useRedirectionURL = (client, doctype, options) => {
   )
   return redirectionURL
 }
+
+export default useRedirectionURL

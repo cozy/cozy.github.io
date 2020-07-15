@@ -1,30 +1,15 @@
 // TODO Move this to Harvest
 
 import React from 'react'
-import { useRedirectionURL } from 'components/effects'
-import { useI18n, translate } from 'cozy-ui/transpiled/react'
-import compose from 'lodash/flowRight'
-import { withClient } from 'cozy-client'
-import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
+import { useI18n } from 'cozy-ui/transpiled/react'
 import Infos from 'cozy-ui/transpiled/react/Infos'
-import { ButtonLink } from 'cozy-ui/transpiled/react/Button'
 import { getErrorLocaleBound, KonnectorJobError } from 'cozy-harvest-lib'
+import ReconnectKonnectorButton from 'ducks/transactions/TransactionPageErrors/ReconnectKonnectorButton'
 
-const TriggerErrorCard = ({
-  lang,
-  trigger,
-  index,
-  count,
-  client,
-  bankName,
-  breakpoints,
-  className
-}) => {
-  const { t } = useI18n()
-  const url = useRedirectionURL(client, 'io.cozy.accounts', {
-    account: trigger.message.account,
-    konnector: trigger.message.konnector
-  })
+const TriggerErrorCard = ({ index, count, error, className }) => {
+  const { t, lang } = useI18n()
+
+  const { bankName, trigger } = error
 
   const konnError = new KonnectorJobError(trigger.current_state.last_error)
   // We do not have a full konnector object here but we can create a simple
@@ -41,13 +26,9 @@ const TriggerErrorCard = ({
     <Infos
       className={'u-bdrs-0 u-maw-none u-p-1-half ' + (className || '')}
       actionButton={
-        <ButtonLink
-          theme="secondary"
-          extension={breakpoints.isMobile ? 'full' : 'narrow'}
-          className="u-mh-0"
-          label={t('Transactions.trigger-error.cta')}
-          icon="openwith"
-          href={url}
+        <ReconnectKonnectorButton
+          account={trigger.message.account}
+          konnector={trigger.message.konnector}
         />
       }
       title={errorTitle + (count > 1 ? ` (${index + 1}/${count})` : '')}
@@ -62,8 +43,4 @@ const TriggerErrorCard = ({
 
 export const DumbTriggerErrorCard = TriggerErrorCard
 
-export default compose(
-  translate(),
-  withClient,
-  withBreakpoints()
-)(TriggerErrorCard)
+export default TriggerErrorCard

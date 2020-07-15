@@ -1,10 +1,8 @@
 /* global shallow */
 
 import React from 'react'
-import {
-  DumbTransactionPageErrors as TransactionPageErrors,
-  getDerivedData
-} from './TransactionPageErrors'
+import { getTransactionPageErrors } from './errors'
+import { TransactionPageErrors } from './TransactionPageErrors'
 import fixtures from 'test/fixtures'
 import TriggerErrorCard from 'ducks/transactions/TriggerErrorCard'
 import Carrousel from 'components/Carrousel'
@@ -14,11 +12,11 @@ const DEFAULT_ACCOUNTS = fixtures['io.cozy.bank.accounts']
 
 describe('get derived data', () => {
   it('should work', () => {
-    const data = getDerivedData({
+    const errors = getTransactionPageErrors({
       accounts: DEFAULT_ACCOUNTS,
       triggerCol: { data: DEFAULT_TRIGGERS }
     })
-    expect(data.failedTriggers.length).toBe(1)
+    expect(errors.length).toBe(1)
   })
 })
 

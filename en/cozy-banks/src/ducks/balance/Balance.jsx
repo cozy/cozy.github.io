@@ -22,9 +22,9 @@ import { withRouter } from 'react-router'
 
 import Loading from 'components/Loading'
 import { Padded } from 'components/Spacing'
-import BalanceHeader from 'ducks/balance/components/BalanceHeader'
-import NoAccount from 'ducks/balance/components/NoAccount'
-import AccountsImporting from 'ducks/balance/components/AccountsImporting'
+import BalanceHeader from 'ducks/balance/BalanceHeader'
+import NoAccount from 'ducks/balance/NoAccount'
+import AccountsImporting from 'ducks/balance/AccountsImporting'
 
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
