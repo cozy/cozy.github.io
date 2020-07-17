@@ -2012,6 +2012,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#overloading-an-account-type-for-a-given-context" title="Overloading an account type for a given context" class="md-nav__link">
+    Overloading an account type for a given context
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#reminder-oauth-flow" title="Reminder OAuth flow" class="md-nav__link">
     Reminder OAuth flow
   </a>
@@ -2850,6 +2857,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#overloading-an-account-type-for-a-given-context" title="Overloading an account type for a given context" class="md-nav__link">
+    Overloading an account type for a given context
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#reminder-oauth-flow" title="Reminder OAuth flow" class="md-nav__link">
     Reminder OAuth flow
   </a>
@@ -3322,6 +3336,20 @@ are not related to OAuth. The document still need to be injected manually in
 konnector,  but <code>secret</code> can be a map instead of a simple string if several
 secrets are needed for this service.</p>
 <p>The secret is given to the konnector in the <code>COZY_PARAMETERS</code> env variable.</p>
+<h3 id="overloading-an-account-type-for-a-given-context">Overloading an account type for a given context<a class="headerlink" href="#overloading-an-account-type-for-a-given-context" title="Permanent link">&para;</a></h3>
+<p>It is possible to use a different account type for a given context, by creating
+a new document with an id prefix by the context name and <code>/</code>. For example, a
+different secret can be used in the <code>foobar</code> context by injecting this document
+in <code>secrets/io-cozy-account_types</code>:</p>
+<div class="codehilite"><pre><span></span>{
+    &quot;_id&quot;: &quot;foobar/service.example&quot;,
+    &quot;grant_mode&quot;: &quot;secret&quot;,
+    &quot;slug&quot;: &quot;service&quot;,
+    &quot;secret&quot;: &quot;th1$_1$_n0t_th3_s4m3_s3cr3t!&quot;
+}
+</pre></div>
+
+
 <h3 id="reminder-oauth-flow">Reminder OAuth flow<a class="headerlink" href="#reminder-oauth-flow" title="Permanent link">&para;</a></h3>
 <p><strong>Service</strong> is the website from which konnector aims to retrieve informations.
 <strong>Stack</strong> is the cozy stack.</p>

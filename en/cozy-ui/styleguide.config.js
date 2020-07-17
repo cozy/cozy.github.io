@@ -88,7 +88,8 @@ module.exports = {
         '../react/Text/index.jsx',
         '../react/Tooltip/index.jsx',
         '../react/UnorderedList/index.jsx',
-        '../react/Well/index.jsx'
+        '../react/Well/index.jsx',
+        '../react/Wizard/index.jsx'
       ]
     },
     {
