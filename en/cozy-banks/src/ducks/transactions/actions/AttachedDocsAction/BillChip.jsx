@@ -71,7 +71,7 @@ export class DumbBillChip extends React.PureComponent {
       <Wrapper fileId={invoiceId} key={invoiceId} transaction={transaction}>
         <Chip component="button" size="small" variant="outlined">
           <FileIcon
-            color={bill.isRefund ? 'var(--emerald)' : undefined}
+            color={bill.isRefund ? 'var(--validColor)' : undefined}
             className="u-flex-shrink-0"
           />
           {bill.isRefund ? (

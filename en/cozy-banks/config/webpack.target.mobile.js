@@ -19,11 +19,6 @@ module.exports = merge(appConfig, {
     new webpack.DefinePlugin({
       __TARGET__: JSON.stringify('mobile'),
       __POUCH__: JSON.stringify(true)
-    }),
-    new webpack.ProvidePlugin({
-      PouchDB: 'pouchdb',
-      pouchdbFind: 'pouchdb-find',
-      pouchdbAdapterCordovaSqlite: 'pouchdb-adapter-cordova-sqlite'
     })
   ]
 })

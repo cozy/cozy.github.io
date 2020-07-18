@@ -22,9 +22,9 @@ export class MobileRouter extends React.Component {
         appSlug={manifest.slug}
         universalLinkDomain={getUniversalLinkDomain()}
         onAuthenticated={async () => {
+          hashHistory.replace('/balances')
           await initBar(client)
         }}
-        loginPath="/balances"
         LogoutComponent={LogoutModal}
       >
         {routes}

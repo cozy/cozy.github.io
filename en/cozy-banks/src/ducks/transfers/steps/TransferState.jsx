@@ -16,7 +16,7 @@ const TransferState = ({
 }) => (
   <Padded className={styles.TransferState}>
     <Title className="u-mb-1-half">{title}</Title>
-    { Img }
+    {Img}
     <Text className="u-mb-1-half">{description}</Text>
     <Button
       extension="full"
