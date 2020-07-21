@@ -1,10 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component, useCallback } from 'react'
 import { withRouter } from 'react-router'
 import { sortBy, flowRight as compose } from 'lodash'
 import { Query, withClient } from 'cozy-client'
 import { translate, withBreakpoints } from 'cozy-ui/transpiled/react'
 import Button from 'cozy-ui/transpiled/react/Button'
-import Toggle from 'cozy-ui/transpiled/react/Toggle'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import { Media, Img } from 'cozy-ui/transpiled/react/Media'
 
@@ -12,6 +11,7 @@ import BarTheme from 'ducks/bar/BarTheme'
 import { getAccountInstitutionLabel } from 'ducks/account/helpers'
 import { GROUP_DOCTYPE, accountsConn } from 'doctypes'
 import { getGroupLabel, renamedGroup } from 'ducks/groups/helpers'
+import Switch from 'cozy-ui/transpiled/react/MuiCozyTheme/Switch'
 import Loading from 'components/Loading'
 import BackButton from 'components/BackButton'
 import Table from 'components/Table'
@@ -31,6 +31,13 @@ const makeNewGroup = (client, t) => {
 export const AccountLine = props => {
   const { account, group, toggleAccount } = props
 
+  const handleClickSwitch = useCallback(
+    ev => {
+      return toggleAccount.bind(account._id, group, ev.target.checked)
+    },
+    [toggleAccount, account, group]
+  )
+
   return (
     <tr>
       <td className={styles.GrpStg__accntLabel}>
@@ -42,13 +49,15 @@ export const AccountLine = props => {
       <td className={styles.GrpStg__accntNumber}>{account.number}</td>
       <td className={styles.GrpStg__accntToggle}>
         {group ? (
-          <Toggle
+          <Switch
+            disableRipple
+            color="primary"
             id={account._id}
             checked={group.accounts.existsById(account._id)}
-            onToggle={toggleAccount.bind(null, account._id, group)}
+            onClick={handleClickSwitch}
           />
         ) : (
-          <Toggle id={account._id} disabled />
+          <Switch id={account._id} disabled />
         )}
       </td>
     </tr>

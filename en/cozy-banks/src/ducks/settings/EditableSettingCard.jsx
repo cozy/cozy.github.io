@@ -13,7 +13,7 @@ import { markdownBold } from './helpers'
 
 import Confirmation from 'components/Confirmation'
 import SettingCard from 'components/SettingCard'
-import Switch from 'components/Switch'
+import Switch from 'cozy-ui/transpiled/react/MuiCozyTheme/Switch'
 import EditionModal from 'components/EditionModal'
 
 export const CrossIcon = ({ onClick }) => (

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import styles from 'ducks/settings/ToggleRow.styl'
-import Switch from 'components/Switch'
+import Switch from 'cozy-ui/transpiled/react/MuiCozyTheme/Switch'
 
 export const ToggleRowContent = props => {
   const { className, ...rest } = props

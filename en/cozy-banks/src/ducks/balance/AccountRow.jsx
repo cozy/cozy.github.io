@@ -6,7 +6,7 @@ import { withBreakpoints, translate } from 'cozy-ui/transpiled/react'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import cx from 'classnames'
 import { flowRight as compose } from 'lodash'
-import Switch from 'components/Switch'
+import Switch from 'cozy-ui/transpiled/react/MuiCozyTheme/Switch'
 import Figure from 'cozy-ui/transpiled/react/Figure'
 import {
   getAccountLabel,

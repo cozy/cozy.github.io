@@ -77,6 +77,9 @@ class InfiniteScroll extends React.Component {
   }
 
   handleScroll = () => {
+    if (this.unmounted) {
+      return
+    }
     if (this.props.onScroll) {
       this.props.onScroll(this.getScrollInfo)
     }

@@ -49,7 +49,7 @@ module.exports = {
         '../react/SelectBox/SelectBox.jsx',
         '../react/Stepper/index.jsx',
         '../react/Textarea/index.jsx',
-        '../react/Toggle/index.jsx'
+        '../react/MuiCozyTheme/Switch'
       ]
     },
     {

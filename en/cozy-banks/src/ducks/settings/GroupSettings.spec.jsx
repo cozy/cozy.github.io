@@ -3,7 +3,7 @@ import {
   DumbGroupSettings as GroupSettings,
   AccountLine
 } from './GroupSettings'
-import Toggle from 'cozy-ui/transpiled/react/Toggle'
+import Switch from 'cozy-ui/transpiled/react/MuiCozyTheme/Switch'
 import { mount } from 'enzyme'
 import AppLike from 'test/AppLike'
 import fixtures from 'test/fixtures'
@@ -89,8 +89,8 @@ describe('GroupSettings', () => {
       </AppLike>
     )
 
-    const toggles = root.find(Toggle)
-    toggles.at(0).simulate('click')
+    const switches = root.find(Switch)
+    switches.at(0).simulate('click')
 
     expect(existsById).toHaveBeenCalledWith(account._id)
   })

@@ -21,18 +21,6 @@
             maxed-flex-basis 100%
 
 .GrpStg
-    &__accntLabel
-        maxed-flex-basis 25%
-
-    &__accntBank
-        maxed-flex-basis 25%
-
-    &__accntNumber
-        maxed-flex-basis 30%
-
-    &__accntToggle
-        maxed-flex-basis 20%
-
     &__table
         @extend $full-width-table
 
@@ -50,3 +38,22 @@
                 margin-top 0.25rem
             input[type=text]
                 width 100%
+
+    &__accntLabel
+        maxed-flex-basis 25%
+
+    &__accntBank
+        maxed-flex-basis 25%
+
+    &__accntNumber
+        maxed-flex-basis 30%
+
+    &__accntToggle
+        maxed-flex-basis 20%
+
+    // Increase specificity to override properties applied to table &__table td
+    &__table &__accntToggle
+        // Do not let the switch extend vertically the cell
+        max-height 2rem
+        align-items center
+        display flex
