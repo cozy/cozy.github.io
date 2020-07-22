@@ -11,4 +11,5 @@ else
   FROM="master"
 fi
 
-curl -i -X POST -H "Content-Type: application/json" -d "{\"text\": \"🎁 [Click here]($APK_URL) to download the latest Android APK from $FROM\", \"icon_url\": \"https://travis-ci.com/images/logos/TravisCI-Mascot-1.png\", \"username\": \"Travis\", \"channel\": \"gangsters\"}" $MATTERMOST_HOOK_URL
+MATTERMOST_CHANNEL=${MATTERMOST_CHANNEL:-"gangsters"}
+curl -i -X POST -H "Content-Type: application/json" -d "{\"text\": \"🎁 [Click here]($APK_URL) to download the latest Android APK from $FROM\", \"icon_url\": \"https://travis-ci.com/images/logos/TravisCI-Mascot-1.png\", \"username\": \"Travis\", \"channel\": \"$MATTERMOST_CHANNEL\"}" $MATTERMOST_HOOK_URL

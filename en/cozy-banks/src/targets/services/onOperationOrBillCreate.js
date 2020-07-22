@@ -201,5 +201,5 @@ const main = async () => {
 
 main().catch(e => {
   log('critical', e)
-  process.exit(e)
+  process.exit(1)
 })

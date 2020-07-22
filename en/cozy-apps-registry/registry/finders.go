@@ -24,8 +24,6 @@ import (
 var validFilters = []string{
 	"type",
 	"editor",
-	"tags",
-	"locales",
 	"select",
 	"reject",
 }
@@ -679,9 +677,6 @@ func GetAppsList(c *space.Space, opts *AppsListOptions) (int, []*App, error) {
 		}
 
 		switch name {
-		case "tags", "locales":
-			tags := strings.Split(val, ",")
-			selector += string(base.SprintfJSON(`%s: {"$all": %s}`, name, tags))
 		case "select":
 			slugs := strings.Split(val, ",")
 			selector += string(base.SprintfJSON(`"slug": {"$in": %s}`, slugs))

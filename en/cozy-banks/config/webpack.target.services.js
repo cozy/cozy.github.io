@@ -87,6 +87,12 @@ module.exports = {
 
   resolve: {
     alias: {
+      // We are building with target: node as webpack options. This causes webpack
+      // to consider the "module" entrypoint from node-fetch. This does not work properly
+      // as require('node-fetch') returns a module object (with the default property).
+      // Here, we force the resolution to take the commonJS file.
+      // TODO See if it is necessary to integrate in cozy-scripts
+      'node-fetch': 'node-fetch/lib/index.js',
       // Unminified Handlebars uses `require.extensions` and this causes
       // warnings on Webpack. We should think of a way to precompile
       // our Handlebars template. At the moment it is not possible

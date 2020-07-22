@@ -26,11 +26,11 @@ sessionsecret.key:
 
 ## lint: enforce a consistent code style and detect code smells
 lint: bin/golangci-lint
-	@bin/golangci-lint run -E gofmt -E unconvert -E misspell -E whitespace
+	@bin/golangci-lint run -E gofmt -E unconvert -E misspell -E whitespace -E exportloopref
 .PHONY: lint
 
 bin/golangci-lint: Makefile
-	@curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s v1.27.0
+	@curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s v1.29.0
 
 ## tests: run the tests
 tests:
