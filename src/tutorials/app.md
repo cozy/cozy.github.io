@@ -73,7 +73,7 @@ This command will run
 - a Cozy `stack` using docker (the image `cozy/cozy-app-dev`) to serve your application inside it.
 - The same docker image starts a CouchDB containing your data (be careful, since a data volume is not attached by default, your data will disappear on restart. You should start the docker image manually if you want to persist your data).
 
-Your application will be available at http://<MY_APP_SLUG>.cozy.tools:8080. Password is `cozy`.
+Your application will be available at http://<MY_APP_SLUG>.cozy.tools:8080. Password is `cozy`. Since Hot Module Replacement is used by default, you'll need to disable the CORS check for your browser. For instance, on Chrome OSX : `open -n -a /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --args --user-data-dir="/tmp/chrome_dev_test" --disable-web-security` (/!\ Be careful, by doing it you remove an essential security check. Use it just on your localhost).
 
     In this mode HMR (Hot Module Replacement) is available to help you with the application development.
 
