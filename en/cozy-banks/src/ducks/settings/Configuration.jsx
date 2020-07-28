@@ -1,7 +1,9 @@
 /* global __TARGET__ */
 
 import React from 'react'
-import { translate } from 'cozy-ui/transpiled/react'
+import { translate } from 'cozy-ui/transpiled/react/I18n'
+import Button from 'cozy-ui/transpiled/react/Button'
+
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { queryConnect, withClient } from 'cozy-client'
 import { settingsConn } from 'doctypes'
@@ -22,6 +24,7 @@ import ToggleRow from 'ducks/settings/ToggleRow'
 import BalanceLowerRules from './BalanceLowerRules'
 import TransactionGreaterRules from './TransactionGreaterRules'
 
+import { PersonalInfoModal } from 'ducks/personal-info'
 import { lateHealthReimbursement } from './specs'
 
 const onToggleFlag = key => checked => {
@@ -32,6 +35,12 @@ const onToggleFlag = key => checked => {
  * Configure notifications and other features
  */
 export class Configuration extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      showPersonalInfoModal: false
+    }
+  }
   saveDocument = async doc => {
     const { client } = this.props
     await client.save(doc)
@@ -163,6 +172,26 @@ export class Configuration extends React.Component {
             />
           </SubSection>
         </Section>
+
+        {flag('banks.transfers.need-personal-information') ? (
+          <Section title={t('Settings.personal-info.title')}>
+            <Button
+              label={t('Settings.personal-info.edit')}
+              onClick={() => this.setState({ showPersonalInfoModal: true })}
+            />
+            {this.state.showPersonalInfoModal ? (
+              <PersonalInfoModal
+                onSaveSuccessful={() => {
+                  this.setState({ showPersonalInfoModal: false })
+                }}
+                wrapperProps={{
+                  dismissAction: () =>
+                    this.setState({ showPersonalInfoModal: false })
+                }}
+              />
+            ) : null}
+          </Section>
+        ) : null}
 
         {Configuration.renderExtraItems()}
       </>

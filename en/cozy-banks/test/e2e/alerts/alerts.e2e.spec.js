@@ -20,6 +20,7 @@ import {
 } from 'ducks/client/utils'
 import { runService, makeToken } from 'test/e2e/utils'
 import assert from '../../../src/utils/assert'
+import sleep from 'utils/sleep'
 
 const SOFTWARE_ID = 'banks.alerts-e2e'
 
@@ -62,8 +63,6 @@ const checkPushForScenario = async (pushServer, scenario) => {
     expect(lastReq).toBeFalsy()
   }
 }
-
-const sleep = duration => new Promise(resolve => setTimeout(resolve, duration))
 
 const runScenario = async (client, scenario, options) => {
   assert(client, 'No client')

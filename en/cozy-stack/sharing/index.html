@@ -2953,6 +2953,33 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#post-sharingssharing-idreupload" title="POST /sharings/:sharing-id/reupload" class="md-nav__link">
+    POST /sharings/:sharing-id/reupload
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_23" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_23" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#delete-sharingssharing-idinitial" title="DELETE /sharings/:sharing-id/initial" class="md-nav__link">
     DELETE /sharings/:sharing-id/initial
   </a>
@@ -2961,7 +2988,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#response_23" title="Response" class="md-nav__link">
+  <a href="#response_24" title="Response" class="md-nav__link">
     Response
   </a>
   
@@ -3984,6 +4011,33 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#post-sharingssharing-idreupload" title="POST /sharings/:sharing-id/reupload" class="md-nav__link">
+    POST /sharings/:sharing-id/reupload
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_23" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_23" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#delete-sharingssharing-idinitial" title="DELETE /sharings/:sharing-id/initial" class="md-nav__link">
     DELETE /sharings/:sharing-id/initial
   </a>
@@ -3992,7 +4046,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#response_23" title="Response" class="md-nav__link">
+  <a href="#response_24" title="Response" class="md-nav__link">
     Response
   </a>
   
@@ -5263,6 +5317,22 @@ synchronization).</p>
 </pre></div>
 
 
+<h3 id="post-sharingssharing-idreupload">POST /sharings/:sharing-id/reupload<a class="headerlink" href="#post-sharingssharing-idreupload" title="Permanent link">&para;</a></h3>
+<p>This is an internal route for the stack. It is called when the disk quota of an
+instance is increased to ask for the others instances on this sharing to try to
+reupload files without waiting for the normal retry period.</p>
+<h4 id="request_23">Request<a class="headerlink" href="#request_23" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/sharings/ce8835a061d0ef68947afe69a0046722/reupload</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">bob.example.net</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer ...</span>
+</pre></div>
+
+
+<h4 id="response_23">Response<a class="headerlink" href="#response_23" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+
+
 <h3 id="delete-sharingssharing-idinitial">DELETE /sharings/:sharing-id/initial<a class="headerlink" href="#delete-sharingssharing-idinitial" title="Permanent link">&para;</a></h3>
 <p>This internal route is used by the sharer to inform a recipient&rsquo;s cozy that the
 initial sync is finished.</p>
@@ -5272,7 +5342,7 @@ initial sync is finished.</p>
 </pre></div>
 
 
-<h4 id="response_23">Response<a class="headerlink" href="#response_23" title="Permanent link">&para;</a></h4>
+<h4 id="response_24">Response<a class="headerlink" href="#response_24" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
 </pre></div>
 

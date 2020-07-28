@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { format as formatDate, subYears, isAfter } from 'date-fns'
+import { flowRight as compose, uniq, groupBy, max, memoize } from 'lodash'
 import cx from 'classnames'
+
 import { withBreakpoints } from 'cozy-ui/transpiled/react'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
-import { flowRight as compose, uniq, groupBy, max, memoize } from 'lodash'
+import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+
 import styles from 'ducks/balance/History.styl'
 import HistoryChart from 'ducks/balance/HistoryChart'
-import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
-import { format as formatDate, subYears, isAfter } from 'date-fns'
 import * as d3 from 'utils/d3'
 import {
   getBalanceHistories,
@@ -18,6 +21,23 @@ import withSize from 'components/withSize'
 
 const today = new Date()
 const oneYearBefore = subYears(today, 1)
+
+const HISTORY_MOBILE_HEIGHT = 95
+const HISTORY_DESKTOP_HEIGHT = 141
+
+/**
+ * Component that is displayed while we wait a bit to start the
+ * animation.
+ *
+ * It should have the same height as the normal history component
+ * to prevent any jump of the page when the history component
+ * finally appears.
+ */
+export const HistoryFallback = () => {
+  const { isMobile } = useBreakpoints()
+  const height = isMobile ? HISTORY_MOBILE_HEIGHT : HISTORY_DESKTOP_HEIGHT
+  return <div className={styles.History} style={{ height }} />
+}
 
 class History extends Component {
   constructor(props, context) {
@@ -82,7 +102,7 @@ class History extends Component {
       data,
       nbTicks,
       width: max([width, nbTicks * intervalBetweenMonths]),
-      height: isMobile ? 95 : 141,
+      height: isMobile ? HISTORY_MOBILE_HEIGHT : HISTORY_DESKTOP_HEIGHT,
       margin: {
         top: 26,
         bottom: 35,

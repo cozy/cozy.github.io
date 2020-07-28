@@ -1,8 +1,7 @@
 import StartupChecksPlugin from './checks'
 import CozyClient from 'cozy-client'
 import merge from 'lodash/merge'
-
-const sleep = delay => new Promise(resolve => setTimeout(resolve, delay))
+import sleep from 'utils/sleep'
 
 describe('startup checks', () => {
   beforeEach(() => {

@@ -1,7 +1,4 @@
-const sleep = duration =>
-  new Promise(resolve => {
-    setTimeout(resolve, duration)
-  })
+import sleep from 'utils/sleep'
 
 const shakeClassName = 'u-shake'
 

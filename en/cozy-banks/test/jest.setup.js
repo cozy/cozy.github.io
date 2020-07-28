@@ -18,14 +18,12 @@ configure({ adapter: new Adapter() })
 global.mount = mount
 global.shallow = shallow
 
-global.cozy = {
-  bar: {
-    BarLeft: () => null,
-    BarRight: ({ children }) => children,
-    BarCenter: () => null,
-    setTheme: () => null
-  }
-}
+jest.mock('cozy-bar/dist/cozy-bar', () => ({
+  BarLeft: () => null,
+  BarRight: ({ children }) => children,
+  BarCenter: () => null,
+  setTheme: () => null
+}))
 
 const ignoredWarnings = {
   Select: {

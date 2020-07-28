@@ -13,6 +13,7 @@ import { SentryCozyClientPlugin as SentryPlugin } from 'lib/sentry'
 
 import { SOFTWARE_ID } from 'ducks/mobile/constants'
 import { getRedirectUri } from 'ducks/client/mobile/redirect'
+import appMetadata from 'ducks/client/appMetadata'
 
 export const getScope = m => {
   if (m.permissions === undefined) {
@@ -59,6 +60,7 @@ export const getClient = () => {
 
   let client
   const banksOptions = {
+    appMetadata,
     schema,
     oauth: {
       redirectURI: getRedirectUri(appSlug),

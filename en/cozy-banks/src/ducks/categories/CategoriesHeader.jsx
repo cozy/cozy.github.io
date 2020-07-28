@@ -209,12 +209,12 @@ class CategoriesHeader extends PureComponent {
               </Padded>
             </Header>
           ) : (
-            <Header theme="normal" className={cx(styles.NoAccount_container)}>
+            <div className={cx(styles.NoAccount_container)}>
               <Padded className={styles.NoAccount_box}>
                 {chart}
                 <AddAccountButton absolute label={t('Accounts.add_bank')} />
               </Padded>
-            </Header>
+            </div>
           )}
         </Fragment>
       )

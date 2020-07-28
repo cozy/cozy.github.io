@@ -1,7 +1,9 @@
 import CozyClient from 'cozy-client'
+import flag from 'cozy-flags'
+
 import { schema } from 'doctypes'
 import { getLinks } from 'ducks/client/links'
-import flag from 'cozy-flags'
+import appMetadata from 'ducks/client/appMetadata'
 
 const DEFAULT_URL = 'http://cozy.tools:8080'
 
@@ -30,5 +32,5 @@ export const getClient = () => {
   const uri = flag('cozyURL') || getCozyURI()
   const token = flag('cozyToken') || getToken()
 
-  return new CozyClient({ uri, token, schema, links: getLinks() })
+  return new CozyClient({ appMetadata, uri, token, schema, links: getLinks() })
 }

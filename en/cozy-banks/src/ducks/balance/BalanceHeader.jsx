@@ -7,7 +7,7 @@ import { Padded } from 'components/Spacing'
 import Header from 'components/Header'
 import { PageTitle } from 'components/Title'
 import KonnectorUpdateInfo from 'components/KonnectorUpdateInfo'
-import History from 'ducks/balance/History'
+import History, { HistoryFallback } from 'ducks/balance/History'
 import HeaderTitle from 'ducks/balance/HeaderTitle'
 import Delayed from 'components/Delayed'
 import { queryConnect } from 'cozy-client'
@@ -61,7 +61,10 @@ const BalanceHeader = ({
         onClickBalance={onClickBalance}
       />
       {accounts && (
-        <Delayed delay={flag('balance.no-delay-history') ? 0 : 1000}>
+        <Delayed
+          fallback={<HistoryFallback />}
+          delay={flag('balance.no-delay-history') ? 0 : 1000}
+        >
           <History
             animation={!flag('balance.no-history-animation')}
             accounts={accounts}

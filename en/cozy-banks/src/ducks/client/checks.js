@@ -1,8 +1,7 @@
 import matches from 'lodash/matches'
 import { triggerStates } from 'cozy-client/dist/models/trigger'
 import { triggersConn } from 'doctypes'
-
-const sleep = delay => new Promise(resolve => setTimeout(resolve, delay))
+import sleep from 'utils/sleep'
 
 const policies = {
   'never-executed': triggerState =>
