@@ -2510,7 +2510,7 @@
 <p>Applications may require server-side code execution that could not, or should not, be in the client. This might be useful for heavy computations or for tasks triggered after some events, typically after data is retrieved through <a href="https://docs.cozy.io/en/cozy-stack/konnectors/">konnectors</a> or mobile/desktop sync, without the user being on the application.</p>
 <p>In contrast to konnectors, services have the same permissions as the web application and are not intended to collect information from the outside. It is rather meant to asynchronously analyse data inside the cozy and emit some output once the task is done. However, they share the same mechanisms as the konnectors to describe how and when they should be executed: via our <a href="https://github.com/cozy/cozy-stack/blob/master/docs/jobs.md">trigger system</a>.</p>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
-<p>You can find an example of an existing service in the <a href="https://github.com/cozy/cozy-banks/blob/master/src/targets/services/onOperationCreate.js">cozy-banks app</a>.</p>
+<p>You can find an example of an existing service in the <a href="https://github.com/cozy/cozy-banks/blob/master/src/targets/services/onOperationOrBillCreate.js">cozy-banks app</a>.</p>
 <h2 id="service-declaration">Service declaration<a class="headerlink" href="#service-declaration" title="Permanent link">&para;</a></h2>
 <p>The service must be declared in the app <a href="https://docs.cozy.io/en/tutorials/app/#read-the-application-manifest">manifest</a>. For example:</p>
 <div class="codehilite"><pre><span></span><span class="s2">&quot;services&quot;</span><span class="err">:</span> <span class="p">{</span>
