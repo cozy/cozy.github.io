@@ -5,7 +5,7 @@ summary: How to run an monitor a connector standalone without any user setup
 
 Running a connector is normally handled by the [Home application](https://github.com/cozy/cozy-home)
 with [cozy-harvest-lib](https://github.com/cozy/cozy-libs/tree/master/packages/cozy-harvest-lib).
-But if you are in an environment which cannot use react, you will have to run your connector
+But if you are in an environment which cannot use react (for example in a native application), you will have to run your connector
 yourself.
 
 If you are in a javascript environment, you can use the [cozy-client](/cozy-client/getting-started/) lib.
