@@ -11,7 +11,7 @@ yourself.
 If you are in a Javascript environment, you can use the [cozy-client](/cozy-client/getting-started/) lib.
 Or else, you still have the [cozy-stack api](/cozy-stack/#reference).
 
-The whole process is detailled in the [Konnector workflow](/cozy-stack/konnectors-workflow/) but
+The whole process is detailed in the [Konnector workflow](/cozy-stack/konnectors-workflow/).
 you will get here a practical example.
 
 We will suppose that the cozy url is `https://runconnectordemo.mycozy.cloud` and that the
