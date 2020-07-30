@@ -93,7 +93,9 @@ node index.js | tee ~/.cozy/services.log
 ```
 Then you need to `chmod +x ~/.cozy/scripts/konnector-node-run.sh`
 
-Be sure to have `node` in your `/usr/bin` or `/usr/local/bin` folder. If not, you can add a symlink to `node` in one of those folder, for example by typing `ln -s $(which node) /usr/local/bin/node` 
+Be sure to have `node` in your `/usr/bin` or `/usr/local/bin` folder. If not, you can add a symlink to `node` in one of those folder, for example by typing `ln -s $(which node) /usr/local/bin/node`
+
+Now you can `tail -f ~/.cozy/services.log` to watch logs in real time.
 
 ## Install your app
 
