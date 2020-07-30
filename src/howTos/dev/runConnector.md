@@ -21,7 +21,7 @@ The login will be `userlogin` and the password will be `userpassword`
 
 ## Getting an access token
 
-To use the api, you need an access_token via the OAuth2 protocol. createClientInteractive will get
+To use the API, you need an access_token via the OAuth2 protocol. createClientInteractive will get
 you an initialized cozy-client instance and handle asking user permission for it.
 here :
 
