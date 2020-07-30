@@ -8,7 +8,7 @@ with [cozy-harvest-lib](https://github.com/cozy/cozy-libs/tree/master/packages/c
 But if you are in an environment which cannot use react (for example in a native application), you will have to run your connector
 yourself.
 
-If you are in a javascript environment, you can use the [cozy-client](/cozy-client/getting-started/) lib.
+If you are in a Javascript environment, you can use the [cozy-client](/cozy-client/getting-started/) lib.
 Or else, you still have the [cozy-stack api](/cozy-stack/#reference).
 
 The whole process is detailled in the [Konnector workflow](/cozy-stack/konnectors-workflow/) but
