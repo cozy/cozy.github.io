@@ -2567,7 +2567,8 @@ node index.js <span class="p">|</span> tee ~/.cozy/services.log
 
 
 <p>Then you need to <code>chmod +x ~/.cozy/scripts/konnector-node-run.sh</code></p>
-<p>Be sure to have <code>node</code> in your <code>/usr/bin</code> or <code>/usr/local/bin</code> folder. If not, you can add a symlink to <code>node</code> in one of those folder, for example by typing <code>ln -s $(which node) /usr/local/bin/node</code> </p>
+<p>Be sure to have <code>node</code> in your <code>/usr/bin</code> or <code>/usr/local/bin</code> folder. If not, you can add a symlink to <code>node</code> in one of those folder, for example by typing <code>ln -s $(which node) /usr/local/bin/node</code></p>
+<p>Now you can <code>tail -f ~/.cozy/services.log</code> to watch logs in real time.</p>
 <h2 id="install-your-app">Install your app<a class="headerlink" href="#install-your-app" title="Permanent link">&para;</a></h2>
 <p>To install the app containing the service on your local stack, you must give the path of your build:</p>
 <div class="codehilite"><pre><span></span>cozy-stack apps install &lt;app_name&gt; file://&lt;build_path&gt;
