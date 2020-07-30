@@ -91,6 +91,7 @@ rundir="${1}"
 cd $rundir
 node index.js | tee ~/.cozy/services.log
 ```
+Then you need to `chmod +x ~/.cozy/scripts/konnector-node-run.sh`
 
 ## Install your app
 
