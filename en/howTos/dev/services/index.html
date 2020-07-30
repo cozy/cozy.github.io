@@ -2527,7 +2527,7 @@
 <p>Here is an explanation of the fields:</p>
 <ul>
 <li><code>type</code>: describe the code type (only <code>node</code> for now).</li>
-<li><code>file</code>: the single (packaged) file containing the code to execute as a service.</li>
+<li><code>file</code>: the single (packaged) file containing the code to execute as a service. It must be the <strong>relative</strong> path to the built service&rsquo;s file, not the source one. Expl: <code>/services/name-of-service/built-file.js</code>. Look at your <code>build</code> folder or build/watch console output to find it.</li>
 <li><code>trigger</code>: what triggers the service. It must follow the available triggers described in the <a href="https://github.com/cozy/cozy-stack/blob/master/docs/jobs.md">jobs documentation</a>. In this example, the trigger is a bank operation creation.</li>
 <li><code>debounce</code> (optionnal): force a minimal delay between two runs of the service. <code>m</code> is for minutes and <code>s</code> for seconds. if this parameter is omitted, the service will be executed as soon as it can.</li>
 </ul>
@@ -2567,6 +2567,7 @@ node index.js <span class="p">|</span> tee ~/.cozy/services.log
 
 
 <p>Then you need to <code>chmod +x ~/.cozy/scripts/konnector-node-run.sh</code></p>
+<p>Be sure to have <code>node</code> in your <code>/usr/bin</code> or <code>/usr/local/bin</code> folder. If not, you can add a symlink to <code>node</code> in one of those folder, for example by typing <code>ln -s $(which node) /usr/local/bin/node</code> </p>
 <h2 id="install-your-app">Install your app<a class="headerlink" href="#install-your-app" title="Permanent link">&para;</a></h2>
 <p>To install the app containing the service on your local stack, you must give the path of your build:</p>
 <div class="codehilite"><pre><span></span>cozy-stack apps install &lt;app_name&gt; file://&lt;build_path&gt;
