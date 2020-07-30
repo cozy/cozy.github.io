@@ -114,6 +114,5 @@ realtime.subscribe('updated', 'io.cozy.jobs', jobId, (job) => {
     console.log(`job ${jobId} has ended with the following error: ${job.error}` )
   }
 })
-```javascript
 
 If you do not have access to websocket, you can still use the [jobs api](/cozy-stack/jobs/#get-jobsjob-id) to poll the job state
