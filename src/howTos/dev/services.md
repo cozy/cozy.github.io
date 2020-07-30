@@ -13,7 +13,7 @@ In contrast to konnectors, services have the same permissions as the web applica
 
 ## Example
 
-You can find an example of an existing service in the [cozy-banks app](https://github.com/cozy/cozy-banks/blob/master/src/targets/services/onOperationCreate.js).
+You can find an example of an existing service in the [cozy-banks app](https://github.com/cozy/cozy-banks/blob/master/src/targets/services/onOperationOrBillCreate.js).
 
 ## Service declaration
 
