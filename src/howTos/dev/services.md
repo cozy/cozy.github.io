@@ -33,7 +33,7 @@ The service must be declared in the app [manifest](https://docs.cozy.io/en/tutor
 Here is an explanation of the fields:
 
 * `type`: describe the code type (only `node` for now).
-* `file`: the single (packaged) file containing the code to execute as a service.
+* `file`: the single (packaged) file containing the code to execute as a service. It must be the **relative** path to the built service's file, not the source one. Expl: `/services/name-of-service/built-file.js`. Look at your `build` folder or build/watch console output to find it.
 * `trigger`: what triggers the service. It must follow the available triggers described in the [jobs documentation]( https://github.com/cozy/cozy-stack/blob/master/docs/jobs.md). In this example, the trigger is a bank operation creation.
 * `debounce` (optionnal): force a minimal delay between two runs of the service. `m` is for minutes and `s` for seconds. if this parameter is omitted, the service will be executed as soon as it can.
 
@@ -92,6 +92,8 @@ cd $rundir
 node index.js | tee ~/.cozy/services.log
 ```
 Then you need to `chmod +x ~/.cozy/scripts/konnector-node-run.sh`
+
+Be sure to have `node` in your `/usr/bin` or `/usr/local/bin` folder. If not, you can add a symlink to `node` in one of those folder, for example by typing `ln -s $(which node) /usr/local/bin/node` 
 
 ## Install your app
 
