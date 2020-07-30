@@ -75,7 +75,7 @@ Edit the file `~/.cozy/cozy.yaml` and change the line after the `konnectors:` en
 cmd: /home/alice/.cozy/scripts/konnector-node-run.sh
 ```
 
-Then, after the entry `fs`:
+[Optional] Then, after the entry `fs:`
 ```yaml
 url: file:///home/alice/.cozy/storage
 ```
