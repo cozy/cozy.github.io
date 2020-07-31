@@ -127,6 +127,8 @@ To run:
 cozy-run-dev -m <app_manifest> <mybuiltservice.js>
 ```
 
+Be carefull the `mybuiltservice.js` must be the built file of your service, not the source.
+
 If your `mybuiltservice.js` is not executable and not recognize by node, you may need this script in your app folder to fix that. Just change the `target` path.
 ```bash
 #!/bin/bash
