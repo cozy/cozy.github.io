@@ -2591,6 +2591,22 @@ However, you can force its execution thanks to the <code>cozy-run-dev</code> CLI
 <p>To run:</p>
 <div class="codehilite"><pre><span></span>cozy-run-dev -m &lt;app_manifest&gt; &lt;mybuiltservice.js&gt;
 </pre></div>
+
+
+<p>If your <code>mybuiltservice.js</code> is not executable and not recognize by node, you may need this script in your app folder to fix that. Just change the <code>target</code> path.</p>
+<div class="codehilite"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="nv">target</span><span class="o">=</span><span class="s2">&quot;build/services/sync-index-displayName/contacts.js&quot;</span>
+<span class="nv">firstChar</span><span class="o">=</span><span class="k">$(</span>head -c <span class="m">1</span> <span class="nv">$target</span><span class="k">)</span>
+
+chmod +x <span class="nv">$target</span>
+<span class="k">if</span> <span class="o">[[</span> <span class="nv">$firstChar</span> !<span class="o">=</span> <span class="se">\#</span>* <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+  sed -i <span class="s1">&#39;&#39;</span> <span class="s1">&#39;1i\</span>
+<span class="s1">  #!/usr/bin/env node</span>
+<span class="s1">  &#39;</span> <span class="nv">$target</span>
+<span class="k">fi</span>
+cozy-run-dev -m manifest.webapp <span class="nv">$target</span>
+</pre></div>
                 
                   
                 
