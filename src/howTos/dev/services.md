@@ -124,7 +124,7 @@ yarn global add cozy-jobs-cli
 
 To run:
 ```bash
-cozy-run-dev -m <app_manifest> <mybuiltservice.js>
+cozy-konnector-dev -m <app_manifest> <mybuiltservice.js>
 ```
 
 Be carefull the `mybuiltservice.js` **must be** the built file of your service, not the source.
@@ -142,5 +142,5 @@ if [[ $firstChar != \#* ]]; then
   #!/usr/bin/env node
   ' $target
 fi
-cozy-run-dev -m manifest.webapp $target
+cozy-konnector-dev -m manifest.webapp $target
 ```
