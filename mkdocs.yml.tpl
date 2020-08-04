@@ -25,6 +25,7 @@ nav:
 - How-to:
   - Dev:
     - Run an App in a Cozy using Docker: howTos/dev/runCozyDocker.md
+    - Develop a service from your application: howTos/dev/services.md
     - Use Hot Module Replacement in Your App: howTos/dev/hmr.md
     - Make a Mobile App Using Cordova: howTos/dev/cordova.md
     - Connect a Mobile App to Your Local Stack: howTos/dev/connect-mobile-app-local-stack.md
