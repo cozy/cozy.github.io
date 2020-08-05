@@ -2528,6 +2528,11 @@
 <h2 id="iocozycontacts"><code>io.cozy.contacts</code><a class="headerlink" href="#iocozycontacts" title="Permanent link">&para;</a></h2>
 <p>The <code>io.cozy.contacts</code> doctype is loosely based on the <a href="https://tools.ietf.org/html/rfc6350">vCard RFC</a>, in that some of the attributes have been renamed for clarity. The attributes with a <code>?</code> are optional.</p>
 <ul>
+<li><code>indexes</code> : {object} Used to sort contacts in different ways<ul>
+<li><code>byFamilyNameGivenNameEmailCozyUrl</code>: {string}</li>
+</ul>
+</li>
+<li><code>displayName</code> : {string} Displayed name in cozy applications</li>
 <li><code>fullname?</code>: {string} Unstructured representation of the name (example: <code>"Dr. Gregory House, M.D."</code>)</li>
 <li><code>name?</code>: {object} Optional structured representation of the name, with the following possible attributes:<ul>
 <li><code>familyName?</code>: {string} (example: <code>"House"</code>)</li>
@@ -2540,7 +2545,7 @@
 <li><code>birthday?</code>: {date} (example: <code>"1959-05-15"</code>)</li>
 <li><code>note?</code>: {string}</li>
 <li><code>email?</code>: {array} An array of email addresses objects with the following attributes:<ul>
-<li><code>address</code>: {string} Email adress</li>
+<li><code>address</code>: {string} Email address</li>
 <li><code>type?</code>: {string} Programmatic type of email (<code>"work"</code>, <code>"home"</code>, <code>"other"</code>)</li>
 <li><code>label?</code>: {string} A user-provided localized type of email (example: <code>"Work"</code>)</li>
 <li><code>primary?</code>: {boolean} Indicates a preferred-use address</li>
