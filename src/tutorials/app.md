@@ -73,7 +73,7 @@ This command will run
 - a Cozy `stack` using docker (the image `cozy/cozy-app-dev`) to serve your application inside it.
 - The same docker image starts a CouchDB containing your data (be careful, since a data volume is not attached by default, your data will disappear on restart. You should start the docker image manually if you want to persist your data).
 
-Your application will be available at http://<MY_APP_SLUG>.cozy.tools:8080. Password is `cozy`.
+Your application will be available at http://MY_APP_SLUG.cozy.tools:8080. Password is `cozy`.
 
     In this mode HMR (Hot Module Replacement) is available to help you with the application development.
 
