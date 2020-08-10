@@ -3365,7 +3365,7 @@ service and its parameters following this example:</p>
 code run and the <code>type</code> field describe the code type (only <code>"node"</code> for now).</p>
 <p>If you need to know more about how to develop a service, please check the <a href="https://github.com/cozy/cozy.github.io/blob/dev/src/howTos/dev/services.md">how-to documentation here</a>.</p>
 <h3 id="available-fields-to-the-service">Available fields to the service<a class="headerlink" href="#available-fields-to-the-service" title="Permanent link">&para;</a></h3>
-<p>During the service execution, the stack will give some environment variables to the service if you need to use them.</p>
+<p>During the service execution, the stack will give some environment variables to the service if you need to use them, available with <code>process.env[FIELD]</code>. Once again, it&rsquo;s the <strong>stack</strong> that gives those variables. So if you&rsquo;re developing a service and using a script to execute/test your service, you won&rsquo;t get those variables.</p>
 <div class="codehilite"><pre><span></span>- <span class="s2">&quot;COZY_URL&quot;</span> <span class="c1"># Cozy URL</span>
 - <span class="s2">&quot;COZY_CREDENTIALS&quot;</span> <span class="c1"># The cozy app related token</span>
 - <span class="s2">&quot;COZY_LANGUAGE&quot;</span> <span class="c1"># Lang used for the service (ex: node)</span>
