@@ -35,14 +35,34 @@ const requireScript = scriptName => {
   }
 }
 
+const walkDir = dir => {
+  let files = []
+  const dirContent = fs.readdirSync(dir)
+  dirContent.forEach(fileOrDir => {
+    const pathFileOrDir = path.join(dir, fileOrDir)
+    const stat = fs.statSync(pathFileOrDir)
+    if (stat && stat.isDirectory()) {
+      // Recursively walk in subdir
+      files = files.concat(walkDir(pathFileOrDir))
+    } else {
+      if (path.basename(dir) !== 'scripts') {
+        // Add dir basename for files in subdir
+        fileOrDir = path.join(path.basename(dir), fileOrDir)
+      }
+      files.push(fileOrDir)
+    }
+  })
+  return files
+}
+
 /** List all builtin scripts */
 const list = () => {
-  const dir = path.join(__dirname, 'scripts')
-  return fs
-    .readdirSync(dir)
-    .filter(x => /\.js$/.exec(x))
-    .filter(x => !/\.spec\.js$/.exec(x))
-    .map(x => x.replace(/\.js$/, ''))
+  const dir = path.join(__dirname, '../scripts')
+  const files = walkDir(dir)
+  return files
+    .filter(f => /\.js$/.exec(f))
+    .filter(f => !/\.spec\.js$/.exec(f))
+    .map(f => f.replace(/\.js$/, ''))
 }
 
 module.exports = {

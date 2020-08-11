@@ -64,17 +64,7 @@ describe('GroupSettings', () => {
     expect(router.push).not.toHaveBeenCalled()
   })
 
-  it('Should call existsById with an id when rendering an account line', () => {
-    const group = fixtures['io.cozy.bank.groups'][0]
-    const accountsById = keyBy(fixtures['io.cozy.bank.accounts'], '_id')
-    const existsById = jest.fn()
-    group.accounts = {
-      data: group.accounts.map(accountId => accountsById[accountId]),
-      existsById
-    }
-    const account = fixtures['io.cozy.bank.accounts'][0]
-    const toggleAccount = jest.fn()
-
+  const setupAccountLine = ({ account, group, toggleAccount }) => {
     const root = mount(
       <AppLike>
         <table>
@@ -89,9 +79,37 @@ describe('GroupSettings', () => {
       </AppLike>
     )
 
+    return { root }
+  }
+
+  it('Should call existsById with an id when rendering an account line', () => {
+    const group = fixtures['io.cozy.bank.groups'][0]
+    const accountsById = keyBy(fixtures['io.cozy.bank.accounts'], '_id')
+    const existsById = jest.fn()
+    group.accounts = {
+      data: group.accounts.map(accountId => accountsById[accountId]),
+      existsById
+    }
+    const account = fixtures['io.cozy.bank.accounts'][0]
+    const toggleAccount = jest.fn()
+    const { root } = setupAccountLine({
+      account,
+      group,
+      toggleAccount
+    })
+
     const switches = root.find(Switch)
-    switches.at(0).simulate('click')
+    switches.props().onClick({
+      target: {
+        checked: true
+      }
+    })
 
     expect(existsById).toHaveBeenCalledWith(account._id)
+    expect(toggleAccount).toHaveBeenCalledWith(
+      'compteisa4',
+      expect.objectContaining({ _id: 'familleelargie' }),
+      true
+    )
   })
 })

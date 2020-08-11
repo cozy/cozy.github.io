@@ -97,22 +97,18 @@ export const Nav = () => {
             label: t('Nav.analysis'),
             rx: analysisRoute
           },
-          flag('banks.recurrence')
-            ? {
-                to: '/categories',
-                label: t('Nav.categories'),
-                rx: categoriesRoute,
-                secondary: true
-              }
-            : null,
-          flag('banks.recurrence')
-            ? {
-                to: '/recurrence',
-                label: t('Nav.recurrence'),
-                rx: recurrenceRoute,
-                secondary: true
-              }
-            : null,
+          {
+            to: '/categories',
+            label: t('Nav.categories'),
+            rx: categoriesRoute,
+            secondary: true
+          },
+          {
+            to: '/recurrence',
+            label: t('Nav.recurrence'),
+            rx: recurrenceRoute,
+            secondary: true
+          },
           flag('banks.transfers')
             ? {
                 to: '/transfers',

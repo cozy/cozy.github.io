@@ -93,6 +93,10 @@ export const getEnabledNotificationClasses = config => {
 
 const isKlassSupportingSeveralRules = Klass => Klass.supportsMultipleRules
 
+/**
+ * Given a notification class, sends a notification according to the
+ * corresponding rules
+ */
 export const sendNotificationForClass = async (
   Klass,
   { config, client, data, lang }

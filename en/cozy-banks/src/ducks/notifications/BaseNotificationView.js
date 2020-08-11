@@ -4,6 +4,10 @@ import { generateUniversalLink } from 'cozy-ui/transpiled/react/AppLinker'
 import bankLayout from './bank-layout.hbs'
 import { helpers } from './index'
 
+/**
+ * Provides common data, helpers and partials to all notification views
+ * used in banks
+ */
 class BaseNotificationView extends NotificationView {
   constructor(options) {
     super(options)

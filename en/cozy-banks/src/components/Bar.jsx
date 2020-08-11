@@ -7,7 +7,10 @@ const wrap = (Component, className) => {
   const WrappedBarComponent = ({ children }) => {
     return (
       <Component>
-        <CozyTheme className={cx('u-flex', className)} variant="inverted">
+        <CozyTheme
+          className={cx('u-flex u-flex-items-center', className)}
+          variant="inverted"
+        >
           {children}
         </CozyTheme>
       </Component>

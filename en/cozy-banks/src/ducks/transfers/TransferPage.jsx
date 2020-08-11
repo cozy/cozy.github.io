@@ -4,6 +4,7 @@ import get from 'lodash/get'
 import { withRouter } from 'react-router'
 
 import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
+import Stack from 'cozy-ui/transpiled/react/Stack'
 import { translate, Text, Modal, useI18n } from 'cozy-ui/transpiled/react'
 import { withClient, queryConnect } from 'cozy-client'
 import { utils } from 'cozy-client/dist/models'
@@ -17,11 +18,12 @@ import { recipientsConn, accountsConn, myselfConn } from 'doctypes'
 import Padded from 'components/Spacing/Padded'
 import Loading from 'components/Loading'
 import Stepper from 'components/Stepper'
+import PageTitle from 'components/Title/PageTitle'
+
 import AddAccountButton from 'ducks/categories/AddAccountButton'
 import * as recipientUtils from 'ducks/transfers/recipients'
 import * as transfers from 'ducks/transfers/transfers'
 
-import PageTitle from 'components/Title/PageTitle'
 import {
   TransferSuccess,
   TransferError
@@ -66,30 +68,34 @@ const NoRecipient = () => {
 
   return (
     <Padded>
-      <PageTitle>{t('Transfer.no-recipients.title')}</PageTitle>
-      <Text>{t('Transfer.no-recipients.description')}</Text>
-      <ul>
-        <li>Axa Banque</li>
-        <li>BNP Paribas</li>
-        <li>Boursorama</li>
-        <li>Banque Postale Particuliers</li>
-        <li>CIC</li>
-        <li>Crédit Agricole</li>
-        <li>Crédit Coopératif</li>
-        <li>Crédit Foncier</li>
-        <li>Crédit Mutuel</li>
-        <li>Fortuneo</li>
-        <li>Hello Bank</li>
-        <li>ING</li>
-        <li>LCL</li>
-        <li>Société Générale</li>
-      </ul>
-      <AddAccountButton
-        extension="full"
-        label={t('Transfer.no-bank.add-bank')}
-        theme="primary"
-        className="u-mt-0"
-      />
+      <Stack spacing="l">
+        <PageTitle>{t('Transfer.no-recipients.title')}</PageTitle>
+        <Text className="u-maw-7">
+          {t('Transfer.no-recipients.description')}
+        </Text>
+        <ul>
+          <li>Axa Banque</li>
+          <li>BNP Paribas</li>
+          <li>Boursorama</li>
+          <li>Banque Postale Particuliers</li>
+          <li>CIC</li>
+          <li>Crédit Agricole</li>
+          <li>Crédit Coopératif</li>
+          <li>Crédit Foncier</li>
+          <li>Crédit Mutuel</li>
+          <li>Fortuneo</li>
+          <li>Hello Bank</li>
+          <li>ING</li>
+          <li>LCL</li>
+          <li>Société Générale</li>
+        </ul>
+        <AddAccountButton
+          extension="full"
+          label={t('Transfer.no-bank.add-bank')}
+          theme="primary"
+          className="u-mt-0"
+        />
+      </Stack>
     </Padded>
   )
 }

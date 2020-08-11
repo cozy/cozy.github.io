@@ -1,5 +1,6 @@
 'use strict'
 
+const get = require('lodash/get')
 const merge = require('webpack-merge')
 const { mergeAppConfigs } = require('cozy-scripts/utils/merge')
 const {
@@ -71,9 +72,31 @@ const removeCSSMQPackerPlugin = config => {
   })
 }
 
+const configureTerserPlugin = config => {
+  if (!get(config, 'optimization.minimizer[0]')) {
+    return
+  }
+
+  // mjml uses class names to register its components. classes are transpiled
+  // by babel into functions. If keep_fnames is set to false (its default value),
+  // we have errors when using mjml2html:
+  // "Element mj-column doesn't exist or is not registered"
+  // See https://github.com/cozy/create-cozy-app/issues/1339
+  // eslint-disable-next-line no-console
+  console.log('Configured terser not to mangle function names')
+  const terserOptions = config.optimization.minimizer[0].options.terserOptions
+  terserOptions.mangle = {
+    keep_fnames: true
+  }
+}
+
 // TODO remove those lines after https://github.com/cozy/create-cozy-app/pull/1326
 // is fixed
 removeCSSMQPackerPlugin(config)
+
+if (target === 'services') {
+  configureTerserPlugin(config)
+}
 
 module.exports = config
 

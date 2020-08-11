@@ -14,15 +14,6 @@ import { format } from 'date-fns'
 import Polyglot from 'node-polyglot'
 import en from 'locales/en.json'
 
-jest.mock('cozy-flags', () => flagName => {
-  const activeFlags = ['banks.recurrence']
-  if (activeFlags.includes(flagName)) {
-    return true
-  } else {
-    return false
-  }
-})
-
 jest.mock('cozy-ui/transpiled/react/Alerter', () => ({
   success: jest.fn()
 }))

@@ -167,7 +167,7 @@ class _RowDesktop extends React.PureComponent {
                 {applicationDate ? (
                   <ApplicationDateCaption f={f} transaction={transaction} />
                 ) : null}
-                {recurrence && showRecurrence && flag('banks.recurrence') ? (
+                {recurrence && showRecurrence ? (
                   <RecurrenceCaption recurrence={recurrence} />
                 ) : null}
               </List.Content>
@@ -270,7 +270,7 @@ class _RowMobile extends React.PureComponent {
               coloredPositive
               signed
             />
-            {recurrence && showRecurrence && flag('banks.recurrence') ? (
+            {recurrence && showRecurrence ? (
               <RecurrenceCaption recurrence={recurrence} />
             ) : null}
           </Img>

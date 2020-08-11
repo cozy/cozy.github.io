@@ -2,16 +2,19 @@ import React, { Component, useCallback } from 'react'
 import { withRouter } from 'react-router'
 import { sortBy, flowRight as compose } from 'lodash'
 import { Query, withClient } from 'cozy-client'
+
 import { translate, withBreakpoints } from 'cozy-ui/transpiled/react'
 import Button from 'cozy-ui/transpiled/react/Button'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import { Media, Img } from 'cozy-ui/transpiled/react/Media'
+import Switch from 'cozy-ui/transpiled/react/MuiCozyTheme/Switch'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 
 import BarTheme from 'ducks/bar/BarTheme'
 import { getAccountInstitutionLabel } from 'ducks/account/helpers'
 import { GROUP_DOCTYPE, accountsConn } from 'doctypes'
 import { getGroupLabel, renamedGroup } from 'ducks/groups/helpers'
-import Switch from 'cozy-ui/transpiled/react/MuiCozyTheme/Switch'
+
 import Loading from 'components/Loading'
 import BackButton from 'components/BackButton'
 import Table from 'components/Table'
@@ -19,7 +22,6 @@ import { PageTitle } from 'components/Title'
 import { Padded } from 'components/Spacing'
 import { logException } from 'lib/sentry'
 
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import styles from 'ducks/settings/GroupsSettings.styl'
 
 const makeNewGroup = (client, t) => {
@@ -32,9 +34,7 @@ export const AccountLine = props => {
   const { account, group, toggleAccount } = props
 
   const handleClickSwitch = useCallback(
-    ev => {
-      return toggleAccount.bind(account._id, group, ev.target.checked)
-    },
+    ev => toggleAccount(account._id, group, ev.target.checked),
     [toggleAccount, account, group]
   )
 
