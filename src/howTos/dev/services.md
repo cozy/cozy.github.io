@@ -108,7 +108,7 @@ cozy-stack apps update <app_name>
 ## Execution
 
 The service will be run each time the trigger condition is met, e.g. a bank operation.
-However, you can force its execution thanks to the `cozy-run-dev` CLI, which can be useuful for developement.
+However, you can force its execution thanks to the `cozy-konnector-dev` CLI, which can be useful for developement.
 
 To install locally:
 ```bash
@@ -117,7 +117,7 @@ yarn add --dev cozy-jobs-cli
 
 To run:
 ```bash
-./node_modules/.bin/cozy-konnector-dev -m <app_manifest> <mybuiltservice.js>
+yarn run cozy-konnector-dev -m <app_manifest> <mybuiltservice.js>
 ```
 
 Be carefull the `mybuiltservice.js` **must be** the built file of your service, not the source.
