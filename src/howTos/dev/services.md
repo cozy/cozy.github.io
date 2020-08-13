@@ -108,7 +108,7 @@ cozy-stack apps update <app_name>
 ## Execution
 
 The service will be run each time the trigger condition is met, e.g. a bank operation.
-However, you can force its execution thanks to the `cozy-konnector-dev` CLI, which can be useful for developement.
+However, you can force its execution thanks to the `cozy-konnector-dev` CLI, which can be useful for developement. Be aware, that in that case, you can't rely on any of the [stack provided variables](https://docs.cozy.io/en/cozy-stack/apps/#available-fields-to-the-service)
 
 To install locally:
 ```bash
