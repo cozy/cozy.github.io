@@ -7,7 +7,7 @@ set -e
 
 echo "Starting the release process..."
 
-current_version=$(cat package.json | jq -rc '.version')
+current_version=$(cat manifest.webapp | jq -rc '.version')
 echo "Current version is ${current_version}"
 read -p "What is the next version ? " version
 

@@ -16,6 +16,7 @@ import BaseContactPicker from 'cozy-ui/transpiled/react/ContactPicker'
 import { withBreakpoints } from 'cozy-ui/transpiled/react'
 import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
 import Modal from 'cozy-ui/transpiled/react/Modal'
+import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
 
 import BarTheme from 'ducks/bar/BarTheme'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
@@ -307,18 +308,26 @@ const NewAccountSettings = props => {
                   </BarRight>
                 </>
               )}
-              <PageTitle>
-                {!isMobile && <BackButton to="/settings/accounts" arrow />}
-                {getAccountLabel(account)}
+              <Media className="u-maw-7">
                 {!isMobile && (
-                  <Button
-                    className="u-mr-0 u-ml-auto"
-                    label={t('AccountSettings.removeAccountBtn')}
-                    theme="danger-outline"
-                    onClick={() => setShowDeleteConfirmation(true)}
-                  />
+                  <Img>
+                    <BackButton to="/settings/accounts" arrow />
+                  </Img>
                 )}
-              </PageTitle>
+                <Bd>
+                  <PageTitle>{getAccountLabel(account)}</PageTitle>
+                </Bd>
+                {!isMobile && (
+                  <Img>
+                    <Button
+                      className="u-mr-0 u-ml-auto"
+                      label={t('AccountSettings.removeAccountBtn')}
+                      theme="danger-outline"
+                      onClick={() => setShowDeleteConfirmation(true)}
+                    />
+                  </Img>
+                )}
+              </Media>
               <NarrowContent className={cx({ 'u-mt-2': !isMobile })}>
                 <AccountSettingsForm
                   account={account}
