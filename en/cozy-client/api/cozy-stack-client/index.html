@@ -1147,6 +1147,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#filecollectiondestroyfile-promise" title="fileCollection.destroy(file) ⇒ Promise" class="md-nav__link">
+    fileCollection.destroy(file) ⇒ Promise
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#filecollectionemptytrash" title="fileCollection.emptyTrash()" class="md-nav__link">
     fileCollection.emptyTrash()
   </a>
@@ -1624,6 +1631,13 @@
         <li class="md-nav__item">
   <a href="#fileattributes-object" title="FileAttributes : object" class="md-nav__link">
     FileAttributes : object
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filedocument-object" title="FileDocument : object" class="md-nav__link">
+    FileDocument : object
   </a>
   
 </li>
@@ -3479,6 +3493,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#filecollectiondestroyfile-promise" title="fileCollection.destroy(file) ⇒ Promise" class="md-nav__link">
+    fileCollection.destroy(file) ⇒ Promise
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#filecollectionemptytrash" title="fileCollection.emptyTrash()" class="md-nav__link">
     fileCollection.emptyTrash()
   </a>
@@ -3960,6 +3981,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#filedocument-object" title="FileDocument : object" class="md-nav__link">
+    FileDocument : object
+  </a>
+  
+</li>
+      
       
       
       
@@ -4061,6 +4089,9 @@ through OAuth.</p>
 </dd>
 <dt><a href="#FileAttributes">FileAttributes</a> : <code>object</code></dt>
 <dd><p>Attributes used for file creation</p>
+</dd>
+<dt><a href="#FileDocument">FileDocument</a> : <code>object</code></dt>
+<dd><p>Document representing a io.cozy.files</p>
 </dd>
 </dl>
 
@@ -4521,6 +4552,7 @@ files associated to a specific document</p>
 <li><a href="#FileCollection+removeReferencedBy">.removeReferencedBy(document, documents)</a> ⇒ <code>object</code></li>
 <li><a href="#FileCollection+addReferencesTo">.addReferencesTo(document, documents)</a> ⇒ <code>object</code></li>
 <li><a href="#FileCollection+removeReferencesTo">.removeReferencesTo(document, documents)</a> ⇒ <code>object</code></li>
+<li><a href="#FileCollection+destroy">.destroy(file)</a> ⇒ <code>Promise</code></li>
 <li><a href="#FileCollection+emptyTrash">.emptyTrash()</a></li>
 <li><a href="#FileCollection+restore">.restore(id)</a> ⇒ <code>Promise</code></li>
 <li><a href="#FileCollection+deleteFilePermanently">.deleteFilePermanently(id)</a> ⇒ <code>object</code></li>
@@ -4653,7 +4685,7 @@ files associated to a specific document</p>
 <tbody>
 <tr>
 <td>document</td>
-<td><code>object</code></td>
+<td><a href="#FileDocument"><code>FileDocument</code></a></td>
 <td>A JSON representing the file</td>
 </tr>
 <tr>
@@ -4753,6 +4785,28 @@ files associated to a specific document</p>
 <td>documents</td>
 <td><code>Array</code></td>
 <td>An array of JSON files having an <code>_id</code> field.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="FileCollection+destroy"></a></p>
+<h3 id="filecollectiondestroyfile-promise">fileCollection.destroy(file) ⇒ <code>Promise</code><a class="headerlink" href="#filecollectiondestroyfile-promise" title="Permanent link">&para;</a></h3>
+<p>Sends file to trash and removes references to it</p>
+<p><strong>Kind</strong>: instance method of <a href="#FileCollection"><code>FileCollection</code></a><br />
+<strong>Returns</strong>: <code>Promise</code> - - Resolves when references have been removed
+and file has been sent to trash  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>file</td>
+<td><a href="#FileDocument"><code>FileDocument</code></a></td>
+<td>File that will be sent to trash</td>
 </tr>
 </tbody>
 </table>
@@ -6099,6 +6153,27 @@ found&rdquo; error.  </p>
 <td>metadata</td>
 <td><code>object</code></td>
 <td>io.cozy.files.metadata to attach to the file</td>
+</tr>
+</tbody>
+</table>
+<p><a name="FileDocument"></a></p>
+<h2 id="filedocument-object">FileDocument : <code>object</code><a class="headerlink" href="#filedocument-object" title="Permanent link">&para;</a></h2>
+<p>Document representing a io.cozy.files</p>
+<p><strong>Kind</strong>: global typedef<br />
+<strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>_id</td>
+<td><code>string</code></td>
+<td>Id of the file</td>
 </tr>
 </tbody>
 </table>

@@ -8,6 +8,7 @@ const cozyFetch = require('./cozyFetch')
 const log = require('./log')
 const request = require('request')
 const fs = require('fs')
+const { createClientInteractive } = require('cozy-client/dist/cli')
 
 const { handleBadToken } = require('../libs/utils')
 
@@ -42,16 +43,22 @@ class ACH {
     this.token = token || getTokenPath(url, doctypes)
   }
 
-  connect() {
+  async connect() {
     log.debug('Connecting to ' + this.url)
-    return getClient(this.token, this.url, this.doctypes)
-      .then(client => {
-        this.client = client
+    try {
+      /* NOTE: in the future, we expect to only use cozy-client */
+      this.client = await getClient(this.token, this.url, this.doctypes)
+      this.cozyClient = await createClientInteractive({
+        uri: this.url,
+        scope: this.doctypes,
+        oauth: {
+          softwareID: 'ACH'
+        }
       })
-      .catch(err => {
-        log.warn('Could not connect to' + this.url)
-        throw err
-      })
+    } catch (err) {
+      log.warn('Could not connect to' + this.url)
+      throw err
+    }
   }
 
   async downloadFile(id) {
