@@ -2138,6 +2138,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#firebase-configuration" title="Firebase configuration" class="md-nav__link">
+    Firebase configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#declare-applications-notifications" title="Declare application's notifications" class="md-nav__link">
     Declare application's notifications
   </a>
@@ -2512,6 +2519,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#firebase-configuration" title="Firebase configuration" class="md-nav__link">
+    Firebase configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#declare-applications-notifications" title="Declare application's notifications" class="md-nav__link">
     Declare application's notifications
   </a>
@@ -2585,6 +2599,32 @@ user, in an asynchronous manner.</p>
 <p>These notifications are part of a &ldquo;Notification Center&rdquo; where the user can
 configure the behavior of these notifications and the channel in which they are
 sent.</p>
+<h2 id="firebase-configuration">Firebase configuration<a class="headerlink" href="#firebase-configuration" title="Permanent link">&para;</a></h2>
+<p>The push notifications can be sent via Firebase to smartphones. By default, the
+key used to connect to firebase is set in the configuration file, via the
+<code>notifications.android_api_key</code> parameter. But it can be useful to have several
+firebase accounts when there are several applications developed by several
+organizations. In that case, it is possible to tell the stack to use a particular
+key for a given app by creating a CouchDB document inside the
+<code>secrets/io-cozy-account_types</code> database, like this:</p>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;myapp&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;myapp&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;android_api_key&quot;</span><span class="p">:</span> <span class="s2">&quot;th3_f1r3b4s3_k3y&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>And we can go further to restrict this to a context, by prefixing the <code>_id</code>
+with the context name and <code>/</code>:</p>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;mycontext/myapp&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;myapp&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;android_api_key&quot;</span><span class="p">:</span> <span class="s2">&quot;th3_0th3r_f1r3b4s3_k3y&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
 <h2 id="declare-applications-notifications">Declare application&rsquo;s notifications<a class="headerlink" href="#declare-applications-notifications" title="Permanent link">&para;</a></h2>
 <p>Each application have to declare in its manifest the notifications it needs to
 send. The <code>notifications</code> fields of the manifest can be used to define all these

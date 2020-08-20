@@ -2657,8 +2657,7 @@
 <p>In this example, the services are built alongside your app using <code>yarn watch</code>.</p>
 <h2 id="stack">Stack<a class="headerlink" href="#stack" title="Permanent link">&para;</a></h2>
 <p>As the service is run on a dedicated process on the server side, a running stack is necessary. You can either use a stack installed <a href="https://docs.cozy.io/en/howTos/dev/runCozyDocker/#run-with-a-custom-stack-config-file">with docker</a> or directly <a href="https://github.com/cozy/cozy-stack/blob/master/docs/INSTALL.md">from source</a>.</p>
-<p>Some configuration is required to execute the service and store</p>
-<p>the produced logs, to facilitate the development. The following instructions are for a stack installed from source, but you can easily adapt it for a docker installation: you just have to download the <a href="https://github.com/cozy/cozy-stack/blob/master/cozy.example.yaml">default config file</a>, modify it as described below and indicate its location through the docker command, as explained <a href="https://docs.cozy.io/en/howTos/dev/runCozyDocker/#run-with-a-custom-stack-config-file">here</a>.</p>
+<p>Some configuration is required to execute the service and store the produced logs, to facilitate the development. The following instructions are for a stack installed from source, but you can adapt it for a docker installation: you have to download the <a href="https://github.com/cozy/cozy-stack/blob/master/cozy.example.yaml">default config file</a>, modify it as described below and indicate its location through the docker command, as explained <a href="https://docs.cozy.io/en/howTos/dev/runCozyDocker/#run-with-a-custom-stack-config-file">here</a>.</p>
 <p>In the following, we assume that your <code>$HOME</code> is /home/alice, so change accordingly to your own <code>$HOME</code>.</p>
 <h3 id="copy-the-default-config-file">Copy the default config file<a class="headerlink" href="#copy-the-default-config-file" title="Permanent link">&para;</a></h3>
 <p>Create a directory  <code>~/.cozy</code> and copy the default configuration file into it. Be careful, the file name and location matter, as explained in the <a href="https://github.com/cozy/cozy-stack/blob/master/docs/config.md">config documentation</a>.</p>
@@ -2703,14 +2702,14 @@ node index.js <span class="p">|</span> tee ~/.cozy/services.log
 
 <h2 id="execution">Execution<a class="headerlink" href="#execution" title="Permanent link">&para;</a></h2>
 <p>The service will be run each time the trigger condition is met, e.g. a bank operation.
-However, you can force its execution thanks to the <code>cozy-run-dev</code> CLI.</p>
-<p>To install:</p>
-<div class="codehilite"><pre><span></span>yarn global add cozy-jobs-cli
+However, you can force its execution thanks to the <code>cozy-konnector-dev</code> CLI, which can be useful for developement. Be aware, that in that case, you can&rsquo;t rely on any of the <a href="https://docs.cozy.io/en/cozy-stack/apps/#available-fields-to-the-service">stack provided variables</a></p>
+<p>To install locally:</p>
+<div class="codehilite"><pre><span></span>yarn add --dev cozy-jobs-cli
 </pre></div>
 
 
 <p>To run:</p>
-<div class="codehilite"><pre><span></span>cozy-konnector-dev -m &lt;app_manifest&gt; &lt;mybuiltservice.js&gt;
+<div class="codehilite"><pre><span></span>yarn run cozy-konnector-dev -m &lt;app_manifest&gt; &lt;mybuiltservice.js&gt;
 </pre></div>
 
 

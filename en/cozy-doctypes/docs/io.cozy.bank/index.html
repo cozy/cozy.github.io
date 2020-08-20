@@ -2755,6 +2755,9 @@
 <li><code>accountLabel</code>: {string} - The loan account label</li>
 <li><code>insuranceLabel</code>: {string} - The insurance label</li>
 <li><code>duration</code>: {number} - The loan duration in months</li>
+<li><code>relationships</code>: {Object} - Relationships to other documents</li>
+<li><code>connection</code>: the <code>io.cozy.accounts</code> that was used to retrieve this document. This is used by Harvest to be able to edit an <code>io.cozy.bank.accounts</code>
+    through the &ldquo;Configuration&rdquo; tab of an <code>io.cozy.accounts</code>.</li>
 </ul>
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span>{
@@ -2768,7 +2771,13 @@
   },
   &quot;number&quot;: &quot;03791 00048085818&quot;,
   &quot;shortLabel&quot;: &quot;Livret Dévelop. Durable&quot;,
-  &quot;type&quot;: &quot;Savings&quot;
+  &quot;type&quot;: &quot;Savings&quot;,
+  &quot;relationships&quot;: {
+    &quot;connection&quot;: {
+      &quot;_id&quot;: &quot;2165d9a310deadbeeffc08d54c45404&quot;,
+      &quot;_type&quot;: &quot;io.cozy.accounts&quot;
+    }
+  }
 }
 </pre></div>
 
