@@ -61,6 +61,7 @@ module.exports = {
         '../react/Layout/Layout.jsx',
         '../react/NarrowContent/index.jsx',
         '../react/Page/index.jsx',
+        '../react/SectionHeader/index.jsx',
         '../react/Sidebar/index.jsx',
         '../react/ViewStack/index.jsx'
       ]
