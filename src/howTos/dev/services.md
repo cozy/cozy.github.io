@@ -48,12 +48,7 @@ In this example, the services are built alongside your app using `yarn watch`.
 
 As the service is run on a dedicated process on the server side, a running stack is necessary. You can either use a stack installed [with docker](https://docs.cozy.io/en/howTos/dev/runCozyDocker/#run-with-a-custom-stack-config-file) or directly [from source](https://github.com/cozy/cozy-stack/blob/master/docs/INSTALL.md).
 
-Some configuration is required to execute the service and store
-
-
-
-
- the produced logs, to facilitate the development. The following instructions are for a stack installed from source, but you can easily adapt it for a docker installation: you just have to download the [default config file](https://github.com/cozy/cozy-stack/blob/master/cozy.example.yaml), modify it as described below and indicate its location through the docker command, as explained [here](https://docs.cozy.io/en/howTos/dev/runCozyDocker/#run-with-a-custom-stack-config-file).
+Some configuration is required to execute the service and store the produced logs, to facilitate the development. The following instructions are for a stack installed from source, but you can adapt it for a docker installation: you have to download the [default config file](https://github.com/cozy/cozy-stack/blob/master/cozy.example.yaml), modify it as described below and indicate its location through the docker command, as explained [here](https://docs.cozy.io/en/howTos/dev/runCozyDocker/#run-with-a-custom-stack-config-file).
 
 In the following, we assume that your `$HOME` is /home/alice, so change accordingly to your own `$HOME`.
 
@@ -99,7 +94,6 @@ Now you can `tail -f ~/.cozy/services.log` to watch logs in real time.
 
 ## Install your app
 
-
 To install the app containing the service on your local stack, you must give the path of your build:
 
 ```bash
@@ -111,20 +105,19 @@ Each time you make modifications to your service, you must update the app on the
 cozy-stack apps update <app_name>
 ```
 
-
 ## Execution
 
 The service will be run each time the trigger condition is met, e.g. a bank operation.
-However, you can force its execution thanks to the `cozy-run-dev` CLI.
+However, you can force its execution thanks to the `cozy-konnector-dev` CLI, which can be useful for developement. Be aware, that in that case, you can't rely on any of the [stack provided variables](https://docs.cozy.io/en/cozy-stack/apps/#available-fields-to-the-service)
 
-To install:
+To install locally:
 ```bash
-yarn global add cozy-jobs-cli
+yarn add --dev cozy-jobs-cli
 ```
 
 To run:
 ```bash
-cozy-konnector-dev -m <app_manifest> <mybuiltservice.js>
+yarn run cozy-konnector-dev -m <app_manifest> <mybuiltservice.js>
 ```
 
 Be carefull the `mybuiltservice.js` **must be** the built file of your service, not the source.
