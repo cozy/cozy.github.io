@@ -2756,8 +2756,11 @@
 <li><code>insuranceLabel</code>: {string} - The insurance label</li>
 <li><code>duration</code>: {number} - The loan duration in months</li>
 <li><code>relationships</code>: {Object} - Relationships to other documents</li>
-<li><code>connection</code>: the <code>io.cozy.accounts</code> that was used to retrieve this document. This is used by Harvest to be able to edit an <code>io.cozy.bank.accounts</code>
+<li><code>connection</code>: {<code>HasOne&lt;io.cozy.accounts&gt;</code>} The account used to retrieve this document. This is used by Harvest to be able to edit an <code>io.cozy.bank.accounts</code>
     through the &ldquo;Configuration&rdquo; tab of an <code>io.cozy.accounts</code>.</li>
+<li><code>checkingsAccount</code>: {<code>HasOne&lt;io.cozy.bank.accounts&gt;</code>} - In case of a credit card account, links to the bankaccount on which all the transactions will be debited
+     at the end of the month</li>
+<li><code>owners</code>: {<code>HasMany&lt;io.cozy.contacts&gt;</code>} - List of owners for this account</li>
 </ul>
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span>{
@@ -2826,7 +2829,7 @@
 <ul>
 <li><code>label</code>: {string} - The label describing the transaction</li>
 <li><code>type</code>: {string} - A type in the list : <code>['none', 'credit card', 'cash', 'check', 'transfer', 'internal transfer', 'debit card', 'deposit', 'financial fee', 'direct debit']</code></li>
-<li><code>date</code>: {date} - The date the transaction is emmited</li>
+<li><code>date</code>: {date} - The date the transaction is emitted</li>
 <li><code>dateOperation</code>: {date} - The date the transaction is registered in the account</li>
 <li><code>dateImport</code>: {date} - The date the transaction is imported (can differ of the date of creation of the document as the import can be done by an external service)</li>
 <li><code>amount</code>: {number} - The amount of the transaction</li>
