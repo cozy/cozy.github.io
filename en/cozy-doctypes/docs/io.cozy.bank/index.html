@@ -2737,6 +2737,7 @@
 <li><code>number</code>: {string} - The bank account number in its institution</li>
 <li><code>iban</code>: {string} - The bank account international identifier</li>
 <li><code>serviceID</code>: {number} - In case of external service used to import transactions, this key can stores the service&rsquo;s account ID; can be <code>undefined</code> is the account isn&rsquo;t managed by any external service</li>
+<li><code>vendorId</code>: {string} - Id of the bank account on the vendor side</li>
 <li><code>loan</code>: {Object} - Specific properties for loan accounts. Will be undefined for all other account types</li>
 <li><code>contactName</code>: {string} - The name of the contact in the credit institution</li>
 <li><code>totalAmount</code>: {number} - The total amount of the loan</li>
@@ -2846,6 +2847,8 @@
 <li><code>creditOperations</code>: {array[<io.cozy.bank.operations._id>]} - List of credit operations id</li>
 <li><code>debitOperations</code>: {array[<io.cozy.bank.operations._id>]} - List of debit operations id</li>
 <li><code>parent</code>: {_id} - In case of a split transaction, the one refers the global transaction the split one belongs to</li>
+<li><code>vendorId</code>: {string} - Id of the transaction on the vendor side</li>
+<li><code>vendorAccountId</code>: {string} - Id of the transaction&rsquo;s account on the vendor side</li>
 </ul>
 <p>For the dates, any string or integer which can be interpreted by new Date(date) is possible but the
 best the result of Date.toString() -&gt; like &lsquo;Fri Mar 09 2018 19:04:40 GMT+0100 (CET)&rsquo; which contains

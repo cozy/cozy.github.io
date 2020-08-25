@@ -2686,7 +2686,7 @@
 <li><code>executable</code>: {bool} true is the file has the executable bit on UNIX (<code>chmod +x</code>)</li>
 <li><code>class</code>: {string} a class in the list: <code>['image', 'document', 'audio', 'video', 'text', 'binary']</code></li>
 <li><code>mime</code>: {string} the full mime-type</li>
-<li><code>metadata</code>: {map} an optional map of metadata, with for example:<ul>
+<li><code>metadata</code>: {map} an optional map of metadata (<a href="../io.cozy.files_metadata/">Full metadata description</a>), with for example:<ul>
 <li><code>width</code>: {number}</li>
 <li><code>height</code>: {number}</li>
 <li><code>datetime</code>: {date} : date in original image file metadata</li>
@@ -2710,7 +2710,8 @@
 </li>
 </ul>
 <p>It also has a relationship with its <code>parent</code> in the JSON-API representation.</p>
-<p>For an <code>image</code>, there are 3 links to thumbnails: <code>small</code>, <code>medium</code>, and <code>large</code>.</p>
+<p>For an <code>image</code>, there are 3 links to thumbnails: <code>small</code>, <code>medium</code>, and <code>large</code>. 
+These thumbnail links are valid for 10 minutes. After that, links will return a 400 Bad Request response code.</p>
 <h3 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h3>
 <p>It&rsquo;s possible to link a file or a folder to another document.
 It&rsquo;s called <a href="https://docs.cozy.io/en/cozy-stack/references-docs-in-vfs/">a reference</a>.
