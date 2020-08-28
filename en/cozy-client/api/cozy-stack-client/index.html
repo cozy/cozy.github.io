@@ -1424,6 +1424,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#permissioncollectioncreatepermission" title="permissionCollection.create(permission)" class="md-nav__link">
+    permissionCollection.create(permission)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#permissioncollectionadddocument-permission-promise" title="permissionCollection.add(document, permission) ⇒ Promise" class="md-nav__link">
     permissionCollection.add(document, permission) ⇒ Promise
   </a>
@@ -3770,6 +3777,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#permissioncollectioncreatepermission" title="permissionCollection.create(permission)" class="md-nav__link">
+    permissionCollection.create(permission)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#permissioncollectionadddocument-permission-promise" title="permissionCollection.add(document, permission) ⇒ Promise" class="md-nav__link">
     permissionCollection.add(document, permission) ⇒ Promise
   </a>
@@ -5577,12 +5591,40 @@ sets internal information from the server response</p>
 <p><strong>Kind</strong>: global class  </p>
 <ul>
 <li><a href="#PermissionCollection">PermissionCollection</a><ul>
+<li><a href="#PermissionCollection+create">.create(permission)</a></li>
 <li><a href="#PermissionCollection+add">.add(document, permission)</a> ⇒ <code>Promise</code></li>
 <li><a href="#PermissionCollection+createSharingLink">.createSharingLink(document, options)</a></li>
 <li><a href="#PermissionCollection+getOwnPermissions">.getOwnPermissions()</a> ⇒ <code>object</code></li>
 </ul>
 </li>
 </ul>
+<p><a name="PermissionCollection+create"></a></p>
+<h3 id="permissioncollectioncreatepermission">permissionCollection.create(permission)<a class="headerlink" href="#permissioncollectioncreatepermission" title="Permanent link">&para;</a></h3>
+<p>Create a new set of permissions
+It can also associates one or more codes to it, via the codes parameter</p>
+<p><strong>Kind</strong>: instance method of <a href="#PermissionCollection"><code>PermissionCollection</code></a><br />
+<strong>See</strong>: https://docs.cozy.io/en/cozy-stack/permissions/#post-permissions  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>permission</td>
+<td><code>object</code></td>
+<td></td>
+</tr>
+<tr>
+<td>permission.codes</td>
+<td><code>string</code></td>
+<td>A comma separed list of values (defaulted to code)</td>
+</tr>
+</tbody>
+</table>
 <p><a name="PermissionCollection+add"></a></p>
 <h3 id="permissioncollectionadddocument-permission-promise">permissionCollection.add(document, permission) ⇒ <code>Promise</code><a class="headerlink" href="#permissioncollectionadddocument-permission-promise" title="Permanent link">&para;</a></h3>
 <p>Adds a permission to the given document. Document type must be

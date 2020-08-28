@@ -12,7 +12,9 @@ import (
 // a good result, we fallback on guessing from the filename extension.
 func getMIMEType(name string, data []byte) string {
 	sniffed := http.DetectContentType(data)
-	if sniffed != "application/octet-stream" && sniffed != "text/plain" {
+	// application/octet-stream is the default, when not detected
+	// SVG image are often detected as text/xml or text/plain with a charset
+	if sniffed != "application/octet-stream" && !strings.HasPrefix(sniffed, "text/") {
 		return sniffed
 	}
 
