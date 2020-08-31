@@ -6,7 +6,12 @@ import { withRouter } from 'react-router'
 import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import Stack from 'cozy-ui/transpiled/react/Stack'
 import { translate, Text, Modal, useI18n } from 'cozy-ui/transpiled/react'
-import { withClient, queryConnect } from 'cozy-client'
+import {
+  withClient,
+  queryConnect,
+  isQueryLoading,
+  hasQueryBeenLoaded
+} from 'cozy-client'
 import { utils } from 'cozy-client/dist/models'
 import Realtime from 'cozy-realtime'
 import flag from 'cozy-flags'
@@ -36,7 +41,6 @@ import Summary from 'ducks/transfers/steps/Summary'
 import Password from 'ducks/transfers/steps/Password'
 import { isLoginFailed } from 'ducks/transfers/utils'
 import BarTheme from 'ducks/bar/BarTheme'
-import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { PersonalInfoModal, PersonalInfoPage } from 'ducks/personal-info'
 import manifest from 'ducks/client/manifest'
 
@@ -403,9 +407,9 @@ class TransferPage extends React.Component {
     } = this.state
 
     if (
-      (isCollectionLoading(recipients) && !hasBeenLoaded(recipients)) ||
-      (isCollectionLoading(accounts) && !hasBeenLoaded(accounts)) ||
-      (myself && (isCollectionLoading(myself) && !hasBeenLoaded(myself)))
+      (isQueryLoading(recipients) && !hasQueryBeenLoaded(recipients)) ||
+      (isQueryLoading(accounts) && !hasQueryBeenLoaded(accounts)) ||
+      (myself && (isQueryLoading(myself) && !hasQueryBeenLoaded(myself)))
     ) {
       return (
         <Padded>

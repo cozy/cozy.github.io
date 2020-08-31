@@ -1,5 +1,10 @@
 import React, { useMemo } from 'react'
-import { useClient, useQuery } from 'cozy-client'
+import {
+  useClient,
+  useQuery,
+  isQueryLoading,
+  hasQueryBeenLoaded
+} from 'cozy-client'
 import { NestedSelect, useI18n, Icon } from 'cozy-ui/transpiled/react'
 import { getLabel, makeRecurrenceFromTransaction } from 'ducks/recurrence/utils'
 import { NOT_RECURRENT_ID } from 'ducks/recurrence/api'
@@ -9,7 +14,6 @@ import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { RECURRENCE_DOCTYPE } from 'doctypes'
 import styles from './TransactionRecurrenceEditor.styl'
 import { getCategories } from 'ducks/recurrence/utils'
-import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import Loading from 'components/Loading'
 
 const makeOptionFromRecurrence = rec => {
@@ -100,7 +104,7 @@ const TransactionRecurrenceEditor = ({
     }
   }
 
-  if (isCollectionLoading(recurrenceCol) && !hasBeenLoaded(recurrenceCol)) {
+  if (isQueryLoading(recurrenceCol) && !hasQueryBeenLoaded(recurrenceCol)) {
     return <Loading spinnerSize="xlarge" />
   }
 

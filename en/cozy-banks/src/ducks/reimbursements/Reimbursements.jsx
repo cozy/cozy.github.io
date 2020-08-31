@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { queryConnect } from 'cozy-client'
+import { queryConnect, isQueryLoading, hasQueryBeenLoaded } from 'cozy-client'
 import { transactionsConn, GROUP_DOCTYPE } from 'doctypes'
 import { flowRight as compose, sumBy } from 'lodash'
 import cx from 'classnames'
@@ -17,7 +17,6 @@ import withFilters from 'components/withFilters'
 import { getYear } from 'date-fns'
 import TransactionActionsProvider from 'ducks/transactions/TransactionActionsProvider'
 import withBrands from 'ducks/brandDictionary/withBrands'
-import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { getGroupedFilteredExpenses } from './selectors'
 import { getPeriod, parsePeriod, getFilteringDoc } from 'ducks/filters'
 import { getCategoryName } from 'ducks/categories/categoriesMap'
@@ -87,8 +86,8 @@ export class DumbReimbursements extends Component {
     } = this.props
 
     if (
-      (isCollectionLoading(transactions) && !hasBeenLoaded(transactions)) ||
-      (isCollectionLoading(triggers) && !hasBeenLoaded(triggers))
+      (isQueryLoading(transactions) && !hasQueryBeenLoaded(transactions)) ||
+      (isQueryLoading(triggers) && !hasQueryBeenLoaded(triggers))
     ) {
       return <Loading loadingType />
     }

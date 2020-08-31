@@ -14,15 +14,18 @@ import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import Categories from 'ducks/categories/Categories'
 import { flowRight as compose, sortBy, some, includes } from 'lodash'
 import CategoriesHeader from 'ducks/categories/CategoriesHeader'
-import { queryConnect } from 'cozy-client'
-import { withClient } from 'cozy-client'
+import {
+  withClient,
+  queryConnect,
+  isQueryLoading,
+  hasQueryBeenLoaded
+} from 'cozy-client'
 import {
   accountsConn,
   settingsConn,
   transactionsConn,
   groupsConn
 } from 'doctypes'
-import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import BarTheme from 'ducks/bar/BarTheme'
 import { getCategoriesData } from 'ducks/categories/selectors'
 import maxBy from 'lodash/maxBy'
@@ -101,7 +104,7 @@ class CategoriesPage extends Component {
     } = this.props
     const isFetching = some(
       [accounts, transactions, settings],
-      col => isCollectionLoading(col) && !hasBeenLoaded(col)
+      col => isQueryLoading(col) && !hasQueryBeenLoaded(col)
     )
     const { showIncomeCategory } = this.getSettings()
     const selectedCategoryName = router.params.categoryName

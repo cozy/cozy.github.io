@@ -1,13 +1,13 @@
 import { createSelector } from 'reselect'
 import { includes } from 'lodash'
 
+import { isQueryLoading, hasQueryBeenLoaded } from 'cozy-client'
 import { getBrands, findMatchingBrand } from './index'
-import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { isKonnectorTrigger, getKonnectorFromTrigger } from 'utils/triggers'
 import { querySelector } from 'selectors'
 
 const getInstalledKonnectorsSlugs = triggerCol => {
-  if (isCollectionLoading(triggerCol) && !hasBeenLoaded(triggerCol)) {
+  if (isQueryLoading(triggerCol) && !hasQueryBeenLoaded(triggerCol)) {
     return []
   }
 

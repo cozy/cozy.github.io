@@ -7,7 +7,12 @@ import { withBreakpoints } from 'cozy-ui/transpiled/react'
 import { groupBy, flowRight as compose, sortBy } from 'lodash'
 import Table from 'components/Table'
 import Loading from 'components/Loading'
-import { queryConnect, Q } from 'cozy-client'
+import {
+  queryConnect,
+  Q,
+  isQueryLoading,
+  hasQueryBeenLoaded
+} from 'cozy-client'
 import plus from 'assets/icons/16/plus.svg'
 import styles from 'ducks/settings/AccountsSettings.styl'
 import AddAccountLink from 'ducks/settings/AddAccountLink'
@@ -16,7 +21,6 @@ import {
   getAccountType,
   getAccountOwners
 } from 'ducks/account/helpers'
-import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { Contact } from 'cozy-doctypes'
 
 import { accountsConn, APP_DOCTYPE } from 'doctypes'
@@ -108,8 +112,8 @@ class AccountsSettings extends Component {
     const { t, accountsCollection } = this.props
 
     if (
-      isCollectionLoading(accountsCollection) &&
-      !hasBeenLoaded(accountsCollection)
+      isQueryLoading(accountsCollection) &&
+      !hasQueryBeenLoaded(accountsCollection)
     ) {
       return <Loading />
     }

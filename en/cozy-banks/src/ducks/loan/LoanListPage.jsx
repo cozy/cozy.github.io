@@ -1,4 +1,5 @@
 import React from 'react'
+import { queryConnect, isQueryLoading, hasQueryBeenLoaded } from 'cozy-client'
 import { Section } from 'components/Section'
 import LoanProgress from 'ducks/loan/LoanProgress'
 import CompositeRow from 'cozy-ui/transpiled/react/CompositeRow'
@@ -11,10 +12,8 @@ import AccountIcon from 'components/AccountIcon'
 import withFilters from 'components/withFilters'
 import { BalanceDetailsHeader } from 'ducks/balance'
 import { Padded } from 'components/Spacing'
-import { queryConnect } from 'cozy-client'
 import { flowRight as compose } from 'lodash'
 import { accountsConn } from 'doctypes'
-import { isCollectionLoading, hasBeenLoaded } from 'ducks/client'
 
 const PaddedOnDesktop = withBreakpoints()(props => {
   const {
@@ -32,7 +31,7 @@ const PaddedOnDesktop = withBreakpoints()(props => {
 const DumbLoanListPage = props => {
   const { filteringDoc, filterByDoc, accounts: accountsCol } = props
 
-  if (isCollectionLoading(accountsCol) && !hasBeenLoaded(accountsCol)) {
+  if (isQueryLoading(accountsCol) && !hasQueryBeenLoaded(accountsCol)) {
     return (
       <>
         <BalanceDetailsHeader showBalance />

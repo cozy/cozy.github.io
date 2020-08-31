@@ -1,3 +1,4 @@
+import { isQueryLoading, hasQueryBeenLoaded } from 'cozy-client'
 import {
   getBalanceHistories,
   sumBalanceHistories,
@@ -12,7 +13,6 @@ import {
 } from 'ducks/filters'
 
 import { getCategoryId } from 'ducks/transactions/helpers'
-import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { createSelector } from 'reselect'
 
 const getBalanceHistory = (accounts, transactions, to, from) => {
@@ -59,8 +59,8 @@ const getChartData = (
   }
 
   const isLoading =
-    (isCollectionLoading(transactionsCol) && !hasBeenLoaded(transactionsCol)) ||
-    (isCollectionLoading(accountsCol) && !hasBeenLoaded(accountsCol))
+    (isQueryLoading(transactionsCol) && !hasQueryBeenLoaded(transactionsCol)) ||
+    (isQueryLoading(accountsCol) && !hasQueryBeenLoaded(accountsCol))
 
   if (isLoading) {
     return null

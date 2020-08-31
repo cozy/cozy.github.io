@@ -4,8 +4,12 @@ import React from 'react'
 import { translate } from 'cozy-ui/transpiled/react/I18n'
 import Button from 'cozy-ui/transpiled/react/Button'
 
-import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
-import { queryConnect, withClient } from 'cozy-client'
+import {
+  queryConnect,
+  withClient,
+  isQueryLoading,
+  hasQueryBeenLoaded
+} from 'cozy-client'
 import { settingsConn } from 'doctypes'
 import { flowRight as compose, set } from 'lodash'
 import Loading from 'components/Loading'
@@ -70,8 +74,8 @@ export class Configuration extends React.Component {
     const { t, settingsCollection } = this.props
 
     if (
-      isCollectionLoading(settingsCollection) &&
-      !hasBeenLoaded(settingsCollection)
+      isQueryLoading(settingsCollection) &&
+      !hasQueryBeenLoaded(settingsCollection)
     ) {
       return <Loading />
     }

@@ -5,12 +5,11 @@ import Button from 'cozy-ui/transpiled/react/Button'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import Table from 'components/Table'
 import { groupsConn, accountsConn } from 'doctypes'
-import { queryConnect } from 'cozy-client'
+import { queryConnect, isQueryLoading, hasQueryBeenLoaded } from 'cozy-client'
 import Loading from 'components/Loading'
 import plus from 'assets/icons/16/plus.svg'
 import styles from 'ducks/settings/GroupsSettings.styl'
 import { sortBy, flowRight as compose, get } from 'lodash'
-import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { getGroupLabel } from 'ducks/groups/helpers'
 import { Cell, Row } from 'components/Table'
 
@@ -59,7 +58,7 @@ const Groups = withRouter(
   class _Groups extends Component {
     render() {
       const { t, groups, router } = this.props
-      if (isCollectionLoading(groups) && !hasBeenLoaded(groups)) {
+      if (isQueryLoading(groups) && !hasQueryBeenLoaded(groups)) {
         return <Loading />
       }
 

@@ -3,7 +3,7 @@ import { withRouter, Link } from 'react-router'
 import cx from 'classnames'
 import orderBy from 'lodash/orderBy'
 
-import { useQuery } from 'cozy-client'
+import { useQuery, isQueryLoading, hasQueryBeenLoaded } from 'cozy-client'
 import { ButtonLink } from 'cozy-ui/transpiled/react/Button'
 import CompositeRow from 'cozy-ui/transpiled/react/CompositeRow'
 import Empty from 'cozy-ui/transpiled/react/Empty'
@@ -13,7 +13,6 @@ import Breadcrumbs from 'cozy-ui/transpiled/react/Breadcrumbs'
 import { Media, Img, Bd } from 'cozy-ui/transpiled/react/Media'
 import flag from 'cozy-flags'
 
-import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import Loading from 'components/Loading'
 import distanceInWords from 'date-fns/distance_in_words'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
@@ -215,7 +214,7 @@ const RecurrencesPage = ({ router }) => {
           </>
         ) : null}
       </Header>
-      {isCollectionLoading(bundleCol) && !hasBeenLoaded(bundleCol) ? (
+      {isQueryLoading(bundleCol) && !hasQueryBeenLoaded(bundleCol) ? (
         <Padded>
           <Loading />
         </Padded>

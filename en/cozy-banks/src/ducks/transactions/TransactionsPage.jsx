@@ -18,7 +18,7 @@ import {
 import { getCategoryIdFromName } from 'ducks/categories/categoriesMap'
 import { getDate, getDisplayDate } from 'ducks/transactions/helpers'
 
-import { queryConnect } from 'cozy-client'
+import { queryConnect, isQueryLoading, hasQueryBeenLoaded } from 'cozy-client'
 
 import Loading from 'components/Loading'
 import Delayed from 'components/Delayed'
@@ -34,7 +34,6 @@ import {
 } from 'doctypes'
 
 import TransactionHeader from 'ducks/transactions/TransactionHeader'
-import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { findNearestMonth } from 'ducks/transactions/helpers'
 
 import { getChartTransactions } from 'ducks/chart/selectors'
@@ -89,8 +88,8 @@ class TransactionsPage extends Component {
     if (!isEqual(this.props.filteringDoc, prevProps.filteringDoc)) {
       this.setCurrentMonthFollowingMostRecentTransaction()
     } else if (
-      isCollectionLoading(prevProps.transactions) &&
-      !isCollectionLoading(this.props.transactions)
+      isQueryLoading(prevProps.transactions) &&
+      !isQueryLoading(this.props.transactions)
     ) {
       this.setCurrentMonthFollowingMostRecentTransaction()
     }
@@ -227,7 +226,7 @@ class TransactionsPage extends Component {
     const { limitMin, limitMax, infiniteScrollTop } = this.state
     const { t, transactions: transactionCol } = this.props
     const isFetching =
-      isCollectionLoading(transactionCol) && !hasBeenLoaded(transactionCol)
+      isQueryLoading(transactionCol) && !hasQueryBeenLoaded(transactionCol)
 
     if (isFetching) {
       return <Loading loadingType="movements" />
@@ -270,7 +269,7 @@ class TransactionsPage extends Component {
     } = this.props
 
     const areAccountsLoading =
-      isCollectionLoading(accounts) && !hasBeenLoaded(accounts)
+      isQueryLoading(accounts) && !hasQueryBeenLoaded(accounts)
     const filteredTransactions = this.getTransactions()
 
     const isOnSubcategory = onSubcategory(this.props)

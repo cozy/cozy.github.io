@@ -4,9 +4,9 @@ import { format as formatDate, subYears, isAfter } from 'date-fns'
 import { flowRight as compose, uniq, groupBy, max, memoize } from 'lodash'
 import cx from 'classnames'
 
+import { isQueryLoading, hasQueryBeenLoaded } from 'cozy-client'
 import { withBreakpoints } from 'cozy-ui/transpiled/react'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
-import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
 import styles from 'ducks/balance/History.styl'
@@ -128,7 +128,7 @@ class History extends Component {
     const hasWidth = width !== undefined
 
     const isTransactionsLoading =
-      isCollectionLoading(transactions) && !hasBeenLoaded(transactions)
+      isQueryLoading(transactions) && !hasQueryBeenLoaded(transactions)
 
     return (
       <div className={cx(styles.History, className)}>

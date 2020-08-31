@@ -3,8 +3,7 @@ import React from 'react'
 import PinTimeout from 'ducks/pin/PinTimeout.debug'
 import PinAuth from 'ducks/pin/PinAuth'
 import { pinSetting } from 'ducks/pin/queries'
-import { queryConnect } from 'cozy-client'
-import { isCollectionLoading } from 'ducks/client/utils'
+import { queryConnect, isQueryLoading } from 'cozy-client'
 import { lastInteractionStorage, pinSettingStorage } from './storage'
 
 const isPinOn = pinSetting => Boolean(pinSetting && pinSetting.pin)
@@ -137,7 +136,7 @@ class PinGuard extends React.Component {
   render() {
     const { pinSetting, children, showTimeout, timeout } = this.props
     const { cachedPinSetting, showPin, hasBeenShownOnce, last } = this.state
-    const pinDoc = isCollectionLoading(pinSetting)
+    const pinDoc = isQueryLoading(pinSetting)
       ? cachedPinSetting
       : pinSetting.data
 

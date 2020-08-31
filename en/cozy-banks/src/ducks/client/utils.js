@@ -5,18 +5,6 @@ import omit from 'lodash/omit'
  * All this file should be moved to cozy-client
  */
 
-export const isCollectionLoading = col => {
-  if (!col) {
-    console.warn('isCollectionLoading called on falsy value.') // eslint-disable-line no-console
-    return false
-  }
-  return col.fetchStatus === 'loading' || col.fetchStatus === 'pending'
-}
-
-export const hasBeenLoaded = col => {
-  return col.lastFetch
-}
-
 export const associateDocuments = (
   originalDocument,
   associationName,

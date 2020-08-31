@@ -3,7 +3,12 @@
 import React, { PureComponent, Fragment } from 'react'
 import { flowRight as compose, get, sumBy, set, debounce } from 'lodash'
 
-import { queryConnect, withClient } from 'cozy-client'
+import {
+  queryConnect,
+  withClient,
+  isQueryLoading,
+  hasQueryBeenLoaded
+} from 'cozy-client'
 import flag from 'cozy-flags'
 import {
   groupsConn,
@@ -27,7 +32,6 @@ import NoAccount from 'ducks/balance/NoAccount'
 import AccountsImporting from 'ducks/balance/AccountsImporting'
 
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
-import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { getAccountBalance } from 'ducks/account/helpers'
 import { isBankTrigger } from 'utils/triggers'
 import { getVirtualAccounts, getVirtualGroups } from 'selectors'
@@ -65,7 +69,7 @@ const isLoading = props => {
   const collections = [accountsCollection, groupsCollection, settingsCollection]
 
   return collections.some(
-    col => isCollectionLoading(col) && !hasBeenLoaded(col)
+    col => isQueryLoading(col) && !hasQueryBeenLoaded(col)
   )
 }
 
@@ -282,7 +286,7 @@ class Balance extends PureComponent {
     const { accounts: accountsCollection } = this.props
 
     const collections = [accountsCollection]
-    if (collections.some(isCollectionLoading)) {
+    if (collections.some(isQueryLoading)) {
       return
     }
 

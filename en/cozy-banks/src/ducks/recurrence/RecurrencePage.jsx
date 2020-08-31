@@ -1,6 +1,11 @@
 import React, { useCallback, useRef } from 'react'
 import ReactDOM from 'react-dom'
-import { useClient, useQuery } from 'cozy-client'
+import {
+  useClient,
+  useQuery,
+  isQueryLoading,
+  hasQueryBeenLoaded
+} from 'cozy-client'
 import { withRouter } from 'react-router'
 import { recurrenceConn, RECURRENCE_DOCTYPE } from 'doctypes'
 import { bundleTransactionsQueryConn } from './queries'
@@ -49,7 +54,6 @@ import {
 } from 'cozy-ui/transpiled/react/ActionMenu'
 import styles from './styles.styl'
 import * as List from 'components/List'
-import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import useToggle from 'components/useToggle'
 import ActionMenuHelper from 'components/ActionMenuHelper'
 
@@ -370,7 +374,7 @@ const BundleTransactions = ({ bundle }) => {
   const { t } = useI18n()
   const transactionCol = useQuery(transactionsConn.query, transactionsConn)
 
-  if (isCollectionLoading(transactionCol) && !hasBeenLoaded(transactionCol)) {
+  if (isQueryLoading(transactionCol) && !hasQueryBeenLoaded(transactionCol)) {
     return <Loading />
   }
 
@@ -411,7 +415,7 @@ const RecurrenceBundlePage = ({ params }) => {
   const bundleId = params.bundleId
   const bundle = useDocument(RECURRENCE_DOCTYPE, bundleId)
 
-  if (isCollectionLoading(recurrenceCol) && !hasBeenLoaded(recurrenceCol)) {
+  if (isQueryLoading(recurrenceCol) && !hasQueryBeenLoaded(recurrenceCol)) {
     return <Loading />
   }
 

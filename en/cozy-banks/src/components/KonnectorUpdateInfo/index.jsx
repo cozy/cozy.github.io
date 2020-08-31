@@ -1,13 +1,15 @@
 import React from 'react'
 import styles from 'components/KonnectorUpdateInfo/styles.styl'
 import { useI18n } from 'cozy-ui/transpiled/react'
-import { withClient, Q } from 'cozy-client'
+import CozyClient, {
+  queryConnect,
+  withClient,
+  Q,
+  isQueryLoading
+} from 'cozy-client'
 import { flowRight as compose } from 'lodash'
-import { queryConnect } from 'cozy-client'
 import { KONNECTOR_DOCTYPE } from 'doctypes'
-import { isCollectionLoading } from 'ducks/client/utils'
 import { Padded } from 'components/Spacing'
-import CozyClient from 'cozy-client'
 import Infos from 'cozy-ui/transpiled/react/Infos'
 import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import useRedirectionURL from 'components/useRedirectionURL'
@@ -31,7 +33,7 @@ const KonnectorUpdateInfo = ({ outdatedKonnectors, client, breakpoints }) => {
   const { t } = useI18n()
   const url = useRedirectionURL(client, APP_DOCTYPE, redirectionOptions)
 
-  if (!url || isCollectionLoading(outdatedKonnectors)) {
+  if (!url || isQueryLoading(outdatedKonnectors)) {
     return null
   }
 
