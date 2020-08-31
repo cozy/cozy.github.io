@@ -570,6 +570,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#cozyclient-instantiation" title="CozyClient instantiation" class="md-nav__link">
+    CozyClient instantiation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#service-declaration" title="Service declaration" class="md-nav__link">
     Service declaration
   </a>
@@ -2545,6 +2552,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#cozyclient-instantiation" title="CozyClient instantiation" class="md-nav__link">
+    CozyClient instantiation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#service-declaration" title="Service declaration" class="md-nav__link">
     Service declaration
   </a>
@@ -2632,6 +2646,12 @@
 <p>In contrast to konnectors, services have the same permissions as the web application and are not intended to collect information from the outside. It is rather meant to asynchronously analyse data inside the cozy and emit some output once the task is done. However, they share the same mechanisms as the konnectors to describe how and when they should be executed: via our <a href="https://github.com/cozy/cozy-stack/blob/master/docs/jobs.md">trigger system</a>.</p>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
 <p>You can find an example of an existing service in the <a href="https://github.com/cozy/cozy-banks/blob/master/src/targets/services/onOperationOrBillCreate.js">cozy-banks app</a>.</p>
+<h2 id="cozyclient-instantiation">CozyClient instantiation<a class="headerlink" href="#cozyclient-instantiation" title="Permanent link">&para;</a></h2>
+<p>By using <code>fromEnv</code>, you will be able to use the service in dev mode (via cozy-konnector-dev see <a href="#execution">Execution</a>) or in production. </p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="nx">CozyClient</span><span class="p">.</span><span class="nx">fromEnv</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">,</span> <span class="p">{</span> <span class="nx">schema</span> <span class="p">})</span>
+</pre></div>
+
+
 <h2 id="service-declaration">Service declaration<a class="headerlink" href="#service-declaration" title="Permanent link">&para;</a></h2>
 <p>The service must be declared in the app <a href="https://docs.cozy.io/en/tutorials/app/#read-the-application-manifest">manifest</a>. For example:</p>
 <div class="codehilite"><pre><span></span><span class="s2">&quot;services&quot;</span><span class="err">:</span> <span class="p">{</span>
