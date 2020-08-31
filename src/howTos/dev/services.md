@@ -18,10 +18,10 @@ You can find an example of an existing service in the [cozy-banks app](https://g
 ## CozyClient instanciation 
 
 By using `fromEnv`, you will be able to use the service in dev mode (via cozy-konnector-dev see [Execution](#execution)) or in production. 
+
 ```js
 const client = CozyClient.fromEnv(process.env, { schema })
 ```
-
 
 ## Service declaration
 
