@@ -15,6 +15,14 @@ In contrast to konnectors, services have the same permissions as the web applica
 
 You can find an example of an existing service in the [cozy-banks app](https://github.com/cozy/cozy-banks/blob/master/src/targets/services/onOperationOrBillCreate.js).
 
+## CozyClient instanciation 
+
+By using `fromEnv`, you will be able to use the service in dev mode (via cozy-konnector-dev see [Execution](#execution)) or in production. 
+```js
+const client = CozyClient.fromEnv(process.env, { schema })
+```
+
+
 ## Service declaration
 
 The service must be declared in the app [manifest](https://docs.cozy.io/en/tutorials/app/#read-the-application-manifest). For example:
