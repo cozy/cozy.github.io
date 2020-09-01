@@ -4,12 +4,7 @@ import { getAccountInstitutionSlug } from 'ducks/account/helpers'
 import styles from './styles.styl'
 import cx from 'classnames'
 
-/** Displays a konnector icon for an io.cozy.bank.accounts */
-const _AccountIcon = ({ account, className, size }) => {
-  const institutionSlug = getAccountInstitutionSlug(account)
-  if (!institutionSlug) {
-    return null
-  }
+export const AccountIconContainer = ({ size, children }) => {
   return (
     <span
       className={cx(styles.AccountIconContainer, {
@@ -17,8 +12,21 @@ const _AccountIcon = ({ account, className, size }) => {
         [styles['AccountIconContainer--large']]: size === 'large'
       })}
     >
-      <KonnectorIcon slug={institutionSlug} className={className} />
+      {children}
     </span>
+  )
+}
+
+/** Displays a konnector icon for an io.cozy.bank.accounts */
+const _AccountIcon = ({ account, className, size }) => {
+  const institutionSlug = getAccountInstitutionSlug(account)
+  if (!institutionSlug) {
+    return null
+  }
+  return (
+    <AccountIconContainer size={size}>
+      <KonnectorIcon slug={institutionSlug} className={className} />
+    </AccountIconContainer>
   )
 }
 

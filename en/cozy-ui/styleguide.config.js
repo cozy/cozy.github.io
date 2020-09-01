@@ -56,6 +56,7 @@ module.exports = {
       name: 'Layout components',
       components: () => [
         '../react/Circle/index.jsx',
+        '../react/MuiCozyTheme/Divider/index.jsx',
         '../react/Hero/index.jsx',
         '../react/hooks/useBreakpoints/index.jsx',
         '../react/Layout/Layout.jsx',

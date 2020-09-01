@@ -135,6 +135,10 @@ export const schema = {
       owners: {
         type: 'has-many',
         doctype: CONTACT_DOCTYPE
+      },
+      connection: {
+        type: 'has-one',
+        doctype: COZY_ACCOUNT_DOCTYPE
       }
     }
   },
@@ -178,7 +182,7 @@ export const schema = {
 const older30s = CozyClient.fetchPolicies.olderThan(30 * 1000)
 
 export const accountsConn = {
-  query: () => Q(ACCOUNT_DOCTYPE).include(['owners']),
+  query: () => Q(ACCOUNT_DOCTYPE).include(['owners', 'connection']),
   as: 'accounts',
   fetchPolicy: older30s
 }

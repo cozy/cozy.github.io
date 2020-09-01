@@ -1,175 +1,150 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
+
+import groupBy from 'lodash/groupBy'
+import sortBy from 'lodash/sortBy'
 import { withRouter } from 'react-router'
-import { translate, useI18n } from 'cozy-ui/transpiled/react'
+
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Button from 'cozy-ui/transpiled/react/Button'
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import { withBreakpoints } from 'cozy-ui/transpiled/react'
-import { groupBy, flowRight as compose, sortBy } from 'lodash'
-import Table from 'components/Table'
-import Loading from 'components/Loading'
+import List from 'cozy-ui/transpiled/react/MuiCozyTheme/List'
+import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
+import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
+import ListItemSecondaryAction from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemSecondaryAction'
+import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import {
   queryConnect,
   Q,
   isQueryLoading,
   hasQueryBeenLoaded
 } from 'cozy-client'
+
+import Loading from 'components/Loading'
 import plus from 'assets/icons/16/plus.svg'
-import styles from 'ducks/settings/AccountsSettings.styl'
+
 import AddAccountLink from 'ducks/settings/AddAccountLink'
-import {
-  getAccountInstitutionLabel,
-  getAccountType,
-  getAccountOwners
-} from 'ducks/account/helpers'
-import { Contact } from 'cozy-doctypes'
+import { getAccountInstitutionLabel } from 'ducks/account/helpers'
+import KonnectorIcon from 'ducks/balance/KonnectorIcon'
 
 import { accountsConn, APP_DOCTYPE } from 'doctypes'
-import { Row, Cell } from 'components/Table'
+import { AccountIconContainer } from 'components/AccountIcon'
+import { Unpadded } from 'components/Spacing/Padded'
 
-// See comment below about sharings
-// import { ACCOUNT_DOCTYPE } from 'doctypes'
-// import { fetchSharingInfo } from 'modules/SharingStatus'
-// import fetchData from 'components/fetchData'
+import HarvestBankAccountSettings from './HarvestBankAccountSettings'
+import DisconnectedAccountModal from 'cozy-harvest-lib/dist/components/DisconnectedAccountModal'
 
-// TODO react-router v4
-
-const AccountOwners = ({ account }) => {
-  const owners = getAccountOwners(account)
-  return owners.length > 0 ? (
-    <>
-      <div className="u-ph-half">-</div>
-      <div>{owners.map(Contact.getDisplayName).join(' - ')}</div>
-    </>
-  ) : null
-}
-
-const _AccountLine = ({ account, router, breakpoints: { isMobile } }) => {
-  const { t } = useI18n()
-
+const AccountListItem = ({ account, onClick, secondaryText }) => {
   return (
-    <Row
-      nav
-      key={account.id}
-      onClick={() => router.push(`/settings/accounts/${account.id}`)}
-    >
-      <Cell main className={styles.AcnsStg__libelle}>
-        <div className={styles.AcnsStg__libelleInner}>
-          <div>{account.shortLabel || account.label}</div>
-          {isMobile ? <AccountOwners account={account} /> : null}
-        </div>
-      </Cell>
-      <Cell className={styles.AcnsStg__bank}>
-        {getAccountInstitutionLabel(account)}
-      </Cell>
-      <Cell className={styles.AcnsStg__number}>{account.number}</Cell>
-      <Cell className={styles.AcnsStg__type}>
-        {t(`Data.accountTypes.${getAccountType(account)}`, {
-          _: t('Data.accountTypes.Other')
-        })}
-      </Cell>
-      <Cell className={styles.AcnsStg__owner}>
-        {getAccountOwners(account)
-          .map(Contact.getDisplayName)
-          .join(' - ')}
-      </Cell>
-      <Cell className={styles.AcnsStg__actions} />
-    </Row>
-  )
-}
-
-const AccountLine = compose(
-  translate(),
-  withRouter,
-  withBreakpoints()
-)(_AccountLine)
-
-const renderAccount = account => (
-  <AccountLine account={account} key={account._id} />
-)
-
-const AccountsTable = ({ accounts }) => {
-  const { t } = useI18n()
-
-  return (
-    <Table className={styles.AcnsStg__accounts}>
-      <thead>
-        <tr>
-          <th className={styles.AcnsStg__libelle}>{t('Accounts.label')}</th>
-          <th className={styles.AcnsStg__bank}>{t('Accounts.bank')}</th>
-          <th className={styles.AcnsStg__number}>{t('Accounts.account')}</th>
-          <th className={styles.AcnsStg__type}>{t('Accounts.type')}</th>
-          <th className={styles.AcnsStg__owner}>{t('Accounts.owner')}</th>
-          <th className={styles.AcnsStg__actions} />
-        </tr>
-      </thead>
-      <tbody>{accounts.map(renderAccount)}</tbody>
-    </Table>
-  )
-}
-
-class AccountsSettings extends Component {
-  render() {
-    const { t, accountsCollection } = this.props
-
-    if (
-      isQueryLoading(accountsCollection) &&
-      !hasQueryBeenLoaded(accountsCollection)
-    ) {
-      return <Loading />
-    }
-
-    const sortedAccounts = sortBy(accountsCollection.data, [
-      'institutionLabel',
-      'label'
-    ])
-    const accountBySharingDirection = groupBy(sortedAccounts, account => {
-      return account.shared === undefined
-    })
-
-    const myAccounts = accountBySharingDirection[true]
-    const sharedAccounts = accountBySharingDirection[false]
-
-    return (
-      <div>
-        <AddAccountLink>
-          <Button
-            theme="text"
-            icon={<Icon icon={plus} className="u-mr-half" />}
-            label={t('Accounts.add_bank')}
+    <ListItem onClick={onClick} className="u-c-pointer">
+      <ListItemIcon>
+        <AccountIconContainer>
+          <KonnectorIcon
+            style={{ width: 16, height: 16 }}
+            konnectorSlug={
+              account.cozyMetadata ? account.cozyMetadata.createdByApp : null
+            }
           />
-        </AddAccountLink>
-        {myAccounts ? (
-          <AccountsTable accounts={myAccounts} t={t} />
-        ) : (
-          <p>{t('Accounts.no-accounts')}</p>
-        )}
-
-        <h4>{t('Accounts.shared-accounts')}</h4>
-
-        {sharedAccounts ? (
-          <AccountsTable accounts={sharedAccounts} t={t} />
-        ) : (
-          <p>{t('Accounts.no-shared-accounts')}</p>
-        )}
-      </div>
-    )
-  }
+        </AccountIconContainer>
+      </ListItemIcon>
+      <ListItemText
+        primaryText={getAccountInstitutionLabel(account)}
+        secondaryText={secondaryText}
+      />
+      <ListItemSecondaryAction>
+        <Icon icon="right" className="u-coolGrey u-mr-1" />
+      </ListItemSecondaryAction>
+    </ListItem>
+  )
 }
 
-// TODO reactivate when we understand how sharings work
-// const fetchAccountsSharingInfo = props => {
-//   return Promise.resolve([])
-// const { accounts } = props
-// with cozy-client
-// return Promise.all(accounts.data.map(account => {
-//   return props.dispatch(fetchSharingInfo(ACCOUNT_DOCTYPE, account._id))
-// }))
-// }
+const AccountsList_ = ({ accounts }) => {
+  const connectionGroups = Object.values(
+    groupBy(accounts, acc => acc.connection.raw.id)
+  ).map(accounts => ({
+    accounts,
+    connection: accounts[0].connection.data
+  }))
 
-export default compose(
-  queryConnect({
-    accountsCollection: accountsConn,
-    apps: { query: () => Q(APP_DOCTYPE), as: 'apps' }
-  }),
-  translate()
-)(AccountsSettings)
+  // Depending on whether the bank account is still connected to an
+  // io.cozy.accounts, we will either show the AccountModal or the
+  // DisconnectedAccountModal
+  const [connectionId, setConnectionIdShownInSettings] = useState(null)
+  const [accountsBeingEdited, setAccountsBeingEdited] = useState(null)
+
+  return (
+    <Unpadded horizontal className="u-mv-1">
+      {/* Bank accounts still connected to io.cozy.accounts */}
+      <List>
+        {connectionGroups.map(({ accounts, connection }) => (
+          <AccountListItem
+            key={accounts[0]._id}
+            account={accounts[0]}
+            secondaryText={connection ? connection.auth.identifier : null}
+            onClick={() => {
+              return connection
+                ? setConnectionIdShownInSettings(connection.id)
+                : setAccountsBeingEdited(accounts)
+            }}
+          />
+        ))}
+      </List>
+      {connectionId ? (
+        <HarvestBankAccountSettings
+          connectionId={connectionId}
+          onDismiss={() => setConnectionIdShownInSettings(null)}
+        />
+      ) : null}
+      {accountsBeingEdited ? (
+        <DisconnectedAccountModal
+          onClose={() => setAccountsBeingEdited(null)}
+          accounts={accountsBeingEdited}
+        />
+      ) : null}
+    </Unpadded>
+  )
+}
+
+const AccountsList = withRouter(AccountsList_)
+
+const AccountsSettings = props => {
+  const { t } = useI18n()
+  const { accountsCollection } = props
+
+  if (
+    isQueryLoading(accountsCollection) &&
+    !hasQueryBeenLoaded(accountsCollection)
+  ) {
+    return <Loading />
+  }
+
+  const sortedAccounts = sortBy(accountsCollection.data, [
+    'institutionLabel',
+    'label'
+  ])
+  const accountBySharingDirection = groupBy(sortedAccounts, account => {
+    return account.shared === undefined
+  })
+
+  const myAccounts = accountBySharingDirection[true]
+
+  return (
+    <>
+      {myAccounts ? (
+        <AccountsList accounts={myAccounts} t={t} />
+      ) : (
+        <p>{t('Accounts.no-accounts')}</p>
+      )}
+      <AddAccountLink>
+        <Button
+          theme="text"
+          icon={<Icon icon={plus} className="u-mr-half" />}
+          label={t('Accounts.add_bank')}
+        />
+      </AddAccountLink>
+    </>
+  )
+}
+export default queryConnect({
+  accountsCollection: accountsConn,
+  apps: { query: () => Q(APP_DOCTYPE), as: 'apps' }
+})(AccountsSettings)

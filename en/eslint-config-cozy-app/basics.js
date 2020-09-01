@@ -18,6 +18,7 @@ module.exports = {
         singleQuote: true,
         semi: false
       }
-    ]
+    ],
+    'no-param-reassign': 'warn'
   }
 }

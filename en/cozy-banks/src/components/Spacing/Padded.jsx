@@ -24,7 +24,7 @@ const _Unpadded = ({ horizontal, vertical, className, ...restProps }) => {
   )
 }
 
-const Unpadded = React.memo(_Unpadded)
+export const Unpadded = React.memo(_Unpadded)
 
 _Padded.propTypes = {
   children: PropTypes.node.isRequired,

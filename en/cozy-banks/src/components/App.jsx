@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ReactHintFactory from 'react-hint'
 import 'react-hint/css/index.css'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
@@ -22,7 +22,9 @@ const ReactHint = ReactHintFactory(React)
 
 const App = props => {
   const settings = getDefaultedSettingsFromCollection(props.settingsCollection)
-  flag('local-model-override', settings.community.localModelOverride.enabled)
+  useEffect(() => {
+    flag('local-model-override', settings.community.localModelOverride.enabled)
+  }, [settings.community.localModelOverride.enabled])
 
   return (
     <BreakpointsProvider>
