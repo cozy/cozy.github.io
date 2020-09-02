@@ -112,8 +112,14 @@ const HarvestLoader = ({ connectionId, children }) => {
  * Shows a modal displaying the AccountModal from Harvest
  */
 const HarvestBankAccountSettings = ({ connectionId, onDismiss }) => {
+  const { t } = useI18n()
   return (
-    <Modal mobileFullscreen size="large" dismissAction={onDismiss}>
+    <Modal
+      aria-label={t('Harvest.modal-title')}
+      mobileFullscreen
+      size="large"
+      dismissAction={onDismiss}
+    >
       <HarvestSwitch
         initialFragment={`/accounts/${connectionId}`}
         routes={[
@@ -133,6 +139,7 @@ const HarvestBankAccountSettings = ({ connectionId, onDismiss }) => {
                         onDismiss()
                       }}
                       showAccountSelection={false}
+                      showNewAccountButton={false}
                     />
                   )
                 }}

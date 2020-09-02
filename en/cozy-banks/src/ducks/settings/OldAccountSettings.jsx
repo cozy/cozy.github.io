@@ -18,8 +18,8 @@ import {
   getAccountType,
   getAccountOwners
 } from 'ducks/account/helpers'
-import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { Contact } from 'cozy-doctypes'
+import { isQueryLoading, hasQueryBeenLoaded } from 'cozy-client'
 
 import { accountsConn, APP_DOCTYPE } from 'doctypes'
 import { Row, Cell } from 'components/Table'
@@ -99,8 +99,8 @@ const OldAccountSettings = props => {
   const { accountsCollection } = props
 
   if (
-    isCollectionLoading(accountsCollection) &&
-    !hasBeenLoaded(accountsCollection)
+    isQueryLoading(accountsCollection) &&
+    !hasQueryBeenLoaded(accountsCollection)
   ) {
     return <Loading />
   }
