@@ -1252,8 +1252,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#filecollectiondouploaddata-path-options-method" title="fileCollection.doUpload(data, path, options, method)" class="md-nav__link">
-    fileCollection.doUpload(data, path, options, method)
+  <a href="#filecollectiondouploaddataarg-path-options-method" title="fileCollection.doUpload(dataArg, path, options, method)" class="md-nav__link">
+    fileCollection.doUpload(dataArg, path, options, method)
   </a>
   
 </li>
@@ -1376,8 +1376,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#oauthclientfetchaccesstokenaccesscode-oauthoptions-uri-promise" title="oAuthClient.fetchAccessToken(accessCode, oauthOptions, uri) ⇒ Promise" class="md-nav__link">
-    oAuthClient.fetchAccessToken(accessCode, oauthOptions, uri) ⇒ Promise
+  <a href="#oauthclientfetchaccesstokenaccesscode-oauthoptionsarg-uri-promise" title="oAuthClient.fetchAccessToken(accessCode, oauthOptionsArg, uri) ⇒ Promise" class="md-nav__link">
+    oAuthClient.fetchAccessToken(accessCode, oauthOptionsArg, uri) ⇒ Promise
   </a>
   
 </li>
@@ -1645,6 +1645,13 @@
         <li class="md-nav__item">
   <a href="#filedocument-object" title="FileDocument : object" class="md-nav__link">
     FileDocument : object
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stream-object" title="Stream : object" class="md-nav__link">
+    Stream : object
   </a>
   
 </li>
@@ -3605,8 +3612,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#filecollectiondouploaddata-path-options-method" title="fileCollection.doUpload(data, path, options, method)" class="md-nav__link">
-    fileCollection.doUpload(data, path, options, method)
+  <a href="#filecollectiondouploaddataarg-path-options-method" title="fileCollection.doUpload(dataArg, path, options, method)" class="md-nav__link">
+    fileCollection.doUpload(dataArg, path, options, method)
   </a>
   
 </li>
@@ -3729,8 +3736,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#oauthclientfetchaccesstokenaccesscode-oauthoptions-uri-promise" title="oAuthClient.fetchAccessToken(accessCode, oauthOptions, uri) ⇒ Promise" class="md-nav__link">
-    oAuthClient.fetchAccessToken(accessCode, oauthOptions, uri) ⇒ Promise
+  <a href="#oauthclientfetchaccesstokenaccesscode-oauthoptionsarg-uri-promise" title="oAuthClient.fetchAccessToken(accessCode, oauthOptionsArg, uri) ⇒ Promise" class="md-nav__link">
+    oAuthClient.fetchAccessToken(accessCode, oauthOptionsArg, uri) ⇒ Promise
   </a>
   
 </li>
@@ -4002,6 +4009,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#stream-object" title="Stream : object" class="md-nav__link">
+    Stream : object
+  </a>
+  
+</li>
+      
       
       
       
@@ -4106,6 +4120,9 @@ through OAuth.</p>
 </dd>
 <dt><a href="#FileDocument">FileDocument</a> : <code>object</code></dt>
 <dd><p>Document representing a io.cozy.files</p>
+</dd>
+<dt><a href="#Stream">Stream</a> : <code>object</code></dt>
+<dd><p>Stream is not defined in a browser, but is on NodeJS environment</p>
 </dd>
 </dl>
 
@@ -4241,7 +4258,7 @@ document as data attribute  </p>
 <tr>
 <td>opts</td>
 <td><code>object</code></td>
-<td></td>
+<td>Options for fetch</td>
 </tr>
 </tbody>
 </table>
@@ -4581,7 +4598,7 @@ files associated to a specific document</p>
 <li><a href="#FileCollection+createDirectoryByPath">.createDirectoryByPath(path)</a> ⇒ <code>object</code></li>
 <li><a href="#FileCollection+createFileMetadata">.createFileMetadata(attributes)</a> ⇒ <code>object</code></li>
 <li><a href="#FileCollection+updateMetadataAttribute">.updateMetadataAttribute(id, metadata)</a> ⇒ <code>object</code></li>
-<li><a href="#FileCollection+doUpload">.doUpload(data, path, options, method)</a></li>
+<li><a href="#FileCollection+doUpload">.doUpload(dataArg, path, options, method)</a></li>
 </ul>
 </li>
 </ul>
@@ -4889,7 +4906,7 @@ and file has been sent to trash  </p>
 <tbody>
 <tr>
 <td>data</td>
-<td><code>File</code> | <code>Blob</code> | <code>Stream</code> | <code>string</code> | <code>ArrayBuffer</code></td>
+<td><code>File</code> | <code>Blob</code> | <a href="#Stream"><code>Stream</code></a> | <code>string</code> | <code>ArrayBuffer</code></td>
 <td>file to be uploaded</td>
 </tr>
 <tr>
@@ -5203,7 +5220,7 @@ see : https://docs.cozy.io/en/cozy-doctypes/docs/io.cozy.files_metadata/</p>
 </tbody>
 </table>
 <p><a name="FileCollection+doUpload"></a></p>
-<h3 id="filecollectiondouploaddata-path-options-method">fileCollection.doUpload(data, path, options, method)<a class="headerlink" href="#filecollectiondouploaddata-path-options-method" title="Permanent link">&para;</a></h3>
+<h3 id="filecollectiondouploaddataarg-path-options-method">fileCollection.doUpload(dataArg, path, options, method)<a class="headerlink" href="#filecollectiondouploaddataarg-path-options-method" title="Permanent link">&para;</a></h3>
 <p>This method should not be called directly to upload a file.
 You should use <code>createFile</code></p>
 <p><strong>Kind</strong>: instance method of <a href="#FileCollection"><code>FileCollection</code></a>  </p>
@@ -5218,8 +5235,8 @@ You should use <code>createFile</code></p>
 </thead>
 <tbody>
 <tr>
-<td>data</td>
-<td><code>File</code> | <code>Blob</code> | <code>Stream</code> | <code>string</code> | <code>ArrayBuffer</code></td>
+<td>dataArg</td>
+<td><code>File</code> | <code>Blob</code> | <a href="#Stream"><code>Stream</code></a> | <code>string</code> | <code>ArrayBuffer</code></td>
 <td></td>
 <td>file to be uploaded</td>
 </tr>
@@ -5361,7 +5378,7 @@ through OAuth.</p>
 <li><a href="#OAuthClient+generateStateCode">.generateStateCode()</a> ⇒ <code>string</code></li>
 <li><a href="#OAuthClient+getAuthCodeURL">.getAuthCodeURL(stateCode, scopes)</a> ⇒ <code>string</code></li>
 <li><a href="#OAuthClient+getAccessCodeFromURL">.getAccessCodeFromURL(pageURL, stateCode)</a> ⇒ <code>string</code></li>
-<li><a href="#OAuthClient+fetchAccessToken">.fetchAccessToken(accessCode, oauthOptions, uri)</a> ⇒ <code>Promise</code></li>
+<li><a href="#OAuthClient+fetchAccessToken">.fetchAccessToken(accessCode, oauthOptionsArg, uri)</a> ⇒ <code>Promise</code></li>
 <li><a href="#OAuthClient+refreshToken">.refreshToken()</a> ⇒ <code>Promise</code></li>
 <li><a href="#OAuthClient+setToken">.setToken(token)</a></li>
 <li><a href="#OAuthClient+setOAuthOptions">.setOAuthOptions(options)</a></li>
@@ -5497,7 +5514,7 @@ sets internal information from the server response</p>
 </tbody>
 </table>
 <p><a name="OAuthClient+fetchAccessToken"></a></p>
-<h3 id="oauthclientfetchaccesstokenaccesscode-oauthoptions-uri-promise">oAuthClient.fetchAccessToken(accessCode, oauthOptions, uri) ⇒ <code>Promise</code><a class="headerlink" href="#oauthclientfetchaccesstokenaccesscode-oauthoptions-uri-promise" title="Permanent link">&para;</a></h3>
+<h3 id="oauthclientfetchaccesstokenaccesscode-oauthoptionsarg-uri-promise">oAuthClient.fetchAccessToken(accessCode, oauthOptionsArg, uri) ⇒ <code>Promise</code><a class="headerlink" href="#oauthclientfetchaccesstokenaccesscode-oauthoptionsarg-uri-promise" title="Permanent link">&para;</a></h3>
 <p>Exchanges an access code for an access token. This function does <strong>not</strong> update the client&rsquo;s token.</p>
 <p><strong>Kind</strong>: instance method of <a href="#OAuthClient"><code>OAuthClient</code></a><br />
 <strong>Returns</strong>: <code>Promise</code> - A promise that resolves with an AccessToken object.<br />
@@ -5520,7 +5537,7 @@ sets internal information from the server response</p>
 <td>The access code contained in the redirection URL — see <code>client.getAccessCodeFromURL()</code></td>
 </tr>
 <tr>
-<td>oauthOptions</td>
+<td>oauthOptionsArg</td>
 <td><code>object</code></td>
 <td>— To use when OAuthClient is not yet registered (during login process)</td>
 </tr>
@@ -5622,6 +5639,11 @@ It can also associates one or more codes to it, via the codes parameter</p>
 <td>permission.codes</td>
 <td><code>string</code></td>
 <td>A comma separed list of values (defaulted to code)</td>
+</tr>
+<tr>
+<td>permission.ttl</td>
+<td><code>string</code></td>
+<td>Make the codes expire after a delay (bigduration format) bigduration format: https://github.com/justincampbell/bigduration/blob/master/README.md</td>
 </tr>
 </tbody>
 </table>
@@ -6219,6 +6241,10 @@ found&rdquo; error.  </p>
 </tr>
 </tbody>
 </table>
+<p><a name="Stream"></a></p>
+<h2 id="stream-object">Stream : <code>object</code><a class="headerlink" href="#stream-object" title="Permanent link">&para;</a></h2>
+<p>Stream is not defined in a browser, but is on NodeJS environment</p>
+<p><strong>Kind</strong>: global typedef  </p>
                 
                   
                 

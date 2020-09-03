@@ -10,10 +10,9 @@ import flag from 'cozy-flags'
 import { settingsConn } from 'doctypes'
 import { queryConnect } from 'cozy-client'
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
-import ErrorBoundary, { Error } from 'components/ErrorBoundary'
+import ErrorBoundary from 'components/ErrorBoundary'
 import { withRouter } from 'react-router'
 import { flowRight as compose } from 'lodash'
-import { hasParameter } from 'utils/qs'
 import { pinGuarded } from 'ducks/pin'
 import styles from './App.styl'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
@@ -35,11 +34,7 @@ const App = props => {
 
         <Main>
           <Content className={styles.Main}>
-            {hasParameter(props.location.query, 'error') ? (
-              <Error />
-            ) : (
-              <ErrorBoundary>{props.children}</ErrorBoundary>
-            )}
+            <ErrorBoundary>{props.children}</ErrorBoundary>
           </Content>
         </Main>
 

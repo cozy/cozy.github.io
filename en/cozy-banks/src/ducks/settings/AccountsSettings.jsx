@@ -7,6 +7,7 @@ import { withRouter } from 'react-router'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Button from 'cozy-ui/transpiled/react/Button'
 import Icon from 'cozy-ui/transpiled/react/Icon'
+import { Caption } from 'cozy-ui/transpiled/react/Text'
 import List from 'cozy-ui/transpiled/react/MuiCozyTheme/List'
 import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
 import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
@@ -77,6 +78,7 @@ const getConnectionIdFromAccount = account => {
 }
 
 export const AccountsList_ = ({ accounts }) => {
+  const { t } = useI18n()
   const connectionGroups = Object.values(
     groupBy(accounts, acc => getConnectionIdFromAccount(acc))
   ).map(accounts => ({
@@ -98,7 +100,16 @@ export const AccountsList_ = ({ accounts }) => {
           <AccountListItem
             key={accounts[0]._id}
             account={accounts[0]}
-            secondaryText={connection ? connection.auth.identifier : null}
+            secondaryText={
+              connection ? (
+                connection.auth.identifier
+              ) : (
+                <Caption className="u-warn">
+                  <Icon icon="sync" size="8" className="u-mr-half" />
+                  {t('Harvest.disconnected-account')}
+                </Caption>
+              )
+            }
             onClick={() => {
               return setEditionModalOptions({
                 connection: connection,
