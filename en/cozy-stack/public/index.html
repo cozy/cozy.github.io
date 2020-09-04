@@ -2528,7 +2528,15 @@
 <p>These routes are public: no authentication is required for them.</p>
 <h2 id="avatar">Avatar<a class="headerlink" href="#avatar" title="Permanent link">&para;</a></h2>
 <h3 id="get-publicavatar">GET /public/avatar<a class="headerlink" href="#get-publicavatar" title="Permanent link">&para;</a></h3>
-<p>Returns an image chosen by the user as its avatar, or the default avatar.</p>
+<p>Returns an image chosen by the user as their avatar. If no image has been
+chosen, a fallback will be used, depending of the <code>fallback</code> parameter in the
+query-string:</p>
+<ul>
+<li><code>default</code>: a default image that shows the Cozy Cloud logo, but it can be
+  overriden by dynamic assets per context</li>
+<li><code>initials</code>: a generated image with the initials of the owner&rsquo;s public name</li>
+<li><code>404</code>: just a 404 - Not found error.</li>
+</ul>
                 
                   
                 

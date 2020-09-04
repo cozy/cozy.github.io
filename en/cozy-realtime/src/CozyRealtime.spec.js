@@ -27,7 +27,7 @@ const payload = { type, doc, id }
 
 const defaultClientUri = 'https://cozy.tools/'
 const defaultClientToken = 'MY-TOKEN'
-const defaultWebsocketUri =
+const defaultWebsocketURI =
   defaultClientUri.replace(/^http/, 'ws') + 'realtime/'
 
 class TaskQueue {
@@ -79,8 +79,8 @@ function createRealtime(options = {}) {
 }
 
 function createSocketServer({
-  wsuri,
-  verifyClient,
+  wsuri: wsURIOption,
+  verifyClient: verifyClientOption,
   onconnect,
   onmessage,
   onauth,
@@ -89,8 +89,11 @@ function createSocketServer({
   onunknownmessage,
   oneverymessage
 } = {}) {
-  wsuri = wsuri || defaultWebsocketUri
-  if (verifyClient === false) verifyClient = () => false
+  const wsuri = wsURIOption || defaultWebsocketURI
+  let verifyClient = verifyClientOption
+  if (verifyClientOption === false) {
+    verifyClient = () => false
+  }
   const options = verifyClient ? { verifyClient } : {}
   const server = new Server(wsuri, options)
   server.emitMessage = (event, payload) => {

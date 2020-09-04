@@ -1445,6 +1445,27 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#permissioncollectionfetchpermissionsbylinkpermissions" title="permissionCollection.fetchPermissionsByLink(permissions)" class="md-nav__link">
+    permissionCollection.fetchPermissionsByLink(permissions)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permissioncollectionfetchalllinksdocument-object" title="permissionCollection.fetchAllLinks(document) ⇒ object" class="md-nav__link">
+    permissionCollection.fetchAllLinks(document) ⇒ object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permissioncollectionrevokesharinglinkdocument" title="permissionCollection.revokeSharingLink(document)" class="md-nav__link">
+    permissionCollection.revokeSharingLink(document)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#permissioncollectiongetownpermissions-object" title="permissionCollection.getOwnPermissions() ⇒ object" class="md-nav__link">
     permissionCollection.getOwnPermissions() ⇒ object
   </a>
@@ -3805,6 +3826,27 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#permissioncollectionfetchpermissionsbylinkpermissions" title="permissionCollection.fetchPermissionsByLink(permissions)" class="md-nav__link">
+    permissionCollection.fetchPermissionsByLink(permissions)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permissioncollectionfetchalllinksdocument-object" title="permissionCollection.fetchAllLinks(document) ⇒ object" class="md-nav__link">
+    permissionCollection.fetchAllLinks(document) ⇒ object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permissioncollectionrevokesharinglinkdocument" title="permissionCollection.revokeSharingLink(document)" class="md-nav__link">
+    permissionCollection.revokeSharingLink(document)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#permissioncollectiongetownpermissions-object" title="permissionCollection.getOwnPermissions() ⇒ object" class="md-nav__link">
     permissionCollection.getOwnPermissions() ⇒ object
   </a>
@@ -5611,6 +5653,9 @@ sets internal information from the server response</p>
 <li><a href="#PermissionCollection+create">.create(permission)</a></li>
 <li><a href="#PermissionCollection+add">.add(document, permission)</a> ⇒ <code>Promise</code></li>
 <li><a href="#PermissionCollection+createSharingLink">.createSharingLink(document, options)</a></li>
+<li><a href="#PermissionCollection+fetchPermissionsByLink">.fetchPermissionsByLink(permissions)</a></li>
+<li><a href="#PermissionCollection+fetchAllLinks">.fetchAllLinks(document)</a> ⇒ <code>object</code></li>
+<li><a href="#PermissionCollection+revokeSharingLink">.revokeSharingLink(document)</a></li>
 <li><a href="#PermissionCollection+getOwnPermissions">.getOwnPermissions()</a> ⇒ <code>object</code></li>
 </ul>
 </li>
@@ -5713,6 +5758,64 @@ It can also associates one or more codes to it, via the codes parameter</p>
 <td>options.verbs</td>
 <td><code>Array.&lt;string&gt;</code></td>
 <td>explicit permissions to use</td>
+</tr>
+</tbody>
+</table>
+<p><a name="PermissionCollection+fetchPermissionsByLink"></a></p>
+<h3 id="permissioncollectionfetchpermissionsbylinkpermissions">permissionCollection.fetchPermissionsByLink(permissions)<a class="headerlink" href="#permissioncollectionfetchpermissionsbylinkpermissions" title="Permanent link">&para;</a></h3>
+<p>Follow the next link to fetch the next permissions</p>
+<p><strong>Kind</strong>: instance method of <a href="#PermissionCollection"><code>PermissionCollection</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>permissions</td>
+<td><code>object</code></td>
+<td>JSON-API based permissions document</td>
+</tr>
+</tbody>
+</table>
+<p><a name="PermissionCollection+fetchAllLinks"></a></p>
+<h3 id="permissioncollectionfetchalllinksdocument-object">permissionCollection.fetchAllLinks(document) ⇒ <code>object</code><a class="headerlink" href="#permissioncollectionfetchalllinksdocument-object" title="Permanent link">&para;</a></h3>
+<p><strong>Kind</strong>: instance method of <a href="#PermissionCollection"><code>PermissionCollection</code></a><br />
+<strong>Returns</strong>: <code>object</code> - with all the permissions  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>document</td>
+<td><code>object</code></td>
+<td>Cozy doc</td>
+</tr>
+</tbody>
+</table>
+<p><a name="PermissionCollection+revokeSharingLink"></a></p>
+<h3 id="permissioncollectionrevokesharinglinkdocument">permissionCollection.revokeSharingLink(document)<a class="headerlink" href="#permissioncollectionrevokesharinglinkdocument" title="Permanent link">&para;</a></h3>
+<p>Destroy a sharing link and the related permissions</p>
+<p><strong>Kind</strong>: instance method of <a href="#PermissionCollection"><code>PermissionCollection</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>document</td>
+<td><code>object</code></td>
 </tr>
 </tbody>
 </table>

@@ -100,9 +100,9 @@ export default class SubscriptionList {
    * @param {string|null} id
    * @returns {boolean}
    */
-  hasSameTypeAndId({ type, id }) {
-    type = type || null
-    id = id || null
+  hasSameTypeAndId({ type: optionType, id: optionId }) {
+    const type = optionType || null
+    const id = optionId || null
     return !!this.subscriptions.find(s => s.type === type && s.id === id)
   }
 

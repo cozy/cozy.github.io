@@ -104,8 +104,8 @@ export const AccountsList_ = ({ accounts }) => {
               connection ? (
                 connection.auth.identifier
               ) : (
-                <Caption className="u-warn">
-                  <Icon icon="sync" size="8" className="u-mr-half" />
+                <Caption>
+                  <Icon icon="unlink" size="8" className="u-mr-half" />
                   {t('Harvest.disconnected-account')}
                 </Caption>
               )
