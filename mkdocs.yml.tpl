@@ -79,6 +79,9 @@ markdown_extensions:
 - smarty
 - toc:
     permalink: true
+- markdown_sphinxjs:
+    directory: /tmp/cozy_docs
+    jsdoc_cache: /tmp/jsdoc_data_cache.json
 extra:
   search:
     tokenizer: "[^a-z\u0430-\u044F\u04510-9\\-\\.]"
