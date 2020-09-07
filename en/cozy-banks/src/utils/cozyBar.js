@@ -1,3 +1,5 @@
-import cozyBar from 'cozy-bar/dist/cozy-bar'
+/* global cozy */
+
+const cozyBar = cozy.bar
 
 export default cozyBar

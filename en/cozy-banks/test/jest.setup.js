@@ -68,3 +68,11 @@ if (process.env.TRAVIS_CI) {
     'console.error should not be called during tests'
   )
 }
+
+window.cozy = {
+  bar: {
+    BarLeft: () => null,
+    BarCenter: () => null,
+    BarRight: () => null
+  }
+}
