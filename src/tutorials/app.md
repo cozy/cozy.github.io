@@ -40,42 +40,45 @@ docker pull cozy/cozy-app-dev
 
 ## Create your application
 
-You can boostrap your application from scratch if you want, but we highly recommand to use our dedicated community tool [`create-cozy-app`](https://github.com/cozy/create-cozy-app) to bootstrap very easily a Cozy application for you.
+You can boostrap your application from scratch if you want, but we highly recommend to use 
+[`create-cozy-app`](https://github.com/cozy/create-cozy-app) to bootstrap a Cozy application for you.
 
-<div align="center">
-  <img src="https://github.com/cozy/create-cozy-app/blob/master/docs/assets/CCA_logo_wording.png?raw=true" height="150px"/>
-</div>
+ℹ️ This tool generates an application using React, the framework we internally use in the Cozy Front team.
+But [options](https://github.com/cozy/create-cozy-app#options) are available if you want to use other frameworks.
 
-This tool will generate an application using React, the framework we internally use in the Cozy Front team. But [options](https://github.com/cozy/create-cozy-app#options) are available if you want to use other frameworks.
-
-To do so, run directly `create-cozy-app` without installing it globally by using the `yarn create cozy-app` command to bootstrap your application:
+Use `yarn create cozy-app` to bootstrap your application:
 
 ```
 yarn create cozy-app mycozyapp
 ```
 
-The script will download some dependencies (may take a while) and ask you a few questions, then create an application skeleton inside `mycozyapp`. Here is a quick demo of what's happening:
+The script 
+
+* downloads dependencies (may take a while)
+* asks you a few questions
+* then creates an application skeleton inside `mycozyapp`
+
+Here is a demo of what's happening:
 
 <div align="center">
   <img src="../../img/dev/cca-create.gif" />
 </div>
 
-That's it! You can already start developing:
+After bootstrapping the app, you can start developing:
 
 ```
 cd mycozyapp
 yarn start
 ```
 
-This command will run 
+This command runs `webpack-dev-server` in hot reload mode to serve application assets.
 
-- `webpack` in a watching mode with a server (webpack-dev-server) to serve application assets.
+⚠️ To serve the app, you need our backend server `cozy-stack` to be started.
+
 - a Cozy `stack` using docker (the image `cozy/cozy-app-dev`) to serve your application inside it.
 - The same docker image starts a CouchDB containing your data (be careful, since a data volume is not attached by default, your data will disappear on restart. You should start the docker image manually if you want to persist your data).
 
 Your application will be available at http://MY_APP_SLUG.cozy.tools:8080. Password is `cozy`.
-
-    In this mode HMR (Hot Module Replacement) is available to help you with the application development.
 
 <div align="center">
   <img src="../../img/dev/cca-start.gif" />
@@ -142,7 +145,8 @@ This allows to get this kind of `index.html`:
 
 ### Read the application manifest
 
-Each application must have a “manifest”. It’s a JSON file named `manifest.webapp` stored at the root of theapplication directory. It describes the application, the type of documents it uses, the permissions it requires…
+Each application must have a “manifest”. It’s a JSON file named `manifest.webapp` stored at the root of theapplication directory.
+It describes the application, the type of documents it uses, the permissions it requires…
 
 Here’s a sample manifest:
 
@@ -199,9 +203,9 @@ In the manifest, each permission is an object, with a random name and some prope
 
 An application can request a token that grant access to a subset of its own permissions. For example if the application has full access to the files, it can obtain a token that give only read access on a file. Thus, the application can make some documents publicly available. The public page of the application will use this token asauthentication token when accessing the API.
 
-##### Samples
+##### Examples
 
-Application require full access to files:
+An application that requires full access to files:
 
 ```json
 {
@@ -214,7 +218,7 @@ Application require full access to files:
 }
 ```
 
-Application want to be able to read the contact informations of `cozy@cozycloud.cc`
+An application that is able to read the contact information of `cozy@cozycloud.cc`
 
 ```json
 {
@@ -260,7 +264,8 @@ Sample:
 
 ### Behind the magic
 
-Some server APIs may not be available right now through the library. If you want to use one of this method, you’llhave to call it manually. We’ll describe here how to access the API without using the Cozy Client library.
+Some server APIs may not be available right now through the library. If you want to use one of this method, you’ll
+have to call it manually. We’ll describe here how to access the API without using the Cozy Client library.
 
 Connecting to the API requires three things:
 
@@ -301,13 +306,22 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 ```
 
-### Handle data with `cozy-client`
+### Build interface with `cozy-ui`
 
-`cozy-client` is a simple and declarative way of managing [cozy-stack](https://github.com/cozy/cozy-stack) API calls and resulting data. It is a convenient and powerful way to bind `cozy-stack` queries to your components.
+If you plan to build a webapp to run on Cozy, you’ll probably want to use common interface components. Then
+[Cozy UI](https://docs.cozy.io/en/cozy-ui/) is here for you! It features the components we use the most in
+our applications.
+
+You can add it as a library in your project to use it out-of-the-box.
+
+### Manage data with `cozy-client`
+
+`cozy-client` connects the UI to the data inside your Cozy.
 
 - [Getting started](https://docs.cozy.io/en/cozy-client/getting-started/)
 - [React integration](https://docs.cozy.io/en/cozy-client/react-integration/)
 - [API docs](https://docs.cozy.io/en/cozy-client/api/cozy-client/)
+
 
 ### Discover the Cozy Bar
 
@@ -316,13 +330,6 @@ The [Cozy Bar](https://github.com/cozy/cozy-bar) is a component that display the
 Your application interacts with this component through `cozy-bar.js`, a library injected into your pages by theserver when you add `{{.CozyBar}}` in the header. It exposes an API behind the window.cozy.bar namespace.
 
 Before using it, you have to initialize the library: `window.cozy.bar.init({appName: "Mon application"})`.
-
-### Style with Cozy UI
-
-If you plan to build a webapp to run on Cozy, you’ll probably want to use a simple and elegant solution to build your interfaces without the mess of dealing with complex markup and CSS. Then [Cozy UI](https://github.com/cozy/cozy-ui/)is here for you!
-
-It relies on Stylus as preprocessor. You can add it as a library in your project to use it out-of-the-box.
-
 
 [docker-osx]: https://docs.docker.com/docker-for-mac/install/
 [docker-windows]: https://docs.docker.com/docker-for-windows/install/
