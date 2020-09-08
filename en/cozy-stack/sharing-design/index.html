@@ -3294,22 +3294,26 @@ The resolution takes 4 steps:</p>
 <li>A list of <code>members</code>. The first one is the owner. For each member, we have
     the URL of the cozy, a contact name, a public name, an email, a status, a
     read-only flag, and some credentials to authorize the transfer of data
-    between the owner and the recipients</li>
-<li>
-<p>A <code>description</code> (one sentence that will help people understand what is
-    shared and why)</p>
+    between the owner and the recipients. The status can be:<ul>
+<li><code>owner</code> for the member that has created the sharing</li>
+<li><code>mail-not-sent</code> for a member that has been added, but its invitation
+    has not yet been sent (often, this status is used only for a few
+    seconds)</li>
+<li><code>pending</code> for a member with an invitation sent, but who has not clicked
+    on the link</li>
+<li><code>seen</code> for a member that has clicked on the invitation link, but has not
+    setup the Cozy to Cozy replication for the sharing</li>
+<li><code>ready</code> for a member where the Cozy to Cozy replication has been set up</li>
+<li><code>revoked</code> for a member who is on longer in the sharing</li>
+</ul>
 </li>
-<li>
-<p>a flag <code>active</code> that says if the sharing is currently active for at least
-    one member</p>
-</li>
-<li>
-<p>a flag <code>owner</code>, true for the document on the cozy of the sharer, and false
-    on the other cozy instance</p>
-</li>
-<li>
-<p>a flag <code>open_sharing</code>:</p>
-<ul>
+<li>A <code>description</code> (one sentence that will help people understand what is
+    shared and why)</li>
+<li>A flag <code>active</code> that says if the sharing is currently active for at least
+    one member</li>
+<li>A flag <code>owner</code>, true for the document on the cozy of the sharer, and false
+    on the other cozy instance</li>
+<li>A flag <code>open_sharing</code>:<ul>
 <li><code>true</code> if any member of the sharing except the read-only ones can add a
     new recipient</li>
 <li><code>false</code> if only the owner can add a new recipient</li>
@@ -3317,13 +3321,15 @@ The resolution takes 4 steps:</p>
 </li>
 <li>Some technical data (<code>created_at</code>, <code>updated_at</code>, <code>app_slug</code>, <code>preview_path</code>,
     <code>triggers</code>, <code>credentials</code>)</li>
-<li>a number of files to synchronize for the initial sync,
+<li>A number of files to synchronize for the initial sync,
     <code>initial_number_of_files_to_sync</code> (if there are no files to sync or the
     initial replication has finished, the field won&rsquo;t be here)</li>
+<li>A <code>shortcut_id</code> with the identifier of the shortcut file (when the
+    recipient doesn&rsquo;t want to synchronize the documents on their Cozy instance)</li>
 <li>A list of sharing <code>rules</code>, each rule being composed of:<ul>
 <li>a <code>title</code>, that will be displayed to the recipients before they accept
     the sharing</li>
-<li>a <code>doctype</code></li>
+<li>a <code>doctype</code> (and a <code>mime</code> if the doctype is <code>io.cozy.files</code>)</li>
 <li>a <code>selector</code> (by default, it’s the <code>id</code>) and <code>values</code> (one identifier, a
     list of identifiers, files and folders inside a folder, files that are
     referenced by the same document, documents bound to a previous sharing

@@ -5302,8 +5302,10 @@ destroyed.</p>
       <span class="p">},</span>
       <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;dir_id&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files.trash-dir&quot;</span><span class="p">,</span>
         <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;foo.txt&quot;</span><span class="p">,</span>
         <span class="nt">&quot;trashed&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nt">&quot;restore_path&quot;</span><span class="p">:</span> <span class="s2">&quot;/previous_parent&quot;</span><span class="p">,</span>
         <span class="nt">&quot;md5sum&quot;</span><span class="p">:</span> <span class="s2">&quot;YjAxMzQxZTc4MDNjODAwYwo=&quot;</span><span class="p">,</span>
         <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:38:04Z&quot;</span><span class="p">,</span>
         <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:38:04Z&quot;</span><span class="p">,</span>
@@ -5338,8 +5340,10 @@ destroyed.</p>
       <span class="p">},</span>
       <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;dir_id&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files.trash-dir&quot;</span><span class="p">,</span>
         <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;bar.txt&quot;</span><span class="p">,</span>
         <span class="nt">&quot;trashed&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nt">&quot;restore_path&quot;</span><span class="p">:</span> <span class="s2">&quot;/other_parent&quot;</span><span class="p">,</span>
         <span class="nt">&quot;md5sum&quot;</span><span class="p">:</span> <span class="s2">&quot;YWVhYjg3ZWI0OWQzZjRlMAo=&quot;</span><span class="p">,</span>
         <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:38:04Z&quot;</span><span class="p">,</span>
         <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-19T12:38:04Z&quot;</span><span class="p">,</span>
@@ -5372,7 +5376,7 @@ destroyed.</p>
 
 
 <h3 id="post-filestrashfile-id">POST /files/trash/:file-id<a class="headerlink" href="#post-filestrashfile-id" title="Permanent link">&para;</a></h3>
-<p>Restore the file with the <code>file-id</code> identifiant. If a file already exists at the previous path, a suffix will be added to avoid any conflict.</p>
+<p>Restore the file with the <code>file-id</code> identifiant into its <code>restore_path</code>. If a file already exists at the restore path with the same name, a suffix will be added to avoid any conflict.</p>
 <p>The file&rsquo;s <code>trashed</code> attributes will be set to false.</p>
 <h3 id="delete-filestrashfile-id">DELETE /files/trash/:file-id<a class="headerlink" href="#delete-filestrashfile-id" title="Permanent link">&para;</a></h3>
 <p>Destroy the file and make it unrecoverable (it will still be available in

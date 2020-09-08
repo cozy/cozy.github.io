@@ -16,6 +16,8 @@ module.exports = {
       name: 'Basics',
       components: () => [
         '../react/Badge/index.jsx',
+        '../react/InfosBadge/index.jsx',
+        '../react/GhostFileBadge/index.jsx',
         '../react/Button/index.jsx',
         '../react/ButtonAction/index.jsx',
         '../react/Card/index.jsx',

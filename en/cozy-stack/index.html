@@ -100,7 +100,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#how-to-guides" tabindex="1" class="md-skip">
+      <a href="#what-is-the-cozy-stack" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -1657,6 +1657,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#what-is-the-cozy-stack" title="What is the Cozy-Stack?" class="md-nav__link">
+    What is the Cozy-Stack?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#how-to-guides" title="How-to guides" class="md-nav__link">
     How-to guides
   </a>
@@ -2531,6 +2538,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#what-is-the-cozy-stack" title="What is the Cozy-Stack?" class="md-nav__link">
+    What is the Cozy-Stack?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#how-to-guides" title="How-to guides" class="md-nav__link">
     How-to guides
   </a>
@@ -2625,7 +2639,20 @@
                 
                   <h1>README</h1>
                 
-                <h2 id="how-to-guides">How-to guides<a class="headerlink" href="#how-to-guides" title="Permanent link">&para;</a></h2>
+                <h2 id="what-is-the-cozy-stack">What is the Cozy-Stack?<a class="headerlink" href="#what-is-the-cozy-stack" title="Permanent link">&para;</a></h2>
+<p>The cozy-stack is the main backend server for the Cozy platform.</p>
+<p><a href="https://docs.cozy.io/en/cozy-stack/">Full Cozy-Stack documentation here</a>.</p>
+<p>The Cozy-Stack is in charge of serving / running the applications users have installed on their Cozy.</p>
+<p>It is in charge of:</p>
+<ul>
+<li>creating, updating, deleting documents inside the database;</li>
+<li>authenticating users and client applications;</li>
+<li>sending emails;</li>
+<li>launching jobs on the server. Connectors that import data from remote websites are jobs. Jobs can be one time tasks (sending a message) or periodic tasks. Jobs that require executing third party code on the server side (like connectors), are sandboxed;</li>
+<li>database replication API, allowing to sync documents between the server and local databases, for example in mobile clients.</li>
+</ul>
+<p>Feel free to <a href="https://github.com/cozy/cozy-stack/issues/new">open an issue</a> for questions and suggestions.</p>
+<h2 id="how-to-guides">How-to guides<a class="headerlink" href="#how-to-guides" title="Permanent link">&para;</a></h2>
 <h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h3>
 <ul>
 <li><a href="INSTALL/">Install the cozy-stack</a></li>
