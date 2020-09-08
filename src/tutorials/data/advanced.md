@@ -338,7 +338,7 @@ See this [cursor pagination example](https://github.com/cozy/cozy-client/blob/0a
 CouchDB keeps for each document a list of its revision (or more exactly a tree with replication and conflicts).
 It's possible to ask to the [cozy-stack](https://docs.cozy.io/en/cozy-stack/) the list of the old revisions of a document with `[GET /db/{docid}?revs_info=true](http://docs.couchdb.org/en/stable/api/document/common.html#get--db-docid)`. It works only if the document has not been deleted. For a deleted document, [a trick](https://stackoverflow.com/questions/10854883/retrieve-just-deleted-document/10857330#10857330) is to query the changes feed to know the last revision of the document, and to recreate the document from this revision.
 
-With an old revision, it's possible to get the content of the document at this revision with `GET /db/{docid}?rev={rev}` if the database was not compacted. On CouchDB 2.x, compacts happen automatically on all databases from times to times.
+With an old revision, it's possible to get the content of the document at this revision with `GET /db/{docid}?rev={rev}` if the database was not compacted. On CouchDB 2.x, compaction happen automatically on all databases from times to times.
 
 A `purge` operation consists to remove the tombstone for the deleted documents. It is a manual operation, triggered by a `[POST /db/_purge](http://docs.couchdb.org/en/stable/api/database/misc.html)`.
 

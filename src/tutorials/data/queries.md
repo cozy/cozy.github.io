@@ -18,7 +18,7 @@ A basic CouchDB document looks like this:
 
 The `_id` and `_rev` fields are mandatory for each document and automatically handled by CouchDB, so the developers don’t have to worry about. `_id` is the unique identifier of the document while `_rev` is the version number, incremented for each update. See [here](./advanced.md#revisions) to know more about the revision system.
 
-Any field can be specified in a CouchDB document, as long as the JSON is valid and the type is [supported](https://docs.couchdb.org/en/stable/api/basics.html#json-basics), i.e. Array, Object, String, Number, Boolean.
+Any field can be specified in a CouchDB document (except for fields starting with a `_`, that are reserved), as long as the JSON is valid and the type is [supported](https://docs.couchdb.org/en/stable/api/basics.html#json-basics), i.e. Array, Object, String, Number, Boolean.
 
 CouchDB comes with two queries system to retrieve documents: 
 
@@ -198,7 +198,7 @@ See [this section](#sort-in-couchdb) for more info about the sort order on data 
 
 ### Sort with cozy-client
 
-With cozy-client, a sort is expressed through the `sortBy` method, that takes into input an array containing the fields to sort and the direction. For instance:
+With cozy-client, a sort is expressed through the `sortBy` method. It takes as argument an array containing the fields to sort and the direction. For instance:
 
 ```javascript
 const queryDef = client
@@ -210,9 +210,9 @@ const queryDef = client
   .sortBy[{"category": "asc"}, {"created_at": "asc"}]
 ```
 
-⚠️ Any field involved in the `sortBy` must be indexed: otherwise, CouchDB would be forced to scan all the documents in the database, which is not a good for scalability.
+⚠️ If the fields involved in the `sortBy` are not indexed, this will force CouchDB to make the sort  in memory: this can be acceptable if the query returns few documents, but it is not scalable.
 
-⚠️ Inversely, when using a sort, any indexed field must appear either in the `where` selector or the `sortBy`.  
+⚠️ Inversely, when using a sort, any indexed field must appear in the `where` selector and the `sortBy`.
 
 ⚠️ At least one of the sort fields must be included in the `where` selector.
 
@@ -226,7 +226,7 @@ When dealing with queries returning a lot of documents, e.g. thousands, it might
 The pagination consists of splitting the results in “pages”: if a query matches 100.000 documents, one can paginate it, for example by actually running 1000 queries returning 100 documents each. 
 By doing so, the server only keeps 100 documents in memory for each query, and the client can control the data flow, for example, by implementing a “Load more” button that actually runs a paginated query and loads the 100 next documents.
 
-With mango queries, the recommanded method to paginate is through the `bookmark` parameter, that works exactly as it name suggests: it consists of a string returned by CouchDB that corresponds to the page position in the index. Just like an actual bookmark is used to mark a particular page in a book.
+With mango queries, the recommended method to paginate is through the `bookmark` parameter, that works exactly as it name suggests: it consists of a string returned by CouchDB that corresponds to the page position in the index. Just like an actual bookmark is used to mark a particular page in a book.
 
 With cozy-client, we can use the  [`offsetBookmark`](https://docs.cozy.io/en/cozy-client/api/cozy-client/#querydefinitionoffsetbookmarkbookmark-querydefinition) method to paginate:
 
@@ -296,7 +296,7 @@ Comparison of strings is done using ICU which implements the Unicode Collation A
 
 ## Views
 
-⚠️ In Cozy, we disabled by default the possibility to create views from applications. Consequently, [cozy-client](https://github.com/cozy/cozy-client) does not support views creation, because they are disabled for applications. See the [view performances](./advanced.md#views-performances) section to find out why. 
+⚠️ In Cozy, we disabled by default the possibility to create views from applications. Consequently, [cozy-client](https://github.com/cozy/cozy-client) does not support view creation, because they are disabled for applications. See the [view performances](./advanced.md#views-performances) section to find out why. 
 
 [CouchDB views](https://docs.couchdb.org/en/2.3.1/ddocs/views/index.html) are another way to express queries in Cozy, used by the [cozy-stack](https://github.com/cozy/cozy-stack/blob/331f6f39402dc7ec38ecf2f5ff408a1b5cf3d730/pkg/couchdb/index.go#L48-L229). It consists of creating [map-reduce](https://en.wikipedia.org/wiki/MapReduce) functions, where the `map` is used to qualify which documents should be indexed, and the optional `reduce`  can be used to compute aggregate functions on them.
 
@@ -315,11 +315,11 @@ function(doc) {
 
 A `map` function must always produce an `emit` , with the key and the value respectively in first and second argument.
 
-ℹ️ Behind the hoods, views are represented exactly like the Mango queries: both uses [B+ Tree](./advanced.md#indexes-concepts), with values stored in the leafs.
+ℹ️ Behind the hoods, views are represented exactly like the Mango queries: both use [B+ Tree](./advanced.md#indexes-concepts), with values stored in the leafs.
 
 ### Query a view
 
-Just like the Mango queries, views are particularly suited for equality and range queries. See the [CouchDB documentation](https://docs.couchdb.org/en/2.3.1/api/ddoc/views.html) to know more about the API.
+Just like Mango queries, views are particularly suited for equality and range queries. See the [CouchDB documentation](https://docs.couchdb.org/en/2.3.1/api/ddoc/views.html) to know more about the API.
 
 To find a specific document, use the  `key` parameter:
 

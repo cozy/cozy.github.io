@@ -2,7 +2,7 @@
 
 [PouchDB](https://pouchdb.com/) is a JavaScript implementation of CouchDB. It is particulary well suited for client environments such as browsers or mobile.
 
-ℹ️ In Cozy, PouchDB is used in the mobile apps and the desktop client to synchronize data with the CouchDB server. Having a local database also implements offline support and improve performances: the client can directly query local data to avoid network latency or unavailability.
+ℹ️ In Cozy, PouchDB is used in the desktop client and in mobile apps to synchronize data with the CouchDB server. Having a local database enables offline support and improves performances: the client can directly query local data to avoid network latency or unavailability.
 
 While it is meant to mimic most of the CouchDB API, there are specificities that are good to know when working with PouchDB.
 
@@ -12,7 +12,9 @@ The findings below were obtained while working on sorting performance in Cozy Dr
 
 Before diving into some of the quirks, it's important to understand some things when it comes to Pouchdb and especially Mango queries.
 First, you can add a plugin called `pouchdb-debug` and enable extra logs with `PouchDB.debug.enable( "pouchdb:find" );`. This will add explanation about the queries you run in the console and it's very helpful to understand what's going on under the hood.
-You will realize that Pouchdb operates in 2 phases: one part of your query may be done using indexes, and the other may be done in memory. Long story short: anything done in memory has significant performance impacts, especially as the number of items gets larger. A more detailed guide can be found [here](https://www.bennadel.com/blog/3258-understanding-the-query-plan-explained-by-the-find-plugin-in-pouchdb-6-2-0.htm).
+
+You will realize that Pouchdb operates in 2 phases: first, it loads candidate documents in memory, and then it analyzes the candidates and keep only the relevant ones. Long story short: the larger the number of candidates, the longer the operation will take. By default, all the documents in a database are candidates, but it is possible to have fewer candidates by using an index: by combining the query and the index, PouchDB can load only a subset of all the documents and may even skip the analyze phase if the index is really well suited to the query. A more detailed guide can be found [here](https://www.bennadel.com/blog/3258-understanding-the-query-plan-explained-by-the-find-plugin-in-pouchdb-6-2-0.htm).
+
 
 ## About indexes
 
