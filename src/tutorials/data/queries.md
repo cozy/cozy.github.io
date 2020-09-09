@@ -210,7 +210,7 @@ const queryDef = client
   .sortBy[{"category": "asc"}, {"created_at": "asc"}]
 ```
 
-⚠️ If the fields involved in the `sortBy` are not indexed, this will force CouchDB to make the sort  in memory: this can be acceptable if the query returns few documents, but it is not scalable.
+⚠️ If the fields involved in the `sortBy` are not indexed, this will force CouchDB to make the sort  in memory: this can be acceptable if the query returns few documents, but it is not efficient for large queries.
 
 ⚠️ Inversely, when using a sort, any indexed field must appear in the `where` selector and the `sortBy`.
 
@@ -267,7 +267,7 @@ const docs = await client.query(queryDef, {limit: null})
 
 ⚠️ When querying this endpoint, the response includes the [design docs](https://docs.couchdb.org/en/master/ddocs/index.html), which are the Mango indexes and views definitions.  Those documents are automatically filtered for the paginated queries.
 
-⚠️ This method is faster than the pagination as it avoids to make several server requests. However, if there are many documents to return, `_all_docs` queries can take a lot of time to complete and consume server resources. Hence, you should be cautious when using this route.
+⚠️ This method is faster than the pagination as it avoids to make several server requests. However, if there are many documents to return, `_all_docs` queries can take a lot of time to complete and even timeout. It also consumes server resources. Hence, you should be cautious when using this route.
 
 
 ## Sort in CouchDB
@@ -327,7 +327,7 @@ To find a specific document, use the  `key` parameter:
 
 To find a range, combine the `startkey` and `endkey` parameters:
 
-`startkey="category1"&endkey="category9"`
+`startkey="category0001"&endkey="category0009"`
 
 ℹ️ Note these queries return the values associated to their keys, as expressed by the `emit` in the `map` function. If the whole document is required, one can emit a null value, e.g. `emit(doc.category, null)` in the view definition and pass a `include_docs: true` when querying the view.
 

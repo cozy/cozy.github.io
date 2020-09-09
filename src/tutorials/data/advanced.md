@@ -279,7 +279,7 @@ This method consists of specifying a `limit` to the query, which is the maximum 
 ```javascript
 const queryDef = client.find("io.cozy.todos").limitBy(200)
 const docs = []
-let resp = { next: true }
+let resp = { next: true, data: [] }
 while (resp && resp.next) {
   resp = await client.query(queryDef.offset(resp.data.length))
   docs.push(...resp.data)
@@ -305,7 +305,7 @@ while (resp && resp.next) {
 
 In Cozy, we disabled by default the possibility to create views from applications. This is because we experienced severe performances issues as soon as several views were used: building the views is very slow.
 
-This is mainly because CouchDB itself is written in Erlang, while views are JavaScript UDF and are executed in isolated JavaScript query processes to serialize the map-reduce functions. The communication between thoses processes and CouchDB is done through `stdio` , which is synchronous and thus require to process one doc at a time.
+This is mainly because CouchDB itself is written in Erlang, while views are JavaScript [UDF](https://en.wikipedia.org/wiki/User-defined_function) and are executed in isolated JavaScript query processes to serialize the map-reduce functions. The communication between thoses processes and CouchDB is done through `stdio` , which is synchronous and thus require to process one doc at a time.
 For more details, see this great [blog post](https://www.garrensmith.com/blogs/fortuna-rs-couchdb-view-server) from a CouchDB contributor.
 
 See also the [CouchDB benchmark](./#couchdb-performances) we performed.
