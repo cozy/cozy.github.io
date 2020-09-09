@@ -1,6 +1,8 @@
 import React from 'react'
 import { DumbAccountsList } from './AccountsList'
 import { render } from '@testing-library/react'
+import AppLike from 'test/AppLike'
+import { createMockClient } from 'cozy-client/dist/mock'
 
 jest.mock('./AccountRow', () => {
   const AccountRow = ({ account }) => {
@@ -11,24 +13,30 @@ jest.mock('./AccountRow', () => {
 })
 
 const setup = ({ group, accounts }) => {
-  // We don't need an actual client as it's used only in connect HOC
-  const client = {}
+  const client = createMockClient({
+    queries: {
+      accounts: {
+        doctype: 'io.cozy.bank.accounts',
+        data: accounts
+      }
+    }
+  })
   const router = { push: jest.fn() }
   const filterByDoc = jest.fn()
-
+  client.ensureStore()
   const { container } = render(
-    <DumbAccountsList
-      router={router}
-      client={client}
-      filterByDoc={filterByDoc}
-      group={group}
-      switches={{
-        a1: { checked: true, disabled: false },
-        a2: { checked: true, disabled: false },
-        a3: { checked: true, disabled: false }
-      }}
-      accounts={accounts}
-    />
+    <AppLike client={client} store={client.store}>
+      <DumbAccountsList
+        router={router}
+        filterByDoc={filterByDoc}
+        group={group}
+        switches={{
+          a1: { checked: true, disabled: false },
+          a2: { checked: true, disabled: false },
+          a3: { checked: true, disabled: false }
+        }}
+      />
+    </AppLike>
   )
 
   const elements = [...container.querySelectorAll('[id]')]

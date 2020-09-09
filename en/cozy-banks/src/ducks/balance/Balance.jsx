@@ -47,10 +47,7 @@ import { createStructuredSelector } from 'reselect'
 const syncPouchImmediately = async client => {
   const pouchLink = client.links.find(link => link.pouches)
   const pouchManager = pouchLink.pouches
-  // @TODO replace by await pouchLink.syncImmediately() when
-  // https://github.com/cozy/cozy-client/pull/434 is merged
-  pouchManager.stopReplicationLoop()
-  await pouchManager.startReplicationLoop()
+  await pouchManager.syncImmediately()
 }
 
 const REALTIME_DOCTYPES = [

@@ -4,7 +4,7 @@ import React from 'react'
 import { useI18n } from 'cozy-ui/transpiled/react'
 import Infos from 'cozy-ui/transpiled/react/Infos'
 import { getErrorLocaleBound, KonnectorJobError } from 'cozy-harvest-lib'
-import ReconnectKonnectorButton from 'ducks/transactions/TransactionPageErrors/ReconnectKonnectorButton'
+import ReconnectTriggerButton from 'ducks/transactions/TransactionPageErrors/ReconnectTriggerButton'
 
 const TriggerErrorCard = ({ index, count, error, className }) => {
   const { t, lang } = useI18n()
@@ -25,12 +25,7 @@ const TriggerErrorCard = ({ index, count, error, className }) => {
   return (
     <Infos
       className={'u-bdrs-0 u-maw-none u-p-1-half ' + (className || '')}
-      actionButton={
-        <ReconnectKonnectorButton
-          account={trigger.message.account}
-          konnector={trigger.message.konnector}
-        />
-      }
+      actionButton={<ReconnectTriggerButton trigger={trigger} />}
       title={errorTitle + (count > 1 ? ` (${index + 1}/${count})` : '')}
       text={
         <div>{t('Transactions.trigger-error.description', { bankName })}</div>

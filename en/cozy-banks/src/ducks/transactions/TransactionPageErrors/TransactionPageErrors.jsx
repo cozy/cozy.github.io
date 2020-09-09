@@ -24,7 +24,7 @@ export const TransactionPageErrors = props => {
   const wrapperProps =
     count > 1
       ? {
-          className: 'u-bg-chablis'
+          className: 'u-bg-errorBackgroundLight'
         }
       : null
 

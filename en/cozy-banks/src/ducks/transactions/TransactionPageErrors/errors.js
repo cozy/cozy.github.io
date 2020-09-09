@@ -1,10 +1,10 @@
 import sortBy from 'lodash/sortBy'
 import keyBy from 'lodash/keyBy'
 import mapValues from 'lodash/mapValues'
-import { isErrored, isBankTrigger } from 'utils/triggers'
+import { isBankTrigger } from 'utils/triggers'
 import { utils, trigger as triggerLibs } from 'cozy-client/dist/models'
 
-const triggerUtils = triggerLibs.triggers
+const { triggers: triggerUtils, triggerStates } = triggerLibs
 
 /**
  * Returns errors that should be displayed in the error container
@@ -21,8 +21,9 @@ export const getTransactionPageErrors = ({ triggerCol, accounts }) => {
 
   const erroredTriggers = sortBy(
     triggers
+      .filter(triggerUtils.isKonnectorWorker)
       .filter(isBankTrigger)
-      .filter(isErrored)
+      .filter(triggerStates.isErrored)
       .filter(triggerUtils.hasActionableError)
       .filter(tr => konnectorToAccounts[tr.message.konnector]),
     tr => tr.message.konnector

@@ -17,13 +17,16 @@ import {
   queryConnect,
   Q,
   isQueryLoading,
-  hasQueryBeenLoaded
+  hasQueryBeenLoaded,
+  models
 } from 'cozy-client'
+import DisconnectedAccountModal from 'cozy-harvest-lib/dist/components/DisconnectedAccountModal'
 
 import Loading from 'components/Loading'
 import plus from 'assets/icons/16/plus.svg'
 
 import AddAccountLink from 'ducks/settings/AddAccountLink'
+import HarvestBankAccountSettings from 'ducks/settings/HarvestBankAccountSettings'
 import { getAccountInstitutionLabel } from 'ducks/account/helpers'
 import KonnectorIcon from 'ducks/balance/KonnectorIcon'
 
@@ -31,9 +34,7 @@ import { accountsConn, APP_DOCTYPE } from 'doctypes'
 import { AccountIconContainer } from 'components/AccountIcon'
 import { Unpadded } from 'components/Spacing/Padded'
 
-import HarvestBankAccountSettings from './HarvestBankAccountSettings'
-import DisconnectedAccountModal from 'cozy-harvest-lib/dist/components/DisconnectedAccountModal'
-import { utils } from 'cozy-client/dist/models'
+const { utils } = models
 
 const AccountListItem = ({ account, onClick, secondaryText }) => {
   return (

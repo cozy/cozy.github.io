@@ -3,8 +3,10 @@ import { includes } from 'lodash'
 
 import { isQueryLoading, hasQueryBeenLoaded } from 'cozy-client'
 import { getBrands, findMatchingBrand } from './index'
-import { isKonnectorTrigger, getKonnectorFromTrigger } from 'utils/triggers'
+import { trigger as triggerLibs } from 'cozy-client/dist/models'
 import { querySelector } from 'selectors'
+
+const { getKonnector, isKonnectorWorker } = triggerLibs.triggers
 
 const getInstalledKonnectorsSlugs = triggerCol => {
   if (isQueryLoading(triggerCol) && !hasQueryBeenLoaded(triggerCol)) {
@@ -12,8 +14,8 @@ const getInstalledKonnectorsSlugs = triggerCol => {
   }
 
   return triggerCol.data
-    .filter(isKonnectorTrigger)
-    .map(getKonnectorFromTrigger)
+    .filter(isKonnectorWorker)
+    .map(getKonnector)
     .filter(Boolean)
 }
 

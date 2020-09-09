@@ -1,9 +1,5 @@
 /* eslint-disable no-console */
 
-// TODO can be removed when https://github.com/cozy/cozy-libs/pull/479
-// is merged
-global.window = { cordova: false }
-
 /* CLI used in development to generate emails from template and data */
 const { EMAILS, buildNotificationAttributes } = require('./common-test')
 
