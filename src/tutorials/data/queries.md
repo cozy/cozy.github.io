@@ -2,7 +2,7 @@
 
 ## Basic concepts
 
-The database used in Cozy to store and manipulate data is [CouchDB](https://docs.couchdb.org/en/2.3.1/). This is a document-oriented NoSQL database, which means that data is represented as key-values JSON documents.
+The database used in Cozy to store and manipulate data is [CouchDB](https://docs.couchdb.org/en/2.3.1/). This is a document-oriented NoSQL database, which means that data is represented as key-value JSON documents.
 
 A basic CouchDB document looks like this:
 
@@ -16,20 +16,20 @@ A basic CouchDB document looks like this:
 }
 ```
 
-The `_id` and `_rev` fields are mandatory for each document and automatically handled by CouchDB, so the developers don’t have to worry about. `_id` is the unique identifier of the document while `_rev` is the version number, incremented for each update. See [here](./advanced.md#revisions) to know more about the revision system.
+The `_id` and `_rev` fields are mandatory for each document and automatically handled by CouchDB, so the developers don’t have to worry about them. `_id` is the unique identifier of the document while `_rev` is the version number, incremented for each update. See [here](./advanced.md#revisions) to know more about the revision system.
 
 Any field can be specified in a CouchDB document (except for fields starting with a `_`, that are reserved), as long as the JSON is valid and the type is [supported](https://docs.couchdb.org/en/stable/api/basics.html#json-basics), i.e. Array, Object, String, Number, Boolean.
 
-CouchDB comes with two queries system to retrieve documents: 
+CouchDB comes with two query systems to retrieve documents: 
 
 1. [Mango queries](https://docs.couchdb.org/en/2.3.1/api/database/find.html), a declarative JSON syntax
-2. [Views](https://docs.couchdb.org/en/2.3.1/api/ddoc/views.html), to run arbitrally complex map-reduce functions 
+2. [Views](https://docs.couchdb.org/en/2.3.1/api/ddoc/views.html), to run arbitrary complex map-reduce functions 
 
 In Cozy, we chose to support the simpler and more efficient Mango system by default, even though views are used in specific cases.
 
-ℹ️  CouchDB is an HTTP server. Therefore, all the requests made to the database must be expressed as HTTP requests and any HTTP client can actually be used to directly query CouchDB ([curl](https://curl.haxx.se/), [request](https://github.com/request/request), [Insomnia](https://insomnia.rest/) to name a few). In Cozy, the back-end server, [cozy-stack](https://docs.cozy.io/en/cozy-stack/), communicates with CouchDB.
+ℹ️  CouchDB is an HTTP server. Therefore, all the requests made to the database must be expressed as HTTP requests. Any HTTP client can be used to directly query CouchDB ([curl](https://curl.haxx.se/), [request](https://github.com/request/request), [Insomnia](https://insomnia.rest/) to name a few). In Cozy, the back-end server, [cozy-stack](https://docs.cozy.io/en/cozy-stack/), communicates with CouchDB.
 
-ℹ️ In CouchDB, you organize data in DocTypes, a data structure meant to group documents together. All documents with the same DocType are stored in a dedicated database. Thus, each database has its own documents and indexes:  when performing a query, one must indicates the target database; there is no cross-databases queries capability in CouchDB, altough there is a [relationship](https://docs.cozy.io/en/cozy-doctypes/docs/#relationships) query system to overcome this. See [here](./doctypes.md) for the DocTypes documentation.
+ℹ️ In CouchDB, you organize data in DocTypes, a data structure meant to group documents together. All documents with the same DocType are stored in a dedicated database. Thus, each database has its own documents and indexes: when performing a query, one must indicates the target database; there is no cross-databases queries capability in CouchDB, altough there is a [relationship](https://docs.cozy.io/en/cozy-doctypes/docs/#relationships) query system to overcome this. See [here](./doctypes.md) for the DocTypes documentation.
 
 
 ## Mango queries
@@ -59,11 +59,11 @@ In this example, the `QueryDefinition` defines the query to get all the document
 
 ## Selectors
 
-To use the Mango query system, you define a `selector`, that allows to express criterias to filter the documents to return.
+To use the Mango query system, you define a `selector`, expressing criterias to filter the documents to return.
 
 ### Selectors with cozy-client
 
-With cozy-client, a selector is expressed through the [`where`](https://docs.cozy.io/en/cozy-client/api/cozy-client/#querydefinitionwhereselector-querydefinition) method, that takes into input an object with the selector expression. For instance, this query means “the todos in 'sport’ category AND a title ‘Exercices’”: 
+With cozy-client, a selector is added to the query definition with the [`where`](https://docs.cozy.io/en/cozy-client/api/cozy-client/#querydefinitionwhereselector-querydefinition) method. It takes into input an object with the selector expression. For instance, this query means “the todos in 'sport’ category AND a title ‘Exercices’”: 
 
 ```javascript
 const queryDef = client
@@ -76,9 +76,9 @@ const queryDef = client
 
 `find` targets the Todos database, while `where` filters the documents to return.
 
-ℹ️ When running this query, an index will automatically be created on `category` and `title` fields. See the [index section](#index-fields) for more details about it. As mentioned in the [performances](#mango-performances), it is highly recommended to read it in order to avoid designing poorly efficient queries.
+ℹ️ When running this query, an index will automatically be created on the `category` and `title` fields. It is highly recommended to read the [index section](#index-fields) to avoid designing poorly efficient queries (see also [the section on mango performances](#mango-performances)). 
 
-ℹ️ The `$eq` and `$and` operators are implicit by default, which allow to write less verbose queries. Here is the explicit version of the previous query:
+ℹ️ The `$eq` and `$and` operators are implicit by default. It allows to write concise queries. Here is the explicit version of the previous query:
 
 ```javascript
 const queryDef = client
@@ -105,21 +105,21 @@ There are two kinds of mango operators:
 - [Condition operators](https://docs.couchdb.org/en/2.3.1/api/database/find.html#condition-operators) (`$eq`, `$gt`, `$lt`, …)
 - [Combinaison operators](https://docs.couchdb.org/en/2.3.1/api/database/find.html#combination-operators) (`$and` , `$or`, `$not`, …)
 
-For more details and examples of selectors, you can directly reach the [CouchDB documentation](https://docs.couchdb.org/en/2.3.1/api/database/find.html#selector-syntax).
+For more details and examples of selectors, you can directly read the [CouchDB documentation](https://docs.couchdb.org/en/2.3.1/api/database/find.html#selector-syntax).
 
 ### Mango performances
 
 Depending on your queries and their complexity, performances can be dramatically impacted, by serveral orders of magnitude, especially for large databases, i.e. starting for thousands of documents.
-Thus, it is highly recommended to take some time to understand how to [index fields](#index-fields) and the related [performances](./advanced.md#indexes-performances-and-design).
+It is highly recommended to take some time to understand how to [index fields](#index-fields) and the related [performances](./advanced.md#indexes-performances-and-design).
 
 
 ## Index fields
 
-In order to be able to efficiently filter documents through selectors and sort them, it is important to correctly index data. An index is a way to organize documents in order to retrieve them faster.
+In order to efficiently filter documents through selectors and sort them, it is important to correctly index data. An index is a way to organize documents in order to retrieve them faster.
 
 An important point to keep in mind is that **any field involved in a selector should be indexed** for performances. Otherwise, the documents filtering will be processed by CouchDB by fetching all the database documents and performing the selector in memory, which can be very time-consuming when the database grows. In some cases, it can even prevent the query to be run.
 
-⚠️ For this reason, cozy-client automatically index fields declared in a `where` call. However, this currently only works for simple queries with implicit combinaison operators, i.e. where all the fields are declared at the first level of the object. For any query involving explicit operators, you can use the [`indexFields`](https://docs.cozy.io/en/cozy-client/api/cozy-client/#QueryDefinition+indexFields) method, see below for an example.
+⚠️ For this reason, cozy-client automatically indexes fields declared in a `where` call. However, this currently only works for simple queries with implicit combinaison operators, i.e. where all the fields are declared at the first level of the object. For any query involving explicit operators, you can use the [`indexFields`](https://docs.cozy.io/en/cozy-client/api/cozy-client/#QueryDefinition+indexFields) method, see below for an example.
 
 Here, we explain how you can index fields to efficiently query documents. If you are interested on why indexing is important and how your performances can dramatically vary, you can go to the advanced explanations [here](./advanced.md#indexes-performances-and-design).
 
@@ -127,7 +127,7 @@ With mango queries, it is required to index documents fields that are necessary 
   
 ### Index with cozy-client
 
-With cozy-client, the developer does not have to deal with the index creation: it is expressed through `indexFields`:
+With cozy-client, you don't have to deal with the index creation: it is expressed through `indexFields`:
 
 ```javascript
 const queryDef = client
@@ -138,11 +138,11 @@ const queryDef = client
 .indexFields(["category"])
 ```
 
-Thanks to this, cozy-client will automatically create an index on `category` before running the query for the first time and explicity tell CouchDB to use it.
+Thanks to this, cozy-client automatically creates an index on `category` before running the query for the first time and explicity tell CouchDB to use it.
 
 💡 In this example, the `indexField` method is not mandatory: cozy-client is smart enough to automatically index `category`  as it is involved in the selector. However, this automatic indexing only works for simple queries, thus, it is encouraged to explicity declare which fields to index.
 
-⚠️ CouchDB evaluates if a new document should be indexed by checking if its fields match an existing index. It means that **all the indexed fields must exist in the document** to index it. It can be problematic for queries that needs to check if a particular field exists or not. We detail this behaviour and workarounds in [this section](./advanced.md#indexes-why-is-my-document-not-being-retrieved).
+⚠️ CouchDB evaluates if a new document should be indexed by checking if its fields match an existing index. It means that **all the indexed fields must exist in the document** to index it. It can be problematic for queries that needs to check if a particular field exists or not. We detail this behaviour and workarounds in the ["why is my document not retrieved" section](./advanced.md#indexes-why-is-my-document-not-being-retrieved).
 
 ℹ️ If no index is used to run the query, the query response will include a `warning: no matching index found, create an index to optimize query time`. It means that your index is not properly defined, probably because some fields involved in the `where`  selector are not indexed. Note that if you use a `sortBy`, you also need to index the fields involved, as explained in [this section](#sort-data).
 
@@ -152,7 +152,7 @@ CouchDB updates the Mango indexes when the data is read, but not on writes. This
 
 ⚠️ This implies that a query performed after many writes can take a certain time to complete, as it will update the index before returning any result. Likewise, the first query after an index creation will include the index build. Hence, developers should keep this behaviour in mind when designing applications and typically might need to handle query latency. 
 
-ℹ️ Starting from CouchDB 3.0.0, a [background indexing](https://docs.couchdb.org/en/3.0.0/config/indexbuilds.html) is implemented that aims to avoid this latency by forcing the index to update in background after writes operations.
+ℹ️ Starting from CouchDB 3.0.0, a [background indexing](https://docs.couchdb.org/en/3.0.0/config/indexbuilds.html) is implemented. It aims to avoid this latency by forcing the index to update in background after writes.
 
 ### Index with several fields
 
@@ -175,14 +175,14 @@ const queryDef = client
   .indexFields(["category", "created_at"])
 ```
 
-⚠️ The order in the `indexFields` array can be very important for performances, especially when there are both range and equality operators: you must always index the field involved in the equality operator first. To understand this, one needs to understand some advanced concepts about CouchDB indexes, explained in [this section](#indexes-performances-and-design).
+⚠️ The order in the `indexFields` array can be very important for performances, especially when there are both range and equality operators: you must always index the field involved in the equality operator first. To understand this, it helps to understand concepts about CouchDB indexes, explained in [this section](#indexes-performances-and-design).
 
 
 ## Sort data with Mango
 
 It is possible to express the order of the documents returned by a query, by using the `sort`  array. 
 
-The sort is always done on a document field, by ascending (`asc`) or descending (`desc`) order, ascending being the default.  One can specify several fields to sort,  by following this structure for each field:
+The sort is always done on a document field, by ascending (`asc`) or descending (`desc`) order, ascending being the default. It is possible to specify several fields to sort,  by following this structure for each field:
 
 `{"fieldName": "asc"|"desc"}`
 

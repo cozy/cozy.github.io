@@ -29,9 +29,8 @@ Furthermore, the order in which fields are indexed on a multi-index is significa
 
 See this [section](./advanced.md#indexes-performances-and-design) for more details and understand how to efficiently design indexes.
 
-## Avoiding in memory selectors
+## Avoiding full scan
 
-Filtering results with a selector on a field that has not been indexed is almost guaranteed to be done in memory and should be avoided. Since you can't have too many indexes, some filtering may have to be done in your own code — but if you can narrow down the results beforehand, that shouldn't be a problem.
-Even selectors on indexed field may end up being done in memory. Operators that don't rely on equality such as `$ne` should typically be avoided. Even equality operators run on secondary fields tend to be done in memory, and should therefore be used with care.
+Filtering results with a selector on a field that has not been indexed is almost guaranteed to be done through a full scan and should be avoided. Since you can't have too many indexes, some filtering may have to be done in your own code — but if you can narrow down the results beforehand, that shouldn't be a problem.
 
-See this [section](./advanced.md#indexes-performances-and-design) for more details and understand how to avoid memory selectors.
+Note that even selectors on indexed field may end up being done in memory: see this [section](./advanced.md#indexes-performances-and-design) for more details and understand how to avoid memory selectors.
