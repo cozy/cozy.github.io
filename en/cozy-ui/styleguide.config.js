@@ -87,6 +87,7 @@ module.exports = {
         '../react/Media/Media.jsx',
         '../react/MidEllipsis/index.jsx',
         '../react/Modal/index.jsx',
+        '../react/Dialog',
         '../react/OrderedList/index.jsx',
         '../react/Table/index.jsx',
         '../react/Text/index.jsx',
@@ -154,7 +155,6 @@ module.exports = {
       name: 'Labs',
       components: () => [
         '../react/Labs/GridItem',
-        '../react/Labs/ExperimentalDialog',
         '../react/Labs/IconGrid',
         '../react/Labs/CollectionField',
         '../react/Labs/PasswordInput'

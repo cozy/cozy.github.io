@@ -376,6 +376,7 @@ program
   .description('Generate token')
   .action(function(doctypes) {
     handleGenerateTokenCommand({
+      url: program.url,
       doctypes
     })
   })
