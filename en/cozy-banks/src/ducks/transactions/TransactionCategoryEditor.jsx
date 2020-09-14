@@ -1,7 +1,9 @@
 import React from 'react'
 import { useClient } from 'cozy-client'
-import { updateTransactionCategory } from 'ducks/transactions/helpers'
-import { getCategoryId } from 'ducks/transactions/helpers'
+import {
+  updateTransactionCategory,
+  getCategoryId
+} from 'ducks/transactions/helpers'
 import CategoryChoice from 'ducks/categories/CategoryChoice'
 
 /**

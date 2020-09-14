@@ -4,7 +4,8 @@ import {
   Modal,
   ModalFooter,
   ModalButtons,
-  useI18n
+  useI18n,
+  withBreakpoints
 } from 'cozy-ui/transpiled/react'
 
 import Stepper from 'components/Stepper'
@@ -19,7 +20,6 @@ import ThresholdSection from './ThresholdSection'
 import NumberSection from './NumberSection'
 import resultWithArgs from 'utils/resultWithArgs'
 import Confirmation from 'components/Confirmation'
-import { withBreakpoints } from 'cozy-ui/transpiled/react'
 
 import { BackIcon } from 'components/BackButton'
 

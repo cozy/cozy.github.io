@@ -1,10 +1,9 @@
 import React from 'react'
-import { translate } from 'cozy-ui/react'
+import { translate, Spinner } from 'cozy-ui/react'
 import { queryConnect, hasQueryBeenLoaded } from 'cozy-client'
 import { connect } from 'react-redux'
 import { accountsConn } from 'doctypes'
 import { getAccountLabel, isCreditCardAccount } from 'ducks/account/helpers'
-import { Spinner } from 'cozy-ui/react'
 
 import { getAccountsById } from 'selectors'
 import compose from 'lodash/flowRight'

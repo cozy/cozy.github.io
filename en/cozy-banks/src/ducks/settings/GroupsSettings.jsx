@@ -3,7 +3,7 @@ import { withRouter } from 'react-router'
 import { translate, useI18n } from 'cozy-ui/transpiled/react'
 import Button from 'cozy-ui/transpiled/react/Button'
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import Table from 'components/Table'
+import Table, { Cell, Row } from 'components/Table'
 import { groupsConn, accountsConn } from 'doctypes'
 import { queryConnect, isQueryLoading, hasQueryBeenLoaded } from 'cozy-client'
 import Loading from 'components/Loading'
@@ -11,7 +11,6 @@ import plus from 'assets/icons/16/plus.svg'
 import styles from 'ducks/settings/GroupsSettings.styl'
 import { sortBy, flowRight as compose, get } from 'lodash'
 import { getGroupLabel } from 'ducks/groups/helpers'
-import { Cell, Row } from 'components/Table'
 
 const GroupList = compose(
   withRouter,

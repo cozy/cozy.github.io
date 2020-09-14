@@ -6,14 +6,16 @@ import {
   hasQueryBeenLoaded
 } from 'cozy-client'
 import { NestedSelect, useI18n, Icon } from 'cozy-ui/transpiled/react'
-import { getLabel, makeRecurrenceFromTransaction } from 'ducks/recurrence/utils'
+import {
+  getLabel,
+  makeRecurrenceFromTransaction,
+  getCategories
+} from 'ducks/recurrence/utils'
 import { NOT_RECURRENT_ID } from 'ducks/recurrence/api'
-import { recurrenceConn } from 'doctypes'
+import { recurrenceConn, RECURRENCE_DOCTYPE } from 'doctypes'
 import { updateTransactionRecurrence } from 'ducks/transactions/helpers'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
-import { RECURRENCE_DOCTYPE } from 'doctypes'
 import styles from './TransactionRecurrenceEditor.styl'
-import { getCategories } from 'ducks/recurrence/utils'
 import Loading from 'components/Loading'
 
 const makeOptionFromRecurrence = rec => {

@@ -13,13 +13,12 @@ import { withStyles } from '@material-ui/core/styles'
 import { translate } from 'cozy-ui/transpiled/react'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import { ButtonLink } from 'cozy-ui/transpiled/react/Button'
-import { Caption } from 'cozy-ui/transpiled/react/Text'
+import Text, { Caption } from 'cozy-ui/transpiled/react/Text'
 import Figure from 'cozy-ui/transpiled/react/Figure'
 import Switch from 'cozy-ui/transpiled/react/MuiCozyTheme/Switch'
 import AccountsList from 'ducks/balance/AccountsList'
 import withFilters from 'components/withFilters'
 import Stack from 'cozy-ui/transpiled/react/Stack'
-import Text from 'cozy-ui/transpiled/react/Text'
 import {
   getGroupBalance,
   isReimbursementsVirtualGroup

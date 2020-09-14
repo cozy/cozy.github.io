@@ -1,5 +1,4 @@
-import parentCategory from 'ducks/categories/categoriesMap'
-import {
+import parentCategory, {
   categoriesStyle,
   getCategoryIdFromName
 } from 'ducks/categories/categoriesMap'

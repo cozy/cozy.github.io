@@ -29,11 +29,15 @@ import { PageHeader, PageBackButton } from 'components/PageModal/Page'
 
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { getCategoryName } from 'ducks/categories/categoriesMap'
-import { getCategoryId } from 'ducks/transactions/helpers'
+import {
+  getCategoryId,
+  updateApplicationDate,
+  getDate,
+  getApplicationDate
+} from 'ducks/transactions/helpers'
 
 import { getLabel } from 'ducks/transactions'
 import TransactionActions from 'ducks/transactions/TransactionActions'
-import { updateApplicationDate } from 'ducks/transactions/helpers'
 
 import styles from 'ducks/transactions/TransactionModal.styl'
 import { getCurrencySymbol } from 'utils/currencySymbol'
@@ -47,7 +51,6 @@ import {
 } from 'ducks/account/helpers'
 import { TRANSACTION_DOCTYPE } from 'doctypes'
 import flag from 'cozy-flags'
-import { getDate, getApplicationDate } from 'ducks/transactions/helpers'
 
 import TransactionCategoryEditor from './TransactionCategoryEditor'
 import TransactionApplicationDateEditor from './TransactionApplicationDateEditor'

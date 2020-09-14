@@ -7,16 +7,19 @@ import { isMobileApp } from 'cozy-device-helper'
 import { translate, withBreakpoints } from 'cozy-ui/transpiled/react'
 
 import { flowRight as compose, isEqual, findIndex, uniq, maxBy } from 'lodash'
-import { getFilteringDoc } from 'ducks/filters'
-import { Padded } from 'components/Spacing'
-
 import {
+  getFilteringDoc,
   getTransactionsFilteredByAccount,
   getFilteredTransactions
 } from 'ducks/filters'
+import { Padded } from 'components/Spacing'
 
 import { getCategoryIdFromName } from 'ducks/categories/categoriesMap'
-import { getDate, getDisplayDate } from 'ducks/transactions/helpers'
+import {
+  getDate,
+  getDisplayDate,
+  findNearestMonth
+} from 'ducks/transactions/helpers'
 
 import { queryConnect, isQueryLoading, hasQueryBeenLoaded } from 'cozy-client'
 
@@ -34,7 +37,6 @@ import {
 } from 'doctypes'
 
 import TransactionHeader from 'ducks/transactions/TransactionHeader'
-import { findNearestMonth } from 'ducks/transactions/helpers'
 
 import { getChartTransactions } from 'ducks/chart/selectors'
 

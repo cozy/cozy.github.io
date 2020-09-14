@@ -1,5 +1,4 @@
-import Linker from './Linker/Linker'
-import {
+import Linker, {
   DEFAULT_DATE_LOWER_DELTA,
   DEFAULT_DATE_UPPER_DELTA
 } from './Linker/Linker'

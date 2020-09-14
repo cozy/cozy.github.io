@@ -1,7 +1,6 @@
 import React from 'react'
-import { withBreakpoints } from 'cozy-ui/transpiled/react'
+import { withBreakpoints, Modal } from 'cozy-ui/transpiled/react'
 import Page from 'components/PageModal/Page'
-import { Modal } from 'cozy-ui/transpiled/react'
 
 /**
  * This component renders a `Modal` on tablet and desktop viewports, and a

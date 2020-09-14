@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 import { flowRight as compose } from 'lodash'
-import { withBreakpoints, useI18n } from 'cozy-ui/transpiled/react'
+import { withBreakpoints, useI18n, Icon } from 'cozy-ui/transpiled/react'
 
 import { transactionsConn } from 'doctypes'
 import { Padded } from 'components/Spacing'
@@ -12,7 +12,6 @@ import HeaderTitle from 'ducks/balance/HeaderTitle'
 import Delayed from 'components/Delayed'
 import { queryConnect } from 'cozy-client'
 import flag from 'cozy-flags'
-import { Icon } from 'cozy-ui/transpiled/react'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
 import { BarRight } from 'components/Bar'

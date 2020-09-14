@@ -1,0 +1,3268 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Cozy documentation">
+      
+      
+        <link rel="canonical" href="https://docs.cozy.io/tutorials/data/queries/">
+      
+      
+        <meta name="author" content="CozyCloud - https://cozy.io">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[^a-zа-яё0-9\-\.]">
+      
+      <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
+    
+    
+      
+        <title>Queries - Cozy Developer Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/application.0284f74d.css">
+      
+        <link rel="stylesheet" href="../../../assets/stylesheets/application-palette.01803549.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#2196f3">
+      
+    
+    
+    
+      <script src="../../../assets/javascripts/modernizr.74668098.js"></script>
+    
+    <script type="text/javascript">
+        // Used in extra.js, we have to define the variable here since
+        // we need access to the "config" jinja variable
+        window.outsideDocs = [{"name": "cozy-app-publish", "repo": "https://github.com/cozy/cozy-app-publish.git", "subdir": "."}, {"name": "cozy-apps-registry", "repo": "https://github.com/cozy/cozy-apps-registry.git", "subdir": "."}, {"name": "cozy-client", "repo": "https://github.com/cozy/cozy-client.git", "subdir": "docs"}, {"name": "cozy-client-js", "repo": "https://github.com/cozy/cozy-client-js.git", "subdir": "docs"}, {"name": "cozy-ui", "repo": "https://github.com/cozy/cozy-ui.git", "subdir": "docs"}, {"name": "cozy-doctypes", "repo": "https://github.com/cozy/cozy-doctypes.git", "subdir": "."}, {"name": "cozy-konnector-libs", "repo": "https://github.com/konnectors/libs.git", "subdir": "packages/cozy-konnector-libs/docs"}, {"name": "cozy-scripts", "repo": "https://github.com/cozy/create-cozy-app.git", "subdir": "packages/cozy-scripts/docs"}, {"name": "cozy-stack", "repo": "https://github.com/cozy/cozy-stack.git", "subdir": "docs"}, {"name": "konitor", "repo": "https://github.com/konnectors/konitor.git", "subdir": "docs"}, {"name": "babel-preset-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/babel-preset-cozy-app"}, {"name": "commitlint-config-cozy", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/commitlint-config-cozy"}, {"name": "cozy-device-helper", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-device-helper"}, {"name": "eslint-config-cozy-app", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/eslint-config-cozy-app"}, {"name": "cozy-flags", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-flags"}, {"name": "cozy-realtime", "repo": "https://github.com/cozy/cozy-libs.git", "subdir": "packages/cozy-realtime"}, {"name": "cozy-banks", "repo": "https://github.com/cozy/cozy-banks.git", "subdir": "."}, {"name": "ach", "repo": "https://github.com/cozy/ach.git", "subdir": "."}, {"name": "cozy-coclyco", "repo": "https://github.com/cozy/cozy-coclyco.git", "subdir": "."}]
+    </script>
+
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Ubuntu+Mono&display=fallback">
+        <style>body,input{font-family:"Lato","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Ubuntu Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../../css/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#queries" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://docs.cozy.io/" title="Cozy Developer Documentation" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon">cloud</i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Cozy Developer Documentation
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Queries
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/cozy/cozy.github.io/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../../.." title="Home" class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../app/" title="Tutorials" class="md-tabs__link md-tabs__link--active">
+          Tutorials
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../howTos/dev/runCozyDocker/" title="How-to" class="md-tabs__link">
+          How-to
+        </a>
+      
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    
+    
+  
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../cozy-client/getting-started/" title="Libraries" class="md-tabs__link">
+          Libraries
+        </a>
+      
+    </li>
+  
+
+  
+
+  
+
+      
+        
+  
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../cozy-banks/" title="Applications" class="md-tabs__link">
+          Applications
+        </a>
+      
+    </li>
+  
+
+  
+
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://docs.cozy.io/" title="Cozy Developer Documentation" class="md-nav__button md-logo">
+      
+        <i class="md-icon">cloud</i>
+      
+    </a>
+    Cozy Developer Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/cozy/cozy.github.io/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      Tutorials
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Tutorials
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../app/" title="Create Your Application" class="md-nav__link">
+      Create Your Application
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-2" type="checkbox" id="nav-2-2">
+    
+    <label class="md-nav__link" for="nav-2-2">
+      Develop a Connector
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-2">
+        Develop a Connector
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../konnector/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../konnector/getting-started/" title="Basic structure" class="md-nav__link">
+      Basic structure
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../konnector/scrape-data/" title="Scrape data" class="md-nav__link">
+      Scrape data
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../konnector/save-data/" title="Save data" class="md-nav__link">
+      Save data
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../konnector/packaging/" title="Package your connector" class="md-nav__link">
+      Package your connector
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-3" type="checkbox" id="nav-2-3" checked>
+    
+    <label class="md-nav__link" for="nav-2-3">
+      Manipulate data
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-3">
+        Manipulate data
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Queries
+      </label>
+    
+    <a href="./" title="Queries" class="md-nav__link md-nav__link--active">
+      Queries
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#basic-concepts" title="Basic concepts" class="md-nav__link">
+    Basic concepts
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mango-queries" title="Mango queries" class="md-nav__link">
+    Mango queries
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mango-queries-with-cozy-client" title="Mango queries with cozy-client" class="md-nav__link">
+    Mango queries with cozy-client
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#selectors" title="Selectors" class="md-nav__link">
+    Selectors
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#selectors-with-cozy-client" title="Selectors with cozy-client" class="md-nav__link">
+    Selectors with cozy-client
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mango-operators" title="Mango operators" class="md-nav__link">
+    Mango operators
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mango-performances" title="Mango performances" class="md-nav__link">
+    Mango performances
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#index-fields" title="Index fields" class="md-nav__link">
+    Index fields
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#index-with-cozy-client" title="Index with cozy-client" class="md-nav__link">
+    Index with cozy-client
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#index-update" title="Index update" class="md-nav__link">
+    Index update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#index-with-several-fields" title="Index with several fields" class="md-nav__link">
+    Index with several fields
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sort-data-with-mango" title="Sort data with Mango" class="md-nav__link">
+    Sort data with Mango
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sort-with-cozy-client" title="Sort with cozy-client" class="md-nav__link">
+    Sort with cozy-client
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pagination" title="Pagination" class="md-nav__link">
+    Pagination
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-them-all" title="Get them all!" class="md-nav__link">
+    Get them all!
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sort-in-couchdb" title="Sort in CouchDB" class="md-nav__link">
+    Sort in CouchDB
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comparison-of-strings" title="Comparison of strings" class="md-nav__link">
+    Comparison of strings
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#views" title="Views" class="md-nav__link">
+    Views
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#query-a-view" title="Query a view" class="md-nav__link">
+    Query a view
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage-example-references" title="Usage example: references" class="md-nav__link">
+    Usage example: references
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../pouchdb/" title="PouchDB" class="md-nav__link">
+      PouchDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../doctypes/" title="DocTypes" class="md-nav__link">
+      DocTypes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced/" title="Advanced" class="md-nav__link">
+      Advanced
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../selfhost-debian/" title="Self-Host on Debian" class="md-nav__link">
+      Self-Host on Debian
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      How-to
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        How-to
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-1" type="checkbox" id="nav-3-1">
+    
+    <label class="md-nav__link" for="nav-3-1">
+      Dev
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-1">
+        Dev
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../howTos/dev/runCozyDocker/" title="Run an App in a Cozy using Docker" class="md-nav__link">
+      Run an App in a Cozy using Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../howTos/dev/services/" title="Develop a service from your application" class="md-nav__link">
+      Develop a service from your application
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../howTos/dev/hmr/" title="Use Hot Module Replacement in Your App" class="md-nav__link">
+      Use Hot Module Replacement in Your App
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../howTos/dev/cordova/" title="Make a Mobile App Using Cordova" class="md-nav__link">
+      Make a Mobile App Using Cordova
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../howTos/dev/connect-mobile-app-local-stack/" title="Connect a Mobile App to Your Local Stack" class="md-nav__link">
+      Connect a Mobile App to Your Local Stack
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../howTos/dev/sendmail/" title="Send and Receive E-mails in Development" class="md-nav__link">
+      Send and Receive E-mails in Development
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../references/git-flow/" title="Our Front-End Git Flow" class="md-nav__link">
+      Our Front-End Git Flow
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../references/tech-intro/" title="Technical introduction to the Cozy platform" class="md-nav__link">
+      Technical introduction to the Cozy platform
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2">
+    
+    <label class="md-nav__link" for="nav-3-2">
+      Synchronize
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-2">
+        Synchronize
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../howTos/sync/linux/" title="Install Cozy Drive on GNU/Linux" class="md-nav__link">
+      Install Cozy Drive on GNU/Linux
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Libraries
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Libraries
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-1" type="checkbox" id="nav-4-1">
+    
+    <label class="md-nav__link" for="nav-4-1">
+      Develop an application
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-1">
+        Develop an application
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-1-1" type="checkbox" id="nav-4-1-1">
+    
+    <label class="md-nav__link" for="nav-4-1-1">
+      Access data (client)
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-1">
+        Access data (client)
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-client/getting-started/" title="Getting started" class="md-nav__link">
+      Getting started
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-client/architecture/" title="Architecture" class="md-nav__link">
+      Architecture
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-client/relationships/" title="Using relationships" class="md-nav__link">
+      Using relationships
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-client/metadata/" title="cozyMetadata maintenance" class="md-nav__link">
+      cozyMetadata maintenance
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-1-1-5" type="checkbox" id="nav-4-1-1-5">
+    
+    <label class="md-nav__link" for="nav-4-1-1-5">
+      React
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-1-1-5">
+        React
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-client/react-integration/" title="React integration" class="md-nav__link">
+      React integration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-client/hooks/" title="Hooks" class="md-nav__link">
+      Hooks
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-client/details/" title="Other details" class="md-nav__link">
+      Other details
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-client/api/cozy-client/" title="Cozy Client API" class="md-nav__link">
+      Cozy Client API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-client/api/cozy-pouch-link/" title="Cozy Pouch Link API" class="md-nav__link">
+      Cozy Pouch Link API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-client/api/cozy-stack-client/" title="Cozy Stack Client API" class="md-nav__link">
+      Cozy Stack Client API
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-ui/" title="Build a UI (ui)" class="md-nav__link">
+      Build a UI (ui)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-1-3" type="checkbox" id="nav-4-1-3">
+    
+    <label class="md-nav__link" for="nav-4-1-3">
+      Define data (doctypes)
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-3">
+        Define data (doctypes)
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/" title="README" class="md-nav__link">
+      README
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.accounts/" title="Accounts" class="md-nav__link">
+      Accounts
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.apps/" title="Apps" class="md-nav__link">
+      Apps
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.apps.suggestions/" title="App suggestions" class="md-nav__link">
+      App suggestions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.bank/" title="Banking doctypes" class="md-nav__link">
+      Banking doctypes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.bills/" title="Bills" class="md-nav__link">
+      Bills
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.konnectors/" title="Connectors" class="md-nav__link">
+      Connectors
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.contacts/" title="Contacts" class="md-nav__link">
+      Contacts
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.files/" title="Files" class="md-nav__link">
+      Files
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.files_metadata/" title="Files metadata" class="md-nav__link">
+      Files metadata
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.identities/" title="Identities" class="md-nav__link">
+      Identities
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.notes/" title="Notes" class="md-nav__link">
+      Notes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.notifications/" title="Notifications" class="md-nav__link">
+      Notifications
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.permissions/" title="Permissions" class="md-nav__link">
+      Permissions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.photos/" title="Photos" class="md-nav__link">
+      Photos
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.procedures/" title="Procedures" class="md-nav__link">
+      Procedures
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.sessions.logins/" title="Sessions Logins" class="md-nav__link">
+      Sessions Logins
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.settings/" title="Settings" class="md-nav__link">
+      Settings
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.sharings/" title="Sharings" class="md-nav__link">
+      Sharings
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.account_types/" title="Accounts Types" class="md-nav__link">
+      Accounts Types
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/cc.cozycloud.autocategorization/" title="Autocategorization" class="md-nav__link">
+      Autocategorization
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.exports/" title="Exports" class="md-nav__link">
+      Exports
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.jobs/" title="Jobs" class="md-nav__link">
+      Jobs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.oauth.clients/" title="OAuth Clients" class="md-nav__link">
+      OAuth Clients
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.oauth.access_codes/" title="OAuth Access Codes" class="md-nav__link">
+      OAuth Access Codes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.triggers/" title="Triggers" class="md-nav__link">
+      Triggers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.triggers.state/" title="Triggers state" class="md-nav__link">
+      Triggers state
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.remote.requests/" title="Remote requests" class="md-nav__link">
+      Remote requests
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.sessions/" title="Sessions" class="md-nav__link">
+      Sessions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.shared/" title="Shared" class="md-nav__link">
+      Shared
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.terms/" title="Terms" class="md-nav__link">
+      Terms
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/com.bitwarden.ciphers/" title="Bitwarden ciphers" class="md-nav__link">
+      Bitwarden ciphers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/com.bitwarden.folders/" title="Bitwarden folders" class="md-nav__link">
+      Bitwarden folders
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/com.unibet.bets/" title="Bets Unibet" class="md-nav__link">
+      Bets Unibet
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-1-4" type="checkbox" id="nav-4-1-4">
+    
+    <label class="md-nav__link" for="nav-4-1-4">
+      Advanced
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-4">
+        Advanced
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-realtime/" title="Realtime data (realtime)" class="md-nav__link">
+      Realtime data (realtime)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-device-helper/" title="Native devices (device-helper)" class="md-nav__link">
+      Native devices (device-helper)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-2" type="checkbox" id="nav-4-2">
+    
+    <label class="md-nav__link" for="nav-4-2">
+      Develop a konnector
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-2">
+        Develop a konnector
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-2-1" type="checkbox" id="nav-4-2-1">
+    
+    <label class="md-nav__link" for="nav-4-2-1">
+      Scrape data (konnector-libs)
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-2-1">
+        Scrape data (konnector-libs)
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-konnector-libs/" title="README" class="md-nav__link">
+      README
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-konnector-libs/api/" title="API" class="md-nav__link">
+      API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-konnector-libs/cli/" title="CLI" class="md-nav__link">
+      CLI
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-konnector-libs/dev/" title="Develop" class="md-nav__link">
+      Develop
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-konnector-libs/errors/" title="Errors" class="md-nav__link">
+      Errors
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-konnector-libs/operation-linking/" title="Operation linking" class="md-nav__link">
+      Operation linking
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-konnector-libs/synchronization/" title="Synchronization" class="md-nav__link">
+      Synchronization
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../konitor/cli/" title="konitor" class="md-nav__link">
+      konitor
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-app-publish/" title="Publish on the store (app-publish)" class="md-nav__link">
+      Publish on the store (app-publish)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-4" type="checkbox" id="nav-4-4">
+    
+    <label class="md-nav__link" for="nav-4-4">
+      Dev tools
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-4">
+        Dev tools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../babel-preset-cozy-app/" title="Babel preset" class="md-nav__link">
+      Babel preset
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../commitlint-config-cozy/" title="Commitlint" class="md-nav__link">
+      Commitlint
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../eslint-config-cozy-app/" title="ESLint" class="md-nav__link">
+      ESLint
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../ach/" title="ACH" class="md-nav__link">
+      ACH
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-5" type="checkbox" id="nav-4-5">
+    
+    <label class="md-nav__link" for="nav-4-5">
+      Advanced
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-5">
+        Advanced
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-5-1" type="checkbox" id="nav-4-5-1">
+    
+    <label class="md-nav__link" for="nav-4-5-1">
+      Stack server
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-5-1">
+        Stack server
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/" title="README" class="md-nav__link">
+      README
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-5-1-2" type="checkbox" id="nav-4-5-1-2">
+    
+    <label class="md-nav__link" for="nav-4-5-1-2">
+      Usage
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-5-1-2">
+        Usage
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/INSTALL/" title="Install the cozy-stack" class="md-nav__link">
+      Install the cozy-stack
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/config/" title="Configuration file" class="md-nav__link">
+      Configuration file
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/instance/" title="Managing Instances" class="md-nav__link">
+      Managing Instances
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/security/" title="Security" class="md-nav__link">
+      Security
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/cli/cozy-stack/" title="Manpages of the command-line tool" class="md-nav__link">
+      Manpages of the command-line tool
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-5-1-3" type="checkbox" id="nav-4-5-1-3">
+    
+    <label class="md-nav__link" for="nav-4-5-1-3">
+      How-to guides for developpers
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-5-1-3">
+        How-to guides for developpers
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/client-app-dev/" title="Develop a client-side app" class="md-nav__link">
+      Develop a client-side app
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/docker/" title="Running and building Docker images" class="md-nav__link">
+      Running and building Docker images
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/doctype/" title="Adding a new doctype" class="md-nav__link">
+      Adding a new doctype
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/assets/" title="Working with the stack assets" class="md-nav__link">
+      Working with the stack assets
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/release/" title="Build a release" class="md-nav__link">
+      Build a release
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/CONTRIBUTING/" title="The contributing guide" class="md-nav__link">
+      The contributing guide
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-5-1-4" type="checkbox" id="nav-4-5-1-4">
+    
+    <label class="md-nav__link" for="nav-4-5-1-4">
+      Explanations
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-5-1-4">
+        Explanations
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/sharing-design/" title="Sharing design" class="md-nav__link">
+      Sharing design
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/konnectors-workflow/" title="Workflow of the konnectors" class="md-nav__link">
+      Workflow of the konnectors
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-5-1-5" type="checkbox" id="nav-4-5-1-5">
+    
+    <label class="md-nav__link" for="nav-4-5-1-5">
+      List of services
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-5-1-5">
+        List of services
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/auth/" title="/auth - Authentication & OAuth" class="md-nav__link">
+      /auth - Authentication & OAuth
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/delegated-auth/" title="/oidc - Delegated authentication" class="md-nav__link">
+       /oidc - Delegated authentication
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/apps/" title="/apps - Applications Management" class="md-nav__link">
+      /apps - Applications Management
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/registry/" title="/apps - Apps registry" class="md-nav__link">
+       /apps - Apps registry
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/konnectors/" title="/apps - Konnectors" class="md-nav__link">
+       /apps - Konnectors
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/bitwarden/" title="/bitwarden - Bitwarden" class="md-nav__link">
+      /bitwarden - Bitwarden
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/contacts/" title="/contacts - Contacts" class="md-nav__link">
+      /contacts - Contacts
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/data-system/" title="/data - Data System" class="md-nav__link">
+      /data - Data System
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/mango/" title="/data - Mango" class="md-nav__link">
+       /data - Mango
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/couchdb-quirks/" title="/data - CouchDB Quirks" class="md-nav__link">
+       /data - CouchDB Quirks
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/pouchdb-quirks/" title="/data - PouchDB Quirks" class="md-nav__link">
+       /data - PouchDB Quirks
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/files/" title="/files - Virtual File System" class="md-nav__link">
+      /files - Virtual File System
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/references-docs-in-vfs/" title="/files - References of documents in VFS" class="md-nav__link">
+       /files - References of documents in VFS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/intents/" title="/intents - Intents" class="md-nav__link">
+      /intents - Intents
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/jobs/" title="/jobs - Jobs" class="md-nav__link">
+      /jobs - Jobs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/workers/" title="/jobs - Workers" class="md-nav__link">
+       /jobs - Workers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/move/" title="/move - Move, export and import an instance" class="md-nav__link">
+      /move - Move, export and import an instance
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/notes/" title="/notes - Notes for collaborative edition" class="md-nav__link">
+      /notes - Notes for collaborative edition
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/notifications/" title="/notifications - Notifications" class="md-nav__link">
+      /notifications - Notifications
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/public/" title="/public - Public" class="md-nav__link">
+      /public - Public
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/permissions/" title="/permissions - Permissions" class="md-nav__link">
+      /permissions - Permissions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/realtime/" title="/realtime - Realtime" class="md-nav__link">
+      /realtime - Realtime
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/remote/" title="/remote - Proxy for remote data/API" class="md-nav__link">
+      /remote - Proxy for remote data/API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/settings/" title="/settings - Settings" class="md-nav__link">
+      /settings - Settings
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/user-action-required/" title="/settings - Terms of Services" class="md-nav__link">
+       /settings - Terms of Services
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/sharing/" title="/sharings - Sharing" class="md-nav__link">
+      /sharings - Sharing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-stack/shortcuts/" title="/shortcuts - Shortcuts" class="md-nav__link">
+      /shortcuts - Shortcuts
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-apps-registry/" title="Registry server" class="md-nav__link">
+      Registry server
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Applications
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Applications
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-1" type="checkbox" id="nav-5-1">
+    
+    <label class="md-nav__link" for="nav-5-1">
+      Cozy Banks
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-5-1">
+        Cozy Banks
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-banks/" title="README" class="md-nav__link">
+      README
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-banks/docs/dev/" title="Develop" class="md-nav__link">
+      Develop
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-banks/docs/account-types/" title="Bank account types" class="md-nav__link">
+      Bank account types
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-banks/docs/bills-matching/" title="Matching algorithm" class="md-nav__link">
+      Matching algorithm
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-banks/docs/brand-dictionary/" title="Brands dictionary" class="md-nav__link">
+      Brands dictionary
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-banks/docs/demo/" title="Demo tricks" class="md-nav__link">
+      Demo tricks
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-banks/docs/notifications/" title="Notifications" class="md-nav__link">
+      Notifications
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-banks/docs/override-cordova-config/" title="Override Cordova project config.xml" class="md-nav__link">
+      Override Cordova project config.xml
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-banks/docs/services/" title="Services" class="md-nav__link">
+      Services
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-banks/docs/tracking/" title="Tracking" class="md-nav__link">
+      Tracking
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#basic-concepts" title="Basic concepts" class="md-nav__link">
+    Basic concepts
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mango-queries" title="Mango queries" class="md-nav__link">
+    Mango queries
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mango-queries-with-cozy-client" title="Mango queries with cozy-client" class="md-nav__link">
+    Mango queries with cozy-client
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#selectors" title="Selectors" class="md-nav__link">
+    Selectors
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#selectors-with-cozy-client" title="Selectors with cozy-client" class="md-nav__link">
+    Selectors with cozy-client
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mango-operators" title="Mango operators" class="md-nav__link">
+    Mango operators
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mango-performances" title="Mango performances" class="md-nav__link">
+    Mango performances
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#index-fields" title="Index fields" class="md-nav__link">
+    Index fields
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#index-with-cozy-client" title="Index with cozy-client" class="md-nav__link">
+    Index with cozy-client
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#index-update" title="Index update" class="md-nav__link">
+    Index update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#index-with-several-fields" title="Index with several fields" class="md-nav__link">
+    Index with several fields
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sort-data-with-mango" title="Sort data with Mango" class="md-nav__link">
+    Sort data with Mango
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sort-with-cozy-client" title="Sort with cozy-client" class="md-nav__link">
+    Sort with cozy-client
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pagination" title="Pagination" class="md-nav__link">
+    Pagination
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-them-all" title="Get them all!" class="md-nav__link">
+    Get them all!
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sort-in-couchdb" title="Sort in CouchDB" class="md-nav__link">
+    Sort in CouchDB
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comparison-of-strings" title="Comparison of strings" class="md-nav__link">
+    Comparison of strings
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#views" title="Views" class="md-nav__link">
+    Views
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#query-a-view" title="Query a view" class="md-nav__link">
+    Query a view
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage-example-references" title="Usage example: references" class="md-nav__link">
+    Usage example: references
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/cozy/cozy.github.io/edit/dev/src/tutorials/data/queries.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="queries">Queries<a class="headerlink" href="#queries" title="Permanent link">&para;</a></h1>
+<h2 id="basic-concepts">Basic concepts<a class="headerlink" href="#basic-concepts" title="Permanent link">&para;</a></h2>
+<p>The database used in Cozy to store and manipulate data is <a href="https://docs.couchdb.org/en/2.3.1/">CouchDB</a>. This is a document-oriented NoSQL database, which means that data is represented as key-value JSON documents.</p>
+<p>A basic CouchDB document looks like this:</p>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;6f978dbdc5e2424bfdec911f28005970&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;_rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-58b3a91cd89a6a2b607721f944bb6aeb&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;book&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;The Greatest Book&quot;</span> 
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>The <code>_id</code> and <code>_rev</code> fields are mandatory for each document and automatically handled by CouchDB, so the developers don’t have to worry about them. <code>_id</code> is the unique identifier of the document while <code>_rev</code> is the version number, incremented for each update. See <a href="../advanced/#revisions">here</a> to know more about the revision system.</p>
+<p>Any field can be specified in a CouchDB document (except for fields starting with a <code>_</code>, that are reserved), as long as the JSON is valid and the type is <a href="https://docs.couchdb.org/en/stable/api/basics.html#json-basics">supported</a>, i.e. Array, Object, String, Number, Boolean.</p>
+<p>CouchDB comes with two query systems to retrieve documents: </p>
+<ol>
+<li><a href="https://docs.couchdb.org/en/2.3.1/api/database/find.html">Mango queries</a>, a declarative JSON syntax</li>
+<li><a href="https://docs.couchdb.org/en/2.3.1/api/ddoc/views.html">Views</a>, to run arbitrary complex map-reduce functions </li>
+</ol>
+<p>In Cozy, we chose to support the simpler and more efficient Mango system by default, even though views are used in specific cases.</p>
+<p>ℹ️  CouchDB is an HTTP server. Therefore, all the requests made to the database must be expressed as HTTP requests. Any HTTP client can be used to directly query CouchDB (<a href="https://curl.haxx.se/">curl</a>, <a href="https://github.com/request/request">request</a>, <a href="https://insomnia.rest/">Insomnia</a> to name a few). In Cozy, the back-end server, <a href="https://docs.cozy.io/en/cozy-stack/">cozy-stack</a>, communicates with CouchDB.</p>
+<p>ℹ️ In CouchDB, you organize data in DocTypes, a data structure meant to group documents together. All documents with the same DocType are stored in a dedicated database. Thus, each database has its own documents and indexes: when performing a query, one must indicates the target database; there is no cross-databases queries capability in CouchDB, altough there is a <a href="https://docs.cozy.io/en/cozy-doctypes/docs/#relationships">relationship</a> query system to overcome this. See <a href="../doctypes/">here</a> for the DocTypes documentation.</p>
+<h2 id="mango-queries">Mango queries<a class="headerlink" href="#mango-queries" title="Permanent link">&para;</a></h2>
+<p>The manqo query system was introduced in <a href="https://blog.couchdb.org/2016/08/03/feature-mango-query/">CouchDB 2.0</a> and offers a declarative JSON syntax to perform queries on documents, inspired from MongoDB.</p>
+<p>There are several important concepts to grasp in order to efficiently use mango queries. Here, we give an overview of those concepts and detail common mistakes to avoid. </p>
+<h3 id="mango-queries-with-cozy-client">Mango queries with cozy-client<a class="headerlink" href="#mango-queries-with-cozy-client" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/cozy/cozy-client">cozy-client</a> is a JavaScript library developed by Cozy Cloud that helps to query data to the Cozy back-end, <a href="https://docs.cozy.io/en/cozy-stack/">cozy-stack</a>, without having to manually deal with authentication, index creation, pagination, etc. In the following, we provide cozy-client examples each time we introduce a new concept. If you are not familiar with it, this <a href="https://docs.cozy.io/en/cozy-client/getting-started/">tutorial</a> is a good starting place. 
+However, if for some reasons you do not want to use cozy-client, it is possible to make queries on your own by directly requesting the <a href="https://docs.cozy.io/en/cozy-stack/data-system/">cozy-stack data API</a>.</p>
+<p>In cozy-client, each query is defined as a <a href="https://docs.cozy.io/en/cozy-client/api/cozy-client/#QueryDefinition">Query Definition</a>. This API is helpful to easily chain Mango concepts (selectors, sorts, indexing, …), as we will see in the following sections.</p>
+<p>In the following, we assume a DocType named <code>io.cozy.todos</code>  describing Todo lists.</p>
+<p>Here is a basic example of a cozy-client query returning all the Todo lists in a Cozy:</p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">queryDef</span> <span class="o">=</span> <span class="nx">client</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">docs</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">queryAll</span><span class="p">(</span><span class="nx">queryDef</span><span class="p">)</span>
+</pre></div>
+
+
+<p>In this example, the <code>QueryDefinition</code> defines the query to get all the documents stored in the Todos database, expressed through <code>find("io.cozy.todos")</code>.</p>
+<h2 id="selectors">Selectors<a class="headerlink" href="#selectors" title="Permanent link">&para;</a></h2>
+<p>To use the Mango query system, you define a <code>selector</code>, expressing criterias to filter the documents to return.</p>
+<h3 id="selectors-with-cozy-client">Selectors with cozy-client<a class="headerlink" href="#selectors-with-cozy-client" title="Permanent link">&para;</a></h3>
+<p>With cozy-client, a selector is added to the query definition with the <a href="https://docs.cozy.io/en/cozy-client/api/cozy-client/#querydefinitionwhereselector-querydefinition"><code>where</code></a> method. It takes into input an object with the selector expression. For instance, this query means “the todos in &lsquo;sport’ category AND a title ‘Exercices’”: </p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">queryDef</span> <span class="o">=</span> <span class="nx">client</span>
+  <span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">where</span><span class="p">({</span>
+    <span class="s2">&quot;category&quot;</span><span class="o">:</span> <span class="s2">&quot;sport&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;Exercices&quot;</span>
+  <span class="p">})</span>
+</pre></div>
+
+
+<p><code>find</code> targets the Todos database, while <code>where</code> filters the documents to return.</p>
+<p>ℹ️ When running this query, an index will automatically be created on the <code>category</code> and <code>title</code> fields. It is highly recommended to read the <a href="#index-fields">index section</a> to avoid designing poorly efficient queries (see also <a href="#mango-performances">the section on mango performances</a>). </p>
+<p>ℹ️ The <code>$eq</code> and <code>$and</code> operators are implicit by default. It allows to write concise queries. Here is the explicit version of the previous query:</p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">queryDef</span> <span class="o">=</span> <span class="nx">client</span>
+  <span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">where</span><span class="p">({</span>
+    <span class="s2">&quot;$and&quot;</span><span class="o">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">&quot;category&quot;</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s2">&quot;$eq&quot;</span><span class="o">:</span> <span class="s2">&quot;sport&quot;</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s2">&quot;$eq&quot;</span><span class="o">:</span> <span class="s2">&quot;Exercices&quot;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">})</span>
+</pre></div>
+
+
+<h3 id="mango-operators">Mango operators<a class="headerlink" href="#mango-operators" title="Permanent link">&para;</a></h3>
+<p>There are two kinds of mango operators:</p>
+<ul>
+<li><a href="https://docs.couchdb.org/en/2.3.1/api/database/find.html#condition-operators">Condition operators</a> (<code>$eq</code>, <code>$gt</code>, <code>$lt</code>, …)</li>
+<li><a href="https://docs.couchdb.org/en/2.3.1/api/database/find.html#combination-operators">Combinaison operators</a> (<code>$and</code> , <code>$or</code>, <code>$not</code>, …)</li>
+</ul>
+<p>For more details and examples of selectors, you can directly read the <a href="https://docs.couchdb.org/en/2.3.1/api/database/find.html#selector-syntax">CouchDB documentation</a>.</p>
+<h3 id="mango-performances">Mango performances<a class="headerlink" href="#mango-performances" title="Permanent link">&para;</a></h3>
+<p>Depending on your queries and their complexity, performances can be dramatically impacted, by serveral orders of magnitude, especially for large databases, i.e. starting for thousands of documents.
+It is highly recommended to take some time to understand how to <a href="#index-fields">index fields</a> and the related <a href="../advanced/#indexes-performances-and-design">performances</a>.</p>
+<h2 id="index-fields">Index fields<a class="headerlink" href="#index-fields" title="Permanent link">&para;</a></h2>
+<p>In order to efficiently filter documents through selectors and sort them, it is important to correctly index data. An index is a way to organize documents in order to retrieve them faster.</p>
+<p>Most often, you will need to index fields to query data efficiently. Otherwise, the documents filtering will be processed by CouchDB through a full scan, i.e. fetching all the database documents and performing the selector in memory. This can be very time-consuming when the database grows. In some cases, it can even prevent the query to be run. Thus, when an index is required, <strong>any field involved in a selector should be indexed</strong>.</p>
+<p>ℹ️ It is not always necessary to index fields to filter data. For instance, let&rsquo;s assume you want all the folders inside a sub-folder, but not the trash (which is a special folder with a fixed <code>_id</code>). You should index the <code>type</code> (to exclude files) and <code>dir_id</code> (to specifiy this specific sub-folder), but you should not index the <code>_id</code> (to exclude the trash): this can easily be done on the application level. Here, indexing <code>_id</code> would make the index grows unnecessarily and impact the database performances.</p>
+<p>⚠️ Maintaining a lot of indexes is costful for the database: you should think careful about your queries and re-use existing index when possible.</p>
+<p>⚠️ cozy-client automatically indexes fields declared in a <code>where</code> call. However, this currently only works for simple queries with implicit combinaison operators, i.e. where all the fields are declared at the first level of the object. For any query involving explicit operators, you can use the <a href="https://docs.cozy.io/en/cozy-client/api/cozy-client/#QueryDefinition+indexFields"><code>indexFields</code></a> method, see below for an example.</p>
+<p>Here, we explain how you can index fields to efficiently query documents. If you are interested on why indexing is important and how your performances can dramatically vary, you can go to the advanced explanations <a href="../advanced/#indexes-performances-and-design">here</a>.</p>
+<p>With mango queries, it is required to index documents fields that are necessary to run the queries, either because they are involved in the selector or the sort.</p>
+<h3 id="index-with-cozy-client">Index with cozy-client<a class="headerlink" href="#index-with-cozy-client" title="Permanent link">&para;</a></h3>
+<p>With cozy-client, you don&rsquo;t have to deal with the index creation: it is expressed through <code>indexFields</code>:</p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">queryDef</span> <span class="o">=</span> <span class="nx">client</span>
+  <span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">where</span><span class="p">({</span>
+    <span class="s2">&quot;category&quot;</span><span class="o">:</span> <span class="s2">&quot;sport&quot;</span>
+  <span class="p">})</span>
+<span class="p">.</span><span class="nx">indexFields</span><span class="p">([</span><span class="s2">&quot;category&quot;</span><span class="p">])</span>
+</pre></div>
+
+
+<p>Thanks to this, cozy-client automatically creates an index on <code>category</code> before running the query for the first time and explicity tell CouchDB to use it.</p>
+<p>💡 In this example, the <code>indexField</code> method is not mandatory: cozy-client is smart enough to automatically index <code>category</code>  as it is involved in the selector. However, this automatic indexing only works for simple queries, thus, it is encouraged to explicity declare which fields to index.</p>
+<p>⚠️ CouchDB evaluates if a new document should be indexed by checking if its fields match an existing index. It means that <strong>all the indexed fields must exist in the document</strong> to index it. It can be problematic for queries that needs to check if a particular field exists or not. We detail this behaviour and workarounds in the <a href="../advanced/#indexes-why-is-my-document-not-being-retrieved">&ldquo;why is my document not retrieved&rdquo; section</a>.</p>
+<p>ℹ️ If no index is used to run the query, the query response will include a <code>warning: no matching index found, create an index to optimize query time</code>. It means that your index is not properly defined, probably because some fields involved in the <code>where</code>  selector are not indexed. Note that if you use a <code>sortBy</code>, you also need to index the fields involved, as explained in <a href="#sort-data">this section</a>.</p>
+<h3 id="index-update">Index update<a class="headerlink" href="#index-update" title="Permanent link">&para;</a></h3>
+<p>CouchDB updates the Mango indexes when the data is read, but not on writes. This implies that if one creates an index and inserts documents, the index will never be updated until a <code>find</code> query on these documents is performed. </p>
+<p>⚠️ This implies that a query performed after many writes can take a certain time to complete, as it will update the index before returning any result. Likewise, the first query after an index creation will include the index build. Hence, developers should keep this behaviour in mind when designing applications and typically might need to handle query latency. </p>
+<p>ℹ️ Starting from CouchDB 3.0.0, a <a href="https://docs.couchdb.org/en/3.0.0/config/indexbuilds.html">background indexing</a> is implemented. It aims to avoid this latency by forcing the index to update in background after writes.</p>
+<h3 id="index-with-several-fields">Index with several fields<a class="headerlink" href="#index-with-several-fields" title="Permanent link">&para;</a></h3>
+<p>Here is how to declare a query asking for todos having a “work” category and a creation date starting from 2019:</p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">queryDef</span> <span class="o">=</span> <span class="nx">client</span>
+  <span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">where</span><span class="p">({</span>
+    <span class="s2">&quot;$and&quot;</span><span class="o">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">&quot;created_at&quot;</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s2">&quot;$gt&quot;</span><span class="o">:</span> <span class="s2">&quot;2019-01-01&quot;</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="s2">&quot;category&quot;</span><span class="o">:</span> <span class="s2">&quot;work&quot;</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="nx">indexFields</span><span class="p">([</span><span class="s2">&quot;category&quot;</span><span class="p">,</span> <span class="s2">&quot;created_at&quot;</span><span class="p">])</span>
+</pre></div>
+
+
+<p>⚠️ The order in the <code>indexFields</code> array can be very important for performances, especially when there are both range and equality operators: you must always index the field involved in the equality operator first. To understand this, it helps to understand concepts about CouchDB indexes, explained in <a href="#indexes-performances-and-design">this section</a>.</p>
+<h2 id="sort-data-with-mango">Sort data with Mango<a class="headerlink" href="#sort-data-with-mango" title="Permanent link">&para;</a></h2>
+<p>It is possible to express the order of the documents returned by a query, by using the <code>sort</code>  array. </p>
+<p>The sort is always done on a document field, by ascending (<code>asc</code>) or descending (<code>desc</code>) order, ascending being the default. It is possible to specify several fields to sort,  by following this structure for each field:</p>
+<p><code>{"fieldName": "asc"|"desc"}</code></p>
+<p>For instance:</p>
+<p><code>[{"category": "asc"}, {"created_at": "asc"}]</code></p>
+<p>Here, the returned documents will be first sorted by category, and then by creation date.</p>
+<p>⚠️ It is not possible to mix the sort order on different fields, i.e. all the fields involved in the sort must be either <code>asc</code>, either <code>desc</code> but not a mix of both.</p>
+<p>See <a href="#sort-in-couchdb">this section</a> for more info about the sort order on data types.</p>
+<h3 id="sort-with-cozy-client">Sort with cozy-client<a class="headerlink" href="#sort-with-cozy-client" title="Permanent link">&para;</a></h3>
+<p>With cozy-client, a sort is expressed through the <code>sortBy</code> method. It takes as argument an array containing the fields to sort and the direction. For instance:</p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">queryDef</span> <span class="o">=</span> <span class="nx">client</span>
+  <span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">where</span><span class="p">({</span>
+    <span class="s2">&quot;category&quot;</span><span class="o">:</span> <span class="s2">&quot;sport&quot;</span><span class="p">,</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="nx">indexFields</span><span class="p">([</span><span class="s2">&quot;category&quot;</span><span class="p">,</span> <span class="s2">&quot;created_at&quot;</span><span class="p">])</span>
+  <span class="p">.</span><span class="nx">sortBy</span><span class="p">[{</span><span class="s2">&quot;category&quot;</span><span class="o">:</span> <span class="s2">&quot;asc&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;created_at&quot;</span><span class="o">:</span> <span class="s2">&quot;asc&quot;</span><span class="p">}]</span>
+</pre></div>
+
+
+<p>⚠️ If the fields involved in the <code>sortBy</code> are not indexed, this will force CouchDB to make the sort  in memory: this can be acceptable if the query returns few documents, but it is not efficient for large queries.</p>
+<p>⚠️ At least one of the sort fields must be included in the <code>where</code> selector. If you create an index on <code>category</code> and query it to sort on it, but with no <code>where</code> selector, the index won&rsquo;t be used. </p>
+<p>⚠️ If several fields are indexed, their order is important: the sort order must follow the indexed fields order. In this example, we index <code>category</code> and <code>created_at</code> in this order: by doing so, it is not possible to sort only on <code>created_at</code>. We would need to index <code>created_at</code> first to achieve this, but this is not recommended for performances, as explained in <a href="../advanced/#indexes-performances-and-design">this section</a>.
+See also the examples provided in the <a href="https://pouchdb.com/guides/mango-queries.html#more-than-one-field">PouchDB documentation</a>.</p>
+<h2 id="pagination">Pagination<a class="headerlink" href="#pagination" title="Permanent link">&para;</a></h2>
+<p>When dealing with queries returning a lot of documents, e.g. thousands, it might be necessary to paginate the results to avoid huge network payloads and having to load everything in memory, both on the server and client sides.</p>
+<p>The pagination consists of splitting the results in “pages”: if a query matches 100.000 documents, one can paginate it, for example by actually running 1000 queries returning 100 documents each. 
+By doing so, the server only keeps 100 documents in memory for each query, and the client can control the data flow, for example, by implementing a “Load more” button that actually runs a paginated query and loads the 100 next documents.</p>
+<p>With mango queries, the recommended method to paginate is through the <code>bookmark</code> parameter, that works exactly as it name suggests: it consists of a string returned by CouchDB that corresponds to the page position in the index. Just like an actual bookmark is used to mark a particular page in a book.</p>
+<p>With cozy-client, we can use the  <a href="https://docs.cozy.io/en/cozy-client/api/cozy-client/#querydefinitionoffsetbookmarkbookmark-querydefinition"><code>offsetBookmark</code></a> method to paginate:</p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">queryDef</span> <span class="o">=</span> <span class="nx">client</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">).</span><span class="nx">limitBy</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">docs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="kd">let</span> <span class="nx">resp</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">next</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}</span>
+<span class="k">while</span> <span class="p">(</span><span class="nx">resp</span> <span class="o">&amp;&amp;</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">resp</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">queryDef</span><span class="p">.</span><span class="nx">offsetBookmark</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">bookmark</span><span class="p">))</span>
+  <span class="nx">docs</span><span class="p">.</span><span class="nx">push</span><span class="p">(...</span><span class="nx">resp</span><span class="p">.</span><span class="nx">data</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>ℹ️ By default, cozy-client has a limit of 100 documents per query, you can calibrate it thanks to the <a href="https://docs.cozy.io/en/cozy-client/api/cozy-client/#querydefinitionlimitbylimit-querydefinition"><code>limitBy</code></a> method.</p>
+<p>ℹ️ There is a hard limit per query enforced in the cozy-stack to avoid memory leaks. Currently, this limit is set to <a href="https://github.com/cozy/cozy-stack/blob/331f6f39402dc7ec38ecf2f5ff408a1b5cf3d730/pkg/consts/consts.go#L71">1000</a>. </p>
+<p>ℹ️ The <code>next</code> parameter provided in the <code>query</code> response is handled by cozy-client and is set to <code>true</code> when it detects that there are more pages to fetch.</p>
+<h3 id="get-them-all">Get them all!<a class="headerlink" href="#get-them-all" title="Permanent link">&para;</a></h3>
+<p>When pagination is not required by the client, cozy-client offers the <a href="https://docs.cozy.io/en/cozy-client/api/cozy-client/#cozyclientqueryallquerydefinition-options-array"><code>queryAll</code></a> method:</p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">queryDef</span> <span class="o">=</span> <span class="nx">client</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">docs</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">queryAll</span><span class="p">(</span><span class="nx">queryDef</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Note that it will actually automatically paginate if the total number of documents to return is superior to the <code>limit</code> (100 by default): this avoids loading too many documents in memory on the server side.
+However, it is possible to overcome this pagination by passing <code>limit: null</code>: in this case, cozy-client will request the <a href="https://docs.couchdb.org/en/stable/api/database/bulk-api.html#db-all-docs"><code>_all_docs</code> endpoint</a> and retrieve all the documents in one query. This endpoint is automatically created by CouchDB and is actually a <a href="#views">view</a> on the <code>_id</code> key.</p>
+<p>Thus, doing this will actually query the <code>_all_docs</code> endpoint and return all the documents in one request:</p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">queryDef</span> <span class="o">=</span> <span class="nx">client</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">docs</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">queryDef</span><span class="p">,</span> <span class="p">{</span><span class="nx">limit</span><span class="o">:</span> <span class="kc">null</span><span class="p">})</span>
+</pre></div>
+
+
+<p>⚠️ When querying this endpoint, the response includes the <a href="https://docs.couchdb.org/en/master/ddocs/index.html">design docs</a>, which are the Mango indexes and views definitions.  Those documents are automatically filtered for the paginated queries.</p>
+<p>⚠️ This method is faster than the pagination as it avoids to make several server requests. However, if there are many documents to return, <code>_all_docs</code> queries can take a lot of time to complete and even timeout. It also consumes server resources. Hence, you should be cautious when using this route.</p>
+<h2 id="sort-in-couchdb">Sort in CouchDB<a class="headerlink" href="#sort-in-couchdb" title="Permanent link">&para;</a></h2>
+<p>When dealing with various types of data, the ascending sort order is the following:</p>
+<ul>
+<li>null</li>
+<li>booleans</li>
+<li>numbers</li>
+<li>strings: “a” &lt; “A” &lt; ”aa” &lt; “b” …</li>
+<li>arrays</li>
+<li>objects</li>
+</ul>
+<p>See the <a href="https://docs.couchdb.org/en/2.3.1/ddocs/views/collation.html#collation-specification">CouchDB documentation</a> for more details on the sort orders.</p>
+<p>ℹ️ The sort order is the same for Mango queries and views. </p>
+<h3 id="comparison-of-strings">Comparison of strings<a class="headerlink" href="#comparison-of-strings" title="Permanent link">&para;</a></h3>
+<p>Comparison of strings is done using ICU which implements the Unicode Collation Algorithm, giving a dictionary sorting of keys. This can give surprising results if you were expecting ASCII ordering. Note that:</p>
+<ul>
+<li>All symbols sort before numbers and letters (even the “high” symbols like tilde, <code>0x7e</code>)</li>
+<li>Differing sequences of letters are compared without regard to case, so <code>a &lt; aa</code> but also <code>A &lt; aa</code> and <code>a &lt; AA</code></li>
+<li>Identical sequences of letters are compared with regard to case, with lowercase before uppercase, so <code>a &lt; A</code>.</li>
+</ul>
+<h2 id="views">Views<a class="headerlink" href="#views" title="Permanent link">&para;</a></h2>
+<p>⚠️ In Cozy, we disabled by default the possibility to create views from applications. Consequently, <a href="https://github.com/cozy/cozy-client">cozy-client</a> does not support view creation, because they are disabled for applications. See the <a href="../advanced/#views-performances">view performances</a> section to find out why. </p>
+<p><a href="https://docs.couchdb.org/en/2.3.1/ddocs/views/index.html">CouchDB views</a> are another way to express queries in Cozy, used by the <a href="https://github.com/cozy/cozy-stack/blob/331f6f39402dc7ec38ecf2f5ff408a1b5cf3d730/pkg/couchdb/index.go#L48-L229">cozy-stack</a>. It consists of creating <a href="https://en.wikipedia.org/wiki/MapReduce">map-reduce</a> functions, where the <code>map</code> is used to qualify which documents should be indexed, and the optional <code>reduce</code>  can be used to compute aggregate functions on them.</p>
+<p>Views are much more flexible than Mango queries, as the <code>map</code>  is a user-defined function (UDF) that can be written in JavaScript.</p>
+<p>For example:</p>
+<div class="codehilite"><pre><span></span><span class="kd">function</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">category</span> <span class="o">&amp;&amp;</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">created_at</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">emit</span><span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">category</span><span class="p">,</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">created_at</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>A <code>map</code> function must always produce an <code>emit</code> , with the key and the value respectively in first and second argument.</p>
+<p>ℹ️ Behind the hoods, views are represented exactly like the Mango queries: both use <a href="../advanced/#indexes-concepts">B+ Tree</a>, with values stored in the leafs.</p>
+<h3 id="query-a-view">Query a view<a class="headerlink" href="#query-a-view" title="Permanent link">&para;</a></h3>
+<p>Just like Mango queries, views are particularly suited for equality and range queries. See the <a href="https://docs.couchdb.org/en/2.3.1/api/ddoc/views.html">CouchDB documentation</a> to know more about the API.</p>
+<p>To find a specific document, use the  <code>key</code> parameter:</p>
+<p><code>key="sport"</code></p>
+<p>To find a range, combine the <code>startkey</code> and <code>endkey</code> parameters:</p>
+<p><code>startkey="category0001"&amp;endkey="category0009"</code></p>
+<p>ℹ️ Note these queries return the values associated to their keys, as expressed by the <code>emit</code> in the <code>map</code> function. If the whole document is required, one can emit a null value, e.g. <code>emit(doc.category, null)</code> in the view definition and pass a <code>include_docs: true</code> when querying the view.</p>
+<h3 id="usage-example-references">Usage example: references<a class="headerlink" href="#usage-example-references" title="Permanent link">&para;</a></h3>
+<p>The flexibility of the views can be useful is some specific scenarios and are used in <a href="https://github.com/cozy/cozy-stack/blob/331f6f39402dc7ec38ecf2f5ff408a1b5cf3d730/pkg/couchdb/index.go#L48-L229">some use-cases</a> in cozy-stack. Typically, the <a href="https://docs.cozy.io/en/cozy-stack/references-docs-in-vfs/">references system</a> implemented for the <code>io.cozy.files</code> documents allows to link other documents to a file. For example, a file can be referenced by a photo album, a bank transaction, etc.</p>
+<p>A reference looks like this, here a file referenced by two photos albums:</p>
+<div class="codehilite"><pre><span></span><span class="s2">&quot;referenced_by&quot;</span><span class="err">:</span> <span class="p">[</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.photos.albums&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;94375086-e2e2-11e6-81b9-5bc0b9dd4aa4&quot;</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.photos.albums&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;a7375980-cf29-0138-33fe-0c1645862fd7&quot;</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+
+
+<p>This [n-n] relation is hard to express with a Mango query, so a view is defined:</p>
+<div class="codehilite"><pre><span></span><span class="kd">function</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">referenced_by</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">referenced_by</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">emit</span><span class="p">([</span><span class="nx">doc</span><span class="p">.</span><span class="nx">referenced_by</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">type</span><span class="p">,</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">referenced_by</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">id</span><span class="p">]);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Then, it is easy to get all the files referenced by a specific photo album:
+<code>key=["io.cozy.photos.albums", "94375086-e2e2-11e6-81b9-5bc0b9dd4aa4"]</code></p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../" title="Introduction" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Introduction
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../pouchdb/" title="PouchDB" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                PouchDB
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/application.245445c6.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../../.."}})</script>
+      
+        <script src="../../../extra.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,8 +1,7 @@
 import { createAutoGroups } from './services'
 import { createClientWithData } from 'test/client'
-import { GROUP_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
+import { GROUP_DOCTYPE, ACCOUNT_DOCTYPE, schema } from 'doctypes'
 import { fetchSettings } from 'ducks/settings/helpers'
-import { schema } from 'doctypes'
 
 jest.mock('ducks/settings/helpers')
 

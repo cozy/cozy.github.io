@@ -6,9 +6,13 @@ import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Button from 'cozy-ui/transpiled/react/Button'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
-import { queryConnect, Q } from 'cozy-client'
-
-import Table from 'components/Table'
+import {
+  queryConnect,
+  Q,
+  isQueryLoading,
+  hasQueryBeenLoaded
+} from 'cozy-client'
+import Table, { Row, Cell } from 'components/Table'
 import Loading from 'components/Loading'
 import plus from 'assets/icons/16/plus.svg'
 import styles from 'ducks/settings/AccountsSettings.styl'
@@ -19,10 +23,8 @@ import {
   getAccountOwners
 } from 'ducks/account/helpers'
 import { Contact } from 'cozy-doctypes'
-import { isQueryLoading, hasQueryBeenLoaded } from 'cozy-client'
 
 import { accountsConn, APP_DOCTYPE } from 'doctypes'
-import { Row, Cell } from 'components/Table'
 
 const AccountOwners = ({ account }) => {
   const owners = getAccountOwners(account)

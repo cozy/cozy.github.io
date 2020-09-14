@@ -28,13 +28,13 @@ import {
 
 import { getCategoryName } from 'ducks/categories/categoriesMap'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
-import { getCategoryId } from 'ducks/transactions/helpers'
-import { withUpdateCategory } from 'ducks/categories'
 import {
+  getCategoryId,
   getLabel,
   getDate,
   getApplicationDate
 } from 'ducks/transactions/helpers'
+import { withUpdateCategory } from 'ducks/categories'
 import { getFrequencyText } from 'ducks/recurrence/utils'
 import styles from 'ducks/transactions/Transactions.styl'
 import { getCurrencySymbol } from 'utils/currencySymbol'

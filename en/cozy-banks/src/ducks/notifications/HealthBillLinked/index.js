@@ -3,9 +3,12 @@ import { isHealthExpense } from 'ducks/categories/helpers'
 import { Bill } from 'models'
 import keyBy from 'lodash/keyBy'
 import log from 'cozy-logger'
-import { treatedByFormat } from 'ducks/notifications/utils'
+import {
+  treatedByFormat,
+  prepareTransactions,
+  getCurrentDate
+} from 'ducks/notifications/utils'
 import { getReimbursementBillIds } from 'ducks/notifications/helpers'
-import { prepareTransactions, getCurrentDate } from 'ducks/notifications/utils'
 import template from './template.hbs'
 import { toText } from 'cozy-notifications'
 
