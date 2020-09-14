@@ -21,6 +21,14 @@ Find guides for developing apps and connectors and for self-hosting.
   </div>
 
   <div class="home-action">
+    <a href="tutorials/data">
+      <img src="assets/images/home/icon-dev.svg" />
+      <h2>Learn how to manipulate data</h2>
+      <em>For Developers</em>
+    </a>
+  </div>
+
+  <div class="home-action">
     <a href="tutorials/selfhost-debian">
       <img src="assets/images/home/icon-install.svg" />
       <h2>Install your own server</h2>
