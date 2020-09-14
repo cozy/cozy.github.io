@@ -117,9 +117,13 @@ It is highly recommended to take some time to understand how to [index fields](#
 
 In order to efficiently filter documents through selectors and sort them, it is important to correctly index data. An index is a way to organize documents in order to retrieve them faster.
 
-An important point to keep in mind is that **any field involved in a selector should be indexed** for performances. Otherwise, the documents filtering will be processed by CouchDB by fetching all the database documents and performing the selector in memory, which can be very time-consuming when the database grows. In some cases, it can even prevent the query to be run.
+Most often, you will need to index fields to query data efficiently. Otherwise, the documents filtering will be processed by CouchDB through a full scan, i.e. fetching all the database documents and performing the selector in memory. This can be very time-consuming when the database grows. In some cases, it can even prevent the query to be run. Thus, when an index is required, **any field involved in a selector should be indexed**.
 
-⚠️ For this reason, cozy-client automatically indexes fields declared in a `where` call. However, this currently only works for simple queries with implicit combinaison operators, i.e. where all the fields are declared at the first level of the object. For any query involving explicit operators, you can use the [`indexFields`](https://docs.cozy.io/en/cozy-client/api/cozy-client/#QueryDefinition+indexFields) method, see below for an example.
+ℹ️ It is not always necessary to index fields to filter data. For instance, let's assume you want all the folders inside a sub-folder, but not the trash (which is a special folder with a fixed `_id`). You should index the `type` (to exclude files) and `dir_id` (to specifiy this specific sub-folder), but you should not index the `_id` (to exclude the trash): this can easily be done on the application level. Here, indexing `_id` would make the index grows unnecessarily and impact the database performances.
+
+⚠️ Maintaining a lot of indexes is costful for the database: you should think careful about your queries and re-use existing index when possible.
+
+⚠️ cozy-client automatically indexes fields declared in a `where` call. However, this currently only works for simple queries with implicit combinaison operators, i.e. where all the fields are declared at the first level of the object. For any query involving explicit operators, you can use the [`indexFields`](https://docs.cozy.io/en/cozy-client/api/cozy-client/#QueryDefinition+indexFields) method, see below for an example.
 
 Here, we explain how you can index fields to efficiently query documents. If you are interested on why indexing is important and how your performances can dramatically vary, you can go to the advanced explanations [here](./advanced.md#indexes-performances-and-design).
 
@@ -156,13 +160,13 @@ CouchDB updates the Mango indexes when the data is read, but not on writes. This
 
 ### Index with several fields
 
-Here is how to declare a query asking for todos having a “work” category OR a creation date starting from 2019:
+Here is how to declare a query asking for todos having a “work” category and a creation date starting from 2019:
 
 ```javascript
 const queryDef = client
   .find("io.cozy.todos")
   .where({
-    "$or": [
+    "$and": [
       {
         "created_at": {
           "$gt": "2019-01-01"
@@ -212,9 +216,7 @@ const queryDef = client
 
 ⚠️ If the fields involved in the `sortBy` are not indexed, this will force CouchDB to make the sort  in memory: this can be acceptable if the query returns few documents, but it is not efficient for large queries.
 
-⚠️ Inversely, when using a sort, any indexed field must appear in the `where` selector and the `sortBy`.
-
-⚠️ At least one of the sort fields must be included in the `where` selector.
+⚠️ At least one of the sort fields must be included in the `where` selector. If you create an index on `category` and query it to sort on it, but with no `where` selector, the index won't be used. 
 
 ⚠️ If several fields are indexed, their order is important: the sort order must follow the indexed fields order. In this example, we index `category` and `created_at` in this order: by doing so, it is not possible to sort only on `created_at`. We would need to index `created_at` first to achieve this, but this is not recommended for performances, as explained in [this section](advanced.md#indexes-performances-and-design).
 See also the examples provided in the [PouchDB documentation](https://pouchdb.com/guides/mango-queries.html#more-than-one-field).
