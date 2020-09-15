@@ -2835,23 +2835,21 @@
   <img src="../../img/dev/cca-create.gif" />
 </div>
 
-<p>That&rsquo;s it! You can already start developing:</p>
+<p>You&rsquo;ll also need a running <code>cozy-stack</code> server as a backend server. You can use the docker image.</p>
+<div class="codehilite"><pre><span></span>touch ~/cozy.yaml <span class="c1"># You can edit this file to configure the stack</span>
+docker run -ti --rm -p <span class="m">8080</span>:8080 -p <span class="m">5984</span>:5984 -p <span class="m">8025</span>:8025 -v <span class="o">(</span><span class="nb">pwd</span><span class="o">)</span>/build:/data/cozy-app/mycozyapp -v ~/cozy.yaml:/etc/cozy/cozy.yaml cozy/cozy-app-dev
+</pre></div>
+
+
+<p>That&rsquo;s it! You can start developing:</p>
 <div class="codehilite"><pre><span></span>cd mycozyapp
 yarn start
 </pre></div>
 
 
-<p>This command will run </p>
-<ul>
-<li><code>webpack</code> in a watching mode with a server (webpack-dev-server) to serve application assets.</li>
-<li>a Cozy <code>stack</code> using docker (the image <code>cozy/cozy-app-dev</code>) to serve your application inside it.</li>
-<li>The same docker image starts a CouchDB containing your data (be careful, since a data volume is not attached by default, your data will disappear on restart. You should start the docker image manually if you want to persist your data).</li>
-</ul>
-<p>Your application will be available at http://MY_APP_SLUG.cozy.tools:8080. Password is <code>cozy</code>.</p>
-<div class="codehilite"><pre><span></span>In this mode HMR (Hot Module Replacement) is available to help you with the application development.
-</pre></div>
-
-
+<p>This command will run  <code>webpack</code> in a watching mode with a server (webpack-dev-server) to serve
+application assets. Your application will be available at http://mycozyapp.cozy.tools:8080.
+Password is <code>cozy</code>. In this mode HMR (Hot Module Replacement) is available.</p>
 <div align="center">
   <img src="../../img/dev/cca-start.gif" />
 </div>

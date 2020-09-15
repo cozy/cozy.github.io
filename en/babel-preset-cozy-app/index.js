@@ -60,7 +60,7 @@ const validators = mapValues(optionConfigs, x => x.validator)
 const defaultOptions = mapValues(optionConfigs, x => x.default)
 
 const mkConfig = (api, options) => {
-  const presetOptions = merge(defaultOptions, options)
+  const presetOptions = merge({}, defaultOptions, options)
 
   try {
     validate(presetOptions, validators)
