@@ -57,7 +57,9 @@ describe('recurrence bundles', () => {
 
     updatedRecurrences.forEach(assertValidRecurrence)
     // eslint-disable
-    expect(sortBy(updatedRecurrences.map(formatRecurrence)).join('\n')).toMatchSnapshot()
+    expect(
+      sortBy(updatedRecurrences.map(formatRecurrence)).join('\n')
+    ).toMatchSnapshot()
   })
 
   it('should update existing bundles', () => {
@@ -69,7 +71,9 @@ describe('recurrence bundles', () => {
     )
     const recurrences = findAndUpdateRecurrences([], transactions)
 
-    expect(sortBy(recurrences.map(formatRecurrence)).join('\n')).toMatchSnapshot()
+    expect(
+      sortBy(recurrences.map(formatRecurrence)).join('\n')
+    ).toMatchSnapshot()
 
     const updatedRecurrences = findAndUpdateRecurrences(
       recurrences,
@@ -78,6 +82,8 @@ describe('recurrence bundles', () => {
 
     updatedRecurrences.forEach(assertValidRecurrence)
 
-    expect(sortBy(updatedRecurrences.map(formatRecurrence)).join('\n')).toMatchSnapshot()
+    expect(
+      sortBy(updatedRecurrences.map(formatRecurrence)).join('\n')
+    ).toMatchSnapshot()
   })
 })

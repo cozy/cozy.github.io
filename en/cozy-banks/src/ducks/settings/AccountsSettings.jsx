@@ -28,7 +28,7 @@ import plus from 'assets/icons/16/plus.svg'
 import AddAccountLink from 'ducks/settings/AddAccountLink'
 import HarvestBankAccountSettings from 'ducks/settings/HarvestBankAccountSettings'
 import { getAccountInstitutionLabel } from 'ducks/account/helpers'
-import KonnectorIcon from 'ducks/balance/KonnectorIcon'
+import KonnectorIcon from 'cozy-harvest-lib/dist/components/KonnectorIcon'
 
 import { accountsConn, APP_DOCTYPE } from 'doctypes'
 import { AccountIconContainer } from 'components/AccountIcon'

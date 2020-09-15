@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { flowRight as compose } from 'lodash'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import { translate } from 'cozy-ui/transpiled/react'
-import KonnectorIcon from 'ducks/balance/KonnectorIcon'
+import KonnectorIcon from 'cozy-harvest-lib/dist/components/KonnectorIcon'
 import styles from 'ducks/balance/AccountRow.styl'
 import stylesLoading from 'ducks/balance/AccountRowLoading.styl'
 import cx from 'classnames'
@@ -19,7 +19,7 @@ export class AccountRowLoading extends React.PureComponent {
   }
 
   render() {
-    const { t, konnector, status } = this.props
+    const { t, konnectorSlug, status } = this.props
     const isErrored = status === 'errored'
     const liProps = isErrored ? { onClick: () => this.redirect() } : {}
     return (
@@ -31,9 +31,9 @@ export class AccountRowLoading extends React.PureComponent {
       >
         <div className={styles.AccountRow__column}>
           <div className={styles.AccountRow__logo}>
-            {konnector && (
+            {konnectorSlug && (
               <KonnectorIcon
-                slug={konnector}
+                konnectorSlug={konnectorSlug}
                 className={styles.KonnectorIcon}
               />
             )}
@@ -75,7 +75,7 @@ export class AccountRowLoading extends React.PureComponent {
 
 AccountRowLoading.propTypes = {
   t: PropTypes.func.isRequired,
-  konnector: PropTypes.string.isRequired,
+  konnectorSlug: PropTypes.string.isRequired,
   account: PropTypes.string,
   status: PropTypes.string.isRequired
 }

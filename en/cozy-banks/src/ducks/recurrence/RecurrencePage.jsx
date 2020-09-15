@@ -18,6 +18,7 @@ import { Media, Img, Bd } from 'cozy-ui/transpiled/react/Media'
 import { SubTitle, Caption } from 'cozy-ui/transpiled/react/Text'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Empty from 'cozy-ui/transpiled/react/Empty'
+import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
 import Breadcrumbs from 'cozy-ui/transpiled/react/Breadcrumbs'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
@@ -67,6 +68,10 @@ const useDocument = (doctype, id) => {
 const identity = x => x
 const portal = children => ReactDOM.createPortal(children, document.body)
 
+// Need to reset line-height to 1 for action menus to be correctly rendered
+// inside Img element
+const imgLineHeightStyle = { lineHeight: 1 }
+
 const RecurrenceActionMenu = ({
   recurrence,
   onClickRename,
@@ -78,20 +83,25 @@ const RecurrenceActionMenu = ({
   const { isMobile } = useBreakpoints()
   const wrapper = isMobile ? portal : identity
   return wrapper(
-    <ActionMenu {...props}>
-      <RenameActionItem onClick={onClickRename} />
-      <DeleteActionItem onClick={onClickDelete} />
-      {isMobile ? (
-        <>
-          <hr />
-          <OngoingActionItem recurrence={recurrence} onClick={onClickOngoing} />
-          <FinishedActionItem
-            recurrence={recurrence}
-            onClick={onClickFinished}
-          />
-        </>
-      ) : null}
-    </ActionMenu>
+    <CozyTheme variant="normal">
+      <ActionMenu {...props}>
+        <RenameActionItem onClick={onClickRename} />
+        <DeleteActionItem onClick={onClickDelete} />
+        {isMobile ? (
+          <>
+            <hr />
+            <OngoingActionItem
+              recurrence={recurrence}
+              onClick={onClickOngoing}
+            />
+            <FinishedActionItem
+              recurrence={recurrence}
+              onClick={onClickFinished}
+            />
+          </>
+        ) : null}
+      </ActionMenu>
+    </CozyTheme>
   )
 }
 
@@ -148,10 +158,12 @@ const RecurrenceStatusMenu = ({
   ...props
 }) => {
   return (
-    <ActionMenu {...props}>
-      <OngoingActionItem recurrence={recurrence} onClick={onClickOngoing} />
-      <FinishedActionItem recurrence={recurrence} onClick={onClickFinished} />
-    </ActionMenu>
+    <CozyTheme variant="normal">
+      <ActionMenu {...props}>
+        <OngoingActionItem recurrence={recurrence} onClick={onClickOngoing} />
+        <FinishedActionItem recurrence={recurrence} onClick={onClickFinished} />
+      </ActionMenu>
+    </CozyTheme>
   )
 }
 
@@ -290,7 +302,7 @@ const BundleInfo = withRouter(({ bundle, router }) => {
                   <BackButton theme="primary" />
                 </SubTitle>
               </Bd>
-              <Img className="u-flex">
+              <Img className="u-flex" style={imgLineHeightStyle}>
                 <ActionMenuHelper
                   opener={
                     <Button extension="narrow" theme="secondary">

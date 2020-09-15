@@ -1,5 +1,5 @@
 import React from 'react'
-import KonnectorIcon from 'ducks/balance/KonnectorIcon'
+import KonnectorIcon from 'cozy-harvest-lib/dist/components/KonnectorIcon'
 import { getAccountInstitutionSlug } from 'ducks/account/helpers'
 import styles from './styles.styl'
 import cx from 'classnames'
@@ -25,7 +25,7 @@ const _AccountIcon = ({ account, className, size }) => {
   }
   return (
     <AccountIconContainer size={size}>
-      <KonnectorIcon slug={institutionSlug} className={className} />
+      <KonnectorIcon konnectorSlug={institutionSlug} className={className} />
     </AccountIconContainer>
   )
 }
