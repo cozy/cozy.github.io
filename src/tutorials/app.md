@@ -67,6 +67,12 @@ touch ~/cozy.yaml # You can edit this file to configure the stack
 docker run -ti --rm -p 8080:8080 -p 5984:5984 -p 8025:8025 -v (pwd)/build:/data/cozy-app/mycozyapp -v ~/cozy.yaml:/etc/cozy/cozy.yaml cozy/cozy-app-dev
 ```
 
+Alternatively, you can build `cozy-stack` locally. You can follow the install instructions [here](https://docs.cozy.io/en/cozy-stack/INSTALL/).
+Once it is installed, you can run it with `cozy-stack serve --appdir <app-name>://<app-build-path> --disable-csp`. For instance:
+```bash
+cozy-stack serve --appdir mycozyapp://home/claude/dev/mycozyapp/build --disable-csp
+```
+
 That's it! You can start developing:
 
 ```
