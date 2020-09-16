@@ -53,11 +53,7 @@ const HarvestLoader = ({ connectionId, children }) => {
               as={`konnectors/${connectionId}`}
               fetchPolicy={fetchPolicy}
             >
-              {({
-                data: { attributes: konnector },
-                fetchStatus,
-                lastUpdate
-              }) => {
+              {({ data, fetchStatus, lastUpdate }) => {
                 if (fetchStatus === 'loading' && !lastUpdate) {
                   return <HarvestSpinner />
                 }
@@ -65,6 +61,8 @@ const HarvestLoader = ({ connectionId, children }) => {
                 if (fetchStatus === 'error') {
                   return <HarvestError />
                 }
+
+                const { attributes: konnector } = data
 
                 // We do not query directly the triggers for the connection as
                 // we need to use the /jobs/triggers route. This route is only
