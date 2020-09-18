@@ -221,6 +221,8 @@ const queryDef = client
 ⚠️ If several fields are indexed, their order is important: the sort order must follow the indexed fields order. In this example, we index `category` and `created_at` in this order: by doing so, it is not possible to sort only on `created_at`. We would need to index `created_at` first to achieve this, but this is not recommended for performances, as explained in [this section](advanced.md#indexes-performances-and-design).
 See also the examples provided in the [PouchDB documentation](https://pouchdb.com/guides/mango-queries.html#more-than-one-field).
 
+⚠️ Be aware that cozy-client sort documents too after a query using `sortBy` but, for now, with a different sorting logic than couchDB. [See this cozy-client issue](https://github.com/cozy/cozy-client/issues/790) for more informations
+
 ## Pagination
 
 When dealing with queries returning a lot of documents, e.g. thousands, it might be necessary to paginate the results to avoid huge network payloads and having to load everything in memory, both on the server and client sides.
