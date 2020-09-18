@@ -956,6 +956,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#functions" title="Functions" class="md-nav__link">
+    Functions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#pouchlink" title="PouchLink" class="md-nav__link">
     PouchLink
   </a>
@@ -987,6 +994,13 @@
           <li class="md-nav__item">
   <a href="#pouchlinkstopreplication-void" title="pouchLink.stopReplication() ⇒ void" class="md-nav__link">
     pouchLink.stopReplication() ⇒ void
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pouchlinkneedstowaitwarmupdoctype-boolean" title="pouchLink.needsToWaitWarmup(doctype) ⇒ boolean" class="md-nav__link">
+    pouchLink.needsToWaitWarmup(doctype) ⇒ boolean
   </a>
   
 </li>
@@ -1096,6 +1110,13 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getqueryaliasquery-string" title="getQueryAlias(query) ⇒ string" class="md-nav__link">
+    getQueryAlias(query) ⇒ string
+  </a>
   
 </li>
       
@@ -2699,6 +2720,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#functions" title="Functions" class="md-nav__link">
+    Functions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#pouchlink" title="PouchLink" class="md-nav__link">
     PouchLink
   </a>
@@ -2730,6 +2758,13 @@
           <li class="md-nav__item">
   <a href="#pouchlinkstopreplication-void" title="pouchLink.stopReplication() ⇒ void" class="md-nav__link">
     pouchLink.stopReplication() ⇒ void
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pouchlinkneedstowaitwarmupdoctype-boolean" title="pouchLink.needsToWaitWarmup(doctype) ⇒ boolean" class="md-nav__link">
+    pouchLink.needsToWaitWarmup(doctype) ⇒ boolean
   </a>
   
 </li>
@@ -2842,6 +2877,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#getqueryaliasquery-string" title="getQueryAlias(query) ⇒ string" class="md-nav__link">
+    getQueryAlias(query) ⇒ string
+  </a>
+  
+</li>
+      
       
       
       
@@ -2890,6 +2932,12 @@ and on demand immediately.</p>
 </dd>
 </dl>
 
+<h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
+<dl>
+<dt><a href="#getQueryAlias">getQueryAlias(query)</a> ⇒ <code>string</code></dt>
+<dd></dd>
+</dl>
+
 <p><a name="PouchLink"></a></p>
 <h2 id="pouchlink">PouchLink<a class="headerlink" href="#pouchlink" title="Permanent link">&para;</a></h2>
 <p>Link to be passed to a <code>CozyClient</code> instance to support CouchDB. It instantiates
@@ -2902,6 +2950,7 @@ to respond to queries and mutations.</p>
 <li><a href="#PouchLink+handleOnSync">.handleOnSync()</a></li>
 <li><a href="#PouchLink+startReplication">.startReplication()</a> ⇒ <code>void</code></li>
 <li><a href="#PouchLink+stopReplication">.stopReplication()</a> ⇒ <code>void</code></li>
+<li><a href="#PouchLink+needsToWaitWarmup">.needsToWaitWarmup(doctype)</a> ⇒ <code>boolean</code></li>
 </ul>
 </li>
 </ul>
@@ -2965,7 +3014,27 @@ Typically, it can be used when the applications loses focus.</p>
 <p>Emits pouchlink:sync:stop event</p>
 <p><strong>Kind</strong>: instance method of <a href="#PouchLink"><code>PouchLink</code></a><br />
 <strong>Access</strong>: public<br />
-<a name="Loop"></a></p>
+<a name="PouchLink+needsToWaitWarmup"></a></p>
+<h3 id="pouchlinkneedstowaitwarmupdoctype-boolean">pouchLink.needsToWaitWarmup(doctype) ⇒ <code>boolean</code><a class="headerlink" href="#pouchlinkneedstowaitwarmupdoctype-boolean" title="Permanent link">&para;</a></h3>
+<p>Check if there is warmup queries for this doctype
+and return if those queries are already warmedup or not</p>
+<p><strong>Kind</strong>: instance method of <a href="#PouchLink"><code>PouchLink</code></a><br />
+<strong>Returns</strong>: <code>boolean</code> - the need to wait for the warmup  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>doctype</td>
+<td><code>string</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="Loop"></a></p>
 <h2 id="loop">Loop<a class="headerlink" href="#loop" title="Permanent link">&para;</a></h2>
 <p>Utility to call a function (task) periodically
 and on demand immediately.</p>
@@ -3079,7 +3148,25 @@ immediately</p>
 <a name="PouchManager+replicateOnce"></a></p>
 <h3 id="pouchmanagerreplicateonce">pouchManager.replicateOnce()<a class="headerlink" href="#pouchmanagerreplicateonce" title="Permanent link">&para;</a></h3>
 <p>Starts replication</p>
-<p><strong>Kind</strong>: instance method of <a href="#PouchManager"><code>PouchManager</code></a>  </p>
+<p><strong>Kind</strong>: instance method of <a href="#PouchManager"><code>PouchManager</code></a><br />
+<a name="getQueryAlias"></a></p>
+<h2 id="getqueryaliasquery-string">getQueryAlias(query) ⇒ <code>string</code><a class="headerlink" href="#getqueryaliasquery-string" title="Permanent link">&para;</a></h2>
+<p><strong>Kind</strong>: global function<br />
+<strong>Returns</strong>: <code>string</code> - alias  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>query</td>
+<td><code>QueryDefinition</code></td>
+</tr>
+</tbody>
+</table>
                 
                   
                 
