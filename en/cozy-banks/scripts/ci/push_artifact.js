@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+/* eslint-disable no-console */
+
 const fs = require('fs-extra')
 const path = require('path')
 const tar = require('tar')
@@ -38,9 +40,7 @@ const updateVersion = async folderName => {
     'manifest.webapp'
   )
   const appManifestObj = fs.readJSONSync(pathToManifest)
-  const appVersion = `${
-    appManifestObj.version
-  }-dev.${buildCommit}-${TRAVIS_BUILD_ID}`
+  const appVersion = `${appManifestObj.version}-dev.${buildCommit}-${TRAVIS_BUILD_ID}`
   appManifestObj.version = appVersion
   console.warn(`↳ ℹ️  Updating manifest version to ${appVersion}`)
 
@@ -60,9 +60,7 @@ const createArchive = async (folderName, archiveFileName) => {
     await tar.c(options, fileList)
   } catch (error) {
     console.error(
-      `↳ ❌ Unable to generate app archive. Is tar installed as a dependency ? Error : ${
-        error.message
-      }`
+      `↳ ❌ Unable to generate app archive. Is tar installed as a dependency ? Error : ${error.message}`
     )
     throw new Error('Unable to generate archive')
   }
@@ -83,9 +81,7 @@ const pushArtifact = async (fileName, parentFolder, options) => {
     ])
   } catch (e) {
     throw new Error(
-      `Unable to create target directory ${folder} on downcloud server : ${
-        e.message
-      }`
+      `Unable to create target directory ${folder} on downcloud server : ${e.message}`
     )
   }
 
@@ -125,10 +121,16 @@ const getUploadTarget = async (uploadTarget, appName) => {
   }
 }
 
-const run = (async () => {
+const readManifest = () => {
+  return JSON.parse(
+    fs.readFileSync(path.join(__dirname, '../../manifest.webapp')).toString()
+  )
+}
+
+;(async () => {
   try {
     const uploadTarget = process.argv[2]
-    const { version, name } = require('../../package.json')
+    const { version, name } = readManifest()
 
     const [uploadDir, uploadFile] = await getUploadTarget(uploadTarget, name)
 

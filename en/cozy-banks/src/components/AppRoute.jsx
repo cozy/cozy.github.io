@@ -2,21 +2,18 @@ import React from 'react'
 import { IndexRoute, Route, Redirect } from 'react-router'
 import App from 'components/App'
 import { isWebApp } from 'cozy-device-helper'
-import flag from 'cozy-flags'
 
 import { TransactionsPageWithBackButton } from 'ducks/transactions'
 import { CategoriesPage } from 'ducks/categories'
 import {
   Settings,
   AccountsSettings,
-  AccountSettings,
   GroupsSettings,
   GroupSettings,
   NewGroupSettings,
   Configuration,
   Debug
 } from 'ducks/settings'
-import OldAccountSettings from 'ducks/settings/OldAccountSettings'
 import { Balance, BalanceDetailsPage } from 'ducks/balance'
 import {
   DebugRecurrencePage,
@@ -68,26 +65,10 @@ const AppRoute = () => (
           component={scrollToTopOnMount(GroupSettings)}
         />
 
-        {/* This route will be removed after finishing transition to Harvest for account settings */}
-        <Route
-          path={
-            flag('banks.harvest-accounts-settings')
-              ? 'old-accounts/:accountId'
-              : 'accounts/:accountId'
-          }
-          component={scrollToTopOnMount(AccountSettings)}
-        />
         <Redirect from="accounts/:accountId" to="accounts" />
         <Route component={scrollToTopOnMount(Settings)}>
           <IndexRoute component={Configuration} />
-          <Route
-            path="accounts"
-            component={
-              flag('banks.harvest-accounts-settings')
-                ? AccountsSettings
-                : OldAccountSettings
-            }
-          />
+          <Route path="accounts" component={AccountsSettings} />
           <Route path="groups" component={GroupsSettings} />
           <Route path="configuration" component={Configuration} />
           <Route path="debug" component={Debug} />
