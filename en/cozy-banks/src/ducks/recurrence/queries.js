@@ -17,11 +17,19 @@ export const queryRecurrencesTransactions = recurrences =>
 
 export const bundleTransactionsQueryConn = ({ bundle }) => {
   return {
-    query: () =>
-      queryRecurrenceTransactions(bundle)
-        .sortBy([{ date: 'desc' }])
+    query: () => {
+      const initialQDef = queryRecurrenceTransactions(bundle)
+      const qDef = initialQDef
+        .sort([
+          { 'relationships.recurrence.data._id': 'desc' },
+          { date: 'desc' }
+        ])
+        .indexFields(['relationships.recurrence.data._id', 'date'])
+        .where({ ...initialQDef.selector, date: { $gt: null } })
         .UNSAFE_noLimit()
-        .include(['bills', 'account', 'reimbursements', 'recurrence']),
+        .include(['bills', 'account', 'reimbursements', 'recurrence'])
+      return qDef
+    },
     as: `bundle-transactions-${bundle._id}`,
     fetchPolicy: older30s
   }

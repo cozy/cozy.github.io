@@ -390,7 +390,7 @@ const BundleTransactions = ({ bundle }) => {
     return <Loading />
   }
 
-  const transactions = transactionCol.data
+  const { data: transactions, fetchStatus, lastError } = transactionCol
 
   const TransactionRow = isMobile
     ? BundleTransactionMobile
@@ -402,11 +402,18 @@ const BundleTransactions = ({ bundle }) => {
       <Wrapper>
         {transactions.length === 0 ? (
           <Padded>
-            <Empty
-              icon={{}}
-              title={t('Recurrence.no-transactions.title')}
-              text={t('Recurrence.no-transactions.text')}
-            />
+            {fetchStatus === 'failed' ? (
+              <>
+                <p>{t('Loading.error')}</p>
+                <p>{lastError && lastError.message}</p>
+              </>
+            ) : (
+              <Empty
+                icon={{}}
+                title={t('Recurrence.no-transactions.title')}
+                text={t('Recurrence.no-transactions.text')}
+              />
+            )}
           </Padded>
         ) : null}
         {transactions.map(tr => (
@@ -421,7 +428,7 @@ const BundleTransactions = ({ bundle }) => {
   )
 }
 
-const RecurrenceBundlePage = ({ params }) => {
+const RecurrencePage = ({ params }) => {
   const recurrenceCol = useQuery(recurrenceConn.query, recurrenceConn)
 
   const bundleId = params.bundleId
@@ -440,4 +447,4 @@ const RecurrenceBundlePage = ({ params }) => {
   )
 }
 
-export default withRouter(RecurrenceBundlePage)
+export default withRouter(RecurrencePage)

@@ -42,7 +42,7 @@
     
     
       
-        <title>Dev - Cozy Developer Documentation</title>
+        <title>Working with a linked cozy-ui - Cozy Developer Documentation</title>
       
     
     
@@ -126,7 +126,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Dev
+                Working with a linked cozy-ui
               
             </span>
           
@@ -2523,6 +2523,16 @@
 <p>Then you can have the transpiler watch the files :</p>
 <p><code>yarn transpile --watch</code></p>
 <p>If you change the icons, or the palette, you must run <code>yarn release</code> again.</p>
+<p>On the app side, instead of using <code>yarn link</code> which can cause problems
+with imports, you can use <a href="https://gist.github.com/ptbrowne/add609bdcf4396d32072acc4674fff23"><code>rlink</code></a>.</p>
+<h1 id="transform-markdown-examples">Transform markdown examples<a class="headerlink" href="#transform-markdown-examples" title="Permanent link">&para;</a></h1>
+<p>:information_source: <a href="https://github.com/remarkjs/remark"><code>remark</code></a> is a processor for markdown: it parses markdown source into an AST,
+transforms the tree and stringifies it afterwards. It can be used along with
+jscodeshift to automatically migrate and transform examples.</p>
+<p>When an API has changed and we need to update example, it can be useful to do it via a codemod. Here
+is an example, running a jscodeshift codemod through the remark-jscodeshift plugin:</p>
+<div class="codehilite"><pre><span></span>remark -o --use remark-jscodeshift=allowNoLang:true,transform:\&quot;codemods/transform-dialog-imports.js\&quot; .
+</pre></div>
                 
                   
                 

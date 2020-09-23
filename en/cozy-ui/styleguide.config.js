@@ -125,6 +125,7 @@ module.exports = {
       components: () => [
         '../react/Alerter/index.jsx',
         '../react/AppIcon/index.jsx',
+        '../react/AppTile/index.jsx',
         '../react/AppSections/index.jsx',
         '../react/CipherIcon/index.jsx',
         '../react/CozyTheme/index.jsx',
