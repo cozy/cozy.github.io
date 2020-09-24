@@ -462,6 +462,7 @@ func Router() *echo.Echo {
 	e.GET("/editors/:editor", getEditor, jsonEndpoint, middleware.Gzip())
 
 	e.GET("/.well-known/:filename", universalLink, middleware.Gzip())
+	e.GET("/biwebauth", webAuthRedirect)
 	e.GET("/:slug", universalLinkRedirect)
 	e.GET("/:slug/*", universalLinkRedirect)
 

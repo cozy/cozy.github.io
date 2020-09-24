@@ -2771,9 +2771,10 @@ notification:</p>
 <li><code>state</code> (string): state of the notification, used for <code>stateful</code>
     notification categories, to distinguish notifications</li>
 <li><code>preferred_channels</code> (array of string): to select a list of preferred
-    channels for this notification: either <code>"mobile"</code> or <code>"mail"</code>. The stack may
-    chose another channels. <code>["mobile", "mail"]</code> means that the stack will first
-    try to send a mobile notification, and if it fails, it will try by mail.</li>
+    channels for this notification: either <code>"mobile"</code>, <code>"sms"</code> or <code>"mail"</code>. The
+    stack may chose another channels. <code>["mobile", "mail"]</code> means that the stack
+    will first try to send a mobile push notification, and if it fails, it will
+    try by mail.</li>
 <li><code>data</code> (map): key/value map used to create the notification from its
     template, or sent in the notification payload for mobiles</li>
 <li><code>at</code> (string): send the notification later, at this date formatted in

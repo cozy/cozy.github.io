@@ -2663,6 +2663,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#budget-insight-web-auth" title="Budget-Insight web auth" class="md-nav__link">
+    Budget-Insight web auth
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#community" title="Community" class="md-nav__link">
     Community
   </a>
@@ -3206,6 +3213,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#budget-insight-web-auth" title="Budget-Insight web auth" class="md-nav__link">
+    Budget-Insight web auth
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#community" title="Community" class="md-nav__link">
     Community
   </a>
@@ -3295,6 +3309,7 @@
 <li><a href="#usage">Usage</a></li>
 </ul>
 </li>
+<li><a href="#biwebauth">BI Web Auth</a></li>
 <li><a href="#community">Community</a></li>
 </ul>
 <h2 id="what-about-this-repository">What about this repository?<a class="headerlink" href="#what-about-this-repository" title="Permanent link">&para;</a></h2>
@@ -4198,6 +4213,15 @@ application document.</p>
 </pre></div>
 
 
+<h2 id="budget-insight-web-auth">Budget-Insight web auth<a class="headerlink" href="#budget-insight-web-auth" title="Permanent link">&para;</a></h2>
+<p>For some banks integration (Paypal, Orange Bank, Revolut…), Budget-Insight need
+something similar to universal link because they expect a static domain for
+fallback but there is a specific domain per Cozy instance.
+In contrast with universal links, query parameters (provided by BI) are propagated
+to the final fallback redirection.</p>
+<p><code>http://&lt;registry-domain&gt;/biwebauth?fallback=http%3A%2F%2Fa.cozy%3Ffoo%3Dfoo&amp;bar=bar</code>
+redirect to <code>http://a.cozy?foo=foo&amp;bar=bar</code>, merging fallback provided query
+parameters (<code>foo=foo</code>) with webauth provided ones (<code>bar=bar</code>). </p>
 <h2 id="community">Community<a class="headerlink" href="#community" title="Permanent link">&para;</a></h2>
 <p>You can reach the Cozy Community by:</p>
 <ul>

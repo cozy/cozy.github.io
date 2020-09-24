@@ -2241,6 +2241,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#sms-worker" title="sms worker" class="md-nav__link">
+    sms worker
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#unzip-worker" title="unzip worker" class="md-nav__link">
     unzip worker
   </a>
@@ -2848,6 +2855,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#sms-worker" title="sms worker" class="md-nav__link">
+    sms worker
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#unzip-worker" title="unzip worker" class="md-nav__link">
     unzip worker
   </a>
@@ -3096,22 +3110,11 @@ options are:</p>
 
 
 <h3 id="permissions">Permissions<a class="headerlink" href="#permissions" title="Permanent link">&para;</a></h3>
-<p>To use this worker from a client-side application, you will need to ask the
-permission. It is done by adding this to the manifest:</p>
-<div class="codehilite"><pre><span></span><span class="p">{</span>
-    <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;push-notification&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Required to send notifications&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">],</span>
-            <span class="nt">&quot;selector&quot;</span><span class="p">:</span> <span class="s2">&quot;worker&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;push&quot;</span><span class="p">]</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-
-
+<p>To use this worker from a client-side application, you should use
+<a href="../notifications/">the notifications API</a>.</p>
+<h2 id="sms-worker">sms worker<a class="headerlink" href="#sms-worker" title="Permanent link">&para;</a></h2>
+<p>The <code>sms</code> worker can be used to send SMS notifications to a user, via
+<a href="../notifications/">the notifications API</a>.</p>
 <h2 id="unzip-worker">unzip worker<a class="headerlink" href="#unzip-worker" title="Permanent link">&para;</a></h2>
 <p>The <code>unzip</code> worker can take a zip archive from the VFS, and will unzip the files
 inside it to a directory of the VFS. The options are:</p>
