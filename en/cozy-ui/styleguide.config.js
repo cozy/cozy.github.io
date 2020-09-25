@@ -91,6 +91,7 @@ module.exports = {
         '../react/OrderedList/index.jsx',
         '../react/Table/index.jsx',
         '../react/Text/index.jsx',
+        '../react/Typography/index.jsx',
         '../react/Tooltip/index.jsx',
         '../react/UnorderedList/index.jsx',
         '../react/Well/index.jsx',
