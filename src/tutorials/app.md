@@ -28,7 +28,7 @@ Every application running inside Cozy is a client-side HTML5 application interac
 
 The easiest way is to use the Docker image for developers we provide.
 
-Just install it:
+Download it for now:
 
 ```sh
 docker pull cozy/cozy-app-dev
@@ -60,11 +60,11 @@ The script will download some dependencies (may take a while) and ask you a few 
   <img src="../../img/dev/cca-create.gif" />
 </div>
 
-You'll also need a running `cozy-stack` server as a backend server. You can use the docker image.
+You'll also need a running `cozy-stack` server as a backend server. You can use the docker image you downloaded earlier.
 
 ```bash
 touch ~/cozy.yaml # You can edit this file to configure the stack
-docker run -ti --rm -p 8080:8080 -p 5984:5984 -p 8025:8025 -v (pwd)/build:/data/cozy-app/mycozyapp -v ~/cozy.yaml:/etc/cozy/cozy.yaml cozy/cozy-app-dev
+docker run -ti --rm -p 8080:8080 -p 5984:5984 -p 8025:8025 -v $(pwd)/mycozyapp/build:/data/cozy-app/mycozyapp -v ~/cozy.yaml:/etc/cozy/cozy.yaml cozy/cozy-app-dev
 ```
 
 Alternatively, you can build `cozy-stack` locally. You can follow the install instructions [here](https://docs.cozy.io/en/cozy-stack/INSTALL/).
@@ -107,24 +107,24 @@ With that, no need to configure your environment to set extra local hosts for de
 The minimal application consist of only two files:
 
  - an HTML file, `index.html`, with the markup and the code of your application
- - a manifest describing the application. It’s a JSON file named `manifest.webapp` with the name of the application, the permissions it requires… We’ll have a deeper look to it content later.
+ - a manifest describing the application. It’s a JSON file named `manifest.webapp` with the name of the application, the permissions it requires… We’ll have a deeper look to its content later.
 
 Your application requires some informations to interact with the server API, for example the URL of its entrypoint, and an auth token. This data will be dynamically injected into `index.html` when it serves the page. So the `index.html` file has to contain some string that will be replaced by the server. The general syntax of this variables is `{{…}}`, so don’t use this syntax for other purpose in the page, for example inside comments.
 
 You can use the following variables:
 
- - `{{.Domain}}` will be substituted by the URL of the API entrypoint
- - `{{.Token}}` will be replaced by a token that authenticate your application when accessing the API
- - `{{.Locale}}`: the lang f the instance
+ - `{{.Domain}}`: will be substituted by the URL of the API entrypoint
+ - `{{.Token}}`: will be replaced by a token that authenticate your application when accessing the API
+ - `{{.Locale}}`: the lang of the instance
  - `{{.AppName}}`: the name of the application
  - `{{.AppNamePrefix}}`: the name prefix of the application
  - `{{.AppSlug}}`: the slug of the application
  - `{{.AppEditor}}`: the editor of the application
- - `{{.IconPath}}` will be replaced by HTML code to display the *favicon*
- - `{{.CozyClientJS}}` will be replaced with HTML code to inject the Cozy client library (old Cozy client)
- - `{{.CozyBar}}` will be replaced with HTML code to inject the upper menu bar
- - `{{.ThemeCSS}}` will be replaced by the `theme.css`. It is empty by default, but can be overrided by using `contexts`.
- - `{{.Favicon}}` will be replaced by the favicon served by the stack.
+ - `{{.IconPath}}`: will be replaced by HTML code to display the *favicon*
+ - `{{.CozyClientJS}}`: will be replaced with HTML code to inject the Cozy client library (old Cozy client)
+ - `{{.CozyBar}}`: will be replaced with HTML code to inject the upper menu bar
+ - `{{.ThemeCSS}}`: will be replaced by the `theme.css`. It is empty by default, but can be overrided by using `contexts`.
+ - `{{.Favicon}}`: will be replaced by the favicon served by the stack.
 
 This allows to get this kind of `index.html`:
 
@@ -151,7 +151,7 @@ This allows to get this kind of `index.html`:
 
 ### Read the application manifest
 
-Each application must have a “manifest”. It’s a JSON file named `manifest.webapp` stored at the root of theapplication directory. It describes the application, the type of documents it uses, the permissions it requires…
+Each application must have a “manifest”. It’s a JSON file named `manifest.webapp` stored at the root of the application directory. It describes the application, the type of documents it uses, the permissions it requires…
 
 Here’s a sample manifest:
 
@@ -195,9 +195,9 @@ Here’s a sample manifest:
 
 #### Permissions
 
-Applications require permissions to use most of the APIs. Permissions can be described inside the manifest, so theserver can ask the user to grant them during installation. Applications can also request permissions at run time.
+Applications require permissions to use most of the APIs. Permissions can be described inside the manifest, so the server can ask the user to grant them during installation. Applications can also request permissions at run time.
 
-A permission must at type contain a target, the type of objects the application want to interact with. Can be a document type, or an action on the server. By default, all grant on this object are granted, but we can also request fine grained permissions, for example limiting to read access. We can also limit the scope to a subset of thedocuments.
+A permission must at least contain a target, the type of objects the application want to interact with. Can be a document type, or an action on the server. By default, all permissions on this object are granted, but we can also request fine grained permissions, for example limiting to read access. We can also limit the scope to a subset of the documents.
 
 In the manifest, each permission is an object, with a random name and some properties:
   - `type`: **mandatory** the document type or action name
@@ -210,7 +210,7 @@ An application can request a token that grant access to a subset of its own perm
 
 ##### Samples
 
-Application require full access to files:
+Application requiring full access to files:
 
 ```json
 {
@@ -223,7 +223,7 @@ Application require full access to files:
 }
 ```
 
-Application want to be able to read the contact informations of `cozy@cozycloud.cc`
+Application wanting to be able to read the contact information of `cozy@cozycloud.cc`
 
 ```json
 {
@@ -240,7 +240,7 @@ Application want to be able to read the contact informations of `cozy@cozycloud.
 
 #### Routing
 
-The application must declare all of its URLs (routes) inside the manifest. A route is an object associating an URL toan HTML file. Each route has the following properties:
+The application must declare all of its URLs (routes) inside the manifest. A route is an object associating an URL to a HTML file. Each route has the following properties:
 
   - `folder`: the base folder of the route
   - `index`: the name of the file inside this folder
@@ -269,13 +269,12 @@ Sample:
 
 ### Behind the magic
 
-Some server APIs may not be available right now through the library. If you want to use one of this method, you’llhave to call it manually. We’ll describe here how to access the API without using the Cozy Client library.
+Some server APIs may not be available right now through the library. If you want to use one of this method, you’ll have to call it manually. We’ll describe here how to access the API without using the Cozy Client library.
 
 Connecting to the API requires three things:
-
   - its URL, injected into the page through the `{{.Domain}}` variable
-  - the application auth token, injected into the page through the `{{.Token}}` variable. Each request sent to theserver must include this token in the `Authorization` header
-  - the session cookie, created when you connect to your server. This is an `HttpOnly cookie`, meaning that JavaScriptapplications can’t read it. This prevent a malicious script to stole the cookie.
+  - the application auth token, injected into the page through the `{{.Token}}` variable. Each request sent to the server must include this token in the `Authorization` header
+  - the session cookie, created when you connect to your server. This is an `HttpOnly cookie`, meaning that JavaScript applications can’t read it. This prevent a malicious script to steal the cookie.
 
 Here’s a sample code that get API informations provided by the server and query the API:
 
@@ -293,9 +292,9 @@ document.addEventListener('DOMContentLoaded', () => {
     headers: {
       Authorization: `Bearer ${app.dataset.cozyToken}` // Here we use the auth token
     },
-    credentials: 'include' // don’t forget to include the session cookie
+    credentials: 'include' // Don’t forget to include the session cookie
   })
-  .then(function (response) {
+  .then((response) => {
     if (response.ok) {
       response.json().then((result) => {
         console.log(result);
@@ -304,7 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
       throw new Error('Network response was not ok.');
     }
   })
-  .catch(function (error) {
+  .catch((error) => {
     console.log('There has been a problem with your fetch operation: ' + error.message);
   });
 });
@@ -320,15 +319,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 ### Discover the Cozy Bar
 
-The [Cozy Bar](https://github.com/cozy/cozy-bar) is a component that display the Cozy menu on the top of yourapplication and allow inter-apps features like content sharing.
+The [Cozy Bar](https://github.com/cozy/cozy-bar) is a component that displays the Cozy menu on the top of your application and allows inter-apps features like content sharing.
 
-Your application interacts with this component through `cozy-bar.js`, a library injected into your pages by theserver when you add `{{.CozyBar}}` in the header. It exposes an API behind the window.cozy.bar namespace.
+Your application interacts with this component through `cozy-bar.js`, a library injected into your pages by the server when you add `{{.CozyBar}}` in the header. It exposes an API behind the `window.cozy.bar` namespace.
 
 Before using it, you have to initialize the library: `window.cozy.bar.init({appName: "Mon application"})`.
 
 ### Style with Cozy UI
 
-If you plan to build a webapp to run on Cozy, you’ll probably want to use a simple and elegant solution to build your interfaces without the mess of dealing with complex markup and CSS. Then [Cozy UI](https://github.com/cozy/cozy-ui/)is here for you!
+If you plan to build a webapp to run on Cozy, you’ll probably want to use a simple and elegant solution to build your interfaces without the mess of dealing with complex markup and CSS. Then [Cozy UI](https://github.com/cozy/cozy-ui/) is here for you!
 
 It relies on Stylus as preprocessor. You can add it as a library in your project to use it out-of-the-box.
 
