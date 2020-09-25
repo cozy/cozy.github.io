@@ -2809,7 +2809,7 @@
 </div>
 <p>Every application running inside Cozy is a client-side HTML5 application interacting with your data through the API of the server. To develop an application, you’ll require a running Cozy server.</p>
 <p>The easiest way is to use the Docker image for developers we provide.</p>
-<p>Just install it:</p>
+<p>Download it for now:</p>
 <div class="codehilite"><pre><span></span>docker pull cozy/cozy-app-dev
 </pre></div>
 
@@ -2835,9 +2835,9 @@
   <img src="../../img/dev/cca-create.gif" />
 </div>
 
-<p>You&rsquo;ll also need a running <code>cozy-stack</code> server as a backend server. You can use the docker image.</p>
+<p>You&rsquo;ll also need a running <code>cozy-stack</code> server as a backend server. You can use the docker image you downloaded earlier.</p>
 <div class="codehilite"><pre><span></span>touch ~/cozy.yaml <span class="c1"># You can edit this file to configure the stack</span>
-docker run -ti --rm -p <span class="m">8080</span>:8080 -p <span class="m">5984</span>:5984 -p <span class="m">8025</span>:8025 -v <span class="o">(</span><span class="nb">pwd</span><span class="o">)</span>/build:/data/cozy-app/mycozyapp -v ~/cozy.yaml:/etc/cozy/cozy.yaml cozy/cozy-app-dev
+docker run -ti --rm -p <span class="m">8080</span>:8080 -p <span class="m">5984</span>:5984 -p <span class="m">8025</span>:8025 -v <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/mycozyapp/build:/data/cozy-app/mycozyapp -v ~/cozy.yaml:/etc/cozy/cozy.yaml cozy/cozy-app-dev
 </pre></div>
 
 
@@ -2870,23 +2870,23 @@ With that, no need to configure your environment to set extra local hosts for de
 <p>The minimal application consist of only two files:</p>
 <ul>
 <li>an HTML file, <code>index.html</code>, with the markup and the code of your application</li>
-<li>a manifest describing the application. It’s a JSON file named <code>manifest.webapp</code> with the name of the application, the permissions it requires… We’ll have a deeper look to it content later.</li>
+<li>a manifest describing the application. It’s a JSON file named <code>manifest.webapp</code> with the name of the application, the permissions it requires… We’ll have a deeper look to its content later.</li>
 </ul>
 <p>Your application requires some informations to interact with the server API, for example the URL of its entrypoint, and an auth token. This data will be dynamically injected into <code>index.html</code> when it serves the page. So the <code>index.html</code> file has to contain some string that will be replaced by the server. The general syntax of this variables is <code>{{…}}</code>, so don’t use this syntax for other purpose in the page, for example inside comments.</p>
 <p>You can use the following variables:</p>
 <ul>
-<li><code>{{.Domain}}</code> will be substituted by the URL of the API entrypoint</li>
-<li><code>{{.Token}}</code> will be replaced by a token that authenticate your application when accessing the API</li>
-<li><code>{{.Locale}}</code>: the lang f the instance</li>
+<li><code>{{.Domain}}</code>: will be substituted by the URL of the API entrypoint</li>
+<li><code>{{.Token}}</code>: will be replaced by a token that authenticate your application when accessing the API</li>
+<li><code>{{.Locale}}</code>: the lang of the instance</li>
 <li><code>{{.AppName}}</code>: the name of the application</li>
 <li><code>{{.AppNamePrefix}}</code>: the name prefix of the application</li>
 <li><code>{{.AppSlug}}</code>: the slug of the application</li>
 <li><code>{{.AppEditor}}</code>: the editor of the application</li>
-<li><code>{{.IconPath}}</code> will be replaced by HTML code to display the <em>favicon</em></li>
-<li><code>{{.CozyClientJS}}</code> will be replaced with HTML code to inject the Cozy client library (old Cozy client)</li>
-<li><code>{{.CozyBar}}</code> will be replaced with HTML code to inject the upper menu bar</li>
-<li><code>{{.ThemeCSS}}</code> will be replaced by the <code>theme.css</code>. It is empty by default, but can be overrided by using <code>contexts</code>.</li>
-<li><code>{{.Favicon}}</code> will be replaced by the favicon served by the stack.</li>
+<li><code>{{.IconPath}}</code>: will be replaced by HTML code to display the <em>favicon</em></li>
+<li><code>{{.CozyClientJS}}</code>: will be replaced with HTML code to inject the Cozy client library (old Cozy client)</li>
+<li><code>{{.CozyBar}}</code>: will be replaced with HTML code to inject the upper menu bar</li>
+<li><code>{{.ThemeCSS}}</code>: will be replaced by the <code>theme.css</code>. It is empty by default, but can be overrided by using <code>contexts</code>.</li>
+<li><code>{{.Favicon}}</code>: will be replaced by the favicon served by the stack.</li>
 </ul>
 <p>This allows to get this kind of <code>index.html</code>:</p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
@@ -2910,7 +2910,7 @@ With that, no need to configure your environment to set extra local hosts for de
 
 
 <h3 id="read-the-application-manifest">Read the application manifest<a class="headerlink" href="#read-the-application-manifest" title="Permanent link">&para;</a></h3>
-<p>Each application must have a “manifest”. It’s a JSON file named <code>manifest.webapp</code> stored at the root of theapplication directory. It describes the application, the type of documents it uses, the permissions it requires…</p>
+<p>Each application must have a “manifest”. It’s a JSON file named <code>manifest.webapp</code> stored at the root of the application directory. It describes the application, the type of documents it uses, the permissions it requires…</p>
 <p>Here’s a sample manifest:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;My Awesome application&quot;</span><span class="p">,</span>
@@ -2951,8 +2951,8 @@ With that, no need to configure your environment to set extra local hosts for de
 
 
 <h4 id="permissions">Permissions<a class="headerlink" href="#permissions" title="Permanent link">&para;</a></h4>
-<p>Applications require permissions to use most of the APIs. Permissions can be described inside the manifest, so theserver can ask the user to grant them during installation. Applications can also request permissions at run time.</p>
-<p>A permission must at type contain a target, the type of objects the application want to interact with. Can be a document type, or an action on the server. By default, all grant on this object are granted, but we can also request fine grained permissions, for example limiting to read access. We can also limit the scope to a subset of thedocuments.</p>
+<p>Applications require permissions to use most of the APIs. Permissions can be described inside the manifest, so the server can ask the user to grant them during installation. Applications can also request permissions at run time.</p>
+<p>A permission must at least contain a target, the type of objects the application want to interact with. Can be a document type, or an action on the server. By default, all permissions on this object are granted, but we can also request fine grained permissions, for example limiting to read access. We can also limit the scope to a subset of the documents.</p>
 <p>In the manifest, each permission is an object, with a random name and some properties:
   - <code>type</code>: <strong>mandatory</strong> the document type or action name
   - <code>description</code>: a text that will be displayed to the user to explain why the application require this permission
@@ -2961,7 +2961,7 @@ With that, no need to configure your environment to set extra local hosts for de
   - <code>values</code>: array of allowed values for this attribute.</p>
 <p>An application can request a token that grant access to a subset of its own permissions. For example if the application has full access to the files, it can obtain a token that give only read access on a file. Thus, the application can make some documents publicly available. The public page of the application will use this token asauthentication token when accessing the API.</p>
 <h5 id="samples">Samples<a class="headerlink" href="#samples" title="Permanent link">&para;</a></h5>
-<p>Application require full access to files:</p>
+<p>Application requiring full access to files:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -2973,7 +2973,7 @@ With that, no need to configure your environment to set extra local hosts for de
 </pre></div>
 
 
-<p>Application want to be able to read the contact informations of <code>cozy@cozycloud.cc</code></p>
+<p>Application wanting to be able to read the contact information of <code>cozy@cozycloud.cc</code></p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;contact&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -2988,7 +2988,7 @@ With that, no need to configure your environment to set extra local hosts for de
 
 
 <h4 id="routing">Routing<a class="headerlink" href="#routing" title="Permanent link">&para;</a></h4>
-<p>The application must declare all of its URLs (routes) inside the manifest. A route is an object associating an URL toan HTML file. Each route has the following properties:</p>
+<p>The application must declare all of its URLs (routes) inside the manifest. A route is an object associating an URL to a HTML file. Each route has the following properties:</p>
 <ul>
 <li><code>folder</code>: the base folder of the route</li>
 <li><code>index</code>: the name of the file inside this folder</li>
@@ -3015,13 +3015,11 @@ With that, no need to configure your environment to set extra local hosts for de
 
 
 <h3 id="behind-the-magic">Behind the magic<a class="headerlink" href="#behind-the-magic" title="Permanent link">&para;</a></h3>
-<p>Some server APIs may not be available right now through the library. If you want to use one of this method, you’llhave to call it manually. We’ll describe here how to access the API without using the Cozy Client library.</p>
-<p>Connecting to the API requires three things:</p>
-<ul>
-<li>its URL, injected into the page through the <code>{{.Domain}}</code> variable</li>
-<li>the application auth token, injected into the page through the <code>{{.Token}}</code> variable. Each request sent to theserver must include this token in the <code>Authorization</code> header</li>
-<li>the session cookie, created when you connect to your server. This is an <code>HttpOnly cookie</code>, meaning that JavaScriptapplications can’t read it. This prevent a malicious script to stole the cookie.</li>
-</ul>
+<p>Some server APIs may not be available right now through the library. If you want to use one of this method, you’ll have to call it manually. We’ll describe here how to access the API without using the Cozy Client library.</p>
+<p>Connecting to the API requires three things:
+  - its URL, injected into the page through the <code>{{.Domain}}</code> variable
+  - the application auth token, injected into the page through the <code>{{.Token}}</code> variable. Each request sent to the server must include this token in the <code>Authorization</code> header
+  - the session cookie, created when you connect to your server. This is an <code>HttpOnly cookie</code>, meaning that JavaScript applications can’t read it. This prevent a malicious script to steal the cookie.</p>
 <p>Here’s a sample code that get API informations provided by the server and query the API:</p>
 <div class="codehilite"><pre><span></span>    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-cozy-token</span><span class="o">=</span><span class="s">&quot;{{.Token}}&quot;</span> <span class="na">data-cozy-domain</span><span class="o">=</span><span class="s">&quot;{{.Domain}}&quot;</span> <span class="p">/&gt;</span>
 </pre></div>
@@ -3036,9 +3034,9 @@ With that, no need to configure your environment to set extra local hosts for de
     <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span>
       <span class="nx">Authorization</span><span class="o">:</span> <span class="sb">`Bearer </span><span class="si">${</span><span class="nx">app</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">cozyToken</span><span class="si">}</span><span class="sb">`</span> <span class="c1">// Here we use the auth token</span>
     <span class="p">},</span>
-    <span class="nx">credentials</span><span class="o">:</span> <span class="s1">&#39;include&#39;</span> <span class="c1">// don’t forget to include the session cookie</span>
+    <span class="nx">credentials</span><span class="o">:</span> <span class="s1">&#39;include&#39;</span> <span class="c1">// Don’t forget to include the session cookie</span>
   <span class="p">})</span>
-  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">ok</span><span class="p">)</span> <span class="p">{</span>
       <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">().</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
         <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
@@ -3047,7 +3045,7 @@ With that, no need to configure your environment to set extra local hosts for de
       <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;Network response was not ok.&#39;</span><span class="p">);</span>
     <span class="p">}</span>
   <span class="p">})</span>
-  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;There has been a problem with your fetch operation: &#39;</span> <span class="o">+</span> <span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
   <span class="p">});</span>
 <span class="p">});</span>
@@ -3062,11 +3060,11 @@ With that, no need to configure your environment to set extra local hosts for de
 <li><a href="https://docs.cozy.io/en/cozy-client/api/cozy-client/">API docs</a></li>
 </ul>
 <h3 id="discover-the-cozy-bar">Discover the Cozy Bar<a class="headerlink" href="#discover-the-cozy-bar" title="Permanent link">&para;</a></h3>
-<p>The <a href="https://github.com/cozy/cozy-bar">Cozy Bar</a> is a component that display the Cozy menu on the top of yourapplication and allow inter-apps features like content sharing.</p>
-<p>Your application interacts with this component through <code>cozy-bar.js</code>, a library injected into your pages by theserver when you add <code>{{.CozyBar}}</code> in the header. It exposes an API behind the window.cozy.bar namespace.</p>
+<p>The <a href="https://github.com/cozy/cozy-bar">Cozy Bar</a> is a component that displays the Cozy menu on the top of your application and allows inter-apps features like content sharing.</p>
+<p>Your application interacts with this component through <code>cozy-bar.js</code>, a library injected into your pages by the server when you add <code>{{.CozyBar}}</code> in the header. It exposes an API behind the <code>window.cozy.bar</code> namespace.</p>
 <p>Before using it, you have to initialize the library: <code>window.cozy.bar.init({appName: "Mon application"})</code>.</p>
 <h3 id="style-with-cozy-ui">Style with Cozy UI<a class="headerlink" href="#style-with-cozy-ui" title="Permanent link">&para;</a></h3>
-<p>If you plan to build a webapp to run on Cozy, you’ll probably want to use a simple and elegant solution to build your interfaces without the mess of dealing with complex markup and CSS. Then <a href="https://github.com/cozy/cozy-ui/">Cozy UI</a>is here for you!</p>
+<p>If you plan to build a webapp to run on Cozy, you’ll probably want to use a simple and elegant solution to build your interfaces without the mess of dealing with complex markup and CSS. Then <a href="https://github.com/cozy/cozy-ui/">Cozy UI</a> is here for you!</p>
 <p>It relies on Stylus as preprocessor. You can add it as a library in your project to use it out-of-the-box.</p>
                 
                   
