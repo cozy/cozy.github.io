@@ -71,7 +71,7 @@ module.exports = {
   findDuplicateAccounts,
   hasNoOperations,
   run: async function(ach, dryRun = true) {
-    return run(mkAPI(ach.client), dryRun).catch(err => {
+    return run(mkAPI(ach.oldClient), dryRun).catch(err => {
       return {
         error: {
           message: err.message,

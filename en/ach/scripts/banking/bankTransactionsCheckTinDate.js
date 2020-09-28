@@ -48,7 +48,7 @@ module.exports = {
   },
 
   run: async function(ach, dryRun = true) {
-    client = ach.client
+    client = ach.oldClient
     api = mkAPI(client)
     try {
       await doMigrations(dryRun)

@@ -3,6 +3,14 @@ const {
 } = require('./cleanNotExistingBillsInOperations')
 
 describe('findOperationsToUpdate', () => {
+  beforeEach(() => {
+    jest.spyOn(console, 'log').mockImplementation(() => {})
+  })
+
+  afterEach(() => {
+    console.log.mockRestore()
+  })
+
   it('should work with no bills or no operation', () => {
     expect(findOperationsToUpdate([], [])).toEqual({
       countMissingBills: 0,

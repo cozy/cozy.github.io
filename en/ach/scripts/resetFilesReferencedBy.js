@@ -20,7 +20,7 @@ module.exports = {
     return [DOCTYPE_FILES]
   },
   run: async function(ach, dryRun) {
-    const client = ach.client
+    const client = ach.oldClient
     const api = mkAPI(client)
 
     const files = await api.fetchAll(DOCTYPE_FILES)

@@ -38,7 +38,7 @@ module.exports = {
   },
 
   run: async function(ach) {
-    client = ach.client
+    client = ach.oldClient
 
     const paths = fs
       .readFileSync('/tmp/paths')

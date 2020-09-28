@@ -3,6 +3,10 @@ const {
   hasNoOperations
 } = require('./deleteDuplicateBankAccountsWithNoOperations')
 
+jest.mock('../../libs/log', () => ({
+  info: jest.fn()
+}))
+
 describe('deleteDuplicateBankAccountsWithNoOperations', () => {
   it('should return duplicate with no operations', () => {
     const accounts = [

@@ -248,7 +248,7 @@ module.exports = {
   },
 
   run: async function(ach, dryRun = true) {
-    const api = mkAPI(ach.client)
+    const api = mkAPI(ach.oldClient)
     await run(api, dryRun)
   }
 }

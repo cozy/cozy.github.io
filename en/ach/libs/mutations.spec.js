@@ -1,7 +1,16 @@
 const mutations = require('./mutations')
 
 const fakeDocs = _ids => _ids.map(_id => ({ _id }))
+
 describe('mutation', () => {
+  beforeEach(() => {
+    jest.spyOn(console, 'log').mockImplementation(() => {})
+  })
+
+  afterEach(() => {
+    console.log.mockRestore()
+  })
+
   it('should execute a mutation', async () => {
     const mutation = {
       toDelete: {

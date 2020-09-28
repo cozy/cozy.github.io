@@ -111,7 +111,7 @@ module.exports = {
   },
 
   run: async function(ach, dryRun = true) {
-    client = ach.client
+    client = ach.oldClient
 
     await fixAccountsWithoutAccountType(client, dryRun).catch(x => {
       console.log(x)

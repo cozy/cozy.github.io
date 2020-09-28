@@ -59,8 +59,8 @@ module.exports = {
 
   run: async function(ach, dryRun = true) {
     try {
-      const api = mkAPI(ach.client)
-      await repairOperationsWithAccounts(api, ach.client, dryRun)
+      const api = mkAPI(ach.oldClient)
+      await repairOperationsWithAccounts(api, ach.oldClient, dryRun)
     } catch (err) {
       console.log(ach.url, err)
     }

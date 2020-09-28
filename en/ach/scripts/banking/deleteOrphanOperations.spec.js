@@ -21,6 +21,15 @@ const accounts = [makeDoc('a1'), makeDoc('a2'), makeDoc('a4')]
 
 describe('delete orphan operations', () => {
   let client
+
+  beforeEach(() => {
+    jest.spyOn(console, 'log').mockImplementation(() => {})
+  })
+
+  afterEach(() => {
+    console.log.mockRestore()
+  })
+
   beforeEach(() => {
     client = {
       fetchJSON: jest.fn()

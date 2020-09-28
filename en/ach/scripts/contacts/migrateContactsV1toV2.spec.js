@@ -110,7 +110,7 @@ describe('Contacts: migrate contacts v1 to v2', () => {
     fetchJSON: fetchJSONSpy
   }
   const fakeACH = {
-    client: fakeClient
+    oldClient: fakeClient
   }
   const logWithInstanceSpy = jest.fn()
 

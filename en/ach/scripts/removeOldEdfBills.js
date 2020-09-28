@@ -24,7 +24,7 @@ module.exports = {
   getDoctypes: () => [DOCTYPE_BILLS, DOCTYPE_OPERATIONS],
   run: async function(ach, dryRun = true) {
     instance = ach.url.replace('https://', '')
-    return run((api = mkAPI(ach.client)), dryRun).catch(err => {
+    return run((api = mkAPI(ach.oldClient)), dryRun).catch(err => {
       console.error(err)
       return {
         error: {

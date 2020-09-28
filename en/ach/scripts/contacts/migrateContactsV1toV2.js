@@ -183,8 +183,8 @@ module.exports = {
   },
 
   run: async function(ach, dryRun = true) {
-    const api = mkAPI(ach.client)
-    const logWithInstance = getWithInstanceLogger(ach.client)
+    const api = mkAPI(ach.oldClient)
+    const logWithInstance = getWithInstanceLogger(ach.oldClient)
     try {
       await doMigrations(dryRun, api, logWithInstance)
     } catch (err) {

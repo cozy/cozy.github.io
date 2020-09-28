@@ -279,7 +279,7 @@ module.exports = {
     return [DOCTYPE_COZY_ACCOUNTS, DOCTYPE_COZY_TRIGGERS, DOCTYPE_COZY_FILES]
   },
   run: async function(ach, dryRun = true) {
-    client = ach.client
+    client = ach.oldClient
 
     await fixAccounts(ach.url, client, dryRun).catch(x => {
       console.log(x)

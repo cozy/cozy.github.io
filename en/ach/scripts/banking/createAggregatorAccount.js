@@ -216,7 +216,7 @@ module.exports = {
   utils,
   log,
   run: async function(ach, dryRun = true) {
-    return utils.run(mkAPI(ach.client), ach.client, dryRun).catch(err => {
+    return utils.run(mkAPI(ach.oldClient), ach.oldClient, dryRun).catch(err => {
       return {
         error: {
           message: err.message,

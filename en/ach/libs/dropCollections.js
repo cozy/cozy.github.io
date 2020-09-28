@@ -2,11 +2,11 @@ const log = require('./log')
 
 const flagForDeletion = doc => ({ ...doc, _deleted: true })
 const dropCollection = (client, doctype) => {
-  return client
+  return client.stackClient
     .fetchJSON('GET', `/data/${doctype}/_all_docs?include_docs=true`)
     .then(result => result.rows.map(r => r.doc))
     .then(docs =>
-      client.fetchJSON('POST', `/data/${doctype}/_bulk_docs`, {
+      client.stackClient.fetchJSON('POST', `/data/${doctype}/_bulk_docs`, {
         docs: docs.map(flagForDeletion)
       })
     )

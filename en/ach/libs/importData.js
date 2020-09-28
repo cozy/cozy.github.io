@@ -198,6 +198,6 @@ module.exports = (cozyUrl, token, data, templateDir, options) => {
 
   const ach = new ACH(token, cozyUrl, doctypes)
   return ach.connect().then(() => {
-    return handleBadToken(importData(ach.client, data, options))
+    return handleBadToken(importData(ach.oldClient, data, options))
   })
 }

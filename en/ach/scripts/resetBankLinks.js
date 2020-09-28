@@ -16,7 +16,7 @@ module.exports = {
     return [DOCTYPE_BILLS, DOCTYPE_OPERATIONS]
   },
   run: async function(ach, dryRun) {
-    client = ach.client
+    client = ach.oldClient
     const api = mkAPI(client)
     const operations = await api.fetchAll(DOCTYPE_OPERATIONS)
     if (dryRun) {

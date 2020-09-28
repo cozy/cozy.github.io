@@ -1,3 +1,5 @@
+const CozyClient = require('cozy-client').default
+
 const deleteDocuments = require('./deleteDocuments')
 const dropCollections = require('./dropCollections')
 const importFolderContent = require('./importFolderContent')
@@ -8,7 +10,6 @@ const cozyFetch = require('./cozyFetch')
 const log = require('./log')
 const request = require('request')
 const fs = require('fs')
-const { createClientInteractive } = require('cozy-client/dist/cli')
 
 const { handleBadToken } = require('../libs/utils')
 
@@ -47,14 +48,8 @@ class ACH {
     log.debug('Connecting to ' + this.url)
     try {
       /* NOTE: in the future, we expect to only use cozy-client */
-      this.client = await getClient(this.token, this.url, this.doctypes)
-      this.cozyClient = await createClientInteractive({
-        uri: this.url,
-        scope: this.doctypes,
-        oauth: {
-          softwareID: 'ACH'
-        }
-      })
+      this.oldClient = await getClient(this.token, this.url, this.doctypes)
+      this.client = CozyClient.fromOldClient(this.oldClient)
     } catch (err) {
       log.warn('Could not connect to' + this.url)
       throw err
@@ -63,7 +58,7 @@ class ACH {
 
   async downloadFile(id) {
     log.debug('Making download link for ' + id)
-    const downloadLink = await this.client.files.getDownloadLinkById(id)
+    const downloadLink = await this.oldClient.files.getDownloadLinkById(id)
     const fileUrl = this.url + downloadLink
     log.debug('Download link is ' + fileUrl)
     const filename = fileUrl.split('/').slice(-1)[0]
@@ -100,23 +95,45 @@ const updateSettings = function(client, attrs) {
 }
 
 const methods = {
-  deleteDocuments,
-  dropCollections,
-  importFolder: importFolderContent,
-  createFiles,
-  export: exportData,
-  fetch: cozyFetch,
-  updateSettings: updateSettings
+  deleteDocuments: {
+    method: deleteDocuments,
+    oldClient: true
+  },
+  dropCollections: {
+    method: dropCollections,
+    oldClient: false
+  },
+  importFolder: {
+    method: importFolderContent,
+    oldClient: true
+  },
+  createFiles: {
+    method: createFiles,
+    oldClient: true
+  },
+  export: {
+    method: exportData,
+    oldClient: false
+  },
+  fetch: {
+    method: cozyFetch,
+    oldClient: true
+  },
+  updateSettings: {
+    method: updateSettings,
+    oldClient: true
+  }
 }
 
 Object.keys(methods).forEach(name => {
-  const method = methods[name]
+  const methodOptions = methods[name]
+  const method = methodOptions.method
   ACH.prototype[name] = function() {
     if (!this.client) {
       throw new Error('You need to call connect() before using ' + name)
     }
     const args = [].slice.call(arguments)
-    args.unshift(this.client)
+    args.unshift(methodOptions.oldClient ? this.oldClient : this.client)
     return handleBadToken(method.apply(this, args))
   }
 })

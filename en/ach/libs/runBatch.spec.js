@@ -5,11 +5,16 @@ jest.mock('./getClient', () => jest.fn())
 
 const CozyClient = require('cozy-client').default
 
-jest.mock('cozy-client/dist/cli')
-const { createClientInteractive } = require('cozy-client/dist/cli')
-
 const getClient = require('./getClient')
 const runBatch = require('./runBatch')
+
+jest.mock('./log', () => ({
+  debug: jest.fn(),
+  info: jest.fn(),
+  warn: jest.fn(),
+  error: jest.fn(),
+  success: jest.fn()
+}))
 
 jest.mock('./admin', () => ({
   createToken: jest.fn().mockReturnValue('mock-token')
@@ -31,7 +36,6 @@ describe('batch', () => {
         _url: url
       }
     })
-    createClientInteractive.mockImplementation(async () => {})
   })
 
   const setup = () => {

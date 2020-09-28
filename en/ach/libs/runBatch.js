@@ -4,7 +4,6 @@ const log = require('./log')
 const admin = require('./admin')
 const config = require('./config')
 const fs = require('fs')
-const CozyClient = require('cozy-client').default
 
 const namespacedLogger = namespace => ({
   log: console.log.bind(console, namespace),
@@ -20,9 +19,12 @@ const runScript = async (script, domain, globalCtx) => {
 
   const protocol = domain === 'cozy.tools:8080' ? 'http' : 'https'
   const ach = new ACH(token, protocol + '://' + domain, doctypes)
+
   await ach.connect()
-  const client = CozyClient.fromOldClient(ach.client)
+
+  const client = ach.client
   const logger = namespacedLogger(domain)
+
   return script.run({
     ...globalCtx,
     client,

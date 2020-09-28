@@ -1,5 +1,5 @@
 const _ = require('lodash')
-const fs = require('fs')
+const fs = require('fs').promises
 const log = require('./log')
 
 // helpers
@@ -14,24 +14,9 @@ const stripMeta = function(obj) {
   return _.omit(obj, omitted)
 }
 
-const promiscify = function(fn) {
-  return function() {
-    const args = Array.from(arguments)
-    const that = this
-    return new Promise((resolve, reject) => {
-      const callback = function(err, res) {
-        if (err) reject(err)
-        else resolve(res)
-      }
-      args.push(callback)
-      fn.apply(that, args)
-    })
-  }
-}
-
 const fetchAll = async (cozyClient, doctype) => {
   try {
-    const result = await cozyClient.fetchJSON(
+    const result = await cozyClient.stackClient.fetchJSON(
       'GET',
       `/data/${doctype}/_all_docs?include_docs=true`
     )
@@ -46,8 +31,6 @@ const fetchAll = async (cozyClient, doctype) => {
     throw e
   }
 }
-
-const writeFilePromise = promiscify(fs.writeFile)
 
 module.exports = (cozyClient, doctypes, filename) => {
   log.debug('Exporting data...')
@@ -75,7 +58,7 @@ module.exports = (cozyClient, doctypes, filename) => {
       if (filename === '-' || !filename) {
         console.log(json)
       } else {
-        return writeFilePromise(filename, json)
+        return fs.writeFile(filename, json)
       }
     })
 }

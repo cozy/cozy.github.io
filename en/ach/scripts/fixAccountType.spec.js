@@ -224,10 +224,19 @@ const asyncResolve = data => {
 }
 
 describe('fix account type', () => {
-  let client, log
+  let client
+
   beforeEach(() => {
-    log = console.log
-    console.log = jest.fn()
+    jest.spyOn(console, 'log').mockImplementation(() => {})
+    jest.spyOn(console, 'info').mockImplementation(() => {})
+  })
+
+  afterEach(() => {
+    console.log.mockRestore()
+    console.info.mockRestore()
+  })
+
+  beforeEach(() => {
     client = {
       data: {
         defineIndex: function() {
@@ -235,10 +244,6 @@ describe('fix account type', () => {
         }
       }
     }
-  })
-
-  afterEach(() => {
-    console.log = log
   })
 
   describe('find trigger data', () => {

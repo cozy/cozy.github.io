@@ -22,14 +22,14 @@ const ach = new ACH(
 
 const onConnection = () => {
   client = ach.client
-  data = ach.client.data
-  files = ach.client.files
-  intents = ach.client.intents
-  jobs = ach.client.jobs
-  offline = ach.client.offline
-  settings = ach.client.settings
-  auth = ach.client.auth
-  fetchJSON = ach.client.fetchJSON
+  data = ach.oldClient.data
+  files = ach.oldClient.files
+  intents = ach.oldClient.intents
+  jobs = ach.oldClient.jobs
+  offline = ach.oldClient.offline
+  settings = ach.oldClient.settings
+  auth = ach.oldClient.auth
+  fetchJSON = ach.oldClient.fetchJSON
   token = client._token.token
   console.log('token', token)
   console.log('Connected !')

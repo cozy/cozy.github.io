@@ -29,10 +29,15 @@ function fileExists(p) {
   }
 }
 
-const logAndExit = e => {
-  console.error(e)
-  process.exit(1)
-}
+const handleErrors = fn =>
+  async function() {
+    try {
+      await fn.apply(this, arguments)
+    } catch (e) {
+      console.error(e)
+      process.exit(1)
+    }
+  }
 
 const handleImportCommand = args => {
   const { filepath, handlebarsOptionsFile, url } = args
@@ -48,10 +53,10 @@ const handleImportCommand = args => {
   const data = parseDataFile(filepath, handlebarsOptions)
   const doctypes = Object.keys(data)
   token = token || autotoken(url, doctypes)
-  return importData(url, token, data, templateDir, options).catch(logAndExit)
+  return importData(url, token, data, templateDir, options)
 }
 
-const handleImportDirCommand = args => {
+const handleImportDirCommand = async args => {
   const { url } = args
   let { directoryPath, token } = args
   if (!directoryPath) directoryPath = './DirectoriesToInject'
@@ -63,27 +68,18 @@ const handleImportDirCommand = args => {
   const doctypes = ['io.cozy.files']
   token = token || autotoken(url, doctypes)
   const ach = new ACH(token, url, doctypes)
-  ach
-    .connect()
-    .then(() => {
-      return ach.importFolder(JSONtree)
-    })
-    .catch(logAndExit)
+  await ach.connect()
+  await ach.importFolder(JSONtree)
 }
 
-const handleGenerateFilesCommand = args => {
+const handleGenerateFilesCommand = async args => {
   const { path = '/', filesCount = 10, url, token } = args
   const ach = new ACH(token, url, ['io.cozy.files'])
-  ach
-    .connect()
-    .then(() => {
-      return ach.createFiles(path, parseInt(filesCount))
-    })
-    .catch(logAndExit)
+  await ach.connect()
+  await ach.createFiles(path, parseInt(filesCount))
 }
 
-const handleDropCommand = args => {
-  console.log(args)
+const handleDropCommand = async args => {
   const { doctypes, yes, url } = args
   let { token } = args
   token = token || autotoken(url, doctypes)
@@ -94,63 +90,43 @@ ${doctypes.map(x => `* ${x}`).join(' \n')}
 
 Type "yes" if ok.
 `
-  const confirm = yes
-    ? function(question, cb) {
-        cb()
-      }
-    : askConfirmation
-  confirm(
-    question,
-    () => {
-      const ach = new ACH(token, url, doctypes)
-      ach
-        .connect()
-        .then(() => {
-          return ach.dropCollections(doctypes)
-        })
-        .catch(logAndExit)
-    },
-    () => {
-      console.log('Cancelled drop')
-    }
-  )
+  const confirmation = yes ? Promise.resolve() : askConfirmation(question)
+
+  try {
+    await confirmation
+  } catch (e) {
+    console.log('Cancelled drop')
+    return
+  }
+
+  const ach = new ACH(token, url, doctypes)
+  await ach.connect()
+  await ach.dropCollections(doctypes)
 }
 
-const handleExportCommand = args => {
+const handleExportCommand = async args => {
   let { doctypes, filename, url, token } = args
   doctypes = doctypes.split(',') // should be done with type
   token = token || autotoken(url, doctypes)
   const ach = new ACH(token, url, doctypes)
-  ach
-    .connect()
-    .then(() => {
-      return ach.export(doctypes, filename)
-    })
-    .catch(logAndExit)
+  await ach.connect()
+  await ach.export(doctypes, filename)
 }
 
-const handleUpdateSettingsCommand = args => {
+const handleUpdateSettingsCommand = async args => {
   const { url, token } = args
   let { settings } = args
   settings = JSON.parse(settings) // should be done with type
   const ach = new ACH(token, url, ['io.cozy.settings'])
-  ach
-    .connect()
-    .then(() => {
-      return ach.updateSettings(settings)
-    })
-    .catch(logAndExit)
+  await ach.connect()
+  await ach.updateSettings(settings)
 }
 
-const handleGenerateTokenCommand = args => {
+const handleGenerateTokenCommand = async args => {
   const { url, token, doctypes } = args
   const ach = new ACH(token, url, doctypes)
-  ach
-    .connect()
-    .then(() => {
-      console.log(ach.client._token.token)
-    })
-    .catch(logAndExit)
+  await ach.connect()
+  console.log(ach.client._token.token)
 }
 
 const handleBatchCommand = async function(args) {
@@ -171,12 +147,11 @@ const handleBatchCommand = async function(args) {
     })
   } catch (e) {
     console.error('Error during batch execution')
-    console.error(e)
-    process.exit(1)
+    throw e
   }
 }
 
-const handleScriptCommand = function(args) {
+const handleScriptCommand = async args => {
   const { scriptName, autotoken, execute, url } = args
   let { token } = args
   const script = scriptLib.require(scriptName)
@@ -190,26 +165,18 @@ const handleScriptCommand = function(args) {
   const dryRun = !execute
   log.info(`Launching script ${scriptName}...`)
   log.info(`Dry run : ${dryRun}`)
-  ach
-    .connect()
-    .then(() => {
-      return run(ach, dryRun)
-    })
-    .catch(logAndExit)
+  await ach.connect()
+  await run(ach, dryRun)
 }
 
-const handleDownloadFileCommand = args => {
+const handleDownloadFileCommand = async args => {
   const { url, fileid } = args
   let { token } = args
   const doctypes = ['io.cozy.files']
   token = token || autotoken(url, doctypes) // should be done with types
   const ach = new ACH(token, url, doctypes)
-  ach
-    .connect()
-    .then(() => {
-      return ach.downloadFile(fileid)
-    })
-    .catch(logAndExit)
+  await ach.connect()
+  await ach.downloadFile(fileid)
 }
 
 const handleListScriptsCommand = function() {
@@ -228,15 +195,11 @@ const isCommandAvailable = command => {
   }
 }
 
-const handleDeleteDocumentsCommand = args => {
+const handleDeleteDocumentsCommand = async args => {
   const { url, token, doctype, ids } = args
   const ach = new ACH(token, url, [doctype])
-  ach
-    .connect()
-    .then(() => {
-      return ach.deleteDocuments(doctype, ids)
-    })
-    .catch(logAndExit)
+  await ach.connect()
+  await ach.deleteDocuments(doctype, ids)
 }
 
 const makeToken = (url, doctypes) => {
@@ -281,105 +244,123 @@ program
   .description(
     'The file containing the JSON data to import. Defaults to "example-data.json". Then the dummy helpers JS file (optional).'
   )
-  .action(async function(filepath, handlebarsOptionsFile) {
-    await handleImportCommand({
-      url: program.url,
-      token: program.token,
-      filepath,
-      handlebarsOptionsFile
+  .action(
+    handleErrors(async function(filepath, handlebarsOptionsFile) {
+      await handleImportCommand({
+        url: program.url,
+        token: program.token,
+        filepath,
+        handlebarsOptionsFile
+      })
     })
-  })
+  )
 
 program
   .command('importDir <directoryPath>')
   .description(
     'The path to the directory content to import. Defaults to "./DirectoriesToInject".'
   )
-  .action(async function(directoryPath) {
-    await handleImportDirCommand({
-      url: program.url,
-      token: program.token,
-      directoryPath
+  .action(
+    handleErrors(async function(directoryPath) {
+      await handleImportDirCommand({
+        url: program.url,
+        token: program.token,
+        directoryPath
+      })
     })
-  })
+  )
 
 program
   .command('generateFiles [path] [filesCount]')
   .description('Generates a given number of small files.')
-  .action(function(path, filesCount) {
-    handleGenerateFilesCommand({ path, filesCount })
-  })
+  .action(
+    handleErrors(async function(path, filesCount) {
+      await handleGenerateFilesCommand({ path, filesCount })
+    })
+  )
 
 program
   .command('drop <doctypes...>')
   .option('-y, --yes', 'Do not ask for confirmation')
   .description('Deletes all documents of the provided doctypes. For real.')
-  .action(async function(doctypes) {
-    await handleDropCommand({
-      url: program.url,
-      token: program.token,
-      doctypes,
-      yes: program.yes
+  .action(
+    handleErrors(async function(doctypes) {
+      await handleDropCommand({
+        url: program.url,
+        token: program.token,
+        doctypes,
+        yes: program.yes
+      })
     })
-  })
+  )
 
 program
   .command('export <doctypes> [filename]')
   .description(
     'Exports data from the doctypes (separated by commas) to filename'
   )
-  .action(async function(doctypes, filename) {
-    await handleExportCommand({
-      url: program.url,
-      token: program.token,
-      doctypes,
-      filename
+  .action(
+    handleErrors(async function(doctypes, filename) {
+      await handleExportCommand({
+        url: program.url,
+        token: program.token,
+        doctypes,
+        filename
+      })
     })
-  })
+  )
 
 program
   .command('downloadFile <fileid>')
   .description('Download the file')
-  .action(async function(fileid) {
-    await handleDownloadFileCommand({
-      url: program.url,
-      token: program.token,
-      fileid
+  .action(
+    handleErrors(async function(fileid) {
+      await handleDownloadFileCommand({
+        url: program.url,
+        token: program.token,
+        fileid
+      })
     })
-  })
+  )
 
 program
   .command('delete <doctype> <ids...>')
   .description('Delete document(s)')
-  .action(function(doctype, ids) {
-    handleDeleteDocumentsCommand({
-      url: program.url,
-      token: program.token,
-      doctype,
-      ids
+  .action(
+    handleErrors(async function(doctype, ids) {
+      await handleDeleteDocumentsCommand({
+        url: program.url,
+        token: program.token,
+        doctype,
+        ids
+      })
     })
-  })
+  )
 
 program
   .command('updateSettings')
   .description('Update settings')
-  .action(async function(settings) {
-    await handleUpdateSettingsCommand({
-      url: program.url,
-      token: program.token,
-      settings
+  .action(
+    handleErrors(async function(settings) {
+      await handleUpdateSettingsCommand({
+        url: program.url,
+        token: program.token,
+        settings
+      })
     })
-  })
+  )
 
 program
   .command('token <doctypes...>')
   .description('Generate token')
-  .action(function(doctypes) {
-    handleGenerateTokenCommand({
-      url: program.url,
-      doctypes
+  .action(
+    handleErrors(async function(doctypes) {
+      await handleGenerateTokenCommand({
+        url: program.url,
+        doctypes
+      })
     })
-  })
+  )
 
 program
   .command('script <scriptName>')
@@ -387,14 +368,16 @@ program
   .option('-x, --execute', 'Execute the script (disable dry run)')
   .option('-d, --doctypes', 'Print necessary doctypes (useful for automation)')
   .description('Launch script')
-  .action(async function(scriptName, action) {
-    await handleScriptCommand({
-      url: program.url,
-      token: program.token,
-      scriptName,
-      ...action
+  .action(
+    handleErrors(async function(scriptName, action) {
+      await handleScriptCommand({
+        url: program.url,
+        token: program.token,
+        scriptName,
+        ...action
+      })
     })
-  })
+  )
 
 program
   .command('ls-scripts')
@@ -417,15 +400,17 @@ program
   )
   .option('-x, --execute', 'Execute the script (disable dry run)')
   .description('Launch script')
-  .action(async function(scriptName, domainsFile, action) {
-    await handleBatchCommand({
-      url: program.url,
-      token: program.token,
-      scriptName,
-      domainsFile,
-      ...action
+  .action(
+    handleErrors(async function(scriptName, domainsFile, action) {
+      await handleBatchCommand({
+        url: program.url,
+        token: program.token,
+        scriptName,
+        domainsFile,
+        ...action
+      })
     })
-  })
+  )
 
 const findCommand = program => {
   const lastArg = program.args[program.args.length - 1]

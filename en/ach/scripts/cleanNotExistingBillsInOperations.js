@@ -108,7 +108,7 @@ module.exports = {
   getDoctypes: () => [DOCTYPE_BILLS, DOCTYPE_OPERATIONS],
   findOperationsToUpdate,
   run: async function(ach, dryRun = true) {
-    return run(mkAPI(ach.client), dryRun).catch(err => {
+    return run(mkAPI(ach.oldClient), dryRun).catch(err => {
       console.error(err)
       return {
         error: {

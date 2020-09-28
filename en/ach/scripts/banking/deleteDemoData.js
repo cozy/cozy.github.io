@@ -95,7 +95,7 @@ module.exports = {
     ]
   },
   run: async function(ach, dryRun) {
-    client = ach.client
+    client = ach.oldClient
     await deleteDemoDocuments(DOCTYPE_BANK_ACCOUNTS, dryRun)
     await deleteDemoDocuments(DOCTYPE_BANK_TRANSACTIONS, dryRun)
     await deleteDemoDocuments(DOCTYPE_BILLS, dryRun)
