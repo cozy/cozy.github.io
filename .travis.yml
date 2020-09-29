@@ -13,6 +13,7 @@ cache:
 before_install:
 - yarn add git-directory-deploy
 script:
+- yarn lint-md
 - ./build.sh
 after_success:
 - ./deploy.sh

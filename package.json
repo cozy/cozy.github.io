@@ -7,16 +7,22 @@
   "license": "MIT",
   "dependencies": {
     "remark-cli": "^7.0.0",
-    "remark-preset-lint-recommended": "^3.0.3"
+    "remark-preset-lint-recommended": "^4.0.1"
   },
   "scripts": {
-    "lint-md": "remark ."
+    "lint-md": "remark -u ./remark/detect-bad-links.js ."
   },
   "remarkConfig": {
     "plugins": [
       "remark-preset-lint-recommended",
-      ["remark-lint-list-item-indent", false],
-      ["remark-lint-list-item-bullet-indent", false]
+      [
+        "remark-lint-list-item-indent",
+        false
+      ],
+      [
+        "remark-lint-list-item-bullet-indent",
+        false
+      ]
     ]
   }
 }
