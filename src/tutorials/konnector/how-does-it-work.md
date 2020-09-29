@@ -30,7 +30,7 @@ They are simulated in standalone mode so that you do not need a real Cozy Stack 
 \[[More about BaseKonnector](https://docs.cozy.io/en/cozy-konnector-libs/api/#basekonnector)]
 
 From the server point of view, each connector is a `job` which is executed periodically via a `trigger`.
-\[[More about Cozy Stack jobs](https://cozy.github.io/cozy-stack/jobs/)]
+\[[More about Cozy Stack jobs](https://docs.cozy.io/en/cozy-stack/jobs/)]
 
 [Cozy Home]: https://github.com/cozy/cozy-home
 

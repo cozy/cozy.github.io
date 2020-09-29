@@ -309,4 +309,4 @@ We can find more information in the [libs repository](https://github.com/konnect
 
 **Now that we pass on every steps, it is time to test the connector with `yarn standalone`.** For now, we have not inserted the data in the Cozy, in the next section , you will learn how to plug your connector to your Cozy.
 
-[Cozy Stack]: https://cozy.github.io/cozy-stack/README/
+[Cozy Stack]: https://docs.cozy.io/en/cozy-stack/
