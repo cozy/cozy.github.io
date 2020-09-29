@@ -3,7 +3,7 @@
 A connector is a NodeJS script.
 \+The target node version used to run your connector is the version 8.
 
-Like client side apps, connectors communicate with the [Cozy Stack](https://docs.cozy.io/en/cozy-stack/README/) using its HTTP API, and get a unique auth token every time they start.
+Like client side apps, connectors communicate with the [Cozy Stack](https://docs.cozy.io/en/cozy-stack/) using its HTTP API, and get a unique auth token every time they start.
 
 They need to register with a [manifest](https://docs.cozy.io/en/cozy-apps-registry/#properties-meaning-reference), and ask the user for permissions.
 
@@ -27,7 +27,7 @@ When the connector is started, it also receives some data via environment variab
 
 These variables are used by the connector and the cozy-client to configure the connection to the [Cozy Stack][] with the right [permissions](https://docs.cozy.io/en/cozy-stack/permissions/) as defined in the connector [manifest](https://docs.cozy.io/en/cozy-apps-registry/#properties-meaning-reference).
 They are simulated in standalone mode so that you do not need a real Cozy Stack to develop a connector.
-\[[More about BaseKonnector](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#basekonnector)]
+\[[More about BaseKonnector](https://docs.cozy.io/en/cozy-konnector-libs/api/#basekonnector)]
 
 From the server point of view, each connector is a `job` which is executed periodically via a `trigger`.
 \[[More about Cozy Stack jobs](https://cozy.github.io/cozy-stack/jobs/)]

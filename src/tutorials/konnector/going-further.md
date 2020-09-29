@@ -30,9 +30,9 @@ A basic connector workflow involves:
 1. authenticate on the website or API. Might be tricky, but that's the fun :-)
 2. getting data from the online service. You can get the data by calling an API or scraping the webpage. Check if the webpage itself is not using an API to retrieve data, might speed up our job. Mobile phones applications usually connects to an API that might be a reliable source of data.
    </br>A quick [exemple of a scraper here](#How-do-I-scrape-my-data-from-a-website).
-3. filtering data to remove the ones already present inside the database using [hydrateAndFilter](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_hydrateAndFilter)
-4. save the filtered data into the database ([addData](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#adddata))
-5. save the related files using ([saveFiles](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#savefiles))
+3. filtering data to remove the ones already present inside the database using [hydrateAndFilter](https://docs.cozy.io/en/cozy-konnector-libs/api/#module_hydrateAndFilter)
+4. save the filtered data into the database ([addData](https://docs.cozy.io/en/cozy-konnector-libs/api/#adddata))
+5. save the related files using ([saveFiles](https://docs.cozy.io/en/cozy-konnector-libs/api/#savefiles))
 
 #### Error handling
 
@@ -86,15 +86,15 @@ If you want to know how this works in a real cozy, you can find more information
 
 The Cozy Konnector Libs provide several useful methods for common tasks:
 
-- [BaseKonnector](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#basekonnector): creates the connector and fetches from the stack the connector's parameters (COZY_FIELDS...)
-- [cozyClient](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#cozyclient) gives an instance of [cozy-client-js][] already initialized according to `COZY_URL`, and `COZY_CREDENTIALS`. Your code can immediately interact with the server thanks to this client.
-- [requestFactory](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_requestFactory) a function which returns an instance of request-promise initialized with defaults often used in connector development.
+- [BaseKonnector](https://docs.cozy.io/en/cozy-konnector-libs/api/#basekonnector): creates the connector and fetches from the stack the connector's parameters (COZY_FIELDS...)
+- [cozyClient](https://docs.cozy.io/en/cozy-konnector-libs/api/#cozyclient) gives an instance of [cozy-client-js][] already initialized according to `COZY_URL`, and `COZY_CREDENTIALS`. Your code can immediately interact with the server thanks to this client.
+- [requestFactory](https://docs.cozy.io/en/cozy-konnector-libs/api/#module_requestFactory) a function which returns an instance of request-promise initialized with defaults often used in connector development.
 - [log](https://github.com/cozy/cozy-konnector-libs/blob/3cad316bac1898ef3c2656577af786f6549b40b0/packages/cozy-logger/src/index.js#L35-L41) allows to log messages with different levels
-- [hydrateAndFilter](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#hydrateAndFilter) to filter data
-- [addData](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#adddata) to store the retrieved data into the cozy
-- [linkBankOperations](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#linkbankoperations) to link a bill to a bank operation
-- [saveBills](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#savebills) which uses hydrateAndFilter, addData, saveFiles and linkBankOperations and which is specific to bills
-- [updateOrCreate](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#updateorcreate) create or update documents inside database
+- [hydrateAndFilter](https://docs.cozy.io/en/cozy-konnector-libs/api/#hydrateAndFilter) to filter data
+- [addData](https://docs.cozy.io/en/cozy-konnector-libs/api/#adddata) to store the retrieved data into the cozy
+- [linkBankOperations](https://docs.cozy.io/en/cozy-konnector-libs/api/#linkbankoperations) to link a bill to a bank operation
+- [saveBills](https://docs.cozy.io/en/cozy-konnector-libs/api/#savebills) which uses hydrateAndFilter, addData, saveFiles and linkBankOperations and which is specific to bills
+- [updateOrCreate](https://docs.cozy.io/en/cozy-konnector-libs/api/#updateorcreate) create or update documents inside database
 - [htmlToPDF](<>) to convert HTML code to PDF content to insert into a PDF file created with the `createCozyPDFDocument` function
 - [createCozyPDFDocument](<>) to create a new PDF file to pass to `htmlToPDF`
 

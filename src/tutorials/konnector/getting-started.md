@@ -63,7 +63,7 @@ Now you can run the connector again in _standalone_ mode to see how jpg and rela
 In this mode, [cozy-client-js][] is stubbed and all data meant to be saved in a cozy are displayed in the standard output and files are saved in the ./data directory of the connector.
 This is useful to start developing your connector without handling the state of a real cozy stack.
 
-Please check [CLI section of the documentation](https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/cli.md) for more information.
+Please check [CLI section of the documentation](https://docs.cozy.io/en/cozy-konnector-libs/cli/) for more information.
 
 If you have arrived here, good job ! You are ready to [implement your connector](./scrape-data.md).
 

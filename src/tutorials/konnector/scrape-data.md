@@ -278,9 +278,9 @@ Once we build a correct object, we can save it to Cozy Stack.
 
 There are many [document types](https://github.com/cozy/cozy-doctypes) (Doctypes) you can store in your Cozy, such as:
 
-- [Bills](https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.bills.md)
-- [Contacts](https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.contacts.md)
-- [Bank](https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.bank.md)
+- [Bills](https://docs.cozy.io/en/cozy-doctypes/docs/io.cozy.bills/)
+- [Contacts](https://docs.cozy.io/en/cozy-doctypes/docs/io.cozy.contacts/)
+- [Bank](https://docs.cozy.io/en/cozy-doctypes/docs/io.cozy.bank/)
 - and so on…
 
 #### Save data to Cozy Stack
@@ -294,7 +294,7 @@ But there is a bunch of functions available depending on what you want:
 - [`saveFiles`](https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_saveFiles) to upload files to Cozy Drive.
 - and so on…
 
-For example, to save bills to Cozy you have to start by recovering all required fields for a data type [io.cozy.bills](https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.bills.md) using the `scrape` function, and then you can use the function `saveBills` to save your docs to Cozy Stack as shown below:
+For example, to save bills to Cozy you have to start by recovering all required fields for a data type [io.cozy.bills](https://docs.cozy.io/en/cozy-doctypes/docs/io.cozy.bills/) using the `scrape` function, and then you can use the function `saveBills` to save your docs to Cozy Stack as shown below:
 
 ```dart
 await saveBills(documents, fields, {
