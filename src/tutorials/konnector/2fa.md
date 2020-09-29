@@ -31,6 +31,7 @@ await this.notifySuccessfulLogin()
 To notify the "Home" application that the login process is a success.
 
 ## Request a 2FA code from the user
+
 ```javascript
 const code = await this.waitForTwoFaCode()
 ```

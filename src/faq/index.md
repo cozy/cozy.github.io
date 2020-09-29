@@ -1,4 +1,4 @@
 # Frequently Asked Questions
 
- - [Before starting](start)
- - [Security](security)
+- [Before starting](start)
+- [Security](security)

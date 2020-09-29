@@ -7,22 +7,21 @@ summary: Have your first application ready to be run in a Cozy
 
 Developing an application for Cozy is like developing a front-end JS application. All you need to have is:
 
- - NodeJS 10
- - [Yarn](https://yarnpkg.com): a NodeJS package manager, like `npm`
- - Docker to have a Cozy for dev
- - Some basics about developing a single page application in HTML/JS or you just want to learn :)
+- NodeJS 10
+- [Yarn](https://yarnpkg.com): a NodeJS package manager, like `npm`
+- Docker to have a Cozy for dev
+- Some basics about developing a single page application in HTML/JS or you just want to learn :)
 
 ## Install the development environment
 
 The only tool required to have a Cozy for development is Docker.
 
-- [Install Docker for OSX][docker-osx]{:target="_blank"}
-- [Install Docker for Windows][docker-windows]{:target="_blank"} (We have been told that installing Docker on some familial flavours of Windows may be a bit difficult. It has not been tested yet for this documentation.)
-- Install Docker for GNU/linux: [Ubuntu][docker-ubuntu]{:target="_blank"} / [Fedora][docker-fedora]{:target="_blank"} / [Debian][docker-debian]{:target="_blank"} / [CentOs][docker-centos]{:target="_blank"}
+- [Install Docker for OSX][docker-osx]{:target="\_blank"}
+- [Install Docker for Windows][docker-windows]{:target="\_blank"} (We have been told that installing Docker on some familial flavours of Windows may be a bit difficult. It has not been tested yet for this documentation.)
+- Install Docker for GNU/linux: [Ubuntu][docker-ubuntu]{:target="\_blank"} / [Fedora][docker-fedora]{:target="\_blank"} / [Debian][docker-debian]{:target="\_blank"} / [CentOs][docker-centos]{:target="\_blank"}
 
 !!! warning ""
     On GNU/Linux, according [to the documentation](https://docs.docker.com/engine/installation/linux/linux-postinstall/): « The docker daemon binds to a Unix socket instead of a TCP port. By default that Unix socket is owned by the user root and other users can only access it using sudo. If you don’t want to use sudo when you use the docker command, create a Unix group called docker and add users to it. Be warned that the docker group grants privileges equivalent to the root user. You should have a look at [Docker’s documentation on security](https://docs.docker.com/engine/security/security/).
-
 
 Every application running inside Cozy is a client-side HTML5 application interacting with your data through the API of the server. To develop an application, you’ll require a running Cozy server.
 
@@ -36,7 +35,6 @@ docker pull cozy/cozy-app-dev
 
 !!! note "Note"
     We update this image on a regular basis with the latest version of the server and our library. Don’t forget to update the image by running `docker pull cozy/cozy-app-dev` from time to time to keep your Cozy dev up to date.
-
 
 ## Create your application
 
@@ -82,16 +80,14 @@ yarn start
 ```
 
 This command will run  `webpack` in a watching mode with a server (webpack-dev-server) to serve
-application assets. Your application will be available at http://mycozyapp.cozy.tools:8080.
+application assets. Your application will be available at <http://mycozyapp.cozy.tools:8080>.
 Password is `cozy`. In this mode HMR (Hot Module Replacement) is available.
-
 
 <div align="center">
   <img src="../../img/dev/cca-start.gif" />
 </div>
 
----
-
+* * *
 
 ## Going Further
 
@@ -106,25 +102,25 @@ With that, no need to configure your environment to set extra local hosts for de
 
 The minimal application consist of only two files:
 
- - an HTML file, `index.html`, with the markup and the code of your application
- - a manifest describing the application. It’s a JSON file named `manifest.webapp` with the name of the application, the permissions it requires… We’ll have a deeper look to its content later.
+- an HTML file, `index.html`, with the markup and the code of your application
+- a manifest describing the application. It’s a JSON file named `manifest.webapp` with the name of the application, the permissions it requires… We’ll have a deeper look to its content later.
 
 Your application requires some informations to interact with the server API, for example the URL of its entrypoint, and an auth token. This data will be dynamically injected into `index.html` when it serves the page. So the `index.html` file has to contain some string that will be replaced by the server. The general syntax of this variables is `{{…}}`, so don’t use this syntax for other purpose in the page, for example inside comments.
 
 You can use the following variables:
 
- - `{{.Domain}}`: will be substituted by the URL of the API entrypoint
- - `{{.Token}}`: will be replaced by a token that authenticate your application when accessing the API
- - `{{.Locale}}`: the lang of the instance
- - `{{.AppName}}`: the name of the application
- - `{{.AppNamePrefix}}`: the name prefix of the application
- - `{{.AppSlug}}`: the slug of the application
- - `{{.AppEditor}}`: the editor of the application
- - `{{.IconPath}}`: will be replaced by HTML code to display the *favicon*
- - `{{.CozyClientJS}}`: will be replaced with HTML code to inject the Cozy client library (old Cozy client)
- - `{{.CozyBar}}`: will be replaced with HTML code to inject the upper menu bar
- - `{{.ThemeCSS}}`: will be replaced by the `theme.css`. It is empty by default, but can be overrided by using `contexts`.
- - `{{.Favicon}}`: will be replaced by the favicon served by the stack.
+- `{{.Domain}}`: will be substituted by the URL of the API entrypoint
+- `{{.Token}}`: will be replaced by a token that authenticate your application when accessing the API
+- `{{.Locale}}`: the lang of the instance
+- `{{.AppName}}`: the name of the application
+- `{{.AppNamePrefix}}`: the name prefix of the application
+- `{{.AppSlug}}`: the slug of the application
+- `{{.AppEditor}}`: the editor of the application
+- `{{.IconPath}}`: will be replaced by HTML code to display the _favicon_
+- `{{.CozyClientJS}}`: will be replaced with HTML code to inject the Cozy client library (old Cozy client)
+- `{{.CozyBar}}`: will be replaced with HTML code to inject the upper menu bar
+- `{{.ThemeCSS}}`: will be replaced by the `theme.css`. It is empty by default, but can be overrided by using `contexts`.
+- `{{.Favicon}}`: will be replaced by the favicon served by the stack.
 
 This allows to get this kind of `index.html`:
 
@@ -147,7 +143,6 @@ This allows to get this kind of `index.html`:
   </body>
 </html>
 ```
-
 
 ### Read the application manifest
 
@@ -200,11 +195,12 @@ Applications require permissions to use most of the APIs. Permissions can be des
 A permission must at least contain a target, the type of objects the application want to interact with. Can be a document type, or an action on the server. By default, all permissions on this object are granted, but we can also request fine grained permissions, for example limiting to read access. We can also limit the scope to a subset of the documents.
 
 In the manifest, each permission is an object, with a random name and some properties:
-  - `type`: **mandatory** the document type or action name
-  - `description`: a text that will be displayed to the user to explain why the application require this permission
-  - `verbs`: an array of HTTP verbs. For example, to limit permissions to read access, use `["GET"]`
-  - `selector`: a document attribute to limit access to a subset of documents
-  - `values`: array of allowed values for this attribute.
+
+- `type`: **mandatory** the document type or action name
+- `description`: a text that will be displayed to the user to explain why the application require this permission
+- `verbs`: an array of HTTP verbs. For example, to limit permissions to read access, use `["GET"]`
+- `selector`: a document attribute to limit access to a subset of documents
+- `values`: array of allowed values for this attribute.
 
 An application can request a token that grant access to a subset of its own permissions. For example if the application has full access to the files, it can obtain a token that give only read access on a file. Thus, the application can make some documents publicly available. The public page of the application will use this token asauthentication token when accessing the API.
 
@@ -242,9 +238,9 @@ Application wanting to be able to read the contact information of `cozy@cozyclou
 
 The application must declare all of its URLs (routes) inside the manifest. A route is an object associating an URL to a HTML file. Each route has the following properties:
 
-  - `folder`: the base folder of the route
-  - `index`: the name of the file inside this folder
-  - `public`: a boolean specifying whether the route is public or private (default).
+- `folder`: the base folder of the route
+- `index`: the name of the file inside this folder
+- `public`: a boolean specifying whether the route is public or private (default).
 
 Sample:
 
@@ -272,9 +268,10 @@ Sample:
 Some server APIs may not be available right now through the library. If you want to use one of this method, you’ll have to call it manually. We’ll describe here how to access the API without using the Cozy Client library.
 
 Connecting to the API requires three things:
-  - its URL, injected into the page through the `{{.Domain}}` variable
-  - the application auth token, injected into the page through the `{{.Token}}` variable. Each request sent to the server must include this token in the `Authorization` header
-  - the session cookie, created when you connect to your server. This is an `HttpOnly cookie`, meaning that JavaScript applications can’t read it. This prevent a malicious script to steal the cookie.
+
+- its URL, injected into the page through the `{{.Domain}}` variable
+- the application auth token, injected into the page through the `{{.Token}}` variable. Each request sent to the server must include this token in the `Authorization` header
+- the session cookie, created when you connect to your server. This is an `HttpOnly cookie`, meaning that JavaScript applications can’t read it. This prevent a malicious script to steal the cookie.
 
 Here’s a sample code that get API informations provided by the server and query the API:
 
@@ -331,10 +328,14 @@ If you plan to build a webapp to run on Cozy, you’ll probably want to use a si
 
 It relies on Stylus as preprocessor. You can add it as a library in your project to use it out-of-the-box.
 
-
 [docker-osx]: https://docs.docker.com/docker-for-mac/install/
+
 [docker-windows]: https://docs.docker.com/docker-for-windows/install/
+
 [docker-ubuntu]: https://docs.docker.com/install/linux/docker-ce/ubuntu/
+
 [docker-centos]: https://docs.docker.com/install/linux/docker-ce/centos/
+
 [docker-debian]: https://docs.docker.com/install/linux/docker-ce/debian/
+
 [docker-fedora]: https://docs.docker.com/install/linux/docker-ce/fedora/

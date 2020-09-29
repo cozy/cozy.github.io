@@ -9,5 +9,3 @@ No
 On our servers.
 
 In the cloud.
-
-

@@ -9,7 +9,6 @@
 
 <!-- /MarkdownTOC -->
 
-
 Learn how to [use Cozy](https://docs.cozy.io/en/use), [host your own server](https://docs.cozy.io/en/tutorials/selfhost-debian/) and [develop applications](https://docs.cozy.io/en/tutorials/app/).
 
 ## Edit this documentation
@@ -29,6 +28,7 @@ Fetch external documentation and add it to mkdocs.yml (do not commit done in `mk
 pip install -r requirements.txt
 ./build.sh
 ```
+
 > Expected python version is 3
 
 Run MkDocs:
@@ -57,12 +57,12 @@ this natively).
 
 The documentation is built automatically by Travis
 
-* when the `dev` is pushed
-* every day (since we cannot detect changes in external documentations)
+- when the `dev` is pushed
+- every day (since we cannot detect changes in external documentations)
 
-After the build, it is available on https://docs.cozy.io/.
+After the build, it is available on <https://docs.cozy.io/>.
 
-You can trigger a manual build on https://travis-ci.org/cozy/cozy.github.io > `More options` > `Trigger build`.
+You can trigger a manual build on <https://travis-ci.org/cozy/cozy.github.io> > `More options` > `Trigger build`.
 
 ## Testing the statically built site
 

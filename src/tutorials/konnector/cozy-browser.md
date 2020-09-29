@@ -27,14 +27,14 @@ Then you can use the zombie API to run HTTP requests to the targeted website.
 `browser` will keep its own cookie session.
 
 There is an implementation of the connector template using the Cozy Browser available :
-https://github.com/konnectors/cozy-konnector-template/tree/feat/zombiejs
+<https://github.com/konnectors/cozy-konnector-template/tree/feat/zombiejs>
 
 ## What if I want to use the browser session for saveFiles ?
 
 `browser` has two handy methods to help you with cookie session :
-  * `getCookieJar` : can export the current cookie session in a cookie jar object
-  * `loadCookieJar` : can import a cookie jar object as the new cookie session of the browser
 
+- `getCookieJar` : can export the current cookie session in a cookie jar object
+- `loadCookieJar` : can import a cookie jar object as the new cookie session of the browser
 
 ```js
   const { requestFactory } = require('cozy-konnector-libs')

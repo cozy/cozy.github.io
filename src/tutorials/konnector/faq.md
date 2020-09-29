@@ -1,4 +1,3 @@
-
 ## FAQ
 
 ### When I run my connector, a ghost node process eats all my memory

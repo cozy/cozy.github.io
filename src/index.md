@@ -36,7 +36,6 @@ Find guides for developing apps and connectors and for self-hosting.
     </a>
   </div>
 
-
 </div>
 
 ## Get in touch

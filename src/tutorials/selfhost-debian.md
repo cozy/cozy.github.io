@@ -7,21 +7,21 @@ A Debian repository serves packages to setup a Cozy self-hosted environment.
 
 It provides:
 
- * `cozy-couchdb`: [CouchDB](https://couchdb.apache.org/) database engine used by cozy
- * `cozy-nsjail`: [NSJail](http://nsjail.com/) isolation tool used by konnectors
- * `cozy-stack`: [Cozy core](https://github.com/cozy/cozy-stack/)
- * `cozy-coclyco`: [CLI](https://github.com/cozy/cozy-coclyco/) to manage vhosts and certificates
- * `cozy`: metapackage installing everything to setup a self-hosted environment
+- `cozy-couchdb`: [CouchDB](https://couchdb.apache.org/) database engine used by cozy
+- `cozy-nsjail`: [NSJail](http://nsjail.com/) isolation tool used by konnectors
+- `cozy-stack`: [Cozy core](https://github.com/cozy/cozy-stack/)
+- `cozy-coclyco`: [CLI](https://github.com/cozy/cozy-coclyco/) to manage vhosts and certificates
+- `cozy`: metapackage installing everything to setup a self-hosted environment
 
 This repository currently supports:
 
- * __Debian Buster__ (10.x): amd64 armhf arm64
- * __Raspbian Buster__ (10.x): armhf
- * __Ubuntu Disco__ (19.04): amd64 armhf arm64
+- **Debian Buster** (10.x): amd64 armhf arm64
+- **Raspbian Buster** (10.x): armhf
+- **Ubuntu Disco** (19.04): amd64 armhf arm64
 
 Available channels are:
 
- * __testing__: Updated ± twice a month.
+- **testing**: Updated ± twice a month.
 
 `cozy-couchdb` and `cozy-nsjail` are temporary packages. They will be removed when official `couchdb` and `nsjail` will be available
 
@@ -60,12 +60,12 @@ Finally, setup your repository. Select the channel that best fit your needs:
 
 Supported repositories are:
 
- * Debian Buster (10.x)
-     * deb https://apt.cozy.io/debian/ buster testing
- * Raspbian Buster (10.x)
-     * deb https://apt.cozy.io/raspbian/ buster testing
- * Ubuntu Disco (19.04)
-     * deb https://apt.cozy.io/ubuntu/ disco testing
+- Debian Buster (10.x)
+  - deb <https://apt.cozy.io/debian/> buster testing
+- Raspbian Buster (10.x)
+  - deb <https://apt.cozy.io/raspbian/> buster testing
+- Ubuntu Disco (19.04)
+  - deb <https://apt.cozy.io/ubuntu/> disco testing
 
 ```bash
 echo "deb https://apt.cozy.io/debian/ buster testing" > /etc/apt/sources.list.d/cozy.list
@@ -106,14 +106,14 @@ apt install cozy-stack
 
 Cozy need to create a CouchDB administrator and so to connect as admin to the CouchDB. Fill those mandatory parameters to allow this creation:
 
- * Address: by default, it's `localhost:5984`
- * Node name: by default, it's `couchdb@localhost`
- * Admin user: by default, it's `admin`
- * Admin password: put the one you choose during CouchDB setup
- * Cozy user: by default, it's `cozy`
- * Cozy password: pick a password
+- Address: by default, it's `localhost:5984`
+- Node name: by default, it's `couchdb@localhost`
+- Admin user: by default, it's `admin`
+- Admin password: put the one you choose during CouchDB setup
+- Cozy user: by default, it's `cozy`
+- Cozy password: pick a password
 
- (Those passwords are used by shell scripts, so currently avoid to use ones with simple or double quotes or others shell meaningfull symbols. We advice you to choose ones with only alphanumeric digits to avoid troubles.)
+  (Those passwords are used by shell scripts, so currently avoid to use ones with simple or double quotes or others shell meaningfull symbols. We advice you to choose ones with only alphanumeric digits to avoid troubles.)
 
 For stack management (create instances, install applications...), [Cozy need an administrator password](https://github.com/cozy/cozy-stack/blob/2ae446d85b60c89fb56cad1f7ed469cddca94494/docs/config.md#user-content-administration-secret). So pick a new one.
 When invoking `cozy-stack` (or `cozy-coclyco` which use it under the hood), you need to set the `COZY_ADMIN_PASSWORD` environment variable with this password. You can put it on your `.bashrc` for simplier life if you want. If you don't, cozy-stack will simply ask for it.
@@ -145,12 +145,12 @@ apt install cozy
 Cozy relies on sub-domains for each applications you installed on your instance.
 For an instance `cozy.example.org`, `<app>.cozy.example.org` must be available too. Currently, you need at least:
 
- * `settings.cozy.example.org`
- * `drive.cozy.example.org`
- * `photos.cozy.example.org`
- * `home.cozy.example.org`
- * `store.cozy.example.org`
- * `<app>.cozy.example.org` for each application you use
+- `settings.cozy.example.org`
+- `drive.cozy.example.org`
+- `photos.cozy.example.org`
+- `home.cozy.example.org`
+- `store.cozy.example.org`
+- `<app>.cozy.example.org` for each application you use
 
 Follow your usual way to create those entries on your domain zone.
 The simpliest way to handle this is to use a wildcard entry if supported by your domain hosting.

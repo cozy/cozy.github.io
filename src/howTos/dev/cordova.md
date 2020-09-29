@@ -7,7 +7,7 @@ The simplest way to create a mobile Cozy application is to use JavaScript as the
 Therefore we will use the classical stack:
 
 1. a JavaScript web application
-1. and cordova
+2. and cordova
 
 !!! warning ""
     [At the end of this documentation](#annexes), you will find _how-tos_ to help you with [cordova configuration](#install-and-setup-cordova), [webpack builds](#webpack-configuration) and [cordova deployments for Android and iOS](#cordova).
@@ -123,7 +123,7 @@ Once cordova is installed, just run `cordova create cozy-app com.example.cozyapp
 7 directories, 6 files
 ```
 
-__Note:__ everything you put in `www/` will be served as your application content.
+**Note:** everything you put in `www/` will be served as your application content.
 
 ### Configure your build tool
 
@@ -195,13 +195,13 @@ See cordova, android and ios documentation to customize your development environ
 
 Once everything is right, you could run `cordova build` and `cordova run android` to create an APK and push the APK on a device.
 
-__Note:__ The device should be connected with usb.
+**Note:** The device should be connected with usb.
 See [official android documentation for more details](https://developer.android.com/studio/run/device.html).
 
 #### iOS development
 
 For building an iOS app, you need [xcode](https://developer.apple.com/xcode/).
 
-[[more to come]]
+\[[more to come]]
 
 See further details on [the cordova official documentation about iOS](https://cordova.apache.org/docs/en/latest/guide/platforms/ios/index.html).

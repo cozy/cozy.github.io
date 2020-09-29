@@ -9,9 +9,9 @@ In this part, we are going to see how to scrape data from the service you want t
 There are four steps for a connector to save data to [Cozy Stack][]:
 
 1. authentication
-1. request data
-1. parse and format data
-1. save data to cozy stack
+2. request data
+3. parse and format data
+4. save data to cozy stack
 
 You can see these steps in the `src/index.js` in the [konnectors/template](https://github.com/konnectors/cozy-konnector-template/blob/master/src/index.js):
 
@@ -224,7 +224,7 @@ const docs = scrape(
 )
 ```
 
->Keep in mind that there are many useful CSS [Pseudo-classes](https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS/Pseudo-classes_and_pseudo-elements) and [Combinators](https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS/Combinators_and_multiple_selectors)  that you can use in your CSS selectors to help you select HTML elements.
+> Keep in mind that there are many useful CSS [Pseudo-classes](https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS/Pseudo-classes_and_pseudo-elements) and [Combinators](https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS/Combinators_and_multiple_selectors)  that you can use in your CSS selectors to help you select HTML elements.
 
 This code will loop on `<article />` and for each item will create a JSON object with the selector `sel` and the value of attribute `attr` if specified, otherwise it takes the value of the child node, this value can be edited with the `parse` function.
 Here is a sample for the following markup from <http://books.toscrape.com>:
@@ -274,7 +274,6 @@ And we will get the following JSON object:
 The code sample includes some other function to manipulate the result object, but we have the idea.
 Once we build a correct object, we can save it to Cozy Stack.
 
- 
 `fileurl` is used to tell Cozy where to find the file (here an image) to retreive. Then you can save it to Cozy Stack (see section below).
 
 There are many [document types](https://github.com/cozy/cozy-doctypes) (Doctypes) you can store in your Cozy, such as:
@@ -283,7 +282,6 @@ There are many [document types](https://github.com/cozy/cozy-doctypes) (Doctypes
 - [Contacts](https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.contacts.md)
 - [Bank](https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.bank.md)
 - and so on…
-
 
 #### Save data to Cozy Stack
 
@@ -305,11 +303,10 @@ await saveBills(documents, fields, {
 })
 ```
 
-*`documents` is the list of bills returned by the function `parseDocuments` after the page scraping*.
+_`documents` is the list of bills returned by the function `parseDocuments` after the page scraping_.
 
 We can find more information in the [libs repository](https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md).
 
-__Now that we pass on every steps, it is time to test the connector with `yarn standalone`.__ For now, we have not inserted the data in the Cozy, in the next section , you will learn how to plug your connector to your Cozy.
-
+**Now that we pass on every steps, it is time to test the connector with `yarn standalone`.** For now, we have not inserted the data in the Cozy, in the next section , you will learn how to plug your connector to your Cozy.
 
 [Cozy Stack]: https://cozy.github.io/cozy-stack/README/
