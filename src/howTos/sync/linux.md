@@ -3,7 +3,6 @@ title: Install the desktop client on your GNU/Linux system
 summary: And synchronize your Cozy data with your desktop
 ---
 
-
 # Install the desktop client on your GNU/Linux system
 
 To ease the use of Cozy Drive on any distribution, we distribute the application using the [AppImage](https://appimage.org/) format. This way, you have nothing to install, just download the application and run it.
@@ -16,8 +15,8 @@ _[List of known to work distributions](https://cozy-labs.github.io/cozy-desktop/
 
 Click on one of these links to download Cozy Drive for your OS:
 
- - [Cozy Drive for GNU/Linux 32 bits](https://nuts.cozycloud.cc/download/channel/stable/32);
- - [Cozy Drive for GNU/Linux 64 bits](https://nuts.cozycloud.cc/download/channel/stable/64);
+- [Cozy Drive for GNU/Linux 32 bits](https://nuts.cozycloud.cc/download/channel/stable/32);
+- [Cozy Drive for GNU/Linux 64 bits](https://nuts.cozycloud.cc/download/channel/stable/64);
 
 Once the binary file downloaded, go to the folder where your browser has stored it. For example, if you use Firefox, click on the folder icon in the download list.
 
@@ -41,8 +40,7 @@ Tip: you can add this folder to your bookmarks to find it easily:
 
 ![Bookmark the folder](../../img/sync/new-bookmark.png)
 
-
-From 3.26 onwards, GNOME removed the systray (that little bar with some icons) which is the interface for *Cozy Drive*. You will need to install an extension such as [TopIcons](https://extensions.gnome.org/extension/1031/topicons/) in order to see the cozy-desktop application and launch it.
+From 3.26 onwards, GNOME removed the systray (that little bar with some icons) which is the interface for _Cozy Drive_. You will need to install an extension such as [TopIcons](https://extensions.gnome.org/extension/1031/topicons/) in order to see the cozy-desktop application and launch it.
 
 That’s all. You can now double-click on the application to launch it and connect it to your server. Have fun!
 

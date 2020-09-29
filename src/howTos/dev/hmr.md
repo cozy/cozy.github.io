@@ -7,9 +7,10 @@ title: How to use Hot Module Replacement (HMR) with my application?
 As the [Webpack documentation](https://webpack.js.org/concepts/hot-module-replacement/) says:
 
 > Hot Module Replacement (HMR) exchanges, adds, or removes modules while an application is running, without a full reload. This can significantly speed up development in a few ways:
-> * Retain application state which is lost during a full reload.
-> * Save valuable development time by only updating what's changed.
-> * Modifications made to CSS/JS in the source code results in an instant browser update which is almost comparable to changing styles directly in the browser's dev tools.
+>
+> - Retain application state which is lost during a full reload.
+> - Save valuable development time by only updating what's changed.
+> - Modifications made to CSS/JS in the source code results in an instant browser update which is almost comparable to changing styles directly in the browser's dev tools.
 
 For a Cozy application, having this feature allows you to have the specific changed part reloaded in your browser without reloading again the `cozy-bar`, the `cozy-client` and other layout components.
 
@@ -19,23 +20,23 @@ _Notice: The HMR will be explained here only for applications build using Webpac
 
 If you created your application (React or Vue) using [Create Cozy App a.k.a CCA (from v1)][create-cozy-app] and:
 
-* For React, you didn't change the way [`react-hot-loader`][react-hot-loader] is used
-* For Vue, you didn't change the `module.hot` part in your entry point `index.js` (in `src/targets/<target>`)
+- For React, you didn't change the way [`react-hot-loader`][react-hot-loader] is used
+- For Vue, you didn't change the `module.hot` part in your entry point `index.js` (in `src/targets/<target>`)
 
 Then, you dont' have anything to do. See the next part of this tutorial to use HMR 😎
 
-If you did change these parts or you didn't create your application initialy using [Create Cozy App][create-cozy-app], you can see the part [__Make HMR available in my application__](#make-hmr-available-in-my-application).
+If you did change these parts or you didn't create your application initialy using [Create Cozy App][create-cozy-app], you can see the part [**Make HMR available in my application**](#make-hmr-available-in-my-application).
 
 ## Run my app with HMR
 
 To have a full HMR experience, you'll have to do two things here:
 
-* Run webpack watching your changes with a [`webpack-dev-server`][webpack-dev-server] and `--hot` option
-* Disable CSPs in the target Cozy (the Cozy CSPs is blocking HMR script)
+- Run webpack watching your changes with a [`webpack-dev-server`][webpack-dev-server] and `--hot` option
+- Disable CSPs in the target Cozy (the Cozy CSPs is blocking HMR script)
 
 But thanks to the last version of [`cozy-scripts`][cozy-scripts], all of that are handled for you with the command `cozy-scripts start`:
 
-``` sh
+```sh
 yarn cozy-scripts start --hot --browser
 # or if you have the last package.json from CCA, you can do
 yarn start
@@ -45,7 +46,7 @@ yarn start
 
 First, you can pass an option to disable the stack handling by the `start` command:
 
-``` sh
+```sh
 yarn cozy-scripts start --hot --browser --no-stack
 # or if you have the last package.json from CCA, you can do
 yarn start --no-stack
@@ -109,6 +110,9 @@ if (module.hot) {
 That's it. Then, just use the last version of cozy-scripts to [run your application with HMR](#run-my-application-with-hmr).
 
 [create-cozy-app]: https://github.com/cozy/create-cozy-app
+
 [cozy-scripts]: https://github.com/cozy/create-cozy-app/tree/master/packages/cozy-scripts
+
 [react-hot-loader]: https://github.com/gaearon/react-hot-loader
+
 [webpack-dev-server]: https://github.com/webpack/webpack-dev-server

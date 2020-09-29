@@ -31,13 +31,11 @@ In Cozy, we chose to support the simpler and more efficient Mango system by defa
 
 ℹ️ In CouchDB, you organize data in DocTypes, a data structure meant to group documents together. All documents with the same DocType are stored in a dedicated database. Thus, each database has its own documents and indexes: when performing a query, one must indicates the target database; there is no cross-databases queries capability in CouchDB, altough there is a [relationship](https://docs.cozy.io/en/cozy-doctypes/docs/#relationships) query system to overcome this. See [here](./doctypes.md) for the DocTypes documentation.
 
-
 ## Mango queries
 
 The manqo query system was introduced in [CouchDB 2.0](https://blog.couchdb.org/2016/08/03/feature-mango-query/) and offers a declarative JSON syntax to perform queries on documents, inspired from MongoDB.
 
 There are several important concepts to grasp in order to efficiently use mango queries. Here, we give an overview of those concepts and detail common mistakes to avoid. 
-
 
 ### Mango queries with cozy-client
 
@@ -49,13 +47,13 @@ In cozy-client, each query is defined as a [Query Definition](https://docs.cozy.
 In the following, we assume a DocType named `io.cozy.todos`  describing Todo lists.
 
 Here is a basic example of a cozy-client query returning all the Todo lists in a Cozy:
+
 ```javascript
 const queryDef = client.find("io.cozy.todos")
 const docs = await client.queryAll(queryDef)
 ```
 
 In this example, the `QueryDefinition` defines the query to get all the documents stored in the Todos database, expressed through `find("io.cozy.todos")`.
-
 
 ## Selectors
 
@@ -112,7 +110,6 @@ For more details and examples of selectors, you can directly read the [CouchDB d
 Depending on your queries and their complexity, performances can be dramatically impacted, by serveral orders of magnitude, especially for large databases, i.e. starting for thousands of documents.
 It is highly recommended to take some time to understand how to [index fields](#index-fields) and the related [performances](./advanced.md#indexes-performances-and-design).
 
-
 ## Index fields
 
 In order to efficiently filter documents through selectors and sort them, it is important to correctly index data. An index is a way to organize documents in order to retrieve them faster.
@@ -128,7 +125,7 @@ Most often, you will need to index fields to query data efficiently. Otherwise, 
 Here, we explain how you can index fields to efficiently query documents. If you are interested on why indexing is important and how your performances can dramatically vary, you can go to the advanced explanations [here](./advanced.md#indexes-performances-and-design).
 
 With mango queries, it is required to index documents fields that are necessary to run the queries, either because they are involved in the selector or the sort.
-  
+
 ### Index with cozy-client
 
 With cozy-client, you don't have to deal with the index creation: it is expressed through `indexFields`:
@@ -180,7 +177,6 @@ const queryDef = client
 ```
 
 ⚠️ The order in the `indexFields` array can be very important for performances, especially when there are both range and equality operators: you must always index the field involved in the equality operator first. To understand this, it helps to understand concepts about CouchDB indexes, explained in [this section](#indexes-performances-and-design).
-
 
 ## Sort data with Mango
 
@@ -273,7 +269,6 @@ const docs = await client.query(queryDef, {limit: null})
 
 ⚠️ This method is faster than the pagination as it avoids to make several server requests. However, if there are many documents to return, `_all_docs` queries can take a lot of time to complete and even timeout. It also consumes server resources. Hence, you should be cautious when using this route.
 
-
 ## Sort in CouchDB
 
 When dealing with various types of data, the ascending sort order is the following:
@@ -281,7 +276,7 @@ When dealing with various types of data, the ascending sort order is the followi
 - null
 - booleans
 - numbers
-- strings: “a” < “A” < ”aa” < “b” …
+- strings: “a” &lt; “A” &lt; ”aa” &lt; “b” …
 - arrays
 - objects
 
@@ -296,7 +291,6 @@ Comparison of strings is done using ICU which implements the Unicode Collation A
 - All symbols sort before numbers and letters (even the “high” symbols like tilde, `0x7e`)
 - Differing sequences of letters are compared without regard to case, so `a < aa` but also `A < aa` and `a < AA`
 - Identical sequences of letters are compared with regard to case, with lowercase before uppercase, so `a < A`.
-
 
 ## Views
 
@@ -315,7 +309,6 @@ function(doc) {
   }
 }
 ```
-
 
 A `map` function must always produce an `emit` , with the key and the value respectively in first and second argument.
 
@@ -340,6 +333,7 @@ To find a range, combine the `startkey` and `endkey` parameters:
 The flexibility of the views can be useful is some specific scenarios and are used in [some use-cases](https://github.com/cozy/cozy-stack/blob/331f6f39402dc7ec38ecf2f5ff408a1b5cf3d730/pkg/couchdb/index.go#L48-L229) in cozy-stack. Typically, the [references system](https://docs.cozy.io/en/cozy-stack/references-docs-in-vfs/) implemented for the `io.cozy.files` documents allows to link other documents to a file. For example, a file can be referenced by a photo album, a bank transaction, etc.
 
 A reference looks like this, here a file referenced by two photos albums:
+
 ```json
 "referenced_by": [
   {
@@ -354,6 +348,7 @@ A reference looks like this, here a file referenced by two photos albums:
 ```
 
 This [n-n] relation is hard to express with a Mango query, so a view is defined:
+
 ```javascript
 function(doc) {
   if (isArray(doc.referenced_by)) {
@@ -366,4 +361,3 @@ function(doc) {
 
 Then, it is easy to get all the files referenced by a specific photo album:
 `key=["io.cozy.photos.albums", "94375086-e2e2-11e6-81b9-5bc0b9dd4aa4"]`
-

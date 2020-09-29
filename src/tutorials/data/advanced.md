@@ -1,8 +1,8 @@
-# Advanced concepts 
+# Advanced concepts
 
 ## Indexes: concepts
 
-### But why, though?
+\### But why, though?
 
 In order to efficiently filter documents through selectors and sort them, it is important to correctly index data. An index is a way to organize documents in order to retrieve them faster.
 
@@ -12,25 +12,21 @@ The principle is the same for databases index: we want to avoid scanning the who
 
 In more formal terms, time complexity of a query run on a database with `n` documents will be `O(n)` without index, as it requires to scan all documents. In CouchDB, the indexes are actually [B+ Trees](https://en.wikipedia.org/wiki/B%2B_tree), a structure derived from the [B-Trees](https://en.wikipedia.org/wiki/B-tree), that perform in `O(log(n))` in average, which guarantees a very fast access time even in large datasets.
 
-
 > From a practical point of view, B-trees, therefore, guarantee an access time of less than 10 ms even for extremely large datasets.
-> 
+>
 > —Dr. Rudolf Bayer, inventor of the B-tree
-
 
 ### B+ Tree
 
-CouchDB indexes are B+ Trees. It means that indexed fields, here *keys*, are organized as a tree, with the documents stored in the leafs nodes. So, finding a particular document means browsing the tree, from the root to the leaf.  
+CouchDB indexes are B+ Trees. It means that indexed fields, here _keys_, are organized as a tree, with the documents stored in the leafs nodes. So, finding a particular document means browsing the tree, from the root to the leaf.  
 In each node, a key has two children: the left child has all its keys inferior to the parent, while the right child has all its keys superior to the parent. 
 
 In the Figure below, borrowed from the [CouchDB guide](https://guide.couchdb.org/editions/1/en/btree.html), you see that each node has three keys. In CouchDB implementation, a B+ Tree node can actually store more than 1600 keys. 
-
 
 <div align="center">
   <img src="../../../img/dev/manipulate-data/b-tree.png" />
   <figcaption>B+ Tree</figcaption>
 </div>
-
 
 This design is very efficient for range queries: in the example above, a query looking for documents having an indexed field between 1 and 3 will browse the tree to find the first document position (with a key of 1) and then get the next two contiguous documents.
 
@@ -41,7 +37,6 @@ This design is very efficient for range queries: in the example above, a query l
 ℹ️ When indexing several document fields in the same index, the key is actually an array of those fields, e.g. an index on `["category", "created_at"]` would give keys such as `["sport", "2019-01-01"]`.
 
 ℹ️ A key does not have to be unique. Actually, it is often useful to group document per key, e.g. a `category` key can return many document with the same key value, like `sport`, `work`, etc.
-
 
 ## Indexes: why is my document not being retrieved?
 
@@ -65,6 +60,7 @@ Here, we want to get all the todos without a `category` field. However, those do
 Hence, think carefully about your data before hand and do not use queries with `$exists: false` whenever possible. If a field is missing, it might be better to add a  `null` value so that your documents do not have any missing fields. If this is not possible for some reasons, here is another possible solution - yet not very efficient:
 
 ⚠️ Not efficient workaround
+
 ```javascript
 const queryDef = client
   .find("io.cozy.todos")
@@ -82,12 +78,12 @@ const queryDef = client
 Here, we force an index on the `_id`, which always exists in any CouchDB document, and ask all the documents with `"_id": { "$gt": null }`. The `category` is not indexed so the documents without this field will enter the index. 
 This is not efficient as it implies that the `"category": { "$exists": false }` condition will be evaluated in memory by CouchDB for all the documents of the database, thus making a full index scan. 
 
-
 ## Indexes: performances and design
 
 When designing indexes on several fields, one should keep in mind that they are actually B+ Tree, as explained in this [section](#indexes-concepts). This can be helpful to design efficient queries and avoid performance traps.
 
 To illustrate this, let’s assume you have declared this query, to get all the "work" todos created in 2019:
+
 ```javascript
 const queryDef = client
   .find("io.cozy.todos")
@@ -150,12 +146,10 @@ const queryDef = client
   </tbody>
 </table>
 
-
 This shows how the data is organized in the index: it is primarily sorted by `created_at` and then by `category`. First, the query is looking for all the todos starting from `"2019-01-01"` and before `"2020-01-01"`. It easily finds this range in the B+ Tree; but now it must also filter all the results to only keep the rows with `category: work`.
 And this cannot be done through the B+ Tree, because matching rows are not contiguous, as shown in green in the table: this means that CouchDB is forced to perform the `category` condition in memory, leading to bad performances.
 
 💡 Hopefully, this example can be easily be solved by switching the index fields order: 
-
 
 `.indexFields(["category", "created_at"])`
 
@@ -220,11 +214,10 @@ Now, the very same query can be efficiently processed: the `category: work` is f
 
 💡 The main takeaway here is: when dealing with a query with both equality and range, you must first index the equality field. 
 If you are interested about this, you can learn more [here](https://use-the-index-luke.com/sql/where-clause/searching-for-ranges/greater-less-between-tuning-sql-access-filter-predicates). Even though it is SQL-oriented, it also applies for CouchDB as the B-Tree indexing logic is the same.
- 
+
 💡 When creating an index, carefully think about how your data will be organized and which query will need to perfom. The performances can dramatically vary depending on your design, with several orders of magnitude.
 
 💡 The problematic and consequences of the not contiguous rows is further explain in the partial indexes [section](#partial-indexes).
-
 
 ## Partial indexes
 
@@ -258,14 +251,13 @@ const queryDef = client
   })
   .indexFields(["title", "category"])
 ```
- 
+
 As the `$ne` operator cannot guarantee contiguous rows, it needs to scan all the index on documents with the `"title": "Exercices"` to find those that are not in the sport `category`.
- 
+
 [Partial indexes](https://docs.couchdb.org/en/2.3.1/api/database/find.html#find-partial-indexes) are a way to circumvent this issue. They allow to define a partial selector condition that will be evaluated at the indexing time, and will add the document in the index if it matches the condition.
 Thanks to this, it becomes possible to tell CouchDB at indexing time to exlude documents that do not match the condition, e.g. `"category": { "$exists": false}` or  `"category": { "$ne": "sport"}`.
 
 Hence, the produced index will only include documents that already matched the partial filter selector, making it possible to query them, as this selector enforces contiguous rows or documents with missing fields.
-
 
 ## Mango pagination: performances
 
@@ -276,6 +268,7 @@ We detail here why you should **never use** `skip` to paginate and use `bookmark
 This method consists of specifying a `limit` to the query, which is the maximum number of documents to return, and a  `skip` parameter that is the number of documents returned so far. With cozy-client, its is expressed through `limitBy` and `offset`.
 
 ⚠️ Do not use this:
+
 ```javascript
 const queryDef = client.find("io.cozy.todos").limitBy(200)
 const docs = []
@@ -291,6 +284,7 @@ This method is very bad for performances because it actually breaks the B+ Tree 
 On the contrary, the `bookmark` method is very efficient as it preserves the B+ Tree logic. One can see a `bookmark` as a pointer to start the query in the tree.
 
 💡 Use this:
+
 ```javascript
 const queryDef = client.find("io.cozy.todos").limitBy(200)
 const docs = []
@@ -322,7 +316,6 @@ Let alone the very slow indexing time, this also requires a lot of server CPU to
 
 ❌ It is possible to express views in Erlang and thus circumvent this performance issues. However, this is completely forbidden in Cozy, because of the security: doing so requires to enable the Erlang query server that needs root access to the CouchDB server, as explained in the [CouchDB documentation](https://docs.couchdb.org/en/2.3.1/config/query-servers.html#config-native-query-servers). This would break the isolation system and let open the possibilty to define adversary UDF functions.
 
-
 ## Views: pagination
 
 The CouchDB views does not implement the Mango queries  `bookmark` system. However, it is still possible to paginate results efficiently by using a `cursor`. 
@@ -331,7 +324,6 @@ This method, described in the [CouchDB documentation](https://docs.couchdb.org/e
 For each query, get the last returned document and extract the searched key as well as the `_id` to respectively set the next `startkey` and `startkey_docid`  query parameters. 
 
 See this [cursor pagination example](https://github.com/cozy/cozy-client/blob/0a31ec888c16d9ec1620aae3a1ec001274c0eea4/packages/cozy-client/src/associations/HasManyFiles.js#L12-L42) in cozy-client.
-
 
 ## Revisions
 
@@ -342,21 +334,20 @@ With an old revision, it's possible to get the content of the document at this r
 
 A `purge` operation consists to remove the tombstone for the deleted documents. It is a manual operation, triggered by a `[POST /db/_purge](http://docs.couchdb.org/en/stable/api/database/misc.html)`.
 
-
 ## Conflicts
 
 It is possible to create a conflict on CouchDB like it does for the replication by using `new_edits: false`, but it is not well documented to say the least. The more accurate description was in the old wiki, that [no longer exists](https://wiki.apache.org/couchdb/HTTP_Bulk_Document_API#Posting_Existing_Revisions). Here is a copy of what it said:
 
-
-> The replicator uses a special mode of _bulk_docs. The documents it writes to the destination database already have revision IDs that need to be preserved for the two databases to be in sync (otherwise it would not be possible to tell that the two represent the same revision.) To prevent the database from assigning them new revision IDs, a "new_edits":false property is added to the JSON request body.
-> Note that this changes the interpretation of the _rev parameter in each document: rather than being the parent revision ID to be matched against, it's the existing revision ID that will be saved as-is into the database. And since it's important to retain revision history when adding to the database, each document body in this mode should have a _revisions property that lists its revision history; the format of this property is described on the HTTP document API. For example:
+> The replicator uses a special mode of \_bulk_docs. The documents it writes to the destination database already have revision IDs that need to be preserved for the two databases to be in sync (otherwise it would not be possible to tell that the two represent the same revision.) To prevent the database from assigning them new revision IDs, a "new_edits":false property is added to the JSON request body.
+> Note that this changes the interpretation of the \_rev parameter in each document: rather than being the parent revision ID to be matched against, it's the existing revision ID that will be saved as-is into the database. And since it's important to retain revision history when adding to the database, each document body in this mode should have a \_revisions property that lists its revision history; the format of this property is described on the HTTP document API. For example:
 > `curl -X POST -d '{"new_edits":false,"docs":[{"_id":"person","_rev":"2-3595405","_revisions":{"start":2,"ids":["3595405","877727288"]},"name":"jim"}]}' "$OTHER_DB/_bulk_docs"`
 > This command will replicate one of the revisions created above, into a separate database `OTHER_DB`. It will have the same revision ID as in `DB`, `2-3595405`, and it will be known to have a parent revision with ID `1-877727288`. (Even though `OTHER_DB` will not have the body of that revision, the history will help it detect conflicts in future replications.)
-> As with _all_or_nothing, this mode can create conflicts; in fact, this is where the conflicts created by replication come from. In short, it's a `PUT /doc/{id}?new_edits=false` with `_rev` the new revision of the document, and `_revisions` the parents of this revision in the revisions tree of this document.
+> As with \_all_or_nothing, this mode can create conflicts; in fact, this is where the conflicts created by replication come from. In short, it's a `PUT /doc/{id}?new_edits=false` with `_rev` the new revision of the document, and `_revisions` the parents of this revision in the revisions tree of this document.
 
 **Conflict example**
 Here is an example of a CouchDB conflict.
 Let's assume the following document with the revision history `[1-abc, 2-def]` saved in database:
+
 ```json
 {
   "_id": "foo",
@@ -373,6 +364,7 @@ Let's assume the following document with the revision history `[1-abc, 2-def]` s
 
 The `_revisions` block is returned when passing `revs=true` to the query and gives all the revision ids, which the revision part after the dash. For instance, in `2-def`, `2` is called the "generation" and `def` the "id".
 We update the document with a `POST /bulk_docs` query, with the following content:
+
 ```json
 {
   "docs": [
@@ -393,7 +385,6 @@ This produces a conflict bewteen `2-def` and `2-xyz`: the former was first saved
 **Sharing**
 In the [sharing protocol](https://docs.cozy.io/en/cozy-stack/sharing-design/), we implement this behaviour as we follow the CouchDB replication model. However, we prevent CouchDB conflicts for files and directories: see [this explanation](https://docs.cozy.io/en/cozy-stack/sharing-design/#couchdb-conflicts)
 
-
 ## CouchDB performances
 
 Here is a benchmark performed on a CouchDB 2.3, running on a Thinkpad T480, i7-8550U , 16 Go RAM with 256Go SSD.
@@ -401,6 +392,7 @@ Here is a benchmark performed on a CouchDB 2.3, running on a Thinkpad T480, i7-8
 The document insertion is performed in bulk, by batch of 100K documents maximum. 
 
 Each doc has the following structure:
+
 ```json
 {
   "_id": "xxx",
@@ -422,6 +414,5 @@ To measure the mango and views build time, we performed a single query just afte
   <img src="../../../img/dev/manipulate-data/performances.png" />
   <figcaption>CouchDB performances</figcaption>
 </div>
-
 
 ℹ️ The code used to perfom this benchmark is available on [Github](https://github.com/paultranvan/couchdb-playground).

@@ -1,5 +1,4 @@
-Developping an OAuth connector
-==============================
+# Developping an OAuth connector
 
 Connectors with OAuth are a special case. The OAuth protocol needs a secret key most of the time
 and getting the token to access the api takes different forms depending on the targeted api. And
@@ -15,7 +14,6 @@ documentation](https://docs.cozy.io/en/cozy-stack/konnectors-workflow/#oauth-and
 It is possible to develop an OAuth connector in [standalone or dev mode](https://docs.cozy.io/en/cozy-konnector-libs/cli/) but there will be no stack
 to handle the protocol. You will have to do it manually (with curl for example). Most apis have
 extended documentations for this.
-
 
 Once you have got your access token, simply add it your konnector-dev-config.json file like this :
 
@@ -43,7 +41,6 @@ konnector-dev-config.json
 
 Here is a list of existing OAuth connectors : [google](https://github.com/konnectors/cozy-konnector-google), [facebook](https://github.com/konnectors/cozy-konnector-facebook/)
 
-
 ## Packaging for a real cozy
 
 When your connector is ready and works in standalone mode, it is time to package it to run in a
@@ -55,13 +52,13 @@ real cozy. Here is what is needed.
 1) OAuth is implemented in some different ways depending on the targetted service and the stack
 needs to know some details about the api :
 
- * grant_mode : "authorization_code" or "refresh_token"
- * client_id : the client id given by the api provider
- * client_secret : the client secret given by the provider
- * auth_endpoint: the url which will be used to authenticate
- * token_endpoint: the url which will be used to fetch a token
- * token_mode: (optionnal: "basic", "get") specify the way the client id and secret will be given to the api. If not specified, a the HTTP post method will be used
- * redirect_uri: standard OAuth redirect uri it take the following form : "https://oauthcallback.<domain>/accounts/<slug>/redirect
+- grant_mode : "authorization_code" or "refresh_token"
+- client_id : the client id given by the api provider
+- client_secret : the client secret given by the provider
+- auth_endpoint: the url which will be used to authenticate
+- token_endpoint: the url which will be used to fetch a token
+- token_mode: (optionnal: "basic", "get") specify the way the client id and secret will be given to the api. If not specified, a the HTTP post method will be used
+- redirect_uri: standard OAuth redirect uri it take the following form : "<https://oauthcallback.><domain>/accounts/<slug>/redirect
 
 These parameters will be saved in the "secrets/io-cozy-account_types" database in the following
 form for facebook :
@@ -90,7 +87,6 @@ us.
 
 2) Most Oauth apis need [scope](https://oauth.net/2/scope/) configuration. To be more versatile, this scope configuration in done
 in the connector manifest in the "oauth.scope" attribute :
-
 
 ```json
   "oauth": {

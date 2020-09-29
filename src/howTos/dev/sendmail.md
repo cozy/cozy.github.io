@@ -17,7 +17,7 @@ Bob sees Alice's shared folder in his own cozy.
 
 If you develop with the [cozy-app-dev docker image](https://docs.cozy.io/en/cozy-stack/client-app-dev/#with-docker), [MailHog](https://github.com/mailhog/MailHog) is running inside it to catch emails.
 
-If cozy-stack has to send an email, MailHog catches it and exposes it on its web interface on http://cozy.tools:8025/.
+If cozy-stack has to send an email, MailHog catches it and exposes it on its web interface on <http://cozy.tools:8025/>.
 
 ## With the binary cozy-stack
 
@@ -29,8 +29,8 @@ If you develop with the [cozy-stack CLI](https://docs.cozy.io/en/cozy-stack/cli/
 
 _This commands assumes you `git clone` [cozy-drive](https://github.com/cozy/cozy-drive) and [cozy-settings](https://github.com/cozy/cozy-settings) in the same folder than you `git clone` [cozy-stack](https://github.com/cozy/cozy-stack)._
 
-Then simply run `MailHog` and open http://cozy.tools:8025/.
+Then simply run `MailHog` and open <http://cozy.tools:8025/>.
 
 ## Retrieve sent emails
 
-With MailHog, **every email** sent by cozy-stack is caught. That means the email address *does not have to be a real one*, ie. `bob@cozy`, `bob@cozy.tools` are perfectly fine. It *could be a real one*, but the email will not reach the real recipient's inbox, say `contact@cozycloud.cc`.
+With MailHog, **every email** sent by cozy-stack is caught. That means the email address _does not have to be a real one_, ie. `bob@cozy`, `bob@cozy.tools` are perfectly fine. It _could be a real one_, but the email will not reach the real recipient's inbox, say `contact@cozycloud.cc`.

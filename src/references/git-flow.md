@@ -10,8 +10,8 @@ We recommand to use the following git flow for our applications and konnectors.
 
 Every commit must:
 
-* provide a working application without introducing blocking regressions
-* validate lint and unit tests
+- provide a working application without introducing blocking regressions
+- validate lint and unit tests
 
 Every feature, improvement or fix is merged via a pull request.
 
@@ -21,11 +21,11 @@ For large features with huge impacts on the whole codebase, use feature branches
 
 > TL;DR
 >
-> * Create release branch
-> * Bump `master` version
-> * Tag beta versions from release branch until it passes all tests
-> * Tag stable version from release branch
-> * Delete release branch
+> - Create release branch
+> - Bump `master` version
+> - Tag beta versions from release branch until it passes all tests
+> - Tag stable version from release branch
+> - Delete release branch
 
 The goal of a release is to have a new stable version of an application or a konnector.  A new release is always based on the current state of `master`, so it consists in creating a new branch `release-0.0.0` (with the correct version).
 
@@ -49,12 +49,13 @@ git checkout release-1.4.0
 Once the release branch is created, i.e. the release has started, it must be validated, so a first beta tag is created.
 
 Following the previous example:
+
 ```sh
 git tag 1.4.0-beta.1
 git push origin 1.4.0-beta.1
 ```
-> NB: Version number in package.json and manifest.webapp is still `1.4.0`
 
+> NB: Version number in package.json and manifest.webapp is still `1.4.0`
 
 If this beta version is ok, it can be tagged as `stable`
 
@@ -91,16 +92,17 @@ git push origin HEAD
 
 > TL;DR
 >
-> * Create a patch branch from a stable tag
-> * Bump to new patch version
-> * Fixes issues and tag new beta versions until everything is ok
-> * Tag stable version
-> * Cherry-pick fixes into `master`
-> * Delete patch branch
+> - Create a patch branch from a stable tag
+> - Bump to new patch version
+> - Fixes issues and tag new beta versions until everything is ok
+> - Tag stable version
+> - Cherry-pick fixes into `master`
+> - Delete patch branch
 
 If a bug is detected on a stable version, we address it with a patch branch.
 
 For example for the version `1.1.0`:
+
 ```sh
 git checkout 1.0.0 -b patch-1.1.1
 # Update app version to 1.1.1 in package.json and manifest.webapp
@@ -108,7 +110,8 @@ git add package.json manifest.webapp
 git commit -m "chore: Bump version to 1.1.1"
 git push --set-upstream-to=origin/patch-1.1.0 patch-1.1.0
 ```
+
 After this checkout a patch branch is managed the same way as a release branch, except that:
 
-* A beta version tag is not created right after checkout but once fixes have been made (otherwise the beta version would be exactly the same as the version which need to be patched)
-* After the stable version has been tagged, the commits are cherry-picked instead of merging the whole branch. A merge is still possible, but it implies to manage conflicts in `package.json` and `manifest.webapp` about version number (remember, we bumped the version so it will conflict with `master` current's one).
+- A beta version tag is not created right after checkout but once fixes have been made (otherwise the beta version would be exactly the same as the version which need to be patched)
+- After the stable version has been tagged, the commits are cherry-picked instead of merging the whole branch. A merge is still possible, but it implies to manage conflicts in `package.json` and `manifest.webapp` about version number (remember, we bumped the version so it will conflict with `master` current's one).

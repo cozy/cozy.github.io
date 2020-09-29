@@ -4,8 +4,8 @@ title: Save data
 
 In the previous sections, we have
 
-* [Created the boilerplate for our connector](./getting-started.md)
-* [Scraped data from our Cozy](./scrape-data.md)
+- [Created the boilerplate for our connector](./getting-started.md)
+- [Scraped data from our Cozy](./scrape-data.md)
 
 We haven't yet inserted the data in our Cozy since we have used the `standalone` mode. Here it comes ;)
 
@@ -18,14 +18,14 @@ We haven't yet inserted the data in our Cozy since we have used the `standalone`
 
 <!-- /MarkdownTOC -->
 
-
 ## Linking your connector to a cozy : `dev mode`
 
-After several `yarn standalone`, your connector is able to automatically gather data from the targeted web service. </br>It's time now to put this data in a real cozy. </br>Here comes the *dev mode*.
+After several `yarn standalone`, your connector is able to automatically gather data from the targeted web service. </br>It's time now to put this data in a real cozy. </br>Here comes the _dev mode_.
 
 For that your connector needs more setup :
-* a `manifest.konnector` file
-* a `COZY_URL` section in `konnector-dev-config.json`
+
+- a `manifest.konnector` file
+- a `COZY_URL` section in `konnector-dev-config.json`
 
 ### The manifest
 
@@ -71,7 +71,6 @@ Here is an example `konnector-dev-config.json`:
 
 ⚠️ It's a common mistake to put a URL with the app, for example `https://lukeskywalker-home.mycozy.cloud`. It won't work, you must removed the `-home` part.
 
-
 ### Run the dev mode
 
 Then you just have to run:
@@ -87,4 +86,3 @@ manifest has the needed permissions on the data you want to save.
 Now that we have successfully scraped and saved our data, the next step is to [build the connector and send it to Cozy store](./packaging.md) !
 
 [cozy-konnector-template]: https://github.com/konnectors/cozy-konnector-template
-
