@@ -308,7 +308,7 @@ As quoted from the [CouchDB documentation](https://docs.couchdb.org/en/2.3.1/mai
 
 > Views with the JavaScript query server are extremely slow to generate when there are a non-trivial number of documents to process. 
 
-> A 10 million document database took about […] 4 hours to do view generation
+> A 10 million document database took about 4 hours to do view generation
 
 Let alone the very slow indexing time, this also requires a lot of server CPU to build views. Hence, applications cannot create views to ensure the scalability of Cozy.
 

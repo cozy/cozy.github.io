@@ -347,7 +347,7 @@ A reference looks like this, here a file referenced by two photos albums:
 ]
 ```
 
-This [n-n] relation is hard to express with a Mango query, so a view is defined:
+This \[n-n] relation is hard to express with a Mango query, so a view is defined:
 
 ```javascript
 function(doc) {

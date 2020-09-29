@@ -202,6 +202,4 @@ See [official android documentation for more details](https://developer.android.
 
 For building an iOS app, you need [xcode](https://developer.apple.com/xcode/).
 
-\[[more to come]]
-
 See further details on [the cordova official documentation about iOS](https://cordova.apache.org/docs/en/latest/guide/platforms/ios/index.html).
