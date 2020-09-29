@@ -1074,6 +1074,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/io.cozy.docrules/" title="DocRules" class="md-nav__link">
+      DocRules
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../cozy-doctypes/docs/io.cozy.files/" title="Files" class="md-nav__link">
       Files
     </a>
@@ -1196,6 +1208,18 @@
   <li class="md-nav__item">
     <a href="../../cozy-doctypes/docs/io.cozy.sharings/" title="Sharings" class="md-nav__link">
       Sharings
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/io.cozy.todos/" title="Todos" class="md-nav__link">
+      Todos
     </a>
   </li>
 
@@ -2581,7 +2605,7 @@
 <li>The browser requests the stack through <em>cozy user domain</em>, which sends back the authentication form. The user fills his password, sending it back to the  <em>cozy user domain</em></li>
 <li>The server <em>cozy user domain</em> sets an auth cookie for <em>cozy user domain</em> ONLY. This cookie is restricted to this sub-domain (and httpOnly). It will not be seen by the app domain. This is by design, so that an app could not use the cookie and authenticate with another app permission.</li>
 <li>A redirect status response code (302) for the <em>requested app domain</em> (<code>user-home.mycozy.cloud/</code>, or <code>user-drive.mycozy.cloud/</code>, or &hellip;) is sent to the browser. (The 302 redirection from <em>cozy user domain</em> to the <em>requested app domain</em> adds a ?code=xxxxx to the URL where xxxx is a random code, used to create a new cookie on the <em>cozy app domain</em>
-6.The new cookie is created on <em>requested app domain</em>. The app can now fetch its index.html page with a <a href="https://jwt.io/">JWT token</a> inside it, and extracts it in JS</li>
+   6.The new cookie is created on <em>requested app domain</em>. The app can now fetch its index.html page with a <a href="https://jwt.io/">JWT token</a> inside it, and extracts it in JS</li>
 <li>The jwt token is sent back to the stack, on the <em>cozy user domain</em> as a bearer token in the Authorization header of HTTP requests.</li>
 <li><em>cozy app domain</em> uses the bearer token to communicate with the stack through XHR request</li>
 <li><em>cozy app domain</em> sends back the authenticated UI to the browser, and a new cookie for the <em>cozy app domain</em> (<code>user-home.mycozy.cloud/</code>, or <code>user-drive.mycozy.cloud/</code>, or &hellip;)</li>
@@ -2604,7 +2628,7 @@
 <li>The &ldquo;Remember me&rdquo; check box only affect the expiration date of the <em>cozy user domain</em> cookie</li>
 </ul>
 <p>!!! warning &ldquo;&rdquo;
-For this documentation we use the domain and the configuration pattern of our production servers: <code>user.mycozy.cloud</code> for the user and <code>user-app.mycozy.cloud</code> for apps. This is only an example and you will have another domain if you are hosted elsewhere or if you are in a development environment. You may also have a different configuration pattern where the app is on a subdomain of the user domain (like <code>app.user.mydomain</code>). If so, cookies set on the user domain may be readable by the app domain.</p>
+  For this documentation we use the domain and the configuration pattern of our production servers: <code>user.mycozy.cloud</code> for the user and <code>user-app.mycozy.cloud</code> for apps. This is only an example and you will have another domain if you are hosted elsewhere or if you are in a development environment. You may also have a different configuration pattern where the app is on a subdomain of the user domain (like <code>app.user.mydomain</code>). If so, cookies set on the user domain may be readable by the app domain.</p>
 <h3 id="2fa">2FA<a class="headerlink" href="#2fa" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Can be activated by the user</li>
@@ -2612,7 +2636,7 @@ For this documentation we use the domain and the configuration pattern of our pr
 <li>Once 2FA activated, and the user authenticated, a new checkbox &ldquo;Trust this machine&rdquo; creates a new cookie (if checked)</li>
 </ul>
 <p>!!! warning &ldquo;&rdquo;
-     There are a few timing issues with 2FA, as the code validation time is quite short, and some emails may be delayed.</p>
+      There are a few timing issues with 2FA, as the code validation time is quite short, and some emails may be delayed.</p>
 <h3 id="usecases-and-their-authentication-methods">Usecases and their authentication methods<a class="headerlink" href="#usecases-and-their-authentication-methods" title="Permanent link">&para;</a></h3>
 <ul>
 <li>User: password and Cookies</li>

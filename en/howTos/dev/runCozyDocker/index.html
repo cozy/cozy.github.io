@@ -1142,6 +1142,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.docrules/" title="DocRules" class="md-nav__link">
+      DocRules
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../cozy-doctypes/docs/io.cozy.files/" title="Files" class="md-nav__link">
       Files
     </a>
@@ -1264,6 +1276,18 @@
   <li class="md-nav__item">
     <a href="../../../cozy-doctypes/docs/io.cozy.sharings/" title="Sharings" class="md-nav__link">
       Sharings
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.todos/" title="Todos" class="md-nav__link">
+      Todos
     </a>
   </li>
 
@@ -2652,15 +2676,16 @@
 
 <div class="admonition note">
 <p class="admonition-title">Commands explaination</p>
-<ul>
-<li><code>--rm</code> will delete the server when you stop it. This prevent Docker from keeping a lot of unused stopped images</li>
-<li><code>-it</code> allow to attach an interactive terminal, so you’ll be able to use the command line inside the server</li>
-<li><code>-p 8080:8080</code>: the server listens on port 8080 on the virtual machine. We forward this port to the same port on your local machine. To use another local port, for example 9090, use <code>-p 9090:8080</code></li>
-<li><code>-p 8025:8025</code> : Cozy requires a mail server. In the development image, we don’t use a real email server, but a software that can display the sent messages. Just point your browser to <code>http://cozy.tools:8025/</code> to display the messages sent by the server</li>
-<li><code>--name cozydev</code> name the running virtual machine <code>cozydev</code>, so you can easily refer to it from other Docker commands. For example, if you want to connect to a shell inside the server, you can use <code>docker exec cozydev -it /bin/bash</code></li>
-<li><code>-v ~/cozy/myapp:/data/cozy-app</code> this mount the current folder, where your application leaves, inside the server. This is what make the application available on the server</li>
-</ul>
 </div>
+<div class="codehilite"><pre><span></span>- `--rm` will delete the server when you stop it. This prevent Docker from keeping a lot of unused stopped images
+- `-it` allow to attach an interactive terminal, so you’ll be able to use the command line inside the server
+- `-p 8080:8080`: the server listens on port 8080 on the virtual machine. We forward this port to the same port on your local machine. To use another local port, for example 9090, use `-p 9090:8080`
+- `-p 8025:8025` : Cozy requires a mail server. In the development image, we don’t use a real email server, but a software that can display the sent messages. Just point your browser to `http://cozy.tools:8025/` to display the messages sent by the server
+- `--name cozydev` name the running virtual machine `cozydev`, so you can easily refer to it from other Docker commands. For example, if you want to connect to a shell inside the server, you can use `docker exec cozydev -it /bin/bash`
+- `-v ~/cozy/myapp:/data/cozy-app` this mount the current folder, where your application leaves, inside the server. This is what make the application available on the server
+</pre></div>
+
+
 <h2 id="with-data-persistence">With data persistence<a class="headerlink" href="#with-data-persistence" title="Permanent link">&para;</a></h2>
 <p>If you want to persist data, you have to mount two folders from the virtual server to local folders: <code>/usr/local/couchdb/data</code> (database) and <code>/data/cozy-storage</code> (the virtual filesystem). This can be achieved by adding two options to the command line starting with <code>-v</code> which will store the server’s data into <code>~/cozy/data/</code>.</p>
 <div class="codehilite"><pre><span></span>$ docker run --rm -it <span class="se">\</span>
@@ -2703,7 +2728,7 @@
 <h2 id="mailhog-to-catch-e-mails-and-couchdb-access">Mailhog to catch e-mails and CouchDB access<a class="headerlink" href="#mailhog-to-catch-e-mails-and-couchdb-access" title="Permanent link">&para;</a></h2>
 <p>A <a href="https://github.com/mailhog/MailHog">MailHog</a> is running inside Docker to
 catch emails. You can view the emails sent by the stack in a web interface on
-http://cozy.tools:8025/</p>
+<a href="http://cozy.tools:8025/">http://cozy.tools:8025/</a></p>
 <p>You can also expose the couchdb port (listening in the container on 5984) in
 order to access its admin page. For instance add <code>-p 5984:5984</code> to access to the
 admin interface on <code>http://cozy.tools:5984/_utils</code>.</p>

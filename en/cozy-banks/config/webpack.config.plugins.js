@@ -2,13 +2,18 @@ const webpack = require('webpack')
 const CopyPlugin = require('copy-webpack-plugin')
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin')
 const path = require('path')
-const pkg = require(path.resolve(__dirname, '../package.json'))
+const fs = require('fs')
+
 const VersionPlugin = require('cozy-scripts/plugins/VersionPlugin')
+
+const manifest = JSON.parse(
+  fs.readFileSync(path.resolve(__dirname, '../manifest.webapp')).toString()
+)
 
 module.exports = {
   plugins: [
     new webpack.DefinePlugin({
-      __APP_VERSION__: JSON.stringify(pkg.version),
+      __APP_VERSION__: JSON.stringify(manifest.version),
       __SENTRY_URL__: JSON.stringify(
         'https://ea2067ca88504d9cbc9115b55d0b2d55:e52e64f57486417bb1b5fa6529e1cfcb@sentry.cozycloud.cc/11'
       ),

@@ -1128,6 +1128,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.docrules/" title="DocRules" class="md-nav__link">
+      DocRules
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../cozy-doctypes/docs/io.cozy.files/" title="Files" class="md-nav__link">
       Files
     </a>
@@ -1250,6 +1262,18 @@
   <li class="md-nav__item">
     <a href="../../../cozy-doctypes/docs/io.cozy.sharings/" title="Sharings" class="md-nav__link">
       Sharings
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.todos/" title="Todos" class="md-nav__link">
+      Todos
     </a>
   </li>
 
@@ -2611,7 +2635,7 @@ Bob sees Alice&rsquo;s shared folder in his own cozy.</p>
 <p>🤔 But how could we do this scenario on development environment?</p>
 <h2 id="with-the-docker-image">With the docker image<a class="headerlink" href="#with-the-docker-image" title="Permanent link">&para;</a></h2>
 <p>If you develop with the <a href="https://docs.cozy.io/en/cozy-stack/client-app-dev/#with-docker">cozy-app-dev docker image</a>, <a href="https://github.com/mailhog/MailHog">MailHog</a> is running inside it to catch emails.</p>
-<p>If cozy-stack has to send an email, MailHog catches it and exposes it on its web interface on http://cozy.tools:8025/.</p>
+<p>If cozy-stack has to send an email, MailHog catches it and exposes it on its web interface on <a href="http://cozy.tools:8025/">http://cozy.tools:8025/</a>.</p>
 <h2 id="with-the-binary-cozy-stack">With the binary cozy-stack<a class="headerlink" href="#with-the-binary-cozy-stack" title="Permanent link">&para;</a></h2>
 <p>If you develop with the <a href="https://docs.cozy.io/en/cozy-stack/cli/cozy-stack/">cozy-stack CLI</a>, you have to run <a href="https://github.com/mailhog/MailHog">MailHog</a> on your computer and tell <code>cozy-stack serve</code> where to find the mail server with some <a href="https://docs.cozy.io/en/cozy-stack/cli/cozy-stack_serve/#options">options</a>:</p>
 <div class="codehilite"><pre><span></span>./cozy-stack serve --appdir drive:../cozy-drive/build,settings:../cozy-settings/build --mail-disable-tls --mail-port 1025
@@ -2619,7 +2643,7 @@ Bob sees Alice&rsquo;s shared folder in his own cozy.</p>
 
 
 <p><em>This commands assumes you <code>git clone</code> <a href="https://github.com/cozy/cozy-drive">cozy-drive</a> and <a href="https://github.com/cozy/cozy-settings">cozy-settings</a> in the same folder than you <code>git clone</code> <a href="https://github.com/cozy/cozy-stack">cozy-stack</a>.</em></p>
-<p>Then simply run <code>MailHog</code> and open http://cozy.tools:8025/.</p>
+<p>Then simply run <code>MailHog</code> and open <a href="http://cozy.tools:8025/">http://cozy.tools:8025/</a>.</p>
 <h2 id="retrieve-sent-emails">Retrieve sent emails<a class="headerlink" href="#retrieve-sent-emails" title="Permanent link">&para;</a></h2>
 <p>With MailHog, <strong>every email</strong> sent by cozy-stack is caught. That means the email address <em>does not have to be a real one</em>, ie. <code>bob@cozy</code>, <code>bob@cozy.tools</code> are perfectly fine. It <em>could be a real one</em>, but the email will not reach the real recipient&rsquo;s inbox, say <code>contact@cozycloud.cc</code>.</p>
                 

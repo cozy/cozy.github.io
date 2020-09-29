@@ -1074,6 +1074,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.docrules/" title="DocRules" class="md-nav__link">
+      DocRules
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../cozy-doctypes/docs/io.cozy.files/" title="Files" class="md-nav__link">
       Files
     </a>
@@ -1196,6 +1208,18 @@
   <li class="md-nav__item">
     <a href="../../../cozy-doctypes/docs/io.cozy.sharings/" title="Sharings" class="md-nav__link">
       Sharings
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.todos/" title="Todos" class="md-nav__link">
+      Todos
     </a>
   </li>
 
@@ -2536,14 +2560,14 @@
                 <h2 id="how-does-it-work">How does it work?<a class="headerlink" href="#how-does-it-work" title="Permanent link">&para;</a></h2>
 <p>A connector is a NodeJS script.
 +The target node version used to run your connector is the version 8.</p>
-<p>Like client side apps, connectors communicate with the <a href="https://docs.cozy.io/en/cozy-stack/README/">Cozy Stack</a> using its HTTP API, and get a unique auth token every time they start.</p>
+<p>Like client side apps, connectors communicate with the <a href="https://docs.cozy.io/en/cozy-stack/">Cozy Stack</a> using its HTTP API, and get a unique auth token every time they start.</p>
 <p>They need to register with a <a href="https://docs.cozy.io/en/cozy-apps-registry/#properties-meaning-reference">manifest</a>, and ask the user for permissions.</p>
 <p>To facilitate connector development, a npm package, <a href="https://github.com/konnectors/libs">cozy-konnector-libs</a>, provides some shared libraries that are adapted to be used for a connector:</p>
 <ul>
 <li><a href="https://cheerio.js.org">cheerio</a> to easily query a HTML page</li>
 <li><a href="https://github.com/request/request-promise">request-promise</a>: <a href="https://github.com/request/request">request</a> with Promise support</li>
 <li><a href="https://github.com/request/request-debug">request-debug</a> that displays all the requests and responses in the standard output.
-   Toggle <em>debug</em> option in <a href="https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_requestFactory">requestFactory options</a></li>
+  Toggle <em>debug</em> option in <a href="https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_requestFactory">requestFactory options</a></li>
 </ul>
 <p>Besides, you&rsquo;ll probably need some other npm packages to help you run your connector:</p>
 <ul>
@@ -2558,9 +2582,9 @@
 </ul>
 <p>These variables are used by the connector and the cozy-client to configure the connection to the <a href="https://github.com/cozy/cozy-stack">Cozy Stack</a> with the right <a href="https://docs.cozy.io/en/cozy-stack/permissions/">permissions</a> as defined in the connector <a href="https://docs.cozy.io/en/cozy-apps-registry/#properties-meaning-reference">manifest</a>.
 They are simulated in standalone mode so that you do not need a real Cozy Stack to develop a connector.
-[<a href="https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#basekonnector">More about BaseKonnector</a>]</p>
+[<a href="https://docs.cozy.io/en/cozy-konnector-libs/api/#basekonnector">More about BaseKonnector</a>]</p>
 <p>From the server point of view, each connector is a <code>job</code> which is executed periodically via a <code>trigger</code>.
-[<a href="https://cozy.github.io/cozy-stack/jobs/">More about Cozy Stack jobs</a>]</p>
+[<a href="https://docs.cozy.io/en/cozy-stack/jobs/">More about Cozy Stack jobs</a>]</p>
                 
                   
                 

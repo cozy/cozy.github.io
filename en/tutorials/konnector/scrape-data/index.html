@@ -1148,6 +1148,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.docrules/" title="DocRules" class="md-nav__link">
+      DocRules
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../cozy-doctypes/docs/io.cozy.files/" title="Files" class="md-nav__link">
       Files
     </a>
@@ -1270,6 +1282,18 @@
   <li class="md-nav__item">
     <a href="../../../cozy-doctypes/docs/io.cozy.sharings/" title="Sharings" class="md-nav__link">
       Sharings
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.todos/" title="Todos" class="md-nav__link">
+      Todos
     </a>
   </li>
 
@@ -2643,7 +2667,7 @@
                 
                 <p>In this part, we are going to see how to scrape data from the service you want to retrieve your data from. If not done yet, you want to check the <a href="../getting-started/">getting started guide</a>. </p>
 <h3 id="implement-your-connector">Implement your connector<a class="headerlink" href="#implement-your-connector" title="Permanent link">&para;</a></h3>
-<p>There are four steps for a connector to save data to <a href="https://cozy.github.io/cozy-stack/README/">Cozy Stack</a>:</p>
+<p>There are four steps for a connector to save data to <a href="https://docs.cozy.io/en/cozy-stack/">Cozy Stack</a>:</p>
 <ol>
 <li>authentication</li>
 <li>request data</li>
@@ -2887,9 +2911,9 @@ Once we build a correct object, we can save it to Cozy Stack.</p>
 <p><code>fileurl</code> is used to tell Cozy where to find the file (here an image) to retreive. Then you can save it to Cozy Stack (see section below).</p>
 <p>There are many <a href="https://github.com/cozy/cozy-doctypes">document types</a> (Doctypes) you can store in your Cozy, such as:</p>
 <ul>
-<li><a href="https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.bills.md">Bills</a></li>
-<li><a href="https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.contacts.md">Contacts</a></li>
-<li><a href="https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.bank.md">Bank</a></li>
+<li><a href="https://docs.cozy.io/en/cozy-doctypes/docs/io.cozy.bills/">Bills</a></li>
+<li><a href="https://docs.cozy.io/en/cozy-doctypes/docs/io.cozy.contacts/">Contacts</a></li>
+<li><a href="https://docs.cozy.io/en/cozy-doctypes/docs/io.cozy.bank/">Bank</a></li>
 <li>and so on…</li>
 </ul>
 <h4 id="save-data-to-cozy-stack">Save data to Cozy Stack<a class="headerlink" href="#save-data-to-cozy-stack" title="Permanent link">&para;</a></h4>
@@ -2902,7 +2926,7 @@ But there is a bunch of functions available depending on what you want:</p>
 <li><a href="https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_saveFiles"><code>saveFiles</code></a> to upload files to Cozy Drive.</li>
 <li>and so on…</li>
 </ul>
-<p>For example, to save bills to Cozy you have to start by recovering all required fields for a data type <a href="https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.bills.md">io.cozy.bills</a> using the <code>scrape</code> function, and then you can use the function <code>saveBills</code> to save your docs to Cozy Stack as shown below:</p>
+<p>For example, to save bills to Cozy you have to start by recovering all required fields for a data type <a href="https://docs.cozy.io/en/cozy-doctypes/docs/io.cozy.bills/">io.cozy.bills</a> using the <code>scrape</code> function, and then you can use the function <code>saveBills</code> to save your docs to Cozy Stack as shown below:</p>
 <div class="codehilite"><pre><span></span><span class="kd">await</span> <span class="n">saveBills</span><span class="p">(</span><span class="n">documents</span><span class="p">,</span> <span class="n">fields</span><span class="p">,</span> <span class="p">{</span>
   <span class="nl">idenditifiers:</span> <span class="p">[</span><span class="s1">&#39;vendor&#39;</span><span class="p">],</span> <span class="c1">// name of the target website</span>
   <span class="nl">contentType:</span> <span class="s1">&#39;application/pdf&#39;</span>

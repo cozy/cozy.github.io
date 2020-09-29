@@ -1221,6 +1221,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/io.cozy.docrules/" title="DocRules" class="md-nav__link">
+      DocRules
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../cozy-doctypes/docs/io.cozy.files/" title="Files" class="md-nav__link">
       Files
     </a>
@@ -1343,6 +1355,18 @@
   <li class="md-nav__item">
     <a href="../../cozy-doctypes/docs/io.cozy.sharings/" title="Sharings" class="md-nav__link">
       Sharings
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cozy-doctypes/docs/io.cozy.todos/" title="Todos" class="md-nav__link">
+      Todos
     </a>
   </li>
 
@@ -2854,7 +2878,7 @@ yarn start
 
 
 <p>This command will run  <code>webpack</code> in a watching mode with a server (webpack-dev-server) to serve
-application assets. Your application will be available at http://mycozyapp.cozy.tools:8080.
+application assets. Your application will be available at <a href="http://mycozyapp.cozy.tools:8080">http://mycozyapp.cozy.tools:8080</a>.
 Password is <code>cozy</code>. In this mode HMR (Hot Module Replacement) is available.</p>
 <div align="center">
   <img src="../../img/dev/cca-start.gif" />
@@ -2953,12 +2977,14 @@ With that, no need to configure your environment to set extra local hosts for de
 <h4 id="permissions">Permissions<a class="headerlink" href="#permissions" title="Permanent link">&para;</a></h4>
 <p>Applications require permissions to use most of the APIs. Permissions can be described inside the manifest, so the server can ask the user to grant them during installation. Applications can also request permissions at run time.</p>
 <p>A permission must at least contain a target, the type of objects the application want to interact with. Can be a document type, or an action on the server. By default, all permissions on this object are granted, but we can also request fine grained permissions, for example limiting to read access. We can also limit the scope to a subset of the documents.</p>
-<p>In the manifest, each permission is an object, with a random name and some properties:
-  - <code>type</code>: <strong>mandatory</strong> the document type or action name
-  - <code>description</code>: a text that will be displayed to the user to explain why the application require this permission
-  - <code>verbs</code>: an array of HTTP verbs. For example, to limit permissions to read access, use <code>["GET"]</code>
-  - <code>selector</code>: a document attribute to limit access to a subset of documents
-  - <code>values</code>: array of allowed values for this attribute.</p>
+<p>In the manifest, each permission is an object, with a random name and some properties:</p>
+<ul>
+<li><code>type</code>: <strong>mandatory</strong> the document type or action name</li>
+<li><code>description</code>: a text that will be displayed to the user to explain why the application require this permission</li>
+<li><code>verbs</code>: an array of HTTP verbs. For example, to limit permissions to read access, use <code>["GET"]</code></li>
+<li><code>selector</code>: a document attribute to limit access to a subset of documents</li>
+<li><code>values</code>: array of allowed values for this attribute.</li>
+</ul>
 <p>An application can request a token that grant access to a subset of its own permissions. For example if the application has full access to the files, it can obtain a token that give only read access on a file. Thus, the application can make some documents publicly available. The public page of the application will use this token asauthentication token when accessing the API.</p>
 <h5 id="samples">Samples<a class="headerlink" href="#samples" title="Permanent link">&para;</a></h5>
 <p>Application requiring full access to files:</p>
@@ -3016,10 +3042,12 @@ With that, no need to configure your environment to set extra local hosts for de
 
 <h3 id="behind-the-magic">Behind the magic<a class="headerlink" href="#behind-the-magic" title="Permanent link">&para;</a></h3>
 <p>Some server APIs may not be available right now through the library. If you want to use one of this method, you’ll have to call it manually. We’ll describe here how to access the API without using the Cozy Client library.</p>
-<p>Connecting to the API requires three things:
-  - its URL, injected into the page through the <code>{{.Domain}}</code> variable
-  - the application auth token, injected into the page through the <code>{{.Token}}</code> variable. Each request sent to the server must include this token in the <code>Authorization</code> header
-  - the session cookie, created when you connect to your server. This is an <code>HttpOnly cookie</code>, meaning that JavaScript applications can’t read it. This prevent a malicious script to steal the cookie.</p>
+<p>Connecting to the API requires three things:</p>
+<ul>
+<li>its URL, injected into the page through the <code>{{.Domain}}</code> variable</li>
+<li>the application auth token, injected into the page through the <code>{{.Token}}</code> variable. Each request sent to the server must include this token in the <code>Authorization</code> header</li>
+<li>the session cookie, created when you connect to your server. This is an <code>HttpOnly cookie</code>, meaning that JavaScript applications can’t read it. This prevent a malicious script to steal the cookie.</li>
+</ul>
 <p>Here’s a sample code that get API informations provided by the server and query the API:</p>
 <div class="codehilite"><pre><span></span>    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-cozy-token</span><span class="o">=</span><span class="s">&quot;{{.Token}}&quot;</span> <span class="na">data-cozy-domain</span><span class="o">=</span><span class="s">&quot;{{.Domain}}&quot;</span> <span class="p">/&gt;</span>
 </pre></div>

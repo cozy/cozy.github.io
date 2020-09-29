@@ -1063,6 +1063,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#relationships-with-metadata" title="Relationships with metadata" class="md-nav__link">
+    Relationships with metadata
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1178,6 +1185,18 @@
   <li class="md-nav__item">
     <a href="io.cozy.contacts/" title="Contacts" class="md-nav__link">
       Contacts
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="io.cozy.docrules/" title="DocRules" class="md-nav__link">
+      DocRules
     </a>
   </li>
 
@@ -1310,6 +1329,18 @@
   <li class="md-nav__item">
     <a href="io.cozy.sharings/" title="Sharings" class="md-nav__link">
       Sharings
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="io.cozy.todos/" title="Todos" class="md-nav__link">
+      Todos
     </a>
   </li>
 
@@ -2672,6 +2703,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#relationships-with-metadata" title="Relationships with metadata" class="md-nav__link">
+    Relationships with metadata
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2753,9 +2791,13 @@ for another doctype, feel free to open a PR with the description and role of you
 <li><a href="io.cozy.permissions/">io.cozy.permissions</a>: Permissions of the instance</li>
 <li><a href="io.cozy.photos/">io.cozy.photos</a>: Photos</li>
 <li><a href="io.cozy.procedures/">io.cozy.procedures</a>: Administrative procedures</li>
+<li><a href="io.cozy.docrules/">io.cozy.docrules</a>: Rules to retrieve documents</li>
 <li><a href="io.cozy.sessions.logins/">io.cozy.sessions.logins</a>: Sessions logins entry</li>
 <li><a href="io.cozy.settings/">io.cozy.settings</a>: Instance settings</li>
 <li><a href="io.cozy.sharings/">io.cozy.sharings</a>: Documents used for Cozy to Cozy sharings</li>
+<li><a href="io.cozy.todos/">io.cozy.todos</a>: Todos</li>
+<li><a href="io.cozy.todos/#iocozytodoslist">io.cozy.todos.list</a>: Todos list</li>
+<li><a href="io.cozy.todos/#iocozytodositem">io.cozy.todos.item</a>: Todos item</li>
 </ul>
 <h2 id="technical-doctypes">Technical doctypes<a class="headerlink" href="#technical-doctypes" title="Permanent link">&para;</a></h2>
 <ul>
@@ -2807,6 +2849,27 @@ for another doctype, feel free to open a PR with the description and role of you
     <span class="nt">&quot;vaultCipher&quot;</span><span class="p">:</span> <span class="p">{</span>
       <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[{</span> <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;123abc&quot;</span><span class="p">,</span> <span class="nt">&quot;_type&quot;</span><span class="p">:</span> <span class="s2">&quot;com.bitwarden.ciphers&quot;</span><span class="p">,</span> <span class="nt">&quot;_protocol&quot;</span><span class="p">:</span> <span class="s2">&quot;bitwarden&quot;</span> <span class="p">}]</span>
     <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h4 id="relationships-with-metadata">Relationships with metadata<a class="headerlink" href="#relationships-with-metadata" title="Permanent link">&para;</a></h4>
+<p>A relationship can store additional information, in the <code>metadata</code> attribute. For instance, see the <a href="https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.accounts.md#contracts-contracts">contracts</a> relationship for the accounts.</p>
+<div class="codehilite"><pre><span></span><span class="s2">&quot;relationships&quot;</span><span class="err">:</span> <span class="p">{</span>
+  <span class="nt">&quot;contracts&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;77b662b903f1bac7a78cf8cc12806479&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;_type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.bank.accounts&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;metadata&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;deletedByVendor&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+          <span class="nt">&quot;imported&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+          <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Compte chèque&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;vendorId&quot;</span><span class="p">:</span> <span class="s2">&quot;1337&quot;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>

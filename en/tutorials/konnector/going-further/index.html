@@ -1074,6 +1074,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.docrules/" title="DocRules" class="md-nav__link">
+      DocRules
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../cozy-doctypes/docs/io.cozy.files/" title="Files" class="md-nav__link">
       Files
     </a>
@@ -1196,6 +1208,18 @@
   <li class="md-nav__item">
     <a href="../../../cozy-doctypes/docs/io.cozy.sharings/" title="Sharings" class="md-nav__link">
       Sharings
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.todos/" title="Todos" class="md-nav__link">
+      Todos
     </a>
   </li>
 
@@ -2612,10 +2636,10 @@ This function can then:</p>
 <ol>
 <li>authenticate on the website or API. Might be tricky, but that&rsquo;s the fun :-)</li>
 <li>getting data from the online service. You can get the data by calling an API or scraping the webpage. Check if the webpage itself is not using an API to retrieve data, might speed up our job. Mobile phones applications usually connects to an API that might be a reliable source of data.
- </br>A quick <a href="#How-do-I-scrape-my-data-from-a-website">exemple of a scraper here</a>.</li>
-<li>filtering data to remove the ones already present inside the database using <a href="https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_hydrateAndFilter">hydrateAndFilter</a></li>
-<li>save the filtered data into the database (<a href="https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#adddata">addData</a>)</li>
-<li>save the related files using (<a href="https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#savefiles">saveFiles</a>)</li>
+   </br>A quick <a href="#How-do-I-scrape-my-data-from-a-website">exemple of a scraper here</a>.</li>
+<li>filtering data to remove the ones already present inside the database using <a href="https://docs.cozy.io/en/cozy-konnector-libs/api/#module_hydrateAndFilter">hydrateAndFilter</a></li>
+<li>save the filtered data into the database (<a href="https://docs.cozy.io/en/cozy-konnector-libs/api/#adddata">addData</a>)</li>
+<li>save the related files using (<a href="https://docs.cozy.io/en/cozy-konnector-libs/api/#savefiles">saveFiles</a>)</li>
 </ol>
 <h4 id="error-handling">Error handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h4>
 <p>If your connector hits an issue fetching or saving the data, it can return an error code by throwing it as an error. The error codes are defined inside the <a href="https://github.com/cozy/cozy-home">Cozy Home</a> application and will display an explicit error to the user:</p>
@@ -2661,15 +2685,15 @@ This function can then:</p>
 <h4 id="cozy-konnector-libs"><a href="https://github.com/konnectors/libs">cozy-konnector-libs</a><a class="headerlink" href="#cozy-konnector-libs" title="Permanent link">&para;</a></h4>
 <p>The Cozy Konnector Libs provide several useful methods for common tasks:</p>
 <ul>
-<li><a href="https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#basekonnector">BaseKonnector</a>: creates the connector and fetches from the stack the connector&rsquo;s parameters (COZY_FIELDS&hellip;)</li>
-<li><a href="https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#cozyclient">cozyClient</a> gives an instance of <a href="https://github.com/cozy/cozy-client-js">cozy-client-js</a> already initialized according to <code>COZY_URL</code>, and <code>COZY_CREDENTIALS</code>. Your code can immediately interact with the server thanks to this client.</li>
-<li><a href="https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_requestFactory">requestFactory</a> a function which returns an instance of request-promise initialized with defaults often used in connector development.</li>
+<li><a href="https://docs.cozy.io/en/cozy-konnector-libs/api/#basekonnector">BaseKonnector</a>: creates the connector and fetches from the stack the connector&rsquo;s parameters (COZY_FIELDS&hellip;)</li>
+<li><a href="https://docs.cozy.io/en/cozy-konnector-libs/api/#cozyclient">cozyClient</a> gives an instance of <a href="https://github.com/cozy/cozy-client-js">cozy-client-js</a> already initialized according to <code>COZY_URL</code>, and <code>COZY_CREDENTIALS</code>. Your code can immediately interact with the server thanks to this client.</li>
+<li><a href="https://docs.cozy.io/en/cozy-konnector-libs/api/#module_requestFactory">requestFactory</a> a function which returns an instance of request-promise initialized with defaults often used in connector development.</li>
 <li><a href="https://github.com/cozy/cozy-konnector-libs/blob/3cad316bac1898ef3c2656577af786f6549b40b0/packages/cozy-logger/src/index.js#L35-L41">log</a> allows to log messages with different levels</li>
-<li><a href="https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#hydrateAndFilter">hydrateAndFilter</a> to filter data</li>
-<li><a href="https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#adddata">addData</a> to store the retrieved data into the cozy</li>
-<li><a href="https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#linkbankoperations">linkBankOperations</a> to link a bill to a bank operation</li>
-<li><a href="https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#savebills">saveBills</a> which uses hydrateAndFilter, addData, saveFiles and linkBankOperations and which is specific to bills</li>
-<li><a href="https://github.com/cozy/cozy-konnector-libs/blob/master/packages/cozy-konnector-libs/docs/api.md#updateorcreate">updateOrCreate</a> create or update documents inside database</li>
+<li><a href="https://docs.cozy.io/en/cozy-konnector-libs/api/#hydrateAndFilter">hydrateAndFilter</a> to filter data</li>
+<li><a href="https://docs.cozy.io/en/cozy-konnector-libs/api/#adddata">addData</a> to store the retrieved data into the cozy</li>
+<li><a href="https://docs.cozy.io/en/cozy-konnector-libs/api/#linkbankoperations">linkBankOperations</a> to link a bill to a bank operation</li>
+<li><a href="https://docs.cozy.io/en/cozy-konnector-libs/api/#savebills">saveBills</a> which uses hydrateAndFilter, addData, saveFiles and linkBankOperations and which is specific to bills</li>
+<li><a href="https://docs.cozy.io/en/cozy-konnector-libs/api/#updateorcreate">updateOrCreate</a> create or update documents inside database</li>
 <li><a href="">htmlToPDF</a> to convert HTML code to PDF content to insert into a PDF file created with the <code>createCozyPDFDocument</code> function</li>
 <li><a href="">createCozyPDFDocument</a> to create a new PDF file to pass to <code>htmlToPDF</code></li>
 </ul>

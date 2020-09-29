@@ -1190,6 +1190,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.docrules/" title="DocRules" class="md-nav__link">
+      DocRules
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../cozy-doctypes/docs/io.cozy.files/" title="Files" class="md-nav__link">
       Files
     </a>
@@ -1312,6 +1324,18 @@
   <li class="md-nav__item">
     <a href="../../../cozy-doctypes/docs/io.cozy.sharings/" title="Sharings" class="md-nav__link">
       Sharings
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.todos/" title="Todos" class="md-nav__link">
+      Todos
     </a>
   </li>
 
@@ -2727,7 +2751,7 @@
                 
                 <h2 id="what-is-it-for">What is it for?<a class="headerlink" href="#what-is-it-for" title="Permanent link">&para;</a></h2>
 <p>Applications may require server-side code execution that could not, or should not, be in the client. This might be useful for heavy computations or for tasks triggered after some events, typically after data is retrieved through <a href="https://docs.cozy.io/en/cozy-stack/konnectors/">konnectors</a> or mobile/desktop sync, without the user being on the application.</p>
-<p>In contrast to konnectors, services have the same permissions as the web application and are not intended to collect information from the outside. It is rather meant to asynchronously analyse data inside the cozy and emit some output once the task is done. However, they share the same mechanisms as the konnectors to describe how and when they should be executed: via our <a href="https://github.com/cozy/cozy-stack/blob/master/docs/jobs.md">trigger system</a>.</p>
+<p>In contrast to konnectors, services have the same permissions as the web application and are not intended to collect information from the outside. It is rather meant to asynchronously analyse data inside the cozy and emit some output once the task is done. However, they share the same mechanisms as the konnectors to describe how and when they should be executed: via our <a href="https://docs.cozy.io/en/cozy-stack/jobs/">trigger system</a>.</p>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
 <p>You can find an example of an existing service in the <a href="https://github.com/cozy/cozy-banks/blob/master/src/targets/services/onOperationOrBillCreate.js">cozy-banks app</a>.</p>
 <h2 id="cozyclient-instantiation">CozyClient instantiation<a class="headerlink" href="#cozyclient-instantiation" title="Permanent link">&para;</a></h2>
@@ -2753,18 +2777,18 @@
 <ul>
 <li><code>type</code>: describe the code type (only <code>node</code> for now).</li>
 <li><code>file</code>: the single (packaged) file containing the code to execute as a service. It must be the <strong>relative</strong> path to the built service&rsquo;s file, not the source one. Expl: <code>/services/name-of-service/built-file.js</code>. Look at your <code>build</code> folder or build/watch console output to find it.</li>
-<li><code>trigger</code>: what triggers the service. It must follow the available triggers described in the <a href="https://github.com/cozy/cozy-stack/blob/master/docs/jobs.md">jobs documentation</a>. In this example, the trigger is a bank operation creation.</li>
+<li><code>trigger</code>: what triggers the service. It must follow the available triggers described in the <a href="https://docs.cozy.io/en/cozy-stack/jobs/">jobs documentation</a>. In this example, the trigger is a bank operation creation.</li>
 <li><code>debounce</code> (optionnal): force a minimal delay between two runs of the service. <code>m</code> is for minutes and <code>s</code> for seconds. if this parameter is omitted, the service will be executed as soon as it can.</li>
 </ul>
 <h2 id="build">Build<a class="headerlink" href="#build" title="Permanent link">&para;</a></h2>
 <p>The service must be packaged into a single file containing all the dependencies. An example of a webpack rule is available <a href="https://github.com/cozy/create-cozy-app/blob/master/packages/cozy-scripts/config/webpack.config.services.js">here</a>. Note that <code>target: 'node'</code> is important as the service is run as a Node.js process.</p>
 <p>In this example, the services are built alongside your app using <code>yarn watch</code>.</p>
 <h2 id="stack">Stack<a class="headerlink" href="#stack" title="Permanent link">&para;</a></h2>
-<p>As the service is run on a dedicated process on the server side, a running stack is necessary. You can either use a stack installed <a href="https://docs.cozy.io/en/howTos/dev/runCozyDocker/#run-with-a-custom-stack-config-file">with docker</a> or directly <a href="https://github.com/cozy/cozy-stack/blob/master/docs/INSTALL.md">from source</a>.</p>
+<p>As the service is run on a dedicated process on the server side, a running stack is necessary. You can either use a stack installed <a href="https://docs.cozy.io/en/howTos/dev/runCozyDocker/#run-with-a-custom-stack-config-file">with docker</a> or directly <a href="https://docs.cozy.io/en/cozy-stack/INSTALL/">from source</a>.</p>
 <p>Some configuration is required to execute the service and store the produced logs, to facilitate the development. The following instructions are for a stack installed from source, but you can adapt it for a docker installation: you have to download the <a href="https://github.com/cozy/cozy-stack/blob/master/cozy.example.yaml">default config file</a>, modify it as described below and indicate its location through the docker command, as explained <a href="https://docs.cozy.io/en/howTos/dev/runCozyDocker/#run-with-a-custom-stack-config-file">here</a>.</p>
 <p>In the following, we assume that your <code>$HOME</code> is /home/alice, so change accordingly to your own <code>$HOME</code>.</p>
 <h3 id="copy-the-default-config-file">Copy the default config file<a class="headerlink" href="#copy-the-default-config-file" title="Permanent link">&para;</a></h3>
-<p>Create a directory  <code>~/.cozy</code> and copy the default configuration file into it. Be careful, the file name and location matter, as explained in the <a href="https://github.com/cozy/cozy-stack/blob/master/docs/config.md">config documentation</a>.</p>
+<p>Create a directory  <code>~/.cozy</code> and copy the default configuration file into it. Be careful, the file name and location matter, as explained in the <a href="https://docs.cozy.io/en/cozy-stack/config/">config documentation</a>.</p>
 <div class="codehilite"><pre><span></span>cp cozy-stack/cozy.example.yaml ~/.cozy/cozy.yaml<span class="sb">`</span>
 </pre></div>
 
