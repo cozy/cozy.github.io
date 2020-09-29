@@ -3543,12 +3543,17 @@ beforehand as a client.</p>
 </pre></div>
 
 
-<p><strong>NOTE</strong> the scope may depends on other fields being configured (checkboxes),
+<p><strong>Notes:</strong></p>
+<ul>
+<li>the scope may depends on other fields being configured (checkboxes),
 this will be described in json in the konnectors manifest. The format will be
-determined upon implementation.</p>
-<p><strong>NOTE</strong> To limit bandwidth and risk of state corruption, the cozy app should
+determined upon implementation;</li>
+<li>to limit bandwidth and risk of state corruption, the cozy app should
 save its state under a random key into localStorage, the key is then passed as
-the state in this query.</p>
+the state in this query;</li>
+<li>a third parameter, <code>slug</code>, can be added to redirect to this app instead of
+  the home.</li>
+</ul>
 <p>B. Service lets the user login, allows or denies the scope, then redirects to</p>
 <div class="codehilite"><pre><span></span><span class="err">https://oauthcallback.cozy.rocks/accounts/service-name/redirect?</span>
 <span class="err">  code=AUTH_CODE_HERE&amp;</span>
