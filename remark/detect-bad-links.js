@@ -14,6 +14,7 @@ const updateURLToDocsCozyIO = url => {
     .replace(/\.md$/, '')
     .replace('cozy-stack/docs', 'cozy-stack')
     .replace('cozy-konnector-libs/packages/cozy-konnector-libs/docs', 'cozy-konnector-libs')
+    .replace(/\/README$/i, '')
   return newURL + '/' + (fragment ? `#${fragment}` : '')
 }
 /**
