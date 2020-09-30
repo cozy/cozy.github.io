@@ -1375,6 +1375,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#cozyclientfromdomselector-options-object" title="CozyClient.fromDOM(selector, options) ⇒ object" class="md-nav__link">
+    CozyClient.fromDOM(selector, options) ⇒ object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#cozyclientregisterhookdoctype-name-fn" title="CozyClient.registerHook(doctype, name, fn)" class="md-nav__link">
     CozyClient.registerHook(doctype, name, fn)
   </a>
@@ -4149,6 +4156,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#cozyclientfromdomselector-options-object" title="CozyClient.fromDOM(selector, options) ⇒ object" class="md-nav__link">
+    CozyClient.fromDOM(selector, options) ⇒ object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#cozyclientregisterhookdoctype-name-fn" title="CozyClient.registerHook(doctype, name, fn)" class="md-nav__link">
     CozyClient.registerHook(doctype, name, fn)
   </a>
@@ -5605,6 +5619,7 @@ having for the &lsquo;konnector&rsquo; worker, and then filter them based on the
 <li><a href="#CozyClient.fromOldClient">.fromOldClient()</a></li>
 <li><a href="#CozyClient.fromOldOAuthClient">.fromOldOAuthClient()</a> ⇒ <a href="#CozyClient"><code>CozyClient</code></a></li>
 <li><a href="#CozyClient.fromEnv">.fromEnv()</a></li>
+<li><a href="#CozyClient.fromDOM">.fromDOM(selector, options)</a> ⇒ <code>object</code></li>
 <li><a href="#CozyClient.registerHook">.registerHook(doctype, name, fn)</a></li>
 </ul>
 </li>
@@ -6214,7 +6229,37 @@ a client with an OAuth-based instance of cozy-client-js.</p>
 <h3 id="cozyclientfromenv">CozyClient.fromEnv()<a class="headerlink" href="#cozyclientfromenv" title="Permanent link">&para;</a></h3>
 <p>In konnector/service context, CozyClient can be instantiated from environment variables</p>
 <p><strong>Kind</strong>: static method of <a href="#CozyClient"><code>CozyClient</code></a><br />
-<a name="CozyClient.registerHook"></a></p>
+<a name="CozyClient.fromDOM"></a></p>
+<h3 id="cozyclientfromdomselector-options-object">CozyClient.fromDOM(selector, options) ⇒ <code>object</code><a class="headerlink" href="#cozyclientfromdomselector-options-object" title="Permanent link">&para;</a></h3>
+<p>When used from an app, CozyClient can be instantiated from the data injected by the stack in
+the DOM.</p>
+<p><strong>Kind</strong>: static method of <a href="#CozyClient"><code>CozyClient</code></a><br />
+<strong>Returns</strong>: <code>object</code> - - CozyClient instance  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>selector</td>
+<td><code>string</code></td>
+<td><code>&quot;[role&#x3D;application]&quot;</code></td>
+<td>Options</td>
+</tr>
+<tr>
+<td>options</td>
+<td><code>object</code></td>
+<td></td>
+<td>CozyClient constructor options</td>
+</tr>
+</tbody>
+</table>
+<p><a name="CozyClient.registerHook"></a></p>
 <h3 id="cozyclientregisterhookdoctype-name-fn">CozyClient.registerHook(doctype, name, fn)<a class="headerlink" href="#cozyclientregisterhookdoctype-name-fn" title="Permanent link">&para;</a></h3>
 <p>Hooks are an observable system for events on documents.
 There are at the moment only 2 hooks available.</p>
