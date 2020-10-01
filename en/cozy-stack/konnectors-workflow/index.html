@@ -2254,6 +2254,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#webauth" title="Webauth" class="md-nav__link">
+    Webauth
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3099,6 +3106,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#webauth" title="Webauth" class="md-nav__link">
+    Webauth
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3452,9 +3466,9 @@ are not related to OAuth. The document still need to be injected manually in
 </pre></div>
 
 
-<p><strong>Note</strong>: <code>grant_mode</code> must be <code>secret</code>, <code>slug</code> must be the slug of the
-konnector,  but <code>secret</code> can be a map instead of a simple string if several
-secrets are needed for this service.</p>
+<p><strong>Note</strong>: <code>grant_mode</code> must be <code>secret</code> (or <code>bi_webauth+secret</code>), <code>slug</code> must
+be the slug of the konnector,  but <code>secret</code> can be a map instead of a simple
+string if several secrets are needed for this service.</p>
 <p>The secret is given to the konnector in the <code>COZY_PARAMETERS</code> env variable.</p>
 <h3 id="overloading-an-account-type-for-a-given-context">Overloading an account type for a given context<a class="headerlink" href="#overloading-an-account-type-for-a-given-context" title="Permanent link">&para;</a></h3>
 <p>It is possible to use a different account type for a given context, by creating
@@ -3674,6 +3688,17 @@ allowing non-cozy developped OAuth konnectors.</p>
 <li>MAIF konnector uses the webserver flow without redirect_uri validation</li>
 <li>Orange konnector uses the client-side proxy but hosted on their own servers
     (/!\ redirect_uri vs redirect_url)</li>
+</ul>
+<h3 id="webauth">Webauth<a class="headerlink" href="#webauth" title="Permanent link">&para;</a></h3>
+<p>For some banks integration (Paypal, Orange Bank, Revolut…), Budget Insight has
+a workflow similar to OAuth called
+<a href="https://docs.budget-insight.com/reference/connections#webauth">Webauth</a>.</p>
+<p>It is possible to use this workflow for konnectors by registering an account
+type with the following parameter:</p>
+<ul>
+<li><code>grant_mode</code>, with <code>bi_webauth</code> as the value (or <code>bi_webauth+secret</code> if there is also a secret)</li>
+<li><code>redirect_uri</code>, with an URL like <code>https://oauthcallback.mycozy.cloud/accounts/paypal/redirect</code></li>
+<li><code>client_id</code>, with the client ID given by Budget Insight.</li>
 </ul>
                 
                   

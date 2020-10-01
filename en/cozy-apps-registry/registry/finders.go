@@ -110,37 +110,32 @@ func FindAppAttachment(c *space.Space, appSlug, filename string, channel Channel
 		return nil, err
 	}
 
-	return FindVersionAttachment(c, appSlug, ver.Version, filename)
+	return FindVersionAttachment(c, ver, filename)
 }
 
-func FindVersionAttachment(c *space.Space, appSlug, version, filename string) (*Attachment, error) {
+func FindVersionAttachment(c *space.Space, version *Version, filename string) (*Attachment, error) {
 	var headers swift.Headers
 	var shasum, contentType string
 	var fileContent []byte
 
 	var contentBuffer *bytes.Buffer
-	fp := filepath.Join(appSlug, version, filename)
-
-	// First, we try to get the version from CouchDB
-	ver, err := FindVersion(c, appSlug, version)
-	if err != nil {
-		return nil, err
-	}
+	slug := version.Slug
+	ver := version.Version
+	fp := filepath.Join(slug, ver, filename)
 
 	// Checks if the asset from the global database is referenced in the Version
 	// document
-	shasum, ok := ver.AttachmentReferences[filename]
+	shasum, ok := version.AttachmentReferences[filename]
 
+	var err error
 	if ok {
-		contentBuffer, headers, err = base.GlobalAssetStore.Get(shasum)
-		if err != nil {
+		if contentBuffer, headers, err = base.GlobalAssetStore.Get(shasum); err != nil {
 			return nil, err
 		}
 	} else {
 		// If we cannot find it, we try from the app swift container as a fallback
 		prefix := c.GetPrefix()
-		contentBuffer, headers, err = base.Storage.Get(prefix, fp)
-		if err != nil {
+		if contentBuffer, headers, err = base.Storage.Get(prefix, fp); err != nil {
 			return nil, err
 		}
 	}
@@ -152,12 +147,12 @@ func FindVersionAttachment(c *space.Space, appSlug, version, filename string) (*
 	// time.
 	if !ok {
 		go func() {
-			err = MoveAssetToGlobalDatabase(c, ver, fileContent, filename, contentType)
+			err := MoveAssetToGlobalDatabase(c, version, fileContent, filename, contentType)
 			if err != nil {
 				log := logrus.WithFields(logrus.Fields{
 					"nspace":    "move_asset",
 					"space":     c.Name,
-					"slug":      appSlug,
+					"slug":      slug,
 					"version":   version,
 					"filename":  filename,
 					"error_msg": err,

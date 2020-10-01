@@ -19,6 +19,7 @@ module.exports = {
         semi: false
       }
     ],
-    'no-param-reassign': 'warn'
+    'no-param-reassign': 'warn',
+    'spaced-comment': ['error', 'always']
   }
 }

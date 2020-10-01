@@ -67,6 +67,7 @@ func getVirtualSpaces() (map[string]base.VirtualSpace, error) {
 			slugs[i] = s
 		}
 		virtuals[name] = base.VirtualSpace{
+			Name:   name,
 			Source: source,
 			Filter: filter,
 			Slugs:  slugs,

@@ -11,7 +11,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-var configFileFolders = []string{"/etc/cozy", ""}
+var configFileFolders = []string{"/etc/cozy", "$HOME/.cozy", ""}
 
 // SetDefaults configures a few default values in viper.
 func SetDefaults() {

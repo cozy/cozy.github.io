@@ -146,6 +146,13 @@ class FlagClientPlugin {
   }
 
   /**
+   * Fetches and sets flags from remote
+   */
+  async refresh() {
+    await flag.initializeFromRemote(this.client)
+  }
+
+  /**
    * Sets up a promise that can be awaited to wait for flag complete
    * initialization
    */

@@ -57,7 +57,7 @@ func (m *localFS) getPath(prefix base.Prefix, original string) (string, error) {
 	if name == "." || name == ".." || name == "/" {
 		return "", base.NewInternalError(fmt.Errorf("%s is not a valid name", name))
 	}
-	path := filepath.Join(m.baseDir, string(prefix), name)
+	path := filepath.Join(m.baseDir, string(prefix), original)
 	return path, nil
 }
 

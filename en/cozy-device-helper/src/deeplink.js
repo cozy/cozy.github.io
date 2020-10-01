@@ -48,7 +48,7 @@ const openUriWithTimeoutHack = (uri, failCb) => {
     target.removeEventListener('blur', onBlur)
   }, 500)
 
-  //handle page running in an iframe (blur must be registered with top level window)
+  // handle page running in an iframe (blur must be registered with top level window)
   let target = window
   while (target != target.parent) {
     target = target.parent
@@ -94,7 +94,7 @@ const checkBrowser = () => {
  */
 export const openDeeplinkOrRedirect = (deeplink, failCb) => {
   if (navigator.msLaunchUri) {
-    //for IE and Edge in Win 8 and Win 10
+    // for IE and Edge in Win 8 and Win 10
     openUriWithMsLaunchUri(deeplink, failCb)
   } else {
     const browser = checkBrowser()

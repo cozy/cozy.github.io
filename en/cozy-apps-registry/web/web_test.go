@@ -9,6 +9,8 @@ import (
 	"os"
 	"testing"
 
+	"github.com/go-kivik/kivik/v3"
+
 	"github.com/cozy/cozy-apps-registry/auth"
 	"github.com/cozy/cozy-apps-registry/config"
 	"github.com/cozy/cozy-apps-registry/registry"
@@ -204,6 +206,39 @@ func createApps() error {
 			return err
 		}
 	}
+
+	app, err := registry.FindApp(s, overwrittenApp, registry.Stable)
+	if err != nil {
+		return err
+	}
+
+	tarball, err := os.Open("../scripts/dummy.tar.gz")
+	if err != nil {
+		return err
+	}
+	defer tarball.Close()
+	stats, err := tarball.Stat()
+	if err != nil {
+		return err
+	}
+	attachments := []*kivik.Attachment{
+		{
+			Filename:    "dummy.tar.gz",
+			ContentType: "application/gzip",
+			Size:        stats.Size(),
+			Content:     tarball,
+		},
+	}
+	version := &registry.Version{
+		ID:      overwrittenApp + "-1.2.3",
+		Slug:    overwrittenApp,
+		Version: "1.2.3",
+		URL:     "http://example.org/dummy.tar.gz",
+	}
+	if err = registry.CreateReleaseVersion(s, version, attachments, app, false); err != nil {
+		return err
+	}
+
 	if err := registry.OverwriteAppName(myAppsSpace, overwrittenApp, "my new name"); err != nil {
 		return err
 	}

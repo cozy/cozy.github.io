@@ -1,5 +1,24 @@
 package base
 
+import (
+	"context"
+
+	"github.com/go-kivik/kivik/v3"
+)
+
+// VirtualSpace is a view on another space, with a filter to restrict the list
+// of available applications.
+type VirtualSpace struct {
+	// Name of the virtual space
+	Name string
+	// Source is the name of a space
+	Source string
+	// Filter can be select (whitelist) or reject (blacklist)
+	Filter string
+	// Slugs is a list of webapp/connector slugs to filter
+	Slugs []string
+}
+
 // ConfigParameters is a list of parameters that can be configured.
 type ConfigParameters struct {
 	// CleanEnabled specifies if the app cleaning task is enabled or not.
@@ -30,17 +49,6 @@ type CleanParameters struct {
 	NbMonths int
 }
 
-// VirtualSpace is a view on another space, with a filter to restrict the list
-// of available applications.
-type VirtualSpace struct {
-	// Source is the name of a space
-	Source string
-	// Filter can be select (whitelist) or reject (blacklist)
-	Filter string
-	// Slugs is a list of webapp/connector slugs to filter
-	Slugs []string
-}
-
 // AcceptApp returns if the configuration says that the app can be seen in this
 // virtual space.
 func (v VirtualSpace) AcceptApp(slug string) bool {
@@ -49,6 +57,28 @@ func (v VirtualSpace) AcceptApp(slug string) bool {
 		return filtered
 	}
 	return !filtered
+}
+
+func (v VirtualSpace) Init() error {
+	db := VirtualVersionsDBName(v.Name)
+	ok, err := DBClient.DBExists(context.Background(), db)
+	if err != nil {
+		return err
+	}
+	if ok {
+		return nil
+	}
+	return DBClient.CreateDB(context.Background(), db)
+}
+
+func (v VirtualSpace) VersionDB() *kivik.DB {
+	name := VirtualVersionsDBName(v.Name)
+	return DBClient.DB(context.Background(), name)
+}
+
+func (v VirtualSpace) OverrideDb() *kivik.DB {
+	name := VirtualDBName(v.Name)
+	return DBClient.DB(context.Background(), name)
 }
 
 func inList(target string, slugs []string) bool {

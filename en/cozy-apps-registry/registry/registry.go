@@ -160,6 +160,7 @@ type Partnership struct {
 // the manifest that are useful to us, without manipulating maps.
 type Manifest struct {
 	Editor      string      `json:"editor"`
+	Name        string      `json:"name"`
 	Slug        string      `json:"slug"`
 	Version     string      `json:"version"`
 	Icon        string      `json:"icon"`
@@ -345,7 +346,7 @@ func createVersion(c *space.Space, db *kivik.DB, ver *Version, attachments []*ki
 	}
 
 	versionChannel := GetVersionChannel(ver.Version)
-	for _, channel := range []Channel{Stable, Beta, Dev} {
+	for _, channel := range Channels {
 		if channel >= versionChannel {
 			key := base.NewKey(c.Name, ver.Slug, ChannelToStr(channel))
 			base.LatestVersionsCache.Remove(key)
@@ -1008,6 +1009,13 @@ func ReadTarballManifest(tr io.Reader, url string) (*Manifest, []byte, map[strin
 
 // Expire function deletes a version from the database
 func (v *Version) Delete(c *space.Space) error {
+	// Purge overwritten versions if any
+	for _, vs := range base.Config.VirtualSpaces {
+		if err := DeleteOverwrittenVersion(vs, v); err != nil {
+			return err
+		}
+	}
+
 	// Delete attachments (swift or couchdb)
 	err := v.RemoveAllAttachments(c)
 	if err != nil {
@@ -1017,6 +1025,7 @@ func (v *Version) Delete(c *space.Space) error {
 	// Removing the CouchDB document
 	db := c.VersDB()
 	_, err = db.Delete(context.Background(), v.ID, v.Rev)
+
 	return err
 }
 

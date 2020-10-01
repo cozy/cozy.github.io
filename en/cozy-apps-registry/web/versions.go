@@ -191,25 +191,35 @@ func getVersionScreenshot(c echo.Context) error {
 }
 
 func getVersionTarball(c echo.Context) error {
-	return getVersionAttachment(c, c.Param("tarball"))
-}
-
-func getVersionAttachment(c echo.Context, filename string) error {
-	appSlug := c.Param("app")
-	version := c.Param("version")
-
-	var att *registry.Attachment
-	if v, ok := c.Get("virtual_name").(string); ok && v != "" {
-		att = registry.FindAppAttachmentFromOverwrite(v, appSlug, filename)
+	virtualSpace, space, err := getVirtualSpace(c)
+	if err != nil {
+		return err
 	}
-	if att == nil {
-		var err error
-		att, err = registry.FindVersionAttachment(getSpace(c), appSlug, version, filename)
-		if err != nil {
+	slug := c.Param("app")
+	version := c.Param("version")
+	ver, err := registry.FindVersion(space, slug, version)
+	if err != nil {
+		return err
+	}
+	filename := c.Param("tarball")
+
+	var att *registry.Attachment = nil
+	attFound := false
+	if virtualSpace != nil {
+		if att, attFound, err = registry.FindOverwrittenTarball(virtualSpace, ver); err != nil {
+			return err
+		}
+	}
+	if !attFound {
+		if att, err = registry.FindVersionAttachment(space, ver, filename); err != nil {
 			return err
 		}
 	}
 
+	return sendAttachment(c, att, filename)
+}
+
+func sendAttachment(c echo.Context, att *registry.Attachment, filename string) error {
 	contentType := att.ContentType
 	// force image/svg content-type for svg assets that start with <?xml
 	if (filename == "icon" || filename == "partnership_icon") && contentType == "text/xml" {
@@ -228,6 +238,35 @@ func getVersionAttachment(c echo.Context, filename string) error {
 	c.Response().Header().Set(echo.HeaderContentLength, att.ContentLength)
 
 	return c.Stream(http.StatusOK, contentType, att.Content)
+}
+
+func getVersionAttachment(c echo.Context, filename string) error {
+	virtualSpace, space, err := getVirtualSpace(c)
+	if err != nil {
+		return err
+	}
+
+	slug := c.Param("app")
+	version := c.Param("version")
+	ver, err := registry.FindVersion(space, slug, version)
+	if err != nil {
+		return err
+	}
+
+	var att *registry.Attachment
+	attFound := false
+	if virtualSpace != nil {
+		if att, attFound, err = registry.FindAttachmentFromOverwrite(virtualSpace, slug, filename); err != nil {
+			return err
+		}
+	}
+	if !attFound {
+		if att, err = registry.FindVersionAttachment(space, ver, filename); err != nil {
+			return err
+		}
+	}
+
+	return sendAttachment(c, att, filename)
 }
 
 func getAppVersions(c echo.Context) error {
@@ -259,6 +298,9 @@ func getVersion(c echo.Context) error {
 		return err
 	}
 
+	if doc, err = override(c, doc); err != nil {
+		return err
+	}
 	if cacheControl(c, doc.Rev, oneYear) {
 		return c.NoContent(http.StatusNotModified)
 	}
@@ -268,6 +310,27 @@ func getVersion(c echo.Context) error {
 	doc.Rev = ""
 
 	return writeJSON(c, doc)
+}
+
+func override(c echo.Context, version *registry.Version) (*registry.Version, error) {
+	if version == nil {
+		return nil, nil
+	}
+
+	virtual, _, err := getVirtualSpace(c)
+	if err != nil || virtual == nil {
+		return nil, err
+	}
+
+	overwrittenVersion, err := registry.FindOverwrittenVersion(virtual, version)
+	if err != nil {
+		if err == registry.ErrVersionNotFound {
+			return version, nil
+		}
+		return nil, err
+	}
+
+	return overwrittenVersion, nil
 }
 
 func getLatestVersion(c echo.Context) error {
@@ -282,8 +345,12 @@ func getLatestVersion(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	version, err := registry.FindLatestVersion(getSpace(c), appSlug, ch)
+	space := getSpace(c)
+	version, err := registry.FindLatestVersion(space, appSlug, ch)
 	if err != nil {
+		return err
+	}
+	if version, err = override(c, version); err != nil {
 		return err
 	}
 

@@ -172,6 +172,9 @@ func GetSpacesNames() []string {
 
 // GetSpace return the space with the given name
 func GetSpace(name string) (*Space, bool) {
+	if name == "__default__" {
+		name = ""
+	}
 	s, ok := Spaces[name]
 	return s, ok
 }

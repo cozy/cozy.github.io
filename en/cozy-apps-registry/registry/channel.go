@@ -13,6 +13,8 @@ const (
 	Dev
 )
 
+var Channels = []Channel{Stable, Beta, Dev}
+
 const (
 	devSuffix  = "-dev."
 	betaSuffix = "-beta."

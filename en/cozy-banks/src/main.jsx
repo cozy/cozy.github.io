@@ -80,6 +80,26 @@ const setupApp = async persistedState => {
     delay: 5000
   })
 
+  const refreshFlags = async () => {
+    // TODO Remove else block after https://github.com/cozy/cozy-libs/pull/1115
+    // is merged
+    if (client.plugins.flags.refresh) {
+      await client.plugins.flags.refresh()
+    } else {
+      await flag.initializeFromRemote(client)
+    }
+  }
+
+  document.addEventListener('resume', () => {
+    refreshFlags()
+  })
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      refreshFlags()
+    }
+  })
+
   client.setStore(store)
 
   persistState(store)

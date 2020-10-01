@@ -9,8 +9,14 @@ func DBName(name string) string {
 }
 
 const virtualSuffix = "overwrites"
+const virtualVersionSuffix = "versions"
 
 // VirtualDBName returns the name of the database used for overwrites.
 func VirtualDBName(virtualSpaceName string) string {
 	return DBName(virtualSpaceName + "-" + virtualSuffix)
+}
+
+// VirtualDBName returns the name of the database used for overwritten versions.
+func VirtualVersionsDBName(virtualSpaceName string) string {
+	return DBName(virtualSpaceName + "-" + virtualVersionSuffix)
 }

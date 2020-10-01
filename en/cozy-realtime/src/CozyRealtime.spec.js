@@ -142,7 +142,7 @@ function createSocketServer({
 
 const sleep = time => new Promise(resolve => setTimeout(resolve, time))
 
-/*** TEST ***/
+/** * TEST ***/
 
 describe('CozyRealtime', () => {
   afterEach(async () => {
