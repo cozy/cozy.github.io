@@ -2715,9 +2715,11 @@
 <h1 id="move-export-and-import">Move, export and import<a class="headerlink" href="#move-export-and-import" title="Permanent link">&para;</a></h1>
 <h2 id="export">Export<a class="headerlink" href="#export" title="Permanent link">&para;</a></h2>
 <p>A Cozy&rsquo;s user can ask at any time to export a snapshot of all its data and
-metadata. This export takes place asynchronously and is separated in two parts:
-_ a metadata tarball containing the in a JSON format all the doctypes _
-multi-part files tarballs containing the files (or a subpart of the files)</p>
+metadata. This export takes place asynchronously and is separated in two parts:</p>
+<ul>
+<li>a metadata tarball containing the in a JSON format all the doctypes</li>
+<li>multi-part files tarballs containing the files (or a subpart of the files).</li>
+</ul>
 <p>The export process is part of a worker described in the
 <a href="../workers/#export">workers section</a> of the documentation.</p>
 <p>Endpoints described in this documentation require a permission on the
@@ -2729,8 +2731,7 @@ multi-part files tarballs containing the files (or a subpart of the files)</p>
 <li><code>parts_size</code> (optional) (int): the size in bytes of a tarball files part.</li>
 <li><code>max_age</code> (optional) (duration / nanosecs): the maximum age of the export
     data.</li>
-<li><code>with_doctypes</code> (optional) (string array): the list of whitelisted exported
-    doctypes</li>
+<li><code>with_doctypes</code> (optional) (string array): the list of exported doctypes</li>
 <li><code>without_files</code> (optional) (boolean): whether or not the export contains the
     files index (if false, it is not possible to generate files tarball).</li>
 </ul>
@@ -2762,7 +2763,7 @@ multi-part files tarballs containing the files (or a subpart of the files)</p>
 <li><code>parts_cursors</code> (string array): the list of cursors to access to the
     different files parts.</li>
 <li><code>parts_length</code> (int): number of parts</li>
-<li><code>with_doctypes</code> (string array): the list of whitelisted exported doctypes
+<li><code>with_doctypes</code> (string array): the list of exported doctypes
     (if empty of null, all doctypes are exported)</li>
 <li><code>without_files</code> (boolean): whether or not the export contains the files
     index (if false, it is not possible to generate files tarball).</li>

@@ -10,6 +10,7 @@ import (
 
 	"github.com/cozy/cozy-apps-registry/base"
 	"github.com/ncw/swift"
+	"github.com/sirupsen/logrus"
 )
 
 // NewSwift returns a VirtualStorage where the files are persisted in Swift.
@@ -73,6 +74,14 @@ func (s *swiftFS) Get(prefix base.Prefix, name string) (*bytes.Buffer, map[strin
 	headers, err := s.conn.ObjectGet(string(prefix), name, buf, false, nil)
 	if err != nil {
 		return nil, nil, s.wrapError(err)
+	}
+	if headers["Content-Length"] == "" {
+		log := logrus.WithFields(logrus.Fields{
+			"nspace": "storage",
+			"space":  string(prefix),
+			"object": name,
+		})
+		log.Warn("No Content-Length on the response for getting an object from Swift")
 	}
 	return buf, headers, nil
 }

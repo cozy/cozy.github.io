@@ -235,7 +235,9 @@ func sendAttachment(c echo.Context, att *registry.Attachment, filename string) e
 		return c.NoContent(http.StatusOK)
 	}
 
-	c.Response().Header().Set(echo.HeaderContentLength, att.ContentLength)
+	if att.ContentLength != "" {
+		c.Response().Header().Set(echo.HeaderContentLength, att.ContentLength)
+	}
 
 	return c.Stream(http.StatusOK, contentType, att.Content)
 }
@@ -318,8 +320,11 @@ func override(c echo.Context, version *registry.Version) (*registry.Version, err
 	}
 
 	virtual, _, err := getVirtualSpace(c)
-	if err != nil || virtual == nil {
+	if err != nil {
 		return nil, err
+	}
+	if virtual == nil {
+		return version, nil
 	}
 
 	overwrittenVersion, err := registry.FindOverwrittenVersion(virtual, version)

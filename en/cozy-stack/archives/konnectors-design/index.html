@@ -2984,10 +2984,10 @@ should have a <code>.node</code> extension.</p>
 precompiled modules.</p>
 <h4 id="vmsandbox-for-nodejs">vm/sandbox for Nodejs<a class="headerlink" href="#vmsandbox-for-nodejs" title="Permanent link">&para;</a></h4>
 <p><a href="https://github.com/patriksimek/vm2">vm2</a> is a sandbox that can run untrusted
-code with whitelisted Node&rsquo;s built-in modules.</p>
+code with allowed Node&rsquo;s built-in modules.</p>
 <h4 id="mock-net">Mock net<a class="headerlink" href="#mock-net" title="Permanent link">&para;</a></h4>
 <p>We can mock the net module of nodejs to add some restrictions on what it can do.
-For example, we can check that it does only http/https, and blacklist connection
+For example, we can check that it does only http/https, and block connection
 to localhost:6060. It is only effective if the konnector has no way to start a
 new node processus.</p>
 <h4 id="timeout">Timeout<a class="headerlink" href="#timeout" title="Permanent link">&para;</a></h4>
@@ -3137,7 +3137,7 @@ and is way lighter (19M) but I had problems with DNS with this, and alpine can
 cause some nasty bugs that are difficult to track.</p>
 <h4 id="running-a-connector">Running a connector<a class="headerlink" href="#running-a-connector" title="Permanent link">&para;</a></h4>
 <p>A path dedicated to run the konnectors with a predefined list of node packages
-available (the net module could be mocked with special limitations to blacklist
+available (the net module could be mocked with special limitations to block
 some urls)</p>
 <p>A script will run the node container giving as option the script to launch. The
 path is mounted inside the container. The following script does just that</p>
