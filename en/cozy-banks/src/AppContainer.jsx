@@ -1,12 +1,15 @@
 /* global __TARGET__ */
 
-import { I18n } from 'cozy-ui/transpiled/react'
-import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
 import React from 'react'
-import { CozyProvider } from 'cozy-client'
 import { Provider } from 'react-redux'
-import flag from 'cozy-flags'
+
+import I18n from 'cozy-ui/transpiled/react/I18n'
+import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
 import { Sprite as IconSprite } from 'cozy-ui/transpiled/react/Icon'
+import { CozyProvider } from 'cozy-client'
+import flag from 'cozy-flags'
+
+import { TrackerProvider } from 'ducks/tracking/browser'
 
 const AppContainer = ({ store, lang, history, client }) => {
   const AppRoute = require('components/AppRoute').default
@@ -17,15 +20,17 @@ const AppContainer = ({ store, lang, history, client }) => {
   return (
     <>
       <IconSprite />
-      <Provider store={store}>
-        <CozyProvider client={client}>
-          <I18n lang={lang} dictRequire={lang => require(`locales/${lang}`)}>
-            <MuiCozyTheme>
-              <Router history={history} routes={AppRoute()} />
-            </MuiCozyTheme>
-          </I18n>
-        </CozyProvider>
-      </Provider>
+      <TrackerProvider>
+        <Provider store={store}>
+          <CozyProvider client={client}>
+            <I18n lang={lang} dictRequire={lang => require(`locales/${lang}`)}>
+              <MuiCozyTheme>
+                <Router history={history} routes={AppRoute()} />
+              </MuiCozyTheme>
+            </I18n>
+          </CozyProvider>
+        </Provider>
+      </TrackerProvider>
     </>
   )
 }

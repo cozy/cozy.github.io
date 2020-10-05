@@ -43,6 +43,7 @@ import { isLoginFailed } from 'ducks/transfers/utils'
 import BarTheme from 'ducks/bar/BarTheme'
 import { PersonalInfoModal, PersonalInfoPage } from 'ducks/personal-info'
 import manifest from 'ducks/client/manifest'
+import { getTracker } from 'ducks/tracking/browser'
 
 const THIRTY_SECONDS = 30 * 1000
 
@@ -54,6 +55,15 @@ const slideIndexes = [
   'summary',
   'password'
 ]
+
+const slideNameToTrackPageName = {
+  category: 'choix_virement',
+  beneficiary: 'choix_beneficiaire',
+  sender: 'emetteur',
+  summary: 'resume',
+  password: 'securite',
+  amount: 'montant'
+}
 
 const subscribe = (rt, event, doc, id, cb) => {
   let handler
@@ -369,6 +379,12 @@ class TransferPage extends React.Component {
     const idx = slideIndexes.findIndex(x => x == slideName)
     this.setState({ slide: idx !== -1 ? idx : 0 })
     this.props.router.push(slideName ? `/transfers/${slideName}` : '/transfers')
+    this.trackPage(`virement:${slideNameToTrackPageName[slideName]}`)
+  }
+
+  trackPage(pageName) {
+    const tracker = getTracker()
+    tracker.trackPage(pageName)
   }
 
   handleModalDismiss() {

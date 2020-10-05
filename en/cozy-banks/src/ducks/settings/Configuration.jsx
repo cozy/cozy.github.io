@@ -30,6 +30,7 @@ import TransactionGreaterRules from './TransactionGreaterRules'
 
 import { PersonalInfoModal } from 'ducks/personal-info'
 import { lateHealthReimbursement } from './specs'
+import { getTracker } from 'ducks/tracking/browser'
 
 const onToggleFlag = key => checked => {
   flag(key, checked)
@@ -45,6 +46,16 @@ export class Configuration extends React.Component {
       showPersonalInfoModal: false
     }
   }
+
+  componentDidMount() {
+    this.trackPage()
+  }
+
+  trackPage() {
+    const tracker = getTracker()
+    tracker.trackPage('parametres:configuration')
+  }
+
   saveDocument = async doc => {
     const { client } = this.props
     await client.save(doc)

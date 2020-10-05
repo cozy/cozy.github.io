@@ -35,8 +35,11 @@ describe('transaction modal', () => {
     })
   })
   it('should render correctly', () => {
+    const router = {
+      params: {}
+    }
     const root = mount(
-      <AppLike client={client}>
+      <AppLike client={client} router={router}>
         <TransactionModal
           transactionId={data[TRANSACTION_DOCTYPE][1]._id}
           showCategoryChoice={() => {}}

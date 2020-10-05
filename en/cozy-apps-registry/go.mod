@@ -13,10 +13,10 @@ require (
 	github.com/labstack/echo/v4 v4.1.17
 	github.com/ncw/swift v1.0.52
 	github.com/pkg/xattr v0.4.1
-	github.com/sirupsen/logrus v1.6.0
+	github.com/sirupsen/logrus v1.7.0
 	github.com/spf13/cobra v1.0.0
 	github.com/spf13/viper v1.7.1
 	github.com/stretchr/testify v1.6.1
-	golang.org/x/crypto v0.0.0-20200820211705-5c72a883971a
-	golang.org/x/sync v0.0.0-20200625203802-6e8e738ad208
+	golang.org/x/crypto v0.0.0-20201002170205-7f63de1d35b0
+	golang.org/x/sync v0.0.0-20200930132711-30421366ff76
 )

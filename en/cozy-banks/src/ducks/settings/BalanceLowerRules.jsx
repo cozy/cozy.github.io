@@ -30,5 +30,6 @@ export default makeRuleComponent({
   spec: balanceLower,
   getNewRule: () => ({ ...newBalanceLowerRule }),
   getRuleDescriptionKey: getBalanceLowerDescriptionKey,
-  getRuleDescriptionProps: getBalanceLowerDescriptionProps
+  getRuleDescriptionProps: getBalanceLowerDescriptionProps,
+  trackPageName: 'alerte-solde_bas'
 })

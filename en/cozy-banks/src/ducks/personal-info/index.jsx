@@ -7,12 +7,14 @@ import Modal, {
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 
+import { myselfConn } from 'doctypes'
+
 import Loading from 'components/Loading'
 import Padded from 'components/Spacing/Padded'
 import PageTitle from 'components/Title/PageTitle'
 
 import PersonalInfoForm from 'ducks/personal-info/Form'
-import { myselfConn } from 'doctypes'
+import { useTrackPage } from 'ducks/tracking/browser'
 
 /**
  * Loads the myself contact and displays the form
@@ -21,6 +23,7 @@ import { myselfConn } from 'doctypes'
  */
 const PersonalInfo = ({ wrapperProps, Components, onSaveSuccessful }) => {
   const { t } = useI18n()
+  useTrackPage('virements:informations')
   const myselfCol = useQuery(myselfConn.query, myselfConn)
 
   const handleSaveSuccessful = updatedDoc => {

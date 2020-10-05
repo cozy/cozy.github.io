@@ -32,5 +32,6 @@ export default makeRuleComponent({
   spec: transactionGreater,
   getNewRule: () => ({ ...newTransactionGreaterRule }),
   getRuleDescriptionKey: getTransactionGreaterDescriptionKey,
-  getRuleDescriptionProps: getTransactionGreaterDescriptionProps
+  getRuleDescriptionProps: getTransactionGreaterDescriptionProps,
+  trackPageName: 'alerte-mouvements'
 })

@@ -6,6 +6,7 @@ import langEn from 'locales/en.json'
 import store from 'test/store'
 import getClient from 'test/client'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import RouterContext from 'components/RouterContext'
 
 export const TestI18n = ({ children }) => {
   return (
@@ -15,14 +16,16 @@ export const TestI18n = ({ children }) => {
   )
 }
 
-const AppLike = ({ children, store, client }) => (
-  <BreakpointsProvider>
-    <Provider store={(client && client.store) || store}>
-      <CozyProvider client={client || getClient()}>
-        <TestI18n>{children}</TestI18n>
-      </CozyProvider>
-    </Provider>
-  </BreakpointsProvider>
+const AppLike = ({ children, store, client, router }) => (
+  <RouterContext.Provider value={router}>
+    <BreakpointsProvider>
+      <Provider store={(client && client.store) || store}>
+        <CozyProvider client={client || getClient()}>
+          <TestI18n>{children}</TestI18n>
+        </CozyProvider>
+      </Provider>
+    </BreakpointsProvider>
+  </RouterContext.Provider>
 )
 
 AppLike.defaultProps = {

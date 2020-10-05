@@ -15,12 +15,14 @@ const makeRuleComponent = ({
   getInitialRules,
   spec,
   displayName,
-  shouldOpenOnToggle
+  shouldOpenOnToggle,
+  trackPageName
 }) => {
   const EditionModal = makeEditionModalFromSpec(spec)
 
   const RulesComponent = props => {
     const { t } = useI18n()
+
     let {
       rules: rawInitialRules,
       getAccountOrGroupLabel,
@@ -64,6 +66,7 @@ const makeRuleComponent = ({
             descriptionProps={getRuleDescriptionProps}
             shouldOpenOnToggle={shouldOpenOnToggle}
             ruleProps={ruleProps}
+            trackPageName={trackPageName}
           />
         )}
       </Rules>

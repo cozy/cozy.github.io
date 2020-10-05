@@ -7,6 +7,7 @@ import Spinner from 'cozy-ui/transpiled/react/Spinner'
 
 import AccountModalContent from 'cozy-harvest-lib/dist/components/AccountModal'
 import EditAccountModal from 'cozy-harvest-lib/dist/components/EditAccountModal'
+import { useTrackPage } from 'ducks/tracking/browser'
 
 import HarvestSwitch from './HarvestSwitch'
 
@@ -49,7 +50,9 @@ const HarvestLoader = ({ connectionId, children }) => {
           const konnectorSlug = account.account_type
           return (
             <Query
-              query={Q('io.cozy.konnectors').getById(konnectorSlug)}
+              query={Q('io.cozy.konnectors').getById(
+                `io.cozy.konnectors/${konnectorSlug}`
+              )}
               as={`konnectors/${connectionId}`}
               fetchPolicy={fetchPolicy}
             >
@@ -111,6 +114,9 @@ const HarvestLoader = ({ connectionId, children }) => {
  */
 const HarvestBankAccountSettings = ({ connectionId, onDismiss }) => {
   const { t } = useI18n()
+
+  useTrackPage('parametres:comptes:detail')
+
   return (
     <HarvestSwitch
       initialFragment={`/accounts/${connectionId}`}

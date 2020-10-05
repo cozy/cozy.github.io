@@ -21,6 +21,7 @@ import {
   models
 } from 'cozy-client'
 import DisconnectedAccountModal from 'cozy-harvest-lib/dist/components/DisconnectedAccountModal'
+import KonnectorIcon from 'cozy-harvest-lib/dist/components/KonnectorIcon'
 
 import Loading from 'components/Loading'
 import plus from 'assets/icons/16/plus.svg'
@@ -28,7 +29,7 @@ import plus from 'assets/icons/16/plus.svg'
 import AddAccountLink from 'ducks/settings/AddAccountLink'
 import HarvestBankAccountSettings from 'ducks/settings/HarvestBankAccountSettings'
 import { getAccountInstitutionLabel } from 'ducks/account/helpers'
-import KonnectorIcon from 'cozy-harvest-lib/dist/components/KonnectorIcon'
+import { useTrackPage } from 'ducks/tracking/browser'
 
 import { accountsConn, APP_DOCTYPE } from 'doctypes'
 import { AccountIconContainer } from 'components/AccountIcon'
@@ -80,6 +81,7 @@ const getConnectionIdFromAccount = account => {
 
 export const AccountsList_ = ({ accounts }) => {
   const { t } = useI18n()
+
   const connectionGroups = Object.values(
     groupBy(accounts, acc => getConnectionIdFromAccount(acc))
   ).map(accounts => ({
@@ -145,6 +147,8 @@ const AccountsList = withRouter(AccountsList_)
 
 const AccountsSettings = props => {
   const { t } = useI18n()
+  useTrackPage('parametres:comptes')
+
   const { accountsCollection } = props
 
   if (

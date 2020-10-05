@@ -1,5 +1,5 @@
 jest.mock('cozy-konnector-libs')
-jest.mock('../../tracking')
+jest.mock('../../tracking/node')
 
 import Linker from './Linker'
 import { cozyClient } from 'cozy-konnector-libs'

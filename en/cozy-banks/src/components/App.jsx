@@ -1,23 +1,27 @@
 import React, { useEffect } from 'react'
-import ReactHintFactory from 'react-hint'
-import 'react-hint/css/index.css'
-import Alerter from 'cozy-ui/transpiled/react/Alerter'
-import { Layout, Main, Content } from 'cozy-ui/transpiled/react/Layout'
-import Sidebar from 'cozy-ui/transpiled/react/Sidebar'
-import Nav from 'ducks/commons/Nav'
-import { Warnings } from 'ducks/warnings'
+
 import flag from 'cozy-flags'
-import { settingsConn } from 'doctypes'
 import { queryConnect } from 'cozy-client'
-import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
-import ErrorBoundary from 'components/ErrorBoundary'
 import { withRouter } from 'react-router'
 import { flowRight as compose } from 'lodash'
-import { pinGuarded } from 'ducks/pin'
-import styles from './App.styl'
-import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
-const ReactHint = ReactHintFactory(React)
+import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import { Layout, Main, Content } from 'cozy-ui/transpiled/react/Layout'
+import Sidebar from 'cozy-ui/transpiled/react/Sidebar'
+
+import { settingsConn } from 'doctypes'
+
+import Nav from 'ducks/commons/Nav'
+import { Warnings } from 'ducks/warnings'
+import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
+import { pinGuarded } from 'ducks/pin'
+
+import ErrorBoundary from 'components/ErrorBoundary'
+import ReactHint from 'components/ReactHint'
+import RouterContext from 'components/RouterContext'
+
+import styles from './App.styl'
 
 const App = props => {
   const settings = getDefaultedSettingsFromCollection(props.settingsCollection)
@@ -26,25 +30,27 @@ const App = props => {
   }, [settings.community.localModelOverride.enabled])
 
   return (
-    <BreakpointsProvider>
-      <Layout>
-        <Sidebar>
-          <Nav />
-        </Sidebar>
+    <RouterContext.Provider value={props.router}>
+      <BreakpointsProvider>
+        <Layout>
+          <Sidebar>
+            <Nav />
+          </Sidebar>
 
-        <Main>
-          <Content className={styles.Main}>
-            <ErrorBoundary>{props.children}</ErrorBoundary>
-          </Content>
-        </Main>
+          <Main>
+            <Content className={styles.Main}>
+              <ErrorBoundary>{props.children}</ErrorBoundary>
+            </Content>
+          </Main>
 
-        {/* Outside every other component to bypass overflow:hidden */}
-        <ReactHint />
+          {/* Outside every other component to bypass overflow:hidden */}
+          <ReactHint />
 
-        <Warnings />
-        <Alerter />
-      </Layout>
-    </BreakpointsProvider>
+          <Warnings />
+          <Alerter />
+        </Layout>
+      </BreakpointsProvider>
+    </RouterContext.Provider>
   )
 }
 

@@ -43,6 +43,8 @@ import { getChartTransactions } from 'ducks/chart/selectors'
 import BarTheme from 'ducks/bar/BarTheme'
 import TransactionActionsProvider from 'ducks/transactions/TransactionActionsProvider'
 
+import { getTracker } from 'ducks/tracking/browser'
+
 export const STEP_INFINITE_SCROLL = 30
 export const MIN_NB_TRANSACTIONS_SHOWN = 30
 
@@ -84,6 +86,26 @@ class TransactionsPage extends Component {
     }
     const mostRecentMonth = getMonth(getDisplayDate(mostRecentTransaction))
     this.handleChangeMonth(mostRecentMonth)
+  }
+
+  componentDidMount() {
+    this.trackPage()
+  }
+
+  trackPage() {
+    const tracker = getTracker()
+
+    const { router } = this.props
+    const { categoryName, subcategoryName } = router.params
+    if (categoryName && subcategoryName) {
+      tracker.trackPage(
+        `analyse:${categoryName ? categoryName : 'home'}${
+          subcategoryName ? `:details` : ''
+        }`
+      )
+    } else {
+      tracker.trackPage('mon_compte:compte')
+    }
   }
 
   componentDidUpdate(prevProps) {

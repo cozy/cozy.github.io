@@ -52,18 +52,21 @@ import {
 import { TRANSACTION_DOCTYPE } from 'doctypes'
 import flag from 'cozy-flags'
 
-import TransactionCategoryEditor from './TransactionCategoryEditor'
-import TransactionApplicationDateEditor from './TransactionApplicationDateEditor'
+import { useTrackPage } from 'ducks/tracking/browser'
+import { getFrequencyText } from 'ducks/recurrence/utils'
+import withDocs from 'components/withDocs'
+
+import TransactionCategoryEditor from 'ducks/transactions/TransactionCategoryEditor'
+import TransactionApplicationDateEditor from 'ducks/transactions/TransactionApplicationDateEditor'
 import TransactionRecurrenceEditor from 'ducks/transactions/TransactionRecurrenceEditor'
 
-import { getFrequencyText } from 'ducks/recurrence/utils'
 import TransactionModalRow, {
   TransactionModalRowIcon,
   TransactionModalRowMedia,
   RowArrow
-} from './TransactionModalRow'
+} from 'ducks/transactions/TransactionModalRow'
 
-import withDocs from 'components/withDocs'
+import { useParams } from 'components/RouterContext'
 
 const SearchForTransactionIcon = ({ transaction }) => {
   const label = getLabel(transaction)
@@ -113,6 +116,14 @@ const TransactionCategoryEditorSlide = ({ transaction }) => {
   const { t } = useI18n()
   const { stackPop } = useViewStack()
   const { isMobile } = useBreakpoints()
+  const { categoryName, subcategoryName } = useParams()
+
+  useTrackPage(
+    categoryName && subcategoryName
+      ? `analyse:${categoryName}:depense-categorie`
+      : `mon_compte:depense:categorie`
+  )
+
   return (
     <>
       <PageHeader dismissAction={stackPop}>
@@ -137,6 +148,14 @@ const TransactionApplicationDateEditorSlide = ({
 }) => {
   const { t } = useI18n()
   const { stackPop } = useViewStack()
+  const { categoryName, subcategoryName } = useParams()
+
+  useTrackPage(
+    categoryName && subcategoryName
+      ? `analyse:${categoryName}:depense-affectation_mois`
+      : `mon_compte:depense:affectation_mois`
+  )
+
   const handleBeforeUpdate = () => {
     beforeUpdate()
     stackPop()
@@ -405,6 +424,14 @@ const TransactionModalInfo = props => {
 
 const TransactionModal = ({ requestClose, ...props }) => {
   const { t } = useI18n()
+  const { categoryName, subcategoryName } = useParams()
+
+  useTrackPage(
+    categoryName && subcategoryName
+      ? `analyse:${categoryName}:depense`
+      : `mon_compte:depense`
+  )
+
   return (
     <PageModal
       aria-label={t('Transactions.infos.modal-label')}
@@ -424,4 +451,4 @@ TransactionModal.propTypes = {
   transactionId: PropTypes.string.isRequired
 }
 
-export default TransactionModal
+export default withRouter(TransactionModal)

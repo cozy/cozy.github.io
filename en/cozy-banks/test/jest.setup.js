@@ -2,6 +2,7 @@ import { configure, mount, shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import logger from 'cozy-logger'
 import { makeDeprecatedLifecycleMatcher, ignoreOnConditions } from './jestUtils'
+import minilog from 'minilog'
 
 // To avoid the errors while creating theme (since no CSS stylesheet
 // defining CSS variables is injected during tests)
@@ -51,6 +52,7 @@ const callAndThrow = (fn, errorMessage) => {
   }
 }
 
+// Wrap console and minilog so that they throw during tests.
 // Ignore warnings that we think are not problematic, see
 // https://github.com/cozy/cozy-ui/issues/1318
 // eslint-disable-next-line no-console
@@ -60,6 +62,15 @@ console.warn = ignoreOnConditions(
   Object.values(ignoredWarnings).map(x => x.matcher)
 )
 
+minilog.pipe({
+  emit: () => {},
+  write: function(namespace, level, message) {
+    if (level === 'warn' || level === 'error') {
+      throw new Error(`${namespace}[${level}]: ${message}`)
+    }
+  }
+})
+
 if (process.env.TRAVIS_CI) {
   // eslint-disable-next-line no-console
   console.error = callAndThrow(
@@ -68,6 +79,9 @@ if (process.env.TRAVIS_CI) {
     'console.error should not be called during tests'
   )
 }
+
+window.__PIWIK_TRACKER_URL__ = 'https://matomo.cozycloud.cc'
+window.__PIWIK_SITEID__ = 8
 
 window.cozy = {
   bar: {

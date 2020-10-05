@@ -15,7 +15,7 @@ const max = require('lodash/max')
 const geco = require('geco')
 const format = require('date-fns/format')
 const { getBillDate, log } = require('../utils')
-const { getTracker } = require('ducks/tracking')
+const { getTracker } = require('ducks/tracking/node')
 const { Transaction, Bill } = require('models')
 
 const DOCTYPE_OPERATIONS = 'io.cozy.bank.operations'

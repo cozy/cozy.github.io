@@ -1,41 +1,47 @@
 import React from 'react'
+import { render } from '@testing-library/react'
+import AppLike from 'test/AppLike'
+
 import { DumbTriggerErrorCard as TriggerErrorCard } from './TriggerErrorCard'
-import { shallow } from 'enzyme'
-import { TestI18n } from 'test/AppLike'
 
 jest.mock('components/useRedirectionURL', () => () => 'http://redirection')
 
 describe('trigger error card', () => {
   const setup = () => {
     const error = {
+      bankName: 'Boursorama',
       trigger: {
         current_state: {
           last_error: 'LOGIN_FAILED'
         },
         message: {
           account: '1234',
-          konnector: 'boursorama83'
+          slug: 'boursorama83'
         }
       }
     }
-    const wrapper = shallow(
-      <TestI18n>
+
+    const root = render(
+      <AppLike>
         <TriggerErrorCard
           breakpoints={{ isMobile: true }}
           count={1}
           index={0}
           error={error}
         />
-      </TestI18n>
+      </AppLike>
     )
-      .dive()
-      .dive()
     return {
-      wrapper
+      root
     }
   }
+
   it('should render correctly', () => {
-    const { wrapper } = setup()
-    expect(wrapper).toMatchSnapshot()
+    const { root } = setup()
+    expect(root.getByText('Incorrect or expired credentials')).toBeTruthy()
+    expect(
+      root.getByText('Your Boursorama data is no longer updated.')
+    ).toBeTruthy()
+    expect(root.getByText('Verify the connection')).toBeTruthy()
   })
 })

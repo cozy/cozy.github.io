@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useI18n } from 'cozy-ui/transpiled/react'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+
+import { useTrackPage } from 'ducks/tracking/browser'
 import EditionModal from 'components/EditionModal'
 import { categoryBudgets } from '../specs'
 
@@ -13,6 +15,7 @@ import { categoryBudgets } from '../specs'
  */
 const CategoryAlertEditModal = ({ initialDoc, onEdit, onDismiss }) => {
   const { t } = useI18n()
+  useTrackPage('parametres:configuration:alerte-budget')
   const modalTitle = categoryBudgets.modalTitle
   const okButtonLabel = doc =>
     doc.id !== undefined

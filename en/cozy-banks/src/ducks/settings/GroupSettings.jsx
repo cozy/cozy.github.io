@@ -10,10 +10,11 @@ import { Media, Img } from 'cozy-ui/transpiled/react/Media'
 import Switch from 'cozy-ui/transpiled/react/MuiCozyTheme/Switch'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 
+import { GROUP_DOCTYPE, accountsConn } from 'doctypes'
 import BarTheme from 'ducks/bar/BarTheme'
 import { getAccountInstitutionLabel } from 'ducks/account/helpers'
-import { GROUP_DOCTYPE, accountsConn } from 'doctypes'
 import { getGroupLabel, renamedGroup } from 'ducks/groups/helpers'
+import { getTracker } from 'ducks/tracking/browser'
 
 import Loading from 'components/Loading'
 import BackButton from 'components/BackButton'
@@ -112,6 +113,20 @@ const updateOrCreateGroup = async (client, group, router, successCallback) => {
 
 export class DumbGroupSettings extends Component {
   state = { modifying: false, saving: false }
+
+  componentDidMount() {
+    this.trackPage()
+  }
+
+  trackPage() {
+    const tracker = getTracker()
+    if (this.props.group._id) {
+      tracker.trackPage('parametres:groupes:detail')
+    } else {
+      tracker.trackPage('parametres:groupes:nouveau-groupe')
+    }
+  }
+
   handleRename = () => {
     const label = this.inputRef.value
     this.rename(label)

@@ -22,6 +22,7 @@ import resultWithArgs from 'utils/resultWithArgs'
 import Confirmation from 'components/Confirmation'
 
 import { BackIcon } from 'components/BackButton'
+import { useTrackPage } from 'ducks/tracking/browser'
 
 export const CHOOSING_TYPES = {
   category: 'category',
@@ -197,10 +198,13 @@ const EditionModal = props => {
     onRemove,
     removeModalTitle,
     removeModalDescription,
-    canBeRemoved
+    canBeRemoved,
+    trackPageName
   } = props
   const [doc, setDoc] = useState(initialDoc)
   const [choosing, setChoosing] = useState(null)
+
+  useTrackPage(trackPageName)
 
   const handleChoosingCancel = () => {
     setChoosing(null)

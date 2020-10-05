@@ -1,7 +1,12 @@
 /* global __TARGET__ */
 
-import React, { PureComponent, Fragment } from 'react'
 import { flowRight as compose, get, sumBy, set, debounce } from 'lodash'
+
+import React, { PureComponent, Fragment } from 'react'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
+import { createStructuredSelector } from 'reselect'
+import cx from 'classnames'
 
 import {
   queryConnect,
@@ -10,6 +15,8 @@ import {
   hasQueryBeenLoaded
 } from 'cozy-client'
 import flag from 'cozy-flags'
+import CozyRealtime from 'cozy-realtime'
+
 import {
   groupsConn,
   settingsConn,
@@ -20,10 +27,8 @@ import {
   TRANSACTION_DOCTYPE,
   transactionsConn
 } from 'doctypes'
-import cx from 'classnames'
 
-import { connect } from 'react-redux'
-import { withRouter } from 'react-router'
+import { getVirtualAccounts, getVirtualGroups } from 'selectors'
 
 import Loading from 'components/Loading'
 import { Padded } from 'components/Spacing'
@@ -34,15 +39,12 @@ import AccountsImporting from 'ducks/balance/AccountsImporting'
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import { getAccountBalance } from 'ducks/account/helpers'
 import { isBankTrigger } from 'utils/triggers'
-import { getVirtualAccounts, getVirtualGroups } from 'selectors'
-
 import styles from 'ducks/balance/Balance.styl'
 import BalancePanels from 'ducks/balance/BalancePanels'
 import { getPanelsState } from 'ducks/balance/helpers'
 import BarTheme from 'ducks/bar/BarTheme'
 import { filterByAccounts } from 'ducks/filters'
-import CozyRealtime from 'cozy-realtime'
-import { createStructuredSelector } from 'reselect'
+import { getTracker } from 'ducks/tracking/browser'
 
 const syncPouchImmediately = async client => {
   const pouchLink = client.links.find(link => link.pouches)
@@ -254,6 +256,12 @@ class Balance extends PureComponent {
 
   componentDidMount() {
     this.startResumeListeners()
+    this.trackPage()
+  }
+
+  trackPage() {
+    const tracker = getTracker()
+    tracker.trackPage('moncompte:home')
   }
 
   componentWillUnmount() {

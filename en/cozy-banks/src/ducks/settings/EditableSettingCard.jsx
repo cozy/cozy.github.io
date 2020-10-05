@@ -66,7 +66,8 @@ const EditableSettingCard = props => {
     shouldOpenOnToggle,
     doc,
     canBeRemoved,
-    onRemoveDoc
+    onRemoveDoc,
+    trackPageName
   } = props
 
   const enabled = doc.enabled
@@ -81,6 +82,7 @@ const EditableSettingCard = props => {
       onToggle(!enabled)
     }
   }
+
   return (
     <>
       <SettingCard
@@ -131,6 +133,7 @@ const EditableSettingCard = props => {
           okButtonLabel={() => t('EditionModal.ok')}
           cancelButtonLabel={() => t('EditionModal.cancel')}
           removeButtonLabel={() => t('EditionModal.remove')}
+          trackPageName={trackPageName}
         />
       ) : null}
     </>

@@ -6,6 +6,7 @@ import styles from 'ducks/transfers/styles.styl'
 import Title from 'ducks/transfers/steps/Title'
 import TransferDoneImg from 'ducks/transfers/steps/TransferDoneImg'
 import TransferErrorImg from 'ducks/transfers/steps/TransferErrorImg'
+import { useTrackPage } from 'ducks/tracking/browser'
 
 const TransferState = ({
   title,
@@ -29,6 +30,7 @@ const TransferState = ({
 
 export const TransferSuccess = React.memo(function TransferSuccess({ onExit }) {
   const { t } = useI18n()
+  useTrackPage('virements.succes')
   return (
     <TransferState
       title={t('Transfer.success.title')}
@@ -40,12 +42,21 @@ export const TransferSuccess = React.memo(function TransferSuccess({ onExit }) {
   )
 })
 
+const defaultErrorPageName = 'impossible'
+const konnectorErrorToPageName = {
+  LOGIN_FAILED: 'echec',
+  'VENDOR_DOWN.BANK_DOWN': 'banque-indisponible'
+}
+
 const isLoginFailed = error =>
   error.message && error.message.includes('LOGIN_FAILED')
 
 export const DumbTransferError = ({ onExit, error }) => {
   const { t } = useI18n()
   const loginFailed = isLoginFailed(error)
+  const pageName =
+    konnectorErrorToPageName[error.message] || defaultErrorPageName
+  useTrackPage(`virements.${pageName}`)
   return (
     <TransferState
       title={t('Transfer.error.title')}

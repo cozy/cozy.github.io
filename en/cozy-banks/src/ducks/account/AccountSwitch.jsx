@@ -39,6 +39,11 @@ import {
 
 import { BarCenter } from 'components/Bar'
 
+const filteringDocPropType = PropTypes.oneOfType([
+  PropTypes.array,
+  PropTypes.object
+])
+
 const AccountSwitchDesktop = ({
   isFetching,
   isOpen,
@@ -90,7 +95,7 @@ const AccountSwitchDesktop = ({
 }
 
 AccountSwitchDesktop.propTypes = {
-  filteringDoc: PropTypes.object
+  filteringDoc: filteringDocPropType
 }
 
 const DownArrow = () => {
@@ -247,7 +252,7 @@ const AccountSwitchMenu = ({
 AccountSwitchMenu.propTypes = {
   filterByDoc: PropTypes.func.isRequired,
   resetFilterByDoc: PropTypes.func.isRequired,
-  filteringDoc: PropTypes.object
+  filteringDoc: filteringDocPropType
 }
 
 const AccountSwitchWrapper = ({ small, children }) => {
@@ -385,7 +390,7 @@ class AccountSwitch extends Component {
 AccountSwitch.propTypes = {
   filterByDoc: PropTypes.func.isRequired,
   resetFilterByDoc: PropTypes.func.isRequired,
-  filteringDoc: PropTypes.object
+  filteringDoc: filteringDocPropType
 }
 
 AccountSwitch.defaultProps = {

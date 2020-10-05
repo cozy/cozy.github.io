@@ -1,11 +1,13 @@
 // TODO Move this to Harvest
 
 import React from 'react'
-import { useI18n } from 'cozy-ui/transpiled/react'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Infos from 'cozy-ui/transpiled/react/Infos'
+import Text, { SubTitle } from 'cozy-ui/transpiled/react/Text'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+
 import { getErrorLocaleBound, KonnectorJobError } from 'cozy-harvest-lib'
 import ReconnectTriggerButton from 'ducks/transactions/TransactionPageErrors/ReconnectTriggerButton'
-
 const TriggerErrorCard = ({ index, count, error, className }) => {
   const { t, lang } = useI18n()
 
@@ -24,14 +26,20 @@ const TriggerErrorCard = ({ index, count, error, className }) => {
 
   return (
     <Infos
+      theme="danger"
       className={'u-bdrs-0 u-maw-none u-p-1-half ' + (className || '')}
-      actionButton={<ReconnectTriggerButton trigger={trigger} />}
-      title={errorTitle + (count > 1 ? ` (${index + 1}/${count})` : '')}
-      text={
-        <div>{t('Transactions.trigger-error.description', { bankName })}</div>
+      action={<ReconnectTriggerButton trigger={trigger} />}
+      description={
+        <>
+          <SubTitle className="u-error">
+            {errorTitle + (count > 1 ? ` (${index + 1}/${count})` : '')}
+          </SubTitle>
+          <Text>
+            <Icon icon="warning" className="u-mr-half" />
+            {t('Transactions.trigger-error.description', { bankName })}
+          </Text>
+        </>
       }
-      icon="warning"
-      isImportant
     />
   )
 }
