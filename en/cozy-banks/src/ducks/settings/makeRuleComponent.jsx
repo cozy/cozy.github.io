@@ -5,6 +5,7 @@ import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 
 import { makeEditionModalFromSpec } from 'components/EditionModal'
 import Rules from 'ducks/settings/Rules'
+import { trackEvent } from 'ducks/tracking/browser'
 import EditableSettingCard from './EditableSettingCard'
 import { ensureNewRuleFormat } from './ruleUtils'
 
@@ -47,6 +48,7 @@ const makeRuleComponent = ({
         addButtonLabelKey="Settings.rules.create"
         makeNewItem={getNewRule}
         ItemEditionModal={EditionModal}
+        trackPageName={trackPageName}
       >
         {(rule, i, createOrUpdateRule, removeRule) => (
           <EditableSettingCard
@@ -54,6 +56,9 @@ const makeRuleComponent = ({
             key={i}
             onToggle={enabled => {
               createOrUpdateRule({ ...rule, enabled })
+              trackEvent({
+                name: `${trackPageName}-${enabled ? 'on' : 'off'}`
+              })
             }}
             removeModalTitle={t('Settings.rules.remove-modal.title')}
             removeModalDescription={t('Settings.rules.remove-modal.desc')}

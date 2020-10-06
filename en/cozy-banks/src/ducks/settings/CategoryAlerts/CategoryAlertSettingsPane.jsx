@@ -40,6 +40,7 @@ const CategoryAlertsPane = ({ client, settingsCollection }) => {
         addButtonLabelKey="Settings.rules.create"
         makeNewItem={makeNewAlert}
         ItemEditionModal={CategoryAlertEditModal}
+        trackPageName="alerte-budget"
       >
         {(alert, i, createOrUpdateAlert, removeAlert) => (
           <div key={i}>

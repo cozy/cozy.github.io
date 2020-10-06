@@ -30,7 +30,7 @@ import BarTheme from 'ducks/bar/BarTheme'
 import { getCategoriesData } from 'ducks/categories/selectors'
 import maxBy from 'lodash/maxBy'
 import { getDate } from 'ducks/transactions/helpers'
-import { getTracker } from 'ducks/tracking/browser'
+import { trackPage } from 'ducks/tracking/browser'
 
 const isCategoryDataEmpty = categoryData => {
   return categoryData[0] && isNaN(categoryData[0].percentage)
@@ -52,8 +52,7 @@ class CategoriesPage extends Component {
   trackPage() {
     const { router } = this.props
     const { categoryName, subcategoryName } = router.params
-    const tracker = getTracker()
-    tracker.trackPage(
+    trackPage(
       `analyse:${categoryName ? categoryName : 'home'}${
         subcategoryName ? `:${subcategoryName}` : ''
       }`

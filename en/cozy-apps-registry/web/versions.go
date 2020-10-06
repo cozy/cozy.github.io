@@ -22,7 +22,7 @@ func createVersion(c echo.Context) (err error) {
 	prefix := space.GetPrefix()
 
 	appSlug := c.Param("app")
-	app, err := registry.FindApp(space, appSlug, registry.Stable)
+	app, err := registry.FindApp(nil, space, appSlug, registry.Stable)
 	if err != nil {
 		return err
 	}
@@ -148,7 +148,7 @@ func approvePendingVersion(c echo.Context) (err error) {
 	if appSlug == "" {
 		return errshttp.NewError(http.StatusNotFound, "App is missing in the URL")
 	}
-	app, err := registry.FindApp(getSpace(c), appSlug, registry.Stable)
+	app, err := registry.FindApp(nil, getSpace(c), appSlug, registry.Stable)
 	if err != nil {
 		return err
 	}
@@ -290,7 +290,7 @@ func getVersion(c echo.Context) error {
 	version := stripVersion(c.Param("version"))
 
 	space := getSpace(c)
-	_, err := registry.FindApp(space, appSlug, registry.Stable)
+	_, err := registry.FindApp(nil, space, appSlug, registry.Stable)
 	if err != nil {
 		return err
 	}
@@ -341,7 +341,7 @@ func override(c echo.Context, version *registry.Version) (*registry.Version, err
 func getLatestVersion(c echo.Context) error {
 	appSlug := c.Param("app")
 	channel := c.Param("channel")
-	_, err := registry.FindApp(getSpace(c), appSlug, registry.Stable)
+	_, err := registry.FindApp(nil, getSpace(c), appSlug, registry.Stable)
 	if err != nil {
 		return err
 	}

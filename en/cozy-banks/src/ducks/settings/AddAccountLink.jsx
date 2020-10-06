@@ -1,5 +1,5 @@
 import React from 'react'
-import { StoreLink } from 'components/StoreLink'
+import StoreLink from 'components/StoreLink'
 
 const AddAccountLink = props => {
   return (

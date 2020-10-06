@@ -62,17 +62,22 @@ func (m *localFS) getPath(prefix base.Prefix, original string) (string, error) {
 }
 
 func (m *localFS) Create(prefix base.Prefix, name, contentType string, content io.Reader) error {
+	dir := filepath.Join(m.baseDir, string(prefix))
+	if _, err := os.Stat(dir); err != nil && os.IsNotExist(err) {
+		return base.NewFileNotFoundError(err)
+	}
+
 	path, err := m.getPath(prefix, name)
 	if err != nil {
 		return err
 	}
 
+	parent := filepath.Dir(path)
+	if err := os.MkdirAll(parent, os.ModePerm); err != nil {
+		return err
+	}
 	f, err := os.Create(path)
 	if err != nil {
-		dir := filepath.Join(m.baseDir, string(prefix))
-		if _, err := os.Stat(dir); err != nil && os.IsNotExist(err) {
-			return base.NewFileNotFoundError(err)
-		}
 		return base.NewInternalError(err)
 	}
 	defer f.Close()

@@ -43,7 +43,7 @@ import { isLoginFailed } from 'ducks/transfers/utils'
 import BarTheme from 'ducks/bar/BarTheme'
 import { PersonalInfoModal, PersonalInfoPage } from 'ducks/personal-info'
 import manifest from 'ducks/client/manifest'
-import { getTracker } from 'ducks/tracking/browser'
+import { trackPage } from 'ducks/tracking/browser'
 
 const THIRTY_SECONDS = 30 * 1000
 
@@ -379,12 +379,7 @@ class TransferPage extends React.Component {
     const idx = slideIndexes.findIndex(x => x == slideName)
     this.setState({ slide: idx !== -1 ? idx : 0 })
     this.props.router.push(slideName ? `/transfers/${slideName}` : '/transfers')
-    this.trackPage(`virement:${slideNameToTrackPageName[slideName]}`)
-  }
-
-  trackPage(pageName) {
-    const tracker = getTracker()
-    tracker.trackPage(pageName)
+    trackPage(`virement:${slideNameToTrackPageName[slideName]}`)
   }
 
   handleModalDismiss() {

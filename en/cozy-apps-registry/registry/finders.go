@@ -73,7 +73,7 @@ func findApp(c *space.Space, appSlug string) (*App, error) {
 	return doc, nil
 }
 
-func FindApp(c *space.Space, appSlug string, channel Channel) (*App, error) {
+func FindApp(v *base.VirtualSpace, c *space.Space, appSlug string, channel Channel) (*App, error) {
 	doc, err := findApp(c, appSlug)
 	if err != nil {
 		return nil, err
@@ -84,10 +84,18 @@ func FindApp(c *space.Space, appSlug string, channel Channel) (*App, error) {
 	if err != nil {
 		return nil, err
 	}
-	doc.LatestVersion, err = FindLatestVersion(c, doc.Slug, Stable)
+
+	version, err := FindLatestVersion(c, doc.Slug, Stable)
 	if err != nil && err != ErrVersionNotFound {
 		return nil, err
 	}
+	if v != nil && version != nil {
+		if version, err = FindOverwrittenVersion(v, version); err != nil {
+			return nil, err
+		}
+	}
+
+	doc.LatestVersion = version
 	doc.Label = calculateAppLabel(doc, doc.LatestVersion)
 
 	return doc, nil

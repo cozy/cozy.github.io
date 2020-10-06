@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 import { flowRight as compose } from 'lodash'
-import { withBreakpoints, useI18n, Icon } from 'cozy-ui/transpiled/react'
+import { useI18n, Icon } from 'cozy-ui/transpiled/react'
 
 import { transactionsConn } from 'doctypes'
 import { Padded } from 'components/Spacing'
@@ -33,13 +33,13 @@ const SearchIcon = () => {
 }
 
 const BalanceHeader = ({
-  breakpoints: { isMobile },
   accountsBalance,
   accounts,
   subtitleParams,
   onClickBalance,
   transactions
 }) => {
+  const { isMobile } = useBreakpoints()
   const { t } = useI18n()
   const titlePaddedClass = isMobile ? 'u-p-0' : 'u-pb-0'
   const subtitle = subtitleParams
@@ -79,7 +79,6 @@ const BalanceHeader = ({
 export const DumbBalanceHeader = BalanceHeader
 
 export default compose(
-  withBreakpoints(),
   memo,
   queryConnect({
     transactions: transactionsConn

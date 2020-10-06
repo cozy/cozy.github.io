@@ -1,8 +1,7 @@
 import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { useClient } from 'cozy-client'
-import { sortBy, flowRight as compose } from 'lodash'
-import { withRouter } from 'react-router'
+import { sortBy } from 'lodash'
 import { useSelector } from 'react-redux'
 
 import withFilters from 'components/withFilters'
@@ -12,6 +11,7 @@ import { getAccountBalance } from 'ducks/account/helpers'
 import AccountRowLoading from 'ducks/balance/AccountRowLoading'
 import { getHydratedAccountsFromGroup } from 'selectors'
 import { isReimbursementsVirtualGroup } from 'ducks/groups/helpers'
+import { useRouter } from 'components/RouterContext'
 
 const getSortedAccounts = (group, accounts) => {
   const realAccounts = accounts.filter(Boolean)
@@ -28,7 +28,8 @@ const mkAccountsSelector = (group, client) => state =>
 
 export const DumbAccountsList = props => {
   const client = useClient()
-  const { group, filterByDoc, switches, onSwitchChange, router } = props
+  const router = useRouter()
+  const { group, filterByDoc, switches, onSwitchChange } = props
   const accounts = useSelector(mkAccountsSelector(group, client))
 
   const goToAccountsDetails = useCallback(
@@ -72,19 +73,13 @@ DumbAccountsList.propTypes = {
   group: PropTypes.object.isRequired,
   switches: PropTypes.object.isRequired,
   onSwitchChange: PropTypes.func,
-  filterByDoc: PropTypes.func.isRequired,
-  router: PropTypes.shape({
-    push: PropTypes.func
-  }).isRequired
+  filterByDoc: PropTypes.func.isRequired
 }
 
 DumbAccountsList.defaultProps = {
   onSwitchChange: undefined
 }
 
-const AccountsList = compose(
-  withFilters,
-  withRouter
-)(DumbAccountsList)
+const AccountsList = withFilters(DumbAccountsList)
 
 export default AccountsList

@@ -14,7 +14,7 @@ import { GROUP_DOCTYPE, accountsConn } from 'doctypes'
 import BarTheme from 'ducks/bar/BarTheme'
 import { getAccountInstitutionLabel } from 'ducks/account/helpers'
 import { getGroupLabel, renamedGroup } from 'ducks/groups/helpers'
-import { getTracker } from 'ducks/tracking/browser'
+import { trackPage } from 'ducks/tracking/browser'
 
 import Loading from 'components/Loading'
 import BackButton from 'components/BackButton'
@@ -22,6 +22,7 @@ import Table from 'components/Table'
 import { PageTitle } from 'components/Title'
 import { Padded } from 'components/Spacing'
 import { logException } from 'lib/sentry'
+import { trackEvent } from 'ducks/tracking/browser'
 
 import styles from 'ducks/settings/GroupsSettings.styl'
 
@@ -119,11 +120,10 @@ export class DumbGroupSettings extends Component {
   }
 
   trackPage() {
-    const tracker = getTracker()
     if (this.props.group._id) {
-      tracker.trackPage('parametres:groupes:detail')
+      trackPage('parametres:groupes:detail')
     } else {
-      tracker.trackPage('parametres:groupes:nouveau-groupe')
+      trackPage('parametres:groupes:nouveau-groupe')
     }
   }
 
@@ -138,6 +138,9 @@ export class DumbGroupSettings extends Component {
     const updatedGroup = renamedGroup(group, label)
     return this.updateOrCreate(updatedGroup, () => {
       this.setState({ saving: false, modifying: false })
+      trackEvent({
+        name: 'renommer'
+      })
     })
   }
 
@@ -153,7 +156,10 @@ export class DumbGroupSettings extends Component {
     } else {
       accounts.removeById(accountId)
     }
-    this.updateOrCreate(group)
+    await this.updateOrCreate(group)
+    trackEvent({
+      name: `compte-${enabled ? 'activer' : 'desactiver'}`
+    })
   }
 
   onRemove = async () => {
@@ -161,6 +167,9 @@ export class DumbGroupSettings extends Component {
 
     try {
       await client.destroy(group)
+      trackEvent({
+        name: 'supprimer'
+      })
       router.push('/settings/groups')
     } catch (err) {
       logException(err)

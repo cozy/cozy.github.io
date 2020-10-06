@@ -30,11 +30,7 @@ import TransactionGreaterRules from './TransactionGreaterRules'
 
 import { PersonalInfoModal } from 'ducks/personal-info'
 import { lateHealthReimbursement } from './specs'
-import { getTracker } from 'ducks/tracking/browser'
-
-const onToggleFlag = key => checked => {
-  flag(key, checked)
-}
+import { trackPage, trackEvent } from 'ducks/tracking/browser'
 
 /**
  * Configure notifications and other features
@@ -45,15 +41,11 @@ export class Configuration extends React.Component {
     this.state = {
       showPersonalInfoModal: false
     }
+    this.handleToggleAmountBlur = this.handleToggleAmountBlur.bind(this)
   }
 
   componentDidMount() {
-    this.trackPage()
-  }
-
-  trackPage() {
-    const tracker = getTracker()
-    tracker.trackPage('parametres:configuration')
+    trackPage('parametres:configuration')
   }
 
   saveDocument = async doc => {
@@ -79,6 +71,13 @@ export class Configuration extends React.Component {
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
     set(settings, [...key.split('.')], value)
     this.saveDocument(settings)
+  }
+
+  handleToggleAmountBlur(checked) {
+    flag('amount_blur', checked)
+    trackEvent({
+      name: `masquer_elements-${checked ? 'on' : 'off'}`
+    })
   }
 
   render() {
@@ -181,7 +180,7 @@ export class Configuration extends React.Component {
           <SubSection title={t('Settings.security.amount_blur.title')}>
             <ToggleRow
               description={t('Settings.security.amount_blur.description')}
-              onToggle={onToggleFlag('amount_blur')}
+              onToggle={this.handleToggleAmountBlur}
               enabled={Boolean(flag('amount_blur'))}
               name="amountBlur"
             />

@@ -207,7 +207,7 @@ func createApps() error {
 		}
 	}
 
-	app, err := registry.FindApp(s, overwrittenApp, registry.Stable)
+	app, err := registry.FindApp(nil, s, overwrittenApp, registry.Stable)
 	if err != nil {
 		return err
 	}

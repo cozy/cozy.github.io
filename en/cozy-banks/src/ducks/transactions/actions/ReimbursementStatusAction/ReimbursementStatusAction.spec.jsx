@@ -6,25 +6,25 @@ import {
   getReimbursementStatus,
   isReimbursementLate
 } from '../../helpers'
+import AppLike from 'test/AppLike'
 
 jest.mock('../../helpers')
 
 describe('DumbReimbursementStatusAction', () => {
-  const t = key => key
-
   const setup = ({ reimbursementStatus, isLate, isModalItem = false }) => {
     getReimbursementStatus.mockReturnValueOnce(reimbursementStatus)
     isReimbursementLate.mockReturnValueOnce(isLate)
 
     const wrapper = shallow(
-      <DumbReimbursementStatusAction
-        t={t}
-        transaction={{ reimbursementStatus }}
-        isModalItem={isModalItem}
-        createDocument={() => {}}
-        deleteDocument={() => {}}
-        saveDocument={() => {}}
-      />
+      <AppLike>
+        <DumbReimbursementStatusAction
+          transaction={{ reimbursementStatus }}
+          isModalItem={isModalItem}
+          createDocument={() => {}}
+          deleteDocument={() => {}}
+          saveDocument={() => {}}
+        />
+      </AppLike>
     )
     return { wrapper }
   }

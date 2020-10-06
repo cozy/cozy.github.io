@@ -1,19 +1,22 @@
 import React from 'react'
-import styles from 'components/KonnectorUpdateInfo/styles.styl'
-import { useI18n } from 'cozy-ui/transpiled/react'
+import { flowRight as compose } from 'lodash'
+
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import Infos from 'cozy-ui/transpiled/react/Infos'
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import { ButtonLink } from 'cozy-ui/transpiled/react/Button'
+
 import CozyClient, {
   queryConnect,
-  withClient,
+  useClient,
   Q,
   isQueryLoading
 } from 'cozy-client'
-import { flowRight as compose } from 'lodash'
 import { KONNECTOR_DOCTYPE } from 'doctypes'
+
+import styles from 'components/KonnectorUpdateInfo/styles.styl'
 import { Padded } from 'components/Spacing'
-import Infos from 'cozy-ui/transpiled/react/Infos'
-import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import useRedirectionURL from 'components/useRedirectionURL'
-import { ButtonLink } from 'cozy-ui/transpiled/react/Button'
 
 // Utilities on konnectors
 const konnectors = {
@@ -29,8 +32,10 @@ const redirectionOptions = {
   pendingUpdate: true
 }
 
-const KonnectorUpdateInfo = ({ outdatedKonnectors, client, breakpoints }) => {
+const KonnectorUpdateInfo = ({ outdatedKonnectors }) => {
   const { t } = useI18n()
+  const client = useClient()
+  const { isMobile } = useBreakpoints()
   const url = useRedirectionURL(client, APP_DOCTYPE, redirectionOptions)
 
   if (!url || isQueryLoading(outdatedKonnectors)) {
@@ -55,7 +60,7 @@ const KonnectorUpdateInfo = ({ outdatedKonnectors, client, breakpoints }) => {
         actionButton={
           <ButtonLink
             theme="secondary"
-            extension={breakpoints.isMobile ? 'full' : 'narrow'}
+            extension={isMobile ? 'full' : 'narrow'}
             className="u-mh-0"
             label={t('KonnectorUpdateInfo.cta')}
             icon="openwith"
@@ -85,10 +90,8 @@ const outdatedKonnectors = {
 }
 
 export default compose(
-  withClient,
   queryConnect({
     outdatedKonnectors
   }),
-  withBreakpoints(),
   React.memo
 )(KonnectorUpdateInfo)

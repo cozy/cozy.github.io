@@ -41,6 +41,7 @@ const ReimbursementStatusModal = memo(function ReimbursementStatusModal(props) {
       mobileFullscreen
       className={cx('u-flex', 'u-flex-column', className)}
       {...rest}
+      aria-label={t('Transactions.actions.reimbursementStatus.modal.title')}
     >
       <ModalContent className="u-ph-0">
         <header className="u-ta-center">

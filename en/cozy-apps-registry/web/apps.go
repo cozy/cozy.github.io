@@ -57,7 +57,7 @@ func patchApp(c echo.Context) (err error) {
 	}
 
 	appSlug := c.Param("app")
-	app, err := registry.FindApp(getSpace(c), appSlug, registry.Stable)
+	app, err := registry.FindApp(nil, getSpace(c), appSlug, registry.Stable)
 	if err != nil {
 		return err
 	}
@@ -79,7 +79,11 @@ func patchApp(c echo.Context) (err error) {
 
 func getApp(c echo.Context) error {
 	appSlug := c.Param("app")
-	app, err := registry.FindApp(getSpace(c), appSlug, getVersionsChannel(c, registry.Dev))
+	virtualSpace, space, err := getVirtualSpace(c)
+	if err != nil {
+		return err
+	}
+	app, err := registry.FindApp(virtualSpace, space, appSlug, getVersionsChannel(c, registry.Dev))
 	if err != nil {
 		return err
 	}
@@ -155,21 +159,7 @@ func getAppAttachment(c echo.Context, filename string) error {
 		}
 	}
 
-	if cacheControl(c, att.Etag, oneHour) {
-		return c.NoContent(http.StatusNotModified)
-	}
-
-	contentType := att.ContentType
-	// force image/svg content-type for svg assets that start with <?xml
-	if (filename == "icon" || filename == "partnership_icon") && contentType == "text/xml" {
-		contentType = "image/svg+xml"
-	}
-
-	if c.Request().Method == http.MethodHead {
-		c.Response().Header().Set(echo.HeaderContentType, contentType)
-		return c.NoContent(http.StatusOK)
-	}
-	return c.Stream(http.StatusOK, contentType, att.Content)
+	return sendAttachment(c, att, filename)
 }
 
 func getMaintenanceApps(c echo.Context) error {
@@ -213,7 +203,7 @@ func activateMaintenanceApp(c echo.Context) error {
 	}
 
 	appSlug := c.Param("app")
-	app, err := registry.FindApp(s, appSlug, registry.Stable)
+	app, err := registry.FindApp(vs, s, appSlug, registry.Stable)
 	if err != nil {
 		return err
 	}
@@ -251,7 +241,7 @@ func deactivateMaintenanceApp(c echo.Context) (err error) {
 	}
 
 	appSlug := c.Param("app")
-	app, err := registry.FindApp(s, appSlug, registry.Stable)
+	app, err := registry.FindApp(vs, s, appSlug, registry.Stable)
 	if err != nil {
 		return
 	}

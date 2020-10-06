@@ -1193,8 +1193,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cozyclientgetdocumentsaveplandocument-relationships-arraymutation" title="cozyClient.getDocumentSavePlan(document, relationships) ⇒ Array.&lt;Mutation&gt;" class="md-nav__link">
-    cozyClient.getDocumentSavePlan(document, relationships) ⇒ Array.&lt;Mutation&gt;
+  <a href="#cozyclientcreatetype-doc-references-options-promise" title="cozyClient.create(type, doc, references, options) ⇒ Promise" class="md-nav__link">
+    cozyClient.create(type, doc, references, options) ⇒ Promise
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cozyclientgetdocumentsaveplandocument-referencesbyname-arraymutation" title="cozyClient.getDocumentSavePlan(document, [referencesByName]) ⇒ Array.&lt;Mutation&gt;" class="md-nav__link">
+    cozyClient.getDocumentSavePlan(document, [referencesByName]) ⇒ Array.&lt;Mutation&gt;
   </a>
   
 </li>
@@ -2043,6 +2050,13 @@
         <li class="md-nav__item">
   <a href="#querystate-object" title="QueryState : object" class="md-nav__link">
     QueryState : object
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference-object" title="Reference : object" class="md-nav__link">
+    Reference : object
   </a>
   
 </li>
@@ -3974,8 +3988,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cozyclientgetdocumentsaveplandocument-relationships-arraymutation" title="cozyClient.getDocumentSavePlan(document, relationships) ⇒ Array.&lt;Mutation&gt;" class="md-nav__link">
-    cozyClient.getDocumentSavePlan(document, relationships) ⇒ Array.&lt;Mutation&gt;
+  <a href="#cozyclientcreatetype-doc-references-options-promise" title="cozyClient.create(type, doc, references, options) ⇒ Promise" class="md-nav__link">
+    cozyClient.create(type, doc, references, options) ⇒ Promise
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cozyclientgetdocumentsaveplandocument-referencesbyname-arraymutation" title="cozyClient.getDocumentSavePlan(document, [referencesByName]) ⇒ Array.&lt;Mutation&gt;" class="md-nav__link">
+    cozyClient.getDocumentSavePlan(document, [referencesByName]) ⇒ Array.&lt;Mutation&gt;
   </a>
   
 </li>
@@ -4829,6 +4850,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#reference-object" title="Reference : object" class="md-nav__link">
+    Reference : object
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cozyaccount-object" title="CozyAccount : object" class="md-nav__link">
     CozyAccount : object
   </a>
@@ -5169,6 +5197,10 @@ we have in the store.</p>
 <dl>
 <dt><a href="#QueryState">QueryState</a> : <code>object</code></dt>
 <dd></dd>
+<dt><a href="#Reference">Reference</a> : <code>object</code></dt>
+<dd><p>A reference to a document (special case of a relationship used between photos and albums)
+<a href="https://docs.cozy.io/en/cozy-doctypes/docs/io.cozy.files/#references">https://docs.cozy.io/en/cozy-doctypes/docs/io.cozy.files/#references</a></p>
+</dd>
 <dt><a href="#CozyAccount">CozyAccount</a> : <code>object</code></dt>
 <dd></dd>
 <dt><a href="#Document">Document</a> : <code>object</code></dt>
@@ -5590,7 +5622,8 @@ having for the &lsquo;konnector&rsquo; worker, and then filter them based on the
 <li><a href="#CozyClient+login">.login(options)</a> ⇒ <code>Promise</code></li>
 <li><a href="#CozyClient+logout">.logout()</a> ⇒ <code>Promise</code></li>
 <li><a href="#CozyClient+collection">.collection(doctype)</a> ⇒ <code>DocumentCollection</code></li>
-<li><a href="#CozyClient+getDocumentSavePlan">.getDocumentSavePlan(document, relationships)</a> ⇒ <code>Array.&lt;Mutation&gt;</code></li>
+<li><a href="#CozyClient+create">.create(type, doc, references, options)</a> ⇒ <code>Promise</code></li>
+<li><a href="#CozyClient+getDocumentSavePlan">.getDocumentSavePlan(document, [referencesByName])</a> ⇒ <code>Array.&lt;Mutation&gt;</code></li>
 <li><a href="#CozyClient+destroy">.destroy(document)</a> ⇒ <a href="#Document"><code>Document</code></a></li>
 <li><a href="#CozyClient+query">.query(queryDefinition, options)</a> ⇒ <code>QueryResult</code></li>
 <li><a href="#CozyClient+queryAll">.queryAll(queryDefinition, options)</a> ⇒ <code>Array</code></li>
@@ -5660,7 +5693,7 @@ having for the &lsquo;konnector&rsquo; worker, and then filter them based on the
 <tr>
 <td>options.appMetadata</td>
 <td><code>object</code></td>
-<td>Metadata about the application that will be used in ensureCozyMetadata Cozy-Client will automatically call <code>this.login()</code> if provided with a token and an uri</td>
+<td>Metadata about the application that will be used in ensureCozyMetadata</td>
 </tr>
 </tbody>
 </table>
@@ -5679,7 +5712,7 @@ and can be accessed via this mean. A plugin class must have the attribute
 <p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a><br />
 <strong>Example</strong>  </p>
 <div class="codehilite"><pre><span></span><span class="kr">class</span> <span class="nx">AlertPlugin</span> <span class="p">{</span>
-  <span class="kr">constructor</span><span class="p">(</span><span class="nx">client</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">constructor</span><span class="p">(</span><span class="nx">client</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">client</span> <span class="o">=</span> <span class="nx">client</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">options</span> <span class="o">=</span> <span class="nx">options</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">handleLogin</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleLogin</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
@@ -5688,11 +5721,11 @@ and can be accessed via this mean. A plugin class must have the attribute
     <span class="k">this</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;logout&quot;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleLogout</span><span class="p">)</span>
   <span class="p">}</span>
 
-  <span class="nx">handleLogin() {</span>
+  <span class="nx">handleLogin</span><span class="p">()</span> <span class="p">{</span>
     <span class="nx">alert</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">onLoginAlert</span><span class="p">)</span>
   <span class="p">}</span>
 
-  <span class="nx">handleLogout() {</span>
+  <span class="nx">handleLogout</span><span class="p">()</span> <span class="p">{</span>
     <span class="nx">alert</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">onLogoutAlert</span><span class="p">)</span>
   <span class="p">}</span>
 <span class="p">}</span>
@@ -5779,8 +5812,55 @@ a <a href="https://docs.cozy.io/en/cozy-client/api/cozy-stack-client/#DocumentCo
 </tr>
 </tbody>
 </table>
+<p><a name="CozyClient+create"></a></p>
+<h3 id="cozyclientcreatetype-doc-references-options-promise">cozyClient.create(type, doc, references, options) ⇒ <code>Promise</code><a class="headerlink" href="#cozyclientcreatetype-doc-references-options-promise" title="Permanent link">&para;</a></h3>
+<p>Creates a document and saves it on the server</p>
+<p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td><code>string</code></td>
+<td>Doctype of the document</td>
+</tr>
+<tr>
+<td>doc</td>
+<td><code>object</code></td>
+<td>Document to save</td>
+</tr>
+<tr>
+<td>references</td>
+<td><a href="#Reference"><code>Array.&lt;Reference&gt;</code></a></td>
+<td>(Optional) References are a special kind of relationship that is not stored inside the referencer document, they are used for example between a photo and its album. You should not need to use it normally.</td>
+</tr>
+<tr>
+<td>options</td>
+<td><code>object</code></td>
+<td>Mutation options</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong>  </p>
+<div class="codehilite"><pre><span></span><span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;My todo&#39;</span><span class="p">,</span>
+  <span class="nx">relationships</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">authors</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">data</span><span class="o">:</span> <span class="p">[{</span><span class="nx">_id</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">_type</span><span class="o">:</span> <span class="s1">&#39;io.cozy.persons&#39;</span><span class="p">}]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+</pre></div>
+
+
 <p><a name="CozyClient+getDocumentSavePlan"></a></p>
-<h3 id="cozyclientgetdocumentsaveplandocument-relationships-arraymutation">cozyClient.getDocumentSavePlan(document, relationships) ⇒ <code>Array.&lt;Mutation&gt;</code><a class="headerlink" href="#cozyclientgetdocumentsaveplandocument-relationships-arraymutation" title="Permanent link">&para;</a></h3>
+<h3 id="cozyclientgetdocumentsaveplandocument-referencesbyname-arraymutation">cozyClient.getDocumentSavePlan(document, [referencesByName]) ⇒ <code>Array.&lt;Mutation&gt;</code><a class="headerlink" href="#cozyclientgetdocumentsaveplandocument-referencesbyname-arraymutation" title="Permanent link">&para;</a></h3>
 <p>Creates a list of mutations to execute to create a document and its relationships.</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">baseDoc</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">_type</span><span class="o">:</span> <span class="s1">&#39;io.cozy.todo&#39;</span><span class="p">,</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Go hiking&#39;</span> <span class="p">}</span>
 <span class="c1">// relations can be arrays or single objects</span>
@@ -5806,12 +5886,12 @@ a <a href="https://docs.cozy.io/en/cozy-client/api/cozy-stack-client/#DocumentCo
 <tr>
 <td>document</td>
 <td><code>object</code></td>
-<td>The base document to create</td>
+<td>Document to create</td>
 </tr>
 <tr>
-<td>relationships</td>
-<td><code>object</code></td>
-<td>The list of relationships to add, as a dictionnary. Keys should be relationship names and values the documents to link.</td>
+<td>[referencesByName]</td>
+<td><code>object.&lt;string, Array.&lt;Reference&gt;&gt;</code></td>
+<td>References to the created document. The relationship class associated to each reference list should support references, otherwise this method will throw.</td>
 </tr>
 </tbody>
 </table>
@@ -6049,6 +6129,11 @@ the store up, which in turn will update the <code>&lt;Query&gt;</code>s and re-r
 <td>options.hydrated</td>
 <td><code>boolean</code></td>
 <td>Whether documents should be returned already hydrated (default: false)</td>
+</tr>
+<tr>
+<td>options.singleDocData</td>
+<td><code>object</code></td>
+<td>If true, the &ldquo;data&rdquo; returned will be a single doc instead of an array for single doc queries. Defaults to false for backward compatibility but will be set to true in the future.</td>
 </tr>
 </tbody>
 </table>
@@ -8221,7 +8306,34 @@ we have in the store.</p>
 <p><a name="QueryState"></a></p>
 <h2 id="querystate-object">QueryState : <code>object</code><a class="headerlink" href="#querystate-object" title="Permanent link">&para;</a></h2>
 <p><strong>Kind</strong>: global typedef<br />
-<a name="CozyAccount"></a></p>
+<a name="Reference"></a></p>
+<h2 id="reference-object">Reference : <code>object</code><a class="headerlink" href="#reference-object" title="Permanent link">&para;</a></h2>
+<p>A reference to a document (special case of a relationship used between photos and albums)
+https://docs.cozy.io/en/cozy-doctypes/docs/io.cozy.files/#references</p>
+<p><strong>Kind</strong>: global typedef<br />
+<strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>_id</td>
+<td><code>string</code></td>
+<td>id of the document</td>
+</tr>
+<tr>
+<td>_type</td>
+<td><code>string</code></td>
+<td>doctype of the document</td>
+</tr>
+</tbody>
+</table>
+<p><a name="CozyAccount"></a></p>
 <h2 id="cozyaccount-object">CozyAccount : <code>object</code><a class="headerlink" href="#cozyaccount-object" title="Permanent link">&para;</a></h2>
 <p><strong>Kind</strong>: global typedef<br />
 <a name="Document"></a></p>

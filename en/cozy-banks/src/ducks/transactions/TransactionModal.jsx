@@ -38,7 +38,6 @@ import {
 
 import { getLabel } from 'ducks/transactions'
 import TransactionActions from 'ducks/transactions/TransactionActions'
-
 import styles from 'ducks/transactions/TransactionModal.styl'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 
@@ -52,20 +51,18 @@ import {
 import { TRANSACTION_DOCTYPE } from 'doctypes'
 import flag from 'cozy-flags'
 
-import { useTrackPage } from 'ducks/tracking/browser'
+import { trackEvent, useTrackPage } from 'ducks/tracking/browser'
 import { getFrequencyText } from 'ducks/recurrence/utils'
-import withDocs from 'components/withDocs'
-
 import TransactionCategoryEditor from 'ducks/transactions/TransactionCategoryEditor'
 import TransactionApplicationDateEditor from 'ducks/transactions/TransactionApplicationDateEditor'
 import TransactionRecurrenceEditor from 'ducks/transactions/TransactionRecurrenceEditor'
-
 import TransactionModalRow, {
   TransactionModalRowIcon,
   TransactionModalRowMedia,
   RowArrow
 } from 'ducks/transactions/TransactionModalRow'
 
+import withDocs from 'components/withDocs'
 import { useParams } from 'components/RouterContext'
 
 const SearchForTransactionIcon = ({ transaction }) => {
@@ -118,6 +115,12 @@ const TransactionCategoryEditorSlide = ({ transaction }) => {
   const { isMobile } = useBreakpoints()
   const { categoryName, subcategoryName } = useParams()
 
+  const onAfterUpdate = transaction => {
+    trackEvent({
+      name: getCategoryName(transaction.manualCategoryId)
+    })
+  }
+
   useTrackPage(
     categoryName && subcategoryName
       ? `analyse:${categoryName}:depense-categorie`
@@ -133,6 +136,7 @@ const TransactionCategoryEditorSlide = ({ transaction }) => {
       <ModalContent className="u-p-0">
         <TransactionCategoryEditor
           beforeUpdate={stackPop}
+          afterUpdate={onAfterUpdate}
           onCancel={stackPop}
           transaction={transaction}
         />
@@ -288,6 +292,11 @@ const TransactionModalInfoContent = withTransaction(props => {
   const handleAfterUpdateApplicationDate = updatedTransaction => {
     setApplicationDateBusy(false)
     showAlertAfterApplicationDateUpdate(updatedTransaction, t, f)
+    const date =
+      getApplicationDate(updatedTransaction) || getDate(updatedTransaction)
+    trackEvent({
+      name: date
+    })
   }
 
   const handleShowApplicationEditor = ev => {

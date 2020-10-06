@@ -1,12 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { Stack, useI18n } from 'cozy-ui/transpiled/react'
+import AddRuleButton from 'ducks/settings/AddRuleButton'
 import useList from './useList'
 import { getRuleId, getNextRuleId } from './ruleUtils'
-import AddRuleButton from 'ducks/settings/AddRuleButton'
+import { trackEvent } from 'ducks/tracking/browser'
 
 export { AddRuleButton }
 
+/**
+ * Displays a list of rules and allows to create or edit one
+ *
+ * Manages the stack of rules, the button to add a rule and
+ * and the creation modal
+ */
 const Rules = ({
   rules,
   children,
@@ -14,7 +21,8 @@ const Rules = ({
   onError,
   addButtonLabelKey,
   ItemEditionModal,
-  makeNewItem
+  makeNewItem,
+  trackPageName
 }) => {
   const { t } = useI18n()
   const [items, createOrUpdate, remove] = useList({
@@ -26,15 +34,26 @@ const Rules = ({
   })
   const [creating, setCreating] = useState(false)
   const [saving, setSaving] = useState(false)
-  const handleCreateItem = async newItem => {
-    setCreating(false)
-    try {
-      setSaving(true)
-      await createOrUpdate(newItem)
-    } finally {
-      setSaving(false)
-    }
-  }
+
+  const handleCreateItem = useCallback(
+    async newItem => {
+      setCreating(false)
+      try {
+        setSaving(true)
+        await createOrUpdate(newItem)
+        trackEvent({
+          name: `${trackPageName}-creer_alerte`
+        })
+      } finally {
+        setSaving(false)
+      }
+    },
+    [createOrUpdate, trackPageName]
+  )
+
+  const handleAddRule = useCallback(() => {
+    setCreating(true)
+  }, [setCreating])
 
   return (
     <>
@@ -50,14 +69,13 @@ const Rules = ({
           onDismiss={() => setCreating(false)}
           initialDoc={makeNewItem()}
           onEdit={handleCreateItem}
+          trackPageName={trackPageName}
         />
       ) : null}
       <AddRuleButton
         label={t(addButtonLabelKey)}
         busy={saving}
-        onClick={() => {
-          setCreating(true)
-        }}
+        onClick={handleAddRule}
       />
     </>
   )

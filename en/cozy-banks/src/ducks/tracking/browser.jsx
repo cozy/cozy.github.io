@@ -7,6 +7,9 @@ import flag from 'cozy-flags'
 import { getTracker as uiGetTracker } from 'cozy-ui/transpiled/react/helpers/tracker'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 
+// Necessary for cozy-ui
+window.__PIWIK_DIMENSION_ID_APP__ = 1
+
 const trackerShim = {
   trackPage: () => {},
   trackEvent: () => {},
@@ -34,6 +37,12 @@ export const getMatomoTracker = memoize(() => {
   return {
     trackEvent: event => {
       const { name, action, category } = event
+      if (!name) {
+        throw new Error('An event must have at least a name')
+      }
+      if (flag('banks.show-tracking-alerts')) {
+        Alerter.info(`Tracking event: ${JSON.stringify(event)}`)
+      }
       trackerInstance.push(['trackEvent', category, name, action])
     },
     trackPage: pagePath => {
@@ -51,6 +60,16 @@ export const getMatomoTracker = memoize(() => {
 })
 
 export const getTracker = getMatomoTracker
+
+export const trackEvent = options => {
+  const tracker = getTracker()
+  tracker.trackEvent(options)
+}
+
+export const trackPage = options => {
+  const tracker = getTracker()
+  tracker.trackPage(options)
+}
 
 export const TrackerContext = createContext()
 

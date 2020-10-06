@@ -4,9 +4,9 @@ import {
   Modal,
   ModalFooter,
   ModalButtons,
-  useI18n,
-  withBreakpoints
+  useI18n
 } from 'cozy-ui/transpiled/react'
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
 import Stepper from 'components/Stepper'
 
@@ -22,7 +22,7 @@ import resultWithArgs from 'utils/resultWithArgs'
 import Confirmation from 'components/Confirmation'
 
 import { BackIcon } from 'components/BackButton'
-import { useTrackPage } from 'ducks/tracking/browser'
+import { useTrackPage, useTracker } from 'ducks/tracking/browser'
 
 export const CHOOSING_TYPES = {
   category: 'category',
@@ -124,9 +124,8 @@ const InfoSlide = ({
 const INFO_SLIDE_INDEX = 0
 const CHOOSING_SLIDE_INDEX = 1
 
-const DumbEditionModalFooter = props => {
+const EditionModalFooter = props => {
   const {
-    breakpoints: { isMobile },
     canBeRemoved,
     doc,
     onEdit,
@@ -138,13 +137,22 @@ const DumbEditionModalFooter = props => {
     onDismiss,
     okButtonLabel
   } = props
+  const { isMobile } = useBreakpoints()
+  const tracker = useTracker()
   const handleConfirmEdit = () => {
     onEdit(doc)
+    tracker.trackEvent({ name: 'ok' })
   }
 
   const handleRemove = () => {
     onRemove(doc)
     onDismiss()
+    tracker.trackEvent({ name: 'supprimer' })
+  }
+
+  const handleCancel = () => {
+    onDismiss()
+    tracker.trackEvent({ name: 'annuler' })
   }
 
   const removalButton = canBeRemoved && (
@@ -169,7 +177,7 @@ const DumbEditionModalFooter = props => {
         {!canBeRemoved || (canBeRemoved && !isMobile) ? (
           <Button
             theme="secondary"
-            onClick={onDismiss}
+            onClick={handleCancel}
             label={cancelButtonLabel(props, doc)}
           />
         ) : null}
@@ -179,8 +187,6 @@ const DumbEditionModalFooter = props => {
     </ModalFooter>
   )
 }
-
-const EditionModalFooter = withBreakpoints()(DumbEditionModalFooter)
 
 const EditionModal = props => {
   const { t } = useI18n()

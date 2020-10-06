@@ -50,7 +50,7 @@ func DeleteOverwrittenVersion(s base.VirtualSpace, version *Version) error {
 		return err
 	}
 	db := s.VersionDB()
-	_, err = db.Delete(context.Background(), overwritten.ID, overwritten.Version)
+	_, err = db.Delete(context.Background(), overwritten.ID, overwritten.Rev)
 	return err
 }
 
@@ -188,7 +188,7 @@ func generateOverwrittenTarball(version *Version, overwrite map[string]interface
 					return nil, "", err
 				}
 			case manifestFilename:
-				if err := overwriteManifest(inputTar, outputTar, header, nameOverwritten, name, newManifest); err != nil {
+				if newManifest, err = overwriteManifest(inputTar, outputTar, header, nameOverwritten, name); err != nil {
 					return nil, "", err
 				}
 			default:
@@ -203,33 +203,27 @@ func generateOverwrittenTarball(version *Version, overwrite map[string]interface
 	}
 }
 
-func overwriteManifest(inputTar *tar.Reader, outputTar *tar.Writer, header *tar.Header, nameOverwritten bool, name string, newManifest map[string]interface{}) error {
-	if nameOverwritten {
-		decoder := json.NewDecoder(inputTar)
-		if err := decoder.Decode(&newManifest); err != nil {
-			return err
-		}
-		newManifest["name"] = name
-		j, err := json.Marshal(newManifest)
-		if err != nil {
-			return err
-		}
-		header.Size = int64(len(j))
-		if err = outputTar.WriteHeader(header); err != nil {
-			return err
-		}
-		if _, err = outputTar.Write(j); err != nil {
-			return err
-		}
-	} else {
-		if err := outputTar.WriteHeader(header); err != nil {
-			return err
-		}
-		if _, err := io.Copy(outputTar, inputTar); err != nil {
-			return err
-		}
+func overwriteManifest(inputTar *tar.Reader, outputTar *tar.Writer, header *tar.Header, nameOverwritten bool, name string) (map[string]interface{}, error) {
+	var manifest map[string]interface{}
+	decoder := json.NewDecoder(inputTar)
+	if err := decoder.Decode(&manifest); err != nil {
+		return nil, err
 	}
-	return nil
+	if nameOverwritten {
+		manifest["name"] = name
+	}
+	j, err := json.Marshal(manifest)
+	if err != nil {
+		return nil, err
+	}
+	header.Size = int64(len(j))
+	if err = outputTar.WriteHeader(header); err != nil {
+		return nil, err
+	}
+	if _, err = outputTar.Write(j); err != nil {
+		return nil, err
+	}
+	return manifest, nil
 }
 
 func overwriteIcon(inputTar *tar.Reader, outputTar *tar.Writer, header *tar.Header, iconOverwritten bool, iconContent *bytes.Buffer) error {

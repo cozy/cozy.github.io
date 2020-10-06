@@ -44,7 +44,7 @@ import BalancePanels from 'ducks/balance/BalancePanels'
 import { getPanelsState } from 'ducks/balance/helpers'
 import BarTheme from 'ducks/bar/BarTheme'
 import { filterByAccounts } from 'ducks/filters'
-import { getTracker } from 'ducks/tracking/browser'
+import { trackPage } from 'ducks/tracking/browser'
 
 const syncPouchImmediately = async client => {
   const pouchLink = client.links.find(link => link.pouches)
@@ -256,12 +256,7 @@ class Balance extends PureComponent {
 
   componentDidMount() {
     this.startResumeListeners()
-    this.trackPage()
-  }
-
-  trackPage() {
-    const tracker = getTracker()
-    tracker.trackPage('moncompte:home')
+    trackPage('moncompte:home')
   }
 
   componentWillUnmount() {

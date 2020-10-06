@@ -285,7 +285,7 @@ func TestDeactivateAppMaintenance(t *testing.T) {
 // Finders
 func TestFindApp(t *testing.T) {
 	s, _ := space.GetSpace(testSpaceName)
-	app, err := FindApp(s, "app-test", Stable)
+	app, err := FindApp(nil, s, "app-test", Stable)
 	assert.NoError(t, err)
 	assert.Equal(t, app.LatestVersion.Version, "2.0.0")
 }
@@ -375,7 +375,7 @@ func TestLastNVersions(t *testing.T) {
 
 	// Create new minors versions
 	db := s.VersDB()
-	app, err := FindApp(s, "app-test", Stable)
+	app, err := FindApp(nil, s, "app-test", Stable)
 	assert.NoError(t, err)
 
 	ver := new(Version)
@@ -410,7 +410,7 @@ func TestLastNVersions(t *testing.T) {
 func TestFindLastsVersionsSince(t *testing.T) {
 	s, _ := space.GetSpace(testSpaceName)
 	db := s.VersDB()
-	app, err := FindApp(s, "app-test", Stable)
+	app, err := FindApp(nil, s, "app-test", Stable)
 	assert.NoError(t, err)
 
 	ver := new(Version)
