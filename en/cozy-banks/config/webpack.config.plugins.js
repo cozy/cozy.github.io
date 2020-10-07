@@ -18,6 +18,7 @@ module.exports = {
         'https://ea2067ca88504d9cbc9115b55d0b2d55:e52e64f57486417bb1b5fa6529e1cfcb@sentry.cozycloud.cc/11'
       ),
       __PIWIK_SITEID__: 8,
+      __PIWIK_DIMENSION_ID_APP__: 1,
       __PIWIK_TRACKER_URL__: JSON.stringify(
         'https://matomo.cozycloud.cc/piwik.php'
       )

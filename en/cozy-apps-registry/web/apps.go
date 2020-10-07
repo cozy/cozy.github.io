@@ -314,7 +314,10 @@ func getAppsList(c echo.Context) error {
 		}
 	}
 
-	space := getSpace(c)
+	virtual, space, err := getVirtualSpace(c)
+	if err != nil {
+		return err
+	}
 
 	// In case of virtual space, forcing the filters
 	if virtual := c.Get("virtual"); virtual != nil {
@@ -330,7 +333,7 @@ func getAppsList(c echo.Context) error {
 		space = &clone
 	}
 
-	next, apps, err := registry.GetAppsList(space, &registry.AppsListOptions{
+	next, apps, err := registry.GetAppsList(virtual, space, &registry.AppsListOptions{
 		Filters:              filter,
 		Limit:                limit,
 		Cursor:               cursor,

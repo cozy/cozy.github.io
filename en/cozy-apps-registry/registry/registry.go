@@ -1108,7 +1108,7 @@ func RemoveSpace(s *space.Space) error {
 	// __assets__ container.
 	var cursor int = 0
 	for cursor != -1 {
-		next, apps, err := GetAppsList(s, &AppsListOptions{
+		next, apps, err := GetAppsList(nil, s, &AppsListOptions{
 			Limit:                200,
 			Cursor:               cursor,
 			LatestVersionChannel: Stable,

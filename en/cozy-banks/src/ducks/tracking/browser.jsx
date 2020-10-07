@@ -7,9 +7,6 @@ import flag from 'cozy-flags'
 import { getTracker as uiGetTracker } from 'cozy-ui/transpiled/react/helpers/tracker'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 
-// Necessary for cozy-ui
-window.__PIWIK_DIMENSION_ID_APP__ = 1
-
 const trackerShim = {
   trackPage: () => {},
   trackEvent: () => {},

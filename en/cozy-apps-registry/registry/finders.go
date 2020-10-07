@@ -80,21 +80,13 @@ func FindApp(v *base.VirtualSpace, c *space.Space, appSlug string, channel Chann
 	}
 
 	doc.DataUsageCommitment, doc.DataUsageCommitmentBy = defaultDataUserCommitment(doc, nil)
-	doc.Versions, err = FindAppVersions(c, doc.Slug, channel, Concatenated)
-	if err != nil {
+	if doc.Versions, err = FindAppVersions(c, doc.Slug, channel, Concatenated); err != nil {
 		return nil, err
 	}
-
-	version, err := FindLatestVersion(c, doc.Slug, Stable)
+	version, err := FindLatestVersionWithOverride(v, c, doc.Slug, Stable)
 	if err != nil && err != ErrVersionNotFound {
 		return nil, err
 	}
-	if v != nil && version != nil {
-		if version, err = FindOverwrittenVersion(v, version); err != nil {
-			return nil, err
-		}
-	}
-
 	doc.LatestVersion = version
 	doc.Label = calculateAppLabel(doc, doc.LatestVersion)
 
@@ -441,8 +433,18 @@ func FindLastNVersions(c *space.Space, appSlug string, channelStr string, nMajor
 }
 
 func FindLatestVersion(c *space.Space, appSlug string, channel Channel) (*Version, error) {
+	// Because virtual = nil, cache hit & store will use only the space key as expected
+	// and also every override check will be skipped
+	return FindLatestVersionWithOverride(nil, c, appSlug, channel)
+}
+
+func FindLatestVersionWithOverride(v *base.VirtualSpace, c *space.Space, appSlug string, channel Channel) (*Version, error) {
 	// Try to get the latest version from the cache
-	key := base.NewKey(c.Name, appSlug, ChannelToStr(channel))
+	name := c.Name
+	if v != nil {
+		name = v.Name
+	}
+	key := base.NewKey(name, appSlug, ChannelToStr(channel))
 	if data, ok := base.LatestVersionsCache.Get(key); ok {
 		var latestVersion *Version
 		if err := json.Unmarshal(data, &latestVersion); err == nil {
@@ -450,10 +452,10 @@ func FindLatestVersion(c *space.Space, appSlug string, channel Channel) (*Versio
 		}
 	}
 
-	return FindLatestVersionCacheMiss(c, appSlug, channel)
+	return FindLatestVersionCacheMiss(v, c, appSlug, channel)
 }
 
-func FindLatestVersionCacheMiss(c *space.Space, appSlug string, channel Channel) (*Version, error) {
+func FindLatestVersionCacheMiss(v *base.VirtualSpace, c *space.Space, appSlug string, channel Channel) (*Version, error) {
 	if !validSlugReg.MatchString(appSlug) {
 		return nil, ErrAppSlugInvalid
 	}
@@ -483,12 +485,26 @@ func FindLatestVersionCacheMiss(c *space.Space, appSlug string, channel Channel)
 		return nil, err
 	}
 
+	if v != nil && latestVersion != nil {
+		overwritten, err := FindOverwrittenVersion(v, latestVersion)
+		if err != nil && err != ErrVersionNotFound {
+			return nil, err
+		}
+		if err == nil {
+			latestVersion = overwritten
+		}
+	}
+
 	latestVersion.ID = ""
 	latestVersion.Rev = ""
 
 	// Update the cache by using a goroutine to avoid waiting for the latency
 	// between the app server and redis.
-	key := base.NewKey(c.Name, appSlug, channelStr)
+	name := c.Name
+	if v != nil {
+		name = v.Name
+	}
+	key := base.NewKey(name, appSlug, channelStr)
 	go base.LatestVersionsCache.Add(key, base.Value(data))
 
 	return latestVersion, nil
@@ -647,7 +663,7 @@ func GetAppChannelVersions(c *space.Space, appSlug string, channel Channel) ([]*
 	return resultVersions, nil
 }
 
-func GetAppsList(c *space.Space, opts *AppsListOptions) (int, []*App, error) {
+func GetAppsList(v *base.VirtualSpace, c *space.Space, opts *AppsListOptions) (int, []*App, error) {
 	db := c.AppsDB()
 	order := "asc"
 
@@ -754,7 +770,7 @@ func GetAppsList(c *space.Space, opts *AppsListOptions) (int, []*App, error) {
 			for {
 				select {
 				case app := <-work:
-					done <- fillAppVersions(c, opts, app)
+					done <- fillAppVersions(v, c, opts, app)
 				case <-stop:
 					return
 				}
@@ -797,7 +813,7 @@ type appVersionEntry struct {
 	cachedLatest   *Version
 }
 
-func fillAppVersions(c *space.Space, opts *AppsListOptions, entry *appVersionEntry) error {
+func fillAppVersions(v *base.VirtualSpace, c *space.Space, opts *AppsListOptions, entry *appVersionEntry) error {
 	var err error
 	app := entry.app
 
@@ -811,7 +827,7 @@ func fillAppVersions(c *space.Space, opts *AppsListOptions, entry *appVersionEnt
 
 	app.LatestVersion = entry.cachedLatest
 	if app.LatestVersion == nil {
-		app.LatestVersion, err = FindLatestVersionCacheMiss(c, app.Slug, opts.LatestVersionChannel)
+		app.LatestVersion, err = FindLatestVersionCacheMiss(v, c, app.Slug, opts.LatestVersionChannel)
 		if err != nil && err != ErrVersionNotFound {
 			return err
 		}

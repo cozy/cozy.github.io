@@ -313,7 +313,7 @@ func TestGetAppsList(t *testing.T) {
 	app, err = CreateApp(s, opts, editor)
 	assert.NoError(t, err)
 
-	cursor, apps, err := GetAppsList(s, &AppsListOptions{
+	cursor, apps, err := GetAppsList(nil, s, &AppsListOptions{
 		Limit:                10,
 		LatestVersionChannel: Stable,
 		VersionsChannel:      Dev,
@@ -326,7 +326,7 @@ func TestGetAppsList(t *testing.T) {
 func TestGetAppsListSelectFilter(t *testing.T) {
 	s, _ := space.GetSpace(testSpaceName)
 
-	_, apps, err := GetAppsList(s, &AppsListOptions{
+	_, apps, err := GetAppsList(nil, s, &AppsListOptions{
 		Limit:                10,
 		LatestVersionChannel: Stable,
 		VersionsChannel:      Dev,
@@ -340,7 +340,7 @@ func TestGetAppsListSelectFilter(t *testing.T) {
 func TestGetAppsListRejectFilter(t *testing.T) {
 	s, _ := space.GetSpace(testSpaceName)
 
-	_, apps, err := GetAppsList(s, &AppsListOptions{
+	_, apps, err := GetAppsList(nil, s, &AppsListOptions{
 		Limit:                10,
 		LatestVersionChannel: Stable,
 		VersionsChannel:      Dev,

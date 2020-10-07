@@ -415,7 +415,9 @@ func FindAttachmentFromOverwrite(space *base.VirtualSpace, appSlug, filename str
 
 func FindOverwrittenVersion(space *base.VirtualSpace, version *Version) (*Version, error) {
 	db := space.VersionDB()
-	row := db.Get(context.Background(), version.ID)
+	// Sometime version is already cleared and so `.ID` is empty…
+	id := fmt.Sprintf("%s-%s", version.Slug, version.Version)
+	row := db.Get(context.Background(), id)
 
 	var doc Version
 	err := row.ScanDoc(&doc)
