@@ -492,6 +492,10 @@ func FindLatestVersionCacheMiss(v *base.VirtualSpace, c *space.Space, appSlug st
 		}
 		if err == nil {
 			latestVersion = overwritten
+			// For the cache
+			if data, err = json.Marshal(latestVersion); err != nil {
+				return nil, err
+			}
 		}
 	}
 

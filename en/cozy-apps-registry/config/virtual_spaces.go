@@ -55,7 +55,7 @@ func getVirtualSpaces() (map[string]base.VirtualSpace, error) {
 			return nil, errors.New("Invalid filter for a virtual space")
 		}
 		list, ok := virtual["slugs"].([]interface{})
-		if !ok || len(list) == 0 {
+		if !ok {
 			return nil, errors.New("Invalid slugs for a virtual space")
 		}
 		slugs := make([]string, len(list))

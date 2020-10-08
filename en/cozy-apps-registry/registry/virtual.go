@@ -26,7 +26,7 @@ import (
 func findOverwrittenVersion(s base.VirtualSpace, version *Version) (*Version, bool, error) {
 	db := s.VersionDB()
 	ctx := context.Background()
-	id := fmt.Sprintf("%s-%s", version.Slug, version.Version)
+	id := getVersionID(version.Slug, version.Version)
 	row := db.Get(ctx, id)
 	var t Version
 	if err := row.ScanDoc(&t); err != nil {
@@ -255,7 +255,7 @@ func versionOverwrittenAlreadyProcessed(versions []*Version, version *Version) b
 	return false
 }
 
-func regenerateOverwrittenTarballs(virtualSpaceName string, appSlug string) (err error) {
+func RegenerateOverwrittenTarballs(virtualSpaceName string, appSlug string) (err error) {
 	db, err := getDBForVirtualSpace(virtualSpaceName)
 	if err != nil {
 		return err
@@ -272,9 +272,12 @@ func regenerateOverwrittenTarballs(virtualSpaceName string, appSlug string) (err
 		return fmt.Errorf("unable to find %s space", spaceName)
 	}
 
-	overwrite, err := findOverwrite(db, appSlug)
+	overwrite, found, err := findOverwrite(db, appSlug)
 	if err != nil {
 		return err
+	}
+	if !found {
+		return nil
 	}
 
 	var regenerated []*Version
@@ -320,7 +323,7 @@ func regenerateOverwrittenTarballs(virtualSpaceName string, appSlug string) (err
 		}
 
 		newVersion := lastVersion.Clone()
-		id := fmt.Sprintf("%s-%s", lastVersion.Slug, lastVersion.Version)
+		id := getVersionID(lastVersion.Slug, lastVersion.Version)
 		newVersion.ID = id
 		newVersion.Rev = ""
 		newVersion.AttachmentReferences = map[string]string{"tarball": hash}
@@ -377,9 +380,12 @@ func FindAppOverride(virtualSpace *base.VirtualSpace, appSlug string, name strin
 		return "", err
 	}
 
-	overwrite, err := findOverwrite(db, appSlug)
+	overwrite, ok, err := findOverwrite(db, appSlug)
 	if err != nil {
 		return "", err
+	}
+	if !ok {
+		return "", nil
 	}
 
 	value, ok := overwrite[name].(string)
@@ -416,7 +422,7 @@ func FindAttachmentFromOverwrite(space *base.VirtualSpace, appSlug, filename str
 func FindOverwrittenVersion(space *base.VirtualSpace, version *Version) (*Version, error) {
 	db := space.VersionDB()
 	// Sometime version is already cleared and so `.ID` is empty…
-	id := fmt.Sprintf("%s-%s", version.Slug, version.Version)
+	id := getVersionID(version.Slug, version.Version)
 	row := db.Get(context.Background(), id)
 
 	var doc Version
@@ -466,7 +472,7 @@ func OverwriteAppName(virtualSpaceName, appSlug, newName string) error {
 		return err
 	}
 
-	overwrite, err := findOverwrite(db, appSlug)
+	overwrite, _, err := findOverwrite(db, appSlug)
 	if err != nil {
 		return err
 	}
@@ -477,7 +483,7 @@ func OverwriteAppName(virtualSpaceName, appSlug, newName string) error {
 		return err
 	}
 
-	return regenerateOverwrittenTarballs(virtualSpaceName, appSlug)
+	return RegenerateOverwrittenTarballs(virtualSpaceName, appSlug)
 }
 
 // OverwriteAppIcon tells that an app will have a different icon in the virtual
@@ -499,7 +505,7 @@ func OverwriteAppIcon(virtualSpaceName, appSlug, file string) error {
 		return err
 	}
 
-	overwrite, err := findOverwrite(db, appSlug)
+	overwrite, _, err := findOverwrite(db, appSlug)
 	if err != nil {
 		return err
 	}
@@ -520,7 +526,7 @@ func OverwriteAppIcon(virtualSpaceName, appSlug, file string) error {
 		return err
 	}
 
-	return regenerateOverwrittenTarballs(virtualSpaceName, appSlug)
+	return RegenerateOverwrittenTarballs(virtualSpaceName, appSlug)
 }
 
 // ActivateMaintenanceVirtualSpace tells that an app is in maintenance in the
@@ -531,7 +537,7 @@ func ActivateMaintenanceVirtualSpace(virtualSpaceName, appSlug string, opts Main
 		return err
 	}
 
-	overwrite, err := findOverwrite(db, appSlug)
+	overwrite, _, err := findOverwrite(db, appSlug)
 	if err != nil {
 		return err
 	}
@@ -551,7 +557,7 @@ func DeactivateMaintenanceVirtualSpace(virtualSpaceName, appSlug string) error {
 		return err
 	}
 
-	overwrite, err := findOverwrite(db, appSlug)
+	overwrite, _, err := findOverwrite(db, appSlug)
 	if err != nil {
 		return err
 	}
@@ -584,22 +590,20 @@ func getDBForVirtualSpace(virtualSpaceName string) (*kivik.DB, error) {
 	return db, nil
 }
 
-func findOverwrite(db *kivik.DB, appSlug string) (map[string]interface{}, error) {
+func findOverwrite(db *kivik.DB, appSlug string) (map[string]interface{}, bool, error) {
 	if !validSlugReg.MatchString(appSlug) {
-		return nil, ErrAppSlugInvalid
+		return nil, false, ErrAppSlugInvalid
 	}
 
 	doc := map[string]interface{}{}
 	row := db.Get(context.Background(), getAppID(appSlug))
 	err := row.ScanDoc(&doc)
-	if err != nil && kivik.StatusCode(err) != http.StatusNotFound {
-		return nil, err
+	if err != nil {
+		if kivik.StatusCode(err) == http.StatusNotFound {
+			return doc, false, nil
+		}
+		return nil, false, err
 	}
 
-	return doc, nil
-}
-
-func FindOverwrite(virtualSpace *base.VirtualSpace, slug string) (map[string]interface{}, error) {
-	db := virtualSpace.OverrideDb()
-	return findOverwrite(db, slug)
+	return doc, true, nil
 }

@@ -388,7 +388,22 @@ func CreatePendingVersion(c *space.Space, ver *Version, attachments []*kivik.Att
 }
 
 func CreateReleaseVersion(c *space.Space, ver *Version, attachments []*kivik.Attachment, app *App, ensureVersion bool) (err error) {
-	return createVersion(c, c.VersDB(), ver, attachments, app, ensureVersion)
+	if err := createVersion(c, c.VersDB(), ver, attachments, app, ensureVersion); err != nil {
+		return err
+	}
+
+	for _, v := range base.Config.VirtualSpaces {
+		source := v.Source
+		if source == "__default__" {
+			source = ""
+		}
+		if source == c.Name && v.AcceptApp(ver.Slug) {
+			if err := RegenerateOverwrittenTarballs(v.Name, ver.Slug); err != nil {
+				return err
+			}
+		}
+	}
+	return err
 }
 
 func (version *Version) Clone() *Version {

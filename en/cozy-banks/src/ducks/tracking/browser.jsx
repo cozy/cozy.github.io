@@ -1,62 +1,7 @@
-/* global __PIWIK_TRACKER_URL__, __PIWIK_SITEID__ */
-
 import React, { useContext, createContext, useEffect } from 'react'
-import memoize from 'lodash/memoize'
+import { getTracker } from 'ducks/tracking/tracker'
 
-import flag from 'cozy-flags'
-import { getTracker as uiGetTracker } from 'cozy-ui/transpiled/react/helpers/tracker'
-import Alerter from 'cozy-ui/transpiled/react/Alerter'
-
-const trackerShim = {
-  trackPage: () => {},
-  trackEvent: () => {},
-  push: () => {}
-}
-
-export const getMatomoTracker = memoize(() => {
-  const trackerInstance = uiGetTracker(
-    __PIWIK_TRACKER_URL__,
-    __PIWIK_SITEID__,
-    true, //
-    false
-  )
-
-  if (!trackerInstance) {
-    return trackerShim
-  }
-
-  trackerInstance.push([
-    'setTrackerUrl',
-    'https://matomo.cozycloud.cc/matomo.php'
-  ])
-  trackerInstance.push(['setSiteId', 8])
-
-  return {
-    trackEvent: event => {
-      const { name, action, category } = event
-      if (!name) {
-        throw new Error('An event must have at least a name')
-      }
-      if (flag('banks.show-tracking-alerts')) {
-        Alerter.info(`Tracking event: ${JSON.stringify(event)}`)
-      }
-      trackerInstance.push(['trackEvent', category, name, action])
-    },
-    trackPage: pagePath => {
-      const message = `Tracking page ${pagePath}`
-      if (flag('banks.show-tracking-alerts')) {
-        Alerter.info(message)
-      }
-      trackerInstance.push([
-        'setCustomUrl',
-        'https://cozy-banks/' + pagePath.replace(/:/g, '/')
-      ])
-      trackerInstance.push(['trackPageView'])
-    }
-  }
-})
-
-export const getTracker = getMatomoTracker
+export { getTracker }
 
 export const trackEvent = options => {
   const tracker = getTracker()
