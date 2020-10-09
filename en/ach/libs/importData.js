@@ -161,19 +161,15 @@ const importData = async function(cozyClient, data, options) {
     })
     const createWithProgress = doc =>
       createDoc(cozyClient, doctype, doc).then(report)
-    try {
-      const results = await runPerDocument(docs, createWithProgress)
-      console.log(
-        'Imported ' +
-          results.length +
-          ' ' +
-          doctype +
-          ' document' +
-          (results.length > 1 ? 's' : '')
-      )
-    } catch (error) {
-      throw new Error(error)
-    }
+    const results = await runPerDocument(docs, createWithProgress)
+    console.log(
+      'Imported ' +
+        results.length +
+        ' ' +
+        doctype +
+        ' document' +
+        (results.length > 1 ? 's' : '')
+    )
   }
   return true
 }
@@ -198,6 +194,6 @@ module.exports = (cozyUrl, token, data, templateDir, options) => {
 
   const ach = new ACH(token, cozyUrl, doctypes)
   return ach.connect().then(() => {
-    return handleBadToken(importData(ach.oldClient, data, options))
+    return handleBadToken(importData(ach.oldClient, data, options), ach.token)
   })
 }

@@ -123,12 +123,12 @@ module.exports.queryAll = function(cozyClient, mangoIndex, options = {}) {
   })
 }
 
-module.exports.handleBadToken = promise => {
+module.exports.handleBadToken = (promise, token) => {
   return promise.catch(err => {
     const msg = /Invalid JWT token/
     if (err.reason && (msg.test(err.reason) || msg.test(err.reason.error))) {
       log.warn(
-        'It seems your token is invalid or has expired, you may want to delete the token file and relaunch ACH.'
+        `It seems your token is invalid or has expired, you may want to delete the token file (${token}) and relaunch ACH.`
       )
     } else {
       throw err
