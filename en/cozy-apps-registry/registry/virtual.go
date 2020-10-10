@@ -16,6 +16,7 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"strings"
 
 	"github.com/cozy/cozy-apps-registry/asset"
 	"github.com/cozy/cozy-apps-registry/base"
@@ -334,7 +335,17 @@ func RegenerateOverwrittenTarballs(virtualSpaceName string, appSlug string) (err
 		if err != nil {
 			return err
 		}
-		u.Path = path.Join(virtualSpace.Name, u.Path)
+
+		// We need to skip all the part before `/registry/` in URL to find the
+		// base path and to take care of stripping any existing not default space
+		s := u.Path
+		prefix = "/registry/"
+		index := strings.Index(s, prefix)
+		if index < 0 {
+			return fmt.Errorf("invalid tarball URL %s", newVersion.URL)
+		}
+		s = s[index:]
+		u.Path = path.Join(virtualSpace.Name, s)
 		newVersion.URL = u.String()
 
 		if icon != "" {

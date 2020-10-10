@@ -233,7 +233,7 @@ func createApps() error {
 		ID:      overwrittenApp + "-1.2.3",
 		Slug:    overwrittenApp,
 		Version: "1.2.3",
-		URL:     "http://example.org/dummy.tar.gz",
+		URL:     "http://example.org/registry/dummy.tar.gz",
 	}
 	if err = registry.CreateReleaseVersion(s, version, attachments, app, false); err != nil {
 		return err
