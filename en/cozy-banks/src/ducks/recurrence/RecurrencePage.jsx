@@ -6,7 +6,6 @@ import {
   isQueryLoading,
   hasQueryBeenLoaded
 } from 'cozy-client'
-import { withRouter } from 'react-router'
 import { recurrenceConn, RECURRENCE_DOCTYPE } from 'doctypes'
 import { bundleTransactionsQueryConn } from './queries'
 
@@ -57,6 +56,8 @@ import styles from './styles.styl'
 import * as List from 'components/List'
 import useToggle from 'components/useToggle'
 import ActionMenuHelper from 'components/ActionMenuHelper'
+
+import { useHistory, useParams } from 'components/RouterContext'
 
 const useDocument = (doctype, id) => {
   const client = useClient()
@@ -207,21 +208,19 @@ const RenameBundleModal = ({ bundle, dismissAction }) => {
   )
 }
 
-const BundleInfo = withRouter(({ bundle, router }) => {
+const BundleInfo = ({ bundle }) => {
+  const history = useHistory()
   const { t } = useI18n()
   const client = useClient()
   const { isMobile } = useBreakpoints()
-  if (!bundle) {
-    return null
-  }
 
   const [showingActionsMenu, showActionsMenu, hideActionsMenu] = useToggle(
     false
   )
   const [showingRename, showRename, hideRename] = useToggle(false)
 
-  const goToRecurrenceRoot = useCallback(() => router.push('/recurrence'), [
-    router
+  const goToRecurrenceRoot = useCallback(() => history.push('/recurrence'), [
+    history
   ])
 
   const handleOpenRename = useCallback(() => {
@@ -255,6 +254,10 @@ const BundleInfo = withRouter(({ bundle, router }) => {
       Alerter.error(t('Recurrence.status.save-error'))
     }
   }, [bundle, client, t])
+
+  if (!bundle) {
+    return null
+  }
 
   return (
     <Header fixed theme="inverted">
@@ -355,7 +358,7 @@ const BundleInfo = withRouter(({ bundle, router }) => {
       ) : null}
     </Header>
   )
-})
+}
 
 const BundleMobileWrapper = ({ children }) => {
   return <div className={styles.RecurrencesMobileContent}>{children}</div>
@@ -428,7 +431,8 @@ const BundleTransactions = ({ bundle }) => {
   )
 }
 
-const RecurrencePage = ({ params }) => {
+const RecurrencePage = () => {
+  const params = useParams()
   const recurrenceCol = useQuery(recurrenceConn.query, recurrenceConn)
 
   const bundleId = params.bundleId
@@ -447,4 +451,4 @@ const RecurrencePage = ({ params }) => {
   )
 }
 
-export default withRouter(RecurrencePage)
+export default RecurrencePage

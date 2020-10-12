@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { withRouter } from 'react-router-dom'
 
 import { useQuery } from 'cozy-client'
 import { Input, Stack, useI18n, Empty } from 'cozy-ui/transpiled/react'
@@ -14,15 +13,18 @@ import Padded from 'components/Spacing/Padded'
 import { PageTitle } from 'components/Title'
 import BackButton from 'components/BackButton'
 
+import { useParams } from 'components/RouterContext'
+
 const makeSearch = searchStr => op => {
   return op.label.toLowerCase().includes(searchStr.toLowerCase())
 }
 
 const isSearchSufficient = searchStr => searchStr.length > 3
 
-const SearchPage = ({ router }) => {
+const SearchPage = () => {
+  const params = useParams()
   const { t } = useI18n()
-  const [search, setSearch] = useState(router.params.search || '')
+  const [search, setSearch] = useState(params.search || '')
   const handleChange = ev => {
     setSearch(ev.target.value)
   }
@@ -77,4 +79,4 @@ const SearchPage = ({ router }) => {
   )
 }
 
-export default withRouter(SearchPage)
+export default SearchPage

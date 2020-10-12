@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react'
+import { createContext, useContext, useMemo } from 'react'
 
 const RouterContext = createContext()
 
@@ -9,6 +9,19 @@ export const useParams = () => {
 
 export const useRouter = () => {
   return useContext(RouterContext)
+}
+
+export const useHistory = () => {
+  const router = useRouter()
+  const push = useMemo(() => {
+    return router.push.bind(router)
+  }, [router])
+  return { push }
+}
+
+export const useLocation = () => {
+  const router = useRouter()
+  return router.location
 }
 
 export default RouterContext

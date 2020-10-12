@@ -58,8 +58,8 @@ describe('TransactionsPage', () => {
 
   // Necessary wrapper to be able to use setProps since `setProps` is
   // only callable on the Enzyme root
-  const Wrapper = ({ filteringDoc, filteredTransactions }) => (
-    <AppLike client={client}>
+  const Wrapper = ({ filteringDoc, filteredTransactions, router }) => (
+    <AppLike client={client} router={router}>
       <UnpluggedTransactionsPage
         transactions={mkCollection(allTransactions, { fetchStatus: 'loaded' })}
         accounts={mkCollection(allAccounts, { fetchStatus: 'loaded' })}
@@ -71,22 +71,23 @@ describe('TransactionsPage', () => {
   )
 
   const setup = () => {
-    const context = {
-      router: {
-        ...mockRouter,
-        getCurrentLocation: () => ({
-          pathname: '/'
-        }),
-        params: {
-          subcategoryName,
-          categoryName
-        }
+    const router = {
+      ...mockRouter,
+      getCurrentLocation: () => ({
+        pathname: '/'
+      }),
+      params: {
+        subcategoryName,
+        categoryName
       }
+    }
+    const context = {
+      router
     }
     const childContextTypes = {
       router: PropTypes.object
     }
-    root = mount(<Wrapper />, { context, childContextTypes })
+    root = mount(<Wrapper router={router} />, { context, childContextTypes })
   }
 
   it('should handle change in top most transaction', () => {

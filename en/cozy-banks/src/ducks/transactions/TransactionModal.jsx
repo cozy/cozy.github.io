@@ -20,7 +20,7 @@ import {
   Chip
 } from 'cozy-ui/transpiled/react'
 
-import { withRouter, Link } from 'react-router'
+import { Link } from 'react-router'
 import ModalStack from 'components/ModalStack'
 
 import Figure from 'cozy-ui/transpiled/react/Figure'
@@ -63,7 +63,7 @@ import TransactionModalRow, {
 } from 'ducks/transactions/TransactionModalRow'
 
 import withDocs from 'components/withDocs'
-import { useParams } from 'components/RouterContext'
+import { useParams, useLocation } from 'components/RouterContext'
 
 const SearchForTransactionIcon = ({ transaction }) => {
   const label = getLabel(transaction)
@@ -190,7 +190,8 @@ export const showAlertAfterApplicationDateUpdate = (transaction, t, f) => {
 
 const stopPropagation = ev => ev.stopPropagation()
 
-const RecurrenceRow = withRouter(({ transaction, onClick, router }) => {
+const RecurrenceRow = ({ transaction, onClick }) => {
+  const location = useLocation()
   const recurrence = transaction.recurrence && transaction.recurrence.data
   const { t } = useI18n()
 
@@ -213,7 +214,7 @@ const RecurrenceRow = withRouter(({ transaction, onClick, router }) => {
             <>
               <br />
               <Caption>{getFrequencyText(t, recurrence)}</Caption>
-              {router.location.pathname !== recurrenceRoute ? (
+              {location.pathname !== recurrenceRoute ? (
                 <Link to={recurrenceRoute}>
                   <Chip
                     onClick={stopPropagation}
@@ -234,7 +235,7 @@ const RecurrenceRow = withRouter(({ transaction, onClick, router }) => {
       </Img>
     </TransactionModalRowMedia>
   )
-})
+}
 
 const TransactionRecurrenceEditorSlide = ({ transaction }) => {
   const { t } = useI18n()
@@ -460,4 +461,4 @@ TransactionModal.propTypes = {
   transactionId: PropTypes.string.isRequired
 }
 
-export default withRouter(TransactionModal)
+export default TransactionModal

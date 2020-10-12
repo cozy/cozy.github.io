@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { withRouter, Link } from 'react-router'
+import { Link } from 'react-router'
 import cx from 'classnames'
 import orderBy from 'lodash/orderBy'
 
@@ -42,6 +42,8 @@ import {
 
 import withError from 'components/withError'
 
+import { useHistory } from 'components/RouterContext'
+
 const BundleFrequency = ({ bundle }) => {
   const { t } = useI18n()
   return <>{getFrequencyText(t, bundle)}</>
@@ -66,11 +68,12 @@ const BundleDistance = ({ bundle }) => {
   return <>{d}</>
 }
 
-const BundleMobileRow = withRouter(({ bundle, router }) => {
+const BundleMobileRow = ({ bundle }) => {
+  const history = useHistory()
   const catId = getCategories(bundle)[0]
   return (
     <CompositeRow
-      onClick={() => router.push(`/recurrence/${bundle._id}`)}
+      onClick={() => history.push(`/recurrence/${bundle._id}`)}
       image={<CategoryIcon categoryId={catId} />}
       className={cx('u-pv-half u-ph-1 u-c-pointer', styles.BundleRow)}
       key={bundle._id}
@@ -84,7 +87,7 @@ const BundleMobileRow = withRouter(({ bundle, router }) => {
       right={<BundleAmount bundle={bundle} />}
     />
   )
-})
+}
 
 const BundleAmount = ({ bundle }) => {
   const amount = getAmount(bundle)
@@ -92,12 +95,13 @@ const BundleAmount = ({ bundle }) => {
   return <Figure total={amount} symbol={currency} coloredPositive />
 }
 
-const BundleDesktopRow = withRouter(({ bundle, router }) => {
+const BundleDesktopRow = ({ bundle }) => {
+  const history = useHistory()
   const catId = getCategories(bundle)[0]
   return (
     <tr
       className="u-c-pointer"
-      onClick={() => router.push(`recurrence/${bundle._id}`)}
+      onClick={() => history.push(`recurrence/${bundle._id}`)}
     >
       <td className={styles.ColumnSizeLabel}>
         <Media>
@@ -118,7 +122,7 @@ const BundleDesktopRow = withRouter(({ bundle, router }) => {
       </TdSecondary>
     </tr>
   )
-})
+}
 
 const BundleRow = ({ bundle }) => {
   const { isMobile } = useBreakpoints()
@@ -173,7 +177,8 @@ const sortBundlesForViewing = bundles => {
   )
 }
 
-const RecurrencesPage = ({ router }) => {
+const RecurrencesPage = () => {
+  const history = useHistory()
   const { isMobile } = useBreakpoints()
   const bundleCol = useQuery(recurrenceConn.query, recurrenceConn)
   const { data: rawBundles } = bundleCol
@@ -193,7 +198,7 @@ const RecurrencesPage = ({ router }) => {
                 items={[
                   {
                     name: t('Recurrence.title'),
-                    onClick: () => router.push('/recurrence')
+                    onClick: () => history.push('/recurrence')
                   }
                 ]}
                 theme="primary"
@@ -254,4 +259,4 @@ const RecurrenceError = ({ error }) => {
   )
 }
 
-export default withError(withRouter(RecurrencesPage), RecurrenceError)
+export default withError(RecurrencesPage, RecurrenceError)

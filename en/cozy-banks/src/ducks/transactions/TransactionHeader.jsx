@@ -1,13 +1,13 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { withRouter } from 'react-router'
-import { flowRight as compose } from 'lodash'
-import { translate, withBreakpoints, useI18n } from 'cozy-ui/transpiled/react'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
+import Breadcrumb from 'cozy-ui/transpiled/react/Breadcrumbs'
+import { useParams, useHistory } from 'components/RouterContext'
 import cx from 'classnames'
 
 import AnalysisTabs from 'ducks/analysis/AnalysisTabs'
-import Breadcrumb from 'cozy-ui/transpiled/react/Breadcrumbs'
 import { ConnectedSelectDates } from 'components/SelectDates'
 import { BalanceDetailsHeader } from 'ducks/balance'
 import TransactionSelectDates from 'ducks/transactions/TransactionSelectDates'
@@ -18,17 +18,19 @@ import withSize from 'components/withSize'
 import TableHead from './header/TableHead'
 import styles from './TransactionsHeader.styl'
 
-const HeaderBreadcrumb = ({ router }) => {
+const HeaderBreadcrumb = () => {
   const { t } = useI18n()
-  const { categoryName, subcategoryName } = router.params
+  const { categoryName, subcategoryName } = useParams()
+  const history = useHistory()
+
   const breadcrumbItems = [
     {
       name: t('Categories.title.general'),
-      onClick: () => router.push('/categories')
+      onClick: () => history.push('/categories')
     },
     {
       name: t(`Data.categories.${categoryName}`),
-      onClick: () => router.push(`/categories/${categoryName}`)
+      onClick: () => history.push(`/categories/${categoryName}`)
     },
     {
       name: t(`Data.subcategories.${subcategoryName}`)
@@ -43,115 +45,110 @@ const HeaderBreadcrumb = ({ router }) => {
     />
   )
 }
-
-class TransactionHeader extends Component {
-  static propTypes = {
-    showBackButton: PropTypes.bool
-  }
-
-  isSubcategory = () => {
-    const { router } = this.props
-
-    return router.params.subcategoryName !== undefined
-  }
-
-  renderSelectDates = () => {
-    if (this.isSubcategory()) {
-      return <ConnectedSelectDates showFullYear color="primary" />
-    }
-
-    const { transactions, handleChangeMonth, currentMonth } = this.props
-
-    return (
-      <TransactionSelectDates
-        transactions={transactions}
-        value={currentMonth}
-        onChange={handleChangeMonth}
-        color="primary"
-        className="u-p-0"
-      />
-    )
-  }
-
-  renderBalanceHistory() {
-    const {
-      breakpoints: { isMobile },
-      size,
-      currentMonth
-    } = this.props
-    const height = isMobile ? 66 : 96
-    if (!size || !size.width) {
-      return <div style={{ height }} />
-    }
-    const marginBottom = isMobile ? 48 : 64
-    const historyChartMargin = {
-      top: 26,
-      bottom: marginBottom,
-      left: 0,
-      right: isMobile ? 16 : 32
-    }
-
-    return (
-      <HistoryChart
-        animation={false}
-        margin={historyChartMargin}
-        currentMonth={currentMonth}
-        height={height + marginBottom}
-        minWidth={size.width}
-        className={styles.TransactionsHeader__chart}
-      />
-    )
-  }
-
-  render() {
-    const {
-      transactions,
-      breakpoints: { isMobile },
-      router,
-      showBalance,
-      t
-    } = this.props
-    const isSubcategory = this.isSubcategory()
-
-    return (
-      <BalanceDetailsHeader small={isSubcategory} showBalance={showBalance}>
-        {isSubcategory ? (
-          isMobile ? (
-            <AnalysisTabs />
-          ) : null
-        ) : (
-          this.renderBalanceHistory()
-        )}
-        <Padded
-          className={cx(
-            {
-              'u-ph-half': isMobile,
-              'u-pv-0': isMobile,
-              'u-pb-half': isMobile
-            },
-            styles.TransactionsHeader__selectDatesContainer
-          )}
-        >
-          {this.renderSelectDates()}
-        </Padded>
-        {isSubcategory && !isMobile && (
-          <Padded className="u-pt-0">
-            <HeaderBreadcrumb router={router} t={t} />
-          </Padded>
-        )}
-        <CozyTheme variant="inverted">
-          {transactions.length > 0 && (
-            <TableHead isSubcategory={isSubcategory} />
-          )}
-        </CozyTheme>
-      </BalanceDetailsHeader>
-    )
-  }
+const onSubcategory = params => {
+  return params.subcategoryName !== undefined
 }
 
-export default compose(
-  withRouter,
-  withBreakpoints(),
-  withSize(),
-  translate()
-)(TransactionHeader)
+const TransactionHeaderSelectDates = ({
+  transactions,
+  handleChangeMonth,
+  currentMonth
+}) => {
+  const params = useParams()
+  if (onSubcategory(params)) {
+    return <ConnectedSelectDates showFullYear color="primary" />
+  }
+
+  return (
+    <TransactionSelectDates
+      transactions={transactions}
+      value={currentMonth}
+      onChange={handleChangeMonth}
+      color="primary"
+      className="u-p-0"
+    />
+  )
+}
+
+const TransactionHeaderBalanceHistory = ({ size, currentMonth }) => {
+  const { isMobile } = useBreakpoints()
+  const height = isMobile ? 66 : 96
+  if (!size || !size.width) {
+    return <div style={{ height }} />
+  }
+  const marginBottom = isMobile ? 48 : 64
+  const historyChartMargin = {
+    top: 26,
+    bottom: marginBottom,
+    left: 0,
+    right: isMobile ? 16 : 32
+  }
+
+  return (
+    <HistoryChart
+      animation={false}
+      margin={historyChartMargin}
+      currentMonth={currentMonth}
+      height={height + marginBottom}
+      minWidth={size.width}
+      className={styles.TransactionsHeader__chart}
+    />
+  )
+}
+
+const TransactionHeader = ({
+  transactions,
+  showBalance,
+  currentMonth,
+  handleChangeMonth,
+  size
+}) => {
+  const { isMobile } = useBreakpoints()
+  const params = useParams()
+  const isSubcategory = onSubcategory(params)
+
+  return (
+    <BalanceDetailsHeader small={isSubcategory} showBalance={showBalance}>
+      {isSubcategory ? (
+        isMobile ? (
+          <AnalysisTabs />
+        ) : null
+      ) : (
+        <TransactionHeaderBalanceHistory
+          currentMonth={currentMonth}
+          size={size}
+        />
+      )}
+      <Padded
+        className={cx(
+          {
+            'u-ph-half': isMobile,
+            'u-pv-0': isMobile,
+            'u-pb-half': isMobile
+          },
+          styles.TransactionsHeader__selectDatesContainer
+        )}
+      >
+        <TransactionHeaderSelectDates
+          transactions={transactions}
+          handleChangeMonth={handleChangeMonth}
+          currentMonth={currentMonth}
+        />
+      </Padded>
+      {isSubcategory && !isMobile && (
+        <Padded className="u-pt-0">
+          <HeaderBreadcrumb />
+        </Padded>
+      )}
+      <CozyTheme variant="inverted">
+        {transactions.length > 0 && <TableHead isSubcategory={isSubcategory} />}
+      </CozyTheme>
+    </BalanceDetailsHeader>
+  )
+}
+
+TransactionHeader.propTypes = {
+  showBackButton: PropTypes.bool
+}
+
+export default withSize()(TransactionHeader)

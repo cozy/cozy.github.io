@@ -1,15 +1,18 @@
 import React from 'react'
-import { withRouter } from 'react-router'
 import { Tabs, TabList, Tab } from 'cozy-ui/transpiled/react/Tabs'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import styles from 'components/Tabs.styl'
 
-const AnalysisTabs = ({ router, location }) => {
+import { useLocation, useHistory } from 'components/RouterContext'
+
+const AnalysisTabs = () => {
+  const history = useHistory()
+  const location = useLocation()
   const { t } = useI18n()
   const tabNames = ['categories', 'recurrence']
 
   const goTo = url => () => {
-    router.push(url)
+    history.push(url)
   }
 
   const activeTab = location.pathname.includes('categories')
@@ -31,4 +34,4 @@ const AnalysisTabs = ({ router, location }) => {
   )
 }
 
-export default withRouter(AnalysisTabs)
+export default AnalysisTabs

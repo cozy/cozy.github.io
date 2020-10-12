@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 
 import groupBy from 'lodash/groupBy'
 import sortBy from 'lodash/sortBy'
-import { withRouter } from 'react-router'
 
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Button from 'cozy-ui/transpiled/react/Button'
@@ -79,7 +78,7 @@ const getConnectionIdFromAccount = account => {
     : utils.getCreatedByApp(account)
 }
 
-export const AccountsList_ = ({ accounts }) => {
+export const AccountsList = ({ accounts }) => {
   const { t } = useI18n()
 
   const connectionGroups = Object.values(
@@ -142,8 +141,6 @@ export const AccountsList_ = ({ accounts }) => {
     </Unpadded>
   )
 }
-
-const AccountsList = withRouter(AccountsList_)
 
 const AccountsSettings = props => {
   const { t } = useI18n()

@@ -1,28 +1,35 @@
 /* global __TARGET__, __APP_VERSION__ */
 import React from 'react'
-import { withBreakpoints, useI18n } from 'cozy-ui/transpiled/react'
+import cx from 'classnames'
+
+import flag from 'cozy-flags'
+import { useI18n } from 'cozy-ui/transpiled/react'
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { Tabs, TabList, Tab } from 'cozy-ui/transpiled/react/Tabs'
-import { withRouter } from 'react-router'
-import { flowRight as compose } from 'lodash'
+
 import AppVersion from 'ducks/settings/AppVersion'
+import BarTheme from 'ducks/bar/BarTheme'
+
 import { PageTitle } from 'components/Title'
 import { Padded } from 'components/Spacing'
-import BarTheme from 'ducks/bar/BarTheme'
-import cx from 'classnames'
-import flag from 'cozy-flags'
-import tabsStyle from 'components/Tabs.styl'
 import Header from 'components/Header'
+import tabsStyle from 'components/Tabs.styl'
 import styles from 'ducks/settings/Settings.styl'
 
-const Settings = ({ children, router, breakpoints: { isMobile } }) => {
+import { useHistory, useLocation } from 'components/RouterContext'
+
+const Settings = ({ children }) => {
   const { t } = useI18n()
+  const location = useLocation()
+  const history = useHistory()
+  const { isMobile } = useBreakpoints()
 
   const tabNames = ['configuration', 'accounts', 'groups']
-  let defaultTab = router.location.pathname.replace('/settings/', '')
+  let defaultTab = location.pathname.replace('/settings/', '')
   if (tabNames.indexOf(defaultTab) === -1) defaultTab = 'configuration'
 
   const goTo = url => () => {
-    router.push(url)
+    history.push(url)
   }
   if (flag('debug')) {
     tabNames.push('debug')
@@ -62,8 +69,4 @@ const Settings = ({ children, router, breakpoints: { isMobile } }) => {
   )
 }
 
-export default compose(
-  withRouter,
-  flag.connect,
-  withBreakpoints()
-)(Settings)
+export default flag.connect(Settings)
