@@ -18,6 +18,7 @@ class BaseNotificationView extends NotificationView {
   static generateURLs(cozyUrl) {
     const commonOpts = { cozyUrl, slug: 'banks' }
     return {
+      homeUrl: generateUniversalLink({ cozyUrl, slug: 'home' }),
       banksUrl: generateUniversalLink({ ...commonOpts }),
       balancesUrl: generateUniversalLink({
         ...commonOpts,

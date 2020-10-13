@@ -5,21 +5,9 @@ import CozyClient from 'cozy-client'
 import { schema } from 'doctypes'
 import { Document } from 'cozy-doctypes'
 
-const assertEnvVar = varName => {
-  if (!process.env[varName]) {
-    throw new Error(`${varName} environment variable is not set`)
-  }
-}
-
-// TODO Check to use CozyClient.fromEnv
 export const runService = service => {
-  assertEnvVar('COZY_URL')
-  assertEnvVar('COZY_CREDENTIALS')
-
-  const client = new CozyClient({
-    uri: process.env.COZY_URL.trim(),
-    schema,
-    token: process.env.COZY_CREDENTIALS.trim()
+  const client = CozyClient.fromEnv(process.env, {
+    schema
   })
   Document.registerClient(client)
 
@@ -29,3 +17,6 @@ export const runService = service => {
     process.exit(1)
   })
 }
+
+export const lang = process.env.COZY_LOCALE || 'en'
+export const dictRequire = lang => require(`../../locales/${lang}`)

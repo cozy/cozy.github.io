@@ -105,6 +105,12 @@
       "file": "linkMyselfToAccounts.js",
       "trigger": "@event io.cozy.bank.accounts:CREATED",
       "debounce": "5s"
+    },
+    "konnectorAlerts": {
+      "type": "node",
+      "file": "konnectorAlerts.js",
+      "trigger": "@event io.cozy.jobs:UPDATED:konnector:worker",
+      "debounce": "60s"
     }
   },
   "notifications": {
@@ -150,6 +156,14 @@
     },
     "budget-alerts": {
       "description": "Alert the user when sum of expenses goes higher than defined in settings",
+      "collapsible": false,
+      "stateful": false,
+      "multiple": false,
+      "default_priority": "normal",
+      "templates": {}
+    },
+    "konnector-alerts": {
+      "description": "Alert the user when a banking konnector fails",
       "collapsible": false,
       "stateful": false,
       "multiple": false,

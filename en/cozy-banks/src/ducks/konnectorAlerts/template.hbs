@@ -1,0 +1,32 @@
+{{#extend "bank-layout"}}
+  {{#content "emailTitle"}}
+    {{t 'Notifications.konnectorAlerts.email.innerTitle'}}
+  {{/content}}
+  {{#content "emailSubtitle"}}
+    {{ formatDate date }}
+  {{/content}}
+
+  {{#content "content"}}
+    {{#each konnectorAlerts as |konnectorAlert| }}
+      <mj-section padding-top="0" padding-bottom="10px">
+        <mj-column>
+            <mj-text>
+              <h3>{{ konnectorAlert.title }}</h3>
+              <p>
+                {{ konnectorAlert.description }}
+              </p>
+            </mj-text>
+        </mj-column>
+      </mj-section>
+    {{/each}}
+
+    <mj-section padding-top="0" padding-bottom="10px">
+      <mj-column>
+        <mj-button href="{{ homeUrl }}" background-color="#007BFA" color="white">
+          {{ ctaText }}
+         </mj-button>
+      </mj-column>
+    </mj-section>
+
+  {{/content}}
+{{/extend}}

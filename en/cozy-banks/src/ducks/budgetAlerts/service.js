@@ -4,11 +4,8 @@ import logger from 'cozy-logger'
 import { sendNotification } from 'cozy-notifications'
 import { updateCategoryAlerts } from 'ducks/settings/helpers'
 import CategoryBudgetNotificationView from './CategoryBudgetNotificationView'
-
+import { lang, dictRequire } from 'targets/services/service'
 import { collectAlertInfo } from './index'
-
-const lang = process.env.COZY_LOCALE || 'en'
-const dictRequire = lang => require(`../../locales/${lang}`)
 
 const log = logger.namespace('category-alerts')
 

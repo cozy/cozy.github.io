@@ -17,15 +17,16 @@ const noop = require.resolve(path.join(SRC_DIR, 'ducks/notifications/noop'))
 const serviceDir = path.resolve(SRC_DIR, './targets/services/')
 const entries = {
   onOperationOrBillCreate: path.resolve(
-    SRC_DIR,
-    './targets/services/onOperationOrBillCreate'
+    serviceDir,
+    './onOperationOrBillCreate'
   ),
   categorization: path.resolve(serviceDir, './categorization.js'),
   stats: path.resolve(serviceDir, './stats.js'),
   autogroups: path.resolve(serviceDir, './autogroups.js'),
   budgetAlerts: path.resolve(serviceDir, './budgetAlerts.js'),
   linkMyselfToAccounts: path.resolve(serviceDir, './linkMyselfToAccounts.js'),
-  recurrence: path.resolve(serviceDir, './recurrence.js')
+  recurrence: path.resolve(serviceDir, './recurrence.js'),
+  konnectorAlerts: path.resolve(serviceDir, './konnectorAlerts.js')
 }
 
 if (process.env.TEST_TEMPLATES) {

@@ -2582,6 +2582,19 @@
     I am writing a banking konnector, what should I do?
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#konnector-alerts" title="Konnector alerts" class="md-nav__link">
+    Konnector alerts
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
       
@@ -2704,6 +2717,19 @@
     I am writing a banking konnector, what should I do?
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#konnector-alerts" title="Konnector alerts" class="md-nav__link">
+    Konnector alerts
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
       
@@ -2740,13 +2766,14 @@ Banks application.</p>
 <li><a href="#budget-alerts">Budget alerts</a></li>
 <li><a href="#recurrences">Recurrences</a></li>
 <li><a href="#i-am-writing-a-banking-konnector-what-should-i-do">I am writing a banking konnector, what should I do?</a></li>
+<li><a href="#konnector-alerts">Konnector alerts</a></li>
 </ul>
 <!-- /MarkdownTOC -->
 
 <h2 id="developing">Developing<a class="headerlink" href="#developing" title="Permanent link">&para;</a></h2>
 <p>You can manually create an app token and launch the built service.</p>
 <div class="codehilite"><pre><span></span># Watch services
-$ env NODE_ENV=services:production yarn run webpack --config webpack.config.js --bail --watch
+$ yarn watch:services:prod
 # In another terminal
 $ export COZY_URL=&#39;http://cozy.tools:8080&#39;
 $ export COZY_CREDENTIALS=$(cozy-stack instances token-app cozy.tools:8080 banks)
@@ -2843,6 +2870,14 @@ following permission to your <code>manifest.konnector</code>:</p>
 
 <p>With this, the transactions you created will be categorized, then the
 <code>onOperationOrBillCreate</code> service will be launched and do its work.</p>
+<h3 id="konnector-alerts">Konnector alerts<a class="headerlink" href="#konnector-alerts" title="Permanent link">&para;</a></h3>
+<p>It monitors the jobs and sends a notification when a konnector has failed.
+Here are the rules for those notifications:</p>
+<ul>
+<li>They should only be sent for LOGIN_FAILED and USER_ACTION_NEEDED errors</li>
+<li>They should only be sent for automatic jobs (not manual)</li>
+<li>We should not send a notification if the state stays the same</li>
+</ul>
                 
                   
                 

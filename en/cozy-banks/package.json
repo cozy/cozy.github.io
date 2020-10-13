@@ -62,6 +62,7 @@
     "ios:publish": "npm run mobile:build && npm run ios:deploy",
     "build:services": "NODE_ENV=${NODE_ENV:-services:production} npm run commons:build",
     "watch:services": "NODE_ENV=services:development npm run commons:build -- --watch",
+    "watch:services:prod": "NODE_ENV=services:production npm run commons:build -- --watch",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build",
     "styleguide:deploy": "git-directory-deploy --directory ./docs/build/styleguide --branch master --repo docs",
