@@ -13,6 +13,7 @@ const scriptLib = require('./libs/scripts')
 const parseDataFile = require('./libs/parseDataFile')
 const getHandlebarsOptions = require('./libs/getHandlebarsOptions')
 const { parseBool } = require('./libs/utils')
+const urls = require('url')
 
 const DEFAULT_COZY_URL = 'http://cozy.tools:8080'
 
@@ -126,7 +127,7 @@ const handleGenerateTokenCommand = async args => {
   const { url, token, doctypes } = args
   const ach = new ACH(token, url, doctypes)
   await ach.connect()
-  console.log(ach.client._token.token)
+  console.log(ach.client.stackClient.token.token)
 }
 
 const handleBatchCommand = async function(args) {
@@ -227,6 +228,24 @@ const autotoken = (url, doctypes) => {
   }
 }
 
+/**
+ * Removes the "app" part in a cozy URL
+ *
+ * This is useful for ergonomics as users often copy/paste an
+ * URL contaning the app
+ *
+ * input: https://moncozy-drive.mycozy.cloud
+ * ouput: https://moncozy.mycozy.cloud
+ */
+const parseCozyURL = stringUrl => {
+  const parsedUrl = urls.parse(stringUrl)
+  const splittedHost = parsedUrl.host.split('.')
+  parsedUrl.host = `${splittedHost[0].split('-')[0]}.${splittedHost
+    .slice(1)
+    .join('.')}`
+  return urls.format(parsedUrl)
+}
+
 // the CLI interface
 let program = require('commander')
 program
@@ -236,6 +255,7 @@ program
   .option(
     '-u --url [url]',
     `URL of the cozy to use. Defaults to "${DEFAULT_COZY_URL}".'`,
+    parseCozyURL,
     DEFAULT_COZY_URL
   )
 

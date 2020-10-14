@@ -51,7 +51,7 @@ class ACH {
       this.oldClient = await getClient(this.token, this.url, this.doctypes)
       this.client = CozyClient.fromOldClient(this.oldClient)
     } catch (err) {
-      log.warn('Could not connect to' + this.url)
+      log.warn('Could not connect to ' + this.url)
       throw err
     }
   }
