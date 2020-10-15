@@ -55,8 +55,15 @@ const isErrorActionable = errorMessage => {
 }
 
 const fetchRegistryInfo = memoize(
-  (client, konnectorSlug) => {
-    return client.stackClient.fetchJSON('GET', `/registry/${konnectorSlug}`)
+  async (client, konnectorSlug) => {
+    try {
+      return await client.stackClient.fetchJSON(
+        'GET',
+        `/registry/${konnectorSlug}`
+      )
+    } catch (e) {
+      return {}
+    }
   },
   (client, konnectorSlug) => konnectorSlug
 )
@@ -198,7 +205,8 @@ export const sendTriggerNotifications = async client => {
         slug,
         get(
           await fetchRegistryInfo(client, slug),
-          'latest_version.manifest.name'
+          'latest_version.manifest.name',
+          slug
         )
       ])
     )
