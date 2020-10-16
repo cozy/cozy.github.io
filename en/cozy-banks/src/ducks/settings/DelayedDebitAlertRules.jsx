@@ -80,7 +80,7 @@ const DelayedDebitRules = makeRuleComponent({
   getRuleDescriptionKey: () => 'Notifications.delayed_debit.description',
   getRuleDescriptionProps: getDescriptionProps,
   shouldOpenOnToggle: shouldOpenOnToggle,
-  trackPageName: 'alerte-paiement_differe'
+  trackPageName: 'parametres:configuration:alerte-paiement_differe'
 })
 
 const WaitForLoadingDelayedDebitRules = props => {

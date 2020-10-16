@@ -2543,13 +2543,6 @@
     Usage
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#flags-enabled-on-the-server" title="Flags enabled on the server" class="md-nav__link">
-    Flags enabled on the server
-  </a>
-  
     <nav class="md-nav">
       <ul class="md-nav__list">
         
@@ -2562,6 +2555,13 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flags-enabled-on-the-server" title="Flags enabled on the server" class="md-nav__link">
+    Flags enabled on the server
+  </a>
   
 </li>
       
@@ -2629,10 +2629,6 @@ flags in use.</p>
 </pre></div>
 
 
-<h3 id="flags-enabled-on-the-server">Flags enabled on the server<a class="headerlink" href="#flags-enabled-on-the-server" title="Permanent link">&para;</a></h3>
-<p>Feature flags can be served by the server and injected in the HTML page of an
-application. See https://docs.cozy.io/en/cozy-stack/settings/#get-settingsflags
-and https://docs.cozy.io/en/cozy-stack/client-app-dev/#good-practices-for-your-application.</p>
 <h4 id="client-plugin">Client plugin<a class="headerlink" href="#client-plugin" title="Permanent link">&para;</a></h4>
 <p>A CozyClient plugin is exported that initializes and resets flags on client&rsquo;s login
 and logout. It will initialize flags either from DOM data (if <code>data-cozy={{ .CozyData }}</code>
@@ -2641,6 +2637,9 @@ or <code>data-flags={{ .Flags }}</code>, on web) or by fetching data from the se
 </pre></div>
 
 
+<h3 id="flags-enabled-on-the-server">Flags enabled on the server<a class="headerlink" href="#flags-enabled-on-the-server" title="Permanent link">&para;</a></h3>
+<p>Feature flags can be served by the server and injected in the HTML page of an
+application. See <a href="https://docs.cozy.io/en/cozy-stack/settings/#get-settingsflags">the stack documentation on flags</a> and <a href="https://docs.cozy.io/en/cozy-stack/client-app-dev/#good-practices-for-your-application">how to access flags at page load</a>.</p>
 <h3 id="flags-enabled-at-build-time">Flags enabled at build time<a class="headerlink" href="#flags-enabled-at-build-time" title="Permanent link">&para;</a></h3>
 <p>It is possible to handle flags enabled at build time. Your app should just
 provide a global <code>__ENABLED_FLAGS__</code> array with flag names that should be
