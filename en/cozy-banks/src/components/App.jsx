@@ -20,6 +20,7 @@ import { pinGuarded } from 'ducks/pin'
 import ErrorBoundary from 'components/ErrorBoundary'
 import ReactHint from 'components/ReactHint'
 import RouterContext from 'components/RouterContext'
+import AppSearchBar from 'components/AppSearchBar'
 
 import styles from './App.styl'
 
@@ -32,6 +33,7 @@ const App = props => {
   return (
     <RouterContext.Provider value={props.router}>
       <BreakpointsProvider>
+        {flag('banks.search') ? <AppSearchBar /> : null}
         <Layout>
           <Sidebar>
             <Nav />

@@ -25,11 +25,7 @@ const SearchIcon = () => {
         <Icon icon="magnifier" />
       </a>
     </BarRight>
-  ) : (
-    <a className={styles.SearchIcon} href="#/search">
-      <Icon icon="magnifier" />
-    </a>
-  )
+  ) : null
 }
 
 const BalanceHeader = ({

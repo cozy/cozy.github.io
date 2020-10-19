@@ -47,9 +47,24 @@ export const groupAsBeneficiary = (recipients, accounts) => {
  */
 export const createCategoryFilter = (category, accounts) => recipient => {
   const hasAccount = !!findAccount(recipient, accounts)
-  if (category === 'internal') {
-    return recipient.category === category || hasAccount
-  } else {
-    return recipient.category === category && !hasAccount
+
+  if (category === 'internal' && !hasAccount) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      'Recipient is internal, but no corresponding account was found',
+      recipient
+    )
+    return false
   }
+
+  if (category === 'external' && hasAccount) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      'Recipient is external, but a corresponding account was found',
+      recipient
+    )
+    return false
+  }
+
+  return true
 }

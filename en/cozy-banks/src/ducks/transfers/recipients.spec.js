@@ -51,6 +51,15 @@ const accounts = [
 describe('recipient utils', () => {
   const rec = recipients[0]
 
+  beforeEach(() => {
+    jest.spyOn(console, 'warn').mockImplementation(() => {})
+  })
+
+  afterEach(() => {
+    // eslint-disable-next-line no-console
+    console.warn.mockReset()
+  })
+
   describe('account matching', () => {
     it('should match an account to a recipient via accountId', () => {
       expect(findAccount(rec, accounts)).toBe(accounts[0])

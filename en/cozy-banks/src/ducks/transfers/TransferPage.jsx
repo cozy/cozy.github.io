@@ -77,6 +77,10 @@ const subscribe = (rt, event, doc, id, cb) => {
   return unsubscribe
 }
 
+const isRecipientForAccount = (recipient, account) => {
+  return recipient.vendorAccountId == account.vendorId
+}
+
 const NoRecipient = () => {
   const { t } = useI18n()
 
@@ -169,7 +173,6 @@ class TransferPage extends React.Component {
   getInitialState() {
     return {
       category: null, // Currently selected category
-      slide: 0,
       transferState: flag('banks.transfers.mock-state'),
       senderAccount: null,
       senderAccounts: [], // Possible sender accounts for chosen person
@@ -179,7 +182,8 @@ class TransferPage extends React.Component {
       date: new Date().toISOString().slice(0, 10),
       showingPersonalInfo:
         get(this.props, 'myself.data[0]') &&
-        !isMyselfSufficientlyFilled(this.props.myself.data[0])
+        !isMyselfSufficientlyFilled(this.props.myself.data[0]),
+      slideIndex: 0
     }
   }
 
@@ -196,6 +200,10 @@ class TransferPage extends React.Component {
       job._id,
       this.handleJobChange
     )
+  }
+
+  componentDidMount() {
+    trackPage(`virement:categorie`)
   }
 
   componentDidUpdate(prevProps) {
@@ -216,7 +224,7 @@ class TransferPage extends React.Component {
     if (prevMyself !== nowMyself) {
       if (
         isMyselfSufficientlyFilled(nowMyself) &&
-        !flag('banks.transfers.display-personal-info-form')
+        !flag('banks.transfers.need-personal-information')
       ) {
         this.setState({
           showingPersonalInfo: false
@@ -277,8 +285,8 @@ class TransferPage extends React.Component {
       transferState: 'sending'
     })
     try {
-      const recipient = beneficiary.recipients.find(
-        rec => rec.vendorAccountId == senderAccount.vendorId
+      const recipient = beneficiary.recipients.find(rec =>
+        isRecipientForAccount(rec, senderAccount)
       )
       const job = await transfers.createJob(client, {
         amount: amount,
@@ -375,10 +383,13 @@ class TransferPage extends React.Component {
     this.selectSlideByName(slideName)
   }
 
-  selectSlideByName(slideName) {
+  getStateUpdateForSlideName(slideName) {
     const idx = slideIndexes.findIndex(x => x == slideName)
-    this.setState({ slide: idx !== -1 ? idx : 0 })
-    this.props.router.push(slideName ? `/transfers/${slideName}` : '/transfers')
+    return { slide: idx !== -1 ? idx : 0 }
+  }
+
+  selectSlideByName(slideName) {
+    this.setState(this.getStateUpdateForSlideName(slideName))
     trackPage(`virement:${slideNameToTrackPageName[slideName]}`)
   }
 
@@ -441,6 +452,7 @@ class TransferPage extends React.Component {
       category,
       accounts.data
     )
+
     const beneficiaries = recipientUtils.groupAsBeneficiary(
       recipients.data.filter(categoryFilter),
       accounts.data

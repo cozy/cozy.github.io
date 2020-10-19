@@ -1032,6 +1032,26 @@
     Develop on Cozy UI
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#develop-inside-the-styleguidist" title="Develop inside the styleguidist" class="md-nav__link">
+    Develop inside the styleguidist
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#develop-inside-an-app" title="Develop inside an app" class="md-nav__link">
+    Develop inside an app
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2704,6 +2724,26 @@
     Develop on Cozy UI
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#develop-inside-the-styleguidist" title="Develop inside the styleguidist" class="md-nav__link">
+    Develop inside the styleguidist
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#develop-inside-an-app" title="Develop inside an app" class="md-nav__link">
+    Develop inside an app
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2796,16 +2836,32 @@
 
 
 <h2 id="develop-on-cozy-ui">Develop on Cozy UI<a class="headerlink" href="#develop-on-cozy-ui" title="Permanent link">&para;</a></h2>
-<p>If you want to customize or improve a Cozy UI Component, you need to clone a local version of the library, and declare it as a local symlink with <code>yarn link</code>.</p>
+<p>If you want to develop inside cozy-ui, you need a local version cozy-ui.</p>
 <div class="codehilite"><pre><span></span>git clone git@github.com:cozy/cozy-ui.git
-cd cozy-ui
-yarn link
-yarn transpile --watch # Launch transpilation
 </pre></div>
 
 
-<p>Then in your application folder, you can link to your local Cozy UI</p>
-<div class="codehilite"><pre><span></span>yarn link cozy-ui
+<h3 id="develop-inside-the-styleguidist">Develop inside the styleguidist<a class="headerlink" href="#develop-inside-the-styleguidist" title="Permanent link">&para;</a></h3>
+<p>It is convenient when modifying a component to use the styleguide site.</p>
+<div class="codehilite"><pre><span></span>yarn watch:doc:react <span class="c1"># Run the styleguide in watch mode</span>
+</pre></div>
+
+
+<h3 id="develop-inside-an-app">Develop inside an app<a class="headerlink" href="#develop-inside-an-app" title="Permanent link">&para;</a></h3>
+<p>Sometimes, you want to develop on a component, from the context of an app.
+Then you need to link cozy-ui with <code>yarn link</code>.</p>
+<div class="codehilite"><pre><span></span><span class="nb">cd</span> cozy-ui
+yarn link
+yarn transpile --watch <span class="c1"># Launch transpilation</span>
+</pre></div>
+
+
+<p>Then in your application folder, you can link to your local Cozy UI.
+You can use <a href="https://gist.github.com/ptbrowne/add609bdcf4396d32072acc4674fff23">rlink</a>
+instead of <code>yarn link</code>. It will prevent common build problems due
+to module resolution inside symlinked folders.</p>
+<div class="codehilite"><pre><span></span><span class="nb">cd</span> my-app
+rlink cozy-ui <span class="c1"># Prefer rlink to yarn link</span>
 yarn watch
 </pre></div>
 
@@ -2824,12 +2880,12 @@ for each PR, each component is screenshotted and compared to the master version 
 regression (thanks <a href="https://github.com/argos-ci/argos">Argos</a> !).</p>
 <p>If your app uses <a href="https://react-styleguidist.js.org/">React Styleguidist</a>, <code>cozy-ui</code> provides <code>rsg-screenshots</code>, a CLI tool to take
 screenshots of your components (uses Puppeteer under the hood).</p>
-<div class="codehilite"><pre><span></span>$ yarn add cozy-ui
-$ <span class="c1"># The rsg-screenshots binary is now installed</span>
-$ yarn build:doc:react <span class="c1"># Build our styleguide, the output directory is docs/react</span>
-$ rsg-screenshots --screenshot-dir screenshots/ --styleguide-dir docs/react
+<div class="codehilite"><pre><span></span>yarn add cozy-ui
+<span class="c1"># The rsg-screenshots binary is now installed</span>
+yarn build:doc:react <span class="c1"># Build our styleguide, the output directory is docs/react</span>
+rsg-screenshots --screenshot-dir screenshots/ --styleguide-dir docs/react
 <span class="c1"># Each component in the styleguide will be screenshotted and saved inside the</span>
-<span class="c1"># screenshots/ directory</span>
+screenshots/ directory
 </pre></div>
 
 

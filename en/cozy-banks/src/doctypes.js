@@ -241,5 +241,6 @@ export const recurrenceConn = {
 
 export const myselfConn = {
   query: () => Q('io.cozy.contacts').where({ me: true }),
-  as: 'myself'
+  as: 'myself',
+  fetchPolicy: older30s
 }

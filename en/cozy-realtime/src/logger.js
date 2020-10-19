@@ -1,4 +1,4 @@
-import importedMinilog from 'minilog'
+import importedMinilog from '@cozy/minilog'
 
 const inBrowser = typeof window !== 'undefined'
 const minilog = (inBrowser && window.minilog) || importedMinilog

@@ -77,7 +77,6 @@ const AppRoute = () => (
       <Route path="transfers" component={scrollToTopOnMount(TransferPage)} />
       <Route path="search" component={scrollToTopOnMount(SearchPage)} />
       <Route path="search/:search" component={scrollToTopOnMount(SearchPage)} />
-      <Route path="transfers/:slideName" component={TransferPage} />
       <Route
         path="recurrencedebug"
         component={scrollToTopOnMount(DebugRecurrencePage)}

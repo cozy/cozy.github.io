@@ -1,0 +1,42 @@
+@require 'settings/breakpoints'
+
+.InputWrapper
+  display flex
+  border 1px solid transparent
+  align-items center
+  margin-left 2rem
+  color var(--silver)
+  padding 0.375rem
+  border-radius 2px
+  transition border 0.3s ease, width 0.3s ease
+
+  input
+    background transparent
+    border none
+    outline none
+    flex-grow 1
+
+  width 400px
+  max-width 100%
+
+  svg
+    margin-right 0.5rem
+    flex-shrink 0
+
+.InputWrapper--focus
+  border 1px solid var(--silver)
+
++small-screen()
+  .InputWrapper
+    margin-left 0
+    margin-right 0.5rem
+    padding 0
+
+    input
+        color var(--primaryContrastTextColor)
+
+    svg
+      display none
+
+  .InputWrapper--focus
+    border 1px solid transparent

@@ -1,5 +1,3 @@
-/* global cozy */
-
-const cozyBar = cozy.bar
+import * as cozyBar from 'cozy-bar'
 
 export default cozyBar

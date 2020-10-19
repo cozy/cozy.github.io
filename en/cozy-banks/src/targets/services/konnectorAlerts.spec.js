@@ -98,6 +98,23 @@ const mockTriggersResponse = {
       message: {
         konnector: 'konnector-5'
       }
+    },
+
+    // There was a success between the last actionnable error and the
+    // next one: we need to send a notificartion
+    {
+      _id: 'trigger-6',
+      attributes: {
+        worker: 'konnector'
+      },
+      current_state: {
+        status: 'errored',
+        last_executed_job_id: 'job-6',
+        last_error: 'LOGIN_FAILED'
+      },
+      message: {
+        konnector: 'konnector-6'
+      }
     }
   ]
 }
@@ -111,14 +128,20 @@ const mockSettingsResponse = {
       },
       'trigger-2': {
         status: 'errored',
-        error: 'VENDOR_DOWN'
+        last_error: 'VENDOR_DOWN'
       },
       'trigger-3': {
         status: 'done'
       },
       'trigger-4': {
         status: 'errored',
-        error: 'LOGIN_FAILED'
+        last_error: 'LOGIN_FAILED'
+      },
+      'trigger-6': {
+        status: 'errored',
+        last_error: 'LOGIN_FAILED',
+        last_failure: '2020-01-01T00:00',
+        last_execution: '2020-01-02T00:00'
       }
     }
   }
@@ -136,6 +159,9 @@ const mockJobResponse = {
   },
   'job-4': {
     data: { manual_execution: true }
+  },
+  'job-6': {
+    data: { manual_execution: false }
   }
 }
 
@@ -177,16 +203,15 @@ describe('job notifications service', () => {
   const expectTriggerStatesToHaveBeenSaved = client => {
     const saveCalls = client.save.mock.calls
     const triggerStatesDoc = saveCalls[saveCalls.length - 1][0]
-    expect(triggerStatesDoc).toEqual(
-      expect.objectContaining({
-        triggerStates: expect.objectContaining({
-          'trigger-1': expect.any(Object),
-          'trigger-2': expect.any(Object),
-          'trigger-3': expect.any(Object),
-          'trigger-4': expect.any(Object)
-        })
-      })
-    )
+
+    expect(Object.keys(triggerStatesDoc.triggerStates)).toEqual([
+      'trigger-1',
+      'trigger-2',
+      'trigger-3',
+      'trigger-4',
+      'trigger-5',
+      'trigger-6'
+    ])
   }
 
   it('should not send notifications when no trigger state has been saved yet', async () => {
@@ -217,7 +242,7 @@ describe('job notifications service', () => {
     expect(interval).toBeLessThan(86400000)
 
     const notifSlugs = matchAll(notifAttributes.content, /konnector-\d+/)
-    expect(notifSlugs).toEqual(['konnector-1', 'konnector-2'])
+    expect(notifSlugs).toEqual(['konnector-1', 'konnector-2', 'konnector-6'])
 
     expectTriggerStatesToHaveBeenSaved(client)
   })

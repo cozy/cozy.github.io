@@ -7,7 +7,7 @@ import CozyRealtime from './CozyRealtime'
 import { Server } from 'mock-socket'
 import MicroEE from 'microee'
 
-import Minilog from 'minilog'
+import Minilog from '@cozy/minilog'
 Minilog.disable()
 
 const COZY_URL = 'http://cozy.tools:8888'
