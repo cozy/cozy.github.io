@@ -2408,6 +2408,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#special-case" title="Special case" class="md-nav__link">
+    Special case
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3050,6 +3057,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#special-case" title="Special case" class="md-nav__link">
+    Special case
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3448,6 +3462,54 @@ between the components.</p>
             <span class="p">}</span>
         <span class="p">}</span>
     <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h4 id="special-case">Special case<a class="headerlink" href="#special-case" title="Permanent link">&para;</a></h4>
+<p>The token can be a sharecode when a member of a sharing is previewing a
+sharing. When it is the case, the member information from the sharing is
+included in the response, like this:</p>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.permissions&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;bf716babb70b73b89c870fccce00233f&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;share-preview&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;source_id&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.sharings/bf716babb70b73b89c870fccce00233a&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;Essai&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">],</span>
+                    <span class="nt">&quot;values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;c2930bef3705096d63f5c8fb60019cc0&quot;</span><span class="p">]</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;cozyMetadata&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;doctypeVersion&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;metadataVersion&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="nt">&quot;createdAt&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-10-19T16:12:31.440253797+02:00&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;createdByApp&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;updatedAt&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-10-19T16:12:31.440253797+02:00&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-18c3bc158cf5039f60fefe5fc2fcad67&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/permissions/bf716babb70b73b89c870fccce00233f&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;related&quot;</span><span class="p">:</span> <span class="s2">&quot;/sharings/bf716babb70b73b89c870fccce00233a&quot;</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;included&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.sharings.members&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;seen&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;bob@cozy.tools&quot;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 

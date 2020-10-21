@@ -2627,28 +2627,28 @@ documents and files from her cozy instance to other people.</p>
 <li>A list of sharing <code>rules</code>, each rule being composed of:</li>
 <li>a <code>title</code>, that will be displayed to the recipients before they accept the
     sharing</li>
-<li>a <code>doctype</code></li>
+<li>the <code>doctype</code></li>
 <li>a <code>selector</code> (by default, it’s the <code>id</code>) and <code>values</code> (one identifier, a
     list of identifiers, files and folders inside a folder, files that are
     referenced by the same document, documents bound to a previous sharing rule)</li>
 <li><code>local</code>: by default <code>false</code>, but it can false <code>true</code> for documents that are
     useful for the preview page but doesn’t need to be send to the recipients
     (e.g. a setting document of the application)</li>
-<li><code>add</code>: a behavior when a new document matches this rule (the document is
+<li><code>add</code>: What to do when a new document matches this rule (the document is
     created, or it was a document that didn’t match the rule and is modified and
-    the new version matches the rule):<ul>
+    the new version matches the rule). Can be:<ul>
 <li><code>none</code>: the updates are never propagated (the default)</li>
 <li><code>push</code>: the updates made on the owner are sent to the recipients</li>
 <li><code>sync</code>: the updates on any member are propagated to the other members</li>
 </ul>
 </li>
-<li><code>update</code>: a behavior when a document matched by this rule is modified. Can be:<ul>
+<li><code>update</code>: What to do when a document matched by this rule is modified. Can be:<ul>
 <li><code>none</code>: the updates are never propagated (the default)</li>
 <li><code>push</code>: the updates made on the owner are sent to the recipients</li>
 <li><code>sync</code>: the updates on any member are propagated to the other members</li>
 </ul>
 </li>
-<li><code>remove</code>: a behavior when a document no longer matches this rule (the
+<li><code>remove</code>: What to do when a document no longer matches this rule (the
     document is deleted, or it was a document that matched the rule, and is
     modified and the new version doesn’t match the rule):<ul>
 <li><code>none</code>: the updates are never propagated (the default)</li>

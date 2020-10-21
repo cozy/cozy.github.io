@@ -144,8 +144,9 @@ func FindVersionAttachment(c *space.Space, version *Version, filename string) (*
 	contentType = headers["Content-Type"]
 
 	// If the asset was not found in the global database, move it for the next
-	// time.
-	if !ok {
+	// time (except when the ID is missing on the version, which is the case
+	// when the version was loaded via FindLatestVersion).
+	if !ok && version.ID != "" {
 		go func() {
 			err := MoveAssetToGlobalDatabase(c, version, fileContent, filename, contentType)
 			if err != nil {
@@ -153,7 +154,7 @@ func FindVersionAttachment(c *space.Space, version *Version, filename string) (*
 					"nspace":    "move_asset",
 					"space":     c.Name,
 					"slug":      slug,
-					"version":   version,
+					"version":   version.Version,
 					"filename":  filename,
 					"error_msg": err,
 				})
