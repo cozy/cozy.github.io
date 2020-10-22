@@ -2739,31 +2739,27 @@
 <li><code>vendor</code>: {string} - Vendor which issued the bill</li>
 <li><code>date</code>: {date} - Date the bill was emitted, a string ISO8601 formated  (in JS you can have that with <code>(new Date()).toJSON()</code>)</li>
 <li><code>amount</code>: {number} - Amount of the bill, <strong>always positive</strong> even if it is a refund</li>
-<li><code>currency</code> : the currency, must respects ISO standard : https://en.wikipedia.org/wiki/ISO_4217</li>
+<li><code>currency</code> : the currency, must respects ISO standard : <a href="https://en.wikipedia.org/wiki/ISO_4217">https://en.wikipedia.org/wiki/ISO_4217</a></li>
 </ul>
 <h3 id="optional-attributes-but-some-are-important-depending-the-context">Optional attributes (but some are important depending the context)<a class="headerlink" href="#optional-attributes-but-some-are-important-depending-the-context" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>recurrence</code>: {string} : this means that the bills is a recurring one and the value of this
-  attribute gives the frequency. Here is a list of possible values.<ul>
+  attribute gives the frequency. Here is a list of possible values.</li>
 <li><code>weekly</code></li>
 <li><code>monthly</code></li>
 <li><code>bi-monthly</code></li>
 <li><code>yearly</code></li>
-</ul>
-</li>
 <li><code>matchingCriterias</code>: {object} some criterias which can be used to match bills with bank
-  operations<ul>
+  operations</li>
 <li><code>labelRegex</code>: {string} (example: <code>"\\bcpam\\b"</code>) : regexp used to match operation label</li>
 <li><code>amountLowerDelta</code>: (float): default 0.001 : positive value. Authorized lower difference between bill amount and
-  bank operation value</li>
+    bank operation value</li>
 <li><code>amountUpperDelta</code>: (float): default 0.001 : positive value. Authorized upper difference between bill amount and
-  bank operation value</li>
+    bank operation value</li>
 <li><code>dateLowerDelta</code>: (int): default 15 : (positive value). Authorized lower difference in days between the
-  bill date and the bank operation date</li>
+    bill date and the bank operation date</li>
 <li><code>dateUpperDelta</code>: (int): default 29 : (positive value). Authorized upper difference in days between the
-  bill date and the bank operation date</li>
-</ul>
-</li>
+    bill date and the bank operation date</li>
 <li><code>type</code>: {string} - Type of the bill (see below for existing types)</li>
 <li><code>isRefund</code>: {boolean} - Indicate if the bill represents a refund/reimbursement</li>
 <li><code>subtype</code>: {string} - Used for labelling the bill. ie: &ldquo;Ostéopathie&rdquo;</li>
@@ -2773,8 +2769,8 @@
 <li><code>thirdPartyRefund</code> : {number} - Amount reimbursed to third parties</li>
 <li><code>socialSecurityRefund</code> : {number} - Amount reimbursed to social security</li>
 <li><code>isThirdPartyPayer</code>: {boolean} - Indicate if the bill has been already covered by a third party payer. This attribute can be useful when Cozy retrieves bills issued by french medical insurances.
-When this attribute is in &ldquo;true&rdquo; no associated debit is expected to be found in the client bank
-statements.</li>
+  When this attribute is in &ldquo;true&rdquo; no associated debit is expected to be found in the client bank
+  statements.</li>
 <li><code>document relationship</code>: {object} - The associated file. ex:</li>
 </ul>
 <div class="codehilite"><pre><span></span><span class="s2">&quot;relationships&quot;</span><span class="o">:</span> <span class="p">{</span>
@@ -2785,12 +2781,14 @@ statements.</li>
 </pre></div>
 
 
-<p><code>io.cozy.files:c43645a93831827c7ec512eac3006e51</code>
-- <code>invoice</code>: {string} - (legacy) The associated file. ex: <code>io.cozy.files:c43645a93831827c7ec512eac3006e51</code>
-- <code>fileUrl</code>: {string} - The url used to download the pdf from vendor.
-- <code>debitOperations</code>: {array[io.cozy.bank.operations._id]} - List of debit operations id
-- <code>creditOperations</code>: {array[io.cozy.bank.operations._id]} - List of credit operations id
-- <code>vendorRef</code> : {string} - Vendor reference for this bill. Ex : <code>'INV-2018-09-12534'</code></p>
+<p><code>io.cozy.files:c43645a93831827c7ec512eac3006e51</code></p>
+<ul>
+<li><code>invoice</code>: {string} - (legacy) The associated file. ex: <code>io.cozy.files:c43645a93831827c7ec512eac3006e51</code></li>
+<li><code>fileUrl</code>: {string} - The url used to download the pdf from vendor.</li>
+<li><code>debitOperations</code>: {array[io.cozy.bank.operations._id]} - List of debit operations id</li>
+<li><code>creditOperations</code>: {array[io.cozy.bank.operations._id]} - List of credit operations id</li>
+<li><code>vendorRef</code> : {string} - Vendor reference for this bill. Ex : <code>'INV-2018-09-12534'</code></li>
+</ul>
 <h3 id="types">Types<a class="headerlink" href="#types" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>health_costs</code>: Health related bills</li>

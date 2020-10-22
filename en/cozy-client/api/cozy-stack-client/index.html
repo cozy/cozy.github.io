@@ -1590,8 +1590,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#sharingcollectionsharedocument-recipients-sharingtype-description-previewpath" title="sharingCollection.share(document, recipients, sharingType, description, [previewPath])" class="md-nav__link">
-    sharingCollection.share(document, recipients, sharingType, description, [previewPath])
+  <a href="#sharingcollectioncreateparams" title="sharingCollection.create(params)" class="md-nav__link">
+    sharingCollection.create(params)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sharingcollectionsharedocument-recipients-sharingtype-description-previewpath" title="~~sharingCollection.share(document, recipients, sharingType, description, [previewPath])~~" class="md-nav__link">
+    ~~sharingCollection.share(document, recipients, sharingType, description, [previewPath])~~
   </a>
   
 </li>
@@ -1757,6 +1764,13 @@
         <li class="md-nav__item">
   <a href="#stream-object" title="Stream : object" class="md-nav__link">
     Stream : object
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recipient-object" title="Recipient : object" class="md-nav__link">
+    Recipient : object
   </a>
   
 </li>
@@ -3995,8 +4009,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#sharingcollectionsharedocument-recipients-sharingtype-description-previewpath" title="sharingCollection.share(document, recipients, sharingType, description, [previewPath])" class="md-nav__link">
-    sharingCollection.share(document, recipients, sharingType, description, [previewPath])
+  <a href="#sharingcollectioncreateparams" title="sharingCollection.create(params)" class="md-nav__link">
+    sharingCollection.create(params)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sharingcollectionsharedocument-recipients-sharingtype-description-previewpath" title="~~sharingCollection.share(document, recipients, sharingType, description, [previewPath])~~" class="md-nav__link">
+    ~~sharingCollection.share(document, recipients, sharingType, description, [previewPath])~~
   </a>
   
 </li>
@@ -4166,6 +4187,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#recipient-object" title="Recipient : object" class="md-nav__link">
+    Recipient : object
+  </a>
+  
+</li>
+      
       
       
       
@@ -4273,6 +4301,9 @@ through OAuth.</p>
 </dd>
 <dt><a href="#Stream">Stream</a> : <code>object</code></dt>
 <dd><p>Stream is not defined in a browser, but is on NodeJS environment</p>
+</dd>
+<dt><a href="#Recipient">Recipient</a> : <code>object</code></dt>
+<dd><p>A sharing rule</p>
 </dd>
 </dl>
 
@@ -5963,7 +5994,8 @@ It can also associates one or more codes to it, via the codes parameter</p>
 <p><strong>Kind</strong>: global class  </p>
 <ul>
 <li><a href="#SharingCollection">SharingCollection</a><ul>
-<li><a href="#SharingCollection+share">.share(document, recipients, sharingType, description, [previewPath])</a></li>
+<li><a href="#SharingCollection+create">.create(params)</a></li>
+<li>~~<a href="#SharingCollection+share">.share(document, recipients, sharingType, description, [previewPath])</a>~~</li>
 <li><a href="#SharingCollection+getDiscoveryLink">.getDiscoveryLink(sharingId, sharecode)</a> ⇒ <code>string</code></li>
 <li><a href="#SharingCollection+addRecipients">.addRecipients(sharing, recipients, sharingType)</a></li>
 <li><a href="#SharingCollection+revokeRecipient">.revokeRecipient(sharing, recipientIndex)</a></li>
@@ -5972,9 +6004,64 @@ It can also associates one or more codes to it, via the codes parameter</p>
 </ul>
 </li>
 </ul>
+<p><a name="SharingCollection+create"></a></p>
+<h3 id="sharingcollectioncreateparams">sharingCollection.create(params)<a class="headerlink" href="#sharingcollectioncreateparams" title="Permanent link">&para;</a></h3>
+<p>Creates a new Sharing. See https://docs.cozy.io/en/cozy-stack/sharing/#post-sharings</p>
+<p><strong>Kind</strong>: instance method of <a href="#SharingCollection"><code>SharingCollection</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>params</td>
+<td><code>object</code></td>
+<td>Sharing  params</td>
+</tr>
+<tr>
+<td>params.document</td>
+<td><code>object</code></td>
+<td>The document to share</td>
+</tr>
+<tr>
+<td>params.description</td>
+<td><code>string</code></td>
+<td>Description of the sharing</td>
+</tr>
+<tr>
+<td>[params.previewPath]</td>
+<td><code>string</code></td>
+<td>The preview path</td>
+</tr>
+<tr>
+<td>[params.rules]</td>
+<td><code>Array.&lt;Rule&gt;</code></td>
+<td>The rules defined to the sharing. See https://docs.cozy.io/en/cozy-stack/sharing-design/#description-of-a-sharing</td>
+</tr>
+<tr>
+<td>[params.recipients]</td>
+<td><a href="#Recipient"><code>Array.&lt;Recipient&gt;</code></a></td>
+<td>Recipients to add to the sharings (will have the same permissions given by the rules defined by the sharing )</td>
+</tr>
+<tr>
+<td>[params.readOnlyRecipients]</td>
+<td><a href="#Recipient"><code>Array.&lt;Recipient&gt;</code></a></td>
+<td>Recipients to add to the sharings with only read only access</td>
+</tr>
+<tr>
+<td>[params.openSharing]</td>
+<td><code>boolean</code></td>
+<td>If someone else than the owner can add a recipient to the sharing</td>
+</tr>
+</tbody>
+</table>
 <p><a name="SharingCollection+share"></a></p>
-<h3 id="sharingcollectionsharedocument-recipients-sharingtype-description-previewpath">sharingCollection.share(document, recipients, sharingType, description, [previewPath])<a class="headerlink" href="#sharingcollectionsharedocument-recipients-sharingtype-description-previewpath" title="Permanent link">&para;</a></h3>
-<p>share - Creates a new sharing. See https://docs.cozy.io/en/cozy-stack/sharing/#post-sharings</p>
+<h3 id="sharingcollectionsharedocument-recipients-sharingtype-description-previewpath">~~sharingCollection.share(document, recipients, sharingType, description, [previewPath])~~<a class="headerlink" href="#sharingcollectionsharedocument-recipients-sharingtype-description-previewpath" title="Permanent link">&para;</a></h3>
+<p><strong><em>Deprecated</em></strong></p>
 <p><strong>Kind</strong>: instance method of <a href="#SharingCollection"><code>SharingCollection</code></a>  </p>
 <table>
 <thead>
@@ -6455,7 +6542,46 @@ found&rdquo; error.  </p>
 <p><a name="Stream"></a></p>
 <h2 id="stream-object">Stream : <code>object</code><a class="headerlink" href="#stream-object" title="Permanent link">&para;</a></h2>
 <p>Stream is not defined in a browser, but is on NodeJS environment</p>
-<p><strong>Kind</strong>: global typedef  </p>
+<p><strong>Kind</strong>: global typedef<br />
+<a name="Recipient"></a></p>
+<h2 id="recipient-object">Recipient : <code>object</code><a class="headerlink" href="#recipient-object" title="Permanent link">&para;</a></h2>
+<p>A sharing rule</p>
+<p><strong>Kind</strong>: global typedef<br />
+<strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>title</td>
+<td><code>string</code></td>
+</tr>
+<tr>
+<td>doctype</td>
+<td><code>string</code></td>
+</tr>
+<tr>
+<td>values</td>
+<td><code>Array</code></td>
+</tr>
+<tr>
+<td>[add]</td>
+<td><code>string</code></td>
+</tr>
+<tr>
+<td>[update]</td>
+<td><code>string</code></td>
+</tr>
+<tr>
+<td>[remove]</td>
+<td><code>string</code></td>
+</tr>
+</tbody>
+</table>
                 
                   
                 

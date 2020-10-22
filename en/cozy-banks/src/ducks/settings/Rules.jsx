@@ -4,7 +4,7 @@ import { Stack, useI18n } from 'cozy-ui/transpiled/react'
 import AddRuleButton from 'ducks/settings/AddRuleButton'
 import useList from './useList'
 import { getRuleId, getNextRuleId } from './ruleUtils'
-import { trackEvent } from 'ducks/tracking/browser'
+import { trackEvent, getPageLastPart } from 'ducks/tracking/browser'
 
 export { AddRuleButton }
 
@@ -42,7 +42,7 @@ const Rules = ({
         setSaving(true)
         await createOrUpdate(newItem)
         trackEvent({
-          name: `${trackPageName}-creer_alerte`
+          name: `${getPageLastPart(trackPageName)}-creer_alerte`
         })
       } finally {
         setSaving(false)

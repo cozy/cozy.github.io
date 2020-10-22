@@ -5,7 +5,7 @@ import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 
 import { makeEditionModalFromSpec } from 'components/EditionModal'
 import Rules from 'ducks/settings/Rules'
-import { trackEvent } from 'ducks/tracking/browser'
+import { trackEvent, getPageLastPart } from 'ducks/tracking/browser'
 import EditableSettingCard from './EditableSettingCard'
 import { ensureNewRuleFormat } from './ruleUtils'
 
@@ -57,7 +57,9 @@ const makeRuleComponent = ({
             onToggle={enabled => {
               createOrUpdateRule({ ...rule, enabled })
               trackEvent({
-                name: `${trackPageName}-${enabled ? 'on' : 'off'}`
+                name: `${getPageLastPart(trackPageName)}-${
+                  enabled ? 'on' : 'off'
+                }`
               })
             }}
             removeModalTitle={t('Settings.rules.remove-modal.title')}

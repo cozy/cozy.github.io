@@ -38,3 +38,7 @@ export const useTrackPage = pageName => {
     tracker.trackPage(pageName)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 }
+export const getPageLastPart = pageName => {
+  const lastIndex = pageName.lastIndexOf(':')
+  return pageName.substring(lastIndex + 1)
+}

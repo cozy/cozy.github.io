@@ -2794,7 +2794,7 @@
 <li><code>executable</code>: {bool} true is the file has the executable bit on UNIX (<code>chmod +x</code>)</li>
 <li><code>class</code>: {string} a class in the list: <code>['image', 'document', 'audio', 'video', 'text', 'binary']</code></li>
 <li><code>mime</code>: {string} the full mime-type</li>
-<li><code>metadata</code>: {map} an optional map of metadata (<a href="../io.cozy.files_metadata/">Full metadata description</a>), with for example:<ul>
+<li><code>metadata</code>: {map} an optional map of metadata (<a href="../io.cozy.files_metadata/">Full metadata description</a>), with for example:</li>
 <li><code>width</code>: {number}</li>
 <li><code>height</code>: {number}</li>
 <li><code>datetime</code>: {date} : date in original image file metadata</li>
@@ -2815,8 +2815,6 @@
 </li>
 <li><code>icon</code>: {string} : A small SVG file to use as icon for this file (optional)</li>
 </ul>
-</li>
-</ul>
 <p>It also has a relationship with its <code>parent</code> in the JSON-API representation.</p>
 <p>For an <code>image</code>, there are 3 links to thumbnails: <code>small</code>, <code>medium</code>, and <code>large</code>. 
 These thumbnail links are valid for 10 minutes. After that, links will return a 400 Bad Request response code.</p>
@@ -2830,12 +2828,10 @@ It appears in the JSON-API representation as a <code>refererenced_by</code> rela
 <li><code>createdOn</code>: {string} the instance URL on which the file has created (useful if the file is shared between several cozy instances)</li>
 <li><code>uploadedAt</code>: {date} the server date/time of the last upload (when the content was changed)</li>
 <li><code>uploadedOn</code>: {string} the instance URL on which the file content was changed the last time</li>
-<li><code>uploadedBy</code>: {map} information on which app has made the last upload<ul>
+<li><code>uploadedBy</code>: {map} information on which app has made the last upload</li>
 <li><code>slug</code>: {string} the slug of the application that has made the upload</li>
 <li><code>version</code>: {string} the version number of this application</li>
 <li><code>oauthClient</code>: {map} if the upload was made by an OAuth Client, information about it (<code>id</code>, <code>name</code>, and <code>kind</code>)</li>
-</ul>
-</li>
 </ul>
 <h3 id="example-json-api-format">Example (JSON-API format)<a class="headerlink" href="#example-json-api-format" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
