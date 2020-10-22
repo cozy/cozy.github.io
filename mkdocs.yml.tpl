@@ -81,7 +81,7 @@ markdown_extensions:
 - extra
 - footnotes
 - meta
-- mdx_truly_sane_lists
+- sane_lists
 - smarty
 - toc:
     permalink: true
