@@ -4342,16 +4342,14 @@ document as data attribute  </p>
 <p>Main API against the <code>cozy-stack</code> server.</p>
 <p><strong>Kind</strong>: global class  </p>
 <ul>
-<li><a href="#CozyStackClient">CozyStackClient</a><ul>
-<li><a href="#CozyStackClient+collection">.collection(doctype)</a> ⇒ <a href="#DocumentCollection"><code>DocumentCollection</code></a></li>
-<li><a href="#CozyStackClient+fetch">.fetch(method, path, body, opts)</a> ⇒ <code>object</code></li>
-<li><a href="#CozyStackClient+checkForRevocation">.checkForRevocation()</a></li>
-<li><a href="#CozyStackClient+refreshToken">.refreshToken()</a> ⇒ <code>Promise</code></li>
-<li><a href="#CozyStackClient+fetchJSON">.fetchJSON(method, path, body, options)</a> ⇒ <code>object</code></li>
-<li><a href="#CozyStackClient+setToken">.setToken(token)</a></li>
-<li><a href="#CozyStackClient+getAccessToken">.getAccessToken()</a> ⇒ <code>string</code></li>
-</ul>
-</li>
+<li><a href="#CozyStackClient">CozyStackClient</a>
+    * <a href="#CozyStackClient+collection">.collection(doctype)</a> ⇒ <a href="#DocumentCollection"><code>DocumentCollection</code></a>
+    * <a href="#CozyStackClient+fetch">.fetch(method, path, body, opts)</a> ⇒ <code>object</code>
+    * <a href="#CozyStackClient+checkForRevocation">.checkForRevocation()</a>
+    * <a href="#CozyStackClient+refreshToken">.refreshToken()</a> ⇒ <code>Promise</code>
+    * <a href="#CozyStackClient+fetchJSON">.fetchJSON(method, path, body, options)</a> ⇒ <code>object</code>
+    * <a href="#CozyStackClient+setToken">.setToken(token)</a>
+    * <a href="#CozyStackClient+getAccessToken">.getAccessToken()</a> ⇒ <code>string</code></li>
 </ul>
 <p><a name="CozyStackClient+collection"></a></p>
 <h3 id="cozystackclientcollectiondoctype-documentcollection">cozyStackClient.collection(doctype) ⇒ <a href="#DocumentCollection"><code>DocumentCollection</code></a><a class="headerlink" href="#cozystackclientcollectiondoctype-documentcollection" title="Permanent link">&para;</a></h3>
@@ -4495,19 +4493,17 @@ document as data attribute  </p>
 <p>Abstracts a collection of documents of the same doctype, providing CRUD methods and other helpers.</p>
 <p><strong>Kind</strong>: global class  </p>
 <ul>
-<li><a href="#DocumentCollection">DocumentCollection</a><ul>
-<li><a href="#DocumentCollection+all">.all(options)</a> ⇒ <code>Object</code></li>
-<li><a href="#DocumentCollection+find">.find(selector, options)</a> ⇒ <code>Object</code></li>
-<li><a href="#DocumentCollection+get">.get(id)</a> ⇒ <code>object</code></li>
-<li><a href="#DocumentCollection+getAll">.getAll()</a></li>
-<li><a href="#DocumentCollection+create">.create(doc)</a></li>
-<li><a href="#DocumentCollection+update">.update(document)</a></li>
-<li><a href="#DocumentCollection+destroy">.destroy(doc)</a></li>
-<li><a href="#DocumentCollection+updateAll">.updateAll(docs)</a></li>
-<li><a href="#DocumentCollection+destroyAll">.destroyAll(docs)</a></li>
-<li><a href="#DocumentCollection+fetchChanges">.fetchChanges(couchOptions, options)</a></li>
-</ul>
-</li>
+<li><a href="#DocumentCollection">DocumentCollection</a>
+    * <a href="#DocumentCollection+all">.all(options)</a> ⇒ <code>Object</code>
+    * <a href="#DocumentCollection+find">.find(selector, options)</a> ⇒ <code>Object</code>
+    * <a href="#DocumentCollection+get">.get(id)</a> ⇒ <code>object</code>
+    * <a href="#DocumentCollection+getAll">.getAll()</a>
+    * <a href="#DocumentCollection+create">.create(doc)</a>
+    * <a href="#DocumentCollection+update">.update(document)</a>
+    * <a href="#DocumentCollection+destroy">.destroy(doc)</a>
+    * <a href="#DocumentCollection+updateAll">.updateAll(docs)</a>
+    * <a href="#DocumentCollection+destroyAll">.destroyAll(docs)</a>
+    * <a href="#DocumentCollection+fetchChanges">.fetchChanges(couchOptions, options)</a></li>
 </ul>
 <p><a name="DocumentCollection+all"></a></p>
 <h3 id="documentcollectionalloptions-object">documentCollection.all(options) ⇒ <code>Object</code><a class="headerlink" href="#documentcollectionalloptions-object" title="Permanent link">&para;</a></h3>
@@ -4725,32 +4721,30 @@ special routes are to be used, and there is a notion of referenced files, aka
 files associated to a specific document</p>
 <p><strong>Kind</strong>: global class  </p>
 <ul>
-<li><a href="#FileCollection">FileCollection</a><ul>
-<li><a href="#FileCollection+get">.get(id)</a> ⇒ <code>Object</code></li>
-<li><a href="#FileCollection+find">.find(selector, options)</a> ⇒ <code>Object</code></li>
-<li><a href="#FileCollection+findReferencedBy">.findReferencedBy(document, options)</a> ⇒ <code>object</code></li>
-<li><a href="#FileCollection+addReferencedBy">.addReferencedBy(document, documents)</a> ⇒ <code>object</code></li>
-<li><a href="#FileCollection+removeReferencedBy">.removeReferencedBy(document, documents)</a> ⇒ <code>object</code></li>
-<li><a href="#FileCollection+addReferencesTo">.addReferencesTo(document, documents)</a> ⇒ <code>object</code></li>
-<li><a href="#FileCollection+removeReferencesTo">.removeReferencesTo(document, documents)</a> ⇒ <code>object</code></li>
-<li><a href="#FileCollection+destroy">.destroy(file)</a> ⇒ <code>Promise</code></li>
-<li><a href="#FileCollection+emptyTrash">.emptyTrash()</a></li>
-<li><a href="#FileCollection+restore">.restore(id)</a> ⇒ <code>Promise</code></li>
-<li><a href="#FileCollection+deleteFilePermanently">.deleteFilePermanently(id)</a> ⇒ <code>object</code></li>
-<li><a href="#FileCollection+upload">.upload(data, dirPath)</a> ⇒ <code>object</code></li>
-<li><a href="#FileCollection+create">.create(attributes)</a></li>
-<li><a href="#FileCollection+updateFile">.updateFile(data, params)</a> ⇒ <code>object</code></li>
-<li><a href="#FileCollection+download">.download(file, versionId, filename)</a></li>
-<li><a href="#FileCollection+fetchFileContentById">.fetchFileContentById(id)</a></li>
-<li><a href="#FileCollection+getBeautifulSize">.getBeautifulSize(file, decimal)</a></li>
-<li><a href="#FileCollection+isChildOf">.isChildOf(child, parent)</a> ⇒ <code>boolean</code></li>
-<li><a href="#FileCollection+statById">.statById(id, [options])</a> ⇒ <code>object</code></li>
-<li><a href="#FileCollection+createDirectoryByPath">.createDirectoryByPath(path)</a> ⇒ <code>object</code></li>
-<li><a href="#FileCollection+createFileMetadata">.createFileMetadata(attributes)</a> ⇒ <code>object</code></li>
-<li><a href="#FileCollection+updateMetadataAttribute">.updateMetadataAttribute(id, metadata)</a> ⇒ <code>object</code></li>
-<li><a href="#FileCollection+doUpload">.doUpload(dataArg, path, options, method)</a></li>
-</ul>
-</li>
+<li><a href="#FileCollection">FileCollection</a>
+    * <a href="#FileCollection+get">.get(id)</a> ⇒ <code>Object</code>
+    * <a href="#FileCollection+find">.find(selector, options)</a> ⇒ <code>Object</code>
+    * <a href="#FileCollection+findReferencedBy">.findReferencedBy(document, options)</a> ⇒ <code>object</code>
+    * <a href="#FileCollection+addReferencedBy">.addReferencedBy(document, documents)</a> ⇒ <code>object</code>
+    * <a href="#FileCollection+removeReferencedBy">.removeReferencedBy(document, documents)</a> ⇒ <code>object</code>
+    * <a href="#FileCollection+addReferencesTo">.addReferencesTo(document, documents)</a> ⇒ <code>object</code>
+    * <a href="#FileCollection+removeReferencesTo">.removeReferencesTo(document, documents)</a> ⇒ <code>object</code>
+    * <a href="#FileCollection+destroy">.destroy(file)</a> ⇒ <code>Promise</code>
+    * <a href="#FileCollection+emptyTrash">.emptyTrash()</a>
+    * <a href="#FileCollection+restore">.restore(id)</a> ⇒ <code>Promise</code>
+    * <a href="#FileCollection+deleteFilePermanently">.deleteFilePermanently(id)</a> ⇒ <code>object</code>
+    * <a href="#FileCollection+upload">.upload(data, dirPath)</a> ⇒ <code>object</code>
+    * <a href="#FileCollection+create">.create(attributes)</a>
+    * <a href="#FileCollection+updateFile">.updateFile(data, params)</a> ⇒ <code>object</code>
+    * <a href="#FileCollection+download">.download(file, versionId, filename)</a>
+    * <a href="#FileCollection+fetchFileContentById">.fetchFileContentById(id)</a>
+    * <a href="#FileCollection+getBeautifulSize">.getBeautifulSize(file, decimal)</a>
+    * <a href="#FileCollection+isChildOf">.isChildOf(child, parent)</a> ⇒ <code>boolean</code>
+    * <a href="#FileCollection+statById">.statById(id, [options])</a> ⇒ <code>object</code>
+    * <a href="#FileCollection+createDirectoryByPath">.createDirectoryByPath(path)</a> ⇒ <code>object</code>
+    * <a href="#FileCollection+createFileMetadata">.createFileMetadata(attributes)</a> ⇒ <code>object</code>
+    * <a href="#FileCollection+updateMetadataAttribute">.updateMetadataAttribute(id, metadata)</a> ⇒ <code>object</code>
+    * <a href="#FileCollection+doUpload">.doUpload(dataArg, path, options, method)</a></li>
 </ul>
 <p><a name="FileCollection+get"></a></p>
 <h3 id="filecollectiongetid-object">fileCollection.get(id) ⇒ <code>Object</code><a class="headerlink" href="#filecollectiongetid-object" title="Permanent link">&para;</a></h3>
@@ -5415,14 +5409,12 @@ You should use <code>createFile</code></p>
 <p>Implements <code>DocumentCollection</code> API to interact with the /notes endpoint of the stack</p>
 <p><strong>Kind</strong>: global class  </p>
 <ul>
-<li><a href="#NotesCollection">NotesCollection</a><ul>
-<li><a href="#NotesCollection+all">.all()</a> ⇒ <code>Object</code></li>
-<li><a href="#NotesCollection+destroy">.destroy(note)</a> ⇒ <code>Object</code></li>
-<li><a href="#NotesCollection+create">.create(option)</a> ⇒ <code>Object</code></li>
-<li><a href="#NotesCollection+fetchURL">.fetchURL(note)</a> ⇒ <code>Object</code></li>
-<li><a href="#NotesCollection+getDefaultSchema">.getDefaultSchema()</a> ⇒ <code>object</code></li>
-</ul>
-</li>
+<li><a href="#NotesCollection">NotesCollection</a>
+    * <a href="#NotesCollection+all">.all()</a> ⇒ <code>Object</code>
+    * <a href="#NotesCollection+destroy">.destroy(note)</a> ⇒ <code>Object</code>
+    * <a href="#NotesCollection+create">.create(option)</a> ⇒ <code>Object</code>
+    * <a href="#NotesCollection+fetchURL">.fetchURL(note)</a> ⇒ <code>Object</code>
+    * <a href="#NotesCollection+getDefaultSchema">.getDefaultSchema()</a> ⇒ <code>object</code></li>
 </ul>
 <p><a name="NotesCollection+all"></a></p>
 <h3 id="notescollectionall-object">notesCollection.all() ⇒ <code>Object</code><a class="headerlink" href="#notescollectionall-object" title="Permanent link">&para;</a></h3>
@@ -5519,22 +5511,20 @@ You should use <code>createFile</code></p>
 through OAuth.</p>
 <p><strong>Kind</strong>: global class  </p>
 <ul>
-<li><a href="#OAuthClient">OAuthClient</a><ul>
-<li><a href="#OAuthClient+doRegistration">.doRegistration()</a></li>
-<li><a href="#OAuthClient+register">.register()</a> ⇒ <code>Promise</code></li>
-<li><a href="#OAuthClient+unregister">.unregister()</a> ⇒ <code>Promise</code></li>
-<li><a href="#OAuthClient+fetchInformation">.fetchInformation()</a> ⇒ <code>Promise</code></li>
-<li><a href="#OAuthClient+updateInformation">.updateInformation(information, resetSecret)</a> ⇒ <code>Promise</code></li>
-<li><a href="#OAuthClient+generateStateCode">.generateStateCode()</a> ⇒ <code>string</code></li>
-<li><a href="#OAuthClient+getAuthCodeURL">.getAuthCodeURL(stateCode, scopes)</a> ⇒ <code>string</code></li>
-<li><a href="#OAuthClient+getAccessCodeFromURL">.getAccessCodeFromURL(pageURL, stateCode)</a> ⇒ <code>string</code></li>
-<li><a href="#OAuthClient+fetchAccessToken">.fetchAccessToken(accessCode, oauthOptionsArg, uri)</a> ⇒ <code>Promise</code></li>
-<li><a href="#OAuthClient+refreshToken">.refreshToken()</a> ⇒ <code>Promise</code></li>
-<li><a href="#OAuthClient+setToken">.setToken(token)</a></li>
-<li><a href="#OAuthClient+setOAuthOptions">.setOAuthOptions(options)</a></li>
-<li><a href="#OAuthClient+resetClient">.resetClient()</a></li>
-</ul>
-</li>
+<li><a href="#OAuthClient">OAuthClient</a>
+    * <a href="#OAuthClient+doRegistration">.doRegistration()</a>
+    * <a href="#OAuthClient+register">.register()</a> ⇒ <code>Promise</code>
+    * <a href="#OAuthClient+unregister">.unregister()</a> ⇒ <code>Promise</code>
+    * <a href="#OAuthClient+fetchInformation">.fetchInformation()</a> ⇒ <code>Promise</code>
+    * <a href="#OAuthClient+updateInformation">.updateInformation(information, resetSecret)</a> ⇒ <code>Promise</code>
+    * <a href="#OAuthClient+generateStateCode">.generateStateCode()</a> ⇒ <code>string</code>
+    * <a href="#OAuthClient+getAuthCodeURL">.getAuthCodeURL(stateCode, scopes)</a> ⇒ <code>string</code>
+    * <a href="#OAuthClient+getAccessCodeFromURL">.getAccessCodeFromURL(pageURL, stateCode)</a> ⇒ <code>string</code>
+    * <a href="#OAuthClient+fetchAccessToken">.fetchAccessToken(accessCode, oauthOptionsArg, uri)</a> ⇒ <code>Promise</code>
+    * <a href="#OAuthClient+refreshToken">.refreshToken()</a> ⇒ <code>Promise</code>
+    * <a href="#OAuthClient+setToken">.setToken(token)</a>
+    * <a href="#OAuthClient+setOAuthOptions">.setOAuthOptions(options)</a>
+    * <a href="#OAuthClient+resetClient">.resetClient()</a></li>
 </ul>
 <p><a name="OAuthClient+doRegistration"></a></p>
 <h3 id="oauthclientdoregistration">oAuthClient.doRegistration()<a class="headerlink" href="#oauthclientdoregistration" title="Permanent link">&para;</a></h3>
@@ -5757,16 +5747,14 @@ sets internal information from the server response</p>
 <p>Implements <code>DocumentCollection</code> API along with specific methods for <code>io.cozy.permissions</code>.</p>
 <p><strong>Kind</strong>: global class  </p>
 <ul>
-<li><a href="#PermissionCollection">PermissionCollection</a><ul>
-<li><a href="#PermissionCollection+create">.create(permission)</a></li>
-<li><a href="#PermissionCollection+add">.add(document, permission)</a> ⇒ <code>Promise</code></li>
-<li><a href="#PermissionCollection+createSharingLink">.createSharingLink(document, options)</a></li>
-<li><a href="#PermissionCollection+fetchPermissionsByLink">.fetchPermissionsByLink(permissions)</a></li>
-<li><a href="#PermissionCollection+fetchAllLinks">.fetchAllLinks(document)</a> ⇒ <code>object</code></li>
-<li><a href="#PermissionCollection+revokeSharingLink">.revokeSharingLink(document)</a></li>
-<li><a href="#PermissionCollection+getOwnPermissions">.getOwnPermissions()</a> ⇒ <code>object</code></li>
-</ul>
-</li>
+<li><a href="#PermissionCollection">PermissionCollection</a>
+    * <a href="#PermissionCollection+create">.create(permission)</a>
+    * <a href="#PermissionCollection+add">.add(document, permission)</a> ⇒ <code>Promise</code>
+    * <a href="#PermissionCollection+createSharingLink">.createSharingLink(document, options)</a>
+    * <a href="#PermissionCollection+fetchPermissionsByLink">.fetchPermissionsByLink(permissions)</a>
+    * <a href="#PermissionCollection+fetchAllLinks">.fetchAllLinks(document)</a> ⇒ <code>object</code>
+    * <a href="#PermissionCollection+revokeSharingLink">.revokeSharingLink(document)</a>
+    * <a href="#PermissionCollection+getOwnPermissions">.getOwnPermissions()</a> ⇒ <code>object</code></li>
 </ul>
 <p><a name="PermissionCollection+create"></a></p>
 <h3 id="permissioncollectioncreatepermission">permissionCollection.create(permission)<a class="headerlink" href="#permissioncollectioncreatepermission" title="Permanent link">&para;</a></h3>
@@ -5962,15 +5950,13 @@ It can also associates one or more codes to it, via the codes parameter</p>
 <code>io.cozy.sharings</code>.</p>
 <p><strong>Kind</strong>: global class  </p>
 <ul>
-<li><a href="#SharingCollection">SharingCollection</a><ul>
-<li><a href="#SharingCollection+share">.share(document, recipients, sharingType, description, [previewPath])</a></li>
-<li><a href="#SharingCollection+getDiscoveryLink">.getDiscoveryLink(sharingId, sharecode)</a> ⇒ <code>string</code></li>
-<li><a href="#SharingCollection+addRecipients">.addRecipients(sharing, recipients, sharingType)</a></li>
-<li><a href="#SharingCollection+revokeRecipient">.revokeRecipient(sharing, recipientIndex)</a></li>
-<li><a href="#SharingCollection+revokeSelf">.revokeSelf(sharing)</a></li>
-<li><a href="#SharingCollection+revokeAllRecipients">.revokeAllRecipients(sharing)</a></li>
-</ul>
-</li>
+<li><a href="#SharingCollection">SharingCollection</a>
+    * <a href="#SharingCollection+share">.share(document, recipients, sharingType, description, [previewPath])</a>
+    * <a href="#SharingCollection+getDiscoveryLink">.getDiscoveryLink(sharingId, sharecode)</a> ⇒ <code>string</code>
+    * <a href="#SharingCollection+addRecipients">.addRecipients(sharing, recipients, sharingType)</a>
+    * <a href="#SharingCollection+revokeRecipient">.revokeRecipient(sharing, recipientIndex)</a>
+    * <a href="#SharingCollection+revokeSelf">.revokeSelf(sharing)</a>
+    * <a href="#SharingCollection+revokeAllRecipients">.revokeAllRecipients(sharing)</a></li>
 </ul>
 <p><a name="SharingCollection+share"></a></p>
 <h3 id="sharingcollectionsharedocument-recipients-sharingtype-description-previewpath">sharingCollection.share(document, recipients, sharingType, description, [previewPath])<a class="headerlink" href="#sharingcollectionsharedocument-recipients-sharingtype-description-previewpath" title="Permanent link">&para;</a></h3>
@@ -6144,14 +6130,12 @@ from the owner&rsquo;s cozy</p>
 <p>Implements <code>DocumentCollection</code> API along with specific methods for <code>io.cozy.triggers</code>.</p>
 <p><strong>Kind</strong>: global class  </p>
 <ul>
-<li><a href="#TriggerCollection">TriggerCollection</a><ul>
-<li><a href="#TriggerCollection+all">.all(options)</a> ⇒ <code>Object</code></li>
-<li><a href="#TriggerCollection+create">.create(attributes)</a> ⇒ <code>object</code></li>
-<li><a href="#TriggerCollection+destroy">.destroy(document)</a> ⇒ <code>object</code></li>
-<li><a href="#TriggerCollection+find">.find(selector, options)</a> ⇒ <code>Object</code></li>
-<li><a href="#TriggerCollection+launch">.launch(trigger)</a> ⇒ <code>object</code></li>
-</ul>
-</li>
+<li><a href="#TriggerCollection">TriggerCollection</a>
+    * <a href="#TriggerCollection+all">.all(options)</a> ⇒ <code>Object</code>
+    * <a href="#TriggerCollection+create">.create(attributes)</a> ⇒ <code>object</code>
+    * <a href="#TriggerCollection+destroy">.destroy(document)</a> ⇒ <code>object</code>
+    * <a href="#TriggerCollection+find">.find(selector, options)</a> ⇒ <code>Object</code>
+    * <a href="#TriggerCollection+launch">.launch(trigger)</a> ⇒ <code>object</code></li>
 </ul>
 <p><a name="TriggerCollection+all"></a></p>
 <h3 id="triggercollectionalloptions-object">triggerCollection.all(options) ⇒ <code>Object</code><a class="headerlink" href="#triggercollectionalloptions-object" title="Permanent link">&para;</a></h3>

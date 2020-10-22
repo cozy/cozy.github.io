@@ -7,7 +7,7 @@ import { Query, withClient } from 'cozy-client'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import Button from 'cozy-ui/transpiled/react/Button'
 import Menu from 'cozy-ui/transpiled/react/MuiCozyTheme/Menus'
-import { translate, useI18n, withBreakpoints } from 'cozy-ui/transpiled/react'
+import { useI18n, useBreakpoints } from 'cozy-ui/transpiled/react'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import Field from 'cozy-ui/transpiled/react/Field'
 import CollectionField from 'cozy-ui/transpiled/react/Labs/CollectionField'
@@ -52,15 +52,10 @@ const ContactPicker = props => {
   )
 }
 
-const DumbAccountSettingsForm = props => {
+const AccountSettingsForm = props => {
+  const { isMobile } = useBreakpoints()
   const { t } = useI18n()
-  const {
-    account,
-    onSubmit,
-    onCancel,
-    breakpoints: { isMobile },
-    ...rest
-  } = props
+  const { account, onSubmit, onCancel, ...rest } = props
 
   const [shortLabel, setShortLabel] = useState(getAccountLabel(account))
   const [owners, setOwners] = useState(getAccountOwners(account))
@@ -122,11 +117,6 @@ const DumbAccountSettingsForm = props => {
     </form>
   )
 }
-
-const AccountSettingsForm = compose(
-  withBreakpoints(),
-  translate()
-)(DumbAccountSettingsForm)
 
 const FormControls = props => {
   const { t } = useI18n()

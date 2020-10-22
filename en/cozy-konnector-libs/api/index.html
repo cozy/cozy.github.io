@@ -4393,13 +4393,9 @@ instead of imperatively building them.</p>
 <h2 id="cozybrowser">CozyBrowser<a class="headerlink" href="#cozybrowser" title="Permanent link">&para;</a></h2>
 <p>Get a javascript simulation of a real browser (jsdom)</p>
 <ul>
-<li><a href="#module_CozyBrowser">CozyBrowser</a><ul>
-<li><a href="#exp_module_CozyBrowser--defaultOptions">defaultOptions</a> ⇒ <code>object</code> ⏏<ul>
-<li><a href="#module_CozyBrowser--defaultOptions..addListeners">~addListeners()</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li><a href="#module_CozyBrowser">CozyBrowser</a>
+    * <a href="#exp_module_CozyBrowser--defaultOptions">defaultOptions</a> ⇒ <code>object</code> ⏏
+        * <a href="#module_CozyBrowser--defaultOptions..addListeners">~addListeners()</a></li>
 </ul>
 <p><a name="exp_module_CozyBrowser--defaultOptions"></a></p>
 <h3 id="defaultoptions-object">defaultOptions ⇒ <code>object</code> ⏏<a class="headerlink" href="#defaultoptions-object" title="Permanent link">&para;</a></h3>
@@ -4447,9 +4443,11 @@ use this function.</p>
 <ul>
 <li><code>documents</code>: an array of objects corresponding to the data you want to save in the cozy</li>
 <li><code>doctype</code> (string): the doctype where you want to save data (ex: &lsquo;io.cozy.bills&rsquo;)</li>
-<li><code>options</code> (object): option object</li>
+<li><code>options</code> (object): option object<ul>
 <li><code>sourceAccount</code> (String): id of the source account</li>
 <li><code>sourceAccountIdentifier</code> (String): identifier unique to the account targetted by the connector. It is the login most of the time</li>
+</ul>
+</li>
 </ul>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">documents</span> <span class="o">=</span> <span class="p">[</span>
   <span class="p">{</span>
@@ -4490,13 +4488,9 @@ You can refer to the <a href="https://github.com/cozy/cozy-client-js">cozy-clien
 <p>Filters the passed array from data already present in the cozy so that there is
 not duplicated data in the Cozy.</p>
 <ul>
-<li><a href="#module_hydrateAndFilter">hydrateAndFilter</a><ul>
-<li><a href="#exp_module_hydrateAndFilter--hydrateAndFilter">hydrateAndFilter()</a> ⏏<ul>
-<li><a href="#module_hydrateAndFilter--hydrateAndFilter..suitableCall">~suitableCall()</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li><a href="#module_hydrateAndFilter">hydrateAndFilter</a>
+    * <a href="#exp_module_hydrateAndFilter--hydrateAndFilter">hydrateAndFilter()</a> ⏏
+        * <a href="#module_hydrateAndFilter--hydrateAndFilter..suitableCall">~suitableCall()</a></li>
 </ul>
 <p><a name="exp_module_hydrateAndFilter--hydrateAndFilter"></a></p>
 <h3 id="hydrateandfilter_1">hydrateAndFilter() ⏏<a class="headerlink" href="#hydrateandfilter_1" title="Permanent link">&para;</a></h3>
@@ -4508,10 +4502,12 @@ use this function.</p>
 <ul>
 <li><code>documents</code>: an array of objects corresponding to the data you want to save in the cozy</li>
 <li><code>doctype</code> (string): the doctype where you want to save data (ex: &lsquo;io.cozy.bills&rsquo;)</li>
-<li><code>options</code> :</li>
+<li><code>options</code> :<ul>
 <li><code>keys</code> (array) : List of keys used to check that two items are the same. By default it is set to `[&lsquo;id&rsquo;]&rsquo;.</li>
 <li><code>index</code> (optionnal) : Return value returned by <code>cozy.data.defineIndex</code>, the default will correspond to all documents of the selected doctype.</li>
 <li><code>selector</code> (optionnal object) : Mango request to get records. Default is built from the keys <code>{selector: {_id: {"$gt": null}}}</code> to get all the records.</li>
+</ul>
+</li>
 </ul>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">documents</span> <span class="o">=</span> <span class="p">[</span>
   <span class="p">{</span>
@@ -4618,23 +4614,27 @@ You need the full permission on <code>io.cozy.bills</code>, full permission on <
 full permission on <code>io.cozy.bank.operations</code> in your manifest, to be able to use this function.</p>
 <p>Parameters:</p>
 <ul>
-<li><code>documents</code> is an array of objects with any attributes with some mandatory attributes :</li>
+<li>
+<p><code>documents</code> is an array of objects with any attributes with some mandatory attributes :</p>
+<ul>
 <li><code>amount</code> (Number): the amount of the bill used to match bank operations</li>
 <li><code>date</code> (Date): the date of the bill also used to match bank operations</li>
 <li><code>vendor</code> (String): the name of the vendor associated to the bill. Ex: &lsquo;trainline&rsquo;</li>
 <li><code>currency</code> (String) default: EUR:  The ISO currency value (not mandatory since there is a
-  default value.</li>
+default value.</li>
 <li><code>contractId</code> (String): Contract unique identicator used to deduplicate bills</li>
 <li><code>contractLabel</code>: (String) User label if define, must be used with contractId</li>
 <li><code>matchingCriterias</code> (Object): criterias that can be used by an external service to match bills
-  with bank operations. If not specified but the &lsquo;banksTransactionRegExp&rsquo; attribute is specified in the
-  manifest of the connector, this value is automatically added to the bill</li>
+with bank operations. If not specified but the &lsquo;banksTransactionRegExp&rsquo; attribute is specified in the
+manifest of the connector, this value is automatically added to the bill</li>
 </ul>
 <p>You can also pass attributes expected by <code>saveFiles</code> : fileurl, filename, requestOptions
-  and more</p>
+and more</p>
 <p>Please take a look at <a href="https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.bills.md">io.cozy.bills doctype documentation</a>
 - <code>fields</code> (object) this is the first parameter given to BaseKonnector&rsquo;s constructor
 - <code>options</code> is passed directly to <code>saveFiles</code>, <code>hydrateAndFilter</code>, <code>addData</code> and <code>linkBankOperations</code>.</p>
+</li>
+</ul>
 <p><strong>Kind</strong>: Exported function<br />
 <strong>Example</strong>  </p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">BaseKonnector</span><span class="p">,</span> <span class="nx">saveBills</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-konnector-libs&#39;</span><span class="p">)</span>
@@ -4788,9 +4788,11 @@ manifest, to be able to use this function.</p>
 <ul>
 <li><code>contact</code> (object): the identity to create/update as an object io.cozy.contacts</li>
 <li><code>accountIdentifier</code> (string): a string that represent the account use, if available fields.login</li>
-<li><code>options</code> (object): options which will be given to updateOrCreate directly :</li>
+<li><code>options</code> (object): options which will be given to updateOrCreate directly :<ul>
 <li><code>sourceAccount</code> (String): id of the source account</li>
 <li><code>sourceAccountIdentifier</code> (String): identifier unique to the account targetted by the connector. It is the login most of the time</li>
+</ul>
+</li>
 </ul>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">saveIdentity</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-konnector-libs&#39;</span><span class="p">)</span>
 <span class="kr">const</span> <span class="nx">identity</span> <span class="o">=</span>
@@ -4824,35 +4826,33 @@ on HTML form pages. On success, it resolves to a promise with a parsed body.</p>
 <p>It does not submit values provided through <code>select</code> tags, except if populated
 by user with <code>formData</code>.</p>
 <ul>
-<li>
-<p><code>url</code> is the url to access the html form</p>
-</li>
-<li>
-<p><code>formSelector</code> is used by cheerio to uniquely identify the form in which to
-  log in</p>
-</li>
-<li>
-<p><code>formData</code> is an object <code>{ name: value, … }</code>. It is used to populate the
+<li><code>url</code> is the url to access the html form</li>
+</ul>
+<ul>
+<li><code>formSelector</code> is used by cheerio to uniquely identify the form in which to
+  log in</li>
+</ul>
+<ul>
+<li><code>formData</code> is an object <code>{ name: value, … }</code>. It is used to populate the
   form, in the proper inputs with the same name as the properties of this
   object, before submitting it. It can also be a function that returns this
   object. The page at <code>url</code> would be given as argument, right after having
-  been parsed through <code>cheerio</code>.</p>
-</li>
-<li>
-<p><code>parse</code> allow the user to resolve <code>signin</code> with a preparsed body. The
+  been parsed through <code>cheerio</code>.</li>
+</ul>
+<ul>
+<li><code>parse</code> allow the user to resolve <code>signin</code> with a preparsed body. The
   choice of the strategy for the parsing is one of : <code>raw</code>, <code>json</code> or
-  <code>cheerio</code>. <code>cheerio</code> being the default.</p>
-</li>
-<li>
-<p><code>validate</code> is a predicate taking three arguments <code>statusCode</code>, <code>parsedBody</code> and <code>fullResponse</code>.
+  <code>cheerio</code>. <code>cheerio</code> being the default.</li>
+</ul>
+<ul>
+<li><code>validate</code> is a predicate taking three arguments <code>statusCode</code>, <code>parsedBody</code> and <code>fullResponse</code>.
   If it is false, <code>LOGIN_FAILED</code> is thrown, otherwise the
-  signin resolves with <code>parsedBody</code> value.</p>
-</li>
-<li>
-<p><code>requestOpts</code> allows to pass eventual options to the <code>signin</code>&lsquo;s
+  signin resolves with <code>parsedBody</code> value.</li>
+</ul>
+<ul>
+<li><code>requestOpts</code> allows to pass eventual options to the <code>signin</code>&lsquo;s
   <code>requestFactory</code>. It could be useful for pages using <code>latin1</code> <code>encoding</code>
-  for instance.</p>
-</li>
+  for instance.</li>
 </ul>
 <p><strong>Kind</strong>: Exported function<br />
 <strong>Example</strong><br />
@@ -4899,14 +4899,16 @@ If you do not want to solve the captcha each time the connector is run, please a
 CookieKonnector which will help you save the session.</p>
 <p>Parameters:</p>
 <ul>
-<li><code>params</code> is an array of objects with any attributes with some mandatory attributes :</li>
+<li><code>params</code> is an array of objects with any attributes with some mandatory attributes :<ul>
 <li><code>type</code> (String): (default recaptcha) type of captcha to solve. can be &ldquo;recaptcha&rdquo; or &ldquo;image&rdquo; at the moment</li>
 <li><code>timeout</code> (Number): (default 3 minutes after now) time when the solver should stop trying to
-  solve the captcha</li>
+solve the captcha</li>
 <li><code>websiteKey</code> (String): the key you can find on the targeted website (for recaptcha)</li>
 <li><code>websiteURL</code> (String): The URL of the page showing the captcha (for recaptcha)</li>
 <li><code>body</code> (String): The base64 encoded image (for image captcha)
 Returns: Promise with the solved captcha response as a string</li>
+</ul>
+</li>
 </ul>
 <p><strong>Kind</strong>: Exported function<br />
 <strong>Example</strong>  </p>
@@ -4934,25 +4936,25 @@ use this function.</p>
 <li><code>entries</code> (object array): Documents to save</li>
 <li><code>doctype</code> (string): Doctype of the documents</li>
 <li><code>matchingAttributes</code> (string array): attributes in each entry used to check if an entry already exists in the Cozy</li>
-<li><code>options</code> (object): general option affecting metadata :</li>
+<li><code>options</code> (object): general option affecting metadata :<ul>
 <li><code>sourceAccount</code> (String): id of the source account</li>
 <li><code>sourceAccountIdentifier</code> (String): identifier unique to the account targetted by the connector. It is the login most of the time</li>
+</ul>
+</li>
 </ul>
 <p><strong>Kind</strong>: Exported function<br />
 <a name="module_utils"></a></p>
 <h2 id="utils">utils<a class="headerlink" href="#utils" title="Permanent link">&para;</a></h2>
 <p>Small utilities helping to develop konnectors.</p>
 <ul>
-<li><a href="#module_utils">utils</a><ul>
-<li><a href="#module_utils..fetchAll">~fetchAll()</a></li>
-<li><a href="#module_utils..queryAll">~queryAll()</a></li>
-<li><a href="#module_utils..findDuplicates">~findDuplicates()</a></li>
-<li><a href="#module_utils..batchUpdateAttributes">~batchUpdateAttributes()</a></li>
-<li><a href="#module_utils..batchDelete">~batchDelete()</a></li>
-<li><a href="#module_utils..getPdfText">~getPdfText()</a></li>
-<li><a href="#module_utils..formatDate">~formatDate()</a></li>
-</ul>
-</li>
+<li><a href="#module_utils">utils</a>
+    * <a href="#module_utils..fetchAll">~fetchAll()</a>
+    * <a href="#module_utils..queryAll">~queryAll()</a>
+    * <a href="#module_utils..findDuplicates">~findDuplicates()</a>
+    * <a href="#module_utils..batchUpdateAttributes">~batchUpdateAttributes()</a>
+    * <a href="#module_utils..batchDelete">~batchDelete()</a>
+    * <a href="#module_utils..getPdfText">~getPdfText()</a>
+    * <a href="#module_utils..formatDate">~formatDate()</a></li>
 </ul>
 <p><a name="module_utils..fetchAll"></a></p>
 <h3 id="utilsfetchall">utils~fetchAll()<a class="headerlink" href="#utilsfetchall" title="Permanent link">&para;</a></h3>
@@ -4988,10 +4990,12 @@ create it&rsquo;s own index with the keys specified in the selector</li>
 <ul>
 <li><code>doctype</code> (string): the doctype from which you want to fetch the data</li>
 <li><code>selector</code> (object): (optional) the mango query selector</li>
-<li><code>options</code> :</li>
+<li><code>options</code> :<ul>
 <li><code>keys</code> (array) : List of keys used to check that two items are the same.</li>
 <li><code>index</code> (optionnal) : Return value returned by <code>cozy.data.defineIndex</code>, the default will correspond to all documents of the selected doctype.</li>
 <li><code>selector</code> (optionnal object) : Mango request to get records. Gets all the records by default</li>
+</ul>
+</li>
 </ul>
 <p>Returns an object with the following keys:
 * <code>toKeep</code>: this is the list of unique documents that you should keep in db
@@ -5010,10 +5014,12 @@ documents, do not forget to clean linked bank operations</p>
 <li><code>doctype</code> (string): the doctype from which you want to fetch the data</li>
 <li><code>ids</code> (array): array of ids of documents to update</li>
 <li><code>transformation</code> (object): attributes to change with their values</li>
-<li><code>options</code> :</li>
+<li><code>options</code> :<ul>
 <li><code>keys</code> (array) : List of keys used to check that two items are the same.</li>
 <li><code>index</code> (optionnal) : Return value returned by <code>cozy.data.defineIndex</code>, the default will correspond to all documents of the selected doctype.</li>
 <li><code>selector</code> (optionnal object) : Mango request to get records. Gets all the records by default</li>
+</ul>
+</li>
 </ul>
 <p>Returns a promise which resolves with all the return values of updateAttributes</p>
 <div class="codehilite"><pre><span></span><span class="nx">await</span> <span class="nx">batchUpdateAttributes</span><span class="p">(</span><span class="s1">&#39;io.cozy.bills&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">{</span><span class="nx">vendor</span><span class="o">:</span> <span class="s1">&#39;Direct Energie&#39;</span><span class="p">})</span>
@@ -5029,10 +5035,12 @@ documents, do not forget to clean linked bank operations</p>
 <li><code>doctype</code> (string): the doctype from which you want to fetch the data</li>
 <li><code>documents</code> (array): documents to delete with their ids</li>
 <li><code>transformation</code> (object): attributes to change with their values</li>
-<li><code>options</code> :</li>
+<li><code>options</code> :<ul>
 <li><code>keys</code> (array) : List of keys used to check that two items are the same.</li>
 <li><code>index</code> (optionnal) : Return value returned by <code>cozy.data.defineIndex</code>, the default will correspond to all documents of the selected doctype.</li>
 <li><code>selector</code> (optionnal object) : Mango request to get records. Gets all the records by default</li>
+</ul>
+</li>
 </ul>
 <p>Returns a promise which resolves with all the return values of updateAttributes</p>
 <p>Example to remove all the documents for a given doctype</p>
@@ -5048,8 +5056,10 @@ documents, do not forget to clean linked bank operations</p>
 <p>Parameters:</p>
 <ul>
 <li><code>fileId</code> (string): the id of the file in the cozy</li>
-<li><code>options</code> :</li>
+<li><code>options</code> :<ul>
 <li><code>pages</code> (array or number) : The list of page you want to interpret</li>
+</ul>
+</li>
 </ul>
 <p>You need to add pdfjs-dist package as a dependency to your connector to allow this to work</p>
 <p>Returns a promise which resolves with an object with the following attributes:
@@ -5080,11 +5090,9 @@ documents, do not forget to clean linked bank operations</p>
 <h2 id="categorization">categorization<a class="headerlink" href="#categorization" title="Permanent link">&para;</a></h2>
 <p>Bank transactions categorization</p>
 <ul>
-<li><a href="#module_categorization">categorization</a><ul>
-<li><a href="#module_categorization..createCategorizer">~createCategorizer()</a> ⇒ <code>object</code></li>
-<li><a href="#module_categorization..categorize">~categorize()</a> ⇒ <code>Array.&lt;object&gt;</code></li>
-</ul>
-</li>
+<li><a href="#module_categorization">categorization</a>
+    * <a href="#module_categorization..createCategorizer">~createCategorizer()</a> ⇒ <code>object</code>
+    * <a href="#module_categorization..categorize">~categorize()</a> ⇒ <code>Array.&lt;object&gt;</code></li>
 </ul>
 <p><a name="module_categorization..createCategorizer"></a></p>
 <h3 id="categorizationcreatecategorizer-object">categorization~createCategorizer() ⇒ <code>object</code><a class="headerlink" href="#categorizationcreatecategorizer-object" title="Permanent link">&para;</a></h3>
@@ -5148,30 +5156,28 @@ fetch account information for your connector.</p>
 the konnector cannot know that asynchronous code has been called.</p>
 <p><strong>Kind</strong>: global class  </p>
 <ul>
-<li><a href="#BaseKonnector">BaseKonnector</a><ul>
-<li><a href="#new_BaseKonnector_new">new BaseKonnector(fetch)</a></li>
-<li><a href="#BaseKonnector+run">.run()</a></li>
-<li><a href="#BaseKonnector+main">.main()</a> ⇒ <code>Promise</code></li>
-<li><a href="#BaseKonnector+end">.end()</a></li>
-<li><a href="#BaseKonnector+fail">.fail()</a></li>
-<li><a href="#BaseKonnector+initAttributes">.initAttributes()</a></li>
-<li><a href="#BaseKonnector+saveAccountData">.saveAccountData(data, options)</a> ⇒ <code>Promise</code></li>
-<li><a href="#BaseKonnector+getAccountData">.getAccountData()</a> ⇒ <code>object</code></li>
-<li><a href="#BaseKonnector+updateAccountAttributes">.updateAccountAttributes()</a></li>
-<li><a href="#BaseKonnector+setTwoFAState">.setTwoFAState(options)</a></li>
-<li><a href="#BaseKonnector+resetTwoFAState">.resetTwoFAState()</a></li>
-<li><a href="#BaseKonnector+waitForTwoFaCode">.waitForTwoFaCode(options)</a> ⇒ <code>Promise</code></li>
-<li><a href="#BaseKonnector+notifySuccessfulLogin">.notifySuccessfulLogin()</a></li>
-<li><a href="#BaseKonnector+deactivateAutoSuccessfulLogin">.deactivateAutoSuccessfulLogin()</a></li>
-<li><a href="#BaseKonnector+saveBills">.saveBills()</a> ⇒ <code>Promise</code></li>
-<li><a href="#BaseKonnector+saveFiles">.saveFiles()</a> ⇒ <code>Promise</code></li>
-<li><a href="#BaseKonnector+updateOrCreate">.updateOrCreate()</a> ⇒ <code>Promise</code></li>
-<li><a href="#BaseKonnector+saveIdentity">.saveIdentity()</a> ⇒ <code>Promise</code></li>
-<li><a href="#BaseKonnector+signin">.signin()</a> ⇒ <code>Promise</code></li>
-<li><a href="#BaseKonnector+terminate">.terminate(err)</a></li>
-<li><a href="#BaseKonnector+getCozyMetadata">.getCozyMetadata(data)</a></li>
-</ul>
-</li>
+<li><a href="#BaseKonnector">BaseKonnector</a>
+    * <a href="#new_BaseKonnector_new">new BaseKonnector(fetch)</a>
+    * <a href="#BaseKonnector+run">.run()</a>
+    * <a href="#BaseKonnector+main">.main()</a> ⇒ <code>Promise</code>
+    * <a href="#BaseKonnector+end">.end()</a>
+    * <a href="#BaseKonnector+fail">.fail()</a>
+    * <a href="#BaseKonnector+initAttributes">.initAttributes()</a>
+    * <a href="#BaseKonnector+saveAccountData">.saveAccountData(data, options)</a> ⇒ <code>Promise</code>
+    * <a href="#BaseKonnector+getAccountData">.getAccountData()</a> ⇒ <code>object</code>
+    * <a href="#BaseKonnector+updateAccountAttributes">.updateAccountAttributes()</a>
+    * <a href="#BaseKonnector+setTwoFAState">.setTwoFAState(options)</a>
+    * <a href="#BaseKonnector+resetTwoFAState">.resetTwoFAState()</a>
+    * <a href="#BaseKonnector+waitForTwoFaCode">.waitForTwoFaCode(options)</a> ⇒ <code>Promise</code>
+    * <a href="#BaseKonnector+notifySuccessfulLogin">.notifySuccessfulLogin()</a>
+    * <a href="#BaseKonnector+deactivateAutoSuccessfulLogin">.deactivateAutoSuccessfulLogin()</a>
+    * <a href="#BaseKonnector+saveBills">.saveBills()</a> ⇒ <code>Promise</code>
+    * <a href="#BaseKonnector+saveFiles">.saveFiles()</a> ⇒ <code>Promise</code>
+    * <a href="#BaseKonnector+updateOrCreate">.updateOrCreate()</a> ⇒ <code>Promise</code>
+    * <a href="#BaseKonnector+saveIdentity">.saveIdentity()</a> ⇒ <code>Promise</code>
+    * <a href="#BaseKonnector+signin">.signin()</a> ⇒ <code>Promise</code>
+    * <a href="#BaseKonnector+terminate">.terminate(err)</a>
+    * <a href="#BaseKonnector+getCozyMetadata">.getCozyMetadata(data)</a></li>
 </ul>
 <p><a name="new_BaseKonnector_new"></a></p>
 <h3 id="new-basekonnectorfetch">new BaseKonnector(fetch)<a class="headerlink" href="#new-basekonnectorfetch" title="Permanent link">&para;</a></h3>
@@ -5490,19 +5496,17 @@ You need at least the <code>GET</code> and <code>PUT</code> permissions on <code
 it to save/restore cookies</p>
 <p><strong>Kind</strong>: global class  </p>
 <ul>
-<li><a href="#CookieKonnector">CookieKonnector</a><ul>
-<li><a href="#new_CookieKonnector_new">new CookieKonnector(requestFactoryOptions)</a></li>
-<li><a href="#CookieKonnector+initAttributes">.initAttributes()</a> ⇒ <code>Promise</code></li>
-<li><a href="#CookieKonnector+end">.end()</a></li>
-<li><a href="#CookieKonnector+requestFactory">.requestFactory(options)</a> ⇒ <code>object</code></li>
-<li><a href="#CookieKonnector+resetSession">.resetSession()</a> ⇒ <code>Promise</code></li>
-<li><a href="#CookieKonnector+initSession">.initSession()</a> ⇒ <code>Promise</code></li>
-<li><a href="#CookieKonnector+saveSession">.saveSession()</a> ⇒ <code>Promise</code></li>
-<li><a href="#CookieKonnector+signin">.signin()</a> ⇒ <code>Promise</code></li>
-<li><a href="#CookieKonnector+saveFiles">.saveFiles()</a> ⇒ <code>Promise</code></li>
-<li><a href="#CookieKonnector+saveBills">.saveBills()</a> ⇒ <code>Promise</code></li>
-</ul>
-</li>
+<li><a href="#CookieKonnector">CookieKonnector</a>
+    * <a href="#new_CookieKonnector_new">new CookieKonnector(requestFactoryOptions)</a>
+    * <a href="#CookieKonnector+initAttributes">.initAttributes()</a> ⇒ <code>Promise</code>
+    * <a href="#CookieKonnector+end">.end()</a>
+    * <a href="#CookieKonnector+requestFactory">.requestFactory(options)</a> ⇒ <code>object</code>
+    * <a href="#CookieKonnector+resetSession">.resetSession()</a> ⇒ <code>Promise</code>
+    * <a href="#CookieKonnector+initSession">.initSession()</a> ⇒ <code>Promise</code>
+    * <a href="#CookieKonnector+saveSession">.saveSession()</a> ⇒ <code>Promise</code>
+    * <a href="#CookieKonnector+signin">.signin()</a> ⇒ <code>Promise</code>
+    * <a href="#CookieKonnector+saveFiles">.saveFiles()</a> ⇒ <code>Promise</code>
+    * <a href="#CookieKonnector+saveBills">.saveBills()</a> ⇒ <code>Promise</code></li>
 </ul>
 <p><a name="new_CookieKonnector_new"></a></p>
 <h3 id="new-cookiekonnectorrequestfactoryoptions">new CookieKonnector(requestFactoryOptions)<a class="headerlink" href="#new-cookiekonnectorrequestfactoryoptions" title="Permanent link">&para;</a></h3>
@@ -5626,13 +5630,11 @@ that just have been scraped where dates are <code>Date</code>s.</p>
 <h2 id="fs">fs<a class="headerlink" href="#fs" title="Permanent link">&para;</a></h2>
 <p>Manifest is provided differently in developement that in production.</p>
 <ul>
-<li>
-<p>In production, the manifest has been &ldquo;merged&rdquo; via Webpack via the
-  DefinePlugin</p>
-</li>
-<li>
-<p>In development/test, we simply read the manifest from the fs</p>
-</li>
+<li>In production, the manifest has been &ldquo;merged&rdquo; via Webpack via the
+  DefinePlugin</li>
+</ul>
+<ul>
+<li>In development/test, we simply read the manifest from the fs</li>
 </ul>
 <p><strong>Kind</strong>: global constant<br />
 <a name="LOGIN_FAILED"></a></p>

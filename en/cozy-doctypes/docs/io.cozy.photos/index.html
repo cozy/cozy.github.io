@@ -2650,9 +2650,11 @@
 <ul>
 <li><code>name</code>: {string} the name of the album. It is the date of the oldest photo for a cluster.</li>
 <li><code>auto</code>: {bool} <code>true</code> if the album was automatically computed, and is therefore a cluster.</li>
-<li><code>period</code>: {object} if cluster, the temporal period of the album.</li>
+<li><code>period</code>: {object} if cluster, the temporal period of the album.<ul>
 <li><code>start</code>: {date} the date of the oldest photo.</li>
 <li><code>end</code>: {date} the date of the newest photo.</li>
+</ul>
+</li>
 </ul>
 <p>The photos in an album are files (with the class <code>image</code>) that are <a href="https://cozy.github.io/cozy-stack/references-docs-in-vfs.html">referenced</a> by the album document.</p>
 <h2 id="iocozyphotossettings"><code>io.cozy.photos.settings</code><a class="headerlink" href="#iocozyphotossettings" title="Permanent link">&para;</a></h2>
@@ -2667,7 +2669,7 @@
 <li><code>lastExecution</code>: {timestamp} the last service execution timestamp. Useful when <code>jobStatus</code> is <code>postponed</code>, to know if the service should be run or not.</li>
 <li><code>evaluationCount</code>: {number} indicates the number of photos clustered since the last parameters evaluation. If this number is greater than a threshold, it triggers a new parameter evaluation and reset this number to 0.</li>
 <li><code>runs</code>: {number} number of all clustering runs, it is incremented at each new successful execution.</li>
-<li><code>parameters</code>: {array} a list of parameters for the clustering with the following attributes:</li>
+<li><code>parameters</code>: {array} a list of parameters for the clustering with the following attributes:<ul>
 <li><code>period</code>: {object} the temporal period of the clustered photos for this set of parameters.<ul>
 <li><code>start</code>: {date} the start of the period.</li>
 <li><code>end</code>: {date} the end of the period.</li>
@@ -2685,6 +2687,8 @@
 </ul>
 </li>
 <li><code>defaultEvaluation</code>: {bool} if the current evaluation use default parameters because there was not enough photos.</li>
+</ul>
+</li>
 </ul>
                 
                   

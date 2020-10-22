@@ -2601,11 +2601,13 @@
                 <!-- MarkdownTOC autolink=true -->
 
 <ul>
-<li><a href="#using-cozyclient-on-a-mobile-app">Using CozyClient on a mobile app</a></li>
+<li><a href="#using-cozyclient-on-a-mobile-app">Using CozyClient on a mobile app</a><ul>
 <li><a href="#configuration-%F0%9F%9B%A0">Configuration 🛠</a></li>
 <li><a href="#starting-the-oauth-flow-%F0%9F%8F%84%E2%80%8D%E2%99%82%EF%B8%8F">Starting the OAuth flow 🏄‍♂️</a></li>
 <li><a href="#how-to-restore-a-previous-token-">How to restore a previous token ?</a></li>
 <li><a href="#how-to-logout-the-client-">How to logout the client ?</a></li>
+</ul>
+</li>
 <li><a href="#support-offline-for-some-doctypes-with-cozy-pouch-link">Support offline for some doctypes with <code>cozy-pouch-link</code></a></li>
 </ul>
 <!-- /MarkdownTOC -->
@@ -2629,12 +2631,10 @@
 
 
 <ul>
-<li>
-<p><code>scope</code> is an array of <a href="https://github.com/cozy/cozy-stack/blob/master/docs/permissions.md">permissions</a> you require for your client</p>
-</li>
-<li>
-<p><code>oauth</code> is a list of fields that identify your client for the user and the server. The complete list of field can be found <a href="https://github.com/cozy/cozy-stack/blob/master/docs/permissions.md">here</a>, although they should be camel-cased instead of snake-cased.</p>
-</li>
+<li><code>scope</code> is an array of <a href="https://github.com/cozy/cozy-stack/blob/master/docs/permissions.md">permissions</a> you require for your client</li>
+</ul>
+<ul>
+<li><code>oauth</code> is a list of fields that identify your client for the user and the server. The complete list of field can be found <a href="https://github.com/cozy/cozy-stack/blob/master/docs/permissions.md">here</a>, although they should be camel-cased instead of snake-cased.</li>
 </ul>
 <h3 id="starting-the-oauth-flow">Starting the OAuth flow 🏄‍♂️<a class="headerlink" href="#starting-the-oauth-flow" title="Permanent link">&para;</a></h3>
 <p>Before you can start making requests to the server, you will need to get a token. <code>cozy-client</code> will provide a URL to a page where the user is shown what data you want to access, and asking for his or her permission. After the user accepts these permissions, he or she is redirected to the <code>oauth.redirectURI</code> that you declared earlier. You will then have to give this redirected URL back to <code>cozy-client</code> as it contains a code, that will be exchanged for the token.</p>

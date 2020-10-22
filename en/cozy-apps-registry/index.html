@@ -3284,10 +3284,8 @@
 <p><a href="https://cozy.io" title="Cozy Cloud">Cozy</a> is a platform that brings all your web services in the same private space.  With it, your webapps and your devices can share data easily, providing you with a new experience. You can install Cozy on your own hardware where no one&rsquo;s tracking you.</p>
 <h2 id="table-of-contents">Table of contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="#cozy-apps-registry">cozy-apps-registry</a><ul>
-<li><a href="#whats-cozy">What&rsquo;s Cozy?</a></li>
-</ul>
-</li>
+<li><a href="#cozy-apps-registry">cozy-apps-registry</a>
+    - <a href="#whats-cozy">What&rsquo;s Cozy?</a><ul>
 <li><a href="#table-of-contents">Table of contents</a></li>
 <li><a href="#what-about-this-repository">What about this repository?</a></li>
 <li><a href="#how-to-develop-with-a-cozy-apps-registry-working-in-local-environment">How to develop with a <code>cozy-apps-registry</code> working in local environment</a><ul>
@@ -3299,26 +3297,34 @@
 </ul>
 </li>
 <li><a href="#publish-your-application-on-the-registry">Publish your application on the registry</a><ul>
-<li><a href="#1-prepare-your-application">1) Prepare your application</a></li>
+<li><a href="#1-prepare-your-application">1) Prepare your application</a><ul>
 <li><a href="#for-an-application">For an application</a></li>
 <li><a href="#for-a-connector">For a connector</a></li>
 <li><a href="#properties-meaning-reference">Properties meaning (reference)</a></li>
 <li><a href="#translated-manifest-fields">Translated manifest fields</a></li>
 <li><a href="#application-terms">Application terms</a></li>
 <li><a href="#konnectors-folders-handling">Konnectors folders handling</a></li>
-<li><a href="#2-add-a-new-application-in-the-registry">2) Add a new application in the registry</a></li>
+</ul>
+</li>
+<li><a href="#2-add-a-new-application-in-the-registry">2) Add a new application in the registry</a><ul>
 <li><a href="#our-official-apps-registry">Our official apps registry</a></li>
 <li><a href="#custom-registry">Custom registry</a></li>
-<li><a href="#3-add-a-new-version-of-a-registered-application">3) Add a new version of a registered application</a></li>
+</ul>
+</li>
+<li><a href="#3-add-a-new-version-of-a-registered-application">3) Add a new version of a registered application</a><ul>
 <li><a href="#via-cozy-app-publishcozy-app-publish-highly-recommanded">Via <a href="https://github.com/cozy/cozy-app-publish"><code>cozy-app-publish</code></a> (highly recommanded)</a></li>
 <li><a href="#via-curl">Via <code>curl</code></a></li>
-<li><a href="#spaces--virtual-spaces">Spaces &amp; Virtual Spaces</a></li>
+</ul>
+</li>
+<li><a href="#spaces--virtual-spaces">Spaces &amp; Virtual Spaces</a><ul>
 <li><a href="#spaces">Spaces</a><ul>
 <li><a href="#create-a-space">Create a space</a></li>
 <li><a href="#remove-a-space">Remove a space</a></li>
 </ul>
 </li>
 <li><a href="#virtual-spaces">Virtual Spaces</a></li>
+</ul>
+</li>
 <li><a href="#automation-ci">Automation (CI)</a></li>
 </ul>
 </li>
@@ -3327,14 +3333,18 @@
 <li><a href="#import-export">Import/export</a></li>
 <li><a href="#application-confidence-grade--labelling">Application confidence grade / labelling</a></li>
 <li><a href="#universal-links">Universal links</a><ul>
-<li><a href="#configuration">Configuration</a></li>
+<li><a href="#configuration">Configuration</a><ul>
 <li><a href="#config-file">Config file</a></li>
 <li><a href="#files">Files</a></li>
+</ul>
+</li>
 <li><a href="#usage">Usage</a></li>
 </ul>
 </li>
 <li><a href="#biwebauth">BI Web Auth</a></li>
 <li><a href="#community">Community</a></li>
+</ul>
+</li>
 </ul>
 <h2 id="what-about-this-repository">What about this repository?<a class="headerlink" href="#what-about-this-repository" title="Permanent link">&para;</a></h2>
 <p>The <code>cozy-apps-registry</code> is a go project that implements the <a href="https://github.com/cozy/cozy-stack/blob/master/docs/registry.md">registry
@@ -3663,14 +3673,10 @@ cozy-apps-registry gen-token --master Cozy -c cozy-registry.yml
 <h5 id="konnectors-folders-handling">Konnectors folders handling<a class="headerlink" href="#konnectors-folders-handling" title="Permanent link">&para;</a></h5>
 <p>The <code>folders</code> property is a list of objects with these following properties:</p>
 <ul>
-<li>
-<p><code>defaultDir</code>: (<strong>REQUIRED</strong>) The default root directory of your folder. In this folder will automatically be created a subfolder with the konnector name and into this latter a subfolder with the account name to store the related files. Here you can use some variables in the path like the following:</p>
-<ul>
-<li><code>$administrative</code>: Folder which will receive all administrative related files (bills, contracts, invoices&hellip;)</li>
-<li><code>$photos</code>: Folder which will receive all photos</li>
-<li><code>$konnector</code>: The name of the konnector</li>
-</ul>
-<blockquote>
+<li><code>defaultDir</code>: (<strong>REQUIRED</strong>) The default root directory of your folder. In this folder will automatically be created a subfolder with the konnector name and into this latter a subfolder with the account name to store the related files. Here you can use some variables in the path like the following:
+    - <code>$administrative</code>: Folder which will receive all administrative related files (bills, contracts, invoices&hellip;)
+    - <code>$photos</code>: Folder which will receive all photos
+    - <code>$konnector</code>: The name of the konnector<blockquote>
 <p>:warning: All paths provided using <code>defaultDir</code> will be the root directory, not the final folder which will receive the files. For example, if you set <code>$photos</code>, the final folder will be <code>$photos/$konnector/$account</code> in order to keep them always sorted by konnectors and accounts.</p>
 </blockquote>
 </li>
@@ -4017,12 +4023,10 @@ commands. That&rsquo;s all for the moment.</p>
 <p>The following tutorial explains how to connect your continuous integration
 based on Travis to automatically publish new versions on the apps registry.</p>
 <p>In this tutorial, we assume:</p>
-<ul>
-<li>you have a token allowing you to publish applications for your <code>editor</code>:
-    <code>{{EDITOR_TOKEN}}</code></li>
-<li>you are working on a repository plugged on travis and named on github
-    <code>myname/cozy-example</code></li>
-</ul>
+<p>- you have a token allowing you to publish applications for your <code>editor</code>:
+    <code>{{EDITOR_TOKEN}}</code>
+  - you are working on a repository plugged on travis and named on github
+    <code>myname/cozy-example</code></p>
 <p>You first need to add the token to your travis configuration file
 <code>.travis.yml</code>. To do so, you need the <a href="https://github.com/travis-ci/travis.rb#installation"><code>travis</code> utility</a> to encrypt its value.</p>
 <div class="codehilite"><pre><span></span>$ travis encrypt <span class="nv">REGISTRY_TOKEN</span><span class="o">={{</span>EDITOR_TOKEN<span class="o">}}</span> -r myname/cozy-example --org
@@ -4080,17 +4084,13 @@ access-control. However routes allowing to create applications and versions have
 access-control policies associated to them.</p>
 <p>The registry has two types of access permissions, that are associated to two
 different tokens:</p>
-<ul>
-<li><strong>editor tokens</strong>: these tokens give access to the publication of new versions
-    on the registry, for a specific editor name, at these conditions:<ul>
-<li>the version&rsquo;s application must already exist in the registry</li>
-<li>the version&rsquo;s application must have the same &ldquo;editor&rdquo; value as the token</li>
-</ul>
-</li>
-<li><strong>master tokens</strong>: these tokens are allowed to create and register new
+<p>- <strong>editor tokens</strong>: these tokens give access to the publication of new versions
+    on the registry, for a specific editor name, at these conditions:
+    * the version&rsquo;s application must already exist in the registry
+    * the version&rsquo;s application must have the same &ldquo;editor&rdquo; value as the token
+  - <strong>master tokens</strong>: these tokens are allowed to create and register new
     applications on the registry, and associate them with an existing editor
-    name. They also have the same accesses as the editor tokens.</li>
-</ul>
+    name. They also have the same accesses as the editor tokens.</p>
 <p>Editor tokens can be specific to one or more applications names that they are
 allowed to publish.</p>
 <p>In order to create tokens, the binary offers a <code>gen-token</code> command-line. Here
@@ -4152,10 +4152,8 @@ curl -XPUT <span class="se">\</span>
 Registry data are exported as below:</p>
 <ul>
 <li><code>registry/couchdb/{db}/{uuid}.json</code>: CouchDB document exported as JSON</li>
-<li><code>registry/swift/{file/path}</code>: Swift document, with the following tar custom metadata<ul>
-<li><code>COZY.content-type</code>: associated content type</li>
-</ul>
-</li>
+<li><code>registry/swift/{file/path}</code>: Swift document, with the following tar custom metadata
+    * <code>COZY.content-type</code>: associated content type</li>
 </ul>
 <p>The generated archive can be imported with <code>cozy-apps-registry import -d &lt;dump.tar.gz&gt;</code>.
 The <code>-d</code> option will drop CouchDB databases and Swift containers related to declared spaces on the registry configuration.</p>
@@ -4166,16 +4164,20 @@ application document.</p>
 <p>Possible values for these properties are:</p>
 <ul>
 <li><code>data_usage_commitment</code>: specify a technical commitment from the
-  application editor:</li>
+  application editor:<ul>
 <li><code>user_ciphered</code>: technical commitment that the user&rsquo;s data is encrypted
-    and can only be known by him.</li>
+  and can only be known by him.</li>
 <li><code>user_reserved</code>: commitment that the data is only used for the user, to
-    directly offer its service.</li>
+  directly offer its service.</li>
 <li><code>none</code>: no commitment</li>
-<li><code>data_usage_commitment_by</code>: specify what entity is taking the commitment:</li>
+</ul>
+</li>
+<li><code>data_usage_commitment_by</code>: specify what entity is taking the commitment:<ul>
 <li><code>cozy</code>: the commitment is taken by cozy</li>
 <li><code>editor</code>: the commitment is taken by the application&rsquo;s editor</li>
 <li><code>none</code>: no commitment is taken</li>
+</ul>
+</li>
 </ul>
 <p>To do that, a command line and admin API are available, and be used as follow:</p>
 <div class="codehilite"><pre><span></span>$ cozy-apps-registry modify-app banks --space my_space --data-usage-commitment user_reserved --data-usage-commitment-by editor

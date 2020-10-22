@@ -2637,9 +2637,11 @@
 <li><code>_id</code>: {string} - The fixed rule ID, that should respect this nomenclature: <code>&lt;editor-reverse-domain-name&gt;.docrules/&lt;rule-name&gt;</code>. For instance: <code>io.cozy.docrules/payslips</code>.</li>
 <li><code>description</code>: {string} - The rule description.</li>
 <li><code>doctype</code>: {string} - The doctype of the documents targeted by the rule.</li>
-<li><code>rule</code>: {object}</li>
+<li><code>rule</code>: {object}<ul>
 <li><code>limit</code>: {number} - The maximum number of documents to retrieve with this rule.</li>
 <li><code>selector</code>: {object} - The selector to target documents, following the <a href="https://docs.couchdb.org/en/stable/api/database/find.html#find-selectors">Mango syntax</a></li>
+</ul>
+</li>
 </ul>
 <p>Note the rule attributes, i.e. <code>limit</code> and <code>selector</code> can be parametrised by using a <code>{var-name}</code> notation. In the example below, <code>{date}</code> is a rule parameter used to find payslips before this date, while <code>{limit}</code> restricts the number of documents retrieved. </p>
 <p>See <a href="https://docs.cozy.io/en/cozy-doctypes/docs/io.cozy.todos#docrules">here</a> for an example on how to pass parameters to a rule. </p>

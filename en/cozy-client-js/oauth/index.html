@@ -2593,21 +2593,17 @@
 <p>The library constructor (on <code>init</code> method) should be passed the storage in the <code>storage</code> field of the <code>oauth</code> options.</p>
 <h3 id="registration-parameters">Registration parameters<a class="headerlink" href="#registration-parameters" title="Permanent link">&para;</a></h3>
 <p>In order to handle the registration of the client, two callbacks should be provided to the cozy-client-js instance.</p>
-<ul>
-<li><code>clientParams</code> an object with the following parameters:<ul>
-<li><code>redirectURI</code>: the URI on which the user is redirected after accepting the client (mandatory)</li>
-<li><code>softwareID</code>: identifier of the software (by default <code>github.com/cozy/cozy-client-js</code>)</li>
-<li><code>softwareVersion</code>: version of the software (optional)</li>
-<li><code>clientName</code>: string (optional)</li>
-<li><code>clientKind</code>: string (optional)</li>
-<li><code>clientURI</code>: string (optional)</li>
-<li><code>logoURI</code>: string (optional)</li>
-<li><code>policyURI</code>: string (optional)</li>
-<li><code>scopes</code>: array of <code>key:value</code> elements representing the permission scopes required by the application that the user should accept (mandatory)</li>
-</ul>
-</li>
-<li><code>onRegistered(client, url)</code> which should provide the wanted &ldquo;side effect&rdquo; after the client registration and return a promise containing the request URL provided by the user containing the access code and state.</li>
-</ul>
+<p>- <code>clientParams</code> an object with the following parameters:
+    + <code>redirectURI</code>: the URI on which the user is redirected after accepting the client (mandatory)
+    + <code>softwareID</code>: identifier of the software (by default <code>github.com/cozy/cozy-client-js</code>)
+    + <code>softwareVersion</code>: version of the software (optional)
+    + <code>clientName</code>: string (optional)
+    + <code>clientKind</code>: string (optional)
+    + <code>clientURI</code>: string (optional)
+    + <code>logoURI</code>: string (optional)
+    + <code>policyURI</code>: string (optional)
+    + <code>scopes</code>: array of <code>key:value</code> elements representing the permission scopes required by the application that the user should accept (mandatory)
+  - <code>onRegistered(client, url)</code> which should provide the wanted &ldquo;side effect&rdquo; after the client registration and return a promise containing the request URL provided by the user containing the access code and state.</p>
 <p>The <code>onRegistered</code> callback is called with the registered client and the URL on which the user should go to give access to the application.</p>
 <h3 id="complete-example-for-nodejs">Complete example for Node.JS<a class="headerlink" href="#complete-example-for-nodejs" title="Permanent link">&para;</a></h3>
 <p>Here is a complete example running on Node.JS with a local http server receiving as redirect URI receiving the call of the user to complete the authorization of the client.</p>

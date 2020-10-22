@@ -5293,27 +5293,21 @@ used by the client to automatically fetch relationship data.</p>
 <p>Hydrated documents used by components come with Association instances.</p>
 <p><strong>Kind</strong>: global class  </p>
 <ul>
-<li><a href="#Association">Association</a><ul>
-<li><a href="#new_Association_new">new Association(target, name, doctype, options)</a></li>
-<li><em>instance</em><ul>
-<li><a href="#Association+target">.target</a> : <code>object</code></li>
-<li><a href="#Association+name">.name</a> : <code>string</code></li>
-<li><a href="#Association+doctype">.doctype</a> : <code>string</code></li>
-<li><a href="#Association+get">.get</a> : <code>function</code></li>
-<li><a href="#Association+save">.save</a> : <code>function</code></li>
-<li><a href="#Association+dispatch">.dispatch</a> : <code>function</code></li>
-<li><a href="#Association+raw">.raw</a></li>
-<li><a href="#Association+data">.data</a></li>
-<li><a href="#Association+query">.query(queryDefinition)</a></li>
-<li><a href="#Association+mutate">.mutate()</a></li>
-</ul>
-</li>
-<li><em>static</em><ul>
-<li><a href="#Association.query">.query()</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li><a href="#Association">Association</a>
+    * <a href="#new_Association_new">new Association(target, name, doctype, options)</a>
+    * <em>instance</em>
+        * <a href="#Association+target">.target</a> : <code>object</code>
+        * <a href="#Association+name">.name</a> : <code>string</code>
+        * <a href="#Association+doctype">.doctype</a> : <code>string</code>
+        * <a href="#Association+get">.get</a> : <code>function</code>
+        * <a href="#Association+save">.save</a> : <code>function</code>
+        * <a href="#Association+dispatch">.dispatch</a> : <code>function</code>
+        * <a href="#Association+raw">.raw</a>
+        * <a href="#Association+data">.data</a>
+        * <a href="#Association+query">.query(queryDefinition)</a>
+        * <a href="#Association+mutate">.mutate()</a>
+    * <em>static</em>
+        * <a href="#Association.query">.query()</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
 </ul>
 <p><a name="new_Association_new"></a></p>
 <h3 id="new-associationtarget-name-doctype-options">new Association(target, name, doctype, options)<a class="headerlink" href="#new-associationtarget-name-doctype-options" title="Permanent link">&para;</a></h3>
@@ -5538,12 +5532,10 @@ following the JSON API spec.</p>
 </ul>
 <p><strong>Kind</strong>: global class  </p>
 <ul>
-<li><a href="#HasMany">HasMany</a><ul>
-<li><a href="#new_HasMany_new">new HasMany()</a></li>
-<li><a href="#HasMany+count">.count</a> ⇒ <code>number</code></li>
-<li><a href="#HasMany+addById">.addById()</a></li>
-</ul>
-</li>
+<li><a href="#HasMany">HasMany</a>
+    * <a href="#new_HasMany_new">new HasMany()</a>
+    * <a href="#HasMany+count">.count</a> ⇒ <code>number</code>
+    * <a href="#HasMany+addById">.addById()</a></li>
 </ul>
 <p><a name="new_HasMany_new"></a></p>
 <h3 id="new-hasmany">new HasMany()<a class="headerlink" href="#new-hasmany" title="Permanent link">&para;</a></h3>
@@ -5635,18 +5627,12 @@ as their <code>tasks</code> attribute.</p>
 <p><strong>Kind</strong>: global class<br />
 <strong>Extends</strong>: <a href="#HasMany"><code>HasMany</code></a>  </p>
 <ul>
-<li><a href="#HasManyTriggers">HasManyTriggers</a> ⇐ <a href="#HasMany"><code>HasMany</code></a><ul>
-<li><em>instance</em><ul>
-<li><a href="#HasMany+count">.count</a> ⇒ <code>number</code></li>
-<li><a href="#HasMany+addById">.addById()</a></li>
-</ul>
-</li>
-<li><em>static</em><ul>
-<li><a href="#HasManyTriggers.query">.query()</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li><a href="#HasManyTriggers">HasManyTriggers</a> ⇐ <a href="#HasMany"><code>HasMany</code></a>
+    * <em>instance</em>
+        * <a href="#HasMany+count">.count</a> ⇒ <code>number</code>
+        * <a href="#HasMany+addById">.addById()</a>
+    * <em>static</em>
+        * <a href="#HasManyTriggers.query">.query()</a></li>
 </ul>
 <p><a name="HasMany+count"></a></p>
 <h3 id="hasmanytriggerscount-number">hasManyTriggers.count ⇒ <code>number</code><a class="headerlink" href="#hasmanytriggerscount-number" title="Permanent link">&para;</a></h3>
@@ -5683,49 +5669,43 @@ having for the &lsquo;konnector&rsquo; worker, and then filter them based on the
 </ul>
 <p><strong>Kind</strong>: global class  </p>
 <ul>
-<li><a href="#CozyClient">CozyClient</a><ul>
-<li><a href="#new_CozyClient_new">new CozyClient(options)</a></li>
-<li><em>instance</em><ul>
-<li><a href="#CozyClient+registerPlugin">.registerPlugin()</a></li>
-<li><a href="#CozyClient+login">.login(options)</a> ⇒ <code>Promise</code></li>
-<li><a href="#CozyClient+logout">.logout()</a> ⇒ <code>Promise</code></li>
-<li><a href="#CozyClient+collection">.collection(doctype)</a> ⇒ <code>DocumentCollection</code></li>
-<li><a href="#CozyClient+create">.create(type, doc, references, options)</a> ⇒ <code>Promise</code></li>
-<li><a href="#CozyClient+getDocumentSavePlan">.getDocumentSavePlan(document, [referencesByName])</a> ⇒ <code>Array.&lt;Mutation&gt;</code></li>
-<li><a href="#CozyClient+destroy">.destroy(document)</a> ⇒ <a href="#Document"><code>Document</code></a></li>
-<li><a href="#CozyClient+query">.query(queryDefinition, options)</a> ⇒ <code>QueryResult</code></li>
-<li><a href="#CozyClient+queryAll">.queryAll(queryDefinition, options)</a> ⇒ <code>Array</code></li>
-<li><a href="#CozyClient+hydrateDocuments">.hydrateDocuments(doctype, documents)</a> ⇒ <code>Array.&lt;HydratedDocument&gt;</code></li>
-<li><a href="#CozyClient+hydrateDocument">.hydrateDocument(document, schemaArg)</a> ⇒ <code>HydratedDocument</code></li>
-<li><a href="#CozyClient+makeNewDocument">.makeNewDocument()</a></li>
-<li><a href="#CozyClient+getAssociation">.getAssociation()</a></li>
-<li><a href="#CozyClient+getRelationshipStoreAccessors">.getRelationshipStoreAccessors()</a></li>
-<li><a href="#CozyClient+getCollectionFromState">.getCollectionFromState(type)</a> ⇒ <a href="#Document"><code>Array.&lt;Document&gt;</code></a></li>
-<li><a href="#CozyClient+getDocumentFromState">.getDocumentFromState(type, id)</a> ⇒ <a href="#Document"><code>Document</code></a></li>
-<li><a href="#CozyClient+getQueryFromState">.getQueryFromState(id, options)</a> ⇒ <a href="#QueryState"><code>QueryState</code></a></li>
-<li><a href="#CozyClient+register">.register(cozyURL)</a> ⇒ <code>object</code></li>
-<li><a href="#CozyClient+startOAuthFlow">.startOAuthFlow(openURLCallback)</a> ⇒ <code>object</code></li>
-<li><a href="#CozyClient+renewAuthorization">.renewAuthorization()</a> ⇒ <code>object</code></li>
-<li><a href="#CozyClient+setStore">.setStore(store, options)</a></li>
-<li><a href="#CozyClient+checkForRevocation">.checkForRevocation()</a></li>
-<li><a href="#CozyClient+handleRevocationChange">.handleRevocationChange()</a></li>
-<li><a href="#CozyClient+handleTokenRefresh">.handleTokenRefresh()</a></li>
-<li><a href="#CozyClient+createClient">.createClient()</a></li>
-<li><a href="#CozyClient+getInstanceOptions">.getInstanceOptions()</a> ⇒ <code>object</code></li>
-<li><a href="#CozyClient+loadInstanceOptionsFromDOM">.loadInstanceOptionsFromDOM([selector])</a> ⇒ <code>void</code></li>
-<li><a href="#CozyClient+setData">.setData(data)</a></li>
-</ul>
-</li>
-<li><em>static</em><ul>
-<li><a href="#CozyClient.fromOldClient">.fromOldClient()</a></li>
-<li><a href="#CozyClient.fromOldOAuthClient">.fromOldOAuthClient()</a> ⇒ <a href="#CozyClient"><code>CozyClient</code></a></li>
-<li><a href="#CozyClient.fromEnv">.fromEnv()</a></li>
-<li><a href="#CozyClient.fromDOM">.fromDOM(selector, options)</a> ⇒ <code>object</code></li>
-<li><a href="#CozyClient.registerHook">.registerHook(doctype, name, fn)</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li><a href="#CozyClient">CozyClient</a>
+    * <a href="#new_CozyClient_new">new CozyClient(options)</a>
+    * <em>instance</em>
+        * <a href="#CozyClient+registerPlugin">.registerPlugin()</a>
+        * <a href="#CozyClient+login">.login(options)</a> ⇒ <code>Promise</code>
+        * <a href="#CozyClient+logout">.logout()</a> ⇒ <code>Promise</code>
+        * <a href="#CozyClient+collection">.collection(doctype)</a> ⇒ <code>DocumentCollection</code>
+        * <a href="#CozyClient+create">.create(type, doc, references, options)</a> ⇒ <code>Promise</code>
+        * <a href="#CozyClient+getDocumentSavePlan">.getDocumentSavePlan(document, [referencesByName])</a> ⇒ <code>Array.&lt;Mutation&gt;</code>
+        * <a href="#CozyClient+destroy">.destroy(document)</a> ⇒ <a href="#Document"><code>Document</code></a>
+        * <a href="#CozyClient+query">.query(queryDefinition, options)</a> ⇒ <code>QueryResult</code>
+        * <a href="#CozyClient+queryAll">.queryAll(queryDefinition, options)</a> ⇒ <code>Array</code>
+        * <a href="#CozyClient+hydrateDocuments">.hydrateDocuments(doctype, documents)</a> ⇒ <code>Array.&lt;HydratedDocument&gt;</code>
+        * <a href="#CozyClient+hydrateDocument">.hydrateDocument(document, schemaArg)</a> ⇒ <code>HydratedDocument</code>
+        * <a href="#CozyClient+makeNewDocument">.makeNewDocument()</a>
+        * <a href="#CozyClient+getAssociation">.getAssociation()</a>
+        * <a href="#CozyClient+getRelationshipStoreAccessors">.getRelationshipStoreAccessors()</a>
+        * <a href="#CozyClient+getCollectionFromState">.getCollectionFromState(type)</a> ⇒ <a href="#Document"><code>Array.&lt;Document&gt;</code></a>
+        * <a href="#CozyClient+getDocumentFromState">.getDocumentFromState(type, id)</a> ⇒ <a href="#Document"><code>Document</code></a>
+        * <a href="#CozyClient+getQueryFromState">.getQueryFromState(id, options)</a> ⇒ <a href="#QueryState"><code>QueryState</code></a>
+        * <a href="#CozyClient+register">.register(cozyURL)</a> ⇒ <code>object</code>
+        * <a href="#CozyClient+startOAuthFlow">.startOAuthFlow(openURLCallback)</a> ⇒ <code>object</code>
+        * <a href="#CozyClient+renewAuthorization">.renewAuthorization()</a> ⇒ <code>object</code>
+        * <a href="#CozyClient+setStore">.setStore(store, options)</a>
+        * <a href="#CozyClient+checkForRevocation">.checkForRevocation()</a>
+        * <a href="#CozyClient+handleRevocationChange">.handleRevocationChange()</a>
+        * <a href="#CozyClient+handleTokenRefresh">.handleTokenRefresh()</a>
+        * <a href="#CozyClient+createClient">.createClient()</a>
+        * <a href="#CozyClient+getInstanceOptions">.getInstanceOptions()</a> ⇒ <code>object</code>
+        * <a href="#CozyClient+loadInstanceOptionsFromDOM">.loadInstanceOptionsFromDOM([selector])</a> ⇒ <code>void</code>
+        * <a href="#CozyClient+setData">.setData(data)</a>
+    * <em>static</em>
+        * <a href="#CozyClient.fromOldClient">.fromOldClient()</a>
+        * <a href="#CozyClient.fromOldOAuthClient">.fromOldOAuthClient()</a> ⇒ <a href="#CozyClient"><code>CozyClient</code></a>
+        * <a href="#CozyClient.fromEnv">.fromEnv()</a>
+        * <a href="#CozyClient.fromDOM">.fromDOM(selector, options)</a> ⇒ <code>object</code>
+        * <a href="#CozyClient.registerHook">.registerHook(doctype, name, fn)</a></li>
 </ul>
 <p><a name="new_CozyClient_new"></a></p>
 <h3 id="new-cozyclientoptions">new CozyClient(options)<a class="headerlink" href="#new-cozyclientoptions" title="Permanent link">&para;</a></h3>
@@ -6460,23 +6440,21 @@ There are at the moment only 2 hooks available.</p>
 from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
 <p><strong>Kind</strong>: global class  </p>
 <ul>
-<li><a href="#QueryDefinition">QueryDefinition</a><ul>
-<li><a href="#new_QueryDefinition_new">new QueryDefinition(options)</a></li>
-<li><a href="#QueryDefinition+checkSortOrder">.checkSortOrder(sort|selector|indexedFields)</a></li>
-<li><a href="#QueryDefinition+getById">.getById(id)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
-<li><a href="#QueryDefinition+getByIds">.getByIds(ids)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
-<li><a href="#QueryDefinition+where">.where(selector)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
-<li><a href="#QueryDefinition+select">.select(fields)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
-<li><a href="#QueryDefinition+indexFields">.indexFields(indexedFields)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
-<li><a href="#QueryDefinition+sortBy">.sortBy(sort)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
-<li><a href="#QueryDefinition+include">.include(includes)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
-<li><a href="#QueryDefinition+limitBy">.limitBy(limit)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
-<li><a href="#QueryDefinition+offset">.offset(skip)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
-<li><a href="#QueryDefinition+offsetCursor">.offsetCursor(cursor)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
-<li><a href="#QueryDefinition+offsetBookmark">.offsetBookmark(bookmark)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
-<li><a href="#QueryDefinition+referencedBy">.referencedBy(document)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
-</ul>
-</li>
+<li><a href="#QueryDefinition">QueryDefinition</a>
+    * <a href="#new_QueryDefinition_new">new QueryDefinition(options)</a>
+    * <a href="#QueryDefinition+checkSortOrder">.checkSortOrder(sort|selector|indexedFields)</a>
+    * <a href="#QueryDefinition+getById">.getById(id)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a>
+    * <a href="#QueryDefinition+getByIds">.getByIds(ids)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a>
+    * <a href="#QueryDefinition+where">.where(selector)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a>
+    * <a href="#QueryDefinition+select">.select(fields)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a>
+    * <a href="#QueryDefinition+indexFields">.indexFields(indexedFields)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a>
+    * <a href="#QueryDefinition+sortBy">.sortBy(sort)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a>
+    * <a href="#QueryDefinition+include">.include(includes)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a>
+    * <a href="#QueryDefinition+limitBy">.limitBy(limit)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a>
+    * <a href="#QueryDefinition+offset">.offset(skip)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a>
+    * <a href="#QueryDefinition+offsetCursor">.offsetCursor(cursor)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a>
+    * <a href="#QueryDefinition+offsetBookmark">.offsetBookmark(bookmark)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a>
+    * <a href="#QueryDefinition+referencedBy">.referencedBy(document)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
 </ul>
 <p><a name="new_QueryDefinition_new"></a></p>
 <h3 id="new-querydefinitionoptions">new QueryDefinition(options)<a class="headerlink" href="#new-querydefinitionoptions" title="Permanent link">&para;</a></h3>
@@ -6871,12 +6849,10 @@ the index for the next query.</p>
 
 <p><strong>Kind</strong>: global class  </p>
 <ul>
-<li><a href="#Schema">Schema</a><ul>
-<li><a href="#Schema+getDoctypeSchema">.getDoctypeSchema()</a></li>
-<li><a href="#Schema+getRelationship">.getRelationship()</a></li>
-<li><a href="#Schema+validate">.validate()</a></li>
-</ul>
-</li>
+<li><a href="#Schema">Schema</a>
+    * <a href="#Schema+getDoctypeSchema">.getDoctypeSchema()</a>
+    * <a href="#Schema+getRelationship">.getRelationship()</a>
+    * <a href="#Schema+validate">.validate()</a></li>
 </ul>
 <p><a name="Schema+getDoctypeSchema"></a></p>
 <h3 id="schemagetdoctypeschema">schema.getDoctypeSchema()<a class="headerlink" href="#schemagetdoctypeschema" title="Permanent link">&para;</a></h3>
@@ -7969,13 +7945,11 @@ document  </p>
 <p>Trigger states come from /jobs/triggers</p>
 <p><strong>Kind</strong>: global constant  </p>
 <ul>
-<li><a href="#triggerStates">triggerStates</a><ul>
-<li><a href="#triggerStates.getLastExecution">.getLastExecution()</a></li>
-<li><a href="#triggerStates.getLastsuccess">.getLastsuccess()</a></li>
-<li><a href="#triggerStates.isErrored">.isErrored()</a></li>
-<li><a href="#triggerStates.getLastErrorType">.getLastErrorType()</a></li>
-</ul>
-</li>
+<li><a href="#triggerStates">triggerStates</a>
+    * <a href="#triggerStates.getLastExecution">.getLastExecution()</a>
+    * <a href="#triggerStates.getLastsuccess">.getLastsuccess()</a>
+    * <a href="#triggerStates.isErrored">.isErrored()</a>
+    * <a href="#triggerStates.getLastErrorType">.getLastErrorType()</a></li>
 </ul>
 <p><a name="triggerStates.getLastExecution"></a></p>
 <h3 id="triggerstatesgetlastexecution">triggerStates.getLastExecution()<a class="headerlink" href="#triggerstatesgetlastexecution" title="Permanent link">&para;</a></h3>
@@ -8005,11 +7979,9 @@ document  </p>
 
 
 <ul>
-<li><a href="#fetchPolicies">fetchPolicies</a><ul>
-<li><a href="#fetchPolicies.olderThan">.olderThan(delay)</a> ⇒ <code>function</code></li>
-<li><a href="#fetchPolicies.noFetch">.noFetch()</a></li>
-</ul>
-</li>
+<li><a href="#fetchPolicies">fetchPolicies</a>
+    * <a href="#fetchPolicies.olderThan">.olderThan(delay)</a> ⇒ <code>function</code>
+    * <a href="#fetchPolicies.noFetch">.noFetch()</a></li>
 </ul>
 <p><a name="fetchPolicies.olderThan"></a></p>
 <h3 id="fetchpoliciesolderthandelay-function">fetchPolicies.olderThan(delay) ⇒ <code>function</code><a class="headerlink" href="#fetchpoliciesolderthandelay-function" title="Permanent link">&para;</a></h3>

@@ -3305,31 +3305,25 @@ problem. We are trying to find solution to handle that.</p>
 <p>We found 3 possible solutions :</p>
 <ul>
 <li>Install the konnector on VFS as tar.gz files with all the dependencies
-    included by the konnector developper<ul>
-<li>advantages : easy for the konnector developper, as performant as a cp,
-    no nedd for a compiled version of the konnector source, no duplication
-    of code in the repo</li>
-<li>drawbacks : The source are not readable in files application then more
-    complicated to study the konnector source, not really nice&hellip; , still
-    could take a lot of space on VFS</li>
-</ul>
-</li>
+    included by the konnector developper
+    -   advantages : easy for the konnector developper, as performant as a cp,
+        no nedd for a compiled version of the konnector source, no duplication
+        of code in the repo
+    -   drawbacks : The source are not readable in files application then more
+        complicated to study the konnector source, not really nice&hellip; , still
+        could take a lot of space on VFS</li>
 <li>Use webpack with <code>target: node</code> option to make a node bundle of the
-    dependencies<ul>
-<li>advantages : the konnector itself stays in clear on the VFS</li>
-<li>drawbacks : forces a compilation of the sources and then a sync between
-    the source and bundle in the git repo by the konnector developper,
-    forces konnector developpers to use webpack.</li>
-</ul>
-</li>
+    dependencies
+    -   advantages : the konnector itself stays in clear on the VFS
+    -   drawbacks : forces a compilation of the sources and then a sync between
+        the source and bundle in the git repo by the konnector developper,
+        forces konnector developpers to use webpack.</li>
 <li>Install the npm dependencies with yarn in an immutable cache (&ndash;cache-folder
-    option) in a directory like deps-${konnector-git-sha1} not in VFS.<ul>
-<li>advantages : easier for the konnector developper, no particular
-    dependency handling, no mandatory compilation, just a package.json in
-    the git repository, the cache can be shared by instances</li>
-<li>drawbacks : node only solution, maybe more work on the cozy-stack side</li>
-</ul>
-</li>
+    option) in a directory like deps-${konnector-git-sha1} not in VFS.
+    -   advantages : easier for the konnector developper, no particular
+        dependency handling, no mandatory compilation, just a package.json in
+        the git repository, the cache can be shared by instances
+    -   drawbacks : node only solution, maybe more work on the cozy-stack side</li>
 </ul>
 <h2 id="todo">TODO<a class="headerlink" href="#todo" title="Permanent link">&para;</a></h2>
 <ul>

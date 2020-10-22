@@ -2604,8 +2604,10 @@
                 
                 
                 <ul>
-<li><a href="#cozy-shared-doctype">Cozy shared doctype</a></li>
+<li><a href="#cozy-shared-doctype">Cozy shared doctype</a><ul>
 <li><a href="#iocozyshared"><code>io.cozy.shared</code></a></li>
+</ul>
+</li>
 </ul>
 <h1 id="cozy-shared-doctype">Cozy shared doctype<a class="headerlink" href="#cozy-shared-doctype" title="Permanent link">&para;</a></h1>
 <h2 id="iocozyshared"><code>io.cozy.shared</code><a class="headerlink" href="#iocozyshared" title="Permanent link">&para;</a></h2>
@@ -2613,12 +2615,14 @@
 tracks the sharings and its references, its infos &amp; revisions across the stack.</p>
 <ul>
 <li><code>revisions</code> {object}: Tree of revisions of a sharing</li>
-<li><code>infos</code> {map[string]object}: Infos of the sharing</li>
+<li><code>infos</code> {map[string]object}: Infos of the sharing<ul>
 <li><code>rule</code> {int}: Index of the rule inside the sharing rules</li>
 <li><code>removed</code> {bool}: Either the document has been deleted, the file is trashed,
-    or the document does no longer match the sharing rule</li>
+  or the document does no longer match the sharing rule</li>
 <li><code>binary</code> {bool}: Only true if the sharing is a file and has not been
-    trashed</li>
+  trashed</li>
+</ul>
+</li>
 </ul>
 <p>For more informations, see the <a href="https://docs.cozy.io/en/cozy-stack/sharing-design/#iocozyshared">official documentation</a></p>
                 

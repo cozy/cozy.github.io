@@ -40,12 +40,8 @@ const IncomeToggle = ({ withIncome, onToggle }) => {
   const theme = useCozyTheme()
   const { t } = useI18n()
 
-  const handleClick = useCallback(
-    ev => {
-      return onToggle(ev.target.checked)
-    },
-    [onToggle]
-  )
+  const handleClick = useCallback(ev => onToggle(ev.target.checked), [onToggle])
+
   return (
     <div className={cx(styles.CategoriesHeader__Toggle, styles[theme])}>
       <Switch

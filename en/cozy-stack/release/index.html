@@ -2594,26 +2594,20 @@ the following format:</p>
 <h1 id="sprint-release">Sprint release<a class="headerlink" href="#sprint-release" title="Permanent link">&para;</a></h1>
 <p>At the end of a sprint, we release different versions of the stack:</p>
 <ul>
-<li>
-<p>&ldquo;Naked&rdquo; stack, for GNU/Linux amd64/arm, FreeBSD amd64 &amp; Docker</p>
-<ul>
-<li>Create a tag <code>yyyyMmSs</code> and push it</li>
-<li>Generate all binaries, checksums, Docker images and signatures with
-    <code>./scripts/release.sh</code></li>
-<li>Create a GitHub release and upload all previously generated assets with
-    <code>./scripts/release.rb</code></li>
-</ul>
+<li>&ldquo;Naked&rdquo; stack, for GNU/Linux amd64/arm, FreeBSD amd64 &amp; Docker<p>-   Create a tag <code>yyyyMmSs</code> and push it
+  -   Generate all binaries, checksums, Docker images and signatures with
+      <code>./scripts/release.sh</code>
+  -   Create a GitHub release and upload all previously generated assets with
+      <code>./scripts/release.rb</code></p>
 </li>
-<li>
-<p>Debian self-hosting packages</p>
-<ul>
-<li>Create a new version <code>yyyyMmSs-1</code> on
-    https://github.com/cozy/debian-cozy/blob/master/changelog</li>
-<li>Create and push a tag <code>yyyyMmSs-1</code> on
-    <code>https://github.com/cozy/debian-cozy</code></li>
-<li>Build and publish packages on our internal build machine</li>
 </ul>
-</li>
+<ul>
+<li>Debian self-hosting packages
+    -   Create a new version <code>yyyyMmSs-1</code> on
+        https://github.com/cozy/debian-cozy/blob/master/changelog
+    -   Create and push a tag <code>yyyyMmSs-1</code> on
+        <code>https://github.com/cozy/debian-cozy</code>
+    -   Build and publish packages on our internal build machine</li>
 </ul>
                 
                   

@@ -2686,11 +2686,13 @@ Some basic doctypes are provided by cozy, but you can pick your own.</p>
 <p><code>cozy.client.init(options)</code> setups initialize the global cozy instance.</p>
 <p>It does not return a value.</p>
 <ul>
-<li><code>options</code> is an object with the following fields:</li>
+<li><code>options</code> is an object with the following fields:<ul>
 <li><code>cozyURL</code>: absolute url of the cozy stack</li>
 <li><code>disablePromises</code>: boolean to make function that returns promise used with a classical &ldquo;callback as last argument&rdquo; (default value is <em>false</em>)</li>
 <li><code>oauth</code>: an object with the OAuth parameters, see <a href="../oauth/">OAuth</a> for details</li>
 <li><code>version</code>: the version of Cozy (2 or 3), it&rsquo;s optional, by default with a request to the server it can deduce automatically the version. (Must be specified for an offline mode)</li>
+</ul>
+</li>
 </ul>
 <div class="codehilite"><pre><span></span><span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">init</span><span class="p">({</span>
   <span class="nx">cozyURL</span><span class="o">:</span> <span class="s1">&#39;http://cozy.tools:8080&#39;</span><span class="p">,</span>

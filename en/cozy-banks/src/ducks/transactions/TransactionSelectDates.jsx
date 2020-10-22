@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import SelectDates from 'components/SelectDates'
 import { uniq, last } from 'lodash'
 import {
@@ -41,13 +41,11 @@ export const getOptions = transactions => {
   })
 }
 
-class TransactionSelectDates extends PureComponent {
-  render() {
-    const { transactions, ...rest } = this.props
-    const options = getOptions(transactions)
+const TransactionSelectDates = props => {
+  const { transactions, ...rest } = props
+  const options = getOptions(transactions)
 
-    return <SelectDates options={options} {...rest} />
-  }
+  return <SelectDates options={options} {...rest} />
 }
 
-export default TransactionSelectDates
+export default React.memo(TransactionSelectDates)

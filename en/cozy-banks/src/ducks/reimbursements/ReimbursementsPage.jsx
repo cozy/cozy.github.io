@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { flowRight as compose } from 'lodash'
-import { withBreakpoints, useI18n } from 'cozy-ui/transpiled/react'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import Header from 'components/Header'
 import { Padded } from 'components/Spacing'
 import { PageTitle } from 'components/Title'
@@ -32,40 +32,34 @@ const getTitleTranslationKey = doc => {
 
 const Title = ({ doc }) => {
   const { t } = useI18n()
-
   const translationKey = getTitleTranslationKey(doc)
-
   return <PageTitle>{t(translationKey)}</PageTitle>
 }
 
-class RawReimbursementsPage extends React.Component {
-  render() {
-    const {
-      breakpoints: { isMobile },
-      filteringDoc
-    } = this.props
+const RawReimbursementsPage = props => {
+  const { isMobile } = useBreakpoints()
+  const { filteringDoc } = props
 
-    return (
-      <>
-        <Header theme="inverted" fixed>
-          <Padded
-            className={cx({
-              'u-ph-half': isMobile,
-              'u-pv-0': isMobile,
-              'u-pb-half': isMobile
-            })}
-          >
-            <div className={styles.ReimbursementsPage__title}>
-              <BackButton theme="primary" arrow />
-              <Title doc={filteringDoc} />
-            </div>
-            <ConnectedSelectDates showFullYear color="primary" />
-          </Padded>
-        </Header>
-        <Reimbursements />
-      </>
-    )
-  }
+  return (
+    <>
+      <Header theme="inverted" fixed>
+        <Padded
+          className={cx({
+            'u-ph-half': isMobile,
+            'u-pv-0': isMobile,
+            'u-pb-half': isMobile
+          })}
+        >
+          <div className={styles.ReimbursementsPage__title}>
+            <BackButton theme="primary" arrow />
+            <Title doc={filteringDoc} />
+          </div>
+          <ConnectedSelectDates showFullYear color="primary" />
+        </Padded>
+      </Header>
+      <Reimbursements />
+    </>
+  )
 }
 
 function mapStateToProps(state) {
@@ -74,8 +68,6 @@ function mapStateToProps(state) {
   }
 }
 
-const ReimbursementsPage = compose(
-  withBreakpoints(),
-  connect(mapStateToProps)
-)(RawReimbursementsPage)
+const ReimbursementsPage = connect(mapStateToProps)(RawReimbursementsPage)
+
 export default ReimbursementsPage

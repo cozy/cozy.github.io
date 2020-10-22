@@ -2692,18 +2692,16 @@ packages for each function, some pitfalls could be avoided :</p>
     need to be investigated deeper.</li>
 <li>Binaries will NOT be stored in couchdb. We will only store in couchdb
     reference to the file in another storage solution (FS / Swift)</li>
-<li>The stack will use couchdb in 2 ways :<ol>
-<li>Just proxying to/from the client, we will still need to parse the JSON,
-   but will only read or changes a few special fields (<code>_id</code>, <code>_type</code>,
-   <code>_tags</code> ....) for ACL and then pipe it to/from couchdb. We wont need to
-   make sense of the whole document and can eventually get away without
-   parsing it on some routes. This part should be totally flexible on the
-   json content.</li>
-<li>Some APIs and Jobs will need to make sense of the given documents, so
-   (un)marshal them from/into smarter struct (CalendarEvent) to be used in
-   business logic.</li>
-</ol>
-</li>
+<li>The stack will use couchdb in 2 ways :
+    1. Just proxying to/from the client, we will still need to parse the JSON,
+       but will only read or changes a few special fields (<code>_id</code>, <code>_type</code>,
+       <code>_tags</code> ....) for ACL and then pipe it to/from couchdb. We wont need to
+       make sense of the whole document and can eventually get away without
+       parsing it on some routes. This part should be totally flexible on the
+       json content.
+    2. Some APIs and Jobs will need to make sense of the given documents, so
+       (un)marshal them from/into smarter struct (CalendarEvent) to be used in
+       business logic.</li>
 </ul>
 <h2 id="analysis">Analysis<a class="headerlink" href="#analysis" title="Permanent link">&para;</a></h2>
 <ul>

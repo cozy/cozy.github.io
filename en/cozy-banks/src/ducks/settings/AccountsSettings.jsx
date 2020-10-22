@@ -6,7 +6,6 @@ import sortBy from 'lodash/sortBy'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Button from 'cozy-ui/transpiled/react/Button'
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import { Caption } from 'cozy-ui/transpiled/react/Text'
 import List from 'cozy-ui/transpiled/react/MuiCozyTheme/List'
 import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
 import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
@@ -36,7 +35,7 @@ import { Unpadded } from 'components/Spacing/Padded'
 
 const { utils } = models
 
-const AccountListItem = ({ account, onClick, secondaryText }) => {
+const AccountListItem = ({ account, onClick, secondary }) => {
   return (
     <ListItem onClick={onClick} className="u-c-pointer">
       <ListItemIcon>
@@ -50,8 +49,8 @@ const AccountListItem = ({ account, onClick, secondaryText }) => {
         </AccountIconContainer>
       </ListItemIcon>
       <ListItemText
-        primaryText={getAccountInstitutionLabel(account)}
-        secondaryText={secondaryText}
+        primary={getAccountInstitutionLabel(account)}
+        secondary={secondary}
       />
       <ListItemSecondaryAction>
         <Icon icon="right" className="u-coolGrey u-mr-1" />
@@ -102,14 +101,14 @@ export const AccountsList = ({ accounts }) => {
           <AccountListItem
             key={accounts[0]._id}
             account={accounts[0]}
-            secondaryText={
+            secondary={
               connection ? (
                 connection.auth.identifier
               ) : (
-                <Caption>
+                <>
                   <Icon icon="unlink" size="8" className="u-mr-half" />
                   {t('Harvest.disconnected-account')}
-                </Caption>
+                </>
               )
             }
             onClick={() => {

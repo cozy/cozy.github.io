@@ -2817,12 +2817,18 @@ Adapt your <code>sources.list</code> accordingly.</p>
 </div>
 <p>Supported repositories are:</p>
 <ul>
-<li>Debian Buster (10.x)</li>
+<li>Debian Buster (10.x)<ul>
 <li>deb <a href="https://apt.cozy.io/debian/">https://apt.cozy.io/debian/</a> buster testing</li>
-<li>Raspbian Buster (10.x)</li>
+</ul>
+</li>
+<li>Raspbian Buster (10.x)<ul>
 <li>deb <a href="https://apt.cozy.io/raspbian/">https://apt.cozy.io/raspbian/</a> buster testing</li>
-<li>Ubuntu Disco (19.04)</li>
+</ul>
+</li>
+<li>Ubuntu Disco (19.04)<ul>
 <li>deb <a href="https://apt.cozy.io/ubuntu/">https://apt.cozy.io/ubuntu/</a> disco testing</li>
+</ul>
+</li>
 </ul>
 <div class="codehilite"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;deb https://apt.cozy.io/debian/ buster testing&quot;</span> &gt; /etc/apt/sources.list.d/cozy.list
 apt update
@@ -2859,9 +2865,11 @@ apt update
 <li>Admin user: by default, it&rsquo;s <code>admin</code></li>
 <li>Admin password: put the one you choose during CouchDB setup</li>
 <li>Cozy user: by default, it&rsquo;s <code>cozy</code></li>
-<li>Cozy password: pick a password</li>
-</ul>
+<li>
+<p>Cozy password: pick a password</p>
 <p>(Those passwords are used by shell scripts, so currently avoid to use ones with simple or double quotes or others shell meaningfull symbols. We advice you to choose ones with only alphanumeric digits to avoid troubles.)</p>
+</li>
+</ul>
 <p>For stack management (create instances, install applications&hellip;), <a href="https://github.com/cozy/cozy-stack/blob/2ae446d85b60c89fb56cad1f7ed469cddca94494/docs/config.md#user-content-administration-secret">Cozy need an administrator password</a>. So pick a new one.
 When invoking <code>cozy-stack</code> (or <code>cozy-coclyco</code> which use it under the hood), you need to set the <code>COZY_ADMIN_PASSWORD</code> environment variable with this password. You can put it on your <code>.bashrc</code> for simplier life if you want. If you don&rsquo;t, cozy-stack will simply ask for it.</p>
 <p>At this point, you must have a working Cozy stack, depending on the branch you&rsquo;ve chosen you can get a different version displayed.</p>
