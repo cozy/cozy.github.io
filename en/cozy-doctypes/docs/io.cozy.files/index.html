@@ -2794,22 +2794,28 @@
 <li><code>executable</code>: {bool} true is the file has the executable bit on UNIX (<code>chmod +x</code>)</li>
 <li><code>class</code>: {string} a class in the list: <code>['image', 'document', 'audio', 'video', 'text', 'binary']</code></li>
 <li><code>mime</code>: {string} the full mime-type</li>
-<li><code>metadata</code>: {map} an optional map of metadata (<a href="../io.cozy.files_metadata/">Full metadata description</a>), with for example:
-    - <code>width</code>: {number}
-    - <code>height</code>: {number}
-    - <code>datetime</code>: {date} : date in original image file metadata
-    - <code>gps</code>: {map} : localization metadata with the following attributes
-        - <code>lat</code>: {float}: latitude
-        - <code>long</code>: {float}: longitude
-        - <code>city</code>: {string}: nearest city (optional)
-        - <code>zip</code>: {string}: postal code of the nearest city (optional)
-        - <code>country</code>: {string}: name of the associated country if any (optional)
-    - <code>persons</code>: {array}: the maps can have the following attributes (optional)
-        - <code>name</code>: {string}: then name of the tagged person on the photo
-        - <code>created_at</code>: {date}: date of creation of the tag
-        - <code>x</code>: {float}: x coordinate in the photo where the person is
-        - <code>y</code>: {float}: y coordinate in the photo where the person is
-    - <code>icon</code>: {string} : A small SVG file to use as icon for this file (optional)</li>
+<li><code>metadata</code>: {map} an optional map of metadata (<a href="../io.cozy.files_metadata/">Full metadata description</a>), with for example:<ul>
+<li><code>width</code>: {number}</li>
+<li><code>height</code>: {number}</li>
+<li><code>datetime</code>: {date} : date in original image file metadata</li>
+<li><code>gps</code>: {map} : localization metadata with the following attributes<ul>
+<li><code>lat</code>: {float}: latitude</li>
+<li><code>long</code>: {float}: longitude</li>
+<li><code>city</code>: {string}: nearest city (optional)</li>
+<li><code>zip</code>: {string}: postal code of the nearest city (optional)</li>
+<li><code>country</code>: {string}: name of the associated country if any (optional)</li>
+</ul>
+</li>
+<li><code>persons</code>: {array}: the maps can have the following attributes (optional)<ul>
+<li><code>name</code>: {string}: then name of the tagged person on the photo</li>
+<li><code>created_at</code>: {date}: date of creation of the tag</li>
+<li><code>x</code>: {float}: x coordinate in the photo where the person is</li>
+<li><code>y</code>: {float}: y coordinate in the photo where the person is</li>
+</ul>
+</li>
+<li><code>icon</code>: {string} : A small SVG file to use as icon for this file (optional)</li>
+</ul>
+</li>
 </ul>
 <p>It also has a relationship with its <code>parent</code> in the JSON-API representation.</p>
 <p>For an <code>image</code>, there are 3 links to thumbnails: <code>small</code>, <code>medium</code>, and <code>large</code>. 
@@ -2824,10 +2830,12 @@ It appears in the JSON-API representation as a <code>refererenced_by</code> rela
 <li><code>createdOn</code>: {string} the instance URL on which the file has created (useful if the file is shared between several cozy instances)</li>
 <li><code>uploadedAt</code>: {date} the server date/time of the last upload (when the content was changed)</li>
 <li><code>uploadedOn</code>: {string} the instance URL on which the file content was changed the last time</li>
-<li><code>uploadedBy</code>: {map} information on which app has made the last upload
-    - <code>slug</code>: {string} the slug of the application that has made the upload
-    - <code>version</code>: {string} the version number of this application
-    - <code>oauthClient</code>: {map} if the upload was made by an OAuth Client, information about it (<code>id</code>, <code>name</code>, and <code>kind</code>)</li>
+<li><code>uploadedBy</code>: {map} information on which app has made the last upload<ul>
+<li><code>slug</code>: {string} the slug of the application that has made the upload</li>
+<li><code>version</code>: {string} the version number of this application</li>
+<li><code>oauthClient</code>: {map} if the upload was made by an OAuth Client, information about it (<code>id</code>, <code>name</code>, and <code>kind</code>)</li>
+</ul>
+</li>
 </ul>
 <h3 id="example-json-api-format">Example (JSON-API format)<a class="headerlink" href="#example-json-api-format" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="p">{</span>

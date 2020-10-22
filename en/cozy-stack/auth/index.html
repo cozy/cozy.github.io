@@ -3310,28 +3310,30 @@ OAuth2) to allow the clients to obtain them.</p>
 <p>OAuth2 has a lot of assumptions. Let&rsquo;s see some of them and their consequences
 on Cozy:</p>
 <ul>
-<li>TLS is very important to secure the communications. in OAuth 1, there was a
+<li>
+<p>TLS is very important to secure the communications. in OAuth 1, there was a
     mechanism to sign the requests. But it was very difficult to get it right
     for the developers and was abandonned in OAuth2, in favor of using TLS. The
     Cozy instance are already accessible only in HTTPS, so there is nothing
-    particular to do for that.</li>
-</ul>
-<ul>
-<li>There is a principle called TOFU, Trust On First Use. It said that if the
+    particular to do for that.</p>
+</li>
+<li>
+<p>There is a principle called TOFU, Trust On First Use. It said that if the
     user will give his permission for delegating access to its resources when
     the client will try to access them for the first time. Later, the client
     will be able to keep accessing them even if the user is no longer here to
-    give his permissions.</li>
-</ul>
-<ul>
-<li>The client can&rsquo;t make the assumptions about when its tokens will work. The
+    give his permissions.</p>
+</li>
+<li>
+<p>The client can&rsquo;t make the assumptions about when its tokens will work. The
     tokens have no meaning for him (like cookies in a browser), they are just
     something it got from the authorization server and can send with its
-    request. The access token can expire, the user can revoke them, etc.</li>
-</ul>
-<ul>
-<li>OAuth 2.0 defines no cryptographic methods. But a developer that want to use
-    it will have to put her hands in that.</li>
+    request. The access token can expire, the user can revoke them, etc.</p>
+</li>
+<li>
+<p>OAuth 2.0 defines no cryptographic methods. But a developer that want to use
+    it will have to put her hands in that.</p>
+</li>
 </ul>
 <p>If you want to learn OAuth 2 in details, I recommend the
 <a href="https://www.manning.com/books/oauth-2-in-action">OAuth 2 in Action book</a>.</p>
@@ -3572,11 +3574,13 @@ for the details.</p>
     retains, and discloses personal data</li>
 <li><code>software_version</code>, a version identifier string for the client software.</li>
 <li><code>notification_platform</code>, to activate notifications on the associated device,
-    this field specify the platform used to send notifications:
-    -   <code>"android"</code>: for Android devices with notifications via Firebase Cloud
-        Messaging
-    -   <code>"ios"</code>: for iOS devices with notifications via Firebase Cloud
-        Messaging or APNS/2</li>
+    this field specify the platform used to send notifications:<ul>
+<li><code>"android"</code>: for Android devices with notifications via Firebase Cloud
+    Messaging</li>
+<li><code>"ios"</code>: for iOS devices with notifications via Firebase Cloud
+    Messaging or APNS/2</li>
+</ul>
+</li>
 <li><code>notification_device_token</code>, the token used to identify the mobile device
     for notifications.</li>
 </ul>

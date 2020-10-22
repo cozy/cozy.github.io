@@ -2604,31 +2604,27 @@
                 
                 
                 <ul>
-<li><a href="#cozy-jobs-doctype">Cozy jobs doctype</a><ul>
+<li><a href="#cozy-jobs-doctype">Cozy jobs doctype</a></li>
 <li><a href="#iocozyjobs"><code>io.cozy.jobs</code></a></li>
-</ul>
-</li>
 </ul>
 <h1 id="cozy-jobs-doctype">Cozy jobs doctype<a class="headerlink" href="#cozy-jobs-doctype" title="Permanent link">&para;</a></h1>
 <h2 id="iocozyjobs"><code>io.cozy.jobs</code><a class="headerlink" href="#iocozyjobs" title="Permanent link">&para;</a></h2>
 <p>The <code>io.cozy.jobs</code> doctype holds the informations about the instance jobs. Jobs are created by triggers to handle specific background tasks.</p>
 <ul>
 <li><code>domain</code> {string}: The instance domain of the job</li>
-<li><code>worker</code> {string}: Worker type<ul>
+<li><code>worker</code> {string}: Worker type</li>
 <li><code>service</code>: Handle services (bank operations matching for example)</li>
 <li><code>konnector</code>: Handle konnectors executions</li>
 <li><code>thumbnail</code>: Handle image thumbnails computation</li>
 <li><code>sendmail</code>: Manages all the mail-related work (sharings, 2FA, passphrase
-  reset, &hellip;)</li>
+    reset, &hellip;)</li>
 <li><code>migrations</code>: Used to handle Swift layout migrations</li>
 <li><code>move</code>: Move worker role is to export an instance data</li>
 <li><code>push</code>: This worker is responsible of mobile notifications</li>
 <li><code>share-*</code>: <code>share-track</code>, <code>share-replicate</code> &amp; <code>share-upload</code> manage all the
-  share-related data between the instances.</li>
+    share-related data between the instances.</li>
 <li><code>unzip</code>: Unzip files</li>
 <li><code>updates</code>: Handle app/konnectors updates</li>
-</ul>
-</li>
 <li><code>message</code> {object}: Contains all the specific-worker data (slug, script name,
   &hellip;)</li>
 <li><code>manual_execution</code> {bool}: Tells if the job has been manually excuted</li>

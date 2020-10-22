@@ -2771,10 +2771,12 @@ automatically using [Travis-CI][travis].</p>
 <ul>
 <li>On your [travis-ci.org][travis] account, find your project name (should be the same than your Github repository) and enable Travis by using the related checkbox.</li>
 <li>Once enabled, go to this project on Travis by clicking on it and go to the &ldquo;Settings&rdquo; menu by using the &ldquo;More options&rdquo; menu at the top right.</li>
-<li>Enable these three options:
-    * &ldquo;Build only if .travis.yml is present&rdquo;
-    * &ldquo;Build branch updates&rdquo; (run Travis after each branch update)
-    * &ldquo;Build pull request updates&rdquo; (run Travis after each Pull Request update)</li>
+<li>Enable these three options:<ul>
+<li>&ldquo;Build only if .travis.yml is present&rdquo;</li>
+<li>&ldquo;Build branch updates&rdquo; (run Travis after each branch update)</li>
+<li>&ldquo;Build pull request updates&rdquo; (run Travis after each Pull Request update)</li>
+</ul>
+</li>
 <li>Then, you have to generate a Github token in <a href="https://github.com/settings/tokens">your Github account settings</a>. Here is the <a href="https://github.com/blog/1509-personal-api-tokens">Github blog post about API token</a>. Don&rsquo;t forget to authorize the access to the repo scope like following: <img alt="repo scope" src="https://cloud.githubusercontent.com/assets/10224453/26671128/aa735ec2-46b4-11e7-9cd0-25310100e05e.png" /></li>
 <li>Then, add an environment variable (still in your Travis project settings) named <code>GITHUB_TOKEN</code> and use your previous generated Github token as value (We highly recommand you to <strong>keep the checkbox &ldquo;Display value in build log&rdquo; to OFF value</strong> in order to keep your token value hidden in the Travis logs.)</li>
 </ul>

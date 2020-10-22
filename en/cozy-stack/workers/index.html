@@ -3219,16 +3219,20 @@ example of configuration in the <a href="https://github.com/cozy/cozy-stack/blob
 file at the root of this repository.</p>
 <p><code>sendmail</code> options fields are the following:</p>
 <ul>
-<li><code>mode</code>: string specifying the mode of the send:
-    -   <code>noreply</code> to send a notification mail to the user
-    -   <code>from</code> to send a mail from the user</li>
+<li><code>mode</code>: string specifying the mode of the send:<ul>
+<li><code>noreply</code> to send a notification mail to the user</li>
+<li><code>from</code> to send a mail from the user</li>
+</ul>
+</li>
 <li><code>to</code>: list of object <code>{name, email}</code> representing the addresses of the
     recipients. (should not be used in <code>noreply</code> mode)</li>
 <li><code>subject</code>: string specifying the subject of the mail</li>
 <li><code>parts</code>: list of part objects <code>{type, body}</code> listing representing the
-    content parts of the
-    -   <code>type</code> string of the content type: either <code>text/html</code> or <code>text/plain</code>
-    -   <code>body</code> string of the actual body content of the part</li>
+    content parts of the<ul>
+<li><code>type</code> string of the content type: either <code>text/html</code> or <code>text/plain</code></li>
+<li><code>body</code> string of the actual body content of the part</li>
+</ul>
+</li>
 <li><code>attachments</code>: list of objects <code>{filename, content}</code> that represent the
     files attached to the email</li>
 </ul>

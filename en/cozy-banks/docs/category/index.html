@@ -2550,12 +2550,16 @@ categorization with the following constraints :</p>
 <li>1) Manual categorization wins over automatic categorization and we do not want to spread this intelligence over all the actors</li>
 <li>2) We want to keep a trace of manual categorization in each bank operation</li>
 <li>3) We want to keep a trace of automatic categorization in each bank operation</li>
-<li>4) Several actors can modify category : Banks application, linxo connector, a futur bank service which will handle automatic categorization for non-linxo bank connectors
-    * the Banks application will only modify the manual category
-    * the linxo connector and the bank service will only modify the automatic category</li>
-<li>5) actors reading the category : Banks application, futur bank service for centralization of categorization data
-    * the Banks application needs the result of 1)
-    * the service needs automatic category and manual category</li>
+<li>4) Several actors can modify category : Banks application, linxo connector, a futur bank service which will handle automatic categorization for non-linxo bank connectors<ul>
+<li>the Banks application will only modify the manual category</li>
+<li>the linxo connector and the bank service will only modify the automatic category</li>
+</ul>
+</li>
+<li>5) actors reading the category : Banks application, futur bank service for centralization of categorization data<ul>
+<li>the Banks application needs the result of 1)</li>
+<li>the service needs automatic category and manual category</li>
+</ul>
+</li>
 </ul>
 <h1 id="solutions">Solutions<a class="headerlink" href="#solutions" title="Permanent link">&para;</a></h1>
 <p>We see that we can&rsquo;t avoid to keep to separated categories : manual and automatic, even if manual

@@ -3402,27 +3402,31 @@ The resolution takes 4 steps:</p>
 <li>A list of <code>members</code>. The first one is the owner. For each member, we have
     the URL of the cozy, a contact name, a public name, an email, a status, a
     read-only flag, and some credentials to authorize the transfer of data
-    between the owner and the recipients. The status can be:
-    -   <code>owner</code> for the member that has created the sharing
-    -   <code>mail-not-sent</code> for a member that has been added, but its invitation
-        has not yet been sent (often, this status is used only for a few
-        seconds)
-    -   <code>pending</code> for a member with an invitation sent, but who has not clicked
-        on the link
-    -   <code>seen</code> for a member that has clicked on the invitation link, but has not
-        setup the Cozy to Cozy replication for the sharing
-    -   <code>ready</code> for a member where the Cozy to Cozy replication has been set up
-    -   <code>revoked</code> for a member who is on longer in the sharing</li>
+    between the owner and the recipients. The status can be:<ul>
+<li><code>owner</code> for the member that has created the sharing</li>
+<li><code>mail-not-sent</code> for a member that has been added, but its invitation
+    has not yet been sent (often, this status is used only for a few
+    seconds)</li>
+<li><code>pending</code> for a member with an invitation sent, but who has not clicked
+    on the link</li>
+<li><code>seen</code> for a member that has clicked on the invitation link, but has not
+    setup the Cozy to Cozy replication for the sharing</li>
+<li><code>ready</code> for a member where the Cozy to Cozy replication has been set up</li>
+<li><code>revoked</code> for a member who is on longer in the sharing</li>
+</ul>
+</li>
 <li>A <code>description</code> (one sentence that will help people understand what is
     shared and why)</li>
 <li>A flag <code>active</code> that says if the sharing is currently active for at least
     one member</li>
 <li>A flag <code>owner</code>, true for the document on the cozy of the sharer, and false
     on the other cozy instance</li>
-<li>A flag <code>open_sharing</code>:
-    -   <code>true</code> if any member of the sharing except the read-only ones can add a
-        new recipient
-    -   <code>false</code> if only the owner can add a new recipient</li>
+<li>A flag <code>open_sharing</code>:<ul>
+<li><code>true</code> if any member of the sharing except the read-only ones can add a
+    new recipient</li>
+<li><code>false</code> if only the owner can add a new recipient</li>
+</ul>
+</li>
 <li>Some technical data (<code>created_at</code>, <code>updated_at</code>, <code>app_slug</code>, <code>preview_path</code>,
     <code>triggers</code>, <code>credentials</code>)</li>
 <li>A number of files to synchronize for the initial sync,
@@ -3430,65 +3434,79 @@ The resolution takes 4 steps:</p>
     initial replication has finished, the field won&rsquo;t be here)</li>
 <li>A <code>shortcut_id</code> with the identifier of the shortcut file (when the
     recipient doesn&rsquo;t want to synchronize the documents on their Cozy instance)</li>
-<li>A list of sharing <code>rules</code>, each rule being composed of:
-    -   a <code>title</code>, that will be displayed to the recipients before they accept
-        the sharing
-    -   a <code>doctype</code> (and a <code>mime</code> if the doctype is <code>io.cozy.files</code>)
-    -   a <code>selector</code> (by default, it’s the <code>id</code>) and <code>values</code> (one identifier, a
-        list of identifiers, files and folders inside a folder, files that are
-        referenced by the same document, documents bound to a previous sharing
-        rule)
-    -   <code>local</code>: by default <code>false</code>, but it can be <code>true</code> for documents that are
-        useful for the preview page but doesn’t need to be send to the
-        recipients (e.g. a setting document of the application)
-    -   <code>add</code>: a behavior when a new document matches this rule (the document is
-        created, or it was a document that didn’t match the rule and is modified
-        and the new version matches the rule):
-        -   <code>none</code>: the updates are never propagated (the default)
-        -   <code>push</code>: the updates made on the owner are sent to the recipients
-        -   <code>sync</code>: the updates on any member (except the read-only) are
-            propagated to the other members
-    -   <code>update</code>: a behavior when a document matched by this rule is modified.
-        Can be:
-        -   <code>none</code>: the updates are never propagated (the default)
-        -   <code>push</code>: the updates made on the owner are sent to the recipients
-        -   <code>sync</code>: the updates on any member (except the read-only) are
-            propagated to the other members
-    -   <code>remove</code>: a behavior when a document no longer matches this rule (the
-        document is deleted, or it was a document that matched the rule, and is
-        modified and the new version doesn’t match the rule):
-        -   <code>none</code>: the updates are never propagated (the default)
-        -   <code>push</code>: the updates made on the owner are sent to the recipients
-        -   <code>sync</code>: the updates on any member (except the read-only) are
-            propagated to the other members
-        -   <code>revoke</code>: the sharing is revoked.</li>
+<li>A list of sharing <code>rules</code>, each rule being composed of:<ul>
+<li>a <code>title</code>, that will be displayed to the recipients before they accept
+    the sharing</li>
+<li>a <code>doctype</code> (and a <code>mime</code> if the doctype is <code>io.cozy.files</code>)</li>
+<li>a <code>selector</code> (by default, it’s the <code>id</code>) and <code>values</code> (one identifier, a
+    list of identifiers, files and folders inside a folder, files that are
+    referenced by the same document, documents bound to a previous sharing
+    rule)</li>
+<li><code>local</code>: by default <code>false</code>, but it can be <code>true</code> for documents that are
+    useful for the preview page but doesn’t need to be send to the
+    recipients (e.g. a setting document of the application)</li>
+<li><code>add</code>: a behavior when a new document matches this rule (the document is
+    created, or it was a document that didn’t match the rule and is modified
+    and the new version matches the rule):<ul>
+<li><code>none</code>: the updates are never propagated (the default)</li>
+<li><code>push</code>: the updates made on the owner are sent to the recipients</li>
+<li><code>sync</code>: the updates on any member (except the read-only) are
+    propagated to the other members</li>
+</ul>
+</li>
+<li><code>update</code>: a behavior when a document matched by this rule is modified.
+    Can be:<ul>
+<li><code>none</code>: the updates are never propagated (the default)</li>
+<li><code>push</code>: the updates made on the owner are sent to the recipients</li>
+<li><code>sync</code>: the updates on any member (except the read-only) are
+    propagated to the other members</li>
+</ul>
+</li>
+<li><code>remove</code>: a behavior when a document no longer matches this rule (the
+    document is deleted, or it was a document that matched the rule, and is
+    modified and the new version doesn’t match the rule):<ul>
+<li><code>none</code>: the updates are never propagated (the default)</li>
+<li><code>push</code>: the updates made on the owner are sent to the recipients</li>
+<li><code>sync</code>: the updates on any member (except the read-only) are
+    propagated to the other members</li>
+<li><code>revoke</code>: the sharing is revoked.</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <h4 id="example-i-want-to-share-a-folder-in-readwrite-mode">Example: I want to share a folder in read/write mode<a class="headerlink" href="#example-i-want-to-share-a-folder-in-readwrite-mode" title="Permanent link">&para;</a></h4>
 <ul>
-<li>rule 1
-    -   title: <code>folder</code>
-    -   doctype: <code>io.cozy.files</code>
-    -   values: <code>"ca527016-0d83-11e8-a580-3b965c80c7f7"</code>
-    -   add: <code>sync</code>
-    -   update: <code>sync</code>
-    -   remove: <code>sync</code></li>
+<li>rule 1<ul>
+<li>title: <code>folder</code></li>
+<li>doctype: <code>io.cozy.files</code></li>
+<li>values: <code>"ca527016-0d83-11e8-a580-3b965c80c7f7"</code></li>
+<li>add: <code>sync</code></li>
+<li>update: <code>sync</code></li>
+<li>remove: <code>sync</code></li>
+</ul>
+</li>
 </ul>
 <h4 id="example-i-want-to-share-a-playlist-where-im-the-only-one-that-can-add-and-remove-items">Example: I want to share a playlist where I’m the only one that can add and remove items<a class="headerlink" href="#example-i-want-to-share-a-playlist-where-im-the-only-one-that-can-add-and-remove-items" title="Permanent link">&para;</a></h4>
 <ul>
-<li>rule 1
-    -   title: <code>playlist</code>
-    -   doctype: <code>io.cozy.music.playlists</code>
-    -   values: <code>"99445b14-0d84-11e8-ae72-4b96fcbf0552"</code>
-    -   update: <code>none</code>
-    -   remove: <code>revoke</code></li>
-<li>rule 2
-    -   title: <code>items</code>
-    -   doctype: <code>io.cozy.files</code>
-    -   selector: <code>referenced_by</code>
-    -   values: <code>"io.cozy.files/ca527016-0d83-11e8-a580-3b965c80c7f7"</code>
-    -   add: <code>push</code>
-    -   update: <code>none</code>
-    -   remove: <code>push</code></li>
+<li>rule 1<ul>
+<li>title: <code>playlist</code></li>
+<li>doctype: <code>io.cozy.music.playlists</code></li>
+<li>values: <code>"99445b14-0d84-11e8-ae72-4b96fcbf0552"</code></li>
+<li>update: <code>none</code></li>
+<li>remove: <code>revoke</code></li>
+</ul>
+</li>
+<li>rule 2<ul>
+<li>title: <code>items</code></li>
+<li>doctype: <code>io.cozy.files</code></li>
+<li>selector: <code>referenced_by</code></li>
+<li>values: <code>"io.cozy.files/ca527016-0d83-11e8-a580-3b965c80c7f7"</code></li>
+<li>add: <code>push</code></li>
+<li>update: <code>none</code></li>
+<li>remove: <code>push</code></li>
+</ul>
+</li>
 </ul>
 <h3 id="iocozyshared"><code>io.cozy.shared</code><a class="headerlink" href="#iocozyshared" title="Permanent link">&para;</a></h3>
 <p>This doctype is an internal one for the stack. It is used to track what
@@ -3500,13 +3518,15 @@ documents are shared, and to replicate changes from one Cozy to the others.</p>
 <li><code>_rev</code>: the CouchDB default revision for this document (not very meaningful,
     it’s here to avoid concurrency issues)</li>
 <li><code>revisions</code>: a tree with the last known <code>_rev</code>s of the referenced object</li>
-<li><code>infos</code>, a map of sharing ids → <code>{rule, removed, binary}</code>
-    -   <code>rule</code> says which rule from the sharing must be applied for this
-        document
-    -   <code>removed</code> will be true for a deleted document, a trashed file, or if the
-        document does no longer match the sharing rule
-    -   <code>binary</code> is a boolean flag that is true only for files (and not even
-        folders) with <code>removed: false</code></li>
+<li><code>infos</code>, a map of sharing ids → <code>{rule, removed, binary}</code><ul>
+<li><code>rule</code> says which rule from the sharing must be applied for this
+    document</li>
+<li><code>removed</code> will be true for a deleted document, a trashed file, or if the
+    document does no longer match the sharing rule</li>
+<li><code>binary</code> is a boolean flag that is true only for files (and not even
+    folders) with <code>removed: false</code></li>
+</ul>
+</li>
 </ul>
                 
                   

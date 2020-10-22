@@ -2608,12 +2608,14 @@ registering step which are important for security.</p>
 <li>When started with a <code>registerToken</code>, allow the user to create a passphrase</li>
 <li>When started with a <code>contextToken</code>
     (<a href="../../auth/#how-to-get-a-token">see auth doc</a>) use it to retrieve instance
-    document.
-    -   If the instance document is complete <strong>according to the <code>onboarding</code>
-        app</strong>, redirect to <code>home</code> application.
-    -   Otherwise, performs whatever steps it deems necessary to fill out the
-        instance (ask for user email, help set up <code>myaccounts</code> accounts, say
-        thank you&hellip;)</li>
+    document.<ul>
+<li>If the instance document is complete <strong>according to the <code>onboarding</code>
+    app</strong>, redirect to <code>home</code> application.</li>
+<li>Otherwise, performs whatever steps it deems necessary to fill out the
+    instance (ask for user email, help set up <code>myaccounts</code> accounts, say
+    thank you&hellip;)</li>
+</ul>
+</li>
 </ul>
 <p>This makes cozy-stack simple and safer while allowing behaviour modification for
 several install types by picking the correct <code>onboarding</code> application / branch.</p>
@@ -2668,10 +2670,12 @@ complete and reredirect to home.</p>
     redirect her back to the <code>onboarding</code> app.</li>
 <li>Afterward, the <code>onboarding</code> app receive its token normally through the
     <code>data-cozy-token</code> body attribute, as described in
-    <a href="../../auth/">auth documentation</a>. and can do whatever it needs to do :
-    -   read from the instance document to prefill/bypass form fields
-    -   add more informations to the instance document.
-    -   create <code>io.cozy.accounts</code> documents for external accounts.</li>
+    <a href="../../auth/">auth documentation</a>. and can do whatever it needs to do :<ul>
+<li>read from the instance document to prefill/bypass form fields</li>
+<li>add more informations to the instance document.</li>
+<li>create <code>io.cozy.accounts</code> documents for external accounts.</li>
+</ul>
+</li>
 <li>When the onboarding application is satisfied, Alice is redirected to the
     <code>home</code> application</li>
 </ul>

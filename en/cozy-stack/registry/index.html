@@ -3407,29 +3407,35 @@ your app version after publishing stable.</p>
 <li><code>maintenance_activated</code>: boolean, true when the maintenance mode is
     activated on the application</li>
 <li><code>maintenance_options</code>: present only if <code>maintenance_activated</code> is true,
-    object with the following fields:
-    -   <code>flag_infra_maintenance</code>: bool, true iff the maintenance is internal to
-        the cozy infrastructure
-    -   <code>flag_short_maintenance</code>: bool, true iff the maintenance is a short
-        maintenance, waiting for a correction on our side
-    -   <code>flag_disallow_manual_exec</code>: bool, true iff the maintenance will
-        disallow the execution on the application, even when manually executed
-    -   <code>messages</code>: a list of localized messages containing a short and long
-        information messages explaining the maintenance state</li>
+    object with the following fields:<ul>
+<li><code>flag_infra_maintenance</code>: bool, true iff the maintenance is internal to
+    the cozy infrastructure</li>
+<li><code>flag_short_maintenance</code>: bool, true iff the maintenance is a short
+    maintenance, waiting for a correction on our side</li>
+<li><code>flag_disallow_manual_exec</code>: bool, true iff the maintenance will
+    disallow the execution on the application, even when manually executed</li>
+<li><code>messages</code>: a list of localized messages containing a short and long
+    information messages explaining the maintenance state</li>
+</ul>
+</li>
 <li><code>label</code>: integer for a confidence grade from 0 to 5 (A to F), labelling the
     application from a user privacy standpoint. It is calculated from the
     <code>data_usage_commitment</code> and <code>data_usage_commitment_by</code> fields.</li>
 <li><code>data_usage_commitment</code>: specify a technical commitment from the application
-    editor:
-    -   <code>user_ciphered</code>: technical commitment that the user&rsquo;s data is encrypted
-        and can only be known by him.
-    -   <code>user_reserved</code>: commitment that the data is only used for the user, to
-        directly offer its service.
-    -   <code>none</code>: no commitment</li>
-<li><code>data_usage_commitment_by</code>: specify what entity is taking the commitment:
-    -   <code>cozy</code>: the commitment is taken by cozy
-    -   <code>editor</code>: the commitment is taken by the application&rsquo;s editor
-    -   <code>none</code>: no commitment is taken</li>
+    editor:<ul>
+<li><code>user_ciphered</code>: technical commitment that the user&rsquo;s data is encrypted
+    and can only be known by him.</li>
+<li><code>user_reserved</code>: commitment that the data is only used for the user, to
+    directly offer its service.</li>
+<li><code>none</code>: no commitment</li>
+</ul>
+</li>
+<li><code>data_usage_commitment_by</code>: specify what entity is taking the commitment:<ul>
+<li><code>cozy</code>: the commitment is taken by cozy</li>
+<li><code>editor</code>: the commitment is taken by the application&rsquo;s editor</li>
+<li><code>none</code>: no commitment is taken</li>
+</ul>
+</li>
 </ul>
 <p>Example:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>

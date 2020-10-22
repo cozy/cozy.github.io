@@ -2846,7 +2846,7 @@
 <li><code>iban</code>: {string} - The bank account international identifier</li>
 <li><code>serviceID</code>: {number} - In case of external service used to import transactions, this key can stores the service&rsquo;s account ID; can be <code>undefined</code> is the account isn&rsquo;t managed by any external service</li>
 <li><code>vendorId</code>: {string} - Id of the bank account on the vendor side</li>
-<li><code>loan</code>: {Object} - Specific properties for loan accounts. Will be undefined for all other account types<ul>
+<li><code>loan</code>: {Object} - Specific properties for loan accounts. Will be undefined for all other account types</li>
 <li><code>contactName</code>: {string} - The name of the contact in the credit institution</li>
 <li><code>totalAmount</code>: {number} - The total amount of the loan</li>
 <li><code>availableAmount</code>: {number} - The currently available amount</li>
@@ -2864,16 +2864,12 @@
 <li><code>accountLabel</code>: {string} - The loan account label</li>
 <li><code>insuranceLabel</code>: {string} - The insurance label</li>
 <li><code>duration</code>: {number} - The loan duration in months</li>
-</ul>
-</li>
-<li><code>relationships</code>: {Object} - Relationships to other documents<ul>
+<li><code>relationships</code>: {Object} - Relationships to other documents</li>
 <li><code>connection</code>: {<code>HasOne&lt;io.cozy.accounts&gt;</code>} The account used to retrieve this document. This is used by Harvest to be able to edit an <code>io.cozy.bank.accounts</code>
-  through the &ldquo;Configuration&rdquo; tab of an <code>io.cozy.accounts</code>.</li>
+    through the &ldquo;Configuration&rdquo; tab of an <code>io.cozy.accounts</code>.</li>
 <li><code>checkingsAccount</code>: {<code>HasOne&lt;io.cozy.bank.accounts&gt;</code>} - In case of a credit card account, links to the bankaccount on which all the transactions will be debited
-   at the end of the month</li>
+     at the end of the month</li>
 <li><code>owners</code>: {<code>HasMany&lt;io.cozy.contacts&gt;</code>} - List of owners for this account</li>
-</ul>
-</li>
 </ul>
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span>{

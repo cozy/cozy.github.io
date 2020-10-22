@@ -2816,13 +2816,11 @@ transaction should be to match with a bill.</p>
 details after):</p>
 <ul>
 <li>Filter bills that are declared as third party payer: these bills have no matching transation since it has been paid by somebody else</li>
-<li>Then for each bill:<ul>
+<li>Then for each bill:</li>
 <li>Try to find a matching debit transaction (amount &lt; 0)</li>
 <li>Try to find a matching credit transaction (amount &gt; 0) if the bill is a refund</li>
 <li>Try to combine bills that didn&rsquo;t match anything to see if they match something when combined</li>
 <li>Update transactions that matched in database</li>
-</ul>
-</li>
 </ul>
 <h2 id="finding-debit-and-credit-operations-for-a-bill">Finding debit and credit operations for a bill<a class="headerlink" href="#finding-debit-and-credit-operations-for-a-bill" title="Permanent link">&para;</a></h2>
 <p>The algorithm is globally the same to find a debit or a credit operation for a

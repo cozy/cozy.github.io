@@ -2676,13 +2676,15 @@ const app = await service.compose('INSTALL', 'io.cozy.apps', { slug: 'drive' })<
 <p><strong>On intent size:</strong> If an intent is used by multiple applications, we don&rsquo;t use resizeClient(), since each application can have his own layout. You have to define the size of the intent in your application</p>
 </blockquote>
 <ul>
-<li><code>terminate(doc)</code>: ends the intent process by passing to the client the resulting document <code>doc</code>. An intent service may only be terminated once.<blockquote>
+<li>
+<p><code>terminate(doc)</code>: ends the intent process by passing to the client the resulting document <code>doc</code>. An intent service may only be terminated once.</p>
+<blockquote>
 <p>If a boolean <code>exposeIntentFrameRemoval</code> is found as <code>true</code> in the data sent by the client, the <code>terminate()</code> method will return an object with as properties a function named <code>removeIntentFrame</code> to remove the iframe DOM node (in order to be run by the client later on) and the resulting document <code>doc</code>. This could be useful to animate an intent closing and remove the iframe node at the animation ending.</p>
 </blockquote>
 </li>
-</ul>
-<ul>
-<li><code>cancel()</code>: ends the intent process by passing a <code>null</code> value to the client. This method terminate the intent service the same way that <code>terminate()</code>.</li>
+<li>
+<p><code>cancel()</code>: ends the intent process by passing a <code>null</code> value to the client. This method terminate the intent service the same way that <code>terminate()</code>.</p>
+</li>
 <li><code>throw(error)</code>: throw an error to client and causes the intent promise rejection.</li>
 </ul>
 <h4 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h4>

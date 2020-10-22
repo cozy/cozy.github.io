@@ -2731,7 +2731,7 @@
 <p>It returns a promise for the document of the file created.</p>
 <ul>
 <li><code>data</code> can be of the following type: <code>Blob</code>, <code>File</code>, <code>ArrayBuffer</code>, <code>ArrayBufferView</code>, <code>stream.Readable</code> (node) or <code>string</code>.</li>
-<li><code>options</code> is an object with the following fields:<ul>
+<li><code>options</code> is an object with the following fields:</li>
 <li><code>name</code>: specify the name of the file. optional for a data of type <code>File</code>, type, mandatory otherwise.</li>
 <li><code>dirID</code>: specify identifier of the file&rsquo;s directory. if empty, it is the root directory.</li>
 <li><code>contentType</code>: specify the content type of the uploaded data. For a <code>File</code> type, it is handled automatically in browsers (default: <code>application/octet-stream</code>). For nodejs, you can rely on an external module like <a href="https://github.com/broofa/node-mime">mime</a></li>
@@ -2741,9 +2741,7 @@
 <li><code>metadata</code>: (object) metadata associated to the file</li>
 <li><code>sourceAccount</code>: (string) allow to associate the file with the given account id in cozyMetadata</li>
 <li><code>sourceAccountIdentifier</code>: (string) allow to associate the file with the given account
-  identifier (mostly the user login in the account) in cozyMetadata</li>
-</ul>
-</li>
+    identifier (mostly the user login in the account) in cozyMetadata</li>
 </ul>
 <p><strong>Warning</strong>: this API is not v2 compatible.</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">created</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">blob</span><span class="p">,</span> <span class="p">{</span>
@@ -2762,12 +2760,10 @@
 <p><code>cozy.client.files.createDirectory(options)</code> is used to create a new directory.</p>
 <p>It returns a promise for the document of the directory created.</p>
 <ul>
-<li><code>options</code> is an object with the following fields:<ul>
+<li><code>options</code> is an object with the following fields:</li>
 <li><code>name</code>: specify the name of the directory</li>
 <li><code>dirID</code>: specify identifier of the file&rsquo;s directory. if empty, it is the root directory.</li>
 <li><code>lastModifiedDate</code>: a date to specify the last modification time to use for the directory.</li>
-</ul>
-</li>
 </ul>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">created</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">createDirectory</span><span class="p">({</span>
   <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;mydir&quot;</span><span class="p">,</span>
@@ -2793,14 +2789,12 @@
 <ul>
 <li><code>id</code> is a string specifying the identifier of the file to modify.</li>
 <li><code>data</code> can be of the following type: <code>Blob</code>, <code>File</code>, <code>ArrayBuffer</code>, <code>ArrayBufferView</code> or <code>string</code>.</li>
-<li><code>options</code> is an object with the following fields:<ul>
+<li><code>options</code> is an object with the following fields:</li>
 <li><code>contentType</code>: specify the content type of the uploaded data. For a <code>File</code> type, it is be handled automatically. default: <code>application/octet-stream</code>.</li>
 <li><code>checksum</code>: the base64-encoded (with padding) MD5 digest of the file (optional).</li>
 <li><code>lastModifiedDate</code>: a date to specify the last modification time to use for the uploaded file. If the given <code>data</code> is a <code>File</code> instance, the <code>lastModifiedDate</code> is automatically used (not overridden).</li>
 <li><code>ifMatch</code>: the previous revision of the file (optional). The update will be rejected if the remote revision doesn&rsquo;t match the given one.</li>
 <li><code>metadata</code>: (object) metadata associated to the file</li>
-</ul>
-</li>
 </ul>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">updated</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">updateById</span><span class="p">(</span><span class="s2">&quot;654321&quot;</span><span class="p">,</span> <span class="nx">blob</span><span class="p">,</span> <span class="p">{</span>
   <span class="nx">contentType</span><span class="o">:</span> <span class="s2">&quot;text/plain&quot;</span><span class="p">,</span>
@@ -2820,10 +2814,8 @@
 <ul>
 <li><code>id</code> is a string specifying the identifier of the file or directory to update</li>
 <li><code>attrs</code> is an object containing the changes</li>
-<li><code>options</code> is an object with the following fields:<ul>
+<li><code>options</code> is an object with the following fields:</li>
 <li><code>ifMatch</code>: the previous revision of the file (optional). The update will be rejected if the remote revision doesn&rsquo;t match the given one.</li>
-</ul>
-</li>
 </ul>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">updated</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">updateAttributesById</span><span class="p">(</span><span class="s2">&quot;12345&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">tags</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;foo&quot;</span><span class="p">]</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">ifMatch</span><span class="o">:</span> <span class="s2">&quot;1-0e6d5b72&quot;</span> <span class="p">})</span>
 </pre></div>
@@ -2835,10 +2827,8 @@
 <ul>
 <li><code>path</code>: string specifying the path of the file or directory to update</li>
 <li><code>attrs</code> is an object containing the changes</li>
-<li><code>options</code> is an object with the following fields:<ul>
+<li><code>options</code> is an object with the following fields:</li>
 <li><code>ifMatch</code>: the previous revision of the file (optional). The update will be rejected if the remote revision doesn&rsquo;t match the given one.</li>
-</ul>
-</li>
 </ul>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">updated</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">updateAttributes</span><span class="p">(</span><span class="s2">&quot;/foo/bar&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">executable</span><span class="o">:</span> <span class="kc">true</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">ifMatch</span><span class="o">:</span> <span class="s2">&quot;1-0e6d5b72&quot;</span> <span class="p">})</span>
 </pre></div>
@@ -2851,11 +2841,9 @@ to fetch more items.</p>
 <ul>
 <li><code>id</code> is a string specifying the file’s or directory’s identifier</li>
 <li><code>offline</code> is a boolean (default to <code>true</code>)</li>
-<li><code>options</code> is an object with the following fields:<ul>
+<li><code>options</code> is an object with the following fields:</li>
 <li><code>skip</code>: number of items to skip (optional)</li>
 <li><code>limit</code>: maximum number of items to return (optional).</li>
-</ul>
-</li>
 </ul>
 <p>By default, <code>statById</code> will fetch the metadata from the local database, if it is available. Set the second parameter to <code>false</code> to query the server.</p>
 <p>Returned directory have a <code>relations()</code> method that allow to access to their content:</p>
@@ -2874,10 +2862,8 @@ to fetch more items.</p>
 <p>It returns a promise for the document of the file or directory moved to trash.</p>
 <ul>
 <li><code>id</code> is a string specifying the identifier of the file or directory</li>
-<li><code>options</code> is an object with the following fields:<ul>
+<li><code>options</code> is an object with the following fields:</li>
 <li><code>ifMatch</code>: the previous revision of the file (optional). The update will be rejected if the remote revision doesn&rsquo;t match the given one.</li>
-</ul>
-</li>
 </ul>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">trashed</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">trashById</span><span class="p">(</span><span class="s2">&quot;1234567&quot;</span><span class="p">)</span>
 </pre></div>
@@ -2889,10 +2875,8 @@ to fetch more items.</p>
 <p>It returns a promise for completion</p>
 <ul>
 <li><code>id</code> is a string specifying the identifier of the file or directory</li>
-<li><code>options</code> is an object with the following fields:<ul>
+<li><code>options</code> is an object with the following fields:</li>
 <li><code>ifMatch</code>: the previous revision of the file (optional). The update will be rejected if the remote revision doesn&rsquo;t match the given one.</li>
-</ul>
-</li>
 </ul>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">trashed</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">trashById</span><span class="p">(</span><span class="s2">&quot;1234567&quot;</span><span class="p">)</span>
 <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">destroyById</span><span class="p">(</span><span class="s2">&quot;1234567&quot;</span><span class="p">)</span>
@@ -3041,12 +3025,10 @@ You can use this link to start a browser download (see code in getDownloadLinkBy
 <p>It returns a promise for a list of files.</p>
 <p>There are 2 alternatives for pagination, that can be used through the <code>option</code> parameter: <code>cursor</code> and <code>skip</code>. For more details, see how the stack handles <a href="https://docs.cozy.io/en/cozy-stack/jsonapi/#pagination">pagination</a>. Note that cursor-based pagination performs way better than skip-based on large volumes.</p>
 <ul>
-<li><code>option</code> is an object with the following fields:<ul>
+<li><code>option</code> is an object with the following fields:</li>
 <li><code>cursor</code> (recommended): specify the view&rsquo;s key and the starting docid. The starting docid can be empty for the first query and take the last returned docid for the next ones.</li>
 <li><code>skip</code> (not recommended): ignore the first x results for pagination.</li>
 <li><code>limit</code>: maximum number of results.</li>
-</ul>
-</li>
 <li><code>sort</code> is a string which can be <code>datetime</code> (default) or <code>id</code>. <em>Warning:</em>  <code>datetime</code> is not compatible with cursor-based pagination.</li>
 </ul>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">key</span> <span class="o">=</span> <span class="p">[</span><span class="nx">DOCTYPE_ALBUMS</span><span class="p">,</span> <span class="nx">album</span><span class="p">.</span><span class="nx">_id</span><span class="p">]</span>
@@ -3063,13 +3045,11 @@ You can use this link to start a browser download (see code in getDownloadLinkBy
 <p><code>cozy.client.files.query(indexReference, query)</code> find files using an index.</p>
 <p>It returns a promise with a list of files matching the query. Results will be returned in the order defined for the index.</p>
 <ul>
-<li><code>query</code> is an object with the following fields:<ul>
+<li><code>query</code> is an object with the following fields:</li>
 <li><code>selector</code>: a mango selector</li>
 <li><code>limit</code>: maximum number of results</li>
 <li><code>skip</code>: ignore the first x results (pagination)</li>
 <li><code>wholeResponse</code>: when set to true, the whole query response will be returned instead of just the docs. This is useful when paginating, because you&rsquo;ll get the <code>next</code> property in the response object.</li>
-</ul>
-</li>
 </ul>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">results</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">photosByDate</span><span class="p">,</span> <span class="p">{</span>
   <span class="s2">&quot;selector&quot;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&quot;class&quot;</span><span class="o">:</span> <span class="s2">&quot;image&quot;</span><span class="p">},</span>
