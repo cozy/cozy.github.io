@@ -5,7 +5,13 @@ import { getCurrentDate } from 'ducks/notifications/utils'
 
 import template from 'ducks/konnectorAlerts/template.hbs'
 import logger from 'ducks/konnectorAlerts/logger'
-import { getErrorLocaleBound, KonnectorJobError } from 'cozy-harvest-lib'
+
+// TODO Deep import not to import React components
+// Should be solved by having two different entrypoints, one from browser, one for node
+import {
+  getErrorLocaleBound,
+  KonnectorJobError
+} from 'cozy-harvest-lib/dist/helpers/konnectors'
 
 /**
  * Returns the next date time at 8ish

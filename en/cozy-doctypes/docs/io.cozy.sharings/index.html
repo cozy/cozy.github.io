@@ -2619,38 +2619,48 @@ documents and files from her cozy instance to other people.</p>
   one member</li>
 <li>a flag <code>owner</code>, true for the document on the cozy of the sharer, and absent
   on the other cozy instance</li>
-<li>a flag <code>open_sharing</code>:
-    - <code>true</code> if any member of the sharing can add a new recipient
-    - <code>false</code> if only the owner can add a new recipient</li>
+<li>a flag <code>open_sharing</code>:<ul>
+<li><code>true</code> if any member of the sharing can add a new recipient</li>
+<li><code>false</code> if only the owner can add a new recipient</li>
+</ul>
+</li>
 <li>Some technical data (<code>created_at</code>, <code>updated_at</code>, <code>app_slug</code>, <code>preview_path</code>,
   <code>triggers</code>, <code>credentials</code>)</li>
-<li>A list of sharing <code>rules</code>, each rule being composed of:
-    - a <code>title</code>, that will be displayed to the recipients before they accept the
-      sharing
-    - the <code>doctype</code>
-    - a <code>selector</code> (by default, it’s the <code>id</code>) and <code>values</code> (one identifier, a
-      list of identifiers, files and folders inside a folder, files that are
-      referenced by the same document, documents bound to a previous sharing rule)
-    - <code>local</code>: by default <code>false</code>, but it can false <code>true</code> for documents that are
-      useful for the preview page but doesn’t need to be send to the recipients
-      (e.g. a setting document of the application)
-    - <code>add</code>: What to do when a new document matches this rule (the document is
-      created, or it was a document that didn’t match the rule and is modified and
-      the new version matches the rule). Can be:
-        * <code>none</code>: the updates are never propagated (the default)
-        * <code>push</code>: the updates made on the owner are sent to the recipients
-        * <code>sync</code>: the updates on any member are propagated to the other members
-    - <code>update</code>: What to do when a document matched by this rule is modified. Can be:
-        * <code>none</code>: the updates are never propagated (the default)
-        * <code>push</code>: the updates made on the owner are sent to the recipients
-        * <code>sync</code>: the updates on any member are propagated to the other members
-    - <code>remove</code>: What to do when a document no longer matches this rule (the
-      document is deleted, or it was a document that matched the rule, and is
-      modified and the new version doesn’t match the rule):
-        * <code>none</code>: the updates are never propagated (the default)
-        * <code>push</code>: the updates made on the owner are sent to the recipients
-        * <code>sync</code>: the updates on any member are propagated to the other members
-        * <code>revoke</code>: the sharing is revoked.</li>
+<li>A list of sharing <code>rules</code>, each rule being composed of:<ul>
+<li>a <code>title</code>, that will be displayed to the recipients before they accept the
+  sharing</li>
+<li>the <code>doctype</code></li>
+<li>a <code>selector</code> (by default, it’s the <code>id</code>) and <code>values</code> (one identifier, a
+  list of identifiers, files and folders inside a folder, files that are
+  referenced by the same document, documents bound to a previous sharing rule)</li>
+<li><code>local</code>: by default <code>false</code>, but it can false <code>true</code> for documents that are
+  useful for the preview page but doesn’t need to be send to the recipients
+  (e.g. a setting document of the application)</li>
+<li><code>add</code>: What to do when a new document matches this rule (the document is
+  created, or it was a document that didn’t match the rule and is modified and
+  the new version matches the rule). Can be:<ul>
+<li><code>none</code>: the updates are never propagated (the default)</li>
+<li><code>push</code>: the updates made on the owner are sent to the recipients</li>
+<li><code>sync</code>: the updates on any member are propagated to the other members</li>
+</ul>
+</li>
+<li><code>update</code>: What to do when a document matched by this rule is modified. Can be:<ul>
+<li><code>none</code>: the updates are never propagated (the default)</li>
+<li><code>push</code>: the updates made on the owner are sent to the recipients</li>
+<li><code>sync</code>: the updates on any member are propagated to the other members</li>
+</ul>
+</li>
+<li><code>remove</code>: What to do when a document no longer matches this rule (the
+  document is deleted, or it was a document that matched the rule, and is
+  modified and the new version doesn’t match the rule):<ul>
+<li><code>none</code>: the updates are never propagated (the default)</li>
+<li><code>push</code>: the updates made on the owner are sent to the recipients</li>
+<li><code>sync</code>: the updates on any member are propagated to the other members</li>
+<li><code>revoke</code>: the sharing is revoked.</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
@@ -2732,12 +2742,14 @@ documents are shared, and to replicate changes from one Cozy to the others.</p>
 <li><code>_rev</code>: the CouchDB default revision for this document (not very meaningful,
   it’s here to avoid concurrency issues)</li>
 <li><code>revisions</code>: a tree with the last known <code>_rev</code>s of the referenced object</li>
-<li><code>infos</code>, a map of sharing ids → <code>{rule, removed, binary}</code>
-    * <code>rule</code> says which rule from the sharing must be applied for this document
-    * <code>removed</code> will be true for a deleted document, a trashed file, or if the
-      document does no longer match the sharing rule
-    * <code>binary</code> is a boolean flag that is true only for files (and not even
-      folders) with <code>removed: false</code></li>
+<li><code>infos</code>, a map of sharing ids → <code>{rule, removed, binary}</code><ul>
+<li><code>rule</code> says which rule from the sharing must be applied for this document</li>
+<li><code>removed</code> will be true for a deleted document, a trashed file, or if the
+  document does no longer match the sharing rule</li>
+<li><code>binary</code> is a boolean flag that is true only for files (and not even
+  folders) with <code>removed: false</code></li>
+</ul>
+</li>
 </ul>
 <h2 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h2>
 <div class="codehilite"><pre><span></span><span class="p">{</span>

@@ -10,7 +10,6 @@ import { findAndUpdateRecurrences } from './search'
 import { fetchHydratedBundles, saveHydratedBundles } from './api'
 import { getLabel } from './utils'
 import tree from 'ducks/categories/tree'
-
 import addDays from 'date-fns/add_days'
 
 const NB_MONTH_LOOKBACK = 3
@@ -70,7 +69,7 @@ const logDifferences = (oldRecurrences, updatedRecurrences) => {
  *
  * Called inside service.
  */
-export const doRecurrenceMatching = async client => {
+const main = async ({ client }) => {
   try {
     const recurrences = (await fetchHydratedBundles(client)).filter(
       x => x.ops.length > 0
@@ -119,3 +118,5 @@ export const doRecurrenceMatching = async client => {
     log('error', `[recurrence service] ${e}`)
   }
 }
+
+export default main

@@ -5,9 +5,16 @@ import path from 'path'
 /* eslint-disable no-console */
 import { ArgumentParser } from 'argparse'
 import { createClientInteractive } from 'cozy-client/dist/cli'
-import { doRecurrenceMatching } from './service'
+import runRecurrenceService from '../ducks/recurrence/service'
+import runKonnectorAlertsService from '../targets/services/konnectorAlerts'
+
 global.__POUCH__ = false
 global.__DEV__ = false
+
+const serviceEntrypoints = {
+  recurrence: runRecurrenceService,
+  konnectorAlerts: runKonnectorAlertsService
+}
 
 export const getScope = m => {
   if (m.permissions === undefined) {
@@ -22,11 +29,14 @@ export const getScope = m => {
 }
 
 const manifest = JSON.parse(
-  fs.readFileSync(path.join(__dirname, '../../../manifest.webapp'))
+  fs.readFileSync(path.join(__dirname, '../../manifest.webapp'))
 )
 
 const main = async () => {
   const parser = new ArgumentParser()
+  parser.addArgument('service', {
+    choices: Object.keys(serviceEntrypoints)
+  })
   parser.addArgument('--url', { defaultValue: 'http://cozy.tools:8080' })
   const args = parser.parseArgs()
   const client = await createClientInteractive({
@@ -36,7 +46,8 @@ const main = async () => {
       softwareID: 'banks.recurrence-cli'
     }
   })
-  await doRecurrenceMatching(client)
+  const serviceEntrypoint = serviceEntrypoints[args.service]
+  await serviceEntrypoint({ client })
 }
 
 if (require.main === module) {
