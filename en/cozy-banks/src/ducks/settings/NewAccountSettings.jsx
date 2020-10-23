@@ -190,9 +190,9 @@ const saveAccount = async params => {
 }
 
 const NewAccountSettings = props => {
+  const { isMobile } = useBreakpoints()
   const { t } = useI18n()
   const {
-    breakpoints: { isMobile },
     routeParams,
     router,
     client,

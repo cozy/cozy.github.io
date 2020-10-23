@@ -183,7 +183,7 @@ class TransferPage extends React.Component {
       showingPersonalInfo:
         get(this.props, 'myself.data[0]') &&
         !isMyselfSufficientlyFilled(this.props.myself.data[0]),
-      slideIndex: 0
+      slide: 0
     }
   }
 

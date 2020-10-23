@@ -6,14 +6,17 @@ import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
 
 class Header extends React.PureComponent {
   render() {
-    const { children, className, theme, fixed } = this.props
+    const { children, className, theme, fixed, paper } = this.props
 
     return (
       <CozyTheme variant={theme}>
         <div
           className={cx(
             styles[`HeaderColor_${theme}`],
-            { [styles.HeaderFixed]: fixed },
+            {
+              [styles['Header--fixed']]: fixed,
+              [styles['Header--paper']]: paper
+            },
             className
           )}
         >
@@ -32,7 +35,8 @@ Header.propTypes = {
 
 Header.defaultProps = {
   theme: 'normal',
-  fixed: false
+  fixed: false,
+  paper: true
 }
 
 export default Header

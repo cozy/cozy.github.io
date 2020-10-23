@@ -44,6 +44,7 @@ const Settings = ({ children }) => {
         <Tabs value={tabNames.indexOf(defaultTab)}>
           {tabNames.map((tabName, i) => (
             <Tab
+              disableRipple
               classes={{ root: i === 0 && !isMobile ? 'u-ml-2' : 0 }}
               key={tabName}
               name={tabName}

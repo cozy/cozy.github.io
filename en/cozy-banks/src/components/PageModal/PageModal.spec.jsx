@@ -1,15 +1,18 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { DumbPageModal } from './PageModal'
+import PageModal from './PageModal'
+import AppLike from 'test/AppLike'
 
 describe('PageModal', () => {
   it('should render a Modal on tablet/desktop', () => {
     const breakpoints = { isMobile: false }
 
     const el = shallow(
-      <DumbPageModal breakpoints={breakpoints} title="Hello world">
-        This is a page modal
-      </DumbPageModal>
+      <AppLike>
+        <PageModal breakpoints={breakpoints} title="Hello world">
+          This is a page modal
+        </PageModal>
+      </AppLike>
     ).getElement()
 
     expect(el).toMatchSnapshot()
@@ -19,9 +22,11 @@ describe('PageModal', () => {
     const breakpoints = { isMobile: true }
 
     const el = shallow(
-      <DumbPageModal breakpoints={breakpoints} title="Hello world">
-        This is a page modal
-      </DumbPageModal>
+      <AppLike>
+        <PageModal breakpoints={breakpoints} title="Hello world">
+          This is a page modal
+        </PageModal>
+      </AppLike>
     ).getElement()
 
     expect(el).toMatchSnapshot()

@@ -1,5 +1,5 @@
 import React from 'react'
-import { withBreakpoints, Modal } from 'cozy-ui/transpiled/react'
+import { Modal, useBreakpoints } from 'cozy-ui/transpiled/react'
 import Page from 'components/PageModal/Page'
 
 /**
@@ -10,15 +10,13 @@ import Page from 'components/PageModal/Page'
  * `PageModal` takes the same props as
  * [cozy-ui's Modal](https://docs.cozy.io/cozy-ui/react/#modal).
  */
-export const DumbPageModal = props => {
-  const {
-    breakpoints: { isMobile },
-    ...rest
-  } = props
+const PageModal = props => {
+  const { isMobile } = useBreakpoints()
+  const { ...rest } = props
 
   const Component = isMobile ? Page : Modal
 
   return <Component {...rest} />
 }
 
-export default withBreakpoints()(DumbPageModal)
+export default PageModal

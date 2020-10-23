@@ -25,28 +25,49 @@ exports[`App route should be a function returning a route 1`] = `
     <Route
       path="categories"
     >
-      <IndexRoute
-        component={[Function]}
-      />
-      <Route
-        component={[Function]}
-        path=":categoryName/:subcategoryName"
-      />
-      <Route
-        component={[Function]}
-        path=":categoryName"
+      <Redirect
+        from="*"
+        to="analysis/categories"
       />
     </Route>
     <Route
       path="recurrence"
     >
-      <IndexRoute
-        component={[Function]}
+      <Redirect
+        from="*"
+        to="analysis/recurrence"
       />
+    </Route>
+    <Route
+      component={[Function]}
+      path="analysis"
+    >
       <Route
-        component={[Function]}
-        path=":bundleId"
-      />
+        path="categories"
+      >
+        <IndexRoute
+          component={[Function]}
+        />
+        <Route
+          component={[Function]}
+          path=":categoryName/:subcategoryName"
+        />
+        <Route
+          component={[Function]}
+          path=":categoryName"
+        />
+      </Route>
+      <Route
+        path="recurrence"
+      >
+        <IndexRoute
+          component={[Function]}
+        />
+        <Route
+          component={[Function]}
+          path=":bundleId"
+        />
+      </Route>
     </Route>
     <Route
       path="settings"
@@ -136,28 +157,49 @@ exports[`App route should have renderExtraRoutes 1`] = `
     <Route
       path="categories"
     >
-      <IndexRoute
-        component={[Function]}
-      />
-      <Route
-        component={[Function]}
-        path=":categoryName/:subcategoryName"
-      />
-      <Route
-        component={[Function]}
-        path=":categoryName"
+      <Redirect
+        from="*"
+        to="analysis/categories"
       />
     </Route>
     <Route
       path="recurrence"
     >
-      <IndexRoute
-        component={[Function]}
+      <Redirect
+        from="*"
+        to="analysis/recurrence"
       />
+    </Route>
+    <Route
+      component={[Function]}
+      path="analysis"
+    >
       <Route
-        component={[Function]}
-        path=":bundleId"
-      />
+        path="categories"
+      >
+        <IndexRoute
+          component={[Function]}
+        />
+        <Route
+          component={[Function]}
+          path=":categoryName/:subcategoryName"
+        />
+        <Route
+          component={[Function]}
+          path=":categoryName"
+        />
+      </Route>
+      <Route
+        path="recurrence"
+      >
+        <IndexRoute
+          component={[Function]}
+        />
+        <Route
+          component={[Function]}
+          path=":bundleId"
+        />
+      </Route>
     </Route>
     <Route
       path="settings"

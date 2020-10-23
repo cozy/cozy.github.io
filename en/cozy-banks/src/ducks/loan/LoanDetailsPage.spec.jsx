@@ -8,13 +8,13 @@ import {
   Section,
   Row
 } from './LoanDetailsPage'
-import { TestI18n } from 'test/AppLike'
+import AppLike from 'test/AppLike'
 
 const setup = (Component, props) => {
   const wrapper = mount(
-    <TestI18n>
+    <AppLike>
       <Component {...props} />
-    </TestI18n>
+    </AppLike>
   )
 
   return wrapper

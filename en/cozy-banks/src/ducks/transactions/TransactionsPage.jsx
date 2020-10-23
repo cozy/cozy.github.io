@@ -287,7 +287,9 @@ class TransactionsPage extends Component {
   render() {
     const {
       accounts,
-      breakpoints: { isMobile }
+      breakpoints: { isMobile },
+      header,
+      className
     } = this.props
 
     const areAccountsLoading =
@@ -299,21 +301,27 @@ class TransactionsPage extends Component {
     return (
       <TransactionActionsProvider>
         <BarTheme theme={theme} />
-        <TransactionHeader
-          transactions={filteredTransactions}
-          handleChangeMonth={this.handleChangeMonth}
-          currentMonth={this.state.currentMonth}
-          showBackButton={this.props.showBackButton}
-          showBalance={isMobile && !areAccountsLoading && !isOnSubcategory}
-        />
+        {header ? (
+          <TransactionHeader
+            transactions={filteredTransactions}
+            handleChangeMonth={this.handleChangeMonth}
+            currentMonth={this.state.currentMonth}
+            showBackButton={this.props.showBackButton}
+            showBalance={isMobile && !areAccountsLoading && !isOnSubcategory}
+          />
+        ) : null}
         <div
-          className={`${styles.TransactionPage__transactions} js-scrolling-element`}
+          className={`${styles.TransactionPage__transactions} ${className} js-scrolling-element`}
         >
           {this.renderTransactions()}
         </div>
       </TransactionActionsProvider>
     )
   }
+}
+
+TransactionsPage.defaultProps = {
+  header: true
 }
 
 const onSubcategory = ownProps => ownProps.router.params.subcategoryName

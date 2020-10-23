@@ -1,7 +1,6 @@
 import React from 'react'
 import { BalanceDetailsHeader } from 'ducks/balance'
 import { translate } from 'cozy-ui/transpiled/react/I18n'
-import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import CompositeRow from 'cozy-ui/transpiled/react/CompositeRow'
 import NarrowContent from 'cozy-ui/transpiled/react/NarrowContent'
 import Figure from 'cozy-ui/transpiled/react/Figure'
@@ -13,11 +12,12 @@ import LoanProgress from 'ducks/loan/LoanProgress'
 import { Padded } from 'components/Spacing'
 import { getBorrowedAmount } from 'ducks/account/helpers'
 
-import { useI18n } from 'cozy-ui/transpiled/react'
+import { useI18n, useBreakpoints } from 'cozy-ui/transpiled/react'
 
 const DATE_FORMAT = 'DD/MM/YY'
 
 const DumbRow = props => {
+  const { isMobile } = useBreakpoints()
   const { f } = useI18n()
   const {
     type,
@@ -25,7 +25,6 @@ const DumbRow = props => {
     value: originalValue,
     caption,
     className,
-    breakpoints: { isMobile },
     ...rest
   } = props
 
@@ -76,7 +75,7 @@ const DumbRow = props => {
   )
 }
 
-export const Row = withBreakpoints()(DumbRow)
+export const Row = DumbRow
 
 export const Section = props => {
   const { title, children } = props
@@ -257,10 +256,8 @@ const DumbLoanDetails = props => {
 const LoanDetails = translate()(DumbLoanDetails)
 
 export const DumbLoanDetailsPage = props => {
-  const {
-    filteringDoc: account,
-    breakpoints: { isMobile }
-  } = props
+  const { isMobile } = useBreakpoints()
+  const { filteringDoc: account } = props
 
   return (
     <>
@@ -277,6 +274,6 @@ export const DumbLoanDetailsPage = props => {
   )
 }
 
-const LoanDetailsPage = withBreakpoints()(DumbLoanDetailsPage)
+const LoanDetailsPage = DumbLoanDetailsPage
 
 export default LoanDetailsPage

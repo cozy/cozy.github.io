@@ -31,9 +31,42 @@ import { getCategoriesData } from 'ducks/categories/selectors'
 import maxBy from 'lodash/maxBy'
 import { getDate } from 'ducks/transactions/helpers'
 import { trackPage } from 'ducks/tracking/browser'
+import { TransactionsPageWithBackButton } from 'ducks/transactions'
+import { onSubcategory } from './utils'
 
 const isCategoryDataEmpty = categoryData => {
   return categoryData[0] && isNaN(categoryData[0].percentage)
+}
+
+const goToCategory = (router, selectedCategory, subcategory) => {
+  if (subcategory) {
+    router.push(`/analysis/categories/${selectedCategory}/${subcategory}`)
+  } else if (selectedCategory) {
+    router.push(`/analysis/categories/${selectedCategory}`)
+  } else {
+    router.push('/analysis/categories')
+  }
+}
+
+const makeBreadcrumbs = (router, categoryName, subcategoryName, t) => {
+  const breadcrumbs = [
+    {
+      name: t('Categories.title.general'),
+      onClick: () => router.push('/analysis/categories')
+    }
+  ]
+  if (categoryName) {
+    breadcrumbs.push({
+      name: t(`Data.categories.${categoryName}`),
+      onClick: () => router.push(`/analysis/categories/${categoryName}`)
+    })
+  }
+  if (subcategoryName) {
+    breadcrumbs.push({
+      name: t(`Data.subcategories.${subcategoryName}`)
+    })
+  }
+  return breadcrumbs
 }
 
 class CategoriesPage extends Component {
@@ -84,16 +117,6 @@ class CategoriesPage extends Component {
     }
   }
 
-  selectCategory = (selectedCategory, subcategory) => {
-    if (subcategory) {
-      this.props.router.push(`/categories/${selectedCategory}/${subcategory}`)
-    } else if (selectedCategory) {
-      this.props.router.push(`/categories/${selectedCategory}`)
-    } else {
-      this.props.router.push('/categories')
-    }
-  }
-
   onWithIncomeToggle = checked => {
     const { client } = this.props
     const settings = this.getSettings()
@@ -123,25 +146,29 @@ class CategoriesPage extends Component {
       col => isQueryLoading(col) && !hasQueryBeenLoaded(col)
     )
     const { showIncomeCategory } = this.getSettings()
-    const selectedCategoryName = router.params.categoryName
     const categories = showIncomeCategory
       ? categoriesProps
       : categoriesProps.filter(category => category.name !== 'incomeCat')
-    const breadcrumbItems = [{ name: t('Categories.title.general') }]
-    if (selectedCategoryName) {
-      breadcrumbItems[0].onClick = () => router.push('/categories')
-      breadcrumbItems.push({
-        name: t(`Data.categories.${selectedCategoryName}`)
-      })
-    }
+
+    const categoryName = router.params.categoryName
+    const subcategoryName = router.params.subcategoryName
+    const breadcrumbItems = makeBreadcrumbs(
+      router,
+      categoryName,
+      subcategoryName,
+      t
+    )
+
     const selectedCategory = categories.find(
-      category => category.name === selectedCategoryName
+      category => category.name === categoryName
     )
 
     const sortedCategories = sortBy(categories, cat =>
       Math.abs(cat.amount)
     ).reverse()
     const hasAccount = accounts.data && accounts.data.length > 0
+
+    const isSubcategory = onSubcategory(router.params)
 
     return (
       <Fragment>
@@ -154,21 +181,26 @@ class CategoriesPage extends Component {
           categories={sortedCategories}
           isFetching={isFetching}
           hasAccount={hasAccount}
+          chart={isSubcategory ? false : true}
         />
         {hasAccount &&
           (isFetching ? (
             <Padded className="u-pt-0">
               <Loading loadingType="categories" />
             </Padded>
-          ) : (
+          ) : !isSubcategory ? (
             <Categories
               categories={sortedCategories}
               selectedCategory={selectedCategory}
-              selectedCategoryName={selectedCategoryName}
-              selectCategory={this.selectCategory}
+              selectedCategoryName={categoryName}
+              selectCategory={(selectedCategory, subcategory) =>
+                goToCategory(router, selectedCategory, subcategory)
+              }
               withIncome={showIncomeCategory}
               filterWithInCome={this.filterWithInCome}
             />
+          ) : (
+            <TransactionsPageWithBackButton className="u-pt-0" header={false} />
           ))}
       </Fragment>
     )

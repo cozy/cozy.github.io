@@ -1,9 +1,14 @@
 import React from 'react'
-import { Tabs, TabList, Tab } from 'cozy-ui/transpiled/react/Tabs'
+import { Tabs, Tab } from 'cozy-ui/transpiled/react/MuiTabs'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import styles from 'components/Tabs.styl'
+import Header from 'components/Header'
 
 import { useLocation, useHistory } from 'components/RouterContext'
+
+const tabRoutes = {
+  categories: 'analysis/categories',
+  recurrence: 'analysis/recurrence'
+}
 
 const AnalysisTabs = () => {
   const history = useHistory()
@@ -19,18 +24,20 @@ const AnalysisTabs = () => {
     ? 'categories'
     : 'recurrence'
 
-  const tabs = tabNames.map(tabName => (
-    <Tab key={tabName} name={tabName} onClick={goTo(`${tabName}`)}>
-      {t(`Nav.${tabName}`)}
-    </Tab>
-  ))
-
   return (
-    <Tabs className={styles['Tabs']} initialActiveTab={activeTab}>
-      <TabList inverted className={styles['TabList']}>
-        {tabs}
-      </TabList>
-    </Tabs>
+    <Header fixed theme="inverted">
+      <Tabs value={tabNames.indexOf(activeTab)}>
+        {tabNames.map(tabName => (
+          <Tab
+            disableRipple
+            label={t(`Nav.${tabName}`)}
+            key={tabName}
+            name={tabName}
+            onClick={goTo(tabRoutes[tabName])}
+          />
+        ))}
+      </Tabs>
+    </Header>
   )
 }
 

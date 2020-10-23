@@ -82,7 +82,7 @@ class Categories extends Component {
   handleClick = (category, subcategory) => {
     const { router } = this.props
     if (subcategory) {
-      router.push(`/categories/${category.name}/${subcategory.name}`)
+      router.push(`/analysis/categories/${category.name}/${subcategory.name}`)
     } else {
       this.toggle(category.name)
     }

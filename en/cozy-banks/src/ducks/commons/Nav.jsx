@@ -92,19 +92,19 @@ export const Nav = () => {
             rx: balancesRoute
           },
           {
-            to: '/categories',
+            to: '/analysis/categories',
             icon: graphIcon,
             label: t('Nav.analysis'),
             rx: analysisRoute
           },
           {
-            to: '/categories',
+            to: '/analysis/categories',
             label: t('Nav.categories'),
             rx: categoriesRoute,
             secondary: true
           },
           {
-            to: '/recurrence',
+            to: '/analysis/recurrence',
             label: t('Nav.recurrence'),
             rx: recurrenceRoute,
             secondary: true

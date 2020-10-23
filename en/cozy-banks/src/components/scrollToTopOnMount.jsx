@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { withBreakpoints } from 'cozy-ui/transpiled/react'
+import { useBreakpoints } from 'cozy-ui/transpiled/react'
 
 const useScrollToOnMount = (node, scrollTop, scrollLeft) => {
   useEffect(
@@ -27,11 +27,11 @@ const getMainNode = isMobile => {
  * Decorates a components so that it scrolls to the top of the main
  * scrolling container when mounted.
  */
-const scrollToTopOnMount = Component =>
-  withBreakpoints()(({ breakpoints, ...props }) => {
-    const node = getMainNode(breakpoints.isMobile)
-    useScrollToOnMount(node, 0)
-    return <Component {...props} />
-  })
+const scrollToTopOnMount = Component => ({ ...props }) => {
+  const breakpoints = useBreakpoints()
+  const node = getMainNode(breakpoints.isMobile)
+  useScrollToOnMount(node, 0)
+  return <Component {...props} />
+}
 
 export default scrollToTopOnMount

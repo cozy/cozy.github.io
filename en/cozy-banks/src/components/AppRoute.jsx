@@ -3,7 +3,6 @@ import { IndexRoute, Route, Redirect } from 'react-router'
 import App from 'components/App'
 import { isWebApp } from 'cozy-device-helper'
 
-import { TransactionsPageWithBackButton } from 'ducks/transactions'
 import { CategoriesPage } from 'ducks/categories'
 import {
   Settings,
@@ -22,6 +21,7 @@ import {
 } from 'ducks/recurrence'
 import { TransferPage } from 'ducks/transfers'
 import { SearchPage } from 'ducks/search'
+import { AnalysisPage } from 'ducks/analysis'
 import UserActionRequired from 'components/UserActionRequired'
 import scrollToTopOnMount from 'components/scrollToTopOnMount'
 
@@ -38,22 +38,30 @@ const AppRoute = () => (
         />
       </Route>
       <Route path="categories">
-        <IndexRoute component={scrollToTopOnMount(CategoriesPage)} />
-        <Route
-          path=":categoryName/:subcategoryName"
-          component={scrollToTopOnMount(TransactionsPageWithBackButton)}
-        />
-        <Route
-          path=":categoryName"
-          component={scrollToTopOnMount(CategoriesPage)}
-        />
+        <Redirect from="*" to="analysis/categories" />
       </Route>
       <Route path="recurrence">
-        <IndexRoute component={scrollToTopOnMount(RecurrencesPage)} />
-        <Route
-          path=":bundleId"
-          component={scrollToTopOnMount(RecurrencePage)}
-        />
+        <Redirect from="*" to="analysis/recurrence" />
+      </Route>
+      <Route path="analysis" component={scrollToTopOnMount(AnalysisPage)}>
+        <Route path="categories">
+          <IndexRoute component={scrollToTopOnMount(CategoriesPage)} />
+          <Route
+            path=":categoryName/:subcategoryName"
+            component={scrollToTopOnMount(CategoriesPage)}
+          />
+          <Route
+            path=":categoryName"
+            component={scrollToTopOnMount(CategoriesPage)}
+          />
+        </Route>
+        <Route path="recurrence">
+          <IndexRoute component={scrollToTopOnMount(RecurrencesPage)} />
+          <Route
+            path=":bundleId"
+            component={scrollToTopOnMount(RecurrencePage)}
+          />
+        </Route>
       </Route>
       <Route path="settings">
         <Route

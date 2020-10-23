@@ -1,24 +1,79 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PageModal should render a Modal on tablet/desktop 1`] = `
-<Modal
-  closable={true}
-  into="body"
-  mobileFullscreen={false}
-  overflowHidden={false}
-  primaryType="regular"
-  secondaryType="secondary"
-  size="small"
-  title="Hello world"
->
-  This is a page modal
-</Modal>
+<Context.Provider>
+  <BreakpointsProvider>
+    <Provider
+      store={
+        Object {
+          "dispatch": [Function],
+          "getState": [Function],
+          "replaceReducer": [Function],
+          "subscribe": [Function],
+          Symbol(observable): [Function],
+        }
+      }
+    >
+      <CozyProvider
+        client={
+          CozyClient {
+            "uri": "http://cozy.works:8080",
+          }
+        }
+      >
+        <TestI18n>
+          <PageModal
+            breakpoints={
+              Object {
+                "isMobile": false,
+              }
+            }
+            title="Hello world"
+          >
+            This is a page modal
+          </PageModal>
+        </TestI18n>
+      </CozyProvider>
+    </Provider>
+  </BreakpointsProvider>
+</Context.Provider>
 `;
 
 exports[`PageModal should render a Page on mobile 1`] = `
-<Page
-  title="Hello world"
->
-  This is a page modal
-</Page>
+<Context.Provider>
+  <BreakpointsProvider>
+    <Provider
+      store={
+        Object {
+          "dispatch": [Function],
+          "getState": [Function],
+          "replaceReducer": [Function],
+          "subscribe": [Function],
+          Symbol(observable): [Function],
+        }
+      }
+    >
+      <CozyProvider
+        client={
+          CozyClient {
+            "uri": "http://cozy.works:8080",
+          }
+        }
+      >
+        <TestI18n>
+          <PageModal
+            breakpoints={
+              Object {
+                "isMobile": true,
+              }
+            }
+            title="Hello world"
+          >
+            This is a page modal
+          </PageModal>
+        </TestI18n>
+      </CozyProvider>
+    </Provider>
+  </BreakpointsProvider>
+</Context.Provider>
 `;

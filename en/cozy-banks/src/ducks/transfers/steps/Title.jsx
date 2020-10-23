@@ -1,7 +1,8 @@
 import React from 'react'
-import { Title as UITitle, withBreakpoints } from 'cozy-ui/transpiled/react'
+import { Title as UITitle, useBreakpoints } from 'cozy-ui/transpiled/react'
 
-const _Title = ({ children, breakpoints: { isMobile } }) => {
+const _Title = ({ children }) => {
+  const { isMobile } = useBreakpoints()
   return (
     <UITitle className={'u-mb-1 ' + (isMobile ? 'u-ta-center' : '')}>
       {children}
@@ -9,6 +10,6 @@ const _Title = ({ children, breakpoints: { isMobile } }) => {
   )
 }
 
-const Title = React.memo(withBreakpoints()(_Title))
+const Title = React.memo(_Title)
 
 export default Title

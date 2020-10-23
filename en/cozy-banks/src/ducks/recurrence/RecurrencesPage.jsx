@@ -19,7 +19,6 @@ import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { recurrenceConn } from 'doctypes'
 import BarTheme from 'ducks/bar/BarTheme'
 import Table, { TdSecondary } from 'components/Table'
-import AnalysisTabs from 'ducks/analysis/AnalysisTabs'
 
 import Padded from 'components/Spacing/Padded'
 import Header from 'components/Header'
@@ -73,7 +72,7 @@ const BundleMobileRow = ({ bundle }) => {
   const catId = getCategories(bundle)[0]
   return (
     <CompositeRow
-      onClick={() => history.push(`/recurrence/${bundle._id}`)}
+      onClick={() => history.push(`/analysis/recurrence/${bundle._id}`)}
       image={<CategoryIcon categoryId={catId} />}
       className={cx('u-pv-half u-ph-1 u-c-pointer', styles.BundleRow)}
       key={bundle._id}
@@ -101,7 +100,7 @@ const BundleDesktopRow = ({ bundle }) => {
   return (
     <tr
       className="u-c-pointer"
-      onClick={() => history.push(`recurrence/${bundle._id}`)}
+      onClick={() => history.push(`analysis/recurrence/${bundle._id}`)}
     >
       <td className={styles.ColumnSizeLabel}>
         <Media>
@@ -198,7 +197,7 @@ const RecurrencesPage = () => {
                 items={[
                   {
                     name: t('Recurrence.title'),
-                    onClick: () => history.push('/recurrence')
+                    onClick: () => history.push('/analysis/recurrence')
                   }
                 ]}
                 theme="primary"
@@ -214,7 +213,6 @@ const RecurrencesPage = () => {
         {isMobile ? (
           <>
             <PageTitle>{t('Recurrence.title')}</PageTitle>
-            <AnalysisTabs />
           </>
         ) : null}
       </Header>

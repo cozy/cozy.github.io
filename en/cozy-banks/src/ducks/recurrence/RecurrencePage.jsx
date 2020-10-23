@@ -42,7 +42,6 @@ import {
   getStatus
 } from 'ducks/recurrence/api'
 
-import AnalysisTabs from 'ducks/analysis/AnalysisTabs'
 import { BarTitle } from 'components/Title/PageTitle'
 import TransactionsTableHead from 'ducks/transactions/header/TableHead'
 
@@ -219,9 +218,10 @@ const BundleInfo = ({ bundle }) => {
   )
   const [showingRename, showRename, hideRename] = useToggle(false)
 
-  const goToRecurrenceRoot = useCallback(() => history.push('/recurrence'), [
-    history
-  ])
+  const goToRecurrenceRoot = useCallback(
+    () => history.push('/analysis/recurrence'),
+    [history]
+  )
 
   const handleOpenRename = useCallback(() => {
     showRename()
@@ -272,7 +272,6 @@ const BundleInfo = ({ bundle }) => {
               onClick={showActionsMenu}
             />
           </BarRight>
-          <AnalysisTabs />
           {showingActionsMenu ? (
             <RecurrenceActionMenu
               onClose={hideActionsMenu}

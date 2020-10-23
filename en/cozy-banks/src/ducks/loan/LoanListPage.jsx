@@ -5,7 +5,6 @@ import LoanProgress from 'ducks/loan/LoanProgress'
 import CompositeRow from 'cozy-ui/transpiled/react/CompositeRow'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
-import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import { Bold } from 'cozy-ui/transpiled/react/Text'
 import NarrowContent from 'cozy-ui/transpiled/react/NarrowContent'
 import AccountIcon from 'components/AccountIcon'
@@ -14,19 +13,18 @@ import { BalanceDetailsHeader } from 'ducks/balance'
 import { Padded } from 'components/Spacing'
 import { flowRight as compose } from 'lodash'
 import { accountsConn } from 'doctypes'
+import { useBreakpoints } from 'cozy-ui/transpiled/react'
 
-const PaddedOnDesktop = withBreakpoints()(props => {
-  const {
-    breakpoints: { isDesktop },
-    children
-  } = props
+const PaddedOnDesktop = props => {
+  const { isDesktop } = useBreakpoints()
+  const { children } = props
 
   if (isDesktop) {
     return <Padded>{children}</Padded>
   }
 
   return children
-})
+}
 
 const DumbLoanListPage = props => {
   const { filteringDoc, filterByDoc, accounts: accountsCol } = props
