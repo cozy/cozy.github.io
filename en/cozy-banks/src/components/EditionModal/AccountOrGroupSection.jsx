@@ -1,21 +1,15 @@
 import React from 'react'
-import compose from 'lodash/flowRight'
-import { translate, useI18n } from 'cozy-ui/transpiled/react'
-import { connect } from 'react-redux'
+import { useI18n } from 'cozy-ui/transpiled/react'
+import { useSelector } from 'react-redux'
 import { getAccountsById } from 'selectors'
 import { ModalSection, ModalRow } from 'components/ModalSections'
 import AccountOrGroupLabel from 'ducks/settings/CategoryAlerts/AccountOrGroupLabel'
 import AccountIcon from 'components/AccountIcon'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 
-const DumbAccountOrGroupSection = ({
-  label,
-  value,
-  onClick,
-  accountsById,
-  chooserProps
-}) => {
+const AccountOrGroupSection = ({ label, value, onClick, chooserProps }) => {
   const { t } = useI18n()
+  const accountsById = useSelector(getAccountsById)
 
   return (
     <ModalSection label={label}>
@@ -42,12 +36,5 @@ const DumbAccountOrGroupSection = ({
     </ModalSection>
   )
 }
-
-const AccountOrGroupSection = compose(
-  translate(),
-  connect(state => ({
-    accountsById: getAccountsById(state)
-  }))
-)(DumbAccountOrGroupSection)
 
 export default AccountOrGroupSection

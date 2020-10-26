@@ -9,6 +9,7 @@ import { getFilteredAccounts } from 'ducks/filters'
 import BarBalance from 'components/BarBalance'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { BarRight } from 'components/Bar'
+import SearchIconLink from 'ducks/search/SearchIconLink'
 
 export const DumbBalanceDetailsHeader = props => {
   const { isMobile } = useBreakpoints()
@@ -27,9 +28,10 @@ export const DumbBalanceDetailsHeader = props => {
           <AccountSwitch small={small} theme="inverted" />
         </div>
       </Padded>
-      {showBalance && isMobile && (
+      {isMobile && (
         <BarRight>
-          <BarBalance accounts={filteredAccounts} />
+          {showBalance ? <BarBalance accounts={filteredAccounts} /> : null}
+          <SearchIconLink />
         </BarRight>
       )}
       {children}

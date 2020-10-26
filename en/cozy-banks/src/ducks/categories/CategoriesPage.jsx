@@ -200,7 +200,11 @@ class CategoriesPage extends Component {
               filterWithInCome={this.filterWithInCome}
             />
           ) : (
-            <TransactionsPageWithBackButton className="u-pt-0" header={false} />
+            <TransactionsPageWithBackButton
+              className="u-pt-0"
+              showTriggerErrors={false}
+              header={false}
+            />
           ))}
       </Fragment>
     )

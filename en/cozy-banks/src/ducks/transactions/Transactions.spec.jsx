@@ -6,7 +6,7 @@ import { TransactionsDumb, sortByDate } from './Transactions'
 import data from '../../../test/fixtures'
 import store from '../../../test/store'
 import AppLike from '../../../test/AppLike'
-import { Caption } from 'cozy-ui/transpiled/react/Text'
+import Typography from 'cozy-ui/transpiled/react/Typography'
 import { getClient } from 'test/client'
 import { normalizeData } from 'test/store'
 import TransactionPageErrors from 'ducks/transactions/TransactionPageErrors'
@@ -55,7 +55,12 @@ describe('transaction row', () => {
         true
       )
     )
-    expect(root.find(Caption).text()).toBe('Compte courant Isabelle - BNPP')
+    expect(
+      root
+        .find(Typography)
+        .filterWhere(n => n.props().variant == 'caption')
+        .text()
+    ).toBe('Compte courant Isabelle - BNPP')
   })
 
   it('should render correctly on mobile', () => {
@@ -71,28 +76,38 @@ describe('transaction row', () => {
         false
       )
     )
-    expect(root.find(Caption).text()).toBe('Compte courant Isabelle - BNPP')
+    expect(
+      root
+        .find(Typography)
+        .filterWhere(n => n.props().variant == 'caption')
+        .text()
+    ).toBe('Compte courant Isabelle - BNPP')
     expect(handleRef).toHaveBeenCalled()
   })
 })
 
 describe('Transactions', () => {
-  jest
-    .spyOn(TransactionsDumb.prototype, 'renderTransactions')
-    .mockReturnValue(<div />)
-
+  let i = 0
+  const mockTransactions = data['io.cozy.bank.operations'].map(x => ({
+    _id: `transaction-id-${i++}`,
+    ...x
+  }))
   const setup = ({ showTriggerErrors }) => {
-    const transactions = data['io.cozy.bank.operations']
+    const Wrapper = ({ transactions = mockTransactions }) => {
+      return (
+        <AppLike>
+          <TransactionsDumb
+            breakpoints={{ isDesktop: false }}
+            transactions={transactions}
+            showTriggerErrors={showTriggerErrors}
+            TransactionSections={() => <div />}
+          />
+        </AppLike>
+      )
+    }
+    const root = mount(<Wrapper />)
 
-    const root = mount(
-      <TransactionsDumb
-        breakpoints={{ isDesktop: false }}
-        transactions={transactions}
-        showTriggerErrors={showTriggerErrors}
-      />
-    )
-
-    return { root, transactions }
+    return { root, transactions: mockTransactions }
   }
 
   describe('when showTriggerErrors is false', () => {
@@ -112,11 +127,13 @@ describe('Transactions', () => {
   it('should sort transactions from props on mount and on update', () => {
     const { root, transactions } = setup({ isOnSubcategory: false })
 
-    expect(root.instance().transactions).toEqual(sortByDate(transactions))
+    const instance = root.find(TransactionsDumb).instance()
+    expect(instance.transactions).toEqual(sortByDate(transactions))
 
     const slicedTransactions = transactions.slice(0, 10)
     root.setProps({ transactions: slicedTransactions })
 
-    expect(root.instance().transactions).toEqual(sortByDate(slicedTransactions))
+    const instance2 = root.find(TransactionsDumb).instance()
+    expect(instance2.transactions).toEqual(sortByDate(slicedTransactions))
   })
 })

@@ -29,12 +29,12 @@ const useCounter = (min, max) => {
 }
 
 const Carrousel = props => {
+  const { children, className } = props
   const [index, handleChange, handlePrev, handleNext] = useCounter(
     children.length
   )
-
   const { isMobile } = useBreakpoints()
-  const { children, className } = props
+
   return (
     <Media className={className}>
       <Img

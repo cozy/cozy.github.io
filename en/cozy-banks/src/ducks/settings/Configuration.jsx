@@ -127,35 +127,39 @@ export class Configuration extends React.Component {
               rules={settings.notifications.delayedDebit}
             />
           </SubSection>
-          <SubSection
-            title={t('Notifications.health_section.title')}
-            description={t('Notifications.health_section.description')}
-          >
-            <div className="u-stack-xs">
-              <EditableSettingCard
-                title={t('Notifications.when_health_bill_linked.settingTitle')}
-                descriptionKey="Notifications.when_health_bill_linked.description"
-                onToggle={this.onToggle('notifications.healthBillLinked')}
-                doc={settings.notifications.healthBillLinked}
-              />
-              <EditableSettingCard
-                title={t(
-                  'Notifications.when_late_health_reimbursement.settingTitle'
-                )}
-                descriptionKey={
-                  'Notifications.when_late_health_reimbursement.description'
-                }
-                onToggle={this.onToggle(
-                  'notifications.lateHealthReimbursement'
-                )}
-                onChangeDoc={this.onChangeDoc(
-                  'notifications.lateHealthReimbursement'
-                )}
-                doc={settings.notifications.lateHealthReimbursement}
-                editModalProps={lateHealthReimbursement}
-              />
-            </div>
-          </SubSection>
+          {flag('banks.health-reimbursements.deactivated') ? null : (
+            <SubSection
+              title={t('Notifications.health_section.title')}
+              description={t('Notifications.health_section.description')}
+            >
+              <div className="u-stack-xs">
+                <EditableSettingCard
+                  title={t(
+                    'Notifications.when_health_bill_linked.settingTitle'
+                  )}
+                  descriptionKey="Notifications.when_health_bill_linked.description"
+                  onToggle={this.onToggle('notifications.healthBillLinked')}
+                  doc={settings.notifications.healthBillLinked}
+                />
+                <EditableSettingCard
+                  title={t(
+                    'Notifications.when_late_health_reimbursement.settingTitle'
+                  )}
+                  descriptionKey={
+                    'Notifications.when_late_health_reimbursement.description'
+                  }
+                  onToggle={this.onToggle(
+                    'notifications.lateHealthReimbursement'
+                  )}
+                  onChangeDoc={this.onChangeDoc(
+                    'notifications.lateHealthReimbursement'
+                  )}
+                  doc={settings.notifications.lateHealthReimbursement}
+                  editModalProps={lateHealthReimbursement}
+                />
+              </div>
+            </SubSection>
+          )}
         </Section>
         <Section
           title={t('AdvancedFeaturesSettings.title')}

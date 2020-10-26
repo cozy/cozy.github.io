@@ -22,7 +22,11 @@ import resultWithArgs from 'utils/resultWithArgs'
 import Confirmation from 'components/Confirmation'
 
 import { BackIcon } from 'components/BackButton'
-import { useTrackPage, useTracker } from 'ducks/tracking/browser'
+import {
+  useTrackPage,
+  useTracker,
+  trackParentPage
+} from 'ducks/tracking/browser'
 
 export const CHOOSING_TYPES = {
   category: 'category',
@@ -212,6 +216,18 @@ const EditionModal = props => {
 
   useTrackPage(trackPageName)
 
+  const handleDismiss = () => {
+    onDismiss()
+
+    // :/ We need to set a timeout otherwise we fire the track page too soon
+    // and one of the event (for example clicking on "Annuler") might be wrongly
+    // included in the parent page, this is why we delay a bit the hit to the
+    // parent page.
+    setTimeout(() => {
+      trackParentPage()
+    }, 100)
+  }
+
   const handleChoosingCancel = () => {
     setChoosing(null)
   }
@@ -245,7 +261,7 @@ const EditionModal = props => {
         </>
       }
       mobileFullscreen={true}
-      dismissAction={onDismiss}
+      dismissAction={handleDismiss}
       closable={!choosing}
       overflowHidden={true}
     >
@@ -269,7 +285,7 @@ const EditionModal = props => {
           canBeRemoved={canBeRemoved}
           doc={doc}
           onEdit={onEdit}
-          onDismiss={onDismiss}
+          onDismiss={handleDismiss}
           onRemove={onRemove}
           removeModalTitle={removeModalTitle}
           removeModalDescription={removeModalDescription}

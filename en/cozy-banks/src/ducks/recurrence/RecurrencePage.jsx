@@ -57,6 +57,7 @@ import useToggle from 'components/useToggle'
 import ActionMenuHelper from 'components/ActionMenuHelper'
 
 import { useHistory, useParams } from 'components/RouterContext'
+import { useTrackPage } from 'ducks/tracking/browser'
 
 const useDocument = (doctype, id) => {
   const client = useClient()
@@ -436,6 +437,8 @@ const RecurrencePage = () => {
 
   const bundleId = params.bundleId
   const bundle = useDocument(RECURRENCE_DOCTYPE, bundleId)
+
+  useTrackPage('recurrences:details')
 
   if (isQueryLoading(recurrenceCol) && !hasQueryBeenLoaded(recurrenceCol)) {
     return <Loading />

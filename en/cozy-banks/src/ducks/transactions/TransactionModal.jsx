@@ -1,8 +1,11 @@
 /**
- * Is used in mobile/tablet mode when you click on the more button
+ * Is used to have more information on a transaction. Can edit
+ * - the recurrence
+ * - the cateogry of transaction
+ * - the date
  */
 
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
@@ -51,7 +54,11 @@ import {
 import { TRANSACTION_DOCTYPE } from 'doctypes'
 import flag from 'cozy-flags'
 
-import { trackEvent, useTrackPage } from 'ducks/tracking/browser'
+import {
+  trackEvent,
+  useTrackPage,
+  trackParentPage
+} from 'ducks/tracking/browser'
 import { getFrequencyText } from 'ducks/recurrence/utils'
 import TransactionCategoryEditor from 'ducks/transactions/TransactionCategoryEditor'
 import TransactionApplicationDateEditor from 'ducks/transactions/TransactionApplicationDateEditor'
@@ -63,7 +70,7 @@ import TransactionModalRow, {
 } from 'ducks/transactions/TransactionModalRow'
 
 import withDocs from 'components/withDocs'
-import { useParams, useLocation } from 'components/RouterContext'
+import { useLocation } from 'components/RouterContext'
 
 const SearchForTransactionIcon = ({ transaction }) => {
   const label = getLabel(transaction)
@@ -111,9 +118,8 @@ const withTransaction = withDocs(ownProps => ({
 
 const TransactionCategoryEditorSlide = ({ transaction }) => {
   const { t } = useI18n()
-  const { stackPop } = useViewStack()
+  const { stackPop: rawStackPop } = useViewStack()
   const { isMobile } = useBreakpoints()
-  const { categoryName, subcategoryName } = useParams()
 
   const onAfterUpdate = transaction => {
     trackEvent({
@@ -121,11 +127,12 @@ const TransactionCategoryEditorSlide = ({ transaction }) => {
     })
   }
 
-  useTrackPage(
-    categoryName && subcategoryName
-      ? `analyse:${categoryName}:depense-categorie`
-      : `mon_compte:depense:categorie`
-  )
+  useTrackPage(lastTracked => `${lastTracked}:depense-categorie`)
+
+  const stackPop = useCallback(() => {
+    trackParentPage()
+    rawStackPop()
+  }, [rawStackPop])
 
   return (
     <>
@@ -151,14 +158,14 @@ const TransactionApplicationDateEditorSlide = ({
   afterUpdate
 }) => {
   const { t } = useI18n()
-  const { stackPop } = useViewStack()
-  const { categoryName, subcategoryName } = useParams()
+  const { stackPop: rawStackPop } = useViewStack()
 
-  useTrackPage(
-    categoryName && subcategoryName
-      ? `analyse:${categoryName}:depense-affectation_mois`
-      : `mon_compte:depense:affectation_mois`
-  )
+  useTrackPage(lastTracked => `${lastTracked}:affectation_mois`)
+
+  const stackPop = useCallback(() => {
+    trackParentPage()
+    rawStackPop()
+  }, [rawStackPop])
 
   const handleBeforeUpdate = () => {
     beforeUpdate()
@@ -240,7 +247,14 @@ const RecurrenceRow = ({ transaction, onClick }) => {
 const TransactionRecurrenceEditorSlide = ({ transaction }) => {
   const { t } = useI18n()
 
-  const { stackPop } = useViewStack()
+  const { stackPop: rawStackPop } = useViewStack()
+
+  useTrackPage(lastTracked => `${lastTracked}:affectation_recurrence`)
+
+  const stackPop = useCallback(() => {
+    trackParentPage()
+    rawStackPop()
+  }, [rawStackPop])
 
   return (
     <div>
@@ -434,23 +448,27 @@ const TransactionModalInfo = props => {
 
 const TransactionModal = ({ requestClose, ...props }) => {
   const { t } = useI18n()
-  const { categoryName, subcategoryName } = useParams()
 
-  useTrackPage(
-    categoryName && subcategoryName
-      ? `analyse:${categoryName}:depense`
-      : `mon_compte:depense`
-  )
+  useTrackPage(lastTracked => `${lastTracked}:depense`)
+
+  const handleRequestClose = () => {
+    trackParentPage()
+    requestClose()
+  }
+
+  const handleModalStackPop = () => {
+    trackParentPage()
+  }
 
   return (
     <PageModal
       aria-label={t('Transactions.infos.modal-label')}
-      dismissAction={requestClose}
+      dismissAction={handleRequestClose}
       into="body"
       overflowHidden
     >
-      <ModalStack>
-        <TransactionModalInfo {...props} requestClose={requestClose} />
+      <ModalStack onPop={handleModalStackPop}>
+        <TransactionModalInfo {...props} requestClose={handleRequestClose} />
       </ModalStack>
     </PageModal>
   )

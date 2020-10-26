@@ -1,15 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
-import {
-  Media,
-  Bd,
-  Img,
-  Icon,
-  Text,
-  Caption,
-  useI18n
-} from 'cozy-ui/transpiled/react'
+import { Media, Bd, Img, Icon, useI18n } from 'cozy-ui/transpiled/react'
 import flag from 'cozy-flags'
 
 import Figure from 'cozy-ui/transpiled/react/Figure'
@@ -41,6 +33,8 @@ import TransactionCategoryEditor from 'ducks/transactions/TransactionCategoryEdi
 import iconRecurrence from 'assets/icons/icon-recurrence.svg'
 
 import useSwitch from 'hooks/useSwitch'
+
+import Typography from 'cozy-ui/transpiled/react/Typography'
 
 const useTransactionModal = transaction => {
   const [modalOpened, show, hide] = useSwitch(false)
@@ -84,10 +78,10 @@ const TransactionDate = ({ isExtraLarge, transaction }) => {
 const AccountCaption = React.memo(function AccountCaption({ account }) {
   const accountInstitutionLabel = getAccountInstitutionLabel(account)
   return (
-    <Caption className="u-ellipsis">
+    <Typography className="u-ellipsis" variant="caption" color="textSecondary">
       {getAccountLabel(account)}
       {accountInstitutionLabel && ` - ${accountInstitutionLabel}`}
-    </Caption>
+    </Typography>
   )
 })
 
@@ -97,9 +91,9 @@ const ApplicationDateCaption = React.memo(function ApplicationDateCaption({
   const { f } = useI18n()
   const applicationDate = getApplicationDate(transaction)
   return (
-    <Caption>
+    <Typography variant="caption" color="textSecondary">
       <Icon size={10} icon="logout" /> {f(applicationDate, 'MMMM')}
-    </Caption>
+    </Typography>
   )
 })
 
@@ -107,9 +101,9 @@ const RecurrenceCaption = ({ recurrence }) => {
   const { t } = useI18n()
   const freqText = getFrequencyText(t, recurrence)
   return (
-    <Caption>
+    <Typography variant="caption" color="textSecondary">
       {freqText} <Icon icon={iconRecurrence} size="10" />
-    </Caption>
+    </Typography>
   )
 }
 
@@ -155,7 +149,7 @@ export const RowDesktop = React.memo(function RowDesktop(props) {
           </Img>
           <Bd className="u-pl-1">
             <List.Content onClick={showTransactionModal}>
-              <Text>{getLabel(transaction)}</Text>
+              <Typography variant="body1">{getLabel(transaction)}</Typography>
               {!filteringOnAccount && <AccountCaption account={account} />}
               {applicationDate ? (
                 <ApplicationDateCaption transaction={transaction} />
@@ -232,7 +226,9 @@ export const RowMobile = React.memo(function RowMobile(props) {
         </Img>
         <Bd className="u-clickable u-mr-half">
           <List.Content onClick={showTransactionModal}>
-            <Text className="u-ellipsis">{getLabel(transaction)}</Text>
+            <Typography className="u-ellipsis" variant="body1">
+              {getLabel(transaction)}
+            </Typography>
             {!filteringOnAccount && <AccountCaption account={account} />}
             {applicationDate ? (
               <ApplicationDateCaption transaction={transaction} />

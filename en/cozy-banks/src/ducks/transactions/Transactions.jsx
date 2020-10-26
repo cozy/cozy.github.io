@@ -1,19 +1,11 @@
-import React from 'react'
+import React, { useMemo, useContext, createContext } from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
-import {
-  sortBy,
-  throttle,
-  debounce,
-  keyBy,
-  flowRight as compose,
-  toPairs,
-  groupBy
-} from 'lodash'
+import { sortBy, throttle, debounce, keyBy, toPairs, groupBy } from 'lodash'
 import cx from 'classnames'
 import { isIOSApp } from 'cozy-device-helper'
 
-import { translate, withBreakpoints, useI18n } from 'cozy-ui/transpiled/react'
+import { useI18n, withBreakpoints } from 'cozy-ui/transpiled/react'
 import Button from 'cozy-ui/transpiled/react/Button'
 import * as List from 'components/List'
 import { Table } from 'components/Table'
@@ -27,6 +19,7 @@ import {
 } from 'ducks/transactions/scroll'
 import { RowDesktop, RowMobile } from 'ducks/transactions/TransactionRow'
 import { getDate } from 'ducks/transactions/helpers'
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
 export const sortByDate = (transactions = []) =>
   sortBy(transactions, getDate).reverse()
@@ -38,38 +31,41 @@ const groupByDate = transactions => {
 
 const loadMoreStyle = { textAlign: 'center' }
 const loadMoreBtnStyle = { width: '100%', padding: '0.75rem', margin: 0 }
-const LoadMoreButton = ({ children, onClick }) => (
-  <Button
-    style={loadMoreBtnStyle}
-    onClick={onClick}
-    subtle
-    className="js-LoadMore"
-    label={children}
-  />
-)
+const LoadMoreButton = ({ onClick }) => {
+  const { t } = useI18n()
+  const { isMobile } = useBreakpoints()
 
-const LoadMoreDesktop = ({ children, onClick }) => (
-  <tbody>
-    <tr>
-      <td style={loadMoreStyle}>
-        <LoadMoreButton onClick={onClick}>{children}</LoadMoreButton>
-      </td>
-    </tr>
-  </tbody>
-)
+  const button = (
+    <Button
+      style={loadMoreBtnStyle}
+      onClick={onClick}
+      subtle
+      className="js-LoadMore"
+      label={t('Transactions.see-more')}
+    />
+  )
+  return isMobile ? (
+    <div style={loadMoreStyle}>{button}</div>
+  ) : (
+    <tbody>
+      <tr>
+        <td style={loadMoreStyle}>{button}</td>
+      </tr>
+    </tbody>
+  )
+}
 
-const LoadMoreMobile = ({ children, onClick }) => (
-  <div style={loadMoreStyle}>
-    <LoadMoreButton onClick={onClick}>{children}</LoadMoreButton>
-  </div>
-)
+export const TransactionsListContext = createContext({
+  mobileSectionDateFormat: 'dddd D MMMM'
+})
 
 const SectionMobile = props => {
   const { f } = useI18n()
+  const { mobileSectionDateFormat } = useContext(TransactionsListContext)
   const { date, children } = props
   return (
     <React.Fragment>
-      <List.Header>{f(date, 'dddd D MMMM')}</List.Header>
+      <List.Header>{f(date, mobileSectionDateFormat)}</List.Header>
       {children}
     </React.Fragment>
   )
@@ -81,6 +77,57 @@ const SectionDesktop = props => {
 
 const TransactionContainerMobile = props => {
   return <div {...props} />
+}
+
+/**
+ * Groups transactions by date and renders them as a list
+ * On desktop, the section headers will not be shown
+ */
+const TransactionSections = props => {
+  const {
+    selectTransaction,
+    limitMin,
+    limitMax,
+    filteringOnAccount,
+    className,
+    transactions,
+    onRowRef
+  } = props
+
+  const { isDesktop, isExtraLarge } = useBreakpoints()
+
+  const transactionsGrouped = useMemo(
+    () => groupByDate(transactions.slice(limitMin, limitMax)),
+    [transactions, limitMin, limitMax]
+  )
+  const Section = isDesktop ? SectionDesktop : SectionMobile
+  const TransactionContainer = isDesktop ? Table : TransactionContainerMobile
+  const Row = isDesktop ? RowDesktop : RowMobile
+
+  return (
+    <TransactionContainer className={cx(styles.TransactionTable, className)}>
+      {transactionsGrouped.map(dateAndGroup => {
+        const date = dateAndGroup[0]
+        const transactionGroup = dateAndGroup[1]
+        return (
+          <Section date={date} key={date}>
+            {transactionGroup.map(transaction => {
+              return (
+                <Row
+                  key={transaction._id}
+                  onRef={onRowRef.bind(null, transaction._id)}
+                  transaction={transaction}
+                  isExtraLarge={isExtraLarge}
+                  filteringOnAccount={filteringOnAccount}
+                  selectTransaction={selectTransaction}
+                />
+              )
+            })}
+          </Section>
+        )
+      })}
+    </TransactionContainer>
+  )
 }
 
 const shouldRestore = (oldProps, nextProps) => {
@@ -154,63 +201,19 @@ export class TransactionsDumb extends React.Component {
     return isDesktop ? document.querySelector('.js-scrolling-element') : window
   }
 
-  renderTransactions() {
+  render() {
     const {
-      t,
-      selectTransaction,
       limitMin,
       limitMax,
-      breakpoints: { isDesktop, isExtraLarge },
       manualLoadMore,
+      showTriggerErrors,
+      selectTransaction,
       filteringOnAccount,
-      className
+      className,
+      transactions,
+      TransactionSections
     } = this.props
-    const transactionsGrouped = groupByDate(
-      this.transactions.slice(limitMin, limitMax)
-    )
-    const Section = isDesktop ? SectionDesktop : SectionMobile
-    const LoadMoreButton = isDesktop ? LoadMoreDesktop : LoadMoreMobile
-    const TransactionContainer = isDesktop ? Table : TransactionContainerMobile
-    const Row = isDesktop ? RowDesktop : RowMobile
 
-    return (
-      <TransactionContainer className={cx(styles.TransactionTable, className)}>
-        {manualLoadMore && limitMin > 0 && (
-          <LoadMoreButton onClick={() => this.props.onReachTop(20)}>
-            {t('Transactions.see-more')}
-          </LoadMoreButton>
-        )}
-        {transactionsGrouped.map(dateAndGroup => {
-          const date = dateAndGroup[0]
-          const transactionGroup = dateAndGroup[1]
-          return (
-            <Section date={date} key={date}>
-              {transactionGroup.map(transaction => {
-                return (
-                  <Row
-                    key={transaction._id}
-                    onRef={this.handleRefRow.bind(null, transaction._id)}
-                    transaction={transaction}
-                    isExtraLarge={isExtraLarge}
-                    filteringOnAccount={filteringOnAccount}
-                    selectTransaction={selectTransaction}
-                  />
-                )
-              })}
-            </Section>
-          )
-        })}
-        {manualLoadMore && limitMax < this.transactions.length && (
-          <LoadMoreButton onClick={() => this.props.onReachBottom(20)}>
-            {t('Transactions.see-more')}
-          </LoadMoreButton>
-        )}
-      </TransactionContainer>
-    )
-  }
-
-  render() {
-    const { limitMin, limitMax, manualLoadMore, showTriggerErrors } = this.props
     return (
       <InfiniteScroll
         manual={manualLoadMore}
@@ -233,7 +236,22 @@ export class TransactionsDumb extends React.Component {
           getScrollingElement={this.getScrollingElement}
           shouldRestore={shouldRestore}
         >
-          {this.renderTransactions(manualLoadMore)}
+          {manualLoadMore && limitMin > 0 && (
+            <LoadMoreButton onClick={() => this.props.onReachTop(20)} />
+          )}
+
+          <TransactionSections
+            selectTransaction={selectTransaction}
+            limitMin={limitMin}
+            limitMax={limitMax}
+            filteringOnAccount={filteringOnAccount}
+            className={className}
+            transactions={transactions}
+            onRowRef={this.handleRefRow}
+          />
+          {manualLoadMore && limitMax < this.transactions.length && (
+            <LoadMoreButton onClick={() => this.props.onReachBottom(20)} />
+          )}
         </ScrollRestore>
       </InfiniteScroll>
     )
@@ -241,16 +259,17 @@ export class TransactionsDumb extends React.Component {
 }
 
 TransactionsDumb.propTypes = {
-  showTriggerErrors: PropTypes.bool
+  showTriggerErrors: PropTypes.bool,
+
+  /* Used in test to mock TransactionSections */
+  TransactionSections: PropTypes.elementType
 }
 
 TransactionsDumb.defaultProps = {
-  showTriggerErrors: true
+  showTriggerErrors: true,
+  TransactionSections
 }
 
-const Transactions = compose(
-  withBreakpoints(),
-  translate()
-)(TransactionsDumb)
+const Transactions = TransactionsDumb
 
-export const TransactionList = Transactions
+export const TransactionList = withBreakpoints()(Transactions)

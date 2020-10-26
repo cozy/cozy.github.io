@@ -8,11 +8,6 @@ export const trackEvent = options => {
   tracker.trackEvent(options)
 }
 
-export const trackPage = options => {
-  const tracker = getTracker()
-  tracker.trackPage(options)
-}
-
 export const TrackerContext = createContext()
 
 export const TrackerProvider = ({ children }) => {
@@ -28,6 +23,30 @@ export const useTracker = () => {
   return useContext(TrackerContext)
 }
 
+let lastTrackedPage
+const enhancedTrackPage = (tracker, pageNameArg) => {
+  let parentPage = getParentPage(lastTrackedPage)
+  let pageName =
+    typeof pageNameArg === 'function'
+      ? pageNameArg(lastTrackedPage, parentPage)
+      : pageNameArg
+
+  lastTrackedPage = pageName
+  tracker.trackPage(pageName)
+}
+
+export const trackPage = pageName => {
+  const tracker = getTracker()
+  enhancedTrackPage(tracker, pageName)
+}
+
+export const trackParentPage = () => {
+  const tracker = getTracker()
+  enhancedTrackPage(tracker, (lastPage, parentPage) => {
+    return parentPage
+  })
+}
+
 export const useTrackPage = pageName => {
   const tracker = useTracker()
 
@@ -35,10 +54,22 @@ export const useTrackPage = pageName => {
     if (!pageName || !tracker) {
       return
     }
-    tracker.trackPage(pageName)
+
+    enhancedTrackPage(tracker, pageName)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 }
+
 export const getPageLastPart = pageName => {
+  if (!pageName) {
+    return null
+  }
   const lastIndex = pageName.lastIndexOf(':')
   return pageName.substring(lastIndex + 1)
+}
+export const getParentPage = pageName => {
+  if (!pageName) {
+    return null
+  }
+  const lastIndex = pageName.lastIndexOf(':')
+  return pageName.substring(0, lastIndex)
 }

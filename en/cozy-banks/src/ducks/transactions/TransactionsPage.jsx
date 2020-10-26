@@ -245,7 +245,12 @@ class TransactionsPage extends Component {
   }
 
   renderTransactions() {
-    const { limitMin, limitMax, infiniteScrollTop } = this.state
+    const {
+      limitMin,
+      limitMax,
+      infiniteScrollTop,
+      showTriggerErrors
+    } = this.state
     const { t, transactions: transactionCol } = this.props
     const isFetching =
       isQueryLoading(transactionCol) && !hasQueryBeenLoaded(transactionCol)
@@ -255,7 +260,6 @@ class TransactionsPage extends Component {
     }
 
     const transactions = this.getTransactions()
-    const isOnSubcategory = onSubcategory(this.props)
 
     if (transactions.length === 0) {
       return (
@@ -268,7 +272,7 @@ class TransactionsPage extends Component {
     return (
       <Delayed delay={0} fallback={<FakeTransactions />}>
         <TransactionList
-          showTriggerErrors={isOnSubcategory}
+          showTriggerErrors={showTriggerErrors}
           limitMin={limitMin}
           limitMax={limitMax}
           onReachTop={this.handleDecreaseLimitMin}
@@ -296,7 +300,6 @@ class TransactionsPage extends Component {
       isQueryLoading(accounts) && !hasQueryBeenLoaded(accounts)
     const filteredTransactions = this.getTransactions()
 
-    const isOnSubcategory = onSubcategory(this.props)
     const theme = 'primary'
     return (
       <TransactionActionsProvider>
@@ -307,7 +310,7 @@ class TransactionsPage extends Component {
             handleChangeMonth={this.handleChangeMonth}
             currentMonth={this.state.currentMonth}
             showBackButton={this.props.showBackButton}
-            showBalance={isMobile && !areAccountsLoading && !isOnSubcategory}
+            showBalance={isMobile && !areAccountsLoading}
           />
         ) : null}
         <div

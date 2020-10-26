@@ -26,6 +26,8 @@ import BackButton from 'components/BackButton'
 import PageTitle from 'components/Title/PageTitle'
 import Figure from 'cozy-ui/transpiled/react/Figure'
 
+import { useTrackPage } from 'ducks/tracking/browser'
+
 import frLocale from 'date-fns/locale/fr'
 import enLocale from 'date-fns/locale/en'
 import esLocale from 'date-fns/locale/es'
@@ -185,6 +187,8 @@ const RecurrencesPage = () => {
 
   const { t } = useI18n()
   const BundlesWrapper = isMobile ? BundleMobileWrapper : BundlesTable
+
+  useTrackPage('recurrences')
 
   return (
     <>

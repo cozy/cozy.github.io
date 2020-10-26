@@ -1,19 +1,26 @@
-import React, { useState } from 'react'
-import cx from 'classnames'
+import React, { useState, useMemo } from 'react'
 import { createSelector } from 'reselect'
-import minBy from 'lodash/minBy'
 import { useSelector } from 'react-redux'
+import minBy from 'lodash/minBy'
+import debounce from 'lodash/debounce'
+import orderBy from 'lodash/orderBy'
+import { Typography } from '@material-ui/core'
+import Fuse from 'fuse.js'
 
-import { useQuery } from 'cozy-client'
-import { useI18n, Empty } from 'cozy-ui/transpiled/react'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
-import { useTrackPage } from 'ducks/tracking/browser'
-
 import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
+import { useI18n, Empty } from 'cozy-ui/transpiled/react'
 import NarrowContent from 'cozy-ui/transpiled/react/NarrowContent'
 
+import flag from 'cozy-flags'
+import { useQuery } from 'cozy-client'
 import { transactionsConn } from 'doctypes'
-import { TransactionList } from 'ducks/transactions/Transactions'
+
+import { useTrackPage } from 'ducks/tracking/browser'
+import {
+  TransactionList,
+  TransactionsListContext
+} from 'ducks/transactions/Transactions'
 import BarTheme from 'ducks/bar/BarTheme'
 import TransactionTableHead from 'ducks/transactions/header/TableHead'
 import { getTransactions } from 'selectors'
@@ -24,41 +31,17 @@ import { PageTitle } from 'components/Title'
 import BackButton from 'components/BackButton'
 import { BarCenter, BarSearch } from 'components/Bar'
 import { useParams } from 'components/RouterContext'
-import { Typography } from '@material-ui/core'
-
 import BarSearchInput from 'components/BarSearchInput'
 
 import searchIllu from 'assets/search-illu.svg'
 
-const makeSearch = searchStr => op => {
-  return op.label.toLowerCase().includes(searchStr.toLowerCase())
-}
-
 const isSearchSufficient = searchStr => searchStr.length > 2
-
-const Ul = props => {
-  return <ul {...props} className={cx('u-pl-1 u-mt-1', props.className)} />
-}
-
-const Li = props => {
-  return (
-    <li
-      {...props}
-      className={cx('u-h-2 u-flex-justify-center', props.className)}
-    />
-  )
-}
 
 const SearchSuggestions = () => {
   const { t } = useI18n()
-  const suggestions = t('Search.suggestions').split(', ')
   return (
-    <Typography component={Ul} color="textSecondary">
-      {suggestions.map((suggestion, i) => (
-        <Li key={i}>
-          <Typography color="textSecondary">{suggestion}</Typography>
-        </Li>
-      ))}
+    <Typography align="center" variant="body">
+      {t('Search.suggestions')}
     </Typography>
   )
 }
@@ -82,16 +65,30 @@ const CompositeHeader = ({ title, image }) => {
   return (
     <div className="u-ta-center">
       {image}
-      <Typography
-        variant="h5"
-        color="textSecondary"
-        classes={{ root: 'u-mb-1-half' }}
-      >
+      <Typography variant="h3" classes={{ root: 'u-mb-half' }}>
         {title}
       </Typography>
     </div>
   )
 }
+
+const byRoundedScore = result => parseFloat(result.score.toFixed(1), 10)
+const byDate = result => result.item.date
+
+const orderSearchResults = results => {
+  return orderBy(results, [byRoundedScore, byDate], ['asc', 'desc'])
+}
+
+const logResults = results => {
+  for (let result of results) {
+    // eslint-disable-next-line no-console
+    console.log(parseFloat(result.score.toFixed(2), 10), result.item.label)
+  }
+}
+
+const emptyResults = []
+
+const transactionListOptions = { mobileSectionDateFormat: 'ddd D MMMM YYYY' }
 
 const SearchPage = () => {
   const params = useParams()
@@ -99,21 +96,53 @@ const SearchPage = () => {
   const { isMobile } = useBreakpoints()
 
   const [search, setSearch] = useState(params.search || '')
-  const handleChange = ev => {
-    setSearch(ev.target.value)
+  const [results, setResults] = useState([])
+
+  const handleReset = inputNode => {
+    setSearch('')
+    inputNode.focus()
   }
 
   useTrackPage('recherche')
 
-  let { data: allTransactions } = useQuery(
+  let { data: allTransactions, lastUpdate } = useQuery(
     transactionsConn.query,
     transactionsConn
   )
 
-  let transactions = allTransactions || []
+  let transactions = allTransactions || emptyResults
+  const fuse = useMemo(() => {
+    const fuse = new Fuse(transactions, {
+      keys: ['label'],
+      ignoreLocation: true,
+      includeScore: true,
+      includeMatches: true,
+      minMatchCharLength: 3
+    })
+    return fuse
+  }, [lastUpdate]) // eslint-disable-line react-hooks/exhaustive-deps
+
   const searchSufficient = isSearchSufficient(search)
-  if (searchSufficient) {
-    transactions = transactions.filter(makeSearch(search))
+
+  const performSearch = useMemo(() => {
+    return debounce(searchValue => {
+      const results = fuse
+        .search(searchValue)
+        .filter(result => result.score < 0.3)
+      const orderedResults = orderSearchResults(results)
+      const transactions = orderedResults.map(result => result.item)
+      if (flag('banks.search.debug-score')) {
+        logResults(results)
+        console.log('---') // eslint-disable-line no-console
+        logResults(orderedResults)
+      }
+      setResults(transactions)
+    }, 500)
+  }, [fuse, setResults])
+
+  const handleChange = ev => {
+    setSearch(ev.target.value)
+    performSearch(ev.target.value)
   }
 
   return (
@@ -126,10 +155,10 @@ const SearchPage = () => {
             <BarCenter>
               <BarSearchInput
                 placeholder={t('Search.input-placeholder')}
-                type="text"
                 value={search}
                 onChange={handleChange}
                 autofocus
+                onReset={handleReset}
               />
             </BarCenter>
           </>
@@ -141,9 +170,9 @@ const SearchPage = () => {
               </Img>
               <Bd>
                 <PageTitle className="u-lh-tiny">
-                  {searchSufficient && transactions.length
+                  {searchSufficient && results.length
                     ? t('Search.title-results', {
-                        smart_count: transactions.length
+                        smart_count: results.length
                       })
                     : t('Search.title')}
                 </PageTitle>
@@ -155,6 +184,8 @@ const SearchPage = () => {
                 placeholder={t('Search.input-placeholder')}
                 value={search}
                 onChange={handleChange}
+                autofocus
+                onReset={handleReset}
               />
             </BarSearch>
           </Padded>
@@ -163,7 +194,7 @@ const SearchPage = () => {
       </Header>
       {!searchSufficient ? (
         <Padded>
-          <NarrowContent>
+          <NarrowContent className="u-m-auto">
             <CompositeHeader
               image={
                 <img src={searchIllu} width="116px" className="u-mt-1 u-mb-1" />
@@ -176,8 +207,13 @@ const SearchPage = () => {
       ) : null}
       <div className={`js-scrolling-element`}>
         {searchSufficient ? (
-          transactions.length > 0 ? (
-            <TransactionList transactions={transactions} />
+          results.length > 0 ? (
+            <TransactionsListContext.Provider value={transactionListOptions}>
+              <TransactionList
+                transactions={results}
+                showTriggerErrors={false}
+              />
+            </TransactionsListContext.Provider>
           ) : (
             <Empty
               className="u-mt-large"

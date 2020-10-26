@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 import { flowRight as compose } from 'lodash'
-import { useI18n, Icon } from 'cozy-ui/transpiled/react'
+import { useI18n } from 'cozy-ui/transpiled/react'
 
 import { transactionsConn } from 'doctypes'
 import { Padded } from 'components/Spacing'
@@ -14,19 +14,8 @@ import { queryConnect } from 'cozy-client'
 import flag from 'cozy-flags'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
-import { BarRight } from 'components/Bar'
+import { MobileBarSearchIconLink } from 'ducks/search/SearchIconLink'
 import styles from 'ducks/balance/BalanceHeader.styl'
-
-const SearchIcon = () => {
-  const { isMobile } = useBreakpoints()
-  return isMobile ? (
-    <BarRight>
-      <a className={styles.SearchIcon} href="#/search">
-        <Icon icon="magnifier" />
-      </a>
-    </BarRight>
-  ) : null
-}
 
 const BalanceHeader = ({
   accountsBalance,
@@ -44,12 +33,12 @@ const BalanceHeader = ({
 
   return (
     <Header className={styles.BalanceHeader} theme="inverted">
+      <MobileBarSearchIconLink />
       {isMobile && (
         <Padded className={titlePaddedClass}>
           <PageTitle>{t('Balance.title')}</PageTitle>
         </Padded>
       )}
-      {flag('banks.search') ? <SearchIcon /> : null}
       <HeaderTitle
         balance={accountsBalance}
         subtitle={subtitle}

@@ -41,7 +41,7 @@ const action = {
   icon,
   color: palette.dodgerBlue,
   match: (transaction, { urls }) => {
-    return isHealth(transaction) && urls['HEALTH']
+    return isHealth(transaction) && urls && urls['HEALTH']
   },
   Component: Component
 }

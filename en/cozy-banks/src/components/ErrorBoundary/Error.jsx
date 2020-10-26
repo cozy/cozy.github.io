@@ -40,12 +40,11 @@ class Error extends React.Component {
   }
 
   render() {
-    const { t } = this.props
+    const { t, lang, getSupportURL } = this.props
     const update = t('Error.update')
       .replace('#{LINK}', `<a id="${refreshLinkID}">`)
       .replace('#{/LINK}', '</a>')
-    const lang = 'fr'
-    const url = `https://cozy.io/${lang === 'fr' ? 'fr' : 'en'}/support/`
+    const url = getSupportURL(lang)
     const contact = t('Error.contact')
       .replace('#{LINK}', `<a href="${url}" target="_blank">`)
       .replace('#{/LINK}', '</a>')
@@ -65,6 +64,11 @@ class Error extends React.Component {
       </div>
     )
   }
+}
+
+Error.defaultProps = {
+  getSupportURL: lang =>
+    `https://cozy.io/${lang === 'fr' ? 'fr' : 'en'}/support/`
 }
 
 export default translate()(Error)

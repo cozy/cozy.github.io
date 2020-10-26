@@ -1611,8 +1611,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#sharingcollectionaddrecipientssharing-recipients-sharingtype" title="sharingCollection.addRecipients(sharing, recipients, sharingType)" class="md-nav__link">
-    sharingCollection.addRecipients(sharing, recipients, sharingType)
+  <a href="#sharingcollectionaddrecipientsoptions" title="sharingCollection.addRecipients(options)" class="md-nav__link">
+    sharingCollection.addRecipients(options)
   </a>
   
 </li>
@@ -1769,8 +1769,22 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#rule-object" title="Rule : object" class="md-nav__link">
+    Rule : object
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#recipient-object" title="Recipient : object" class="md-nav__link">
     Recipient : object
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sharing-object" title="Sharing : object" class="md-nav__link">
+    Sharing : object
   </a>
   
 </li>
@@ -4030,8 +4044,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#sharingcollectionaddrecipientssharing-recipients-sharingtype" title="sharingCollection.addRecipients(sharing, recipients, sharingType)" class="md-nav__link">
-    sharingCollection.addRecipients(sharing, recipients, sharingType)
+  <a href="#sharingcollectionaddrecipientsoptions" title="sharingCollection.addRecipients(options)" class="md-nav__link">
+    sharingCollection.addRecipients(options)
   </a>
   
 </li>
@@ -4188,8 +4202,22 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#rule-object" title="Rule : object" class="md-nav__link">
+    Rule : object
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#recipient-object" title="Recipient : object" class="md-nav__link">
     Recipient : object
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sharing-object" title="Sharing : object" class="md-nav__link">
+    Sharing : object
   </a>
   
 </li>
@@ -4302,8 +4330,14 @@ through OAuth.</p>
 <dt><a href="#Stream">Stream</a> : <code>object</code></dt>
 <dd><p>Stream is not defined in a browser, but is on NodeJS environment</p>
 </dd>
-<dt><a href="#Recipient">Recipient</a> : <code>object</code></dt>
+<dt><a href="#Rule">Rule</a> : <code>object</code></dt>
 <dd><p>A sharing rule</p>
+</dd>
+<dt><a href="#Recipient">Recipient</a> : <code>object</code></dt>
+<dd><p>An io.cozy.contact</p>
+</dd>
+<dt><a href="#Sharing">Sharing</a> : <code>object</code></dt>
+<dd><p>An io.cozy.sharings document</p>
 </dd>
 </dl>
 
@@ -5997,7 +6031,7 @@ It can also associates one or more codes to it, via the codes parameter</p>
 <li><a href="#SharingCollection+create">.create(params)</a></li>
 <li>~~<a href="#SharingCollection+share">.share(document, recipients, sharingType, description, [previewPath])</a>~~</li>
 <li><a href="#SharingCollection+getDiscoveryLink">.getDiscoveryLink(sharingId, sharecode)</a> ⇒ <code>string</code></li>
-<li><a href="#SharingCollection+addRecipients">.addRecipients(sharing, recipients, sharingType)</a></li>
+<li><a href="#SharingCollection+addRecipients">.addRecipients(options)</a></li>
 <li><a href="#SharingCollection+revokeRecipient">.revokeRecipient(sharing, recipientIndex)</a></li>
 <li><a href="#SharingCollection+revokeSelf">.revokeSelf(sharing)</a></li>
 <li><a href="#SharingCollection+revokeAllRecipients">.revokeAllRecipients(sharing)</a></li>
@@ -6024,7 +6058,7 @@ It can also associates one or more codes to it, via the codes parameter</p>
 </tr>
 <tr>
 <td>params.document</td>
-<td><code>object</code></td>
+<td><a href="#Sharing"><code>Sharing</code></a></td>
 <td>The document to share</td>
 </tr>
 <tr>
@@ -6039,7 +6073,7 @@ It can also associates one or more codes to it, via the codes parameter</p>
 </tr>
 <tr>
 <td>[params.rules]</td>
-<td><code>Array.&lt;Rule&gt;</code></td>
+<td><a href="#Rule"><code>Array.&lt;Rule&gt;</code></a></td>
 <td>The rules defined to the sharing. See https://docs.cozy.io/en/cozy-stack/sharing-design/#description-of-a-sharing</td>
 </tr>
 <tr>
@@ -6075,7 +6109,7 @@ It can also associates one or more codes to it, via the codes parameter</p>
 <tbody>
 <tr>
 <td>document</td>
-<td><code>object</code></td>
+<td><a href="#Sharing"><code>Sharing</code></a></td>
 <td></td>
 <td>The document to share. Should have and _id and a name.</td>
 </tr>
@@ -6131,7 +6165,7 @@ It can also associates one or more codes to it, via the codes parameter</p>
 </tbody>
 </table>
 <p><a name="SharingCollection+addRecipients"></a></p>
-<h3 id="sharingcollectionaddrecipientssharing-recipients-sharingtype">sharingCollection.addRecipients(sharing, recipients, sharingType)<a class="headerlink" href="#sharingcollectionaddrecipientssharing-recipients-sharingtype" title="Permanent link">&para;</a></h3>
+<h3 id="sharingcollectionaddrecipientsoptions">sharingCollection.addRecipients(options)<a class="headerlink" href="#sharingcollectionaddrecipientsoptions" title="Permanent link">&para;</a></h3>
 <p>Add an array of contacts to the Sharing</p>
 <p><strong>Kind</strong>: instance method of <a href="#SharingCollection"><code>SharingCollection</code></a>  </p>
 <table>
@@ -6144,19 +6178,24 @@ It can also associates one or more codes to it, via the codes parameter</p>
 </thead>
 <tbody>
 <tr>
-<td>sharing</td>
+<td>options</td>
 <td><code>object</code></td>
+<td>Object</td>
+</tr>
+<tr>
+<td>options.document</td>
+<td><a href="#Sharing"><code>Sharing</code></a></td>
 <td>Sharing Object</td>
 </tr>
 <tr>
-<td>recipients</td>
-<td><code>Array</code></td>
-<td id:1_="id:1," type:_io.cozy.contacts_="type:&quot;io.cozy.contacts&quot;">Array of </td>
+<td>[options.recipients]</td>
+<td><a href="#Recipient"><code>Array.&lt;Recipient&gt;</code></a></td>
+<td>Recipients to add to the sharing</td>
 </tr>
 <tr>
-<td>sharingType</td>
-<td><code>string</code></td>
-<td>Read and write: two-way. Other only read</td>
+<td>[options.readOnlyRecipients]</td>
+<td><a href="#Recipient"><code>Array.&lt;Recipient&gt;</code></a></td>
+<td>Recipients to add to the sharings with only read only access</td>
 </tr>
 </tbody>
 </table>
@@ -6543,8 +6582,8 @@ found&rdquo; error.  </p>
 <h2 id="stream-object">Stream : <code>object</code><a class="headerlink" href="#stream-object" title="Permanent link">&para;</a></h2>
 <p>Stream is not defined in a browser, but is on NodeJS environment</p>
 <p><strong>Kind</strong>: global typedef<br />
-<a name="Recipient"></a></p>
-<h2 id="recipient-object">Recipient : <code>object</code><a class="headerlink" href="#recipient-object" title="Permanent link">&para;</a></h2>
+<a name="Rule"></a></p>
+<h2 id="rule-object">Rule : <code>object</code><a class="headerlink" href="#rule-object" title="Permanent link">&para;</a></h2>
 <p>A sharing rule</p>
 <p><strong>Kind</strong>: global typedef<br />
 <strong>Properties</strong></p>
@@ -6582,6 +6621,14 @@ found&rdquo; error.  </p>
 </tr>
 </tbody>
 </table>
+<p><a name="Recipient"></a></p>
+<h2 id="recipient-object">Recipient : <code>object</code><a class="headerlink" href="#recipient-object" title="Permanent link">&para;</a></h2>
+<p>An io.cozy.contact</p>
+<p><strong>Kind</strong>: global typedef<br />
+<a name="Sharing"></a></p>
+<h2 id="sharing-object">Sharing : <code>object</code><a class="headerlink" href="#sharing-object" title="Permanent link">&para;</a></h2>
+<p>An io.cozy.sharings document</p>
+<p><strong>Kind</strong>: global typedef  </p>
                 
                   
                 

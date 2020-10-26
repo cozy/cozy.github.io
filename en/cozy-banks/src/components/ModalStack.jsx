@@ -4,7 +4,7 @@
  * It is here temporarily, waiting for the PR to be merged
  */
 
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import Modal from 'cozy-ui/transpiled/react/Modal'
 import { ViewStackContext } from 'cozy-ui/transpiled/react'
 import sleep from 'utils/sleep'
@@ -39,10 +39,15 @@ const useStack = (initialState, options = {}) => {
  * Wraps children on the stack with a modal. When pushing on the stack,
  * children can take options.
  */
-const ModalStack = ({ children }) => {
+const ModalStack = ({ children, onPop }) => {
   const [stChildren, , stackPush, stackPop] = useStack(
     React.Children.toArray(children)
   )
+
+  const handlePop = useCallback(() => {
+    onPop && onPop()
+    stackPop()
+  }, [onPop, stackPop])
 
   const contextValue = { stackPush, stackPop }
 
@@ -54,7 +59,7 @@ const ModalStack = ({ children }) => {
         const props = hasProps ? child[1] : null
         child = hasProps ? child[0] : child
         return (
-          <Modal mobileFullscreen key={i} dismissAction={stackPop} {...props}>
+          <Modal mobileFullscreen key={i} dismissAction={handlePop} {...props}>
             {child}
           </Modal>
         )
