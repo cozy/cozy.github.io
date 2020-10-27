@@ -16,6 +16,7 @@ module.exports = {
       name: 'Basics',
       components: () => [
         '../react/Badge/index.jsx',
+        '../react/Banner/index.jsx',
         '../react/InfosBadge/index.jsx',
         '../react/GhostFileBadge/index.jsx',
         '../react/Button/index.jsx',
@@ -29,6 +30,7 @@ module.exports = {
         '../react/IconButton/index.jsx',
         '../react/IconStack/index.jsx',
         '../react/InlineCard/index.jsx',
+        '../react/Paper/index.js',
         '../react/PercentageBar/index.jsx',
         '../react/PercentageLine/index.jsx',
         '../react/Spinner/index.jsx',

@@ -227,7 +227,6 @@ export class DumbGroupSettings extends Component {
             <Img>
               {modifying ? (
                 <Button
-                  className={styles['save-button']}
                   disabled={saving}
                   theme="regular"
                   onClick={this.handleRename}

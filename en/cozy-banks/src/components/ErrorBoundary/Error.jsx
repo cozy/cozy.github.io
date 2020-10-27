@@ -7,7 +7,7 @@ import brokenIcon from 'assets/icons/icon-broken.svg'
 
 const refreshLinkID = 'error-refresh-link'
 
-class Error extends React.Component {
+export class Error extends React.Component {
   static propTypes = {
     t: PropTypes.func.isRequired
   }
