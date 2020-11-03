@@ -2281,6 +2281,87 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#import" title="Import" class="md-nav__link">
+    Import
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post-moveimportsprecheck" title="POST /move/imports/precheck" class="md-nav__link">
+    POST /move/imports/precheck
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_2" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#responses" title="Responses" class="md-nav__link">
+    Responses
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-moveimports" title="POST /move/imports" class="md-nav__link">
+    POST /move/imports
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_3" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#responses_1" title="Responses" class="md-nav__link">
+    Responses
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-moveimporting" title="GET /move/importing" class="md-nav__link">
+    GET /move/importing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-moveimportingrealtime" title="GET /move/importing/realtime" class="md-nav__link">
+    GET /move/importing/realtime
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
       
@@ -2692,6 +2773,87 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#import" title="Import" class="md-nav__link">
+    Import
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post-moveimportsprecheck" title="POST /move/imports/precheck" class="md-nav__link">
+    POST /move/imports/precheck
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_2" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#responses" title="Responses" class="md-nav__link">
+    Responses
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-moveimports" title="POST /move/imports" class="md-nav__link">
+    POST /move/imports
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_3" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#responses_1" title="Responses" class="md-nav__link">
+    Responses
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-moveimporting" title="GET /move/importing" class="md-nav__link">
+    GET /move/importing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-moveimportingrealtime" title="GET /move/importing/realtime" class="md-nav__link">
+    GET /move/importing/realtime
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
       
@@ -2732,12 +2894,10 @@ metadata. This export takes place asynchronously and is separated in two parts:<
 <li><code>max_age</code> (optional) (duration / nanosecs): the maximum age of the export
     data.</li>
 <li><code>with_doctypes</code> (optional) (string array): the list of exported doctypes</li>
-<li><code>without_files</code> (optional) (boolean): whether or not the export contains the
-    files index (if false, it is not possible to generate files tarball).</li>
 </ul>
 <h4 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/move/exports</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">alice.cozy.tools</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">source.cozy.tools</span>
 <span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer ...</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </pre></div>
@@ -2747,8 +2907,7 @@ metadata. This export takes place asynchronously and is separated in two parts:<
     <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="nt">&quot;parts_size&quot;</span><span class="p">:</span> <span class="mi">10240</span><span class="p">,</span>
-            <span class="nt">&quot;with_doctypes&quot;</span><span class="p">:</span> <span class="p">[],</span>
-            <span class="nt">&quot;without_files&quot;</span><span class="p">:</span> <span class="kc">false</span>
+            <span class="nt">&quot;with_doctypes&quot;</span><span class="p">:</span> <span class="p">[]</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -2762,23 +2921,20 @@ metadata. This export takes place asynchronously and is separated in two parts:<
 <li><code>parts_size</code> (int): the size in bytes of a tarball files part.</li>
 <li><code>parts_cursors</code> (string array): the list of cursors to access to the
     different files parts.</li>
-<li><code>parts_length</code> (int): number of parts</li>
 <li><code>with_doctypes</code> (string array): the list of exported doctypes
     (if empty of null, all doctypes are exported)</li>
-<li><code>without_files</code> (boolean): whether or not the export contains the files
-    index (if false, it is not possible to generate files tarball).</li>
 <li><code>state</code> (string): the state of the export (<code>"exporting"</code> / <code>"done"</code> /
     <code>"error"</code>).</li>
 <li><code>created_at</code> (string / time): the date of creation of the export</li>
 <li><code>expires_at</code> (string / time): the date of expiration of the export</li>
-<li><code>total_size</code> (int): the total size of the export metadata</li>
+<li><code>total_size</code> (int): the total size of the exported documents from CouchDB</li>
 <li><code>creation_duration</code> (int): the amount of nanoseconds taken for the creation
     of the export</li>
 <li><code>error</code> (string): an error string if the export is in an <code>"error"</code> state</li>
 </ul>
 <h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/move/exports/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">alice.cozy.tools</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">source.cozy.tools</span>
 <span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer ...</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </pre></div>
@@ -2795,7 +2951,6 @@ metadata. This export takes place asynchronously and is separated in two parts:<
             <span class="nt">&quot;parts_size&quot;</span><span class="p">:</span> <span class="mi">10240</span><span class="p">,</span>
             <span class="nt">&quot;parts_cursors&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;AAA&quot;</span><span class="p">,</span> <span class="s2">&quot;BBB&quot;</span><span class="p">,</span> <span class="s2">&quot;CCC&quot;</span><span class="p">],</span>
             <span class="nt">&quot;with_doctypes&quot;</span><span class="p">:</span> <span class="p">[],</span>
-            <span class="nt">&quot;without_files&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
             <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;done&quot;</span><span class="p">,</span>
             <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-05-04T08:59:37.530693972+02:00&quot;</span><span class="p">,</span>
             <span class="nt">&quot;expires_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-05-11T08:59:37.530693972+02:00&quot;</span><span class="p">,</span>
@@ -2812,7 +2967,70 @@ metadata. This export takes place asynchronously and is separated in two parts:<
 <p>This endpoint will download an archive containing the metadata and files of the
 user, as part of a multi-part download. The cursor given should be one of the
 defined in the export document <code>parts_cursors</code>.</p>
-<p>Only the first part of the data contains the metadata.</p>
+<p>Only the first part of the archive contains the metadata.</p>
+<p>To get all the parts, this endpoint must be called one time with no cursor, and
+one time for each cursor in <code>parts_cursors</code>.</p>
+<h2 id="import">Import<a class="headerlink" href="#import" title="Permanent link">&para;</a></h2>
+<h3 id="post-moveimportsprecheck">POST /move/imports/precheck<a class="headerlink" href="#post-moveimportsprecheck" title="Permanent link">&para;</a></h3>
+<p>This endpoint can be use to check that an export can be imported from the given
+URL, before doing the real import.</p>
+<h4 id="request_2">Request<a class="headerlink" href="#request_2" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/move/imports/precheck</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">destination.cozy.tools</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer ...</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://settings.source.cozy.tools/#/exports/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h4 id="responses">Responses<a class="headerlink" href="#responses" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>204 No Content</code> if every thing is fine</li>
+<li><code>412 Precondition Failed</code> if no archive can be found at the given URL</li>
+<li><code>422 Entity Too Large</code> if the quota is too small to import the files</li>
+</ul>
+<h3 id="post-moveimports">POST /move/imports<a class="headerlink" href="#post-moveimports" title="Permanent link">&para;</a></h3>
+<p>This endpoint can be used to really start an import.</p>
+<h4 id="request_3">Request<a class="headerlink" href="#request_3" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/move/imports</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">destination.cozy.tools</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer ...</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://settings.source.cozy.tools/#/exports/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h4 id="responses_1">Responses<a class="headerlink" href="#responses_1" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">303</span> <span class="ne">See Other</span>
+<span class="na">Location</span><span class="o">:</span> <span class="l">https://destination.cozy.tools/move/importing</span>
+</pre></div>
+
+
+<h3 id="get-moveimporting">GET /move/importing<a class="headerlink" href="#get-moveimporting" title="Permanent link">&para;</a></h3>
+<p>This shows a page for the user to wait that the import finishes.</p>
+<h3 id="get-moveimportingrealtime">GET /move/importing/realtime<a class="headerlink" href="#get-moveimportingrealtime" title="Permanent link">&para;</a></h3>
+<p>This is a websocket endpoint that can be used to wait for the end of the
+import. The server will send an event when it is done (or errored):</p>
+<div class="codehilite"><pre><span></span>server&gt; {&quot;redirect&quot;: &quot;http://cozy.tools:8080/auth/login&quot;}
+</pre></div>
                 
                   
                 

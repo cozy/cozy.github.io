@@ -2367,6 +2367,26 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#import" title="import" class="md-nav__link">
+    import
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_4" title="Example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
           <li class="md-nav__item">
   <a href="#permissions_4" title="Permissions" class="md-nav__link">
     Permissions
@@ -2429,7 +2449,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#example_4" title="Example" class="md-nav__link">
+  <a href="#example_5" title="Example" class="md-nav__link">
     Example
   </a>
   
@@ -2981,6 +3001,26 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#import" title="import" class="md-nav__link">
+    import
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_4" title="Example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
           <li class="md-nav__item">
   <a href="#permissions_4" title="Permissions" class="md-nav__link">
     Permissions
@@ -3043,7 +3083,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#example_4" title="Example" class="md-nav__link">
+  <a href="#example_5" title="Example" class="md-nav__link">
     Example
   </a>
   
@@ -3292,15 +3332,28 @@ doctype <code>io.cozy.exports</code>.</p>
     multi-part download of files data</li>
 <li><code>max_age</code>: the maximum age duration of the archive before it expires</li>
 <li><code>with_doctypes</code>: the list of exported doctypes (exports all doctypes if empty)</li>
-<li><code>without_files</code>: boolean to avoid exporting the index (preventing download
-    file data)</li>
 </ul>
 <h3 id="example_3">Example<a class="headerlink" href="#example_3" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
     <span class="nt">&quot;parts_size&quot;</span><span class="p">:</span> <span class="mi">52428800</span><span class="p">,</span>
     <span class="nt">&quot;max_age&quot;</span><span class="p">:</span> <span class="mi">60000000000</span><span class="p">,</span> <span class="err">//</span> <span class="err">1</span> <span class="err">minute</span>
-    <span class="nt">&quot;with_doctypes&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;io.cozy.accounts&quot;</span><span class="p">],</span> <span class="err">//</span> <span class="err">empty</span> <span class="err">or</span> <span class="err">null</span> <span class="err">means</span> <span class="err">all</span> <span class="err">doctypes</span>
-    <span class="nt">&quot;without_files&quot;</span><span class="p">:</span> <span class="kc">false</span>
+    <span class="nt">&quot;with_doctypes&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;io.cozy.accounts&quot;</span><span class="p">,</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">]</span> <span class="err">//</span> <span class="err">empty</span> <span class="err">or</span> <span class="kc">null</span> <span class="err">means</span> <span class="err">all</span> <span class="err">doctypes</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h2 id="import">import<a class="headerlink" href="#import" title="Permanent link">&para;</a></h2>
+<p>The <code>import</code> worker can be used to import the data from an export. The instance
+will be reset before importing data to avoid complex logic of reconciliation.
+The instance is blocked during the import, and a mail is sent at the end of the
+import, when the instance can be accessed again.</p>
+<p>Its options are:</p>
+<ul>
+<li><code>manifest_url</code>: the URL of the manifest for the exported data.</li>
+</ul>
+<h3 id="example_4">Example<a class="headerlink" href="#example_4" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;manifest_url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://cozy.tools:8080/move/exports/QUFBQUFGLVg5b3c0WTJNNU9HRmpPR0V4WlRnd01XVTJZMlU0T0RjeE5UaGpNVEF3TWpKbVplblFfRWZWUVAtRGJXU0lnV2tIZ3NsVHN5dUR6V0ZIdVdSeERLb196X3A0&quot;</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -3368,7 +3421,7 @@ has a single option, <code>type</code>, with two supported values:</p>
   <code>text/vnd.cozy.note+markdown</code> to allow them to be listed in the cozy-notes
   application.</li>
 </ul>
-<h3 id="example_4">Example<a class="headerlink" href="#example_4" title="Permanent link">&para;</a></h3>
+<h3 id="example_5">Example<a class="headerlink" href="#example_5" title="Permanent link">&para;</a></h3>
 <p>It can be launched from command-line with:</p>
 <div class="codehilite"><pre><span></span>$ cozy-stack <span class="nb">jobs</span> run migrations --domain example.mycozy.cloud --json <span class="s1">&#39;{&quot;type&quot;: &quot;to-swift-v3&quot;}&#39;</span>
 </pre></div>
