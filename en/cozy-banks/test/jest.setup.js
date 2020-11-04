@@ -19,7 +19,7 @@ configure({ adapter: new Adapter() })
 global.mount = mount
 global.shallow = shallow
 
-jest.mock('cozy-bar/dist/cozy-bar', () => ({
+jest.mock('cozy-bar/transpiled', () => ({
   BarLeft: () => null,
   BarRight: ({ children }) => children,
   BarCenter: () => null,

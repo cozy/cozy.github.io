@@ -9,10 +9,10 @@ module.exports = {
   moduleDirectories: ['node_modules', '<rootDir>/src', '<rootDir>'],
   moduleNameMapper: {
     '\\.(png|gif|jpe?g|svg)$': '<rootDir>/test/__mocks__/fileMock.js',
-    styl$: 'identity-obj-proxy',
-    webapp$: 'identity-obj-proxy',
+    '\\.styl$': 'identity-obj-proxy',
+    '\\.webapp$': 'identity-obj-proxy',
     '!!raw-loader!(.*)': '$1',
-    css$: 'identity-obj-proxy',
+    '\\.css$': 'identity-obj-proxy',
     '^cozy-client$': 'cozy-client/dist/index'
   },
   snapshotSerializers: ['enzyme-to-json/serializer'],
