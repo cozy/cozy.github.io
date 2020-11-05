@@ -1,17 +1,10 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import {
-  Media,
-  Bd,
-  Img,
-  translate,
-  Icon,
-  useI18n
-} from 'cozy-ui/transpiled/react'
+import { Media, Bd, Img, Icon, useI18n } from 'cozy-ui/transpiled/react'
 import resultWithArgs from 'utils/resultWithArgs'
 import { markdownBold } from './helpers'
 
-import Confirmation from 'components/Confirmation'
+import useConfirmation from 'components/useConfirmation'
 import SettingCard from 'components/SettingCard'
 import Switch from 'cozy-ui/transpiled/react/MuiCozyTheme/Switch'
 import EditionModal from 'components/EditionModal'
@@ -22,13 +15,23 @@ export const CrossIcon = ({ onClick }) => (
   </span>
 )
 
-export const SettingCardRemoveConfirmation = translate()(
-  ({ onRemove, description, title }) => (
-    <Confirmation onConfirm={onRemove} title={title} description={description}>
-      <CrossIcon />
-    </Confirmation>
+export const SettingCardRemoveConfirmation = ({
+  onRemove,
+  description,
+  title
+}) => {
+  const { component, requestOpen } = useConfirmation({
+    onConfirm: onRemove,
+    title: title,
+    description: description
+  })
+  return (
+    <>
+      <CrossIcon onClick={requestOpen} />
+      {component}
+    </>
   )
-)
+}
 
 // Since the toggle has a large height, we need to compensate negatively
 // so that the height of the switch does not impact the height of the card

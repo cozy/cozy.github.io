@@ -37,14 +37,14 @@ export const getMatomoTracker = memoize(() => {
       if (!name) {
         throw new Error('An event must have at least a name')
       }
-      if (flag('banks.show-tracking-alerts')) {
+      if (flag('banks.show-tracking.events')) {
         Alerter.info(`Tracking event: ${JSON.stringify(event)}`)
       }
       trackerInstance.push(['trackEvent', category, name, action])
     },
     trackPage: pagePath => {
       const message = `Tracking page ${pagePath}`
-      if (flag('banks.show-tracking-alerts')) {
+      if (flag('banks.show-tracking.pages')) {
         Alerter.info(message)
       }
       trackerInstance.push([

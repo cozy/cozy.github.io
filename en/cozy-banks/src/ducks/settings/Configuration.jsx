@@ -32,6 +32,10 @@ import { PersonalInfoModal } from 'ducks/personal-info'
 import { lateHealthReimbursement } from './specs'
 import { trackPage, trackEvent } from 'ducks/tracking/browser'
 
+const toggleToTrackEvents = {
+  'community.localModelOverride': 'categorie_automatique'
+}
+
 /**
  * Configure notifications and other features
  */
@@ -61,6 +65,12 @@ export class Configuration extends React.Component {
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
     set(settings, [...key.split('.'), 'enabled'], checked)
     this.saveDocument(settings)
+
+    if (toggleToTrackEvents[key]) {
+      trackEvent({
+        name: `${toggleToTrackEvents[key]}-${checked ? 'on' : 'off'}`
+      })
+    }
   }
 
   // TODO the displayed value and the persisted value should not be the same.

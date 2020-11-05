@@ -41,19 +41,19 @@ const Rules = ({
       try {
         setSaving(true)
         await createOrUpdate(newItem)
-        trackEvent({
-          name: `${getPageLastPart(trackPageName)}-creer_alerte`
-        })
       } finally {
         setSaving(false)
       }
     },
-    [createOrUpdate, trackPageName]
+    [createOrUpdate]
   )
 
   const handleAddRule = useCallback(() => {
     setCreating(true)
-  }, [setCreating])
+    trackEvent({
+      name: `${getPageLastPart(trackPageName)}-creer_alerte`
+    })
+  }, [trackPageName])
 
   return (
     <>

@@ -10,7 +10,7 @@ import { recurrenceConn, RECURRENCE_DOCTYPE } from 'doctypes'
 import { bundleTransactionsQueryConn } from './queries'
 
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
-import Modal, { ModalTitle, ModalContent } from 'cozy-ui/transpiled/react/Modal'
+import { Dialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 import Button from 'cozy-ui/transpiled/react/Button'
 import Field from 'cozy-ui/transpiled/react/Field'
 import { Media, Img, Bd } from 'cozy-ui/transpiled/react/Media'
@@ -20,7 +20,6 @@ import Empty from 'cozy-ui/transpiled/react/Empty'
 import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
 import Breadcrumbs from 'cozy-ui/transpiled/react/Breadcrumbs'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
-
 import Loading from 'components/Loading'
 import Padded from 'components/Spacing/Padded'
 import {
@@ -168,7 +167,7 @@ const RecurrenceStatusMenu = ({
   )
 }
 
-const RenameBundleModal = ({ bundle, dismissAction }) => {
+const RenameBundleDialog = ({ bundle, dismissAction }) => {
   const client = useClient()
   const { t } = useI18n()
   const renameInputRef = useRef()
@@ -188,23 +187,34 @@ const RenameBundleModal = ({ bundle, dismissAction }) => {
   }
 
   return (
-    <Modal
+    <Dialog
+      opened={true}
       size="small"
-      primaryAction={() => handleRename()}
-      primaryText={t('Recurrence.rename.save')}
-      secondaryAction={dismissAction}
-      secondaryText={t('Recurrence.rename.cancel')}
-      dismissAction={dismissAction}
-    >
-      <ModalTitle>{t('Recurrence.rename.modal-title')}</ModalTitle>
-      <ModalContent>
+      title={t('Recurrence.rename.modal-title')}
+      content={
         <Field
+          className="u-m-0"
+          labelProps={{ className: 'u-pt-0' }}
           fieldProps={{ defaultValue: getLabel(bundle) }}
           inputRef={renameInputRef}
           label={t('Recurrence.table.label')}
         />
-      </ModalContent>
-    </Modal>
+      }
+      actions={
+        <>
+          <Button
+            theme="primary"
+            onClick={handleRename}
+            label={t('Recurrence.rename.save')}
+          />
+          <Button
+            theme="secondary"
+            onClick={dismissAction}
+            label={t('Recurrence.rename.cancel')}
+          />
+        </>
+      }
+    />
   )
 }
 
@@ -350,7 +360,7 @@ const BundleInfo = ({ bundle }) => {
       )}
 
       {showingRename ? (
-        <RenameBundleModal
+        <RenameBundleDialog
           bundle={bundle}
           onSuccess={hideRename}
           dismissAction={hideRename}
