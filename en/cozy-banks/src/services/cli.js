@@ -43,7 +43,7 @@ const main = async () => {
     uri: args.url,
     scope: getScope(manifest),
     oauth: {
-      softwareID: 'banks.recurrence-cli'
+      softwareID: 'banks.service-cli'
     }
   })
   const serviceEntrypoint = serviceEntrypoints[args.service]

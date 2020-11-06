@@ -31,6 +31,7 @@ const useCounter = (min, max) => {
 const Carrousel = props => {
   const { children, className } = props
   const [index, handleChange, handlePrev, handleNext] = useCounter(
+    0,
     children.length
   )
   const { isMobile } = useBreakpoints()
@@ -41,6 +42,7 @@ const Carrousel = props => {
         style={index === 0 ? hidden : null}
         className="u-c-pointer u-slateGrey"
         onClick={handlePrev}
+        data-testid="carrousel-previous"
       >
         <Icon className={isMobile ? 'u-mh-half' : 'u-mh-1'} icon="left" />
       </Img>
@@ -52,7 +54,7 @@ const Carrousel = props => {
         </SwipeableViews>
         <div className="u-ta-center u-slateGrey u-c-pointer">
           {range(children.length).map((x, i) => (
-            <span key={i} onClick={handleChange(i)}>
+            <span key={i} onClick={() => handleChange(i)}>
               {i === index ? '●' : '○'}
             </span>
           ))}
@@ -62,6 +64,7 @@ const Carrousel = props => {
         style={index === children.length - 1 ? hidden : null}
         className="u-c-pointer u-slateGrey"
         onClick={handleNext}
+        data-testid="carrousel-next"
       >
         <Icon className={isMobile ? 'u-mh-half' : 'u-mh-1'} icon="right" />
       </Img>

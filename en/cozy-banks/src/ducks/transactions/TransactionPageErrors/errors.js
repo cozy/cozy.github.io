@@ -3,6 +3,7 @@ import keyBy from 'lodash/keyBy'
 import mapValues from 'lodash/mapValues'
 import { isBankTrigger } from 'utils/triggers'
 import { utils, trigger as triggerLibs } from 'cozy-client/dist/models'
+import flag from 'cozy-flags'
 
 const { triggers: triggerUtils, triggerStates } = triggerLibs
 
@@ -19,15 +20,21 @@ export const getTransactionPageErrors = ({ triggerCol, accounts }) => {
   )
   const triggers = triggerCol.data
 
+  const bankKonnectorTriggers = triggers
+    .filter(triggerUtils.isKonnectorWorker)
+    .filter(isBankTrigger)
   const erroredTriggers = sortBy(
-    triggers
-      .filter(triggerUtils.isKonnectorWorker)
-      .filter(isBankTrigger)
+    bankKonnectorTriggers
       .filter(triggerStates.isErrored)
       .filter(triggerUtils.hasActionableError)
       .filter(tr => konnectorToAccounts[tr.message.konnector]),
     tr => tr.message.konnector
   )
+
+  if (!erroredTriggers.length > 0 && flag('banks.debug.force-trigger-error')) {
+    erroredTriggers.push(bankKonnectorTriggers[0])
+    erroredTriggers.push(bankKonnectorTriggers[0])
+  }
 
   return erroredTriggers.map(tr => ({
     trigger: tr,

@@ -5213,7 +5213,12 @@ for a member who has only a shortcut to the sharing on their Cozy instance.</p>
 <h3 id="get-sharingssharing-idrecipientsindexavatar">GET /sharings/:sharing-id/recipients/:index/avatar<a class="headerlink" href="#get-sharingssharing-idrecipientsindexavatar" title="Permanent link">&para;</a></h3>
 <p>This route can be used to get an image that shows the avatar of a member of
 this sharing. No permission is required to use this route, you just need to
-know the sharing-id to use it.</p>
+know the sharing-id to use it. If no image has been chosen, a fallback will be
+used, depending of the <code>fallback</code> parameter in the query-string:</p>
+<ul>
+<li><code>initials</code>: a generated image with the initials of the owner&rsquo;s public name. This is the default behavior.</li>
+<li><code>404</code>: just a 404 - Not found error.</li>
+</ul>
 <p><strong>Note</strong>: 0 for the index means the sharer.</p>
 <h4 id="request_10">Request<a class="headerlink" href="#request_10" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/sharings/ce8835a061d0ef68947afe69a0046722/recipients/2/avatar</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
