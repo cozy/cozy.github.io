@@ -4780,6 +4780,9 @@ more informations about the references field.</p>
 <h3 id="post-filesuploadmetadata">POST /files/upload/metadata<a class="headerlink" href="#post-filesuploadmetadata" title="Permanent link">&para;</a></h3>
 <p>Send a metadata object that can be associated to a file uploaded after that,
 via the <code>MetadataID</code> query parameter.</p>
+<p><strong>Note:</strong> a special permission on <code>io.cozy.certified.carbonCopy</code> is required to
+send a request with <code>carbonCopy</code> as key in the <code>attributes</code> map. Same for
+<code>electronicSafe</code>.</p>
 <h4 id="request_4">Request<a class="headerlink" href="#request_4" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/files/upload/metadata</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
