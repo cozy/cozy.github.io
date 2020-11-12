@@ -26,6 +26,7 @@ nav:
     - Queries: tutorials/data/queries.md
     - PouchDB: tutorials/data/pouchdb.md
     - DocTypes: tutorials/data/doctypes.md
+    - Qualification: tutorials/data/qualification.md
     - Advanced: tutorials/data/advanced.md
   - Self-Host on Debian: tutorials/selfhost-debian.md
 - How-to:
