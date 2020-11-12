@@ -3,42 +3,52 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
 import tosIcon from 'assets/icons/icon-tos.svg'
+
 import { useI18n } from 'cozy-ui/transpiled/react'
-import Modal from 'cozy-ui/transpiled/react/Modal'
+import Typography from 'cozy-ui/transpiled/react/Typography'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import Button from 'cozy-ui/transpiled/react/Button'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import { IllustrationDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
+import Stack from 'cozy-ui/transpiled/react/Stack'
+
 import { withClient } from 'cozy-client'
-import styles from 'components/UserActionRequired/styles.styl'
 
 const TosUpdatedModal = ({ newTosLink, onAccept, onRefuse }) => {
   const { t } = useI18n()
 
   return (
-    <Modal closable={false} into="body">
-      <Modal.ModalHeader />
-      <Modal.ModalDescription className={styles['tosupdated']}>
-        <Icon icon={tosIcon} width={96} height={96} />
-        <h2 className={styles['tosupdated-title']}>{t('TOS.updated.title')}</h2>
-        <ReactMarkdown
-          className={styles['tosupdated-desc']}
-          source={t('TOS.updated.detail', { link: newTosLink })}
-        />
-        <Button
-          extension="full"
-          label={t('TOS.updated.cta')}
-          onClick={onAccept}
-        />
-        <Button
-          subtle
-          size="small"
-          extension="full"
-          className="u-mt-1-half"
-          label={t('TOS.updated.disconnect')}
-          onClick={onRefuse}
-        />
-      </Modal.ModalDescription>
-    </Modal>
+    <IllustrationDialog
+      open
+      actionsLayout="column"
+      title={
+        <Stack spacing="m" className="u-ta-center">
+          <Icon icon={tosIcon} width={96} height={96} />
+          <Typography className="u-ta-center" variant="h4">
+            {t('TOS.updated.title')}
+          </Typography>
+        </Stack>
+      }
+      content={
+        <ReactMarkdown source={t('TOS.updated.detail', { link: newTosLink })} />
+      }
+      actions={
+        <>
+          <Button
+            subtle
+            size="small"
+            className="u-flex-grow-1"
+            label={t('TOS.updated.disconnect')}
+            onClick={onRefuse}
+          />
+          <Button
+            className="u-mb-1"
+            label={t('TOS.updated.cta')}
+            onClick={onAccept}
+          />
+        </>
+      }
+    />
   )
 }
 

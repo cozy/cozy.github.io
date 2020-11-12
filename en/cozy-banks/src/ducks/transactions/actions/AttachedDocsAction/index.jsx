@@ -6,10 +6,12 @@ import {
   getReimbursementsBills
 } from 'ducks/transactions/helpers'
 import BillChip from 'ducks/transactions/actions/AttachedDocsAction/BillChip'
-import TransactionModalRow from 'ducks/transactions/TransactionModalRow'
 import iconAttachment from 'assets/icons/icon-attachment.svg'
 import { uniqBy } from 'lodash'
 import { Icon } from 'cozy-ui/transpiled/react'
+import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
+import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
+import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 
 const AttachmentIcon = () => (
   <div className="u-mt-half">
@@ -35,10 +37,16 @@ class AttachedDocsAction extends React.PureComponent {
     const { transaction } = this.props
 
     return (
-      <TransactionModalRow align="top" iconLeft={<AttachmentIcon />}>
-        {hasBills(transaction) && this.renderModalItemBills()}
-        {hasReimbursements(transaction) && this.renderModalItemReimbursements()}
-      </TransactionModalRow>
+      <ListItem alignItem="flex-start">
+        <ListItemIcon>
+          <Icon icon={<AttachmentIcon />} />
+        </ListItemIcon>
+        <ListItemText>
+          {hasBills(transaction) && this.renderModalItemBills()}
+          {hasReimbursements(transaction) &&
+            this.renderModalItemReimbursements()}
+        </ListItemText>
+      </ListItem>
     )
   }
 

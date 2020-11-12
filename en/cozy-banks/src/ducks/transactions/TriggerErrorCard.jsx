@@ -8,6 +8,7 @@ import Icon from 'cozy-ui/transpiled/react/Icon'
 
 import { getErrorLocaleBound, KonnectorJobError } from 'cozy-harvest-lib'
 import ReconnectTriggerButton from 'ducks/transactions/TransactionPageErrors/ReconnectTriggerButton'
+import WarningIcon from 'cozy-ui/transpiled/react/Icons/Warning'
 const TriggerErrorCard = ({ index, count, error, className }) => {
   const { t, lang } = useI18n()
 
@@ -35,7 +36,7 @@ const TriggerErrorCard = ({ index, count, error, className }) => {
             {errorTitle + (count > 1 ? ` (${index + 1}/${count})` : '')}
           </SubTitle>
           <Text>
-            <Icon icon="warning" className="u-mr-half" />
+            <Icon icon={WarningIcon} className="u-mr-half" />
             {t('Transactions.trigger-error.description', { bankName })}
           </Text>
         </>

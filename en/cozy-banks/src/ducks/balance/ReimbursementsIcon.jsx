@@ -7,6 +7,8 @@ import { getCssVariableValue } from 'cozy-ui/transpiled/react/utils/color'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import PropTypes from 'prop-types'
 
+import HourglassIcon from 'cozy-ui/transpiled/react/Icons/Hourglass'
+
 // For some categories (currently only health), we don't want to use the
 // category icon. This maps category ids to custom icons. These icons will be
 // used first if they exist, otherwise we fall back on the category icon, or
@@ -28,7 +30,7 @@ export default function ReimbursementsIcon(props) {
       )}
       <span className={cx(styles.ReimbursementsIcon__hourglass)}>
         <Icon
-          icon="hourglass"
+          icon={HourglassIcon}
           size={8}
           color={getCssVariableValue('coolGrey')}
         />

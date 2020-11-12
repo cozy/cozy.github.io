@@ -15,6 +15,8 @@ import { flowRight as compose } from 'lodash'
 import { accountsConn } from 'doctypes'
 import { useBreakpoints } from 'cozy-ui/transpiled/react'
 
+import RightIcon from 'cozy-ui/transpiled/react/Icons/Right'
+
 const PaddedOnDesktop = props => {
   const { isDesktop } = useBreakpoints()
   const { children } = props
@@ -56,7 +58,7 @@ const DumbLoanListPage = props => {
                     <Bold className="u-ml-1">{account.label}</Bold>
                   </div>
                 }
-                right={<Icon icon="right" color="var(--coolGrey)" />}
+                right={<Icon icon={RightIcon} color="var(--coolGrey)" />}
                 actions={<LoanProgress account={account} />}
                 className="u-c-pointer"
                 onClick={() => {

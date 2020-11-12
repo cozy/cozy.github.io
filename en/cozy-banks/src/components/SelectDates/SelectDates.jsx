@@ -20,6 +20,8 @@ import cx from 'classnames'
 import scrollAware from 'components/SelectDates/scrollAware'
 import { rangedSome } from 'components/SelectDates/utils'
 import { themed } from 'components/useTheme'
+import LeftIcon from 'cozy-ui/transpiled/react/Icons/Left'
+import RightIcon from 'cozy-ui/transpiled/react/Icons/Right'
 const start2016 = new Date(2015, 11, 31)
 
 const getDefaultOptions = () => {
@@ -365,7 +367,7 @@ class SelectDates extends PureComponent {
               [styles.SelectDatesButtonDisabled]: isPrevButtonDisabled
             })}
           >
-            <Icon icon="left" className={styles.SelectDatesButtonColor} />
+            <Icon icon={LeftIcon} className={styles.SelectDatesButtonColor} />
           </SelectDateButton>
 
           <SelectDateButton
@@ -375,7 +377,7 @@ class SelectDates extends PureComponent {
               [styles.SelectDatesButtonDisabled]: isNextButtonDisabled
             })}
           >
-            <Icon icon="right" className={styles.SelectDatesButtonColor} />
+            <Icon icon={RightIcon} className={styles.SelectDatesButtonColor} />
           </SelectDateButton>
         </span>
       </div>

@@ -5,10 +5,12 @@ import cx from 'classnames'
 import styles from './SearchIconLink.styl'
 import { BarRight } from 'components/Bar'
 
+import MagnifierIcon from 'cozy-ui/transpiled/react/Icons/Magnifier'
+
 const SearchIconLink = ({ className }) => {
   return (
     <a className={cx(styles.Icon, className)} href="#/search">
-      <Icon icon="magnifier" />
+      <Icon icon={MagnifierIcon} />
     </a>
   )
 }

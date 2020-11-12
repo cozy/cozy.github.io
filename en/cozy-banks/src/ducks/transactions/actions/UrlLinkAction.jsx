@@ -2,8 +2,14 @@ import React from 'react'
 import icon from 'assets/icons/actions/icon-link-out.svg'
 import Chip from 'cozy-ui/transpiled/react/Chip'
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import TransactionModalRow from 'ducks/transactions/TransactionModalRow'
+
+import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
+import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
+import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
+
 import palette from 'cozy-ui/transpiled/react/palette'
+
+import OpenwithIcon from 'cozy-ui/transpiled/react/Icons/Openwith'
 
 const name = 'url'
 
@@ -13,13 +19,15 @@ const Component = ({ transaction, isModalItem }) => {
 
   if (isModalItem) {
     return (
-      <TransactionModalRow
+      <ListItem
         onClick={() => open(action.url, action.target)}
-        iconLeft="openwith"
         style={transactionModalRowStyle}
       >
-        {action.trad}
-      </TransactionModalRow>
+        <ListItemIcon>
+          <Icon icon={OpenwithIcon} />
+        </ListItemIcon>
+        <ListItemText>{action.trad}</ListItemText>
+      </ListItem>
     )
   }
 
@@ -31,7 +39,7 @@ const Component = ({ transaction, isModalItem }) => {
     >
       {action.trad}
       <Chip.Separator />
-      <Icon icon="openwith" />
+      <Icon icon={OpenwithIcon} />
     </Chip>
   )
 }

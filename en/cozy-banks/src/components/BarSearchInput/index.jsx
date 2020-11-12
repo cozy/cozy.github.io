@@ -3,6 +3,9 @@ import cx from 'classnames'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import styles from './styles.styl'
 
+import MagnifierIcon from 'cozy-ui/transpiled/react/Icons/Magnifier'
+import CrossCircleIcon from 'cozy-ui/transpiled/react/Icons/CrossCircle'
+
 const BarSearchIcon = ({ onClick, children, className }) => {
   return (
     <span className={cx(styles.Icon, className)} onClick={onClick}>
@@ -27,7 +30,7 @@ const BarSearchInput = ({
   return (
     <div onClick={onClick} className={styles.InputWrapper}>
       <BarSearchIcon className={styles.SearchIcon}>
-        <Icon icon="magnifier" className="u-ml-half" />
+        <Icon icon={MagnifierIcon} className="u-ml-half" />
       </BarSearchIcon>
       <input
         ref={inputRef}
@@ -38,7 +41,7 @@ const BarSearchInput = ({
         autoFocus={autofocus}
       />
       <BarSearchIcon onClick={handleReset} className={styles.ResetIcon}>
-        <Icon icon="cross-circle" />
+        <Icon icon={CrossCircleIcon} />
       </BarSearchIcon>
     </div>
   )

@@ -7,6 +7,9 @@ import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import range from 'lodash/range'
 
+import LeftIcon from 'cozy-ui/transpiled/react/Icons/Left'
+import RightIcon from 'cozy-ui/transpiled/react/Icons/Right'
+
 const hidden = {
   visibility: 'hidden'
 }
@@ -44,7 +47,7 @@ const Carrousel = props => {
         onClick={handlePrev}
         data-testid="carrousel-previous"
       >
-        <Icon className={isMobile ? 'u-mh-half' : 'u-mh-1'} icon="left" />
+        <Icon className={isMobile ? 'u-mh-half' : 'u-mh-1'} icon={LeftIcon} />
       </Img>
       <Bd>
         <SwipeableViews animateHeight disabled index={index}>
@@ -66,7 +69,7 @@ const Carrousel = props => {
         onClick={handleNext}
         data-testid="carrousel-next"
       >
-        <Icon className={isMobile ? 'u-mh-half' : 'u-mh-1'} icon="right" />
+        <Icon className={isMobile ? 'u-mh-half' : 'u-mh-1'} icon={RightIcon} />
       </Img>
     </Media>
   )

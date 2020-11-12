@@ -9,9 +9,11 @@ import SettingCard from 'components/SettingCard'
 import Switch from 'cozy-ui/transpiled/react/MuiCozyTheme/Switch'
 import EditionModal from 'components/EditionModal'
 
-export const CrossIcon = ({ onClick }) => (
+import CrossIcon from 'cozy-ui/transpiled/react/Icons/Cross'
+
+export const Cross = ({ onClick }) => (
   <span onClick={onClick} className="u-expanded-click-area">
-    <Icon color="var(--coolGrey)" icon="cross" />
+    <Icon color="var(--coolGrey)" icon={CrossIcon} />
   </span>
 )
 
@@ -27,7 +29,7 @@ export const SettingCardRemoveConfirmation = ({
   })
   return (
     <>
-      <CrossIcon onClick={requestOpen} />
+      <Cross onClick={requestOpen} />
       {component}
     </>
   )

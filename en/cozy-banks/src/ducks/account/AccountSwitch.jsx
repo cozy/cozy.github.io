@@ -39,6 +39,8 @@ import {
 
 import { BarCenter } from 'components/Bar'
 
+import BottomIcon from 'cozy-ui/transpiled/react/Icons/Bottom'
+
 const filteringDocPropType = PropTypes.oneOfType([
   PropTypes.array,
   PropTypes.object
@@ -104,7 +106,7 @@ const DownArrow = () => {
     <Icon
       width={12}
       height={12}
-      icon="bottom"
+      icon={BottomIcon}
       className={cx(styles.DownArrow, styles[`DownArrowColor_${theme}`])}
     />
   )

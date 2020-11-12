@@ -5,7 +5,6 @@ import Panel from 'cozy-ui/transpiled/react/Panel'
 import { withClient } from 'cozy-client'
 import IntentIframe from 'cozy-ui/transpiled/react/IntentIframe'
 import styles from './AugmentedModal.styl'
-import { Intents } from 'cozy-interapp'
 import {
   Header as VentePriveeHeader,
   Side as VentePriveeSide
@@ -24,11 +23,6 @@ const componentsPerTransactionVendor = {
 }
 
 class AugmentedModal extends Component {
-  constructor(props, context) {
-    super(props, context)
-    this.intents = new Intents({ client: props.client })
-  }
-
   render() {
     const { onClose, fileId, transaction } = this.props
     const vendor = getTransactionVendor(transaction)
@@ -53,7 +47,6 @@ class AugmentedModal extends Component {
                 action="OPEN"
                 type="io.cozy.files"
                 data={{ id: fileId }}
-                create={this.intents.create}
               />
             </Panel.Main>
             <Panel.Side>

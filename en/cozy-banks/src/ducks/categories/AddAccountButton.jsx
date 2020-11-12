@@ -5,6 +5,9 @@ import styles from 'ducks/categories/AddAccountButton.styl'
 import cx from 'classnames'
 import { trackEvent } from 'ducks/tracking/browser'
 
+import PlusIcon from 'cozy-ui/transpiled/react/Icons/Plus'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+
 const sleep = time => new Promise(resolve => setTimeout(resolve, time))
 const AddAccountButton = ({
   label,
@@ -16,7 +19,7 @@ const AddAccountButton = ({
   <AddAccountLink>
     <Button
       theme="highlight"
-      icon="plus"
+      icon={<Icon icon={PlusIcon} />}
       size="large"
       className={cx(
         styles.AddAccountLink,

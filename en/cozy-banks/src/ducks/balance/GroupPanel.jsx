@@ -28,6 +28,8 @@ import { getLateHealthExpenses } from 'ducks/reimbursements/selectors'
 import { getSettings } from 'ducks/settings/selectors'
 import { getNotificationFromSettings } from 'ducks/settings/helpers'
 
+import BottomIcon from 'cozy-ui/transpiled/react/Icons/Bottom'
+
 const GroupPanelSummary = withStyles({
   root: {
     maxHeight: '3.5rem',
@@ -51,7 +53,11 @@ const GroupPanelSummary = withStyles({
 
 const GroupPanelExpandIcon = React.memo(function GroupPanelExpandIcon() {
   return (
-    <Icon icon="bottom" className={styles.GroupPanelSummary__icon} width={12} />
+    <Icon
+      icon={BottomIcon}
+      className={styles.GroupPanelSummary__icon}
+      width={12}
+    />
   )
 })
 

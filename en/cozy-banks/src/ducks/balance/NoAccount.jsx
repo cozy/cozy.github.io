@@ -7,6 +7,9 @@ import { Container, Content } from 'components/VerticalBox'
 import BarTheme from 'ducks/bar/BarTheme'
 import styles from 'ducks/balance/NoAccount.styl'
 
+import PlusIcon from 'cozy-ui/transpiled/react/Icons/Plus'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+
 const NoAccount = () => {
   const { isMobile } = useBreakpoints()
   const { t, lang } = useI18n()
@@ -27,7 +30,7 @@ const NoAccount = () => {
       <AddAccountLink>
         <Button
           theme="highlight"
-          icon="plus"
+          icon={<Icon icon={PlusIcon} />}
           size="large"
           className={styles.NoAccount_addButton}
           label={t('Accounts.add_bank')}

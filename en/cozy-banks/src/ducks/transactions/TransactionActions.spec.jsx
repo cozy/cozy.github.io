@@ -27,8 +27,8 @@ jest.mock('cozy-ui/transpiled/react/Icon', () => {
   const OriginalIcon = jest.requireActual('cozy-ui/transpiled/react/Icon')
   const mockIcon = props => {
     const icon = props.icon
-    return OriginalIcon.default.isProperIcon(icon) ? (
-      <span data-icon-id={icon.id || icon} />
+    return OriginalIcon.default.isProperIcon(icon) || icon.name ? (
+      <span data-icon-id={icon.id || icon.name || icon} />
     ) : (
       icon
     )
@@ -42,17 +42,17 @@ jest.mock('cozy-ui/transpiled/react/Icon', () => {
 /* eslint-disable */
 const tests = [
   // transaction id, class variant, text, icon, action name, [action props], [test name]
-  ['paiementdocteur', null, 'Ameli+17.50€|Malakoff Mederic+7.50€', 'file-outline|file-outline', 'AttachedDocs'],
-  ['paiementdocteur2', 'error', 'Late reimbursement', 'hourglass', 'ReimbursementStatus'],
-  ['depsantelou1', 'error', 'Late reimbursement', 'hourglass', 'ReimbursementStatus'],
-  ['depsantegene4', 'error', 'Late reimbursement', 'hourglass', 'ReimbursementStatus'],
-  ['depsanteisa2', 'error', 'Late reimbursement', 'hourglass', 'ReimbursementStatus'],
-  ['depsantecla3', 'error', 'Late reimbursement', 'hourglass', 'ReimbursementStatus'],
-  ['facturebouygues', null, 'Invoice', 'file-outline', 'AttachedDocs', {
+  ['paiementdocteur', null, 'Ameli+17.50€|Malakoff Mederic+7.50€', 'SvgFileOutline|SvgFileOutline', 'AttachedDocs'],
+  ['paiementdocteur2', 'error', 'Late reimbursement', 'SvgHourglass', 'ReimbursementStatus'],
+  ['depsantelou1', 'error', 'Late reimbursement', 'SvgHourglass', 'ReimbursementStatus'],
+  ['depsantegene4', 'error', 'Late reimbursement', 'SvgHourglass', 'ReimbursementStatus'],
+  ['depsanteisa2', 'error', 'Late reimbursement', 'SvgHourglass', 'ReimbursementStatus'],
+  ['depsantecla3', 'error', 'Late reimbursement', 'SvgHourglass', 'ReimbursementStatus'],
+  ['facturebouygues', null, 'Invoice', 'SvgFileOutline', 'AttachedDocs', {
     brands: brands.filter(x => x.name === 'Bouygues Telecom').map(b => ({ ...b, hasTrigger: true }))
   }],
-  ['salaireisa1', null, 'Accéder à votre paie', 'openwith', 'url'],
-  ['fnac', null, 'Accéder au site Fnac', 'openwith', 'url'],
+  ['salaireisa1', null, 'Accéder à votre paie', 'SvgOpenwith', 'url'],
+  ['fnac', null, 'Accéder au site Fnac', 'SvgOpenwith', 'url'],
   ['edf', null, 'EDF', null, 'app'],
   ['remboursementcomplementaire', null, 'Invoice', null, 'AttachedDocs', {
     brands: brands.filter(x => x.name == 'Malakoff Mederic')

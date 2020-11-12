@@ -33,6 +33,9 @@ import { accountsConn, APP_DOCTYPE } from 'doctypes'
 import { AccountIconContainer } from 'components/AccountIcon'
 import { Unpadded } from 'components/Spacing/Padded'
 
+import RightIcon from 'cozy-ui/transpiled/react/Icons/Right'
+import UnlinkIcon from 'cozy-ui/transpiled/react/Icons/Unlink'
+
 const { utils } = models
 
 const AccountListItem = ({ account, onClick, secondary }) => {
@@ -53,7 +56,7 @@ const AccountListItem = ({ account, onClick, secondary }) => {
         secondary={secondary}
       />
       <ListItemSecondaryAction>
-        <Icon icon="right" className="u-coolGrey u-mr-1" />
+        <Icon icon={RightIcon} className="u-coolGrey u-mr-1" />
       </ListItemSecondaryAction>
     </ListItem>
   )
@@ -106,7 +109,7 @@ export const AccountsList = ({ accounts }) => {
                 connection.auth.identifier
               ) : (
                 <>
-                  <Icon icon="unlink" size="8" className="u-mr-half" />
+                  <Icon icon={UnlinkIcon} size="8" className="u-mr-half" />
                   {t('Harvest.disconnected-account')}
                 </>
               )

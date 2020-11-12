@@ -45,7 +45,7 @@ import { BarTitle } from 'components/Title/PageTitle'
 import TransactionsTableHead from 'ducks/transactions/header/TableHead'
 
 import { BarRight } from 'components/Bar'
-import { BarButton, ActionMenu, Icon } from 'cozy-ui/transpiled/react'
+import { BarButton, ActionMenu } from 'cozy-ui/transpiled/react'
 import {
   ActionMenuItem,
   ActionMenuRadio
@@ -57,11 +57,14 @@ import ActionMenuHelper from 'components/ActionMenuHelper'
 
 import { useHistory, useParams } from 'components/RouterContext'
 import { useTrackPage } from 'ducks/tracking/browser'
+import useDocument from 'components/useDocument'
 
-const useDocument = (doctype, id) => {
-  const client = useClient()
-  return client.getDocumentFromState(doctype, id)
-}
+import PenIcon from 'cozy-ui/transpiled/react/Icons/Pen'
+import TrashIcon from 'cozy-ui/transpiled/react/Icons/Trash'
+import BottomIcon from 'cozy-ui/transpiled/react/Icons/Bottom'
+
+import DotsIcon from 'cozy-ui/transpiled/react/Icons/Dots'
+import Icon from 'cozy-ui/transpiled/react/Icon'
 
 // TODO We should need to do this (isMobile ? portal : identity) but see
 // Cozy-UI's issue: https://github.com/cozy/cozy-ui/issues/1462
@@ -108,7 +111,7 @@ const RecurrenceActionMenu = ({
 const RenameActionItem = ({ onClick }) => {
   const { t } = useI18n()
   return (
-    <ActionMenuItem onClick={onClick} left={<Icon icon="pen" />}>
+    <ActionMenuItem onClick={onClick} left={<Icon icon={PenIcon} />}>
       {t('Recurrence.action-menu.rename')}
     </ActionMenuItem>
   )
@@ -117,7 +120,7 @@ const RenameActionItem = ({ onClick }) => {
 const DeleteActionItem = ({ onClick }) => {
   const { t } = useI18n()
   return (
-    <ActionMenuItem onClick={onClick} left={<Icon icon="trash" />}>
+    <ActionMenuItem onClick={onClick} left={<Icon icon={TrashIcon} />}>
       {t('Recurrence.action-menu.delete')}
       <br />
       <Caption>{t('Recurrence.action-menu.delete-caption')}</Caption>
@@ -320,7 +323,7 @@ const BundleInfo = ({ bundle }) => {
                   opener={
                     <Button extension="narrow" theme="secondary">
                       {t(`Recurrence.status.${getStatus(bundle)}`)}
-                      <Icon className="u-ml-half" icon="bottom" />
+                      <Icon className="u-ml-half" icon={BottomIcon} />
                     </Button>
                   }
                   menu={
@@ -338,7 +341,7 @@ const BundleInfo = ({ bundle }) => {
                       iconOnly
                       label={t('Recurrence.action-menu.open-button')}
                       extension="narrow"
-                      icon="dots"
+                      icon={<Icon icon={DotsIcon} />}
                       theme="secondary"
                     />
                   }

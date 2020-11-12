@@ -344,7 +344,7 @@ class Balance extends PureComponent {
     if (
       accounts.length === 0 ||
       flag('balance.no-account') ||
-      flag('balance.account-loading')
+      flag('banks.balance.account-loading')
     ) {
       let konnectorInfos = triggers
         .map(x => x.attributes)
@@ -355,7 +355,7 @@ class Balance extends PureComponent {
           status: get(t, 'current_state.status')
         }))
 
-      if (flag('balance.account-loading')) {
+      if (flag('banks.balance.account-loading')) {
         // eslint-disable-next-line no-console
         console.log('konnectorInfos', konnectorInfos)
 

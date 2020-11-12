@@ -18,6 +18,8 @@ import CategoryIcon from 'ducks/categories/CategoryIcon'
 import styles from './TransactionRecurrenceEditor.styl'
 import Loading from 'components/Loading'
 
+import PlusIcon from 'cozy-ui/transpiled/react/Icons/Plus'
+
 const makeOptionFromRecurrence = rec => {
   return {
     _id: rec._id,
@@ -28,7 +30,7 @@ const makeOptionFromRecurrence = rec => {
 }
 
 const NewRecurrenceIcon = () => {
-  return <Icon icon="plus" className={styles.FakeCategoryIcon} />
+  return <Icon icon={PlusIcon} className={styles.FakeCategoryIcon} />
 }
 
 const makeNewRecurrenceOption = t => {

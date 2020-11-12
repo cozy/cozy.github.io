@@ -10,6 +10,9 @@ import cx from 'classnames'
 import { Intents } from 'cozy-interapp'
 import { withClient } from 'cozy-client'
 
+import WarningIcon from 'cozy-ui/transpiled/react/Icons/Warning'
+import SpinnerIcon from 'cozy-ui/transpiled/react/Icons/Spinner'
+
 export class AccountRowLoading extends React.PureComponent {
   intents = new Intents({ client: this.props.client })
 
@@ -47,7 +50,7 @@ export class AccountRowLoading extends React.PureComponent {
             <div className={styles.AccountRow__updatedAt}>
               {isErrored ? (
                 <>
-                  <Icon size="12" icon="warning" />
+                  <Icon size="12" icon={WarningIcon} />
                   <span className={stylesLoading.error}>
                     {t('Balance.error')}
                   </span>
@@ -56,7 +59,7 @@ export class AccountRowLoading extends React.PureComponent {
                 <>
                   <Icon
                     size="12"
-                    icon="spinner"
+                    icon={SpinnerIcon}
                     color="var(--primaryColor)"
                     spin
                   />

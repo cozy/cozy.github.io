@@ -36,6 +36,8 @@ import useSwitch from 'hooks/useSwitch'
 
 import Typography from 'cozy-ui/transpiled/react/Typography'
 
+import LogoutIcon from 'cozy-ui/transpiled/react/Icons/Logout'
+
 const useTransactionModal = transaction => {
   const [modalOpened, show, hide] = useSwitch(false)
   const modal = modalOpened ? (
@@ -92,7 +94,7 @@ const ApplicationDateCaption = React.memo(function ApplicationDateCaption({
   const applicationDate = getApplicationDate(transaction)
   return (
     <Typography variant="caption" color="textSecondary">
-      <Icon size={10} icon="logout" /> {f(applicationDate, 'MMMM')}
+      <Icon size={10} icon={LogoutIcon} /> {f(applicationDate, 'MMMM')}
     </Typography>
   )
 })

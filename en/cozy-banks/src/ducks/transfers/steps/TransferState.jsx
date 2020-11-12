@@ -1,38 +1,47 @@
 import React from 'react'
-import Padded from 'components/Spacing/Padded'
-import { Text, Button, useI18n } from 'cozy-ui/transpiled/react'
+import Button from 'cozy-ui/transpiled/react/Button'
+import Typography from 'cozy-ui/transpiled/react/Typography'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { IllustrationDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
+import Stack from 'cozy-ui/transpiled/react/Stack'
 
-import styles from 'ducks/transfers/styles.styl'
-import Title from 'ducks/transfers/steps/Title'
 import TransferDoneImg from 'ducks/transfers/steps/TransferDoneImg'
 import TransferErrorImg from 'ducks/transfers/steps/TransferErrorImg'
 import { useTrackPage } from 'ducks/tracking/browser'
 
-const TransferState = ({
+const TransferStateDialog = ({
   title,
   description,
   onClickPrimaryButton,
   primaryLabel,
   Img
 }) => (
-  <Padded className={styles.TransferState}>
-    <Title className="u-mb-1-half">{title}</Title>
-    {Img}
-    <Text className="u-mb-1-half u-ta-center">{description}</Text>
-    <Button
-      extension="full"
-      className="u-mb-half"
-      onClick={onClickPrimaryButton}
-      label={primaryLabel}
-    />
-  </Padded>
+  <IllustrationDialog
+    open
+    onClose={onClickPrimaryButton}
+    title={
+      <Stack spacing="m" className="u-ta-center">
+        {Img}
+        <Typography variant="h4">{title}</Typography>
+      </Stack>
+    }
+    content={description}
+    actions={
+      <Button
+        extension="full"
+        className="u-flex-grow-1"
+        onClick={onClickPrimaryButton}
+        label={primaryLabel}
+      />
+    }
+  />
 )
 
-export const TransferSuccess = React.memo(function TransferSuccess({ onExit }) {
+export const DumbTransferSuccessDialog = ({ onExit }) => {
   const { t } = useI18n()
   useTrackPage('virements.succes')
   return (
-    <TransferState
+    <TransferStateDialog
       title={t('Transfer.success.title')}
       Img={<TransferDoneImg />}
       description={t('Transfer.success.description')}
@@ -40,7 +49,9 @@ export const TransferSuccess = React.memo(function TransferSuccess({ onExit }) {
       primaryLabel={t('Transfer.exit')}
     />
   )
-})
+}
+
+export const TransferSuccessDialog = React.memo(DumbTransferSuccessDialog)
 
 const defaultErrorPageName = 'impossible'
 const konnectorErrorToPageName = {
@@ -51,14 +62,14 @@ const konnectorErrorToPageName = {
 const isLoginFailed = error =>
   error.message && error.message.includes('LOGIN_FAILED')
 
-export const DumbTransferError = ({ onExit, error }) => {
+export const DumbTransferErrorDialog = ({ onExit, error }) => {
   const { t } = useI18n()
   const loginFailed = isLoginFailed(error)
   const pageName =
     konnectorErrorToPageName[error.message] || defaultErrorPageName
   useTrackPage(`virements.${pageName}`)
   return (
-    <TransferState
+    <TransferStateDialog
       title={t('Transfer.error.title')}
       Img={<TransferErrorImg />}
       description={
@@ -72,4 +83,4 @@ export const DumbTransferError = ({ onExit, error }) => {
   )
 }
 
-export const TransferError = React.memo(DumbTransferError)
+export const TransferErrorDialog = React.memo(DumbTransferErrorDialog)

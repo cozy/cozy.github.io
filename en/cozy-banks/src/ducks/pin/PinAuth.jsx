@@ -23,6 +23,8 @@ import { PIN_MAX_LENGTH, MAX_ATTEMPT } from 'ducks/pin/constants'
 import openLock from 'assets/icons/icon-lock-open.svg'
 import fingerprint from 'assets/icons/icon-fingerprint.svg'
 
+import LeftIcon from 'cozy-ui/transpiled/react/Icons/Left'
+
 const AttemptCount_ = ({ current, max }) => {
   const { t } = useI18n()
   return (
@@ -64,7 +66,7 @@ const DumbFingerprintParagraph = ({ t, onSuccess, onError, onCancel }) => (
 
 const PinBackButton = ({ onClick }) => (
   <div className={styles.Pin__BackButton} onClick={onClick}>
-    <Icon icon="left" />
+    <Icon icon={LeftIcon} />
   </div>
 )
 

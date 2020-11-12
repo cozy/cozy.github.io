@@ -6,7 +6,6 @@ import { withRouter } from 'react-router'
 import { flowRight as compose } from 'lodash'
 
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
-import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { Layout, Main, Content } from 'cozy-ui/transpiled/react/Layout'
 import Sidebar from 'cozy-ui/transpiled/react/Sidebar'
 
@@ -32,26 +31,24 @@ const App = props => {
 
   return (
     <RouterContext.Provider value={props.router}>
-      <BreakpointsProvider>
-        {flag('banks.search') ? <AppSearchBar /> : null}
-        <Layout>
-          <Sidebar>
-            <Nav />
-          </Sidebar>
+      {flag('banks.search') ? <AppSearchBar /> : null}
+      <Layout>
+        <Sidebar>
+          <Nav />
+        </Sidebar>
 
-          <Main>
-            <Content className={styles.Main}>
-              <ErrorBoundary>{props.children}</ErrorBoundary>
-            </Content>
-          </Main>
+        <Main>
+          <Content className={styles.Main}>
+            <ErrorBoundary>{props.children}</ErrorBoundary>
+          </Content>
+        </Main>
 
-          {/* Outside every other component to bypass overflow:hidden */}
-          <ReactHint />
+        {/* Outside every other component to bypass overflow:hidden */}
+        <ReactHint />
 
-          <Warnings />
-          <Alerter />
-        </Layout>
-      </BreakpointsProvider>
+        <Warnings />
+        <Alerter />
+      </Layout>
     </RouterContext.Provider>
   )
 }

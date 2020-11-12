@@ -4,6 +4,8 @@ import Chip from 'cozy-ui/transpiled/react/Chip'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import { useI18n } from 'cozy-ui/transpiled/react'
 
+import PlusIcon from 'cozy-ui/transpiled/react/Icons/Plus'
+
 const DumbKonnectorChip = props => {
   const { t } = useI18n()
   const { konnectorType, ...rest } = props
@@ -16,7 +18,7 @@ const DumbKonnectorChip = props => {
       theme="primary"
       {...rest}
     >
-      <Icon icon="plus" className="u-mr-half" />
+      <Icon icon={PlusIcon} className="u-mr-half" />
       {t(`KonnectorChip.${konnectorType}`)}
     </Chip>
   )

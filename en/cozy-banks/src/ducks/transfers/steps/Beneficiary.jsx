@@ -1,17 +1,10 @@
 import React from 'react'
 import Padded from 'components/Spacing/Padded'
-import {
-  Media,
-  Bd,
-  Img,
-  translate,
-  Text,
-  Caption,
-  Bold,
-  Button,
-  Modal,
-  ModalContent
-} from 'cozy-ui/transpiled/react'
+import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
+import { translate } from 'cozy-ui/transpiled/react/I18n'
+import { Text, Caption, Bold } from 'cozy-ui/transpiled/react/Text'
+import Button from 'cozy-ui/transpiled/react/Button'
+import { Dialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 
 import AddAccountButton from 'ducks/categories/AddAccountButton'
 import { List, Row } from 'components/List'
@@ -111,11 +104,19 @@ class ChooseBeneficiary extends React.Component {
           </div>
         </Padded>
         {this.state.showAddBeneficiary ? (
-          <Modal into="body" dismissAction={this.handleCloseAddBeneficiary}>
-            <ModalContent>
-              {t('Transfer.beneficiary.help-add-beneficiary')}
-            </ModalContent>
-          </Modal>
+          <Dialog
+            open
+            title={t('Transfer.beneficiary.help-add-beneficiary-title')}
+            content={t('Transfer.beneficiary.help-add-beneficiary')}
+            onClose={this.handleCloseAddBeneficiary}
+            actions={
+              <Button
+                onClick={this.handleCloseAddBeneficiary}
+                theme="primary"
+                label={t('Transfer.beneficiary.help-add-beneficiary-action')}
+              />
+            }
+          />
         ) : null}
       </>
     )

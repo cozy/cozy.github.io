@@ -92,14 +92,14 @@ class DumbDebugSettings extends React.PureComponent {
 
     flag('balance.no-account', noAccountValue)
     if (noAccountValue) {
-      flag('balance.account-loading', false)
+      flag('banks.balance.account-loading', false)
     }
   }
 
   toggleAccountsLoading() {
-    const accountLoadingValue = !flag('balance.account-loading')
+    const accountLoadingValue = !flag('banks.balance.account-loading')
 
-    flag('balance.account-loading', accountLoadingValue)
+    flag('banks.balance.account-loading', accountLoadingValue)
     if (accountLoadingValue) {
       flag('balance.no-account', false)
     }
@@ -131,7 +131,7 @@ class DumbDebugSettings extends React.PureComponent {
 
   render() {
     const noAccountChecked = !!flag('balance.no-account')
-    const accountLoadingChecked = !!flag('balance.account-loading')
+    const accountLoadingChecked = !!flag('banks.balance.account-loading')
 
     const { client } = this.props
 

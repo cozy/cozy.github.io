@@ -13,6 +13,8 @@ import {
 } from 'ducks/account/helpers'
 import styles from 'ducks/balance/AccountRow.styl'
 
+import SyncIcon from 'cozy-ui/transpiled/react/Icons/Sync'
+
 const { trigger: triggerLibs } = models
 
 const { isErrored } = triggerLibs.triggerStates
@@ -31,7 +33,7 @@ const UpdatedAt = React.memo(function UpdatedAt({ account }) {
   return (
     <span className={updatedAt.params.nbDays > 1 ? 'u-warn' : null}>
       <Icon
-        icon="sync"
+        icon={SyncIcon}
         width="10"
         color="currentColor"
         className={styles.AccountRow__updatedAtIcon}

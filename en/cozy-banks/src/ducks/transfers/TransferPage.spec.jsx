@@ -8,7 +8,7 @@ import AppLike from 'test/AppLike'
 import fixtures from 'test/fixtures'
 
 import { accountsConn, recipientsConn, myselfConn } from 'doctypes'
-import { TransferError } from 'ducks/transfers/steps/TransferState'
+import { TransferErrorDialog } from 'ducks/transfers/steps/TransferState'
 import TransferPage, { TransferPage as DumbTransferPage } from './TransferPage'
 
 import * as transfers from './transfers'
@@ -60,7 +60,7 @@ describe('transfer page', () => {
     jest.restoreAllMocks()
   })
 
-  it('should pass error to TransferError', async () => {
+  it('should pass error to TransferErrorDialog', async () => {
     root.instance().setState({
       senderAccount: accounts[0],
       beneficiary: {
@@ -77,7 +77,7 @@ describe('transfer page', () => {
     } catch (e) {
       // eslint-disable-line no-empty
     }
-    const errorView = root.find(TransferError)
+    const errorView = root.find(TransferErrorDialog)
     expect(errorView.length).toBe(1)
     expect(errorView.props().error).toBe(err)
   })

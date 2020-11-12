@@ -1,34 +1,25 @@
-/**
- * Is used to have more information on a transaction. Can edit
- * - the recurrence
- * - the cateogry of transaction
- * - the date
- */
-
 import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
-import cx from 'classnames'
 
-import {
-  Icon,
-  Spinner,
-  Bd,
-  Img,
-  Alerter,
-  useViewStack,
-  ModalContent,
-  useI18n,
-  useBreakpoints,
-  Caption,
-  Chip
-} from 'cozy-ui/transpiled/react'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import IconButton from 'cozy-ui/transpiled/react/IconButton'
+import Spinner from 'cozy-ui/transpiled/react/Spinner'
+import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { Caption } from 'cozy-ui/transpiled/react/Text'
+import Chip from 'cozy-ui/transpiled/react/Chip'
 
 import { Link } from 'react-router'
-import ModalStack from 'components/ModalStack'
+
+import { useClient } from 'cozy-client'
 
 import Figure from 'cozy-ui/transpiled/react/Figure'
-import { PageModal } from 'components/PageModal'
-import { PageHeader, PageBackButton } from 'components/PageModal/Page'
+import List from 'cozy-ui/transpiled/react/MuiCozyTheme/List'
+import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
+import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
+import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
+import MagnifierIcon from 'cozy-ui/transpiled/react/Icons/Magnifier'
+import RestoreIcon from 'cozy-ui/transpiled/react/Icons/Restore'
 
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { getCategoryName } from 'ducks/categories/categoriesMap'
@@ -44,9 +35,10 @@ import TransactionActions from 'ducks/transactions/TransactionActions'
 import styles from 'ducks/transactions/TransactionModal.styl'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 
-import iconCredit from 'assets/icons/icon-credit.svg'
-import iconCalendar from 'assets/icons/icon-calendar.svg'
-import iconRecurrence from 'assets/icons/icon-recurrence.svg'
+import iconCredit from 'components/IconCredit'
+import iconCalendar from 'components/IconCalendar'
+import iconRecurrence from 'components/IconRecurrence'
+
 import {
   getAccountLabel,
   getAccountInstitutionLabel
@@ -63,20 +55,17 @@ import { getFrequencyText } from 'ducks/recurrence/utils'
 import TransactionCategoryEditor from 'ducks/transactions/TransactionCategoryEditor'
 import TransactionApplicationDateEditor from 'ducks/transactions/TransactionApplicationDateEditor'
 import TransactionRecurrenceEditor from 'ducks/transactions/TransactionRecurrenceEditor'
-import TransactionModalRow, {
-  TransactionModalRowIcon,
-  TransactionModalRowMedia,
-  RowArrow
-} from 'ducks/transactions/TransactionModalRow'
 
-import withDocs from 'components/withDocs'
+import useDocument from 'components/useDocument'
 import { useLocation } from 'components/RouterContext'
+import ListItemArrow from 'components/ListItemArrow'
+import RawContentDialog from 'components/RawContentDialog'
 
 const SearchForTransactionIcon = ({ transaction }) => {
   const label = getLabel(transaction)
   return (
     <a href={`#/search/${label}`}>
-      <Icon className="u-ml-half u-coolGrey" icon="magnifier" />
+      <Icon className="u-ml-half u-coolGrey" icon={MagnifierIcon} />
     </a>
   )
 }
@@ -112,14 +101,8 @@ const TransactionInfos = ({ infos }) => (
   </div>
 )
 
-const withTransaction = withDocs(ownProps => ({
-  transaction: [TRANSACTION_DOCTYPE, ownProps.transactionId]
-}))
-
-const TransactionCategoryEditorSlide = ({ transaction }) => {
+const TransactionCategoryEditorDialog = ({ transaction, onClose }) => {
   const { t } = useI18n()
-  const { stackPop: rawStackPop } = useViewStack()
-  const { isMobile } = useBreakpoints()
 
   const onAfterUpdate = transaction => {
     trackEvent({
@@ -129,60 +112,62 @@ const TransactionCategoryEditorSlide = ({ transaction }) => {
 
   useTrackPage(lastTracked => `${lastTracked}:depense-categorie`)
 
-  const stackPop = useCallback(() => {
+  const handlePop = useCallback(() => {
     trackParentPage()
-    rawStackPop()
-  }, [rawStackPop])
+    onClose()
+  }, [onClose])
 
   return (
-    <>
-      <PageHeader dismissAction={stackPop}>
-        {isMobile ? <PageBackButton onClick={stackPop} /> : null}
-        {t('Categories.choice.title')}
-      </PageHeader>
-      <ModalContent className="u-p-0">
+    <RawContentDialog
+      open={true}
+      title={t('Categories.choice.title')}
+      onClose={onClose}
+      content={
         <TransactionCategoryEditor
-          beforeUpdate={stackPop}
+          beforeUpdate={handlePop}
           afterUpdate={onAfterUpdate}
-          onCancel={stackPop}
+          onCancel={handlePop}
           transaction={transaction}
         />
-      </ModalContent>
-    </>
+      }
+    />
   )
 }
 
-const TransactionApplicationDateEditorSlide = ({
+const TransactionApplicationDateEditorDialog = ({
   transaction,
   beforeUpdate,
-  afterUpdate
+  afterUpdate,
+  onClose
 }) => {
   const { t } = useI18n()
-  const { stackPop: rawStackPop } = useViewStack()
 
   useTrackPage(lastTracked => `${lastTracked}:affectation_mois`)
 
-  const stackPop = useCallback(() => {
+  const handleClose = useCallback(() => {
     trackParentPage()
-    rawStackPop()
-  }, [rawStackPop])
+    onClose()
+  }, [onClose])
 
   const handleBeforeUpdate = () => {
     beforeUpdate()
-    stackPop()
+    onClose()
   }
 
   return (
-    <div>
-      <PageHeader dismissAction={stackPop}>
-        {t('Transactions.infos.chooseApplicationDate')}
-      </PageHeader>
-      <TransactionApplicationDateEditor
-        beforeUpdate={handleBeforeUpdate}
-        afterUpdate={afterUpdate}
-        transaction={transaction}
-      />
-    </div>
+    <RawContentDialog
+      open
+      size="small"
+      title={t('Transactions.infos.chooseApplicationDate')}
+      onClose={handleClose}
+      content={
+        <TransactionApplicationDateEditor
+          beforeUpdate={handleBeforeUpdate}
+          afterUpdate={afterUpdate}
+          transaction={transaction}
+        />
+      }
+    />
   )
 }
 
@@ -204,15 +189,19 @@ const RecurrenceRow = ({ transaction, onClick }) => {
 
   const recurrenceRoute = recurrence ? `/recurrence/${recurrence._id}` : null
 
+  const vAlignTop = Boolean(recurrence)
   return (
-    <TransactionModalRowMedia
-      align={recurrence ? 'top' : undefined}
+    <ListItem
+      alignItems={vAlignTop ? 'flex-start' : undefined}
       onClick={onClick}
     >
-      <Img>
-        <TransactionModalRowIcon icon={iconRecurrence} />
-      </Img>
-      <Bd>
+      <ListItemIcon>
+        <Icon
+          icon={iconRecurrence}
+          className={vAlignTop ? 'u-mt-1-half' : null}
+        />
+      </ListItemIcon>
+      <ListItemText>
         <div>
           {recurrence
             ? t('Recurrence.choice.recurrent')
@@ -223,84 +212,85 @@ const RecurrenceRow = ({ transaction, onClick }) => {
               <Caption>{getFrequencyText(t, recurrence)}</Caption>
               {location.pathname !== recurrenceRoute ? (
                 <Link to={recurrenceRoute}>
-                  <Chip
-                    onClick={stopPropagation}
-                    variant="outlined"
-                    size="small"
-                    className="u-w-100 u-ph-2 u-mt-half u-flex-justify-center"
-                  >
-                    {t('Recurrence.see-transaction-history')}
-                  </Chip>
+                  <div className="u-mh-1">
+                    <Chip
+                      onClick={stopPropagation}
+                      variant="outlined"
+                      size="small"
+                      className="u-w-100 u-ph-2 u-mt-half u-flex-justify-center"
+                    >
+                      {t('Recurrence.see-transaction-history')}
+                    </Chip>
+                  </div>
                 </Link>
               ) : null}
             </>
           ) : null}
         </div>
-      </Bd>
-      <Img>
-        <RowArrow />
-      </Img>
-    </TransactionModalRowMedia>
+      </ListItemText>
+      <ListItemArrow />
+    </ListItem>
   )
 }
 
-const TransactionRecurrenceEditorSlide = ({ transaction }) => {
+const TransactionRecurrenceEditorDialog = ({ transaction, onClose }) => {
   const { t } = useI18n()
-
-  const { stackPop: rawStackPop } = useViewStack()
 
   useTrackPage(lastTracked => `${lastTracked}:affectation_recurrence`)
 
-  const stackPop = useCallback(() => {
+  const handleClose = useCallback(() => {
     trackParentPage()
-    rawStackPop()
-  }, [rawStackPop])
+    onClose()
+  }, [onClose])
 
   return (
-    <div>
-      <PageHeader dismissAction={stackPop}>
-        {t('Transactions.infos.chooseRecurrence')}
-      </PageHeader>
-      <ModalContent className="u-p-0">
+    <RawContentDialog
+      size="small"
+      open
+      onClose={handleClose}
+      title={t('Transactions.infos.chooseRecurrence')}
+      content={
         <TransactionRecurrenceEditor
           onSelect={x => x}
-          beforeUpdate={stackPop}
-          onCancel={stackPop}
+          beforeUpdate={handleClose}
+          onCancel={handleClose}
           transaction={transaction}
         />
-      </ModalContent>
-    </div>
+      }
+    />
   )
 }
 
 /**
- * Show information of the transaction
+ * Shows information of the transaction
+ *
+ * Can edit
+ * - the recurrence
+ * - the category of transaction
+ * - the date
+ *
+ * Shows also actions that are possible to do on a transaction (depends
+ * on the transaction).
  */
-const TransactionModalInfoContent = withTransaction(props => {
+const TransactionModalInfoContent = props => {
   const { t, f } = useI18n()
-  const { stackPush } = useViewStack()
-  const { transaction, client, ...restProps } = props
-
+  const client = useClient()
+  const { transactionId } = props
+  const transaction = useDocument(TRANSACTION_DOCTYPE, transactionId)
   const typeIcon = (
     <Icon
       icon={iconCredit}
       width={16}
-      className={cx({
-        [styles['TransactionModalRowIcon-reversed']]: transaction.amount < 0
-      })}
+      className={`${
+        transaction.amount < 0 ? styles['TransactionModalRowIcon-reversed'] : ''
+      } u-mt-1-half`}
     />
   )
 
   const categoryId = getCategoryId(transaction)
   const account = transaction.account.data
 
-  const handleShowCategoryChoice = () => {
-    stackPush(<TransactionCategoryEditorSlide transaction={transaction} />)
-  }
-
-  const handleShowRecurrenceChoice = () => {
-    stackPush(<TransactionRecurrenceEditorSlide transaction={transaction} />)
-  }
+  const [selectedRow, setSelectedRow] = useState(null)
 
   const [applicationDateBusy, setApplicationDateBusy] = useState(false)
 
@@ -314,20 +304,9 @@ const TransactionModalInfoContent = withTransaction(props => {
     })
   }
 
-  const handleShowApplicationEditor = ev => {
-    !ev.defaultPrevented &&
-      stackPush(
-        <TransactionApplicationDateEditorSlide
-          beforeUpdate={() => setApplicationDateBusy(true)}
-          afterUpdate={handleAfterUpdateApplicationDate}
-          transaction={transaction}
-        />,
-        { size: 'xsmall', mobileFullscreen: false }
-      )
-  }
-
   const handleResetApplicationDate = async ev => {
     ev.preventDefault()
+    ev.stopPropagation()
     try {
       setApplicationDateBusy(true)
       const newTransaction = await updateApplicationDate(
@@ -344,133 +323,138 @@ const TransactionModalInfoContent = withTransaction(props => {
   const shouldShowRestoreApplicationDateIcon =
     getApplicationDate(transaction) && !applicationDateBusy
 
+  const handleSelectRow = row => {
+    setSelectedRow(row)
+  }
+  const handleCloseChildModal = () => {
+    setSelectedRow(null)
+  }
+
   return (
-    <div className={styles['Separated']}>
-      <TransactionModalRow iconLeft={typeIcon} align="top">
-        <TransactionLabel transaction={transaction} />
-        <TransactionInfos
-          infos={[
-            {
-              label: t('Transactions.infos.account'),
-              value: getAccountLabel(account)
-            },
-            {
-              label: t('Transactions.infos.institution'),
-              value: getAccountInstitutionLabel(account)
-            },
-            {
-              label: t('Transactions.infos.originalBankLabel'),
-              value: flag('originalBankLabel') && transaction.originalBankLabel
-            },
-            {
-              label: t('Transactions.infos.date'),
-              value: f(getDate(transaction), 'dddd D MMMM')
-            }
-          ].filter(x => x.value)}
-        />
-      </TransactionModalRow>
-      <TransactionModalRowMedia onClick={handleShowCategoryChoice}>
-        <Img>
+    <List>
+      <ListItem button={false} alignItems="flex-start">
+        <ListItemIcon>{typeIcon}</ListItemIcon>
+        <ListItemText>
+          <TransactionLabel transaction={transaction} />
+          <TransactionInfos
+            infos={[
+              {
+                label: t('Transactions.infos.account'),
+                value: getAccountLabel(account)
+              },
+              {
+                label: t('Transactions.infos.institution'),
+                value: getAccountInstitutionLabel(account)
+              },
+              {
+                label: t('Transactions.infos.originalBankLabel'),
+                value:
+                  flag('originalBankLabel') && transaction.originalBankLabel
+              },
+              {
+                label: t('Transactions.infos.date'),
+                value: f(getDate(transaction), 'dddd D MMMM')
+              }
+            ].filter(x => x.value)}
+          />
+        </ListItemText>
+      </ListItem>
+
+      <ListItem onClick={() => handleSelectRow('category')}>
+        <ListItemIcon>
           <CategoryIcon categoryId={categoryId} />
-        </Img>
-        <Bd>
+        </ListItemIcon>
+        <ListItemText>
           {t(
             `Data.subcategories.${getCategoryName(getCategoryId(transaction))}`
           )}
-        </Bd>
-        <Img>
-          <RowArrow />
-        </Img>
-      </TransactionModalRowMedia>
-      <TransactionModalRowMedia onClick={handleShowApplicationEditor}>
-        <TransactionModalRowIcon icon={iconCalendar} />
-        <Bd>
+        </ListItemText>
+        <ListItemArrow />
+      </ListItem>
+
+      <ListItem onClick={() => handleSelectRow('application-date')}>
+        <ListItemIcon>
+          <Icon icon={iconCalendar} />
+        </ListItemIcon>
+        <ListItemText>
           {t('Transactions.infos.assignedToPeriod', {
             date: f(
               getApplicationDate(transaction) || getDate(transaction),
               'MMM YYYY'
             )
           })}
-        </Bd>
+        </ListItemText>
         {shouldShowRestoreApplicationDateIcon ? (
-          <Img>
-            <span
-              onClick={handleResetApplicationDate}
-              className="u-expanded-click-area"
-            >
-              <Icon color="var(--slateGrey)" icon="restore" />
-            </span>
-          </Img>
+          <IconButton onClick={handleResetApplicationDate}>
+            <Icon color="var(--slateGrey)" icon={RestoreIcon} />
+          </IconButton>
         ) : null}
-        {applicationDateBusy ? (
-          <Img>
-            <Spinner />
-          </Img>
-        ) : null}
-        <Img>
-          <RowArrow />
-        </Img>
-      </TransactionModalRowMedia>
+        {applicationDateBusy ? <Spinner /> : null}
+        <ListItemArrow />
+      </ListItem>
+
       <RecurrenceRow
         transaction={transaction}
-        onClick={handleShowRecurrenceChoice}
+        onClick={() => handleSelectRow('recurrence')}
       />
       <TransactionActions
         transaction={transaction}
-        {...restProps}
         displayDefaultAction
         isModalItem
       />
-    </div>
-  )
-})
 
-const TransactionModalInfoHeader = withTransaction(({ transaction }) => (
-  <Figure
-    total={transaction.amount}
-    symbol={getCurrencySymbol(transaction.currency)}
-    signed
-  />
-))
+      {selectedRow == 'category' ? (
+        <TransactionCategoryEditorDialog
+          transaction={transaction}
+          onClose={handleCloseChildModal}
+        />
+      ) : null}
 
-const TransactionModalInfo = props => {
-  const { isMobile } = useBreakpoints()
-  return (
-    <div>
-      <PageHeader dismissAction={props.requestClose}>
-        {isMobile ? <PageBackButton onClick={props.requestClose} /> : null}
-        <TransactionModalInfoHeader {...props} />
-      </PageHeader>
-      <TransactionModalInfoContent {...props} />
-    </div>
+      {selectedRow == 'application-date' ? (
+        <TransactionApplicationDateEditorDialog
+          beforeUpdate={() => setApplicationDateBusy(true)}
+          afterUpdate={handleAfterUpdateApplicationDate}
+          transaction={transaction}
+          onClose={handleCloseChildModal}
+        />
+      ) : null}
+      {selectedRow == 'recurrence' && (
+        <TransactionRecurrenceEditorDialog
+          transaction={transaction}
+          onClose={handleCloseChildModal}
+        />
+      )}
+    </List>
   )
 }
 
-const TransactionModal = ({ requestClose, ...props }) => {
-  const { t } = useI18n()
-
+const TransactionModal = ({ requestClose, transactionId, ...props }) => {
+  const transaction = useDocument(TRANSACTION_DOCTYPE, transactionId)
   useTrackPage(lastTracked => `${lastTracked}:depense`)
 
-  const handleRequestClose = () => {
+  const handleClose = () => {
     trackParentPage()
     requestClose()
   }
 
-  const handleModalStackPop = () => {
-    trackParentPage()
-  }
-
   return (
-    <PageModal
-      aria-label={t('Transactions.infos.modal-label')}
-      dismissAction={handleRequestClose}
-      into="body"
-      overflowHidden
-    >
-      <ModalStack onPop={handleModalStackPop}>
-        <TransactionModalInfo {...props} requestClose={handleRequestClose} />
-      </ModalStack>
-    </PageModal>
+    <RawContentDialog
+      size="medium"
+      open
+      onClose={handleClose}
+      title={
+        <div className="u-ta-center">
+          <Figure
+            total={transaction.amount}
+            symbol={getCurrencySymbol(transaction.currency)}
+            signed
+          />
+        </div>
+      }
+      content={
+        <TransactionModalInfoContent {...props} transactionId={transactionId} />
+      }
+    />
   )
 }
 

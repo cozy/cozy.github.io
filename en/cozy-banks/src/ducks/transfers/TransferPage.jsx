@@ -5,7 +5,7 @@ import { withRouter } from 'react-router'
 
 import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import Stack from 'cozy-ui/transpiled/react/Stack'
-import { translate, Text, Modal, useI18n } from 'cozy-ui/transpiled/react'
+import { translate, Text, useI18n } from 'cozy-ui/transpiled/react'
 import {
   withClient,
   queryConnect,
@@ -30,8 +30,8 @@ import * as recipientUtils from 'ducks/transfers/recipients'
 import * as transfers from 'ducks/transfers/transfers'
 
 import {
-  TransferSuccess,
-  TransferError
+  TransferSuccessDialog,
+  TransferErrorDialog
 } from 'ducks/transfers/steps/TransferState'
 import ChooseRecipientCategory from 'ducks/transfers/steps/Category'
 import ChooseBeneficiary from 'ducks/transfers/steps/Beneficiary'
@@ -467,15 +467,18 @@ class TransferPage extends React.Component {
     return (
       <>
         {transferState ? (
-          <Modal mobileFullscreen dismissAction={this.handleModalDismiss}>
+          <>
             {transferState === 'sending' && <Loading />}
             {transferState === 'success' && (
-              <TransferSuccess onExit={this.handleExit} />
+              <TransferSuccessDialog onExit={this.handleExit} />
             )}
             {transferState instanceof Error && (
-              <TransferError error={transferState} onExit={this.handleExit} />
+              <TransferErrorDialog
+                error={transferState}
+                onExit={this.handleExit}
+              />
             )}
-          </Modal>
+          </>
         ) : null}
         {showingPersonalInfo ? (
           <PersonalInfoComponent

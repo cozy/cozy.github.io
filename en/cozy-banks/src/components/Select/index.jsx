@@ -8,13 +8,15 @@ import { find } from 'lodash'
 import palette from 'cozy-ui/transpiled/react/palette'
 import { mergeStyles } from 'components/Select/styleUtils'
 
+import BottomIcon from 'cozy-ui/transpiled/react/Icons/Bottom'
+
 const smallArrowStyle = { paddingLeft: '0.25rem' }
 const IndicatorSeparator = () => null
 const SmallArrow = () => (
   <Icon
     className={styles.Select__Icon}
     style={smallArrowStyle}
-    icon="bottom"
+    icon={BottomIcon}
     width={12}
     height={12}
   />

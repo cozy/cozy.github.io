@@ -4,13 +4,15 @@ import Icon from 'cozy-ui/transpiled/react/Icon'
 import { formatVendor } from 'ducks/health-expense/helpers'
 import palette from 'cozy-ui/transpiled/react/palette'
 
+import HourglassIcon from 'cozy-ui/transpiled/react/Icons/Hourglass'
+
 const healthExpenseStatusIconStyle = { display: 'inline-block' }
 export const HealthExpenseStatusIcon = ({ className = '', pending }) => {
   const color = pending ? palette.pomegranate : palette.dodgerBlue
 
   return (
     <span style={healthExpenseStatusIconStyle} className={className}>
-      <Icon icon="hourglass" color={color} />
+      <Icon icon={HourglassIcon} color={color} />
     </span>
   )
 }
