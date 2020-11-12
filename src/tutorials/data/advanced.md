@@ -2,7 +2,7 @@
 
 ## Indexes: concepts
 
-\### But why, though?
+### But why, though?
 
 In order to efficiently filter documents through selectors and sort them, it is important to correctly index data. An index is a way to organize documents in order to retrieve them faster.
 
