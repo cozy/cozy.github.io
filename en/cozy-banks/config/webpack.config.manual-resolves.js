@@ -36,6 +36,7 @@ module.exports = {
         'cozy-doctypes',
         'cozy-flags',
         'cozy-interapp',
+        'cozy-realtime',
         'cozy-stack-client',
         'date-fns',
         'dom-helpers',

@@ -15,6 +15,7 @@ export const PERMISSION_DOCTYPE = 'io.cozy.permissions'
 export const BANK_ACCOUNT_STATS_DOCTYPE = 'io.cozy.bank.accounts.stats'
 export const CONTACT_DOCTYPE = 'io.cozy.contacts'
 export const RECURRENCE_DOCTYPE = 'io.cozy.bank.recurrence'
+export const IDENTITIES_DOCTYPE = 'io.cozy.identities'
 
 export const offlineDoctypes = [
   ACCOUNT_DOCTYPE,

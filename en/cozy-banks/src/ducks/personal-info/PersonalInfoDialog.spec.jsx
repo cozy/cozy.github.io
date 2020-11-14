@@ -1,0 +1,137 @@
+import React from 'react'
+import CozyClient from 'cozy-client'
+import { render, wait, fireEvent } from '@testing-library/react'
+import AppLike from 'test/AppLike'
+
+import PersonalInfoDialog, {
+  PersonalInfoDialog as DumbPersonalInfoDialog
+} from './PersonalInfoDialog'
+
+jest.mock('cozy-harvest-lib/dist/services/budget-insight')
+
+import { updateUserConfig } from 'cozy-harvest-lib/dist/services/budget-insight'
+
+const mockIdentities = [
+  {
+    _id: 'identity-fr',
+    contact: {
+      birthcity: 'Compiègne',
+      nationalities: ['FR']
+    },
+    cozyMetadata: {
+      createdByApp: 'banks'
+    }
+  },
+  {
+    _id: 'identity-br',
+    contact: {
+      birthcity: 'Sao Paulo',
+      nationalities: ['BR']
+    }
+  }
+]
+
+const mockTriggers = [
+  {
+    current_state: { last_success: '2020-11-05' },
+    message: { konnector: 'caissedepargne1' }
+  }
+]
+
+const mockKonnector = { attributes: { parameters: { bankId: '1' } } }
+
+describe('personal info dialog', () => {
+  const setup = () => {
+    const client = new CozyClient({})
+    client.appMetadata.slug = 'banks'
+
+    client.query = jest.fn().mockImplementation(options => {
+      const { doctype, selector } = options
+      if (selector && selector['cozyMetadata.createdByApp'] == 'banks') {
+        return { data: [mockIdentities[0]] }
+      } else if (
+        selector &&
+        selector['cozyMetadata.createdByApp'] == 'another-app'
+      ) {
+        return { data: [mockIdentities[1]] }
+      } else if (doctype === 'io.cozy.triggers') {
+        return {
+          data: mockTriggers
+        }
+      } else if (doctype === 'io.cozy.konnectors') {
+        return { data: mockKonnector }
+      } else {
+        throw new Error('Query call is not mocked')
+      }
+    })
+    client.save = jest.fn().mockImplementation(saved => ({
+      data: saved
+    }))
+    const root = render(
+      <AppLike client={client}>
+        <PersonalInfoDialog
+          sourceIdentitySelectors={[
+            ...DumbPersonalInfoDialog.defaultProps.sourceIdentitySelectors,
+            { 'cozyMetadata.createdByApp': 'another-app' }
+          ]}
+          onClose={jest.fn()}
+        />
+      </AppLike>
+    )
+    return { client, root }
+  }
+
+  it('should load the data from several sources', async () => {
+    const { root, client } = setup()
+    await wait(() => expect(client.query).toHaveBeenCalledTimes(2))
+    expect(client.query).toHaveBeenCalledWith(
+      expect.objectContaining({
+        selector: {
+          'cozyMetadata.createdByApp': 'another-app'
+        }
+      })
+    )
+
+    expect(client.query).toHaveBeenCalledWith(
+      expect.objectContaining({
+        selector: {
+          'cozyMetadata.createdByApp': 'banks',
+          identifier: 'regulatory-info'
+        }
+      })
+    )
+    expect(root.getByText('Nationality')).toBeTruthy()
+
+    const inp1 = root.getByPlaceholderText('Where you are born')
+    expect(inp1.value).toEqual('Sao Paulo')
+  })
+
+  it('should save form info inside the apps io.cozy.identities and on budget-insight', async () => {
+    const { root, client } = setup()
+    await wait(() => expect(client.query).toHaveBeenCalledTimes(2))
+    const inp1 = root.getByPlaceholderText('Where you are born')
+    fireEvent.change(inp1, { target: { value: 'Douarnenez' } })
+    expect(inp1.value).toEqual('Douarnenez')
+    fireEvent.click(root.getByText('Save information').parentNode.parentNode)
+    expect(client.save).toHaveBeenCalledTimes(1)
+    expect(client.save).toHaveBeenCalledWith({
+      _type: 'io.cozy.identities',
+      _id: 'identity-fr', // Check that the correct identity is updated
+      contact: { birthcity: 'Douarnenez', nationalities: ['BR'] },
+      identifier: 'regulatory-info',
+      cozyMetadata: {
+        createdByApp: 'banks'
+      }
+    })
+    await wait(() => expect(updateUserConfig).toHaveBeenCalledTimes(1))
+    expect(updateUserConfig).toHaveBeenCalledTimes(1)
+    expect(updateUserConfig).toHaveBeenCalledWith({
+      client,
+      konnector: mockKonnector.attributes,
+      userConfig: {
+        birthcity: 'Douarnenez',
+        nationalities: ['BR']
+      }
+    })
+  })
+})

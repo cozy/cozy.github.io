@@ -28,7 +28,7 @@ import ToggleRow from 'ducks/settings/ToggleRow'
 import BalanceLowerRules from './BalanceLowerRules'
 import TransactionGreaterRules from './TransactionGreaterRules'
 
-import { PersonalInfoModal } from 'ducks/personal-info'
+import { PersonalInfoDialog } from 'ducks/personal-info'
 import { lateHealthReimbursement } from './specs'
 import { trackPage, trackEvent } from 'ducks/tracking/browser'
 
@@ -43,7 +43,7 @@ export class Configuration extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      showPersonalInfoModal: false
+      showPersonalInfoDialog: false
     }
     this.handleToggleAmountBlur = this.handleToggleAmountBlur.bind(this)
   }
@@ -205,17 +205,14 @@ export class Configuration extends React.Component {
           <Section title={t('Settings.personal-info.title')}>
             <Button
               label={t('Settings.personal-info.edit')}
-              onClick={() => this.setState({ showPersonalInfoModal: true })}
+              onClick={() => this.setState({ showPersonalInfoDialog: true })}
             />
-            {this.state.showPersonalInfoModal ? (
-              <PersonalInfoModal
+            {this.state.showPersonalInfoDialog ? (
+              <PersonalInfoDialog
                 onSaveSuccessful={() => {
-                  this.setState({ showPersonalInfoModal: false })
+                  this.setState({ showPersonalInfoDialog: false })
                 }}
-                wrapperProps={{
-                  dismissAction: () =>
-                    this.setState({ showPersonalInfoModal: false })
-                }}
+                onClose={() => this.setState({ showPersonalInfoDialog: false })}
               />
             ) : null}
           </Section>

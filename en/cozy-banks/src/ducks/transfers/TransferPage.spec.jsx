@@ -84,7 +84,7 @@ describe('transfer page', () => {
 })
 
 describe('personal info', () => {
-  const setup = ({ myselfData } = {}) => {
+  const setup = ({ identityData } = {}) => {
     const client = createMockClient({
       queries: {
         [recipientsConn.as]: {
@@ -95,12 +95,12 @@ describe('personal info', () => {
           doctype: accountsConn.query().doctype,
           data: accounts
         },
-        [myselfConn.as]: {
+        ['current-app-identity']: {
           doctype: myselfConn.query().doctype,
           data: [
             {
               _id: 'myselfid1234',
-              ...myselfData
+              ...identityData
             }
           ]
         }
@@ -122,18 +122,18 @@ describe('personal info', () => {
 
     it('should show personal info if myself contact not sufficiently filled', async () => {
       const { root } = setup()
-      root.findByText('Edit personal information')
-
-      // Transfer stepper is hidden on mobile
+      expect(root.getByText('Edit personal information')).toBeTruthy()
       const text = root.queryByText('Where do you want to send this transfer ?')
-      expect(text).toBe(null)
+      expect(text).not.toBe(null)
     })
 
     it('should not show personal info if myself contact is sufficiently filled', async () => {
       const { root } = setup({
-        myselfData: {
-          birthcity: 'Compiègne',
-          nationality: 'FR',
+        identityData: {
+          contact: {
+            birthcity: 'Compiègne',
+            nationalities: ['FR']
+          },
           cozyMetadata: {
             updatedByApps: [
               {
@@ -156,9 +156,9 @@ describe('personal info', () => {
       window.innerWidth = 800
     })
 
-    it('should show personal info if myself contact not sufficiently filled', async () => {
+    it('should show personal info dialog if myself contact not sufficiently filled', async () => {
       const { root } = setup()
-      root.findByText('Edit personal information')
+      expect(root.getByText('Edit personal information')).toBeTruthy()
 
       // Transfer stepper is not hidden on desktop
       const text = root.queryByText('Where do you want to send this transfer ?')
@@ -167,9 +167,11 @@ describe('personal info', () => {
 
     it('should not show personal info if myself contact is sufficiently filled', async () => {
       const { root } = setup({
-        myselfData: {
-          birthcity: 'Compiègne',
-          nationality: 'FR',
+        identityData: {
+          contact: {
+            birthcity: 'Compiègne',
+            nationalities: ['FR']
+          },
           cozyMetadata: {
             updatedByApps: [
               {

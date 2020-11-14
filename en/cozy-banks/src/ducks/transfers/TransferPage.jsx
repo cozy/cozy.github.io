@@ -1,6 +1,5 @@
 import React from 'react'
 import compose from 'lodash/flowRight'
-import get from 'lodash/get'
 import { withRouter } from 'react-router'
 
 import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
@@ -12,13 +11,12 @@ import {
   isQueryLoading,
   hasQueryBeenLoaded
 } from 'cozy-client'
-import { utils } from 'cozy-client/dist/models'
 import Realtime from 'cozy-realtime'
 import flag from 'cozy-flags'
 import pickBy from 'lodash/pickBy'
 
 import { logException } from 'lib/sentry'
-import { recipientsConn, accountsConn, myselfConn } from 'doctypes'
+import { recipientsConn, accountsConn } from 'doctypes'
 
 import Padded from 'components/Spacing/Padded'
 import Loading from 'components/Loading'
@@ -41,8 +39,7 @@ import Summary from 'ducks/transfers/steps/Summary'
 import Password from 'ducks/transfers/steps/Password'
 import { isLoginFailed } from 'ducks/transfers/utils'
 import BarTheme from 'ducks/bar/BarTheme'
-import { PersonalInfoModal, PersonalInfoPage } from 'ducks/personal-info'
-import manifest from 'ducks/client/manifest'
+import { PersonalInfoGate } from 'ducks/personal-info'
 import { trackPage } from 'ducks/tracking/browser'
 
 const THIRTY_SECONDS = 30 * 1000
@@ -135,16 +132,6 @@ const NoBank = () => {
   )
 }
 
-const isMyselfSufficientlyFilled = myself => {
-  return (
-    myself.birthcity &&
-    myself.birthcity !== '' &&
-    myself.nationality &&
-    myself.nationality !== '' &&
-    utils.hasBeenUpdatedByApp(myself, manifest.slug)
-  )
-}
-
 class TransferPage extends React.Component {
   constructor(props, context) {
     super(props, context)
@@ -180,9 +167,6 @@ class TransferPage extends React.Component {
       password: '',
       label: '',
       date: new Date().toISOString().slice(0, 10),
-      showingPersonalInfo:
-        get(this.props, 'myself.data[0]') &&
-        !isMyselfSufficientlyFilled(this.props.myself.data[0]),
       slide: 0
     }
   }
@@ -208,33 +192,7 @@ class TransferPage extends React.Component {
 
   componentDidUpdate(prevProps) {
     this.ensureHasAllRecipients()
-    this.checkToShowPersonalInfoModal(prevProps)
     this.checkToUpdateSlideBasedOnRoute(prevProps)
-  }
-
-  /**
-   * If the info contained in the myself contact is not sufficient,
-   * the personal info modal/page will be shown
-   */
-  checkToShowPersonalInfoModal(prevProps) {
-    const props = this.props
-
-    const prevMyself = get(prevProps.myself, 'data[0]')
-    const nowMyself = get(props.myself, 'data[0]')
-    if (prevMyself !== nowMyself) {
-      if (
-        isMyselfSufficientlyFilled(nowMyself) &&
-        !flag('banks.transfers.need-personal-information')
-      ) {
-        this.setState({
-          showingPersonalInfo: false
-        })
-      } else {
-        this.setState({
-          showingPersonalInfo: true
-        })
-      }
-    }
   }
 
   ensureHasAllRecipients() {
@@ -424,14 +382,16 @@ class TransferPage extends React.Component {
       transferState,
       password,
       label,
-      date,
-      showingPersonalInfo
+      date
     } = this.state
 
     if (
       (isQueryLoading(recipients) && !hasQueryBeenLoaded(recipients)) ||
       (isQueryLoading(accounts) && !hasQueryBeenLoaded(accounts)) ||
-      (myself && (isQueryLoading(myself) && !hasQueryBeenLoaded(myself)))
+      (myself &&
+        (isQueryLoading(myself) &&
+          !hasQueryBeenLoaded(myself) &&
+          !myself.lastError))
     ) {
       return (
         <Padded>
@@ -458,14 +418,8 @@ class TransferPage extends React.Component {
       accounts.data
     )
 
-    const { isMobile } = this.props.breakpoints
-    const PersonalInfoComponent = isMobile
-      ? PersonalInfoPage
-      : PersonalInfoModal
-    const personalInfoWrapperProps = isMobile ? null : { closable: false }
-
     return (
-      <>
+      <PersonalInfoGate>
         {transferState ? (
           <>
             {transferState === 'sending' && <Loading />}
@@ -480,58 +434,47 @@ class TransferPage extends React.Component {
             )}
           </>
         ) : null}
-        {showingPersonalInfo ? (
-          <PersonalInfoComponent
-            onSaveSuccessful={updatedMyself => {
-              if (isMyselfSufficientlyFilled(updatedMyself)) {
-                this.setState({ showingPersonalInfo: false })
-              }
-            }}
-            wrapperProps={personalInfoWrapperProps}
+
+        <Stepper currentIndex={this.state.slide} onBack={this.handleGoBack}>
+          <ChooseRecipientCategory
+            category={category}
+            onSelect={this.handleChangeCategory}
           />
-        ) : null}
-        {!showingPersonalInfo || !isMobile ? (
-          <Stepper currentIndex={this.state.slide} onBack={this.handleGoBack}>
-            <ChooseRecipientCategory
-              category={category}
-              onSelect={this.handleChangeCategory}
-            />
-            <ChooseBeneficiary
-              category={category}
-              beneficiary={beneficiary}
-              onSelect={this.handleSelectBeneficiary}
-              beneficiaries={beneficiaries}
-            />
-            <ChooseSenderAccount
-              account={senderAccount}
-              accounts={senderAccounts}
-              onSelect={this.handleSelectSender}
-            />
-            <ChooseAmount
-              amount={amount}
-              onChange={this.handleChangeAmount}
-              onSelect={this.handleSelectAmount}
-            />
-            <Summary
-              onConfirm={this.handleConfirmSummary}
-              amount={amount}
-              beneficiary={beneficiary}
-              senderAccount={senderAccount}
-              selectSlide={this.handleSelectSlide}
-              onChangeLabel={this.handleChangeLabel}
-              onChangeDate={this.handleChangeDate}
-              label={label}
-              date={date}
-            />
-            <Password
-              onChangePassword={this.handleChangePassword}
-              onConfirm={this.handleConfirm}
-              password={password}
-              senderAccount={senderAccount}
-            />
-          </Stepper>
-        ) : null}
-      </>
+          <ChooseBeneficiary
+            category={category}
+            beneficiary={beneficiary}
+            onSelect={this.handleSelectBeneficiary}
+            beneficiaries={beneficiaries}
+          />
+          <ChooseSenderAccount
+            account={senderAccount}
+            accounts={senderAccounts}
+            onSelect={this.handleSelectSender}
+          />
+          <ChooseAmount
+            amount={amount}
+            onChange={this.handleChangeAmount}
+            onSelect={this.handleSelectAmount}
+          />
+          <Summary
+            onConfirm={this.handleConfirmSummary}
+            amount={amount}
+            beneficiary={beneficiary}
+            senderAccount={senderAccount}
+            selectSlide={this.handleSelectSlide}
+            onChangeLabel={this.handleChangeLabel}
+            onChangeDate={this.handleChangeDate}
+            label={label}
+            date={date}
+          />
+          <Password
+            onChangePassword={this.handleChangePassword}
+            onConfirm={this.handleConfirm}
+            password={password}
+            senderAccount={senderAccount}
+          />
+        </Stepper>
+      </PersonalInfoGate>
     )
   }
 }
@@ -554,10 +497,7 @@ const enhance = compose(
   queryConnect(
     removeFalsyProperties({
       accounts: accountsConn,
-      recipients: recipientsConn,
-      myself: flag('banks.transfers.need-personal-information')
-        ? myselfConn
-        : null
+      recipients: recipientsConn
     })
   ),
   translate()

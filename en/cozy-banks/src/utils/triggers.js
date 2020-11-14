@@ -1,19 +1,24 @@
 import { includes, get } from 'lodash'
 
 // To update this list used this command on banking konnector:
-// $ cat src/publish/manifests.json | jq '.[].slug'
+// $ cat src/publish/manifests.json | jq '[.[].slug]'
 const bankingSlug = [
+  'maif-nestor',
+  'americanexpress',
+  'arkea',
   'axabanque102',
+  'banquecasino',
   'banquepopulaire',
-  'bankingconnectortest',
   'barclays136',
   'bforbank97',
   'bnpparibas82',
+  'bolden',
   'boursorama83',
   'bred',
   'caissedepargne1',
   'carrefour159',
   'casden173',
+  'cetelem',
   'cic63',
   'comptenickel168',
   'caatlantica3',
@@ -29,13 +34,26 @@ const bankingSlug = [
   'lcl-linxo',
   'monabanq96',
   'cdngroup109',
-  'revolut',
   'societegenerale',
+  'bankingconnectortest',
+  'revolut',
   'n26',
-  'banquecasino',
-  'cetelem',
   'sofinco',
-  'oney'
+  'oney',
+  'bcp',
+  'courtois',
+  'kolb',
+  'laydernier',
+  'rhonealpes',
+  'tarneaud',
+  'transatlantique',
+  'gan',
+  'groupama',
+  'maafvie',
+  'moneoresto',
+  'paypal',
+  'yomoni',
+  'wesave'
 ]
 
 export const isBankTrigger = trigger =>
