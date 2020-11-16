@@ -1641,6 +1641,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#removehasmanyitem" title="removeHasManyItem" class="md-nav__link">
+    removeHasManyItem
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#updatehasmanyitem" title="updateHasManyItem" class="md-nav__link">
     updateHasManyItem
   </a>
@@ -2173,6 +2180,20 @@
         <li class="md-nav__item">
   <a href="#withmutationsmutations-function" title="~~withMutations(...mutations) ⇒ function~~" class="md-nav__link">
     ~~withMutations(...mutations) ⇒ function~~
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#relationship-object" title="Relationship : object" class="md-nav__link">
+    Relationship : object
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#relation-object" title="Relation : object" class="md-nav__link">
+    Relation : object
   </a>
   
 </li>
@@ -4623,6 +4644,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#removehasmanyitem" title="removeHasManyItem" class="md-nav__link">
+    removeHasManyItem
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#updatehasmanyitem" title="updateHasManyItem" class="md-nav__link">
     updateHasManyItem
   </a>
@@ -5160,6 +5188,20 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#relationship-object" title="Relationship : object" class="md-nav__link">
+    Relationship : object
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#relation-object" title="Relation : object" class="md-nav__link">
+    Relation : object
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#querystate-object" title="QueryState : object" class="md-nav__link">
     QueryState : object
   </a>
@@ -5380,6 +5422,9 @@ from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
 </dd>
 <dt><a href="#setHasManyItem">setHasManyItem</a></dt>
 <dd><p>Sets a relationship item with the relationship name and id</p>
+</dd>
+<dt><a href="#removeHasManyItem">removeHasManyItem</a></dt>
+<dd><p>Remove one relationship item</p>
 </dd>
 <dt><a href="#updateHasManyItem">updateHasManyItem</a></dt>
 <dd><p>Updates a relationship item with the relationship name and id</p>
@@ -5611,6 +5656,10 @@ we have in the store.</p>
 
 <h2 id="typedefs">Typedefs<a class="headerlink" href="#typedefs" title="Permanent link">&para;</a></h2>
 <dl>
+<dt><a href="#Relationship">Relationship</a> : <code>object</code></dt>
+<dd></dd>
+<dt><a href="#Relation">Relation</a> : <code>object</code></dt>
+<dd></dd>
 <dt><a href="#QueryState">QueryState</a> : <code>object</code></dt>
 <dd></dd>
 <dt><a href="#Reference">Reference</a> : <code>object</code></dt>
@@ -7497,6 +7546,36 @@ the index for the next query.</p>
 </tr>
 </tbody>
 </table>
+<p><a name="removeHasManyItem"></a></p>
+<h2 id="removehasmanyitem">removeHasManyItem<a class="headerlink" href="#removehasmanyitem" title="Permanent link">&para;</a></h2>
+<p>Remove one relationship item</p>
+<p><strong>Kind</strong>: global constant  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>doc</td>
+<td><code>object</code></td>
+<td>Document to be updated</td>
+</tr>
+<tr>
+<td>relName</td>
+<td><code>string</code></td>
+<td>Name of the relationship</td>
+</tr>
+<tr>
+<td>relItemId</td>
+<td><code>string</code></td>
+<td>Id of the relationship item</td>
+</tr>
+</tbody>
+</table>
 <p><a name="updateHasManyItem"></a></p>
 <h2 id="updatehasmanyitem">updateHasManyItem<a class="headerlink" href="#updatehasmanyitem" title="Permanent link">&para;</a></h2>
 <p>Updates a relationship item with the relationship name and id</p>
@@ -9072,6 +9151,61 @@ we have in the store.</p>
 <td>&hellip;mutations</td>
 <td><code>function</code></td>
 <td>One ore more mutations, which are function taking CozyClient as parameter and returning an object containing one or more mutations as attributes.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="Relationship"></a></p>
+<h2 id="relationship-object">Relationship : <code>object</code><a class="headerlink" href="#relationship-object" title="Permanent link">&para;</a></h2>
+<p><strong>Kind</strong>: global typedef<br />
+<strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>relName</td>
+<td><code>string</code></td>
+<td>name of the relationship</td>
+</tr>
+<tr>
+<td>relItemId</td>
+<td><code>string</code></td>
+<td>id of the relation</td>
+</tr>
+<tr>
+<td>relItemAttrs</td>
+<td><a href="#Relation"><code>Relation</code></a></td>
+<td>Attributes to be set (at least _id and _type)</td>
+</tr>
+</tbody>
+</table>
+<p><a name="Relation"></a></p>
+<h2 id="relation-object">Relation : <code>object</code><a class="headerlink" href="#relation-object" title="Permanent link">&para;</a></h2>
+<p><strong>Kind</strong>: global typedef<br />
+<strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>_id</td>
+<td><code>string</code></td>
+<td>id of the relation</td>
+</tr>
+<tr>
+<td>_type</td>
+<td><code>string</code></td>
+<td>doctype of the relation</td>
 </tr>
 </tbody>
 </table>

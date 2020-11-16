@@ -4,7 +4,7 @@ go 1.13
 
 require (
 	github.com/Masterminds/semver v1.5.0
-	github.com/go-kivik/couchdb/v3 v3.2.1
+	github.com/go-kivik/couchdb/v3 v3.2.2
 	github.com/go-kivik/kivik/v3 v3.2.0
 	github.com/go-redis/redis/v7 v7.4.0
 	github.com/h2non/filetype v1.1.0
@@ -17,6 +17,6 @@ require (
 	github.com/spf13/cobra v1.1.1
 	github.com/spf13/viper v1.7.1
 	github.com/stretchr/testify v1.6.1
-	golang.org/x/crypto v0.0.0-20201016220609-9e8e0b390897
+	golang.org/x/crypto v0.0.0-20201112155050-0c6587e931a9
 	golang.org/x/sync v0.0.0-20201020160332-67f06af15bc9
 )
