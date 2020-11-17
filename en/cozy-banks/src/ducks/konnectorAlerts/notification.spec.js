@@ -15,7 +15,7 @@ describe('getScheduleDate', () => {
     const scheduled = getScheduleDate(date)
     expect(scheduled.getHours()).toBe(8)
     const minutes = scheduled.getMinutes()
-    expect(minutes > 0 && minutes < 16).toBe(true)
+    expect(minutes >= 0 && minutes < 16).toBe(true)
     expect(scheduled.getFullYear()).toBe(2020)
     expect(scheduled.getMonth()).toBe(0)
     expect(scheduled.getDate()).toBe(2)

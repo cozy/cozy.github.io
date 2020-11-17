@@ -2310,6 +2310,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#permission-object" title="Permission : object" class="md-nav__link">
+    Permission : object
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#hydratedquerystate-hydratedquerystate" title="HydratedQueryState ⇒ HydratedQueryState" class="md-nav__link">
     HydratedQueryState ⇒ HydratedQueryState
   </a>
@@ -5313,6 +5320,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#permission-object" title="Permission : object" class="md-nav__link">
+    Permission : object
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#hydratedquerystate-hydratedquerystate" title="HydratedQueryState ⇒ HydratedQueryState" class="md-nav__link">
     HydratedQueryState ⇒ HydratedQueryState
   </a>
@@ -5678,6 +5692,16 @@ we have in the store.</p>
 <dd></dd>
 <dt><a href="#PermissionItem">PermissionItem</a> : <code>object</code></dt>
 <dd></dd>
+<dt><a href="#Permission">Permission</a> : <code>object</code></dt>
+<dd><p>When a cozy to cozy sharing is created Cozy&#39;s stack creates a
+shortcut in <code>/Inbox of sharing</code> on the recipient&#39;s cozy to have a
+quick access even when the sharing is not accepted yet.</p>
+<p>However, this file is created only if the stack knows the URL of the cozy.
+This is not always the case.</p>
+<p>This method is here to tell us if the shortcut&#39;s file is created
+on the recipient&#39;s cozy. It can be used to make an UI distinction between the
+both situation.</p>
+</dd>
 <dt><a href="#HydratedQueryState">HydratedQueryState</a> ⇒ <code><a href="#HydratedQueryState">HydratedQueryState</a></code></dt>
 <dd><p>Returns the query from the store with hydrated documents.</p>
 </dd>
@@ -9521,6 +9545,55 @@ https://docs.cozy.io/en/cozy-doctypes/docs/io.cozy.files/#references</p>
 <td>type</td>
 <td><code>string</code></td>
 <td>a couch db database like &lsquo;io.cozy.files&rsquo;</td>
+</tr>
+</tbody>
+</table>
+<p><a name="Permission"></a></p>
+<h2 id="permission-object">Permission : <code>object</code><a class="headerlink" href="#permission-object" title="Permanent link">&para;</a></h2>
+<p>When a cozy to cozy sharing is created Cozy&rsquo;s stack creates a
+shortcut in <code>/Inbox of sharing</code> on the recipient&rsquo;s cozy to have a
+quick access even when the sharing is not accepted yet.</p>
+<p>However, this file is created only if the stack knows the URL of the cozy.
+This is not always the case.</p>
+<p>This method is here to tell us if the shortcut&rsquo;s file is created
+on the recipient&rsquo;s cozy. It can be used to make an UI distinction between the
+both situation.</p>
+<p><strong>Kind</strong>: global typedef  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>permission</td>
+<td><a href="#Permission"><code>Permission</code></a></td>
+<td>From getOwnPermissions mainly</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td><code>object</code></td>
+<td>Permission document</td>
+</tr>
+<tr>
+<td>included</td>
+<td><code>Array</code></td>
+<td>Member information from the sharing</td>
 </tr>
 </tbody>
 </table>

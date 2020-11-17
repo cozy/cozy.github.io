@@ -7,7 +7,7 @@ import { flowRight as compose } from 'lodash'
 
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import { Layout, Main, Content } from 'cozy-ui/transpiled/react/Layout'
-import Sidebar from 'cozy-ui/transpiled/react/Sidebar'
+import UISidebar from 'cozy-ui/transpiled/react/Sidebar'
 
 import { settingsConn } from 'doctypes'
 
@@ -20,8 +20,14 @@ import ErrorBoundary from 'components/ErrorBoundary'
 import ReactHint from 'components/ReactHint'
 import RouterContext from 'components/RouterContext'
 import AppSearchBar from 'components/AppSearchBar'
+import useKeyboardState from 'components/useKeyboardState'
 
 import styles from './App.styl'
+
+const KeyboardAwareSidebar = ({ children }) => {
+  const showing = useKeyboardState()
+  return showing ? null : <UISidebar>{children}</UISidebar>
+}
 
 const App = props => {
   const settings = getDefaultedSettingsFromCollection(props.settingsCollection)
@@ -33,9 +39,9 @@ const App = props => {
     <RouterContext.Provider value={props.router}>
       {flag('banks.search') ? <AppSearchBar /> : null}
       <Layout>
-        <Sidebar>
+        <KeyboardAwareSidebar>
           <Nav />
-        </Sidebar>
+        </KeyboardAwareSidebar>
 
         <Main>
           <Content className={styles.Main}>

@@ -1152,8 +1152,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#administrative-documents" title="Administrative documents" class="md-nav__link">
-    Administrative documents
+  <a href="#document-qualification" title="Document qualification" class="md-nav__link">
+    Document qualification
   </a>
   
     <nav class="md-nav">
@@ -1164,19 +1164,18 @@
     Data structure
   </a>
   
-    <nav class="md-nav">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
-  <a href="#common-attributes" title="Common attributes" class="md-nav__link">
-    Common attributes
+  <a href="#example" title="Example" class="md-nav__link">
+    Example
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#other-attributes" title="Other Attributes" class="md-nav__link">
-    Other Attributes
+  <a href="#qualification-attributes" title="Qualification attributes" class="md-nav__link">
+    Qualification attributes
   </a>
   
 </li>
@@ -1185,10 +1184,18 @@
     </nav>
   
 </li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-metadata-attributes" title="Additional metadata attributes" class="md-nav__link">
+    Additional metadata attributes
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#description-of-different-document-types" title="Description of different document types" class="md-nav__link">
-    Description of different document types
+  <a href="#examples" title="Examples" class="md-nav__link">
+    Examples
   </a>
   
     <nav class="md-nav">
@@ -1278,10 +1285,8 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#office" title="Office" class="md-nav__link">
-    Office
-  </a>
+      </ul>
+    </nav>
   
 </li>
         
@@ -1289,10 +1294,10 @@
     </nav>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#examples" title="Examples" class="md-nav__link">
-    Examples
+      
+        <li class="md-nav__item">
+  <a href="#files-metadata-examples" title="Files metadata examples" class="md-nav__link">
+    Files metadata examples
   </a>
   
     <nav class="md-nav">
@@ -1330,11 +1335,6 @@
   <a href="#identity-documents_1" title="Identity documents" class="md-nav__link">
     Identity documents
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -2789,8 +2789,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#administrative-documents" title="Administrative documents" class="md-nav__link">
-    Administrative documents
+  <a href="#document-qualification" title="Document qualification" class="md-nav__link">
+    Document qualification
   </a>
   
     <nav class="md-nav">
@@ -2801,19 +2801,18 @@
     Data structure
   </a>
   
-    <nav class="md-nav">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
-  <a href="#common-attributes" title="Common attributes" class="md-nav__link">
-    Common attributes
+  <a href="#example" title="Example" class="md-nav__link">
+    Example
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#other-attributes" title="Other Attributes" class="md-nav__link">
-    Other Attributes
+  <a href="#qualification-attributes" title="Qualification attributes" class="md-nav__link">
+    Qualification attributes
   </a>
   
 </li>
@@ -2822,10 +2821,18 @@
     </nav>
   
 </li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-metadata-attributes" title="Additional metadata attributes" class="md-nav__link">
+    Additional metadata attributes
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#description-of-different-document-types" title="Description of different document types" class="md-nav__link">
-    Description of different document types
+  <a href="#examples" title="Examples" class="md-nav__link">
+    Examples
   </a>
   
     <nav class="md-nav">
@@ -2915,10 +2922,8 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#office" title="Office" class="md-nav__link">
-    Office
-  </a>
+      </ul>
+    </nav>
   
 </li>
         
@@ -2926,10 +2931,10 @@
     </nav>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#examples" title="Examples" class="md-nav__link">
-    Examples
+      
+        <li class="md-nav__item">
+  <a href="#files-metadata-examples" title="Files metadata examples" class="md-nav__link">
+    Files metadata examples
   </a>
   
     <nav class="md-nav">
@@ -2967,11 +2972,6 @@
   <a href="#identity-documents_1" title="Identity documents" class="md-nav__link">
     Identity documents
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -3018,42 +3018,114 @@
 <li><code>x</code>: {float}: x coordinate in the photo where the person is</li>
 <li><code>y</code>: {float}: y coordinate in the photo where the person is</li>
 </ul>
-<h2 id="administrative-documents">Administrative documents<a class="headerlink" href="#administrative-documents" title="Permanent link">&para;</a></h2>
-<p>Mostly imported by the connectors, Cozy stores many different types of administrative documents, like invoices, contracts or certificates.</p>
+<h2 id="document-qualification">Document qualification<a class="headerlink" href="#document-qualification" title="Permanent link">&para;</a></h2>
+<p>It is possible to add semantics to documents in order to qualify them.</p>
+<p>A qualification model is available
+<a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/assets/qualifications.json">here</a>
+that describes the qualification attributes for a set of documents. A
+qualification consists of a label bound to some fixed attributes, i.e.<code>purpose</code>,
+<code>sourceCategory</code>, <code>sourceSubCategory</code> and <code>subjects</code>, all explained in the next
+section. Note that for a given label, it is possible to customize the model
+attributes values, by following these rules:</p>
+<ul>
+<li>If a value is defined for the attributes <code>purpose</code>,
+    <code>sourceCategory</code>,<code>sourceSubCategory</code>, it  is not possible to customize it.</li>
+<li>If a value is not defined for one of these attributes, a custom value can be
+    defined, if it exists in their respective known values list in the model,
+    e.g. <code>knownSourceCategory</code>.</li>
+<li>If some <code>subjects</code> values are set, they must be included in the given
+    qualification.</li>
+<li>Extra <code>subjects</code> values can be set, but they should exist in the
+    <code>subjectsKnownValues</code> model list.</li>
+</ul>
+<p>A document qualification is typically set by
+<a href="https://github.com/konnectors/">konnectors</a> or by applications such as Cozy
+Drive through the
+<a href="https://github.com/cozy/cozy-libs/tree/master/packages/cozy-scanner/">cozy-scanner</a>
+library.</p>
 <h3 id="data-structure">Data structure<a class="headerlink" href="#data-structure" title="Permanent link">&para;</a></h3>
-<h4 id="common-attributes">Common attributes<a class="headerlink" href="#common-attributes" title="Permanent link">&para;</a></h4>
-<p>These attributes are shared by all the document types covered by the specification.</p>
+<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
+<p>Here is a qualification example:</p>
+<div class="codehilite"><pre><span></span>{
+  &quot;qualification&quot;: {
+    &quot;label&quot;: &quot;driver_license&quot;,
+    &quot;purpose&quot;: &quot;attestation&quot;,
+    &quot;sourceCategory&quot;: &quot;gov&quot;,
+    &quot;sourceSubCategory&quot;: &quot;transport&quot;,
+    &quot;subjects&quot;: [&quot;permit&quot;, &quot;driving&quot;]
+  }
+}
+</pre></div>
+
+
+<h3 id="qualification-attributes">Qualification attributes<a class="headerlink" href="#qualification-attributes" title="Permanent link">&para;</a></h3>
+<p>A qualification can be composed of the following attributes:</p>
 <ul>
-<li><code>classification</code>: {string} Document types</li>
-<li><code>datetime</code> : {date} Functional date of the document, most of the time the document issue date</li>
-<li><code>datetimeLabel</code>: {string} Functional meaning of datetime</li>
-<li><code>contentAuthor</code>: {string} Author of the content of the document, can be different of the source connector</li>
+<li><code>label</code>: {string} the document label, which precisely specify what is the
+  document. It is the only mandatory attribute in the qualification.</li>
+<li>Examples: <code>driver_license</code>, <code>car_insurance</code>, <code>bank_statement</code>, etc.</li>
+<li><code>purpose</code>: {string} the goal of the document: for instance, an identity
+  document has an <code>attestation</code> goal, to attest an identity. In the same manner,
+  the purpose of a bill is to <code>invoice</code> something.</li>
+<li>Examples: <code>attestation</code>, <code>invoice</code>, <code>contract</code>, <code>report</code>, etc.</li>
+<li><code>sourceCategory</code>: {string} the activity field of the source that produced the
+  document.</li>
+<li>Examples: <code>gov</code>, <code>bank</code>, <code>health</code>, <code>transport</code>, etc.</li>
+<li><code>sourceSubCategory</code>: {string} a precision of the activity field of the source
+  that produced the document. In some cases, it is necessary when the primary
+  field is too broad. Typically, for the <code>driver_license</code> label, <code>gov</code> is the
+  <code>sourceCategory</code> and <code>transport</code> the <code>sourceSubCategory</code>.</li>
+<li>Examples: <code>transport</code>, <code>health</code>, <code>civil_registration</code>, <code>health</code>, etc.</li>
+<li><code>subjects</code>: {array of strings} list what the document is about. For instance,
+  a <code>driver_license</code> has two subjects: <code>permit</code> and <code>driving</code>, because this
+  document is about the permit to drive a vehicle. Another example is the
+  <code>car_insurance</code>: the subjects are <code>insurance</code> and <code>car</code>.</li>
+<li>Examples: <code>permit</code>, <code>insurance</code>, <code>house</code>, <code>car</code>, etc.</li>
 </ul>
-<h4 id="other-attributes">Other Attributes<a class="headerlink" href="#other-attributes" title="Permanent link">&para;</a></h4>
-<p>These attributes depend on the <code>classification</code>.</p>
+<p>For a complete list of the possible values for each attributes, see the
+<a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/assets/qualifications.json">qualification
+model</a>.</p>
+<p>If you need to add new values, please consider opening an
+<a href="https://github.com/cozy/cozy-client/issues">issue</a> or making a <a href="https://github.com/cozy/cozy-client/pulls">pull
+request</a> to the cozy-client
+repository.</p>
+<h2 id="additional-metadata-attributes">Additional metadata attributes<a class="headerlink" href="#additional-metadata-attributes" title="Permanent link">&para;</a></h2>
+<p>Additional metadata attributes might be set to further describe the document.
+Most of these attributes heavily depends on the document context and are not
+expected in every cases.</p>
 <ul>
-<li><code>subClassification</code>: {string} Subtype of the document (ex: invoice, payment_statement, payment_schedules)</li>
-<li><code>categories</code>: {array of strings} List of tags referring to the field of activity, can be deduced from the categories of connectors</li>
-<li><code>subjects</code> : {array of strings} List of tags referring to the subject of the document
-  &hellip;</li>
+<li><code>contentAuthor</code> : {string} the author of the document, e.g. <code>impots.gouv</code>,
+  <code>amazon.com</code>, etc. </li>
+<li><code>datetime</code> : {date} Equals to the date attribute specified by <code>datetimeLabel</code>.</li>
+<li><code>datetimeLabel</code> : {string} specify which attribute is used as <code>datetime</code>, e.g.
+  <code>issueDate</code> or <code>startDate</code>.</li>
+<li><code>issueDate</code> : {date} issue date of the document.</li>
+<li><code>startDate</code> : {date} first day of a period, e.g. for a contract.</li>
+<li><code>endDate</code> : {date} last day of a period, e.g. for a contract.</li>
+<li><code>expirationDate</code> : {date} last day of validity, e.g. for an identity document.</li>
+<li><code>invoiceNumber</code> : {string} invoice number.</li>
+<li><code>contractReference</code> : {string} reference of the related contract.</li>
+<li><code>isSubscription</code> : {bool} true if the invoice is related to a subscription
+  plan.</li>
+<li><code>formReference</code> : {string} reference of the form (ex: &lsquo;2042RICI&rsquo;).</li>
+<li><code>school</code> : {string} school name.</li>
+<li><code>country</code> : {string} country name.</li>
+<li><code>accountNumber</code> : {string} number of the related account.</li>
+<li><code>bankName</code> : {string} name of the related bank.</li>
 </ul>
-<h3 id="description-of-different-document-types">Description of different document types<a class="headerlink" href="#description-of-different-document-types" title="Permanent link">&para;</a></h3>
+<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
 <h4 id="invoices-and-documents-related-to-payments">Invoices and documents related to payments<a class="headerlink" href="#invoices-and-documents-related-to-payments" title="Permanent link">&para;</a></h4>
 <ul>
-<li><code>classification</code> : {string} <code>'invoicing'</code></li>
 <li><code>datetime</code> : {date} Equals to <code>issueDate</code></li>
 <li><code>datetimeLabel</code> : {string} <code>'issueDate'</code></li>
 <li><code>contentAuthor</code> : {string}</li>
-<li><code>subClassification</code> : {string} <code>['invoice'</code>, <code>'payment_statement'</code>, <code>'payment_schedule'</code>]</li>
-<li><code>categories</code> : {array of strings} [<code>'phone'</code>, <code>'isp'</code>, <code>'energy'</code>, <code>'public_service'</code>, <code>'health'</code>, …]</li>
-<li><code>issueDate</code> : {date} Issue date of the document</li>
 <li><code>invoiceNumber</code> : {string} Invoice number</li>
 <li><code>contractReference</code> : {string} Reference of the related contract, if any</li>
-<li><code>isSubscription</code> : {bool} True if the invoice is related to a subscription plan</li>
+<li><code>isSubscription</code> : {bool} True if the invoice is related to a subscription
+  plan</li>
 </ul>
 <h4 id="payslips">Payslips<a class="headerlink" href="#payslips" title="Permanent link">&para;</a></h4>
 <ul>
-<li><code>classification</code> : {string} <code>'payslip'</code></li>
 <li><code>datetime</code> : {date} Equals to <code>startDate</code></li>
 <li><code>datetimeLabel</code> : {string} <code>'startDate'</code></li>
 <li><code>contentAuthor</code> : {string} Employer on the payslip</li>
@@ -3063,31 +3135,24 @@
 </ul>
 <h4 id="tax-notices">Tax Notices<a class="headerlink" href="#tax-notices" title="Permanent link">&para;</a></h4>
 <ul>
-<li><code>classification</code> : {string} <code>'tax_notice'</code></li>
 <li><code>datetime</code> : {date} Equals to <code>issueDate</code></li>
 <li><code>datetimeLabel</code> : {string} <code>'issueDate'</code></li>
 <li><code>contentAuthor</code> : {string}</li>
-<li><code>subjects</code> : {string} [<code>'income'</code>, <code>'property'</code>, <code>'residence'</code>, <code>'corporate'</code>]</li>
 <li><code>issueDate</code> : {date} Issue date of the document</li>
 </ul>
 <h4 id="tax-returns">Tax Returns<a class="headerlink" href="#tax-returns" title="Permanent link">&para;</a></h4>
 <ul>
-<li><code>classification</code> : {string} <code>'tax_return'</code></li>
 <li><code>datetime</code> : {date} Equals to <code>issueDate</code></li>
 <li><code>datetimeLabel</code> : {string} <code>'issueDate'</code></li>
 <li><code>contentAuthor</code> : {string}</li>
-<li><code>subjects</code> : {array of strings} [<code>'income'</code>, <code>'property'</code>, <code>'residence'</code>, <code>'corporate'</code>]</li>
 <li><code>issueDate</code> : {date} Issue date of the document</li>
 <li><code>formReference</code> : {string} Reference of the form (ex: &lsquo;2042RICI&rsquo;)</li>
 </ul>
 <h4 id="contracts">Contracts<a class="headerlink" href="#contracts" title="Permanent link">&para;</a></h4>
 <ul>
-<li><code>classification</code> : {string} <code>'contract'</code></li>
 <li><code>datetime</code> : {date} Equals to <code>startDate</code></li>
 <li><code>datetimeLabel</code> : {string} <code>'startDate'</code></li>
 <li><code>contentAuthor</code> : {string}</li>
-<li><code>categories</code> : {array of strings} [<code>'insurance'</code>, <code>'employment'</code>, <code>'health'</code>, <code>'energy'</code>, <code>'phone'</code>, <code>'isp'</code>, <code>'real_estate'</code>]</li>
-<li><code>subjects</code> : {array of strings} [<code>'house'</code>, <code>'car'</code>, <code>'health'</code>, <code>'life'</code>, <code>'rent'</code>]</li>
 <li><code>contractReference</code> : {string} Reference of the contract</li>
 <li><code>issueDate</code> : {date} Issue date of the document</li>
 <li><code>startDate</code> : {date} First day of the validity period</li>
@@ -3095,23 +3160,18 @@
 </ul>
 <h4 id="certificates">Certificates<a class="headerlink" href="#certificates" title="Permanent link">&para;</a></h4>
 <ul>
-<li><code>classification</code> : {string} <code>'certificate'</code></li>
 <li><code>datetime</code> : {date} Equals to <code>issueDate</code></li>
 <li><code>datetimeLabel</code> : {string} <code>'issueDate'</code></li>
 <li><code>contentAuthor</code> : {string}</li>
-<li><code>categories</code> : {array of strings} [<code>'insurance'</code>, <code>'employment'</code>, <code>'health'</code>, <code>'energy'</code>, <code>'phone'</code>, <code>'isp'</code>, <code>'real_estate'</code>, <code>'public_service'</code>, <code>'tax'</code>]</li>
-<li><code>subjects</code> : {array of strings} [<code>'house'</code>, <code>'car'</code>, <code>'health'</code>, <code>'life'</code>, <code>'property'</code>, <code>'subscription'</code>]</li>
 <li><code>issueDate</code> : {date} Issue date of the document</li>
 <li><code>startDate</code> : {date} First day of the validity period</li>
 <li><code>endDate</code> : {date} Last day of the validity period</li>
 </ul>
 <h4 id="diplomas-and-driving-licenses">Diplomas and Driving licenses<a class="headerlink" href="#diplomas-and-driving-licenses" title="Permanent link">&para;</a></h4>
 <ul>
-<li><code>classification</code> : {string} <code>'diploma'</code></li>
 <li><code>datetime</code> : {date} Equals to <code>startDate</code></li>
 <li><code>datetimeLabel</code> : {string} <code>'startDate'</code></li>
 <li><code>contentAuthor</code> : {string}</li>
-<li><code>subClassification</code> : {string} [<code>'school'</code>, <code>'driving'</code>, <code>'flying'</code>, <code>'sport'</code>]</li>
 <li><code>startDate</code> : First day of the validity period</li>
 <li><code>label</code> : {string} Short description of the diploma</li>
 <li><code>school</code> : {string} School name</li>
@@ -3119,11 +3179,9 @@
 </ul>
 <h4 id="identity-documents">Identity documents<a class="headerlink" href="#identity-documents" title="Permanent link">&para;</a></h4>
 <ul>
-<li><code>classification</code> : {string} <code>'identity_document'</code></li>
 <li><code>datetime</code> : {date} Equals to <code>startDate</code></li>
 <li><code>datetimeLabel</code> : {string} <code>'startDate'</code></li>
 <li><code>contentAuthor</code> : {string}</li>
-<li><code>subClassification</code> : {string} [<code>'national_id_card'</code>, <code>'passport'</code>, <code>'family_record_book'</code>]</li>
 <li><code>issueDate</code> : {date} Issue date of the document</li>
 <li><code>expirationDate</code> : {date} Last day of validity</li>
 <li><code>number</code> : {string} Document number</li>
@@ -3132,7 +3190,6 @@
 </ul>
 <h4 id="bank-statements">Bank Statements<a class="headerlink" href="#bank-statements" title="Permanent link">&para;</a></h4>
 <ul>
-<li><code>classification</code> : {string} <code>'bank_statement'</code></li>
 <li><code>datetime</code> : {date} Equals to <code>startDate</code></li>
 <li><code>datetimeLabel</code> : {string} <code>'startDate'</code></li>
 <li><code>contentAuthor</code> : {string}</li>
@@ -3143,7 +3200,6 @@
 </ul>
 <h4 id="bank-details-iban">Bank Details (IBAN)<a class="headerlink" href="#bank-details-iban" title="Permanent link">&para;</a></h4>
 <ul>
-<li><code>classification</code> : {string} <code>'bank_details'</code></li>
 <li><code>datetime</code> : {date} Equals to <code>issueDate</code></li>
 <li><code>datetimeLabel</code> : {string} <code>'issueDate'</code></li>
 <li><code>contentAuthor</code> : {string}</li>
@@ -3153,74 +3209,71 @@
 </ul>
 <h4 id="mail">Mail<a class="headerlink" href="#mail" title="Permanent link">&para;</a></h4>
 <ul>
-<li><code>classification</code> : {string} <code>'mail'</code></li>
 <li><code>datetime</code> : {date} Equals to <code>issueDate</code></li>
 <li><code>datetimeLabel</code> : {string} <code>'issueDate'</code></li>
 <li><code>contentAuthor</code> : {string}</li>
-<li><code>categories</code> : {array of strings} [<code>'insurance'</code>, <code>'employment'</code>, <code>'health'</code>, <code>'energy'</code>, <code>'phone'</code>, <code>'isp'</code>, <code>'real_estate'</code>, <code>'tax'</code>]</li>
 </ul>
 <h4 id="report">Report<a class="headerlink" href="#report" title="Permanent link">&para;</a></h4>
 <ul>
-<li><code>classification</code> : {string} <code>'mail'</code></li>
 <li><code>datetime</code> : {date} Equals to <code>issueDate</code></li>
 <li><code>datetimeLabel</code> : {string} <code>'issueDate'</code></li>
 <li><code>contentAuthor</code> : {string}</li>
-<li><code>subjects</code> : {array of strings} [<code>'theft'</code>, <code>'loss'</code>, <code>'damage'</code>, <code>accident</code>]</li>
 </ul>
-<h4 id="office">Office<a class="headerlink" href="#office" title="Permanent link">&para;</a></h4>
-<ul>
-<li><code>classification</code> : {string} <code>'office'</code></li>
-<li><code>subClassification</code> : {string} [<code>'textpad'</code>, <code>'spreadsheet'</code>, <code>'slides'</code>]</li>
-</ul>
-<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
+<h2 id="files-metadata-examples">Files metadata examples<a class="headerlink" href="#files-metadata-examples" title="Permanent link">&para;</a></h2>
 <h4 id="invoices-payment-statements-payment-schedules">Invoices, payment statements, payment schedules<a class="headerlink" href="#invoices-payment-statements-payment-schedules" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="c1">// invoice - bouygues telecom</span>
-<span class="s1">&#39;metadata&#39;</span><span class="o">:</span> <span class="p">{</span>
-  <span class="s1">&#39;classification&#39;</span><span class="o">:</span> <span class="s1">&#39;invoicing&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;datetime&#39;</span><span class="o">:</span> <span class="s1">&#39;2019-05-10&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;datetimeLabel&#39;</span><span class="o">:</span> <span class="s1">&#39;issueDate&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;contentAuthor&#39;</span><span class="o">:</span> <span class="s1">&#39;bouyguestelecom&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;categories&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;phone&#39;</span><span class="p">,</span><span class="s1">&#39;isp&#39;</span><span class="p">,</span><span class="s1">&#39;telecom&#39;</span><span class="p">],</span>
-  <span class="s1">&#39;subClassification&#39;</span><span class="o">:</span> <span class="s1">&#39;invoice&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;issueDate&#39;</span><span class="o">:</span> <span class="s1">&#39;2019-05-10&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;contractReference&#39;</span><span class="o">:</span> <span class="s1">&#39;0645874398&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;invoiceNumber&#39;</span><span class="o">:</span> <span class="s1">&#39;KJF949875&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;isSubscription&#39;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+<span class="s2">&quot;metadata&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;qualification&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;label&quot;</span><span class="o">:</span> <span class="s2">&quot;telecom_invoice&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;purpose&quot;</span><span class="o">:</span> <span class="s2">&quot;invoice&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;sourceCategory&quot;</span><span class="o">:</span> <span class="s2">&quot;telecom&quot;</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;datetime&quot;</span><span class="o">:</span> <span class="s2">&quot;2019-05-10&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;datetimeLabel&quot;</span><span class="o">:</span> <span class="s2">&quot;issueDate&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;contentAuthor&quot;</span><span class="o">:</span> <span class="s2">&quot;bouyguestelecom&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;issueDate&quot;</span><span class="o">:</span> <span class="s2">&quot;2019-05-10&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;contractReference&quot;</span><span class="o">:</span> <span class="s2">&quot;0645874398&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;invoiceNumber&quot;</span><span class="o">:</span> <span class="s2">&quot;KJF949875&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;isSubscription&quot;</span><span class="o">:</span> <span class="kc">true</span>
 <span class="p">},</span>
-<span class="s1">&#39;cozyMetadata&#39;</span><span class="o">:</span> <span class="p">{</span>
+<span class="s2">&quot;cozyMetadata&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="p">...</span>
 <span class="p">}</span>
 </pre></div>
 
 
 <div class="codehilite"><pre><span></span><span class="c1">// payment statement - ameli</span>
-<span class="s1">&#39;metadata&#39;</span><span class="o">:</span> <span class="p">{</span>
-  <span class="s1">&#39;classification&#39;</span><span class="o">:</span> <span class="s1">&#39;invoicing&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;datetime&#39;</span><span class="o">:</span> <span class="s1">&#39;2019-05-10&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;datetimeLabel&#39;</span><span class="o">:</span> <span class="s1">&#39;issueDate&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;contentAuthor&#39;</span><span class="o">:</span> <span class="s1">&#39;ameli&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;categories&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;insurance&#39;</span><span class="p">,</span> <span class="s1">&#39;health&#39;</span><span class="p">],</span>
-  <span class="s1">&#39;subClassification&#39;</span><span class="o">:</span> <span class="s1">&#39;payment_statement&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;issueDate&#39;</span><span class="o">:</span> <span class="s1">&#39;2019-05-10&#39;</span><span class="p">,</span>
+<span class="s2">&quot;metadata&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;qualification&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;label&quot;</span><span class="o">:</span> <span class="s2">&quot;health_invoice&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;purpose&quot;</span><span class="o">:</span> <span class="s2">&quot;invoice&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;sourceCategory&quot;</span><span class="o">:</span> <span class="s2">&quot;health&quot;</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;datetime&quot;</span><span class="o">:</span> <span class="s2">&quot;2019-05-10&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;datetimeLabel&quot;</span><span class="o">:</span> <span class="s2">&quot;issueDate&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;contentAuthor&quot;</span><span class="o">:</span> <span class="s2">&quot;ameli&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;issueDate&quot;</span><span class="o">:</span> <span class="s2">&quot;2019-05-10&quot;</span>
 <span class="p">},</span>
-<span class="s1">&#39;cozyMetadata&#39;</span><span class="o">:</span> <span class="p">{</span>
+<span class="s2">&quot;cozyMetadata&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="p">...</span>
 <span class="p">}</span>
 </pre></div>
 
 
 <div class="codehilite"><pre><span></span><span class="c1">// payment schedule - EDF</span>
-<span class="s1">&#39;metadata&#39;</span><span class="o">:</span> <span class="p">{</span>
-  <span class="s1">&#39;classification&#39;</span><span class="o">:</span> <span class="s1">&#39;invoicing&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;datetime&#39;</span><span class="o">:</span> <span class="s1">&#39;2019-05-10&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;datetimeLabel&#39;</span><span class="o">:</span> <span class="s1">&#39;issueDate&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;contentAuthor&#39;</span><span class="o">:</span> <span class="s1">&#39;edf&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;categories&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;energy&#39;</span><span class="p">],</span>
-  <span class="s1">&#39;subClassification&#39;</span><span class="o">:</span> <span class="s1">&#39;paiement_schedule&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;iSubscription&#39;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-  <span class="s1">&#39;issueDate&#39;</span><span class="o">:</span> <span class="s1">&#39;2019-05-10&#39;</span><span class="p">,</span>
+<span class="s2">&quot;metadata&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;qualification&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;label&quot;</span><span class="o">:</span> <span class="s2">&quot;energy_invoice&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;purpose&quot;</span><span class="o">:</span> <span class="s2">&quot;invoice&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;sourceCategory&quot;</span><span class="o">:</span> <span class="s2">&quot;energy&quot;</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;datetime&quot;</span><span class="o">:</span> <span class="s2">&quot;2019-05-10&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;datetimeLabel&quot;</span><span class="o">:</span> <span class="s2">&quot;issueDate&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;contentAuthor&quot;</span><span class="o">:</span> <span class="s2">&quot;edf&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;iSubscription&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s2">&quot;issueDate&quot;</span><span class="o">:</span> <span class="s2">&quot;2019-05-10&quot;</span>
 <span class="p">},</span>
-<span class="s1">&#39;cozyMetadata&#39;</span><span class="o">:</span> <span class="p">{</span>
+<span class="s2">&quot;cozyMetadata&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="p">...</span>
 <span class="p">}</span>
 </pre></div>
@@ -3228,31 +3281,41 @@
 
 <h4 id="taxe-notices">Taxe notices<a class="headerlink" href="#taxe-notices" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="c1">// taxe notice on income</span>
-<span class="s1">&#39;metadata&#39;</span><span class="o">:</span> <span class="p">{</span>
-  <span class="s1">&#39;classification&#39;</span><span class="o">:</span> <span class="s1">&#39;tax_notice&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;datetime&#39;</span><span class="o">:</span> <span class="s1">&#39;2019-05-10&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;datetimeLabel&#39;</span><span class="o">:</span> <span class="s1">&#39;issueDate&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;contentAuthor&#39;</span><span class="o">:</span> <span class="s1">&#39;impots.gouv&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;subjects&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;income&#39;</span><span class="p">],</span>
-  <span class="s1">&#39;issueDate&#39;</span><span class="o">:</span> <span class="s1">&#39;2019-05-10&#39;</span><span class="p">,</span>
+<span class="s2">&quot;metadata&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;qualification&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;label&quot;</span><span class="o">:</span> <span class="s2">&quot;tax_notice&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;purpose&quot;</span><span class="o">:</span> <span class="s2">&quot;invoice&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;sourceCategory&quot;</span><span class="o">:</span> <span class="s2">&quot;gov&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;sourceSubCategory&quot;</span><span class="o">:</span> <span class="s2">&quot;tax&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;subjects&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;tax&quot;</span><span class="p">]</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;datetime&quot;</span><span class="o">:</span> <span class="s2">&quot;2019-05-10&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;datetimeLabel&quot;</span><span class="o">:</span> <span class="s2">&quot;issueDate&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;contentAuthor&quot;</span><span class="o">:</span> <span class="s2">&quot;impots.gouv&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;issueDate&quot;</span><span class="o">:</span> <span class="s2">&quot;2019-05-10&quot;</span>
 <span class="p">},</span>
-<span class="s1">&#39;cozyMetadata&#39;</span><span class="o">:</span> <span class="p">{</span>
+<span class="s2">&quot;cozyMetadata&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="p">...</span>
 <span class="p">}</span>
 </pre></div>
 
 
 <div class="codehilite"><pre><span></span><span class="c1">// tax return on income</span>
-<span class="s1">&#39;metadata&#39;</span><span class="o">:</span> <span class="p">{</span>
-  <span class="s1">&#39;classification&#39;</span><span class="o">:</span> <span class="s1">&#39;tax_report&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;datetime&#39;</span><span class="o">:</span> <span class="s1">&#39;2019-05-10&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;datetimeLabel&#39;</span><span class="o">:</span> <span class="s1">&#39;issueDate&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;contentAuthor&#39;</span><span class="o">:</span> <span class="s1">&#39;impots.gouv&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;subjects&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;income&#39;</span><span class="p">],</span>
-  <span class="s1">&#39;formReference&#39;</span><span class="o">:</span> <span class="s1">&#39;2042RICI&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;issueDate&#39;</span><span class="o">:</span> <span class="s1">&#39;2019-05-10&#39;</span><span class="p">,</span>
+<span class="s2">&quot;metadata&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;qualification&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;label&quot;</span><span class="o">:</span> <span class="s2">&quot;tax_return&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;purpose&quot;</span><span class="o">:</span> <span class="s2">&quot;report&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;sourceCategory&quot;</span><span class="o">:</span> <span class="s2">&quot;gov&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;sourceSubCategory&quot;</span><span class="o">:</span> <span class="s2">&quot;tax&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;subjects&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;tax&quot;</span><span class="p">]</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;datetime&quot;</span><span class="o">:</span> <span class="s2">&quot;2019-05-10&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;datetimeLabel&quot;</span><span class="o">:</span> <span class="s2">&quot;issueDate&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;contentAuthor&quot;</span><span class="o">:</span> <span class="s2">&quot;impots.gouv&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;formReference&quot;</span><span class="o">:</span> <span class="s2">&quot;2042RICI&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;issueDate&quot;</span><span class="o">:</span> <span class="s2">&quot;2019-05-10&quot;</span>
 <span class="p">},</span>
-<span class="s1">&#39;cozyMetadata&#39;</span><span class="o">:</span> <span class="p">{</span>
+<span class="s2">&quot;cozyMetadata&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="p">...</span>
 <span class="p">}</span>
 </pre></div>
@@ -3260,87 +3323,87 @@
 
 <h4 id="payslips_1">Payslips<a class="headerlink" href="#payslips_1" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="c1">// payslip - cozycloud</span>
-<span class="s1">&#39;metadata&#39;</span><span class="o">:</span> <span class="p">{</span>
-  <span class="s1">&#39;classification&#39;</span><span class="o">:</span> <span class="s1">&#39;payslip&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;datetime&#39;</span><span class="o">:</span> <span class="s1">&#39;2019-05-01&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;datetimeLabel&#39;</span><span class="o">:</span> <span class="s1">&#39;startDate&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;contentAuthor&#39;</span><span class="o">:</span> <span class="s1">&#39;cozycloud&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;startDate&#39;</span><span class="o">:</span> <span class="s1">&#39;2019-05-01&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;endDate&#39;</span><span class="o">:</span> <span class="s1">&#39;2019-05-31&#39;</span><span class="p">,</span>
+<span class="s2">&quot;metadata&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;qualification&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;label&quot;</span><span class="o">:</span> <span class="s2">&quot;pay_sheet&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;purpose&quot;</span><span class="o">:</span> <span class="s2">&quot;attestation&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;sourceCategory&quot;</span><span class="o">:</span> <span class="s2">&quot;employer&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;subjects&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;work&quot;</span><span class="p">,</span> <span class="s2">&quot;revenues&quot;</span><span class="p">]</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;datetime&quot;</span><span class="o">:</span> <span class="s2">&quot;2019-05-01&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;datetimeLabel&quot;</span><span class="o">:</span> <span class="s2">&quot;startDate&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;contentAuthor&quot;</span><span class="o">:</span> <span class="s2">&quot;cozycloud&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;startDate&quot;</span><span class="o">:</span> <span class="s2">&quot;2019-05-01&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;endDate&quot;</span><span class="o">:</span> <span class="s2">&quot;2019-05-31&quot;</span>
 <span class="p">},</span>
-<span class="s1">&#39;cozyMetadata&#39;</span><span class="o">:</span> <span class="p">{</span>
+<span class="s2">&quot;cozyMetadata&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="p">...</span>
 <span class="p">}</span>
 </pre></div>
 
 
 <h4 id="certificates_1">Certificates<a class="headerlink" href="#certificates_1" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="c1">// contrat certificate - EDF</span>
-<span class="s1">&#39;metadata&#39;</span><span class="o">:</span> <span class="p">{</span>
-  <span class="s1">&#39;classification&#39;</span><span class="o">:</span> <span class="s1">&#39;certificate&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;datetime&#39;</span><span class="o">:</span> <span class="s1">&#39;2019-05-10&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;datetimeLabel&#39;</span><span class="o">:</span> <span class="s1">&#39;startDate&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;contentAuthor&#39;</span><span class="o">:</span> <span class="s1">&#39;edf&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;categories&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;energy&#39;</span><span class="p">],</span>
-  <span class="s1">&#39;subjects&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;subscription&#39;</span><span class="p">],</span>
-  <span class="s1">&#39;issueDate&#39;</span><span class="o">:</span> <span class="s1">&#39;2019-05-10&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;startDate&#39;</span><span class="o">:</span> <span class="s1">&#39;2019-01-01&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;startDate&#39;</span><span class="o">:</span> <span class="s1">&#39;2019-12-31&#39;</span><span class="p">,</span>
+<div class="codehilite"><pre><span></span><span class="c1">// health insurance attestation - ameli</span>
+<span class="s2">&quot;metadata&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;qualification&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;label&quot;</span><span class="o">:</span> <span class="s2">&quot;national_insurance_card&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;purpose&quot;</span><span class="o">:</span> <span class="s2">&quot;attestation&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;sourceCategory&quot;</span><span class="o">:</span> <span class="s2">&quot;gov&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;sourceSubCategory&quot;</span><span class="o">:</span> <span class="s2">&quot;health&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;subjects&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;insurance&quot;</span><span class="p">]</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;datetime&quot;</span><span class="o">:</span> <span class="s2">&quot;2019-05-10&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;datetimeLabel&quot;</span><span class="o">:</span> <span class="s2">&quot;issueDate&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;contentAuthor&quot;</span><span class="o">:</span> <span class="s2">&quot;ameli&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;issueDate&quot;</span><span class="o">:</span> <span class="s2">&quot;2019-05-10&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;startDate&quot;</span><span class="o">:</span> <span class="s2">&quot;2019-01-01&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;endDate&quot;</span><span class="o">:</span> <span class="s2">&quot;2019-12-31&quot;</span>
 <span class="p">},</span>
-<span class="s1">&#39;cozyMetadata&#39;</span><span class="o">:</span> <span class="p">{</span>
-  <span class="p">...</span>
-<span class="p">}</span>
-</pre></div>
-
-
-<div class="codehilite"><pre><span></span><span class="c1">// health insurance certificate - ameli</span>
-<span class="s1">&#39;metadata&#39;</span><span class="o">:</span> <span class="p">{</span>
-  <span class="s1">&#39;classification&#39;</span><span class="o">:</span> <span class="s1">&#39;certificate&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;datetime&#39;</span><span class="o">:</span> <span class="s1">&#39;2019-05-10&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;datetimeLabel&#39;</span><span class="o">:</span> <span class="s1">&#39;issueDate&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;contentAuthor&#39;</span><span class="o">:</span> <span class="s1">&#39;ameli&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;categories&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;insurance&#39;</span><span class="p">],</span>
-  <span class="s1">&#39;subCategories&#39;</span> <span class="o">:</span> <span class="p">[</span><span class="s1">&#39;health&#39;</span><span class="p">],</span>
-  <span class="s1">&#39;issueDate&#39;</span><span class="o">:</span> <span class="s1">&#39;2019-05-10&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;startDate&#39;</span><span class="o">:</span> <span class="s1">&#39;2019-01-01&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;endDate&#39;</span><span class="o">:</span> <span class="s1">&#39;2019-12-31&#39;</span><span class="p">,</span>
-<span class="p">},</span>
-<span class="s1">&#39;cozyMetadata&#39;</span><span class="o">:</span> <span class="p">{</span>
+<span class="s2">&quot;cozyMetadata&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="p">...</span>
 <span class="p">}</span>
 </pre></div>
 
 
 <div class="codehilite"><pre><span></span><span class="c1">// car insurance certificate - maif</span>
-<span class="s1">&#39;metadata&#39;</span><span class="o">:</span> <span class="p">{</span>
-  <span class="s1">&#39;classification&#39;</span><span class="o">:</span> <span class="s1">&#39;certificate&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;datetime&#39;</span><span class="o">:</span> <span class="s1">&#39;2019-05-10&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;datetimeLabel&#39;</span><span class="o">:</span> <span class="s1">&#39;issueDate&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;contentAuthor&#39;</span><span class="o">:</span> <span class="s1">&#39;macif&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;categories&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;insurance&#39;</span><span class="p">],</span>
-  <span class="s1">&#39;subCategories&#39;</span> <span class="o">:</span> <span class="p">[</span><span class="s1">&#39;car&#39;</span><span class="p">],</span>
-  <span class="s1">&#39;issueDate&#39;</span><span class="o">:</span> <span class="s1">&#39;2019-05-10&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;startDate&#39;</span><span class="o">:</span> <span class="s1">&#39;2019-01-01&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;endDate&#39;</span><span class="o">:</span> <span class="s1">&#39;2019-12-31&#39;</span><span class="p">,</span>
+<span class="s2">&quot;metadata&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;qualification&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;label&quot;</span><span class="o">:</span> <span class="s2">&quot;car_insurance&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;purpose&quot;</span><span class="o">:</span> <span class="s2">&quot;attestation&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;sourceCategory&quot;</span><span class="o">:</span> <span class="s2">&quot;insurance&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;sourceSubCategory&quot;</span><span class="o">:</span> <span class="s2">&quot;transport&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;subjects&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;insurance&quot;</span><span class="p">,</span> <span class="s2">&quot;car&quot;</span><span class="p">]</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;datetime&quot;</span><span class="o">:</span> <span class="s2">&quot;2019-05-10&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;datetimeLabel&quot;</span><span class="o">:</span> <span class="s2">&quot;issueDate&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;contentAuthor&quot;</span><span class="o">:</span> <span class="s2">&quot;macif&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;issueDate&quot;</span><span class="o">:</span> <span class="s2">&quot;2019-05-10&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;startDate&quot;</span><span class="o">:</span> <span class="s2">&quot;2019-01-01&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;endDate&quot;</span><span class="o">:</span> <span class="s2">&quot;2019-12-31&quot;</span>
 <span class="p">},</span>
-<span class="s1">&#39;cozyMetadata&#39;</span><span class="o">:</span> <span class="p">{</span>
+<span class="s2">&quot;cozyMetadata&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="p">...</span>
 <span class="p">}</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="c1">// tax certificate - CAF</span>
-<span class="s1">&#39;metadata&#39;</span><span class="o">:</span> <span class="p">{</span>
-  <span class="s1">&#39;classification&#39;</span><span class="o">:</span> <span class="s1">&#39;certificate&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;datetime&#39;</span><span class="o">:</span> <span class="s1">&#39;2019-05-10&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;datetimeLabel&#39;</span><span class="o">:</span> <span class="s1">&#39;issueDate&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;contentAuthor&#39;</span><span class="o">:</span> <span class="s1">&#39;caf&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;categories&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;public_service&#39;</span><span class="p">,</span> <span class="s1">&#39;tax&#39;</span><span class="p">],</span>
-  <span class="s1">&#39;issueDate&#39;</span><span class="o">:</span> <span class="s1">&#39;2019-05-10&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;startDate&#39;</span><span class="o">:</span> <span class="s1">&#39;2019-05-01&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;endDate&#39;</span><span class="o">:</span> <span class="s1">&#39;2019-05-31&#39;</span><span class="p">,</span>
+<div class="codehilite"><pre><span></span><span class="c1">// right certificate - CAF</span>
+<span class="s2">&quot;metadata&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;qualification&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;label&quot;</span><span class="o">:</span> <span class="s2">&quot;caf&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;purpose&quot;</span><span class="o">:</span> <span class="s2">&quot;attestation&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;sourceCategory&quot;</span><span class="o">:</span> <span class="s2">&quot;gov&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;sourceSubCategory&quot;</span><span class="o">:</span> <span class="s2">&quot;family&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;subjects&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">]</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;datetime&quot;</span><span class="o">:</span> <span class="s2">&quot;2019-05-10&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;datetimeLabel&quot;</span><span class="o">:</span> <span class="s2">&quot;issueDate&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;contentAuthor&quot;</span><span class="o">:</span> <span class="s2">&quot;caf&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;issueDate&quot;</span><span class="o">:</span> <span class="s2">&quot;2019-05-10&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;startDate&quot;</span><span class="o">:</span> <span class="s2">&quot;2019-05-01&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;endDate&quot;</span><span class="o">:</span> <span class="s2">&quot;2019-05-31&quot;</span>
 <span class="p">},</span>
-<span class="s1">&#39;cozyMetadata&#39;</span><span class="o">:</span> <span class="p">{</span>
+<span class="s2">&quot;cozyMetadata&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="p">...</span>
 <span class="p">}</span>
 </pre></div>
@@ -3348,26 +3411,31 @@
 
 <h4 id="identity-documents_1">Identity documents<a class="headerlink" href="#identity-documents_1" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="c1">// id card</span>
-<span class="s1">&#39;metadata&#39;</span><span class="o">:</span> <span class="p">{</span>
-  <span class="s1">&#39;classification&#39;</span><span class="o">:</span> <span class="s1">&#39;identity_document&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;datetime&#39;</span><span class="o">:</span> <span class="s1">&#39;2019-05-10&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;datetimeLabel&#39;</span><span class="o">:</span> <span class="s1">&#39;issueDate&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;contentAuthor&#39;</span><span class="o">:</span> <span class="s1">&#39;france&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;subClassification&#39;</span><span class="o">:</span> <span class="s1">&#39;national_id_card&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;issueDate&#39;</span><span class="o">:</span> <span class="s1">&#39;2014-05-10&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;expirationDate&#39;</span><span class="o">:</span> <span class="s1">&#39;2029-05-10&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;number&#39;</span><span class="o">:</span> <span class="s1">&#39;ABC123456&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;country&#39;</span><span class="o">:</span> <span class="s1">&#39;france&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;relationships&#39;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s1">&#39;contacts&#39;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s1">&#39;data&#39;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s1">&#39;_id&#39;</span><span class="o">:</span> <span class="s1">&#39;ce61088e116994e265d7f0e6091d0755&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;_type&#39;</span><span class="o">:</span> <span class="s1">&#39;io.cozy.contacts&#39;</span>
+<span class="s2">&quot;metadata&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;qualification&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;label&quot;</span><span class="o">:</span> <span class="s2">&quot;national_id_card&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;purpose&quot;</span><span class="o">:</span> <span class="s2">&quot;attestation&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;sourceCategory&quot;</span><span class="o">:</span> <span class="s2">&quot;gov&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;sourceSubCategory&quot;</span><span class="o">:</span> <span class="s2">&quot;civil_registration&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;subjects&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;identity&quot;</span><span class="p">]</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;datetime&quot;</span><span class="o">:</span> <span class="s2">&quot;2019-05-10&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;datetimeLabel&quot;</span><span class="o">:</span> <span class="s2">&quot;issueDate&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;contentAuthor&quot;</span><span class="o">:</span> <span class="s2">&quot;france&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;issueDate&quot;</span><span class="o">:</span> <span class="s2">&quot;2014-05-10&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;expirationDate&quot;</span><span class="o">:</span> <span class="s2">&quot;2029-05-10&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;number&quot;</span><span class="o">:</span> <span class="s2">&quot;ABC123456&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;country&quot;</span><span class="o">:</span> <span class="s2">&quot;france&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;relationships&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;contacts&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;data&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;_id&quot;</span><span class="o">:</span> <span class="s2">&quot;ce61088e116994e265d7f0e6091d0755&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_type&quot;</span><span class="o">:</span> <span class="s2">&quot;io.cozy.contacts&quot;</span>
       <span class="p">}</span>
     <span class="p">}</span>
   <span class="p">},</span>
 <span class="p">}</span>
-<span class="s1">&#39;cozyMetadata&#39;</span><span class="o">:</span> <span class="p">{</span>
+<span class="s2">&quot;cozyMetadata&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="p">...</span>
 <span class="p">}</span>
 </pre></div>

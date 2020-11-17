@@ -2,16 +2,26 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import { flowRight as compose, sortBy } from 'lodash'
+import compose from 'lodash/flowRight'
+import sortBy from 'lodash/sortBy'
 import cx from 'classnames'
-import { translate, withBreakpoints, useI18n } from 'cozy-ui/transpiled/react'
+
+import { translate, useI18n } from 'cozy-ui/transpiled/react/I18n'
+import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
-import Overlay from 'cozy-ui/transpiled/react/Overlay'
-import Portal from 'cozy-ui/transpiled/react/Portal'
+import Button from 'cozy-ui/transpiled/react/Button'
+import List from 'cozy-ui/transpiled/react/MuiCozyTheme/List'
+import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
+import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
+import ListSubheader from 'cozy-ui/transpiled/react/MuiCozyTheme/ListSubheader'
+import ListItemSecondaryAction from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemSecondaryAction'
+import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
+import Radio from 'cozy-ui/transpiled/react/Radio'
+
 import flag from 'cozy-flags'
 import { createStructuredSelector } from 'reselect'
 
+import RawContentDialog from 'components/RawContentDialog'
 import AccountSharingStatus from 'components/AccountSharingStatus'
 import AccountIcon from 'components/AccountIcon'
 import BarItem from 'components/BarItem'
@@ -150,6 +160,32 @@ AccountSwitchSelect.propTypes = {
   t: PropTypes.func.isRequired
 }
 
+const accountListItemTextTypo2Props = {
+  variant: 'caption',
+  color: 'textSecondary'
+}
+
+const AccountListItemText = ({ primary, secondary }) => {
+  return (
+    <ListItemText
+      primary={primary}
+      secondary={secondary}
+      secondaryTypographyProps={accountListItemTextTypo2Props}
+    />
+  )
+}
+
+const AccountSwitchListItem = props => {
+  return (
+    <ListItem {...props}>
+      {props.children}
+      <ListItemSecondaryAction className="u-pr-1">
+        <Radio onClick={props.onClick} checked={props.selected} />
+      </ListItemSecondaryAction>
+    </ListItem>
+  )
+}
+
 const AccountSwitchMenu = ({
   accounts,
   groups,
@@ -161,93 +197,99 @@ const AccountSwitchMenu = ({
 }) => {
   const { t } = useI18n()
 
+  const handleReset = () => {
+    resetFilterByDoc()
+  }
+
   return (
-    <div className={styles['account-switch-menu-content']}>
-      <div className={styles['account-switch-menu']}>
-        <h4>{t('AccountSwitch.groups')}</h4>
-        <ul>
-          <li>
-            <button
-              onClick={() => {
-                resetFilterByDoc()
-              }}
-              className={cx({
-                [styles['active']]: filteringDoc === undefined
-              })}
-            >
-              {t('AccountSwitch.all_accounts')}
-              <span className={styles['account-secondary-info']}>
-                ({t('AccountSwitch.account_counter', accounts.length)})
-              </span>
-            </button>
-          </li>
-          {sortBy(groups, 'label').map(group => (
-            <li key={group._id}>
-              <button
-                onClick={() => {
-                  filterByDoc(group)
-                }}
-                className={cx({
-                  [styles['active']]:
-                    filteringDoc && group._id === filteringDoc._id
-                })}
-              >
-                {getGroupLabel(group, t)}
-                <span className={styles['account-secondary-info']}>
-                  (
+    <>
+      <List>
+        <ListSubheader>{t('AccountSwitch.groups')}</ListSubheader>
+        <AccountSwitchListItem
+          dense
+          button
+          disableRipple
+          onClick={handleReset}
+          selected={filteringDoc === undefined}
+        >
+          <AccountListItemText
+            primary={t('AccountSwitch.all_accounts')}
+            secondary={
+              <>{t('AccountSwitch.account_counter', accounts.length)}</>
+            }
+          />
+        </AccountSwitchListItem>
+        {sortBy(groups, 'label').map(group => (
+          <AccountSwitchListItem
+            dense
+            key={group._id}
+            button
+            disableRipple
+            selected={filteringDoc && group._id === filteringDoc._id}
+            onClick={() => {
+              filterByDoc(group)
+            }}
+          >
+            <AccountListItemText
+              primary={getGroupLabel(group, t)}
+              secondary={
+                <>
                   {t(
                     'AccountSwitch.account_counter',
                     group.accounts.data.filter(
                       account => account && accountExists(account.id)
                     ).length
                   )}
-                  )
-                </span>
-              </button>
-            </li>
-          ))}
-        </ul>
-        <Link to={'/settings/groups'} onClick={close}>
-          {t('Groups.manage-groups')}
-        </Link>
+                </>
+              }
+            />
+          </AccountSwitchListItem>
+        ))}
+      </List>
+      <Link to={'/settings/groups'} onClick={close}>
+        <Button
+          className="u-m-half"
+          theme="text"
+          label={t('Groups.manage-groups')}
+        />
+      </Link>
 
-        <hr />
-
-        <h4>{t('AccountSwitch.accounts')}</h4>
-        <ul>
-          {sortBy(accounts, ['institutionLabel', 'label']).map(
-            (account, index) => (
-              <li key={index}>
-                <button
-                  onClick={() => {
-                    filterByDoc(account)
-                  }}
-                  className={cx({
-                    [styles['active']]:
-                      filteringDoc && account._id === filteringDoc._id
-                  })}
-                >
-                  <Media>
-                    <Bd>
-                      {account.shortLabel || account.label}
-                      <span className={styles['account-secondary-info']}>
-                        - {getAccountInstitutionLabel(account)}
-                      </span>
-                    </Bd>
-                    <Img>
-                      <AccountSharingStatus tooltip account={account} />
-                    </Img>
-                  </Media>
-                </button>
-              </li>
-            )
-          )}
-        </ul>
-        <Link to={'/settings/accounts'} onClick={close}>
-          {t('Accounts.manage-accounts')}
-        </Link>
-      </div>
-    </div>
+      <List>
+        <ListSubheader>{t('AccountSwitch.accounts')}</ListSubheader>
+        {sortBy(accounts, ['institutionLabel', 'label']).map(
+          (account, index) => (
+            <AccountSwitchListItem
+              key={index}
+              button
+              disableRipple
+              dense
+              onClick={() => {
+                filterByDoc(account)
+              }}
+              selected={filteringDoc && account._id === filteringDoc._id}
+            >
+              <ListItemIcon>
+                <AccountIcon account={account} />
+              </ListItemIcon>
+              <AccountListItemText
+                primary={account.shortLabel || account.label}
+                secondary={getAccountInstitutionLabel(account)}
+              />
+              <ListItemSecondaryAction>
+                <AccountSharingStatus tooltip account={account} />
+              </ListItemSecondaryAction>
+            </AccountSwitchListItem>
+          )
+        )}
+      </List>
+      <Link to="/settings/accounts" onClick={close}>
+        <Button
+          className="u-m-half"
+          theme="text"
+          label={t('Accounts.manage-accounts')}
+        />
+      </Link>
+    </>
   )
 }
 
@@ -370,8 +412,11 @@ class AccountSwitch extends Component {
           />
         )}
         {open && (
-          <Portal into="body">
-            <Overlay onClick={this.close}>
+          <RawContentDialog
+            open={true}
+            onClose={this.close}
+            title={t('AccountSwitch.title')}
+            content={
               <AccountSwitchMenu
                 filteringDoc={filteringDoc}
                 filterByDoc={closeAfterSelect(filterByDoc)}
@@ -381,8 +426,8 @@ class AccountSwitch extends Component {
                 accounts={accounts}
                 accountExists={this.accountExists}
               />
-            </Overlay>
-          </Portal>
+            }
+          />
         )}
       </AccountSwitchWrapper>
     )

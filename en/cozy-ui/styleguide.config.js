@@ -33,6 +33,8 @@ module.exports = {
         '../react/Paper/index.js',
         '../react/PercentageBar/index.jsx',
         '../react/PercentageLine/index.jsx',
+        '../react/Progress',
+        '../react/ProgressionBanner',
         '../react/Spinner/index.jsx',
         '../react/Stack/index.jsx',
         '../react/ThresholdBar/index.jsx'

@@ -1561,13 +1561,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#permissioncollectiongetownpermissions-object" title="permissionCollection.getOwnPermissions() ⇒ object" class="md-nav__link">
-    permissionCollection.getOwnPermissions() ⇒ object
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -1600,6 +1593,13 @@
   
     <nav class="md-nav">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sharingcollectiongetid-sharing" title="sharingCollection.get(id) ⇒ Sharing" class="md-nav__link">
+    sharingCollection.get(id) ⇒ Sharing
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#sharingcollectioncreateparams" title="sharingCollection.create(params)" class="md-nav__link">
@@ -1776,6 +1776,13 @@
         <li class="md-nav__item">
   <a href="#stream-object" title="Stream : object" class="md-nav__link">
     Stream : object
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#permission-permission" title="Permission ⇒ Permission" class="md-nav__link">
+    Permission ⇒ Permission
   </a>
   
 </li>
@@ -3994,13 +4001,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#permissioncollectiongetownpermissions-object" title="permissionCollection.getOwnPermissions() ⇒ object" class="md-nav__link">
-    permissionCollection.getOwnPermissions() ⇒ object
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -4033,6 +4033,13 @@
   
     <nav class="md-nav">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sharingcollectiongetid-sharing" title="sharingCollection.get(id) ⇒ Sharing" class="md-nav__link">
+    sharingCollection.get(id) ⇒ Sharing
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#sharingcollectioncreateparams" title="sharingCollection.create(params)" class="md-nav__link">
@@ -4214,6 +4221,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#permission-permission" title="Permission ⇒ Permission" class="md-nav__link">
+    Permission ⇒ Permission
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#rule-object" title="Rule : object" class="md-nav__link">
     Rule : object
   </a>
@@ -4341,6 +4355,9 @@ through OAuth.</p>
 </dd>
 <dt><a href="#Stream">Stream</a> : <code>object</code></dt>
 <dd><p>Stream is not defined in a browser, but is on NodeJS environment</p>
+</dd>
+<dt><a href="#Permission">Permission</a> ⇒ <code><a href="#Permission">Permission</a></code></dt>
+<dd><p>async fetchOwnPermissions - Fetches permissions</p>
 </dd>
 <dt><a href="#Rule">Rule</a> : <code>object</code></dt>
 <dd><p>A sharing rule</p>
@@ -5841,7 +5858,6 @@ sets internal information from the server response</p>
 <li><a href="#PermissionCollection+fetchPermissionsByLink">.fetchPermissionsByLink(permissions)</a></li>
 <li><a href="#PermissionCollection+fetchAllLinks">.fetchAllLinks(document)</a> ⇒ <code>object</code></li>
 <li><a href="#PermissionCollection+revokeSharingLink">.revokeSharingLink(document)</a></li>
-<li><a href="#PermissionCollection+getOwnPermissions">.getOwnPermissions()</a> ⇒ <code>object</code></li>
 </ul>
 </li>
 </ul>
@@ -6004,11 +6020,7 @@ It can also associates one or more codes to it, via the codes parameter</p>
 </tr>
 </tbody>
 </table>
-<p><a name="PermissionCollection+getOwnPermissions"></a></p>
-<h3 id="permissioncollectiongetownpermissions-object">permissionCollection.getOwnPermissions() ⇒ <code>object</code><a class="headerlink" href="#permissioncollectiongetownpermissions-object" title="Permanent link">&para;</a></h3>
-<p>async getOwnPermissions - Gets the permission for the current token</p>
-<p><strong>Kind</strong>: instance method of <a href="#PermissionCollection"><code>PermissionCollection</code></a><br />
-<a name="SettingsCollection"></a></p>
+<p><a name="SettingsCollection"></a></p>
 <h2 id="settingscollection">SettingsCollection<a class="headerlink" href="#settingscollection" title="Permanent link">&para;</a></h2>
 <p>Implements <code>DocumentCollection</code> API to interact with the /settings endpoint of the stack</p>
 <p><strong>Kind</strong>: global class<br />
@@ -6040,6 +6052,7 @@ It can also associates one or more codes to it, via the codes parameter</p>
 <p><strong>Kind</strong>: global class  </p>
 <ul>
 <li><a href="#SharingCollection">SharingCollection</a><ul>
+<li><a href="#SharingCollection+get">.get(id)</a> ⇒ <a href="#Sharing"><code>Sharing</code></a></li>
 <li><a href="#SharingCollection+create">.create(params)</a></li>
 <li>~~<a href="#SharingCollection+share">.share(document, recipients, sharingType, description, [previewPath])</a>~~</li>
 <li><a href="#SharingCollection+getDiscoveryLink">.getDiscoveryLink(sharingId, sharecode)</a> ⇒ <code>string</code></li>
@@ -6050,6 +6063,27 @@ It can also associates one or more codes to it, via the codes parameter</p>
 </ul>
 </li>
 </ul>
+<p><a name="SharingCollection+get"></a></p>
+<h3 id="sharingcollectiongetid-sharing">sharingCollection.get(id) ⇒ <a href="#Sharing"><code>Sharing</code></a><a class="headerlink" href="#sharingcollectiongetid-sharing" title="Permanent link">&para;</a></h3>
+<p>Fetches a sharing by id</p>
+<p><strong>Kind</strong>: instance method of <a href="#SharingCollection"><code>SharingCollection</code></a><br />
+<strong>Returns</strong>: <a href="#Sharing"><code>Sharing</code></a> - sharing  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td><code>string</code></td>
+<td>Sharing&rsquo;s id</td>
+</tr>
+</tbody>
+</table>
 <p><a name="SharingCollection+create"></a></p>
 <h3 id="sharingcollectioncreateparams">sharingCollection.create(params)<a class="headerlink" href="#sharingcollectioncreateparams" title="Permanent link">&para;</a></h3>
 <p>Creates a new Sharing. See https://docs.cozy.io/en/cozy-stack/sharing/#post-sharings</p>
@@ -6594,6 +6628,11 @@ found&rdquo; error.  </p>
 <h2 id="stream-object">Stream : <code>object</code><a class="headerlink" href="#stream-object" title="Permanent link">&para;</a></h2>
 <p>Stream is not defined in a browser, but is on NodeJS environment</p>
 <p><strong>Kind</strong>: global typedef<br />
+<a name="Permission"></a></p>
+<h2 id="permission-permission">Permission ⇒ <a href="#Permission"><code>Permission</code></a><a class="headerlink" href="#permission-permission" title="Permanent link">&para;</a></h2>
+<p>async fetchOwnPermissions - Fetches permissions</p>
+<p><strong>Kind</strong>: global typedef<br />
+<strong>Returns</strong>: <a href="#Permission"><code>Permission</code></a> - permission<br />
 <a name="Rule"></a></p>
 <h2 id="rule-object">Rule : <code>object</code><a class="headerlink" href="#rule-object" title="Permanent link">&para;</a></h2>
 <p>A sharing rule</p>
