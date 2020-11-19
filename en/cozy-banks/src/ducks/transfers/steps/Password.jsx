@@ -1,5 +1,5 @@
 import React from 'react'
-import Padded from 'components/Spacing/Padded'
+import Padded from 'components/Padded'
 import { Field, useI18n } from 'cozy-ui/transpiled/react'
 import Stack from 'components/Stack'
 

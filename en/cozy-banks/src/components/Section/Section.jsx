@@ -2,7 +2,7 @@ import React from 'react'
 import cx from 'classnames'
 import { Title as BaseTitle } from 'cozy-ui/transpiled/react/Text'
 import styles from 'components/Section/Section.styl'
-import { Padded } from 'components/Spacing'
+import Padded from 'components/Padded'
 
 export const SectionTitle = props => {
   const { className, children, ...rest } = props

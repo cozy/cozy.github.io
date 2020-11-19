@@ -1,5 +1,5 @@
 import React from 'react'
-import Padded from 'components/Spacing/Padded'
+import Padded from 'components/Padded'
 import { useI18n } from 'cozy-ui/transpiled/react'
 import { List, Row, Radio } from 'components/List'
 import PageTitle from 'components/Title/PageTitle'

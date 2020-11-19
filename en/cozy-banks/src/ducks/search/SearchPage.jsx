@@ -26,7 +26,7 @@ import TransactionTableHead from 'ducks/transactions/header/TableHead'
 import { getTransactions } from 'selectors'
 
 import Header from 'components/Header'
-import Padded from 'components/Spacing/Padded'
+import Padded from 'components/Padded'
 import { PageTitle } from 'components/Title'
 import BackButton from 'components/BackButton'
 import { BarCenter, BarSearch } from 'components/Bar'

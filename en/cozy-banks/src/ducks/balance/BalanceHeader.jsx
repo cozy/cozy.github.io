@@ -3,7 +3,7 @@ import { flowRight as compose } from 'lodash'
 import { useI18n } from 'cozy-ui/transpiled/react'
 
 import { transactionsConn } from 'doctypes'
-import { Padded } from 'components/Spacing'
+import Padded from 'components/Padded'
 import Header from 'components/Header'
 import { PageTitle } from 'components/Title'
 import KonnectorUpdateInfo from 'components/KonnectorUpdateInfo'

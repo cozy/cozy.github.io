@@ -28,6 +28,9 @@ const mockBankAccounts = [
       connection: {
         data: { _id: 'connection-1', doctype: 'io.cozy.accounts' }
       }
+    },
+    cozyMetadata: {
+      createdByApp: 'caissedepargne1'
     }
   },
   {
@@ -38,6 +41,9 @@ const mockBankAccounts = [
       connection: {
         data: { _id: 'connection-1', doctype: 'io.cozy.accounts' }
       }
+    },
+    cozyMetadata: {
+      createdByApp: 'caissedepargne1'
     }
   },
   {
@@ -48,6 +54,9 @@ const mockBankAccounts = [
       connection: {
         data: { _id: 'connection-2', doctype: 'io.cozy.accounts' }
       }
+    },
+    cozyMetadata: {
+      createdByApp: 'caissedepargne1'
     }
   },
 

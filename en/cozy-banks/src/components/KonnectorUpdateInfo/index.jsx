@@ -15,7 +15,7 @@ import CozyClient, {
 import { KONNECTOR_DOCTYPE } from 'doctypes'
 
 import styles from 'components/KonnectorUpdateInfo/styles.styl'
-import { Padded } from 'components/Spacing'
+import Padded from 'components/Padded'
 import useRedirectionURL from 'components/useRedirectionURL'
 
 // Utilities on konnectors

@@ -11,7 +11,7 @@ import AppVersion from 'ducks/settings/AppVersion'
 import BarTheme from 'ducks/bar/BarTheme'
 
 import { PageTitle } from 'components/Title'
-import { Padded } from 'components/Spacing'
+import Padded from 'components/Padded'
 import Header from 'components/Header'
 import styles from 'ducks/settings/Settings.styl'
 

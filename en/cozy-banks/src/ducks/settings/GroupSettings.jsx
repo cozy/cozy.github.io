@@ -20,7 +20,7 @@ import Loading from 'components/Loading'
 import BackButton from 'components/BackButton'
 import Table from 'components/Table'
 import { PageTitle } from 'components/Title'
-import { Padded } from 'components/Spacing'
+import Padded from 'components/Padded'
 import { logException } from 'lib/sentry'
 import { trackEvent } from 'ducks/tracking/browser'
 

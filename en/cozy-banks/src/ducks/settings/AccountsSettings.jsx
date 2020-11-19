@@ -31,7 +31,7 @@ import { useTrackPage } from 'ducks/tracking/browser'
 
 import { accountsConn, APP_DOCTYPE } from 'doctypes'
 import { AccountIconContainer } from 'components/AccountIcon'
-import { Unpadded } from 'components/Spacing/Padded'
+import { Unpadded } from 'components/Padded'
 
 import RightIcon from 'cozy-ui/transpiled/react/Icons/Right'
 import UnlinkIcon from 'cozy-ui/transpiled/react/Icons/Unlink'

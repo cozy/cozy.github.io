@@ -4795,6 +4795,7 @@ via the <code>MetadataID</code> query parameter.</p>
 <p><strong>Note:</strong> a special permission on <code>io.cozy.certified.carbon_copy</code> is required
 to send a request with <code>carbonCopy</code> as key in the <code>attributes</code> map. Same for
 <code>electronicSafe</code>.</p>
+<p>See the <a href="https://docs.cozy.io/en/cozy-doctypes/docs/io.cozy.files_metadata/">metadata doctype</a> to know more about metadata attributes that can be set, notably for images and document qualification.</p>
 <h4 id="request_4">Request<a class="headerlink" href="#request_4" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/files/upload/metadata</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
@@ -4805,10 +4806,12 @@ to send a request with <code>carbonCopy</code> as key in the <code>attributes</c
   <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files.metadata&quot;</span><span class="p">,</span>
     <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;report&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;subCategory&quot;</span><span class="p">:</span> <span class="s2">&quot;theft&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;qualification&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;telecom_invoice&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;purpose&quot;</span><span class="p">:</span> <span class="s2">&quot;invoice&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;sourceCategory&quot;</span><span class="p">:</span> <span class="s2">&quot;telecom&quot;</span>
+      <span class="p">},</span>
       <span class="nt">&quot;datetime&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-04-22T01:00:00-05:00&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;foobar&quot;</span>
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>
@@ -4826,10 +4829,12 @@ to send a request with <code>carbonCopy</code> as key in the <code>attributes</c
     <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files.metadata&quot;</span><span class="p">,</span>
     <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;42E6BD48&quot;</span><span class="p">,</span>
     <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;report&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;subCategory&quot;</span><span class="p">:</span> <span class="s2">&quot;theft&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;qualification&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;telecom_invoice&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;purpose&quot;</span><span class="p">:</span> <span class="s2">&quot;invoice&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;sourceCategory&quot;</span><span class="p">:</span> <span class="s2">&quot;telecom&quot;</span>
+      <span class="p">},</span>
       <span class="nt">&quot;datetime&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-04-22T01:00:00-05:00&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;foobar&quot;</span>
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>
@@ -5314,10 +5319,12 @@ same content of the file.</p>
   <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files.metadata&quot;</span><span class="p">,</span>
     <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;report&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;subCategory&quot;</span><span class="p">:</span> <span class="s2">&quot;theft&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;qualification&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;telecom_invoice&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;purpose&quot;</span><span class="p">:</span> <span class="s2">&quot;invoice&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;sourceCategory&quot;</span><span class="p">:</span> <span class="s2">&quot;telecom&quot;</span>
+      <span class="p">},</span>
       <span class="nt">&quot;datetime&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-04-22T01:00:00-05:00&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;foobar&quot;</span>
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>

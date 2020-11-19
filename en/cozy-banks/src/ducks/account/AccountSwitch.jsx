@@ -18,7 +18,6 @@ import ListItemSecondaryAction from 'cozy-ui/transpiled/react/MuiCozyTheme/ListI
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import Radio from 'cozy-ui/transpiled/react/Radio'
 
-import flag from 'cozy-flags'
 import { createStructuredSelector } from 'reselect'
 
 import RawContentDialog from 'components/RawContentDialog'
@@ -56,60 +55,6 @@ const filteringDocPropType = PropTypes.oneOfType([
   PropTypes.object
 ])
 
-const AccountSwitchDesktop = ({
-  isFetching,
-  isOpen,
-  filteringDoc,
-  accounts,
-  toggle,
-  accountExists
-}) => {
-  const { t } = useI18n()
-
-  return (
-    <button
-      className={cx(
-        styles['account-switch-button'],
-        { [styles['active']]: isOpen },
-        'coz-desktop'
-      )}
-      onClick={toggle}
-    >
-      {isFetching ? (
-        `${t('Loading.loading')}`
-      ) : filteringDoc ? (
-        <div>
-          <div className={styles['account-name']}>
-            {filteringDoc.shortLabel || filteringDoc.label}{' '}
-            <AccountSharingStatus account={filteringDoc} />
-          </div>
-          <div className={styles['account-num']}>
-            {filteringDoc.number && 'n°' + filteringDoc.number}
-            {filteringDoc.accounts &&
-              t(
-                'AccountSwitch.account_counter',
-                filteringDoc.accounts.raw.filter(accountExists).length
-              )}
-          </div>
-        </div>
-      ) : (
-        <div>
-          <div className={styles['account-name']}>
-            {t('AccountSwitch.all_accounts')}
-            <div className={styles['account-num']}>
-              {t('AccountSwitch.account_counter', accounts.length)}
-            </div>
-          </div>
-        </div>
-      )}
-    </button>
-  )
-}
-
-AccountSwitchDesktop.propTypes = {
-  filteringDoc: filteringDocPropType
-}
-
 const DownArrow = () => {
   const theme = useCozyTheme()
   return (
@@ -140,12 +85,6 @@ const getFilteringDocLabel = (filteringDoc, t, accounts) => {
 const AccountSwitchSelect = ({ accounts, filteringDoc, onClick, t }) => {
   return (
     <div className={styles.AccountSwitch__Select} onClick={onClick}>
-      {flag('account-switch.display-icon') &&
-      filteringDoc._type === ACCOUNT_DOCTYPE ? (
-        <span className="u-mr-1">
-          <AccountIcon account={filteringDoc} />
-        </span>
-      ) : null}
       <Title className={styles.AccountSwitch__SelectText}>
         {filteringDoc
           ? getFilteringDocLabel(filteringDoc, t, accounts)
@@ -180,7 +119,7 @@ const AccountSwitchListItem = props => {
     <ListItem {...props}>
       {props.children}
       <ListItemSecondaryAction className="u-pr-1">
-        <Radio onClick={props.onClick} checked={props.selected} />
+        <Radio onClick={props.onClick} checked={props.selected} readOnly />
       </ListItemSecondaryAction>
     </ListItem>
   )

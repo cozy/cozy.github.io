@@ -12,7 +12,7 @@ import {
   getTransactionsFilteredByAccount,
   getFilteredTransactions
 } from 'ducks/filters'
-import { Padded } from 'components/Spacing'
+import Padded from 'components/Padded'
 
 import { getCategoryIdFromName } from 'ducks/categories/categoriesMap'
 import {

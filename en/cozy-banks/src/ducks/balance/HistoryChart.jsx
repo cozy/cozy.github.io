@@ -1,17 +1,19 @@
-import React, { Component } from 'react'
+import React, { useRef, useCallback, useEffect } from 'react'
 import { connect } from 'react-redux'
-import * as d3 from 'utils/d3'
-import { withBreakpoints, translate } from 'cozy-ui/transpiled/react'
-import LineChart from 'components/Chart/LineChart'
-import styles from 'ducks/balance/History.styl'
-import { flowRight as compose } from 'lodash'
+import { withRouter } from 'react-router'
 import cx from 'classnames'
+import * as d3 from 'utils/d3'
+import compose from 'lodash/flowRight'
+import 'element-scroll-polyfill'
+
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import { getCssVariableValue } from 'cozy-ui/transpiled/react/utils/color'
 import { lighten } from '@material-ui/core/styles/colorManipulator'
+
+import LineChart from 'components/Chart/LineChart'
+import styles from 'ducks/balance/History.styl'
 import flag from 'cozy-flags'
-import 'element-scroll-polyfill'
 import { getChartDataSelector as getChartData } from 'ducks/chart/selectors'
-import { withRouter } from 'react-router'
 
 // on iOS white transparency on SVG failed so we should calculate hexa color
 const gradientColor = getCssVariableValue('historyGradientColor') || '#297ef2'
@@ -20,71 +22,68 @@ const gradientStyle = {
   '100%': gradientColor
 }
 
-class HistoryChart extends Component {
-  container = React.createRef()
+const getTooltipContent = (item, f) => {
+  const date = f(item.x, 'D MMM')
+  const balance = item.y.toLocaleString('fr-FR', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })
 
-  getTooltipContent = item => {
-    const date = this.props.f(item.x, 'D MMM')
-    const balance = item.y.toLocaleString('fr-FR', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    })
-
-    return [
-      { content: date },
-      {
-        content: flag('amount_blur') ? 'XXX' : balance,
-        style: 'font-weight: bold'
-      },
-      { content: '€' }
-    ]
-  }
-
-  componentDidMount() {
-    const container = this.container.current
-    container.scrollTo(container.scrollWidth, 0)
-  }
-
-  render() {
-    const { data, height, minWidth, className, animation } = this.props
-    const intervalBetweenPoints = 2
-    const width = Math.max(minWidth, intervalBetweenPoints * data.length)
-
-    return (
-      <div className={cx(styles.HistoryChart, className)} ref={this.container}>
-        <LineChart
-          animation={animation}
-          xScale={d3.scaleTime}
-          lineColor="white"
-          axisColor="white"
-          labelsColor="rgba(255, 255, 255, 0.64)"
-          gradient={gradientStyle}
-          pointFillColor="white"
-          pointStrokeColor="rgba(255, 255, 255, 0.3)"
-          getTooltipContent={this.getTooltipContent}
-          data={data}
-          width={width}
-          height={height}
-          {...this.props}
-        />
-      </div>
-    )
-  }
+  return [
+    { content: date },
+    {
+      content: flag('amount_blur') ? 'XXX' : balance,
+      style: 'font-weight: bold'
+    },
+    { content: '€' }
+  ]
 }
 
-const EnhancedHistoryChart = compose(
-  withRouter,
-  withBreakpoints(),
-  translate()
-)(HistoryChart)
+const HistoryChart = props => {
+  const { f } = useI18n()
+  const container = useRef()
+  const { data, height, minWidth, className, animation } = props
+  const intervalBetweenPoints = 2
+  const width = Math.max(minWidth, intervalBetweenPoints * data.length)
+  const getTooltipContentCb = useCallback(
+    item => {
+      return getTooltipContent(item, f)
+    },
+    [f]
+  )
+
+  useEffect(() => {
+    container.current.scrollTo(container.scrollWidth, 0)
+  }, [])
+
+  return (
+    <div className={cx(styles.HistoryChart, className)} ref={container}>
+      <LineChart
+        animation={animation}
+        xScale={d3.scaleTime}
+        lineColor="white"
+        axisColor="white"
+        labelsColor="rgba(255, 255, 255, 0.64)"
+        gradient={gradientStyle}
+        pointFillColor="white"
+        pointStrokeColor="rgba(255, 255, 255, 0.3)"
+        getTooltipContent={getTooltipContentCb}
+        data={data}
+        width={width}
+        height={height}
+        {...props}
+      />
+    </div>
+  )
+}
+
+const EnhancedHistoryChart = HistoryChart
 
 export const ConnectedHistoryChart = compose(
   withRouter,
   connect((state, ownProps) => ({
     data: getChartData(state, ownProps)
-  })),
-  withBreakpoints(),
-  translate()
+  }))
 )(HistoryChart)
 
 export default EnhancedHistoryChart

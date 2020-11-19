@@ -20,7 +20,7 @@ import { recurrenceConn } from 'doctypes'
 import BarTheme from 'ducks/bar/BarTheme'
 import Table, { TdSecondary } from 'components/Table'
 
-import Padded from 'components/Spacing/Padded'
+import Padded from 'components/Padded'
 import Header from 'components/Header'
 import BackButton from 'components/BackButton'
 import PageTitle from 'components/Title/PageTitle'

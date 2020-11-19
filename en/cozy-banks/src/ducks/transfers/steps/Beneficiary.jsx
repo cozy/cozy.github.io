@@ -1,5 +1,5 @@
 import React from 'react'
-import Padded from 'components/Spacing/Padded'
+import Padded, { Unpadded } from 'components/Padded'
 import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
 import { translate } from 'cozy-ui/transpiled/react/I18n'
 import { Text, Caption, Bold } from 'cozy-ui/transpiled/react/Text'
@@ -76,7 +76,7 @@ class ChooseBeneficiary extends React.Component {
             <PageTitle>{t('Transfer.beneficiary.page-title')}</PageTitle>
           )}
           <Title>{t('Transfer.beneficiary.title')}</Title>
-          <Padded.Unpadded horizontal>
+          <Unpadded horizontal>
             <List border="horizontal" className="u-mb-1">
               {beneficiaries.map(beneficiary => (
                 <BeneficiaryRow
@@ -86,7 +86,7 @@ class ChooseBeneficiary extends React.Component {
                 />
               ))}
             </List>
-          </Padded.Unpadded>
+          </Unpadded>
           <div className="u-ta-center">
             {category === 'internal' ? (
               <AddAccountButton

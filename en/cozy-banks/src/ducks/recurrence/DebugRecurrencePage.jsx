@@ -12,7 +12,7 @@ import Button from 'cozy-ui/transpiled/react/Button'
 import { Caption, SubTitle } from 'cozy-ui/transpiled/react/Text'
 
 import Loading from 'components/Loading/Loading'
-import { Padded } from 'components/Spacing'
+import Padded from 'components/Padded'
 import { transactionsConn } from 'doctypes'
 import tree from 'ducks/categories/tree'
 

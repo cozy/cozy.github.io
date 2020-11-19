@@ -18,7 +18,7 @@ import pickBy from 'lodash/pickBy'
 import { logException } from 'lib/sentry'
 import { recipientsConn, accountsConn } from 'doctypes'
 
-import Padded from 'components/Spacing/Padded'
+import Padded from 'components/Padded'
 import Loading from 'components/Loading'
 import Stepper from 'components/Stepper'
 import PageTitle from 'components/Title/PageTitle'

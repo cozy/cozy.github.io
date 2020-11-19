@@ -1,5 +1,5 @@
 import React from 'react'
-import Padded from 'components/Spacing/Padded'
+import Padded from 'components/Padded'
 import {
   Media,
   Bd,

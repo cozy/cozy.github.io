@@ -9,7 +9,7 @@ import { Section as BaseSection } from 'components/Section'
 import cx from 'classnames'
 import styles from 'ducks/loan/LoanDetailsPage.styl'
 import LoanProgress from 'ducks/loan/LoanProgress'
-import { Padded } from 'components/Spacing'
+import Padded from 'components/Padded'
 import { getBorrowedAmount } from 'ducks/account/helpers'
 
 import { useI18n, useBreakpoints } from 'cozy-ui/transpiled/react'

@@ -21,7 +21,7 @@ import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
 import Breadcrumbs from 'cozy-ui/transpiled/react/Breadcrumbs'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import Loading from 'components/Loading'
-import Padded from 'components/Spacing/Padded'
+import Padded from 'components/Padded'
 import {
   RowDesktop as TransactionRowDesktop,
   RowMobile as TransactionRowMobile

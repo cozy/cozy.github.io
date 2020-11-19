@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from 'components/Header'
-import { Padded } from 'components/Spacing'
+import Padded from 'components/Padded'
 import BackButton from 'components/BackButton'
 import { AccountSwitch } from 'ducks/account'
 import cx from 'classnames'

@@ -31,7 +31,7 @@ import {
 import { getVirtualAccounts, getVirtualGroups } from 'selectors'
 
 import Loading from 'components/Loading'
-import { Padded } from 'components/Spacing'
+import Padded from 'components/Padded'
 import BalanceHeader from 'ducks/balance/BalanceHeader'
 import NoAccount from 'ducks/balance/NoAccount'
 import AccountsImporting from 'ducks/balance/AccountsImporting'

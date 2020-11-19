@@ -3,7 +3,7 @@ import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import { translate, withBreakpoints } from 'cozy-ui/transpiled/react'
 import Loading from 'components/Loading'
-import { Padded } from 'components/Spacing'
+import Padded from 'components/Padded'
 import {
   resetFilterByDoc,
   addFilterByPeriod,

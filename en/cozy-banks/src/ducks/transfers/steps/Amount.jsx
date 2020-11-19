@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Padded from 'components/Spacing/Padded'
+import Padded from 'components/Padded'
 import { translate, Input, InputGroup, Label } from 'cozy-ui/transpiled/react'
 import PageTitle from 'components/Title/PageTitle'
 import BottomButton from 'components/BottomButton'

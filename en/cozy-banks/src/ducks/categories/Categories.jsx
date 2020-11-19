@@ -12,7 +12,7 @@ import styles from 'ducks/categories/styles.styl'
 import { flowRight as compose } from 'lodash'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 import PercentageLine from 'components/PercentageLine'
-import Padded from 'components/Spacing/Padded'
+import Padded from 'components/Padded'
 
 const stAmount = styles['bnk-table-amount']
 const stCategory = styles['bnk-table-category-category']

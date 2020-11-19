@@ -7,7 +7,7 @@ import cx from 'classnames'
 import { BalanceDetailsHeader } from 'ducks/balance'
 import TransactionSelectDates from 'ducks/transactions/TransactionSelectDates'
 import { ConnectedHistoryChart as HistoryChart } from 'ducks/balance/HistoryChart'
-import { Padded } from 'components/Spacing'
+import Padded from 'components/Padded'
 
 import withSize from 'components/withSize'
 import TableHead from './header/TableHead'

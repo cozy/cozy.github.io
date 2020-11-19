@@ -3190,7 +3190,13 @@ options are:</p>
 <a href="../notifications/">the notifications API</a>.</p>
 <h2 id="sms-worker">sms worker<a class="headerlink" href="#sms-worker" title="Permanent link">&para;</a></h2>
 <p>The <code>sms</code> worker can be used to send SMS notifications to a user, via
-<a href="../notifications/">the notifications API</a>.</p>
+<a href="../notifications/">the notifications API</a>. </p>
+<p>The phone number used is the <code>primary phone number</code> registered in 
+the contact that has the flag <code>me: true</code> (see <a href="https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.contacts.md">contact doctype</a> )</p>
+<p>Note: If an error happens during the send of the sms (for instance no phone number on the cozy or SMS provider not available), the content will be send by email as fallback.</p>
+<p>To use the sms worker, you need to configure your SMS provider:
+- first enable sms worker in your <a href="https://github.com/cozy/cozy-stack/blob/master/cozy.example.yaml#L156">stack configuration</a>
+- configure the <a href="https://github.com/cozy/cozy-stack/blob/master/cozy.example.yaml#L281-L285">notification configuration</a> by setting your provider&rsquo;s informations.</p>
 <h2 id="unzip-worker">unzip worker<a class="headerlink" href="#unzip-worker" title="Permanent link">&para;</a></h2>
 <p>The <code>unzip</code> worker can take a zip archive from the VFS, and will unzip the files
 inside it to a directory of the VFS. The options are:</p>
@@ -3274,6 +3280,8 @@ file at the root of this repository.</p>
 <li><code>mode</code>: string specifying the mode of the send:<ul>
 <li><code>noreply</code> to send a notification mail to the user</li>
 <li><code>from</code> to send a mail from the user</li>
+<li><code>support</code> to send both an email to the support and a confirmation to
+    the user</li>
 </ul>
 </li>
 <li><code>to</code>: list of object <code>{name, email}</code> representing the addresses of the
