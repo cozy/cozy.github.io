@@ -2159,6 +2159,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../not-synchronized-vfs/" title="/files - Not synchronized directories" class="md-nav__link">
+       /files - Not synchronized directories
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../references-docs-in-vfs/" title="/files - References of documents in VFS" class="md-nav__link">
        /files - References of documents in VFS
     </a>
@@ -2248,6 +2260,13 @@
           <li class="md-nav__item">
   <a href="#event-syntax" title="@event syntax" class="md-nav__link">
     @event syntax
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#webhook-syntax" title="@webhook syntax" class="md-nav__link">
+    @webhook syntax
   </a>
   
 </li>
@@ -2670,6 +2689,33 @@
           <li class="md-nav__item">
   <a href="#permissions_8" title="Permissions" class="md-nav__link">
     Permissions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-jobswebhookstrigger-id" title="POST /jobs/webhooks/:trigger-id" class="md-nav__link">
+    POST /jobs/webhooks/:trigger-id
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_12" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_11" title="Response" class="md-nav__link">
+    Response
   </a>
   
 </li>
@@ -3123,6 +3169,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#webhook-syntax" title="@webhook syntax" class="md-nav__link">
+    @webhook syntax
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3550,6 +3603,33 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#post-jobswebhookstrigger-id" title="POST /jobs/webhooks/:trigger-id" class="md-nav__link">
+    POST /jobs/webhooks/:trigger-id
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_12" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_11" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3614,16 +3694,17 @@ distributed infrastructures.</p>
 <p>Jobs can be queued up via the <code>/jobs/queue/:worker-type</code> API, for a direct
 execution. But it can also be convenient to schedule jobs on some conditions,
 and the triggers are the way to do that.</p>
-<p>Jobs can be launched by five different types of triggers:</p>
+<p>Jobs can be launched by six different types of triggers:</p>
 <ul>
 <li><code>@at</code> to schedule a one-time job executed after at a specific time in the
   future</li>
 <li><code>@in</code> to schedule a one-time job executed after a specific amount of time</li>
 <li><code>@every</code> to schedule periodic jobs executed at a given fix interval</li>
 <li><code>@cron</code> to schedule recurring jobs scheduled at specific times</li>
-<li><code>@event</code> to launch a job after a change on documents in the cozy.</li>
+<li><code>@event</code> to launch a job after a change on documents in the cozy</li>
+<li><code>@webhook</code> to launch a job when an HTTP request hit a specific URL.</li>
 </ul>
-<p>These five triggers have specific syntaxes to describe when jobs should be
+<p>These triggers have specific syntaxes to describe when jobs should be
 scheduled. See below for more informations.</p>
 <h3 id="at-syntax"><code>@at</code> syntax<a class="headerlink" href="#at-syntax" title="Permanent link">&para;</a></h3>
 <p>The <code>@at</code> trigger takes a ISO-8601 formatted string indicating a UTC time in the
@@ -3759,6 +3840,15 @@ messages and the event which has triggered it.</p>
 </pre></div>
 
 
+<h3 id="webhook-syntax"><code>@webhook</code> syntax<a class="headerlink" href="#webhook-syntax" title="Permanent link">&para;</a></h3>
+<p>It takes no parameter. The URL to hit is not controlled by the request, but is
+chosen by the server (and is returned as <code>webhook</code> in the <code>links</code> JSON-API
+response).</p>
+<p>Example:</p>
+<div class="codehilite"><pre><span></span>@webhook
+</pre></div>
+
+
 <h2 id="error-handling">Error Handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h2>
 <p>Jobs can fail to execute their task. We have two ways to parameterize such
 cases.</p>
@@ -3863,7 +3953,6 @@ arguments will be given in the <code>COZY_FIELDS</code> env variable.</p>
   <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
       <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;priority&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
         <span class="nt">&quot;timeout&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
         <span class="nt">&quot;max_exec_count&quot;</span><span class="p">:</span> <span class="mi">3</span>
       <span class="p">},</span>
@@ -3883,7 +3972,6 @@ arguments will be given in the <code>COZY_FIELDS</code> env variable.</p>
       <span class="nt">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;me.cozy.tools&quot;</span><span class="p">,</span>
       <span class="nt">&quot;worker&quot;</span><span class="p">:</span> <span class="s2">&quot;sendmail&quot;</span><span class="p">,</span>
       <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;priority&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
         <span class="nt">&quot;timeout&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
         <span class="nt">&quot;max_exec_count&quot;</span><span class="p">:</span> <span class="mi">3</span>
       <span class="p">},</span>
@@ -4031,7 +4119,6 @@ one understood by go&rsquo;s <a href="https://golang.org/pkg/time/#ParseDuration
       <span class="nt">&quot;worker&quot;</span><span class="p">:</span> <span class="s2">&quot;sendmail&quot;</span><span class="p">,</span>
       <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="p">{},</span>
       <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;priority&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
         <span class="nt">&quot;timeout&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
         <span class="nt">&quot;max_exec_count&quot;</span><span class="p">:</span> <span class="mi">3</span>
       <span class="p">}</span>
@@ -4054,7 +4141,6 @@ latter version still works but is deprecated, you should use <code>message</code
       <span class="nt">&quot;debounce&quot;</span><span class="p">:</span> <span class="s2">&quot;10m&quot;</span><span class="p">,</span>
       <span class="nt">&quot;worker&quot;</span><span class="p">:</span> <span class="s2">&quot;sendmail&quot;</span><span class="p">,</span>
       <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;priority&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
         <span class="nt">&quot;timeout&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
         <span class="nt">&quot;max_exec_count&quot;</span><span class="p">:</span> <span class="mi">3</span>
       <span class="p">}</span>
@@ -4103,7 +4189,6 @@ restrict its permission to only one worker, like this:</p>
       <span class="nt">&quot;arguments&quot;</span><span class="p">:</span> <span class="s2">&quot;30m10s&quot;</span><span class="p">,</span>
       <span class="nt">&quot;worker&quot;</span><span class="p">:</span> <span class="s2">&quot;sendmail&quot;</span><span class="p">,</span>
       <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;priority&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
         <span class="nt">&quot;timeout&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
         <span class="nt">&quot;max_exec_count&quot;</span><span class="p">:</span> <span class="mi">3</span>
       <span class="p">},</span>
@@ -4332,6 +4417,28 @@ permissions to delete the trigger, even without permissions on the
 <p>To use this endpoint, an application needs a permission on the type
 <code>io.cozy.triggers</code> for the verb <code>GET</code>. When used on a specific worker, the
 permission can be specified on the <code>worker</code> field.</p>
+<h3 id="post-jobswebhookstrigger-id">POST /jobs/webhooks/:trigger-id<a class="headerlink" href="#post-jobswebhookstrigger-id" title="Permanent link">&para;</a></h3>
+<p>This endpoint is used for creating a job (for example executing a konnector).
+It requires no permission, but a trigger of type <code>@webhook</code> must have been
+created before using this endpoint. Its body must be a JSON that will be
+available to the konnector with the <code>COZY_PAYLOAD</code> env variable.</p>
+<h4 id="request_12">Request<a class="headerlink" href="#request_12" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/jobs/webhooks/f34c74d0-0c91-0139-5af5-543d7eb8149c</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;account_id&quot;</span><span class="p">:</span> <span class="s2">&quot;0672e560&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h4 id="response_11">Response<a class="headerlink" href="#response_11" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span>HTTP/1.1 204 No Content
+</pre></div>
+
+
 <h2 id="worker-pool">Worker pool<a class="headerlink" href="#worker-pool" title="Permanent link">&para;</a></h2>
 <p>The consuming side of the job queue is handled by a worker pool.</p>
 <p>On a monolithic cozy-stack, the worker pool has a configurable fixed size of
