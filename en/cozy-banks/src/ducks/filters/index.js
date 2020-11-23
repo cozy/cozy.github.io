@@ -10,7 +10,10 @@ import {
   getAccountsById
 } from 'selectors'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
-import { sortBy, last, keyBy, find } from 'lodash'
+import find from 'lodash/find'
+import keyBy from 'lodash/keyBy'
+import last from 'lodash/last'
+import sortBy from 'lodash/sortBy'
 import { DESTROY_ACCOUNT } from 'actions/accounts'
 import { dehydrate } from 'cozy-client'
 import { getApplicationDate, getDisplayDate } from 'ducks/transactions/helpers'

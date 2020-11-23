@@ -1,4 +1,5 @@
-import { some, find } from 'lodash'
+import find from 'lodash/find'
+import some from 'lodash/some'
 import brands from 'ducks/brandDictionary/brands'
 
 const getRegexp = brand => {

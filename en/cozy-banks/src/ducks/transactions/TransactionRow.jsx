@@ -140,17 +140,20 @@ export const RowDesktop = React.memo(function RowDesktop(props) {
   ] = useTransactionCategoryModal(transaction)
 
   return (
-    <tr ref={onRef} {...trRest} className="u-clickable">
+    <tr ref={onRef} {...trRest} className={transaction._id && 'u-clickable'}>
       <td className={cx(styles.ColumnSizeDesc, 'u-pv-half', 'u-pl-1')}>
         <Media className="u-clickable">
-          <Img title={categoryTitle} onClick={showTransactionCategoryModal}>
+          <Img
+            title={categoryTitle}
+            onClick={transaction._id && showTransactionCategoryModal}
+          >
             <CategoryIcon
               categoryId={categoryId}
               className={styles['bnk-op-caticon']}
             />
           </Img>
           <Bd className="u-pl-1">
-            <List.Content onClick={showTransactionModal}>
+            <List.Content onClick={transaction._id && showTransactionModal}>
               <Typography variant="body1">{getLabel(transaction)}</Typography>
               {!filteringOnAccount && <AccountCaption account={account} />}
               {applicationDate ? (

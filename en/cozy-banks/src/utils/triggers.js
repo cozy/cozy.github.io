@@ -1,4 +1,5 @@
-import { includes, get } from 'lodash'
+import get from 'lodash/get'
+import includes from 'lodash/includes'
 
 // To update this list used this command on banking konnector:
 // $ cat src/publish/manifests.json | jq '[.[].slug]'

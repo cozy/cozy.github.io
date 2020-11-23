@@ -1,5 +1,7 @@
 import React from 'react'
-import { capitalize, findKey, omit } from 'lodash'
+import omit from 'lodash/omit'
+import findKey from 'lodash/findKey'
+import capitalize from 'lodash/capitalize'
 import { useI18n } from 'cozy-ui/transpiled/react'
 import Chip from 'cozy-ui/transpiled/react/Chip'
 import Icon from 'cozy-ui/transpiled/react/Icon'

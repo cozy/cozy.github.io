@@ -11,6 +11,8 @@
 
 import set from 'lodash/set'
 import flatten from 'lodash/flatten'
+import uniq from 'lodash/uniq'
+
 import omit from 'lodash/omit'
 import { dehydrate } from 'cozy-client'
 import maxBy from 'lodash/maxBy'
@@ -22,6 +24,7 @@ import {
   queryRecurrencesTransactions
 } from './queries'
 import { TRANSACTION_DOCTYPE, RECURRENCE_DOCTYPE } from 'doctypes'
+import { log } from './logger'
 
 const addRelationship = (doc, relationshipName, definition) => {
   return set(doc, ['relationships', relationshipName], { data: definition })
@@ -66,6 +69,8 @@ export const saveHydratedBundles = async (client, recurrenceClientBundles) => {
   const saveBundlesResp = await recurrenceCol.updateAll(
     recurrenceClientBundles.map(bundle => {
       const withoutOps = omit(bundle, 'ops')
+      withoutOps.accounts = uniq(bundle.ops.map(x => x.account))
+      log('info', `Setting accounts to ${withoutOps.accounts}`)
       withoutOps.automaticLabel = getAutomaticLabelFromBundle(bundle)
       const latestOperation = maxBy(bundle.ops, x => x.date)
       withoutOps.latestDate = latestOperation.date
@@ -76,6 +81,7 @@ export const saveHydratedBundles = async (client, recurrenceClientBundles) => {
     ...recurrenceBundle,
     _id: saveBundlesResp[i].id
   }))
+
   const ops = flatten(
     bundlesWithIds.map(recurrenceBundle =>
       recurrenceBundle.ops.map(op =>
@@ -127,8 +133,8 @@ export const renameRecurrenceManually = async (
   })
 }
 
-const STATUS_ONGOING = 'ongoing'
-const STATUS_FINISHED = 'finished'
+export const STATUS_ONGOING = 'ongoing'
+export const STATUS_FINISHED = 'finished'
 
 export const getStatus = recurrence => {
   if (recurrence.status) {

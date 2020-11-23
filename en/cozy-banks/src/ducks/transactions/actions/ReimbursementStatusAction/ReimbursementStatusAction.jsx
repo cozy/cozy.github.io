@@ -23,7 +23,7 @@ import iconReimbursement from 'assets/icons/icon-reimbursement.svg'
 import { logException } from 'lib/sentry'
 import cx from 'classnames'
 import { translate } from 'cozy-ui/transpiled/react'
-import { flowRight as compose } from 'lodash'
+import compose from 'lodash/flowRight'
 import { withClient } from 'cozy-client'
 import { getHealthReimbursementLateLimitSelector } from 'ducks/reimbursements/selectors'
 

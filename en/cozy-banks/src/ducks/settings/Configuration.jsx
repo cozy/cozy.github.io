@@ -11,7 +11,8 @@ import {
   hasQueryBeenLoaded
 } from 'cozy-client'
 import { settingsConn } from 'doctypes'
-import { flowRight as compose, set } from 'lodash'
+import set from 'lodash/set'
+import compose from 'lodash/flowRight'
 import Loading from 'components/Loading'
 
 import flag from 'cozy-flags'

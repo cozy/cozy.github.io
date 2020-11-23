@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-packageName="io.cozy.banks.mobile" android-versionCode="1210000" ios-CFBundleIdentifier="io.cozy.banks" ios-CFBundleVersion="1.21.0.0" version="1.21.0" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-packageName="io.cozy.banks.mobile" android-versionCode="1220000" ios-CFBundleIdentifier="io.cozy.banks" ios-CFBundleVersion="1.22.0.0" version="1.22.0" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Cozy Banks</name>
     <description>The banking application for Cozy</description>
     <author email="contact@cozycloud.cc" href="https://cozy.io">Cozy Cloud</author>
-    <preference name="AppendUserAgent" value="io.cozy.banks.mobile-1.21.0" />
+    <preference name="AppendUserAgent" value="io.cozy.banks.mobile-1.22.0" />
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -19,7 +19,7 @@
         </host>
         <ios-team-id value="3AKXFMV43J" />
     </universal-links>
-    <preference name="android-targetSdkVersion" value="28" />
+    <preference name="android-targetSdkVersion" value="29" />
     <platform name="android">
         <config-file parent="/manifest/application" target="app/src/main/AndroidManifest.xml">
             <meta-data android:name="google_analytics_adid_collection_enabled" android:value="false" />
@@ -62,6 +62,11 @@
         <preference name="StatusBarOverlaysWebView" value="false" />
         <preference name="Suppresses3DTouchGesture" value="true" />
         <preference name="DisallowOverscroll" value="true" />
+        <!--
+          "ScrollEnabled" is used by cordova-plugin-ionic-keyboard. Without it, the scrolling is deactivated. We should revisit this change if we ever use cordova-plugin-ionic-webview.
+          See https://github.com/ionic-team/cordova-plugin-ionic-webview#scrollenabled
+        -->
+	       <preference name="ScrollEnabled" value="true" />
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <icon height="29" src="res/icons/ios/icon-small.png" width="29" />

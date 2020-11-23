@@ -59,7 +59,6 @@ const logDifferences = (oldRecurrences, updatedRecurrences) => {
     )
   }
 }
-
 /**
  * Fetches
  *   - transactions in the last 3 months
@@ -116,6 +115,7 @@ const main = async ({ client }) => {
     await saveHydratedBundles(client, updatedRecurrences)
   } catch (e) {
     log('error', `[recurrence service] ${e}`)
+    throw e
   }
 }
 

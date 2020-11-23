@@ -56,7 +56,7 @@ const EarliestTransactionDate = () => {
   const transaction = useSelector(getTransactionEarliestDate)
   return transaction ? (
     <div className="u-mt-half">
-      {t('Search.since', { date: f(transaction.date, 'DD MMM YYYY') })}
+      {t('Search.since', { date: f(transaction.date, 'D MMM YYYY') })}
     </div>
   ) : null
 }

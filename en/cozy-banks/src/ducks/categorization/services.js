@@ -2,7 +2,8 @@
 
 import { Q } from 'cozy-client'
 import { BankTransaction } from 'cozy-doctypes'
-import { sortBy, chunk } from 'lodash'
+import chunk from 'lodash/chunk'
+import sortBy from 'lodash/sortBy'
 import { differenceInSeconds } from 'date-fns'
 import { getTracker } from 'ducks/tracking/node'
 import { LOCAL_MODEL_USAGE_THRESHOLD } from 'ducks/categories/helpers'

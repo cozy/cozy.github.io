@@ -1,5 +1,6 @@
 import React from 'react'
-import { debounce, throttle } from 'lodash'
+import throttle from 'lodash/throttle'
+import debounce from 'lodash/debounce'
 import ReactDOM from 'react-dom'
 import { getScroll, getScrollHeight } from 'ducks/transactions/scroll/utils'
 

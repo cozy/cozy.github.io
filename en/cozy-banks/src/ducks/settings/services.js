@@ -2,7 +2,7 @@ import logger from 'cozy-logger'
 import { getDefaultedSettings } from './helpers'
 import { Document } from 'cozy-doctypes'
 import { DOCTYPE } from './constants'
-import { omit } from 'lodash'
+import omit from 'lodash/omit'
 
 const log = logger.namespace('settings-doctype')
 

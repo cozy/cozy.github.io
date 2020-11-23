@@ -1,13 +1,11 @@
-import {
-  get,
-  sumBy,
-  overEvery,
-  flowRight as compose,
-  set,
-  uniqBy,
-  flatten,
-  overSome
-} from 'lodash'
+import overSome from 'lodash/overSome'
+import flatten from 'lodash/flatten'
+import uniqBy from 'lodash/uniqBy'
+import set from 'lodash/set'
+import compose from 'lodash/flowRight'
+import overEvery from 'lodash/overEvery'
+import sumBy from 'lodash/sumBy'
+import get from 'lodash/get'
 import {
   getDate,
   getReimbursedAmount as getTransactionReimbursedAmount,

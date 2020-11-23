@@ -187,7 +187,9 @@ const RecurrenceRow = ({ transaction, onClick }) => {
   const recurrence = transaction.recurrence && transaction.recurrence.data
   const { t } = useI18n()
 
-  const recurrenceRoute = recurrence ? `/recurrence/${recurrence._id}` : null
+  const recurrenceRoute = recurrence
+    ? `/analysis/recurrence/${recurrence._id}`
+    : null
 
   const vAlignTop = Boolean(recurrence)
   return (
@@ -211,7 +213,7 @@ const RecurrenceRow = ({ transaction, onClick }) => {
               <br />
               <Caption>{getFrequencyText(t, recurrence)}</Caption>
               {location.pathname !== recurrenceRoute ? (
-                <Link to={recurrenceRoute}>
+                <Link to={recurrenceRoute} className="u-link">
                   <div className="u-mh-1">
                     <Chip
                       onClick={stopPropagation}
@@ -228,7 +230,7 @@ const RecurrenceRow = ({ transaction, onClick }) => {
           ) : null}
         </div>
       </ListItemText>
-      <ListItemArrow />
+      <ListItemArrow className={vAlignTop ? 'u-mt-1-half' : null} />
     </ListItem>
   )
 }

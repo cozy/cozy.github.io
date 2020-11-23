@@ -1,7 +1,12 @@
 import React, { useMemo, useContext, createContext } from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
-import { sortBy, throttle, debounce, keyBy, toPairs, groupBy } from 'lodash'
+import groupBy from 'lodash/groupBy'
+import toPairs from 'lodash/toPairs'
+import keyBy from 'lodash/keyBy'
+import debounce from 'lodash/debounce'
+import throttle from 'lodash/throttle'
+import sortBy from 'lodash/sortBy'
 import cx from 'classnames'
 import { isIOSApp } from 'cozy-device-helper'
 

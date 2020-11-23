@@ -3057,6 +3057,8 @@ a HasOne relationship to a <code>io.cozy.bank.recurrence</code> object.</p>
 <li><code>status</code>: {Enum&lt;&ldquo;ongoing&rdquo;,&rdquo;finished&rdquo;&gt;} - A recurrence can be stated as &ldquo;finished&rdquo; if transactions should not longer match it. For example if a telco contract has finished.</li>
 <li><code>stats</code>: {Object} - Statistics used during matching</li>
 <li><code>stats.deltas.median</code> : Median time distance in days between operations. For example, for a monthly recurrence, this should be 30.</li>
+<li><code>latestDate</code>:  {String} Date of the last transaction that is part of the recurrence. This is used to compute the next occurence of the recurrence</li>
+<li><code>accounts</code>: {Array<string>} Ids of the bank accounts that have participated to the recurrence. This is used to compute planned transactions.</li>
 </ul>
                 
                   

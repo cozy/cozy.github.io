@@ -1,4 +1,8 @@
-import { flatten, groupBy, sumBy, uniq, get } from 'lodash'
+import get from 'lodash/get'
+import uniq from 'lodash/uniq'
+import sumBy from 'lodash/sumBy'
+import groupBy from 'lodash/groupBy'
+import flatten from 'lodash/flatten'
 import {
   min as getEarliestDate,
   isAfter as isDateAfter,

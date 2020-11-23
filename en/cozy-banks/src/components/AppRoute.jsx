@@ -24,6 +24,7 @@ import { SearchPage } from 'ducks/search'
 import { AnalysisPage } from 'ducks/analysis'
 import UserActionRequired from 'components/UserActionRequired'
 import scrollToTopOnMount from 'components/scrollToTopOnMount'
+import PlannedTransactionsPage from 'ducks/future/PlannedTransactionsPage'
 
 // Use a function to delay instantation and have access to AppRoute.renderExtraRoutes
 const AppRoute = () => (
@@ -35,6 +36,10 @@ const AppRoute = () => (
         <Route
           path="details"
           component={scrollToTopOnMount(BalanceDetailsPage)}
+        />
+        <Route
+          path="future"
+          component={scrollToTopOnMount(PlannedTransactionsPage)}
         />
       </Route>
       <Route path="categories">

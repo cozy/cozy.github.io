@@ -1,6 +1,7 @@
 import { subDays } from 'date-fns'
 import NotificationView from 'ducks/notifications/BaseNotificationView'
-import { sortBy, fromPairs } from 'lodash'
+import fromPairs from 'lodash/fromPairs'
+import sortBy from 'lodash/sortBy'
 import log from 'cozy-logger'
 import { getDate, isNew as isNewTransaction } from 'ducks/transactions/helpers'
 import { getAccountLabel } from 'ducks/account/helpers'

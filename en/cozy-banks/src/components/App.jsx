@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import flag from 'cozy-flags'
 import { queryConnect } from 'cozy-client'
 import { withRouter } from 'react-router'
-import { flowRight as compose } from 'lodash'
+import compose from 'lodash/flowRight'
 
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import { Layout, Main, Content } from 'cozy-ui/transpiled/react/Layout'

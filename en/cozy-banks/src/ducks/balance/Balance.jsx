@@ -1,6 +1,10 @@
 /* global __TARGET__ */
 
-import { flowRight as compose, get, sumBy, set, debounce } from 'lodash'
+import debounce from 'lodash/debounce'
+import set from 'lodash/set'
+import sumBy from 'lodash/sumBy'
+import get from 'lodash/get'
+import compose from 'lodash/flowRight'
 
 import React, { PureComponent, Fragment } from 'react'
 import { connect } from 'react-redux'

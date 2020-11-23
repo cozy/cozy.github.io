@@ -13,7 +13,7 @@ import SearchIconLink from 'ducks/search/SearchIconLink'
 
 export const DumbBalanceDetailsHeader = props => {
   const { isMobile } = useBreakpoints()
-  const { small, showBalance, filteredAccounts, children } = props
+  const { accountSwitchSize, showBalance, filteredAccounts, children } = props
 
   return (
     <Header theme="inverted" fixed>
@@ -25,7 +25,7 @@ export const DumbBalanceDetailsHeader = props => {
       >
         <div className={'u-flex u-flex-items-center'}>
           <BackButton theme="primary" arrow />
-          <AccountSwitch small={small} theme="inverted" />
+          <AccountSwitch size={accountSwitchSize} theme="inverted" />
         </div>
       </Padded>
       {isMobile && (

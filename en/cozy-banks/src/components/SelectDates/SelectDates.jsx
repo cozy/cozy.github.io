@@ -1,7 +1,11 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-import { uniqBy, find, findLast, flowRight as compose, findIndex } from 'lodash'
+import findIndex from 'lodash/findIndex'
+import compose from 'lodash/flowRight'
+import findLast from 'lodash/findLast'
+import find from 'lodash/find'
+import uniqBy from 'lodash/uniqBy'
 
 import {
   subMonths,

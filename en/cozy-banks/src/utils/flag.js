@@ -1,7 +1,7 @@
 /* global __DEVELOPMENT__ */
 
 import flag from 'cozy-flags'
-import { some } from 'lodash'
+import some from 'lodash/some'
 import Figure from 'cozy-ui/transpiled/react/Figure'
 
 /** Reset flags, keeping only those set to a truthy value */

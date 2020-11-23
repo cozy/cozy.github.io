@@ -1,6 +1,6 @@
 import React, { memo, Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { flowRight as compose } from 'lodash'
+import compose from 'lodash/flowRight'
 import { withStyles } from '@material-ui/core/styles'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import { useI18n } from 'cozy-ui/transpiled/react'

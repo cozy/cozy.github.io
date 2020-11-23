@@ -1,6 +1,7 @@
 import React from 'react'
 import SelectDates from 'components/SelectDates'
-import { uniq, last } from 'lodash'
+import last from 'lodash/last'
+import uniq from 'lodash/uniq'
 import {
   subMonths,
   format,

@@ -1,6 +1,7 @@
 import NotificationView from '../BaseNotificationView'
 import { isHealthExpense } from 'ducks/categories/helpers'
-import { keyBy, uniq } from 'lodash'
+import uniq from 'lodash/uniq'
+import keyBy from 'lodash/keyBy'
 import logger from 'cozy-logger'
 import { BankTransaction, BankAccount } from 'cozy-doctypes'
 import {

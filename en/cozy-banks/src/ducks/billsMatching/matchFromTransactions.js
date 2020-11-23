@@ -1,4 +1,5 @@
-import { max, min } from 'lodash'
+import min from 'lodash/min'
+import max from 'lodash/max'
 import { format as formatDate, addYears, subYears } from 'date-fns'
 import { Bill } from 'models'
 import Linker from './Linker/Linker'

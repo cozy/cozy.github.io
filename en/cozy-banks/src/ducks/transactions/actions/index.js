@@ -1,4 +1,5 @@
-import { find, filter } from 'lodash'
+import filter from 'lodash/filter'
+import find from 'lodash/find'
 import KonnectorAction from 'ducks/transactions/actions/KonnectorAction'
 import HealthLinkAction from 'ducks/transactions/actions/HealthLinkAction'
 import AppLinkAction from 'ducks/transactions/actions/AppLinkAction'

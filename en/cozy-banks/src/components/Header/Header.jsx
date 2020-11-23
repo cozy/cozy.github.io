@@ -6,7 +6,7 @@ import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
 
 class Header extends React.PureComponent {
   render() {
-    const { children, className, theme, fixed, paper } = this.props
+    const { children, className, theme, fixed, paper, style } = this.props
 
     return (
       <CozyTheme variant={theme}>
@@ -19,6 +19,7 @@ class Header extends React.PureComponent {
             },
             className
           )}
+          style={style}
         >
           {children}
         </div>

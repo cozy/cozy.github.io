@@ -1,6 +1,6 @@
 import moment from 'moment-timezone'
 import { BankTransaction } from 'cozy-doctypes'
-import { sumBy } from 'lodash'
+import sumBy from 'lodash/sumBy'
 
 moment.tz.setDefault('Europe/Paris')
 

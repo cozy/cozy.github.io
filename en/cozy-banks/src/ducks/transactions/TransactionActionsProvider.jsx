@@ -1,4 +1,4 @@
-import { flowRight as compose } from 'lodash'
+import compose from 'lodash/flowRight'
 import withAppsUrls from 'ducks/apps/withAppsUrls'
 import withBrands from 'ducks/brandDictionary/withBrands'
 import { DumbTransactionActionsProvider } from 'ducks/transactions/TransactionActionsContext'

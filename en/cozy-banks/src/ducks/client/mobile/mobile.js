@@ -3,7 +3,7 @@
 import CozyClient from 'cozy-client'
 import { getDeviceName } from 'cozy-device-helper'
 
-import { merge } from 'lodash'
+import merge from 'lodash/merge'
 import { getLinks } from '../links'
 import { schema } from 'doctypes'
 import manifest from 'ducks/client/manifest'

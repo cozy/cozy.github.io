@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { throttle } from 'lodash'
+import throttle from 'lodash/throttle'
 
 const getMain = () => document
 const getScrollingElement = node =>

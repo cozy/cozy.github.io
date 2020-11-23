@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { format as formatDate, subYears, isAfter } from 'date-fns'
-import { flowRight as compose, uniq, groupBy, max, memoize } from 'lodash'
+import memoize from 'lodash/memoize'
+import max from 'lodash/max'
+import groupBy from 'lodash/groupBy'
+import uniq from 'lodash/uniq'
+import compose from 'lodash/flowRight'
 import cx from 'classnames'
 
 import { isQueryLoading, hasQueryBeenLoaded } from 'cozy-client'

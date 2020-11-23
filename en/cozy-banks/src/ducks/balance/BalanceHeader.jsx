@@ -1,5 +1,5 @@
 import React, { memo } from 'react'
-import { flowRight as compose } from 'lodash'
+import compose from 'lodash/flowRight'
 import { useI18n } from 'cozy-ui/transpiled/react'
 
 import { transactionsConn } from 'doctypes'

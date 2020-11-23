@@ -12,7 +12,10 @@ import {
 } from 'ducks/filters'
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import Categories from 'ducks/categories/Categories'
-import { flowRight as compose, sortBy, some, includes } from 'lodash'
+import includes from 'lodash/includes'
+import some from 'lodash/some'
+import sortBy from 'lodash/sortBy'
+import compose from 'lodash/flowRight'
 import CategoriesHeader from 'ducks/categories/CategoriesHeader'
 import {
   withClient,
@@ -202,8 +205,9 @@ class CategoriesPage extends Component {
           ) : (
             <TransactionsPageWithBackButton
               className="u-pt-0"
+              showFutureBalance={false}
               showTriggerErrors={false}
-              header={false}
+              showHeader={false}
             />
           ))}
       </Fragment>

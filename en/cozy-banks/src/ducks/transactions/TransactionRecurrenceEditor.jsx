@@ -3,7 +3,8 @@ import {
   useClient,
   useQuery,
   isQueryLoading,
-  hasQueryBeenLoaded
+  hasQueryBeenLoaded,
+  dehydrate
 } from 'cozy-client'
 import { NestedSelect, useI18n, Icon } from 'cozy-ui/transpiled/react'
 import {
@@ -89,7 +90,7 @@ const TransactionRecurrenceEditor = ({
 
     if (recurrenceChoice._id === NEW_RECURRENCE_ID) {
       const { data: recurrence } = await client.save(
-        makeRecurrenceFromTransaction(transaction)
+        makeRecurrenceFromTransaction(dehydrate(transaction))
       )
 
       recurrenceChoice = {

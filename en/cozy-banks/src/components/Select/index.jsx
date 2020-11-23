@@ -4,7 +4,7 @@ import SelectBox, {
   SelectBoxWithFixedOptions
 } from 'cozy-ui/transpiled/react/SelectBox'
 import styles from 'components/Select/styles.styl'
-import { find } from 'lodash'
+import find from 'lodash/find'
 import palette from 'cozy-ui/transpiled/react/palette'
 import { mergeStyles } from 'components/Select/styleUtils'
 

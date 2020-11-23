@@ -1,5 +1,5 @@
 import React from 'react'
-import { sumBy } from 'lodash'
+import sumBy from 'lodash/sumBy'
 import styles from 'components/BarBalance/styles.styl'
 import Figure from 'cozy-ui/transpiled/react/Figure'
 import BarItem from 'components/BarItem'

@@ -4,9 +4,16 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import { isMobileApp } from 'cozy-device-helper'
-import { translate, withBreakpoints } from 'cozy-ui/transpiled/react'
+import { queryConnect, isQueryLoading, hasQueryBeenLoaded } from 'cozy-client'
+import { translate } from 'cozy-ui/transpiled/react/I18n'
+import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
+import flag from 'cozy-flags'
 
-import { flowRight as compose, isEqual, findIndex, uniq, maxBy } from 'lodash'
+import maxBy from 'lodash/maxBy'
+import uniq from 'lodash/uniq'
+import findIndex from 'lodash/findIndex'
+import isEqual from 'lodash/isEqual'
+import compose from 'lodash/flowRight'
 import {
   getFilteringDoc,
   getTransactionsFilteredByAccount,
@@ -21,10 +28,9 @@ import {
   findNearestMonth
 } from 'ducks/transactions/helpers'
 
-import { queryConnect, isQueryLoading, hasQueryBeenLoaded } from 'cozy-client'
-
 import Loading from 'components/Loading'
 import Delayed from 'components/Delayed'
+import FutureBalanceCard from 'ducks/future/FutureBalanceCard'
 import { TransactionList } from 'ducks/transactions/Transactions.jsx'
 import styles from 'ducks/transactions/TransactionsPage.styl'
 
@@ -37,9 +43,7 @@ import {
 } from 'doctypes'
 
 import TransactionHeader from 'ducks/transactions/TransactionHeader'
-
 import { getChartTransactions } from 'ducks/chart/selectors'
-
 import BarTheme from 'ducks/bar/BarTheme'
 import TransactionActionsProvider from 'ducks/transactions/TransactionActionsProvider'
 
@@ -292,7 +296,8 @@ class TransactionsPage extends Component {
     const {
       accounts,
       breakpoints: { isMobile },
-      header,
+      showHeader,
+      showFutureBalance,
       className
     } = this.props
 
@@ -304,7 +309,7 @@ class TransactionsPage extends Component {
     return (
       <TransactionActionsProvider>
         <BarTheme theme={theme} />
-        {header ? (
+        {showHeader ? (
           <TransactionHeader
             transactions={filteredTransactions}
             handleChangeMonth={this.handleChangeMonth}
@@ -316,6 +321,9 @@ class TransactionsPage extends Component {
         <div
           className={`${styles.TransactionPage__transactions} ${className} js-scrolling-element`}
         >
+          {flag('banks.future-balance') && showFutureBalance ? (
+            <FutureBalanceCard />
+          ) : null}
           {this.renderTransactions()}
         </div>
       </TransactionActionsProvider>
@@ -324,7 +332,8 @@ class TransactionsPage extends Component {
 }
 
 TransactionsPage.defaultProps = {
-  header: true
+  showHeader: true,
+  showFutureBalance: true
 }
 
 const onSubcategory = ownProps => ownProps.router.params.subcategoryName

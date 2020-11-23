@@ -173,7 +173,7 @@ const BundlesTable = ({ children }) => {
 const sortBundlesForViewing = bundles => {
   return orderBy(
     bundles,
-    [bundle => getCategories(bundle)[0], bundle => bundle.latestDate],
+    [bundle => bundle.latestDate, bundle => getCategories(bundle)[0]],
     ['desc', 'desc']
   )
 }

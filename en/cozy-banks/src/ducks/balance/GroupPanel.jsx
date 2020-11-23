@@ -1,5 +1,5 @@
 import cx from 'classnames'
-import { flowRight as compose } from 'lodash'
+import compose from 'lodash/flowRight'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { withRouter } from 'react-router'

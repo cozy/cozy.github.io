@@ -1,6 +1,7 @@
 import React, { Component, useCallback } from 'react'
 import { withRouter } from 'react-router'
-import { sortBy, flowRight as compose } from 'lodash'
+import compose from 'lodash/flowRight'
+import sortBy from 'lodash/sortBy'
 import { Query, withClient } from 'cozy-client'
 
 import { translate, withBreakpoints } from 'cozy-ui/transpiled/react'

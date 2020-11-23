@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import CozyClient, { queryConnect } from 'cozy-client'
 import cx from 'classnames'
-import { flowRight as compose } from 'lodash'
+import compose from 'lodash/flowRight'
 
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import Switch from 'cozy-ui/transpiled/react/MuiCozyTheme/Switch'

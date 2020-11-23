@@ -1,5 +1,6 @@
 import React from 'react'
-import { sortBy, get } from 'lodash'
+import get from 'lodash/get'
+import sortBy from 'lodash/sortBy'
 
 import { useI18n } from 'cozy-ui/transpiled/react'
 import Button from 'cozy-ui/transpiled/react/Button'

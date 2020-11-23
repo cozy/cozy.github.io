@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect'
-import { includes } from 'lodash'
+import includes from 'lodash/includes'
 
 import { isQueryLoading, hasQueryBeenLoaded } from 'cozy-client'
 import { getBrands, findMatchingBrand } from './index'

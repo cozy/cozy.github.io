@@ -1,5 +1,5 @@
 import { Document } from 'cozy-doctypes'
-import { head } from 'lodash'
+import head from 'lodash/head'
 import { TRANSACTION_DOCTYPE } from 'doctypes'
 
 class AppSuggestion extends Document {

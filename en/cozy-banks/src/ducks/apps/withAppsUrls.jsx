@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { queryConnect } from 'cozy-client'
 import { connect } from 'react-redux'
-import { flowRight as compose } from 'lodash'
+import compose from 'lodash/flowRight'
 
 import { appsConn } from 'doctypes'
 import { getAppsById, getAppURL } from 'ducks/apps/selectors'

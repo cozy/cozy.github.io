@@ -81,6 +81,9 @@ export const getConfig = createSelector(
 )
 
 export const getAccounts = queryDataSelector('accounts')
+export const getRecurrences = queryDataSelector('recurrence', {
+  hydrated: true
+})
 
 export const getTransactions = createSelector(
   [getTransactionsRaw],

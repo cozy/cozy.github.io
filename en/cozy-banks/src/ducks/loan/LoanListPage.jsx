@@ -11,7 +11,7 @@ import AccountIcon from 'components/AccountIcon'
 import withFilters from 'components/withFilters'
 import { BalanceDetailsHeader } from 'ducks/balance'
 import Padded from 'components/Padded'
-import { flowRight as compose } from 'lodash'
+import compose from 'lodash/flowRight'
 import { accountsConn } from 'doctypes'
 import { useBreakpoints } from 'cozy-ui/transpiled/react'
 

@@ -7,7 +7,8 @@ import Switch from 'cozy-ui/transpiled/react/MuiCozyTheme/Switch'
 import { mount } from 'enzyme'
 import AppLike from 'test/AppLike'
 import fixtures from 'test/fixtures'
-import { keyBy, omit } from 'lodash'
+import omit from 'lodash/omit'
+import keyBy from 'lodash/keyBy'
 
 jest.mock('components/BackButton', () => () => null)
 

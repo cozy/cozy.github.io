@@ -321,10 +321,14 @@ const BundleInfo = ({ bundle }) => {
               <Img className="u-flex" style={imgLineHeightStyle}>
                 <ActionMenuHelper
                   opener={
-                    <Button extension="narrow" theme="secondary">
-                      {t(`Recurrence.status.${getStatus(bundle)}`)}
-                      <Icon className="u-ml-half" icon={BottomIcon} />
-                    </Button>
+                    <Button
+                      extension="narrow"
+                      theme="secondary"
+                      label={t(`Recurrence.status.${getStatus(bundle)}`)}
+                      extraRight={
+                        <Icon className="u-ml-half" icon={BottomIcon} />
+                      }
+                    />
                   }
                   menu={
                     <RecurrenceStatusMenu

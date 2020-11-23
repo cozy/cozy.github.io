@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import * as d3 from 'utils/d3'
-import { max, minBy, keyBy, memoize } from 'lodash'
+import memoize from 'lodash/memoize'
+import keyBy from 'lodash/keyBy'
+import minBy from 'lodash/minBy'
+import max from 'lodash/max'
 import styles from 'components/Chart/LineChart.styl'
 
 // TODO replace by import { getCSSVariableValue } from 'cozy-ui/transpiled/utils/colors'
