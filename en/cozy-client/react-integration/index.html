@@ -2807,17 +2807,16 @@
 <!-- MarkdownTOC autolink=true -->
 
 <ul>
-<li><a href="#1-setup">1. Setup</a><ul>
-<li><a href="#1a-initialize-a-cozyclient-provider">1.a Initialize a CozyClient provider</a></li>
+<li><a href="#1-setup">1. Setup</a></li>
+<li><a href="#1a-initialize-a-cozyclient-provider">1.a Initialize a CozyClient provider</a><ul>
 <li><a href="#1b-use-your-own-redux-store">1.b Use your own Redux store</a></li>
 </ul>
 </li>
-<li><a href="#2-usage">2. Usage</a><ul>
+<li><a href="#2-usage">2. Usage</a></li>
 <li><a href="#2a-requesting-data-with-">2.a Requesting data with ``</a></li>
 <li><a href="#2b-requesting-data-with-the-queryconnect-hoc">2.b Requesting data with the <code>queryConnect</code> HOC</a></li>
 <li><a href="#2c-using-a-fetch-policy-to-decrease-network-requests">2.c Using a fetch policy to decrease network requests</a></li>
-</ul>
-</li>
+<li><a href="#2d-keeping-data-up-to-date-in-real-time">2.d Keeping data up to date in real time</a></li>
 <li><a href="#3-mutating-data">3. Mutating data</a></li>
 <li><a href="#4-testing">4. Testing</a></li>
 </ul>
@@ -2883,11 +2882,13 @@
 <h2 id="2-usage">2. Usage<a class="headerlink" href="#2-usage" title="Permanent link">&para;</a></h2>
 <h3 id="2a-requesting-data-with-ltquery-gt">2.a Requesting data with <code>&lt;Query /&gt;</code><a class="headerlink" href="#2a-requesting-data-with-ltquery-gt" title="Permanent link">&para;</a></h3>
 <p>To make it easy to fetch data and make it available to your component, we provide a Render Props component called <code>Query</code>. Basic example of usage:</p>
-<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">Query</span><span class="p">,</span> <span class="nx">isQueryLoading</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">Query</span><span class="p">,</span> <span class="nx">isQueryLoading</span><span class="p">,</span> <span class="nx">Q</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 
 <span class="kr">const</span> <span class="nx">todos</span> <span class="o">=</span> <span class="s1">&#39;io.cozy.todos&#39;</span>
 <span class="kr">const</span> <span class="nx">checked</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span> <span class="p">}</span>
-<span class="kr">const</span> <span class="nx">query</span> <span class="o">=</span> <span class="nx">client</span> <span class="p">=&gt;</span> <span class="nx">client</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">todos</span><span class="p">).</span><span class="nx">where</span><span class="p">(</span><span class="nx">checked</span><span class="p">)</span>
+
+<span class="c1">// Use the Q helper to build queries</span>
+<span class="kr">const</span> <span class="nx">query</span> <span class="o">=</span> <span class="nx">Q</span><span class="p">(</span><span class="nx">todos</span><span class="p">).</span><span class="nx">where</span><span class="p">(</span><span class="nx">checked</span><span class="p">)</span>
 
 <span class="kd">function</span> <span class="nx">TodoList</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">return</span> <span class="p">&lt;</span><span class="nt">Query</span> <span class="na">query</span><span class="o">=</span><span class="p">{</span><span class="nx">query</span><span class="p">}&gt;</span>
@@ -2911,12 +2912,12 @@
  - <code>lastFetch</code>: when the last fetch occured
  - <code>hasMore</code>: the fetches being paginated, this property indicates if there are more documents to load</p>
 <p>You can also pass a function instead of a direct query. Your function will be given the props of the component and should return the requested query:</p>
-<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">Query</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">Query</span><span class="p">,</span> <span class="nx">Q</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 
 <span class="kr">const</span> <span class="nx">query</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
   <span class="kr">const</span> <span class="nx">todos</span> <span class="o">=</span> <span class="s1">&#39;io.cozy.todos&#39;</span>
   <span class="kr">const</span> <span class="nx">where</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">checked</span><span class="o">:</span> <span class="nx">props</span><span class="p">.</span><span class="nx">checked</span> <span class="p">}</span>
-  <span class="k">return</span> <span class="nx">client</span> <span class="p">=&gt;</span> <span class="nx">client</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">todos</span><span class="p">).</span><span class="nx">where</span><span class="p">(</span><span class="nx">where</span><span class="p">)</span>
+  <span class="k">return</span> <span class="nx">Q</span><span class="p">(</span><span class="nx">todos</span><span class="p">).</span><span class="nx">where</span><span class="p">(</span><span class="nx">where</span><span class="p">)</span>
 <span class="p">}</span>
 
 <span class="kd">function</span> <span class="nx">TodoList</span><span class="p">()</span> <span class="p">{</span>
@@ -2948,15 +2949,11 @@
   <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="kr">const</span> <span class="nx">dest</span> <span class="o">=</span> <span class="s1">&#39;result&#39;</span>
-
-<span class="kr">const</span> <span class="nx">todos</span> <span class="o">=</span> <span class="s1">&#39;io.cozy.todos&#39;</span>
-<span class="kr">const</span> <span class="nx">checked</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span> <span class="p">}</span>
-<span class="kr">const</span> <span class="nx">query</span> <span class="o">=</span> <span class="p">(</span><span class="nx">client</span><span class="p">,</span> <span class="nx">props</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">client</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="nx">props</span><span class="p">.</span><span class="nx">id</span><span class="p">).</span><span class="nx">where</span><span class="p">(</span><span class="nx">checked</span><span class="p">)</span>
-
-<span class="kr">const</span> <span class="nx">queryOpts</span> <span class="o">=</span> <span class="p">{</span> <span class="p">[</span><span class="nx">dest</span><span class="p">]</span><span class="o">:</span> <span class="p">{</span> <span class="nx">query</span> <span class="p">}</span> <span class="p">}</span>
-
-<span class="kr">const</span> <span class="nx">ConnectedTodoList</span> <span class="o">=</span> <span class="nx">queryConnect</span><span class="p">(</span><span class="nx">queryOpts</span><span class="p">)(</span><span class="nx">TodoList</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">ConnectedTodoList</span> <span class="o">=</span> <span class="nx">queryConnect</span><span class="p">({</span>
+  <span class="nx">result</span><span class="o">:</span> <span class="p">{</span>
+     <span class="nx">query</span><span class="o">:</span> <span class="nx">Q</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">).</span><span class="nx">where</span><span class="p">({</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span> <span class="p">})</span>
+  <span class="p">}</span>
+<span class="p">})(</span><span class="nx">TodoList</span><span class="p">)</span>
 </pre></div>
 
 
@@ -2974,8 +2971,8 @@
 <span class="p">}</span>
 
 <span class="kr">const</span> <span class="nx">todos</span> <span class="o">=</span> <span class="s1">&#39;io.cozy.todos&#39;</span>
-<span class="kr">const</span> <span class="nx">checked</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">query</span><span class="o">:</span> <span class="nx">client</span> <span class="p">=&gt;</span> <span class="nx">client</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">todos</span><span class="p">).</span><span class="nx">where</span><span class="p">({</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span> <span class="p">})</span> <span class="p">}</span>
-<span class="kr">const</span> <span class="nx">archived</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">query</span><span class="o">:</span> <span class="nx">client</span> <span class="p">=&gt;</span> <span class="nx">client</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">todos</span><span class="p">).</span><span class="nx">where</span><span class="p">({</span> <span class="nx">archive</span><span class="o">:</span> <span class="kc">false</span> <span class="p">})</span> <span class="p">}</span>
+<span class="kr">const</span> <span class="nx">checked</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">query</span><span class="o">:</span> <span class="nx">Q</span><span class="p">(</span><span class="nx">todos</span><span class="p">).</span><span class="nx">where</span><span class="p">({</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span> <span class="p">})</span> <span class="p">}</span>
+<span class="kr">const</span> <span class="nx">archived</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">query</span><span class="o">:</span> <span class="nx">Q</span><span class="p">(</span><span class="nx">todos</span><span class="p">).</span><span class="nx">where</span><span class="p">({</span> <span class="nx">archive</span><span class="o">:</span> <span class="kc">false</span> <span class="p">})</span> <span class="p">}</span>
 
 <span class="kr">const</span> <span class="nx">queries</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">checked</span><span class="p">,</span> <span class="nx">archived</span> <span class="p">}</span>
 
@@ -3072,7 +3069,7 @@ for the API documentation.</p>
 
 <span class="kr">const</span> <span class="nx">todos</span> <span class="o">=</span> <span class="s1">&#39;io.cozy.todos&#39;</span>
 <span class="kr">const</span> <span class="nx">checked</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span> <span class="p">}</span>
-<span class="kr">const</span> <span class="nx">query</span> <span class="o">=</span> <span class="nx">client</span> <span class="p">=&gt;</span> <span class="nx">client</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">todos</span><span class="p">).</span><span class="nx">where</span><span class="p">(</span><span class="nx">checked</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">query</span> <span class="o">=</span> <span class="nx">Q</span><span class="p">(</span><span class="nx">todos</span><span class="p">).</span><span class="nx">where</span><span class="p">(</span><span class="nx">checked</span><span class="p">)</span>
 <span class="kr">const</span> <span class="nx">mutations</span> <span class="o">=</span> <span class="nx">client</span> <span class="p">=&gt;</span> <span class="p">({</span> <span class="nx">createDocument</span><span class="o">:</span> <span class="nx">client</span><span class="p">.</span><span class="nx">create</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">client</span><span class="p">)</span> <span class="p">})</span>
 
 <span class="kd">function</span> <span class="nx">TodoList</span><span class="p">()</span> <span class="p">{</span>

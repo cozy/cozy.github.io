@@ -2831,93 +2831,65 @@ the stack with some example values.</p>
 can configure your <code>cozy-stack</code> client with the following CLI arguments or
 environment variables.</p>
 <table>
-    <thead>
-        <tr>
-            <th>Argument</th>
-            <th>Env variable</th>
-            <td>Default value</td>
-            <td>Usage</td>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <th>--host / --admin-host</th>
-            <th>COZY_HOST / COZY_ADMIN_HOST</th>
-            <td>localhost</td>
-<td>
-`[http[s]://]<fqdn>[:<port>]`
-</td>
-        </tr>
-        <tr>
-            <th>--port / --admin-port</th>
-            <th>COZY_PORT / COZY_ADMIN_PORT</th>
-            <td>8080 / 6060</td>
-            <td></td>
-        </tr>
-        <tr>
-            <th></th>
-            <th>COZY_HOST_TIMEOUT / COZY_ADMIN_TIMOUT</th>
-            <td>15s</td>
-<td>
-HTTP timeout to use  
-Must be [a valid golang duration](https://golang.org/pkg/time/#ParseDuration) like `10s` or `1m`
-</td>
-        </tr>
-        <tr>
-                    <th></th>
-                    <th>COZY_HOST_VALIDATE / COZY_ADMIN_VALIDATE</th>
-                    <td>true</td>
-<td>
-Enable HTTPS certificate validation  
-Can also be set via host URL query part, like
-`https://localhost:6060?validate=false`
-</td>
-        </tr>
-        <tr>
-                    <th></th>
-                    <th>COZY_HOST_CA / COZY_ADMIN_CA</th>
-                    <td>none</td>
-<td>
-CA file to use for HTTPS certificate validation  
-Can also be set via host URL query part, like `https://localhost:6060?ca=<ca>`
-</td>
-        </tr>
-        <tr>
-                    <th></th>
-                    <th>COZY_HOST_CERT / COZY_ADMIN_CERT</th>
-                    <td>none</td>
-<td>
-Client certificate to use  
-Can also be set via host URL query part, like
-`https://localhost:6060?cert=<cert>`
-</td>
-        </tr>
-        <tr>
-                    <th></th>
-                    <th>COZY_HOST_KEY / COZY_ADMIN_KEY</th>
-                    <td>none</td>
-<td>
-Client certificate to use  
-Can also be set via host URL query part, like `https://localhost:6060?key=<key>`
-</td>
-        </tr>
-        <tr>
-                    <th></th>
-                    <th>COZY_HOST_FINGERPRINT / COZY_ADMIN_FINGERPRINT</th>
-                    <td>none</td>
-<td>
-Hex-encoded SHA-256 key pinning to use  
-Can also be set via host URL query part, like `https://localhost:6060?fp=<fp>`
-
-You can get the fingerprint of a given certificate with  
-`openssl x509 -in <certificat.crt> -pubkey | openssl pkey -pubin -outform der | openssl dgst -sha256 -hex`  
-Or directly from a private key with
-`openssl pkey -in <key.pem> -pubout -outform der | openssl dgst -sha256 -hex`
-</td>
-        </tr>
-    </tbody>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Env variable</th>
+<th>Default value</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--host</code> / <code>--admin-host</code></td>
+<td><code>COZY_HOST</code> / <code>COZY_ADMIN_HOST</code></td>
+<td>localhost</td>
+<td><code>[http[s]://]&lt;fqdn&gt;[:&lt;port&gt;]</code></td>
+</tr>
+<tr>
+<td><code>--port</code> / <code>--admin-port</code></td>
+<td><code>COZY_PORT</code> / <code>COZY_ADMIN_PORT</code></td>
+<td>8080 / 6060</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><code>COZY_HOST_TIMEOUT</code> / <code>COZY_ADMIN_TIMOUT</code></td>
+<td>15s</td>
+<td>HTTP timeout to use<br />Must be <a href="https://golang.org/pkg/time/#ParseDuration">a valid golang duration</a> like <code>10s</code> or <code>1m</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>COZY_HOST_VALIDATE</code> / <code>COZY_ADMIN_VALIDATE</code></td>
+<td>true</td>
+<td>Enable HTTPS certificate validation<br />Can also be set via host URL query part, like <code>https://localhost:6060?validate=false</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>COZY_HOST_CA</code> / <code>COZY_ADMIN_CA</code></td>
+<td>none</td>
+<td>CA file to use for HTTPS certificate validation<br />Can also be set via host URL query part, like <code>https://localhost:6060?ca=&lt;ca&gt;</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>COZY_HOST_CERT</code> / <code>COZY_ADMIN_CERT</code></td>
+<td>none</td>
+<td>Client certificate to use<br />Can also be set via host URL query part, like <code>https://localhost:6060?cert=&lt;cert&gt;</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>COZY_HOST_KEY</code> / <code>COZY_ADMIN_KEY</code></td>
+<td>none</td>
+<td>Client certificate to use<br />Can also be set via host URL query part, like <code>https://localhost:6060?key=&lt;key&gt;</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>COZY_HOST_FINGERPRINT</code> / <code>COZY_ADMIN_FINGERPRINT</code></td>
+<td>none</td>
+<td>Hex-encoded SHA-256 key pinning to use<br />Can also be set via host URL query part, like <code>https://localhost:6060?fp=&lt;fp&gt;</code><br /><br />You can get the fingerprint of a given certificate with<br /><code>openssl x509 -in &lt;certificat.crt&gt; -pubkey \| openssl pkey -pubin -outform der \| openssl dgst -sha256 -hex</code><br />or directly from a private key with <code>openssl pkey -in &lt;key.pem&gt; -pubout -outform der \| openssl dgst -sha256 -hex</code></td>
+</tr>
+</tbody>
 </table>
-
 <h2 id="administration-secret">Administration secret<a class="headerlink" href="#administration-secret" title="Permanent link">&para;</a></h2>
 <p>To access to the administration API (the <code>/admin/*</code> routes), a secret passphrase
 should be stored in a <code>cozy-admin-passphrase</code>. This file should be in one of the

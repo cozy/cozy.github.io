@@ -2729,6 +2729,9 @@
 <li><a href="#creating-a-client">Creating a client</a></li>
 <li><a href="#how-to-query-with-cozy-client">How to query with Cozy Client</a></li>
 <li><a href="#how-to-mutate-the-data">How to mutate the data</a></li>
+<li><a href="#learn-more-about-queries">Learn more about queries</a></li>
+<li><a href="#connecting-with-you-react-components">Connecting with you React components</a></li>
+<li><a href="#different-entrypoints-for-nodebrowser">Different entrypoints for node/browser</a></li>
 </ul>
 <!-- /MarkdownTOC -->
 
@@ -2778,15 +2781,16 @@ or
 <p>If you need guidance to get the URI of your instance and/or the token, see <a href="https://docs.cozy.io/en/tutorials/app/#behind-the-magic">the app tutorial</a>.</p>
 <p>Every doctype accessed in <code>cozy-client</code> needs to be declared in the schema section of the options. See the specific <a href="https://docs.cozy.io/en/cozy-client/schema">documentation</a> on how to use the schema features.</p>
 <h2 id="how-to-query-with-cozy-client">How to query with Cozy Client<a class="headerlink" href="#how-to-query-with-cozy-client" title="Permanent link">&para;</a></h2>
-<p>The two main methods to query data with cozyClient are <code>find()</code> and <code>get()</code>. Both take an doctype as first argument and return a <code>QueryDefinition</code> object: </p>
-<div class="codehilite"><pre><span></span><span class="nx">client</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">)</span>
+<p>To run a query, we first build a <code>QueryDefinition</code> with <code>Q</code>: </p>
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">Q</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 
-<span class="nx">client</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">,</span> <span class="s1">&#39;5fcbbf2cb171b1d5c3bc6df3d4affb32&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">allTodosQuery</span> <span class="o">=</span> <span class="nx">Q</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">singleTodoQuery</span> <span class="o">=</span> <span class="nx">Q</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">).</span><span class="nx">getById</span><span class="p">(</span><span class="s1">&#39;5fcbbf2cb171b1d5c3bc6df3d4affb32&#39;</span><span class="p">)</span>
 </pre></div>
 
 
 <p>A <code>QueryDefinition</code> is a special object that describe a query to be sent to CouchDB. It uses a fluent interface:</p>
-<div class="codehilite"><pre><span></span><span class="nx">client</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><span class="nx">Q</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">)</span>
   <span class="p">.</span><span class="nx">select</span><span class="p">([</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;checked&#39;</span><span class="p">])</span>
   <span class="p">.</span><span class="nx">where</span><span class="p">({</span><span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span><span class="p">})</span>
   <span class="p">.</span><span class="nx">include</span><span class="p">([</span><span class="s1">&#39;dependencies&#39;</span><span class="p">])</span>
@@ -2804,11 +2808,8 @@ or
   <span class="cm">/*...*/</span>
 <span class="p">})</span>
 
-<span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span>
-  <span class="nx">client</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">).</span><span class="nx">where</span><span class="p">({</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span> <span class="p">})</span>
-<span class="p">).</span><span class="nx">then</span><span class="p">(</span>
-  <span class="p">({</span> <span class="nx">data</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
-<span class="p">)</span>
+<span class="kr">const</span> <span class="p">{</span> <span class="nx">data</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">Q</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">).</span><span class="nx">where</span><span class="p">({</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span> <span class="p">}))</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
 </pre></div>
 
 
@@ -2824,19 +2825,11 @@ or
 <span class="c1">// create a new io.cozy.todo</span>
 <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Buy bread&#39;</span><span class="p">,</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span> <span class="p">})</span>
 
-<span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span>
-  <span class="nx">client</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">).</span><span class="nx">where</span><span class="p">({</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span> <span class="p">})</span>
-<span class="p">).</span><span class="nx">then</span><span class="p">(</span>
-
-  <span class="p">({</span> <span class="nx">data</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="p">{</span>
-
-    <span class="kr">const</span> <span class="nx">doc</span> <span class="o">=</span> <span class="nx">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="c1">// modify existing io.cozy.todo</span>
-    <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">save</span><span class="p">({...</span><span class="nx">doc</span><span class="p">,</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">true</span><span class="p">})</span>
-
-  <span class="p">}</span>
-
-<span class="p">)</span>
+<span class="kr">const</span> <span class="nx">qdef</span> <span class="o">=</span> <span class="nx">Q</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">).</span><span class="nx">where</span><span class="p">({</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span> <span class="p">})</span>
+<span class="kr">const</span> <span class="p">{</span> <span class="nx">data</span><span class="o">:</span> <span class="nx">todos</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">qdef</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">doc</span> <span class="o">=</span> <span class="nx">todos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="c1">// modify existing io.cozy.todo</span>
+<span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">save</span><span class="p">({...</span><span class="nx">doc</span><span class="p">,</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">true</span><span class="p">})</span>
 </pre></div>
 
 

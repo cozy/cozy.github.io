@@ -853,16 +853,36 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#cozy-client-architecture" title="cozy-client architecture" class="md-nav__link">
-    cozy-client architecture
+  <a href="#cozy-client-architecture" title="Cozy-client Architecture" class="md-nav__link">
+    Cozy-client Architecture
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#query-definitions" title="Query definitions" class="md-nav__link">
+    Query definitions
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#missing-parts" title="Missing parts" class="md-nav__link">
-    Missing parts
+        
+          <li class="md-nav__item">
+  <a href="#links" title="Links" class="md-nav__link">
+    Links
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#store" title="Store" class="md-nav__link">
+    Store
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2603,16 +2623,36 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#cozy-client-architecture" title="cozy-client architecture" class="md-nav__link">
-    cozy-client architecture
+  <a href="#cozy-client-architecture" title="Cozy-client Architecture" class="md-nav__link">
+    Cozy-client Architecture
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#query-definitions" title="Query definitions" class="md-nav__link">
+    Query definitions
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#missing-parts" title="Missing parts" class="md-nav__link">
-    Missing parts
+        
+          <li class="md-nav__item">
+  <a href="#links" title="Links" class="md-nav__link">
+    Links
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#store" title="Store" class="md-nav__link">
+    Store
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2637,17 +2677,119 @@
                 
                   <h1>Architecture</h1>
                 
-                <h3 id="cozy-client-architecture">cozy-client architecture<a class="headerlink" href="#cozy-client-architecture" title="Permanent link">&para;</a></h3>
+                <h2 id="cozy-client-architecture">Cozy-client Architecture<a class="headerlink" href="#cozy-client-architecture" title="Permanent link">&para;</a></h2>
 <p>This is an overview of the cozy-client architecture:</p>
 <p><img alt="Architecture schema" src="../architecture.png" /></p>
-<p>The architecture schema can also be accessed <a href="https://whimsical.co/6AJnnS7v5ePRcuKZysPAF5">online here</a>.
-It&rsquo;s created on https://whimsical.co/ — if you need to edit it, ask for an invite from one of the projects maintainers.</p>
-<h3 id="missing-parts">Missing parts<a class="headerlink" href="#missing-parts" title="Permanent link">&para;</a></h3>
+<!-- The architecture schema can also be accessed [online here](https://whimsical.co/6AJnnS7v5ePRcuKZysPAF5).
+It's created on https://whimsical.co/ — if you need to edit it, ask for an invite from one of the projects maintainers. -->
+
+<p>To explain the architecture, we will see how a request for data flows
+through cozy-client through links and finally how the data that has been
+fetched is stored in the redux store.</p>
+<!-- MarkdownTOC autolink=true -->
+
 <ul>
-<li>Init</li>
-<li>Associations</li>
-<li>Mutations</li>
+<li><a href="#query-definitions">Query definitions</a></li>
+<li><a href="#links">Links</a></li>
+<li><a href="#store">Store</a></li>
 </ul>
+<!-- /MarkdownTOC -->
+
+<h3 id="query-definitions">Query definitions<a class="headerlink" href="#query-definitions" title="Permanent link">&para;</a></h3>
+<p>To query data, we create a <em>query definition</em>: an object describing what documents to fetch.</p>
+<div class="codehilite"><pre><span></span>{
+  doctype: &quot;io.cozy.todos&quot;,
+  selector: {
+    &quot;finished&quot;: true
+  }
+}
+</pre></div>
+
+
+<p>It is typically created via the helper <code>Q</code> that provides a fluid interface
+to create a <em>Query Definition</em>.</p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">qdef</span> <span class="o">=</span> <span class="nx">Q</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">).</span><span class="nx">where</span><span class="p">({</span> <span class="nx">finished</span><span class="o">:</span> <span class="kc">true</span> <span class="p">})</span>
+</pre></div>
+
+
+<p>Then we need to execute this query, fetch the data, and storing it.</p>
+<div class="codehilite"><pre><span></span><span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">qdef</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="links">Links<a class="headerlink" href="#links" title="Permanent link">&para;</a></h3>
+<p>When executed, <em>Query definitions</em> are passed down to <em>Links</em>.</p>
+<p>Links accept query definitions and can choose</p>
+<ul>
+<li>either to return a response</li>
+<li>or to pass the query definition down to the next link. </li>
+</ul>
+<blockquote>
+<p>ℹ️ This is how offline support is implemented: on mobile, a PouchLink (we
+use PouchDB under the hood) is added as a link to cozy-client, before the
+default StackLink. The PouchLink can decide:</p>
+<ul>
+<li>either to pass down the query definition to the next link (if the PouchLink has not been synchronized for example),</li>
+<li>or to respond to the request by communicating directly with PouchDB.</li>
+</ul>
+</blockquote>
+<p>At the moment there are only two links:</p>
+<ul>
+<li>StackLink : fetches data over HTTP by communicating to the Cozy&rsquo;s Stack via the
+StackClient.</li>
+<li>PouchLink : fetches data from a local PouchDB. Useful to have offline-ready
+  applications.</li>
+</ul>
+<h3 id="store">Store<a class="headerlink" href="#store" title="Permanent link">&para;</a></h3>
+<p>When links have responded with data, the data is stored inside the
+<em>redux store</em> that is internal to cozy-client. This redux store
+brings observability to cozy-client, and allows for connection of
+UI components to the data.</p>
+<blockquote>
+<p>ℹ️ You do not need to use Redux in your application to use cozy-client.</p>
+<p>ℹ️ You can connect your own store to cozy-client. It is useful for more
+advanced techniques where you create selectors directly on the data
+of cozy-client.</p>
+</blockquote>
+<p>The redux store is composed of two slices, &ldquo;documents&rdquo; and &ldquo;queries&rdquo;: </p>
+<ul>
+<li><code>documents</code> stores the data indexed by <code>[doctype]([doctype](https://docs.cozy.io/en/cozy-doctypes/docs/)</code> then <code>_id</code>.</li>
+<li><code>queries</code> store information for each query that has been done by cozy-client. <ul>
+<li>ids of the documents that match the query</li>
+<li>whether the server has more documents that can be fetched (useful for
+  pagination)</li>
+<li>whether the query is being loaded.</li>
+</ul>
+</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nx">documents</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s1">&#39;io.cozy.todos&#39;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s1">&#39;todo-id-1&#39;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="nx">finished</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                <span class="nx">label</span><span class="o">:</span> <span class="s2">&quot;Add architecture document for cozy-client&quot;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nx">queries</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">finishedTodos</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">data</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;todo-id-1&#39;</span><span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+
+
+<blockquote>
+<p>ℹ️ If queries are not named, a name is automatically generated but this means that the <code>queries</code>
+slice can grow indefinitely if there are a large number of queries. This is why you are 
+encouraged to name your queries : <code>client.query(qdef, { as: 'finishedTodos'})</code>. </p>
+</blockquote>
+<p>The glue between the Redux store and the UI is done via ObservableQuery.
+<code>ObservableQuery</code> are objects instantiated by a <Query /> component. Their
+role is to react to store changes and wake the component. They should not
+be used directly as <code>useQuery</code> and <code>queryConnect</code> do the job for you.</p>
                 
                   
                 

@@ -2866,7 +2866,7 @@
 <h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
 <h3 id="include-relations-in-your-query">Include relations in your query<a class="headerlink" href="#include-relations-in-your-query" title="Permanent link">&para;</a></h3>
 <p>Relations are not loaded eagerly by default. If you want your query to load your relations for you by default, you will have to name them in a <code>include()</code> request.</p>
-<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">query</span> <span class="o">=</span> <span class="nx">client</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;io.cozy.books&#39;</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">query</span> <span class="o">=</span> <span class="nx">Q</span><span class="p">(</span><span class="s1">&#39;io.cozy.books&#39;</span><span class="p">)</span>
   <span class="p">.</span><span class="nx">include</span><span class="p">([</span><span class="s1">&#39;authors&#39;</span><span class="p">])</span>
   <span class="p">.</span><span class="nx">limitBy</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
 </pre></div>
