@@ -2767,8 +2767,9 @@ notifications, with the following properties:</p>
     for a user&rsquo;s bank account: such notification is only useful as its last
     value.</li>
 <li><code>stateful</code> (boolean): defines a notification storing a piece of state: for
-    each new notification, the stack will check that the last sent notification
-    has a different state.</li>
+    each new notification, the stack will check that if the last sent notification
+    has a different state before sending it. If not, the notification will not
+    be resent</li>
 <li><code>multiple</code> (boolean): specify the possibility for a notification to have
     different sub-categories, defined by a programmable/dynamic identifier.
     <code>collapsible</code> and <code>stateful</code> properties are inherited for each sub-
@@ -2812,17 +2813,17 @@ notification:</p>
 <ul>
 <li><code>category</code> (string): name of the notification category</li>
 <li><code>category_id</code> (string): category name if the category is multiple</li>
-<li><code>title</code> (string): title of the notification (optional)</li>
+<li><code>title</code> (string): title of the notification</li>
 <li><code>message</code> (string): message of of the notification (optional)</li>
 <li><code>priority</code> (string): priority of the notification (<code>high</code> or <code>normal</code>), sent
     to the underlying channel to prioritize the notification</li>
-<li><code>state</code> (string): state of the notification, used for <code>stateful</code>
-    notification categories, to distinguish notifications</li>
+<li><code>state</code> (string): state of the notification. Only needed if your 
+    notification is <code>stateful</code>, to distinguish notifications</li>
 <li><code>preferred_channels</code> (array of string): to select a list of preferred
     channels for this notification: either <code>"mobile"</code>, <code>"sms"</code> or <code>"mail"</code>. The
     stack may chose another channels. <code>["mobile", "mail"]</code> means that the stack
     will first try to send a mobile push notification, and if it fails, it will
-    try by mail.</li>
+    try by mail</li>
 <li><code>data</code> (map): key/value map used to create the notification from its
     template, or sent in the notification payload for mobiles</li>
 <li><code>at</code> (string): send the notification later, at this date formatted in

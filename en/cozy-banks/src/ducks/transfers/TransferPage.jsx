@@ -39,7 +39,7 @@ import Summary from 'ducks/transfers/steps/Summary'
 import Password from 'ducks/transfers/steps/Password'
 import { isLoginFailed } from 'ducks/transfers/utils'
 import BarTheme from 'ducks/bar/BarTheme'
-import { PersonalInfoGate } from 'ducks/personal-info'
+import TransferGate from './TransferGate'
 import { trackPage } from 'ducks/tracking/browser'
 
 const THIRTY_SECONDS = 30 * 1000
@@ -419,7 +419,7 @@ class TransferPage extends React.Component {
     )
 
     return (
-      <PersonalInfoGate>
+      <TransferGate>
         {transferState ? (
           <>
             {transferState === 'sending' && <Loading />}
@@ -474,7 +474,7 @@ class TransferPage extends React.Component {
             senderAccount={senderAccount}
           />
         </Stepper>
-      </PersonalInfoGate>
+      </TransferGate>
     )
   }
 }
