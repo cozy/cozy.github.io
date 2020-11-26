@@ -3942,7 +3942,7 @@ are replicated in the <code>io.cozy.jobs</code> attributes:</p>
 <p>This route requires a specific permission on the worker-type. A global
 permission on the global <code>io.cozy.jobs</code> doctype is not allowed.</p>
 <p>Each <a href="../workers/">worker</a> accepts different arguments. For konnectors, the
-arguments will be given in the <code>COZY_FIELDS</code> env variable.</p>
+arguments will be given in the <code>process.env['COZY_FIELDS']</code> variable.</p>
 <h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/jobs/queue/sendmail</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
@@ -4418,10 +4418,12 @@ permissions to delete the trigger, even without permissions on the
 <code>io.cozy.triggers</code> for the verb <code>GET</code>. When used on a specific worker, the
 permission can be specified on the <code>worker</code> field.</p>
 <h3 id="post-jobswebhookstrigger-id">POST /jobs/webhooks/:trigger-id<a class="headerlink" href="#post-jobswebhookstrigger-id" title="Permanent link">&para;</a></h3>
-<p>This endpoint is used for creating a job (for example executing a konnector).
+<p>This endpoint is used for creating a job (for example executing a konnector
+or a service).
 It requires no permission, but a trigger of type <code>@webhook</code> must have been
 created before using this endpoint. Its body must be a JSON that will be
-available to the konnector with the <code>COZY_PAYLOAD</code> env variable.</p>
+available to the konnector or to the service through the 
+<code>process.env['COZY_PAYLOAD']</code> variable.</p>
 <h4 id="request_12">Request<a class="headerlink" href="#request_12" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/jobs/webhooks/f34c74d0-0c91-0139-5af5-543d7eb8149c</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>

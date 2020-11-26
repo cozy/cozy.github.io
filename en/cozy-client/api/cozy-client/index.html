@@ -1504,6 +1504,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#querydefinitioncheckselectorselector-void" title="queryDefinition.checkSelector(selector) ⇒ void" class="md-nav__link">
+    queryDefinition.checkSelector(selector) ⇒ void
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#querydefinitiongetbyidid-querydefinition" title="queryDefinition.getById(id) ⇒ QueryDefinition" class="md-nav__link">
     queryDefinition.getById(id) ⇒ QueryDefinition
   </a>
@@ -1534,6 +1541,13 @@
           <li class="md-nav__item">
   <a href="#querydefinitionindexfieldsindexedfields-querydefinition" title="queryDefinition.indexFields(indexedFields) ⇒ QueryDefinition" class="md-nav__link">
     queryDefinition.indexFields(indexedFields) ⇒ QueryDefinition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#querydefinitionpartialindexpartialfilter" title="queryDefinition.partialIndex(partialFilter)" class="md-nav__link">
+    queryDefinition.partialIndex(partialFilter)
   </a>
   
 </li>
@@ -4540,6 +4554,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#querydefinitioncheckselectorselector-void" title="queryDefinition.checkSelector(selector) ⇒ void" class="md-nav__link">
+    queryDefinition.checkSelector(selector) ⇒ void
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#querydefinitiongetbyidid-querydefinition" title="queryDefinition.getById(id) ⇒ QueryDefinition" class="md-nav__link">
     queryDefinition.getById(id) ⇒ QueryDefinition
   </a>
@@ -4570,6 +4591,13 @@
           <li class="md-nav__item">
   <a href="#querydefinitionindexfieldsindexedfields-querydefinition" title="queryDefinition.indexFields(indexedFields) ⇒ QueryDefinition" class="md-nav__link">
     queryDefinition.indexFields(indexedFields) ⇒ QueryDefinition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#querydefinitionpartialindexpartialfilter" title="queryDefinition.partialIndex(partialFilter)" class="md-nav__link">
+    queryDefinition.partialIndex(partialFilter)
   </a>
   
 </li>
@@ -7123,11 +7151,13 @@ from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
 <li><a href="#QueryDefinition">QueryDefinition</a><ul>
 <li><a href="#new_QueryDefinition_new">new QueryDefinition(options)</a></li>
 <li><a href="#QueryDefinition+checkSortOrder">.checkSortOrder(sort|selector|indexedFields)</a></li>
+<li><a href="#QueryDefinition+checkSelector">.checkSelector(selector)</a> ⇒ <code>void</code></li>
 <li><a href="#QueryDefinition+getById">.getById(id)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
 <li><a href="#QueryDefinition+getByIds">.getByIds(ids)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
 <li><a href="#QueryDefinition+where">.where(selector)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
 <li><a href="#QueryDefinition+select">.select(fields)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
 <li><a href="#QueryDefinition+indexFields">.indexFields(indexedFields)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
+<li><a href="#QueryDefinition+partialIndex">.partialIndex(partialFilter)</a></li>
 <li><a href="#QueryDefinition+sortBy">.sortBy(sort)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
 <li><a href="#QueryDefinition+include">.include(includes)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
 <li><a href="#QueryDefinition+limitBy">.limitBy(limit)</a> ⇒ <a href="#QueryDefinition"><code>QueryDefinition</code></a></li>
@@ -7185,6 +7215,11 @@ from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
 <td>The fields to index.</td>
 </tr>
 <tr>
+<td>options.partialFilter</td>
+<td><code>object</code></td>
+<td>The partial index definition to filter docs.</td>
+</tr>
+<tr>
 <td>options.sort</td>
 <td><code>Array</code></td>
 <td>The sorting params.</td>
@@ -7223,7 +7258,7 @@ from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
 </table>
 <p><a name="QueryDefinition+checkSortOrder"></a></p>
 <h3 id="querydefinitionchecksortordersortselectorindexedfields">queryDefinition.checkSortOrder(sort|selector|indexedFields)<a class="headerlink" href="#querydefinitionchecksortordersortselectorindexedfields" title="Permanent link">&para;</a></h3>
-<p>Check if the sort order matches the index&rsquo; fields order.</p>
+<p>Checks if the sort order matches the index&rsquo; fields order.</p>
 <p>When sorting with CouchDB, it is required to:
 - use indexed fields
 - keep the same order than the indexed fields.</p>
@@ -7240,6 +7275,27 @@ from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
 <tr>
 <td>sort</td>
 <td>selector</td>
+</tr>
+</tbody>
+</table>
+<p><a name="QueryDefinition+checkSelector"></a></p>
+<h3 id="querydefinitioncheckselectorselector-void">queryDefinition.checkSelector(selector) ⇒ <code>void</code><a class="headerlink" href="#querydefinitioncheckselectorselector-void" title="Permanent link">&para;</a></h3>
+<p>Checks the selector predicates.</p>
+<p>It is useful to warn the developer when a partial index might be used.</p>
+<p><strong>Kind</strong>: instance method of <a href="#QueryDefinition"><code>QueryDefinition</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>selector</td>
+<td><code>object</code></td>
+<td>The selector definition</td>
 </tr>
 </tbody>
 </table>
@@ -7346,6 +7402,29 @@ Each field passed in the selector will be indexed, except if the indexField opti
 <td>indexedFields</td>
 <td><code>Array</code></td>
 <td>The fields to index.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="QueryDefinition+partialIndex"></a></p>
+<h3 id="querydefinitionpartialindexpartialfilter">queryDefinition.partialIndex(partialFilter)<a class="headerlink" href="#querydefinitionpartialindexpartialfilter" title="Permanent link">&para;</a></h3>
+<p>Specify a <a href="https://docs.couchdb.org/en/stable/api/database/find.html#find-partial-indexes">partial index</a>.
+The filter must follow the same syntax than the selector.</p>
+<p>A partial index includes a filter, used to select documents before the indexing.
+You can find more information about partial indexes <a href="https://docs.cozy.io/en/tutorials/data/advanced/#partial-indexes">here</a></p>
+<p><strong>Kind</strong>: instance method of <a href="#QueryDefinition"><code>QueryDefinition</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>partialFilter</td>
+<td><code>object</code></td>
+<td>The filter definition.</td>
 </tr>
 </tbody>
 </table>
