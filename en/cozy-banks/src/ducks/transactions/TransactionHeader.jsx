@@ -7,8 +7,9 @@ import cx from 'classnames'
 import { BalanceDetailsHeader } from 'ducks/balance'
 import TransactionSelectDates from 'ducks/transactions/TransactionSelectDates'
 import { ConnectedHistoryChart as HistoryChart } from 'ducks/balance/HistoryChart'
-import Padded from 'components/Padded'
+import LegalMention from 'ducks/legal/LegalMention'
 
+import Padded from 'components/Padded'
 import withSize from 'components/withSize'
 import TableHead from './header/TableHead'
 import styles from './TransactionsHeader.styl'
@@ -64,7 +65,7 @@ const TransactionHeader = ({
 }) => {
   const { isMobile } = useBreakpoints()
   return (
-    <BalanceDetailsHeader showBalance={showBalance}>
+    <BalanceDetailsHeader showBalance={showBalance} showLegalMention={false}>
       <TransactionHeaderBalanceHistory
         currentMonth={currentMonth}
         size={size}
@@ -84,6 +85,7 @@ const TransactionHeader = ({
           handleChangeMonth={handleChangeMonth}
           currentMonth={currentMonth}
         />
+        <LegalMention className="u-mt-1" />
       </Padded>
       <CozyTheme variant="inverted">
         {transactions.length > 0 && <TableHead />}

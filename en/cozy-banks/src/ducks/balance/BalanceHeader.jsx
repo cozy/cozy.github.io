@@ -16,6 +16,7 @@ import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
 import { MobileBarSearchIconLink } from 'ducks/search/SearchIconLink'
 import styles from 'ducks/balance/BalanceHeader.styl'
+import LegalMention from 'ducks/legal/LegalMention'
 
 const BalanceHeader = ({
   accountsBalance,
@@ -57,6 +58,11 @@ const BalanceHeader = ({
         </Delayed>
       )}
       <KonnectorUpdateInfo />
+      {LegalMention.active ? (
+        <Padded>
+          <LegalMention />
+        </Padded>
+      ) : null}
     </Header>
   )
 }

@@ -79,16 +79,18 @@ const PlannedTransactionsPage = () => {
         <BarTheme theme="primary" />
         <Padded>
           {isMobile ? (
-            <div className={cx('u-stack-s', styles['Title--mobile'])}>
+            <>
               <BackButton theme="primary" onClick={handleBack} />
-              <div className="u-ta-center u-mh-1">
-                <Typography color="primary" variant="h5">
-                  {t('EstimatedBudget.page-title')}
-                </Typography>
+              <div className={cx('u-ta-center', styles['Title--mobile'])}>
+                <div>
+                  <Typography color="primary" variant="h5">
+                    {t('EstimatedBudget.page-title')}
+                  </Typography>
+                </div>
                 <AccountSwitch size="small" insideBar={false} />
               </div>
               <HeaderInfoCard />
-            </div>
+            </>
           ) : (
             <Media>
               <Img>

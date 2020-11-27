@@ -180,7 +180,7 @@ export const schema = {
   }
 }
 
-const older30s = CozyClient.fetchPolicies.olderThan(30 * 1000)
+export const older30s = CozyClient.fetchPolicies.olderThan(30 * 1000)
 
 export const accountsConn = {
   query: () => Q(ACCOUNT_DOCTYPE).include(['owners', 'connection']),

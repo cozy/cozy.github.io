@@ -41,6 +41,8 @@ import { isLoginFailed } from 'ducks/transfers/utils'
 import BarTheme from 'ducks/bar/BarTheme'
 import TransferGate from './TransferGate'
 import { trackPage } from 'ducks/tracking/browser'
+import LegalMention from 'ducks/legal/LegalMention'
+import Header from 'components/Header'
 
 const THIRTY_SECONDS = 30 * 1000
 
@@ -371,7 +373,12 @@ class TransferPage extends React.Component {
   }
 
   render() {
-    const { recipients, accounts, myself } = this.props
+    const {
+      recipients,
+      accounts,
+      myself,
+      breakpoints: { isMobile }
+    } = this.props
 
     const {
       category,
@@ -434,7 +441,11 @@ class TransferPage extends React.Component {
             )}
           </>
         ) : null}
-
+        <Header theme={isMobile ? 'inverted' : 'normal'}>
+          <Padded className="u-pv-half">
+            <LegalMention />
+          </Padded>
+        </Header>
         <Stepper currentIndex={this.state.slide} onBack={this.handleGoBack}>
           <ChooseRecipientCategory
             category={category}

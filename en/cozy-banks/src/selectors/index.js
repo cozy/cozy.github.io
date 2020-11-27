@@ -58,7 +58,7 @@ export const querySelector = (queryName, options = {}) => {
 }
 
 export const queryDataSelector = (queryName, options) =>
-  createSelector(
+  queryCreateSelector(
     [querySelector(queryName, options)],
     query => (query && query.data) || []
   )

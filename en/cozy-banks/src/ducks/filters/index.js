@@ -61,49 +61,53 @@ export const getFilteringDoc = createSelector(
   }
 )
 
-export const getFilteredAccountIds = state => {
-  const availableAccountIds = getAccounts(state).map(x => x._id)
-  const doc = getFilteringDoc(state)
-  if (!doc) {
-    return availableAccountIds
-  }
+export const getFilteredAccountIds = createSelector(
+  [getAccounts, getFilteringDoc, getAllGroups],
+  (accounts, doc, groups) => {
+    const availableAccountIds = accounts.map(x => x._id)
+    if (!doc) {
+      return availableAccountIds
+    }
 
-  const doctype = doc._type
-  const id = doc._id
+    const doctype = doc._type
+    const id = doc._id
 
-  if (doctype === ACCOUNT_DOCTYPE) {
-    if (availableAccountIds.indexOf(id) > -1) {
-      return [id]
+    if (doctype === ACCOUNT_DOCTYPE) {
+      if (availableAccountIds.indexOf(id) > -1) {
+        return [id]
+      } else {
+        // eslint-disable-next-line no-console
+        return availableAccountIds
+      }
+    } else if (doctype === GROUP_DOCTYPE) {
+      const group = find(groups, { _id: id })
+      if (!group) {
+        return availableAccountIds
+      }
+      const accountIds = group.accounts.raw
+      if (accountIds) {
+        return accountIds
+      } else {
+        return availableAccountIds
+      }
+    } else if (doc.length) {
+      // In this case we have already been provided with
+      // accountsIds
+      return doc
     } else {
-      // eslint-disable-next-line no-console
+      log('warn', `The filtering doc '${doc}' doesn't have any type.`)
       return availableAccountIds
     }
-  } else if (doctype === GROUP_DOCTYPE) {
-    const groups = getAllGroups(state)
-    const group = find(groups, { _id: id })
-    if (!group) {
-      return availableAccountIds
-    }
-    const accountIds = group.accounts.raw
-    if (accountIds) {
-      return accountIds
-    } else {
-      return availableAccountIds
-    }
-  } else if (doc.length) {
-    // In this case we have already been provided with
-    // accountsIds
-    return doc
-  } else {
-    log('warn', `The filtering doc '${doc}' doesn't have any type.`)
-    return availableAccountIds
   }
-}
+)
 
-export const getFilteredAccounts = state => {
-  const ids = keyBy(getFilteredAccountIds(state))
-  return getAccounts(state).filter(account => ids[account._id])
-}
+export const getFilteredAccounts = createSelector(
+  [getFilteredAccountIds, getAccounts],
+  (accountIds, accounts) => {
+    const ids = keyBy(accountIds)
+    return accounts.filter(account => ids[account._id])
+  }
+)
 
 const filterByAccountIds = (transactions, accountIds) =>
   transactions.filter(transaction => {

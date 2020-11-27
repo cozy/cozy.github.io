@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import cx from 'classnames'
 
 import { isMobileApp } from 'cozy-device-helper'
 import { queryConnect, isQueryLoading, hasQueryBeenLoaded } from 'cozy-client'
@@ -13,6 +15,7 @@ import maxBy from 'lodash/maxBy'
 import uniq from 'lodash/uniq'
 import findIndex from 'lodash/findIndex'
 import isEqual from 'lodash/isEqual'
+import debounce from 'lodash/debounce'
 import compose from 'lodash/flowRight'
 import {
   getFilteringDoc,
@@ -68,6 +71,13 @@ class TransactionsPage extends Component {
     this.handleChangeTopmostTransaction = this.handleChangeTopmostTransaction.bind(
       this
     )
+    this.handleHeaderRef = this.handleHeaderRef.bind(this)
+    this.handleListRef = this.handleListRef.bind(this)
+    this.handleResize = debounce(this.handleResize.bind(this), 500, {
+      trailing: true,
+      leading: false
+    })
+
     this.checkToActivateTopInfiniteScroll = this.checkToActivateTopInfiniteScroll.bind(
       this
     )
@@ -94,6 +104,29 @@ class TransactionsPage extends Component {
 
   componentDidMount() {
     this.trackPage()
+
+    window.addEventListener('resize', this.handleResize)
+    this.handleResize()
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize)
+  }
+
+  handleResize() {
+    // eslint-disable-next-line
+    const headerNode = ReactDOM.findDOMNode(this.headerRef).firstChild
+    // eslint-disable-next-line
+    const listNode = ReactDOM.findDOMNode(this.listRef)
+
+    if (document.body.getBoundingClientRect().width < 768) {
+      listNode.style.paddingTop =
+        headerNode.getBoundingClientRect().height + 'px'
+    } else {
+      listNode.style.paddingTop = 0
+    }
+
+    listNode.style.opacity = 1
   }
 
   trackPage() {
@@ -292,6 +325,14 @@ class TransactionsPage extends Component {
     )
   }
 
+  handleListRef(ref) {
+    this.listRef = ref
+  }
+
+  handleHeaderRef(ref) {
+    this.headerRef = ref
+  }
+
   render() {
     const {
       accounts,
@@ -311,6 +352,7 @@ class TransactionsPage extends Component {
         <BarTheme theme={theme} />
         {showHeader ? (
           <TransactionHeader
+            ref={this.handleHeaderRef}
             transactions={filteredTransactions}
             handleChangeMonth={this.handleChangeMonth}
             currentMonth={this.state.currentMonth}
@@ -319,7 +361,13 @@ class TransactionsPage extends Component {
           />
         ) : null}
         <div
-          className={`${styles.TransactionPage__transactions} ${className} js-scrolling-element`}
+          ref={this.handleListRef}
+          style={{ opacity: 0 }}
+          className={cx(
+            styles.TransactionPage__transactions,
+            className,
+            'js-scrolling-element'
+          )}
         >
           {flag('banks.future-balance') && showFutureBalance ? (
             <FutureBalanceCard />

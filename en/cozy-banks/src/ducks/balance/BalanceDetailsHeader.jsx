@@ -10,10 +10,17 @@ import BarBalance from 'components/BarBalance'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { BarRight } from 'components/Bar'
 import SearchIconLink from 'ducks/search/SearchIconLink'
+import LegalMention from 'ducks/legal/LegalMention'
 
 export const DumbBalanceDetailsHeader = props => {
   const { isMobile } = useBreakpoints()
-  const { accountSwitchSize, showBalance, filteredAccounts, children } = props
+  const {
+    accountSwitchSize,
+    showBalance,
+    filteredAccounts,
+    children,
+    showLegalMention
+  } = props
 
   return (
     <Header theme="inverted" fixed>
@@ -27,6 +34,9 @@ export const DumbBalanceDetailsHeader = props => {
           <BackButton theme="primary" arrow />
           <AccountSwitch size={accountSwitchSize} theme="inverted" />
         </div>
+        {showLegalMention !== false ? (
+          <LegalMention className={isMobile ? 'u-mr-1 u-mb-half' : ''} />
+        ) : null}
       </Padded>
       {isMobile && (
         <BarRight>
