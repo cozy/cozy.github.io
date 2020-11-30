@@ -90,7 +90,7 @@ class CategoriesPage extends Component {
     const { categoryName, subcategoryName } = router.params
     trackPage(
       `analyse:${categoryName ? categoryName : 'home'}${
-        subcategoryName ? `:${subcategoryName}` : ''
+        subcategoryName ? `:details` : ''
       }`
     )
   }

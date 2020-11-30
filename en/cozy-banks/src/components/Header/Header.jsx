@@ -11,6 +11,7 @@ class Header extends React.PureComponent {
     return (
       <CozyTheme variant={theme}>
         <div
+          role="header"
           className={cx(
             styles[`HeaderColor_${theme}`],
             {

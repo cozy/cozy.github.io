@@ -10,7 +10,8 @@ import Alerter from 'cozy-ui/transpiled/react/Alerter'
 
 export const trackerShim = {
   trackPage: () => {},
-  trackEvent: () => {}
+  trackEvent: () => {},
+  name: 'shim'
 }
 
 export const getMatomoTracker = memoize(() => {
@@ -32,6 +33,7 @@ export const getMatomoTracker = memoize(() => {
   trackerInstance.push(['setSiteId', 8])
 
   return {
+    name: 'matomo',
     trackEvent: event => {
       const { name, action, category } = event
       if (!name) {

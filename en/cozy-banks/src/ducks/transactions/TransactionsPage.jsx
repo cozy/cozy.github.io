@@ -115,7 +115,11 @@ class TransactionsPage extends Component {
 
   handleResize() {
     // eslint-disable-next-line
-    const headerNode = ReactDOM.findDOMNode(this.headerRef).firstChild
+    let headerNodeParent = ReactDOM.findDOMNode(this.headerRef)
+    if (!headerNodeParent) {
+      headerNodeParent = document.querySelector('[role="header"]')
+    }
+    const headerNode = headerNodeParent.firstChild
     // eslint-disable-next-line
     const listNode = ReactDOM.findDOMNode(this.listRef)
 

@@ -104,8 +104,6 @@ const AccountsImporting = ({ classes, konnectorInfos }) => {
 }
 
 AccountsImporting.propTypes = {
-  t: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
   konnectorInfos: PropTypes.arrayOf(PropTypes.object)
 }
 

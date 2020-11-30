@@ -51,7 +51,7 @@ module.exports = {
     ]),
 
     new VersionPlugin({
-      packages: ['cozy-bar', 'cozy-ui']
+      packages: ['cozy-bar', 'cozy-ui', 'cozy-harvest-lib']
     })
   ]
 }

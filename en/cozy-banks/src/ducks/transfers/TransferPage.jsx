@@ -58,7 +58,7 @@ const slideIndexes = [
 const slideNameToTrackPageName = {
   category: 'choix_virement',
   beneficiary: 'choix_beneficiaire',
-  sender: 'emetteur',
+  sender: 'choix_compte',
   summary: 'resume',
   password: 'securite',
   amount: 'montant'
@@ -189,7 +189,7 @@ class TransferPage extends React.Component {
   }
 
   componentDidMount() {
-    trackPage(`virement:categorie`)
+    trackPage(`virement:${slideNameToTrackPageName['category']}`)
   }
 
   componentDidUpdate(prevProps) {
@@ -350,7 +350,14 @@ class TransferPage extends React.Component {
 
   selectSlideByName(slideName) {
     this.setState(this.getStateUpdateForSlideName(slideName))
-    trackPage(`virement:${slideNameToTrackPageName[slideName]}`)
+    trackPage(lastTracked => {
+      const page = `virement:${slideNameToTrackPageName[slideName]}`
+      if (lastTracked !== page) {
+        return `virement:${slideNameToTrackPageName[slideName]}`
+      } else {
+        return false
+      }
+    })
   }
 
   handleModalDismiss() {

@@ -2633,10 +2633,7 @@
 documents and files from her cozy instance to other people.</p>
 <ul>
 <li>An identifier (the same for all members of the sharing)</li>
-<li>A list of <code>members</code>. The first one is the owner. For each member,
-  we have the URL of the cozy, a public name, an email, a status and some
-  credentials to authorize the transfer of data between the owner and the
-  recipients. The status can be: <ul>
+<li>A list of <code>members</code>. The first one is the owner. For each member, we have the URL of the cozy, a public name, an email, a status and some credentials to authorize the transfer of data between the owner and the recipients. The status can be:<ul>
 <li><code>owner</code> for the member that has created the sharing</li>
 <li><code>mail-not-sent</code> for a member that has been added, but its invitation has not yet been sent (often, this status is used only for a few seconds)</li>
 <li><code>pending</code> for a member with an invitation sent, but who has not clicked on the link</li>
@@ -2645,30 +2642,29 @@ documents and files from her cozy instance to other people.</p>
 <li><code>revoked</code> for a member who is on longer in the sharing</li>
 </ul>
 </li>
-<li>A <code>description</code> (one sentence that will help people understand what is shared
-  and why)</li>
-<li>a flag <code>active</code> that says if the sharing is currently active for at least
-  one member</li>
-<li>a flag <code>owner</code>, true for the document on the cozy of the sharer, and absent
-  on the other cozy instance</li>
-<li>a flag <code>open_sharing</code>:</li>
+<li>A <code>description</code> (one sentence that will help people understand what is shared and why)</li>
+<li>a flag <code>active</code> that says if the sharing is currently active for at least one member</li>
+<li>a flag <code>owner</code>, true for the document on the cozy of the sharer, and absent on the other cozy instance</li>
+<li>a flag <code>open_sharing</code>:<ul>
 <li><code>true</code> if any member of the sharing can add a new recipient</li>
 <li><code>false</code> if only the owner can add a new recipient</li>
+</ul>
+</li>
 <li>Some technical data (<code>created_at</code>, <code>updated_at</code>, <code>app_slug</code>, <code>preview_path</code>,
   <code>triggers</code>, <code>credentials</code>)</li>
-<li>A list of sharing <code>rules</code>, each rule being composed of:</li>
+<li>A list of sharing <code>rules</code>, each rule being composed of:<ul>
 <li>a <code>title</code>, that will be displayed to the recipients before they accept the
-    sharing</li>
+sharing</li>
 <li>the <code>doctype</code></li>
 <li>a <code>selector</code> (by default, it’s the <code>id</code>) and <code>values</code> (one identifier, a
-    list of identifiers, files and folders inside a folder, files that are
-    referenced by the same document, documents bound to a previous sharing rule)</li>
+list of identifiers, files and folders inside a folder, files that are
+referenced by the same document, documents bound to a previous sharing rule)</li>
 <li><code>local</code>: by default <code>false</code>, but it can false <code>true</code> for documents that are
-    useful for the preview page but doesn’t need to be send to the recipients
-    (e.g. a setting document of the application)</li>
+useful for the preview page but doesn’t need to be send to the recipients
+(e.g. a setting document of the application)</li>
 <li><code>add</code>: What to do when a new document matches this rule (the document is
-    created, or it was a document that didn’t match the rule and is modified and
-    the new version matches the rule). Can be:<ul>
+created, or it was a document that didn’t match the rule and is modified and
+the new version matches the rule). Can be:<ul>
 <li><code>none</code>: the updates are never propagated (the default)</li>
 <li><code>push</code>: the updates made on the owner are sent to the recipients</li>
 <li><code>sync</code>: the updates on any member are propagated to the other members</li>
@@ -2687,6 +2683,8 @@ documents and files from her cozy instance to other people.</p>
 <li><code>push</code>: the updates made on the owner are sent to the recipients</li>
 <li><code>sync</code>: the updates on any member are propagated to the other members</li>
 <li><code>revoke</code>: the sharing is revoked.</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -2770,12 +2768,14 @@ documents are shared, and to replicate changes from one Cozy to the others.</p>
 <li><code>_rev</code>: the CouchDB default revision for this document (not very meaningful,
   it’s here to avoid concurrency issues)</li>
 <li><code>revisions</code>: a tree with the last known <code>_rev</code>s of the referenced object</li>
-<li><code>infos</code>, a map of sharing ids → <code>{rule, removed, binary}</code></li>
+<li><code>infos</code>, a map of sharing ids → <code>{rule, removed, binary}</code><ul>
 <li><code>rule</code> says which rule from the sharing must be applied for this document</li>
 <li><code>removed</code> will be true for a deleted document, a trashed file, or if the
-    document does no longer match the sharing rule</li>
+document does no longer match the sharing rule</li>
 <li><code>binary</code> is a boolean flag that is true only for files (and not even
-    folders) with <code>removed: false</code></li>
+folders) with <code>removed: false</code></li>
+</ul>
+</li>
 </ul>
 <h2 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h2>
 <div class="codehilite"><pre><span></span><span class="p">{</span>

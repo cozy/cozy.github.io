@@ -4,6 +4,7 @@ import Padded from 'components/Padded'
 import { translate, Input, InputGroup, Label } from 'cozy-ui/transpiled/react'
 import PageTitle from 'components/Title/PageTitle'
 import BottomButton from 'components/BottomButton'
+import { trackPage } from 'ducks/tracking/browser'
 
 import Title from 'ducks/transfers/steps/Title'
 
@@ -20,7 +21,14 @@ const validateAmount = amount => {
   } else if (isNaN(parseInt(amount, 10))) {
     return { error: 'incorrect-number', value: amount }
   }
+
   return { ok: true }
+}
+
+const errorToTrackPage = {
+  'too-high': 'erreur-montant_maximum',
+  'too-low': 'erreur-montant_minimum',
+  'incorrect-number': 'erreur-chiffres'
 }
 
 class _ChooseAmount extends React.PureComponent {
@@ -48,7 +56,18 @@ class _ChooseAmount extends React.PureComponent {
   }
 
   validate() {
-    this.setState({ validation: validateAmount(this.props.amount) })
+    const validationResult = validateAmount(this.props.amount)
+    if (!validationResult.ok) {
+      const errorPage = errorToTrackPage[validationResult.error]
+      trackPage(lastTracked => {
+        const page = `virement:montant:${errorPage}`
+        if (page == lastTracked) {
+          return false
+        }
+        return page
+      })
+    }
+    this.setState({ validation: validationResult })
   }
 
   render() {
@@ -65,13 +84,10 @@ class _ChooseAmount extends React.PureComponent {
             <Input
               className="u-mt-0"
               value={amount}
-              onChange={ev => {
-                onChange(ev.target.value)
-              }}
+              onChange={ev => onChange(ev.target.value)}
               step="any"
-              type="number"
               onBlur={this.handleBlur}
-              error={validation.error}
+              error={Boolean(validation.error)}
               placeholder="10"
             />
           </InputGroup>

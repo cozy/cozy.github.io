@@ -31,6 +31,9 @@ const enhancedTrackPage = (tracker, pageNameArg) => {
       ? pageNameArg(lastTrackedPage, parentPage)
       : pageNameArg
 
+  if (pageName === false) {
+    return
+  }
   lastTrackedPage = pageName
   tracker.trackPage(pageName)
 }
