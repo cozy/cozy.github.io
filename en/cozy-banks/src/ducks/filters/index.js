@@ -143,7 +143,7 @@ const getApplicationDateOrDisplayDate = transaction => {
 export const getDateGetter = createSelector(
   [getPathnameFromLocationProp],
   pathname => {
-    if (pathname && pathname.startsWith('/categories')) {
+    if (pathname && pathname.startsWith('/analysis/categories')) {
       return getApplicationDateOrDisplayDate
     }
   }

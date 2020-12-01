@@ -37,7 +37,7 @@ const App = props => {
 
   return (
     <RouterContext.Provider value={props.router}>
-      {flag('banks.search') ? <AppSearchBar /> : null}
+      <AppSearchBar />
       <Layout>
         <KeyboardAwareSidebar>
           <Nav />

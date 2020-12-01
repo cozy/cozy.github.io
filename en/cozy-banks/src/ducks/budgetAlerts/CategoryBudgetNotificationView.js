@@ -150,7 +150,7 @@ class CategoryBudget extends NotificationView {
   getExtraAttributes() {
     return {
       data: {
-        route: '/categories'
+        route: '/analysis/categories'
       }
     }
   }

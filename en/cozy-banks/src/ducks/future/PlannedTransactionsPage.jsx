@@ -18,6 +18,7 @@ import Loading from 'components/Loading'
 import { useRouter } from 'components/RouterContext'
 
 import { TransactionList } from 'ducks/transactions/Transactions'
+import LegalMention from 'ducks/legal/LegalMention'
 import useEstimatedBudget from './useEstimatedBudget'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 
@@ -109,6 +110,7 @@ const PlannedTransactionsPage = () => {
               </Img>
             </Media>
           )}
+          <LegalMention className="u-mt-1" />
         </Padded>
       </Header>
       <div

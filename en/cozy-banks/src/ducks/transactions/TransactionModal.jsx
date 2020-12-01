@@ -76,12 +76,12 @@ const TransactionLabel = ({ transaction }) => {
   return (
     <div className={styles.TransactionLabel}>
       {label}
-      {flag('banks.search') ? (
+      {
         <>
           {' '}
           <SearchForTransactionIcon transaction={transaction} />
         </>
-      ) : null}
+      }
     </div>
   )
 }

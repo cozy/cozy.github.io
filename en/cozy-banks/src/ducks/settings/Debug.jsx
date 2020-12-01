@@ -87,6 +87,14 @@ const DeviceToken = ({ client }) => {
 }
 
 class DumbDebugSettings extends React.PureComponent {
+  constructor(props) {
+    super(props)
+    this.state = {
+      notificationRoute: '/transactions'
+    }
+    this.onChangeNotificationRoute = this.onChangeNotificationRoute.bind(this)
+  }
+
   toggleNoAccount() {
     const noAccountValue = !flag('balance.no-account')
 
@@ -118,7 +126,10 @@ class DumbDebugSettings extends React.PureComponent {
             message: 'This is a test notification message',
             preferred_channels: ['mobile', 'mail'],
             content: 'This is a test notification text content',
-            content_html: 'This is a test notification HTML content'
+            content_html: 'This is a test notification HTML content',
+            data: {
+              route: this.state.notificationRoute
+            }
           }
         }
       })
@@ -127,6 +138,10 @@ class DumbDebugSettings extends React.PureComponent {
     } catch (err) {
       Alerter.error('Failed to send notification: ' + err)
     }
+  }
+
+  onChangeNotificationRoute(ev) {
+    this.setState({ notificationRoute: ev.target.value })
   }
 
   render() {
@@ -171,6 +186,15 @@ class DumbDebugSettings extends React.PureComponent {
         <div>
           <Title>Notifications</Title>
           {isMobileApp() ? <DeviceToken client={client} /> : null}
+          Route:{' '}
+          <select
+            value={this.state.notificationRoute}
+            onChange={this.onChangeNotificationRoute}
+          >
+            <option value="/transactions">transactions</option>
+            <option value="/balance">balance</option>
+            <option value="/analysis">analysis</option>
+          </select>
           <Button
             label="Send notification"
             onClick={() => this.sendNotification()}
