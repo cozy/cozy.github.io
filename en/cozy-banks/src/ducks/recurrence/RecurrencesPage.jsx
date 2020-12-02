@@ -27,6 +27,7 @@ import PageTitle from 'components/Title/PageTitle'
 import Figure from 'cozy-ui/transpiled/react/Figure'
 
 import { useTrackPage } from 'ducks/tracking/browser'
+import LegalMention from 'ducks/legal/LegalMention'
 
 import frLocale from 'date-fns/locale/fr'
 import enLocale from 'date-fns/locale/en'
@@ -226,6 +227,7 @@ const RecurrencesPage = () => {
         </Padded>
       ) : bundles && bundles.length > 0 ? (
         <BundlesWrapper>
+          <LegalMention className="u-m-1" />
           {bundles.map(bundle => (
             <BundleRow key={bundle._id} bundle={bundle} />
           ))}

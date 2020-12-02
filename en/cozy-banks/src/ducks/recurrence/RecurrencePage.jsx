@@ -58,6 +58,7 @@ import ActionMenuHelper from 'components/ActionMenuHelper'
 import { useHistory, useParams } from 'components/RouterContext'
 import { useTrackPage } from 'ducks/tracking/browser'
 import useDocument from 'components/useDocument'
+import LegalMention from 'ducks/legal/LegalMention'
 
 import PenIcon from 'cozy-ui/transpiled/react/Icons/Pen'
 import TrashIcon from 'cozy-ui/transpiled/react/Icons/Trash'
@@ -420,6 +421,7 @@ const BundleTransactions = ({ bundle }) => {
   return (
     <>
       <Wrapper>
+        <LegalMention className="u-m-1" />
         {transactions.length === 0 ? (
           <Padded>
             {fetchStatus === 'failed' ? (

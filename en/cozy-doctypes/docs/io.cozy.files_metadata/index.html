@@ -3064,8 +3064,7 @@ library.</p>
     &quot;purpose&quot;: &quot;attestation&quot;,
     &quot;sourceCategory&quot;: &quot;gov&quot;,
     &quot;sourceSubCategory&quot;: &quot;transport&quot;,
-    &quot;subjects&quot;: [&quot;permit&quot;, &quot;driving&quot;]
-  }
+    &quot;subjects&quot;: [&quot;permit&quot;, &quot;driving&quot;] }
 }
 </pre></div>
 
@@ -3107,7 +3106,7 @@ Most of these attributes heavily depends on the document context and are not
 expected in every cases.</p>
 <ul>
 <li><code>contentAuthor</code> : {string} the author of the document, e.g. <code>impots.gouv</code>,
-  <code>amazon.com</code>, etc. </li>
+  <code>amazon.com</code>, etc.</li>
 <li><code>datetime</code> : {date} Equals to the date attribute specified by <code>datetimeLabel</code>.</li>
 <li><code>datetimeLabel</code> : {string} specify which attribute is used as <code>datetime</code>, e.g.
   <code>issueDate</code> or <code>startDate</code>.</li>
@@ -3124,7 +3123,12 @@ expected in every cases.</p>
 <li><code>country</code> : {string} country name.</li>
 <li><code>accountNumber</code> : {string} number of the related account.</li>
 <li><code>bankName</code> : {string} name of the related bank.</li>
+<li><code>carbonCopy</code>: {boolean} : if the document is the original document imported by the connector</li>
+<li><code>electronicSafe</code>: {boolean} : if the document is secured in a secure storage</li>
 </ul>
+<p>⚠ <code>carbonCopy</code> and <code>electronicSafe</code> both
+<a href="https://docs.cozy.io/en/cozy-stack/files/#post-filesuploadmetadata">need specific permission</a>
+to be added to a document.</p>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
 <h4 id="invoices-and-documents-related-to-payments">Invoices and documents related to payments<a class="headerlink" href="#invoices-and-documents-related-to-payments" title="Permanent link">&para;</a></h4>
 <ul>

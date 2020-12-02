@@ -14,6 +14,7 @@ import { PageTitle } from 'components/Title'
 import Padded from 'components/Padded'
 import Header from 'components/Header'
 import styles from 'ducks/settings/Settings.styl'
+import LegalMention from 'ducks/legal/LegalMention'
 
 import { useHistory, useLocation } from 'components/RouterContext'
 
@@ -56,7 +57,10 @@ const Settings = ({ children }) => {
         {isMobile ? null : <Divider />}
       </Header>
 
-      <Padded className={styles.Settings__Content}>{children}</Padded>
+      <Padded className={styles.Settings__Content}>
+        <LegalMention className={isMobile ? 'u-mb-half ' : 'u-mt-1'} />
+        {children}
+      </Padded>
       {__TARGET__ === 'mobile' && (
         <Padded>
           <AppVersion version={__APP_VERSION__} />

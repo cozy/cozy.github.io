@@ -1220,6 +1220,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#iocozyfilessettings" title="io.cozy.files.settings" class="md-nav__link">
+    io.cozy.files.settings
+  </a>
+  
+</li>
+      
       
       
       
@@ -2770,6 +2777,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#iocozyfilessettings" title="io.cozy.files.settings" class="md-nav__link">
+    io.cozy.files.settings
+  </a>
+  
+</li>
+      
       
       
       
@@ -2838,9 +2852,14 @@
 </ul>
 </li>
 <li><code>icon</code>: {string} : A small SVG file to use as icon for this file (optional)</li>
+<li><code>carbonCopy</code>: {boolean} : if the document is the original document imported by the connector</li>
+<li><code>electronicSafe</code>: {boolean} : if the document is secured in a secure storage</li>
 </ul>
+<p>⚠ <code>carbonCopy</code> and <code>electronicSafe</code> both
+<a href="https://docs.cozy.io/en/cozy-stack/files/#post-filesuploadmetadata">need specific permission</a>
+to be added to a document.</p>
 <p>It also has a relationship with its <code>parent</code> in the JSON-API representation.</p>
-<p>For an <code>image</code>, there are 3 links to thumbnails: <code>small</code>, <code>medium</code>, and <code>large</code>. 
+<p>For an <code>image</code>, there are 3 links to thumbnails: <code>small</code>, <code>medium</code>, and <code>large</code>.
 These thumbnail links are valid for 10 minutes. After that, links will return a 400 Bad Request response code.</p>
 <h3 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h3>
 <p>It&rsquo;s possible to link a file or a folder to another document.
@@ -3059,6 +3078,13 @@ fields), and a relationship to the versioned file.</p>
   <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
+
+
+<h2 id="iocozyfilessettings"><code>io.cozy.files.settings</code><a class="headerlink" href="#iocozyfilessettings" title="Permanent link">&para;</a></h2>
+<p>This doctype is used to store settings for files. It is currenly only used for the qualification migration service.</p>
+<ul>
+<li>lastProcessedFileDate: {string} the <code>cozyMetadata.updatedAt</code> date of the last processed file. It is used to know from where the query should be starting on an index sorted by date.</li>
+</ul>
                 
                   
                 
