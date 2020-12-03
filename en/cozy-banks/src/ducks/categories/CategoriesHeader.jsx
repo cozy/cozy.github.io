@@ -162,7 +162,6 @@ const CategoriesHeader = props => {
   if (isMobile) {
     return (
       <Fragment>
-        <LegalMention className={isMobile ? 'u-mb-half ' : 'u-mt-1'} />
         <Header theme="inverted" fixed className={styles.CategoriesHeader}>
           {dateSelector}
         </Header>
@@ -176,9 +175,9 @@ const CategoriesHeader = props => {
             })}
             theme={isMobile ? 'normal' : 'inverted'}
           >
-            <LegalMention className="u-m-1" />
+            <LegalMention className="u-mt-2 u-pt-1 u-mr-1" />
             {incomeToggle || chart ? (
-              <Padded>
+              <Padded className="u-pt-0">
                 {incomeToggle}
                 {chart}
               </Padded>

@@ -32,6 +32,7 @@ import { useTrackPage } from 'ducks/tracking/browser'
 import { accountsConn, APP_DOCTYPE } from 'doctypes'
 import { AccountIconContainer } from 'components/AccountIcon'
 import { Unpadded } from 'components/Padded'
+import LegalMention from 'ducks/legal/LegalMention'
 
 import RightIcon from 'cozy-ui/transpiled/react/Icons/Right'
 import UnlinkIcon from 'cozy-ui/transpiled/react/Icons/Unlink'
@@ -97,7 +98,7 @@ export const AccountsList = ({ accounts }) => {
   const [editionModalOptions, setEditionModalOptions] = useState(null)
 
   return (
-    <Unpadded horizontal className="u-mv-1">
+    <Unpadded horizontal className={LegalMention.active ? 'u-mv-1' : 'u-mb-1'}>
       {/* Bank accounts still connected to io.cozy.accounts */}
       <List>
         {connectionGroups.map(({ accounts, connection, connectionId }) => (

@@ -119,6 +119,8 @@ const PlannedTransactionsPage = () => {
           isMobile ? styles['List--mobile'] : null
         )}
       >
+        {/* Necessary to offset vertically the content in the scrolling area when the LegalMention is displayed */}
+        {LegalMention.active ? <div className="u-mt-2"> </div> : null}
         {budget.isLoading ? (
           <Padded>
             <Loading />

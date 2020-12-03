@@ -234,6 +234,7 @@ const RecurrencesPage = () => {
         </BundlesWrapper>
       ) : (
         <Padded>
+          <LegalMention className="u-mt-3" style={{ marginBottom: '-3rem' }} />
           <Empty
             icon={{}}
             title={t('Recurrence.no-recurrences.title')}

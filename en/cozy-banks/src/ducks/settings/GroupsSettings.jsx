@@ -15,6 +15,8 @@ import styles from 'ducks/settings/GroupsSettings.styl'
 import { useRouter } from 'components/RouterContext'
 import { getGroupLabel } from 'ducks/groups/helpers'
 import { useTrackPage } from 'ducks/tracking/browser'
+import LegalMention from 'ducks/legal/LegalMention'
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
 const GroupList = ({ groups }) => {
   const router = useRouter()
@@ -58,7 +60,7 @@ const GroupList = ({ groups }) => {
 const Groups = props => {
   const { t } = useI18n()
   const router = useRouter()
-
+  const { isMobile } = useBreakpoints()
   useTrackPage('parametres:groupes')
 
   const { groups } = props
@@ -67,7 +69,9 @@ const Groups = props => {
   }
 
   return (
-    <div>
+    <div
+      className={LegalMention.active ? (isMobile ? 'u-mv-1' : '') : 'u-mb-1'}
+    >
       <GroupList groups={sortBy(groups.data.filter(x => x), 'label')} />
       <p>
         <Button
