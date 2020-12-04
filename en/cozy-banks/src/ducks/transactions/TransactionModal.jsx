@@ -49,7 +49,9 @@ import flag from 'cozy-flags'
 import {
   trackEvent,
   useTrackPage,
-  trackParentPage
+  trackParentPage,
+  trackPage,
+  replaceLastPart
 } from 'ducks/tracking/browser'
 import { getFrequencyText } from 'ducks/recurrence/utils'
 import TransactionCategoryEditor from 'ducks/transactions/TransactionCategoryEditor'
@@ -110,10 +112,10 @@ const TransactionCategoryEditorDialog = ({ transaction, onClose }) => {
     })
   }
 
-  useTrackPage(lastTracked => `${lastTracked}:depense-categorie`)
+  useTrackPage(lastTracked => replaceLastPart(lastTracked, 'depense-categorie'))
 
   const handlePop = useCallback(() => {
-    trackParentPage()
+    trackPage(lastTracked => replaceLastPart(lastTracked, 'depense'))
     onClose()
   }, [onClose])
 
@@ -121,7 +123,7 @@ const TransactionCategoryEditorDialog = ({ transaction, onClose }) => {
     <RawContentDialog
       open={true}
       title={t('Categories.choice.title')}
-      onClose={onClose}
+      onClose={handlePop}
       content={
         <TransactionCategoryEditor
           beforeUpdate={handlePop}
@@ -142,16 +144,18 @@ const TransactionApplicationDateEditorDialog = ({
 }) => {
   const { t } = useI18n()
 
-  useTrackPage(lastTracked => `${lastTracked}:affectation_mois`)
+  useTrackPage(lastTracked =>
+    replaceLastPart(lastTracked, `depense-affectation_mois`)
+  )
 
   const handleClose = useCallback(() => {
-    trackParentPage()
+    trackPage(lastTracked => replaceLastPart(lastTracked, 'depense'))
     onClose()
   }, [onClose])
 
   const handleBeforeUpdate = () => {
     beforeUpdate()
-    onClose()
+    handleClose()
   }
 
   return (
@@ -239,10 +243,12 @@ const RecurrenceRow = ({ transaction, onClick }) => {
 const TransactionRecurrenceEditorDialog = ({ transaction, onClose }) => {
   const { t } = useI18n()
 
-  useTrackPage(lastTracked => `${lastTracked}:affectation_recurrence`)
+  useTrackPage(lastTracked =>
+    replaceLastPart(lastTracked, 'depense-affectation_recurrence')
+  )
 
   const handleClose = useCallback(() => {
-    trackParentPage()
+    trackPage(lastTracked => replaceLastPart(lastTracked, 'depense'))
     onClose()
   }, [onClose])
 
@@ -433,21 +439,31 @@ const TransactionModalInfoContent = props => {
 
 const TransactionModal = ({ requestClose, transactionId, ...props }) => {
   const transaction = useDocument(TRANSACTION_DOCTYPE, transactionId)
+  const location = useLocation()
+
   useTrackPage(lastTracked => {
+    // We cannot simply add ":depense" to the last tracked page because
+    // we need to limit the number of segments to 3 of the hit. This is
+    // why when coming from the balances page, we change the page to
+    // mon_compte:depense and when coming from the category details page, we
+    // replace the :details portion by :depense by splitting & slicing.
     if (lastTracked == 'mon_compte:compte') {
-      return `mon_compte:depense`
+      return 'mon_compte:depense'
     } else {
-      return `${lastTracked
-        .split(':')
-        .slice(0, 2)
-        .join(':')}:depense`
+      return replaceLastPart(lastTracked, 'depense')
     }
   })
 
-  const handleClose = () => {
-    trackParentPage()
+  const handleClose = useCallback(() => {
+    if (location.pathname.startsWith('/balances/details')) {
+      trackPage('mon_compte:compte')
+    } else if (location.pathname.startsWith('/analysis/categories')) {
+      trackPage(lastTracked => replaceLastPart(lastTracked, 'details'))
+    } else {
+      trackParentPage()
+    }
     requestClose()
-  }
+  }, [location, requestClose])
 
   return (
     <RawContentDialog

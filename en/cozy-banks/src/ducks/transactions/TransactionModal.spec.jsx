@@ -13,6 +13,19 @@ import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import { format } from 'date-fns'
 import Polyglot from 'node-polyglot'
 import en from 'locales/en.json'
+import { TrackerProvider, trackPage } from 'ducks/tracking/browser'
+import { getTracker } from 'ducks/tracking/tracker'
+import RawContentDialog from 'components/RawContentDialog'
+
+jest.mock('ducks/tracking/tracker', () => {
+  const tracker = {
+    trackPage: jest.fn(),
+    trackEvent: jest.fn()
+  }
+  return {
+    getTracker: () => tracker
+  }
+})
 
 jest.mock('cozy-ui/transpiled/react/Alerter', () => ({
   success: jest.fn()
@@ -34,22 +47,82 @@ describe('transaction modal', () => {
       }
     })
   })
-  it('should render correctly', () => {
-    const router = {
+
+  beforeEach(() => {
+    const tracker = getTracker()
+    tracker.trackPage.mockReset()
+  })
+
+  const setup = ({ router: routerOption } = {}) => {
+    const router = routerOption || {
       params: {}
     }
+    const tracker = getTracker()
     const root = mount(
-      <AppLike client={client} router={router}>
-        <TransactionModal
-          transactionId={data[TRANSACTION_DOCTYPE][1]._id}
-          showCategoryChoice={() => {}}
-          requestClose={() => {}}
-          urls={{}}
-          brands={[]}
-        />
-      </AppLike>
+      <TrackerProvider value={tracker}>
+        <AppLike client={client} router={router}>
+          <TransactionModal
+            transactionId={data[TRANSACTION_DOCTYPE][1]._id}
+            showCategoryChoice={() => {}}
+            requestClose={() => {}}
+            urls={{}}
+            brands={[]}
+          />
+        </AppLike>
+      </TrackerProvider>
     )
+    return { root, tracker }
+  }
+
+  const closeModal = root => {
+    root
+      .find(RawContentDialog)
+      .props()
+      .onClose()
+  }
+
+  it('should render correctly', () => {
+    trackPage('mon_compte:compte')
+    const { root } = setup()
     expect(pretty(root.html())).toMatchSnapshot()
+  })
+
+  it('should send correct tracking events (balance page)', () => {
+    trackPage('mon_compte:compte')
+    const router = {
+      location: {
+        pathname: '/balances/details'
+      },
+      params: {}
+    }
+    const { root, tracker } = setup({
+      router
+    })
+    expect(tracker.trackPage).toHaveBeenCalledWith('mon_compte:depense')
+    tracker.trackPage.mockReset()
+    closeModal(root)
+    expect(tracker.trackPage).toHaveBeenCalledWith('mon_compte:compte')
+  })
+
+  it('should send correct tracking events (categories page)', () => {
+    trackPage('categories:homeImprovements:details')
+    const router = {
+      location: {
+        pathname: '/analysis/categories'
+      },
+      params: {}
+    }
+    const { root, tracker } = setup({
+      router
+    })
+    expect(tracker.trackPage).toHaveBeenCalledWith(
+      'categories:homeImprovements:depense'
+    )
+    tracker.trackPage.mockReset()
+    closeModal(root)
+    expect(tracker.trackPage).toHaveBeenCalledWith(
+      'categories:homeImprovements:details'
+    )
   })
 })
 

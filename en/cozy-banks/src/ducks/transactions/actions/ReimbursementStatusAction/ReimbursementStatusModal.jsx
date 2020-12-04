@@ -14,8 +14,11 @@ import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 
 import { Radio } from 'components/List'
-import { useParams } from 'components/RouterContext'
-import { useTrackPage, trackParentPage } from 'ducks/tracking/browser'
+import {
+  useTrackPage,
+  trackPage,
+  replaceLastPart
+} from 'ducks/tracking/browser'
 import iconReimbursement from 'assets/icons/icon-reimbursement-detailed.svg'
 import styles from 'ducks/transactions/actions/ReimbursementStatusAction/ReimbursementStatusModal.styl'
 import { getReimbursementStatus, getLabel } from 'ducks/transactions/helpers'
@@ -33,16 +36,12 @@ const ReimbursementStatusModal = function ReimbursementStatusModal(props) {
   const showContacts =
     flag('reimbursements-contacts') && isHealthExpense(transaction)
 
-  const { categoryName, subcategoryName } = useParams()
-
-  useTrackPage(
-    categoryName && subcategoryName
-      ? `analyse:${categoryName}:depense-remboursement`
-      : `mon_compte:depense:remboursement`
+  useTrackPage(lastTracked =>
+    replaceLastPart(lastTracked, 'depense-remboursement')
   )
 
   const handleClose = () => {
-    trackParentPage()
+    trackPage(lastTracked => replaceLastPart(lastTracked, 'depense'))
     onClose()
   }
 

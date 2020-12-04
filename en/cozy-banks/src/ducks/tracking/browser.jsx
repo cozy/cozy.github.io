@@ -23,7 +23,12 @@ export const useTracker = () => {
   return useContext(TrackerContext)
 }
 
-let lastTrackedPage
+// When components are rendered, it is possible that several events are sent
+// through the useTrackPage event since useEffect can be called at any time.
+// To prevent double hits, we discard pages with the same page name when they
+// are sent too close to each other (300ms is the limit).
+const DOUBLE_HIT_THRESHOLD = 300
+let lastTrackedPage, lastTrackTime
 const enhancedTrackPage = (tracker, pageNameArg) => {
   let parentPage = getParentPage(lastTrackedPage)
   let pageName =
@@ -34,6 +39,18 @@ const enhancedTrackPage = (tracker, pageNameArg) => {
   if (pageName === false) {
     return
   }
+
+  const trackTime = Date.now()
+  if (
+    lastTrackTime &&
+    lastTrackedPage === pageName &&
+    trackTime - lastTrackTime < DOUBLE_HIT_THRESHOLD
+  ) {
+    // Prevent double hits
+    return
+  }
+
+  lastTrackTime = trackTime
   lastTrackedPage = pageName
   tracker.trackPage(pageName)
 }
@@ -60,6 +77,13 @@ export const useTrackPage = pageName => {
 
     enhancedTrackPage(tracker, pageName)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
+}
+
+export const replaceLastPart = (pageName, newLastPart) => {
+  return `${pageName
+    .split(':')
+    .slice(0, -1)
+    .join(':')}:${newLastPart}`
 }
 
 export const getPageLastPart = pageName => {

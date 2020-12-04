@@ -5434,6 +5434,12 @@ this organization (encoded in base64).</p>
 <h3 id="get-bitwardeniconsdomainiconpng">GET /bitwarden/icons/:domain/icon.png<a class="headerlink" href="#get-bitwardeniconsdomainiconpng" title="Permanent link">&para;</a></h3>
 <p>This route returns an icon for the given domain, that can be used by the
 bitwarden clients. No authorization token is required.</p>
+<p>If no favicon has been found for the domain, a fallback will be used, depending
+of the <code>fallback</code> parameter in the query-string:</p>
+<ul>
+<li><code>default</code>: a default icon is returned</li>
+<li><code>404</code>: just a 404 - Not found error.</li>
+</ul>
 <h4 id="request_26">Request<a class="headerlink" href="#request_26" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/bitwarden/icons/cozy.io/icon.png</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>

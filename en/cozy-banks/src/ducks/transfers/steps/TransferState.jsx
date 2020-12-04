@@ -39,7 +39,7 @@ const TransferStateDialog = ({
 
 export const DumbTransferSuccessDialog = ({ onExit }) => {
   const { t } = useI18n()
-  useTrackPage('virements.succes')
+  useTrackPage('virements:succes')
   return (
     <TransferStateDialog
       title={t('Transfer.success.title')}
@@ -67,7 +67,7 @@ export const DumbTransferErrorDialog = ({ onExit, error }) => {
   const loginFailed = isLoginFailed(error)
   const pageName =
     konnectorErrorToPageName[error.message] || defaultErrorPageName
-  useTrackPage(`virements.${pageName}`)
+  useTrackPage(`virements:${pageName}`)
   return (
     <TransferStateDialog
       title={t('Transfer.error.title')}
