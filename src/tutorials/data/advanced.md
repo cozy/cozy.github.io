@@ -221,8 +221,6 @@ If you are interested about this, you can learn more [here](https://use-the-inde
 
 ## Partial indexes
 
-⚠️ Partial indexes are not supported yet by cozy-client.
-
 In CouchDB, a document is indexed only if its fields matches an existing index. As a consequence, it is not possible to perform efficient queries on non-existing fields. 
 
 For instance, the query below does not work, because it searches for document without the `category` field, but the absence of this field will cause such documents to never be indexed, as previously explained [here](#indexes-why-is-my-document-not-being-retrieved):
@@ -258,6 +256,26 @@ As the `$ne` operator cannot guarantee contiguous rows, it needs to scan all the
 Thanks to this, it becomes possible to tell CouchDB at indexing time to exlude documents that do not match the condition, e.g. `"category": { "$exists": false}` or  `"category": { "$ne": "sport"}`.
 
 Hence, the produced index will only include documents that already matched the partial filter selector, making it possible to query them, as this selector enforces contiguous rows or documents with missing fields.
+
+You can declare a partial index in cozy-client like this:
+
+```javascript
+const queryDef = client
+  .find("io.cozy.todos")
+  .where({
+    "title": "Exercices",
+  })
+  .partialIndex({
+    "category": {
+      "$ne": "sport"  
+    }
+  })
+  .indexFields(["title"])
+```
+
+`partialIndex` supports the same syntax than the `where`, so you can easily move inefficient selectors into partial indexes.
+
+Note in this example, it is no longer necessary to index the `category` field, as the field is now evaluated at indexing time, rather than during the query. Hence, a partial index is also useful to design less heavy indexes.
 
 ## Mango pagination: performances
 
