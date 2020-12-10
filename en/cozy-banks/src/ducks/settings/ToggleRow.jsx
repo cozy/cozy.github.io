@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import cx from 'classnames'
 import styles from 'ducks/settings/ToggleRow.styl'
 import Switch from 'cozy-ui/transpiled/react/MuiCozyTheme/Switch'
+import Typography from 'cozy-ui/transpiled/react/Typography'
 
 export const ToggleRowContent = props => {
   const { className, ...rest } = props
@@ -14,7 +15,12 @@ export const ToggleRowDescription = props => {
   const { className, ...rest } = props
 
   return (
-    <div className={cx(styles.ToggleRow__description, className)} {...rest} />
+    <Typography
+      variant="body2"
+      color="textSecondary"
+      className={cx(styles.ToggleRow__description, className)}
+      {...rest}
+    />
   )
 }
 

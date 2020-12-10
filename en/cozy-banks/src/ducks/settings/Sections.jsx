@@ -1,29 +1,31 @@
 import React from 'react'
-import { Title } from 'cozy-ui/transpiled/react/Text'
 import cx from 'classnames'
 import styles from './Sections.styl'
+import Typography from 'cozy-ui/transpiled/react/Typography'
 
 const SectionTitle = ({ children }) => (
-  <Title className={styles.SectionTitle}>{children}</Title>
-)
-
-const SectionDescription = ({ children }) => (
-  <div className={styles.SectionDescription}>{children}</div>
+  <Typography variant="h5" className="u-mb-half">
+    {children}
+  </Typography>
 )
 
 const SubSectionDescription = ({ children }) => (
-  <div className={styles.SubSectionDescription}>{children}</div>
+  <Typography variant="body1" color="textSecondary">
+    {children}
+  </Typography>
 )
 
 export const SubSectionTitle = props => {
-  return <h5 {...props} styles={styles.SubSectionTitle} />
+  return <Typography variant="h6" className="u-mb-half" {...props} />
 }
 
 export const Section = ({ title, description, children }) => (
   <div className={cx(styles.Section, 'u-stack-m')}>
     {title ? <SectionTitle>{title}</SectionTitle> : null}
     {description ? (
-      <SectionDescription>{description}</SectionDescription>
+      <Typography variant="body1" color="textSecondary">
+        {description}
+      </Typography>
     ) : null}
     {children}
   </div>

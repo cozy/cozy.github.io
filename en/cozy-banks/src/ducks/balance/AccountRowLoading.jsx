@@ -6,15 +6,26 @@ import { translate } from 'cozy-ui/transpiled/react'
 import KonnectorIcon from 'cozy-harvest-lib/dist/components/KonnectorIcon'
 import styles from 'ducks/balance/AccountRow.styl'
 import stylesLoading from 'ducks/balance/AccountRowLoading.styl'
-import cx from 'classnames'
 import { Intents } from 'cozy-interapp'
 import { withClient } from 'cozy-client'
+
+import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
+import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
+import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
+import Typography from 'cozy-ui/transpiled/react/Typography'
 
 import WarningIcon from 'cozy-ui/transpiled/react/Icons/Warning'
 import SpinnerIcon from 'cozy-ui/transpiled/react/Icons/Spinner'
 
+const listItemIconStyle = { height: 32 }
+
 export class AccountRowLoading extends React.PureComponent {
   intents = new Intents({ client: this.props.client })
+
+  constructor(props, context) {
+    super(props, context)
+    this.redirect = this.redirect.bind(this)
+  }
 
   async redirect() {
     const { konnector, account } = this.props
@@ -24,54 +35,50 @@ export class AccountRowLoading extends React.PureComponent {
   render() {
     const { t, konnectorSlug, status } = this.props
     const isErrored = status === 'errored'
-    const liProps = isErrored ? { onClick: () => this.redirect() } : {}
     return (
-      <li
-        className={cx(styles.AccountRow, {
-          [stylesLoading.pointer]: isErrored
-        })}
-        {...liProps}
+      <ListItem
+        className={styles.AccountRow}
+        button={isErrored}
+        onClick={isErrored ? this.redirect : null}
       >
-        <div className={styles.AccountRow__column}>
-          <div className={styles.AccountRow__logo}>
-            {konnectorSlug && (
-              <KonnectorIcon
-                konnectorSlug={konnectorSlug}
-                className={styles.KonnectorIcon}
-              />
+        <ListItemIcon style={listItemIconStyle}>
+          {konnectorSlug && (
+            <KonnectorIcon
+              konnectorSlug={konnectorSlug}
+              className={styles.KonnectorIcon}
+            />
+          )}
+        </ListItemIcon>
+        <ListItemText disableTypography>
+          <Typography variant="body1">
+            {isErrored
+              ? t('Balance.importing_accounts_error')
+              : t('Balance.importing_accounts')}
+          </Typography>
+          <Typography variant="caption">
+            {isErrored ? (
+              <>
+                <Icon size="12" icon={WarningIcon} />
+                <span className={stylesLoading.error}>
+                  {t('Balance.error')}
+                </span>
+              </>
+            ) : (
+              <>
+                <Icon
+                  size="12"
+                  icon={SpinnerIcon}
+                  color="var(--primaryColor)"
+                  spin
+                />
+                <span className={stylesLoading.InProgress}>
+                  {t('Balance.in_progress')}
+                </span>
+              </>
             )}
-          </div>
-          <div className={styles.AccountRow__labelUpdatedAtWrapper}>
-            <div className={styles.AccountRow__label}>
-              {isErrored
-                ? t('Balance.importing_accounts_error')
-                : t('Balance.importing_accounts')}
-            </div>
-            <div className={styles.AccountRow__updatedAt}>
-              {isErrored ? (
-                <>
-                  <Icon size="12" icon={WarningIcon} />
-                  <span className={stylesLoading.error}>
-                    {t('Balance.error')}
-                  </span>
-                </>
-              ) : (
-                <>
-                  <Icon
-                    size="12"
-                    icon={SpinnerIcon}
-                    color="var(--primaryColor)"
-                    spin
-                  />
-                  <span className={stylesLoading.InProgress}>
-                    {t('Balance.in_progress')}
-                  </span>
-                </>
-              )}
-            </div>
-          </div>
-        </div>
-      </li>
+          </Typography>
+        </ListItemText>
+      </ListItem>
     )
   }
 }

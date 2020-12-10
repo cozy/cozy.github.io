@@ -1,9 +1,10 @@
 import React from 'react'
-import cx from 'classnames'
 import get from 'lodash/get'
 
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import Typography from 'cozy-ui/transpiled/react/Typography'
+import SyncIcon from 'cozy-ui/transpiled/react/Icons/Sync'
 
 import flag from 'cozy-flags'
 import { models } from 'cozy-client'
@@ -13,19 +14,9 @@ import {
 } from 'ducks/account/helpers'
 import styles from 'ducks/balance/AccountRow.styl'
 
-import SyncIcon from 'cozy-ui/transpiled/react/Icons/Sync'
-
 const { trigger: triggerLibs } = models
 
 const { isErrored } = triggerLibs.triggerStates
-
-export const AccountRowSubText = ({ className, children, ...rest }) => {
-  return (
-    <div className={cx(styles.AccountRow__subText, className)} {...rest}>
-      {children}
-    </div>
-  )
-}
 
 const UpdatedAt = React.memo(function UpdatedAt({ account }) {
   const { t } = useI18n()
@@ -54,9 +45,14 @@ const DumbAccountCaption = props => {
 
   if (isReimbursementsAccount(account)) {
     return (
-      <AccountRowSubText className={className} {...rest}>
+      <Typography
+        variant="caption"
+        color="textSecondary"
+        className={className}
+        {...rest}
+      >
         {t('Balance.reimbursements-caption')}
-      </AccountRowSubText>
+      </Typography>
     )
   }
 
@@ -69,13 +65,18 @@ const DumbAccountCaption = props => {
   )
 
   return (
-    <AccountRowSubText className={className} {...rest}>
+    <Typography
+      variant="caption"
+      color="textSecondary"
+      className={className}
+      {...rest}
+    >
       {failedTrigger && !flag('demo') && flag('balance-account-errors') ? (
         <FailedTriggerMessage trigger={failedTrigger} />
       ) : (
         <UpdatedAt account={account} />
       )}
-    </AccountRowSubText>
+    </Typography>
   )
 }
 

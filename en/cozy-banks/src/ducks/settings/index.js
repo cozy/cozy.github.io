@@ -5,10 +5,7 @@ import GroupsSettings from 'ducks/settings/GroupsSettings'
 import Configuration from 'ducks/settings/Configuration'
 import Debug from 'ducks/settings/Debug'
 
-export {
-  isNotificationEnabled,
-  getDefaultedSettingsFromCollection
-} from './helpers'
+export { getDefaultedSettingsFromCollection } from './helpers'
 
 // components
 export {

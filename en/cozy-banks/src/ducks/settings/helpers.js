@@ -21,18 +21,6 @@ import {
 
 const log = logger.namespace('settings.helpers')
 
-const allNotifications = [
-  'balanceLower',
-  'transactionGreater',
-  'healthBillLinked'
-]
-
-export const isNotificationEnabled = settings => {
-  return allNotifications.some(notificationName =>
-    get(settings, `notifications.${notificationName}.enabled`)
-  )
-}
-
 export const getDefaultedSettings = incompleteSettings => {
   return merge({}, DEFAULTS_SETTINGS, incompleteSettings)
 }

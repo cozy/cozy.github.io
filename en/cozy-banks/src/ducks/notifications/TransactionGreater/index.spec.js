@@ -38,15 +38,19 @@ describe('transaction greater', () => {
     jest.restoreAllMocks()
   })
 
-  const setup = ({ value, accountOrGroup } = {}) => {
+  const setup = ({
+    value,
+    accountOrGroup,
+    transactions: transactionsOpt
+  } = {}) => {
     const cozyUrl = 'http://cozy.tools:8080'
     const client = new CozyClient({
       uri: cozyUrl
     })
     const locales = {}
 
-    const operations = fixtures['io.cozy.bank.operations']
-    const maxDate = operations.map(x => x.date).sort()[0]
+    const transactions = fixtures['io.cozy.bank.operations']
+    const maxDate = transactions.map(x => x.date).sort()[0]
     MockDate.set(maxDate)
 
     const config = {
@@ -63,7 +67,9 @@ describe('transaction greater', () => {
         }
       ],
       data: {
-        transactions: operations.map(prepareTransactionForTest),
+        transactions: (transactionsOpt || transactions).map(
+          prepareTransactionForTest
+        ),
         accounts: fixtures['io.cozy.bank.accounts'],
         groups: fixtures['io.cozy.bank.groups']
       },
@@ -78,6 +84,30 @@ describe('transaction greater', () => {
   it('should keep rules in its internal state', () => {
     const { notification, config } = setup()
     expect(notification.rules).toBe(config.rules)
+  })
+
+  it('should compute the correct app route to open (multiple accounts)', async () => {
+    const { notification } = setup()
+    await notification.buildData()
+    expect(notification.getExtraAttributes()).toEqual({
+      data: {
+        route: '/balances/details'
+      }
+    })
+  })
+
+  it('should compute the correct app route to open (single account)', async () => {
+    const { notification: notification2 } = setup({
+      transactions: fixtures['io.cozy.bank.operations'].filter(
+        t => t.account == 'compteisa1'
+      )
+    })
+    await notification2.buildData()
+    expect(notification2.getExtraAttributes()).toEqual({
+      data: {
+        route: '/balances/compteisa1/details'
+      }
+    })
   })
 
   describe('without accountOrGroup', () => {

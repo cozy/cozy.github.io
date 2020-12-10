@@ -2887,9 +2887,9 @@ mango selectors
         <span class="nt">&quot;date&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;$gt&quot;</span><span class="p">:</span> <span class="s2">&quot;20161001T00:00:00&quot;</span> <span class="p">}</span>
     <span class="p">},</span>
     <span class="nt">&quot;limit&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-    <span class="nt">&quot;skip&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
     <span class="nt">&quot;sort&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;calendar&quot;</span><span class="p">,</span> <span class="s2">&quot;date&quot;</span><span class="p">],</span>
     <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">,</span> <span class="s2">&quot;_type&quot;</span><span class="p">,</span> <span class="s2">&quot;_date&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;execution_stats&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
     <span class="nt">&quot;use_index&quot;</span><span class="p">:</span> <span class="s2">&quot;_design/a5f4711fc9448864a13c81dc71e660b524d7410c&quot;</span>
 <span class="p">}</span>
 </pre></div>
@@ -2915,7 +2915,15 @@ mango selectors
             <span class="nt">&quot;_type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.events&quot;</span><span class="p">,</span>
             <span class="nt">&quot;date&quot;</span><span class="p">:</span> <span class="s2">&quot;20161013T160000Z&quot;</span>
         <span class="p">}</span>
-    <span class="p">]</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;execution_stats&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;total_docs_examined&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="nt">&quot;results_returned&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="nt">&quot;execution_time_ms&quot;</span><span class="p">:</span> <span class="mf">8.833</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;bookmark&quot;</span><span class="p">:</span> <span class="s2">&quot;g1AAAAB2eJzLYWBgYMpgSmHgKy5JLCrJTq2MT8lPzkzJB&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;limit&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&quot;next&quot;</span><span class="p">:</span> <span class="kc">true</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -2929,6 +2937,7 @@ mango selectors
     <code>sort:[{"calendar":"desc"}, {"date": "desc"}]</code> but <strong>all fields</strong> must be
     sorted in same direction.</li>
 <li><code>use_index</code> is optional but recommended.</li>
+<li><code>execution_stats</code> is false by default. It gives execution information about the query. See <a href="https://docs.couchdb.org/en/stable/api/database/find.html#execution-statistics">here</a> for more details.</li>
 </ul>
 <h2 id="pagination-cookbook">Pagination cookbook<a class="headerlink" href="#pagination-cookbook" title="Permanent link">&para;</a></h2>
 <p>Pagination of mango query should be handled by the client. The stack will limit

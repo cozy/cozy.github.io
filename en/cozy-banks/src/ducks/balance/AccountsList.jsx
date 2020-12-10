@@ -6,12 +6,13 @@ import { useSelector } from 'react-redux'
 
 import withFilters from 'components/withFilters'
 import AccountRow from 'ducks/balance/AccountRow'
-import styles from 'ducks/balance/AccountsList.styl'
 import { getAccountBalance } from 'ducks/account/helpers'
 import AccountRowLoading from 'ducks/balance/AccountRowLoading'
 import { getHydratedAccountsFromGroup } from 'selectors'
 import { isReimbursementsVirtualGroup } from 'ducks/groups/helpers'
 import { useRouter } from 'components/RouterContext'
+import List from 'cozy-ui/transpiled/react/MuiCozyTheme/List'
+import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
 
 const getSortedAccounts = (group, accounts) => {
   const realAccounts = accounts.filter(Boolean)
@@ -41,10 +42,10 @@ export const DumbAccountsList = props => {
   )
 
   return (
-    <ol className={styles.AccountsList}>
+    <List>
       {getSortedAccounts(group, accounts).map((a, i) => {
         const switchState = switches[a._id]
-        return a.loading ? (
+        const component = a.loading ? (
           // When loading, a._id is the slug of the connector and can be non-unique, this is why we concat the index
           <AccountRowLoading
             key={i + '_' + a._id}
@@ -64,8 +65,15 @@ export const DumbAccountsList = props => {
             onSwitchChange={onSwitchChange}
           />
         )
+
+        return (
+          <>
+            {component}
+            {i !== accounts.length - 1 ? <Divider variant="inset" /> : null}
+          </>
+        )
       })}
-    </ol>
+    </List>
   )
 }
 

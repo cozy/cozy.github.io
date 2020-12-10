@@ -143,6 +143,7 @@ class TransactionGreater extends NotificationView {
 
   async buildData() {
     const { accounts, transactions, matchingRules } = await this.fetchData()
+    this.transactions = transactions
     if (transactions.length === 0) {
       log('info', 'TransactionGreater: no matched transactions')
       return
@@ -164,9 +165,13 @@ class TransactionGreater extends NotificationView {
   }
 
   getExtraAttributes() {
+    const accountIds = Object.keys(groupBy(this.transactions, x => x.account))
     return {
       data: {
-        route: '/transactions'
+        route:
+          accountIds.length == 1
+            ? `/balances/${accountIds[0]}/details`
+            : `/balances/details`
       }
     }
   }

@@ -90,7 +90,7 @@ class DumbDebugSettings extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      notificationRoute: '/transactions'
+      notificationRoute: '/balances/details'
     }
     this.onChangeNotificationRoute = this.onChangeNotificationRoute.bind(this)
   }
@@ -123,7 +123,7 @@ class DumbDebugSettings extends React.PureComponent {
           attributes: {
             category: 'transaction-greater',
             title: 'Test notification',
-            message: 'This is a test notification message',
+            message: `It should redirect to ${this.state.notificationRoute}`,
             preferred_channels: ['mobile', 'mail'],
             content: 'This is a test notification text content',
             content_html: 'This is a test notification HTML content',
@@ -191,9 +191,10 @@ class DumbDebugSettings extends React.PureComponent {
             value={this.state.notificationRoute}
             onChange={this.onChangeNotificationRoute}
           >
-            <option value="/transactions">transactions</option>
-            <option value="/balance">balance</option>
-            <option value="/analysis">analysis</option>
+            <option value="/balances/details">transactions</option>
+            <option value="/balances">balance</option>
+            <option value="/analysis/categories">categories</option>
+            <option value="/analysis/recurrence">recurrence</option>
           </select>
           <Button
             label="Send notification"

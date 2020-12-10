@@ -1,21 +1,12 @@
 /* global __DEVELOPMENT__ */
 
 import { hashHistory } from 'react-router'
-import { fetchSettings, isNotificationEnabled } from 'ducks/settings/helpers'
 import flag from 'cozy-flags'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import { isIOS } from 'cozy-device-helper'
 import { updateNotificationToken } from 'ducks/client/utils'
 
 let push
-
-export const startPushNotificationsIfSettingEnabled = async cozyClient => {
-  const settings = await fetchSettings(cozyClient)
-  if (!isNotificationEnabled(settings)) {
-    return
-  }
-  return startPushNotifications(cozyClient)
-}
 
 /**
  * When we receive a notification while the app is in foreground, all on('notification')
@@ -127,7 +118,7 @@ export const stopPushNotifications = async () => {
 export default class PushPlugin {
   constructor(client) {
     client.on('login', async () => {
-      await startPushNotificationsIfSettingEnabled(client)
+      await startPushNotifications(client)
     })
 
     client.on('logout', async () => {

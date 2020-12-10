@@ -25,6 +25,7 @@ import { AnalysisPage } from 'ducks/analysis'
 import UserActionRequired from 'components/UserActionRequired'
 import scrollToTopOnMount from 'components/scrollToTopOnMount'
 import PlannedTransactionsPage from 'ducks/future/PlannedTransactionsPage'
+import SetFilterAndRedirect from 'ducks/balance/SetFilterAndRedirect'
 
 // Use a function to delay instantation and have access to AppRoute.renderExtraRoutes
 const AppRoute = () => (
@@ -40,6 +41,10 @@ const AppRoute = () => (
         <Route
           path="future"
           component={scrollToTopOnMount(PlannedTransactionsPage)}
+        />
+        <Route
+          path=":accountOrGroupId/:page"
+          component={SetFilterAndRedirect}
         />
       </Route>
       <Route path="categories">

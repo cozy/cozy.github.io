@@ -202,23 +202,25 @@ class GroupPanel extends React.PureComponent {
           </div>
         </GroupPanelSummary>
         <ExpansionPanelDetails>
-          {groupAccounts && groupAccounts.length > 0 ? (
-            <AccountsList
-              group={group}
-              switches={switches}
-              onSwitchChange={onSwitchChange}
-            />
-          ) : (
-            <Stack className="u-m-1">
-              <Text>{t('Balance.no-accounts-in-group.description')}</Text>
-              <ButtonLink
-                className="u-ml-0"
-                href={`#/settings/groups/${group._id}`}
-              >
-                {t('Balance.no-accounts-in-group.button')}
-              </ButtonLink>
-            </Stack>
-          )}
+          <div className="u-flex-grow-1 u-maw-100">
+            {groupAccounts && groupAccounts.length > 0 ? (
+              <AccountsList
+                group={group}
+                switches={switches}
+                onSwitchChange={onSwitchChange}
+              />
+            ) : (
+              <Stack className="u-m-1">
+                <Text>{t('Balance.no-accounts-in-group.description')}</Text>
+                <ButtonLink
+                  className="u-ml-0"
+                  href={`#/settings/groups/${group._id}`}
+                >
+                  {t('Balance.no-accounts-in-group.button')}
+                </ButtonLink>
+              </Stack>
+            )}
+          </div>
         </ExpansionPanelDetails>
       </ExpansionPanel>
     )
