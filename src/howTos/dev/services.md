@@ -21,6 +21,11 @@ By using `fromEnv`, you will be able to use the service in dev mode (via cozy-ko
 const client = CozyClient.fromEnv(process.env, { schema })
 ```
 
+You may need to add this line to your service to use the `fetch` for node:
+```js
+global.fetch = require('node-fetch').default
+```
+
 ## Service declaration
 
 The service must be declared in the app [manifest](https://docs.cozy.io/en/tutorials/app/#read-the-application-manifest). For example:
