@@ -2784,6 +2784,11 @@
 </pre></div>
 
 
+<p>You may need to add this line to your service to use the <code>fetch</code> for node:</p>
+<div class="codehilite"><pre><span></span><span class="nx">global</span><span class="p">.</span><span class="nx">fetch</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;node-fetch&#39;</span><span class="p">).</span><span class="k">default</span>
+</pre></div>
+
+
 <h2 id="service-declaration">Service declaration<a class="headerlink" href="#service-declaration" title="Permanent link">&para;</a></h2>
 <p>The service must be declared in the app <a href="https://docs.cozy.io/en/tutorials/app/#read-the-application-manifest">manifest</a>. For example:</p>
 <div class="codehilite"><pre><span></span><span class="s2">&quot;services&quot;</span><span class="err">:</span> <span class="p">{</span>

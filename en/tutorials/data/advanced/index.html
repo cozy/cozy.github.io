@@ -2979,7 +2979,6 @@ If you are interested about this, you can learn more <a href="https://use-the-in
 <p>💡 When creating an index, carefully think about how your data will be organized and which query will need to perfom. The performances can dramatically vary depending on your design, with several orders of magnitude.</p>
 <p>💡 The problematic and consequences of the not contiguous rows is further explain in the partial indexes <a href="#partial-indexes">section</a>.</p>
 <h2 id="partial-indexes">Partial indexes<a class="headerlink" href="#partial-indexes" title="Permanent link">&para;</a></h2>
-<p>⚠️ Partial indexes are not supported yet by cozy-client.</p>
 <p>In CouchDB, a document is indexed only if its fields matches an existing index. As a consequence, it is not possible to perform efficient queries on non-existing fields. </p>
 <p>For instance, the query below does not work, because it searches for document without the <code>category</code> field, but the absence of this field will cause such documents to never be indexed, as previously explained <a href="#indexes-why-is-my-document-not-being-retrieved">here</a>:</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">queryDef</span> <span class="o">=</span> <span class="nx">client</span>
@@ -3010,6 +3009,23 @@ If you are interested about this, you can learn more <a href="https://use-the-in
 <p><a href="https://docs.couchdb.org/en/2.3.1/api/database/find.html#find-partial-indexes">Partial indexes</a> are a way to circumvent this issue. They allow to define a partial selector condition that will be evaluated at the indexing time, and will add the document in the index if it matches the condition.
 Thanks to this, it becomes possible to tell CouchDB at indexing time to exlude documents that do not match the condition, e.g. <code>"category": { "$exists": false}</code> or  <code>"category": { "$ne": "sport"}</code>.</p>
 <p>Hence, the produced index will only include documents that already matched the partial filter selector, making it possible to query them, as this selector enforces contiguous rows or documents with missing fields.</p>
+<p>You can declare a partial index in cozy-client like this:</p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">queryDef</span> <span class="o">=</span> <span class="nx">client</span>
+  <span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">where</span><span class="p">({</span>
+    <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;Exercices&quot;</span><span class="p">,</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="nx">partialIndex</span><span class="p">({</span>
+    <span class="s2">&quot;category&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;$ne&quot;</span><span class="o">:</span> <span class="s2">&quot;sport&quot;</span>  
+    <span class="p">}</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="nx">indexFields</span><span class="p">([</span><span class="s2">&quot;title&quot;</span><span class="p">])</span>
+</pre></div>
+
+
+<p><code>partialIndex</code> supports the same syntax than the <code>where</code>, so you can easily move inefficient selectors into partial indexes.</p>
+<p>Note in this example, it is no longer necessary to index the <code>category</code> field, as the field is now evaluated at indexing time, rather than during the query. Hence, a partial index is also useful to design less heavy indexes.</p>
 <h2 id="mango-pagination-performances">Mango pagination: performances<a class="headerlink" href="#mango-pagination-performances" title="Permanent link">&para;</a></h2>
 <p>With mango queries, the recommanded method to paginate is through the <code>bookmark</code> parameter. However, one could also notice the <code>skip</code> parameter in the CouchDB <a href="https://docs.couchdb.org/en/2.3.1/api/database/find.html">API</a> and be tempted to paginate with it.</p>
 <p>We detail here why you should <strong>never use</strong> <code>skip</code> to paginate and use <code>bookmark</code> instead. We explain it for exhaustiveness and to prevent developers to fall into this trap.</p>
