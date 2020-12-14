@@ -21,7 +21,7 @@ import { connect } from 'react-redux'
 
 const name = 'konnector'
 
-const transactionModalRowStyle = { color: palette.dodgerBlue }
+const transactionDialogListItemStyle = { color: palette.dodgerBlue }
 class Component extends React.Component {
   state = {
     showInformativeDialog: false,
@@ -61,7 +61,9 @@ class Component extends React.Component {
   renderModalItem(label) {
     return (
       <ListItem
-        style={transactionModalRowStyle}
+        divider
+        button
+        style={transactionDialogListItemStyle}
         onClick={this.showInformativeDialog}
       >
         <ListItemIcon>

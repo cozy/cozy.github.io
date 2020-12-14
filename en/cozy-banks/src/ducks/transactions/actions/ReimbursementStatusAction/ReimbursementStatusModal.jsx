@@ -66,14 +66,20 @@ const ReimbursementStatusModal = function ReimbursementStatusModal(props) {
           <form>
             <List>
               {choices.map(choice => (
-                <ListItem key={choice}>
+                <ListItem
+                  divider
+                  button
+                  disableRipple
+                  onClick={() => onChange(choice)}
+                  key={choice}
+                >
                   <ListItemIcon>
                     <Radio
                       key={choice}
                       name="reimbursementStatus"
                       value={choice}
                       checked={status === choice}
-                      onChange={onChange}
+                      onChange={ev => onChange(ev.target.value)}
                       className={cx('u-mb-0', styles.Radio)}
                     />
                   </ListItemIcon>

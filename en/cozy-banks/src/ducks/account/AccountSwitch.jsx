@@ -104,7 +104,7 @@ const AccountSwitchSelect = ({
   return (
     <div className={styles.AccountSwitch__Select} onClick={onClick}>
       <Typography
-        className={styles.AccountSwitch__SelectText}
+        className={cx(styles.AccountSwitch__SelectText, 'u-ellipsis')}
         {...defaultTypographyProps}
         {...typographyProps}
       >
@@ -178,6 +178,7 @@ const AccountSwitchMenu = ({
           dense
           button
           disableRipple
+          divider
           onClick={handleReset}
           selected={filteringDoc === undefined}
         >

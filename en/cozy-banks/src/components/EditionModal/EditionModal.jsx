@@ -1,19 +1,23 @@
 import React, { useState } from 'react'
-import {
-  Button,
-  Modal,
-  ModalFooter,
-  ModalButtons,
-  useI18n
-} from 'cozy-ui/transpiled/react'
+import { Button, useI18n } from 'cozy-ui/transpiled/react'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+
+import Dialog, {
+  DialogActions,
+  DialogTitle
+} from 'cozy-ui/transpiled/react/Dialog'
+import {
+  useCozyDialog,
+  DialogCloseButton
+} from 'cozy-ui/transpiled/react/CozyDialogs'
+import IconButton from 'cozy-ui/transpiled/react/IconButton'
 
 import Stepper from 'components/Stepper'
 
 import { CategoryChoice } from 'ducks/categories'
 import AccountGroupChoice from 'ducks/settings/CategoryAlerts/AccountGroupChoice'
 
-import { ModalSections } from 'components/ModalSections'
+import { DialogSections } from 'components/DialogSections'
 import AccountOrGroupSection from './AccountOrGroupSection'
 import CategorySection from './CategorySection'
 import ThresholdSection from './ThresholdSection'
@@ -43,9 +47,13 @@ const TYPES_WITH_SELECTOR = {
 }
 
 const BackArrow = ({ onClick }) => (
-  <span className="u-mr-1" onClick={onClick}>
+  <IconButton
+    style={{ marginLeft: '-0.5rem' }}
+    className="u-mr-half"
+    onClick={onClick}
+  >
     <BackIcon color="var(--coolGrey)" />
-  </span>
+  </IconButton>
 )
 
 const SectionsPerType = {
@@ -93,7 +101,7 @@ const InfoSlide = ({
 }) => {
   const { t } = useI18n()
   return (
-    <ModalSections>
+    <DialogSections>
       {fieldOrder.map(fieldName => {
         const fieldSpec = fieldSpecs[fieldName]
         const FieldSection = SectionsPerType[fieldSpec.type]
@@ -121,7 +129,7 @@ const InfoSlide = ({
           />
         )
       })}
-    </ModalSections>
+    </DialogSections>
   )
 }
 
@@ -180,25 +188,23 @@ const EditionModalFooter = props => {
   )
 
   return (
-    <ModalFooter>
-      <ModalButtons>
-        {canBeRemoved && !isMobile ? (
-          <>
-            {removalButton}
-            <div className="u-media-grow" />
-          </>
-        ) : null}
-        {!canBeRemoved || (canBeRemoved && !isMobile) ? (
-          <Button
-            theme="secondary"
-            onClick={handleCancel}
-            label={cancelButtonLabel(props, doc)}
-          />
-        ) : null}
-        {canBeRemoved && isMobile ? removalButton : null}
-        <Button onClick={handleConfirmEdit} label={okButtonLabel(doc)} />
-      </ModalButtons>
-    </ModalFooter>
+    <DialogActions>
+      {canBeRemoved && !isMobile ? (
+        <>
+          {removalButton}
+          <div className="u-media-grow" />
+        </>
+      ) : null}
+      {!canBeRemoved || (canBeRemoved && !isMobile) ? (
+        <Button
+          theme="secondary"
+          onClick={handleCancel}
+          label={cancelButtonLabel(props, doc)}
+        />
+      ) : null}
+      {canBeRemoved && isMobile ? removalButton : null}
+      <Button onClick={handleConfirmEdit} label={okButtonLabel(doc)} />
+    </DialogActions>
   )
 }
 
@@ -274,19 +280,21 @@ const EditionModal = props => {
     })
   }
 
+  const { dialogProps, dialogTitleProps } = useCozyDialog({
+    size: 'm',
+    open: true
+  })
+
   return (
-    <Modal
-      title={
-        <>
-          {choosing ? <BackArrow onClick={() => setChoosing(null)} /> : null}
-          {t(modalTitle)}
-        </>
-      }
-      mobileFullscreen={true}
-      dismissAction={handleDismiss}
-      closable={!choosing}
-      overflowHidden={true}
-    >
+    <Dialog {...dialogProps} onClose={handleDismiss}>
+      {!choosing ? <DialogCloseButton onClick={handleDismiss} /> : true}
+      <DialogTitle
+        {...dialogTitleProps}
+        className="u-flex u-flex-row u-flex-items-center"
+      >
+        {choosing ? <BackArrow onClick={() => setChoosing(null)} /> : null}
+        {t(modalTitle)}
+      </DialogTitle>
       <Stepper
         showPercentage={false}
         currentIndex={choosing ? CHOOSING_SLIDE_INDEX : INFO_SLIDE_INDEX}
@@ -316,7 +324,7 @@ const EditionModal = props => {
           okButtonLabel={okButtonLabel}
         />
       )}
-    </Modal>
+    </Dialog>
   )
 }
 

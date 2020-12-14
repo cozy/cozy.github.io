@@ -82,13 +82,8 @@ const PlannedTransactionsPage = () => {
           {isMobile ? (
             <>
               <BackButton theme="primary" onClick={handleBack} />
-              <div className={cx('u-ta-center', styles['Title--mobile'])}>
-                <div>
-                  <Typography color="primary" variant="h5">
-                    {t('EstimatedBudget.page-title')}
-                  </Typography>
-                </div>
-                <AccountSwitch size="small" insideBar={false} />
+              <div className={cx(styles['Title--mobile'])}>
+                <AccountSwitch insideBar={false} />
               </div>
               <HeaderInfoCard />
             </>

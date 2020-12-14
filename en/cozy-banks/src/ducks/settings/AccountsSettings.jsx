@@ -41,7 +41,7 @@ const { utils } = models
 
 const AccountListItem = ({ account, onClick, secondary }) => {
   return (
-    <ListItem onClick={onClick} className="u-c-pointer">
+    <ListItem divider onClick={onClick} className="u-c-pointer">
       <ListItemIcon>
         <AccountIconContainer>
           <KonnectorIcon

@@ -13,15 +13,17 @@ import OpenwithIcon from 'cozy-ui/transpiled/react/Icons/Openwith'
 
 const name = 'url'
 
-const transactionModalRowStyle = { color: palette.dodgerBlue }
+const transactionDialogListItemStyle = { color: palette.dodgerBlue }
 const Component = ({ transaction, isModalItem }) => {
   const action = transaction.action
 
   if (isModalItem) {
     return (
       <ListItem
+        divider
+        button
         onClick={() => open(action.url, action.target)}
-        style={transactionModalRowStyle}
+        style={transactionDialogListItemStyle}
       >
         <ListItemIcon>
           <Icon icon={OpenwithIcon} />

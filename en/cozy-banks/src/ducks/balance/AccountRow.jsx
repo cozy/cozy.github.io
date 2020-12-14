@@ -66,15 +66,20 @@ const PrimaryColumn = withStyles({
   }
 })(ListItemTextColumn)
 
-const ActionListItemTextColumn = withStyles({
+const ActionListItemTextColumn = withStyles(theme => ({
   root: {
     justifyContent: 'right',
     display: 'flex',
     alignItems: 'center',
     marginRight: '-0.5rem',
-    paddingRight: 0
+    paddingRight: 0,
+    [theme.breakpoints.down('sm')]: {
+      flexGrow: 0,
+      flexShrink: 0,
+      flexBasis: 'auto'
+    }
   }
-})(ListItemTextColumn)
+}))(ListItemTextColumn)
 
 const secondaryColumnPrimaryTypographyProps = {
   color: 'textSecondary',

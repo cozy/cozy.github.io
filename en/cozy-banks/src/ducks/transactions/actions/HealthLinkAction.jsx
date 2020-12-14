@@ -14,7 +14,7 @@ import OpenwithIcon from 'cozy-ui/transpiled/react/Icons/Openwith'
 
 const name = 'refund'
 
-const transactionModalRowStyle = { color: palette.dodgerBlue }
+const transactionDialogListItemStyle = { color: palette.dodgerBlue }
 const Component = ({ actionProps: { urls }, isModalItem }) => {
   const { t } = useI18n()
   const url = `${urls['HEALTH']}#/remboursements`
@@ -23,8 +23,10 @@ const Component = ({ actionProps: { urls }, isModalItem }) => {
   if (isModalItem) {
     return (
       <ListItem
+        divider
+        button
         onClick={() => open(url, '_blank')}
-        style={transactionModalRowStyle}
+        style={transactionDialogListItemStyle}
       >
         <ListItemIcon>
           <Icon icon={OpenwithIcon} />

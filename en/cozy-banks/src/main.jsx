@@ -17,7 +17,8 @@ import {
   StartupChecksPlugin
 } from 'ducks/client'
 import 'utils/flag'
-import FastClick from 'fastclick'
+import initReactFastclick from 'react-fastclick'
+
 import { setupLocale as setupD3Locale } from 'utils/d3'
 import 'cozy-ui/transpiled/react/stylesheet.css'
 import 'cozy-ui/dist/cozy-ui.utils.min.css'
@@ -127,7 +128,7 @@ const setupApp = async persistedState => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  FastClick.attach(document.body)
+  initReactFastclick()
   loadState().then(setupApp)
 })
 

@@ -1,25 +1,22 @@
 import React from 'react'
-import Modal, { ModalDescription } from 'cozy-ui/transpiled/react/Modal'
+import { Dialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
-import { translate } from 'cozy-ui/transpiled/react/I18n'
-import styles from 'components/LogoutModal/LogoutModal.styl'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 
-function LogoutModal(props) {
-  const { t } = props
+function LogoutModal() {
+  const { t } = useI18n()
 
   return (
-    <Modal
-      into="#logout-modal"
-      mobileFullscreen
-      closable={false}
-      containerClassName={styles.LogoutModal}
-    >
-      <ModalDescription className={styles.LogoutModal__description}>
-        <Spinner size="xxlarge" />
-        <p>{t('LogoutModal.message')}</p>
-      </ModalDescription>
-    </Modal>
+    <Dialog
+      open
+      content={
+        <>
+          <Spinner size="xxlarge" />
+          <p>{t('LogoutModal.message')}</p>
+        </>
+      }
+    />
   )
 }
 
-export default translate()(LogoutModal)
+export default LogoutModal

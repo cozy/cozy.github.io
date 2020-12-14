@@ -5,10 +5,10 @@ import AccountIcon from 'components/AccountIcon'
 import fixtures from 'test/fixtures/unit-tests.json'
 import getClient from 'selectors/getClient'
 import { createClientWithData } from 'test/client'
-import Row from 'components/Row'
 import Input from 'cozy-ui/transpiled/react/Input'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 import AppLike from 'test/AppLike'
+import ListItem from '@material-ui/core/ListItem'
 
 jest.mock('selectors/getClient', () => jest.fn())
 jest.mock('components/AccountIcon', () => () => null)
@@ -54,7 +54,7 @@ describe('category alert edition modal', () => {
         }
       })
     )
-    expect(root.find(Row).map(n => n.text())).toEqual([
+    expect(root.find(ListItem).map(n => n.text())).toEqual([
       'PEE Isabelle',
       'Supermarket'
     ])

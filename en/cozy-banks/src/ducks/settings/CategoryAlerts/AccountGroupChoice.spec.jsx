@@ -1,8 +1,8 @@
 import { mount } from 'enzyme'
 import React from 'react'
 import fixtures from 'test/fixtures/unit-tests'
-import Row from 'components/Row'
-import { TestI18n } from 'test/AppLike'
+import ListItem from '@material-ui/core/ListItem'
+import AppLike from 'test/AppLike'
 import { DumbAccountGroupChoice as AccountGroupChoice } from './AccountGroupChoice'
 
 jest.mock('components/AccountIcon', () => () => null)
@@ -16,13 +16,13 @@ const fakeCol = data => ({
 describe('AccountGroupChoice', () => {
   const setup = ({ accounts, groups }) => {
     const root = mount(
-      <TestI18n>
+      <AppLike>
         <AccountGroupChoice
           onSelect={() => {}}
           groups={groups}
           accounts={accounts}
         />
-      </TestI18n>
+      </AppLike>
     )
     return { root }
   }
@@ -32,7 +32,7 @@ describe('AccountGroupChoice', () => {
       groups: fakeCol(fixtures['io.cozy.bank.groups']),
       accounts: fakeCol(fixtures['io.cozy.bank.accounts'])
     })
-    expect(root.find(Row).length).toBe(11)
+    expect(root.find(ListItem).length).toBe(11)
   })
 
   it('should work with virtual groups', () => {
@@ -47,6 +47,6 @@ describe('AccountGroupChoice', () => {
       ]),
       accounts: fakeCol([])
     })
-    expect(root.find(Row).length).toBe(3)
+    expect(root.find(ListItem).length).toBe(3)
   })
 })

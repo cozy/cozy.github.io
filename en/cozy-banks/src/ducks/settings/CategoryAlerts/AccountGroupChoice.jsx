@@ -6,7 +6,12 @@ import { useI18n } from 'cozy-ui/transpiled/react'
 import AccountIcon from 'components/AccountIcon'
 import { getGroupLabel } from 'ducks/groups/helpers'
 import { getAccountLabel } from 'ducks/account/helpers.js'
-import { ModalSection, ModalSections, ModalRow } from 'components/ModalSections'
+import {
+  DialogSection,
+  DialogSections,
+  DialogListItem
+} from 'components/DialogSections'
+import List from '@material-ui/core/List'
 
 /**
  * Displays Rows to select among either
@@ -33,45 +38,53 @@ export const AccountGroupChoice = ({
   const groups = filter ? unfilteredGroups.filter(filter) : unfilteredGroups
 
   return (
-    <ModalSections>
+    <DialogSections>
       {canSelectAll ? (
-        <ModalSection>
-          <ModalRow
-            label={t('AccountSwitch.all_accounts')}
-            hasRadio
-            isSelected={!current}
-            onClick={() => onSelect(null)}
-          />
-        </ModalSection>
+        <DialogSection>
+          <List>
+            <DialogListItem
+              label={t('AccountSwitch.all_accounts')}
+              hasRadio
+              isSelected={!current}
+              onClick={() => onSelect(null)}
+            />
+          </List>
+        </DialogSection>
       ) : null}
       {accounts.length > 0 ? (
-        <ModalSection label={t('AccountSwitch.accounts')}>
-          {accounts.map(account => (
-            <ModalRow
-              icon={<AccountIcon account={account} />}
-              key={account._id}
-              isSelected={current && current._id === account._id}
-              hasRadio
-              label={getAccountLabel(account)}
-              onClick={() => onSelect(account)}
-            />
-          ))}
-        </ModalSection>
+        <DialogSection label={t('AccountSwitch.accounts')}>
+          <List>
+            {accounts.map(account => (
+              <DialogListItem
+                divider
+                icon={<AccountIcon account={account} />}
+                key={account._id}
+                isSelected={current && current._id === account._id}
+                hasRadio
+                label={getAccountLabel(account)}
+                onClick={() => onSelect(account)}
+              />
+            ))}
+          </List>
+        </DialogSection>
       ) : null}
       {groups.length > 0 ? (
-        <ModalSection label={t('AccountSwitch.groups')}>
-          {groups.map(group => (
-            <ModalRow
-              key={group._id}
-              isSelected={current && current._id === group._id}
-              hasRadio
-              label={getGroupLabel(group, t)}
-              onClick={() => onSelect(group)}
-            />
-          ))}
-        </ModalSection>
+        <DialogSection label={t('AccountSwitch.groups')}>
+          <List>
+            {groups.map(group => (
+              <DialogListItem
+                divider
+                key={group._id}
+                isSelected={current && current._id === group._id}
+                hasRadio
+                label={getGroupLabel(group, t)}
+                onClick={() => onSelect(group)}
+              />
+            ))}
+          </List>
+        </DialogSection>
       ) : null}
-    </ModalSections>
+    </DialogSections>
   )
 }
 

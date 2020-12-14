@@ -59,7 +59,7 @@ const BalanceHeader = ({
       )}
       <KonnectorUpdateInfo />
       {LegalMention.active ? (
-        <Padded>
+        <Padded className="u-pb-0">
           <LegalMention />
         </Padded>
       ) : null}

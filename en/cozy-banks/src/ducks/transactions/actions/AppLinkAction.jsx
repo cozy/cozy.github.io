@@ -29,7 +29,7 @@ const beautify = appName => {
   return appName.toLowerCase() === 'edf' ? 'EDF' : capitalize(appName)
 }
 
-const transactionModalRowStyle = { color: palette.dodgerBlue }
+const transactionDialogListItemStyle = { color: palette.dodgerBlue }
 const Component = ({ transaction, actionProps: { urls }, isModalItem }) => {
   const { t } = useI18n()
   const appName = getAppName(urls, transaction)
@@ -40,7 +40,12 @@ const Component = ({ transaction, actionProps: { urls }, isModalItem }) => {
 
   if (isModalItem) {
     return (
-      <ListItem onClick={() => open(url)} style={transactionModalRowStyle}>
+      <ListItem
+        button
+        divider
+        onClick={() => open(url)}
+        style={transactionDialogListItemStyle}
+      >
         <ListItemIcon>
           <Icon icon={OpenwithIcon} />
         </ListItemIcon>

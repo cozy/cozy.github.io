@@ -52,6 +52,10 @@ import TransactionActionsProvider from 'ducks/transactions/TransactionActionsPro
 
 import { trackPage } from 'ducks/tracking/browser'
 
+const getHeaderHeight = () => {
+  return document.querySelector('[role=header]').getBoundingClientRect().height
+}
+
 export const STEP_INFINITE_SCROLL = 30
 export const MIN_NB_TRANSACTIONS_SHOWN = 30
 
@@ -246,12 +250,14 @@ class TransactionsPage extends Component {
       () => {
         // need to scroll past the LoadMore button
         if (isMobileApp()) {
-          const LoadMoreBtn = document.querySelector('.js-LoadMore')
-          const padding = 15
-          const scrollTo = LoadMoreBtn
-            ? LoadMoreBtn.getBoundingClientRect().bottom +
+          const loadMoreBtn = document.querySelector('.js-topLoadMoreButton')
+          const barHeight = 48
+          const headerHeight = getHeaderHeight()
+          const scrollTo = loadMoreBtn
+            ? loadMoreBtn.getBoundingClientRect().bottom +
               window.scrollY -
-              padding
+              barHeight -
+              headerHeight
             : 0
           window.scrollTo(0, scrollTo)
         }

@@ -36,7 +36,7 @@ const groupByDate = transactions => {
 
 const loadMoreStyle = { textAlign: 'center' }
 const loadMoreBtnStyle = { width: '100%', padding: '0.75rem', margin: 0 }
-const LoadMoreButton = ({ onClick }) => {
+const LoadMoreButton = ({ onClick, className }) => {
   const { t } = useI18n()
   const { isMobile } = useBreakpoints()
 
@@ -45,7 +45,7 @@ const LoadMoreButton = ({ onClick }) => {
       style={loadMoreBtnStyle}
       onClick={onClick}
       subtle
-      className="js-LoadMore"
+      className={className}
       label={t('Transactions.see-more')}
     />
   )
@@ -242,7 +242,10 @@ export class TransactionsDumb extends React.Component {
           shouldRestore={shouldRestore}
         >
           {manualLoadMore && limitMin > 0 && (
-            <LoadMoreButton onClick={() => this.props.onReachTop(20)} />
+            <LoadMoreButton
+              className="js-topLoadMoreButton"
+              onClick={() => this.props.onReachTop(20)}
+            />
           )}
 
           <TransactionSections
@@ -255,7 +258,10 @@ export class TransactionsDumb extends React.Component {
             onRowRef={this.handleRefRow}
           />
           {manualLoadMore && limitMax < this.transactions.length && (
-            <LoadMoreButton onClick={() => this.props.onReachBottom(20)} />
+            <LoadMoreButton
+              className="js-bottomLoadMoreButton"
+              onClick={() => this.props.onReachBottom(20)}
+            />
           )}
         </ScrollRestore>
       </InfiniteScroll>
