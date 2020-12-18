@@ -12,7 +12,7 @@ import Stack from 'cozy-ui/transpiled/react/Stack'
 import { Dialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 
 import PersonalInfoInfos from 'ducks/personal-info/Infos'
-import { trackPage } from 'ducks/tracking/browser'
+import { trackPage, trackEvent } from 'ducks/tracking/browser'
 import Loading from 'components/Loading'
 import countries from './nationalities.json'
 import {
@@ -134,8 +134,9 @@ export class PersonalInfoDialog extends React.Component {
         nationalities: [formData.nationality.value]
       })
       onSaveSuccessful && onSaveSuccessful(updatedIdentity)
-      Alerter.success(t('PersonalInfo.info-saved-succesfully'))
+      Alerter.success(t('PersonalInfo.info-saved-successfully'))
       await updateBIUserConfig(client, updatedIdentity)
+      trackEvent('sauver')
     } finally {
       this.setState({ saving: false })
     }

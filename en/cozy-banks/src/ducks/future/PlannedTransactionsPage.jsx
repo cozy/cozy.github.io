@@ -21,6 +21,7 @@ import { TransactionList } from 'ducks/transactions/Transactions'
 import LegalMention from 'ducks/legal/LegalMention'
 import useEstimatedBudget from './useEstimatedBudget'
 import { getCurrencySymbol } from 'utils/currencySymbol'
+import { useTrackPage } from 'ducks/tracking/browser'
 
 import styles from './styles.styl'
 
@@ -71,6 +72,7 @@ const PlannedTransactionsPage = () => {
   const router = useRouter()
   const { t } = useI18n()
   const { isMobile } = useBreakpoints()
+  useTrackPage('previsionnel')
   const handleBack = useCallback(() => {
     router.push('/balances/details')
   }, [router])
