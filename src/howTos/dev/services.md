@@ -54,6 +54,8 @@ The service must be packaged into a single file containing all the dependencies.
 
 In this example, the services are built alongside your app using `yarn watch`.
 
+:warning: If you use [cozy-script](https://github.com/cozy/create-cozy-app/tree/master/packages/cozy-scripts), you should use `watch` and not `start` to have the service built.
+
 ## Stack
 
 As the service is run on a dedicated process on the server side, a running stack is necessary. You can either use a stack installed [with docker](https://docs.cozy.io/en/howTos/dev/runCozyDocker/#run-with-a-custom-stack-config-file) or directly [from source](https://docs.cozy.io/en/cozy-stack/INSTALL/).
