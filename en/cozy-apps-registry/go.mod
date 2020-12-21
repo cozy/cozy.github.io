@@ -12,11 +12,11 @@ require (
 	github.com/howeyc/gopass v0.0.0-20190910152052-7cb4b85ec19c
 	github.com/labstack/echo/v4 v4.1.17
 	github.com/ncw/swift v1.0.52
-	github.com/pkg/xattr v0.4.2
+	github.com/pkg/xattr v0.4.3
 	github.com/sirupsen/logrus v1.7.0
 	github.com/spf13/cobra v1.1.1
 	github.com/spf13/viper v1.7.1
 	github.com/stretchr/testify v1.6.1
-	golang.org/x/crypto v0.0.0-20201208171446-5f87f3452ae9
+	golang.org/x/crypto v0.0.0-20201217014255-9d1352758620
 	golang.org/x/sync v0.0.0-20201207232520-09787c993a3a
 )
