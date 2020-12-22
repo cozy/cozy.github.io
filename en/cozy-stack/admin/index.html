@@ -2650,16 +2650,16 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#swift" title="Swift" class="md-nav__link">
-    Swift
+  <a href="#checkers" title="Checkers" class="md-nav__link">
+    Checkers
   </a>
   
     <nav class="md-nav">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#get-swiftlayouts" title="GET /swift/layouts" class="md-nav__link">
-    GET /swift/layouts
+  <a href="#get-instancesdomainfsck" title="GET /instances/:domain/fsck" class="md-nav__link">
+    GET /instances/:domain/fsck
   </a>
   
     <nav class="md-nav">
@@ -2678,6 +2678,19 @@
   </a>
   
 </li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-instancesdomaincheckstriggers" title="POST /instances/:domain/checks/triggers" class="md-nav__link">
+    POST /instances/:domain/checks/triggers
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#request_4" title="Request" class="md-nav__link">
@@ -2699,8 +2712,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#get-swiftvfsobject" title="GET /swift/vfs/:object" class="md-nav__link">
-    GET /swift/vfs/:object
+  <a href="#post-instancesdomainchecksshared" title="POST /instances/:domain/checks/shared" class="md-nav__link">
+    POST /instances/:domain/checks/shared
   </a>
   
     <nav class="md-nav">
@@ -2726,6 +2739,114 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#post-instancesdomaincheckssharings" title="POST /instances/:domain/checks/sharings" class="md-nav__link">
+    POST /instances/:domain/checks/sharings
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_6" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_5" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#swift" title="Swift" class="md-nav__link">
+    Swift
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-swiftlayouts" title="GET /swift/layouts" class="md-nav__link">
+    GET /swift/layouts
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_7" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_6" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request_8" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_7" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-swiftvfsobject" title="GET /swift/vfs/:object" class="md-nav__link">
+    GET /swift/vfs/:object
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_9" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_8" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#put-swiftvfsobject" title="PUT /swift/vfs/:object" class="md-nav__link">
     PUT /swift/vfs/:object
   </a>
@@ -2734,7 +2855,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#request_6" title="Request" class="md-nav__link">
+  <a href="#request_10" title="Request" class="md-nav__link">
     Request
   </a>
   
@@ -2754,7 +2875,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#request_7" title="Request" class="md-nav__link">
+  <a href="#request_11" title="Request" class="md-nav__link">
     Request
   </a>
   
@@ -2774,14 +2895,14 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#request_8" title="Request" class="md-nav__link">
+  <a href="#request_12" title="Request" class="md-nav__link">
     Request
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#response_5" title="Response" class="md-nav__link">
+  <a href="#response_9" title="Response" class="md-nav__link">
     Response
   </a>
   
@@ -2829,11 +2950,15 @@ are very powerful.</p>
 <p>Returns all the instances using slug/version pair</p>
 <h4 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/instances/with-app-version/drive/1.0.0</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </pre></div>
 
 
 <h4 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
 <div class="codehilite"><pre><span></span><span class="p">{</span>
     <span class="nt">&quot;instances&quot;</span><span class="p">:</span> <span class="p">[</span>
         <span class="s2">&quot;alice.cozy.tools&quot;</span><span class="p">,</span>
@@ -2847,8 +2972,8 @@ are very powerful.</p>
 <h3 id="post-instancesdomainfixerscontent-mismatch">POST /instances/:domain/fixers/content-mismatch<a class="headerlink" href="#post-instancesdomainfixerscontent-mismatch" title="Permanent link">&para;</a></h3>
 <p>Fixes the 64k (or multiple) content mismatch files of an instance</p>
 <h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/instances/:domain/fixers/content-mismatch</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/instances/alice.cozy.tools/fixers/content-mismatch</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </pre></div>
 
 
@@ -2861,6 +2986,11 @@ are very powerful.</p>
 <p>The <code>dry_run</code> (default to <code>true</code>) body parameter tells if the request is a
 dry-run or not.</p>
 <h4 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
 <div class="codehilite"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;dry_run&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
   <span class="nt">&quot;updated&quot;</span><span class="p">:</span> <span class="p">[</span>
@@ -2887,21 +3017,122 @@ dry-run or not.</p>
 <h3 id="post-instancesdomainfixersorphan-account">POST /instances/:domain/fixers/orphan-account<a class="headerlink" href="#post-instancesdomainfixersorphan-account" title="Permanent link">&para;</a></h3>
 <p>Delete the accounts which are not linked to a konnector</p>
 <h4 id="request_2">Request<a class="headerlink" href="#request_2" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/instances/:domain/fixers/orphan-account</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/instances/alice.cozy.tools/fixers/orphan-account</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
+
+
+<h2 id="checkers">Checkers<a class="headerlink" href="#checkers" title="Permanent link">&para;</a></h2>
+<h3 id="get-instancesdomainfsck">GET /instances/:domain/fsck<a class="headerlink" href="#get-instancesdomainfsck" title="Permanent link">&para;</a></h3>
+<p>This endpoint can be use to check the VFS of a given instance. It accepts three
+possible parameters in the query-string:</p>
+<ul>
+<li><code>IndexIntegrity=true</code> to check only the integrity of the data in CouchDB</li>
+<li><code>FilesConsistency</code> to check the consistency between CouchDB and Swift</li>
+<li><code>FailFast</code> to abort on the first error.</li>
+</ul>
+<p>It will returns a <code>200 OK</code>, except if the instance is not found where the code
+will be <code>404 Not Found</code> (a <code>5xx</code> can also happen in case of server errors like
+CouchDB not available). The format of the response will be one JSON per line,
+and each JSON represents an error.</p>
+<h4 id="request_3">Request<a class="headerlink" href="#request_3" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/instances/alice.cozy.tools/fsck</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
+
+
+<h4 id="response_2">Response<a class="headerlink" href="#response_2" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;index_orphan_tree&quot;</span><span class="p">,</span><span class="nt">&quot;dir_doc&quot;</span><span class="p">:{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;directory&quot;</span><span class="p">,</span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="s2">&quot;34a61c6ceb38075fe971cc6a3263659f&quot;</span><span class="p">,</span><span class="nt">&quot;_rev&quot;</span><span class="p">:</span><span class="s2">&quot;2-94ca3acfebf927cb231d125c57f85bd7&quot;</span><span class="p">,</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Photos&quot;</span><span class="p">,</span><span class="nt">&quot;dir_id&quot;</span><span class="p">:</span><span class="s2">&quot;45496c5c442dabecae87de3d73008ec4&quot;</span><span class="p">,</span><span class="nt">&quot;created_at&quot;</span><span class="p">:</span><span class="s2">&quot;2020-12-15T18:23:21.498323965+01:00&quot;</span><span class="p">,</span><span class="nt">&quot;updated_at&quot;</span><span class="p">:</span><span class="s2">&quot;2020-12-15T18:23:21.498323965+01:00&quot;</span><span class="p">,</span><span class="nt">&quot;tags&quot;</span><span class="p">:[],</span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/Photos&quot;</span><span class="p">,</span><span class="nt">&quot;cozyMetadata&quot;</span><span class="p">:{</span><span class="nt">&quot;doctypeVersion&quot;</span><span class="p">:</span><span class="s2">&quot;1&quot;</span><span class="p">,</span><span class="nt">&quot;metadataVersion&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nt">&quot;createdAt&quot;</span><span class="p">:</span><span class="s2">&quot;2020-12-15T18:23:21.498327603+01:00&quot;</span><span class="p">,</span><span class="nt">&quot;updatedAt&quot;</span><span class="p">:</span><span class="s2">&quot;2020-12-15T18:23:21.498327603+01:00&quot;</span><span class="p">,</span><span class="nt">&quot;createdOn&quot;</span><span class="p">:</span><span class="s2">&quot;http://alice.cozy.tools:8080/&quot;</span><span class="p">},</span><span class="nt">&quot;size&quot;</span><span class="p">:</span><span class="s2">&quot;0&quot;</span><span class="p">,</span><span class="nt">&quot;is_dir&quot;</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;is_orphan&quot;</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;has_cycle&quot;</span><span class="p">:</span><span class="kc">false</span><span class="p">},</span><span class="nt">&quot;is_file&quot;</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nt">&quot;is_version&quot;</span><span class="p">:</span><span class="kc">false</span><span class="p">}</span>
+<span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;index_missing&quot;</span><span class="p">,</span><span class="nt">&quot;file_doc&quot;</span><span class="p">:{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;file&quot;</span><span class="p">,</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Photos&quot;</span><span class="p">,</span><span class="nt">&quot;dir_id&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="nt">&quot;created_at&quot;</span><span class="p">:</span><span class="s2">&quot;2020-12-15T18:23:21.527308795+01:00&quot;</span><span class="p">,</span><span class="nt">&quot;updated_at&quot;</span><span class="p">:</span><span class="s2">&quot;2020-12-15T18:23:21.527308795+01:00&quot;</span><span class="p">,</span><span class="nt">&quot;tags&quot;</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/Photos&quot;</span><span class="p">,</span><span class="nt">&quot;size&quot;</span><span class="p">:</span><span class="s2">&quot;4096&quot;</span><span class="p">,</span><span class="nt">&quot;mime&quot;</span><span class="p">:</span><span class="s2">&quot;application/octet-stream&quot;</span><span class="p">,</span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="s2">&quot;files&quot;</span><span class="p">,</span><span class="nt">&quot;executable&quot;</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;is_dir&quot;</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nt">&quot;is_orphan&quot;</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nt">&quot;has_cycle&quot;</span><span class="p">:</span><span class="kc">false</span><span class="p">},</span><span class="nt">&quot;is_file&quot;</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;is_version&quot;</span><span class="p">:</span><span class="kc">false</span><span class="p">}</span>
+</pre></div>
+
+
+<h3 id="post-instancesdomaincheckstriggers">POST /instances/:domain/checks/triggers<a class="headerlink" href="#post-instancesdomaincheckstriggers" title="Permanent link">&para;</a></h3>
+<p>This endpoint will check if no trigger has been installed twice (or more).</p>
+<h4 id="request_4">Request<a class="headerlink" href="#request_4" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/instances/alice.cozy.tools/checks/triggers</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
+
+
+<h4 id="response_3">Response<a class="headerlink" href="#response_3" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;45496c5c442dabecae87de3d7300666f&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;arguments&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files:CREATED,UPDATED,DELETED:image:class&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;debounce&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;other_id&quot;</span><span class="p">:</span> <span class="s2">&quot;34a61c6ceb38075fe971cc6a3263895f&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;trigger&quot;</span><span class="p">:</span> <span class="s2">&quot;@event&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;duplicate&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;worker&quot;</span><span class="p">:</span> <span class="s2">&quot;thumbnail&quot;</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+
+
+<h3 id="post-instancesdomainchecksshared">POST /instances/:domain/checks/shared<a class="headerlink" href="#post-instancesdomainchecksshared" title="Permanent link">&para;</a></h3>
+<p>This endpoint will check that the io.cozy.shared documents have a correct
+revision tree (no generation smaller for a children than its parent).</p>
+<h4 id="request_5">Request<a class="headerlink" href="#request_5" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/instances/alice.cozy.tools/checks/shared</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
+
+
+<h4 id="response_4">Response<a class="headerlink" href="#response_4" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">[</span>
+  <span class="p">{</span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="s2">&quot;io.cozy.files/fd1706de234d17d1ac2fe560051a2aae&quot;</span><span class="p">,</span><span class="nt">&quot;child_rev&quot;</span><span class="p">:</span><span class="s2">&quot;1-e19947b4f9bfb273bc8958ae932ae4c7&quot;</span><span class="p">,</span><span class="nt">&quot;parent_rev&quot;</span><span class="p">:</span><span class="s2">&quot;2-4f82af35577dbc9b686dd447719e4835&quot;</span><span class="p">,</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;invalid_revs_suite&quot;</span><span class="p">},</span>
+  <span class="p">{</span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="s2">&quot;io.cozy.files/fd9bef5df406f5b150f302b8c5b3f5f0&quot;</span><span class="p">,</span><span class="nt">&quot;child_rev&quot;</span><span class="p">:</span><span class="s2">&quot;7-05bb459e0ac5450c17df79ed1f13afa1&quot;</span><span class="p">,</span><span class="nt">&quot;parent_rev&quot;</span><span class="p">:</span><span class="s2">&quot;8-07b4cafef3c2e74e698ee4a04d1874c2&quot;</span><span class="p">,</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;invalid_revs_suite&quot;</span><span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+
+
+<h3 id="post-instancesdomaincheckssharings">POST /instances/:domain/checks/sharings<a class="headerlink" href="#post-instancesdomaincheckssharings" title="Permanent link">&para;</a></h3>
+<h4 id="request_6">Request<a class="headerlink" href="#request_6" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/instances/alice.cozy.tools/checks/sharings</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
+
+
+<h4 id="response_5">Response<a class="headerlink" href="#response_5" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">[</span>
+  <span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;314d69d7ebaed0a1870cca67f4433390&quot;</span><span class="p">,</span><span class="nt">&quot;trigger&quot;</span><span class="p">:</span><span class="s2">&quot;track&quot;</span><span class="p">,</span><span class="nt">&quot;trigger_id&quot;</span><span class="p">:</span><span class="s2">&quot;314d69d7ebaed0a1870cca67f4d75e41&quot;</span><span class="p">,</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;trigger_on_inactive_sharing&quot;</span><span class="p">},</span>
+  <span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;314d69d7ebaed0a1870cca67f4433390&quot;</span><span class="p">,</span><span class="nt">&quot;trigger&quot;</span><span class="p">:</span><span class="s2">&quot;replicate&quot;</span><span class="p">,</span><span class="nt">&quot;trigger_id&quot;</span><span class="p">:</span><span class="s2">&quot;314d69d7ebaed0a1870cca67f4d75e41&quot;</span><span class="p">,</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;trigger_on_inactive_sharing&quot;</span><span class="p">},</span>
+  <span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;314d69d7ebaed0a1870cca67f4433390&quot;</span><span class="p">,</span><span class="nt">&quot;trigger&quot;</span><span class="p">:</span><span class="s2">&quot;upload&quot;</span><span class="p">,</span><span class="nt">&quot;trigger_id&quot;</span><span class="p">:</span><span class="s2">&quot;314d69d7ebaed0a1870cca67f4d75e41&quot;</span><span class="p">,</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;trigger_on_inactive_sharing&quot;</span><span class="p">},</span>
+  <span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;314d69d7ebaed0a1870cca67f4433390&quot;</span><span class="p">,</span><span class="nt">&quot;member&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="s2">&quot;revoked&quot;</span><span class="p">,</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;invalid_member_status&quot;</span><span class="p">},</span>
+  <span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;314d69d7ebaed0a1870cca67f4433390&quot;</span><span class="p">,</span><span class="nt">&quot;nb_members&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">&quot;owner&quot;</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;invalid_number_of_credentials&quot;</span><span class="p">}</span>
+<span class="p">]</span>
 </pre></div>
 
 
 <h2 id="swift">Swift<a class="headerlink" href="#swift" title="Permanent link">&para;</a></h2>
 <h3 id="get-swiftlayouts">GET /swift/layouts<a class="headerlink" href="#get-swiftlayouts" title="Permanent link">&para;</a></h3>
 <p>Count swift layouts by type</p>
-<h4 id="request_3">Request<a class="headerlink" href="#request_3" title="Permanent link">&para;</a></h4>
+<h4 id="request_7">Request<a class="headerlink" href="#request_7" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/swift/layouts</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </pre></div>
 
 
-<h4 id="response_2">Response<a class="headerlink" href="#response_2" title="Permanent link">&para;</a></h4>
+<h4 id="response_6">Response<a class="headerlink" href="#response_6" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
 <div class="codehilite"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;total&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
   <span class="nt">&quot;unknown&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -2927,13 +3158,17 @@ dry-run or not.</p>
 
 
 <p>The <code>show_domains=true</code> query parameter provides the domain names if needed</p>
-<h4 id="request_4">Request<a class="headerlink" href="#request_4" title="Permanent link">&para;</a></h4>
+<h4 id="request_8">Request<a class="headerlink" href="#request_8" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/swift/layouts?show_domains=true</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </pre></div>
 
 
-<h4 id="response_3">Response<a class="headerlink" href="#response_3" title="Permanent link">&para;</a></h4>
+<h4 id="response_7">Response<a class="headerlink" href="#response_7" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
 <div class="codehilite"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;total&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
   <span class="nt">&quot;unknown&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -2973,51 +3208,57 @@ dry-run or not.</p>
 
 <h3 id="get-swiftvfsobject">GET /swift/vfs/:object<a class="headerlink" href="#get-swiftvfsobject" title="Permanent link">&para;</a></h3>
 <p>Retrieves a Swift object</p>
-<h4 id="request_5">Request<a class="headerlink" href="#request_5" title="Permanent link">&para;</a></h4>
+<h4 id="request_9">Request<a class="headerlink" href="#request_9" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/swift/vfs/67a88b22520680b1fae840%2F9a8a0%2F18d02%2FiYbkfuCDEMaVoIXg</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.cozy.tools</span>
 </pre></div>
 
 
-<h4 id="response_4">Response<a class="headerlink" href="#response_4" title="Permanent link">&para;</a></h4>
+<h4 id="response_8">Response<a class="headerlink" href="#response_8" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">text/plain</span>
+</pre></div>
+
+
 <div class="codehilite"><pre><span></span>&quot;foobar&quot;
 </pre></div>
 
 
 <h3 id="put-swiftvfsobject">PUT /swift/vfs/:object<a class="headerlink" href="#put-swiftvfsobject" title="Permanent link">&para;</a></h3>
 <p>Put an object in Swift</p>
-<h4 id="request_6">Request<a class="headerlink" href="#request_6" title="Permanent link">&para;</a></h4>
+<h4 id="request_10">Request<a class="headerlink" href="#request_10" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">PUT</span> <span class="nn">/swift/vfs/67a88b22520680b1fae840%2F9a8a0%2F18d02%2FiYbkfuCDEMaVoIXg</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.cozy.tools</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">text/plain</span>
 </pre></div>
 
 
-<p>Body:</p>
-<div class="codehilite"><pre><span></span> &quot;this is my content&quot;
+<div class="codehilite"><pre><span></span>&quot;this is my content&quot;
 </pre></div>
 
 
 <h3 id="delete-swiftvfsobject">DELETE /swift/vfs/:object<a class="headerlink" href="#delete-swiftvfsobject" title="Permanent link">&para;</a></h3>
 <p>Removes an object from Swift</p>
-<h4 id="request_7">Request<a class="headerlink" href="#request_7" title="Permanent link">&para;</a></h4>
+<h4 id="request_11">Request<a class="headerlink" href="#request_11" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/swift/vfs/67a88b22520680b1fae840%2F9a8a0%2F18d02%2FiYbkfuCDEMaVoIXg</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.cozy.tools</span>
 </pre></div>
 
 
 <h3 id="get-swiftvfs">GET /swift/vfs<a class="headerlink" href="#get-swiftvfs" title="Permanent link">&para;</a></h3>
 <p>List Swift objects of an instance</p>
-<h4 id="request_8">Request<a class="headerlink" href="#request_8" title="Permanent link">&para;</a></h4>
+<h4 id="request_12">Request<a class="headerlink" href="#request_12" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/swift/vfs</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.cozy.tools</span>
 </pre></div>
 
 
-<h4 id="response_5">Response<a class="headerlink" href="#response_5" title="Permanent link">&para;</a></h4>
+<h4 id="response_9">Response<a class="headerlink" href="#response_9" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
 <div class="codehilite"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;objects_names&quot;</span><span class="p">:</span> <span class="p">[</span>
     <span class="s2">&quot;67a88b22520680b1fae840/9a8a0/17264/AxfGhAiWVRhPufKK&quot;</span><span class="p">,</span>
