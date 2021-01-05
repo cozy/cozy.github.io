@@ -2216,6 +2216,47 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#get-authauthorizemove-post-authauthorizemove" title="GET /auth/authorize/move &amp; POST /auth/authorize/move" class="md-nav__link">
+    GET /auth/authorize/move &amp; POST /auth/authorize/move
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request-get" title="Request GET" class="md-nav__link">
+    Request GET
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response-get" title="Response GET" class="md-nav__link">
+    Response GET
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-post" title="Request POST" class="md-nav__link">
+    Request POST
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response-post" title="Response POST" class="md-nav__link">
+    Response POST
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#post-authaccess_token" title="POST /auth/access_token" class="md-nav__link">
     POST /auth/access_token
   </a>
@@ -3108,6 +3149,47 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#get-authauthorizemove-post-authauthorizemove" title="GET /auth/authorize/move &amp; POST /auth/authorize/move" class="md-nav__link">
+    GET /auth/authorize/move &amp; POST /auth/authorize/move
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request-get" title="Request GET" class="md-nav__link">
+    Request GET
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response-get" title="Response GET" class="md-nav__link">
+    Response GET
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-post" title="Request POST" class="md-nav__link">
+    Request POST
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response-post" title="Response POST" class="md-nav__link">
+    Response POST
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#post-authaccess_token" title="POST /auth/access_token" class="md-nav__link">
     POST /auth/access_token
   </a>
@@ -3829,6 +3911,45 @@ URL:</p>
 thing, but it is specialized for sharing. They are a few differences, like the
 scope format (sharing rules, not permissions) and the redirection after the
 POST (with <code>sharing=&lt;sharing-id&gt;</code> in the query string).</p>
+<h3 id="get-authauthorizemove-post-authauthorizemove">GET /auth/authorize/move &amp; POST /auth/authorize/move<a class="headerlink" href="#get-authauthorizemove-post-authauthorizemove" title="Permanent link">&para;</a></h3>
+<p>They are similar to <code>/auth/authorize</code>, but instead of a page that lists the
+permissions, the user will be asked to type their password to confirm the
+action (even if they are already logged-in). If the 2FA is activated, the code
+will be asked too. This strong action seems adequate for authorizing to erase
+the data in the Cozy before importing data from another Cozy.</p>
+<h4 id="request-get">Request GET<a class="headerlink" href="#request-get" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/auth/authorize/move?state=8d560d60&amp;client_id=oauth-client-2&amp;redirect_uri=https://move.cozycloud.cc/callback/target</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Server</span><span class="o">:</span> <span class="l">target.cozy.example</span>
+</pre></div>
+
+
+<h4 id="response-get">Response GET<a class="headerlink" href="#response-get" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/html</span>
+</pre></div>
+
+
+<h4 id="request-post">Request POST<a class="headerlink" href="#request-post" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/auth/authorize/move</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Server</span><span class="o">:</span> <span class="l">target.cozy.example</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/x-www-form-urlencoded</span>
+
+state=8d560d60&amp;client_id=oauth-client-2&amp;csrf_token=johw6Sho&amp;redirect_uri=https%3A%2F%2Fmove.cozycloud.cc%2Fcallback%2Ftarget
+</pre></div>
+
+
+<h4 id="response-post">Response POST<a class="headerlink" href="#response-post" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;redirect&quot;</span><span class="p">:</span> <span class="s2">&quot;https://move.cozycloud.cc/callback/target?code=543d7eb8149c&amp;used=123456&amp;quota=5000000&amp;state=8d560d60&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
 <h3 id="post-authaccess_token">POST /auth/access_token<a class="headerlink" href="#post-authaccess_token" title="Permanent link">&para;</a></h3>
 <p>Now, the client can check that the state is correct, and if it is the case, ask
 for an <code>access_token</code>. It can use this route with the <code>code</code> given above.</p>
@@ -3852,9 +3973,11 @@ grant_type=authorization_code&amp;code=Aih7ohth&amp;client_id=oauth-client-1&amp
 
 
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
-<span class="na">Content-type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
 
-<span class="p">{</span>
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;access_token&quot;</span><span class="p">:</span> <span class="s2">&quot;ooch1Yei&quot;</span><span class="p">,</span>
   <span class="nt">&quot;token_type&quot;</span><span class="p">:</span> <span class="s2">&quot;bearer&quot;</span><span class="p">,</span>
   <span class="nt">&quot;refresh_token&quot;</span><span class="p">:</span> <span class="s2">&quot;ui0Ohch8&quot;</span><span class="p">,</span>
@@ -3880,9 +4003,11 @@ onboarding secret.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
-<span class="na">Content-type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
 
-<span class="p">{</span>
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;client_id&quot;</span><span class="p">:</span> <span class="s2">&quot;cf60f07cd7e00d0c0f86cd3f29240477&quot;</span><span class="p">,</span>
   <span class="nt">&quot;client_secret&quot;</span><span class="p">:</span> <span class="s2">&quot;NNSLTid18EATInQWyg2XGKd_vs0e3zUC&quot;</span><span class="p">,</span>
   <span class="nt">&quot;client_secret_expires_at&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>

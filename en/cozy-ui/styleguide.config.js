@@ -199,7 +199,12 @@ module.exports = {
     }
   },
   styleguideComponents: {
-    SectionsRenderer: path.join(__dirname, 'components/SectionsRenderer.jsx')
+    SectionsRenderer: path.join(__dirname, 'components/SectionsRenderer.jsx'),
+    TableOfContentsRenderer: path.join(
+      __dirname,
+      'components/TableOfContentsRenderer.jsx'
+    ),
+    Wrapper: path.join(__dirname, 'components/Wrapper')
   },
   theme: {
     fontFamily: {
@@ -227,5 +232,12 @@ module.exports = {
     utils: path.resolve(__dirname, 'utils'),
     isTesting: path.resolve(__dirname, '../react/helpers/isTesting'),
     content: path.resolve(__dirname, 'fixtures/content')
+  },
+  styles: {
+    Playground: {
+      preview: {
+        padding: 0
+      }
+    }
   }
 }

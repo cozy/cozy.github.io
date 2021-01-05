@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import Typography from '../../react/Typography'
 
 /**
  * Useful for components for which there are variants, this component
@@ -20,13 +21,15 @@ const VariantInfo = ({ variant, onChange }) => {
     <div className="u-m-1">
       {Object.entries(variant).map(([element, value], i) => (
         <React.Fragment key={i}>
-          {element}:{' '}
-          <input
-            onClick={() => setElement(element, !value)}
-            className="u-mr-1"
-            type="checkbox"
-            checked={value}
-          />
+          <Typography component="span" variant="button" className="u-dib">
+            {element}
+            <input
+              onClick={() => setElement(element, !value)}
+              className="u-ml-1 u-mr-1"
+              type="checkbox"
+              checked={value}
+            />
+          </Typography>{' '}
         </React.Fragment>
       ))}
     </div>

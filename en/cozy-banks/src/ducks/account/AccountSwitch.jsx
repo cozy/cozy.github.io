@@ -201,7 +201,7 @@ const AccountSwitchMenu = ({
             }}
           >
             <AccountListItemText
-              primary={getGroupLabel(group, t)}
+              primary={group.label}
               secondary={
                 <>
                   {t(
