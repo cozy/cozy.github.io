@@ -2,11 +2,17 @@ import React, { useMemo } from 'react'
 import CozyClient, { Q, Query } from 'cozy-client'
 
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import Modal from 'cozy-ui/transpiled/react/Modal'
+import Dialog from 'cozy-ui/transpiled/react/Dialog'
+import {
+  useCozyDialog,
+  DialogCloseButton
+} from 'cozy-ui/transpiled/react/CozyDialogs'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 
 import AccountModalContent from 'cozy-harvest-lib/dist/components/AccountModal'
 import EditAccountModal from 'cozy-harvest-lib/dist/components/EditAccountModal'
+import HarvestVaultProvider from 'cozy-harvest-lib/dist/components/HarvestVaultProvider'
+
 import { TrackingContext as HarvestTrackingContext } from 'cozy-harvest-lib/dist/components/hoc/tracking'
 
 import { useTracker } from 'ducks/tracking/browser'
@@ -136,63 +142,63 @@ const HarvestTrackingProvider = ({ children }) => {
  * Shows a modal displaying the AccountModal from Harvest
  */
 const HarvestBankAccountSettings = ({ connectionId, onDismiss }) => {
-  const { t } = useI18n()
-
+  const { dialogProps } = useCozyDialog({
+    open: true,
+    size: 'medium'
+  })
   return (
-    <HarvestTrackingProvider>
-      <HarvestSwitch
-        initialFragment={`/accounts/${connectionId}`}
-        routes={[
-          [
-            '/accounts/:connectionId',
-            connectionId => (
-              <Modal
-                aria-label={t('Harvest.modal-title')}
-                mobileFullscreen
-                size="large"
-                dismissAction={onDismiss}
-              >
+    <HarvestVaultProvider>
+      <HarvestTrackingProvider>
+        <HarvestSwitch
+          initialFragment={`/accounts/${connectionId}`}
+          routes={[
+            [
+              '/accounts/:connectionId',
+              connectionId => (
+                <Dialog {...dialogProps} onClose={onDismiss}>
+                  <DialogCloseButton onClick={onDismiss} />
+                  <HarvestLoader connectionId={connectionId}>
+                    {({ triggers, konnector, accountsAndTriggers }) => {
+                      return (
+                        <AccountModalContent
+                          initialActiveTab="configuration"
+                          accountId={connectionId}
+                          triggers={triggers}
+                          konnector={konnector}
+                          accountsAndTriggers={accountsAndTriggers}
+                          onDismiss={() => {
+                            onDismiss()
+                          }}
+                          showAccountSelection={false}
+                          showNewAccountButton={false}
+                        />
+                      )
+                    }}
+                  </HarvestLoader>
+                </Dialog>
+              )
+            ],
+            ['/accounts', () => null],
+            [
+              '/accounts/:connectionId/edit',
+              connectionId => (
                 <HarvestLoader connectionId={connectionId}>
-                  {({ triggers, konnector, accountsAndTriggers }) => {
+                  {({ konnector, accountsAndTriggers }) => {
                     return (
-                      <AccountModalContent
-                        initialActiveTab="configuration"
-                        accountId={connectionId}
-                        triggers={triggers}
+                      <EditAccountModal
                         konnector={konnector}
-                        accountsAndTriggers={accountsAndTriggers}
-                        onDismiss={() => {
-                          onDismiss()
-                        }}
-                        showAccountSelection={false}
-                        showNewAccountButton={false}
+                        accountId={connectionId}
+                        accounts={accountsAndTriggers}
                       />
                     )
                   }}
                 </HarvestLoader>
-              </Modal>
-            )
-          ],
-          ['/accounts', () => null],
-          [
-            '/accounts/:connectionId/edit',
-            connectionId => (
-              <HarvestLoader connectionId={connectionId}>
-                {({ konnector, accountsAndTriggers }) => {
-                  return (
-                    <EditAccountModal
-                      konnector={konnector}
-                      accountId={connectionId}
-                      accounts={accountsAndTriggers}
-                    />
-                  )
-                }}
-              </HarvestLoader>
-            )
-          ]
-        ]}
-      />
-    </HarvestTrackingProvider>
+              )
+            ]
+          ]}
+        />
+      </HarvestTrackingProvider>
+    </HarvestVaultProvider>
   )
 }
 

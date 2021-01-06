@@ -1,4 +1,4 @@
-/* global __VERSIONS__, JSBridge */
+/* global __VERSIONS__ */
 
 import React, { useState } from 'react'
 import Checkbox from 'cozy-ui/transpiled/react/Checkbox'
@@ -83,43 +83,6 @@ const DeviceToken = ({ client }) => {
           : '⚠️ Cannot receive notifications'}
       </p>
     </>
-  )
-}
-
-const NativeComm = () => {
-  const batchEvent = JSON.stringify({
-    event: 'view_parametres',
-    tags: ['tag1', 'tag2'],
-    data: {
-      aString: 'string',
-      anInt: 42,
-      aDouble: 3.14,
-      aBool: true,
-      anotherBool: false
-    }
-  })
-
-  const onClick = () => {
-    try {
-      if (!window.cordova) {
-        alert('Not in cordova')
-      } else if (window.cordova.platformId === 'ios') {
-        window.webkit.messageHandlers.batchTrackEvent.postMessage(batchEvent)
-      } else if (window.cordova.platformId === 'android') {
-        JSBridge.batchTrackEvent(batchEvent)
-      } else {
-        alert(`Unknown platform ${window.cordova.platformId}`)
-      }
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error('Could not send event to native app. Error: ', e)
-    }
-  }
-  return (
-    <div>
-      <Title>Commucation with native device</Title>
-      <button onClick={onClick}>Send an event</button>
-    </div>
   )
 }
 
@@ -259,7 +222,6 @@ class DumbDebugSettings extends React.PureComponent {
           <br />
           <pre>{JSON.stringify(lastInteractionStorage.load(), null, 2)}</pre>
         </div>
-        <NativeComm />
         <Versions />
       </Stack>
     )

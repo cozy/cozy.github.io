@@ -10,7 +10,7 @@ import styles from 'ducks/balance/NoAccount.styl'
 import PlusIcon from 'cozy-ui/transpiled/react/Icons/Plus'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 
-const NoAccount = () => {
+export const NoAccount = ({ buttonTheme }) => {
   const { isMobile } = useBreakpoints()
   const { t, lang } = useI18n()
   const timelineImg = require(`./timeline_${isMobile ? 'mobile' : 'desktop'}_${
@@ -29,7 +29,7 @@ const NoAccount = () => {
       </div>
       <AddAccountLink>
         <Button
-          theme="highlight"
+          theme={buttonTheme}
           icon={<Icon icon={PlusIcon} />}
           size="large"
           className={styles.NoAccount_addButton}
@@ -38,6 +38,10 @@ const NoAccount = () => {
       </AddAccountLink>
     </Container>
   )
+}
+
+NoAccount.defaultProps = {
+  buttonTheme: 'highlight'
 }
 
 export default memo(NoAccount)

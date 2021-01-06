@@ -1,12 +1,10 @@
-/* global mount */
-
 import React from 'react'
+import { render, fireEvent } from '@testing-library/react'
 import TransactionModal, {
   showAlertAfterApplicationDateUpdate
 } from './TransactionModal'
 import data from '../../../test/fixtures'
 import AppLike from 'test/AppLike'
-import pretty from 'pretty'
 import { createClientWithData } from 'test/client'
 import { ACCOUNT_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
@@ -15,7 +13,6 @@ import Polyglot from 'node-polyglot'
 import en from 'locales/en.json'
 import { TrackerProvider, trackPage } from 'ducks/tracking/browser'
 import { getTracker } from 'ducks/tracking/tracker'
-import RawContentDialog from 'components/RawContentDialog'
 
 jest.mock('ducks/tracking/tracker', () => {
   const tracker = {
@@ -58,7 +55,7 @@ describe('transaction modal', () => {
       params: {}
     }
     const tracker = getTracker()
-    const root = mount(
+    const root = render(
       <TrackerProvider value={tracker}>
         <AppLike client={client} router={router}>
           <TransactionModal
@@ -75,16 +72,19 @@ describe('transaction modal', () => {
   }
 
   const closeModal = root => {
-    root
-      .find(RawContentDialog)
-      .props()
-      .onClose()
+    const dialogNode = root.getByRole('dialog')
+    const backdrop = dialogNode.firstChild
+    fireEvent.click(backdrop)
   }
 
   it('should render correctly', () => {
     trackPage('mon_compte:compte')
     const { root } = setup()
-    expect(pretty(root.html())).toMatchSnapshot()
+    expect(root.getByText('Occasional transaction')).toBeTruthy()
+    expect(root.getByText('Assigned to Aug 2017')).toBeTruthy()
+    expect(root.getByText('Edf Particuliers')).toBeTruthy()
+    expect(root.getByText('-77.50')).toBeTruthy()
+    expect(root.getByText('Saturday 26 August')).toBeTruthy()
   })
 
   it('should send correct tracking events (balance page)', () => {

@@ -9,8 +9,9 @@ import PlusIcon from 'cozy-ui/transpiled/react/Icons/Plus'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 
 const sleep = time => new Promise(resolve => setTimeout(resolve, time))
-const AddAccountButton = ({
+export const AddAccountButton = ({
   label,
+  buttonTheme,
   className,
   absolute,
   onClick,
@@ -18,7 +19,7 @@ const AddAccountButton = ({
 }) => (
   <AddAccountLink>
     <Button
-      theme="highlight"
+      theme={buttonTheme}
       icon={<Icon icon={PlusIcon} />}
       size="large"
       className={cx(
@@ -38,5 +39,9 @@ const AddAccountButton = ({
     />
   </AddAccountLink>
 )
+
+AddAccountButton.defaultProps = {
+  buttonTheme: 'highlight'
+}
 
 export default memo(AddAccountButton)
