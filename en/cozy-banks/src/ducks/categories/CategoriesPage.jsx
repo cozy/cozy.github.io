@@ -184,7 +184,7 @@ class CategoriesPage extends Component {
           categories={sortedCategories}
           isFetching={isFetching}
           hasAccount={hasAccount}
-          chart={isSubcategory ? false : true}
+          chart={!isSubcategory}
         />
         {hasAccount &&
           (isFetching ? (

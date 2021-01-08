@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import { Media, Bd, Img, Icon, useI18n } from 'cozy-ui/transpiled/react'
@@ -204,8 +204,16 @@ export const RowMobile = React.memo(function RowMobile(props) {
   const { transaction, filteringOnAccount, onRef, showRecurrence } = props
   const account = transaction.account.data
   const rowRest = {}
-  const [showTransactionModal, , transactionModal] = useTransactionModal(
+  const [rawShowTransactionModal, , transactionModal] = useTransactionModal(
     transaction
+  )
+
+  const showTransactionModal = useCallback(
+    ev => {
+      ev.preventDefault()
+      rawShowTransactionModal()
+    },
+    [rawShowTransactionModal]
   )
 
   if (flag('show-transactions-ids')) {
@@ -218,57 +226,61 @@ export const RowMobile = React.memo(function RowMobile(props) {
   const recurrence = transaction.recurrence ? transaction.recurrence.data : null
 
   return (
-    <List.Row onRef={onRef} {...rowRest}>
-      <Media className="u-w-100">
-        <Img
-          className="u-clickable u-mr-half"
-          title={t(
-            `Data.subcategories.${getCategoryName(getCategoryId(transaction))}`
-          )}
-          onClick={showTransactionModal}
-        >
-          <CategoryIcon categoryId={getCategoryId(transaction)} />
-        </Img>
-        <Bd className="u-clickable u-mr-half">
-          <List.Content onClick={showTransactionModal}>
-            <Typography className="u-ellipsis" variant="body1">
-              {getLabel(transaction)}
-            </Typography>
-            {!filteringOnAccount && <AccountCaption account={account} />}
-            {applicationDate ? (
-              <ApplicationDateCaption transaction={transaction} />
+    <>
+      <List.Row onRef={onRef} {...rowRest}>
+        <Media className="u-w-100">
+          <Img
+            className="u-clickable u-mr-half"
+            title={t(
+              `Data.subcategories.${getCategoryName(
+                getCategoryId(transaction)
+              )}`
+            )}
+            onClick={showTransactionModal}
+          >
+            <CategoryIcon categoryId={getCategoryId(transaction)} />
+          </Img>
+          <Bd className="u-clickable u-mr-half">
+            <List.Content onClick={showTransactionModal}>
+              <Typography className="u-ellipsis" variant="body1">
+                {getLabel(transaction)}
+              </Typography>
+              {!filteringOnAccount && <AccountCaption account={account} />}
+              {applicationDate ? (
+                <ApplicationDateCaption transaction={transaction} />
+              ) : null}
+            </List.Content>
+          </Bd>
+          <Img
+            onClick={showTransactionModal}
+            className={styles.TransactionRowMobileImg}
+          >
+            <Figure
+              total={transaction.amount}
+              symbol={getCurrencySymbol(transaction.currency)}
+              coloredPositive
+              signed
+            />
+            {recurrence && showRecurrence ? (
+              <RecurrenceCaption recurrence={recurrence} />
             ) : null}
-          </List.Content>
-        </Bd>
-        <Img
-          onClick={showTransactionModal}
-          className={styles.TransactionRowMobileImg}
-        >
-          <Figure
-            total={transaction.amount}
-            symbol={getCurrencySymbol(transaction.currency)}
-            coloredPositive
-            signed
-          />
-          {recurrence && showRecurrence ? (
-            <RecurrenceCaption recurrence={recurrence} />
-          ) : null}
-        </Img>
-        {false}
-      </Media>
-      <TransactionActions
-        transaction={transaction}
-        onlyDefault
-        compact
-        menuPosition="right"
-        className={cx(
-          'u-mt-half',
-          'u-ml-2-half',
-          styles.TransactionRowMobile__actions
-        )}
-      />
+          </Img>
+          {false}
+        </Media>
+        <TransactionActions
+          transaction={transaction}
+          onlyDefault
+          compact
+          menuPosition="right"
+          className={cx(
+            'u-mt-half',
+            'u-ml-2-half',
+            styles.TransactionRowMobile__actions
+          )}
+        />
+      </List.Row>
       {transactionModal}
-    </List.Row>
+    </>
   )
 })
 

@@ -179,7 +179,7 @@ const sortBundlesForViewing = bundles => {
   )
 }
 
-const RecurrencesPage = () => {
+export const RecurrencesPage = ({ emptyIcon }) => {
   const history = useHistory()
   const { isMobile } = useBreakpoints()
   const bundleCol = useQuery(recurrenceConn.query, recurrenceConn)
@@ -236,7 +236,7 @@ const RecurrencesPage = () => {
         <Padded>
           <LegalMention className="u-mt-3" style={{ marginBottom: '-3rem' }} />
           <Empty
-            icon={{}}
+            icon={emptyIcon}
             title={t('Recurrence.no-recurrences.title')}
             text={t('Recurrence.no-recurrences.text')}
           />
@@ -244,6 +244,10 @@ const RecurrencesPage = () => {
       )}
     </>
   )
+}
+
+RecurrencesPage.defaultProps = {
+  emptyIcon: 'cozy'
 }
 
 const RecurrenceError = ({ error }) => {

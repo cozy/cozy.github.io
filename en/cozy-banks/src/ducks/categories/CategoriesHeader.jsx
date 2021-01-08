@@ -29,6 +29,7 @@ import { themed } from 'components/useTheme'
 import Table from 'components/Table'
 import { useParams } from 'components/RouterContext'
 import LegalMention from 'ducks/legal/LegalMention'
+import Empty from 'cozy-ui/transpiled/react/Empty'
 
 const Breadcrumb = themed(RawBreadcrumb)
 
@@ -112,6 +113,7 @@ const CategoriesHeader = props => {
   const { isMobile } = useBreakpoints()
   const {
     breadcrumbItems,
+    emptyIcon,
     hasAccount,
     selectedCategory,
     withIncome,
@@ -176,6 +178,16 @@ const CategoriesHeader = props => {
             theme={isMobile ? 'normal' : 'inverted'}
           >
             <LegalMention className="u-mt-2 u-pt-1 u-mr-1" />
+
+            {!hasData && (
+              <div className={styles.NoAccount_empty}>
+                <Empty
+                  icon={emptyIcon}
+                  title=""
+                  text={t('Categories.title.empty_text')}
+                />
+              </div>
+            )}
             {incomeToggle || chart ? (
               <Padded className="u-pt-0">
                 {incomeToggle}
@@ -230,7 +242,8 @@ const CategoriesHeader = props => {
 }
 
 CategoriesHeader.defaultProps = {
-  chartSize: 182
+  chartSize: 182,
+  emptyIcon: 'cozy'
 }
 
 CategoriesHeader.propTypes = {

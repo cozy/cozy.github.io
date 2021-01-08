@@ -23,21 +23,18 @@ module.exports = {
         '../react/ButtonAction/index.jsx',
         '../react/Card/index.jsx',
         '../react/Chip/index.jsx',
-        '../react/CompositeRow/index.jsx',
         '../react/Counter/index.jsx',
         '../react/DropdownButton/index.jsx',
         '../react/Icon/index.jsx',
         '../react/IconButton/index.jsx',
         '../react/IconStack/index.jsx',
-        '../react/InlineCard/index.jsx',
         '../react/Paper/index.js',
         '../react/PercentageBar/index.jsx',
         '../react/PercentageLine/index.jsx',
         '../react/Progress',
         '../react/ProgressionBanner',
         '../react/Spinner/index.jsx',
-        '../react/Stack/index.jsx',
-        '../react/ThresholdBar/index.jsx'
+        '../react/Stack/index.jsx'
       ]
     },
     {
@@ -81,7 +78,6 @@ module.exports = {
         '../react/AppTitle/index.jsx',
         '../react/Avatar/index.jsx',
         '../react/BottomDrawer/index.jsx',
-        '../react/ContextHeader/index.jsx',
         '../react/Empty/index.jsx',
         '../react/Figure/Figure.jsx',
         '../react/Figure/FigureBlock.jsx',
@@ -91,16 +87,13 @@ module.exports = {
         '../react/LoadMore/index.jsx',
         '../react/Media/Media.jsx',
         '../react/MidEllipsis/index.jsx',
-        '../react/Modal/index.jsx',
         '../react/CozyDialogs',
         '../react/Dialog',
         '../react/OrderedList/index.jsx',
         '../react/Table/index.jsx',
-        '../react/Text/index.jsx',
         '../react/Typography/index.jsx',
         '../react/Tooltip/index.jsx',
         '../react/UnorderedList/index.jsx',
-        '../react/Well/index.jsx',
         '../react/Wizard/index.jsx'
       ]
     },
@@ -140,7 +133,6 @@ module.exports = {
         '../react/PasswordExample/index.jsx',
         '../react/Popup/index.jsx',
         '../react/PopupOpener/index.jsx',
-        '../react/PushClientBanner/index.jsx',
         '../react/PushClientButton/index.jsx',
         '../react/QuotaAlert/index.jsx',
         '../react/Viewer/index.jsx'
@@ -178,6 +170,15 @@ module.exports = {
         '../react/ContactsList',
         '../react/ContactsListModal',
         '../react/ContactPicker'
+      ]
+    },
+    {
+      name: 'Deprecated',
+      components: () => [
+        '../react/Modal/index.jsx',
+        '../react/Text/index.jsx',
+        '../react/CompositeRow/index.jsx',
+        '../react/InlineCard/index.jsx',
       ]
     }
   ],

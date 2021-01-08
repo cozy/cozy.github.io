@@ -90,7 +90,6 @@ const TransactionContainerMobile = props => {
  */
 const TransactionSections = props => {
   const {
-    selectTransaction,
     limitMin,
     limitMax,
     filteringOnAccount,
@@ -124,7 +123,6 @@ const TransactionSections = props => {
                   transaction={transaction}
                   isExtraLarge={isExtraLarge}
                   filteringOnAccount={filteringOnAccount}
-                  selectTransaction={selectTransaction}
                 />
               )
             })}
@@ -212,7 +210,6 @@ export class TransactionsDumb extends React.Component {
       limitMax,
       manualLoadMore,
       showTriggerErrors,
-      selectTransaction,
       filteringOnAccount,
       className,
       transactions,
@@ -249,7 +246,6 @@ export class TransactionsDumb extends React.Component {
           )}
 
           <TransactionSections
-            selectTransaction={selectTransaction}
             limitMin={limitMin}
             limitMax={limitMax}
             filteringOnAccount={filteringOnAccount}

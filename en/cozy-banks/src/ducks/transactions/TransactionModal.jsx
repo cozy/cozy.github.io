@@ -466,16 +466,20 @@ const TransactionModal = ({ requestClose, transactionId, ...props }) => {
     }
   })
 
-  const handleClose = useCallback(() => {
-    if (location.pathname.startsWith('/balances/details')) {
-      trackPage('mon_compte:compte')
-    } else if (location.pathname.startsWith('/analysis/categories')) {
-      trackPage(lastTracked => replaceLastPart(lastTracked, 'details'))
-    } else {
-      trackParentPage()
-    }
-    requestClose()
-  }, [location, requestClose])
+  const handleClose = useCallback(
+    ev => {
+      if (location.pathname.startsWith('/balances/details')) {
+        trackPage('mon_compte:compte')
+      } else if (location.pathname.startsWith('/analysis/categories')) {
+        trackPage(lastTracked => replaceLastPart(lastTracked, 'details'))
+      } else {
+        trackParentPage()
+      }
+      ev.preventDefault()
+      requestClose()
+    },
+    [location, requestClose]
+  )
 
   return (
     <RawContentDialog

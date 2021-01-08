@@ -4,7 +4,7 @@ import cx from 'classnames'
 import { translate, withBreakpoints } from 'cozy-ui/transpiled/react'
 import Text, { Caption } from 'cozy-ui/transpiled/react/Text'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
-import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
+import { Bd, Img, Media } from 'cozy-ui/transpiled/react/Media'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { Table, TdSecondary } from 'components/Table'
 import Figure from 'cozy-ui/transpiled/react/Figure'
@@ -12,7 +12,6 @@ import styles from 'ducks/categories/styles.styl'
 import compose from 'lodash/flowRight'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 import PercentageLine from 'components/PercentageLine'
-import Padded from 'components/Padded'
 
 const stAmount = styles['bnk-table-amount']
 const stCategory = styles['bnk-table-category-category']
@@ -30,7 +29,7 @@ class Categories extends Component {
   }
 
   render() {
-    const { t, categories: categoriesProps, selectedCategory } = this.props
+    const { categories: categoriesProps, selectedCategory } = this.props
     let categories = categoriesProps || []
     if (selectedCategory) {
       categories = [selectedCategory]
@@ -40,11 +39,6 @@ class Categories extends Component {
 
     return (
       <>
-        {!hasData && (
-          <Padded>
-            <p>{t('Categories.title.empty_text')}</p>
-          </Padded>
-        )}
         {hasData && (
           <Table className={stTableCategory}>
             <tbody>

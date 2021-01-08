@@ -320,8 +320,21 @@ const AccountSwitch = props => {
   const { t } = useI18n()
   const { isMobile } = useBreakpoints()
 
-  const handleToggle = useCallback(() => setOpen(open => !open), [setOpen])
-  const handleClose = useCallback(() => setOpen(false), [setOpen])
+  const handleToggle = useCallback(
+    ev => {
+      ev.preventDefault()
+      setOpen(open => !open)
+    },
+    [setOpen]
+  )
+
+  const handleClose = useCallback(
+    ev => {
+      ev.preventDefault()
+      setOpen(false)
+    },
+    [setOpen]
+  )
 
   const accounts = accountsCollection.data
   const groups = [...groupsCollection.data, ...virtualGroups].map(group => ({
@@ -363,21 +376,23 @@ const AccountSwitch = props => {
         select
       )}
       {open && (
-        <RawContentDialog
-          open={true}
-          onClose={handleClose}
-          title={t('AccountSwitch.title')}
-          content={
-            <AccountSwitchMenu
-              filteringDoc={filteringDoc}
-              filterByDoc={closeAfterSelect(filterByDoc)}
-              resetFilterByDoc={closeAfterSelect(resetFilterByDoc)}
-              close={handleClose}
-              groups={orderedGroups}
-              accounts={accounts}
-            />
-          }
-        />
+        <CozyTheme variant="normal">
+          <RawContentDialog
+            open={true}
+            onClose={handleClose}
+            title={t('AccountSwitch.title')}
+            content={
+              <AccountSwitchMenu
+                filteringDoc={filteringDoc}
+                filterByDoc={closeAfterSelect(filterByDoc)}
+                resetFilterByDoc={closeAfterSelect(resetFilterByDoc)}
+                close={handleClose}
+                groups={orderedGroups}
+                accounts={accounts}
+              />
+            }
+          />
+        </CozyTheme>
       )}
     </AccountSwitchWrapper>
   )
