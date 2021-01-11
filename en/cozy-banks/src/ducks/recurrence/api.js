@@ -33,6 +33,8 @@ const addRelationship = (doc, relationshipName, definition) => {
 const getRecurrenceIdFromRawTransaction = tr =>
   get(tr, 'relationships.recurrence.data._id', null)
 
+export const NOT_RECURRENT_ID = 'not-recurrent'
+
 /**
  * Fetch bundles and associated transactions from CouchDB
  * Returns "hydrated" bundles with an `ops` field containing all its transactions
@@ -109,8 +111,6 @@ const setTransactionAsUnrecurrent = transaction =>
     _type: RECURRENCE_DOCTYPE
   })
 
-export const NOT_RECURRENT_ID = 'not-recurrent'
-
 export const deleteRecurrence = async (client, recurrence) => {
   const opCollection = client.collection(TRANSACTION_DOCTYPE)
   const { data: ops } = await client.query(
@@ -154,17 +154,17 @@ export const isFinished = recurrence => {
   return status === STATUS_FINISHED
 }
 
+export const setStatus = async (client, recurrence, status) => {
+  client.save({
+    ...recurrence,
+    status
+  })
+}
+
 export const setStatusOngoing = async (client, recurrence) => {
   return setStatus(client, recurrence, STATUS_ONGOING)
 }
 
 export const setStatusFinished = async (client, recurrence) => {
   return setStatus(client, recurrence, STATUS_FINISHED)
-}
-
-export const setStatus = async (client, recurrence, status) => {
-  client.save({
-    ...recurrence,
-    status
-  })
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import Padded from 'components/Padded'
 import { Field, useI18n } from 'cozy-ui/transpiled/react'
-import Stack from 'components/Stack'
+import Stack from 'cozy-ui/transpiled/react/Stack'
 
 import PageTitle from 'components/Title/PageTitle'
 import BottomButton from 'components/BottomButton'
@@ -21,7 +21,7 @@ const _Password = ({
     <>
       <Padded>
         {active && <PageTitle>{t('Transfer.password.page-title')}</PageTitle>}
-        <Stack>
+        <Stack spacing="xs">
           <Title>{t('Transfer.password.title')}</Title>
           <div className="u-ta-center">
             {/* TODO, remove key when AccountIcon correctly updates on account change (https://github.com/cozy/cozy-ui/issues/1076) */}

@@ -25,30 +25,6 @@ const assert = (pred, msg) => {
   }
 }
 
-export const updateRecurrences = (bundles, newTransactions, rules) => {
-  if (!newTransactions.length) {
-    return bundles
-  }
-  const maxDate = new Date(maxBy(newTransactions, 'date').date)
-  const minDate = new Date(minBy(newTransactions, 'date').date)
-  const dateSpan = (maxDate - minDate) / ONE_DAY
-
-  let updatedBundles
-
-  if (dateSpan > 90 && newTransactions.length > 100) {
-    const newBundles = findRecurrences(newTransactions, rules)
-    const allBundles = [...bundles, ...newBundles]
-    updatedBundles = groupBundles(allBundles, sameLabel)
-  } else {
-    const newBundles = newTransactions.map(t => ({ ops: [t] }))
-    const allBundles = [...bundles, ...newBundles]
-    updatedBundles = groupBundles(allBundles, sameLabel)
-  }
-
-  updatedBundles = bundles.map(addStats)
-  return updatedBundles
-}
-
 /**
  * How rules work:
  *
@@ -97,6 +73,30 @@ export const findRecurrences = (operations, rules) => {
   }
 
   return bundles
+}
+
+export const updateRecurrences = (bundles, newTransactions, rules) => {
+  if (!newTransactions.length) {
+    return bundles
+  }
+  const maxDate = new Date(maxBy(newTransactions, 'date').date)
+  const minDate = new Date(minBy(newTransactions, 'date').date)
+  const dateSpan = (maxDate - minDate) / ONE_DAY
+
+  let updatedBundles
+
+  if (dateSpan > 90 && newTransactions.length > 100) {
+    const newBundles = findRecurrences(newTransactions, rules)
+    const allBundles = [...bundles, ...newBundles]
+    updatedBundles = groupBundles(allBundles, sameLabel)
+  } else {
+    const newBundles = newTransactions.map(t => ({ ops: [t] }))
+    const allBundles = [...bundles, ...newBundles]
+    updatedBundles = groupBundles(allBundles, sameLabel)
+  }
+
+  updatedBundles = bundles.map(addStats)
+  return updatedBundles
 }
 
 export const findAndUpdateRecurrences = (recurrences, operations) => {

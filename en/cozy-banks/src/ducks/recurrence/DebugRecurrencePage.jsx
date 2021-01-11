@@ -9,8 +9,6 @@ import { useQuery, useClient } from 'cozy-client'
 import Card from 'cozy-ui/transpiled/react/Card'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import Button from 'cozy-ui/transpiled/react/Button'
-import { Caption, SubTitle } from 'cozy-ui/transpiled/react/Text'
-
 import Loading from 'components/Loading/Loading'
 import Padded from 'components/Padded'
 import { transactionsConn } from 'doctypes'
@@ -26,6 +24,7 @@ import { findRecurrences, updateRecurrences } from './search'
 import useStickyState from './useStickyState'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import getCategoryId from 'ducks/transactions/getCategoryId'
+import Typography from 'cozy-ui/transpiled/react/Typography'
 
 const immutableSet = (object, path, value) => {
   return setWith(clone(object), path, value, clone)
@@ -51,7 +50,9 @@ const RuleInput = ({ ruleName, config, onChange }) => {
   return (
     <div key={ruleName} className="u-m-half u-miw-6">
       {ruleName} (<em>{ruleInfo.stage}</em>)
-      <Caption>{ruleInfo.description}</Caption>
+      <Typography variant="caption" color="textSecondary">
+        {ruleInfo.description}
+      </Typography>
       <input
         type="checkbox"
         onChange={handleChangeActive}
@@ -167,7 +168,9 @@ const RecurrenceBundle = ({ bundle }) => {
       className="u-m-half"
       style={{ border: `2px solid ${getColor(bundle)}` }}
     >
-      <SubTitle>{getAutomaticLabelFromBundle(bundle)}</SubTitle>
+      <Typography variant="h5">
+        {getAutomaticLabelFromBundle(bundle)}
+      </Typography>
       <p>
         categories: <CategoryNames bundle={bundle} />
         amounts: {bundle.amounts}

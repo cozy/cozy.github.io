@@ -17,6 +17,8 @@ const { isKonnectorWorker } = models.trigger.triggers
 const TRIGGER_STATES_DOC_TYPE = 'io.cozy.bank.settings'
 const TRIGGER_STATES_DOC_ID = 'trigger-states'
 
+const getKonnectorSlug = trigger => trigger.message.konnector
+
 /** Fetch triggers states from a special doc in the settings */
 const fetchTriggerStates = async client => {
   try {
@@ -146,8 +148,6 @@ export const buildNotification = (client, options) => {
   })
   return notification
 }
-
-const getKonnectorSlug = trigger => trigger.message.konnector
 
 /**
  * Fetches triggers, filters those for which we can send a notification, and send

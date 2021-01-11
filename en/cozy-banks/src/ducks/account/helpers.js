@@ -250,6 +250,14 @@ export const isHealthReimbursementsAccount = account => {
   return account._id === 'health_reimbursements' && account.virtual
 }
 
+export const getBorrowedAmount = account => {
+  return get(account, 'loan.usedAmount') || get(account, 'loan.totalAmount')
+}
+
+export const getRemainingAmount = account => {
+  return Math.abs(account.balance)
+}
+
 export const getReimbursedAmount = account => {
   const borrowedAmount = getBorrowedAmount(account)
   const remainingAmount = getRemainingAmount(account)
@@ -263,14 +271,6 @@ export const getReimbursedPercentage = account => {
   const percentage = (reimbursedAmount / borrowedAmount) * 100
 
   return percentage
-}
-
-export const getBorrowedAmount = account => {
-  return get(account, 'loan.usedAmount') || get(account, 'loan.totalAmount')
-}
-
-export const getRemainingAmount = account => {
-  return Math.abs(account.balance)
 }
 
 export const addOwnerToAccount = (account, owner) => {

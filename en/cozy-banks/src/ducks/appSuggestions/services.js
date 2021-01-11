@@ -49,16 +49,6 @@ export const findSuggestionForTransaction = (
   return suggestion
 }
 
-export const normalizeSuggestions = suggestions => {
-  const filteredSuggestions = suggestions.filter(Boolean)
-
-  const normalizedSuggestions = Object.values(
-    groupBy(filteredSuggestions, s => s.slug)
-  ).map(mergeSuggestions)
-
-  return normalizedSuggestions
-}
-
 const mergeSuggestions = suggestions => {
   const allTransactions = flatMap(
     suggestions,
@@ -73,6 +63,16 @@ const mergeSuggestions = suggestions => {
       }
     }
   }
+}
+
+export const normalizeSuggestions = suggestions => {
+  const filteredSuggestions = suggestions.filter(Boolean)
+
+  const normalizedSuggestions = Object.values(
+    groupBy(filteredSuggestions, s => s.slug)
+  ).map(mergeSuggestions)
+
+  return normalizedSuggestions
 }
 
 export const findAppSuggestions = async setting => {

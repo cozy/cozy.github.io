@@ -1,5 +1,15 @@
 const { freshDate } = require('./freshDate')
-const categoryNameToId = inverseObject(require('../linxo-categories'))
+const linxoCategories = require('../linxo-categories')
+
+function inverseObject(obj) {
+  const out = {}
+  Object.keys(obj).forEach(function(k) {
+    out[obj[k]] = k
+  })
+  return out
+}
+
+const categoryNameToId = inverseObject(linxoCategories)
 
 module.exports = {
   helpers: {
@@ -8,12 +18,4 @@ module.exports = {
     },
     freshDate
   }
-}
-
-function inverseObject(obj) {
-  const out = {}
-  Object.keys(obj).forEach(function(k) {
-    out[obj[k]] = k
-  })
-  return out
 }

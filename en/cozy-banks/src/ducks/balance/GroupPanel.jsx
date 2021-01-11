@@ -13,7 +13,6 @@ import { withStyles } from '@material-ui/core/styles'
 import { translate } from 'cozy-ui/transpiled/react'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import { ButtonLink } from 'cozy-ui/transpiled/react/Button'
-import Text, { Caption } from 'cozy-ui/transpiled/react/Text'
 import Figure from 'cozy-ui/transpiled/react/Figure'
 import Switch from 'cozy-ui/transpiled/react/MuiCozyTheme/Switch'
 import AccountsList from 'ducks/balance/AccountsList'
@@ -27,8 +26,9 @@ import styles from 'ducks/balance/GroupPanel.styl'
 import { getLateHealthExpenses } from 'ducks/reimbursements/selectors'
 import { getSettings } from 'ducks/settings/selectors'
 import { getNotificationFromSettings } from 'ducks/settings/helpers'
-
 import BottomIcon from 'cozy-ui/transpiled/react/Icons/Bottom'
+
+import Typography from 'cozy-ui/transpiled/react/Typography'
 
 const GroupPanelSummary = withStyles({
   root: {
@@ -171,12 +171,16 @@ class GroupPanel extends React.PureComponent {
                 {groupLabel}
                 <br />
                 {nbCheckedAccounts < nbAccounts && (
-                  <Caption className={styles.GroupPanelSummary__caption}>
+                  <Typography
+                    className={styles.GroupPanelSummary__caption}
+                    variant="caption"
+                    color="textSecondary"
+                  >
                     {t('Balance.nb_accounts', {
                       nbCheckedAccounts,
                       smart_count: nbAccounts
                     })}
-                  </Caption>
+                  </Typography>
                 )}
               </div>
               {withBalance && (
@@ -211,7 +215,9 @@ class GroupPanel extends React.PureComponent {
               />
             ) : (
               <Stack className="u-m-1">
-                <Text>{t('Balance.no-accounts-in-group.description')}</Text>
+                <Typography variant="body1">
+                  {t('Balance.no-accounts-in-group.description')}
+                </Typography>
                 <ButtonLink
                   className="u-ml-0"
                   href={`#/settings/groups/${group._id}`}

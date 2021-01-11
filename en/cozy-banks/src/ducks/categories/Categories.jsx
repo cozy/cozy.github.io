@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import cx from 'classnames'
 import { translate, withBreakpoints } from 'cozy-ui/transpiled/react'
-import Text, { Caption } from 'cozy-ui/transpiled/react/Text'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import { Bd, Img, Media } from 'cozy-ui/transpiled/react/Media'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
@@ -12,6 +11,7 @@ import styles from 'ducks/categories/styles.styl'
 import compose from 'lodash/flowRight'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 import PercentageLine from 'components/PercentageLine'
+import Typography from 'cozy-ui/transpiled/react/Typography'
 
 const stAmount = styles['bnk-table-amount']
 const stCategory = styles['bnk-table-category-category']
@@ -210,8 +210,14 @@ class Categories extends Component {
               </Img>
               <Bd className={cx('u-ph-half', stCategory)}>
                 <ListItemText>
-                  <Text>{t(`Data.${type}.${name}`)}</Text>
-                  <Caption className={styles['bnk-table-row-caption']}>
+                  <Typography variant="body1">
+                    {t(`Data.${type}.${name}`)}
+                  </Typography>
+                  <Typography
+                    className={styles['bnk-table-row-caption']}
+                    variant="caption"
+                    color="textSecondary"
+                  >
                     <span className={styles['bnk-table-percentage-caption']}>
                       {!subcategory && selectedCategoryName
                         ? '100%'
@@ -224,7 +230,7 @@ class Categories extends Component {
                         }`
                       )}`}
                     </span>
-                  </Caption>
+                  </Typography>
                 </ListItemText>
               </Bd>
               <Img className={cx('u-pl-half', stAmount)}>

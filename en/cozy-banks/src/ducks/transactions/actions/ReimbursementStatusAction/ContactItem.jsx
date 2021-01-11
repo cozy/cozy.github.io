@@ -1,15 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { SubTitle } from 'cozy-ui/transpiled/react/Text'
 import cx from 'classnames'
 import { ContactCard } from 'ducks/transactions/actions/ReimbursementStatusAction/Card'
+import Typography from 'cozy-ui/transpiled/react/Typography'
 
 const ContactItem = props => {
   const { brand, ...rest } = props
 
   return (
     <div {...rest}>
-      <SubTitle className="u-mb-half">Contacter {brand.name}</SubTitle>
+      <Typography className="u-mb-half" variant="h5">
+        Contacter {brand.name}
+      </Typography>
       {brand.contact.map((contact, index) => {
         const isLast = index === brand.contact.length - 1
 

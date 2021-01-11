@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useI18n } from 'cozy-ui/transpiled/react'
 import UICard from 'cozy-ui/transpiled/react/Card'
-import { Caption, Text } from 'cozy-ui/transpiled/react/Text'
 import Icon, { iconPropType } from 'cozy-ui/transpiled/react/Icon'
 import cx from 'classnames'
 import styles from 'ducks/transactions/actions/ReimbursementStatusAction/Card.styl'
@@ -12,6 +11,7 @@ import { getPlatform } from 'cozy-device-helper'
 // has been merged
 import iconPhone from 'assets/icons/icon-phone.svg'
 import iconEmail from 'assets/icons/icon-email.svg'
+import Typography from 'cozy-ui/transpiled/react/Typography'
 
 const Card = props => {
   const { title, caption, icon, className, ...rest } = props
@@ -20,8 +20,10 @@ const Card = props => {
     <UICard className={cx(styles.Card, className)} {...rest}>
       <Icon icon={icon} size={16} color="var(--coolGrey)" />
       <div className="u-ml-1">
-        <Text>{title}</Text>
-        <Caption>{caption}</Caption>
+        <Typography variant="body1">{title}</Typography>
+        <Typography variant="caption" color="textSecondary">
+          {caption}
+        </Typography>
       </div>
     </UICard>
   )

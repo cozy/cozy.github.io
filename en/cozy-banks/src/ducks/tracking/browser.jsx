@@ -29,6 +29,15 @@ export const useTracker = () => {
 // are sent too close to each other (300ms is the limit).
 const DOUBLE_HIT_THRESHOLD = 300
 let lastTrackedPage, lastTrackTime
+
+export const getParentPage = pageName => {
+  if (!pageName) {
+    return null
+  }
+  const lastIndex = pageName.lastIndexOf(':')
+  return pageName.substring(0, lastIndex)
+}
+
 const enhancedTrackPage = (tracker, pageNameArg) => {
   let parentPage = getParentPage(lastTrackedPage)
   let pageName =
@@ -92,11 +101,4 @@ export const getPageLastPart = pageName => {
   }
   const lastIndex = pageName.lastIndexOf(':')
   return pageName.substring(lastIndex + 1)
-}
-export const getParentPage = pageName => {
-  if (!pageName) {
-    return null
-  }
-  const lastIndex = pageName.lastIndexOf(':')
-  return pageName.substring(0, lastIndex)
 }

@@ -6,7 +6,6 @@ import IconButton from 'cozy-ui/transpiled/react/IconButton'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import { Caption } from 'cozy-ui/transpiled/react/Text'
 import Chip from 'cozy-ui/transpiled/react/Chip'
 
 import { Link } from 'react-router'
@@ -62,6 +61,7 @@ import useDocument from 'components/useDocument'
 import { useLocation } from 'components/RouterContext'
 import ListItemArrow from 'components/ListItemArrow'
 import RawContentDialog from 'components/RawContentDialog'
+import Typography from 'cozy-ui/transpiled/react/Typography'
 
 const SearchForTransactionIcon = ({ transaction }) => {
   const label = getLabel(transaction)
@@ -218,7 +218,9 @@ const RecurrenceRow = ({ transaction, onClick }) => {
           {recurrence ? (
             <>
               <br />
-              <Caption>{getFrequencyText(t, recurrence)}</Caption>
+              <Typography variant="caption" color="textSecondary">
+                {getFrequencyText(t, recurrence)}
+              </Typography>
               {location.pathname !== recurrenceRoute ? (
                 <Link to={recurrenceRoute} className="u-link">
                   <div className="u-mh-1">

@@ -5,7 +5,6 @@ import LoanProgress from 'ducks/loan/LoanProgress'
 import CompositeRow from 'cozy-ui/transpiled/react/CompositeRow'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
-import { Bold } from 'cozy-ui/transpiled/react/Text'
 import NarrowContent from 'cozy-ui/transpiled/react/NarrowContent'
 import AccountIcon from 'components/AccountIcon'
 import withFilters from 'components/withFilters'
@@ -16,6 +15,8 @@ import { accountsConn } from 'doctypes'
 import { useBreakpoints } from 'cozy-ui/transpiled/react'
 
 import RightIcon from 'cozy-ui/transpiled/react/Icons/Right'
+
+import Typography from 'cozy-ui/transpiled/react/Typography'
 
 const PaddedOnDesktop = props => {
   const { isDesktop } = useBreakpoints()
@@ -55,7 +56,9 @@ const DumbLoanListPage = props => {
                 primaryText={
                   <div className="u-flex u-flex-items-center">
                     <AccountIcon account={account} />
-                    <Bold className="u-ml-1">{account.label}</Bold>
+                    <Typography className="u-ml-1" variant="h6">
+                      {account.label}
+                    </Typography>
                   </div>
                 }
                 right={<Icon icon={RightIcon} color="var(--coolGrey)" />}

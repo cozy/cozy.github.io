@@ -42,29 +42,6 @@ export const fetchChunksToCategorize = async client => {
 }
 
 /**
- * Apply global and local categorization models to a chunk
- *
- * @param {Object} categorizer - A categorizer (see https://docs.cozy.io/en/cozy-konnector-libs/api/#categorization)
- * @param {io.cozy.bank.operations[]} chunk - Operations to categorize
- *
- * @return {Number} the time taken to categorize the chunk
- */
-export const categorizeChunk = async (categorizer, chunk) => {
-  const timeStart = new Date()
-  const categorizedTransactions = categorizer.categorize(chunk)
-  categorizedTransactions.forEach(t => (t.toCategorize = false))
-
-  await BankTransaction.bulkSave(categorizedTransactions, 30)
-
-  sendResultsToMatomo(categorizedTransactions)
-
-  const timeEnd = new Date()
-  const timeElapsed = differenceInSeconds(timeEnd, timeStart)
-
-  return timeElapsed
-}
-
-/**
  * Send local categorization results to Matomo for stats
  *
  * @param {Object[]} transactions - An array of categorized io.cozy.bank.operations
@@ -86,6 +63,29 @@ export const sendResultsToMatomo = transactions => {
     e_n: 'TransactionsUsingLocalCategory',
     e_v: nbTransactionsAboveThreshold
   })
+}
+
+/**
+ * Apply global and local categorization models to a chunk
+ *
+ * @param {Object} categorizer - A categorizer (see https://docs.cozy.io/en/cozy-konnector-libs/api/#categorization)
+ * @param {io.cozy.bank.operations[]} chunk - Operations to categorize
+ *
+ * @return {Number} the time taken to categorize the chunk
+ */
+export const categorizeChunk = async (categorizer, chunk) => {
+  const timeStart = new Date()
+  const categorizedTransactions = categorizer.categorize(chunk)
+  categorizedTransactions.forEach(t => (t.toCategorize = false))
+
+  await BankTransaction.bulkSave(categorizedTransactions, 30)
+
+  sendResultsToMatomo(categorizedTransactions)
+
+  const timeEnd = new Date()
+  const timeElapsed = differenceInSeconds(timeEnd, timeStart)
+
+  return timeElapsed
 }
 
 /**

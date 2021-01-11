@@ -3,12 +3,12 @@
 import React from 'react'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Infos from 'cozy-ui/transpiled/react/Infos'
-import Text, { SubTitle } from 'cozy-ui/transpiled/react/Text'
 import Icon from 'cozy-ui/transpiled/react/Icon'
-
 import { getErrorLocaleBound, KonnectorJobError } from 'cozy-harvest-lib'
+
 import ReconnectTriggerButton from 'ducks/transactions/TransactionPageErrors/ReconnectTriggerButton'
 import WarningIcon from 'cozy-ui/transpiled/react/Icons/Warning'
+import Typography from 'cozy-ui/transpiled/react/Typography'
 const TriggerErrorCard = ({ index, count, error, className }) => {
   const { t, lang } = useI18n()
 
@@ -32,13 +32,13 @@ const TriggerErrorCard = ({ index, count, error, className }) => {
       action={<ReconnectTriggerButton trigger={trigger} />}
       description={
         <>
-          <SubTitle className="u-error">
+          <Typography className="u-error" variant="h5">
             {errorTitle + (count > 1 ? ` (${index + 1}/${count})` : '')}
-          </SubTitle>
-          <Text>
+          </Typography>
+          <Typography variant="body1">
             <Icon icon={WarningIcon} className="u-mr-half" />
             {t('Transactions.trigger-error.description', { bankName })}
-          </Text>
+          </Typography>
         </>
       }
     />

@@ -348,6 +348,7 @@ describe('linker', () => {
     }
 
     it('should not link twice', async () => {
+      let operations
       function updateOperation(doctype, needleOp, attributes) {
         const operation = operations.find(
           operation => operation._id === needleOp._id
@@ -370,7 +371,7 @@ describe('linker', () => {
         }
       ]
 
-      const operations = [
+      operations = [
         {
           _id: 'medecin',
           date: '2017-12-13T12:00:00.000Z',

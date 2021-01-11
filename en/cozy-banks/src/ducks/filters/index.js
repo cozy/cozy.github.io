@@ -35,6 +35,48 @@ export const parsePeriod = filter => {
   )
 }
 
+// filters
+
+const monthFormat = date => {
+  return date && date.substr(0, 7)
+}
+
+const yearFormat = date => {
+  return date && date.substr(0, 4)
+}
+
+const isDate = date => date instanceof Date
+const isString = str => typeof str === 'string'
+
+export const filterByPeriod = (transactions, period, dateGetter) => {
+  let pred
+  const l = period.length
+  if (isString(period)) {
+    if (l === 4) {
+      const formatter = yearFormat
+      pred = date => formatter(date) === period
+    } else if (l === 7) {
+      const formatter = monthFormat
+      pred = date => formatter(date) === period
+    }
+  } else if (period.length === 2 && isDate(period[0]) && isDate(period[1])) {
+    pred = date => {
+      return isWithinRange(parse(date), period[0], period[1])
+    }
+  } else {
+    throw new Error('Invalid period: ' + JSON.stringify(period))
+  }
+
+  dateGetter = dateGetter || getDisplayDate
+  return transactions.filter(transaction => {
+    const date = dateGetter(transaction)
+    if (!date) {
+      return false
+    }
+    return pred(date)
+  })
+}
+
 // selectors
 export const getPeriod = state => state.filters && state.filters.period
 
@@ -167,47 +209,6 @@ export const getHealthExpensesByPeriod = createSelector(
     return filterByPeriod(healthExpenses, period)
   }
 )
-
-const monthFormat = date => {
-  return date && date.substr(0, 7)
-}
-
-const yearFormat = date => {
-  return date && date.substr(0, 4)
-}
-
-const isDate = date => date instanceof Date
-const isString = str => typeof str === 'string'
-
-// filters
-export const filterByPeriod = (transactions, period, dateGetter) => {
-  let pred
-  const l = period.length
-  if (isString(period)) {
-    if (l === 4) {
-      const formatter = yearFormat
-      pred = date => formatter(date) === period
-    } else if (l === 7) {
-      const formatter = monthFormat
-      pred = date => formatter(date) === period
-    }
-  } else if (period.length === 2 && isDate(period[0]) && isDate(period[1])) {
-    pred = date => {
-      return isWithinRange(parse(date), period[0], period[1])
-    }
-  } else {
-    throw new Error('Invalid period: ' + JSON.stringify(period))
-  }
-
-  dateGetter = dateGetter || getDisplayDate
-  return transactions.filter(transaction => {
-    const date = dateGetter(transaction)
-    if (!date) {
-      return false
-    }
-    return pred(date)
-  })
-}
 
 // actions
 export const addFilterByPeriod = period => ({ type: FILTER_BY_PERIOD, period })

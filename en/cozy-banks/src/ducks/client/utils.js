@@ -115,6 +115,8 @@ export const dropDoctype = async (client, doctype) => {
   }
 }
 
+export const getDocumentID = doc => doc._id
+
 export const importACHData = async (client, achData) => {
   for (const [doctype, documents] of Object.entries(achData)) {
     const col = client.collection(doctype)
@@ -137,8 +139,6 @@ export const importACHData = async (client, achData) => {
     }
   }
 }
-
-export const getDocumentID = doc => doc._id
 
 export const getDocumentIdentity = doc =>
   doc

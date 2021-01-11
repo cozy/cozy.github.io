@@ -36,6 +36,10 @@ const titleCase = label =>
 
 export const getLabel = transaction => cleanLabel(titleCase(transaction.label))
 
+export const getAccountType = transaction => {
+  return get(transaction, 'account.data.type')
+}
+
 export const getDisplayDate = transaction => {
   if (
     getAccountType(transaction) === 'CreditCard' &&
@@ -53,10 +57,6 @@ export const getDate = transaction => {
     throw new Error(`Cannot get date on transaction ${transaction.label}`)
   }
   return date.slice(0, 10)
-}
-
-export const getAccountType = transaction => {
-  return get(transaction, 'account.data.type')
 }
 
 /**
@@ -169,18 +169,6 @@ export const isNew = transaction => {
   return parseInt(transaction._rev.split('-').shift(), 10) <= 2
 }
 
-export const getReimbursementStatus = transaction => {
-  if (isHealthExpense(transaction)) {
-    return getHealthExpenseReimbursementStatus(transaction)
-  }
-
-  if (isProfessionalExpense(transaction)) {
-    return getProfessionalExpenseReimbursementStatus(transaction)
-  }
-
-  return transaction.reimbursementStatus || 'no-reimbursement'
-}
-
 export const getHealthExpenseReimbursementStatus = transaction => {
   if (transaction.reimbursementStatus) {
     return transaction.reimbursementStatus
@@ -193,6 +181,18 @@ export const getHealthExpenseReimbursementStatus = transaction => {
 
 const getProfessionalExpenseReimbursementStatus = transaction => {
   return transaction.reimbursementStatus || 'pending'
+}
+
+export const getReimbursementStatus = transaction => {
+  if (isHealthExpense(transaction)) {
+    return getHealthExpenseReimbursementStatus(transaction)
+  }
+
+  if (isProfessionalExpense(transaction)) {
+    return getProfessionalExpenseReimbursementStatus(transaction)
+  }
+
+  return transaction.reimbursementStatus || 'no-reimbursement'
 }
 
 export const isReimbursementLate = (transaction, lateLimitInDays) => {

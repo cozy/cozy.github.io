@@ -4,7 +4,7 @@ import { withRouter } from 'react-router'
 
 import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import Stack from 'cozy-ui/transpiled/react/Stack'
-import { translate, Text, useI18n } from 'cozy-ui/transpiled/react'
+import { translate, useI18n } from 'cozy-ui/transpiled/react/I18n'
 import {
   withClient,
   queryConnect,
@@ -43,6 +43,8 @@ import TransferGate from './TransferGate'
 import { trackPage } from 'ducks/tracking/browser'
 import LegalMention from 'ducks/legal/LegalMention'
 import Header from 'components/Header'
+
+import Typography from 'cozy-ui/transpiled/react/Typography'
 
 const THIRTY_SECONDS = 30 * 1000
 
@@ -87,9 +89,9 @@ const NoRecipient = () => {
     <Padded>
       <Stack spacing="l">
         <PageTitle>{t('Transfer.no-recipients.title')}</PageTitle>
-        <Text className="u-maw-7">
+        <Typography className="u-maw-7" variant="body1">
           {t('Transfer.no-recipients.description')}
-        </Text>
+        </Typography>
         <ul>
           <li>Axa Banque</li>
           <li>BNP Paribas</li>

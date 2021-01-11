@@ -14,7 +14,6 @@ import { Dialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 import Button from 'cozy-ui/transpiled/react/Button'
 import Field from 'cozy-ui/transpiled/react/Field'
 import { Media, Img, Bd } from 'cozy-ui/transpiled/react/Media'
-import { SubTitle, Caption } from 'cozy-ui/transpiled/react/Text'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Empty from 'cozy-ui/transpiled/react/Empty'
 import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
@@ -66,6 +65,7 @@ import BottomIcon from 'cozy-ui/transpiled/react/Icons/Bottom'
 
 import DotsIcon from 'cozy-ui/transpiled/react/Icons/Dots'
 import Icon from 'cozy-ui/transpiled/react/Icon'
+import Typography from 'cozy-ui/transpiled/react/Typography'
 
 // TODO We should need to do this (isMobile ? portal : identity) but see
 // Cozy-UI's issue: https://github.com/cozy/cozy-ui/issues/1462
@@ -124,7 +124,9 @@ const DeleteActionItem = ({ onClick }) => {
     <ActionMenuItem onClick={onClick} left={<Icon icon={TrashIcon} />}>
       {t('Recurrence.action-menu.delete')}
       <br />
-      <Caption>{t('Recurrence.action-menu.delete-caption')}</Caption>
+      <Typography variant="caption" color="textSecondary">
+        {t('Recurrence.action-menu.delete-caption')}
+      </Typography>
     </ActionMenuItem>
   )
 }
@@ -138,7 +140,9 @@ const OngoingActionItem = ({ recurrence, onClick }) => {
     >
       {t('Recurrence.action-menu.ongoing')}
       <br />
-      <Caption>{t('Recurrence.action-menu.ongoing-caption')}</Caption>
+      <Typography variant="caption" color="textSecondary">
+        {t('Recurrence.action-menu.ongoing-caption')}
+      </Typography>
     </ActionMenuItem>
   )
 }
@@ -303,7 +307,7 @@ const BundleInfo = ({ bundle }) => {
           <Padded>
             <Media>
               <Bd>
-                <SubTitle>
+                <Typography variant="h5">
                   <Breadcrumbs
                     items={[
                       {
@@ -317,7 +321,7 @@ const BundleInfo = ({ bundle }) => {
                     theme="primary"
                   />
                   <BackButton theme="primary" />
-                </SubTitle>
+                </Typography>
               </Bd>
               <Img className="u-flex" style={imgLineHeightStyle}>
                 <ActionMenuHelper

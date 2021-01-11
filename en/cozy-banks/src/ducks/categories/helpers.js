@@ -21,6 +21,10 @@ const makeSubcategory = catId => ({
   transactions: []
 })
 
+export const isAwaitingCategorization = transaction => {
+  return getCategoryId(transaction) === null
+}
+
 export const getTransactionsByCategory = transactions => {
   let categories = {}
   for (let catName of Object.keys(categoriesStyle)) {
@@ -59,10 +63,6 @@ export const getTransactionsByCategory = transactions => {
 
 export const getParentCategory = transaction => {
   return getParent(getCategoryId(transaction))
-}
-
-export const isAwaitingCategorization = transaction => {
-  return getCategoryId(transaction) === null
 }
 
 export const isHealthExpense = transaction => {

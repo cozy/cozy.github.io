@@ -2,7 +2,6 @@ import React from 'react'
 import Padded, { Unpadded } from 'components/Padded'
 import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
 import { translate } from 'cozy-ui/transpiled/react/I18n'
-import { Text, Caption, Bold } from 'cozy-ui/transpiled/react/Text'
 import Button from 'cozy-ui/transpiled/react/Button'
 import { Dialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 
@@ -12,7 +11,7 @@ import PageTitle from 'components/Title/PageTitle'
 import Figure from 'cozy-ui/transpiled/react/Figure'
 import AccountIcon from 'components/AccountIcon'
 
-import Title from './Title'
+import Typography from 'cozy-ui/transpiled/react/Typography'
 
 const _BeneficiaryRow = ({ beneficiary, onSelect }) => {
   return (
@@ -28,12 +27,14 @@ const _BeneficiaryRow = ({ beneficiary, onSelect }) => {
           </Img>
         ) : null}
         <Bd>
-          <Text>{beneficiary.label}</Text>
-          <Caption>{beneficiary.iban}</Caption>
+          <Typography variant="body1">{beneficiary.label}</Typography>
+          <Typography variant="caption" color="textSecondary">
+            {beneficiary.iban}
+          </Typography>
         </Bd>
         {beneficiary.account ? (
           <Img className="u-ml-half">
-            <Bold>
+            <Typography variant="h6">
               <Figure
                 symbol="€"
                 total={beneficiary.account.balance}
@@ -41,7 +42,7 @@ const _BeneficiaryRow = ({ beneficiary, onSelect }) => {
                 coloredNegative
                 coloredWarning
               />
-            </Bold>
+            </Typography>
           </Img>
         ) : null}
       </Media>
@@ -75,9 +76,11 @@ class ChooseBeneficiary extends React.Component {
           {active && (
             <PageTitle>{t('Transfer.beneficiary.page-title')}</PageTitle>
           )}
-          <Title>{t('Transfer.beneficiary.title')}</Title>
+          <Typography variant="h4" gutterBottom>
+            {t('Transfer.beneficiary.title')}
+          </Typography>
           <Unpadded horizontal>
-            <List border="horizontal" className="u-mb-1">
+            <List border="horizontal" className="u-mt-1 u-mb-1">
               {beneficiaries.map(beneficiary => (
                 <BeneficiaryRow
                   key={beneficiary._id}

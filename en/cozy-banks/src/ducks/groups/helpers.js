@@ -10,6 +10,11 @@ import { getAccountType, getAccountBalance } from 'ducks/account/helpers'
 import flag from 'cozy-flags'
 import resultWithArgs from 'utils/resultWithArgs'
 
+// For automatically created groups, the `accountType` attribute is present.
+export const isFormerAutoGroup = group => group.accountType === null
+export const isAutoGroup = group => group.accountType !== undefined
+export const getGroupAccountType = group => group.accountType
+
 export const getGroupLabel = (group, t) => {
   if (group.virtual) {
     return (
@@ -24,6 +29,26 @@ export const getGroupLabel = (group, t) => {
   } else {
     return group.label
   }
+}
+
+/**
+ * Returns a group balance (all its accounts balance sumed)
+ * @param {Object} group
+ * @param {string[]} excludedAccountIds - Account ids that should be exclude from the sum
+ * @returns {number}
+ */
+export const getGroupBalance = (group, excludedAccountIds = []) => {
+  const accounts = get(group, 'accounts.data')
+
+  if (!accounts) {
+    return 0
+  }
+
+  const accountsToSum = accounts
+    .filter(Boolean)
+    .filter(account => !excludedAccountIds.includes(account._id))
+
+  return sumBy(accountsToSum, getAccountBalance)
 }
 
 export const buildAutoGroup = (accountType, accounts, options = {}) => {
@@ -136,36 +161,12 @@ export const renamedGroup = (group, label) => {
   return updatedGroup
 }
 
-// For automatically created groups, the `accountType` attribute is present.
-export const isFormerAutoGroup = group => group.accountType === null
-export const isAutoGroup = group => group.accountType !== undefined
-export const getGroupAccountType = group => group.accountType
-
 export const isLoanAccount = account =>
   account ? getAccountType(account) == 'Loan' : false
 export const isLoanGroup = group => {
   return group.accounts && group.accounts.data
     ? every(group.accounts.data, isLoanAccount)
     : false
-}
-/**
- * Returns a group balance (all its accounts balance sumed)
- * @param {Object} group
- * @param {string[]} excludedAccountIds - Account ids that should be exclude from the sum
- * @returns {number}
- */
-export const getGroupBalance = (group, excludedAccountIds = []) => {
-  const accounts = get(group, 'accounts.data')
-
-  if (!accounts) {
-    return 0
-  }
-
-  const accountsToSum = accounts
-    .filter(Boolean)
-    .filter(account => !excludedAccountIds.includes(account._id))
-
-  return sumBy(accountsToSum, getAccountBalance)
 }
 
 export const getGroupAccountIds = group => {

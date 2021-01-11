@@ -1067,6 +1067,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#guidelines-for-component-development" title="Guidelines for component development" class="md-nav__link">
+    Guidelines for component development
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#unit-testing" title="Unit testing" class="md-nav__link">
     Unit testing
   </a>
@@ -2778,6 +2785,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#guidelines-for-component-development" title="Guidelines for component development" class="md-nav__link">
+    Guidelines for component development
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#unit-testing" title="Unit testing" class="md-nav__link">
     Unit testing
   </a>
@@ -2912,8 +2926,25 @@ yarn deploy:doc --repo git@github.com:USERNAME/cozy-ui.git
 </pre></div>
 
 
+<h2 id="guidelines-for-component-development">Guidelines for component development<a class="headerlink" href="#guidelines-for-component-development" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Use material UI whenever possible</li>
+<li>Override material UI components inside theme.js when necessary</li>
+<li>Avoid stylus to style new components</li>
+<li>Prefer withStyles / useStyles from material UI</li>
+<li>Use semantic variables for colors</li>
+</ul>
+<div class="codehilite"><pre><span></span>withStyles(theme =&gt; ({
+    root: {
+-        backgroundColor: &#39;var(--paleGrey)&#39;,
++        backgroundColor: theme.palette.background.default
+    }
+}))
+</pre></div>
+
+
 <h2 id="unit-testing">Unit testing<a class="headerlink" href="#unit-testing" title="Permanent link">&para;</a></h2>
-<p>Be aware that snapshots in unit tests use the transpilated version of cozy-ui. Therefore if you make changes and need to update the snapshots, you need to transpile first.</p>
+<p>Be aware that snapshots in unit tests use the transpiled version of cozy-ui. Therefore if you make changes and need to update the snapshots, you need to transpile first.</p>
 <div class="codehilite"><pre><span></span>yarn transpile <span class="o">&amp;&amp;</span> yarn <span class="nb">test</span> -u
 </pre></div>
 

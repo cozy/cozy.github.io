@@ -1,15 +1,10 @@
-/**
- * Should be moved inside cozy-ui, see
- * https://github.com/cozy/cozy-ui/issues/1290
- */
-
 import React from 'react'
 import PropTypes from 'prop-types'
 import { DialogContent } from 'cozy-ui/transpiled/react/Dialog'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
+import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
+import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
+import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
+import ListItemSecondaryAction from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemSecondaryAction'
 import { useCozyDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 import Radio from 'cozy-ui/transpiled/react/Radio'
 import Stack from 'cozy-ui/transpiled/react/Stack'

@@ -1,17 +1,11 @@
 import React from 'react'
 import Padded from 'components/Padded'
-import {
-  Media,
-  Bd,
-  Img,
-  translate,
-  Text,
-  Caption,
-  Bold
-} from 'cozy-ui/transpiled/react'
+import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
+import { translate } from 'cozy-ui/transpiled/react/I18n'
 import { List, Row } from 'components/List'
 import PageTitle from 'components/Title/PageTitle'
 import Figure from 'cozy-ui/transpiled/react/Figure'
+import Typography from 'cozy-ui/transpiled/react/Typography'
 import AccountIcon from 'components/AccountIcon'
 
 import Title from 'ducks/transfers/steps/Title'
@@ -29,11 +23,13 @@ const SenderRow = ({ account, onSelect }) => {
           <AccountIcon key={account._id} account={account} />
         </Img>
         <Bd>
-          <Text>{account.shortLabel}</Text>
-          <Caption>{account.iban}</Caption>
+          <Typography variant="body1">{account.shortLabel}</Typography>
+          <Typography variant="caption" color="textSecondary">
+            {account.iban}
+          </Typography>
         </Bd>
         <Img className="u-ml-half">
-          <Bold>
+          <Typography variant="h6">
             <Figure
               coloredWarning
               coloredNegative
@@ -41,7 +37,7 @@ const SenderRow = ({ account, onSelect }) => {
               total={account.balance}
               symbol="€"
             />
-          </Bold>
+          </Typography>
         </Img>
       </Media>
     </Row>

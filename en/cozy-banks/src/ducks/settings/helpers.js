@@ -25,6 +25,23 @@ export const getDefaultedSettings = incompleteSettings => {
   return merge({}, DEFAULTS_SETTINGS, incompleteSettings)
 }
 
+/**
+ * Make the difference between the pin setting doc and the doc where notifications
+ * are configured
+ */
+export const isConfigurationSetting = settingDoc =>
+  settingDoc.notifications ||
+  settingDoc.autogroups ||
+  settingDoc.linkMyselfToAccounts ||
+  settingDoc.categoryBudgetAlerts ||
+  settingDoc.billsMatching ||
+  settingDoc.appSuggestions
+
+export const getDefaultedSettingsFromCollection = col => {
+  const settings = col && col.data && col.data.find(isConfigurationSetting)
+  return getDefaultedSettings(settings)
+}
+
 export const fetchSettings = async client => {
   const settingsCol = await client.query(client.find(DOCTYPE))
   return getDefaultedSettingsFromCollection(settingsCol)
@@ -85,23 +102,6 @@ export const getWarningLimitsPerAccount = (
     )
   }
   return limitPerAccount
-}
-
-/**
- * Make the difference between the pin setting doc and the doc where notifications
- * are configured
- */
-export const isConfigurationSetting = settingDoc =>
-  settingDoc.notifications ||
-  settingDoc.autogroups ||
-  settingDoc.linkMyselfToAccounts ||
-  settingDoc.categoryBudgetAlerts ||
-  settingDoc.billsMatching ||
-  settingDoc.appSuggestions
-
-export const getDefaultedSettingsFromCollection = col => {
-  const settings = col && col.data && col.data.find(isConfigurationSetting)
-  return getDefaultedSettings(settings)
 }
 
 export const getNotificationFromConfig = (config, name) => {

@@ -1,6 +1,5 @@
 import React from 'react'
 import PercentageBar from 'cozy-ui/transpiled/react/PercentageBar'
-import { Caption } from 'cozy-ui/transpiled/react/Text'
 import Figure from 'cozy-ui/transpiled/react/Figure'
 import {
   getReimbursedPercentage,
@@ -8,6 +7,7 @@ import {
   getBorrowedAmount
 } from 'ducks/account/helpers'
 import { useI18n } from 'cozy-ui/transpiled/react'
+import Typography from 'cozy-ui/transpiled/react/Typography'
 
 const LoanProgress = props => {
   const { t } = useI18n()
@@ -26,11 +26,15 @@ const LoanProgress = props => {
       <div className="u-flex u-mt-half">
         <div className="u-flex-grow-1">
           <Figure total={reimbursedAmount} symbol="€" coloredPositive />
-          <Caption>{t('LoanProgress.reimbursedAmount')}</Caption>
+          <Typography variant="caption" color="textSecondary">
+            {t('LoanProgress.reimbursedAmount')}
+          </Typography>
         </div>
         <div className="u-flex-grow-1 u-ta-right">
           <Figure total={borrowedAmount} symbol="€" />
-          <Caption>{t('LoanProgress.borrowedAmount')}</Caption>
+          <Typography variant="caption" color="textSecondary">
+            {t('LoanProgress.borrowedAmount')}
+          </Typography>
         </div>
       </div>
     </>

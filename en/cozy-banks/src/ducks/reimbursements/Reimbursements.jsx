@@ -13,7 +13,8 @@ import styles from 'ducks/reimbursements/Reimbursements.styl'
 import Loading from 'components/Loading'
 import { KonnectorChip } from 'components/KonnectorChip'
 import StoreLink from 'components/StoreLink'
-import { Section, SectionTitle, SectionSeparator } from 'components/Section'
+import { Section, SectionTitle } from 'components/Section'
+import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
 import withFilters from 'components/withFilters'
 import { getYear } from 'date-fns'
 import TransactionActionsProvider from 'ducks/transactions/TransactionActionsProvider'
@@ -133,7 +134,7 @@ export class DumbReimbursements extends Component {
               />
             ) : (
               <>
-                <SectionSeparator />
+                <Divider />
                 <NoPendingReimbursements
                   period={formattedPeriod}
                   doc={filteringDoc}
@@ -151,7 +152,7 @@ export class DumbReimbursements extends Component {
               />
             ) : (
               <>
-                <SectionSeparator />
+                <Divider />
                 <NoReimbursedExpenses
                   hasHealthBrands={hasHealthBrands}
                   doc={filteringDoc}
