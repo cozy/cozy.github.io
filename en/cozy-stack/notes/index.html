@@ -2529,6 +2529,33 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#put-notesidschema" title="PUT /notes/:id/schema" class="md-nav__link">
+    PUT /notes/:id/schema
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_9" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_7" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3155,6 +3182,33 @@
         
           <li class="md-nav__item">
   <a href="#response_6" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#put-notesidschema" title="PUT /notes/:id/schema" class="md-nav__link">
+    PUT /notes/:id/schema
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_9" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_7" title="Response" class="md-nav__link">
     Response
   </a>
   
@@ -4128,6 +4182,187 @@ found</code>.</p>
       <span class="nt">&quot;instance&quot;</span><span class="p">:</span> <span class="s2">&quot;alice.cozy.example&quot;</span><span class="p">,</span>
       <span class="nt">&quot;sharecode&quot;</span><span class="p">:</span> <span class="s2">&quot;543d7eb8149c&quot;</span><span class="p">,</span>
       <span class="nt">&quot;public_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob&quot;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="put-notesidschema">PUT /notes/:id/schema<a class="headerlink" href="#put-notesidschema" title="Permanent link">&para;</a></h3>
+<p>It can be used to update the schema of the given note.</p>
+<h4 id="request_9">Request<a class="headerlink" href="#request_9" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">PUT</span> <span class="nn">/notes/f48d9370-e1ec-0137-8547-543d7eb8149c/schema</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.net</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.notes.documents&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;schema&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;nodes&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="p">[</span><span class="s2">&quot;doc&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;block+&quot;</span> <span class="p">}],</span>
+          <span class="p">[</span>
+            <span class="s2">&quot;panel&quot;</span><span class="p">,</span>
+            <span class="p">{</span>
+              <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;(paragraph | heading | bulletList | orderedList)+&quot;</span><span class="p">,</span>
+              <span class="nt">&quot;group&quot;</span><span class="p">:</span> <span class="s2">&quot;block&quot;</span><span class="p">,</span>
+              <span class="nt">&quot;attrs&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;panelType&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="s2">&quot;info&quot;</span> <span class="p">}</span> <span class="p">}</span>
+            <span class="p">}</span>
+          <span class="p">],</span>
+          <span class="p">[</span><span class="s2">&quot;paragraph&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;inline*&quot;</span><span class="p">,</span> <span class="nt">&quot;group&quot;</span><span class="p">:</span> <span class="s2">&quot;block&quot;</span> <span class="p">}],</span>
+          <span class="p">[</span><span class="s2">&quot;blockquote&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;block+&quot;</span><span class="p">,</span> <span class="nt">&quot;group&quot;</span><span class="p">:</span> <span class="s2">&quot;block&quot;</span> <span class="p">}],</span>
+          <span class="p">[</span><span class="s2">&quot;horizontal_rule&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nt">&quot;group&quot;</span><span class="p">:</span> <span class="s2">&quot;block&quot;</span> <span class="p">}],</span>
+          <span class="p">[</span>
+            <span class="s2">&quot;heading&quot;</span><span class="p">,</span>
+            <span class="p">{</span>
+              <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;inline*&quot;</span><span class="p">,</span>
+              <span class="nt">&quot;group&quot;</span><span class="p">:</span> <span class="s2">&quot;block&quot;</span><span class="p">,</span>
+              <span class="nt">&quot;attrs&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;level&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="mi">1</span> <span class="p">}</span> <span class="p">}</span>
+            <span class="p">}</span>
+          <span class="p">],</span>
+          <span class="p">[</span><span class="s2">&quot;code_block&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;text*&quot;</span><span class="p">,</span> <span class="nt">&quot;marks&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="nt">&quot;group&quot;</span><span class="p">:</span> <span class="s2">&quot;block&quot;</span> <span class="p">}],</span>
+          <span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nt">&quot;group&quot;</span><span class="p">:</span> <span class="s2">&quot;inline&quot;</span> <span class="p">}],</span>
+          <span class="p">[</span>
+            <span class="s2">&quot;image&quot;</span><span class="p">,</span>
+            <span class="p">{</span>
+              <span class="nt">&quot;group&quot;</span><span class="p">:</span> <span class="s2">&quot;inline&quot;</span><span class="p">,</span>
+              <span class="nt">&quot;inline&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+              <span class="nt">&quot;attrs&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;alt&quot;</span><span class="p">:</span> <span class="p">{},</span> <span class="nt">&quot;src&quot;</span><span class="p">:</span> <span class="p">{},</span> <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="p">{}</span> <span class="p">}</span>
+            <span class="p">}</span>
+          <span class="p">],</span>
+          <span class="p">[</span><span class="s2">&quot;hard_break&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nt">&quot;group&quot;</span><span class="p">:</span> <span class="s2">&quot;inline&quot;</span><span class="p">,</span> <span class="nt">&quot;inline&quot;</span><span class="p">:</span> <span class="kc">true</span> <span class="p">}],</span>
+          <span class="p">[</span>
+            <span class="s2">&quot;ordered_list&quot;</span><span class="p">,</span>
+            <span class="p">{</span>
+              <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;list_item+&quot;</span><span class="p">,</span>
+              <span class="nt">&quot;group&quot;</span><span class="p">:</span> <span class="s2">&quot;block&quot;</span><span class="p">,</span>
+              <span class="nt">&quot;attrs&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;order&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="mi">1</span> <span class="p">}</span> <span class="p">}</span>
+            <span class="p">}</span>
+          <span class="p">],</span>
+          <span class="p">[</span><span class="s2">&quot;bullet_list&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;list_item+&quot;</span><span class="p">,</span> <span class="nt">&quot;group&quot;</span><span class="p">:</span> <span class="s2">&quot;block&quot;</span> <span class="p">}],</span>
+          <span class="p">[</span><span class="s2">&quot;list_item&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;paragraph block*&quot;</span> <span class="p">}]</span>
+        <span class="p">],</span>
+        <span class="nt">&quot;marks&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="p">[</span><span class="s2">&quot;link&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nt">&quot;attrs&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;href&quot;</span><span class="p">:</span> <span class="p">{},</span> <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="p">{}</span> <span class="p">},</span> <span class="nt">&quot;inclusive&quot;</span><span class="p">:</span> <span class="kc">false</span> <span class="p">}],</span>
+          <span class="p">[</span><span class="s2">&quot;em&quot;</span><span class="p">,</span> <span class="p">{}],</span>
+          <span class="p">[</span><span class="s2">&quot;strong&quot;</span><span class="p">,</span> <span class="p">{}],</span>
+          <span class="p">[</span><span class="s2">&quot;code&quot;</span><span class="p">,</span> <span class="p">{}]</span>
+        <span class="p">],</span>
+        <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="nt">&quot;topNode&quot;</span><span class="p">:</span> <span class="s2">&quot;doc&quot;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h4 id="response_7">Response<a class="headerlink" href="#response_7" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;bf0dbdb0-e1ed-0137-8548-543d7eb8149c&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;10-241a3436007b&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;My new note.cozy-note&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;trashed&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="nt">&quot;md5sum&quot;</span><span class="p">:</span> <span class="s2">&quot;NjhiMzI5ZGE5ODkzZTM0MDk5YzdkOGFkNWNiOWM5NDAgIC0K&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T12:38:04Z&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-12-10T14:49:12Z&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[],</span>
+      <span class="nt">&quot;metadata&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;My new note&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;doc&quot;</span><span class="p">,</span> <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="p">[{</span> <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;paragraph&quot;</span> <span class="p">}]</span> <span class="p">},</span>
+        <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;schema&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;nodes&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">[</span><span class="s2">&quot;doc&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;block+&quot;</span> <span class="p">}],</span>
+            <span class="p">[</span>
+              <span class="s2">&quot;panel&quot;</span><span class="p">,</span>
+              <span class="p">{</span>
+                <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;(paragraph | heading | bullet_list | ordered_list)+&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;group&quot;</span><span class="p">:</span> <span class="s2">&quot;block&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;attrs&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;panelType&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="s2">&quot;info&quot;</span> <span class="p">}</span> <span class="p">}</span>
+              <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="p">[</span><span class="s2">&quot;paragraph&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;inline*&quot;</span><span class="p">,</span> <span class="nt">&quot;group&quot;</span><span class="p">:</span> <span class="s2">&quot;block&quot;</span> <span class="p">}],</span>
+            <span class="p">[</span><span class="s2">&quot;blockquote&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;block+&quot;</span><span class="p">,</span> <span class="nt">&quot;group&quot;</span><span class="p">:</span> <span class="s2">&quot;block&quot;</span> <span class="p">}],</span>
+            <span class="p">[</span><span class="s2">&quot;horizontal_rule&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nt">&quot;group&quot;</span><span class="p">:</span> <span class="s2">&quot;block&quot;</span> <span class="p">}],</span>
+            <span class="p">[</span>
+              <span class="s2">&quot;heading&quot;</span><span class="p">,</span>
+              <span class="p">{</span>
+                <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;inline*&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;group&quot;</span><span class="p">:</span> <span class="s2">&quot;block&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;attrs&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;level&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="mi">1</span> <span class="p">}</span> <span class="p">}</span>
+              <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="p">[</span><span class="s2">&quot;code_block&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;text*&quot;</span><span class="p">,</span> <span class="nt">&quot;marks&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="nt">&quot;group&quot;</span><span class="p">:</span> <span class="s2">&quot;block&quot;</span> <span class="p">}],</span>
+            <span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nt">&quot;group&quot;</span><span class="p">:</span> <span class="s2">&quot;inline&quot;</span> <span class="p">}],</span>
+            <span class="p">[</span>
+              <span class="s2">&quot;image&quot;</span><span class="p">,</span>
+              <span class="p">{</span>
+                <span class="nt">&quot;group&quot;</span><span class="p">:</span> <span class="s2">&quot;inline&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;inline&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+                <span class="nt">&quot;attrs&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;alt&quot;</span><span class="p">:</span> <span class="p">{},</span> <span class="nt">&quot;src&quot;</span><span class="p">:</span> <span class="p">{},</span> <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="p">{}</span> <span class="p">}</span>
+              <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="p">[</span><span class="s2">&quot;hard_break&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nt">&quot;group&quot;</span><span class="p">:</span> <span class="s2">&quot;inline&quot;</span><span class="p">,</span> <span class="nt">&quot;inline&quot;</span><span class="p">:</span> <span class="kc">true</span> <span class="p">}],</span>
+            <span class="p">[</span>
+              <span class="s2">&quot;ordered_list&quot;</span><span class="p">,</span>
+              <span class="p">{</span>
+                <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;list_item+&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;group&quot;</span><span class="p">:</span> <span class="s2">&quot;block&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;attrs&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;order&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="mi">1</span> <span class="p">}</span> <span class="p">}</span>
+              <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="p">[</span><span class="s2">&quot;bullet_list&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;list_item+&quot;</span><span class="p">,</span> <span class="nt">&quot;group&quot;</span><span class="p">:</span> <span class="s2">&quot;block&quot;</span> <span class="p">}],</span>
+            <span class="p">[</span><span class="s2">&quot;list_item&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;paragraph block*&quot;</span> <span class="p">}]</span>
+          <span class="p">],</span>
+          <span class="nt">&quot;marks&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">[</span><span class="s2">&quot;link&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nt">&quot;attrs&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;href&quot;</span><span class="p">:</span> <span class="p">{},</span> <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="p">{}</span> <span class="p">},</span> <span class="nt">&quot;inclusive&quot;</span><span class="p">:</span> <span class="kc">false</span> <span class="p">}],</span>
+            <span class="p">[</span><span class="s2">&quot;em&quot;</span><span class="p">,</span> <span class="p">{}],</span>
+            <span class="p">[</span><span class="s2">&quot;strong&quot;</span><span class="p">,</span> <span class="p">{}],</span>
+            <span class="p">[</span><span class="s2">&quot;code&quot;</span><span class="p">,</span> <span class="p">{}]</span>
+          <span class="p">],</span>
+          <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+          <span class="nt">&quot;topNode&quot;</span><span class="p">:</span> <span class="s2">&quot;doc&quot;</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="nt">&quot;executable&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="nt">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;mime&quot;</span><span class="p">:</span> <span class="s2">&quot;text/vnd.cozy.note+markdown&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;cozyMetadata&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;doctypeVersion&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;metadataVersion&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nt">&quot;createdAt&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T12:38:04Z&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;createdOn&quot;</span><span class="p">:</span> <span class="s2">&quot;https://alice.example.net/&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;updatedAt&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-12-10T14:49:12Z&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;uploadedAt&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T12:38:04Z&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;uploadedOn&quot;</span><span class="p">:</span> <span class="s2">&quot;https://alice.example.net/&quot;</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;relationships&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;parent&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;related&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/f48d9370-e1ec-0137-8547-543d7eb8149c&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;f48d9370-e1ec-0137-8547-543d7eb8149c&quot;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>

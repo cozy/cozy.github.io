@@ -2550,6 +2550,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#get-movevault" title="GET /move/vault" class="md-nav__link">
+    GET /move/vault
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3211,6 +3218,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#get-movevault" title="GET /move/vault" class="md-nav__link">
+    GET /move/vault
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3411,7 +3425,7 @@ still need a confirmation by mail to start moving the Cozy.</p>
 
 <h4 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">302</span> <span class="ne">Found</span>
-<span class="na">Location</span><span class="o">:</span> <span class="l">https://move.cozycloud.cc/callback/source?code=543d7eb8149c&amp;used=123456&amp;quota=5000000&amp;state=8d560d60</span>
+<span class="na">Location</span><span class="o">:</span> <span class="l">https://move.cozycloud.cc/callback/source?code=543d7eb8149c&amp;used=123456&amp;quota=5000000&amp;state=8d560d60&amp;vault=false</span>
 </pre></div>
 
 
@@ -3425,7 +3439,7 @@ still need a confirmation by mail to start moving the Cozy.</p>
 
 <h4 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">307</span> <span class="ne">Temporary Redirect</span>
-<span class="na">Location</span><span class="o">:</span> <span class="l">https://move.cozycloud.cc/initialize?code=834d7eb8149c&amp;cozy_url=https://source.cozy.tools&amp;used=123456&amp;quota=5000000&amp;client_id=09136b00-1778-0139-f0a7-543d7eb8149c&amp;client_secret=NDkyZTEzMDA</span>
+<span class="na">Location</span><span class="o">:</span> <span class="l">https://move.cozycloud.cc/initialize?code=834d7eb8149c&amp;cozy_url=https://source.cozy.tools&amp;used=123456&amp;quota=5000000&amp;client_id=09136b00-1778-0139-f0a7-543d7eb8149c&amp;client_secret=NDkyZTEzMDA&amp;vault=false</span>
 </pre></div>
 
 
@@ -3472,7 +3486,7 @@ its-self during the move and pushs a job for the export.</p>
 <p>When the move has finished successfully, the target Cozy calls this endpoint on
 the source Cozy so that it can stop the konnectors and unblock the instance.</p>
 <h4 id="request_8">Request<a class="headerlink" href="#request_8" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/move/finalize</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/move/finalize?subdomain=flat</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">source.cozy.tools</span>
 </pre></div>
 
@@ -3494,6 +3508,10 @@ endpoint for the other instance to unblock it.</p>
 <h4 id="reponse_2">Reponse<a class="headerlink" href="#reponse_2" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span>HTTP/1.1 204 No Content
 </pre></div>
+
+
+<h3 id="get-movevault">GET /move/vault<a class="headerlink" href="#get-movevault" title="Permanent link">&para;</a></h3>
+<p>This shows a page for the user with instructions about how to import their vault.</p>
                 
                   
                 
