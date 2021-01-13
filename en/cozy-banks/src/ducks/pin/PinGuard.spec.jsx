@@ -54,7 +54,10 @@ describe('PinGuard', () => {
     const { root } = setup({
       pinSetting: PIN_DOC
     })
-    expect(pinAuthIsShown(root)).toBe(false)
+
+    expect(root.children).toHaveLength(1)
+    expect(root.find(App)).toHaveLength(0)
+    expect(pinAuthIsShown(root)).toBe(true)
     jest.runAllTimers()
     root.update()
     expect(pinAuthIsShown(root)).toBe(true)
@@ -102,6 +105,14 @@ describe('PinGuard', () => {
     jest.spyOn(Date, 'now').mockReturnValue(1337)
     const instance = root.find(PinGuard).instance()
     jest.spyOn(instance, 'setState')
+    expect(pinAuthIsShown(root)).toBe(true)
+
+    root
+      .find(PinAuth)
+      .props()
+      .onSuccess()
+    root.update()
+
     expect(pinAuthIsShown(root)).toBe(false)
     instance.handleInteraction()
     expect(instance.setState).toHaveBeenCalledWith({

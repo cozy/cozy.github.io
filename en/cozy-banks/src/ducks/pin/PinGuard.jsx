@@ -26,12 +26,11 @@ class PinGuard extends React.Component {
     const last = savedLast || Date.now()
     const cachedPinSetting = pinSettingStorage.load()
 
-    const willShowPin = this.isTooLate(last)
     return {
       last, // timestamp of last interaction
-      showPin: willShowPin,
+      showPin: true,
       cachedPinSetting,
-      hasBeenShownOnce: !willShowPin
+      hasBeenShownOnce: false
     }
   }
 
@@ -154,7 +153,7 @@ class PinGuard extends React.Component {
   }
 
   static defaultProps = {
-    timeout: 60 * 1000
+    timeout: 30 * 1000
   }
 }
 

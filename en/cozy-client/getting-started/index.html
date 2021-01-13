@@ -2836,6 +2836,9 @@ or
 <p>Both <code>create()</code> and <code>save()</code> will return a Promise with a <code>data</code> attribute containing the saved document.</p>
 <h2 id="learn-more-about-queries">Learn more about queries<a class="headerlink" href="#learn-more-about-queries" title="Permanent link">&para;</a></h2>
 <p>You can check out our dedicated <a href="https://docs.cozy.io/en/tutorials/data/queries/">query documentation</a> to know more about querying with cozy-client and avoid common traps that can dramatically impact your app performances.</p>
+<p>Note you can audit your queries performance by setting a <code>{ perfs.execution_stats: true }</code> flag. 
+This will add a log in the browser&rsquo;s development tools console for each query. This log provides  insights such as the query execution time taken on the database or the number of documents scanned. All the available stats are described <a href="https://docs.couchdb.org/en/2.3.1/api/database/find.html#execution-statistics">here</a>.</p>
+<p>See <a href="https://github.com/cozy/cozy-libs/tree/master/packages/cozy-flags">cozy-flags</a> to know how to set flags.</p>
 <h2 id="connecting-with-you-react-components">Connecting with you React components<a class="headerlink" href="#connecting-with-you-react-components" title="Permanent link">&para;</a></h2>
 <p>CozyClient comes with HOC and render props functions to connect to your data inside you own components. See the specific documentation for <a href="../react-integration/">React integration</a></p>
 <h2 id="different-entrypoints-for-nodebrowser">Different entrypoints for node/browser<a class="headerlink" href="#different-entrypoints-for-nodebrowser" title="Permanent link">&para;</a></h2>

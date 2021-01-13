@@ -1,5 +1,5 @@
 import React from 'react'
-import { queryConnect } from 'cozy-client'
+import { queryConnect, withClient } from 'cozy-client'
 import compose from 'lodash/flowRight'
 
 import { translate } from 'cozy-ui/transpiled/react'
@@ -89,6 +89,7 @@ class PinSettings extends React.Component {
 }
 
 export default compose(
+  withClient,
   translate(),
   queryConnect({
     pinSetting
