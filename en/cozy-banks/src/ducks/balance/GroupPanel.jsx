@@ -1,23 +1,25 @@
 import cx from 'classnames'
-import compose from 'lodash/flowRight'
 import PropTypes from 'prop-types'
-import React from 'react'
-import { withRouter } from 'react-router'
-import { connect } from 'react-redux'
+import React, { useState, useCallback } from 'react'
+import { useSelector } from 'react-redux'
 
-import ExpansionPanel from 'cozy-ui/transpiled/react/MuiCozyTheme/ExpansionPanel'
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import { withStyles } from '@material-ui/core/styles'
 
-import { translate } from 'cozy-ui/transpiled/react'
+import { useClient } from 'cozy-client'
+import ExpansionPanel from 'cozy-ui/transpiled/react/MuiCozyTheme/ExpansionPanel'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import { ButtonLink } from 'cozy-ui/transpiled/react/Button'
+import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
+import Button, { ButtonLink } from 'cozy-ui/transpiled/react/Button'
 import Figure from 'cozy-ui/transpiled/react/Figure'
 import Switch from 'cozy-ui/transpiled/react/MuiCozyTheme/Switch'
 import AccountsList from 'ducks/balance/AccountsList'
-import withFilters from 'components/withFilters'
+import { useFilters } from 'components/withFilters'
 import Stack from 'cozy-ui/transpiled/react/Stack'
+
+import { useRouter } from 'components/RouterContext'
 import {
   getGroupBalance,
   isReimbursementsVirtualGroup
@@ -61,178 +63,6 @@ const GroupPanelExpandIcon = React.memo(function GroupPanelExpandIcon() {
   )
 })
 
-class GroupPanel extends React.PureComponent {
-  constructor(props) {
-    super(props)
-    this.state = {}
-    this.handlePanelChange = this.handlePanelChange.bind(this)
-  }
-
-  static propTypes = {
-    group: PropTypes.object.isRequired,
-    filterByDoc: PropTypes.func.isRequired,
-    router: PropTypes.object.isRequired,
-    switches: PropTypes.object,
-    checked: PropTypes.bool,
-    expanded: PropTypes.bool.isRequired,
-    onSwitchChange: PropTypes.func,
-    onChange: PropTypes.func,
-    withBalance: PropTypes.bool
-  }
-
-  static defaultProps = {
-    withBalance: true,
-    onSwitchChange: undefined,
-    onChange: undefined
-  }
-
-  goToGroupDetails = () => {
-    const { group, filterByDoc, router } = this.props
-    filterByDoc(group)
-    router.push('/balances/details')
-  }
-
-  handleSummaryContentClick = e => {
-    const { group } = this.props
-
-    if (group.loading) return
-    e.stopPropagation()
-    this.goToGroupDetails()
-  }
-
-  handleSwitchClick = e => {
-    e.stopPropagation()
-  }
-
-  async handlePanelChange(event, expanded) {
-    const { group, onChange } = this.props
-
-    // cozy-client does not do optimistic update yet
-    // so we have to do it ourselves in the component
-    this.setState({
-      optimisticExpanded: expanded
-    })
-
-    if (onChange) {
-      await onChange(group._id, event, expanded)
-    }
-  }
-
-  render() {
-    const {
-      group,
-      groupLabel,
-      switches,
-      onSwitchChange,
-      checked,
-      withBalance,
-      t,
-      className,
-      groupPanelSummaryClasses
-    } = this.props
-
-    const groupAccounts = group.accounts.data.filter(Boolean)
-    const nbAccounts = groupAccounts.length
-    const nbCheckedAccounts = Object.values(switches).filter(s => s.checked)
-      .length
-    const uncheckedAccountsIds = Object.keys(switches).filter(
-      k => !switches[k].checked
-    )
-
-    const { optimisticExpanded } = this.state
-    const expanded =
-      optimisticExpanded !== undefined
-        ? optimisticExpanded
-        : this.props.expanded
-    const isUncheckable = !group.loading
-
-    return (
-      <ExpansionPanel
-        className={className}
-        expanded={expanded}
-        onChange={this.handlePanelChange}
-      >
-        <GroupPanelSummary
-          expandIcon={<GroupPanelExpandIcon />}
-          IconButtonProps={{
-            disableRipple: true
-          }}
-          className={cx({
-            [styles['GroupPanelSummary--unchecked']]: !checked && isUncheckable
-          })}
-          classes={groupPanelSummaryClasses}
-        >
-          <div className={styles.GroupPanelSummary__content}>
-            <div
-              className={styles.GroupPanelSummary__labelBalanceWrapper}
-              onClick={this.handleSummaryContentClick}
-            >
-              <div className={styles.GroupPanelSummary__label}>
-                {groupLabel}
-                <br />
-                {nbCheckedAccounts < nbAccounts && (
-                  <Typography
-                    className={styles.GroupPanelSummary__caption}
-                    variant="caption"
-                    color="textSecondary"
-                  >
-                    {t('Balance.nb_accounts', {
-                      nbCheckedAccounts,
-                      smart_count: nbAccounts
-                    })}
-                  </Typography>
-                )}
-              </div>
-              {withBalance && (
-                <Figure
-                  className="u-ml-half"
-                  symbol="€"
-                  total={getGroupBalance(group, uncheckedAccountsIds)}
-                  currencyClassName={styles.GroupPanelSummary__figureCurrency}
-                />
-              )}
-            </div>
-            {onSwitchChange && (
-              <Switch
-                disableRipple
-                className="u-mh-half"
-                checked={checked}
-                color="primary"
-                onClick={this.handleSwitchClick}
-                id={`[${group._id}]`}
-                onChange={onSwitchChange}
-              />
-            )}
-          </div>
-        </GroupPanelSummary>
-        <ExpansionPanelDetails>
-          <div className="u-flex-grow-1 u-maw-100">
-            {groupAccounts && groupAccounts.length > 0 ? (
-              <AccountsList
-                group={group}
-                switches={switches}
-                onSwitchChange={onSwitchChange}
-              />
-            ) : (
-              <Stack className="u-m-1">
-                <Typography variant="body1">
-                  {t('Balance.no-accounts-in-group.description')}
-                </Typography>
-                <ButtonLink
-                  className="u-ml-0"
-                  href={`#/settings/groups/${group._id}`}
-                >
-                  {t('Balance.no-accounts-in-group.button')}
-                </ButtonLink>
-              </Stack>
-            )}
-          </div>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-    )
-  }
-}
-
 export const getGroupPanelSummaryClasses = (group, state) => {
   if (!isReimbursementsVirtualGroup(group)) {
     return
@@ -257,13 +87,192 @@ export const getGroupPanelSummaryClasses = (group, state) => {
   }
 }
 
+const GroupPanel = props => {
+  const {
+    group,
+    groupLabel,
+    onChange,
+    expanded: expandedProp,
+    switches,
+    onSwitchChange,
+    checked,
+    withBalance,
+    className
+  } = props
+  const router = useRouter()
+  const client = useClient()
+  const [deleting, setDeleting] = useState(false)
+  const [optimisticExpanded, setOptimisticExpanded] = useState(expandedProp)
+  const { t } = useI18n()
+  const { filterByDoc } = useFilters()
+  const groupPanelSummaryClasses = useSelector(state =>
+    getGroupPanelSummaryClasses(group, state)
+  )
+  const goToGroupDetails = useCallback(() => {
+    filterByDoc(group)
+    router.push('/balances/details')
+  }, [group, filterByDoc, router])
+
+  const handleSummaryContentClick = useCallback(
+    ev => {
+      if (group.loading) return
+      ev.stopPropagation()
+      goToGroupDetails()
+    },
+    [goToGroupDetails, group.loading]
+  )
+
+  const handleSwitchClick = useCallback(e => {
+    e.stopPropagation()
+  }, [])
+
+  const handlePanelChange = useCallback(
+    async (event, expanded) => {
+      // cozy-client does not do optimistic update yet
+      // so we have to do it ourselves in the component
+      setOptimisticExpanded(expanded)
+
+      if (onChange) {
+        await onChange(group._id, event, expanded)
+      }
+    },
+    [onChange, group, setOptimisticExpanded]
+  )
+
+  const handleDelete = useCallback(async () => {
+    setDeleting(true)
+    try {
+      await client.destroy(group)
+    } catch (e) {
+      setDeleting(false)
+    }
+  }, [client, group])
+
+  const groupAccounts = group.accounts.data.filter(Boolean)
+  const nbAccounts = groupAccounts.length
+  const nbCheckedAccounts = Object.values(switches).filter(s => s.checked)
+    .length
+  const uncheckedAccountsIds = Object.keys(switches).filter(
+    k => !switches[k].checked
+  )
+
+  const expanded =
+    optimisticExpanded !== undefined ? optimisticExpanded : expandedProp
+  const isUncheckable = !group.loading
+
+  return (
+    <ExpansionPanel
+      className={className}
+      expanded={expanded}
+      onChange={handlePanelChange}
+    >
+      <GroupPanelSummary
+        expandIcon={<GroupPanelExpandIcon />}
+        IconButtonProps={{
+          disableRipple: true
+        }}
+        className={cx({
+          [styles['GroupPanelSummary--unchecked']]: !checked && isUncheckable
+        })}
+        classes={groupPanelSummaryClasses}
+      >
+        <div className={styles.GroupPanelSummary__content}>
+          <div
+            className={styles.GroupPanelSummary__labelBalanceWrapper}
+            onClick={handleSummaryContentClick}
+          >
+            <div className={styles.GroupPanelSummary__label}>
+              {groupLabel}
+              <br />
+              {nbCheckedAccounts < nbAccounts && (
+                <Typography
+                  className={styles.GroupPanelSummary__caption}
+                  variant="caption"
+                  color="textSecondary"
+                >
+                  {t('Balance.nb_accounts', {
+                    nbCheckedAccounts,
+                    smart_count: nbAccounts
+                  })}
+                </Typography>
+              )}
+            </div>
+            {withBalance && (
+              <Figure
+                className="u-ml-half"
+                symbol="€"
+                total={getGroupBalance(group, uncheckedAccountsIds)}
+                currencyClassName={styles.GroupPanelSummary__figureCurrency}
+              />
+            )}
+          </div>
+          {onSwitchChange && (
+            <Switch
+              disableRipple
+              className="u-mh-half"
+              checked={checked}
+              color="primary"
+              onClick={handleSwitchClick}
+              id={`[${group._id}]`}
+              onChange={onSwitchChange}
+            />
+          )}
+        </div>
+      </GroupPanelSummary>
+      <ExpansionPanelDetails>
+        <div className="u-flex-grow-1 u-maw-100">
+          {groupAccounts && groupAccounts.length > 0 ? (
+            <AccountsList
+              group={group}
+              switches={switches}
+              onSwitchChange={onSwitchChange}
+            />
+          ) : (
+            <Stack className="u-m-1">
+              <Typography variant="body1">
+                {t('Balance.no-accounts-in-group.description')}
+              </Typography>
+
+              <Media>
+                <Bd>
+                  <ButtonLink
+                    className="u-ml-0"
+                    href={`#/settings/groups/${group._id}`}
+                  >
+                    {t('Balance.no-accounts-in-group.button')}
+                  </ButtonLink>
+                </Bd>
+                <Img>
+                  <Button
+                    theme="text"
+                    busy={deleting}
+                    label={t('Groups.delete')}
+                    onClick={handleDelete}
+                  />
+                </Img>
+              </Media>
+            </Stack>
+          )}
+        </div>
+      </ExpansionPanelDetails>
+    </ExpansionPanel>
+  )
+}
+
 export const DumbGroupPanel = GroupPanel
 
-export default compose(
-  withFilters,
-  withRouter,
-  translate(),
-  connect((state, ownProps) => ({
-    groupPanelSummaryClasses: getGroupPanelSummaryClasses(ownProps.group, state)
-  }))
-)(GroupPanel)
+GroupPanel.propTypes = {
+  group: PropTypes.object.isRequired,
+  switches: PropTypes.object,
+  checked: PropTypes.bool,
+  expanded: PropTypes.bool.isRequired,
+  onSwitchChange: PropTypes.func,
+  onChange: PropTypes.func,
+  withBalance: PropTypes.bool
+}
+
+GroupPanel.defaultProps = {
+  withBalance: true
+}
+
+export default GroupPanel

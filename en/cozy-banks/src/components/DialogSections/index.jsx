@@ -72,7 +72,7 @@ DialogListItem.propTypes = {
   divider: PropTypes.bool,
   hasRadio: PropTypes.bool,
   hasArrow: PropTypes.bool,
-  label: PropTypes.string,
+  label: PropTypes.node,
   isSelected: PropTypes.bool,
   onClick: PropTypes.func
 }

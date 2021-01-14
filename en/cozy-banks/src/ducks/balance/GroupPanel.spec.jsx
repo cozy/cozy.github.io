@@ -1,21 +1,19 @@
-/* global mount */
-
 import React from 'react'
 import data from 'test/fixtures/unit-tests.json'
-import GroupPanel, {
-  DumbGroupPanel,
-  getGroupPanelSummaryClasses
-} from './GroupPanel'
-import CozyClient from 'cozy-client'
 import mapValues from 'lodash/mapValues'
 import fromPairs from 'lodash/fromPairs'
+import { render, fireEvent } from '@testing-library/react'
+
+import CozyClient from 'cozy-client'
 import { schema, TRANSACTION_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
+
 import AppLike from 'test/AppLike'
-import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import { createClientWithData } from 'test/client'
 import getClient from 'selectors/getClient'
 import MockDate from 'mockdate'
 import mockRouter from 'test/mockRouter'
+
+import GroupPanel, { getGroupPanelSummaryClasses } from './GroupPanel'
 
 jest.mock('components/AccountIcon', () => () => null)
 jest.mock('selectors/getClient')
@@ -27,37 +25,34 @@ const addType = data => {
 }
 
 const rawGroup = data['io.cozy.bank.groups'][0]
-let client, group
-
-beforeAll(() => {
-  client = new CozyClient({
-    schema
-  })
-  getClient.mockReturnValue(client)
-  client.setData(addType(data))
-  group = client.hydrateDocument(
-    client.getDocumentFromState('io.cozy.bank.groups', rawGroup._id)
-  )
-})
 
 describe('GroupPanel', () => {
   let root, onChange, switches
 
-  const Wrapper = ({ expanded }) => (
-    <AppLike client={client}>
-      <GroupPanel
-        expanded={expanded}
-        checked={true}
-        group={group}
-        switches={switches}
-        onSwitchChange={() => {}}
-        onChange={onChange}
-        router={mockRouter}
-      />
-    </AppLike>
-  )
+  const setup = ({ group: rawGroup }) => {
+    const client = new CozyClient({
+      schema
+    })
+    const data = { 'io.cozy.bank.groups': [rawGroup] }
+    getClient.mockReturnValue(client)
+    client.setData(addType(data))
+    const group = client.hydrateDocument(
+      client.getDocumentFromState('io.cozy.bank.groups', rawGroup._id)
+    )
+    const Wrapper = ({ expanded }) => (
+      <AppLike client={client}>
+        <GroupPanel
+          expanded={expanded}
+          checked={true}
+          group={group}
+          switches={switches}
+          onSwitchChange={() => {}}
+          onChange={onChange}
+          router={mockRouter}
+        />
+      </AppLike>
+    )
 
-  beforeEach(() => {
     switches = fromPairs(
       rawGroup.accounts.map(accId => [
         accId,
@@ -68,39 +63,33 @@ describe('GroupPanel', () => {
       ])
     )
     onChange = jest.fn()
-    root = mount(<Wrapper expanded={false} />)
-  })
+    root = render(<Wrapper expanded={false} />)
+
+    return { root, client }
+  }
 
   it('should optimistically update', () => {
-    const gp = root.find(DumbGroupPanel).instance()
-    const ev = {}
-    expect(root.find(ExpansionPanel).props().expanded).toBe(false)
-    gp.handlePanelChange(ev, true)
-    expect(gp.state.optimisticExpanded).toBe(true)
-    expect(onChange).toHaveBeenCalledWith(group._id, ev, true)
-    root.update()
-    expect(root.find(ExpansionPanel).props().expanded).toBe(true)
+    const { root } = setup({ group: rawGroup })
+    const expandButton = root.getByRole('button')
+    expect(expandButton.getAttribute('aria-expanded')).toBe('false')
+    fireEvent.click(expandButton)
+
+    const buttons = root.queryAllByRole('button')
+    expect(buttons[0].getAttribute('aria-expanded')).toBe('true')
   })
 
-  it('should prioritize optimizeExpanded', () => {
-    const gp = root.find(DumbGroupPanel).instance()
-    const ev = {}
+  it('should show a removal button when there are no accounts in the group', async () => {
+    const groupWithoutAccounts = { ...rawGroup, accounts: [] }
+    const { root, client } = setup({ group: groupWithoutAccounts })
+    client.destroy = jest.fn()
 
-    // sanity check
-    expect(root.find(ExpansionPanel).props().expanded).toBe(false)
-
-    gp.handlePanelChange(ev, true)
-    expect(gp.state.optimisticExpanded).toBe(true)
-    expect(onChange).toHaveBeenCalledWith(group._id, ev, true)
-    root.update()
-    expect(root.find(ExpansionPanel).props().expanded).toBe(true)
-
-    // The request failed but we still want the panel to be toggled
-    // We ignore the fact that the request failed as UI coherency
-    // is more important for the user
-    root.setProps({ expanded: false })
-    root.update()
-    expect(root.find(ExpansionPanel).props().expanded).toBe(true)
+    const removeButton = root.getByText('remove')
+    await fireEvent.click(removeButton)
+    expect(client.destroy).toHaveBeenCalledWith(
+      expect.objectContaining({
+        _id: groupWithoutAccounts._id
+      })
+    )
   })
 })
 
@@ -112,7 +101,6 @@ describe('Reimbursement virtual group styling', () => {
   let i = 0
   beforeEach(() => {
     MockDate.set(mockedDate + i++)
-    getClient.mockReturnValue(client)
   })
 
   const setup = ({
@@ -138,6 +126,7 @@ describe('Reimbursement virtual group styling', () => {
         }
       }
     })
+    getClient.mockReturnValue(client)
     const state = client.store.getState()
     return { state }
   }

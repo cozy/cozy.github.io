@@ -1,6 +1,5 @@
-import { deleteAll } from 'utils/stack'
 import CozyClient from 'cozy-client'
-import { GROUP_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
+import { GROUP_DOCTYPE, ACCOUNT_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
 import { getLinks } from 'ducks/client/links'
 
 const removeAccountFromGroup = (group, account) => {
@@ -16,15 +15,24 @@ const getStackCollection = doctype => {
   return stackLink.stackClient.collection(doctype)
 }
 
-const deleteOrphanOperations = async (client, account) => {
-  const links = getLinks()
-  const accountCollection = getStackCollection(ACCOUNT_DOCTYPE)
-  const orphanOperations = (await accountCollection.find({
-    account: account._id
-  })).data
-  if (orphanOperations.length > 0) {
-    const stackClient = links.stack.client
-    return deleteAll(client, stackClient, orphanOperations)
+const STACK_FIND_LIMIT = 100
+
+export const deleteOrphanOperations = async (client, account) => {
+  // We use a collection here instead of using the client because
+  // we want to directly target the stack and bypass the pouch link
+  // on mobile.
+  const transactionCollection = client.stackClient.collection(
+    TRANSACTION_DOCTYPE
+  )
+  let count
+  while (count === undefined || count === STACK_FIND_LIMIT) {
+    const { data: orphanOperations } = await transactionCollection.find({
+      account: account._id
+    })
+    count = orphanOperations.length
+    if (count > 0) {
+      await transactionCollection.destroyAll(orphanOperations)
+    }
   }
 }
 

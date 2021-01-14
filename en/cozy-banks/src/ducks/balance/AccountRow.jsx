@@ -144,7 +144,7 @@ const AccountRow = props => {
       <PrimaryColumn disableTypography>
         <EllipseTypography
           variant="body1"
-          color={disabled ? 'secondaryTextColor' : 'primaryTextColor'}
+          color={disabled ? 'textSecondary' : 'textPrimary'}
         >
           {account.virtual ? t(accountLabel) : accountLabel}
         </EllipseTypography>

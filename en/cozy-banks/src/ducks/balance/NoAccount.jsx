@@ -1,6 +1,8 @@
 import React, { memo } from 'react'
 import { useI18n, useBreakpoints } from 'cozy-ui/transpiled/react'
 import Button from 'cozy-ui/transpiled/react/Button'
+import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
+
 import HeaderTitle from 'ducks/balance/HeaderTitle'
 import AddAccountLink from 'ducks/settings/AddAccountLink'
 import { Container, Content } from 'components/VerticalBox'
@@ -18,25 +20,27 @@ export const NoAccount = ({ buttonTheme }) => {
   }.svg`)
   const contentProps = isMobile ? { center: true } : { bottom: true }
   return (
-    <Container className={styles.NoAccount}>
-      <BarTheme theme="primary" />
-      <Content {...contentProps}>
-        <HeaderTitle balance={0} subtitle={t('Accounts.no_account')} />
-      </Content>
-      <div className={styles.NoAccount_bottom}>
-        <div className={styles.NoAccount_chart} />
-        <img src={timelineImg} alt="" className={styles.NoAccount_timeline} />
-      </div>
-      <AddAccountLink>
-        <Button
-          theme={buttonTheme}
-          icon={<Icon icon={PlusIcon} />}
-          size="large"
-          className={styles.NoAccount_addButton}
-          label={t('Accounts.add_bank')}
-        />
-      </AddAccountLink>
-    </Container>
+    <CozyTheme variant="inverted">
+      <Container className={styles.NoAccount}>
+        <BarTheme theme="primary" />
+        <Content {...contentProps}>
+          <HeaderTitle balance={0} subtitle={t('Accounts.no_account')} />
+        </Content>
+        <div className={styles.NoAccount_bottom}>
+          <div className={styles.NoAccount_chart} />
+          <img src={timelineImg} alt="" className={styles.NoAccount_timeline} />
+        </div>
+        <AddAccountLink>
+          <Button
+            theme={buttonTheme}
+            icon={<Icon icon={PlusIcon} />}
+            size="large"
+            className={styles.NoAccount_addButton}
+            label={t('Accounts.add_bank')}
+          />
+        </AddAccountLink>
+      </Container>
+    </CozyTheme>
   )
 }
 

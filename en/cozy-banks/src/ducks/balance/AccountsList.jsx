@@ -4,7 +4,7 @@ import { useClient } from 'cozy-client'
 import sortBy from 'lodash/sortBy'
 import { useSelector } from 'react-redux'
 
-import withFilters from 'components/withFilters'
+import { useFilters } from 'components/withFilters'
 import AccountRow from 'ducks/balance/AccountRow'
 import { getAccountBalance } from 'ducks/account/helpers'
 import AccountRowLoading from 'ducks/balance/AccountRowLoading'
@@ -27,10 +27,12 @@ const getSortedAccounts = (group, accounts) => {
 const mkAccountsSelector = (group, client) => state =>
   getHydratedAccountsFromGroup(state, group, client)
 
-export const DumbAccountsList = props => {
+export const AccountsList = props => {
   const client = useClient()
   const router = useRouter()
-  const { group, filterByDoc, switches, onSwitchChange } = props
+  const { filterByDoc } = useFilters()
+
+  const { group, switches, onSwitchChange } = props
   const accounts = useSelector(mkAccountsSelector(group, client))
 
   const goToAccountsDetails = useCallback(
@@ -67,27 +69,20 @@ export const DumbAccountsList = props => {
         )
 
         return (
-          <>
+          <React.Fragment key={i}>
             {component}
             {i !== accounts.length - 1 ? <Divider variant="inset" /> : null}
-          </>
+          </React.Fragment>
         )
       })}
     </List>
   )
 }
 
-DumbAccountsList.propTypes = {
+AccountsList.propTypes = {
   group: PropTypes.object.isRequired,
   switches: PropTypes.object.isRequired,
-  onSwitchChange: PropTypes.func,
-  filterByDoc: PropTypes.func.isRequired
+  onSwitchChange: PropTypes.func
 }
-
-DumbAccountsList.defaultProps = {
-  onSwitchChange: undefined
-}
-
-const AccountsList = withFilters(DumbAccountsList)
 
 export default AccountsList

@@ -1,4 +1,5 @@
-import { connect } from 'react-redux'
+import { useMemo } from 'react'
+import { connect, useDispatch } from 'react-redux'
 import {
   getFilteringDoc,
   filterByDoc,
@@ -15,6 +16,13 @@ const mapDispatchToProps = dispatch => ({
   addFilterByPeriod: period => dispatch(addFilterByPeriod(period)),
   resetFilterByDoc: () => dispatch(resetFilterByDoc())
 })
+
+export const useFilters = () => {
+  const dispatch = useDispatch()
+  return useMemo(() => {
+    return mapDispatchToProps(dispatch)
+  }, [dispatch])
+}
 
 const withFilters = connect(
   mapStateToProps,

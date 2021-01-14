@@ -7,6 +7,7 @@ import { Query, withClient } from 'cozy-client'
 import { translate, withBreakpoints } from 'cozy-ui/transpiled/react'
 import Button from 'cozy-ui/transpiled/react/Button'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import Typography from 'cozy-ui/transpiled/react/Typography'
 import { Media, Img } from 'cozy-ui/transpiled/react/Media'
 import Switch from 'cozy-ui/transpiled/react/MuiCozyTheme/Switch'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
@@ -71,7 +72,7 @@ const AccountsList = props => {
   const { t } = useI18n()
   const { accounts, group, toggleAccount } = props
 
-  return (
+  return accounts.length > 0 ? (
     <Table className={styles.GrpStg__table}>
       <thead>
         <tr>
@@ -95,6 +96,10 @@ const AccountsList = props => {
           ))}
       </tbody>
     </Table>
+  ) : (
+    <div>
+      <Typography variant="body1">{t('Groups.no-account')}</Typography>
+    </div>
   )
 }
 
@@ -215,7 +220,9 @@ export class DumbGroupSettings extends Component {
           <Media>
             <Img>
               {!modifying ? (
-                getGroupLabel(group, t)
+                <Typography variant="body1">
+                  {getGroupLabel(group, t)}
+                </Typography>
               ) : (
                 <input
                   ref={this.saveInputRef}

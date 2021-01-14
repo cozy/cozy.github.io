@@ -1,5 +1,5 @@
 import React from 'react'
-import { DumbAccountsList } from './AccountsList'
+import AccountsList from './AccountsList'
 import { render } from '@testing-library/react'
 import AppLike from 'test/AppLike'
 import { createMockClient } from 'cozy-client/dist/mock'
@@ -26,7 +26,7 @@ const setup = ({ group, accounts }) => {
   client.ensureStore()
   const { container } = render(
     <AppLike client={client} store={client.store}>
-      <DumbAccountsList
+      <AccountsList
         router={router}
         filterByDoc={filterByDoc}
         group={group}
@@ -45,7 +45,7 @@ const setup = ({ group, accounts }) => {
   return ids
 }
 
-describe('DumbAccountsList', () => {
+describe('AccountsList', () => {
   describe('when given a normal group', () => {
     const accounts = [
       { _id: 'a1', label: 'Account 1', balance: 1000 },

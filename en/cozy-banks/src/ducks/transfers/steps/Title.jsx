@@ -1,15 +1,17 @@
 import React from 'react'
-import { Title as UITitle, useBreakpoints } from 'cozy-ui/transpiled/react'
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import Typography from 'cozy-ui/transpiled/react/Typography'
 
-const _Title = ({ children }) => {
+const Title = ({ children }) => {
   const { isMobile } = useBreakpoints()
   return (
-    <UITitle className={'u-mb-1 ' + (isMobile ? 'u-ta-center' : '')}>
+    <Typography
+      variant="h4"
+      className={'u-mb-1 ' + (isMobile ? 'u-ta-center' : '')}
+    >
       {children}
-    </UITitle>
+    </Typography>
   )
 }
 
-const Title = React.memo(_Title)
-
-export default Title
+export default React.memo(Title)
