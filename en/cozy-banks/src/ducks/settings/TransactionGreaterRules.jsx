@@ -3,9 +3,9 @@ import { transactionGreater } from './specs'
 
 const getTransactionGreaterDescriptionKey = props => {
   if (props.doc && props.doc.accountOrGroup) {
-    return 'Notifications.if_transaction_greater.descriptionWithAccountGroup'
+    return 'Notifications.if-transaction-greater.descriptionWithAccountGroup'
   } else {
-    return 'Notifications.if_transaction_greater.description'
+    return 'Notifications.if-transaction-greater.description'
   }
 }
 

@@ -133,10 +133,10 @@ class BalanceLower extends NotificationView {
     const firstAccount = accounts[0]
 
     const titleKey = onlyOne
-      ? 'Notifications.if_balance_lower.notification.one.title'
+      ? 'Notifications.if-balance-lower.notification.one.title'
       : matchingRules.length === 1
-      ? 'Notifications.if_balance_lower.notification.several.title'
-      : 'Notifications.if_balance_lower.notification.several-multi-rule.title'
+      ? 'Notifications.if-balance-lower.notification.several.title'
+      : 'Notifications.if-balance-lower.notification.several-multi-rule.title'
 
     const firstRule = matchingRules[0].rule
     const titleData = onlyOne

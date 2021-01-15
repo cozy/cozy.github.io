@@ -32,7 +32,7 @@ const getTooltipContent = (item, f) => {
   return [
     { content: date },
     {
-      content: flag('amount_blur') ? 'XXX' : balance,
+      content: flag('amount-blur') ? 'XXX' : balance,
       style: 'font-weight: bold'
     },
     { content: '€' }

@@ -3,9 +3,9 @@ import { balanceLower } from './specs'
 
 const getBalanceLowerDescriptionKey = props => {
   if (props.doc && props.doc.accountOrGroup) {
-    return 'Notifications.if_balance_lower.descriptionWithAccountGroup'
+    return 'Notifications.if-balance-lower.descriptionWithAccountGroup'
   } else {
-    return 'Notifications.if_balance_lower.description'
+    return 'Notifications.if-balance-lower.description'
   }
 }
 

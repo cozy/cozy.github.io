@@ -77,7 +77,7 @@ const DelayedDebitRules = makeRuleComponent({
   getInitialRules: () => initialDelayedDebitRules,
   spec: delayedDebits,
   getNewRule: () => ({ ...newDelayedDebitRule }),
-  getRuleDescriptionKey: () => 'Notifications.delayed_debit.description',
+  getRuleDescriptionKey: () => 'Notifications.delayed-debit.description',
   getRuleDescriptionProps: getDescriptionProps,
   shouldOpenOnToggle: shouldOpenOnToggle,
   trackPageName: 'parametres:configuration:alerte-paiement_differe'

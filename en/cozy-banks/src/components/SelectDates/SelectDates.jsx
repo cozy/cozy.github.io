@@ -290,7 +290,7 @@ class SelectDates extends PureComponent {
     if (showFullYear) {
       monthsOptions.push({
         value: 'allyear',
-        name: t('SelectDates.all_year'),
+        name: t('SelectDates.all-year'),
         fixed: true
       })
     }

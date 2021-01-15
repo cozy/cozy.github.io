@@ -24,7 +24,7 @@ export const NoAccount = ({ buttonTheme }) => {
       <Container className={styles.NoAccount}>
         <BarTheme theme="primary" />
         <Content {...contentProps}>
-          <HeaderTitle balance={0} subtitle={t('Accounts.no_account')} />
+          <HeaderTitle balance={0} subtitle={t('Accounts.no-account')} />
         </Content>
         <div className={styles.NoAccount_bottom}>
           <div className={styles.NoAccount_chart} />
@@ -36,7 +36,7 @@ export const NoAccount = ({ buttonTheme }) => {
             icon={<Icon icon={PlusIcon} />}
             size="large"
             className={styles.NoAccount_addButton}
-            label={t('Accounts.add_bank')}
+            label={t('Accounts.add-bank')}
           />
         </AddAccountLink>
       </Container>

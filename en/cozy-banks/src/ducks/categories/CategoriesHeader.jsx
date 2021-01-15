@@ -184,7 +184,7 @@ const CategoriesHeader = props => {
                 <Empty
                   icon={emptyIcon}
                   title=""
-                  text={t('Categories.title.empty_text')}
+                  text={t('Categories.title.empty-text')}
                 />
               </div>
             )}
@@ -199,7 +199,7 @@ const CategoriesHeader = props => {
           <div className={cx(styles.NoAccount_container)}>
             <Padded className={styles.NoAccount_box}>
               {chart}
-              <AddAccountButton absolute label={t('Accounts.add_bank')} />
+              <AddAccountButton absolute label={t('Accounts.add-bank')} />
             </Padded>
           </div>
         )}
@@ -229,7 +229,7 @@ const CategoriesHeader = props => {
             {chart}
           </>
         ) : (
-          <AddAccountButton label={t('Accounts.add_bank')} />
+          <AddAccountButton label={t('Accounts.add-bank')} />
         )}
       </Padded>
       {hasAccount ? (

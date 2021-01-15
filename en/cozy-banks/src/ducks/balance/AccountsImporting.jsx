@@ -87,7 +87,7 @@ const AccountsImporting = ({ classes, konnectorInfos }) => {
                 barColorPrimary: classes.linearBarColorPrimary
               }}
             />
-            <div className={styles.text}>{t('Balance.importing_accounts')}</div>
+            <div className={styles.text}>{t('Balance.importing-accounts')}</div>
             <div className={styles.text}>{t('Balance.delay')}</div>
           </Padded>
         </VerticalBox>

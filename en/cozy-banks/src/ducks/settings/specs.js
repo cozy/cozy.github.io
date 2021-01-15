@@ -50,8 +50,8 @@ export const balanceLower = {
   },
   fieldOrder: ['value', 'accountOrGroup'],
   fieldLabels: {
-    value: 'Notifications.if_balance_lower.fieldLabels.value',
-    accountOrGroup: 'Notifications.if_balance_lower.fieldLabels.accountOrGroup'
+    value: 'Notifications.if-balance-lower.fieldLabels.value',
+    accountOrGroup: 'Notifications.if-balance-lower.fieldLabels.accountOrGroup'
   }
 }
 
@@ -74,9 +74,9 @@ export const transactionGreater = {
   },
   fieldOrder: ['value', 'accountOrGroup'],
   fieldLabels: {
-    value: 'Notifications.if_transaction_greater.fieldLabels.value',
+    value: 'Notifications.if-transaction-greater.fieldLabels.value',
     accountOrGroup:
-      'Notifications.if_transaction_greater.fieldLabels.accountOrGroup'
+      'Notifications.if-transaction-greater.fieldLabels.accountOrGroup'
   }
 }
 
@@ -88,13 +88,13 @@ export const lateHealthReimbursement = {
       getValue: getValueFromNotification,
       updater: updatedNotificationFromValue,
       sectionProps: {
-        unitKey: 'Notifications.when_late_health_reimbursement.unit'
+        unitKey: 'Notifications.when-late-health-reimbursement.unit'
       }
     }
   },
   fieldOrder: ['value'],
   fieldLabels: {
-    value: 'Notifications.when_late_health_reimbursement.fieldLabels.value'
+    value: 'Notifications.when-late-health-reimbursement.fieldLabels.value'
   }
 }
 
@@ -134,10 +134,10 @@ export const delayedDebits = {
   fieldOrder: ['creditCardAccount', 'checkingsAccount', 'value'],
   fieldLabels: {
     creditCardAccount:
-      'Notifications.delayed_debit.fieldLabels.creditCardAccount',
+      'Notifications.delayed-debit.fieldLabels.creditCardAccount',
     checkingsAccount:
-      'Notifications.delayed_debit.fieldLabels.checkingsAccount',
-    value: 'Notifications.delayed_debit.fieldLabels.days'
+      'Notifications.delayed-debit.fieldLabels.checkingsAccount',
+    value: 'Notifications.delayed-debit.fieldLabels.days'
   },
   fieldSpecs: {
     creditCardAccount: {
@@ -168,7 +168,7 @@ export const delayedDebits = {
     },
     value: {
       sectionProps: {
-        unitKey: 'Notifications.delayed_debit.unit'
+        unitKey: 'Notifications.delayed-debit.unit'
       },
       type: CHOOSING_TYPES.number,
       getValue: doc => doc.value,

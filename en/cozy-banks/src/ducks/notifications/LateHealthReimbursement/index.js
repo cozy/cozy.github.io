@@ -173,14 +173,14 @@ class LateHealthReimbursement extends NotificationView {
 
   getTitle() {
     return this.t(
-      'Notifications.when_late_health_reimbursement.notification.content.title'
+      'Notifications.when-late-health-reimbursement.notification.content.title'
     )
   }
 
   getPushContent(templateData) {
     const { transactions } = templateData
     return this.t(
-      'Notifications.when_late_health_reimbursement.notification.content.message',
+      'Notifications.when-late-health-reimbursement.notification.content.message',
       { smart_count: transactions.length }
     )
   }

@@ -179,7 +179,7 @@ const AccountsSettings = props => {
         <Button
           theme="text"
           icon={<Icon icon={plus} className="u-mr-half" />}
-          label={t('Accounts.add_bank')}
+          label={t('Accounts.add-bank')}
         />
       </AddAccountLink>
     </>

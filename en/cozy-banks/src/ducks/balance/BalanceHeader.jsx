@@ -29,8 +29,8 @@ const BalanceHeader = ({
   const { t } = useI18n()
   const titlePaddedClass = isMobile ? 'u-p-0' : 'u-pb-0'
   const subtitle = subtitleParams
-    ? t('BalanceHistory.checked_accounts', subtitleParams)
-    : t('BalanceHistory.all_accounts')
+    ? t('BalanceHistory.checked-accounts', subtitleParams)
+    : t('BalanceHistory.all-accounts')
 
   return (
     <Header className={styles.BalanceHeader} theme="inverted">

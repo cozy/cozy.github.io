@@ -179,7 +179,7 @@ export class DumbGroupSettings extends Component {
       router.push('/settings/groups')
     } catch (err) {
       logException(err)
-      Alerter.error(t('Groups.deletion_error'))
+      Alerter.error(t('Groups.deletion-error'))
     }
   }
 

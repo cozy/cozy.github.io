@@ -212,11 +212,11 @@ class TransactionGreater extends NotificationView {
 
     const titleKey = onlyOne
       ? firstTransaction.amount > 0
-        ? `Notifications.if_transaction_greater.notification.credit.title`
-        : `Notifications.if_transaction_greater.notification.debit.title`
+        ? `Notifications.if-transaction-greater.notification.credit.title`
+        : `Notifications.if-transaction-greater.notification.debit.title`
       : matchingRules.length === 1
-      ? `Notifications.if_transaction_greater.notification.others.title`
-      : `Notifications.if_transaction_greater.notification.others-multi.title`
+      ? `Notifications.if-transaction-greater.notification.others.title`
+      : `Notifications.if-transaction-greater.notification.others-multi.title`
     return this.t(titleKey, titleData)
   }
 
@@ -243,7 +243,7 @@ class TransactionGreater extends NotificationView {
         .map(
           g =>
             `${getAccountLabel(g.account)}: ${this.t(
-              'Notifications.if_transaction_greater.notification.content-transaction-mention',
+              'Notifications.if-transaction-greater.notification.content-transaction-mention',
               { smart_count: g.transactions.length }
             )}`
         )

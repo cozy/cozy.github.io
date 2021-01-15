@@ -51,18 +51,18 @@ export const getAccountUpdateDateDistance = (account, from) => {
 
 export const distanceInWords = distance => {
   if (!Number.isFinite(distance)) {
-    return 'Balance.updated_at.unknown'
+    return 'Balance.updated-at.unknown'
   }
 
   if (distance === 0) {
-    return 'Balance.updated_at.today'
+    return 'Balance.updated-at.today'
   }
 
   if (distance === 1) {
-    return 'Balance.updated_at.yesterday'
+    return 'Balance.updated-at.yesterday'
   }
 
-  return 'Balance.updated_at.n_days_ago'
+  return 'Balance.updated-at.n-days-ago'
 }
 
 export const accountTypesWithTranslation = [

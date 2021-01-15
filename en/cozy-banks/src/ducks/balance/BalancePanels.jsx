@@ -63,7 +63,7 @@ const BalancePanels = props => {
           <Button
             onClick={goToGroupsSettings}
             theme="secondary"
-            label={t('Balance.manage_accounts')}
+            label={t('Balance.manage-accounts')}
           />
         </div>
       </Delayed>
@@ -88,7 +88,7 @@ BalancePanels.defaultProps = {
 export const BalanceAddAccountButton = ({ theme, onClick }) => {
   const { t } = useI18n()
   return (
-    <Button onClick={onClick} theme={theme} label={t('Accounts.add_bank')} />
+    <Button onClick={onClick} theme={theme} label={t('Accounts.add-bank')} />
   )
 }
 

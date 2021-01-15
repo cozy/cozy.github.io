@@ -52,8 +52,8 @@ export class AccountRowLoading extends React.PureComponent {
         <ListItemText disableTypography>
           <Typography variant="body1">
             {isErrored
-              ? t('Balance.importing_accounts_error')
-              : t('Balance.importing_accounts')}
+              ? t('Balance.importing-accounts-error')
+              : t('Balance.importing-accounts')}
           </Typography>
           <Typography variant="caption">
             {isErrored ? (
@@ -72,7 +72,7 @@ export class AccountRowLoading extends React.PureComponent {
                   spin
                 />
                 <span className={stylesLoading.InProgress}>
-                  {t('Balance.in_progress')}
+                  {t('Balance.in-progress')}
                 </span>
               </>
             )}

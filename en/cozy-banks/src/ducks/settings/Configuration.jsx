@@ -85,7 +85,7 @@ export class Configuration extends React.Component {
   }
 
   handleToggleAmountBlur(checked) {
-    flag('amount_blur', checked)
+    flag('amount-blur', checked)
     trackEvent({
       name: `masquer_elements-${checked ? 'on' : 'off'}`
     })
@@ -109,7 +109,7 @@ export class Configuration extends React.Component {
           title={t('Notifications.title')}
           description={t('Notifications.description')}
         >
-          <SubSection title={t('Notifications.if_balance_lower.settingTitle')}>
+          <SubSection title={t('Notifications.if-balance-lower.settingTitle')}>
             <BalanceLowerRules
               rules={settings.notifications.balanceLower}
               getAccountOrGroupLabel={this.props.getAccountOrGroupLabel}
@@ -117,7 +117,7 @@ export class Configuration extends React.Component {
             />
           </SubSection>
           <SubSection
-            title={t('Notifications.if_transaction_greater.settingTitle')}
+            title={t('Notifications.if-transaction-greater.settingTitle')}
           >
             <TransactionGreaterRules
               rules={settings.notifications.transactionGreater}
@@ -129,8 +129,8 @@ export class Configuration extends React.Component {
           </SubSection>
           <CategoryAlertSettingsPane />
           <SubSection
-            title={t('Notifications.delayed_debit.settingTitle')}
-            description={t('Notifications.delayed_debit.settingDescription')}
+            title={t('Notifications.delayed-debit.settingTitle')}
+            description={t('Notifications.delayed-debit.settingDescription')}
           >
             <DelayedDebitAlertRules
               onToggle={this.onToggle('notifications.delayedDebit')}
@@ -140,24 +140,24 @@ export class Configuration extends React.Component {
           </SubSection>
           {flag('banks.health-reimbursements.deactivated') ? null : (
             <SubSection
-              title={t('Notifications.health_section.title')}
-              description={t('Notifications.health_section.description')}
+              title={t('Notifications.health-section.title')}
+              description={t('Notifications.health-section.description')}
             >
               <div className="u-stack-xs">
                 <EditableSettingCard
                   title={t(
-                    'Notifications.when_health_bill_linked.settingTitle'
+                    'Notifications.when-health-bill-linked.settingTitle'
                   )}
-                  descriptionKey="Notifications.when_health_bill_linked.description"
+                  descriptionKey="Notifications.when-health-bill-linked.description"
                   onToggle={this.onToggle('notifications.healthBillLinked')}
                   doc={settings.notifications.healthBillLinked}
                 />
                 <EditableSettingCard
                   title={t(
-                    'Notifications.when_late_health_reimbursement.settingTitle'
+                    'Notifications.when-late-health-reimbursement.settingTitle'
                   )}
                   descriptionKey={
-                    'Notifications.when_late_health_reimbursement.description'
+                    'Notifications.when-late-health-reimbursement.description'
                   }
                   onToggle={this.onToggle(
                     'notifications.lateHealthReimbursement'
@@ -175,13 +175,13 @@ export class Configuration extends React.Component {
         <Section
           title={t('AdvancedFeaturesSettings.title')}
           description={t(
-            'AdvancedFeaturesSettings.automatic_categorization.title'
+            'AdvancedFeaturesSettings.automatic-categorization.title'
           )}
         >
           <SubSection>
             <ToggleRow
               description={t(
-                'AdvancedFeaturesSettings.automatic_categorization.local_model_override.description'
+                'AdvancedFeaturesSettings.automatic-categorization.local-model-override.description'
               )}
               onToggle={this.onToggle('community.localModelOverride')}
               enabled={settings.community.localModelOverride.enabled}
@@ -192,11 +192,11 @@ export class Configuration extends React.Component {
 
         <Section title={t('Settings.security.title')}>
           {__TARGET__ === 'mobile' ? <PinSettings /> : null}
-          <SubSection title={t('Settings.security.amount_blur.title')}>
+          <SubSection title={t('Settings.security.amount-blur.title')}>
             <ToggleRow
-              description={t('Settings.security.amount_blur.description')}
+              description={t('Settings.security.amount-blur.description')}
               onToggle={this.handleToggleAmountBlur}
-              enabled={Boolean(flag('amount_blur'))}
+              enabled={Boolean(flag('amount-blur'))}
               name="amountBlur"
             />
           </SubSection>

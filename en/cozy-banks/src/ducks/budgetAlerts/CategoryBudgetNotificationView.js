@@ -30,7 +30,7 @@ const getAccountOrGroupLabelFromAlert = (
   t
 ) => {
   if (!alert.accountOrGroup) {
-    return t('AccountSwitch.all_accounts')
+    return t('AccountSwitch.all-accounts')
   } else {
     const { _id, _type } = alert.accountOrGroup
     const col = _type === ACCOUNT_DOCTYPE ? accountsById : groupsById

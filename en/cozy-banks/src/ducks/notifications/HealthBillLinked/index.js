@@ -101,7 +101,7 @@ class HealthBillLinked extends NotificationView {
 
   getTitle() {
     return this.t(
-      `Notifications.when_health_bill_linked.notification.content.title`
+      `Notifications.when-health-bill-linked.notification.content.title`
     )
   }
 
@@ -111,7 +111,7 @@ class HealthBillLinked extends NotificationView {
     const vendors = treatedByFormat(transaction.reimbursements, billsById)
 
     return `${transaction.label} ${this.t(
-      `Notifications.when_health_bill_linked.notification.content.treated_by`
+      `Notifications.when-health-bill-linked.notification.content.treated-by`
     )} ${vendors}`
   }
 }

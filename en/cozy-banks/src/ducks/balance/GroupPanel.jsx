@@ -190,7 +190,7 @@ const GroupPanel = props => {
                   variant="caption"
                   color="textSecondary"
                 >
-                  {t('Balance.nb_accounts', {
+                  {t('Balance.nb-accounts', {
                     nbCheckedAccounts,
                     smart_count: nbAccounts
                   })}

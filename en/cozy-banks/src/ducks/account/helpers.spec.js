@@ -37,11 +37,11 @@ describe('getAccountUpdateDateDistance', () => {
 
 describe('distanceInWords', () => {
   it('should return the right string for a given distance', () => {
-    expect(distanceInWords(0)).toBe('Balance.updated_at.today')
-    expect(distanceInWords(1)).toBe('Balance.updated_at.yesterday')
-    expect(distanceInWords(2)).toBe('Balance.updated_at.n_days_ago')
-    expect(distanceInWords(10)).toBe('Balance.updated_at.n_days_ago')
-    expect(distanceInWords()).toBe('Balance.updated_at.unknown')
+    expect(distanceInWords(0)).toBe('Balance.updated-at.today')
+    expect(distanceInWords(1)).toBe('Balance.updated-at.yesterday')
+    expect(distanceInWords(2)).toBe('Balance.updated-at.n-days-ago')
+    expect(distanceInWords(10)).toBe('Balance.updated-at.n-days-ago')
+    expect(distanceInWords()).toBe('Balance.updated-at.unknown')
   })
 })
 

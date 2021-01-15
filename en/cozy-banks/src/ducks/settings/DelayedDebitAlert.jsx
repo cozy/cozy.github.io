@@ -27,12 +27,12 @@ const getModalProps = ({ initialDoc, t }) => {
     fieldOrder: ['creditCardAccount', 'checkingsAccount', 'value'],
     fieldLabels: {
       creditCardAccount: t(
-        'Notifications.delayed_debit.fieldLabels.creditCardAccount'
+        'Notifications.delayed-debit.fieldLabels.creditCardAccount'
       ),
       checkingsAccount: t(
-        'Notifications.delayed_debit.fieldLabels.checkingsAccount'
+        'Notifications.delayed-debit.fieldLabels.checkingsAccount'
       ),
-      value: t('Notifications.delayed_debit.fieldLabels.days')
+      value: t('Notifications.delayed-debit.fieldLabels.days')
     },
     fieldSpecs: {
       creditCardAccount: {
@@ -63,7 +63,7 @@ const getModalProps = ({ initialDoc, t }) => {
       },
       value: {
         sectionProps: {
-          unit: t('Notifications.delayed_debit.unit')
+          unit: t('Notifications.delayed-debit.unit')
         },
         type: CHOOSING_TYPES.number,
         getValue: doc => doc.value,
@@ -140,7 +140,7 @@ class DumbDelayedDebitCard extends React.Component {
           return !initialDoc.creditCardAccount || !initialDoc.checkingsAccount
         }}
         doc={doc}
-        descriptionKey="Notifications.delayed_debit.description"
+        descriptionKey="Notifications.delayed-debit.description"
         descriptionProps={{
           creditCardLabel,
           checkingsLabel,
@@ -157,8 +157,8 @@ const DumbDelayedDebitSettingSection = props => {
   const { t } = useI18n()
   return (
     <SubSection
-      title={t('Notifications.delayed_debit.settingTitle')}
-      description={t('Notifications.delayed_debit.settingDescription')}
+      title={t('Notifications.delayed-debit.settingTitle')}
+      description={t('Notifications.delayed-debit.settingDescription')}
     >
       <DelayedDebitCard {...props} />
     </SubSection>

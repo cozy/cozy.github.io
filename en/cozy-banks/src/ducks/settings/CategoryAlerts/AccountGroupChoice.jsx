@@ -43,7 +43,7 @@ export const AccountGroupChoice = ({
         <DialogSection>
           <List>
             <DialogListItem
-              label={t('AccountSwitch.all_accounts')}
+              label={t('AccountSwitch.all-accounts')}
               hasRadio
               isSelected={!current}
               onClick={() => onSelect(null)}
