@@ -23,7 +23,7 @@ import {
   isCurrentAppIdentity
 } from 'ducks/personal-info/utils'
 
-const defaultNationality = { label: 'French', value: 'FR' }
+const defaultNationality = { label: 'Française', value: 'FR' }
 
 const makeNationalitiesOptions = lang =>
   countries
@@ -48,6 +48,7 @@ export class PersonalInfoDialog extends React.Component {
       saving: false,
       formData: {
         birthcity: '',
+        birthcountry: '',
         nationality: defaultNationality
       },
       identity: null
@@ -87,16 +88,17 @@ export class PersonalInfoDialog extends React.Component {
       mergedIdentity = {}
     }
 
-    const { birthcity = '', nationalities } = mergedIdentity.contact || {}
-    const nationality = nationalities ? nationalities[0] : null
+    const { birthcity = '', birthcountry = '', nationalities } =
+      mergedIdentity.contact || {}
+    const nationality = nationalities ? { value: nationalities[0] } : null
     this.setState({
       identity,
       formData: {
         birthcity,
+        birthcountry,
         nationality:
-          this.nationalityOptions.find(
-            x => nationality && x.value === nationality
-          ) || defaultNationality
+          this.nationalityOptions.find(x => x.value === nationality?.value) ||
+          defaultNationality
       }
     })
   }
@@ -120,7 +122,11 @@ export class PersonalInfoDialog extends React.Component {
     const { formData, identity } = this.state
     ev && ev.preventDefault()
 
-    if (!formData.birthcity || !formData.nationality) {
+    if (
+      !formData.birthcity ||
+      !formData.birthcountry ||
+      !formData.nationality
+    ) {
       this.setState({ validationError: true })
       return
     } else {
@@ -131,6 +137,7 @@ export class PersonalInfoDialog extends React.Component {
     try {
       const updatedIdentity = await saveIdentity(client, identity, {
         birthcity: formData.birthcity,
+        birthcountry: formData.birthcountry,
         nationalities: [formData.nationality.value]
       })
       onSaveSuccessful && onSaveSuccessful(updatedIdentity)
@@ -175,6 +182,17 @@ export class PersonalInfoDialog extends React.Component {
                 name="birthcity"
                 label={t('PersonalInfo.birthcity')}
                 placeholder={t('PersonalInfo.birthcity-placeholder')}
+                className="u-mh-0 u-mb-0 u-mt-0"
+              />
+              <Field
+                value={formData.birthcountry}
+                onChange={ev =>
+                  this.handleChangeField('birthcountry', ev.target.value)
+                }
+                type="text"
+                name="birthcountry"
+                label={t('PersonalInfo.birthcountry')}
+                placeholder={t('PersonalInfo.birthcountry-placeholder')}
                 className="u-mh-0 u-mb-0 u-mt-0"
               />
               <Field

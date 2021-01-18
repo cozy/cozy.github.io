@@ -16,6 +16,7 @@ const mockIdentities = [
     _id: 'identity-fr',
     contact: {
       birthcity: 'Compiègne',
+      birthcountry: 'France',
       nationalities: ['FR']
     },
     cozyMetadata: {
@@ -26,6 +27,7 @@ const mockIdentities = [
     _id: 'identity-br',
     contact: {
       birthcity: 'Sao Paulo',
+      birthcountry: 'Brazil',
       nationalities: ['BR']
     }
   }
@@ -47,11 +49,11 @@ describe('personal info dialog', () => {
 
     client.query = jest.fn().mockImplementation(options => {
       const { doctype, selector } = options
-      if (selector && selector['cozyMetadata.createdByApp'] == 'banks') {
+      if (selector && selector['cozyMetadata.createdByApp'] === 'banks') {
         return { data: [mockIdentities[0]] }
       } else if (
         selector &&
-        selector['cozyMetadata.createdByApp'] == 'another-app'
+        selector['cozyMetadata.createdByApp'] === 'another-app'
       ) {
         return { data: [mockIdentities[1]] }
       } else if (doctype === 'io.cozy.triggers') {
@@ -81,6 +83,15 @@ describe('personal info dialog', () => {
     return { client, root }
   }
 
+  it('should display an error if at least one field is not filled', async () => {
+    const { root, client } = setup()
+    await wait(() => expect(client.query).toHaveBeenCalledTimes(2))
+    const inp1 = root.getByPlaceholderText('Where you are born')
+    fireEvent.change(inp1, { target: { value: '' } })
+    fireEvent.click(root.getByText('Save information').parentNode.parentNode)
+    expect(root.getByText('All fields are mandatory')).toBeDefined()
+  })
+
   it('should load the data from several sources', async () => {
     const { root, client } = setup()
     await wait(() => expect(client.query).toHaveBeenCalledTimes(2))
@@ -100,24 +111,35 @@ describe('personal info dialog', () => {
         }
       })
     )
+    expect(root.getByText('Birth city')).toBeTruthy()
+    expect(root.getByText('Birth country')).toBeTruthy()
     expect(root.getByText('Nationality')).toBeTruthy()
 
     const inp1 = root.getByPlaceholderText('Where you are born')
+    const inp2 = root.getByPlaceholderText('France')
     expect(inp1.value).toEqual('Sao Paulo')
+    expect(inp2.value).toEqual('Brazil')
   })
 
   it('should save form info inside the apps io.cozy.identities and on budget-insight', async () => {
     const { root, client } = setup()
     await wait(() => expect(client.query).toHaveBeenCalledTimes(2))
     const inp1 = root.getByPlaceholderText('Where you are born')
+    const inp2 = root.getByPlaceholderText('France')
     fireEvent.change(inp1, { target: { value: 'Douarnenez' } })
+    fireEvent.change(inp2, { target: { value: 'Brazil' } })
     expect(inp1.value).toEqual('Douarnenez')
+    expect(inp2.value).toEqual('Brazil')
     fireEvent.click(root.getByText('Save information').parentNode.parentNode)
     expect(client.save).toHaveBeenCalledTimes(1)
     expect(client.save).toHaveBeenCalledWith({
       _type: 'io.cozy.identities',
       _id: 'identity-fr', // Check that the correct identity is updated
-      contact: { birthcity: 'Douarnenez', nationalities: ['BR'] },
+      contact: {
+        birthcity: 'Douarnenez',
+        birthcountry: 'Brazil',
+        nationalities: ['BR']
+      },
       identifier: 'regulatory-info',
       cozyMetadata: {
         createdByApp: 'banks'
@@ -130,6 +152,7 @@ describe('personal info dialog', () => {
       konnector: mockKonnector.attributes,
       userConfig: {
         birthcity: 'Douarnenez',
+        birthcountry: 'Brazil',
         nationalities: ['BR']
       }
     })

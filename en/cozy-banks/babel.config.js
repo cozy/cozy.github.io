@@ -4,7 +4,11 @@ module.exports = function(api) {
   return {
     sourceType: 'unambiguous',
     presets: ['cozy-app'],
-    plugins: ['babel-plugin-lodash', 'babel-plugin-date-fns'],
+    plugins: [
+      'babel-plugin-lodash',
+      'babel-plugin-date-fns',
+      '@babel/plugin-proposal-optional-chaining'
+    ],
     env: {
       // Used to run a service directly, see yarn run service:budgetAlerts
       cli: {
