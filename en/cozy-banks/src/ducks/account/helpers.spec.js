@@ -1,5 +1,5 @@
 import {
-  getAccountUpdateDateDistance,
+  getAccountUpdatedAt,
   distanceInWords,
   getAccountType,
   getAccountBalance,
@@ -13,25 +13,42 @@ import { getCategoryIdFromName } from 'ducks/categories/helpers'
 import { CONTACT_DOCTYPE } from 'doctypes'
 import MockDate from 'mockdate'
 import fixtures from 'test/fixtures/unit-tests'
+import triggersFixtures from 'test/fixtures/triggers.json'
 import flag from 'cozy-flags'
 
 jest.mock('cozy-flags')
 
-describe('getAccountUpdateDateDistance', () => {
-  it('should return null if an argument is missing', () => {
-    const account = { cozyMetadata: { updatedAt: new Date(2019, 0, 10) } }
-    const from = new Date(2019, 0, 10)
-
-    expect(getAccountUpdateDateDistance()).toBeNull()
-    expect(getAccountUpdateDateDistance(account)).toBeNull()
-    expect(getAccountUpdateDateDistance(undefined, from)).toBeNull()
+describe('getAccountUpdatedAt', () => {
+  beforeEach(() => {
+    MockDate.set(new Date(2019, 0, 12))
   })
 
-  it('should return the right distance in days', () => {
-    const account = { cozyMetadata: { updatedAt: new Date(2019, 0, 1) } }
+  afterEach(() => {
+    MockDate.reset()
+  })
 
-    expect(getAccountUpdateDateDistance(account, new Date(2019, 0, 10))).toBe(9)
-    expect(getAccountUpdateDateDistance(account, new Date(2019, 0, 2))).toBe(1)
+  const jobTrigger = triggersFixtures[1].attributes
+  const account = { cozyMetadata: { updatedAt: new Date(2019, 0, 10) } }
+  it('should work when jobTrigger does not exist', () => {
+    expect(getAccountUpdatedAt(account, null)).toEqual({
+      params: { nbDays: 2 },
+      translateKey: 'Balance.updated-at.n-days-ago'
+    })
+  })
+
+  it('should work when jobTrigger exists', () => {
+    expect(getAccountUpdatedAt(account, jobTrigger)).toEqual({
+      params: { nbDays: 3 },
+      translateKey: 'Balance.updated-at.n-days-ago'
+    })
+  })
+
+  it('should return a particular key when update date is today', () => {
+    MockDate.set(new Date(2019, 0, 9))
+    expect(getAccountUpdatedAt(account, jobTrigger)).toEqual({
+      params: { nbDays: 0 },
+      translateKey: 'Balance.updated-at.today'
+    })
   })
 })
 

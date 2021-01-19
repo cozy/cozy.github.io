@@ -1,5 +1,1 @@
-export {
-  default as Section,
-  SectionTitle,
-  SectionSeparator
-} from 'components/Section/Section'
+export { default as Section, SectionTitle } from 'components/Section/Section'

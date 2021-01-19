@@ -6,7 +6,7 @@ import merge from 'lodash/merge'
 import { DOCTYPE, DEFAULTS_SETTINGS } from 'ducks/settings/constants'
 import logger from 'cozy-logger'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
-
+import { Q } from 'cozy-client'
 import { connect } from 'react-redux'
 import { getDocumentFromState } from 'cozy-client/dist/store'
 import { getAccountLabel } from 'ducks/account/helpers'
@@ -43,7 +43,7 @@ export const getDefaultedSettingsFromCollection = col => {
 }
 
 export const fetchSettings = async client => {
-  const settingsCol = await client.query(client.find(DOCTYPE))
+  const settingsCol = await client.query(Q(DOCTYPE))
   return getDefaultedSettingsFromCollection(settingsCol)
 }
 

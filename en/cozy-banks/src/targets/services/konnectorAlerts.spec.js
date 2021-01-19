@@ -142,7 +142,7 @@ const {
 describe('job notifications service', () => {
   const setup = ({ triggersResponse, settingsResponse, jobsResponse } = {}) => {
     const client = new CozyClient({})
-    client.query = async queryDef => {
+    client.query = jest.fn(async queryDef => {
       const { doctype, id } = queryDef
       if (doctype === 'io.cozy.triggers') {
         return triggersResponse || mockTriggersResponse
@@ -153,7 +153,7 @@ describe('job notifications service', () => {
       } else {
         throw new Error(`No mock for queryDef ${queryDef}`)
       }
-    }
+    })
     client.save = jest.fn()
     client.stackClient.fetchJSON = jest
       .fn()
@@ -190,6 +190,14 @@ describe('job notifications service', () => {
       }
     })
     await sendTriggerNotifications(client)
+    expect(client.query).toHaveBeenCalledWith(
+      expect.objectContaining({
+        doctype: 'io.cozy.triggers',
+        selector: {
+          worker: 'konnector'
+        }
+      })
+    )
     expect(sendNotification).not.toHaveBeenCalled()
     expectTriggerStatesToHaveBeenSaved(client)
   })

@@ -1,19 +1,19 @@
 import { removeStats, deleteOrphanOperations } from './accounts'
 import CozyClient from 'cozy-client'
 
-describe('removeStats', () => {
-  const setup = () => {
-    const client = new CozyClient({})
-    client.query = jest.fn()
-    client.destroy = jest.fn()
-    const collection = {
-      find: jest.fn(),
-      destroyAll: jest.fn()
-    }
-    client.stackClient.collection = () => collection
-    return { client, collection }
+const setup = () => {
+  const client = new CozyClient({})
+  client.query = jest.fn()
+  client.destroy = jest.fn()
+  const collection = {
+    find: jest.fn(),
+    destroyAll: jest.fn()
   }
+  client.stackClient.collection = () => collection
+  return { client, collection }
+}
 
+describe('remove orphan transactions', () => {
   afterEach(() => {
     jest.resetAllMocks()
   })
@@ -43,7 +43,9 @@ describe('removeStats', () => {
     expect(collection.destroyAll).toHaveBeenCalledWith(orphans1)
     expect(collection.destroyAll).toHaveBeenCalledWith(orphans2)
   })
+})
 
+describe('remove orphan transactions', () => {
   it('should remove the stats doc corresponding to the account if it exists', async () => {
     const { client } = setup()
     const account = { _id: 'account' }
@@ -51,7 +53,13 @@ describe('removeStats', () => {
     client.query.mockResolvedValueOnce({ data: [stats] })
 
     await removeStats(client, account)
-
+    expect(client.query).toHaveBeenCalledWith(
+      expect.objectContaining({
+        selector: {
+          'relationships.account.data._id': 'account'
+        }
+      })
+    )
     expect(client.destroy).toHaveBeenCalledWith(stats)
   })
 

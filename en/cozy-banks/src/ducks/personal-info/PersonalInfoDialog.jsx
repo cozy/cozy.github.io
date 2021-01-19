@@ -97,8 +97,9 @@ export class PersonalInfoDialog extends React.Component {
         birthcity,
         birthcountry,
         nationality:
-          this.nationalityOptions.find(x => x.value === nationality?.value) ||
-          defaultNationality
+          this.nationalityOptions.find(
+            x => x.value === (nationality && nationality.value)
+          ) || defaultNationality
       }
     })
   }

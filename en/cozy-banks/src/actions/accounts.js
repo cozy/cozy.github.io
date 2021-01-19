@@ -1,4 +1,4 @@
-import CozyClient from 'cozy-client'
+import CozyClient, { Q } from 'cozy-client'
 import { GROUP_DOCTYPE, ACCOUNT_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
 import { getLinks } from 'ducks/client/links'
 
@@ -47,7 +47,7 @@ const removeAccountFromGroups = async account => {
 
 export const removeStats = async (client, account) => {
   const statsResponse = await client.query(
-    client.find('io.cozy.bank.accounts.stats', {
+    Q('io.cozy.bank.accounts.stats').where({
       'relationships.account.data._id': account._id
     })
   )

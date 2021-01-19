@@ -1214,7 +1214,7 @@
   dependencies:
     find-up "^2.1.0"
 
-"@cozy/minilog@^1.0.0":
+"@cozy/minilog@1.0.0", "@cozy/minilog@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@cozy/minilog/-/minilog-1.0.0.tgz#1acc1aad849261e931e255a5f181b638315f7b84"
   integrity sha512-IkDHF9CLh0kQeSEVsou59ar/VehvenpbEUjLfwhckJyOUqZnKAWmXy8qrBgMT5Loxr8Xjs2wmMnj0D67wP00eQ==
@@ -4743,19 +4743,19 @@ cozy-client@13.8.3:
     sift "^6.0.0"
     url-search-params-polyfill "^7.0.0"
 
-cozy-client@15.2.0, cozy-client@^15.2.0:
-  version "15.2.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-15.2.0.tgz#a84e78c9f8e62094718187e0c514e5ef01131b48"
-  integrity sha512-xxPfGRYlgjVSaQ3FDlKfxYePRT4tfh5quWfezd3V6xvg0Ev0V0CAz+6FCXlJSO9r5v7hF0ZU3RnpYWT0a/BgOg==
+cozy-client@16.12.1, cozy-client@^16.12.1:
+  version "16.12.1"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-16.12.1.tgz#5464cdde8b60900280a7e92e9b5ce8a69c931882"
+  integrity sha512-MxEbFT6lOkYuic0rQwUWdw1BR7OquZKbYr77xw+HZpJkKeEk0r7Nincy00ptaCezl0IJC7qLL9ATI+jKkOJoDQ==
   dependencies:
+    "@cozy/minilog" "1.0.0"
     btoa "^1.2.1"
     cozy-device-helper "^1.7.3"
     cozy-logger "^1.6.0"
-    cozy-stack-client "^15.2.0"
-    isomorphic-fetch "^2.2.1"
+    cozy-stack-client "^16.12.0"
     lodash "^4.17.13"
     microee "^0.0.6"
-    minilog "https://github.com/cozy/minilog.git#master"
+    node-fetch "^2.6.1"
     open "^7.0.2"
     prop-types "^15.6.2"
     react-redux "^7.2.0"
@@ -4933,6 +4933,13 @@ cozy-flags@2.4.1:
   dependencies:
     microee "^0.0.6"
 
+cozy-flags@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-2.5.0.tgz#f5ade2ceb636afb6151edf2dd9c5d1f34e35ab58"
+  integrity sha512-OluJtFAUSGeX13iPfpdVDQdNypGCTI2mVe8GVU+nY3z7m/lfkRprO3+rNKbOCGUAJJXkqCH+xO7RmqbUsbs9yA==
+  dependencies:
+    microee "^0.0.6"
+
 cozy-harvest-lib@3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-3.1.0.tgz#478d23163fbdd15191ffcebe48ff58212866ef62"
@@ -5097,14 +5104,14 @@ cozy-notifications@0.5.0:
     mjml "4.3.1"
     word-wrap "^1.2.3"
 
-cozy-pouch-link@15.2.0:
-  version "15.2.0"
-  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-15.2.0.tgz#1b4c7d156ad7077249f658b14639b10c93a4c884"
-  integrity sha512-6NxPTH8X4Km61yFBIh8gvSWFVCG2qPb02n3kRYmnwcmY2GawMAka8ayiP9sEK1cZLxkvF+3M5jOj7MCU8bYBIw==
+cozy-pouch-link@16.12.1:
+  version "16.12.1"
+  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-16.12.1.tgz#f4eb06e27c701fd3bbc910d6a11536edb4d3da9c"
+  integrity sha512-sScF/lmh9nkD6mNl6EAAzsDmH2kjUTTJvcY/8QkjKU7tQthXQl3CXLJ6eztUT2DjHrtwFyp7jNLVOo6O5USLSg==
   dependencies:
-    cozy-client "^15.2.0"
+    "@cozy/minilog" "1.0.0"
+    cozy-client "^16.12.1"
     cozy-device-helper "^1.7.3"
-    minilog "^3.1.0"
     pouchdb-browser "^7.0.0"
     pouchdb-find "^7.0.0"
 
@@ -5178,11 +5185,12 @@ cozy-scripts@5.2.0:
     webpack-dev-server "3.10.3"
     webpack-merge "4.2.2"
 
-cozy-stack-client@15.2.0, cozy-stack-client@^15.2.0:
-  version "15.2.0"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-15.2.0.tgz#677f56e38e7a1b25f0574241da6caff441046b38"
-  integrity sha512-QldK+uQ2GZCLAlHwxFR3tb+4R83MG3huw43kGGVXono2XavBOqDU40Ms2imkUlCyzMXulY1UkInsSQBPO8mVgQ==
+cozy-stack-client@16.12.0, cozy-stack-client@^16.12.0:
+  version "16.12.0"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-16.12.0.tgz#243d35058e2660f3923721ae91ae272a46d7e6ba"
+  integrity sha512-oLWDSFMXbqKDjFAS9saj0U4X9LTfA45JZPPF6p5T2+mYAV4m7NW4pEdv3aYx43z0I9jhyRJyBhiI8E6GYLAjTA==
   dependencies:
+    cozy-flags "^2.5.0"
     detect-node "^2.0.4"
     mime "^2.4.0"
     qs "^6.7.0"
@@ -11943,7 +11951,7 @@ mini-html-webpack-plugin@^0.2.3:
   dependencies:
     webpack-sources "^1.1.0"
 
-minilog@3.1.0, minilog@^3.1.0, "minilog@https://github.com/cozy/minilog.git#master":
+minilog@3.1.0, "minilog@https://github.com/cozy/minilog.git#master":
   version "3.1.0"
   resolved "https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
   dependencies:
@@ -12703,6 +12711,11 @@ node-fetch@^1.0.1:
   dependencies:
     encoding "^0.1.11"
     is-stream "^1.0.1"
+
+node-fetch@^2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
+  integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==
 
 node-forge@0.7.5:
   version "0.7.5"

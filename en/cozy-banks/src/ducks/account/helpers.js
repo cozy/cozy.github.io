@@ -1,3 +1,5 @@
+import flag from 'cozy-flags'
+import { BankAccount } from 'cozy-doctypes'
 import overSome from 'lodash/overSome'
 import flatten from 'lodash/flatten'
 import uniqBy from 'lodash/uniqBy'
@@ -6,6 +8,8 @@ import compose from 'lodash/flowRight'
 import overEvery from 'lodash/overEvery'
 import sumBy from 'lodash/sumBy'
 import get from 'lodash/get'
+
+import { models } from 'cozy-client'
 import {
   getDate,
   getReimbursedAmount as getTransactionReimbursedAmount,
@@ -18,9 +22,11 @@ import {
   getCategoryIdFromName
 } from 'ducks/categories/helpers'
 import { differenceInCalendarDays, isAfter, subMonths } from 'date-fns'
-import flag from 'cozy-flags'
-import { BankAccount } from 'cozy-doctypes'
 import { ACCOUNT_DOCTYPE, CONTACT_DOCTYPE } from 'doctypes'
+
+const {
+  triggers: { triggerStates }
+} = models
 
 const PARTS_TO_DELETE = ['(sans Secure Key)']
 
@@ -38,16 +44,6 @@ export const getAccountInstitutionLabel = account => {
 
 export const getAccountLabel = account =>
   account ? account.shortLabel || account.label : ''
-
-export const getAccountUpdateDateDistance = (account, from) => {
-  const updateDate = BankAccount.getUpdatedAt(account)
-
-  if (!updateDate || !from) {
-    return null
-  }
-
-  return differenceInCalendarDays(from, updateDate)
-}
 
 export const distanceInWords = distance => {
   if (!Number.isFinite(distance)) {
@@ -121,7 +117,7 @@ export const getAccountBalance = account => {
   return account.balance
 }
 
-export const getAccountUpdatedAt = account => {
+export const getAccountUpdatedAt = (account, jobTrigger) => {
   if (flag('demo')) {
     return {
       translateKey: distanceInWords(0),
@@ -129,9 +125,15 @@ export const getAccountUpdatedAt = account => {
     }
   }
   const today = new Date()
-  const updateDistance = getAccountUpdateDateDistance(account, today)
-  const updateDistanceInWords = distanceInWords(updateDistance)
+  const updatedAtAccount = BankAccount.getUpdatedAt(account)
 
+  const updatedAtTrigger = triggerStates.getLastSuccess(jobTrigger)
+  const updateDate = updatedAtTrigger || updatedAtAccount
+  const updateDistance = updateDate
+    ? differenceInCalendarDays(today, updateDate)
+    : null
+
+  const updateDistanceInWords = distanceInWords(updateDistance)
   return {
     translateKey: updateDistanceInWords,
     params: { nbDays: updateDistance }

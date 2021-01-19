@@ -157,7 +157,11 @@ export const buildNotification = (client, options) => {
  * @return {Promise}
  */
 export const sendTriggerNotifications = async client => {
-  const { data: triggers } = await client.query(Q('io.cozy.triggers'))
+  const { data: triggers } = await client.query(
+    Q('io.cozy.triggers').where({
+      worker: 'konnector'
+    })
+  )
   const konnectorTriggers = triggers.filter(trigger =>
     isKonnectorWorker(trigger.attributes)
   )

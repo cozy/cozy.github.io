@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import get from 'lodash/get'
 
 import Icon from 'cozy-ui/transpiled/react/Icon'
@@ -18,9 +18,9 @@ const { trigger: triggerLibs } = models
 
 const { isErrored } = triggerLibs.triggerStates
 
-const UpdatedAt = React.memo(function UpdatedAt({ account }) {
+const UpdatedAt = React.memo(function UpdatedAt({ account, trigger }) {
   const { t } = useI18n()
-  const updatedAt = getAccountUpdatedAt(account)
+  const updatedAt = getAccountUpdatedAt(account, trigger)
   return (
     <span className={updatedAt.params.nbDays > 1 ? 'u-warn' : null}>
       <Icon
@@ -39,9 +39,27 @@ const FailedTriggerMessage = React.memo(function FailedTriggerMessage() {
   return <span className="u-error">{t('Balance.trigger-problem')}</span>
 })
 
+const getAccountIdFromBankAccount = bankAccount => {
+  return get(bankAccount, 'relationships.connection.data._id')
+}
+
 const DumbAccountCaption = props => {
   const { t } = useI18n()
   const { triggersCol, account, className, ...rest } = props
+  const triggers = triggersCol.data
+  const trigger = useMemo(
+    () =>
+      triggers.find(trigger => {
+        const triggerAccountId = triggerLibs.triggers.getAccountId(
+          trigger.attributes
+        )
+        const accountId = getAccountIdFromBankAccount(account)
+        return triggerAccountId === accountId
+      }),
+    [triggers, account]
+  )
+
+  const isTriggerFailed = trigger && isErrored(trigger.attributes)
 
   if (isReimbursementsAccount(account)) {
     return (
@@ -56,14 +74,6 @@ const DumbAccountCaption = props => {
     )
   }
 
-  const triggers = triggersCol.data
-  const failedTrigger = triggers.find(
-    x =>
-      isErrored(x.attributes) &&
-      get(x, 'attributes.message.konnector') ===
-        get(account, 'cozyMetadata.createdByApp')
-  )
-
   return (
     <Typography
       variant="caption"
@@ -71,10 +81,10 @@ const DumbAccountCaption = props => {
       className={className}
       {...rest}
     >
-      {failedTrigger && !flag('demo') && flag('balance-account-errors') ? (
-        <FailedTriggerMessage trigger={failedTrigger} />
+      {isTriggerFailed && !flag('demo') && flag('balance-account-errors') ? (
+        <FailedTriggerMessage trigger={trigger} />
       ) : (
-        <UpdatedAt account={account} />
+        <UpdatedAt account={account} trigger={trigger} />
       )}
     </Typography>
   )
