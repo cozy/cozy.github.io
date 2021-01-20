@@ -2608,19 +2608,6 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#i-am-writing-a-banking-konnector-what-should-i-do" title="I am writing a banking konnector, what should I do?" class="md-nav__link">
-    I am writing a banking konnector, what should I do?
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
           <li class="md-nav__item">
   <a href="#konnector-alerts" title="Konnector alerts" class="md-nav__link">
     Konnector alerts
@@ -2630,6 +2617,13 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#i-am-writing-a-banking-konnector-what-should-i-do" title="I am writing a banking konnector, what should I do?" class="md-nav__link">
+    I am writing a banking konnector, what should I do?
+  </a>
   
 </li>
       
@@ -2743,19 +2737,6 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#i-am-writing-a-banking-konnector-what-should-i-do" title="I am writing a banking konnector, what should I do?" class="md-nav__link">
-    I am writing a banking konnector, what should I do?
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
           <li class="md-nav__item">
   <a href="#konnector-alerts" title="Konnector alerts" class="md-nav__link">
     Konnector alerts
@@ -2765,6 +2746,13 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#i-am-writing-a-banking-konnector-what-should-i-do" title="I am writing a banking konnector, what should I do?" class="md-nav__link">
+    I am writing a banking konnector, what should I do?
+  </a>
   
 </li>
       
@@ -2790,8 +2778,6 @@
                 <h1 id="services">Services<a class="headerlink" href="#services" title="Permanent link">&para;</a></h1>
 <p>This document describes services running as part of the
 Banks application.</p>
-<!-- MarkdownTOC autolink=true -->
-
 <ul>
 <li><a href="#developing">Developing</a></li>
 <li><a href="#services">Services</a></li>
@@ -2801,11 +2787,9 @@ Banks application.</p>
 <li><a href="#automatic-groups">Automatic groups</a></li>
 <li><a href="#budget-alerts">Budget alerts</a></li>
 <li><a href="#recurrences">Recurrences</a></li>
-<li><a href="#i-am-writing-a-banking-konnector-what-should-i-do">I am writing a banking konnector, what should I do?</a></li>
 <li><a href="#konnector-alerts">Konnector alerts</a></li>
+<li><a href="#i-am-writing-a-banking-konnector-what-should-i-do">I am writing a banking konnector, what should I do?</a></li>
 </ul>
-<!-- /MarkdownTOC -->
-
 <h2 id="developing">Developing<a class="headerlink" href="#developing" title="Permanent link">&para;</a></h2>
 <p>You can manually create an app token and launch the built service.</p>
 <div class="codehilite"><pre><span></span># Watch services
@@ -2824,6 +2808,7 @@ $ node build/budgetAlerts.js
 
 <h2 id="services_1">Services<a class="headerlink" href="#services_1" title="Permanent link">&para;</a></h2>
 <h3 id="categorization">Categorization<a class="headerlink" href="#categorization" title="Permanent link">&para;</a></h3>
+<p>slug: <code>categorization</code></p>
 <p>This service role is to categorize transactions. It is bound to no event at
 all, so it&rsquo;s not automatically triggered and needs to be explicitly called by a
 konnector or another service.  This service is called from konnectors so that
@@ -2836,6 +2821,7 @@ finish the work. If all transactions have been categorized, it calls the
 <code>onOperationOrBillCreate</code> service to trigger all other features.</p>
 <p>See the <a href="https://github.com/cozy/cozy-banks/blob/master/docs/categorization.md">categorization documentation</a> for more details about the categorization implementation.</p>
 <h3 id="onoperationorbillcreate">onOperationOrBillCreate<a class="headerlink" href="#onoperationorbillcreate" title="Permanent link">&para;</a></h3>
+<p>slug: <code>onOperationOrBillCreate</code></p>
 <p>This service has many roles. It does:</p>
 <ul>
 <li>Bills matching</li>
@@ -2848,12 +2834,15 @@ service. See <a href="#i-am-writing-a-banking-konnector-what-should-i-do">the ne
 section</a> for more precise
 informations about that.</p>
 <h3 id="account-stats">Account stats<a class="headerlink" href="#account-stats" title="Permanent link">&para;</a></h3>
+<p>slug: <code>stats</code></p>
 <p>Computes statistics on bank accounts and save the results in <code>io.cozy.bank.accounts.stats</code> doctype.</p>
 <h3 id="automatic-groups">Automatic groups<a class="headerlink" href="#automatic-groups" title="Permanent link">&para;</a></h3>
+<p>slug: <code>autogroups</code></p>
 <p>Whenever an <code>io.cozy.bank.accounts</code> is created, we check if it could belong in an automatic group based
 on its type (checkings, savings, credit cards). These <code>io.cozy.bank.groups</code> documents are created with
 the <code>auto: true</code> attributes.</p>
 <h3 id="budget-alerts">Budget alerts<a class="headerlink" href="#budget-alerts" title="Permanent link">&para;</a></h3>
+<p>slug: <code>budgetAlerts</code></p>
 <p>A user can configure alerts to be alerted whenever the sum of its expenses has
 gone past a maximum threshold per month. The notification is sent as part of the
 onOperationOrBillCreate service.</p>
@@ -2863,10 +2852,20 @@ date and amount are saved.</p>
 whole onOperationOrBillCreate service. It is possible to run it from the Debug
 tab in the application (or via Bender).</p>
 <h3 id="recurrences">Recurrences<a class="headerlink" href="#recurrences" title="Permanent link">&para;</a></h3>
-<p>A service tries to find recurrence groups when new operations are inserted
+<p>slug: <code>recurrence</code></p>
+<p>Tries to find recurrence groups when new operations are inserted
 in the Cozy. It either creates new recurrence groups or attaches transactions
 to existing recurrence groups.</p>
 <p>See Paper &ldquo;Paiements recurrents&rdquo; for more information on the service.</p>
+<h3 id="konnector-alerts">Konnector alerts<a class="headerlink" href="#konnector-alerts" title="Permanent link">&para;</a></h3>
+<p>slug: <code>konnectorAlerts</code></p>
+<p>It monitors the jobs and sends a notification when a konnector has failed.
+Here are the rules for those notifications:</p>
+<ul>
+<li>They should only be sent for LOGIN_FAILED and USER_ACTION_NEEDED errors</li>
+<li>They should only be sent for automatic jobs (not manual)</li>
+<li>We should not send a notification if the state stays the same</li>
+</ul>
 <h2 id="i-am-writing-a-banking-konnector-what-should-i-do">I am writing a banking konnector, what should I do?<a class="headerlink" href="#i-am-writing-a-banking-konnector-what-should-i-do" title="Permanent link">&para;</a></h2>
 <p>If you want to benefit from all the features of these services, the most
 straightforward is to add <code>toCategorize: true</code> to the <code>io.cozy.bank.operations</code>
@@ -2906,14 +2905,6 @@ following permission to your <code>manifest.konnector</code>:</p>
 
 <p>With this, the transactions you created will be categorized, then the
 <code>onOperationOrBillCreate</code> service will be launched and do its work.</p>
-<h3 id="konnector-alerts">Konnector alerts<a class="headerlink" href="#konnector-alerts" title="Permanent link">&para;</a></h3>
-<p>It monitors the jobs and sends a notification when a konnector has failed.
-Here are the rules for those notifications:</p>
-<ul>
-<li>They should only be sent for LOGIN_FAILED and USER_ACTION_NEEDED errors</li>
-<li>They should only be sent for automatic jobs (not manual)</li>
-<li>We should not send a notification if the state stays the same</li>
-</ul>
                 
                   
                 

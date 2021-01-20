@@ -2378,6 +2378,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#secrets" title="Secrets" class="md-nav__link">
+    Secrets
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#for-developers" title="For developers" class="md-nav__link">
     For developers
   </a>
@@ -2712,6 +2719,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#secrets" title="Secrets" class="md-nav__link">
+    Secrets
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#for-developers" title="For developers" class="md-nav__link">
     For developers
   </a>
@@ -2881,6 +2895,30 @@ resources available are defined in the configuration file.</p>
 <p>The requests are logged as the <code>io.cozy.remote.requests</code> doctype, with the
 doctype asked, the parameter (even those that have not been used, like <code>comment</code>
 in the previous example), and the application that has made the request.</p>
+<h2 id="secrets">Secrets<a class="headerlink" href="#secrets" title="Permanent link">&para;</a></h2>
+<p>It is possible to make the stack inject a secret in a request. For example, if
+we want to make the stack add a <code>token</code>, we can use <code>{{secret_token}}</code> in the
+remote doctype declation:</p>
+<div class="codehilite"><pre><span></span><span class="err">GET https://foobar.com/baz/</span>
+<span class="err">Authorization: Bearer {{secret_token}}</span>
+
+<span class="err">{</span>
+<span class="err">  &quot;foo&quot;: &quot;{{json foo}}&quot;,</span>
+<span class="err">  &quot;bar&quot;: &quot;{{json bar}}&quot;</span>
+<span class="err">}</span>
+</pre></div>
+
+
+<p>And the secret must be stored in CouchDB, in the
+<code>secrets/io-cozy-remote-secrets</code> database. The document must have the remote
+doctype as an id, and the secret in another field, like this:</p>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;cc.cozycloud.foobar&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;token&quot;</span><span class="p">:</span> <span class="s2">&quot;1c7f3ba03bd801391a91543d7eb8149c&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
 <h2 id="for-developers">For developers<a class="headerlink" href="#for-developers" title="Permanent link">&para;</a></h2>
 <p>If you are a developer and you want to use a new remote doctype, it can be
 difficult to first make it available in the github.com/cozy/cozy-doctypes
