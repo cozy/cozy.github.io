@@ -86,7 +86,7 @@ describe('personal info dialog', () => {
   it('should display an error if at least one field is not filled', async () => {
     const { root, client } = setup()
     await wait(() => expect(client.query).toHaveBeenCalledTimes(2))
-    const inp1 = root.getByPlaceholderText('Where you are born')
+    const inp1 = root.getByPlaceholderText('City where you were born')
     fireEvent.change(inp1, { target: { value: '' } })
     fireEvent.click(root.getByText('Save information').parentNode.parentNode)
     expect(root.getByText('All fields are mandatory')).toBeDefined()
@@ -115,8 +115,8 @@ describe('personal info dialog', () => {
     expect(root.getByText('Birth country')).toBeTruthy()
     expect(root.getByText('Nationality')).toBeTruthy()
 
-    const inp1 = root.getByPlaceholderText('Where you are born')
-    const inp2 = root.getByPlaceholderText('France')
+    const inp1 = root.getByPlaceholderText('City where you were born')
+    const inp2 = root.getByPlaceholderText('Country where you were born')
     expect(inp1.value).toEqual('Sao Paulo')
     expect(inp2.value).toEqual('Brazil')
   })
@@ -124,8 +124,8 @@ describe('personal info dialog', () => {
   it('should save form info inside the apps io.cozy.identities and on budget-insight', async () => {
     const { root, client } = setup()
     await wait(() => expect(client.query).toHaveBeenCalledTimes(2))
-    const inp1 = root.getByPlaceholderText('Where you are born')
-    const inp2 = root.getByPlaceholderText('France')
+    const inp1 = root.getByPlaceholderText('City where you were born')
+    const inp2 = root.getByPlaceholderText('Country where you were born')
     fireEvent.change(inp1, { target: { value: 'Douarnenez' } })
     fireEvent.change(inp2, { target: { value: 'Brazil' } })
     expect(inp1.value).toEqual('Douarnenez')

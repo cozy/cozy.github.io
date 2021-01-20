@@ -24,6 +24,7 @@ export const identitiesQuery = selector => {
 
 export const requiredFieldChecks = {
   'contact.birthcity': x => x,
+  'contact.birthcountry': x => x,
   'contact.nationalities': x => x && x.length > 0
 }
 

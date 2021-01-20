@@ -2283,6 +2283,26 @@
     GET /konnectors/:slug
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_4" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_4" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -2307,14 +2327,14 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#request_4" title="Request" class="md-nav__link">
+  <a href="#request_5" title="Request" class="md-nav__link">
     Request
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#response_4" title="Response" class="md-nav__link">
+  <a href="#response_5" title="Response" class="md-nav__link">
     Response
   </a>
   
@@ -3019,6 +3039,26 @@
     GET /konnectors/:slug
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_4" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_4" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -3043,14 +3083,14 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#request_4" title="Request" class="md-nav__link">
+  <a href="#request_5" title="Request" class="md-nav__link">
     Request
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#response_4" title="Response" class="md-nav__link">
+  <a href="#response_5" title="Response" class="md-nav__link">
     Response
   </a>
   
@@ -3348,14 +3388,51 @@ Two flags are available to retreieve the other konnectors if there are more than
 
 <h2 id="get-informations-about-a-konnector">Get informations about a konnector<a class="headerlink" href="#get-informations-about-a-konnector" title="Permanent link">&para;</a></h2>
 <h3 id="get-konnectorsslug">GET /konnectors/:slug<a class="headerlink" href="#get-konnectorsslug" title="Permanent link">&para;</a></h3>
-<h2 id="uninstall-a-konnector">Uninstall a konnector<a class="headerlink" href="#uninstall-a-konnector" title="Permanent link">&para;</a></h2>
-<h3 id="delete-konnectorsslug">DELETE /konnectors/:slug<a class="headerlink" href="#delete-konnectorsslug" title="Permanent link">&para;</a></h3>
 <h4 id="request_4">Request<a class="headerlink" href="#request_4" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/konnectors/bank101</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/konnectors/pajemploi</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </pre></div>
 
 
 <h4 id="response_4">Response<a class="headerlink" href="#response_4" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.konnectors&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.konnectors/pajemploi&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Pajemploi&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;editor&quot;</span><span class="p">:</span> <span class="s2">&quot;Cozy&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;icon&quot;</span><span class="p">:</span> <span class="s2">&quot;icon.svg&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;konnector&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;language&quot;</span><span class="p">:</span> <span class="s2">&quot;node&quot;</span><span class="p">,</span>
+      <span class="err">...</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;8-1197cab1c9ecc89cef676567410cf7c5&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/konnectors/pajemploi&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;icon&quot;</span><span class="p">:</span> <span class="s2">&quot;/konnectors/pajemploi/icon/1.5.2&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="s2">&quot;/permissions/konnectors/pajemploi&quot;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h2 id="uninstall-a-konnector">Uninstall a konnector<a class="headerlink" href="#uninstall-a-konnector" title="Permanent link">&para;</a></h2>
+<h3 id="delete-konnectorsslug">DELETE /konnectors/:slug<a class="headerlink" href="#delete-konnectorsslug" title="Permanent link">&para;</a></h3>
+<h4 id="request_5">Request<a class="headerlink" href="#request_5" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/konnectors/bank101</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
+
+
+<h4 id="response_5">Response<a class="headerlink" href="#response_5" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
 </pre></div>
 

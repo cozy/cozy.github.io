@@ -119,20 +119,30 @@ const NoRecipient = () => {
   )
 }
 
-const NoBank = () => {
+const NoBank = ({ isMobile }) => {
   const { t } = useI18n()
 
   return (
-    <Padded>
-      <PageTitle>{t('Transfer.no-bank.title')}</PageTitle>
-      <AddAccountButton
-        absolute
-        extension="full"
-        label={t('Transfer.no-bank.add-bank')}
-        theme="primary"
-        className="u-mt-0"
-      />
-    </Padded>
+    <>
+      <Header theme={isMobile ? 'inverted' : 'normal'}>
+        <Padded className="u-pv-half">
+          <LegalMention />
+        </Padded>
+      </Header>
+      <Padded>
+        <PageTitle>{t('Transfer.page-title')}</PageTitle>
+        <Typography variant="body1" align="center" className="u-mt-3">
+          {t('Transfer.no-bank.title')}
+        </Typography>
+        <AddAccountButton
+          absolute
+          extension="full"
+          label={t('Transfer.no-bank.add-bank')}
+          theme="primary"
+          className="u-mt-3"
+        />
+      </Padded>
+    </>
   )
 }
 
@@ -417,7 +427,7 @@ class TransferPage extends React.Component {
     }
 
     if (accounts.data.length === 0) {
-      return <NoBank />
+      return <NoBank isMobile={isMobile} />
     }
 
     if (recipients.data.length === 0) {

@@ -132,6 +132,7 @@ describe('personal info', () => {
         identityData: {
           contact: {
             birthcity: 'Compiègne',
+            birthcountry: 'France',
             nationalities: ['FR']
           },
           cozyMetadata: {
@@ -170,6 +171,7 @@ describe('personal info', () => {
         identityData: {
           contact: {
             birthcity: 'Compiègne',
+            birthcountry: 'France',
             nationalities: ['FR']
           },
           cozyMetadata: {
