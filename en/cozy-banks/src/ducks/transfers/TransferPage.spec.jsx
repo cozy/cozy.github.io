@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { render } from '@testing-library/react'
+import { fireEvent, render } from '@testing-library/react'
 
 import { createMockClient } from 'cozy-client/dist/mock'
 
@@ -27,6 +27,11 @@ jest.mock('cozy-flags', () => flagName => {
     return false
   }
 })
+jest.mock('components/Stepper', () => ({ children }) => children)
+jest.mock('ducks/transfers/steps/Amount', () => {
+  const MockChooseAmount = () => <></>
+  return MockChooseAmount
+})
 
 const accounts = fixtures['io.cozy.bank.accounts']
 const recipients = [
@@ -41,6 +46,37 @@ const recipients = [
 
 const t = x => x
 const collection = data => ({ fetchStatus: 'ready', data })
+
+const setup = ({ identityData } = {}) => {
+  const client = createMockClient({
+    queries: {
+      [recipientsConn.as]: {
+        doctype: recipientsConn.query().doctype,
+        data: recipients
+      },
+      [accountsConn.as]: {
+        doctype: accountsConn.query().doctype,
+        data: accounts
+      },
+      ['current-app-identity']: {
+        doctype: myselfConn.query().doctype,
+        data: [
+          {
+            _id: 'myselfid1234',
+            ...identityData
+          }
+        ]
+      }
+    }
+  })
+  const root = render(
+    <AppLike client={client}>
+      <TransferPage />
+    </AppLike>
+  )
+
+  return { root }
+}
 
 describe('transfer page', () => {
   let root
@@ -81,40 +117,34 @@ describe('transfer page', () => {
     expect(errorView.length).toBe(1)
     expect(errorView.props().error).toBe(err)
   })
-})
 
-describe('personal info', () => {
-  const setup = ({ identityData } = {}) => {
-    const client = createMockClient({
-      queries: {
-        [recipientsConn.as]: {
-          doctype: recipientsConn.query().doctype,
-          data: recipients
+  it('should show only a loading spinner while the transfer is in flight', () => {
+    const identityData = {
+      identityData: {
+        contact: {
+          birthcity: 'Compiègne',
+          birthcountry: 'France',
+          nationalities: ['FR']
         },
-        [accountsConn.as]: {
-          doctype: accountsConn.query().doctype,
-          data: accounts
-        },
-        ['current-app-identity']: {
-          doctype: myselfConn.query().doctype,
-          data: [
+        cozyMetadata: {
+          updatedByApps: [
             {
-              _id: 'myselfid1234',
-              ...identityData
+              slug: 'slug'
             }
           ]
         }
       }
-    })
-    const root = render(
-      <AppLike client={client}>
-        <TransferPage />
-      </AppLike>
-    )
+    }
+    const { root } = setup({ identityData })
+    const confirmBtn = root.getByText('Confirm the transfer')
+    fireEvent.click(confirmBtn)
 
-    return { root }
-  }
+    const svg = root.getByRole('progressbar')
+    expect(svg.getAttribute('aria-busy')).toBe('true')
+  })
+})
 
+describe('personal info', () => {
   describe('mobile', () => {
     beforeEach(() => {
       window.innerWidth = 300

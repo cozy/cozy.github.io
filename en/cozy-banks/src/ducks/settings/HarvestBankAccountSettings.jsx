@@ -9,6 +9,7 @@ import {
 } from 'cozy-ui/transpiled/react/CozyDialogs'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 
+import { VaultUnlockProvider, VaultUnlockPlaceholder } from 'cozy-keys-lib'
 import AccountModalContent from 'cozy-harvest-lib/dist/components/AccountModal'
 import EditAccountModal from 'cozy-harvest-lib/dist/components/EditAccountModal'
 import HarvestVaultProvider from 'cozy-harvest-lib/dist/components/HarvestVaultProvider'
@@ -148,56 +149,59 @@ const HarvestBankAccountSettings = ({ connectionId, onDismiss }) => {
   })
   return (
     <HarvestVaultProvider>
-      <HarvestTrackingProvider>
-        <HarvestSwitch
-          initialFragment={`/accounts/${connectionId}`}
-          routes={[
-            [
-              '/accounts/:connectionId',
-              connectionId => (
-                <Dialog {...dialogProps} onClose={onDismiss}>
-                  <DialogCloseButton onClick={onDismiss} />
+      <VaultUnlockProvider>
+        <HarvestTrackingProvider>
+          <HarvestSwitch
+            initialFragment={`/accounts/${connectionId}`}
+            routes={[
+              [
+                '/accounts/:connectionId',
+                connectionId => (
+                  <Dialog {...dialogProps} onClose={onDismiss}>
+                    <DialogCloseButton onClick={onDismiss} />
+                    <HarvestLoader connectionId={connectionId}>
+                      {({ triggers, konnector, accountsAndTriggers }) => {
+                        return (
+                          <AccountModalContent
+                            initialActiveTab="configuration"
+                            accountId={connectionId}
+                            triggers={triggers}
+                            konnector={konnector}
+                            accountsAndTriggers={accountsAndTriggers}
+                            onDismiss={() => {
+                              onDismiss()
+                            }}
+                            showAccountSelection={false}
+                            showNewAccountButton={false}
+                          />
+                        )
+                      }}
+                    </HarvestLoader>
+                  </Dialog>
+                )
+              ],
+              ['/accounts', () => null],
+              [
+                '/accounts/:connectionId/edit',
+                connectionId => (
                   <HarvestLoader connectionId={connectionId}>
-                    {({ triggers, konnector, accountsAndTriggers }) => {
+                    {({ konnector, accountsAndTriggers }) => {
                       return (
-                        <AccountModalContent
-                          initialActiveTab="configuration"
-                          accountId={connectionId}
-                          triggers={triggers}
+                        <EditAccountModal
                           konnector={konnector}
-                          accountsAndTriggers={accountsAndTriggers}
-                          onDismiss={() => {
-                            onDismiss()
-                          }}
-                          showAccountSelection={false}
-                          showNewAccountButton={false}
+                          accountId={connectionId}
+                          accounts={accountsAndTriggers}
                         />
                       )
                     }}
                   </HarvestLoader>
-                </Dialog>
-              )
-            ],
-            ['/accounts', () => null],
-            [
-              '/accounts/:connectionId/edit',
-              connectionId => (
-                <HarvestLoader connectionId={connectionId}>
-                  {({ konnector, accountsAndTriggers }) => {
-                    return (
-                      <EditAccountModal
-                        konnector={konnector}
-                        accountId={connectionId}
-                        accounts={accountsAndTriggers}
-                      />
-                    )
-                  }}
-                </HarvestLoader>
-              )
-            ]
-          ]}
-        />
-      </HarvestTrackingProvider>
+                )
+              ]
+            ]}
+          />
+        </HarvestTrackingProvider>
+        <VaultUnlockPlaceholder />
+      </VaultUnlockProvider>
     </HarvestVaultProvider>
   )
 }

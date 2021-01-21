@@ -2,56 +2,47 @@
 @require 'settings/breakpoints'
 @require '~styles/mixins.styl'
 
-.GrpsStg
-    &__table
-        @extend $full-width-table
+.GrpsStg__table
+    @extend $full-width-table
 
-        td
-            text-overflow ellipsis
-            overflow hidden
-            white-space nowrap
+    td
+        text-overflow ellipsis
+        overflow hidden
+        white-space nowrap
 
-    &__label
-        maxed-flex-basis 25%
+.GrpsStg__label
+    maxed-flex-basis 25%
 
-    &__accounts&__accounts
-        maxed-flex-basis 75%
+.GrpsStg__accounts.GrpsStg__accounts
+    maxed-flex-basis 75%
 
-        +small-screen()
-            maxed-flex-basis 100%
+    +small-screen()
+        maxed-flex-basis 100%
 
-.GrpStg
-    &__table
-        @extend $full-width-table
+.GrpStg__table
+    @extend $full-width-table
 
-    &__form
-        @extend $form
-        @extend $form-text
-
+.GrpStg__form
+    +small-screen()
         input[type=text]
-            // to have the same height as the buttons
-            padding 0.625rem
+            width 100%
 
-        +small-screen()
-            input[type=text]
-                width 100%
+.GrpStg__accntLabel
+    maxed-flex-basis 25%
 
-    &__accntLabel
-        maxed-flex-basis 25%
+.GrpStg__accntBank
+    maxed-flex-basis 25%
 
-    &__accntBank
-        maxed-flex-basis 25%
+.GrpStg__accntNumber
+    maxed-flex-basis 30%
+    word-break break-all
 
-    &__accntNumber
-        maxed-flex-basis 30%
-        word-break break-all
+.GrpStg__accntToggle
+    maxed-flex-basis 20%
 
-    &__accntToggle
-        maxed-flex-basis 20%
-
-    // Increase specificity to override properties applied to table &__table td
-    &__table &__accntToggle
-        // Do not let the switch extend vertically the cell
-        max-height 2rem
-        align-items center
-        display flex
+// Increase specificity to override properties applied to table &__table td
+.GrpStg__table .GrpStg__accntToggle
+    // Do not let the switch extend vertically the cell
+    max-height 2rem
+    align-items center
+    display flex

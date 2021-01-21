@@ -414,6 +414,7 @@ class TransferPage extends React.Component {
     if (
       (isQueryLoading(recipients) && !hasQueryBeenLoaded(recipients)) ||
       (isQueryLoading(accounts) && !hasQueryBeenLoaded(accounts)) ||
+      transferState === 'sending' ||
       (myself &&
         (isQueryLoading(myself) &&
           !hasQueryBeenLoaded(myself) &&
@@ -448,7 +449,6 @@ class TransferPage extends React.Component {
       <TransferGate>
         {transferState ? (
           <>
-            {transferState === 'sending' && <Loading />}
             {transferState === 'success' && (
               <TransferSuccessDialog onExit={this.handleExit} />
             )}

@@ -1,16 +1,18 @@
-import React, { Component, useCallback } from 'react'
+import React, { Component, useCallback, useState, useRef } from 'react'
+import sortBy from 'lodash/sortBy'
+import { Query, useClient, Q, useQuery } from 'cozy-client'
 import { withRouter } from 'react-router'
 import compose from 'lodash/flowRight'
-import sortBy from 'lodash/sortBy'
-import { Query, withClient } from 'cozy-client'
 
-import { translate, withBreakpoints } from 'cozy-ui/transpiled/react'
+import { translate } from 'cozy-ui/transpiled/react/I18n'
 import Button from 'cozy-ui/transpiled/react/Button'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import { Media, Img } from 'cozy-ui/transpiled/react/Media'
 import Switch from 'cozy-ui/transpiled/react/MuiCozyTheme/Switch'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import Input from 'cozy-ui/transpiled/react/Input'
+import Stack from 'cozy-ui/transpiled/react/Stack'
 
 import { GROUP_DOCTYPE, accountsConn } from 'doctypes'
 import BarTheme from 'ducks/bar/BarTheme'
@@ -25,6 +27,7 @@ import { PageTitle } from 'components/Title'
 import Padded from 'components/Padded'
 import { logException } from 'lib/sentry'
 import { trackEvent } from 'ducks/tracking/browser'
+import { useParams, useRouter } from 'components/RouterContext'
 
 import styles from 'ducks/settings/GroupsSettings.styl'
 
@@ -118,9 +121,102 @@ const updateOrCreateGroup = async (client, group, router, successCallback) => {
   }
 }
 
-export class DumbGroupSettings extends Component {
-  state = { modifying: false, saving: false }
+const stackStyle = { clear: 'left' }
 
+const RemoveGroupButton = props => {
+  const { t } = useI18n()
+  const client = useClient()
+  const router = useRouter()
+  const { group } = props
+
+  const handleRemove = useCallback(async () => {
+    try {
+      await client.destroy(group)
+      trackEvent({
+        name: 'supprimer'
+      })
+      router.push('/settings/groups')
+    } catch (err) {
+      logException(err)
+      Alerter.error(t('Groups.deletion-error'))
+    }
+  }, [group, router, client, t])
+
+  return (
+    <Button
+      className="u-mt-1 u-ml-0"
+      theme="danger-outline"
+      onClick={handleRemove}
+      label={t('Groups.delete')}
+    />
+  )
+}
+
+const RenameGroupForm = props => {
+  const [modifying, setModifying] = useState(false)
+  const [saving, setSaving] = useState(false)
+  const client = useClient()
+  const router = useRouter()
+  const inputRef = useRef()
+  const { t } = useI18n()
+
+  const { group } = props
+
+  const handleRename = useCallback(() => {
+    setSaving(true)
+    const updatedGroup = renamedGroup(group, inputRef.current.value)
+    return updateOrCreateGroup(client, updatedGroup, router, () => {
+      setSaving(false)
+      setModifying(false)
+      trackEvent({
+        name: 'renommer'
+      })
+    })
+  }, [client, group, router])
+
+  const handleModifyName = useCallback(() => {
+    setModifying(true)
+  }, [setModifying])
+
+  return (
+    <form className={styles.GrpStg__form} onSubmit={e => e.preventDefault()}>
+      <Media>
+        <Img>
+          {!modifying ? (
+            <Typography variant="body1">{getGroupLabel(group, t)}</Typography>
+          ) : (
+            <Input
+              inputRef={inputRef}
+              placeholder={t('Groups.name-placeholder')}
+              autoFocus
+              type="text"
+              defaultValue={getGroupLabel(group, t)}
+            />
+          )}
+        </Img>
+        <Img>
+          {modifying ? (
+            <Button
+              disabled={saving}
+              theme="regular"
+              onClick={handleRename}
+              label={t('Groups.save')}
+              busy={saving}
+            />
+          ) : (
+            <Button
+              theme="text"
+              onClick={handleModifyName}
+              label={t('Groups.rename')}
+            />
+          )}
+        </Img>
+      </Media>
+    </form>
+  )
+}
+
+export class DumbGroupSettings extends Component {
   componentDidMount() {
     this.trackPage()
   }
@@ -131,23 +227,6 @@ export class DumbGroupSettings extends Component {
     } else {
       trackPage('parametres:groupes:nouveau-groupe')
     }
-  }
-
-  handleRename = () => {
-    const label = this.inputRef.value
-    this.rename(label)
-  }
-
-  rename(label) {
-    this.setState({ saving: true })
-    const { group } = this.props
-    const updatedGroup = renamedGroup(group, label)
-    return this.updateOrCreate(updatedGroup, () => {
-      this.setState({ saving: false, modifying: false })
-      trackEvent({
-        name: 'renommer'
-      })
-    })
   }
 
   async updateOrCreate(group, cb) {
@@ -168,36 +247,8 @@ export class DumbGroupSettings extends Component {
     })
   }
 
-  onRemove = async () => {
-    const { group, router, client, t } = this.props
-
-    try {
-      await client.destroy(group)
-      trackEvent({
-        name: 'supprimer'
-      })
-      router.push('/settings/groups')
-    } catch (err) {
-      logException(err)
-      Alerter.error(t('Groups.deletion-error'))
-    }
-  }
-
-  modifyName = () => {
-    this.setState({ modifying: true })
-  }
-
-  saveInputRef = ref => {
-    this.inputRef = ref
-  }
-
   render() {
-    const {
-      t,
-      group,
-      breakpoints: { isMobile }
-    } = this.props
-    const { modifying, saving } = this.state
+    const { t, group } = this.props
 
     // When deleting the group, there's a re-render between the deletion and the redirection. So we need to handle this case
     if (!group) {
@@ -206,74 +257,40 @@ export class DumbGroupSettings extends Component {
 
     return (
       <Padded>
-        {isMobile && <BackButton to="/settings/groups" arrow />}
-        <PageTitle>
-          {!isMobile && <BackButton to="/settings/groups" arrow />}
-          {getGroupLabel(group, t)}
-        </PageTitle>
+        <div className="u-flex u-flex-items-center  u-mb-1">
+          <BackButton to="/settings/groups" arrow />
+          <PageTitle className="u-flex u-items-center">
+            {getGroupLabel(group, t)}
+          </PageTitle>
+        </div>
 
-        <h3>{t('Groups.label')}</h3>
-        <form
-          className={styles.GrpStg__form}
-          onSubmit={e => e.preventDefault()}
-        >
-          <Media>
-            <Img>
-              {!modifying ? (
-                <Typography variant="body1">
-                  {getGroupLabel(group, t)}
-                </Typography>
-              ) : (
-                <input
-                  ref={this.saveInputRef}
-                  autoFocus
-                  type="text"
-                  defaultValue={getGroupLabel(group, t)}
-                />
-              )}
-            </Img>
-            <Img>
-              {modifying ? (
-                <Button
-                  disabled={saving}
-                  theme="regular"
-                  onClick={this.handleRename}
-                  label={t('Groups.save')}
-                  busy={saving}
-                />
-              ) : (
-                <Button
-                  theme="text"
-                  onClick={this.modifyName}
-                  label={t('Groups.rename')}
-                />
-              )}
-            </Img>
-          </Media>
-        </form>
-        <h3>{t('Groups.accounts')}</h3>
-        <Query query={accountsConn.query} as={accountsConn.as}>
-          {({ data: accounts, fetchStatus }) => {
-            if (fetchStatus === 'loading') {
-              return <Loading />
-            }
+        <Stack spacing="s" style={stackStyle}>
+          <div>
+            <Typography variant="h5">{t('Groups.label')}</Typography>
+            <RenameGroupForm group={group} />
+          </div>
+          <div>
+            <Typography variant="h5" gutterBottom>
+              {t('Groups.accounts')}
+            </Typography>
+            <Query query={accountsConn.query} as={accountsConn.as}>
+              {({ data: accounts, fetchStatus }) => {
+                if (fetchStatus === 'loading') {
+                  return <Loading />
+                }
 
-            return (
-              <AccountsList
-                accounts={accounts}
-                group={group}
-                toggleAccount={this.toggleAccount}
-              />
-            )
-          }}
-        </Query>
-        <p>
-          <Button
-            theme="danger-outline"
-            onClick={this.onRemove}
-            label={t('Groups.delete')}
-          />
-        </p>
+                return (
+                  <AccountsList
+                    accounts={accounts}
+                    group={group}
+                    toggleAccount={this.toggleAccount}
+                  />
+                )
+              }}
+            </Query>
+          </div>
+          <RemoveGroupButton group={group} />
+        </Stack>
       </Padded>
     )
   }
@@ -281,32 +298,32 @@ export class DumbGroupSettings extends Component {
 
 export const GroupSettings = compose(
   translate(),
-  withBreakpoints()
+  withRouter
 )(DumbGroupSettings)
 
-const enhance = Component =>
-  compose(
-    withRouter,
-    withClient
-  )(Component)
+const ExistingGroupSettings = props => {
+  const { groupId } = useParams()
+  const { data: group, fetchStatus } = useQuery(
+    Q(GROUP_DOCTYPE).getById(groupId),
+    { as: `io.cozy.bank.groups__${groupId}`, singleDocData: true }
+  )
 
-const ExistingGroupSettings = enhance(props => (
-  <Query query={client => client.get(GROUP_DOCTYPE, props.routeParams.groupId)}>
-    {({ data: group, fetchStatus }) =>
-      fetchStatus === 'loading' || fetchStatus === 'pending' ? (
-        <>
-          <BarTheme theme="primary" />
-          <Loading />
-        </>
-      ) : (
-        <>
-          <BarTheme theme="primary" />
-          <GroupSettings group={group} {...props} />
-        </>
-      )
-    }
-  </Query>
-))
+  if (fetchStatus === 'loading' || fetchStatus === 'pending') {
+    return (
+      <>
+        <BarTheme theme="primary" />
+        <Loading />
+      </>
+    )
+  }
+
+  return (
+    <>
+      <BarTheme theme="primary" />
+      <GroupSettings group={group} {...props} />
+    </>
+  )
+}
 
 export default ExistingGroupSettings
 
@@ -317,11 +334,13 @@ export default ExistingGroupSettings
  * to refetch the group but it seems easier to do that to force the usage
  * of a brand new component
  */
-export const NewGroupSettings = enhance(
-  translate()(props => (
+export const NewGroupSettings = props => {
+  const { t } = useI18n()
+  const client = useClient()
+  return (
     <>
       <BarTheme theme="primary" />
-      <GroupSettings {...props} group={makeNewGroup(props.client, props.t)} />
+      <GroupSettings {...props} group={makeNewGroup(client, t)} />
     </>
-  ))
-)
+  )
+}

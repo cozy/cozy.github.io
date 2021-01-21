@@ -9,9 +9,6 @@ import {
 } from 'doctypes'
 import AppLike from 'test/AppLike'
 import { receiveMutationResult } from 'cozy-client/dist/store'
-jest.mock('cozy-keys-lib', () => ({
-  withVaultClient: Component => Component
-}))
 
 // Needed to prevent unwanted updates (async component)
 // Otherwise we have an error "Warning: An update to StoreLink inside a test was not wrapped in act"

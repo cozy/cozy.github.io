@@ -1,6 +1,7 @@
 const keysLib = jest.requireActual('cozy-keys-lib')
 
 module.exports = {
+  ...keysLib,
   withVaultClient: x => x,
-  ...keysLib
+  withVaultUnlockContext: x => x
 }
