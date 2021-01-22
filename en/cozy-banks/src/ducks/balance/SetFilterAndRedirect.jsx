@@ -9,7 +9,7 @@ import {
   ACCOUNT_DOCTYPE,
   GROUP_DOCTYPE
 } from 'doctypes'
-import { filterByDoc } from '.'
+import { filterByDoc } from 'ducks/filters'
 
 /**
  * - Checks the params from the URL

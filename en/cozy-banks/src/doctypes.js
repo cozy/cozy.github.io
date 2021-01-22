@@ -194,8 +194,12 @@ export const groupsConn = {
   fetchPolicy: older30s
 }
 
-export const triggersConn = {
-  query: () => Q(TRIGGER_DOCTYPE),
+export const cronKonnectorTriggersConn = {
+  query: () =>
+    Q(TRIGGER_DOCTYPE).where({
+      worker: 'konnector',
+      type: '@cron'
+    }),
   as: 'triggers'
 }
 

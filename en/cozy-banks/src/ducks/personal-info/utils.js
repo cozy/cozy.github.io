@@ -3,7 +3,11 @@ import sortBy from 'lodash/sortBy'
 import merge from 'lodash/merge'
 import get from 'lodash/get'
 
-import { triggersConn, KONNECTOR_DOCTYPE, IDENTITIES_DOCTYPE } from 'doctypes'
+import {
+  cronKonnectorTriggersConn,
+  KONNECTOR_DOCTYPE,
+  IDENTITIES_DOCTYPE
+} from 'doctypes'
 import { isBankTrigger } from 'utils/triggers'
 import { updateUserConfig } from 'cozy-harvest-lib/dist/services/budget-insight'
 
@@ -90,8 +94,8 @@ export const saveIdentity = async (client, identity, contactAttrs) => {
  */
 export const updateBIUserConfig = async (client, identity) => {
   const { data: allTriggers } = await client.query(
-    triggersConn.query(),
-    triggersConn
+    cronKonnectorTriggersConn.query(),
+    cronKonnectorTriggersConn
   )
   // keep only successful bank triggers
   const triggers = sortBy(

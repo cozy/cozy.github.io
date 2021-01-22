@@ -4,7 +4,7 @@ import AppLike from 'test/AppLike'
 
 import { DumbTriggerErrorCard as TriggerErrorCard } from './TriggerErrorCard'
 
-jest.mock('components/useRedirectionURL', () => () => 'http://redirection')
+jest.mock('hooks/useRedirectionURL', () => () => 'http://redirection')
 
 describe('trigger error card', () => {
   const setup = () => {

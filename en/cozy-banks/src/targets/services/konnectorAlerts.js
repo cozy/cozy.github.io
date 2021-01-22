@@ -5,14 +5,12 @@ import fromPairs from 'lodash/fromPairs'
 import get from 'lodash/get'
 import memoize from 'lodash/memoize'
 
-import { Q, models } from 'cozy-client'
+import { Q } from 'cozy-client'
 import flag from 'cozy-flags'
 import { sendNotification } from 'cozy-notifications'
 
 import { runService, dictRequire, lang } from './service'
 import { KonnectorAlertNotification, logger } from 'ducks/konnectorAlerts'
-
-const { isKonnectorWorker } = models.trigger.triggers
 
 const TRIGGER_STATES_DOC_TYPE = 'io.cozy.bank.settings'
 const TRIGGER_STATES_DOC_ID = 'trigger-states'
@@ -157,17 +155,14 @@ export const buildNotification = (client, options) => {
  * @return {Promise}
  */
 export const sendTriggerNotifications = async client => {
-  const { data: triggers } = await client.query(
+  const { data: cronKonnectorTriggers } = await client.query(
     Q('io.cozy.triggers').where({
       worker: 'konnector'
     })
   )
-  const konnectorTriggers = triggers.filter(trigger =>
-    isKonnectorWorker(trigger.attributes)
-  )
   const triggerStatesDoc = await fetchTriggerStates(client)
   const previousStates = get(triggerStatesDoc, 'triggerStates', {})
-  logger('info', `${konnectorTriggers.length} konnector triggers`)
+  logger('info', `${cronKonnectorTriggers.length} konnector triggers`)
 
   const ignoredErrorFlag = flag('banks.konnector-alerts.ignored-errors')
   const ignoredErrors = new Set(
@@ -175,7 +170,7 @@ export const sendTriggerNotifications = async client => {
   )
 
   const triggerAndNotifsInfo = (await Promise.all(
-    konnectorTriggers.map(async trigger => {
+    cronKonnectorTriggers.map(async trigger => {
       return {
         trigger,
         shouldNotify: await shouldNotify(client, trigger, previousStates)
@@ -229,7 +224,7 @@ export const sendTriggerNotifications = async client => {
     await sendNotification(client, notifView)
   }
 
-  await storeTriggerStates(client, triggers, triggerStatesDoc)
+  await storeTriggerStates(client, cronKonnectorTriggers, triggerStatesDoc)
 }
 
 const main = async ({ client }) => {

@@ -24,7 +24,7 @@ import CozyRealtime from 'cozy-realtime'
 import {
   groupsConn,
   settingsConn,
-  triggersConn,
+  cronKonnectorTriggersConn,
   accountsConn,
   ACCOUNT_DOCTYPE,
   TRIGGER_DOCTYPE,
@@ -438,7 +438,7 @@ export default compose(
     accounts: accountsConn,
     groups: groupsConn,
     settings: settingsConn,
-    triggers: triggersConn,
+    triggers: cronKonnectorTriggersConn,
     transactions: transactionsConn
   }),
   connect(

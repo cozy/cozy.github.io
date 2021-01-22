@@ -180,7 +180,7 @@ export const RowDesktop = React.memo(function RowDesktop(props) {
         onClick={showTransactionModal}
       >
         <Figure
-          total={transaction.amount}
+          total={transaction.amount || 0}
           symbol={getCurrencySymbol(transaction.currency)}
           coloredPositive
           signed

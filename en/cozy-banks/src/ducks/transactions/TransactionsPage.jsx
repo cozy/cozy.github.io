@@ -41,7 +41,7 @@ import {
   ACCOUNT_DOCTYPE,
   accountsConn,
   groupsConn,
-  triggersConn,
+  cronKonnectorTriggersConn,
   transactionsConn
 } from 'doctypes'
 
@@ -423,7 +423,7 @@ const ConnectedTransactionsPage = compose(
   queryConnect({
     accounts: accountsConn,
     groups: groupsConn,
-    triggers: triggersConn,
+    triggers: cronKonnectorTriggersConn,
     transactions: transactionsConn
   }),
   connect(mapStateToProps)

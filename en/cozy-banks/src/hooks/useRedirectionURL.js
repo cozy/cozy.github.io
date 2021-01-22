@@ -9,11 +9,18 @@ const useRedirectionURL = (doctype, { type, category }) => {
   const client = useClient()
   const [redirectionURL, setRedirectionURL] = useState()
   const updateRedirectionURL = useCallback(async () => {
-    const url = await client.intents.getRedirectionURL(
-      'io.cozy.apps',
-      pickBy({ type, category }, Boolean)
-    )
-    setRedirectionURL(url)
+    try {
+      const url = await client.intents.getRedirectionURL(
+        'io.cozy.apps',
+        pickBy({ type, category }, Boolean)
+      )
+      setRedirectionURL(url)
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        `useRedirectionURL: Could not get redirection url for type: ${type}, category: ${category}.`
+      )
+    }
   }, [client, type, category, setRedirectionURL])
 
   useEffect(() => {

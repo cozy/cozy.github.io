@@ -1,6 +1,6 @@
 import matches from 'lodash/matches'
 import { triggerStates } from 'cozy-client/dist/models/trigger'
-import { triggersConn } from 'doctypes'
+import { cronKonnectorTriggersConn } from 'doctypes'
 import sleep from 'utils/sleep'
 
 const policies = {
@@ -74,11 +74,14 @@ class StartupChecksPlugin {
   async checkToLaunchJobs() {
     const client = this.client
     let triggers
-    const triggersFromState = client.getQueryFromState(triggersConn.as)
+    const triggersFromState = client.getQueryFromState(
+      cronKonnectorTriggersConn.as
+    )
     if (triggersFromState) {
       triggers = triggersFromState.data
     } else {
-      triggers = (await client.query(triggersConn.query(client))).data
+      triggers = (await client.query(cronKonnectorTriggersConn.query(client)))
+        .data
     }
     for (const launchOpts of this.options.launchTriggers || []) {
       await this.checkToLaunchJob(triggers, launchOpts)

@@ -26,7 +26,7 @@ import { getWarningLimitPerAccount } from 'selectors'
 import styles from 'ducks/balance/AccountRow.styl'
 import ReimbursementsIcon from 'ducks/balance/ReimbursementsIcon'
 import AccountIcon from 'components/AccountIcon'
-import { triggersConn } from 'doctypes'
+import { cronKonnectorTriggersConn } from 'doctypes'
 import { Contact } from 'cozy-doctypes'
 import AccountCaption from 'ducks/balance/AccountRowCaption'
 
@@ -208,7 +208,7 @@ AccountRow.propTypes = {
 export default compose(
   queryConnect({
     triggersCol: {
-      ...triggersConn,
+      ...cronKonnectorTriggersConn,
       fetchPolicy: CozyClient.fetchPolicies.noFetch
     }
   }),
