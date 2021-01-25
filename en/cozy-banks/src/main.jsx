@@ -4,11 +4,20 @@ import 'utils/react-exposer'
 import 'whatwg-fetch'
 import 'styles/main'
 
+import 'cozy-ui/transpiled/react/stylesheet.css'
+import 'cozy-ui/dist/cozy-ui.utils.min.css'
+
 import React from 'react'
 import { render } from 'react-dom'
 import { loadState, persistState } from 'store/persistedState'
 import configureStore from 'store/configureStore'
 import 'number-to-locale-string'
+import FastClick from 'fastclick'
+
+import { setupLocale as setupD3Locale } from 'utils/d3'
+import { isIOSApp } from 'cozy-device-helper'
+import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import flag from 'cozy-flags'
 
 import { setupHistory } from 'utils/history'
 import {
@@ -17,18 +26,9 @@ import {
   StartupChecksPlugin
 } from 'ducks/client'
 import 'utils/flag'
-import initReactFastclick from 'react-fastclick'
-
-import { setupLocale as setupD3Locale } from 'utils/d3'
-import 'cozy-ui/transpiled/react/stylesheet.css'
-import 'cozy-ui/dist/cozy-ui.utils.min.css'
-
 import { checkToRefreshToken } from 'utils/token'
-import Alerter from 'cozy-ui/transpiled/react/Alerter'
-import flag from 'cozy-flags'
 import { makeItShine } from 'utils/display.debug'
 import PinPlugin from 'ducks/pin/plugin'
-
 import cozyBar from 'utils/cozyBar'
 
 if (__TARGET__ === 'mobile') {
@@ -128,8 +128,13 @@ const setupApp = async persistedState => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  initReactFastclick()
   loadState().then(setupApp)
+
+  // We add fastclick only for iOS since Chrome removed this behavior (iOS also, but
+  // we still use UIWebview and not WKWebview... )
+  if (isIOSApp()) {
+    FastClick.attach(document.body)
+  }
 })
 
 if (module.hot) {

@@ -208,6 +208,8 @@ const EditionModalFooter = props => {
   )
 }
 
+const dialogTitleStyle = { maxHeight: 48, boxSizing: 'border-box' }
+
 const EditionModal = props => {
   const { t } = useI18n()
   const {
@@ -287,10 +289,11 @@ const EditionModal = props => {
 
   return (
     <Dialog {...dialogProps} onClose={handleDismiss}>
-      {!choosing ? <DialogCloseButton onClick={handleDismiss} /> : true}
+      {!choosing ? <DialogCloseButton onClick={handleDismiss} /> : null}
       <DialogTitle
         {...dialogTitleProps}
         className="u-flex u-flex-row u-flex-items-center"
+        style={dialogTitleStyle}
       >
         {choosing ? <BackArrow onClick={() => setChoosing(null)} /> : null}
         {t(modalTitle)}
