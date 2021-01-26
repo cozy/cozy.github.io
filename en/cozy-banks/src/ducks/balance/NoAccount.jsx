@@ -1,9 +1,10 @@
 import React, { memo } from 'react'
-import { useI18n, useBreakpoints } from 'cozy-ui/transpiled/react'
+import { useBreakpoints, useI18n } from 'cozy-ui/transpiled/react'
 import Button from 'cozy-ui/transpiled/react/Button'
 import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
-
+import PageTitle from 'components/Title/PageTitle'
 import HeaderTitle from 'ducks/balance/HeaderTitle'
+import LegalMention from 'ducks/legal/LegalMention'
 import AddAccountLink from 'ducks/settings/AddAccountLink'
 import { Container, Content } from 'components/VerticalBox'
 import BarTheme from 'ducks/bar/BarTheme'
@@ -12,7 +13,7 @@ import styles from 'ducks/balance/NoAccount.styl'
 import PlusIcon from 'cozy-ui/transpiled/react/Icons/Plus'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 
-export const NoAccount = ({ buttonTheme }) => {
+export const NoAccount = ({ buttonTheme, children }) => {
   const { isMobile } = useBreakpoints()
   const { t, lang } = useI18n()
   const timelineImg = require(`./timeline_${isMobile ? 'mobile' : 'desktop'}_${
@@ -21,6 +22,7 @@ export const NoAccount = ({ buttonTheme }) => {
   const contentProps = isMobile ? { center: true } : { bottom: true }
   return (
     <CozyTheme variant="inverted">
+      <PageTitle>{t('Balance.title')}</PageTitle>
       <Container className={styles.NoAccount}>
         <BarTheme theme="primary" />
         <Content {...contentProps}>
@@ -30,6 +32,7 @@ export const NoAccount = ({ buttonTheme }) => {
           <div className={styles.NoAccount_chart} />
           <img src={timelineImg} alt="" className={styles.NoAccount_timeline} />
         </div>
+        <LegalMention className="u-mb-3 u-mr-1" />
         <AddAccountLink>
           <Button
             theme={buttonTheme}
@@ -40,6 +43,7 @@ export const NoAccount = ({ buttonTheme }) => {
           />
         </AddAccountLink>
       </Container>
+      {children}
     </CozyTheme>
   )
 }

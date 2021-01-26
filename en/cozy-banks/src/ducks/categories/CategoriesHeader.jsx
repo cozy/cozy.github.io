@@ -202,6 +202,8 @@ const CategoriesHeader = props => {
           </Header>
         ) : (
           <div className={cx(styles.NoAccount_container)}>
+            <LegalMention className="u-mt-3 u-pt-1 u-mr-1" />
+
             <Padded className={styles.NoAccount_box}>
               {chart}
               <AddAccountButton absolute label={t('Accounts.add-bank')} />
