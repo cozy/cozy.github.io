@@ -1,12 +1,12 @@
 /* global mount */
 
 import React from 'react'
+import { render } from '@testing-library/react'
 import { RowDesktop, RowMobile } from './TransactionRow'
 import { TransactionsDumb, sortByDate } from './Transactions'
 import data from '../../../test/fixtures'
 import store from '../../../test/store'
 import AppLike from '../../../test/AppLike'
-import Typography from 'cozy-ui/transpiled/react/Typography'
 import { getClient } from 'test/client'
 import { normalizeData } from 'test/store'
 import TransactionPageErrors from 'ducks/transactions/TransactionPageErrors'
@@ -17,19 +17,21 @@ jest.mock('ducks/transactions/TransactionPageErrors', () => () => null)
 const allTransactions = data['io.cozy.bank.operations']
 
 describe('transaction row', () => {
-  let root, client, transaction
+  let client, transaction
 
-  const wrapRow = (row, withTable) => (
-    <AppLike store={store} client={client}>
-      {withTable ? (
-        <table>
-          <tbody>{row}</tbody>
-        </table>
-      ) : (
-        row
-      )}
-    </AppLike>
-  )
+  const setup = (row, withTable) => {
+    return render(
+      <AppLike store={store} client={client}>
+        {withTable ? (
+          <table>
+            <tbody>{row}</tbody>
+          </table>
+        ) : (
+          row
+        )}
+      </AppLike>
+    )
+  }
 
   const rawTransaction = allTransactions[0]
   rawTransaction._type = 'io.cozy.bank.operations'
@@ -49,39 +51,26 @@ describe('transaction row', () => {
   })
 
   it('should render correctly on desktop', () => {
-    root = mount(
-      wrapRow(
-        <RowDesktop transaction={transaction} urls={{}} brands={[]} />,
-        true
-      )
+    const root = setup(
+      <RowDesktop transaction={transaction} urls={{}} brands={[]} />,
+      true
     )
-    expect(
-      root
-        .find(Typography)
-        .filterWhere(n => n.props().variant == 'caption')
-        .text()
-    ).toBe('Compte courant Isabelle - BNPP')
+    expect(root.getByText('Compte courant Isabelle - BNPP')).toBeTruthy()
   })
 
   it('should render correctly on mobile', () => {
     const handleRef = jest.fn()
-    root = mount(
-      wrapRow(
-        <RowMobile
-          onRef={handleRef}
-          transaction={transaction}
-          urls={{}}
-          brands={[]}
-        />,
-        false
-      )
+    const root = setup(
+      <RowMobile
+        onRef={handleRef}
+        transaction={transaction}
+        urls={{}}
+        brands={[]}
+      />,
+      false
     )
-    expect(
-      root
-        .find(Typography)
-        .filterWhere(n => n.props().variant == 'caption')
-        .text()
-    ).toBe('Compte courant Isabelle - BNPP')
+
+    expect(root.getByText('Compte courant Isabelle - BNPP')).toBeTruthy()
     expect(handleRef).toHaveBeenCalled()
   })
 })

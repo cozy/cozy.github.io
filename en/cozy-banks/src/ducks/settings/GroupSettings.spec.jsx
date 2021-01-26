@@ -1,51 +1,59 @@
-/* global mount */
-
 import React from 'react'
-import { GroupSettings, AccountLine } from './GroupSettings'
-import Switch from 'cozy-ui/transpiled/react/MuiCozyTheme/Switch'
+import { GroupSettings, AccountsList } from './GroupSettings'
 import { render, fireEvent, act } from '@testing-library/react'
 import { createMockClient } from 'cozy-client/dist/mock'
 import AppLike from 'test/AppLike'
 import fixtures from 'test/fixtures'
 import omit from 'lodash/omit'
-import keyBy from 'lodash/keyBy'
+import cloneDeep from 'lodash/cloneDeep'
+import { schema } from 'doctypes'
+
+const fixtureGroup = fixtures['io.cozy.bank.groups'][0]
 
 jest.mock('components/BackButton', () => () => null)
 
-describe('GroupSettings', () => {
-  const setup = ({ group }) => {
-    const account = fixtures['io.cozy.bank.accounts'][0]
-    const router = {
-      push: jest.fn(),
-      replace: jest.fn(),
-      go: jest.fn(),
-      goBack: jest.fn(),
-      goForward: jest.fn(),
-      setRouteLeaveHook: jest.fn(),
-      isActive: jest.fn(),
-      params: {
-        groupId: '1234'
-      }
+const createClient = () => {
+  const client = new createMockClient({
+    queries: {},
+    clientOptions: {
+      schema
     }
-    const client = new createMockClient({
-      queries: {}
-    })
-    client.save = jest.fn().mockResolvedValue({ data: { id: '1234' } })
+  })
+  client.save = jest.fn().mockResolvedValue({ data: { id: '1234' } })
+  return client
+}
 
-    const root = render(
-      <AppLike router={router} client={client}>
-        <GroupSettings
-          account={account}
-          group={group}
-          router={router}
-          client={client}
-          breakpoints={{ isMobile: false }}
-        />
-      </AppLike>
-    )
-    return { router, client, root }
+const setup = ({ group, client: clientOption }) => {
+  const client = clientOption || createClient()
+  const account = fixtures['io.cozy.bank.accounts'][0]
+  const router = {
+    push: jest.fn(),
+    replace: jest.fn(),
+    go: jest.fn(),
+    goBack: jest.fn(),
+    goForward: jest.fn(),
+    setRouteLeaveHook: jest.fn(),
+    isActive: jest.fn(),
+    params: {
+      groupId: '1234'
+    }
   }
 
+  const root = render(
+    <AppLike router={router} client={client}>
+      <GroupSettings
+        account={account}
+        group={group}
+        router={router}
+        client={client}
+        breakpoints={{ isMobile: false }}
+      />
+    </AppLike>
+  )
+  return { router, client, root }
+}
+
+describe('GroupSettings', () => {
   const rename = async (root, newName) => {
     const modifyBtn = root.getByText('Rename')
     await fireEvent.click(modifyBtn)
@@ -85,52 +93,70 @@ describe('GroupSettings', () => {
     expect(router.push).not.toHaveBeenCalled()
   })
 
-  const setupAccountLine = ({ account, group, toggleAccount }) => {
-    const root = mount(
-      <AppLike>
-        <table>
-          <tbody>
-            <AccountLine
-              account={account}
-              group={group}
-              toggleAccount={toggleAccount}
-            />
-          </tbody>
-        </table>
+  const setupAccountList = ({ accounts, group, client }) => {
+    const root = render(
+      <AppLike client={client}>
+        <AccountsList accounts={accounts} group={group} />
       </AppLike>
     )
 
-    return { root }
+    return { root, client }
   }
 
-  it('Should call existsById with an id when rendering an account line', () => {
-    const group = fixtures['io.cozy.bank.groups'][0]
-    const accountsById = keyBy(fixtures['io.cozy.bank.accounts'], '_id')
-    const existsById = jest.fn()
-    group.accounts = {
-      data: group.accounts.map(accountId => accountsById[accountId]),
-      existsById
+  it('should be possible to toggle an account from a group', async () => {
+    const rawGroup = {
+      _type: 'io.cozy.bank.groups',
+      ...cloneDeep(fixtureGroup)
     }
+    const client = createClient()
+    client.save = jest.fn()
+    const group = client.hydrateDocument(rawGroup)
     const account = fixtures['io.cozy.bank.accounts'][0]
-    const toggleAccount = jest.fn()
-    const { root } = setupAccountLine({
-      account,
-      group,
-      toggleAccount
+    const { root } = setupAccountList({
+      client,
+      accounts: [account],
+      group
     })
 
-    const switches = root.find(Switch)
-    switches.props().onClick({
-      target: {
-        checked: true
-      }
+    const sw = root.getByRole('checkbox')
+    expect(sw.checked).toBe(false)
+    expect(group.accounts.data.length).toBe(4)
+
+    await act(async () => {
+      fireEvent.click(sw, { target: { value: false } })
     })
 
-    expect(existsById).toHaveBeenCalledWith(account._id)
-    expect(toggleAccount).toHaveBeenCalledWith(
-      'compteisa4',
-      expect.objectContaining({ _id: 'familleelargie' }),
-      true
-    )
+    const sw2 = root.getByRole('checkbox')
+    expect(group.accounts.data.length).toBe(5)
+    expect(sw2.checked).toBe(true)
+  })
+
+  it('should be possible to toggle an account from a group (save fails)', async () => {
+    jest.spyOn(console, 'warn').mockImplementation()
+    const rawGroup = {
+      _type: 'io.cozy.bank.groups',
+      ...cloneDeep(fixtureGroup)
+    }
+    const client = createClient()
+    client.save = jest.fn().mockRejectedValue('Error')
+
+    const group = client.hydrateDocument(rawGroup)
+    const account = fixtures['io.cozy.bank.accounts'][0]
+    const { root } = setupAccountList({
+      client,
+      accounts: [account],
+      group
+    })
+
+    const sw = root.getByRole('checkbox')
+    expect(sw.checked).toBe(false)
+
+    await act(async () => {
+      fireEvent.click(sw, { target: { value: false } })
+    })
+    expect(client.save).toHaveBeenCalled()
+
+    const sw2 = root.getByRole('checkbox')
+    expect(sw2.checked).toBe(false)
   })
 })

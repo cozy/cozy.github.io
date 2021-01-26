@@ -1,16 +1,13 @@
-import React, { Component, useCallback, useState, useRef } from 'react'
+import React, { useCallback, useState, useRef, useEffect } from 'react'
 import sortBy from 'lodash/sortBy'
 import { Query, useClient, Q, useQuery } from 'cozy-client'
-import { withRouter } from 'react-router'
-import compose from 'lodash/flowRight'
 
-import { translate } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Button from 'cozy-ui/transpiled/react/Button'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import { Media, Img } from 'cozy-ui/transpiled/react/Media'
 import Switch from 'cozy-ui/transpiled/react/MuiCozyTheme/Switch'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Input from 'cozy-ui/transpiled/react/Input'
 import Stack from 'cozy-ui/transpiled/react/Stack'
 
@@ -37,12 +34,45 @@ const makeNewGroup = (client, t) => {
   return obj
 }
 
+const updateOrCreateGroup = async (client, group, router, successCallback) => {
+  const isNew = !group.id
+  try {
+    const response = await client.save(group)
+    if (response && response.data) {
+      const doc = response.data
+      if (isNew) {
+        router.push(`/settings/groups/${doc.id}`)
+      }
+    }
+  } finally {
+    successCallback && successCallback()
+  }
+}
+
 export const AccountLine = props => {
   const { account, group, toggleAccount } = props
+  const { t } = useI18n()
+  const [toggleState, setToggleState] = useState(
+    group ? Boolean(group.accounts.existsById(account._id)) : false
+  )
 
   const handleClickSwitch = useCallback(
-    ev => toggleAccount(account._id, group, ev.target.checked),
-    [toggleAccount, account, group]
+    async ev => {
+      const newState = ev.target.checked
+      const prevState = Boolean(group.accounts.existsById(account._id))
+      setToggleState(newState)
+      try {
+        await toggleAccount(account._id, group, newState)
+      } catch (e) {
+        Alerter.error(t('Groups.toggle-account-error'))
+
+        // eslint-disable-next-line no-console
+        console.warn('Error while ', e)
+        // Rollback to previous state
+        setToggleState(prevState)
+      }
+    },
+    [toggleAccount, account, group, setToggleState, t]
   )
 
   return (
@@ -60,8 +90,8 @@ export const AccountLine = props => {
             disableRipple
             color="primary"
             id={account._id}
-            checked={group.accounts.existsById(account._id)}
-            onClick={handleClickSwitch}
+            checked={toggleState}
+            onChange={handleClickSwitch}
           />
         ) : (
           <Switch id={account._id} disabled />
@@ -71,9 +101,27 @@ export const AccountLine = props => {
   )
 }
 
-const AccountsList = props => {
+export const AccountsList = props => {
   const { t } = useI18n()
-  const { accounts, group, toggleAccount } = props
+  const { accounts, group } = props
+  const client = useClient()
+  const router = useRouter()
+
+  const toggleAccount = useCallback(
+    async (accountId, group, enabled) => {
+      const accounts = group.accounts
+      if (enabled) {
+        accounts.addById(accountId)
+      } else {
+        accounts.removeById(accountId)
+      }
+      await updateOrCreateGroup(client, group, router)
+      trackEvent({
+        name: `compte-${enabled ? 'activer' : 'desactiver'}`
+      })
+    },
+    [client, router]
+  )
 
   return accounts.length > 0 ? (
     <Table className={styles.GrpStg__table}>
@@ -104,21 +152,6 @@ const AccountsList = props => {
       <Typography variant="body1">{t('Groups.no-account')}</Typography>
     </div>
   )
-}
-
-const updateOrCreateGroup = async (client, group, router, successCallback) => {
-  const isNew = !group.id
-  try {
-    const response = await client.save(group)
-    if (response && response.data) {
-      const doc = response.data
-      if (isNew) {
-        router.push(`/settings/groups/${doc.id}`)
-      }
-    }
-  } finally {
-    successCallback && successCallback()
-  }
 }
 
 const stackStyle = { clear: 'left' }
@@ -216,90 +249,56 @@ const RenameGroupForm = props => {
   )
 }
 
-export class DumbGroupSettings extends Component {
-  componentDidMount() {
-    this.trackPage()
-  }
+export const GroupSettings = props => {
+  const { group } = props
+  const { t } = useI18n()
 
-  trackPage() {
-    if (this.props.group._id) {
+  useEffect(() => {
+    if (group._id) {
       trackPage('parametres:groupes:detail')
     } else {
       trackPage('parametres:groupes:nouveau-groupe')
     }
+  }, [group._id])
+
+  // When deleting the group, there's a re-render between the deletion and the redirection. So we need to handle this case
+  if (!group) {
+    return null
   }
 
-  async updateOrCreate(group, cb) {
-    const { router, client } = this.props
-    await updateOrCreateGroup(client, group, router, cb)
-  }
+  return (
+    <Padded>
+      <div className="u-flex u-flex-items-center  u-mb-1">
+        <BackButton to="/settings/groups" arrow />
+        <PageTitle className="u-flex u-items-center">
+          {getGroupLabel(group, t)}
+        </PageTitle>
+      </div>
 
-  toggleAccount = async (accountId, group, enabled) => {
-    const accounts = group.accounts
-    if (enabled) {
-      accounts.addById(accountId)
-    } else {
-      accounts.removeById(accountId)
-    }
-    await this.updateOrCreate(group)
-    trackEvent({
-      name: `compte-${enabled ? 'activer' : 'desactiver'}`
-    })
-  }
-
-  render() {
-    const { t, group } = this.props
-
-    // When deleting the group, there's a re-render between the deletion and the redirection. So we need to handle this case
-    if (!group) {
-      return null
-    }
-
-    return (
-      <Padded>
-        <div className="u-flex u-flex-items-center  u-mb-1">
-          <BackButton to="/settings/groups" arrow />
-          <PageTitle className="u-flex u-items-center">
-            {getGroupLabel(group, t)}
-          </PageTitle>
+      <Stack spacing="s" style={stackStyle}>
+        <div>
+          <Typography variant="h5">{t('Groups.label')}</Typography>
+          <RenameGroupForm group={group} />
         </div>
+        <div>
+          <Typography variant="h5" gutterBottom>
+            {t('Groups.accounts')}
+          </Typography>
+          <Query query={accountsConn.query} as={accountsConn.as}>
+            {({ data: accounts, fetchStatus }) => {
+              if (fetchStatus === 'loading') {
+                return <Loading />
+              }
 
-        <Stack spacing="s" style={stackStyle}>
-          <div>
-            <Typography variant="h5">{t('Groups.label')}</Typography>
-            <RenameGroupForm group={group} />
-          </div>
-          <div>
-            <Typography variant="h5" gutterBottom>
-              {t('Groups.accounts')}
-            </Typography>
-            <Query query={accountsConn.query} as={accountsConn.as}>
-              {({ data: accounts, fetchStatus }) => {
-                if (fetchStatus === 'loading') {
-                  return <Loading />
-                }
-
-                return (
-                  <AccountsList
-                    accounts={accounts}
-                    group={group}
-                    toggleAccount={this.toggleAccount}
-                  />
-                )
-              }}
-            </Query>
-          </div>
-          <RemoveGroupButton group={group} />
-        </Stack>
-      </Padded>
-    )
-  }
+              return <AccountsList accounts={accounts} group={group} />
+            }}
+          </Query>
+        </div>
+        <RemoveGroupButton group={group} />
+      </Stack>
+    </Padded>
+  )
 }
-
-export const GroupSettings = compose(
-  translate(),
-  withRouter
-)(DumbGroupSettings)
 
 const ExistingGroupSettings = props => {
   const { groupId } = useParams()
