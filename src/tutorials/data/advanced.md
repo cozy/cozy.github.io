@@ -192,7 +192,7 @@ The data is now organized as follow:
       <td>2019-01-02</td>
     </tr>
     <tr style="background-color:#b5dcaf">
-      <td>sport</td>
+      <td>work</td>
       <td>2019-01-03</td>
     </tr>
     <tr style="background-color:#b5dcaf">
