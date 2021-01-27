@@ -2710,9 +2710,8 @@
 </ul>
 <h3 id="clustering-settings">Clustering settings<a class="headerlink" href="#clustering-settings" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>lastDate</code>: {date} the date of the last clustered photo (based on <code>created_at</code>).</li>
+<li><code>lastDate</code>: {date} the date of the last clustered photo. It is the value of the <code>cozyMetadata.createdAt</code> saved in the <code>io.cozy.files</code> of the photo.</li>
 <li><code>jobStatus</code>: {string} the execution status, can be <code>running</code> if the service is running, <code>postponed</code> if an execution is planned later, or empty.</li>
-<li><code>lastExecution</code>: {timestamp} the last service execution timestamp. Useful when <code>jobStatus</code> is <code>postponed</code>, to know if the service should be run or not.</li>
 <li><code>evaluationCount</code>: {number} indicates the number of photos clustered since the last parameters evaluation. If this number is greater than a threshold, it triggers a new parameter evaluation and reset this number to 0.</li>
 <li><code>runs</code>: {number} number of all clustering runs, it is incremented at each new successful execution.</li>
 <li><code>parameters</code>: {array} a list of parameters for the clustering with the following attributes:</li>
