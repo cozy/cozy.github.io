@@ -2,6 +2,7 @@ import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import { Media, Bd, Img, Icon, useI18n } from 'cozy-ui/transpiled/react'
+import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
 import flag from 'cozy-flags'
 
 import Figure from 'cozy-ui/transpiled/react/Figure'
@@ -227,21 +228,21 @@ export const RowMobile = React.memo(function RowMobile(props) {
 
   return (
     <>
-      <List.Row onRef={onRef} {...rowRest}>
+      <ListItem ref={onRef} {...rowRest} button={!!transaction._id}>
         <Media className="u-w-100">
           <Img
-            className="u-clickable u-mr-half"
+            className="u-mr-half"
             title={t(
               `Data.subcategories.${getCategoryName(
                 getCategoryId(transaction)
               )}`
             )}
-            onClick={showTransactionModal}
+            onClick={transaction._id && showTransactionModal}
           >
             <CategoryIcon categoryId={getCategoryId(transaction)} />
           </Img>
-          <Bd className="u-clickable u-mr-half">
-            <List.Content onClick={showTransactionModal}>
+          <Bd className="u-mr-half">
+            <List.Content onClick={transaction._id && showTransactionModal}>
               <Typography className="u-ellipsis" variant="body1">
                 {getLabel(transaction)}
               </Typography>
@@ -278,7 +279,7 @@ export const RowMobile = React.memo(function RowMobile(props) {
             styles.TransactionRowMobile__actions
           )}
         />
-      </List.Row>
+      </ListItem>
       {transactionModal}
     </>
   )

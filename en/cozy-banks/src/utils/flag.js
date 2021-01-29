@@ -47,12 +47,12 @@ if (isDemoCozy()) {
 }
 
 Figure.defaultProps = Object.assign({}, Figure.defaultProps, {
-  blurred: flag('amount_blur') ? true : false
+  blurred: flag('amount-blur') ? true : false
 })
 
 flag.store.on('change', function(flagName) {
-  if (flagName == 'amount_blur') {
-    Figure.defaultProps.blurred = flag('amount_blur')
+  if (flagName === 'amount-blur') {
+    Figure.defaultProps.blurred = flag('amount-blur')
   }
 })
 

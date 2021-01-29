@@ -110,11 +110,11 @@ const TransactionSections = props => {
 
   return (
     <TransactionContainer className={cx(styles.TransactionTable, className)}>
-      {transactionsGrouped.map(dateAndGroup => {
+      {transactionsGrouped.map((dateAndGroup, id) => {
         const date = dateAndGroup[0]
         const transactionGroup = dateAndGroup[1]
         return (
-          <Section date={date} key={date}>
+          <Section date={date} key={id}>
             {transactionGroup.map(transaction => {
               return (
                 <Row

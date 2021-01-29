@@ -53,7 +53,8 @@ const HistoryChart = props => {
   )
 
   useEffect(() => {
-    container.current.scrollTo(container.scrollWidth, 0)
+    const currContainer = container.current
+    currContainer.scrollTo(currContainer.scrollWidth, 0)
   }, [])
 
   return (
