@@ -20,6 +20,7 @@ module.exports = {
         '../react/InfosBadge/index.jsx',
         '../react/GhostFileBadge/index.jsx',
         '../react/Button/index.jsx',
+        '../react/MuiCozyTheme/Buttons',
         '../react/ButtonAction/index.jsx',
         '../react/Card/index.jsx',
         '../react/Chip/index.jsx',
@@ -30,7 +31,6 @@ module.exports = {
         '../react/IconStack/index.jsx',
         '../react/Paper/index.js',
         '../react/PercentageBar/index.jsx',
-        '../react/PercentageLine/index.jsx',
         '../react/Progress',
         '../react/ProgressionBanner',
         '../react/Spinner/index.jsx',
@@ -43,6 +43,8 @@ module.exports = {
         '../react/Checkbox/index.jsx',
         '../react/DateMonthPicker/index.jsx',
         '../react/Field/index.jsx',
+        '../react/MuiCozyTheme/TextField',
+        '../react/Labs/CollectionField',
         '../react/FileInput/index.jsx',
         '../react/Input/index.jsx',
         '../react/InputGroup/index.jsx',
@@ -60,6 +62,7 @@ module.exports = {
       components: () => [
         '../react/Circle/index.jsx',
         '../react/MuiCozyTheme/Divider/index.jsx',
+        '../react/MuiCozyTheme/ExpansionPanel',
         '../react/Hero/index.jsx',
         '../react/hooks/useBreakpoints/index.jsx',
         '../react/Layout/Layout.jsx',
@@ -82,6 +85,7 @@ module.exports = {
         '../react/Figure/Figure.jsx',
         '../react/Figure/FigureBlock.jsx',
         '../react/Filename/index.jsx',
+        '../react/MuiCozyTheme/Grid',
         '../react/Infos/index.jsx',
         '../react/InfosCarrousel/index.jsx',
         '../react/LoadMore/index.jsx',
@@ -89,7 +93,6 @@ module.exports = {
         '../react/MidEllipsis/index.jsx',
         '../react/CozyDialogs',
         '../react/Dialog',
-        '../react/OrderedList/index.jsx',
         '../react/Table/index.jsx',
         '../react/Typography/index.jsx',
         '../react/Tooltip/index.jsx',
@@ -107,15 +110,19 @@ module.exports = {
     },
     {
       name: 'List',
-      components: () => ['../react/ListItemText/index.jsx']
+      components: () => [
+        '../react/MuiCozyTheme/List',
+        '../react/ListItemText/index.jsx',
+        '../react/OrderedList/index.jsx'
+      ]
     },
     {
       name: 'Navigation',
       components: () => [
         '../react/ActionMenu/index.jsx',
+        '../react/MuiCozyTheme/Menus',
         '../react/AppLinker/index.jsx',
         '../react/Breadcrumbs/index.jsx',
-        '../react/Menu/index.jsx',
         '../react/Tabs/index.jsx',
         '../react/NavigationList/index.jsx'
       ]
@@ -139,24 +146,10 @@ module.exports = {
       ]
     },
     {
-      name: 'Material-UI',
-      components: () => [
-        '../react/MuiCozyTheme/Buttons',
-        '../react/MuiCozyTheme/ExpansionPanel',
-        '../react/MuiCozyTheme/Grid',
-        '../react/MuiCozyTheme/index.jsx',
-        '../react/MuiCozyTheme/List',
-        '../react/MuiCozyTheme/Menus',
-        '../react/MuiCozyTheme/RaisedList',
-        '../react/MuiCozyTheme/TextField'
-      ]
-    },
-    {
       name: 'Labs',
       components: () => [
         '../react/Labs/GridItem',
         '../react/Labs/IconGrid',
-        '../react/Labs/CollectionField',
         '../react/Labs/PasswordInput'
       ]
     },
@@ -175,10 +168,13 @@ module.exports = {
     {
       name: 'Deprecated',
       components: () => [
+        '../react/Menu/index.jsx',
         '../react/Modal/index.jsx',
         '../react/Text/index.jsx',
+        '../react/MuiCozyTheme/RaisedList',
         '../react/CompositeRow/index.jsx',
         '../react/InlineCard/index.jsx',
+        '../react/PercentageLine/index.jsx'
       ]
     }
   ],
