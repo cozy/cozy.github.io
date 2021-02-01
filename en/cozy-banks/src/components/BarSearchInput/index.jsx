@@ -1,6 +1,7 @@
 import React, { useRef, useCallback } from 'react'
 import cx from 'classnames'
 import Icon from 'cozy-ui/transpiled/react/Icon'
+import IconButton from '@material-ui/core/IconButton'
 import styles from './styles.styl'
 
 import MagnifierIcon from 'cozy-ui/transpiled/react/Icons/Magnifier'
@@ -30,7 +31,9 @@ const BarSearchInput = ({
   return (
     <div onClick={onClick} className={styles.InputWrapper}>
       <BarSearchIcon className={styles.SearchIcon}>
-        <Icon icon={MagnifierIcon} className="u-ml-half" />
+        <IconButton className="u-ml-half">
+          <Icon icon={MagnifierIcon} />
+        </IconButton>
       </BarSearchIcon>
       <input
         ref={inputRef}

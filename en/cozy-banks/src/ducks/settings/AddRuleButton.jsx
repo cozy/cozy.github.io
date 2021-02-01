@@ -1,21 +1,19 @@
 import React from 'react'
-import styles from './Rules.styl'
-import cx from 'classnames'
-import Button from 'cozy-ui/transpiled/react/Button'
-
+import Button from 'cozy-ui/transpiled/react/MuiCozyTheme/Buttons'
 import PlusIcon from 'cozy-ui/transpiled/react/Icons/Plus'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 
 const AddRuleButton = ({ label, busy, onClick }) => (
   <Button
-    className={cx('u-ml-1 u-mb-0', styles.AddRuleButton)}
-    theme="subtle"
-    icon={<Icon icon={PlusIcon} />}
+    color="primary"
+    className="u-mt-half u-mb-0"
     size="small"
     label={label}
-    busy={busy}
+    disabled={busy}
     onClick={onClick}
-  />
+  >
+    <Icon icon={PlusIcon} className="u-mr-half" /> {label}
+  </Button>
 )
 
 export default AddRuleButton

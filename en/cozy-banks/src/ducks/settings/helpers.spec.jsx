@@ -1,15 +1,17 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import fixtures from 'test/fixtures/unit-tests.json'
-import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
+import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
 import AppLike from 'test/AppLike'
+import CozyClient from 'cozy-client'
 import { createClientWithData } from 'test/client'
 
 import {
   fetchSettings,
   withAccountOrGroupLabeller,
   getWarningLimitsPerAccount,
-  reverseIndex
+  reverseIndex,
+  disableOutdatedNotifications
 } from './helpers'
 
 describe('defaulted settings', () => {
@@ -160,5 +162,60 @@ describe('getWarningLimitsPerAccount', () => {
     expect(warningLimits['comptegene1']).toBe(75)
     // isa4 is not in the isabelle group
     expect(warningLimits['compteisa4']).toBe(10)
+  })
+})
+
+describe('remove account from notifications', () => {
+  it('should remove account from notifications when an account is deleted', async () => {
+    jest.spyOn(console, 'info').mockImplementation(() => {})
+    const client = new CozyClient()
+    const account = {
+      _type: 'io.cozy.bank.accounts',
+      _id: 'compteisa1'
+    }
+    const oldSettings = {
+      _rev: 'rev-1',
+      ...fixtures[SETTINGS_DOCTYPE][0]
+    }
+    client.stackClient.collection = jest.fn().mockImplementation(doctype => {
+      let data
+      if (doctype === SETTINGS_DOCTYPE) {
+        data = [oldSettings]
+      } else if ((doctype = ACCOUNT_DOCTYPE)) {
+        data = [{ _id: 'compteisa1', _type: ACCOUNT_DOCTYPE, deleted: true }]
+      } else {
+        return []
+      }
+      return {
+        all: jest.fn().mockResolvedValue({ data })
+      }
+    })
+    client.save = jest.fn()
+    const disabledNotifs = await disableOutdatedNotifications(client, account)
+    expect(client.save).toHaveBeenCalledWith(
+      expect.objectContaining({
+        notifications: expect.objectContaining({
+          balanceLower: [
+            expect.objectContaining({
+              id: 0,
+              enabled: false,
+              accountOrGroup: null,
+              value: 100
+            })
+          ]
+        })
+      })
+    )
+    expect(disabledNotifs).toEqual([
+      {
+        accountOrGroup: {
+          _id: 'compteisa1',
+          _type: 'io.cozy.bank.accounts'
+        },
+        enabled: true,
+        id: 0,
+        value: 100
+      }
+    ])
   })
 })

@@ -1,16 +1,17 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import get from 'lodash/get'
 import sortBy from 'lodash/sortBy'
 
 import { useI18n } from 'cozy-ui/transpiled/react'
-import Button from 'cozy-ui/transpiled/react/Button'
+import Button from 'cozy-ui/transpiled/react/MuiCozyTheme/Buttons'
 import Icon from 'cozy-ui/transpiled/react/Icon'
+import Typography from 'cozy-ui/transpiled/react/Typography'
+import PlusIcon from 'cozy-ui/transpiled/react/Icons/Plus'
 import { groupsConn, accountsConn } from 'doctypes'
 import { queryConnect, isQueryLoading, hasQueryBeenLoaded } from 'cozy-client'
 
 import Table, { Cell, Row } from 'components/Table'
 import Loading from 'components/Loading'
-import plus from 'assets/icons/16/plus.svg'
 import styles from 'ducks/settings/GroupsSettings.styl'
 import { useRouter } from 'components/RouterContext'
 import { getGroupLabel } from 'ducks/groups/helpers'
@@ -53,7 +54,7 @@ const GroupList = ({ groups }) => {
       </tbody>
     </Table>
   ) : (
-    <p>{t('Groups.no-groups')}</p>
+    <Typography variant="body1">{t('Groups.no-groups')}</Typography>
   )
 }
 
@@ -64,6 +65,12 @@ const Groups = props => {
   useTrackPage('parametres:groupes')
 
   const { groups } = props
+
+  const sortedGroups = useMemo(
+    () => sortBy(groups.data.filter(x => x), getGroupLabel),
+    [groups]
+  )
+
   if (isQueryLoading(groups) && !hasQueryBeenLoaded(groups)) {
     return <Loading />
   }
@@ -72,14 +79,15 @@ const Groups = props => {
     <div
       className={LegalMention.active ? (isMobile ? 'u-mv-1' : '') : 'u-mb-1'}
     >
-      <GroupList groups={sortBy(groups.data.filter(x => x), 'label')} />
+      <GroupList groups={sortedGroups} />
       <p>
         <Button
-          icon={<Icon icon={plus} className="u-mr-half" />}
-          label={t('Groups.create')}
+          color="primary"
           theme="text"
           onClick={() => router.push('/settings/groups/new')}
-        />
+        >
+          <Icon icon={PlusIcon} className="u-mr-half" /> {t('Groups.create')}
+        </Button>
       </p>
     </div>
   )

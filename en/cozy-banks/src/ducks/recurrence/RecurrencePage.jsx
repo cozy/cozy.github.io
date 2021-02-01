@@ -19,6 +19,8 @@ import Empty from 'cozy-ui/transpiled/react/Empty'
 import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
 import Breadcrumbs from 'cozy-ui/transpiled/react/Breadcrumbs'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import IconButton from '@material-ui/core/IconButton'
+
 import Loading from 'components/Loading'
 import Padded from 'components/Padded'
 import {
@@ -44,11 +46,11 @@ import { BarTitle } from 'components/Title/PageTitle'
 import TransactionsTableHead from 'ducks/transactions/header/TableHead'
 
 import { BarRight } from 'components/Bar'
-import { BarButton, ActionMenu } from 'cozy-ui/transpiled/react'
-import {
+import ActionMenu, {
   ActionMenuItem,
   ActionMenuRadio
 } from 'cozy-ui/transpiled/react/ActionMenu'
+
 import styles from './styles.styl'
 import * as List from 'components/List'
 import useToggle from 'components/useToggle'
@@ -285,11 +287,9 @@ const BundleInfo = ({ bundle }) => {
           <BackButton theme="primary" onClick={goToRecurrenceRoot} />
           <BarTitle>{getLabel(bundle)}</BarTitle>
           <BarRight>
-            <BarButton
-              className={styles.BarRightButton}
-              icon="dots"
-              onClick={showActionsMenu}
-            />
+            <IconButton className="u-mr-half" onClick={showActionsMenu}>
+              <Icon icon={DotsIcon} />
+            </IconButton>
           </BarRight>
           {showingActionsMenu ? (
             <RecurrenceActionMenu

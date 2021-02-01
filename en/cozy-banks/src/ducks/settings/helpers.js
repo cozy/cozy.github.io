@@ -3,9 +3,10 @@ import flatMap from 'lodash/flatMap'
 import groupBy from 'lodash/groupBy'
 import get from 'lodash/get'
 import merge from 'lodash/merge'
+import mapValues from 'lodash/mapValues'
 import { DOCTYPE, DEFAULTS_SETTINGS } from 'ducks/settings/constants'
 import logger from 'cozy-logger'
-import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
+import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
 import { Q } from 'cozy-client'
 import { connect } from 'react-redux'
 import { getDocumentFromState } from 'cozy-client/dist/store'
@@ -176,4 +177,62 @@ export const markdownBold = str => {
   return str.replace(boldRx, function(a) {
     return '<b>' + a.slice(1, -1) + '</b>'
   })
+}
+
+/**
+ * Remove outdated accounts or groups from notifications
+ *
+ * Notifications that are attached to a group or an account are disabled
+ *
+ * Returns all the notifications that have been disabled
+ */
+export const disableOutdatedNotifications = async client => {
+  // Refresh accounts and groups
+  await client.queryAll(Q(ACCOUNT_DOCTYPE))
+  await client.queryAll(Q(GROUP_DOCTYPE))
+
+  const settingsCollection = client.stackClient.collection(SETTINGS_DOCTYPE)
+  const allSettings = await settingsCollection.all()
+  const notifSettings = getDefaultedSettingsFromCollection(allSettings)
+  if (!notifSettings._rev) {
+    // eslint-disable-next-line no-console
+    console.info(
+      'No need to update notification settings, settings have not been saved yet'
+    )
+    return
+  }
+
+  let updates = []
+  const updatedSettings = { ...notifSettings }
+  updatedSettings.notifications = mapValues(
+    notifSettings.notifications,
+    (notifOptions, notifName) => {
+      const cleanNotifOption = notifOption => {
+        const notifAccountOrGroup = notifOption.accountOrGroup
+        if (!notifAccountOrGroup) {
+          return notifOption
+        }
+        const doctype = notifAccountOrGroup._type
+        const doc = client.getDocumentFromState(
+          doctype,
+          notifAccountOrGroup._id
+        )
+
+        if (!doc || doc.deleted) {
+          // eslint-disable-next-line no-console
+          console.info(
+            `Disabling notification ${notifName}:${notifOption.id} since ${doctype} has been removed`
+          )
+          updates.push(notifOption)
+          return { ...notifOption, accountOrGroup: null, enabled: false }
+        }
+        return notifOption
+      }
+      return Array.isArray(notifOptions)
+        ? notifOptions.map(cleanNotifOption)
+        : cleanNotifOption(notifOptions)
+    }
+  )
+  await client.save(updatedSettings)
+  return updates
 }

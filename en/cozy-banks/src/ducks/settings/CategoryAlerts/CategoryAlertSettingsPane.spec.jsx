@@ -1,13 +1,10 @@
-import { mount } from 'enzyme'
+import { render, fireEvent } from '@testing-library/react'
 import { createClientWithData } from 'test/client'
 import React from 'react'
 import AppLike from 'test/AppLike'
-import { Button } from 'cozy-ui/transpiled/react'
 import CategoryAlertSettingsPane from './CategoryAlertSettingsPane'
-import CategoryAlertCard from './CategoryAlertCard'
 import { SETTINGS_DOCTYPE } from 'doctypes'
 import { act } from 'react-dom/test-utils'
-import EditionModal from 'components/EditionModal'
 
 describe('category alert settings pane', () => {
   const setup = ({ categoryBudgetAlerts }) => {
@@ -25,8 +22,11 @@ describe('category alert settings pane', () => {
       }
     })
 
-    const root = mount(
-      <AppLike client={client}>
+    const fakeRouter = {
+      getCurrentLocation: jest.fn()
+    }
+    const root = render(
+      <AppLike client={client} router={fakeRouter}>
         <CategoryAlertSettingsPane />
       </AppLike>
     )
@@ -37,44 +37,59 @@ describe('category alert settings pane', () => {
     const { root, client } = setup({
       categoryBudgetAlerts: [{ id: 0, categoryId: '400600', maxThreshold: 100 }]
     })
+    const { getByText, getByRole, queryByRole } = root
+
     client.save = jest.fn()
-    expect(root.find(CategoryAlertCard).length).toBe(1)
-    const btn = root.find(Button)
-    act(() => {
-      btn.props().onClick()
-    })
-    root.update()
-    const editionModal = root.find(EditionModal)
-    const { onEdit } = editionModal.props()
-    await act(async () => {
-      await onEdit({
-        categoryId: '400610',
-        maxThreshold: 200
-      })
-    })
-    root.update()
-    expect(root.find(CategoryAlertCard).length).toBe(2)
-    expect(root.text()).toContain('200€')
-    expect(root.text()).toContain('Health expenses')
+    getByText('Monthly budget of')
+    getByText('100€')
+    getByText('Others : Health')
+    getByText('for all accounts')
+
+    expect(queryByRole('dialog')).toBeFalsy()
+
+    fireEvent.click(getByText('Create alert'))
+
+    const dialog = getByRole('dialog')
+    expect(dialog).toBeTruthy()
+
+    fireEvent.click(getByText('Supermarket'))
+    fireEvent.click(getByText('Education, training'))
+    await fireEvent.click(getByText('Tuition'))
+
+    const input = root.getByDisplayValue('100')
+    fireEvent.change(input, { target: { value: 200 } })
+
+    const btns = root.getAllByText('Create alert')
+    await act(async () => await fireEvent.click(btns[1]))
+
+    expect(getByText('200€'))
+    expect(getByText('Tuition'))
   })
 
-  it('should update an alert', () => {
+  it('should update an alert', async () => {
     const { root, client } = setup({
-      categoryBudgetAlerts: [{ id: 0, categoryId: '400600', maxThreshold: 100 }]
+      categoryBudgetAlerts: [{ id: 0, categoryId: '400600', maxThreshold: 120 }]
     })
+    const { getByText } = root
     client.save = jest.fn()
-    expect(root.find(CategoryAlertCard).length).toBe(1)
-    const card = root.find(CategoryAlertCard)
-    const { updateAlert } = card.props()
-    act(() => {
-      updateAlert({
-        id: 0,
-        categoryId: '400610',
-        maxThreshold: 200
-      })
+
+    const card = getByText('Monthly budget of')
+    getByText('120€')
+    getByText('Others : Health')
+    getByText('for all accounts')
+
+    await fireEvent.click(card)
+    fireEvent.click(root.getAllByText('Others : Health')[1])
+    fireEvent.click(getByText('Health'))
+    fireEvent.click(getByText('Health insurance'))
+
+    const input = root.getByDisplayValue('120')
+    await fireEvent.change(input, { target: { value: 250 } })
+    await act(async () => {
+      await fireEvent.click(getByText('Update alert'))
     })
-    expect(root.find(CategoryAlertCard).length).toBe(1)
-    expect(root.text()).toContain('200€')
-    expect(root.text()).toContain('Health expenses')
+    expect(root.queryByText('120€')).toBeFalsy()
+    expect(root.getByText('250€'))
+    expect(root.getByText('Health insurance'))
   })
 })

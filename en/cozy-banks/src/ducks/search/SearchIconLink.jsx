@@ -1,17 +1,22 @@
 import React from 'react'
+import IconButton from '@material-ui/core/IconButton'
+
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
-import cx from 'classnames'
-import styles from './SearchIconLink.styl'
-import { BarRight } from 'components/Bar'
-
 import MagnifierIcon from 'cozy-ui/transpiled/react/Icons/Magnifier'
+
+import cx from 'classnames'
+import { BarRight } from 'components/Bar'
 
 const SearchIconLink = ({ className }) => {
   return (
-    <a className={cx(styles.Icon, className)} href="#/search">
+    <IconButton
+      component="a"
+      href="#/search"
+      className={cx('u-mr-half', className)}
+    >
       <Icon icon={MagnifierIcon} />
-    </a>
+    </IconButton>
   )
 }
 

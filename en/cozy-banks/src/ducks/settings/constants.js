@@ -38,16 +38,7 @@ export const DEFAULTS_SETTINGS = {
         enabled: false,
         value: 2
       }
-    ],
-    salaire: {
-      enabled: false
-    },
-    hebdo: {
-      enabled: false
-    },
-    mensuel: {
-      enabled: false
-    }
+    ]
   },
   categoryBudgetAlerts: [],
   billsMatching: {

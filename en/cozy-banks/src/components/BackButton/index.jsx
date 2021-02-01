@@ -2,12 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styles from 'components/BackButton/style.styl'
 import withBackSwipe from 'utils/backSwipe'
+import IconButton from '@material-ui/core/IconButton'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
 import arrowLeft from 'assets/icons/icon-arrow-left.svg'
 import cx from 'classnames'
 import { BarLeft } from 'components/Bar'
+import { useRouter } from 'components/RouterContext'
 
 export const BackIcon = () => {
   const theme = useCozyTheme()
@@ -22,26 +24,23 @@ export const BackIcon = () => {
   )
 }
 
-export const BackLink = ({ className, onClick }) => (
-  <a className={cx(styles.BackArrow, className)} onClick={onClick}>
+export const BackButton = ({ className, onClick, ...props }) => (
+  <IconButton
+    className={cx(styles.BackArrow, className)}
+    onClick={onClick}
+    {...props}
+  >
     <BackIcon />
-  </a>
-)
-
-export const BackButton = ({ className, onClick }) => (
-  <button className={cx(styles.BackArrow, className)} onClick={onClick}>
-    <BackIcon />
-  </button>
+  </IconButton>
 )
 
 export const BarBackButton = ({ onClick }) => {
   const { isMobile } = useBreakpoints()
   return isMobile ? (
     <BarLeft>
-      <BackButton
-        className={cx(styles.BackArrow, 'coz-bar-btn coz-bar-burger')}
-        onClick={onClick}
-      />
+      <div className="u-pl-half">
+        <BackButton className="coz-bar-btn coz-bar-burger" onClick={onClick} />
+      </div>
     </BarLeft>
   ) : null
 }
@@ -55,7 +54,8 @@ export const BarBackButton = ({ onClick }) => {
  * <BackButton to={ '/settings' } />
  * ```
  */
-const MobileAwareBackButton = ({ onClick, to, router, arrow = false }) => {
+const MobileAwareBackButton = ({ onClick, to, arrow = false }) => {
+  const router = useRouter()
   const { isMobile } = useBreakpoints()
   const location = router.getCurrentLocation()
   if (!onClick && !to) {
@@ -69,7 +69,7 @@ const MobileAwareBackButton = ({ onClick, to, router, arrow = false }) => {
   return isMobile ? (
     <BarBackButton onClick={handleClick} />
   ) : (
-    arrow && <BackLink onClick={handleClick} />
+    arrow && <BackButton onClick={handleClick} />
   )
 }
 

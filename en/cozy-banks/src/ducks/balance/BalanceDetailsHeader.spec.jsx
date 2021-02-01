@@ -1,6 +1,5 @@
 import React from 'react'
 import { mount } from 'enzyme'
-import PropTypes from 'prop-types'
 import { DumbBalanceDetailsHeader } from './BalanceDetailsHeader'
 import BarBalance from 'components/BarBalance'
 import AppLike from 'test/AppLike'
@@ -25,23 +24,16 @@ jest.mock('cozy-ui/transpiled/react/hooks/useBreakpoints', () => ({
 const setup = options => {
   const { props, breakpoints } = options
   useBreakpoints.mockReturnValue(breakpoints)
+  const router = {
+    ...mockRouter,
+    getCurrentLocation: () => ({
+      pathname: '/'
+    })
+  }
   return mount(
-    <AppLike>
+    <AppLike router={router}>
       <DumbBalanceDetailsHeader filteredAccounts={[]} {...props} />
-    </AppLike>,
-    {
-      context: {
-        router: {
-          ...mockRouter,
-          getCurrentLocation: () => ({
-            pathname: '/'
-          })
-        }
-      },
-      childContextTypes: {
-        router: PropTypes.object
-      }
-    }
+    </AppLike>
   )
 }
 

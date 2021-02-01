@@ -10,27 +10,25 @@ import {
   useCozyDialog,
   DialogCloseButton
 } from 'cozy-ui/transpiled/react/CozyDialogs'
-import IconButton from 'cozy-ui/transpiled/react/IconButton'
 
 import Stepper from 'components/Stepper'
+import { DialogSections } from 'components/DialogSections'
+import useConfirmation from 'components/useConfirmation'
+import { BackButton } from 'components/BackButton'
 
 import { CategoryChoice } from 'ducks/categories'
 import AccountGroupChoice from 'ducks/settings/CategoryAlerts/AccountGroupChoice'
-
-import { DialogSections } from 'components/DialogSections'
-import AccountOrGroupSection from './AccountOrGroupSection'
-import CategorySection from './CategorySection'
-import ThresholdSection from './ThresholdSection'
-import NumberSection from './NumberSection'
-import resultWithArgs from 'utils/resultWithArgs'
-import useConfirmation from 'components/useConfirmation'
-
-import { BackIcon } from 'components/BackButton'
 import {
   useTrackPage,
   useTracker,
   trackParentPage
 } from 'ducks/tracking/browser'
+
+import AccountOrGroupSection from './AccountOrGroupSection'
+import CategorySection from './CategorySection'
+import ThresholdSection from './ThresholdSection'
+import NumberSection from './NumberSection'
+import resultWithArgs from 'utils/resultWithArgs'
 
 export const CHOOSING_TYPES = {
   category: 'category',
@@ -46,14 +44,11 @@ const TYPES_WITH_SELECTOR = {
   account: true
 }
 
-const BackArrow = ({ onClick }) => (
-  <IconButton
-    style={{ marginLeft: '-0.5rem' }}
-    className="u-mr-half"
-    onClick={onClick}
-  >
-    <BackIcon color="var(--coolGrey)" />
-  </IconButton>
+const style = { marginLeft: '-0.5rem', marginRight: '0.5rem' }
+const iconButtonProps = { edge: 'start', style, className: 'u-coolGrey' }
+
+const DialogBackButton = ({ onClick }) => (
+  <BackButton {...iconButtonProps} onClick={onClick} style={style} />
 )
 
 const SectionsPerType = {
@@ -208,10 +203,15 @@ const EditionModalFooter = props => {
   )
 }
 
-const dialogTitleStyle = { maxHeight: 48, boxSizing: 'border-box' }
+const ChoosingSlide = ({ choosing }) => {
+  return <div>{choosing ? <ChoosingSwitch choosing={choosing} /> : null}</div>
+}
+
+const dialogTitleMobileStyle = { maxHeight: 48, boxSizing: 'border-box' }
 
 const EditionModal = props => {
   const { t } = useI18n()
+  const { isMobile } = useBreakpoints()
   const {
     fieldSpecs,
     fieldLabels,
@@ -293,9 +293,11 @@ const EditionModal = props => {
       <DialogTitle
         {...dialogTitleProps}
         className="u-flex u-flex-row u-flex-items-center"
-        style={dialogTitleStyle}
+        style={isMobile ? dialogTitleMobileStyle : null}
       >
-        {choosing ? <BackArrow onClick={() => setChoosing(null)} /> : null}
+        {choosing ? (
+          <DialogBackButton onClick={() => setChoosing(null)} />
+        ) : null}
         {t(modalTitle)}
       </DialogTitle>
       <Stepper
@@ -311,7 +313,7 @@ const EditionModal = props => {
           onRequestChooseField={handleRequestChooseField}
           onChangeField={handleChangeField}
         />
-        <div>{choosing ? <ChoosingSwitch choosing={choosing} /> : null}</div>
+        <ChoosingSlide choosing={choosing} />
       </Stepper>
       {choosing ? null : (
         <EditionModalFooter

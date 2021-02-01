@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { translate } from 'cozy-ui/transpiled/react/I18n'
-import Button from 'cozy-ui/transpiled/react/Button'
+import Button from 'cozy-ui/transpiled/react/MuiCozyTheme/Buttons'
 
 import {
   queryConnect,
@@ -205,9 +205,12 @@ export class Configuration extends React.Component {
         {flag('banks.transfers.need-personal-information') ? (
           <Section title={t('Settings.personal-info.title')}>
             <Button
-              label={t('Settings.personal-info.edit')}
+              color="primary"
+              variant="contained"
               onClick={() => this.setState({ showPersonalInfoDialog: true })}
-            />
+            >
+              {t('Settings.personal-info.edit')}
+            </Button>
             {this.state.showPersonalInfoDialog ? (
               <PersonalInfoDialog
                 onSaveSuccessful={() => {
