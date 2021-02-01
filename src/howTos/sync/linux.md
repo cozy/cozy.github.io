@@ -7,16 +7,13 @@ summary: And synchronize your Cozy data with your desktop
 
 To ease the use of Cozy Drive on any distribution, we distribute the application using the [AppImage](https://appimage.org/) format. This way, you have nothing to install, just download the application and run it.
 
-We provide packages for both [32 bits](https://nuts.cozycloud.cc/download/channel/stable/32) and [64 bits](https://nuts.cozycloud.cc/download/channel/stable/64) systems. All you have to do is download the file, move it to some dedicated folder, make it executable and run it.
+We provide packages for [64 bits](https://nuts.cozycloud.cc/download/channel/stable/64) systems. All you have to do is download the file, move it to some dedicated folder, make it executable and run it.
 
 _[List of known to work distributions](https://cozy-labs.github.io/cozy-desktop/doc/usage/linux#supported-distributions)_
 
 ## Detailed instructions on Gnome
 
-Click on one of these links to download Cozy Drive for your OS:
-
-- [Cozy Drive for GNU/Linux 32 bits](https://nuts.cozycloud.cc/download/channel/stable/32);
-- [Cozy Drive for GNU/Linux 64 bits](https://nuts.cozycloud.cc/download/channel/stable/64);
+Click on this link to download [Cozy Drive for GNU/Linux 64 bits](https://nuts.cozycloud.cc/download/channel/stable/64).
 
 Once the binary file downloaded, go to the folder where your browser has stored it. For example, if you use Firefox, click on the folder icon in the download list.
 
