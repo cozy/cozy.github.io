@@ -5,23 +5,21 @@ import Checkbox from 'cozy-ui/transpiled/react/Checkbox'
 import Button from 'cozy-ui/transpiled/react/Button'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import Stack from 'cozy-ui/transpiled/react/Stack'
-import { Title as UITitle, SubTitle } from 'cozy-ui/transpiled/react/Text'
 import flag, { FlagSwitcher } from 'cozy-flags'
 import { withClient } from 'cozy-client'
 import { isMobileApp } from 'cozy-device-helper'
-import cx from 'classnames'
 import { getNotificationToken } from 'ducks/client/utils'
 import { pinSettingStorage, lastInteractionStorage } from 'ducks/pin/storage'
 
-const Title = ({ className, ...props }) => (
-  <UITitle {...props} className={cx(className, 'u-mb-1')} />
-)
+import Typography from 'cozy-ui/transpiled/react/Typography'
 
 const Versions = () => {
   const versions = typeof __VERSIONS__ !== 'undefined' ? __VERSIONS__ : {}
   return (
     <div>
-      <Title>Library versions</Title>
+      <Typography variant="h4" gutterBottom>
+        Library versions
+      </Typography>
       {Object.entries(versions).map(([pkg, version]) => (
         <div key={pkg}>
           {pkg}: {version} -{' '}
@@ -76,7 +74,7 @@ const DeviceToken = ({ client }) => {
   const notificationToken = getNotificationToken(client)
   return (
     <>
-      <SubTitle>Device token</SubTitle>
+      <Typography variant="h5">Device token</Typography>
       <p>
         {notificationToken
           ? notificationToken
@@ -160,7 +158,9 @@ class DumbDebugSettings extends React.PureComponent {
           <a href="#/search">Search</a>
         </div>
         <div>
-          <Title>Misc</Title>
+          <Typography variant="h4" gutterBottom>
+            Misc
+          </Typography>
           <Checkbox
             defaultChecked={noAccountChecked}
             label="Display no account page"
@@ -173,18 +173,22 @@ class DumbDebugSettings extends React.PureComponent {
           />
         </div>
         <div>
-          <Title>Client info</Title>
-          <SubTitle>URI</SubTitle>
+          <Typography variant="h4" gutterBottom>
+            Client info
+          </Typography>
+          <Typography variant="h5">URI</Typography>
           <p>{client.stackClient.uri}</p>
           {client.stackClient.oauthOptions ? (
             <>
-              <SubTitle>OAuth document id</SubTitle>
+              <Typography variant="h5">OAuth document id</Typography>
               <p>{client.stackClient.oauthOptions.clientID}</p>
             </>
           ) : null}
         </div>
         <div>
-          <Title>Notifications</Title>
+          <Typography variant="h4" gutterBottom>
+            Notifications
+          </Typography>
           {isMobileApp() ? <DeviceToken client={client} /> : null}
           Route:{' '}
           <select
@@ -202,7 +206,9 @@ class DumbDebugSettings extends React.PureComponent {
           />
         </div>
         <div>
-          <Title>Services</Title>
+          <Typography variant="h4" gutterBottom>
+            Services
+          </Typography>
           <ServiceButton client={client} name="autogroups" />
           <ServiceButton client={client} name="stats" />
           <ServiceButton client={client} name="categorization" />
@@ -210,11 +216,15 @@ class DumbDebugSettings extends React.PureComponent {
           <ServiceButton client={client} name="budgetAlerts" />
         </div>
         <div>
-          <Title>Flags</Title>
+          <Typography variant="h4" gutterBottom>
+            Flags
+          </Typography>
           <FlagSwitcher.List />
         </div>
         <div>
-          <Title>Pin</Title>
+          <Typography variant="h4" gutterBottom>
+            Pin
+          </Typography>
           Setting doc cache
           <br />
           <pre>{JSON.stringify(pinSettingStorage.load(), null, 2)}</pre>
