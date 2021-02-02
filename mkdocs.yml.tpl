@@ -44,15 +44,15 @@ nav:
 - Libraries:
   - Develop an application:
     - Access data (client): <cozy-client>
-    - Build a UI (ui): <cozy-ui>
+    - Build the user interface (ui): <cozy-ui>
     - Define data (doctypes): <cozy-doctypes>
-    - Advanced:
-      - Realtime data (realtime): <cozy-realtime>
-      - Native devices (device-helper): <cozy-device-helper>
+    - Realtime data (realtime): <cozy-realtime>
+    - Native devices (device-helper): <cozy-device-helper>
   - Develop a konnector:
     - Scrape data (konnector-libs): <cozy-konnector-libs>
     - konitor: <konitor>
   - Publish on the store (app-publish): <cozy-app-publish>
+  - Send notifications (cozy-notifications): <cozy-notifications>
   - Dev tools:
     - Babel preset: <babel-preset-cozy-app>
     - Commitlint: <commitlint-config-cozy>
