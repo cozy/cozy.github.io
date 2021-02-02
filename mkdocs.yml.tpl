@@ -48,9 +48,7 @@ nav:
     - Define data (doctypes): <cozy-doctypes>
     - Realtime data (realtime): <cozy-realtime>
     - Native devices (device-helper): <cozy-device-helper>
-  - Develop a konnector:
-    - Scrape data (konnector-libs): <cozy-konnector-libs>
-    - konitor: <konitor>
+  - Develop a konnector: <cozy-konnector-libs>
   - Publish on the store (app-publish): <cozy-app-publish>
   - Send notifications (cozy-notifications): <cozy-notifications>
   - Dev tools:
