@@ -100,7 +100,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#what-is-cozymetadata" tabindex="1" class="md-skip">
+      <a href="#options-for-cozy-client" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -877,22 +877,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-is-cozymetadata" title="What is cozyMetadata?" class="md-nav__link">
-    What is cozyMetadata?
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cozy-client-helper" title="Cozy-Client helper" class="md-nav__link">
-    Cozy-Client helper
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-is-automated-and-what-is-not" title="What is automated and what is not" class="md-nav__link">
-    What is automated and what is not
+  <a href="#options-for-cozy-client" title="Options for cozy-client" class="md-nav__link">
+    Options for cozy-client
   </a>
   
     <nav class="md-nav">
@@ -2654,22 +2640,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-is-cozymetadata" title="What is cozyMetadata?" class="md-nav__link">
-    What is cozyMetadata?
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cozy-client-helper" title="Cozy-Client helper" class="md-nav__link">
-    Cozy-Client helper
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-is-automated-and-what-is-not" title="What is automated and what is not" class="md-nav__link">
-    What is automated and what is not
+  <a href="#options-for-cozy-client" title="Options for cozy-client" class="md-nav__link">
+    Options for cozy-client
   </a>
   
     <nav class="md-nav">
@@ -2715,8 +2687,7 @@
                 
                   <h1>cozyMetadata maintenance</h1>
                 
-                <h2 id="what-is-cozymetadata">What is cozyMetadata?<a class="headerlink" href="#what-is-cozymetadata" title="Permanent link">&para;</a></h2>
-<p>Cozy documents have a <a href="https://github.com/cozy/cozy-doctypes/tree/master/docs#document-metadata"><code>cozyMetadata</code></a> block with metadata about the document, like its schema version, its creation date, its source, etc.</p>
+                <p>Cozy documents have a <a href="https://github.com/cozy/cozy-doctypes/tree/master/docs#document-metadata"><code>cozyMetadata</code></a> block with metadata about the document, like its schema version, its creation date, its source, etc.</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;xxxx&quot;</span><span class="p">,</span>
   <span class="nt">&quot;cozyMetadata&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -2739,25 +2710,47 @@
 </pre></div>
 
 
-<h2 id="cozy-client-helper">Cozy-Client helper<a class="headerlink" href="#cozy-client-helper" title="Permanent link">&para;</a></h2>
+<h2 id="options-for-cozy-client">Options for cozy-client<a class="headerlink" href="#options-for-cozy-client" title="Permanent link">&para;</a></h2>
 <p>This cozyMetadata block is managed by the apps themselves. Cozy-Client is able to manage some parts of cozyMetadata automatically. For this it needs an <code>appMetadata</code> parameter with a few informations:</p>
 <ul>
 <li><code>slug</code>: the slug of the app or connector (will be used in <code>createdByApp</code> and <code>updatedByApps</code>)</li>
 <li><code>version</code>: version of the app (will be used in <code>createdByAppVersion</code> and <code>updatedByApps</code>)</li>
 <li>when in a connector, <code>sourceAccount</code>: the id of the io.cozy.accounts document that triggered the current execution (it will help to know which documents belong or are created by which account)</li>
 </ul>
-<h2 id="what-is-automated-and-what-is-not">What is automated and what is not<a class="headerlink" href="#what-is-automated-and-what-is-not" title="Permanent link">&para;</a></h2>
-<p>If you provide an <code>appMetadata</code>(and only if you provide it):</p>
+<div class="codehilite"><pre><span></span>const client = new CozyClient({
+  appMetadata: {
+    slug: &#39;banks&#39;,
+    version: &#39;1.27.1&#39;
+  }
+})
+</pre></div>
+
+
+<p>When you provide this information, cozy-client will automatically update metadata when it saves a document.</p>
 <h3 id="for-new-documents">For new documents<a class="headerlink" href="#for-new-documents" title="Permanent link">&para;</a></h3>
-<p>Cozy-Client will set the default for: </p>
+<p>Cozy-Client will set: </p>
 <ul>
-<li><code>metadataVersion</code> to the last version known to Cozy-Client. It&rsquo;s the version of the schema for the metadata block itself.</li>
-<li><code>doctypeVersion</code> if it&rsquo;s provided in the <code>schema</code> at the Cozy-Client initialization.</li>
-<li><code>slug</code> of your app</li>
-<li><code>sourceAccount</code></li>
+<li><code>metadataVersion</code> <string>: to the last version known to Cozy-Client. It&rsquo;s the version of the schema for the metadata block itself.</li>
+<li><code>doctypeVersion</code> <string>: if it&rsquo;s provided in the <code>schema</code> at Cozy-Client initialization</li>
+<li><code>slug</code> <string>: Slug of the app</li>
+<li><code>sourceAccount</code>: </li>
 <li>creation date, app and version</li>
 <li>updated date, app and version</li>
 </ul>
+<div class="codehilite"><pre><span></span>const client = new CozyClient({
+  appMetadata: {
+    slug: &#39;banks&#39;,
+    version: &#39;1.27.1&#39;
+  },
+  schema: {
+    bankAccounts: {
+      doctypeVersion: &#39;1.0.0&#39;
+    }
+  }
+})
+</pre></div>
+
+
 <p>If any of these fields already exists in the document you try to save, these values will override the defaults. This allows you to import a document with an existing history.</p>
 <h3 id="for-existing-documents">For existing documents<a class="headerlink" href="#for-existing-documents" title="Permanent link">&para;</a></h3>
 <p>Cozy-Client will:</p>
