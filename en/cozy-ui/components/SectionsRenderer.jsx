@@ -7,7 +7,6 @@ export default class SectionsRenderer extends Component {
     return (
       <>
         <DefaultSectionsRenderer>{this.props.children}</DefaultSectionsRenderer>
-        <IconSprite />
       </>
     )
   }
