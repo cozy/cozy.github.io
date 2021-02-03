@@ -87,3 +87,9 @@ markdown_extensions:
 extra:
   search:
     tokenizer: "[^a-z\u0430-\u044F\u04510-9\\-\\.]"
+plugins:
+    - search
+    - exclude:
+        glob:
+          - "cozy-stack/archives/*"
+
