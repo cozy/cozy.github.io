@@ -4353,13 +4353,19 @@ permissions as the konnector launched by the trigger will be granted the
 permissions to delete the trigger, even without permissions on the
 <code>io.cozy.triggers</code> doctype.</p>
 <h3 id="get-jobstriggers">GET /jobs/triggers<a class="headerlink" href="#get-jobstriggers" title="Permanent link">&para;</a></h3>
-<p>Get the list of triggers. This route only accept <code>Worker</code> query parameters and returns the trigger but also in <code>attributes</code> its <code>current_state</code> (the same <code>current_state</code> returned by <a href="jobs/#get-jobstriggerstrigger-id">GET /jobs/triggers/:trigger-id</a>). Be warned that <code>/data/io.cozy.triggers/_find</code> does not return this <code>current_state</code> attribute and you&rsquo;ll need to query <code>/jobs/triggers/:trigger-id</code> to have it.</p>
-<p>Query parameters:</p>
+<p>Get the list of triggers. This route only accept <code>Worker</code> and <code>Type</code> query
+parameters and returns the trigger but also in <code>attributes</code> its <code>current_state</code>
+(the same <code>current_state</code> returned by <a href="jobs/#get-jobstriggerstrigger-id">GET
+/jobs/triggers/:trigger-id</a>). Be warned that
+<code>/data/io.cozy.triggers/_find</code> does not return this <code>current_state</code> attribute
+and you&rsquo;ll need to query <code>/jobs/triggers/:trigger-id</code> to have it.</p>
+<p>Query parameters (with comma-separated values):</p>
 <ul>
+<li><code>Type</code>: to filter on the trigger type (<code>@cron</code>, <code>@in</code>, etc.)</li>
 <li><code>Worker</code>: to filter only triggers associated with a specific worker.</li>
 </ul>
 <h4 id="request_11">Request<a class="headerlink" href="#request_11" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/jobs/triggers?Worker=konnector</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/jobs/triggers?Worker=konnector&amp;Type=@cron,@in,@at</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </pre></div>
 
