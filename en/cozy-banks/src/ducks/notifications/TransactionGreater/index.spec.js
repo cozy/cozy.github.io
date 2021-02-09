@@ -45,7 +45,10 @@ describe('transaction greater', () => {
   } = {}) => {
     const cozyUrl = 'http://cozy.tools:8080'
     const client = new CozyClient({
-      uri: cozyUrl
+      uri: cozyUrl,
+      appMetadata: {
+        slug: 'io.cozy.banks'
+      }
     })
     const locales = {}
 
@@ -91,6 +94,7 @@ describe('transaction greater', () => {
     await notification.buildData()
     expect(notification.getExtraAttributes()).toEqual({
       data: {
+        source: 'io.cozy.banks',
         route: '/balances/details'
       }
     })
@@ -105,7 +109,8 @@ describe('transaction greater', () => {
     await notification2.buildData()
     expect(notification2.getExtraAttributes()).toEqual({
       data: {
-        route: '/balances/compteisa1/details'
+        route: '/balances/compteisa1/details',
+        source: 'io.cozy.banks'
       }
     })
   })

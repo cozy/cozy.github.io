@@ -10,6 +10,7 @@ import { BankAccount } from 'cozy-doctypes'
 import map from 'lodash/map'
 import groupBy from 'lodash/groupBy'
 import keyBy from 'lodash/keyBy'
+import merge from 'lodash/merge'
 import { getAccountNewBalance } from 'ducks/notifications/helpers'
 import { getCurrentDate } from 'ducks/notifications/utils'
 import template from './template.hbs'
@@ -135,11 +136,11 @@ class DelayedDebit extends NotificationView {
   }
 
   getExtraAttributes() {
-    return {
+    return merge(super.getExtraAttributes(), {
       data: {
         route: '/balances'
       }
-    }
+    })
   }
 
   getTitle(templateData) {

@@ -13,6 +13,7 @@ import { toText } from 'cozy-notifications'
 import uniqBy from 'lodash/uniqBy'
 import flatten from 'lodash/flatten'
 import overEvery from 'lodash/overEvery'
+import merge from 'lodash/merge'
 import groupBy from 'lodash/groupBy'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 
@@ -165,15 +166,16 @@ class TransactionGreater extends NotificationView {
   }
 
   getExtraAttributes() {
+    const attributes = super.getExtraAttributes()
     const accountIds = Object.keys(groupBy(this.transactions, x => x.account))
-    return {
+    return merge(attributes, {
       data: {
         route:
           accountIds.length == 1
             ? `/balances/${accountIds[0]}/details`
             : `/balances/details`
       }
-    }
+    })
   }
 
   getNotificationSubtype(templateData) {

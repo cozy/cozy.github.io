@@ -10,11 +10,14 @@ import { Settings } from 'models'
 
 import logger from 'cozy-logger'
 
+import appMetadata from 'ducks/client/appMetadata'
+
 const log = logger.namespace('service')
 
 export const runService = async service => {
   const client = CozyClient.fromEnv(process.env, {
-    schema
+    schema,
+    appMetadata
   })
   Document.registerClient(client)
 

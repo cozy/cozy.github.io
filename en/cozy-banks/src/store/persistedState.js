@@ -29,8 +29,7 @@ export const persistState = store => {
     saveState({
       filters: {
         filteringDoc: store.getState().filters.filteringDoc
-      },
-      mobile: store.getState().mobile
+      }
     })
   )
 }

@@ -6,6 +6,7 @@ import { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
 export const Row = ({ nav, ...props }) => {
   return (
     <tr
+      role="row"
       {...props}
       className={cx(styles.Table__Row, nav && styles['Table__Row--nav'])}
     >
@@ -17,6 +18,7 @@ export const Row = ({ nav, ...props }) => {
 export const Cell = ({ main, children, ...props }) => {
   return (
     <td
+      role="cell"
       {...props}
       className={cx(
         props.className,

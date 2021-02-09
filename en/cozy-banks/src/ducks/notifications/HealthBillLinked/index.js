@@ -2,6 +2,8 @@ import NotificationView from 'ducks/notifications/BaseNotificationView'
 import { isHealthExpense } from 'ducks/categories/helpers'
 import { Bill } from 'models'
 import keyBy from 'lodash/keyBy'
+import merge from 'lodash/merge'
+
 import log from 'cozy-logger'
 import {
   treatedByFormat,
@@ -92,11 +94,11 @@ class HealthBillLinked extends NotificationView {
   }
 
   getExtraAttributes() {
-    return {
+    return merge(super.getExtraAttributes(), {
       data: {
         route: '/transactions'
       }
-    }
+    })
   }
 
   getTitle() {

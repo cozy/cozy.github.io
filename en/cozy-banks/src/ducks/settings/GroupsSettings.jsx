@@ -67,8 +67,8 @@ const Groups = props => {
   const { groups } = props
 
   const sortedGroups = useMemo(
-    () => sortBy(groups.data.filter(x => x), getGroupLabel),
-    [groups]
+    () => sortBy(groups.data.filter(x => x), group => getGroupLabel(group, t)),
+    [groups.data, t]
   )
 
   if (isQueryLoading(groups) && !hasQueryBeenLoaded(groups)) {

@@ -1,5 +1,6 @@
 import sumBy from 'lodash/sumBy'
 import keyBy from 'lodash/keyBy'
+import merge from 'lodash/merge'
 
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import NotificationView from 'ducks/notifications/BaseNotificationView'
@@ -148,11 +149,11 @@ class CategoryBudget extends NotificationView {
   }
 
   getExtraAttributes() {
-    return {
+    return merge(super.getExtraAttributes(), {
       data: {
         route: '/analysis/categories'
       }
-    }
+    })
   }
 }
 

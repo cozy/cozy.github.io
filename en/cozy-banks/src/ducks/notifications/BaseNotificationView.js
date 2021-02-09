@@ -1,6 +1,6 @@
 import { NotificationView } from 'cozy-notifications'
 import { generateUniversalLink } from 'cozy-ui/transpiled/react/AppLinker'
-
+import get from 'lodash/get'
 import bankLayout from './bank-layout.hbs'
 import { helpers } from './index'
 
@@ -46,6 +46,14 @@ class BaseNotificationView extends NotificationView {
   getPartials() {
     return {
       'bank-layout': bankLayout
+    }
+  }
+
+  getExtraAttributes() {
+    return {
+      data: {
+        source: get(this.client, 'appMetadata.slug')
+      }
     }
   }
 }

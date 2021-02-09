@@ -3,6 +3,7 @@ import flatten from 'lodash/flatten'
 import uniqBy from 'lodash/uniqBy'
 import groupBy from 'lodash/groupBy'
 import map from 'lodash/map'
+import merge from 'lodash/merge'
 import log from 'cozy-logger'
 import { getAccountBalance } from 'ducks/account/helpers'
 import { getCurrencySymbol } from 'utils/currencySymbol'
@@ -120,11 +121,11 @@ class BalanceLower extends NotificationView {
   }
 
   getExtraAttributes() {
-    return {
+    return merge(super.getExtraAttributes(), {
       data: {
         route: '/balances'
       }
-    }
+    })
   }
 
   getTitle(templateData) {

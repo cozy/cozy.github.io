@@ -124,7 +124,7 @@ class KonnectorAlertNotification extends NotificationView {
   }
 
   getExtraAttributes() {
-    const attributes = {}
+    const attributes = super.getExtraAttributes()
     const flagNow = flag('banks.konnector-alerts.schedule-now')
     if (!flagNow) {
       const date = getScheduleDate()
