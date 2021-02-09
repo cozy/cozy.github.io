@@ -60,7 +60,7 @@ nav:
     - Stack server: <cozy-stack>
     - Registry server: <cozy-apps-registry>
 - Applications:
-  - Cozy Banks: <cozy-banks>
+  - Cozy Apps: applications/index.md
 theme:
   custom_dir: cozy-theme
   name: material
