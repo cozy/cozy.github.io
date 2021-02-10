@@ -1,4 +1,4 @@
-import React, { memo, Fragment } from 'react'
+import React, { Fragment, memo } from 'react'
 import PropTypes from 'prop-types'
 import compose from 'lodash/flowRight'
 import { withStyles } from '@material-ui/core/styles'
@@ -60,12 +60,12 @@ const createPanelsState = types => {
 }
 
 const AccountsImporting = ({ classes, konnectorInfos }) => {
-  const { t } = useI18n()
   const types = ['Checkings', 'Savings']
 
   const groups = createGroups(types, konnectorInfos)
   const panelsState = createPanelsState(types)
 
+  const hasRunning = konnectorInfos.some(k => k.status === 'running')
   return (
     <Fragment>
       <BarTheme theme="primary" />
@@ -80,15 +80,7 @@ const AccountsImporting = ({ classes, konnectorInfos }) => {
               total={0}
               symbol="€"
             />
-            <LinearProgress
-              className={styles.progress}
-              classes={{
-                colorPrimary: classes.linearColorPrimary,
-                barColorPrimary: classes.linearBarColorPrimary
-              }}
-            />
-            <div className={styles.text}>{t('Balance.importing-accounts')}</div>
-            <div className={styles.text}>{t('Balance.delay')}</div>
+            {hasRunning && <ImportInProgress classes={classes} />}
           </Padded>
         </VerticalBox>
       </Header>
@@ -100,6 +92,23 @@ const AccountsImporting = ({ classes, konnectorInfos }) => {
         />
       </Padded>
     </Fragment>
+  )
+}
+
+const ImportInProgress = ({ classes }) => {
+  const { t } = useI18n()
+  return (
+    <>
+      <LinearProgress
+        className={styles.progress}
+        classes={{
+          colorPrimary: classes.linearColorPrimary,
+          barColorPrimary: classes.linearBarColorPrimary
+        }}
+      />
+      <div className={styles.text}>{t('Balance.importing-accounts')}</div>
+      <div className={styles.text}>{t('Balance.delay')}</div>
+    </>
   )
 }
 
