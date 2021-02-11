@@ -1,4 +1,5 @@
 import FlagStore from './store'
+import { Q } from 'cozy-client'
 
 const store = new FlagStore()
 
@@ -63,7 +64,7 @@ export const enable = flagsToEnable => {
 export const initializeFromRemote = async client => {
   const {
     data: { attributes }
-  } = await client.query(client.get('io.cozy.settings', 'flags'))
+  } = await client.query(Q('io.cozy.settings').getById('flags'))
   enable(attributes)
 }
 
