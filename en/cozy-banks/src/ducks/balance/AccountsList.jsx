@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { useClient } from 'cozy-client'
 import sortBy from 'lodash/sortBy'
@@ -43,9 +43,14 @@ export const AccountsList = props => {
     [filterByDoc, router]
   )
 
+  const sortedAndFilteredAccounts = useMemo(
+    () => getSortedAccounts(group, accounts).filter(a => a.status !== 'done'),
+    [group, accounts]
+  )
+
   return (
     <List>
-      {getSortedAccounts(group, accounts).map((a, i) => {
+      {sortedAndFilteredAccounts.map((a, i) => {
         const switchState = switches[a._id]
         const component = a.loading ? (
           // When loading, a._id is the slug of the connector and can be non-unique, this is why we concat the index

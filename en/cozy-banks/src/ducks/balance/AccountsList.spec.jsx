@@ -24,7 +24,7 @@ const setup = ({ group, accounts }) => {
   const router = { push: jest.fn() }
   const filterByDoc = jest.fn()
   client.ensureStore()
-  const { container } = render(
+  const root = render(
     <AppLike client={client} store={client.store}>
       <AccountsList
         router={router}
@@ -39,10 +39,10 @@ const setup = ({ group, accounts }) => {
     </AppLike>
   )
 
-  const elements = [...container.querySelectorAll('[id]')]
+  const elements = [...root.container.querySelectorAll('[id]')]
   const ids = elements.map(el => el.id)
 
-  return ids
+  return { ids, root }
 }
 
 describe('AccountsList', () => {
@@ -61,7 +61,7 @@ describe('AccountsList', () => {
     }
 
     it('should render accounts by ascending balance', () => {
-      const ids = setup({ group, accounts })
+      const { ids } = setup({ group, accounts })
       expect(ids).toEqual(['a2', 'a3', 'a1'])
     })
   })
@@ -82,8 +82,29 @@ describe('AccountsList', () => {
     }
 
     it('should render accounts in their actual order', () => {
-      const ids = setup({ group, accounts })
+      const { ids } = setup({ group, accounts })
       expect(ids).toEqual(['a1', 'a2', 'a3'])
     })
+  })
+
+  it('should render accounts which has not done status (case when importing data)', () => {
+    const accounts = [
+      { _id: 'a1', label: 'Account 1', balance: 1000, status: 'done' },
+      { _id: 'a2', label: 'Account 2', balance: -200 },
+      { _id: 'a3', label: 'Account 3', balance: 500, status: 'done' }
+    ]
+
+    const group = {
+      _id: 'Reimbursements',
+      virtual: true,
+      accounts: {
+        data: accounts
+      }
+    }
+
+    const { root } = setup({ group, accounts })
+    expect(root.queryByText('Account 1')).toBeFalsy()
+    expect(root.getByText('Account 2')).toBeTruthy()
+    expect(root.queryByText('Account 3')).toBeFalsy()
   })
 })

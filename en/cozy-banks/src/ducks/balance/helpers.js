@@ -190,3 +190,5 @@ export const getPanelsState = (groups, currentPanelsState) => {
 
   return switchesState
 }
+
+export const isVirtualAccount = a => a.virtual

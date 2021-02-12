@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import IntentExample from '../react/IntentOpener/IntentExample'
+import IntentExample from './components/IntentExample'
 import translations from './fixtures/en.json'
 import get from 'lodash/get'
 

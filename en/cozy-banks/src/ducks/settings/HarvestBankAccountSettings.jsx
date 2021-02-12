@@ -18,6 +18,11 @@ import { TrackingContext as HarvestTrackingContext } from 'cozy-harvest-lib/dist
 
 import { useTracker } from 'ducks/tracking/browser'
 import HarvestSwitch from './HarvestSwitch'
+import {
+  COZY_ACCOUNT_DOCTYPE,
+  TRIGGER_DOCTYPE,
+  KONNECTOR_DOCTYPE
+} from 'doctypes'
 
 const HarvestSpinner = () => {
   return (
@@ -41,7 +46,7 @@ const fetchPolicy = CozyClient.fetchPolicies.olderThan(30 * 1000)
 const HarvestLoader = ({ connectionId, children }) => {
   return (
     <Query
-      query={() => Q('io.cozy.accounts').getById(connectionId)}
+      query={() => Q(COZY_ACCOUNT_DOCTYPE).getById(connectionId)}
       as={`accounts/${connectionId}`}
       fetchPolicy={fetchPolicy}
     >
@@ -58,8 +63,8 @@ const HarvestLoader = ({ connectionId, children }) => {
           const konnectorSlug = account.account_type
           return (
             <Query
-              query={Q('io.cozy.konnectors').getById(
-                `io.cozy.konnectors/${konnectorSlug}`
+              query={Q(KONNECTOR_DOCTYPE).getById(
+                `${KONNECTOR_DOCTYPE}/${konnectorSlug}`
               )}
               as={`konnectors/${connectionId}`}
               fetchPolicy={fetchPolicy}
@@ -80,7 +85,7 @@ const HarvestLoader = ({ connectionId, children }) => {
                 // used by cozy-client when all triggers are fetched
                 // Related issue : https://github.com/cozy/cozy-client/issues/767
                 return (
-                  <Query query={Q('io.cozy.triggers')} as="triggers">
+                  <Query query={Q(TRIGGER_DOCTYPE)} as="triggers">
                     {({ data: allTriggers, fetchStatus, lastUpdate }) => {
                       const triggers = allTriggers.filter(trigger => {
                         return (

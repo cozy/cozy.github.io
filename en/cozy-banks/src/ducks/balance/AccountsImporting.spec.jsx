@@ -44,14 +44,12 @@ describe('Importing Accounts', () => {
     const { root } = setup({
       konnectorInfos
     })
-    expect(root.getAllByRole('progressbar').length).toEqual(5)
-    expect(root.getAllByText('Importing accounts').length).toEqual(5)
+    expect(root.getAllByRole('progressbar').length).toEqual(3)
+    expect(root.getAllByText('Importing accounts').length).toEqual(3)
     expect(root.getByText('This may take a few minutes…')).toBeTruthy()
   })
 
-  // In reality, it should not be displayed
-  // Issue: https://github.com/cozy/cozy-banks/issues/2003
-  it('should display only 2 import in progress', () => {
+  it('should not display import in progress', () => {
     const { root } = setup({
       konnectorInfos: [
         {
@@ -61,8 +59,8 @@ describe('Importing Accounts', () => {
       ]
     })
 
-    expect(root.getAllByRole('progressbar').length).toEqual(2)
-    expect(root.getAllByText('Importing accounts').length).toEqual(2)
+    expect(root.queryAllByRole('progressbar').length).toEqual(0)
+    expect(root.queryByText('Importing accounts')).toBeFalsy()
     expect(root.queryByText('This may take a few minutes…')).toBeFalsy()
   })
 })

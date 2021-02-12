@@ -1,10 +1,14 @@
-import { shallow, mount } from 'enzyme'
+import { mount, shallow } from 'enzyme'
+import AppLike from 'test/AppLike'
 import getClient from 'test/client'
+import fixtures from 'test/fixtures'
+import Loading from 'components/Loading'
+import NoAccount from './NoAccount'
+import AccountsImporting from './AccountsImporting'
+
 const React = require('react')
 const { DumbBalance } = require('./Balance')
 const debounce = require('lodash/debounce')
-import fixtures from 'test/fixtures'
-import Loading from 'components/Loading'
 
 jest.mock('lodash/debounce', () => jest.fn(fn => fn))
 
@@ -220,6 +224,66 @@ describe('Balance page', () => {
           )
         )
       ).toBe(false)
+    })
+
+    it('should show no account', () => {
+      const triggers = [
+        {
+          attributes: {
+            message: {
+              konnector: 'americanexpress',
+              account: 'account'
+            },
+            current_state: {
+              status: 'test'
+            }
+          }
+        }
+      ]
+      const wrapper = mount(
+        <DumbBalance
+          accounts={fakeCollection('io.cozy.bank.accounts', [])}
+          groups={fakeCollection('io.cozy.bank.groups', [])}
+          settings={fakeCollection('io.cozy.bank.settings', [])}
+          transactions={fakeCollection('io.cozy.bank.operations', [])}
+          {...commonProps}
+          triggers={fakeCollection(
+            'io.cozy.bank.triggers',
+            triggers,
+            'loading'
+          )}
+        />
+      )
+      expect(wrapper.find(NoAccount)).toHaveLength(1)
+    })
+
+    it('should show importing accounts', () => {
+      const triggers = [
+        {
+          attributes: {
+            message: {
+              konnector: 'americanexpress',
+              account: 'account'
+            },
+            current_state: {
+              status: 'running'
+            }
+          }
+        }
+      ]
+      const wrapper = mount(
+        <AppLike client={getClient()}>
+          <DumbBalance
+            accounts={fakeCollection('io.cozy.bank.accounts', [])}
+            groups={fakeCollection('io.cozy.bank.groups', [])}
+            settings={fakeCollection('io.cozy.bank.settings', [])}
+            transactions={fakeCollection('io.cozy.bank.operations', [])}
+            {...commonProps}
+            triggers={fakeCollection('io.cozy.bank.triggers', triggers)}
+          />
+        </AppLike>
+      )
+      expect(wrapper.find(AccountsImporting)).toHaveLength(1)
     })
   })
 })
