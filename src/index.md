@@ -30,7 +30,7 @@ Find guides for developing apps and connectors and for self-hosting.
   </a>
 </div>
 
-## Cozy Apps Documentation
+## Projects Documentation
 
 <div class="horizontal-list">
   <a href="cozy-banks">
@@ -48,9 +48,9 @@ Find guides for developing apps and connectors and for self-hosting.
     <p>Cozy UI</p>
   </a>
 
-  <a href="applications">
-    <img src="assets/images/home/icon-cozy.png" alt="More Apps" />
-    <p>More Apps ...</p>
+  <a href="projects">
+    <img src="assets/images/home/icon-cozy.png" alt="More Projects" />
+    <p>More Projects ...</p>
   </a>
 </div>
 

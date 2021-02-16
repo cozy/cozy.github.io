@@ -1,4 +1,4 @@
-# Cozy Apps
+# Projects
 
 <div class="horizontal-list">
   <a href="/cozy-app-publish">
