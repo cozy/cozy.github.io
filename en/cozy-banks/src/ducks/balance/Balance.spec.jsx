@@ -1,7 +1,6 @@
 import { mount, shallow } from 'enzyme'
 import AppLike from 'test/AppLike'
 import getClient from 'test/client'
-import fixtures from 'test/fixtures'
 import Loading from 'components/Loading'
 import NoAccount from './NoAccount'
 import AccountsImporting from './AccountsImporting'
@@ -77,16 +76,18 @@ describe('Balance page', () => {
       expect(instance.startRealtimeFallback).toHaveBeenCalled()
       expect(instance.startRealtimeFallback).toHaveBeenCalled()
     })
-    it('should stop periodic data fetch if there are accounts', () => {
-      const accounts = fixtures['io.cozy.bank.accounts']
-      const { instance } = setup({ accountsData: accounts })
 
-      jest.spyOn(instance, 'startRealtimeFallback')
-      jest.spyOn(instance, 'stopRealtimeFallback')
-      instance.ensureListenersProperlyConfigured()
-      expect(instance.startRealtimeFallback).not.toHaveBeenCalled()
-      expect(instance.stopRealtimeFallback).toHaveBeenCalled()
-    })
+    // See issue #2009 https://github.com/cozy/cozy-banks/issues/2009
+    // it('should stop periodic data fetch if there are accounts', () => {
+    //   const accounts = fixtures['io.cozy.bank.accounts']
+    //   const { instance } = setup({ accountsData: accounts })
+    //
+    //   jest.spyOn(instance, 'startRealtimeFallback')
+    //   jest.spyOn(instance, 'stopRealtimeFallback')
+    //   instance.ensureListenersProperlyConfigured()
+    //   expect(instance.startRealtimeFallback).not.toHaveBeenCalled()
+    //   expect(instance.stopRealtimeFallback).toHaveBeenCalled()
+    // })
 
     it('should correctly start realtime fallback', () => {
       const { instance } = setup()

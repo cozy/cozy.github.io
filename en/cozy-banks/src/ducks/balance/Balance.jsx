@@ -27,6 +27,7 @@ import {
   cronKonnectorTriggersConn,
   accountsConn,
   ACCOUNT_DOCTYPE,
+  GROUP_DOCTYPE,
   TRIGGER_DOCTYPE,
   TRANSACTION_DOCTYPE,
   transactionsConn
@@ -60,7 +61,8 @@ const syncPouchImmediately = async client => {
 const REALTIME_DOCTYPES = [
   ACCOUNT_DOCTYPE,
   TRIGGER_DOCTYPE,
-  TRANSACTION_DOCTYPE
+  TRANSACTION_DOCTYPE,
+  GROUP_DOCTYPE
 ]
 
 const isLoading = props => {
@@ -239,6 +241,7 @@ class Balance extends PureComponent {
     this.props.accounts.fetch()
     this.props.transactions.fetch()
     this.props.triggers.fetch()
+    this.props.groups.fetch()
   }
 
   handleResume() {
@@ -295,17 +298,10 @@ class Balance extends PureComponent {
       return
     }
 
-    const accounts = accountsCollection.data
-
-    if (accounts.length > 0) {
-      this.stopRealtime()
-      this.stopRealtimeFallback()
-      this.stopResumeListeners()
-    } else {
-      this.startRealtime()
-      this.startRealtimeFallback()
-      this.startResumeListeners()
-    }
+    // See issue #2009 https://github.com/cozy/cozy-banks/issues/2009
+    this.startRealtime()
+    this.startRealtimeFallback()
+    this.startResumeListeners()
   }
 
   /**

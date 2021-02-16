@@ -2,9 +2,11 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { checkApp, DRIVE_INFO } from 'ducks/mobile/appAvailability'
-import IntentOpener from 'cozy-ui/transpiled/react/IntentOpener'
+
 import { withClient } from 'cozy-client'
+import IntentDialogOpener from 'cozy-ui/transpiled/react/IntentDialogOpener'
+
+import { checkApp, DRIVE_INFO } from 'ducks/mobile/appAvailability'
 
 const buildAppURL = (cozyURL, app, hash) => {
   const splitted = cozyURL.split('/')
@@ -54,18 +56,16 @@ class FileOpener extends Component {
     const createIntent = client.intents.create.bind(client.intents)
 
     return (
-      <IntentOpener
+      <IntentDialogOpener
+        fullScreen
+        showCloseButton={false}
         action="OPEN"
         create={createIntent}
         doctype="io.cozy.files"
         options={{ id: fileId }}
-        onComplete={() => {}}
-        onDismiss={() => {}}
-        into="body"
-        size="xxlarge"
       >
         {children}
-      </IntentOpener>
+      </IntentDialogOpener>
     )
   }
 }
