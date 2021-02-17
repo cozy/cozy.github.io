@@ -4,6 +4,7 @@ import getClient from 'test/client'
 import Loading from 'components/Loading'
 import NoAccount from './NoAccount'
 import AccountsImporting from './AccountsImporting'
+import fixtures from 'test/fixtures'
 
 const React = require('react')
 const { DumbBalance } = require('./Balance')
@@ -67,6 +68,36 @@ describe('Balance page', () => {
   })
 
   describe('data fetching', () => {
+    const setupWithFetch = ({ accountDoctypes }) => {
+      const mockProps = doctypes => {
+        const data = fixtures[doctypes] || []
+        return {
+          data,
+          fetch: jest.fn().mockResolvedValue({
+            meta: {
+              count: data.length
+            }
+          })
+        }
+      }
+
+      const root = shallow(
+        <DumbBalance
+          accounts={mockProps(accountDoctypes)}
+          virtualAccounts={[]}
+          groups={mockProps('io.cozy.bank.groups')}
+          virtualGroups={[]}
+          settings={fakeCollection('io.cozy.bank.settings', [{}])}
+          triggers={mockProps('io.cozy.bank.triggers')}
+          transactions={mockProps('io.cozy.bank.operations')}
+          filterByAccounts={jest.fn()}
+          router={router}
+          client={getClient()}
+        />
+      )
+      const instance = root.instance()
+      return instance
+    }
     it('should start periodic data fetch if no accounts', () => {
       const { instance } = setup()
 
@@ -75,6 +106,36 @@ describe('Balance page', () => {
       instance.ensureListenersProperlyConfigured()
       expect(instance.startRealtimeFallback).toHaveBeenCalled()
       expect(instance.startRealtimeFallback).toHaveBeenCalled()
+    })
+
+    it('should call all fetch when there are accounts', async () => {
+      const instance = setupWithFetch({
+        accountDoctypes: 'io.cozy.bank.accounts'
+      })
+      jest.spyOn(instance, 'updateQueries')
+      instance.updateQueries()
+      expect(instance.updateQueries).toHaveBeenCalled()
+      expect(instance.props.accounts.fetch).toHaveBeenCalled()
+      const resp = await instance.props.accounts.fetch()
+      expect(resp).toEqual({ meta: { count: 7 } })
+      expect(instance.props.groups.fetch).toHaveBeenCalled()
+      expect(instance.props.transactions.fetch).toHaveBeenCalled()
+      expect(instance.props.triggers.fetch).toHaveBeenCalled()
+    })
+
+    it('should call all fetch except groups when there are no accounts', async () => {
+      const instance = setupWithFetch({
+        groupDoctypes: ''
+      })
+      jest.spyOn(instance, 'updateQueries')
+      instance.updateQueries()
+      expect(instance.updateQueries).toHaveBeenCalled()
+      expect(instance.props.accounts.fetch).toHaveBeenCalled()
+      const resp = await instance.props.accounts.fetch()
+      expect(resp).toEqual({ meta: { count: 0 } })
+      expect(instance.props.groups.fetch).not.toHaveBeenCalled()
+      expect(instance.props.transactions.fetch).toHaveBeenCalled()
+      expect(instance.props.triggers.fetch).toHaveBeenCalled()
     })
 
     // See issue #2009 https://github.com/cozy/cozy-banks/issues/2009

@@ -29,7 +29,7 @@ const TriggerErrorCard = ({ index, count, error, className }) => {
     <Infos
       theme="danger"
       className={'u-bdrs-0 u-maw-none u-p-1-half ' + (className || '')}
-      action={<ReconnectTriggerButton trigger={trigger} />}
+      action={<ReconnectTriggerButton trigger={trigger} error={error} />}
       description={
         <>
           <Typography className="u-error" variant="h5">

@@ -238,10 +238,13 @@ class Balance extends PureComponent {
   }
 
   updateQueries() {
-    this.props.accounts.fetch()
+    this.props.accounts.fetch().then(resp => {
+      if (resp.meta.count > 0) {
+        this.props.groups.fetch()
+      }
+    })
     this.props.transactions.fetch()
     this.props.triggers.fetch()
-    this.props.groups.fetch()
   }
 
   handleResume() {
