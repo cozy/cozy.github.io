@@ -30,6 +30,7 @@ import { checkToRefreshToken } from 'utils/token'
 import { makeItShine } from 'utils/display.debug'
 import PinPlugin from 'ducks/pin/plugin'
 import cozyBar from 'utils/cozyBar'
+import { handleOAuthResponse } from 'cozy-harvest-lib'
 
 if (__TARGET__ === 'mobile') {
   require('styles/mobile.styl')
@@ -38,6 +39,7 @@ if (__TARGET__ === 'mobile') {
 let store, client, history, lang, root
 
 const initRender = () => {
+  if (handleOAuthResponse()) return
   const AppContainer = require('./AppContainer').default
   root = render(
     <AppContainer
