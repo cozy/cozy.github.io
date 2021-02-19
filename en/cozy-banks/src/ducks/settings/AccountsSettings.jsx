@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 
 import groupBy from 'lodash/groupBy'
 import sortBy from 'lodash/sortBy'
@@ -36,19 +36,22 @@ import LegalMention from 'ducks/legal/LegalMention'
 
 import RightIcon from 'cozy-ui/transpiled/react/Icons/Right'
 import UnlinkIcon from 'cozy-ui/transpiled/react/Icons/Unlink'
+import { getAccountInstitutionSlug } from '../account/helpers'
 
 const { utils } = models
 
 const AccountListItem = ({ account, onClick, secondary }) => {
+  const konnectorSlug = useMemo(() => {
+    return getAccountInstitutionSlug(account)
+  }, [account])
+
   return (
     <ListItem divider onClick={onClick} className="u-c-pointer">
       <ListItemIcon>
         <AccountIconContainer>
           <KonnectorIcon
             style={{ width: 16, height: 16 }}
-            konnectorSlug={
-              account.cozyMetadata ? account.cozyMetadata.createdByApp : null
-            }
+            konnectorSlug={konnectorSlug}
           />
         </AccountIconContainer>
       </ListItemIcon>
