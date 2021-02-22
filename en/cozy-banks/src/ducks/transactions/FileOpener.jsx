@@ -63,6 +63,14 @@ class FileOpener extends Component {
         create={createIntent}
         doctype="io.cozy.files"
         options={{ id: fileId }}
+        iframeProps={{
+          wrapperProps: {
+            style: { backgroundColor: 'var(--charcoalGrey)' }
+          },
+          spinnerProps: {
+            color: 'white'
+          }
+        }}
       >
         {children}
       </IntentDialogOpener>

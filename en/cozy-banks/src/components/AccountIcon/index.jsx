@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import KonnectorIcon from 'cozy-harvest-lib/dist/components/KonnectorIcon'
 import { getAccountInstitutionSlug } from 'ducks/account/helpers'
 import styles from './styles.styl'
@@ -19,10 +19,7 @@ export const AccountIconContainer = ({ size, children }) => {
 
 /** Displays a konnector icon for an io.cozy.bank.accounts */
 const _AccountIcon = ({ account, className, size }) => {
-  const institutionSlug = useMemo(() => {
-    return getAccountInstitutionSlug(account)
-  }, [account])
-
+  const institutionSlug = getAccountInstitutionSlug(account)
   if (!institutionSlug) {
     return null
   }

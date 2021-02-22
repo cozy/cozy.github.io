@@ -1,7 +1,6 @@
 import {
   getAccountUpdatedAt,
   distanceInWords,
-  getAccountInstitutionSlug,
   getAccountType,
   getAccountBalance,
   buildHealthReimbursementsVirtualAccount,
@@ -425,41 +424,5 @@ describe('buildOthersReimbursementsVirtualAccount', () => {
     expect(buildOthersReimbursementsVirtualAccount(transactions)).toMatchObject(
       expected
     )
-  })
-})
-
-describe('getAccountInstitutionSlug', () => {
-  const updatedApps = [
-    {
-      date: '2021-02-18T16:28:46.247Z',
-      slug: 'maif-nestor'
-    },
-    {
-      date: '2021-02-18T16:35:54.125Z',
-      slug: 'boursorama83'
-    },
-    {
-      date: '2021-02-18T16:30:46.247Z',
-      slug: 'ce'
-    }
-  ]
-  const makeAccount = updatedByApps => ({
-    cozyMetadata: {
-      createdByApp: 'maif-nestor',
-      updatedAt: '2021-02-18T16:33:54.125Z',
-      updatedByApps
-    }
-  })
-  it('should return createdByApp slug', () => {
-    const slug1 = getAccountInstitutionSlug(makeAccount(undefined))
-    expect(slug1).toBe('maif-nestor')
-
-    const slug2 = getAccountInstitutionSlug(makeAccount([]))
-    expect(slug2).toBe('maif-nestor')
-  })
-
-  it('should return the last update slug in updatedByApps', () => {
-    const slug = getAccountInstitutionSlug(makeAccount(updatedApps))
-    expect(slug).toBe('boursorama83')
   })
 })

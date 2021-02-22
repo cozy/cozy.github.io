@@ -8,7 +8,6 @@ import compose from 'lodash/flowRight'
 import overEvery from 'lodash/overEvery'
 import sumBy from 'lodash/sumBy'
 import get from 'lodash/get'
-import sortBy from 'lodash/sortBy'
 
 import { models } from 'cozy-client'
 import {
@@ -107,19 +106,8 @@ export const getAccountType = account => {
   return type
 }
 
-export const getAccountInstitutionSlug = account => {
-  const updatedByApps = get(account, 'cozyMetadata.updatedByApps')
-
-  if (Array.isArray(updatedByApps) && updatedByApps.length > 0) {
-    const sortedByDate = sortBy(
-      updatedByApps,
-      app => new Date(app.date)
-    ).reverse()[0]
-
-    return sortedByDate.slug
-  }
-  return get(account, 'cozyMetadata.createdByApp')
-}
+export const getAccountInstitutionSlug = account =>
+  get(account, 'cozyMetadata.createdByApp')
 
 export const getAccountBalance = account => {
   if (account.type === 'CreditCard' && account.comingBalance) {
