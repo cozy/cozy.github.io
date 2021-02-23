@@ -18,5 +18,6 @@ If you want to go further:
 - [Add Two Factor Authentication to your connector](./2fa.md)
 - [Developing an OAuth connector](./oauth.md)
 - [Use a browser simulation to request the website](./cozy-browser.md)
+- [ENV vars injected by the cozy-stack when running a konnector](https://docs.cozy.io/en/cozy-stack/konnectors-workflow/#execute-the-konnector) 
 
 [Cozy Home]: https://github.com/cozy/cozy-home
