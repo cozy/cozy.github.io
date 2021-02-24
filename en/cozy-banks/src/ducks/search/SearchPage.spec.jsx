@@ -21,6 +21,9 @@ jest.mock('components/Bar', () => ({
 }))
 jest.mock('selectors/getClient', () => jest.fn())
 
+// eslint-disable-next-line no-console
+console.warn = jest.fn()
+
 describe('SearchPage', () => {
   const setup = ({ router: routerOption } = {}) => {
     const defaultRouter = {

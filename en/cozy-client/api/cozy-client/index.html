@@ -854,6 +854,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../timeseries/" title="Using time series" class="md-nav__link">
+      Using time series
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../metadata/" title="Maintenance" class="md-nav__link">
       Maintenance
     </a>
@@ -867,13 +879,13 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-1-1-5" type="checkbox" id="nav-4-1-1-5">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-1-1-6" type="checkbox" id="nav-4-1-1-6">
     
-    <label class="md-nav__link" for="nav-4-1-1-5">
+    <label class="md-nav__link" for="nav-4-1-1-6">
       React
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="4">
-      <label class="md-nav__title" for="nav-4-1-1-5">
+      <label class="md-nav__title" for="nav-4-1-1-6">
         React
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -2492,6 +2504,20 @@
         <li class="md-nav__item">
   <a href="#permission-object" title="Permission : object" class="md-nav__link">
     Permission : object
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timeseries" title="TimeSeries" class="md-nav__link">
+    TimeSeries
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timeseriesjsonapi-timeseriesjsonapi" title="TimeSeriesJSONAPI ⇒ TimeSeriesJSONAPI" class="md-nav__link">
+    TimeSeriesJSONAPI ⇒ TimeSeriesJSONAPI
   </a>
   
 </li>
@@ -5663,6 +5689,20 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#timeseries" title="TimeSeries" class="md-nav__link">
+    TimeSeries
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timeseriesjsonapi-timeseriesjsonapi" title="TimeSeriesJSONAPI ⇒ TimeSeriesJSONAPI" class="md-nav__link">
+    TimeSeriesJSONAPI ⇒ TimeSeriesJSONAPI
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#hydratedquerystate-hydratedquerystate" title="HydratedQueryState ⇒ HydratedQueryState" class="md-nav__link">
     HydratedQueryState ⇒ HydratedQueryState
   </a>
@@ -6095,6 +6135,14 @@ This is not always the case.</p>
 <p>This method is here to tell us if the shortcut&#39;s file is created
 on the recipient&#39;s cozy. It can be used to make an UI distinction between the
 both situation.</p>
+</dd>
+<dt><a href="#TimeSeries">TimeSeries</a></dt>
+<dd><p>Helper to save a time series document.</p>
+</dd>
+<dt><a href="#TimeSeriesJSONAPI">TimeSeriesJSONAPI</a> ⇒ <code><a href="#TimeSeriesJSONAPI">TimeSeriesJSONAPI</a></code></dt>
+<dd><p>Helper to retrieve time series by their date interval and source.</p>
+<p>The starting date must be greater or equal while the ending date must
+be stricly less than the given startDate and endDate parameters.</p>
 </dd>
 <dt><a href="#HydratedQueryState">HydratedQueryState</a> ⇒ <code><a href="#HydratedQueryState">HydratedQueryState</a></code></dt>
 <dd><p>Returns the query from the store with hydrated documents.</p>
@@ -10448,6 +10496,82 @@ both situation.</p>
 <td>included</td>
 <td><code>Array</code></td>
 <td>Member information from the sharing</td>
+</tr>
+</tbody>
+</table>
+<p><a name="TimeSeries"></a></p>
+<h2 id="timeseries">TimeSeries<a class="headerlink" href="#timeseries" title="Permanent link">&para;</a></h2>
+<p>Helper to save a time series document.</p>
+<p><strong>Kind</strong>: global typedef<br />
+<strong>Attributes</strong>: dataType {String} - The type of time series, e.g. &lsquo;electricity&rsquo;<br />
+<strong>Attributes</strong>: startDate {date} - The starting date of the series<br />
+<strong>Attributes</strong>: endType {date} - The starting date of the series<br />
+<strong>Attributes</strong>: source {String} - The data source, e.g. &lsquo;enedis.fr&rsquo;<br />
+<strong>Attributes</strong>: theme {String} - The theme used to group time series, e.g. &lsquo;energy&rsquo;<br />
+<strong>Attributes</strong>: series {Array} - An array of objects representing the time series  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>client</td>
+<td><code>object</code></td>
+<td>The CozyClient instance</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="#TimeSeries"><code>TimeSeries</code></a></td>
+<td>The time series to save</td>
+</tr>
+</tbody>
+</table>
+<p><a name="TimeSeriesJSONAPI"></a></p>
+<h2 id="timeseriesjsonapi-timeseriesjsonapi">TimeSeriesJSONAPI ⇒ <a href="#TimeSeriesJSONAPI"><code>TimeSeriesJSONAPI</code></a><a class="headerlink" href="#timeseriesjsonapi-timeseriesjsonapi" title="Permanent link">&para;</a></h2>
+<p>Helper to retrieve time series by their date interval and source.</p>
+<p>The starting date must be greater or equal while the ending date must
+be stricly less than the given startDate and endDate parameters.</p>
+<p><strong>Kind</strong>: global typedef<br />
+<strong>Returns</strong>: <a href="#TimeSeriesJSONAPI"><code>TimeSeriesJSONAPI</code></a> - The TimeSeries found by the query in JSON-API format  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>client</td>
+<td><code>object</code></td>
+<td>The CozyClient instance</td>
+</tr>
+<tr>
+<td>The</td>
+<td><code>Object</code></td>
+<td>query params.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td><a href="#TimeSeries"><code>Array.&lt;TimeSeries&gt;</code></a></td>
+<td>The JSON-API data response</td>
 </tr>
 </tbody>
 </table>
