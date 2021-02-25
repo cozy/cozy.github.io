@@ -123,7 +123,7 @@ const launchBudgetAlertService = async client => {
   const jobs = client.collection('io.cozy.jobs')
   await jobs.create('service', {
     name: 'budgetAlerts',
-    slug: 'banks'
+    slug: flag('banking.banking-app-slug') || 'banks'
   })
   log('info', 'Budget alert service launched')
 }

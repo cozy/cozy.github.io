@@ -34,7 +34,7 @@ const startAndWaitService = async (client, serviceName) => {
   const jobs = client.collection('io.cozy.jobs')
   const { data: job } = await jobs.create('service', {
     name: serviceName,
-    slug: 'banks'
+    slug: flag('banking.banking-app-slug') || 'banks'
   })
   const finalJob = await jobs.waitFor(job.id)
   if (finalJob.state === 'errored') {

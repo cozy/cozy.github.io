@@ -2,6 +2,7 @@
 
 import { Q } from 'cozy-client'
 import { BankTransaction } from 'cozy-doctypes'
+import flag from 'cozy-flags'
 import chunk from 'lodash/chunk'
 import sortBy from 'lodash/sortBy'
 import { differenceInSeconds } from 'date-fns'
@@ -121,7 +122,7 @@ export const canCategorizeNextChunk = () => {
 export const startService = (client, name) => {
   const args = {
     name,
-    slug: 'banks'
+    slug: flag('banking.banking-app-slug') || 'banks'
   }
   const jobCollection = client.collection('io.cozy.jobs')
   return jobCollection.create('service', args)

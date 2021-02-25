@@ -32,6 +32,8 @@ import PinPlugin from 'ducks/pin/plugin'
 import cozyBar from 'utils/cozyBar'
 import { handleOAuthResponse } from 'cozy-harvest-lib'
 
+import './logger'
+
 if (__TARGET__ === 'mobile') {
   require('styles/mobile.styl')
 }

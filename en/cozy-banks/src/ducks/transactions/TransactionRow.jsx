@@ -110,6 +110,8 @@ const RecurrenceCaption = ({ recurrence }) => {
   )
 }
 
+const showTransactionActions = !flag('banks.transaction-actions.deactivated')
+
 export const RowDesktop = React.memo(function RowDesktop(props) {
   const { t } = useI18n()
   const {
@@ -187,9 +189,11 @@ export const RowDesktop = React.memo(function RowDesktop(props) {
           signed
         />
       </TdSecondary>
-      <TdSecondary className={styles.ColumnSizeAction}>
-        <TransactionActions transaction={transaction} onlyDefault />
-      </TdSecondary>
+      {showTransactionActions && (
+        <TdSecondary className={styles.ColumnSizeAction}>
+          <TransactionActions transaction={transaction} onlyDefault />
+        </TdSecondary>
+      )}
       {transactionModal}
       {categoryModal}
     </tr>
@@ -268,17 +272,19 @@ export const RowMobile = React.memo(function RowMobile(props) {
           </Img>
           {false}
         </Media>
-        <TransactionActions
-          transaction={transaction}
-          onlyDefault
-          compact
-          menuPosition="right"
-          className={cx(
-            'u-mt-half',
-            'u-ml-2-half',
-            styles.TransactionRowMobile__actions
-          )}
-        />
+        {showTransactionActions && (
+          <TransactionActions
+            transaction={transaction}
+            onlyDefault
+            compact
+            menuPosition="right"
+            className={cx(
+              'u-mt-half',
+              'u-ml-2-half',
+              styles.TransactionRowMobile__actions
+            )}
+          />
+        )}
       </ListItem>
       {transactionModal}
     </>
