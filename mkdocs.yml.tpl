@@ -59,8 +59,8 @@ nav:
   - Advanced:
     - Stack server: <cozy-stack>
     - Registry server: <cozy-apps-registry>
-- Applications:
-  - Cozy Banks: <cozy-banks>
+- Projects:
+  - Documentations: projects/index.md
 theme:
   custom_dir: cozy-theme
   name: material
