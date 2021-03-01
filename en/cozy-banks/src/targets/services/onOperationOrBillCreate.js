@@ -193,6 +193,8 @@ const main = async () => {
   attachProcessEventHandlers()
   const client = CozyClient.fromEnv(process.env)
   Document.registerClient(client)
+  client.registerPlugin(flag.plugin)
+  await client.plugins.flags.initializing
   const options = await getOptions(client)
   log('info', 'Options:')
   log('info', JSON.stringify(options))
