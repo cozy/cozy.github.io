@@ -62,7 +62,7 @@ module.exports = {
       components: () => [
         '../react/Circle/index.jsx',
         '../react/MuiCozyTheme/Divider/index.jsx',
-        '../react/MuiCozyTheme/ExpansionPanel',
+        '../react/MuiCozyTheme/Accordion',
         '../react/Hero/index.jsx',
         '../react/hooks/useBreakpoints/index.jsx',
         '../react/Layout/Layout.jsx',
@@ -77,7 +77,6 @@ module.exports = {
     {
       name: 'Content',
       components: () => [
-        '../react/Accordion/index.jsx',
         '../react/AppTitle/index.jsx',
         '../react/Avatar/index.jsx',
         '../react/BottomDrawer/index.jsx',

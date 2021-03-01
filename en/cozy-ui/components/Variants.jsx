@@ -21,7 +21,7 @@ const VariantInfo = ({ variant, onChange }) => {
     <div className="u-m-1">
       {Object.entries(variant).map(([element, value], i) => (
         <React.Fragment key={i}>
-          <Typography component="span" variant="button" className="u-dib">
+          <Typography component="div" variant="button" className="u-db">
             {element}
             <input
               onClick={() => setElement(element, !value)}

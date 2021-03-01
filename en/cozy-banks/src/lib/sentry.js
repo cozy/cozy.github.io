@@ -6,6 +6,14 @@ import { getDomain, getSlug } from 'lib/cozyUrl'
 let domain
 let slug
 
+export const normalizeData = data => {
+  data = normalizeRequestUrl(data)
+  data = normalizeStacktrace(data)
+  data = normalizeBreadcrumbs(data)
+
+  return data
+}
+
 // Configure
 
 export const isSentryEnabled = () => typeof __SENTRY_URL__ !== 'undefined'
@@ -114,14 +122,6 @@ const normalizeBreadcrumbs = data => {
 
     return data
   }
-}
-
-export const normalizeData = data => {
-  data = normalizeRequestUrl(data)
-  data = normalizeStacktrace(data)
-  data = normalizeBreadcrumbs(data)
-
-  return data
 }
 
 // LOG
