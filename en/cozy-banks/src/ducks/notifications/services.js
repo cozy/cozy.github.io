@@ -16,7 +16,7 @@ import get from 'lodash/get'
 const log = logger.namespace('notification-service')
 
 const lang = process.env.COZY_LOCALE || 'en'
-const dictRequire = lang => require(`../../locales/${lang}`)
+const dictRequire = lang => require(`locales/${lang}`)
 const translation = initTranslation(lang, dictRequire)
 const t = translation.t.bind(translation)
 

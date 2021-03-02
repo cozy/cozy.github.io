@@ -34,4 +34,4 @@ export const runService = async service => {
 }
 
 export const lang = process.env.COZY_LOCALE || 'en'
-export const dictRequire = lang => require(`../../locales/${lang}`)
+export const dictRequire = lang => require(`locales/${lang}`)
