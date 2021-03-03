@@ -2148,6 +2148,47 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#get-authconfirm" title="GET /auth/confirm" class="md-nav__link">
+    GET /auth/confirm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-authconfirm" title="POST /auth/confirm" class="md-nav__link">
+    POST /auth/confirm
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#redirection" title="Redirection" class="md-nav__link">
+    Redirection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-time-via-websockets" title="Real-time via websockets" class="md-nav__link">
+    Real-time via websockets
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-authconfirmcode" title="GET /auth/confirm/:code" class="md-nav__link">
+    GET /auth/confirm/:code
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#post-authregister" title="POST /auth/register" class="md-nav__link">
     POST /auth/register
   </a>
@@ -2961,6 +3002,47 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#get-authconfirm" title="GET /auth/confirm" class="md-nav__link">
+    GET /auth/confirm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-authconfirm" title="POST /auth/confirm" class="md-nav__link">
+    POST /auth/confirm
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#redirection" title="Redirection" class="md-nav__link">
+    Redirection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-time-via-websockets" title="Real-time via websockets" class="md-nav__link">
+    Real-time via websockets
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-authconfirmcode" title="GET /auth/confirm/:code" class="md-nav__link">
+    GET /auth/confirm/:code
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#post-authregister" title="POST /auth/register" class="md-nav__link">
     POST /auth/register
   </a>
@@ -3528,6 +3610,51 @@ redirected to his home.</p>
 </pre></div>
 
 
+<h3 id="get-authconfirm">GET /auth/confirm<a class="headerlink" href="#get-authconfirm" title="Permanent link">&para;</a></h3>
+<p>An application can ask the user to re-authenticate them-selves before making an
+important action (like erasing a pin code). To do that, the application will
+sent the user to this page where the stack will show a form.</p>
+<p>Two parameters in the query string can be sent:</p>
+<ul>
+<li><code>state</code> (mandatory), which can be seen as an identifier for the confirmation</li>
+<li><code>redirect</code> (optional), where the user will be redirected after the confirmation.</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/auth/confirm?state=51814f30-5818-0139-9348-543d7eb8149c&amp;redirect=http://banks.cozy.tools:8080/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
+
+
+<p>The application can know the user has confirmed their identity by subscribing
+to a real-time event or by looking at the URL after the redirection. The URL
+must contain the state given by the app, and a code that can be checked by
+calling <code>POST /auth/confirm/code</code> (see below).</p>
+<h3 id="post-authconfirm">POST /auth/confirm<a class="headerlink" href="#post-authconfirm" title="Permanent link">&para;</a></h3>
+<p>Send the hashed password for confirming the authentication.</p>
+<h4 id="redirection">Redirection<a class="headerlink" href="#redirection" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">302</span> <span class="ne">Moved Temporarily</span>
+<span class="na">Location</span><span class="o">:</span> <span class="l">http://banks.cozy.tools:8080/?state=51814f30-5818-0139-9348-543d7eb8149c&amp;code=543d7eb8149c</span>
+</pre></div>
+
+
+<h4 id="real-time-via-websockets">Real-time via websockets<a class="headerlink" href="#real-time-via-websockets" title="Permanent link">&para;</a></h4>
+<p>If it succeeds, a real-time event will be sent:</p>
+<div class="codehilite"><pre><span></span>client &gt; {&quot;method&quot;: &quot;AUTH&quot;,
+          &quot;payload&quot;: &quot;xxAppOrAuthTokenxx=&quot;}
+client &gt; {&quot;method&quot;: &quot;SUBSCRIBE&quot;,
+          &quot;payload&quot;: {&quot;type&quot;: &quot;io.cozy.auth.confirmations&quot;}}
+server &gt; {&quot;event&quot;: &quot;CREATED&quot;,
+          &quot;payload&quot;: {&quot;id&quot;: &quot;51814f30-5818-0139-9348-543d7eb8149c&quot;,
+                      &quot;type&quot;: &quot;io.cozy.auth.confirmations&quot;}}
+</pre></div>
+
+
+<h3 id="get-authconfirmcode">GET /auth/confirm/:code<a class="headerlink" href="#get-authconfirmcode" title="Permanent link">&para;</a></h3>
+<p>Send the code from the URL to check that the user has really confirmed their
+identity (and not just typed the URL them-self).</p>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/auth/confirm/543d7eb8149c</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
+
+
+<p>The response will be a 204 No Content if the code is valid (and a 401 else).</p>
 <h3 id="post-authregister">POST /auth/register<a class="headerlink" href="#post-authregister" title="Permanent link">&para;</a></h3>
 <p>This route is used by OAuth2 clients to dynamically register them-selves.</p>
 <p>See
