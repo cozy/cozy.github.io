@@ -1,4 +1,4 @@
-import manifest from '../../manifest.webapp'
+import manifest from 'ducks/client/manifest'
 
 const getPermissions = () =>
   Object.keys(manifest.permissions).map(

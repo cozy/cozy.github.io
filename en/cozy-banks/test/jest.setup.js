@@ -2,7 +2,7 @@ import { configure, mount, shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import logger from 'cozy-logger'
 import { makeDeprecatedLifecycleMatcher, ignoreOnConditions } from './jestUtils'
-import minilog from 'minilog'
+import minilog from '@cozy/minilog'
 
 // To avoid the errors while creating theme (since no CSS stylesheet
 // defining CSS variables is injected during tests)
@@ -62,6 +62,7 @@ console.warn = ignoreOnConditions(
   Object.values(ignoredWarnings).map(x => x.matcher)
 )
 
+minilog.suggest.deny(/.*/, 'warn')
 minilog.pipe({
   emit: () => {},
   write: function(namespace, level, message) {

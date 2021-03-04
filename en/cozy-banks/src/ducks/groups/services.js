@@ -16,7 +16,26 @@ import { Q } from 'cozy-client'
 
 const log = logger.namespace('auto-groups')
 
+export const removeDuplicateAccountsFromGroups = async client => {
+  const groups = await client.queryAll(Q(GROUP_DOCTYPE))
+  for (let group of groups) {
+    const accounts = group.accounts
+    const uniqueAccounts = Array.from(new Set(group.accounts))
+    if (accounts.length > uniqueAccounts.length) {
+      log(
+        'info',
+        `Removing ${accounts.length -
+          uniqueAccounts.length} duplicate account(s) from group ${group.label}`
+      )
+    }
+    group.accounts = uniqueAccounts
+    await client.save(group)
+  }
+}
+
 export const createAutoGroups = async ({ client }) => {
+  await removeDuplicateAccountsFromGroups(client)
+
   const settings = await fetchSettings(client)
   const groups = await client.queryAll(Q(GROUP_DOCTYPE))
   const accounts = await client.queryAll(Q(ACCOUNT_DOCTYPE))
@@ -58,7 +77,9 @@ export const createAutoGroups = async ({ client }) => {
       if (newAccounts.length > 0) {
         log(
           'info',
-          `Adding ${newAccounts.length} accounts to group ${accountType}`
+          `Adding ${
+            newAccounts.length
+          } accounts to group ${accountType} (${newAccounts.join(', ')})`
         )
 
         await client.save({

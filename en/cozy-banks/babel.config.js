@@ -21,6 +21,8 @@ module.exports = function(api) {
             {
               root: ['./src'],
               alias: {
+                'ducks/client/manifest':
+                  './src/ducks/client/manifest-babel-node',
                 ducks: './src/ducks',
                 'cozy-ui/react': 'cozy-ui/transpiled/react'
               }

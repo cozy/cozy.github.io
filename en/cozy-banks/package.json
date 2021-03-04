@@ -70,7 +70,8 @@
     "secrets:decrypt": "openssl aes-256-cbc -K $ENCRYPTED_KEY -iv $ENCRYPTED_IV -in ./scripts/encrypted.tar.gz.enc -d | tar zxv -C scripts",
     "secrets:encrypt": "tar zcvf ./scripts/decrypted.tar.gz ./scripts/decrypted && travis encrypt-file ./scripts/decrypted.tar.gz ./scripts/encrypted.tar.gz.enc -p",
     "release": "./scripts/release.sh",
-    "service": "BABEL_ENV=cli babel-node --ignore /some-fake-path src/services/cli.js"
+    "service": "BABEL_ENV=cli babel-node --ignore /some-fake-path src/services/cli.js",
+    "service:autogroups": "BABEL_ENV=cli babel-node --ignore /some-fake-path src/targets/services/autogroups.js"
   },
   "husky": {
     "hooks": {

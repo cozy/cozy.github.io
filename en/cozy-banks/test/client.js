@@ -18,6 +18,7 @@ export const getClient = ({ uri, token, fetchJSONReturn } = defaultOptions) => {
     uri,
     token
   })
+  client.ensureStore()
   if (fetchJSONReturn) {
     client.client.fetchJSON = jest.fn().mockReturnValue(fetchJSONReturn)
   }

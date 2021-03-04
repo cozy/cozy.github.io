@@ -24,8 +24,9 @@ const getSortedAccounts = (group, accounts) => {
   }
 }
 
-const mkAccountsSelector = (group, client) => state =>
-  getHydratedAccountsFromGroup(state, group, client)
+const mkAccountsSelector = (group, client) => state => {
+  return getHydratedAccountsFromGroup(state, group, client)
+}
 
 export const AccountsList = props => {
   const client = useClient()
