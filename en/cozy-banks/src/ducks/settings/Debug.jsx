@@ -1,15 +1,19 @@
 /* global __VERSIONS__ */
 
 import React, { useState } from 'react'
+import compose from 'lodash/flowRight'
+
 import Checkbox from 'cozy-ui/transpiled/react/Checkbox'
 import Button from 'cozy-ui/transpiled/react/Button'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import Stack from 'cozy-ui/transpiled/react/Stack'
 import flag, { FlagSwitcher } from 'cozy-flags'
-import { withClient } from 'cozy-client'
+import { withClient, queryConnect } from 'cozy-client'
 import { isMobileApp } from 'cozy-device-helper'
+
 import { getNotificationToken } from 'ducks/client/utils'
 import { pinSettingStorage, lastInteractionStorage } from 'ducks/pin/storage'
+import { accountsConn } from 'doctypes'
 
 import Typography from 'cozy-ui/transpiled/react/Typography'
 
@@ -91,6 +95,9 @@ class DumbDebugSettings extends React.PureComponent {
       notificationRoute: '/balances/details'
     }
     this.onChangeNotificationRoute = this.onChangeNotificationRoute.bind(this)
+    this.onChangeNotificationAccount = this.onChangeNotificationAccount.bind(
+      this
+    )
   }
 
   toggleNoAccount() {
@@ -115,18 +122,23 @@ class DumbDebugSettings extends React.PureComponent {
     const { client } = this.props
 
     try {
+      const { notificationAccountId } = this.state
+      let { notificationRoute } = this.state
+      if (notificationRoute === '/balances/details' && notificationAccountId) {
+        notificationRoute = `/balances/${notificationAccountId}/details`
+      }
       await client.stackClient.fetchJSON('POST', '/notifications', {
         data: {
           type: 'io.cozy.notifications',
           attributes: {
             category: 'transaction-greater',
             title: 'Test notification',
-            message: `It should redirect to ${this.state.notificationRoute}`,
+            message: `It should redirect to ${notificationRoute}`,
             preferred_channels: ['mobile', 'mail'],
             content: 'This is a test notification text content',
             content_html: 'This is a test notification HTML content',
             data: {
-              route: this.state.notificationRoute
+              route: notificationRoute
             }
           }
         }
@@ -142,11 +154,15 @@ class DumbDebugSettings extends React.PureComponent {
     this.setState({ notificationRoute: ev.target.value })
   }
 
+  onChangeNotificationAccount(ev) {
+    this.setState({ notificationAccountId: ev.target.value })
+  }
+
   render() {
     const noAccountChecked = !!flag('balance.no-account')
     const accountLoadingChecked = !!flag('banks.balance.account-loading')
 
-    const { client } = this.props
+    const { client, accounts } = this.props
 
     return (
       <Stack spacing="xl">
@@ -200,6 +216,25 @@ class DumbDebugSettings extends React.PureComponent {
             <option value="/analysis/categories">categories</option>
             <option value="/analysis/recurrence">recurrence</option>
           </select>
+          <br />
+          {this.state.notificationRoute === '/balances/details' ? (
+            <>
+              Sur le compte
+              <select
+                value={this.state.notificationAccountId}
+                onChange={this.onChangeNotificationAccount}
+              >
+                <option value="">-</option>
+                {accounts.data &&
+                  accounts.data.map(account => (
+                    <option key={account._id} value={account._id}>
+                      {account.label}
+                    </option>
+                  ))}
+              </select>
+              <br />
+            </>
+          ) : null}
           <Button
             label="Send notification"
             onClick={() => this.sendNotification()}
@@ -238,5 +273,10 @@ class DumbDebugSettings extends React.PureComponent {
   }
 }
 
-const DebugSettings = withClient(DumbDebugSettings)
+const DebugSettings = compose(
+  withClient,
+  queryConnect({
+    accounts: accountsConn
+  })
+)(DumbDebugSettings)
 export default DebugSettings

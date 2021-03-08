@@ -1,5 +1,6 @@
 import React from 'react'
 import flag from './flag'
+import connect from './connect'
 
 const FlagInput = ({ name, onChange }) => {
   return (
@@ -45,7 +46,7 @@ const human = name => {
   return name.replace(/[a-z][A-Z]/g, str => str[0] + ' ' + str[1].toLowerCase())
 }
 
-const FlagList = flag.connect(() => {
+const FlagList = connect(() => {
   const allFlags = flag.list()
   return (
     <div>

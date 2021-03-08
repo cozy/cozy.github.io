@@ -1,13 +1,16 @@
 /* global __ENABLED_FLAGS__ */
 
 import flag from './flag'
+import connect from './connect'
+import FlagSwitcher from './FlagSwitcher'
+import useFlag from './useFlag'
 
-flag.connect = require('./connect').default
-flag.FlagSwitcher = require('./FlagSwitcher').default
-flag.useFlag = require('./useFlag').default
+flag.connect = connect
+flag.FlagSwitcher = FlagSwitcher
+flag.useFlag = useFlag
 
 if (typeof __ENABLED_FLAGS__ !== 'undefined') {
   flag.enable(__ENABLED_FLAGS__)
 }
 
-module.exports = flag
+export default flag
