@@ -32,7 +32,7 @@ import BottomIcon from 'cozy-ui/transpiled/react/Icons/Bottom'
 
 import Typography from 'cozy-ui/transpiled/react/Typography'
 
-const GroupPanelSummary = withStyles({
+export const GroupPanelSummary = withStyles({
   root: {
     maxHeight: '3.5rem',
     height: '3.5rem'
@@ -53,7 +53,7 @@ const GroupPanelSummary = withStyles({
   }
 })(ExpansionPanelSummary)
 
-const GroupPanelExpandIcon = React.memo(function GroupPanelExpandIcon() {
+export const GroupPanelExpandIcon = React.memo(function GroupPanelExpandIcon() {
   return (
     <Icon
       icon={BottomIcon}

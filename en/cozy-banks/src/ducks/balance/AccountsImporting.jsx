@@ -14,6 +14,8 @@ import BarTheme from 'ducks/bar/BarTheme'
 
 import headerTitleStyles from 'ducks/balance/HeaderTitle.styl'
 import styles from 'ducks/balance/AccountsImporting.styl'
+import flag from 'cozy-flags'
+import Delayed from 'components/Delayed'
 
 const muiStyles = () => ({
   linearColorPrimary: {
@@ -95,10 +97,12 @@ const AccountsImporting = ({ classes, konnectorInfos }) => {
   )
 }
 
+const groupPanelDelay = flag('balance.no-delay-groups') ? 0 : 150
+
 const ImportInProgress = ({ classes }) => {
   const { t } = useI18n()
   return (
-    <>
+    <Delayed delay={groupPanelDelay}>
       <LinearProgress
         className={styles.progress}
         classes={{
@@ -106,9 +110,9 @@ const ImportInProgress = ({ classes }) => {
           barColorPrimary: classes.linearBarColorPrimary
         }}
       />
-      <div className={styles.text}>{t('Balance.importing-accounts')}</div>
+      <div className={styles.text}>{t('Balance.import-accounts')}</div>
       <div className={styles.text}>{t('Balance.delay')}</div>
-    </>
+    </Delayed>
   )
 }
 

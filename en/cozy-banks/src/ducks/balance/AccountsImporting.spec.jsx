@@ -45,7 +45,7 @@ describe('Importing Accounts', () => {
       konnectorInfos
     })
     expect(root.getAllByRole('progressbar').length).toEqual(3)
-    expect(root.getAllByText('Importing accounts').length).toEqual(3)
+    expect(root.getAllByText('Import accounts').length).toEqual(3)
     expect(root.getByText('This may take a few minutes…')).toBeTruthy()
   })
 
@@ -60,7 +60,7 @@ describe('Importing Accounts', () => {
     })
 
     expect(root.queryAllByRole('progressbar').length).toEqual(0)
-    expect(root.queryByText('Importing accounts')).toBeFalsy()
+    expect(root.queryByText('Import accounts')).toBeFalsy()
     expect(root.queryByText('This may take a few minutes…')).toBeFalsy()
   })
 })

@@ -36,7 +36,7 @@ describe('Account Row Loading', () => {
 
   it('should progress with any status', () => {
     const { root } = setup(konnectorInfos[0])
-    expect(root.getByText('Importing accounts')).toBeTruthy()
+    expect(root.getByText('Import accounts')).toBeTruthy()
     expect(root.getByText('In progress')).toBeTruthy()
     expect(root.getByRole('progressbar')).toBeTruthy()
   })

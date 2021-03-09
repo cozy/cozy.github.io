@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { useQuery } from 'cozy-client'
+import { useQuery, hasQueryBeenLoaded } from 'cozy-client'
 import { useRouter, useParams } from 'components/RouterContext'
 import Loading from 'components/Loading'
 import {
@@ -23,11 +23,11 @@ const SetFilterAndRedirect = () => {
   const accounts = useQuery(accountsConn.query, accountsConn)
   const groups = useQuery(groupsConn.query, groupsConn)
 
+  const accountsLoaded = hasQueryBeenLoaded(accounts)
+  const groupsLoaded = hasQueryBeenLoaded(groups)
+
   useEffect(() => {
-    if (
-      accounts.fetchStatus === 'loading' ||
-      groups.fetchStatus === 'loading'
-    ) {
+    if (!accountsLoaded || !groupsLoaded) {
       return
     } else {
       const docId = params.accountOrGroupId
@@ -47,9 +47,9 @@ const SetFilterAndRedirect = () => {
 
       router.push(`/balances`)
     }
-  }, [accounts, groups]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [accountsLoaded, groupsLoaded]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (accounts.fetchStatus === 'loading' || groups.fetchStatus === 'loading') {
+  if (!hasQueryBeenLoaded(accounts) || !hasQueryBeenLoaded(groups)) {
     return <Loading />
   }
   return null

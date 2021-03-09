@@ -53,7 +53,7 @@ export class AccountRowLoading extends React.PureComponent {
           <Typography variant="body1">
             {isErrored
               ? t('Balance.importing-accounts-error')
-              : t('Balance.importing-accounts')}
+              : t('Balance.import-accounts')}
           </Typography>
           <Typography variant="caption">
             {isErrored ? (

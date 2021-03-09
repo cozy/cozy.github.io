@@ -319,7 +319,7 @@ describe('Balance page', () => {
       expect(wrapper.find(NoAccount)).toHaveLength(1)
     })
 
-    it('should show importing accounts', () => {
+    it('should show import accounts', () => {
       const triggers = [
         {
           attributes: {

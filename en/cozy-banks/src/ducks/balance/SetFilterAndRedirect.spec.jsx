@@ -1,9 +1,9 @@
 import React from 'react'
-import { Provider as ReduxProvider, useDispatch } from 'react-redux'
-import { CozyProvider } from 'cozy-client'
+import { useDispatch } from 'react-redux'
 import { createMockClient } from 'cozy-client/dist/mock'
 import { render } from '@testing-library/react'
 
+import AppLike from 'test/AppLike'
 import { useParams, useRouter } from 'components/RouterContext'
 import SetFilterAndRedirect from './SetFilterAndRedirect'
 
@@ -13,6 +13,8 @@ jest.mock('react-redux', () => ({
 }))
 
 jest.mock('components/RouterContext', () => ({
+  __esModule: true,
+  ...jest.requireActual('components/RouterContext'),
   useParams: jest.fn(),
   useRouter: jest.fn()
 }))
@@ -43,11 +45,9 @@ describe('SetFilterAndRedirect', () => {
       }
     })
     const root = render(
-      <CozyProvider client={client}>
-        <ReduxProvider store={client.store}>
-          <SetFilterAndRedirect />
-        </ReduxProvider>
-      </CozyProvider>
+      <AppLike client={client}>
+        <SetFilterAndRedirect />
+      </AppLike>
     )
     return { root, router, dispatch }
   }
@@ -95,5 +95,30 @@ describe('SetFilterAndRedirect', () => {
     })
     expect(router.push).toHaveBeenCalledWith(`/balances`)
     expect(dispatch).not.toHaveBeenCalled()
+  })
+
+  it('should wait until accounts and groups have been loaded', () => {
+    const router = { push: jest.fn() }
+    const dispatch = jest.fn()
+    useDispatch.mockReturnValue(dispatch)
+    useRouter.mockReturnValue(router)
+    useParams.mockReturnValue({
+      accountOrGroupId: 'group-1',
+      page: 'details'
+    })
+    const client = createMockClient({
+      queries: {
+        groups: {
+          doctype: 'io.cozy.bank.groups',
+          data: [{ _id: 'group-1' }]
+        }
+      }
+    })
+    render(
+      <AppLike client={client}>
+        <SetFilterAndRedirect />
+      </AppLike>
+    )
+    expect(router.push).not.toHaveBeenCalled()
   })
 })

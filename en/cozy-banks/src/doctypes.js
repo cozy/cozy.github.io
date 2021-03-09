@@ -8,6 +8,7 @@ export const TRANSACTION_DOCTYPE = 'io.cozy.bank.operations'
 export const SETTINGS_DOCTYPE = 'io.cozy.bank.settings'
 export const BILLS_DOCTYPE = 'io.cozy.bills'
 export const TRIGGER_DOCTYPE = 'io.cozy.triggers'
+export const JOBS_DOCTYPE = 'io.cozy.jobs'
 export const APP_DOCTYPE = 'io.cozy.apps'
 export const KONNECTOR_DOCTYPE = 'io.cozy.konnectors'
 export const COZY_ACCOUNT_DOCTYPE = 'io.cozy.accounts'
@@ -248,4 +249,9 @@ export const myselfConn = {
   query: () => Q('io.cozy.contacts').where({ me: true }),
   as: 'myself',
   fetchPolicy: older30s
+}
+
+export const konnectorConn = {
+  query: slug => Q(KONNECTOR_DOCTYPE).getById(`${KONNECTOR_DOCTYPE}/${slug}`),
+  as: 'konnector'
 }

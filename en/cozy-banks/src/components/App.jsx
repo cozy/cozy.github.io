@@ -6,7 +6,7 @@ import { withRouter } from 'react-router'
 import compose from 'lodash/flowRight'
 
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
-import { Layout, Main, Content } from 'cozy-ui/transpiled/react/Layout'
+import { Content, Layout, Main } from 'cozy-ui/transpiled/react/Layout'
 import UISidebar from 'cozy-ui/transpiled/react/Sidebar'
 
 import { settingsConn } from 'doctypes'

@@ -8,6 +8,7 @@ import getClient from 'test/client'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import RouterContext from 'components/RouterContext'
 import { TrackerProvider } from 'ducks/tracking/browser'
+import { JobsContext } from 'components/JobsContext'
 
 export const TestI18n = ({ children }) => {
   return (
@@ -17,19 +18,23 @@ export const TestI18n = ({ children }) => {
   )
 }
 
-const AppLike = ({ children, store, client, router }) => (
-  <TrackerProvider>
-    <RouterContext.Provider value={router}>
-      <BreakpointsProvider>
-        <Provider store={(client && client.store) || store}>
-          <CozyProvider client={client || getClient()}>
-            <TestI18n>{children}</TestI18n>
-          </CozyProvider>
-        </Provider>
-      </BreakpointsProvider>
-    </RouterContext.Provider>
-  </TrackerProvider>
-)
+const AppLike = ({ children, store, client, router, jobsInProgress }) => {
+  return (
+    <TrackerProvider>
+      <RouterContext.Provider value={router}>
+        <BreakpointsProvider>
+          <Provider store={(client && client.store) || store}>
+            <CozyProvider client={client || getClient()}>
+              <JobsContext.Provider value={{ jobsInProgress }}>
+                <TestI18n>{children}</TestI18n>
+              </JobsContext.Provider>
+            </CozyProvider>
+          </Provider>
+        </BreakpointsProvider>
+      </RouterContext.Provider>
+    </TrackerProvider>
+  )
+}
 
 AppLike.defaultProps = {
   store

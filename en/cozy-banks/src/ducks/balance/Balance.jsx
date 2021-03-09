@@ -51,6 +51,8 @@ import BarTheme from 'ducks/bar/BarTheme'
 import { filterByAccounts } from 'ducks/filters'
 import { trackPage } from 'ducks/tracking/browser'
 import { isVirtualAccount } from 'ducks/balance/helpers'
+import ImportGroupPanel from 'ducks/balance/ImportGroupPanel'
+import { withJobsInProgress } from 'components/JobsContext'
 
 const syncPouchImmediately = async client => {
   const pouchLink = client.links.find(link => link.pouches)
@@ -415,6 +417,7 @@ class Balance extends PureComponent {
             [styles.Balance__panelsContainer]: true
           })}
         >
+          <ImportGroupPanel />
           <BalancePanels
             groups={groups}
             panelsState={this.state.panels}
@@ -451,5 +454,6 @@ export default compose(
       virtualGroups: getVirtualGroups
     })
   ),
-  withClient
+  withClient,
+  withJobsInProgress
 )(Balance)
