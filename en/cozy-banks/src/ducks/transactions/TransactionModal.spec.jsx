@@ -1,18 +1,20 @@
 import React from 'react'
-import { render, fireEvent } from '@testing-library/react'
-import TransactionModal, {
-  showAlertAfterApplicationDateUpdate
-} from './TransactionModal'
-import data from '../../../test/fixtures'
-import AppLike from 'test/AppLike'
-import { createClientWithData } from 'test/client'
-import { ACCOUNT_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
+import { render, fireEvent, within } from '@testing-library/react'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import { format } from 'date-fns'
 import Polyglot from 'node-polyglot'
 import en from 'locales/en.json'
+
+import AppLike from 'test/AppLike'
+import { createClientWithData } from 'test/client'
+import { ACCOUNT_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
 import { TrackerProvider, trackPage } from 'ducks/tracking/browser'
 import { getTracker } from 'ducks/tracking/tracker'
+
+import TransactionModal, {
+  showAlertAfterApplicationDateUpdate
+} from './TransactionModal'
+import data from '../../../test/fixtures'
 
 jest.mock('ducks/tracking/tracker', () => {
   const tracker = {
@@ -71,10 +73,12 @@ describe('transaction modal', () => {
     return { root, tracker }
   }
 
+  // TODO Can be removed when https://github.com/cozy/cozy-ui/issues/1756
+  // is solved
   const closeModal = root => {
-    const dialogNode = root.getByRole('dialog')
-    const backdrop = dialogNode.firstChild
-    fireEvent.click(backdrop)
+    const dialogNode = root.getAllByRole('dialog')[0]
+    const closeButton = within(dialogNode).getAllByRole('button')[0]
+    fireEvent.click(closeButton)
   }
 
   it('should render correctly', () => {

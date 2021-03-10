@@ -4,6 +4,12 @@ import AppLike from 'test/AppLike'
 import { createMockClient } from 'cozy-client'
 import AccountsImporting from './AccountsImporting'
 
+jest.mock('components/Delayed', () => {
+  return ({ children }) => children
+})
+
+jest.mock('hooks/useRedirectionURL', () => () => 'http://redirection')
+
 jest.mock('cozy-flags', () => flagName => {
   return flagName === 'balance.no-delay-groups'
 })

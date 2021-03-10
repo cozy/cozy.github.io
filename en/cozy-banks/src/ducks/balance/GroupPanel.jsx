@@ -3,14 +3,14 @@ import PropTypes from 'prop-types'
 import React, { useState, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
+import AccordionSummary from '@material-ui/core/AccordionSummary'
+import AccordionDetails from '@material-ui/core/AccordionDetails'
 import { withStyles } from '@material-ui/core/styles'
 
 import { useClient } from 'cozy-client'
-import ExpansionPanel from 'cozy-ui/transpiled/react/MuiCozyTheme/ExpansionPanel'
+import Accordion from 'cozy-ui/transpiled/react/MuiCozyTheme/Accordion'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import Icon from 'cozy-ui/transpiled/react/Icon'
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
 import Button, { ButtonLink } from 'cozy-ui/transpiled/react/Button'
 import Figure from 'cozy-ui/transpiled/react/Figure'
@@ -28,40 +28,28 @@ import styles from 'ducks/balance/GroupPanel.styl'
 import { getLateHealthExpenses } from 'ducks/reimbursements/selectors'
 import { getSettings } from 'ducks/settings/selectors'
 import { getNotificationFromSettings } from 'ducks/settings/helpers'
-import BottomIcon from 'cozy-ui/transpiled/react/Icons/Bottom'
 
 import Typography from 'cozy-ui/transpiled/react/Typography'
 
-export const GroupPanelSummary = withStyles({
-  root: {
-    maxHeight: '3.5rem',
-    height: '3.5rem'
-  },
-  content: {
-    paddingLeft: '3rem',
-    paddingRight: '0',
-    height: '100%'
+const GroupPanelSummary = withStyles(theme => ({
+  expandIcon: {
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(0),
+    color: theme.palette.grey[400]
   },
   expanded: {},
-  expandIcon: {
-    left: '0.375rem',
-    right: 'auto',
-    transform: 'translateY(-50%) rotate(-90deg)',
+  content: {
+    marginTop: 0,
+    marginBottom: 0,
+    paddingRight: 0,
+    alignItems: 'center',
     '&$expanded': {
-      transform: 'translateY(-50%) rotate(0)'
+      marginTop: 0,
+      marginBottom: 0,
+      paddingRight: 0
     }
   }
-})(ExpansionPanelSummary)
-
-export const GroupPanelExpandIcon = React.memo(function GroupPanelExpandIcon() {
-  return (
-    <Icon
-      icon={BottomIcon}
-      className={styles.GroupPanelSummary__icon}
-      width={12}
-    />
-  )
-})
+}))(AccordionSummary)
 
 export const getGroupPanelSummaryClasses = (group, state) => {
   if (!isReimbursementsVirtualGroup(group)) {
@@ -104,6 +92,7 @@ const GroupPanel = props => {
   const [deleting, setDeleting] = useState(false)
   const [optimisticExpanded, setOptimisticExpanded] = useState(expandedProp)
   const { t } = useI18n()
+  const { isMobile } = useBreakpoints()
   const { filterByDoc } = useFilters()
   const groupPanelSummaryClasses = useSelector(state =>
     getGroupPanelSummaryClasses(group, state)
@@ -161,65 +150,59 @@ const GroupPanel = props => {
   const isUncheckable = !group.loading
 
   return (
-    <ExpansionPanel
+    <Accordion
       className={className}
       expanded={expanded}
       onChange={handlePanelChange}
     >
       <GroupPanelSummary
-        expandIcon={<GroupPanelExpandIcon />}
-        IconButtonProps={{
-          disableRipple: true
-        }}
         className={cx({
           [styles['GroupPanelSummary--unchecked']]: !checked && isUncheckable
         })}
         classes={groupPanelSummaryClasses}
       >
-        <div className={styles.GroupPanelSummary__content}>
-          <div
-            className={styles.GroupPanelSummary__labelBalanceWrapper}
-            onClick={handleSummaryContentClick}
-          >
-            <div className={styles.GroupPanelSummary__label}>
-              {groupLabel}
-              <br />
-              {nbCheckedAccounts < nbAccounts && (
-                <Typography
-                  className={styles.GroupPanelSummary__caption}
-                  variant="caption"
-                  color="textSecondary"
-                >
-                  {t('Balance.nb-accounts', {
-                    nbCheckedAccounts,
-                    smart_count: nbAccounts
-                  })}
-                </Typography>
-              )}
-            </div>
-            {withBalance && (
-              <Figure
-                className="u-ml-half"
-                symbol="€"
-                total={getGroupBalance(group, uncheckedAccountsIds)}
-                currencyClassName={styles.GroupPanelSummary__figureCurrency}
-              />
+        <div
+          className={styles.GroupPanelSummary__labelBalanceWrapper}
+          onClick={handleSummaryContentClick}
+        >
+          <div className={styles.GroupPanelSummary__label}>
+            {groupLabel}
+            <br />
+            {nbCheckedAccounts < nbAccounts && (
+              <Typography
+                className={styles.GroupPanelSummary__caption}
+                variant="caption"
+                color="textSecondary"
+              >
+                {t('Balance.nb-accounts', {
+                  nbCheckedAccounts,
+                  smart_count: nbAccounts
+                })}
+              </Typography>
             )}
           </div>
-          {onSwitchChange && (
-            <Switch
-              disableRipple
-              className="u-mh-half"
-              checked={checked}
-              color="primary"
-              onClick={handleSwitchClick}
-              id={`[${group._id}]`}
-              onChange={onSwitchChange}
+          {withBalance && (
+            <Figure
+              className="u-ml-half"
+              symbol="€"
+              total={getGroupBalance(group, uncheckedAccountsIds)}
+              currencyClassName={styles.GroupPanelSummary__figureCurrency}
             />
           )}
         </div>
+        {onSwitchChange && (
+          <Switch
+            disableRipple
+            className={!isMobile && 'u-mr-half'}
+            checked={checked}
+            color="primary"
+            onClick={handleSwitchClick}
+            id={`[${group._id}]`}
+            onChange={onSwitchChange}
+          />
+        )}
       </GroupPanelSummary>
-      <ExpansionPanelDetails>
+      <AccordionDetails>
         <div className="u-flex-grow-1 u-maw-100">
           {groupAccounts && groupAccounts.length > 0 ? (
             <AccountsList
@@ -254,8 +237,8 @@ const GroupPanel = props => {
             </Stack>
           )}
         </div>
-      </ExpansionPanelDetails>
-    </ExpansionPanel>
+      </AccordionDetails>
+    </Accordion>
   )
 }
 

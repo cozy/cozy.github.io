@@ -68,7 +68,7 @@ const PrimaryColumn = withStyles({
 
 const ActionListItemTextColumn = withStyles(theme => ({
   root: {
-    justifyContent: 'right',
+    justifyContent: 'flex-end',
     display: 'flex',
     alignItems: 'center',
     marginRight: '-0.5rem',
@@ -130,6 +130,7 @@ const AccountRow = props => {
       disableRipple
       classes={{
         root: cx({
+          'u-pr-half': isMobile,
           [styles['AccountRow--hasWarning']]: hasWarning,
           [styles['AccountRow--hasAlert']]: hasAlert,
           [styles['AccountRow--disabled']]:

@@ -40,6 +40,7 @@ const createGroups = (types, konnectorInfos) => {
     virtual: true,
     loading: true,
     label: type,
+    accountType: type,
     accounts: {
       data: accounts
     }

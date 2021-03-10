@@ -1,5 +1,5 @@
 import React from 'react'
-import data from 'test/fixtures/unit-tests.json'
+import fixtures from 'test/fixtures/unit-tests.json'
 import mapValues from 'lodash/mapValues'
 import fromPairs from 'lodash/fromPairs'
 import { render, fireEvent } from '@testing-library/react'
@@ -24,7 +24,7 @@ const addType = data => {
   })
 }
 
-const rawGroup = data['io.cozy.bank.groups'][0]
+const rawGroup = fixtures['io.cozy.bank.groups'][0]
 
 describe('GroupPanel', () => {
   let root, onChange, switches
@@ -33,7 +33,10 @@ describe('GroupPanel', () => {
     const client = new CozyClient({
       schema
     })
-    const data = { 'io.cozy.bank.groups': [rawGroup] }
+    const data = {
+      'io.cozy.bank.groups': [rawGroup],
+      'io.cozy.bank.accounts': fixtures['io.cozy.bank.accounts']
+    }
     getClient.mockReturnValue(client)
     client.setData(addType(data))
     const group = client.hydrateDocument(
@@ -70,7 +73,7 @@ describe('GroupPanel', () => {
 
   it('should optimistically update', () => {
     const { root } = setup({ group: rawGroup })
-    const expandButton = root.getByRole('button')
+    const expandButton = root.getAllByRole('button')[0]
     expect(expandButton.getAttribute('aria-expanded')).toBe('false')
     fireEvent.click(expandButton)
 

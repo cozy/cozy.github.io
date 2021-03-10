@@ -2,10 +2,14 @@ import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import { Media, Bd, Img, Icon, useI18n } from 'cozy-ui/transpiled/react'
+
 import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
+import Typography from 'cozy-ui/transpiled/react/Typography'
+import LogoutIcon from 'cozy-ui/transpiled/react/Icons/Logout'
+import Figure from 'cozy-ui/transpiled/react/Figure'
+
 import flag from 'cozy-flags'
 
-import Figure from 'cozy-ui/transpiled/react/Figure'
 import { TdSecondary } from 'components/Table'
 import * as List from 'components/List'
 
@@ -34,10 +38,6 @@ import TransactionCategoryEditor from 'ducks/transactions/TransactionCategoryEdi
 import iconRecurrence from 'assets/icons/icon-recurrence.svg'
 
 import useSwitch from 'hooks/useSwitch'
-
-import Typography from 'cozy-ui/transpiled/react/Typography'
-
-import LogoutIcon from 'cozy-ui/transpiled/react/Icons/Logout'
 
 const useTransactionModal = transaction => {
   const [modalOpened, show, hide] = useSwitch(false)
@@ -279,8 +279,8 @@ export const RowMobile = React.memo(function RowMobile(props) {
             compact
             menuPosition="right"
             className={cx(
-              'u-mt-half',
-              'u-ml-2-half',
+              'u-w-100',
+              'u-mb-half',
               styles.TransactionRowMobile__actions
             )}
           />

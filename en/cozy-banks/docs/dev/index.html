@@ -2815,7 +2815,7 @@ to install it on your system.</p>
 
 
 <p>Develop:</p>
-<div class="codehilite"><pre><span></span><span class="gp">$</span> yarn watch
+<div class="codehilite"><pre><span></span><span class="gp">$</span> yarn start
 </pre></div>
 
 
@@ -2868,7 +2868,7 @@ brew install gradle
 <div class="codehilite"><pre><span></span><span class="gp">#</span> One-shot build
 <span class="gp">$</span> yarn build:mobile
 <span class="gp">#</span> To develop
-<span class="gp">$</span> yarn watch:mobile
+<span class="gp">$</span> yarn start:mobile
 </pre></div>
 
 
@@ -2892,7 +2892,7 @@ brew install gradle
 <div class="codehilite"><pre><span></span><span class="c c-Singleline"># Replace the host with your own host (find it with ifconfig)</span>
 $ <span class="n">env</span> <span class="n">DEV_HOST</span>=<span class="mf">192.168.1.36</span> <span class="n">yarn</span> <span class="n">build:mobile:hot</span>
 $ <span class="n">yarn</span> <span class="n">ios:run</span> <span class="c c-Singleline"># at this point the app is blank since it cannot access the files from your host</span>
-$ <span class="n">env</span> <span class="n">DEV_HOST</span>=<span class="mf">192.168.1.36</span> <span class="n">yarn</span> <span class="n">watch:mobile:hot</span> <span class="c c-Singleline"># launch a webpack-dev-server</span>
+$ <span class="n">env</span> <span class="n">DEV_HOST</span>=<span class="mf">192.168.1.36</span> <span class="n">yarn</span> <span class="n">start:mobile:hot</span> <span class="c c-Singleline"># launch a webpack-dev-server</span>
 </pre></div>
 
 
@@ -3156,7 +3156,7 @@ yarn test:e2e:alerts-existing-cozy --url https://mydemocozy.mycozy.cloud cleanup
 - a token
 - launch your build with <code>FORCE_POUCH</code></p>
 <div class="codehilite"><pre><span></span>cozy-stack instances token-cli cozy.tools:8080 $(cat manifest.webapp | jq -r &#39;[.permissions[] | .type] | join(&quot; &quot;)&#39;)
-env FORCE_POUCH=true yarn watch
+env FORCE_POUCH=true yarn start
 </pre></div>
 
 

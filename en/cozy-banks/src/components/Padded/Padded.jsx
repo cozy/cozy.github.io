@@ -4,11 +4,16 @@ import cx from 'classnames'
 
 import styles from 'components/Padded/Padded.styl'
 
-const _Padded = ({ className, ...restProps }) => (
+export const Padded = ({ className, ...restProps }) => (
   <div className={cx(styles.Padded, className)} {...restProps} />
 )
 
-const _Unpadded = ({ horizontal, vertical, className, ...restProps }) => {
+Padded.propTypes = {
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string
+}
+
+const Unpadded_ = ({ horizontal, vertical, className, ...restProps }) => {
   const all = horizontal === undefined && vertical === undefined
   return (
     <div
@@ -24,14 +29,9 @@ const _Unpadded = ({ horizontal, vertical, className, ...restProps }) => {
   )
 }
 
-export const Unpadded = React.memo(_Unpadded)
+export const Unpadded = React.memo(Unpadded_)
 
-_Padded.propTypes = {
-  children: PropTypes.node.isRequired,
-  className: PropTypes.string
-}
+const MemoPadded = React.memo(Padded)
+MemoPadded.Unpadded = Unpadded
 
-const Padded = React.memo(_Padded)
-Padded.Unpadded = Unpadded
-
-export default Padded
+export default MemoPadded

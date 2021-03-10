@@ -15,10 +15,15 @@ export const isFormerAutoGroup = group => group.accountType === null
 export const isAutoGroup = group => group.accountType !== undefined
 export const getGroupAccountType = group => group.accountType
 
+export const isReimbursementsVirtualGroup = group =>
+  Boolean(group.virtual && group._id === 'Reimbursements')
+
 export const getGroupLabel = (group, t) => {
-  if (group.virtual) {
+  if (isReimbursementsVirtualGroup(group)) {
+    return t(`Data.accountTypes.Reimbursements`, { _: 'other' })
+  } else if (group.virtual) {
     return (
-      t(`Data.accountTypes.${group.label}`, { _: 'other' }) +
+      t(`Data.accountTypes.${group.accountType}`, { _: 'other' }) +
       (flag('debug-groups') ? ' (virtual)' : '')
     )
   } else if (isAutoGroup(group) && !isFormerAutoGroup(group)) {
@@ -95,9 +100,6 @@ export const buildAutoGroups = (accounts, options) => {
  */
 
 const isOtherVirtualGroup = group => group.virtual && group.label === 'Other'
-
-export const isReimbursementsVirtualGroup = group =>
-  Boolean(group.virtual && group._id === 'Reimbursements')
 
 const getCategory = group => {
   if (isReimbursementsVirtualGroup(group)) {

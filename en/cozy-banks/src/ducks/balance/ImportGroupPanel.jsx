@@ -1,15 +1,15 @@
 import cx from 'classnames'
 import React, { useEffect, useState } from 'react'
 
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
+import AccordionSummary from '@material-ui/core/AccordionSummary'
+import AccordionDetails from '@material-ui/core/AccordionDetails'
+import Accordion from 'cozy-ui/transpiled/react/MuiCozyTheme/Accordion'
+
 import { withStyles } from '@material-ui/core/styles'
-import ExpansionPanel from 'cozy-ui/transpiled/react/MuiCozyTheme/ExpansionPanel'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import styles from 'ducks/balance/GroupPanel.styl'
 
 import Typography from 'cozy-ui/transpiled/react/Typography'
-import { GroupPanelExpandIcon } from 'ducks/balance/GroupPanel'
 import List from 'cozy-ui/transpiled/react/MuiCozyTheme/List'
 import AccountIcon from 'components/AccountIcon'
 import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
@@ -39,7 +39,7 @@ export const GroupPanelSummary = withStyles({
       transform: 'translateY(-50%) rotate(0)'
     }
   }
-})(ExpansionPanelSummary)
+})(AccordionSummary)
 
 const EllipseTypography = withStyles({
   root: {
@@ -72,12 +72,8 @@ const ImportGroupPanel = () => {
   }
 
   return (
-    <ExpansionPanel expanded={expanded} onClick={() => setExpanded(!expanded)}>
+    <Accordion expanded={expanded} onClick={() => setExpanded(!expanded)}>
       <GroupPanelSummary
-        expandIcon={<GroupPanelExpandIcon />}
-        IconButtonProps={{
-          disableRipple: true
-        }}
         className={cx({
           [styles['GroupPanelSummary--unchecked']]: false
         })}
@@ -93,7 +89,7 @@ const ImportGroupPanel = () => {
           <Spinner size="large" />
         </div>
       </GroupPanelSummary>
-      <ExpansionPanelDetails>
+      <AccordionDetails>
         <div className="u-flex-grow-1 u-maw-100">
           <List>
             {jobsInProgress.map((a, i) => (
@@ -101,8 +97,8 @@ const ImportGroupPanel = () => {
             ))}
           </List>
         </div>
-      </ExpansionPanelDetails>
-    </ExpansionPanel>
+      </AccordionDetails>
+    </Accordion>
   )
 }
 

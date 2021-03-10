@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import Padded from './Padded'
+import { Padded } from './Padded'
 
 describe('Padded', () => {
   it(`should display children`, () => {

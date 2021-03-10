@@ -1,15 +1,16 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
 import compose from 'lodash/flowRight'
 import sortBy from 'lodash/sortBy'
 import cx from 'classnames'
+import { createStructuredSelector } from 'reselect'
 
+import { queryConnect, Q } from 'cozy-client'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import Button from 'cozy-ui/transpiled/react/Button'
+import Button from 'cozy-ui/transpiled/react/MuiCozyTheme/Buttons'
 import List from 'cozy-ui/transpiled/react/MuiCozyTheme/List'
 import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
 import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
@@ -17,14 +18,15 @@ import ListSubheader from 'cozy-ui/transpiled/react/MuiCozyTheme/ListSubheader'
 import ListItemSecondaryAction from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemSecondaryAction'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import Radio from 'cozy-ui/transpiled/react/Radio'
-
-import { createStructuredSelector } from 'reselect'
+import BottomIcon from 'cozy-ui/transpiled/react/Icons/Bottom'
+import Typography from 'cozy-ui/transpiled/react/Typography'
+import CozyTheme, { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
 
 import RawContentDialog from 'components/RawContentDialog'
 import AccountSharingStatus from 'components/AccountSharingStatus'
 import AccountIcon from 'components/AccountIcon'
 import BarItem from 'components/BarItem'
-import CozyTheme, { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
+import { BarCenter } from 'components/Bar'
 
 import {
   filterByDoc,
@@ -35,7 +37,6 @@ import {
 
 import styles from 'ducks/account/AccountSwitch.styl'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
-import { queryConnect, Q } from 'cozy-client'
 import { getGroupLabel } from 'ducks/groups/helpers'
 
 import { getVirtualGroups } from 'selectors'
@@ -43,12 +44,6 @@ import {
   getAccountInstitutionLabel,
   getAccountLabel
 } from 'ducks/account/helpers.js'
-
-import { BarCenter } from 'components/Bar'
-
-import BottomIcon from 'cozy-ui/transpiled/react/Icons/Bottom'
-
-import Typography from 'cozy-ui/transpiled/react/Typography'
 
 const filteringDocPropType = PropTypes.oneOfType([
   PropTypes.array,
@@ -154,8 +149,7 @@ const AccountSwitchMenu = ({
   groups,
   filteringDoc,
   filterByDoc,
-  resetFilterByDoc,
-  close
+  resetFilterByDoc
 }) => {
   const { t } = useI18n()
 
@@ -169,6 +163,14 @@ const AccountSwitchMenu = ({
     },
     [accounts]
   )
+
+  const sortedGroups = useMemo(() => {
+    return sortBy(groups, g => getGroupLabel(g, t))
+  }, [groups, t])
+
+  const sortedAccounts = useMemo(() => {
+    return sortBy(accounts, ['institutionLabel', getAccountLabel])
+  }, [accounts])
 
   return (
     <CozyTheme theme="normal">
@@ -189,7 +191,7 @@ const AccountSwitchMenu = ({
             }
           />
         </AccountSwitchListItem>
-        {sortBy(groups, 'label').map(group => (
+        {sortedGroups.map(group => (
           <AccountSwitchListItem
             dense
             key={group._id}
@@ -201,7 +203,7 @@ const AccountSwitchMenu = ({
             }}
           >
             <AccountListItemText
-              primary={group.label}
+              primary={getGroupLabel(group, t)}
               secondary={
                 <>
                   {t(
@@ -216,49 +218,49 @@ const AccountSwitchMenu = ({
           </AccountSwitchListItem>
         ))}
       </List>
-      <Link to={'/settings/groups'} onClick={close}>
-        <Button
-          className="u-m-half"
-          theme="text"
-          label={t('Groups.manage-groups')}
-        />
-      </Link>
+      <Button
+        component="a"
+        href="#/settings/groups"
+        className="u-m-half"
+        color="primary"
+      >
+        {t('Groups.manage-groups')}
+      </Button>
 
       <List>
         <ListSubheader>{t('AccountSwitch.accounts')}</ListSubheader>
-        {sortBy(accounts, ['institutionLabel', 'label']).map(
-          (account, index) => (
-            <AccountSwitchListItem
-              key={index}
-              button
-              disableRipple
-              dense
-              onClick={() => {
-                filterByDoc(account)
-              }}
-              selected={filteringDoc && account._id === filteringDoc._id}
-            >
-              <ListItemIcon>
-                <AccountIcon account={account} />
-              </ListItemIcon>
-              <AccountListItemText
-                primary={account.shortLabel || account.label}
-                secondary={getAccountInstitutionLabel(account)}
-              />
-              <ListItemSecondaryAction>
-                <AccountSharingStatus tooltip account={account} />
-              </ListItemSecondaryAction>
-            </AccountSwitchListItem>
-          )
-        )}
+        {sortedAccounts.map((account, index) => (
+          <AccountSwitchListItem
+            key={index}
+            button
+            disableRipple
+            dense
+            onClick={() => {
+              filterByDoc(account)
+            }}
+            selected={filteringDoc && account._id === filteringDoc._id}
+          >
+            <ListItemIcon>
+              <AccountIcon account={account} />
+            </ListItemIcon>
+            <AccountListItemText
+              primary={account.shortLabel || account.label}
+              secondary={getAccountInstitutionLabel(account)}
+            />
+            <ListItemSecondaryAction>
+              <AccountSharingStatus tooltip account={account} />
+            </ListItemSecondaryAction>
+          </AccountSwitchListItem>
+        ))}
       </List>
-      <Link to="/settings/accounts" onClick={close}>
-        <Button
-          className="u-m-half"
-          theme="text"
-          label={t('Accounts.manage-accounts')}
-        />
-      </Link>
+      <Button
+        component="a"
+        href="#/settings/accounts"
+        className="u-m-half"
+        color="primary"
+      >
+        {t('Accounts.manage-accounts')}
+      </Button>
     </CozyTheme>
   )
 }

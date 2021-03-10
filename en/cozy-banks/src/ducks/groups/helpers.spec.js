@@ -71,16 +71,17 @@ describe('translateGroup', () => {
   it("should translate the group label only if it's a virtual group", () => {
     const virtualGroup = {
       virtual: true,
-      label: 'label'
+      label: 'Checkings',
+      accountType: 'Checkings'
     }
 
     const normalGroup = {
       virtual: false,
-      label: 'label'
+      label: 'Checkings'
     }
 
     expect(getGroupLabel(virtualGroup, translate)).toEqual(
-      'Data.accountTypes.label'
+      'Data.accountTypes.Checkings'
     )
     expect(getGroupLabel(normalGroup, translate)).toEqual(normalGroup.label)
   })
@@ -103,7 +104,7 @@ describe('translateAndSortGroups', () => {
 
   it('should sort groups by translated label', () => {
     const groups = [
-      { virtual: true, label: 'C' },
+      { virtual: true, accountType: 'C', label: 'C' },
       { virtual: false, label: 'A' },
       { virtual: false, label: 'B' },
       { virtual: false, label: 'Z' },
@@ -113,7 +114,7 @@ describe('translateAndSortGroups', () => {
     const expected = [
       { virtual: false, label: 'A' },
       { virtual: false, label: 'B' },
-      { virtual: true, label: 'Data.accountTypes.C' },
+      { virtual: true, label: 'Data.accountTypes.C', accountType: 'C' },
       { virtual: false, label: 'é' },
       { virtual: false, label: 'Z' }
     ]
@@ -125,15 +126,15 @@ describe('translateAndSortGroups', () => {
     const groups = [
       { virtual: false, label: 'B' },
       { virtual: false, label: 'A' },
-      { virtual: true, label: 'Other' },
-      { virtual: true, label: 'Z' }
+      { virtual: true, label: 'Other', accountType: 'Other' },
+      { virtual: true, label: 'Z', accountType: 'Z' }
     ]
 
     const expected = [
       { virtual: false, label: 'A' },
       { virtual: false, label: 'B' },
-      { virtual: true, label: 'Data.accountTypes.Z' },
-      { virtual: true, label: 'Data.accountTypes.Other' }
+      { virtual: true, label: 'Data.accountTypes.Z', accountType: 'Z' },
+      { virtual: true, label: 'Data.accountTypes.Other', accountType: 'Other' }
     ]
 
     expect(setup(groups)).toEqual(expected)
@@ -143,14 +144,14 @@ describe('translateAndSortGroups', () => {
     const groups = [
       { virtual: false, label: 'A' },
       { _id: 'Reimbursements', virtual: true, label: 'Reimbursements' },
-      { virtual: true, label: 'Other' },
-      { virtual: true, label: 'Z' }
+      { virtual: true, label: 'Other', accountType: 'Other' },
+      { virtual: true, label: 'Z', accountType: 'Z' }
     ]
 
     const expected = [
       { virtual: false, label: 'A' },
-      { virtual: true, label: 'Data.accountTypes.Z' },
-      { virtual: true, label: 'Data.accountTypes.Other' },
+      { virtual: true, label: 'Data.accountTypes.Z', accountType: 'Z' },
+      { virtual: true, label: 'Data.accountTypes.Other', accountType: 'Other' },
       {
         _id: 'Reimbursements',
         virtual: true,
