@@ -160,7 +160,7 @@ describe('Reimbursement virtual group styling', () => {
     expect(
       getGroupPanelSummaryClasses(virtualReimbursementGroup, state)
     ).toEqual({
-      content: 'GroupPanelSummary--lateHealthReimbursements'
+      root: 'GroupPanelSummary--lateHealthReimbursements'
     })
   })
 

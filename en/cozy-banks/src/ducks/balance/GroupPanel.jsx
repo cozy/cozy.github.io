@@ -32,6 +32,7 @@ import { getNotificationFromSettings } from 'ducks/settings/helpers'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 
 const GroupPanelSummary = withStyles(theme => ({
+  root: {},
   expandIcon: {
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(0),
@@ -70,7 +71,7 @@ export const getGroupPanelSummaryClasses = (group, state) => {
     lateHealthExpensesNotification.enabled
   ) {
     return {
-      content: styles['GroupPanelSummary--lateHealthReimbursements']
+      root: styles['GroupPanelSummary--lateHealthReimbursements']
     }
   }
 }

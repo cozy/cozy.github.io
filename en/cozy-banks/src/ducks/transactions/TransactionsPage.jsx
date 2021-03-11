@@ -124,6 +124,9 @@ class TransactionsPage extends Component {
     if (!headerNodeParent) {
       headerNodeParent = document.querySelector('[role="header"]')
     }
+    if (!headerNodeParent) {
+      return
+    }
     const headerNode = headerNodeParent.firstChild
     // eslint-disable-next-line
     const listNode = ReactDOM.findDOMNode(this.listRef)

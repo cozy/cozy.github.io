@@ -2,8 +2,8 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-
 import { withClient } from 'cozy-client'
+import flag from 'cozy-flags'
 import IntentDialogOpener from 'cozy-ui/transpiled/react/IntentDialogOpener'
 
 import { checkApp, DRIVE_INFO } from 'ducks/mobile/appAvailability'
@@ -58,7 +58,9 @@ class FileOpener extends Component {
     return (
       <IntentDialogOpener
         fullScreen
-        showCloseButton={false}
+        showCloseButton={
+          flag('banks.file-opener.hide-close-button') ? false : true
+        }
         action="OPEN"
         create={createIntent}
         doctype="io.cozy.files"

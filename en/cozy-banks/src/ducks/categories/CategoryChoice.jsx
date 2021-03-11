@@ -86,6 +86,7 @@ class CategoryChoice extends Component {
         transformParentItem={this.transformParentItem}
         onSelect={subcategory => onSelect(subcategory)}
         onCancel={onCancel}
+        onClose={onCancel}
       />
     )
   }

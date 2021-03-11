@@ -28,7 +28,7 @@ const AccountListItem = ({ account, onClick, secondary, isLoading }) => {
   // Disable onClick if item is in loading
   const onClickItem = isLoading ? null : onClick
   return (
-    <ListItem divider onClick={onClickItem} className="u-c-pointer">
+    <ListItem button divider onClick={onClickItem}>
       <ListItemIcon>
         <AccountIconContainer>
           <KonnectorIcon

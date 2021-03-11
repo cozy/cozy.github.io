@@ -144,6 +144,16 @@ module.exports = {
       ]
     },
     {
+      name: 'Hooks',
+      components: () => [
+        '../react/hooks/useBrowserOffline.jsx',
+        '../react/hooks/useConfirmExit/index.jsx',
+        '../react/hooks/useCycle.jsx',
+        '../react/hooks/useEventListener.js',
+        '../react/hooks/usePeriodicRender.js'
+      ]
+    },
+    {
       name: 'Labs',
       components: () => [
         '../react/Labs/GridItem',
