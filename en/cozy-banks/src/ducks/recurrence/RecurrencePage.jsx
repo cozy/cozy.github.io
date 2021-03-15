@@ -306,7 +306,9 @@ const BundleInfo = ({ bundle }) => {
         <>
           <Padded>
             <Media>
-              <Bd>
+              {/* Bd has overflow:hidden and it crops the hover circle from the Breadcrumbs
+	          IconButton, this is why we have to add u-ov-visible. */}
+              <Bd className="u-ov-visible">
                 <Typography variant="h5">
                   <Breadcrumbs
                     items={[

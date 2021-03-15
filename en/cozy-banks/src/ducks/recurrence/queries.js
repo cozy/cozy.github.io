@@ -20,6 +20,7 @@ export const bundleTransactionsQueryConn = ({ bundle }) => {
     query: () => {
       const initialQDef = queryRecurrenceTransactions(bundle)
       const qDef = initialQDef
+        .indexFields(['relationships.recurrence.data._id', 'date'])
         .sortBy([
           { 'relationships.recurrence.data._id': 'desc' },
           { date: 'desc' }
