@@ -4042,6 +4042,10 @@ passphrase of the user.</p>
 <p>The user can change its passphrase with this route.</p>
 <p>For users with two-factor authentication activated, a second step on the same
 route is necessary to actually update the passphrase. See below.</p>
+<p>A <code>"force": true</code> parameter can be added in the JSON to force a passphrase on a
+Cozy where authentication by password is disabled and the vault is empty. It
+allows to use Cozy Pass when the authentication on the Cozy is delegated via
+OIDC.</p>
 <h4 id="request_4">Request<a class="headerlink" href="#request_4" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">PUT</span> <span class="nn">/settings/passphrase</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>

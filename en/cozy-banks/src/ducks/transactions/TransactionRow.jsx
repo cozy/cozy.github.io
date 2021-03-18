@@ -51,7 +51,6 @@ const useTransactionCategoryModal = transaction => {
   const [modalOpened, show, hide] = useSwitch(false)
   const modal = modalOpened ? (
     <TransactionCategoryEditor
-      modal={true}
       beforeUpdate={hide}
       onCancel={hide}
       transaction={transaction}

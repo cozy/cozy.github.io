@@ -11,7 +11,7 @@ import CategoryChoice from 'ducks/categories/CategoryChoice'
  */
 const TransactionCategoryEditor = props => {
   const client = useClient()
-  const { transaction, beforeUpdate, afterUpdate, onCancel, modal } = props
+  const { transaction, beforeUpdate, afterUpdate, onCancel } = props
 
   const handleSelect = async category => {
     if (beforeUpdate) {
@@ -33,7 +33,7 @@ const TransactionCategoryEditor = props => {
 
   return (
     <CategoryChoice
-      modal={modal}
+      modal={true}
       categoryId={getCategoryId(transaction)}
       onSelect={handleSelect}
       onCancel={handleCancel}
