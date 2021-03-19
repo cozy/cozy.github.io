@@ -20,7 +20,7 @@ import AddAccountLink from 'ducks/settings/AddAccountLink'
 import { useTrackPage } from 'ducks/tracking/browser'
 
 import { accountsConn, APP_DOCTYPE } from 'doctypes'
-import { useJobsContext } from 'components/JobsContext'
+import { useBanksContext } from 'ducks/context/BanksContext'
 import AccountsListSettings from 'ducks/settings/AccountsListSettings'
 
 const AccountsSettings = props => {
@@ -28,7 +28,7 @@ const AccountsSettings = props => {
   useTrackPage('parametres:comptes')
 
   const { accountsCollection } = props
-  const { jobsInProgress = [] } = useJobsContext()
+  const { jobsInProgress = [], hasJobsInProgress } = useBanksContext()
 
   if (
     isQueryLoading(accountsCollection) &&
@@ -49,7 +49,7 @@ const AccountsSettings = props => {
 
   return (
     <>
-      {myAccounts || jobsInProgress.length > 0 ? (
+      {myAccounts || hasJobsInProgress ? (
         <AccountsListSettings
           accounts={myAccounts}
           jobsInProgress={jobsInProgress}

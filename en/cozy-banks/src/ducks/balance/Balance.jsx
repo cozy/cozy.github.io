@@ -52,7 +52,6 @@ import { filterByAccounts } from 'ducks/filters'
 import { trackPage } from 'ducks/tracking/browser'
 import { isVirtualAccount } from 'ducks/balance/helpers'
 import ImportGroupPanel from 'ducks/balance/ImportGroupPanel'
-import { withJobsInProgress } from 'components/JobsContext'
 
 const syncPouchImmediately = async client => {
   const pouchLink = client.links.find(link => link.pouches)
@@ -454,6 +453,5 @@ export default compose(
       virtualGroups: getVirtualGroups
     })
   ),
-  withClient,
-  withJobsInProgress
+  withClient
 )(Balance)

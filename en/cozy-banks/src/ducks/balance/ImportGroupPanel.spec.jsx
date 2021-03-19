@@ -11,15 +11,9 @@ import CozyRealtime from 'cozy-realtime'
 jest.mock('cozy-realtime')
 
 describe('ImportGroupPanel', () => {
-  const setup = ({ jobsInProgress }) => {
+  const setup = ({ jobsInProgress, mockResolvedValue }) => {
     const client = new CozyClient({})
-    client.query = jest.fn().mockResolvedValue({
-      data: {
-        attributes: {
-          name: ''
-        }
-      }
-    })
+    client.query = jest.fn().mockResolvedValue(mockResolvedValue)
 
     CozyRealtime.mockReturnValue({
       subscribe: () => {},
@@ -40,14 +34,31 @@ describe('ImportGroupPanel', () => {
     expect(root.queryByText('Import in progress')).toBeNull()
   })
 
-  it('should displays multiple konnector in progress', () => {
+  it('should displays multiple konnector in progress', async () => {
     const jobsInProgress = [
       { konnector: 'caissedepargne1', account: '1111' },
       { konnector: 'boursorama83', account: '2222' }
     ]
-    const { root } = setup({ jobsInProgress })
+    const mockResolvedValue = {
+      data: [
+        {
+          ...jobsInProgress[0],
+          slug: jobsInProgress[0].konnector,
+          name: 'Caisse Epargne'
+        },
+        {
+          ...jobsInProgress[1],
+          slug: jobsInProgress[0].konnector,
+          name: 'Boursorama'
+        }
+      ]
+    }
+    const { root } = setup({ jobsInProgress, mockResolvedValue })
 
-    expect(root.getByText('Import accounts')).toBeTruthy()
-    expect(root.getAllByText('Import in progress').length).toEqual(2)
+    expect(await root.findByText('Import accounts')).toBeTruthy()
+    expect(await root.findByText('Caisse Epargne')).toBeTruthy()
+    expect(await root.findByText('Boursorama')).toBeTruthy()
+    const imports = await root.findAllByText('Import in progress')
+    expect(imports.length).toEqual(2)
   })
 })

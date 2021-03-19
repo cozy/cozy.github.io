@@ -25,10 +25,8 @@ import Spinner from 'cozy-ui/transpiled/react/Spinner'
 const { utils } = models
 
 const AccountListItem = ({ account, onClick, secondary, isLoading }) => {
-  // Disable onClick if item is in loading
-  const onClickItem = isLoading ? null : onClick
   return (
-    <ListItem button divider onClick={onClickItem}>
+    <ListItem button divider onClick={onClick}>
       <ListItemIcon>
         <AccountIconContainer>
           <KonnectorIcon
@@ -84,7 +82,8 @@ const transformJobsToFakeAccounts = jobsInProgress => {
     connectionId: j.account,
     cozyMetadata: {
       createdByApp: j.konnector
-    }
+    },
+    institutionLabel: j.institutionLabel
   }))
   return jobsInAccounts
 }

@@ -2332,6 +2332,53 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#add-a-trigger" title="Add a trigger" class="md-nav__link">
+    Add a trigger
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post-konnectorsslugtrigger" title="POST /konnectors/:slug/trigger" class="md-nav__link">
+    POST /konnectors/:slug/trigger
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#query-string_1" title="Query-String" class="md-nav__link">
+    Query-String
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request_6" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_6" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
       
@@ -2968,6 +3015,53 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#add-a-trigger" title="Add a trigger" class="md-nav__link">
+    Add a trigger
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post-konnectorsslugtrigger" title="POST /konnectors/:slug/trigger" class="md-nav__link">
+    POST /konnectors/:slug/trigger
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#query-string_1" title="Query-String" class="md-nav__link">
+    Query-String
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request_6" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_6" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
       
@@ -3307,6 +3401,59 @@ Two flags are available to retreieve the other konnectors if there are more than
 <p>In this case, the stack will accept the uninstall request, then it will clean
 the accounts (locally and remotely), and only after that, the konnector will be
 removed.</p>
+<h2 id="add-a-trigger">Add a trigger<a class="headerlink" href="#add-a-trigger" title="Permanent link">&para;</a></h2>
+<h3 id="post-konnectorsslugtrigger">POST /konnectors/:slug/trigger<a class="headerlink" href="#post-konnectorsslugtrigger" title="Permanent link">&para;</a></h3>
+<p>This endpoint creates a @cron trigger for the given konnector. The manifest is
+used to generate the crontab.</p>
+<h4 id="query-string_1">Query-String<a class="headerlink" href="#query-string_1" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AccountID</td>
+<td>The identifier of the io.cozy.accounts that will be used to run the konnector</td>
+</tr>
+<tr>
+<td>ExecNow</td>
+<td><code>true</code> if you want to run a job just after the trigger creation</td>
+</tr>
+</tbody>
+</table>
+<h4 id="request_6">Request<a class="headerlink" href="#request_6" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/konnectors/pajemploi/trigger?AccountID=4eee63e069690139df83543d7eb8149c</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
+
+
+<h4 id="response_6">Response<a class="headerlink" href="#response_6" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">201</span> <span class="ne">Created</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.triggers&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;8cfeef1069690139df84543d7eb8149c&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;@cron&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;arguments&quot;</span><span class="p">:</span> <span class="s2">&quot;0 9 3 * * 1&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;worker&quot;</span><span class="p">:</span> <span class="s2">&quot;konnector&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;account&quot;</span><span class="p">:</span> <span class="s2">&quot;4eee63e069690139df83543d7eb8149c&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;konnector&quot;</span><span class="p">:</span> <span class="s2">&quot;pajemploi&quot;</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/jobs/triggers/8cfeef1069690139df84543d7eb8149c&quot;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

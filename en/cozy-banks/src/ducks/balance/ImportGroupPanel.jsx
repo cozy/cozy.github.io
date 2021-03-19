@@ -1,5 +1,5 @@
 import cx from 'classnames'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import AccordionSummary from '@material-ui/core/AccordionSummary'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
@@ -15,31 +15,30 @@ import AccountIcon from 'components/AccountIcon'
 import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
 import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
-import { useJobsContext } from 'components/JobsContext'
-import { Q, useClient } from 'cozy-client'
-import { KONNECTOR_DOCTYPE } from 'doctypes'
+import { useBanksContext } from 'ducks/context/BanksContext'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 
-export const GroupPanelSummary = withStyles({
-  root: {
-    maxHeight: '3.5rem',
-    height: '3.5rem'
-  },
-  content: {
-    paddingLeft: '3rem',
-    paddingRight: '0',
-    height: '100%'
+export const GroupPanelSummary = withStyles(theme => ({
+  root: {},
+  expandIcon: {
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(0),
+    color: theme.palette.grey[400]
   },
   expanded: {},
-  expandIcon: {
-    left: '0.375rem',
-    right: 'auto',
-    transform: 'translateY(-50%) rotate(-90deg)',
+  content: {
+    marginTop: 0,
+    marginBottom: 0,
+    paddingRight: 0,
+    justifyContent: 'space-between',
+    alignItems: 'center',
     '&$expanded': {
-      transform: 'translateY(-50%) rotate(0)'
+      marginTop: 0,
+      marginBottom: 0,
+      paddingRight: 0
     }
   }
-})(AccordionSummary)
+}))(AccordionSummary)
 
 const EllipseTypography = withStyles({
   root: {
@@ -64,10 +63,10 @@ const PrimaryColumn = withStyles({
 
 const ImportGroupPanel = () => {
   const { t } = useI18n()
-  const { jobsInProgress = [] } = useJobsContext()
+  const { jobsInProgress = [], hasJobsInProgress } = useBanksContext()
   const [expanded, setExpanded] = useState(true)
 
-  if (jobsInProgress.length === 0) {
+  if (!hasJobsInProgress) {
     return null
   }
 
@@ -102,25 +101,9 @@ const ImportGroupPanel = () => {
   )
 }
 
-const Row = ({ account, t }) => {
+const Row = React.memo(({ account, t }) => {
+  const name = account.institutionLabel
   const slug = account.konnector
-
-  const client = useClient()
-  const [name, setName] = useState('')
-
-  useEffect(() => {
-    const slug = account.konnector
-    client
-      .query(Q(KONNECTOR_DOCTYPE).getById(`${KONNECTOR_DOCTYPE}/${slug}`))
-      .then(resp => {
-        const name = resp.data.attributes.name
-        setName(name)
-      })
-  }, [account.konnector, client])
-
-  // @TODO use 'useQuery' instead of 'client'
-  // const resp = useQuery(konnectorConn.query(slug), konnectorConn)
-  // const name = get(resp, 'data[0].attributes.name', '')
 
   return (
     <ListItem button disableRipple>
@@ -143,6 +126,7 @@ const Row = ({ account, t }) => {
       </PrimaryColumn>
     </ListItem>
   )
-}
+})
+Row.displayName = 'Import Group Panel Row'
 
 export default ImportGroupPanel

@@ -16,7 +16,8 @@ import {
 import flag from 'cozy-flags'
 
 import { TrackerProvider } from 'ducks/tracking/browser'
-import JobsProvider from 'components/JobsContext'
+import JobsProvider from 'ducks/context/JobsContext'
+import BanksProvider from 'ducks/context/BanksContext'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import { initTranslation } from 'cozy-ui/react/I18n'
 
@@ -67,9 +68,11 @@ const AppContainer = ({ store, lang, history, client }) => {
                 dictRequire={lang => require(`locales/${lang}`)}
               >
                 <JobsProvider client={client} options={jobsProviderOptions(t)}>
-                  <MuiCozyTheme>
-                    <Router history={history} routes={AppRoute()} />
-                  </MuiCozyTheme>
+                  <BanksProvider client={client}>
+                    <MuiCozyTheme>
+                      <Router history={history} routes={AppRoute()} />
+                    </MuiCozyTheme>
+                  </BanksProvider>
                 </JobsProvider>
               </I18n>
             </CozyProvider>
