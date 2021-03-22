@@ -1785,8 +1785,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#getmatchingindex-object" title="getMatchingIndex ⇒ object" class="md-nav__link">
-    getMatchingIndex ⇒ object
+  <a href="#isinconsistentindex-boolean" title="isInconsistentIndex ⇒ boolean" class="md-nav__link">
+    isInconsistentIndex ⇒ boolean
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ismatchingindex-boolean" title="isMatchingIndex ⇒ boolean" class="md-nav__link">
+    isMatchingIndex ⇒ boolean
   </a>
   
 </li>
@@ -1857,6 +1864,13 @@
         <li class="md-nav__item">
   <a href="#stream-object" title="Stream : object" class="md-nav__link">
     Stream : object
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#designdoc-object" title="DesignDoc : object" class="md-nav__link">
+    DesignDoc : object
   </a>
   
 </li>
@@ -4156,8 +4170,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#getmatchingindex-object" title="getMatchingIndex ⇒ object" class="md-nav__link">
-    getMatchingIndex ⇒ object
+  <a href="#isinconsistentindex-boolean" title="isInconsistentIndex ⇒ boolean" class="md-nav__link">
+    isInconsistentIndex ⇒ boolean
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ismatchingindex-boolean" title="isMatchingIndex ⇒ boolean" class="md-nav__link">
+    isMatchingIndex ⇒ boolean
   </a>
   
 </li>
@@ -4228,6 +4249,13 @@
         <li class="md-nav__item">
   <a href="#stream-object" title="Stream : object" class="md-nav__link">
     Stream : object
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#designdoc-object" title="DesignDoc : object" class="md-nav__link">
+    DesignDoc : object
   </a>
   
 </li>
@@ -4346,8 +4374,12 @@ through OAuth.</p>
 <dd><p>Compute fields that should be indexed for a mango
 query to work</p>
 </dd>
-<dt><a href="#getMatchingIndex">getMatchingIndex</a> ⇒ <code>object</code></dt>
-<dd><p>Get a matching index based on the given parameters</p>
+<dt><a href="#isInconsistentIndex">isInconsistentIndex</a> ⇒ <code>boolean</code></dt>
+<dd><p>Check if an index is in an inconsistent state, i.e. its name
+contains the indexed attributes which are not in correct order.</p>
+</dd>
+<dt><a href="#isMatchingIndex">isMatchingIndex</a> ⇒ <code>boolean</code></dt>
+<dd><p>Check if an index is matching the given fields</p>
 </dd>
 <dt><a href="#getPermissionsFor">getPermissionsFor</a> ⇒ <code>object</code></dt>
 <dd><p>Build a permission set</p>
@@ -4386,6 +4418,9 @@ query to work</p>
 </dd>
 <dt><a href="#Stream">Stream</a> : <code>object</code></dt>
 <dd><p>Stream is not defined in a browser, but is on NodeJS environment</p>
+</dd>
+<dt><a href="#DesignDoc">DesignDoc</a> : <code>object</code></dt>
+<dd><p>Attributes representing a design doc</p>
 </dd>
 <dt><a href="#Permission">Permission</a> ⇒ <code><a href="#Permission">Permission</a></code></dt>
 <dd><p>async fetchOwnPermissions - Fetches permissions</p>
@@ -6680,11 +6715,12 @@ query to work</p>
 </tr>
 </tbody>
 </table>
-<p><a name="getMatchingIndex"></a></p>
-<h2 id="getmatchingindex-object">getMatchingIndex ⇒ <code>object</code><a class="headerlink" href="#getmatchingindex-object" title="Permanent link">&para;</a></h2>
-<p>Get a matching index based on the given parameters</p>
+<p><a name="isInconsistentIndex"></a></p>
+<h2 id="isinconsistentindex-boolean">isInconsistentIndex ⇒ <code>boolean</code><a class="headerlink" href="#isinconsistentindex-boolean" title="Permanent link">&para;</a></h2>
+<p>Check if an index is in an inconsistent state, i.e. its name
+contains the indexed attributes which are not in correct order.</p>
 <p><strong>Kind</strong>: global constant<br />
-<strong>Returns</strong>: <code>object</code> - A matching index  </p>
+<strong>Returns</strong>: <code>boolean</code> - True if the index is inconsistent  </p>
 <table>
 <thead>
 <tr>
@@ -6695,19 +6731,40 @@ query to work</p>
 </thead>
 <tbody>
 <tr>
-<td>indexes</td>
-<td><code>Array</code></td>
-<td>The list of indexes to search</td>
+<td>index</td>
+<td><a href="#DesignDoc"><code>DesignDoc</code></a></td>
+<td>The index to check</td>
+</tr>
+</tbody>
+</table>
+<p><a name="isMatchingIndex"></a></p>
+<h2 id="ismatchingindex-boolean">isMatchingIndex ⇒ <code>boolean</code><a class="headerlink" href="#ismatchingindex-boolean" title="Permanent link">&para;</a></h2>
+<p>Check if an index is matching the given fields</p>
+<p><strong>Kind</strong>: global constant<br />
+<strong>Returns</strong>: <code>boolean</code> - True if the index is matches the given fields  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index</td>
+<td><a href="#DesignDoc"><code>DesignDoc</code></a></td>
+<td>The index to check</td>
 </tr>
 <tr>
 <td>fields</td>
 <td><code>Array</code></td>
-<td>The index fields</td>
+<td>The fields that the index must have</td>
 </tr>
 <tr>
 <td>partialFilter</td>
 <td><code>object</code></td>
-<td>A partial filter selector</td>
+<td>An optional partial filter</td>
 </tr>
 </tbody>
 </table>
@@ -6863,7 +6920,38 @@ query to work</p>
 <h2 id="stream-object">Stream : <code>object</code><a class="headerlink" href="#stream-object" title="Permanent link">&para;</a></h2>
 <p>Stream is not defined in a browser, but is on NodeJS environment</p>
 <p><strong>Kind</strong>: global typedef<br />
-<a name="Permission"></a></p>
+<a name="DesignDoc"></a></p>
+<h2 id="designdoc-object">DesignDoc : <code>object</code><a class="headerlink" href="#designdoc-object" title="Permanent link">&para;</a></h2>
+<p>Attributes representing a design doc</p>
+<p><strong>Kind</strong>: global typedef<br />
+<strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>_id</td>
+<td><code>string</code></td>
+<td>Id of the design doc. Can be named, e.g. &lsquo;_design/by_indexed_attribute&rsquo; or not, e.g. &lsquo;_design/12345&rsquo;</td>
+</tr>
+<tr>
+<td>language</td>
+<td><code>string</code></td>
+<td>The index language. Can be &lsquo;query&rsquo; for mango index or &lsquo;javascript&rsquo; for views.</td>
+</tr>
+<tr>
+<td>views</td>
+<td><code>object</code></td>
+<td>Views definition, i.e. the index.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="Permission"></a></p>
 <h2 id="permission-permission">Permission ⇒ <a href="#Permission"><code>Permission</code></a><a class="headerlink" href="#permission-permission" title="Permanent link">&para;</a></h2>
 <p>async fetchOwnPermissions - Fetches permissions</p>
 <p><strong>Kind</strong>: global typedef<br />
