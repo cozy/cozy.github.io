@@ -20,12 +20,13 @@ export const TestI18n = ({ children }) => {
 }
 
 const AppLike = ({ children, store, client, router, jobsInProgress }) => {
+  client = client || getClient()
   return (
     <TrackerProvider>
       <RouterContext.Provider value={router}>
         <BreakpointsProvider>
           <Provider store={(client && client.store) || store}>
-            <CozyProvider client={client || getClient()}>
+            <CozyProvider client={client}>
               <JobsContext.Provider value={{ jobsInProgress }}>
                 <BanksProvider client={client}>
                   <TestI18n>{children}</TestI18n>

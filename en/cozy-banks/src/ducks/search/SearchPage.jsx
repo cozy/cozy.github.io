@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import minBy from 'lodash/minBy'
 import debounce from 'lodash/debounce'
 import orderBy from 'lodash/orderBy'
+import keyBy from 'lodash/keyBy'
 import { Typography } from '@material-ui/core'
 import Fuse from 'fuse.js'
 
@@ -12,7 +13,6 @@ import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
 import { useI18n, Empty } from 'cozy-ui/transpiled/react'
 import NarrowContent from 'cozy-ui/transpiled/react/NarrowContent'
 
-import flag from 'cozy-flags'
 import { useQuery } from 'cozy-client'
 import { transactionsConn } from 'doctypes'
 
@@ -79,13 +79,6 @@ const orderSearchResults = results => {
   return orderBy(results, [byRoundedScore, byDate], ['asc', 'desc'])
 }
 
-const logResults = results => {
-  for (let result of results) {
-    // eslint-disable-next-line no-console
-    console.log(parseFloat(result.score.toFixed(2), 10), result.item.label)
-  }
-}
-
 const emptyResults = []
 
 const transactionListOptions = { mobileSectionDateFormat: 'ddd D MMMM YYYY' }
@@ -96,7 +89,7 @@ const SearchPage = () => {
   const { isMobile } = useBreakpoints()
 
   const [search, setSearch] = useState(params.search || '')
-  const [results, setResults] = useState([])
+  const [resultIds, setResultIds] = useState([])
 
   const handleReset = inputNode => {
     setSearch('')
@@ -131,14 +124,9 @@ const SearchPage = () => {
         .filter(result => result.score < 0.3)
       const orderedResults = orderSearchResults(results)
       const transactions = orderedResults.map(result => result.item)
-      if (flag('banks.search.debug-score')) {
-        logResults(results)
-        console.log('---') // eslint-disable-line no-console
-        logResults(orderedResults)
-      }
-      setResults(transactions)
+      setResultIds(transactions.map(tr => tr._id))
     }, 500)
-  }, [fuse, setResults])
+  }, [fuse, setResultIds])
 
   const handleChange = ev => {
     setSearch(ev.target.value)
@@ -151,6 +139,11 @@ const SearchPage = () => {
       performSearch(params.search)
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  const results = useMemo(() => {
+    const transactionsById = keyBy(transactions, tr => tr._id)
+    return resultIds.map(rid => transactionsById[rid]).filter(Boolean)
+  }, [transactions, resultIds])
 
   return (
     <div>

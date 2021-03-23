@@ -5,7 +5,6 @@ import { Provider } from 'react-redux'
 
 import I18n from 'cozy-ui/transpiled/react/I18n'
 import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
-import { Sprite as IconSprite } from 'cozy-ui/transpiled/react/Icon'
 import { CozyProvider } from 'cozy-client'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import {
@@ -58,7 +57,6 @@ const AppContainer = ({ store, lang, history, client }) => {
 
   return (
     <BreakpointsProvider>
-      <IconSprite />
       <TrackerProvider>
         <Provider store={store}>
           <StylesProvider generateClassName={generateClassName}>

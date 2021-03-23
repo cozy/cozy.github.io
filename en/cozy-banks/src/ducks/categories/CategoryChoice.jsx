@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import sortBy from 'lodash/sortBy'
 import {
   NestedSelect,
   NestedSelectModal,
@@ -21,14 +22,14 @@ export const getOptions = (categories, subcategory = false, t) => {
     option.icon = <CategoryIcon categoryId={option.id} />
 
     if (!subcategory) {
-      // sort children so "others" is always the last
-      option.children = getOptions(option.children, true, t).sort(a => {
-        if (a.id === option.id) {
-          return 1
-        } else {
-          return -1
-        }
-      })
+      // Sort children so "others" is always the last.
+      // "others" is the parent category.
+      const isOther = item => item.id === option.id
+      const alphabetical = item => item.title
+      option.children = sortBy(getOptions(option.children, true, t), [
+        isOther,
+        alphabetical
+      ])
     }
 
     return option

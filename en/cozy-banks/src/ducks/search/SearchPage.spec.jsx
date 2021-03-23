@@ -1,6 +1,6 @@
 import React from 'react'
 import SearchPage from './SearchPage'
-import { render } from '@testing-library/react'
+import { render, act } from '@testing-library/react'
 import AppLike from 'test/AppLike'
 import fixtures from 'test/fixtures/demo'
 import { createMockClient } from 'cozy-client/dist/mock'
@@ -47,7 +47,8 @@ describe('SearchPage', () => {
     )
 
     return {
-      root
+      root,
+      client
     }
   }
 
@@ -69,5 +70,34 @@ describe('SearchPage', () => {
 
     expect(root.getByText('3 results')).toBeTruthy()
     expect(root.getByText('Docteur Martoni')).toBeTruthy()
+  })
+
+  it('should update search results when a transaction is updated', () => {
+    const { root, client } = setup({
+      router: {
+        params: {
+          search: 'Martin'
+        }
+      }
+    })
+
+    const originalTransaction = fixtures[TRANSACTION_DOCTYPE].find(
+      x => x._id === 'paiement_docteur_martoni'
+    )
+
+    act(() => {
+      client.setData({
+        [TRANSACTION_DOCTYPE]: [
+          {
+            ...originalTransaction,
+            _type: TRANSACTION_DOCTYPE,
+            label: 'Docteur Martini'
+          }
+        ]
+      })
+    })
+
+    expect(root.getByText('3 results')).toBeTruthy()
+    expect(root.getByText('Docteur Martini')).toBeTruthy()
   })
 })

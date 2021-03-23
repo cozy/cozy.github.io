@@ -964,29 +964,36 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#2a-requesting-data-with-ltquery-gt" title="2.a Requesting data with &lt;Query /&gt;" class="md-nav__link">
-    2.a Requesting data with &lt;Query /&gt;
+  <a href="#2a-requesting-data-with-usequery" title="2.a Requesting data with useQuery" class="md-nav__link">
+    2.a Requesting data with useQuery
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2b-requesting-data-with-the-queryconnect-hoc" title="2.b Requesting data with the queryConnect HOC" class="md-nav__link">
-    2.b Requesting data with the queryConnect HOC
+  <a href="#2b-requesting-data-with-ltquery-gt" title="2.b Requesting data with &lt;Query /&gt;" class="md-nav__link">
+    2.b Requesting data with &lt;Query /&gt;
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2c-using-a-fetch-policy-to-decrease-network-requests" title="2.c Using a fetch policy to decrease network requests" class="md-nav__link">
-    2.c Using a fetch policy to decrease network requests
+  <a href="#2c-requesting-data-with-the-queryconnect-hoc" title="2.c Requesting data with the queryConnect HOC" class="md-nav__link">
+    2.c Requesting data with the queryConnect HOC
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2d-keeping-data-up-to-date-in-real-time" title="2.d Keeping data up to date in real time" class="md-nav__link">
-    2.d Keeping data up to date in real time
+  <a href="#2d-using-a-fetch-policy-to-decrease-network-requests" title="2.d Using a fetch policy to decrease network requests" class="md-nav__link">
+    2.d Using a fetch policy to decrease network requests
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2e-keeping-data-up-to-date-in-real-time" title="2.e Keeping data up to date in real time" class="md-nav__link">
+    2.e Keeping data up to date in real time
   </a>
   
 </li>
@@ -2608,29 +2615,36 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#2a-requesting-data-with-ltquery-gt" title="2.a Requesting data with &lt;Query /&gt;" class="md-nav__link">
-    2.a Requesting data with &lt;Query /&gt;
+  <a href="#2a-requesting-data-with-usequery" title="2.a Requesting data with useQuery" class="md-nav__link">
+    2.a Requesting data with useQuery
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2b-requesting-data-with-the-queryconnect-hoc" title="2.b Requesting data with the queryConnect HOC" class="md-nav__link">
-    2.b Requesting data with the queryConnect HOC
+  <a href="#2b-requesting-data-with-ltquery-gt" title="2.b Requesting data with &lt;Query /&gt;" class="md-nav__link">
+    2.b Requesting data with &lt;Query /&gt;
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2c-using-a-fetch-policy-to-decrease-network-requests" title="2.c Using a fetch policy to decrease network requests" class="md-nav__link">
-    2.c Using a fetch policy to decrease network requests
+  <a href="#2c-requesting-data-with-the-queryconnect-hoc" title="2.c Requesting data with the queryConnect HOC" class="md-nav__link">
+    2.c Requesting data with the queryConnect HOC
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2d-keeping-data-up-to-date-in-real-time" title="2.d Keeping data up to date in real time" class="md-nav__link">
-    2.d Keeping data up to date in real time
+  <a href="#2d-using-a-fetch-policy-to-decrease-network-requests" title="2.d Using a fetch policy to decrease network requests" class="md-nav__link">
+    2.d Using a fetch policy to decrease network requests
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2e-keeping-data-up-to-date-in-real-time" title="2.e Keeping data up to date in real time" class="md-nav__link">
+    2.e Keeping data up to date in real time
   </a>
   
 </li>
@@ -2754,8 +2768,44 @@
 
 
 <h2 id="2-usage">2. Usage<a class="headerlink" href="#2-usage" title="Permanent link">&para;</a></h2>
-<h3 id="2a-requesting-data-with-ltquery-gt">2.a Requesting data with <code>&lt;Query /&gt;</code><a class="headerlink" href="#2a-requesting-data-with-ltquery-gt" title="Permanent link">&para;</a></h3>
-<p>To make it easy to fetch data and make it available to your component, we provide a Render Props component called <code>Query</code>. Basic example of usage:</p>
+<h3 id="2a-requesting-data-with-usequery">2.a Requesting data with <code>useQuery</code><a class="headerlink" href="#2a-requesting-data-with-usequery" title="Permanent link">&para;</a></h3>
+<p><code>useQuery</code> is the most straightforward to fetch data from the Cozy.
+Query results are cached and can be reused across components, you just
+have to name the query results (&ldquo;checked-todos&rdquo;) below.</p>
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">CozyClient</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Query</span><span class="p">,</span> <span class="nx">isQueryLoading</span><span class="p">,</span> <span class="nx">Q</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
+
+<span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="nx">CozyClient</span><span class="p">.</span><span class="nx">fromDOM</span><span class="p">()</span>
+<span class="nx">client</span><span class="p">.</span><span class="nx">ensureStore</span><span class="p">()</span>
+<span class="kr">const</span> <span class="nx">todos</span> <span class="o">=</span> <span class="s1">&#39;io.cozy.todos&#39;</span>
+<span class="kr">const</span> <span class="nx">checked</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span> <span class="p">}</span>
+
+<span class="c1">// Use the Q helper to build queries</span>
+<span class="kr">const</span> <span class="nx">query</span> <span class="o">=</span> <span class="nx">Q</span><span class="p">(</span><span class="nx">todos</span><span class="p">).</span><span class="nx">where</span><span class="p">(</span><span class="nx">checked</span><span class="p">)</span>
+
+<span class="kd">function</span> <span class="nx">TodoList</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">queryResult</span> <span class="o">=</span> <span class="nx">useQuery</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">as</span><span class="o">:</span> <span class="s1">&#39;checked-todos&#39;</span><span class="p">,</span>
+    <span class="nx">fetchPolicy</span><span class="o">:</span> <span class="nx">CozyClient</span><span class="p">.</span><span class="nx">fetchPolicies</span><span class="p">.</span><span class="nx">olderThan</span><span class="p">(</span><span class="mi">30</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span>
+  <span class="p">})</span>
+  <span class="k">return</span> <span class="o">&lt;&gt;</span>
+    <span class="p">{</span>
+      <span class="nx">queryResult</span> <span class="p">=&gt;</span> <span class="nx">isQueryLoading</span><span class="p">(</span><span class="nx">queryResult</span><span class="p">)</span>
+        <span class="o">?</span> <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span><span class="nx">Loading</span><span class="p">...&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+        <span class="o">:</span> <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;{</span><span class="nx">queryResult</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">todo</span> <span class="p">=&gt;</span> <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;{</span><span class="nx">todo</span><span class="p">.</span><span class="nx">label</span><span class="p">}&lt;/</span><span class="nt">li</span><span class="p">&gt;)}&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">}</span>
+  <span class="o">&lt;</span><span class="err">/&gt;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">CozyProvider</span> <span class="na">client</span><span class="o">=</span><span class="p">{</span><span class="nx">client</span><span class="p">}&gt;</span>
+    <span class="p">&lt;</span><span class="nt">TodoList</span> <span class="p">/&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">CozyProvider</span><span class="p">&gt;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="2b-requesting-data-with-ltquery-gt">2.b Requesting data with <code>&lt;Query /&gt;</code><a class="headerlink" href="#2b-requesting-data-with-ltquery-gt" title="Permanent link">&para;</a></h3>
+<p>If you cannot use a hook, you can use the <code>Query</code> render-prop component. Basic example of usage:</p>
 <div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">Query</span><span class="p">,</span> <span class="nx">isQueryLoading</span><span class="p">,</span> <span class="nx">Q</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 
 <span class="kr">const</span> <span class="nx">todos</span> <span class="o">=</span> <span class="s1">&#39;io.cozy.todos&#39;</span>
@@ -2810,7 +2860,7 @@
 
 
 <p>Note: Your query will be bound when the <code>&lt;Query/&gt;</code> component mounts. Future changes in props will not modify the query.</p>
-<h3 id="2b-requesting-data-with-the-queryconnect-hoc">2.b Requesting data with the <code>queryConnect</code> HOC<a class="headerlink" href="#2b-requesting-data-with-the-queryconnect-hoc" title="Permanent link">&para;</a></h3>
+<h3 id="2c-requesting-data-with-the-queryconnect-hoc">2.c Requesting data with the <code>queryConnect</code> HOC<a class="headerlink" href="#2c-requesting-data-with-the-queryconnect-hoc" title="Permanent link">&para;</a></h3>
 <p>At your preference, you can use an higher-order component. <code>queryConnect</code> will take the name of the props field where it should send the result of the query and the actual query:</p>
 <div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">queryConnect</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 
@@ -2854,7 +2904,7 @@
 </pre></div>
 
 
-<h3 id="2c-using-a-fetch-policy-to-decrease-network-requests">2.c Using a fetch policy to decrease network requests<a class="headerlink" href="#2c-using-a-fetch-policy-to-decrease-network-requests" title="Permanent link">&para;</a></h3>
+<h3 id="2d-using-a-fetch-policy-to-decrease-network-requests">2.d Using a fetch policy to decrease network requests<a class="headerlink" href="#2d-using-a-fetch-policy-to-decrease-network-requests" title="Permanent link">&para;</a></h3>
 <p>When multiple components share the same data, you might want to share the data between the two
 components. In this case, you do not want to execute 2 network requests for the same data, the
 two components should share the same data and only 1 network request should be executed.</p>
@@ -2895,7 +2945,7 @@ otherwise query data cannot be shared across components.</p>
 
 <p>See <a href="../api/cozy-client/#fetchpolicies">CozyClient::fetchPolicies</a>
 for the API documentation.</p>
-<h3 id="2d-keeping-data-up-to-date-in-real-time">2.d Keeping data up to date in real time<a class="headerlink" href="#2d-keeping-data-up-to-date-in-real-time" title="Permanent link">&para;</a></h3>
+<h3 id="2e-keeping-data-up-to-date-in-real-time">2.e Keeping data up to date in real time<a class="headerlink" href="#2e-keeping-data-up-to-date-in-real-time" title="Permanent link">&para;</a></h3>
 <p>Sometimes the data you are displaying will be changed from other places than your app. Maybe the data is shared and someone else has updated it, or maybe it simply changes over time.</p>
 <p>You can however keep your UI always up to date without constantly re-running your queries, by subscribing to changes in real time. This is done with the <code>RealTimeQueries</code> component:</p>
 <div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">RealTimeQueries</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
