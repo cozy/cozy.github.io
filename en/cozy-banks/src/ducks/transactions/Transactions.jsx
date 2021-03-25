@@ -12,9 +12,9 @@ import { isIOSApp } from 'cozy-device-helper'
 
 import { useI18n, withBreakpoints } from 'cozy-ui/transpiled/react'
 import Button from 'cozy-ui/transpiled/react/Button'
-import * as List from 'components/List'
-import { Table } from 'components/Table'
+import ListSubheader from 'cozy-ui/transpiled/react/MuiCozyTheme/ListSubheader'
 
+import { Table } from 'components/Table'
 import TransactionPageErrors from 'ducks/transactions/TransactionPageErrors'
 import styles from 'ducks/transactions/Transactions.styl'
 import {
@@ -70,7 +70,7 @@ const SectionMobile = props => {
   const { date, children } = props
   return (
     <React.Fragment>
-      <List.Header>{f(date, mobileSectionDateFormat)}</List.Header>
+      <ListSubheader>{f(date, mobileSectionDateFormat)}</ListSubheader>
       {children}
     </React.Fragment>
   )

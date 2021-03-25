@@ -19,6 +19,18 @@ import Empty from 'cozy-ui/transpiled/react/Empty'
 import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
 import Breadcrumbs from 'cozy-ui/transpiled/react/Breadcrumbs'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import ActionMenu, {
+  ActionMenuItem,
+  ActionMenuRadio
+} from 'cozy-ui/transpiled/react/ActionMenu'
+import ListSubheader from 'cozy-ui/transpiled/react/MuiCozyTheme/ListSubheader'
+import PenIcon from 'cozy-ui/transpiled/react/Icons/Pen'
+import TrashIcon from 'cozy-ui/transpiled/react/Icons/Trash'
+import BottomIcon from 'cozy-ui/transpiled/react/Icons/Bottom'
+import DotsIcon from 'cozy-ui/transpiled/react/Icons/Dots'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import Typography from 'cozy-ui/transpiled/react/Typography'
+
 import IconButton from '@material-ui/core/IconButton'
 
 import Loading from 'components/Loading'
@@ -43,16 +55,10 @@ import {
 } from 'ducks/recurrence/api'
 
 import { BarTitle } from 'components/Title/PageTitle'
+import { BarRight } from 'components/Bar'
 import TransactionsTableHead from 'ducks/transactions/header/TableHead'
 
-import { BarRight } from 'components/Bar'
-import ActionMenu, {
-  ActionMenuItem,
-  ActionMenuRadio
-} from 'cozy-ui/transpiled/react/ActionMenu'
-
 import styles from './styles.styl'
-import * as List from 'components/List'
 import useToggle from 'components/useToggle'
 import ActionMenuHelper from 'components/ActionMenuHelper'
 
@@ -60,14 +66,6 @@ import { useHistory, useParams } from 'components/RouterContext'
 import { useTrackPage } from 'ducks/tracking/browser'
 import useDocument from 'components/useDocument'
 import LegalMention from 'ducks/legal/LegalMention'
-
-import PenIcon from 'cozy-ui/transpiled/react/Icons/Pen'
-import TrashIcon from 'cozy-ui/transpiled/react/Icons/Trash'
-import BottomIcon from 'cozy-ui/transpiled/react/Icons/Bottom'
-
-import DotsIcon from 'cozy-ui/transpiled/react/Icons/Dots'
-import Icon from 'cozy-ui/transpiled/react/Icon'
-import Typography from 'cozy-ui/transpiled/react/Typography'
 
 // TODO We should need to do this (isMobile ? portal : identity) but see
 // Cozy-UI's issue: https://github.com/cozy/cozy-ui/issues/1462
@@ -401,7 +399,7 @@ const BundleTransactionMobile = ({ transaction }) => {
   const { date } = transaction
   return (
     <>
-      <List.Header>{f(date, 'dddd D MMMM')}</List.Header>
+      <ListSubheader>{f(date, 'dddd D MMMM')}</ListSubheader>
       <TransactionRowMobile showRecurrence={false} transaction={transaction} />
     </>
   )

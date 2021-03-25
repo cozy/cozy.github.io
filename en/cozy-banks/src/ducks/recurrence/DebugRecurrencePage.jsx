@@ -363,7 +363,7 @@ const RecurrencePage = () => {
   const end = Date.now()
 
   return (
-    <Padded>
+    <Padded className="u-ov-scroll">
       <Rules
         rulesConfig={rulesConfig}
         onResetConfig={handleResetConfig}

@@ -11,11 +11,7 @@ module.exports = {
   serverPort: 6061,
   styleguideDir: 'docs/build/styleguide',
   styleguideComponents: {
-    Wrapper: path.resolve(__dirname, 'docs/styleguide/Wrapper'),
-    SectionsRenderer: path.resolve(
-      __dirname,
-      'docs/styleguide/IconSpriteInjector'
-    )
+    Wrapper: path.resolve(__dirname, 'docs/styleguide/Wrapper')
   },
   sections: [
     {

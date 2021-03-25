@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styles from 'components/List/List.styl'
-import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import { Radio as UIRadio } from 'cozy-ui/transpiled/react'
 import cx from 'classnames'
 
@@ -35,14 +34,8 @@ List.propTypes = {
   paper: PropTypes.bool
 }
 
-export const Header = ({ children }) => (
-  <div className={styles['c-list-header']}>{children}</div>
-)
-
 const _Row = ({ className, onRef, ...rest }) => (
   <div ref={onRef} className={cx(styles['c-list-row'], className)} {...rest} />
 )
 
 export const Row = React.memo(_Row)
-
-export const Content = ListItemText

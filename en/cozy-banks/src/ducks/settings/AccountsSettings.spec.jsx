@@ -1,6 +1,6 @@
 import React from 'react'
 import { createMockClient } from 'cozy-client/dist/mock'
-import { render, fireEvent, act } from '@testing-library/react'
+import { act, fireEvent, render } from '@testing-library/react'
 import AccountsSettings from './AccountsSettings'
 import {
   accountsConn,
@@ -15,6 +15,19 @@ import { receiveMutationResult } from 'cozy-client/dist/store'
 jest.mock('hooks/useRedirectionURL', () => {
   return () => ['https://cozy.tools:8080', () => {}]
 })
+
+const BreakContext = () => {
+  const ctx = React.createContext({
+    isMobile: false
+  })
+  return React.useContext(ctx)
+}
+
+jest.mock('cozy-ui/transpiled/react/hooks/useBreakpoints', () => ({
+  __esModule: true,
+  default: jest.fn().mockImplementation(BreakContext),
+  BreakpointsProvider: ({ children }) => children
+}))
 
 const mockBankAccounts = [
   {
