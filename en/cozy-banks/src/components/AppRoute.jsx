@@ -10,8 +10,7 @@ import {
   GroupsSettings,
   GroupSettings,
   NewGroupSettings,
-  Configuration,
-  Debug
+  Configuration
 } from 'ducks/settings'
 import { Balance, BalanceDetailsPage } from 'ducks/balance'
 import {
@@ -89,7 +88,6 @@ const AppRoute = () => (
           <Route path="accounts" component={AccountsSettings} />
           <Route path="groups" component={GroupsSettings} />
           <Route path="configuration" component={Configuration} />
-          <Route path="debug" component={Debug} />
         </Route>
       </Route>
       <Route path="transfers" component={scrollToTopOnMount(TransferPage)} />

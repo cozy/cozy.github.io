@@ -22,6 +22,9 @@ import RouterContext from 'components/RouterContext'
 import AppSearchBar from 'components/AppSearchBar'
 import useKeyboardState from 'components/useKeyboardState'
 
+import CozyDevTools from 'ducks/devtools'
+import banksPanels from 'ducks/devtools/banksPanels'
+
 import styles from './App.styl'
 
 const KeyboardAwareSidebar = ({ children }) => {
@@ -55,6 +58,7 @@ const App = props => {
         <Warnings />
         <Alerter />
       </Layout>
+      {flag('debug') ? <CozyDevTools panels={banksPanels} /> : null}
     </RouterContext.Provider>
   )
 }

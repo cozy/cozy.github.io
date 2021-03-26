@@ -1,7 +1,6 @@
 /* global __TARGET__, __APP_VERSION__ */
 import React from 'react'
 
-import flag from 'cozy-flags'
 import { useI18n } from 'cozy-ui/transpiled/react'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { Tabs, Tab } from 'cozy-ui/transpiled/react/MuiTabs'
@@ -26,9 +25,7 @@ const Settings = ({ children }) => {
   const tabNames = ['configuration', 'accounts', 'groups']
 
   let defaultTab = location.pathname.replace('/settings/', '')
-  if (flag('debug')) {
-    tabNames.push('debug')
-  }
+
   if (tabNames.indexOf(defaultTab) === -1) defaultTab = 'configuration'
 
   const goTo = url => () => {
@@ -36,7 +33,7 @@ const Settings = ({ children }) => {
   }
 
   return (
-    <React.Fragment>
+    <>
       <BarTheme theme="primary" />
       <Padded className={isMobile ? 'u-p-0' : 'u-pb-half'}>
         <PageTitle>{t('Settings.title')}</PageTitle>
@@ -66,8 +63,8 @@ const Settings = ({ children }) => {
           <AppVersion version={__APP_VERSION__} />
         </Padded>
       )}
-    </React.Fragment>
+    </>
   )
 }
 
-export default flag.connect(Settings)
+export default Settings
