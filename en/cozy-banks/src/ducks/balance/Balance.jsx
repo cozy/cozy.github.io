@@ -313,10 +313,9 @@ class Balance extends PureComponent {
    * If already started, does nothing.
    */
   startRealtimeFallback() {
-    if (this.realtimeFallbackInterval) {
-      return
+    if (!this.realtimeFallbackInterval && !this.realtimeStarted) {
+      this.realtimeFallbackInterval = setInterval(this.updateQueries, 30 * 1000)
     }
-    this.realtimeFallbackInterval = setInterval(this.updateQueries, 30 * 1000)
   }
 
   /**
