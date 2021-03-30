@@ -2724,6 +2724,13 @@
 
 <h2 id="1-setup">1. Setup<a class="headerlink" href="#1-setup" title="Permanent link">&para;</a></h2>
 <p>The following procedure requires you to already know how to initialize a CozyClient instance and create a query to fetch documents.</p>
+<p>⚠️  The fromDOM instantiation method assumes the page you use is served by the
+Cozy Stack, and that there is a DOM node with the stack info. See 
+<a href="https://docs.cozy.io/en/tutorials/app/#how-the-application-works">how the application works</a> for more information.</p>
+<div class="codehilite"><pre><span></span><span class="x">&lt;div role=&#39;application&#39; data-cozy=&#39;</span><span class="cp">{{</span> <span class="nv">.CozyData</span> <span class="cp">}}</span><span class="x">&#39; /&gt;</span>
+</pre></div>
+
+
 <h3 id="1a-initialize-a-cozyclient-provider">1.a Initialize a CozyClient provider<a class="headerlink" href="#1a-initialize-a-cozyclient-provider" title="Permanent link">&para;</a></h3>
 <p>Import <code>CozyClient</code> and <code>CozyProvider</code></p>
 <div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">CozyClient</span><span class="p">,</span> <span class="p">{</span> <span class="nx">CozyProvider</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
@@ -2731,10 +2738,7 @@
 
 
 <p>Initialize a CozyClient instance (see the <code>CozyClient()</code> documentation for additional parameters, for example to provide a schema)</p>
-<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CozyClient</span><span class="p">({</span>
-  <span class="nx">uri</span><span class="o">:</span> <span class="s1">&#39;http://cozy.tools:8080&#39;</span><span class="p">,</span>
-  <span class="nx">token</span><span class="o">:</span> <span class="s1">&#39;...&#39;</span>
-<span class="p">})</span>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="nx">CozyClient</span><span class="p">.</span><span class="nx">fromDOM</span><span class="p">()</span>
 </pre></div>
 
 
@@ -2757,9 +2761,8 @@
 <div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">CozyClient</span><span class="p">,</span> <span class="p">{</span> <span class="nx">CozyProvider</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 <span class="kr">import</span> <span class="p">{</span> <span class="nx">combineReducers</span><span class="p">,</span> <span class="nx">createStore</span><span class="p">,</span> <span class="nx">applyMiddleware</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;redux&#39;</span>
 
-<span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CozyClient</span><span class="p">({</span>
-  <span class="nx">uri</span><span class="o">:</span> <span class="s1">&#39;http://cozy.tools:8080&#39;</span><span class="p">,</span>
-  <span class="nx">token</span><span class="o">:</span> <span class="s1">&#39;...&#39;</span>
+<span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="nx">CozyClient</span><span class="p">.</span><span class="nx">fromDOM</span><span class="p">({</span>
+  <span class="nx">store</span><span class="o">:</span> <span class="kc">false</span> <span class="c1">// Important, otherwise a default store is created</span>
 <span class="p">})</span>
 
 <span class="kr">const</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">createStore</span><span class="p">(</span>

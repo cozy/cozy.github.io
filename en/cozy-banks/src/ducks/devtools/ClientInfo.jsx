@@ -1,7 +1,7 @@
 import React from 'react'
 import { useClient } from 'cozy-client'
 import Typography from 'cozy-ui/transpiled/react/Typography'
-import PanelContent from './PanelContent'
+import { PanelContent } from 'cozy-client/dist/devtools'
 
 const ClientInfo = () => {
   const client = useClient()

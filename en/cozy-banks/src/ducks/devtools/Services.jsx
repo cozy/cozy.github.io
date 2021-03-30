@@ -4,7 +4,7 @@ import flag from 'cozy-flags'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import Button from 'cozy-ui/transpiled/react/Button'
-import PanelContent from './PanelContent'
+import { PanelContent } from 'cozy-client/dist/devtools'
 
 const startAndWaitService = async (client, serviceName) => {
   const jobs = client.collection('io.cozy.jobs')

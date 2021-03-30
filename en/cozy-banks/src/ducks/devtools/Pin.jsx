@@ -1,7 +1,7 @@
 import React from 'react'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import { pinSettingStorage, lastInteractionStorage } from 'ducks/pin/storage'
-import PanelContent from './PanelContent'
+import { PanelContent } from 'cozy-client/dist/devtools'
 
 const PinDevTool = () => {
   return (

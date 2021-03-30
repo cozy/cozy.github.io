@@ -5,7 +5,7 @@ import { isMobileApp } from 'cozy-device-helper'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import Button from 'cozy-ui/transpiled/react/Button'
-import PanelContent from './PanelContent'
+import { PanelContent } from 'cozy-client/dist/devtools'
 
 import { getNotificationToken } from 'ducks/client/utils'
 import { accountsConn } from 'doctypes'

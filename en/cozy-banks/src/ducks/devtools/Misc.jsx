@@ -3,7 +3,7 @@ import Checkbox from 'cozy-ui/transpiled/react/Checkbox'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import flag from 'cozy-flags'
 
-import PanelContent from './PanelContent'
+import { PanelContent } from 'cozy-client/dist/devtools'
 
 const Misc = () => {
   const noAccountChecked = !!flag('balance.no-account')

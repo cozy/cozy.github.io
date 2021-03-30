@@ -32,5 +32,12 @@ export const getClient = () => {
   const uri = flag('cozyURL') || getCozyURI()
   const token = flag('cozyToken') || getToken()
 
-  return new CozyClient({ appMetadata, uri, token, schema, links: getLinks() })
+  return new CozyClient({
+    appMetadata,
+    uri,
+    token,
+    schema,
+    links: getLinks(),
+    store: false
+  })
 }

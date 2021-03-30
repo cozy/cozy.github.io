@@ -10,10 +10,13 @@ describe('startup checks', () => {
   const setup = async ({ loggedIn = false, existingTriggers = [] } = {}) => {
     const clientOpts = loggedIn
       ? {
+          store: false,
           uri: 'https://test.mycozy.cloud',
           token: '1234'
         }
-      : {}
+      : {
+          store: false
+        }
     let client = new CozyClient(clientOpts)
     const launch = jest.fn()
     client.collection = () => ({

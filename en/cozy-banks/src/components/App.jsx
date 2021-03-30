@@ -4,6 +4,7 @@ import flag from 'cozy-flags'
 import { queryConnect } from 'cozy-client'
 import { withRouter } from 'react-router'
 import compose from 'lodash/flowRight'
+import CozyDevTools from 'cozy-client/dist/devtools'
 
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import { Content, Layout, Main } from 'cozy-ui/transpiled/react/Layout'
@@ -22,7 +23,6 @@ import RouterContext from 'components/RouterContext'
 import AppSearchBar from 'components/AppSearchBar'
 import useKeyboardState from 'components/useKeyboardState'
 
-import CozyDevTools from 'ducks/devtools'
 import banksPanels from 'ducks/devtools/banksPanels'
 
 import styles from './App.styl'
