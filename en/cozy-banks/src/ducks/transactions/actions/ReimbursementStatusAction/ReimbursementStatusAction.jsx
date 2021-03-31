@@ -50,7 +50,7 @@ const TransactionItem = ({
       variant="outlined"
       theme={isLate ? 'error' : 'normal'}
       onClick={onClick}
-      className={cx({ 'u-valid': status === 'reimbursed' })}
+      className={cx({ 'u-success': status === 'reimbursed' })}
     >
       {t(`Transactions.actions.reimbursementStatus.${translateKey}`)}
       {status === 'pending' && (

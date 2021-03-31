@@ -1,18 +1,25 @@
 import { createSelector } from 'reselect'
 import addDays from 'date-fns/add_days'
+import isAfter from 'date-fns/is_after'
+import parse from 'date-fns/parse'
+import differenceInDays from 'date-fns/difference_in_days'
+import get from 'lodash/get'
 
 import { getRecurrences } from 'selectors'
 import { getFilteredAccountIds } from 'ducks/filters'
 import { nextDate, STATUS_FINISHED } from 'ducks/recurrence'
 import getClient from 'selectors/getClient'
 import { TRANSACTION_DOCTYPE } from 'doctypes'
-import isAfter from 'date-fns/is_after'
 
 export const getMaxDate = () => {
   return addDays(new Date(Date.now()), 30)
     .toISOString()
     .slice(0, 10)
 }
+
+const FOUR_MONTHS_IN_DAYS = 4 * 30
+const RECURRENCE_MAX_AGE_FOR_PLANNING = FOUR_MONTHS_IN_DAYS
+const MIN_MEDIAN_FOR_PLANNING = 15
 
 /**
  * Returns planned transactions based on recurrences
@@ -41,11 +48,21 @@ export const getPlannedTransactions = createSelector(
         continue
       }
 
+      const latestDate = parse(recurrence.latestDate)
+      const deltaToNow = differenceInDays(now, latestDate)
+      if (deltaToNow >= RECURRENCE_MAX_AGE_FOR_PLANNING) {
+        continue
+      }
+
+      const median = get(recurrence, 'stats.deltas.median')
+      if (!median || median < MIN_MEDIAN_FOR_PLANNING) {
+        continue
+      }
+
       const futureDate = nextDate(recurrence)
       if (isAfter(now, futureDate) || isAfter(futureDate, maxDate)) {
         continue
       }
-
       const transaction = client.hydrateDocument({
         _type: TRANSACTION_DOCTYPE,
         label: recurrence.automaticLabel,

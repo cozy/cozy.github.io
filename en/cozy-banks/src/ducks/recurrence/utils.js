@@ -7,6 +7,7 @@ import {
 } from 'ducks/transactions/helpers'
 import addDays from 'date-fns/add_days'
 import parse from 'date-fns/parse'
+import differenceInDays from 'date-fns/difference_in_days'
 
 const RECURRENCE_DOCTYPE = 'io.cozy.bank.recurrence'
 
@@ -93,14 +94,24 @@ export const makeRecurrenceFromTransaction = transaction => {
 export const nextDate = recurrence => {
   try {
     const {
-      latestDate,
+      latestDate: rawLatestDate,
       stats: {
         deltas: { median }
       }
     } = recurrence
-    const date = parse(latestDate)
-    return addDays(date, median)
-  } catch {
+    const latestDate = parse(rawLatestDate)
+    const now = new Date(Date.now())
+    const deltaDays = differenceInDays(now, latestDate)
+    const n = deltaDays / median
+    const r = Math.ceil(n)
+    const candidate = addDays(latestDate, r * median)
+    if (differenceInDays(candidate, now) <= 0) {
+      return new Date(now)
+    }
+    return candidate
+  } catch (e) {
+    // eslint-disable-next-line
+    console.error('Error while computing next date', e)
     return null
   }
 }

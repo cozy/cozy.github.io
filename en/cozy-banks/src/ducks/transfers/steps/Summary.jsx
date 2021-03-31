@@ -33,7 +33,7 @@ const _Summary = ({
       <div>
         {t('Transfer.summary.send')}{' '}
         <InlineCard
-          className="u-clickable u-mb-half"
+          className="u-c-pointer u-mb-half"
           onClick={selectSlide.bind(null, 'amount')}
         >
           {amount}€
@@ -41,7 +41,7 @@ const _Summary = ({
         <br />
         {t('Transfer.summary.to')}{' '}
         <InlineCard
-          className="u-clickable u-mb-half"
+          className="u-c-pointer u-mb-half"
           onClick={selectSlide.bind(null, 'beneficiary')}
         >
           {beneficiary.label}
@@ -49,7 +49,7 @@ const _Summary = ({
         <br />
         {t('Transfer.summary.from')}{' '}
         <InlineCard
-          className="u-clickable u-mb-half"
+          className="u-c-pointer u-mb-half"
           onClick={selectSlide.bind(null, 'sender')}
         >
           {/* TODO, remove key when AccountIcon correctly updates on account change (https://github.com/cozy/cozy-ui/issues/1076) */}
@@ -62,7 +62,7 @@ const _Summary = ({
         </InlineCard>
         <br />
         {t('Transfer.summary.on')}{' '}
-        <InlineCard className="u-clickable u-mb-half u-invisible-form-field">
+        <InlineCard className="u-c-pointer u-mb-half u-invisible-form-field">
           <Input type="date" value={date} onChange={onChangeDate} size="tiny" />
         </InlineCard>
         <br />

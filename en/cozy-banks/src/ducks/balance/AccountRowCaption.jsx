@@ -22,7 +22,7 @@ const UpdatedAt = React.memo(function UpdatedAt({ account, trigger }) {
   const { t } = useI18n()
   const updatedAt = getAccountUpdatedAt(account, trigger)
   return (
-    <span className={updatedAt.params.nbDays > 1 ? 'u-warn' : null}>
+    <span className={updatedAt.params.nbDays > 1 ? 'u-warning' : null}>
       <Icon
         icon={SyncIcon}
         width="10"

@@ -11,15 +11,7 @@ import {
 import useEstimatedBudget from './useEstimatedBudget'
 import getClient from 'selectors/getClient'
 import { getFilteredAccountIds } from 'ducks/filters'
-import { nextDate } from 'ducks/recurrence'
-import addDays from 'date-fns/add_days'
-
-jest.mock('ducks/recurrence', () => {
-  return {
-    ...jest.requireActual('ducks/recurrence'),
-    nextDate: jest.fn()
-  }
-})
+import MockDate from 'mockdate'
 
 jest.mock('ducks/filters', () => {
   return {
@@ -30,6 +22,14 @@ jest.mock('ducks/filters', () => {
 jest.mock('selectors/getClient', () => jest.fn())
 
 describe('useEstimatedBudget', () => {
+  beforeEach(() => {
+    MockDate.set('2018-07-01T15:00')
+  })
+
+  afterEach(() => {
+    MockDate.reset()
+  })
+
   it('should work', () => {
     getFilteredAccountIds.mockReturnValue(['compteisa1'])
     const client = createMockClient({
@@ -48,7 +48,6 @@ describe('useEstimatedBudget', () => {
         }
       }
     })
-    nextDate.mockReturnValue(addDays(new Date(), 15))
     getClient.mockReturnValue(client)
     const wrapper = ({ children }) => (
       <AppLike client={client}>{children}</AppLike>

@@ -152,6 +152,7 @@ const HarvestBankAccountSettings = ({ connectionId, onDismiss }) => {
     open: true,
     size: 'medium'
   })
+
   return (
     <HarvestVaultProvider>
       <VaultUnlockProvider>
@@ -187,19 +188,17 @@ const HarvestBankAccountSettings = ({ connectionId, onDismiss }) => {
               ],
               ['/accounts', () => null],
               [
+                '/accounts/:connectionId/edit?reconnect',
+                connectionId => (
+                  // TODO Avoid passing reconnect in props,
+                  // prefer to use location instead.
+                  <EditModal connectionId={connectionId} reconnect={true} />
+                )
+              ],
+              [
                 '/accounts/:connectionId/edit',
                 connectionId => (
-                  <HarvestLoader connectionId={connectionId}>
-                    {({ konnector, accountsAndTriggers }) => {
-                      return (
-                        <EditAccountModal
-                          konnector={konnector}
-                          accountId={connectionId}
-                          accounts={accountsAndTriggers}
-                        />
-                      )
-                    }}
-                  </HarvestLoader>
+                  <EditModal connectionId={connectionId} reconnect={false} />
                 )
               ]
             ]}
@@ -210,5 +209,23 @@ const HarvestBankAccountSettings = ({ connectionId, onDismiss }) => {
     </HarvestVaultProvider>
   )
 }
+
+const EditModal = React.memo(({ reconnect, connectionId }) => {
+  return (
+    <HarvestLoader connectionId={connectionId}>
+      {({ konnector, accountsAndTriggers }) => {
+        return (
+          <EditAccountModal
+            konnector={konnector}
+            accountId={connectionId}
+            accounts={accountsAndTriggers}
+            reconnect={reconnect}
+          />
+        )
+      }}
+    </HarvestLoader>
+  )
+})
+EditModal.displayName = 'EditAccountModalBanks'
 
 export default HarvestBankAccountSettings

@@ -9,12 +9,21 @@ import SettingCard from 'components/SettingCard'
 import Switch from 'cozy-ui/transpiled/react/MuiCozyTheme/Switch'
 import EditionModal from 'components/EditionModal'
 
-import CrossIcon from 'cozy-ui/transpiled/react/Icons/Cross'
+import IconButton from '@material-ui/core/IconButton'
+import CrossMediumIcon from 'cozy-ui/transpiled/react/Icons/CrossMedium'
 
-export const Cross = ({ onClick }) => (
-  <span onClick={onClick} className="u-expanded-click-area">
-    <Icon color="var(--coolGrey)" icon={CrossIcon} />
-  </span>
+const styles = {
+  crossButton: {
+    position: 'absolute',
+    top: '0.25rem',
+    right: '0.25rem'
+  }
+}
+
+export const CrossButton = ({ onClick }) => (
+  <IconButton onClick={onClick} style={styles.crossButton}>
+    <Icon color="var(--coolGrey)" icon={CrossMediumIcon} size={12} />
+  </IconButton>
 )
 
 export const SettingCardRemoveConfirmation = ({
@@ -29,7 +38,7 @@ export const SettingCardRemoveConfirmation = ({
   })
   return (
     <>
-      <Cross onClick={requestOpen} />
+      <CrossButton onClick={requestOpen} />
       {component}
     </>
   )
@@ -112,13 +121,11 @@ const EditableSettingCard = props => {
             </Img>
           ) : null}
           {onRemove ? (
-            <Img>
-              <SettingCardRemoveConfirmation
-                title={removeModalTitle}
-                description={removeModalDescription}
-                onRemove={onRemove}
-              />
-            </Img>
+            <SettingCardRemoveConfirmation
+              title={removeModalTitle}
+              description={removeModalDescription}
+              onRemove={onRemove}
+            />
           ) : null}
         </Media>
       </SettingCard>

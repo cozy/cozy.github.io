@@ -71,7 +71,7 @@ const BillChip = props => {
         {bill.isRefund ? (
           <>
             {vendorName && (
-              <span className="u-valid u-mr-half">{vendorName}</span>
+              <span className="u-success u-mr-half">{vendorName}</span>
             )}
             <Figure total={bill.amount} coloredPositive signed symbol="€" />
           </>

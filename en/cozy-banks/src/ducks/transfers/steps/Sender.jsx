@@ -13,7 +13,7 @@ import Title from 'ducks/transfers/steps/Title'
 const SenderRow = ({ account, onSelect }) => {
   return (
     <Row
-      className="u-clickable"
+      className="u-c-pointer"
       onClick={onSelect.bind(null, account)}
       key={account._id}
     >

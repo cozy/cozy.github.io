@@ -160,18 +160,24 @@ export const RowDesktop = React.memo(function RowDesktop(props) {
     [showTransactionModal]
   )
 
+  // Virtual transactions, like those generated from recurrences, cannot be edited
+  const canEditTransaction = transaction._id
+
   return (
     <tr
       ref={onRef}
       {...trRest}
-      className={transaction._id && 'u-clickable'}
-      onClick={handleClickRow}
+      className={cx(
+        styles.TransactionRow,
+        canEditTransaction ? styles['TransactionRow--editable'] : null
+      )}
+      onClick={canEditTransaction && handleClickRow}
     >
       <td className={cx(styles.ColumnSizeDesc, 'u-pv-half', 'u-pl-1')}>
-        <Media className="u-clickable">
+        <Media>
           <Img
             title={categoryTitle}
-            onClick={transaction._id && handleClickCategory}
+            onClick={canEditTransaction && handleClickCategory}
           >
             <CategoryIcon
               categoryId={categoryId}
@@ -181,7 +187,7 @@ export const RowDesktop = React.memo(function RowDesktop(props) {
           <Bd className="u-pl-1">
             <ListItemText
               className="u-pv-half"
-              onClick={transaction._id && showTransactionModal}
+              onClick={canEditTransaction && showTransactionModal}
             >
               <Typography variant="body1">{getLabel(transaction)}</Typography>
               {!filteringOnAccount && <AccountCaption account={account} />}
@@ -196,7 +202,7 @@ export const RowDesktop = React.memo(function RowDesktop(props) {
         </Media>
       </td>
       <TdSecondary
-        className={cx(styles.ColumnSizeDate, 'u-clickable')}
+        className={styles.ColumnSizeDate}
         onClick={showTransactionModal}
       >
         <TransactionDate
@@ -205,7 +211,7 @@ export const RowDesktop = React.memo(function RowDesktop(props) {
         />
       </TdSecondary>
       <TdSecondary
-        className={cx(styles.ColumnSizeAmount, 'u-clickable')}
+        className={styles.ColumnSizeAmount}
         onClick={showTransactionModal}
       >
         <Figure

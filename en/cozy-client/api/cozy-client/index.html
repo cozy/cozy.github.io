@@ -1445,8 +1445,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cozyclientgenerateid-string" title="cozyClient.generateId() ⇒ string" class="md-nav__link">
-    cozyClient.generateId() ⇒ string
+  <a href="#cozyclientgenerateidquerydefinition-string" title="cozyClient.generateId(queryDefinition) ⇒ string" class="md-nav__link">
+    cozyClient.generateId(queryDefinition) ⇒ string
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cozyclientgeneraterandomid" title="cozyClient.generateRandomId()" class="md-nav__link">
+    cozyClient.generateRandomId()
   </a>
   
 </li>
@@ -2251,6 +2258,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#isagetbyidquery-boolean" title="isAGetByIdQuery ⇒ boolean" class="md-nav__link">
+    isAGetByIdQuery ⇒ boolean
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#convertgtnullselectors-object" title="convert$gtNullSelectors ⇒ object" class="md-nav__link">
     convert$gtNullSelectors ⇒ object
   </a>
@@ -2421,6 +2435,13 @@
         <li class="md-nav__item">
   <a href="#getqueryattributes" title="getQueryAttributes()" class="md-nav__link">
     getQueryAttributes()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dispatchchangeclient-document-mutationdefinitioncreator" title="dispatchChange(client, document, mutationDefinitionCreator)" class="md-nav__link">
+    dispatchChange(client, document, mutationDefinitionCreator)
   </a>
   
 </li>
@@ -4710,8 +4731,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cozyclientgenerateid-string" title="cozyClient.generateId() ⇒ string" class="md-nav__link">
-    cozyClient.generateId() ⇒ string
+  <a href="#cozyclientgenerateidquerydefinition-string" title="cozyClient.generateId(queryDefinition) ⇒ string" class="md-nav__link">
+    cozyClient.generateId(queryDefinition) ⇒ string
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cozyclientgeneraterandomid" title="cozyClient.generateRandomId()" class="md-nav__link">
+    cozyClient.generateRandomId()
   </a>
   
 </li>
@@ -5516,6 +5544,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#isagetbyidquery-boolean" title="isAGetByIdQuery ⇒ boolean" class="md-nav__link">
+    isAGetByIdQuery ⇒ boolean
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#convertgtnullselectors-object" title="convert$gtNullSelectors ⇒ object" class="md-nav__link">
     convert$gtNullSelectors ⇒ object
   </a>
@@ -5686,6 +5721,13 @@
         <li class="md-nav__item">
   <a href="#getqueryattributes" title="getQueryAttributes()" class="md-nav__link">
     getQueryAttributes()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dispatchchangeclient-document-mutationdefinitioncreator" title="dispatchChange(client, document, mutationDefinitionCreator)" class="md-nav__link">
+    dispatchChange(client, document, mutationDefinitionCreator)
   </a>
   
 </li>
@@ -6316,6 +6358,9 @@ example.</p>
 <dd><p>Helper to create a QueryDefinition. Recommended way to create
 query definitions.</p>
 </dd>
+<dt><a href="#isAGetByIdQuery">isAGetByIdQuery</a> ⇒ <code>boolean</code></dt>
+<dd><p>Check if the query is a getById() query</p>
+</dd>
 <dt><a href="#convert$gtNullSelectors">convert$gtNullSelectors</a> ⇒ <code>object</code></dt>
 <dd><p>Normalize sift selector</p>
 </dd>
@@ -6410,6 +6455,9 @@ we have in the store.</p>
 </dd>
 <dt><a href="#getQueryAttributes">getQueryAttributes()</a></dt>
 <dd><p>Get attributes that will be assigned to the instance of a Query</p>
+</dd>
+<dt><a href="#dispatchChange">dispatchChange(client, document, mutationDefinitionCreator)</a></dt>
+<dd><p>DispatchChange</p>
 </dd>
 <dt><a href="#RealTimeQueries">RealTimeQueries(options)</a> ⇒ <code>null</code></dt>
 <dd><p>Component that subscribes to a doctype changes and keep the
@@ -7067,7 +7115,8 @@ having for the &lsquo;konnector&rsquo; worker, and then filter them based on the
 <li><a href="#CozyClient+handleRevocationChange">.handleRevocationChange()</a></li>
 <li><a href="#CozyClient+handleTokenRefresh">.handleTokenRefresh()</a></li>
 <li><a href="#CozyClient+createClient">.createClient()</a></li>
-<li><a href="#CozyClient+generateId">.generateId()</a> ⇒ <code>string</code></li>
+<li><a href="#CozyClient+generateId">.generateId(queryDefinition)</a> ⇒ <code>string</code></li>
+<li><a href="#CozyClient+generateRandomId">.generateRandomId()</a></li>
 <li><a href="#CozyClient+getInstanceOptions">.getInstanceOptions()</a> ⇒ <code>object</code></li>
 <li><a href="#CozyClient+loadInstanceOptionsFromDOM">.loadInstanceOptionsFromDOM([selector])</a> ⇒ <code>void</code></li>
 <li><a href="#CozyClient+setData">.setData(data)</a></li>
@@ -7755,8 +7804,31 @@ revocation and token refresh.</p>
 <p>If <code>oauth</code> options are passed, stackClient is an OAuthStackClient.</p>
 <p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a><br />
 <a name="CozyClient+generateId"></a></p>
-<h3 id="cozyclientgenerateid-string">cozyClient.generateId() ⇒ <code>string</code><a class="headerlink" href="#cozyclientgenerateid-string" title="Permanent link">&para;</a></h3>
-<p>Generates a random id for queries</p>
+<h3 id="cozyclientgenerateidquerydefinition-string">cozyClient.generateId(queryDefinition) ⇒ <code>string</code><a class="headerlink" href="#cozyclientgenerateidquerydefinition-string" title="Permanent link">&para;</a></h3>
+<p>Generates an id for queries
+If the query is a getById only query,
+we can generate a name for it.</p>
+<p>If not, let&rsquo;s generate a random id</p>
+<p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>queryDefinition</td>
+<td><a href="#QueryDefinition"><code>QueryDefinition</code></a></td>
+<td>The query definition</td>
+</tr>
+</tbody>
+</table>
+<p><a name="CozyClient+generateRandomId"></a></p>
+<h3 id="cozyclientgeneraterandomid">cozyClient.generateRandomId()<a class="headerlink" href="#cozyclientgeneraterandomid" title="Permanent link">&para;</a></h3>
+<p>Generates a random id for unamed querie</p>
 <p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a><br />
 <a name="CozyClient+getInstanceOptions"></a></p>
 <h3 id="cozyclientgetinstanceoptions-object">cozyClient.getInstanceOptions() ⇒ <code>object</code><a class="headerlink" href="#cozyclientgetinstanceoptions-object" title="Permanent link">&para;</a></h3>
@@ -10070,6 +10142,26 @@ query definitions.</p>
 </pre></div>
 
 
+<p><a name="isAGetByIdQuery"></a></p>
+<h2 id="isagetbyidquery-boolean">isAGetByIdQuery ⇒ <code>boolean</code><a class="headerlink" href="#isagetbyidquery-boolean" title="Permanent link">&para;</a></h2>
+<p>Check if the query is a getById() query</p>
+<p><strong>Kind</strong>: global constant  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>queryDefinition</td>
+<td><a href="#QueryDefinition"><code>QueryDefinition</code></a></td>
+<td>The query definition</td>
+</tr>
+</tbody>
+</table>
 <p><a name="convert$gtNullSelectors"></a></p>
 <h2 id="convertgtnullselectors-object">convert$gtNullSelectors ⇒ <code>object</code><a class="headerlink" href="#convertgtnullselectors-object" title="Permanent link">&para;</a></h2>
 <p>Normalize sift selector</p>
@@ -10503,7 +10595,37 @@ we have in the store.</p>
 <h2 id="getqueryattributes">getQueryAttributes()<a class="headerlink" href="#getqueryattributes" title="Permanent link">&para;</a></h2>
 <p>Get attributes that will be assigned to the instance of a Query</p>
 <p><strong>Kind</strong>: global function<br />
-<a name="RealTimeQueries"></a></p>
+<a name="dispatchChange"></a></p>
+<h2 id="dispatchchangeclient-document-mutationdefinitioncreator">dispatchChange(client, document, mutationDefinitionCreator)<a class="headerlink" href="#dispatchchangeclient-document-mutationdefinitioncreator" title="Permanent link">&para;</a></h2>
+<p>DispatchChange</p>
+<p><strong>Kind</strong>: global function  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>client</td>
+<td><a href="#CozyClient"><code>CozyClient</code></a></td>
+<td>CozyClient instane</td>
+</tr>
+<tr>
+<td>document</td>
+<td><a href="#CozyClientDocument"><code>CozyClientDocument</code></a></td>
+<td>Document to update</td>
+</tr>
+<tr>
+<td>mutationDefinitionCreator</td>
+<td><code>Mutation</code></td>
+<td>Mutation to apply</td>
+</tr>
+</tbody>
+</table>
+<p><a name="RealTimeQueries"></a></p>
 <h2 id="realtimequeriesoptions-null">RealTimeQueries(options) ⇒ <code>null</code><a class="headerlink" href="#realtimequeriesoptions-null" title="Permanent link">&para;</a></h2>
 <p>Component that subscribes to a doctype changes and keep the
 internal store updated.</p>

@@ -15,7 +15,7 @@ import Typography from 'cozy-ui/transpiled/react/Typography'
 
 const _BeneficiaryRow = ({ beneficiary, onSelect }) => {
   return (
-    <Row className="u-clickable" onClick={onSelect.bind(null, beneficiary)}>
+    <Row className="u-c-pointer" onClick={onSelect.bind(null, beneficiary)}>
       <Media className="u-w-100">
         {beneficiary.account ? (
           <Img className="u-mr-1">
