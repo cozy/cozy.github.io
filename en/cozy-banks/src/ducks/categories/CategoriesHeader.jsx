@@ -2,7 +2,8 @@ import React, { Fragment, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
-import RawBreadcrumb from 'cozy-ui/transpiled/react/Breadcrumbs'
+import Fade from '@material-ui/core/Fade'
+import Breadcrumb from 'cozy-ui/transpiled/react/Breadcrumbs'
 import { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
@@ -25,13 +26,10 @@ import AddAccountButton from 'ducks/categories/AddAccountButton'
 import { onSubcategory } from 'ducks/categories/utils'
 import catStyles from 'ducks/categories/styles.styl'
 
-import { themed } from 'components/useTheme'
 import Table from 'components/Table'
 import { useParams } from 'components/RouterContext'
 import LegalMention from 'ducks/legal/LegalMention'
 import Empty from 'cozy-ui/transpiled/react/Empty'
-
-const Breadcrumb = themed(RawBreadcrumb)
 
 const stAmount = catStyles['bnk-table-amount']
 const stCategory = catStyles['bnk-table-category-category']
@@ -229,7 +227,9 @@ const CategoriesHeader = props => {
                 {dateSelector}
               </Stack>
               {breadcrumbItems.length > 1 && (
-                <Breadcrumb className="u-mt-1" items={breadcrumbItems} />
+                <Fade in>
+                  <Breadcrumb className="u-mt-1" items={breadcrumbItems} />
+                </Fade>
               )}
               {incomeToggle}
             </div>

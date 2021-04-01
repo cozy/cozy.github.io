@@ -2,6 +2,8 @@ import React, { useMemo } from 'react'
 import { Link } from 'react-router'
 import cx from 'classnames'
 import orderBy from 'lodash/orderBy'
+import groupBy from 'lodash/groupBy'
+import distanceInWords from 'date-fns/distance_in_words'
 
 import { useQuery, isQueryLoading, hasQueryBeenLoaded } from 'cozy-client'
 import { ButtonLink } from 'cozy-ui/transpiled/react/Button'
@@ -11,10 +13,12 @@ import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Breadcrumbs from 'cozy-ui/transpiled/react/Breadcrumbs'
 import { Media, Img, Bd } from 'cozy-ui/transpiled/react/Media'
+import Figure from 'cozy-ui/transpiled/react/Figure'
+import ListSubheader from 'cozy-ui/transpiled/react/MuiCozyTheme/ListSubheader'
 import flag from 'cozy-flags'
+import { withStyles } from '@material-ui/styles'
 
 import Loading from 'components/Loading'
-import distanceInWords from 'date-fns/distance_in_words'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { recurrenceConn } from 'doctypes'
 import BarTheme from 'ducks/bar/BarTheme'
@@ -24,10 +28,12 @@ import Padded from 'components/Padded'
 import Header from 'components/Header'
 import BackButton from 'components/BackButton'
 import PageTitle from 'components/Title/PageTitle'
-import Figure from 'cozy-ui/transpiled/react/Figure'
+import withError from 'components/withError'
+import { useHistory } from 'components/RouterContext'
 
 import { useTrackPage } from 'ducks/tracking/browser'
 import LegalMention from 'ducks/legal/LegalMention'
+import { isDeprecatedBundle } from 'ducks/future/selectors'
 
 import frLocale from 'date-fns/locale/fr'
 import enLocale from 'date-fns/locale/en'
@@ -41,10 +47,6 @@ import {
   getLabel,
   getCategories
 } from './utils'
-
-import withError from 'components/withError'
-
-import { useHistory } from 'components/RouterContext'
 
 const BundleFrequency = ({ bundle }) => {
   const { t } = useI18n()
@@ -179,13 +181,32 @@ const sortBundlesForViewing = bundles => {
   )
 }
 
+const DeprecatedNotice = withStyles(theme => ({
+  root: {
+    textTransform: 'none',
+    justifyContent: 'center',
+    fontWeight: 'normal',
+    [theme.breakpoints.down('sm')]: {
+      textAlign: 'center',
+      padding: '1.5rem',
+      top: '6rem', // twice the cozy-bar height
+      zIndex: 1 // goes above the category icons
+    }
+  }
+}))(ListSubheader)
+
 export const RecurrencesPage = ({ emptyIcon }) => {
   const history = useHistory()
   const { isMobile } = useBreakpoints()
   const bundleCol = useQuery(recurrenceConn.query, recurrenceConn)
   const { data: rawBundles } = bundleCol
-  const bundles = sortBundlesForViewing(rawBundles)
-
+  const { live: liveBundles, deprecated: deprecatedBundles } = useMemo(() => {
+    const sorted = sortBundlesForViewing(rawBundles)
+    return groupBy(sorted, x => (isDeprecatedBundle(x) ? 'deprecated' : 'live'))
+  }, [rawBundles])
+  const hasBundles =
+    (typeof liveBundles !== 'undefined' && liveBundles.length) ||
+    (typeof deprecatedBundles !== 'undefined' && deprecatedBundles.length)
   const { t } = useI18n()
   const BundlesWrapper = isMobile ? BundleMobileWrapper : BundlesTable
 
@@ -225,12 +246,23 @@ export const RecurrencesPage = ({ emptyIcon }) => {
         <Padded>
           <Loading />
         </Padded>
-      ) : bundles && bundles.length > 0 ? (
+      ) : hasBundles ? (
         <BundlesWrapper>
           <LegalMention className="u-m-1" />
-          {bundles.map(bundle => (
-            <BundleRow key={bundle._id} bundle={bundle} />
-          ))}
+          {typeof liveBundles !== 'undefined' &&
+            liveBundles.map(bundle => (
+              <BundleRow key={bundle._id} bundle={bundle} />
+            ))}
+          {typeof deprecatedBundles !== 'undefined' && (
+            <>
+              <DeprecatedNotice>
+                {t('Recurrence.deprecated-bundles-help')}
+              </DeprecatedNotice>
+              {deprecatedBundles.map(bundle => (
+                <BundleRow key={bundle._id} bundle={bundle} />
+              ))}
+            </>
+          )}
         </BundlesWrapper>
       ) : (
         <Padded>

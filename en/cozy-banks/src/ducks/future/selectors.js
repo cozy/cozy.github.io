@@ -22,6 +22,16 @@ const RECURRENCE_MAX_AGE_FOR_PLANNING = FOUR_MONTHS_IN_DAYS
 const MIN_MEDIAN_FOR_PLANNING = 15
 
 /**
+ * Returns whether a recurrence should generate planned transactions
+ */
+export const isDeprecatedBundle = recurrence => {
+  const now = Date.now()
+  const latestDate = parse(recurrence.latestDate)
+  const deltaToNow = differenceInDays(now, latestDate)
+  return deltaToNow >= RECURRENCE_MAX_AGE_FOR_PLANNING
+}
+
+/**
  * Returns planned transactions based on recurrences
  */
 export const getPlannedTransactions = createSelector(
@@ -48,9 +58,7 @@ export const getPlannedTransactions = createSelector(
         continue
       }
 
-      const latestDate = parse(recurrence.latestDate)
-      const deltaToNow = differenceInDays(now, latestDate)
-      if (deltaToNow >= RECURRENCE_MAX_AGE_FOR_PLANNING) {
+      if (isDeprecatedBundle(recurrence)) {
         continue
       }
 

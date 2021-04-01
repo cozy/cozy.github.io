@@ -32,6 +32,7 @@ import Icon from 'cozy-ui/transpiled/react/Icon'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 
 import IconButton from '@material-ui/core/IconButton'
+import Fade from '@material-ui/core/Fade'
 
 import Loading from 'components/Loading'
 import Padded from 'components/Padded'
@@ -307,21 +308,23 @@ const BundleInfo = ({ bundle }) => {
               {/* Bd has overflow:hidden and it crops the hover circle from the Breadcrumbs
 	          IconButton, this is why we have to add u-ov-visible. */}
               <Bd className="u-ov-visible">
-                <Typography variant="h5">
-                  <Breadcrumbs
-                    items={[
-                      {
-                        name: t('Recurrence.title'),
-                        onClick: goToRecurrenceRoot
-                      },
-                      {
-                        name: getLabel(bundle)
-                      }
-                    ]}
-                    theme="primary"
-                  />
-                  <BackButton theme="primary" />
-                </Typography>
+                <Fade in>
+                  <Typography variant="h5">
+                    <Breadcrumbs
+                      items={[
+                        {
+                          name: t('Recurrence.title'),
+                          onClick: goToRecurrenceRoot
+                        },
+                        {
+                          name: getLabel(bundle)
+                        }
+                      ]}
+                      theme="primary"
+                    />
+                    <BackButton theme="primary" />
+                  </Typography>
+                </Fade>
               </Bd>
               <Img className="u-flex" style={imgLineHeightStyle}>
                 <ActionMenuHelper

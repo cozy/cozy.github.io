@@ -1,13 +1,14 @@
 import startCase from 'lodash/startCase'
 import maxBy from 'lodash/maxBy'
 import groupBy from 'lodash/groupBy'
+import addDays from 'date-fns/add_days'
+import parse from 'date-fns/parse'
+import differenceInDays from 'date-fns/difference_in_days'
+
 import {
   getCategoryId,
   getLabel as getTransactionLabel
 } from 'ducks/transactions/helpers'
-import addDays from 'date-fns/add_days'
-import parse from 'date-fns/parse'
-import differenceInDays from 'date-fns/difference_in_days'
 
 const RECURRENCE_DOCTYPE = 'io.cozy.bank.recurrence'
 
@@ -114,4 +115,10 @@ export const nextDate = recurrence => {
     console.error('Error while computing next date', e)
     return null
   }
+}
+
+export const isDeprecatedBundle = recurrence => {
+  const latestDate = parse(recurrence.latestDate)
+  const now = Date.now()
+  return differenceInDays(now, latestDate)
 }
