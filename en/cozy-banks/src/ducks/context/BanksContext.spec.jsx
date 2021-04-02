@@ -1,9 +1,11 @@
 import React from 'react'
 
-import JobsProvider, { JobsContext } from '../context/JobsContext'
+import JobsProvider from '../context/JobsContext'
+import BanksProvider, { BanksContext } from '../context/BanksContext'
 import { render } from '@testing-library/react'
 import CozyClient from 'cozy-client'
 import CozyRealtime from 'cozy-realtime'
+import { KONNECTOR_DOCTYPE } from '../../doctypes'
 
 jest.mock('cozy-realtime')
 
@@ -22,9 +24,20 @@ const KONNECTORS = [
   { konnector: 'boursorama83', account: '5678' }
 ]
 
-describe('Banks Context', () => {
+describe('Jobs Context', () => {
   const setup = ({ konnectors }) => {
     const client = new CozyClient({})
+    client.query = jest.fn().mockImplementation(options => {
+      const { doctype } = options
+      if (doctype === KONNECTOR_DOCTYPE) {
+        return {
+          data: KONNECTORS.map(k => ({
+            account: k.account,
+            slug: k.konnector
+          }))
+        }
+      }
+    })
     CozyRealtime.mockImplementation(() => {
       return {
         subscribe: (eventName, doctype, handleRealtime) => {
@@ -44,7 +57,7 @@ describe('Banks Context', () => {
     })
 
     const children = (
-      <JobsContext.Consumer>
+      <BanksContext.Consumer>
         {({ jobsInProgress }) => {
           return jobsInProgress.map(job => (
             <div key={job.account}>
@@ -53,14 +66,15 @@ describe('Banks Context', () => {
             </div>
           ))
         }}
-      </JobsContext.Consumer>
+      </BanksContext.Consumer>
     )
 
     const root = render(
       <JobsProvider client={client} options={{}}>
-        {children}
+        <BanksProvider client={client}>{children}</BanksProvider>
       </JobsProvider>
     )
+
     return root
   }
   it('should display job in progress', async () => {

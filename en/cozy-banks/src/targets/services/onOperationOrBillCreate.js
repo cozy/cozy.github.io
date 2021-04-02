@@ -1,3 +1,5 @@
+import fetch from 'node-fetch'
+global.fetch = fetch
 import get from 'lodash/get'
 import set from 'lodash/set'
 

@@ -19,6 +19,8 @@ export const useBanksContext = () => {
  * @returns {JSX.Element}
  * @constructor
  */
+
+const EMPTY_ARRAY = []
 const BanksProvider = ({ children, client }) => {
   const { jobsInProgress = [] } = useJobsContext()
   const [banksJobsInProgress, setBanksJobsInProgress] = useState([])
@@ -46,6 +48,8 @@ const BanksProvider = ({ children, client }) => {
       queryJobsInProgress().then(formatJobs => {
         setBanksJobsInProgress(formatJobs)
       })
+    } else {
+      setBanksJobsInProgress(EMPTY_ARRAY)
     }
   }, [jobsInProgress])
 
