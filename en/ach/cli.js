@@ -295,7 +295,12 @@ program
   .description('Generates a given number of small files.')
   .action(
     handleErrors(async function(path, filesCount) {
-      await handleGenerateFilesCommand({ path, filesCount })
+      await handleGenerateFilesCommand({
+        url: program.url,
+        token: program.token,
+        path,
+        filesCount
+      })
     })
   )
 
