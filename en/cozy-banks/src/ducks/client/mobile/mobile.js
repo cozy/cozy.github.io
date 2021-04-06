@@ -84,7 +84,9 @@ export const getClient = () => {
     })
   }
 
-  client = new CozyClient(merge(manifestOptions, banksOptions))
+  client = new CozyClient(
+    merge(manifestOptions, banksOptions, { store: false })
+  )
   registerPluginsAndHandlers(client)
   return client
 }
