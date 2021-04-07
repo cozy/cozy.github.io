@@ -21,17 +21,21 @@ export const createKonnectorMsg = (state, konnector, account) => ({
 const RUNNING = 'running'
 const KONNECTORS = [
   { konnector: 'caissedepargne1', account: '1234' },
-  { konnector: 'boursorama83', account: '5678' }
+  { konnector: 'boursorama83', account: '5678' },
+  { konnector: 'alan', account: 'any' }
 ]
 
-describe('Jobs Context', () => {
+describe('Banks Context', () => {
   const setup = ({ konnectors }) => {
     const client = new CozyClient({})
     client.query = jest.fn().mockImplementation(options => {
-      const { doctype } = options
+      const { doctype, ids } = options
+
       if (doctype === KONNECTOR_DOCTYPE) {
         return {
-          data: KONNECTORS.map(k => ({
+          data: KONNECTORS.filter(k =>
+            ids.includes(`io.cozy.konnectors/${k.konnector}`)
+          ).map(k => ({
             account: k.account,
             slug: k.konnector
           }))
@@ -77,19 +81,23 @@ describe('Jobs Context', () => {
 
     return root
   }
-  it('should display job in progress', async () => {
-    const root = setup({ konnectors: [KONNECTORS[0], KONNECTORS[1]] })
+  it('should display banks job in progress', async () => {
+    const root = setup({ konnectors: KONNECTORS })
     expect(await root.findByText('caissedepargne1')).toBeTruthy()
     expect(await root.findByText('1234')).toBeTruthy()
     expect(await root.findByText('boursorama83')).toBeTruthy()
     expect(await root.findByText('5678')).toBeTruthy()
+    expect(root.queryByText('alan')).toBeNull()
+    expect(root.queryByText('any')).toBeNull()
   })
 
-  it('should not display job in progress', () => {
+  it('should not display banks job in progress', () => {
     const root = setup({ konnectors: [] })
     expect(root.queryByText('caissedepargne1')).toBeNull()
     expect(root.queryByText('1234')).toBeNull()
     expect(root.queryByText('boursorama83')).toBeNull()
     expect(root.queryByText('5678')).toBeNull()
+    expect(root.queryByText('alan')).toBeNull()
+    expect(root.queryByText('any')).toBeNull()
   })
 })

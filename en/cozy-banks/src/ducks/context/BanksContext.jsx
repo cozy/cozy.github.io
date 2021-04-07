@@ -1,9 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState
+} from 'react'
 import PropTypes from 'prop-types'
 import { Q } from 'cozy-client'
 import { KONNECTOR_DOCTYPE } from 'doctypes'
 import { useJobsContext } from 'ducks/context/JobsContext'
+import { isBankKonnector } from 'utils/triggers'
 
 export const BanksContext = createContext({})
 
@@ -25,10 +32,15 @@ const BanksProvider = ({ children, client }) => {
   const { jobsInProgress = [] } = useJobsContext()
   const [banksJobsInProgress, setBanksJobsInProgress] = useState([])
 
+  const onlyBanksInProgress = useMemo(
+    () => jobsInProgress.filter(isBankKonnector),
+    [jobsInProgress]
+  )
+
   useEffect(() => {
-    if (jobsInProgress.length > 0) {
+    if (onlyBanksInProgress.length > 0) {
       const queryJobsInProgress = async () => {
-        const ids = jobsInProgress.map(jobsInProgress => {
+        const ids = onlyBanksInProgress.map(jobsInProgress => {
           const slug = jobsInProgress.konnector
           return `${KONNECTOR_DOCTYPE}/${slug}`
         })

@@ -22,7 +22,7 @@ const KONNECTORS = [
   { konnector: 'boursorama83', account: '5678' }
 ]
 
-describe('Banks Context', () => {
+describe('Jobs Context', () => {
   const setup = ({ konnectors }) => {
     const client = new CozyClient({})
     CozyRealtime.mockImplementation(() => {
