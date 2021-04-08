@@ -28,25 +28,33 @@ class Component extends React.Component {
     showIntentModal: false
   }
 
-  showInformativeDialog = () =>
+  showInformativeDialog = ev => {
+    ev.preventDefault()
     this.setState({
       showInformativeDialog: true
     })
+  }
 
-  hideInformativeDialog = () =>
+  hideInformativeDialog = ev => {
+    ev.preventDefault()
     this.setState({
       showInformativeDialog: false
     })
+  }
 
-  showIntentModal = () =>
+  showIntentModal = ev => {
+    ev.preventDefault()
     this.setState({
       showIntentModal: true
     })
+  }
 
-  hideIntentModal = () =>
+  hideIntentModal = ev => {
+    ev.preventDefault()
     this.setState({
       showIntentModal: false
     })
+  }
 
   onInformativeDialogConfirm = async () => {
     this.hideInformativeDialog()

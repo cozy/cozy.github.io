@@ -19,6 +19,10 @@ import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import MagnifierIcon from 'cozy-ui/transpiled/react/Icons/Magnifier'
 import RestoreIcon from 'cozy-ui/transpiled/react/Icons/Restore'
+import TrashIcon from 'cozy-ui/transpiled/react/Icons/Trash'
+import Typography from 'cozy-ui/transpiled/react/Typography'
+import { ConfirmDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
+import Button from 'cozy-ui/transpiled/react/Button'
 
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { getCategoryName } from 'ducks/categories/categoriesMap'
@@ -61,7 +65,6 @@ import useDocument from 'components/useDocument'
 import { useLocation } from 'components/RouterContext'
 import ListItemArrow from 'components/ListItemArrow'
 import RawContentDialog from 'components/RawContentDialog'
-import Typography from 'cozy-ui/transpiled/react/Typography'
 
 const SearchForTransactionIcon = ({ transaction }) => {
   const label = getLabel(transaction)
@@ -76,7 +79,7 @@ const TransactionLabel = ({ transaction }) => {
   const label = getLabel(transaction)
 
   return (
-    <div className={styles.TransactionLabel}>
+    <Typography variant="h6" gutterBottom>
       {label}
       {
         <>
@@ -84,7 +87,7 @@ const TransactionLabel = ({ transaction }) => {
           <SearchForTransactionIcon transaction={transaction} />
         </>
       }
-    </div>
+    </Typography>
   )
 }
 
@@ -274,6 +277,83 @@ const TransactionRecurrenceEditorDialog = ({ transaction, onClose }) => {
   )
 }
 
+const DeleteTransactionRow = ({ transaction }) => {
+  const { t } = useI18n()
+  const client = useClient()
+  const [showingDeleteConfirmation, setShowDeleteConfirmation] = useState(false)
+  const [deleting, setDeleting] = useState(false)
+
+  const handleRequestDeleteTransaction = () => {
+    setShowDeleteConfirmation(true)
+  }
+
+  const handleCancelDeleteTransactions = () => {
+    setShowDeleteConfirmation(false)
+  }
+
+  const handleConfirmDeleteTransaction = async () => {
+    try {
+      setDeleting(true)
+      await client.destroy(transaction)
+      Alerter.success(
+        t('Transactions.infos.delete-transaction.deleting-success')
+      )
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.warn('Error while deleting transaction')
+      // eslint-disable-next-line no-console
+      console.error(e)
+      Alerter.error(t('Transactions.infos.delete-transaction.deleting-error'))
+    } finally {
+      setDeleting(false)
+    }
+  }
+
+  return (
+    <>
+      <ListItem button onClick={handleRequestDeleteTransaction}>
+        <ListItemIcon>
+          <Icon className="u-error" icon={TrashIcon} />
+        </ListItemIcon>
+        <ListItemText primaryTextClassName="u-error">
+          {t('Transactions.infos.delete-transaction.row-label')}
+        </ListItemText>
+      </ListItem>
+      {showingDeleteConfirmation ? (
+        <ConfirmDialog
+          open
+          title={t('Transactions.infos.delete-transaction.confirm-modal.title')}
+          content={t(
+            'Transactions.infos.delete-transaction.confirm-modal.content'
+          )}
+          onClose={handleCancelDeleteTransactions}
+          actions={
+            <>
+              <Button
+                theme="secondary"
+                onClick={handleCancelDeleteTransactions}
+                label={t(
+                  'Transactions.infos.delete-transaction.confirm-modal.cancel'
+                )}
+                disabled={deleting}
+              />
+              <Button
+                theme="danger"
+                onClick={handleConfirmDeleteTransaction}
+                label={t(
+                  'Transactions.infos.delete-transaction.confirm-modal.confirm'
+                )}
+                disabled={deleting}
+                busy={deleting}
+              />
+            </>
+          }
+        />
+      ) : null}
+    </>
+  )
+}
+
 /**
  * Shows information of the transaction
  *
@@ -288,7 +368,7 @@ const TransactionRecurrenceEditorDialog = ({ transaction, onClose }) => {
 const TransactionModalInfoContent = props => {
   const { t, f } = useI18n()
   const client = useClient()
-  const { transactionId } = props
+  const { transactionId, requestClose } = props
   const transaction = useDocument(TRANSACTION_DOCTYPE, transactionId)
   const typeIcon = (
     <Icon
@@ -426,6 +506,13 @@ const TransactionModalInfoContent = props => {
         isModalItem
       />
 
+      {flag('banks.show-delete-transaction') ? (
+        <DeleteTransactionRow
+          transaction={transaction}
+          onDelete={requestClose}
+        />
+      ) : null}
+
       {selectedRow == 'category' ? (
         <TransactionCategoryEditorDialog
           transaction={transaction}
@@ -498,7 +585,11 @@ const TransactionModal = ({ requestClose, transactionId, ...props }) => {
         </div>
       }
       content={
-        <TransactionModalInfoContent {...props} transactionId={transactionId} />
+        <TransactionModalInfoContent
+          {...props}
+          transactionId={transactionId}
+          requestClose={handleClose}
+        />
       }
     />
   )
