@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import icon from 'assets/icons/actions/icon-link-out.svg'
 import Chip from 'cozy-ui/transpiled/react/Chip'
 import Icon from 'cozy-ui/transpiled/react/Icon'
@@ -17,12 +17,20 @@ const transactionDialogListItemStyle = { color: palette.dodgerBlue }
 const Component = ({ transaction, isModalItem }) => {
   const action = transaction.action
 
+  const handleClick = useCallback(
+    ev => {
+      ev && ev.preventDefault()
+      open(action.url, action.target)
+    },
+    [action.target, action.url]
+  )
+
   if (isModalItem) {
     return (
       <ListItem
         divider
         button
-        onClick={() => open(action.url, action.target)}
+        onClick={handleClick}
         style={transactionDialogListItemStyle}
       >
         <ListItemIcon>
@@ -34,11 +42,7 @@ const Component = ({ transaction, isModalItem }) => {
   }
 
   return (
-    <Chip
-      size="small"
-      variant="outlined"
-      onClick={() => open(action.url, action.target)}
-    >
+    <Chip size="small" variant="outlined" onClick={handleClick}>
       {action.trad}
       <Chip.Separator />
       <Icon icon={OpenwithIcon} />

@@ -155,6 +155,9 @@ export const RowDesktop = React.memo(function RowDesktop(props) {
       if (ev.defaultPrevented) {
         return
       }
+      if (!ev.currentTarget.contains(ev.target)) {
+        return
+      }
       showTransactionModal()
     },
     [showTransactionModal]
@@ -164,71 +167,73 @@ export const RowDesktop = React.memo(function RowDesktop(props) {
   const canEditTransaction = transaction._id
 
   return (
-    <tr
-      ref={onRef}
-      {...trRest}
-      className={cx(
-        styles.TransactionRow,
-        canEditTransaction ? styles['TransactionRow--editable'] : null
-      )}
-      onClick={canEditTransaction && handleClickRow}
-    >
-      <td className={cx(styles.ColumnSizeDesc, 'u-pv-half', 'u-pl-1')}>
-        <Media>
-          <Img
-            title={categoryTitle}
-            onClick={canEditTransaction && handleClickCategory}
-          >
-            <CategoryIcon
-              categoryId={categoryId}
-              className={styles['bnk-op-caticon']}
-            />
-          </Img>
-          <Bd className="u-pl-1">
-            <ListItemText
-              className="u-pv-half"
-              onClick={canEditTransaction && showTransactionModal}
+    <>
+      <tr
+        ref={onRef}
+        {...trRest}
+        className={cx(
+          styles.TransactionRow,
+          canEditTransaction ? styles['TransactionRow--editable'] : null
+        )}
+        onClick={canEditTransaction && handleClickRow}
+      >
+        <td className={cx(styles.ColumnSizeDesc, 'u-pv-half', 'u-pl-1')}>
+          <Media>
+            <Img
+              title={categoryTitle}
+              onClick={canEditTransaction && handleClickCategory}
             >
-              <Typography variant="body1">{getLabel(transaction)}</Typography>
-              {!filteringOnAccount && <AccountCaption account={account} />}
-              {applicationDate ? (
-                <ApplicationDateCaption transaction={transaction} />
-              ) : null}
-              {recurrence && showRecurrence ? (
-                <RecurrenceCaption recurrence={recurrence} />
-              ) : null}
-            </ListItemText>
-          </Bd>
-        </Media>
-      </td>
-      <TdSecondary
-        className={styles.ColumnSizeDate}
-        onClick={showTransactionModal}
-      >
-        <TransactionDate
-          isExtraLarge={isExtraLarge}
-          transaction={transaction}
-        />
-      </TdSecondary>
-      <TdSecondary
-        className={styles.ColumnSizeAmount}
-        onClick={showTransactionModal}
-      >
-        <Figure
-          total={transaction.amount || 0}
-          symbol={getCurrencySymbol(transaction.currency)}
-          coloredPositive
-          signed
-        />
-      </TdSecondary>
-      {showTransactionActions && (
-        <TdSecondary className={styles.ColumnSizeAction}>
-          <TransactionActions transaction={transaction} onlyDefault />
+              <CategoryIcon
+                categoryId={categoryId}
+                className={styles['bnk-op-caticon']}
+              />
+            </Img>
+            <Bd className="u-pl-1">
+              <ListItemText
+                className="u-pv-half"
+                onClick={canEditTransaction && showTransactionModal}
+              >
+                <Typography variant="body1">{getLabel(transaction)}</Typography>
+                {!filteringOnAccount && <AccountCaption account={account} />}
+                {applicationDate ? (
+                  <ApplicationDateCaption transaction={transaction} />
+                ) : null}
+                {recurrence && showRecurrence ? (
+                  <RecurrenceCaption recurrence={recurrence} />
+                ) : null}
+              </ListItemText>
+            </Bd>
+          </Media>
+        </td>
+        <TdSecondary
+          className={styles.ColumnSizeDate}
+          onClick={showTransactionModal}
+        >
+          <TransactionDate
+            isExtraLarge={isExtraLarge}
+            transaction={transaction}
+          />
         </TdSecondary>
-      )}
-      {transactionModal}
+        <TdSecondary
+          className={styles.ColumnSizeAmount}
+          onClick={showTransactionModal}
+        >
+          <Figure
+            total={transaction.amount || 0}
+            symbol={getCurrencySymbol(transaction.currency)}
+            coloredPositive
+            signed
+          />
+        </TdSecondary>
+        {showTransactionActions && (
+          <TdSecondary className={styles.ColumnSizeAction}>
+            <TransactionActions transaction={transaction} onlyDefault />
+          </TdSecondary>
+        )}
+      </tr>
       {categoryModal}
-    </tr>
+      {transactionModal}
+    </>
   )
 })
 

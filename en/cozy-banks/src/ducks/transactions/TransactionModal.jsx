@@ -107,8 +107,6 @@ const TransactionInfos = ({ infos }) => (
 )
 
 const TransactionCategoryEditorDialog = ({ transaction, onClose }) => {
-  const { t } = useI18n()
-
   const onAfterUpdate = transaction => {
     trackEvent({
       name: getCategoryName(transaction.manualCategoryId)
@@ -123,18 +121,11 @@ const TransactionCategoryEditorDialog = ({ transaction, onClose }) => {
   }, [onClose])
 
   return (
-    <RawContentDialog
-      open={true}
-      title={t('Categories.choice.title')}
-      onClose={handlePop}
-      content={
-        <TransactionCategoryEditor
-          beforeUpdate={handlePop}
-          afterUpdate={onAfterUpdate}
-          onCancel={handlePop}
-          transaction={transaction}
-        />
-      }
+    <TransactionCategoryEditor
+      beforeUpdate={handlePop}
+      afterUpdate={onAfterUpdate}
+      onCancel={handlePop}
+      transaction={transaction}
     />
   )
 }

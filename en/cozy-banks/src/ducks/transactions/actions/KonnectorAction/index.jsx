@@ -29,28 +29,28 @@ class Component extends React.Component {
   }
 
   showInformativeDialog = ev => {
-    ev.preventDefault()
+    ev && ev.preventDefault()
     this.setState({
       showInformativeDialog: true
     })
   }
 
   hideInformativeDialog = ev => {
-    ev.preventDefault()
+    ev && ev.preventDefault()
     this.setState({
       showInformativeDialog: false
     })
   }
 
   showIntentModal = ev => {
-    ev.preventDefault()
+    ev && ev.preventDefault()
     this.setState({
       showIntentModal: true
     })
   }
 
   hideIntentModal = ev => {
-    ev.preventDefault()
+    ev && ev.preventDefault()
     this.setState({
       showIntentModal: false
     })

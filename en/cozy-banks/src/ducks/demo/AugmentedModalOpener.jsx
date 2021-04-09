@@ -13,8 +13,15 @@ class AugmentedModalOpener extends React.PureComponent {
 
   state = { isOpen: false }
 
-  handleOpen = () => this.setState({ isOpen: true })
-  handleClose = () => this.setState({ isOpen: false })
+  handleOpen = ev => {
+    ev && ev.preventDefault()
+    this.setState({ isOpen: true })
+  }
+
+  handleClose = ev => {
+    ev && ev.preventDefault()
+    this.setState({ isOpen: false })
+  }
 
   render() {
     return (
