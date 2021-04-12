@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import omit from 'lodash/omit'
 import findKey from 'lodash/findKey'
 import capitalize from 'lodash/capitalize'
@@ -38,12 +38,20 @@ const Component = ({ transaction, actionProps: { urls }, isModalItem }) => {
   })
   const url = urls[appName]
 
+  const handleClick = useCallback(
+    ev => {
+      ev && ev.preventDefault()
+      open(url)
+    },
+    [url]
+  )
+
   if (isModalItem) {
     return (
       <ListItem
         button
         divider
-        onClick={() => open(url)}
+        onClick={handleClick}
         style={transactionDialogListItemStyle}
       >
         <ListItemIcon>

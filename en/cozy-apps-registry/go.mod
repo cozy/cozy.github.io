@@ -4,14 +4,14 @@ go 1.13
 
 require (
 	github.com/Masterminds/semver v1.5.0
-	github.com/go-kivik/couchdb/v3 v3.2.6
+	github.com/go-kivik/couchdb/v3 v3.2.7
 	github.com/go-kivik/kivik/v3 v3.2.3
 	github.com/go-redis/redis/v7 v7.4.0
 	github.com/google/go-cmp v0.5.4 // indirect
 	github.com/h2non/filetype v1.1.1
 	github.com/hashicorp/go-multierror v1.1.1
 	github.com/howeyc/gopass v0.0.0-20190910152052-7cb4b85ec19c
-	github.com/labstack/echo/v4 v4.2.1
+	github.com/labstack/echo/v4 v4.2.2
 	github.com/ncw/swift v1.0.53
 	github.com/onsi/ginkgo v1.15.0 // indirect
 	github.com/onsi/gomega v1.10.5 // indirect

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useI18n } from 'cozy-ui/transpiled/react'
 import Chip from 'cozy-ui/transpiled/react/Chip'
 import Icon from 'cozy-ui/transpiled/react/Icon'
@@ -20,12 +20,28 @@ const Component = ({ actionProps: { urls }, isModalItem }) => {
   const url = `${urls['HEALTH']}#/remboursements`
   const label = t(`Transactions.actions.${name}`)
 
+  const handleClick = useCallback(
+    ev => {
+      ev && ev.preventDefault()
+      open(url)
+    },
+    [url]
+  )
+
+  const handleModalClick = useCallback(
+    ev => {
+      ev && ev.preventDefault()
+      open(url, '_blank')
+    },
+    [url]
+  )
+
   if (isModalItem) {
     return (
       <ListItem
         divider
         button
-        onClick={() => open(url, '_blank')}
+        onClick={handleModalClick}
         style={transactionDialogListItemStyle}
       >
         <ListItemIcon>
@@ -37,7 +53,7 @@ const Component = ({ actionProps: { urls }, isModalItem }) => {
   }
 
   return (
-    <Chip size="small" variant="outlined" onClick={() => open(url)}>
+    <Chip size="small" variant="outlined" onClick={handleClick}>
       {label}
       <Chip.Separator />
       <Icon icon={OpenwithIcon} />
