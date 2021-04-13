@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useRef, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import {
   useClient,
@@ -459,14 +459,25 @@ const BundleTransactions = ({ bundle }) => {
 
 const RecurrencePage = () => {
   const params = useParams()
+  const history = useHistory()
   const recurrenceCol = useQuery(recurrenceConn.query, recurrenceConn)
 
   const bundleId = params.bundleId
   const bundle = useDocument(RECURRENCE_DOCTYPE, bundleId)
+  const shouldShowLoading =
+    isQueryLoading(recurrenceCol) && !hasQueryBeenLoaded(recurrenceCol)
 
   useTrackPage('recurrences:details')
 
-  if (isQueryLoading(recurrenceCol) && !hasQueryBeenLoaded(recurrenceCol)) {
+  useEffect(() => {
+    // If the recurrence gets deleted, there is no bundle anymore and
+    // we redirect to the recurrence list
+    if (!shouldShowLoading && !bundle) {
+      history.push('/analysis/recurrence')
+    }
+  }, [shouldShowLoading, bundle, history])
+
+  if (shouldShowLoading) {
     return <Loading />
   }
 

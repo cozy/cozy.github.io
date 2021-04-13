@@ -1925,8 +1925,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#docker-run-and-url-name" title="Docker run and url name" class="md-nav__link">
-    Docker run and url name
+  <a href="#docker-run-and-url-name-for-cozy-app-dev" title="Docker run and url name for cozy-app-dev" class="md-nav__link">
+    Docker run and url name for cozy-app-dev
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#only-office-document-server" title="Only-Office document server" class="md-nav__link">
+    Only-Office document server
   </a>
   
 </li>
@@ -2532,8 +2539,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#docker-run-and-url-name" title="Docker run and url name" class="md-nav__link">
-    Docker run and url name
+  <a href="#docker-run-and-url-name-for-cozy-app-dev" title="Docker run and url name for cozy-app-dev" class="md-nav__link">
+    Docker run and url name for cozy-app-dev
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#only-office-document-server" title="Only-Office document server" class="md-nav__link">
+    Only-Office document server
   </a>
   
 </li>
@@ -2593,13 +2607,29 @@ docker run -it --rm --name cozy-stack <span class="se">\</span>
 <h2 id="publishing-a-new-cozy-app-dev-image">Publishing a new cozy-app-dev image<a class="headerlink" href="#publishing-a-new-cozy-app-dev-image" title="Permanent link">&para;</a></h2>
 <p>We publish the cozy-app-dev image when we release a new version of the stack.
 See <code>scripts/release.sh</code> for details.</p>
-<h2 id="docker-run-and-url-name">Docker run and url name<a class="headerlink" href="#docker-run-and-url-name" title="Permanent link">&para;</a></h2>
+<h2 id="docker-run-and-url-name-for-cozy-app-dev">Docker run and url name for cozy-app-dev<a class="headerlink" href="#docker-run-and-url-name-for-cozy-app-dev" title="Permanent link">&para;</a></h2>
 <p>A precision for the app name:</p>
 <div class="codehilite"><pre><span></span>docker run --rm -it -p <span class="m">8080</span>:8080 -v <span class="s2">&quot;</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">/build&quot;</span>:/data/cozy-app/***my-app*** cozy/cozy-app-dev
 </pre></div>
 
 
 <p><strong><em>my-app</em></strong> will be the first part of: <strong><em>my-app</em></strong>.cozy.tools:8080</p>
+<h2 id="only-office-document-server">Only-Office document server<a class="headerlink" href="#only-office-document-server" title="Permanent link">&para;</a></h2>
+<p>The <code>cozy/onlyoffice-dev</code> docker image can be used for local development on
+Linux (the <code>--net=host</code> option doesn&rsquo;t work on macOS). Just start it with:</p>
+<div class="codehilite"><pre><span></span>$ docker run -it --rm --name<span class="o">=</span>oodev --net<span class="o">=</span>host cozy/onlyoffice-dev
+</pre></div>
+
+
+<p>and run the stack with:</p>
+<div class="codehilite"><pre><span></span>$ cozy-stack serve --disable-csp --onlyoffice-url<span class="o">=</span>http://localhost:8000/ --onlyoffice-inbox-secret<span class="o">=</span>inbox_secret --onlyoffice-outbox-secret<span class="o">=</span>outbox_secret
+</pre></div>
+
+
+<p>If you need to rebuild it, you can do that with:</p>
+<div class="codehilite"><pre><span></span>$ <span class="nb">cd</span> scripts/onlyoffice-dev
+$ docker build -t <span class="s2">&quot;cozy/onlyoffice-dev&quot;</span> .
+</pre></div>
                 
                   
                 

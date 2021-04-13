@@ -134,6 +134,6 @@ JobsProvider.propTypes = {
   client: PropTypes.object.isRequired,
   options: PropTypes.shape({
     onSuccess: PropTypes.func,
-    onError: PropTypes.number
+    onError: PropTypes.func
   })
 }

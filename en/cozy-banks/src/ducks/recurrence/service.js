@@ -5,7 +5,7 @@ import { log } from './logger'
 
 import { Q } from 'cozy-client'
 
-import { TRANSACTION_DOCTYPE } from 'doctypes'
+import { TRANSACTION_DOCTYPE, RECURRENCE_DOCTYPE } from 'doctypes'
 import { findAndUpdateRecurrences } from './search'
 import { fetchHydratedBundles, saveHydratedBundles } from './api'
 import { getLabel } from './utils'
@@ -70,9 +70,7 @@ const logDifferences = (oldRecurrences, updatedRecurrences) => {
  */
 const main = async ({ client }) => {
   try {
-    const recurrences = (await fetchHydratedBundles(client)).filter(
-      x => x.ops.length > 0
-    )
+    const recurrences = await fetchHydratedBundles(client)
 
     log('info', `Found ${recurrences.length} existing recurrences`)
     recurrences.forEach(recurrence => {
@@ -112,9 +110,19 @@ const main = async ({ client }) => {
 
     logDifferences(recurrences, updatedRecurrences)
 
-    await saveHydratedBundles(client, updatedRecurrences)
+    const {
+      true: emptyRecurrences = [],
+      false: nonEmptyRecurrences = []
+    } = groupBy(updatedRecurrences, x => x.ops.length === 0)
+
+    for (const recurrence of emptyRecurrences) {
+      log('info', `Removing empty recurrence ${recurrence._id}`)
+      await client.destroy({ _type: RECURRENCE_DOCTYPE, ...recurrence })
+    }
+
+    await saveHydratedBundles(client, nonEmptyRecurrences)
   } catch (e) {
-    log('error', `[recurrence service] ${e}`)
+    log('error', `[recurrence service] ${e} ${e.stack}`)
     throw e
   }
 }

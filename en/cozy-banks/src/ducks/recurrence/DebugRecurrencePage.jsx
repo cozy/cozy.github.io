@@ -15,11 +15,14 @@ import { transactionsConn } from 'doctypes'
 import tree from 'ducks/categories/tree'
 
 import defaultConfig from './config.json'
-import { saveHydratedBundles, resetBundles } from './api'
+import {
+  saveHydratedBundles,
+  resetBundles,
+  getAutomaticLabelFromBundle
+} from './api'
 import RulesDetails from './RulesDetails'
 import DateSlider from './DateSlider'
 import { getRulesFromConfig, rulesPerName } from './rules'
-import { getAutomaticLabelFromBundle } from './utils'
 import { findRecurrences, updateRecurrences } from './search'
 import useStickyState from './useStickyState'
 import CategoryIcon from 'ducks/categories/CategoryIcon'

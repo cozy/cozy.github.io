@@ -37,7 +37,7 @@ class AttachedDocsAction extends React.PureComponent {
     const { transaction } = this.props
 
     return (
-      <ListItem divider alignItem="flex-start">
+      <ListItem divider alignItems="flex-start">
         <ListItemIcon>
           <Icon icon={<AttachmentIcon />} />
         </ListItemIcon>

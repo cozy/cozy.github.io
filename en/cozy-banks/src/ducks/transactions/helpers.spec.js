@@ -9,10 +9,16 @@ import {
   hasBills,
   isAlreadyNotified,
   updateApplicationDate,
+  updateTransactionRecurrence,
   getApplicationDate,
   REIMBURSEMENTS_STATUS
 } from './helpers'
-import { BILLS_DOCTYPE, TRANSACTION_DOCTYPE, schema } from 'doctypes'
+import {
+  RECURRENCE_DOCTYPE,
+  BILLS_DOCTYPE,
+  TRANSACTION_DOCTYPE,
+  schema
+} from 'doctypes'
 import MockDate from 'mockdate'
 import CozyClient from 'cozy-client'
 import { createClientWithData } from 'test/client'
@@ -427,5 +433,86 @@ describe('updateApplicationDate', () => {
       date: '2019-09-07T12:00',
       applicationDate: null
     })
+  })
+})
+
+describe('updateTransactionRecurrence', () => {
+  const setup = ({ recurrenceTransactions } = {}) => {
+    const client = new CozyClient({ schema })
+    jest.spyOn(client, 'save').mockImplementation(doc => ({ data: doc }))
+    jest.spyOn(client, 'destroy').mockImplementation(doc => ({ data: doc }))
+    jest.spyOn(client, 'query').mockImplementation(qdef => {
+      if (qdef.doctype === TRANSACTION_DOCTYPE) {
+        return { data: recurrenceTransactions }
+      } else if (qdef.doctype === RECURRENCE_DOCTYPE && qdef.id) {
+        return { data: { _id: qdef.id } }
+      } else {
+        throw new Error(
+          `client.query is not mocked for the query definition ${JSON.stringify(
+            qdef
+          )}`
+        )
+      }
+    })
+
+    const transaction = client.hydrateDocument({
+      _id: 'transaction-1',
+      _type: TRANSACTION_DOCTYPE,
+      label: 'My transaction',
+      amount: 50,
+      relationships: {
+        recurrence: {
+          data: {
+            _id: 'old-recurrence-id',
+            _type: RECURRENCE_DOCTYPE
+          }
+        }
+      }
+    })
+    return { client, transaction }
+  }
+
+  it('should save the transaction', async () => {
+    const { client, transaction } = setup({ recurrenceTransactions: [] })
+    const newRecurrence = {
+      _id: 'new-recurrence-id',
+      _type: RECURRENCE_DOCTYPE
+    }
+    await updateTransactionRecurrence(client, transaction, newRecurrence)
+    expect(client.save).toHaveBeenCalledWith(
+      expect.objectContaining({
+        relationships: expect.objectContaining({
+          recurrence: expect.objectContaining({
+            data: expect.objectContaining({
+              _id: 'new-recurrence-id'
+            })
+          })
+        })
+      })
+    )
+  })
+
+  it('should delete the recurrence if its empty', async () => {
+    const { client, transaction } = setup({
+      recurrenceTransactions: []
+    })
+    const newRecurrence = {
+      _id: 'new-recurrence-id',
+      _type: RECURRENCE_DOCTYPE
+    }
+    await updateTransactionRecurrence(client, transaction, newRecurrence)
+    expect(client.destroy).toHaveBeenCalledWith({ _id: 'old-recurrence-id' })
+  })
+
+  it('should not delete the recurrence if its not empty', async () => {
+    const { client, transaction } = setup({
+      recurrenceTransactions: [{ _id: 'transaction-2' }]
+    })
+    const newRecurrence = {
+      _id: 'new-recurrence-id',
+      _type: RECURRENCE_DOCTYPE
+    }
+    await updateTransactionRecurrence(client, transaction, newRecurrence)
+    expect(client.destroy).not.toHaveBeenCalled()
   })
 })

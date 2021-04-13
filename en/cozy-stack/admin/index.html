@@ -3068,7 +3068,7 @@ dry-run or not.</p>
 <h2 id="contexts">Contexts<a class="headerlink" href="#contexts" title="Permanent link">&para;</a></h2>
 <h3 id="get-instancescontexts">GET /instances/contexts<a class="headerlink" href="#get-instancescontexts" title="Permanent link">&para;</a></h3>
 <p>This endpoint returns the list of the contexts, with their name, config,
-registries, and cloudery endpoints.</p>
+registries, office server, and cloudery endpoints.</p>
 <h4 id="request_4">Request<a class="headerlink" href="#request_4" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/instances/contexts</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 </pre></div>
@@ -3108,6 +3108,11 @@ registries, and cloudery endpoints.</p>
     <span class="nt">&quot;registries&quot;</span><span class="p">:</span> <span class="p">[</span>
       <span class="s2">&quot;https://apps-registry.cozycloud.cc/&quot;</span>
     <span class="p">],</span>
+    <span class="nt">&quot;office&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;OnlyOfficeURL&quot;</span><span class="p">:</span> <span class="s2">&quot;https://documentserver.cozycloud.cc/&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;InboxSecret&quot;</span><span class="p">:</span> <span class="s2">&quot;inbox_secret&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;OutboxSecret&quot;</span><span class="p">:</span> <span class="s2">&quot;outbox_secret&quot;</span>
+    <span class="p">},</span>
     <span class="nt">&quot;cloudery_endpoint&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
   <span class="p">}</span>
 <span class="p">]</span>
@@ -3154,6 +3159,11 @@ registries, and cloudery endpoints.</p>
   <span class="nt">&quot;registries&quot;</span><span class="p">:</span> <span class="p">[</span>
     <span class="s2">&quot;https://apps-registry.cozycloud.cc/&quot;</span>
   <span class="p">],</span>
+  <span class="nt">&quot;office&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;OnlyOfficeURL&quot;</span><span class="p">:</span> <span class="s2">&quot;https://documentserver.cozycloud.cc/&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;InboxSecret&quot;</span><span class="p">:</span> <span class="s2">&quot;inbox_secret&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;OutboxSecret&quot;</span><span class="p">:</span> <span class="s2">&quot;outbox_secret&quot;</span>
+  <span class="p">},</span>
   <span class="nt">&quot;cloudery_endpoint&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
 <span class="p">}</span>
 </pre></div>

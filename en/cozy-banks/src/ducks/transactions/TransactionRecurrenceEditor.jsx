@@ -12,7 +12,7 @@ import {
   makeRecurrenceFromTransaction,
   getCategories
 } from 'ducks/recurrence/utils'
-import { NOT_RECURRENT_ID } from 'ducks/recurrence/api'
+import { NOT_RECURRENT_ID } from 'ducks/recurrence/constants'
 import { recurrenceConn, RECURRENCE_DOCTYPE } from 'doctypes'
 import { updateTransactionRecurrence } from 'ducks/transactions/helpers'
 import CategoryIcon from 'ducks/categories/CategoryIcon'

@@ -1,6 +1,4 @@
 import startCase from 'lodash/startCase'
-import maxBy from 'lodash/maxBy'
-import groupBy from 'lodash/groupBy'
 import addDays from 'date-fns/add_days'
 import parse from 'date-fns/parse'
 import differenceInDays from 'date-fns/difference_in_days'
@@ -15,14 +13,6 @@ const RECURRENCE_DOCTYPE = 'io.cozy.bank.recurrence'
 export const prettyLabel = label => {
   return label ? startCase(label.toLowerCase()) : ''
 }
-
-const mostFrequent = (iterable, fn) => {
-  const groups = groupBy(iterable, fn)
-  return maxBy(Object.entries(groups), ([, ops]) => ops.length)[0]
-}
-
-export const getAutomaticLabelFromBundle = bundle =>
-  mostFrequent(bundle.ops, op => op.label)
 
 export const getLabel = bundle => {
   if (bundle.manualLabel) {

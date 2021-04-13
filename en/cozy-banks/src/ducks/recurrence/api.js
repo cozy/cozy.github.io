@@ -14,17 +14,26 @@ import flatten from 'lodash/flatten'
 import uniq from 'lodash/uniq'
 
 import omit from 'lodash/omit'
-import { dehydrate } from 'cozy-client'
+import { Q, dehydrate } from 'cozy-client'
 import maxBy from 'lodash/maxBy'
 import get from 'lodash/get'
 import groupBy from 'lodash/groupBy'
-import { getAutomaticLabelFromBundle } from './utils'
+
 import {
   queryRecurrenceTransactions,
   queryRecurrencesTransactions
 } from './queries'
 import { TRANSACTION_DOCTYPE, RECURRENCE_DOCTYPE } from 'doctypes'
 import { log } from './logger'
+import { NOT_RECURRENT_ID } from './constants'
+
+const mostFrequent = (iterable, fn) => {
+  const groups = groupBy(iterable, fn)
+  return maxBy(Object.entries(groups), ([, ops]) => ops.length)[0]
+}
+
+export const getAutomaticLabelFromBundle = bundle =>
+  mostFrequent(bundle.ops, op => op.label)
 
 const addRelationship = (doc, relationshipName, definition) => {
   return set(doc, ['relationships', relationshipName], { data: definition })
@@ -32,8 +41,6 @@ const addRelationship = (doc, relationshipName, definition) => {
 
 const getRecurrenceIdFromRawTransaction = tr =>
   get(tr, 'relationships.recurrence.data._id', null)
-
-export const NOT_RECURRENT_ID = 'not-recurrent'
 
 /**
  * Fetch bundles and associated transactions from CouchDB
@@ -167,4 +174,17 @@ export const setStatusOngoing = async (client, recurrence) => {
 
 export const setStatusFinished = async (client, recurrence) => {
   return setStatus(client, recurrence, STATUS_FINISHED)
+}
+
+export const destroyRecurrenceIfEmpty = async (client, partialRecurrence) => {
+  const { data: recurrenceTransactions } = await client.query(
+    queryRecurrenceTransactions(partialRecurrence)
+  )
+  if (recurrenceTransactions.length === 0) {
+    const qdef = Q(partialRecurrence._type).getById(partialRecurrence._id)
+    const { data: recurrence } = await client.query(qdef)
+    if (recurrence) {
+      await client.destroy(recurrence)
+    }
+  }
 }

@@ -1,5 +1,14 @@
 import CozyClient, { Q } from 'cozy-client'
-import { GROUP_DOCTYPE, ACCOUNT_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
+import get from 'lodash/get'
+import uniq from 'lodash/uniq'
+import {
+  GROUP_DOCTYPE,
+  ACCOUNT_DOCTYPE,
+  TRANSACTION_DOCTYPE,
+  RECURRENCE_DOCTYPE,
+  BANK_ACCOUNT_STATS_DOCTYPE
+} from 'doctypes'
+import { destroyRecurrenceIfEmpty } from 'ducks/recurrence/api'
 import { disableOutdatedNotifications } from 'ducks/settings/helpers'
 
 const removeAccountFromGroup = (group, account) => {
@@ -19,6 +28,8 @@ export const deleteOrphanOperations = async (client, account) => {
     TRANSACTION_DOCTYPE
   )
   let count
+
+  const res = []
   while (count === undefined || count === STACK_FIND_LIMIT) {
     const { data: orphanOperations } = await transactionCollection.find({
       account: account._id
@@ -26,8 +37,10 @@ export const deleteOrphanOperations = async (client, account) => {
     count = orphanOperations.length
     if (count > 0) {
       await transactionCollection.destroyAll(orphanOperations)
+      res.push.apply(res, orphanOperations)
     }
   }
+  return res
 }
 
 const removeAccountFromGroups = async (client, account) => {
@@ -41,7 +54,7 @@ const removeAccountFromGroups = async (client, account) => {
 
 export const removeStats = async (client, account) => {
   const statsResponse = await client.query(
-    Q('io.cozy.bank.accounts.stats').where({
+    Q(BANK_ACCOUNT_STATS_DOCTYPE).where({
       'relationships.account.data._id': account._id
     })
   )
@@ -51,11 +64,24 @@ export const removeStats = async (client, account) => {
   }
 }
 
+export const updateRecurrences = async (client, account, deletedOps) => {
+  const impactedRecurrenceIds = uniq(
+    deletedOps.map(op => get(op, 'relationships.recurrence.data._id'))
+  ).filter(Boolean)
+  const { data: recurrences } = await client.query(
+    Q(RECURRENCE_DOCTYPE).getByIds(impactedRecurrenceIds)
+  )
+  for (const recurrence of recurrences) {
+    await destroyRecurrenceIfEmpty(client, recurrence)
+  }
+}
+
 export const DESTROY_ACCOUNT = 'DESTROY_ACCOUNT'
 const onAccountDelete = async (client, account) => {
-  await deleteOrphanOperations(client, account)
+  const deletedOps = await deleteOrphanOperations(client, account)
   await removeAccountFromGroups(client, account)
   await removeStats(client, account)
+  await updateRecurrences(client, account, deletedOps)
   await disableOutdatedNotifications(client)
 }
 
