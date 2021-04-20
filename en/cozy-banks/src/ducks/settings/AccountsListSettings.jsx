@@ -1,56 +1,23 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 
 import groupBy from 'lodash/groupBy'
+import get from 'lodash/get'
 
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import List from 'cozy-ui/transpiled/react/MuiCozyTheme/List'
-import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
-import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
-import ListItemSecondaryAction from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemSecondaryAction'
-import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
-import { models } from 'cozy-client'
+import { models, useClient } from 'cozy-client'
 import DisconnectedAccountModal from 'cozy-harvest-lib/dist/components/DisconnectedAccountModal'
-import KonnectorIcon from 'cozy-harvest-lib/dist/components/KonnectorIcon'
 import HarvestBankAccountSettings from 'ducks/settings/HarvestBankAccountSettings'
-import { getAccountInstitutionLabel } from 'ducks/account/helpers'
-import { AccountIconContainer } from 'components/AccountIcon'
 import { Unpadded } from 'components/Padded'
 import LegalMention from 'ducks/legal/LegalMention'
-
-import RightIcon from 'cozy-ui/transpiled/react/Icons/Right'
 import UnlinkIcon from 'cozy-ui/transpiled/react/Icons/Unlink'
-import Spinner from 'cozy-ui/transpiled/react/Spinner'
+import { cronKonnectorTriggersConn } from 'doctypes'
+import useAppsInMaintenance from 'hooks/useAppsInMaintenance'
+import AccountListItem from 'ducks/settings/AccountListItem'
+import { transformJobsToFakeAccounts } from './helpers/jobs'
 
 const { utils } = models
-
-const AccountListItem = ({ account, onClick, secondary, isLoading }) => {
-  return (
-    <ListItem button divider onClick={onClick}>
-      <ListItemIcon>
-        <AccountIconContainer>
-          <KonnectorIcon
-            style={{ width: 16, height: 16 }}
-            konnectorSlug={
-              account.cozyMetadata ? account.cozyMetadata.createdByApp : null
-            }
-          />
-        </AccountIconContainer>
-      </ListItemIcon>
-      <ListItemText
-        primary={getAccountInstitutionLabel(account)}
-        secondary={secondary}
-      />
-      <ListItemSecondaryAction>
-        {isLoading ? (
-          <Spinner size="large" className="u-mr-1" />
-        ) : (
-          <Icon icon={RightIcon} className="u-coolGrey u-mr-1" />
-        )}
-      </ListItemSecondaryAction>
-    </ListItem>
-  )
-}
 
 /**
  * Returns the connection id of an account
@@ -70,29 +37,14 @@ const getConnectionIdFromAccount = account => {
     : utils.getCreatedByApp(account)
 }
 
-const transformJobsToFakeAccounts = jobsInProgress => {
-  const jobsInAccounts = jobsInProgress.map(j => ({
-    inProgress: true,
-    connection: {
-      raw: {
-        _id: j.account
-      },
-      data: j.account
-    },
-    connectionId: j.account,
-    cozyMetadata: {
-      createdByApp: j.konnector
-    },
-    institutionLabel: j.institutionLabel
-  }))
-  return jobsInAccounts
-}
-
 const AccountsListSettings = ({
   accounts: myAccounts = [],
   jobsInProgress
 }) => {
   const { t } = useI18n()
+  const client = useClient()
+  const appsInMaintenance = useAppsInMaintenance(client)
+  const [konnInError, setKonnInError] = useState([])
 
   const accounts = [...myAccounts].concat(
     transformJobsToFakeAccounts(jobsInProgress)
@@ -106,6 +58,31 @@ const AccountsListSettings = ({
     connectionId: getConnectionIdFromAccount(accounts[0])
   }))
 
+  const slugInMaintenance = useMemo(
+    () => appsInMaintenance.map(appsInMaintenance => appsInMaintenance.slug),
+    [appsInMaintenance]
+  )
+
+  useEffect(() => {
+    const fetchTriggers = async () => {
+      const result = await client.query(
+        cronKonnectorTriggersConn.query(client),
+        {
+          as: cronKonnectorTriggersConn.as
+        }
+      )
+      const errors =
+        result?.data
+          ?.filter(
+            trigger => get(trigger, 'current_state.status') === 'errored'
+          )
+          .map(trigger => get(trigger, 'message.konnector')) || []
+      setKonnInError(errors)
+    }
+    fetchTriggers()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   // Depending on whether the bank account is still connected to an
   // io.cozy.accounts, we will either show the AccountModal or the
   // DisconnectedAccountModal
@@ -117,6 +94,12 @@ const AccountsListSettings = ({
         if (isLoading) {
           return t('Settings.accounts-tab.import-in-progress')
         }
+        const isInMaintenance = slugInMaintenance.includes(
+          connection?.account_type
+        )
+        if (isInMaintenance) {
+          return t('Settings.accounts-tab.in-maintenance')
+        }
         return connection.auth.identifier
       } else {
         return (
@@ -127,8 +110,10 @@ const AccountsListSettings = ({
         )
       }
     },
-    [t]
+    [slugInMaintenance, t]
   )
+
+  const hasError = connection => konnInError.includes(connection?.account_type)
 
   return (
     <Unpadded horizontal className={LegalMention.active ? 'u-mv-1' : 'u-mb-1'}>
@@ -151,6 +136,7 @@ const AccountsListSettings = ({
                 })
               }}
               isLoading={isLoading}
+              hasError={hasError(connection)}
             />
           )
         })}

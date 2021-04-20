@@ -3,17 +3,21 @@ import { createMockClient } from 'cozy-client/dist/mock'
 import { act, fireEvent, render } from '@testing-library/react'
 import AccountsSettings from './AccountsSettings'
 import {
+  ACCOUNT_DOCTYPE as BANK_ACCOUNT_DOCTYPE,
   accountsConn,
   schema,
-  ACCOUNT_DOCTYPE as BANK_ACCOUNT_DOCTYPE
+  TRIGGER_DOCTYPE
 } from 'doctypes'
 import AppLike from 'test/AppLike'
 import { receiveMutationResult } from 'cozy-client/dist/store'
-
 // Needed to prevent unwanted updates (async component)
 // Otherwise we have an error "Warning: An update to StoreLink inside a test was not wrapped in act"
 jest.mock('hooks/useRedirectionURL', () => {
   return () => ['https://cozy.tools:8080', () => {}]
+})
+
+jest.mock('hooks/useAppsInMaintenance', () => {
+  return () => [{ slug: 'banking-slug' }]
 })
 
 const BreakContext = () => {
@@ -120,7 +124,8 @@ describe('AccountsSettings', () => {
           data: [
             {
               _id: 'connection-1',
-              auth: { identifier: 'mylogin' }
+              auth: { identifier: 'mylogin' },
+              account_type: 'banking-slug'
             }
           ]
         },
@@ -129,6 +134,22 @@ describe('AccountsSettings', () => {
           ...accountsConn,
           lastUpdate: new Date(),
           data: mockBankAccounts
+        }
+      }
+    })
+    client.query = jest.fn().mockImplementation(({ doctype }) => {
+      if (doctype === TRIGGER_DOCTYPE) {
+        return {
+          data: [
+            {
+              current_state: {
+                status: 'errored'
+              },
+              message: {
+                konnector: 'banking-slug'
+              }
+            }
+          ]
         }
       }
     })
@@ -154,7 +175,7 @@ describe('AccountsSettings', () => {
 
   it('should display an edition modal on click', async () => {
     const { root, client } = setup()
-    const myLoginLine = root.getByText('My Bank 2')
+    const myLoginLine = await root.getByText('My Bank 2')
 
     fireEvent.click(myLoginLine)
     expect(() => root.getByText('My Bank Account 3')).not.toThrow()
@@ -177,5 +198,15 @@ describe('AccountsSettings', () => {
       )
     })
     expect(() => root.getByText('No contracts anymore')).not.toThrow()
+  })
+
+  it('should display konnector in maintenance', async () => {
+    const { root } = setup()
+    expect(root.findByText('In maintenance')).toBeTruthy()
+  })
+
+  it('should display an icon error', async () => {
+    const { root } = setup()
+    expect(root.findByTestId('error-konn')).toBeTruthy()
   })
 })

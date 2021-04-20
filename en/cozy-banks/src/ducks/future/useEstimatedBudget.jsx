@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
-import { useQuery } from 'cozy-client'
+import { isQueryLoading, useQuery } from 'cozy-client'
 
 import sumBy from 'lodash/sumBy'
 
@@ -11,24 +11,17 @@ import { getPlannedTransactions } from './selectors'
 
 /** Returns estimatedBalance and number of planned transactions for currently filtered accounts */
 const useEstimatedBudget = () => {
-  const { fetchStatus: recurrenceFetchStatus } = useQuery(
-    recurrenceConn.query,
-    recurrenceConn
-  )
+  const recurrenceCol = useQuery(recurrenceConn.query, recurrenceConn)
   // Do not use the result of this query but make sure accounts are loaded since
   // we use a selector on them afterwards
-  const { fetchStatus: accountsFetchStatus } = useQuery(
-    accountsConn.query,
-    accountsConn
-  )
+  const accountsCol = useQuery(accountsConn.query, accountsConn)
   const transactions = useSelector(getPlannedTransactions)
   const accounts = useSelector(getFilteredAccounts)
   const sumTransactions = useMemo(() => sumBy(transactions, x => x.amount), [
     transactions
   ])
   const sumAccounts = useMemo(() => sumBy(accounts, x => x.balance), [accounts])
-  const isLoading =
-    accountsFetchStatus === 'loading' || recurrenceFetchStatus === 'loading'
+  const isLoading = isQueryLoading(recurrenceCol) || isQueryLoading(accountsCol)
   return {
     isLoading: isLoading,
     estimatedBalance: isLoading ? null : sumAccounts + sumTransactions,

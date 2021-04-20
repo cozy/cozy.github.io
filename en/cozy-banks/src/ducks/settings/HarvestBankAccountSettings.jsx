@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import CozyClient, { Q, Query } from 'cozy-client'
+import CozyClient, { isQueryLoading, Q, Query } from 'cozy-client'
 
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Dialog from 'cozy-ui/transpiled/react/Dialog'
@@ -50,12 +50,13 @@ const HarvestLoader = ({ connectionId, children }) => {
       as={`accounts/${connectionId}`}
       fetchPolicy={fetchPolicy}
     >
-      {({ data: account, fetchStatus, lastUpdate }) => {
+      {accountCol => {
+        const { data: account, fetchStatus, lastUpdate } = accountCol
         // Can happen for a short while when the account is deleted
         if (!account) {
           return null
         }
-        if (fetchStatus === 'loading' && !lastUpdate) {
+        if (isQueryLoading(accountCol) && !lastUpdate) {
           return <HarvestSpinner />
         } else if (fetchStatus === 'error') {
           return <HarvestError />
@@ -69,8 +70,9 @@ const HarvestLoader = ({ connectionId, children }) => {
               as={`konnectors/${connectionId}`}
               fetchPolicy={fetchPolicy}
             >
-              {({ data, fetchStatus, lastUpdate }) => {
-                if (fetchStatus === 'loading' && !lastUpdate) {
+              {konnectorKol => {
+                const { data, fetchStatus, lastUpdate } = konnectorKol
+                if (isQueryLoading(konnectorKol) && !lastUpdate) {
                   return <HarvestSpinner />
                 }
 
@@ -86,14 +88,19 @@ const HarvestLoader = ({ connectionId, children }) => {
                 // Related issue : https://github.com/cozy/cozy-client/issues/767
                 return (
                   <Query query={Q(TRIGGER_DOCTYPE)} as="triggers">
-                    {({ data: allTriggers, fetchStatus, lastUpdate }) => {
+                    {triggerCol => {
+                      const {
+                        data: allTriggers,
+                        fetchStatus,
+                        lastUpdate
+                      } = triggerCol
                       const triggers = allTriggers.filter(trigger => {
                         return (
                           trigger.message &&
                           trigger.message.account === account._id
                         )
                       })
-                      if (fetchStatus === 'loading' && !lastUpdate) {
+                      if (isQueryLoading(triggerCol) && !lastUpdate) {
                         return <HarvestSpinner />
                       } else if (fetchStatus === 'error') {
                         return <HarvestError />

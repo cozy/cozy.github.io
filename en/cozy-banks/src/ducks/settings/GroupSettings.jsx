@@ -1,6 +1,6 @@
 import React, { useCallback, useState, useRef, useEffect } from 'react'
 import sortBy from 'lodash/sortBy'
-import { Query, useClient, Q, useQuery } from 'cozy-client'
+import { Query, useClient, Q, useQuery, isQueryLoading } from 'cozy-client'
 
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Button from 'cozy-ui/transpiled/react/Button'
@@ -285,8 +285,9 @@ export const GroupSettings = props => {
             {t('Groups.accounts')}
           </Typography>
           <Query query={accountsConn.query} as={accountsConn.as}>
-            {({ data: accounts, fetchStatus }) => {
-              if (fetchStatus === 'loading') {
+            {accountsCol => {
+              const { data: accounts } = accountsCol
+              if (isQueryLoading(accountsCol)) {
                 return <Loading />
               }
 
@@ -302,12 +303,12 @@ export const GroupSettings = props => {
 
 const ExistingGroupSettings = props => {
   const { groupId } = useParams()
-  const { data: group, fetchStatus } = useQuery(
-    Q(GROUP_DOCTYPE).getById(groupId),
-    { as: `io.cozy.bank.groups__${groupId}`, singleDocData: true }
-  )
+  const groupCol = useQuery(Q(GROUP_DOCTYPE).getById(groupId), {
+    as: `io.cozy.bank.groups__${groupId}`,
+    singleDocData: true
+  })
 
-  if (fetchStatus === 'loading' || fetchStatus === 'pending') {
+  if (isQueryLoading(groupCol)) {
     return (
       <>
         <BarTheme theme="primary" />
@@ -316,6 +317,7 @@ const ExistingGroupSettings = props => {
     )
   }
 
+  const { data: group } = groupCol
   return (
     <>
       <BarTheme theme="primary" />

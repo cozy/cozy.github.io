@@ -5,7 +5,7 @@ import sortBy from 'lodash/sortBy'
 import clone from 'lodash/clone'
 import groupBy from 'lodash/groupBy'
 
-import { useQuery, useClient } from 'cozy-client'
+import { useQuery, useClient, isQueryLoading } from 'cozy-client'
 import Card from 'cozy-ui/transpiled/react/Card'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import Button from 'cozy-ui/transpiled/react/Button'
@@ -207,13 +207,9 @@ const makeTextFilter = (searchStr, accessor) => {
 }
 
 const RecurrencePage = () => {
-  const { data: transactions, fetchStatus } = useQuery(
-    transactionsConn.query,
-    transactionsConn
-  )
-
-  const loading = fetchStatus === 'loading' && transactions.length === 0
-
+  const transactionCol = useQuery(transactionsConn.query, transactionsConn)
+  const { data: transactions } = transactionCol
+  const loading = isQueryLoading(transactionCol) && transactions.length === 0
   const [rulesConfig, setRulesConfig, clearSavedConfig] = useStickyState(
     defaultConfig,
     'banks.recurrence-config'
