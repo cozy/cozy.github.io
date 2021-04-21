@@ -1,5 +1,5 @@
 import FlagStore from './store'
-import { Q } from 'cozy-client'
+import { Q } from 'cozy-client/dist/queries/dsl'
 
 const store = new FlagStore()
 
