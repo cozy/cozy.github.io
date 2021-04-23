@@ -1,17 +1,20 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import sortBy from 'lodash/sortBy'
+import Fuse from 'fuse.js'
 import {
   NestedSelect,
   NestedSelectModal,
   translate
 } from 'cozy-ui/transpiled/react'
 import {
-  getCategories,
   CategoryIcon,
+  getCategories,
   getParentCategory
 } from 'ducks/categories'
 import styles from 'ducks/transactions/TransactionModal.styl'
+import flatten from 'lodash/flatten'
+import { formatSearchResult, fuseOptions } from './search/helpers'
 
 export const getOptions = (categories, subcategory = false, t) => {
   return Object.keys(categories).map(catName => {
@@ -52,9 +55,24 @@ class CategoryChoice extends Component {
   constructor(props) {
     super(props)
 
+    const { t } = props
+    const childrenOptions = getCategoriesOptions(t)
     this.options = {
-      children: getCategoriesOptions(props.t),
-      title: props.t('Categories.choice.title')
+      children: childrenOptions,
+      title: t('Categories.choice.title')
+    }
+    this.fuse = new Fuse(
+      flatten(childrenOptions.map(e => e.children)),
+      fuseOptions
+    )
+
+    this.searchOptions = {
+      placeholderSearch: t('Categories.search.title'),
+      noDataLabel: t('Categories.search.no-category'),
+      onSearch: this.onSearch
+    }
+    this.state = {
+      value: ''
     }
   }
 
@@ -73,6 +91,13 @@ class CategoryChoice extends Component {
     return isSelected(categoryItem, selected, level)
   }
 
+  onSearch = value => {
+    const t = this.props.t
+    const result = this.fuse.search(value)
+    this.setState({ searchValue: value })
+    return formatSearchResult(t, result)
+  }
+
   render() {
     const { t, onCancel, onSelect, modal, canSelectParent } = this.props
 
@@ -88,6 +113,7 @@ class CategoryChoice extends Component {
         onSelect={subcategory => onSelect(subcategory)}
         onCancel={onCancel}
         onClose={onCancel}
+        searchOptions={this.searchOptions}
       />
     )
   }

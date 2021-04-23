@@ -1,4 +1,10 @@
-import { isSelected, getCategoriesOptions } from './CategoryChoice'
+import CategoryChoice, {
+  isSelected,
+  getCategoriesOptions
+} from './CategoryChoice'
+import { render, fireEvent } from '@testing-library/react'
+import AppLike from 'test/AppLike'
+import React from 'react'
 
 // Dressing category is under the Daily life parent category
 const DAILY_LIFE_CATEGORY_ID = '400100'
@@ -45,5 +51,46 @@ describe('is selected logic', () => {
         0
       )
     ).toBe(false)
+  })
+})
+
+describe('Search Categories', () => {
+  const setup = () => {
+    const root = render(
+      <AppLike>
+        <CategoryChoice
+          categoryId=""
+          modal={false}
+          onCancel={() => {}}
+          onSelect={() => {}}
+        />
+      </AppLike>
+    )
+    return root
+  }
+
+  it('should show all matches with activity', () => {
+    const root = setup()
+
+    const inputSearch = root.getByPlaceholderText('Categories search')
+
+    fireEvent.change(inputSearch, {
+      target: { value: 'activity' }
+    })
+
+    // SubCategories
+    expect(root.queryByText('Activity income')).toBeTruthy()
+    expect(root.queryByText('Activity equipments')).toBeTruthy()
+    expect(root.queryByText('Activity fees')).toBeTruthy()
+    expect(root.queryByText('Activity lessons')).toBeTruthy()
+    expect(root.queryByText('Kids activities')).toBeTruthy()
+
+    // Categories
+    expect(root.queryByText('Earnings')).toBeTruthy()
+    expect(root.queryByText('Children')).toBeTruthy()
+    expect(root.queryAllByText('Leisure, sports').length).toEqual(3)
+    expect(root.queryByText('Health')).toBeFalsy()
+    expect(root.queryByText('Services')).toBeFalsy()
+    expect(root.queryByText('Taxes')).toBeFalsy()
   })
 })
