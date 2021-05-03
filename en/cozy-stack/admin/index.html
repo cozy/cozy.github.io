@@ -2751,16 +2751,16 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#swift" title="Swift" class="md-nav__link">
-    Swift
+  <a href="#konnectors" title="Konnectors" class="md-nav__link">
+    Konnectors
   </a>
   
     <nav class="md-nav">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#get-swiftlayouts" title="GET /swift/layouts" class="md-nav__link">
-    GET /swift/layouts
+  <a href="#put-konnectorsmaintenanceslug" title="PUT /konnectors/maintenance/:slug" class="md-nav__link">
+    PUT /konnectors/maintenance/:slug
   </a>
   
     <nav class="md-nav">
@@ -2779,6 +2779,19 @@
   </a>
   
 </li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-konnectorsmaintenanceslug" title="DELETE /konnectors/maintenance/:slug" class="md-nav__link">
+    DELETE /konnectors/maintenance/:slug
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#request_11" title="Request" class="md-nav__link">
@@ -2799,9 +2812,22 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#swift" title="Swift" class="md-nav__link">
+    Swift
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
           <li class="md-nav__item">
-  <a href="#get-swiftvfsobject" title="GET /swift/vfs/:object" class="md-nav__link">
-    GET /swift/vfs/:object
+  <a href="#get-swiftlayouts" title="GET /swift/layouts" class="md-nav__link">
+    GET /swift/layouts
   </a>
   
     <nav class="md-nav">
@@ -2821,6 +2847,47 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#request_13" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_12" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-swiftvfsobject" title="GET /swift/vfs/:object" class="md-nav__link">
+    GET /swift/vfs/:object
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_14" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_13" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2835,7 +2902,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#request_13" title="Request" class="md-nav__link">
+  <a href="#request_15" title="Request" class="md-nav__link">
     Request
   </a>
   
@@ -2855,7 +2922,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#request_14" title="Request" class="md-nav__link">
+  <a href="#request_16" title="Request" class="md-nav__link">
     Request
   </a>
   
@@ -2875,14 +2942,14 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#request_15" title="Request" class="md-nav__link">
+  <a href="#request_17" title="Request" class="md-nav__link">
     Request
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#response_12" title="Response" class="md-nav__link">
+  <a href="#response_14" title="Response" class="md-nav__link">
     Response
   </a>
   
@@ -3267,15 +3334,62 @@ revision tree (no generation smaller for a children than its parent).</p>
 </pre></div>
 
 
+<h2 id="konnectors">Konnectors<a class="headerlink" href="#konnectors" title="Permanent link">&para;</a></h2>
+<h3 id="put-konnectorsmaintenanceslug">PUT /konnectors/maintenance/:slug<a class="headerlink" href="#put-konnectorsmaintenanceslug" title="Permanent link">&para;</a></h3>
+<h4 id="request_10">Request<a class="headerlink" href="#request_10" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">PUT</span> <span class="nn">/konnectors/maintenance/ameli</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;flag_short_maintenance&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nt">&quot;flag_disallow_manual_exec&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="nt">&quot;messages&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;fr&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;long_message&quot;</span><span class="p">:</span> <span class="s2">&quot;Bla bla bla&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;short_message&quot;</span><span class="p">:</span> <span class="s2">&quot;Bla&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;en&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;long_message&quot;</span><span class="p">:</span> <span class="s2">&quot;Yadi yadi yada&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;short_message&quot;</span><span class="p">:</span> <span class="s2">&quot;Yada&quot;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p><strong>Note:</strong> the <code>flag_infra_maintenance</code> will always be set to true with this
+endpoint.</p>
+<h4 id="response_9">Response<a class="headerlink" href="#response_9" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+
+
+<h3 id="delete-konnectorsmaintenanceslug">DELETE /konnectors/maintenance/:slug<a class="headerlink" href="#delete-konnectorsmaintenanceslug" title="Permanent link">&para;</a></h3>
+<h4 id="request_11">Request<a class="headerlink" href="#request_11" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/konnectors/maintenance/ameli</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
+
+
+<h4 id="response_10">Response<a class="headerlink" href="#response_10" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+
+
 <h2 id="swift">Swift<a class="headerlink" href="#swift" title="Permanent link">&para;</a></h2>
 <h3 id="get-swiftlayouts">GET /swift/layouts<a class="headerlink" href="#get-swiftlayouts" title="Permanent link">&para;</a></h3>
 <p>Count swift layouts by type</p>
-<h4 id="request_10">Request<a class="headerlink" href="#request_10" title="Permanent link">&para;</a></h4>
+<h4 id="request_12">Request<a class="headerlink" href="#request_12" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/swift/layouts</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 </pre></div>
 
 
-<h4 id="response_9">Response<a class="headerlink" href="#response_9" title="Permanent link">&para;</a></h4>
+<h4 id="response_11">Response<a class="headerlink" href="#response_11" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </pre></div>
@@ -3306,12 +3420,12 @@ revision tree (no generation smaller for a children than its parent).</p>
 
 
 <p>The <code>show_domains=true</code> query parameter provides the domain names if needed</p>
-<h4 id="request_11">Request<a class="headerlink" href="#request_11" title="Permanent link">&para;</a></h4>
+<h4 id="request_13">Request<a class="headerlink" href="#request_13" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/swift/layouts?show_domains=true</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 </pre></div>
 
 
-<h4 id="response_10">Response<a class="headerlink" href="#response_10" title="Permanent link">&para;</a></h4>
+<h4 id="response_12">Response<a class="headerlink" href="#response_12" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </pre></div>
@@ -3356,13 +3470,13 @@ revision tree (no generation smaller for a children than its parent).</p>
 
 <h3 id="get-swiftvfsobject">GET /swift/vfs/:object<a class="headerlink" href="#get-swiftvfsobject" title="Permanent link">&para;</a></h3>
 <p>Retrieves a Swift object</p>
-<h4 id="request_12">Request<a class="headerlink" href="#request_12" title="Permanent link">&para;</a></h4>
+<h4 id="request_14">Request<a class="headerlink" href="#request_14" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/swift/vfs/67a88b22520680b1fae840%2F9a8a0%2F18d02%2FiYbkfuCDEMaVoIXg</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.cozy.tools</span>
 </pre></div>
 
 
-<h4 id="response_11">Response<a class="headerlink" href="#response_11" title="Permanent link">&para;</a></h4>
+<h4 id="response_13">Response<a class="headerlink" href="#response_13" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">text/plain</span>
 </pre></div>
@@ -3374,7 +3488,7 @@ revision tree (no generation smaller for a children than its parent).</p>
 
 <h3 id="put-swiftvfsobject">PUT /swift/vfs/:object<a class="headerlink" href="#put-swiftvfsobject" title="Permanent link">&para;</a></h3>
 <p>Put an object in Swift</p>
-<h4 id="request_13">Request<a class="headerlink" href="#request_13" title="Permanent link">&para;</a></h4>
+<h4 id="request_15">Request<a class="headerlink" href="#request_15" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">PUT</span> <span class="nn">/swift/vfs/67a88b22520680b1fae840%2F9a8a0%2F18d02%2FiYbkfuCDEMaVoIXg</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.cozy.tools</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">text/plain</span>
@@ -3387,7 +3501,7 @@ revision tree (no generation smaller for a children than its parent).</p>
 
 <h3 id="delete-swiftvfsobject">DELETE /swift/vfs/:object<a class="headerlink" href="#delete-swiftvfsobject" title="Permanent link">&para;</a></h3>
 <p>Removes an object from Swift</p>
-<h4 id="request_14">Request<a class="headerlink" href="#request_14" title="Permanent link">&para;</a></h4>
+<h4 id="request_16">Request<a class="headerlink" href="#request_16" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/swift/vfs/67a88b22520680b1fae840%2F9a8a0%2F18d02%2FiYbkfuCDEMaVoIXg</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.cozy.tools</span>
 </pre></div>
@@ -3395,13 +3509,13 @@ revision tree (no generation smaller for a children than its parent).</p>
 
 <h3 id="get-swiftvfs">GET /swift/vfs<a class="headerlink" href="#get-swiftvfs" title="Permanent link">&para;</a></h3>
 <p>List Swift objects of an instance</p>
-<h4 id="request_15">Request<a class="headerlink" href="#request_15" title="Permanent link">&para;</a></h4>
+<h4 id="request_17">Request<a class="headerlink" href="#request_17" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/swift/vfs</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.cozy.tools</span>
 </pre></div>
 
 
-<h4 id="response_12">Response<a class="headerlink" href="#response_12" title="Permanent link">&para;</a></h4>
+<h4 id="response_14">Response<a class="headerlink" href="#response_14" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </pre></div>
