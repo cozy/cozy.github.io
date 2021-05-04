@@ -43,6 +43,8 @@ You need to push an icon in `assets/`. Please respect this rules :
 - If needed, change the input type the target website use to login the user: `text`, `email` or `phone` for instance, this will enforce pre-checking
 - Edit for both locales `en` and `fr` the short description and long description
 
+[See all the properties of the manifest](https://docs.cozy.io/en/cozy-apps-registry/#properties-meaning-reference)
+
 ### Deploy command
 
 This will deploy a compiled version of your connector in a dedicated branch of your git repository using [git-directory-deploy](https://github.com/lukekarrys/git-directory-deploy).
