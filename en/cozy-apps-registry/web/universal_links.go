@@ -30,6 +30,24 @@ func universalLink(c echo.Context) error {
 	return c.String(http.StatusOK, content.String())
 }
 
+func generateRedirectFromFallbackAndParams(c echo.Context, fallback string) (*url.URL, error) {
+	redirect, err := url.Parse(fallback)
+	if err != nil {
+		return nil, err
+	}
+
+	query := redirect.Query()
+	for k, v := range c.QueryParams() {
+		if k == "fallback" {
+			continue
+		}
+		query.Set(k, v[0])
+	}
+	redirect.RawQuery = query.Encode()
+
+	return redirect, nil
+}
+
 func universalLinkRedirect(c echo.Context) error {
 	space, err := getSpaceFromHost(c)
 	if err != nil {
@@ -70,16 +88,16 @@ func universalLinkRedirect(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
-	// Disallow redirection for untrusted domains
-	parsedRedirect, err := url.Parse(fallback)
+	redirect, err := generateRedirectFromFallbackAndParams(c, fallback)
 	if err != nil {
 		return err
 	}
 
+	// Disallow redirection for untrusted domains
 	spaceTrustedDomains := base.Config.TrustedDomains
 	if domains, ok := spaceTrustedDomains[spacePrefix.String()]; ok {
 		for _, domain := range domains {
-			if strings.Contains(parsedRedirect.Host, domain) {
+			if strings.Contains(redirect.Host, domain) {
 				return c.Redirect(http.StatusSeeOther, fallback)
 			}
 		}
@@ -99,26 +117,17 @@ func webAuthRedirect(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
-	// Disallow redirection for untrusted domains
-	parsedRedirect, err := url.Parse(fallback)
+	redirect, err := generateRedirectFromFallbackAndParams(c, fallback)
 	if err != nil {
 		return err
 	}
 
-	query := parsedRedirect.Query()
-	for k, v := range c.QueryParams() {
-		if k == "fallback" {
-			continue
-		}
-		query.Set(k, v[0])
-	}
-	parsedRedirect.RawQuery = query.Encode()
-
+	// Disallow redirection for untrusted domains
 	spaceTrustedDomains := base.Config.TrustedDomains
 	if domains, ok := spaceTrustedDomains[spacePrefix.String()]; ok {
 		for _, domain := range domains {
-			if strings.Contains(parsedRedirect.Host, domain) {
-				return c.Redirect(http.StatusSeeOther, parsedRedirect.String())
+			if strings.Contains(redirect.Host, domain) {
+				return c.Redirect(http.StatusSeeOther, redirect.String())
 			}
 		}
 	}
