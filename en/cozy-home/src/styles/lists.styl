@@ -1,0 +1,227 @@
+@require 'settings/breakpoints.styl'
+@require 'settings/palette.styl'
+@require 'settings/spaces.styl'
+
+mobileTileSize = 4rem
+outsideBorder = 0 0 0 1px rgba(0, 0, 0, .08)
+lightShadow = 0 4px 12px 0 rgba(0, 0, 0, .08)
+heavyShadow = 0 4px 24px 0 rgba(50, 54, 63, .08)
+
+.app-list
+    appTileSize = 6rem
+    position relative
+    margin-top -(appTileSize / 2)
+    margin-bottom: spacing_values.l
+    display grid
+    grid-template-columns repeat(auto-fit, appTileSize)
+    grid-auto-rows appTileSize
+    grid-gap rem(8)
+    justify-content center
+
+    +tiny-screen()
+        margin-top: (-(mobileTileSize) / 2)
+        margin-bottom: spacing_values.xs
+        grid-template-columns repeat(auto-fit, mobileTileSize)
+        grid-auto-rows mobileTileSize
+        grid-gap rem(4)
+
+    .item
+        background-color var(--white)
+        border 0
+        box-shadow outsideBorder, lightShadow
+        padding 20px 4px 12px
+        transition box-shadow .05s ease, transform .05s ease
+
+        &:active
+        &:focus
+            background-color var(--paleGrey)
+            box-shadow outsideBorder, lightShadow, heavyShadow
+
+        &:hover
+            transform scale(1.05)
+            box-shadow outsideBorder, lightShadow, heavyShadow
+
+        @media (pointer coarse)
+            &:hover
+                transform none
+
+        +tiny-screen()
+            padding 10px 4px 6px
+
+    .item-icon
+            width rem(40)
+            height rem(40)
+
+            +tiny-screen()
+                width rem(32)
+                height rem(32)
+
+
+.services-list
+    serviceTileSize = 5rem
+    serviceGridGutter = 17px
+    width 100%
+    max-width 'calc(%s * 7 + %s * 6)' % (serviceTileSize serviceGridGutter) // 7 columns + 6 column gaps
+    margin: spacing_values.l auto
+    display grid
+    grid-template-columns repeat(auto-fit, serviceTileSize)
+    grid-auto-rows serviceTileSize
+    grid-gap (serviceGridGutter)
+    justify-content center
+    opacity .99 // required for the blend mode difference to work
+
+    +tiny-screen()
+        margin: spacing_values.m auto
+        grid-template-columns repeat(auto-fit, mobileTileSize)
+        grid-auto-rows mobileTileSize
+        grid-gap rem(3)
+
+    .item
+        padding 12px 8px
+        border-radius 8px
+        border-width 1px
+        border-style solid
+        border-color transparent
+        position relative
+
+        &:before,
+        &:after
+            content ''
+            display block
+            position absolute
+            top 30%
+            bottom 30%
+            width 1px
+            opacity .32
+            mix-blend-mode difference
+            background white
+
+        &:before
+            left -10px
+        &:after
+            right -10px
+
+        +tiny-screen()
+            &:before
+                left -3px
+            &:after
+                right -3px
+
+        &:hover
+            border-color rgba(0, 0, 0, .12)
+
+        &:active
+        &:focus
+            background-color var(--paleGrey)
+            border-color rgba(0, 0, 0, .08)
+
+        @media (pointer coarse)
+            &:hover
+                transform none
+
+        +tiny-screen()
+                padding 12px 4px
+
+    .item--maintenance .item-icon
+            filter grayscale(1)
+            opacity .64
+
+    .item--ghost
+            background var(--zircon)
+            border dashed 1px var(--primaryColorLightest)
+
+            .item-icon
+                filter sepia(1) saturate(3) hue-rotate(-180deg)
+                opacity .64
+
+            &:hover
+                border-color: var(--dodgerBlue)
+
+    .item-icon
+        width rem(32)
+        height rem(32)
+        position relative
+
+        +tiny-screen()
+            width rem(24)
+            height rem(24)
+
+    .item-grid-icon
+        width rem(16)
+        height rem(16)
+
+        +tiny-screen()
+            width rem(12)
+            height rem(12)
+
+    .item-status
+        position absolute
+        bottom -6px
+        right -6px
+        border 2px solid var(--white)
+        border-radius 50%
+        background var(--white)
+
+    .item--add-service
+        .item-icon
+            box-sizing border-box
+            display flex
+            justify-content center
+            align-items center
+
+        &[aria-busy='true']
+            opacity .8
+
+        &[aria-busy='true']:hover
+            transform none
+
+.EmptyServicesListTip
+    box-sizing border-box
+    width 640px
+    max-width 100%
+    margin auto
+    padding 1rem 2rem
+
+    +tiny-screen()
+        padding 0 1.5rem 1rem 3rem
+
+.EmptyServicesListTip-text
+    font-style italic
+    padding-left 1rem
+
+    +tiny-screen()
+        padding-left .5rem
+
+.item
+    box-sizing border-box
+    border-radius rem(8)
+    width 100%
+    height 100%
+    display flex
+    flex-direction column
+    justify-content center
+    align-items center
+    flex-shrink 0
+    cursor pointer
+    text-decoration none
+    text-align center
+
+.item-icon
+        margin-bottom rem(8)
+
+        +tiny-screen()
+            margin-bottom rem(4)
+
+.item-title
+        width 100%
+        margin 0
+        color var(--charcoalGrey)
+        font-size rem(12)
+        font-weight normal
+        white-space nowrap
+        overflow hidden
+        text-overflow ellipsis
+
+        +tiny-screen()
+            font-size rem(10)
+            line-height 1.2
