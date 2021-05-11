@@ -1,21 +1,28 @@
 import { subDays } from 'date-fns'
-import NotificationView from 'ducks/notifications/BaseNotificationView'
-import fromPairs from 'lodash/fromPairs'
-import sortBy from 'lodash/sortBy'
-import log from 'cozy-logger'
-import { getDate, isNew as isNewTransaction } from 'ducks/transactions/helpers'
-import { getAccountLabel } from 'ducks/account/helpers'
-import { isTransactionAmountGreaterThan } from 'ducks/notifications/helpers'
-import { getCurrencySymbol } from 'utils/currencySymbol'
-import template from './template.hbs'
-import { prepareTransactions, getCurrentDate } from 'ducks/notifications/utils'
-import { toText } from 'cozy-notifications'
 import uniqBy from 'lodash/uniqBy'
 import flatten from 'lodash/flatten'
 import overEvery from 'lodash/overEvery'
 import merge from 'lodash/merge'
 import groupBy from 'lodash/groupBy'
+import fromPairs from 'lodash/fromPairs'
+import sortBy from 'lodash/sortBy'
+
+import log from 'cozy-logger'
+import { toText } from 'cozy-notifications'
+
+import NotificationView from 'ducks/notifications/BaseNotificationView'
+import { getDate, isNew as isNewTransaction } from 'ducks/transactions/helpers'
+import { getAccountLabel } from 'ducks/account/helpers'
+import { isTransactionAmountGreaterThan } from 'ducks/notifications/helpers'
+import { getCurrencySymbol } from 'utils/currencySymbol'
+import {
+  prepareTransactions,
+  getCurrentDate,
+  formatAmount
+} from 'ducks/notifications/utils'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
+
+import template from './template.hbs'
 
 const getDocumentId = x => x._id
 
@@ -26,6 +33,17 @@ const TRANSACTION_SEL = '.js-transaction'
 const SINGLE_TRANSACTION = 'single'
 const MULTI_TRANSACTION = 'multi'
 const MULTI_TRANSACTION_MULTI_RULES = 'multi-rules'
+
+/**
+ * @typedef {object} Rule
+ */
+
+/**
+ * @typedef {object} RuleResult
+ * @property {Rule} rule - The rule being matched
+ * @property {Array<Transaction>} transactions - Transactions that matched the rule
+ *
+ */
 
 // During tests, it is difficult to keep transactions with
 // first _rev since we replace replace existing transactions, this
@@ -88,12 +106,22 @@ const makeAccountOrGroupFilter = (groups, accountOrGroup) => {
   }
 }
 
+/**
+ * Sends a notification when a transaction amount is greater than
+ * a threshold.
+ */
 class TransactionGreater extends NotificationView {
   constructor(config) {
     super(config)
     this.rules = config.rules
   }
 
+  /**
+   * Creates a filtering function from a rule
+   *
+   * @param  {Rule} rule - A rule
+   * @return {function(Transaction): Boolean} - Predicates that check if a transaction matches rule
+   */
   filterForRule(rule) {
     const fourDaysAgo = subDays(new Date(), 4)
 
@@ -114,9 +142,10 @@ class TransactionGreater extends NotificationView {
   }
 
   /**
-   * Returns a list of [{ rule, transactions }]
    * For each rule, returns a list of matching transactions
    * Rules that do not match any transactions are discarded
+   *
+   * @return {Array<RuleResult>}
    */
   findMatchingRules() {
     return this.rules
@@ -132,7 +161,7 @@ class TransactionGreater extends NotificationView {
     const { accounts } = this.data
     const matchingRules = this.findMatchingRules()
     const transactionsFiltered = uniqBy(
-      flatten(matchingRules.map(x => x.transactions)),
+      flatten(matchingRules.map(result => result.transactions)),
       getDocumentId
     )
     return {
@@ -189,6 +218,9 @@ class TransactionGreater extends NotificationView {
     }
   }
 
+  /**
+   * @return {string} - The title of the notification
+   */
   getTitle(templateData) {
     const { transactions, matchingRules } = templateData
     const onlyOne = transactions.length === 1
@@ -199,13 +231,13 @@ class TransactionGreater extends NotificationView {
       notificationSubtype === SINGLE_TRANSACTION
         ? {
             firstTransaction: firstTransaction,
-            amount: Math.abs(firstTransaction.amount),
+            amount: formatAmount(Math.abs(firstTransaction.amount)),
             currency: getCurrencySymbol(firstTransaction.currency)
           }
         : notificationSubtype === MULTI_TRANSACTION
         ? {
             transactionsLength: transactions.length,
-            maxAmount: matchingRules[0].rule.value
+            maxAmount: formatAmount(matchingRules[0].rule.value)
           }
         : {
             transactionsLength: transactions.length,
@@ -230,9 +262,9 @@ class TransactionGreater extends NotificationView {
     const [transaction] = sortBy(transactions, getDate).reverse()
 
     if (notificationSubtype === SINGLE_TRANSACTION) {
-      return `${transaction.label} : ${transaction.amount}${getCurrencySymbol(
-        transaction.currency
-      )}`
+      return `${transaction.label} : ${formatAmount(
+        transaction.amount
+      )}${getCurrencySymbol(transaction.currency)}`
     } else {
       const transactionGroupedByAccount = groupBy(transactions, x => x.account)
       const groups = Object.entries(transactionGroupedByAccount).map(

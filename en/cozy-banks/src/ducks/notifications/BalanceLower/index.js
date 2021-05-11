@@ -7,7 +7,7 @@ import merge from 'lodash/merge'
 import log from 'cozy-logger'
 import { getAccountBalance } from 'ducks/account/helpers'
 import { getCurrencySymbol } from 'utils/currencySymbol'
-import { getCurrentDate } from 'ducks/notifications/utils'
+import { getCurrentDate, formatAmount } from 'ducks/notifications/utils'
 import template from './template.hbs'
 import { toText } from 'cozy-notifications'
 import { ruleAccountFilter } from 'ducks/settings/ruleUtils'
@@ -160,9 +160,9 @@ class BalanceLower extends NotificationView {
     return accounts
       .map(account => {
         const balance = getAccountBalance(account)
-        return `${account.label} ${
-          balance > 0 ? '+' : ''
-        }${balance}${getCurrencySymbol(account.currency)}`
+        return `${account.label} ${balance > 0 ? '+' : ''}${formatAmount(
+          balance
+        )}${getCurrencySymbol(account.currency)}`
       })
       .join(', ')
   }

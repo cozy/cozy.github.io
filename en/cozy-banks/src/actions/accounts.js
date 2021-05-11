@@ -1,6 +1,8 @@
 import CozyClient, { Q } from 'cozy-client'
 import get from 'lodash/get'
 import uniq from 'lodash/uniq'
+
+import Alerter from 'cozy-ui/react/Alerter'
 import {
   GROUP_DOCTYPE,
   ACCOUNT_DOCTYPE,
@@ -10,6 +12,7 @@ import {
 } from 'doctypes'
 import { destroyRecurrenceIfEmpty } from 'ducks/recurrence/api'
 import { disableOutdatedNotifications } from 'ducks/settings/helpers'
+import { getT } from 'utils/lang'
 
 const removeAccountFromGroup = (group, account) => {
   return {
@@ -77,13 +80,21 @@ export const updateRecurrences = async (client, account, deletedOps) => {
 }
 
 export const DESTROY_ACCOUNT = 'DESTROY_ACCOUNT'
-const onAccountDelete = async (client, account) => {
+export const onAccountDelete = async (client, account) => {
+  const t = getT()
+  const notif = Alerter.info(t('DeletingAccount.related-data.deleting'), {
+    duration: Infinity
+  })
   const deletedOps = await deleteOrphanOperations(client, account)
   await removeAccountFromGroups(client, account)
   await removeStats(client, account)
   await updateRecurrences(client, account, deletedOps)
   await disableOutdatedNotifications(client)
+  Alerter.removeNotification(notif)
+  Alerter.success(t('DeletingAccount.related-data.successfully-deleted'))
 }
+
+window.onAccountDelete = onAccountDelete
 
 export const onGroupDelete = async (client, account) => {
   await deleteOrphanOperations(client, account)

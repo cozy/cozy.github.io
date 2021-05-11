@@ -55,7 +55,7 @@ describe('useEstimatedBudget', () => {
     const { result } = renderHook(() => useEstimatedBudget(), { wrapper })
     expect(result.current).toEqual({
       isLoading: false,
-      estimatedBalance: 47833.45,
+      estimatedBalance: 47833.36,
       sumTransactions: 3870.54,
       currency: undefined,
       transactions: [

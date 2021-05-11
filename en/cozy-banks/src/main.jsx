@@ -18,6 +18,7 @@ import { setupLocale as setupD3Locale } from 'utils/d3'
 import { isIOSApp } from 'cozy-device-helper'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import flag from 'cozy-flags'
+import { handleOAuthResponse } from 'cozy-harvest-lib'
 
 import { setupHistory } from 'utils/history'
 import {
@@ -30,7 +31,8 @@ import { checkToRefreshToken } from 'utils/token'
 import { makeItShine } from 'utils/display.debug'
 import PinPlugin from 'ducks/pin/plugin'
 import cozyBar from 'utils/cozyBar'
-import { handleOAuthResponse } from 'cozy-harvest-lib'
+
+import { getLanguageFromDOM } from 'utils/lang'
 
 import './logger'
 
@@ -57,10 +59,7 @@ const initRender = () => {
 const setupApp = async persistedState => {
   const root = document.querySelector('[role=application]')
   const data = root.dataset
-  lang =
-    __TARGET__ === 'mobile' && navigator && navigator.language
-      ? navigator.language.slice(0, 2)
-      : data.cozyLocale || 'en'
+  lang = getLanguageFromDOM(root)
 
   setupD3Locale(lang)
 

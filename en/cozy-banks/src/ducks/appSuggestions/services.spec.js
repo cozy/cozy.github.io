@@ -1,6 +1,19 @@
-import { findSuggestionForTransaction, normalizeSuggestions } from './services'
+import {
+  findSuggestionForTransaction,
+  normalizeSuggestions,
+  findAppSuggestions
+} from './services'
 import { TRANSACTION_DOCTYPE } from '../../doctypes'
 import { getBrands } from '../brandDictionary'
+import { Document } from 'cozy-doctypes'
+import CozyClient from 'cozy-client'
+import fetch from 'node-fetch'
+global.fetch = fetch
+
+const client = new CozyClient({
+  uri: 'http://localhost:8080'
+})
+Document.registerClient(client)
 
 describe('findSuggestionForTransaction', () => {
   const brands = getBrands()
@@ -85,5 +98,13 @@ describe('normalizeSuggestions', () => {
     ]
 
     expect(normalizeSuggestions(suggestions)).toMatchSnapshot()
+  })
+})
+
+describe('findAppSuggestions', () => {
+  it('should work with empty data', async () => {
+    Document.fetchAll = jest.fn().mockResolvedValue([])
+    Document.fetchChanges = jest.fn().mockResolvedValue({ documents: [] })
+    await findAppSuggestions({})
   })
 })

@@ -1,5 +1,10 @@
 import NotificationView from '../BaseNotificationView'
 import logger from 'cozy-logger'
+import map from 'lodash/map'
+import groupBy from 'lodash/groupBy'
+import keyBy from 'lodash/keyBy'
+import merge from 'lodash/merge'
+
 import {
   getAccountBalance,
   getAccountType,
@@ -7,11 +12,8 @@ import {
 } from 'ducks/account/helpers'
 import { endOfMonth, subDays, isWithinRange } from 'date-fns'
 import { BankAccount } from 'cozy-doctypes'
-import map from 'lodash/map'
-import groupBy from 'lodash/groupBy'
-import keyBy from 'lodash/keyBy'
-import merge from 'lodash/merge'
 import { getAccountNewBalance } from 'ducks/notifications/helpers'
+import { formatAmount } from 'ducks/notifications/utils'
 import { getCurrentDate } from 'ducks/notifications/utils'
 import template from './template.hbs'
 import { toText } from 'cozy-notifications'
@@ -146,7 +148,7 @@ class DelayedDebit extends NotificationView {
   getTitle(templateData) {
     const account = templateData.institutions[0].accounts[0]
     return this.t('Notifications.delayed-debit.notification.title', {
-      balance: getAccountNewBalance(account),
+      balance: formatAmount(getAccountNewBalance(account)),
       currency: '€',
       label: getAccountLabel(account.checkingsAccount.data)
     })

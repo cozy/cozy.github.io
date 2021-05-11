@@ -1,11 +1,17 @@
-import { removeStats, deleteOrphanOperations } from './accounts'
+import {
+  removeStats,
+  deleteOrphanOperations,
+  onAccountDelete
+} from './accounts'
 import CozyClient from 'cozy-client'
+import Alerter from 'cozy-ui/react/Alerter'
 
 const setup = () => {
   const client = new CozyClient({})
   client.query = jest.fn()
   client.destroy = jest.fn()
   const collection = {
+    all: jest.fn(),
     find: jest.fn(),
     destroyAll: jest.fn()
   }
@@ -71,5 +77,37 @@ describe('remove orphan transactions', () => {
     await removeStats(client, account)
 
     expect(client.destroy).not.toHaveBeenCalled()
+  })
+})
+
+describe('onAccountDelete', () => {
+  beforeEach(() => {
+    jest.spyOn(Alerter, 'info')
+    jest.spyOn(Alerter, 'success')
+    jest.spyOn(Alerter, 'removeNotification')
+  })
+  afterEach(() => {
+    Alerter.info.mockReset()
+    Alerter.success.mockReset()
+    Alerter.removeNotification.mockReset()
+  })
+  it('should add an alert and remove it', async () => {
+    const { client, collection } = setup()
+    collection.find.mockResolvedValue({
+      data: [],
+      count: 0
+    })
+    collection.all.mockResolvedValue({
+      data: []
+    })
+    client.query.mockResolvedValue({
+      data: []
+    })
+    document.body.innerHTML =
+      '<div role="application" data-cozy-locale="en"></div>'
+
+    await onAccountDelete(client, 'account-id')
+    expect(Alerter.info).toHaveBeenCalled()
+    expect(Alerter.removeNotification).toHaveBeenCalled()
   })
 })

@@ -127,7 +127,7 @@ describe('balance lower', () => {
         'comptelou1'
       ])
       expect(minValueBy(accounts, getAccountBalance)).toBeLessThan(5000)
-      expect(maxValueBy(accounts, getAccountBalance)).toBe(3974.25)
+      expect(maxValueBy(accounts, getAccountBalance)).toBe(3974.2)
     })
 
     it('should compute relevant accounts for a different value', async () => {
@@ -186,7 +186,7 @@ describe('balance lower', () => {
           '4 accounts are below your threshold amount of 5000€'
         )
         expect(pushContent).toBe(
-          'PEE Isabelle +1421.22€, Compte courant Claude +4135.62€, Compte courant Isabelle +3974.25€, Compte jeune Louise +325.24€'
+          'PEE Isabelle +1421.20€, Compte courant Claude +4135.62€, Compte courant Isabelle +3974.20€, Compte jeune Louise +325.24€'
         )
       })
     })
@@ -198,7 +198,7 @@ describe('balance lower', () => {
         })
         expect(title).toBe('4 accounts are below their threshold amount')
         expect(pushContent).toBe(
-          'Compte jeune Louise +325.24€, PEE Isabelle +1421.22€, Compte courant Claude +4135.62€, Compte courant Isabelle +3974.25€'
+          'Compte jeune Louise +325.24€, PEE Isabelle +1421.20€, Compte courant Claude +4135.62€, Compte courant Isabelle +3974.20€'
         )
       })
     })

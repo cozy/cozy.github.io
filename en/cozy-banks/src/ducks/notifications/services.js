@@ -124,6 +124,10 @@ export const sendNotificationForClass = async (
   }
 }
 
+/**
+ * Fetches relevant data, instantiates enabled notification classes and
+ * sends push notifications
+ */
 export const sendNotifications = async (config, transactions) => {
   const enabledNotificationClasses = getEnabledNotificationClasses(config)
   const client = CozyClient.fromEnv(process.env)

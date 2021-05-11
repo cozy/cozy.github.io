@@ -2,6 +2,9 @@ import sumBy from 'lodash/sumBy'
 import keyBy from 'lodash/keyBy'
 import merge from 'lodash/merge'
 
+import logger from 'cozy-logger'
+import { Q } from 'cozy-client'
+
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import NotificationView from 'ducks/notifications/BaseNotificationView'
 import { getCurrentDate } from 'ducks/notifications/utils'
@@ -12,10 +15,7 @@ import { getAccountLabel } from 'ducks/account/helpers'
 import template from './template.hbs'
 import { fetchCategoryAlerts } from './index'
 import { buildNotificationData } from './service'
-
-import logger from 'cozy-logger'
-
-import { Q } from 'cozy-client'
+import { formatAmount } from 'ducks/notifications/utils'
 
 const log = logger.namespace('category-budgets')
 
@@ -142,10 +142,14 @@ class CategoryBudget extends NotificationView {
       ? budgetAlerts
           .map(
             alert =>
-              `${alert.categoryLabel}: ${alert.currentAmount}€ > ${alert.maxThreshold}€`
+              `${alert.categoryLabel}: ${formatAmount(
+                alert.currentAmount
+              )}€ > ${alert.maxThreshold}€`
           )
           .join(', ')
-      : `${budgetAlerts[0].currentAmount}€ > ${budgetAlerts[0].maxThreshold}€`
+      : `${formatAmount(budgetAlerts[0].currentAmount)}€ > ${
+          budgetAlerts[0].maxThreshold
+        }€`
   }
 
   getExtraAttributes() {

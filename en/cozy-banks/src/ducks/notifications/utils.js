@@ -47,3 +47,6 @@ export const treatedByFormat = function(reimbursements, billsById) {
 export const getCurrentDate = () => {
   return new Date()
 }
+
+export const formatAmount = amount =>
+  amount % 1 !== 0 ? amount.toFixed(2) : amount

@@ -59,12 +59,12 @@ const customToText = cozyHTMLEmail => {
 }
 
 class LateHealthReimbursement extends NotificationView {
-  constructor(config) {
-    super(config)
-    this.interval = config.value
+  constructor(options) {
+    super(options)
+    this.interval = options.value
   }
 
-  async getTransactions() {
+  async fetchTransactions() {
     const DATE_FORMAT = 'YYYY-MM-DD'
     const today = new Date()
     const lt = formatDate(subDays(today, this.interval), DATE_FORMAT)
@@ -123,14 +123,14 @@ class LateHealthReimbursement extends NotificationView {
         !isAlreadyNotified(lateReimbursement, LateHealthReimbursement)
     )
 
-    log('info', `${toNotify} need to be notified`)
+    log('info', `${toNotify.length} need to be notified`)
 
     this.toNotify = toNotify
 
     return toNotify
   }
 
-  getAccounts(transactions) {
+  fetchAccounts(transactions) {
     const accountIds = uniq(
       transactions.map(transaction => transaction.account)
     )
@@ -138,7 +138,7 @@ class LateHealthReimbursement extends NotificationView {
   }
 
   async fetchData() {
-    const transactions = await this.getTransactions()
+    const transactions = await this.fetchTransactions()
 
     if (transactions.length === 0) {
       log('info', 'No late health reimbursement')
@@ -148,7 +148,7 @@ class LateHealthReimbursement extends NotificationView {
     log('info', `${transactions.length} late health reimbursements`)
 
     log('info', 'Fetching accounts for late health reimbursements')
-    const accounts = await this.getAccounts(transactions)
+    const accounts = await this.fetchAccounts(transactions)
     log(
       'info',
       `${accounts.length} accounts fetched for late health reimbursements`
@@ -186,10 +186,13 @@ class LateHealthReimbursement extends NotificationView {
   }
 
   /**
+   * Saves last notification date to transactions for which there was
+   * the notification.
+   *
    * Executed by `Notification` when the notification has been successfuly sent
    * See `Notification::sendNotification`
    */
-  async onSendNotificationSuccess() {
+  async onSuccess() {
     this.toNotify.forEach(reimb => {
       if (!reimb.cozyMetadata) {
         reimb.cozyMetadata = {}

@@ -1,7 +1,7 @@
 import logger from 'cozy-logger'
 import { findMatchingBrand, getNotInstalledBrands } from 'ducks/brandDictionary'
 import { getLabel } from 'ducks/transactions/helpers'
-import { getKonnectorFromTrigger } from 'utils/triggers'
+import { trigger as triggerLibs } from 'cozy-client/dist/models'
 import { BankTransaction } from 'cozy-doctypes'
 import AppSuggestion from './AppSuggestion'
 import Trigger from './Trigger'
@@ -11,6 +11,7 @@ import get from 'lodash/get'
 import set from 'lodash/set'
 
 const log = logger.namespace('app-suggestions')
+const { getKonnector } = triggerLibs.triggers
 
 export const findSuggestionForTransaction = (
   transaction,
@@ -90,7 +91,7 @@ export const findAppSuggestions = async setting => {
   set(setting, 'appSuggestions.lastSeq', transactionsToCheck.newLastSeq)
 
   log('info', 'Get not installed brands')
-  const installedSlugs = triggers.map(getKonnectorFromTrigger)
+  const installedSlugs = triggers.map(getKonnector)
   const brands = getNotInstalledBrands(installedSlugs)
 
   log('info', `${brands.length} not installed brands`)

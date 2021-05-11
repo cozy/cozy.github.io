@@ -112,6 +112,9 @@ describe('service', () => {
         ]
       )
       expect(mockPostNotification).toHaveBeenCalledTimes(1)
+      expect(
+        mockPostNotification.mock.calls[0][0].data.attributes.message
+      ).toEqual('735€ > 100€')
     })
   })
 
