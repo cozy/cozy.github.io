@@ -2857,6 +2857,23 @@ yarn deploy:doc --repo git@github.com:USERNAME/cozy-ui.git
 </pre></div>
 
 
+<p>We suggest to use <code>@testing-library/react</code> over <code>enzyme</code> for tests. We have
+historically used <code>enzyme</code> but we prefer the philosophy behind <code>testing-library</code> since
+it pushes to test for what the user sees.</p>
+<p>For complex components, we expose testing helpers in the <code>testing</code> file in their respective folders.</p>
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">getCloseButton</span><span class="p">,</span> <span class="nx">getAllDialogs</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-ui/transpiled/react/CozyDialogs/testing&#39;</span>
+
+<span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should close dialog&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">onClose</span> <span class="o">=</span> <span class="nx">jest</span><span class="p">.</span><span class="nx">fn</span><span class="p">()</span>
+  <span class="kr">const</span> <span class="nx">root</span> <span class="o">=</span> <span class="nx">render</span><span class="p">(&lt;</span><span class="nt">MyApp</span> <span class="na">onCloseDialog</span><span class="o">=</span><span class="p">{</span><span class="nx">onClose</span><span class="p">}</span> <span class="p">/&gt;)</span>
+  <span class="kr">const</span> <span class="nx">dialog</span> <span class="o">=</span> <span class="nx">getDialog</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span>
+  <span class="kr">const</span> <span class="nx">closeBtn</span> <span class="o">=</span> <span class="nx">getCloseButton</span><span class="p">(</span><span class="nx">dialog</span><span class="p">)</span>
+  <span class="nx">fireEvent</span><span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="nx">closeBtn</span><span class="p">)</span>
+  <span class="nx">expect</span><span class="p">(</span><span class="nx">onClose</span><span class="p">).</span><span class="nx">toHaveBeenCalled</span><span class="p">()</span>
+<span class="p">})</span>
+</pre></div>
+
+
 <h2 id="ui-regression-testing">UI regression testing<a class="headerlink" href="#ui-regression-testing" title="Permanent link">&para;</a></h2>
 <p>Components in <code>cozy-ui</code> are showcased with <a href="https://react-styleguidist.js.org/">React Styleguidist</a>. To prevent UI regressions,
 for each PR, each component is screenshotted and compared to the master version to find any
