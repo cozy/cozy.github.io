@@ -16,9 +16,10 @@ jest.mock('hooks/useRedirectionURL', () => {
   return () => ['https://cozy.tools:8080', () => {}]
 })
 
-jest.mock('hooks/useAppsInMaintenance', () => {
-  return () => [{ slug: 'banking-slug' }]
-})
+jest.mock('cozy-client', () => ({
+  ...jest.requireActual('cozy-client'),
+  useAppsInMaintenance: jest.fn().mockReturnValue([{ slug: 'banking-slug' }])
+}))
 
 const BreakContext = () => {
   const ctx = React.createContext({
@@ -202,7 +203,7 @@ describe('AccountsSettings', () => {
 
   it('should display konnector in maintenance', async () => {
     const { root } = setup()
-    expect(root.findByText('In maintenance')).toBeTruthy()
+    expect(root.getByText('In maintenance')).toBeTruthy()
   })
 
   it('should display an icon error', async () => {
