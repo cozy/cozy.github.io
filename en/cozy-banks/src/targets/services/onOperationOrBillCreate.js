@@ -12,8 +12,9 @@ import { sendNotifications } from 'ducks/notifications/services'
 import matchFromBills from 'ducks/billsMatching/matchFromBills'
 import matchFromTransactions from 'ducks/billsMatching/matchFromTransactions'
 import { logResult } from 'ducks/billsMatching/utils'
+import { fetchSettings } from 'ducks/settings/helpers'
 
-import { Transaction, Bill, Settings } from 'models'
+import { TRANSACTION_DOCTYPE, BILLS_DOCTYPE } from 'doctypes'
 import isCreatedDoc from 'utils/isCreatedDoc'
 import { findAppSuggestions } from 'ducks/appSuggestions/services'
 import { fetchChangesOrAll, getOptions } from './helpers'
@@ -21,7 +22,7 @@ import assert from '../../utils/assert'
 
 const log = logger.namespace('onOperationOrBillCreate')
 
-const doBillsMatching = async (setting, options = {}) => {
+const doBillsMatching = async (client, setting, options = {}) => {
   // Bills matching
   log('info', 'Bills matching')
   const billsLastSeq =
@@ -29,7 +30,11 @@ const doBillsMatching = async (setting, options = {}) => {
 
   try {
     log('info', 'Fetching bills changes...')
-    const billsChanges = await fetchChangesOrAll(Bill, billsLastSeq)
+    const billsChanges = await fetchChangesOrAll(
+      client,
+      BILLS_DOCTYPE,
+      billsLastSeq
+    )
     billsChanges.documents = billsChanges.documents.filter(isCreatedDoc)
 
     setting.billsMatching.billsLastSeq = billsChanges.newLastSeq
@@ -50,7 +55,7 @@ const doBillsMatching = async (setting, options = {}) => {
   }
 }
 
-const doTransactionsMatching = async (setting, options = {}) => {
+const doTransactionsMatching = async (client, setting, options = {}) => {
   assert(setting, 'No setting passed')
   log('info', 'Do transaction matching...')
   const transactionsLastSeq =
@@ -59,7 +64,8 @@ const doTransactionsMatching = async (setting, options = {}) => {
   try {
     log('info', 'Fetching transactions changes...')
     const transactionsChanges = await fetchChangesOrAll(
-      Transaction,
+      client,
+      TRANSACTION_DOCTYPE,
       transactionsLastSeq
     )
 
@@ -113,9 +119,9 @@ const doAppSuggestions = async setting => {
   }
 }
 
-const updateSettings = async settings => {
+const updateSettings = async (client, settings) => {
   log('info', 'Updating settings...')
-  const { data: newSettings } = await Settings.createOrUpdate(settings)
+  const { data: newSettings } = await client.save(settings)
   log('info', 'Settings updated')
   return newSettings
 }
@@ -145,7 +151,7 @@ const onOperationOrBillCreate = async (client, options) => {
   log('info', `COZY_URL: ${process.env.COZY_URL}`)
   log('info', `COZY_JOB_ID: ${process.env.COZY_JOB_ID}`)
   log('info', 'Fetching settings...')
-  let setting = await Settings.fetchWithDefault()
+  let setting = await fetchSettings(client)
 
   setFlagsFromSettings(setting)
 
@@ -156,27 +162,31 @@ const onOperationOrBillCreate = async (client, options) => {
   const notifLastSeq = setting.notifications.lastSeq
   log('info', 'Fetching transaction changes...')
 
-  const notifChanges = await fetchChangesOrAll(Transaction, notifLastSeq)
+  const notifChanges = await fetchChangesOrAll(
+    client,
+    TRANSACTION_DOCTYPE,
+    notifLastSeq
+  )
 
   if (options.billsMatching !== false) {
-    await doBillsMatching(setting, options.billsMatching)
-    setting = await updateSettings(setting)
+    await doBillsMatching(client, setting, options.billsMatching)
+    setting = await updateSettings(client, setting)
   } else {
     log('info', 'Skip bills matching')
   }
 
   if (options.transactionsMatching !== false) {
-    await doTransactionsMatching(setting, options.transactionsMatching)
-    setting = await updateSettings(setting)
+    await doTransactionsMatching(client, setting, options.transactionsMatching)
+    setting = await updateSettings(client, setting)
   } else {
     log('info', 'Skip transactions matching')
   }
 
   await doSendNotifications(setting, notifChanges)
-  setting = await updateSettings(setting)
+  setting = await updateSettings(client, setting)
 
   await doAppSuggestions(setting)
-  setting = await updateSettings(setting)
+  setting = await updateSettings(client, setting)
 
   await launchBudgetAlertService(client)
 }

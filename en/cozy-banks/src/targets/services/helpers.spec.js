@@ -1,3 +1,5 @@
+import CozyClient from 'cozy-client'
+import DocumentCollection from 'cozy-stack-client/dist/DocumentCollection'
 import { getOptions, fetchChangesOrAll } from './helpers'
 
 describe('getOptions', () => {
@@ -99,30 +101,42 @@ describe('getOptions', () => {
 })
 
 describe('fetchChangesOrAll', () => {
-  class Model {}
-  Model.fetchChanges = jest.fn().mockResolvedValue({ newLastSeq: '1234' })
-  Model.fetchAll = jest.fn()
+  const client = new CozyClient()
+
+  beforeEach(() => {
+    jest
+      .spyOn(DocumentCollection.prototype, 'fetchChanges')
+      .mockResolvedValue({ newLastSeq: '1234' })
+    jest
+      .spyOn(DocumentCollection.prototype, 'all')
+      .mockResolvedValue({ newLastSeq: '1234' })
+  })
 
   afterEach(() => {
-    Model.fetchChanges.mockClear()
-    Model.fetchAll.mockClear()
+    DocumentCollection.prototype.fetchChanges.mockClear()
+    DocumentCollection.prototype.all.mockClear()
   })
 
   it('should return all documents if lastSeq is "0"', async () => {
-    await fetchChangesOrAll(Model, '0')
+    await fetchChangesOrAll(client, 'io.cozy.todos', '0')
 
-    expect(Model.fetchChanges).toHaveBeenCalledWith('', {
+    expect(DocumentCollection.prototype.fetchChanges).toHaveBeenCalledWith({
+      since: '',
       descending: true,
       limit: 1
     })
 
-    expect(Model.fetchAll).toHaveBeenCalled()
+    expect(DocumentCollection.prototype.all).toHaveBeenCalledWith({
+      limit: null
+    })
   })
 
   it('should return changes if lastSeq is not "0"', async () => {
-    await fetchChangesOrAll(Model, 'abcd')
+    await fetchChangesOrAll(client, 'io.cozy.todos', 'abcd')
 
-    expect(Model.fetchChanges).toHaveBeenCalledWith('abcd')
-    expect(Model.fetchAll).not.toHaveBeenCalled()
+    expect(DocumentCollection.prototype.fetchChanges).toHaveBeenCalledWith({
+      since: 'abcd'
+    })
+    expect(DocumentCollection.prototype.all).not.toHaveBeenCalled()
   })
 })

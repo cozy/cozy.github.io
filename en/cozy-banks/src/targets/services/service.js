@@ -4,12 +4,10 @@ global.fetch = fetch
 import CozyClient from 'cozy-client'
 import { Document } from 'cozy-doctypes'
 import flag from 'cozy-flags'
-
-import { schema } from 'doctypes'
-import { Settings } from 'models'
-
 import logger from 'cozy-logger'
 
+import { schema } from 'doctypes'
+import { fetchSettings } from 'ducks/settings/helpers'
 import appMetadata from 'ducks/client/appMetadata'
 
 const log = logger.namespace('service')
@@ -21,7 +19,7 @@ export const runService = async service => {
   })
   Document.registerClient(client)
 
-  const settings = await Settings.fetchWithDefault()
+  const settings = await fetchSettings(client)
   const localModelOverrideValue = settings.community.localModelOverride.enabled
   log('info', 'Setting local model override flag to ' + localModelOverrideValue)
   flag('local-model-override', localModelOverrideValue)

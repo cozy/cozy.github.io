@@ -1,6 +1,5 @@
 import { Document } from 'cozy-doctypes'
 import { ACCOUNT_DOCTYPE, BILLS_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
-import { Settings } from 'ducks/settings/services'
 
 class Transaction extends Document {}
 Transaction.doctype = TRANSACTION_DOCTYPE
@@ -14,4 +13,4 @@ class BankAccount extends Document {}
 BankAccount.doctype = ACCOUNT_DOCTYPE
 BankAccount.idAttributes = ['_id']
 
-export { Transaction, Bill, Settings, BankAccount }
+export { Transaction, Bill, BankAccount }

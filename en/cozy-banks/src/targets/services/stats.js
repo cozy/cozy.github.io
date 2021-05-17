@@ -7,17 +7,17 @@ import {
   fetchTransactionsForPeriod,
   getMeanOnPeriod
 } from 'ducks/stats/services'
-import { Settings } from 'models'
 import flag from 'cozy-flags'
 import { getCategoryIdFromName } from 'ducks/categories/helpers'
 import { getCategoryId } from 'ducks/transactions/helpers'
 import { runService } from './service'
+import { fetchSettings } from 'ducks/settings/helpers'
 
 const log = logger.namespace('stats')
 
-const computeBankAccountStats = async () => {
+const computeBankAccountStats = async ({ client }) => {
   log('info', 'Fetching settings...')
-  let setting = await Settings.fetchWithDefault()
+  let setting = await fetchSettings(client)
 
   // The flag is needed to use local model when getting a transaction category ID
   flag('local-model-override', setting.community.localModelOverride.enabled)
