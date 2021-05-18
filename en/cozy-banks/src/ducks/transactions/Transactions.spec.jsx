@@ -51,8 +51,14 @@ describe('transaction row', () => {
   })
 
   it('should render correctly on desktop', () => {
+    const handleRef = jest.fn()
     const root = setup(
-      <RowDesktop transaction={transaction} urls={{}} brands={[]} />,
+      <RowDesktop
+        transaction={transaction}
+        urls={{}}
+        brands={[]}
+        onRef={handleRef}
+      />,
       true
     )
     expect(root.getByText('Compte courant Isabelle - BNPP')).toBeTruthy()

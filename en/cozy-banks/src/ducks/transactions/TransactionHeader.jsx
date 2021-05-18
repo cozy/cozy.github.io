@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo, memo } from 'react'
 import PropTypes from 'prop-types'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
@@ -33,17 +33,20 @@ const TransactionHeaderSelectDates = ({
 const TransactionHeaderBalanceHistory = ({ size, currentMonth }) => {
   const { isMobile } = useBreakpoints()
   const height = isMobile ? 66 : 96
+  const marginBottom = useMemo(() => (isMobile ? 48 : 64), [isMobile])
+  const historyChartMargin = useMemo(
+    () => ({
+      top: 26,
+      bottom: marginBottom,
+      left: 0,
+      right: isMobile ? 16 : 32
+    }),
+    [isMobile, marginBottom]
+  )
+
   if (!size || !size.width) {
     return <div style={{ height }} />
   }
-  const marginBottom = isMobile ? 48 : 64
-  const historyChartMargin = {
-    top: 26,
-    bottom: marginBottom,
-    left: 0,
-    right: isMobile ? 16 : 32
-  }
-
   return (
     <HistoryChart
       animation={false}
@@ -98,4 +101,4 @@ TransactionHeader.propTypes = {
   showBackButton: PropTypes.bool
 }
 
-export default withSize()(TransactionHeader)
+export default withSize()(memo(TransactionHeader))

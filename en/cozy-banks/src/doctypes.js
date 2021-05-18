@@ -201,7 +201,8 @@ export const cronKonnectorTriggersConn = {
       worker: 'konnector',
       type: '@cron'
     }),
-  as: 'triggers'
+  as: 'triggers',
+  fetchPolicy: older30s
 }
 
 export const transactionsConn = {
@@ -215,7 +216,8 @@ export const transactionsConn = {
 
 export const appsConn = {
   query: () => Q(APP_DOCTYPE),
-  as: 'apps'
+  as: 'apps',
+  fetchPolicy: older30s
 }
 
 export const billsConn = {

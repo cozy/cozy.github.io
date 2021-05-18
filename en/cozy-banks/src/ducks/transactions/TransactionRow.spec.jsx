@@ -20,9 +20,10 @@ describe('TransactionRow', () => {
       },
       ...transactionAttributes
     }
+    const handleRef = jest.fn()
     const root = mount(
       <AppLike>
-        <TransactionRowMobile transaction={transaction} />
+        <TransactionRowMobile transaction={transaction} onRef={handleRef} />
       </AppLike>
     )
     return { root }

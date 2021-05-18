@@ -1,5 +1,9 @@
 /* global __TARGET__ */
 
+// Uncomment to activate why-did-you-render
+// https://github.com/welldone-software/why-did-you-render
+// import './wdyr'
+
 import 'utils/react-exposer'
 import 'whatwg-fetch'
 import 'styles/main'

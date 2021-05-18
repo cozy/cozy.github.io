@@ -119,7 +119,7 @@ const TransactionSections = props => {
               return (
                 <Row
                   key={transaction._id}
-                  onRef={onRowRef.bind(null, transaction._id)}
+                  onRef={onRowRef}
                   transaction={transaction}
                   isExtraLarge={isExtraLarge}
                   filteringOnAccount={filteringOnAccount}

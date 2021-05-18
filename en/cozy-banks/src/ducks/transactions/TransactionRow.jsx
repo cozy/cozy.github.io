@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import { Media, Bd, Img, Icon, useI18n } from 'cozy-ui/transpiled/react'
@@ -122,6 +122,10 @@ export const RowDesktop = React.memo(function RowDesktop(props) {
     showRecurrence
   } = props
 
+  const boundOnRef = useMemo(() => {
+    return onRef.bind(null, transaction._id)
+  }, [onRef, transaction])
+
   const categoryId = getCategoryId(transaction)
   const categoryName = getCategoryName(categoryId)
   const categoryTitle = t(`Data.subcategories.${categoryName}`)
@@ -169,7 +173,7 @@ export const RowDesktop = React.memo(function RowDesktop(props) {
   return (
     <>
       <tr
-        ref={onRef}
+        ref={boundOnRef}
         {...trRest}
         className={cx(
           styles.TransactionRow,
@@ -250,6 +254,10 @@ export const RowMobile = React.memo(function RowMobile(props) {
     transaction
   )
 
+  const boundOnRef = useMemo(() => {
+    return onRef.bind(null, transaction._id)
+  }, [onRef, transaction])
+
   const showTransactionModal = useCallback(
     ev => {
       ev.preventDefault()
@@ -269,7 +277,7 @@ export const RowMobile = React.memo(function RowMobile(props) {
 
   return (
     <>
-      <ListItem ref={onRef} {...rowRest} button={!!transaction._id}>
+      <ListItem ref={boundOnRef} {...rowRest} button={!!transaction._id}>
         <Media className="u-w-100">
           <Img
             className="u-mr-half"

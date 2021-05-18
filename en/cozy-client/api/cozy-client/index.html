@@ -1931,6 +1931,20 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#isonlyofficefile-boolean" title="isOnlyOfficeFile ⇒ boolean" class="md-nav__link">
+    isOnlyOfficeFile ⇒ boolean
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shouldbeopenedbyonlyoffice-boolean" title="shouldBeOpenedByOnlyOffice ⇒ boolean" class="md-nav__link">
+    shouldBeOpenedByOnlyOffice ⇒ boolean
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#isshortcut-boolean" title="isShortcut ⇒ boolean" class="md-nav__link">
     isShortcut ⇒ boolean
   </a>
@@ -1996,6 +2010,20 @@
         <li class="md-nav__item">
   <a href="#fetchfilesbyqualificationrules-promisequeryresult" title="fetchFilesByQualificationRules ⇒ Promise.&lt;QueryResult&gt;" class="md-nav__link">
     fetchFilesByQualificationRules ⇒ Promise.&lt;QueryResult&gt;
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#isreferencedbyalbum-boolean" title="isReferencedByAlbum ⇒ boolean" class="md-nav__link">
+    isReferencedByAlbum ⇒ boolean
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hasmetadataattribute-boolean" title="hasMetadataAttribute ⇒ boolean" class="md-nav__link">
+    hasMetadataAttribute ⇒ boolean
   </a>
   
 </li>
@@ -5224,6 +5252,20 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#isonlyofficefile-boolean" title="isOnlyOfficeFile ⇒ boolean" class="md-nav__link">
+    isOnlyOfficeFile ⇒ boolean
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shouldbeopenedbyonlyoffice-boolean" title="shouldBeOpenedByOnlyOffice ⇒ boolean" class="md-nav__link">
+    shouldBeOpenedByOnlyOffice ⇒ boolean
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#isshortcut-boolean" title="isShortcut ⇒ boolean" class="md-nav__link">
     isShortcut ⇒ boolean
   </a>
@@ -5289,6 +5331,20 @@
         <li class="md-nav__item">
   <a href="#fetchfilesbyqualificationrules-promisequeryresult" title="fetchFilesByQualificationRules ⇒ Promise.&lt;QueryResult&gt;" class="md-nav__link">
     fetchFilesByQualificationRules ⇒ Promise.&lt;QueryResult&gt;
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#isreferencedbyalbum-boolean" title="isReferencedByAlbum ⇒ boolean" class="md-nav__link">
+    isReferencedByAlbum ⇒ boolean
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hasmetadataattribute-boolean" title="hasMetadataAttribute ⇒ boolean" class="md-nav__link">
+    hasMetadataAttribute ⇒ boolean
   </a>
   
 </li>
@@ -6262,6 +6318,14 @@ example.</p>
 <dd></dd>
 <dt><a href="#isNote">isNote</a></dt>
 <dd></dd>
+<dt><a href="#isOnlyOfficeFile">isOnlyOfficeFile</a> ⇒ <code>boolean</code></dt>
+<dd><p>Whether the file is supported by Only Office</p>
+</dd>
+<dt><a href="#shouldBeOpenedByOnlyOffice">shouldBeOpenedByOnlyOffice</a> ⇒ <code>boolean</code></dt>
+<dd><p>Whether the file should be opened by only office
+We want to be consistent with the stack so we check the class attributes
+But we want to exclude .txt and .md because the CozyUI Viewer can already show them</p>
+</dd>
 <dt><a href="#isShortcut">isShortcut</a> ⇒ <code>boolean</code></dt>
 <dd></dd>
 <dt><a href="#getSharingShortcutStatus">getSharingShortcutStatus</a> ⇒ <code>string</code></dt>
@@ -6290,6 +6354,12 @@ example.</p>
 </dd>
 <dt><a href="#fetchFilesByQualificationRules">fetchFilesByQualificationRules</a> ⇒ <code>Promise.&lt;QueryResult&gt;</code></dt>
 <dd><p>Helper to query files based on qualification rules</p>
+</dd>
+<dt><a href="#isReferencedByAlbum">isReferencedByAlbum</a> ⇒ <code>boolean</code></dt>
+<dd><p>Whether the file is referenced by an album</p>
+</dd>
+<dt><a href="#hasMetadataAttribute">hasMetadataAttribute</a> ⇒ <code>boolean</code></dt>
+<dd><p>Whether the file&#39;s metadata attribute exists</p>
 </dd>
 <dt><a href="#ensureMagicFolder">ensureMagicFolder</a> ⇒ <code><a href="#IOCozyFolder">Promise.&lt;IOCozyFolder&gt;</a></code></dt>
 <dd><p>Returns a &quot;Magic Folder&quot;, given its id. See <a href="https://docs.cozy.io/en/cozy-doctypes/docs/io.cozy.apps/#special-iocozyapps-doctypes">https://docs.cozy.io/en/cozy-doctypes/docs/io.cozy.apps/#special-iocozyapps-doctypes</a></p>
@@ -9338,6 +9408,48 @@ example.</p>
 </tr>
 </tbody>
 </table>
+<p><a name="isOnlyOfficeFile"></a></p>
+<h2 id="isonlyofficefile-boolean">isOnlyOfficeFile ⇒ <code>boolean</code><a class="headerlink" href="#isonlyofficefile-boolean" title="Permanent link">&para;</a></h2>
+<p>Whether the file is supported by Only Office</p>
+<p><strong>Kind</strong>: global constant  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>file</td>
+<td><a href="#IOCozyFile"><code>IOCozyFile</code></a></td>
+<td>io.cozy.file document</td>
+</tr>
+</tbody>
+</table>
+<p><a name="shouldBeOpenedByOnlyOffice"></a></p>
+<h2 id="shouldbeopenedbyonlyoffice-boolean">shouldBeOpenedByOnlyOffice ⇒ <code>boolean</code><a class="headerlink" href="#shouldbeopenedbyonlyoffice-boolean" title="Permanent link">&para;</a></h2>
+<p>Whether the file should be opened by only office
+We want to be consistent with the stack so we check the class attributes
+But we want to exclude .txt and .md because the CozyUI Viewer can already show them</p>
+<p><strong>Kind</strong>: global constant  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>file</td>
+<td><a href="#IOCozyFile"><code>IOCozyFile</code></a></td>
+<td>io.cozy.file document</td>
+</tr>
+</tbody>
+</table>
 <p><a name="isShortcut"></a></p>
 <h2 id="isshortcut-boolean">isShortcut ⇒ <code>boolean</code><a class="headerlink" href="#isshortcut-boolean" title="Permanent link">&para;</a></h2>
 <p><strong>Kind</strong>: global constant<br />
@@ -9557,6 +9669,56 @@ example.</p>
 <td>docRules</td>
 <td><code>object</code></td>
 <td>the rules containing the searched qualification and the count</td>
+</tr>
+</tbody>
+</table>
+<p><a name="isReferencedByAlbum"></a></p>
+<h2 id="isreferencedbyalbum-boolean">isReferencedByAlbum ⇒ <code>boolean</code><a class="headerlink" href="#isreferencedbyalbum-boolean" title="Permanent link">&para;</a></h2>
+<p>Whether the file is referenced by an album</p>
+<p><strong>Kind</strong>: global constant  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>file</td>
+<td><a href="#IOCozyFile"><code>IOCozyFile</code></a></td>
+<td>An io.cozy.files document</td>
+</tr>
+</tbody>
+</table>
+<p><a name="hasMetadataAttribute"></a></p>
+<h2 id="hasmetadataattribute-boolean">hasMetadataAttribute ⇒ <code>boolean</code><a class="headerlink" href="#hasmetadataattribute-boolean" title="Permanent link">&para;</a></h2>
+<p>Whether the file&rsquo;s metadata attribute exists</p>
+<p><strong>Kind</strong>: global constant  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>params</td>
+<td><code>object</code></td>
+<td>Param</td>
+</tr>
+<tr>
+<td>params.file</td>
+<td><a href="#IOCozyFile"><code>IOCozyFile</code></a></td>
+<td>An io.cozy.files document</td>
+</tr>
+<tr>
+<td>params.attribute</td>
+<td><code>string</code></td>
+<td>Metadata attribute to check</td>
 </tr>
 </tbody>
 </table>
@@ -11429,17 +11591,17 @@ https://docs.cozy.io/en/cozy-doctypes/docs/io.cozy.files/#references</p>
 <tr>
 <td>[_id]</td>
 <td><code>string</code></td>
-<td>Id of the folder</td>
+<td>Id of the document</td>
 </tr>
 <tr>
 <td>[_type]</td>
 <td><code>string</code></td>
-<td>Id of the folder</td>
+<td>Type of the document</td>
 </tr>
 <tr>
 <td>[relationships]</td>
-<td><code>string</code></td>
-<td>Id of the folder</td>
+<td><code>object</code></td>
+<td>Relationships of the document</td>
 </tr>
 </tbody>
 </table>

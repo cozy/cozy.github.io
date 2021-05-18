@@ -29,7 +29,7 @@ const rawGroup = fixtures['io.cozy.bank.groups'][0]
 describe('GroupPanel', () => {
   let root, onChange, switches
 
-  const setup = ({ group: rawGroup }) => {
+  const setup = ({ group: rawGroup, initialExpanded = false }) => {
     const client = new CozyClient({
       schema
     })
@@ -66,7 +66,7 @@ describe('GroupPanel', () => {
       ])
     )
     onChange = jest.fn()
-    root = render(<Wrapper expanded={false} />)
+    root = render(<Wrapper expanded={initialExpanded} />)
 
     return { root, client }
   }
@@ -83,7 +83,10 @@ describe('GroupPanel', () => {
 
   it('should show a removal button when there are no accounts in the group', async () => {
     const groupWithoutAccounts = { ...rawGroup, accounts: [] }
-    const { root, client } = setup({ group: groupWithoutAccounts })
+    const { root, client } = setup({
+      group: groupWithoutAccounts,
+      initialExpanded: true
+    })
     client.destroy = jest.fn()
 
     const removeButton = root.getByText('remove')
