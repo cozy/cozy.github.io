@@ -2471,6 +2471,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#clean-clients" title="clean-clients" class="md-nav__link">
+    clean-clients
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#migrations" title="migrations" class="md-nav__link">
     migrations
   </a>
@@ -2985,6 +2992,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#clean-clients" title="clean-clients" class="md-nav__link">
+    clean-clients
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#migrations" title="migrations" class="md-nav__link">
     migrations
   </a>
@@ -3327,6 +3341,13 @@ to the VFS a note in an asynchronous way. Writing to the VFS after each tiny
 change would kill the performance for realtime collaboration, so the stack
 writes the note to a cache, and has a trigger with debounce to persist the note
 to the VFS later.</p>
+<h2 id="clean-clients">clean-clients<a class="headerlink" href="#clean-clients" title="Permanent link">&para;</a></h2>
+<p>This internal worker will delete unused OAuth clients. When an OAuth client is
+created, it has the pending flag set to true. When an access code is generated
+for a client, the flag is set to false. If 1 hour after the client has been
+created, the flag is still true, this worker will delete the client. It will
+help to clean unused clients which can be misleading for the user when the list
+of clients in settings is displayed.</p>
 <h2 id="migrations">migrations<a class="headerlink" href="#migrations" title="Permanent link">&para;</a></h2>
 <p>The <code>migrations</code> worker can be used to migrate a cozy instance. Currently, it
 has a single option, <code>type</code>, with two supported values:</p>
