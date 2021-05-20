@@ -39,7 +39,7 @@ export const BarBackButton = ({ onClick }) => {
   return isMobile ? (
     <BarLeft>
       <div className="u-pl-half">
-        <BackButton className="coz-bar-btn coz-bar-burger" onClick={onClick} />
+        <BackButton onClick={onClick} />
       </div>
     </BarLeft>
   ) : null

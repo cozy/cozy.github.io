@@ -123,7 +123,7 @@ export const RowDesktop = React.memo(function RowDesktop(props) {
   } = props
 
   const boundOnRef = useMemo(() => {
-    return onRef.bind(null, transaction._id)
+    return onRef ? onRef.bind(null, transaction._id) : null
   }, [onRef, transaction])
 
   const categoryId = getCategoryId(transaction)

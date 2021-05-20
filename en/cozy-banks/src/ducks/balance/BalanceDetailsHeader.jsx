@@ -2,7 +2,6 @@ import React from 'react'
 import Header from 'components/Header'
 import Padded from 'components/Padded'
 import BackButton from 'components/BackButton'
-import { AccountSwitch } from 'ducks/account'
 import cx from 'classnames'
 import { connect } from 'react-redux'
 import { getFilteredAccounts } from 'ducks/filters'
@@ -11,6 +10,7 @@ import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { BarRight } from 'components/Bar'
 import SearchIconLink from 'ducks/search/SearchIconLink'
 import LegalMention from 'ducks/legal/LegalMention'
+import AccountSwitchBalanceDetails from 'ducks/balance/AccountSwitchBalanceDetails'
 
 export const DumbBalanceDetailsHeader = props => {
   const { isMobile } = useBreakpoints()
@@ -32,7 +32,7 @@ export const DumbBalanceDetailsHeader = props => {
       >
         <div className={'u-flex u-flex-items-center'}>
           <BackButton theme="primary" arrow />
-          <AccountSwitch size={accountSwitchSize} theme="inverted" />
+          <AccountSwitchBalanceDetails accountSwitchSize={accountSwitchSize} />
         </div>
         {showLegalMention !== false ? (
           <LegalMention className={isMobile ? 'u-mr-1 u-mb-half' : ''} />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 
 import { useI18n } from 'cozy-ui/transpiled/react'
@@ -52,27 +52,33 @@ const CategoryAlertCard = ({
   const [editing, setEditing] = useState(false)
   const [saving, setSaving] = useState(false)
 
-  const handleCardClick = ev => {
-    if (ev.defaultPrevented) {
-      return
-    }
-    setEditing(true)
-  }
+  const handleCardClick = useCallback(
+    ev => {
+      if (ev.defaultPrevented) {
+        return
+      }
+      setEditing(true)
+    },
+    [setEditing]
+  )
 
-  const handleEditAlert = async updatedAlert => {
-    setEditing(null)
-    setSaving(true)
-    try {
-      await updateAlert(updatedAlert)
-    } finally {
-      setSaving(false)
-    }
-  }
+  const handleEditAlert = useCallback(
+    async updatedAlert => {
+      setEditing(null)
+      setSaving(true)
+      try {
+        await updateAlert(updatedAlert)
+      } finally {
+        setSaving(false)
+      }
+    },
+    [updateAlert, setEditing, setSaving]
+  )
 
-  const handleRemoveAlert = () => {
+  const handleRemoveAlert = useCallback(() => {
     setEditing(null)
     removeAlert(alert)
-  }
+  }, [alert, removeAlert])
 
   const categoryName = t(
     `Data.${

@@ -3,7 +3,7 @@ import AccountsList from './AccountsList'
 import { render } from '@testing-library/react'
 import AppLike from 'test/AppLike'
 import { createMockClient } from 'cozy-client/dist/mock'
-
+import { schema } from 'doctypes'
 jest.mock('./AccountRow', () => {
   const AccountRow = ({ account }) => {
     return <div id={account._id}>{account.label}</div>
@@ -14,6 +14,9 @@ jest.mock('./AccountRow', () => {
 
 const setup = ({ group, accounts }) => {
   const client = createMockClient({
+    clientOptions: {
+      schema
+    },
     queries: {
       accounts: {
         doctype: 'io.cozy.bank.accounts',

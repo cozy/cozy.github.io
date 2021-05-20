@@ -26,7 +26,8 @@ HeaderTitle.propTypes = {
 
 HeaderTitle.defaultProps = {
   onClickBalance: undefined,
-  balance: undefined
+  balance: undefined,
+  className: undefined
 }
 
 export default memo(HeaderTitle)

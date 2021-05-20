@@ -12,6 +12,8 @@ import RightIcon from 'cozy-ui/transpiled/react/Icons/Right'
 import { getAccountInstitutionLabel } from 'ducks/account/helpers'
 import WarningIcon from 'cozy-ui/transpiled/react/Icons/Warning'
 
+const konnectorIconStyle = { width: 16, height: 16 }
+
 const AccountListItem = ({
   account,
   onClick,
@@ -24,7 +26,7 @@ const AccountListItem = ({
       <ListItemIcon>
         <AccountIconContainer>
           <KonnectorIcon
-            style={{ width: 16, height: 16 }}
+            style={konnectorIconStyle}
             konnectorSlug={
               account.cozyMetadata ? account.cozyMetadata.createdByApp : null
             }

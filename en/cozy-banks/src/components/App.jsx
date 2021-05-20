@@ -33,7 +33,8 @@ const KeyboardAwareSidebar = ({ children }) => {
 }
 
 const App = props => {
-  const settings = getDefaultedSettingsFromCollection(props.settingsCollection)
+  const { showBottomNav, settingsCollection } = props
+  const settings = getDefaultedSettingsFromCollection(settingsCollection)
   useEffect(() => {
     flag('local-model-override', settings.community.localModelOverride.enabled)
   }, [settings.community.localModelOverride.enabled])
@@ -42,9 +43,11 @@ const App = props => {
     <RouterContext.Provider value={props.router}>
       <AppSearchBar />
       <Layout>
-        <KeyboardAwareSidebar>
-          <Nav />
-        </KeyboardAwareSidebar>
+        {showBottomNav && (
+          <KeyboardAwareSidebar>
+            <Nav />
+          </KeyboardAwareSidebar>
+        )}
 
         <Main>
           <Content className={styles.Main}>
@@ -61,6 +64,10 @@ const App = props => {
       {flag('debug') ? <CozyDevTools panels={banksPanels} /> : null}
     </RouterContext.Provider>
   )
+}
+
+App.defaultProps = {
+  showBottomNav: true
 }
 
 export default compose(

@@ -1,18 +1,18 @@
 import React, { useCallback, useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { useClient } from 'cozy-client'
 import sortBy from 'lodash/sortBy'
-import { useSelector } from 'react-redux'
 
+import { useClient } from 'cozy-client'
+import List from 'cozy-ui/transpiled/react/MuiCozyTheme/List'
+import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
+
+import { ACCOUNT_DOCTYPE } from 'doctypes'
 import { useFilters } from 'components/withFilters'
 import AccountRow from 'ducks/balance/AccountRow'
 import { getAccountBalance } from 'ducks/account/helpers'
 import AccountRowLoading from 'ducks/balance/AccountRowLoading'
-import { getHydratedAccountsFromGroup } from 'selectors'
 import { isReimbursementsVirtualGroup } from 'ducks/groups/helpers'
 import { useRouter } from 'components/RouterContext'
-import List from 'cozy-ui/transpiled/react/MuiCozyTheme/List'
-import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
 
 const getSortedAccounts = (group, accounts) => {
   const realAccounts = accounts.filter(Boolean)
@@ -24,20 +24,19 @@ const getSortedAccounts = (group, accounts) => {
   }
 }
 
-const mkAccountsSelector = (group, client) => state => {
-  return getHydratedAccountsFromGroup(state, group, client)
-}
-
 export const AccountsList = props => {
   const client = useClient()
   const router = useRouter()
   const { filterByDoc } = useFilters()
 
   const { group, switches, onSwitchChange } = props
-  const accounts = useSelector(mkAccountsSelector(group, client))
+
+  const groupAccounts = useMemo(() => {
+    return client.hydrateDocuments(ACCOUNT_DOCTYPE, group.accounts.data)
+  }, [group, client])
 
   const goToAccountsDetails = useCallback(
-    account => {
+    (ev, account) => {
       filterByDoc(account)
       router.push('/balances/details')
     },
@@ -45,8 +44,9 @@ export const AccountsList = props => {
   )
 
   const sortedAndFilteredAccounts = useMemo(
-    () => getSortedAccounts(group, accounts).filter(a => a.status !== 'done'),
-    [group, accounts]
+    () =>
+      getSortedAccounts(group, groupAccounts).filter(a => a.status !== 'done'),
+    [group, groupAccounts]
   )
 
   return (
@@ -66,7 +66,7 @@ export const AccountsList = props => {
             key={a._id}
             account={a}
             group={group}
-            onClick={() => goToAccountsDetails(a)}
+            onClick={goToAccountsDetails}
             checked={switchState.checked}
             disabled={switchState.disabled}
             id={`${group._id}.accounts.${a._id}`}
@@ -77,7 +77,9 @@ export const AccountsList = props => {
         return (
           <React.Fragment key={i}>
             {component}
-            {i !== accounts.length - 1 ? <Divider variant="inset" /> : null}
+            {i !== groupAccounts.length - 1 ? (
+              <Divider variant="inset" />
+            ) : null}
           </React.Fragment>
         )
       })}

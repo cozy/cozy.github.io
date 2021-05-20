@@ -1,25 +1,22 @@
-import React, { Fragment, useCallback } from 'react'
+import React, { Fragment, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
 import Fade from '@material-ui/core/Fade'
 import Breadcrumb from 'cozy-ui/transpiled/react/Breadcrumbs'
-import { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
-import Switch from 'cozy-ui/transpiled/react/MuiCozyTheme/Switch'
 import Stack from 'cozy-ui/transpiled/react/Stack'
 
-import { AccountSwitch } from 'ducks/account'
-import BackButton from 'components/BackButton'
+import { useRouter } from 'components/RouterContext'
 import Header from 'components/Header'
 import Padded from 'components/Padded'
 import { ConnectedSelectDates as SelectDates } from 'components/SelectDates'
 
 import CategoriesChart from 'ducks/categories/CategoriesChart'
 import {
-  getTransactionsTotal,
-  getGlobalCurrency
+  getGlobalCurrency,
+  getTransactionsTotal
 } from 'ducks/categories/helpers'
 import styles from 'ducks/categories/CategoriesHeader.styl'
 import AddAccountButton from 'ducks/categories/AddAccountButton'
@@ -30,6 +27,9 @@ import Table from 'components/Table'
 import { useParams } from 'components/RouterContext'
 import LegalMention from 'ducks/legal/LegalMention'
 import Empty from 'cozy-ui/transpiled/react/Empty'
+import DateSelectorHeader from 'ducks/categories/DateSelectorHeader'
+import CategoryAccountSwitch from 'ducks/categories/CategoryAccountSwitch'
+import IncomeToggle from 'ducks/categories/IncomeToggle'
 
 const stAmount = catStyles['bnk-table-amount']
 const stCategory = catStyles['bnk-table-category-category']
@@ -37,48 +37,25 @@ const stPercentage = catStyles['bnk-table-percentage']
 const stTotal = catStyles['bnk-table-total']
 const stTableCategory = catStyles['bnk-table-category']
 
-const IncomeToggle = ({ withIncome, onToggle }) => {
-  const theme = useCozyTheme()
-  const { t } = useI18n()
-
-  const handleChange = useCallback(
-    ev => {
-      onToggle(ev.target.checked)
-    },
-    [onToggle]
-  )
-
-  return (
-    <div className={cx(styles.CategoriesHeader__Toggle, styles[theme])}>
-      <Switch
-        id="withIncome"
-        disableRipple
-        checked={withIncome}
-        color="secondary"
-        onChange={handleChange}
-      />
-      <label htmlFor="withIncome">{t('Categories.filter.includeIncome')}</label>
-    </div>
-  )
-}
-
-const CategoryAccountSwitch = ({ selectedCategory, breadcrumbItems }) => {
-  const [previousItem] = breadcrumbItems.slice(-2, 1)
-  return (
-    <Fragment>
-      <AccountSwitch small={selectedCategory !== undefined} />
-      {selectedCategory && (
-        <BackButton
-          onClick={
-            previousItem && previousItem.onClick
-              ? previousItem.onClick
-              : undefined
-          }
-          theme="primary"
-        />
-      )}
-    </Fragment>
-  )
+const makeBreadcrumbs = (router, categoryName, subcategoryName, t) => {
+  const breadcrumbs = [
+    {
+      name: t('Categories.title.general'),
+      onClick: () => router.push('/analysis/categories')
+    }
+  ]
+  if (categoryName) {
+    breadcrumbs.push({
+      name: t(`Data.categories.${categoryName}`),
+      onClick: () => router.push(`/analysis/categories/${categoryName}`)
+    })
+  }
+  if (subcategoryName) {
+    breadcrumbs.push({
+      name: t(`Data.subcategories.${subcategoryName}`)
+    })
+  }
+  return breadcrumbs
 }
 
 const CategoriesTableHead = props => {
@@ -115,7 +92,6 @@ const CategoriesHeader = props => {
   const { t } = useI18n()
   const { isMobile } = useBreakpoints()
   const {
-    breadcrumbItems,
     emptyIcon,
     hasAccount,
     selectedCategory,
@@ -123,7 +99,10 @@ const CategoriesHeader = props => {
     onWithIncomeToggle,
     categories,
     chartSize,
-    isFetching
+    isFetching,
+    categoryName,
+    subcategoryName,
+    classes
   } = props
 
   const hasData = categories.length > 0 && categories[0].transactionsNumber > 0
@@ -132,12 +111,12 @@ const CategoriesHeader = props => {
   const transactionsTotal = getTransactionsTotal(categories)
   const params = useParams()
   const isSubcategory = onSubcategory(params)
-  const accountSwitch = (
-    <CategoryAccountSwitch
-      selectedCategory={selectedCategory}
-      breadcrumbItems={breadcrumbItems}
-    />
-  )
+
+  const router = useRouter()
+  const breadcrumbItems = useMemo(() => {
+    return makeBreadcrumbs(router, categoryName, subcategoryName, t)
+  }, [router, categoryName, subcategoryName, t])
+
   const incomeToggle = showIncomeToggle ? (
     <IncomeToggle withIncome={withIncome} onToggle={onWithIncomeToggle} />
   ) : null
@@ -162,25 +141,28 @@ const CategoriesHeader = props => {
       />
     )
 
-  const dateSelector = <SelectDates showFullYear />
+  const dateSelector = (
+    <SelectDates showFullYear className={classes.selectDates} />
+  )
 
   if (isMobile) {
     return (
       <Fragment>
-        <Header theme="inverted" fixed className={styles.CategoriesHeader}>
-          {dateSelector}
-        </Header>
-
-        <div style={{ height: '3rem' }} />
-        {accountSwitch}
+        <DateSelectorHeader
+          dateSelector={dateSelector}
+          selectedCategory={selectedCategory}
+          breadcrumbItems={breadcrumbItems}
+        />
         {hasAccount ? (
           <Header
-            className={cx(styles.CategoriesHeader, {
+            className={cx(styles.CategoriesHeader, classes.header, {
               [styles.NoAccount]: !hasAccount
             })}
             theme={isMobile ? 'normal' : 'inverted'}
           >
-            <LegalMention className="u-mt-2 u-pt-1 u-mr-1" />
+            <LegalMention className="u-flex u-flex-items-center u-flex-justify-around u-mr-1">
+              {incomeToggle}
+            </LegalMention>
 
             {!hasData && (
               <div className={styles.NoAccount_empty}>
@@ -191,12 +173,7 @@ const CategoriesHeader = props => {
                 />
               </div>
             )}
-            {incomeToggle || chart ? (
-              <Padded className="u-pt-0">
-                {incomeToggle}
-                {chart}
-              </Padded>
-            ) : null}
+            {incomeToggle || chart ? <Padded>{chart}</Padded> : null}
           </Header>
         ) : (
           <div className={cx(styles.NoAccount_container)}>
@@ -223,7 +200,10 @@ const CategoriesHeader = props => {
           <>
             <div>
               <Stack spacing="m">
-                {accountSwitch}
+                <CategoryAccountSwitch
+                  selectedCategory={selectedCategory}
+                  breadcrumbItems={breadcrumbItems}
+                />
                 {dateSelector}
               </Stack>
               {breadcrumbItems.length > 1 && (
@@ -250,11 +230,17 @@ const CategoriesHeader = props => {
 
 CategoriesHeader.defaultProps = {
   chartSize: 182,
-  emptyIcon: 'cozy'
+  emptyIcon: 'cozy',
+  classes: {
+    header: '',
+    legalMention: 'u-mt-2 u-pt-1',
+    selectDates: 'u-pt-0'
+  }
 }
 
 CategoriesHeader.propTypes = {
-  breadcrumbItems: PropTypes.array.isRequired,
+  categoryName: PropTypes.string,
+  subcategoryName: PropTypes.string,
   selectedCategory: PropTypes.object,
   withIncome: PropTypes.bool.isRequired,
   onWithIncomeToggle: PropTypes.func.isRequired,

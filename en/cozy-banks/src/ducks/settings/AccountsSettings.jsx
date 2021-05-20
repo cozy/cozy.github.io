@@ -7,27 +7,22 @@ import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Button from 'cozy-ui/transpiled/react/MuiCozyTheme/Buttons'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import PlusIcon from 'cozy-ui/transpiled/react/Icons/Plus'
-import {
-  hasQueryBeenLoaded,
-  isQueryLoading,
-  Q,
-  queryConnect
-} from 'cozy-client'
+import { hasQueryBeenLoaded, isQueryLoading, useQuery } from 'cozy-client'
 
 import Loading from 'components/Loading'
 
 import AddAccountLink from 'ducks/settings/AddAccountLink'
 import { useTrackPage } from 'ducks/tracking/browser'
 
-import { accountsConn, APP_DOCTYPE } from 'doctypes'
+import { accountsConn } from 'doctypes'
 import { useBanksContext } from 'ducks/context/BanksContext'
 import AccountsListSettings from 'ducks/settings/AccountsListSettings'
 
-const AccountsSettings = props => {
+const AccountsSettings = () => {
   const { t } = useI18n()
   useTrackPage('parametres:comptes')
 
-  const { accountsCollection } = props
+  const accountsCollection = useQuery(accountsConn.query, accountsConn)
   const { jobsInProgress = [], hasJobsInProgress } = useBanksContext()
 
   if (
@@ -67,7 +62,5 @@ const AccountsSettings = props => {
     </>
   )
 }
-export default queryConnect({
-  accountsCollection: accountsConn,
-  apps: { query: () => Q(APP_DOCTYPE), as: 'apps' }
-})(AccountsSettings)
+
+export default AccountsSettings

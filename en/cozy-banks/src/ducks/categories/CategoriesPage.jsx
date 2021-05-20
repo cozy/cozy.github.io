@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
-import { translate, withBreakpoints } from 'cozy-ui/transpiled/react'
 import Loading from 'components/Loading'
 import Padded from 'components/Padded'
 import {
@@ -49,27 +48,6 @@ const goToCategory = (router, selectedCategory, subcategory) => {
   } else {
     router.push('/analysis/categories')
   }
-}
-
-const makeBreadcrumbs = (router, categoryName, subcategoryName, t) => {
-  const breadcrumbs = [
-    {
-      name: t('Categories.title.general'),
-      onClick: () => router.push('/analysis/categories')
-    }
-  ]
-  if (categoryName) {
-    breadcrumbs.push({
-      name: t(`Data.categories.${categoryName}`),
-      onClick: () => router.push(`/analysis/categories/${categoryName}`)
-    })
-  }
-  if (subcategoryName) {
-    breadcrumbs.push({
-      name: t(`Data.subcategories.${subcategoryName}`)
-    })
-  }
-  return breadcrumbs
 }
 
 class CategoriesPage extends Component {
@@ -137,7 +115,6 @@ class CategoriesPage extends Component {
 
   render() {
     const {
-      t,
       categories: categoriesProps,
       transactions,
       router,
@@ -155,12 +132,6 @@ class CategoriesPage extends Component {
 
     const categoryName = router.params.categoryName
     const subcategoryName = router.params.subcategoryName
-    const breadcrumbItems = makeBreadcrumbs(
-      router,
-      categoryName,
-      subcategoryName,
-      t
-    )
 
     const selectedCategory = categories.find(
       category => category.name === categoryName
@@ -177,7 +148,8 @@ class CategoriesPage extends Component {
       <Fragment>
         <BarTheme theme="primary" />
         <CategoriesHeader
-          breadcrumbItems={breadcrumbItems}
+          categoryName={categoryName}
+          subcategoryName={subcategoryName}
           selectedCategory={selectedCategory}
           withIncome={showIncomeCategory}
           onWithIncomeToggle={this.onWithIncomeToggle}
@@ -230,8 +202,6 @@ const mapStateToProps = (state, ownProps) => {
 
 export default compose(
   withRouter,
-  withBreakpoints(),
-  translate(),
   withClient,
   queryConnect({
     accounts: accountsConn,

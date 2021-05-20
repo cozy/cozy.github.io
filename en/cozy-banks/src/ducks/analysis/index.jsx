@@ -1,1 +1,1 @@
-export { default as AnalysisPage } from './AnalysisPage'
+export { default as AnalysisPage } from 'ducks/analysis/AnalysisPage'

@@ -4,6 +4,7 @@ import { act, fireEvent, render } from '@testing-library/react'
 import AccountsSettings from './AccountsSettings'
 import {
   ACCOUNT_DOCTYPE as BANK_ACCOUNT_DOCTYPE,
+  cronKonnectorTriggersConn,
   accountsConn,
   schema,
   TRIGGER_DOCTYPE
@@ -87,6 +88,18 @@ const mockBankAccounts = [
   }
 ]
 
+const mockKonnectorTriggers = [
+  {
+    _id: 'trigger1',
+    current_state: {
+      status: 'errored'
+    },
+    message: {
+      konnector: 'banking-slug'
+    }
+  }
+]
+
 describe('AccountsSettings', () => {
   let originalWarn
   beforeEach(() => {
@@ -135,22 +148,12 @@ describe('AccountsSettings', () => {
           ...accountsConn,
           lastUpdate: new Date(),
           data: mockBankAccounts
-        }
-      }
-    })
-    client.query = jest.fn().mockImplementation(({ doctype }) => {
-      if (doctype === TRIGGER_DOCTYPE) {
-        return {
-          data: [
-            {
-              current_state: {
-                status: 'errored'
-              },
-              message: {
-                konnector: 'banking-slug'
-              }
-            }
-          ]
+        },
+        [cronKonnectorTriggersConn.as]: {
+          doctype: TRIGGER_DOCTYPE,
+          ...cronKonnectorTriggersConn,
+          lastUpdate: new Date(),
+          data: mockKonnectorTriggers
         }
       }
     })

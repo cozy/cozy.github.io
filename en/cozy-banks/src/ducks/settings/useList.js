@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 
 /**
  * Replace item in arr, finding item through idFn.
@@ -22,24 +22,30 @@ const useList = ({
 }) => {
   const [list, setList] = useState(initialList)
 
-  const updateList = async updatedList => {
-    setList(updatedList)
+  const updateList = useCallback(
+    async updatedList => {
+      setList(updatedList)
 
-    try {
-      await onUpdate(updatedList)
-    } catch (e) {
-      setList(list)
-      onError(e)
-    }
-  }
+      try {
+        await onUpdate(updatedList)
+      } catch (e) {
+        setList(list)
+        onError(e)
+      }
+    },
+    [onUpdate, list, onError]
+  )
 
-  const createOrUpdate = async updatedItem => {
-    if (updatedItem.id === undefined) {
-      updatedItem.id = getNextId(list)
-    }
-    const updatedList = replaceBy(list, updatedItem, getId)
-    await updateList(updatedList)
-  }
+  const createOrUpdate = useCallback(
+    async updatedItem => {
+      if (updatedItem.id === undefined) {
+        updatedItem.id = getNextId(list)
+      }
+      const updatedList = replaceBy(list, updatedItem, getId)
+      await updateList(updatedList)
+    },
+    [list, getId, updateList, getNextId]
+  )
 
   const remove = async itemToRemove => {
     const idToRemove = getId(itemToRemove)

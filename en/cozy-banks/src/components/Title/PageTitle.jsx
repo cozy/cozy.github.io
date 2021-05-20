@@ -34,7 +34,7 @@ const PageTitle = ({ children, className }) => {
 }
 
 PageTitle.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node
 }
 
 export default PageTitle

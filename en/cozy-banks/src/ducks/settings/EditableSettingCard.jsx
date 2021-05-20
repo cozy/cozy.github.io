@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo, memo } from 'react'
 import PropTypes from 'prop-types'
 import { Media, Bd, Img, Icon, useI18n } from 'cozy-ui/transpiled/react'
 import resultWithArgs from 'utils/resultWithArgs'
@@ -97,12 +97,14 @@ const EditableSettingCard = props => {
     }
   }
 
+  const onClick = useMemo(
+    () => (editModalProps ? () => setEditing(true) : null),
+    [setEditing, editModalProps]
+  )
+
   return (
     <>
-      <SettingCard
-        enabled={enabled}
-        onClick={editModalProps ? () => setEditing(true) : null}
-      >
+      <SettingCard enabled={enabled} onClick={onClick}>
         <Media className="u-row-xs" align="top">
           <Bd>
             <span
@@ -156,4 +158,4 @@ EditableSettingCard.propTypes = {
   doc: PropTypes.object.isRequired
 }
 
-export default EditableSettingCard
+export default memo(EditableSettingCard)

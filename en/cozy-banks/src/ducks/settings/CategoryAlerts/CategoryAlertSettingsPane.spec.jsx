@@ -1,5 +1,5 @@
 import { render, fireEvent } from '@testing-library/react'
-import { createClientWithData } from 'test/client'
+import { createMockClient } from 'cozy-client/dist/mock'
 import React from 'react'
 import AppLike from 'test/AppLike'
 import CategoryAlertSettingsPane from './CategoryAlertSettingsPane'
@@ -8,10 +8,11 @@ import { act } from 'react-dom/test-utils'
 
 describe('category alert settings pane', () => {
   const setup = ({ categoryBudgetAlerts }) => {
-    const client = createClientWithData({
+    const client = createMockClient({
       queries: {
         settings: {
           doctype: SETTINGS_DOCTYPE,
+          lastUpdate: new Date(),
           data: [
             {
               _id: 'c0ffeedeadbeef',

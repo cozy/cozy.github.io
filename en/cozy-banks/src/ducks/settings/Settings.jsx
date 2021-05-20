@@ -1,58 +1,21 @@
 /* global __TARGET__, __APP_VERSION__ */
 import React from 'react'
-
-import { useI18n } from 'cozy-ui/transpiled/react'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
-import { Tabs, Tab } from 'cozy-ui/transpiled/react/MuiTabs'
-import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
 
 import AppVersion from 'ducks/settings/AppVersion'
 import BarTheme from 'ducks/bar/BarTheme'
-
-import { PageTitle } from 'components/Title'
 import Padded from 'components/Padded'
-import Header from 'components/Header'
 import styles from 'ducks/settings/Settings.styl'
 import LegalMention from 'ducks/legal/LegalMention'
-
-import { useHistory, useLocation } from 'components/RouterContext'
+import TabsHeader from 'ducks/settings/TabsHeader'
 
 const Settings = ({ children }) => {
-  const { t } = useI18n()
-  const location = useLocation()
-  const history = useHistory()
   const { isMobile } = useBreakpoints()
-  const tabNames = ['configuration', 'accounts', 'groups']
-
-  let defaultTab = location.pathname.replace('/settings/', '')
-
-  if (tabNames.indexOf(defaultTab) === -1) defaultTab = 'configuration'
-
-  const goTo = url => () => {
-    history.push(url)
-  }
 
   return (
     <>
       <BarTheme theme="primary" />
-      <Padded className={isMobile ? 'u-p-0' : 'u-pb-half'}>
-        <PageTitle>{t('Settings.title')}</PageTitle>
-      </Padded>
-      <Header fixed theme={isMobile ? 'inverted' : 'normal'}>
-        <Tabs value={tabNames.indexOf(defaultTab)}>
-          {tabNames.map((tabName, i) => (
-            <Tab
-              disableRipple
-              classes={{ root: i === 0 && !isMobile ? 'u-ml-2' : 0 }}
-              key={tabName}
-              name={tabName}
-              onClick={goTo(`/settings/${tabName}`)}
-              label={t(`Settings.${tabName}`)}
-            />
-          ))}
-        </Tabs>
-        {isMobile ? null : <Divider />}
-      </Header>
+      <TabsHeader />
 
       <Padded className={styles.Settings__Content}>
         <LegalMention className={isMobile ? 'u-mb-half ' : 'u-mt-1'} />

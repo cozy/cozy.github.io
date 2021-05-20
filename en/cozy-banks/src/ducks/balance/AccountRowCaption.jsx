@@ -7,7 +7,8 @@ import Typography from 'cozy-ui/transpiled/react/Typography'
 import SyncIcon from 'cozy-ui/transpiled/react/Icons/Sync'
 
 import flag from 'cozy-flags'
-import { models } from 'cozy-client'
+import { models, useQuery } from 'cozy-client'
+import { cronKonnectorTriggersConn } from 'doctypes'
 import {
   getAccountUpdatedAt,
   isReimbursementsAccount
@@ -42,13 +43,16 @@ const FailedTriggerMessage = React.memo(function FailedTriggerMessage() {
 const getAccountIdFromBankAccount = bankAccount => {
   return get(bankAccount, 'relationships.connection.data._id')
 }
-
 const DumbAccountCaption = props => {
   const { t } = useI18n()
-  const { triggersCol, account, className, ...rest } = props
-  const triggers = triggersCol.data
+  const { account, className, ...rest } = props
+  const { data: triggers } = useQuery(
+    cronKonnectorTriggersConn.query,
+    cronKonnectorTriggersConn
+  )
   const trigger = useMemo(
     () =>
+      triggers &&
       triggers.find(trigger => {
         const triggerAccountId = triggerLibs.triggers.getAccountId(
           trigger.attributes

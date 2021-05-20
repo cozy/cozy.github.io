@@ -1,6 +1,7 @@
 import React from 'react'
 import AnalysisTabs from 'ducks/analysis/AnalysisTabs'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import { useLocation } from 'components/RouterContext'
 
 /**
  * Renders its children
@@ -9,9 +10,10 @@ import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
  */
 const AnalysisPage = ({ children }) => {
   const { isMobile } = useBreakpoints()
+  const location = useLocation()
   return (
     <>
-      {isMobile ? <AnalysisTabs /> : null}
+      {isMobile ? <AnalysisTabs location={location} /> : null}
       {children}
     </>
   )

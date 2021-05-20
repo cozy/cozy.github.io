@@ -6,7 +6,7 @@ import get from 'lodash/get'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import List from 'cozy-ui/transpiled/react/MuiCozyTheme/List'
-import { models, useClient, useAppsInMaintenance } from 'cozy-client'
+import { models, useClient, useAppsInMaintenance, useQuery } from 'cozy-client'
 import DisconnectedAccountModal from 'cozy-harvest-lib/dist/components/DisconnectedAccountModal'
 import HarvestBankAccountSettings from 'ducks/settings/HarvestBankAccountSettings'
 import { Unpadded } from 'components/Padded'
@@ -62,25 +62,19 @@ const AccountsListSettings = ({
     [appsInMaintenance]
   )
 
+  const triggers = useQuery(
+    cronKonnectorTriggersConn.query,
+    cronKonnectorTriggersConn
+  )
+
   useEffect(() => {
-    const fetchTriggers = async () => {
-      const result = await client.query(
-        cronKonnectorTriggersConn.query(client),
-        {
-          as: cronKonnectorTriggersConn.as
-        }
-      )
-      const errors =
-        result?.data
-          ?.filter(
-            trigger => get(trigger, 'current_state.status') === 'errored'
-          )
-          .map(trigger => get(trigger, 'message.konnector')) || []
-      setKonnInError(errors)
-    }
-    fetchTriggers()
+    const errors =
+      triggers?.data
+        ?.filter(trigger => get(trigger, 'current_state.status') === 'errored')
+        .map(trigger => get(trigger, 'message.konnector')) || []
+    setKonnInError(errors)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [triggers.lastUpdate])
 
   // Depending on whether the bank account is still connected to an
   // io.cozy.accounts, we will either show the AccountModal or the

@@ -16,7 +16,7 @@ describe('categories map', function() {
     ])
   })
 
-  xit('should add a "others" children to all categories', () => {
+  it('should add a "others" children to all categories', () => {
     const categories = getCategories()
 
     Object.keys(categories).forEach(categoryName => {
@@ -24,7 +24,7 @@ describe('categories map', function() {
 
       expect(categories[categoryName].children).toMatchObject({
         [category.id]: {
-          name: `${category.name}Others`,
+          name: `${category.name}`,
           color: category.color,
           id: category.id
         }

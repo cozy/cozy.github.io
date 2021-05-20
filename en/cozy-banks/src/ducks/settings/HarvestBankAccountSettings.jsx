@@ -20,7 +20,7 @@ import { useTracker } from 'ducks/tracking/browser'
 import HarvestSwitch from './HarvestSwitch'
 import {
   COZY_ACCOUNT_DOCTYPE,
-  TRIGGER_DOCTYPE,
+  cronKonnectorTriggersConn,
   KONNECTOR_DOCTYPE
 } from 'doctypes'
 
@@ -87,7 +87,11 @@ const HarvestLoader = ({ connectionId, children }) => {
                 // used by cozy-client when all triggers are fetched
                 // Related issue : https://github.com/cozy/cozy-client/issues/767
                 return (
-                  <Query query={Q(TRIGGER_DOCTYPE)} as="triggers">
+                  <Query
+                    query={cronKonnectorTriggersConn.query}
+                    as={cronKonnectorTriggersConn.as}
+                    fetchPolicy={cronKonnectorTriggersConn.fetchPolicy}
+                  >
                     {triggerCol => {
                       const {
                         data: allTriggers,

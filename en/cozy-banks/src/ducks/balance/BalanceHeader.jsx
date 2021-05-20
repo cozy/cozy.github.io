@@ -5,18 +5,16 @@ import { useI18n } from 'cozy-ui/transpiled/react'
 import { transactionsConn } from 'doctypes'
 import Padded from 'components/Padded'
 import Header from 'components/Header'
-import { PageTitle } from 'components/Title'
 import KonnectorUpdateInfo from 'components/KonnectorUpdateInfo'
 import History, { HistoryFallback } from 'ducks/balance/History'
 import HeaderTitle from 'ducks/balance/HeaderTitle'
 import Delayed from 'components/Delayed'
 import { queryConnect } from 'cozy-client'
 import flag from 'cozy-flags'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
-import { MobileBarSearchIconLink } from 'ducks/search/SearchIconLink'
 import styles from 'ducks/balance/BalanceHeader.styl'
 import LegalMention from 'ducks/legal/LegalMention'
+import PageTitleBalanceHeader from 'ducks/balance/PageTitleBalanceHeader'
 
 const BalanceHeader = ({
   accountsBalance,
@@ -25,21 +23,14 @@ const BalanceHeader = ({
   onClickBalance,
   transactions
 }) => {
-  const { isMobile } = useBreakpoints()
   const { t } = useI18n()
-  const titlePaddedClass = isMobile ? 'u-p-0' : 'u-pb-0'
   const subtitle = subtitleParams
     ? t('BalanceHistory.checked-accounts', subtitleParams)
     : t('BalanceHistory.all-accounts')
 
   return (
     <Header className={styles.BalanceHeader} theme="inverted">
-      <MobileBarSearchIconLink />
-      {isMobile && (
-        <Padded className={titlePaddedClass}>
-          <PageTitle>{t('Balance.title')}</PageTitle>
-        </Padded>
-      )}
+      <PageTitleBalanceHeader />
       <HeaderTitle
         balance={accountsBalance}
         subtitle={subtitle}

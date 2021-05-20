@@ -47,6 +47,26 @@ export class Configuration extends React.Component {
       showPersonalInfoDialog: false
     }
     this.handleToggleAmountBlur = this.handleToggleAmountBlur.bind(this)
+
+    this.onChangeBalanceLower = this.onChangeDoc('notifications.balanceLower')
+    this.onChangeTransactionGreater = this.onChangeDoc(
+      'notifications.transactionGreater'
+    )
+    this.onChangeDelayedDebit = this.onChangeDoc('notifications.delayedDebit')
+    this.onChangeLateHealthReimbursement = this.onChangeDoc(
+      'notifications.lateHealthReimbursement'
+    )
+
+    this.onToggleDelayedDebit = this.onToggle('notifications.delayedDebit')
+    this.onToggleHealthBillLinked = this.onToggle(
+      'notifications.healthBillLinked'
+    )
+    this.onToggleLateHealthReimbursement = this.onToggle(
+      'notifications.lateHealthReimbursement'
+    )
+    this.onToggleLocalModelOverride = this.onToggle(
+      'community.localModelOverride'
+    )
   }
 
   componentDidMount() {
@@ -113,7 +133,7 @@ export class Configuration extends React.Component {
             <BalanceLowerRules
               rules={settings.notifications.balanceLower}
               getAccountOrGroupLabel={this.props.getAccountOrGroupLabel}
-              onChangeRules={this.onChangeDoc('notifications.balanceLower')}
+              onChangeRules={this.onChangeBalanceLower}
             />
           </SubSection>
           <SubSection
@@ -122,9 +142,7 @@ export class Configuration extends React.Component {
             <TransactionGreaterRules
               rules={settings.notifications.transactionGreater}
               getAccountOrGroupLabel={this.props.getAccountOrGroupLabel}
-              onChangeRules={this.onChangeDoc(
-                'notifications.transactionGreater'
-              )}
+              onChangeRules={this.onChangeTransactionGreater}
             />
           </SubSection>
           <CategoryAlertSettingsPane />
@@ -133,8 +151,8 @@ export class Configuration extends React.Component {
             description={t('Notifications.delayed-debit.settingDescription')}
           >
             <DelayedDebitAlertRules
-              onToggle={this.onToggle('notifications.delayedDebit')}
-              onChangeRules={this.onChangeDoc('notifications.delayedDebit')}
+              onToggle={this.onToggleDelayedDebit}
+              onChangeRules={this.onChangeDelayedDebit}
               rules={settings.notifications.delayedDebit}
             />
           </SubSection>
@@ -149,7 +167,7 @@ export class Configuration extends React.Component {
                     'Notifications.when-health-bill-linked.settingTitle'
                   )}
                   descriptionKey="Notifications.when-health-bill-linked.description"
-                  onToggle={this.onToggle('notifications.healthBillLinked')}
+                  onToggle={this.onToggleHealthBillLinked}
                   doc={settings.notifications.healthBillLinked}
                 />
                 <EditableSettingCard
@@ -159,12 +177,8 @@ export class Configuration extends React.Component {
                   descriptionKey={
                     'Notifications.when-late-health-reimbursement.description'
                   }
-                  onToggle={this.onToggle(
-                    'notifications.lateHealthReimbursement'
-                  )}
-                  onChangeDoc={this.onChangeDoc(
-                    'notifications.lateHealthReimbursement'
-                  )}
+                  onToggle={this.onToggleLateHealthReimbursement}
+                  onChangeDoc={this.onChangeLateHealthReimbursement}
                   doc={settings.notifications.lateHealthReimbursement}
                   editModalProps={lateHealthReimbursement}
                 />
@@ -183,7 +197,7 @@ export class Configuration extends React.Component {
               description={t(
                 'AdvancedFeaturesSettings.automatic-categorization.local-model-override.description'
               )}
-              onToggle={this.onToggle('community.localModelOverride')}
+              onToggle={this.onToggleLocalModelOverride}
               enabled={settings.community.localModelOverride.enabled}
               name="localModelOverride"
             />
