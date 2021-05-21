@@ -30,7 +30,7 @@ const redirectionOptions = {
 const KonnectorUpdateInfo = ({ outdatedKonnectors }) => {
   const { t } = useI18n()
   const { isMobile } = useBreakpoints()
-  const url = useRedirectionURL(APP_DOCTYPE, redirectionOptions)
+  const [url] = useRedirectionURL(APP_DOCTYPE, redirectionOptions)
 
   if (!url || isQueryLoading(outdatedKonnectors)) {
     return null
