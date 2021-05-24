@@ -30,7 +30,7 @@ describe('KonnectorUpdateInfo', () => {
 
     const link = root.getByText('Update my banks').closest('a')
     expect(link.getAttribute('href')).toEqual(
-      'http://store.cozy.tools:8080/#/discover/?type=konnector&category=banking',
+      'http://store.cozy.tools:8080/#/discover/?type=konnector&category=banking&pendingUpdate=true',
       () => {}
     )
   })

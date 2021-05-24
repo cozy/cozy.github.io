@@ -26,6 +26,7 @@ module.exports = {
         '../react/Chip/index.jsx',
         '../react/Counter/index.jsx',
         '../react/DropdownButton/index.jsx',
+        '../react/Fab/index.js',
         '../react/Icon/index.jsx',
         '../react/IconButton/index.jsx',
         '../react/IconStack/index.jsx',

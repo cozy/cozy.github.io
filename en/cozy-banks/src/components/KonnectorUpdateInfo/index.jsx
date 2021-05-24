@@ -58,7 +58,7 @@ const KonnectorUpdateInfo = ({ outdatedKonnectors }) => {
             className="u-mh-0"
             label={t('KonnectorUpdateInfo.cta')}
             icon="openwith"
-            href={url}
+            href={`${url}&pendingUpdate=true`}
           />
         }
         title={t('KonnectorUpdateInfo.title')}
