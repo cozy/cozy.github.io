@@ -5,14 +5,14 @@ import pickBy from 'lodash/pickBy'
 /**
  * Custom hook to get a URL to another app / konnector
  */
-const useRedirectionURL = (doctype, { type, category }) => {
+const useRedirectionURL = (doctype, { type, category, pendingUpdate }) => {
   const client = useClient()
   const [redirectionURL, setRedirectionURL] = useState()
   const updateRedirectionURL = useCallback(async () => {
     try {
       const url = await client.intents.getRedirectionURL(
         'io.cozy.apps',
-        pickBy({ type, category }, Boolean)
+        pickBy({ type, category, pendingUpdate }, Boolean)
       )
       setRedirectionURL(url)
     } catch (e) {
@@ -21,7 +21,7 @@ const useRedirectionURL = (doctype, { type, category }) => {
         `useRedirectionURL: Could not get redirection url for type: ${type}, category: ${category}.`
       )
     }
-  }, [client, type, category, setRedirectionURL])
+  }, [client.intents, type, category, pendingUpdate])
 
   useEffect(() => {
     updateRedirectionURL()
