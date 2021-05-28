@@ -173,7 +173,7 @@ const CategoriesHeader = props => {
                 />
               </div>
             )}
-            {incomeToggle || chart ? <Padded>{chart}</Padded> : null}
+            {incomeToggle && chart ? <Padded>{chart}</Padded> : null}
           </Header>
         ) : (
           <div className={cx(styles.NoAccount_container)}>

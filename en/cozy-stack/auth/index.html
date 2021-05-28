@@ -3592,7 +3592,9 @@ endpoint expects a valid <code>registerToken</code> parameter.</p>
 <p>In case of success, the instance is marked as onboarded and the user is
 redirected to his home.</p>
 <p>If the instance is already onboarded, the user is redirected to his home.</p>
-<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/auth/passphrase/?registerToken=e0fbe2c5b90cdcdd9b3487b48b480e0b</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<p>It is also possible to give a <code>redirection</code> parameter to redirect the user to
+another application.</p>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/auth/passphrase/?registerToken=e0fbe2c5b90cdcdd9b3487b48b480e0b&amp;redirection=drive/%23/files</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">text/html</span>
 </pre></div>

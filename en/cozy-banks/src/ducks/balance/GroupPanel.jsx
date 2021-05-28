@@ -202,7 +202,7 @@ const GroupPanel = props => {
           {onSwitchChange && (
             <Switch
               disableRipple
-              className={!isMobile && 'u-mr-half'}
+              className={!isMobile ? 'u-mr-half' : null}
               checked={checked}
               color="primary"
               onClick={handleSwitchClick}

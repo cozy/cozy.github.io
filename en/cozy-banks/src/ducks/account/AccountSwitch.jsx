@@ -306,6 +306,14 @@ const selectPropsBySize = {
 
 // Note that everything is set up to be able to combine filters (even the redux store).
 // It's only limited to one filter in a few places, because the UI can only accomodate one right now.
+/**
+ * Allows to select an account
+ *
+ * @param {String} options.size - Allows to define size of AccountSwitchSelect
+ * @param {Number} options.insideBar - Allows to have the account switch select in BarCenter
+ * @returns {JSX.Element}
+ *
+ */
 const AccountSwitch = props => {
   const {
     filteringDoc,
@@ -403,7 +411,8 @@ const AccountSwitch = props => {
 AccountSwitch.propTypes = {
   filterByDoc: PropTypes.func.isRequired,
   resetFilterByDoc: PropTypes.func.isRequired,
-  filteringDoc: filteringDocPropType
+  filteringDoc: filteringDocPropType,
+  insideBar: PropTypes.bool
 }
 
 AccountSwitch.defaultProps = {
