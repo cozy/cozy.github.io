@@ -8,8 +8,9 @@ import Padded from 'components/Padded'
 import styles from 'ducks/settings/Settings.styl'
 import LegalMention from 'ducks/legal/LegalMention'
 import TabsHeader from 'ducks/settings/TabsHeader'
+import Delayed from 'components/Delayed'
 
-const Settings = ({ children }) => {
+const Settings = ({ children, delayContent }) => {
   const { isMobile } = useBreakpoints()
 
   return (
@@ -17,10 +18,12 @@ const Settings = ({ children }) => {
       <BarTheme theme="primary" />
       <TabsHeader />
 
-      <Padded className={styles.Settings__Content}>
-        <LegalMention className={isMobile ? 'u-mb-half ' : 'u-mt-1'} />
-        {children}
-      </Padded>
+      <Delayed delay={delayContent}>
+        <Padded className={styles.Settings__Content}>
+          <LegalMention className={isMobile ? 'u-mb-half ' : 'u-mt-1'} />
+          {children}
+        </Padded>
+      </Delayed>
       {__TARGET__ === 'mobile' && (
         <Padded>
           <AppVersion version={__APP_VERSION__} />
@@ -28,6 +31,10 @@ const Settings = ({ children }) => {
       )}
     </>
   )
+}
+
+Settings.defaultProps = {
+  delayContent: 0
 }
 
 export default Settings

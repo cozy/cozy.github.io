@@ -52,6 +52,7 @@ import { filterByAccounts } from 'ducks/filters'
 import { trackPage } from 'ducks/tracking/browser'
 import { isVirtualAccount } from 'ducks/balance/helpers'
 import ImportGroupPanel from 'ducks/balance/ImportGroupPanel'
+import Delayed from 'components/Delayed'
 
 const syncPouchImmediately = async client => {
   const pouchLink = client.links.find(link => link.pouches)
@@ -410,23 +411,30 @@ class Balance extends PureComponent {
           accounts={checkedAccounts}
           subtitleParams={subtitleParams}
         />
-        <Padded
-          className={cx({
-            [styles.Balance__panelsContainer]: true
-          })}
-        >
-          <ImportGroupPanel />
-          <BalancePanels
-            groups={groups}
-            panelsState={this.state.panels}
-            onSwitchChange={this.handleSwitchChange}
-            onPanelChange={this.debouncedHandlePanelChange}
-          />
-        </Padded>
+        <Delayed delay={this.props.delayContent}>
+          <Padded
+            className={cx({
+              [styles.Balance__panelsContainer]: true
+            })}
+          >
+            <ImportGroupPanel />
+            <BalancePanels
+              groups={groups}
+              panelsState={this.state.panels}
+              onSwitchChange={this.handleSwitchChange}
+              onPanelChange={this.debouncedHandlePanelChange}
+            />
+          </Padded>
+        </Delayed>
       </Fragment>
     )
   }
 }
+
+Balance.defaultProps = {
+  delayContent: 0
+}
+
 export const DumbBalance = Balance
 
 const actionCreators = {

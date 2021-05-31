@@ -35,6 +35,7 @@ import { getDate } from 'ducks/transactions/helpers'
 import { trackPage } from 'ducks/tracking/browser'
 import { TransactionsPageWithBackButton } from 'ducks/transactions'
 import { onSubcategory } from './utils'
+import Delayed from 'components/Delayed'
 
 const isCategoryDataEmpty = categoryData => {
   return categoryData[0] && isNaN(categoryData[0].percentage)
@@ -50,7 +51,7 @@ const goToCategory = (router, selectedCategory, subcategory) => {
   }
 }
 
-class CategoriesPage extends Component {
+export class CategoriesPage extends Component {
   componentDidMount() {
     const { filteringDoc, resetFilterByDoc } = this.props
     if (
@@ -158,33 +159,39 @@ class CategoriesPage extends Component {
           hasAccount={hasAccount}
           chart={!isSubcategory}
         />
-        {hasAccount &&
-          (isFetching ? (
-            <Padded className="u-pt-0">
-              <Loading loadingType="categories" />
-            </Padded>
-          ) : !isSubcategory ? (
-            <Categories
-              categories={sortedCategories}
-              selectedCategory={selectedCategory}
-              selectedCategoryName={categoryName}
-              selectCategory={(selectedCategory, subcategory) =>
-                goToCategory(router, selectedCategory, subcategory)
-              }
-              withIncome={showIncomeCategory}
-              filterWithInCome={this.filterWithInCome}
-            />
-          ) : (
-            <TransactionsPageWithBackButton
-              className="u-pt-0"
-              showFutureBalance={false}
-              showTriggerErrors={false}
-              showHeader={false}
-            />
-          ))}
+        <Delayed delay={this.props.delayContent}>
+          {hasAccount &&
+            (isFetching ? (
+              <Padded className="u-pt-0">
+                <Loading loadingType="categories" />
+              </Padded>
+            ) : !isSubcategory ? (
+              <Categories
+                categories={sortedCategories}
+                selectedCategory={selectedCategory}
+                selectedCategoryName={categoryName}
+                selectCategory={(selectedCategory, subcategory) =>
+                  goToCategory(router, selectedCategory, subcategory)
+                }
+                withIncome={showIncomeCategory}
+                filterWithInCome={this.filterWithInCome}
+              />
+            ) : (
+              <TransactionsPageWithBackButton
+                className="u-pt-0"
+                showFutureBalance={false}
+                showTriggerErrors={false}
+                showHeader={false}
+              />
+            ))}
+        </Delayed>
       </Fragment>
     )
   }
+}
+
+CategoriesPage.defaultProps = {
+  delayContent: 0
 }
 
 const mapDispatchToProps = dispatch => ({

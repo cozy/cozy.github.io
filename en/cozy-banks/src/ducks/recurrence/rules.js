@@ -10,6 +10,7 @@ import maxBy from 'lodash/maxBy'
 import uniq from 'lodash/uniq'
 import uniqBy from 'lodash/uniqBy'
 import getCategoryId from 'ducks/transactions/getCategoryId'
+import { getLabel } from './utils'
 
 const ONE_DAY = 86400 * 1000
 
@@ -118,11 +119,10 @@ export const groupBundles = (bundles, rules) => {
 }
 
 export const sameLabel = bundle => {
-  if (bundle.ops) {
+  if (bundle.ops && bundle.ops.length > 0) {
     return bundle.ops[0].label
   } else {
-    // TODO use label helper
-    return bundle.manualLabel || bundle.automaticLabel
+    return getLabel(bundle)
   }
 }
 
