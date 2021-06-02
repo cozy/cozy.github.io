@@ -4,6 +4,7 @@ import sum from 'lodash/sum'
 import mergeWith from 'lodash/mergeWith'
 import isArray from 'lodash/isArray'
 import isString from 'lodash/isString'
+import isEmpty from 'lodash/isEmpty'
 import compose from 'lodash/flowRight'
 import some from 'lodash/some'
 import maxBy from 'lodash/maxBy'
@@ -74,7 +75,10 @@ export const overEvery = predicates => item => {
 
 const getTransactionDate = x => x.date
 
-export const mergeCategoryIds = (objValue, srcValue, key, obj, src) => {
+export const mergeCategoryIds = (obj, src) => {
+  if (isEmpty(obj.ops) || isEmpty(src.ops)) {
+    return []
+  }
   // When merging two bundles, we put the most recent categoryId in front
   const mostRecentObjOp = maxBy(obj.ops, getTransactionDate)
   const mostRecentSrcOp = maxBy(src.ops, getTransactionDate)
@@ -91,7 +95,7 @@ export const mergeCategoryIds = (objValue, srcValue, key, obj, src) => {
 
 function customizer(objValue, srcValue, key, obj, src) {
   if (key === 'categoryIds') {
-    return mergeCategoryIds(objValue, srcValue, key, obj, src)
+    return mergeCategoryIds(obj, src)
   } else if (key == 'ops') {
     return uniqBy(objValue.concat(srcValue), x => x._id)
   } else if (isString(objValue)) {

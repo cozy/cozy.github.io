@@ -4328,13 +4328,11 @@ The connector has to import the zombie npm package itself.</p>
 <p>You need at least the <code>POST</code> permission for the given doctype in your manifest, to be able to
 use this function.</p>
 <p>Parameters:</p>
-<ul>
-<li><code>documents</code>: an array of objects corresponding to the data you want to save in the cozy</li>
-<li><code>doctype</code> (string): the doctype where you want to save data (ex: &lsquo;io.cozy.bills&rsquo;)</li>
-<li><code>options</code> (object): option object</li>
-<li><code>sourceAccount</code> (String): id of the source account</li>
-<li><code>sourceAccountIdentifier</code> (String): identifier unique to the account targetted by the connector. It is the login most of the time</li>
-</ul>
+<p><code>documents</code>: an array of objects corresponding to the data you want to save in the cozy
+<code>doctype</code> (string): the doctype where you want to save data (ex: &lsquo;io.cozy.bills&rsquo;)
+<code>options</code> (object): option object
+  + <code>sourceAccount</code> (String): id of the source account
+  + <code>sourceAccountIdentifier</code> (String): identifier unique to the account targetted by the connector. It is the login most of the time</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">documents</span> <span class="o">=</span> <span class="p">[</span>
   <span class="p">{</span>
     <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;toto&#39;</span><span class="p">,</span>
@@ -4389,14 +4387,12 @@ not duplicated data in the Cozy.</p>
 <p>You need at least the <code>GET</code> permission for the given doctype in your manifest, to be able to
 use this function.</p>
 <p>Parameters:</p>
-<ul>
-<li><code>documents</code>: an array of objects corresponding to the data you want to save in the cozy</li>
-<li><code>doctype</code> (string): the doctype where you want to save data (ex: &lsquo;io.cozy.bills&rsquo;)</li>
-<li><code>options</code> :</li>
-<li><code>keys</code> (array) : List of keys used to check that two items are the same. By default it is set to `[&lsquo;id&rsquo;]&rsquo;.</li>
-<li><code>index</code> (optionnal) : Return value returned by <code>cozy.data.defineIndex</code>, the default will correspond to all documents of the selected doctype.</li>
-<li><code>selector</code> (optionnal object) : Mango request to get records. Default is built from the keys <code>{selector: {_id: {"$gt": null}}}</code> to get all the records.</li>
-</ul>
+<p><code>documents</code>: an array of objects corresponding to the data you want to save in the cozy
+<code>doctype</code> (string): the doctype where you want to save data (ex: &lsquo;io.cozy.bills&rsquo;)
+<code>options</code> :
+   - <code>keys</code> (array) : List of keys used to check that two items are the same. By default it is set to <code>['id']'.
+   -</code>index<code>(optionnal) : Return value returned by</code>cozy.data.defineIndex<code>, the default will correspond to all documents of the selected doctype.
+   -</code>selector<code __id:="{_id:" _gt_:="{&quot;$gt&quot;:" null="null" selector:="selector:">(optionnal object) : Mango request to get records. Default is built from the keys</code>}}` to get all the records.</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">documents</span> <span class="o">=</span> <span class="p">[</span>
   <span class="p">{</span>
     <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;toto&#39;</span><span class="p">,</span>
@@ -4669,13 +4665,11 @@ See https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.identities.md
 <p>You need full permission for the doctype io.cozy.identities in your
 manifest, to be able to use this function.</p>
 <p>Parameters:</p>
-<ul>
-<li><code>contact</code> (object): the identity to create/update as an object io.cozy.contacts</li>
-<li><code>accountIdentifier</code> (string): a string that represent the account use, if available fields.login</li>
-<li><code>options</code> (object): options which will be given to updateOrCreate directly :</li>
-<li><code>sourceAccount</code> (String): id of the source account</li>
-<li><code>sourceAccountIdentifier</code> (String): identifier unique to the account targetted by the connector. It is the login most of the time</li>
-</ul>
+<p><code>contact</code> (object): the identity to create/update as an object io.cozy.contacts
+<code>accountIdentifier</code> (string): a string that represent the account use, if available fields.login
+<code>options</code> (object): options which will be given to updateOrCreate directly :
+  + <code>sourceAccount</code> (String): id of the source account
+  + <code>sourceAccountIdentifier</code> (String): identifier unique to the account targetted by the connector. It is the login most of the time</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">saveIdentity</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-konnector-libs&#39;</span><span class="p">)</span>
 <span class="kr">const</span> <span class="nx">identity</span> <span class="o">=</span>
   <span class="p">{</span>
@@ -4814,14 +4808,12 @@ exist in the cozy or not</p>
 exist in the cozy or not</p>
 <p>You need the full permission for the given doctype in your manifest, to be able to
 use this function.</p>
-<ul>
-<li><code>entries</code> (object array): Documents to save</li>
-<li><code>doctype</code> (string): Doctype of the documents</li>
-<li><code>matchingAttributes</code> (string array): attributes in each entry used to check if an entry already exists in the Cozy</li>
-<li><code>options</code> (object): general option affecting metadata :</li>
-<li><code>sourceAccount</code> (String): id of the source account</li>
-<li><code>sourceAccountIdentifier</code> (String): identifier unique to the account targetted by the connector. It is the login most of the time</li>
-</ul>
+<p><code>entries</code> (object array): Documents to save
+<code>doctype</code> (string): Doctype of the documents
+<code>matchingAttributes</code> (string array): attributes in each entry used to check if an entry already exists in the Cozy
+<code>options</code> (object): general option affecting metadata :
+  + <code>sourceAccount</code> (String): id of the source account
+  + <code>sourceAccountIdentifier</code> (String): identifier unique to the account targetted by the connector. It is the login most of the time</p>
 <p><strong>Kind</strong>: Exported function<br />
 <a name="module_utils"></a></p>
 <h2 id="utils">utils<a class="headerlink" href="#utils" title="Permanent link">&para;</a></h2>
@@ -4844,9 +4836,7 @@ use this function.</p>
 documents but without filtering possibilities
 deprecated by the findAll method from cozyClient</p>
 <p>Parameters:</p>
-<ul>
-<li><code>doctype</code> (string): the doctype from which you want to fetch the data</li>
-</ul>
+<p><code>doctype</code> (string): the doctype from which you want to fetch the data</p>
 <p><strong>Kind</strong>: inner method of <a href="#module_utils"><code>utils</code></a><br />
 <a name="module_utils..queryAll"></a></p>
 <h3 id="utilsqueryall">utils~queryAll()<a class="headerlink" href="#utilsqueryall" title="Permanent link">&para;</a></h3>
@@ -4854,12 +4844,10 @@ deprecated by the findAll method from cozyClient</p>
 It is slower that fetchAll because it fetches the data 100 by 100 but allows to filter the data
 with a selector and an index</p>
 <p>Parameters:</p>
-<ul>
-<li><code>doctype</code> (string): the doctype from which you want to fetch the data</li>
-<li><code>selector</code> (object): the mango query selector</li>
-<li><code>index</code> (object): (optional) the query selector index. If not defined, the function will
-create it&rsquo;s own index with the keys specified in the selector</li>
-</ul>
+<p><code>doctype</code> (string): the doctype from which you want to fetch the data
+<code>selector</code> (object): the mango query selector
+<code>index</code> (object): (optional) the query selector index. If not defined, the function will
+create it&rsquo;s own index with the keys specified in the selector</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">documents</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">queryAll</span><span class="p">(</span><span class="s1">&#39;io.cozy.bills&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">vendor</span><span class="o">:</span> <span class="s1">&#39;Direct Energie&#39;</span><span class="p">})</span>
 </pre></div>
 
@@ -4869,17 +4857,15 @@ create it&rsquo;s own index with the keys specified in the selector</li>
 <h3 id="utilsfindduplicates">utils~findDuplicates()<a class="headerlink" href="#utilsfindduplicates" title="Permanent link">&para;</a></h3>
 <p>This function find duplicates in a given doctype, filtered by an optional mango selector</p>
 <p>Parameters:</p>
-<ul>
-<li><code>doctype</code> (string): the doctype from which you want to fetch the data</li>
-<li><code>selector</code> (object): (optional) the mango query selector</li>
-<li><code>options</code> :</li>
-<li><code>keys</code> (array) : List of keys used to check that two items are the same.</li>
-<li><code>index</code> (optionnal) : Return value returned by <code>cozy.data.defineIndex</code>, the default will correspond to all documents of the selected doctype.</li>
-<li><code>selector</code> (optionnal object) : Mango request to get records. Gets all the records by default</li>
-</ul>
+<p><code>doctype</code> (string): the doctype from which you want to fetch the data
+<code>selector</code> (object): (optional) the mango query selector
+<code>options</code> :
+   - <code>keys</code> (array) : List of keys used to check that two items are the same.
+   - <code>index</code> (optionnal) : Return value returned by <code>cozy.data.defineIndex</code>, the default will correspond to all documents of the selected doctype.
+   - <code>selector</code> (optionnal object) : Mango request to get records. Gets all the records by default</p>
 <p>Returns an object with the following keys:
-* <code>toKeep</code>: this is the list of unique documents that you should keep in db
-* <code>toRemove</code>: this is the list of documents that can remove from db. If this is io.cozy.bills
+<code>toKeep</code>: this is the list of unique documents that you should keep in db
+<code>toRemove</code>: this is the list of documents that can remove from db. If this is io.cozy.bills
 documents, do not forget to clean linked bank operations</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span><span class="nx">toKeep</span><span class="p">,</span> <span class="nx">toRemove</span><span class="p">}</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">findDuplicates</span><span class="p">(</span><span class="s1">&#39;io.cozy.bills&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">selector</span><span class="o">:</span> <span class="p">{</span><span class="nx">vendor</span><span class="o">:</span> <span class="s1">&#39;Direct Energie&#39;</span><span class="p">}})</span>
 </pre></div>
@@ -4890,15 +4876,13 @@ documents, do not forget to clean linked bank operations</p>
 <h3 id="utilsbatchupdateattributes">utils~batchUpdateAttributes()<a class="headerlink" href="#utilsbatchupdateattributes" title="Permanent link">&para;</a></h3>
 <p>This is a shortcut to update multiple documents in one call</p>
 <p>Parameters:</p>
-<ul>
-<li><code>doctype</code> (string): the doctype from which you want to fetch the data</li>
-<li><code>ids</code> (array): array of ids of documents to update</li>
-<li><code>transformation</code> (object): attributes to change with their values</li>
-<li><code>options</code> :</li>
-<li><code>keys</code> (array) : List of keys used to check that two items are the same.</li>
-<li><code>index</code> (optionnal) : Return value returned by <code>cozy.data.defineIndex</code>, the default will correspond to all documents of the selected doctype.</li>
-<li><code>selector</code> (optionnal object) : Mango request to get records. Gets all the records by default</li>
-</ul>
+<p><code>doctype</code> (string): the doctype from which you want to fetch the data
+<code>ids</code> (array): array of ids of documents to update
+<code>transformation</code> (object): attributes to change with their values
+<code>options</code> :
+   - <code>keys</code> (array) : List of keys used to check that two items are the same.
+   - <code>index</code> (optionnal) : Return value returned by <code>cozy.data.defineIndex</code>, the default will correspond to all documents of the selected doctype.
+   - <code>selector</code> (optionnal object) : Mango request to get records. Gets all the records by default</p>
 <p>Returns a promise which resolves with all the return values of updateAttributes</p>
 <div class="codehilite"><pre><span></span><span class="nx">await</span> <span class="nx">batchUpdateAttributes</span><span class="p">(</span><span class="s1">&#39;io.cozy.bills&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">{</span><span class="nx">vendor</span><span class="o">:</span> <span class="s1">&#39;Direct Energie&#39;</span><span class="p">})</span>
 </pre></div>
@@ -4909,15 +4893,13 @@ documents, do not forget to clean linked bank operations</p>
 <h3 id="utilsbatchdelete">utils~batchDelete()<a class="headerlink" href="#utilsbatchdelete" title="Permanent link">&para;</a></h3>
 <p>This is a shortcut to delete multiple documents in one call</p>
 <p>Parameters:</p>
-<ul>
-<li><code>doctype</code> (string): the doctype from which you want to fetch the data</li>
-<li><code>documents</code> (array): documents to delete with their ids</li>
-<li><code>transformation</code> (object): attributes to change with their values</li>
-<li><code>options</code> :</li>
-<li><code>keys</code> (array) : List of keys used to check that two items are the same.</li>
-<li><code>index</code> (optionnal) : Return value returned by <code>cozy.data.defineIndex</code>, the default will correspond to all documents of the selected doctype.</li>
-<li><code>selector</code> (optionnal object) : Mango request to get records. Gets all the records by default</li>
-</ul>
+<p><code>doctype</code> (string): the doctype from which you want to fetch the data
+<code>documents</code> (array): documents to delete with their ids
+<code>transformation</code> (object): attributes to change with their values
+<code>options</code> :
+   - <code>keys</code> (array) : List of keys used to check that two items are the same.
+   - <code>index</code> (optionnal) : Return value returned by <code>cozy.data.defineIndex</code>, the default will correspond to all documents of the selected doctype.
+   - <code>selector</code> (optionnal object) : Mango request to get records. Gets all the records by default</p>
 <p>Returns a promise which resolves with all the return values of updateAttributes</p>
 <p>Example to remove all the documents for a given doctype</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">documents</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">fetchAll</span><span class="p">(</span><span class="s1">&#39;io.cozy.marvel&#39;</span><span class="p">)</span>
@@ -4930,11 +4912,9 @@ documents, do not forget to clean linked bank operations</p>
 <h3 id="utilsgetpdftext">utils~getPdfText()<a class="headerlink" href="#utilsgetpdftext" title="Permanent link">&para;</a></h3>
 <p>This function can read the content of a cozy pdf file and output its text</p>
 <p>Parameters:</p>
-<ul>
-<li><code>fileId</code> (string): the id of the file in the cozy</li>
-<li><code>options</code> :</li>
-<li><code>pages</code> (array or number) : The list of page you want to interpret</li>
-</ul>
+<p><code>fileId</code> (string): the id of the file in the cozy
+<code>options</code> :
+   - <code>pages</code> (array or number) : The list of page you want to interpret</p>
 <p>You need to add pdfjs-dist package as a dependency to your connector to allow this to work</p>
 <p>Returns a promise which resolves with an object with the following attributes:
    - <code>text</code> (string) : The full text of the pdf
@@ -4950,9 +4930,7 @@ documents, do not forget to clean linked bank operations</p>
 <h3 id="utilsformatdate">utils~formatDate()<a class="headerlink" href="#utilsformatdate" title="Permanent link">&para;</a></h3>
 <p>This function convert a Date Object to a ISO date string (2018-07-31)</p>
 <p>Parameters:</p>
-<ul>
-<li><code>date</code> (Date): the id of the file in the cozy</li>
-</ul>
+<p><code>date</code> (Date): the id of the file in the cozy</p>
 <p>Returns a string</p>
 <p>Example:</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">date</span> <span class="o">=</span> <span class="nx">formatFrenchDate</span><span class="p">(</span><span class="nx">New</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">())</span>
@@ -4977,8 +4955,8 @@ documents, do not forget to clean linked bank operations</p>
 <p>The global model is a model specific to hosted Cozy instances. It is not available for self-hosted instances. It will just do nothing in that case.</p>
 <p>The local model is based on the user manual categorizations.</p>
 <p>Each model adds two properties to the transactions:
-  * The global model adds <code>cozyCategoryId</code> and <code>cozyCategoryProba</code>
-  * The local model adds <code>localCategoryId</code> and <code>localCategoryProba</code></p>
+  The global model adds <code>cozyCategoryId</code> and <code>cozyCategoryProba</code>
+  The local model adds <code>localCategoryId</code> and <code>localCategoryProba</code></p>
 <p>In the end, each transaction can have up to four different categories. An application can use these categories to show the most significant for the user. See https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.bank.md#categories for more informations.</p>
 <p><strong>Kind</strong>: inner method of <a href="#module_categorization"><code>categorization</code></a><br />
 <strong>Returns</strong>: <code>object</code> - an object with a <code>categorize</code> method<br />

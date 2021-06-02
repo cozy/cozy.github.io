@@ -234,7 +234,7 @@ CategoriesHeader.defaultProps = {
   classes: {
     header: '',
     legalMention: 'u-mt-2 u-pt-1',
-    selectDates: 'u-pt-0'
+    selectDates: 'u-pt-half'
   }
 }
 

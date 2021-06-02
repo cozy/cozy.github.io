@@ -1,4 +1,4 @@
-import { mergeBundles, sameLabel } from './rules'
+import { mergeBundles, mergeCategoryIds, sameLabel } from './rules'
 
 const ops1 = [
   { _id: 't1', date: '2020-08-01', manualCategoryId: '400140' },
@@ -45,6 +45,26 @@ describe('merge hydrated bundles', () => {
     ]
     const merged = mergeBundles(bundles)
     expect(merged.categoryIds).toEqual(['400130', '400140', '400120'])
+  })
+})
+
+describe('mergeCategoryIds', () => {
+  const makeOps = ops => ({ ops })
+
+  it('should return empty array when no ops in src or obj', () => {
+    expect(mergeCategoryIds(makeOps([]), makeOps([]))).toEqual([])
+    expect(
+      mergeCategoryIds(
+        makeOps([]),
+        makeOps([{ date: '2020-12-02T12:00:00.000Z' }])
+      )
+    ).toEqual([])
+    expect(
+      mergeCategoryIds(
+        makeOps([{ date: '2020-12-02T12:00:00.000Z' }]),
+        makeOps([])
+      )
+    ).toEqual([])
   })
 })
 

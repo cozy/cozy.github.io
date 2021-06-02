@@ -2793,6 +2793,9 @@ have to name the query results (&ldquo;checked-todos&rdquo;) below.</p>
 </pre></div>
 
 
+<p><code>useQuery</code> also supports a &ldquo;disabled&rdquo; parameter: if set to <code>false</code> the query won&rsquo;t
+be executed. This is useful when you have dependent queries that rely on the results
+of another query to have been fetched.</p>
 <h3 id="2b-requesting-data-with-ltquery-gt">2.b Requesting data with <code>&lt;Query /&gt;</code><a class="headerlink" href="#2b-requesting-data-with-ltquery-gt" title="Permanent link">&para;</a></h3>
 <p>If you cannot use a hook, you can use the <code>Query</code> render-prop component. Basic example of usage:</p>
 <div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">Query</span><span class="p">,</span> <span class="nx">isQueryLoading</span><span class="p">,</span> <span class="nx">Q</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
