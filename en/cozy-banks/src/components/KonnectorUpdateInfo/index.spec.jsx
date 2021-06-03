@@ -22,7 +22,7 @@ describe('KonnectorUpdateInfo', () => {
 
   it('should display button with valid url', () => {
     useRedirectionURL.mockReturnValue([
-      'http://store.cozy.tools:8080/#/discover/?type=konnector&category=banking'
+      'http://store.cozy.tools:8080/#/discover/?type=konnector&category=banking&pendingUpdate=true'
     ])
     const { root } = setup({
       outdatedKonnectors: { data: [{ categories: 'banking' }] }
