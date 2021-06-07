@@ -1711,6 +1711,20 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#authenticatewithreactnativeinappbrowser-promise" title="authenticateWithReactNativeInAppBrowser ⇒ Promise" class="md-nav__link">
+    authenticateWithReactNativeInAppBrowser ⇒ Promise
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authfunction" title="authFunction" class="md-nav__link">
+    authFunction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#generateweblink-string" title="generateWebLink ⇒ string" class="md-nav__link">
     generateWebLink ⇒ string
   </a>
@@ -2341,6 +2355,20 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authenticatewithsafariurl-promise" title="authenticateWithSafari(url) ⇒ Promise" class="md-nav__link">
+    authenticateWithSafari(url) ⇒ Promise
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authenticatewithinappbrowserurl-promise" title="authenticateWithInAppBrowser(url) ⇒ Promise" class="md-nav__link">
+    authenticateWithInAppBrowser(url) ⇒ Promise
+  </a>
   
 </li>
       
@@ -5218,6 +5246,20 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#authenticatewithreactnativeinappbrowser-promise" title="authenticateWithReactNativeInAppBrowser ⇒ Promise" class="md-nav__link">
+    authenticateWithReactNativeInAppBrowser ⇒ Promise
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authfunction" title="authFunction" class="md-nav__link">
+    authFunction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#generateweblink-string" title="generateWebLink ⇒ string" class="md-nav__link">
     generateWebLink ⇒ string
   </a>
@@ -5848,6 +5890,20 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authenticatewithsafariurl-promise" title="authenticateWithSafari(url) ⇒ Promise" class="md-nav__link">
+    authenticateWithSafari(url) ⇒ Promise
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authenticatewithinappbrowserurl-promise" title="authenticateWithInAppBrowser(url) ⇒ Promise" class="md-nav__link">
+    authenticateWithInAppBrowser(url) ⇒ Promise
+  </a>
   
 </li>
       
@@ -6580,6 +6636,15 @@ from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
 </dd>
 <dt><a href="#win">win</a> : <code><a href="#CordovaWindow">CordovaWindow</a></code></dt>
 <dd></dd>
+<dt><a href="#authenticateWithReactNativeInAppBrowser">authenticateWithReactNativeInAppBrowser</a> ⇒ <code>Promise</code></dt>
+<dd><p>Opens a ReactNative InAppBrowsr
+and resolves with the URL containing
+the token</p>
+</dd>
+<dt><a href="#authFunction">authFunction</a></dt>
+<dd><p>Return the method to use for
+authentication based on the</p>
+</dd>
 <dt><a href="#generateWebLink">generateWebLink</a> ⇒ <code>string</code></dt>
 <dd><p>generateWebLink - Construct a link to a web app</p>
 <p>This function does not get its cozy url from a CozyClient instance so it can
@@ -6823,6 +6888,12 @@ want to them to trigger an exception during tests.</p>
 </dd>
 <dt><a href="#query">query()</a> ⇒ <code><a href="#QueryState">QueryState</a></code> | <code><a href="#QueryDefinition">QueryDefinition</a></code></dt>
 <dd></dd>
+<dt><a href="#authenticateWithSafari">authenticateWithSafari(url)</a> ⇒ <code>Promise</code></dt>
+<dd><p>Open a SafariView Controller and resolve with the URL containing the token</p>
+</dd>
+<dt><a href="#authenticateWithInAppBrowser">authenticateWithInAppBrowser(url)</a> ⇒ <code>Promise</code></dt>
+<dd><p>Opens an InAppBrowser and resolves with the URL containing the token</p>
+</dd>
 <dt><a href="#createClientInteractive">createClientInteractive(clientOptions)</a> ⇒ <code><a href="#CozyClient">Promise.&lt;CozyClient&gt;</a></code></dt>
 <dd><p>Creates a client with interactive authentication.</p>
 <ul>
@@ -8189,7 +8260,8 @@ the store up, which in turn will update the <code>&lt;Query&gt;</code>s and re-r
 </table>
 <p><a name="CozyClient+register"></a></p>
 <h3 id="cozyclientregistercozyurl-object">cozyClient.register(cozyURL) ⇒ <code>object</code><a class="headerlink" href="#cozyclientregistercozyurl-object" title="Permanent link">&para;</a></h3>
-<p>Performs a complete OAuth flow using a Cordova webview for auth.
+<p>Performs a complete OAuth flow using a Cordova webview
+or React Native WebView for auth.
 The <code>register</code> method&rsquo;s name has been chosen for compat reasons with the Authentication compo.</p>
 <p><strong>Kind</strong>: instance method of <a href="#CozyClient"><code>CozyClient</code></a><br />
 <strong>Returns</strong>: <code>object</code> - Contains the fetched token and the client information.  </p>
@@ -9204,6 +9276,31 @@ the index for the next query.</p>
 </table>
 <p><a name="win"></a></p>
 <h2 id="win-cordovawindow">win : <a href="#CordovaWindow"><code>CordovaWindow</code></a><a class="headerlink" href="#win-cordovawindow" title="Permanent link">&para;</a></h2>
+<p><strong>Kind</strong>: global constant<br />
+<a name="authenticateWithReactNativeInAppBrowser"></a></p>
+<h2 id="authenticatewithreactnativeinappbrowser-promise">authenticateWithReactNativeInAppBrowser ⇒ <code>Promise</code><a class="headerlink" href="#authenticatewithreactnativeinappbrowser-promise" title="Permanent link">&para;</a></h2>
+<p>Opens a ReactNative InAppBrowsr
+and resolves with the URL containing
+the token</p>
+<p><strong>Kind</strong>: global constant  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>url</td>
+<td><code>string</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="authFunction"></a></p>
+<h2 id="authfunction">authFunction<a class="headerlink" href="#authfunction" title="Permanent link">&para;</a></h2>
+<p>Return the method to use for
+authentication based on the</p>
 <p><strong>Kind</strong>: global constant<br />
 <a name="generateWebLink"></a></p>
 <h2 id="generateweblink-string">generateWebLink ⇒ <code>string</code><a class="headerlink" href="#generateweblink-string" title="Permanent link">&para;</a></h2>
@@ -10888,7 +10985,43 @@ want to them to trigger an exception during tests.</p>
 <a name="query..common"></a></p>
 <h3 id="querycommon-partialquerystate">query~common : <a href="#QueryState"><code>Partial.&lt;QueryState&gt;</code></a><a class="headerlink" href="#querycommon-partialquerystate" title="Permanent link">&para;</a></h3>
 <p><strong>Kind</strong>: inner constant of <a href="#query"><code>query</code></a><br />
-<a name="createClientInteractive"></a></p>
+<a name="authenticateWithSafari"></a></p>
+<h2 id="authenticatewithsafariurl-promise">authenticateWithSafari(url) ⇒ <code>Promise</code><a class="headerlink" href="#authenticatewithsafariurl-promise" title="Permanent link">&para;</a></h2>
+<p>Open a SafariView Controller and resolve with the URL containing the token</p>
+<p><strong>Kind</strong>: global function  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>url</td>
+<td><code>string</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="authenticateWithInAppBrowser"></a></p>
+<h2 id="authenticatewithinappbrowserurl-promise">authenticateWithInAppBrowser(url) ⇒ <code>Promise</code><a class="headerlink" href="#authenticatewithinappbrowserurl-promise" title="Permanent link">&para;</a></h2>
+<p>Opens an InAppBrowser and resolves with the URL containing the token</p>
+<p><strong>Kind</strong>: global function  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>url</td>
+<td><code>string</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="createClientInteractive"></a></p>
 <h2 id="createclientinteractiveclientoptions-promisecozyclient">createClientInteractive(clientOptions) ⇒ <a href="#CozyClient"><code>Promise.&lt;CozyClient&gt;</code></a><a class="headerlink" href="#createclientinteractiveclientoptions-promisecozyclient" title="Permanent link">&para;</a></h2>
 <p>Creates a client with interactive authentication.</p>
 <ul>
