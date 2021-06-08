@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 
 import groupBy from 'lodash/groupBy'
 import sortBy from 'lodash/sortBy'
@@ -63,4 +63,4 @@ const AccountsSettings = () => {
   )
 }
 
-export default AccountsSettings
+export default memo(AccountsSettings)

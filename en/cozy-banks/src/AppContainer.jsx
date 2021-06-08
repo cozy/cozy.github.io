@@ -40,7 +40,8 @@ feature.
 https://material-ui.com/styles/api/#stylesprovider
 */
 const generateClassName = createGenerateClassName({
-  disableGlobal: true
+  disableGlobal: true,
+  productionPrefix: 'c'
 })
 
 const AppContainer = ({ store, lang, history, client }) => {

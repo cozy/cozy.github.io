@@ -1,16 +1,16 @@
 import React, { memo } from 'react'
-import compose from 'lodash/flowRight'
-import { useI18n } from 'cozy-ui/transpiled/react'
 
-import { transactionsConn } from 'doctypes'
+import { useQuery } from 'cozy-client'
+import flag from 'cozy-flags'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+
+import { transactionsConn, makeBalanceTransactionsConn } from 'doctypes'
 import Padded from 'components/Padded'
 import Header from 'components/Header'
 import KonnectorUpdateInfo from 'components/KonnectorUpdateInfo'
 import History, { HistoryFallback } from 'ducks/balance/History'
 import HeaderTitle from 'ducks/balance/HeaderTitle'
 import Delayed from 'components/Delayed'
-import { queryConnect } from 'cozy-client'
-import flag from 'cozy-flags'
 
 import styles from 'ducks/balance/BalanceHeader.styl'
 import LegalMention from 'ducks/legal/LegalMention'
@@ -20,9 +20,12 @@ const BalanceHeader = ({
   accountsBalance,
   accounts,
   subtitleParams,
-  onClickBalance,
-  transactions
+  onClickBalance
 }) => {
+  const conn = flag('banks.perf.use-balance-transactions-conn')
+    ? makeBalanceTransactionsConn()
+    : transactionsConn
+  const transactions = useQuery(conn.query, conn)
   const { t } = useI18n()
   const subtitle = subtitleParams
     ? t('BalanceHistory.checked-accounts', subtitleParams)
@@ -60,9 +63,4 @@ const BalanceHeader = ({
 
 export const DumbBalanceHeader = BalanceHeader
 
-export default compose(
-  memo,
-  queryConnect({
-    transactions: transactionsConn
-  })
-)(BalanceHeader)
+export default memo(BalanceHeader)

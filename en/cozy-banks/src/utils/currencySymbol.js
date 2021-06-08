@@ -13,11 +13,11 @@ export const getCurrencySymbol = currency => {
   if (typeof currency === 'object') {
     // currency :
     // { crypto, datetime, id, marketcap, name, precision, prefix, symbol }
-    return (
-      currency.symbol ||
-      CURRENCY_TO_SYMBOL[currency.id] ||
-      DEFAULT_CURRENCY_SYMBOL
-    )
+    return currency
+      ? currency.symbol ||
+          CURRENCY_TO_SYMBOL[currency.id] ||
+          DEFAULT_CURRENCY_SYMBOL
+      : DEFAULT_CURRENCY_SYMBOL
   }
 
   return DEFAULT_CURRENCY_SYMBOL

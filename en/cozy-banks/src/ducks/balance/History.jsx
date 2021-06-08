@@ -69,12 +69,13 @@ class History extends Component {
   }
 
   getTransactionsFilteredHelper(transactions) {
+    const filteredTransactions = transactions.data.filter(t => {
+      // Use .date as to get the debit date
+      return t && t.date && isAfter(new Date(t.date), oneYearBefore)
+    })
     return {
       ...transactions,
-      data: transactions.data.filter(t => {
-        // Use .date as to get the debit date
-        return t && t.date && isAfter(new Date(t.date), oneYearBefore)
-      })
+      data: filteredTransactions
     }
   }
 

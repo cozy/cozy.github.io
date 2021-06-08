@@ -1,5 +1,6 @@
 import fromPairs from 'lodash/fromPairs'
 import CozyClient, { QueryDefinition, HasManyInPlace, Q } from 'cozy-client'
+import subYears from 'date-fns/sub_years'
 
 export const RECIPIENT_DOCTYPE = 'io.cozy.bank.recipients'
 export const ACCOUNT_DOCTYPE = 'io.cozy.bank.accounts'
@@ -212,6 +213,25 @@ export const transactionsConn = {
       .include(['bills', 'account', 'reimbursements', 'recurrence']),
   as: 'transactions',
   fetchPolicy: older30s
+}
+
+export const makeBalanceTransactionsConn = () => {
+  const fromDate = subYears(new Date(), 1).toISOString()
+  return {
+    as: 'home/transactions',
+    query: () =>
+      Q(TRANSACTION_DOCTYPE)
+        .limitBy(1000)
+        .where({
+          date: {
+            $gt: fromDate
+          }
+        })
+        .sortBy([{ date: 'asc' }])
+        .indexFields(['date'])
+        .select(['date', 'amount', 'account']),
+    fetchPolicy: older30s
+  }
 }
 
 export const appsConn = {
