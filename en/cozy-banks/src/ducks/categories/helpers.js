@@ -5,6 +5,9 @@ import parentCategory, {
 import categoryNames from 'ducks/categories/tree'
 import getCategoryId from 'ducks/transactions/getCategoryId'
 
+// eslint-disable-next-line no-unused-vars
+import { BankTransaction, TransactionCategoriesSummary } from '../../types'
+
 export const getParent = parentCategory.get.bind(parentCategory)
 
 const makeCategory = parent => ({
@@ -25,6 +28,10 @@ export const isAwaitingCategorization = transaction => {
   return getCategoryId(transaction) === null
 }
 
+/**
+ * @param  {Array<BankTransaction>} transactions
+ * @return {TransactionCategoriesSummary}
+ */
 export const getTransactionsByCategory = transactions => {
   let categories = {}
   for (let catName of Object.keys(categoriesStyle)) {

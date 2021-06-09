@@ -1,6 +1,6 @@
 import React from 'react'
 import { withClient } from 'cozy-client'
-import { DateMonthPicker } from 'cozy-ui/transpiled/react'
+import DateMonthPicker from 'cozy-ui/transpiled/react/DateMonthPicker'
 import {
   getDate,
   getApplicationDate,

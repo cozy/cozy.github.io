@@ -16,7 +16,7 @@ export const normalizeData = data => {
 
 // Configure
 
-export const isSentryEnabled = () => typeof __SENTRY_URL__ !== 'undefined'
+export const isSentryEnabled = () => typeof __SENTRY_URL__ !== 'undefined' && process.env.NODE_ENV == 'production'
 
 const getSentryConfiguration = cozyClient => {
   const config = {

@@ -1,13 +1,20 @@
 import React from 'react'
 import { mount } from 'enzyme'
-import { DumbBalanceDetailsHeader } from './BalanceDetailsHeader'
+import { createMockClient } from 'cozy-client/dist/mock'
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+
 import BarBalance from 'components/BarBalance'
 import AppLike from 'test/AppLike'
 import mockRouter from 'test/mockRouter'
-import { getClient } from 'ducks/client'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
-// eslint-disable-next-line no-unused-vars
-const client = getClient()
+import getClient from 'src/selectors/getClient'
+import fixtures from 'test/fixtures'
+import { GROUP_DOCTYPE, ACCOUNT_DOCTYPE, schema } from 'doctypes'
+import { DumbBalanceDetailsHeader } from './BalanceDetailsHeader'
+
+jest.mock('src/selectors/getClient', () => ({
+  __esModule: true,
+  default: jest.fn()
+}))
 
 jest.mock('components/Bar', () => ({
   BarCenter: ({ children }) => children,
@@ -30,8 +37,25 @@ const setup = options => {
       pathname: '/'
     })
   }
+  const client = createMockClient({
+    queries: {
+      groups: {
+        doctype: GROUP_DOCTYPE,
+        data: fixtures[GROUP_DOCTYPE]
+      },
+      accounts: {
+        doctype: ACCOUNT_DOCTYPE,
+        data: fixtures[ACCOUNT_DOCTYPE]
+      }
+    },
+    clientOptions: {
+      schema
+    }
+  })
+  getClient.mockReturnValue(client)
+
   return mount(
-    <AppLike router={router}>
+    <AppLike router={router} client={client}>
       <DumbBalanceDetailsHeader filteredAccounts={[]} {...props} />
     </AppLike>
   )

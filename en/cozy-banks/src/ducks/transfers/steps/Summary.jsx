@@ -1,13 +1,10 @@
 import React from 'react'
+import Input from 'cozy-ui/transpiled/react/Input'
+import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
+import InlineCard from 'cozy-ui/transpiled/react/InlineCard'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+
 import Padded from 'components/Padded'
-import {
-  Input,
-  Media,
-  Bd,
-  Img,
-  InlineCard,
-  useI18n
-} from 'cozy-ui/transpiled/react'
 import PageTitle from 'components/Title/PageTitle'
 import OptionalInput from 'components/OptionalInput'
 import BottomButton from 'components/BottomButton'

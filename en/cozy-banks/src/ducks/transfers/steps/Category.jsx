@@ -1,6 +1,6 @@
 import React from 'react'
 import Padded from 'components/Padded'
-import { useI18n } from 'cozy-ui/transpiled/react'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import { List, Row, Radio } from 'components/List'
 import PageTitle from 'components/Title/PageTitle'
 import Title from './Title'

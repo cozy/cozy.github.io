@@ -1,4 +1,4 @@
-import React, { Fragment, useMemo } from 'react'
+import React, { Fragment, useMemo, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
@@ -8,10 +8,13 @@ import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import Stack from 'cozy-ui/transpiled/react/Stack'
 
+import { useSelector, useDispatch } from 'react-redux'
+
 import { useRouter } from 'components/RouterContext'
 import Header from 'components/Header'
 import Padded from 'components/Padded'
-import { ConnectedSelectDates as SelectDates } from 'components/SelectDates'
+import TransactionSelectDates from 'ducks/transactions/TransactionSelectDates'
+import { getPeriod, addFilterByPeriod } from 'ducks/filters'
 
 import CategoriesChart from 'ducks/categories/CategoriesChart'
 import {
@@ -117,6 +120,15 @@ const CategoriesHeader = props => {
     return makeBreadcrumbs(router, categoryName, subcategoryName, t)
   }, [router, categoryName, subcategoryName, t])
 
+  const dispatch = useDispatch()
+  const period = useSelector(getPeriod)
+  const onChangePeriod = useCallback(
+    newPeriod => {
+      dispatch(addFilterByPeriod(newPeriod))
+    },
+    [dispatch]
+  )
+
   const incomeToggle = showIncomeToggle ? (
     <IncomeToggle withIncome={withIncome} onToggle={onWithIncomeToggle} />
   ) : null
@@ -142,7 +154,12 @@ const CategoriesHeader = props => {
     )
 
   const dateSelector = (
-    <SelectDates showFullYear className={classes.selectDates} />
+    <TransactionSelectDates
+      value={period}
+      onChange={onChangePeriod}
+      showFullYear
+      className={classes.selectDates}
+    />
   )
 
   if (isMobile) {

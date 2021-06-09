@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Button, useI18n } from 'cozy-ui/transpiled/react'
+import Button from 'cozy-ui/transpiled/react/Button'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
 import Dialog, {

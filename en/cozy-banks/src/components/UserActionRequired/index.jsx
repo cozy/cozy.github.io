@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
 import tosIcon from 'assets/icons/icon-tos.svg'
 
-import { useI18n } from 'cozy-ui/transpiled/react'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import Button from 'cozy-ui/transpiled/react/Button'

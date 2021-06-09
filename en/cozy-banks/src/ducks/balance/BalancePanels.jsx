@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import GroupPanel from 'ducks/balance/GroupPanel'
 
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import { Button } from 'cozy-ui/transpiled/react/Button'
+import Button from 'cozy-ui/transpiled/react/Button'
 import flag from 'cozy-flags'
 
 import AddAccountLink from 'ducks/settings/AddAccountLink'
@@ -52,6 +52,7 @@ const BalancePanels = props => {
             onSwitchChange={onSwitchChange}
             onChange={onPanelChange}
             withBalance={withBalance}
+            initialVisibleAccounts={i < 2}
           />
         </Delayed>
       ))}

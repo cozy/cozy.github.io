@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 
-import { useI18n } from 'cozy-ui/transpiled/react'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
 import { PageTitle } from 'components/Title'

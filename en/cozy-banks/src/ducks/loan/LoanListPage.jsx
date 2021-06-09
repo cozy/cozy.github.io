@@ -12,7 +12,7 @@ import { BalanceDetailsHeader } from 'ducks/balance'
 import Padded from 'components/Padded'
 import compose from 'lodash/flowRight'
 import { accountsConn } from 'doctypes'
-import { useBreakpoints } from 'cozy-ui/transpiled/react'
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
 import RightIcon from 'cozy-ui/transpiled/react/Icons/Right'
 

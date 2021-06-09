@@ -92,7 +92,8 @@ const GroupPanel = props => {
     onSwitchChange,
     checked,
     withBalance,
-    className
+    className,
+    initialVisibleAccounts
   } = props
   const router = useRouter()
   const client = useClient()
@@ -219,6 +220,7 @@ const GroupPanel = props => {
               group={group}
               switches={switches}
               onSwitchChange={onSwitchChange}
+              initialVisibleAccounts={initialVisibleAccounts}
             />
           ) : (
             <Stack className="u-m-1">

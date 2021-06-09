@@ -1,6 +1,7 @@
 import React from 'react'
 import Padded from 'components/Padded'
-import { Field, useI18n } from 'cozy-ui/transpiled/react'
+import Field from 'cozy-ui/transpiled/react/Field'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Stack from 'cozy-ui/transpiled/react/Stack'
 
 import PageTitle from 'components/Title/PageTitle'

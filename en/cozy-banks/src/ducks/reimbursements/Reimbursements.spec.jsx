@@ -9,6 +9,10 @@ import { createMockClient } from 'cozy-client'
 import { render } from '@testing-library/react'
 import { getCategoryIdFromName } from 'ducks/categories/helpers'
 
+// Mock useVisible so that it considers all element as visible in the
+// viewport (IntersectionObserver not available during tests)
+jest.mock('hooks/useVisible', () => () => [null, true])
+
 // Needed to prevent unwanted updates (async component)
 // Otherwise we have an error "Warning: An update to StoreLink inside a test was not wrapped in act"
 jest.mock('hooks/useRedirectionURL', () => {

@@ -25,11 +25,10 @@ const getSortedAccounts = (group, accounts) => {
 }
 
 export const AccountsList = props => {
+  const { group, switches, onSwitchChange, initialVisibleAccounts } = props
   const client = useClient()
   const router = useRouter()
   const { filterByDoc } = useFilters()
-
-  const { group, switches, onSwitchChange } = props
 
   const groupAccounts = useMemo(() => {
     return client.hydrateDocuments(ACCOUNT_DOCTYPE, group.accounts.data)
@@ -71,6 +70,7 @@ export const AccountsList = props => {
             disabled={switchState.disabled}
             id={`${group._id}.accounts.${a._id}`}
             onSwitchChange={onSwitchChange}
+            initialVisible={initialVisibleAccounts}
           />
         )
 

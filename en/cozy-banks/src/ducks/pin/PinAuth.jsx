@@ -10,8 +10,10 @@ import { withClient, queryConnect } from 'cozy-client'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import { translate } from 'cozy-ui/transpiled/react//I18n'
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import { withBreakpoints, useI18n } from 'cozy-ui/transpiled/react'
+import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
+import LeftIcon from 'cozy-ui/transpiled/react/Icons/Left'
 
 import styles from 'ducks/pin/styles.styl'
 import PinWrapper from 'ducks/pin/PinWrapper'
@@ -22,8 +24,6 @@ import PinButton from 'ducks/pin/PinButton'
 import { PIN_MAX_LENGTH, MAX_ATTEMPT } from 'ducks/pin/constants'
 import openLock from 'assets/icons/icon-lock-open.svg'
 import fingerprint from 'assets/icons/icon-fingerprint.svg'
-
-import LeftIcon from 'cozy-ui/transpiled/react/Icons/Left'
 
 const AttemptCount_ = ({ current, max }) => {
   const { t } = useI18n()

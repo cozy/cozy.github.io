@@ -14,6 +14,7 @@ import Typography from 'cozy-ui/transpiled/react/Typography'
 import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
 import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
+import { Contact } from 'cozy-doctypes'
 
 import {
   getAccountLabel,
@@ -25,8 +26,8 @@ import { getWarningLimitPerAccount } from 'selectors'
 import styles from 'ducks/balance/AccountRow.styl'
 import ReimbursementsIcon from 'ducks/balance/ReimbursementsIcon'
 import AccountIcon from 'components/AccountIcon'
-import { Contact } from 'cozy-doctypes'
 import AccountCaption from 'ducks/balance/AccountRowCaption'
+import useVisible from 'hooks/useVisible'
 
 const Owners = React.memo(function Owners(props) {
   const { owners } = props
@@ -100,6 +101,10 @@ const EllipseTypography = withStyles({
   }
 })(Typography)
 
+const observerOptions = {
+  threshold: [0, 1]
+}
+
 const AccountRow = props => {
   const {
     account,
@@ -108,9 +113,10 @@ const AccountRow = props => {
     checked,
     disabled,
     onSwitchChange,
-    id
+    id,
+    initialVisible
   } = props
-
+  const [ref, visible] = useVisible(initialVisible, observerOptions)
   const { t } = useI18n()
   const { isMobile } = useBreakpoints()
   const owners = account.owners.data.filter(Boolean).filter(owner => !owner.me)
@@ -125,19 +131,31 @@ const AccountRow = props => {
     onClick
   ])
 
+  const classes = {
+    root: cx({
+      'u-pr-half': isMobile,
+      [styles['AccountRow--hasWarning']]: hasWarning,
+      [styles['AccountRow--hasAlert']]: hasAlert,
+      [styles['AccountRow--disabled']]:
+        (!checked || disabled) && account.loading !== true
+    })
+  }
+
+  if (!visible) {
+    return (
+      <ListItem ref={ref} classes={classes} onClick={handleClick}>
+        <ListItemIcon />
+        <ListItemText primary={t('Loading.loading')} secondary="&nbsp;" />
+      </ListItem>
+    )
+  }
+
   return (
     <ListItem
+      ref={ref}
       button
       disableRipple
-      classes={{
-        root: cx({
-          'u-pr-half': isMobile,
-          [styles['AccountRow--hasWarning']]: hasWarning,
-          [styles['AccountRow--hasAlert']]: hasAlert,
-          [styles['AccountRow--disabled']]:
-            (!checked || disabled) && account.loading !== true
-        })
-      }}
+      classes={classes}
       onClick={handleClick}
     >
       <ListItemIcon>

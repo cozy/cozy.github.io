@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useI18n } from 'cozy-ui/transpiled/react'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import cx from 'classnames'
 import UINav, {
   NavItem,

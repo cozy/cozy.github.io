@@ -4,7 +4,7 @@ import { useQuery } from 'cozy-client'
 import flag from 'cozy-flags'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 
-import { transactionsConn, makeBalanceTransactionsConn } from 'doctypes'
+import { makeBalanceTransactionsConn } from 'doctypes'
 import Padded from 'components/Padded'
 import Header from 'components/Header'
 import KonnectorUpdateInfo from 'components/KonnectorUpdateInfo'
@@ -22,9 +22,7 @@ const BalanceHeader = ({
   subtitleParams,
   onClickBalance
 }) => {
-  const conn = flag('banks.perf.use-balance-transactions-conn')
-    ? makeBalanceTransactionsConn()
-    : transactionsConn
+  const conn = makeBalanceTransactionsConn()
   const transactions = useQuery(conn.query, conn)
   const { t } = useI18n()
   const subtitle = subtitleParams
@@ -60,7 +58,5 @@ const BalanceHeader = ({
     </Header>
   )
 }
-
-export const DumbBalanceHeader = BalanceHeader
 
 export default memo(BalanceHeader)

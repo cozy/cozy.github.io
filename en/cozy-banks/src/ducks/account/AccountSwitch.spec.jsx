@@ -7,8 +7,9 @@ import { createMockClient } from 'cozy-client/dist/mock'
 import AppLike from 'test/AppLike'
 import fixtures from 'test/fixtures'
 import getClient from 'selectors/getClient'
+import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 
-const accounts = fixtures['io.cozy.bank.accounts']
+const accounts = fixtures[ACCOUNT_DOCTYPE]
 
 jest.mock('selectors/getClient', () => jest.fn())
 
@@ -17,8 +18,12 @@ describe('account switch', () => {
     const client = createMockClient({
       queries: {
         accounts: {
-          doctype: 'io.cozy.bank.accounts',
+          doctype: ACCOUNT_DOCTYPE,
           data: accounts
+        },
+        groups: {
+          doctype: GROUP_DOCTYPE,
+          data: []
         }
       }
     })

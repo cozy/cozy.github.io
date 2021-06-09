@@ -13,7 +13,7 @@ import {
   getNotificationFromConfig,
   getWarningLimitsPerAccount as getWarningLimitsPerAccountRaw
 } from 'ducks/settings/helpers'
-import { ACCOUNT_DOCTYPE } from 'doctypes'
+import { ACCOUNT_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
 
 const updatedAtSameTime = (currentQuery, prevQuery) => {
   return (
@@ -63,9 +63,26 @@ export const queryDataSelector = (queryName, options) =>
     query => (query && query.data) || []
   )
 
-export const getTransactionsRaw = queryDataSelector('transactions', {
-  hydrated: true
-})
+export const documentSelector = (doctype, options = {}) =>
+  createSelector(
+    [state => state.cozy.documents[doctype]],
+    documents => {
+      const client = getClient()
+      const docs = Object.values(documents || {})
+      return options.hydrated ? client.hydrateDocuments(doctype, docs) : docs
+    }
+  )
+
+export const getTransactionsRaw = createSelector(
+  [
+    documentSelector(TRANSACTION_DOCTYPE, {
+      hydrated: true
+    })
+  ],
+  partialTransactions => {
+    return partialTransactions.filter(x => !!x.label)
+  }
+)
 
 export const getGroups = queryDataSelector('groups', {
   hydrated: true

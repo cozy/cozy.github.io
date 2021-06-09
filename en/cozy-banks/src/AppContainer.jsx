@@ -18,7 +18,7 @@ import { TrackerProvider } from 'ducks/tracking/browser'
 import JobsProvider from 'ducks/context/JobsContext'
 import BanksProvider from 'ducks/context/BanksContext'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
-import { initTranslation } from 'cozy-ui/react/I18n'
+import { initTranslation } from 'cozy-ui/transpiled/react/I18n'
 
 const jobsProviderOptions = t => ({
   onSuccess: () => Alerter.success(t('JobsContext.alerter-success')),

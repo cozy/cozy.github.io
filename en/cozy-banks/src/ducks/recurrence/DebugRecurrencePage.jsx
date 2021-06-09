@@ -183,7 +183,9 @@ const RecurrenceBundle = ({ bundle }) => {
       <table style={{ fontSize: 'small' }}>
         {sortBy(bundle.ops, x => x.date).map(x => (
           <tr key={x._id} style={x.new ? newStyle : null}>
-            <td>{<CategoryIcon categoryId={getCategoryId(x)} size={8} />}</td>
+            <td>
+              <CategoryIcon categoryId={getCategoryId(x)} size={8} />
+            </td>
             <td>{x.label}</td>
             <td>{x.date.slice(0, 10)}</td>
             <td>{x.amount}</td>

@@ -8,7 +8,7 @@ import {
 import BillChip from 'ducks/transactions/actions/AttachedDocsAction/BillChip'
 import iconAttachment from 'assets/icons/icon-attachment.svg'
 import uniqBy from 'lodash/uniqBy'
-import { Icon } from 'cozy-ui/transpiled/react'
+import Icon from 'cozy-ui/transpiled/react/Icon'
 import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
 import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'

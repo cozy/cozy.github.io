@@ -1,5 +1,7 @@
-import React from 'react'
-import SelectDates from 'components/SelectDates'
+import React, { useState, useEffect, useMemo } from 'react'
+import { useSelector } from 'react-redux'
+import CozyClient from 'cozy-client'
+import SelectDates, { monthRange } from 'components/SelectDates'
 import last from 'lodash/last'
 import uniq from 'lodash/uniq'
 import {
@@ -9,7 +11,11 @@ import {
   differenceInCalendarMonths,
   isAfter
 } from 'date-fns'
+import { useQuery, useClient } from 'cozy-client'
 import { getDate } from 'ducks/transactions/helpers'
+import { getFilteringDoc } from 'ducks/filters'
+import { groupsConn, accountsConn } from 'doctypes'
+import { makeFilteredTransactionsConn } from './queries'
 
 const rangeMonth = (startDate, endDate) => {
   const options = []
@@ -42,11 +48,81 @@ export const getOptions = transactions => {
   })
 }
 
-const TransactionSelectDates = props => {
-  const { transactions, ...rest } = props
-  const options = getOptions(transactions)
+const useConn = conn => {
+  return useQuery(conn.query, conn)
+}
 
-  return <SelectDates options={options} {...rest} />
+// We do not want queries with the minimal and maximal transaction to receive
+// transactions from other queries
+const extentAutoUpdateOptions = { update: true, add: false, remove: false }
+
+const useTransactionExtent = () => {
+  const client = useClient()
+  const accounts = useConn(accountsConn)
+  const groups = useConn(groupsConn)
+  const filteringDoc = useSelector(getFilteringDoc)
+  const transactionsConn = makeFilteredTransactionsConn({
+    filteringDoc,
+    accounts,
+    groups
+  })
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    const fetch = async () => {
+      const q = transactionsConn.query()
+      const latestQuery = q
+        .limitBy(1)
+        .sortBy([{ date: 'desc' }])
+        .indexFields(['date'])
+      const earliestQuery = q
+        .sortBy([{ date: 'asc' }])
+        .limitBy(1)
+        .indexFields(['date'])
+      const [earliest, latest] = await Promise.all(
+        [earliestQuery, latestQuery].map(async (q, i) => {
+          const queryName = `${transactionsConn.as}-${
+            i === 0 ? 'earliest' : 'latest'
+          }`
+          await client.query(q, {
+            fetchPolicy: CozyClient.fetchPolicies.olderThan(30 * 1000),
+            as: queryName,
+            autoUpdate: extentAutoUpdateOptions
+          })
+          return client.getQueryFromState(queryName)
+        })
+      )
+      setData([earliest.data[0], latest.data[0]])
+    }
+
+    if (transactionsConn.enabled) {
+      fetch()
+    }
+  }, [transactionsConn.enabled, transactionsConn.as]) // eslint-disable-line
+
+  return data
+}
+
+const TransactionSelectDates = props => {
+  const [earliestTransaction, latestTransaction] = useTransactionExtent()
+  const options = useMemo(() => {
+    if (!earliestTransaction || !latestTransaction) {
+      return []
+    }
+    const { date: earliestDate } = earliestTransaction
+    const { date: latestDate } = latestTransaction
+    return monthRange(new Date(earliestDate), new Date(latestDate))
+      .map(date => ({
+        yearMonth: format(date, 'YYYY-MM'),
+        disabled: false
+      }))
+      .reverse()
+  }, [earliestTransaction, latestTransaction])
+  return (
+    <>
+      <SelectDates options={options} {...props} />
+    </>
+  )
 }
 
 export default React.memo(TransactionSelectDates)

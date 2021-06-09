@@ -10,7 +10,8 @@ import Fuse from 'fuse.js'
 
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
-import { useI18n, Empty } from 'cozy-ui/transpiled/react'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import Empty from 'cozy-ui/transpiled/react/Empty'
 import NarrowContent from 'cozy-ui/transpiled/react/NarrowContent'
 
 import { useQuery } from 'cozy-client'

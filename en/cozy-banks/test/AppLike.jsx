@@ -1,5 +1,5 @@
 import React from 'react'
-import { I18n } from 'cozy-ui/transpiled/react'
+import I18n from 'cozy-ui/transpiled/react/I18n'
 import { CozyProvider } from 'cozy-client'
 import { Provider } from 'react-redux'
 import langEn from 'locales/en.json'

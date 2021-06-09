@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
-import { Stack, useI18n } from 'cozy-ui/transpiled/react'
+import Stack from 'cozy-ui/transpiled/react/Stack'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import AddRuleButton from 'ducks/settings/AddRuleButton'
 import useList from './useList'
 import { getRuleId, getNextRuleId } from './ruleUtils'

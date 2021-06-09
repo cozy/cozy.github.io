@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import tosIcon from 'assets/icons/icon-tos.svg'
-import { translate } from 'cozy-ui/transpiled/react'
+import { translate } from 'cozy-ui/transpiled/react/I18n'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import Button from 'cozy-ui/transpiled/react/Button'
 import styles from 'ducks/warnings/WarningsModal.styl'

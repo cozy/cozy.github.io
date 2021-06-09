@@ -2,11 +2,12 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import sortBy from 'lodash/sortBy'
 import Fuse from 'fuse.js'
-import {
-  NestedSelect,
-  NestedSelectModal,
-  translate
-} from 'cozy-ui/transpiled/react'
+
+import NestedSelect, {
+  NestedSelectModal
+} from 'cozy-ui/transpiled/react/NestedSelect'
+import { translate } from 'cozy-ui/transpiled/react/I18n'
+
 import {
   CategoryIcon,
   getCategories,

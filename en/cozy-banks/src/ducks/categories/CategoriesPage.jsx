@@ -1,41 +1,56 @@
-import React, { Component, Fragment } from 'react'
-import { withRouter } from 'react-router'
-import { connect } from 'react-redux'
+import React, { Component, Fragment, useMemo } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
+import LinearProgress from '@material-ui/core/LinearProgress'
+import Box from '@material-ui/core/Box'
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import getCategoryId from 'ducks/transactions/getCategoryId'
+import { getCategoryIdFromName } from 'ducks/categories/helpers'
+
+import startOfMonth from 'date-fns/start_of_month'
+import endOfMonth from 'date-fns/end_of_month'
+import startOfYear from 'date-fns/start_of_year'
+import endOfYear from 'date-fns/end_of_year'
+import format from 'date-fns/format'
+
+import includes from 'lodash/includes'
+import maxBy from 'lodash/maxBy'
+import some from 'lodash/some'
+import merge from 'lodash/merge'
+import sortBy from 'lodash/sortBy'
+
+import CategoriesHeader from 'ducks/categories/CategoriesHeader'
+import {
+  useClient,
+  isQueryLoading,
+  hasQueryBeenLoaded,
+  useQuery,
+  Q
+} from 'cozy-client'
+
+import { useParams } from 'components/RouterContext'
 import Loading from 'components/Loading'
 import Padded from 'components/Padded'
 import {
   resetFilterByDoc,
   addFilterByPeriod,
   getFilteringDoc,
-  getTransactionsFilteredByAccount
+  getPeriod
 } from 'ducks/filters'
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import Categories from 'ducks/categories/Categories'
-import includes from 'lodash/includes'
-import some from 'lodash/some'
-import sortBy from 'lodash/sortBy'
-import compose from 'lodash/flowRight'
-import CategoriesHeader from 'ducks/categories/CategoriesHeader'
-import {
-  withClient,
-  queryConnect,
-  isQueryLoading,
-  hasQueryBeenLoaded
-} from 'cozy-client'
-import {
-  accountsConn,
-  settingsConn,
-  transactionsConn,
-  groupsConn
-} from 'doctypes'
+import { accountsConn, settingsConn, groupsConn } from 'doctypes'
+
+import { makeFilteredTransactionsConn } from 'ducks/transactions/queries'
 import BarTheme from 'ducks/bar/BarTheme'
-import { getCategoriesData } from 'ducks/categories/selectors'
-import maxBy from 'lodash/maxBy'
+import { computeCategoriesData } from 'ducks/categories/selectors'
 import { getDate } from 'ducks/transactions/helpers'
 import { trackPage } from 'ducks/tracking/browser'
-import { TransactionsPageWithBackButton } from 'ducks/transactions'
+import { TransactionList } from 'ducks/transactions/Transactions'
 import { onSubcategory } from './utils'
 import Delayed from 'components/Delayed'
+import useLast from 'hooks/useLast'
+import useFullyLoadedQuery from 'hooks/useFullyLoadedQuery'
 
 const isCategoryDataEmpty = categoryData => {
   return categoryData[0] && isNaN(categoryData[0].percentage)
@@ -51,22 +66,57 @@ const goToCategory = (router, selectedCategory, subcategory) => {
   }
 }
 
-export class CategoriesPage extends Component {
+const ProgressContainerDesktop = ({ children }) => {
+  const { isMobile } = useBreakpoints()
+  return isMobile ? null : (
+    <Box minHeight={8} marginBottom={-1}>
+      {children}
+    </Box>
+  )
+}
+
+const CategoryTransactions = ({ transactions, subcategoryName }) => {
+  const categoryTransactions = useMemo(() => {
+    const categoryId = getCategoryIdFromName(subcategoryName)
+    return transactions
+      ? transactions.filter(t => {
+          const tc = getCategoryId(t)
+          return tc === categoryId
+        })
+      : []
+  }, [subcategoryName, transactions])
+  return (
+    <div className="js-scrolling-element">
+      <TransactionList
+        showTriggerErrors={false}
+        onChangeTopMostTransaction={null}
+        onScroll={null}
+        transactions={categoryTransactions}
+        canFetchMore={false}
+        filteringOnAccount={true}
+        manualLoadMore={false}
+        onReachBottom={null}
+      />
+    </div>
+  )
+}
+
+class CategoriesPage extends Component {
   componentDidMount() {
-    const { filteringDoc, resetFilterByDoc } = this.props
+    const { filteringDoc, dispatch } = this.props
     if (
       filteringDoc &&
       includes(['Reimbursements', 'health_reimbursements'], filteringDoc._id)
     ) {
-      resetFilterByDoc()
+      dispatch(resetFilterByDoc())
     }
     this.checkToChangeFilter()
     this.trackPage()
   }
 
   trackPage() {
-    const { router } = this.props
-    const { categoryName, subcategoryName } = router.params
+    const { params } = this.props
+    const { categoryName, subcategoryName } = params
     trackPage(
       `analyse:${categoryName ? categoryName : 'home'}${
         subcategoryName ? `:details` : ''
@@ -75,26 +125,29 @@ export class CategoriesPage extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const prevParams = prevProps.router.params
-    const curParams = this.props.router.params
-    if (
-      !prevProps.transactions.lastUpdate &&
-      this.props.transactions.lastUpdate
-    ) {
-      this.checkToChangeFilter()
-    } else if (prevParams.categoryName !== curParams.categoryName) {
+    const prevParams = prevProps.params
+    const curParams = this.props.params
+    // if (
+    //   !prevProps.transactions.lastUpdate &&
+    //   this.props.transactions.lastUpdate
+    // ) {
+    //   this.checkToChangeFilter()
+    // }
+
+    if (prevParams.categoryName !== curParams.categoryName) {
       this.trackPage()
     }
   }
 
   checkToChangeFilter() {
+    const { categories, filteredTransactionsByAccount, dispatch } = this.props
     // If we do not have any data to show, change the period filter
     // to the latest period available for the current account
-    if (isCategoryDataEmpty(this.props.categories)) {
-      const transactions = this.props.filteredTransactionsByAccount
+    if (isCategoryDataEmpty(categories)) {
+      const transactions = filteredTransactionsByAccount
       if (transactions && transactions.length > 0) {
         const maxDate = getDate(maxBy(transactions, getDate))
-        this.props.addFilterByPeriod(maxDate.slice(0, 7))
+        dispatch(addFilterByPeriod(maxDate.slice(0, 7)))
       }
     }
   }
@@ -120,7 +173,8 @@ export class CategoriesPage extends Component {
       transactions,
       router,
       accounts,
-      settings
+      settings,
+      isFetching: isFetchingNewData
     } = this.props
     const isFetching = some(
       [accounts, transactions, settings],
@@ -159,6 +213,9 @@ export class CategoriesPage extends Component {
           hasAccount={hasAccount}
           chart={!isSubcategory}
         />
+        <ProgressContainerDesktop>
+          {isFetchingNewData ? <LinearProgress /> : null}
+        </ProgressContainerDesktop>
         <Delayed delay={this.props.delayContent}>
           {hasAccount &&
             (isFetching ? (
@@ -177,11 +234,9 @@ export class CategoriesPage extends Component {
                 filterWithInCome={this.filterWithInCome}
               />
             ) : (
-              <TransactionsPageWithBackButton
-                className="u-pt-0"
-                showFutureBalance={false}
-                showTriggerErrors={false}
-                showHeader={false}
+              <CategoryTransactions
+                subcategoryName={router.params.subcategoryName}
+                transactions={transactions.data}
               />
             ))}
         </Delayed>
@@ -194,30 +249,94 @@ CategoriesPage.defaultProps = {
   delayContent: 0
 }
 
-const mapDispatchToProps = dispatch => ({
-  resetFilterByDoc: () => dispatch(resetFilterByDoc()),
-  addFilterByPeriod: period => dispatch(addFilterByPeriod(period))
-})
+const autoUpdateOptions = {
+  add: false,
+  remove: true,
+  update: true
+}
 
-const mapStateToProps = (state, ownProps) => {
+const addPeriodToConn = (baseConn, period) => {
+  const { query: baseQuery, as: baseAs, ...rest } = baseConn
+  const d = new Date(period)
+  const startDate = period.length === 7 ? startOfMonth(d) : startOfYear(d)
+  const endDate = period.length === 7 ? endOfMonth(d) : endOfYear(d)
+  const query = Q(baseQuery().doctype)
+    .where(
+      merge(
+        {
+          date: {
+            $lte: format(endDate, 'YYYY-MM-DD'),
+            $gte: format(startDate, 'YYYY-MM-DD')
+          }
+        },
+        baseQuery.selector
+      )
+    )
+    .indexFields(['date', 'account'])
+    .sortBy([{ date: 'desc' }, { account: 'desc' }])
+    .limitBy(500)
+  const as = `${baseAs}-${format(startDate, 'YYYY-MM')}-${format(
+    endDate,
+    'YYYY-MM'
+  )}`
   return {
-    categories: getCategoriesData(state, ownProps),
-    filteringDoc: getFilteringDoc(state),
-    filteredTransactionsByAccount: getTransactionsFilteredByAccount(state)
+    query,
+    as,
+    autoUpdate: autoUpdateOptions,
+    ...rest
   }
 }
 
-export default compose(
-  withRouter,
-  withClient,
-  queryConnect({
-    accounts: accountsConn,
-    transactions: transactionsConn,
-    settings: settingsConn,
-    groups: groupsConn
-  }),
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
+const setAutoUpdate = conn => ({ ...conn, autoUpdate: autoUpdateOptions })
+
+const enhance = Component => props => {
+  const client = useClient()
+  const params = useParams()
+  const accounts = useQuery(accountsConn.query, accountsConn)
+  const groups = useQuery(groupsConn.query, groupsConn)
+  const settings = useQuery(settingsConn.query, settingsConn)
+
+  const filteringDoc = useSelector(getFilteringDoc)
+  const period = useSelector(getPeriod)
+  const dispatch = useDispatch()
+
+  const initialConn = makeFilteredTransactionsConn({
+    groups,
+    accounts,
+    filteringDoc
+  })
+  const conn = useMemo(() => {
+    return period
+      ? addPeriodToConn(initialConn, period)
+      : setAutoUpdate(initialConn)
+  }, [initialConn, period])
+  const transactions = useFullyLoadedQuery(conn.query, conn)
+  const col = useLast(transactions, (last, cur) => {
+    return !last || (cur.lastUpdate && !cur.hasMore)
+  })
+
+  const categories = useMemo(() => {
+    return computeCategoriesData(col.data || [])
+  }, [col.data])
+  return (
+    <Component
+      {...props}
+      accounts={accounts}
+      groups={groups}
+      settings={settings}
+      categories={categories}
+      transactions={col}
+      filteringDoc={filteringDoc}
+      period={period}
+      client={client}
+      params={params}
+      filteredTransactionsByAccount={col.data}
+      dispatch={dispatch}
+      isFetching={
+        transactions.fetchStatus === 'loading' || transactions.hasMore
+      }
+    />
   )
-)(CategoriesPage)
+}
+
+export default enhance(CategoriesPage)

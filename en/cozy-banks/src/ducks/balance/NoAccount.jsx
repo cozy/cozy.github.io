@@ -1,5 +1,6 @@
 import React, { memo } from 'react'
-import { useBreakpoints, useI18n } from 'cozy-ui/transpiled/react'
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Button from 'cozy-ui/transpiled/react/Button'
 import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
 import PageTitle from 'components/Title/PageTitle'

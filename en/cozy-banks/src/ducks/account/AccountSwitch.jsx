@@ -1,12 +1,10 @@
-import React, { useCallback, useState, useMemo } from 'react'
+import React, { useCallback, useState, useMemo, memo } from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import compose from 'lodash/flowRight'
+import { useDispatch, useSelector } from 'react-redux'
 import sortBy from 'lodash/sortBy'
 import cx from 'classnames'
-import { createStructuredSelector } from 'reselect'
 
-import { queryConnect, Q } from 'cozy-client'
+import { useQuery } from 'cozy-client'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import Icon from 'cozy-ui/transpiled/react/Icon'
@@ -36,7 +34,12 @@ import {
 } from 'ducks/filters'
 
 import styles from 'ducks/account/AccountSwitch.styl'
-import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
+import {
+  ACCOUNT_DOCTYPE,
+  GROUP_DOCTYPE,
+  groupsConn,
+  accountsConn
+} from 'doctypes'
 import { getGroupLabel } from 'ducks/groups/helpers'
 
 import { getVirtualGroups } from 'selectors'
@@ -315,20 +318,16 @@ const selectPropsBySize = {
  *
  */
 const AccountSwitch = props => {
-  const {
-    filteringDoc,
-    filterByDoc,
-    filteredAccounts,
-    resetFilterByDoc,
-    size,
-    accounts: accountsCollection,
-    groups: groupsCollection,
-    virtualGroups,
-    insideBar
-  } = props
+  const { size, insideBar } = props
+
+  const accountsCollection = useQuery(accountsConn.query, accountsConn)
+  const groupsCollection = useQuery(groupsConn.query, groupsConn)
   const [open, setOpen] = useState()
   const { t } = useI18n()
   const { isMobile } = useBreakpoints()
+  const filteringDoc = useSelector(getFilteringDoc)
+  const filteredAccounts = useSelector(getFilteredAccounts)
+  const virtualGroups = useSelector(getVirtualGroups)
 
   const handleToggle = useCallback(
     ev => {
@@ -346,23 +345,34 @@ const AccountSwitch = props => {
     [setOpen]
   )
 
+  const dispatch = useDispatch()
+
+  const handleFilterByDoc = useCallback(
+    doc => {
+      dispatch(filterByDoc(doc))
+      handleClose()
+    },
+    [dispatch, handleClose]
+  )
+
+  const handleResetFilterByDoc = useCallback(() => {
+    dispatch(resetFilterByDoc())
+    handleClose()
+  }, [dispatch, handleClose])
+
   const accounts = accountsCollection.data
   const groups = [...groupsCollection.data, ...virtualGroups].map(group => ({
     ...group,
     label: getGroupLabel(group, t)
   }))
 
-  const closeAfterSelect = cb => param => {
-    cb(param)
-    handleClose()
-  }
-
   // TODO remove if https://github.com/cozy/cozy-client/issues/834 is solved
   // It seems there is a bug in cozy-client when we delete a document
   // The document is removed in the store, but still referenced in the collection
   // So we may get an undefined group. We filter it before sorting
-  const orderedGroups = sortBy(groups.filter(Boolean), x =>
-    x.label.toLowerCase()
+  const orderedGroups = useMemo(
+    () => sortBy(groups.filter(Boolean), x => x.label.toLowerCase()),
+    [groups]
   )
 
   const selectProps = selectPropsBySize[size]
@@ -394,8 +404,8 @@ const AccountSwitch = props => {
             content={
               <AccountSwitchMenu
                 filteringDoc={filteringDoc}
-                filterByDoc={closeAfterSelect(filterByDoc)}
-                resetFilterByDoc={closeAfterSelect(resetFilterByDoc)}
+                filterByDoc={handleFilterByDoc}
+                resetFilterByDoc={handleResetFilterByDoc}
                 close={handleClose}
                 groups={orderedGroups}
                 accounts={accounts}
@@ -409,9 +419,6 @@ const AccountSwitch = props => {
 }
 
 AccountSwitch.propTypes = {
-  filterByDoc: PropTypes.func.isRequired,
-  resetFilterByDoc: PropTypes.func.isRequired,
-  filteringDoc: filteringDocPropType,
   insideBar: PropTypes.bool
 }
 
@@ -420,24 +427,4 @@ AccountSwitch.defaultProps = {
   insideBar: true
 }
 
-const mapStateToProps = createStructuredSelector({
-  filteringDoc: getFilteringDoc,
-  filteredAccounts: getFilteredAccounts,
-  virtualGroups: getVirtualGroups
-})
-
-const mapDispatchToProps = dispatch => ({
-  resetFilterByDoc: () => dispatch(resetFilterByDoc()),
-  filterByDoc: doc => dispatch(filterByDoc(doc))
-})
-
-export default compose(
-  queryConnect({
-    accounts: { query: () => Q(ACCOUNT_DOCTYPE), as: 'accounts' },
-    groups: { query: () => Q(GROUP_DOCTYPE), as: 'groups' }
-  }),
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )
-)(AccountSwitch)
+export default memo(AccountSwitch)

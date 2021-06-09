@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card } from 'cozy-ui/transpiled/react'
+import { Card } from 'cozy-ui/transpiled/react/Card'
 import styles from './styles.styl'
 import cx from 'classnames'
 

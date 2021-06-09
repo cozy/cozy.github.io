@@ -156,7 +156,8 @@ describe('Reimbursement virtual group styling', () => {
     manualCategoryId: '400610',
     amount: -10,
     _id: 'transaction-1234',
-    date: '2019-10-19T00:00'
+    date: '2019-10-19T00:00',
+    label: 'A health expense'
   }
 
   const virtualReimbursementGroup = {

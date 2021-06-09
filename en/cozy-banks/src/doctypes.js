@@ -2,6 +2,9 @@ import fromPairs from 'lodash/fromPairs'
 import CozyClient, { QueryDefinition, HasManyInPlace, Q } from 'cozy-client'
 import subYears from 'date-fns/sub_years'
 
+// eslint-disable-next-line no-unused-vars
+import { Connection } from './types'
+
 export const RECIPIENT_DOCTYPE = 'io.cozy.bank.recipients'
 export const ACCOUNT_DOCTYPE = 'io.cozy.bank.accounts'
 export const GROUP_DOCTYPE = 'io.cozy.bank.groups'
@@ -227,10 +230,9 @@ export const makeBalanceTransactionsConn = () => {
             $gt: fromDate
           }
         })
-        .sortBy([{ date: 'asc' }])
+        .sortBy([{ date: 'desc' }])
         .indexFields(['date'])
-        .select(['date', 'amount', 'account']),
-    fetchPolicy: older30s
+        .select(['date', 'amount', 'account', 'currency'])
   }
 }
 

@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { useI18n } from 'cozy-ui/transpiled/react'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Chip from 'cozy-ui/transpiled/react/Chip'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'

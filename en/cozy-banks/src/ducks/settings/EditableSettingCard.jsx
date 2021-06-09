@@ -1,6 +1,8 @@
 import React, { useState, useMemo, memo } from 'react'
 import PropTypes from 'prop-types'
-import { Media, Bd, Img, Icon, useI18n } from 'cozy-ui/transpiled/react'
+import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import resultWithArgs from 'utils/resultWithArgs'
 import { markdownBold } from './helpers'
 

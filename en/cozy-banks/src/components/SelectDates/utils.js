@@ -1,3 +1,6 @@
+import startOfMonth from 'date-fns/start_of_month'
+import addMonths from 'date-fns/add_months'
+
 const rangedSome = (arr, predicate, start, end) => {
   start = Math.max(start, 0)
   end = Math.min(end, arr.length)
@@ -11,6 +14,17 @@ const rangedSome = (arr, predicate, start, end) => {
     }
   }
   return false
+}
+
+export const monthRange = (earliestDate, latestDate, step = 1) => {
+  const res = []
+  let cur = earliestDate
+  while (cur < latestDate) {
+    res.push(cur)
+    const sm = startOfMonth(cur)
+    cur = addMonths(sm, step)
+  }
+  return res
 }
 
 export { rangedSome }

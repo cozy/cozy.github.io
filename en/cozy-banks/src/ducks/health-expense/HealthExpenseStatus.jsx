@@ -1,5 +1,5 @@
 import React from 'react'
-import { useI18n } from 'cozy-ui/transpiled/react'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import { formatVendor } from 'ducks/health-expense/helpers'
 import palette from 'cozy-ui/transpiled/react/palette'

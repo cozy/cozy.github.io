@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from 'cozy-ui/transpiled/react'
+import Button from 'cozy-ui/transpiled/react/Button'
 
 import Bottom from 'components/Bottom'
 import Padded from 'components/Padded'

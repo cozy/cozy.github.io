@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import get from 'lodash/get'
 import sortBy from 'lodash/sortBy'
 
-import { useI18n } from 'cozy-ui/transpiled/react'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Button from 'cozy-ui/transpiled/react/MuiCozyTheme/Buttons'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import Typography from 'cozy-ui/transpiled/react/Typography'

@@ -30,7 +30,6 @@ import {
   GROUP_DOCTYPE,
   TRIGGER_DOCTYPE,
   TRANSACTION_DOCTYPE,
-  transactionsConn,
   makeBalanceTransactionsConn
 } from 'doctypes'
 
@@ -54,6 +53,7 @@ import { trackPage } from 'ducks/tracking/browser'
 import { isVirtualAccount } from 'ducks/balance/helpers'
 import ImportGroupPanel from 'ducks/balance/ImportGroupPanel'
 import Delayed from 'components/Delayed'
+import useFullyLoadedQuery from 'hooks/useFullyLoadedQuery'
 
 const syncPouchImmediately = async client => {
   const pouchLink = client.links.find(link => link.pouches)
@@ -279,20 +279,8 @@ class Balance extends PureComponent {
     this.stopResumeListeners()
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate() {
     this.ensureListenersProperlyConfigured()
-    this.ensureTransactionsAreFullyLoaded(prevProps.transactions)
-  }
-
-  ensureTransactionsAreFullyLoaded(prevTransactions) {
-    const { transactions } = this.props
-    if (
-      prevTransactions.fetchStatus === 'loading' &&
-      transactions.fetchStatus === 'loaded' &&
-      transactions.hasMore
-    ) {
-      transactions.fetchMore()
-    }
   }
 
   ensureListenersProperlyConfigured() {
@@ -454,6 +442,17 @@ const actionCreators = {
   filterByAccounts
 }
 
+const addTransactions = Component => {
+  const Wrapped = props => {
+    const conn = makeBalanceTransactionsConn()
+    const transactions = useFullyLoadedQuery(conn.query, conn)
+    return <Component {...props} transactions={transactions} />
+  }
+  Wrapped.displayName = `withTransactions(${Component.displayName ||
+    Component.name})`
+  return Wrapped
+}
+
 export default compose(
   withRouter,
   connect(
@@ -464,10 +463,7 @@ export default compose(
     accounts: accountsConn,
     groups: groupsConn,
     settings: settingsConn,
-    triggers: cronKonnectorTriggersConn,
-    transactions: flag('banks.perf.use-balance-transactions-conn')
-      ? makeBalanceTransactionsConn()
-      : transactionsConn
+    triggers: cronKonnectorTriggersConn
   }),
   connect(
     createStructuredSelector({
@@ -475,5 +471,6 @@ export default compose(
       virtualGroups: getVirtualGroups
     })
   ),
-  withClient
+  withClient,
+  addTransactions
 )(Balance)

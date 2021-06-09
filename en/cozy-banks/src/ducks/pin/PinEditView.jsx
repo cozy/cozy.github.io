@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import compose from 'lodash/flowRight'
 
-import { translate, useI18n } from 'cozy-ui/transpiled/react'
+import { translate, useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import Icon from 'cozy-ui/transpiled/react/Icon'

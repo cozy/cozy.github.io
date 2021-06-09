@@ -1787,6 +1787,13 @@
   dependencies:
     "@types/node" "*"
 
+"@types/classnames@^2.3.1":
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@types/classnames/-/classnames-2.3.1.tgz#3c2467aa0f1a93f1f021e3b9bcf938bd5dfdc0dd"
+  integrity sha512-zeOWb0JGBoVmlQoznvqXbE0tEC/HONsnoUNH19Hc96NFsTAwTXbTqb8FMYkru1F/iqp7a18Ws3nWJvtA1sHD1A==
+  dependencies:
+    classnames "*"
+
 "@types/events@*":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@types/events/-/events-3.0.0.tgz#2862f3f58a9a7f7c3e78d79f130dd4d71c25c2a7"
@@ -1842,6 +1849,11 @@
   dependencies:
     jest-diff "^26.0.0"
     pretty-format "^26.0.0"
+
+"@types/lodash@^4.14.170":
+  version "4.14.170"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.170.tgz#0d67711d4bf7f4ca5147e9091b847479b87925d6"
+  integrity sha512-bpcvu/MKHHeYX+qeEN8GE7DIravODWdACVA1ctevD8CN24RhPZIKMn9ntfAsrvLfSX3cR5RrBKAbYm9bGs0A+Q==
 
 "@types/minimatch@*":
   version "3.0.3"
@@ -3953,6 +3965,11 @@ classificator@0.3.3, classificator@^0.3.3:
   dependencies:
     decimal.js "^10.0.0"
 
+classnames@*:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.3.1.tgz#dfcfa3891e306ec1dad105d0e88f4417b8535e8e"
+  integrity sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==
+
 classnames@2.2.6, classnames@^2.2.5, classnames@^2.2.6:
   version "2.2.6"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
@@ -4827,18 +4844,19 @@ cozy-client@13.8.3:
     sift "^6.0.0"
     url-search-params-polyfill "^7.0.0"
 
-cozy-client@23.1.2, cozy-client@^23.0.0:
-  version "23.1.2"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-23.1.2.tgz#836570a2fdc123266895f00cde0af2390adf9df0"
-  integrity sha512-+Z3hkBcKy7+VpkqXzLskoI5nJkRXVgjxXszrPqlt60FHCbEMmYmOZ50siYnSMSaedg3rR9rQODgnRkko1v6ZSA==
+cozy-client@23.5.0, cozy-client@^23.5.0:
+  version "23.5.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-23.5.0.tgz#efdc42bec6a54d3d44ec94633d0e438a46bc5fbb"
+  integrity sha512-ZZWI2D6X0oP0azwcDm9WkiKN1xShYmYkdlvtLbApUh3oub1fuaKmc1SJsLNzZcXqdsht5v1SPzBViDqRybSz0w==
   dependencies:
     "@cozy/minilog" "1.0.0"
     "@types/jest" "^26.0.20"
+    "@types/lodash" "^4.14.170"
     btoa "^1.2.1"
     cozy-device-helper "^1.12.0"
     cozy-flags "2.7.1"
     cozy-logger "^1.6.0"
-    cozy-stack-client "^23.0.0"
+    cozy-stack-client "^23.5.0"
     lodash "^4.17.13"
     microee "^0.0.6"
     node-fetch "^2.6.1"
@@ -5097,16 +5115,16 @@ cozy-notifications@0.12.0:
     mjml "4.3.1"
     word-wrap "^1.2.3"
 
-cozy-pouch-link@23.0.0:
-  version "23.0.0"
-  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-23.0.0.tgz#f17a9546c160b4e053f67c45ae8591d3181d2e25"
-  integrity sha512-164wDarCyQZm5VDS+0AlL39avr1IVgM/aSGhP79szcOjd6d1MiHYSVgcBlMzXUr20HXbKXcAwk1F29jPm9m8sg==
+cozy-pouch-link@23.5.0:
+  version "23.5.0"
+  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-23.5.0.tgz#511cf0b17cdde681c43f73d37d18f253f962b7ec"
+  integrity sha512-XuY5E5u7AVqj4nvaAt4iVOcfDIrnoBkuubrhx//4X0YfCrHDVPUlg5fXlycfBd4dIbwAOloKXYigZ8I2fnjP6g==
   dependencies:
     "@cozy/minilog" "1.0.0"
-    cozy-client "^23.0.0"
+    cozy-client "^23.5.0"
     cozy-device-helper "^1.12.0"
     pouchdb-browser "^7.0.0"
-    pouchdb-find "^7.0.0"
+    pouchdb-find "7.2.2"
 
 cozy-realtime@3.11.0:
   version "3.11.0"
@@ -5178,10 +5196,10 @@ cozy-scripts@5.2.0:
     webpack-dev-server "3.10.3"
     webpack-merge "4.2.2"
 
-cozy-stack-client@23.0.0, cozy-stack-client@^23.0.0:
-  version "23.0.0"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-23.0.0.tgz#8df777901c8af62efdbccccc03c981d04b83d297"
-  integrity sha512-ucZaKdYEoUjdMiG0Yh1+OjMg+16TXPQAFMCsnLmOmLr/GK1vm6V9/HAIk1dkDMWoeaqSXsH1REgXvxUc36Q+qw==
+cozy-stack-client@23.5.0, cozy-stack-client@^23.5.0:
+  version "23.5.0"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-23.5.0.tgz#dc5c792da4a6ab6ddc9b664cdaf9f6b166626a64"
+  integrity sha512-yBqB4uaaNpsT9gnCegCxHPcU7PHwheKP30fbKNA21yOCL1KPeIpAY8cUIY+OKdiYYhXPkrlRfIor6g0knlGHBg==
   dependencies:
     cozy-flags "2.7.1"
     detect-node "^2.0.4"
@@ -9271,6 +9289,11 @@ intersection-observer@0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/intersection-observer/-/intersection-observer-0.11.0.tgz#f4ea067070326f68393ee161cc0a2ca4c0040c6f"
   integrity sha512-KZArj2QVnmdud9zTpKf279m2bbGfG+4/kn16UU0NL3pTVl52ZHiJ9IRNSsnn6jaHrL9EGLFM5eWjTx2fz/+zoQ==
+
+intersection-observer@^0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/intersection-observer/-/intersection-observer-0.12.0.tgz#6c84628f67ce8698e5f9ccf857d97718745837aa"
+  integrity sha512-2Vkz8z46Dv401zTWudDGwO7KiGHNDkMv417T5ItcNYfmvHR/1qCTVBO9vwH8zZmQ0WkA/1ARwpysR9bsnop4NQ==
 
 invariant@^2.2.1, invariant@^2.2.2, invariant@^2.2.4:
   version "2.2.4"

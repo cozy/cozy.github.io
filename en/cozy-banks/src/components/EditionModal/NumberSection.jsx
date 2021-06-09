@@ -1,6 +1,10 @@
 import React from 'react'
+
 import { DialogContent } from 'cozy-ui/transpiled/react/Dialog'
-import { InputGroup, Input, useI18n } from 'cozy-ui/transpiled/react'
+import InputGroup from 'cozy-ui/transpiled/react/InputGroup'
+import Input from 'cozy-ui/transpiled/react/Input'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+
 import { DialogSection } from 'components/DialogSections'
 
 const NumberSection = ({ label, value, onChange, unit, unitKey }) => {

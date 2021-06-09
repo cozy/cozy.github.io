@@ -4,7 +4,7 @@ import {
   onAccountDelete
 } from './accounts'
 import CozyClient from 'cozy-client'
-import Alerter from 'cozy-ui/react/Alerter'
+import Alerter from 'cozy-ui/transpiled/react/Alerter'
 
 const setup = () => {
   const client = new CozyClient({})

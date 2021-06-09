@@ -4,11 +4,14 @@
   Categories
 */
 
+import memoize from 'lodash/memoize'
+
 import tree from './tree'
 import categoryColors from 'ducks/categories/colors'
 
-export const getCategoryIdFromName = name =>
+export const getCategoryIdFromName = memoize(name =>
   Object.keys(tree).find(id => tree[id] === name)
+)
 
 export const categoriesStyle = {}
 for (const catName in categoryColors) {
