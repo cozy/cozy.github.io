@@ -31,8 +31,8 @@ import DotsIcon from 'cozy-ui/transpiled/react/Icons/Dots'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 
-import IconButton from '@material-ui/core/IconButton'
-import Fade from '@material-ui/core/Fade'
+import IconButton from 'cozy-ui/transpiled/react/IconButton'
+import Fade from 'cozy-ui/transpiled/react/Fade'
 
 import Loading from 'components/Loading'
 import Padded from 'components/Padded'

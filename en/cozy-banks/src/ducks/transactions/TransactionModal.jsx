@@ -306,9 +306,13 @@ const DeleteTransactionRow = ({ transaction }) => {
         <ListItemIcon>
           <Icon className="u-error" icon={TrashIcon} />
         </ListItemIcon>
-        <ListItemText primaryTextClassName="u-error">
-          {t('Transactions.infos.delete-transaction.row-label')}
-        </ListItemText>
+        <ListItemText
+          primary={
+            <span className="u-error">
+              {t('Transactions.infos.delete-transaction.row-label')}
+            </span>
+          }
+        />
       </ListItem>
       {showingDeleteConfirmation ? (
         <ConfirmDialog
@@ -497,12 +501,7 @@ const TransactionModalInfoContent = props => {
         isModalItem
       />
 
-      {flag('banks.show-delete-transaction') ? (
-        <DeleteTransactionRow
-          transaction={transaction}
-          onDelete={requestClose}
-        />
-      ) : null}
+      <DeleteTransactionRow transaction={transaction} onDelete={requestClose} />
 
       {selectedRow == 'category' ? (
         <TransactionCategoryEditorDialog

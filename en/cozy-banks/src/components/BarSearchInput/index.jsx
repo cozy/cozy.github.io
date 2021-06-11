@@ -1,7 +1,7 @@
 import React, { useRef, useCallback } from 'react'
 import cx from 'classnames'
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import IconButton from '@material-ui/core/IconButton'
+import IconButton from 'cozy-ui/transpiled/react/IconButton'
 import styles from './styles.styl'
 
 import MagnifierIcon from 'cozy-ui/transpiled/react/Icons/Magnifier'
@@ -48,6 +48,10 @@ const BarSearchInput = ({
       </BarSearchIcon>
     </div>
   )
+}
+
+BarSearchInput.defaultProps = {
+  value: ''
 }
 
 export default BarSearchInput

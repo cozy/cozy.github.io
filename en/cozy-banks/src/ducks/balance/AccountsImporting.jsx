@@ -2,7 +2,7 @@ import React, { Fragment, memo } from 'react'
 import PropTypes from 'prop-types'
 import compose from 'lodash/flowRight'
 import { withStyles } from '@material-ui/core/styles'
-import LinearProgress from '@material-ui/core/LinearProgress'
+import LinearProgress from 'cozy-ui/transpiled/react/LinearProgress'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 
 import Figure from 'cozy-ui/transpiled/react/Figure'

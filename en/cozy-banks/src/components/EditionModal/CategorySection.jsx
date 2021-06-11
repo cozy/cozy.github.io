@@ -2,7 +2,7 @@ import React from 'react'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import { DialogSection, DialogListItem } from 'components/DialogSections'
 import { CategoryIcon, getCategoryName } from 'ducks/categories'
-import List from '@material-ui/core/List'
+import List from 'cozy-ui/transpiled/react/MuiCozyTheme/List'
 
 const DumbCategorySection = ({ value, label, onClick }) => {
   const { t } = useI18n()

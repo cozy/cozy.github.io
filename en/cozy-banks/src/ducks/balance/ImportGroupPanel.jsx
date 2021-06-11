@@ -1,8 +1,8 @@
 import cx from 'classnames'
 import React, { useState } from 'react'
 
-import AccordionSummary from '@material-ui/core/AccordionSummary'
-import AccordionDetails from '@material-ui/core/AccordionDetails'
+import AccordionSummary from 'cozy-ui/transpiled/react/MuiCozyTheme/AccordionSummary'
+import AccordionDetails from 'cozy-ui/transpiled/react/MuiCozyTheme/AccordionDetails'
 import Accordion from 'cozy-ui/transpiled/react/MuiCozyTheme/Accordion'
 
 import { withStyles } from '@material-ui/core/styles'

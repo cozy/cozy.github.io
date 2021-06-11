@@ -1,5 +1,5 @@
 import React from 'react'
-import IconButton from '@material-ui/core/IconButton'
+import IconButton from 'cozy-ui/transpiled/react/IconButton'
 
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'

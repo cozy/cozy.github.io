@@ -1,9 +1,6 @@
 import React, { Component, Fragment, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import LinearProgress from '@material-ui/core/LinearProgress'
-import Box from '@material-ui/core/Box'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import getCategoryId from 'ducks/transactions/getCategoryId'
 import { getCategoryIdFromName } from 'ducks/categories/helpers'
 
@@ -49,6 +46,7 @@ import { trackPage } from 'ducks/tracking/browser'
 import { TransactionList } from 'ducks/transactions/Transactions'
 import { onSubcategory } from './utils'
 import Delayed from 'components/Delayed'
+import HeaderLoadingProgress from 'components/HeaderLoadingProgress'
 import useLast from 'hooks/useLast'
 import useFullyLoadedQuery from 'hooks/useFullyLoadedQuery'
 
@@ -64,15 +62,6 @@ const goToCategory = (router, selectedCategory, subcategory) => {
   } else {
     router.push('/analysis/categories')
   }
-}
-
-const ProgressContainerDesktop = ({ children }) => {
-  const { isMobile } = useBreakpoints()
-  return isMobile ? null : (
-    <Box minHeight={8} marginBottom={-1}>
-      {children}
-    </Box>
-  )
 }
 
 const CategoryTransactions = ({ transactions, subcategoryName }) => {
@@ -101,7 +90,7 @@ const CategoryTransactions = ({ transactions, subcategoryName }) => {
   )
 }
 
-class CategoriesPage extends Component {
+export class CategoriesPage extends Component {
   componentDidMount() {
     const { filteringDoc, dispatch } = this.props
     if (
@@ -213,9 +202,7 @@ class CategoriesPage extends Component {
           hasAccount={hasAccount}
           chart={!isSubcategory}
         />
-        <ProgressContainerDesktop>
-          {isFetchingNewData ? <LinearProgress /> : null}
-        </ProgressContainerDesktop>
+        <HeaderLoadingProgress isFetching={!!isFetchingNewData} />
         <Delayed delay={this.props.delayContent}>
           {hasAccount &&
             (isFetching ? (

@@ -11,7 +11,7 @@ import SettingCard from 'components/SettingCard'
 import Switch from 'cozy-ui/transpiled/react/MuiCozyTheme/Switch'
 import EditionModal from 'components/EditionModal'
 
-import IconButton from '@material-ui/core/IconButton'
+import IconButton from 'cozy-ui/transpiled/react/IconButton'
 import CrossMediumIcon from 'cozy-ui/transpiled/react/Icons/CrossMedium'
 
 const styles = {

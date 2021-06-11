@@ -57,6 +57,7 @@ const Wrapper = ({ filteringDoc, filteredTransactions, router, client }) => (
       filteredTransactions={filteredTransactions || allTransactions}
       filteredAccounts={allAccounts}
       filteringDoc={filteringDoc}
+      isFetchingNewData={false}
     />
   </AppLike>
 )

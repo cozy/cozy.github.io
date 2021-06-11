@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import endOfMonth from 'date-fns/end_of_month'
-import isEqual from 'lodash/isEqual'
 import debounce from 'lodash/debounce'
 import compose from 'lodash/flowRight'
 
@@ -20,8 +19,6 @@ import { translate } from 'cozy-ui/transpiled/react/I18n'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import flag from 'cozy-flags'
-import LinearProgress from '@material-ui/core/LinearProgress'
-import Box from '@material-ui/core/Box'
 
 import {
   ACCOUNT_DOCTYPE,
@@ -31,6 +28,7 @@ import {
 } from 'doctypes'
 import { getFilteringDoc } from 'ducks/filters'
 import Padded from 'components/Padded'
+import HeaderLoadingProgress from 'components/HeaderLoadingProgress'
 import useLast from 'hooks/useLast'
 import { getDisplayDate } from 'ducks/transactions/helpers'
 import Loading from 'components/Loading'
@@ -44,14 +42,6 @@ import { trackPage } from 'ducks/tracking/browser'
 import { makeFilteredTransactionsConn } from 'ducks/transactions/queries'
 
 const getMonth = date => date.slice(0, 7)
-
-const ProgressContainer = ({ children }) => {
-  return (
-    <Box minHeight="8px" marginBottom={-1}>
-      {children}
-    </Box>
-  )
-}
 
 const updateListStyle = (listRef, headerRef) => {
   // eslint-disable-next-line
@@ -93,23 +83,9 @@ class TransactionsPage extends Component {
       this
     )
     this.handleChangeMonth = this.handleChangeMonth.bind(this)
-
     this.state = {
-      limitMin: 0,
-      limitMax: 1000000
+      currentMonth: null
     }
-  }
-
-  setCurrentMonthFollowingMostRecentTransaction() {
-    // const transactions = this.props.filteredTransactions
-    // if (!transactions || transactions.length === 0) {
-    //   return
-    // }
-    // const mostRecentTransaction = maxBy(transactions, getDisplayDate)
-    // if (!mostRecentTransaction) {
-    //   return
-    // }
-    // const mostRecentMonth = getMonth(getDisplayDate(mostRecentTransaction))
   }
 
   componentDidMount() {
@@ -141,17 +117,6 @@ class TransactionsPage extends Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
-    if (!isEqual(this.props.filteringDoc, prevProps.filteringDoc)) {
-      this.setCurrentMonthFollowingMostRecentTransaction()
-    } else if (
-      isQueryLoading(prevProps.transactions) &&
-      !isQueryLoading(this.props.transactions)
-    ) {
-      this.setCurrentMonthFollowingMostRecentTransaction()
-    }
-  }
-
   handleChangeTopmostTransaction(transaction) {
     this.setState({
       currentMonth: getMonth(getDisplayDate(transaction))
@@ -173,8 +138,7 @@ class TransactionsPage extends Component {
   }
 
   renderTransactions() {
-    const { showTriggerErrors } = this.state
-    const { t, transactions, filteringDoc } = this.props
+    const { t, transactions, filteringDoc, showTriggerErrors } = this.props
 
     const isFilteringOnAccount =
       filteringDoc && filteringDoc._type === ACCOUNT_DOCTYPE
@@ -252,9 +216,7 @@ class TransactionsPage extends Component {
             showBalance={isMobile && !areAccountsLoading}
           />
         ) : null}
-        <ProgressContainer>
-          {isFetchingNewData ? <LinearProgress /> : null}
-        </ProgressContainer>
+        <HeaderLoadingProgress isFetching={isFetchingNewData} />
         <div
           ref={this.handleListRef}
           style={{ opacity: 0 }}

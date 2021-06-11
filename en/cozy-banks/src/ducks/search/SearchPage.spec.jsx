@@ -32,7 +32,7 @@ describe('SearchPage', () => {
     const router = routerOption || defaultRouter
     const client = createMockClient({
       queries: {
-        transactions: {
+        'transactions-searchPage': {
           doctype: TRANSACTION_DOCTYPE,
           data: fixtures[TRANSACTION_DOCTYPE]
         }

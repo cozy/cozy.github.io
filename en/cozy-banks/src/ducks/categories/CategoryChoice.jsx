@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import sortBy from 'lodash/sortBy'
-import Fuse from 'fuse.js'
+import Fuse from 'fuse.js/dist/fuse.js'
 
 import NestedSelect, {
   NestedSelectModal

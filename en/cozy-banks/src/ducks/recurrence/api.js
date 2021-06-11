@@ -50,10 +50,9 @@ const getRecurrenceIdFromRawTransaction = tr =>
  * @return {Promise<HydratedRecurrences>}
  */
 export const fetchHydratedBundles = async client => {
-  const recurrenceCol = client.collection(RECURRENCE_DOCTYPE)
-  const { data: recurrences } = await recurrenceCol.all()
-  const { data: transactions } = await client.query(
-    queryRecurrencesTransactions(recurrences)
+  const recurrences = await client.queryAll(Q(RECURRENCE_DOCTYPE).limitBy(1000))
+  const transactions = await client.queryAll(
+    queryRecurrencesTransactions(recurrences).limitBy(1000)
   )
   const byRecurrence = groupBy(transactions, getRecurrenceIdFromRawTransaction)
   return recurrences.map(rec => ({

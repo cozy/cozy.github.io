@@ -1,7 +1,7 @@
 import { mount } from 'enzyme'
 import React from 'react'
 import fixtures from 'test/fixtures/unit-tests'
-import ListItem from '@material-ui/core/ListItem'
+import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
 import AppLike from 'test/AppLike'
 import { DumbAccountGroupChoice as AccountGroupChoice } from './AccountGroupChoice'
 

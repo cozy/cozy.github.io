@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import React, { useState, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 
-import Box from '@material-ui/core/Box'
-import AccordionSummary from '@material-ui/core/AccordionSummary'
-import AccordionDetails from '@material-ui/core/AccordionDetails'
+import AccordionSummary from 'cozy-ui/transpiled/react/MuiCozyTheme/AccordionSummary'
+import AccordionDetails from 'cozy-ui/transpiled/react/MuiCozyTheme/AccordionDetails'
+import Box from 'cozy-ui/transpiled/react/Box'
 import { withStyles } from '@material-ui/core/styles'
 
 import { useClient } from 'cozy-client'

@@ -2,7 +2,7 @@ import React, { Fragment, useMemo, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
-import Fade from '@material-ui/core/Fade'
+import Fade from 'cozy-ui/transpiled/react/Fade'
 import Breadcrumb from 'cozy-ui/transpiled/react/Breadcrumbs'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
