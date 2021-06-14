@@ -8,8 +8,9 @@ import { TRANSACTION_DOCTYPE } from 'doctypes'
 import { td, tr } from 'txt-table-utils'
 
 import { findAndUpdateRecurrences } from './search'
-import fixtures from './fixtures'
 import { getLabel, getAmount } from './utils'
+import fixtures from './fixtures.json'
+import fixtures2 from './fixtures2.json'
 
 const formatBundleExtent = bundle => {
   const oldestOp = minBy(bundle.ops, x => x.date)
@@ -49,6 +50,21 @@ const formatRecurrence = bundle =>
 describe('recurrence bundles', () => {
   it('should find new bundles', () => {
     const transactions = fixtures[TRANSACTION_DOCTYPE]
+    const recurrences = []
+    const updatedRecurrences = findAndUpdateRecurrences(
+      recurrences,
+      transactions
+    )
+
+    updatedRecurrences.forEach(assertValidRecurrence)
+    // eslint-disable
+    expect(
+      sortBy(updatedRecurrences.map(formatRecurrence)).join('\n')
+    ).toMatchSnapshot()
+  })
+
+  it('should find new bundles (split brand necessary)', () => {
+    const transactions = fixtures2[TRANSACTION_DOCTYPE]
     const recurrences = []
     const updatedRecurrences = findAndUpdateRecurrences(
       recurrences,

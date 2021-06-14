@@ -57,7 +57,9 @@ const BillChip = props => {
   // Bill's vendor can be a slug. We get the brand from our dictionary to be
   // sure that we show the brand name and not a konnector slug
   const [brand] = getBrands(
-    brand => brand.name === bill.vendor || brand.konnectorSlug === bill.vendor
+    brand =>
+      brand.name === bill.vendor ||
+      (brand.konnectorSlug && brand.konnectorSlug === bill.vendor)
   )
   const vendorName = brand && brand.name
 

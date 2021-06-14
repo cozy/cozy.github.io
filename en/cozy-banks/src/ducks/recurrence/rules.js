@@ -12,7 +12,8 @@ import uniq from 'lodash/uniq'
 import uniqBy from 'lodash/uniqBy'
 import getCategoryId from 'ducks/transactions/getCategoryId'
 import { getLabel } from './utils'
-
+import brands from 'ducks/brandDictionary/brands'
+import { findMatchingBrand } from 'ducks/brandDictionary'
 const ONE_DAY = 86400 * 1000
 
 const mean = iterable => sum(iterable) / iterable.length
@@ -167,6 +168,21 @@ export const madInferiorTo = n =>
 
 export const addStats = bundle => ({ ...bundle, stats: makeStats(bundle.ops) })
 
+export const brandSplit = () => bundle => {
+  const brandGroups = groupBy(bundle.ops, op => {
+    const brand = findMatchingBrand(brands, op.label)
+    return brand ? brand.name : null
+  })
+  return Object.values(brandGroups).map(ops => {
+    const brand = findMatchingBrand(brands, ops[0].label)
+    return {
+      ...bundle,
+      ops: ops,
+      brand: brand ? brand.name : null
+    }
+  })
+}
+
 export const rulesPerName = {
   categoryShouldBeSet: {
     rule: categoryShouldBeSet,
@@ -186,42 +202,48 @@ export const rulesPerName = {
     stage: 0,
     type: 'filter'
   },
+  splitBrands: {
+    rule: brandSplit,
+    description: 'Make sure two brands cannot be in the same bundle',
+    stage: 1,
+    type: 'split'
+  },
   addStats: {
     rule: () => addStats,
     description: 'Add stats',
-    stage: 1,
+    stage: 2,
     type: 'map'
   },
   deltaMeanSuperiorTo: {
     rule: deltaMeanSuperiorTo,
     description: 'Mean interval in days between operations should be more than',
-    stage: 2,
+    stage: 3,
     type: 'filter'
   },
   deltaMeanInferiorTo: {
     rule: deltaMeanInferiorTo,
     description: 'Mean interval in days between operations should be less than',
-    stage: 2,
+    stage: 3,
     type: 'filter'
   },
   sigmaInferiorTo: {
     rule: sigmaInferiorTo,
     description:
       "Standard deviation of bundle's date intervals should be less than",
-    stage: 2,
+    stage: 3,
     type: 'filter'
   },
   madInferiorTo: {
     rule: madInferiorTo,
     description:
       "Median absolute deviation of bundle's date intervals should be less than",
-    stage: 2,
+    stage: 3,
     type: 'filter'
   },
   mergeBundles: {
     rule: () => sameLabel,
     description: 'Merge similar bundles',
-    stage: 3,
+    stage: 4,
     type: 'group'
   }
 }

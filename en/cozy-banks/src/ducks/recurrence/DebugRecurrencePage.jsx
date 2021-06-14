@@ -5,7 +5,7 @@ import sortBy from 'lodash/sortBy'
 import clone from 'lodash/clone'
 import groupBy from 'lodash/groupBy'
 
-import { useQuery, useClient, isQueryLoading } from 'cozy-client'
+import { useQuery, useClient, isQueryLoading, dehydrate } from 'cozy-client'
 import Card from 'cozy-ui/transpiled/react/Card'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import Button from 'cozy-ui/transpiled/react/Button'
@@ -52,7 +52,11 @@ const RuleInput = ({ ruleName, config, onChange }) => {
   }
   return (
     <div key={ruleName} className="u-m-half u-miw-6">
-      {ruleName} (<em>{ruleInfo.stage}</em>)
+      {ruleName} (
+      <em>
+        {ruleInfo.type} - {ruleInfo.stage}
+      </em>
+      )
       <Typography variant="caption" color="textSecondary">
         {ruleInfo.description}
       </Typography>
@@ -80,11 +84,17 @@ const Rules = ({ rulesConfig, onChangeConfig, onResetConfig }) => {
     },
     [rulesConfig, onChangeConfig]
   )
+  const entries = useMemo(() => {
+    return sortBy(
+      Object.entries(rulesConfig),
+      ([ruleName]) => rulesPerName[ruleName].stage
+    )
+  }, [rulesConfig])
   return (
     <Card className="u-mv-1">
       <RulesDetails />
       <div className="u-flex u-flex-wrap">
-        {Object.entries(rulesConfig).map(([ruleName, config]) => (
+        {entries.map(([ruleName, config]) => (
           <RuleInput
             key={ruleName}
             ruleName={ruleName}
@@ -166,6 +176,10 @@ const BundleStats = ({ bundle }) => {
 }
 
 const RecurrenceBundle = ({ bundle }) => {
+  const jsonData = useMemo(
+    () => JSON.stringify(bundle.ops.map(o => dehydrate(o))),
+    [bundle]
+  )
   return (
     <Card
       className="u-m-half"
@@ -174,9 +188,12 @@ const RecurrenceBundle = ({ bundle }) => {
       <Typography variant="h5">
         {getAutomaticLabelFromBundle(bundle)}
       </Typography>
+      <input type="text" value={jsonData} />
       <p>
         categories: <CategoryNames bundle={bundle} />
         amounts: {bundle.amounts}
+        <br />
+        #operations: {bundle.ops.length}
         <br />
         {bundle.stats ? <BundleStats bundle={bundle} /> : null}
       </p>
@@ -208,10 +225,11 @@ const makeTextFilter = (searchStr, accessor) => {
   }
 }
 
-const RecurrencePage = () => {
+const DebugRecurrencePage = () => {
   const transactionCol = useQuery(transactionsConn.query, transactionsConn)
   const { data: transactions } = transactionCol
-  const loading = isQueryLoading(transactionCol) && transactions.length === 0
+  const loading =
+    isQueryLoading(transactionCol) && transactions && transactions.length === 0
   const [rulesConfig, setRulesConfig, clearSavedConfig] = useStickyState(
     defaultConfig,
     'banks.recurrence-config'
@@ -380,30 +398,32 @@ const RecurrencePage = () => {
         label="reset bundles"
         busy={resettingBundles}
       />
-      {loading ? <Loading /> : null}
-      transactions: {transactions ? transactions.length : 0}
-      <br />
-      bundleTransactions: {bundlesTransactions.length}
-      <br />
-      newTransactions: {newTransactions.length}
-      <br />
-      elapsed time: {(end - start) / 1000}s<br />
-      bundle date:{' '}
-      <DateSlider date={bundlesDate} onChange={handleSetBundleDate} />
-      <br />
-      current date:{' '}
-      <DateSlider date={currentDate} onChange={handleSetCurrentDate} />
-      <br />
-      isLocked:{' '}
-      <input type="checkbox" checked={isLocked} onChange={handleSetLocked} />
-      <br />
-      bundle filter:{' '}
+      <p>
+        transactions: {transactions ? transactions.length : 0}
+        <br />
+        bundleTransactions: {bundlesTransactions.length}
+        <br />
+        newTransactions: {newTransactions.length}
+        <br />
+        elapsed time: {(end - start) / 1000}s<br />
+        bundle date:{' '}
+        <DateSlider date={bundlesDate} onChange={handleSetBundleDate} />
+        <br />
+        current date:{' '}
+        <DateSlider date={currentDate} onChange={handleSetCurrentDate} />
+        <br />
+        isLocked:{' '}
+        <input type="checkbox" checked={isLocked} onChange={handleSetLocked} />
+        <br />
+        bundle filter:{' '}
+      </p>
       <input
         type="text"
         value={bundleFilter}
         onChange={handleChangeBundleFilter}
       />
       <br />
+      {loading ? <Loading /> : null}
       <div className="u-flex" style={{ flexWrap: 'wrap' }}>
         {finalBundles.map((bundle, i) => (
           <RecurrenceBundle key={i} bundle={bundle} />
@@ -413,4 +433,4 @@ const RecurrencePage = () => {
   )
 }
 
-export default RecurrencePage
+export default DebugRecurrencePage

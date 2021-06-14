@@ -69,6 +69,11 @@ export const findRecurrences = (operations, rules) => {
       bundles = bundles.map(compose(rules))
     } else if (type === 'group') {
       bundles = groupBundles(bundles, rules)
+    } else if (type === 'split') {
+      if (rules.length > 1) {
+        throw new Error('Cannot have multiple split rules in one stage')
+      }
+      bundles = flatMap(bundles, rules[0])
     }
   }
 

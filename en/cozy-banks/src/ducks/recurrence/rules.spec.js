@@ -1,4 +1,4 @@
-import { mergeBundles, mergeCategoryIds, sameLabel } from './rules'
+import { mergeBundles, mergeCategoryIds, sameLabel, brandSplit } from './rules'
 
 const ops1 = [
   { _id: 't1', date: '2020-08-01', manualCategoryId: '400140' },
@@ -84,5 +84,45 @@ describe('sameLabel bundle', () => {
   it('should return label from manual and automatic label', () => {
     expect(sameLabel(makeBundle([], undefined))).toEqual('Automatic Label')
     expect(sameLabel(makeBundle([], 'Manual label'))).toEqual('Manual label')
+  })
+})
+
+describe('brand split', () => {
+  it('should split bundle into several bundles based on brand', () => {
+    const bundle = {
+      ops: [
+        {
+          label: 'Spotify 1',
+          amount: 15,
+          categoryIds: ['400100']
+        },
+        {
+          label: 'Amazon 1',
+          amount: 15,
+          categoryIds: ['400100']
+        },
+        {
+          label: 'Amazon 2',
+          amount: 15,
+          categoryIds: ['400100']
+        },
+        {
+          label: 'Spotify 2',
+          amount: 15,
+          categoryIds: ['400100']
+        },
+        {
+          label: 'Spotify 3',
+          amount: 15,
+          categoryIds: ['400100']
+        }
+      ]
+    }
+    const bundles = brandSplit()(bundle)
+    expect(bundles.length).toBe(2)
+    expect(bundles[0].ops.length).toBe(3)
+    expect(bundles[0].brand).toBe('Spotify')
+    expect(bundles[1].ops.length).toBe(2)
+    expect(bundles[1].brand).toBe('Amazon')
   })
 })

@@ -7,7 +7,11 @@ const match = (transaction, { brands, urls }) => {
     return false
   }
 
-  return findMatchingBrandWithoutTrigger(transaction.label, brands)
+  const brand = findMatchingBrandWithoutTrigger(transaction.label, brands)
+  if (!brand || !brand.konnectorSlug) {
+    return false
+  }
+  return brand
 }
 
 export default match
