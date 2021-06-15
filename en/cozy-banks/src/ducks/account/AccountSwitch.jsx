@@ -361,19 +361,20 @@ const AccountSwitch = props => {
   }, [dispatch, handleClose])
 
   const accounts = accountsCollection.data
-  const groups = [...groupsCollection.data, ...virtualGroups].map(group => ({
-    ...group,
-    label: getGroupLabel(group, t)
-  }))
 
-  // TODO remove if https://github.com/cozy/cozy-client/issues/834 is solved
-  // It seems there is a bug in cozy-client when we delete a document
-  // The document is removed in the store, but still referenced in the collection
-  // So we may get an undefined group. We filter it before sorting
-  const orderedGroups = useMemo(
-    () => sortBy(groups.filter(Boolean), x => x.label.toLowerCase()),
-    [groups]
-  )
+  const orderedGroups = useMemo(() => {
+    const groups = [...(groupsCollection.data || []), ...virtualGroups].map(
+      group => ({
+        ...group,
+        label: getGroupLabel(group, t)
+      })
+    )
+    // TODO remove the filter if https://github.com/cozy/cozy-client/issues/834 is solved
+    // It seems there is a bug in cozy-client when we delete a document
+    // The document is removed in the store, but still referenced in the collection
+    // So we may get an undefined group. We filter it before sorting
+    return sortBy(groups.filter(Boolean), x => x.label.toLowerCase())
+  }, [groupsCollection.data, t, virtualGroups])
 
   const selectProps = selectPropsBySize[size]
   const select = (
