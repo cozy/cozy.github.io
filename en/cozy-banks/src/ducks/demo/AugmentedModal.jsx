@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import cx from 'classnames'
-import Modal, { ModalDescription } from 'cozy-ui/transpiled/react/Modal'
-import Panel from 'cozy-ui/transpiled/react/Panel'
+import { withStyles } from '@material-ui/core/styles'
+
+import Dialog, { DialogContent } from 'cozy-ui/transpiled/react/Dialog'
+import { DialogCloseButton } from 'cozy-ui/transpiled/react/CozyDialogs'
 import { withClient } from 'cozy-client'
 import IntentIframe from 'cozy-ui/transpiled/react/IntentIframe'
 import styles from './AugmentedModal.styl'
@@ -21,42 +22,42 @@ const componentsPerTransactionVendor = {
     Side: AmeliSide
   }
 }
+const customStyles = () => ({
+  paper: {
+    height: '100%'
+  }
+})
+
+const StyledDialog = withStyles(customStyles)(Dialog)
 
 class AugmentedModal extends Component {
   render() {
     const { onClose, fileId, transaction } = this.props
     const vendor = getTransactionVendor(transaction)
+
     const { Header, Side } = componentsPerTransactionVendor[vendor]
     return (
-      <Modal
-        into="body"
-        dismissAction={onClose}
-        size="xxlarge"
-        overflowHidden={true}
+      <StyledDialog
+        open={true}
+        fullWidth={true}
+        maxWidth="lg"
+        onClose={onClose}
       >
-        {Header && <Header transaction={transaction} />}
-        <ModalDescription
-          className={cx(
-            styles.AugmentedModalDescription,
-            !Header && styles['AugmentedModalDescription--NoHeader']
-          )}
-        >
-          <Panel.Group>
-            <Panel.Main className={styles.AugmentedModalIntent}>
-              <IntentIframe
-                action="OPEN"
-                type="io.cozy.files"
-                data={{ id: fileId }}
-              />
-            </Panel.Main>
-            <Panel.Side>
-              <div className={styles.FakeInfos}>
-                <Side transaction={transaction} />
-              </div>
-            </Panel.Side>
-          </Panel.Group>
-        </ModalDescription>
-      </Modal>
+        <DialogCloseButton onClick={onClose} />
+        {Header && <Header />}
+        <DialogContent className={styles.ContainerIntentSide}>
+          <main className={styles.IntentIframeContainer}>
+            <IntentIframe
+              action="OPEN"
+              type="io.cozy.files"
+              data={{ id: fileId }}
+            />
+          </main>
+          <aside className={styles.FakeInfos}>
+            <Side />
+          </aside>
+        </DialogContent>
+      </StyledDialog>
     )
   }
 }

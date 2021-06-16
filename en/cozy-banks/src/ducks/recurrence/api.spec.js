@@ -27,8 +27,9 @@ describe('fetch hydrated bundles', () => {
   it('should use put operations pertaining to the bundle inside the ops attribute', async () => {
     const { client } = setup()
     const bundles = await fetchHydratedBundles(client)
-    expect(bundles.length).toBe(2)
+    expect(bundles.length).toBe(3)
     expect(bundles[0].ops.length).toEqual(3)
     expect(bundles[1].ops.length).toEqual(0)
+    expect(bundles[2].ops.length).toEqual(0)
   })
 })

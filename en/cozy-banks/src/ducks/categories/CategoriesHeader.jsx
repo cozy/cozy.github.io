@@ -7,6 +7,7 @@ import Breadcrumb from 'cozy-ui/transpiled/react/Breadcrumbs'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import Stack from 'cozy-ui/transpiled/react/Stack'
+import Empty from 'cozy-ui/transpiled/react/Empty'
 
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -26,10 +27,10 @@ import AddAccountButton from 'ducks/categories/AddAccountButton'
 import { onSubcategory } from 'ducks/categories/utils'
 import catStyles from 'ducks/categories/styles.styl'
 
+import HeaderLoadingProgress from 'components/HeaderLoadingProgress'
 import Table from 'components/Table'
 import { useParams } from 'components/RouterContext'
 import LegalMention from 'ducks/legal/LegalMention'
-import Empty from 'cozy-ui/transpiled/react/Empty'
 import DateSelectorHeader from 'ducks/categories/DateSelectorHeader'
 import CategoryAccountSwitch from 'ducks/categories/CategoryAccountSwitch'
 import IncomeToggle from 'ducks/categories/IncomeToggle'
@@ -103,6 +104,7 @@ const CategoriesHeader = props => {
     categories,
     chartSize,
     isFetching,
+    isFetchingNewData,
     categoryName,
     subcategoryName,
     classes
@@ -177,11 +179,14 @@ const CategoriesHeader = props => {
             })}
             theme={isMobile ? 'normal' : 'inverted'}
           >
+            <HeaderLoadingProgress
+              isFetching={!!isFetchingNewData && !isFetching}
+            />
             <LegalMention className="u-flex u-flex-items-center u-flex-justify-around u-mr-1">
               {incomeToggle}
             </LegalMention>
 
-            {!hasData && (
+            {!hasData && !isFetching && !isFetchingNewData && (
               <div className={styles.NoAccount_empty}>
                 <Empty
                   icon={emptyIcon}
@@ -207,41 +212,44 @@ const CategoriesHeader = props => {
   }
 
   return (
-    <Header theme="inverted" fixed>
-      <Padded
-        className={cx(styles.CategoriesHeader, {
-          [styles.NoAccount]: !hasAccount
-        })}
-      >
+    <>
+      <Header theme="inverted" fixed>
+        <Padded
+          className={cx(styles.CategoriesHeader, {
+            [styles.NoAccount]: !hasAccount
+          })}
+        >
+          {hasAccount ? (
+            <>
+              <div>
+                <Stack spacing="m">
+                  <CategoryAccountSwitch
+                    selectedCategory={selectedCategory}
+                    breadcrumbItems={breadcrumbItems}
+                  />
+                  {dateSelector}
+                </Stack>
+                {breadcrumbItems.length > 1 && (
+                  <Fade in>
+                    <Breadcrumb className="u-mt-1" items={breadcrumbItems} />
+                  </Fade>
+                )}
+                {incomeToggle}
+              </div>
+              {chart}
+            </>
+          ) : (
+            <AddAccountButton label={t('Accounts.add-bank')} />
+          )}
+        </Padded>
         {hasAccount ? (
-          <>
-            <div>
-              <Stack spacing="m">
-                <CategoryAccountSwitch
-                  selectedCategory={selectedCategory}
-                  breadcrumbItems={breadcrumbItems}
-                />
-                {dateSelector}
-              </Stack>
-              {breadcrumbItems.length > 1 && (
-                <Fade in>
-                  <Breadcrumb className="u-mt-1" items={breadcrumbItems} />
-                </Fade>
-              )}
-              {incomeToggle}
-            </div>
-            {chart}
-          </>
-        ) : (
-          <AddAccountButton label={t('Accounts.add-bank')} />
-        )}
-      </Padded>
-      {hasAccount ? (
-        <Table className={stTableCategory}>
-          <CategoriesTableHead selectedCategory={selectedCategory} />
-        </Table>
-      ) : null}
-    </Header>
+          <Table className={stTableCategory}>
+            <CategoriesTableHead selectedCategory={selectedCategory} />
+          </Table>
+        ) : null}
+      </Header>
+      <HeaderLoadingProgress isFetching={!!isFetchingNewData && !isFetching} />
+    </>
   )
 }
 

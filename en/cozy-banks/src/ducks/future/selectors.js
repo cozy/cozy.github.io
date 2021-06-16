@@ -73,7 +73,7 @@ export const getPlannedTransactions = createSelector(
       }
       const transaction = client.hydrateDocument({
         _type: TRANSACTION_DOCTYPE,
-        label: recurrence.automaticLabel,
+        label: recurrence.manualLabel || recurrence.automaticLabel,
         date: futureDate.toISOString(),
         amount: recurrence.amounts[0],
         account: lastBankAccount,

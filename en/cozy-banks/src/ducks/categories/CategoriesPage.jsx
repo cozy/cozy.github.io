@@ -1,9 +1,6 @@
 import React, { Component, Fragment, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import getCategoryId from 'ducks/transactions/getCategoryId'
-import { getCategoryIdFromName } from 'ducks/categories/helpers'
-
 import startOfMonth from 'date-fns/start_of_month'
 import endOfMonth from 'date-fns/end_of_month'
 import startOfYear from 'date-fns/start_of_year'
@@ -16,6 +13,8 @@ import some from 'lodash/some'
 import merge from 'lodash/merge'
 import sortBy from 'lodash/sortBy'
 
+import getCategoryId from 'ducks/transactions/getCategoryId'
+import { getCategoryIdFromName } from 'ducks/categories/helpers'
 import CategoriesHeader from 'ducks/categories/CategoriesHeader'
 import {
   useClient,
@@ -44,11 +43,10 @@ import { computeCategoriesData } from 'ducks/categories/selectors'
 import { getDate } from 'ducks/transactions/helpers'
 import { trackPage } from 'ducks/tracking/browser'
 import { TransactionList } from 'ducks/transactions/Transactions'
-import { onSubcategory } from './utils'
 import Delayed from 'components/Delayed'
-import HeaderLoadingProgress from 'components/HeaderLoadingProgress'
 import useLast from 'hooks/useLast'
 import useFullyLoadedQuery from 'hooks/useFullyLoadedQuery'
+import { onSubcategory } from './utils'
 
 const isCategoryDataEmpty = categoryData => {
   return categoryData[0] && isNaN(categoryData[0].percentage)
@@ -199,10 +197,10 @@ export class CategoriesPage extends Component {
           onWithIncomeToggle={this.onWithIncomeToggle}
           categories={sortedCategories}
           isFetching={isFetching}
+          isFetchingNewData={isFetchingNewData}
           hasAccount={hasAccount}
           chart={!isSubcategory}
         />
-        <HeaderLoadingProgress isFetching={!!isFetchingNewData} />
         <Delayed delay={this.props.delayContent}>
           {hasAccount &&
             (isFetching ? (

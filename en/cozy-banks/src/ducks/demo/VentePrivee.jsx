@@ -1,13 +1,9 @@
 import React from 'react'
-import Modal from 'cozy-ui/transpiled/react/Modal'
 import veepeeLogo from 'assets/veepee.png'
 import veepeeInfo from 'assets/veepee-info.png'
 import veepeeInfo2x from 'assets/veepee-info@2x.png'
 import styles from './AugmentedModal.styl'
-
-const { ModalBrandedHeader } = Modal
-
-const modalBrandedHeaderStyle = { marginBottom: 0 }
+import { DialogTitle } from 'cozy-ui/transpiled/react/Dialog'
 
 const Side = () => (
   <>
@@ -28,11 +24,9 @@ const Side = () => (
 )
 
 const Header = () => (
-  <ModalBrandedHeader
-    bg="#eee"
-    logo={veepeeLogo}
-    style={modalBrandedHeaderStyle}
-  />
+  <DialogTitle className={styles.FakeVeePeeHeader}>
+    <img src={veepeeLogo} alt="" width="200px" />
+  </DialogTitle>
 )
 
 export { Header, Side }

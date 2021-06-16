@@ -11,6 +11,7 @@ import { findAndUpdateRecurrences } from './search'
 import { getLabel, getAmount } from './utils'
 import fixtures from './fixtures.json'
 import fixtures2 from './fixtures2.json'
+import fixtures3 from './fixtures3.json'
 
 const formatBundleExtent = bundle => {
   const oldestOp = minBy(bundle.ops, x => x.date)
@@ -65,6 +66,21 @@ describe('recurrence bundles', () => {
 
   it('should find new bundles (split brand necessary)', () => {
     const transactions = fixtures2[TRANSACTION_DOCTYPE]
+    const recurrences = []
+    const updatedRecurrences = findAndUpdateRecurrences(
+      recurrences,
+      transactions
+    )
+
+    updatedRecurrences.forEach(assertValidRecurrence)
+    // eslint-disable
+    expect(
+      sortBy(updatedRecurrences.map(formatRecurrence)).join('\n')
+    ).toMatchSnapshot()
+  })
+
+  it('should find new bundles', () => {
+    const transactions = fixtures3[TRANSACTION_DOCTYPE]
     const recurrences = []
     const updatedRecurrences = findAndUpdateRecurrences(
       recurrences,

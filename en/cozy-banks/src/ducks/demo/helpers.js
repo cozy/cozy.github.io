@@ -1,5 +1,8 @@
-export const isVentePriveeTransaction = transaction =>
-  transaction && transaction.label.indexOf('Vente-Privée') > -1
+export const isVentePriveeTransaction = transaction => {
+  return (
+    transaction && ['Vente-Privée', 'Veepee.fr'].includes(transaction.label)
+  )
+}
 
 export const isAmeliTransaction = transaction =>
   transaction && transaction._id === 'paiement_docteur_martin'

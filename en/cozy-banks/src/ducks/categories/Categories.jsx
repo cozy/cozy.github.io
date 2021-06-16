@@ -1,3 +1,4 @@
+import compose from 'lodash/flowRight'
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import cx from 'classnames'
@@ -5,14 +6,14 @@ import { translate } from 'cozy-ui/transpiled/react/I18n'
 import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import { Bd, Img, Media } from 'cozy-ui/transpiled/react/Media'
+import Typography from 'cozy-ui/transpiled/react/Typography'
+import Figure from 'cozy-ui/transpiled/react/Figure'
+
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { Table, TdSecondary } from 'components/Table'
-import Figure from 'cozy-ui/transpiled/react/Figure'
 import styles from 'ducks/categories/styles.styl'
-import compose from 'lodash/flowRight'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 import PercentageLine from 'components/PercentageLine'
-import Typography from 'cozy-ui/transpiled/react/Typography'
 
 const stAmount = styles['bnk-table-amount']
 const stCategory = styles['bnk-table-category-category']
