@@ -2554,8 +2554,8 @@ client-side application on the cozy-stack.</p>
 have to install part of the dependencies yourself or <em>via</em> a Docker image in
 which all dependencies are packed.</p>
 <p>This environment will provide a running instance a http server serving both a
-specified directory of your application on <code>app.cozy.tools:8080</code> and the
-<code>cozy-stack</code> on <code>cozy.tools:8080</code> (you can change the hostname and port if you
+specified directory of your application on <code>app.cozy.localhost:8080</code> and the
+<code>cozy-stack</code> on <code>cozy.localhost:8080</code> (you can change the hostname and port if you
 want, see below).</p>
 <p>The default passphrase will be &ldquo;cozy&rdquo;</p>
 <h3 id="manually">Manually<a class="headerlink" href="#manually" title="Permanent link">&para;</a></h3>
@@ -2594,14 +2594,14 @@ image which encapsulates the dev script and all its dependencies.</p>
 
 <p>If you work behind a corporate proxy, and Docker is configured to inject proxy
 configuration into the containers, you need to ensure that both <code>localhost</code> and
-<code>cozy.tools</code> are configured not to use the proxy. Following is the minimal
+<code>cozy.localhost</code> are configured not to use the proxy. Following is the minimal
 <code>~/.docker/config.json</code> configuration that has been shown to work:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
     <span class="nt">&quot;proxies&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="nt">&quot;httpProxy&quot;</span><span class="p">:</span> <span class="s2">&quot;MY_CORPORATE_PROXY&quot;</span><span class="p">,</span>
             <span class="nt">&quot;httpsProxy&quot;</span><span class="p">:</span> <span class="s2">&quot;MY_CORPORATE_PROXY&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;noProxy&quot;</span><span class="p">:</span> <span class="s2">&quot;localhost,cozy.tools&quot;</span>
+            <span class="nt">&quot;noProxy&quot;</span><span class="p">:</span> <span class="s2">&quot;localhost,cozy.localhost&quot;</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -2642,7 +2642,7 @@ won&rsquo;t remain after):</p>
 
 <p>A <a href="https://github.com/mailhog/MailHog">MailHog</a> is running inside docker to
 catch emails. You can view the emails sent by the stack in a web interface on
-http://cozy.tools:8025/</p>
+http://cozy.localhost:8025/</p>
 <p>You can also expose the couchdb port (listening in the container on 5984) in
 order to access its admin page. For instance add <code>-p 1234:5984</code> to access to the
 admin interface on <code>http://localhost:1234/_utils</code>.</p>

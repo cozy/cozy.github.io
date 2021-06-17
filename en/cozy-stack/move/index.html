@@ -3135,7 +3135,7 @@ metadata. This export takes place asynchronously and is separated in two parts:<
 </ul>
 <h4 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/move/exports</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">source.cozy.tools</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">source.cozy.localhost</span>
 <span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer ...</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </pre></div>
@@ -3172,7 +3172,7 @@ metadata. This export takes place asynchronously and is separated in two parts:<
 </ul>
 <h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/move/exports/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">source.cozy.tools</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">source.cozy.localhost</span>
 <span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer ...</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </pre></div>
@@ -3214,7 +3214,7 @@ one time for each cursor in <code>parts_cursors</code>.</p>
 URL, before doing the real import.</p>
 <h4 id="request_2">Request<a class="headerlink" href="#request_2" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/move/imports/precheck</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">destination.cozy.tools</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">destination.cozy.localhost</span>
 <span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer ...</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </pre></div>
@@ -3223,7 +3223,7 @@ URL, before doing the real import.</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
     <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://settings.source.cozy.tools/#/exports/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&quot;</span>
+            <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://settings.source.cozy.localhost/#/exports/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&quot;</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -3240,7 +3240,7 @@ URL, before doing the real import.</p>
 <p>This endpoint can be used to really start an import.</p>
 <h4 id="request_3">Request<a class="headerlink" href="#request_3" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/move/imports</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">destination.cozy.tools</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">destination.cozy.localhost</span>
 <span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer ...</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </pre></div>
@@ -3249,7 +3249,7 @@ URL, before doing the real import.</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
     <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://settings.source.cozy.tools/#/exports/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&quot;</span>
+            <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://settings.source.cozy.localhost/#/exports/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&quot;</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -3258,7 +3258,7 @@ URL, before doing the real import.</p>
 
 <h4 id="responses_1">Responses<a class="headerlink" href="#responses_1" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">303</span> <span class="ne">See Other</span>
-<span class="na">Location</span><span class="o">:</span> <span class="l">https://destination.cozy.tools/move/importing</span>
+<span class="na">Location</span><span class="o">:</span> <span class="l">https://destination.cozy.localhost/move/importing</span>
 </pre></div>
 
 
@@ -3271,7 +3271,7 @@ with the domain of the Cozy source (for information).</p>
 <h3 id="get-moveimportingrealtime">GET /move/importing/realtime<a class="headerlink" href="#get-moveimportingrealtime" title="Permanent link">&para;</a></h3>
 <p>This is a websocket endpoint that can be used to wait for the end of the
 import. The server will send an event when it is done (or errored):</p>
-<div class="codehilite"><pre><span></span>server&gt; {&quot;redirect&quot;: &quot;http://cozy.tools:8080/auth/login&quot;}
+<div class="codehilite"><pre><span></span>server&gt; {&quot;redirect&quot;: &quot;http://cozy.localhost:8080/auth/login&quot;}
 </pre></div>
 
 
@@ -3281,7 +3281,7 @@ already logged in, we don&rsquo;t ask its password again, as the delivered token
 still need a confirmation by mail to start moving the Cozy.</p>
 <h4 id="request_4">Request<a class="headerlink" href="#request_4" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/move/authorize?state=8d560d60&amp;redirect_uri=https://move.cozycloud.cc/callback/source</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Server</span><span class="o">:</span> <span class="l">source.cozy.tools</span>
+<span class="na">Server</span><span class="o">:</span> <span class="l">source.cozy.localhost</span>
 </pre></div>
 
 
@@ -3295,13 +3295,13 @@ still need a confirmation by mail to start moving the Cozy.</p>
 <p>This endpoint is used by the settings application to open the move wizard.</p>
 <h4 id="request_5">Request<a class="headerlink" href="#request_5" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/move/initialize</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">source.cozy.tools</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">source.cozy.localhost</span>
 </pre></div>
 
 
 <h4 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">307</span> <span class="ne">Temporary Redirect</span>
-<span class="na">Location</span><span class="o">:</span> <span class="l">https://move.cozycloud.cc/initialize?code=834d7eb8149c&amp;cozy_url=https://source.cozy.tools&amp;used=123456&amp;quota=5000000&amp;client_id=09136b00-1778-0139-f0a7-543d7eb8149c&amp;client_secret=NDkyZTEzMDA&amp;vault=false</span>
+<span class="na">Location</span><span class="o">:</span> <span class="l">https://move.cozycloud.cc/initialize?code=834d7eb8149c&amp;cozy_url=https://source.cozy.localhost&amp;used=123456&amp;quota=5000000&amp;client_id=09136b00-1778-0139-f0a7-543d7eb8149c&amp;client_secret=NDkyZTEzMDA&amp;vault=false</span>
 </pre></div>
 
 
@@ -3313,7 +3313,7 @@ to prepare the export and send the confirmation mail.</p>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/x-www-form-urlencoded</span>
 
 code=834d7eb8149c
-&amp;target_url=https://target.cozy.tools/
+&amp;target_url=https://target.cozy.localhost/
 &amp;target_token=M2EwYjlhZjAtMTc3OC0wMTM5LWYwYWMtNTQzZDdlYjgxNDlj
 &amp;target_client_id=09136b00-1778-0139-f0a7-543d7eb8149c
 &amp;target_client_secret=NDkyZTEzMDA
@@ -3334,13 +3334,13 @@ settings app or from cozy-move).</p>
 its-self during the move and pushs a job for the export.</p>
 <h4 id="request_7">Request<a class="headerlink" href="#request_7" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/move/go?secret=tNTQzZDdlYjgxNDlj</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">source.cozy.tools</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">source.cozy.localhost</span>
 </pre></div>
 
 
 <h4 id="reponse">Reponse<a class="headerlink" href="#reponse" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">303</span> <span class="ne">See Other</span>
-<span class="na">Location</span><span class="o">:</span> <span class="l">https://target.cozy.tools/move/importing</span>
+<span class="na">Location</span><span class="o">:</span> <span class="l">https://target.cozy.localhost/move/importing</span>
 </pre></div>
 
 
@@ -3349,7 +3349,7 @@ its-self during the move and pushs a job for the export.</p>
 the source Cozy so that it can stop the konnectors and unblock the instance.</p>
 <h4 id="request_8">Request<a class="headerlink" href="#request_8" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/move/finalize?subdomain=flat</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">source.cozy.tools</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">source.cozy.localhost</span>
 </pre></div>
 
 
@@ -3363,7 +3363,7 @@ the source Cozy so that it can stop the konnectors and unblock the instance.</p>
 endpoint for the other instance to unblock it.</p>
 <h4 id="request_9">Request<a class="headerlink" href="#request_9" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/move/abort</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">source.cozy.tools</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">source.cozy.localhost</span>
 </pre></div>
 
 

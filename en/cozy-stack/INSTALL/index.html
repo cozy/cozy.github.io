@@ -2654,17 +2654,17 @@ comand line arguments. Assuming CouchDB is installed and running on default port
 </pre></div>
 
 
-<p>The cozy-stack server listens on http://cozy.tools:8080/ by default. See
+<p>The cozy-stack server listens on http://cozy.localhost:8080/ by default. See
 <code>cozy-stack --help</code> for more informations.</p>
-<p>The above command will create an instance on http://cozy.tools:8080/ with the
-passphrase <code>cozy</code>. By default this will create a <code>storage/</code> entry in your current directory, containing all your instances by their URL. An instance &ldquo;cozy.tools:8080&rdquo; will have its stored files in <code>storage/cozy.tools:8080/</code>. Installed apps will be found in the <code>.cozy_apps/</code> directory of each instance.</p>
+<p>The above command will create an instance on http://cozy.localhost:8080/ with the
+passphrase <code>cozy</code>. By default this will create a <code>storage/</code> entry in your current directory, containing all your instances by their URL. An instance &ldquo;cozy.localhost:8080&rdquo; will have its stored files in <code>storage/cozy.localhost:8080/</code>. Installed apps will be found in the <code>.cozy_apps/</code> directory of each instance.</p>
 <p>Make sure the full stack is up with:</p>
-<div class="codehilite"><pre><span></span>curl -H <span class="s1">&#39;Accept: application/json&#39;</span> <span class="s1">&#39;http://cozy.tools:8080/status/&#39;</span>
+<div class="codehilite"><pre><span></span>curl -H <span class="s1">&#39;Accept: application/json&#39;</span> <span class="s1">&#39;http://cozy.localhost:8080/status/&#39;</span>
 </pre></div>
 
 
 <p>You can then remove your test instance:</p>
-<div class="codehilite"><pre><span></span>cozy-stack instances rm cozy.tools:8080
+<div class="codehilite"><pre><span></span>cozy-stack instances rm cozy.localhost:8080
 </pre></div>
                 
                   

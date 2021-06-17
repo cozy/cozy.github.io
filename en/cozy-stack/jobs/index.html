@@ -3807,7 +3807,7 @@ timeout.</p>
 <h2 id="jobs-api">Jobs API<a class="headerlink" href="#jobs-api" title="Permanent link">&para;</a></h2>
 <p>Example and description of the attributes of a <code>io.cozy.jobs</code>:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="s2">&quot;domain&quot;</span><span class="o">:</span> <span class="s2">&quot;me.cozy.tools&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;domain&quot;</span><span class="o">:</span> <span class="s2">&quot;me.cozy.localhost&quot;</span><span class="p">,</span>
   <span class="s2">&quot;worker&quot;</span><span class="o">:</span> <span class="s2">&quot;sendmail&quot;</span><span class="p">,</span>    <span class="c1">// worker type name</span>
   <span class="s2">&quot;options&quot;</span><span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;priority&quot;</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>         <span class="c1">// priority from 1 to 100, higher number is higher priority</span>
@@ -3818,7 +3818,7 @@ timeout.</p>
     <span class="s2">&quot;mode&quot;</span><span class="o">:</span> <span class="s2">&quot;noreply&quot;</span><span class="p">,</span>
     <span class="s2">&quot;template_name&quot;</span><span class="o">:</span> <span class="s2">&quot;new_registration&quot;</span><span class="p">,</span>
     <span class="s2">&quot;template_values&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;DevicesLink&quot;</span><span class="o">:</span> <span class="s2">&quot;http://me.cozy.tools/#/connectedDevices&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;DevicesLink&quot;</span><span class="o">:</span> <span class="s2">&quot;http://me.cozy.localhost/#/connectedDevices&quot;</span><span class="p">,</span>
     <span class="p">}</span>
   <span class="p">},</span>
   <span class="s2">&quot;state&quot;</span><span class="o">:</span> <span class="s2">&quot;running&quot;</span><span class="p">,</span>      <span class="c1">// queued, running, done, errored</span>
@@ -3853,7 +3853,7 @@ are replicated in the <code>io.cozy.jobs</code> attributes:</p>
     <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
     <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;123123&quot;</span><span class="p">,</span>
     <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;me.cozy.tools&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;me.cozy.localhost&quot;</span><span class="p">,</span>
       <span class="nt">&quot;worker&quot;</span><span class="p">:</span> <span class="s2">&quot;sendmail&quot;</span><span class="p">,</span>
       <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="nt">&quot;priority&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
@@ -3905,7 +3905,7 @@ arguments will be given in the <code>process.env['COZY_FIELDS']</code> variable.
     <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
     <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;123123&quot;</span><span class="p">,</span>
     <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;me.cozy.tools&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;me.cozy.localhost&quot;</span><span class="p">,</span>
       <span class="nt">&quot;worker&quot;</span><span class="p">:</span> <span class="s2">&quot;sendmail&quot;</span><span class="p">,</span>
       <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="nt">&quot;timeout&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
@@ -3986,7 +3986,7 @@ transition from sending manually a mail to the support via the sendmail queue).<
   <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
     <span class="p">{</span>
       <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;cozy.tools:8080&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;cozy.localhost:8080&quot;</span><span class="p">,</span>
         <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="nt">&quot;queued_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-09-29T15:32:31.953878568+02:00&quot;</span><span class="p">,</span>
         <span class="nt">&quot;started_at&quot;</span><span class="p">:</span> <span class="s2">&quot;0001-01-01T00:00:00Z&quot;</span><span class="p">,</span>
@@ -4061,7 +4061,7 @@ client, not on the server) to update the status.</p>
     <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
     <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;022368c07dc701396403543d7eb8149c&quot;</span><span class="p">,</span>
     <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;me.cozy.tools&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;me.cozy.localhost&quot;</span><span class="p">,</span>
       <span class="nt">&quot;worker&quot;</span><span class="p">:</span> <span class="s2">&quot;sendmail&quot;</span><span class="p">,</span>
       <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{},</span>
       <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;errored&quot;</span><span class="p">,</span>
@@ -4292,7 +4292,7 @@ must call <code>PATCH /jobs/:job-id</code> when the job is completed (success or
     <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
     <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;123123&quot;</span><span class="p">,</span>
     <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;me.cozy.tools&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;me.cozy.localhost&quot;</span><span class="p">,</span>
       <span class="nt">&quot;worker&quot;</span><span class="p">:</span> <span class="s2">&quot;sendmail&quot;</span><span class="p">,</span>
       <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{},</span>
       <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;running&quot;</span><span class="p">,</span>

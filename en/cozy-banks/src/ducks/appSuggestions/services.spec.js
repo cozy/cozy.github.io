@@ -60,6 +60,15 @@ describe('findSuggestionForTransaction', () => {
 
     expect(suggestion).toBe(null)
   })
+
+  it('should return null if no the app suggested has no konnectorSlug', async () => {
+    const suggestion = await findSuggestionForTransaction(
+      { _id: 'o1', label: 'spotify' },
+      brands,
+      []
+    )
+    expect(suggestion).toBe(null)
+  })
 })
 
 describe('normalizeSuggestions', () => {

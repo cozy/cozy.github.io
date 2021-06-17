@@ -135,7 +135,8 @@ describe('fetchChangesOrAll', () => {
     await fetchChangesOrAll(client, 'io.cozy.todos', 'abcd')
 
     expect(DocumentCollection.prototype.fetchChanges).toHaveBeenCalledWith({
-      since: 'abcd'
+      since: 'abcd',
+      include_docs: true
     })
     expect(DocumentCollection.prototype.all).not.toHaveBeenCalled()
   })

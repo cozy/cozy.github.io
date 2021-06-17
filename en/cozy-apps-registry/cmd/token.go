@@ -71,7 +71,7 @@ func extractMagAge() (maxAge time.Duration, err error) {
 			value := submatch[1]
 			unit := submatch[2]
 			var f float64
-			f, err = strconv.ParseFloat(value, 10)
+			f, err = strconv.ParseFloat(value, 64)
 			if err != nil {
 				err = fmt.Errorf("Could not parse max-age argument: %s", err)
 				return

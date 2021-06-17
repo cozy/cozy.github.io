@@ -38,7 +38,8 @@ export const fetchChangesOrAll = async (client, doctype, lastSeq) => {
     return { documents, newLastSeq: lastChanges.newLastSeq }
   } else {
     return collection.fetchChanges({
-      since: lastSeq
+      since: lastSeq,
+      include_docs: true
     })
   }
 }

@@ -3020,7 +3020,7 @@ skip on large collections.</p>
             <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;instances&quot;</span><span class="p">,</span>
             <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;3af6ed68a6d9146b3529d2584a001d98&quot;</span><span class="p">,</span>
             <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="nt">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;alice.cozy.tools:8080&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;alice.cozy.localhost:8080&quot;</span><span class="p">,</span>
                 <span class="nt">&quot;prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;cozy7d3d5947e7f3b0c674d1b8644646348e&quot;</span><span class="p">,</span>
                 <span class="nt">&quot;locale&quot;</span><span class="p">:</span> <span class="s2">&quot;fr&quot;</span><span class="p">,</span>
                 <span class="nt">&quot;context&quot;</span><span class="p">:</span> <span class="s2">&quot;dev&quot;</span><span class="p">,</span>
@@ -3038,7 +3038,7 @@ skip on large collections.</p>
             <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;instances&quot;</span><span class="p">,</span>
             <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;3af6ed68a6d9146b3529d2584a01d557&quot;</span><span class="p">,</span>
             <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="nt">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;bob.cozy.tools:8080&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;bob.cozy.localhost:8080&quot;</span><span class="p">,</span>
                 <span class="nt">&quot;prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;cozybf682065ca3c7d64f2dafc6cc12fe702&quot;</span><span class="p">,</span>
                 <span class="nt">&quot;locale&quot;</span><span class="p">:</span> <span class="s2">&quot;fr&quot;</span><span class="p">,</span>
                 <span class="nt">&quot;context&quot;</span><span class="p">:</span> <span class="s2">&quot;dev&quot;</span><span class="p">,</span>
@@ -3075,9 +3075,9 @@ skip on large collections.</p>
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
     <span class="nt">&quot;instances&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;alice.cozy.tools&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;bob.cozy.tools&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;zoe.cozy.tools&quot;</span>
+        <span class="s2">&quot;alice.cozy.localhost&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;bob.cozy.localhost&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;zoe.cozy.localhost&quot;</span>
     <span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
@@ -3086,7 +3086,7 @@ skip on large collections.</p>
 <h3 id="post-instancesdomainfixerscontent-mismatch">POST /instances/:domain/fixers/content-mismatch<a class="headerlink" href="#post-instancesdomainfixerscontent-mismatch" title="Permanent link">&para;</a></h3>
 <p>Fixes the 64k (or multiple) content mismatch files of an instance</p>
 <h4 id="request_2">Request<a class="headerlink" href="#request_2" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/instances/alice.cozy.tools/fixers/content-mismatch</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/instances/alice.cozy.localhost/fixers/content-mismatch</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </pre></div>
 
@@ -3123,7 +3123,7 @@ dry-run or not.</p>
       <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-07-30 14:32:29.862882247 +0200 CEST&quot;</span>
     <span class="p">}</span>
   <span class="p">],</span>
-  <span class="nt">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;alice.cozy.tools&quot;</span>
+  <span class="nt">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;alice.cozy.localhost&quot;</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -3131,7 +3131,7 @@ dry-run or not.</p>
 <h3 id="post-instancesdomainfixersorphan-account">POST /instances/:domain/fixers/orphan-account<a class="headerlink" href="#post-instancesdomainfixersorphan-account" title="Permanent link">&para;</a></h3>
 <p>Delete the accounts which are not linked to a konnector</p>
 <h4 id="request_3">Request<a class="headerlink" href="#request_3" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/instances/alice.cozy.tools/fixers/orphan-account</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/instances/alice.cozy.localhost/fixers/orphan-account</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 </pre></div>
 
 
@@ -3172,7 +3172,7 @@ registries, office server, and cloudery endpoints.</p>
       <span class="nt">&quot;help_link&quot;</span><span class="p">:</span> <span class="s2">&quot;https://forum.cozy.io/&quot;</span><span class="p">,</span>
       <span class="nt">&quot;noreply_address&quot;</span><span class="p">:</span> <span class="s2">&quot;noreply@cozy.beta&quot;</span><span class="p">,</span>
       <span class="nt">&quot;noreply_name&quot;</span><span class="p">:</span> <span class="s2">&quot;My Cozy Beta&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;sharing_domain&quot;</span><span class="p">:</span> <span class="s2">&quot;cozy.tools&quot;</span>
+      <span class="nt">&quot;sharing_domain&quot;</span><span class="p">:</span> <span class="s2">&quot;cozy.localhost&quot;</span>
     <span class="p">},</span>
     <span class="nt">&quot;context&quot;</span><span class="p">:</span> <span class="s2">&quot;dev&quot;</span><span class="p">,</span>
     <span class="nt">&quot;registries&quot;</span><span class="p">:</span> <span class="p">[</span>
@@ -3223,7 +3223,7 @@ registries, office server, and cloudery endpoints.</p>
     <span class="nt">&quot;help_link&quot;</span><span class="p">:</span> <span class="s2">&quot;https://forum.cozy.io/&quot;</span><span class="p">,</span>
     <span class="nt">&quot;noreply_address&quot;</span><span class="p">:</span> <span class="s2">&quot;noreply@cozy.beta&quot;</span><span class="p">,</span>
     <span class="nt">&quot;noreply_name&quot;</span><span class="p">:</span> <span class="s2">&quot;My Cozy Beta&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;sharing_domain&quot;</span><span class="p">:</span> <span class="s2">&quot;cozy.tools&quot;</span>
+    <span class="nt">&quot;sharing_domain&quot;</span><span class="p">:</span> <span class="s2">&quot;cozy.localhost&quot;</span>
   <span class="p">},</span>
   <span class="nt">&quot;context&quot;</span><span class="p">:</span> <span class="s2">&quot;dev&quot;</span><span class="p">,</span>
   <span class="nt">&quot;registries&quot;</span><span class="p">:</span> <span class="p">[</span>
@@ -3253,7 +3253,7 @@ will be <code>404 Not Found</code> (a <code>5xx</code> can also happen in case o
 CouchDB not available). The format of the response will be one JSON per line,
 and each JSON represents an error.</p>
 <h4 id="request_6">Request<a class="headerlink" href="#request_6" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/instances/alice.cozy.tools/fsck</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/instances/alice.cozy.localhost/fsck</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 </pre></div>
 
 
@@ -3262,7 +3262,7 @@ and each JSON represents an error.</p>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;index_orphan_tree&quot;</span><span class="p">,</span><span class="nt">&quot;dir_doc&quot;</span><span class="p">:{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;directory&quot;</span><span class="p">,</span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="s2">&quot;34a61c6ceb38075fe971cc6a3263659f&quot;</span><span class="p">,</span><span class="nt">&quot;_rev&quot;</span><span class="p">:</span><span class="s2">&quot;2-94ca3acfebf927cb231d125c57f85bd7&quot;</span><span class="p">,</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Photos&quot;</span><span class="p">,</span><span class="nt">&quot;dir_id&quot;</span><span class="p">:</span><span class="s2">&quot;45496c5c442dabecae87de3d73008ec4&quot;</span><span class="p">,</span><span class="nt">&quot;created_at&quot;</span><span class="p">:</span><span class="s2">&quot;2020-12-15T18:23:21.498323965+01:00&quot;</span><span class="p">,</span><span class="nt">&quot;updated_at&quot;</span><span class="p">:</span><span class="s2">&quot;2020-12-15T18:23:21.498323965+01:00&quot;</span><span class="p">,</span><span class="nt">&quot;tags&quot;</span><span class="p">:[],</span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/Photos&quot;</span><span class="p">,</span><span class="nt">&quot;cozyMetadata&quot;</span><span class="p">:{</span><span class="nt">&quot;doctypeVersion&quot;</span><span class="p">:</span><span class="s2">&quot;1&quot;</span><span class="p">,</span><span class="nt">&quot;metadataVersion&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nt">&quot;createdAt&quot;</span><span class="p">:</span><span class="s2">&quot;2020-12-15T18:23:21.498327603+01:00&quot;</span><span class="p">,</span><span class="nt">&quot;updatedAt&quot;</span><span class="p">:</span><span class="s2">&quot;2020-12-15T18:23:21.498327603+01:00&quot;</span><span class="p">,</span><span class="nt">&quot;createdOn&quot;</span><span class="p">:</span><span class="s2">&quot;http://alice.cozy.tools:8080/&quot;</span><span class="p">},</span><span class="nt">&quot;size&quot;</span><span class="p">:</span><span class="s2">&quot;0&quot;</span><span class="p">,</span><span class="nt">&quot;is_dir&quot;</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;is_orphan&quot;</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;has_cycle&quot;</span><span class="p">:</span><span class="kc">false</span><span class="p">},</span><span class="nt">&quot;is_file&quot;</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nt">&quot;is_version&quot;</span><span class="p">:</span><span class="kc">false</span><span class="p">}</span>
+<div class="codehilite"><pre><span></span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;index_orphan_tree&quot;</span><span class="p">,</span><span class="nt">&quot;dir_doc&quot;</span><span class="p">:{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;directory&quot;</span><span class="p">,</span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="s2">&quot;34a61c6ceb38075fe971cc6a3263659f&quot;</span><span class="p">,</span><span class="nt">&quot;_rev&quot;</span><span class="p">:</span><span class="s2">&quot;2-94ca3acfebf927cb231d125c57f85bd7&quot;</span><span class="p">,</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Photos&quot;</span><span class="p">,</span><span class="nt">&quot;dir_id&quot;</span><span class="p">:</span><span class="s2">&quot;45496c5c442dabecae87de3d73008ec4&quot;</span><span class="p">,</span><span class="nt">&quot;created_at&quot;</span><span class="p">:</span><span class="s2">&quot;2020-12-15T18:23:21.498323965+01:00&quot;</span><span class="p">,</span><span class="nt">&quot;updated_at&quot;</span><span class="p">:</span><span class="s2">&quot;2020-12-15T18:23:21.498323965+01:00&quot;</span><span class="p">,</span><span class="nt">&quot;tags&quot;</span><span class="p">:[],</span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/Photos&quot;</span><span class="p">,</span><span class="nt">&quot;cozyMetadata&quot;</span><span class="p">:{</span><span class="nt">&quot;doctypeVersion&quot;</span><span class="p">:</span><span class="s2">&quot;1&quot;</span><span class="p">,</span><span class="nt">&quot;metadataVersion&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nt">&quot;createdAt&quot;</span><span class="p">:</span><span class="s2">&quot;2020-12-15T18:23:21.498327603+01:00&quot;</span><span class="p">,</span><span class="nt">&quot;updatedAt&quot;</span><span class="p">:</span><span class="s2">&quot;2020-12-15T18:23:21.498327603+01:00&quot;</span><span class="p">,</span><span class="nt">&quot;createdOn&quot;</span><span class="p">:</span><span class="s2">&quot;http://alice.cozy.localhost:8080/&quot;</span><span class="p">},</span><span class="nt">&quot;size&quot;</span><span class="p">:</span><span class="s2">&quot;0&quot;</span><span class="p">,</span><span class="nt">&quot;is_dir&quot;</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;is_orphan&quot;</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;has_cycle&quot;</span><span class="p">:</span><span class="kc">false</span><span class="p">},</span><span class="nt">&quot;is_file&quot;</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nt">&quot;is_version&quot;</span><span class="p">:</span><span class="kc">false</span><span class="p">}</span>
 <span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;index_missing&quot;</span><span class="p">,</span><span class="nt">&quot;file_doc&quot;</span><span class="p">:{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;file&quot;</span><span class="p">,</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Photos&quot;</span><span class="p">,</span><span class="nt">&quot;dir_id&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="nt">&quot;created_at&quot;</span><span class="p">:</span><span class="s2">&quot;2020-12-15T18:23:21.527308795+01:00&quot;</span><span class="p">,</span><span class="nt">&quot;updated_at&quot;</span><span class="p">:</span><span class="s2">&quot;2020-12-15T18:23:21.527308795+01:00&quot;</span><span class="p">,</span><span class="nt">&quot;tags&quot;</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/Photos&quot;</span><span class="p">,</span><span class="nt">&quot;size&quot;</span><span class="p">:</span><span class="s2">&quot;4096&quot;</span><span class="p">,</span><span class="nt">&quot;mime&quot;</span><span class="p">:</span><span class="s2">&quot;application/octet-stream&quot;</span><span class="p">,</span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="s2">&quot;files&quot;</span><span class="p">,</span><span class="nt">&quot;executable&quot;</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;is_dir&quot;</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nt">&quot;is_orphan&quot;</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nt">&quot;has_cycle&quot;</span><span class="p">:</span><span class="kc">false</span><span class="p">},</span><span class="nt">&quot;is_file&quot;</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;is_version&quot;</span><span class="p">:</span><span class="kc">false</span><span class="p">}</span>
 </pre></div>
 
@@ -3270,7 +3270,7 @@ and each JSON represents an error.</p>
 <h3 id="post-instancesdomaincheckstriggers">POST /instances/:domain/checks/triggers<a class="headerlink" href="#post-instancesdomaincheckstriggers" title="Permanent link">&para;</a></h3>
 <p>This endpoint will check if no trigger has been installed twice (or more).</p>
 <h4 id="request_7">Request<a class="headerlink" href="#request_7" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/instances/alice.cozy.tools/checks/triggers</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/instances/alice.cozy.localhost/checks/triggers</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 </pre></div>
 
 
@@ -3298,7 +3298,7 @@ and each JSON represents an error.</p>
 <p>This endpoint will check that the io.cozy.shared documents have a correct
 revision tree (no generation smaller for a children than its parent).</p>
 <h4 id="request_8">Request<a class="headerlink" href="#request_8" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/instances/alice.cozy.tools/checks/shared</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/instances/alice.cozy.localhost/checks/shared</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 </pre></div>
 
 
@@ -3317,7 +3317,7 @@ revision tree (no generation smaller for a children than its parent).</p>
 
 <h3 id="post-instancesdomaincheckssharings">POST /instances/:domain/checks/sharings<a class="headerlink" href="#post-instancesdomaincheckssharings" title="Permanent link">&para;</a></h3>
 <h4 id="request_9">Request<a class="headerlink" href="#request_9" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/instances/alice.cozy.tools/checks/sharings</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/instances/alice.cozy.localhost/checks/sharings</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 </pre></div>
 
 
@@ -3483,7 +3483,7 @@ endpoint.</p>
   <span class="nt">&quot;v1&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;counter&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
     <span class="nt">&quot;domains&quot;</span><span class="p">:</span> <span class="p">[</span>
-      <span class="s2">&quot;bob.cozy.tools:8081&quot;</span>
+      <span class="s2">&quot;bob.cozy.localhost:8081&quot;</span>
     <span class="p">]</span>
   <span class="p">},</span>
   <span class="nt">&quot;v2a&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -3495,17 +3495,17 @@ endpoint.</p>
   <span class="nt">&quot;v3a&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;counter&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
     <span class="nt">&quot;domains&quot;</span><span class="p">:</span> <span class="p">[</span>
-      <span class="s2">&quot;alice.cozy.tools:8081&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;ru.cozy.tools:8081&quot;</span>
+      <span class="s2">&quot;alice.cozy.localhost:8081&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;ru.cozy.localhost:8081&quot;</span>
     <span class="p">]</span>
   <span class="p">},</span>
   <span class="nt">&quot;v3b&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;counter&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
     <span class="nt">&quot;domains&quot;</span><span class="p">:</span> <span class="p">[</span>
-      <span class="s2">&quot;foo.cozy.tools:8081&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;bar.cozy.tools:8081&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;baz.cozy.tools:8081&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;foobar.cozy.tools:8081&quot;</span>
+      <span class="s2">&quot;foo.cozy.localhost:8081&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;bar.cozy.localhost:8081&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;baz.cozy.localhost:8081&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;foobar.cozy.localhost:8081&quot;</span>
     <span class="p">]</span>
   <span class="p">}</span>
 <span class="p">}</span>
@@ -3516,7 +3516,7 @@ endpoint.</p>
 <p>Retrieves a Swift object</p>
 <h4 id="request_15">Request<a class="headerlink" href="#request_15" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/swift/vfs/67a88b22520680b1fae840%2F9a8a0%2F18d02%2FiYbkfuCDEMaVoIXg</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">alice.cozy.tools</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.cozy.localhost</span>
 </pre></div>
 
 
@@ -3534,7 +3534,7 @@ endpoint.</p>
 <p>Put an object in Swift</p>
 <h4 id="request_16">Request<a class="headerlink" href="#request_16" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">PUT</span> <span class="nn">/swift/vfs/67a88b22520680b1fae840%2F9a8a0%2F18d02%2FiYbkfuCDEMaVoIXg</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">alice.cozy.tools</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.cozy.localhost</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">text/plain</span>
 </pre></div>
 
@@ -3547,7 +3547,7 @@ endpoint.</p>
 <p>Removes an object from Swift</p>
 <h4 id="request_17">Request<a class="headerlink" href="#request_17" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/swift/vfs/67a88b22520680b1fae840%2F9a8a0%2F18d02%2FiYbkfuCDEMaVoIXg</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">alice.cozy.tools</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.cozy.localhost</span>
 </pre></div>
 
 
@@ -3555,7 +3555,7 @@ endpoint.</p>
 <p>List Swift objects of an instance</p>
 <h4 id="request_18">Request<a class="headerlink" href="#request_18" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/swift/vfs</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">alice.cozy.tools</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.cozy.localhost</span>
 </pre></div>
 
 
