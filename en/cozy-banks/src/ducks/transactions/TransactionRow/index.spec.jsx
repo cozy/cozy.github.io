@@ -1,9 +1,9 @@
 import { mount } from 'enzyme'
 import React from 'react'
 import AppLike from 'test/AppLike'
-import { RowMobile as TransactionRowMobile } from './TransactionRow'
+import TransactionRowMobile from './TransactionRowMobile'
 
-describe('TransactionRow', () => {
+describe('TransactionRowMobile', () => {
   const setup = ({ transactionAttributes } = {}) => {
     const SNACK_AND_WORK_MEALS = '400160'
     const transaction = {

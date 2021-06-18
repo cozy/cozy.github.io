@@ -36,10 +36,8 @@ import Fade from 'cozy-ui/transpiled/react/Fade'
 
 import Loading from 'components/Loading'
 import Padded from 'components/Padded'
-import {
-  RowDesktop as TransactionRowDesktop,
-  RowMobile as TransactionRowMobile
-} from 'ducks/transactions/TransactionRow'
+import TransactionRowDesktop from 'ducks/transactions/TransactionRow/TransactionRowDesktop'
+import TransactionRowMobile from 'ducks/transactions/TransactionRow/TransactionRowMobile'
 import Table from 'components/Table'
 import Header from 'components/Header'
 import BackButton from 'components/BackButton'

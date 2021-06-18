@@ -19,7 +19,8 @@ import { Table } from 'components/Table'
 import TransactionPageErrors from 'ducks/transactions/TransactionPageErrors'
 import styles from 'ducks/transactions/Transactions.styl'
 import { InfiniteScroll, TopMost } from 'ducks/transactions/scroll'
-import { RowDesktop, RowMobile } from 'ducks/transactions/TransactionRow'
+import TransactionRowMobile from 'ducks/transactions/TransactionRow/TransactionRowMobile'
+import TransactionRowDesktop from 'ducks/transactions/TransactionRow/TransactionRowDesktop'
 import { getDate } from 'ducks/transactions/helpers'
 import useVisible from 'hooks/useVisible'
 
@@ -95,7 +96,7 @@ const TransactionSections = props => {
   ])
   const Section = isDesktop ? VisibleSectionDesktop : SectionMobile
   const TransactionContainer = isDesktop ? Table : TransactionContainerMobile
-  const Row = isDesktop ? RowDesktop : RowMobile
+  const Row = isDesktop ? TransactionRowDesktop : TransactionRowMobile
 
   return (
     <TransactionContainer className={cx(styles.TransactionTable, className)}>

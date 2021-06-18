@@ -2,7 +2,8 @@
 
 import React from 'react'
 import { render } from '@testing-library/react'
-import { RowDesktop, RowMobile } from './TransactionRow'
+import TransactionRowDesktop from './TransactionRow/TransactionRowDesktop'
+import TransactionRowMobile from './TransactionRow/TransactionRowMobile'
 import { TransactionsDumb, sortByDate } from './Transactions'
 import data from '../../../test/fixtures'
 import store from '../../../test/store'
@@ -53,7 +54,7 @@ describe('transaction row', () => {
   it('should render correctly on desktop', () => {
     const handleRef = jest.fn()
     const root = setup(
-      <RowDesktop
+      <TransactionRowDesktop
         transaction={transaction}
         urls={{}}
         brands={[]}
@@ -67,7 +68,7 @@ describe('transaction row', () => {
   it('should render correctly on mobile', () => {
     const handleRef = jest.fn()
     const root = setup(
-      <RowMobile
+      <TransactionRowMobile
         onRef={handleRef}
         transaction={transaction}
         urls={{}}
