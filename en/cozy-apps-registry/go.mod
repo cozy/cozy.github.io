@@ -7,7 +7,6 @@ require (
 	github.com/go-kivik/couchdb/v3 v3.2.8
 	github.com/go-kivik/kivik/v3 v3.2.3
 	github.com/go-redis/redis/v7 v7.4.0
-	github.com/google/go-cmp v0.5.4 // indirect
 	github.com/h2non/filetype v1.1.1
 	github.com/hashicorp/go-multierror v1.1.1
 	github.com/howeyc/gopass v0.0.0-20190910152052-7cb4b85ec19c
@@ -18,8 +17,8 @@ require (
 	github.com/pkg/xattr v0.4.3
 	github.com/sirupsen/logrus v1.8.1
 	github.com/spf13/cobra v1.1.3
-	github.com/spf13/viper v1.7.1
+	github.com/spf13/viper v1.8.0
 	github.com/stretchr/testify v1.7.0
-	golang.org/x/crypto v0.0.0-20210503195802-e9a32991a82e
+	golang.org/x/crypto v0.0.0-20210616213533-5ff15b29337e
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 )

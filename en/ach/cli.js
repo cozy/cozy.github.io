@@ -243,8 +243,11 @@ const parseCozyURL = stringUrl => {
   parsedUrl.host = `${splittedHost[0].split('-')[0]}.${splittedHost
     .slice(1)
     .join('.')}`
-  return urls.format(parsedUrl)
+  // Using url module has a side effect: it adds a / at the end
+  // We remove it because it breaks make-token
+  return urls.format(parsedUrl).replace(/\/$/, '')
 }
+exports.parseCozyURL = parseCozyURL
 
 // the CLI interface
 let program = require('commander')

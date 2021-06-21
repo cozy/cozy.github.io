@@ -42,7 +42,8 @@ const SAMPLE = `
       "adminURL": "http://localhost:6060",
       "adminAuth": ""
     }
-  }
+  },
+  "domainToEnv": {}
 }
 `
 
@@ -50,14 +51,33 @@ const fs = require('fs')
 
 let config
 
+const domainToEnv = {
+  'cozy.wtf': 'dev',
+  'cozy.blue': 'dev',
+  'cozy.red': 'int',
+  'cozy.works': 'int',
+  'cozy.company': 'int',
+  'cozy.rocks': 'stg',
+  'mycozy.cloud': 'prod',
+  'cozyorange.cloud': 'prod',
+  'mytoutatice.cloud': 'prod',
+  'tools:8080': 'local'
+}
+
 /**
  * Must be called prior to call getAdminConfigForDomain
+ *
+ * Will set module level `config` variable and possibly
+ * mutate in place the moduel level `domainToEnv` variable
  */
 const loadConfig = async () => {
   const configPath = `${process.env.HOME}/.ACH.json`
   if (fs.existsSync(configPath)) {
     try {
       config = JSON.parse(fs.readFileSync(configPath).toString())
+      if (config.domainToEnv) {
+        Object.assign(domainToEnv, config.domainToEnv)
+      }
     } catch (e) {
       console.error(
         `Config file ${configPath} does not seem to be a valid JSON.`
@@ -77,19 +97,6 @@ const loadConfig = async () => {
       process.exit(1)
     }
   }
-}
-
-const domainToEnv = {
-  'cozy.wtf': 'dev',
-  'cozy.blue': 'dev',
-  'cozy.red': 'int',
-  'cozy.works': 'int',
-  'cozy.company': 'int',
-  'cozy.rocks': 'stg',
-  'mycozy.cloud': 'prod',
-  'cozyorange.cloud': 'prod',
-  'mytoutatice.cloud': 'prod',
-  'tools:8080': 'local'
 }
 
 const getEnvFromClient = client => {
