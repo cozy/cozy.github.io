@@ -1503,6 +1503,33 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#promisecache" title="PromiseCache" class="md-nav__link">
+    PromiseCache
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#promisecachepending-objectstring-promise" title="promiseCache.pending : Object.&lt;string, Promise&gt;" class="md-nav__link">
+    promiseCache.pending : Object.&lt;string, Promise&gt;
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#promisecacheexecpromisefunc-keyfunc-promiset" title="promiseCache.exec(promiseFunc, keyFunc) ⇒ Promise.&lt;T&gt;" class="md-nav__link">
+    promiseCache.exec(promiseFunc, keyFunc) ⇒ Promise.&lt;T&gt;
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#querydefinition-object" title="QueryDefinition ⇐ object" class="md-nav__link">
     QueryDefinition ⇐ object
   </a>
@@ -5085,6 +5112,33 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#promisecache" title="PromiseCache" class="md-nav__link">
+    PromiseCache
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#promisecachepending-objectstring-promise" title="promiseCache.pending : Object.&lt;string, Promise&gt;" class="md-nav__link">
+    promiseCache.pending : Object.&lt;string, Promise&gt;
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#promisecacheexecpromisefunc-keyfunc-promiset" title="promiseCache.exec(promiseFunc, keyFunc) ⇒ Promise.&lt;T&gt;" class="md-nav__link">
+    promiseCache.exec(promiseFunc, keyFunc) ⇒ Promise.&lt;T&gt;
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#querydefinition-object" title="QueryDefinition ⇐ object" class="md-nav__link">
     QueryDefinition ⇐ object
   </a>
@@ -6678,6 +6732,10 @@ labels to attributes, namely: purpose, sourceCategory, sourceSubCategory
 and subjects.
 A qualification can be customized accordingly to rules detailed in
 the checkValueAttributes method.</p>
+</dd>
+<dt><a href="#PromiseCache">PromiseCache</a></dt>
+<dd><p>Caches promises while they are pending
+Serves to dedupe equal queries requested at the same time</p>
 </dd>
 <dt><a href="#QueryDefinition">QueryDefinition</a> ⇐ <code>object</code></dt>
 <dd><p>Chainable API to create query definitions to retrieve documents
@@ -8754,6 +8812,49 @@ There are at the moment only 2 hooks available.</p>
 </pre></div>
 
 
+<p><a name="PromiseCache"></a></p>
+<h2 id="promisecache">PromiseCache<a class="headerlink" href="#promisecache" title="Permanent link">&para;</a></h2>
+<p>Caches promises while they are pending
+Serves to dedupe equal queries requested at the same time</p>
+<p><strong>Kind</strong>: global class  </p>
+<ul>
+<li><a href="#PromiseCache">PromiseCache</a><ul>
+<li><a href="#PromiseCache+pending">.pending</a> : <code>Object.&lt;string, Promise&gt;</code></li>
+<li><a href="#PromiseCache+exec">.exec(promiseFunc, keyFunc)</a> ⇒ <code>Promise.&lt;T&gt;</code></li>
+</ul>
+</li>
+</ul>
+<p><a name="PromiseCache+pending"></a></p>
+<h3 id="promisecachepending-objectstring-promise">promiseCache.pending : <code>Object.&lt;string, Promise&gt;</code><a class="headerlink" href="#promisecachepending-objectstring-promise" title="Permanent link">&para;</a></h3>
+<p>Holds pending promises</p>
+<p><strong>Kind</strong>: instance property of <a href="#PromiseCache"><code>PromiseCache</code></a><br />
+<a name="PromiseCache+exec"></a></p>
+<h3 id="promisecacheexecpromisefunc-keyfunc-promiset">promiseCache.exec(promiseFunc, keyFunc) ⇒ <code>Promise.&lt;T&gt;</code><a class="headerlink" href="#promisecacheexecpromisefunc-keyfunc-promiset" title="Permanent link">&para;</a></h3>
+<p>Tries to find a pending promise corresponding to the result of keyFunc
+- If not found, promiseFunc is executed and the resulting promise is stored while it&rsquo;s pending
+- If found, it is immediately returned</p>
+<p><strong>Kind</strong>: instance method of <a href="#PromiseCache"><code>PromiseCache</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>promiseFunc</td>
+<td><code>function</code></td>
+<td>Not executed only if an &ldquo;equal&rdquo; promise is already pending.</td>
+</tr>
+<tr>
+<td>keyFunc</td>
+<td><code>function</code></td>
+<td>Returns a key to find in cache to find a pending promise.</td>
+</tr>
+</tbody>
+</table>
 <p><a name="QueryDefinition"></a></p>
 <h2 id="querydefinition-object">QueryDefinition ⇐ <code>object</code><a class="headerlink" href="#querydefinition-object" title="Permanent link">&para;</a></h2>
 <p>Chainable API to create query definitions to retrieve documents

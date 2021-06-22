@@ -58,21 +58,29 @@ describe('useEstimatedBudget', () => {
       estimatedBalance: 48833.36,
       sumTransactions: 4870.54,
       currency: undefined,
+
+      // transactions should be sorted
       transactions: [
         expect.objectContaining({
           _type: 'io.cozy.bank.operations',
-          label: 'Salaire',
-          amount: 3870.54,
-          date: expect.any(String),
+          label: 'A recurrence that should be listed first',
+          amount: 1000,
+
+          // future date should happen on the 5th day of the month
+          // since the latest day of the recurrence was a 5th
+          date: expect.stringMatching(/05T/),
           manualCategoryId: '200110',
           account: 'compteisa1',
           automaticCategoryId: '200110'
         }),
         expect.objectContaining({
           _type: 'io.cozy.bank.operations',
-          label: 'A recurrence that should be listed first',
-          amount: 1000,
-          date: expect.any(String),
+          label: 'Salaire',
+          amount: 3870.54,
+
+          // future date should happen on the 1st day of the month
+          // since the latest date of the recurrence was a 1st
+          date: expect.stringMatching(/01T/),
           manualCategoryId: '200110',
           account: 'compteisa1',
           automaticCategoryId: '200110'

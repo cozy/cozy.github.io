@@ -4,6 +4,7 @@ import isAfter from 'date-fns/is_after'
 import parse from 'date-fns/parse'
 import differenceInDays from 'date-fns/difference_in_days'
 import get from 'lodash/get'
+import orderBy from 'lodash/orderBy'
 
 import { getRecurrences } from 'selectors'
 import { getFilteredAccountIds } from 'ducks/filters'
@@ -82,6 +83,6 @@ export const getPlannedTransactions = createSelector(
       })
       res.push(transaction)
     }
-    return res
+    return orderBy(res, ['date'], ['desc'])
   }
 )

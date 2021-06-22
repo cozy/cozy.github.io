@@ -132,11 +132,15 @@ const PlannedTransactionsPage = ({ emptyIcon }) => {
               />
             ) : null}
             {budget.transactions && budget.transactions.length === 0 ? (
-              <Empty
-                icon={emptyIcon}
-                title=""
-                text={t('EstimatedBudget.no-planned-transactions')}
-              />
+              <div className={isMobile ? 'u-mh-half' : ''}>
+                <Empty
+                  icon={emptyIcon}
+                  title={t('EstimatedBudget.no-planned-transactions.title')}
+                  text={
+                    <>✨ {t('EstimatedBudget.no-planned-transactions.text')}</>
+                  }
+                />
+              </div>
             ) : null}
           </>
         )}
