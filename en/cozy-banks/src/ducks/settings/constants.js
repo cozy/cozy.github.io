@@ -3,6 +3,8 @@ export const COLLECTION_NAME = 'settings'
 
 export const DEFAULTS_SETTINGS = {
   _type: 'io.cozy.bank.settings',
+  _id: 'configuration',
+  id: 'configuration',
   autogroups: {
     processedAccounts: []
   },
