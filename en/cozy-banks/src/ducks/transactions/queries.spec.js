@@ -77,4 +77,28 @@ describe('makeFilteredTransactionsConn', () => {
       })
     )
   })
+
+  it('should work with array of account ids (when clicking account balance header, filteringDoc is an array of account ids)', () => {
+    const conn1 = makeFilteredTransactionsConn({
+      groups: {
+        lastUpdate: Date.now(),
+        data: []
+      },
+      accounts: {
+        lastUpdate: Date.now()
+      },
+      filteringDoc: ['a1', 'a2', 'a3']
+    })
+    expect(conn1.enabled).toBe(true)
+    const query = conn1.query()
+    expect(query).toEqual(
+      expect.objectContaining({
+        indexedFields: ['date', 'account'],
+        selector: {
+          $or: [{ account: 'a1' }, { account: 'a2' }, { account: 'a3' }]
+        },
+        sort: [{ date: 'desc' }, { account: 'desc' }]
+      })
+    )
+  })
 })

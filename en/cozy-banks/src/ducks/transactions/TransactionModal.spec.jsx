@@ -52,7 +52,7 @@ describe('transaction modal', () => {
     tracker.trackPage.mockReset()
   })
 
-  const setup = ({ router: routerOption } = {}) => {
+  const setup = ({ router: routerOption, transactionId } = {}) => {
     const router = routerOption || {
       params: {}
     }
@@ -61,7 +61,7 @@ describe('transaction modal', () => {
       <TrackerProvider value={tracker}>
         <AppLike client={client} router={router}>
           <TransactionModal
-            transactionId={data[TRANSACTION_DOCTYPE][1]._id}
+            transactionId={transactionId || data[TRANSACTION_DOCTYPE][1]._id}
             showCategoryChoice={() => {}}
             requestClose={() => {}}
             urls={{}}
@@ -89,6 +89,12 @@ describe('transaction modal', () => {
     expect(root.getByText('Edf Particuliers')).toBeTruthy()
     expect(root.getByText('-77.50')).toBeTruthy()
     expect(root.getByText('Saturday 26 August')).toBeTruthy()
+  })
+
+  it('should render null if transaction cannot be found in store (happens when transaction just has been deleted)', () => {
+    trackPage('mon_compte:compte')
+    const { root } = setup({ transactionId: 'not-existing' })
+    expect(root.queryByText('Occasional transaction')).toBeFalsy()
   })
 
   it('should send correct tracking events (balance page)', () => {

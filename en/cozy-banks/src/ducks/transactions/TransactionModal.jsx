@@ -560,6 +560,10 @@ const TransactionModal = ({ requestClose, transactionId, ...props }) => {
     [location, requestClose]
   )
 
+  if (!transaction) {
+    return null // transaction is being deleted
+  }
+
   return (
     <RawContentDialog
       size="medium"

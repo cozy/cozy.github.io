@@ -41,6 +41,12 @@ export const makeFilteredTransactionsConn = options => {
         indexFields = ['date', 'account']
         whereClause = { account: filteringDoc._id }
         sortByClause = [{ date: 'desc' }, { account: 'desc' }]
+      } else if (Array.isArray(filteringDoc)) {
+        indexFields = ['date', 'account']
+        whereClause = {
+          $or: filteringDoc.map(a => ({ account: a }))
+        }
+        sortByClause = [{ date: 'desc' }, { account: 'desc' }]
       } else {
         throw new Error('Unsupported filtering doc to create transaction query')
       }
