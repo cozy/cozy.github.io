@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo, useCallback } from 'react'
 import { useClient } from 'cozy-client'
 import {
   updateTransactionCategory,
@@ -9,32 +9,60 @@ import CategoryChoice from 'ducks/categories/CategoryChoice'
 /**
  * Edits a transaction's category through CategoryChoice
  */
-const TransactionCategoryEditor = props => {
+const TransactionCategoryEditor = ({
+  transactions,
+  beforeUpdate,
+  afterUpdate,
+  afterUpdates,
+  onCancel
+}) => {
   const client = useClient()
-  const { transaction, beforeUpdate, afterUpdate, onCancel } = props
+  const categoryId = useMemo(() => getCategoryId(transactions[0]), [
+    transactions
+  ])
 
-  const handleSelect = async category => {
-    if (beforeUpdate) {
-      await beforeUpdate()
-    }
-    const newTransaction = await updateTransactionCategory(
-      client,
-      transaction,
-      category
-    )
-    if (afterUpdate) {
-      await afterUpdate(newTransaction)
-    }
-  }
+  const handleUpdate = useCallback(
+    async (transaction, category) => {
+      const newTransaction = await updateTransactionCategory(
+        client,
+        transaction,
+        category
+      )
 
-  const handleCancel = async () => {
+      if (afterUpdate) {
+        await afterUpdate(newTransaction)
+      }
+    },
+    [afterUpdate, client]
+  )
+
+  const handleSelect = useCallback(
+    async category => {
+      if (beforeUpdate) {
+        await beforeUpdate()
+      }
+
+      const promises = transactions.map(transaction =>
+        handleUpdate(transaction, category)
+      )
+
+      await Promise.all(promises)
+
+      if (afterUpdates) {
+        afterUpdates()
+      }
+    },
+    [afterUpdates, beforeUpdate, handleUpdate, transactions]
+  )
+
+  const handleCancel = useCallback(async () => {
     await onCancel()
-  }
+  }, [onCancel])
 
   return (
     <CategoryChoice
       modal={true}
-      categoryId={getCategoryId(transaction)}
+      categoryId={categoryId}
       onSelect={handleSelect}
       onCancel={handleCancel}
     />
@@ -45,4 +73,4 @@ TransactionCategoryEditor.defaultProps = {
   modal: false
 }
 
-export default TransactionCategoryEditor
+export default React.memo(TransactionCategoryEditor)

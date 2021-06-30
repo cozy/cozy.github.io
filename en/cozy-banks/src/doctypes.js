@@ -1,6 +1,7 @@
 import fromPairs from 'lodash/fromPairs'
 import CozyClient, { QueryDefinition, HasManyInPlace, Q } from 'cozy-client'
 import subYears from 'date-fns/sub_years'
+import format from 'date-fns/format'
 
 // eslint-disable-next-line no-unused-vars
 import { Connection } from './types'
@@ -219,7 +220,7 @@ export const transactionsConn = {
 }
 
 export const makeBalanceTransactionsConn = () => {
-  const fromDate = subYears(new Date(), 1).toISOString()
+  const fromDate = format(subYears(new Date(), 1), 'YYYY-MM-DD')
   return {
     as: 'home/transactions',
     query: () =>

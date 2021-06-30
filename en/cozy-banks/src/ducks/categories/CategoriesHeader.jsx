@@ -8,6 +8,7 @@ import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import Stack from 'cozy-ui/transpiled/react/Stack'
 import Empty from 'cozy-ui/transpiled/react/Empty'
+import SadCozyIcon from 'cozy-ui/transpiled/react/Icons/SadCozy'
 
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -187,13 +188,11 @@ const CategoriesHeader = props => {
             </LegalMention>
 
             {!hasData && !isFetching && !isFetchingNewData && (
-              <div className={styles.NoAccount_empty}>
-                <Empty
-                  icon={emptyIcon}
-                  title=""
-                  text={t('Categories.title.empty-text')}
-                />
-              </div>
+              <Empty
+                className={cx('u-mt-3', styles.NoAccount_empty)}
+                icon={emptyIcon}
+                text={t('Categories.title.empty-text')}
+              />
             )}
             {incomeToggle && chart ? <Padded>{chart}</Padded> : null}
           </Header>
@@ -249,13 +248,20 @@ const CategoriesHeader = props => {
         ) : null}
       </Header>
       <HeaderLoadingProgress isFetching={!!isFetchingNewData && !isFetching} />
+      {!hasData && !isFetching && !isFetchingNewData ? (
+        <Empty
+          className={styles.NoAccount_empty}
+          icon={emptyIcon}
+          text={t('Categories.title.empty-text')}
+        />
+      ) : null}
     </>
   )
 }
 
 CategoriesHeader.defaultProps = {
   chartSize: 182,
-  emptyIcon: 'cozy',
+  emptyIcon: SadCozyIcon,
   classes: {
     header: '',
     legalMention: 'u-mt-2 u-pt-1',

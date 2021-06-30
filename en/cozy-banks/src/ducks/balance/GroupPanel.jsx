@@ -80,7 +80,14 @@ export const getGroupPanelSummaryClasses = (group, state) => {
   }
 }
 
-const accordionTransitionProps = { unmountOnExit: true }
+const NoTransition = props => {
+  const { in: open, children } = props
+  if (open) {
+    return children
+  } else {
+    return null
+  }
+}
 
 const GroupPanel = props => {
   const {
@@ -162,7 +169,7 @@ const GroupPanel = props => {
       className={className}
       expanded={expanded}
       onChange={handlePanelChange}
-      TransitionProps={accordionTransitionProps}
+      TransitionComponent={NoTransition}
     >
       <GroupPanelSummary
         className={cx({

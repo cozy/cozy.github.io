@@ -23,6 +23,7 @@ import TransactionRowMobile from 'ducks/transactions/TransactionRow/TransactionR
 import TransactionRowDesktop from 'ducks/transactions/TransactionRow/TransactionRowDesktop'
 import { getDate } from 'ducks/transactions/helpers'
 import useVisible from 'hooks/useVisible'
+import SelectionBar from 'ducks/selection/SelectionBar'
 
 export const sortByDate = (transactions = []) =>
   sortBy(transactions, getDate).reverse()
@@ -200,23 +201,26 @@ export class TransactionsDumb extends React.Component {
     } = this.props
 
     return (
-      <InfiniteScroll
-        manual={false}
-        canLoadAtTop={false}
-        canLoadAtBottom={canFetchMore}
-        onReachTop={onReachTop}
-        onReachBottom={onReachBottom}
-        getScrollingElement={this.getScrollingElement}
-        onScroll={this.handleScroll}
-      >
-        {showTriggerErrors ? <TransactionPageErrors /> : null}
-        <TransactionSections
-          filteringOnAccount={filteringOnAccount}
-          className={className}
-          transactions={transactions}
-          onRowRef={this.handleRefRow}
-        />
-      </InfiniteScroll>
+      <>
+        <SelectionBar />
+        <InfiniteScroll
+          manual={false}
+          canLoadAtTop={false}
+          canLoadAtBottom={canFetchMore}
+          onReachTop={onReachTop}
+          onReachBottom={onReachBottom}
+          getScrollingElement={this.getScrollingElement}
+          onScroll={this.handleScroll}
+        >
+          {showTriggerErrors ? <TransactionPageErrors /> : null}
+          <TransactionSections
+            filteringOnAccount={filteringOnAccount}
+            className={className}
+            transactions={transactions}
+            onRowRef={this.handleRefRow}
+          />
+        </InfiniteScroll>
+      </>
     )
   }
 }

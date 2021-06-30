@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 
 import flag from 'cozy-flags'
 
@@ -19,13 +19,23 @@ export const useTransactionModal = transaction => {
   return [show, hide, modal]
 }
 
-export const useTransactionCategoryModal = transaction => {
+export const useTransactionCategoryModal = ({
+  transactions,
+  beforeUpdate,
+  afterUpdates
+}) => {
   const [modalOpened, show, hide] = useSwitch(false)
+  const handleBeforeUpdate = useCallback(() => {
+    hide()
+    beforeUpdate && beforeUpdate()
+  }, [beforeUpdate, hide])
+
   const modal = modalOpened ? (
     <TransactionCategoryEditor
-      beforeUpdate={hide}
+      beforeUpdate={handleBeforeUpdate}
+      afterUpdates={afterUpdates}
+      transactions={transactions}
       onCancel={hide}
-      transaction={transaction}
     />
   ) : null
 

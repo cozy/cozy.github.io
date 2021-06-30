@@ -1,11 +1,23 @@
-import { transactionsConn, HasManyReimbursements } from './doctypes'
-import getClient from 'test/client'
+import MockDate from 'mockdate'
+import {
+  makeBalanceTransactionsConn,
+  transactionsConn,
+  HasManyReimbursements
+} from './doctypes'
 
-const client = getClient()
+MockDate.set(new Date(2021, 5, 28))
 
 describe('transactionsConn', () => {
   it('should have no limit', () => {
-    expect(transactionsConn.query(client).limit).toBeNull()
+    expect(transactionsConn.query().limit).toBeNull()
+  })
+})
+
+describe('makeBalanceTransactionsConn', () => {
+  it('should have no limit', () => {
+    const conn = makeBalanceTransactionsConn()
+    const query = conn.query()
+    expect(query.selector.date.$gt).toEqual('2020-06-28')
   })
 })
 

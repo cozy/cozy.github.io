@@ -15,7 +15,10 @@ import { useQuery, useClient } from 'cozy-client'
 import { getDate } from 'ducks/transactions/helpers'
 import { getFilteringDoc } from 'ducks/filters'
 import { groupsConn, accountsConn } from 'doctypes'
-import { makeFilteredTransactionsConn } from './queries'
+import {
+  makeFilteredTransactionsConn,
+  makeEarliestLatestQueries
+} from './queries'
 
 const rangeMonth = (startDate, endDate) => {
   const options = []
@@ -70,15 +73,9 @@ const useTransactionExtent = () => {
 
   useEffect(() => {
     const fetch = async () => {
-      const q = transactionsConn.query()
-      const latestQuery = q
-        .limitBy(1)
-        .sortBy([{ date: 'desc' }])
-        .indexFields(['date'])
-      const earliestQuery = q
-        .sortBy([{ date: 'asc' }])
-        .limitBy(1)
-        .indexFields(['date'])
+      const baseQuery = transactionsConn.query()
+      const [earliestQuery, latestQuery] = makeEarliestLatestQueries(baseQuery)
+
       const [earliest, latest] = await Promise.all(
         [earliestQuery, latestQuery].map(async (q, i) => {
           const queryName = `${transactionsConn.as}-${

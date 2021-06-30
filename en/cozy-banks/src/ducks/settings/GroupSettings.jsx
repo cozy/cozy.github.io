@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useRef, useEffect } from 'react'
+import React, { useCallback, useState, useRef, useEffect, useMemo } from 'react'
 import sortBy from 'lodash/sortBy'
 import { Query, useClient, Q, useQuery, isQueryLoading } from 'cozy-client'
 
@@ -10,11 +10,16 @@ import { Media, Img } from 'cozy-ui/transpiled/react/Media'
 import Switch from 'cozy-ui/transpiled/react/MuiCozyTheme/Switch'
 import Input from 'cozy-ui/transpiled/react/Input'
 import Stack from 'cozy-ui/transpiled/react/Stack'
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
-import { GROUP_DOCTYPE, accountsConn } from 'doctypes'
+import { GROUP_DOCTYPE, accountsConn, groupsConn } from 'doctypes'
 import BarTheme from 'ducks/bar/BarTheme'
 import { getAccountInstitutionLabel } from 'ducks/account/helpers'
-import { getGroupLabel, renamedGroup } from 'ducks/groups/helpers'
+import {
+  getGroupLabel,
+  renamedGroup,
+  getGroupAccountIds
+} from 'ducks/groups/helpers'
 import { trackPage } from 'ducks/tracking/browser'
 
 import Loading from 'components/Loading'
@@ -25,7 +30,7 @@ import Padded from 'components/Padded'
 import { logException } from 'lib/sentry'
 import { trackEvent } from 'ducks/tracking/browser'
 import { useParams, useRouter } from 'components/RouterContext'
-
+import multiKeyBy from 'utils/multiKeyBy'
 import styles from 'ducks/settings/GroupsSettings.styl'
 
 const makeNewGroup = (client, t) => {
@@ -50,8 +55,9 @@ const updateOrCreateGroup = async (client, group, router, successCallback) => {
 }
 
 export const AccountLine = props => {
-  const { account, group, toggleAccount } = props
+  const { account, group, toggleAccount, groupsByAccountId } = props
   const { t } = useI18n()
+  const { isMobile } = useBreakpoints()
   const [toggleState, setToggleState] = useState(
     group ? Boolean(group.accounts.existsById(account._id)) : false
   )
@@ -75,6 +81,11 @@ export const AccountLine = props => {
     [toggleAccount, account, group, setToggleState, t]
   )
 
+  const groups = useMemo(() => {
+    const accountGroups = groupsByAccountId[account._id] || []
+    return accountGroups.filter(accountGroup => accountGroup._id !== group._id)
+  }, [account._id, group._id, groupsByAccountId])
+
   return (
     <tr>
       <td className={styles.GrpStg__accntLabel}>
@@ -84,6 +95,11 @@ export const AccountLine = props => {
         {getAccountInstitutionLabel(account)}
       </td>
       <td className={styles.GrpStg__accntNumber}>{account.number}</td>
+      {!isMobile ? (
+        <td className={styles.GrpStg__accntGroups}>
+          {groups.map(g => getGroupLabel(g, t)).join(', ')}
+        </td>
+      ) : null}
       <td className={styles.GrpStg__accntToggle}>
         {group ? (
           <Switch
@@ -106,6 +122,7 @@ export const AccountsList = props => {
   const { accounts, group } = props
   const client = useClient()
   const router = useRouter()
+  const { isMobile } = useBreakpoints()
 
   const toggleAccount = useCallback(
     async (accountId, group, enabled) => {
@@ -123,6 +140,12 @@ export const AccountsList = props => {
     [client, router]
   )
 
+  const { data: groups } = useQuery(groupsConn.query, groupsConn)
+  const groupsByAccountId = useMemo(
+    () => multiKeyBy(groups, getGroupAccountIds),
+    [groups]
+  )
+
   return accounts.length > 0 ? (
     <Table className={styles.GrpStg__table}>
       <thead>
@@ -132,6 +155,9 @@ export const AccountsList = props => {
           <th className={styles.GrpStg__accntNumber}>
             {t('Groups.account-number')}
           </th>
+          {!isMobile ? (
+            <th className={styles.GrpStg__accntGroups}>{t('Groups.groups')}</th>
+          ) : null}
           <th className={styles.GrpStg__accntToggle}>{t('Groups.included')}</th>
         </tr>
       </thead>
@@ -141,6 +167,7 @@ export const AccountsList = props => {
             <AccountLine
               account={account}
               group={group}
+              groupsByAccountId={groupsByAccountId}
               toggleAccount={toggleAccount}
               key={account._id}
             />

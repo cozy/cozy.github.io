@@ -2,12 +2,14 @@
 @require '~styles/mixins.styl'
 @require 'settings/breakpoints'
 
+.ColumnSizeCheckbox
+    maxed-flex-basis 4%
+
 .ColumnSizeDesc
     maxed-flex-basis 40%
-    padding-left 4rem
 
 .ColumnSizeDate
-    maxed-flex-basis 15%
+    maxed-flex-basis 13%
     color var(--coolGrey)
     text-align right
 
@@ -16,7 +18,7 @@
     text-align right
 
 .ColumnSizeAction
-    maxed-flex-basis 25%
+    maxed-flex-basis 23%
 
 .TransactionTable
     color var(--primaryTextColor)
@@ -63,6 +65,20 @@
 
 .TransactionRow--editable
     cursor pointer
+
+    .ColumnSizeCheckbox span
+        visibility hidden
+    &:hover
+        .ColumnSizeCheckbox span
+            visibility visible
+
+.TransactionRow--selected
+    &
+    &:hover
+        background-color var(--zircon) !important
+
+    .ColumnSizeCheckbox span
+        visibility visible
 
 // For now, all mouvements from same category use the same icon
 categories = kids dailyLife educationAndTraining health homeAndRealEstate incomeCat activities excludeFromBudgetCat services tax transportation goingOutAndTravel uncategorized

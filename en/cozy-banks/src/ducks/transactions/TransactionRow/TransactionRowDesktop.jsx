@@ -7,6 +7,7 @@ import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import Figure from 'cozy-ui/transpiled/react/Figure'
+import Checkbox from 'cozy-ui/transpiled/react/Checkbox'
 
 import { TdSecondary } from 'components/Table'
 import TransactionActions from 'ducks/transactions/TransactionActions'
@@ -28,16 +29,23 @@ import ApplicationDateCaption from 'ducks/transactions/TransactionRow/Applicatio
 import AccountCaption from 'ducks/transactions/TransactionRow/AccountCaption'
 import TransactionDate from 'ducks/transactions/TransactionRow/TransactionDate'
 import RecurrenceCaption from 'ducks/transactions/TransactionRow/RecurrenceCaption'
+import { useSelectionContext } from 'ducks/context/SelectionContext'
 
-const TransactionRowDesktop = props => {
+const TransactionRowDesktop = ({
+  transaction,
+  isExtraLarge,
+  filteringOnAccount,
+  onRef,
+  showRecurrence
+}) => {
   const { t } = useI18n()
+
   const {
-    transaction,
-    isExtraLarge,
-    filteringOnAccount,
-    onRef,
-    showRecurrence
-  } = props
+    isSelectionModeActive,
+    isSelectionModeEnabled,
+    toggleSelection,
+    isItemSelected: isTransactionSelected
+  } = useSelectionContext(transaction)
 
   const boundOnRef = useMemo(() => {
     return onRef ? onRef.bind(null, transaction._id) : null
@@ -61,14 +69,26 @@ const TransactionRowDesktop = props => {
     showTransactionCategoryModal,
     ,
     categoryModal
-  ] = useTransactionCategoryModal(transaction)
+  ] = useTransactionCategoryModal({ transactions: [transaction] })
 
   const handleClickCategory = useCallback(
     ev => {
       ev.preventDefault()
-      showTransactionCategoryModal()
+      if (isSelectionModeActive) {
+        toggleSelection()
+      } else {
+        showTransactionCategoryModal()
+      }
     },
-    [showTransactionCategoryModal]
+    [isSelectionModeActive, showTransactionCategoryModal, toggleSelection]
+  )
+
+  const handleClickCheckbox = useCallback(
+    ev => {
+      ev.preventDefault()
+      toggleSelection()
+    },
+    [toggleSelection]
   )
 
   const handleClickRow = useCallback(
@@ -79,9 +99,13 @@ const TransactionRowDesktop = props => {
       if (!ev.currentTarget.contains(ev.target)) {
         return
       }
-      showTransactionModal()
+      if (isSelectionModeActive) {
+        toggleSelection()
+      } else {
+        showTransactionModal()
+      }
     },
-    [showTransactionModal]
+    [isSelectionModeActive, showTransactionModal, toggleSelection]
   )
 
   // Virtual transactions, like those generated from recurrences, cannot be edited
@@ -94,11 +118,32 @@ const TransactionRowDesktop = props => {
         {...trRest}
         className={cx(
           styles.TransactionRow,
-          canEditTransaction ? styles['TransactionRow--editable'] : null
+          canEditTransaction ? styles['TransactionRow--editable'] : null,
+          {
+            [styles['TransactionRow--selected']]: isTransactionSelected
+          }
         )}
         onClick={canEditTransaction && handleClickRow}
       >
-        <td className={cx(styles.ColumnSizeDesc, 'u-pv-half', 'u-pl-1')}>
+        {isSelectionModeEnabled && (
+          <TdSecondary
+            className={cx(styles.ColumnSizeCheckbox, 'u-pl-0')}
+            onClick={handleClickCheckbox}
+          >
+            <Checkbox
+              data-testid={`TransactionRow-checkbox-${transaction._id}`}
+              checked={isTransactionSelected}
+              readOnly
+            />
+          </TdSecondary>
+        )}
+        <td
+          className={cx(
+            styles.ColumnSizeDesc,
+            'u-pv-half',
+            isSelectionModeEnabled ? 'u-pl-0' : 'u-pl-1'
+          )}
+        >
           <Media>
             <Img
               title={categoryTitle}
@@ -112,7 +157,7 @@ const TransactionRowDesktop = props => {
             <Bd className="u-pl-1">
               <ListItemText
                 className="u-pv-half"
-                onClick={canEditTransaction && showTransactionModal}
+                onClick={canEditTransaction && handleClickCategory}
               >
                 <Typography variant="body1">{getLabel(transaction)}</Typography>
                 {!filteringOnAccount && <AccountCaption account={account} />}
@@ -128,7 +173,7 @@ const TransactionRowDesktop = props => {
         </td>
         <TdSecondary
           className={styles.ColumnSizeDate}
-          onClick={showTransactionModal}
+          onClick={handleClickCategory}
         >
           <TransactionDate
             isExtraLarge={isExtraLarge}
@@ -137,7 +182,7 @@ const TransactionRowDesktop = props => {
         </TdSecondary>
         <TdSecondary
           className={styles.ColumnSizeAmount}
-          onClick={showTransactionModal}
+          onClick={handleClickCategory}
         >
           <Figure
             total={transaction.amount || 0}

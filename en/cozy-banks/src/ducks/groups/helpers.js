@@ -4,10 +4,13 @@ import sumBy from 'lodash/sumBy'
 import deburr from 'lodash/deburr'
 import sortBy from 'lodash/sortBy'
 import groupBy from 'lodash/groupBy'
+
+import flag from 'cozy-flags'
+import { HasManyInPlace } from 'cozy-client'
+
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { associateDocuments } from 'ducks/client/utils'
 import { getAccountType, getAccountBalance } from 'ducks/account/helpers'
-import flag from 'cozy-flags'
 import resultWithArgs from 'utils/resultWithArgs'
 
 // For automatically created groups, the `accountType` attribute is present.
@@ -173,7 +176,7 @@ export const isLoanGroup = group => {
 
 export const getGroupAccountIds = group => {
   return group.accounts
-    ? group.accounts.raw
+    ? group.accounts instanceof HasManyInPlace
       ? group.accounts.raw
       : group.accounts
     : []

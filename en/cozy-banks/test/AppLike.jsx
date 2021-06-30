@@ -10,6 +10,7 @@ import RouterContext from 'components/RouterContext'
 import { TrackerProvider } from 'ducks/tracking/browser'
 import { JobsContext } from 'ducks/context/JobsContext'
 import BanksProvider from 'ducks/context/BanksContext'
+import SelectionProvider from 'ducks/context/SelectionContext'
 
 export const TestI18n = ({ children }) => {
   return (
@@ -29,7 +30,9 @@ const AppLike = ({ children, store, client, router, jobsInProgress }) => {
             <CozyProvider client={client}>
               <JobsContext.Provider value={{ jobsInProgress }}>
                 <BanksProvider client={client}>
-                  <TestI18n>{children}</TestI18n>
+                  <SelectionProvider>
+                    <TestI18n>{children}</TestI18n>
+                  </SelectionProvider>
                 </BanksProvider>
               </JobsContext.Provider>
             </CozyProvider>

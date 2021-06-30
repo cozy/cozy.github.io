@@ -1,3 +1,4 @@
+import { Q } from 'cozy-client'
 import { GROUP_DOCTYPE, ACCOUNT_DOCTYPE, transactionsConn } from 'doctypes'
 
 /**
@@ -73,4 +74,29 @@ export const makeFilteredTransactionsConn = options => {
     as: `transactions-${filteringDoc ? filteringDoc._id : 'all'}`,
     enabled: enabled
   }
+}
+
+/**
+ * Makes queries to load earliest and latest transactions from
+ * a base query.
+ * The base query can contain a selector on the account for example
+ * and it will be kept in the returned queries.
+ * The date selector on the base query will be reset though so that
+ * the queries return the earliest / latest transactions.
+ *
+ * @param  {QueryDefinition} baseQuery - The base query for transactions
+ * @return {[QueryDefinition, QueryDefinition]} - Earliest and latest queries
+ */
+export const makeEarliestLatestQueries = baseQuery => {
+  const latestQuery = Q('io.cozy.bank.operations')
+    .limitBy(1)
+    .where({ ...baseQuery.selector, date: { $gt: null } }) // must reset the date
+    .indexFields(['date'])
+    .sortBy([{ date: 'desc' }])
+  const earliestQuery = Q('io.cozy.bank.operations')
+    .limitBy(1)
+    .where({ ...baseQuery.selector, date: { $gt: null } }) // must reset the date
+    .indexFields(['date'])
+    .sortBy([{ date: 'asc' }])
+  return [earliestQuery, latestQuery]
 }

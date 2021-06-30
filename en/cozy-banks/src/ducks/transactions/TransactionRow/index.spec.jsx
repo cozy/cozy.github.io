@@ -1,7 +1,18 @@
-import { mount } from 'enzyme'
 import React from 'react'
+import { mount } from 'enzyme'
+import { render } from '@testing-library/react'
+
 import AppLike from 'test/AppLike'
+import { getClient } from 'test/client'
+import store, { normalizeData } from 'test/store'
+import data from 'test/fixtures'
+
 import TransactionRowMobile from './TransactionRowMobile'
+import TransactionRowDesktop from './TransactionRowDesktop'
+
+const allTransactions = data['io.cozy.bank.operations']
+
+jest.mock('react-tappable/lib/Tappable', () => ({ children }) => children)
 
 describe('TransactionRowMobile', () => {
   const setup = ({ transactionAttributes } = {}) => {
@@ -52,5 +63,70 @@ describe('TransactionRowMobile', () => {
     expect(root.text()).toEqual(
       'CafeteriaCarte de crédit - Boursorama-1,251.00€'
     )
+  })
+})
+
+describe('Transaction rows', () => {
+  let client, transaction
+
+  const setup = (row, withTable) => {
+    return render(
+      <AppLike store={store} client={client}>
+        {withTable ? (
+          <table>
+            <tbody>{row}</tbody>
+          </table>
+        ) : (
+          row
+        )}
+      </AppLike>
+    )
+  }
+
+  const rawTransaction = allTransactions[0]
+  rawTransaction._type = 'io.cozy.bank.operations'
+
+  beforeEach(() => {
+    client = getClient()
+    client.ensureStore()
+    const datastore = normalizeData({
+      'io.cozy.bank.accounts': data['io.cozy.bank.accounts']
+    })
+    jest
+      .spyOn(client, 'getDocumentFromState')
+      .mockImplementation((doctype, id) => {
+        return datastore[doctype][id]
+      })
+    transaction = client.hydrateDocument(rawTransaction)
+  })
+
+  it('should render correctly on desktop', () => {
+    const handleRef = jest.fn()
+    const root = setup(
+      <TransactionRowDesktop
+        transaction={transaction}
+        urls={{}}
+        brands={[]}
+        onRef={handleRef}
+      />,
+      true
+    )
+    expect(root.getByText('Compte courant Isabelle - BNPP')).toBeTruthy()
+  })
+
+  it('should render correctly on mobile', () => {
+    const handleRef = jest.fn()
+    const root = setup(
+      <TransactionRowMobile
+        onRef={handleRef}
+        transaction={transaction}
+        urls={{}}
+        brands={[]}
+      />,
+      false
+    )
+
+    expect(root.getByText('Compte courant Isabelle - BNPP')).toBeTruthy()
+    expect(handleRef).toHaveBeenCalled()
   })
 })

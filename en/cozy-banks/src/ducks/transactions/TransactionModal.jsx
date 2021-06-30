@@ -125,7 +125,7 @@ const TransactionCategoryEditorDialog = ({ transaction, onClose }) => {
       beforeUpdate={handlePop}
       afterUpdate={onAfterUpdate}
       onCancel={handlePop}
-      transaction={transaction}
+      transactions={[transaction]}
     />
   )
 }

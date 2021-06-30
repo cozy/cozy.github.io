@@ -1,4 +1,8 @@
-import { makeFilteredTransactionsConn } from './queries'
+import { Q } from 'cozy-client'
+import {
+  makeFilteredTransactionsConn,
+  makeEarliestLatestQueries
+} from './queries'
 
 describe('makeFilteredTransactionsConn', () => {
   it('should output a disabled query if accounts/groups have not been fetched yet', () => {
@@ -100,5 +104,59 @@ describe('makeFilteredTransactionsConn', () => {
         sort: [{ date: 'desc' }, { account: 'desc' }]
       })
     )
+  })
+})
+
+describe('makeEarliestLatestQueries', () => {
+  it('should make two queries that selects the earliest and latest transactions for one account', () => {
+    const baseQuery = Q('io.cozy.bank.transactions').where({
+      account: 'comptelou1'
+    })
+    expect(makeEarliestLatestQueries(baseQuery)).toEqual([
+      expect.objectContaining({
+        selector: {
+          account: 'comptelou1',
+          date: { $gt: null }
+        },
+        indexedFields: ['date'],
+        sort: [{ date: 'asc' }],
+        limit: 1
+      }),
+      expect.objectContaining({
+        selector: {
+          account: 'comptelou1',
+          date: { $gt: null }
+        },
+        indexedFields: ['date'],
+        sort: [{ date: 'desc' }],
+        limit: 1
+      })
+    ])
+  })
+
+  it('should make two queries that selects the earliest and latest transactions for multiple accounts', () => {
+    const baseQuery = Q('io.cozy.bank.transactions').where({
+      $or: [{ account: 'comptelou1' }, { account: 'compteisa2' }]
+    })
+    expect(makeEarliestLatestQueries(baseQuery)).toEqual([
+      expect.objectContaining({
+        selector: {
+          $or: [{ account: 'comptelou1' }, { account: 'compteisa2' }],
+          date: { $gt: null }
+        },
+        indexedFields: ['date'],
+        sort: [{ date: 'asc' }],
+        limit: 1
+      }),
+      expect.objectContaining({
+        selector: {
+          $or: [{ account: 'comptelou1' }, { account: 'compteisa2' }],
+          date: { $gt: null }
+        },
+        indexedFields: ['date'],
+        sort: [{ date: 'desc' }],
+        limit: 1
+      })
+    ])
   })
 })

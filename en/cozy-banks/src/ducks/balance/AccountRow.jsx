@@ -82,7 +82,8 @@ const ActionListItemTextColumn = withStyles(theme => ({
 
 const secondaryColumnPrimaryTypographyProps = {
   color: 'textSecondary',
-  variant: 'body2'
+  variant: 'body2',
+  className: 'u-ellipsis'
 }
 const SecondaryColumn = props => {
   return (
@@ -151,13 +152,7 @@ const AccountRow = props => {
   }
 
   return (
-    <ListItem
-      ref={ref}
-      button
-      disableRipple
-      classes={classes}
-      onClick={handleClick}
-    >
+    <ListItem ref={ref} button classes={classes} onClick={handleClick}>
       <ListItemIcon>
         <AccountRowIcon account={account} />
       </ListItemIcon>

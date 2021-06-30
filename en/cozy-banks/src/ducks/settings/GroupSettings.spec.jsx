@@ -6,9 +6,9 @@ import AppLike from 'test/AppLike'
 import fixtures from 'test/fixtures'
 import omit from 'lodash/omit'
 import cloneDeep from 'lodash/cloneDeep'
-import { schema } from 'doctypes'
+import { schema, GROUP_DOCTYPE } from 'doctypes'
 
-const fixtureGroup = fixtures['io.cozy.bank.groups'][0]
+const fixtureGroup = fixtures[GROUP_DOCTYPE][0]
 
 jest.mock('components/BackButton', () => () => null)
 
@@ -66,7 +66,7 @@ describe('GroupSettings', () => {
   }
 
   it('should rename new group', async () => {
-    const group = omit(fixtures['io.cozy.bank.groups'][0], ['_id', 'id'])
+    const group = omit(fixtures[GROUP_DOCTYPE][0], ['_id', 'id'])
     const { router, client, root } = setup({ group })
     await rename(root, 'Renamed group')
     expect(client.save).toHaveBeenCalledWith({
@@ -78,7 +78,7 @@ describe('GroupSettings', () => {
 
   it('should rename autogroup', async () => {
     const group = {
-      ...fixtures['io.cozy.bank.groups'][0],
+      ...fixtures[GROUP_DOCTYPE][0],
       accountType: 'Checkings'
     }
     const { router, client, root } = setup({ group })
@@ -105,7 +105,7 @@ describe('GroupSettings', () => {
 
   it('should be possible to toggle an account from a group', async () => {
     const rawGroup = {
-      _type: 'io.cozy.bank.groups',
+      _type: GROUP_DOCTYPE,
       ...cloneDeep(fixtureGroup)
     }
     const client = createClient()
@@ -134,7 +134,7 @@ describe('GroupSettings', () => {
   it('should be possible to toggle an account from a group (save fails)', async () => {
     jest.spyOn(console, 'warn').mockImplementation()
     const rawGroup = {
-      _type: 'io.cozy.bank.groups',
+      _type: GROUP_DOCTYPE,
       ...cloneDeep(fixtureGroup)
     }
     const client = createClient()
@@ -158,5 +158,40 @@ describe('GroupSettings', () => {
 
     const sw2 = root.getByRole('checkbox')
     expect(sw2.checked).toBe(false)
+  })
+
+  it('should show other groups of an account', () => {
+    const client = createMockClient({
+      queries: {
+        groups: {
+          lastUpdate: new Date(),
+          doctype: GROUP_DOCTYPE,
+          data: fixtures[GROUP_DOCTYPE]
+        }
+      },
+      clientOptions: {
+        schema
+      }
+    })
+    const rawGroup = {
+      _type: GROUP_DOCTYPE,
+      ...cloneDeep(fixtureGroup)
+    }
+    const group = client.hydrateDocument(rawGroup)
+
+    const account = fixtures['io.cozy.bank.accounts'].find(
+      x => x._id == 'compteisa1'
+    )
+
+    const { root } = setupAccountList({
+      client,
+      accounts: [account],
+      group
+    })
+
+    // Check that the "groups" column contains Isabelle
+    // It does not contain "Famille élargie" since we are "viewing"
+    // this group
+    expect(root.getByText('Isabelle')).toBeTruthy()
   })
 })

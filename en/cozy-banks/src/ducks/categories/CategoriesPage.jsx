@@ -182,7 +182,7 @@ export class CategoriesPage extends Component {
     const sortedCategories = sortBy(categories, cat =>
       Math.abs(cat.amount)
     ).reverse()
-    const hasAccount = accounts.data && accounts.data.length > 0
+    const hasAccount = Boolean(accounts.data && accounts.data.length > 0)
 
     const isSubcategory = onSubcategory(router.params)
 
@@ -241,11 +241,12 @@ const autoUpdateOptions = {
 }
 
 const addPeriodToConn = (baseConn, period) => {
-  const { query: baseQuery, as: baseAs, ...rest } = baseConn
+  const { query: mkBaseQuery, as: baseAs, ...rest } = baseConn
   const d = new Date(period)
   const startDate = period.length === 7 ? startOfMonth(d) : startOfYear(d)
   const endDate = period.length === 7 ? endOfMonth(d) : endOfYear(d)
-  const query = Q(baseQuery().doctype)
+  const baseQuery = mkBaseQuery()
+  const query = Q(baseQuery.doctype)
     .where(
       merge(
         {
@@ -296,6 +297,9 @@ const enhance = Component => props => {
       : setAutoUpdate(initialConn)
   }, [initialConn, period])
   const transactions = useFullyLoadedQuery(conn.query, conn)
+
+  // This is used for loaded transactions to stay rendered while
+  // next/previous month transactions are loaded
   const col = useLast(transactions, (last, cur) => {
     return !last || (cur.lastUpdate && !cur.hasMore)
   })
