@@ -118,6 +118,10 @@ Each time you make modifications to your service, you must update the app on the
 cozy-stack apps update <app_name>
 ```
 
+### Env variables
+
+When executing a service, cozy-stack injects some environment variables, listed [here](https://docs.cozy.io/en/cozy-stack/apps/#available-fields-to-the-service), so you can use them in your service, typically through `process.env.<env_var_name>`.
+
 ## Execution
 
 The service will be run each time the trigger condition is met, e.g. a bank operation.
