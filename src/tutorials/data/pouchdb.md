@@ -17,9 +17,54 @@ You will realize that Pouchdb operates in 2 phases: first, it loads candidate do
 
 ## About indexes
 
-Creating an index takes some time, but the first query will _also_ take time — you are encouraged to warm up the indexes by firing a query that uses it before it is actually needed. An exemple implementation can be found [here](https://github.com/cozy/cozy-drive/blob/0326e3d253ca51e0fdb18a9e9b3b5c8ff0b87eba/src/drive/mobile/lib/replication.js#L15-L80).
-If there is a change in the underlying documents, the index will be partially recalculated on the next query. [The post-replication callback may be a good place to warm up the index again.](https://github.com/cozy/cozy-drive/blob/0326e3d253ca51e0fdb18a9e9b3b5c8ff0b87eba/src/drive/mobile/lib/replication.js#L86-L91)
-By default, Pouch will try to find the best index to use on your query. For more advanced queries, you generally want to force it with the `use_index` option. If the query and the index you force are not compatible, Pouch will emit an error and not run the query at all.
+Creating an index takes some time, but the first query will _also_ take time — you are encouraged to warm up the indexes by firing a query that uses it before it is actually needed. CozyPouchLink provides a way to automatically fire those queries after replication.
+
+```js
+import fromPairs from 'lodash/fromPairs'
+import CozyClient, { Q } from 'cozy-client'
+import CozyStackClient from 'cozy-stack-client'
+import CozyPouchLink from 'cozy-pouch-link'
+
+const TRANSACTION_DOCTYPE = 'io.cozy.bank.operations'
+
+const makeWarmupQueryOptions = (doctype, indexedFields) => {
+  return {
+    definition: () => {
+      const qdef = Q(doctype)
+        .where(
+          fromPairs(indexedFields.map(fieldName => [fieldName, { $gt: null }]))
+        )
+        .indexFields(indexedFields)
+      return qdef
+    },
+    options: {
+      as: `${doctype}-by-${indexedFields.join('-')}`
+    }
+  }
+}
+
+const pouchLink = new CozyPouchLink({
+  doctypes: [TRANSACTION_DOCTYPE],
+  doctypesReplicationOptions: {
+    [TRANSACTION_DOCTYPE]: {
+      warmupQueries: [
+        makeWarmupQueryOptions(TRANSACTION_DOCTYPE, ['date']),
+        makeWarmupQueryOptions(TRANSACTION_DOCTYPE, ['account']),
+        makeWarmupQueryOptions(TRANSACTION_DOCTYPE, ['date', 'account'])
+      ]
+    }
+  },
+  initialSync: true
+})
+
+const client = new CozyClient({
+  links: [pouchLink, new CozyStackClient()]
+})
+```
+
+ℹ️ By default, Pouch will try to find the best index to use on your query. But for advanced queries, you generally want to force it with the use_index option to be sure it does not mess up.
+ℹ️ If the query and the index you force are not compatible, Pouch will emit an error and not run the query at all.
+ℹ️ If there is a change in the underlying documents, the index will be partially recalculated on the next query.
 
 ## Indexing more than one field
 
