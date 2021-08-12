@@ -1,16 +1,8 @@
 import React, { Component, Fragment, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
-import startOfMonth from 'date-fns/start_of_month'
-import endOfMonth from 'date-fns/end_of_month'
-import startOfYear from 'date-fns/start_of_year'
-import endOfYear from 'date-fns/end_of_year'
-import format from 'date-fns/format'
-
 import includes from 'lodash/includes'
 import maxBy from 'lodash/maxBy'
 import some from 'lodash/some'
-import merge from 'lodash/merge'
 import sortBy from 'lodash/sortBy'
 
 import getCategoryId from 'ducks/transactions/getCategoryId'
@@ -20,8 +12,7 @@ import {
   useClient,
   isQueryLoading,
   hasQueryBeenLoaded,
-  useQuery,
-  Q
+  useQuery
 } from 'cozy-client'
 
 import { useParams } from 'components/RouterContext'
@@ -37,7 +28,11 @@ import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import Categories from 'ducks/categories/Categories'
 import { accountsConn, settingsConn, groupsConn } from 'doctypes'
 
-import { makeFilteredTransactionsConn } from 'ducks/transactions/queries'
+import {
+  makeFilteredTransactionsConn,
+  addPeriodToConn
+} from 'ducks/transactions/queries'
+import { DESKTOP_SCROLLING_ELEMENT_CLASSNAME } from 'ducks/transactions/scroll/getScrollingElement'
 import BarTheme from 'ducks/bar/BarTheme'
 import { computeCategoriesData } from 'ducks/categories/selectors'
 import { getDate } from 'ducks/transactions/helpers'
@@ -73,7 +68,7 @@ const CategoryTransactions = ({ transactions, subcategoryName }) => {
       : []
   }, [subcategoryName, transactions])
   return (
-    <div className="js-scrolling-element">
+    <div className={DESKTOP_SCROLLING_ELEMENT_CLASSNAME}>
       <TransactionList
         showTriggerErrors={false}
         onChangeTopMostTransaction={null}
@@ -240,39 +235,6 @@ const autoUpdateOptions = {
   update: true
 }
 
-const addPeriodToConn = (baseConn, period) => {
-  const { query: mkBaseQuery, as: baseAs, ...rest } = baseConn
-  const d = new Date(period)
-  const startDate = period.length === 7 ? startOfMonth(d) : startOfYear(d)
-  const endDate = period.length === 7 ? endOfMonth(d) : endOfYear(d)
-  const baseQuery = mkBaseQuery()
-  const query = Q(baseQuery.doctype)
-    .where(
-      merge(
-        {
-          date: {
-            $lte: format(endDate, 'YYYY-MM-DD'),
-            $gte: format(startDate, 'YYYY-MM-DD')
-          }
-        },
-        baseQuery.selector
-      )
-    )
-    .indexFields(['date', 'account'])
-    .sortBy([{ date: 'desc' }, { account: 'desc' }])
-    .limitBy(500)
-  const as = `${baseAs}-${format(startDate, 'YYYY-MM')}-${format(
-    endDate,
-    'YYYY-MM'
-  )}`
-  return {
-    query,
-    as,
-    autoUpdate: autoUpdateOptions,
-    ...rest
-  }
-}
-
 const setAutoUpdate = conn => ({ ...conn, autoUpdate: autoUpdateOptions })
 
 const enhance = Component => props => {
@@ -293,7 +255,7 @@ const enhance = Component => props => {
   })
   const conn = useMemo(() => {
     return period
-      ? addPeriodToConn(initialConn, period)
+      ? setAutoUpdate(addPeriodToConn(initialConn, period))
       : setAutoUpdate(initialConn)
   }, [initialConn, period])
   const transactions = useFullyLoadedQuery(conn.query, conn)

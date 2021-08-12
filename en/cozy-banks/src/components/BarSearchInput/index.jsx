@@ -20,6 +20,7 @@ const BarSearchInput = ({
   onClick,
   placeholder,
   value,
+  defaultValue,
   autofocus,
   onReset
 }) => {
@@ -41,6 +42,9 @@ const BarSearchInput = ({
         onChange={onChange}
         placeholder={placeholder}
         value={value}
+        defaultValue={
+          value === undefined && defaultValue ? defaultValue : undefined
+        }
         autoFocus={autofocus}
       />
       <BarSearchIcon onClick={handleReset} className={styles.ResetIcon}>
@@ -51,7 +55,7 @@ const BarSearchInput = ({
 }
 
 BarSearchInput.defaultProps = {
-  value: ''
+  defaultValue: ''
 }
 
 export default BarSearchInput

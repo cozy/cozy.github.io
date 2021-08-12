@@ -1,4 +1,13 @@
-import { mergeBundles, mergeCategoryIds, sameLabel, brandSplit } from './rules'
+import {
+  mergeBundles,
+  mergeCategoryIds,
+  sameLabel,
+  brandSplit,
+  addStats
+} from './rules'
+import keyBy from 'lodash/keyBy'
+import fixtures4 from './fixtures/fixtures4.json'
+import { TRANSACTION_DOCTYPE } from '../../doctypes'
 
 const ops1 = [
   { _id: 't1', date: '2020-08-01', manualCategoryId: '400140' },
@@ -124,5 +133,43 @@ describe('brand split', () => {
     expect(bundles[0].brand).toBe('Spotify')
     expect(bundles[1].ops.length).toBe(2)
     expect(bundles[1].brand).toBe('Amazon')
+  })
+})
+
+describe('make stats', () => {
+  const transactionsByKey = keyBy(fixtures4[TRANSACTION_DOCTYPE], '_id')
+  const transactions = [
+    transactionsByKey['february'],
+    transactionsByKey['march'],
+    transactionsByKey['april']
+  ]
+
+  const makeBundle = ops => ({
+    categoryIds: ['200110'],
+    amounts: [2000, 2150],
+    ops,
+    automaticLabel: 'Mon Salaire'
+  })
+
+  it('should match values with 3 operations', () => {
+    const bundleWithStats = addStats(makeBundle(transactions))
+    const { sigma, mean, median, mad } = bundleWithStats.stats.deltas
+
+    expect(sigma).toBe(1.5)
+    expect(mean).toBe(29.5)
+    expect(median).toBe(29.5)
+    expect(mad).toBe(1.5)
+  })
+
+  it('should match values with only one operation', () => {
+    const bundleWithStats = addStats(
+      makeBundle([transactionsByKey['february']])
+    )
+    const { sigma, mean, median, mad } = bundleWithStats.stats.deltas
+
+    expect(sigma).toBe(NaN)
+    expect(mean).toBe(NaN)
+    expect(median).toBe(30)
+    expect(mad).toBe(NaN)
   })
 })

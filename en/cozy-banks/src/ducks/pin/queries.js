@@ -1,13 +1,7 @@
 import { SETTINGS_DOCTYPE } from 'doctypes'
 import { connect } from 'react-redux'
 import mapValues from 'lodash/mapValues'
-import { Q, getDocumentFromState } from 'cozy-client'
-
-const getOne = (doctype, id) => () => {
-  const queryDef = Q(doctype)
-  queryDef.id = id
-  return queryDef
-}
+import CozyClient, { Q, getDocumentFromState } from 'cozy-client'
 
 export const pinIdentity = {
   doctype: SETTINGS_DOCTYPE,
@@ -15,7 +9,9 @@ export const pinIdentity = {
 }
 
 export const pinSetting = {
-  query: getOne(pinIdentity.doctype, pinIdentity.id)
+  query: Q(pinIdentity.doctype).getById(pinIdentity.id),
+  fetchPolicy: CozyClient.fetchPolicies.olderThan(30 * 1000),
+  as: 'io.cozy.bank.settings/pin'
 }
 
 /**

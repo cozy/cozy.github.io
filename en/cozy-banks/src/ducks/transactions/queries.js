@@ -1,5 +1,11 @@
 import { Q } from 'cozy-client'
 import { GROUP_DOCTYPE, ACCOUNT_DOCTYPE, transactionsConn } from 'doctypes'
+import startOfMonth from 'date-fns/start_of_month'
+import endOfMonth from 'date-fns/end_of_month'
+import startOfYear from 'date-fns/start_of_year'
+import endOfYear from 'date-fns/end_of_year'
+import format from 'date-fns/format'
+import merge from 'lodash/merge'
 
 /**
  * Outputs a connection to fetch transactions
@@ -35,7 +41,7 @@ export const makeFilteredTransactionsConn = options => {
         }
         indexFields = ['date', 'account']
         whereClause = {
-          $or: accounts.map(a => ({ account: a }))
+          account: { $in: accounts }
         }
         sortByClause = [{ date: 'desc' }, { account: 'desc' }]
       } else if (filteringDoc._type === ACCOUNT_DOCTYPE) {
@@ -45,7 +51,7 @@ export const makeFilteredTransactionsConn = options => {
       } else if (Array.isArray(filteringDoc)) {
         indexFields = ['date', 'account']
         whereClause = {
-          $or: filteringDoc.map(a => ({ account: a }))
+          account: { $in: filteringDoc }
         }
         sortByClause = [{ date: 'desc' }, { account: 'desc' }]
       } else {
@@ -99,4 +105,57 @@ export const makeEarliestLatestQueries = baseQuery => {
     .indexFields(['date'])
     .sortBy([{ date: 'asc' }])
   return [earliestQuery, latestQuery]
+}
+
+/**
+ * Add a month selector to a connection, month is only a upper limit
+ * to allow for infinite scrolling through fetchMore
+ */
+export const addMonthToConn = (baseConn, month) => {
+  const { query: baseQuery, as: baseAs, ...rest } = baseConn
+  const thresholdDate = endOfMonth(new Date(month)).toISOString()
+  const q = baseQuery()
+  const query = q.where({ date: { $lt: thresholdDate }, ...q.selector })
+  const as = `${baseAs}-${month}`
+  return {
+    query,
+    as,
+    ...rest
+  }
+}
+
+/**
+ * Makes a new conn, adding a date filter on the query selector
+ * so that only transactions for a given month are fetched.
+ */
+export const addPeriodToConn = (baseConn, period) => {
+  const { query: mkBaseQuery, as: baseAs, ...rest } = baseConn
+  const d = new Date(period)
+  const startDate = period.length === 7 ? startOfMonth(d) : startOfYear(d)
+  const endDate = period.length === 7 ? endOfMonth(d) : endOfYear(d)
+  const baseQuery = mkBaseQuery()
+  const query = Q(baseQuery.doctype)
+    .where(
+      merge(
+        {
+          date: {
+            $lte: format(endDate, 'YYYY-MM-DD[T]HH:mm'),
+            $gte: format(startDate, 'YYYY-MM-DD[T]HH:mm')
+          }
+        },
+        baseQuery.selector
+      )
+    )
+    .indexFields(baseQuery.indexedFields || ['date', 'account'])
+    .sortBy(baseQuery.sort || [{ date: 'desc' }, { account: 'desc' }])
+    .limitBy(500)
+  const as = `${baseAs}-${format(startDate, 'YYYY-MM')}-${format(
+    endDate,
+    'YYYY-MM'
+  )}`
+  return {
+    query,
+    as,
+    ...rest
+  }
 }

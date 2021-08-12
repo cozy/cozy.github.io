@@ -2,7 +2,8 @@ import isNode from 'detect-node'
 import palette from 'cozy-ui/transpiled/react/palette'
 import { getCssVariableValue } from 'cozy-ui/transpiled/react/utils/color'
 
-const getColor = color => (isNode ? palette[color] : getCssVariableValue(color))
+const getColor = color =>
+  isNode ? palette[color] : getCssVariableValue(color) || palette[color]
 
 export default {
   kids: getColor('azure'),

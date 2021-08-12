@@ -1,6 +1,7 @@
 import React from 'react'
 import { Dialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
+import Typography from 'cozy-ui/transpiled/react/Typography'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 
 function LogoutModal() {
@@ -10,10 +11,10 @@ function LogoutModal() {
     <Dialog
       open
       content={
-        <>
+        <div className="u-ta-center u-pt-3">
           <Spinner size="xxlarge" />
-          <p>{t('LogoutModal.message')}</p>
-        </>
+          <Typography variant="body1">{t('LogoutModal.message')}</Typography>
+        </div>
       }
     />
   )

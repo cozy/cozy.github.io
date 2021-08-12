@@ -6,9 +6,12 @@ import { log } from './logger'
 import { Q } from 'cozy-client'
 
 import { TRANSACTION_DOCTYPE, RECURRENCE_DOCTYPE } from 'doctypes'
-import { findAndUpdateRecurrences } from './search'
-import { fetchHydratedBundles, saveHydratedBundles } from './api'
-import { getLabel } from './utils'
+import {
+  findAndUpdateRecurrences,
+  updateAmountsCategoriesRecurrences
+} from 'ducks/recurrence/search'
+import { fetchHydratedBundles, saveHydratedBundles } from 'ducks/recurrence/api'
+import { getLabel } from 'ducks/recurrence/utils'
 import tree from 'ducks/categories/tree'
 import addDays from 'date-fns/add_days'
 
@@ -98,8 +101,12 @@ const main = async ({ client }) => {
       )
     }
 
+    const recurrencesAmountsCatIdsUpdated = updateAmountsCategoriesRecurrences(
+      recurrences
+    )
+
     const updatedRecurrences = findAndUpdateRecurrences(
-      recurrences.map(r => ({ ...r })),
+      recurrencesAmountsCatIdsUpdated.map(r => ({ ...r })),
       transactions
     ).map(x => omit(x, '_type'))
 

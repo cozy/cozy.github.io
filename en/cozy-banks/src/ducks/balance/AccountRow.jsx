@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import cx from 'classnames'
 import compose from 'lodash/flowRight'
 import { withStyles } from '@material-ui/core/styles'
+import flag from 'cozy-flags'
 
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import Switch from 'cozy-ui/transpiled/react/MuiCozyTheme/Switch'
@@ -117,7 +118,10 @@ const AccountRow = props => {
     id,
     initialVisible
   } = props
-  const [ref, visible] = useVisible(initialVisible, observerOptions)
+  const [ref, visible] = useVisible(
+    flag('banks.balance.account-row-skeleton') ? initialVisible : true,
+    observerOptions
+  )
   const { t } = useI18n()
   const { isMobile } = useBreakpoints()
   const owners = account.owners.data.filter(Boolean).filter(owner => !owner.me)

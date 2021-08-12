@@ -2539,9 +2539,53 @@
 First, you can add a plugin called <code>pouchdb-debug</code> and enable extra logs with <code>PouchDB.debug.enable( "pouchdb:find" );</code>. This will add explanation about the queries you run in the console and it&rsquo;s very helpful to understand what&rsquo;s going on under the hood.</p>
 <p>You will realize that Pouchdb operates in 2 phases: first, it loads candidate documents in memory, and then it analyzes the candidates and only keeps the relevant ones. Long story short: the larger the number of candidates, the longer the operation will take. By default, all the documents in a database are candidates, but it is possible to have fewer candidates by using an index: by combining the query and the index, PouchDB can load only a subset of all the documents and may even skip the analyze phase if the index is really well suited to the query. A more detailed guide can be found <a href="https://www.bennadel.com/blog/3258-understanding-the-query-plan-explained-by-the-find-plugin-in-pouchdb-6-2-0.htm">here</a>.</p>
 <h2 id="about-indexes">About indexes<a class="headerlink" href="#about-indexes" title="Permanent link">&para;</a></h2>
-<p>Creating an index takes some time, but the first query will <em>also</em> take time — you are encouraged to warm up the indexes by firing a query that uses it before it is actually needed. An exemple implementation can be found <a href="https://github.com/cozy/cozy-drive/blob/0326e3d253ca51e0fdb18a9e9b3b5c8ff0b87eba/src/drive/mobile/lib/replication.js#L15-L80">here</a>.
-If there is a change in the underlying documents, the index will be partially recalculated on the next query. <a href="https://github.com/cozy/cozy-drive/blob/0326e3d253ca51e0fdb18a9e9b3b5c8ff0b87eba/src/drive/mobile/lib/replication.js#L86-L91">The post-replication callback may be a good place to warm up the index again.</a>
-By default, Pouch will try to find the best index to use on your query. For more advanced queries, you generally want to force it with the <code>use_index</code> option. If the query and the index you force are not compatible, Pouch will emit an error and not run the query at all.</p>
+<p>Creating an index takes some time, but the first query will <em>also</em> take time — you are encouraged to warm up the indexes by firing a query that uses it before it is actually needed. CozyPouchLink provides a way to automatically fire those queries after replication.</p>
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">fromPairs</span> <span class="nx">from</span> <span class="s1">&#39;lodash/fromPairs&#39;</span>
+<span class="kr">import</span> <span class="nx">CozyClient</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Q</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
+<span class="kr">import</span> <span class="nx">CozyStackClient</span> <span class="nx">from</span> <span class="s1">&#39;cozy-stack-client&#39;</span>
+<span class="kr">import</span> <span class="nx">CozyPouchLink</span> <span class="nx">from</span> <span class="s1">&#39;cozy-pouch-link&#39;</span>
+
+<span class="kr">const</span> <span class="nx">TRANSACTION_DOCTYPE</span> <span class="o">=</span> <span class="s1">&#39;io.cozy.bank.operations&#39;</span>
+
+<span class="kr">const</span> <span class="nx">makeWarmupQueryOptions</span> <span class="o">=</span> <span class="p">(</span><span class="nx">doctype</span><span class="p">,</span> <span class="nx">indexedFields</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="nx">definition</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="kr">const</span> <span class="nx">qdef</span> <span class="o">=</span> <span class="nx">Q</span><span class="p">(</span><span class="nx">doctype</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">where</span><span class="p">(</span>
+          <span class="nx">fromPairs</span><span class="p">(</span><span class="nx">indexedFields</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">fieldName</span> <span class="p">=&gt;</span> <span class="p">[</span><span class="nx">fieldName</span><span class="p">,</span> <span class="p">{</span> <span class="nx">$gt</span><span class="o">:</span> <span class="kc">null</span> <span class="p">}]))</span>
+        <span class="p">)</span>
+        <span class="p">.</span><span class="nx">indexFields</span><span class="p">(</span><span class="nx">indexedFields</span><span class="p">)</span>
+      <span class="k">return</span> <span class="nx">qdef</span>
+    <span class="p">},</span>
+    <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">as</span><span class="o">:</span> <span class="sb">`</span><span class="si">${</span><span class="nx">doctype</span><span class="si">}</span><span class="sb">-by-</span><span class="si">${</span><span class="nx">indexedFields</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">const</span> <span class="nx">pouchLink</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CozyPouchLink</span><span class="p">({</span>
+  <span class="nx">doctypes</span><span class="o">:</span> <span class="p">[</span><span class="nx">TRANSACTION_DOCTYPE</span><span class="p">],</span>
+  <span class="nx">doctypesReplicationOptions</span><span class="o">:</span> <span class="p">{</span>
+    <span class="p">[</span><span class="nx">TRANSACTION_DOCTYPE</span><span class="p">]</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">warmupQueries</span><span class="o">:</span> <span class="p">[</span>
+        <span class="nx">makeWarmupQueryOptions</span><span class="p">(</span><span class="nx">TRANSACTION_DOCTYPE</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]),</span>
+        <span class="nx">makeWarmupQueryOptions</span><span class="p">(</span><span class="nx">TRANSACTION_DOCTYPE</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;account&#39;</span><span class="p">]),</span>
+        <span class="nx">makeWarmupQueryOptions</span><span class="p">(</span><span class="nx">TRANSACTION_DOCTYPE</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;account&#39;</span><span class="p">])</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nx">initialSync</span><span class="o">:</span> <span class="kc">true</span>
+<span class="p">})</span>
+
+<span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CozyClient</span><span class="p">({</span>
+  <span class="nx">links</span><span class="o">:</span> <span class="p">[</span><span class="nx">pouchLink</span><span class="p">,</span> <span class="k">new</span> <span class="nx">CozyStackClient</span><span class="p">()]</span>
+<span class="p">})</span>
+</pre></div>
+
+
+<p>ℹ️ By default, Pouch will try to find the best index to use on your query. But for advanced queries, you generally want to force it with the use_index option to be sure it does not mess up.
+ℹ️ If the query and the index you force are not compatible, Pouch will emit an error and not run the query at all.
+ℹ️ If there is a change in the underlying documents, the index will be partially recalculated on the next query.</p>
 <h2 id="indexing-more-than-one-field">Indexing more than one field<a class="headerlink" href="#indexing-more-than-one-field" title="Permanent link">&para;</a></h2>
 <p>Creating an index on several fields is <em>not</em> the same as creating multiple indexes on one field each. The effects of a single index on multiple fields is illustrated in the <a href="https://pouchdb.com/guides/mango-queries.html#more-than-one-field">official docs</a> and is important to understand.
 Furthermore, the order in which fields are indexed on a multi-index is significant, most notably when it comes to sorting. If you declare an index on the fields <code>['name', 'age']</code>, you should also sort them by <code>['name', 'age']</code>. Sorting them in a different order or using other fields will likely be done in memory and kill your performance.</p>

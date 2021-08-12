@@ -2,21 +2,21 @@ import logger from 'cozy-logger'
 import CozyClient, { Q } from 'cozy-client'
 import { initTranslation } from 'cozy-ui/transpiled/react/I18n/translation'
 
-import BalanceLower from './BalanceLower'
-import TransactionGreater from './TransactionGreater'
-import HealthBillLinked from './HealthBillLinked'
-import LateHealthReimbursement from './LateHealthReimbursement'
-import DelayedDebit from './DelayedDebit'
+import BalanceLower from 'ducks/notifications/BalanceLower'
+import TransactionGreater from 'ducks/notifications/TransactionGreater'
+import HealthBillLinked from 'ducks/notifications/HealthBillLinked'
+import LateHealthReimbursement from 'ducks/notifications/LateHealthReimbursement'
+import DelayedDebit from 'ducks/notifications/DelayedDebit'
 
 import { BankAccount } from 'models'
 import { sendNotification } from 'cozy-notifications'
 import { GROUP_DOCTYPE } from 'doctypes'
 import get from 'lodash/get'
+export const lang = process.env.COZY_LOCALE || 'en'
+export const dictRequire = lang => require(`locales/${lang}`)
 
 const log = logger.namespace('notification-service')
 
-const lang = process.env.COZY_LOCALE || 'en'
-const dictRequire = lang => require(`locales/${lang}`)
 const translation = initTranslation(lang, dictRequire)
 const t = translation.t.bind(translation)
 

@@ -48,11 +48,6 @@ export const fetchSettings = async client => {
   return getDefaultedSettingsFromCollection(settingsCol)
 }
 
-export const updateSettings = async (client, newSettings) => {
-  const col = client.collection(DOCTYPE)
-  await col.update(newSettings)
-}
-
 export const reverseIndex = (items, getKeys) => {
   const ri = {}
   for (const item of items) {
@@ -143,7 +138,7 @@ export const fetchCategoryAlerts = async client => {
 export const updateCategoryAlerts = async (client, updatedAlerts) => {
   const settings = await fetchSettings(client)
   settings.categoryBudgetAlerts = updatedAlerts
-  return updateSettings(client, settings)
+  return client.save(settings)
 }
 
 export const getAccountOrGroupLabel = (accountOrGroup, t) => {

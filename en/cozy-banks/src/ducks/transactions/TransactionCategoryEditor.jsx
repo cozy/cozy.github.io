@@ -1,19 +1,20 @@
 import React, { useMemo, useCallback } from 'react'
-import { useClient } from 'cozy-client'
+import { Q, useClient } from 'cozy-client'
 import {
-  updateTransactionCategory,
+  setTransactionCategory,
   getCategoryId
 } from 'ducks/transactions/helpers'
 import CategoryChoice from 'ducks/categories/CategoryChoice'
+import { TRANSACTION_DOCTYPE } from 'doctypes'
 
 /**
  * Edits a transaction's category through CategoryChoice
  */
 const TransactionCategoryEditor = ({
   transactions,
-  beforeUpdate,
-  afterUpdate,
+  beforeUpdates,
   afterUpdates,
+  onError,
   onCancel
 }) => {
   const client = useClient()
@@ -21,38 +22,40 @@ const TransactionCategoryEditor = ({
     transactions
   ])
 
-  const handleUpdate = useCallback(
-    async (transaction, category) => {
-      const newTransaction = await updateTransactionCategory(
-        client,
-        transaction,
-        category
-      )
-
-      if (afterUpdate) {
-        await afterUpdate(newTransaction)
-      }
-    },
-    [afterUpdate, client]
-  )
-
-  const handleSelect = useCallback(
+  const handleSelectCategory = useCallback(
     async category => {
-      if (beforeUpdate) {
-        await beforeUpdate()
+      if (beforeUpdates) {
+        await beforeUpdates()
       }
 
-      const promises = transactions.map(transaction =>
-        handleUpdate(transaction, category)
+      const newTransactions = transactions.map(transaction =>
+        setTransactionCategory(transaction, category)
       )
 
-      await Promise.all(promises)
+      try {
+        await client.saveAll(newTransactions)
+      } catch (e) {
+        const qdef = Q(TRANSACTION_DOCTYPE).getByIds(
+          newTransactions.map(t => t._id)
+        )
+
+        // eslint-disable-next-line no-console
+        console.error(
+          'Error while batch saving, requerying operations to mitigate conflicts in the future',
+          e
+        )
+        client.query(qdef)
+        if (onError) {
+          onError(e)
+        }
+        return
+      }
 
       if (afterUpdates) {
-        afterUpdates()
+        afterUpdates(newTransactions)
       }
     },
-    [afterUpdates, beforeUpdate, handleUpdate, transactions]
+    [afterUpdates, beforeUpdates, client, onError, transactions]
   )
 
   const handleCancel = useCallback(async () => {
@@ -63,7 +66,7 @@ const TransactionCategoryEditor = ({
     <CategoryChoice
       modal={true}
       categoryId={categoryId}
-      onSelect={handleSelect}
+      onSelect={handleSelectCategory}
       onCancel={handleCancel}
     />
   )

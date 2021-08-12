@@ -3,14 +3,16 @@
 import en from 'locales/en.json'
 import fr from 'locales/fr.json'
 import Polyglot from 'node-polyglot'
+import parseCozyData from 'utils/cozyData'
 const locales = { en, fr }
 
 export const getLanguageFromDOM = rootOption => {
+  if (__TARGET__ === 'mobile' && navigator && navigator.language) {
+    return navigator.language.slice(0, 2)
+  }
+
   const root = rootOption || document.querySelector('[role=application]')
-  const data = root.dataset
-  return __TARGET__ === 'mobile' && navigator && navigator.language
-    ? navigator.language.slice(0, 2)
-    : data.cozyLocale || 'en'
+  return root?.dataset?.cozy ? parseCozyData(root).locale : 'en'
 }
 
 /**
@@ -19,11 +21,18 @@ export const getLanguageFromDOM = rootOption => {
  * To be used when not in React context, in React
  * context, the t function comes from the context
  */
-export const getT = () => {
-  const lang = getLanguageFromDOM()
+export const getT = option => {
+  const lang = getLanguageFromDOM(option)
   const polyglot = new Polyglot({
     lang: lang,
     phrases: locales[lang]
   })
   return polyglot.t.bind(polyglot)
+}
+
+export const lang = process.env.COZY_LOCALE || 'en'
+export const dictRequire = lang => require(`locales/${lang}`)
+
+export const enLocaleOption = {
+  dataset: { cozy: JSON.stringify({ locale: 'en' }) }
 }

@@ -103,8 +103,8 @@ describe('onAccountDelete', () => {
     client.query.mockResolvedValue({
       data: []
     })
-    document.body.innerHTML =
-      '<div role="application" data-cozy-locale="en"></div>'
+    const cozyData = JSON.stringify({ locale: 'en' })
+    document.body.innerHTML = `<div role="application" data-cozy=${cozyData}></div>`
 
     await onAccountDelete(client, 'account-id')
     expect(Alerter.info).toHaveBeenCalled()

@@ -28,7 +28,8 @@ export const offlineDoctypes = [
   GROUP_DOCTYPE,
   TRANSACTION_DOCTYPE,
   SETTINGS_DOCTYPE,
-  BILLS_DOCTYPE
+  BILLS_DOCTYPE,
+  CONTACT_DOCTYPE
 ]
 
 class HasManyBills extends HasManyInPlace {
@@ -223,6 +224,7 @@ export const makeBalanceTransactionsConn = () => {
   const fromDate = format(subYears(new Date(), 1), 'YYYY-MM-DD')
   return {
     as: 'home/transactions',
+    fetchPolicy: older30s,
     query: () =>
       Q(TRANSACTION_DOCTYPE)
         .limitBy(1000)
@@ -233,7 +235,7 @@ export const makeBalanceTransactionsConn = () => {
         })
         .sortBy([{ date: 'desc' }])
         .indexFields(['date'])
-        .select(['date', 'amount', 'account', 'currency'])
+        .select(['_id', 'date', 'amount', 'account', 'currency'])
   }
 }
 

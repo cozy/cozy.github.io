@@ -2,12 +2,11 @@ import React from 'react'
 import { DumbReimbursements } from './Reimbursements'
 import fixtures from 'test/fixtures/unit-tests.json'
 import AppLike from 'test/AppLike'
-import Polyglot from 'node-polyglot'
-import en from 'locales/en'
 import format from 'date-fns/format'
 import { createMockClient } from 'cozy-client'
 import { render } from '@testing-library/react'
 import { getCategoryIdFromName } from 'ducks/categories/helpers'
+import { getT, enLocaleOption } from 'utils/lang'
 
 // Mock useVisible so that it considers all element as visible in the
 // viewport (IntersectionObserver not available during tests)
@@ -19,13 +18,10 @@ jest.mock('hooks/useRedirectionURL', () => {
   return () => ['https://cozy.tools:8080', () => {}]
 })
 
-const polyglot = new Polyglot()
-polyglot.extend(en)
-
 describe('Reimbursements', () => {
   const baseProps = {
     fetchStatus: 'loaded',
-    t: polyglot.t.bind(polyglot),
+    t: getT(enLocaleOption),
     f: format,
     triggers: { fetchStatus: 'loaded' },
     transactions: { fetchStatus: 'loaded' },

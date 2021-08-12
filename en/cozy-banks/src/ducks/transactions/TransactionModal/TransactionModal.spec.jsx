@@ -2,8 +2,6 @@ import React from 'react'
 import { render, fireEvent, within } from '@testing-library/react'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import { format } from 'date-fns'
-import Polyglot from 'node-polyglot'
-import en from 'locales/en.json'
 
 import AppLike from 'test/AppLike'
 import { createClientWithData } from 'test/client'
@@ -11,10 +9,10 @@ import { ACCOUNT_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
 import { TrackerProvider, trackPage } from 'ducks/tracking/browser'
 import { getTracker } from 'ducks/tracking/tracker'
 
-import TransactionModal, {
-  showAlertAfterApplicationDateUpdate
-} from './TransactionModal'
-import data from '../../../test/fixtures'
+import TransactionModal from './TransactionModal'
+import { showAlertAfterApplicationDateUpdate } from 'ducks/transactions/TransactionModal/helpers'
+import data from 'test/fixtures'
+import { getT, enLocaleOption } from 'utils/lang'
 
 jest.mock('ducks/tracking/tracker', () => {
   const tracker = {
@@ -137,9 +135,7 @@ describe('transaction modal', () => {
 })
 
 describe('change application date alert', () => {
-  const p = new Polyglot()
-  p.extend(en)
-  const t = p.t.bind(p)
+  const t = getT(enLocaleOption)
 
   beforeEach(() => {
     Alerter.success.mockReset()

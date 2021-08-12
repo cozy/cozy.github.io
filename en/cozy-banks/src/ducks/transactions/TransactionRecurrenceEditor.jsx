@@ -68,6 +68,7 @@ export const makeOptionFromRecurrence = (rec, t, accountsById) => {
   return {
     _id: rec._id,
     _type: RECURRENCE_DOCTYPE,
+    key: rec._id,
     title: getLabel(rec),
     icon: <CategoryIcon categoryId={getCategories(rec)[0]} />,
     description: [freqDescription, amountDescription, accountDescription]

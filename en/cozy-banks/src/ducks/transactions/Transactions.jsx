@@ -11,7 +11,6 @@ import cx from 'classnames'
 
 import { isIOSApp } from 'cozy-device-helper'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import ListSubheader from 'cozy-ui/transpiled/react/MuiCozyTheme/ListSubheader'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
@@ -24,6 +23,8 @@ import TransactionRowDesktop from 'ducks/transactions/TransactionRow/Transaction
 import { getDate } from 'ducks/transactions/helpers'
 import useVisible from 'hooks/useVisible'
 import SelectionBar from 'ducks/selection/SelectionBar'
+import { useSelectionContext } from 'ducks/context/SelectionContext'
+import getScrollingElement from './scroll/getScrollingElement'
 
 export const sortByDate = (transactions = []) =>
   sortBy(transactions, getDate).reverse()
@@ -87,10 +88,19 @@ const TransactionContainerMobile = props => {
  * Groups transactions by date and renders them as a list
  * On desktop, the section headers will not be shown
  */
-const TransactionSections = props => {
-  const { filteringOnAccount, className, transactions, onRowRef } = props
-
+const TransactionSections = ({
+  filteringOnAccount,
+  className,
+  transactions,
+  onRowRef
+}) => {
   const { isDesktop, isExtraLarge } = useBreakpoints()
+  const {
+    isSelected,
+    isSelectionModeActive,
+    isSelectionModeEnabled,
+    toggleSelection
+  } = useSelectionContext()
 
   const transactionsGrouped = useMemo(() => groupByDate(transactions), [
     transactions
@@ -106,7 +116,7 @@ const TransactionSections = props => {
         const transactionGroup = dateAndGroup[1]
         return (
           <Section date={date} key={id} initialVisible={id < 10}>
-            {transactionGroup.map(transaction => {
+            {transactionGroup.map((transaction, index) => {
               return (
                 <Row
                   key={transaction._id}
@@ -114,6 +124,14 @@ const TransactionSections = props => {
                   transaction={transaction}
                   isExtraLarge={isExtraLarge}
                   filteringOnAccount={filteringOnAccount}
+                  isSelected={isSelected(transaction)}
+                  isSelectionModeActive={isSelectionModeActive}
+                  isSelectionModeEnabled={isSelectionModeEnabled}
+                  toggleSelection={toggleSelection}
+                  hasDivider={
+                    transactionGroup.length > 1 &&
+                    index !== transactionGroup.length - 1
+                  }
                 />
               )
             })}
@@ -148,6 +166,11 @@ export class TransactionsDumb extends React.Component {
     if (this.props.transactions !== nextProps.transactions) {
       this.updateTransactions(nextProps.transactions)
     }
+  }
+
+  componentWillUnmount() {
+    const { emptyAndDeactivateSelection } = this.props
+    emptyAndDeactivateSelection()
   }
 
   updateTransactions(transactions) {
@@ -185,7 +208,7 @@ export class TransactionsDumb extends React.Component {
     const {
       breakpoints: { isDesktop }
     } = this.props
-    return isDesktop ? document.querySelector('.js-scrolling-element') : window
+    return getScrollingElement(isDesktop)
   }
 
   render() {
@@ -193,7 +216,6 @@ export class TransactionsDumb extends React.Component {
       showTriggerErrors,
       filteringOnAccount,
       className,
-      transactions,
       TransactionSections,
       onReachTop,
       onReachBottom,
@@ -202,7 +224,7 @@ export class TransactionsDumb extends React.Component {
 
     return (
       <>
-        <SelectionBar />
+        <SelectionBar transactions={this.transactions} />
         <InfiniteScroll
           manual={false}
           canLoadAtTop={false}
@@ -216,7 +238,7 @@ export class TransactionsDumb extends React.Component {
           <TransactionSections
             filteringOnAccount={filteringOnAccount}
             className={className}
-            transactions={transactions}
+            transactions={this.transactions}
             onRowRef={this.handleRefRow}
           />
         </InfiniteScroll>
@@ -237,6 +259,15 @@ TransactionsDumb.defaultProps = {
   TransactionSections
 }
 
-const Transactions = TransactionsDumb
+export const TransactionList = props => {
+  const { emptyAndDeactivateSelection } = useSelectionContext()
+  const breakpoints = useBreakpoints()
 
-export const TransactionList = withBreakpoints()(Transactions)
+  return (
+    <TransactionsDumb
+      emptyAndDeactivateSelection={emptyAndDeactivateSelection}
+      breakpoints={breakpoints}
+      {...props}
+    />
+  )
+}

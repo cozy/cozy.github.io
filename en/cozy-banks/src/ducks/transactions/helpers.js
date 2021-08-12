@@ -230,17 +230,12 @@ export const isAlreadyNotified = (transaction, notificationClass) => {
   )
 }
 
-export const updateTransactionCategory = async (
-  client,
-  transaction,
-  category
-) => {
+export const setTransactionCategory = (transaction, category) => {
   const newTransaction = {
     ...transaction,
     manualCategoryId: category.id
   }
-  const { data } = await client.save(newTransaction)
-  return data
+  return newTransaction
 }
 
 export const updateTransactionRecurrence = async (

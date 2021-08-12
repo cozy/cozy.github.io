@@ -2473,6 +2473,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#fetchapplatestversion" title="fetchAppLatestVersion" class="md-nav__link">
+    fetchAppLatestVersion
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#fetchapps" title="fetchApps" class="md-nav__link">
     fetchApps
   </a>
@@ -2526,9 +2533,6 @@
                 
                 <p><a href="../../">cozy-client</a> / Registry</p>
 <h1 id="class-registry">Class: Registry<a class="headerlink" href="#class-registry" title="Permanent link">&para;</a></h1>
-<p><strong><code>property</code></strong> {string} slug</p>
-<p><strong><code>property</code></strong> {object} terms</p>
-<p><strong><code>property</code></strong> {boolean} installed</p>
 <h2 id="constructors">Constructors<a class="headerlink" href="#constructors" title="Permanent link">&para;</a></h2>
 <h3 id="constructor">constructor<a class="headerlink" href="#constructor" title="Permanent link">&para;</a></h3>
 <p>• <strong>new Registry</strong>(<code>options</code>)</p>
@@ -2548,12 +2552,12 @@
 </tbody>
 </table>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/registry.js#L35">packages/cozy-client/src/registry.js:35</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/registry.js#L39">packages/cozy-client/src/registry.js:39</a></p>
 <h2 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">&para;</a></h2>
 <h3 id="client">client<a class="headerlink" href="#client" title="Permanent link">&para;</a></h3>
 <p>• <strong>client</strong>: <code>any</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/registry.js#L39">packages/cozy-client/src/registry.js:39</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/registry.js#L43">packages/cozy-client/src/registry.js:43</a></p>
 <h2 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h2>
 <h3 id="fetchapp">fetchApp<a class="headerlink" href="#fetchapp" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>fetchApp</strong>(<code>slug</code>): <code>RegistryApp</code></p>
@@ -2578,7 +2582,42 @@
 <p><em>Returns</em></p>
 <p><code>RegistryApp</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/registry.js#L125">packages/cozy-client/src/registry.js:125</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/registry.js#L129">packages/cozy-client/src/registry.js:129</a></p>
+<hr />
+<h3 id="fetchapplatestversion">fetchAppLatestVersion<a class="headerlink" href="#fetchapplatestversion" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>fetchAppLatestVersion</strong>(<code>params</code>): <code>RegistryApp</code></p>
+<p>Fetch the latest version of an app for the given channel and slug</p>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>params</code></td>
+<td align="left"><code>Object</code></td>
+<td align="left">Fetching parameters</td>
+</tr>
+<tr>
+<td align="left"><code>params.channel</code></td>
+<td align="left"><code>RegistryAppChannel</code></td>
+<td align="left">The channel of the app to fetch</td>
+</tr>
+<tr>
+<td align="left"><code>params.slug</code></td>
+<td align="left"><code>string</code></td>
+<td align="left">The slug of the app to fetch</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>RegistryApp</code></p>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/registry.js#L142">packages/cozy-client/src/registry.js:142</a></p>
 <hr />
 <h3 id="fetchapps">fetchApps<a class="headerlink" href="#fetchapps" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>fetchApps</strong>(<code>params</code>): <code>Promise</code>&lt;<code>RegistryApp</code>[]&gt;</p>
@@ -2600,8 +2639,8 @@
 </tr>
 <tr>
 <td align="left"><code>params.channel</code></td>
-<td align="left"><code>string</code></td>
-<td align="left">&ldquo;dev&rdquo;/&rdquo;beta&rdquo;/&rdquo;stable&rdquo;</td>
+<td align="left"><code>RegistryAppChannel</code></td>
+<td align="left">The channel of the apps to fetch</td>
 </tr>
 <tr>
 <td align="left"><code>params.limit</code></td>
@@ -2618,7 +2657,7 @@
 <p><em>Returns</em></p>
 <p><code>Promise</code>&lt;<code>RegistryApp</code>[]&gt;</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/registry.js#L89">packages/cozy-client/src/registry.js:89</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/registry.js#L93">packages/cozy-client/src/registry.js:93</a></p>
 <hr />
 <h3 id="fetchappsinmaintenance">fetchAppsInMaintenance<a class="headerlink" href="#fetchappsinmaintenance" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>fetchAppsInMaintenance</strong>(): <code>RegistryApp</code>[]</p>
@@ -2626,7 +2665,7 @@
 <p><em>Returns</em></p>
 <p><code>RegistryApp</code>[]</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/registry.js#L114">packages/cozy-client/src/registry.js:114</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/registry.js#L118">packages/cozy-client/src/registry.js:118</a></p>
 <hr />
 <h3 id="installapp">installApp<a class="headerlink" href="#installapp" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>installApp</strong>(<code>app</code>, <code>source</code>): <code>Promise</code>&lt;<code>any</code>&gt;</p>
@@ -2657,7 +2696,7 @@
 <p><em>Returns</em></p>
 <p><code>Promise</code>&lt;<code>any</code>&gt;</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/registry.js#L52">packages/cozy-client/src/registry.js:52</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/registry.js#L56">packages/cozy-client/src/registry.js:56</a></p>
 <hr />
 <h3 id="uninstallapp">uninstallApp<a class="headerlink" href="#uninstallapp" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>uninstallApp</strong>(<code>app</code>): <code>Promise</code>&lt;<code>any</code>&gt;</p>
@@ -2680,7 +2719,7 @@
 <p><em>Returns</em></p>
 <p><code>Promise</code>&lt;<code>any</code>&gt;</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/registry.js#L73">packages/cozy-client/src/registry.js:73</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/registry.js#L77">packages/cozy-client/src/registry.js:77</a></p>
                 
                   
                 

@@ -22,4 +22,8 @@ describe('monthRange', () => {
     expect(monthRange(new Date(2019, 6), new Date(2019, 7)).length).toBe(1)
     expect(monthRange(new Date(2019, 6), new Date(2020, 0)).length).toBe(6)
   })
+
+  it('should work if earliest date and latest date are the same ', () => {
+    expect(monthRange(new Date(2019, 6), new Date(2019, 6)).length).toBe(1)
+  })
 })

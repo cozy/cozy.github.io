@@ -24,6 +24,7 @@ import withBrands from 'ducks/brandDictionary/withBrands'
 import { getGroupedFilteredExpenses } from './selectors'
 import { getPeriod, parsePeriod, getFilteringDoc } from 'ducks/filters'
 import { getCategoryName } from 'ducks/categories/categoriesMap'
+import { DESKTOP_SCROLLING_ELEMENT_CLASSNAME } from 'ducks/transactions/scroll/getScrollingElement'
 
 const Caption = props => {
   const { className, ...rest } = props
@@ -117,7 +118,9 @@ export class DumbReimbursements extends Component {
 
     return (
       <TransactionActionsProvider>
-        <div className={`${styles.Reimbursements} js-scrolling-element`}>
+        <div
+          className={`${styles.Reimbursements} ${DESKTOP_SCROLLING_ELEMENT_CLASSNAME}`}
+        >
           <Section>
             <SectionTitle>
               {t('Reimbursements.pending')}

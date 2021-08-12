@@ -2,32 +2,23 @@ import React, {
   createContext,
   useState,
   useCallback,
-  useEffect,
   useContext,
   useMemo
 } from 'react'
+
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
 import flag from 'cozy-flags'
 
 export const SelectionContext = createContext()
 
-export const useSelectionContext = item => {
-  const selectionContext = useContext(SelectionContext)
-
-  const isItemSelected = useMemo(() => selectionContext.isSelected(item), [
-    selectionContext,
-    item
-  ])
-
-  const toggleSelection = useCallback(() => {
-    if (selectionContext.isSelectionModeEnabled) {
-      isItemSelected
-        ? selectionContext.removeFromSelection(item)
-        : selectionContext.addToSelection(item)
-    }
-  }, [isItemSelected, item, selectionContext])
-
-  return { toggleSelection, isItemSelected, ...selectionContext }
+export const useSelectionContext = () => {
+  const context = useContext(SelectionContext)
+  if (!context)
+    throw new Error(
+      'SelectionContext is unavailable. There is no Selection provider, or it is not loaded yet.'
+    )
+  return context
 }
 
 // TODO: SelectionProvider stores the entire elements in an array
@@ -35,62 +26,68 @@ export const useSelectionContext = item => {
 // imagine that there are quite few elements.
 // But an improvement would be to store only the ids.
 const SelectionProvider = ({ children }) => {
-  const [isSelectionModeActive, setIsSelectionModeActive] = useState(false)
+  const { isDesktop } = useBreakpoints()
   const [selected, setSelected] = useState([])
+  const [isSelectionModeActive, setIsSelectionModeActive] = useState(false)
+
   const isSelectionModeEnabled = flag('banks.selectionMode.enabled')
-
-  const activateSelectionMode = useCallback(
-    () => isSelectionModeEnabled && setIsSelectionModeActive(true),
-    [isSelectionModeEnabled]
-  )
-
-  const deactivateSelectionMode = () => setIsSelectionModeActive(false)
-
-  const addToSelection = useCallback(
-    item => {
-      setSelected(v => [...v, item])
-    },
-    [setSelected]
-  )
-
-  const removeFromSelection = useCallback(
-    item => {
-      setSelected(selected.filter(e => e._id !== item._id))
-    },
-    [selected]
-  )
-
-  const emptySelection = useCallback(() => setSelected([]), [setSelected])
 
   const isSelected = useCallback(item => selected.includes(item), [selected])
 
-  useEffect(() => {
-    if (isSelectionModeActive && selected.length === 0) {
-      deactivateSelectionMode()
-    }
-    if (!isSelectionModeActive && selected.length > 0) {
-      activateSelectionMode()
-    }
-  }, [selected, activateSelectionMode, isSelectionModeActive])
+  const emptySelection = useCallback(() => setSelected([]), [setSelected])
+
+  const emptyAndDeactivateSelection = useCallback(() => {
+    emptySelection()
+    setIsSelectionModeActive(false)
+  }, [emptySelection])
+
+  const fillSelectionWith = useCallback(arr => setSelected(arr), [setSelected])
+
+  const toggleSelection = useCallback(
+    item => {
+      if (!isSelectionModeEnabled) {
+        return
+      }
+
+      !isSelectionModeActive && setIsSelectionModeActive(true)
+
+      return setSelected(selected => {
+        const found = selected.includes(item)
+        const nextSelected = found
+          ? selected.filter(elem => elem !== item)
+          : [...selected, item]
+
+        if (isDesktop && found && selected.length === 1) {
+          setIsSelectionModeActive(false)
+        }
+
+        return nextSelected
+      })
+    },
+    [isDesktop, isSelectionModeActive, isSelectionModeEnabled]
+  )
 
   const value = useMemo(
     () => ({
-      isSelectionModeActive,
       selected,
-      addToSelection,
+      isSelectionModeActive,
+      setIsSelectionModeActive,
+      isSelectionModeEnabled,
       isSelected,
       emptySelection,
-      removeFromSelection,
-      isSelectionModeEnabled
+      emptyAndDeactivateSelection,
+      toggleSelection,
+      fillSelectionWith
     }),
     [
-      addToSelection,
-      emptySelection,
-      isSelected,
+      selected,
       isSelectionModeActive,
       isSelectionModeEnabled,
-      removeFromSelection,
-      selected
+      isSelected,
+      emptySelection,
+      emptyAndDeactivateSelection,
+      toggleSelection,
+      fillSelectionWith
     ]
   )
 

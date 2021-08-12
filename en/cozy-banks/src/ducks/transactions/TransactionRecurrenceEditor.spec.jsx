@@ -2,14 +2,12 @@ import keyBy from 'lodash/keyBy'
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
 import { mount } from 'enzyme'
-import Polyglot from 'node-polyglot'
 
 import { createMockClient } from 'cozy-client/dist/mock'
 import { findOptions } from 'cozy-ui/transpiled/react/NestedSelect/testing'
 
 import AppLike from 'test/AppLike'
 import fixtures from 'test/fixtures/unit-tests.json'
-import enLocale from 'locales/en.json'
 import {
   schema,
   TRANSACTION_DOCTYPE,
@@ -20,13 +18,12 @@ import {
 import TransactionRecurrenceEditor, {
   makeOptionFromRecurrence
 } from './TransactionRecurrenceEditor'
+import { getT, enLocaleOption } from 'utils/lang'
 
 describe('makeOptionFromRecurrence', () => {
   it('should work', () => {
     const accountsById = keyBy(fixtures[ACCOUNT_DOCTYPE], x => x._id)
-    const polyglot = new Polyglot()
-    polyglot.extend(enLocale)
-    const t = polyglot.t.bind(polyglot)
+    const t = getT(enLocaleOption)
     const option = makeOptionFromRecurrence(
       fixtures[RECURRENCE_DOCTYPE][0],
       t,

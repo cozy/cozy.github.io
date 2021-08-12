@@ -111,7 +111,11 @@ const CategoriesHeader = props => {
     classes
   } = props
 
-  const hasData = categories.length > 0 && categories[0].transactionsNumber > 0
+  const hasData =
+    categories.length > 0 &&
+    (selectedCategory
+      ? selectedCategory.transactionsNumber > 0
+      : categories[0].transactionsNumber > 0)
   const showIncomeToggle = hasData && selectedCategory === undefined
   const globalCurrency = getGlobalCurrency(categories)
   const transactionsTotal = getTransactionsTotal(categories)
@@ -158,8 +162,8 @@ const CategoriesHeader = props => {
 
   const dateSelector = (
     <TransactionSelectDates
-      value={period}
       onChange={onChangePeriod}
+      value={period}
       showFullYear
       className={classes.selectDates}
     />

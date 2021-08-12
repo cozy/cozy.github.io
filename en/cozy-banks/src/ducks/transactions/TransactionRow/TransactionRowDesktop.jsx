@@ -6,6 +6,7 @@ import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import Typography from 'cozy-ui/transpiled/react/Typography'
+import IconButton from 'cozy-ui/transpiled/react/IconButton'
 import Figure from 'cozy-ui/transpiled/react/Figure'
 import Checkbox from 'cozy-ui/transpiled/react/Checkbox'
 
@@ -29,23 +30,19 @@ import ApplicationDateCaption from 'ducks/transactions/TransactionRow/Applicatio
 import AccountCaption from 'ducks/transactions/TransactionRow/AccountCaption'
 import TransactionDate from 'ducks/transactions/TransactionRow/TransactionDate'
 import RecurrenceCaption from 'ducks/transactions/TransactionRow/RecurrenceCaption'
-import { useSelectionContext } from 'ducks/context/SelectionContext'
 
 const TransactionRowDesktop = ({
   transaction,
   isExtraLarge,
   filteringOnAccount,
   onRef,
-  showRecurrence
+  showRecurrence,
+  isSelected,
+  isSelectionModeActive,
+  isSelectionModeEnabled,
+  toggleSelection
 }) => {
   const { t } = useI18n()
-
-  const {
-    isSelectionModeActive,
-    isSelectionModeEnabled,
-    toggleSelection,
-    isItemSelected: isTransactionSelected
-  } = useSelectionContext(transaction)
 
   const boundOnRef = useMemo(() => {
     return onRef ? onRef.bind(null, transaction._id) : null
@@ -75,20 +72,25 @@ const TransactionRowDesktop = ({
     ev => {
       ev.preventDefault()
       if (isSelectionModeActive) {
-        toggleSelection()
+        toggleSelection(transaction)
       } else {
         showTransactionCategoryModal()
       }
     },
-    [isSelectionModeActive, showTransactionCategoryModal, toggleSelection]
+    [
+      isSelectionModeActive,
+      showTransactionCategoryModal,
+      toggleSelection,
+      transaction
+    ]
   )
 
   const handleClickCheckbox = useCallback(
     ev => {
       ev.preventDefault()
-      toggleSelection()
+      toggleSelection(transaction)
     },
-    [toggleSelection]
+    [toggleSelection, transaction]
   )
 
   const handleClickRow = useCallback(
@@ -100,12 +102,12 @@ const TransactionRowDesktop = ({
         return
       }
       if (isSelectionModeActive) {
-        toggleSelection()
+        toggleSelection(transaction)
       } else {
         showTransactionModal()
       }
     },
-    [isSelectionModeActive, showTransactionModal, toggleSelection]
+    [isSelectionModeActive, showTransactionModal, toggleSelection, transaction]
   )
 
   // Virtual transactions, like those generated from recurrences, cannot be edited
@@ -120,19 +122,19 @@ const TransactionRowDesktop = ({
           styles.TransactionRow,
           canEditTransaction ? styles['TransactionRow--editable'] : null,
           {
-            [styles['TransactionRow--selected']]: isTransactionSelected
+            [styles['TransactionRow--selected']]: isSelected
           }
         )}
         onClick={canEditTransaction && handleClickRow}
       >
         {isSelectionModeEnabled && (
           <TdSecondary
-            className={cx(styles.ColumnSizeCheckbox, 'u-pl-0')}
+            className={cx(styles.ColumnSizeCheckbox, 'u-pl-0 u-ta-center')}
             onClick={handleClickCheckbox}
           >
             <Checkbox
               data-testid={`TransactionRow-checkbox-${transaction._id}`}
-              checked={isTransactionSelected}
+              checked={isSelected}
               readOnly
             />
           </TdSecondary>
@@ -145,20 +147,20 @@ const TransactionRowDesktop = ({
           )}
         >
           <Media>
-            <Img
-              title={categoryTitle}
-              onClick={canEditTransaction && handleClickCategory}
-            >
-              <CategoryIcon
-                categoryId={categoryId}
-                className={styles['bnk-op-caticon']}
-              />
-            </Img>
-            <Bd className="u-pl-1">
-              <ListItemText
-                className="u-pv-half"
+            <Img title={categoryTitle}>
+              <IconButton
+                disabled={!canEditTransaction}
+                className={styles.CategoryIconButton}
                 onClick={canEditTransaction && handleClickCategory}
               >
+                <CategoryIcon
+                  categoryId={categoryId}
+                  className={styles['bnk-op-caticon']}
+                />
+              </IconButton>
+            </Img>
+            <Bd className="u-pl-1">
+              <ListItemText className="u-pv-half" disableTypography>
                 <Typography variant="body1">{getLabel(transaction)}</Typography>
                 {!filteringOnAccount && <AccountCaption account={account} />}
                 {applicationDate ? (
@@ -171,19 +173,13 @@ const TransactionRowDesktop = ({
             </Bd>
           </Media>
         </td>
-        <TdSecondary
-          className={styles.ColumnSizeDate}
-          onClick={handleClickCategory}
-        >
+        <TdSecondary className={styles.ColumnSizeDate}>
           <TransactionDate
             isExtraLarge={isExtraLarge}
             transaction={transaction}
           />
         </TdSecondary>
-        <TdSecondary
-          className={styles.ColumnSizeAmount}
-          onClick={handleClickCategory}
-        >
+        <TdSecondary className={styles.ColumnSizeAmount}>
           <Figure
             total={transaction.amount || 0}
             symbol={getCurrencySymbol(transaction.currency)}

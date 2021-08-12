@@ -61,16 +61,13 @@ class PinSettings extends React.Component {
   render() {
     const { pinSetting, t } = this.props
     const pinDoc = pinSetting.data
-    if (!pinDoc) {
-      return null
-    }
     return (
       <React.Fragment>
         <ToggleRow
           title={t('Pin.settings.toggle-title')}
           description={t('Pin.settings.toggle-description')}
           onToggle={this.handleToggle}
-          enabled={Boolean(pinDoc.pin)}
+          enabled={pinDoc ? Boolean(pinDoc.pin) : false}
           name="pin-doc"
         />
         {this.state.togglingOn ? (

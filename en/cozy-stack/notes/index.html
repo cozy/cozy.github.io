@@ -2538,6 +2538,33 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#post-notesidimages" title="POST /notes/:id/images" class="md-nav__link">
+    POST /notes/:id/images
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_10" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_8" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3071,6 +3098,33 @@
         
           <li class="md-nav__item">
   <a href="#response_7" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-notesidimages" title="POST /notes/:id/images" class="md-nav__link">
+    POST /notes/:id/images
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_10" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_8" title="Response" class="md-nav__link">
     Response
   </a>
   
@@ -4231,11 +4285,71 @@ found</code>.</p>
 </pre></div>
 
 
+<h3 id="post-notesidimages">POST /notes/:id/images<a class="headerlink" href="#post-notesidimages" title="Permanent link">&para;</a></h3>
+<p>This route can be used to upload an image for a note. The note will be
+transformed in a tar archive in the VFS, with the image saved inside it.</p>
+<p>This route can only be used to upload images (the content-type is checked) and
+requires a POST permission on the note.</p>
+<p>The filename of the image is given in the query string, via the <code>Name</code>
+parameter. In case of conflict (another image has the same name), the stack
+will rename this image.</p>
+<p>If the image is larger than 768px, a thumbnail will be generated.</p>
+<h4 id="request_10">Request<a class="headerlink" href="#request_10" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/notes/f48d9370-e1ec-0137-8547-543d7eb8149c/images?Name=diagram.jpg</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">123456</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">image/jpeg</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.com</span>
+<span class="err">&lt;content&gt;</span>
+</pre></div>
+
+
+<h4 id="response_8">Response<a class="headerlink" href="#response_8" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">201</span> <span class="ne">Created</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.notes.images&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;f48d9370-e1ec-0137-8547-543d7eb8149c/e57d2ec0-d281-0139-2bed-543d7eb8149c&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-588ab661&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;diagram.jpg&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;mime&quot;</span><span class="p">:</span> <span class="s2">&quot;image/jpeg&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;width&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+      <span class="nt">&quot;height&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+      <span class="nt">&quot;willBeResized&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nt">&quot;cozyMetadata&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;doctypeVersion&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;metadataVersion&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nt">&quot;createdAt&quot;</span><span class="p">:</span> <span class="s2">&quot;2021-07-12T10:58:00Z&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;createdByApp&quot;</span><span class="p">:</span> <span class="s2">&quot;notes&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;createdOn&quot;</span><span class="p">:</span> <span class="s2">&quot;https://cozy.example.com/&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;updatedAt&quot;</span><span class="p">:</span> <span class="s2">&quot;2021-07-12T10:58:00Z&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;uploadedAt&quot;</span><span class="p">:</span> <span class="s2">&quot;2021-07-12T10:58:00Z&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;uploadedOn&quot;</span><span class="p">:</span> <span class="s2">&quot;https://cozy.example.com/&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;uploadedBy&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;notes&quot;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/notes/f48d9370-e1ec-0137-8547-543d7eb8149c/images/e57d2ec0-d281-0139-2bed-543d7eb8149c/543d7eb8149c128b&quot;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
 <h2 id="real-time-via-websockets">Real-time via websockets<a class="headerlink" href="#real-time-via-websockets" title="Permanent link">&para;</a></h2>
 <p>You can subscribe to the <a href="../realtime/">realtime</a> API for a document with the
 <code>io.cozy.notes.events</code> doctype, and the id of a note file. It requires a permission
 on this file, and it will send the events for this notes: changes of the title, the
-steps applied, and the telepointer updates.</p>
+steps applied, the telepointer updates, and images processed.</p>
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span>client &gt; {&quot;method&quot;: &quot;AUTH&quot;,
           &quot;payload&quot;: &quot;xxAppOrAuthTokenxx=&quot;}
@@ -4262,6 +4376,14 @@ server &gt; {&quot;event&quot;: &quot;UPDATED&quot;,
           &quot;payload&quot;: {&quot;id&quot;: &quot;f48d9370-e1ec-0137-8547-543d7eb8149c&quot;,
                       &quot;type&quot;: &quot;io.cozy.notes.events&quot;,
                       &quot;doc&quot;: {&quot;doctype&quot;: &quot;io.cozy.notes.telepointers&quot;, &quot;sessionID&quot;: &quot;543781490137&quot;, &quot;anchor&quot;: 7, &quot;head&quot;: 12, &quot;type&quot;: &quot;textSelection&quot;}}}
+server &gt; {&quot;event&quot;: &quot;UPDATED&quot;,
+          &quot;payload&quot;: {&quot;id&quot;: &quot;f48d9370-e1ec-0137-8547-543d7eb8149c&quot;,
+                      &quot;type&quot;: &quot;io.cozy.notes.events&quot;,
+                      &quot;doc&quot;: {&quot;doctype&quot;: &quot;io.cozy.notes.images&quot;,
+                              &quot;image_id&quot;: &quot;e57d2ec0-d281-0139-2bed-543d7eb8149c&quot;,
+                              &quot;mime&quot;: &quot;image/jpeg&quot;,
+                              &quot;width&quot;: 768,
+                              &quot;height&quot;: 768}}}
 </pre></div>
                 
                   

@@ -23,6 +23,7 @@ import LegalMention from 'ducks/legal/LegalMention'
 import useEstimatedBudget from './useEstimatedBudget'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 import { useTrackPage } from 'ducks/tracking/browser'
+import { DESKTOP_SCROLLING_ELEMENT_CLASSNAME } from 'ducks/transactions/scroll/getScrollingElement'
 
 import styles from './styles.styl'
 
@@ -113,7 +114,7 @@ const PlannedTransactionsPage = ({ emptyIcon }) => {
       </Header>
       <div
         className={cx(
-          'js-scrolling-element',
+          DESKTOP_SCROLLING_ELEMENT_CLASSNAME,
           isMobile ? styles['List--mobile'] : null
         )}
       >

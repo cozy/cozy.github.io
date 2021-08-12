@@ -20,10 +20,10 @@ class TopMost {
     const topRoot =
       scrollEl === window ? 0 : scrollEl.getBoundingClientRect().top
     const offsets = sortBy(
-      Object.entries(this.nodes).map(([tId, node]) => [
-        tId,
-        node ? node.getBoundingClientRect().top : Infinity
-      ]),
+      Object.entries(this.nodes).map(([tId, node]) => {
+        const rect = node ? node.getBoundingClientRect() : null
+        return [tId, rect ? rect.top : Infinity]
+      }),
       x => x[1]
     )
     const topMost = find(offsets, o => {

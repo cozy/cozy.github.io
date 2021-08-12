@@ -42,6 +42,10 @@ const ignoredWarnings = {
   ReactSwipableView: {
     reason: 'External component on which we have no control',
     matcher: makeDeprecatedLifecycleMatcher('ReactSwipableView')
+  },
+  Tappable: {
+    reason: 'External component on which we have no control',
+    matcher: makeDeprecatedLifecycleMatcher('Tappable')
   }
 }
 

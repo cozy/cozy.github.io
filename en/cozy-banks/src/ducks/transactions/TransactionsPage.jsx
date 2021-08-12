@@ -2,9 +2,7 @@ import React, { Component, useState, useCallback, useMemo } from 'react'
 import ReactDOM from 'react-dom'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
 import cx from 'classnames'
-import endOfMonth from 'date-fns/end_of_month'
 import debounce from 'lodash/debounce'
 import compose from 'lodash/flowRight'
 
@@ -17,7 +15,6 @@ import {
 } from 'cozy-client'
 import { translate } from 'cozy-ui/transpiled/react/I18n'
 import Typography from 'cozy-ui/transpiled/react/Typography'
-import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import flag from 'cozy-flags'
 
 import {
@@ -39,7 +36,13 @@ import TransactionHeader from 'ducks/transactions/TransactionHeader'
 import BarTheme from 'ducks/bar/BarTheme'
 import TransactionActionsProvider from 'ducks/transactions/TransactionActionsProvider'
 import { trackPage } from 'ducks/tracking/browser'
-import { makeFilteredTransactionsConn } from 'ducks/transactions/queries'
+import {
+  addMonthToConn,
+  makeFilteredTransactionsConn
+} from 'ducks/transactions/queries'
+import getScrollingElement, {
+  DESKTOP_SCROLLING_ELEMENT_CLASSNAME
+} from './scroll/getScrollingElement'
 
 const getMonth = date => date.slice(0, 7)
 
@@ -56,7 +59,7 @@ const updateListStyle = (listRef, headerRef) => {
   // eslint-disable-next-line
   const listNode = ReactDOM.findDOMNode(listRef)
 
-  if (document.body.getBoundingClientRect().width < 768) {
+  if (document.body.getBoundingClientRect().width < 1024) {
     listNode.style.paddingTop = headerNode.getBoundingClientRect().height + 'px'
   } else {
     listNode.style.paddingTop = 0
@@ -135,6 +138,12 @@ class TransactionsPage extends Component {
       currentMonth: month
     })
     this.props.onChangeMonth(month)
+
+    const {
+      breakpoints: { isDesktop }
+    } = this.props
+    const scrollingElement = getScrollingElement(isDesktop)
+    scrollingElement.scrollTo({ top: 0 })
   }
 
   renderTransactions() {
@@ -163,7 +172,6 @@ class TransactionsPage extends Component {
       <TransactionList
         showTriggerErrors={showTriggerErrors}
         onChangeTopMostTransaction={this.handleChangeTopmostTransaction}
-        onScroll={this.checkToActivateTopInfiniteScroll}
         transactions={transactions.data}
         canFetchMore={transactions.hasMore}
         filteringOnAccount={isFilteringOnAccount}
@@ -173,10 +181,19 @@ class TransactionsPage extends Component {
     )
   }
 
-  handleFetchMoreBecomeVisible() {
+  async handleFetchMoreBecomeVisible() {
     const { transactions } = this.props
-    if (transactions.hasMore && transactions.fetchStatus === 'loaded') {
-      transactions.fetchMore()
+    if (
+      transactions.hasMore &&
+      transactions.fetchStatus === 'loaded' &&
+      !this.fetchingMore
+    ) {
+      try {
+        this.fetchingMore = true
+        await transactions.fetchMore()
+      } finally {
+        this.fetchingMore = false
+      }
     }
   }
 
@@ -190,17 +207,12 @@ class TransactionsPage extends Component {
 
   render() {
     const {
-      accounts,
-      breakpoints: { isMobile },
       showHeader,
       showFutureBalance,
       className,
       transactions,
       isFetchingNewData
     } = this.props
-
-    const areAccountsLoading =
-      isQueryLoading(accounts) && !hasQueryBeenLoaded(accounts)
 
     const theme = 'primary'
     return (
@@ -213,17 +225,18 @@ class TransactionsPage extends Component {
             handleChangeMonth={this.handleChangeMonth}
             currentMonth={this.state.currentMonth}
             showBackButton={this.props.showBackButton}
-            showBalance={isMobile && !areAccountsLoading}
           />
         ) : null}
-        <HeaderLoadingProgress isFetching={isFetchingNewData} />
+        <HeaderLoadingProgress
+          isFetching={isFetchingNewData || !!this.fetchingMore}
+        />
         <div
           ref={this.handleListRef}
           style={{ opacity: 0 }}
           className={cx(
             styles.TransactionPage__transactions,
             className,
-            'js-scrolling-element'
+            DESKTOP_SCROLLING_ELEMENT_CLASSNAME
           )}
         >
           {flag('banks.future-balance') && showFutureBalance ? (
@@ -250,59 +263,49 @@ const autoUpdateOptions = {
   remove: true,
   update: true
 }
-const addMonthToConn = (baseConn, month) => {
-  const { query: baseQuery, as: baseAs, ...rest } = baseConn
-  const thresholdDate = endOfMonth(new Date(month))
-  const query = baseQuery().where({ date: { $lt: thresholdDate } }, true)
-  const as = `${baseAs}-${month}`
-  return {
-    query,
-    as,
-    autoUpdate: autoUpdateOptions,
-    ...rest
-  }
-}
 
 const setAutoUpdate = conn => ({ ...conn, autoUpdate: autoUpdateOptions })
 
-const addTransactions = Component => props => {
-  const [month, setMonth] = useState(null)
-  const initialConn = makeFilteredTransactionsConn(props)
-  const conn = useMemo(() => {
-    return month
-      ? addMonthToConn(initialConn, month)
-      : setAutoUpdate(initialConn)
-  }, [initialConn, month])
-  const transactions = useQuery(conn.query, conn)
-  const transactionsLoaded = useLast(transactions, (last, cur) => {
-    return !last || cur.lastUpdate
-  })
-  const handleChangeMonth = useCallback(
-    month => {
-      setMonth(month)
-    },
-    [setMonth]
-  )
-  return (
-    <Component
-      {...props}
-      transactions={transactionsLoaded}
-      onChangeMonth={handleChangeMonth}
-      isFetchingNewData={transactions !== transactionsLoaded}
-    />
-  )
+const addTransactions = Component => {
+  const Wrapped = props => {
+    const [month, setMonth] = useState(null)
+    const initialConn = makeFilteredTransactionsConn(props)
+    const conn = useMemo(() => {
+      return month
+        ? setAutoUpdate(addMonthToConn(initialConn, month))
+        : setAutoUpdate(initialConn)
+    }, [initialConn, month])
+    const transactions = useQuery(conn.query, conn)
+    const transactionsLoaded = useLast(transactions, (last, cur) => {
+      return !last || cur.lastUpdate
+    })
+    const handleChangeMonth = useCallback(
+      month => {
+        setMonth(month)
+      },
+      [setMonth]
+    )
+
+    return (
+      <Component
+        {...props}
+        transactions={transactionsLoaded}
+        onChangeMonth={handleChangeMonth}
+        isFetchingNewData={transactions !== transactionsLoaded}
+      />
+    )
+  }
+
+  Wrapped.displayName = `withTransactions(${Component.displayName ||
+    Component.name})`
+  return Wrapped
 }
 
 export const DumbTransactionsPage = TransactionsPage
 export const UnpluggedTransactionsPage = compose(
   withRouter,
-  translate(),
-  withBreakpoints()
+  translate()
 )(TransactionsPage)
-
-UnpluggedTransactionsPage.propTypes = {
-  filteredTransactions: PropTypes.array.isRequired
-}
 
 const ConnectedTransactionsPage = compose(
   withRouter,

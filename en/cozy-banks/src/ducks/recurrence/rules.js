@@ -14,6 +14,7 @@ import getCategoryId from 'ducks/transactions/getCategoryId'
 import { getLabel } from './utils'
 import brands from 'ducks/brandDictionary/brands'
 import { findMatchingBrand } from 'ducks/brandDictionary'
+
 const ONE_DAY = 86400 * 1000
 
 const mean = iterable => sum(iterable) / iterable.length
@@ -40,7 +41,7 @@ const makeStats = operations => {
     .map((d, i) => (i === 0 ? null : (d - dates[i - 1]) / ONE_DAY))
     .slice(1)
   const m = mean(deltas)
-  const med = median(deltas)
+  const med = operations.length < 3 ? 30 : median(deltas)
   const sqDistToAverage = deltas.map(d => Math.pow(d, 2) - Math.pow(m, 2))
   const sigma = Math.sqrt(sum(sqDistToAverage) / deltas.length)
   const mad = median(deltas.map(d => Math.abs(d - med)))
@@ -178,7 +179,9 @@ export const brandSplit = () => bundle => {
     return {
       ...bundle,
       ops: ops,
-      brand: brand ? brand.name : null
+      brand: brand ? brand.name : null,
+      categoryIds: uniq(ops.map(o => getCategoryId(o))),
+      amounts: uniq(ops.map(o => o.amount))
     }
   })
 }

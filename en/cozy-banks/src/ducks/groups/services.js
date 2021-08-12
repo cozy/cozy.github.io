@@ -2,7 +2,7 @@ import logger from 'cozy-logger'
 import omit from 'lodash/omit'
 import keyBy from 'lodash/keyBy'
 import difference from 'lodash/difference'
-import { updateSettings, fetchSettings } from 'ducks/settings/helpers'
+import { fetchSettings } from 'ducks/settings/helpers'
 import mergeSets from 'utils/mergeSets'
 
 import { GROUP_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
@@ -105,7 +105,7 @@ export const createAutoGroups = async ({ client }) => {
   settings.autogroups.processedAccounts = Array.from(
     mergeSets(alreadyProcessed, processedAccounts)
   )
-  await updateSettings(client, settings)
+  await client.save(settings)
 }
 
 export const listAutoGroups = async ({ client }) => {

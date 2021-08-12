@@ -2424,61 +2424,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#developing" title="Developing" class="md-nav__link">
-    Developing
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#components" title="Components" class="md-nav__link">
-    Components
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#fixtures" title="Fixtures" class="md-nav__link">
-    Fixtures
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#doctypes" title="Doctypes" class="md-nav__link">
-    Doctypes
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#continuous-build" title="Continuous build" class="md-nav__link">
-    Continuous build
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#android-environment" title="Android environment" class="md-nav__link">
-    Android environment
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#maintainers" title="Maintainers" class="md-nav__link">
-    Maintainers
-  </a>
-  
-</li>
-      
       
       
       
@@ -2517,40 +2462,27 @@ and connectors regain control, streamline and maximize their digital lives.</p>
 <!-- MarkdownTOC autolink=true -->
 
 <ul>
+<li><a href="https://github.com/cozy/cozy-banks/tree/master/docs/dev.md">Developing</a></li>
+<li><a href="https://github.com/cozy/cozy-banks/tree/master/docs/account-types.md">Account Types</a></li>
+<li><a href="https://github.com/cozy/cozy-banks/tree/master/docs/bills-matching.md">Bills Matching</a></li>
+<li><a href="https://github.com/cozy/cozy-banks/tree/master/docs/brand-dictionary.md">Brand Dictionnary</a></li>
+<li><a href="https://github.com/cozy/cozy-banks/tree/master/docs/categorization.md">Categorization</a></li>
+<li><a href="https://github.com/cozy/cozy-banks/tree/master/docs/category.md">Category</a></li>
+<li><a href="https://github.com/cozy/cozy-banks/tree/master/docs/code-conventions.md">Code Conventions</a></li>
+<li><a href="https://github.com/cozy/cozy-banks/tree/master/docs/credentials.md">Credentials</a></li>
+<li><a href="https://github.com/cozy/cozy-banks/tree/master/docs/data-fetching.md">Data Fetching</a></li>
+<li><a href="https://github.com/cozy/cozy-banks/tree/master/docs/demo.md">Demo</a></li>
+<li><a href="https://github.com/cozy/cozy-banks/tree/master/docs/notifications.md">Notification</a></li>
+<li><a href="https://github.com/cozy/cozy-banks/tree/master/docs/override-cordova-config.md">Override Cordova Config</a></li>
+<li><a href="https://github.com/cozy/cozy-banks/tree/master/docs/perfs.md">Perfs</a></li>
+<li><a href="https://github.com/cozy/cozy-banks/tree/master/docs/services.md">Services</a></li>
+<li><a href="https://github.com/cozy/cozy-banks/tree/master/docs/tracking.md">Tracking</a></li>
 <li><a href="#feature-requests">Feature requests</a></li>
-<li><a href="#developing">Developing</a></li>
-<li><a href="#components">Components</a></li>
-<li><a href="#fixtures">Fixtures</a></li>
-<li><a href="#doctypes">Doctypes</a></li>
-<li><a href="#continuous-build">Continuous build</a></li>
-<li><a href="#android-environment">Android environment</a></li>
-<li><a href="#maintainers">Maintainers</a></li>
 </ul>
 <!-- /MarkdownTOC -->
 
 <h2 id="feature-requests">Feature requests<a class="headerlink" href="#feature-requests" title="Permanent link">&para;</a></h2>
 <p>We love getting feedback, do not hesitate if you have any. Please use the <a href="https://forum.cozy.io/c/francais/banque">forum</a> for any feature requests.</p>
-<h2 id="developing">Developing<a class="headerlink" href="#developing" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span>$ yarn
-$ yarn watch:browser <span class="c1"># to dev</span>
-$ yarn build:browser <span class="c1"># to build</span>
-</pre></div>
-
-
-<p>When watching, you still need to have a cozy-stack running to serve the files of the app (do not use the webpack-dev-server directly). This is important as the stack injects through template variables the <em>token</em> and <em>domain</em> used to connect to the cozy. See <a href="https://docs.cozy.io/en/howTos/dev/runCozyDocker/#ephemeral-instance">how to run a cozy application</a> for more information.</p>
-<p>⚠️ CSPs must be disabled when working with the development server (as the <code>index.html</code> is served via the stack but the JS assets are served via webpack-dev-server). You can do this via a browser extension (<a href="https://chrome.google.com/webstore/detail/disable-content-security/ieelmcmcagommplceebfedjlakkhpden">Chrome</a>) or you can tell the stack to disable CSPs via its config file (<code>disable_csp: true</code>, check here for <a href="https://docs.cozy.io/en/cozy-stack/config/#main-configuration-file">more info</a> on the config file). See an example config file <a href="https://github.com/CPatchane/create-cozy-app/blob/8329c7161a400119076a7e2734191607437f0dcc/packages/cozy-scripts/stack/disableCSP.yaml#L6">here</a>.</p>
-<h3 id="components">Components<a class="headerlink" href="#components" title="Permanent link">&para;</a></h3>
-<p>Check out the documentation for components on <a href="https://ptbrowne.github.io/cozy-bank/">Styleguidist</a>.</p>
-<h3 id="fixtures">Fixtures<a class="headerlink" href="#fixtures" title="Permanent link">&para;</a></h3>
-<p>You can add fixtures by using <a href="https://github.com/cozy/ACH">ACH</a> and data in <a href="./test/fixtures">test/fixtures</a>.</p>
-<h3 id="doctypes">Doctypes<a class="headerlink" href="#doctypes" title="Permanent link">&para;</a></h3>
-<p>The doctypes used in Banks are described in the <a href="https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.bank.md">cozy-doctypes</a> repository.</p>
-<h3 id="continuous-build">Continuous build<a class="headerlink" href="#continuous-build" title="Permanent link">&para;</a></h3>
-<p>The application is built automatically and published on <a href="https://apps-registry.cozycloud.cc/banks/registry">Cozy Registry</a> by <a href="https://travis-ci.org/cozy/cozy-banks">Travis</a>.</p>
-<h3 id="android-environment">Android environment<a class="headerlink" href="#android-environment" title="Permanent link">&para;</a></h3>
-<p>To be able to start the mobile app on an emulator or a real device, you can follow <a href="https://gist.github.com/drazik/11dfe2014a6b967821df93b9e10353f4">this guide</a>.</p>
-<h2 id="maintainers">Maintainers<a class="headerlink" href="#maintainers" title="Permanent link">&para;</a></h2>
-<p>Maintainers for Cozy Banks are <a href="https://github.com/drazik">drazik</a> and <a href="https://github.com/ptbrowne">ptbrowne</a>.</p>
                 
                   
                 

@@ -2447,27 +2447,30 @@ is an example, running a jscodeshift codemod through the remark-jscodeshift plug
 
 <h1 id="screenshot-testing-locally">Screenshot testing locally<a class="headerlink" href="#screenshot-testing-locally" title="Permanent link">&para;</a></h1>
 <ul>
-<li>You can screenshot old components into old_screenshots directory</li>
+<li>You can screenshot old components into pristine_screenshots directory</li>
 <li>Screenshot the new one inside screenshots</li>
 <li>Run pixelmatch-server, which shows screenshots side by side like on Argos (you need the <code>pixelmatch</code> binary to be available)</li>
 </ul>
 <div class="codehilite"><pre><span></span># Screenshot all the components
 yarn build:doc:react
-yarn screenshots --styleguide-url &#39;http://localhost:6161&#39;
-cp -r screenshots old_screenshots
+yarn screenshots&#39;
+cp -r screenshots pristine_screenshots
+
 # yarn watch:doc:react
 # Make changes to BarButton...
+
 # Screenshot BarButton
 export COMPONENT=BarButton
-yarn screenshots --styleguide-url &#39;http://localhost:6161&#39; --component $COMPONENT
+yarn screenshots --component $COMPONENT
+
 # Run pixel diff on a single component
-pixelmatch old_screenshots/$COMPONENT.png screenshots/$COMPONENT.png diff/$COMPONENT.png 0.1
-# Regenerate screenshots.html when screenshot is taken
-nodemon -w screenshots -x &quot;node tpl-screenshots.js&quot; -e png
+pixelmatch pristine_screenshots/$COMPONENT.png screenshots/$COMPONENT.png diff/$COMPONENT.png 0.1
+
 # Open pixelmatch server to check diffs
 $ yarn screenshots:server
+
 # Enable hot reload
-$ livereload screenshots,old_screenshots,diffs -w 1000
+$ livereload screenshots,pristine_screenshots,diffs -w 1000
 </pre></div>
                 
                   

@@ -19,11 +19,10 @@ import RightIcon from 'cozy-ui/transpiled/react/Icons/Right'
 
 import styles from 'components/SelectDates/SelectDates.styl'
 import Select from 'components/Select'
-import scrollAware from 'components/SelectDates/scrollAware'
 import { rangedSome } from 'components/SelectDates/utils'
 import { themed } from 'components/useTheme'
 
-const isAllYear = value => value.includes('allyear')
+const isAllYear = value => value && value.includes('allyear')
 
 const getOptionValue = option => option.value
 const capitalizeFirstLetter = string => {
@@ -98,6 +97,7 @@ class SelectDateButton extends PureComponent {
     return (
       <Chip.Round
         {...props}
+        aria-disabled={disabled}
         onClick={!disabled ? props.onClick : null}
         className={cx(
           styles.SelectDates__Button,
@@ -146,7 +146,6 @@ class SelectDates extends PureComponent {
   getOptions = () => {
     // create options
     const { f, options } = this.props
-
     return options.map(option => {
       const date = parse(option.yearMonth, 'YYYY-MM')
       const year = format(date, 'YYYY')
@@ -159,6 +158,14 @@ class SelectDates extends PureComponent {
         monthF: capitalizeFirstLetter(f(date, 'MMMM'))
       }
     })
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.options !== prevProps.options) {
+      if (this.props.value) {
+        this.onChange(this.props.value)
+      }
+    }
   }
 
   handleChooseNext = () => {
@@ -203,12 +210,17 @@ class SelectDates extends PureComponent {
       if (!nearest) {
         nearest = findValue(!searchInPast)
       }
-      value = nearest.value
+      if (nearest) {
+        value = nearest.value
+      }
     }
-    if (value.includes('allyear')) {
+    if (value && value.includes('allyear')) {
       value = value.substr(0, 4)
     }
-    this.props.onChange(value)
+
+    if (value && this.props.value !== value) {
+      this.props.onChange(value)
+    }
   }
 
   getAvailableYears() {
@@ -217,20 +229,23 @@ class SelectDates extends PureComponent {
   }
 
   chooseOption = inc => {
-    const index = this.getSelectedIndex()
+    // If index = -1, we are on the latest month but the value
+    // has not been passed down, this is why we force the value
+    // to be 0 so that clicking on prev work correctly
+    const index = Math.max(0, this.getSelectedIndex())
     const options = this.getOptions()
     const currentValue = this.props.value
-    if (!isFullYearValue(currentValue)) {
+    if (isFullYearValue(currentValue)) {
+      const availableYears = this.getAvailableYears()
+      const current = availableYears.indexOf(currentValue)
+      const newIndex = constrain(current + inc, 0, availableYears.length - 1)
+      this.props.onChange(availableYears[newIndex])
+    } else {
       const newIndex = index + inc
       if (newIndex > -1 && index < options.length) {
         const value = options[newIndex].value
         this.props.onChange(value)
       }
-    } else {
-      const availableYears = this.getAvailableYears()
-      const current = availableYears.indexOf(currentValue)
-      const newIndex = constrain(current + inc, 0, availableYears.length - 1)
-      this.props.onChange(availableYears[newIndex])
     }
   }
 
@@ -240,7 +255,6 @@ class SelectDates extends PureComponent {
 
   render() {
     const {
-      scrolling,
       showFullYear,
       value,
       t,
@@ -307,7 +321,6 @@ class SelectDates extends PureComponent {
         className={cx(
           styles.SelectDates,
           styles[`SelectDatesColor_${theme}`],
-          scrolling && styles['SelectDates--scrolling'],
           className
         )}
       >
@@ -346,6 +359,7 @@ class SelectDates extends PureComponent {
         <span className={styles.SelectDates__buttons}>
           {isMobile && theme !== 'primary' && <Separator />}
           <SelectDateButton
+            aria-label={t('SelectDates.previous-month')}
             onClick={this.handleChoosePrev}
             disabled={isPrevButtonDisabled}
             className={cx(styles['SelectDates__Button--prev'], {
@@ -356,6 +370,7 @@ class SelectDates extends PureComponent {
           </SelectDateButton>
 
           <SelectDateButton
+            aria-label={t('SelectDates.next-month')}
             onClick={this.handleChooseNext}
             disabled={isNextButtonDisabled}
             className={cx(styles['SelectDates__Button--next'], {
@@ -386,7 +401,6 @@ SelectDates.propTypes = {
 
 export default compose(
   translate(),
-  scrollAware,
   withBreakpoints(),
   themed
 )(SelectDates)

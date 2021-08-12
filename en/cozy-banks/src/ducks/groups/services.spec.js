@@ -78,7 +78,7 @@ describe('createAutoGroups', () => {
       expect(settings.autogroups.processedAccounts).toEqual(['a1', 'a2'])
 
       // Due to account deduplication
-      expect(client.save).toHaveBeenCalledTimes(2)
+      expect(client.save).toHaveBeenCalledTimes(3)
     })
   })
 

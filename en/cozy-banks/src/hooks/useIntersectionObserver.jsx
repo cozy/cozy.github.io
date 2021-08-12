@@ -1,8 +1,10 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState, useRef } from 'react'
 import 'intersection-observer'
 
 const useIntersectionObserver = (observerOptions, handleIntersection) => {
   const [ref, setRef] = useState(null)
+  const callbackRef = useRef()
+  callbackRef.current = handleIntersection
   const handleRef = useCallback(node => {
     setRef(node)
   }, [])
@@ -11,10 +13,13 @@ const useIntersectionObserver = (observerOptions, handleIntersection) => {
     if (!ref) {
       return
     }
-    const o = new IntersectionObserver(handleIntersection, observerOptions)
+    const handleIntersectionCb = options => {
+      callbackRef.current(options)
+    }
+    const o = new IntersectionObserver(handleIntersectionCb, observerOptions)
     o.observe(ref)
     return () => o.unobserve(ref)
-  }, [handleIntersection, observerOptions, ref])
+  }, [observerOptions, ref])
   return handleRef
 }
 export default useIntersectionObserver

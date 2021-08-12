@@ -1,7 +1,9 @@
 import { Q } from 'cozy-client'
 import {
   makeFilteredTransactionsConn,
-  makeEarliestLatestQueries
+  makeEarliestLatestQueries,
+  addMonthToConn,
+  addPeriodToConn
 } from './queries'
 
 describe('makeFilteredTransactionsConn', () => {
@@ -44,7 +46,7 @@ describe('makeFilteredTransactionsConn', () => {
       expect.objectContaining({
         indexedFields: ['date', 'account'],
         selector: {
-          $or: [{ account: 'a1' }, { account: 'a2' }, { account: 'a3' }]
+          account: { $in: ['a1', 'a2', 'a3'] }
         },
         sort: [{ date: 'desc' }, { account: 'desc' }]
       })
@@ -75,7 +77,7 @@ describe('makeFilteredTransactionsConn', () => {
       expect.objectContaining({
         indexedFields: ['date', 'account'],
         selector: {
-          $or: [{ account: 'a1' }, { account: 'a2' }, { account: 'a3' }]
+          account: { $in: ['a1', 'a2', 'a3'] }
         },
         sort: [{ date: 'desc' }, { account: 'desc' }]
       })
@@ -99,7 +101,7 @@ describe('makeFilteredTransactionsConn', () => {
       expect.objectContaining({
         indexedFields: ['date', 'account'],
         selector: {
-          $or: [{ account: 'a1' }, { account: 'a2' }, { account: 'a3' }]
+          account: { $in: ['a1', 'a2', 'a3'] }
         },
         sort: [{ date: 'desc' }, { account: 'desc' }]
       })
@@ -136,12 +138,12 @@ describe('makeEarliestLatestQueries', () => {
 
   it('should make two queries that selects the earliest and latest transactions for multiple accounts', () => {
     const baseQuery = Q('io.cozy.bank.transactions').where({
-      $or: [{ account: 'comptelou1' }, { account: 'compteisa2' }]
+      account: { $in: ['comptelou1', 'compteisa2'] }
     })
     expect(makeEarliestLatestQueries(baseQuery)).toEqual([
       expect.objectContaining({
         selector: {
-          $or: [{ account: 'comptelou1' }, { account: 'compteisa2' }],
+          account: { $in: ['comptelou1', 'compteisa2'] },
           date: { $gt: null }
         },
         indexedFields: ['date'],
@@ -150,7 +152,7 @@ describe('makeEarliestLatestQueries', () => {
       }),
       expect.objectContaining({
         selector: {
-          $or: [{ account: 'comptelou1' }, { account: 'compteisa2' }],
+          account: { $in: ['comptelou1', 'compteisa2'] },
           date: { $gt: null }
         },
         indexedFields: ['date'],
@@ -158,5 +160,114 @@ describe('makeEarliestLatestQueries', () => {
         limit: 1
       })
     ])
+  })
+})
+
+describe('addMonthToConn', () => {
+  it('should keep the existing selector', () => {
+    const conn1 = makeFilteredTransactionsConn({
+      groups: {
+        lastUpdate: Date.now(),
+        data: [
+          {
+            _id: 'g1',
+            accounts: {
+              raw: ['a1', 'a2', 'a3']
+            }
+          }
+        ]
+      },
+      accounts: {
+        lastUpdate: Date.now()
+      },
+      filteringDoc: {
+        _id: 'g1',
+        _type: 'io.cozy.bank.groups'
+      }
+    })
+    const conn2 = addMonthToConn(conn1, '2021-07')
+    expect(conn2.query).toEqual(
+      expect.objectContaining({
+        selector: {
+          account: { $in: ['a1', 'a2', 'a3'] },
+          date: {
+            // Use stringContaining not to have difference of timezones
+            // between CI and local development
+            $lt: expect.stringContaining('2021-07-31T')
+          }
+        }
+      })
+    )
+  })
+})
+
+describe('addPeriodToConn', () => {
+  it('should keep the existing selector', () => {
+    const conn1 = makeFilteredTransactionsConn({
+      groups: {
+        lastUpdate: Date.now(),
+        data: [
+          {
+            _id: 'g1',
+            accounts: {
+              raw: ['a1', 'a2', 'a3']
+            }
+          }
+        ]
+      },
+      accounts: {
+        lastUpdate: Date.now()
+      },
+      filteringDoc: {
+        _id: 'g1',
+        _type: 'io.cozy.bank.groups'
+      }
+    })
+    const conn2 = addPeriodToConn(conn1, '2021-07')
+    expect(conn2.query).toEqual(
+      expect.objectContaining({
+        selector: {
+          account: { $in: ['a1', 'a2', 'a3'] },
+          date: {
+            $gte: '2021-07-01T00:00',
+            $lte: '2021-07-31T23:59'
+          }
+        }
+      })
+    )
+  })
+
+  it('should use _id selector instead of account for null filteringDoc', () => {
+    const conn1 = makeFilteredTransactionsConn({
+      groups: {
+        lastUpdate: Date.now(),
+        data: [
+          {
+            _id: 'g1',
+            accounts: {
+              raw: ['a1', 'a2', 'a3']
+            }
+          }
+        ]
+      },
+      accounts: {
+        lastUpdate: Date.now()
+      },
+      filteringDoc: null
+    })
+    const conn2 = addPeriodToConn(conn1, '2021-07')
+
+    expect(conn2.query).toEqual(
+      expect.objectContaining({
+        selector: {
+          _id: { $gt: null },
+          date: {
+            $gte: '2021-07-01T00:00',
+            $lte: '2021-07-31T23:59'
+          }
+        },
+        indexedFields: ['date', '_id']
+      })
+    )
   })
 })

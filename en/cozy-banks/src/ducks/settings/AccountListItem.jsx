@@ -4,7 +4,6 @@ import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
 import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
 import KonnectorIcon from 'cozy-harvest-lib/dist/components/KonnectorIcon'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
-import ListItemSecondaryAction from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemSecondaryAction'
 import { AccountIconContainer } from 'components/AccountIcon'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import Icon from 'cozy-ui/transpiled/react/Icon'
@@ -46,13 +45,11 @@ const AccountListItem = ({
         />
       )}
 
-      <ListItemSecondaryAction>
-        {isLoading ? (
-          <Spinner size="large" className="u-mr-1" />
-        ) : (
-          <Icon icon={RightIcon} className="u-coolGrey u-mr-1" />
-        )}
-      </ListItemSecondaryAction>
+      {isLoading ? (
+        <Spinner size="large" />
+      ) : (
+        <Icon icon={RightIcon} className="u-coolGrey" />
+      )}
     </ListItem>
   )
 }

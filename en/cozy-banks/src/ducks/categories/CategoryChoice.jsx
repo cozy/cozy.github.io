@@ -13,7 +13,7 @@ import {
   getCategories,
   getParentCategory
 } from 'ducks/categories'
-import styles from 'ducks/transactions/TransactionModal.styl'
+import styles from 'ducks/transactions/TransactionModal/TransactionModal.styl'
 import flatten from 'lodash/flatten'
 import { formatSearchResult, fuseOptions } from './search/helpers'
 

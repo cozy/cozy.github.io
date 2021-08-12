@@ -1,5 +1,4 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import React, { useMemo } from 'react'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import Header from 'components/Header'
@@ -10,8 +9,15 @@ import BackButton from 'components/BackButton'
 import { ConnectedSelectDates } from 'components/SelectDates'
 import Reimbursements from 'ducks/reimbursements/Reimbursements'
 import styles from 'ducks/reimbursements/ReimbursementsPage.styl'
+import useFilteringDoc from 'ducks/filters/useFilteringDoc'
 import { getCategoryName } from 'ducks/categories/categoriesMap'
 import { GROUP_DOCTYPE } from 'doctypes'
+import {
+  subMonths,
+  format,
+  endOfDay,
+  differenceInCalendarMonths
+} from 'date-fns'
 
 const getTitleTranslationKey = doc => {
   const base = 'Reimbursements.title'
@@ -36,9 +42,26 @@ const Title = ({ doc }) => {
   return <PageTitle>{t(translationKey)}</PageTitle>
 }
 
-const RawReimbursementsPage = props => {
+const start2016 = new Date(2015, 11, 31)
+
+const getDefaultOptions = () => {
+  const options = []
+  const now = endOfDay(new Date())
+
+  for (let i = 0; i < differenceInCalendarMonths(now, start2016); i++) {
+    const month = format(subMonths(now, i), 'YYYY-MM')
+    options.push({
+      yearMonth: month
+    })
+  }
+
+  return options
+}
+
+const ReimbursementsPage = () => {
   const { isMobile } = useBreakpoints()
-  const { filteringDoc } = props
+  const filteringDoc = useFilteringDoc()
+  const options = useMemo(() => getDefaultOptions(), [])
 
   return (
     <>
@@ -54,20 +77,16 @@ const RawReimbursementsPage = props => {
             <BackButton theme="primary" arrow />
             <Title doc={filteringDoc} />
           </div>
-          <ConnectedSelectDates showFullYear color="primary" />
+          <ConnectedSelectDates
+            showFullYear
+            color="primary"
+            options={options}
+          />
         </Padded>
       </Header>
       <Reimbursements />
     </>
   )
 }
-
-function mapStateToProps(state) {
-  return {
-    filteringDoc: state.filters.filteringDoc
-  }
-}
-
-const ReimbursementsPage = connect(mapStateToProps)(RawReimbursementsPage)
 
 export default ReimbursementsPage

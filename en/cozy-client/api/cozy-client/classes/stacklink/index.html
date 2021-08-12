@@ -2533,6 +2533,7 @@
                 
                 <p><a href="../../">cozy-client</a> / StackLink</p>
 <h1 id="class-stacklink">Class: StackLink<a class="headerlink" href="#class-stacklink" title="Permanent link">&para;</a></h1>
+<p>Transfers queries and mutations to a remote stack</p>
 <h2 id="hierarchy">Hierarchy<a class="headerlink" href="#hierarchy" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
@@ -2569,15 +2570,15 @@
 <p><em>Overrides</em></p>
 <p><a href="../cozylink/">CozyLink</a>.<a href="../cozylink/#constructor">constructor</a></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/StackLink.js#L7">packages/cozy-client/src/StackLink.js:7</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/StackLink.js#L38">packages/cozy-client/src/StackLink.js:38</a></p>
 <h2 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">&para;</a></h2>
 <h3 id="stackclient">stackClient<a class="headerlink" href="#stackclient" title="Permanent link">&para;</a></h3>
 <p>• <strong>stackClient</strong>: <code>any</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/StackLink.js#L19">packages/cozy-client/src/StackLink.js:19</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/StackLink.js#L50">packages/cozy-client/src/StackLink.js:50</a></p>
 <h2 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h2>
 <h3 id="executemutation">executeMutation<a class="headerlink" href="#executemutation" title="Permanent link">&para;</a></h3>
-<p>▸ <strong>executeMutation</strong>(<code>mutation</code>, <code>result</code>, <code>forward</code>): <code>any</code></p>
+<p>▸ <strong>executeMutation</strong>(<code>mutation</code>, <code>result</code>, <code>forward</code>): <code>Promise</code>&lt;<code>any</code>&gt;</p>
 <p><em>Parameters</em></p>
 <table>
 <thead>
@@ -2602,9 +2603,9 @@
 </tbody>
 </table>
 <p><em>Returns</em></p>
-<p><code>any</code></p>
+<p><code>Promise</code>&lt;<code>any</code>&gt;</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/StackLink.js#L59">packages/cozy-client/src/StackLink.js:59</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/StackLink.js#L90">packages/cozy-client/src/StackLink.js:90</a></p>
 <hr />
 <h3 id="executequery">executeQuery<a class="headerlink" href="#executequery" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>executeQuery</strong>(<code>query</code>): <code>any</code></p>
@@ -2626,7 +2627,7 @@
 <p><em>Returns</em></p>
 <p><code>any</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/StackLink.js#L38">packages/cozy-client/src/StackLink.js:38</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/StackLink.js#L69">packages/cozy-client/src/StackLink.js:69</a></p>
 <hr />
 <h3 id="registerclient">registerClient<a class="headerlink" href="#registerclient" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>registerClient</strong>(<code>client</code>): <code>void</code></p>
@@ -2648,7 +2649,7 @@
 <p><em>Returns</em></p>
 <p><code>void</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/StackLink.js#L23">packages/cozy-client/src/StackLink.js:23</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/StackLink.js#L54">packages/cozy-client/src/StackLink.js:54</a></p>
 <hr />
 <h3 id="request">request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>request</strong>(<code>operation</code>, <code>result</code>, <code>forward</code>): <code>any</code></p>
@@ -2680,14 +2681,14 @@
 <p><em>Overrides</em></p>
 <p><a href="../cozylink/">CozyLink</a>.<a href="../cozylink/#request">request</a></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/StackLink.js#L31">packages/cozy-client/src/StackLink.js:31</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/StackLink.js#L62">packages/cozy-client/src/StackLink.js:62</a></p>
 <hr />
 <h3 id="reset">reset<a class="headerlink" href="#reset" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>reset</strong>(): <code>void</code></p>
 <p><em>Returns</em></p>
 <p><code>void</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/StackLink.js#L27">packages/cozy-client/src/StackLink.js:27</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/StackLink.js#L58">packages/cozy-client/src/StackLink.js:58</a></p>
                 
                   
                 

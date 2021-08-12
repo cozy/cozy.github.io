@@ -1,5 +1,6 @@
 import groupBy from 'lodash/groupBy'
 import unique from 'lodash/uniq'
+import uniq from 'lodash/uniq'
 import compose from 'lodash/flowRight'
 import maxBy from 'lodash/maxBy'
 import minBy from 'lodash/maxBy'
@@ -7,15 +8,15 @@ import flatMap from 'lodash/flatMap'
 
 import defaultRulesConfig from './config.json'
 import {
-  getRulesFromConfig,
-  sameLabel,
-  groupBundles,
   addStats,
+  getRulesFromConfig,
+  groupBundles,
   overEvery
-} from './rules'
+} from 'ducks/recurrence/rules'
 import getCategoryId from 'ducks/transactions/getCategoryId'
 
 import { getLabel } from 'ducks/transactions/helpers'
+import { addTransactionToBundles } from 'ducks/recurrence/utils'
 
 const ONE_DAY = 86400 * 1000
 
@@ -46,7 +47,6 @@ export const findRecurrences = (operations, rules) => {
     return Object.entries(perAmount).map(([amount, ops]) => ({
       categoryIds: [categoryId],
       amounts: [parseInt(amount, 10)],
-      key: `${categoryId}/${amount}`,
       ops,
       automaticLabel: getLabel(ops[0])
     }))
@@ -88,20 +88,16 @@ export const updateRecurrences = (bundles, newTransactions, rules) => {
   const minDate = new Date(minBy(newTransactions, 'date').date)
   const dateSpan = (maxDate - minDate) / ONE_DAY
 
+  let newBundles = []
   let updatedBundles
-
   if (dateSpan > 90 && newTransactions.length > 100) {
-    const newBundles = findRecurrences(newTransactions, rules)
-    const allBundles = [...bundles, ...newBundles]
-    updatedBundles = groupBundles(allBundles, sameLabel)
+    newBundles = findRecurrences(newTransactions, rules)
   } else {
-    const newBundles = newTransactions.map(t => ({ ops: [t] }))
-    const allBundles = [...bundles, ...newBundles]
-    updatedBundles = groupBundles(allBundles, sameLabel)
+    updatedBundles = addTransactionToBundles(bundles, newTransactions)
   }
 
-  updatedBundles = bundles.map(addStats)
-  return updatedBundles
+  const allBundles = [...updatedBundles, ...newBundles].map(addStats)
+  return allBundles
 }
 
 export const findAndUpdateRecurrences = (recurrences, operations) => {
@@ -114,4 +110,15 @@ export const findAndUpdateRecurrences = (recurrences, operations) => {
     updatedRecurrences = updateRecurrences(recurrences, operations, rules)
   }
   return updatedRecurrences
+}
+
+export const updateAmountsCategoriesRecurrences = bundles => {
+  const newBundles = [...bundles].map(b => {
+    return {
+      ...b,
+      amounts: uniq(b.ops.map(o => o.amount)),
+      categoryIds: uniq(b.ops.map(getCategoryId))
+    }
+  })
+  return newBundles
 }

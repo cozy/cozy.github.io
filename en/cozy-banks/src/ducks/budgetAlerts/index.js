@@ -30,6 +30,7 @@ const makeSelectorForAccountOrGroup = async (client, accountOrGroup) => {
   } else if (accountOrGroup._type === GROUP_DOCTYPE) {
     // TODO find the right way to make an $or selector that works with cozyClient.query
     // With an $or we have an error "no matching index found, create an index"
+    // Seems like a $in selector would be better, see ducks/transactions/queries.js
     return null
   } else if (accountOrGroup._type === ACCOUNT_DOCTYPE) {
     return {

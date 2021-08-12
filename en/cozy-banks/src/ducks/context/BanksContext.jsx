@@ -7,7 +7,7 @@ import React, {
   useState
 } from 'react'
 import PropTypes from 'prop-types'
-import { Q } from 'cozy-client'
+import CozyClient, { Q } from 'cozy-client'
 import { KONNECTOR_DOCTYPE } from 'doctypes'
 import { useJobsContext } from 'ducks/context/JobsContext'
 import { isBankKonnector } from 'utils/triggers'
@@ -44,7 +44,10 @@ const BanksProvider = ({ children, client }) => {
           const slug = jobsInProgress.konnector
           return `${KONNECTOR_DOCTYPE}/${slug}`
         })
-        const resp = await client.query(Q(KONNECTOR_DOCTYPE).getByIds(ids))
+        const resp = await client.query(Q(KONNECTOR_DOCTYPE).getByIds(ids), {
+          as: 'io.cozy.konnectors/in-progress',
+          fetchPolicy: CozyClient.fetchPolicies.olderThan(30 * 1000)
+        })
         const newJobInProgress = resp.data.map(konnector => {
           const slug = konnector.slug
           const jobInProgress = jobsInProgress.find(j => j.konnector === slug)

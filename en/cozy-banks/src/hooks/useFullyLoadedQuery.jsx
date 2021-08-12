@@ -1,32 +1,19 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect } from 'react'
 import { useQuery } from 'cozy-client'
-
-const useIsMounted = () => {
-  const mounted = useRef()
-  useEffect(() => {
-    mounted.current = true
-    return () => {
-      mounted.current = false
-    }
-  }, [])
-  return mounted
-}
+import useSafeState from './useSafeState'
 
 /**
  * Will run fetchMore on the query until the query is fully loaded
  */
 const useFullyLoadedQuery = (query, options) => {
   const res = useQuery(query, options)
-  const [fetching, setFetching] = useState(false)
-  const mounted = useIsMounted()
+  const [fetching, setFetching] = useSafeState(false)
   useEffect(() => {
     const checkToFetchMore = async () => {
       if (res.fetchStatus === 'loaded' && res.hasMore && !fetching) {
         setFetching(true)
         await res.fetchMore()
-        if (mounted.current) {
-          setFetching(false)
-        }
+        setFetching(false)
       }
     }
     checkToFetchMore()

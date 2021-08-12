@@ -1,5 +1,5 @@
 import logger from 'cozy-logger'
-import { updateSettings, fetchSettings } from 'ducks/settings/helpers'
+import { fetchSettings } from 'ducks/settings/helpers'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 import get from 'lodash/get'
 import set from 'lodash/set'
@@ -63,7 +63,7 @@ export const linkMyselfToAccounts = async ({ client }) => {
   settings.linkMyselfToAccounts.processedAccounts = Array.from(
     mergeSets(alreadyProcessed, processedAccounts)
   )
-  await updateSettings(client, settings)
+  await client.save(settings)
 
   log('info', `Linked ${accountsToProcess.length} accounts to myself`)
 }
@@ -94,7 +94,7 @@ export const unlinkMyselfFromAccounts = async ({ client }) => {
 
   const settings = await fetchSettings(client)
   settings.linkMyselfToAccounts.processedAccounts = []
-  await updateSettings(client, settings)
+  await client.save(settings)
 
   log('info', 'Unlinked all accounts from myself')
 }

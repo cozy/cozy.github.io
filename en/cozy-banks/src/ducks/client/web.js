@@ -4,6 +4,7 @@ import flag from 'cozy-flags'
 import { schema } from 'doctypes'
 import { getLinks } from 'ducks/client/links'
 import appMetadata from 'ducks/client/appMetadata'
+import parseRootDataset from 'utils/cozyData'
 
 const DEFAULT_URL = 'http://cozy.tools:8080'
 
@@ -12,9 +13,8 @@ const getToken = () => {
   if (!root) {
     return ''
   }
-  const data = root.dataset
-
-  return data.cozyToken
+  const { token } = parseRootDataset(root)
+  return token
 }
 
 const getCozyURI = () => {
@@ -22,10 +22,10 @@ const getCozyURI = () => {
   if (!root) {
     return DEFAULT_URL
   }
-  const data = root.dataset
+  const { domain } = parseRootDataset(root)
   const protocol = window.location.protocol
 
-  return `${protocol}//${data.cozyDomain}`
+  return `${protocol}//${domain}`
 }
 
 export const getClient = () => {

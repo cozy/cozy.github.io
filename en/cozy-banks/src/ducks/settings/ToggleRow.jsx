@@ -38,6 +38,7 @@ const ToggleRow = ({ enabled, description, onToggle }) => {
         color="primary"
         onClick={e => e.stopPropagation()}
         onChange={() => onToggle(!enabled)}
+        aria-label={description}
       />
     </ToggleRowContent>
   )

@@ -1,26 +1,27 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback } from 'react'
+import PropTypes from 'prop-types'
 
 import UISelectionBar from 'cozy-ui/transpiled/react/SelectionBar'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 
 import { useSelectionContext } from 'ducks/context/SelectionContext'
-import { makeSelectionBarActions } from 'ducks/selection/helpers'
+import { useSelectionBarActions } from 'ducks/selection/helpers'
 import { useTransactionCategoryModal } from 'ducks/transactions/TransactionRow'
 
-const SelectionBar = () => {
+const SelectionBar = ({ transactions }) => {
   const {
     isSelectionModeEnabled,
     isSelectionModeActive,
     selected,
-    emptySelection
+    emptyAndDeactivateSelection
   } = useSelectionContext()
 
   const { t } = useI18n()
 
-  const beforeUpdate = useCallback(() => {
-    emptySelection()
-  }, [emptySelection])
+  const beforeUpdates = useCallback(() => {
+    emptyAndDeactivateSelection()
+  }, [emptyAndDeactivateSelection])
 
   const afterUpdates = () => {
     Alerter.success(
@@ -30,20 +31,25 @@ const SelectionBar = () => {
     )
   }
 
+  const onError = () => {
+    Alerter.error(t('Categorization.error'))
+  }
+
   const [
     showTransactionCategoryModal,
     ,
     transactionCategoryModal
   ] = useTransactionCategoryModal({
     transactions: selected,
-    beforeUpdate,
-    afterUpdates
+    beforeUpdates,
+    afterUpdates,
+    onError
   })
 
-  const actions = useMemo(
-    () => makeSelectionBarActions(showTransactionCategoryModal),
-    [showTransactionCategoryModal]
-  )
+  const actions = useSelectionBarActions({
+    items: transactions,
+    showTransactionCategoryModal
+  })
 
   if (!isSelectionModeEnabled) return null
   return (
@@ -52,7 +58,7 @@ const SelectionBar = () => {
         <UISelectionBar
           actions={actions}
           selected={selected}
-          hideSelectionBar={emptySelection}
+          hideSelectionBar={emptyAndDeactivateSelection}
         />
       )}
       {transactionCategoryModal}
@@ -60,4 +66,8 @@ const SelectionBar = () => {
   )
 }
 
-export default SelectionBar
+SelectionBar.propTypes = {
+  transactions: PropTypes.array
+}
+
+export default React.memo(SelectionBar)

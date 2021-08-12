@@ -1,24 +1,11 @@
 import CozyClient from 'cozy-client'
 import TransactionGreater from './index'
+import { prepareTransactionForTest } from './testUtils'
 import fixtures from 'test/fixtures/unit-tests.json'
 import MockDate from 'mockdate'
-import compose from 'lodash/flowRight'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import maxBy from 'lodash/maxBy'
 import minBy from 'lodash/minBy'
-
-const addRev = doc => {
-  return { ...doc, _rev: '1-deadbeef' }
-}
-
-const addId = doc => {
-  return { ...doc, _id: doc._id || Math.random().toString() }
-}
-
-const prepareTransactionForTest = compose(
-  addRev,
-  addId
-)
 
 const unique = arr => Array.from(new Set(arr))
 

@@ -1,6 +1,17 @@
 /* eslint-disable no-console */
 
+/**
+ * This is a server that can receive push notifications from the
+ * stack. It is used in E2E tests to check that we correctly receive
+ * notifications from a service.
+ *
+ * When launched with `node mock-server.js`, the server is launched
+ * and will print the notifications received.
+ */
+
 const express = require('express')
+
+const DEFAULT_PORT = 3001
 
 class MockServer {
   constructor(options = {}) {
@@ -13,6 +24,9 @@ class MockServer {
 
     app.all(/.*/, (req, res) => {
       this.requests.push(req)
+      if (this.options.onRequest) {
+        this.options.onRequest(req)
+      }
       this.flushWaiters()
       res.send('OK')
     })
@@ -58,7 +72,8 @@ class MockServer {
 
   listen() {
     return new Promise(resolve => {
-      const port = this.options.port || 3001
+      const port = this.options.port || DEFAULT_PORT
+      console.log(`Push notifications mock server listening on ${port}...`)
       const server = this.app.listen(port, () => {
         this.server = server
         resolve(server)
@@ -74,3 +89,13 @@ class MockServer {
 }
 
 module.exports = MockServer
+
+if (require.main === module) {
+  const server = new MockServer({
+    port: process.env.PORT,
+    onRequest: req => {
+      console.log('Received push notification', req.body)
+    }
+  })
+  server.listen()
+}

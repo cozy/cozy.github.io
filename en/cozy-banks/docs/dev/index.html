@@ -2439,6 +2439,20 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#doctypes" title="Doctypes" class="md-nav__link">
+    Doctypes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#continuous-build" title="Continuous build" class="md-nav__link">
+    Continuous build
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#develop-on-mobile" title="Develop on mobile" class="md-nav__link">
     Develop on mobile
   </a>
@@ -2474,15 +2488,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#build-and-run-the-mobile-app" title="Build and run the mobile app" class="md-nav__link">
-    Build and run the mobile app
+  <a href="#run-the-mobile-app-with-hot-reload" title="Run the mobile app with hot reload" class="md-nav__link">
+    Run the mobile app with hot reload
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#hot-reload-on-mobile-app" title="Hot reload on mobile app" class="md-nav__link">
-    Hot reload on mobile app
+  <a href="#build-the-mobile-app" title="Build the mobile app" class="md-nav__link">
+    Build the mobile app
   </a>
   
 </li>
@@ -2566,8 +2580,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#push-ios-build" title="Push iOS build" class="md-nav__link">
-    Push iOS build
+  <a href="#ios-build" title="iOS build" class="md-nav__link">
+    iOS build
   </a>
   
 </li>
@@ -2633,6 +2647,26 @@
   <a href="#debug-notification-triggers" title="Debug notification triggers" class="md-nav__link">
     Debug notification triggers
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#emails" title="Emails" class="md-nav__link">
+    Emails
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#push-notifications" title="Push notifications" class="md-nav__link">
+    Push notifications
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2748,6 +2782,8 @@
 <ul>
 <li><a href="#getting-started">Getting started</a></li>
 <li><a href="#fixtures">Fixtures</a></li>
+<li><a href="#doctypes">Doctypes</a></li>
+<li><a href="#continuous-build">Continuous build</a></li>
 <li><a href="#develop-on-mobile">Develop on mobile</a></li>
 <li><a href="#get-a-working-android-environment">Get a working Android environment</a><ul>
 <li><a href="#linux">Linux</a></li>
@@ -2766,7 +2802,7 @@
 <li><a href="#fastlane">Fastlane</a></li>
 <li><a href="#ios">iOS</a></li>
 <li><a href="#signing">Signing</a></li>
-<li><a href="#push-ios-build">Push iOS build</a></li>
+<li><a href="#ios-build">iOS build</a></li>
 <li><a href="#android">Android</a></li>
 </ul>
 </li>
@@ -2776,7 +2812,11 @@
 <li><a href="#assets">Assets</a></li>
 </ul>
 </li>
-<li><a href="#debug-notification-triggers">Debug notification triggers</a></li>
+<li><a href="#debug-notification-triggers">Debug notification triggers</a><ul>
+<li><a href="#emails">Emails</a></li>
+<li><a href="#push-notifications">Push notifications</a></li>
+</ul>
+</li>
 <li><a href="#when-creating-a-notification">When creating a notification</a></li>
 <li><a href="#end-to-end-tests">End to end tests</a><ul>
 <li><a href="#alert-rules">Alert rules</a></li>
@@ -2829,11 +2869,16 @@ info</a> on
 the config file). See an example config file
 <a href="https://github.com/CPatchane/create-cozy-app/blob/8329c7161a400119076a7e2734191607437f0dcc/packages/cozy-scripts/stack/disableCSP.yaml#L6">here</a>.</p>
 <h2 id="fixtures">Fixtures<a class="headerlink" href="#fixtures" title="Permanent link">&para;</a></h2>
-<p>While developing, it is convenient to be able to inject and remove arbitraty data on your local instance.</p>
+<p>While developing, it is convenient to be able to inject and remove arbitraty data on your local instance.
+You can add fixtures by using <a href="https://github.com/cozy/ACH">ACH</a> and data in <a href="./test/fixtures">test/fixtures</a>.</p>
 <p>We have a set of fake banking data in the
 <a href="https://github.com/cozy/cozy-banks/blob/master/test/fixtures/demo.json"><code>test/fixtures/demo.json</code></a>
 file that you can inject in your instance using the <code>yarn fixtures</code> command.</p>
 <p>If you want to inject other data or remove some data, you can use <a href="https://github.com/cozy/ACH"><code>ACH</code></a>.</p>
+<h2 id="doctypes">Doctypes<a class="headerlink" href="#doctypes" title="Permanent link">&para;</a></h2>
+<p><code>The doctypes used in Banks are described</code>in the <a href="https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.bank.md">cozy-doctypes</a> repository.</p>
+<h2 id="continuous-build">Continuous build<a class="headerlink" href="#continuous-build" title="Permanent link">&para;</a></h2>
+<p>The application is built automatically and published on <a href="https://apps-registry.cozycloud.cc/banks/registry">Cozy Registry</a> by <a href="https://travis-ci.org/cozy/cozy-banks">Travis</a>.</p>
 <h2 id="develop-on-mobile">Develop on mobile<a class="headerlink" href="#develop-on-mobile" title="Permanent link">&para;</a></h2>
 <h3 id="get-a-working-android-environment">Get a working Android environment<a class="headerlink" href="#get-a-working-android-environment" title="Permanent link">&para;</a></h3>
 <h4 id="linux">Linux<a class="headerlink" href="#linux" title="Permanent link">&para;</a></h4>
@@ -2851,42 +2896,53 @@ brew install gradle
 </pre></div>
 
 
-<h3 id="build-and-run-the-mobile-app">Build and run the mobile app<a class="headerlink" href="#build-and-run-the-mobile-app" title="Permanent link">&para;</a></h3>
-<p>To build the mobile app, you first have to run one of the following commands:</p>
-<div class="codehilite"><pre><span></span><span class="gp">#</span> One-shot build
-<span class="gp">$</span> yarn build:mobile
-<span class="gp">#</span> To develop
-<span class="gp">$</span> yarn start:mobile
+<h3 id="run-the-mobile-app-with-hot-reload">Run the mobile app with hot reload<a class="headerlink" href="#run-the-mobile-app-with-hot-reload" title="Permanent link">&para;</a></h3>
+<p>First you need to export your local host IP address (whether to use a real device or an emulator):</p>
+<div class="codehilite"><pre><span></span>$ <span class="nb">export</span> <span class="nv">DEV_HOST</span><span class="o">=[</span>YOUR_LOCAL_IP_ADDRESS<span class="o">]</span>
 </pre></div>
 
 
-<p>Then you can run the app on the desired platform. For Android:</p>
-<div class="codehilite"><pre><span></span><span class="gp">#</span> Run on a real device
-<span class="gp">$</span> yarn android:run
-<span class="gp">#</span> Run on an emulator
-<span class="gp">$</span> yarn android:run:emulator
+<p>For Android 9+ device only, add some specifiations in <code>src/targets/mobile/config.xml</code> inside <code>&lt;platform name="android"&gt;</code> after <code>&lt;config-file parent="/manifest/application" target="app/src/main/AndroidManifest.xml"&gt;&lt;/config-file&gt;</code>.</p>
+<p>⚠️ Be careful to not commit this modification, and to not build a release with it. It&rsquo;s for developing purpose only. Here the specifications:</p>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;edit-config</span> <span class="na">file=</span><span class="s">&quot;app/src/main/AndroidManifest.xml&quot;</span> <span class="na">mode=</span><span class="s">&quot;merge&quot;</span> <span class="na">target=</span><span class="s">&quot;/manifest/application&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;application</span> <span class="na">android:usesCleartextTraffic=</span><span class="s">&quot;true&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/edit-config&gt;</span>
 </pre></div>
 
 
-<p>For iOS:</p>
-<div class="codehilite"><pre><span></span><span class="gp">#</span> Run on a real device
-<span class="gp">$</span> yarn ios:run
-<span class="gp">#</span> Run on an emulator
-<span class="gp">$</span> yarn ios:run:emulator
+<p>Now you can watch with hot reload:</p>
+<div class="codehilite"><pre><span></span>$ yarn start:mobile
 </pre></div>
 
 
-<h3 id="hot-reload-on-mobile-app">Hot reload on mobile app<a class="headerlink" href="#hot-reload-on-mobile-app" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><span class="c c-Singleline"># Replace the host with your own host (find it with ifconfig)</span>
-$ <span class="n">env</span> <span class="n">DEV_HOST</span>=<span class="mf">192.168.1.36</span> <span class="n">yarn</span> <span class="n">build:mobile:hot</span>
-$ <span class="n">yarn</span> <span class="n">ios:run</span> <span class="c c-Singleline"># at this point the app is blank since it cannot access the files from your host</span>
-$ <span class="n">env</span> <span class="n">DEV_HOST</span>=<span class="mf">192.168.1.36</span> <span class="n">yarn</span> <span class="n">start:mobile:hot</span> <span class="c c-Singleline"># launch a webpack-dev-server</span>
+<p>And start the application (plateform could be <code>ios</code> or <code>android</code>) on an emulator:</p>
+<div class="codehilite"><pre><span></span>$ yarn <span class="o">[</span>plateform<span class="o">]</span>:run:emulator
+</pre></div>
+
+
+<p>Or on a real device:</p>
+<div class="codehilite"><pre><span></span>$ yarn <span class="o">[</span>plateform<span class="o">]</span>:run
 </pre></div>
 
 
 <p>⚠️⚠️⚠️ If you watch a production build, you must edit the webpack config to have
 the filepath without the [hash] otherwise you will not hit the right JS file.</p>
 <p>⚠️ You need to have the final <code>/</code> at the end of the PUBLIC_PATH, otherwise some some CSS resources like fonts will not load</p>
+<p>For more information about installing prerequisites (installing Android Studio, Cordova etc.), you can follow <a href="https://gist.github.com/drazik/11dfe2014a6b967821df93b9e10353f4">this guide</a> (in French for now, don&rsquo;t hesitate to open a pull request).</p>
+<h3 id="build-the-mobile-app">Build the mobile app<a class="headerlink" href="#build-the-mobile-app" title="Permanent link">&para;</a></h3>
+<p>You can one-shot build the app and launch it on a device/emulator</p>
+<div class="codehilite"><pre><span></span>$ yarn build:mobile
+</pre></div>
+
+
+<p>Then you can run the app on the desired platform:</p>
+<div class="codehilite"><pre><span></span><span class="c1"># Run on a real device</span>
+$ yarn <span class="o">[</span>plateform<span class="o">]</span>:run
+<span class="c1"># Run on an emulator</span>
+$ yarn <span class="o">[</span>plateform<span class="o">]</span>:run:emulator
+</pre></div>
+
+
 <h2 id="release">Release<a class="headerlink" href="#release" title="Permanent link">&para;</a></h2>
 <p>A release consists in publishing the app on all platforms: web (via the <a href="https://apps-registry.cozycloud.cc/banks/registry">Cozy
 Registry</a>), Android (via the
@@ -2999,31 +3055,39 @@ yarn ios:install_pods # Install pods according to the Podfile.lock
 <li><code>cozy-banks/xcode-signing-certificate-password</code> : the password</li>
 <li><code>cozy-banks/xcode-signing-certificate-password.p12</code> : the certificate</li>
 </ul>
-<h5 id="push-ios-build">Push iOS build<a class="headerlink" href="#push-ios-build" title="Permanent link">&para;</a></h5>
+<h5 id="ios-build">iOS build<a class="headerlink" href="#ios-build" title="Permanent link">&para;</a></h5>
 <p>To push an iOS build on Testflight, use the following command :</p>
-<div class="codehilite"><pre><span></span>yarn run ios:publish
+<div class="codehilite"><pre><span></span>yarn build:mobile
+cd src/targets/mobile
+cordova prepare ios
+open platforms/ios/Cozy\ Banks.xcworkspace/
+# Then in XCode you can first do an archive
+# 1. Select Cozy Banks &gt; Any iOS Device (arm64) as generic device
+# 2. Menu Product &gt; Archive
+# 3. Distribute app
+# After the application has been distributed, it is available for
+# Testflight testers and @flo can then manually put the testflight
+# app in production
 </pre></div>
 
 
 <p>To fully publish the app, go to iTunes Connect using the credentials in the password store and &ldquo;submit for review&rdquo;.</p>
+<p>When publishing a new version, you have to change the build number.</p>
+<p>You can do it in the <code>config.xml</code> file by changing the &ldquo;ios-CFBundleVersion&rdquo; widget attribute. If you do it in config.xml
+you can commit it and push it so that other contributors know at
+which version we are.</p>
+<p>You can also do it manually in XCode by selecting the &ldquo;Cozy Banks&rdquo;
+project on the left navbar and then in the &ldquo;General&rdquo; tab change
+the build number in the &ldquo;Build&rdquo; input (in general you just have
+to increment the 4th part of the build number). It&rsquo;s not recommended
+as other contributors may not know at which build number we are
+if the change is not commited. It can be handy while developing
+when you do not want to commit/push too often.</p>
 <h4 id="android">Android<a class="headerlink" href="#android" title="Permanent link">&para;</a></h4>
-<p>Two keys will be asked during publishing, they are available in the password store in <code>Gangsters/cozy-banks/keys/android</code> :</p>
-<ul>
-<li>1: <code>jks-pass.gpg</code></li>
-<li>2: <code>cozy-banks-key-pass.gpg</code></li>
-</ul>
-<p>You will also have to have apksigner in your PATH. It is located in the Android SDK folder.</p>
-<div class="codehilite"><pre><span></span>export PATH $PATH:$HOME/.android/sdk/tools
-export PATH $PATH:$HOME/.android/sdk/build-tools/26.0.2
-</pre></div>
-
-
-<p>When publishing a new version on the Play Store, you can use :</p>
-<div class="codehilite"><pre><span></span>yarn run android:publish
-</pre></div>
-
-
-<p>This will upload create a new version in the store, in the <code>beta</code> track that you can review visually on the Play Store and then promote to the normal track.</p>
+<p>Anytime a beta is tagged, Travis produces an APK in the Android stage.
+In the logs is displayed an URL for the APK that has been built.
+This APK can then be tested and then pushed and published in the Play
+Developer Console.</p>
 <h2 id="notifications">Notifications<a class="headerlink" href="#notifications" title="Permanent link">&para;</a></h2>
 <h3 id="how-to-develop-on-templates">How to develop on templates<a class="headerlink" href="#how-to-develop-on-templates" title="Permanent link">&para;</a></h3>
 <p>With the <code>TEST_TEMPLATES</code> environment variable, an express server serving the HTML emails will be built.</p>
@@ -3073,6 +3137,7 @@ $ nodemon --delay <span class="m">1</span> -w build/notifications.js --exec <spa
 </pre></div>
 
 
+<h4 id="emails">Emails<a class="headerlink" href="#emails" title="Permanent link">&para;</a></h4>
 <p>To see the emails that the stack sends, launch a MailHog instance :</p>
 <div class="codehilite"><pre><span></span>docker run -p 1025:1025 -p 8025:8025 mailhog/mailhog
 </pre></div>
@@ -3080,6 +3145,21 @@ $ nodemon --delay <span class="m">1</span> -w build/notifications.js --exec <spa
 
 <p>The stack will send the emails through the SMTP port of MailHog and you
 will be able to see the mails in its web interface on http://localhost:8025.</p>
+<h4 id="push-notifications">Push notifications<a class="headerlink" href="#push-notifications" title="Permanent link">&para;</a></h4>
+<p>Similarly, to debug push notifications, you can configure the stack to send
+push notifications to a local server, and launch a fake push notifications server
+locally.</p>
+<div class="codehilite"><pre><span></span>env PORT=3001 node test/e2e/mock-server.js
+</pre></div>
+
+
+<p>To configure the stack, edit your <code>cozy.yml</code> config file:</p>
+<div class="codehilite"><pre><span></span>+ notifications:
++   android_api_key: &#39;fake_android_api_key&#39;
++   fcm_server: &#39;http://localhost:3001&#39;
+</pre></div>
+
+
 <p>https://github.com/cozy/cozy-banks/tree/master/src/ducks/notifications/html</p>
 <h3 id="when-creating-a-notification">When creating a notification<a class="headerlink" href="#when-creating-a-notification" title="Permanent link">&para;</a></h3>
 <p>If you want to test the notifications in a workflow that is very close to the real one, you can import some fixtures to trigger the service execution. For that, you must open the <code>test/fixtures/operations-notifs.json</code> file and edit the following :</p>
@@ -3089,7 +3169,7 @@ will be able to see the mails in its web interface on http://localhost:8025.</p>
 <li>the dates and the labels to be able to see the imported documents easily</li>
 </ul>
 <p>Then you can use <a href="https://github.com/cozy/ACH">ACH</a> to import the fixtures :</p>
-<div class="codehilite"><pre><span></span><span class="go">ACH import test/fixtures/operations-notifs.json test/fixtures/helpers.js --url &lt;instance_url&gt;</span>
+<div class="codehilite"><pre><span></span><span class="go">ACH import test/fixtures/notifications-service/operations-notifs.json test/fixtures/helpers/index.js --url &lt;instance_url&gt;</span>
 </pre></div>
 
 

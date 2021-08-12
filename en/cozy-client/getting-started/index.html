@@ -862,6 +862,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#mutate-several-documents-in-batch" title="Mutate several documents in batch" class="md-nav__link">
+    Mutate several documents in batch
+  </a>
+  
+</li>
+      
       
       
       
@@ -2506,6 +2513,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#mutate-several-documents-in-batch" title="Mutate several documents in batch" class="md-nav__link">
+    Mutate several documents in batch
+  </a>
+  
+</li>
+      
       
       
       
@@ -2651,6 +2665,13 @@ know more about querying with cozy-client and avoid common traps that can dramat
 <p>Both <code>create()</code> and <code>save()</code> will return a Promise with a <code>data</code> attribute containing the saved document.</p>
 <p>ℹ️ When mutating data, queries that depend on the mutated document(s) will automatically be refreshed : components
 that depend on these queries will be re-rendered.</p>
+<h2 id="mutate-several-documents-in-batch">Mutate several documents in batch<a class="headerlink" href="#mutate-several-documents-in-batch" title="Permanent link">&para;</a></h2>
+<p>The <code>saveAll</code> method can be used to save multiple documents in one request.</p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">data</span><span class="o">:</span> <span class="nx">updatedDocs</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">saveAll</span><span class="p">([</span>
+  <span class="p">{</span> <span class="nx">_type</span><span class="o">:</span> <span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">,</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Buy milk&#39;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nx">_type</span><span class="o">:</span> <span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">,</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Make dinner&#39;</span> <span class="p">}</span>
+<span class="p">])</span>
+</pre></div>
                 
                   
                 

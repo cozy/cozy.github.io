@@ -12,8 +12,6 @@ import TransactionRowDesktop from './TransactionRowDesktop'
 
 const allTransactions = data['io.cozy.bank.operations']
 
-jest.mock('react-tappable/lib/Tappable', () => ({ children }) => children)
-
 describe('TransactionRowMobile', () => {
   const setup = ({ transactionAttributes } = {}) => {
     const SNACK_AND_WORK_MEALS = '400160'
