@@ -176,7 +176,7 @@ const queryDef = client
   .indexFields(["category", "created_at"])
 ```
 
-⚠️ The order in the `indexFields` array can be very important for performances, especially when there are both range and equality operators: you must always index the field involved in the equality operator first. To understand this, it helps to understand concepts about CouchDB indexes, explained in [this section](advanced.md/#indexes-concepts).
+⚠️ The order in the `indexFields` array can be very important for performances, especially when there are both range and equality operators: you must always index the field involved in the equality operator first. This is further explained in [this section](advanced.md/#indexes-performances-and-design).
 
 ## Sort data with Mango
 
