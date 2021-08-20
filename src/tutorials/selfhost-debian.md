@@ -17,7 +17,6 @@ This repository currently supports:
 
 - **Debian Buster** (10.x): amd64 armhf arm64
 - **Raspbian Buster** (10.x): armhf
-- **Ubuntu Disco** (19.04): amd64 armhf arm64
 
 Available channels are:
 
@@ -64,8 +63,6 @@ Supported repositories are:
   - deb <https://apt.cozy.io/debian/> buster testing
 - Raspbian Buster (10.x)
   - deb <https://apt.cozy.io/raspbian/> buster testing
-- Ubuntu Disco (19.04)
-  - deb <https://apt.cozy.io/ubuntu/> disco testing
 
 ```bash
 echo "deb https://apt.cozy.io/debian/ buster testing" > /etc/apt/sources.list.d/cozy.list
