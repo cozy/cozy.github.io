@@ -18,8 +18,8 @@ import { findMatchingBrand } from 'ducks/brandDictionary'
 const ONE_DAY = 86400 * 1000
 
 const mean = iterable => sum(iterable) / iterable.length
-const median = iterable => {
-  const sorted = [...iterable].sort()
+export const median = iterable => {
+  const sorted = sortBy([...iterable])
   if (sorted.length % 2 == 0) {
     const mid = sorted.length / 2
     return (sorted[mid - 1] + sorted[mid]) / 2

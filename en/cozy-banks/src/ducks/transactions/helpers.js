@@ -288,3 +288,23 @@ export const updateApplicationDate = async (
   })
   return data
 }
+
+/**
+ * Merge data of transactions fetched by date and transactions fetched by applicationDate
+ * @param {array} param.transactionsByDate - Data of transactions fetched by date
+ * @param {array} param.transactionsByApplicationDate - Data of transactions fetched by applicationDate
+ * @returns
+ */
+export const computeTransactionsByDateAndApplicationDate = ({
+  transactionsByDate,
+  transactionsByApplicationDate
+}) => {
+  // these are query result data. Could be null if the fetch is not finished
+  if (!transactionsByDate || !transactionsByApplicationDate) return []
+
+  const newTransactionsByDate = transactionsByDate.filter(
+    transaction => !transaction.applicationDate
+  )
+
+  return [...newTransactionsByDate, ...transactionsByApplicationDate]
+}

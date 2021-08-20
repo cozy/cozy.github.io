@@ -2253,6 +2253,19 @@
     Webauth
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reconnect" title="Reconnect" class="md-nav__link">
+    Reconnect
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -3004,6 +3017,19 @@
     Webauth
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reconnect" title="Reconnect" class="md-nav__link">
+    Reconnect
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -3414,9 +3440,10 @@ providers. The use and risks associated with this domain should be made clear to
 the user.</p>
 <p><strong>B. Register each Stack</strong> with a redirect_uri on the main stack domain, if we
 go this way, the register_uri below moves from
-<code>bob.cozy.rocks/accounts/redirect</code> to <code>oauthcallback.cozy.rocks/redirect</code> and the
-domain will be prepended to the state. This is feasible at cozy scale, but
-requires more knowledge and work for self-hosters.</p>
+<code>bob.cozy.rocks/accounts/service/redirect</code> to
+<code>oauthcallback.cozy.rocks/accounts/service/redirect</code> and the domain will be
+prepended to the state. This is feasible at cozy scale, but requires more
+knowledge and work for self-hosters.</p>
 <h4 id="example-google">Example: Google<a class="headerlink" href="#example-google" title="Permanent link">&para;</a></h4>
 <p>For example, these are the steps for creating the google <code>account_type</code> for the
 stack at .mycozy.cloud:</p>
@@ -3478,7 +3505,8 @@ the state in this query;</li>
 
 
 <p>C. The Stack does Server side this request:</p>
-<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">https://api.service.example/oauth/access_token</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/oauth/access_token</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">api.service.example</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/x-www-form-urlencoded</span>
 
 grant_type=authorization_code&amp;
@@ -3533,9 +3561,7 @@ form but whith account completed.</p>
 
 <p>See server-flow for state rules.</p>
 <p>B. Service lets the user login, allows or denies the scope, then redirects to</p>
-<div class="codehilite"><pre><span></span><span class="err">https://bob-home.cozy.rocks/?</span>
-<span class="err">access_token=ACCESS_TOKEN&amp;</span>
-<span class="err">state=1234zyx</span>
+<div class="codehilite"><pre><span></span><span class="err">https://bob-home.cozy.rocks/?access_token=ACCESS_TOKEN&amp;state=1234zyx</span>
 </pre></div>
 
 
@@ -3545,7 +3571,8 @@ starting konnector.</p>
 <p>Once we have an account, the Cozy app starts the konnector with the proper
 account id. The konnector can then fetch the account and use its <code>access_token</code>
 to performs a request to fetch data:</p>
-<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">https://api.service.com/resource</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/resource</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">api.service.example</span>
 <span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer ACCESS_TOKEN</span>
 </pre></div>
 
@@ -3565,7 +3592,8 @@ refreshing token there is a race condition risk:</p>
 <p>To avoid this, the stack will be responsible to perform token refresh. A
 konnector can requires the stack to refresh an account token with an HTTP
 request.</p>
-<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">https://bob.cozy.rocks/accounts/:accountID/refresh</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/accounts/:accountType/:accountID/refresh</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">bob.cozy.rocks</span>
 </pre></div>
 
 
@@ -3600,8 +3628,30 @@ type with the following parameter:</p>
 <ul>
 <li><code>grant_mode</code>, with <code>bi_webauth</code> as the value (or <code>bi_webauth+secret</code> if there is also a secret)</li>
 <li><code>redirect_uri</code>, with an URL like <code>https://oauthcallback.mycozy.cloud/accounts/paypal/redirect</code></li>
-<li><code>client_id</code>, with the client ID given by Budget Insight.</li>
+<li><code>client_id</code>, with the client ID given by Budget Insight</li>
+<li><code>auth_endpoint</code>, with <code>https://{domain}.biapi.pro/2.0/webauth</code> (with the correct <code>domain</code>)</li>
+<li><code>reconnect_endpoint</code>, with <code>https://{domain}.biapi.pro/2.0/auth/webview/reconnect</code> (idem).</li>
 </ul>
+<h4 id="reconnect">Reconnect<a class="headerlink" href="#reconnect" title="Permanent link">&para;</a></h4>
+<p>The <a href="https://docs.budget-insight.com/guides/handle-scas-connection-states#use-our-reconnection-webview">reconnection webview</a>
+can be called with this route:</p>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/accounts/:accountType/:accountID/reconnect?code={code}&amp;connection_id={id}&amp;slug={slug}&amp;state={state}</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">jane.cozy.example</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">303</span> <span class="ne">See Other</span>
+<span class="na">Location</span><span class="o">:</span> <span class="l">https://domain.biapi.pro/2.0/auth/webview/reconnect</span>
+    <span class="l">?client_id={client_id}</span>
+    <span class="l">&amp;code={code}</span>
+    <span class="l">&amp;connection_id={id}</span>
+    <span class="l">&amp;redirect_uri=https://oauthcallback.cozy.example/accounts/{accountType}/redirect</span>
+    <span class="l">&amp;state={stackState}</span>
+</pre></div>
+
+
+<p>At the end of flow, the user will be redirected to
+<code>https://jane-{slug}.cozy.example/?state={state}</code>.</p>
 <h2 id="webhook-triggers">Webhook triggers<a class="headerlink" href="#webhook-triggers" title="Permanent link">&para;</a></h2>
 <p><img alt="Webhook trigger for a konnector" src="../diagrams/konnector-webhook.jpeg" /></p>
 <ol>

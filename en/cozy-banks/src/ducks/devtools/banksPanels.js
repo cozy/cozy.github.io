@@ -4,6 +4,7 @@ import PinDevtools from 'ducks/devtools/Pin'
 import ClientInfoDevtools from 'ducks/devtools/ClientInfo'
 import MiscDevtools from 'ducks/devtools/Misc'
 import HiddenPagesDevtools from 'ducks/devtools/HiddenPages'
+import PouchDevtools from 'cozy-client/dist/devtools/Pouch'
 
 export default [
   {
@@ -29,5 +30,9 @@ export default [
   {
     id: 'hidden pages',
     Component: HiddenPagesDevtools
+  },
+  {
+    id: 'pouch',
+    Component: PouchDevtools
   }
 ]

@@ -7,6 +7,8 @@ import { isMobileApp, isIOSApp } from 'cozy-device-helper'
 import flag from 'cozy-flags'
 import { TRANSACTION_DOCTYPE } from 'doctypes'
 
+import { APPLICATION_DATE } from 'ducks/transactions/constants'
+
 const activatePouch = __POUCH__ && !flag('banks.pouch.disabled')
 
 let PouchLink
@@ -33,8 +35,13 @@ const pouchLinkOptions = {
     [TRANSACTION_DOCTYPE]: {
       warmupQueries: [
         makeWarmupQueryOptions(TRANSACTION_DOCTYPE, ['date']),
+        makeWarmupQueryOptions(TRANSACTION_DOCTYPE, [APPLICATION_DATE]),
         makeWarmupQueryOptions(TRANSACTION_DOCTYPE, ['account']),
-        makeWarmupQueryOptions(TRANSACTION_DOCTYPE, ['date', 'account'])
+        makeWarmupQueryOptions(TRANSACTION_DOCTYPE, ['date', 'account']),
+        makeWarmupQueryOptions(TRANSACTION_DOCTYPE, [
+          APPLICATION_DATE,
+          'account'
+        ])
       ]
     }
   },

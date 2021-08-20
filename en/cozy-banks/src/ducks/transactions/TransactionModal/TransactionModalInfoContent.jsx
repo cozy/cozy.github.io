@@ -175,12 +175,12 @@ const TransactionModalInfoContent = props => {
             )
           })}
         </ListItemText>
-        {shouldShowRestoreApplicationDateIcon ? (
+        {shouldShowRestoreApplicationDateIcon && (
           <IconButton onClick={handleResetApplicationDate}>
             <Icon color="var(--slateGrey)" icon={RestoreIcon} />
           </IconButton>
-        ) : null}
-        {applicationDateBusy ? <Spinner /> : null}
+        )}
+        {applicationDateBusy && <Spinner />}
         <ListItemArrow />
       </ListItem>
 
@@ -196,22 +196,23 @@ const TransactionModalInfoContent = props => {
 
       <DeleteTransactionRow transaction={transaction} onDelete={requestClose} />
 
-      {selectedRow == 'category' ? (
+      {selectedRow === 'category' && (
         <TransactionCategoryEditorDialog
           transaction={transaction}
           onClose={handleCloseChildModal}
         />
-      ) : null}
+      )}
 
-      {selectedRow == 'application-date' ? (
+      {selectedRow === 'application-date' && (
         <TransactionApplicationDateEditorDialog
           beforeUpdate={() => setApplicationDateBusy(true)}
           afterUpdate={handleAfterUpdateApplicationDate}
           transaction={transaction}
           onClose={handleCloseChildModal}
         />
-      ) : null}
-      {selectedRow == 'recurrence' && (
+      )}
+
+      {selectedRow === 'recurrence' && (
         <TransactionRecurrenceEditorDialog
           transaction={transaction}
           onClose={handleCloseChildModal}

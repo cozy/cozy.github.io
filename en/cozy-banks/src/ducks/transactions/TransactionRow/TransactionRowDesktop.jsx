@@ -163,12 +163,12 @@ const TransactionRowDesktop = ({
               <ListItemText className="u-pv-half" disableTypography>
                 <Typography variant="body1">{getLabel(transaction)}</Typography>
                 {!filteringOnAccount && <AccountCaption account={account} />}
-                {applicationDate ? (
+                {applicationDate && (
                   <ApplicationDateCaption transaction={transaction} />
-                ) : null}
-                {recurrence && showRecurrence ? (
+                )}
+                {recurrence && showRecurrence && (
                   <RecurrenceCaption recurrence={recurrence} />
-                ) : null}
+                )}
               </ListItemText>
             </Bd>
           </Media>

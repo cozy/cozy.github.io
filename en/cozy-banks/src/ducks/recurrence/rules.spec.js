@@ -3,7 +3,8 @@ import {
   mergeCategoryIds,
   sameLabel,
   brandSplit,
-  addStats
+  addStats,
+  median
 } from './rules'
 import keyBy from 'lodash/keyBy'
 import fixtures4 from './fixtures/fixtures4.json'
@@ -171,5 +172,19 @@ describe('make stats', () => {
     expect(mean).toBe(NaN)
     expect(median).toBe(30)
     expect(mad).toBe(NaN)
+  })
+})
+
+describe('median', () => {
+  it('should return the correct median', () => {
+    // for an even number of elements
+    expect(median([64, 120, 27, 1])).toBe(45.5)
+    expect(median([1, 36, 8, 200, 72, 43])).toBe(39.5)
+    expect(median([12, 10, 8, 6])).toBe(9)
+    expect(median([900, 0])).toBe(450)
+    // for an odd number of elements
+    expect(median([100, 1, 10])).toBe(10)
+    expect(median([2, 22, 222])).toBe(22)
+    expect(median([0, 1, 1, 120, 2, 22, 27, 312, 3])).toBe(3)
   })
 })

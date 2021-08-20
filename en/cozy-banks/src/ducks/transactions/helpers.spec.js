@@ -11,7 +11,8 @@ import {
   updateApplicationDate,
   updateTransactionRecurrence,
   getApplicationDate,
-  REIMBURSEMENTS_STATUS
+  REIMBURSEMENTS_STATUS,
+  computeTransactionsByDateAndApplicationDate
 } from './helpers'
 import {
   RECURRENCE_DOCTYPE,
@@ -514,5 +515,48 @@ describe('updateTransactionRecurrence', () => {
     }
     await updateTransactionRecurrence(client, transaction, newRecurrence)
     expect(client.destroy).not.toHaveBeenCalled()
+  })
+})
+
+describe('computeTransactionsByDateAndApplicationDate', () => {
+  it('should return empty array if datas are null', () => {
+    const transactionsByDate = null
+    const transactionsByApplicationDate = null
+
+    expect(
+      computeTransactionsByDateAndApplicationDate({
+        transactionsByDate,
+        transactionsByApplicationDate
+      })
+    ).toMatchObject([])
+  })
+
+  it('should not include transactionsByDate with applicationDate prop', () => {
+    const transactionsByDate = [
+      { id: '01', applicationDate: '2021-07-01' },
+      { id: '02' }
+    ]
+    const transactionsByApplicationDate = []
+
+    expect(
+      computeTransactionsByDateAndApplicationDate({
+        transactionsByDate,
+        transactionsByApplicationDate
+      })
+    ).toMatchObject([{ id: '02' }])
+  })
+
+  it('should merge transactionsByDate and transactionsByApplicationDate', () => {
+    const transactionsByDate = [{ id: '01' }]
+    const transactionsByApplicationDate = [
+      { id: '02', applicationDate: '2021-07-01' }
+    ]
+
+    expect(
+      computeTransactionsByDateAndApplicationDate({
+        transactionsByDate,
+        transactionsByApplicationDate
+      })
+    ).toMatchObject([{ id: '01' }, { id: '02', applicationDate: '2021-07-01' }])
   })
 })

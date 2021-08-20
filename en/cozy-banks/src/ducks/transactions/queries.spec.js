@@ -3,7 +3,8 @@ import {
   makeFilteredTransactionsConn,
   makeEarliestLatestQueries,
   addMonthToConn,
-  addPeriodToConn
+  addPeriodToConn,
+  makeAccounts
 } from './queries'
 
 describe('makeFilteredTransactionsConn', () => {
@@ -16,6 +17,7 @@ describe('makeFilteredTransactionsConn', () => {
         _type: 'io.cozy.bank.groups'
       }
     })
+
     expect(conn1.enabled).toBe(false)
   })
 
@@ -40,15 +42,18 @@ describe('makeFilteredTransactionsConn', () => {
         _type: 'io.cozy.bank.groups'
       }
     })
+
     expect(conn1.enabled).toBe(true)
+
     const query = conn1.query()
+
     expect(query).toEqual(
       expect.objectContaining({
-        indexedFields: ['date', 'account'],
+        indexedFields: ['account', 'date'],
         selector: {
           account: { $in: ['a1', 'a2', 'a3'] }
         },
-        sort: [{ date: 'desc' }, { account: 'desc' }]
+        sort: [{ account: 'desc' }, { date: 'desc' }]
       })
     )
   })
@@ -71,15 +76,18 @@ describe('makeFilteredTransactionsConn', () => {
         }
       }
     })
+
     expect(conn1.enabled).toBe(true)
+
     const query = conn1.query()
+
     expect(query).toEqual(
       expect.objectContaining({
-        indexedFields: ['date', 'account'],
+        indexedFields: ['account', 'date'],
         selector: {
           account: { $in: ['a1', 'a2', 'a3'] }
         },
-        sort: [{ date: 'desc' }, { account: 'desc' }]
+        sort: [{ account: 'desc' }, { date: 'desc' }]
       })
     )
   })
@@ -95,15 +103,18 @@ describe('makeFilteredTransactionsConn', () => {
       },
       filteringDoc: ['a1', 'a2', 'a3']
     })
+
     expect(conn1.enabled).toBe(true)
+
     const query = conn1.query()
+
     expect(query).toEqual(
       expect.objectContaining({
-        indexedFields: ['date', 'account'],
+        indexedFields: ['account', 'date'],
         selector: {
           account: { $in: ['a1', 'a2', 'a3'] }
         },
-        sort: [{ date: 'desc' }, { account: 'desc' }]
+        sort: [{ account: 'desc' }, { date: 'desc' }]
       })
     )
   })
@@ -114,6 +125,7 @@ describe('makeEarliestLatestQueries', () => {
     const baseQuery = Q('io.cozy.bank.transactions').where({
       account: 'comptelou1'
     })
+
     expect(makeEarliestLatestQueries(baseQuery)).toEqual([
       expect.objectContaining({
         selector: {
@@ -140,6 +152,7 @@ describe('makeEarliestLatestQueries', () => {
     const baseQuery = Q('io.cozy.bank.transactions').where({
       account: { $in: ['comptelou1', 'compteisa2'] }
     })
+
     expect(makeEarliestLatestQueries(baseQuery)).toEqual([
       expect.objectContaining({
         selector: {
@@ -186,6 +199,7 @@ describe('addMonthToConn', () => {
       }
     })
     const conn2 = addMonthToConn(conn1, '2021-07')
+
     expect(conn2.query).toEqual(
       expect.objectContaining({
         selector: {
@@ -223,7 +237,8 @@ describe('addPeriodToConn', () => {
         _type: 'io.cozy.bank.groups'
       }
     })
-    const conn2 = addPeriodToConn(conn1, '2021-07')
+    const conn2 = addPeriodToConn({ baseConn: conn1, period: '2021-07' })
+
     expect(conn2.query).toEqual(
       expect.objectContaining({
         selector: {
@@ -255,7 +270,7 @@ describe('addPeriodToConn', () => {
       },
       filteringDoc: null
     })
-    const conn2 = addPeriodToConn(conn1, '2021-07')
+    const conn2 = addPeriodToConn({ baseConn: conn1, period: '2021-07' })
 
     expect(conn2.query).toEqual(
       expect.objectContaining({
@@ -269,5 +284,62 @@ describe('addPeriodToConn', () => {
         indexedFields: ['date', '_id']
       })
     )
+  })
+})
+
+describe('makeAccounts', () => {
+  it('should return empty array if no datas', () => {
+    const filteringDoc = {}
+    const groups = { data: [] }
+
+    expect(makeAccounts(filteringDoc, groups)).toMatchObject([])
+  })
+
+  it('should return empty array if no accounts in filteringDoc for virtual filtering', () => {
+    const filteringDoc = { virtual: true, accounts: undefined }
+    const groups = { data: [] }
+
+    expect(makeAccounts(filteringDoc, groups)).toMatchObject([])
+  })
+
+  it('should return filteringDoc accounts for virtual filtering', () => {
+    const filteringDoc = { virtual: true, accounts: { raw: [{ id: '01' }] } }
+    const groups = { data: [] }
+
+    expect(makeAccounts(filteringDoc, groups)).toMatchObject([{ id: '01' }])
+  })
+
+  it('should return empty array if no groups', () => {
+    const filteringDoc = { virtual: false, _id: '01' }
+    const groups = { data: [] }
+
+    expect(makeAccounts(filteringDoc, groups)).toMatchObject([])
+  })
+
+  it('should return empty array if no matching group', () => {
+    const filteringDoc = { virtual: false, _id: '01' }
+    const groups = {
+      data: [{ _id: '02' }]
+    }
+
+    expect(makeAccounts(filteringDoc, groups)).toMatchObject([])
+  })
+
+  it('should return empty array if no raw accounts for a matched group', () => {
+    const filteringDoc = { virtual: false, _id: '01' }
+    const groups = {
+      data: [{ _id: '01', accounts: { raw: undefined } }, { _id: '02' }]
+    }
+
+    expect(makeAccounts(filteringDoc, groups)).toMatchObject([])
+  })
+
+  it('should return raw account for a matched group', () => {
+    const filteringDoc = { virtual: false, _id: '01' }
+    const groups = {
+      data: [{ _id: '01', accounts: { raw: [{ id: '01' }] } }, { _id: '02' }]
+    }
+
+    expect(makeAccounts(filteringDoc, groups)).toMatchObject([{ id: '01' }])
   })
 })
