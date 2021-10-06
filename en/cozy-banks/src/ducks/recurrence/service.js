@@ -15,17 +15,19 @@ import { getLabel } from 'ducks/recurrence/utils'
 import tree from 'ducks/categories/tree'
 import addDays from 'date-fns/add_days'
 
-const NB_MONTH_LOOKBACK = 3
-const DAYS_IN_MONTH = 30.5
+export const NB_DAYS_LOOKBACK = 100
 
+/**
+ * Fetch transactions from 3 months back if there is already recurrences,
+ * otherwise all transactions
+ * @param {array} recurrences - Hydrated bundle of recurrences
+ * @returns transactions
+ */
 const makeQueryForTransactions = recurrences => {
   if (recurrences.length === 0) {
     return Q(TRANSACTION_DOCTYPE)
   } else {
-    const lookbackDateLimit = addDays(
-      new Date(),
-      -NB_MONTH_LOOKBACK * DAYS_IN_MONTH
-    )
+    const lookbackDateLimit = addDays(new Date(), -NB_DAYS_LOOKBACK)
     const query = Q(TRANSACTION_DOCTYPE).where({
       date: {
         $gt: lookbackDateLimit.toISOString().slice(0, 10)
@@ -38,36 +40,77 @@ const makeQueryForTransactions = recurrences => {
 
 const getRecurrenceId = recurrence => recurrence._id
 
-const logDifferences = (oldRecurrences, updatedRecurrences) => {
+export const logDifferences = (oldRecurrences, updatedRecurrences) => {
   const {
     true: existingRecurrences = [],
     false: newRecurrences = []
   } = groupBy(updatedRecurrences, rec => Boolean(getRecurrenceId(rec)))
   const oldById = keyBy(oldRecurrences, getRecurrenceId)
   const existingById = keyBy(existingRecurrences, getRecurrenceId)
-  log('info', `${newRecurrences.length} new recurrences`)
+
+  let logForNewRecurrences = []
+  let logForExistingRecurrences = []
+
   for (const [id, existing] of Object.entries(existingById)) {
-    log(
-      'info',
+    logForExistingRecurrences.push(
       `${getLabel(existing)}: ${existing.ops.length} operations (+${existing.ops
         .length - oldById[id].ops.length})`
     )
   }
+
   for (const rec of newRecurrences) {
-    log(
-      'info',
+    logForNewRecurrences.push(
       `${getLabel(rec)}: ${rec.ops.length} operations (+${
         rec.ops.length
       }), category: ${tree[rec.categoryIds[0]]}`
     )
   }
+
+  if (logForNewRecurrences.length > 0) {
+    log(
+      'info',
+      `Modified ${
+        newRecurrences.length
+      } recurrences:\n${logForNewRecurrences.join('\n')}`
+    )
+  }
+
+  if (logForExistingRecurrences.length > 0) {
+    log(
+      'info',
+      `${
+        existingRecurrences.length
+      } existing recurrences :\n${logForExistingRecurrences.join('\n')}`
+    )
+  }
 }
+
+export const logRecurrencesLabelAndTransactionsNumber = ({
+  prefix,
+  recurrences,
+  suffix
+}) => {
+  const recurrencesLogs = recurrences.map(recurrence => {
+    if (!recurrence.ops) {
+      return
+    }
+    return `${getLabel(recurrence)}: ${
+      recurrence.ops.length
+    } operations, category: ${tree[recurrence.categoryIds[0]]}`
+  })
+
+  log(
+    'info',
+    [prefix, recurrencesLogs.join('\n'), suffix].filter(Boolean).join('\n')
+  )
+}
+
 /**
  * Fetches
- *   - transactions in the last 3 months
+ *   - transactions in the last 100 days
  *   - current recurrences
- * and update recurrences and operations according to recurrence matching
- * algorithm.
+ * and update recurrences and operations according to recurrence matching algorithm.
+ * The date taken into account to create recurrences is `transaction.date` and not `transaction.realizationDate`.
  *
  * Called inside service.
  */
@@ -75,24 +118,22 @@ const main = async ({ client }) => {
   try {
     const recurrences = await fetchHydratedBundles(client)
 
-    log('info', `Found ${recurrences.length} existing recurrences`)
-    recurrences.forEach(recurrence => {
-      if (!recurrence.ops) {
-        return
-      }
-      log(
-        'info',
-        `${getLabel(recurrence)}: ${recurrence.ops.length} operations`
-      )
+    logRecurrencesLabelAndTransactionsNumber({
+      prefix: `⭐ Founded: ${recurrences.length} existing recurrences:`,
+      recurrences
     })
 
     const transactionQuery = makeQueryForTransactions(recurrences)
+    log(
+      'info',
+      `Transactions selector is ${JSON.stringify(transactionQuery.selector)}`
+    )
     const transactions = await client.queryAll(transactionQuery)
 
     if (recurrences.length > 0) {
       log(
         'info',
-        `Loaded transactions from ${NB_MONTH_LOOKBACK} months back, ${transactions.length} transactions to consider`
+        `Loaded transactions from ${NB_DAYS_LOOKBACK} days back, ${transactions.length} transactions to consider`
       )
     } else {
       log(
@@ -109,13 +150,6 @@ const main = async ({ client }) => {
       recurrencesAmountsCatIdsUpdated.map(r => ({ ...r })),
       transactions
     ).map(x => omit(x, '_type'))
-
-    log(
-      'info',
-      `Added ${updatedRecurrences.length - recurrences.length} new recurrences`
-    )
-
-    logDifferences(recurrences, updatedRecurrences)
 
     const {
       true: emptyRecurrences = [],

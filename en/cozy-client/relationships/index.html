@@ -873,6 +873,33 @@
     Relation types
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#files-relations" title="Files relations" class="md-nav__link">
+    Files relations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#customize-relations" title="Customize relations" class="md-nav__link">
+    Customize relations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#old-relation-types" title="Old relation types" class="md-nav__link">
+    Old relation types
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -910,8 +937,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#create-a-new-document-with-existing-relations" title="Create a new document with existing relations" class="md-nav__link">
-    Create a new document with existing relations
+  <a href="#create-a-new-file-with-existing-relations" title="Create a new file with existing relations" class="md-nav__link">
+    Create a new file with existing relations
   </a>
   
 </li>
@@ -2552,6 +2579,33 @@
     Relation types
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#files-relations" title="Files relations" class="md-nav__link">
+    Files relations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#customize-relations" title="Customize relations" class="md-nav__link">
+    Customize relations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#old-relation-types" title="Old relation types" class="md-nav__link">
+    Old relation types
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -2589,8 +2643,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#create-a-new-document-with-existing-relations" title="Create a new document with existing relations" class="md-nav__link">
-    Create a new document with existing relations
+  <a href="#create-a-new-file-with-existing-relations" title="Create a new file with existing relations" class="md-nav__link">
+    Create a new file with existing relations
   </a>
   
 </li>
@@ -2624,7 +2678,12 @@
                 <h2 id="what-are-relations-in-cozy-client">What are relations in Cozy-Client?<a class="headerlink" href="#what-are-relations-in-cozy-client" title="Permanent link">&para;</a></h2>
 <p>CouchDB is a document store. It does not materialize relations between documents. We do, however, have a standardized way of describing relations between cozy documents. This allows Cozy-Client to give us some automation.</p>
 <h3 id="in-couchdb">In CouchDB<a class="headerlink" href="#in-couchdb" title="Permanent link">&para;</a></h3>
-<p>To materialize relations, we use a special key inside the document named <code>relationships</code>. Please see the cozy-doctypes <a href="https://github.com/cozy/cozy-doctypes/#relationships">documentation</a> for the exact syntax.</p>
+<p>Relations between documents are materialized under a <code>relationships</code> object at the root of the document. Relations are referenced by their names, e.g. <code>authors</code>.</p>
+<p>Each relation is an object with a <code>data</code> property, containing either <strong>one reference</strong>, or an <strong>array of references</strong>.</p>
+<p>A reference is an object containing at least:
+* <code>_type</code>:  the name of the referenced doctype, e.g. <code>io.cozy.contacts</code>
+* <code>_id</code>:  the id of the referenced document.</p>
+<p>For instance, a book -&gt; authors relationship might be represented like this:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;_id&quot;</span><span class="o">:</span> <span class="s2">&quot;mobydick&quot;</span><span class="p">,</span>
   <span class="s2">&quot;relationships&quot;</span><span class="o">:</span> <span class="p">{</span>
@@ -2636,15 +2695,16 @@
 </pre></div>
 
 
+<p>Please see the cozy-doctypes <a href="https://github.com/cozy/cozy-doctypes/#relationships">documentation</a> for more insights about the syntax.</p>
 <h3 id="in-the-cozy-client-schema">In the Cozy-Client schema<a class="headerlink" href="#in-the-cozy-client-schema" title="Permanent link">&para;</a></h3>
-<p>Cozy-client knows about these relations with the schema you provide at initialization: </p>
+<p>Cozy-client knows how to handle these relations thanks to the schema you provide at initialization:</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">schema</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="nx">todos</span><span class="o">:</span> <span class="p">{</span>
+  <span class="nx">books</span><span class="o">:</span> <span class="p">{</span>
     <span class="nx">doctype</span><span class="o">:</span> <span class="s1">&#39;io.cozy.books&#39;</span><span class="p">,</span>
     <span class="nx">attributes</span><span class="o">:</span> <span class="p">{},</span>
     <span class="nx">relationships</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">items</span><span class="o">:</span> <span class="p">{</span>
-        <span class="nx">doctype</span><span class="o">:</span> <span class="s1">&#39;io.cozy.contact&#39;</span><span class="p">,</span>
+      <span class="nx">authors</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">doctype</span><span class="o">:</span> <span class="s1">&#39;io.cozy.contacts&#39;</span><span class="p">,</span>
         <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;has-many&#39;</span>
       <span class="p">}</span>
     <span class="p">}</span>
@@ -2659,54 +2719,35 @@
 </pre></div>
 
 
-<p>With the help of the schema, Cozy-Client will be able to manage the <code>relationships</code> attribute of your documents for you.</p>
+<p>We explain below what are the different types of relations.</p>
 <h3 id="relation-types">Relation types<a class="headerlink" href="#relation-types" title="Permanent link">&para;</a></h3>
-<p>Cozy-Client <a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/helpers.js">predefines</a> four basic relation types: </p>
+<p>Cozy-Client <a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/helpers.js">predefines</a> two basic relation types that must be specified in the schema:</p>
 <ul>
-<li><code>'has-one'</code></li>
-<li><code>'has-many'</code></li>
+<li><code>'has-one'</code>: the relation has a unique reference.</li>
+<li><code>'has-many'</code>: the relation can have several references.</li>
+</ul>
+<h4 id="files-relations">Files relations<a class="headerlink" href="#files-relations" title="Permanent link">&para;</a></h4>
+<p>The files implements a special type of relation: <code>'io.cozy.files:has-many'</code>. This relation name is <code>referenced_by</code>, which is an array of references, just like the <code>'has-many'</code> relation. </p>
+<p>The stack implements routes to handle this kind of relation on the <code>/files</code> endpoint. See the <a href="https://docs.cozy.io/en/cozy-stack/references-docs-in-vfs/">stack documentation</a>.</p>
+<p>Note specific <a href="https://docs.cozy.io/en/tutorials/data/queries/#usage-example-references">view index</a> are defined on <code>referenced_by</code> relationships, allowing fast queries on it.</p>
+<h4 id="customize-relations">Customize relations<a class="headerlink" href="#customize-relations" title="Permanent link">&para;</a></h4>
+<p>You are free to create your own relation type if you need a special behaviour.</p>
+<p>For instance, <a href="https://github.com/cozy/cozy-banks/blob/master/src/doctypes.js">Banks doctypes</a> implements <code>HasManyBills</code> or <code>HasManyReimbursements</code>.</p>
+<h4 id="old-relation-types">Old relation types<a class="headerlink" href="#old-relation-types" title="Permanent link">&para;</a></h4>
+<p>Note there are two others basic relations, that are here for backward compatibility:</p>
+<ul>
 <li><code>'has-one-in-place'</code></li>
 <li><code>'has-many-in-place'</code></li>
 </ul>
-<p>For new doctypes you should use <code>'has-one'</code> or <code>'has-many'</code>. They use your <code>relationships</code> attribute and link either a single document or an array of documents.</p>
+<p>⚠️ For new doctypes, you should not use those relations, prefer <code>'has-one'</code> or <code>'has-many'</code>.</p>
+<p>With these relations, instead of using the <code>relationships</code> attribute, you reference directly the ids of linked documents at the root of your data:</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">schema</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="nx">todos</span><span class="o">:</span> <span class="p">{</span>
+  <span class="nx">books</span><span class="o">:</span> <span class="p">{</span>
     <span class="nx">doctype</span><span class="o">:</span> <span class="s1">&#39;io.cozy.books&#39;</span><span class="p">,</span>
     <span class="nx">attributes</span><span class="o">:</span> <span class="p">{},</span>
     <span class="nx">relationships</span><span class="o">:</span> <span class="p">{</span>
       <span class="nx">authors</span><span class="o">:</span> <span class="p">{</span>
-        <span class="nx">doctype</span><span class="o">:</span> <span class="s1">&#39;io.cozy.contact&#39;</span><span class="p">,</span>
-        <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;has-many&#39;</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-
-
-<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nb">document</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s2">&quot;_id&quot;</span><span class="o">:</span> <span class="s2">&quot;mobydick&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;relationships&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;authors&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;data&quot;</span><span class="o">:</span> <span class="p">[</span>
-        <span class="p">{</span> <span class="s2">&quot;_id&quot;</span><span class="o">:</span> <span class="s2">&quot;hermanmelville&quot;</span><span class="p">,</span> <span class="s2">&quot;_type&quot;</span><span class="o">:</span> <span class="s2">&quot;io.cozy.contacts&quot;</span> <span class="p">}</span>
-      <span class="p">]</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-<span class="c1">// there should be an io.cozy.contact document </span>
-<span class="c1">// for which the _id is &quot;hermanmelville&quot;</span>
-</pre></div>
-
-
-<p><code>'has-one-in-place'</code> or <code>'has-many-in-place'</code> are here for backward compatibility. Instead of using the <code>relationships</code> attribute, you reference directly the ids of linked documents at the root of your data:</p>
-<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">schema</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="nx">todos</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">doctype</span><span class="o">:</span> <span class="s1">&#39;io.cozy.books&#39;</span><span class="p">,</span>
-    <span class="nx">attributes</span><span class="o">:</span> <span class="p">{},</span>
-    <span class="nx">relationships</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">authors</span><span class="o">:</span> <span class="p">{</span>
-        <span class="nx">doctype</span><span class="o">:</span> <span class="s1">&#39;io.cozy.contact&#39;</span><span class="p">,</span>
+        <span class="nx">doctype</span><span class="o">:</span> <span class="s1">&#39;io.cozy.contacts&#39;</span><span class="p">,</span>
         <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;has-many-in-place&#39;</span>
       <span class="p">}</span>
     <span class="p">}</span>
@@ -2715,19 +2756,16 @@
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nb">document</span> <span class="o">=</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">book</span> <span class="o">=</span> <span class="p">{</span>
   <span class="s2">&quot;_id&quot;</span><span class="o">:</span> <span class="s2">&quot;mobydick&quot;</span><span class="p">,</span>
   <span class="s2">&quot;authors&quot;</span><span class="o">:</span> <span class="p">[</span> <span class="s2">&quot;hermanmelville&quot;</span> <span class="p">]</span>
 <span class="p">}</span>
-<span class="c1">// there should be an io.cozy.contact document </span>
-<span class="c1">// for which the _id is &quot;hermanmelville&quot; </span>
 </pre></div>
 
 
-<p>You may also see a special type named <code>'io.cozy.files:has-many'</code>. It&rsquo;s used for backward compatibility with the &lsquo;io.cozy.files&rsquo; doctype. <a href="https://github.com/cozy/cozy-banks/blob/master/src/doctypes.js">Banks doctypes</a> also have their own special relationship objects like <code>HasManyBills</code> or <code>HasManyReimbursements</code>. You are free to create your own if you need a special behaviour.</p>
 <h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
 <h3 id="include-relations-in-your-query">Include relations in your query<a class="headerlink" href="#include-relations-in-your-query" title="Permanent link">&para;</a></h3>
-<p>Relations are not loaded eagerly by default. If you want your query to load your relations for you by default, you will have to name them in a <code>include()</code> request.</p>
+<p>Relations are not loaded eagerly by default. If you want your query to load your relations for you, you will have to name them in an <code>include()</code> request.</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">query</span> <span class="o">=</span> <span class="nx">Q</span><span class="p">(</span><span class="s1">&#39;io.cozy.books&#39;</span><span class="p">)</span>
   <span class="p">.</span><span class="nx">include</span><span class="p">([</span><span class="s1">&#39;authors&#39;</span><span class="p">])</span>
   <span class="p">.</span><span class="nx">limitBy</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
@@ -2743,21 +2781,21 @@
 
 
 <h3 id="add-a-relation-to-an-existing-document">Add a relation to an existing document<a class="headerlink" href="#add-a-relation-to-an-existing-document" title="Permanent link">&para;</a></h3>
-<p>When the relationship is a <code>has-many</code> type, you can call the <code>addById(documentId)</code> to create the relationship:</p>
-<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">otherAuthorId</span> <span class="o">=</span> <span class="s1">&#39;abc123&#39;</span>
+<p>When the relationship is a <code>has-many</code> type, you can call the <code>add(docs)</code> to create the relationship:</p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">otherAuthors</span> <span class="o">=</span> <span class="p">[{</span><span class="nx">_id</span><span class="o">:</span> <span class="s1">&#39;Rivest&#39;</span><span class="p">},</span> <span class="p">{</span><span class="nx">_id</span><span class="o">:</span> <span class="s1">&#39;Shamir&#39;</span><span class="p">}]</span>
 <span class="kr">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">query</span><span class="p">)</span>
 <span class="kr">const</span> <span class="nx">docs</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">data</span>
 <span class="kr">const</span> <span class="nx">firstDoc</span> <span class="o">=</span> <span class="nx">docs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="nx">firstDoc</span><span class="p">.</span><span class="nx">authors</span><span class="p">.</span><span class="nx">addById</span><span class="p">(</span><span class="nx">otherAuthorId</span><span class="p">)</span>
+<span class="nx">firstDoc</span><span class="p">.</span><span class="nx">authors</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">otherAuthors</span><span class="p">)</span>
 </pre></div>
 
 
-<p><code>addById</code> also accepts an array of document ids:</p>
-<div class="codehilite"><pre><span></span><span class="nx">firstDoc</span><span class="p">.</span><span class="nx">authors</span><span class="p">.</span><span class="nx">addById</span><span class="p">([</span><span class="nx">mainAuthorId</span><span class="p">,</span> <span class="nx">coAuthorId</span><span class="p">])</span>
+<p><code>add</code> also accepts single document:</p>
+<div class="codehilite"><pre><span></span><span class="nx">firstDoc</span><span class="p">.</span><span class="nx">authors</span><span class="p">.</span><span class="nx">add</span><span class="p">({</span><span class="nx">_id</span><span class="o">:</span> <span class="s1">&#39;Adleman&#39;</span><span class="p">})</span>
 </pre></div>
 
 
-<p>When the relationship is a <code>has-one</code> type, use <code>set(document)</code> instead:</p>
+<p>Likewise, when the relationship is a <code>has-one</code>, use <code>add(doc)</code>:</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">printer</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">_id</span><span class="o">:</span> <span class="s1">&#39;abc123&#39;</span><span class="p">,</span>
   <span class="nx">_type</span><span class="o">:</span> <span class="s1">&#39;io.cozy.company&#39;</span><span class="p">,</span>
@@ -2766,35 +2804,35 @@
 <span class="kr">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">query</span><span class="p">)</span>
 <span class="kr">const</span> <span class="nx">docs</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">data</span>
 <span class="kr">const</span> <span class="nx">firstDoc</span> <span class="o">=</span> <span class="nx">docs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="nx">firstDoc</span><span class="p">.</span><span class="nx">printingCompany</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">printer</span><span class="p">)</span>
+<span class="nx">firstDoc</span><span class="p">.</span><span class="nx">printingCompany</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">printer</span><span class="p">)</span>
 </pre></div>
 
 
 <h3 id="remove-a-relation-to-an-existing-document">Remove a relation to an existing document<a class="headerlink" href="#remove-a-relation-to-an-existing-document" title="Permanent link">&para;</a></h3>
-<p>For <code>has-many</code> relationships, use the <code>removeById</code> method:</p>
-<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">otherAuthorId</span> <span class="o">=</span> <span class="s1">&#39;abc123&#39;</span>
+<p>For <code>has-many</code> relationships, use the <code>remove(docs)</code> method:</p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">wrongAuthors</span> <span class="o">=</span> <span class="p">[{</span><span class="nx">_id</span><span class="o">:</span> <span class="s1">&#39;James Wrong&#39;</span> <span class="p">},</span> <span class="p">{</span><span class="nx">_id</span><span class="o">:</span> <span class="s1">&#39;Henry Mistake&#39;</span><span class="p">}]</span>
 <span class="kr">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">query</span><span class="p">)</span>
 <span class="kr">const</span> <span class="nx">docs</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">data</span>
 <span class="kr">const</span> <span class="nx">firstDoc</span> <span class="o">=</span> <span class="nx">docs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="nx">firstDoc</span><span class="p">.</span><span class="nx">authors</span><span class="p">.</span><span class="nx">removeById</span><span class="p">(</span><span class="nx">otherAuthorId</span><span class="p">)</span>
+<span class="nx">firstDoc</span><span class="p">.</span><span class="nx">authors</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="nx">wrongAuthors</span><span class="p">)</span>
 </pre></div>
 
 
-<p>Just like <code>addById</code>, <code>removeById</code> accepts an array of ids as parameter.</p>
-<p>For <code>has-one</code> relationships, use the <code>unset()</code> method:</p>
+<p>Just like <code>add</code>, <code>remove</code> accepts a single document.</p>
+<p>For <code>has-one</code> relationships, just use <code>remove()</code>, with no argument:</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">query</span><span class="p">)</span>
 <span class="kr">const</span> <span class="nx">docs</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">data</span>
 <span class="kr">const</span> <span class="nx">firstDoc</span> <span class="o">=</span> <span class="nx">docs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="nx">firstDoc</span><span class="p">.</span><span class="nx">printingCompany</span><span class="p">.</span><span class="nx">unset</span><span class="p">()</span>
+<span class="nx">firstDoc</span><span class="p">.</span><span class="nx">printingCompany</span><span class="p">.</span><span class="nx">remove</span><span class="p">()</span>
 </pre></div>
 
 
-<h3 id="create-a-new-document-with-existing-relations">Create a new document with existing relations<a class="headerlink" href="#create-a-new-document-with-existing-relations" title="Permanent link">&para;</a></h3>
-<p>Simply pass your relations as a third parameter to <code>create()</code>:</p>
-<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">mobydick</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">_id</span><span class="o">:</span> <span class="s2">&quot;mobydick&quot;</span> <span class="p">}</span>
-<span class="kr">const</span> <span class="nx">hermanmelville</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">_id</span><span class="o">:</span> <span class="s2">&quot;hermanmelville&quot;</span> <span class="p">}</span>
-<span class="kr">const</span> <span class="nx">relationships</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">authors</span><span class="o">:</span> <span class="p">[</span> <span class="nx">hermanmelville</span> <span class="p">]</span> <span class="p">}</span>
-<span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">&#39;io.cozy.books&#39;</span><span class="p">,</span> <span class="nx">mobydick</span><span class="p">,</span> <span class="nx">relationships</span><span class="p">)</span>
+<h3 id="create-a-new-file-with-existing-relations">Create a new file with existing relations<a class="headerlink" href="#create-a-new-file-with-existing-relations" title="Permanent link">&para;</a></h3>
+<p>Simply pass the reference to your file as a third parameter to <code>create()</code>:</p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">photo</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">_id</span><span class="o">:</span> <span class="s2">&quot;sunset.jpg&quot;</span> <span class="p">}</span>
+<span class="kr">const</span> <span class="nx">reference</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">_id</span><span class="o">:</span> <span class="s2">&quot;1324&quot;</span><span class="p">,</span> <span class="nx">_type</span><span class="o">:</span> <span class="s2">&quot;io.cozy.photos.albums&quot;</span> <span class="p">}</span>
+<span class="kr">const</span> <span class="nx">albumReference</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">albums</span><span class="o">:</span> <span class="p">[</span> <span class="nx">albumReference</span> <span class="p">]</span> <span class="p">}</span>
+<span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">&#39;io.cozy.files&#39;</span><span class="p">,</span> <span class="nx">photo</span><span class="p">,</span> <span class="nx">albumReference</span><span class="p">)</span>
 </pre></div>
                 
                   

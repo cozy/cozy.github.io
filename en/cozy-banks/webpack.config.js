@@ -1,5 +1,6 @@
 'use strict'
 
+const path = require('path')
 const get = require('lodash/get')
 const merge = require('webpack-merge')
 const { mergeAppConfigs } = require('cozy-scripts/utils/merge')
@@ -22,13 +23,23 @@ const barConfig = {
   }
 }
 
+const exludeModulesConfig = {
+  module: {
+    rules: ['node-forge', 'node-jose', 'tldjs'].map(module => ({
+      test: path.resolve(__dirname, `node_modules/${module}`),
+      loader: 'null-loader'
+    }))
+  }
+}
+
 const appOnlyConfigs = [
   require('cozy-scripts/config/webpack.config.react'),
   require('cozy-scripts/config/webpack.config.cozy-ui'),
   require('cozy-scripts/config/webpack.config.cozy-ui.react'),
   require('cozy-scripts/config/webpack.config.css-modules'),
   require('cozy-scripts/config/webpack.config.pictures'),
-  barConfig
+  barConfig,
+  exludeModulesConfig
 ]
 
 const common = mergeAppConfigs(
@@ -42,7 +53,7 @@ const common = mergeAppConfigs(
     require('./config/webpack.config.plugins'),
     require('cozy-scripts/config/webpack.config.manifest'),
     hotReload ? require(`./config/webpack.config.hot-reload`) : null,
-	  { devtool:false }
+    { devtool: false }
   ].filter(Boolean)
 )
 

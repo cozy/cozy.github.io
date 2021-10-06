@@ -7,7 +7,6 @@ import chunk from 'lodash/chunk'
 import sortBy from 'lodash/sortBy'
 import { differenceInSeconds } from 'date-fns'
 import { getTracker } from 'ducks/tracking/node'
-import { LOCAL_MODEL_USAGE_THRESHOLD } from 'ducks/categories/helpers'
 import { TRANSACTION_DOCTYPE } from 'doctypes'
 
 // Each chunk will contain 100 transactions
@@ -51,7 +50,10 @@ export const sendResultsToMatomo = transactions => {
   const tracker = getTracker(__TARGET__, { e_a: 'LocalCategorization' })
   const nbTransactionsAboveThreshold = transactions.reduce(
     (sum, transaction) => {
-      if (transaction.localCategoryProba > LOCAL_MODEL_USAGE_THRESHOLD) {
+      if (
+        transaction.localCategoryProba >
+        BankTransaction.LOCAL_MODEL_USAGE_THRESHOLD
+      ) {
         return sum + 1
       }
 

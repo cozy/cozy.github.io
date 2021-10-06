@@ -1,5 +1,6 @@
 import React from 'react'
-import { GroupSettings, AccountsList } from './GroupSettings'
+import GroupSettings from './GroupSettings'
+import AccountsList from './AccountsList'
 import { render, fireEvent, act } from '@testing-library/react'
 import { createMockClient } from 'cozy-client/dist/mock'
 import AppLike from 'test/AppLike'

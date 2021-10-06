@@ -5,14 +5,12 @@ import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 
 import { Table } from 'components/Table'
-import { useSelectionContext } from 'ducks/context/SelectionContext'
 
 import transactionsStyles from 'ducks/transactions/Transactions.styl'
 
 const TableHead = ({ isSubcategory }) => {
   const { t } = useI18n()
   const { isDesktop } = useBreakpoints()
-  const { isSelectionModeEnabled } = useSelectionContext()
 
   if (!isDesktop) {
     return null
@@ -22,11 +20,7 @@ const TableHead = ({ isSubcategory }) => {
     <Table>
       <thead>
         <tr>
-          {isSelectionModeEnabled && (
-            <td
-              className={cx(transactionsStyles.ColumnSizeCheckbox, 'u-pl-0')}
-            />
-          )}
+          <td className={cx(transactionsStyles.ColumnSizeCheckbox, 'u-pl-0')} />
           <td className={transactionsStyles.ColumnSizeDesc}>
             {isSubcategory
               ? t('Categories.headers.movements')

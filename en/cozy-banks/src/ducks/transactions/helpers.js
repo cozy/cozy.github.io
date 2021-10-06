@@ -280,7 +280,7 @@ export const updateApplicationDate = async (
 ) => {
   const date = getDisplayDate(transaction)
   if (isSameMonth(date, applicationDate)) {
-    applicationDate = null // reset the application date
+    applicationDate = '' // reset the application date
   }
   const { data } = await client.save({
     ...transaction,

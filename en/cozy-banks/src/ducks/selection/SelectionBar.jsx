@@ -11,7 +11,6 @@ import { useTransactionCategoryModal } from 'ducks/transactions/TransactionRow'
 
 const SelectionBar = ({ transactions }) => {
   const {
-    isSelectionModeEnabled,
     isSelectionModeActive,
     selected,
     emptyAndDeactivateSelection
@@ -51,7 +50,6 @@ const SelectionBar = ({ transactions }) => {
     showTransactionCategoryModal
   })
 
-  if (!isSelectionModeEnabled) return null
   return (
     <>
       {isSelectionModeActive && (

@@ -432,7 +432,7 @@ describe('updateApplicationDate', () => {
     )
     expect(client.save).toHaveBeenCalledWith({
       date: '2019-09-07T12:00',
-      applicationDate: null
+      applicationDate: ''
     })
   })
 })

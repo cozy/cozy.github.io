@@ -3423,7 +3423,9 @@ complicated to do it safely, and it is better to avoid this trap).</p>
 made to this endpoint.</p>
 <p>The <code>redirect</code> parameter is passed inside the body. If it is missing, the
 redirection will be made against the default target: the home application of
-this cozy instance.</p>
+this cozy instance. The redirect can be a full URL (like
+<code>http://cozy-drive.example.org/#/folder</code>), or just a slug+path+hash (like
+<code>drive/#/folder</code>).</p>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/auth/login</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/x-www-form-urlencoded</span>

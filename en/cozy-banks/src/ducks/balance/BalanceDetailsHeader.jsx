@@ -19,7 +19,6 @@ export const DumbBalanceDetailsHeader = props => {
   const { isMobile } = useBreakpoints()
   const { accountSwitchSize, children, showLegalMention } = props
   const {
-    isSelectionModeEnabled,
     isSelectionModeActive,
     setIsSelectionModeActive
   } = useSelectionContext()
@@ -44,7 +43,6 @@ export const DumbBalanceDetailsHeader = props => {
         <BarRight>
           <SearchIconLink />
           <SelectionIconLink
-            isSelectionModeEnabled={isSelectionModeEnabled}
             isSelectionModeActive={isSelectionModeActive}
             setIsSelectionModeActive={setIsSelectionModeActive}
           />

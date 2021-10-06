@@ -67,7 +67,7 @@ const BillChip = props => {
     <Wrapper fileId={invoiceId} key={invoiceId} transaction={transaction}>
       <Chip component="button" size="small" variant="outlined">
         <FileIcon
-          color={bill.isRefund ? 'var(--validColor)' : undefined}
+          color={bill.isRefund ? 'var(--successColor)' : undefined}
           className="u-flex-shrink-0"
         />
         {bill.isRefund ? (

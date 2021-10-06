@@ -47,5 +47,8 @@ module.exports = {
   },
   plugins: [
     isUsingDevStyleguidist() ? null : new MiniCssExtractPlugin('[name].css'),
+    new webpack.DefinePlugin({
+      'process.env.BUILD_ENV': JSON.stringify(process.env.BUILD_ENV)
+    })
   ].filter(Boolean)
 }

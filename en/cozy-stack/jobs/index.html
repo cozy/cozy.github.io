@@ -2586,8 +2586,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#post-jobstriggerstrigger-idlaunch" title="POST /jobs/triggers/:trigger-id/launch" class="md-nav__link">
-    POST /jobs/triggers/:trigger-id/launch
+  <a href="#patch-jobstriggerstrigger-id" title="PATCH /jobs/triggers/:trigger-id" class="md-nav__link">
+    PATCH /jobs/triggers/:trigger-id
   </a>
   
     <nav class="md-nav">
@@ -2620,8 +2620,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#delete-jobspurge" title="DELETE /jobs/purge" class="md-nav__link">
-    DELETE /jobs/purge
+  <a href="#post-jobstriggerstrigger-idlaunch" title="POST /jobs/triggers/:trigger-id/launch" class="md-nav__link">
+    POST /jobs/triggers/:trigger-id/launch
   </a>
   
     <nav class="md-nav">
@@ -2741,6 +2741,60 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#post-jobswebhooksbi" title="POST /jobs/webhooks/bi" class="md-nav__link">
+    POST /jobs/webhooks/bi
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#response_13" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-jobspurge" title="DELETE /jobs/purge" class="md-nav__link">
+    DELETE /jobs/purge
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_14" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_14" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permissions_9" title="Permissions" class="md-nav__link">
+    Permissions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2754,7 +2808,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#permissions_9" title="Permissions" class="md-nav__link">
+  <a href="#permissions_10" title="Permissions" class="md-nav__link">
     Permissions
   </a>
   
@@ -3405,8 +3459,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#post-jobstriggerstrigger-idlaunch" title="POST /jobs/triggers/:trigger-id/launch" class="md-nav__link">
-    POST /jobs/triggers/:trigger-id/launch
+  <a href="#patch-jobstriggerstrigger-id" title="PATCH /jobs/triggers/:trigger-id" class="md-nav__link">
+    PATCH /jobs/triggers/:trigger-id
   </a>
   
     <nav class="md-nav">
@@ -3439,8 +3493,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#delete-jobspurge" title="DELETE /jobs/purge" class="md-nav__link">
-    DELETE /jobs/purge
+  <a href="#post-jobstriggerstrigger-idlaunch" title="POST /jobs/triggers/:trigger-id/launch" class="md-nav__link">
+    POST /jobs/triggers/:trigger-id/launch
   </a>
   
     <nav class="md-nav">
@@ -3560,6 +3614,60 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#post-jobswebhooksbi" title="POST /jobs/webhooks/bi" class="md-nav__link">
+    POST /jobs/webhooks/bi
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#response_13" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-jobspurge" title="DELETE /jobs/purge" class="md-nav__link">
+    DELETE /jobs/purge
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_14" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_14" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permissions_9" title="Permissions" class="md-nav__link">
+    Permissions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3573,7 +3681,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#permissions_9" title="Permissions" class="md-nav__link">
+  <a href="#permissions_10" title="Permissions" class="md-nav__link">
     Permissions
   </a>
   
@@ -4202,7 +4310,8 @@ restrict its permission to only one worker, like this:</p>
 
 <h4 id="permissions_3">Permissions<a class="headerlink" href="#permissions_3" title="Permanent link">&para;</a></h4>
 <p>To use this endpoint, an application needs a permission on the type
-<code>io.cozy.triggers</code> for the verb <code>GET</code>.</p>
+<code>io.cozy.triggers</code> for the verb <code>GET</code>. A konnector can also call this endpoint
+for one of its triggers (no permission required).</p>
 <h3 id="get-jobstriggerstrigger-idstate">GET /jobs/triggers/:trigger-id/state<a class="headerlink" href="#get-jobstriggerstrigger-idstate" title="Permanent link">&para;</a></h3>
 <p>Get the trigger current state, to give a big picture of the health of the
 trigger.</p>
@@ -4243,11 +4352,8 @@ trigger.</p>
 
 <h4 id="permissions_4">Permissions<a class="headerlink" href="#permissions_4" title="Permanent link">&para;</a></h4>
 <p>To use this endpoint, an application needs a permission on the type
-<code>io.cozy.triggers</code> for the verb <code>GET</code>.</p>
-<p>Also, for konnector trigger, any application sharing the same doctype
-permissions as the konnector launched by the trigger will be granted the
-permissions to fetch its state, even without permissions on the
-<code>io.cozy.triggers</code> doctype.</p>
+<code>io.cozy.triggers</code> for the verb <code>GET</code>. A konnector can also call this endpoint
+for one of its triggers (no permission required).</p>
 <h3 id="get-jobstriggerstrigger-idjobs">GET /jobs/triggers/:trigger-id/jobs<a class="headerlink" href="#get-jobstriggerstrigger-idjobs" title="Permanent link">&para;</a></h3>
 <p>Get the jobs launched by the trigger with the specified ID.</p>
 <p>Query parameters:</p>
@@ -4276,18 +4382,65 @@ permissions to fetch its state, even without permissions on the
 </pre></div>
 
 
+<h3 id="patch-jobstriggerstrigger-id">PATCH /jobs/triggers/:trigger-id<a class="headerlink" href="#patch-jobstriggerstrigger-id" title="Permanent link">&para;</a></h3>
+<p>This route can be used to change the frequency of execution of a <code>@cron</code>
+trigger.</p>
+<h4 id="request_9">Request<a class="headerlink" href="#request_9" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">PATCH</span> <span class="nn">/jobs/triggers/123123</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;@cron&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;arguments&quot;</span><span class="p">:</span> <span class="s2">&quot;0 0 0 * * 0&quot;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h4 id="response_9">Response<a class="headerlink" href="#response_9" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.triggers&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;123123&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;@cron&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;arguments&quot;</span><span class="p">:</span> <span class="s2">&quot;0 0 0 * * 0&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;worker&quot;</span><span class="p">:</span> <span class="s2">&quot;sendmail&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;timeout&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
+        <span class="nt">&quot;max_exec_count&quot;</span><span class="p">:</span> <span class="mi">3</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/jobs/triggers/123123&quot;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h4 id="permissions_5">Permissions<a class="headerlink" href="#permissions_5" title="Permanent link">&para;</a></h4>
+<p>To use this endpoint, an application needs a permission on the type
+<code>io.cozy.triggers</code> for the verb <code>PATCH</code>. A konnector can also call this
+endpoint for one of its triggers (no permission required).</p>
 <h3 id="post-jobstriggerstrigger-idlaunch">POST /jobs/triggers/:trigger-id/launch<a class="headerlink" href="#post-jobstriggerstrigger-idlaunch" title="Permanent link">&para;</a></h3>
 <p>Launch a trigger manually given its ID and return the created job.</p>
 <p><strong>Note:</strong> this endpoint can be used to create a job for a <code>@client</code> trigger. In
 that case, the job won&rsquo;t be executed on the server but by the client. And the client
 must call <code>PATCH /jobs/:job-id</code> when the job is completed (success or error).</p>
-<h4 id="request_9">Request<a class="headerlink" href="#request_9" title="Permanent link">&para;</a></h4>
+<h4 id="request_10">Request<a class="headerlink" href="#request_10" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/jobs/triggers/123123/launch</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </pre></div>
 
 
-<h4 id="response_9">Response<a class="headerlink" href="#response_9" title="Permanent link">&para;</a></h4>
+<h4 id="response_10">Response<a class="headerlink" href="#response_10" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
@@ -4309,36 +4462,9 @@ must call <code>PATCH /jobs/:job-id</code> when the job is completed (success or
 </pre></div>
 
 
-<h4 id="permissions_5">Permissions<a class="headerlink" href="#permissions_5" title="Permanent link">&para;</a></h4>
-<p>To use this endpoint, an application needs a permission on the type
-<code>io.cozy.triggers</code> for the verb <code>POST</code>.</p>
-<h3 id="delete-jobspurge">DELETE /jobs/purge<a class="headerlink" href="#delete-jobspurge" title="Permanent link">&para;</a></h3>
-<p>This endpoint allows to purge old jobs of an instance.
-Some parameters can be given to this route:</p>
-<ul>
-<li><code>duration</code> is the duration of jobs to keep. This is a human-readable string
-  (integer+suffix).
-  For example:</li>
-<li>&ldquo;3W&rdquo; will keep jobs up to 3 weeks</li>
-<li>&ldquo;2M&rdquo; will keep jobs up to 2 months</li>
-<li><code>workers</code> is a comma-separated list of workers to apply the purge job.</li>
-</ul>
-<h4 id="request_10">Request<a class="headerlink" href="#request_10" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/jobs/purge</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
-</pre></div>
-
-
-<h4 id="response_10">Response<a class="headerlink" href="#response_10" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;deleted&quot;</span><span class="p">:</span> <span class="mi">42</span>
-<span class="p">}</span>
-</pre></div>
-
-
 <h4 id="permissions_6">Permissions<a class="headerlink" href="#permissions_6" title="Permanent link">&para;</a></h4>
 <p>To use this endpoint, an application needs a permission on the type
-<code>io.cozy.jobs</code> for the verb <code>DELETE</code>.</p>
+<code>io.cozy.triggers</code> for the verb <code>POST</code>.</p>
 <h3 id="delete-jobstriggerstrigger-id">DELETE /jobs/triggers/:trigger-id<a class="headerlink" href="#delete-jobstriggerstrigger-id" title="Permanent link">&para;</a></h3>
 <p>Delete a trigger given its ID.</p>
 <h4 id="request_11">Request<a class="headerlink" href="#request_11" title="Permanent link">&para;</a></h4>
@@ -4349,11 +4475,8 @@ Some parameters can be given to this route:</p>
 
 <h4 id="permissions_7">Permissions<a class="headerlink" href="#permissions_7" title="Permanent link">&para;</a></h4>
 <p>To use this endpoint, an application needs a permission on the type
-<code>io.cozy.triggers</code> for the verb <code>DELETE</code>.</p>
-<p>Also, for konnector trigger, any application sharing the same doctype
-permissions as the konnector launched by the trigger will be granted the
-permissions to delete the trigger, even without permissions on the
-<code>io.cozy.triggers</code> doctype.</p>
+<code>io.cozy.triggers</code> for the verb <code>DELETE</code>. A konnector can also call this
+endpoint for one of its triggers (no permission required).</p>
 <h3 id="get-jobstriggers">GET /jobs/triggers<a class="headerlink" href="#get-jobstriggers" title="Permanent link">&para;</a></h3>
 <p>Get the list of triggers. This route only accept <code>Worker</code> and <code>Type</code> query
 parameters and returns the trigger but also in <code>attributes</code> its <code>current_state</code>
@@ -4437,13 +4560,51 @@ available to the konnector or to the service through the
 </pre></div>
 
 
+<h3 id="post-jobswebhooksbi">POST /jobs/webhooks/bi<a class="headerlink" href="#post-jobswebhooksbi" title="Permanent link">&para;</a></h3>
+<p>This endpoint is used to create jobs for banking konnectors. It requires a
+payload with the format defined by <a href="https://docs.budget-insight.com/guides/webhooks">Budget
+Insight</a> and an
+<code>Authorization</code> header with a Bearer token, where a trigger and an account can
+be found on this instance matching their data.</p>
+<h4 id="response_13">Response<a class="headerlink" href="#response_13" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+
+
+<h3 id="delete-jobspurge">DELETE /jobs/purge<a class="headerlink" href="#delete-jobspurge" title="Permanent link">&para;</a></h3>
+<p>This endpoint allows to purge old jobs of an instance.
+Some parameters can be given to this route:</p>
+<ul>
+<li><code>duration</code> is the duration of jobs to keep. This is a human-readable string
+  (integer+suffix).
+  For example:</li>
+<li>&ldquo;3W&rdquo; will keep jobs up to 3 weeks</li>
+<li>&ldquo;2M&rdquo; will keep jobs up to 2 months</li>
+<li><code>workers</code> is a comma-separated list of workers to apply the purge job.</li>
+</ul>
+<h4 id="request_14">Request<a class="headerlink" href="#request_14" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/jobs/purge</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<h4 id="response_14">Response<a class="headerlink" href="#response_14" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;deleted&quot;</span><span class="p">:</span> <span class="mi">42</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h4 id="permissions_9">Permissions<a class="headerlink" href="#permissions_9" title="Permanent link">&para;</a></h4>
+<p>To use this endpoint, an application needs a permission on the type
+<code>io.cozy.jobs</code> for the verb <code>DELETE</code>.</p>
 <h2 id="worker-pool">Worker pool<a class="headerlink" href="#worker-pool" title="Permanent link">&para;</a></h2>
 <p>The consuming side of the job queue is handled by a worker pool.</p>
 <p>On a monolithic cozy-stack, the worker pool has a configurable fixed size of
 workers. The default value is not yet determined. Each time a worker has
 finished a job, it check the queue and based on the priority and the queued date
 of the job, picks a new job to execute.</p>
-<h2 id="permissions_9">Permissions<a class="headerlink" href="#permissions_9" title="Permanent link">&para;</a></h2>
+<h2 id="permissions_10">Permissions<a class="headerlink" href="#permissions_10" title="Permanent link">&para;</a></h2>
 <p>In order to prevent jobs from leaking informations between applications, we may
 need to add filtering per applications: for instance one queue per applications.</p>
 <p>We should also have an explicit check on the permissions of the applications

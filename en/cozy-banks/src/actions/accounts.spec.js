@@ -10,8 +10,8 @@ const setup = () => {
   const client = new CozyClient({})
   client.query = jest.fn()
   client.destroy = jest.fn()
+  client.saveAll = jest.fn()
   const collection = {
-    all: jest.fn(),
     find: jest.fn(),
     destroyAll: jest.fn()
   }
@@ -97,10 +97,10 @@ describe('onAccountDelete', () => {
       data: [],
       count: 0
     })
-    collection.all.mockResolvedValue({
+    client.query.mockResolvedValue({
       data: []
     })
-    client.query.mockResolvedValue({
+    client.saveAll.mockResolvedValue({
       data: []
     })
     const cozyData = JSON.stringify({ locale: 'en' })

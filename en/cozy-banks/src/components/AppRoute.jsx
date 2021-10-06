@@ -8,7 +8,7 @@ import {
   Settings,
   AccountsSettings,
   GroupsSettings,
-  GroupSettings,
+  ExistingGroupSettings,
   NewGroupSettings,
   Configuration
 } from 'ducks/settings'
@@ -79,7 +79,7 @@ const AppRoute = () => (
         />
         <Route
           path="groups/:groupId"
-          component={scrollToTopOnMount(GroupSettings)}
+          component={scrollToTopOnMount(ExistingGroupSettings)}
         />
 
         <Redirect from="accounts/:accountId" to="accounts" />

@@ -2563,6 +2563,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#add" title="add" class="md-nav__link">
+    add
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#addbyid" title="addById" class="md-nav__link">
     addById
   </a>
@@ -2607,6 +2614,13 @@
           <li class="md-nav__item">
   <a href="#getrelationship" title="getRelationship" class="md-nav__link">
     getRelationship
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove" title="remove" class="md-nav__link">
+    remove
   </a>
   
 </li>
@@ -2957,6 +2971,32 @@ to do that, you can use .data.length.</p>
 <p><em>Defined in</em></p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasMany.js#L69">packages/cozy-client/src/associations/HasMany.js:69</a></p>
 <h2 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h2>
+<h3 id="add">add<a class="headerlink" href="#add" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>add</strong>(<code>docsArg</code>): <code>CozyClientDocument</code></p>
+<p>Add the relationships to the target document</p>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>docsArg</code></td>
+<td align="left"><code>CozyClientDocument</code>[]</td>
+<td align="left">Documents to add as relationships</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>CozyClientDocument</code></p>
+<p>The saved target document</p>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasMany.js#L124">packages/cozy-client/src/associations/HasMany.js:124</a></p>
+<hr />
 <h3 id="addbyid">addById<a class="headerlink" href="#addbyid" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>addById</strong>(<code>idsArg</code>): <code>any</code></p>
 <p>Add a referenced document by id. You need to call save()
@@ -2982,7 +3022,7 @@ We certainly should use something like <code>updateRelationship</code></p>
 <p><em>Returns</em></p>
 <p><code>any</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasMany.js#L127">packages/cozy-client/src/associations/HasMany.js:127</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasMany.js#L151">packages/cozy-client/src/associations/HasMany.js:151</a></p>
 <hr />
 <h3 id="containsbyid">containsById<a class="headerlink" href="#containsbyid" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>containsById</strong>(<code>id</code>): <code>boolean</code></p>
@@ -3026,7 +3066,7 @@ We certainly should use something like <code>updateRelationship</code></p>
 <p><em>Returns</em></p>
 <p><code>any</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasMany.js#L217">packages/cozy-client/src/associations/HasMany.js:217</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasMany.js#L241">packages/cozy-client/src/associations/HasMany.js:241</a></p>
 <hr />
 <h3 id="exists">exists<a class="headerlink" href="#exists" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>exists</strong>(<code>document</code>): <code>boolean</code></p>
@@ -3084,7 +3124,33 @@ We certainly should use something like <code>updateRelationship</code></p>
 <p><em>Returns</em></p>
 <p><code>any</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasMany.js#L168">packages/cozy-client/src/associations/HasMany.js:168</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasMany.js#L192">packages/cozy-client/src/associations/HasMany.js:192</a></p>
+<hr />
+<h3 id="remove">remove<a class="headerlink" href="#remove" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>remove</strong>(<code>docsArg</code>): <code>CozyClientDocument</code></p>
+<p>Remove the relationships from the target document</p>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>docsArg</code></td>
+<td align="left"><code>CozyClientDocument</code>[]</td>
+<td align="left">Documents to remove as relationships</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>CozyClientDocument</code></p>
+<p>The saved target document</p>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasMany.js#L136">packages/cozy-client/src/associations/HasMany.js:136</a></p>
 <hr />
 <h3 id="removebyid">removeById<a class="headerlink" href="#removebyid" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>removeById</strong>(<code>idsArg</code>): <code>any</code></p>
@@ -3106,14 +3172,14 @@ We certainly should use something like <code>updateRelationship</code></p>
 <p><em>Returns</em></p>
 <p><code>any</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasMany.js#L148">packages/cozy-client/src/associations/HasMany.js:148</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasMany.js#L172">packages/cozy-client/src/associations/HasMany.js:172</a></p>
 <hr />
 <h3 id="updatemetacount">updateMetaCount<a class="headerlink" href="#updatemetacount" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>updateMetaCount</strong>(): <code>void</code></p>
 <p><em>Returns</em></p>
 <p><code>void</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasMany.js#L159">packages/cozy-client/src/associations/HasMany.js:159</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasMany.js#L183">packages/cozy-client/src/associations/HasMany.js:183</a></p>
 <hr />
 <h3 id="updaterelationship">updateRelationship<a class="headerlink" href="#updaterelationship" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>updateRelationship</strong>(<code>target</code>, <code>updateFn</code>): <code>any</code></p>
@@ -3139,7 +3205,7 @@ We certainly should use something like <code>updateRelationship</code></p>
 <p><em>Returns</em></p>
 <p><code>any</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasMany.js#L189">packages/cozy-client/src/associations/HasMany.js:189</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasMany.js#L213">packages/cozy-client/src/associations/HasMany.js:213</a></p>
 <hr />
 <h3 id="updaterelationshipdata">updateRelationshipData<a class="headerlink" href="#updaterelationshipdata" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>updateRelationshipData</strong>(<code>getUpdatedRelationshipData</code>): (<code>dispatch</code>: <code>any</code>, <code>getState</code>: <code>any</code>) =&gt; <code>void</code></p>
@@ -3183,7 +3249,7 @@ We certainly should use something like <code>updateRelationship</code></p>
 <p><em>Returns</em></p>
 <p><code>void</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasMany.js#L193">packages/cozy-client/src/associations/HasMany.js:193</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasMany.js#L217">packages/cozy-client/src/associations/HasMany.js:217</a></p>
 <hr />
 <h3 id="updatetargetrelationship">updateTargetRelationship<a class="headerlink" href="#updatetargetrelationship" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>updateTargetRelationship</strong>(<code>store</code>, <code>updateFn</code>): <code>void</code></p>
@@ -3209,7 +3275,7 @@ We certainly should use something like <code>updateRelationship</code></p>
 <p><em>Returns</em></p>
 <p><code>void</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasMany.js#L182">packages/cozy-client/src/associations/HasMany.js:182</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasMany.js#L206">packages/cozy-client/src/associations/HasMany.js:206</a></p>
 <hr />
 <h3 id="gethasmanyitem">getHasManyItem<a class="headerlink" href="#gethasmanyitem" title="Permanent link">&para;</a></h3>
 <p>▸ <code>Static</code> <strong>getHasManyItem</strong>(<code>doc</code>, <code>relName</code>, <code>relItemId</code>): <code>any</code></p>
@@ -3239,7 +3305,7 @@ We certainly should use something like <code>updateRelationship</code></p>
 <p><em>Returns</em></p>
 <p><code>any</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasMany.js#L250">packages/cozy-client/src/associations/HasMany.js:250</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasMany.js#L274">packages/cozy-client/src/associations/HasMany.js:274</a></p>
 <hr />
 <h3 id="gethasmanyitems">getHasManyItems<a class="headerlink" href="#gethasmanyitems" title="Permanent link">&para;</a></h3>
 <p>▸ <code>Static</code> <strong>getHasManyItems</strong>(<code>doc</code>, <code>relName</code>): <code>any</code></p>
@@ -3265,7 +3331,7 @@ We certainly should use something like <code>updateRelationship</code></p>
 <p><em>Returns</em></p>
 <p><code>any</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasMany.js#L259">packages/cozy-client/src/associations/HasMany.js:259</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasMany.js#L283">packages/cozy-client/src/associations/HasMany.js:283</a></p>
 <hr />
 <h3 id="query_1">query<a class="headerlink" href="#query_1" title="Permanent link">&para;</a></h3>
 <p>▸ <code>Static</code> <strong>query</strong>(<code>document</code>, <code>client</code>, <code>assoc</code>): <a href="../querydefinition/"><code>QueryDefinition</code></a> | <code>CozyClientDocument</code></p>
@@ -3301,7 +3367,7 @@ We certainly should use something like <code>updateRelationship</code></p>
 <p><em>Overrides</em></p>
 <p><a href="../association/">Association</a>.<a href="../association/#query">query</a></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasMany.js#L236">packages/cozy-client/src/associations/HasMany.js:236</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasMany.js#L260">packages/cozy-client/src/associations/HasMany.js:260</a></p>
 <hr />
 <h3 id="removehasmanyitem">removeHasManyItem<a class="headerlink" href="#removehasmanyitem" title="Permanent link">&para;</a></h3>
 <p>▸ <code>Static</code> <strong>removeHasManyItem</strong>(<code>doc</code>, <code>relName</code>, <code>relItemId</code>): <code>any</code></p>
@@ -3331,7 +3397,7 @@ We certainly should use something like <code>updateRelationship</code></p>
 <p><em>Returns</em></p>
 <p><code>any</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasMany.js#L297">packages/cozy-client/src/associations/HasMany.js:297</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasMany.js#L321">packages/cozy-client/src/associations/HasMany.js:321</a></p>
 <hr />
 <h3 id="sethasmanyitem">setHasManyItem<a class="headerlink" href="#sethasmanyitem" title="Permanent link">&para;</a></h3>
 <p>▸ <code>Static</code> <strong>setHasManyItem</strong>(<code>doc</code>, <code>relName</code>, <code>relItemId</code>, <code>relItemAttrs</code>): <code>any</code></p>
@@ -3365,7 +3431,7 @@ We certainly should use something like <code>updateRelationship</code></p>
 <p><em>Returns</em></p>
 <p><code>any</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasMany.js#L271">packages/cozy-client/src/associations/HasMany.js:271</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasMany.js#L295">packages/cozy-client/src/associations/HasMany.js:295</a></p>
 <hr />
 <h3 id="updatehasmanyitem">updateHasManyItem<a class="headerlink" href="#updatehasmanyitem" title="Permanent link">&para;</a></h3>
 <p>▸ <code>Static</code> <strong>updateHasManyItem</strong>(<code>doc</code>, <code>relName</code>, <code>relItemId</code>, <code>updater</code>): <code>any</code></p>
@@ -3399,7 +3465,7 @@ We certainly should use something like <code>updateRelationship</code></p>
 <p><em>Returns</em></p>
 <p><code>any</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasMany.js#L321">packages/cozy-client/src/associations/HasMany.js:321</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasMany.js#L345">packages/cozy-client/src/associations/HasMany.js:345</a></p>
 <hr />
 <h3 id="updaterelationship_1">updateRelationship<a class="headerlink" href="#updaterelationship_1" title="Permanent link">&para;</a></h3>
 <p>▸ <code>Static</code> <strong>updateRelationship</strong>(<code>doc</code>, <code>relName</code>, <code>updateFn</code>): <code>any</code></p>
@@ -3429,7 +3495,7 @@ We certainly should use something like <code>updateRelationship</code></p>
 <p><em>Returns</em></p>
 <p><code>any</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasMany.js#L332">packages/cozy-client/src/associations/HasMany.js:332</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasMany.js#L356">packages/cozy-client/src/associations/HasMany.js:356</a></p>
                 
                   
                 

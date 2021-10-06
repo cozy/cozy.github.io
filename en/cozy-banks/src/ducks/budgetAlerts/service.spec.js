@@ -251,7 +251,7 @@ describe('service', () => {
         '2 budgets have exceeded their limit'
       )
       expect(lastPostNotificationCall.data.attributes.message).toEqual(
-        'Health expenses: 251€ > 100€, Outings, trips: 68€ > 10€'
+        'Health expenses: 251€ > 100€\nOutings, trips: 68€ > 10€'
       )
     })
   })

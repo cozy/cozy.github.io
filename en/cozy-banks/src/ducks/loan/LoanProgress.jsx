@@ -22,7 +22,7 @@ const LoanProgress = props => {
 
   return (
     <>
-      <PercentageBar value={percentage} color="var(--validColor)" />
+      <PercentageBar value={percentage} color="var(--successColor)" />
       <div className="u-flex u-mt-half">
         <div className="u-flex-grow-1">
           <Figure total={reimbursedAmount} symbol="€" coloredPositive />

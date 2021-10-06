@@ -72,11 +72,12 @@ export const getPlannedTransactions = createSelector(
       if (isAfter(now, futureDate) || isAfter(futureDate, maxDate)) {
         continue
       }
+
       const transaction = client.hydrateDocument({
         _type: TRANSACTION_DOCTYPE,
         label: recurrence.manualLabel || recurrence.automaticLabel,
         date: futureDate.toISOString(),
-        amount: recurrence.amounts[0],
+        amount: recurrence.latestAmount || recurrence.amounts[0],
         account: lastBankAccount,
         manualCategoryId: recurrence.categoryIds[0],
         automaticCategoryId: recurrence.categoryIds[0]

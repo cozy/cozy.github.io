@@ -169,29 +169,21 @@ describe('remove account from notifications', () => {
   it('should remove account from notifications when an account is deleted', async () => {
     jest.spyOn(console, 'info').mockImplementation(() => {})
     const client = new CozyClient()
-    const account = {
-      _type: 'io.cozy.bank.accounts',
-      _id: 'compteisa1'
-    }
     const oldSettings = {
       _rev: 'rev-1',
       ...fixtures[SETTINGS_DOCTYPE][0]
     }
-    client.stackClient.collection = jest.fn().mockImplementation(doctype => {
-      let data
-      if (doctype === SETTINGS_DOCTYPE) {
-        data = [oldSettings]
-      } else if ((doctype = ACCOUNT_DOCTYPE)) {
-        data = [{ _id: 'compteisa1', _type: ACCOUNT_DOCTYPE, deleted: true }]
-      } else {
-        return []
-      }
-      return {
-        all: jest.fn().mockResolvedValue({ data })
-      }
-    })
+    client.queryAll = jest
+      .fn()
+      .mockResolvedValueOnce({
+        data: [{ _id: 'compteisa1', _type: ACCOUNT_DOCTYPE, _deleted: true }]
+      })
+      .mockResolvedValueOnce({ data: [] })
+      .mockResolvedValue({ data: [oldSettings] })
+
     client.save = jest.fn()
-    const disabledNotifs = await disableOutdatedNotifications(client, account)
+    const disabledNotifs = await disableOutdatedNotifications(client)
+
     expect(client.save).toHaveBeenCalledWith(
       expect.objectContaining({
         notifications: expect.objectContaining({
@@ -206,6 +198,7 @@ describe('remove account from notifications', () => {
         })
       })
     )
+
     expect(disabledNotifs).toEqual([
       {
         accountOrGroup: {

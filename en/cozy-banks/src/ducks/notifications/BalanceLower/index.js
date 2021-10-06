@@ -164,7 +164,7 @@ class BalanceLower extends NotificationView {
           balance
         )}${getCurrencySymbol(account.currency)}`
       })
-      .join(', ')
+      .join('\n')
   }
 }
 

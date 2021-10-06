@@ -281,7 +281,7 @@ class TransactionGreater extends NotificationView {
               { smart_count: g.transactions.length }
             )}`
         )
-        .join(', ')
+        .join('\n')
     }
   }
 }

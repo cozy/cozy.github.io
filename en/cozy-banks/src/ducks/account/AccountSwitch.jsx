@@ -369,11 +369,7 @@ const AccountSwitch = props => {
         label: getGroupLabel(group, t)
       })
     )
-    // TODO remove the filter if https://github.com/cozy/cozy-client/issues/834 is solved
-    // It seems there is a bug in cozy-client when we delete a document
-    // The document is removed in the store, but still referenced in the collection
-    // So we may get an undefined group. We filter it before sorting
-    return sortBy(groups.filter(Boolean), x => x.label.toLowerCase())
+    return sortBy(groups, x => x.label.toLowerCase())
   }, [groupsCollection.data, t, virtualGroups])
 
   const selectProps = selectPropsBySize[size]

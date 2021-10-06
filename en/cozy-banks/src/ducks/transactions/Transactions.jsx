@@ -98,7 +98,6 @@ const TransactionSections = ({
   const {
     isSelected,
     isSelectionModeActive,
-    isSelectionModeEnabled,
     toggleSelection
   } = useSelectionContext()
 
@@ -126,7 +125,6 @@ const TransactionSections = ({
                   filteringOnAccount={filteringOnAccount}
                   isSelected={isSelected(transaction)}
                   isSelectionModeActive={isSelectionModeActive}
-                  isSelectionModeEnabled={isSelectionModeEnabled}
                   toggleSelection={toggleSelection}
                   hasDivider={
                     transactionGroup.length > 1 &&

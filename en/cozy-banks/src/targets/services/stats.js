@@ -1,6 +1,7 @@
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 import { BankAccountStats } from 'cozy-doctypes'
-import { groupBy, keyBy } from 'lodash'
+import keyBy from 'lodash/keyBy'
+import groupBy from 'lodash/groupBy'
 import logger from 'cozy-logger'
 import {
   getPeriod,

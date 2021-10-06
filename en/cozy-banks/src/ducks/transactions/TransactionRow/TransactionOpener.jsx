@@ -22,6 +22,7 @@ const TransactionOpener = ({
   children
 }) => {
   const rowRef = useRef()
+  const canEditTransaction = transaction._id
 
   const handleClick = useCallback(ev => ev.preventDefault(), [])
 
@@ -29,9 +30,10 @@ const TransactionOpener = ({
     if (isSelectionModeActive) {
       toggleSelection(transaction)
     } else {
-      transaction._id && showTransactionModal()
+      canEditTransaction && showTransactionModal()
     }
   }, [
+    canEditTransaction,
     isSelectionModeActive,
     showTransactionModal,
     toggleSelection,
@@ -39,8 +41,8 @@ const TransactionOpener = ({
   ])
 
   const handlePress = useCallback(() => {
-    toggleSelection(transaction)
-  }, [toggleSelection, transaction])
+    canEditTransaction && toggleSelection(transaction)
+  }, [canEditTransaction, toggleSelection, transaction])
 
   useEffect(() => {
     if (!rowRef || !rowRef.current) return

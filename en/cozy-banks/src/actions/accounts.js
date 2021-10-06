@@ -14,14 +14,15 @@ import { destroyRecurrenceIfEmpty } from 'ducks/recurrence/api'
 import { disableOutdatedNotifications } from 'ducks/settings/helpers'
 import { getT } from 'utils/lang'
 
+export const DESTROY_ACCOUNT = 'DESTROY_ACCOUNT'
+const STACK_FIND_LIMIT = 100
+
 const removeAccountFromGroup = (group, account) => {
   return {
     ...group,
     accounts: group.accounts.filter(accountId => accountId !== account.id)
   }
 }
-
-const STACK_FIND_LIMIT = 100
 
 export const deleteOrphanOperations = async (client, account) => {
   // We use a collection here instead of using the client because
@@ -47,12 +48,9 @@ export const deleteOrphanOperations = async (client, account) => {
 }
 
 const removeAccountFromGroups = async (client, account) => {
-  const groupCollection = client.stackClient.collection(GROUP_DOCTYPE)
-  const groups = (await groupCollection.all()).data
+  const groups = (await client.query(Q(GROUP_DOCTYPE))).data
   const ugroups = groups.map(group => removeAccountFromGroup(group, account))
-  for (let ugroup of ugroups) {
-    await groupCollection.update(ugroup)
-  }
+  await client.saveAll(ugroups)
 }
 
 export const removeStats = async (client, account) => {
@@ -79,7 +77,6 @@ export const updateRecurrences = async (client, account, deletedOps) => {
   }
 }
 
-export const DESTROY_ACCOUNT = 'DESTROY_ACCOUNT'
 export const onAccountDelete = async (client, account) => {
   const t = getT()
   const notif = Alerter.info(t('DeletingAccount.related-data.deleting'), {
@@ -94,14 +91,12 @@ export const onAccountDelete = async (client, account) => {
   Alerter.success(t('DeletingAccount.related-data.successfully-deleted'))
 }
 
-window.onAccountDelete = onAccountDelete
-
 export const onGroupDelete = async (client, account) => {
   await deleteOrphanOperations(client, account)
-  await removeAccountFromGroups(client, account)
   await removeStats(client, account)
   await disableOutdatedNotifications(client)
 }
 
+window.onAccountDelete = onAccountDelete
 CozyClient.registerHook(ACCOUNT_DOCTYPE, 'before:destroy', onAccountDelete)
 CozyClient.registerHook(GROUP_DOCTYPE, 'before:destroy', onGroupDelete)

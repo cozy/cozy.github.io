@@ -186,8 +186,7 @@ export const disableOutdatedNotifications = async client => {
   await client.queryAll(Q(ACCOUNT_DOCTYPE))
   await client.queryAll(Q(GROUP_DOCTYPE))
 
-  const settingsCollection = client.stackClient.collection(SETTINGS_DOCTYPE)
-  const allSettings = await settingsCollection.all()
+  const allSettings = await client.queryAll(Q(SETTINGS_DOCTYPE))
   const notifSettings = getDefaultedSettingsFromCollection(allSettings)
   if (!notifSettings._rev) {
     // eslint-disable-next-line no-console

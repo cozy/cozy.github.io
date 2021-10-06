@@ -61,6 +61,18 @@ export const fetchHydratedBundles = async client => {
   }))
 }
 
+export const createRecurrenceClientBundles = recurrenceClientBundles =>
+  recurrenceClientBundles.map(bundle => {
+    const withoutOps = omit(bundle, 'ops')
+    withoutOps.accounts = uniq(bundle.ops.map(x => x.account))
+    log('info', `Setting accounts to ${withoutOps.accounts}`)
+    withoutOps.automaticLabel = getAutomaticLabelFromBundle(bundle)
+    const latestOperation = maxBy(bundle.ops, x => x.date)
+    withoutOps.latestDate = latestOperation.date
+    withoutOps.latestAmount = latestOperation.amount
+    return withoutOps
+  })
+
 /**
  * Saves recurrence bundles and update related transactions
  *
@@ -75,16 +87,9 @@ export const fetchHydratedBundles = async client => {
 export const saveHydratedBundles = async (client, recurrenceClientBundles) => {
   const recurrenceCol = client.collection(RECURRENCE_DOCTYPE)
   const saveBundlesResp = await recurrenceCol.updateAll(
-    recurrenceClientBundles.map(bundle => {
-      const withoutOps = omit(bundle, 'ops')
-      withoutOps.accounts = uniq(bundle.ops.map(x => x.account))
-      log('info', `Setting accounts to ${withoutOps.accounts}`)
-      withoutOps.automaticLabel = getAutomaticLabelFromBundle(bundle)
-      const latestOperation = maxBy(bundle.ops, x => x.date)
-      withoutOps.latestDate = latestOperation.date
-      return withoutOps
-    })
+    createRecurrenceClientBundles(recurrenceClientBundles)
   )
+
   const bundlesWithIds = recurrenceClientBundles.map((recurrenceBundle, i) => ({
     ...recurrenceBundle,
     _id: saveBundlesResp[i].id

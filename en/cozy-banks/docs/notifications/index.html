@@ -2486,8 +2486,8 @@ curl -X POST &quot;https://$COZY_DOMAIN/jobs/queue/push&quot; \
   <span class="l l-Scalar l-Scalar-Plain">dev</span><span class="p p-Indicator">:</span>
     <span class="l l-Scalar l-Scalar-Plain">...</span>
 <span class="l l-Scalar l-Scalar-Plain">notifications</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">android_api_key</span><span class="p p-Indicator">:</span> <span class="s">&#39;fake_android_api_key&#39;</span>
-  <span class="l l-Scalar l-Scalar-Plain">fcm_server</span><span class="p p-Indicator">:</span> <span class="s">&#39;http://localhost:3001</span>
+  <span class="l l-Scalar l-Scalar-Plain">android_api_key</span><span class="p p-Indicator">:</span> <span class="s">&quot;fake_android_api_key&quot;</span>
+  <span class="l l-Scalar l-Scalar-Plain">fcm_server</span><span class="p p-Indicator">:</span> <span class="s">&quot;http://localhost:3001&quot;</span>
 </pre></div>
 
 
@@ -2511,6 +2511,11 @@ curl -X POST &quot;https://$COZY_DOMAIN/jobs/queue/push&quot; \
 <li>In a shell</li>
 </ol>
 <div class="codehilite"><pre><span></span>$ env <span class="nv">PORT</span><span class="o">=</span><span class="m">3001</span> node test/e2e/mock-server.js
+</pre></div>
+
+
+<p>In an other shell</p>
+<div class="codehilite"><pre><span></span>$ yarn watch:services
 </pre></div>
 
 

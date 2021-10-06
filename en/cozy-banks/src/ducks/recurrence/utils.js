@@ -1,6 +1,5 @@
 import uniqBy from 'lodash/uniqBy'
 import startCase from 'lodash/startCase'
-import groupBy from 'lodash/groupBy'
 import addDays from 'date-fns/add_days'
 import parse from 'date-fns/parse'
 import differenceInDays from 'date-fns/difference_in_days'
@@ -9,7 +8,7 @@ import {
   getCategoryId,
   getLabel as getTransactionLabel
 } from 'ducks/transactions/helpers'
-import { brandSplit, mergeBundles } from './rules'
+import { logRecurrencesLabelAndTransactionsNumber } from 'ducks/recurrence/service'
 
 const RECURRENCE_DOCTYPE = 'io.cozy.bank.recurrence'
 
@@ -78,6 +77,7 @@ export const makeRecurrenceFromTransaction = transaction => {
       }
     },
     latestDate: transaction.date,
+    latestAmount: transaction.amount,
     accounts: [accountId],
     amounts: [transaction.amount],
     categoryIds: [getCategoryId(transaction)]
@@ -117,51 +117,40 @@ export const isDeprecatedBundle = recurrence => {
 }
 
 export const addTransactionToBundles = (bundles, transactions) => {
+  let transactionsForUpdatedBundles = []
+
   const updatedBundles = [...bundles].map(b => {
     const bundle = { ...b }
 
     // Matching on Amount, CategoryId and account
     const transactionFounds = transactions.filter(transaction => {
-      return (
-        bundle.categoryIds.some(
-          catId => getCategoryId(transaction) === catId
-        ) &&
-        bundle.amounts.some(amount => amount === transaction.amount) &&
-        bundle.accounts?.some(account => account === transaction.account)
+      const hasSomeSameCategoryId = bundle.categoryIds.some(
+        catId => getCategoryId(transaction) === catId
       )
+      const hasSomeSameAmount = bundle.amounts.some(
+        amount => amount === transaction.amount
+      )
+      const hasSomeSameAccount = bundle.accounts?.some(
+        account => account === transaction.account
+      )
+
+      return hasSomeSameCategoryId && hasSomeSameAmount && hasSomeSameAccount
     })
 
     if (transactionFounds?.length > 0) {
       bundle.ops = uniqBy([...bundle.ops, ...transactionFounds], o => o._id)
+      transactionsForUpdatedBundles = transactionsForUpdatedBundles.concat(
+        transactionFounds
+      )
     }
 
     return bundle
   })
 
-  return updatedBundles
-}
-
-const findBrandBundles = transactions => {
-  const brandBundles = transactions
-    .map(t => ({
-      ops: [t],
-      categoryIds: [getCategoryId(t)],
-      amounts: [t.amount]
-    }))
-    .map(brandSplit())
-    .map(b => b[0])
-    .filter(b => Boolean(b.brand))
-    .filter(b => Boolean(b.categoryIds[0]))
-
-  return brandBundles
-}
-
-export const mergeBrandBundles = transactions => {
-  const brandBundles = findBrandBundles(transactions)
-
-  const groups = groupBy(brandBundles, b => {
-    return `${b.categoryIds[0]}/${b.amounts[0]}/${b.brand}`
+  logRecurrencesLabelAndTransactionsNumber({
+    prefix: `⭐ Updated: ${updatedBundles.length} existing bundles:`,
+    recurrences: updatedBundles
   })
-  const mergedBundles = Object.values(groups).map(mergeBundles)
-  return mergedBundles
+
+  return { updatedBundles, transactionsForUpdatedBundles }
 }

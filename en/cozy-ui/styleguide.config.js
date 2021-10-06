@@ -85,6 +85,8 @@ module.exports = {
         '../react/Figure/Figure.jsx',
         '../react/Figure/FigureBlock.jsx',
         '../react/Filename/index.jsx',
+        '../react/FilePath/index.jsx',
+        '../react/FilePathLink/index.jsx',
         '../react/MuiCozyTheme/Grid',
         '../react/Infos/index.jsx',
         '../react/InfosCarrousel/index.jsx',

@@ -37,13 +37,25 @@ export const median = iterable => {
  */
 const makeStats = operations => {
   const dates = sortBy(operations, x => x.date).map(x => +new Date(x.date))
+
+  // Days between a transaction and the next one.
+  // First result is between first and second transactions
+  // Second result is between second and third transactions etc.
   const deltas = dates
     .map((d, i) => (i === 0 ? null : (d - dates[i - 1]) / ONE_DAY))
     .slice(1)
+
+  // Mean interval in days between operations
   const m = mean(deltas)
+
+  // Median number of days between transactions
   const med = operations.length < 3 ? 30 : median(deltas)
   const sqDistToAverage = deltas.map(d => Math.pow(d, 2) - Math.pow(m, 2))
+
+  // Standard deviation of bundle's date intervals
   const sigma = Math.sqrt(sum(sqDistToAverage) / deltas.length)
+
+  // Median absolute deviation of bundle's date intervals
   const mad = median(deltas.map(d => Math.abs(d - med)))
 
   return {
@@ -54,25 +66,6 @@ const makeStats = operations => {
       mad
     }
   }
-}
-
-/**
- * Will return a predicate that returns true only if all
- * predicates return true
- *
- * Lodash as the same function but it is convenient to have
- * it here to be able to add logging easily
- *
- * @param  {Array[Function]} predicates
- * @return {Function}
- */
-export const overEvery = predicates => item => {
-  for (const predicate of predicates) {
-    if (!predicate(item)) {
-      return false
-    }
-  }
-  return true
 }
 
 const getTransactionDate = x => x.date
@@ -201,7 +194,7 @@ export const rulesPerName = {
   },
   amountShouldBeMoreThan: {
     rule: amountShouldBeMoreThan,
-    description: 'Amount of bundle is more than',
+    description: 'Amount of bundle should be more than',
     stage: 0,
     type: 'filter'
   },

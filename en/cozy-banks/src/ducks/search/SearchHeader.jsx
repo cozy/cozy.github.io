@@ -27,29 +27,22 @@ const SearchHeader = ({
   const { isMobile } = useBreakpoints()
   const { t } = useI18n()
   const {
-    isSelectionModeEnabled,
     isSelectionModeActive,
     setIsSelectionModeActive
   } = useSelectionContext()
 
   const handleReset = inputNode => {
     setSearch('')
-    if (isSelectionModeEnabled) setIsSelectionModeActive(false)
+    setIsSelectionModeActive(false)
     inputNode.focus()
   }
 
   const handleChange = useCallback(
     ev => {
       setSearch(ev.target.value)
-      if (isSelectionModeEnabled && results.length === 0)
-        setIsSelectionModeActive(false)
+      if (results.length === 0) setIsSelectionModeActive(false)
     },
-    [
-      isSelectionModeEnabled,
-      results.length,
-      setIsSelectionModeActive,
-      setSearch
-    ]
+    [results.length, setIsSelectionModeActive, setSearch]
   )
 
   return (
@@ -67,7 +60,6 @@ const SearchHeader = ({
             />
             {results.length > 0 && search.length > 0 && (
               <SelectionIconLink
-                isSelectionModeEnabled={isSelectionModeEnabled}
                 isSelectionModeActive={isSelectionModeActive}
                 setIsSelectionModeActive={setIsSelectionModeActive}
               />

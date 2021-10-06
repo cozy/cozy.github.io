@@ -1,6 +1,7 @@
 import Settings from 'ducks/settings/Settings'
 import AccountsSettings from 'ducks/settings/AccountsSettings'
-import GroupSettings, { NewGroupSettings } from 'ducks/settings/GroupSettings'
+import ExistingGroupSettings from 'ducks/settings/GroupSettings/ExistingGroupSettings'
+import NewGroupSettings from 'ducks/settings/GroupSettings/NewGroupSettings'
 import GroupsSettings from 'ducks/settings/GroupsSettings'
 import Configuration from 'ducks/settings/Configuration'
 
@@ -11,7 +12,7 @@ export {
   Settings,
   AccountsSettings,
   GroupsSettings,
-  GroupSettings,
+  ExistingGroupSettings,
   NewGroupSettings,
   Configuration
 }

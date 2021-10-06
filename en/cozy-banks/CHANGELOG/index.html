@@ -42,7 +42,7 @@
     
     
       
-        <title>1.35.0 - Cozy Developer Documentation</title>
+        <title>1.37.0 - Cozy Developer Documentation</title>
       
     
     
@@ -100,7 +100,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#1350" tabindex="1" class="md-skip">
+      <a href="#1370" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -126,7 +126,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                1.35.0
+                1.37.0
               
             </span>
           
@@ -2457,22 +2457,77 @@
                   <a href="https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-banks/CHANGELOG.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="1350">1.35.0<a class="headerlink" href="#1350" title="Permanent link">&para;</a></h1>
+                <h1 id="1370">1.37.0<a class="headerlink" href="#1370" title="Permanent link">&para;</a></h1>
 <h2 id="features">✨ Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
+<p>*</p>
 <h2 id="bug-fixes">🐛 Bug Fixes<a class="headerlink" href="#bug-fixes" title="Permanent link">&para;</a></h2>
+<p>*</p>
 <h2 id="tech">🔧 Tech<a class="headerlink" href="#tech" title="Permanent link">&para;</a></h2>
-<h1 id="1340">1.34.0<a class="headerlink" href="#1340" title="Permanent link">&para;</a></h1>
+<p>*</p>
+<h1 id="1360">1.36.0<a class="headerlink" href="#1360" title="Permanent link">&para;</a></h1>
 <h2 id="features_1">✨ Features<a class="headerlink" href="#features_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Add latest transaction amount value in recurrences</li>
+<li>Futur balances shows latest transaction amount</li>
+</ul>
+<h2 id="bug-fixes_1">🐛 Bug Fixes<a class="headerlink" href="#bug-fixes_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Update cozy-ui to 52.0.0 to reduce the size of the bundle</li>
+<li>Exclude some modules to reduce the size of the bundle</li>
+<li>&lsquo;node-forge&rsquo;, &lsquo;node-jose&rsquo;, &lsquo;tldjs&rsquo;</li>
+<li>Remove third level import from Mui in HistoryChart</li>
+<li>fix undefined var in the categ service</li>
+<li>Transaction Label is now truncated if too long in the Transaction details modal</li>
+<li>Fix Search Link when clicking on the magnifying glasse if label contained an &ldquo;/&rdquo;</li>
+</ul>
+<h2 id="tech_1">🔧 Tech<a class="headerlink" href="#tech_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Add recurrence test for <code>not same account</code> scenario + refactor other recurrence tests</li>
+<li>Use CozyClient links instead of StackClient in removeAccountFromGroups</li>
+</ul>
+<h1 id="1350">1.35.0<a class="headerlink" href="#1350" title="Permanent link">&para;</a></h1>
+<h2 id="features_2">✨ Features<a class="headerlink" href="#features_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Optimization of the database on mobile (addition of the indexeddb adapter). For old users, a modal appears and allows to launch the data migration.</li>
+<li>Update cozy-pouch-link to 24.3.2 to be able to migrates database on mobile to indexeddb</li>
+<li>Remove minimum limit to find recurrence</li>
+<li>Recurrence creation process will always try to update existing bundle before creating some</li>
+<li>Ability to update old recurrences and create new ones in the same batch</li>
+<li>Change recurrence lookback date limit from 90 to 100 days</li>
+<li>Selection mode to change the category of several transactions at once</li>
+<li>Update cozy-harvest-lib to 6.6.0 to get the correct BI slug for palatine bank</li>
+<li>Change migration modal wording</li>
+</ul>
+<h2 id="bug-fixes_2">🐛 Bug Fixes<a class="headerlink" href="#bug-fixes_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Error when removing a group on desktop and mobile</li>
+<li>Correct minimum date is used to create recurrence</li>
+<li>Fix warming queries with null applicationDate selector</li>
+</ul>
+<h2 id="tech_2">🔧 Tech<a class="headerlink" href="#tech_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Add pouchdb-adapter-idb and pouchdb-adapter-indexeddb v7.2.2</li>
+<li>Extract component from GroupSettings</li>
+<li>Groups are not filtered anymore to exclude undefined one in AccountSwitch</li>
+<li>Remove updateOrCreateGroup() to remove router from dependencies</li>
+<li>Only deep import for lodash</li>
+<li>Add logs to better debugging recurrence</li>
+</ul>
+<h1 id="1340">1.34.0<a class="headerlink" href="#1340" title="Permanent link">&para;</a></h1>
+<h2 id="features_3">✨ Features<a class="headerlink" href="#features_3" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Remove balance from transaction header</li>
 <li>Add checkbox icon button to activate selection mode in transactions page and search page</li>
 <li>Improve ui for no result in search page</li>
 <li>Recategorizing multiple transactions is much faster with better performance</li>
 <li>Optimize transactions queries by changing indexes order</li>
+<li>Separates notifications content by a return to line</li>
 <li>Update cozy-ui to 51.4.0</li>
 <li>Update cozy-harvest-lib to 6.4.0</li>
+<li>Update cozy-client and cozy-pouch-link to 24.1.0 to fix queryAll bug and destroy on Pouch</li>
+<li>Update cozy-stack-client to 24.0.0</li>
 </ul>
-<h2 id="bug-fixes_1">🐛 Bug Fixes<a class="headerlink" href="#bug-fixes_1" title="Permanent link">&para;</a></h2>
+<h2 id="bug-fixes_3">🐛 Bug Fixes<a class="headerlink" href="#bug-fixes_3" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Checkbox horizontal position for selectionning rows in desktop</li>
 <li>Hide owner field in account configuration when Contacts app is not installed</li>
@@ -2485,8 +2540,12 @@
 <li>Autogroups and LinkMyselfToAccount services crashed if configuration settings had not been saved yet</li>
 <li>Median function in Recurrence returns the correct median</li>
 <li>Reassigned transactions are displayed in the correct period according to the selected period</li>
+<li>On mobile, account settings page doesn&rsquo;t loop after removing an account</li>
+<li>Checkbox in transaction row are no longer trimmed</li>
+<li>Transactions are no longer selectable in the projected expenses page</li>
+<li>Planned transactions page shows transactions correctly on tablet</li>
 </ul>
-<h2 id="tech_1">🔧 Tech<a class="headerlink" href="#tech_1" title="Permanent link">&para;</a></h2>
+<h2 id="tech_3">🔧 Tech<a class="headerlink" href="#tech_3" title="Permanent link">&para;</a></h2>
 <ul>
 <li>To facilitate overriding about notifications and standardize their entry point, a bit
 refactoring was necessary:</li>
@@ -2494,6 +2553,8 @@ refactoring was necessary:</li>
 <li>Move <code>lang</code> and <code>dictRequire</code> to utils/lang</li>
 <li>Ability to run the push notifications debug server from the CLI</li>
 <li>Add some documentation to develop for android</li>
+<li>Extract HeaderInfoCard from PlannedTransactionsPage</li>
+<li>Extract PlannedTransactionsPage header in its own component</li>
 </ul>
                 
                   

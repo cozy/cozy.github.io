@@ -2652,17 +2652,17 @@ know more about querying with cozy-client and avoid common traps that can dramat
 
 
 <span class="c1">// create a new io.cozy.todo</span>
-<span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Buy bread&#39;</span><span class="p">,</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span> <span class="p">})</span>
+<span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">save</span><span class="p">({</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">,</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Buy bread&#39;</span><span class="p">,</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span> <span class="p">}})</span>
 
 <span class="kr">const</span> <span class="nx">qdef</span> <span class="o">=</span> <span class="nx">Q</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">).</span><span class="nx">where</span><span class="p">({</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span> <span class="p">})</span>
 <span class="kr">const</span> <span class="p">{</span> <span class="nx">data</span><span class="o">:</span> <span class="nx">todos</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">qdef</span><span class="p">)</span>
 <span class="kr">const</span> <span class="nx">doc</span> <span class="o">=</span> <span class="nx">todos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="c1">// modify existing io.cozy.todo</span>
+<span class="c1">// modify existing io.cozy.todo (will make an update if _rev is present inside the doc)</span>
 <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">save</span><span class="p">({...</span><span class="nx">doc</span><span class="p">,</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">true</span><span class="p">})</span>
 </pre></div>
 
 
-<p>Both <code>create()</code> and <code>save()</code> will return a Promise with a <code>data</code> attribute containing the saved document.</p>
+<p><code>save()</code> will return a Promise with a <code>data</code> attribute containing the saved document.</p>
 <p>ℹ️ When mutating data, queries that depend on the mutated document(s) will automatically be refreshed : components
 that depend on these queries will be re-rendered.</p>
 <h2 id="mutate-several-documents-in-batch">Mutate several documents in batch<a class="headerlink" href="#mutate-several-documents-in-batch" title="Permanent link">&para;</a></h2>

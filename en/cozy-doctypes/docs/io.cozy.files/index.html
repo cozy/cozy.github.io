@@ -1233,6 +1233,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#iocozyfilesencryption" title="io.cozy.files.encryption" class="md-nav__link">
+    io.cozy.files.encryption
+  </a>
+  
+</li>
+      
       
       
       
@@ -2646,6 +2653,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#iocozyfilesencryption" title="io.cozy.files.encryption" class="md-nav__link">
+    io.cozy.files.encryption
+  </a>
+  
+</li>
+      
       
       
       
@@ -2951,6 +2965,13 @@ fields), and a relationship to the versioned file.</p>
 <p>This doctype is used to store settings for files. It is currenly only used for the qualification migration service.</p>
 <ul>
 <li>lastProcessedFileDate: {string} the <code>cozyMetadata.updatedAt</code> date of the last processed file. It is used to know from where the query should be starting on an index sorted by date.</li>
+</ul>
+<h2 id="iocozyfilesencryption"><code>io.cozy.files.encryption</code><a class="headerlink" href="#iocozyfilesencryption" title="Permanent link">&para;</a></h2>
+<p>This doctype is used to store encryption keys for directories.
+The encryption keys are stored encrypted in the same way than bitwarden&rsquo;s <a href="https://docs.cozy.io/cozy-doctypes/com.bitwarden.ciphers.html">ciphers</a>, and are used to encrypt/decrypt files&rsquo; binary inside the directory.</p>
+<ul>
+<li><code>_id</code>: {string} refers to its directory id: <code>io.cozy.files/&lt;dirID&gt;</code></li>
+<li><code>key</code>: {string} the encrypted key, used to encrypt/decrypt files inside the directory.</li>
 </ul>
                 
                   

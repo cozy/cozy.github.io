@@ -28,7 +28,7 @@ const getCozyURI = () => {
   return `${protocol}//${domain}`
 }
 
-export const getClient = () => {
+export const getClient = async () => {
   const uri = flag('cozyURL') || getCozyURI()
   const token = flag('cozyToken') || getToken()
 
@@ -37,7 +37,7 @@ export const getClient = () => {
     uri,
     token,
     schema,
-    links: getLinks(),
+    links: await getLinks(),
     store: false
   })
 }

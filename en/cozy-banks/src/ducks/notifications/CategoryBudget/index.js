@@ -148,7 +148,7 @@ class CategoryBudget extends NotificationView {
                 alert.currentAmount
               )}€ > ${alert.maxThreshold}€`
           )
-          .join(', ')
+          .join('\n')
       : `${formatAmount(budgetAlerts[0].currentAmount)}€ > ${
           budgetAlerts[0].maxThreshold
         }€`

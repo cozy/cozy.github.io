@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import UICard from 'cozy-ui/transpiled/react/Card'
 import Icon, { iconPropType } from 'cozy-ui/transpiled/react/Icon'
+import PhoneIcon from 'cozy-ui/transpiled/react/Icons/Phone'
 import cx from 'classnames'
 import styles from 'ducks/transactions/actions/ReimbursementStatusAction/Card.styl'
 import { getPlatform } from 'cozy-device-helper'
@@ -113,7 +114,7 @@ export const DumbAppCard = props => {
       href={contact.href}
       title={t('ReimbursementStatusModal.contact.openApp.title')}
       caption={t('ReimbursementStatusModal.contact.openApp.caption')}
-      icon="phone"
+      icon={PhoneIcon}
       target="_blank"
       tag="a"
       {...rest}

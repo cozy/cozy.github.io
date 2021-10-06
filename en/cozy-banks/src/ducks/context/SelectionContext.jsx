@@ -8,8 +8,6 @@ import React, {
 
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
-import flag from 'cozy-flags'
-
 export const SelectionContext = createContext()
 
 export const useSelectionContext = () => {
@@ -30,8 +28,6 @@ const SelectionProvider = ({ children }) => {
   const [selected, setSelected] = useState([])
   const [isSelectionModeActive, setIsSelectionModeActive] = useState(false)
 
-  const isSelectionModeEnabled = flag('banks.selectionMode.enabled')
-
   const isSelected = useCallback(item => selected.includes(item), [selected])
 
   const emptySelection = useCallback(() => setSelected([]), [setSelected])
@@ -45,10 +41,6 @@ const SelectionProvider = ({ children }) => {
 
   const toggleSelection = useCallback(
     item => {
-      if (!isSelectionModeEnabled) {
-        return
-      }
-
       !isSelectionModeActive && setIsSelectionModeActive(true)
 
       return setSelected(selected => {
@@ -64,7 +56,7 @@ const SelectionProvider = ({ children }) => {
         return nextSelected
       })
     },
-    [isDesktop, isSelectionModeActive, isSelectionModeEnabled]
+    [isDesktop, isSelectionModeActive]
   )
 
   const value = useMemo(
@@ -72,7 +64,6 @@ const SelectionProvider = ({ children }) => {
       selected,
       isSelectionModeActive,
       setIsSelectionModeActive,
-      isSelectionModeEnabled,
       isSelected,
       emptySelection,
       emptyAndDeactivateSelection,
@@ -82,7 +73,6 @@ const SelectionProvider = ({ children }) => {
     [
       selected,
       isSelectionModeActive,
-      isSelectionModeEnabled,
       isSelected,
       emptySelection,
       emptyAndDeactivateSelection,

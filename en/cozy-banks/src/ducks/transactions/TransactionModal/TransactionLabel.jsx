@@ -9,15 +9,22 @@ const TransactionLabel = ({ transaction }) => {
   const label = getLabel(transaction)
 
   return (
-    <Typography variant="h6" gutterBottom>
-      {label}
+    <div className="u-flex">
+      <Typography
+        variant="h6"
+        gutterBottom
+        className="u-ellipsis"
+        title={label}
+      >
+        {label}
+      </Typography>
       {
         <>
           {' '}
           <SearchForTransactionIcon transaction={transaction} />
         </>
       }
-    </Typography>
+    </div>
   )
 }
 

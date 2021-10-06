@@ -2549,6 +2549,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#add" title="add" class="md-nav__link">
+    add
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#dehydrate" title="dehydrate" class="md-nav__link">
     dehydrate
   </a>
@@ -2556,8 +2563,22 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#remove" title="remove" class="md-nav__link">
+    remove
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#set" title="set" class="md-nav__link">
     set
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setrelationship" title="setRelationship" class="md-nav__link">
+    setRelationship
   </a>
   
 </li>
@@ -2809,6 +2830,32 @@
 <p><em>Defined in</em></p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasOne.js#L8">packages/cozy-client/src/associations/HasOne.js:8</a></p>
 <h2 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h2>
+<h3 id="add">add<a class="headerlink" href="#add" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>add</strong>(<code>doc</code>): <code>CozyClientDocument</code></p>
+<p>Add the relationship to the target document</p>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>doc</code></td>
+<td align="left"><code>CozyClientDocument</code></td>
+<td align="left">Document to add as a relationship</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>CozyClientDocument</code></p>
+<p>The saved target document</p>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasOne.js#L41">packages/cozy-client/src/associations/HasOne.js:41</a></p>
+<hr />
 <h3 id="dehydrate">dehydrate<a class="headerlink" href="#dehydrate" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>dehydrate</strong>(<code>doc</code>): <code>any</code></p>
 <p><em>Parameters</em></p>
@@ -2829,7 +2876,16 @@
 <p><em>Returns</em></p>
 <p><code>any</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasOne.js#L58">packages/cozy-client/src/associations/HasOne.js:58</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasOne.js#L89">packages/cozy-client/src/associations/HasOne.js:89</a></p>
+<hr />
+<h3 id="remove">remove<a class="headerlink" href="#remove" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>remove</strong>(): <code>CozyClientDocument</code></p>
+<p>Remove the relationship from the target document</p>
+<p><em>Returns</em></p>
+<p><code>CozyClientDocument</code></p>
+<p>The saved target document</p>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasOne.js#L51">packages/cozy-client/src/associations/HasOne.js:51</a></p>
 <hr />
 <h3 id="set">set<a class="headerlink" href="#set" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>set</strong>(<code>doc</code>): <code>void</code></p>
@@ -2851,14 +2907,36 @@
 <p><em>Returns</em></p>
 <p><code>void</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasOne.js#L35">packages/cozy-client/src/associations/HasOne.js:35</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasOne.js#L75">packages/cozy-client/src/associations/HasOne.js:75</a></p>
+<hr />
+<h3 id="setrelationship">setRelationship<a class="headerlink" href="#setrelationship" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>setRelationship</strong>(<code>doc</code>): <code>void</code></p>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>doc</code></td>
+<td align="left"><code>any</code></td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>void</code></p>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasOne.js#L56">packages/cozy-client/src/associations/HasOne.js:56</a></p>
 <hr />
 <h3 id="unset">unset<a class="headerlink" href="#unset" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>unset</strong>(): <code>void</code></p>
 <p><em>Returns</em></p>
 <p><code>void</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasOne.js#L54">packages/cozy-client/src/associations/HasOne.js:54</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/HasOne.js#L82">packages/cozy-client/src/associations/HasOne.js:82</a></p>
 <hr />
 <h3 id="query_1">query<a class="headerlink" href="#query_1" title="Permanent link">&para;</a></h3>
 <p>▸ <code>Static</code> <strong>query</strong>(<code>document</code>, <code>client</code>, <code>assoc</code>): <a href="../querydefinition/"><code>QueryDefinition</code></a> | <code>CozyClientDocument</code></p>

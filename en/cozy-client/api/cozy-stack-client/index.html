@@ -1553,6 +1553,40 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#oauthclientscollection" title="OAuthClientsCollection" class="md-nav__link">
+    OAuthClientsCollection
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#oauthclientscollectionalloptions-object" title="oAuthClientsCollection.all(options) ⇒ object" class="md-nav__link">
+    oAuthClientsCollection.all(options) ⇒ object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oauthclientscollectiongetid-object" title="oAuthClientsCollection.get(id) ⇒ object" class="md-nav__link">
+    oAuthClientsCollection.get(id) ⇒ object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oauthclientscollectiondestroyclient-object" title="oAuthClientsCollection.destroy(client) ⇒ Object" class="md-nav__link">
+    oAuthClientsCollection.destroy(client) ⇒ Object
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#permissioncollection" title="PermissionCollection" class="md-nav__link">
     PermissionCollection
   </a>
@@ -4161,6 +4195,40 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#oauthclientscollection" title="OAuthClientsCollection" class="md-nav__link">
+    OAuthClientsCollection
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#oauthclientscollectionalloptions-object" title="oAuthClientsCollection.all(options) ⇒ object" class="md-nav__link">
+    oAuthClientsCollection.all(options) ⇒ object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oauthclientscollectiongetid-object" title="oAuthClientsCollection.get(id) ⇒ object" class="md-nav__link">
+    oAuthClientsCollection.get(id) ⇒ object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oauthclientscollectiondestroyclient-object" title="oAuthClientsCollection.destroy(client) ⇒ Object" class="md-nav__link">
+    oAuthClientsCollection.destroy(client) ⇒ Object
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#permissioncollection" title="PermissionCollection" class="md-nav__link">
     PermissionCollection
   </a>
@@ -4771,6 +4839,9 @@ files associated to a specific document</p>
 <dt><a href="#OAuthClient">OAuthClient</a></dt>
 <dd><p>Specialized <code>CozyStackClient</code> for mobile, implementing stack registration
 through OAuth.</p>
+</dd>
+<dt><a href="#OAuthClientsCollection">OAuthClientsCollection</a></dt>
+<dd><p>Implements <code>DocumentCollection</code> API to interact with the /settings/clients endpoint of the stack</p>
 </dd>
 <dt><a href="#PermissionCollection">PermissionCollection</a></dt>
 <dd><p>Implements <code>DocumentCollection</code> API along with specific methods for <code>io.cozy.permissions</code>.</p>
@@ -5790,28 +5861,13 @@ and file has been sent to trash  </p>
 <tbody>
 <tr>
 <td>data</td>
-<td><code>object</code></td>
-<td>Javascript File object</td>
+<td><code>File</code> | <code>Blob</code> | <a href="#Stream"><code>Stream</code></a> | <code>string</code> | <code>ArrayBuffer</code></td>
+<td>file to be uploaded</td>
 </tr>
 <tr>
 <td>params</td>
-<td><code>object</code></td>
+<td><a href="#FileAttributes"><code>FileAttributes</code></a></td>
 <td>Additional parameters</td>
-</tr>
-<tr>
-<td>params.fileId</td>
-<td><code>string</code></td>
-<td>The id of the file to update (required)</td>
-</tr>
-<tr>
-<td>params.executable</td>
-<td><code>boolean</code></td>
-<td>Whether the file is executable or not</td>
-</tr>
-<tr>
-<td>params.metadata</td>
-<td><code>object</code></td>
-<td>Metadata to be attached to the File io.cozy.file</td>
 </tr>
 <tr>
 <td>params.options</td>
@@ -6542,7 +6598,102 @@ sets internal information from the server response</p>
 <h3 id="oauthclientresetclient">oAuthClient.resetClient()<a class="headerlink" href="#oauthclientresetclient" title="Permanent link">&para;</a></h3>
 <p>Reset the current OAuth client</p>
 <p><strong>Kind</strong>: instance method of <a href="#OAuthClient"><code>OAuthClient</code></a><br />
-<a name="PermissionCollection"></a></p>
+<a name="OAuthClientsCollection"></a></p>
+<h2 id="oauthclientscollection">OAuthClientsCollection<a class="headerlink" href="#oauthclientscollection" title="Permanent link">&para;</a></h2>
+<p>Implements <code>DocumentCollection</code> API to interact with the /settings/clients endpoint of the stack</p>
+<p><strong>Kind</strong>: global class  </p>
+<ul>
+<li><a href="#OAuthClientsCollection">OAuthClientsCollection</a><ul>
+<li><a href="#OAuthClientsCollection+all">.all(options)</a> ⇒ <code>object</code></li>
+<li><a href="#OAuthClientsCollection+get">.get(id)</a> ⇒ <code>object</code></li>
+<li><a href="#OAuthClientsCollection+destroy">.destroy(client)</a> ⇒ <code>Object</code></li>
+</ul>
+</li>
+</ul>
+<p><a name="OAuthClientsCollection+all"></a></p>
+<h3 id="oauthclientscollectionalloptions-object">oAuthClientsCollection.all(options) ⇒ <code>object</code><a class="headerlink" href="#oauthclientscollectionalloptions-object" title="Permanent link">&para;</a></h3>
+<p>Fetches all OAuth clients</p>
+<p><strong>Kind</strong>: instance method of <a href="#OAuthClientsCollection"><code>OAuthClientsCollection</code></a><br />
+<strong>Returns</strong>: <code>object</code> - The JSON API conformant response.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>options</td>
+<td><code>object</code></td>
+<td>Query options</td>
+</tr>
+<tr>
+<td>options.limit</td>
+<td><code>number</code></td>
+<td>For pagination, the number of results to return.</td>
+</tr>
+<tr>
+<td>options.bookmark</td>
+<td><code>object</code></td>
+<td>For cursor-based pagination, the index cursor.</td>
+</tr>
+<tr>
+<td>options.keys</td>
+<td><code>array</code></td>
+<td>Ids of specific clients to return (within the current page),</td>
+</tr>
+</tbody>
+</table>
+<p><a name="OAuthClientsCollection+get"></a></p>
+<h3 id="oauthclientscollectiongetid-object">oAuthClientsCollection.get(id) ⇒ <code>object</code><a class="headerlink" href="#oauthclientscollectiongetid-object" title="Permanent link">&para;</a></h3>
+<p>Get an OAuth client by id</p>
+<p><strong>Kind</strong>: instance method of <a href="#OAuthClientsCollection"><code>OAuthClientsCollection</code></a><br />
+<strong>Returns</strong>: <code>object</code> - JsonAPI response containing normalized client as data attribute  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td><code>string</code></td>
+<td>The client id.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="OAuthClientsCollection+destroy"></a></p>
+<h3 id="oauthclientscollectiondestroyclient-object">oAuthClientsCollection.destroy(client) ⇒ <code>Object</code><a class="headerlink" href="#oauthclientscollectiondestroyclient-object" title="Permanent link">&para;</a></h3>
+<p>Destroys the OAuth client on the server</p>
+<p><strong>Kind</strong>: instance method of <a href="#OAuthClientsCollection"><code>OAuthClientsCollection</code></a><br />
+<strong>Returns</strong>: <code>Object</code> - The deleted client  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>client</td>
+<td><code>io.cozy.oauth.clients</code></td>
+<td>The client document to destroy</td>
+</tr>
+<tr>
+<td>client._id</td>
+<td><code>string</code></td>
+<td>The client&rsquo;s id</td>
+</tr>
+</tbody>
+</table>
+<p><a name="PermissionCollection"></a></p>
 <h2 id="permissioncollection">PermissionCollection<a class="headerlink" href="#permissioncollection" title="Permanent link">&para;</a></h2>
 <p>Implements <code>DocumentCollection</code> API along with specific methods for <code>io.cozy.permissions</code>.</p>
 <p><strong>Kind</strong>: global class  </p>
@@ -7777,6 +7928,11 @@ Deleted and design docs are filtered by default, thus documents are retrieved in
 <td>lastModifiedDate</td>
 <td><code>Date</code></td>
 <td>Can be used to set the last modified date of a file.</td>
+</tr>
+<tr>
+<td>executable</td>
+<td><code>boolean</code></td>
+<td>Whether or not the file is executable</td>
 </tr>
 <tr>
 <td>metadata</td>

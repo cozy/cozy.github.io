@@ -1193,6 +1193,46 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#iocozybankgroups" title="io.cozy.bank.groups" class="md-nav__link">
+    io.cozy.bank.groups
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exemple" title="Exemple" class="md-nav__link">
+    Exemple
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iocozybankrecipients" title="io.cozy.bank.recipients" class="md-nav__link">
+    io.cozy.bank.recipients
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exemple_1" title="Exemple" class="md-nav__link">
+    Exemple
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
       
@@ -2686,6 +2726,46 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#iocozybankgroups" title="io.cozy.bank.groups" class="md-nav__link">
+    io.cozy.bank.groups
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exemple" title="Exemple" class="md-nav__link">
+    Exemple
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iocozybankrecipients" title="io.cozy.bank.recipients" class="md-nav__link">
+    io.cozy.bank.recipients
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exemple_1" title="Exemple" class="md-nav__link">
+    Exemple
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
       
@@ -2824,7 +2904,8 @@
 <ul>
 <li><code>label</code>: {string} - The label describing the transaction</li>
 <li><code>type</code>: {string} - A type in the list : <code>['none', 'credit card', 'cash', 'check', 'transfer', 'internal transfer', 'debit card', 'deposit', 'financial fee', 'direct debit']</code></li>
-<li><code>date</code>: {date} - The date the transaction is emitted</li>
+<li><code>date</code>: {date} - The debit/credit date of the transaction on which the account is debited/credited. Is different from the <code>realizationDate</code> with deferred debit cards</li>
+<li><code>realisationDate</code>: {date} - The realization date of the transaction on which the operation really occured</li>
 <li><code>applicationDate</code>: {string} - The date the transaction is affected to, after a manual modification</li>
 <li><code>dateOperation</code>: {date} - The date the transaction is registered in the account</li>
 <li><code>dateImport</code>: {date} - The date the transaction is imported (can differ of the date of creation of the document as the import can be done by an external service)</li>
@@ -2921,8 +3002,47 @@ a HasOne relationship to a <code>io.cozy.bank.recurrence</code> object.</p>
 <li><code>stats</code>: {Object} - Statistics used during matching</li>
 <li><code>stats.deltas.median</code> : Median time distance in days between operations. For example, for a monthly recurrence, this should be 30.</li>
 <li><code>latestDate</code>:  {String} Date of the last transaction that is part of the recurrence. This is used to compute the next occurence of the recurrence</li>
+<li><code>latestAmount</code>:  {number} Amount of the last transaction that is part of the recurrence.</li>
 <li><code>accounts</code>: {Array<string>} Ids of the bank accounts that have participated to the recurrence. This is used to compute planned transactions.</li>
 </ul>
+<h2 id="iocozybankgroups">io.cozy.bank.groups<a class="headerlink" href="#iocozybankgroups" title="Permanent link">&para;</a></h2>
+<p>Groups banks accounts together.</p>
+<ul>
+<li><code>label</code>: {string} - Name of the group</li>
+<li><code>accounts</code>: {Array} - Ids of io.cozy.bank.accounts</li>
+</ul>
+<h3 id="exemple">Exemple<a class="headerlink" href="#exemple" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span> <span class="p">{</span>
+  <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;2a432e54822e7caeed02367a6e1f5739&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;accounts&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&quot;cla4&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;gen3&quot;</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;2a432e54822e7caeed02367a6e1f5739&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;My Group&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h2 id="iocozybankrecipients">io.cozy.bank.recipients<a class="headerlink" href="#iocozybankrecipients" title="Permanent link">&para;</a></h2>
+<p>Used to make a transfert</p>
+<ul>
+<li><code>vendorAccountId</code> : io.cozy.bank.accounts.vendorId</li>
+</ul>
+<h3 id="exemple_1">Exemple<a class="headerlink" href="#exemple_1" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;recipient_internal_1&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;internal&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;bankName&quot;</span><span class="p">:</span> <span class="s2">&quot;Caisse d&#39;Épargne&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;bic&quot;</span><span class="p">:</span> <span class="s2">&quot;CEPAFRPP627&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Isabelle checkings&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;currency&quot;</span><span class="p">:</span> <span class="s2">&quot;EUR&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;iban&quot;</span><span class="p">:</span> <span class="s2">&quot;FR3330002005500000157841Z27&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;vendorLastUpdate&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-02-12 16:12:58&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;vendorAccountId&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="nt">&quot;deleted&quot;</span><span class="p">:</span> <span class="kc">null</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 

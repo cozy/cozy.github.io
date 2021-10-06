@@ -12,6 +12,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
 	"path/filepath"
 
 	"github.com/cozy/cozy-apps-registry/base"
@@ -128,7 +129,18 @@ func (s *store) Remove(shasum, source string) error {
 	var doc *base.Asset
 	row := s.db.Get(s.ctx, shasum)
 	if err := row.ScanDoc(&doc); err != nil {
-		return err
+		// Seems we have ghosts in couchdb, skip couch deletion if document not found
+		if kivik.StatusCode(err) == http.StatusNotFound {
+			fmt.Fprintf(os.Stderr, "Attachment %s not found in CouchDB!\n", shasum)
+			// Don't delete on swift in this case.
+			// Currently, attachments are served directly from storage without
+			// usage of the couchdb asset entry.
+			// So attachment retrieval works even on couchdb ghost.
+			// Removing on swift will break all other versions using the same asset.
+			return nil
+		} else {
+			return err
+		}
 	}
 
 	updated := doc.UsedBy[:0]

@@ -7,12 +7,12 @@ let client
 const lib =
   __TARGET__ === 'mobile' ? require('./mobile/mobile') : require('./web')
 
-export const getClient = () => {
+export const getClient = async () => {
   if (client) {
     return client
   }
 
-  client = lib.getClient()
+  client = await lib.getClient()
 
   const intents = new Intents({ client })
   client.intents = intents

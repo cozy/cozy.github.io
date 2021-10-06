@@ -6,6 +6,7 @@ import MockDate from 'mockdate'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import maxBy from 'lodash/maxBy'
 import minBy from 'lodash/minBy'
+import frLocale from 'locales/fr.json'
 
 const unique = arr => Array.from(new Set(arr))
 
@@ -37,13 +38,15 @@ describe('transaction greater', () => {
         slug: 'io.cozy.banks'
       }
     })
-    const locales = {}
-
     const transactions = fixtures['io.cozy.bank.operations']
     const maxDate = transactions.map(x => x.date).sort()[0]
     MockDate.set(maxDate)
 
     const config = {
+      lang: 'fr',
+      locales: {
+        fr: frLocale
+      },
       rules: [
         {
           value: value || 10,
@@ -64,7 +67,6 @@ describe('transaction greater', () => {
         groups: fixtures['io.cozy.bank.groups']
       },
       client,
-      locales,
       cozyUrl
     }
     const notification = new TransactionGreater(config)
@@ -188,6 +190,34 @@ describe('transaction greater', () => {
         100
       )
       expect(maxValueBy(transactions, getTransactionAbsAmount)).toBe(3870.54)
+    })
+  })
+
+  describe('getPushContent', () => {
+    it('should have the right content with one transaction', async () => {
+      const { notification } = setup({
+        transactions: [
+          fixtures['io.cozy.bank.operations'].filter(t => t.amount > 10)[0]
+        ]
+      })
+      const data = await notification.buildData()
+      const title = notification.getTitle(data)
+      const pushContent = notification.getPushContent(data)
+
+      expect(title).toBe('Versement de 3870.54€')
+      expect(pushContent).toBe('SALAIRE : 3870.54€')
+    })
+
+    it('should have the right content with multiple transactions', async () => {
+      const { notification } = setup()
+      const data = await notification.buildData()
+      const title = notification.getTitle(data)
+      const pushContent = notification.getPushContent(data)
+
+      expect(title).toBe('116 mouvements de plus de 10€')
+      expect(pushContent).toBe(
+        'Compte courant Isabelle: 63 mouvements\nLivret A Isabelle: 3 mouvements\nCompte jeune Louise: 10 mouvements\nCompte courant Claude: 9 mouvements\nCompte courant Genevieve: 31 mouvements'
+      )
     })
   })
 })

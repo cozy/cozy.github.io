@@ -7,12 +7,12 @@ test('make recurrence from transaction', () => {
   const recurrence = makeRecurrenceFromTransaction(transaction)
   expect(recurrence).toEqual({
     _type: 'io.cozy.bank.recurrence',
-
     accounts: ['compteisa1'],
     amounts: [-1231],
     automaticLabel: 'Remboursement Pret Lcl',
     categoryIds: ['401010'],
     latestDate: '2017-08-25T00:00:00Z',
+    latestAmount: -1231,
     stats: {
       deltas: {
         median: 30

@@ -5,7 +5,6 @@ import Icon from 'cozy-ui/transpiled/react/Icon'
 import CheckboxIcon from 'cozy-ui/transpiled/react/Icons/Checkbox'
 
 const SelectionIconLink = ({
-  isSelectionModeEnabled,
   isSelectionModeActive,
   setIsSelectionModeActive
 }) => {
@@ -13,7 +12,6 @@ const SelectionIconLink = ({
     if (!isSelectionModeActive) setIsSelectionModeActive(true)
   }, [isSelectionModeActive, setIsSelectionModeActive])
 
-  if (!isSelectionModeEnabled) return null
   return (
     <IconButton className="u-mr-half" onClick={handleClick}>
       <Icon icon={CheckboxIcon} />

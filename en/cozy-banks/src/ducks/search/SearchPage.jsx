@@ -44,7 +44,9 @@ const SearchPage = () => {
   const { t } = useI18n()
   const { isMobile } = useBreakpoints()
 
-  const [search, setSearch] = useState(params.search || '')
+  const [search, setSearch] = useState(
+    params.search ? decodeURIComponent(params.search) : ''
+  )
   const [resultIds, setResultIds] = useState([])
 
   useTrackPage('recherche')

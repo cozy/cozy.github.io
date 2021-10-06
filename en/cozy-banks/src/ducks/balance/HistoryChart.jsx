@@ -8,7 +8,7 @@ import 'element-scroll-polyfill'
 
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import { getCssVariableValue } from 'cozy-ui/transpiled/react/utils/color'
-import { lighten } from '@material-ui/core/styles/colorManipulator'
+import { lighten } from '@material-ui/core/styles'
 
 import LineChart from 'components/Chart/LineChart'
 import styles from 'ducks/balance/History.styl'
