@@ -3414,6 +3414,8 @@ revision tree (no generation smaller for a children than its parent).</p>
 </pre></div>
 
 
+<p>A parameter <code>Context</code> can be given on the query string to also includes the
+konnectors that are in maintenance on the apps registry.</p>
 <h4 id="response_10">Response<a class="headerlink" href="#response_10" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
@@ -3428,6 +3430,7 @@ revision tree (no generation smaller for a children than its parent).</p>
     <span class="p">{</span>
       <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.konnectors.maintenance&quot;</span><span class="p">,</span>
       <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;level&quot;</span><span class="p">:</span> <span class="s2">&quot;stack&quot;</span><span class="p">,</span>
         <span class="nt">&quot;maintenance_activated&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
         <span class="nt">&quot;maintenance_options&quot;</span><span class="p">:</span> <span class="p">{</span>
           <span class="nt">&quot;flag_disallow_manual_exec&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
@@ -3449,6 +3452,7 @@ revision tree (no generation smaller for a children than its parent).</p>
 </pre></div>
 
 
+<p><strong>Note:</strong> <code>level</code> can be <code>stack</code> or <code>registry</code>.</p>
 <h3 id="put-konnectorsmaintenanceslug">PUT /konnectors/maintenance/:slug<a class="headerlink" href="#put-konnectorsmaintenanceslug" title="Permanent link">&para;</a></h3>
 <h4 id="request_12">Request<a class="headerlink" href="#request_12" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">PUT</span> <span class="nn">/konnectors/maintenance/ameli</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
