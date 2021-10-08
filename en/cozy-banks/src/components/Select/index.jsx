@@ -93,6 +93,9 @@ class Select extends React.Component {
         getOptionLabel={x => x.name}
         components={componentsOptions}
         classNamePrefix="needsclick cz"
+        formatOptionLabel={option => (
+          <span className="needsclick">{option.name}</span>
+        )}
         styles={mergeStyles(
           {
             singleValue: singleValueStyle,
